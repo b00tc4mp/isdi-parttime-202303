@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pasapalabra HTML CSS</title>
+    <meta name="description" content="Juego del Pasapalabra" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <h1 class="title">PASAPALABRA</h1>
+
+    <div class="first-line">
+      <span class="letter" data-letter="a">A</span>
+      <span class="letter" data-letter="b">B</span>
+      <span class="letter" data-letter="c">C</span>
+      <span class="letter" data-letter="d">D</span>
+      <span class="letter" data-letter="e">E</span>
+      <span class="letter" data-letter="f">F</span>
+      <span class="letter" data-letter="g">G</span>
+      <span class="letter" data-letter="h">H</span>
+      <span class="letter" data-letter="i">I</span>
+      <span class="letter" data-letter="j">J</span>
+      <span class="letter" data-letter="l">L</span>
+      <span class="letter" data-letter="m">M</span>
+      <span class="letter" data-letter="n">N</span>
+      <span class="letter" data-letter="ñ">Ñ</span>
+    </div>
+
+    <div class="second-line">
+      <span class="letter" data-letter="o">O</span>
+      <span class="letter" data-letter="p">P</span>
+      <span class="letter" data-letter="q">Q</span>
+      <span class="letter" data-letter="r">R</span>
+      <span class="letter" data-letter="s">S</span>
+      <span class="letter" data-letter="t">T</span>
+      <span class="letter" data-letter="u">U</span>
+      <span class="letter" data-letter="v">V</span>
+      <span class="letter" data-letter="x">X</span>
+      <span class="letter" data-letter="y">Y</span>
+      <span class="letter" data-letter="z">Z</span>
+    </div>
+
+    <div class="questions-container">
+      <p class="question"></p>
+    </div>
+
+    <div class="answers-container">
+      <input
+        class="answer"
+        type="text"
+        value=""
+        placeholder="Introduce aquí tu respuesta"
+      />
+
+      <button class="send-button">ENVIAR</button>
+      <button class="next-button">PASAPALABRA</button>
+    </div>
+
+    <div class="counters">
+      <div>
+        <span class="timer">150</span>
+      </div>
+
+      <div>
+        <span class="hits-counter">0</span>
+      </div>
+    </div>
+
+    <script src="index.js"></script>
+  </body>
+</html>
