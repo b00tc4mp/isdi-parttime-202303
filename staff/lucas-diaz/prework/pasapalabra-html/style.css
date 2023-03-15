@@ -1,0 +1,99 @@
+*{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    color:white;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
+body{
+    background-color: rgb(224, 224, 224);
+}
+.container{
+    border: 1px solid red;
+    width: 95%;
+    margin: 0px auto;
+    margin-top: 15px;
+    background-color: #2D3E58;
+
+}
+h1{
+    border: 1px solid green;
+    margin-top: 20px;
+    padding: 30px;
+    text-align: center;
+}
+.centerBox{
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+}
+.donut{
+    min-width: 650px;
+    flex: 5;
+    border: 1px solid yellow;
+    margin: 15px;
+}
+.questions{
+
+    flex: 3;
+    border: 1px solid pink;
+    margin: 15px;
+    height: 150px;
+}
+
+li {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: darkblue;
+    text-align: center;
+    font-size: 20px;
+    line-height: 50px;
+    margin-right: 10px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    transition: box-shadow 0.3s ease-in-out;
+    cursor: pointer;
+    
+}
+li:hover {
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
+}
+.letter {
+    border: 2px solid #120d22;
+}
+.letterA{
+    transform: translate(297px, 40px);
+}
+.letterB{
+    transform: translate(355px, 15px); 
+}
+.letterC{
+    transform: translate(405px, 0px); 
+}
+.letterD{
+    transform: translate(445px, -5px); 
+}
+.letterE{
+    transform: translate(500px, -15px); 
+}
+.letterF{
+    transform: translate(540px, -15px); 
+}
+.letterG{
+    transform: translate(570px, -10px); 
+}
+.letterH{
+    transform: translate(585px, 0px); 
+}
+.letterI{
+    transform: translate(570px, 10px); 
+}
+.letterJ{
+    transform: translate(540px, 15px); 
+}
+
+.letterZ{
+    transform: translate(240px, -1300px);
+}
