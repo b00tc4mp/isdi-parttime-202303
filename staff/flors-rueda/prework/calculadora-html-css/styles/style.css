@@ -1,0 +1,30 @@
+@import url("https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;500;800;900&display=swap");
+@import "grid.css";
+@import "buttons.css";
+
+h1 {
+  margin-block-end: 0;
+  font-family: "Exo 2", sans-serif;
+  font-weight: 400;
+  color: tomato;
+  font-size: 3rem;
+  text-shadow: black 0.02rem 0.04rem 0.08rem;
+}
+
+.operationText {
+  font-family: "Exo 2", sans-serif;
+  font-weight: 300;
+  color: darkslategrey;
+  font-size: 2rem;
+  text-shadow: black 0.01rem 0.02rem 0.04rem;
+  margin: 0.1rem;
+}
+
+.resultsText {
+  font-family: "Exo 2", sans-serif;
+  font-weight: 500;
+  color: orangered;
+  font-size: 3rem;
+  text-shadow: black 0.01rem 0.02rem 0.04rem;
+  margin: 0.1rem;
+}
