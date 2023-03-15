@@ -1,0 +1,55 @@
+.letterCircle {
+    display: block;
+    width: 2em;
+    height: 2em;
+    border-radius: 50%;
+    box-shadow: var(--blank200) 0 3px 5px;
+    border: 0.15rem solid var(--blue400);
+    background-image: radial-gradient(circle, var(--blue100), var(--blue200));
+    color: var(--blank100);
+    line-height: 2em;
+    font-weight: 700;
+    text-align: center;
+    cursor: default;
+}
+
+.focus {
+    border: 0.15rem solid var(--orange300);
+}
+
+.correct {
+    border: 0.15rem solid var(--green300);
+    background-image: radial-gradient(circle, var(--green100), var(--green200));
+}
+
+.incorrect {
+    border: 0.15rem solid var(--red300);
+    background-image: radial-gradient(circle, var(--red100), var(--red200));
+}
+
+
+
+@media (min-width: 768px) {
+    .letterCircle{
+        width: 2.5em;
+        height: 2.5em;
+        line-height: 2.5em;
+        font-size: x-large;
+        border: 0.25rem solid var(--blue400);
+    }
+
+    .correct {
+        border: 0.25rem solid var(--green300);
+        background-image: radial-gradient(circle, var(--green100), var(--green200));
+    }
+
+    .incorrect {
+        border: 0.25rem solid var(--red300);
+        background-image: radial-gradient(circle, var(--red100), var(--red200));
+    }
+
+    .focus {
+        border: 0.25rem solid var(--orange300);
+    }
+    
+}

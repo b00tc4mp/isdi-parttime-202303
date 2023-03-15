@@ -1,0 +1,18 @@
+input[type=text] {
+    background-color: var(--blank200);
+    border: 0.15em solid var(--blank300);
+    border-radius: 0.15em;
+    margin:0%;
+    width: 100%;
+}
+
+input[type=text]:focus {
+    outline: none !important;
+    border: 0.15em solid var(--blue100);
+}
+
+@media (min-width: 768px) {
+    input[type=text] {
+        padding: 0.8em;
+    } 
+}
