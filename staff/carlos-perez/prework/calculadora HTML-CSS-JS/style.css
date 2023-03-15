@@ -1,0 +1,116 @@
+:root {
+    --white: #ffffff;
+    --black: #000000;
+    --primary: #e6ffff;
+    --secondary: #f2f2f2;
+   --background-screen: rgb(82,80,82);
+   --button: rgb(224,224,224);
+   --buttonDark: rgb(214,214,214);
+    --button-action: rgb(253,158,43);
+    --button-action-hover: #ffdd99;
+
+}
+
+html {
+    box-sizing: border-box;
+    font-size: 62.5%;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+
+body {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 1.6rem;
+    line-height: 2;
+    background-color: var(--primary);
+}
+
+.container {
+    max-width: 120rem;
+    width: min(90%, 120rem);
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+}
+
+.calculator{
+    background-color: var(--background-screen);
+    width: auto;
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: 1fr;
+    max-width: 400px;
+    border: 1px solid var(--black);
+    box-shadow: 6px 6px;
+    border-radius: 5px;
+    padding-top: 5px;
+    
+}
+
+
+.calculator-screen{
+    background-color: var(--background-screen);
+    width: 400px;
+    text-align: right;
+    min-height: 250px;
+    height: 300px;
+    color: #ffffff;
+}
+
+.calculator-screen-previous{
+    padding-top: 1rem;
+    padding-right: 2rem;
+    max-width: 400px;
+    font-size: 50px;
+}
+
+.calculator-screen-line{
+    padding-top: 1rem;
+    padding-right: 2rem;
+    max-width: 400px;
+    font-size: 50px;
+}
+
+
+
+.calculator-buttons{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+button{
+    height: 40px;
+    background-color: var(--button);
+    border: 1px solid var(--background-screen);
+}
+
+button:hover{
+    background-color: var(--secondary);
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.button-darker{
+    background-color: var(--buttonDark);
+}
+
+.calculator-button-operation{
+    background-color: var(--button-action);
+}
+
+.calculator-button-operation:hover{
+    background-color: var(--button-action-hover);
+}
+
+.calculator-button-double{
+grid-area: auto/1/auto/3;
+border-radius: 0 0 0 5px; /* Para poner la esquina redondeada*/
+}
+
+.button-equal{
+    border-radius: 0 0 5px 0; /* Para poner la esquina redondeada*/
+}

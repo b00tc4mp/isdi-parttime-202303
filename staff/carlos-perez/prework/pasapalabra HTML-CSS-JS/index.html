@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pasapalabra</title>
+    <link rel="stylesheet" type="text/css" href="normalize.css" />
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+    <script type="text/javascript" src="scripts.js"></script>
+</head>
+
+<body>
+    <header>
+        <h1>Pasapalabra</h1>
+    </header>
+
+    <div class="container">
+        <div class="letters">
+            <div class="letters-letter" id="a">
+                <p >A</p>
+            </div>
+            <div class="letters-letter" id="b">
+                <p >B</p>
+            </div>
+            <div class="letters-letter" id="c">
+                <p >C</p>
+            </div>
+            <div class="letters-letter" id="d">
+                <p >D</p>
+            </div>
+            <div class="letters-letter" id="e">
+                <p >E</p>
+            </div>
+            <div class="letters-letter" id="f">
+                <p >F</p>
+            </div>
+            <div class="letters-letter" id="g">
+                <p >G</p>
+            </div>
+            <div class="letters-letter"id="h">
+                <p >H</p>
+            </div>
+            <div class="letters-letter" id="i">
+                <p >I</p>
+            </div>
+            <div class="letters-letter" id="j">
+                <p >J</p>
+            </div>
+            <div class="letters-letter" id="k">
+                <p >K</p>
+            </div>
+            <div class="letters-letter" id="l">
+                <p >L</p>
+            </div>
+            <div class="letters-letter" id="m">
+                <p >M</p>
+            </div>
+            <div class="letters-letter" id="n">
+                <p >N</p>
+            </div>
+            <div class="letters-letter" id="ñ">
+                <p >Ñ</p>
+            </div>
+            <div class="letters-letter" id="o">
+                <p >O</p>
+            </div>
+            <div class="letters-letter" id="p">
+                <p >P</p>
+            </div>
+            <div class="letters-letter" id="q">
+                <p >Q</p>
+            </div>
+            <div class="letters-letter" id="r">
+                <p >R</p>
+            </div>
+            <div class="letters-letter" id="s">
+                <p >S</p>
+            </div>
+            <div class="letters-letter" id="t">
+                <p >T</p>
+            </div>
+            <div class="letters-letter" id="u">
+                <p >U</p>
+            </div>
+            <div class="letters-letter" id="v">
+                <p >V</p>
+            </div>
+            <div class="letters-letter" id="w">
+                <P >W</P>
+            </div>
+            <div class="letters-letter" id="x">
+                <p >X</p>
+            </div>
+            <div class="letters-letter" id="y">
+                <p >Y</p>
+            </div>
+            <div class="letters-letter" id="z">
+                <p >Z</p>
+            </div>
+        </div>
+        <div class="current-letter">
+            <p class="letter" id="letter">Bienvenido/a</p>
+            <p class="question" id="question">Indica la palabra que creas que es después de la pista y pulsa Resolver. Si la aciertas,
+                sumas un punto.
+                Si fallas, no sumas, pero no restas. Si no lo tienes claro, pulsa Pasapalabra. Si quieres terminar la
+                partida,
+                pulsa Finalizar Partida.</p>
+        </div>
+        <div class="controls">
+            <p id="time">150</p>
+            <button onclick="help()">Ayuda</button>
+            <button id="buttonNewGame" onclick="newGame()">Nueva Partida</button>
+            <button onclick="document.location.reload(true)">Finalizar Partida</button>
+        </div>
+        <div class="answer">
+            <input type="text" id="answer" placeholder="Respuesta" autocomplete="off">
+            <button onclick="nextTurn()">Resolver</button>
+            <button onclick="doesntRememberNow()">Pasapalabra</button>
+        </div>
+    </div>
+
+</body>
+
+</html>
