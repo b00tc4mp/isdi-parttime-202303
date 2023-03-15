@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PASAPALABRA</title>
+    <link href="styles.css" rel="stylesheet" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <h1 class="title">PASAPALABRA</h1>
+    </header>
+    <div class="full-game">
+      <div class="rosco">
+        <ul>
+          <li class="letter" style="--i: 0">
+            <div class="lettera">A</div>
+          </li>
+          <li class="letter" style="--i: 1">
+            <div class="letterb">B</div>
+          </li>
+          <li class="letter" style="--i: 2">
+            <div  class="letterc">C</div>
+          </li>
+          <li class="letter" style="--i: 3">
+            <div class="letterd">D</div>
+          </li>
+          <li class="letter" style="--i: 4">
+            <div class="lettere">E</div>
+          </li>
+          <li class="letter" style="--i: 5">
+            <div class="letterf">F</div>
+          </li>
+          <li class="letter" style="--i: 6">
+            <div class="letterg">G</div>
+          </li>
+          <li class="letter" style="--i: 7">
+            <div class="letterh">H</div>
+          </li>
+          <li class="letter" style="--i: 8">
+            <div class="letteri">I</div>
+          </li>
+          <li class="letter" style="--i: 9">
+            <div class="letterj">J</div>
+          </li>
+          <li class="letter" style="--i: 10">
+            <div class="letterk">K</div>
+          </li>
+          <li class="letter" style="--i: 11">
+            <div class="letterl">L</div>
+          </li>
+          <li class="letter" style="--i: 12">
+            <div class="letterm">M</div>
+          </li>
+          <li class="letter" style="--i: 13">
+            <div class="lettern">N</div>
+          </li>
+          <li class="letter" style="--i: 14">
+            <div class="letterñ">Ñ</div>
+          </li>
+          <li class="letter" style="--i: 15">
+            <div class="lettero">O</div>
+          </li>
+          <li class="letter" style="--i: 16">
+            <div class="letterp">P</div>
+          </li>
+          <li class="letter" style="--i: 17">
+            <div class="letterq">Q</div>
+          </li>
+          <li class="letter" style="--i: 18">
+            <div class="letterr">R</div>
+          </li>
+          <li class="letter" style="--i: 19">
+            <div class="letters">S</div>
+          </li>
+          <li class="letter" style="--i: 20">
+            <div class="lettert">T</div>
+          </li>
+          <li class="letter" style="--i: 21">
+            <div class="letteru">U</div>
+          </li>
+          <li class="letter" style="--i: 22">
+            <div class="letterv">V</div>
+          </li>
+          <li class="letter" style="--i: 23">
+            <div class="letterw">W</div>
+          </li>
+          <li class="letter" style="--i: 24">
+            <div class="letterx">X</div>
+          </li>
+          <li class="letter" style="--i: 25">
+            <div class="lettery">Y</div>
+          </li>
+          <li class="letter" style="--i: 26">
+            <div class="letterz">Z</div>
+          </li>
+        </ul>
+      </div>
+      <div class="game">
+        <p>
+          El juego se llama PASAPALABRA. Consiste en adivinar 27 palabras, cada
+          una de las cuales se corresponde con una letra del rosco. Para ello,
+          se brinda una definición relativa al concepto de dicha palabra.
+        </p>
+        <br />
+        <p>
+          Cuanto mayor sea el número de palabras adivinadas, mayor será el
+          puntaje obtenido al finalizar la partida. Se tiene un tiempo máximo de
+          150 segundos para responder todas las preguntas.
+        </p>
+        <br />
+        <p>
+          Para comenzar la partida, pulse START. Para finalizar la partida,
+          pulse END. Para responder una pregunta, complete el campo y seleccione
+          ENVIAR (no utilizar tildes). Para saltar la pregunta pulse PASAPALABRA.
+        </p>
+      </div>
+      <div class="buttons-disposition">
+        <button class="buttons start-button">START</button>
+        <button class="buttons end-button">END</button>
+      </div>
+    </div>
+    <div class="js--options options" id="js--options">
+      <!-- La clase debe pasar a options una vez que se da a START-->
+      <div class="questions"></div>
+      <form class="answer">
+        <input class="text-input" type="text" />
+        <div>
+          <button class="send-button">ENVIAR</button>
+          <button class="pasapalabra-button">PASAPALABRA</button>
+        </div>
+      </form>
+      <div class="timer">
+        <div class="leyend">TIEMPO RESTANTE</div>
+        <div class="js--timer seconds" id="js--timer">150</div>
+      </div>
+    </div>
+    <div class="js--goodbye hidden" id="js--goodbye">
+      <!-- La clase debe pasar a goodbye cuando se le da a END -->
+      <div class="goodbye-left">
+        <div class="leyend">JUEGO FINALIZADO!</div>
+        <div class="ranking"></div>
+      </div>
+      <button class="restart">VOLVER</button>
+    </div>
+    <div class="copyright">
+      © 2023 - Developed by Rodrigo Castro Martinez - All rights reserved
+    </div>
+  </body>
+</html>

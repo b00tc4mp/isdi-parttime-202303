@@ -1,0 +1,46 @@
+#countlabel {
+    display: block;
+    font-size: 80px;
+    text-align: center;
+    margin: 50px;
+}
+
+.isdi-header {
+    font-size: 40px;
+}
+
+body{
+    margin: 0 auto;
+    width: fit-content;
+    text-align: center;
+  }
+
+button {
+    font-size: 30px;
+    border-radius: 10px;
+    border-width: 3px;
+}
+
+button:hover {
+    background-color: lightblue;
+}
+
+button:active {
+    background-color: grey;
+}
+
+html {
+    background-color: aliceblue;
+    font-family: "Press Start 2P";
+}
+
+.box1 {
+    border: 2px;
+    height: 2px;
+    width: auto;
+    background-color: lightblue;
+}
+
+.fa-sharp{
+    transform: scale(2, 2);
+}

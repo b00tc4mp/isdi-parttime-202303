@@ -1,0 +1,24 @@
+.board {
+    display: inline-block;
+    margin: 20px auto;
+  }
+  
+  .row {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .square {
+    width: 50px;
+    height: 50px;
+    border: 1px solid black;
+  }
+  
+  .white {
+    background-color: #f0d9b5;
+  }
+  
+  .black {
+    background-color: #b58863;
+  }
+  

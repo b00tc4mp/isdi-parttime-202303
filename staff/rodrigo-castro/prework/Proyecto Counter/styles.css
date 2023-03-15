@@ -1,0 +1,48 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: black;
+}
+canvas {
+  display: block;
+}
+
+.counter {
+  height: 120px;
+  width: 120px;
+  border-style: solid;
+  border-color: white;
+  border-width: 1px;
+  border-radius: 50%;
+  font-size: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.buttons {
+    width: 400px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.round-button {
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+  border-style: solid;
+  border-color: white;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-width: 1px;
+  font-size: 20px;
+  transition: 1s;
+}
+
+.round-button:hover {
+  background-color: rgba(0, 0, 0, 0.4);
+  color: rgba(255, 255, 255, 0.8);
+  cursor: pointer;
+}
