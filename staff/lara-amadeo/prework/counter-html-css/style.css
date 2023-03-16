@@ -29,7 +29,7 @@ body{
 #counter{
     font-family:'Inter';
     margin: auto;
-    
+    font-weight: bold;
     font-size: 80px;
     color:#555555;
 }
@@ -45,7 +45,7 @@ body{
     color:#D4356E ;
     font-size: 16px;
     line-height: 24px;
-    font-weight: 700;
+    font-weight: bold;
     background: #EFB4C9;
     border: none;
     padding: 4px 16px;
