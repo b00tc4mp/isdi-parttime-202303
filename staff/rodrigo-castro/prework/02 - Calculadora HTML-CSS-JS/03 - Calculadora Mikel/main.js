@@ -8,6 +8,7 @@ let cache = []
 let currentValue
 let tmp = [[], []]
 let dotStatus = false
+let isFirstOperation = true;
 
 window.onload = () => {
 const addNumber = document.querySelector('.number')
@@ -44,7 +45,7 @@ const addValue = (number) => {
   let numberFrontEnd = document.querySelector('.first-value')
   const historyFrontEnd = document.querySelector('.history')
   
-  if (number === '.' && numbers.includes('.')) return
+  if (number === '.' && numbers.includes('.')) return // para que no entre el . si ya lo hay
   screenNumbers.push(number) // YO los convertiría a número justo antes de realizar la operación, no ahora. Entonces lo conservas como STRING y puedes agregar el punto decimal con esta misma función!!
   numbers.push(number)
   console.log(screenNumbers)
@@ -59,66 +60,39 @@ const addValue = (number) => {
   // historyFrontEnd.innerHTML = history.join('')
 }
 
-const getDotStatus = (number) => {
-  numbers = [numbers]
-  console.log(numbers)
-  let numberFrontEnd = document.querySelector('.first-value')
-  let dotFrontEnd = document.querySelector('.dot')
-  let lastValue = numbers.pop()
-  
-  lastValue = lastValue + ','
-  lastValue = lastValue.replace(/,/g, '.')
-  lastValue = parseFloat(lastValue)
-  console.log(lastValue)
 
-
-
-
-  numbers.push(lastValue)
-  console.log(numbers)
-
-    screenNumbers.push(Number(number))
-    // console.log('screenNumbers', screenNumbers)
-
-    numberFrontEnd.innerHTML = screenNumbers.join('')
-    currentValue = 'number'
-}
 
 const addOperator = (operator) => {
 
   const historyFrontEnd = document.querySelector('.history')
 
+//   if (currentValue === 'operator') {
+//     // screenNumbers.pop()
+//   history.pop()
+//   currentValue = 'number'
+// }
 
 
-  // hacer un array iterado dentro de una variable...?
-// hacer uno otres elementos q almacenen datos...?
-// hacer q cada vez q haces un sum, se almacene el dato, y siga con una nueva operacion pero en pantalla siga el historial?
-
-// con el punto, hacer que haga un pop() del ultimo numero, para devolverlo pusheado con un . por delante
-// para esto hay q hacer un controlador que devuelva un valor booleano para poder ponerlo una vez solamente
-// RODRI: Se puede hacer con un if y evaluar con INCLUDES si tu número ya tiene un punto. Si lo tiene devuelves RETURN y sales de la funcion para que no lo agregue otra vez!
-
-// par la pantalla y el tamaño. atraves de .length añadir una clase del rollo small || medium || big
-
-
-if (currentValue === 'operator') {
-  // screenNumbers.pop()
-  history.pop()
-  currentValue = 'number'
-
-}
   if (currentValue === 'number' && operator === '+') {
     
-    history.push('+')
-    historyFrontEnd.innerHTML = history.join('')
-    document.querySelector('.first-value').innerText = "";
+    if (historyFrontEnd.innerHTML !== "START") {
+      history.push('+')
+      historyFrontEnd.innerHTML = history.join('')
+      document.querySelector('.first-value').innerText = "";
+    } 
+
+    if (!isFirstOperation) {
+      history.pop();
+      history = (parseFloat(numbers.join("")) + parseFloat(history.join(""))).toString().split("");
+      history.push('+')
+      historyFrontEnd.innerHTML = history.join('')
+      document.querySelector('.first-value').innerText = ""
+    }
+    
     screenNumbers = [];
     numbers = [];
-
-    if (historyFrontEnd.innerHTML !== 0) { // esto deberia ser distinto de null o de '' o de lo q sea q tenga el display cuando COMIENZA la app
-      document.querySelector('.first-value').innerText = ();
-    }
-
+    console.log("history: " + history)
+    isFirstOperation = false // se deberia reinicializar al darle al AC o =
       if (false) {    tmp[0] = numbers
           tmp[1] = cache
           // console.log('numbers', numbers)
@@ -135,25 +109,122 @@ if (currentValue === 'operator') {
           numbers = []
           result = []}
   }
+
+
   if (currentValue === 'number' && operator === '-') {
-    history.push('-')
-    historyFrontEnd.innerHTML = history.join('')
-    tmp[0] = numbers
-    tmp[1] = cache
-    console.log('tmp', tmp)
-    const substractOperation = (...numbers) => {
-      let result = numbers.reduce((a, b) => a - b);
-      return Math.round( result * 1000 + Number.EPSILON ) / 1000    
+    
+    if (historyFrontEnd.innerHTML !== "START") {
+      console.log("history: " + history)
+      console.log("numbers: " + numbers)
+      history.push('-')
+      historyFrontEnd.innerHTML = history.join('')
+      document.querySelector('.first-value').innerText = "";
+      console.log("history: " + history)
+      console.log("numbers: " + numbers)
+    } 
+
+    if (!isFirstOperation) {
+      console.log("history: " + history)
+      console.log("numbers: " + numbers)
+      history.pop();
+      history = (parseFloat(numbers.join("")) - parseFloat(history.join(""))).toString().split("");
+      history.push('-')
+      historyFrontEnd.innerHTML = history.join('')
+      document.querySelector('.first-value').innerText = ""
+      console.log("history: " + history)
+      console.log("numbers: " + numbers)
+    }
+    
+    screenNumbers = [];
+    numbers = [];
+    console.log("numbers: " + numbers)
+    isFirstOperation = false // se deberia reinicializar al darle al AC o =
+      if (false) {    tmp[0] = numbers
+          tmp[1] = cache
+          // console.log('numbers', numbers)
+          console.log('tmp', tmp)
+          const sumOperation = (...numbers) => {
+            let result = numbers.reduce((a, b) => a + b);
+            return Math.round( result * 1000 + Number.EPSILON ) / 1000    
+        }
+          result = sumOperation(...tmp)
+          cache = Number(result)
+          screenNumbers = [Number(result)]
+          console.log('Number(result)', Number(result))
+          currentValue = 'operator'
+          numbers = []
+          result = []}
   }
-    result = substractOperation(...tmp)
-    cache = Number(result)
-    screenNumbers = [Number(result)]
-    console.log('Number(result)', Number(result))
-    currentValue = 'operator'
-    numbers = []
-    result = []
+
+
+  if (false) {
+    if (currentValue === 'number' && operator === '-') {
+      history.push('-')
+      historyFrontEnd.innerHTML = history.join('')
+      tmp[0] = numbers
+      tmp[1] = cache
+      console.log('tmp', tmp)
+      const substractOperation = (...numbers) => {
+        let result = numbers.reduce((a, b) => a - b);
+        return Math.round( result * 1000 + Number.EPSILON ) / 1000    
+    }
+      result = substractOperation(...tmp)
+      cache = Number(result)
+      screenNumbers = [Number(result)]
+      console.log('Number(result)', Number(result))
+      currentValue = 'operator'
+      numbers = []
+      result = []
+    }
   }
+
   if (currentValue === 'number' && operator === '*') {
+    
+    if (historyFrontEnd.innerHTML !== "START") {
+      console.log("history: " + history)
+      console.log("numbers: " + numbers)
+      history.push('*')
+      historyFrontEnd.innerHTML = history.join('')
+      document.querySelector('.first-value').innerText = "";
+      console.log("history: " + history)
+      console.log("numbers: " + numbers)
+    } 
+
+    if (!isFirstOperation) {
+      console.log("history: " + history)
+      console.log("numbers: " + numbers)
+      history.pop();
+      history = (parseFloat(numbers.join("")) * parseFloat(history.join(""))).toString().split("");
+      history.push('*')
+      historyFrontEnd.innerHTML = history.join('')
+      document.querySelector('.first-value').innerText = ""
+      console.log("history: " + history)
+      console.log("numbers: " + numbers)
+    }
+    
+    screenNumbers = [];
+    numbers = [];
+    console.log("numbers: " + numbers)
+    isFirstOperation = false // se deberia reinicializar al darle al AC o =
+      if (false) {    tmp[0] = numbers
+          tmp[1] = cache
+          // console.log('numbers', numbers)
+          console.log('tmp', tmp)
+          const sumOperation = (...numbers) => {
+            let result = numbers.reduce((a, b) => a + b);
+            return Math.round( result * 1000 + Number.EPSILON ) / 1000    
+        }
+          result = sumOperation(...tmp)
+          cache = Number(result)
+          screenNumbers = [Number(result)]
+          console.log('Number(result)', Number(result))
+          currentValue = 'operator'
+          numbers = []
+          result = []}
+  }
+
+  
+if (false){  if (currentValue === 'number' && operator === '*') {
     history.push('*')
     historyFrontEnd.innerHTML = history.join('')
     tmp[0] = numbers
@@ -170,7 +241,9 @@ if (currentValue === 'operator') {
     currentValue = 'operator'
     numbers = []
     result = []
-  }
+  }}
+
+
   if (currentValue === 'number' && operator === '/') {
     history.push('/')
     historyFrontEnd.innerHTML = history.join('')
