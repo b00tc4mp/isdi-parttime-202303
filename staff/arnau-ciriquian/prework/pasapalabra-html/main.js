@@ -32,6 +32,10 @@ let userAnswer;
 let playableLetters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'ñ', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
 let singleQuestion;
 let userAnswerBox;
+let counter = 0;
+let finishEarly = false;
+let seconds;
+let setIntervalID;
 
 const getFocus = () => {
 	userAnswerBox = document.querySelector('.userAnswerBox');
@@ -68,7 +72,10 @@ const startPlayingPasapalabra = () => {
 	playFirstRound();
 	document.querySelector(".notifications").style.backgroundImage = 'radial-gradient(rgba(' + 255 + ',' + 255 + ',' + 255 + ',' + 0 +'), rgba(' + 255 + ',' + 196 + ',' + 0 + ',' + 0 +'))';
 	document.querySelector(".notifications").innerHTML = '';
-	document.querySelector(".hints").innerHTML = 'ENTER para enviar la palabra y el SPACE para hacer pasapalabra.'
+	document.querySelector(".hints").innerHTML = 'ENTER para enviar la palabra y el SPACE para hacer pasapalabra.';
+	finishEarly = false;
+	counter = 0;
+	startTimer();
 }
 
 const stopPlayingPasapalabra = () => {
@@ -78,8 +85,29 @@ const stopPlayingPasapalabra = () => {
 	resetLettersStatus();
 	document.querySelector(".answerBox").innerHTML = '';
 	document.querySelector(".question-box").innerHTML = '<p class="question">¡¿Quieres volver a jugar?!</p>';
+	
 }
 
+const startTimer = () => {
+	setIntervalID=setInterval(getTime, 1000);
+	seconds=300;
+	getTime();
+}
+  
+  
+const getTime = () => {
+	seconds--;
+	document.querySelector(".timer").textContent=seconds;
+	if (finishEarly) {
+		clearInterval(setIntervalID);
+	}
+
+	if (seconds==0 && !finishEarly) {
+		clearInterval(setIntervalID);
+		gameIsOver();
+	}
+}
+  
 const getAnswer = () => {
     userAnswer = document.querySelector('.userAnswerBox').value;
 }
@@ -157,9 +185,10 @@ const playFirstRound = () => {
 };
 
 const gameIsOver = () => {
+	finishEarly = true;
+	getResults();
 	stopPlayingPasapalabra()
-	//const counter glboal pk stopplaying no borri els resultats
-	document.querySelector(".question-box").innerHTML = '<p>¡FIN DEL JUEGO!</p><p>Has acertado ' + getResults() + ' de 27 preguntas!</p><p>¿Quieres volver a jugar?</p>'
+	document.querySelector(".question-box").innerHTML = '<p>¡FIN DEL JUEGO!</p><p>Has acertado ' + counter + ' de 27 preguntas!</p><p>¿Quieres volver a jugar?</p>'
 }
 
 const resetLettersStatus = () => {
@@ -170,6 +199,7 @@ const resetLettersStatus = () => {
 }
 
 const finishGameEarly = () => {
+	finishEarly = true;
 	stopPlayingPasapalabra();
 	document.querySelector(".notifications").style.backgroundImage = 'radial-gradient(rgb(' + 3 + ',' + 44 + ',' + 120 + '), rgb(' + 2 + ',' + 7 + ',' + 51 + ')' + 70 + '% )';
 	document.querySelector(".notifications").innerHTML = '<p class="rules">Has terminado el juego antes de completar el rosco! Vuelve a jugar y completa el rosco para ver tus resultados!</p>';
@@ -177,13 +207,11 @@ const finishGameEarly = () => {
 }
 
 const getResults = () => {
-	let counter = 0;
 	for (letterPosition = 0; letterPosition < playingSet.length; letterPosition++) {
 		if (playingSet[letterPosition].status === 1) {
 			counter++
 		}
 	}
-	return counter;
 }
 
 
