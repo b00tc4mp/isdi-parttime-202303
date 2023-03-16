@@ -53,26 +53,30 @@ body {
 
 
 .calculator-screen{
+    display: grid;
+    grid-template-columns: 1fr;
     background-color: var(--background-screen);
     width: 400px;
     text-align: right;
-    min-height: 250px;
+    /*min-height: 250px;*/
     height: 300px;
     color: #ffffff;
 }
 
 .calculator-screen-previous{
-    padding-top: 1rem;
-    padding-right: 2rem;
     max-width: 400px;
     font-size: 50px;
+    margin: 0;
+    padding: 0 10px 0 0;
 }
 
 .calculator-screen-line{
-    padding-top: 1rem;
-    padding-right: 2rem;
+    margin:0;
+    padding: 0 10px 10px 0;
     max-width: 400px;
     font-size: 50px;
+    inline-size: 400px;
+    overflow-wrap: break-word;
 }
 
 
