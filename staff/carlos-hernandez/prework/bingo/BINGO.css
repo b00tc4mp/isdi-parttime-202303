@@ -1,0 +1,128 @@
+html, body{
+height: 100%;
+}
+
+.usuario {
+
+    width: 100%;
+    min-height: 40 px;
+    background-color: rgb(13, 37, 52);
+    color: rgb(235, 220, 220);
+    text-align: center;
+    padding: 10px;
+    
+    
+}
+.contador{display: inline;
+    float: left;
+    margin-left: 180px;
+    margin-top: 180px;
+}
+
+.usuarioPrinc {
+
+    width: 600px;
+    min-height: 600px;
+    background-color: steelblue;
+    color: rgb(235, 220, 220);
+    text-align: center;
+    padding: 10px;
+  
+
+}
+
+.contenedor {
+   background-color:whitesmoke;
+        background-repeat: no-repeat;
+        background-size:cover;
+    
+        
+    width: 100%;
+    height: 1000px;
+    position: absolute;
+
+}
+
+
+.tarjeta {
+    padding-top: 30px;
+    width: 500px;
+    height: 500px;
+    margin-top: 30px;
+    color:rgb(2, 1, 7);
+  
+   
+    text-align: center;
+    display: inline;
+    float: right;
+    margin-right: 15%;
+    
+}
+.table{
+  
+    padding-top: 100px;
+    font-size: 60px;
+    font-weight: bolder;
+    opacity: 0.5;
+background-color: whitesmoke;
+    width: 400px;
+    height: 400px;
+            /* Para centrar usamos "auto" en la alineación horizontal */
+            margin: 0 auto;
+            /*Lo siguiente es para los bordes*/
+            border-collapse: collapse;
+            border-radius: 200 px !important
+}
+
+.numeroBombo {
+    
+    
+    background-color:lightgray;
+    width: 150x;
+    height: 190px;
+    border-radius: 5px;
+    font-size: 130px;
+    padding: 30px;
+    align-items: center;  
+    margin-bottom: 40px; 
+  
+}
+
+
+
+thead{
+    font-size: xx-large;
+}
+        
+    
+        table,
+        th,
+        td {
+            border: 3px solid black;
+    
+}
+
+
+
+.boton {
+
+border: 1px solid #2e518b; /*anchura, estilo y color borde*/
+padding: 10px; /*espacio alrededor texto*/
+background-color: #2e518b; /*color botón*/
+color: #ffffff; /*color texto*/
+text-decoration: none; /*decoración texto*/
+text-transform: uppercase; /*capitalización texto*/
+font-family: 'Helvetica', sans-serif; /*tipografía texto*/
+border-radius: 50px; /*bordes redondos*/
+margin-top: 30px;
+margin-bottom: 20px;
+}
+ p{font-size: 30px;
+    color: #ffffff;
+    text-align: center;
+margin: 20px;}
+ 
+
+ .boton:hover{
+    color: rgb(229, 255, 0);
+ }

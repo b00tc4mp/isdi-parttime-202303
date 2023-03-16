@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="vuelo.css" />
+    <script src="vuelo.js"></script>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Proyecto vuelos</title>
+  </head>
+
+  <body>
+    <div class="contenedor">
+      <div class="usuario">
+        <h3>Autenticarse</h3>
+        <br />
+        <label for="usuario">Usuar</label>
+        <input
+          type="radio"
+          name="autentic"
+          id="usuario"
+          value="Si"
+          onclick="habilitarTabla()"
+        />
+
+        <label for="administrador">Administrador</label>
+        <input
+          type="radio"
+          name="autentic"
+          id="administrador"
+          value="No"
+          onclick="habilitarForm()"
+        />
+
+        <br />
+
+        <div id="nombrePersona">
+          <p>pepitpo</p>
+        </div>
+      </div>
+
+      <div class="formulario" hidden="true" id="miForm">
+        <form id="formulario">
+          <p>CREAR VUELO</p>
+          <label for="origen"> PAIS DE ORIGEN VUELO</label>
+          <input name="origen" id="origen" type="text" required /><br />
+          <label for="destino">PAIS DE DESTINO VUELO</label>
+          <input name="destino" id="destino" type="text" required /><br />
+          <label for="precio">PRECIO DE PASAJE</label>
+          <input
+            id="precio"
+            type="number"
+            minlength="4"
+            maxlength="4"
+            required
+          /><br />
+
+          VUELO CON ESCALA?<br />
+          <input
+            type="radio"
+            name="escalaVuelo"
+            id="escala"
+            value="true"
+          />Si<br />
+          <input
+            type="radio"
+            name="escalaVuelo"
+            id="escala"
+            value="false"
+          />No<br />
+
+          <button id="boton" type="reset" onclick="agregarVuelo();">
+            AGREGAR VUELO
+          </button>
+        </form>
+      </div>
+
+      <div class="tabla">
+        <input
+          type="text"
+          placeholder="Introduzca el precio maximo de vuelo"
+          title="filtar por precio"
+          id="inputprecio"
+          onkeyup="filtrarPrecio()"
+        />
+        <h2>SALIDA DE VUELOS PARA HOY</h2>
+        <table id="tabla" class="tabla" caption="esto es una tabla">
+          <tr>
+            <th name="id">id</th>
+            <th>origen</th>
+            <th>destino</th>
+            <th>precio</th>
+            <th>escala</th>
+            <th name="eliminar">Eliminar</th>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>
