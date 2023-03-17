@@ -11,7 +11,7 @@
   <body>
     <h1 class="title">PASAPALABRA</h1>
 
-    <div class="first-line">
+    <div class="first-line div">
       <span class="letter" data-letter="a">A</span>
       <span class="letter" data-letter="b">B</span>
       <span class="letter" data-letter="c">C</span>
@@ -28,7 +28,7 @@
       <span class="letter" data-letter="ñ">Ñ</span>
     </div>
 
-    <div class="second-line">
+    <div class="second-line div">
       <span class="letter" data-letter="o">O</span>
       <span class="letter" data-letter="p">P</span>
       <span class="letter" data-letter="q">Q</span>
@@ -42,31 +42,96 @@
       <span class="letter" data-letter="z">Z</span>
     </div>
 
-    <div class="questions-container">
-      <p class="question"></p>
-    </div>
+    <section class="start">
+      <div class="get-username">
+        <h2>
+          ¡Hola! Bienvenido/a al juego Pasapalabra, ¿cuál es tu nombre? 🥰
+        </h2>
 
-    <div class="answers-container">
-      <input
-        class="answer"
-        type="text"
-        value=""
-        placeholder="Introduce aquí tu respuesta"
-      />
+        <div class="username-container">
+          <input
+            class="username"
+            type="text"
+            value=""
+            placeholder="Introduce aquí tu nombre"
+          />
 
-      <button class="send-button">ENVIAR</button>
-      <button class="next-button">PASAPALABRA</button>
-    </div>
+          <button class="send-username">ENVIAR</button>
+        </div>
+      </div>
+    </section>
 
-    <div class="counters">
+    <section class="game-rules hiden">
       <div>
-        <span class="timer">150</span>
+        <p>
+          Ok, <span class="name"></span>, antes de empezar, voy a explicarte las
+          reglas del juego
+        </p>
+
+        <p>
+          Misión: adivinar todas las palabras escondidas detrás de su definición
+          (o, al menos las máximas posibles) 🏆
+        </p>
+
+        <p>
+          -En cada turno, se mostrará una definición por cada letra (25 en
+          total). Deberás responder con la palabra que creas que es la correcta
+          ✅
+        </p>
+
+        <p>
+          -Si tienes dudas, puedes pulsar el botón PASAPALABRA. En ese caso, el
+          juego saltará a la siguiente letra, dejando esa pendiente para volver
+          a probar más tarde en la siguiente ronda 😊
+        </p>
+
+        <p>
+          -Una vez contestadas todas las definiciones, se te mostrará el
+          resultado final: las palabras acertadas y las falladas. Además,
+          también podrás ver el ranking de resultados 🔢
+        </p>
+
+        <p>
+          -En cualquier momento puedes escribir "end" para finalizar el juego.
+          En ese caso, se te mostrarán tus resultados pero no podrás entrar en
+          el ranking 🙏
+        </p>
+
+        <p>Haz click en JUGAR para comenzar el juego. ¡Mucha suerte! 🍀</p>
+
+        <button class="play">▷ PLAY</button>
+      </div>
+    </section>
+
+    <section class="game hiden">
+      <div class="questions-container div">
+        <p class="question"></p>
       </div>
 
-      <div>
-        <span class="hits-counter">0</span>
+      <div class="answers-container div">
+        <input
+          class="answer"
+          type="text"
+          value=""
+          placeholder="Introduce aquí tu respuesta"
+        />
+
+        <button class="send-button">ENVIAR</button>
+        <button class="next-button">PASAPALABRA</button>
       </div>
-    </div>
+
+      <div class="counters div">
+        <div>
+          <span class="timer">150</span>
+        </div>
+
+        <div>
+          <span class="hits-counter div">0</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="end"></section>
 
     <script src="index.js"></script>
   </body>

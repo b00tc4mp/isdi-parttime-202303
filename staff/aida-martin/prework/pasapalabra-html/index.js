@@ -1,517 +1,517 @@
 const questions = [
   {
-    letter: 'a',
+    letter: "a",
     status: 0,
     answersAndQuestions: [
       {
-        answer: 'abducir',
+        answer: "abducir",
         question:
-          'CON LA A. Dicho de una supuesta criatura extraterrestre: Apoderarse de alguien.',
+          "CON LA A. Dicho de una supuesta criatura extraterrestre: Apoderarse de alguien.",
       },
       {
-        answer: 'abrigo',
+        answer: "abrigo",
         question:
-          'CON LA A. Prenda de vestir larga, abierta por delante y provista de mangas, que se pone sobre las demás cuando hace frío.',
+          "CON LA A. Prenda de vestir larga, abierta por delante y provista de mangas, que se pone sobre las demás cuando hace frío.",
       },
       {
-        answer: 'americano',
-        question: 'CON LA A. Natural de América.',
+        answer: "americano",
+        question: "CON LA A. Natural de América.",
       },
     ],
   },
   {
-    letter: 'b',
+    letter: "b",
     status: 0,
     answersAndQuestions: [
       {
-        answer: 'bingo',
+        answer: "bingo",
         question:
           'CON LA B. Juego que ha sacado de quicio a todos los "Skylabers" en las sesiones de precurso.',
       },
       {
-        answer: 'botella',
+        answer: "botella",
         question:
-          'CON LA B. Recipiente de cristal, vidrio, plástico u otro material, con el cuello estrecho, que sirve para contener líquidos.',
+          "CON LA B. Recipiente de cristal, vidrio, plástico u otro material, con el cuello estrecho, que sirve para contener líquidos.",
       },
       {
-        answer: 'bisagra',
+        answer: "bisagra",
         question:
-          'CON LA B. Herraje de dos piezas con un eje común que sirve para unir dos superficies permitiendo el giro de ambas o de una sobre la otra.',
+          "CON LA B. Herraje de dos piezas con un eje común que sirve para unir dos superficies permitiendo el giro de ambas o de una sobre la otra.",
       },
     ],
   },
   {
-    letter: 'c',
+    letter: "c",
     status: 0,
     answersAndQuestions: [
       {
-        answer: 'churumbel',
-        question: 'CON LA C. Niño, crío, bebé.',
+        answer: "churumbel",
+        question: "CON LA C. Niño, crío, bebé.",
       },
       {
-        answer: 'comunicacion',
-        question: 'CON LA C. Acción y efecto de comunicar o comunicarse.',
+        answer: "comunicacion",
+        question: "CON LA C. Acción y efecto de comunicar o comunicarse.",
       },
       {
-        answer: 'cometa',
+        answer: "cometa",
         question:
-          'CON LA C. Armazón plana y muy ligera sobre la cual se extiende y pega papel o tela, con una cola de cintas o trozos de papel, que, sujeta con un hilo muy largo, se arroja al aire para que el viento la eleve, como diversión de los muchachos.',
+          "CON LA C. Armazón plana y muy ligera sobre la cual se extiende y pega papel o tela, con una cola de cintas o trozos de papel, que, sujeta con un hilo muy largo, se arroja al aire para que el viento la eleve, como diversión de los muchachos.",
       },
     ],
   },
   {
-    letter: 'd',
+    letter: "d",
     status: 0,
     answersAndQuestions: [
       {
-        answer: 'diarrea',
+        answer: "diarrea",
         question:
-          'CON LA D. Anormalidad en la función del aparato digestivo caracterizada por frecuentes evacuaciones y su consistencia líquida.',
+          "CON LA D. Anormalidad en la función del aparato digestivo caracterizada por frecuentes evacuaciones y su consistencia líquida.",
       },
       {
-        answer: 'defecto',
-        question: 'CON LA D. Imperfección en algo o en alguien.',
+        answer: "defecto",
+        question: "CON LA D. Imperfección en algo o en alguien.",
       },
       {
-        answer: 'disfraz',
+        answer: "disfraz",
         question:
-          'CON LA D. Vestido de máscara que sirve para las fiestas y saraos, especialmente en carnaval.',
+          "CON LA D. Vestido de máscara que sirve para las fiestas y saraos, especialmente en carnaval.",
       },
     ],
   },
   {
-    letter: 'e',
+    letter: "e",
     status: 0,
     answersAndQuestions: [
       {
-        answer: 'ectoplasma',
+        answer: "ectoplasma",
         question:
-          'CON LA E. Gelatinoso en la función del aparato digestivo caracterizada por frecuentes evacuaciones y su consistencia líquida.',
+          "CON LA E. Gelatinoso en la función del aparato digestivo caracterizada por frecuentes evacuaciones y su consistencia líquida.",
       },
       {
-        answer: 'engreido',
+        answer: "engreido",
         question:
-          'CON LA E. Dicho de una persona: Demasiado convencida de su valer.',
+          "CON LA E. Dicho de una persona: Demasiado convencida de su valer.",
       },
       {
-        answer: 'escenario',
+        answer: "escenario",
         question:
-          'CON LA E. En un teatro, lugar donde se representa la obra o el espectáculo.',
+          "CON LA E. En un teatro, lugar donde se representa la obra o el espectáculo.",
       },
     ],
   },
   {
-    letter: 'f',
+    letter: "f",
     status: 0,
     answersAndQuestions: [
       {
-        answer: 'facil',
+        answer: "facil",
         question:
-          'CON LA F. Que no requiere gran esfuerzo, capacidad o dificultad.',
+          "CON LA F. Que no requiere gran esfuerzo, capacidad o dificultad.",
       },
       {
-        answer: 'feroz',
-        question: 'CON LA F. Dicho de un animal: Fiero, agresivo.',
+        answer: "feroz",
+        question: "CON LA F. Dicho de un animal: Fiero, agresivo.",
       },
       {
-        answer: 'fantasma',
+        answer: "fantasma",
         question:
-          'CON LA F. Imagen de una persona muerta que, según algunos, se aparece a los vivos.',
+          "CON LA F. Imagen de una persona muerta que, según algunos, se aparece a los vivos.",
       },
     ],
   },
   {
-    letter: 'g',
+    letter: "g",
     status: 0,
     answersAndQuestions: [
       {
-        answer: 'galaxia',
+        answer: "galaxia",
         question:
-          'CON LA G. Conjunto enorme de estrellas, polvo interestelar, gases y partículas.',
+          "CON LA G. Conjunto enorme de estrellas, polvo interestelar, gases y partículas.",
       },
       {
-        answer: 'geometrico',
-        question: 'CON LA G. Perteneciente o relativo a la geometría.',
+        answer: "geometrico",
+        question: "CON LA G. Perteneciente o relativo a la geometría.",
       },
       {
-        answer: 'gabinete',
+        answer: "gabinete",
         question:
-          'CON LA G. Habitación más reducida que la sala, donde se recibe a las personas de confianza.',
+          "CON LA G. Habitación más reducida que la sala, donde se recibe a las personas de confianza.",
       },
     ],
   },
   {
-    letter: 'h',
+    letter: "h",
     status: 0,
     answersAndQuestions: [
       {
-        answer: 'harakiri',
-        question: 'CON LA H. Suicidio ritual japonés por desentrañamiento.',
+        answer: "harakiri",
+        question: "CON LA H. Suicidio ritual japonés por desentrañamiento.",
       },
       {
-        answer: 'heroe',
+        answer: "heroe",
         question:
-          'CON LA H. Persona que realiza una acción muy abnegada en beneficio de una causa noble.',
+          "CON LA H. Persona que realiza una acción muy abnegada en beneficio de una causa noble.",
       },
       {
-        answer: 'hielo',
+        answer: "hielo",
         question:
-          'CON LA H. Agua convertida en cuerpo sólido y cristalino por un descenso suficiente de temperatura.',
+          "CON LA H. Agua convertida en cuerpo sólido y cristalino por un descenso suficiente de temperatura.",
       },
     ],
   },
   {
-    letter: 'i',
+    letter: "i",
     status: 0,
     answersAndQuestions: [
       {
-        answer: 'iglesia',
-        question: 'CON LA I. Templo cristiano.',
+        answer: "iglesia",
+        question: "CON LA I. Templo cristiano.",
       },
       {
-        answer: 'inocente',
-        question: 'CON LA I. Libre de culpa.',
+        answer: "inocente",
+        question: "CON LA I. Libre de culpa.",
       },
       {
-        answer: 'innato',
-        question: 'CON LA I. Connatural y como nacido con la persona misma.',
+        answer: "innato",
+        question: "CON LA I. Connatural y como nacido con la persona misma.",
       },
     ],
   },
   {
-    letter: 'j',
+    letter: "j",
     status: 0,
     answersAndQuestions: [
       {
-        answer: 'jabali',
+        answer: "jabali",
         question:
           'CON LA J. Variedad salvaje del cerdo que sale en la película "El Rey León", de nombre Pumba.',
       },
       {
-        answer: 'juvenil',
-        question: 'CON LA J. Perteneciente o relativo a la juventud.',
+        answer: "juvenil",
+        question: "CON LA J. Perteneciente o relativo a la juventud.",
       },
       {
-        answer: 'jugoso',
-        question: 'CON LA J. Que tiene jugo.',
-      },
-    ],
-  },
-  {
-    letter: 'l',
-    status: 0,
-    answersAndQuestions: [
-      {
-        answer: 'licantropo',
-        question: 'CON LA L. Hombre lobo.',
-      },
-      {
-        answer: 'laberinto',
-        question:
-          'CON LA L. Lugar formado artificiosamente por calles y encrucijadas, para confundir a quien se adentre en él, de modo que no pueda acertar con la salida.',
-      },
-      {
-        answer: 'lechal',
-        question:
-          'CON LA L. Dicho de un animal, especialmente de un cordero: Que mama.',
+        answer: "jugoso",
+        question: "CON LA J. Que tiene jugo.",
       },
     ],
   },
   {
-    letter: 'm',
+    letter: "l",
     status: 0,
     answersAndQuestions: [
       {
-        answer: 'misantropo',
-        question:
-          'CON LA M. Persona que huye del trato con otras personas o siente gran aversión hacia ellas.',
+        answer: "licantropo",
+        question: "CON LA L. Hombre lobo.",
       },
       {
-        answer: 'mecanografia',
-        question: 'CON LA M. Técnica de escribir a máquina.',
+        answer: "laberinto",
+        question:
+          "CON LA L. Lugar formado artificiosamente por calles y encrucijadas, para confundir a quien se adentre en él, de modo que no pueda acertar con la salida.",
       },
       {
-        answer: 'mocasin',
+        answer: "lechal",
         question:
-          'CON LA M. Calzado propio de los indios norteamericanos, hecho de piel sin curtir.',
+          "CON LA L. Dicho de un animal, especialmente de un cordero: Que mama.",
       },
     ],
   },
   {
-    letter: 'n',
+    letter: "m",
     status: 0,
     answersAndQuestions: [
       {
-        answer: 'necedad',
-        question: 'CON LA N. Demostración de poca inteligencia.',
+        answer: "misantropo",
+        question:
+          "CON LA M. Persona que huye del trato con otras personas o siente gran aversión hacia ellas.",
       },
       {
-        answer: 'nube',
-        question:
-          'CON LA N. Agregado visible de minúsculas gotitas de agua, de cristales de hielo o de ambos, suspendido en la atmósfera y producido por la condensación de vapor de agua.',
+        answer: "mecanografia",
+        question: "CON LA M. Técnica de escribir a máquina.",
       },
       {
-        answer: 'nacer',
+        answer: "mocasin",
         question:
-          'CON LA N. Dicho de un ser vivo: Salir del vientre materno, del huevo o de la semilla.',
+          "CON LA M. Calzado propio de los indios norteamericanos, hecho de piel sin curtir.",
       },
     ],
   },
   {
-    letter: 'ñ',
+    letter: "n",
     status: 0,
     answersAndQuestions: [
       {
-        answer: 'señal',
-        question:
-          'CONTIENE LA Ñ. Indicio que permite deducir algo de lo que no se tiene un conocimiento directo.',
+        answer: "necedad",
+        question: "CON LA N. Demostración de poca inteligencia.",
       },
       {
-        answer: 'acompañar',
+        answer: "nube",
         question:
-          'CONTIENE LA Ñ. Estar o ir en compañía de otra u otras personas.',
+          "CON LA N. Agregado visible de minúsculas gotitas de agua, de cristales de hielo o de ambos, suspendido en la atmósfera y producido por la condensación de vapor de agua.",
       },
       {
-        answer: 'ñu',
+        answer: "nacer",
         question:
-          'CON LA Ñ. Mamífero rumiante africano de la familia de los antílopes, de color pardo grisáceo, cuya cabeza recuerda la de un toro.',
+          "CON LA N. Dicho de un ser vivo: Salir del vientre materno, del huevo o de la semilla.",
       },
     ],
   },
   {
-    letter: 'o',
+    letter: "ñ",
     status: 0,
     answersAndQuestions: [
       {
-        answer: 'orco',
+        answer: "señal",
         question:
-          'CON LA O. Humanoide fantástico de apariencia terrible y bestial, piel de color verde creada por el escritor Tolkien.',
+          "CONTIENE LA Ñ. Indicio que permite deducir algo de lo que no se tiene un conocimiento directo.",
       },
       {
-        answer: 'obelisco',
+        answer: "acompañar",
         question:
-          'CON LA O. Pilar muy alto, de cuatro caras iguales un poco convergentes y terminado por una punta piramidal muy achatada, que sirve de adorno en lugares públicos.',
+          "CONTIENE LA Ñ. Estar o ir en compañía de otra u otras personas.",
       },
       {
-        answer: 'ocaso',
+        answer: "ñu",
         question:
-          'CON LA O. Puesta del sol, o de otro astro, al trasponer el horizonte.',
+          "CON LA Ñ. Mamífero rumiante africano de la familia de los antílopes, de color pardo grisáceo, cuya cabeza recuerda la de un toro.",
       },
     ],
   },
   {
-    letter: 'p',
+    letter: "o",
     status: 0,
     answersAndQuestions: [
       {
-        answer: 'protoss',
+        answer: "orco",
         question:
-          'CON LA P. Raza ancestral tecnológicamente avanzada que se caracteriza por sus grandes poderes psíonicos del videojuego StarCraft.',
+          "CON LA O. Humanoide fantástico de apariencia terrible y bestial, piel de color verde creada por el escritor Tolkien.",
       },
       {
-        answer: 'pachanga',
-        question: 'CON LA P. Danza originaria de Cuba.',
+        answer: "obelisco",
+        question:
+          "CON LA O. Pilar muy alto, de cuatro caras iguales un poco convergentes y terminado por una punta piramidal muy achatada, que sirve de adorno en lugares públicos.",
       },
       {
-        answer: 'piara',
-        question: 'CON LA P. Manada de cerdos.',
+        answer: "ocaso",
+        question:
+          "CON LA O. Puesta del sol, o de otro astro, al trasponer el horizonte.",
       },
     ],
   },
   {
-    letter: 'q',
+    letter: "p",
     status: 0,
     answersAndQuestions: [
       {
-        answer: 'queso',
+        answer: "protoss",
         question:
-          'CON LA Q. Producto obtenido por la maduración de la cuajada de la leche.',
+          "CON LA P. Raza ancestral tecnológicamente avanzada que se caracteriza por sus grandes poderes psíonicos del videojuego StarCraft.",
       },
       {
-        answer: 'quiebra',
-        question:
-          'CON LA Q. Rotura de una superficie de cierta dureza o rigidez.',
+        answer: "pachanga",
+        question: "CON LA P. Danza originaria de Cuba.",
       },
       {
-        answer: 'adoquin',
-        question:
-          'CONTIENE LA Q. Piedra labrada en forma de prisma rectangular para empedrados y otros usos.',
+        answer: "piara",
+        question: "CON LA P. Manada de cerdos.",
       },
     ],
   },
   {
-    letter: 'r',
+    letter: "q",
     status: 0,
     answersAndQuestions: [
       {
-        answer: 'raton',
-        question: 'CON LA R. Roedor.',
+        answer: "queso",
+        question:
+          "CON LA Q. Producto obtenido por la maduración de la cuajada de la leche.",
       },
       {
-        answer: 'rabadilla',
+        answer: "quiebra",
         question:
-          'CON LA R. En las aves, extremidad movible en donde están las plumas de la cola.',
+          "CON LA Q. Rotura de una superficie de cierta dureza o rigidez.",
       },
       {
-        answer: 'reaccion',
+        answer: "adoquin",
         question:
-          'CON LA R. Efecto secundario inmediato y patente de un medicamento o una terapia.',
+          "CONTIENE LA Q. Piedra labrada en forma de prisma rectangular para empedrados y otros usos.",
       },
     ],
   },
   {
-    letter: 's',
+    letter: "r",
     status: 0,
     answersAndQuestions: [
       {
-        answer: 'stackoverflow',
-        question:
-          'CON LA S. Comunidad salvadora de todo desarrollador informático.',
+        answer: "raton",
+        question: "CON LA R. Roedor.",
       },
       {
-        answer: 'sabado',
-        question: 'CON LA S. Sexto día de la semana.',
+        answer: "rabadilla",
+        question:
+          "CON LA R. En las aves, extremidad movible en donde están las plumas de la cola.",
       },
       {
-        answer: 'suave',
+        answer: "reaccion",
         question:
-          'CON LA S. Liso y blando al tacto, sin tosquedad ni aspereza.',
+          "CON LA R. Efecto secundario inmediato y patente de un medicamento o una terapia.",
       },
     ],
   },
   {
-    letter: 't',
+    letter: "s",
     status: 0,
     answersAndQuestions: [
       {
-        answer: 'terminator',
+        answer: "stackoverflow",
         question:
-          'CON LA T. Película del director James Cameron que consolidó a Arnold Schwarzenegger como actor en 1984.',
+          "CON LA S. Comunidad salvadora de todo desarrollador informático.",
       },
       {
-        answer: 'tabarro',
-        question:
-          'CON LA T. Especie de avispa algo mayor que la corriente, y cuya picadura causa intenso dolor.',
+        answer: "sabado",
+        question: "CON LA S. Sexto día de la semana.",
       },
       {
-        answer: 'timar',
-        question: 'CON LA T. Quitar o hurtar con engaño.',
+        answer: "suave",
+        question:
+          "CON LA S. Liso y blando al tacto, sin tosquedad ni aspereza.",
       },
     ],
   },
   {
-    letter: 'u',
+    letter: "t",
     status: 0,
     answersAndQuestions: [
       {
-        answer: 'unamuno',
+        answer: "terminator",
+        question:
+          "CON LA T. Película del director James Cameron que consolidó a Arnold Schwarzenegger como actor en 1984.",
+      },
+      {
+        answer: "tabarro",
+        question:
+          "CON LA T. Especie de avispa algo mayor que la corriente, y cuya picadura causa intenso dolor.",
+      },
+      {
+        answer: "timar",
+        question: "CON LA T. Quitar o hurtar con engaño.",
+      },
+    ],
+  },
+  {
+    letter: "u",
+    status: 0,
+    answersAndQuestions: [
+      {
+        answer: "unamuno",
         question:
           'CON LA U. Escritor y filósofo español de la generación del 98 autor del libro "Niebla" en 1914.',
       },
       {
-        answer: 'ubicacion',
-        question: 'CON LA U. Lugar en que está ubicado algo.',
+        answer: "ubicacion",
+        question: "CON LA U. Lugar en que está ubicado algo.",
       },
       {
-        answer: 'usual',
-        question: 'CON LA U. Común o habitual.',
-      },
-    ],
-  },
-  {
-    letter: 'v',
-    status: 0,
-    answersAndQuestions: [
-      {
-        answer: 'vikingos',
-        question:
-          'CON LA V. Nombre dado a los miembros de los pueblos nórdicos originarios de Escandinavia, famosos por sus incursiones y pillajes en Europa.',
-      },
-      {
-        answer: 'vaca',
-        question: 'CON LA V. Hembra de toro.',
-      },
-      {
-        answer: 'veganismo',
-        question:
-          'CON LA V. Actitud consistente en rechazar alimentos o artículos de consumo de origen animal.',
+        answer: "usual",
+        question: "CON LA U. Común o habitual.",
       },
     ],
   },
   {
-    letter: 'x',
+    letter: "v",
     status: 0,
     answersAndQuestions: [
       {
-        answer: 'botox',
+        answer: "vikingos",
         question:
-          'CONTIENE LA X. Toxina bacteriana utilizada en cirujía estética.',
+          "CON LA V. Nombre dado a los miembros de los pueblos nórdicos originarios de Escandinavia, famosos por sus incursiones y pillajes en Europa.",
       },
       {
-        answer: 'examen',
-        question:
-          'CONTIENE LA X. Prueba que se hace de la idoneidad de una persona para el ejercicio y profesión de una facultad, oficio o ministerio, o para comprobar o demostrar el aprovechamiento en los estudios.',
+        answer: "vaca",
+        question: "CON LA V. Hembra de toro.",
       },
       {
-        answer: 'saxofonista',
-        question: 'CONTIENE LA X. Persona que toca el saxofón.',
+        answer: "veganismo",
+        question:
+          "CON LA V. Actitud consistente en rechazar alimentos o artículos de consumo de origen animal.",
       },
     ],
   },
   {
-    letter: 'y',
+    letter: "x",
     status: 0,
     answersAndQuestions: [
       {
-        answer: 'peyote',
+        answer: "botox",
         question:
-          'CONTIENE LA Y. Pequeño cáctus conocido por sus alcaloides psicoactivos utilizado de forma ritual y medicinal por indígenas americanos.',
+          "CONTIENE LA X. Toxina bacteriana utilizada en cirujía estética.",
       },
       {
-        answer: 'yegua',
-        question: 'CON LA Y. Hembra del caballo.',
+        answer: "examen",
+        question:
+          "CONTIENE LA X. Prueba que se hace de la idoneidad de una persona para el ejercicio y profesión de una facultad, oficio o ministerio, o para comprobar o demostrar el aprovechamiento en los estudios.",
       },
       {
-        answer: 'yema',
-        question:
-          'CON LA Y. Porción central del huevo en los vertebrados ovíparos.',
+        answer: "saxofonista",
+        question: "CONTIENE LA X. Persona que toca el saxofón.",
       },
     ],
   },
   {
-    letter: 'z',
+    letter: "y",
     status: 0,
     answersAndQuestions: [
       {
-        answer: 'zen',
+        answer: "peyote",
         question:
-          'CON LA Z. Escuela de budismo que busca la experiencia de la sabiduría más allá del discurso racional.',
+          "CONTIENE LA Y. Pequeño cáctus conocido por sus alcaloides psicoactivos utilizado de forma ritual y medicinal por indígenas americanos.",
       },
       {
-        answer: 'zangano',
-        question: 'CON LA Z. Macho de la abeja reina.',
+        answer: "yegua",
+        question: "CON LA Y. Hembra del caballo.",
       },
       {
-        answer: 'zoologia',
-        question: 'CON LA Z. Ciencia que trata los animales.',
+        answer: "yema",
+        question:
+          "CON LA Y. Porción central del huevo en los vertebrados ovíparos.",
+      },
+    ],
+  },
+  {
+    letter: "z",
+    status: 0,
+    answersAndQuestions: [
+      {
+        answer: "zen",
+        question:
+          "CON LA Z. Escuela de budismo que busca la experiencia de la sabiduría más allá del discurso racional.",
+      },
+      {
+        answer: "zangano",
+        question: "CON LA Z. Macho de la abeja reina.",
+      },
+      {
+        answer: "zoologia",
+        question: "CON LA Z. Ciencia que trata los animales.",
       },
     ],
   },
 ];
 
-const questionHtml = document.querySelector('.question');
+const questionHtml = document.querySelector(".question");
 let indexQuestion = -1;
-let hitsCounter = document.querySelector('.hits-counter');
-let timer = document.querySelector('.timer');
+const hitsCounter = document.querySelector(".hits-counter");
+const timer = document.querySelector(".timer");
 let unansweredQuestions = questions.filter((question) => question.status === 0);
 
 const countTime = () => {
   let sec = 150;
   let timer = setInterval(function () {
     --sec;
-    document.querySelector('.timer').innerHTML = sec;
+    document.querySelector(".timer").innerHTML = sec;
     if (sec === 0) {
-      console.log('¡SE ACABÓ EL JUEGO!');
+      console.log("¡SE ACABÓ EL JUEGO!");
       clearInterval(timer);
     }
   }, 1000);
@@ -537,36 +537,36 @@ const getNextQuestion = () => {
     .querySelector(
       `[data-letter="${unansweredQuestions[indexQuestion].letter}"]`
     )
-    .classList.add('current');
+    .classList.add("current");
 };
 
 const pressSend = () => {
-  const answerInput = document.querySelector('.answer');
+  const answerInput = document.querySelector(".answer");
   const answerHtml = answerInput.value;
   const letterHtml = document.querySelector(
     `[data-letter="${unansweredQuestions[indexQuestion].letter}"]`
   );
-  letterHtml.classList.remove('current');
+  letterHtml.classList.remove("current");
 
   if (
     answerHtml
       .toLowerCase()
-      .normalize('NFD')
-      .replace(/\p{Diacritic}/gu, '') ===
+      .normalize("NFD")
+      .replace(/\p{Diacritic}/gu, "") ===
     unansweredQuestions[indexQuestion].answersAndQuestions[0].answer
   ) {
-    letterHtml.classList.add('correct');
+    letterHtml.classList.add("correct");
     hitsCounter.innerHTML = parseFloat(hitsCounter.innerHTML) + 1;
     unansweredQuestions[indexQuestion].status = 1;
-    answerInput.value = '';
+    answerInput.value = "";
     getNextQuestion();
     return;
   }
 
-  letterHtml.classList.add('error');
+  letterHtml.classList.add("error");
 
   unansweredQuestions[indexQuestion].status = 2;
-  answerInput.value = '';
+  answerInput.value = "";
   getNextQuestion();
 };
 
@@ -576,16 +576,27 @@ const pressPasapalabra = () => {
   );
 
   unansweredQuestions[indexQuestion].status = 0;
-  letterHtml.classList.remove('current');
+  letterHtml.classList.remove("current");
 
   getNextQuestion();
 };
 
+const sendUsername = () => {
+  const username = document.querySelector(".username").value;
+
+  const name = document.querySelector(".name");
+
+  name.innerHTML = username;
+};
+
 getNextQuestion();
 
-document.addEventListener('DOMContentLoaded', () => {
-  document.querySelector('.send-button').addEventListener('click', pressSend);
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelector(".send-button").addEventListener("click", pressSend);
   document
-    .querySelector('.next-button')
-    .addEventListener('click', pressPasapalabra);
+    .querySelector(".next-button")
+    .addEventListener("click", pressPasapalabra);
+  document
+    .querySelector(".send-username")
+    .addEventListener("click", sendUsername);
 });
