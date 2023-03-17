@@ -28,13 +28,17 @@ body{
 }
 
 .building-ground-floor{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
     align-items: end;
+    justify-items: center;
 }
 
 .building-door{
     height: 40px;
     width: 20px;
     background-color: white;
+    grid-area: 1/2;
 }
 
 .car{
@@ -97,3 +101,9 @@ body{
 }
 
 /*Hacer lo mismo, pero con grid*/
+
+.dogcow{
+    width: 30px;
+    height: 30px;
+    grid-area: 1/3;
+}
