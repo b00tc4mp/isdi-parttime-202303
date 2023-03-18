@@ -109,7 +109,7 @@ const showRanking = (usersAndPoints) => {
         usersAndPoints.sort((a, b) => { return b.points - a.points }); //Ordena el Ranking
         let message = 'Ranking de users: \n';
         for (let i in usersAndPoints) {
-            if (usersAndPoints[i].GameEnded == true) {
+            if (usersAndPoints[i].GameEnded === true) {
                 message += usersAndPoints[i].user + ' ' + usersAndPoints[i].points + '\n';
             }
         }
@@ -197,7 +197,7 @@ let gameCounter = 0;
 //Avanzar Turno
 
 const nextTurn = () => {
-    if (exitGeneral ==false) {
+    if (exitGeneral === false) {
         let currentAnswer = document.querySelector("#answer").value.toUpperCase();
         if (GameActual.questions.length > 0) { //Si el juego no ha acabado
             if (currentAnswer === GameActual.questions[0].answer.toUpperCase()) { //Acertada
@@ -243,7 +243,7 @@ const nextTurn = () => {
 //Caso Pasapalabra
 
 const doesntRememberNow = () => {
-    if (exitGeneral == false) {
+    if (exitGeneral === false) {
         if (GameActual.questions.length > 0) {
             const currentLetter ="#"+GameActual.questions[0].letter;
             const letterPanel = document.querySelector(currentLetter);
