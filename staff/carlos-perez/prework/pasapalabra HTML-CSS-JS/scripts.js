@@ -125,8 +125,8 @@ let userName;
 
 const clearPanel = () => {
     for (let i in words) {
-        const currentLetter = words[i][0];
-        const letterPanel = document.getElementById(currentLetter);
+        const currentLetter ="#"+words[i][0];
+        const letterPanel = document.querySelector(currentLetter);
         letterPanel.style.backgroundColor = "inherit";
     }
 }
@@ -134,25 +134,25 @@ const clearPanel = () => {
 //Deshabilitar botón de Nueva Partida
 
 const disableButton = () =>{
-    const button = document.getElementById("buttonNewGame");
+    const button = document.querySelector("#buttonNewGame");
     button.classList.add('button-disabled');
 }
 
 //Habilitar el botón de nueva partida
 
 const enableButton = () => {
-    const button = document.getElementById("buttonNewGame");
+    const button = document.querySelector("#buttonNewGame");
     button.classList.remove('button-disabled');
 }
 
 //Generar Turno
 
 const generateTurn = () => {
-    document.getElementById("letter").textContent = GameActual.questions[0].letter.toUpperCase();
-    document.getElementById("question").textContent = GameActual.questions[0].question;
-    document.getElementById("answer").value = "";
-    const currentLetter = GameActual.questions[0].letter;
-    const letterPanel = document.getElementById(currentLetter);
+    document.querySelector("#letter").textContent = GameActual.questions[0].letter.toUpperCase();
+    document.querySelector("#question").textContent = GameActual.questions[0].question;
+    document.querySelector("#answer").value = "";
+    const currentLetter ="#"+GameActual.questions[0].letter;
+    const letterPanel = document.querySelector(currentLetter);
     letterPanel.style.backgroundColor = "#ffff99";
     //console.log(GameActual.questions[0].answer);
 }
@@ -164,7 +164,7 @@ let setIntervalID;
 const timer=()=>{
     timerTime--;
     //console.log(timerTime);
-    document.getElementById("time").textContent=timerTime;
+    document.querySelector("#time").textContent=timerTime;
     if(timerTime==0){
         console.log("timer finalizado");
         exitGeneral=true;
@@ -198,16 +198,16 @@ let gameCounter = 0;
 
 const nextTurn = () => {
     if (exitGeneral ==false) {
-        let currentAnswer = document.getElementById("answer").value.toUpperCase();
+        let currentAnswer = document.querySelector("#answer").value.toUpperCase();
         if (GameActual.questions.length > 0) { //Si el juego no ha acabado
             if (currentAnswer === GameActual.questions[0].answer.toUpperCase()) { //Acertada
                 GameActual.corrects++;
                 //console.log("Acierto");
-                const currentLetter = GameActual.questions[0].letter;
-                const letterPanel = document.getElementById(currentLetter);
+                const currentLetter ="#"+GameActual.questions[0].letter;
+                const letterPanel = document.querySelector(currentLetter);
                 letterPanel.style.backgroundColor = "#66ff66";
                 GameActual.questions.shift();
-                document.getElementById("answer").textContent = "";
+                document.querySelector("#answer").textContent = "";
                 if (GameActual.questions.length > 0) {
                     generateTurn();
                 }
@@ -215,11 +215,11 @@ const nextTurn = () => {
             else { //Fallada
                 GameActual.wrongs++;
                 //console.log("Error");
-                const currentLetter = GameActual.questions[0].letter;
-                const letterPanel = document.getElementById(currentLetter);
+                const currentLetter ="#"+GameActual.questions[0].letter;
+                const letterPanel = document.querySelector(currentLetter);
                 letterPanel.style.backgroundColor = "#ff471a";
                 GameActual.questions.shift();
-                document.getElementById("answer").textContent = "";
+                document.querySelector("#answer").textContent = "";
                 if (GameActual.questions.length > 0) {
                     generateTurn();
                 }
@@ -245,12 +245,12 @@ const nextTurn = () => {
 const doesntRememberNow = () => {
     if (exitGeneral == false) {
         if (GameActual.questions.length > 0) {
-            const currentLetter = GameActual.questions[0].letter;
-            const letterPanel = document.getElementById(currentLetter);
+            const currentLetter ="#"+GameActual.questions[0].letter;
+            const letterPanel = document.querySelector(currentLetter);
             letterPanel.style.backgroundColor = "inherit";
             let questionToBack = GameActual.questions.shift();
             GameActual.questions.push(questionToBack);
-            document.getElementById("answer").textContent = "";
+            document.querySelector("#answer").textContent = "";
             generateTurn();
         }
     }
