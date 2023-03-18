@@ -1,0 +1,212 @@
+:root {
+    --white: #ffffff;
+    --black: #000000;
+    --background-day: #e6ffff;
+    --background-night: #000066;
+    --window-day: #e6f2ff;
+    --window-night: #ffffcc;
+    --building-brick: #cc3300;
+    --building-white: #E7E7E7;
+    --building-yellow: #ffffe6;
+    --building-brick-night: #802000;
+    --building-white-night: #29293d;
+    --building-yellow-night: #4d4d00;
+    --roof: #660066;
+    --roof-night: #1a001a;
+    --door: #1a1a1a;
+
+}
+
+html {
+    box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+
+
+
+body{
+    background-color: var(--background-day);
+    display: flex;
+    align-items: end;
+    height: 500px;
+    gap: 5px;
+}
+
+.unit:last-of-type{
+    align-self: end;
+}
+
+.unit-grid{
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-content: center;
+    align-items: center;
+}
+
+.unit-flex{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    gap: 5px;
+}
+
+.window-small {
+    width: 15px;
+    height: 15px;
+}
+
+.window-medium {
+    width: 20px;
+    height: 20px;
+}
+
+.window-large {
+    width: 28px;
+    height: 28px;
+}
+
+.window-small-round {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+}
+
+.window-medium-round {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+
+.window-large-round {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+}
+
+.window-color-day{
+    background-color: var(--window-day);
+}
+
+.window-color-night{
+    background-color: var(--window-night);
+}
+
+.door-small{
+    width: 15px;
+    height: 20px;
+    justify-self: center;
+}
+
+.door-medium{
+    width: 20px;
+    height: 30px;
+    justify-self: center;
+}
+
+.door-large{
+    width: 28px;
+    height: 40px;
+    justify-self: center;
+}
+
+.door-color{
+    background-color: var(--door);
+    border: 2px solid white;
+}
+
+.building-small{
+    width: 50px;
+    height: 80px;
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-content: center;
+    align-items: center;
+}
+
+.building-small .door-small{
+    grid-area: auto/1/auto/2;
+    align-self: end;
+    justify-self: center;
+    margin-bottom: 0;
+}
+
+.building-medium{
+    width: 80px;
+    height: 100px;
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-content: center;
+    align-items: center;
+}
+
+.building-large{
+    width: 80px;
+    height: 200px;
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-content: center;
+    align-items: center;
+}
+
+.building-large .door-large{
+    align-self: end;
+}
+
+.building-huge{
+    width: 100px;
+    height: 350px;
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-content: center;
+    align-items: center;
+}
+
+.building-huge .door-large{
+    align-self: end;
+}
+
+.building-small-roof{
+    border-bottom: 20px solid var(--roof);
+	border-left: 20px solid transparent;
+	border-right: 20px solid transparent;
+	height: 0;
+	width: 50px;
+}
+
+.building-color-brick{
+    background-color: var(--building-brick);
+}
+
+.building-color-brick-night{
+    background-color: var(--building-brick-night);
+}
+
+.building-color-white{
+    background-color: var(--building-white);
+}
+
+.building-color-white-night{
+    background-color: var(--building-white-night);
+}
+
+.building-color-yellow{
+    background-color: var(--building-yellow);
+}
+
+.building-color-yellow-night{
+    background-color: var(--building-yellow-night);
+}
+
+.building-roof{
+    background-color: var(--roof);
+}
+
+.building-roof-night{
+    background-color: var(--roof-night);
+}
