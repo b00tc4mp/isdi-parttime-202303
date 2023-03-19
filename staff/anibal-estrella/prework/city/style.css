@@ -1,0 +1,16 @@
+body{
+  background-color: black;
+}
+.skyline {
+    width: 100%;
+    height:500px;
+    background: linear-gradient(180deg, rgb(20, 0, 53) 30%, rgba(42,0,115,1) 60%, rgba(131,58,180,1) 80%, rgba(253,29,29,1) 90%, rgba(252,176,69,1) 100%);    display: flex;
+    align-items: flex-end;
+  }
+
+  .building1{
+    width: 100px;
+    height: 50%;
+    background-color: #2b0221 ;
+
+  }
