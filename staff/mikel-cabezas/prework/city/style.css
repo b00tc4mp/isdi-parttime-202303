@@ -278,10 +278,11 @@ body {
 .tree {
     position: absolute;
     right: 0;
-    background: red;
+    /* background: red; */
     height: calc(50px * 3);
-    width: 80px;
+    width: calc(1em * 7);
     top: 0;
+    padding-top: .75em;
 }
 
 .tree .top {
@@ -290,10 +291,27 @@ body {
     /* background: #3f3f3f; */
     color: #3f3f3f;
     box-shadow: 
-    calc(.5em * 4) calc(.5em * 1) #2f660f,
+    calc(.5em * 4) calc(.5em * 1) #54a227,
     calc(.5em * 5) calc(.5em * 1) #2f660f,
-    calc(.5em * 4) calc(.5em * 2) #2f660f,
+    calc(.5em * 4) calc(.5em * 2) #54a227,
     calc(.5em * 5) calc(.5em * 2) #2f660f,
+    calc(.5em * 3) calc(.5em * 3) #54a227,
+    calc(.5em * 4) calc(.5em * 3) #54a227,
+    calc(.5em * 5) calc(.5em * 3) #2f660f,
+    calc(.5em * 6) calc(.5em * 3) #2f660f,
+    calc(.5em * 2) calc(.5em * 4) #54a227,
+    calc(.5em * 3) calc(.5em * 4) #54a227,
+    calc(.5em * 4) calc(.5em * 4) #54a227,
+    calc(.5em * 5) calc(.5em * 4) #54a227,
+    calc(.5em * 6) calc(.5em * 4) #2f660f,
+    calc(.5em * 7) calc(.5em * 4) #2f660f,
+    calc(.5em * 8) calc(.5em * 4) #2f660f,
+    calc(.5em * 3) calc(.5em * 5) #54a227,
+    calc(.5em * 4) calc(.5em * 5) #2f660f,
+    calc(.5em * 6) calc(.5em * 5) #54a227,
+    calc(.5em * 7) calc(.5em * 5) #2f660f,
+    calc(.5em * 2) calc(.5em * 6) #54a227,
+    calc(.5em * 2) calc(.5em * 6) #54a227,
     calc(.5em * 4) calc(.5em * 0),
     calc(.5em * 5) calc(.5em * 0),
     calc(.5em * 3) calc(.5em * 1),
@@ -310,14 +328,73 @@ body {
     calc(.5em * 2) calc(.5em * 5),
     calc(.5em * 3) calc(.5em * 5),
     calc(.5em * 4) calc(.5em * 4) #3f3f3f70,
-    calc(.5em * 8) calc(.5em * 5),
-    calc(.5em * 1) calc(.5em * 6) #3f3f3f70,
-    calc(.5em * 0) calc(.5em * 7) #3f3f3f70,
-    calc(.5em * 1) calc(.5em * 8) #3f3f3f
+    calc(.5em * 8) calc(.5em * 5)
+}
+.tree .middle {
+    width: 0.5em;
+    height: 0.5em;
+    /* background: #3f3f3f; */
+    color: #3f3f3f;
+    box-shadow: 
+    calc(.5em * 3) calc(.5em * 5) #54a227,
+    calc(.5em * 4) calc(.5em * 5) #54a227,
+    calc(.5em * 5) calc(.5em * 5) #54a227,
+    calc(.5em * 6) calc(.5em * 5) #54a227,
+    calc(.5em * 7) calc(.5em * 5) #2f660f,
+    calc(.5em * 8) calc(.5em * 5) #2f660f,
+    calc(.5em * 1) calc(.5em * 6) #2f660f,
+    calc(.5em * 2) calc(.5em * 6) #2f660f,
+    calc(.5em * 1) calc(.5em * 6) #54a227,
+    calc(.5em * 2) calc(.5em * 6) #54a227,
+    calc(.5em * 1) calc(.5em * 6) #54a227,
+    calc(.5em * 2) calc(.5em * 6) #54a227,
+    calc(.5em * 1) calc(.5em * 5) #3f3f3f,
+    calc(.5em * 0) calc(.5em * 6) #3f3f3f,
+    calc(.5em * 1) calc(.5em * 7) #3f3f3f,
+    calc(.5em * 2) calc(.5em * 7) #3f3f3f,
+    calc(.5em * 4) calc(.5em * 7) #3f3f3f65,
+    calc(.5em * 5) calc(.5em * 8) #3f3f3f,
+    calc(.5em * 6) calc(.5em * 7) #3f3f3f65,
+    calc(.5em * 8) calc(.5em * 7) #3f3f3f,
+    calc(.5em * 9) calc(.5em * 7) #3f3f3f65,
+    calc(.5em * 9.5) calc(.5em * 6) #3f3f3f,
+    calc(.5em * 3) calc(.5em * 4) #3f3f3f65,
+    calc(.5em * 5) calc(.5em * 4) #3f3f3f65,
+    calc(.5em * 8.5) calc(.5em * 5) #3f3f3f,
+    calc(.5em * 0) calc(.5em * 9) #3f3f3f,
+    calc(.5em * 1) calc(.5em * 8) #3f3f3f85,
+    calc(.5em * -1) calc(.5em * 10) #3f3f3f,
+    calc(.5em * 0) calc(.5em * 11) #3f3f3f,
+    calc(.5em * 1) calc(.5em * 12) #3f3f3f,
+    calc(.5em * 2) calc(.5em * 11.5) #3f3f3f,
+    calc(.5em * 4) calc(.5em * 11) #3f3f3f65,
+    calc(.5em * 5) calc(.5em * 12) #3f3f3f,
+    calc(.5em * 6) calc(.5em * 11) #3f3f3f65,
+    calc(.5em * 11) calc(.5em * 10) #3f3f3f78,
+    calc(.5em * 10) calc(.5em * 9) #3f3f3f,
+    calc(.5em * 9) calc(.5em * 8) #3f3f3f,
+    calc(.5em * 10) calc(.5em * 11) #3f3f3f,
+    calc(.5em * 9) calc(.5em * 12) #3f3f3f,
+    calc(.5em * 8) calc(.5em * 11) #3f3f3f
 }
 
 
-
+.tree .bottom {
+    width: 0.5em;
+    height: 0.5em;
+    /* background: #3f3f3f; */
+    color: #3f3f3f;
+    box-shadow: 
+    calc(.5em * 3) calc(.5em * 11) #3f3f3f85,
+    calc(.5em * 7) calc(.5em * 11) #3f3f3f85,
+    calc(.5em * 3) calc(.5em * 12) #3f3f3f85,
+    calc(.5em * 7) calc(.5em * 12) #3f3f3f85,
+    calc(.5em * 2) calc(.5em * 13) #3f3f3f85,
+    calc(.5em * 8) calc(.5em * 13) #3f3f3f85,
+    calc(.5em * 3) calc(.5em * 14) #3f3f3f85,
+    calc(.5em * 7) calc(.5em * 14) #3f3f3f85,
+    calc(.5em * 6) calc(.5em * 14) #3f3f3f85
+}
 
 
 .main:before {
