@@ -1,0 +1,305 @@
+html {
+  background-color: rgb(84, 150, 226);
+}
+
+.pasapalabra-game {
+  display: flex;
+}
+
+.pasapalabra-container {
+  display: block;
+  width: 50%;
+  padding-top: 30px;
+  text-align: center;
+}
+
+.roulette-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 400px;
+  height: 400px;
+  margin: auto;
+  padding-left: 0;
+  position: relative;
+  padding: 30px;
+}
+
+.pasapalabra-word {
+  width: 22px;
+  height: 20px;
+  text-align: center;
+  padding-top: 3px;
+  outline: 2px solid rgb(255, 255, 255);
+  border: 4px solid rgb(91, 91, 159) ;
+  border-radius: 50%;
+  background-color: rgb(77, 77, 214);
+  color: white;
+  list-style: none;
+  position: absolute;
+}
+
+.roulette-container > *:nth-of-type(1) {
+  transform: rotate(-90deg) translate(190px) rotate(90deg);
+}
+.roulette-container > *:nth-of-type(2) {
+  transform: rotate(-76.6deg) translate(190px) rotate(76.6deg)
+}
+.roulette-container > *:nth-of-type(3) {
+  transform: rotate(-63.3deg) translate(190px) rotate(63.3deg)
+}
+.roulette-container > *:nth-of-type(4) {
+  transform: rotate(-50deg) translate(190px) rotate(50deg)
+}
+.roulette-container > *:nth-of-type(5) {
+  transform: rotate(-36.6deg) translate(190px) rotate(36.6deg)
+}
+.roulette-container > *:nth-of-type(6) {
+  transform: rotate(-23.3deg) translate(190px) rotate(23.3deg)
+}
+.roulette-container > *:nth-of-type(7) {
+  transform: rotate(-10deg) translate(190px) rotate(10deg)
+}
+.roulette-container > *:nth-of-type(8) {
+  transform: rotate(3.3deg) translate(190px) rotate(-3.3deg)
+}
+.roulette-container > *:nth-of-type(9) {
+  transform: rotate(16.6deg) translate(190px) rotate(-16.6deg)
+}
+.roulette-container > *:nth-of-type(10) {
+  transform: rotate(30deg) translate(190px) rotate(-30deg)
+}
+.roulette-container > *:nth-of-type(11) {
+  transform: rotate(43.3deg) translate(190px) rotate(-43.3deg)
+}
+.roulette-container > *:nth-of-type(12) {
+  transform: rotate(56.6deg) translate(190px) rotate(-56.6deg)
+}
+.roulette-container > *:nth-of-type(13) {
+  transform: rotate(70deg) translate(190px) rotate(-70deg)
+}
+.roulette-container > *:nth-of-type(14) {
+  transform: rotate(83.3deg) translate(190px) rotate(-83.3deg)
+}
+.roulette-container > *:nth-of-type(15) {
+  transform: rotate(96.6deg) translate(190px) rotate(-96.6deg)
+}
+.roulette-container > *:nth-of-type(16) {
+  transform: rotate(110deg) translate(190px) rotate(-110deg)
+}
+.roulette-container > *:nth-of-type(17) {
+  transform: rotate(123.3deg) translate(190px) rotate(-123.3deg)
+}
+.roulette-container > *:nth-of-type(18) {
+  transform: rotate(136.6deg) translate(190px) rotate(-136.6deg)
+}
+.roulette-container > *:nth-of-type(19) {
+  transform: rotate(150deg) translate(190px) rotate(-150deg)
+}
+.roulette-container > *:nth-of-type(20) {
+  transform: rotate(163.3deg) translate(190px) rotate(-163.3deg)
+}
+.roulette-container > *:nth-of-type(21) {
+  transform: rotate(176.6deg) translate(190px) rotate(-176.6deg)
+}
+.roulette-container > *:nth-of-type(22) {
+  transform: rotate(190deg) translate(190px) rotate(-190deg)
+}
+.roulette-container > *:nth-of-type(23) {
+  transform: rotate(203.3deg) translate(190px) rotate(-203.3deg)
+}
+.roulette-container > *:nth-of-type(24) {
+  transform: rotate(216.6deg) translate(190px) rotate(-216.6deg)
+}
+.roulette-container > *:nth-of-type(25) {
+  transform: rotate(230deg) translate(190px) rotate(-230deg)
+}
+.roulette-container > *:nth-of-type(26) {
+  transform: rotate(243.3deg) translate(190px) rotate(-243.3deg)
+}
+.roulette-container > *:nth-of-type(27) {
+  transform: rotate(256.6deg) translate(190px) rotate(-256.6deg)
+}
+
+.title {
+  font-size: xx-large;
+  position: absolute;
+  top: 40%;
+  left: 25%;
+  transform: translate(-50%, -30%);
+}
+
+.start-button {
+  height: 50px;
+  width: 200px;
+  border: 5px solid blue;
+  background-color: #2f71ea;
+  border-radius: 8px;
+  color: white;
+  font-size: larger;
+  font-weight: bold;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  letter-spacing: 2px;
+  margin: 30px;
+}
+
+.pasapalabra-explanations {
+  width: 50%;
+  padding-top: 50px;
+}
+
+.explanation-content {
+  padding-left: 10px;
+}
+
+h1 {
+  color: rgb(0, 21, 159);
+}
+
+p {
+  margin: 3px 0;
+  font-size: large;
+  color: rgb(255, 255, 255);
+  font-weight: 500;
+  font-size: 17px;
+}
+
+.question-start {
+  margin-top: 15px;
+  font-size: 25px;
+  font-weight: 700;
+  color: rgb(27, 43, 152);
+}
+
+b {
+  font-size: 29px;
+}
+
+/* Playing layout */
+
+.game-data {
+  width: fit-content;
+  height: 100px;
+  margin: -30px 0 0 60px;
+  position: absolute;
+}
+
+.timer {
+  padding: 11px 8px;
+  border: 5px solid rgb(105, 105, 187);
+  border-radius: 50%;
+  outline: 3px solid white;
+  background-color: rgb(77, 77, 214);
+  color: white;
+  font-size: x-large;
+  font-weight: bold;
+}
+
+.remaining-words {
+  padding: 10px;
+  border: 3px solid white;
+  margin-top: 15px;
+  border: 5px solid rgb(105, 105, 187);
+  border-radius: 5px;
+  outline: 3px solid white;
+  background-color: rgb(77, 77, 214);
+  color: white;
+  font-size: x-large;
+  font-weight: bold;
+}
+
+.started-game-container {
+  padding-top: 320px;
+  width: 50%;
+  display: block;
+}
+
+.question {
+  width: 450px;
+  position: absolute;
+  bottom: 50%;
+  left: 76%;
+  transform: translate(-50%, -25%);
+  color: white;
+  font-size: 22px;
+}
+
+.question-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+}
+
+#input-player {
+  width: 200px;
+  height: 35px;
+  border-radius: 5px;
+}
+
+button {
+  padding: 0 15px;
+  border: 2.5px solid white;
+  border-radius: 5px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: bold;
+  color: white;
+}
+
+.send-button {
+  background-color: rgb(80, 181, 80);
+}
+
+.pasapalabra-button {
+  background: rgb(109, 109, 228);
+}
+
+.hidden {
+  display: none;
+}
+
+.play-again {
+  width: 45%;
+  padding: 0 50px 0 20px;
+  position: absolute;
+  bottom: 17%;
+  left: 73%;
+  transform: translate(-50%, -25%);
+}
+
+.play-again-text {
+  padding: 0 10px 10px 20px;
+  border: 5px solid grey;
+  border-radius: 20px;
+  background-color: white;
+}
+
+.play-again-text h2 {
+  text-align: center;
+}
+
+.play-again-text p {
+  padding-bottom: 10px;
+  color: rgb(61, 61, 61);
+  text-align: center;
+}
+
+.buttons-play-again {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.button-continue {
+  padding: 10px;
+  background-color: rgb(89, 187, 89);
+  font-size: large;
+}
+
+.button-exit {
+  padding: 10px 20px;
+  background-color: rgb(240, 89, 89);
+  font-size: large;
+}
+
+
+

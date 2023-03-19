@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pasapalabra</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="normalize.css">
+</head>
+
+<body>
+  <div class="pasapalabra-game">
+    <div class="pasapalabra-container">
+      <ul class="roulette-container">
+        <li class="pasapalabra-word">A</li>
+        <li class="pasapalabra-word">B</li>
+        <li class="pasapalabra-word">C</li>
+        <li class="pasapalabra-word">D</li>
+        <li class="pasapalabra-word">E</li>
+        <li class="pasapalabra-word">F</li>
+        <li class="pasapalabra-word">G</li>
+        <li class="pasapalabra-word">H</li>
+        <li class="pasapalabra-word">I</li>
+        <li class="pasapalabra-word">J</li>
+        <li class="pasapalabra-word">K</li>
+        <li class="pasapalabra-word">L</li>
+        <li class="pasapalabra-word">M</li>
+        <li class="pasapalabra-word">N</li>
+        <li class="pasapalabra-word">Ñ</li>
+        <li class="pasapalabra-word">O</li>
+        <li class="pasapalabra-word">P</li>
+        <li class="pasapalabra-word">Q</li>
+        <li class="pasapalabra-word">R</li>
+        <li class="pasapalabra-word">S</li>
+        <li class="pasapalabra-word">T</li>
+        <li class="pasapalabra-word">U</li>
+        <li class="pasapalabra-word">V</li>
+        <li class="pasapalabra-word">W</li>
+        <li class="pasapalabra-word">X</li>
+        <li class="pasapalabra-word">Y</li>
+        <li class="pasapalabra-word">Z</li>
+      </ul>
+      <p class="title">PASAPALABRA</p>
+      <button class="start-button hidden">▶  JUGAR</button>
+      <div class="game-data hidden">
+        <div class="timer">150</div>
+        <div class="remaining-words">25</div>
+      </div>
+    </div>
+
+    <div class="pasapalabra-explanations hidden">
+      <h1>¡Bienvenido al juego de Pasapalabra de ISDI Coders!</h1>
+      <div class="explanation-content">
+        <p>El juego consiste en:</p>
+        <p>- El jugador, con ayuda de preguntas, tendrá que adivinar una palabra relacionada con cada una de las letras del alfabeto.</p>
+        <p>- La palabra podra empezar con dicha letra o simplemente contener esta, pero traquilo que la propia pregunta lo indicará.</p>
+        <p>- Las palabras deberán ser escritas sin tildes ni dieresis, y en caso de que se puedan escribir en femenino o masculino, simempre en masculino.</p>
+        <p>- Si se acierta una palabra esta se guardará como acertada.</p>
+        <p>- Si se escribe 'Pasapalabra', se deja en blancola casilla, o se pulsa 'Cancelar' se pasará de turno y la pregunta se guardará para la siguiente ronda.</p>
+        <p>- Si se falla una pregunta la palabra se dará como fallada y no se guardará.</p>
+        <p>- Las rondas serán infinitas.</p>
+        <p>- Habrá un límite de tiempo de 300 segundos, y el juego se acabará cuando se acabe este.</p>
+        <p>- El juego podrá ser terminado en todo momento introduciendo la palabra "END", en caso de terminar antes de que acaben las preguntas el jugador recibirá la cantidad de palabras acertadas, pero no aparecerá en el ranking.</p>
+      </div>
+      <p class="question-start">Si estás listo pulsa el botón de "jugar" y <b>¡empezamos!</b></p>
+    </div>
+
+    <div class="started-game-container hidden">
+      <div class="question"></div>
+      <div class="question-buttons">
+        <input type="text" name="input-player" id="input-player">
+        <button class="send-button button">ENVIAR</button>
+        <button class="pasapalabra-button button">PASAPALABRA</button>
+      </div>
+    </div>
+
+    <div class="play-again">
+      <h1>¡Enhorabuena, has acabado el juego de pasapalabra!</h1>
+      <div class="play-again-text">
+        <h2>¿Quieres jugar otra vez?</h2>
+        <p>Si quieres seguir jugando tienes la oportunidad de volver a jugar, pero esta vez te aparecerán palabras diferentes.</p>
+        <p>Pulsa 'Jugar otra vez' si quieres continuar jugando, o pulsa 'Salir' si quieres salir.</p>
+        <div class="buttons-play-again">
+        <button class="button-continue">Jugar otra vez</button>
+        <button class="button-exit">Salir</button>
+      </div>
+    </div>
+  </div>
+  
+  <script type="text/javascript" src="main.js"></script>
+</body>
+</html>
