@@ -679,7 +679,6 @@ const createPointsRanking = (user) => {
   const textRanking = document.querySelector(".text-ranking");
 
   if (!isExit) {
-    console.log("hola");
     pointsRanking.push({ name: user, points: hitsCounter.innerHTML });
     pointsRanking = pointsRanking.sort(compareRanking);
 
