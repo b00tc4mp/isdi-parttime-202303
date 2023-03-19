@@ -1,13 +1,13 @@
 :root {
     --white: #ffffff;
     --black: #000000;
-    --background-day: #e6ffff;
+    --background-day: #4d94ff;
     --background-night: #000066;
     --window-day: #e6f2ff;
     --window-night: #ffffcc;
     --building-brick: #cc3300;
-    --building-white: #E7E7E7;
-    --building-yellow: #ffffe6;
+    --building-white: #ffffff;
+    --building-yellow: #ffff00;
     --building-brick-night: #802000;
     --building-white-night: #29293d;
     --building-yellow-night: #4d4d00;
@@ -30,11 +30,33 @@ html {
 
 
 body{
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+.buildings{
     background-color: var(--background-day);
     display: flex;
     align-items: end;
     height: 500px;
     gap: 5px;
+}
+
+.road{
+    height: 40px;
+    background-color: var(--black);
+    border: 2px solid whitesmoke;
+    border-left: none;
+    border-right: none;
+}
+
+.lane{
+    height: 18px;
+    border-bottom: 2px dotted whitesmoke;
+}
+
+.lane:last-of-type{
+    border-bottom: none;
 }
 
 .unit:last-of-type{
