@@ -86,7 +86,7 @@ const showLastsDestinations = (flights) => {
 //!PRO 
 
 const checkRole = () => {
-    let userChecking = prompt(`${userName} ¿Are you ADMIN or USER?`);
+    const userChecking = prompt(`${userName} ¿Are you ADMIN or USER?`);
     let userCheckingLowerCase = userChecking
                                 .toLowerCase()
                                 .trim();

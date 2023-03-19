@@ -51,7 +51,10 @@ const answerCurrentQuestion = (currentQuestion) => {
         alert("You havent answered anything, please answer the cuestion, 'PASAPALABRA' or 'END'😅");
         return answerCurrentQuestion(currentQuestion);
     }
+
     cuestionAnswer = cuestionAnswer.toLowerCase();
+
+
     if(cuestionAnswer === "end"){
         alert('You have typed "END", so that mean that this row ends here...😞');
         return false;
