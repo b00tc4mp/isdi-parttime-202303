@@ -10,18 +10,28 @@ body {
     height: 100vh;
     align-items: center;
     font-size: 16px;
+    max-width: 910px;
+    margin: auto;
+    font-family: 'VT323', monospace;
 }
 
-.main {
+/* .main {
     width: 80%;
     padding-bottom: 80%;
-    max-width: 700px;
-    max-height: 700px;
+    background-color: #c2e6a2;
+    background-color: var(--green-light);
+    height: 0;
+    position: relative;
+} */
+.main {
+    width: calc(1em * 45.5);
+    padding-bottom: calc(1em * 45.5);
     background-color: #c2e6a2;
     background-color: var(--green-light);
     height: 0;
     position: relative;
 }
+
 
 .structure {
     width: 12em;
@@ -41,7 +51,7 @@ body {
 }
 .house {
 }
-.top {
+.house .top {
     background: #da2a96;
     width: 12em;
     height: 3em;
@@ -73,7 +83,7 @@ body {
 .structure {
     width: 12em;
     height: 4em;
-    background: #d8fadb;
+    background: #fafad8;
     border: solid 0.5em #3f3f3f;
     display: flex;
     align-items: flex-end;
@@ -84,16 +94,37 @@ body {
     width: 3em;
     background: #a27917;
     margin-left: 1em;
-    border: solid 0.5em;
+    border: solid 0.5em #3f3f3f;
     border-bottom: solid 0.5em #b5fb54;
     margin-bottom: -0.5em;
+}
+.dots {
+    width: 0.5em;
+    height: 0.5em;
+    box-shadow: calc(.5em * 0) calc(.5em * -3),
+    calc(.5em * 1) calc(.5em * -4),
+    calc(.5em * 2) calc(.5em * -3),
+    calc(.5em * 3) calc(.5em * -4),
+    calc(.5em * 4) calc(.5em * -3),
+    calc(.5em * 5) calc(.5em * -4),
+    calc(.5em * 6) calc(.5em * -3),
+    calc(.5em * 7) calc(.5em * -4),
+    calc(.5em * 8) calc(.5em * -3),
+    calc(.5em * 9) calc(.5em * -4),
+    calc(.5em * 10) calc(.5em * -3),
+    calc(.5em * 11) calc(.5em * -4),
+    calc(.5em * 12) calc(.5em * -3),
+    calc(.5em * 13) calc(.5em * -4),
+    calc(.5em * -10) calc(.5em * -3),
+    calc(.5em * -9) calc(.5em * -4);
+    color: #cab6a0;
 }
 
 .sign {
     width: 4em;
     height: 3em;
     background: #e0f6e1;
-    border: solid 0.5em #000;
+    border: solid 0.5em #3f3f3f;
     border-radius: 0.5em 0.5em 0px 0px;
 }
 
@@ -103,7 +134,7 @@ body {
     margin-top: 0.25em;
     height: 2.25em;
     background: #e0f6e1;
-    border: solid 0.5em #000;
+    border: solid 0.5em #3f3f3f;
     border-radius: 0.25em 0.25em 0px 0px;
 } */
 
@@ -113,19 +144,21 @@ body {
     margin-top: 0.25em;
     height: 2.25em;
     background: #e0f6e1;
-    border: solid 0.5em #000;
+    background: linear-gradient(180deg, #e0f6e1 50%, #b5fb54 50%);
+    border: solid 0.5em #3f3f3f;
+    border-bottom: solid 0.5em #b5fb54;
     border-radius: 0.25em 0.25em 0px 0px;
-    line-height: 1.5;
+    line-height: 1;
     text-align: center;
 }
 
 .sign > .part2 > .part3 {
     width: 2.5em;
     margin-left: -0.25em;
-    margin-top: 1em;
+    /* margin-top: 1em; */
     height: 0.25em;
     background: #e0f6e1;
-    border: solid 0.25em #000;
+    border: solid 0.25em #3f3f3f;
     border-radius: 0.25em 0.25em 0px 0px;
 }
 .floor {
@@ -149,3 +182,212 @@ body {
 .grass:nth-child(even) {
     transform: scaleX(-1) translateX(-3.5em);
 }
+
+
+.rocks-horizontal {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    width: calc(2.4em * 8);
+    position: absolute;
+    margin-left: calc(-2.4em / 2 + 2.4em);
+}
+.rocks-vertical {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    height: calc(2.5em * 6);
+    position: absolute;
+    margin-left: calc(-2.4em / 2);
+
+}
+.rocks {
+    width: 2.4em;
+    height: 2.5em;
+    /* position: absolute; */
+    top: 0.5em;
+    position: relative;
+    right: 0.5em;
+}
+.rocks-vertical .rock {
+    width: 0.5em;
+    height: 0.5em;
+    box-shadow: calc(.5em * 2) calc(.5em * 2) #a9b9b9,calc(.5em * 1) calc(.5em * 2) #b5b5b5,calc(.5em * 3) calc(.5em * 1) #777,calc(.5em * 3) calc(.5em * 0) #999,calc(.5em * 2) calc(.5em * 0) #b5b5b5, calc(.5em * 3) calc(.5em * 3) #107cbe,  calc(.5em * 4) calc(.5em * -1) #107cbe,calc(.5em * 4) calc(.5em * 3) #07629b,calc(.5em * 1) calc(.5em * 1) lightgray,calc(.5em * 2) calc(.5em * 1) lightgray,calc(.5em * 3) calc(.5em * 1) lightgray,calc(.5em * 1) calc(.5em * 0) lightgray,calc(.5em * 2) calc(.5em * 0) lightgray,calc(.5em * 3) calc(.5em * 0) lightgray,calc(.5em * 1) calc(.5em * 2) lightgray,calc(.5em * 2) calc(.5em * 2) lightgray,0.5em -0.5em, 1em -0.5em #5e5d5d, calc(0.5em * 3) calc(.5em * -1), calc(0.5em * 4) calc(.5em * -1) lightgrey, calc(0.5em * 4) calc(.5em *0), calc(0.5em * 4) .5em, calc(0.5em * 4) calc(.5em * 2), calc(0.5em * 2) calc(.5em * 3), calc(0.5em * 3) calc(.5em * 3) #5e5f5f, calc(0.5em * 3) calc(.5em * 2) #3e3f5f, calc(0.5em * 1) calc(.5em * 3), calc(0.5em * 0) calc(.5em * 2), calc(0.5em * 0) calc(.5em * 1) #454545;
+    background: #454545;
+}
+.rocks-vertical .rocks:first-child .rock {
+    box-shadow: calc(.5em * 4) calc(.5em * -1) #b5fb54, calc(.5em * 2) calc(.5em * 2) #a9b9b9,calc(.5em * 1) calc(.5em * 2) #b5b5b5,calc(.5em * 3) calc(.5em * 1) #777,calc(.5em * 3) calc(.5em * 0) #999,calc(.5em * 2) calc(.5em * 0) #b5b5b5, calc(.5em * 3) calc(.5em * 3) #107cbe,  calc(.5em * 4) calc(.5em * -1) #107cbe,calc(.5em * 4) calc(.5em * 3) #07629b,calc(.5em * 1) calc(.5em * 1) lightgray,calc(.5em * 2) calc(.5em * 1) lightgray,calc(.5em * 3) calc(.5em * 1) lightgray,calc(.5em * 1) calc(.5em * 0) lightgray,calc(.5em * 2) calc(.5em * 0) lightgray,calc(.5em * 3) calc(.5em * 0) lightgray,calc(.5em * 1) calc(.5em * 2) lightgray,calc(.5em * 2) calc(.5em * 2) lightgray,0.5em -0.5em, 1em -0.5em #5e5d5d, calc(0.5em * 3) calc(.5em * -1), calc(0.5em * 4) calc(.5em * -1) lightgrey, calc(0.5em * 4) calc(.5em *0), calc(0.5em * 4) .5em, calc(0.5em * 4) calc(.5em * 2), calc(0.5em * 2) calc(.5em * 3), calc(0.5em * 3) calc(.5em * 3) #5e5f5f, calc(0.5em * 3) calc(.5em * 2) #3e3f5f, calc(0.5em * 1) calc(.5em * 3), calc(0.5em * 0) calc(.5em * 2), calc(0.5em * 0) calc(.5em * 1) #454545;
+}
+.rocks-horizontal .rock {
+    width: 0.5em;
+    height: 0.5em;
+    box-shadow: calc(.5em * 0) calc(.5em * -1) #b5fb54,calc(.5em * 0) calc(.5em * -1) #111,calc(.5em * 2) calc(.5em * 2) #a9b9b9,calc(.5em * 1) calc(.5em * 2) #b5b5b5,calc(.5em * 3) calc(.5em * 1) #777,calc(.5em * 3) calc(.5em * 0) #999,calc(.5em * 2) calc(.5em * 0) #b5b5b5, calc(.5em * 2) calc(.5em * 4) #0a90e3, calc(.5em * 3) calc(.5em * 4) #107cbe, calc(.5em * 1) calc(.5em * 4) #107cbe,calc(.5em * 4) calc(.5em * 3) #107cbe,calc(.5em * 5) calc(.5em * 3) #07629b, calc(.5em * 5) calc(.5em * 4) #107cbe,calc(.5em * 4) calc(.5em * 3) #07629b,calc(.5em * 1) calc(.5em * 1) lightgray,calc(.5em * 2) calc(.5em * 1) lightgray,calc(.5em * 3) calc(.5em * 1) lightgray,calc(.5em * 1) calc(.5em * 0) lightgray,calc(.5em * 2) calc(.5em * 0) lightgray,calc(.5em * 3) calc(.5em * 0) lightgray,calc(.5em * 1) calc(.5em * 2) lightgray,calc(.5em * 2) calc(.5em * 2) lightgray,0.5em -0.5em, 1em -0.5em #5e5d5d, calc(0.5em * 3) calc(.5em * -1), calc(0.5em * 4) calc(.5em * -1) lightgrey, calc(0.5em * 4) calc(.5em *0), calc(0.5em * 4) .5em, calc(0.5em * 4) calc(.5em * 2), calc(0.5em * 2) calc(.5em * 3), calc(0.5em * 3) calc(.5em * 3) #5e5f5f, calc(0.5em * 3) calc(.5em * 2) #3e3f5f, calc(0.5em * 1) calc(.5em * 3), calc(0.5em * 0) calc(.5em * 2), calc(0.5em * 0) calc(.5em * 1) #454545;
+    background: #454545;
+}
+.rocks-horizontal .rocks:last-child .rock {
+    box-shadow: calc(.5em * 0) calc(.5em * -1) #b5fb54,calc(.5em * 0) calc(.5em * -1) #111,calc(.5em * 2) calc(.5em * 2) #a9b9b9,calc(.5em * 1) calc(.5em * 2) #b5b5b5,calc(.5em * 3) calc(.5em * 1) #777,calc(.5em * 3) calc(.5em * 0) #999,calc(.5em * 2) calc(.5em * 0) #b5b5b5, calc(.5em * 2) calc(.5em * 4) #0a90e3, calc(.5em * 3) calc(.5em * 4) #107cbe, calc(.5em * 1) calc(.5em * 4) #107cbe,calc(.5em * 4) calc(.5em * 3) #107cbe,calc(.5em * 4) calc(.5em * 3) #07629b,calc(.5em * 1) calc(.5em * 1) lightgray,calc(.5em * 2) calc(.5em * 1) lightgray,calc(.5em * 3) calc(.5em * 1) lightgray,calc(.5em * 1) calc(.5em * 0) lightgray,calc(.5em * 2) calc(.5em * 0) lightgray,calc(.5em * 3) calc(.5em * 0) lightgray,calc(.5em * 1) calc(.5em * 2) lightgray,calc(.5em * 2) calc(.5em * 2) lightgray,0.5em -0.5em, 1em -0.5em #5e5d5d, calc(0.5em * 3) calc(.5em * -1), calc(0.5em * 4) calc(.5em * -1) lightgrey, calc(0.5em * 4) calc(.5em *0), calc(0.5em * 4) .5em, calc(0.5em * 4) calc(.5em * 2), calc(0.5em * 2) calc(.5em * 3), calc(0.5em * 3) calc(.5em * 3) #5e5f5f, calc(0.5em * 3) calc(.5em * 2) #3e3f5f, calc(0.5em * 1) calc(.5em * 3), calc(0.5em * 0) calc(.5em * 2), calc(0.5em * 0) calc(.5em * 1) #454545;
+}
+
+.water-container {
+    display: flex;
+    justify-content: flex-end;
+    z-index: 9999;
+    position: absolute;
+    margin-top: auto;
+    right: 0;
+    bottom: 0;
+}
+.water {
+    width: calc(2.5em * 7);
+    height: calc(2.5em * 6);
+    background: #009fff;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+
+}
+
+.waves {
+    position: relative;
+    width: 2.5em;
+    height: 2.5em;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    /* top: .5em; */
+    /* left: .25em; */
+    animation: cubic-bezier(1, 0, 0, 1) waves 4.005s infinite ;
+
+}
+
+.wave {
+    width: 0.5em;
+    height: 0.5em;
+    box-shadow: calc(.5em * 0) calc(.5em * 0),calc(.5em * 1) calc(.5em * 1),calc(.5em * 1) calc(.5em * 2),calc(.5em * 0) calc(.5em * 3);
+    background: #5cc2ff;
+    color: #5cc2ff;
+    
+}
+.waves:nth-child(even) {
+    left: 1em;
+    animation: cubic-bezier(1, 0, 0, 1) wavesEven 4s infinite ;
+}
+
+
+.tree {
+    position: absolute;
+    right: 0;
+    background: red;
+    height: calc(50px * 3);
+    width: 80px;
+    top: 0;
+}
+
+.tree .top {
+    width: 0.5em;
+    height: 0.5em;
+    /* background: #3f3f3f; */
+    color: #3f3f3f;
+    box-shadow: 
+    calc(.5em * 4) calc(.5em * 1) #2f660f,
+    calc(.5em * 5) calc(.5em * 1) #2f660f,
+    calc(.5em * 4) calc(.5em * 2) #2f660f,
+    calc(.5em * 5) calc(.5em * 2) #2f660f,
+    calc(.5em * 4) calc(.5em * 0),
+    calc(.5em * 5) calc(.5em * 0),
+    calc(.5em * 3) calc(.5em * 1),
+    calc(.5em * 6) calc(.5em * 1),
+    calc(.5em * 7) calc(.5em * 1),
+    calc(.5em * 3) calc(.5em * 2) #3f3f3f70,
+    calc(.5em * 6) calc(.5em * 2),
+    calc(.5em * 2) calc(.5em * 3),
+    calc(.5em * 7) calc(.5em * 3),
+    calc(.5em * 1) calc(.5em * 3) #3f3f3f70,
+    calc(.5em * 8) calc(.5em * 3),
+    calc(.5em * 1) calc(.5em * 4),
+    calc(.5em * 9) calc(.5em * 4) #3f3f3f70,
+    calc(.5em * 2) calc(.5em * 5),
+    calc(.5em * 3) calc(.5em * 5),
+    calc(.5em * 4) calc(.5em * 4) #3f3f3f70,
+    calc(.5em * 8) calc(.5em * 5),
+    calc(.5em * 1) calc(.5em * 6) #3f3f3f70,
+    calc(.5em * 0) calc(.5em * 7) #3f3f3f70,
+    calc(.5em * 1) calc(.5em * 8) #3f3f3f
+}
+
+
+
+
+
+.main:before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    content: '';
+    z-index: 999999;
+    mix-blend-mode: color;
+}
+.main.gb-pocket:before {
+    background: #d9d9d9;
+}
+.menu-container.gb-pocket {
+    background: #f9f9f9;
+}
+
+
+.main.gb:before {
+    background: #85bd7e;
+}
+.menu-container.gb {
+    background: #e7ffe4;
+}
+
+
+.menu-container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background: #fffecc;
+    z-index: 99;
+    border: double 0.5em;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 29px;
+    z-index: 99999999999999999;
+}
+li.menu-element {
+    list-style: '- ';
+    cursor: pointer;
+}
+
+@keyframes waves {
+    0% {
+        left: 0
+    }       
+    50% {
+        left: -.25em
+    }    
+    
+    100% {
+        left: 0
+    }    
+  
+}
+@keyframes wavesEven {
+    0% {
+        left: calc(1em )
+    }       
+    50% {
+        left: calc(-.25em + 1em)
+    }    
+    
+    100% {
+        left: 1em
+    }   
+  
+}
+
+
