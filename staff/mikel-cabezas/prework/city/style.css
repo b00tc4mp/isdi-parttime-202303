@@ -44,10 +44,11 @@ body {
 .house-container {
     display: flex;
     align-items: flex-end;
-    margin: 20px 10px;
+    margin: .5em .5em 0;
     gap: 0.5em;
     z-index: 1;
     position: relative;
+    top: .5em;
 }
 .house {
 }
@@ -274,15 +275,24 @@ body {
     animation: cubic-bezier(1, 0, 0, 1) wavesEven 4s infinite ;
 }
 
-
+.elements-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+.trees {
+    display: flex;
+    flex-wrap: wrap;
+    justify-items: flex-end;
+    margin-left: auto;
+    z-index: 99;
+}
 .tree {
-    position: absolute;
-    right: 0;
+    /* position: absolute;
+    right: 0; */
     /* background: red; */
     height: calc(50px * 3);
-    width: calc(1em * 7);
-    top: 0;
-    padding-top: .75em;
+    width: calc(1em * 6);
+    /* top: 0; */
 }
 
 .tree .top {
@@ -298,6 +308,7 @@ body {
     calc(.5em * 3) calc(.5em * 3) #54a227,
     calc(.5em * 4) calc(.5em * 3) #54a227,
     calc(.5em * 5) calc(.5em * 3) #2f660f,
+    calc(.5em * 3) calc(.5em * 4) #2f660f,
     calc(.5em * 6) calc(.5em * 3) #2f660f,
     calc(.5em * 2) calc(.5em * 4) #54a227,
     calc(.5em * 3) calc(.5em * 4) #54a227,
@@ -306,7 +317,6 @@ body {
     calc(.5em * 6) calc(.5em * 4) #2f660f,
     calc(.5em * 7) calc(.5em * 4) #2f660f,
     calc(.5em * 8) calc(.5em * 4) #2f660f,
-    calc(.5em * 3) calc(.5em * 5) #54a227,
     calc(.5em * 4) calc(.5em * 5) #2f660f,
     calc(.5em * 6) calc(.5em * 5) #54a227,
     calc(.5em * 7) calc(.5em * 5) #2f660f,
@@ -326,7 +336,6 @@ body {
     calc(.5em * 1) calc(.5em * 4),
     calc(.5em * 9) calc(.5em * 4) #3f3f3f70,
     calc(.5em * 2) calc(.5em * 5),
-    calc(.5em * 3) calc(.5em * 5),
     calc(.5em * 4) calc(.5em * 4) #3f3f3f70,
     calc(.5em * 8) calc(.5em * 5)
 }
@@ -336,22 +345,10 @@ body {
     /* background: #3f3f3f; */
     color: #3f3f3f;
     box-shadow: 
-    calc(.5em * 3) calc(.5em * 5) #54a227,
-    calc(.5em * 4) calc(.5em * 5) #54a227,
-    calc(.5em * 5) calc(.5em * 5) #54a227,
-    calc(.5em * 6) calc(.5em * 5) #54a227,
-    calc(.5em * 7) calc(.5em * 5) #2f660f,
-    calc(.5em * 8) calc(.5em * 5) #2f660f,
-    calc(.5em * 1) calc(.5em * 6) #2f660f,
-    calc(.5em * 2) calc(.5em * 6) #2f660f,
-    calc(.5em * 1) calc(.5em * 6) #54a227,
-    calc(.5em * 2) calc(.5em * 6) #54a227,
-    calc(.5em * 1) calc(.5em * 6) #54a227,
-    calc(.5em * 2) calc(.5em * 6) #54a227,
     calc(.5em * 1) calc(.5em * 5) #3f3f3f,
-    calc(.5em * 0) calc(.5em * 6) #3f3f3f,
+    calc(.5em * 0) calc(.5em * 6) #54a227,
     calc(.5em * 1) calc(.5em * 7) #3f3f3f,
-    calc(.5em * 2) calc(.5em * 7) #3f3f3f,
+    calc(.5em * 2) calc(.5em * 7) #54a227,
     calc(.5em * 4) calc(.5em * 7) #3f3f3f65,
     calc(.5em * 5) calc(.5em * 8) #3f3f3f,
     calc(.5em * 6) calc(.5em * 7) #3f3f3f65,
@@ -375,7 +372,62 @@ body {
     calc(.5em * 9) calc(.5em * 8) #3f3f3f,
     calc(.5em * 10) calc(.5em * 11) #3f3f3f,
     calc(.5em * 9) calc(.5em * 12) #3f3f3f,
-    calc(.5em * 8) calc(.5em * 11) #3f3f3f
+    calc(.5em * 8) calc(.5em * 11) #3f3f3f,
+    calc(.5em * 3) calc(.5em * 5) #54a227,
+    calc(.5em * 4) calc(.5em * 5) #54a227,
+    calc(.5em * 5) calc(.5em * 5) #54a227,
+    calc(.5em * 6) calc(.5em * 5) #54a227,
+    calc(.5em * 7) calc(.5em * 5) #2f660f,
+    calc(.5em * 8) calc(.5em * 5) #2f660f,
+    calc(.5em * 1) calc(.5em * 6) #2f660f,
+    calc(.5em * 2) calc(.5em * 6) #2f660f,
+    calc(.5em * 1) calc(.5em * 6) #54a227,
+    calc(.5em * 2) calc(.5em * 6) #54a227,
+    calc(.5em * 1) calc(.5em * 6) #54a227,
+    calc(.5em * 2) calc(.5em * 6) #54a227,
+    calc(.5em * 3) calc(.5em * 6) #54a227,
+    calc(.5em * 4) calc(.5em * 6) #54a227,
+    calc(.5em * 5) calc(.5em * 6) #54a227,
+    calc(.5em * 6) calc(.5em * 6) #54a227,
+    calc(.5em * 7) calc(.5em * 6) #2f660f,
+    calc(.5em * 8) calc(.5em * 6) #2f660f,
+    calc(.5em * 9) calc(.5em * 6) #2f660f,
+    calc(.5em * 3) calc(.5em * 7) #2f660f,
+    calc(.5em * 5) calc(.5em * 7) #54a227,
+    calc(.5em * 7) calc(.5em * 7) #54a227,
+    calc(.5em * 2) calc(.5em * 8) #2f660f,
+    calc(.5em * 1) calc(.5em * 8) #3f3f3f,
+    calc(.5em * 3) calc(.5em * 8) #54a227,
+    calc(.5em * 4) calc(.5em * 8) #54a227,
+    calc(.5em * 6) calc(.5em * 8) #54a227,
+    calc(.5em * 7) calc(.5em * 8) #54a227,
+    calc(.5em * 8) calc(.5em * 8) #54a227,
+    calc(.5em * 1) calc(.5em * 9) #54a227,
+    calc(.5em * 2) calc(.5em * 9) #54a227,
+    calc(.5em * 3) calc(.5em * 9) #54a227,
+    calc(.5em * 4) calc(.5em * 9) #2f660f,
+    calc(.5em * 5) calc(.5em * 9) #54a227,
+    calc(.5em * 6) calc(.5em * 9) #2f660f,
+    calc(.5em * 7) calc(.5em * 9) #54a227,
+    calc(.5em * 8) calc(.5em * 9) #2f660f99,
+    calc(.5em * 9) calc(.5em * 9) #2f660f,
+    calc(.5em * 0) calc(.5em * 10) #54a227,
+    calc(.5em * 1) calc(.5em * 10) #54a227,
+    calc(.5em * 2) calc(.5em * 10) #54a227,
+    calc(.5em * 3) calc(.5em * 10) #54a227,
+    calc(.5em * 4) calc(.5em * 10) #54a227,
+    calc(.5em * 5) calc(.5em * 10) #2f660f,
+    calc(.5em * 6) calc(.5em * 10) #54a227,
+    calc(.5em * 7) calc(.5em * 10) #54a227,
+    calc(.5em * 8) calc(.5em * 10) #54a227,
+    calc(.5em * 9) calc(.5em * 10) #54a227,
+    calc(.5em * 10) calc(.5em * 10) #2f660f,
+    calc(.5em * 1) calc(.5em * 11) #54a227,
+    calc(.5em * 2) calc(.5em * 11) #54a227,
+    calc(.5em * 3) calc(.5em * 11) #54a227,
+    calc(.5em * 5) calc(.5em * 11) #54a227,
+    calc(.5em * 7) calc(.5em * 11) #54a227,
+    calc(.5em * 9) calc(.5em * 11) #54a227
 }
 
 
@@ -384,17 +436,31 @@ body {
     height: 0.5em;
     /* background: #3f3f3f; */
     color: #3f3f3f;
+    
     box-shadow: 
-    calc(.5em * 3) calc(.5em * 11) #3f3f3f85,
-    calc(.5em * 7) calc(.5em * 11) #3f3f3f85,
-    calc(.5em * 3) calc(.5em * 12) #3f3f3f85,
-    calc(.5em * 7) calc(.5em * 12) #3f3f3f85,
-    calc(.5em * 2) calc(.5em * 13) #3f3f3f85,
-    calc(.5em * 8) calc(.5em * 13) #3f3f3f85,
+    calc(.5em * 3) calc(.5em * 11) #3f3f3f,
+    calc(.5em * 7) calc(.5em * 11) #3f3f3f,
+    calc(.5em * 3) calc(.5em * 12) #3f3f3f,
+    calc(.5em * 7) calc(.5em * 12) #3f3f3f,
+    calc(.5em * 2) calc(.5em * 13) #3f3f3fcf,
+    calc(.5em * 8) calc(.5em * 13) #3f3f3fbe,
     calc(.5em * 3) calc(.5em * 14) #3f3f3f85,
     calc(.5em * 7) calc(.5em * 14) #3f3f3f85,
-    calc(.5em * 6) calc(.5em * 14) #3f3f3f85
+    calc(.5em * 6) calc(.5em * 14) #3f3f3f85,
+    calc(.5em * 4) calc(.5em * 11) #a37e29,
+    calc(.5em * 6) calc(.5em * 11) #785b16,
+    calc(.5em * 4) calc(.5em * 12) #a37e29,
+    calc(.5em * 5) calc(.5em * 12) #a37e29,
+    calc(.5em * 6) calc(.5em * 12) #785b16,
+    calc(.5em * 4) calc(.5em * 13) #a37e29,
+    calc(.5em * 3) calc(.5em * 13) #a37e29,
+    calc(.5em * 5) calc(.5em * 13) #8d6c20,
+    calc(.5em * 6) calc(.5em * 13) #785b16,
+    calc(.5em * 7) calc(.5em * 13) #785b16,
+    calc(.5em * 4) calc(.5em * 14) #866d31ac,
+    calc(.5em * 5) calc(.5em * 14) #967e44b0
 }
+
 
 
 .main:before {
@@ -425,8 +491,8 @@ body {
 
 .menu-container {
     position: absolute;
-    bottom: 0;
-    left: 0;
+    bottom: .5em;
+    left: .5em;
     background: #fffecc;
     z-index: 99;
     border: double 0.5em;
@@ -444,7 +510,13 @@ li.menu-element {
     0% {
         left: 0
     }       
+    49% {
+        left: 0
+    }       
     50% {
+        left: -.25em
+    }    
+    99% {
         left: -.25em
     }    
     
@@ -457,7 +529,13 @@ li.menu-element {
     0% {
         left: calc(1em )
     }       
+    49% {
+        left: calc(1em )
+    }       
     50% {
+        left: calc(-.25em + 1em)
+    }    
+    99% {
         left: calc(-.25em + 1em)
     }    
     
