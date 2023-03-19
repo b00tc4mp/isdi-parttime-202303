@@ -501,43 +501,67 @@ const questions = [
 
 const questionHtml = document.querySelector(".question");
 let indexQuestion = -1;
+let setOfQuestions = 0;
+let user;
 const hitsCounter = document.querySelector(".hits-counter");
 const timer = document.querySelector(".timer");
 let unansweredQuestions = questions.filter((question) => question.status === 0);
+let isEnd = false;
+let isExit = false;
+
+let pointsRanking = [
+  { name: "Carolina", points: 25 },
+  { name: "Elena", points: 23 },
+  { name: "David", points: 19 },
+  { name: "Lucía", points: 19 },
+  { name: "Jorge", points: 4 },
+  { name: "Sara", points: 1 },
+];
 
 const countTime = () => {
-  let sec = 150;
+  let sec = 200;
+  const ranking = document.querySelector(".ranking");
   let timer = setInterval(function () {
     --sec;
     document.querySelector(".timer").innerHTML = sec;
-    if (sec === 0) {
-      console.log("¡SE ACABÓ EL JUEGO!");
+    if (sec === 0 || isExit) {
+      clearInterval(timer);
+      endGame();
+    }
+
+    if (isEnd) {
       clearInterval(timer);
     }
   }, 1000);
 };
 
-countTime();
-
 const getNextQuestion = () => {
-  if (indexQuestion < unansweredQuestions.length - 1) {
-    indexQuestion++;
-  } else {
-    unansweredQuestions = unansweredQuestions
-      .filter((question) => question.status === 0)
-      .sort();
-    indexQuestion = 0;
+  if (
+    unansweredQuestions.filter((question) => question.status === 0).length !== 0
+  ) {
+    if (indexQuestion < unansweredQuestions.length - 1) {
+      indexQuestion++;
+    } else {
+      unansweredQuestions = unansweredQuestions
+        .filter((question) => question.status === 0)
+        .sort();
+      indexQuestion = 0;
+    }
+
+    let question =
+      unansweredQuestions[indexQuestion].answersAndQuestions[setOfQuestions]
+        .question;
+    questionHtml.innerHTML = question;
+
+    document
+      .querySelector(
+        `[data-letter="${unansweredQuestions[indexQuestion].letter}"]`
+      )
+      .classList.add("current");
+
+    return;
   }
-
-  let question =
-    unansweredQuestions[indexQuestion].answersAndQuestions[0].question;
-  questionHtml.innerHTML = question;
-
-  document
-    .querySelector(
-      `[data-letter="${unansweredQuestions[indexQuestion].letter}"]`
-    )
-    .classList.add("current");
+  endGame();
 };
 
 const pressSend = () => {
@@ -553,12 +577,14 @@ const pressSend = () => {
       .toLowerCase()
       .normalize("NFD")
       .replace(/\p{Diacritic}/gu, "") ===
-    unansweredQuestions[indexQuestion].answersAndQuestions[0].answer
+    unansweredQuestions[indexQuestion].answersAndQuestions[setOfQuestions]
+      .answer
   ) {
     letterHtml.classList.add("correct");
     hitsCounter.innerHTML = parseFloat(hitsCounter.innerHTML) + 1;
     unansweredQuestions[indexQuestion].status = 1;
     answerInput.value = "";
+
     getNextQuestion();
     return;
   }
@@ -582,21 +608,146 @@ const pressPasapalabra = () => {
 };
 
 const sendUsername = () => {
-  const username = document.querySelector(".username").value;
+  user = document.querySelector(".username").value;
+  const start = document.querySelector(".start");
+  const gameRules = document.querySelector(".game-rules");
 
   const name = document.querySelector(".name");
 
-  name.innerHTML = username;
+  name.innerHTML = user;
+
+  start.classList.add("hiden");
+  gameRules.classList.remove("hiden");
 };
 
-getNextQuestion();
+const pressPlay = () => {
+  const gameRules = document.querySelector(".game-rules");
+  const game = document.querySelector(".game");
+
+  getNextQuestion();
+  countTime();
+  gameRules.classList.add("hiden");
+  game.classList.remove("hiden");
+};
+
+const endGame = () => {
+  const game = document.querySelector(".game");
+  const end = document.querySelector(".end");
+  const points = document.querySelector(".points");
+  const hits = document.querySelector(".hits");
+  const failures = document.querySelector(".failures");
+  const unanswered = document.querySelector(".unanswered");
+  const ranking = document.querySelector(".ranking");
+  const letterHtml = document.querySelector(
+    `[data-letter="${unansweredQuestions[indexQuestion].letter}"]`
+  );
+
+  letterHtml.classList.remove("current");
+  isEnd = true;
+
+  if (isExit === false) {
+    ranking.classList.remove("hiden");
+  }
+
+  game.classList.add("hiden");
+  end.classList.remove("hiden");
+  createPointsRanking(user);
+  isExit = false;
+
+  points.innerHTML = hitsCounter.innerHTML;
+  hits.innerHTML = hitsCounter.innerHTML;
+  failures.innerHTML = unansweredQuestions.filter(
+    (question) => question.status === 2
+  ).length;
+  unanswered.innerHTML = unansweredQuestions.filter(
+    (question) => question.status === 0
+  ).length;
+};
+
+const pressExit = () => {
+  const ranking = document.querySelector(".ranking");
+
+  isExit = true;
+  ranking.classList.add("hiden");
+};
+
+const compareRanking = (a, b) => {
+  return b.points - a.points;
+};
+
+const createPointsRanking = (user) => {
+  const textRanking = document.querySelector(".text-ranking");
+
+  if (!isExit) {
+    console.log("hola");
+    pointsRanking.push({ name: user, points: hitsCounter.innerHTML });
+    pointsRanking = pointsRanking.sort(compareRanking);
+
+    let rankingInfo = "";
+    pointsRanking.forEach((pointRanking) => {
+      rankingInfo += `<div class="record"><span class="record-name">Nombre: ${
+        pointRanking.name
+      }</span><span class="record-points">Puntos: ${pointRanking.points
+        .toString()
+        .padStart(2, "0")}</span></div>`;
+    });
+
+    textRanking.innerHTML = rankingInfo;
+  }
+};
+
+const playAgain = () => {
+  const end = document.querySelector(".end");
+  const start = document.querySelector(".start");
+
+  unansweredQuestions.forEach((question) => {
+    question.status = 0;
+    document.querySelector(`[data-letter="${question.letter}"]`).classList =
+      "letter";
+  });
+
+  document.querySelector(".username").value = "";
+
+  document.querySelector(".timer").innerHTML = 200;
+  isEnd = false;
+  isExit = false;
+  hitsCounter.innerHTML = 0;
+  indexQuestion = -1;
+  setOfQuestions++;
+  setOfQuestions = setOfQuestions % 3;
+  end.classList.add("hiden");
+  start.classList.remove("hiden");
+};
 
 document.addEventListener("DOMContentLoaded", () => {
   document.querySelector(".send-button").addEventListener("click", pressSend);
+  document.querySelector(".answer").addEventListener("keydown", (e) => {
+    if (e.keyCode === 13) {
+      pressSend();
+    }
+
+    if (e.keyCode === 27) {
+      pressExit();
+    }
+
+    if (e.keyCode === 32) {
+      pressPasapalabra();
+    }
+  });
   document
     .querySelector(".next-button")
     .addEventListener("click", pressPasapalabra);
   document
     .querySelector(".send-username")
     .addEventListener("click", sendUsername);
+  document.querySelector(".username").addEventListener("keydown", (e) => {
+    if (e.keyCode === 13) {
+      sendUsername();
+    }
+  });
+  document.querySelector(".play-button").addEventListener("click", pressPlay);
+  document.querySelector(".exit-button").addEventListener("click", pressExit);
+  document
+    .querySelector(".play-again-button")
+    .addEventListener("click", playAgain);
 });

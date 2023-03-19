@@ -34,8 +34,8 @@ body {
     border-radius: 50%;
   }
 
-  .div {
-    margin: 20px;
+  .div, .game-rules {
+    margin: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -77,9 +77,10 @@ body {
     box-shadow: inset 0 0 11px 11px #055f27;
   }
 
-  .next-button {
+  .next-button, .play-button, .play-again-button {
     width: 155px;
     height: 40px;
+    margin-right: 10px;
     font-weight: bold;
     font-size: 20px;
     background-color: #027ce7;
@@ -89,18 +90,50 @@ body {
     cursor: pointer;
   }
 
-  .next-button:hover {
+  .play-again-button {
+    width: 200px;
+    margin-right: 0;
+    margin-top: 10px;
+  }
+
+  .next-button:hover, .play-button:hover, .play-again-button:hover {
     background-color: #3893e2;
     color: #ffffff;
     border: 2px solid #ffffff;
     box-shadow: inset 0 0 11px 11px #0875d4;
   }
 
-  .next-button:active {
+  .next-button:active, .play-button:active, .play-again-button:active {
     background-color: #027ce7;
     color: #ffffff;
     border: 2px solid #ffffff;
     box-shadow: inset 0 0 11px 11px #0061b5;
+  }
+
+  .exit-button {
+    width: 90px;
+    height: 40px;
+    font-weight: bold;
+    font-size: 20px;
+    background-color: rgb(209 59 78);
+    color: #ffffff;
+    border: 2px solid #ffffff;
+    box-shadow: inset 0 0 11px 11px #a7111e;
+    cursor: pointer;
+  }
+
+  .exit-button:hover {
+    background-color: rgb(216, 82, 100);
+    color: #ffffff;
+    border: 2px solid #ffffff;
+    box-shadow: inset 0 0 11px 11px #c7313d;
+  }
+
+  .exit-button:active {
+    background-color: rgb(209 59 78);
+    color: #ffffff;
+    border: 2px solid #ffffff;
+    box-shadow: inset 0 0 11px 11px #a7111e;
   }
 
   input {
@@ -131,18 +164,90 @@ body {
     box-shadow: inset 0 0 11px 11px #c37400;
   }
 
- .hiden {
- display: none;
- }
-
- .get-username {
+ .first-paragraph, .last-paragraph, .ranking-title {
   color: #ffffff;
-  font-size: 20px;
+  font-size: 30px;
   text-align: center;
-  margin: 60px;
+  margin: 30px;
   text-shadow:#013868 2px 0 15px;
  }
 
- .username-container {
-  margin: 30px;
+
+ .username-container, .go-play {
+  display: flex;
+  justify-content: center;
+  align-items: center;
  }
+
+ .rules, .score {
+  color: #ffffff;
+  font-size: 20px;
+  text-align: center;
+  margin: 20px;
+  text-shadow:#013868 2px 0 15px;
+ }
+
+ .score {
+  margin: 10px 20px 10px 20px;
+ }
+ .square {
+  width: 800px;
+  margin: 30px 100px 30px 95px;
+  border: 1px solid #ffffff;
+  border-radius: 15px;
+ }
+
+ .score-square {
+  width: 400px;
+  border: 1px solid #ffffff;
+  border-radius: 15px;
+ }
+
+ .farewell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+ }
+
+ .go-play {
+  height: 30px;
+ }
+
+ .last-paragraph {
+  margin: 5px;
+ }
+
+ .ranking {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 10px 0 20px 0;
+ }
+
+ .ranking-title {
+  margin: 20px 0 20px;
+ }
+
+ .record {
+  display: flex;
+  align-items: center;
+ }
+
+ .record-name {
+  width: 200px;
+  color: #ffffff;
+  font-size: 20px;
+  text-align: justify;
+  text-shadow:#013868 2px 0 15px;
+ }
+
+ .record-points {
+  color: #ffffff;
+  font-size: 20px;
+  text-align: justify;
+  text-shadow:#013868 2px 0 15px;
+ }
+
+ .hiden {
+  display: none;
+  }

@@ -44,7 +44,7 @@
 
     <section class="start">
       <div class="get-username">
-        <h2>
+        <h2 class="first-paragraph">
           ¡Hola! Bienvenido/a al juego Pasapalabra, ¿cuál es tu nombre? 🥰
         </h2>
 
@@ -63,43 +63,48 @@
 
     <section class="game-rules hiden">
       <div>
-        <p>
-          Ok, <span class="name"></span>, antes de empezar, voy a explicarte las
-          reglas del juego
-        </p>
+        <h2 class="first-paragraph">
+          Ok, <span class="name"></span>, antes de empezar, te mostraré las
+          reglas del juego 🥰
+        </h2>
 
-        <p>
-          Misión: adivinar todas las palabras escondidas detrás de su definición
-          (o, al menos las máximas posibles) 🏆
-        </p>
+        <div class="square">
+          <p class="rules">
+            • En cada turno, se mostrará una definición por cada letra (25 en
+            total). Deberás responder con la palabra que creas que es la
+            correcta ✅ (Puedes utilizar la tecla ENTER) ¡CUIDADO! ¡Tendrás
+            tiempo limitado! ⏱
+          </p>
 
-        <p>
-          -En cada turno, se mostrará una definición por cada letra (25 en
-          total). Deberás responder con la palabra que creas que es la correcta
-          ✅
-        </p>
+          <p class="rules">
+            • Si tienes dudas, puedes pulsar el botón PASAPALABRA (o la tecla
+            SPACE). En ese caso, el juego saltará a la siguiente letra, dejando
+            esa pendiente para volver a probar más tarde en la siguiente ronda
+            😊
+          </p>
 
-        <p>
-          -Si tienes dudas, puedes pulsar el botón PASAPALABRA. En ese caso, el
-          juego saltará a la siguiente letra, dejando esa pendiente para volver
-          a probar más tarde en la siguiente ronda 😊
-        </p>
+          <p class="rules">
+            • Una vez contestadas todas las definiciones o se acabe el tiempo,
+            se te mostrará el resultado final: las palabras acertadas, las
+            falladas y las no contestadas. Además, también podrás ver el ranking
+            de resultados 🔢
+          </p>
 
-        <p>
-          -Una vez contestadas todas las definiciones, se te mostrará el
-          resultado final: las palabras acertadas y las falladas. Además,
-          también podrás ver el ranking de resultados 🔢
-        </p>
+          <p class="rules">
+            • En cualquier momento puedes pulsar el botón SALIR (o la tecla
+            ESCAPE) para finalizar el juego. En ese caso, se te mostrará tu
+            resultado final pero no podrás ver ni entrar en el ranking de
+            resultados🙏
+          </p>
+        </div>
 
-        <p>
-          -En cualquier momento puedes escribir "end" para finalizar el juego.
-          En ese caso, se te mostrarán tus resultados pero no podrás entrar en
-          el ranking 🙏
-        </p>
+        <div class="go-play">
+          <p class="last-paragraph">
+            Haz click en JUGAR para comenzar el juego. ¡Mucha suerte! 🍀
+          </p>
 
-        <p>Haz click en JUGAR para comenzar el juego. ¡Mucha suerte! 🍀</p>
-
-        <button class="play">▷ PLAY</button>
+          <button class="play-button">▷ JUGAR</button>
+        </div>
       </div>
     </section>
 
@@ -118,11 +123,12 @@
 
         <button class="send-button">ENVIAR</button>
         <button class="next-button">PASAPALABRA</button>
+        <button class="exit-button">SALIR</button>
       </div>
 
       <div class="counters div">
         <div>
-          <span class="timer">150</span>
+          <span class="timer">200</span>
         </div>
 
         <div>
@@ -131,7 +137,33 @@
       </div>
     </section>
 
-    <section class="end"></section>
+    <section class="end hiden">
+      <div class="farewell">
+        <div class="first-paragraph">
+          <h2>¡FIN DE LA PARTIDA! ⏱</h2>
+          <button class="play-again-button">▷ JUGAR DE NUEVO</button>
+        </div>
+        <div class="score-square">
+          <p class="score">
+            Has obtenido una puntuación de <span class="points"></span> 😳
+          </p>
+
+          <div class=""></div>
+          <p class="score">• <span class="hits"></span> aciertos 🟢</p>
+
+          <p class="score">• <span class="failures"></span> fallos 🔴</p>
+
+          <p class="score">
+            • <span class="unanswered"></span> no contestadas ❓
+          </p>
+        </div>
+      </div>
+
+      <div class="ranking">
+        <h2 class="ranking-title">RANKING 🏆</h2>
+        <div class="text-ranking"></div>
+      </div>
+    </section>
 
     <script src="index.js"></script>
   </body>
