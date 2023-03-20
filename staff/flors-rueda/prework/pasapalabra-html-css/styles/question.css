@@ -1,18 +1,52 @@
 input[type=text] {
     background-color: var(--blank200);
-    border: 0.15em solid var(--blank300);
+    border: 0.05em dotted var(--blue100);
     border-radius: 0.15em;
-    margin:0%;
+    height: 1em;
+    font-size: 1em;
+    line-height: 1.25em;
     width: 100%;
+    font-family: 'Sono', sans-serif;
 }
 
 input[type=text]:focus {
     outline: none !important;
-    border: 0.15em solid var(--blue100);
+    border: 0.1em solid var(--blue100);
+}
+
+
+
+input::placeholder {
+    font-size: 0.65em;
+    font-family: 'Sono', sans-serif;
+    font-weight: 500;
+    color: var(--blank400);
 }
 
 @media (min-width: 768px) {
     input[type=text] {
-        padding: 0.8em;
+        font-size: 1em;
+        line-height: 1.5em;
+        height: 1.25em;
     } 
+
+    input::placeholder {
+        font-size: 1em;
+        line-height: 1.5em;
+        font-family: 'Sono', sans-serif;
+    }
+}
+
+@media (max-width: 350px) {
+    input[type=text] {
+        font-size: 0.75em;
+        line-height: 1em;
+        height: 0.75em;
+    } 
+
+    input::placeholder {
+        font-size: 0.75em;
+        line-height: 1em;
+        font-family: 'Sono', sans-serif;
+    }
 }

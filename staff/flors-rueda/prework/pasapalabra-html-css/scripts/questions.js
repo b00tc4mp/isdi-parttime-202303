@@ -23,6 +23,30 @@ const questionsA = [
     question:
       "CON LA A. Tercera persona del singular del pretérito imperfecto del verbo abrillantar.",
   },
+  {
+    answer: "apatusco",
+    question:
+      "CON LA A. Utensilio para el uso manual.",
+  },
+  {
+    answer: "arquebacteria",
+    question: "CON LA A. Microorganismo unicelular, que se desarrolló en ambientes extremos y que es el más primitivo de los conocidos.",
+  },
+  {
+    answer: "atenas",
+    question:
+      "CON LA A. Capital de Grecia.",
+  },
+  {
+    answer: "altabaca",
+    question:
+      "CON LA A. Planta de la familia de las compuestas. Olivarda.",
+  },
+  {
+    answer: "agracejina",
+    question:
+      "CON LA A. Fruto del agracejo.",
+  },
 ];
 
 const questionsB = [
@@ -50,12 +74,36 @@ const questionsB = [
     question:
       "CON LA B. Voz de ciertos animales, como el becerro: Dar berridos.",
   },
+  {
+    answer: "burjaca",
+    question:
+      "CON LA B. Bolsa que cuelga en bandolera.",
+  },
+  {
+    answer: "brial",
+    question: "CON LA B. Faldón de tela que llevaban los hombres de armas desde la cintura hasta encima de las rodillas.",
+  },
+  {
+    answer: "burdamente",
+    question:
+      "CON LA B. De modo burdo.",
+  },
+  {
+    answer: "bolandista",
+    question:
+      "CON LA B. Individuo de una sociedad formada por miembros de la Compañía de Jesús fundada por Iohannes Bollandus",
+  },
+  {
+    answer: "bichero",
+    question:
+      "CON LA B. Asta larga que en uno de los extremos tiene un hierro de punta y gancho presente en embarcaciones menores",
+  },
 ];
 
 const questionsC = [
   {
-    answer: "churumbel",
-    question: "CON LA C. Niño, crío, bebé",
+    answer: "charmander",
+    question: "CON LA C. El mejor Pokémon",
   },
   {
     answer: "coseno",
@@ -74,6 +122,28 @@ const questionsC = [
     answer: "cubismo",
     question:
       "CON LA C. Movimiento artístico surgido en Francia a principios del siglo XX, rompe con las leyes de la perspectiva clásica.",
+  },
+  {
+    answer: "cutrez",
+    question: "CON LA C. Coloquial: cosa cutre.",
+  },
+  {
+    answer: "cuaco",
+    question:
+      "CON LA C. Harina de la raíz de la yuca.",
+  },
+  {
+    answer: "cilantro",
+    question: "CON LA C. Hierba de la familia de las umbelíferas, de flores rojizas, aromática y de virtud estomacal.",
+  },
+  {
+    answer: "comino",
+    question: "CON LA C. Hierba de la familia de las umbelíferas, de olor aromático y sabor acre que se usa para condimento.",
+  },
+  {
+    answer: "colgajo",
+    question:
+      "CON LA C. Trapo o cosa despreciable que cuelga.",
   },
 ];
 
@@ -101,6 +171,29 @@ const questionsD = [
     answer: "delantal",
     question: "CON LA D. Prólogo o proemio breve.",
   },
+  {
+    answer: "diferecer",
+    question:
+      "CON LA D. diferir, distinguirse.",
+  },
+  {
+    answer: "demarraje",
+    question:
+      "CON LA D. Acción y efecto de demarrar.",
+  },
+  {
+    answer: "druida",
+    question: "CON LA D. Entre los antiguos galos y britanos, miembro de la clase elevada sacerdotal.",
+  },
+  {
+    answer: "deanato",
+    question:
+      "CON LA D. Dignidad de deán.",
+  },
+  {
+    answer: "draga",
+    question: "CON LA D. Aparato que se emplea para recoger productos marinos, arrastrándolo por el fondo del mar.",
+  },
 ];
 
 const questionsE = [
@@ -125,6 +218,28 @@ const questionsE = [
   {
     answer: "erbio",
     question: "CON LA E. Elemento químico metálico, de número atómico 68.",
+  },
+  {
+    answer: "eraje",
+    question:
+      "CON LA E. Miel virgen.",
+  },
+  {
+    answer: "elogiable",
+    question: "CON LA E. Digno de elogio.",
+  },
+  {
+    answer: "ermunio",
+    question: "CON LA E. Caballero que por su nobleza estaba libre de todo género de servicio o tributo ordinario.",
+  },
+  {
+    answer: "elipsis",
+    question:
+      "CON LA E. En narratología, omisión de segmentos de la historia que se narra.",
+  },
+  {
+    answer: "elfo",
+    question: "CON LA E. En la mitología escandinava, genio o espíritu del aire.",
   },
 ];
 
@@ -151,6 +266,29 @@ const questionsF = [
     answer: "fiebre",
     question:
       "CON LA F. Fenómeno patológico que se manifiesta por elevación de la temperatura normal del cuerpo.",
+  },
+  {
+    answer: "freo",
+    question: "CON LA F. Canal estrecho entre dos islas o entre una isla y tierra firme.",
+  },
+  {
+    answer: "flubber",
+    question:
+      "CON LA F. Película remake de la película de Un sabio en las nubes",
+  },
+  {
+    answer: "frac",
+    question:
+      "CON LA F. Vestidura de hombre, que por delante llega hasta la cintura y por detrás tiene dos faldones.",
+  },
+  {
+    answer: "felibre",
+    question: "CON LA F. Escritor o poeta en lengua de oc de época moderna.",
+  },
+  {
+    answer: "frugalmente",
+    question:
+      "CON LA F. Con frugalidad.",
   },
 ];
 
@@ -179,6 +317,30 @@ const questionsG = [
     answer: "glutamato",
     question: "CON LA G. Sal del ácido glutámico.",
   },
+  {
+    answer: "gravedad",
+    question:
+      "CON LA G. Fuerza que sobre todos los cuerpos ejerce la Tierra, u otro planeta, hacia su centro.",
+  },
+  {
+    answer: "gordal",
+    question:
+      "CON LA G. Que tiene gordura mayor de lo común.",
+  },
+  {
+    answer: "gruiforme",
+    question:
+      "CON LA G. Dicho de un ave: Emparentada con las grullas.",
+  },
+  {
+    answer: "grog",
+    question:
+      "CON LA G. Bebida caliente hecha con ron u otro licor, agua, azúcar y limón.",
+  },
+  {
+    answer: "gafar",
+    question: "CON LA G. Arrebatar algo con las uñas o con un instrumento corvo.",
+  },
 ];
 
 const questionsH = [
@@ -204,6 +366,28 @@ const questionsH = [
     question:
       "CON LA H. Hecho clave y fundamental dentro de un ámbito o contexto.",
   },
+  {
+    answer: "huesillo",
+    question: "CON LA H. Durazno secado al sol.",
+  },
+  {
+    answer: "hipoactividad",
+    question:
+      "CON LA H. Conducta caracterizada por un déficit de actividad.",
+  },
+  {
+    answer: "hilemorfismo",
+    question: "CON LA H. Teoría ideada por Aristóteles, según la cual todo cuerpo se halla constituido por la materia y la forma.",
+  },
+  {
+    answer: "hoplita",
+    question: "CON LA H. Soldado griego de infantería que usaba armas pesadas.",
+  },
+  {
+    answer: "Holmes",
+    question:
+      "CON LA H. Apellido del detective privado de ficción creado por el escritor británico Arthur Conan Doyle",
+  },
 ];
 
 const questionsI = [
@@ -228,6 +412,27 @@ const questionsI = [
     answer: "iracundia",
     question: "CON LA I. Propensión a la ira.",
   },
+  {
+    answer: "isaloterma",
+    question: "CON LA I. Curva para la representación cartográfica de los puntos de la Tierra en los que se ha producido una variación de temperatura.",
+  },
+  {
+    answer: "intachable",
+    question: "CON LA I. Que no admite o merece tacha.",
+  },
+  {
+    answer: "ilota",
+    question:
+      "CON LA I. Esclavo de los lacedemonios.",
+  },
+  {
+    answer: "inga",
+    question: "CON LA I.  pirita.",
+  },
+  {
+    answer: "impasse",
+    question: "CON LA I. Callejón sin salida.",
+  },
 ];
 
 const questionsJ = [
@@ -246,11 +451,32 @@ const questionsJ = [
   },
   {
     answer: "jest",
-    question: "CON LA J. Framework de Testing de JavaScript.",
+    question: "CON LA J. Framework de testing de JavaScript.",
   },
   {
     answer: "juramento",
     question: "CON LA J. Voto o reniego.",
+  },
+  {
+    answer: "jopeo",
+    question:
+      "CON LA J. Acción de jopear.",
+  },
+  {
+    answer: "jaula",
+    question: "CON LA J. Caja cerrada, con respiraderos, para transportar animales.",
+  },
+  {
+    answer: "jubete",
+    question: "CON LA J. Coleto cubierto de malla de hierro usada por soldados españoles hasta el siglo XV.",
+  },
+  {
+    answer: "jindama.",
+    question: "CON LA J. Miedo, cobardía.",
+  },
+  {
+    answer: "japuta",
+    question: "CON LA J. Pez teleósteo del suborden de los acantopterigios, comestible, de color plomizo.",
   },
 ];
 
@@ -278,6 +504,29 @@ const questionsK = [
     answer: "sudoku",
     question: "CONTIENE LA K. Pasatiempo numérico japonés.",
   },
+  {
+    answer: "kimchi",
+    question:
+      "CON LA K.  coreano hecho a base de preparación fermentada que tiene como ingrediente básico la col asiática.",
+  },
+  {
+    answer: "kampala",
+    question: "CON LA K. Capital de Uganda.",
+  },
+  {
+    answer: "dakar",
+    question:
+      "CONTIENE LA K. Capital de Senegal.",
+  },
+  {
+    answer: "koryo",
+    question:
+      "CON LA K. Dinastía en Corea fundada en 918 por el rey Wang Geon.",
+  },
+  {
+    answer: "bakalao",
+    question: "CONTIENE LA K. Música discotequera, de ritmo repetitivo y machacón, compuesta con sintetizador.",
+  },
 ];
 
 const questionsL = [
@@ -304,6 +553,28 @@ const questionsL = [
     answer: "lupa",
     question: "CON LA L. Lente de aumento, generalmente con un mango.",
   },
+  {
+    answer: "lobanillo",
+    question:
+      "CON LA L. Excrecencia leñosa cubierta de corteza, que se forma en el tronco o las ramas de un árbol.",
+  },
+  {
+    answer: "lurte",
+    question:
+      "CON LA L. Gran masa de nieve que se derrumba en los montes.",
+  },
+  {
+    answer: "loanza",
+    question: "CON LA L. Acción y efecto de loar.",
+  },
+  {
+    answer: "lucroniense",
+    question: "CON LA L. Perteneciente o relativo a Logroño.",
+  },
+  {
+    answer: "losange",
+    question: "CON LA L. Figura de rombo.",
+  },
 ];
 
 const questionsM = [
@@ -324,19 +595,43 @@ const questionsM = [
   {
     answer: "mistela",
     question:
-      "CON LA M. Líquido resultante de la adición de alcohol al mosto de uva sin que se produzca fermentación",
+      "CON LA M. Líquido resultante de la adición de alcohol al mosto de uva sin que se produzca fermentación.",
   },
   {
     answer: "melatonina",
     question:
       "CON LA M. Hormona segregada por la glándula pineal, que interviene en la regulación de la vigilia y el sueño.",
   },
+  {
+    answer: "muladar",
+    question: "CON LA M.  Lugar o sitio donde se echa el estiércol o la basura de las casas.",
+  },
+  {
+    answer: "mirable",
+    question:
+      "CON LA M. Digno de admiración, admirable.",
+  },
+  {
+    answer: "merar",
+    question:
+      "CON LA M. Mezclar un licor con otro, particularmente agua con vino.",
+  },
+  {
+    answer: "meramente",
+    question:
+      "CON LA M. Solamente, simplemente, sin mezcla de otra cosa.",
+  },
+  {
+    answer: "motacila",
+    question:
+      "CON LA M. Lavandera blanca.",
+  },
 ];
 
 const questionsN = [
   {
     answer: "necedad",
-    question: "CON LA N. Demostración de poca inteligencia",
+    question: "CON LA N. Demostración de poca inteligencia.",
   },
   {
     answer: "numen",
@@ -354,7 +649,29 @@ const questionsN = [
   },
   {
     answer: "nigeria",
-    question: "CON LA N. País cuya capital es Abuya",
+    question: "CON LA N. País cuya capital es Abuya.",
+  },
+  {
+    answer: "nabato",
+    question: "CON LA N. Espinazo de los vertebrados.",
+  },
+  {
+    answer: "nalgatorio",
+    question: "CON LA N. Coloquialmente conjunto de ambas nalgas.",
+  },
+  {
+    answer: "naranja",
+    question:
+      "CON LA N. Bala de cañón pequeña usada antiguamente.",
+  },
+  {
+    answer: "nodal",
+    question:
+      "CON LA N. Dicho de una línea: Que permanece fija en las membranas o en las placas vibrantes.",
+  },
+  {
+    answer: "nube",
+    question: "CON LA N. Agregado visible de minúsculas gotitas de agua.",
   },
 ];
 
@@ -367,7 +684,7 @@ const questionsÑ = [
   {
     answer: "ñu",
     question:
-      "CON LA Ñ. Mamífero rumiante africano de la familia de los antílopes",
+      "CON LA Ñ. Mamífero rumiante africano de la familia de los antílopes.",
   },
   {
     answer: "buñuelo",
@@ -381,6 +698,29 @@ const questionsÑ = [
   {
     answer: "mañanear",
     question: "CONTIENE LA Ñ. Madrugar habitualmente.",
+  },
+  {
+    answer: "ñame",
+    question:
+      "CON LA Ñ. Planta herbácea de la familia de las dioscoreáceas, muy común en los países intertropicales.",
+  },
+  {
+    answer: "cañaveral",
+    question:
+      "CON LA Ñ. Plantío de cañas.",
+  },
+  {
+    answer: "añejado",
+    question:
+      "CONTIENE LA Ñ. Acción y efecto de añejar.",
+  },
+  {
+    answer: "bañista",
+    question: "CONTIENE LA Ñ. Persona que asiste a un balneario.",
+  },
+  {
+    answer: "añil",
+    question: "CONTIENE LA Ñ. Pasta de color azul oscuro, con visos cobrizos",
   },
 ];
 
@@ -406,6 +746,27 @@ const questionsO = [
     answer: "oblicuidad",
     question: "CON LA O. Dirección al sesgo, al través, con inclinación.",
   },
+  {
+    answer: "oleaginosidad",
+    question: "CON LA O. Cualidad de oleaginoso.",
+  },
+  {
+    answer: "obrerismo",
+    question: "CON LA O. Conjunto de los obreros, considerado como entidad económica.",
+  },
+  {
+    answer: "oda",
+    question:
+      "CON LA O. Composición lírica en estrofas de tono elevado, que generalmente ensalza algo o a alguien.",
+  },
+  {
+    answer: "oles",
+    question: "CON LA O. Parroquia de la zona conocida como La Marina del concejo de Villaviciosa",
+  },
+  {
+    answer: "oraje",
+    question: "CON LA O. Estado del tiempo, temperatura.",
+  },
 ];
 
 const questionsP = [
@@ -429,6 +790,27 @@ const questionsP = [
     answer: "penillanura",
     question:
       "CON LA P. Terreno casi llano, con leves ondulaciones, resultado de la erosión de una zona montañosa.",
+  },
+  {
+    answer: "pularda",
+    question: "CON LA P. Gallina de cinco o seis meses, que todavía no ha puesto huevos.",
+  },
+  {
+    answer: "penable",
+    question: "CON LA P. Que puede recibir pena o ser penado.",
+  },
+  {
+    answer: "paseante",
+    question: "CON LA P. Que pasea o se pasea.",
+  },
+  {
+    answer: "parecencia",
+    question: "CON LA P. Parecido, semejanza.",
+  },
+  {
+    answer: "pesadilla",
+    question:
+      "CON LA P. Ensueño angustioso y tenaz.",
   },
 ];
 
@@ -458,6 +840,31 @@ const questionsQ = [
     question:
       "CONTIENE LA Q. Conjunto de placas de hielo flotantes en la región de los mares polares.",
   },
+  {
+    answer: "quater",
+    question:
+      "CON LA Q. Pospuesto a un número entero, indica que este se emplea o se adjudica por cuarta vez.",
+  },
+  {
+    answer: "querella",
+    question:
+      "CON LA Q. Expresión de un dolor físico o de un sentimiento doloroso.",
+  },
+  {
+    answer: "quiebra",
+    question:
+      "CON LA Q. Rotura de una superficie de cierta dureza o rigidez.",
+  },
+  {
+    answer: "quibey",
+    question:
+      "CON LA Q. Planta de las Antillas, herbácea, anual, de la familia de las lobeliáceas.",
+  },
+  {
+    answer: "paquear",
+    question:
+      "CONTIENE LA Q. Disparar como los pacos.",
+  },
 ];
 
 const questionsR = [
@@ -485,6 +892,30 @@ const questionsR = [
     question:
       "CON LA R. Tiro de billar en que la bola va a chocar contra otra pegada a la banda, para hacer carambola con una tercera.",
   },
+  {
+    answer: "rasar",
+    question:
+      "CON LA R. Igualar con el rasero las medidas de trigo, cebada y otras cosas.",
+  },
+  {
+    answer: "resaca",
+    question: "CON LA R. Corriente marina debida al retroceso de las olas después que han llegado a la orilla.",
+  },
+  {
+    answer: "ruello",
+    question:
+      "CON LA R. Rodillo de piedra.",
+  },
+  {
+    answer: "refajo",
+    question:
+      "CON LA R. Falda interior de tela gruesa usada por las mujeres para abrigo.",
+  },
+  {
+    answer: "rosaleda",
+    question:
+      "CON LA R. Sitio en que hay muchos rosales.",
+  },
 ];
 
 const questionsS = [
@@ -511,13 +942,36 @@ const questionsS = [
     question:
       "CON LA S. Mojar repetidas veces o frecuentemente el pan en el caldo de un guisado.",
   },
+  {
+    answer: "sorbete",
+    question:
+      "CON LA S. Refresco de zumo de frutas con azúcar al que se da cierto grado de congelación pastosa.",
+  },
+  {
+    answer: "seraje",
+    question: "CON LA S. Conjunto de seras, especialmente de carbón.",
+  },
+  {
+    answer: "selva",
+    question: "CON LA S. Abundancia desordenada de algo.",
+  },
+  {
+    answer: "sorpresa",
+    question:
+      "CON LA S. Acción y efecto de sorprender.",
+  },
+  {
+    answer: "salega",
+    question:
+      "CON LA S. Piedra en que se da sal a los ganados en el campo.",
+  },
 ];
 
 const questionsT = [
   {
     answer: "terminator",
     question:
-      "CON LA T. Película del director James Cameron que consolidó a Arnold Schwarzenegger como actor en 1984",
+      "CON LA T. Película del director James Cameron que consolidó a Arnold Schwarzenegger como actor en 1984.",
   },
   {
     answer: "taberna",
@@ -532,11 +986,35 @@ const questionsT = [
   {
     answer: "tiroides",
     question:
-      "CON LA T. Glándula  con función endocrina que, en el ser humano, está situada en la parte inferior de la laringe",
+      "CON LA T. Glándula  con función endocrina que, en el ser humano, está situada en la parte inferior de la laringe.",
   },
   {
     answer: "tejaroz",
     question: "CON LA T. Alero del tejado.",
+  },
+  {
+    answer: "telebanco",
+    question:
+      "CON LA T. Servicio bancario prestado a distancia mediante redes de telecomunicación.",
+  },
+  {
+    answer: "truchuela",
+    question:
+      "CON LA T. Bacalao curado más delgado que el común.",
+  },
+  {
+    answer: "trovador",
+    question:
+      "CON LA T. Músico y poeta medievales.",
+  },
+  {
+    answer: "tolonca",
+    question:
+      "CON LA T. Mazorca de maíz pequeña.",
+  },
+  {
+    answer: "tubular",
+    question: "CON LA T. Cubierta de rueda de bicicleta en forma de tubo, con cámara de aire en su interior.",
   },
 ];
 
@@ -564,13 +1042,36 @@ const questionsU = [
     question:
       "CON LA U. Enfermedad eruptiva de la piel, cuyo síntoma más notable es una comezón.",
   },
+  {
+    answer: "ubetense",
+    question:
+      "CON LA U. Natural de Úbeda.",
+  },
+  {
+    answer: "Uncastillo",
+    question:
+      "CON LA U. Municipio español de la provincia de Zaragoza perteneciente a la comarca de las Cinco Villas.",
+  },
+  {
+    answer: "upar",
+    question: "CON LA U. Levantar.",
+  },
+  {
+    answer: "ulema",
+    question: "CON LA U. Doctor de la ley islámica.",
+  },
+  {
+    answer: "uperizar",
+    question:
+      "CON LA U. Someter un alimento líquido a una temperatura en torno a 150°C durante menos de un segundo.",
+  },
 ];
 
 const questionsV = [
   {
     answer: "vikingos",
     question:
-      "CON LA V. Nombre dado a los pueblos nórdicos originarios de Escandinavia, famosos por sus incursiones y pillajes en Europa.",
+      "CON LA V. Nombre dado a los diferentes pueblos nórdicos originarios de Escandinavia, famosos por sus incursiones y pillajes en Europa.",
   },
   {
     answer: "veranada",
@@ -589,6 +1090,29 @@ const questionsV = [
     answer: "vistilla",
     question:
       "CON LA V. Vista referida a una cuestión incidental o de trámite.",
+  },
+  {
+    answer: "vasallaje",
+    question:
+      "CON LA V. Rendimiento o reconocimiento con dependencia a cualquier otro, o de una cosa a otra.",
+  },
+  {
+    answer: "veras",
+    question: "CON LA V. Eficacia, fervor y actividad con que se ejecuta o desea algo.",
+  },
+  {
+    answer: "voluntad",
+    question: "CON LA V. Libre albedrío o libre determinación.",
+  },
+  {
+    answer: "vuelillo",
+    question:
+      "CON LA V. Adorno de encaje u otro tejido ligero, que se pone en la bocamanga de algunos trajes.",
+  },
+  {
+    answer: "vilano",
+    question:
+      "CON LA V. Flor del cardo.",
   },
 ];
 
@@ -618,6 +1142,31 @@ const questionsW = [
     question:
       "CONTIENE LA W. Escritor estadounidense nacido en Alemania representante del realismo sucio.",
   },
+  {
+    answer: "georgetown",
+    question:
+      "CONTIENE LA W. Capital de Guyana.",
+  },
+  {
+    answer: "tarawa",
+    question:
+      "CONTIENE LA W. Capital de Kiribati.",
+  },
+  {
+    answer: "wellington",
+    question:
+      "CON LA W. Capital de Nueva Zelanda.",
+  },
+  {
+    answer: "wok",
+    question:
+      "CON LA W. Sartén ancha y profunda, generalmente con una o dos asas, originaria de la cocina oriental y que se usa para saltear.",
+  },
+  {
+    answer: "wahabismo",
+    question:
+      "CON LA W. Movimiento musulmán integrista que defiende una vuelta a la pureza del islam de los orígenes y se opone a las innovaciones.",
+  },
 ];
 
 const questionsX = [
@@ -643,7 +1192,31 @@ const questionsX = [
   {
     answer: "boxeo",
     question:
-      "CONTIENE LA W. Deporte que consiste en la lucha a puñetazos de dos contendientes y utilizando guantes especiales.",
+      "CONTIENE LA X. Deporte que consiste en la lucha a puñetazos de dos contendientes y utilizando guantes especiales.",
+  },
+  {
+    answer: "flexibilizar",
+    question: "CONTIENE LA X. Hacer flexible algo.",
+  },
+  {
+    answer: "axila",
+    question:
+      "CONTIENE LA X. Concavidad que forma el arranque del brazo con el cuerpo.",
+  },
+  {
+    answer: "exabrupto",
+    question:
+      "CONTIENE LA X. Salida de tono, como dicho o ademán inconveniente e inesperado, manifestado con viveza.",
+  },
+  {
+    answer: "xantina",
+    question:
+      "CON LA X. Compuesto derivado de la purina con efectos estimulantes sobre el sistema nervioso y el corazón, diuréticos y broncodilatadores.",
+  },
+  {
+    answer: "textil",
+    question:
+      "CONTIENE LA X. Perteneciente o relativo a los tejidos.",
   },
 ];
 
@@ -671,6 +1244,29 @@ const questionsY = [
     question:
       "CON LA Y. Polvo amarillento, derivado yodado del metano, de olor muy fuerte, que se usa en medicina como antiséptico.",
   },
+  {
+    answer: "buyumbura",
+    question:
+      "CONTIENE LA Y. Capital de Burundi.",
+  },
+  {
+    answer: "fiyi",
+    question: "CONTIENE LA Y. País con capital en Suva",
+  },
+  {
+    answer: "mayo",
+    question:
+      "CONTIENE LA Y. Quinto mes del año.",
+  },
+  {
+    answer: "yamena",
+    question: "CON LA Y. Capital de Chad",
+  },
+  {
+    answer: "yarda",
+    question:
+      "CON LA Y. Medida de longitud equivalente a 0,914m.",
+  },
 ];
 
 const questionsZ = [
@@ -697,6 +1293,30 @@ const questionsZ = [
     answer: "zigzagueante",
     question:
       "CON LA Z. Que no sigue un camino derecho para alcanzar un objetivo y alterna distintas opciones.",
+  },
+  {
+    answer: "zendaya",
+    question:
+      "CON LA Z. Actriz que da vida a Rue Bennett en la serie Euphoria.",
+  },
+  {
+    answer: "vaduz",
+    question:
+      "CONTIENE LA Z. Capital de Liechtenstein",
+  },
+  {
+    answer: "suiza",
+    question: "CONTIENE LA Z. País cuya capital es Berna.",
+  },
+  {
+    answer: "zapato",
+    question:
+      "CON LA Z. Calzado que no pasa del tobillo, con la parte inferior de suela y lo demás de piel u otro tejido, más o menos escotado por el empeine.",
+  },
+  {
+    answer: "zurcir",
+    question:
+      "CON LA Z. Unir y juntar sutilmente una cosa con otra.",
   },
 ];
 

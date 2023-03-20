@@ -4,10 +4,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles/reset.css" />
     <link rel="stylesheet" href="./styles/styles.css" />
     <title>pasalapabra</title>
 </head>
 <body>
+    <p>made by <a href="https://github.com/rucev">rucev</a></p>
     <div class="mainContainer">
         <h1>PASAPALABRA</h1>
         <div class="lettersContainer">
@@ -44,16 +46,16 @@
         <div class="userInterfaceContainer">
             <form class="userInterfaceGrid">
                 <div class="scoreboard scoreboardGrid">
-                    <div class="time">120</div>
-                    <div class="score">23</div>
+                    <div class="time">250</div>
+                    <div class="score">0</div>
                 </div>
                 <div class="questionArea questionGrid">
                     <div class="information">
-                        Las normas son bleh bleh bleh
+                        Envia la respuesta de cada pregunta pulsando el botón enviar y pasa con el de pasapalabra.
                     </div>
                     <div class="inputBar">
-                        <input class="name" type="text" placeholder="escribe tu nombre" value="" />
-                        <input class="answer hidden" type="text" placeholder="escribe la respuesta" value="" />
+                        <input class="name" maxlength="10" onkeypress="return event.keyCode !== 13;" type="text" placeholder="escribe tu nombre" value="" />
+                        <input class="answer hidden" onkeypress="return event.keyCode !== 13;" type="text" placeholder="escribe la respuesta" value="" />
                     </div>
                 </div>
                 <div class="exit">
@@ -68,12 +70,17 @@
                     <button class="button next hidden">
                         Seguir jugando
                     </button>
+                    <button class="button restart hidden">
+                        Volver
+                    </button>
                     <button class="button start" role="button">
                         Empezar
                     </button>
                 </div>
                 <div class="button2">
-                    <div class="send hidden"><input class="submit" type="submit"></div>
+                    <button class="sendAnswer hidden">
+                        Enviar
+                    </button>
                     <button class="button rank">
                         Ranking
                     </button>
@@ -82,5 +89,5 @@
         </div>     
     </div>
 </body>
-<script type="module" src="./scripts/app.js" defer></script>
+<script type="module" src="./scripts/main.js" defer></script>
 </html>

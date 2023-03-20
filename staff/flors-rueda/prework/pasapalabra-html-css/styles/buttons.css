@@ -8,12 +8,12 @@
   color:  var(--blank100);
   cursor: pointer;
   display: inline-flex;
-  font-size: 0.75em;
+  font-size: 0.65em;
   font-weight: 700;
   justify-content: center;
-  line-height: 0.75em;
+  line-height: 1.85em;
   margin: 0;
-  height: 2em;
+  height: 1.85em;
   text-shadow: var(--blank400) 1px 1px 1px;
   position: relative;
   vertical-align: baseline;
@@ -55,7 +55,7 @@
   box-shadow: var(--blank400) 0 4px 12px;
 }
 
-input[type=submit] {
+.sendAnswer {
   align-items: center;
   background-clip: padding-box;
   background-image: radial-gradient(circle, var(--green100), var(--green200));
@@ -65,24 +65,23 @@ input[type=submit] {
   color:  var(--blank100);
   cursor: pointer;
   display: inline-flex;
-  font-size: 0.75em;
+  font-size: 0.65em;
   font-weight: 700;
   justify-content: center;
-  line-height: 0.75em;
-  margin: 0;
-  height: 2em;
+  line-height: 1.85em;
+  height: 1.85em;
   text-shadow: var(--blank400) 1px 1px 1px;
   position: relative;
   vertical-align: baseline;
   width: auto;
 }
 
-input[type=submit]:hover,
-input[type=submit]:focus {
+.sendAnswer:hover,
+.sendAnswer:focus {
   box-shadow: var(--blank400) 0 4px 12px;
 }
 
-input[type=submit]:hover {
+.sendAnswer:hover {
   transform: translateY(-1px);
 }
 
@@ -98,12 +97,26 @@ input[type=submit]:hover {
     min-width: 4em;
   }
 
-  input[type=submit] {
+  .sendAnswer {
     font-size: 1.25em;
     height: 2em;
     line-height: 1.25em;
   }
 
+}
+
+@media (max-width: 350px) {
+
+  .button {
+    font-size: 0.45rem;
+    line-height: 0.5rem;
+  }
+
+  .sendAnswer {
+    font-size: 0.45rem;
+    line-height: 0.5rem;
+  }
+  
 }
 
 
