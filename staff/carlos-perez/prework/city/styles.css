@@ -1,0 +1,109 @@
+body{
+    background-color: #222;
+    display: flex;
+    align-items: end;
+    gap: 10px;
+}
+
+.building{
+    width: 200px;
+    height: 600px;
+    /*border: 1px dashed red;*/
+    background-color: gray;
+}
+
+.building-floor{
+    height: 60px;
+    /*border: 1px dashed yellow;*/
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.building-window{
+    height: 25px;
+    width: 20px;
+    background-color: aqua;
+}
+
+.building-ground-floor{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: end;
+    justify-items: center;
+}
+
+.building-door{
+    height: 40px;
+    width: 20px;
+    background-color: white;
+    grid-area: 1/2;
+}
+
+.car{
+    width: 50px;
+    height: 40px;
+    /*border: 2px solid yellow;*/
+    
+}
+
+.car-top{
+    height: 15px;
+    /*border: 2px solid blue;*/
+    box-sizing: border-box;
+    display: flex;
+    align-items: end;
+}
+.car-mid{
+    height: 15px;
+    /*border: 2px solid blue;*/
+    box-sizing: border-box;
+    background-color: red;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.car-bottom{
+    height: 10px;
+    /*border: 2px solid blue;*/
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.car-mirror{
+    width: 10px;
+    height: 10px;
+    /*border: 2px solid yellow;*/
+    background-color: red;
+}
+
+.car-window{
+    width: 40px;
+    height: 15px;
+    box-sizing: border-box;
+    background-color: aqua;
+}
+
+.car-light{
+    width: 10px;
+    height: 10px;
+    background-color: yellow;
+}
+
+.car-wheel{
+    width: 10px;
+    height: 10px;
+    background-color: lightslategray;
+}
+
+/*Hacer lo mismo, pero con grid*/
+
+.dogcow{
+    width: 30px;
+    height: 30px;
+    grid-area: 1/3;
+}
