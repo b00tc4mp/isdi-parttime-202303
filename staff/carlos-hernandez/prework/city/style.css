@@ -1,0 +1,200 @@
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  background-color: rgb(212, 227, 249);
+}
+.paisage {
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+  height: 800px;
+}
+
+.sky-cloud {
+  width: 100%;
+  height: 20%;
+  display: flex;
+  justify-content: space-around;
+
+  background-color: rgb(212, 227, 249);
+}
+
+.center {
+  width: 100%;
+  height: 40%;
+
+  background-color: rgb(212, 227, 249);
+}
+
+.cloud:after {
+  width: 50px;
+  height: 30px;
+  top: -10px;
+  left: 70px;
+  border-radius: 100px;
+}
+
+.cloud:before {
+  width: 80px;
+  height: 60px;
+  top: -25px;
+  right: 50px;
+  border-radius: 200px;
+}
+.cloud:after,
+.cloud:before {
+  content: '';
+  position: absolute;
+  background: whitesmoke;
+}
+
+.cloud {
+  width: 150px;
+  height: 50px;
+  background: whitesmoke;
+
+  top: 20px;
+  left: 0px;
+  border-radius: 100px;
+  position: relative;
+  margin: 10px auto 0px;
+}
+
+.wave {
+  background: #09f;
+  width: 100%;
+  height: 60%;
+  animation: wave 3s ease-in-out infinite;
+}
+
+@keyframes wave {
+  0%,
+  100% {
+    clip-path: polygon(
+      0% 47%,
+      10% 48%,
+      33% 54%,
+      54% 60%,
+      70% 61%,
+      84% 59%,
+      100% 52%,
+      100% 100%,
+      0% 100%
+    );
+  }
+  50% {
+    clip-path: polygon(
+      0% 60%,
+      15% 65%,
+      34% 66%,
+      51% 62%,
+      67% 50%,
+      84% 45%,
+      100% 46%,
+      100% 100%,
+      0% 100%
+    );
+  }
+}
+
+.fish-body {
+  width: 30px;
+  height: 20px;
+  background-color: purple;
+}
+
+.sun {
+  width: 190px;
+  height: 190px;
+  border-radius: 50%;
+  background-color: rgb(237 237 5);
+  position: absolute;
+  top: 50px;
+  left: 620px;
+}
+
+.bird {
+  font-size: 80px;
+  position: absolute;
+  top: 77px;
+  left: 850px;
+  transform: rotate(80deg);
+}
+.bird1 {
+  font-size: 80px;
+  position: absolute;
+  top: 50px;
+  left: 900px;
+  transform: rotate(45deg);
+}
+
+.boat {
+  width: 400px;
+  height: 330px;
+  background-color: chocolate;
+  position: relative;
+  top: 230px;
+  left: 300px;
+  clip-path: polygon(1% 54%, 100% 57%, 88% 100%, 13% 100%);
+}
+
+.boat-windows {
+  width: 50px;
+  height: 55px;
+  background: #09f;
+  border-radius: 5px;
+}
+
+.comand {
+  width: 140px;
+  height: 125px;
+  position: absolute;
+  top: 370px;
+  left: 520px;
+  border-radius: 15px 15px 0 0;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+
+  background-color: whitesmoke;
+}
+
+.base {
+  width: 200px;
+  height: 190px;
+  position: absolute;
+  top: 370px;
+  left: 484px;
+  clip-path: polygon(16% 63%, 91% 63%, 100% 100%, 0 100%);
+  background-color: rgb(34, 17, 5);
+  opacity: 0.7;
+}
+.boat-border {
+  width: 430px;
+  height: 30px;
+  border-radius: 20px;
+  transform: rotate(1.4deg);
+  background-color: rgb(231, 125, 49);
+  position: relative;
+  top: 414px;
+  left: 284px;
+}
+
+.hull-porthole-container {
+  width: 110px;
+  height: 40px;
+  display: flex;
+  justify-content: space-around;
+  position: absolute;
+  top: 240px;
+  left: 60px;
+}
+
+.hull-porthole {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: gray;
+}
