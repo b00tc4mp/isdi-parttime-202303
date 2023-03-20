@@ -14,6 +14,7 @@
     --roof: #660066;
     --roof-night: #1a001a;
     --door: #1a1a1a;
+    --park: #ffffff;
 
 }
 
@@ -235,6 +236,18 @@ body{
 
 .building-roof-night{
     background-color: var(--roof-night);
+}
+
+.park{
+    height: 50px;
+    background-color: var(--park);
+    display: flex;
+    flex-direction: column;
+}
+
+.dogcow{
+align-self: center;
+justify-self: center;
 }
 
 .background-wrap {
