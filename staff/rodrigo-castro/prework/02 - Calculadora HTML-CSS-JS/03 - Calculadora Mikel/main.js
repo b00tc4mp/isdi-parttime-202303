@@ -9,12 +9,14 @@ let currentValue
 let tmp = [[], []]
 let dotStatus = false
 let isFirstOperation = true;
+let previousOperator = ''
 
 window.onload = () => {
 const addNumber = document.querySelector('.number')
 const restartNumber = document.querySelector('.restart')
 const message = document.querySelector('.message')
 let currentValue = 'number'
+
 
   // substractNumber.onclick = () => {
   //   const messageIfNumberIsLess = 'You cannot sustract <br>if currrent number is 0'
@@ -71,28 +73,83 @@ const addOperator = (operator) => {
 //   history.pop()
 //   currentValue = 'number'
 // }
+  if (previousOperator === '') {
 
-
-  if (currentValue === 'number' && operator === '+') {
+    if (currentValue === 'number' && operator === '+') {
     
-    if (historyFrontEnd.innerHTML !== "START") {
-      history.push('+')
-      historyFrontEnd.innerHTML = history.join('')
-      document.querySelector('.first-value').innerText = "";
-    } 
+       if (historyFrontEnd.innerHTML !== "START") {
+         history.push('+')
+         historyFrontEnd.innerHTML = history.join('')
+         document.querySelector('.first-value').innerText = "";
+       } 
+  
+      // if (!isFirstOperation) {
+      //   history.pop();
+      //   history = (parseFloat(history.join("")) + parseFloat(numbers.join(""))).toString().split("");
+      //   history.push('+')
+      //   historyFrontEnd.innerHTML = history.join('')
+      //   document.querySelector('.first-value').innerText = ""
+      // }
+      
+      screenNumbers = [];
+      numbers = [];
+      currentValue = 'operator'
+      console.log("history: " + history)
+      isFirstOperation = false // se deberia reinicializar al darle al AC o =
+      previousOperator = operator
+  
+    }
+
+    if (currentValue === 'number' && operator === '-') {
+    
+       if (historyFrontEnd.innerHTML !== "START") {
+         history.push('-')
+         historyFrontEnd.innerHTML = history.join('')
+         document.querySelector('.first-value').innerText = "";
+       } 
+  
+      // if (!isFirstOperation) {
+      //   history.pop();
+      //   history = (parseFloat(history.join("")) - parseFloat(numbers.join(""))).toString().split("");
+      //   history.push('-')
+      //   historyFrontEnd.innerHTML = history.join('')
+      //   document.querySelector('.first-value').innerText = ""
+      // }
+      
+      screenNumbers = [];
+      numbers = [];
+      currentValue = 'operator'
+      console.log("numbers: " + numbers)
+      isFirstOperation = false // se deberia reinicializar al darle al AC o =
+      previousOperator = operator
+  
+    }
+}
+
+  if (currentValue === 'number' && previousOperator === '+') {
+    
+    // if (historyFrontEnd.innerHTML !== "START") {
+    //   history.push('+')
+    //   console.log("******************")
+    //   historyFrontEnd.innerHTML = history.join('')
+    //   document.querySelector('.first-value').innerText = "";
+    // } 
 
     if (!isFirstOperation) {
       history.pop();
-      history = (parseFloat(numbers.join("")) + parseFloat(history.join(""))).toString().split("");
-      history.push('+')
+      history = (parseFloat(history.join("")) + parseFloat(numbers.join(""))).toString().split("");
+      history.push(operator.toString())
       historyFrontEnd.innerHTML = history.join('')
       document.querySelector('.first-value').innerText = ""
     }
     
     screenNumbers = [];
     numbers = [];
+    currentValue = 'operator'
     console.log("history: " + history)
     isFirstOperation = false // se deberia reinicializar al darle al AC o =
+    previousOperator = operator
+
       if (false) {    tmp[0] = numbers
           tmp[1] = cache
           // console.log('numbers', numbers)
@@ -111,34 +168,29 @@ const addOperator = (operator) => {
   }
 
 
-  if (currentValue === 'number' && operator === '-') {
+  if (currentValue === 'number' && previousOperator === '-') {
     
-    if (historyFrontEnd.innerHTML !== "START") {
-      console.log("history: " + history)
-      console.log("numbers: " + numbers)
-      history.push('-')
-      historyFrontEnd.innerHTML = history.join('')
-      document.querySelector('.first-value').innerText = "";
-      console.log("history: " + history)
-      console.log("numbers: " + numbers)
-    } 
+    // if (historyFrontEnd.innerHTML !== "START") {
+    //   history.push('-')
+    //   historyFrontEnd.innerHTML = history.join('')
+    //   document.querySelector('.first-value').innerText = "";
+    // } 
 
     if (!isFirstOperation) {
-      console.log("history: " + history)
-      console.log("numbers: " + numbers)
       history.pop();
-      history = (parseFloat(numbers.join("")) - parseFloat(history.join(""))).toString().split("");
-      history.push('-')
+      history = (parseFloat(history.join("")) - parseFloat(numbers.join(""))).toString().split("");
+      history.push(operator.toString())
       historyFrontEnd.innerHTML = history.join('')
       document.querySelector('.first-value').innerText = ""
-      console.log("history: " + history)
-      console.log("numbers: " + numbers)
     }
     
     screenNumbers = [];
     numbers = [];
+    currentValue = 'operator'
     console.log("numbers: " + numbers)
     isFirstOperation = false // se deberia reinicializar al darle al AC o =
+    previousOperator = operator
+
       if (false) {    tmp[0] = numbers
           tmp[1] = cache
           // console.log('numbers', numbers)
@@ -204,6 +256,7 @@ const addOperator = (operator) => {
     
     screenNumbers = [];
     numbers = [];
+    currentValue = 'operator'
     console.log("numbers: " + numbers)
     isFirstOperation = false // se deberia reinicializar al darle al AC o =
       if (false) {    tmp[0] = numbers
