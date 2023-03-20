@@ -1,0 +1,280 @@
+body {
+    background-color: black;
+    display: flex;
+    align-items: end;
+    justify-content: center;
+    gap: 10px;
+    border: 1px solid rebeccapurple;
+    width: 750px;
+    height: 800px;
+}
+
+.building-one {
+    width: 100px;
+    height: 400px;
+    display: flex;
+    justify-content: space-around;
+    background-color: rgb(141, 141, 141);
+}
+
+.building-one-left {
+    width: 100px;
+    height: 400px;
+    /*background-image: linear-gradient(rgba(255, 71, 246, 0.704), rgba(253, 169, 59, 0.817));*/
+}
+
+.building-one-right {
+    width: 100px;
+    height: 400px;
+    /*background-color: rgb(141, 141, 141);*/
+    background-image: linear-gradient(rgba(191, 51, 184, 0.704), rgba(173, 116, 41, 0.817));
+}
+
+.building-one-floor {
+    height: 40px;
+    
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.building-one-left-window {
+    background-color: rgb(125, 242, 250);
+    width: 10px;
+    height: 15px;
+}
+
+.building-one-left-ground-floor {
+    align-items: end;
+}
+
+.building-one-left-door {
+    background-color: rgb(69, 69, 69);
+    width: 20px;
+    height: 30px;
+}
+
+.building-one-right-window {
+    background-color: rgb(182, 182, 99);
+    width: 10px;
+    height: 15px;
+}
+
+.building-one-right-ground-floor {
+    align-items: end;
+}
+
+.building-one-right-door {
+    background-color: rgb(38, 38, 38);
+    width: 20px;
+    height: 30px;
+}
+
+.car {
+    width: 50px;
+    height: 40px;
+    box-sizing: border-box;
+}
+
+.car-top {
+    height: 15px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: end;
+}
+
+.car-mid {
+    height: 15px;
+    box-sizing: border-box;
+    background-color: red;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.car-bottom {
+    height: 10px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+}
+
+.car-mirror {
+    width: 10px;
+    height: 10px;
+    background-color: red;
+}
+
+.car-window {
+    width: 40px;
+    height: 15px;
+    box-sizing: border-box;
+    background-color: aquamarine;
+}
+
+.car-light {
+    width: 10px;
+    height: 10px;
+    background-color: yellow;
+}
+
+.car-wheel {
+    width: 10px;
+    height: 10px;
+    background-color: dimgray;
+}
+
+.grid-building {
+    width: 100px;
+    height: 400px;
+    display: grid; 
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows:  repeat(21, 1fr);
+    background-color: rgb(141, 141, 141);
+}
+
+.grid-window {
+    height: 15px;
+    background-color: rgb(125, 242, 250);
+}
+
+.one {
+    grid-column: 2;
+    grid-row: 2;
+}
+
+.two {
+    grid-column: 4;
+    grid-row: 2;
+}
+
+.three {
+    grid-column: 6;
+    grid-row: 2;
+}
+
+.four {
+    grid-column: 2;
+    grid-row: 4;
+}
+
+.five {
+    grid-column: 4;
+    grid-row: 4;
+}
+
+.six {
+    grid-column: 6;
+    grid-row: 4;
+}
+
+.seven {
+    grid-column: 2;
+    grid-row: 6;
+}
+
+.eight {
+    grid-column: 4;
+    grid-row: 6;
+}
+
+.nine {
+    grid-column: 6;
+    grid-row: 6;
+}
+
+.ten {
+    grid-column: 2;
+    grid-row: 8;
+}
+
+.eleven {
+    grid-column: 4;
+    grid-row: 8;
+}
+
+.twelve {
+    grid-column: 6;
+    grid-row: 8;
+}
+
+.thirteen {
+    grid-column: 2;
+    grid-row: 10;
+}
+
+.fourteen {
+    grid-column: 4;
+    grid-row: 10;
+}
+
+.fiveteen {
+    grid-column: 6;
+    grid-row: 10;
+}
+
+.sixteen {
+    grid-column: 2;
+    grid-row: 12;
+}
+
+.seventeen {
+    grid-column: 4;
+    grid-row: 12;
+}
+
+.eighteen {
+    grid-column: 6;
+    grid-row: 12;
+}
+
+.nineteen {
+    grid-column: 2;
+    grid-row: 14;
+}
+
+.twenty {
+    grid-column: 4;
+    grid-row: 14;
+}
+
+.twentyone {
+    grid-column: 6;
+    grid-row: 14;
+}
+
+.twentytwo {
+    grid-column: 2;
+    grid-row: 16;
+}
+
+.twentythree {
+    grid-column: 4;
+    grid-row: 16;
+}
+
+.twentyfour {
+    grid-column: 6;
+    grid-row: 16;
+}
+
+.twentyfive {
+    grid-column: 2;
+    grid-row: 18;
+}
+
+.twentysix {
+    grid-column: 4;
+    grid-row: 18;
+}
+
+.twentyseven {
+    grid-column: 6;
+    grid-row: 18;
+}
+
+.grid-door {
+    background-color: rgb(69, 69, 69);
+    grid-column: 4;
+    grid-row: 20/22;
+}
