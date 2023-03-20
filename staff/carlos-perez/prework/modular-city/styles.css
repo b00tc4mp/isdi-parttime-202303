@@ -86,34 +86,40 @@ body{
 .window-small {
     width: 15px;
     height: 15px;
+    border: 2px solid var(--black);
 }
 
 .window-medium {
     width: 20px;
     height: 20px;
+    border: 2px solid var(--black);
 }
 
 .window-large {
     width: 28px;
     height: 28px;
+    border: 2px solid var(--black);
 }
 
 .window-small-round {
     width: 15px;
     height: 15px;
     border-radius: 50%;
+    border: 2px solid var(--black);
 }
 
 .window-medium-round {
     width: 20px;
     height: 20px;
     border-radius: 50%;
+    border: 2px solid var(--black);
 }
 
 .window-large-round {
     width: 28px;
     height: 28px;
     border-radius: 50%;
+    border: 2px solid var(--black);
 }
 
 .window-color-day{
@@ -154,6 +160,7 @@ body{
     grid-template-columns: 1fr;
     justify-content: center;
     align-items: center;
+    border: 2px solid var(--black);
 }
 
 .building-small .door-small{
@@ -170,6 +177,7 @@ body{
     grid-template-columns: 1fr;
     justify-content: center;
     align-items: center;
+    border: 2px solid var(--black);
 }
 
 .building-large{
@@ -179,6 +187,7 @@ body{
     grid-template-columns: 1fr;
     justify-content: center;
     align-items: center;
+    border: 2px solid var(--black);
 }
 
 .building-large .door-large{
@@ -192,6 +201,7 @@ body{
     grid-template-columns: 1fr;
     justify-content: center;
     align-items: center;
+    border: 2px solid var(--black);
 }
 
 .building-huge .door-large{
