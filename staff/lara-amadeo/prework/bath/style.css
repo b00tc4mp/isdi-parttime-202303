@@ -3,6 +3,7 @@ body{
 background-image: url('https://res.cloudinary.com/dbn2zybcu/image/upload/v1679164461/bath-bg_okvphd.png');
 background-size:1440px;
 margin: 0;
+height: 100vh;
 }
 
 .vertical-central-part{
@@ -126,7 +127,6 @@ margin: 0;
 padding-top:170px;
 margin-right: 24px;
 }
-
 
 .bath-bar-hooks{
     display: flex;
