@@ -2,7 +2,6 @@
     width: 100vw;
     height: 100vh;
     margin: 0;
-    background: rgb(195,94,34);
     background: linear-gradient(0deg, rgb(196, 106, 55) 0%, rgb(18, 53, 128) 100%);
     display: grid;
     grid-template-columns: repeat(70, 1fr);
@@ -11,7 +10,6 @@
 
 .street-floor {
     background-color: rgb(128, 76, 53);
-    border: 1px solid #000000;
     grid-column-start: 1;
     grid-column-end: 71;
     grid-row-start: 51;
@@ -20,7 +18,6 @@
 
 .road {
     background-color: rgb(102, 99, 98);
-    border: 1px solid #000000;
     grid-column-start: 27;
     grid-column-end: 45;
     grid-row-start: 51;
@@ -247,6 +244,26 @@
     grid-template-rows: repeat(10, 1fr);
     grid-column-start: 17;
     grid-column-end: 22;
+    grid-row-start: 50;
+    grid-row-end: 37;
+}
+
+.tree-one-left {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    grid-column-start: 3;
+    grid-column-end: 6;
+    grid-row-start: 50;
+    grid-row-end: 43;
+}
+
+.tree-two-right {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(10, 1fr);
+    grid-column-start: 53;
+    grid-column-end: 58;
     grid-row-start: 50;
     grid-row-end: 37;
 }
@@ -622,4 +639,382 @@
     grid-column-end: 59;
     grid-row-start: 4;
     grid-row-end: 9;
+}
+
+.bush {
+    background:rgb(26, 83, 30);
+    clip-path: polygon(50% 0%, 80% 10%, 100% 35%, 100% 70%, 80% 90%, 50% 100%, 20% 90%, 0% 70%, 0% 35%, 20% 10%);
+    grid-column-start: 14;
+    grid-column-end: 16;
+    grid-row-start: 50;
+    grid-row-end: 47;
+}
+
+.bush-right {
+    background:rgb(38, 148, 47);
+    clip-path: polygon(50% 0%, 80% 10%, 100% 35%, 100% 70%, 80% 90%, 50% 100%, 20% 90%, 0% 70%, 0% 35%, 20% 10%);
+    grid-column-start: 56;
+    grid-column-end: 58;
+    grid-row-start: 50;
+    grid-row-end: 47;
+}
+
+.streetlight-left {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(17, 1fr);
+    grid-column-start: 25;
+    grid-column-end: 28;
+    grid-row-start: 50;
+    grid-row-end: 33;
+}
+
+.pole-left {
+    background: rgb(31, 31, 31);
+    width: 10px;
+    grid-column-start: 2;
+    grid-row-start: 18;
+    grid-row-end: 1;
+}
+
+.top-lamp-left {
+    background: rgb(31, 31, 31);
+    width: 50px;
+    grid-column-start: 2;
+    grid-column-end: 4;
+    grid-row-start: 1;
+}
+
+.lamp-left {
+    background: rgb(226, 226, 156);
+    clip-path: circle(50% at 50% 50%);
+    grid-column-start: 3;
+    grid-column-end: 4;
+    grid-row-start: 3;
+    grid-row-end: 2;
+}
+
+.streetlight-right {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(17, 1fr);
+    grid-column-start: 44;
+    grid-column-end: 47;
+    grid-row-start: 50;
+    grid-row-end: 33;
+}
+
+.pole-right {
+    background: rgb(31, 31, 31);
+    width: 10px;
+    grid-column-start: 2;
+    grid-row-start: 18;
+    grid-row-end: 1;
+    position: relative;
+    right: -17px;
+}
+
+.top-lamp-right {
+    background: rgb(31, 31, 31);
+    width: 50px;
+    grid-column-start: 2;
+    grid-column-end: 4;
+    grid-row-start: 1;
+    position: relative;
+    left: -23px;
+}
+
+.lamp-right {
+    background: rgb(226, 226, 156);
+    clip-path: circle(50% at 50% 50%);
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 3;
+    grid-row-end: 2;
+    position: relative;
+    right: -1px;
+}
+
+.car-left {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(7, 1fr);
+    grid-column-start: 28;
+    grid-column-end: 35;
+    grid-row-start: 50;
+    grid-row-end: 43;
+}
+
+.top {
+    background: red;
+    grid-column-start: 2;
+    grid-column-end: 7;
+    grid-row-start: 4;
+    grid-row-end: 1;
+}
+
+.glass {
+    background: rgb(72, 171, 228);
+    grid-column-start: 3;
+    grid-column-end: 6;
+    grid-row-start: 4;
+    grid-row-end: 2;
+}
+
+.down {
+    background: red;
+    border-radius: 10%;
+    grid-column-start: 1;
+    grid-column-end: 8;
+    grid-row-start: 7;
+    grid-row-end: 4;
+}
+
+.wheel-left {
+    background: rgb(66, 66, 64);
+    clip-path: circle(50% at 50% 50%);
+    grid-column-start: 2;
+    grid-column-end: 2;
+    grid-row-start: 7;
+    grid-row-end: 7;
+}
+
+.wheel-right {
+    background: rgb(66, 66, 64);
+    clip-path: circle(50% at 50% 50%);
+    grid-column-start: 6;
+    grid-column-end: 6;
+    grid-row-start: 7;
+    grid-row-end: 7;
+}
+
+.spotlight-left {
+    background: rgb(226, 226, 156);
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: 5;
+    grid-row-end: 6;
+}
+
+.spotlight-right {
+    background: rgb(226, 226, 156);
+    grid-column-start: 6;
+    grid-column-end: 7;
+    grid-row-start: 5;
+    grid-row-end: 6;
+}
+
+.car-right {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(7, 1fr);
+    grid-column-start: 37;
+    grid-column-end: 44;
+    grid-row-start: 50;
+    grid-row-end: 43;
+}
+
+.top-right {
+    background: rgb(44, 70, 143);
+    grid-column-start: 2;
+    grid-column-end: 7;
+    grid-row-start: 4;
+    grid-row-end: 1;
+}
+
+.down-right {
+    background: rgb(44, 70, 143);
+    border-radius: 10%;
+    grid-column-start: 1;
+    grid-column-end: 8;
+    grid-row-start: 7;
+    grid-row-end: 4;
+}
+
+.garland-lights {
+    background: #000000;
+    height: 2px;
+    grid-column-start: 18;
+    grid-column-end: 54;
+    grid-row-start: 22;
+}
+
+.light1 {
+    background: #ffffff;
+    clip-path: circle(10% at 50% 50%);
+    grid-column-start: 19;
+    grid-row-start: 22;
+    position: relative;
+    top: -5px;
+    left: -10px;
+}
+
+.light2 {
+    background: #ffffff;
+    clip-path: circle(10% at 50% 50%);
+    grid-column-start: 21;
+    grid-row-start: 22;
+    position: relative;
+    top: -5px;
+    left: -10px;
+}
+
+.light3 {
+    background: #ffffff;
+    clip-path: circle(10% at 50% 50%);
+    grid-column-start: 23;
+    grid-row-start: 22;
+    position: relative;
+    top: -5px;
+    left: -10px;
+}
+
+.light4 {
+    background: #ffffff;
+    clip-path: circle(10% at 50% 50%);
+    grid-column-start: 25;
+    grid-row-start: 22;
+    position: relative;
+    top: -5px;
+    left: -10px;
+}
+
+.light5 {
+    background: #ffffff;
+    clip-path: circle(10% at 50% 50%);
+    grid-column-start: 27;
+    grid-row-start: 22;
+    position: relative;
+    top: -5px;
+    left: -10px;
+}
+
+.light6 {
+    background: #ffffff;
+    clip-path: circle(10% at 50% 50%);
+    grid-column-start: 29;
+    grid-row-start: 22;
+    position: relative;
+    top: -5px;
+    left: -10px;
+}
+
+.light7 {
+    background: #ffffff;
+    clip-path: circle(10% at 50% 50%);
+    grid-column-start: 31;
+    grid-row-start: 22;
+    position: relative;
+    top: -5px;
+    left: -10px;
+}
+
+.light8 {
+    background: #ffffff;
+    clip-path: circle(10% at 50% 50%);
+    grid-column-start: 33;
+    grid-row-start: 22;
+    position: relative;
+    top: -5px;
+    left: -10px;
+}
+
+.light9 {
+    background: #ffffff;
+    clip-path: circle(10% at 50% 50%);
+    grid-column-start: 35;
+    grid-row-start: 22;
+    position: relative;
+    top: -5px;
+    left: -10px;
+}
+
+.light10 {
+    background: #ffffff;
+    clip-path: circle(10% at 50% 50%);
+    grid-column-start: 37;
+    grid-row-start: 22;
+    position: relative;
+    top: -5px;
+    left: -10px;
+}
+
+.light11 {
+    background: #ffffff;
+    clip-path: circle(10% at 50% 50%);
+    grid-column-start: 39;
+    grid-row-start: 22;
+    position: relative;
+    top: -5px;
+    left: -10px;
+}
+
+.light12 {
+    background: #ffffff;
+    clip-path: circle(10% at 50% 50%);
+    grid-column-start: 41;
+    grid-row-start: 22;
+    position: relative;
+    top: -5px;
+    left: -10px;
+}
+
+.light13 {
+    background: #ffffff;
+    clip-path: circle(10% at 50% 50%);
+    grid-column-start: 43;
+    grid-row-start: 22;
+    position: relative;
+    top: -5px;
+    left: -10px;
+}
+
+.light14 {
+    background: #ffffff;
+    clip-path: circle(10% at 50% 50%);
+    grid-column-start: 45;
+    grid-row-start: 22;
+    position: relative;
+    top: -5px;
+    left: -10px;
+}
+
+.light15 {
+    background: #ffffff;
+    clip-path: circle(10% at 50% 50%);
+    grid-column-start: 47;
+    grid-row-start: 22;
+    position: relative;
+    top: -5px;
+    left: -10px;
+}
+
+.light16 {
+    background: #ffffff;
+    clip-path: circle(10% at 50% 50%);
+    grid-column-start: 49;
+    grid-row-start: 22;
+    position: relative;
+    top: -5px;
+    left: -10px;
+}
+
+.light17 {
+    background: #ffffff;
+    clip-path: circle(10% at 50% 50%);
+    grid-column-start: 51;
+    grid-row-start: 22;
+    position: relative;
+    top: -5px;
+    left: -10px;
+}
+
+.light18 {
+    background: #ffffff;
+    clip-path: circle(10% at 50% 50%);
+    grid-column-start: 53;
+    grid-row-start: 22;
+    position: relative;
+    top: -5px;
+    left: -15px;
 }
