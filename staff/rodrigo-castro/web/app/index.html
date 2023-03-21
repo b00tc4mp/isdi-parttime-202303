@@ -24,15 +24,29 @@
             <input class="input-field" type="text" name="name" placeholder="Name">
             <input class="input-field" type="email" name="email" placeholder="Email">
             <input class="input-field" type="password" name="password" placeholder="Password">
+            <div class="already-registered">Already registered? <button class="go-to-sign-in">Sign in</button></div>
             </div>
             <div class="button-container">
                 <button class="register-button">Register</button>
             </div>
         </form>
     </div>
-    <div class="login-page" style="display: none">
-        <h1>Login</h1>
+    <div class="login-page" style="display: none;">
         <!-- TODO: IMPLEMENT LOGIN PAGE -->
+        <h1 class="login-title">LOGIN</h1>
+        <div class="login-inputs">
+            <input class="input-field" type="email" name="email" placeholder="Email">
+            <input class="input-field" type="password" name="password" placeholder="Password">
+            <div class="remember-me">
+                <input class="input-field checkbox" type="checkbox" name="remember-me">
+                <div class="remember-me-text">Remember me</div>
+            </div>
+            <div class="forgot-password">Forgot your <a class="forgot-password-button">password</a>?</div>
+            <div class="dont-have-account">Don't have an account? <a class="register-now-button">Register now</a></div>
+        </div>
+        <div class="button-container">
+            <button class="register-button">Login</button>
+        </div>
     </div>
 
     <div class="home-page" style="display: none">
