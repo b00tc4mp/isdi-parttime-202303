@@ -120,6 +120,9 @@ label{
 
 
 @media (max-width: 844px){
+    *{
+        font-size: 13px;
+    }
     .register{
         width: 60%;
         height: 60%;
