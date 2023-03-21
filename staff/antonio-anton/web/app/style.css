@@ -57,6 +57,7 @@ body {
     font-family: sans-serif;
     background-color: #154a68;
     padding: 20px;
+    border-radius: 20px;
   }
   
   .registartion-form input,
@@ -97,6 +98,7 @@ body {
     font-family: sans-serif;
     background-color: #154a68;
     padding: 20px;
+    border-radius: 20px;
   }
   
   .login-form input,
