@@ -1,34 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>App</title>
-</head>
-<body>
-  <div class="register"></div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>App</title>
+  </head>
+  <body>
+    <div class="register">
+      <h1>Register</h1>
+      <!--TODO ---->
 
-  <h1>Register</h1>
-  <!--TODO implement register page---->
+      <form action="">
+        <label>Enter your name:</label>
+        <input type="text" name="name" />
 
-  <form action="">
-    <input type="text" name="name" placeholder="name"></input>
-    <input type="email" name="email" placeholder="email"></input>
-    <input type="password" name="password" placeholder="password"></input>
+        <label>Enter your email:</label>
+        <input type="email" name="email" />
 
-  </form>
+        <label>Enter your password:</label>
+        <input type="password" name="password" />
 
+        <label>Repeat your password:</label>
+        <input type="password" name="password" />
 
-  <div class="login style= "display: none"></div>
-  
-  <h1>Login</h1>
-  <!--TODO implement login page---->
+        <div class="button">
+          <button class="sign-up">Sign up</button>
+        </div>
+      </form>
+    </div>
 
-  <div class="home"></div>
+    <div class="login" style="display: none">
+      <h1>Login</h1>
 
-  <h1>Home</h1>
-  <!--TODO implement home page---->
+      <form action="">
+        <label>Enter your email:</label>
+        <input type="email" name="email" />
 
-</body>
+        <label>Enter your password:</label>
+        <input type="password" name="password" />
+
+        <div class="button">
+          <button class="login-button">Login</button>
+        </div>
+      </form>
+    </div>
+
+    <!--TODO ---->
+    <div class="home" style="display: none">
+      <h1>Home</h1>
+      <!--TODO ---->
+      <h2>¡Hola Aida! Esta es la home 🥰</h2>
+    </div>
+  </body>
 </html>
