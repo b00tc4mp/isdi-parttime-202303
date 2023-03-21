@@ -1,0 +1,45 @@
+body {
+ ba
+}
+h1 {
+    color: white;
+    font-size: 30px;
+}
+
+.register {
+    width: 300px;
+    height: 45px;
+    font-size: 7px;
+    background-color: rgb(12, 12, 7);
+    text-align: center;
+    border-radius: 30px;
+
+}
+
+form {
+    
+    display:flex;
+    flex-direction: column;
+    align-content: space-between;
+   
+   
+}
+input {
+   
+    background-color: black;
+    color: white;
+    font-size: 22px;
+    font-style: bold;
+    border-radius: 30px;
+    
+
+}
+button{
+    background-color: black ;
+    color: white;
+    border: 1px solid white;
+    border-radius: 45px;
+}
+.placeholder{
+    
+}
