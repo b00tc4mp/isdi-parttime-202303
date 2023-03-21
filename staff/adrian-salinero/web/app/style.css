@@ -1,0 +1,35 @@
+.register {
+  background-color: rgb(114, 234, 245);
+}
+
+.login {
+  background-color: rgb(191, 229, 114);
+}
+
+.home {
+  background-color: rgb(227, 134, 134);
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 170px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}

@@ -5,6 +5,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>App</title>
+
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="register">
@@ -12,22 +14,53 @@
     <!-- TODO implement register page-->
 
     <form action="">
-      <input type="text" name="name" placeholder="name">
-      <input type="text" name="email" placeholder="email">
-      <input type="password" name="password" placeholder="password">
-      <button type="submit"></button>
+      <label for="name">First name:</label><br>
+      <input type="text" name="fname" placeholder="First name"><br><br>
+      <label for="name">Last name:</label><br>
+      <input type="text" name="lname" placeholder="Last name"><br><br>
+      <label for="email">Email:</label><br>
+      <input type="text" name="email" placeholder="Email"><br><br>
+      <label for="username">Username:</label><br>
+      <input type="text" name="username" placeholder="Username"><br><br>
+      <label for="password">Password:</label><br>
+      <input type="password" name="password" placeholder="Password">
+      <a href="#" class="tooltip">
+        !
+         <span class="tooltiptext">"Password must be between 7 and 20 characters"</span>
+      </a><br><br>
+      <label for="datebirth">Date of birth:</label><br>
+      <input type="date" name="datebirth" placeholder="Date of birth"><br><br>
+      <label for="phone">Phone number:</label><br>
+      <input type="tel" name="phone" placeholder="Phone number"><br><br>
+      <label for="phone">Gender:</label><br>
+      <input type="radio" id="male" name="gender" value="Male">
+      <label for="html">Male</label><br>
+      <input type="radio" id="female" name="gender" value="Female">
+      <label for="css">Female</label><br>
+      <input type="radio" id="nonbinary" name="gender" value="Non-binary">
+      <label for="css">Non-binary</label><br><br>
+
+      <button type="submit">Register</button>
     </form>
 
   </div>
 
   <div class="login">
     <h1>Login</h1>
-    <!-- TODO implement login page-->
+
+    <form action="">
+      <label for="email">Email:</label><br>
+      <input type="text" name="email" placeholder="Email"><br><br>
+      <label for="password">Password:</label><br>
+      <input type="password" name="password" placeholder="Password"><br><br>
+      <button type="submit">Login</button>
+    </form>
+    
   </div>
 
   <div class="home">
     <h1>Home</h1>
-    <!-- TODO implement home page-->
+    <h2>Name</h1>
   </div>
 </body>
 </html>
