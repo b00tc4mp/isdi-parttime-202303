@@ -150,5 +150,8 @@ button.submit {
 .container .login, .container .register {
     font-size: 12px
 }
+.container .login p, .container .register p {
+    margin: 25px 0 0;
+}
 /* ______ END FORM ___ */
 
