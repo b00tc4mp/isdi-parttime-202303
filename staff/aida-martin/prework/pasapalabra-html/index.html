@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pasapalabra HTML CSS</title>
+    <meta name="description" content="Juego del Pasapalabra" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <h1 class="title">PASAPALABRA</h1>
+
+    <div class="first-line div">
+      <span class="letter" data-letter="a">A</span>
+      <span class="letter" data-letter="b">B</span>
+      <span class="letter" data-letter="c">C</span>
+      <span class="letter" data-letter="d">D</span>
+      <span class="letter" data-letter="e">E</span>
+      <span class="letter" data-letter="f">F</span>
+      <span class="letter" data-letter="g">G</span>
+      <span class="letter" data-letter="h">H</span>
+      <span class="letter" data-letter="i">I</span>
+      <span class="letter" data-letter="j">J</span>
+      <span class="letter" data-letter="l">L</span>
+      <span class="letter" data-letter="m">M</span>
+      <span class="letter" data-letter="n">N</span>
+      <span class="letter" data-letter="ñ">Ñ</span>
+    </div>
+
+    <div class="second-line div">
+      <span class="letter" data-letter="o">O</span>
+      <span class="letter" data-letter="p">P</span>
+      <span class="letter" data-letter="q">Q</span>
+      <span class="letter" data-letter="r">R</span>
+      <span class="letter" data-letter="s">S</span>
+      <span class="letter" data-letter="t">T</span>
+      <span class="letter" data-letter="u">U</span>
+      <span class="letter" data-letter="v">V</span>
+      <span class="letter" data-letter="x">X</span>
+      <span class="letter" data-letter="y">Y</span>
+      <span class="letter" data-letter="z">Z</span>
+    </div>
+
+    <section class="start">
+      <div class="get-username">
+        <h2 class="first-paragraph">
+          ¡Hola! Bienvenido/a al juego Pasapalabra, ¿cuál es tu nombre? 🥰
+        </h2>
+
+        <div class="username-container">
+          <input
+            class="username"
+            type="text"
+            value=""
+            placeholder="Introduce aquí tu nombre"
+          />
+
+          <button class="send-username">ENVIAR</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="game-rules hiden">
+      <div>
+        <h2 class="first-paragraph">
+          Ok, <span class="name"></span>, antes de empezar, te mostraré las
+          reglas del juego 🥰
+        </h2>
+
+        <div class="square">
+          <p class="rules">
+            • En cada turno, se mostrará una definición por cada letra (25 en
+            total). Deberás responder con la palabra que creas que es la
+            correcta ✅ (Puedes utilizar la tecla ENTER) ¡CUIDADO! ¡Tendrás
+            tiempo limitado! ⏱
+          </p>
+
+          <p class="rules">
+            • Si tienes dudas, puedes pulsar el botón PASAPALABRA (o la tecla
+            SPACE). En ese caso, el juego saltará a la siguiente letra, dejando
+            esa pendiente para volver a probar más tarde en la siguiente ronda
+            😊
+          </p>
+
+          <p class="rules">
+            • Una vez contestadas todas las definiciones o se acabe el tiempo,
+            se te mostrará el resultado final: las palabras acertadas, las
+            falladas y las no contestadas. Además, también podrás ver el ranking
+            de resultados 🔢
+          </p>
+
+          <p class="rules">
+            • En cualquier momento puedes pulsar el botón SALIR (o la tecla
+            ESCAPE) para finalizar el juego. En ese caso, se te mostrará tu
+            resultado final pero no podrás ver ni entrar en el ranking de
+            resultados🙏
+          </p>
+        </div>
+
+        <div class="go-play">
+          <p class="last-paragraph">
+            Haz click en JUGAR para comenzar el juego. ¡Mucha suerte! 🍀
+          </p>
+
+          <button class="play-button">▷ JUGAR</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="game hiden">
+      <div class="questions-container div">
+        <p class="question"></p>
+      </div>
+
+      <div class="answers-container div">
+        <input
+          class="answer"
+          type="text"
+          value=""
+          placeholder="Introduce aquí tu respuesta"
+        />
+
+        <button class="send-button">ENVIAR</button>
+        <button class="next-button">PASAPALABRA</button>
+        <button class="exit-button">SALIR</button>
+      </div>
+
+      <div class="counters div">
+        <div>
+          <span class="timer">200</span>
+        </div>
+
+        <div>
+          <span class="hits-counter div">0</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="end hiden">
+      <div class="farewell">
+        <div class="first-paragraph">
+          <h2>¡FIN DE LA PARTIDA! ⏱</h2>
+          <button class="play-again-button">▷ JUGAR DE NUEVO</button>
+        </div>
+        <div class="score-square">
+          <p class="score">
+            Has obtenido una puntuación de <span class="points"></span> 😳
+          </p>
+
+          <div class=""></div>
+          <p class="score">• <span class="hits"></span> aciertos 🟢</p>
+
+          <p class="score">• <span class="failures"></span> fallos 🔴</p>
+
+          <p class="score">
+            • <span class="unanswered"></span> no contestadas ❓
+          </p>
+        </div>
+      </div>
+
+      <div class="ranking">
+        <h2 class="ranking-title">RANKING 🏆</h2>
+        <div class="text-ranking"></div>
+      </div>
+    </section>
+
+    <script src="index.js"></script>
+  </body>
+</html>
