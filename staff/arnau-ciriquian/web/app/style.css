@@ -1,7 +1,71 @@
-body {
-    background-color: black;
+html {
+    height: 100%;
 }
 
-h1 {
-    color: aquamarine;
+body {
+    min-height: 98%;
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    overflow: hidden;
+}
+
+.pattern-hex {
+    position: absolute;
+    left: -3%;
+    z-index: -1;
+    width: 120%;
+    height: 100%;
+    background-image: url(hexagon-pattern.png);
+}
+
+.pattern-color {
+    position: absolute;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(to bottom, rgb(74, 14, 108), rgba(0, 0, 0, 0));
+}
+
+.register {
+    width: 300px;
+    height: 300px;
+    background-color: rgb(199, 199, 199);
+    clip-path: polygon(20% 0%, 80% 0%, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0% 80%, 0% 20%);
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.register-heading {
+    color: rgb(0, 0, 0);
+    text-align: center;
+}
+
+.register-inputs {
+    width: 100%;
+    height: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    
+}
+
+.single-input {
+    width: 200px;
+    height: 30px;
+    border-radius: 5px;
+}
+
+.register-button {
+    color: rgb(0, 0, 0);
+    font-weight: bolder;
+    width: 100px;
+    height: 50px;
+    border-radius: 20px;
+    background-image: linear-gradient(rgb(156, 243, 255), rgb(215, 120, 255));
 }
