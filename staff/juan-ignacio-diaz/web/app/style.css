@@ -1,0 +1,41 @@
+body {
+    background-color: #222;
+    display: flex; 
+    background-color: skyblue;
+}
+
+.register {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    border-radius: 20px;
+    background-color: rgb(204, 245, 227);
+    align-items: center;
+    text-align: left;
+    font-style: italic;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.registerForm {
+    width: 70%;
+}
+
+input {
+    font-style: normal;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    border: 0px;
+}
+
+button {
+    background-color: blue;
+    text-align: center;
+    font-size: large;
+    color: white;
+    border-radius: 20px;
+}
+
+.registerSubmit{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
