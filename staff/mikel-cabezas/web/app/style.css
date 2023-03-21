@@ -126,7 +126,7 @@ form {
 }
 
 input {
-        background-color: rgba(43,47,49, 0.7);
+    background-color: rgba(43,47,49, 0.7);
     background-color: rgb(35 46 56 / 70%);
     margin: 5px 5px 10px;
     padding: 8px 15px;
@@ -134,6 +134,16 @@ input {
     border: solid 2px #078197;
     border-radius: 10px;
     text-align: center;
+    transition: linear .2s;
+}
+input::placeholder {
+    color: #ffffff9a;
+}
+input:focus {
+    border: solid 2px #28bed8;
+    box-shadow: 0 0 3px #28bed87e;
+    outline: none;
+    transition: linear .2s;
 }
 button.submit {
     background: #078197;
