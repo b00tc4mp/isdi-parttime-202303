@@ -5,9 +5,10 @@
     font-family:'Poppins';
   }
 
-body {
+body,html {
   margin: 0;
   box-sizing: border-box;
+  width: 100%;
 }
 /* Header */
 .header {
@@ -46,13 +47,14 @@ body {
     flex-direction: column;
     height: 100vh;
     background-color: #d7dadd;
+    height: 100%;
   }
 /*Registrations form*/
 .registartion-form {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 600px;
+    
     color: rgb(255, 255, 255);
     font-size: 18px;
     
@@ -93,7 +95,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 600px;
+  
     color: rgb(255, 255, 255);
     font-size: 18px;
    
