@@ -1,0 +1,274 @@
+body {
+    background-color: #222;
+    display: flex;
+    align-items: end;
+    gap: 10px;
+    position: relative;
+    box-shadow: 5px 5px 15px 5px #000000;
+}
+
+.sky {
+    position: absolute;
+    margin-top: -10px;
+    margin-left: -10px;
+    height: 400px;
+    width: 1300px;
+    z-index: -1;
+    background-color: skyblue;
+    align-self: start;
+    box-shadow: 5px 5px 15px 5px #000000;
+}
+
+/* EDIFICIO PRINCIPAL */
+
+.building {
+    width: 100px;
+    height: 600px;
+    /* border: 2px dashed red; */
+    background-color: gray;
+    box-shadow: 5px 5px 15px 5px #000000;
+}
+
+.building-floor {
+    height: 60px;
+    box-sizing: border-box;
+    display: flex; /*se hace aqui por ser el "padre" de las ventanas, asi el flex se aplica a los "hijos"*/
+    justify-content: space-around;
+    align-items: center;
+}
+
+.building-windows {
+    height: 30px;
+    width: 25px;
+    background-color: skyblue;
+}
+
+.building-ground-floor{
+    align-items: end;
+}
+
+.building-door {
+    height: 40px;
+    width: 20px;
+    background-color: lightgray;
+}
+/* SIDEWALK */
+
+.sidewalk-1{
+    width: 40px;
+    height: 210px;
+    background-color: lightsalmon;
+    margin-left: -8px;
+    box-shadow: 5px 5px 15px 5px #000000;
+}
+
+.sidewalk-2{
+    width: 40px;
+    height: 210px;
+    background-color: lightsalmon;
+    margin-left: 50px;
+    margin-right: -78px;
+    box-shadow: 5px 5px 15px 5px #000000;
+}
+
+/* COCHE ROJO A LA DERECHA */
+
+.car {
+    width: 50px;
+    height: 40px;
+    /* border: 2px solid yellow; */
+}
+
+.car-top {
+    height: 15px;
+    /* border: 2px solid greenyellow; */
+    box-sizing: border-box;
+    display: flex;
+    align-items: end;
+}
+
+.car-mirror {
+    width: 10px;
+    height: 10px;
+    /* border: 2px solid yellow; */
+    background-color: red;
+}
+
+.car-window {
+    width: 45px;
+    height: 15px;
+    box-sizing: border-box;
+    background-color: skyblue;
+}
+
+.car-mid {
+    height: 15px;
+    /* border: 2px solid dodgerblue; */
+    box-sizing: border-box;
+    background-color: red;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.car-light {
+    width: 10px;
+    height: 10px;
+    background-color: yellow;
+}
+
+.car-bottom {
+    height: 10px;
+    /* border: 2px solid dodgerblue; */
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.car-wheel {
+    width: 10px;
+    height: 10px;
+    background-color: whitesmoke;
+}
+
+
+
+
+.moon {
+    position: absolute;
+    top: 50px; 
+    left: 1100px; 
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: #f5deb3;
+}
+
+.tree-1 {
+padding-left: 50px;
+display: flex;
+justify-content: center;
+}
+
+.tree-1-triangle-3 {
+    position: absolute;
+    width: 66px;
+    height: 36px;
+    bottom: 20%;
+    background: #034f33;
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    z-index: 3;
+
+}
+.tree-1-triangle-2 {
+    position: absolute;
+    width: 106px;
+    height: 63px;
+    bottom: 13%;
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    background: #046944;
+    z-index: 2;
+}
+
+.tree-1-triangle-1 {
+    position: absolute;
+    width: 126px;
+    height: 55px;
+    background: #038052;
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    z-index: 1;
+    
+}
+
+.tree-1-trunk {
+    width: 25px;
+    height: 100px;
+    background-color: brown;
+    box-shadow: 5px 5px 15px 5px #000000;
+}
+
+.tree-2 {
+    padding-left: 110px;
+    display: flex;
+    justify-content: center;
+    
+}
+    
+.tree-2-triangle-3 {
+    position: absolute;
+    width: 66px;
+    height: 36px;
+    bottom: 20%;
+    background: #034f33;
+    clip-path: polygon(50%0%, 0% 100%, 100% 100%);
+    z-index: 3;
+    
+}
+.tree-2-triangle-2 {
+    position: absolute;
+    width: 106px;
+    height: 63px;
+    bottom: 13%;
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    background: #046944;
+    z-index: 2;
+}
+    
+.tree-2-triangle-1 {
+    position: absolute;
+    width: 126px;
+    height: 55px;
+    background: #038052;
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    z-index: 1;
+}
+    
+.tree-2-trunk {
+    width: 25px;
+    height: 100px;
+    background-color: brown;
+    box-shadow: 5px 5px 15px 5px #000000;
+}
+
+/* EDIFICIO DOS */
+
+.building2 {
+    margin-left: 70px;
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: repeat(10, 1fr);
+    width: 100px;
+    height: 600px;
+    background-color: gray;
+    box-shadow: 5px 5px 15px 5px #000000;
+}
+  
+.building2-floor {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: center;
+    justify-content: center;
+    margin-left: 5px;
+}
+  
+.building2-windows {
+    height: 30px;
+    width: 25px;
+    background-color: skyblue;
+}
+  
+.building2-ground-floor {
+    display: grid;
+    align-items: end;
+    justify-items: center;
+}
+  
+.building2-door {
+    margin-left: 33px;
+    height: 40px;
+    width: 20px;
+    background-color: lightgray;
+}
+
+
