@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Text+Me+One&display=swap" rel="stylesheet">
+    <script src="main.js" type="module" defer></script>
 </head>
 <body>
     <div>
@@ -31,10 +32,10 @@
             </div>
         </form>
     </div>
-    <div class="login-page" style="display: none;">
+    <div class="login-page off">
         <!-- TODO: IMPLEMENT LOGIN PAGE -->
         <h1 class="login-title">LOGIN</h1>
-        <div class="login-inputs">
+        <form class="login-inputs">
             <input class="input-field" type="email" name="email" placeholder="Email">
             <input class="input-field" type="password" name="password" placeholder="Password">
             <div class="remember-me">
@@ -43,13 +44,13 @@
             </div>
             <div class="forgot-password">Forgot your <a class="forgot-password-button">password</a>?</div>
             <div class="dont-have-account">Don't have an account? <a class="register-now-button">Register now</a></div>
-        </div>
+        </form>
         <div class="button-container">
-            <button class="register-button">Login</button>
+            <button class="login-button">Login</button>
         </div>
     </div>
 
-    <div class="home-page" style="display: none">
+    <div class="home-page off">
             <h1>Home</h1>
             <!-- TODO: IMPLEMENT HOME PAGE -->
     </div>
