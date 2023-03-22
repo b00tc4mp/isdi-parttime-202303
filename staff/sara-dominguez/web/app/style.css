@@ -1,0 +1,50 @@
+/* reset */
+html, body{
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+/* styles*/
+
+:root {
+    --basecolor: rgba(255, 255, 255, 0.812);
+}
+
+.register {
+    background-color:  rgb(23, 94, 122);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items:  center;
+
+}
+.register-tittle {
+    color: var(--basecolor);
+}
+
+.register-form {
+    display: flex;
+    flex-direction: column;
+    min-width: 60vw;
+    gap: 1rem;
+    
+}
+
+.register-input, .register-button {
+    padding: .5rem .6rem;
+    border-radius: .5rem;
+    background-color: var(--basecolor);
+}
+.register-button {
+    cursor: pointer;
+}
+
+@media (min-width: 768px) {
+    .register-button:hover {
+        background-color: rgb(161, 161, 19); 
+    }
+}
+off {
+    display: none;
+}
