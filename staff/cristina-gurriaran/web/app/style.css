@@ -1,3 +1,57 @@
-.register {
-    background-color: skyblue;
+/* resets */
+
+html, body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+/* styles */
+
+:root {
+    --basecolor: rgba(249, 249, 249, 0.747);
+    --basebgcolor: rgb(140, 182, 146);
+}
+
+.page {
+    background-color: var(--basebgcolor);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.title {
+    color: var(--basecolor);
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    min-width: 60vw;
+    gap: 1rem;
+}
+
+.input, .button {
+    padding: .5rem .6rem;
+    border-radius: .55rem;
+    background-color: var(--basecolor);
+}
+
+.button {
+    cursor: pointer;
+}
+
+@media (min-width: 768px) {
+    .register-button:hover {
+        background-color: rgb(62, 90, 79);
+    }
+}
+
+.off {
+    display: none;
 }

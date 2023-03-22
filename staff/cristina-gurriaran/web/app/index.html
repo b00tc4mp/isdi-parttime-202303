@@ -9,29 +9,37 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="register" _style="display: none;">
-        <h1>Register</h1>
+    <div class="register page off">
+        <h1 class="title">Register</h1>
 
-        <!-- TODO implement register page -->
-
-        <form action="">
-            <input type="text" name="name" placeholder="name">
-            <input type="email" name="email" placeholder="email">
-            <input type="password" name="password" placeholder="password">
-            <button type="submit">Register</button>
+        <form class="form">
+            <input class="input" type="text" name="name" placeholder="name">
+            <input class="input" type="email" name="email" placeholder="email">
+            <input class="input" type="password" name="password" placeholder="password">
+            <button class="button" type="submit">Register</button>
         </form>
+
+        <p>Go to <a href="">Login</a></p>
     </div>
 
-    <div class="login" style="display: none;">
-        <h1>Login</h1>
+    <div class="login page">
+        <h1 class="title">Login</h1>
 
-        <!-- TODO implement login page -->
+        <form class="form">
+            <input class="input" type="email" name="email" placeholder="email">
+            <input class="input" type="password" name="password" placeholder="password">
+            <button class="button" type="submit">Login</button>
+        </form>
+
+        <p>Go to <a href="">Register</a></p>
     </div>
 
-    <div class="home" style="display: none;">
-        <h1>Home</h1>
+    <div class="home page off">
+        <h1 class="title">Home</h1>
 
         <!-- TODO implement home page -->
     </div>
+
+    <script src="main.js"></script>
 </body>
 </html>
