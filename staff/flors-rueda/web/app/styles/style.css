@@ -1,0 +1,54 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,500;0,700;1,400&display=swap');
+
+@import "./initial-form.css";
+
+@import "./buttons.css";
+
+:root {
+    --color-primary300: #fb8404;
+    --color-primary200: #faaf3e;
+    --color-primary100: #f4c784;
+    --color-primary-transparence: #ffbd6698;
+    --color-secondary300: #000c6a;
+    --color-secondary200: #2a4d99;
+    --color-secondary100: #96c3ff;
+    --color-dark300: #000000;
+    --color-dark200: #3b3b3b;
+    --color-dark100: #5c5c5c;
+    --color-light300: #c0c0c0;
+    --color-light200: #e4e4e4;
+    --color-light100: #fafdff;
+    --color-warning300:#fff200;
+    --color-warning200:#eef45b;
+    --color-warning100:#fbfbc4;   
+    --color-alert300: #c11f17;
+    --color-alert200: #e3332a;
+    --color-alert100: #ec6772;
+    --color-success300:#377e3f;
+    --color-success200:#53b65a;
+    --color-success100:#ddf8e4;     
+}
+
+body {
+    margin: 0;
+    padding: 1rem;
+    font-family: 'Ubuntu', sans-serif;
+    background-color: var(--color-light100);
+    color: var(--color-dark200);
+    height: 100%;
+}
+
+.dark-mode {
+    background-color: var(--color-dark200);
+    color: var(--color-light200);
+}
+
+h1{
+    color: var(--color-primary300);
+}
+
+@media (min-width: 768px) {
+    html, body {
+        font-size: 1.15em;
+    }
+}
