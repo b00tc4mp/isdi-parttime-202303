@@ -1,74 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
-  
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>app web</title>
     <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;1,300&display=swap"
+      rel="stylesheet"
+    />
   </head>
 
   <body>
-    <div class="register" _style="display: none;"></div>
+    <div class="register" _style="display: none;">
+      <h1 class="register-title">Register</h1>
+      <form class="register-form">
+        <input
+          type="text"
+          class="register-imput"
+          placeholder="Username"
+          name="username"
+        />
+        <input
+          type="email"
+          class="register-imput"
+          placeholder="Email"
+          name="email"
+        />
+        <input
+          type="password"
+          class="register-imput"
+          placeholder="Password"
+          name="pwd"
+        />
+        <input
+          type="password"
+          class="register-imput"
+          placeholder="Confirm Password"
+          name="pwd"
+        />
 
-    <form>
-      <h1>Register</h1>
-        <p>Fill up this form to register.</p>
+        <button class="register-button" type="submit">Register</button>
 
-        <label for="username"><b>Username</b></label>
-        <input type="text" placeholder="Enter username" name="username" id="username" required/>
-
-        <label for="email"><b>Email</b></label>
-        <input type="text" placeholder="Enter Email" name="email" id="email" required/>
-
-        <label for="pwd"><b>Password</b></label>
-        <input type="password" placeholder="Enter Password" name="pwd" id="pwd" required/>
-
-        <label for="pwd-repeat"><b>Confirm Password</b></label>
-        <input type="password" placeholder="Repeat Password" name="pwd-repeat" id="pwd-repeat" required/>
-
-        <button type="submit">Register</button>
-      </div>
-      <div>
         <p>Already have an account? <a href="#">Log in</a>.</p>
-      </div>
-    </form>
+      </form>
+    </div>
 
-    <br>
+    <br />
 
-    <div class="login" _style="display: none;"></div>
-    <h1>login</h1>
-    <form>
-      <div class="headingsLogin">
+    <div class="login" _style="display: none;">
+      <h1>login</h1>
+
+      <form>
+        <div class="headingsLogin">
           <h3>Sign in</h3>
-      </div>
+        </div>
         <label for="username">Your username</label>
-        <input type="text" placeholder="Enter Username" name="username" required>
+        <input
+          type="text"
+          placeholder="Enter Username"
+          name="username"
+          required
+        />
 
-        <br><br>
+        <br /><br />
 
-        <label for="pswrd">Your password</label>
-        <input type="password" placeholder="Enter Password" name="pswrd" required>
+        <label for="pwd">Your password</label>
+        <input
+          type="password"
+          placeholder="Enter Password"
+          name="pswrd"
+          required
+        />
 
         <label>
-          <input type="checkbox" checked="checked" name="remember"> Remember me
+          <input type="checkbox" checked="checked" name="remember" /> Remember
+          me
         </label>
-        <p class="forgotpswrd"> <a href="#">Forgot Password?</a></p>
+        <p class="forgotpwd"><a href="#">Forgot Password?</a></p>
 
-          <button type="submit">Login</button>
+        <button type="submit">Login</button>
 
-        <p class="register">Not a member?  <a href="#">Register here!</a></p>
+        <p class="no-member">Not a member? <a href="#">Register here!</a></p>
       </form>
+    </div>
 
     <div class="home" _style="display: none;">
-
-      <br>
+      <br />
       <h1>home</h1>
-      <p> Welcome to app web!</p>
+      <p>Welcome to app web!</p>
       <p>username</p>
-      <br>
-      <button type="button" class="btn-exit" >Exit</button>
+      <br />
+      <button type="button" class="btn-exit">Exit</button>
     </div>
+
+    <script src="main.js"></script>
   </body>
 </html>
