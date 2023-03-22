@@ -6,16 +6,16 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="style.css">
     </head>
-    <header class="header">
+    <header  class="header">
         <a href="#" class="IdiCoders">IsdiCoders Developer</a>
-        <nav class="nav-items">
-          <a href="#home">Home</a>
-          <a href="#login">Login</a>
-          <a href="#register">Register</a>
+        <nav id="nitems" class="nav-items">
+          <a id="ahome" class="off" href="#home">Home</a>
+          <a id="alogin"  href="#login">Login</a>
+          <a id="aregister" href="#register">Register</a>
         </nav>
       </header>
     <body>
-        <div class="register" id="register">
+        <div class="register " id="register">
             <div class="container">
                 <h1>Register</h1>
                 <form name="registration" class="registartion-form" onsubmit="return formValidation()">
@@ -40,7 +40,7 @@
                 </form>
               </div>
         </div>
-        <div class="login" id="login">
+        <div class="login off" id="login">
             
                 <div class="container">
                     <h1>Login</h1>
@@ -65,7 +65,7 @@
 
         </div>
 
-        <div class="home" id="home">
+        <div class="home off" id="home">
             <h1>Home</h1>
         </div>
     </body>
