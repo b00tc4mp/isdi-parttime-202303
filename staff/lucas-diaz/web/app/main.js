@@ -1,13 +1,19 @@
 const registerPage = document.querySelector(".register");
 
 
-const registerSubmitButton = document.querySelector(".submit-sign-up");
+const registerForm = document.querySelector(".register form");
 
-registerSubmitButton.addEventListener('submit', function (event) {
+registerForm.addEventListener('submit', function (event) {
     event.preventDefault();
     console.log("hola")
 })
 
+
+
+
+
+
+//lucas
 
 
 
