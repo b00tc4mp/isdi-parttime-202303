@@ -15,21 +15,29 @@
         <h1 class="register-heading">Register</h1>
         <!--TODO implement register page-->
 
-        <form action="" class="register-inputs">
-            <input class="single-input" type="text" name="name" placeholder="name">
-            <input class="single-input" type="email" name="email" placeholder="email">
-            <input class="single-input" type="password" name="password" placeholder="password">
-            <button class="register-button" type="submit">Register</button>
+        <form class="register-form">
+            <input class="user-input form-input" type="text" name="name" placeholder="name">
+            <input class="register-input form-input" type="email" name="email" placeholder="email">
+            <input class="register-input form-input" type="password" name="password" placeholder="password">
+            <button class="register-button form-button" type="submit">Register</button>
         </form>
 
     </div>
-    <div class="login" style="display: none">
+    <div class="login off">
         <h1>Login</h1>
-        <!--TODO implement login page-->
+
+        <form class="login-form">
+            <input class="login-input form-input" type="email" name="email" placeholder="email">
+            <input class="login-input form-input" type="password" name="password" placeholder="password">
+            <button class="login-button form-button" type="submit">Login</button>
+        </form>
+    
     </div>
-    <div class="home" style="display: none;">
+    <div class="home off">
         <h1>Home</h1>
         <!--TODO implement home page-->
     </div>
+
+    <script src="main.js"></script>
 </body>
 </html>
