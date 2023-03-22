@@ -1,50 +1,60 @@
-/* reset */
-html, body{
+/* resets */
+
+html, body {
+    height: 100%;
+}
+
+body {
     margin: 0;
     padding: 0;
-    width: 100%;
 }
-/* styles*/
+
+/* styles */
 
 :root {
-    --basecolor: rgba(255, 255, 255, 0.812);
+    --basecolor: white ;
+    --basebgcolor: skyblue;
 }
 
-.register {
-    background-color:  rgb(23, 94, 122);
+.page {
+    background-color: var(--basebgcolor);
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items:  center;
-
+    align-items: center;
 }
-.register-tittle {
+
+.title {
     color: var(--basecolor);
+    font-style: bold;
+   
 }
 
-.register-form {
+.form {
     display: flex;
     flex-direction: column;
     min-width: 60vw;
     gap: 1rem;
-    
 }
 
-.register-input, .register-button {
+.input, .button {
     padding: .5rem .6rem;
-    border-radius: .5rem;
+    border-radius: .75rem;
     background-color: var(--basecolor);
+    border: 0.15rem solid black;
 }
-.register-button {
+
+.button {
     cursor: pointer;
 }
 
 @media (min-width: 768px) {
     .register-button:hover {
-        background-color: rgb(161, 161, 19); 
+        background-color: blue;
     }
 }
-off {
+
+.off {
     display: none;
 }
