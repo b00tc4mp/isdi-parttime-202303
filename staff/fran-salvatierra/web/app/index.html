@@ -7,37 +7,40 @@
     <title>AppWeek1</title>
 
     <link rel="stylesheet" href="style.css">
+    <script></script>
 </head>
 <body>
     <div class="register">
-        <h1>Welcome</h1>
-        <h2></h2>
+            <h1 class="register-title">Welcome</h1>
         <!-- TODO implement register page -->
-        <form action="">
-            <input type="text" name="name" placeholder="name" id="">
-            <input type="text" name="email" placeholder="email" id="">
-            <input type="text" name="text" placeholder="pasword" id="">
-            <input type="text" name="text" placeholder="Confirm pasword" id="">
-            <button type="submit">Register</button>
-        </form>
+            <form class="register-form">
+                <input class="register-input" type="text" name="name" placeholder="name" id="">
+                <input class="register-input" type="text" name="email" placeholder="email" id="">
+                <input class="register-input" type="text" name="text" placeholder="pasword" id="">
+                <input class="register-input" type="text" name="text" placeholder="Confirm pasword" id="">
+                <button class="register-button" type="submit">Register</button>
+            </form>
+        
     </div>
 
-    <div class="login">
+    <div class="login off" >
         <h1>Welcome</h1>
         <h2>Login into your account to continue</h2>
         <!-- TODO implement login page -->
         <form action="">
             <input type="email" name="Email" placeholder="Email" id="">
             <input type="password" name="password" placeholder="password" id="">
+            <button type="submit"><p>LOG IN</p></button>
         </form>
         <a href="http://www.homerswebpage.com/gifs.html"><p>forgot your password?</p></a>
-        <button type="submit"><p>LOG IN</p></button>
+        
         <p>Don't have an account? <a href=""><p>Sign Up</p></a></p>
     </div>
 
-    <div class="home" style="display: none;">
+    <div class="home off">
         <h1>HOME</h1>
         <!-- TODO implement home page -->
     </div>
+    <script src="main.js"></script>
 </body>
 </html>

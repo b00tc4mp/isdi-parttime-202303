@@ -1,7 +1,58 @@
+
+html, body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --basecolor: rgba(255,255,255, 0.812);
+}
+
 .register {
-    background-color: aqua;
+    background-color: rgb(23,94,122);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.register-form {
+    display: flex;
+    flex-direction: column;
+    min-width: 60vw;
+    gap: 1rem;
+}
+
+.register-input, .register-button {
+    padding: 0.5rem .6rem;
+    border-radius: .6rem;
+    background-color: var(--basecolor);
+}
+
+.register-button {
+    cursor: pointer;
+}
+
+@media (min-width: 768px) {
+    .register-button:hover {
+        background-color: green;
+    }
+}
+
+.register-title {
+    color: var(--basecolor);
 }
 
 .login {
     background-color: skyblue;
+}
+
+.off {
+    display: none;
 }
