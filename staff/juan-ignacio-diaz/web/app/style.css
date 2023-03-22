@@ -1,32 +1,51 @@
+html , body {
+    height: 100%;
+}
+
 body {
     background-color: #222;
     display: flex; 
     background-color: skyblue;
+    margin: 0;
+    width: 100%;
+    padding: 0;
+}
+
+:root {
+    --basecolor:rgb(204, 245, 227);
+}
+
+.off {
+    display: none;
 }
 
 .register {
     display: flex;
     flex-direction: column;
     width: 90%;
+    height: 100%;
     border-radius: 20px;
-    background-color: rgb(204, 245, 227);
+    background-color: var(--basecolor);
+    justify-content: center;
     align-items: center;
     text-align: left;
     font-style: italic;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
-.registerForm {
-    width: 70%;
+.registe-form {
+   min-width: 60vw;
+   gap: 3rem;
+
 }
 
-input {
+.register-input {
     font-style: normal;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     border: 0px;
 }
 
-button {
+.register-button {
     background-color: blue;
     text-align: center;
     font-size: large;
@@ -34,8 +53,15 @@ button {
     border-radius: 20px;
 }
 
-.registerSubmit{
+.register-submit{
     display: flex;
     flex-direction: column;
     align-items: center;
+    cursor: pointer;
+}
+
+@media (min-width: 750px){
+    .register-button {
+        cursor: pointer;
+    }
 }
