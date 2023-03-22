@@ -16,7 +16,7 @@ body {
     --basebgcolor: orange;
 }
 
-.page {
+.register {
     background-color: var(--basebgcolor);
     height: 100%;
     display: flex;
@@ -25,24 +25,24 @@ body {
     align-items: center;
 }
 
-.title {
+.register-title {
     color: var(--basecolor);
 }
 
-.form {
+.register-form {
     display: flex;
     flex-direction: column;
     min-width: 60vw;
     gap: 1rem;
 }
 
-.input, .button {
+.register-input, .register-button {
     padding: .5rem .6rem;
     border-radius: .75rem;
     background-color: var(--basecolor);
 }
 
-.button {
+.register-button {
     cursor: pointer;
 }
 
