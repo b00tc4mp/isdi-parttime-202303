@@ -6,7 +6,7 @@ const registerForm = document.querySelector(".register form");
 const logInForm = document.querySelector(".login form")
 
 registerForm.addEventListener('submit', function (event) {
-    event.preventDefault();
+    event.preventDefault(); 
     registerPage.classList.add("off");
     logInPage.classList.remove("off");
 })
