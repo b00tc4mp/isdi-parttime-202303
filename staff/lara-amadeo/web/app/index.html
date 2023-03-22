@@ -6,12 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Web</title>
     <link rel="stylesheet" href="style.css">
+    <script src="main.js" defer></script>
 </head>
 <body>
     <div class="registration">
-        <div class="register-container">
-            <div class="register-introduction">Welcome stranger!</div>
-            <form action="" class="register-form">
+        <div class="centered-containers">
+            <h1 class="register-introduction">Welcome stranger!</h1>
+            
+            <form class="centered-form">
 
                 <label for="email" class="text-field-label">Email</label>
                 <input type="text" name="email" class="text-field">
@@ -21,13 +23,8 @@
 
                 <label for="rep-password" class="text-field-label">Repeat password</label>
                 <input type="password" name="rep-password" class="text-field">
-
-                <div class="checkbox-container">
-                    <input type="checkbox" name="checkbox" class="checkbox">
-                    <p class="small-text">I agree to the Privacy Policy and Use Terms</p>
-                </div>
                 
-                <input type="button" value="Sign up" class="primary-button">
+                <button class="primary-button" type="submit">Sign up</button>
             </form>
             
             <div class="already-account-container">
@@ -38,10 +35,10 @@
 
     </div>
 
-    <div class="login" style="display:none">
-        <div class="register-container">
-            <div class="register-introduction">Welcome stranger!</div>
-            <form action="" class="register-form">
+    <div class="login off">
+        <div class="centered-containers">
+            <h1 class="login-introduction">Welcome back!</h1>
+            <form class="centered-form">
 
                 <label for="email" class="text-field-label">Email</label>
                 <input type="text" name="email" class="text-field">
@@ -50,15 +47,17 @@
                 <input type="password" name="password" class="text-field">
 
                 <div class="forgot-password">
-                    <button class="link">Forgot password?</button>
+                    <button class="link" type="button">Forgot password?</button>
                 </div>
                 
-                <input type="button" value="Log in" class="primary-button">
+                <button type="submit" class="primary-button">Log in</button>
             </form>
+        </div>
+    </div>
+    <div class="homepage off">
+        <h1>Homepage</h1>
     </div>
 
-    <div class="homepage" style="display:none"></div>
-
-
+    
 </body>
 </html>

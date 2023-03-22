@@ -1,7 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
 
-.body{
+
+
+body{
     margin: 0px;
 }
 .registration{
@@ -10,10 +12,9 @@ height: 100vh;
 display: flex;
 justify-content: center;
 align-items: center;
-margin:0%;
 }
 
-.register-container{
+.centered-containers{
     background-color: #FFFFFF;
     width: fit-content;
     height: fit-content;
@@ -26,10 +27,19 @@ margin:0%;
     align-items: center;
 }
 
-.register-form{
+.centered-form{
     display: flex;
     flex-direction: column;
     width: 316px;
+}
+
+.register-introduction{
+    color: #3B4257;
+    font-family: "Inter";
+    font-size: 24px;
+    font-weight: 600;
+    height: fit-content;
+    margin-bottom: 40px;
 }
 
 .text-field{
@@ -50,44 +60,6 @@ margin:0%;
     margin-left: 0px;
 }
 
-
-.register-introduction{
-    color: #3B4257;
-    font-family: "Inter";
-    font-size: 24px;
-    font-weight: 600;
-    height: fit-content;
-    margin-bottom: 40px;
-}
-
-.checkbox-container{
-    display: flex;
-    align-items: center;
-    margin-bottom: 24px;
-    margin-top: 16px;
-}
-
-.checkbox{
-    appearance:inherit;
-    background-color: none;
-    border: 1px solid #C7C8CC;
-    border-radius: 6px;
-    height: 24px;
-    width: 24px;
-    margin: 8px;
-    margin-left: 0px;
-}
-
-.small-text{
-    color: #596383;
-    font-family: "Inter";
-    font-size: 14px;
-    line-height:normal;
-    font-weight: 400;
-    margin: 6px;
-    margin-left: 0px;
-}
-
 .primary-button{
     background-color:#1B4DDC ;
     color: #FFFFFF;
@@ -98,6 +70,7 @@ margin:0%;
     border: none;
     border-radius: 12px;
     margin-bottom: 16px;
+    cursor: pointer;
 }
 
 .already-account-container{
@@ -120,6 +93,15 @@ margin:0%;
     font-size: 16px;
 }
 
+.login-introduction{
+    color: #3B4257;
+    font-family: "Inter";
+    font-size: 24px;
+    font-weight: 600;
+    height: fit-content;
+    margin-bottom: 40px;
+}
+
 .login{
     background-color:#F8FAFB ;
     height: 100vh;
@@ -130,4 +112,8 @@ margin:0%;
 
 .forgot-password{
     margin-bottom: 40px;
+}
+
+.off{
+    display: none;
 }
