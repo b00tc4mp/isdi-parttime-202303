@@ -65,7 +65,7 @@ label{
     padding-left: 15px;
     margin-left: 15px;
 }
-.submit-sign-up{
+.submit-sign-up, .log-ing-submit{
     flex-basis: 40%;
     background-color: rgb(8, 8, 8);
     color: azure;
@@ -121,7 +121,10 @@ label{
 
 @media (max-width: 844px){
     *{
-        font-size: 13px;
+        font-size: 18px;
+    }
+    .register-header, .login-header{
+        font-size: 30px;
     }
     .register{
         width: 60%;
