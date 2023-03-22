@@ -1,39 +1,30 @@
-const initialPage = document.querySelector('.pasapalabra-initial-page')
-const gamePage = document.querySelector('.pasapalabra-game-page')
+document.write('<script src="questions.js"></script>');
 
-const goIntroductionPage = ()=> {
-  gamePage.style.display = 'none';
-  initialPage.style.display = 'block';
+const welcomeGamePage = document.querySelector(".welcome-game");
+const pasapalabraExplanationsPage = document.querySelector(".pasapalabra-explanations");
+const startedGamePage = document.querySelector(".started-game-container");
+const playAgainPage = document.querySelector(".play-again");
 
-  const pasapalabraRoulette = document.querySelector('.roulette-container');
-  const pasapalabraBalls = document.querySelectorAll('.pasapalabra-ball');
-  const startButton = document.getElementById('start-button');
-  startButton.addEventListener('click', ()=>{
-    initialPage.style.display = 'none';
-    gamePage.style.display = 'block';
-  });
-  const balls = []
-  pasapalabraBalls.forEach(ball => balls.push(ball));
+const continueButton = document.querySelector(".continue-button");
+const startButton = document.querySelector(".start-button");
+const sendButton = document.querySelector('.send-button');
+const pasapalabraButton = document.querySelector('.pasapalabra-button');
 
-  const radius = 200;
-  const centroX = pasapalabraRoulette.offsetWidth / 2;
-  const centroY = pasapalabraRoulette.offsetHeight / 2;
-  const angle = 360 / balls.length;
+const questionToAsk = document.querySelector('.question');
+const contestantAnswer = document.querySelector('.contestant-answer')
 
-  for (let i = 0; i < balls.length; i++) {
-    let x = Math.round(centroX + radius * Math.cos((angle * i) * Math.PI / 180));
-    let y = Math.round(centroY + radius * Math.sin((angle * i) * Math.PI / 180));
-    balls[i].style.left = x + 'px';
-    balls[i].style.top = y + 'px';
-  }
-}
+continueButton.addEventListener("click", () => {
+  welcomeGamePage.classList.add("hidden");
+  pasapalabraExplanationsPage.classList.remove("hidden");
+});
 
-const goPlayingPage = ()=>{
+startButton.addEventListener("click", () => {
+  pasapalabraExplanationsPage.classList.add("hidden");
+  startedGamePage.classList.remove("hidden");
+});
 
-}
+sendButton.addEventListener('click',)
 
-const playPasapalabra = ()=> {
-  goPlayingPage
-}
+pasapalabraButton.addEventListener('click', )
 
-playPasapalabra();
+// pasapalabraBalls.forEach(ball => balls.push(ball));

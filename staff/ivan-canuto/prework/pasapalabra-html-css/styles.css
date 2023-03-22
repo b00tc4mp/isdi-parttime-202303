@@ -25,7 +25,7 @@ html {
   padding: 30px;
 }
 
-.pasapalabra-word {
+.pasapalabra-letter {
   width: 22px;
   height: 20px;
   text-align: center;
@@ -37,6 +37,15 @@ html {
   color: white;
   list-style: none;
   position: absolute;
+}
+
+.correct-answer {
+  background: rgb(117, 255, 117);
+  border: 4px solid rgb(70, 227, 75);
+}
+
+.wrong-answer {
+  background: rgb(255, 71, 71);
 }
 
 .roulette-container > *:nth-of-type(1) {
@@ -129,10 +138,10 @@ html {
   transform: translate(-50%, -30%);
 }
 
-.start-button {
+.continue-button {
   height: 50px;
   width: 200px;
-  border: 5px solid blue;
+  border: 5px solid rgb(71, 71, 248);
   background-color: #2f71ea;
   border-radius: 8px;
   color: white;
@@ -143,13 +152,40 @@ html {
   margin: 30px;
 }
 
+.start-button {
+  height: 50px;
+  width: 200px;
+  border: 5px solid rgb(71, 71, 248);
+  background-color: #2f71ea;
+  border-radius: 8px;
+  color: white;
+  font-size: larger;
+  font-weight: bold;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  letter-spacing: 2px;
+  margin: 30px;
+}
+
+.welcome-game {
+  margin-top: 5em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
 .pasapalabra-explanations {
   width: 50%;
-  padding-top: 50px;
+  padding-top: 20px;
 }
 
 .explanation-content {
-  padding-left: 10px;
+  background: white;
+  margin-right: 40px;
+  padding: 10px;
+  border: 5px solid grey;
+  border-radius: 20px;
 }
 
 h1 {
@@ -159,12 +195,12 @@ h1 {
 p {
   margin: 3px 0;
   font-size: large;
-  color: rgb(255, 255, 255);
+  color: black;
   font-weight: 500;
   font-size: 17px;
 }
 
-.question-start {
+.explanation-end {
   margin-top: 15px;
   font-size: 25px;
   font-weight: 700;
@@ -218,10 +254,14 @@ b {
   width: 450px;
   position: absolute;
   bottom: 50%;
-  left: 76%;
+  left: 75%;
   transform: translate(-50%, -25%);
-  color: white;
+  color: black;
   font-size: 22px;
+  background: white;
+  padding: 10px;
+  border: 5px solid grey;
+  border-radius: 20px;
 }
 
 .question-buttons {
@@ -251,10 +291,6 @@ button {
 
 .pasapalabra-button {
   background: rgb(109, 109, 228);
-}
-
-.hidden {
-  display: none;
 }
 
 .play-again {
@@ -303,3 +339,6 @@ button {
 
 
 
+.hidden {
+  display: none;
+}

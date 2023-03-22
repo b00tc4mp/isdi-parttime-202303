@@ -13,33 +13,33 @@
   <div class="pasapalabra-game">
     <div class="pasapalabra-container">
       <ul class="roulette-container">
-        <li class="pasapalabra-word">A</li>
-        <li class="pasapalabra-word">B</li>
-        <li class="pasapalabra-word">C</li>
-        <li class="pasapalabra-word">D</li>
-        <li class="pasapalabra-word">E</li>
-        <li class="pasapalabra-word">F</li>
-        <li class="pasapalabra-word">G</li>
-        <li class="pasapalabra-word">H</li>
-        <li class="pasapalabra-word">I</li>
-        <li class="pasapalabra-word">J</li>
-        <li class="pasapalabra-word">K</li>
-        <li class="pasapalabra-word">L</li>
-        <li class="pasapalabra-word">M</li>
-        <li class="pasapalabra-word">N</li>
-        <li class="pasapalabra-word">Ñ</li>
-        <li class="pasapalabra-word">O</li>
-        <li class="pasapalabra-word">P</li>
-        <li class="pasapalabra-word">Q</li>
-        <li class="pasapalabra-word">R</li>
-        <li class="pasapalabra-word">S</li>
-        <li class="pasapalabra-word">T</li>
-        <li class="pasapalabra-word">U</li>
-        <li class="pasapalabra-word">V</li>
-        <li class="pasapalabra-word">W</li>
-        <li class="pasapalabra-word">X</li>
-        <li class="pasapalabra-word">Y</li>
-        <li class="pasapalabra-word">Z</li>
+        <li class="pasapalabra-letter">A</li>
+        <li class="pasapalabra-letter">B</li>
+        <li class="pasapalabra-letter">C</li>
+        <li class="pasapalabra-letter">D</li>
+        <li class="pasapalabra-letter">E</li>
+        <li class="pasapalabra-letter">F</li>
+        <li class="pasapalabra-letter">G</li>
+        <li class="pasapalabra-letter">H</li>
+        <li class="pasapalabra-letter">I</li>
+        <li class="pasapalabra-letter">J</li>
+        <li class="pasapalabra-letter">K</li>
+        <li class="pasapalabra-letter">L</li>
+        <li class="pasapalabra-letter wrong-answer">M</li>
+        <li class="pasapalabra-letter">N</li>
+        <li class="pasapalabra-letter">Ñ</li>
+        <li class="pasapalabra-letter">O</li>
+        <li class="pasapalabra-letter">P</li>
+        <li class="pasapalabra-letter">Q</li>
+        <li class="pasapalabra-letter">R</li>
+        <li class="pasapalabra-letter">S</li>
+        <li class="pasapalabra-letter">T</li>
+        <li class="pasapalabra-letter">U</li>
+        <li class="pasapalabra-letter">V</li>
+        <li class="pasapalabra-letter">W</li>
+        <li class="pasapalabra-letter">X</li>
+        <li class="pasapalabra-letter">Y</li>
+        <li class="pasapalabra-letter">Z</li>
       </ul>
       <p class="title">PASAPALABRA</p>
       <button class="start-button hidden">▶  JUGAR</button>
@@ -48,9 +48,14 @@
         <div class="remaining-words">25</div>
       </div>
     </div>
+    
+    <div class="welcome-game">
+      <h1>¡Bienvenido al juego de Pasapalabra de <br>ISDI Coders!</br></h1>
+      <button class="continue-button">CONTINUAR</button>
+    </div>
 
     <div class="pasapalabra-explanations hidden">
-      <h1>¡Bienvenido al juego de Pasapalabra de ISDI Coders!</h1>
+      <h1>Antes de empezar te explicaremos cómo se juega, cuáles son las reglas.</h1>
       <div class="explanation-content">
         <p>El juego consiste en:</p>
         <p>- El jugador, con ayuda de preguntas, tendrá que adivinar una palabra relacionada con cada una de las letras del alfabeto.</p>
@@ -63,19 +68,21 @@
         <p>- Habrá un límite de tiempo de 300 segundos, y el juego se acabará cuando se acabe este.</p>
         <p>- El juego podrá ser terminado en todo momento introduciendo la palabra "END", en caso de terminar antes de que acaben las preguntas el jugador recibirá la cantidad de palabras acertadas, pero no aparecerá en el ranking.</p>
       </div>
-      <p class="question-start">Si estás listo pulsa el botón de "jugar" y <b>¡empezamos!</b></p>
+      <p class="explanation-end">Si estás listo pulsa el botón de "jugar" y <b>¡empezamos!</b></p>
     </div>
 
     <div class="started-game-container hidden">
       <div class="question"></div>
       <div class="question-buttons">
-        <input type="text" name="input-player" id="input-player">
-        <button class="send-button button">ENVIAR</button>
+        <form class="contestant-answer">
+          <input type="text" name="input-player" id="input-player">
+          <button class="send-button button">ENVIAR</button>
+        </form>
         <button class="pasapalabra-button button">PASAPALABRA</button>
       </div>
     </div>
 
-    <div class="play-again">
+    <div class="play-again hidden">
       <h1>¡Enhorabuena, has acabado el juego de pasapalabra!</h1>
       <div class="play-again-text">
         <h2>¿Quieres jugar otra vez?</h2>
