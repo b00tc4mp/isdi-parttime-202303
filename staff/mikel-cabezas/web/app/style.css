@@ -109,10 +109,10 @@ header li {
     font-size: 16px;
 }
 
-.menu .logout, .menu .homepage, .menu.logged-in .login {
+.menu .logout, .menu .homepage, body.logged-in .menu .login {
     display: none;
 }
-.menu.logged-in .logout, .menu.logged-in .homepage {
+body.logged-in .menu .logout, body.logged-in .menu .homepage {
     display: block;
 }
 
