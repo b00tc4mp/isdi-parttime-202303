@@ -107,3 +107,7 @@ body {
     text-align: end;
 
 }
+
+.off {
+    display: none;
+}
