@@ -7,30 +7,6 @@
 
 }
 
-.register-alert {
-    max-width: 80%;
-    font-weight: 500;
-    font-size: 0.75em;
-    line-height: 2.5em;
-    width: 75vw;
-    max-width: 30rem;
-    border-radius: 0.75em;
-    text-align: justify;
-    padding: 0 0.5em;
-}
-
-.alert-success {
-    border: 0.01em solid var(--color-success200);
-    color: var(--color-success300);
-    background-color: var(--color-success100);
-}
-
-.close-alert {
-    float: right;
-    cursor: pointer;
-    -webkit-tap-highlight-color: transparent;
-}
-
 .initial-form {
     display: flex;
     flex-direction: column;
@@ -132,11 +108,6 @@ input:focus {
     input {
         font-size: 0.75em;
         font-weight: 700;
-        
-    }
-    
-    .close-alert:hover{
-        text-shadow: var(--color-dark100) 0.05em 0 0.01em;
     }
 }
 

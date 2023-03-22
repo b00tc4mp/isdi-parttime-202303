@@ -8,46 +8,47 @@
     <link rel="stylesheet" href="./styles/style.css" />
     <title>App</title>
 </head>
-<body class="dark-mode">
-    <div class="register" _style="display: none;">
+<body>
+    <div class="register">
+        <div class="register-alert off">alert text</div>
         <h1>Register</h1>
-        <div class="register-alert alert-success">alert text<span class="close-alert">X</span></div>
         <div class="initial-form">
-            <form >
+            <form class="register-form" method="get">
                 <div class="initial-form-input">
-                    <input type="email" placeholder="your email" required/>
+                    <input class="mail" type="email" placeholder="your email" required/>
                 </div>
                 <div class="initial-form-input">
-                    <input type="text" placeholder="your username" maxlength="7" required/>
+                    <input class="username" type="text" placeholder="your username" maxlength="7" required/>
                 </div>
                 <div class="initial-form-input">
-                    <input type="password" placeholder="your password" required/>
+                    <input class="password" type="password" placeholder="your password" required/>
                 </div>
-                <button type="submit">create user</button>   
+                <button class="register-submit" type="submit">create user</button>   
             </form>
         </div>
         <div class="change-view">
-            <div class="change-view-link">Already have an account? <a>Sign in</a></div>
+            <div>Already have an account? <a class="change-view-link">Sign in</a></div>
         </div>
     </div>
-    <div class="login" style="display: none;">
+    <div class="login off">
         <h1>Login</h1>
+        <div class="login-alert off">alert text</div>
         <div class="initial-form">
-            <form>
+            <form class="login-form">
                 <div class="initial-form-input">
-                    <input type="email" placeholder="your email" required/>
+                    <input class="mail" type="email" placeholder="your email" required/>
                 </div>
                 <div class="initial-form-input">
-                    <input type="password" placeholder="your password" required/>
+                    <input class="password" type="password" placeholder="your password" required/>
                 </div>
-                <button type="submit">sign in</button>     
+                <button class="login-submit" type="submit">sign in</button>     
             </form>
         </div>
         <div class="change-view">
-            <div class="change-view-link">You're new here? <a>Sign up</a></div>
+            <div>You're new here? <a class="change-view-link">Sign up</a></div>
         </div>
     </div>
-    <div class="home" style="display: none;">
+    <div class="home off">
         <h1>Home</h1>
         <p>hieeeeee</p>
         <!--TODO implement home page-->
@@ -65,4 +66,5 @@
       </label>
     </div>
 </body>
+<script type="module" src="./scripts/main.js" defer></script>
 </html>
