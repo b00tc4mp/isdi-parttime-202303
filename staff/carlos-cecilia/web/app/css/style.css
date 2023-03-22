@@ -6,6 +6,7 @@
 body{
 
 }
+/*------------HEADER--------------*/
 .header {
     width: 100%;
     background-color: rosybrown;
@@ -45,6 +46,8 @@ body{
     background-color: white;
     margin-bottom: 10px;
 }
+/*------------FIN--HEADER--------------*/
+.off {display: none!important;}
 .container {
     display: flex;
     justify-content: center;

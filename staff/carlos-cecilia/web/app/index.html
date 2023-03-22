@@ -24,24 +24,30 @@
         </div>
     </div>
     <div class="container">
-    <div action="" class="register">
-        <div class="register__form">
+    <div class="register">
+        <form action="" class="register__form">
             <h1>Register for free ISDI classes</h1>
             <!--TODO implement register page-->
-            <input type="text" name="Name" placeholder="Your name">
-            <input type="email" name="Email" placeholder="Your email">
-            <input type="password" name="Password" placeholder="Your password">
-            <button type="submit">Register</button>
-        </div>
+            <input class="register__input" type="text" name="Name" placeholder="Your name">
+            <input class="register__input" type="email" name="Email" placeholder="Your email">
+            <input class="register__input" type="password" name="Password" placeholder="Your password">
+            <button class="register__button" type="submit">Register</button>
+        </form>
     </div>
 
-        <div style="display: none"class="login">
-            <h1>home</h1>
-        <!--TODO implement login page-->
-        </div>
-        <div style="display: none"class="name">
+    <div class="login off">
+        <h1>home</h1>
+    <!--TODO implement login page-->
+    <form class="login__form">
+        <input class="login__input" type="email" name="Email" placeholder="Your email">
+        <input class="login__input" type="password" name="Password" placeholder="Your password">
+        <button class="login__button" type="submit">Login</button>
+    </form>
+    </div>
+    <div class="name off">
+        <div class="container">
             <h1>Home</h1>
-        <!--TODO implement home page-->
+        </div>
     </div>
 
 </div>
