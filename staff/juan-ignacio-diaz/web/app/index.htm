@@ -8,33 +8,36 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="register">
-        <h1>Register</h1>
-    <!--TODO implente resgiter page-->
+    <div class="register page off">
+        <h1 class="title">Register</h1>
     
-        <form class="register-form" action="">
-            <p>
-                <label for="nameRegister">Name: </label><br>
-                <input class="register-input" id="nameRegister" type="text" size="40" name="name" placeholder="name"><br>
-                <label for="emailRegister">E-mail: </label><br>
-                <input class="register-input" id="emailRegister" type="email" name="name" placeholder="usuario@dominio.com"><br>
-                <label for="passwordRegister">Password: </label><br>
-                <input class="register-input" id="passwordRegister" type="password" size="10" name="name" placeholder="password"><br>
-                <div class="register-submit">
-                    <button class = "register-button" type="submit">Register</button>
-                </div>
-            </p>
+        <form class="form" action="">
+            <label for="nameRegister">Name: </label>
+            <input class="input" id="nameRegister" type="text" size="40" name="name" placeholder="name">
+            <label for="emailRegister">E-mail: </label>
+            <input class="input" id="emailRegister" type="email" name="email" placeholder="usuario@dominio.com">
+            <label for="passwordRegister">Password: </label>
+            <input class="input" id="passwordRegister" type="password" size="10" name="password" placeholder="password"><br>
+            <button class = "button" type="submit">Register</button>
         </form>
+
+        <p>Go to <a href="">Login</a></p>
     </div>
 
-    <div class="login off">
-        <h1>Login</h1>
-    <!--TODO IMPLEMTE LOGIN PAGE-->
+    <div class="login page">
+        <h1 class="title">Login</h1>
+        <form class="form" action="">
+            <input class="input" id="emailRegister" type="email" name="email" placeholder="usuario@dominio.com"><br>
+            <input class="input" id="passwordRegister" type="password" size="10" name="password" placeholder="password"><br>
+            <button class = "register-button" type="submit">Register</button>
+        </form>
+
+        <p>Go to <a href="">Register</a></p>
     </div>
-    <div class="home off">
-        <h1>Home</h1>
+    <div class="home page off">
+        <h1 class="title">Home</h1>
     <!--TODO implente home page-->
     </div>
-    <script src="main.js" type="module"></script> 
+    <script src="main.js"></script> 
 </body>
 </html>
