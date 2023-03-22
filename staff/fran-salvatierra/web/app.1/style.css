@@ -1,4 +1,3 @@
-/* resets */
 
 html, body {
     height: 100%;
@@ -9,12 +8,13 @@ body {
     padding: 0;
 }
 
-/* styles */
 :root {
     --basecolor: rgba(255,255,255, 0.812);
     --backgorund: rgb(23,94,122);
 }
 
+
+/* REGISTER */
 .page {
     background-color: var(--backgorund);
     height: 100%;
@@ -23,10 +23,6 @@ body {
     justify-content: center;
     align-items: center;
     text-align: center;
-}
-
-.title {
-    color: var(--basecolor);
 }
 
 .form {
@@ -52,6 +48,54 @@ body {
     }
 }
 
+.title {
+    color: var(--basecolor);
+}
+
+/* LOGIN */
+
+.login {
+    background-color: rgb(23,94,122);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
 .off {
     display: none;
 }
+
+/* 
+.login-form {
+    display: flex;
+    flex-direction: column;
+    min-width: 60vw;
+    gap: 1rem;
+}
+
+.login-input, .login-button {
+    padding: 0.5rem .6rem;
+    border-radius: .6rem;
+    background-color: var(--basecolor);
+}
+
+.login-button {
+    cursor: pointer;
+}
+
+@media (min-width: 768px) {
+    .login-button:hover {
+        background-color: green;
+    }
+}
+
+.login-title {
+    color: var(--basecolor);
+}
+
+.off {
+    display: none;
+} */
