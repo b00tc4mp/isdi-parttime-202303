@@ -62,6 +62,8 @@ loginPage.querySelector('form').addEventListener('submit', function (event) {
 registerPage.querySelector('a').addEventListener('click', function (event) {
     event.preventDefault()
 
+    // TODO implement registration logic here
+
     registerPage.classList.add('off')
     loginPage.classList.remove('off')
 })
