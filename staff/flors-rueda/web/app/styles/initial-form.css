@@ -7,7 +7,7 @@
 
 }
 
-.initial-form {
+.login-form, .register-form {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -17,19 +17,11 @@
     border: 0.01em solid var(--color-light300);
     border-radius: 1em;
     padding: 1em 0 1.5em 0;
-}
-
-.dark-mode .initial-form{
-    border: 0.01em solid var(--color-dark300);  
-}
-
-.initial-form-input {
-    max-width: 85%;
-    padding-bottom: 1.5em;
+    gap: 2em;
 }
 
 input {
-    width: 100%;
+    width: 80%;
     background-color: var(--color-light100);
     font-weight: 700;
     border: solid 0.05em var(--color-light300);
@@ -39,6 +31,11 @@ input {
     transition: background-color 0.2s, border 0.2s, box-shadow 0.2s;
     color: var(--color-dark100);
 }
+
+.dark-mode .login-form, .dark-mode .register-form  {
+    border: 0.01em solid var(--color-dark300);  
+}
+
 
 .dark-mode input {
     background-color: var(--color-dark200);
