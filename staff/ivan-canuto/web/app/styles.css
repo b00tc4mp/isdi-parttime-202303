@@ -7,7 +7,7 @@ input {
   padding: 0 10px;
 }
 
-.initial-page {
+.spa-page {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -106,6 +106,14 @@ label {
   color: green;
 }
 
+
+.alert {
+  margin: 1.2em;
+  padding: 1em 2em;
+  color: black;
+  background: rgb(255, 46, 46);
+  border-radius: 7px;
+}
 
 
 .hidden {

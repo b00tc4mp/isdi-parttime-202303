@@ -33,16 +33,27 @@ let passwordRegister = document.querySelector(".input-password-register");
 let emailLogin = document.querySelector(".input-email-login");
 let passwordLogin = document.querySelector(".input-password-login");
 
+const alert = document.createElement('div');
+alert.classList.add('alert');
+
+const createAlert = (page, content)=> {
+  page.appendChild(alert)
+  alert.textContent = content;
+  setTimeout(()=>{
+    alert.remove()
+  },3000)
+}
+
 document.querySelector(".form-register").addEventListener("submit", function (event) {
   event.preventDefault();
 
-  if (!nameRegister || !passwordRegister) return alert('Por favor, rellene todos los campos.')
+  if (!nameRegister || !passwordRegister) return createAlert(registerPage, 'Por favor, rellene todos los campos.')
 
   for (let i = 0; i < users.length; i++) {
-    if (users[i].name === nameRegister.value || users[i].email === emailRegister.value) return alert("Ya existe un usuario con este nombre");
+    if (users[i].name === nameRegister.value || users[i].email === emailRegister.value) return createAlert(registerPage, "Ya existe un usuario con este nombre");
   }
 
-  if (passwordRegister.value.length < 6) return alert('Por favor introduzca una contraseña que contenga al menos 6 dígitos.')
+  if (passwordRegister.value.length < 6) return createAlert(registerPage, 'Por favor introduzca una contraseña que contenga al menos 6 dígitos.')
 
   users.push({
     name: nameRegister.value,
@@ -67,7 +78,7 @@ document.querySelector(".form-login").addEventListener("submit", function (event
     if (emailLogin.value === users[i].email && passwordLogin.value === users[i].password) foundMember = true;
   }
   
-  if (!foundMember) return alert('E-mail o contraseña incorrectos.')
+  if (!foundMember) return createAlert(loginPage, 'E-mail o contraseña incorrectos.')
     
   loginPage.classList.add("off");
   homePage.classList.remove("off");

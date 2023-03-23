@@ -18,81 +18,92 @@ users.push({
   password: "123123123",
 });
 
+const welcomePage = document.querySelector('.welcome-page');
+const loginPage = document.querySelector('.login-page');
+const registerPage = document.querySelector('.register-page');
+const homePage = document.querySelector('.home-page');
 
-const welcomePage = document.querySelector('.welcome-page')
-const loginPage = document.querySelector('.login-page')
-const registerPage = document.querySelector('.register-page')
-const homePage = document.querySelector('.home-page')
+const loginButton = document.querySelector('.login-button');
+const registerButton = document.querySelector('.register-button');
+const enterLoginButton = loginPage.querySelector('.enter-button');
+const enterRegisterButton = registerPage.querySelector('.enter-button');
+const goBackLoginButton = loginPage.querySelector('.go-back');
+const goBackRegisterButton = registerPage.querySelector('.go-back');
 
-const loginButton = document.querySelector('.login-button')
-const registerButton = document.querySelector('.register-button')
-const enterLoginButton = loginPage.querySelector('.enter-button')
-const enterRegisterButton = registerPage.querySelector('.enter-button')
-const goBackLoginButton = loginPage.querySelector('.go-back')
-const goBackRegisterButton = registerPage.querySelector('.go-back')
+const loginEmail = loginPage.querySelector('.input-email');
+const loginPassword = loginPage.querySelector('.input-password');
+const registerName = registerPage.querySelector('.input-name');
+const registerEmail = registerPage.querySelector('.input-email');
+const registerPassword = registerPage.querySelector('.input-password');
+const repeatedPassword = registerPage.querySelector('.repeated-password');
 
-const loginEmail = loginPage.querySelector('.input-email')
-const loginPassword = loginPage.querySelector('.input-password')
-const registerName = registerPage.querySelector('.input-name')
-const registerEmail = registerPage.querySelector('.input-email')
-const registerPassword = registerPage.querySelector('.input-password')
-const repeatedPassword = registerPage.querySelector('.repeated-password')
+const alert = document.createElement('div');
+alert.classList.add('alert');
+
+const createAlert = (page, content)=> {
+  page.appendChild(alert)
+  alert.textContent = content;
+  setTimeout(()=>{
+    alert.remove()
+  },3000)
+}
 
 loginButton.addEventListener('click', ()=>{
-  welcomePage.classList.add('hidden')
-  loginPage.classList.remove('hidden')
+  welcomePage.classList.add('hidden');
+  loginPage.classList.remove('hidden');
 })
 
 registerButton.addEventListener('click', ()=>{
-  welcomePage.classList.add('hidden')
-  registerPage.classList.remove('hidden')
+  welcomePage.classList.add('hidden');
+  registerPage.classList.remove('hidden');
 })
 
 enterRegisterButton.addEventListener('click', (e)=>{
   e.preventDefault();
 
-  if (!registerName.value || !registerEmail.value || !registerPassword.value || !repeatedPassword.value) return alert('Please, fill in all the fields.')
+  if (!registerName.value || !registerEmail.value || !registerPassword.value || !repeatedPassword.value) return createAlert(registerPage, 'Please, fill in all the fields.');
 
   for (let i = 0; i < users.length; i++) {
-    if (registerEmail.value === users[i].email) return alert('The email entered already belongs to an existing user.')
-  }
+    if (registerEmail.value === users[i].email) return createAlert(registerPage, 'The email entered already belongs to an existing user.');
+  };
 
-  if (registerPassword.value !== repeatedPassword.value) return alert('The passwords entered are not the same.')
+  if (registerPassword.value.length < 6) return createAlert(registerPage,'The password must contain at least 6 letters.')
+  if (registerPassword.value !== repeatedPassword.value) return createAlert(registerPage, 'The passwords entered are not the same.');
 
   users.push({
     name: registerName.value,
     email: registerEmail.value,
     password: registerPassword.value,
-  })
+  });
 
-  alert('User successfully registered.')
+  window.alert('User successfully registered.');
   
-  registerPage.classList.add('hidden')
-  loginPage.classList.remove('hidden')
-})
+  registerPage.classList.add('hidden');
+  loginPage.classList.remove('hidden');
+});
 
 enterLoginButton.addEventListener('click', (e)=>{
   e.preventDefault();
 
-  if (!loginEmail.value || !loginPassword.value) return alert('Please, fill in all the fields.')
+  if (!loginEmail.value || !loginPassword.value) return createAlert(loginPage, 'Please, fill in all the fields.');
 
-  let foundClient = false
+  let foundClient = false;
   for (let i = 0; i < users.length; i++) {
     if (loginEmail.value === users[i].email && loginPassword.value === users[i].password) foundClient = true; 
-  }
+  };
 
   if (foundClient) {
-    loginPage.classList.add('hidden')
-    homePage.classList.remove('hidden')
-  } else return alert('Wrong email or password.')
-})
+    loginPage.classList.add('hidden');
+    homePage.classList.remove('hidden');
+  } else return createAlert(loginPage, 'Wrong email or password.');
+});
 
 goBackLoginButton.addEventListener('click', ()=>{
-  loginPage.classList.add('hidden')
-  welcomePage.classList.remove('hidden')
-})
+  loginPage.classList.add('hidden');
+  welcomePage.classList.remove('hidden');
+});
 
 goBackRegisterButton.addEventListener('click', ()=>{
-  registerPage.classList.add('hidden')
-  welcomePage.classList.remove('hidden')
-})
+  registerPage.classList.add('hidden');
+  welcomePage.classList.remove('hidden');
+});
