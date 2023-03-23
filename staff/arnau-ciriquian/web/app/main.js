@@ -31,14 +31,36 @@ var homePage = document.querySelector('.home')
 registerPage.querySelector('form').addEventListener('submit', function(event) {
     event.preventDefault()
 
-    registerPage.classList.add('off')
-    loginPage.classList.remove('off')
+    //register new user - Arnau's aproach
+    var newUser = registerPage.querySelector('input[name=name]').value
+    var newEmail = registerPage.querySelector('input[name=email]').value
+    var newPassword = registerPage.querySelector('input[name=password]').value
+    
+    var registeredEmails = []
+
+
+    for (var i = 0; i < users.length; i++) {
+        registeredEmails.push(users[i].email)
+    }
+    
+    if (!registeredEmails.includes(newEmail)) {
+        users.push({
+            name: newUser,
+            email: newEmail,
+            password: newPassword,
+        })
+        registerPage.classList.add('off')
+        loginPage.classList.remove('off')
+    } else (alert('User already registered!'))
+    //
+    // registerPage.classList.add('off')
+    // loginPage.classList.remove('off')
 })
 
 loginPage.querySelector('form').addEventListener('submit', function(event) {
     event.preventDefault()
 
-    var email = loginPage.querySelector('input[name=email').value
+    var email = loginPage.querySelector('input[name=email]').value
     var password = loginPage.querySelector('input[name=password]').value
 
     var foundUser
@@ -46,15 +68,13 @@ loginPage.querySelector('form').addEventListener('submit', function(event) {
     for (var i = 0; i < users.length; i++) {
         var user = users[i]
 
-        if (user.mail === email) {
+        if (user.email === email) {
             foundUser = user
 
             break
         }
     }
 
-    //ERROR no troba el password?
-    debugger
     if (foundUser !== undefined && foundUser.password === password) {
         loginPage.classList.add('off')
         homePage.classList.remove('off')
