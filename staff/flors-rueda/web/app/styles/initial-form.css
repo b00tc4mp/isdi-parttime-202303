@@ -18,6 +18,7 @@
     border-radius: 1em;
     padding: 1em 0 1.5em 0;
     gap: 1em;
+    box-shadow: var(--color-light200) 0 0.5rem 1rem;
 }
 
 input {
@@ -33,7 +34,8 @@ input {
 }
 
 .dark-mode .login-form, .dark-mode .register-form  {
-    border: 0.01em solid var(--color-dark300);  
+    border: 0.01em solid var(--color-dark300);
+    box-shadow: var(--color-dark300) 0 0.5rem 1rem;
 }
 
 
@@ -71,10 +73,12 @@ input:focus {
     border: 0.01em solid var(--color-light300);
     border-radius: 1em;
     text-align: center;
+    box-shadow: var(--color-light200) 0 0.5rem 1rem;
 }
 
 .dark-mode .change-view{
     border: 0.01em solid var(--color-dark300);
+    box-shadow: var(--color-dark300) 0 0.5rem 1rem;
 }
 
 .change-view a{
@@ -88,13 +92,11 @@ input:focus {
 
 @media (min-width: 768px) {
     .change-view a:hover {
-        color: var(--color-dark300);
-        text-shadow: var(--color-primary300) 0.05em 0 0.01em;
+        text-shadow: var(--color-light300) 0.05em 0 0.01em;
     }
 
     .dark-mode .change-view a:hover {
-        color: var(--color-light100);
-        text-shadow: var(--color-primary300) 0.05em 0 0.01em;
+        text-shadow: var(--color-dark300) 0.05em 0 0.01em;
     }
 
     input:hover {

@@ -2,17 +2,24 @@
 .login-form .alert {
     width: 85%;
     font-weight: 500;
-    font-size: 0.75em;
-    line-height: 2.5em;
+    font-size: 0.8em;
+    line-height: 1.55em;
     border-radius: 0.75em;
     text-align: justify;
     padding: 0 0.5em;
+    box-shadow: var(--color-light300) 0 0.25rem 1.15rem;
+}
+
+.dark-mode .register-form .alert,
+.dark-mode .login-form .alert {
+    box-shadow: var(--color-dark300) 0 0.25rem 1.15rem;
 }
 
 .alert-success {
     border: 0.01em solid var(--color-success200);
     color: var(--color-success300);
     background-color: var(--color-success100);
+    box-shadow: var(--color-dark300) 0 0.5rem 1rem;
 }
 
 .alert-danger {
@@ -25,6 +32,8 @@
     border: 0.01em solid var(--color-warning200);
     color: var(--color-warning300);
     background-color: var(--color-warning100);
+    box-shadow: var(--color-dark300) 0 0.5rem 1rem;
+    
 }
 
 .close-alert {
@@ -37,4 +46,5 @@
     .close-alert:hover{
         text-shadow: var(--color-dark100) 0.05em 0 0.01em;
     }
+    
 }

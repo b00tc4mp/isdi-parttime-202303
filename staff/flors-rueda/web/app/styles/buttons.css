@@ -45,6 +45,7 @@ button:active {
     width: 1.45rem;
     height: 0.45rem;
     background-color:var(--color-secondary300);
+    box-shadow: var(--color-secondary200) 0 0.2rem 1.95rem;
     display: flex;
     border-radius:3.15rem;
     align-items: center;
@@ -63,11 +64,13 @@ button:active {
     left: 0.20rem;
     border-radius: 50%;
     transition: transform 0.2s linear;
+    box-shadow: var(--color-secondary200) -0.15rem 0.15rem 0.35rem;
 }
 
 
 .mode-checkbox:checked + .mode-label .mode-switch{
     transform: translateX(0.90rem);
+    box-shadow: var(--color-secondary200) 0.15rem 0.15rem 0.35rem;
 }
 
 
@@ -90,6 +93,10 @@ button:active {
 
     button:disabled {
         pointer-events: none;
+    }
+
+    .mode-switch {
+        cursor: pointer;
     }
 }
 
