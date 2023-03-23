@@ -28,8 +28,11 @@ document.querySelector('.section.register form.register-form').addEventListener(
     const password = registerPage.querySelector('input[name="password"').value
     for(i = 0; i < users.length; i++) {
         const user = users[i]
-        if(user.email === email) {
-            return errorMessage = document.querySelector('.message').innerHTML = 'Email already registered'
+        const checkIfAlredyRegistered = users.find(user => user.email === email)
+        if(!checkIfAlredyRegistered || checkIfAlredyRegistered === undefined) {
+            document.querySelector('.message').classList.add('error')
+            document.querySelector('.message').innerHTML = 'Email already registered'
+            return
         }
         if(user.mail !== email) {
              users.push({
