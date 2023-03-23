@@ -6,7 +6,8 @@ input {
   border-radius: 5px;
   padding: 0 10px;
 }
-.page-to-register {
+
+.initial-page {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -33,26 +34,27 @@ input {
   gap: 40px;
 }
 
-.button {
+.login-button, .register-button {
   width: 100px;
   height: 40px;
   background: #82ff60;
   border: 1px solid black;
   border-radius: 7px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.login-button:hover, .register-button:hover, .go-back:hover, .enter-button:hover {
+  background: rgb(42, 202, 42);
+  cursor: pointer;
 }
 
 
-
-.register {
+.register-page {
   color: green;
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-p {
-  color: black;
-  font-size: 20px;
+  justify-content: center;
 }
 
 .form-register {
@@ -62,39 +64,47 @@ p {
   align-items: start;
 }
 
-.enter-button {
+.enter-button, .go-back {
   margin-top: 20px;
   width: 70px;
   height: 30px;
   background: #82ff60;
   border: 1px solid black;
   border-radius: 7px;
+  margin-right: 0.5em
 }
 
 
 
-.login {
+.login-page {
   color: green;
   width: 650px;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-.login h1 {
-  margin-bottom: 40px;
+.login-form {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  margin-top: 0.5em;
+  font-size: large;
 }
 
 
 
-.home {
+.home-page {
   display: block;
 }
 
-.home h1 {
+.home-page h1 {
   font-size: 50px;
   color: green;
 }
-
 
 
 
