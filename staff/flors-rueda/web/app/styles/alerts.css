@@ -1,10 +1,9 @@
-.register-alert, .login-alert {
-    max-width: 80%;
+.register-form .alert,
+.login-form .alert {
+    width: 85%;
     font-weight: 500;
     font-size: 0.75em;
     line-height: 2.5em;
-    width: 75vw;
-    max-width: 30rem;
     border-radius: 0.75em;
     text-align: justify;
     padding: 0 0.5em;

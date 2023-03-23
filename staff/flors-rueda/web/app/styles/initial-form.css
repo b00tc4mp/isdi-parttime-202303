@@ -17,7 +17,7 @@
     border: 0.01em solid var(--color-light300);
     border-radius: 1em;
     padding: 1em 0 1.5em 0;
-    gap: 2em;
+    gap: 1em;
 }
 
 input {
@@ -56,7 +56,7 @@ input {
 }
 
 input:focus {
-    border: solid 0.05em var(--color-dark200);
+    border: solid 0.05em var(--color-primary300);
     box-shadow: 0 0 0.25em var(--color-primary300);
 }
 
@@ -98,7 +98,7 @@ input:focus {
     }
 
     input:hover {
-        border: solid 0.05em var(--color-dark200);
+        border: solid 0.05em var(--color-primary300);
         box-shadow: 0 0 0.25em var(--color-primary300);
     }
 

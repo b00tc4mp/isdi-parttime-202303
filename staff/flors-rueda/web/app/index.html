@@ -11,23 +11,25 @@
 </head>
 <body>
     <div class="register off">
-        <div class="register-alert alert off">alert text</div>
         <h1>Register</h1>
         <form class="register-form" method="get">
-            <input name="email" type="email" placeholder="your email" required/>
+            <input name="mail" type="email" placeholder="your email" required/>
+            <div class="alert off area-register-mail"></div>
             <input name="username" type="text" placeholder="your username" maxlength="7" required/>
+            <div class="alert off area-register-username"></div>
             <input name="password" type="password" placeholder="your password" required/>
-            <input name="confirm-password" type="password" placeholder="confirm your password" required/>
+            <div class="alert off area-register-password"></div>
             <button class="register-submit" type="submit">create user</button>   
         </form>
         <div class="change-view">Already have an account? <a class="change-view-link">Sign in</a></div>
     </div>
     <div class="login">
         <h1>Login</h1>
-        <div class="login-alert alert off">alert text</div>
         <form class="login-form" method="get">
             <input name="mail" type="email" placeholder="your email" required/>
+            <div class="alert off area-login-mail"></div>
             <input name="password" type="password" placeholder="your password" required/>
+            <div class="alert off area-login-password"></div>
             <button class="login-submit" type="submit">sign in</button>     
         </form>
         <div class="change-view">You're new here? <a class="change-view-link">Sign up</a></div>
