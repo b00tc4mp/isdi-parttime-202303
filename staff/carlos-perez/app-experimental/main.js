@@ -1,24 +1,62 @@
 //Data
 
-let users = [];
+class User{
+    name;
+    email;
+    password;
+    isAdmin;
 
-users.push({
-    name: 'Wendy Darling',
-    email: 'wendy@darling.com',
-    password: '123123123'
-})
+    constructor(name, email, password, isAdmin){
+        this.name=name;
+        this.email=email;
+        this.password=password;
+        this.isAdmin=isAdmin;
+    }
 
-users.push({
-    name: 'Peter Pan',
-    email: 'peter@pan.com',
-    password: '123123123'
-})
+    get name(){
+        return this.name;
+    }
 
-users.push({
-    name: 'Pepito Grillo',
-    email: 'pepito@grillo.com',
-    password: '123123123'
-})
+    get email(){
+        return this.email;
+    }
+
+    get password(){
+        return this.password;
+    }
+
+    get isAdmin(){
+        return this.isAdmin;
+    }
+
+    set setName(name){
+        this.name=name;
+    }
+
+    set setEmail(email){
+        this.email=email;
+    }
+
+    set setPassword(password){
+        this.password=password;
+    }
+
+    set setIsAdmin(isAdmin){
+        this.isAdmin=isAdmin;
+    }
+}
+
+class Users{
+    users;
+
+    constructor(users){
+        this.users=users;
+    }
+
+    get users(){
+        return this.users;
+    }
+}
 
 //Logic
 
@@ -28,17 +66,24 @@ var registerPage = document.querySelector('.registro');
 var loginPage= document.querySelector('.login');
 var homePage= document.querySelector('.home');
 
+let appUsers;
+
 function initiate(){
     loginPage.classList.add('off');
     homePage.classList.add('off');
+    let demoUsers=[];
+    demoUsers.push(new User('Wendy Darling','wendy@darling.com','123123123',true));
+    demoUsers.push(new User('Peter Pan','peter@pan.com','123123123',false));
+    demoUsers.push(new User('Pepito Grillo','pepito@grillo.com','123123123',false));
+    appUsers=new Users(demoUsers);
 }
 
 initiate();
 
 function userExist(email){
     let userPosition=null;
-    for(let i=0; i<users.length; i++){
-        let user=users[i];
+    for(let i=0; i<appUsers.users.length; i++){
+        let user=appUsers.users[i];
         if(user.email===email){
             userPosition=i;
             break;
@@ -52,12 +97,9 @@ function userExist(email){
     }
 }
 
-function addUser(name,email,password){
-    users.push({
-        name: name,
-        email: email,
-        password: password
-    });
+
+function addUser(name,email,password,isAdmin){
+    appUsers.users.push(new User(name,email,password,isAdmin));
 }
 
 document.querySelector('.formulario').addEventListener('submit', function(event) {
@@ -70,7 +112,7 @@ document.querySelector('.formulario').addEventListener('submit', function(event)
     let userPosition=userExist(email);
 
     if(userPosition === -1){
-        addUser(name, email, password);
+        addUser(name, email, password,false);
         registerPage.classList.add('off');
         loginPage.classList.remove('off');
     }
@@ -88,7 +130,7 @@ document.querySelector('.formulario-login').addEventListener('submit', function(
     
     let userPosition=userExist(email);
 
-    if(userPosition !== -1 && users[userPosition].password===password){
+    if(userPosition !== -1 && appUsers.users[userPosition].password===password){
         loginPage.classList.add('off');
         homePage.classList.remove('off');
     }
