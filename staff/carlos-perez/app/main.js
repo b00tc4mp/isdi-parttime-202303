@@ -22,19 +22,6 @@ users.push({
 
 //Logic
 
-//Presentation
-
-var registerPage = document.querySelector('.registro');
-var loginPage= document.querySelector('.login');
-var homePage= document.querySelector('.home');
-
-function initiate(){
-    loginPage.classList.add('off');
-    homePage.classList.add('off');
-}
-
-initiate();
-
 function userExist(email){
     let userPosition=null;
     for(let i=0; i<users.length; i++){
@@ -70,6 +57,30 @@ function addUser(name,email,password){
     
 }
 
+function authenticateUser(email,password){
+    let userPosition=userExist(email);
+
+    if(userPosition!==-1 && users[userPosition].password===password){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
+//Presentation
+
+var registerPage = document.querySelector('.registro');
+var loginPage= document.querySelector('.login');
+var homePage= document.querySelector('.home');
+
+function initiate(){
+    loginPage.classList.add('off');
+    homePage.classList.add('off');
+}
+
+initiate();
+
 document.querySelector('.formulario').addEventListener('submit', function(event) {
     event.preventDefault();
 
@@ -94,10 +105,8 @@ document.querySelector('.formulario-login').addEventListener('submit', function(
 
     var email=loginPage.querySelector('input[type=email]').value;
     var password=loginPage.querySelector('input[type=password]').value;
-    
-    let userPosition=userExist(email);
 
-    if(userPosition !== -1 && users[userPosition].password===password){
+    if(authenticateUser(email,password)===true){
         loginPage.classList.add('off');
         homePage.classList.remove('off');
     }
