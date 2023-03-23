@@ -53,11 +53,21 @@ function userExist(email){
 }
 
 function addUser(name,email,password){
-    users.push({
-        name: name,
-        email: email,
-        password: password
-    });
+
+    let userPosition=userExist(email);
+
+    if(userPosition === -1){
+        users.push({
+            name: name,
+            email: email,
+            password: password
+        });
+        return true;
+    }
+    else{
+       return false;
+    }
+    
 }
 
 document.querySelector('.formulario').addEventListener('submit', function(event) {
@@ -67,10 +77,9 @@ document.querySelector('.formulario').addEventListener('submit', function(event)
     var email=registerPage.querySelector('input[type=email]').value;
     var password=registerPage.querySelector('input[type=password]').value;
 
-    let userPosition=userExist(email);
+    let result=addUser(name, email, password);
 
-    if(userPosition === -1){
-        addUser(name, email, password);
+    if(result === true){
         registerPage.classList.add('off');
         loginPage.classList.remove('off');
     }
