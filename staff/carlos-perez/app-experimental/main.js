@@ -56,6 +56,10 @@ class Users{
     get users(){
         return this.users;
     }
+
+    addUser=(name,email,password,isAdmin) =>{
+        this.users.push(new User(name, email,password,isAdmin));
+    }
 }
 
 //Logic
@@ -97,11 +101,6 @@ function userExist(email){
     }
 }
 
-
-function addUser(name,email,password,isAdmin){
-    appUsers.users.push(new User(name,email,password,isAdmin));
-}
-
 document.querySelector('.formulario').addEventListener('submit', function(event) {
     event.preventDefault();
 
@@ -112,7 +111,7 @@ document.querySelector('.formulario').addEventListener('submit', function(event)
     let userPosition=userExist(email);
 
     if(userPosition === -1){
-        addUser(name, email, password,false);
+        appUsers.addUser(name, email, password,false);
         registerPage.classList.add('off');
         loginPage.classList.remove('off');
     }
