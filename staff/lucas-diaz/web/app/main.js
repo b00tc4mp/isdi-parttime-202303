@@ -59,17 +59,18 @@ registerForm.addEventListener('submit', function (event) {
         console.log("hola")
     }
     */
-   
+
     if(!checkIfUserExist){
         users.push(temporalUser);
         registerPage.classList.add("off");
         logInPage.classList.remove("off");
+    } else {
+        alert("Hay un usuario con esos datos, por favor ingrese otros");
+        registerPage.querySelector("input[type=text]").value = ""
+        registerPage.querySelector("input[type=email]").value = ""
+        registerPage.querySelector("input[type=password]").value = ""
     }
 
-    alert("Hay un user con el mismo dato");
-    registerPage.querySelector("input[type=text]").value = ""
-    registerPage.querySelector("input[type=email]").value = ""
-    registerPage.querySelector("input[type=password]").value = ""
 })
 
 logInForm.addEventListener('submit', function (event) {
