@@ -61,7 +61,7 @@ loginPage.querySelector('form').addEventListener('submit', function(event) {
     } else alert('Usuario o contraseña invalidos')
 })
 
-registerPage.querySelector('a').addEventListener('click', function (event) {
+registerPage.querySelector('input[type=submit]').addEventListener('click', function (event) {
     event.preventDefault()
 
     registerPage.classList.add('off')
@@ -69,7 +69,9 @@ registerPage.querySelector('a').addEventListener('click', function (event) {
 })
 
 loginPage.querySelector('a').addEventListener('click', function (event) {
+    alert('mikel')
     event.preventDefault()
+    
 
     loginPage.classList.add('off')
     registerPage.classList.remove('off')
