@@ -21,13 +21,15 @@ html {
 }
 
 header {
+    display: flex;
     align-self: center;
     justify-content: center;
+    background: rgba(255,255,255,0.85) ;
+    width: 100%;
 }
 
 header h1 {
     background-image: linear-gradient(90deg, #1a1a1a, #595959, #999999);
-
     background-clip: text;
     -webkit-background-clip: text;
     color: transparent;
