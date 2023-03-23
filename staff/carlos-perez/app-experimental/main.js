@@ -29,22 +29,27 @@ class User{
         return this.isAdmin;
     }
 
-    set setName(name){
+    setName(name){
         this.name=name;
     }
 
-    set setEmail(email){
+    setEmail(email){
         this.email=email;
     }
 
-    set setPassword(password){
+    setPassword(password){
         this.password=password;
     }
 
-    set setIsAdmin(isAdmin){
+    setIsAdmin(isAdmin){
         this.isAdmin=isAdmin;
     }
 }
+
+let prueba=new User('carlos perez','carlos@perez.com','123456',true);
+console.log(prueba);
+prueba.setIsAdmin(false);
+console.log(prueba);
 
 class Users{
     users;
