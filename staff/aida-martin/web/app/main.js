@@ -28,6 +28,24 @@ document
       return;
     }
 
+    if (
+      name === "" ||
+      email === "" ||
+      password === "" ||
+      repeatPassword === ""
+    ) {
+      alert("You have to fill in all the fields! 😥");
+      return;
+    }
+
+    for (let i = 0; i < users.length; i++) {
+      let user = users[i];
+      if (user.email === email) {
+        alert("You are already registered! Please login! 😅");
+        return;
+      }
+    }
+
     users.push({
       name: name,
       email: email,
@@ -80,6 +98,11 @@ loginPage
   .querySelector(".register-link")
   .addEventListener("click", function (event) {
     event.preventDefault();
+
+    registerPage.querySelector((input = "[name=name]")).value = "";
+    registerPage.querySelector((input = "[name=email]")).value = "";
+    registerPage.querySelector((input = "[name=password]")).value = "";
+    registerPage.querySelector((input = "[name=repeat-password]")).value = "";
 
     loginPage.classList.add("off");
 
