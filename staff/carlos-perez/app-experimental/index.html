@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <script src="main.js" type="module" defer></script>
+</head>
+<body>
+
+    <header>
+        <h1>App</h1>
+    </header>
+
+    <!--style="display: none;""-->
+    
+    <div class="registro contenedor">
+        <h3 class="centrar-texto">Registro</h3>
+
+        <form class="formulario">
+            <div class="campo">
+                <label class="campo__label" for="nombre">Nombre</label>
+                <input 
+                    class="campo__field register-input"
+                    type="text" 
+                    placeholder="Tu Nombre" 
+                    id="nombre"
+                    required
+                >
+            </div>
+            <div class="campo">
+                <label class="campo__label" for="email">E-mail</label>
+                <input 
+                    class="campo__field register-input"
+                    type="email" 
+                    placeholder="Tu E-mail" 
+                    id="email"
+                    required
+                >
+            </div>
+            <div class="campo">
+                <label class="campo__label" for="password">Contraseña</label>
+                <input 
+                    class="campo__field register-input"
+                    type="password" 
+                    placeholder="Tu contraseña" 
+                    id="password"
+                    required
+                >
+            </div>
+
+            <div class="campo">
+                <input type="submit" value="Enviar" class="boton boton--primario">
+            </div>
+
+            <p>Ir a <a href=".login">Acceso</a></p>
+        </form>
+
+    </div>
+
+    <div class="login contenedor">
+        <h3 class="centrar-texto">Acceso</h3>
+
+        <form class="formulario-login">
+            <div class="campo">
+                <label class="campo__label" for="email">E-mail</label>
+                <input 
+                    class="campo__field"
+                    type="email" 
+                    placeholder="Tu E-mail" 
+                    id="email"
+                    required
+                >
+            </div>
+            <div class="campo">
+                <label class="campo__label" for="password">Contraseña</label>
+                <input 
+                    class="campo__field"
+                    type="password" 
+                    placeholder="Tu contraseña" 
+                    id="password"
+                    required
+                >
+            </div>
+
+            <div class="campo">
+                <input type="submit" value="Acceder" class="boton boton--primario">
+            </div>
+        </form>
+        <p>Ir a <a href=".registro">Registro</a></p>
+
+    </div>
+
+   
+
+    <div class="home contenedor">
+        <h3 class="centrar-texto">Home</h3>
+    </div>
+
+</body>
+</html>
