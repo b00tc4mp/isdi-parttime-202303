@@ -46,11 +46,6 @@ class User{
     }
 }
 
-let prueba=new User('carlos perez','carlos@perez.com','123456',true);
-console.log(prueba);
-prueba.setIsAdmin(false);
-console.log(prueba);
-
 class Users{
     users;
 
