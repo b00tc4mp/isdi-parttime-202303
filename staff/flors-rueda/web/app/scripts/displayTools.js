@@ -12,10 +12,17 @@ const clearInitialForm = () => {
   inputs.forEach((input) => (input.value = ''));
 };
 
+const resetAlertStyles = (alertUser) => {
+  alertUser.classList.remove('alert-success');
+  alertUser.classList.remove('alert-warning');
+  alertUser.classList.remove('alert-danger');
+  alertUser.classList.add('off');
+};
+
 const resetAlerts = () => {
   const alerts = document.querySelectorAll('.alert');
   if (alerts.length > 0) {
-    alerts.forEach((alertUser) => alertUser.classList.add('off'));
+    alerts.forEach((alertUser) => resetAlertStyles(alertUser));
   };
 };
 
