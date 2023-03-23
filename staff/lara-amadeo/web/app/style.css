@@ -91,6 +91,7 @@ align-items: center;
     font-family: "Inter";
     font-weight: 600;
     font-size: 16px;
+    text-decoration: none;
 }
 
 .login-introduction{
@@ -112,6 +113,13 @@ align-items: center;
 
 .forgot-password{
     margin-bottom: 40px;
+}
+
+.error-message{
+    font-family: 'Inter';
+    font-size: 14px;
+    font-weight: 400;
+    color: rgb(255, 43, 71);
 }
 
 .off{

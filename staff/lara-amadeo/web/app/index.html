@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Web</title>
     <link rel="stylesheet" href="style.css">
-    <script src="main.js" defer></script>
+    <script src="main.js" type="module" defer></script>
 </head>
 <body>
     <div class="registration">
@@ -14,6 +14,9 @@
             <h1 class="register-introduction">Welcome stranger!</h1>
             
             <form class="centered-form">
+
+                <label for="username" class="text-field-label">Username</label>
+                <input type="text" name="username" class="text-field">
 
                 <label for="email" class="text-field-label">Email</label>
                 <input type="text" name="email" class="text-field">
@@ -26,11 +29,13 @@
                 
                 <button class="primary-button" type="submit">Sign up</button>
             </form>
+
+            <p class="error-message off">Email address already in use</p>
             
             <div class="already-account-container">
-                <p class="already-account">Already have an account?</p>
-                <button class="link">Log in</button>
+                <p class="already-account">Already have an account? <a href="" class="link">Log in</a> </p>           
             </div>
+    
         </div>
 
     </div>
@@ -46,12 +51,16 @@
                 <label for="password" class="text-field-label">Password</label>
                 <input type="password" name="password" class="text-field">
 
+
                 <div class="forgot-password">
                     <button class="link" type="button">Forgot password?</button>
                 </div>
                 
-                <button type="submit" class="primary-button">Log in</button>
+                <button class="primary-button" type="submit">Log in</button>
+            
             </form>
+
+            <p class="error-message off">Invalid username or password</p>
         </div>
     </div>
     <div class="homepage off">
