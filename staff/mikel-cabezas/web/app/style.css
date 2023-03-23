@@ -79,9 +79,15 @@ header {
     width: 100%;
     justify-content: space-between;
     align-items: center;
+    max-width: 1200px;
+    margin: auto;
 }
 .logo {
     display: flex;
+    padding-left: 20px;
+}
+.menu {
+    padding-right: 20px;
 }
 .menu > ul {
     display: flex;
@@ -91,7 +97,7 @@ header {
 
 }
 .menu > ul > li {
-    padding: 10px;
+    padding: 15px 10px;
     cursor: pointer;
 }
 li.login.has-submenu {
@@ -101,17 +107,21 @@ li.login.has-submenu {
 .login ul.submenu {
     display: none;
     position: absolute;
-    left: 0;
+    left: -10px;
     top: 20px;
     padding-left: 5px;
-    margin-top: 20px;
+    margin-top: 24px;
     list-style: none;
+    background: #132f46;
+    padding: 15px 20px;
+    border-radius: 10px;
 }
 .login:hover ul.submenu {
     display: block;
 }
 header li {
     font-size: 16px;
+    padding: 5px 0px;
 }
 
 .menu .logout, .menu .homepage, body.logged-in .menu .login {
@@ -177,8 +187,15 @@ button.submit {
 .container .login, .container .register {
     font-size: 12px
 }
-.container .login p, .container .register p {
-    margin: 25px 0 0;
+.register-link p, .login-link p {
+    margin: 0;
 }
+
+.register-link, .login-link {
+    margin-top: 25px;
+}
+/* .container .login p, .container .register p {
+    margin: 25px 0 0;
+} */
 /* ______ END FORM ___ */
 
