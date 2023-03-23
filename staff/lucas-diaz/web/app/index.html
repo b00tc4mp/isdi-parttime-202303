@@ -17,6 +17,7 @@
 <body>
     <div class="register off">
         <h1 class="register-header">REGISTER</h1>
+        <p class="fail-advice-p off">There is a current user with the same email, please try again</p>
         <form class="form" >
             <div class="input-box">
                 <label for="sign-up-name">your username</label>
@@ -35,12 +36,13 @@
         </form>
     </div>
 
-    <div class="login ">
+    <div class="login">
         <h1 class="login-header">LOG IN</h1>
-
+        <p class="success-advice-p off">user created succesfully</p>
+        <p class="fail-advice-p off">Invalid password or email, please try again</p>
         <form class="form">
             <div class="input-box">
-                <label for="log-in-name">your username</label>
+                <label for="log-in-name">your email</label>
                 <input type="email" class="email" name="email" placeholder="Enter email" id="log-in-email" autocomplete="current-password">
             </div>
             <div class="input-box">

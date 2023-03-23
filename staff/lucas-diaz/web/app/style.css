@@ -113,6 +113,14 @@ label{
     color: azure;
 }
 
+.success-advice-p{
+    color: #179060;
+}
+.fail-advice-p{
+    color: rgb(253, 76, 76);
+}
+
+
 
 .off{
     display: none;
