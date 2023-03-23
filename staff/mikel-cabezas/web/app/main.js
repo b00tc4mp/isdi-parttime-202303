@@ -29,9 +29,9 @@ document.querySelector('.section.register form.register-form').addEventListener(
     for(i = 0; i < users.length; i++) {
         const user = users[i]
         const checkIfAlredyRegistered = users.find(user => user.email === email)
-        if(!checkIfAlredyRegistered || checkIfAlredyRegistered === undefined) {
-            document.querySelector('.message').classList.add('error')
-            document.querySelector('.message').innerHTML = 'Email already registered'
+        if(checkIfAlredyRegistered) {
+            document.querySelector('.section.register .message').classList.add('error')
+            document.querySelector('.section.register .message').innerHTML = 'Email already registered'
             return
         }
         if(user.mail !== email) {
@@ -42,9 +42,12 @@ document.querySelector('.section.register form.register-form').addEventListener(
             })
             registerPage.classList.add('off')
             loginPage.classList.remove('off')
-            document.querySelector('.message').classList.remove('error')
-            const messageUserCreated = document.querySelector('.message').innerHTML = 'User created! Please log in'
-            document.querySelector('.message').classList.add('success')
+            document.querySelector('.section.login .message').classList.remove('error')
+            document.querySelector('.section.login .message').innerHTML = 'User created! Please log in'
+            document.querySelector('.section.login .message').classList.add('success')
+            registerPage.querySelector('input[name="name"').value = ''
+            registerPage.querySelector('input[name="email"').value = ''
+            registerPage.querySelector('input[name="password"').value = ''
             return
         }
     }
@@ -63,9 +66,9 @@ document.querySelector('.section.login form.login-form').addEventListener('submi
         const user = users[i]
         
         if (user.email !== email || user.password !== password) {
-            document.querySelector('.message').classList.remove('success')
-            const errorMessage = document.querySelector('.message').innerHTML = 'User or password incorrect'
-            document.querySelector('.message').classList.add('error')
+            document.querySelector('.section.login .message').classList.remove('success')
+            const errorMessage = document.querySelector('.section.login .message').innerHTML = 'User or password incorrect'
+            document.querySelector('.section.login .message').classList.add('error')
 
         }
         if (user.email === email && user.password === password) {
