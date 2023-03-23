@@ -38,11 +38,11 @@
             <h1>Register</h1>
             <form class="register-form">
                 <label for="Name">Name</label>
-                <input type="text" name="" id="register-name" placeholder="Your name" _required>
+                <input type="text" name="name" id="register-name" placeholder="Your name" _required>
                 <label for="Email">Email</label>
-                <input type="email" name="" id="register-email" placeholder="email" _required>
+                <input type="email" name="email" id="register-email" placeholder="email" _required>
                 <label for="Password">Password</label>
-                <input type="password" name="" id="register-password" placeholder="password" _required>
+                <input type="password" name="password" id="register-password" placeholder="password" _required>
                 <button class="submit" type="submit">Register</button>
                 <div class="login-link">
                     <p>Already registered? <a href="">Login</a></p>
@@ -56,10 +56,11 @@
         <div class="container">
             <h1>Login</h1>
             <form class="login-form">
+                <div class="message"></div>
                 <label for="Email">Email</label>
-                <input type="email" name="" id="login-email" placeholder="Your email" _required>
+                <input type="email" name="email" placeholder="Your email" _required>
                 <label for="Password">Password</label>
-                <input type="password" name="" id="login-password" placeholder="Your password" _required>
+                <input type="password" name="password" placeholder="Your password" _required>
                 <button class="submit" type="submit">Login</button>
                 <div class="register-link">
                     <p>Not registered? <a href="">Create account</a></p>
