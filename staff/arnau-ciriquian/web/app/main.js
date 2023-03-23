@@ -78,7 +78,21 @@ loginPage.querySelector('form').addEventListener('submit', function(event) {
     if (foundUser !== undefined && foundUser.password === password) {
         loginPage.classList.add('off')
         homePage.classList.remove('off')
+
+        //User name test
+        homePage.querySelector('.home-tittle').innerHTML = `Welcome ${foundUser.name}!`
+        //
+
     } else alert('wrong email or password')
+
+    //Easter Egg
+    if (foundUser === undefined && password === 'orange') {
+            document.querySelector('.pattern-hex').classList.add('orange-hex')
+            document.querySelector('.pattern-hex').classList.remove('blue-hex')
+            document.querySelector('.pattern-color').classList.add('green-gradient')
+            document.querySelector('.pattern-color').classList.remove('purple-gradient')
+    }
+    //
 })
 
 registerPage.querySelector('a').addEventListener('click', function(event) {
@@ -94,6 +108,3 @@ loginPage.querySelector('a').addEventListener('click', function(event) {
     loginPage.classList.add('off')
     registerPage.classList.remove('off')
 })
-
-
-//TODO: implementar llogica registre
