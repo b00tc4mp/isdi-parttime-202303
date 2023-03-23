@@ -13,22 +13,6 @@ class User{
         this.isAdmin=isAdmin;
     }
 
-    get name(){
-        return this.name;
-    }
-
-    get email(){
-        return this.email;
-    }
-
-    get password(){
-        return this.password;
-    }
-
-    get isAdmin(){
-        return this.isAdmin;
-    }
-
     setName(name){
         this.name=name;
     }
@@ -51,10 +35,6 @@ class Users{
 
     constructor(users){
         this.users=users;
-    }
-
-    get users(){
-        return this.users;
     }
 
     addUser=(name,email,password,isAdmin) =>{
