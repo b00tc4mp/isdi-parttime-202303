@@ -1,32 +1,38 @@
-import { changeView, doRegister, doLogin } from "./displayTools.js";
+import { changeView, doRegister, doLogin, doLogout } from './displayTools.js';
 
-const register = document.querySelector(".register");
-const login = document.querySelector(".login");
-const home = document.querySelector(".home");
+const register = document.querySelector('.register');
+const login = document.querySelector('.login');
+const home = document.querySelector('.home');
 
-const checkbox = document.querySelector(".mode-checkbox");
-const loginForm = document.querySelector(".login-form");
-const registerForm = document.querySelector(".register-form");
-const changeViewLinks = document.querySelectorAll(".change-view-link");
+const checkbox = document.querySelector('.mode-checkbox');
+const loginForm = document.querySelector('.login-form');
+const registerForm = document.querySelector('.register-form');
+const changeViewLinks = document.querySelectorAll('.change-view-link');
+const logout = document.querySelector('.logout');
 
-checkbox.addEventListener("change", (event) => {
+checkbox.addEventListener('change', (event) => {
   event.preventDefault();
-  document.body.classList.toggle("dark-mode");
+  document.body.classList.toggle('dark-mode');
 });
 
 changeViewLinks.forEach((link) => {
-  link.addEventListener("click", (event) => {
+  link.addEventListener('click', (event) => {
     event.preventDefault();
     changeView(register, login);
   });
 });
 
-registerForm.addEventListener("submit", (event) => {
+registerForm.addEventListener('submit', (event) => {
   event.preventDefault();
   doRegister(register, login);
 });
 
-loginForm.addEventListener("submit", (event) => {
+loginForm.addEventListener('submit', (event) => {
   event.preventDefault();
   doLogin(login, home);
+});
+
+logout.addEventListener('click', (event) => {
+  event.preventDefault();
+  doLogout(login, home);
 });

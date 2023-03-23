@@ -100,3 +100,10 @@ button:active {
     }
 }
 
+.logout {
+    position: absolute;
+    top: 1em;
+    right: 1em;
+    max-width: 10%;
+    min-width: 4rem;
+}

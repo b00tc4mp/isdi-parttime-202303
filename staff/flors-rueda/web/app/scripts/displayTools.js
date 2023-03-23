@@ -98,3 +98,9 @@ export const doRegister = (register, login) => {
     registerFailed(mail, username, password);
   }
 };
+
+export const doLogout = (login, home) => {
+  resetAlerts();
+  clearInitialForm();
+  toggleOff(login, home);
+};
