@@ -1,13 +1,3 @@
-// Data:
-
-const users = [];
-
-users.push({ username: 'garrus', mail: 'garrus@csec.net', password: 'Cal1brat1ons', });
-users.push({ username: 'liara', mail: 'liara@uoe.net', password: 'Pr0theans', });
-users.push({ username: 'grunt', mail: 'grunt@krogan.net', password: 'T-Wr3x', });
-
-// Tools:
-
 export const isMailRegistered = (mail) => {
   for (let i = 0; i < users.length; i++) {
     if (users[i].mail === mail) return true;
@@ -36,4 +26,21 @@ export const addNewUser = (mail, username, password) => {
     password: password,
   };
   users.push(user);
+};
+
+const hasMinimumLength = (password) => {
+  return password.length >= 6;
+};
+
+const includesLowerAndUpperCase = (password) => {
+  return (password.toLowerCase() !== password && password.toUpperCase() !== password);
+};
+
+const includesNumber = (password) => {
+  const includesNumber = /\d/;
+  return includesNumber.test(password);
+};
+
+export const isPasswordSafe = (password) => {
+  return (hasMinimumLength(password) && includesLowerAndUpperCase(password) && includesNumber(password));
 };

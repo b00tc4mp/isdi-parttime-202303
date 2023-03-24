@@ -1,4 +1,4 @@
-import { changeView, doRegister, doLogin, doLogout, authenticateUser } from './displayTools.js';
+import { changeView, doRegister, doLogin, doLogout, authenticateUser } from './display/login-register.js';
 
 const register = document.querySelector('.register');
 const login = document.querySelector('.login');
@@ -11,6 +11,8 @@ const changeViewLinks = document.querySelectorAll('.change-view-link');
 const logout = document.querySelector('.logout');
 
 let userAuth;
+
+// Login & Register
 
 checkbox.addEventListener('change', (event) => {
   event.preventDefault();
