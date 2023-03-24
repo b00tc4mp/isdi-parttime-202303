@@ -13,7 +13,7 @@ import {
     addNewUser,
     isPasswordSafe,
     confirmPassword,
-} from '../logic/login-register.js';
+} from '../logic/user-data.js';
 
 export const authenticateUser = (mail, password) => {
   if (!isMailRegistered(mail)) {
@@ -99,3 +99,9 @@ export const validateUsername = (input) => {
   }
   input.value = username
 }
+
+export const changeView = (register, login) => {
+  resetAlerts();
+  clearForms();
+  toggleOff(register, login);
+};

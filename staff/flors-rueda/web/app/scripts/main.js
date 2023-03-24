@@ -1,9 +1,16 @@
-import { doRegister, doLogin, doLogout, authenticateUser, validateUsername } from './display/login-register.js';
-import { changeView, } from './display/general-tools.js'
+import { changeView, doRegister, doLogin, doLogout, authenticateUser, validateUsername } from './display/login-register.js';
+import { toggleOff, setOff, setOn } from './display/general-tools.js'
 
 const register = document.querySelector('.register');
 const login = document.querySelector('.login');
 const home = document.querySelector('.home');
+const profile = document.querySelector('.user-profile');
+const editProfile = document.querySelector('.edit-profile');
+const changePassword = document.querySelector('.change-password');
+const startHome = document.querySelector('.home-start');
+
+
+// Login & Register
 
 const checkbox = document.querySelector('.mode-checkbox');
 const loginForm = document.querySelector('.login-form');
@@ -11,11 +18,7 @@ const registerForm = document.querySelector('.register-form');
 const changeViewLinks = document.querySelectorAll('.change-view-link');
 const username = document.querySelector('input[name="username"]');
 
-const logout = document.querySelector('.logout');
-
 let userAuth;
-
-// Login & Register
 
 username.addEventListener('input', (event) => {
   validateUsername(username);
@@ -46,10 +49,41 @@ loginForm.addEventListener('submit', (event) => {
   if(userAuth) doLogin(login, home);
 });
 
-/*
+
+// Home
+
+const logout = document.querySelector('.logout');
+const toUserProfile = document.querySelector('.to-user-profile');
+const toHome = document.querySelector('.to-home');
+const toChangePassword = document.querySelector('.to-change-password');
+const toEditProfile = document.querySelector('.to-edit-profile');
+
 logout.addEventListener('click', (event) => {
   event.preventDefault();
   userAuth = false;
   doLogout(login, home);
 });
-*/
+
+toUserProfile.addEventListener('click', (event) => {
+  event.preventDefault();
+  setOn(profile);
+  setOff(startHome, changePassword, editProfile);
+});
+
+toHome.addEventListener('click', (event) => {
+  event.preventDefault();
+  setOn(startHome);
+  setOff(profile, changePassword, editProfile);
+});
+
+toChangePassword.addEventListener('click', (event) => {
+  event.preventDefault();
+  toggleOff(changePassword);
+  setOff(startHome, profile, editProfile);
+});
+
+toEditProfile.addEventListener('click', (event) => {
+  event.preventDefault();
+  toggleOff(editProfile);
+  setOff(changePassword, startHome, profile);
+});

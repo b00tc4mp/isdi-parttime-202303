@@ -4,6 +4,18 @@ export const toggleOff = (...items) => {
   });
 };
 
+export const setOff = (...items) => {
+  items.forEach((item) => {
+    item.classList.add('off');
+  });
+};
+
+export const setOn = (...items) => {
+  items.forEach((item) => {
+    item.classList.remove('off');
+  });
+};
+
 export const clearForms = () => {
   const inputs = document.querySelectorAll('input');
   inputs.forEach((input) => (input.value = ''));
@@ -40,10 +52,4 @@ export const setSimpleAlert = (alertArea, alertColor, alertMessage) => {
   alertUser.innerHTML = `${alertMessage}`;
   alertUser.classList.add(`${alertColor}--simple`);
   alertUser.classList.remove('off');
-};
-
-export const changeView = (register, login) => {
-  resetAlerts();
-  clearForms();
-  toggleOff(register, login);
 };
