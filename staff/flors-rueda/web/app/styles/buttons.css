@@ -65,6 +65,7 @@ button:active {
     border-radius: 50%;
     transition: transform 0.2s linear;
     box-shadow: var(--color-secondary200) -0.15rem 0.15rem 0.35rem;
+    cursor: pointer;
 }
 
 
@@ -74,7 +75,21 @@ button:active {
 }
 
 
-  
+.logout, .to-user-profile, .to-home {
+    padding-top: 0.35rem;
+    padding-right: 1.9rem;
+    border-radius: 50%;
+    width: 2.25rem;
+    height: 2.25rem;
+}
+
+button svg {
+    fill: var(--color-primary300);
+}
+
+.profile-buttons button {
+    width: 45%;
+}
 
 @media (min-width: 768px) {
     button:hover {
@@ -95,15 +110,12 @@ button:active {
         pointer-events: none;
     }
 
-    .mode-switch {
-        cursor: pointer;
+    button:hover svg {
+        fill: var(--color-light100);
+    }
+
+    .dark-mode button:hover svg {
+        fill: var(--color-dark200);
     }
 }
 
-.logout {
-    position: absolute;
-    top: 1em;
-    right: 1em;
-    max-width: 10%;
-    min-width: 4rem;
-}

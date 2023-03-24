@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
     <link rel="stylesheet" href="./styles/style.css" />
     <script src="./scripts/users.js"></script>
     <script type="module" src="./scripts/main.js" defer></script>
@@ -16,7 +15,7 @@
         <form class="register-form" method="get">
             <input name="mail" type="email" placeholder="your email" required/>
             <div class="alert off area-register-mail"></div>
-            <input name="username" type="text" placeholder="your username" maxlength="10" required/>
+            <input name="username" type="text" placeholder="yourusername" maxlength="15" required/>
             <div class="alert off area-register-username"></div>
             <input name="password" type="password" placeholder="your password" required/>
             <div class="alert off area-register-password"></div>
@@ -39,10 +38,43 @@
         <div class="change-view">You're new here? <a class="change-view-link">Sign up</a></div>
     </div>
     <div class="home off">
-        <button class="logout">logout</button>
-        <h1>Home</h1>
-        <p>hieeeeee</p>
-        <!--TODO implement home page-->
+        <div class="top-buttons">
+            <button class="logout">
+                <svg xmlns="http://www.w3.org/2000/svg" height="1.5rem" viewBox="0 96 960 960" width="1.5rem"><path d="M180 936q-24 0-42-18t-18-42V276q0-24 18-42t42-18h291v60H180v600h291v60H180Zm486-185-43-43 102-102H375v-60h348L621 444l43-43 176 176-174 174Z"/></svg>
+            </button>
+            <button class="to-user-profile">
+                <svg xmlns="http://www.w3.org/2000/svg" height="1.5rem" viewBox="0 96 960 960" width="1.5rem"><path d="M480 575q-66 0-108-42t-42-108q0-66 42-108t108-42q66 0 108 42t42 108q0 66-42 108t-108 42ZM160 896v-94q0-38 19-65t49-41q67-30 128.5-45T480 636q62 0 123 15.5t127.921 44.694q31.301 14.126 50.19 40.966Q800 764 800 802v94H160Zm60-60h520v-34q0-16-9.5-30.5T707 750q-64-31-117-42.5T480 696q-57 0-111 11.5T252 750q-14 7-23 21.5t-9 30.5v34Zm260-321q39 0 64.5-25.5T570 425q0-39-25.5-64.5T480 335q-39 0-64.5 25.5T390 425q0 39 25.5 64.5T480 515Zm0-90Zm0 411Z"/></svg>
+            </button>
+            <button class="to-home">
+                <svg xmlns="http://www.w3.org/2000/svg" height="1.5rem" viewBox="0 96 960 960" width="1.5rem"><path d="M200 896V576H80l400-360 400 360H760v320h-60v-90H260v90h-60Zm136-470h288L480 297 336 426Zm-76 160h440v-92l-9-8H269l-9 8v92Zm0 160h440V646H260v100Z"/></svg>
+            </button>
+        </div>
+        <div class="main-area">
+            <h1>Home</h1>
+            <div class="user-profile off">
+                <h2>Your profile</h2>
+                <div class="profile-card">
+                    <div class="profile-card-data">
+                        <p>Name: <span>BlahBlha</span></p>
+                        <p>Username: <span>@blah</span></p>
+                        <p>Mail: <span>blah@mail.com</span></p>
+                    </div>
+                    <img class="profile-card-avatar" src="https://sm.ign.com/ign_es/news/a/avatar-add/avatar-added-the-last-airbender-to-the-title-because-of-jame_ge5x.jpg" />
+                </div>
+                <div class="profile-buttons">
+                    <button class="to-edit-profile">edit profile</button>
+                    <button class="to-change-password">change password</button>
+                    <button>dont</button>
+                    <button>dead</button>
+                    <button>open</button>
+                    <button>inside</button>
+                </div>
+            </div>
+            <div class="edit-profile">
+                <h2>Edit profile</h2>
+                <p>@blahblah</p>
+            </div>
+        </div>
     </div>
     <div class="mode-toggle">
         <input type="checkbox" class="mode-checkbox" id="checkbox">

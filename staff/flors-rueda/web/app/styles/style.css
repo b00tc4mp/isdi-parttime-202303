@@ -1,8 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,500;0,700;0,900;1,100;1,400&display=swap');
 
-@import "./initial-form.css";
-@import "./buttons.css";
-@import "./alerts.css";
+@import './initial-form.css';
+@import './buttons.css';
+@import './alerts.css';
+@import './home.css';
 
 :root {
     --color-primary300: #fb8404;
@@ -10,8 +11,8 @@
     --color-primary100: #f4c784;
     --color-primary-transparence: #ffbd6698;
     --color-secondary300: #000c6a;
-    --color-secondary200: #2a4d99;
-    --color-secondary100: #96c3ff;
+    --color-secondary200: #6c93e8;
+    --color-secondary100: #95c0fa;
     --color-dark300: #000000;
     --color-dark200: #3b3b3b;
     --color-dark100: #5c5c5c;
@@ -52,6 +53,15 @@ body {
 h1{
     margin-block-end: 0;
     color: var(--color-primary300);
+}
+
+h2{
+    margin-block-start: 0;
+    color: var(--color-secondary200);
+}
+
+.dark-mode h2{
+    color: var(--color-secondary100);
 }
 
 @media (min-width: 768px) {
