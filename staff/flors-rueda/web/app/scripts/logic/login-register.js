@@ -7,7 +7,7 @@ export const isMailRegistered = (mail) => {
 
 export const isUsernameRegistered = (username) => {
   for (let i = 0; i < users.length; i++) {
-    if (users[i].username === username) return true;
+    if (users[i].username === '@' + username) return true;
   };
   return false;
 };
@@ -25,7 +25,7 @@ export const confirmPassword = (password, repeatPassword) => {
 
 export const addNewUser = (mail, username, password) => {
   let user = {
-    username: username,
+    username: '@' + username,
     mail: mail,
     password: password,
   };

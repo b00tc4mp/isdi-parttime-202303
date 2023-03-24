@@ -87,3 +87,15 @@ export const doLogout = (login, home) => {
   toggleOff(login, home);
 };
 
+
+
+export const validateUsername = (input) => {
+  let username = '';
+  const regexRule = /^[a-z0-9]*$/;
+  if(!regexRule.test(input.value)) {
+    username = input.value.slice(0, -1);
+  } else {
+    username = input.value
+  }
+  input.value = username
+}

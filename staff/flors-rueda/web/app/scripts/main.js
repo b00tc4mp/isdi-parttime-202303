@@ -1,4 +1,4 @@
-import { doRegister, doLogin, doLogout, authenticateUser } from './display/login-register.js';
+import { doRegister, doLogin, doLogout, authenticateUser, validateUsername } from './display/login-register.js';
 import { changeView, } from './display/general-tools.js'
 
 const register = document.querySelector('.register');
@@ -9,11 +9,17 @@ const checkbox = document.querySelector('.mode-checkbox');
 const loginForm = document.querySelector('.login-form');
 const registerForm = document.querySelector('.register-form');
 const changeViewLinks = document.querySelectorAll('.change-view-link');
+const username = document.querySelector('input[name="username"]');
+
 const logout = document.querySelector('.logout');
 
 let userAuth;
 
 // Login & Register
+
+username.addEventListener('input', (event) => {
+  validateUsername(username);
+});
 
 checkbox.addEventListener('change', (event) => {
   event.preventDefault();
@@ -40,9 +46,10 @@ loginForm.addEventListener('submit', (event) => {
   if(userAuth) doLogin(login, home);
 });
 
+/*
 logout.addEventListener('click', (event) => {
   event.preventDefault();
   userAuth = false;
   doLogout(login, home);
 });
-
+*/
