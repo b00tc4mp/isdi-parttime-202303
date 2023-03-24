@@ -1,6 +1,6 @@
-.register-form .alert,
-.login-form .alert {
+.alert {
     width: 85%;
+    max-width: 30rem;
     font-weight: 500;
     font-size: 0.8em;
     line-height: 1.55em;
@@ -10,8 +10,7 @@
     box-shadow: var(--color-light300) 0 0.25rem 1.15rem;
 }
 
-.dark-mode .register-form .alert,
-.dark-mode .login-form .alert {
+.dark-mode .alert {
     box-shadow: var(--color-dark300) 0 0.25rem 1.15rem;
 }
 
@@ -19,7 +18,16 @@
     border: 0.01em solid var(--color-success200);
     color: var(--color-success300);
     background-color: var(--color-success100);
-    box-shadow: var(--color-dark300) 0 0.5rem 1rem;
+}
+
+.alert-success--simple {
+    color: var(--color-success300);
+    box-shadow: none !important;
+    padding-bottom: 0.5em !important;
+}
+
+.dark-mode .alert-success--simple {
+    color: var(--color-success100);
 }
 
 .alert-danger {
@@ -28,12 +36,30 @@
     background-color: var(--color-danger100);
 }
 
+.alert-danger--simple {
+    color: var(--color-danger300);
+    box-shadow: none !important;
+    padding-bottom: 0.5em !important;
+}
+
+.dark-mode .alert-danger--simple {
+    color: var(--color-danger100);
+}
+
 .alert-warning {
     border: 0.01em solid var(--color-warning200);
     color: var(--color-warning300);
-    background-color: var(--color-warning100);
-    box-shadow: var(--color-dark300) 0 0.5rem 1rem;
-    
+    background-color: var(--color-warning100);   
+}
+
+.alert-warning--simple {
+    color: var(--color-warning300);
+    box-shadow: none !important;
+    padding-bottom: 0.5em !important;
+}
+
+.dark-mode .alert-warning--simple {
+    color: var(--color-warning100);
 }
 
 .close-alert {

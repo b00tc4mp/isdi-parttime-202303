@@ -25,7 +25,7 @@ export const resetAlerts = () => {
 
 export const setAlert = (alertArea, alertColor, alertMessage) => {
   const alertUser = document.querySelector(`.${alertArea}`);
-  alertUser.innerHTML = `${alertMessage}<span class='close-alert'>X</span>`;
+  alertUser.innerHTML = `${alertMessage}<span class='close-alert'>x</span>`;
   alertUser.classList.add(alertColor);
   alertUser.classList.remove('off');
   const closeAlert = document.querySelector(`.${alertArea}`).querySelector('.close-alert');
@@ -35,3 +35,9 @@ export const setAlert = (alertArea, alertColor, alertMessage) => {
   });
 };
 
+export const setSimpleAlert = (alertArea, alertColor, alertMessage) => {
+  const alertUser = document.querySelector(`.${alertArea}`);
+  alertUser.innerHTML = `${alertMessage}`;
+  alertUser.classList.add(`${alertColor}--simple`);
+  alertUser.classList.remove('off');
+};

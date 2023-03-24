@@ -7,6 +7,14 @@
 
 }
 
+.login-form {
+    min-height: 12rem;
+}
+
+.register-form {
+    min-height: 16rem;
+}
+
 .login-form, .register-form {
     display: flex;
     flex-direction: column;
@@ -17,7 +25,7 @@
     border: 0.01em solid var(--color-light300);
     border-radius: 1em;
     padding: 1em 0 1.5em 0;
-    gap: 1em;
+    gap: 0.15em;
     box-shadow: var(--color-light200) 0 0.5rem 1rem;
 }
 
