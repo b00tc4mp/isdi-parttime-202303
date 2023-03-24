@@ -17,3 +17,5 @@ users.push({
     email: 'pepito@grillo.com',
     password: '123123123',
 })
+
+var loggedUser = {}

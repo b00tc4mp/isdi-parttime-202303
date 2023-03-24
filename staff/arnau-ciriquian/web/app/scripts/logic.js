@@ -10,8 +10,12 @@ function registerUser(name, email, password) {
             break
         }
     }
-
+/*
     if (!foundUser) {
+        return false
+    }
+*/
+    if (foundUser) {
         return false
     }
 
@@ -39,6 +43,21 @@ function authenticateUser(email, password) {
 
     if (!foundUser || foundUser.password !== password) {
         return false
+    }
+
+    return true
+}
+
+function getLoggedUser(email) {
+    
+    for (var i = 0; i < users.length; i++) {
+        var user = users[i]
+
+        if (user.email === email) {
+            loggedUser = user
+
+            break
+        }
     }
 
     return true
