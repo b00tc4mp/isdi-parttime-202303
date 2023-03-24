@@ -61,7 +61,7 @@ loginPage.querySelector('a').addEventListener('click', function (event) {
     event.preventDefault()
 
     loginPage.classList.add('off')
-    registerPage.classList.remove('off')
+    registerPage.classList.remove('off')    
 })
 /*
 document.querySelector('.register').querySelector('form').addEventListener('submit', function(event) {
