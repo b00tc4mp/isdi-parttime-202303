@@ -16,10 +16,12 @@
         <form class="register-form" method="get">
             <input name="mail" type="email" placeholder="your email" required/>
             <div class="alert off area-register-mail"></div>
-            <input name="username" type="text" placeholder="your username" maxlength="7" required/>
+            <input name="username" type="text" placeholder="your username" maxlength="10" required/>
             <div class="alert off area-register-username"></div>
             <input name="password" type="password" placeholder="your password" required/>
             <div class="alert off area-register-password"></div>
+            <input name="repeat-password" type="password" placeholder="confirm your password" required/>
+            <div class="alert off area-register-repeat-password"></div>
             <button class="register-submit" type="submit">create user</button>   
         </form>
         <div class="change-view">Already have an account? <a class="change-view-link">Sign in</a></div>

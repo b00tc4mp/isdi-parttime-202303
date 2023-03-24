@@ -1,5 +1,19 @@
-import { toggleOff, clearForms, resetAlerts, setAlert, setSimpleAlert, } from './general-tools.js';
-import { isPasswordCorrect, isMailRegistered, isUsernameRegistered, addNewUser, isPasswordSafe,} from '../logic/login-register.js';
+import {
+    toggleOff,
+    clearForms,
+    resetAlerts,
+    setAlert,
+    setSimpleAlert,
+} from './general-tools.js';
+
+import {
+    isPasswordCorrect,
+    isMailRegistered,
+    isUsernameRegistered,
+    addNewUser,
+    isPasswordSafe,
+    confirmPassword,
+} from '../logic/login-register.js';
 
 export const authenticateUser = (mail, password) => {
   if (!isMailRegistered(mail)) {
@@ -29,7 +43,7 @@ const registerUser = (mail, username, password) => {
   setAlert('area-login', 'alert-success', message);
 };
 
-const registerFailed = (mail, username, password) => {
+const registerFailed = (mail, username, password, repeatPassword) => {
   if (isMailRegistered(mail)) {
     const message = 'This email is already registered.';
     setSimpleAlert('area-register-mail', 'alert-danger', message);
@@ -41,10 +55,15 @@ const registerFailed = (mail, username, password) => {
     document.querySelector('.register-form').querySelector('input[name="username"]').value = '';
   };
   if (!isPasswordSafe(password)) {
-    const message =
-      'Use minimum 6 characters, a number, and both lower and capital letters';
+    const message = 'Use minimum 6 characters, a number, and lower and capital letters.';
     setSimpleAlert('area-register-password', 'alert-danger', message);
     document.querySelector('.register-form').querySelector('input[name="password"]').value = '';
+    document.querySelector('.register-form').querySelector('input[name="repeat-password"]').value = '';
+  };
+  if (!confirmPassword(password, repeatPassword)){
+    const message = 'The password and confirmation password do not match.';
+    setSimpleAlert('area-register-repeat-password', 'alert-danger', message);
+    document.querySelector('.register-form').querySelector('input[name="repeat-password"]').value = '';
   };
 };
 
@@ -53,11 +72,12 @@ export const doRegister = (register, login) => {
   const username = document.querySelector('.register-form').querySelector('input[name="username"]').value;
   const mail = document.querySelector('.register-form').querySelector('input[name="mail"]').value.toLowerCase();
   const password = document.querySelector('.register-form').querySelector('input[name="password"]').value;
-  if (isPasswordSafe(password) && !isMailRegistered(mail) && !isUsernameRegistered(username)) {
+  const repeatPassword = document.querySelector('.register-form').querySelector('input[name="repeat-password"]').value;
+  if (isPasswordSafe(password) && !isMailRegistered(mail) && !isUsernameRegistered(username) && confirmPassword(password, repeatPassword)) {
     registerUser(mail, username, password);
     toggleOff(register, login);
   } else {
-    registerFailed(mail, username, password);
+    registerFailed(mail, username, password, repeatPassword);
   };
 };
 
@@ -67,8 +87,3 @@ export const doLogout = (login, home) => {
   toggleOff(login, home);
 };
 
-export const changeView = (register, login) => {
-    resetAlerts();
-    clearForms();
-    toggleOff(register, login);
-};

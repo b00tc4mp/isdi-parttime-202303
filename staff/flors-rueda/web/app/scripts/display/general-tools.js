@@ -41,3 +41,9 @@ export const setSimpleAlert = (alertArea, alertColor, alertMessage) => {
   alertUser.classList.add(`${alertColor}--simple`);
   alertUser.classList.remove('off');
 };
+
+export const changeView = (register, login) => {
+  resetAlerts();
+  clearForms();
+  toggleOff(register, login);
+};

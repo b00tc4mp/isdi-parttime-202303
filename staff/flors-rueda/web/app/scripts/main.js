@@ -1,4 +1,5 @@
-import { changeView, doRegister, doLogin, doLogout, authenticateUser } from './display/login-register.js';
+import { doRegister, doLogin, doLogout, authenticateUser } from './display/login-register.js';
+import { changeView, } from './display/general-tools.js'
 
 const register = document.querySelector('.register');
 const login = document.querySelector('.login');

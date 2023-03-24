@@ -19,6 +19,10 @@ export const isPasswordCorrect = (mail, password) => {
   return loginUser[0].password === password;
 };
 
+export const confirmPassword = (password, repeatPassword) => {
+  return password === repeatPassword;
+}
+
 export const addNewUser = (mail, username, password) => {
   let user = {
     username: username,
