@@ -54,7 +54,7 @@ body{
     justify-content: flex-start;
 }
 label{
-    flex-basis: 40%;
+    flex-basis: 50%;
     text-align: left;
     margin-left: 15px;
 }
@@ -74,6 +74,7 @@ label{
     margin-top: 20px;
 }
 .other-register-options{
+    margin-top: 15px;
     flex-basis: 100%;
     display: flex;
     align-items: center;
@@ -115,11 +116,12 @@ label{
 
 .success-advice-p{
     color: #179060;
+    text-align: center;
 }
 .fail-advice-p{
-    color: rgb(253, 76, 76);
+    color: rgb(231, 108, 108);
+    text-align: center;
 }
-
 
 .off{
     display: none !important;
