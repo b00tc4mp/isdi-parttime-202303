@@ -96,7 +96,7 @@ body {
     line-height: 2;
 }
 
-button {
+button[type=submit] {
     width: 180px;
     height: 50px;
     border-radius: 25px;
@@ -111,6 +111,12 @@ button {
     -8px -8px -16px var(--white);
     border: none;
     outline: none;
+}
+
+.user__settings {
+    position: relative;
+    bottom: 50vh;
+    left: 15vh;
 }
 
 @media (min-width: 768px) {
