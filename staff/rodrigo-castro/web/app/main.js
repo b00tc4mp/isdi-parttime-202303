@@ -49,16 +49,18 @@ registerPage.querySelector('form').addEventListener('submit', function(event) {
     const isEmailRegistered = checkNewUser(userEmail)
 
     if (isEmailRegistered) {
-        alert('Email already registered!')
-        registerPage.querySelector('.input-field[name=name]').value = ''
+        registerPage.querySelector('.red-text').textContent = 'Email already registered'
         registerPage.querySelector('.input-field[name=email]').value = ''
-        registerPage.querySelector('.input-field[name=password]').value = ''
     } else {
         users.push({
             name: userName,
             email: userEmail,
             password: userPassword
         })
+        registerPage.querySelector('.red-text').textContent = ''
+        registerPage.querySelector('.input-field[name=name]').value = ''
+        registerPage.querySelector('.input-field[name=email]').value = ''
+        registerPage.querySelector('.input-field[name=password]').value = ''
         registerPage.classList.add('off')
         loginPage.classList.remove('off')
     }
@@ -83,8 +85,12 @@ loginPage.querySelector('form').addEventListener('submit', (event) => {
     if (foundUser !== undefined && foundUser.password === userPassword) {
         loginPage.classList.add('off')
         homePage.classList.remove('off')
+        homePage.querySelector('.logged-user').textContent = ` ${foundUser.name}`
+        loginPage.querySelector('.red-text').textContent = ''
+        loginPage.querySelector('.input-field[name=email]') = ''
+        loginPage.querySelector('.input-field[name=password]') = ''
     } else {
-        alert('Wrong  email or password')
+        loginPage.querySelector('.red-text').textContent = 'Wrong email or password'
     }
 })
 
