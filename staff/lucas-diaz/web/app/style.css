@@ -15,13 +15,12 @@ body{
     flex-flow:wrap row;
     align-items: center;
     justify-content: center;
+    font-size: 0.80rem;
 }
 .register, .login{
     width: 50%;
     height: 50%;
-    background-color: rgba(11, 15, 13, 0.582);
     border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.125);
     display: flex;
     flex-flow:wrap row;
     align-items: center;
@@ -36,6 +35,7 @@ body{
 
 }
 .form{
+
     flex-basis: 100%;
     text-align: center;
     display: flex;
@@ -74,26 +74,26 @@ label{
     margin-top: 20px;
 }
 .other-register-options{
-    flex-basis: 80%;
+    flex-basis: 100%;
     display: flex;
     align-items: center;
     justify-content:space-between;
 
 }
 .other-register-options .remember-me label{
-    margin: 5px;
+    margin: 0px;
 }
 .other-register-options .remember-me input{
     margin-left: 15px;
 }
 .other-register-options a {
-    color: rgb(59, 142, 236);
+    color: rgb(104, 172, 255);
 }
 .initialize-register{
     flex-basis: 100%;
 }
 .initialize-register a{
-    color: rgb(59, 142, 236);
+    color: rgb(104, 172, 255);
 }
 .home{
     width: 80%;
@@ -121,33 +121,29 @@ label{
 }
 
 
-
 .off{
-    display: none;
+    display: none !important;
 }
 
 
-@media (max-width: 844px){
-    *{
-        font-size: 18px;
+
+@media (min-width: 650px){
+    .register, .login{
+        font-size: 1rem;
+        width: 50%;
+        height: 50%;
+        background-color: rgba(11, 15, 13, 0.582);
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.125);
+        display: flex;
+        flex-flow:wrap row;
+        align-items: center;
+        justify-content: center;
+        padding: 16px;
     }
-    .register-header, .login-header{
-        font-size: 30px;
-    }
-    .register{
-        width: 60%;
-        height: 60%;
-        padding: 25px;
-    }
-    .register-header{
-        height: 8%;
-    }
-    label{
-        flex-basis: 70%;
-        text-align: left;
-        margin-left: 15px;
-    }
-    .submit{
-        flex-basis: 70%;
+    .other-register-options{
+        flex-basis: 80%;
     }
 }
+
+
