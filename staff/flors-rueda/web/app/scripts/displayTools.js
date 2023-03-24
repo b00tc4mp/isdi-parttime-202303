@@ -44,22 +44,26 @@ const setAlert = (alertArea, alertColor, alertMessage) => {
   });
 };
 
-export const doLogin = (login, home) => {
-  resetAlerts();
-  const mail = document.querySelector('.login-form').querySelector('input[name="mail"]').value.toLowerCase();
-  const password = document.querySelector('.login-form').querySelector('input[name="password"]').value;
+export const authenticateUser = (mail, password) => {
   if(!isMailRegistered(mail)){
     const message = 'This email is not vinculated to any account!';
     setAlert('area-login-mail', 'alert-danger', message);
     clearInitialForm();
+    return false;
   } else if (!isPasswordCorrect(mail, password)) {
     const message = 'Incorrect password!';
     setAlert('area-login-password', 'alert-danger', message);
     document.querySelector('.login-form').querySelector('input[name="password"]').value = '';
+    return false;
   } else {
-    toggleOff(login, home);
+    return true;
   };
-}
+};
+
+export const doLogin = (login, home) => {
+  resetAlerts();
+  toggleOff(login, home);
+};
 
 const registerUser = (mail, username, password) => {
   addNewUser(mail, username, password);

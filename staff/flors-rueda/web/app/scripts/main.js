@@ -1,4 +1,4 @@
-import { changeView, doRegister, doLogin, doLogout } from './displayTools.js';
+import { changeView, doRegister, doLogin, doLogout, authenticateUser } from './displayTools.js';
 
 const register = document.querySelector('.register');
 const login = document.querySelector('.login');
@@ -9,6 +9,8 @@ const loginForm = document.querySelector('.login-form');
 const registerForm = document.querySelector('.register-form');
 const changeViewLinks = document.querySelectorAll('.change-view-link');
 const logout = document.querySelector('.logout');
+
+let userAuth;
 
 checkbox.addEventListener('change', (event) => {
   event.preventDefault();
@@ -29,10 +31,15 @@ registerForm.addEventListener('submit', (event) => {
 
 loginForm.addEventListener('submit', (event) => {
   event.preventDefault();
-  doLogin(login, home);
+  const mail = document.querySelector('.login-form').querySelector('input[name="mail"]').value.toLowerCase();
+  const password = document.querySelector('.login-form').querySelector('input[name="password"]').value;
+  authenticateUser(mail, password) ? userAuth = true : userAuth = false;
+  if(userAuth) doLogin(login, home);
 });
 
 logout.addEventListener('click', (event) => {
   event.preventDefault();
+  userAuth = false;
   doLogout(login, home);
 });
+
