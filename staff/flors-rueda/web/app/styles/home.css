@@ -64,6 +64,7 @@
     height: 5rem;
     width: 5rem;
     grid-area: 1 / 1;
+    background-color: var(--color-dark200);
     box-shadow: var(--color-secondary100) -0.5rem 0 3rem;
 }
 

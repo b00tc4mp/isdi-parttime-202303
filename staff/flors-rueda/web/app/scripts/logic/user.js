@@ -5,6 +5,13 @@ export const isMailRegistered = (mail) => {
   return false;
 };
 
+export const findUser = (mail) => {
+  const loginUser = users.filter((user) => {
+    return user.mail === mail;
+  });
+  return loginUser[0];
+}
+
 export const isUsernameRegistered = (username) => {
   for (let i = 0; i < users.length; i++) {
     if (users[i].username === '@' + username) return true;
@@ -26,10 +33,13 @@ export const confirmPassword = (password, repeatPassword) => {
 export const addNewUser = (mail, username, password) => {
   let user = {
     username: '@' + username,
+    name: username,
     mail: mail,
     password: password,
+    avatar: 'https://www.slotcharter.net/wp-content/uploads/2020/02/no-avatar.png',
   };
   users.push(user);
+  return user
 };
 
 const hasMinimumLength = (password) => {

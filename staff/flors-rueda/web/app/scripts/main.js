@@ -1,5 +1,6 @@
 import { changeView, doRegister, doLogin, doLogout, authenticateUser, validateUsername } from './display/login-register.js';
-import { toggleOff, setOff, setOn } from './display/general-tools.js'
+import { setOff, setOn, resetAlerts } from './display/general-tools.js'
+import { setNewPassword, setNewUserInfo, displayProfile, setPlaceHolders, displayWelcome } from './display/home.js'
 
 const register = document.querySelector('.register');
 const login = document.querySelector('.login');
@@ -8,6 +9,7 @@ const profile = document.querySelector('.user-profile');
 const editProfile = document.querySelector('.edit-profile');
 const changePassword = document.querySelector('.change-password');
 const startHome = document.querySelector('.home-start');
+const profileButtons = document.querySelector('.profile-buttons');
 
 
 // Login & Register
@@ -43,10 +45,10 @@ registerForm.addEventListener('submit', (event) => {
 
 loginForm.addEventListener('submit', (event) => {
   event.preventDefault();
-  const mail = document.querySelector('.login-form').querySelector('input[name="mail"]').value.toLowerCase();
+  const mail = document.querySelector('.login-form').querySelector('input[name="mail"]').value;
   const password = document.querySelector('.login-form').querySelector('input[name="password"]').value;
-  authenticateUser(mail, password) ? userAuth = true : userAuth = false;
-  if(userAuth) doLogin(login, home);
+  userAuth = authenticateUser(mail, password);
+  if(userAuth !== undefined) doLogin(login, home) + displayWelcome(userAuth);
 });
 
 
@@ -57,33 +59,51 @@ const toUserProfile = document.querySelector('.to-user-profile');
 const toHome = document.querySelector('.to-home');
 const toChangePassword = document.querySelector('.to-change-password');
 const toEditProfile = document.querySelector('.to-edit-profile');
+const passwordForm = document.querySelector('.password-form');
+const editForm = document.querySelector('.edit-form');
 
 logout.addEventListener('click', (event) => {
   event.preventDefault();
-  userAuth = false;
+  userAuth = undefined;
   doLogout(login, home);
 });
 
 toUserProfile.addEventListener('click', (event) => {
   event.preventDefault();
-  setOn(profile);
+  setOn(profile, profileButtons);
   setOff(startHome, changePassword, editProfile);
+  displayProfile(userAuth);
 });
 
 toHome.addEventListener('click', (event) => {
   event.preventDefault();
+  resetAlerts();
   setOn(startHome);
-  setOff(profile, changePassword, editProfile);
+  setOff(profile, changePassword, editProfile, profileButtons);
+  displayWelcome(userAuth)
 });
 
 toChangePassword.addEventListener('click', (event) => {
   event.preventDefault();
-  toggleOff(changePassword);
-  setOff(startHome, profile, editProfile);
+  setOn(changePassword);
+  setOff(startHome, editProfile, profileButtons);
 });
 
 toEditProfile.addEventListener('click', (event) => {
   event.preventDefault();
-  toggleOff(editProfile);
-  setOff(changePassword, startHome, profile);
+  setPlaceHolders(userAuth)
+  setOn(editProfile);
+  setOff(changePassword, startHome, profileButtons);
+});
+
+passwordForm.addEventListener('submit', (event) => {
+  event.preventDefault();
+  userAuth = setNewPassword(userAuth, profileButtons, changePassword);
+  displayProfile(userAuth);
+});
+
+editForm.addEventListener('submit', (event) => {
+  event.preventDefault();
+  userAuth = setNewUserInfo(userAuth, profileButtons, editProfile);
+  displayProfile(userAuth);
 });

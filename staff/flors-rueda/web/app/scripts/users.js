@@ -1,19 +1,25 @@
 const users = [];
 
 users.push({
-    username: 'garrus',
+    username: '@garrus',
+    name: 'Garrus Vakarian',
     mail: 'garrus@csec.net', 
-    password: 'Cal1brat1ons',
+    password: 'Garrus123',
+    avatar: 'https://static.wikia.nocookie.net/masseffect/images/0/0d/ME3_Garrus_Normandy.png',
 });
 
 users.push({
-    username: 'liara',
+    username: '@liara',
+    name: 'Liara Tsoni',
     mail: 'liara@uoe.net',
-    password: 'Pr0theans',
+    password: 'Liara123',
+    avatar: 'http://pm1.narvii.com/6360/503163b81e5a20bec77a03f75bca1f444998bc0c_00.jpg',
 });
 
 users.push({ 
-    username: 'grunt',
+    username: '@grunt',
+    name: 'Grunt',
     mail: 'grunt@krogan.net',
-    password: 'T-Wr3x',
+    password: 'Grunt123',
+    avatar: 'https://static.wikia.nocookie.net/masseffectfanfiction/images/0/07/Grunt_released_from_the_tank.jpg',
 });

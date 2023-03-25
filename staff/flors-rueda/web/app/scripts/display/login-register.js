@@ -1,46 +1,49 @@
 import {
-    toggleOff,
-    clearForms,
-    resetAlerts,
-    setAlert,
-    setSimpleAlert,
+  toggleOff,
+  clearForms,
+  resetAlerts,
+  setAlert,
+  setSimpleAlert,
 } from './general-tools.js';
 
 import {
-    isPasswordCorrect,
-    isMailRegistered,
-    isUsernameRegistered,
-    addNewUser,
-    isPasswordSafe,
-    confirmPassword,
-} from '../logic/user-data.js';
+  isPasswordCorrect,
+  isMailRegistered,
+  isUsernameRegistered,
+  addNewUser,
+  isPasswordSafe,
+  confirmPassword,
+  findUser,
+} from '../logic/user.js';
 
 export const authenticateUser = (mail, password) => {
   if (!isMailRegistered(mail)) {
+    //TODO find why this alert appears out of time
     const message = 'This email is not vinculated to any account!';
     setSimpleAlert('area-login-mail', 'alert-danger', message);
     clearForms();
-    return false;
+    return;
   } else if (!isPasswordCorrect(mail, password)) {
     const message = 'Incorrect password!';
     setSimpleAlert('area-login-password', 'alert-danger', message);
     document.querySelector('.login-form').querySelector('input[name="password"]').value = '';
-    return false;
+    return;
   } else {
-    return true;
+    return findUser(mail);
   };
 };
 
 export const doLogin = (login, home) => {
   resetAlerts();
   toggleOff(login, home);
+  return 
 };
 
 const registerUser = (mail, username, password) => {
-  addNewUser(mail, username, password);
   document.querySelector('.login-form').querySelector('input[name="mail"]').value = mail;
   const message = `Welcome, ${username}! Your account is registered. You can sign in now!`;
   setAlert('area-login', 'alert-success', message);
+  return addNewUser(mail, username, password);
 };
 
 const registerFailed = (mail, username, password, repeatPassword) => {
@@ -70,12 +73,12 @@ const registerFailed = (mail, username, password, repeatPassword) => {
 export const doRegister = (register, login) => {
   resetAlerts();
   const username = document.querySelector('.register-form').querySelector('input[name="username"]').value;
-  const mail = document.querySelector('.register-form').querySelector('input[name="mail"]').value.toLowerCase();
+  const mail = document.querySelector('.register-form').querySelector('input[name="mail"]').value;
   const password = document.querySelector('.register-form').querySelector('input[name="password"]').value;
   const repeatPassword = document.querySelector('.register-form').querySelector('input[name="repeat-password"]').value;
   if (isPasswordSafe(password) && !isMailRegistered(mail) && !isUsernameRegistered(username) && confirmPassword(password, repeatPassword)) {
-    registerUser(mail, username, password);
     toggleOff(register, login);
+    return registerUser(mail, username, password);
   } else {
     registerFailed(mail, username, password, repeatPassword);
   };
