@@ -117,5 +117,9 @@ button svg {
     .dark-mode button:hover svg {
         fill: var(--color-dark200);
     }
+
+    .profile-buttons button {
+        width: 75%;
+    }
 }
 

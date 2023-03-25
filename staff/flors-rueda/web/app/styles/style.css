@@ -60,10 +60,6 @@ h2{
     color: var(--color-secondary200);
 }
 
-.dark-mode h2{
-    color: var(--color-secondary100);
-}
-
 @media (min-width: 768px) {
     html, body {
         font-size: 1.15em;
