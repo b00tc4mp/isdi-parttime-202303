@@ -53,7 +53,9 @@ body {
     background-image: linear-gradient(to bottom, rgba(7, 65, 34, 0.892), rgba(0, 0, 0, 0));
 }
 
-.register, .home, .login, home__main, .home__profile {
+.register, .home, .login, home__main, .home__profile, .home__password {
+    min-width: 250px;
+    min-height: 275px;
     width: 70vw;
     height: 80vw;
     background-color: rgba(0, 148, 198, 0.577);
@@ -64,7 +66,7 @@ body {
     align-items: center;
 }
 
-.home__profile {
+.home__profile, .home__password {
     background-color: rgba(0, 148, 198, 0)
 }
 
@@ -100,7 +102,8 @@ form {
     width: 100px;
     height: 40px;
     border-radius: 20px;
-    background-image: linear-gradient(rgb(156, 243, 255), rgb(215, 120, 255));
+    background-color: rgba(156, 243, 255, 0.88);
+    /* background-image: linear-gradient(rgb(156, 243, 255), rgb(215, 120, 255)); */
     box-shadow: 0px 1px 10px rgb(0, 242, 255);
 }
 
