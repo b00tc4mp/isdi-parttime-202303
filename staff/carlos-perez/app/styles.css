@@ -6,6 +6,8 @@
     --gris: #e1e1e1;
     --blanco: #ffffff;
     --negro: #000000;
+    --fuente: #0e0e0e;
+    --aqua: #45c2c5;
 }
 
 html {
@@ -26,6 +28,8 @@ header {
     justify-content: center;
     background: rgba(255,255,255,0.85) ;
     width: 100%;
+    border-bottom: 2px solid var(--gris);
+    height: 20vh;
 }
 
 header h1 {
@@ -33,15 +37,20 @@ header h1 {
     background-clip: text;
     -webkit-background-clip: text;
     color: transparent;
+    font-size: 8vh;
 }
 
 body {
     font-family: var(--fuenteParrafos);
     font-size: 1.6rem;
     line-height: 2;
-    height: 100%;
+    height: 100vh;
     display: flex;
     flex-direction: column;
+}
+
+p{
+    color: var(--fuente);
 }
 
 /** Globales **/
@@ -78,7 +87,6 @@ h4 {
 a {
     color: var(--negro);
 }
-
 .no-margin {
     margin: 0;
 }
@@ -157,6 +165,7 @@ a {
 .campo__label {
     flex: 0 0 9rem;
     text-align: right;
+    justify-self: center;
     padding-right: 2rem;
 }
 
@@ -170,12 +179,18 @@ a {
     height: 20rem;
 }
 
+.campo-viewonly{
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    align-items: center;
+}
+
 .off {
     display: none !important;
 }
 
 .home{
-margin-top: 50px;
 width: 100%;
 display: flex;
 flex-direction: row;
@@ -232,7 +247,53 @@ min-height: 300px;
   }
 
   .profile-column{
-    width: 120px;
+    width: 140px;
     height: 100%;
     min-height: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-left: 5px;
+    padding-right: 5px;
+    padding-left: 5px;
+    border-right: 2px solid var(--gris);
+    background: rgba(255,255,255,0.85) ;
   }
+
+  .profile-image{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  .profile-image-picture{
+    border: 2px solid var(--gris);
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--aqua);
+  }
+
+  .profile-image-picture p{
+    font-size: 25px;
+  }
+
+  .profile-view{
+    width: 80vw;
+    min-width: 300px;
+    margin: 20px 20px 20px 20px;
+  }
+
+  .buttons{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+  }
+  
