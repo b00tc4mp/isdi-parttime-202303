@@ -139,3 +139,10 @@ body,html {
   .login-form .submit:hover {
     box-shadow: 3px 3px 6px rgb(255, 214, 176);
   }
+  /*HOME*/
+  
+
+  hr {
+    margin: auto;
+    width: 40%;
+  }

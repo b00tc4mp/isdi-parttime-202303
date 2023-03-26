@@ -10,8 +10,8 @@
         <a href="#" class="IdiCoders">IsdiCoders Developer</a>
         <nav id="nitems" class="nav-items">
           <a id="ahome" class="off" href="#home">Home</a>
-          <a id="alogin"  href="#login">Login</a>
-          <a id="aregister" href="#register">Register</a>
+          <a id="alogin" onclick="loginsection()" href="#login">Login</a>
+          <a id="aregister" onclick="registersection()" href="#register">Register</a>
         </nav>
       </header>
     <body>
@@ -31,12 +31,15 @@
                     <tr>
                       <td><label for="password">Password:</label></td>
                       <td><input type="password" name="password" id="password"></td>
+                      <td><label for="repassword">Verify-Password:</label></td>
+                      <td><input type="password" name="repassword" id="repassword"></td>
                     </tr>
                    
                     <tr>
                       <td colspan="2"><input type="submit" class="submit" value="Register" /></td>
                     </tr>
                   </table>
+                  
                 </form>
               </div>
         </div>
@@ -66,8 +69,22 @@
         </div>
 
         <div class="home off" id="home">
-            <h1>Home</h1>
+            <div class="container">
+                <div class="bgimg">
+                   
+                    <div class="middle">
+                      <h1>COMING SOON</h1>
+                      <hr>
+                      <p id="countdown" style="font-size:30px"></p>
+                    </div>
+                    
+                  </div>
+
+
+            
+            </div>
         </div>
+        
     </body>
     <footer class="footer">
         <div class="copy">&copy; 2023 Isdi Developer</div>
@@ -80,5 +97,8 @@
           </div>
           
       </footer>
-      <script src="main.js"></script>
+      <script src="js/data.js"></script>
+      <script src="js/main.js"></script>
+        <script src="js/logic.js"></script>
+      <script src="js/utils.js"></script>
       </html>
