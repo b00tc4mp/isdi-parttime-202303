@@ -107,6 +107,8 @@ a {
 
 .boton:hover {
     cursor: pointer;
+    color: var(--negro);
+    background-color: var(--gris);
 }
 
 .boton--primario {
@@ -169,12 +171,16 @@ a {
 }
 
 .off {
-    display: none;
+    display: none !important;
 }
 
 .home{
 margin-top: 50px;
 width: 100%;
+display: flex;
+flex-direction: row;
+height: 100%;
+min-height: 300px;
 }
 
 .saludo {
@@ -223,4 +229,10 @@ width: 100%;
                  0 0 30px 220px #45c2c5,
                  0 0 5px 230px transparent;
     }
+  }
+
+  .profile-column{
+    width: 120px;
+    height: 100%;
+    min-height: 300px;
   }

@@ -20,6 +20,8 @@ users.push({
     password: '123123123'
 })
 
+let activeUser;
+
 //Logic
 
 function userExist(email){
@@ -61,6 +63,7 @@ function authenticateUser(email,password){
     let userPosition=userExist(email);
 
     if(userPosition!==-1 && users[userPosition].password===password){
+        activeUser=users[userPosition].name;
         return true;
     }
     else{
@@ -68,15 +71,28 @@ function authenticateUser(email,password){
     }
 }
 
+function getInitials(name){
+    return name.split(" ").map((n)=>n[0]).join("");
+}
+
 //Presentation
+
+function hideSection(section){
+    section.classList.add('off');
+}
+
+function showSection(section){
+    section.classList.remove('off');
+}
 
 var registerPage = document.querySelector('.registro');
 var loginPage= document.querySelector('.login');
 var homePage= document.querySelector('.home');
+var profileColumn= document.querySelector('.profile-column');
 
 function initiate(){
-    loginPage.classList.add('off');
-    homePage.classList.add('off');
+    hideSection(loginPage);
+    hideSection(homePage);
 }
 
 initiate();
