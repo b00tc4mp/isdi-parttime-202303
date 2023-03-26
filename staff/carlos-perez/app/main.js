@@ -106,6 +106,8 @@ var homePage = document.querySelector('.home');
 var homeSaludo = document.querySelector('.saludo');
 var profileColumn = document.querySelector('.profile-column');
 var profileView = document.querySelector('.profile-view');
+var header=document.querySelector('.header');
+var homeTitle=homePage.querySelector('.title');
 
 function resetRegister(){
     registerPage.querySelector('input[id=nombre]').value=null;
@@ -124,12 +126,23 @@ function resetProfileView(){
     profileView.querySelector('.password-new-check').value = null;
 }
 
+function headerLogged(){
+    hideSection(header);
+    showSection(homeTitle);
+}
+
+function headerNotLogged(){
+    hideSection(homeTitle);
+    showSection(header);
+}
+
 function initiate() {
     resetRegister();
     resetLogin();
     hideSection(loginPage);
     hideSection(homePage);
     hideSection(profileView);
+    headerNotLogged();
 }
 
 initiate();
@@ -163,6 +176,7 @@ document.querySelector('.formulario-login').addEventListener('submit', function 
     if (authenticateUser(email, password) === true) {
         loginPage.classList.add('off');
         homePage.classList.remove('off');
+        headerLogged();
         addProfileNameAndImage(activeUser);
     }
     else {
@@ -198,6 +212,7 @@ profileColumn.querySelector('.button-exit').addEventListener('click', function (
     activeUser=null;
     resetLogin();
     hideSection(homePage);
+    headerNotLogged();
     showSection(loginPage);
 })
 
