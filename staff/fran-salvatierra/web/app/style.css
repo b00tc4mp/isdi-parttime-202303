@@ -24,6 +24,7 @@ body {
     --transition: 1.25s;
 }
 
+
 .page {
     display: flex;
     justify-content: center;
@@ -38,14 +39,22 @@ body {
 }
 
 .register {
-    display: flex;
     flex-direction: column;
 }
 
 .login {
-    display: flex;
     flex-direction: column;
 }
+
+.home {
+    flex-direction: column;
+}
+
+.header-wrapper {
+    background-color: aqua;
+    position: relative;
+}
+
 
 .title {
     font-size: 34px;

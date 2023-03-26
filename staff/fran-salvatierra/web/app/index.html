@@ -10,7 +10,7 @@
     <script></script>
 </head>
 <body>
-    <div class="register page _off">
+    <div class="register page off">
             <h1 class="title">Welcome</h1>
         <!-- TODO implement register page -->
             <form class="form">
@@ -23,7 +23,7 @@
         
     </div>
 
-    <div class="login page off" >
+    <div class="login page _off" >
         <h1 class="title">Welcome</h1>
         <h2 class="title2">Login into your account to continue</h2>
         <!-- TODO implement login page -->
@@ -32,20 +32,36 @@
             <input class="input" type="password" name="password" placeholder="password">
             <button type="submit"> LOG IN</button>
         </form>
-        <a href="" class="form__link">forgot password?</a>
-        <!-- <a href="http://www.homerswebpage.com/gifs.html"><p>forgot your password?</p></a> -->
+        <a href="" class="form__link">Don't you have an account?</a>
         
         
     </div>
 
     <div class="home page off">
-        <h1 class="title">HOME</h1>
-        <button class="user__settings">My User</button>
+        <div class="header-wrapper">
+            <header class="header"><a href="">My Profile</a></header>
+        </div>
+        <div>
+            <h1 class="title">HOME</h1>
+            
+        </div>
+
+        <div class="user__profile off">
+
+        </div>
+        
         <!-- TODO implement home page -->
         <!-- // hacer un div off que se actualice y salga el form -->
     </div>
+
+    <div class="popup"></div>
     <script src="scripts/data.js"></script>
     <script src="scripts/logic.js"></script>
     <script src="scripts/main.js"></script>
 </body>
 </html>
+
+<!-- Añadir toasters popups y etc 
+https://stackoverflow.com/questions/16549885/how-do-i-implement-toastr-js
+https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_popup
+https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_modal-->
