@@ -1,15 +1,11 @@
-// data
-
-let users = [];
-
-// logic
-
-// presentation
 const registerPage = document.querySelector(".register");
 const loginPage = document.querySelector(".login");
 const homePage = document.querySelector(".home");
+let username;
+let authenticated;
+let authenticatedEmail;
 
-document
+registerPage
   .querySelector(".register-form")
   .addEventListener("submit", function (event) {
     event.preventDefault();
@@ -22,72 +18,70 @@ document
     const repeatPassword = registerPage.querySelector(
       (input = "[name=repeat-password]")
     ).value;
+    const registerError = registerPage.querySelector(".register-error");
+
+    const result = registerUser(name, email, password, repeatPassword);
+
+    registerError.classList.remove("off");
+
+    if (password.length < 8) {
+      registerError.innerHTML =
+        "Your password must have at least 8 characters 😥";
+      return;
+    }
 
     if (repeatPassword !== password) {
-      alert("Sorry! Your passwords have to match! 😥");
+      registerError.innerHTML = "Your passwords have to match! 😥";
       return;
     }
 
-    if (
-      name === "" ||
-      email === "" ||
-      password === "" ||
-      repeatPassword === ""
-    ) {
-      alert("You have to fill in all the fields! 😥");
+    if (!name || !email || !password || !repeatPassword) {
+      registerError.innerHTML = "You have to fill in all the fields! 😥";
       return;
     }
 
-    for (let i = 0; i < users.length; i++) {
-      let user = users[i];
-      if (user.email === email) {
-        alert("You are already registered! Please login! 😅");
-        return;
-      }
+    if (result === false) {
+      registerError.innerHTML = "You are already registered! Please login! 😅";
+      return;
     }
-
-    users.push({
-      name: name,
-      email: email,
-      password: password,
-    });
 
     registerPage.classList.add("off");
 
     loginPage.classList.remove("off");
   });
 
-document
+loginPage
   .querySelector(".login-form")
   .addEventListener("submit", function (event) {
     event.preventDefault();
 
     const email = loginPage.querySelector((input = "[name=email]")).value;
     const password = loginPage.querySelector((input = "[name=password]")).value;
+    const error = loginPage.querySelector(".error");
 
-    let foundUser;
-    let match = false;
+    let result = authenticateUser(email, password);
 
-    for (let i = 0; i < users.length && match === false; i++) {
-      let user = users[i];
-
-      if (user.email === email) {
-        foundUser = user;
-        match = true;
-      }
+    if (result === false) {
+      error.innerHTML = "Wrong email or password! 😥";
+      error.classList.remove("off");
+      return;
     }
 
-    if (foundUser !== undefined && foundUser.password === password) {
-      homePage.querySelector(".name").innerHTML = foundUser.name.toUpperCase();
+    authenticatedEmail = email;
+    authenticated = true;
 
-      loginPage.classList.add("off");
+    homePage.querySelector(".name").innerHTML = username;
 
-      homePage.classList.remove("off");
-    } else alert("Wrong email or password! 😥");
+    error.classList.add("off");
+
+    loginPage.classList.add("off");
+
+    homePage.classList.remove("off");
   });
 
-registerPage.querySelector("a").addEventListener("click", function (event) {
-  event.preventDefault();
+registerPage.querySelector("a").addEventListener("click", function () {
+  loginPage.querySelector((input = "[name=email]")).value = "";
+  loginPage.querySelector((input = "[name=password]")).value = "";
 
   registerPage.classList.add("off");
 
@@ -96,13 +90,19 @@ registerPage.querySelector("a").addEventListener("click", function (event) {
 
 loginPage
   .querySelector(".register-link")
-  .addEventListener("click", function (event) {
-    event.preventDefault();
+  .addEventListener("click", function () {
+    const error = loginPage.querySelector(".error");
+
+    const registerError = registerPage.querySelector(".register-error");
 
     registerPage.querySelector((input = "[name=name]")).value = "";
     registerPage.querySelector((input = "[name=email]")).value = "";
     registerPage.querySelector((input = "[name=password]")).value = "";
     registerPage.querySelector((input = "[name=repeat-password]")).value = "";
+
+    registerError.classList.add("off");
+
+    error.classList.add("off");
 
     loginPage.classList.add("off");
 

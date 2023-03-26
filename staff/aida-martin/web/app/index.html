@@ -15,7 +15,6 @@
   </head>
   <body>
     <div class="register">
-      <!--TODO ---->
 
       <h1 class="register-title">CREATE ACCOUNT</h1>
 
@@ -48,6 +47,8 @@
           placeholder="Repeat password"
         />
 
+        <p class="register-error off"></p>
+        </p>
         <div class="button">
           <button class="register-button">SIGN UP</button>
         </div>
@@ -78,6 +79,8 @@
 
         <a href="#" class="forgot-password-link">Forgot password?</a>
 
+        <p class="login-error error off">Wrong email or password! 😥</p>
+
         <div class="button">
           <button class="login-button">LOG IN</button>
         </div>
@@ -89,12 +92,14 @@
       </p>
     </div>
 
-    <!--TODO ---->
     <div class="home off">
-      <h1 class="home-title">WELCOME TO HOME <span class="name"></span>!</h1>
-      <!--TODO ---->
+      <h1 class="home-title">Hi <span class="name"></span>,</h1>
+      <h2>what do you want to do today?</h2>
+
     </div>
 
+    <script src="data.js"></script>
+    <script src="logic.js"></script>
     <script src="main.js"></script>
   </body>
 </html>

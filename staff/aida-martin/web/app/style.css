@@ -18,16 +18,11 @@ body {
 .register, .login {
     background: #ffffff;
     width: 14rem;
-    height: 22rem;
     padding: 2rem;
     display: flex;
     flex-direction: column;
     border-radius: 0.75rem;
     box-shadow: 2px 2px 7px 2px rgba(0, 0, 0, 0.25);
-}
-
-.login {
-    height: 19rem;
 }
 
 .register-form, .login-form {
@@ -37,12 +32,16 @@ body {
     margin-top: 1.25rem;
 }
 
-.register-title, .login-title, .home-title {
+.register-title, .login-title, .home-title, h2 {
     font-size: 0.813rem;
     font-weight: 800;
     color: rgba(0, 0, 0, 0.8);
     line-height: 0.983rem;
     text-align: center;
+}
+
+h2 {
+    font-size: 1.25rem;
 }
 
 .login-title {
@@ -77,12 +76,17 @@ body {
     box-shadow: 0 4px 7px 0 rgba(0, 0, 0, 0.3);
 }
 
+.register-button {
+    margin-top: 5px;
+}
+
 .login-button {
-    margin-top: 10px;
+    margin-top: 15px;
 }
 
 .login-answer {
     margin-top: 40px;
+    margin-bottom: -10px;
     font-weight: 400;
     font-size: 10px;
     margin-left: -9px;
@@ -91,6 +95,7 @@ body {
 
 .register-answer {
     margin-top: 40px;
+    margin-bottom: -10px;
     font-weight: 400;
     font-size: 10px;
     text-align: center;
@@ -106,6 +111,15 @@ body {
     margin-top: -10px;
     text-align: end;
 
+}
+
+.register-error, .login-error {
+    font-weight: 400;
+    font-size: 9px;
+    text-align: center;
+    color: red;
+    margin-top: -10px;
+    margin-bottom: -10px;
 }
 
 .off {
