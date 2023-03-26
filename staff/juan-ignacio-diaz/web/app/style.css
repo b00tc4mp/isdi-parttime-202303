@@ -10,6 +10,8 @@ body {
 
 :root {
     --basecolor:rgb(25, 195, 121);
+    --basehighlight: rgb(99, 195, 25);
+
 }
 
 .page {
@@ -55,6 +57,10 @@ body {
     padding: .5rem .6rem;
 }
 
+.imput-highlight {
+    background-color: var(--basehighlight)
+}
+
 .button {
     text-align: center;
     font-size: large;
@@ -74,6 +80,24 @@ body {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
+
+.home-password {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    background-color: var(--basecolor);
+    justify-content: center;
+    align-items: center;
+
+}
+
+.name {
+    font-style: italic;
+    font-size: large;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
 .off {
-    display: none;
+    display: none !important;
 }

@@ -5,19 +5,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>App</title>
+
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="register page off">
         <h1 class="title">Register</h1>
-    
+
         <form class="form" action="">
-            <label for="nameRegister">Name: </label>
-            <input class="input" id="nameRegister" type="text" size="40" name="name" placeholder="name">
-            <label for="emailRegister">E-mail: </label>
-            <input class="input" id="emailRegister" type="email" name="email" placeholder="usuario@dominio.com">
-            <label for="passwordRegister">Password: </label>
-            <input class="input" id="passwordRegister" type="password" size="10" name="password" placeholder="password"><br>
+            <label class="title" for="nameRegister">Name: </label>
+            <input class="input" type="text" name="name" placeholder="name">
+            <label class="title" for="emailRegister">E-mail: </label>
+            <input class="input" type="email" name="email" placeholder="usuario@dominio.com">
+            <label class="title" for="passwordRegister">Password: </label>
+            <input class="input" type="password" name="password" placeholder="password"><br>
             <button class = "button" type="submit">Register</button>
         </form>
 
@@ -27,17 +28,36 @@
     <div class="login page">
         <h1 class="title">Login</h1>
         <form class="form" action="">
-            <input class="input" id="emailRegister" type="email" name="email" placeholder="usuario@dominio.com"><br>
-            <input class="input" id="passwordRegister" type="password" size="10" name="password" placeholder="password"><br>
-            <button class = "register-button" type="submit">Register</button>
+            <input class="input" type="email" name="email" placeholder="usuario@dominio.com"><br>
+            <input class="input" type="password" size="10" name="password" placeholder="password"><br>
+            <button class = "button" type="submit">Login</button>
         </form>
 
         <p>Go to <a href="">Register</a></p>
     </div>
     <div class="home page off">
         <h1 class="title">Home</h1>
-    <!--TODO implente home page-->
+
+        <p class = "name"></p>
+
+        <button class = "button" name = "logout">Logout</button>
+
+        <p><a name ="profile" href="">Profile</a></p>
+
+        <div class="home-password off">
+            <h2>Update password</h2>
+
+            <form class="form" action="">
+                <input class="input" type="password" name="password" placeholder="password">
+                <input class="input" type="password" name="newPassword" placeholder="new password">
+                <input class="input" type="password" name="newPasswordConfirm" placeholder="new password confirmation">
+                <button class="button" type="submit">Update</button>
+            </form>
+        </div>
     </div>
-    <script src="main.js"></script> 
+
+    <script src="scripts/data.js"></script> 
+    <script src="scripts/logic.js"></script>
+    <script src="scripts/main.js"></script>
 </body>
 </html>
