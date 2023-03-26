@@ -75,12 +75,12 @@ function getInitials(name) {
     return name.split(" ").map((n) => n[0]).join("");
 }
 
-function changePassword(oldpass, newpass, passcheck){
-    if((oldpass===users[userExist(activeUser.email)].password) && (newpass===passcheck)){
-        users[userExist(activeUser.email)].password=newpass;
+function changePassword(oldpass, newpass, passcheck) {
+    if ((oldpass === users[userExist(activeUser.email)].password) && (newpass === passcheck)) {
+        users[userExist(activeUser.email)].password = newpass;
         return true;
     }
-    else{
+    else {
         return false;
     }
 }
@@ -107,7 +107,26 @@ var homeSaludo = document.querySelector('.saludo');
 var profileColumn = document.querySelector('.profile-column');
 var profileView = document.querySelector('.profile-view');
 
+function resetRegister(){
+    registerPage.querySelector('input[id=nombre]').value=null;
+    registerPage.querySelector('input[type=email]').value=null;
+    registerPage.querySelector('input[type=password]').value=null;
+}
+
+function resetLogin(){
+    loginPage.querySelector('input[type=email]').value=null;
+    loginPage.querySelector('input[type=password]').value=null;
+}
+
+function resetProfileView(){
+    profileView.querySelector('.password-old').value = null;
+    profileView.querySelector('.password-new').value = null;
+    profileView.querySelector('.password-new-check').value = null;
+}
+
 function initiate() {
+    resetRegister();
+    resetLogin();
     hideSection(loginPage);
     hideSection(homePage);
     hideSection(profileView);
@@ -125,6 +144,7 @@ document.querySelector('.formulario').addEventListener('submit', function (event
     let result = addUser(name, email, password);
 
     if (result === true) {
+        resetRegister();
         registerPage.classList.add('off');
         loginPage.classList.remove('off');
     }
@@ -164,28 +184,40 @@ loginPage.querySelector('a').addEventListener('click', function (event) {
     registerPage.classList.remove('off');
 })
 
-profileColumn.querySelector('button').addEventListener('click', function (event) {
+profileColumn.querySelector('.button-profile').addEventListener('click', function (event) {
     event.preventDefault();
     hideSection(homeSaludo);
     showSection(profileView);
-    profileView.querySelector('.profile-name').textContent=activeUser.name;
-    profileView.querySelector('.profile-email').textContent=activeUser.email;
-    profileView.querySelector('.password-old').value=null;
-    profileView.querySelector('.password-new').value=null;
-    profileView.querySelector('.password-new-check').value=null;
+    profileView.querySelector('.profile-name').textContent = activeUser.name;
+    profileView.querySelector('.profile-email').textContent = activeUser.email;
+    resetProfileView();
 })
 
-profileView.querySelector('.button-update').addEventListener('click', function(event){
+profileColumn.querySelector('.button-exit').addEventListener('click', function (event){
     event.preventDefault();
-    let oldPassword=profileView.querySelector('.password-old').value;
-    let newPassword=profileView.querySelector('.password-new').value;
-    let checkPassword=profileView.querySelector('.password-new-check').value;
-    if(changePassword(oldPassword,newPassword,checkPassword)===true){
+    activeUser=null;
+    resetLogin();
+    hideSection(homePage);
+    showSection(loginPage);
+})
+
+profileView.querySelector('.button-update').addEventListener('click', function (event) {
+    event.preventDefault();
+    let oldPassword = profileView.querySelector('.password-old').value;
+    let newPassword = profileView.querySelector('.password-new').value;
+    let checkPassword = profileView.querySelector('.password-new-check').value;
+    if (changePassword(oldPassword, newPassword, checkPassword) === true) {
         alert("Contraseña cambiada correctamente");
         hideSection(profileView);
         showSection(homeSaludo);
     }
-    else{
+    else {
         alert("La contraseña no ha podido cambiarse debido a un error");
     }
+})
+
+profileView.querySelector('.button-cancel').addEventListener('click', function (event) {
+    event.preventDefault();
+    hideSection(profileView);
+    showSection(homeSaludo);
 })
