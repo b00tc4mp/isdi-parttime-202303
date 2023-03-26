@@ -8,7 +8,8 @@ const registerUser = (temporalUser) => {
     if (foundUser){
         return false;
     } 
-    users.push(foundUser);
+    users.push(temporalUser);
+    console.log(users);
     return true;
 }
 
@@ -41,9 +42,19 @@ const authenticateUser = (email, password) => {
             return false
     
         return true
-    
         // WARN "nice", but not easy to read
         // return (!foundUser || foundUser.password !== password)? false : true
-        // return !(!foundUser || foundUser.password !== password) 
+        // return !(!foundUser || foundUser.password !== password)      
 }
 
+const addUserNameInHeader = (authenticatedEmail) => {
+    let currentUser = users.find( user => user.email === authenticatedEmail);
+    welcomeMessage.textContent = welcomeMessage.textContent + currentUser.name;
+}
+const resetUserNameInHeader = () => {
+    welcomeMessage.textContent = "Welcome ";
+}
+
+function updateUserPassword(email, password, newPassword, newPasswordConfirm) {
+    // TODO implement me
+}

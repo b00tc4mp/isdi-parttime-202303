@@ -6,11 +6,14 @@ const logInForm = document.querySelector(".login form");
 const loginRegistrationAnchor = document.querySelector(".login .register-anchor");
 
 const homePage = document.querySelector(".home");
+const logOutButton = document.querySelector(".log-out-button");
+const welcomeMessage = document.querySelector(".welcome-msj");
 
 const successRegisterAdivice = document.querySelector(".success-advice-p");
 const failRegisterAdvice = document.querySelector(".register .fail-advice-p");
 const failLogInAdvice = document.querySelector(".login .fail-advice-p")
 var authenticatedEmail
+
 
 registerPage.querySelector("form").addEventListener('submit', function (event) {
     event.preventDefault();
@@ -45,7 +48,9 @@ logInForm.addEventListener('submit', function (event) {
         failLogInAdvice.classList.remove("off");
         set3SecondsAdvice(failLogInAdvice,"off")
     } else {
-        authencatedEmail = email;
+        authenticatedEmail = email;
+        addUserNameInHeader(authenticatedEmail);
+
         logInPage.classList.add("off");
         homePage.classList.remove("off");
     }
@@ -56,8 +61,13 @@ loginRegistrationAnchor.addEventListener("click", function (event){
     logInPage.classList.add("off");
     registerPage.classList.remove("off");
 })
+logOutButton.addEventListener("click", () => {
+    homePage.classList.add("off");
+    logInPage.classList.remove("off");
+    authenticatedEmail = "";
+    resetUserNameInHeader();
+})
 
 
-// TODO show "hello, <username>" on login
 // TODO add link to profile in home page and open a profile panel
 // TODO add a form in profile panel to allow the user to update his/her password (asking current password, and new password and new password confirmation)

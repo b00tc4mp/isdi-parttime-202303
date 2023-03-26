@@ -60,11 +60,38 @@
             <p class="initialize-register">
                 not a member? <a href="" class="register-anchor">register here</a>
             </p>
+
         </form>
     </div>
 
     <div class="home off">
         <h1 class="home-header">Home</h1>
+
+        <button class="log-out-button">Log out</button>
+
+        <h2 class="welcome-msj">Welcome </h2>
+        <ul class="home-menu">
+            <li><a href="" class="change-pass-anchor">change password</a></li>
+            <li><a href="">option 2</a></li>
+            <li><a href="">option 3</a></li>
+        </ul>
+        <div class="change-password-menu off">
+            <h3>Password</h3>
+            <p>To change current password, provide a new one</p>
+            <form class="form">
+                <label for="old-password">Old password: </label>
+                <input type="text" class="old-password" name="old-password" placeholder="Enter old password" autocomplete="current-password" required>
+                <label for="new-password">New password:</label>
+                <input type="password" class="new-password" name="new-password" placeholder="Enter new password" id="new-password" autocomplete="current-password" required>
+                <label for="new-password-repetition">Repeat new password:</label>
+                <input type="password" class="new-password-repetition" name="new-password-repetition" placeholder="Enter again new password" id="new-password-repetition" autocomplete="current-password" required>
+                <p class="fail-password-match-advise off">The password does not match</p>
+
+                <p class="success-password-change-advise off">Changes succesfully done</p>
+                <p class="fail-password-match-advise off">New password can't coincide with old password</p>
+                <button type="submit" class="change-password">Change password</button>
+            </form>
+        </div>
     </div>
     <script src="scripts/data.js"></script>
     <script src="scripts/logic.js"></script>
@@ -72,3 +99,8 @@
 </body>
 
 </html>
+
+
+<!--
+    TODO add link to profile in home page and open a profile panel
+    TODO add a form in profile panel to allow the user to update his/her password (asking current password, and new password and new password confirmation) -->
