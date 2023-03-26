@@ -1,37 +1,70 @@
+var registerPage= document.querySelector('.register')
+var loginPage= document.querySelector('.login')
+var homePage= document.querySelector('.home')
+
 
 
 // capture datas Register form
-document.querySelector('.register').querySelector('form').addEventListener('submit', function(event) {
+registerPage.querySelector('form').addEventListener('submit', function(event) {
     event.preventDefault()
 
-    document.querySelector('.register').classList.add('off')
-    document.querySelector('.login').classList.remove('off')
-    
+    var name = registerPage.querySelector('input[name=name]').value
+    var email = registerPage.querySelector('input[name=email]').value
+    var password = registerPage.querySelector('input[name=password]').value
+
+    var result = registerUser(name,email,password)
+
+    if (result === false){
+        alert('exist')
+        console.log(result)
+    }else{
+    registerPage.classList.add('off')
+    loginPage.classList.remove('off')
+    }
 })
 
 //capture datas Login form
-document.querySelector('.login').querySelector('form').addEventListener('submit', function (event) {
+loginPage.querySelector('form').addEventListener('submit', function (event) {
     event.preventDefault()
 
-    document.querySelector('.login').classList.add('off')
-    document.querySelector('.home').classList.remove('off')
+    var email = loginPage.querySelector('input[name=email]').value
+    var password = loginPage.querySelector('input[name=password]').value
+
+    var result = authenticateUser(email,password)
+
+    if(result === false){
+        alert('wrong email or password')
+        console.log(result)
+
+    }else{
+        authenticateEmail = email
+
+        loginPage.classList.add('off')
+        homePage.classList.remove('off')
+       
+    }
 })
+
+   
+
+    
 
 //configurate anchor <a> Login
 
-document.querySelector('.login').querySelector('a').addEventListener('click', function(event){
+loginPage.querySelector('a').addEventListener('click', function(event){
     event.preventDefault()
 
-    document.querySelector('.login').classList.add('off')
-    document.querySelector('.register').classList.remove('off')
+    
+    loginPage.classList.add('off')
+    registerPage.classList.remove('off')
 })
 
-//configurate anchor <a> Login
+//configurate anchor <a> register
 
-document.querySelector('.register').querySelector('a').addEventListener('click', function(event){
+registerPage.querySelector('a').addEventListener('click', function(event){
     event.preventDefault()
 
-    document.querySelector('.register').classList.add('off')
-    document.querySelector('.login').classList.remove('off')
+   registerPage.classList.add('off')
+    loginPage.classList.remove('off')
 })
 
