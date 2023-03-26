@@ -58,7 +58,7 @@ body {
     height: 100vh;
     display: flex;
     flex-direction: column;
-    background-color: var(--background-light);
+    background-color: var(--background-white);
     margin-top: 0;
     margin-left: 0;
 }
@@ -157,35 +157,49 @@ a {
     text-transform: uppercase;
 }
 
+.registro{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+}
+
 .formulario {
-    background-color: var(--background-light);
-    margin: -5rem auto 0 auto;
+    background-color: var(--background-white);
+    margin: 0;
     width: 95%;
     padding: 5rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: center;
+    justify-items: center;
 }
 
 .campo {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     margin-bottom: 2rem;
+    gap: 20px;
 }
 
 .campo__label {
-    flex: 0 0 9rem;
-    text-align: right;
-    justify-self: center;
+    
+    text-align: left;
+    justify-self: left;
     padding-right: 2rem;
 }
 
 .campo__field {
-    flex: 1;
+   
     border: 1px solid var(--gris);
     border-radius: 5px;
     max-width: 300px;
 }
 
-.campo__field--textarea {
-    height: 20rem;
+.formulario .campo .boton{
+    grid-area: 4/1/4/3;
 }
+
 
 .campo-viewonly{
     display: flex;
@@ -193,6 +207,19 @@ a {
     gap: 15px;
     align-items: center;
 }
+
+.login{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+}
+
+.formulario-login .campo .boton{
+    grid-area: 3/1/3/3;
+}
+
+
 
 .off {
     display: none !important;
@@ -298,6 +325,24 @@ min-height: 300px;
     width: 80vw;
     min-width: 300px;
     margin: 20px 20px 20px 20px;
+    display: flex;
+    flex-direction: column;
+
+  }
+
+  .password-change{
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: center;
+    justify-items: start;
+    width: 100%;
+  }
+
+  .password-change .campo{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 40vw;
   }
 
   .buttons{
