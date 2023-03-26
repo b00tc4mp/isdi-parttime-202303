@@ -48,6 +48,7 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
     font-family: 'soleto', sans-serif;
+    text-align: center;
 }
 
 h1 {
@@ -124,10 +125,10 @@ header li {
     padding: 5px 0px;
 }
 
-.menu .logout, .menu .homepage, body.logged-in .menu .login {
+.menu .logout, .menu .homepage, body.logged-in .menu .login, .menu .user-account {
     display: none;
 }
-body.logged-in .menu .logout, body.logged-in .menu .homepage {
+body.logged-in .menu .logout, body.logged-in .menu .homepage, body.logged-in .menu .user-account {
     display: block;
 }
 
@@ -182,6 +183,7 @@ button.submit {
     margin: auto;
     width: 100%;
     margin-top: 5px;
+    cursor: pointer;
 }
 
 .container .login, .container .register {
@@ -194,8 +196,55 @@ button.submit {
 .register-link, .login-link {
     margin-top: 25px;
 }
+input:disabled {
+    color: rgba(255, 255, 255, .45);
+}
 /* .container .login p, .container .register p {
     margin: 25px 0 0;
 } */
 /* ______ END FORM ___ */
 
+
+
+
+/* ___ HOME ______ */
+
+.section-user-account h1, .section-user-account h2 {
+    text-align: center;
+}
+
+/* ______ END HOME ___ */
+
+
+/* ___ USER SETTINGS ______ */
+
+
+.section.user-account h2 {
+    margin-bottom: 0;
+}
+button.button--update-info__profile,
+button.button--update-info__password,
+button.button--update-info__save-info,
+button.button--update-info__save-password
+ {
+    background: #078197;
+    color: #fff;
+    padding: 8px 10px;
+    border-radius: 10px;
+    border: solid 2px #078197;
+    max-width: 135px;
+    margin: auto;
+    width: 100%;
+    margin-top: 0px;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+/* ______ END USER SETTINGS ___ */
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active  {
+  transition: background-color 500000s;
+  -webkit-text-fill-color: #fff !important;
+}
