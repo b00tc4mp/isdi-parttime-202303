@@ -48,6 +48,7 @@ header h1 {
     background-clip: text;
     -webkit-background-clip: text;
     color: transparent;
+    align-self: center;
 }
 
 body {
@@ -156,13 +157,6 @@ a {
     text-transform: uppercase;
 }
 
-.contacto-bg {
-    background-image: url(../img/contacto.jpg);
-    height: 40rem;
-    background-size: cover;
-    background-repeat: no-repeat;
-}
-
 .formulario {
     background-color: var(--background-light);
     margin: -5rem auto 0 auto;
@@ -186,6 +180,7 @@ a {
     flex: 1;
     border: 1px solid var(--gris);
     border-radius: 5px;
+    max-width: 300px;
 }
 
 .campo__field--textarea {
@@ -266,11 +261,11 @@ min-height: 300px;
     max-width: 360px;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: stretch;
     justify-content: center;
     margin: 0;
-    padding-right: 5px;
-    padding-left: 5px;
+    padding-right: 10px;
+    padding-left: 10px;
     border-right: 2px solid var(--gris);
     background: var(--background-dark) ;
   }
