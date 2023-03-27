@@ -142,7 +142,6 @@ body {
 .checkbox {
   width: 2rem;
   height: 2rem;
-  border: 1px solid blue;
 }
 
 .submit-buttons {
@@ -159,15 +158,16 @@ body {
 
 .home-page {
   min-height: 100vh;
-  border: 1px dashed orange;
   width: 80%;
   padding: 0;
+  margin: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
 .horizontal-menu {
+  box-sizing: border-box;
   min-width: 100vw;
   height: 4rem;
   background-color: var(--bar-color);
@@ -180,7 +180,6 @@ body {
 }
 
 .horizontal-menu > li {
-  border: 1px dashed red;
   display: flex;
   align-items: stretch;
 }
@@ -193,11 +192,9 @@ body {
   display: flex;
   align-items: center;
   color: var(--bar-buttons-color);
-  border: 1px dashed blue;
 }
 
 .under-menu {
-  border: 1px dashed green;
   flex-grow: 1;
   width: 100%;
   height: 20rem;
@@ -208,7 +205,6 @@ body {
 }
 
 .welcome-message {
-  border: 1px dashed red;
   width: 80%;
   display: flex;
   justify-content: center;
@@ -223,6 +219,7 @@ body {
   background-color: var(--bar-color);
   color: var(--bar-buttons-color);
   width: 60%;
+  max-width: 20rem;
   height: fit-content;
   list-style: none;
   border-radius: 1rem;

@@ -9,10 +9,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Text+Me+One&display=swap" rel="stylesheet">
+    <script src="data.js" type="module" defer></script>
+    <script src="logic.js" type="module" defer></script>
     <script src="main.js" type="module" defer></script>
 </head>
 <body>
-    <div class="register-page">
+    <div class="register-page off">
         <h1 class="all-titles">REGISTER</h1>
         <div class="red-text"></div>
         <form class="inputs">
@@ -23,7 +25,7 @@
             <button class="submit-buttons" type="submit">Register</button>
         </form>
     </div>
-    <div class="login-page off">
+    <div class="login-page">
         <h1 class="all-titles">LOGIN</h1>
         <div class="red-text"></div>
         <form class="login-inputs">
@@ -41,7 +43,7 @@
 
 
     <div class="home-page off">
-        <nav class="home-bar _off">
+        <nav class="home-bar">
             <ul class="horizontal-menu">
                 <li><a href="#" class="menu-buttons">Home</a></li>
                 <li><a href="#" class="menu-buttons">Multimedia</a></li>
@@ -51,14 +53,14 @@
         </nav>
         <div class="under-menu ">
             <h2 class="all-titles welcome-message">¡Hi Rodrigo!</h2>
-            <ul class="profile-options off">
+            <ul class="profile-options must-be-reset off">
                 <li>My information</li>
                 <li>Settings</li>
                 <li class="change-password">Change password</li>
                 <li>Help</li>
                 <li>About</li>
             </ul>
-            <div class="change-password-menu off">
+            <div class="change-password-menu must-be-reset off">
                 <h2 class="all-titles change-pass-title">Change Password</h2>
                 <div class="red-text"></div>
                 <form class="inputs ">
@@ -71,5 +73,8 @@
         </div>
     </div>
 
+    <script src="data.js"></script>
+    <script src="logic.js"></script>
+    <script src="main.js"></script>
 </body>
 </html>

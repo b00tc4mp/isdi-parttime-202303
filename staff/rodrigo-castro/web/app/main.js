@@ -1,88 +1,3 @@
-//data
-
-var users = []
-
-users.push({
-    name: 'Wendy Darling',
-    email: 'wendy@darling.com',
-    password: '123123123'
-})
-
-users.push({
-    name: 'Peter Pan',
-    email: 'peter@pan.com',
-    password: '123123123'
-})
-
-users.push({
-    name: 'Pepito Grillo',
-    email: 'pepito@grillo.com',
-    password: '123123123'
-})
-
-var userLogged
-
-// logic
-
-const checkNewUser = (userEmail) => {
-    const userFound = users.find(user => user.email === userEmail)
-    if(userFound === undefined){
-        return false
-    } else {
-        return true
-    }
-}
-
-const registerNewUser = (users, userName, userEmail, userPassword) => {
-    users.push({
-        name: userName,
-        email: userEmail,
-        password: userPassword
-    })
-}
-
-const findUser = (users, userEmail) => {
-    return  users.find(user => user.email === userEmail)
-}
-
-const changePassword = (userLogged, users) => {
-    homePage.querySelector('.red-text').textContent = ''
-    var previousPassword = homePage.querySelector('.previous-password').value
-
-    if(previousPassword !== userLogged.password){
-        homePage.querySelector('.red-text').textContent = 'Your password is incorrect'
-        return
-    }
-
-    var newPassword = homePage.querySelector('.new-password').value
-
-    if(newPassword.length < 8){
-        homePage.querySelector('.red-text').textContent = 'Password must be at least 8 characters long'
-        return
-    }
-
-    if(newPassword === previousPassword){
-        homePage.querySelector('.red-text').textContent = 'New password must be different than previous'
-        return
-    }
-
-    var newPasswordRepeated = homePage.querySelector('.repeat-new-password').value
-
-    if(newPasswordRepeated !== newPassword){
-        homePage.querySelector('.red-text').textContent = `New passwords don't match`
-        return
-    }
-
-    userLogged.password = newPassword
-    users.forEach(user => {
-        if(user.email === userLogged.email){
-            user.password = userLogged.password
-        }
-    })
-    homePage.querySelector('.red-text').textContent = 'Password succesfully changed'
-    homePage.querySelector('.red-text').classList.add('green-text')
-}
-
 //presentation
 
 var registerPage = document.querySelector('.register-page')
@@ -107,9 +22,7 @@ registerPage.querySelector('form').addEventListener('submit', function(event) {
     } else {
         registerNewUser(users, userName, userEmail, userPassword)
         registerPage.querySelector('.red-text').textContent = ''
-        registerPage.querySelector('.input-field[name=name]').value = ''
-        registerPage.querySelector('.input-field[name=email]').value = ''
-        registerPage.querySelector('.input-field[name=password]').value = ''
+        registerPage.querySelector('form').reset()
         registerPage.classList.add('off')
         loginPage.classList.remove('off')
     }
@@ -129,8 +42,7 @@ loginPage.querySelector('form').addEventListener('submit', (event) => {
         homeBar.classList.remove('off')
         homePage.querySelector('.welcome-message').textContent =`¡Hi ${foundUser.name}!`
         loginPage.querySelector('.red-text').textContent = ''
-        loginPage.querySelector('.input-field[name=email]').value = ''
-        loginPage.querySelector('.input-field[name=password]').value = ''
+        loginPage.querySelector('form').reset()
         userLogged = foundUser
     } else {
         loginPage.querySelector('.red-text').textContent = 'Wrong email or password'
@@ -150,17 +62,14 @@ homePage.querySelector('.profile-options .change-password').addEventListener('cl
     console.log(userLogged)
 })
 
-//TODO: IMPLEMENTAR ACCIONES DE CAMBIO DE PASSWORD
 homePage.querySelector('form').addEventListener('submit', (event) => {
     event.preventDefault();
     changePassword(userLogged, users)
     console.log(userLogged)
-    homePage.querySelector('.change-password-input.previous-password').value = ''
-    homePage.querySelector('.change-password-input.new-password').value = ''
-    homePage.querySelector('.change-password-input.repeat-new-password').value = ''
+    homePage.querySelector('form').reset()
 })
 
-homeBar.querySelector('[name=logout]').addEventListener('click', (event) => {
+homeBar.querySelector('[name=logout]').addEventListener('click', () => {
     homeBar.classList.add('off')
     homePage.classList.add('off')
     homePage.querySelector('.change-password-menu').classList.add('off')
