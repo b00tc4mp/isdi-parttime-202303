@@ -98,6 +98,17 @@ userAccount.querySelector('.button--update-info__profile').addEventListener('cli
     userAccount.querySelector('.user-info').classList.remove('off')
     userAccount.querySelector('form.user-info input[name="name"]').removeAttribute('disabled')
     userAccount.querySelector('form.user-info input[name="email"]').removeAttribute('disabled')
+    userAccount.querySelector('.button--update-info__profile').disabled = true
+
+})
+
+userAccount.querySelector('.button--update-info__cancel-info').addEventListener('click', function(event) {
+    event.preventDefault()
+    userAccount.querySelector('.user-info').classList.add('off')
+    userAccount.querySelector('form.user-info input[name="name"]').disabled = true
+    userAccount.querySelector('form.user-info input[name="email"]').disabled = true
+    userAccount.querySelector('.button--update-info__profile').removeAttribute('disabled')
+
 })
 
 userAccount.querySelector('.button--update-info__save-info').addEventListener('click', function(event) {
@@ -108,18 +119,31 @@ userAccount.querySelector('.button--update-info__save-info').addEventListener('c
     //     cacheEmail = oldEmail
     //     return updateUserInfo(cacheEmail)
     // }
+    userAccount.querySelector('.button--update-info__profile').removeAttribute('disabled')
     return updateUserInfo(email)
 })
 
 userAccount.querySelector('.button--update-info__save-password').addEventListener('click', function(event) {
     event.preventDefault()
     var email = userAccount.querySelector('form.user-info input[name="email"]').value
+    userAccount.querySelector('.button--update-info__password').removeAttribute('disabled')
     updateUserPassword(email) 
 })
 
 userAccount.querySelector('.button--update-info__password').addEventListener('click', function(event) {
+    event.preventDefault()
     userAccount.querySelector('.user-password').classList.remove('off')
+    userAccount.querySelector('.button--update-info__password').disabled = true
     userAccount.querySelector('form.user-password input.current-password').removeAttribute('disabled')
     userAccount.querySelector('form.user-password input.new-password').removeAttribute('disabled')
     userAccount.querySelector('form.user-password input.repeat-password').removeAttribute('disabled')
+})
+
+userAccount.querySelector('.button--update-info__cancel-password').addEventListener('click', function(event) {
+    event.preventDefault()
+    userAccount.querySelector('.user-password').classList.add('off')
+    userAccount.querySelector('form.user-password input.current-password').disabled = true
+    userAccount.querySelector('form.user-password input.new-password').disabled = true
+    userAccount.querySelector('form.user-password input.repeat-password').disabled = true
+    userAccount.querySelector('.button--update-info__password').removeAttribute('disabled')
 })
