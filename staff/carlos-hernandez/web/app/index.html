@@ -5,25 +5,108 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>App</title>
+
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div class="register">
-      <h1>Register</h1>
-      <form  class="register-form"  action="">
-        <input class="register-form_elements" type="text" name="name" placeholder="name" />
-        <input class="register-form_elements" type="email" name="email" placeholder="email" />
-        <input class="register-form_elements" type="password " name="password" placeholder="password" />
-        <button class="register-form_elements" type="submit">Register</button>
+    <header class="header">
+      <img class="logo" src="img/logo.png" alt="logo" />
+      <div class="header--list-container">
+        <ul class="header--list">
+          <li class="home--user">Bienvenido</li>
+          <li>Contactenos</li>
+          <li>Idioma</li>
+        </ul>
+      </div>
+    </header>
+
+    <div class="register page off">
+      <h1 class="title">Register</h1>
+
+      <form class="form">
+        <input
+          class="input"
+          type="text"
+          name="name"
+          placeholder="name"
+          required
+        />
+        <input
+          class="input"
+          type="email"
+          name="email"
+          placeholder="email"
+          required
+        />
+        <input
+          class="input"
+          type="password"
+          name="password"
+          placeholder="password"
+          required
+        />
+        <button class="button" type="submit">Register</button>
       </form>
-    </div>
-    <div class="login" style="display: none;>
-      <h1>Login</h1>
+
+      <p>Go to <a href="">Login</a></p>
     </div>
 
-    <div class="home" style="display:none
-    ">
-      <h1>Home</h1>
+    <div class="login page">
+      <h1 class="title">Login</h1>
+
+      <form class="form">
+        <input class="input" type="email" name="email" placeholder="email" />
+        <input
+          class="input"
+          type="password"
+          name="password"
+          placeholder="password"
+        />
+        <button class="button" type="submit">Login</button>
+      </form>
+
+      <p>Go to <a href="">Register</a></p>
     </div>
+
+    <div class="home page off">
+      <h1 class="title">Home</h1>
+      <img class="img-casa" src="img/foto.jpeg" alt="foto casa" />
+      <p>Go to <a href="">Profile</a></p>
+      <!-- TODO implement home page -->
+    </div>
+
+    <div class="profile page off">
+      <h1 class="title">Profile</h1>
+      <h3>update password</h3>
+      <form class="form">
+        <input
+          class="input"
+          type="password"
+          name="currentPassword"
+          placeholder="current password"
+          required
+        />
+        <input
+          class="input"
+          type="password"
+          name="newPassword"
+          placeholder=" new password"
+          required
+        />
+
+        <input
+          class="input verify"
+          type="password"
+          name="passwordConfirm"
+          placeholder="new password confirmation"
+          required
+        />
+        <button class="button" type="submit"> Confirm</button>
+      </form>
+
+      <p>Go to <a href="">Login</a></p>
+    </div>
+
+    <script src="main.js"></script>
   </body>
 </html>
