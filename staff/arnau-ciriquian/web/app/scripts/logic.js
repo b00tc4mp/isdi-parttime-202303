@@ -11,12 +11,6 @@ function confirmUser(email) {
         }
     }
 
-/*  original de la classe edl dia 20230323, crec que va sense exclamació
-    if (!foundUser) {
-        return false
-    }
-*/
-
     if (foundUser) {
         return false
     }
@@ -94,4 +88,16 @@ function getLoggedUser(email) {
     }
 
     return true
+}
+
+function updateUserPassword(email, newPassword) {
+    for (let i = 0; i < users.length; i++) {
+        if (users[i].email === email) {
+            users.splice(i, 1);
+        }
+    }
+
+    loggedUser.password = newPassword
+
+    users.push(loggedUser)
 }

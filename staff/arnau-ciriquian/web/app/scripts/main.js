@@ -47,6 +47,7 @@ loginPage.querySelector('form').addEventListener('submit', function(event) {
         getLoggedUser(email)
         loginPage.classList.add('off')
         homePage.classList.remove('off')
+        homePage.querySelector('.home__main').classList.remove('off')
         homePage.querySelector('.home-tittle').innerHTML = `Welcome ${loggedUser.name}!`
     } 
     
@@ -108,9 +109,7 @@ homePage.querySelector('.logout').addEventListener('click', function(event) {
     loggedUser = {};
 })
 
-
-//acabar logica i presentacio de password change
-homePage.querySelector('form').addEventListener('submit', function(event) {
+homePage.querySelector('.password-form').addEventListener('submit', function(event) {
     event.preventDefault()
 
     var oldPassword = homePage.querySelector('input[name=old-password]').value
@@ -120,11 +119,11 @@ homePage.querySelector('form').addEventListener('submit', function(event) {
 
     var passwordCharacters = confirmPasswordCharacters(newPassword)
     var passwordResult = confirmSamePassword(newPassword, confirmedPassword)
-    var oldPasswordConfirmation = confirmUser(email, oldPassword)
+    var oldPasswordConfirmation = authenticateUser(email, oldPassword)
 
-    // if (!result) {
-    //     return alert('User already registered!')
-    // } 
+    if (!oldPasswordConfirmation) {
+        return alert('Please make sure to insert your correct actual password')
+    }
 
     if (!passwordCharacters) {
         return alert('Please, make sure that your password is at least 4 characters long, has an uppercase, a lowercase and a number')
@@ -134,16 +133,16 @@ homePage.querySelector('form').addEventListener('submit', function(event) {
         return alert('Please make sure that the password confimation is the same as the password!')
     }
     
-    // if (result && passwordCharacters && passwordResult) {
-    //     addNewUser(newUser, newEmail, newPassword)
-    //     registerPage.classList.add('off')
-    //     loginPage.classList.remove('off')
-    // }
+    if (oldPasswordConfirmation && passwordCharacters && passwordResult) {
+        updateUserPassword(loggedUser.email, newPassword)
+        homePage.querySelector('.home__profile').classList.remove('off')
+        homePage.querySelector('.home__password').classList.add('off')
+    }
 })
-//TODO:
 
+homePage.querySelector('.password-to-profile').addEventListener('click', function(event) {
+    event.preventDefault()
 
-
-//a logic.js crear la funcio del password
-//function changePassword(email, password, newPassword, newPasswordConfirmation) {}
-//Add doble password check and empty inputs check
+    homePage.querySelector('.home__password').classList.add('off')
+    homePage.querySelector('.home__profile').classList.remove('off')
+})
