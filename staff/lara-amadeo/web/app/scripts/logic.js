@@ -52,9 +52,10 @@ var checkPasswordMatch = (newPassword, confirmNewPassword) => {
 var updatePassword = (users, authenticatedEmail, newPassword) =>{
     for (let i = 0; i < users.length; i++){
         var user = users[i]
-        
+
         if (user.email === authenticatedEmail){
             users[i].password = newPassword
+            authenticatedPassword = newPassword
         }
     }
 }
@@ -77,6 +78,7 @@ var updateEmail = (users, authenticatedEmail, newEmail) => {
 
         if (user.email === authenticatedEmail){
                 users[i].email = newEmail
+                authenticatedEmail = newEmail
         } 
     }
 }
