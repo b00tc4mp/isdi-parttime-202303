@@ -64,7 +64,7 @@ label{
     padding-left: 15px;
     margin-left: 15px;
 }
-.submit-sign-up, .log-ing-submit, .log-out-button, .change-password{
+.submit-sign-up, .log-ing-submit, .log-out-button, .change-password, .cancel-change-password{
     flex-basis: 40%;
     background-color: rgb(8, 8, 8);
     color: azure;
@@ -163,7 +163,7 @@ a{
     flex-basis: 100%;
     justify-content: start;
 }
-.change-password{
+.change-password, .cancel-change-password{
     margin: 0px auto;
 }
 

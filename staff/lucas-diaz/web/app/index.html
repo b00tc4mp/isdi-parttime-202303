@@ -82,16 +82,17 @@
                 <label for="old-password">Old password: </label>
                 <input type="text" class="old-password" name="old-password" placeholder="Enter old password" autocomplete="current-password" required>
                 <label for="new-password">New password:</label>
-                <input type="password" class="new-password" name="new-password" placeholder="Enter new password" id="new-password" autocomplete="current-password" required>
+                <input type="password" class="new-password" name="new-password" placeholder="Enter new password" id="new-password" autocomplete="current-password" required> 
                 <label for="new-password-repetition">Repeat new password:</label>
                 <input type="password" class="new-password-repetition" name="new-password-repetition" placeholder="Enter again new password" id="new-password-repetition" autocomplete="current-password" required>
-                <p class="fail-password-match-advise off">The password does not match</p>
-
-                <p class="success-password-change-advise off">Changes succesfully done</p>
-                <p class="fail-password-match-advise off">New password can't coincide with old password</p>
+                <p class="fail-password-match-advise off">The new password does not match</p>
+                <p class="fail-password-match-advise fail-current-password off">the old password is not this, please type the current valid password</p>
+                <p class="fail-password-match-advise fail-coincidence off">New password can't coincide with old password</p>
+                <button class="cancel-change-password">Cancel</button>
                 <button type="submit" class="change-password">Change password</button>
             </form>
         </div>
+        <p class="success-password-change-advise off">Changes succesfully done</p>
     </div>
     <script src="scripts/data.js"></script>
     <script src="scripts/logic.js"></script>

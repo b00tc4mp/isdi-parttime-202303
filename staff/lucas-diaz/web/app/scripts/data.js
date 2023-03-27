@@ -18,3 +18,9 @@ users.push({
     email: 'pepito@grillo.com',
     password: '123123123'
 })
+
+users.push({
+    name: 'Lucas Diaz',
+    email: 'lucas@gmail.com',
+    password: 'lucas'
+})

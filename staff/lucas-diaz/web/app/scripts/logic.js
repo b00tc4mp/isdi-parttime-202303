@@ -56,5 +56,27 @@ const resetUserNameInHeader = () => {
 }
 
 function updateUserPassword(email, password, newPassword, newPasswordConfirm) {
-    // TODO implement me
+    let currentUser =  users.find(user => user.email === email);
+    let currentUserIndex = users.findIndex(user => user.email === email);
+
+    
+    if (password.value !== currentUser.password){
+        document.querySelector(".fail-current-password").classList.remove("off");
+        set3SecondsAdvice(document.querySelector(".fail-current-password"), "off");
+        return false;
+    }
+
+    if (password.value === newPassword.value){
+        document.querySelector(".fail-coincidence").classList.remove("off");
+        set3SecondsAdvice(document.querySelector(".fail-coincidence"),"off");
+        return false; 
+    }
+
+    if (newPassword.value !== newPasswordConfirm.value){
+        document.querySelector(".fail-password-match-advise").classList.remove("off");
+        set3SecondsAdvice(document.querySelector(".fail-password-match-advise"), "off");
+        return false;
+    }
+    users[currentUserIndex].password = newPassword.value;
+    return true;
 }

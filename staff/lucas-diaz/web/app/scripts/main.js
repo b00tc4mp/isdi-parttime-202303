@@ -14,6 +14,12 @@ const failRegisterAdvice = document.querySelector(".register .fail-advice-p");
 const failLogInAdvice = document.querySelector(".login .fail-advice-p")
 var authenticatedEmail
 
+//* VARIABLES DE FORMULARIO DE CAMBIO DE CONTRASEÑA 
+const changePasswordMenuAnchor = document.querySelector(".change-pass-anchor");
+const changePasswordMenu = document.querySelector(".change-password-menu");
+const cancelChangePasswordButton = document.querySelector(".cancel-change-password");
+const changePasswordForm = document.querySelector(".change-password-menu form");
+
 
 registerPage.querySelector("form").addEventListener('submit', function (event) {
     event.preventDefault();
@@ -36,7 +42,6 @@ registerPage.querySelector("form").addEventListener('submit', function (event) {
         set3SecondsAdvice(successRegisterAdivice, "off")
     }
 })
-
 logInForm.addEventListener('submit', function (event) {
     event.preventDefault();
 
@@ -55,7 +60,6 @@ logInForm.addEventListener('submit', function (event) {
         homePage.classList.remove("off");
     }
 })
-
 loginRegistrationAnchor.addEventListener("click", function (event){
     event.preventDefault();
     logInPage.classList.add("off");
@@ -68,6 +72,37 @@ logOutButton.addEventListener("click", () => {
     resetUserNameInHeader();
 })
 
+//! PARTE DE CAMBIAR CONTRASEÑAS 
+changePasswordMenuAnchor.addEventListener("click", (event) => {
+    event.preventDefault();
+    changePasswordMenu.classList.remove("off");
+})
+cancelChangePasswordButton.addEventListener("click", (event) => {
+    event.preventDefault();
+    changePasswordMenu.classList.add("off");
+    let oldPassword = document.querySelector(".old-password");
+    let newPassword = document.querySelector(".new-password");
+    let newPasswordRepetition = document.querySelector(".new-password-repetition");
+    oldPassword.value = "";
+    newPassword.value = "";
+    newPasswordRepetition.value = "";
+})
+changePasswordForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    let oldPassword = document.querySelector(".old-password");
+    let newPassword = document.querySelector(".new-password");
+    let newPasswordRepetition = document.querySelector(".new-password-repetition");
 
-// TODO add link to profile in home page and open a profile panel
-// TODO add a form in profile panel to allow the user to update his/her password (asking current password, and new password and new password confirmation)
+    let confirmation = updateUserPassword(authenticatedEmail, oldPassword, newPassword, newPasswordRepetition);
+
+    if (confirmation){
+        changePasswordMenu.classList.add("off");
+        document.querySelector(".success-password-change-advise").classList.remove("off");
+        set3SecondsAdvice(document.querySelector(".success-password-change-advise"),"off");
+    }
+})
+
+
+
+
+
