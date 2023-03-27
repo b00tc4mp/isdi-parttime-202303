@@ -17,6 +17,7 @@ import {
 } from '../logic/user.js';
 
 export const authenticateUser = (mail, password) => {
+  resetAlerts();
   if (!isMailRegistered(mail)) {
     //TODO find why this alert appears out of time
     const message = 'This email is not vinculated to any account!';

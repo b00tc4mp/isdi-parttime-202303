@@ -24,11 +24,17 @@ export const displayProfile = (userAuth) => {
   document.querySelector('.avatar').src = userAuth.avatar;
 }
 
-export const setNewPassword = (userAuth, profileButtons, changePassword, startHome, editProfile) => {
+export const setNewPassword = (userAuth, profileButtons, changePassword) => {
   resetAlerts();
   const newPassword = document.querySelector('.password-form').querySelector('input[name="new-password"]').value;
   const repeatPassword = document.querySelector('.password-form').querySelector('input[name="repeat-new-password"]').value;
   const oldPassword = document.querySelector('.password-form').querySelector('input[name="password"]').value;
+  if(newPassword === userAuth.password){
+    const message ='The new password and the old one can not be the same.';
+    setSimpleAlert('area-change-password', 'alert-danger', message);
+    clearForms();
+    return userAuth;
+  }
   if (!isPasswordSafe(newPassword)){
     const message ='Use minimum 6 characters, a number, and lower and capital letters.';
     setSimpleAlert('area-change-password', 'alert-danger', message);
