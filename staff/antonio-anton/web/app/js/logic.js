@@ -25,9 +25,11 @@ function registerUser(name, email, password) {
 
 function authenticateUser(email, password) {
     var foundUser
-
+    
     for (var i = 0; i < users.length; i++) {
         var user = users[i]
+        
+        console.log(user.email === email)
 
         if (user.email === email) {
             foundUser = user
@@ -36,7 +38,7 @@ function authenticateUser(email, password) {
         }
     }
 
-    if (!foundUser || foundUser.password !== password)
+    if (!foundUser || user.password !== password)
         return false
 
     return true

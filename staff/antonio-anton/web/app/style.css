@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
+
 * {
     margin: 0;
     font-family:'Poppins';
@@ -139,6 +140,44 @@ body,html {
   .login-form .submit:hover {
     box-shadow: 3px 3px 6px rgb(255, 214, 176);
   }
+
+ .login-form a {
+    color:#d7dadd;
+  }
+  .login-form a:hover {
+    color:whitesmoke;
+  }
+
+  .login-form .wrong {
+    color:crimson ;
+  }
+  .login-form input {
+    border: 2px solid;
+    border-radius: 4px;
+    font-size: 1rem;
+    margin: 0.25rem;
+    min-width: 125px;
+    padding: 0.5rem;
+    transition: border-color 0.5s ease-out;
+  }
+  login-form input:optional {
+    border-color: gray;
+  }
+  login-form input:required:valid {
+    border-color: green;
+  }
+  login-form input:invalid {
+    border-color: red;
+  }
+  login-form input:required:focus:valid {
+    background: url('images/hand-thumbs-up.svg') no-repeat 95% 50% lightgreen;
+    background-size: 25px;
+  }
+  input:focus:invalid {
+    background: url('images/exclamation-triangle-fill.svg') no-repeat 95% 50% lightsalmon;
+    background-size: 25px;
+  }
+  
   /*HOME*/
   
 
@@ -146,3 +185,5 @@ body,html {
     margin: auto;
     width: 40%;
   }
+
+ 

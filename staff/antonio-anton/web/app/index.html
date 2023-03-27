@@ -11,28 +11,29 @@
         <nav id="nitems" class="nav-items">
           <a id="ahome" class="off" href="#home">Home</a>
           <a id="alogin" onclick="loginsection()" href="#login">Login</a>
-          <a id="aregister" onclick="registersection()" href="#register">Register</a>
+          <a class="off" id="ahello" onclick="logigout()" >hello!</a>
+          <a class="off" id="alogout" onclick="logigout()" >Logout</a>
         </nav>
       </header>
     <body>
-        <div class="register " id="register">
+        <div class="register off" id="register">
             <div class="container">
                 <h1>Register</h1>
                 <form name="registration" class="registartion-form" onsubmit="return formValidation()">
                   <table>
                     <tr>
                       <td><label for="name">Name:</label></td>
-                      <td><input type="text" name="name" id="name" placeholder="Your Name"></td>
+                      <td><input type="text" name="name" id="name" placeholder="Your Name" required></td>
                     </tr>
                     <tr>
                       <td><label for="email">Email:</label></td>
-                      <td><input type="text" name="email" id="email" placeholder="Your email"></td>
+                      <td><input type="text" name="email" id="email" placeholder="Your email" required></td>
                     </tr>
                     <tr>
                       <td><label for="password">Password:</label></td>
-                      <td><input type="password" name="password" id="password"></td>
+                      <td><input type="password" name="password" id="password" required></td>
                       <td><label for="repassword">Verify-Password:</label></td>
-                      <td><input type="password" name="repassword" id="repassword"></td>
+                      <td><input type="password" name="repassword" id="repassword" required></td>
                     </tr>
                    
                     <tr>
@@ -43,7 +44,7 @@
                 </form>
               </div>
         </div>
-        <div class="login off" id="login">
+        <div class="login " id="login">
             
                 <div class="container">
                     <h1>Login</h1>
@@ -52,16 +53,24 @@
                         
                         <tr>
                           <td><label for="email">Email:</label></td>
-                          <td><input type="text" name="email" id="email_login" placeholder="Your email"></td>
+                          <td><input type="email" name="email" id="email_login" placeholder="Your email" required></td>
                         </tr>
                         <tr>
                           <td><label for="password">Password:</label></td>
-                          <td><input type="password" name="password" id="password_login"></td>
+                          <td><input type="password" name="password" id="password_login" required></td>
                         </tr>
                        
                         <tr>
-                          <td colspan="2"><input type="submit" class="submit" value="login" /></td>
+                          <td colspan="2"><input type="submit" class="submit" value="login" /><a id="lblwrong" class="wrong off"> * email or password is wrong</a></td>
+                          
                         </tr>
+                        
+                        <tr>
+                          <td colspan="2">
+                            <a class=".label-login" id="registernow" onclick="registersection()" href="#register">No acocunt? Register now!</a>
+                          </td>
+                        </tr>
+
                       </table>
                     </form>
                   </div>

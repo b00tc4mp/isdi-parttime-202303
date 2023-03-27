@@ -14,16 +14,11 @@ registerPage.querySelector('form').addEventListener('submit', function (event) {
     loginPage.classList.remove('off')
 })
 */
-loginPage.querySelector('form').addEventListener('submit', function (event) {
-    event.preventDefault()
-    
-    loginPage.classList.add('off')
 
-    homePage.classList.remove('off')
-})
 
 function loginsection(){
    
+  
    
   registerPage.classList.add('off');
     homePage.classList.add('off');
@@ -93,14 +88,22 @@ console.log(result)
 loginPage.querySelector('form').addEventListener('submit', function (event) {
     event.preventDefault()
 
+    const lblwrong = document.querySelector('#lblwrong');
+    
+
     var email = loginPage.querySelector('input[name=email]').value
     var password = loginPage.querySelector('input[name=password]').value
-
+    console.log(email + ' entrar')
     var result = authenticateUser(email, password)
+console.log(result)
+console.log(password)
 
     if (result === false) {
+      
         alert('wrong email or password')
+        lblwrong.classList.remove("off");
     } else {
+      
         authenticatedEmail = email
     
         loginPage.classList.add('off')
@@ -108,16 +111,3 @@ loginPage.querySelector('form').addEventListener('submit', function (event) {
     }
 })
 
-registerPage.querySelector('a').addEventListener('click', function (event) {
-    event.preventDefault()
-
-    registerPage.classList.add('off')
-    loginPage.classList.remove('off')
-})
-
-loginPage.querySelector('a').addEventListener('click', function (event) {
-    event.preventDefault()
-
-    loginPage.classList.add('off')
-    registerPage.classList.remove('off')
-})
