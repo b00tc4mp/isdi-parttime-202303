@@ -6,12 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Web</title>
     <link rel="stylesheet" href="style.css">
-    <script src="main.js" type="module" defer></script>
 </head>
 <body>
     <div class="registration">
         <div class="centered-containers">
-            <h1 class="register-introduction">Welcome stranger!</h1>
+            <h1 class="title">Welcome stranger!</h1>
             
             <form class="centered-form">
 
@@ -42,7 +41,7 @@
 
     <div class="login off">
         <div class="centered-containers">
-            <h1 class="login-introduction">Welcome back!</h1>
+            <h1 class="title">Welcome back!</h1>
             <form class="centered-form">
 
                 <label for="email" class="text-field-label">Email</label>
@@ -52,8 +51,8 @@
                 <input type="password" name="password" class="text-field">
 
 
-                <div class="forgot-password">
-                    <button class="link" type="button">Forgot password?</button>
+                <div class="create-account">
+                    <a href="" class="link">Create account</a>
                 </div>
                 
                 <button class="primary-button" type="submit">Log in</button>
@@ -64,9 +63,51 @@
         </div>
     </div>
     <div class="homepage off">
-        <h1>Homepage</h1>
+        <header class="topbar">
+
+            <div class="logo-and-hello">
+            <p class="home-logo">🍑</p>
+            <h1 class="homepage-hello">Hello</h1>
+            </div>
+
+            <div class="topbar-actions">
+                
+                <a class="link">Stuff</a>
+                <a class="link" id="profile" href="">Profile</a>
+                <a class="link" id="logout" href="">Log out</a>
+                
+            </div>
+           
+        </header>
+
+        <div class="profile off">
+            
+            <div class="centered-containers">
+                <h1 class="title">Profile settings</h1>
+                <h2 class="subtitle">Password update</h2>
+               
+                <form class="centered-form">
+    
+                    <label for="currentPassword" class="text-field-label">Current password</label>
+                    <input type="password" name="currentPassword" class="text-field">
+    
+                    <label for="newPassword" class="text-field-label">New password</label>
+                    <input type="password" name="newPassword" class="text-field">
+
+                    <label for="confirmNewPassword" class="text-field-label">Confirm new password</label>
+                    <input type="password" name="confirmNewPassword" class="text-field">
+                    
+                    <div class="button-bar">
+                    <button class="secondary-button" type="submit">Cancel</button>
+                    <button class="primary-button" type="submit">Save</button>
+                    </div>
+                </form>
+        </div>
+        </div>
     </div>
 
-    
+    <script src="scripts/data.js"></script>
+    <script src="scripts/logic.js"></script>
+    <script src="scripts/main.js"></script>
 </body>
 </html>
