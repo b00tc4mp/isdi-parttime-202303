@@ -4,6 +4,11 @@ html {
   padding: 0;
 }
 
+:root {
+  --bar-color: rgba(0, 0, 0, 0.3);
+  --bar-buttons-color: rgba(255, 255, 255, 0.8);
+}
+
 body {
   margin: auto;
   overflow: auto;
@@ -19,7 +24,7 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: baseline;
+  justify-content: center;
   align-items: center;
   cursor: default;
   font-family: "Text Me One", sans-serif;
@@ -29,44 +34,39 @@ body {
 .register-page, .login-page{
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  height: 30rem;
-  width: 20rem;
-  margin-top: 8rem;
+  height: 25rem;
+  min-width: 16rem;
   background-color: rgba(0, 0, 0, 0.03);
   border-radius: 2rem;
-  padding: 2rem;
+  padding: 1rem;
 }
 
 .all-titles {
   color: rgba(0, 0, 0, 0.4);
   height: fit-content;
-}
-
-.inputs {
+  margin: 0;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: baseline;
-  height: 80%;
-  width: 100%;
-}
-
-.text-fields {
-  display: flex;
-  flex-direction: column;
   justify-content: center;
+  flex-direction: column;
   align-items: center;
+}
+
+.inputs, .login-inputs {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 20rem;
   width: 100%;
-  height: 60%;
 }
 
 .input-field {
   text-align: left;
   border: none;
   width: 80%;
-  padding: 1rem 1rem 1rem 2rem;
+  padding: 1rem 1rem 1rem 1rem;
   margin: 0.5rem;
   font-family: "Text Me One", sans-serif;
   font-weight: lighter;
@@ -86,7 +86,14 @@ body {
   font-size: 1rem;
   width: 80%;
   height: 2rem;
-  text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: center;
+}
+
+.green-text {
+  color: green;
 }
 
 .already-registered {
@@ -104,63 +111,8 @@ body {
   font-family: "Text Me One", sans-serif;
 }
 
-.button-container {
-  height: 100px;
-  width: 100px;
-  margin-top: 1rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.register-button, .login-button {
-  height: 80px;
-  width: 80px;
-  font-family: "Text Me One", sans-serif;
-  font-size: 1rem;
-  border-radius: 50%;
-  background-color: rgba(0, 0, 0, 0);
-  border: 1px solid rgba(0, 0, 0, 0.3);
-  cursor: pointer;
-  transition: 2s;
-}
-
-@media (min-width: 961px) {
-  .register-button:hover, .login-button:hover {
-  animation: 0.2s linear 0s infinite alternate expansion;
-}
-}
-
-@keyframes expansion {
-  from {
-    scale: 1;
-  }
-  to {
-    scale: 1.035;
-  }
-}
-
-/* .login-page {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 35rem;
-  width: 20rem;
-  margin-top: 5rem;
-} */
-
 .login-title {
   color: rgba(0, 0, 0, 0.4);
-}
-
-.login-inputs {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
-  width: 100%;
-  height: 50%;
 }
 
 .forgot-password, .dont-have-account {
@@ -193,13 +145,65 @@ body {
   border: 1px solid blue;
 }
 
+.submit-buttons {
+  height: 3rem;
+  width: 5rem;
+  font-family: "Text Me One", sans-serif;
+  font-size: 1rem;
+  border-radius: 1.5rem;
+  background-color: rgba(0, 0, 0, 0);
+  border: 0.5px solid rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  transition: 2s;
+}
+
 .home-page {
-  padding: 1rem;
-  border: 1px dashed green;
   min-height: 100vh;
+  border: 1px dashed orange;
   width: 80%;
+  padding: 0;
   display: flex;
   flex-direction: column;
+  align-items: center;
+}
+
+.horizontal-menu {
+  min-width: 100vw;
+  height: 4rem;
+  background-color: var(--bar-color);
+  display: flex;
+  justify-content: space-around;
+  align-items: stretch;
+  padding: 0 1rem;
+  margin: 0;
+  list-style: none;
+}
+
+.horizontal-menu > li {
+  border: 1px dashed red;
+  display: flex;
+  align-items: stretch;
+}
+
+.horizontal-menu > li > a {
+  font-size: 1.2rem;
+  height: 100%;
+  font-family: "Text Me One", sans-serif;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  color: var(--bar-buttons-color);
+  border: 1px dashed blue;
+}
+
+.under-menu {
+  border: 1px dashed green;
+  flex-grow: 1;
+  width: 100%;
+  height: 20rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
 }
 
@@ -208,8 +212,42 @@ body {
   width: 80%;
   display: flex;
   justify-content: center;
-  align-items: baseline;
+  align-items: center;
   font-size: 1.5rem;
+  padding: 0;
+  position: absolute;
+  top: 4.5rem;
+}
+
+.profile-options {
+  background-color: var(--bar-color);
+  color: var(--bar-buttons-color);
+  width: 60%;
+  height: fit-content;
+  list-style: none;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+  padding: 2rem;
+  gap: 1.2rem;
+  font-size: 1.2rem;
+}
+
+.change-password-menu {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.change-password-input {
+  width: 15rem;
+}
+
+input:-webkit-autofill {
+  transition: background-color 5000s;
+  -webkit-text-fill-background-color: #fff !important;
 }
 
 .off {

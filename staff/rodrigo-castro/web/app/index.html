@@ -12,44 +12,63 @@
     <script src="main.js" type="module" defer></script>
 </head>
 <body>
-    <div class="register-page off">
-        <!-- TODO: IMPLEMENT REGISTER PAGE 3 INPUT (email, password, nombre)  -->
+    <div class="register-page">
         <h1 class="all-titles">REGISTER</h1>
         <div class="red-text"></div>
         <form class="inputs">
-            <div class="text-fields">
             <input class="input-field" type="text" name="name" placeholder="Name">
             <input class="input-field" type="email" name="email" placeholder="Email">
             <input class="input-field" type="password" name="password" placeholder="Password">
             <div class="already-registered">Already registered? <a class="go-to-sign-in">Sign in</a></div>
-            </div>
-            <div class="button-container">
-                <button class="register-button" type="submit">Register</button>
-            </div>
+            <button class="submit-buttons" type="submit">Register</button>
         </form>
     </div>
     <div class="login-page off">
-        <!-- TODO: IMPLEMENT LOGIN PAGE -->
         <h1 class="all-titles">LOGIN</h1>
         <div class="red-text"></div>
         <form class="login-inputs">
-            <input class="input-field" type="email" name="email" placeholder="Email">
-            <input class="input-field" type="password" name="password" placeholder="Password">
-            <div class="remember-me">
-                <input class="checkbox" type="checkbox" name="remember-me">
-                <div class="remember-me-text">Remember me</div>
-            </div>
-            <div class="forgot-password">Forgot your <a class="forgot-password-button">password</a>?</div>
-            <div class="dont-have-account">Don't have an account? <a class="register-now-button">Register now</a></div>
-            <div class="button-container">
-                <button class="login-button" type="submit">Login</button>
-            </div>
+                <input class="input-field" type="email" name="email" placeholder="Email">
+                <input class="input-field" type="password" name="password" placeholder="Password">
+                <div class="remember-me">
+                    <input class="checkbox" type="checkbox" name="remember-me">
+                    <div class="remember-me-text">Remember me</div>
+                </div>
+                <div class="forgot-password">Forgot your <a class="forgot-password-button">password</a>?</div>
+                <div class="dont-have-account">Don't have an account? <a class="register-now-button">Register now</a></div>
+                <button class="submit-buttons" type="submit">Login</button>
         </form>
     </div>
 
-    <div class="home-page _off">
-            <h1 class="all-titles welcome-message">¡Welcome <p class="logged-user">Wendy</p>!</h1>
-            <!-- TODO: IMPLEMENT HOME PAGE -->
+
+    <div class="home-page off">
+        <nav class="home-bar _off">
+            <ul class="horizontal-menu">
+                <li><a href="#" class="menu-buttons">Home</a></li>
+                <li><a href="#" class="menu-buttons">Multimedia</a></li>
+                <li><a href="#" class="menu-buttons" name="my-profile">MyProfile</a></li>
+                <li><a href="#" class="menu-buttons" name="logout">Logout</a></li>
+            </ul>
+        </nav>
+        <div class="under-menu ">
+            <h2 class="all-titles welcome-message">¡Hi Rodrigo!</h2>
+            <ul class="profile-options off">
+                <li>My information</li>
+                <li>Settings</li>
+                <li class="change-password">Change password</li>
+                <li>Help</li>
+                <li>About</li>
+            </ul>
+            <div class="change-password-menu off">
+                <h2 class="all-titles change-pass-title">Change Password</h2>
+                <div class="red-text"></div>
+                <form class="inputs ">
+                    <input class="input-field change-password-input previous-password" type="password" name="previous-pasword" placeholder="Previous password">
+                    <input class="input-field change-password-input new-password" type="password" name="new-password" placeholder="New password">
+                    <input class="input-field change-password-input repeat-new-password" type="password" name="repeat-new-password" placeholder="Repeat New Password">
+                    <button class="submit-buttons change-my-password" name="change-my-password" type="submit">Send</button>
+                </form>
+            </div>
+        </div>
     </div>
 
 </body>

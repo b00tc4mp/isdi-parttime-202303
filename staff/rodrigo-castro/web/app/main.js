@@ -20,7 +20,7 @@ users.push({
     password: '123123123'
 })
 
-
+var userLogged
 
 // logic
 
@@ -33,11 +33,62 @@ const checkNewUser = (userEmail) => {
     }
 }
 
+const registerNewUser = (users, userName, userEmail, userPassword) => {
+    users.push({
+        name: userName,
+        email: userEmail,
+        password: userPassword
+    })
+}
+
+const findUser = (users, userEmail) => {
+    return  users.find(user => user.email === userEmail)
+}
+
+const changePassword = (userLogged, users) => {
+    homePage.querySelector('.red-text').textContent = ''
+    var previousPassword = homePage.querySelector('.previous-password').value
+
+    if(previousPassword !== userLogged.password){
+        homePage.querySelector('.red-text').textContent = 'Your password is incorrect'
+        return
+    }
+
+    var newPassword = homePage.querySelector('.new-password').value
+
+    if(newPassword.length < 8){
+        homePage.querySelector('.red-text').textContent = 'Password must be at least 8 characters long'
+        return
+    }
+
+    if(newPassword === previousPassword){
+        homePage.querySelector('.red-text').textContent = 'New password must be different than previous'
+        return
+    }
+
+    var newPasswordRepeated = homePage.querySelector('.repeat-new-password').value
+
+    if(newPasswordRepeated !== newPassword){
+        homePage.querySelector('.red-text').textContent = `New passwords don't match`
+        return
+    }
+
+    userLogged.password = newPassword
+    users.forEach(user => {
+        if(user.email === userLogged.email){
+            user.password = userLogged.password
+        }
+    })
+    homePage.querySelector('.red-text').textContent = 'Password succesfully changed'
+    homePage.querySelector('.red-text').classList.add('green-text')
+}
+
 //presentation
 
 var registerPage = document.querySelector('.register-page')
 var loginPage = document.querySelector('.login-page')
 var homePage = document.querySelector('.home-page')
+var homeBar = document.querySelector('.home-bar')
 
 registerPage.querySelector('form').addEventListener('submit', function(event) {
     event.preventDefault()
@@ -51,12 +102,10 @@ registerPage.querySelector('form').addEventListener('submit', function(event) {
     if (isEmailRegistered) {
         registerPage.querySelector('.red-text').textContent = 'Email already registered'
         registerPage.querySelector('.input-field[name=email]').value = ''
+    } else if (userPassword.length < 8) {
+        registerPage.querySelector('.red-text').textContent = 'Password must have at least 8 characters'
     } else {
-        users.push({
-            name: userName,
-            email: userEmail,
-            password: userPassword
-        })
+        registerNewUser(users, userName, userEmail, userPassword)
         registerPage.querySelector('.red-text').textContent = ''
         registerPage.querySelector('.input-field[name=name]').value = ''
         registerPage.querySelector('.input-field[name=email]').value = ''
@@ -72,30 +121,55 @@ loginPage.querySelector('form').addEventListener('submit', (event) => {
     var userEmail = loginPage.querySelector('.input-field[name=email]').value
     var userPassword = loginPage.querySelector('.input-field[name=password]').value
 
-    var foundUser
-
-    for (let i = 0; i < users.length; i++) {
-        var user = users[i]
-        if (user.email === userEmail){
-            foundUser = user
-            break
-        }
-    }
+    var foundUser = findUser(users, userEmail)
 
     if (foundUser !== undefined && foundUser.password === userPassword) {
         loginPage.classList.add('off')
         homePage.classList.remove('off')
-        homePage.querySelector('.logged-user').textContent = ` ${foundUser.name}`
+        homeBar.classList.remove('off')
+        homePage.querySelector('.welcome-message').textContent =`¡Hi ${foundUser.name}!`
         loginPage.querySelector('.red-text').textContent = ''
-        loginPage.querySelector('.input-field[name=email]') = ''
-        loginPage.querySelector('.input-field[name=password]') = ''
+        loginPage.querySelector('.input-field[name=email]').value = ''
+        loginPage.querySelector('.input-field[name=password]').value = ''
+        userLogged = foundUser
     } else {
         loginPage.querySelector('.red-text').textContent = 'Wrong email or password'
     }
 })
 
+homeBar.querySelector('.menu-buttons[name=my-profile]').addEventListener('click', (event) => {
+    homePage.querySelector('.profile-options').classList.remove('off')
+    homePage.querySelector('.change-password-menu').classList.add('off')
+})
 
-document.querySelector(".go-to-sign-in").addEventListener("click", (event) => {
+homePage.querySelector('.profile-options .change-password').addEventListener('click', (event) => {
+    homePage.querySelector('.change-password-menu').querySelector('.red-text').classList.remove('green-text')
+    homePage.querySelector('.change-password-menu').querySelector('.red-text').textContent = ''
+    homePage.querySelector('.profile-options').classList.add('off')
+    homePage.querySelector('.change-password-menu').classList.remove('off')
+    console.log(userLogged)
+})
+
+//TODO: IMPLEMENTAR ACCIONES DE CAMBIO DE PASSWORD
+homePage.querySelector('form').addEventListener('submit', (event) => {
+    event.preventDefault();
+    changePassword(userLogged, users)
+    console.log(userLogged)
+    homePage.querySelector('.change-password-input.previous-password').value = ''
+    homePage.querySelector('.change-password-input.new-password').value = ''
+    homePage.querySelector('.change-password-input.repeat-new-password').value = ''
+})
+
+homeBar.querySelector('[name=logout]').addEventListener('click', (event) => {
+    homeBar.classList.add('off')
+    homePage.classList.add('off')
+    homePage.querySelector('.change-password-menu').classList.add('off')
+    homePage.querySelector('.profile-options').classList.add('off')
+    loginPage.classList.remove('off')
+    userLogged = undefined
+})
+
+document.querySelector(".go-to-sign-in").addEventListener('click', (event) => {
     event.preventDefault();
     registerPage.classList.add("off");
     loginPage.classList.remove("off")
