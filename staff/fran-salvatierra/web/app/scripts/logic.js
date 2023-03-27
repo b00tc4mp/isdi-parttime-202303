@@ -51,4 +51,8 @@ function updateUserPassword(email, password, newPassword, newPasswordConfirm) {
 
 }
 
+function loginGreeting(registerEmail, registerName) {
+    
+}
+
 //TODO implement me
