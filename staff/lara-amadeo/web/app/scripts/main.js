@@ -99,9 +99,7 @@ if (!currentPasswordChecked){
             homePage.querySelector('input[name=currentPassword]').value = ""
             homePage.querySelector('input[name=newPassword]').value = ""
             homePage.querySelector('input[name=confirmNewPassword]').value = ""
-
-            homePage.querySelector('.profile').classList.add('off')
-            
+                        
         } else alert("New passwords doesn't match")
     }
 }
