@@ -89,18 +89,17 @@ loginPage.querySelector('form').addEventListener('submit', function (event) {
     event.preventDefault()
 
     const lblwrong = document.querySelector('#lblwrong');
-    
+    const lbllogout = document.querySelector('#alogout');
+    const lbllogin = document.querySelector('#alogin');
 
     var email = loginPage.querySelector('input[name=email]').value
     var password = loginPage.querySelector('input[name=password]').value
     console.log(email + ' entrar')
     var result = authenticateUser(email, password)
-console.log(result)
-console.log(password)
+
 
     if (result === false) {
       
-        alert('wrong email or password')
         lblwrong.classList.remove("off");
     } else {
       
@@ -108,6 +107,8 @@ console.log(password)
     
         loginPage.classList.add('off')
         homePage.classList.remove('off')
+        lbllogout.classList.remove("off")
+        lbllogin.classList.add('off')
     }
 })
 
