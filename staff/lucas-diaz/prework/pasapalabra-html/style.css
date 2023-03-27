@@ -42,12 +42,12 @@ h1{
     height: 100px;
 }
 .donut{
-
+    
     width: 500px;
     height: 500px;
     margin: 0 auto;
     border-radius: 50%;
-    background-color: #3665B8;
+    background-color: #3fa04c;
     margin-left: 50px;
     margin-right: 60px;
 }
