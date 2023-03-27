@@ -5,8 +5,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pasapalabra</title>
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="normalize.css">
+  <link rel="stylesheet" href="styles/styles.css">
+  <link rel="stylesheet" href="styles/normalize.css">
 </head>
 
 <body>
@@ -25,7 +25,7 @@
         <li class="pasapalabra-letter">J</li>
         <li class="pasapalabra-letter">K</li>
         <li class="pasapalabra-letter">L</li>
-        <li class="pasapalabra-letter wrong-answer">M</li>
+        <li class="pasapalabra-letter">M</li>
         <li class="pasapalabra-letter">N</li>
         <li class="pasapalabra-letter">Ñ</li>
         <li class="pasapalabra-letter">O</li>
@@ -72,13 +72,18 @@
     </div>
 
     <div class="started-game-container hidden">
-      <div class="question"></div>
-      <div class="question-buttons">
-        <form class="contestant-answer">
+      <div class="ready-set-go">
+        <p class="ready hidden">Preparados...</p>
+        <p class="set hidden">Listos...</p>
+        <p class="go hidden">¡Ya!</p>
+      </div>
+      <div class="question hidden"></div>
+      <div class="question-inputs hidden">
+        <form class="letter-question">
           <input type="text" name="input-player" id="input-player">
-          <button class="send-button button">ENVIAR</button>
+          <button class="send-button button" value="'send">ENVIAR</button>
         </form>
-        <button class="pasapalabra-button button">PASAPALABRA</button>
+        <button class="pasapalabra-button button" type="button" value="pasapalabra">PASAPALABRA</button>
       </div>
     </div>
 
@@ -95,6 +100,8 @@
     </div>
   </div>
   
-  <script type="text/javascript" src="main.js"></script>
+  <script type="text/javascript" src="scripts/questions.js"></script>
+  <script type="text/javascript" src="scripts/logic.js"></script>
+  <script type="text/javascript" src="scripts/main.js"></script>
 </body>
 </html>

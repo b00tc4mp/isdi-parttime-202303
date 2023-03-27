@@ -39,15 +39,6 @@ html {
   position: absolute;
 }
 
-.correct-answer {
-  background: rgb(117, 255, 117);
-  border: 4px solid rgb(70, 227, 75);
-}
-
-.wrong-answer {
-  background: rgb(255, 71, 71);
-}
-
 .roulette-container > *:nth-of-type(1) {
   transform: rotate(-90deg) translate(190px) rotate(90deg);
 }
@@ -150,6 +141,11 @@ html {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   letter-spacing: 2px;
   margin: 30px;
+  cursor: pointer;
+}
+
+.continue-button:hover {
+  background-color: #275ab8;
 }
 
 .start-button {
@@ -164,6 +160,12 @@ html {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   letter-spacing: 2px;
   margin: 30px;
+  cursor: pointer;
+}
+
+.start-button:hover {
+  background-color: #275ab8;
+
 }
 
 .welcome-game {
@@ -245,9 +247,23 @@ b {
 }
 
 .started-game-container {
+  display: block;
   padding-top: 320px;
   width: 50%;
   display: block;
+}
+
+.ready-set-go {
+  height: 60px;
+  margin-top: -100px;
+  margin-bottom: 70px;
+}
+
+.ready, .set, .go {
+  font-size: xx-large;
+  font-weight: bold;
+  color: blue;
+  text-align: center;
 }
 
 .question {
@@ -264,7 +280,7 @@ b {
   border-radius: 20px;
 }
 
-.question-buttons {
+.question-inputs {
   display: flex;
   justify-content: center;
   gap: 5px;
@@ -274,6 +290,10 @@ b {
   width: 200px;
   height: 35px;
   border-radius: 5px;
+}
+
+#input-player:hover {
+  background: #e0e0e0;
 }
 
 button {
@@ -287,10 +307,21 @@ button {
 
 .send-button {
   background-color: rgb(80, 181, 80);
+  height: 100%;
+  cursor: pointer;
+}
+
+.send-button:hover {
+  background-color: rgb(72, 160, 72);
 }
 
 .pasapalabra-button {
   background: rgb(109, 109, 228);
+  cursor: pointer;
+}
+
+.pasapalabra-button:hover {
+  background: rgb(89, 89, 186);
 }
 
 .play-again {
@@ -341,4 +372,13 @@ button {
 
 .hidden {
   display: none;
+}
+
+.correct-answer {
+  background: rgb(117, 255, 117);
+  border: 4px solid rgb(70, 227, 75);
+}
+
+.wrong-answer {
+  background: rgb(255, 71, 71);
 }
