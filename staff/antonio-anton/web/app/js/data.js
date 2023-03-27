@@ -20,6 +20,11 @@ users.push({
 
 users.push({
     name: 'Sylvester Stallone',
-    email: 'SStallone',
+    email: 'SStallone@actors.com',
+    password: 'U60855071'
+})
+users.push({
+    name: 'Antonio Antón',
+    email: 'aanton@actors.com',
     password: 'U60855071'
 })
