@@ -1,51 +1,75 @@
 function registerUser(name, email, password) {
-    var foundUser
+    if (typeof name !== 'string') throw new Error('name is not a string')
+    if (!name.length) throw new Error('name is empty')
+    if (typeof email !== 'string') throw new Error('email is not an string')
+    if (!email.length) throw new Error('email is empty')
+    if (typeof password !== 'string') throw new Error('password is not a string')
+    if (!password.length) throw new Error('password is empty')
+    // TODO add more input validation
 
-    for (var i = 0; i < users.length; i++) {
-        var user = users[i]
+    var foundUser = findUserByEmail(email)
 
-        if (user.email === email) {
-            foundUser = user
-
-            break
-        }
-    }
-
-    if (!foundUser)
-        return false
+    if (foundUser)
+        throw new Error('user already exists')
 
     users.push({
         name: name,
         email: email,
         password: password
     })
-
-    return true
 }
 
 function authenticateUser(email, password) {
-    var foundUser
+    if (typeof email !== 'string') throw new Error('email is not an string')
+    if (!email.length) throw new Error('email is empty')
+    if (typeof password !== 'string') throw new Error('password is not a string')
+    if (!password.length) throw new Error('password is empty')
+    // TODO add more input validation
 
-    for (var i = 0; i < users.length; i++) {
-        var user = users[i]
+    var foundUser = findUserByEmail(email)
 
-        if (user.email === email) {
-            foundUser = user
+    if (!foundUser)
+        throw new Error('user not found')
 
-            break
-        }
+    if (foundUser.password !== password)
+        throw new Error('wrong password')
+}
+
+function retrieveUser(email) {
+    if (typeof email !== 'string') throw new Error('email is not an string')
+    if (!email.length) throw new Error('email is empty')
+
+    var foundUser = findUserByEmail(email)
+
+    if (!foundUser)
+        throw new Error('user not found')
+
+    var user = {
+        name: foundUser.name,
+        email: foundUser.email
     }
 
-    if (!foundUser || foundUser.password !== password)
-        return false
-
-    return true
-
-    // WARN "nice", but not easy to read
-    // return (!foundUser || foundUser.password !== password)? false : true
-    // return !(!foundUser || foundUser.password !== password) 
+    return user
 }
 
 function updateUserPassword(email, password, newPassword, newPasswordConfirm) {
-    // TODO implement me
+    // TODO add more input validation
+
+    var foundUser = findUserByEmail(email)
+
+    if (!foundUser)
+        return false
+
+    if (password !== foundUser.password)
+        return false
+
+    if (newPassword !== newPasswordConfirm)
+        return false
+
+    if (newPassword === password)
+        return false
+
+    foundUser.password = newPassword
+
+    return true
 }

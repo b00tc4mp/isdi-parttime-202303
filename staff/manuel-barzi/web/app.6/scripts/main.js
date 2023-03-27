@@ -27,19 +27,23 @@ loginPage.querySelector('form').onsubmit = function (event) {
     var email = loginPage.querySelector('input[name=email]').value
     var password = loginPage.querySelector('input[name=password]').value
 
-    try {
-        authenticateUser(email, password)
+    var result = authenticateUser(email, password)
 
+    if (!result) {
+        alert('wrong email or password')
+    } else {
         authenticatedEmail = email
-
+    
         var foundUser = retrieveUser(email)
 
-        homePage.querySelector('p').innerText = `Hello, ${foundUser.name}!`
+        if (!foundUser) {
+            alert('user not found')
+        } else {
+            homePage.querySelector('p').innerText = `Hello, ${foundUser.name}!`
 
-        loginPage.classList.add('off')
-        homePage.classList.remove('off')
-    } catch (error) {
-        alert(error.message)
+            loginPage.classList.add('off')
+            homePage.classList.remove('off')
+        }
     }
 }
 
@@ -65,7 +69,7 @@ homePage.querySelector('a').onclick = function (event) {
 
 // TODO add a form in profile panel to allow the user to update his/her password (asking current password, and new password and new password confirmation)
 
-profilePanel.querySelector('form').onsubmit = function (event) {
+profilePanel.querySelector('form').onsubmit = function(event) {
     event.preventDefault()
 
     var password = profilePanel.querySelector('input[name="password"]').value
@@ -76,6 +80,6 @@ profilePanel.querySelector('form').onsubmit = function (event) {
 
     if (!result)
         alert('password update failed')
-    else
+    else 
         alert('password updated')
 }
