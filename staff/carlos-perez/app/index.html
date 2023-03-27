@@ -9,7 +9,9 @@
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=PT+Sans:wght@400;700&display=swap"
         rel="stylesheet">
+
     <script src="main.js" type="module" defer></script>
+
 </head>
 
 <body>
@@ -97,33 +99,67 @@
                 <label class="campo__label" for="profile-email">Correo</label>
                 <p class="profile-email" id="profile-email"></p>
             </div>
+
+            <div class="buttons-control">
+                <div class="buttons button-change-info">
+                    <button class="button-change-mail boton boton--primario">Cambiar Correo</button>
+                    <button class="button-change-password boton boton--primario">Cambiar Contraseña</button>
+                </div>
+                <button class="button-close-profile boton boton--primario">Cerrar</button>
+            </div>
+            <div class="mail-change">
+                <div class="campo">
+                    <label class="campo__label" for="mail-old">Correo antiguo</label>
+                    <input class="campo__field mail-old" type="text" placeholder="Tu correo antiguo" id="mail-old"
+                        required>
+                </div>
+
+                <div class="campo">
+                    <label class="campo__label" for="mail-new">Correo nuevo</label>
+                    <input class="campo__field mail-new" type="text" placeholder="Tu correo nuevo" id="mail-new"
+                        required>
+                </div>
+
+                <div class="campo">
+                    <label class="campo__label" for="mail-new-check"> Repite correo nuevo</label>
+                    <input class="campo__field mail-new-check" type="text" placeholder="Tu correo nuevo"
+                        id="mail-check-new" required>
+                </div>
+                <div class="buttons">
+
+                    <button class="button-update-mail boton boton--primario">Actualizar</button>
+                    <button class="button-cancel-mail boton boton--primario">Cerrar</button>
+
+                </div>
+            </div>
             <div class="password-change">
                 <div class="campo">
-                    <label class="campo__label" for="password">Contraseña antigua</label>
+                    <label class="campo__label" for="password-old">Contraseña antigua</label>
                     <input class="campo__field password-old" type="password" placeholder="Tu contraseña antigua"
-                        id="password" required>
+                        id="password-old" required>
                 </div>
 
                 <div class="campo">
-                    <label class="campo__label" for="password">Contraseña nueva</label>
+                    <label class="campo__label" for="password-new">Contraseña nueva</label>
                     <input class="campo__field password-new" type="password" placeholder="Tu contraseña nueva"
-                        id="password" required>
+                        id="password-new" required>
                 </div>
 
                 <div class="campo">
-                    <label class="campo__label" for="password"> Repite contraseña nueva</label>
+                    <label class="campo__label" for="password-new-check"> Repite contraseña nueva</label>
                     <input class="campo__field password-new-check" type="password" placeholder="Tu contraseña nueva"
-                        id="password" required>
+                        id="password-new-check" required>
                 </div>
 
                 <div class="buttons">
 
-                    <button class="button-update boton boton--primario">Actualizar</button>
-                    <button class="button-cancel boton boton--primario">Cerrar</button>
+                    <button class="button-update-password boton boton--primario">Actualizar</button>
+                    <button class="button-cancel-password boton boton--primario">Cerrar</button>
 
                 </div>
 
                 </form>
+
             </div>
         </div>
     </div>

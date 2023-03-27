@@ -350,3 +350,24 @@ min-height: 300px;
     flex-direction: row;
     gap: 10px;
   }
+
+  .mail-change{
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: center;
+    justify-items: start;
+    width: 100%;
+  }
+
+  .mail-change .campo{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 40vw;
+  }
+
+  .buttons-control{
+    display: grid;
+    grid-template-columns: 1fr;
+    max-width: 200px;
+  }

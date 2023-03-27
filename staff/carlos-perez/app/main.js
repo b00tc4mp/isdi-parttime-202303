@@ -85,6 +85,18 @@ function changePassword(oldpass, newpass, passcheck) {
     }
 }
 
+function changeMail(oldmail, newmail, mailcheck){
+    if((oldmail=users[userExist(activeUser.email)].email) && (newmail===mailcheck)){
+        users[userExist(activeUser.email)].email = newmail;
+        activeUser.email=newmail;
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
+
 //Presentation
 
 function hideSection(section) {
@@ -108,6 +120,8 @@ var profileColumn = document.querySelector('.profile-column');
 var profileView = document.querySelector('.profile-view');
 var header=document.querySelector('.header');
 var homeTitle=homePage.querySelector('.title');
+var mailChange=profileView.querySelector('.mail-change');
+var passwordChange=profileView.querySelector('.password-change');
 
 function resetRegister(){
     registerPage.querySelector('input[id=nombre]').value=null;
@@ -143,6 +157,8 @@ function initiate() {
     hideSection(homePage);
     hideSection(profileView);
     headerNotLogged();
+    hideSection(mailChange);
+    hideSection(passwordChange);
 }
 
 initiate();
@@ -216,22 +232,58 @@ profileColumn.querySelector('.button-exit').addEventListener('click', function (
     showSection(loginPage);
 })
 
-profileView.querySelector('.button-update').addEventListener('click', function (event) {
+profileView.querySelector('.button-update-password').addEventListener('click', function (event) {
     event.preventDefault();
     let oldPassword = profileView.querySelector('.password-old').value;
     let newPassword = profileView.querySelector('.password-new').value;
     let checkPassword = profileView.querySelector('.password-new-check').value;
     if (changePassword(oldPassword, newPassword, checkPassword) === true) {
         alert("Contraseña cambiada correctamente");
-        hideSection(profileView);
-        showSection(homeSaludo);
+        hideSection(passwordChange);
     }
     else {
         alert("La contraseña no ha podido cambiarse debido a un error");
     }
 })
 
-profileView.querySelector('.button-cancel').addEventListener('click', function (event) {
+profileView.querySelector('.button-update-mail').addEventListener('click', function (event) {
+    event.preventDefault();
+    let oldMail = profileView.querySelector('.mail-old').value;
+    let newMail = profileView.querySelector('.mail-new').value;
+    let checkMail = profileView.querySelector('.mail-new-check').value;
+    if (changeMail(oldMail, newMail, checkMail) === true) {
+        alert("Correo cambiado correctamente");
+        profileView.querySelector('.profile-email').textContent = activeUser.email;
+        hideSection(mailChange);
+    }
+    else {
+        alert("El correo no ha podido cambiarse debido a un error");
+    }
+})
+
+profileView.querySelector('.button-cancel-mail').addEventListener('click', function (event) {
+    event.preventDefault();
+    hideSection(mailChange);
+})
+
+profileView.querySelector('.button-change-mail').addEventListener('click', function (event){
+    event.preventDefault();
+    hideSection(passwordChange);
+    showSection(mailChange);
+})
+
+profileView.querySelector('.button-cancel-password').addEventListener('click', function (event) {
+    event.preventDefault();
+    hideSection(passwordChange);
+})
+
+profileView.querySelector('.button-change-password').addEventListener('click', function (event){
+    event.preventDefault();
+    hideSection(mailChange);
+    showSection(passwordChange);
+})
+
+profileView.querySelector('.button-close-profile').addEventListener('click', function(event){
     event.preventDefault();
     hideSection(profileView);
     showSection(homeSaludo);
