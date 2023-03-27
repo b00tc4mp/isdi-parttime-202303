@@ -1,15 +1,6 @@
 function registerUser(name, email, password) {
-    var foundUser
+   var foundUser =findUserByEmail(email)
 
-    for(var i = 0; i< users.length; i++){
-        var user = users[i]
-
-        if(user.email === email){
-            foundUser= user
-        break
-        }
-    }
-/* founderUser !== undefined, es decir, si existe*/
     if(foundUser ){
         return false
 
@@ -27,23 +18,13 @@ function registerUser(name, email, password) {
 
 //TODO go to login
 function authenticateUser (email, password) {
-    var foundUser
     
-    for (var i= 0; i < users.length; i++) {
-        var user = users[i]
-
-        if(user.email === email){
-            foundUser = user
-          
-        break
-        }  
-    }
+    var foundUser= findUserByEmail(email)
 
     // TODO codificar que foundUser.password es un número
     if(!foundUser || foundUser.password !== password){
         return false
     }else{
-        alert(`Welcome ${user.name}`)
         return true
         
     }
@@ -55,30 +36,50 @@ return (!foundUser || foundUser.password !== password)? false : true
 return !(!foundUser || foundUser.password !== password) 
 */
 
-// Function to validate changes or password--homepage
-
-function validatedNewPassword(userActualPassword, userNewPassword,userConfirmNewPassword) {
-    var foundUserPassword 
-
-    for (var i = 0; i< users.length; i++){
-        var user= users[i].password
-
-        if(user === userActualPassword){
-            foundUserPassword = user
-            break
-        }
+function retrieveUser(email) {
+    var foundUser = findUserByEmail(email)
+   
+    if(!foundUser || foundUser.email !== email){
+        return false
+    }else{
+        var user = {
+            name: foundUser.name, 
+            email: foundUser.email
+        } 
+        return user
     }
-        
-    if (foundUserPassword && userNewPassword !== userConfirmNewPassword){
+}
+
+
+
+// Function to validate changes or password--homepage-- hay que validarlo con el email
+
+function validatedNewPassword(email, password, userNewPassword,userConfirmNewPassword) {
+ 
+    var foundUser= findUserByEmail(email)
+
+    if(!foundUser){
+        return false
+    }
+    
+    if (userNewPassword !== userConfirmNewPassword){
         alert('please, confirm the same new password you entered')
         return false
-    } else if (!foundUserPassword && userNewPassword === userConfirmNewPassword){
+    } 
+    
+    if (foundUser.password !== password){
         alert('wrong actual password')
+        return false
+    
+    } 
+    if(password === userNewPassword){
+        alert('You have to change the password')
         return false
     } else {
     
-        if(foundUserPassword && userNewPassword === userConfirmNewPassword){
+        if(foundUser&& userNewPassword === userConfirmNewPassword){
             //remove un password por otro
+            //foundUser.password = newPassword
             console.log("sustituyo password")
          return true
         }
