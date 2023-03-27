@@ -218,14 +218,32 @@ input:disabled {
 
 /* ___ USER SETTINGS ______ */
 
+/* .update form.data {
+    height: 100%;
+    overflow: inherit;
+    transition: linear .2s;
+}
+.update form.data.toggle {
+    height: 0;
+    overflow: hidden;
+} */
 
 .section.user-account h2 {
     margin-bottom: 0;
 }
+
+.buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
 button.button--update-info__profile,
 button.button--update-info__password,
 button.button--update-info__save-info,
-button.button--update-info__save-password
+button.button--update-info__save-password,
+button.button--update-info__cancel-info,
+button.button--update-info__cancel-password
  {
     background: #078197;
     color: #fff;
@@ -238,13 +256,33 @@ button.button--update-info__save-password
     margin-top: 0px;
     cursor: pointer;
     margin-bottom: 20px;
+    transition: linear .2s;
 }
+
+button.button--update-info__save-info,
+button.button--update-info__save-password {
+    width: calc(50% - 10px);
+}
+
+button.button--update-info__cancel-info,
+button.button--update-info__cancel-password {
+    /* max-width: 100px; */
+    width: calc(50% - 10px);
+    background: #132f46;
+    border: solid 2px #078197;
+}
+
+button[disabled] {
+    opacity: .6;
+    background: transparent;
+}
+
 /* ______ END USER SETTINGS ___ */
 
-input:-webkit-autofill,
+/* input:-webkit-autofill,
 input:-webkit-autofill:hover, 
 input:-webkit-autofill:focus, 
 input:-webkit-autofill:active  {
   transition: background-color 500000s;
   -webkit-text-fill-color: #fff !important;
-}
+} */
