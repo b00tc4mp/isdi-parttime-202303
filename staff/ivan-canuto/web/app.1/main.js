@@ -26,7 +26,7 @@ const homePage = document.querySelector('.home-page');
 const loginButton = document.querySelector('.login-button');
 const registerButton = document.querySelector('.register-button');
 const enterLoginButton = loginPage.querySelector('.enter-button');
-const enterRegisterButton = registerPage.querySelector('.enter-button');
+const registerForm = registerPage.querySelector('.register-form');
 const goBackLoginButton = loginPage.querySelector('.go-back');
 const goBackRegisterButton = registerPage.querySelector('.go-back');
 
@@ -58,7 +58,9 @@ registerButton.addEventListener('click', ()=>{
   registerPage.classList.remove('hidden');
 })
 
-enterRegisterButton.addEventListener('click', (e)=>{
+console.log(registerName.value, registerEmail.value, registerPassword.value, repeatedPassword.value);
+registerForm.addEventListener('submit', (e)=>{
+  console.log(registerName.value, registerEmail.value, registerPassword.value, repeatedPassword.value);
   e.preventDefault();
 
   if (!registerName.value || !registerEmail.value || !registerPassword.value || !repeatedPassword.value) return createAlert(registerPage, 'Please, fill in all the fields.');
@@ -85,11 +87,11 @@ enterRegisterButton.addEventListener('click', (e)=>{
 enterLoginButton.addEventListener('click', (e)=>{
   e.preventDefault();
 
-  if (!loginEmail.value || !loginPassword.value) return createAlert(loginPage, 'Please, fill in all the fields.');
+  if (!loginEmail || !loginPassword) return createAlert(loginPage, 'Please, fill in all the fields.');
 
   let foundClient = false;
   for (let i = 0; i < users.length; i++) {
-    if (loginEmail.value === users[i].email && loginPassword.value === users[i].password) foundClient = true; 
+    if (loginEmail === users[i].email && loginPassword === users[i].password) foundClient = true; 
   };
 
   if (foundClient) {

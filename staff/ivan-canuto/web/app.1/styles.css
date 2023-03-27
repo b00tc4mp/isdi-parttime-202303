@@ -1,0 +1,121 @@
+
+input {
+  width: 300px;
+  height: 35px;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 0 10px;
+}
+
+.spa-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: rgb(101,255,69);
+  background: linear-gradient(270deg, rgba(101,255,69,1) 0%, rgba(255,255,255,1) 49%, rgba(101,255,69,1) 100%);
+}
+
+
+.welcome-page {
+  color: green;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title-home-page {
+  font-size: 40px;
+}
+
+.buttons-home-page {
+  margin-top: 20px;
+  display: flex;
+  gap: 40px;
+}
+
+.login-button, .register-button {
+  width: 100px;
+  height: 40px;
+  background: #82ff60;
+  border: 1px solid black;
+  border-radius: 7px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.login-button:hover, .register-button:hover, .go-back:hover, .enter-button:hover {
+  background: rgb(42, 202, 42);
+  cursor: pointer;
+}
+
+
+.register-page {
+  color: green;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.form-register {
+  width: 280px;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+.enter-button, .go-back {
+  margin-top: 20px;
+  width: 70px;
+  height: 30px;
+  background: #82ff60;
+  border: 1px solid black;
+  border-radius: 7px;
+  margin-right: 0.5em
+}
+
+
+
+.login-page {
+  color: green;
+  width: 650px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-form, .register-form {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  margin-top: 0.5em;
+  font-size: large;
+}
+
+
+
+.home-page {
+  display: block;
+}
+
+.home-page h1 {
+  font-size: 50px;
+  color: green;
+}
+
+
+.alert {
+  margin: 1.2em;
+  padding: 1em 2em;
+  color: black;
+  background: rgb(255, 46, 46);
+  border-radius: 7px;
+}
+
+
+.hidden {
+  display: none;
+}

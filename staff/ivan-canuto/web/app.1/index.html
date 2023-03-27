@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>app</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="spa-page">
+  <div class="welcome-page">
+    <h1 class="title-home-page"> Hello, welcome to our page.</h1>
+    <h2>Please log in, or sign in if don't have yet an account.</h2>
+    <div class="buttons-home-page">
+      <button class="login-button">Log In</button>
+      <button class="register-button">Register</button>
+    </div>
+  </div>
+
+  <div class="login-page hidden">
+    <h1>Hello there usual client.</h1>
+    <h2>Log in to enjoy to enter and enjoy our content.</h2>
+    <form class="login-form">
+      <label>E-mail adress.</label>
+      <input class="input-email" type="email" name="email" placeholder="E-mail">
+      <label>Password.</label>
+      <input class="input-password" type="password" name="password" placeholder="Password">
+      <div class="buttons">
+        <input class="enter-button" type="submit" value="Enter">
+        <button class="go-back" type="button">Go back</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="register-page hidden">
+    <h1 class="title-register">Hello there new client.</h1>
+    <h2>Register to be able to acces.</h2>
+    <form class="register-form">
+      <label>Name.</label>
+      <input class="input-name" type="text" name="name" placeholder="Name">
+      <label>E-mail adress.</label>
+      <input class="input-email" type="email" name="email" placeholder="E-mail">
+      <label>Password.</label>
+      <input class="input-password" type="password" name="password" placeholder="Password">
+      <label>Repeat password</label>
+      <input class="repeated-password" type="password" name="repeated-password" placeholder="Repeat password">
+      <div class="buttons">
+        <input class="enter-button" type="submit" value="Enter">
+        <button class="go-back" type="button">Go back</button>
+      </div>
+    </form> 
+  </div>
+  
+  <div class="home-page hidden">
+    <h1>Hello, welcome to our page!!</h1>
+  </div>
+  <script type="text/javascript" src="main.js"></script>
+</body>
+</html>

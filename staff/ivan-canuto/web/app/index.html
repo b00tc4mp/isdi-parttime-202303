@@ -6,37 +6,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>app</title>
   <link rel="stylesheet" href="styles.css">
+
 </head>
 
 <body class="spa-page">
-  <div class="welcome-page">
+  <section class="welcome-page">
     <h1 class="title-home-page"> Hello, welcome to our page.</h1>
     <h2>Please log in, or sign in if don't have yet an account.</h2>
     <div class="buttons-home-page">
       <button class="login-button">Log In</button>
       <button class="register-button">Register</button>
     </div>
-  </div>
+  </section>
 
-  <div class="login-page hidden">
-    <h1>Hello there usual client.</h1>
-    <h2>Log in to enjoy to enter and enjoy our content.</h2>
-    <form class="login-form">
-      <label>E-mail adress.</label>
-      <input class="input-email" type="email" name="email" placeholder="E-mail">
-      <label>Password.</label>
-      <input class="input-password" type="password" name="password" placeholder="Password">
-      <div class="buttons">
-        <input class="enter-button" type="submit" value="Enter">
-        <button class="go-back" type="button">Go back</button>
-      </div>
-    </form>
-  </div>
-
-  <div class="register-page hidden">
+  <section class="register-page hidden">
     <h1 class="title-register">Hello there new client.</h1>
     <h2>Register to be able to acces.</h2>
-    <form class="login-form">
+    <form class="register-form">
       <label>Name.</label>
       <input class="input-name" type="text" name="name" placeholder="Name">
       <label>E-mail adress.</label>
@@ -50,11 +36,76 @@
         <button class="go-back" type="button">Go back</button>
       </div>
     </form> 
-  </div>
+  </section>
   
-  <div class="home-page hidden">
-    <h1>Hello, welcome to our page!!</h1>
-  </div>
-  <script type="text/javascript" src="main.js"></script>
+  <section class="login-page hidden">
+    <h1>Hello there usual client.</h1>
+    <h2>Log in to enjoy to enter and enjoy our content.</h2>
+    <form class="login-form">
+      <label>E-mail adress.</label>
+      <input class="input-email" type="email" name="email" placeholder="E-mail">
+      <label>Password.</label>
+      <input class="input-password" type="password" name="password" placeholder="Password">
+      <div class="buttons">
+        <input class="enter-button" type="submit" value="Enter">
+        <button class="go-back" type="button">Go back</button>
+      </div>
+    </form>
+  </section>
+
+  <section class="home-page hidden">
+    <header class="home-page__header">
+      <h1 class="header__title"></h1>
+      <div class="navigation-bar">
+        <a>News</a>
+        <a>Our products</a>
+        <a>About us</a>
+        <a>Vlog</a>
+        <img class="navigation-bar__image" src="images/image-profile.jpg" alt="image-profile">
+      </div>
+    </header>
+    <button class="sign-off__button">Sign off</button>
+  </section>
+
+  <section class="profile-page hidden">
+    <h1>Hello! This is your profile.</h1>
+    <div class="settings">
+      <div class="personal-settings">
+        <h2 class="personal-settings__title">Personal settings</h2>
+        <ul class="personal-settings__list">
+          <li class="change-password__link">Change your password</li>
+          <li>Change your image</li>
+          <li>Change your personal data</li>
+          <li>Delete profile</li>
+        </ul>
+      </div>
+    </div>
+    <button class="return-profile-page__button">Return to profile</button>
+  </section>
+  
+  <section class="change-password__page hidden">
+    <div>
+      <h1>Change password</h1>
+      <form class="password-form">
+        <div>
+          <label>Enter the old password.</label>
+          <input class="old-password" type="password" placeholder="Old password">
+        </div>
+        <div>
+          <label>Enter the new password.</label>
+          <input class="new-password" type="text" placeholder="New password">
+        </div>
+        <div>
+          <label>Repeat the new password.</label>
+          <input class="new-password-repeated" type="text" placeholder="New password">
+        </div>
+        <button>Enter</button>
+      </form>
+      <button class="exit-button">Exit</button>
+    </div>
+  </section>
+  <script type="text/javascript" src="scripts/data.js"></script>
+  <script type="text/javascript" src="scripts/logic.js"></script>
+  <script type="text/javascript" src="scripts/main.js"></script>
 </body>
 </html>
