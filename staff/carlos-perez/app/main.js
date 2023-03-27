@@ -86,11 +86,16 @@ function changePassword(oldpass, newpass, passcheck) {
 }
 
 function changeMail(oldmail, newmail, mailcheck){
-    if((oldmail===users[userExist(activeUser.email)].email) && (newmail===mailcheck)){
+    let userPosition=userExist(activeUser.email);
+    if(userPosition !== -1){
+    if((oldmail===users[userPosition].email) && (newmail===mailcheck)){
         users[userExist(activeUser.email)].email = newmail;
         activeUser.email=newmail;
         return true;
     }
+    else{
+        return false;
+    }}
     else{
         return false;
     }
