@@ -1,0 +1,319 @@
+.city {
+  min-width: 1000px;
+}
+
+.sun {
+  position: absolute;
+  height: 80px;
+  width: 80px;
+  top: -10px;
+  right: -10px;
+  background: yellow;
+  border-radius: 50%;
+}
+
+.upper-city {
+  background: rgb(194, 194, 248);
+  width: 100%;
+  height: 300px;
+}
+
+.buildings {
+  display: flex;
+  align-items: end;
+  justify-content: space-evenly;
+  height: 300px;
+  width: 70%;
+  margin-left: 15px;
+}
+
+.buildings-and-surroundings {
+  width: 33%;
+  display: flex;
+  align-items: end;
+  margin-right: 20px;
+  gap: 15px;
+}
+
+.upper-city-tree {
+  width: 25px;
+  height: 50px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tree-top {
+  height: 50%;
+  width: 100%;
+  background: green;
+  border-radius: 50%;
+}
+
+.tree-bottom {
+  height: 50%;
+  width: 20%;
+  background: brown;
+}
+
+.building {
+  height: 200px;
+  width: 100px;
+  background: grey;
+  border: 2px solid black;
+}
+
+.windows {
+  width: 100%;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.window {
+  width: 25%;
+  height: 40%;
+  background: rgb(67, 67, 222);
+}
+
+.ground-floor {
+  height: 40px;
+  display: flex;
+  align-items: end;
+  justify-content: space-around;
+}
+
+.ground-floor .window {
+  margin-bottom: 20%;
+  height: 35%;
+  width: 25%;
+}
+
+.doors {
+  height: 50%;
+  width: 30%;
+  background: brown;
+  display: flex;
+}
+
+.door {
+  width: 50%;
+  height: 100%;
+  border: 1px solid black;
+}
+
+.car-parked {
+  width: 40px;
+  height: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.upper-car-parked {
+  width: 70%;
+  height: 30%;
+  background: red;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.window-car-parked {
+  width: 30%;
+  height: 80%;
+  background: rgb(53, 53, 255);
+}
+
+.mid-car-parked {
+  width: 100%;
+  height: 40%;
+  background: red;
+}
+
+.car-parked-headlight {
+  width: 10%;
+  height: 20%;
+  display: flex;
+  background: yellow;
+  margin: 1px 0;
+}
+
+.lower-car-parked {
+  width: 100%;
+  height: 30%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.car-parked-wheel {
+  height: 6px;
+  width: 8px;
+  background: #000;
+  border-radius: 50%;
+}
+
+
+
+.lower-city {
+  height: 50vh;
+  display: flex;
+  background: rgb(36, 163, 36);
+}
+
+.sidewalk {
+  height: 50px;
+  width: 70%;
+  background: grey;
+  border-bottom: 2px solid #313131;
+}
+
+.puddle {
+  position: absolute;
+  width: 150px;
+  height: 100px;
+  background: rgb(43, 171, 225);
+  border-radius: 50%;
+}
+
+.puddle-1 {
+  left: 40px;
+  bottom: 30px;
+}
+
+.puddle-2 {
+  left: 100px;
+  bottom: 80px;
+}
+
+.puddle-3 {
+  left: 120px;
+  bottom: 30px;
+}
+
+.bush {
+  position: absolute;
+  background: rgb(0, 72, 0);
+  border: 5px dashed rgb(0, 56, 0);
+  border-radius: 50%;
+}
+
+.bush-1 {
+  width: 90px;
+  height: 60px;
+  left: 52%;
+  bottom: 14%;
+}
+
+.bush-2 {
+  width: 100px;
+  height: 80px;
+  left: 55%;
+  bottom: 6%;
+}
+
+.bush-3 {
+  width: 100px;
+  height: 70px;
+  left: 30%;
+  bottom: 25%;
+}
+
+.road-car {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.down-road-car-1 {
+  position: absolute;
+  width: 40px;
+  height: 80px;
+  background-color: red;
+  right: 25%;
+  bottom: 35%;
+}
+.down-road-car-2 {
+  position: absolute;
+  width: 40px;
+  height: 80px;
+  background-color: red;
+  right: 18%;
+  bottom: 5%;
+}
+
+.up-road-car {
+  position: absolute;
+  width: 40px;
+  height: 80px;
+  background-color: red;
+  right: 3%;
+  bottom: 25%;
+}
+
+.car-roof {
+  width: 100%;
+  height: 50%;
+  margin-bottom: 10px;
+  background: #000;
+}
+
+.up-road-car .car-roof {
+  margin-bottom: 0;
+  margin-top: 10px;
+}
+
+.rearlights-road-car {
+  display: flex;
+  justify-content: space-between;
+}
+
+.rearlights-road-car .light {
+  width: 10px;
+  height: 4px;
+  background: rgb(111, 0, 0);
+}
+
+.headlights-road-car {
+  display: flex;
+  justify-content: space-between;
+}
+
+.headlights-road-car .light {
+  width: 10px;
+  height: 7px;
+  background: rgb(238, 255, 0);
+}
+
+.road {
+  height: 100%;
+  width: 15%;
+  display: flex;
+}
+
+.road:last-of-type {
+  border-left: 5px solid black;
+}
+
+.side-road {
+  width: 10%;
+  height: 100%;
+  background: rgb(173, 172, 172);
+}
+
+.main-road {
+  width: 90%;
+  background: #1d1d1d;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.white-line {
+  height: 20%;
+  width: 5%;
+  background: white;
+}
