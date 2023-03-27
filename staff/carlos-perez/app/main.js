@@ -179,8 +179,8 @@ document.querySelector('.formulario').addEventListener('submit', function (event
 
     if (result === true) {
         resetRegister();
-        registerPage.classList.add('off');
-        loginPage.classList.remove('off');
+        hideSection(registerPage);
+        showSection(loginPage);
     }
     else {
         alert("Ha habido un error en el registro");
@@ -195,8 +195,8 @@ document.querySelector('.formulario-login').addEventListener('submit', function 
     var password = loginPage.querySelector('input[type=password]').value;
 
     if (authenticateUser(email, password) === true) {
-        loginPage.classList.add('off');
-        homePage.classList.remove('off');
+        hideSection(loginPage);
+        showSection(homePage);
         headerLogged();
         addProfileNameAndImage(activeUser);
     }
@@ -209,14 +209,14 @@ document.querySelector('.formulario-login').addEventListener('submit', function 
 
 registerPage.querySelector('a').addEventListener('click', function (event) {
     event.preventDefault();
-    registerPage.classList.add('off');
-    loginPage.classList.remove('off');
+    hideSection(registerPage);
+    showSection(loginPage);
 })
 
 loginPage.querySelector('a').addEventListener('click', function (event) {
     event.preventDefault();
-    loginPage.classList.add('off');
-    registerPage.classList.remove('off');
+    hideSection(loginPage);
+    showSection(registerPage);
 })
 
 profileColumn.querySelector('.button-profile').addEventListener('click', function (event) {
@@ -290,6 +290,8 @@ profileView.querySelector('.button-change-password').addEventListener('click', f
 
 profileView.querySelector('.button-close-profile').addEventListener('click', function(event){
     event.preventDefault();
+    hideSection(mailChange);
+    hideSection(passwordChange);
     hideSection(profileView);
     showSection(homeSaludo);
 })
