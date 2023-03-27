@@ -67,7 +67,9 @@ loginRegistrationAnchor.addEventListener("click", function (event){
 })
 logOutButton.addEventListener("click", () => {
     homePage.classList.add("off");
+    changePasswordMenu.classList.add("off");
     logInPage.classList.remove("off");
+
     authenticatedEmail = "";
     resetUserNameInHeader();
 })
@@ -102,7 +104,19 @@ changePasswordForm.addEventListener("submit", (event) => {
     }
 })
 
+//FUNCION TEMPORAL PARA QUITAR TODOS LOS ANCHORS VACIOS TEMPORALES 
 
+document.querySelector(".forgot-password-anchor").addEventListener("click", (event) => {
+    event.preventDefault();
+})
+
+document.querySelector(".option2").addEventListener("click", (event) => {
+    event.preventDefault();
+})
+
+document.querySelector(".option3").addEventListener("click", (event) => {
+    event.preventDefault();
+})
 
 
 
