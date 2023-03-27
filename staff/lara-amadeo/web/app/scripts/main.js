@@ -53,7 +53,6 @@ loginPage.querySelector('.primary-button').addEventListener('click', function(ev
 
         loginPage.classList.add('off')
         homePage.classList.remove('off')
-        homePage.querySelector('.profile').classList.add('off')
         homePage.querySelector('.homepage-hello').innerHTML = "Hello " + authenticatedName + "!"
 
     } else loginPage.querySelector('.error-message').classList.remove('off') 
@@ -68,14 +67,20 @@ homePage.querySelector('#logout').addEventListener('click', function(event){
     loginPage.classList.remove('off')
 })
 
-homePage.querySelector('#profile').addEventListener('click', function(event){
+homePage.querySelector('#update-password').addEventListener('click', function(event){
     event.preventDefault()
 
-    homePage.querySelector('.profile').classList.remove('off')
+    homePage.querySelector('.update-password').classList.remove('off')
+})
+
+homePage.querySelector('#update-mail').addEventListener('click', function(event){
+    event.preventDefault()
+
+    homePage.querySelector('.update-mail').classList.remove('off')
 })
 
 //Confirm update password
-homePage.querySelector('.primary-button').addEventListener('click', function(event){
+homePage.querySelector('#save-update-password').addEventListener('click', function(event){
     event.preventDefault()
 
     var currentPassword = homePage.querySelector('input[name=currentPassword]').value
@@ -99,20 +104,43 @@ if (!currentPasswordChecked){
             homePage.querySelector('input[name=currentPassword]').value = ""
             homePage.querySelector('input[name=newPassword]').value = ""
             homePage.querySelector('input[name=confirmNewPassword]').value = ""
-                        
+
         } else alert("New passwords doesn't match")
     }
 }
 })
 
 
-homePage.querySelector('.secondary-button').addEventListener('click', function(event){
+homePage.querySelector('#cancel-update-password').addEventListener('click', function(event){
     event.preventDefault()
 
     homePage.querySelector('.profile').classList.add('off')
 })
 
-//alerts salgan en pantalla y no en alerts
+//Confirm update mail
 
+homePage.querySelector('#save-update-email').addEventListener('click', function(event){
+    event.preventDefault()
 
+    var currentEmail = homePage.querySelector('input[name=currentEmail]').value
+    var newEmail = homePage.querySelector('input[name=newEmail]').value
+    var confirmNewEmail = homePage.querySelector('input[name=confirmNewEmail]').value
 
+    var currentEmailChecked = checkCurrentEmail(currentEmail)
+    var newEmailsMatching = checkEmailMatch(newEmail, confirmNewEmail)
+
+    if (!currentEmailChecked){
+        alert("The email you entered doesn't match your current email")
+    } else {
+        if (!newEmailsMatching){
+            alert("New emails doesn't match")
+        } else {updateEmail(users, authenticatedEmail, newEmail)
+            alert('Email updated!')
+
+            homePage.querySelector('input[name=currentEmail]').value = ""
+            homePage.querySelector('input[name=newEmail]').value = ""
+            homePage.querySelector('input[name=confirmNewEmail]').value = ""
+        }
+
+    }
+})

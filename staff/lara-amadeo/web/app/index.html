@@ -72,15 +72,15 @@
 
             <div class="topbar-actions">
                 
-                <a class="link">Stuff</a>
-                <a class="link" id="profile" href="">Profile</a>
+                <a class="link" id="update-mail">Update email</a>
+                <a class="link" id="update-password" href="">Update password</a>
                 <a class="link" id="logout" href="">Log out</a>
                 
             </div>
            
         </header>
 
-        <div class="profile off">
+        <div class="update-password off">
             
             <div class="centered-containers">
                 <h1 class="title">Profile settings</h1>
@@ -98,8 +98,33 @@
                     <input type="password" name="confirmNewPassword" class="text-field">
                     
                     <div class="button-bar">
-                    <button class="secondary-button" type="submit">Cancel</button>
-                    <button class="primary-button" type="submit">Save</button>
+                    <button class="secondary-button" id="cancel-update-password" type="submit">Cancel</button>
+                    <button class="primary-button" id="save-update-password" type="submit">Save</button>
+                    </div>
+                </form>
+        </div>
+        </div>
+
+        <div class="update-mail off">
+            
+            <div class="centered-containers">
+                <h1 class="title">Profile settings</h1>
+                <h2 class="subtitle">Email update</h2>
+               
+                <form class="centered-form">
+    
+                    <label for="currentEmail" class="text-field-label">Current email</label>
+                    <input type="text" name="currentEmail" class="text-field">
+    
+                    <label for="newEmail" class="text-field-label">New email</label>
+                    <input type="text" name="newEmail" class="text-field">
+
+                    <label for="confirmNewEmail" class="text-field-label">Confirm new email</label>
+                    <input type="text" name="confirmNewEmail" class="text-field">
+                    
+                    <div class="button-bar">
+                    <button class="secondary-button" id="cancel-update-email" type="submit">Cancel</button>
+                    <button class="primary-button" id="save-update-email" type="submit">Save</button>
                     </div>
                 </form>
         </div>

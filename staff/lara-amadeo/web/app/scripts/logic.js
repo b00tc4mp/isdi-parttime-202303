@@ -6,7 +6,6 @@ var checkUserExists = (registrationName, registrationEmail, registrationPassword
         
         if(registrationEmail === user.email){
             foundUser = user
-        
         } 
     }
     
@@ -17,7 +16,6 @@ var checkUserExists = (registrationName, registrationEmail, registrationPassword
                 password: registrationPassword
                })
             return true
-
     } else return false 
 }
 
@@ -52,14 +50,33 @@ var checkPasswordMatch = (newPassword, confirmNewPassword) => {
 }
 
 var updatePassword = (users, authenticatedEmail, newPassword) =>{
-    var foundUser
-
     for (let i = 0; i < users.length; i++){
         var user = users[i]
+        
         if (user.email === authenticatedEmail){
-            foundUser = user
-            foundUser.password = newPassword
-            users[i] = foundUser
+            users[i].password = newPassword
         }
+    }
+}
+
+var checkCurrentEmail = (currentEmail) => {
+    if (currentEmail !== authenticatedEmail){
+        return false
+    } else return true
+}
+
+var checkEmailMatch = (newEmail, confirmNewEmail) => {
+    if (newEmail !== confirmNewEmail){
+        return false
+    } else return true
+}
+
+var updateEmail = (users, authenticatedEmail, newEmail) => {
+    for (let i = 0; i < users.length; i++){
+        user = users[i]
+
+        if (user.email === authenticatedEmail){
+                users[i].email = newEmail
+        } 
     }
 }
