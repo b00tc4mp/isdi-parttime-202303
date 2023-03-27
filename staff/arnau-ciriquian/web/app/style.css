@@ -16,7 +16,7 @@ body {
 /* Styles */
 
 :root {
-    --basecolor: rgba(0, 0, 0);
+    --textcolor: rgb(255, 255, 255);
 }
 
 .blue-hex {
@@ -53,11 +53,13 @@ body {
     background-image: linear-gradient(to bottom, rgba(7, 65, 34, 0.892), rgba(0, 0, 0, 0));
 }
 
-.register, .home, .login, home__main, .home__profile, .home__password {
+.page {
     min-width: 250px;
-    min-height: 275px;
+    min-height: 350px;
     width: 70vw;
     height: 80vw;
+    max-width: 350px;
+    max-height: 375px;
     background-color: rgba(0, 148, 198, 0.577);
     border-radius: 5%;
     display: flex;
@@ -66,14 +68,13 @@ body {
     align-items: center;
 }
 
-.home__profile, .home__password {
+.home__profile, .home__password, .home__main {
     background-color: rgba(0, 148, 198, 0)
 }
 
 a, .text {
-    /*color: var(--basecolor)*/
+    color: var(--textcolor);
     width: 100%;
-    color: rgb(255, 255, 255);
     text-align: center;
     text-shadow: 0px 1px 10px rgb(0, 221, 255);
 }
@@ -83,9 +84,8 @@ form {
     height: 60%;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
-    gap: 1rem;
 }
 
 .form-input {
@@ -96,6 +96,14 @@ form {
     box-shadow: 0px 1px 10px rgb(0, 242, 255);
 }
 
+.form-input-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 1rem;
+}
+
 .form-button {
     color: rgb(0, 0, 0);
     font-weight: bolder;
@@ -103,7 +111,6 @@ form {
     height: 40px;
     border-radius: 20px;
     background-color: rgba(156, 243, 255, 0.88);
-    /* background-image: linear-gradient(rgb(156, 243, 255), rgb(215, 120, 255)); */
     box-shadow: 0px 1px 10px rgb(0, 242, 255);
 }
 
@@ -111,4 +118,10 @@ form {
     display: none;
 }
 
+@media (min-width: 768px) {
+    .page {
+        width: 350px;
+        height: 375px;
+    }
+}
 /* BEM methodology */

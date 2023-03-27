@@ -11,39 +11,43 @@
     <div class="pattern-hex blue-hex "></div>
     <div class="pattern-color purple-gradient"></div>
 
-    <div class="register off">
+    <div class="register page off">
         <h1 class="text">Register</h1>
         <!--TODO implement register page-->
 
         <form class="register-form">
-            <input class="user-input form-input" type="text" name="name" placeholder="name">
-            <input class="register-input form-input" type="email" name="email" placeholder="email">
-            <input class="register-input form-input" type="password" name="password" placeholder="password">
-            <input class="register-input form-input" type="password" name="password-confirmation" placeholder="password confirmation">
+            <div class="form-input-box">
+                <input class="user-input form-input" type="text" name="name" placeholder="name">
+                <input class="register-input form-input" type="email" name="email" placeholder="email">
+                <input class="register-input form-input" type="password" name="password" placeholder="password">
+                <input class="register-input form-input" type="password" name="password-confirmation" placeholder="password confirmation">
+            </div>
             <button class="register-button form-button" type="submit">Register</button>
         </form>
 
         <p class="text">Go to <a href="">Login</a></p>
 
     </div>
-    <div class="login _off">
+    <div class="login page off">
         <h1 class="text">Login</h1>
 
         <form class="login-form">
-            <input class="login-input form-input" type="email" name="email" placeholder="email">
-            <input class="login-input form-input" type="password" name="password" placeholder="password">
+            <div class="form-input-box">
+                <input class="login-input form-input" type="email" name="email" placeholder="email">
+                <input class="login-input form-input" type="password" name="password" placeholder="password">
+            </div>
             <button class="login-button form-button" type="submit">Login</button>
         </form>
 
         <p class="text">Go to <a href="">Register</a></p>
     
     </div>
-    <div class="home off">
-        <div class="home__main off">
+    <div class="home page _off">
+        <div class="home__main page _off">
             <h1 class="text home-tittle"></h1>
             <p class="text"><a class="profile__anchor" href="">Profile</a></p>
         </div>
-        <div class="home__profile off">
+        <div class="home__profile page off">
             <h2 class="text profile__user">Pepito Grillo</h2>
             <p class="text"><a href="">Change user name</a></p>
             <p class="text"><a class="profile__password" href="">Change password</a></p>
@@ -51,14 +55,17 @@
             <p class="text"><a class="home__anchor" href="">Home</a></p>
             <p class="text"><a class="logout" href="">Log out</a></p>
         </div>
-        <div class="home__password off">
+        <div class="home__password page off">
+            <h1 class="text">Change password</h1>
             <form class="password-form">
-                <input class="password-input form-input" type="password" name="old-password" placeholder="old password">
-                <input class="password-input form-input" type="password" name="new-password" placeholder="new password">
-                <input class="password-input form-input" type="password" name="new-password-confirmation" placeholder="new password confirmation">
+                <div class="form-input-box">
+                    <input class="password-input form-input" type="password" name="old-password" placeholder="old password">
+                    <input class="password-input form-input" type="password" name="new-password" placeholder="new password">
+                    <input class="password-input form-input" type="password" name="new-password-confirmation" placeholder="new password confirmation">
+                </div>
                 <button class="password-button form-button" type="submit">Change password</button>
-                <p class="text"><a class="password-to-profile" href="">Profile</a></p>
             </form>
+            <p class="text"><a class="password-to-profile" href="">Profile</a></p>
         </div>
     </div>
 

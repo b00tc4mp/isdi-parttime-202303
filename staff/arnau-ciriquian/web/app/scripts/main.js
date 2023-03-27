@@ -49,16 +49,7 @@ loginPage.querySelector('form').addEventListener('submit', function(event) {
         homePage.classList.remove('off')
         homePage.querySelector('.home__main').classList.remove('off')
         homePage.querySelector('.home-tittle').innerHTML = `Welcome ${loggedUser.name}!`
-    } 
-    
-    //Easter Egg
-    /*if (foundUser === undefined && password === 'orange') {
-        document.querySelector('.pattern-hex').classList.add('orange-hex')
-        document.querySelector('.pattern-hex').classList.remove('blue-hex')
-        document.querySelector('.pattern-color').classList.add('green-gradient')
-        document.querySelector('.pattern-color').classList.remove('purple-gradient')
-    }*/
-    //
+    }
 })
 
 registerPage.querySelector('a').addEventListener('click', function(event) {
