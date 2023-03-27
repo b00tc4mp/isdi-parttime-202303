@@ -86,7 +86,7 @@ function changePassword(oldpass, newpass, passcheck) {
 }
 
 function changeMail(oldmail, newmail, mailcheck){
-    if((oldmail=users[userExist(activeUser.email)].email) && (newmail===mailcheck)){
+    if((oldmail===users[userExist(activeUser.email)].email) && (newmail===mailcheck)){
         users[userExist(activeUser.email)].email = newmail;
         activeUser.email=newmail;
         return true;
