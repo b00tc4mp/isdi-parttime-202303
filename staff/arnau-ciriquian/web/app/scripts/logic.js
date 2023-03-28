@@ -90,6 +90,7 @@ function updateUserEmail(email, newEmail, newEmailConfirmation) {
     var foundUser = findUserByEmail(email)
     var newEmailUserFound = findUserByEmail(newEmail)
 
+    if (email !== authenticatedEmail) throw new Error('email does not correspond to acount email')
     if (!foundUser) throw new Error('user not found')
     if (email !== foundUser.email) throw new Error('email does not correspond to actual email')
     if (!newEmail.match(/\S+@\S+\.\S+/)) throw new Error('new email is not a valid adress')
@@ -97,4 +98,5 @@ function updateUserEmail(email, newEmail, newEmailConfirmation) {
     if (newEmail !== newEmailConfirmation) throw new Error('new email confirmation is different than new email')
 
     foundUser.email = newEmail
+    authenticatedEmail = newEmail
 }
