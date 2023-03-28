@@ -30,7 +30,7 @@
         <p class="text">Go to <a class="register__anchor--login" href="">Login</a></p>
 
     </div>
-    <div class="login page _off">
+    <div class="login page off">
         <h1 class="text">Login</h1>
 
         <form class="login__form">
@@ -49,16 +49,17 @@
         <p class="text">Go to <a class="login__anchor--register" href="">Register</a></p>
     
     </div>
-    <div class="home page off">
+    <div class="home page _off">
         <div class="home__main page off">
             <h1 class="text home__tittle"></h1>
             <p class="text"><a class="home__anchor--profile" href="">Profile</a></p>
         </div>
-        <div class="home__profile page off">
-            <h2 class="text profile__user">Pepito Grillo</h2>
-            <p class="text"><a href="">Change user name</a></p>
+        <div class="home__profile page _off">
+            <h2 class="text profile__user">Admin</h2>
+            <p class="text off"><a href="">Change user name</a></p>
+            <p class="text"><a class="profile__anchor--email" href="">Change email</a></p>
             <p class="text"><a class="profile__anchor--password" href="">Change password</a></p>
-            <p class="text"><a href="">Change colors</a></p>
+            <p class="text off"><a href="">Change colors</a></p>
             <p class="text"><a class="profile__anchor--home" href="">Home</a></p>
             <p class="text"><a class="profile__anchor--logout" href="">Log out</a></p>
         </div>
@@ -73,6 +74,18 @@
                 <button class="form__button" type="submit">Change password</button>
             </form>
             <p class="text"><a class="password__anchor--profile" href="">Profile</a></p>
+        </div>
+        <div class="home__email page off">
+            <h1 class="text">Change email</h1>
+            <form class="email__form">
+                <div class="inputs__box">
+                    <input class="form__input" type="email" name="old-email" placeholder="old email">
+                    <input class="form__input" type="email" name="new-email" placeholder="new email">
+                    <input class="form__input" type="email" name="new-email-confirmation" placeholder="new email confirmation">
+                </div>
+                <button class="form__button" type="submit">Change email</button>
+            </form>
+            <p class="text"><a class="email__anchor--profile" href="">Profile</a></p>
         </div>
     </div>
 

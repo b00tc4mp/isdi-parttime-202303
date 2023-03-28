@@ -18,8 +18,6 @@ users.push({
     password: '123123123',
 })
 
-var loggedUser = {}
-
 function findUserByEmail(email) {
     var foundUser
 
