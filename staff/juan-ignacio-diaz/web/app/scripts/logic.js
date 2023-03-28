@@ -1,73 +1,47 @@
 function registerUser (username, email, password) {
-    if (username==="") 
-        return 2
-    else if (email.includes("@") == false) 
-        return 3
-    else if (password.length<8) 
-        return 4
+    if (username==="") throw new Error("the name is empty", {type: 2})
+    if (email.includes("@") == false) throw new Error("the email is wrong", {type: 3})
+    if (password.length<8) throw new Error("password must be greater than eight characters", {type: 4})
+
+    var foundUser = findUserByEmail(email)
     
-    for (var i=0; i<users.length;i++){
-        var user=users[i]
-        if (user.email === email) {
-            return 0
-        }
-    }
+    if (foundUser) throw new Error("user already exists", {type: 0})
 
     users.push ({
         name: username,
         email: email,
         password: password
     })
-    return 1
+
 }
 
 function authenticateUser(email, password) {
-    var foundUser
+    var foundUser = findUserByEmail(email)
 
-    for (var i = 0; i < users.length; i++) {
-        var user = users[i]
-
-        if (user.email === email) {
-            foundUser = user
-
-            break
-        }
-    }
-
-    if (!foundUser || foundUser.password !== password) 
-        return false
+    if (!foundUser || foundUser.password !== password) throw new Error("wrong email or password")
     
     return true 
 }
 
 function updateUserPassword(email, password, newPassword, newPasswordConfirm) {
+    if (newPassword === password) throw new Error("the new password is equal to the old password", {type: 2})
+    if (newPassword.length < 8) throw new Error("the new password must be greater than eight characters", {type: 3})
+    if (newPassword !== newPasswordConfirm) throw new Error("the confirm password is different than then new password", {type: 4})
 
-    if  (newPassword === password)
-        return 2
-    else if (newPassword.length < 8)
-        return 3
-    else if (newPassword !== newPasswordConfirm)
-        return 4
+    var foundUser = findUserByEmail(email)
 
-    for (var i = 0; i < users.length; i++) {
-        var user = users[i]
+    if (!foundUser) throw new Error("Error to user")
+    if (foundUser.password !== newPassword)  throw new Error("Error the pasword is invalid")
 
-        if (user.email === email) {
-            user.password = newPassword
+    user.password = newPassword
 
-            break
-        }
-    }
-
-    return 1
+    return true
 }
 
 function nameEmail (email) {
-    for (var i = 0; i < users.length; i++) {
-        var user = users[i]
+    var foundUser = findUserByEmail(email)
+    if (!foundUser) throw new Error("Error to user")
+   
+    return foundUser.name
 
-        if (user.email === email) {
-            return user.name
-        }
-    }
 }
