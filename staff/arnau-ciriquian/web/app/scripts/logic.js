@@ -1,3 +1,53 @@
+function addNewUser(name, email, password) {
+    users.push({
+        name: name,
+        email: email,
+        password: password,
+        })
+}
+
+function authenticateUser(email, password) {
+    var foundUser
+
+    for (var i = 0; i < users.length; i++) {
+        var user = users[i]
+
+        if (user.email === email) {
+            foundUser = user
+
+            break
+        }
+    }
+
+    if (!foundUser || foundUser.password !== password) {
+        return false
+    }
+
+    return true
+}
+
+function getLoggedUser(email) {
+    
+    // no aportar tot el user, conte info delicada com el password, podriem tornar nomes nom i mail 20230327 2004
+    
+        for (var i = 0; i < users.length; i++) {
+            var user = users[i]
+    
+            if (user.email === email) {
+                loggedUser = {
+                    name: user.name,
+                    email: user.email
+                }
+    
+                break
+            }
+        }
+    
+        //faltaria if de seguretat per si no es troba el user
+    
+        return true
+    }
+
 function confirmUser(email) {
     
     for (var i = 0; i < users.length; i++) {
@@ -40,57 +90,12 @@ function confirmSamePassword(password, confirmedPassword) {
     return true
 }
 
-function addNewUser(name, email, password) {
-    users.push({
-        name: name,
-        email: email,
-        password: password,
-        })
-}
+function showHidePassword() {
+    var password = loginPage.querySelector('.login__password')
 
-function authenticateUser(email, password) {
-    var foundUser
-
-    for (var i = 0; i < users.length; i++) {
-        var user = users[i]
-
-        if (user.email === email) {
-            foundUser = user
-
-            break
-        }
+    if (password.type === 'password') {
+        password.type = 'text'
+    } else {
+        password.type = 'password'
     }
-
-    if (!foundUser || foundUser.password !== password) {
-        return false
-    }
-
-    return true
-}
-
-function getLoggedUser(email) {
-    
-    for (var i = 0; i < users.length; i++) {
-        var user = users[i]
-
-        if (user.email === email) {
-            loggedUser = user
-
-            break
-        }
-    }
-
-    return true
-}
-
-function updateUserPassword(email, newPassword) {
-    for (let i = 0; i < users.length; i++) {
-        if (users[i].email === email) {
-            users.splice(i, 1);
-        }
-    }
-
-    loggedUser.password = newPassword
-
-    users.push(loggedUser)
 }

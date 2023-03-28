@@ -1,8 +1,11 @@
 var registerPage = document.querySelector('.register')
 var loginPage = document.querySelector('.login')
 var homePage = document.querySelector('.home')
+var homePageProfile = homePage.querySelector('.home__profile')
+var homePagePassword = homePage.querySelector('.home__password')
+var homePageMain = homePage.querySelector('.home__main')
 
-registerPage.querySelector('form').addEventListener('submit', function(event) {
+registerPage.querySelector('form').onsubmit = function(event) {
     event.preventDefault()
 
     var newUser = registerPage.querySelector('input[name=name]').value
@@ -31,9 +34,9 @@ registerPage.querySelector('form').addEventListener('submit', function(event) {
         registerPage.classList.add('off')
         loginPage.classList.remove('off')
     }
-})
+}
 
-loginPage.querySelector('form').addEventListener('submit', function(event) {
+loginPage.querySelector('form').onsubmit = function(event) {
     event.preventDefault()
 
     var email = loginPage.querySelector('input[name=email]').value
@@ -47,60 +50,60 @@ loginPage.querySelector('form').addEventListener('submit', function(event) {
         getLoggedUser(email)
         loginPage.classList.add('off')
         homePage.classList.remove('off')
-        homePage.querySelector('.home__main').classList.remove('off')
-        homePage.querySelector('.home-tittle').innerHTML = `Welcome ${loggedUser.name}!`
+        homePageMain.classList.remove('off')
+        homePage.querySelector('.home__tittle').innerText = `Welcome, ${loggedUser.name}!`
     }
-})
+}
 
-registerPage.querySelector('a').addEventListener('click', function(event) {
+registerPage.querySelector('.register__anchor--login').onclick = function(event) {
     event.preventDefault()
     
     registerPage.classList.add('off')
     loginPage.classList.remove('off')
-})
+}
 
-loginPage.querySelector('a').addEventListener('click', function(event) {
+loginPage.querySelector('.login__anchor--register').onclick = function(event) {
     event.preventDefault()
     
     loginPage.classList.add('off')
     registerPage.classList.remove('off')
-})
+}
 
-homePage.querySelector('.profile__anchor').addEventListener('click', function(event) {
+homePage.querySelector('.home__anchor--profile').onclick = function(event) {
     event.preventDefault()
     
-    homePage.querySelector('.home__main').classList.add('off')
-    homePage.querySelector('.home__profile').classList.remove('off')
+    homePageMain.classList.add('off')
+    homePageProfile.classList.remove('off')
     homePage.querySelector('.profile__user').innerHTML = loggedUser.name
-})
+}
 
-homePage.querySelector('.home__anchor').addEventListener('click', function(event) {
+homePage.querySelector('.profile__anchor--home').onclick = function(event) {
     event.preventDefault()
     
-    homePage.querySelector('.home__main').classList.remove('off')
-    homePage.querySelector('.home__profile').classList.add('off')
-})
+    homePageMain.classList.remove('off')
+    homePageProfile.classList.add('off')
+}
 
-homePage.querySelector('.profile__password').addEventListener('click', function(event) {
+homePage.querySelector('.profile__anchor--password').onclick = function(event) {
     event.preventDefault()
 
-    homePage.querySelector('.home__profile').classList.add('off')
-    homePage.querySelector('.home__password').classList.remove('off')
-})
+    homePageProfile.classList.add('off')
+    homePagePassword.classList.remove('off')
+}
 
-homePage.querySelector('.logout').addEventListener('click', function(event) {
+homePage.querySelector('.profile__anchor--logout').onclick = function(event) {
     event.preventDefault()
     
     homePage.classList.add('off')
-    homePage.querySelector('.home__profile').classList.add('off')
-    homePage.querySelector('.home__main').classList.remove('off')
+    homePageProfile.classList.add('off')
+    homePageMain.classList.remove('off')
     loginPage.classList.remove('off')
     loginPage.querySelector('form').reset()
 
     loggedUser = {};
-})
+}
 
-homePage.querySelector('.password-form').addEventListener('submit', function(event) {
+homePage.querySelector('.password__form').onsubmit = function(event) {
     event.preventDefault()
 
     var oldPassword = homePage.querySelector('input[name=old-password]').value
@@ -124,16 +127,36 @@ homePage.querySelector('.password-form').addEventListener('submit', function(eve
         return alert('Please make sure that the password confimation is the same as the password!')
     }
     
-    if (oldPasswordConfirmation && passwordCharacters && passwordResult) {
-        updateUserPassword(loggedUser.email, newPassword)
-        homePage.querySelector('.home__profile').classList.remove('off')
-        homePage.querySelector('.home__password').classList.add('off')
+    if (oldPassword === newPassword) {
+        return alert('Please make sure that the new password is different than the old one!')
     }
-})
 
-homePage.querySelector('.password-to-profile').addEventListener('click', function(event) {
+    //la capa presentacio no hauria daccedir a la capa data, hauria de passar per logic i viceversa
+
+    //de moment no canvia el password
+    loggedUser.password = newPassword
+    
+    homePageProfile.classList.remove('off')
+    homePagePassword.classList.add('off')
+}
+
+homePage.querySelector('.password__anchor--profile').onclick = function(event) {
     event.preventDefault()
 
-    homePage.querySelector('.home__password').classList.add('off')
-    homePage.querySelector('.home__profile').classList.remove('off')
-})
+    homePagePassword.classList.add('off')
+    homePageProfile.classList.remove('off')
+}
+
+loginPage.querySelector('.input__password--show').onclick = function(event) {
+    event.preventDefault()
+
+    showHidePassword()
+}
+
+//TODO: canvi mail i nom usuari. Foto perfil?
+//fer canvi a try/catch
+
+//DONE 20230328 -   Implementar BEM
+//                  New pass != old pass
+//                  Refactor dels queryselectors a vars
+//                  logica show password a login
