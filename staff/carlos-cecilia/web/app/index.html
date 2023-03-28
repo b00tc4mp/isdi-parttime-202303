@@ -13,7 +13,9 @@
         <div class="header__container">
             <div>
                 <div class="header__row">
-                    <div class="header__logo">Logo</div>
+                    <div class="header__logo">
+                        Logo
+                    </div>
                     <div class="header__menu">
                         <div></div>
                         <div></div>
@@ -21,30 +23,39 @@
                     </div>
                 
                 </div>
+            </div>
         </div>
     </div>
     <div class="container">
-    <div class="register">
-        <form action="" class="register__form">
-            <h1>Register for free ISDI classes</h1>
-            <!--TODO implement register page-->
-            <input class="register__input" type="text" name="Name" placeholder="Your name">
-            <input class="register__input" type="email" name="Email" placeholder="Your email">
-            <input class="register__input" type="password" name="Password" placeholder="Your password">
-            <button class="register__button" type="submit">Register</button>
-        </form>
+        <div class="register off">
+            <div class="container__form">
+            <form action="" class="register__form">
+                <h1>Register for free ISDI classes</h1>
+                <!--TODO implement register page-->
+                <input class="register__input" type="text" name="Name" placeholder="Your name">
+                <input class="register__input" type="email" name="Email" placeholder="Your email">
+                <div class="register__password-bar"> 
+                    <div class="register__password-strength"></div>
+                </div>   
+                <input class="register__input" type="password" name="Password" placeholder="Your password">
+                <button class="register__button" type="submit">Register</button>
+            </form>
+        </div>
     </div>
 
-    <div class="login off">
-        <h1>home</h1>
+    <div class="login">
     <!--TODO implement login page-->
-    <form class="login__form">
-        <input class="login__input" type="email" name="Email" placeholder="Your email">
-        <input class="login__input" type="password" name="Password" placeholder="Your password">
-        <button class="login__button" type="submit">Login</button>
-    </form>
+    <div class="container__form">
+        <form class="login__form">
+            <h1>Login</h1>
+            <input class="login__input" type="email" name="Email" placeholder="Your email">
+            <input class="login__input" type="password" name="Password" placeholder="Your password">
+            <button class="login__button" type="submit">Login</button>
+            <a class="login__register" href="">Registrate</a> 
+        </form>
     </div>
-    <div class="name off">
+    </div>
+    <div class="home off">
         <div class="container">
             <h1>Home</h1>
         </div>
@@ -54,6 +65,8 @@
 
 
 
+<script src="js/data.js"></script>
+<script src="js/logic.js"></script>
 <script src="js/main.js"></script>
 </body>
 </html>
