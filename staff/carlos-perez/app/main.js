@@ -62,13 +62,16 @@ function addUser(name, email, password) {
 function authenticateUser(email, password) {
     let userPosition = userExist(email);
 
-    if (userPosition !== -1 && users[userPosition].password === password) {
-        activeUser = { name: users[userPosition].name, email: users[userPosition].email };
-        return true;
+    if (userPosition === -1) {
+        throw new Error("El usuario no existe");
     }
-    else {
-        return false;
+
+    if (users[userPosition].password !== password) {
+        throw new Error("Contraseña incorrecta");
     }
+
+
+    activeUser = { name: users[userPosition].name, email: users[userPosition].email };
 }
 
 function getInitials(name) {
@@ -85,18 +88,19 @@ function changePassword(oldpass, newpass, passcheck) {
     }
 }
 
-function changeMail(oldmail, newmail, mailcheck){
-    let userPosition=userExist(activeUser.email);
-    if(userPosition !== -1){
-    if((oldmail===users[userPosition].email) && (newmail===mailcheck)){
-        users[userExist(activeUser.email)].email = newmail;
-        activeUser.email=newmail;
-        return true;
+function changeMail(oldmail, newmail, mailcheck) {
+    let userPosition = userExist(activeUser.email);
+    if (userPosition !== -1) {
+        if ((oldmail === users[userPosition].email) && (newmail === mailcheck)) {
+            users[userExist(activeUser.email)].email = newmail;
+            activeUser.email = newmail;
+            return true;
+        }
+        else {
+            return false;
+        }
     }
-    else{
-        return false;
-    }}
-    else{
+    else {
         return false;
     }
 }
@@ -123,34 +127,34 @@ var homePage = document.querySelector('.home');
 var homeSaludo = document.querySelector('.saludo');
 var profileColumn = document.querySelector('.profile-column');
 var profileView = document.querySelector('.profile-view');
-var header=document.querySelector('.header');
-var homeTitle=homePage.querySelector('.title');
-var mailChange=profileView.querySelector('.mail-change');
-var passwordChange=profileView.querySelector('.password-change');
+var header = document.querySelector('.header');
+var homeTitle = homePage.querySelector('.title');
+var mailChange = profileView.querySelector('.mail-change');
+var passwordChange = profileView.querySelector('.password-change');
 
-function resetRegister(){
-    registerPage.querySelector('input[id=nombre]').value=null;
-    registerPage.querySelector('input[type=email]').value=null;
-    registerPage.querySelector('input[type=password]').value=null;
+function resetRegister() {
+    registerPage.querySelector('input[id=nombre]').value = null;
+    registerPage.querySelector('input[type=email]').value = null;
+    registerPage.querySelector('input[type=password]').value = null;
 }
 
-function resetLogin(){
-    loginPage.querySelector('input[type=email]').value=null;
-    loginPage.querySelector('input[type=password]').value=null;
+function resetLogin() {
+    loginPage.querySelector('input[type=email]').value = null;
+    loginPage.querySelector('input[type=password]').value = null;
 }
 
-function resetProfileView(){
+function resetProfileView() {
     profileView.querySelector('.password-old').value = null;
     profileView.querySelector('.password-new').value = null;
     profileView.querySelector('.password-new-check').value = null;
 }
 
-function headerLogged(){
+function headerLogged() {
     hideSection(header);
     showSection(homeTitle);
 }
 
-function headerNotLogged(){
+function headerNotLogged() {
     hideSection(homeTitle);
     showSection(header);
 }
@@ -194,17 +198,16 @@ document.querySelector('.formulario-login').addEventListener('submit', function 
     var email = loginPage.querySelector('input[type=email]').value;
     var password = loginPage.querySelector('input[type=password]').value;
 
-    if (authenticateUser(email, password) === true) {
+    try {
+        authenticateUser(email, password);
         hideSection(loginPage);
         showSection(homePage);
         headerLogged();
         addProfileNameAndImage(activeUser);
     }
-    else {
-        alert("Usuario o contraseña incorrectos");
+    catch (error) {
+        console.log(error);
     }
-
-
 })
 
 registerPage.querySelector('a').addEventListener('click', function (event) {
@@ -228,9 +231,9 @@ profileColumn.querySelector('.button-profile').addEventListener('click', functio
     resetProfileView();
 })
 
-profileColumn.querySelector('.button-exit').addEventListener('click', function (event){
+profileColumn.querySelector('.button-exit').addEventListener('click', function (event) {
     event.preventDefault();
-    activeUser=null;
+    activeUser = null;
     resetLogin();
     hideSection(homePage);
     headerNotLogged();
@@ -271,7 +274,7 @@ profileView.querySelector('.button-cancel-mail').addEventListener('click', funct
     hideSection(mailChange);
 })
 
-profileView.querySelector('.button-change-mail').addEventListener('click', function (event){
+profileView.querySelector('.button-change-mail').addEventListener('click', function (event) {
     event.preventDefault();
     hideSection(passwordChange);
     showSection(mailChange);
@@ -282,13 +285,13 @@ profileView.querySelector('.button-cancel-password').addEventListener('click', f
     hideSection(passwordChange);
 })
 
-profileView.querySelector('.button-change-password').addEventListener('click', function (event){
+profileView.querySelector('.button-change-password').addEventListener('click', function (event) {
     event.preventDefault();
     hideSection(mailChange);
     showSection(passwordChange);
 })
 
-profileView.querySelector('.button-close-profile').addEventListener('click', function(event){
+profileView.querySelector('.button-close-profile').addEventListener('click', function (event) {
     event.preventDefault();
     hideSection(mailChange);
     hideSection(passwordChange);
