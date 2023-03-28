@@ -18,7 +18,6 @@ function registerUser(name, email, password) {
 
 //TODO go to login
 function authenticateUser (email, password) {
-    
     var foundUser= findUserByEmail(email)
 
     // TODO codificar que foundUser.password es un número
@@ -27,7 +26,7 @@ function authenticateUser (email, password) {
     }else{
         return true
         
-    }
+    } 
 }
 
 /*
@@ -55,43 +54,30 @@ function retrieveUser(email) {
 // Function to validate changes or password--homepage-- hay que validarlo con el email
 
 function validatedNewPassword(email, password, userNewPassword,userConfirmNewPassword) {
- 
     var foundUser= findUserByEmail(email)
 
     if(!foundUser){
         return false
     }
-    
     if (userNewPassword !== userConfirmNewPassword){
         alert('please, confirm the same new password you entered')
         return false
     } 
-    
     if (foundUser.password !== password){
         alert('wrong actual password')
         return false
-    
     } 
     if(password === userNewPassword){
         alert('You have to change the password')
         return false
     } else {
-    
         if(foundUser&& userNewPassword === userConfirmNewPassword){
-            //remove un password por otro
-            //foundUser.password = newPassword
-            console.log("sustituyo password")
+           foundUser.password = userNewPassword
+           
          return true
         }
     }    
-    
 }
 
 
 
-/*
-TODO show "hello, <username>" on login
-TODO add link to profile in home page and open a profile panel
-TODO add a form in profile panel to allow the user to update his/her password (asking 
-current password, and new password and new password confirmation 
-*/
