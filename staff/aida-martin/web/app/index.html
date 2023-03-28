@@ -79,7 +79,7 @@
 
         <a href="#" class="forgot-password-link">Forgot password?</a>
 
-        <p class="login-error error off">Wrong email or password! 😥</p>
+        <p class="login-error error off"></p>
 
         <div class="button">
           <button class="login-button">LOG IN</button>
@@ -93,8 +93,54 @@
     </div>
 
     <div class="home off">
+
+      <button class="profile-logout">LOG OUT</button>
+      <a href="" class="profile-link">Profile</a>
+ 
+
       <h1 class="home-title">Hi <span class="name"></span>,</h1>
       <h2>what do you want to do today?</h2>
+
+    </div>
+
+    <div class="profile off">
+
+      <h1 class="profile-title">YOUR PROFILE</h1>
+      <button class="profile-change-password">CHANGE PASSWORD</button>
+
+
+
+    </div>
+
+    <div class="change-password off">
+      <h1 class="change-password-title">CHANGE YOUR PASSWORD</h1>
+
+      <form class="change-password-form" action="get">
+        <input
+          class="change-password-input"
+          type="password"
+          name="old-password"
+          placeholder="Old password"
+        />
+
+        <input
+          class="change-password-input"
+          type="password"
+          name="new-password"
+          placeholder="New password"
+        />
+
+        <input
+        class="change-password-input"
+        type="password"
+        name="repeat-new-password"
+        placeholder="Repeat new password"
+      />
+
+      <p class="change-password-error error off"></p>
+
+      <button class="change-password-button">CHANGE</button>
+      </form>
 
     </div>
 
