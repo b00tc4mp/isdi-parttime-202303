@@ -87,32 +87,37 @@
         <div class="container">
             <div class="content">
                 <h2>Hi</h2>
-                <div class="update-info">
+                <div class="update update-info">
                     <p><strong>Update your information</strong></p>
                     <p class="message success"></p> 
                     <button class="button--update-info__profile">Update my profile</button>
-                    <form class="user-info off">
+                    <form class="data user-info off">
                         <label for="">Your name</label>
                         <input type="text" value="" name="name" disabled>
                         <label for="">Your email</label>
                         <input type="email" value="" name="email" disabled>
-                        <button class="button--update-info__save-info">Save</button>
+                        <div class="buttons">
+                            <button class="button--update-info__cancel-info">Cancel</button>
+                            <button class="button--update-info__save-info">Save</button>
+                        </div>
                         
                     </form>
                 </div>
-                <div class="update-password">
+                <div class="update update-password">
                     <p><strong>Update your password</strong></p>
                     <p class="message"></p> 
                     <button class="button--update-info__password">Update password</button>
-                    <form class="user-password off">
+                    <form class="data user-password off">
                         <label for="">Current password</label>
                         <input class="current-password" type="password" value="" name="password" disabled>
                         <label for="">New password</label>
                         <input class="new-password" type="password" value="" name="password" disabled>
                         <label for="">Repeat password</label>
                         <input class="repeat-password" type="password" value="" name="password" disabled>
-                        <button class="button--update-info__save-password">Save</button>
-
+                        <div class="buttons">
+                            <button class="button--update-info__cancel-password">Cancel</button>
+                            <button class="button--update-info__save-password">Save</button>
+                        </div>
                     </form>
                 </div>
             </div>

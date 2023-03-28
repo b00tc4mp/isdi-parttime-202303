@@ -1,11 +1,13 @@
 function registerUser(name,email, password) {
     var registerUserSuccess
+    validateEmail(email)
     var checkEmail = users.find(user => user.email === email)
         if(checkEmail) {
             registerUserSuccess = false
-            return false
+            throw new Error('Email already registered')
         }
         if(checkEmail !== email) {
+            name = name.trim()
             users.push({
                 name: name,
                 email: email,
@@ -18,22 +20,24 @@ function registerUser(name,email, password) {
 }
 function authenticateUser(email, password)  {
     var checkAuthenticationSuccess
+    console.log(email)
     var checkEmail = users.find(user => user.email === email)
     var checkPassword = users.find(user => user.password === password)
+    
 
-    if (checkEmail.email !== email || checkPassword.password !== password) {
-        checkAuthenticationSuccess = false
-    }
-    if (checkEmail.email === email && checkPassword.password === password) {
-        checkAuthenticationSuccess = true
+    if (!checkEmail) {
+        throw new Error('User or password incorrect')
     }
 
-    if(!checkAuthenticationSuccess) {
-        return false
+    if (!checkPassword) {
+        throw new Error('User or password incorrect')
     }
-    if (checkAuthenticationSuccess) {
-        return true
-    }
+    alert('hey')
+
+
+    // if (checkAuthenticationSuccess) {
+    //     return true
+    // }
 }
 
 function gerUserName(email) {
@@ -54,31 +58,69 @@ function pushUserDataInForm(email) {
     }
 }
 
-function updateUserInfo(email) {
-    var currentUser = users.find(user => user.email === email)
+// function updateUserInfo(email) {
+//     var newName = userAccount.querySelector('form.user-info input[name="name"]').value
+//     var newEmail = userAccount.querySelector('form.user-info input[name="email"]').value
+//     for(i = 0; i < users.length; i++){
+//         var currentUser = users[i]
+//         if (currentUser.name === newName && currentUser.email === newEmail){
+//             return userAccount.querySelector('.update-info p.message').innerHTML = 'User info changed!'
+//         }
+//         if (currentUser.name === newName && currentUser.email !== newEmail){
+//             currentUser.email = newEmail
+//         }
+//         if (currentUser.name !== newName && currentUser.email === newEmail){
+//             currentUser.name = newName
+//         }
+//         if (currentUser.name !== newName && currentUser.email !== newEmail){
+//             currentUser.name = newName
+//             currentUser.email = newEmail
+//         }
+//         newName.disabled = true
+//         newEmail.disabled = true
+//         userAccount.querySelector('.user-info').classList.add('off')
+//         userAccount.querySelector('.update-info p.message').innerHTML = 'User info changed!'
+
+//     }
+// }
+function updateUserName(email) {
     var newName = userAccount.querySelector('form.user-info input[name="name"]').value
     var newEmail = userAccount.querySelector('form.user-info input[name="email"]').value
-    console.log('currentUser.name', currentUser.name)
-    console.log('currentUser.email', currentUser.email)
-    console.log('newName', newName)
-    console.log('newEmail', newEmail)
-    if (currentUser.name === newName && currentUser.email === newEmail){
-        // do nothing
+    for(i = 0; i < users.length; i++){
+        var currentUser = users[i]
+        if (currentUser.name === newName){
+            userAccount.querySelector('.update-info p.message').innerHTML = 'Nothing changed'
+        }
+  
+        if (currentUser.name !== newName){
+            currentUser.name = newName
+        }
+
+        newName.disabled = true
+        newEmail.disabled = true
+        userAccount.querySelector('.user-info').classList.add('off')
+        userAccount.querySelector('.update-info p.message').innerHTML = 'User info changed!'
+
     }
-    if (currentUser.name === newName && currentUser.email !== newEmail){
-        currentUser.email = newEmail
+}
+function updateUserEmail(email) {
+    var newName = userAccount.querySelector('form.user-info input[name="name"]').value
+    var newEmail = userAccount.querySelector('form.user-info input[name="email"]').value
+    for(i = 0; i < users.length; i++){
+        var currentUser = users[i]
+        if (currentUserEmail === newEmail){
+            userAccount.querySelector('.update-info p.message').innerHTML = 'Nothing changed!'
+        }
+        if (currentUser.email !== newEmail){
+            currentUser.email = newEmail
+        }
+
+        newName.disabled = true
+        newEmail.disabled = true
+        userAccount.querySelector('.user-info').classList.add('off')
+        userAccount.querySelector('.update-info p.message').innerHTML = 'User info changed!'
+
     }
-    if (currentUser.name !== newName && currentUser.email === newEmail){
-        currentUser.name = newName
-    }
-    if (currentUser.name !== newName && currentUser.email !== newEmail){
-        currentUser.name = newName
-        currentUser.email = newEmail
-    }
-    newName.disabled = true
-    newEmail.disabled = true
-    userAccount.querySelector('.user-info').classList.add('off')
-    userAccount.querySelector('.update-info p.message').innerHTML = 'User info changed!'
 }
 
 
@@ -115,3 +157,6 @@ function updateUserPassword(email) {
     console.log(users)
     return userAccount.querySelector('.update-password p.message').innerHTML = 'Password changed!'
 }
+
+
+// poner trim a todos lo sinputs
