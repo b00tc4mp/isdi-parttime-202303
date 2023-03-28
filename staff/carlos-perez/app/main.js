@@ -33,44 +33,39 @@ function userExist(email) {
             break;
         }
     }
-    if (userPosition !== null) {
-        return userPosition;
-    }
-    else {
+
+    if (userPosition === null) {
         return -1;
     }
+
+    return userPosition;
 }
 
 function addUser(name, email, password) {
 
-    let userPosition = userExist(email);
-
-    if (userPosition === -1) {
-        users.push({
-            name: name,
-            email: email,
-            password: password
-        });
-        return true;
-    }
-    else {
-        return false;
+    if (userExist(email) !== -1) {
+        throw new Error("El usuario ya existe");
     }
 
+    users.push({
+        name: name,
+        email: email,
+        password: password
+    });
+    return true;
 }
 
 function authenticateUser(email, password) {
+    
     let userPosition = userExist(email);
 
-    if (userPosition === -1) {
+    if(userPosition === -1){
         throw new Error("El usuario no existe");
     }
 
     if (users[userPosition].password !== password) {
         throw new Error("Contraseña incorrecta");
     }
-
-
     activeUser = { name: users[userPosition].name, email: users[userPosition].email };
 }
 
@@ -79,30 +74,38 @@ function getInitials(name) {
 }
 
 function changePassword(oldpass, newpass, passcheck) {
-    if ((oldpass === users[userExist(activeUser.email)].password) && (newpass === passcheck)) {
-        users[userExist(activeUser.email)].password = newpass;
-        return true;
+    let userPosition = userExist(activeUser.email);
+    if (userPosition === -1) {
+       throw new Error("El usuario no existe");
     }
-    else {
-        return false;
+    if(oldpass !== users[userPosition].password){
+        throw new Error("Contraseña antigua incorrecta");
     }
+
+    if(newpass !== passcheck)
+    {
+        throw new Error("La nueva contraseña no coincide con su comprobación");
+    }
+
+    users[userExist(activeUser.email)].password = newpass;
 }
 
 function changeMail(oldmail, newmail, mailcheck) {
     let userPosition = userExist(activeUser.email);
-    if (userPosition !== -1) {
-        if ((oldmail === users[userPosition].email) && (newmail === mailcheck)) {
-            users[userExist(activeUser.email)].email = newmail;
-            activeUser.email = newmail;
-            return true;
-        }
-        else {
-            return false;
-        }
+    if (userPosition === -1) {
+       throw new Error("El usuario no existe");
     }
-    else {
-        return false;
+   
+    if(oldmail !== users[userPosition].email){
+        throw new Error("Correo antiguo incorrecto");
     }
+
+    if(newmail !== mailcheck){
+        throw new Error("El nuevo correo no corresponde con su comprobación");
+    }
+
+    users[userExist(activeUser.email)].email = newmail;
+    activeUser.email = newmail;
 }
 
 
@@ -179,18 +182,15 @@ document.querySelector('.formulario').addEventListener('submit', function (event
     var email = registerPage.querySelector('input[type=email]').value;
     var password = registerPage.querySelector('input[type=password]').value;
 
-    let result = addUser(name, email, password);
-
-    if (result === true) {
+    try{
+        addUser(name, email, password);
         resetRegister();
         hideSection(registerPage);
         showSection(loginPage);
     }
-    else {
-        alert("Ha habido un error en el registro");
+    catch(error){
+        alert(error.message);
     }
-
-
 })
 document.querySelector('.formulario-login').addEventListener('submit', function (event) {
     event.preventDefault();
@@ -206,7 +206,7 @@ document.querySelector('.formulario-login').addEventListener('submit', function 
         addProfileNameAndImage(activeUser);
     }
     catch (error) {
-        console.log(error);
+       alert(error.message);
     }
 })
 
@@ -245,12 +245,14 @@ profileView.querySelector('.button-update-password').addEventListener('click', f
     let oldPassword = profileView.querySelector('.password-old').value;
     let newPassword = profileView.querySelector('.password-new').value;
     let checkPassword = profileView.querySelector('.password-new-check').value;
-    if (changePassword(oldPassword, newPassword, checkPassword) === true) {
-        alert("Contraseña cambiada correctamente");
+
+    try{
+        changePassword(oldPassword, newPassword, checkPassword);
+        alert("La contraseña ha sido cambiada correctamente");
         hideSection(passwordChange);
     }
-    else {
-        alert("La contraseña no ha podido cambiarse debido a un error");
+    catch(error){
+        alert(error.message);
     }
 })
 
@@ -259,13 +261,15 @@ profileView.querySelector('.button-update-mail').addEventListener('click', funct
     let oldMail = profileView.querySelector('.mail-old').value;
     let newMail = profileView.querySelector('.mail-new').value;
     let checkMail = profileView.querySelector('.mail-new-check').value;
-    if (changeMail(oldMail, newMail, checkMail) === true) {
+    
+    try{
+        changeMail(oldMail, newMail, checkMail);
         alert("Correo cambiado correctamente");
         profileView.querySelector('.profile-email').textContent = activeUser.email;
         hideSection(mailChange);
     }
-    else {
-        alert("El correo no ha podido cambiarse debido a un error");
+    catch(error){
+        alert(error.message);
     }
 })
 
