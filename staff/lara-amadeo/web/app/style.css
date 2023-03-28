@@ -19,6 +19,7 @@ align-items: center;
     width: fit-content;
     height: fit-content;
     min-width: 310px;
+    max-width:358px;
     padding:24px;
     border-radius: 24px;
     box-shadow:0px 4px 10px rgba(59, 66, 87, 0.15)  ;
@@ -128,6 +129,17 @@ align-items: center;
     font-size: 14px;
     font-weight: 400;
     color: rgb(255, 43, 71);
+    margin-top: 0px;
+    margin-bottom: 24px;
+}
+
+.success-message{
+    font-family: 'Inter';
+    font-size: 14px;
+    font-weight: 400;
+    color: rgb(13, 142, 11);
+    margin-top: 0px;
+    margin-bottom: 24px;
 }
 
 .homepage{

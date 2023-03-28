@@ -1,5 +1,5 @@
 
-var checkUserExists = (registrationName, registrationEmail, registrationPassword) => {
+var checkUserExists = (registrationName, registrationEmail, registrationPassword,registrationRepPassword) => {
     var foundUser
     for (let i = 0; i < users.length; i++){
         var user = users[i]
@@ -8,15 +8,16 @@ var checkUserExists = (registrationName, registrationEmail, registrationPassword
             foundUser = user
         } 
     }
-    
-    if (!foundUser) {
-            users.push({
+    if (foundUser) throw new Error('User already exists')
+
+    if(registrationPassword !== registrationRepPassword) throw new Error('Passwords do not match')
+            
+    else{ users.push({
                 username: registrationName,
                 email: registrationEmail,
                 password: registrationPassword
                })
-            return true
-    } else return false 
+    }
 }
 
 var checkCredentials = (inputEmail, inputPassword) => {
@@ -30,26 +31,17 @@ var checkCredentials = (inputEmail, inputPassword) => {
         }
     }
 
-    if (!foundUser || foundUser.password !== inputPassword)
-    return false
-
-    else return true
+    if (!foundUser || foundUser.password !== inputPassword) throw new Error('Invalid email or password')
 }
 
+var updatePassword = (users, authenticatedEmail, currentPassword, newPassword, confirmNewPassword) =>{
 
-var checkCurrentPassword = (currentPassword) => {
-    if (currentPassword !== authenticatedPassword){
-        return false
-    } else return true
-}
+    if (currentPassword !== authenticatedPassword) throw new Error('Invalid current password')
 
-var checkPasswordMatch = (newPassword, confirmNewPassword) => {
-    if (newPassword !== confirmNewPassword){
-        return false
-    } else return true
-}
+    if (currentPassword === newPassword) throw new Error('Current password cannot be the same as new password')
 
-var updatePassword = (users, authenticatedEmail, newPassword) =>{
+    if (newPassword !== confirmNewPassword) throw new Error('New passwords do not match')
+
     for (let i = 0; i < users.length; i++){
         var user = users[i]
 
@@ -60,19 +52,15 @@ var updatePassword = (users, authenticatedEmail, newPassword) =>{
     }
 }
 
-var checkCurrentEmail = (currentEmail) => {
-    if (currentEmail !== authenticatedEmail){
-        return false
-    } else return true
-}
 
-var checkEmailMatch = (newEmail, confirmNewEmail) => {
-    if (newEmail !== confirmNewEmail){
-        return false
-    } else return true
-}
+var updateEmail = (users, authenticatedEmail, currentEmail, newEmail, confirmNewEmail) => {
 
-var updateEmail = (users, authenticatedEmail, newEmail) => {
+    if (currentEmail!== authenticatedEmail) throw new Error('Invalid current email')
+
+    if (currentEmail === newEmail) throw new Error('Current email cannot be the same as new email')
+
+    if (newEmail !== confirmNewEmail) throw new Error('New emails do not match')
+
     for (let i = 0; i < users.length; i++){
         user = users[i]
 

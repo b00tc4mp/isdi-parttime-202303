@@ -29,7 +29,7 @@
                 <button class="primary-button" type="submit">Sign up</button>
             </form>
 
-            <p class="error-message off">Email address already in use</p>
+            <p class="error-message"></p>
             
             <div class="already-account-container">
                 <p class="already-account">Already have an account? <a href="" class="link">Log in</a> </p>           
@@ -50,6 +50,7 @@
                 <label for="password" class="text-field-label">Password</label>
                 <input type="password" name="password" class="text-field">
 
+                <p class="error-message"></p>
 
                 <div class="create-account">
                     <a href="" class="link">Create account</a>
@@ -59,25 +60,20 @@
             
             </form>
 
-            <p class="error-message off">Invalid username or password</p>
         </div>
     </div>
     <div class="homepage off">
         <header class="topbar">
-
             <div class="logo-and-hello">
             <p class="home-logo">🍑</p>
             <h1 class="homepage-hello">Hello</h1>
             </div>
 
             <div class="topbar-actions">
-                
                 <a class="link" id="update-mail">Update email</a>
                 <a class="link" id="update-password" href="">Update password</a>
                 <a class="link" id="logout" href="">Log out</a>
-                
             </div>
-           
         </header>
 
         <div class="update-password off">
@@ -96,6 +92,9 @@
 
                     <label for="confirmNewPassword" class="text-field-label">Confirm new password</label>
                     <input type="password" name="confirmNewPassword" class="text-field">
+
+                    <p class="error-message"></p>
+                    <p class="success-message"></p>
                     
                     <div class="button-bar">
                     <button class="secondary-button" id="cancel-update-password" type="submit">Cancel</button>
@@ -121,6 +120,9 @@
 
                     <label for="confirmNewEmail" class="text-field-label">Confirm new email</label>
                     <input type="text" name="confirmNewEmail" class="text-field">
+
+                    <p class="error-message"></p>
+                    <p class="success-message"></p>
                     
                     <div class="button-bar">
                     <button class="secondary-button" id="cancel-update-email" type="submit">Cancel</button>

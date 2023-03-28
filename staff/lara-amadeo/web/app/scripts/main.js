@@ -13,13 +13,19 @@ registrationPage.querySelector('form').addEventListener('submit', function(event
    var registrationName = registrationPage.querySelector('input[name=username]').value
    var registrationEmail = registrationPage.querySelector('input[name=email]').value
    var registrationPassword = registrationPage.querySelector('input[name=password]').value
+   var registrationRepPassword = registrationPage.querySelector('input[name=rep-password]').value
 
-   var result = checkUserExists(registrationName, registrationEmail, registrationPassword)
-
-   if(result){
+   try {
+    checkUserExists(registrationName, registrationEmail, registrationPassword,registrationRepPassword)
     registrationPage.classList.add('off')
     loginPage.classList.remove('off')
-   } else registrationPage.querySelector('.error-message').classList.remove('off')
+   } catch (error) {
+    registrationPage.querySelector('.error-message').textContent = error.message
+   }
+   finally {
+    registrationPage.querySelector('input[name=password]').value = ''
+    registrationPage.querySelector('input[name=rep-password]').value = ''
+   }
 })
 
 //Already an account
@@ -44,9 +50,8 @@ loginPage.querySelector('.primary-button').addEventListener('click', function(ev
     var inputEmail = loginPage.querySelector('input[name=email]').value
     var inputPassword = loginPage.querySelector('input[name=password]').value
 
-    var result = checkCredentials(inputEmail, inputPassword)
-
-    if (result){
+    try{
+        checkCredentials(inputEmail, inputPassword)
         authenticatedEmail = inputEmail
         authenticatedPassword = inputPassword
         authenticatedName = users.find((user) => user.email === authenticatedEmail).username
@@ -54,9 +59,11 @@ loginPage.querySelector('.primary-button').addEventListener('click', function(ev
         loginPage.classList.add('off')
         homePage.classList.remove('off')
         homePage.querySelector('.homepage-hello').innerHTML = "Hello " + authenticatedName + "!"
-
-    } else loginPage.querySelector('.error-message').classList.remove('off') 
-   
+    } catch (error) {
+        loginPage.querySelector('.error-message').textContent = error.message
+    } finally {
+        loginPage.querySelector('input[name=password]').value= ''
+    }
 })
 
 
@@ -87,38 +94,26 @@ homePage.querySelector('#save-update-password').addEventListener('click', functi
     var newPassword = homePage.querySelector('input[name=newPassword]').value
     var confirmNewPassword = homePage.querySelector('input[name=confirmNewPassword]').value
 
-    var currentPasswordChecked = checkCurrentPassword(currentPassword)
-    var newPasswordsMatching = checkPasswordMatch(newPassword,confirmNewPassword)
-    
-
-if (!currentPasswordChecked){
-    alert("The password you entered doesn't match your current password")
-} else {
-    if (currentPassword === newPassword){
-        alert(`New password can't be the same as current one`)
-    } else {
-        if (newPasswordsMatching){
-            updatePassword(users, authenticatedEmail, newPassword)
-            alert('Password updated')
-
-            homePage.querySelector('input[name=currentPassword]').value = ""
-            homePage.querySelector('input[name=newPassword]').value = ""
-            homePage.querySelector('input[name=confirmNewPassword]').value = ""
-
-        } else alert("New passwords doesn't match")
-    }
-}
+    try{
+        updatePassword(users, authenticatedEmail, currentPassword, newPassword, confirmNewPassword)
+        homePage.querySelector('.update-password').querySelector('.success-message').textContent = "Your password has been updated!"
+    } catch (error) {
+        homePage.querySelector('.error-message').textContent = error.message
+    } finally {
+        homePage.querySelector('.update-password').querySelector('input[name=currentPassword]').value= ''
+        homePage.querySelector('.update-password').querySelector('input[name=newPassword]').value = ''
+        homePage.querySelector('.update-password').querySelector('input[name=confirmNewPassword]').value = ''
+    } 
 })
 
 
 homePage.querySelector('#cancel-update-password').addEventListener('click', function(event){
     event.preventDefault()
 
-    homePage.querySelector('.profile').classList.add('off')
+    homePage.querySelector('.update-password').classList.add('off')
 })
 
 //Confirm update mail
-
 homePage.querySelector('#save-update-email').addEventListener('click', function(event){
     event.preventDefault()
 
@@ -126,21 +121,14 @@ homePage.querySelector('#save-update-email').addEventListener('click', function(
     var newEmail = homePage.querySelector('input[name=newEmail]').value
     var confirmNewEmail = homePage.querySelector('input[name=confirmNewEmail]').value
 
-    var currentEmailChecked = checkCurrentEmail(currentEmail)
-    var newEmailsMatching = checkEmailMatch(newEmail, confirmNewEmail)
-
-    if (!currentEmailChecked){
-        alert("The email you entered doesn't match your current email")
-    } else {
-        if (!newEmailsMatching){
-            alert("New emails doesn't match")
-        } else {updateEmail(users, authenticatedEmail, newEmail)
-            alert('Email updated!')
-
-            homePage.querySelector('input[name=currentEmail]').value = ""
-            homePage.querySelector('input[name=newEmail]').value = ""
-            homePage.querySelector('input[name=confirmNewEmail]').value = ""
-        }
-
+    try {
+        updateEmail(users, authenticatedEmail, currentEmail, newEmail, confirmNewEmail)
+        homePage.querySelector('.update-mail').querySelector('.success-message').textContent = "Your email has been updated!"
+    } catch (error) {
+        homePage.querySelector('.update-mail').querySelector('.error-message').textContent = error.message
+    } finally {
+        homePage.querySelector('.update-mail').querySelector('input[name=currentEmail]').value = ""
+        homePage.querySelector('.update-mail').querySelector('input[name=newEmail]').value = ""
+        homePage.querySelector('.update-mail').querySelector('input[name=confirmNewEmail]').value = ""
     }
 })
