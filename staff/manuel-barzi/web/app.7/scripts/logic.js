@@ -1,7 +1,11 @@
 function registerUser(name, email, password) {
-    validateName(name)
-    validateEmail(email)
-    validatePassword(password)
+    if (typeof name !== 'string') throw new Error('name is not a string')
+    if (!name.length) throw new Error('name is empty')
+    if (typeof email !== 'string') throw new Error('email is not an string')
+    if (!email.length) throw new Error('email is empty')
+    if (typeof password !== 'string') throw new Error('password is not a string')
+    if (!password.length) throw new Error('password is empty')
+    // TODO add more input validation
 
     var foundUser = findUserByEmail(email)
 
@@ -16,8 +20,11 @@ function registerUser(name, email, password) {
 }
 
 function authenticateUser(email, password) {
-    validateEmail(email)
-    validatePassword(password)
+    if (typeof email !== 'string') throw new Error('email is not an string')
+    if (!email.length) throw new Error('email is empty')
+    if (typeof password !== 'string') throw new Error('password is not a string')
+    if (!password.length) throw new Error('password is empty')
+    // TODO add more input validation
 
     var foundUser = findUserByEmail(email)
 
@@ -29,7 +36,8 @@ function authenticateUser(email, password) {
 }
 
 function retrieveUser(email) {
-    validateEmail(email)
+    if (typeof email !== 'string') throw new Error('email is not an string')
+    if (!email.length) throw new Error('email is empty')
 
     var foundUser = findUserByEmail(email)
 
@@ -41,43 +49,27 @@ function retrieveUser(email) {
         email: foundUser.email
     }
 
-    if (foundUser.avatar)
-        user.avatar = foundUser.avatar
-
     return user
 }
 
-function updateUserAvatar(email, avatar) {
-    validateEmail(email)
-    validateUrl(avatar, 'avatar url')
-
-    var foundUser = findUserByEmail(email)
-
-    if (!foundUser)
-        throw new Error('user not found')
-
-    foundUser.avatar = avatar
-}
-
 function updateUserPassword(email, password, newPassword, newPasswordConfirm) {
-    validateEmail(email)
-    validatePassword(password)
-    validatePassword(newPassword, 'new password')
-    validatePassword(newPasswordConfirm, 'new password confirm')
+    // TODO add more input validation
 
     var foundUser = findUserByEmail(email)
 
     if (!foundUser)
-        throw new Error('user not found')
+        return false
 
     if (password !== foundUser.password)
-        throw new Error('wrong password')
+        return false
 
     if (newPassword !== newPasswordConfirm)
-        throw new Error('password confirmation mismatch')
+        return false
 
     if (newPassword === password)
-        throw new Error('new password equals old password')
+        return false
 
     foundUser.password = newPassword
+
+    return true
 }

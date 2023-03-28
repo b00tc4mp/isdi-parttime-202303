@@ -1,15 +1,25 @@
-var registerPage = document.querySelector('.register')
-var loginPage = document.querySelector('.login')
-var homePage = document.querySelector('.home')
 var authenticatedEmail
-var profilePanel = homePage.querySelector('.profile')
 
-registerPage.querySelector('form').onsubmit = function (event) {
+var registerPage = document.querySelector('.register')
+var registerForm = registerPage.querySelector('form')
+
+var loginPage = document.querySelector('.login')
+var loginForm = loginPage.querySelector('form')
+
+var homePage = document.querySelector('.home')
+var avatarImage = homePage.querySelector('.home-header-avatar')
+var profileLink = homePage.querySelector('a')
+
+var profilePanel = homePage.querySelector('.profile')
+var updateUserAvatarForm = profilePanel.querySelector('.profile-avatar-form')
+var updateUserPasswordForm = profilePanel.querySelector('.profile-password-form')
+
+registerForm.onsubmit = function (event) {
     event.preventDefault()
 
-    var name = registerPage.querySelector('input[name=name]').value
-    var email = registerPage.querySelector('input[name=email]').value
-    var password = registerPage.querySelector('input[name=password]').value
+    var name = event.target.name.value
+    var email = event.target.email.value
+    var password = event.target.password.value
 
     var result = registerUser(name, email, password)
 
@@ -21,33 +31,38 @@ registerPage.querySelector('form').onsubmit = function (event) {
     }
 }
 
-loginPage.querySelector('form').onsubmit = function (event) {
+registerPage.querySelector('a').onclick = function (event) {
     event.preventDefault()
 
-    var email = loginPage.querySelector('input[name=email]').value
-    var password = loginPage.querySelector('input[name=password]').value
+    registerPage.classList.add('off')
+    loginPage.classList.remove('off')
+}
+
+loginForm.onsubmit = function (event) {
+    event.preventDefault()
+
+    var email = event.target.email.value
+    var password = event.target.password.value
 
     try {
         authenticateUser(email, password)
 
         authenticatedEmail = email
 
-        var foundUser = retrieveUser(email)
+        var user = retrieveUser(email)
 
-        homePage.querySelector('p').innerText = `Hello, ${foundUser.name}!`
+        profileLink.innerText = user.name
+
+        if (user.avatar)
+            avatarImage.src = user.avatar
+
+        loginForm.reset()
 
         loginPage.classList.add('off')
         homePage.classList.remove('off')
     } catch (error) {
         alert(error.message)
     }
-}
-
-registerPage.querySelector('a').onclick = function (event) {
-    event.preventDefault()
-
-    registerPage.classList.add('off')
-    loginPage.classList.remove('off')
 }
 
 loginPage.querySelector('a').onclick = function (event) {
@@ -57,25 +72,55 @@ loginPage.querySelector('a').onclick = function (event) {
     registerPage.classList.remove('off')
 }
 
-homePage.querySelector('a').onclick = function (event) {
+profileLink.onclick = function (event) {
     event.preventDefault()
 
     profilePanel.classList.remove('off')
 }
 
-// TODO add a form in profile panel to allow the user to update his/her password (asking current password, and new password and new password confirmation)
+homePage.querySelector('.home-header-logout').onclick = function () {
+    authenticatedEmail = undefined
 
-profilePanel.querySelector('form').onsubmit = function (event) {
+    homePage.classList.add('off')
+    loginPage.classList.remove('off')
+}
+
+updateUserAvatarForm.onsubmit = function (event) {
     event.preventDefault()
 
-    var password = profilePanel.querySelector('input[name="password"]').value
-    var newPassword = profilePanel.querySelector('input[name="newPassword"]').value
-    var newPasswordConfirm = profilePanel.querySelector('input[name="newPasswordConfirm"]').value
+    /* NOTE
+    var url0 = event.target.url.value
+    var url1 = updateUserAvatarForm.url.value
+    var url2 = this.url.value
 
-    var result = updateUserPassword(authenticatedEmail, password, newPassword, newPasswordConfirm)
+    console.log(url0, url1, url2)
+    */
 
-    if (!result)
-        alert('password update failed')
-    else
+    var url = event.target.url.value
+
+    try {
+        updateUserAvatar(authenticatedEmail, url)
+
+        alert('avatar updated')
+
+        avatarImage.src = url
+    } catch (error) {
+        alert(error.message)
+    }
+}
+
+updateUserPasswordForm.onsubmit = function (event) {
+    event.preventDefault()
+
+    var password = event.target.password.value
+    var newPassword =  event.target.newPassword.value
+    var newPasswordConfirm = event.target.newPasswordConfirm.value
+
+    try {
+        updateUserPassword(authenticatedEmail, password, newPassword, newPasswordConfirm)
+
         alert('password updated')
+    } catch (error) {
+        alert(error.message)
+    }
 }
