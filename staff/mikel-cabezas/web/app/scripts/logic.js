@@ -157,6 +157,3 @@ function updateUserPassword(email) {
     console.log(users)
     return userAccount.querySelector('.update-password p.message').innerHTML = 'Password changed!'
 }
-
-
-// poner trim a todos lo sinputs
