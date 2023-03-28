@@ -146,10 +146,16 @@ function resetLogin() {
     loginPage.querySelector('input[type=password]').value = null;
 }
 
-function resetProfileView() {
+function resetPasswordChangeView() {
     profileView.querySelector('.password-old').value = null;
     profileView.querySelector('.password-new').value = null;
     profileView.querySelector('.password-new-check').value = null;
+}
+
+function resetChangeMailView(){
+    profileView.querySelector('.mail-old').value=null;
+    profileView.querySelector('.mail-new').value=null;
+    profileView.querySelector('.mail-new-check').value=null;
 }
 
 function headerLogged() {
@@ -228,7 +234,8 @@ profileColumn.querySelector('.button-profile').addEventListener('click', functio
     showSection(profileView);
     profileView.querySelector('.profile-name').textContent = activeUser.name;
     profileView.querySelector('.profile-email').textContent = activeUser.email;
-    resetProfileView();
+    resetPasswordChangeView();
+    resetChangeMailView();
 })
 
 profileColumn.querySelector('.button-exit').addEventListener('click', function (event) {
@@ -254,6 +261,9 @@ profileView.querySelector('.button-update-password').addEventListener('click', f
     catch(error){
         alert(error.message);
     }
+    finally{
+        resetPasswordChangeView();
+    }
 })
 
 profileView.querySelector('.button-update-mail').addEventListener('click', function (event) {
@@ -270,6 +280,9 @@ profileView.querySelector('.button-update-mail').addEventListener('click', funct
     }
     catch(error){
         alert(error.message);
+    }
+    finally{
+        resetChangeMailView();
     }
 })
 
