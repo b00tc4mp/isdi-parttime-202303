@@ -55,6 +55,7 @@ var updatePassword = (users, authenticatedEmail, currentPassword, newPassword, c
 
 var updateEmail = (users, authenticatedEmail, currentEmail, newEmail, confirmNewEmail) => {
 
+    
     if (currentEmail!== authenticatedEmail) throw new Error('Invalid current email')
 
     if (currentEmail === newEmail) throw new Error('Current email cannot be the same as new email')
@@ -70,3 +71,15 @@ var updateEmail = (users, authenticatedEmail, currentEmail, newEmail, confirmNew
         } 
     }
 }
+
+var findUser = (users, authenticatedEmail) => {
+   return users.find(user => user.email === authenticatedEmail)
+}
+
+var updateAvatar = (authenticatedEmail, avatarUrl) => {
+
+    var user = findUser(users, authenticatedEmail)
+    if (!user) throw new Error('User not found')
+
+    user.avatar = avatarUrl
+} 

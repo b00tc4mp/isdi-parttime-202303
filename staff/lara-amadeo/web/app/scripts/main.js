@@ -16,6 +16,9 @@ registrationPage.querySelector('form').addEventListener('submit', function(event
    var registrationRepPassword = registrationPage.querySelector('input[name=rep-password]').value
 
    try {
+    validateEmail(registrationEmail)
+    validatePassword(registrationPassword)
+    validatePassword(registrationRepPassword, 'new password')
     checkUserExists(registrationName, registrationEmail, registrationPassword,registrationRepPassword)
     registrationPage.classList.add('off')
     loginPage.classList.remove('off')
@@ -86,6 +89,12 @@ homePage.querySelector('#update-mail').addEventListener('click', function(event)
     homePage.querySelector('.update-mail').classList.remove('off')
 })
 
+homePage.querySelector('.topbar-avatar').onclick = function(event){
+    event.preventDefault()
+
+    homePage.querySelector('.update-avatar').classList.remove('off')
+}
+
 //Confirm update password
 homePage.querySelector('#save-update-password').addEventListener('click', function(event){
     event.preventDefault()
@@ -132,3 +141,23 @@ homePage.querySelector('#save-update-email').addEventListener('click', function(
         homePage.querySelector('.update-mail').querySelector('input[name=confirmNewEmail]').value = ""
     }
 })
+
+//Confirm update avatar
+
+homePage.querySelector('.update-avatar').querySelector('.centered-form').onsubmit = function(event){
+    event.preventDefault()
+
+    var avatarUrl = homePage.querySelector('.update-avatar').querySelector('input[name=avatar]').value
+
+    try{
+        validateAvatarFormat(avatarUrl)
+        updateAvatar(authenticatedEmail, avatarUrl)
+        
+        alert('avatar updted')
+        homePage.querySelector('.topbar-avatar').src = avatarUrl
+    } catch (error){
+        homePage.querySelector('.update-avatar').querySelector('.error-message').textContent = error.message
+    }
+
+
+}

@@ -1,8 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
-
-
-
 body{
     margin: 0px;
 }
@@ -110,8 +107,6 @@ align-items: center;
     text-decoration: none;
 }
 
-
-
 .login{
     background-color:#F8FAFB ;
     height: 100vh;
@@ -159,6 +154,14 @@ align-items: center;
     position: fixed;
     top: 0;
     border-bottom: 1px solid #dadada;
+}
+
+.topbar-avatar{
+    width: 40px;
+    height: 40px;
+    border-radius: 100px;
+    cursor: pointer;
+    
 }
 
 .topbar-actions{
