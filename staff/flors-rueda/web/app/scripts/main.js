@@ -18,12 +18,17 @@ const checkbox = document.querySelector('.mode-checkbox');
 const loginForm = document.querySelector('.login-form');
 const registerForm = document.querySelector('.register-form');
 const changeViewLinks = document.querySelectorAll('.change-view-link');
-const username = document.querySelector('input[name="username"]');
+const usernameRegister = document.querySelector('.register-form').querySelector('input[name="username"]');
+const usernameLogin = document.querySelector('.login-form').querySelector('input[name="username"]');
 
 let userAuth;
 
-username.addEventListener('input', (event) => {
-  validateUsername(username);
+usernameRegister.addEventListener('input', (event) => {
+  validateUsername(usernameRegister);
+});
+
+usernameLogin.addEventListener('input', (event) => {
+  validateUsername(usernameLogin);
 });
 
 checkbox.addEventListener('change', (event) => {
@@ -45,9 +50,9 @@ registerForm.addEventListener('submit', (event) => {
 
 loginForm.addEventListener('submit', (event) => {
   event.preventDefault();
-  const mail = document.querySelector('.login-form').querySelector('input[name="mail"]').value;
+  const username = document.querySelector('.login-form').querySelector('input[name="username"]').value;
   const password = document.querySelector('.login-form').querySelector('input[name="password"]').value;
-  userAuth = authenticateUser(mail, password);
+  userAuth = authenticateUser(username, password);
   if(userAuth !== undefined) doLogin(login, home) + displayWelcome(userAuth);
 });
 
@@ -98,12 +103,12 @@ toEditProfile.addEventListener('click', (event) => {
 
 passwordForm.addEventListener('submit', (event) => {
   event.preventDefault();
-  userAuth = setNewPassword(userAuth, profileButtons, changePassword);
+  setNewPassword(userAuth, profileButtons, changePassword);
   displayProfile(userAuth);
 });
 
 editForm.addEventListener('submit', (event) => {
   event.preventDefault();
-  userAuth = setNewUserInfo(userAuth, profileButtons, editProfile);
+  setNewUserInfo(userAuth, profileButtons, editProfile);
   displayProfile(userAuth);
 });

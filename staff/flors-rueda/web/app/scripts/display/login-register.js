@@ -13,35 +13,34 @@ import {
   addNewUser,
   isPasswordSafe,
   confirmPassword,
-  findUser,
 } from '../logic/user.js';
 
-export const authenticateUser = (mail, password) => {
+export const authenticateUser = (user, password) => {
   resetAlerts();
-  if (!isMailRegistered(mail)) {
-    //TODO find why this alert appears out of time
-    const message = 'This email is not vinculated to any account!';
-    setSimpleAlert('area-login-mail', 'alert-danger', message);
+  const username = '@' + user;
+  console.log(username)
+  if (!isUsernameRegistered(username)) {
+    const message = 'This username is not vinculated to any account!';
+    setSimpleAlert('area-login-username', 'alert-danger', message);
     clearForms();
     return;
-  } else if (!isPasswordCorrect(mail, password)) {
+  } else if (!isPasswordCorrect(username, password)) {
     const message = 'Incorrect password!';
     setSimpleAlert('area-login-password', 'alert-danger', message);
     document.querySelector('.login-form').querySelector('input[name="password"]').value = '';
     return;
   } else {
-    return findUser(mail);
+    return username;
   };
 };
 
 export const doLogin = (login, home) => {
   resetAlerts();
   toggleOff(login, home);
-  return 
 };
 
 const registerUser = (mail, username, password) => {
-  document.querySelector('.login-form').querySelector('input[name="mail"]').value = mail;
+  document.querySelector('.login-form').querySelector('input[name="username"]').value = username;
   const message = `Welcome, ${username}! Your account is registered. You can sign in now!`;
   setAlert('area-login', 'alert-success', message);
   return addNewUser(mail, username, password);
@@ -90,8 +89,6 @@ export const doLogout = (login, home) => {
   clearForms();
   toggleOff(login, home);
 };
-
-
 
 export const validateUsername = (input) => {
   let username = '';
