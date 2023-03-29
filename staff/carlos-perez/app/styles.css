@@ -8,9 +8,9 @@
     --negro: #000000;
     --fuente: #0e0e0e;
     --aqua: #45c2c5;
-    --background-white: rgba(255,255,255,0.85);
-    --background-light: rgba(252,245,242,0.85);
-    --background-dark: rgba(236,230,226,0.85);
+    --background-white: rgba(255, 255, 255, 0.85);
+    --background-light: rgba(252, 245, 242, 0.85);
+    --background-dark: rgba(236, 230, 226, 0.85);
 }
 
 html {
@@ -29,7 +29,7 @@ header {
     display: flex;
     align-self: center;
     justify-content: center;
-    background: var(--background-dark) ;
+    background: var(--background-dark);
     width: 100%;
     border-bottom: 2px solid var(--gris);
     height: 20vh;
@@ -43,7 +43,7 @@ header h1 {
     font-size: 8vh;
 }
 
-.title{
+.title {
     background-image: linear-gradient(90deg, #1a1a1a, #595959, #999999);
     background-clip: text;
     -webkit-background-clip: text;
@@ -59,11 +59,10 @@ body {
     display: flex;
     flex-direction: column;
     background-color: var(--background-white);
-    margin-top: 0;
-    margin-left: 0;
+    margin: 0;
 }
 
-p{
+p {
     color: var(--fuente);
 }
 
@@ -101,6 +100,7 @@ h4 {
 a {
     color: var(--negro);
 }
+
 .no-margin {
     margin: 0;
 }
@@ -157,7 +157,7 @@ a {
     text-transform: uppercase;
 }
 
-.registro{
+.registro {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -183,39 +183,39 @@ a {
 }
 
 .campo__label {
-    
+
     text-align: left;
     justify-self: left;
     padding-right: 2rem;
 }
 
 .campo__field {
-   
+
     border: 1px solid var(--gris);
     border-radius: 5px;
     max-width: 300px;
 }
 
-.formulario .campo .boton{
+.formulario .campo .boton {
     grid-area: 4/1/4/3;
 }
 
 
-.campo-viewonly{
+.campo-viewonly {
     display: flex;
     flex-direction: row;
     gap: 15px;
     align-items: center;
 }
 
-.login{
+.login {
     display: flex;
     flex-direction: column;
     align-items: center;
     align-content: center;
 }
 
-.formulario-login .campo .boton{
+.formulario-login .campo .boton {
     grid-area: 3/1/3/3;
 }
 
@@ -225,12 +225,12 @@ a {
     display: none !important;
 }
 
-.home{
-width: 100%;
-display: flex;
-flex-direction: row;
-height: 100%;
-min-height: 300px;
+.home {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    min-height: 300px;
 }
 
 .saludo {
@@ -242,46 +242,63 @@ min-height: 300px;
     justify-content: center;
 }
 
-.ripple,.ripple:before,.ripple:after {
-    display:block;
-    border-radius:2px;
-    width:2px;
-    height:2px;
-    animation:rip 6s infinite ease-out;
-  }
-  .ripple {
-    position:absolute;
-    z-index:-1;
-  }
-  .ripple:before,.ripple:after {
-    content:'';
-    position:absolute;
-  }
-  .ripple:before {animation-delay:.2s;top:5px;left:25px;}
-  .ripple:after {animation-delay:.8s;top:25px;left:0;}
-  @keyframes rip 
-  {
-    0%  {
-      box-shadow:0 0 0 0 transparent,
-                 0 0 0 0 transparent,
-                 0 0 0 0 transparent,
-                 0 0 0 0 transparent;
-    }
-    15%  {
-      box-shadow:0 0 0 0 #45c2c5,
-                 0 0 0 0 rgba(255,255,255,0.4),
-                 0 0 0 0 #45c2c5,
-                 0 0 0 0 rgba(0,0,0,0.08);
-    }
-    100% {
-      box-shadow:0 0 40px 200px #45c2c5,
-                 0 0 10px 210px transparent,
-                 0 0 30px 220px #45c2c5,
-                 0 0 5px 230px transparent;
-    }
-  }
+.ripple,
+.ripple:before,
+.ripple:after {
+    display: block;
+    border-radius: 2px;
+    width: 2px;
+    height: 2px;
+    animation: rip 6s infinite ease-out;
+}
 
-  .profile-column{
+.ripple {
+    position: absolute;
+    z-index: -1;
+}
+
+.ripple:before,
+.ripple:after {
+    content: '';
+    position: absolute;
+}
+
+.ripple:before {
+    animation-delay: .2s;
+    top: 5px;
+    left: 25px;
+}
+
+.ripple:after {
+    animation-delay: .8s;
+    top: 25px;
+    left: 0;
+}
+
+@keyframes rip {
+    0% {
+        box-shadow: 0 0 0 0 transparent,
+            0 0 0 0 transparent,
+            0 0 0 0 transparent,
+            0 0 0 0 transparent;
+    }
+
+    15% {
+        box-shadow: 0 0 0 0 #45c2c5,
+            0 0 0 0 rgba(255, 255, 255, 0.4),
+            0 0 0 0 #45c2c5,
+            0 0 0 0 rgba(0, 0, 0, 0.08);
+    }
+
+    100% {
+        box-shadow: 0 0 40px 200px #45c2c5,
+            0 0 10px 210px transparent,
+            0 0 30px 220px #45c2c5,
+            0 0 5px 230px transparent;
+    }
+}
+
+.profile-column {
     width: 25vw;
     height: 100vh;
     min-height: 300px;
@@ -294,19 +311,19 @@ min-height: 300px;
     padding-right: 10px;
     padding-left: 10px;
     border-right: 2px solid var(--gris);
-    background: var(--background-dark) ;
-  }
+    background: var(--background-dark);
+}
 
-  .profile-image{
+.profile-image {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     margin-top: 10px;
     margin-bottom: 10px;
-  }
+}
 
-  .profile-image-picture{
+.profile-image-picture {
     border: 2px solid var(--gris);
     border-radius: 50%;
     width: 80px;
@@ -315,59 +332,59 @@ min-height: 300px;
     align-items: center;
     justify-content: center;
     background-color: var(--aqua);
-  }
+}
 
-  .profile-image-picture p{
+.profile-image-picture p {
     font-size: 25px;
-  }
+}
 
-  .profile-view{
+.profile-view {
     width: 80vw;
     min-width: 300px;
     margin: 20px 20px 20px 20px;
     display: flex;
     flex-direction: column;
 
-  }
+}
 
-  .password-change{
+.password-change {
     margin-top: 20px;
     display: grid;
     grid-template-columns: 1fr;
     align-items: center;
     justify-items: start;
     width: 100%;
-  }
+}
 
-  .password-change .campo{
+.password-change .campo {
     display: grid;
     grid-template-columns: 1fr 1fr;
     width: 40vw;
-  }
+}
 
-  .buttons{
+.buttons {
     display: flex;
     flex-direction: row;
     gap: 10px;
-  }
+}
 
-  .mail-change{
+.mail-change {
     margin-top: 20px;
     display: grid;
     grid-template-columns: 1fr;
     align-items: center;
     justify-items: start;
     width: 100%;
-  }
+}
 
-  .mail-change .campo{
+.mail-change .campo {
     display: grid;
     grid-template-columns: 1fr 1fr;
     width: 40vw;
-  }
+}
 
-  .buttons-control{
+.buttons-control {
     display: grid;
     grid-template-columns: 1fr;
     max-width: 200px;
-  }
+}
