@@ -1,51 +1,57 @@
+//? LOGIC
 
-
-// logic
+//!REGISTER FUNCTIONS
 const registerUser = (temporalUser) => {
-    
+    if (!temporalUser.name){
+        throw new Error("Username is empty");
+    }
+    if (!temporalUser.email){
+        throw new Error("Email is empty")
+    }
+    if (!temporalUser.password){
+        throw new Error("Password is empty")
+    }
+    if(temporalUser.password.length < 4){
+        throw new Error("Password is shorter than 4 characters");
+    }
     var foundUser = users.find(user => user.email === temporalUser.email);
-    
     if (foundUser){
-        return false;
-    } 
+        throw new Error("This name already exist");
+    }
     users.push(temporalUser);
-    console.log(users);
-    return true;
 }
 
+//! CLEAN THINGS FUNCTIONS --> they can be tools i guess 
 const cleanUser = (registerPage) => {
     registerPage.querySelector("input[type=text]").value = ""
     registerPage.querySelector("input[type=email]").value = ""
     registerPage.querySelector("input[type=password]").value = ""
 }
-
-const set3SecondsAdvice = (advice, className) => {
+const cleanChangePasswordForm = () => {
+    document.querySelector(".old-password").value ="";
+    document.querySelector(".new-password").value = "";
+    document.querySelector(".new-password-repetition").value = "";
+}
+const vanishWarningIn3Seconds = (advice, className) => {
     setTimeout(() => {
         advice.classList.add(className);
     },4000);
 }
 
-const authenticateUser = (email, password) => {
-        var foundUser
+const authenticateUser = (temporalUser) => {
+    if (!temporalUser.email){
+        throw new Error("Empty email");
+    }
+    if (!temporalUser.password){
+        throw new Error("Empty Password")
+    }
     
-        for (var i = 0; i < users.length; i++) {
-            var user = users[i]
-    
-            if (user.email === email) {
-                foundUser = user
-    
-                break
-            }
-        }
-    
-        if (!foundUser || foundUser.password !== password)
-            return false
-    
-        return true
-        // WARN "nice", but not easy to read
-        // return (!foundUser || foundUser.password !== password)? false : true
-        // return !(!foundUser || foundUser.password !== password)      
+    var foundUser = users.find(user => user.email === temporalUser.email);
+    if (!foundUser || foundUser.password !== temporalUser.password){
+        throw new Error("Email or password wrong")
+    }
 }
+
 
 const addUserNameInHeader = (authenticatedEmail) => {
     let currentUser = users.find( user => user.email === authenticatedEmail);
@@ -54,29 +60,31 @@ const addUserNameInHeader = (authenticatedEmail) => {
 const resetUserNameInHeader = () => {
     welcomeMessage.textContent = "Welcome ";
 }
-
 function updateUserPassword(email, password, newPassword, newPasswordConfirm) {
+
     let currentUser =  users.find(user => user.email === email);
     let currentUserIndex = users.findIndex(user => user.email === email);
 
-    
-    if (password.value !== currentUser.password){
-        document.querySelector(".fail-current-password").classList.remove("off");
-        set3SecondsAdvice(document.querySelector(".fail-current-password"), "off");
-        return false;
+    if(!password.value){
+        throw new Error("Password is empty")
     }
-
+    if(!newPassword.value){
+        throw new Error("New password is empty")
+    }
+    if(!newPasswordConfirm.value){
+        throw new Error("New password confirmation is empty")
+    }
+    if (currentUser.password !== password.value){
+        throw new Error("typed password isn't actual password user's value")
+    }
     if (password.value === newPassword.value){
-        document.querySelector(".fail-coincidence").classList.remove("off");
-        set3SecondsAdvice(document.querySelector(".fail-coincidence"),"off");
-        return false; 
+        throw new Error("Password is equal than new password")
+    }
+    if (newPassword.value !== newPasswordConfirm.value){
+        throw new Error("New password and new password confirmation are not the same")
     }
 
-    if (newPassword.value !== newPasswordConfirm.value){
-        document.querySelector(".fail-password-match-advise").classList.remove("off");
-        set3SecondsAdvice(document.querySelector(".fail-password-match-advise"), "off");
-        return false;
-    }
     users[currentUserIndex].password = newPassword.value;
-    return true;
+
 }
+

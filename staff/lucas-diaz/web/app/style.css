@@ -188,7 +188,7 @@ a:hover{
     color: #179060;
     text-align: center;
 }
-.fail-advice-p, .fail-password-match-advise{
+.fail-register-warning, .fail-password-match-advise, .fail-login-advice-p{
     color: rgb(231, 108, 108);
     text-align: center;
 }
