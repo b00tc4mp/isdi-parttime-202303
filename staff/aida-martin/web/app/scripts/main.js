@@ -17,10 +17,10 @@ let authenticatedEmail;
 registerForm.onsubmit = function (event) {
   event.preventDefault();
 
-  const name = event.target.name.value;
-  const email = event.target.email.value;
-  const password = event.target.password.value;
-  const repeatPassword = event.target.repeatpassword.value;
+  const name = event.target.name.value.trim();
+  const email = event.target.email.value.trim();
+  const password = event.target.password.value.trim();
+  const repeatPassword = event.target.repeatpassword.value.trim();
   const registerError = registerPage.querySelector(".register-error");
 
   try {
@@ -31,8 +31,6 @@ registerForm.onsubmit = function (event) {
   } catch (error) {
     registerError.classList.remove("off");
     registerError.innerText = error.message;
-  } finally {
-    registerForm.reset();
   }
 };
 
@@ -57,7 +55,7 @@ loginForm.onsubmit = function (event) {
 
     let user = retrieveUser(email);
 
-    homePage.querySelector(".name").innerText = user.name;
+    homePage.querySelector(".profile-link").innerText = user.name;
 
     loginError.classList.add("off");
     loginPage.classList.add("off");
@@ -65,8 +63,6 @@ loginForm.onsubmit = function (event) {
   } catch (error) {
     loginError.classList.remove("off");
     loginError.innerText = error.message;
-  } finally {
-    loginForm.reset();
   }
 };
 
@@ -127,7 +123,5 @@ changePasswordPage.querySelector(".change-password-form").onsubmit = function (
   } catch (error) {
     changePasswordError.classList.remove("off");
     changePasswordError.innerText = error.message;
-  } finally {
-    changePasswordForm.reset();
   }
 };

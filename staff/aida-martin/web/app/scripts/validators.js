@@ -1,6 +1,12 @@
 function validateEmail(email) {
   if (typeof email !== "string") throw new Error("Email is not a string 😥");
   if (!email.length) throw new Error("Email is empty 😥");
+
+  const validEmail = /([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4})/i.test(
+    email
+  );
+
+  if (!validEmail) throw new Error("Email is not valid 😥");
 }
 
 function validatePassword(password, explain = "Password") {
