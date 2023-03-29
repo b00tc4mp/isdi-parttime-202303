@@ -115,6 +115,15 @@ function hideSection(section) {
     section.classList.add('off');
 }
 
+/* Para múltiples elementos simultaneamente:
+function hideSections(...sections) {
+   
+    for(let i in sections){
+        sections[i].classList.add('off');
+    }
+}
+*/
+
 function showSection(section) {
     section.classList.remove('off');
 }
