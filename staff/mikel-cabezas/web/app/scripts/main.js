@@ -8,7 +8,6 @@ var currentUserEmail
 
 registerPage.querySelector('form.register-form').addEventListener('submit', function(event) {
     event.preventDefault()
-
     
     var name = registerPage.querySelector('input[name="name"').value
     var email = registerPage.querySelector('input[name="email"').value
@@ -25,7 +24,6 @@ registerPage.querySelector('form.register-form').addEventListener('submit', func
     //     throw new Error('Email already registered')
     // }
     if(checkNewUserIsRegister) {
-        registerPage.classList.add('off')
         loginPage.classList.remove('off')
         registerPage.querySelector('.message').classList.remove('error')
         registerPage.querySelector('.message').innerHTML = 'User created! Please log in'
@@ -60,8 +58,6 @@ loginPage.querySelector('form.login-form').addEventListener('submit', function(e
         loginPage.querySelector('.message').textContent = error.message     
         console.log(error.message)   
     }
-
-
 
 })
 
@@ -107,11 +103,8 @@ userAccount.querySelector('.button--update-info__profile').addEventListener('cli
     userAccount.querySelector('form.user-info input[name="name"]').removeAttribute('disabled')
     userAccount.querySelector('form.user-info input[name="email"]').removeAttribute('disabled')
     userAccount.querySelector('.button--update-info__profile').disabled = true
-<<<<<<< HEAD
     currentUserEmail = userAccount.querySelector('form.user-info input[name="email"]').value
-    return console.log(currentUserEmail)
-=======
->>>>>>> dc4c3d93c7554eea652727106887855154a106e4
+    return currentUserEmail
 
 })
 
@@ -128,44 +121,40 @@ userAccount.querySelector('.button--update-info__save-info').addEventListener('c
     event.preventDefault()
     
     var email = userAccount.querySelector('form.user-info input[name="email"]').value
-<<<<<<< HEAD
     for(i = 0; i < users.length; i++){
         var currentUser = users[i]
-        console.log(currentUserEmail)
-        console.log(currentUser.email)
         if (currentUser.email === currentUserEmail) {
-
-
             var userName = userAccount.querySelector('form.user-info input[name="email"]').value
-            if (currentUser.name !== userName) {
+            try {
                 updateUserName(email)
-            }
-            
-            if (currentUser.email !== email) {
                 updateUserEmail(email)
+                if (!updateUserEmail) {
+                    userAccount.querySelector('.update-info p.message').innerHTML = 'User info changed!'
+                }
+
+            } catch (error) {
+                loginPage.querySelector('.message').classList.remove('success')
+                loginPage.querySelector('.message').classList.add('error')        
+                userAccount.querySelector('.message').textContent = error.message     
             }
-            console.log(currentUser)
+
         }
     }
     
     userAccount.querySelector('.button--update-info__profile').removeAttribute('disabled')
-    return 
-=======
-    var oldEmail = users.find(user => user.email === email)
-    // if (!cacheEmail) {
-    //     cacheEmail = oldEmail
-    //     return updateUserInfo(cacheEmail)
-    // }
-    userAccount.querySelector('.button--update-info__profile').removeAttribute('disabled')
-    return updateUserInfo(email)
->>>>>>> dc4c3d93c7554eea652727106887855154a106e4
 })
 
 userAccount.querySelector('.button--update-info__save-password').addEventListener('click', function(event) {
     event.preventDefault()
-    var email = userAccount.querySelector('form.user-info input[name="email"]').value
-    userAccount.querySelector('.button--update-info__password').removeAttribute('disabled')
-    updateUserPassword(email) 
+
+    try {
+        var email = userAccount.querySelector('form.user-info input[name="email"]').value
+        userAccount.querySelector('.button--update-info__password').removeAttribute('disabled')
+        updateUserPassword(email) 
+    } catch(error) {
+        userAccount.querySelector('.update-password p.message').classList.add('error')
+        userAccount.querySelector('.update-password p.message').textContent = error.message
+    }
 })
 
 userAccount.querySelector('.button--update-info__password').addEventListener('click', function(event) {
@@ -184,8 +173,4 @@ userAccount.querySelector('.button--update-info__cancel-password').addEventListe
     userAccount.querySelector('form.user-password input.new-password').disabled = true
     userAccount.querySelector('form.user-password input.repeat-password').disabled = true
     userAccount.querySelector('.button--update-info__password').removeAttribute('disabled')
-<<<<<<< HEAD
 })
-=======
-})
->>>>>>> dc4c3d93c7554eea652727106887855154a106e4
