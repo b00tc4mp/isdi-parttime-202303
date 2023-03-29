@@ -22,7 +22,6 @@ const changePasswordForm = document.querySelector(".change-password-menu form");
 var authenticatedEmail
 
 //! PARTE DE REGISTER
-//* TRY CATCH DONE 
 registerPage.querySelector("form").addEventListener('submit', function (event) {
     event.preventDefault();
     var temporalUser = {
@@ -39,15 +38,10 @@ registerPage.querySelector("form").addEventListener('submit', function (event) {
     } catch (error){
         failRegisterAdvice.textContent = error.message;
     }
-    
 })
-
-
 //! PARTE DE LOGIN
-//* TRY CATCH DONE 
 logInForm.addEventListener('submit', function (event) {
     event.preventDefault();
-
     var temporalUser = {
         email: logInPage.querySelector(".email").value,
         password: logInPage.querySelector(".password").value
@@ -58,20 +52,16 @@ logInForm.addEventListener('submit', function (event) {
         addUserNameInHeader(authenticatedEmail);
         logInPage.classList.add("off");
         homePage.classList.remove("off");
-
     }catch(error){
         failLogInAdvice.textContent = error.message;
     }
 })
-
 loginRegistrationAnchor.addEventListener("click", function (event){
     event.preventDefault();
     logInPage.classList.add("off");
     registerPage.classList.remove("off");
 })
-
 //! PARTE DE HOME
-//* ALL DONE 
 logOutButton.addEventListener("click", () => {
     homePage.classList.add("off");
     changePasswordMenu.classList.add("off");
@@ -79,9 +69,7 @@ logOutButton.addEventListener("click", () => {
     authenticatedEmail = undefined;
     resetUserNameInHeader();
 })
-
 //! PARTE DE CAMBIAR CONTRASEÑAS
-//*TRY CATCH DONE 
 changePasswordMenuAnchor.addEventListener("click", (event) => {
     event.preventDefault();
     changePasswordMenu.classList.remove("off");
@@ -94,20 +82,14 @@ cancelChangePasswordButton.addEventListener("click", (event) => {
 })
 changePasswordForm.addEventListener("submit", (event) => {
     event.preventDefault();
-
     let oldPassword = document.querySelector(".old-password");
     let newPassword = document.querySelector(".new-password");
     let newPasswordRepetition = document.querySelector(".new-password-repetition");
-
-
     try{
         updateUserPassword(authenticatedEmail, oldPassword, newPassword, newPasswordRepetition);
-
         changePasswordMenu.classList.add("off");
         document.querySelector(".success-password-change-advise").classList.remove("off");
         vanishWarningIn3Seconds(document.querySelector(".success-password-change-advise"),"off");
-
-
     } catch(error){
         document.querySelector(".fail-password-match-advise").textContent = error.message;
     }
