@@ -20,7 +20,7 @@ const findUser = (users, userEmail) => {
 const changePassword = (userLogged, users) => {
     homePage.querySelector('.red-text').textContent = ''
     var previousPassword = homePage.querySelector('.previous-password').value
-
+    
     if (previousPassword !== userLogged.password) throw new Error('Your password is incorrect')
 
     var newPassword = homePage.querySelector('.new-password').value
@@ -41,4 +41,35 @@ const changePassword = (userLogged, users) => {
     })
     homePage.querySelector('.red-text').textContent = 'Password succesfully changed'
     homePage.querySelector('.red-text').classList.add('green-text')
+}
+
+const updateUserAvatar = (userLogged, avatarUrl) => {
+    validateEmail(userLogged.email, emailExpression)
+    validateUrl(avatarUrl, 'Avatar url')
+
+    var foundUser = findUser(users, userLogged.email)
+
+    if(!foundUser) throw new Error('User not found')
+
+    foundUser.avatar = avatarUrl
+    avatarImg.src = foundUser.avatar
+}
+
+const resetLoginPage = (loginPage) => {
+    loginPage.querySelector('.red-text').textContent = ''
+    loginPage.classList.add('off')
+    loginPage.querySelector('form').reset()
+}
+
+const resetRegisterPage = (registerPage) => {
+    registerPage.querySelector('.red-text').textContent = ''
+    registerPage.querySelector('form').reset()
+    registerPage.classList.add('off')
+}
+
+const goToHomePage = (homePage, foundUser, avatarImg) => {
+    homePage.classList.remove('off')
+    homePage.querySelector('a[name=my-profile]').textContent =`${foundUser.name}`
+    if(foundUser.avatar)
+        avatarImg.src = foundUser.avatar
 }

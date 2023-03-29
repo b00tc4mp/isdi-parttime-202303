@@ -23,7 +23,7 @@
             <button class="submit-buttons" type="submit">Register</button>
         </form>
     </div>
-    <div class="login-page">
+    <div class="login-page _off">
         <h1 class="all-titles">LOGIN</h1>
         <div class="red-text"></div>
         <form class="login-inputs">
@@ -44,34 +44,46 @@
         <nav class="home-bar">
             <ul class="horizontal-menu">
                 <li><a href="#" class="menu-buttons">Home</a></li>
-                <li><a href="#" class="menu-buttons">Multimedia</a></li>
-                <li><a href="#" class="menu-buttons" name="my-profile">MyProfile</a></li>
+                <li>
+                    <div>
+                        <img src="https://avatarfiles.alphacoders.com/157/thumb-157567.jpg" alt="" class="user-avatar">
+                        <a href="#" class="menu-buttons" name="my-profile">Username</a>
+                    </div>
+                </li>
                 <li><a href="#" class="menu-buttons" name="logout">Logout</a></li>
             </ul>
         </nav>
         <div class="under-menu ">
-            <h2 class="all-titles welcome-message">¡Hi Rodrigo!</h2>
             <ul class="profile-options must-be-reset off">
                 <li>My information</li>
                 <li>Settings</li>
                 <li class="change-password">Change password</li>
+                <li class="change-avatar">Change avatar</li>
                 <li>Help</li>
-                <li>About</li>
             </ul>
-            <div class="change-password-menu must-be-reset off">
+            <div class="change-password-menu off">
                 <h2 class="all-titles change-pass-title">Change Password</h2>
                 <div class="red-text"></div>
                 <form class="inputs ">
                     <input class="input-field change-password-input previous-password" type="password" name="previous-pasword" placeholder="Previous password">
                     <input class="input-field change-password-input new-password" type="password" name="new-password" placeholder="New password">
                     <input class="input-field change-password-input repeat-new-password" type="password" name="repeat-new-password" placeholder="Repeat New Password">
-                    <button class="submit-buttons change-my-password" name="change-my-password" type="submit">Send</button>
+                    <button class="submit-buttons change-my-password" name="change-my-password" type="submit">Save</button>
+                </form>
+            </div>
+            <div class="change-avatar-menu off">
+                <h2 class="all-titles change-avatar-title">Change Avatar</h2>
+                <div class="red-text"></div>
+                <form action="" class="inputs">
+                    <input type="text" class="input-field" type="text" name="avatarurl" placeholder="Insert avatar url">
+                    <button class="submit-buttons">Save</button>
                 </form>
             </div>
         </div>
     </div>
 
     <script src="data.js"></script>
+    <script src="validators.js"></script>
     <script src="logic.js"></script>
     <script src="main.js"></script>
 </body>

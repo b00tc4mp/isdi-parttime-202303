@@ -184,7 +184,20 @@ body {
   align-items: stretch;
 }
 
-.horizontal-menu > li > a {
+.horizontal-menu > li > div{
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.user-avatar{
+  background-color: white;
+  height: 2rem;
+  width: 2rem;
+  border-radius: 1rem;
+}
+
+.horizontal-menu > li > a, .horizontal-menu > li > div > a {
   font-size: 1.2rem;
   height: 100%;
   font-family: "Text Me One", sans-serif;
@@ -192,6 +205,7 @@ body {
   display: flex;
   align-items: center;
   color: var(--bar-buttons-color);
+  cursor: pointer;
 }
 
 .under-menu {
@@ -229,6 +243,7 @@ body {
   padding: 2rem;
   gap: 1.2rem;
   font-size: 1.2rem;
+  cursor: pointer;
 }
 
 .change-password-menu {
@@ -240,6 +255,10 @@ body {
 
 .change-password-input {
   width: 15rem;
+}
+
+.change-avatar-menu > form {
+  height: 9rem;
 }
 
 input:-webkit-autofill {

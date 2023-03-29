@@ -20,4 +20,5 @@ users.push({
     password: '123123123'
 })
 
-var userLogged
+
+var emailExpression = /^[\w-.]+@[a-zA-Z0-9]+(\.[a-zA-Z]{2,4}){1,2}$/
