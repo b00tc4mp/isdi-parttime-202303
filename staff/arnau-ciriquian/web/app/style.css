@@ -1,14 +1,17 @@
-html {
+/* Resets */
+
+html, body {
     height: 100%;
 }
 
 body {
-    height: 100%;
-    margin: 0%;
+    margin: 0;
+    padding: 0;
+    margin: 0;
     background-color: black;
-    display: flex;
+    /* display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: center; */
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     overflow: hidden;
 }
@@ -17,6 +20,11 @@ body {
 
 :root {
     --textcolor: rgb(255, 255, 255);
+    --pagecolor: rgba(0, 148, 198, 0.577);
+}
+
+.off {
+    display: none !important;
 }
 
 .blue-hex {
@@ -25,7 +33,7 @@ body {
     z-index: -1;
     width: 120%;
     height: 100%;
-    background-image: url(hexagon-pattern-blue.png);
+    background-image: url(images/hexagon-pattern-blue.png);
 }
 
 .purple-gradient {
@@ -36,7 +44,7 @@ body {
     background-image: linear-gradient(to bottom, rgb(74, 14, 108), rgba(0, 0, 0, 0));
 }
 
-.orange-hex {
+/* .orange-hex {
     position: absolute;
     left: -3%;
     z-index: -1;
@@ -51,16 +59,15 @@ body {
     width: 100%;
     height: 100%;
     background-image: linear-gradient(to bottom, rgba(7, 65, 34, 0.892), rgba(0, 0, 0, 0));
-}
-
+} */
 .page {
     min-width: 250px;
     min-height: 350px;
     width: 70vw;
     height: 80vw;
     max-width: 350px;
-    max-height: 375px;
-    background-color: rgba(0, 148, 198, 0.577);
+    max-height: 375px; 
+    background-color: var(--pagecolor);
     border-radius: 5%;
     display: flex;
     justify-content: center;
@@ -68,15 +75,55 @@ body {
     align-items: center;
 }
 
-.home__profile, .home__password, .home__main {
-    background-color: rgba(0, 148, 198, 0)
+.home, .register, .login {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-a, .text {
-    color: var(--textcolor);
-    width: 100%;
-    text-align: center;
-    text-shadow: 0px 1px 10px rgb(0, 221, 255);
+.home--page {
+    /* min-width: 250px;
+    min-height: 350px;
+    width: 70vw;
+    height: 80vw;
+    max-width: 350px;
+    max-height: 375px; */
+    background-color: var(--pagecolor);
+    margin-top: 6rem;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+header {
+    background-color: var(--pagecolor);
+    position: fixed;
+    width: 100vw;
+    height: 3rem;
+    top: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.home__navigation--profile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin: 0 1rem;
+}
+
+.avatar {
+    width: 2rem;
+}
+
+.anchor__logout--icon {
+    width: 2rem;
+    margin: 0 1rem;
 }
 
 form {
@@ -114,9 +161,13 @@ form {
     box-shadow: 0px 1px 10px rgb(0, 242, 255);
 }
 
-.off {
-    display: none;
+a, .text {
+    color: var(--textcolor);
+    width: 100%;
+    text-align: center;
+    text-shadow: 0px 1px 10px rgb(0, 221, 255);
 }
+
 
 @media (min-width: 768px) {
     .page {
@@ -124,4 +175,3 @@ form {
         height: 375px;
     }
 }
-/* BEM methodology */

@@ -11,57 +11,65 @@
     <div class="pattern-hex blue-hex "></div>
     <div class="pattern-color purple-gradient"></div>
 
-    <div class="register page off">
-        <h1 class="text">Register</h1>
-
-        <!--TODO Add headers to each page (h1+botons de navegacio?)
-            Add footers? boto logout-->
-
-        <form class="register__form">
-            <div class="inputs__box">
-                <input class="form__input" type="text" name="name" placeholder="name">
-                <input class="form__input" type="email" name="email" placeholder="email">
-                <input class="form__input" type="password" name="password" placeholder="password">
-                <input class="form__input" type="password" name="password-confirmation" placeholder="password confirmation">
-            </div>
-            <button class="form__button" type="submit">Register</button>
-        </form>
-
-        <p class="text">Go to <a class="register__anchor--login" href="">Login</a></p>
-
-    </div>
-    <div class="login page _off">
-        <h1 class="text">Login</h1>
-
-        <form class="login__form">
-            <div class="inputs__box">
-                <input class="form__input" type="email" name="email" placeholder="email">
-                <input class="form__input login__password" type="password" name="password" placeholder="password">
-                
-                <div>
-                    <input class="input__password--show" type="checkbox">
-                    <label class="text" for="input__password--show">Show password</label>
+    <div class="register off">
+        <div class="page">
+            <h1 class="text">Register</h1>
+            <form class="register__form">
+                <div class="inputs__box">
+                    <input class="form__input" type="text" name="name" placeholder="name">
+                    <input class="form__input" type="email" name="email" placeholder="email">
+                    <input class="form__input" type="password" name="password" placeholder="password">
+                    <input class="form__input" type="password" name="password-confirmation" placeholder="password confirmation">
                 </div>
-            </div>
-            <button class="form__button" type="submit">Login</button>
-        </form>
+                <button class="form__button" type="submit">Register</button>
+            </form>
 
-        <p class="text">Go to <a class="login__anchor--register" href="">Register</a></p>
+            <p class="text">Go to <a class="register__anchor--login" href="">Login</a></p>
+        </div>
+    </div>
+    <div class="login off">
+        <div class="page">
+            <h1 class="text">Login</h1>
+            <form class="login__form">
+                <div class="inputs__box">
+                    <input class="form__input" type="email" name="email" placeholder="email">
+                    <input class="form__input login__password" type="password" name="password" placeholder="password">
+                    
+                    <div>
+                        <input class="input__password--show" type="checkbox">
+                        <label class="text" for="input__password--show">Show password</label>
+                    </div>
+                </div>
+                <button class="form__button" type="submit">Login</button>
+            </form>    
+            <p class="text">Go to <a class="login__anchor--register" href="">Register</a></p>
+        </div>
     
     </div>
-    <div class="home page off">
-        <div class="home__main page off">
-            <h1 class="text home__tittle"></h1>
-            <p class="text"><a class="home__anchor--profile" href="">Profile</a></p>
+    <div class="home _off">
+        <header class="home__navigation">
+            <div class="home__navigation--profile">
+                <img class="avatar" src="images/space-dog.svg">
+                <p class="text"><a class="home__anchor--profile" href="">Profile</a></p>
+            </div>
+            <div>
+                <a class="navigation__anchor--logout" href=""><img class="anchor__logout--icon" src="images/galaxy.svg"></a>
+            </div>
+        </header>
+        <div class="home__main home--page _off">
+            <p class="text">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur, culpa eaque! Fuga sint, sapiente veniam recusandae nostrum nisi sequi obcaecati assumenda delectus similique iste harum deserunt quos, exercitationem, magnam eius!
+                Est animi, error tempora doloribus dolorem vel nemo, aspernatur consequatur adipisci maxime labore nam odit ducimus voluptatibus quaerat saepe ab voluptatum perferendis accusantium natus amet deleniti dignissimos aliquid quia. Hic.
+                Quae modi quod ea, sapiente, quasi explicabo, esse laboriosam alias itaque maiores veniam? Doloremque illum repudiandae totam suscipit hic illo iste magni repellat explicabo rem dolores, odio modi quasi aliquam.
+            </p>
         </div>
         <div class="home__profile page off">
-            <h2 class="text profile__user">Admin</h2>
+            <h2 class="text profile__user">Update your profile</h2>
             <p class="text off"><a href="">Change user name</a></p>
             <p class="text"><a class="profile__anchor--email" href="">Change email</a></p>
             <p class="text"><a class="profile__anchor--password" href="">Change password</a></p>
             <p class="text off"><a href="">Change colors</a></p>
-            <p class="text"><a class="profile__anchor--home" href="">Home</a></p>
-            <p class="text"><a class="profile__anchor--logout" href="">Log out</a></p>
+            <p class="text"><a class="profile__anchor--home" href="">Back</a></p>
         </div>
         <div class="home__password page off">
             <h1 class="text">Change password</h1>

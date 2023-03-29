@@ -43,7 +43,7 @@ loginPage.querySelector('form').onsubmit = function(event) {
         loginPage.classList.add('off')
         homePage.classList.remove('off')
         homePageMain.classList.remove('off')
-        homePage.querySelector('.home__tittle').innerText = `Welcome, ${foundUser.name}!`
+        homePage.querySelector('.home__anchor--profile').innerText = foundUser.name
     } catch (error) {
         alert(error.message)
     }
@@ -100,10 +100,14 @@ loginPage.querySelector('.login__anchor--register').onclick = function(event) {
 
 homePage.querySelector('.home__anchor--profile').onclick = function(event) {
     event.preventDefault()
-    
-    homePageMain.classList.add('off')
-    homePageProfile.classList.remove('off')
-    homePage.querySelector('.profile__user').innerHTML = loggedUserName
+
+    if (homePageProfile.classList.contains('off')) {
+        homePageMain.classList.add('off')
+        homePageProfile.classList.remove('off')
+    } else {
+        homePageMain.classList.remove('off')
+        homePageProfile.classList.add('off')
+    }
 }
 
 homePage.querySelector('.profile__anchor--home').onclick = function(event) {
@@ -127,7 +131,7 @@ homePage.querySelector('.profile__anchor--email').onclick = function(event) {
     homePageEmail.classList.remove('off')
 }
 
-homePage.querySelector('.profile__anchor--logout').onclick = function(event) {
+homePage.querySelector('.navigation__anchor--logout').onclick = function(event) {
     event.preventDefault()
     
     homePage.classList.add('off')
@@ -160,15 +164,15 @@ loginPage.querySelector('.input__password--show').onclick = function(event) {
     showHidePassword()
 }
 
-//TODO: canvi nom usuari. Foto perfil?
+/*TODO: - canvi nom usuari.
+        - Foto perfil 20230328 2100
+        - canviar alerts per missatges en pantalla?o un toast?
+        - try/catch finally per fer clean dels inputs
+        - nou script "validators" per afegir tots els throw
+        - .trim a email (per evitar espais en blanc)?? 20230328 1955
+        - header 20230328 2035
+        - refactor dels query selectors a event.target o this
+        - 'rest login form' just quan fas login per evitr deixar info en memoria
+        - onclick buttons que no tenen linkat cap form no necessiten event.preventdefault()
 
-//DONE 20230328 -   Implementar BEM
-//                  logica canvi email
-//                  New pass != old pass
-//                  Refactor dels queryselectors a vars
-//                  logica show password a login
-//                  try/catch de la logica actual
-//                          - basica
-//                          - email /\S+@\S+\.\S+/
-//                          - registre, login i canvi de pass
-//                          - totes les comparacions en canvi de pass
+*/              
