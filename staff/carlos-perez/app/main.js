@@ -171,7 +171,7 @@ function headerNotLogged() {
 function initiate() {
     resetRegister();
     resetLogin();
-    hideSection(loginPage);
+    hideSection(registerPage);
     hideSection(homePage);
     hideSection(profileView);
     headerNotLogged();
