@@ -6,6 +6,11 @@
     --gris: #e1e1e1;
     --blanco: #ffffff;
     --negro: #000000;
+    --fuente: #0e0e0e;
+    --aqua: #45c2c5;
+    --background-white: rgba(255,255,255,0.85);
+    --background-light: rgba(252,245,242,0.85);
+    --background-dark: rgba(236,230,226,0.85);
 }
 
 html {
@@ -21,25 +26,45 @@ html {
 }
 
 header {
+    display: flex;
     align-self: center;
     justify-content: center;
+    background: var(--background-dark) ;
+    width: 100%;
+    border-bottom: 2px solid var(--gris);
+    height: 20vh;
 }
 
 header h1 {
     background-image: linear-gradient(90deg, #1a1a1a, #595959, #999999);
-
     background-clip: text;
     -webkit-background-clip: text;
     color: transparent;
+    font-size: 8vh;
+}
+
+.title{
+    background-image: linear-gradient(90deg, #1a1a1a, #595959, #999999);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    align-self: center;
 }
 
 body {
     font-family: var(--fuenteParrafos);
     font-size: 1.6rem;
     line-height: 2;
-    height: 100%;
+    height: 100vh;
     display: flex;
     flex-direction: column;
+    background-color: var(--background-white);
+    margin-top: 0;
+    margin-left: 0;
+}
+
+p{
+    color: var(--fuente);
 }
 
 /** Globales **/
@@ -76,7 +101,6 @@ h4 {
 a {
     color: var(--negro);
 }
-
 .no-margin {
     margin: 0;
 }
@@ -105,6 +129,8 @@ a {
 
 .boton:hover {
     cursor: pointer;
+    color: var(--negro);
+    background-color: var(--gris);
 }
 
 .boton--primario {
@@ -131,48 +157,80 @@ a {
     text-transform: uppercase;
 }
 
-.contacto-bg {
-    background-image: url(../img/contacto.jpg);
-    height: 40rem;
-    background-size: cover;
-    background-repeat: no-repeat;
+.registro{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
 }
 
 .formulario {
-    background-color: var(--blanco);
-    margin: -5rem auto 0 auto;
+    background-color: var(--background-white);
+    margin: 0;
     width: 95%;
     padding: 5rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: center;
+    justify-items: center;
 }
 
 .campo {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     margin-bottom: 2rem;
+    gap: 20px;
 }
 
 .campo__label {
-    flex: 0 0 9rem;
-    text-align: right;
+    
+    text-align: left;
+    justify-self: left;
     padding-right: 2rem;
 }
 
 .campo__field {
-    flex: 1;
+   
     border: 1px solid var(--gris);
     border-radius: 5px;
+    max-width: 300px;
 }
 
-.campo__field--textarea {
-    height: 20rem;
+.formulario .campo .boton{
+    grid-area: 4/1/4/3;
 }
+
+
+.campo-viewonly{
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    align-items: center;
+}
+
+.login{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+}
+
+.formulario-login .campo .boton{
+    grid-area: 3/1/3/3;
+}
+
+
 
 .off {
-    display: none;
+    display: none !important;
 }
 
 .home{
-margin-top: 50px;
 width: 100%;
+display: flex;
+flex-direction: row;
+height: 100%;
+min-height: 300px;
 }
 
 .saludo {
@@ -221,4 +279,95 @@ width: 100%;
                  0 0 30px 220px #45c2c5,
                  0 0 5px 230px transparent;
     }
+  }
+
+  .profile-column{
+    width: 25vw;
+    height: 100vh;
+    min-height: 300px;
+    max-width: 360px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+    margin: 0;
+    padding-right: 10px;
+    padding-left: 10px;
+    border-right: 2px solid var(--gris);
+    background: var(--background-dark) ;
+  }
+
+  .profile-image{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  .profile-image-picture{
+    border: 2px solid var(--gris);
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--aqua);
+  }
+
+  .profile-image-picture p{
+    font-size: 25px;
+  }
+
+  .profile-view{
+    width: 80vw;
+    min-width: 300px;
+    margin: 20px 20px 20px 20px;
+    display: flex;
+    flex-direction: column;
+
+  }
+
+  .password-change{
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: center;
+    justify-items: start;
+    width: 100%;
+  }
+
+  .password-change .campo{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 40vw;
+  }
+
+  .buttons{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+  }
+
+  .mail-change{
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: center;
+    justify-items: start;
+    width: 100%;
+  }
+
+  .mail-change .campo{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 40vw;
+  }
+
+  .buttons-control{
+    display: grid;
+    grid-template-columns: 1fr;
+    max-width: 200px;
   }
