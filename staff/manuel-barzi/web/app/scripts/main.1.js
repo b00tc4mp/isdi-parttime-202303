@@ -26,16 +26,16 @@ registerForm.onsubmit = function (event) {
     if (!result) {
         alert('user already exists')
     } else {
-        hide(registerPage)
-        show(loginPage)
+        registerPage.classList.add('off')
+        loginPage.classList.remove('off')
     }
 }
 
 registerPage.querySelector('a').onclick = function (event) {
     event.preventDefault()
 
-    hide(registerPage)
-    show(loginPage)
+    registerPage.classList.add('off')
+    loginPage.classList.remove('off')
 }
 
 loginForm.onsubmit = function (event) {
@@ -58,8 +58,8 @@ loginForm.onsubmit = function (event) {
 
         loginForm.reset()
 
-        hide(loginPage)
-        show(homePage)
+        loginPage.classList.add('off')
+        homePage.classList.remove('off')
     } catch (error) {
         alert(error.message)
     }
@@ -68,21 +68,22 @@ loginForm.onsubmit = function (event) {
 loginPage.querySelector('a').onclick = function (event) {
     event.preventDefault()
 
-    hide(loginPage)
-    show(registerPage)
+    loginPage.classList.add('off')
+    registerPage.classList.remove('off')
 }
 
 profileLink.onclick = function (event) {
     event.preventDefault()
 
-    show(profilePanel)
+    profilePanel.classList.remove('off')
 }
 
 homePage.querySelector('.home-header-logout').onclick = function () {
     authenticatedEmail = undefined
 
-    hide(homePage, profilePanel)
-    show(loginPage)
+    homePage.classList.add('off')
+    profilePanel.classList.add('off')
+    loginPage.classList.remove('off')
 }
 
 updateUserAvatarForm.onsubmit = function (event) {
