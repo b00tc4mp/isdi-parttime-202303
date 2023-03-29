@@ -31,7 +31,7 @@ body {
     position: absolute;
     left: -3%;
     z-index: -1;
-    width: 120%;
+    width: 103%;
     height: 100%;
     background-image: url(images/hexagon-pattern-blue.png);
 }

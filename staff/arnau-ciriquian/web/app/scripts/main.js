@@ -109,6 +109,7 @@ homePage.querySelector('.username__form').onsubmit = function(event) {
 function closeProfilePages() {
 // si afegeixo canvi d'avatar afegir el close profile pertinent
 
+//provar sns els if, si ja te la classe off no la hauria de torna a afegir
     if (!homePageUsername.classList.contains('off')) {
         homePageUsername.classList.add('off')
     }
@@ -129,12 +130,18 @@ loginPage.querySelector('.input__password--show').onclick = function(event) {
 /*  TODO:   
             - Foto perfil 20230328 2100
             - canviar alerts per missatges en pantalla?o un toast?
+            - visibilitat del password en ull?
+            - ifs del closeProfilePages
+            - transformar el .classList.add('off') i .classList.remove('off') a funcions 20230329 2110
+            - les funcions del classList en una sola funcio que gestioni totes ls classes que shan dobrir i tancar de cop? amb un for? function(...containers) amb un for dins 2118 
+            - fitxers 'utils' : funcio de classList i funcio shw/hide pass?
+            - canviar els ifs de off per un toggle (profile-anchor i/o closeProilePages)
+            - objectiu de la app: xarxa social:
+                - rollo ig?
+                - ig de stickers?
+                - estil twitter?
+                - likes, post, comments?
+
             
-    DONE    - CSS (Header i styles en general)
-            - canvi nom usuari.
-            - Logo avatar (not yet configurable)
-            - try/catchs a nou fitxer validators
-            - 'rest login form' just quan fas login per evitr deixar info en memoria
-            - refactor dels query selectors a event.target o this
-            - nou fitxer per els anchors
+    DONE    -
 */              
