@@ -16,10 +16,10 @@
             <h1 class="text">Register</h1>
             <form class="register__form">
                 <div class="inputs__box">
-                    <input class="form__input" type="text" name="name" placeholder="name">
+                    <input class="form__input" type="text" name="name" placeholder="username">
                     <input class="form__input" type="email" name="email" placeholder="email">
                     <input class="form__input" type="password" name="password" placeholder="password">
-                    <input class="form__input" type="password" name="password-confirmation" placeholder="password confirmation">
+                    <input class="form__input" type="password" name="passwordConfirmation" placeholder="password confirmation">
                 </div>
                 <button class="form__button" type="submit">Register</button>
             </form>
@@ -65,40 +65,55 @@
         </div>
         <div class="home__profile page off">
             <h2 class="text profile__user">Update your profile</h2>
-            <p class="text off"><a href="">Change user name</a></p>
+            <p class="text"><a class="profile__anchor--username" href="">Change user name</a></p>
             <p class="text"><a class="profile__anchor--email" href="">Change email</a></p>
             <p class="text"><a class="profile__anchor--password" href="">Change password</a></p>
             <p class="text off"><a href="">Change colors</a></p>
             <p class="text"><a class="profile__anchor--home" href="">Back</a></p>
         </div>
-        <div class="home__password page off">
-            <h1 class="text">Change password</h1>
-            <form class="password__form">
+        <div class="home__username page off">
+            <h1 class="text">Change email</h1>
+            <form class="username__form">
                 <div class="inputs__box">
-                    <input class="form__input" type="password" name="old-password" placeholder="old password">
-                    <input class="form__input" type="password" name="new-password" placeholder="new password">
-                    <input class="form__input" type="password" name="new-password-confirmation" placeholder="new password confirmation">
+                    <input class="form__input" type="text" name="oldUsername" placeholder="old username">
+                    <input class="form__input" type="text" name="newUsername" placeholder="new username">
+                    <input class="form__input" type="password" name="password" placeholder="password">
                 </div>
-                <button class="form__button" type="submit">Change password</button>
+                <button class="form__button" type="submit">Change username</button>
             </form>
-            <p class="text"><a class="password__anchor--profile" href="">Profile</a></p>
+            <p class="text"><a class="username__anchor--profile" href="">Profile</a></p>
         </div>
         <div class="home__email page off">
             <h1 class="text">Change email</h1>
             <form class="email__form">
                 <div class="inputs__box">
-                    <input class="form__input" type="email" name="old-email" placeholder="old email">
-                    <input class="form__input" type="email" name="new-email" placeholder="new email">
-                    <input class="form__input" type="email" name="new-email-confirmation" placeholder="new email confirmation">
+                    <input class="form__input" type="email" name="oldEmail" placeholder="old email">
+                    <input class="form__input" type="email" name="newEmail" placeholder="new email">
+                    <input class="form__input" type="email" name="newEmailConfirmation" placeholder="new email confirmation">
+                    <input class="form__input" type="password" name="emailPassword" placeholder="password">
                 </div>
                 <button class="form__button" type="submit">Change email</button>
             </form>
             <p class="text"><a class="email__anchor--profile" href="">Profile</a></p>
         </div>
+        <div class="home__password page off">
+            <h1 class="text">Change password</h1>
+            <form class="password__form">
+                <div class="inputs__box">
+                    <input class="form__input" type="password" name="oldPassword" placeholder="old password">
+                    <input class="form__input" type="password" name="newPassword" placeholder="new password">
+                    <input class="form__input" type="password" name="newPasswordConfirmation" placeholder="new password confirmation">
+                </div>
+                <button class="form__button" type="submit">Change password</button>
+            </form>
+            <p class="text"><a class="password__anchor--profile" href="">Profile</a></p>
+        </div>
     </div>
 
+    <script src="scripts/validators.js"></script>
     <script src="scripts/data.js"></script>
     <script src="scripts/logic.js"></script>
     <script src="scripts/main.js"></script>
+    <script src="scripts/anchors.js"></script>
 </body>
 </html>

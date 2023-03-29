@@ -3,6 +3,7 @@ var loginPage = document.querySelector('.login')
 var homePage = document.querySelector('.home')
 var homePageProfile = homePage.querySelector('.home__profile')
 var homePagePassword = homePage.querySelector('.home__password')
+var homePageUsername = homePage.querySelector('.home__username')
 var homePageEmail = homePage.querySelector('.home__email')
 var homePageMain = homePage.querySelector('.home__main')
 var authenticatedEmail
@@ -11,16 +12,17 @@ var loggedUserName
 registerPage.querySelector('form').onsubmit = function(event) {
     event.preventDefault()
 
-    var newUser = registerPage.querySelector('input[name=name]').value
-    var newEmail = registerPage.querySelector('input[name=email]').value
-    var newPassword = registerPage.querySelector('input[name=password]').value
-    var confirmedPassword = registerPage.querySelector('input[name=password-confirmation]').value
+    var newUser = event.target.name.value
+    var newEmail = event.target.email.value
+    var newPassword = event.target.password.value
+    var confirmedPassword = event.target.passwordConfirmation.value
 
     try {
         addNewUser(newUser, newEmail, newPassword, confirmedPassword)
 
         registerPage.classList.add('off')
         loginPage.classList.remove('off')
+        registerPage.querySelector('form').reset()
     } catch (error) {
         alert(error.message)
     }
@@ -29,21 +31,19 @@ registerPage.querySelector('form').onsubmit = function(event) {
 loginPage.querySelector('form').onsubmit = function(event) {
     event.preventDefault()
 
-    var email = loginPage.querySelector('input[name=email]').value
-    var password = loginPage.querySelector('input[name=password]').value
+    var email = event.target.email.value
+    var password = event.target.password.value
 
     try {
         authenticateUser(email, password)
-
         authenticatedEmail = email
-
         var foundUser = getLoggedUser(email)
 
-        
         loginPage.classList.add('off')
         homePage.classList.remove('off')
         homePageMain.classList.remove('off')
         homePage.querySelector('.home__anchor--profile').innerText = foundUser.name
+        loginPage.querySelector('form').reset()
     } catch (error) {
         alert(error.message)
     }
@@ -52,9 +52,9 @@ loginPage.querySelector('form').onsubmit = function(event) {
 homePage.querySelector('.password__form').onsubmit = function(event) {
     event.preventDefault()
 
-    var oldPassword = homePage.querySelector('input[name=old-password]').value
-    var newPassword = homePage.querySelector('input[name=new-password]').value
-    var confirmedPassword = homePage.querySelector('input[name=new-password-confirmation]').value
+    var oldPassword = event.target.oldPassword.value
+    var newPassword = event.target.newPassword.value
+    var confirmedPassword = event.target.newPasswordConfirmation.value
     var email = authenticatedEmail
 
     try {
@@ -62,6 +62,7 @@ homePage.querySelector('.password__form').onsubmit = function(event) {
 
         homePageProfile.classList.remove('off')
         homePagePassword.classList.add('off')
+        homePage.querySelector('.password__form').reset()
     } catch (error) {
         alert(error.message)
     } 
@@ -70,92 +71,53 @@ homePage.querySelector('.password__form').onsubmit = function(event) {
 homePage.querySelector('.email__form').onsubmit = function(event) {
     event.preventDefault()
 
-    var oldEmail = homePage.querySelector('input[name=old-email').value
-    var newEmail = homePage.querySelector('input[name=new-email').value
-    var confirmedEmail = homePage.querySelector('input[name=new-email-confirmation').value
+    var oldEmail = event.target.oldEmail.value
+    var newEmail = event.target.newEmail.value
+    var confirmedEmail = event.target.newEmailConfirmation.value
+    var password = event.target.emailPassword.value
 
     try {
-        updateUserEmail(oldEmail, newEmail, confirmedEmail)
+        updateUserEmail(oldEmail, newEmail, confirmedEmail, password)
 
         homePageProfile.classList.remove('off')
         homePageEmail.classList.add('off')
+        homePage.querySelector('.email__form').reset()
     } catch (error) {
         alert(error.message)
     }
 }
 
-registerPage.querySelector('.register__anchor--login').onclick = function(event) {
-    event.preventDefault()
-    
-    registerPage.classList.add('off')
-    loginPage.classList.remove('off')
-}
-
-loginPage.querySelector('.login__anchor--register').onclick = function(event) {
-    event.preventDefault()
-    
-    loginPage.classList.add('off')
-    registerPage.classList.remove('off')
-}
-
-homePage.querySelector('.home__anchor--profile').onclick = function(event) {
+homePage.querySelector('.username__form').onsubmit = function(event) {
     event.preventDefault()
 
-    if (homePageProfile.classList.contains('off')) {
-        homePageMain.classList.add('off')
+    var oldUsername = event.target.oldUsername.value
+    var newUsername = event.target.newUsername.value
+    var password = event.target.password.value
+    var email = authenticatedEmail
+
+    try {
+        updateUsername(email, oldUsername, newUsername, password)
+
         homePageProfile.classList.remove('off')
-    } else {
-        homePageMain.classList.remove('off')
-        homePageProfile.classList.add('off')
+        homePageUsername.classList.add('off')
+        homePage.querySelector('.username__form').reset()
+    } catch (error) {
+        alert(error.message)
     }
 }
 
-homePage.querySelector('.profile__anchor--home').onclick = function(event) {
-    event.preventDefault()
-    
-    homePageMain.classList.remove('off')
-    homePageProfile.classList.add('off')
-}
+function closeProfilePages() {
+// si afegeixo canvi d'avatar afegir el close profile pertinent
 
-homePage.querySelector('.profile__anchor--password').onclick = function(event) {
-    event.preventDefault()
-
-    homePageProfile.classList.add('off')
-    homePagePassword.classList.remove('off')
-}
-
-homePage.querySelector('.profile__anchor--email').onclick = function(event) {
-    event.preventDefault()
-
-    homePageProfile.classList.add('off')
-    homePageEmail.classList.remove('off')
-}
-
-homePage.querySelector('.navigation__anchor--logout').onclick = function(event) {
-    event.preventDefault()
-    
-    homePage.classList.add('off')
-    homePageProfile.classList.add('off')
-    homePageMain.classList.remove('off')
-    loginPage.classList.remove('off')
-    loginPage.querySelector('form').reset()
-
-    authenticatedEmail = '';
-    loggedUserName = {};
-}
-
-homePage.querySelector('.password__anchor--profile').onclick = function(event) {
-    event.preventDefault()
-
-    homePagePassword.classList.add('off')
-    homePageProfile.classList.remove('off')
-}
-
-homePage.querySelector('.email__anchor--profile').onclick = function(event) {
-    event.preventDefault()
-
-    homePageEmail.classList.add('off')
-    homePageProfile.classList.remove('off')
+    if (!homePageUsername.classList.contains('off')) {
+        homePageUsername.classList.add('off')
+    }
+    if (!homePageEmail.classList.contains('off')) {
+        homePageEmail.classList.add('off')
+    }
+    if (!homePagePassword.classList.contains('off')) {
+        homePagePassword.classList.add('off')
+    }
 }
 
 loginPage.querySelector('.input__password--show').onclick = function(event) {
@@ -164,15 +126,15 @@ loginPage.querySelector('.input__password--show').onclick = function(event) {
     showHidePassword()
 }
 
-/*TODO: - canvi nom usuari.
-        - Foto perfil 20230328 2100
-        - canviar alerts per missatges en pantalla?o un toast?
-        - try/catch finally per fer clean dels inputs
-        - nou script "validators" per afegir tots els throw
-        - .trim a email (per evitar espais en blanc)?? 20230328 1955
-        - header 20230328 2035
-        - refactor dels query selectors a event.target o this
-        - 'rest login form' just quan fas login per evitr deixar info en memoria
-        - onclick buttons que no tenen linkat cap form no necessiten event.preventdefault()
-
+/*  TODO:   
+            - Foto perfil 20230328 2100
+            - canviar alerts per missatges en pantalla?o un toast?
+            
+    DONE    - CSS (Header i styles en general)
+            - canvi nom usuari.
+            - Logo avatar (not yet configurable)
+            - try/catchs a nou fitxer validators
+            - 'rest login form' just quan fas login per evitr deixar info en memoria
+            - refactor dels query selectors a event.target o this
+            - nou fitxer per els anchors
 */              
