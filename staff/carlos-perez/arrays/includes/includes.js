@@ -1,5 +1,5 @@
 function includes(array, objective){
-    for(let element of array){
+    for(const element of array){
         if(element===objective){
             return true;
         }
