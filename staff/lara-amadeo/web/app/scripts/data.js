@@ -12,3 +12,7 @@ users.push({
     email: 'pepito@grillo.com',
     password: '123123123'
 })
+
+var findUser = (users, authenticatedEmail) => {
+    return users.find(user => user.email === authenticatedEmail)
+ }

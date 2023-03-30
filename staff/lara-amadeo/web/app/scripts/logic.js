@@ -1,4 +1,5 @@
 
+
 var checkUserExists = (registrationName, registrationEmail, registrationPassword,registrationRepPassword) => {
     var foundUser
     for (let i = 0; i < users.length; i++){
@@ -55,26 +56,20 @@ var updatePassword = (users, authenticatedEmail, currentPassword, newPassword, c
 
 var updateEmail = (users, authenticatedEmail, currentEmail, newEmail, confirmNewEmail) => {
 
-    
+    var user = findUser(users, authenticatedEmail)
+
+    if (!user) throw new Error('User not found')
+
     if (currentEmail!== authenticatedEmail) throw new Error('Invalid current email')
 
     if (currentEmail === newEmail) throw new Error('Current email cannot be the same as new email')
 
     if (newEmail !== confirmNewEmail) throw new Error('New emails do not match')
 
-    for (let i = 0; i < users.length; i++){
-        user = users[i]
-
-        if (user.email === authenticatedEmail){
-                users[i].email = newEmail
-                authenticatedEmail = newEmail
-        } 
-    }
+    user.email = newEmail
+    authenticatedEmail = newEmail
 }
 
-var findUser = (users, authenticatedEmail) => {
-   return users.find(user => user.email === authenticatedEmail)
-}
 
 var updateAvatar = (authenticatedEmail, avatarUrl) => {
 

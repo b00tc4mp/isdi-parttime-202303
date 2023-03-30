@@ -1,13 +1,19 @@
 var registrationPage = document.querySelector('.registration')
+var registerForm = registrationPage.querySelector('form')
+
 var loginPage = document.querySelector('.login')
+var loginForm = loginPage.querySelector('form')
+
 var homePage = document.querySelector('.homepage')
+var updatePasswordForm = homePage.querySelector('.update-password')
+var updateEmailForm = homePage.querySelector('.update-mail')
 
 var authenticatedName
 var authenticatedEmail
 var authenticatedPassword
 
 //Registration
-registrationPage.querySelector('form').addEventListener('submit', function(event){
+registerForm.onsubmit = function(event){
     event.preventDefault()
     
    var registrationName = registrationPage.querySelector('input[name=username]').value
@@ -20,8 +26,8 @@ registrationPage.querySelector('form').addEventListener('submit', function(event
     validatePassword(registrationPassword)
     validatePassword(registrationRepPassword, 'new password')
     checkUserExists(registrationName, registrationEmail, registrationPassword,registrationRepPassword)
-    registrationPage.classList.add('off')
-    loginPage.classList.remove('off')
+    hide(registrationPage)
+    show(loginPage)
    } catch (error) {
     registrationPage.querySelector('.error-message').textContent = error.message
    }
@@ -29,64 +35,64 @@ registrationPage.querySelector('form').addEventListener('submit', function(event
     registrationPage.querySelector('input[name=password]').value = ''
     registrationPage.querySelector('input[name=rep-password]').value = ''
    }
-})
+}
 
 //Already an account
 registrationPage.querySelector('a').addEventListener('click', function(event){
     event.preventDefault()
-    registrationPage.classList.add('off')
-    loginPage.classList.remove('off')
+    hide(registrationPage)
+    show(loginPage)
 })
 
 //Back to register
 loginPage.querySelector('.create-account').querySelector('.link').addEventListener('click', function(event){
     event.preventDefault()
 
-    loginPage.classList.add('off')
-    registrationPage.classList.remove('off')
+    hide(loginPage)
+    show(registrationPage)
 })
 
 //Login
-loginPage.querySelector('.primary-button').addEventListener('click', function(event){
+loginForm.onsubmit = function(event){
     event.preventDefault()
 
-    var inputEmail = loginPage.querySelector('input[name=email]').value
-    var inputPassword = loginPage.querySelector('input[name=password]').value
+    var inputEmail = event.target.email.value
+    var inputPassword = event.target.password.value
 
     try{
         checkCredentials(inputEmail, inputPassword)
         authenticatedEmail = inputEmail
         authenticatedPassword = inputPassword
-        authenticatedName = users.find((user) => user.email === authenticatedEmail).username
+        authenticatedName = users.find((user) => user.email === authenticatedEmail).name
 
-        loginPage.classList.add('off')
-        homePage.classList.remove('off')
+        hide(loginPage)
+        show(homePage)
         homePage.querySelector('.homepage-hello').innerHTML = "Hello " + authenticatedName + "!"
     } catch (error) {
         loginPage.querySelector('.error-message').textContent = error.message
     } finally {
         loginPage.querySelector('input[name=password]').value= ''
     }
-})
+}
 
 
 homePage.querySelector('#logout').addEventListener('click', function(event){
     event.preventDefault()
 
-    homePage.classList.add('off')
-    loginPage.classList.remove('off')
+    hide(homePage)
+    show(loginPage)
 })
 
 homePage.querySelector('#update-password').addEventListener('click', function(event){
     event.preventDefault()
 
-    homePage.querySelector('.update-password').classList.remove('off')
+    toggle(updatePasswordForm)
 })
 
 homePage.querySelector('#update-mail').addEventListener('click', function(event){
     event.preventDefault()
 
-    homePage.querySelector('.update-mail').classList.remove('off')
+    updateEmailForm.classList.remove('off')
 })
 
 homePage.querySelector('.topbar-avatar').onclick = function(event){
@@ -105,13 +111,13 @@ homePage.querySelector('#save-update-password').addEventListener('click', functi
 
     try{
         updatePassword(users, authenticatedEmail, currentPassword, newPassword, confirmNewPassword)
-        homePage.querySelector('.update-password').querySelector('.success-message').textContent = "Your password has been updated!"
+        updatePasswordForm.querySelector('.success-message').textContent = "Your password has been updated!"
     } catch (error) {
         homePage.querySelector('.error-message').textContent = error.message
     } finally {
-        homePage.querySelector('.update-password').querySelector('input[name=currentPassword]').value= ''
-        homePage.querySelector('.update-password').querySelector('input[name=newPassword]').value = ''
-        homePage.querySelector('.update-password').querySelector('input[name=confirmNewPassword]').value = ''
+        updatePasswordForm.querySelector('input[name=currentPassword]').value= ''
+        updatePasswordForm.querySelector('input[name=newPassword]').value = ''
+        updatePasswordForm.querySelector('input[name=confirmNewPassword]').value = ''
     } 
 })
 
@@ -132,18 +138,17 @@ homePage.querySelector('#save-update-email').addEventListener('click', function(
 
     try {
         updateEmail(users, authenticatedEmail, currentEmail, newEmail, confirmNewEmail)
-        homePage.querySelector('.update-mail').querySelector('.success-message').textContent = "Your email has been updated!"
+        updateEmailForm.querySelector('.success-message').textContent = "Your email has been updated!"
     } catch (error) {
-        homePage.querySelector('.update-mail').querySelector('.error-message').textContent = error.message
+        updateEmailForm.querySelector('.error-message').textContent = error.message
     } finally {
-        homePage.querySelector('.update-mail').querySelector('input[name=currentEmail]').value = ""
-        homePage.querySelector('.update-mail').querySelector('input[name=newEmail]').value = ""
-        homePage.querySelector('.update-mail').querySelector('input[name=confirmNewEmail]').value = ""
+        updateEmailForm.querySelector('input[name=currentEmail]').value = ""
+        updateEmailForm.querySelector('input[name=newEmail]').value = ""
+        updateEmailForm.querySelector('input[name=confirmNewEmail]').value = ""
     }
 })
 
 //Confirm update avatar
-
 homePage.querySelector('.update-avatar').querySelector('.centered-form').onsubmit = function(event){
     event.preventDefault()
 
@@ -156,8 +161,6 @@ homePage.querySelector('.update-avatar').querySelector('.centered-form').onsubmi
         alert('avatar updted')
         homePage.querySelector('.topbar-avatar').src = avatarUrl
     } catch (error){
-        homePage.querySelector('.update-avatar').querySelector('.error-message').textContent = error.message
+        homePage.querySelector('.update-avatar').errorMessage.textContent = error.message
     }
-
-
 }
