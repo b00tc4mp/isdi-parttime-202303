@@ -1,4 +1,7 @@
-html {
+/* resets */
+
+html,
+body {
   height: 100%;
 }
 
@@ -7,40 +10,58 @@ body {
   padding: 0;
 }
 
+/* styles */
+
 :root {
-  --base-color: rgb(255, 255, 255, 0.8);
+  --basecolor: lightgrey;
+  --basebgcolor: rgb(78, 186, 248);
 }
 
-.register {
-  background-color: rgb(23, 94, 122);
+.off {
+  display: none !important;
+}
+
+.page {
+  background-color: var(--basebgcolor);
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
-.register-title {
-  color: var(--base-color);
+
+.title {
+  color: var(--basecolor);
 }
 
-.register-form {
+.form {
   display: flex;
   flex-direction: column;
   min-width: 60vw;
   gap: 1rem;
 }
 
-.register-imput .register-button {
+.input,
+.button {
   padding: 0.5rem 0.6rem;
-  border-radius: 0.5rem;
+  border-radius: 0.75rem;
+  background-color: var(--basecolor);
 }
 
-.register-button {
+.button {
   cursor: pointer;
 }
 
+.button--accept {
+  background-color: greenyellow;
+}
+
+.button--cancel {
+  background-color: tomato;
+}
+
 @media (min-width: 768px) {
-  .register-button:hover {
-    background-color: darkgray;
+  .page {
+    background-color: tomato;
   }
-} ;
+}
