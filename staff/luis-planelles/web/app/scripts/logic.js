@@ -16,6 +16,8 @@ findUserByEmail = (email) => {
 };
 
 const registerUser = (name, email, password) => {
+  if (!name.length || !email.length || !password.length)
+    throw new Error("Any field is empty");
   if (typeof name !== "string") throw new Error("name is not a string");
   if (!name.length) throw new Error("name is empty");
   if (typeof email !== "string") throw new Error("email is not an string");
@@ -59,8 +61,6 @@ const updateUserPassword = (
   newPassword,
   newPasswordConfirm
 ) => {
-  // TODO add more input validation
-
   const foundUser = findUserByEmail(email);
   if (!foundUser) throw new Error("User doesn't exists");
 
