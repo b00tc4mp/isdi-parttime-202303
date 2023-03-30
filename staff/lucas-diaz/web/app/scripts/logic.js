@@ -1,6 +1,5 @@
 //? LOGIC
 
-//!REGISTER FUNCTIONS
 const registerUser = (temporalUser) => {
     validateUsername(temporalUser);
     validateEmail(temporalUser);
@@ -12,11 +11,7 @@ const registerUser = (temporalUser) => {
     users.push(temporalUser);
 }
 //! CLEAN THINGS FUNCTIONS --> they can be tools i guess 
-const cleanUser = (registerPage) => {
-    registerPage.querySelector("input[type=text]").value = ""
-    registerPage.querySelector("input[type=email]").value = ""
-    registerPage.querySelector("input[type=password]").value = ""
-}
+
 const cleanChangePasswordForm = () => {
     document.querySelector(".old-password").value ="";
     document.querySelector(".new-password").value = "";

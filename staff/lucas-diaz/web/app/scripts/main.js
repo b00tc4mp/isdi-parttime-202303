@@ -38,9 +38,9 @@ registerPage.querySelector(".register form").addEventListener('submit', function
     }
     try{
         registerUser(temporalUser);
-        registerPage.classList.add("off");
-        logInPage.classList.remove("off");
-        successRegisterAdivice.classList.remove("off");
+        hide(registerPage);
+        show(logInPage);
+        show(successRegisterAdivice)
         vanishWarningIn3Seconds(successRegisterAdivice, "off")
     } catch (error){
         failRegisterAdvice.textContent = error.message;
@@ -170,9 +170,8 @@ document.querySelector(".home-menu-option3").addEventListener("click", (event) =
 
 
 
-/*
-TODO EN EL NAV MENU, TENEMOS QUE MANTENER DE VERDE DONDE ESTEMOS ACTUALMENTE PARA QUE EL USER SEPA DONDE ESTAMOS EN TODO MOMENTO.
-TODO HACER FUNCIONES DE SHOW-HIDE, QUE PUEDA ACEPTAR TANTOS ARGUMENTOS COMO QUIERA (TOOLS) 
-TODO VOLVER A MIRAR FUNCIONES DE MAIN POR SI SE REPITE ALGO 
-TODO METER MAS VALIDACIONES, LAS DE CONTRASEÑA Y LAS DE EMAIL.
-*/
+
+//TODO EN EL NAV MENU, TENEMOS QUE MANTENER DE VERDE DONDE ESTEMOS ACTUALMENTE PARA QUE EL USER SEPA DONDE ESTAMOS EN TODO MOMENTO.
+
+//TODO VOLVER A MIRAR FUNCIONES DE MAIN POR SI SE REPITE ALGO 
+

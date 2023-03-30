@@ -28,7 +28,7 @@ body{
 .submit-button:hover, .change-password:hover, .form-avatar-submit-button:hover{
     color:#179060;
 }
-.log-out-button:hover, .cancel-change-password:hover, .form-avatar-cancel-button:hover{
+.log-out-button:hover, .cancel-change-password:hover, .form-avatar-cancel-button:hover, .home-header-left-items-log-out-button:hover{
     color: rgb(231, 108, 108);
 }
 
