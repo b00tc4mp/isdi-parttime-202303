@@ -117,7 +117,7 @@ function closeProfilePages() {
 /*  TODO:   
             - Foto perfil 20230328 2100
             - canviar alerts per missatges en pantalla?o un toast?
-            - tancar ulls de les contrasenyes amb el canvi de pagina
+            - tancar ulls de les contrasenyes amb el canvi de pagina. Un if? si type text fer un toggle de fa-eye-slash i canvi de tipus
             - objectiu de la app: xarxa social:
                 - rollo ig?
                 - ig de stickers?
