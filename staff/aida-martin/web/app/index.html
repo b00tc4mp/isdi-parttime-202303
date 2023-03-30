@@ -15,32 +15,22 @@
   </head>
   <body>
     <div class="register off">
-      <h1 class="register-title">CREATE ACCOUNT</h1>
+      <h1 class="title">CREATE ACCOUNT</h1>
 
-      <form class="register-form" action="get">
-        <input
-          class="register-input"
-          type="text"
-          name="name"
-          placeholder="Name"
-        />
+      <form class="form">
+        <input class="input" type="text" name="name" placeholder="Name" />
+
+        <input class="input" type="text" name="email" placeholder="Email" />
 
         <input
-          class="register-input"
-          type="text"
-          name="email"
-          placeholder="Email"
-        />
-
-        <input
-          class="register-input"
+          class="input"
           type="password"
           name="password"
           placeholder="Password"
         />
 
         <input
-          class="register-input"
+          class="input"
           type="password"
           name="repeatpassword"
           placeholder="Repeat password"
@@ -48,7 +38,7 @@
 
         <p class="register-error off"></p>
 
-        <button class="register-button">SIGN UP</button>
+        <button class="button register-button">SIGN UP</button>
       </form>
 
       <p class="login-answer">
@@ -57,18 +47,13 @@
     </div>
 
     <div class="login off">
-      <h1 class="login-title">WELCOME!</h1>
+      <h1 class="title">WELCOME!</h1>
 
-      <form class="login-form" action="get">
-        <input
-          class="login-input"
-          type="email"
-          name="email"
-          placeholder="Email"
-        />
+      <form class="form">
+        <input class="input" type="email" name="email" placeholder="Email" />
 
         <input
-          class="login-input"
+          class="input"
           type="password"
           name="password"
           placeholder="Password"
@@ -78,7 +63,7 @@
 
         <p class="login-error error off"></p>
 
-        <button class="login-button">LOG IN</button>
+        <button class="button login-button">LOG IN</button>
       </form>
 
       <p class="register-answer">
@@ -89,7 +74,7 @@
 
     <div class="home _off">
       <div class="home-header">
-        <h1 class="home-title">HOME</h1>
+        <h1 class="title">HOME</h1>
 
         <div class="home-header-nav">
           <img
@@ -100,50 +85,48 @@
           <a href="" class="profile-link">Profile</a>
         </div>
 
-        <button class="profile-logout">LOG OUT</button>
+        <button class="button profile-logout-button">LOG OUT</button>
       </div>
-    </div>
 
-    <div class="profile off">
-      <h1 class="profile-title">YOUR PROFILE</h1>
+      <div class="profile off">
+        <h1 class="title">YOUR PROFILE</h1>
 
-      <form class="profile-avatar-form">
-        <input class="input" type="url" name="url" placeholder="Your link" />
-        <button class="button" type="submit">UPDATE AVATAR</button>
-      </form>
+        <form class="form profile-avatar-form">
+          <h2>UPDATE AVATAR</h2>
+          <input class="input" type="url" name="url" placeholder="Your link" />
+          <button class="button change-avatar-button" type="submit">
+            UPDATE
+          </button>
+        </form>
 
-      <button class="profile-change-password">CHANGE PASSWORD</button>
-    </div>
+        <form class="form profile-password-form">
+          <h2>UPDATE PASSWORD</h2>
+          <input
+            class="input"
+            type="password"
+            name="oldpassword"
+            placeholder="Current password"
+          />
 
-    <div class="change-password off">
-      <h1 class="change-password-title">CHANGE YOUR PASSWORD</h1>
+          <input
+            class="input"
+            type="password"
+            name="newpassword"
+            placeholder="New password"
+          />
 
-      <form class="change-password-form" action="get">
-        <input
-          class="change-password-input"
-          type="password"
-          name="oldpassword"
-          placeholder="Current password"
-        />
+          <input
+            class="input"
+            type="password"
+            name="repeatnewpassword"
+            placeholder="Repeat new password"
+          />
 
-        <input
-          class="change-password-input"
-          type="password"
-          name="newpassword"
-          placeholder="New password"
-        />
+          <p class="change-password-error error off"></p>
 
-        <input
-          class="change-password-input"
-          type="password"
-          name="repeatnewpassword"
-          placeholder="Repeat new password"
-        />
-
-        <p class="change-password-error error off"></p>
-
-        <button class="change-password-button">CHANGE</button>
-      </form>
+          <button class="button change-password-button">UPDATE</button>
+        </form>
+      </div>
     </div>
 
     <script src="scripts/validators.js"></script>

@@ -15,6 +15,18 @@ body {
     align-items: center;
 }
 
+.title, h2 {
+    font-size: 1rem;
+    font-weight: 800;
+    color: rgba(0, 0, 0, 0.8);
+    line-height: 0.983rem;
+    text-align: center;
+}
+
+h2 {
+    font-size: .8rem;
+}
+
 .register, .login, .profile, .change-password {
     background: #ffffff;
     width: 14rem;
@@ -59,41 +71,14 @@ body {
     gap: 1.25rem;
 }
 
-.register-form, .login-form, .change-password-form {
+.form {
     display: flex;
     flex-direction: column;
     gap: 1.125rem;
     margin-top: 1.25rem;
 }
 
-.profile-avatar-form {
-    display: flex;
-    flex-direction: column;
-    gap:.3rem;
-}
-
-.register-title, .login-title, .home-title, .profile-title, .change-password-title, h2 {
-    font-size: 0.813rem;
-    font-weight: 800;
-    color: rgba(0, 0, 0, 0.8);
-    line-height: 0.983rem;
-    text-align: center;
-}
-
-.home-title {
-    font-size: 1rem;
-}
-
-h2 {
-    font-size: 1.25rem;
-}
-
-.login-title {
-    font-size: 1rem;
-    margin-bottom: 0.625rem;
-}
-
-.register-input, .login-input, .change-password-input, .input {
+.input {
     height: 1.75rem;
     font-weight: 500;
     font-size: 0.625rem;
@@ -106,7 +91,7 @@ h2 {
     outline: none;
 }
 
-.register-button, .login-button, .profile-change-password, .profile-logout, .change-password-button, .button {
+.button {
     width: 10rem;
     height: 1.75rem;
     font-weight: 500;
@@ -128,7 +113,7 @@ h2 {
     margin-top: 0.938rem;
 }
 
-.profile-logout {
+.profile-logout-button {
     width: 5rem;
 }
 

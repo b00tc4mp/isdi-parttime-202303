@@ -1,16 +1,14 @@
 const registerPage = document.querySelector(".register");
-const registerForm = registerPage.querySelector(".register-form");
+const registerForm = registerPage.querySelector(".form");
 
 const loginPage = document.querySelector(".login");
-const loginForm = document.querySelector(".login-form");
+const loginForm = loginPage.querySelector(".form");
 
 const homePage = document.querySelector(".home");
 
-const profilePage = document.querySelector(".profile");
-const changePasswordPage = document.querySelector(".change-password");
-const changePasswordForm = changePasswordPage.querySelector(
-  ".change-password-form"
-);
+const profilePanel = document.querySelector(".profile");
+const changePasswordForm = profilePanel.querySelector(".profile-password-form");
+const changeAvatarForm = profilePanel.querySelector(".profile-avatar-form");
 
 let authenticatedEmail;
 
@@ -59,8 +57,7 @@ loginForm.onsubmit = function (event) {
 
     loginForm.reset();
 
-    hidden(loginError);
-    hidden(loginPage);
+    hidden(loginError, loginPage);
     show(homePage);
   } catch (error) {
     show(loginError);
@@ -74,41 +71,30 @@ loginPage.querySelector(".register-link").onclick = function () {
 
   registerForm.reset();
 
-  hidden(registerError);
-  hidden(error);
-  hidden(loginPage);
+  hidden(registerError, error, loginPage);
   show(registerPage);
 };
 
 homePage.querySelector(".profile-link").onclick = function (event) {
   event.preventDefault();
 
-  hidden(homePage);
-  show(profilePage);
+  toggle(profilePanel);
 };
 
-homePage.querySelector(".profile-logout").onclick = function () {
+homePage.querySelector(".profile-logout-button").onclick = function () {
   authenticatedEmail = undefined;
 
-  hidden(homePage);
-
+  hidden(homePage, profilePanel);
   show(loginPage);
 };
 
-profilePage.querySelector(".profile-change-password").onclick = function () {
-  hidden(profilePage);
-  show(changePasswordPage);
-};
-
-changePasswordPage.querySelector(".change-password-form").onsubmit = function (
-  event
-) {
+changePasswordForm.onsubmit = function (event) {
   event.preventDefault();
 
   const password = event.target.oldpassword.value;
-  const newPassword = event.target.newpassword.value;
-  const newPasswordConfirm = event.target.repeatnewpassword.value;
-  const changePasswordError = changePasswordPage.querySelector(
+  const newPassword = event.target.newpassword.value.trim();
+  const newPasswordConfirm = event.target.repeatnewpassword.value.trim();
+  const changePasswordError = profilePanel.querySelector(
     ".change-password-error"
   );
 
@@ -120,19 +106,15 @@ changePasswordPage.querySelector(".change-password-form").onsubmit = function (
       newPasswordConfirm
     );
 
-    alert("Your password has been changed 🥰");
-
+    hidden(profilePanel);
     changePasswordForm.reset();
-
-    hidden(changePasswordPage);
-    show(homePage);
   } catch (error) {
     show(changePasswordError);
     changePasswordError.innerText = error.message;
   }
 };
 
-profilePage.querySelector(".profile-avatar-form").onsubmit = function (event) {
+changeAvatarForm.onsubmit = function (event) {
   event.preventDefault();
 
   const avatar = event.target.url.value;
@@ -141,6 +123,6 @@ profilePage.querySelector(".profile-avatar-form").onsubmit = function (event) {
 
   homePage.querySelector("img").src = avatar;
 
-  hidden(profilePage);
+  hidden(profilePanel);
   show(homePage);
 };
