@@ -11,6 +11,7 @@ const welcomeMessage = document.querySelector(".home-header-user-welcome-msj");
 const logOutButton = document.querySelector(".home-header-left-items-log-out-button");
 const settingsButton = document.querySelector(".home-header-left-items-config-icon");
 const headerMenu = document.querySelector(".home-menu")
+const avatarImage = document.querySelector(".home-header-user-avatar");
 //* VARIABLES WARNINGS
 const successRegisterAdivice = document.querySelector(".login-success-warning");
 const failRegisterAdvice = document.querySelector(".register .fail-warning");
@@ -31,9 +32,9 @@ var authenticatedEmail
 registerPage.querySelector(".register form").addEventListener('submit', function (event) {
     event.preventDefault();
     var temporalUser = {
-        name: registerPage.querySelector(".register .form-username").value,
-        email: registerPage.querySelector(".register .form-email").value,
-        password: registerPage.querySelector(".register .form-password").value
+        name: event.target.name.value,
+        email: event.target.email.value,
+        password: event.target.password.value
     }
     try{
         registerUser(temporalUser);
@@ -50,20 +51,26 @@ registerPage.querySelector(".register form").addEventListener('submit', function
 logInForm.addEventListener('submit', function (event) {
     event.preventDefault();
     var temporalUser = {
-        email: logInPage.querySelector(".login .form-email").value,
-        password: logInPage.querySelector(".login .form-password").value
+
+        //!! OJOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO VALORES PUESTOS A PROPOSITOS, LUEGO BORRAR LOS = " " QUE LE DAMOS A C/VALOR;
+        email: event.target.email.value = "lucas@gmail.com",
+        password: event.target.password.value = "LucasDiaz22!",
     }
     try{
+        console.log(temporalUser);
         authenticateUser(temporalUser);
         authenticatedEmail = temporalUser.email;
         addUserNameInHeader(authenticatedEmail);
+        //avatarImage.src = 
         logInPage.classList.add("off");
         homePage.classList.remove("off");
+        //TODO CREAR FUNCION PARA QUE RECUPERE EL AVATAR SI LO TIENE CUANDO INICIE SESION EL USER Y ESA FUNCION ENCERRARLA DENTRO DE UN IF QUE COMPRUEBE QUE EL ACTUAL USER TIENE AVATAR.
     }catch(error){
         failLogInAdvice.textContent = error.message;
     }
 })
-loginRegistrationAnchor.addEventListener("click", function (event){
+
+loginRegistrationAnchor.addEventListener("click", function (event ){
     event.preventDefault();
     logInPage.classList.add("off");
     registerPage.classList.remove("off");
@@ -126,10 +133,24 @@ cancelUpdateAvatarButton.addEventListener("click", (event) => {
     event.preventDefault();
     updateAvatarMenu.classList.add("off");
 })
+
+
+
 updateAvatarForm.addEventListener("submit", (event) => {
     event.preventDefault();
+    var url = event.target.url.value;
+    try {
+        updateUserAvatar(authenticatedEmail, url);
+        console.log(url);
+        document.querySelector(".success-avatar-warning").classList.remove("off");
+        
+        avatarImage.src = url;
+        vanishWarningIn3Seconds(document.querySelector(".success-avatar-warning"),"off");
+        
+    }catch(error){
+        document.querySelector(".home-update-avatar-menu .fail-warning").textContent = (error.message);
+    }
 })
-
 
 
 
@@ -150,10 +171,7 @@ document.querySelector(".home-menu-option3").addEventListener("click", (event) =
 
 
 /*
-TODO ORGANIZAR EL HTML 
-TODO ORGANIZAR EL CSS CON BEM NAMING 
 TODO EN EL NAV MENU, TENEMOS QUE MANTENER DE VERDE DONDE ESTEMOS ACTUALMENTE PARA QUE EL USER SEPA DONDE ESTAMOS EN TODO MOMENTO.
-TODO HACER LA FUNCION DE CAMBIAR AVATAR 
 TODO HACER FUNCIONES DE SHOW-HIDE, QUE PUEDA ACEPTAR TANTOS ARGUMENTOS COMO QUIERA (TOOLS) 
 TODO VOLVER A MIRAR FUNCIONES DE MAIN POR SI SE REPITE ALGO 
 TODO METER MAS VALIDACIONES, LAS DE CONTRASEÑA Y LAS DE EMAIL.

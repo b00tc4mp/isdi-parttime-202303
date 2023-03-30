@@ -5,22 +5,22 @@ var users = []
 users.push({
     name: 'Wendy Darling',
     email: 'wendy@darling.com',
-    password: '123123123'
+    password: 'WendyDarling22!'
 })
 
 users.push({
     name: 'Peter Pan',
     email: 'peter@pan.com',
-    password: '123123123'
+    password: 'PeterPan22!'
 })
 users.push({
     name: 'Pepito Grillo',
     email: 'pepito@grillo.com',
-    password: '123123123'
+    password: 'PepitoGrillo22!'
 })
 
 users.push({
     name: 'Lucas Diaz',
     email: 'lucas@gmail.com',
-    password: 'lucas'
+    password: 'LucasDiaz22!'
 })

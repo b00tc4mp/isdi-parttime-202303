@@ -5,7 +5,6 @@ const registerUser = (temporalUser) => {
     validateUsername(temporalUser);
     validateEmail(temporalUser);
     validatePassword(temporalUser);
-    // TODO añadir validaciones de email con @ y cosas de esas.
     var foundUser = users.find(user => user.email === temporalUser.email);
     if (foundUser){
         throw new Error("This name already exist");
@@ -39,7 +38,7 @@ const addUserNameInHeader = (authenticatedEmail) => {
     let currentUser = users.find( user => user.email === authenticatedEmail);
     welcomeMessage.textContent = currentUser.name;
 }
-const resetUserNameInHeader = () => {
+const resetUserNameInHeader = () => { 
     welcomeMessage.textContent = "Welcome ";
 }
 function updateUserPassword(email, password, newPassword, newPasswordConfirm) {
@@ -54,5 +53,12 @@ function updateUserPassword(email, password, newPassword, newPasswordConfirm) {
 
     users[currentUserIndex].password = newPassword.value;
 }
-
+const updateUserAvatar = (email, url) => { 
+    validateEmailOnly(email);
+    validateUrl(url);
+    var foundUser = users.find(user => user.email === email);
+    if (!foundUser) throw new Error("user not found");
+    foundUser.avatar = url;
+    console.log(users);
+}
 

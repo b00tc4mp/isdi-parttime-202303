@@ -16,6 +16,23 @@ body{
     font-size: 0.80rem;
 }
 
+/*! SHARED STYLES*/
+.submit-button, .button , .change-password, .cancel-change-password, .form-avatar-cancel-button, .form-avatar-submit-button{
+    flex-basis: 40%;
+    background-color: rgb(8, 8, 8);
+    color: azure;
+    height: 50px;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+.submit-button:hover, .change-password:hover, .form-avatar-submit-button:hover{
+    color:#179060;
+}
+.log-out-button:hover, .cancel-change-password:hover, .form-avatar-cancel-button:hover{
+    color: rgb(231, 108, 108);
+}
+
+/*! REGISTER AN LOGING STILES*/
 .register, .login{
     width: 50%;
     height: 50%;
@@ -64,29 +81,6 @@ label{
     margin-left: 15px;
 }
 
-
-
-
-
-
-.submit-button, .button , .change-password, .cancel-change-password, .form-avatar-cancel-button, .form-avatar-submit-button{
-    flex-basis: 40%;
-    background-color: rgb(8, 8, 8);
-    color: azure;
-    height: 50px;
-    border-radius: 5px;
-    margin-top: 20px;
-}
-.submit-button:hover, .change-password:hover, .form-avatar-submit-button:hover{
-    color:#179060;
-}
-.log-out-button:hover, .cancel-change-password:hover, .form-avatar-cancel-button:hover{
-    color: rgb(231, 108, 108);
-}
-
-
-
-
 /*! LOGIN */
 .login-other-options{
     margin-top: 15px;
@@ -103,10 +97,7 @@ label{
     flex-basis: 100%;
 }
 
-
-/*! HOME  */
-/** HOME HEADER + MENU*/
-
+/*! HOME --> HOME-HEADER + HOME-MENÚ*/
 .home{
     width: 88%;
     height: 90%;
@@ -180,6 +171,7 @@ label{
     border-radius: 5px;
 }
 .home-menu a{
+    flex: 1;
     font-weight: bold;
     color:azure;
 }
@@ -198,8 +190,7 @@ label{
     transform: translateX(0%);
 } 
 
-/*! CHANGE PASSWORD MENU*/ 
-
+/*! CHANGE PASSWORD & AVATAR MENU*/
 .menu-page{
     display: flex;
     flex-flow:wrap row;
@@ -236,8 +227,9 @@ label{
     border-radius: 5px;
     padding: 15px;
 }
-.menu-page .form .fail-password-match-advise{
+.menu-page .form .fail-password-match-advise,.home-update-avatar-menu .fail-warning{
     flex-basis: 100%;
+    padding: 0.5rem;
 }
 .form-buttons{
     flex-basis: 100%;
@@ -248,8 +240,7 @@ label{
 }
 
 
-
-
+/*! MISCELANEOUS*/
 .green{
     color: #179060;
     text-align: center;
