@@ -7,6 +7,9 @@ var loginForm = loginPage.querySelector('form')
 var homePage = document.querySelector('.homepage')
 var updatePasswordForm = homePage.querySelector('.update-password')
 var updateEmailForm = homePage.querySelector('.update-mail')
+var updateAvatarForm = homePage.querySelector('.update-avatar')
+var homeProfileLink = homePage.querySelector('a') 
+var homeProfile = homePage.querySelector('.profile') 
 
 var authenticatedName
 var authenticatedEmail
@@ -68,37 +71,47 @@ loginForm.onsubmit = function(event){
         hide(loginPage)
         show(homePage)
         homePage.querySelector('.homepage-hello').innerHTML = "Hello " + authenticatedName + "!"
+        homeProfileLink.innerHTML = authenticatedName
     } catch (error) {
         loginPage.querySelector('.error-message').textContent = error.message
     } finally {
         loginPage.querySelector('input[name=password]').value= ''
+        hide(homeProfile)
     }
 }
 
+homeProfileLink.onclick = function(event){
+    event.preventDefault()
 
-homePage.querySelector('#logout').addEventListener('click', function(event){
+    toggle(homeProfile)
+    hide(updateEmailForm, updatePasswordForm, updateAvatarForm)
+}
+
+homeProfile.querySelector('.nav-row-email').onclick = function(event){
+    event.preventDefault()
+
+    hide(homeProfile)
+    show(updateEmailForm)
+}
+homeProfile.querySelector('.nav-row-password').onclick = function(event){
+    event.preventDefault()
+
+    hide(homeProfile)
+    show(updatePasswordForm)
+}
+
+homeProfile.querySelector('.nav-row-avatar').onclick = function(event){
+    event.preventDefault()
+
+    hide(homeProfile)
+    show(updateAvatarForm)
+}
+
+homeProfile.querySelector('.link').onclick = function(event){
     event.preventDefault()
 
     hide(homePage)
     show(loginPage)
-})
-
-homePage.querySelector('#update-password').addEventListener('click', function(event){
-    event.preventDefault()
-
-    toggle(updatePasswordForm)
-})
-
-homePage.querySelector('#update-mail').addEventListener('click', function(event){
-    event.preventDefault()
-
-    updateEmailForm.classList.remove('off')
-})
-
-homePage.querySelector('.topbar-avatar').onclick = function(event){
-    event.preventDefault()
-
-    homePage.querySelector('.update-avatar').classList.remove('off')
 }
 
 //Confirm update password
@@ -125,7 +138,8 @@ homePage.querySelector('#save-update-password').addEventListener('click', functi
 homePage.querySelector('#cancel-update-password').addEventListener('click', function(event){
     event.preventDefault()
 
-    homePage.querySelector('.update-password').classList.add('off')
+    hide(updatePasswordForm)
+    show(homeProfile)
 })
 
 //Confirm update mail
@@ -148,6 +162,13 @@ homePage.querySelector('#save-update-email').addEventListener('click', function(
     }
 })
 
+homePage.querySelector('#cancel-update-email').addEventListener('click', function(event){
+    event.preventDefault()
+
+    hide(updateEmailForm)
+    show(homeProfile)
+})
+
 //Confirm update avatar
 homePage.querySelector('.update-avatar').querySelector('.centered-form').onsubmit = function(event){
     event.preventDefault()
@@ -161,6 +182,14 @@ homePage.querySelector('.update-avatar').querySelector('.centered-form').onsubmi
         alert('avatar updted')
         homePage.querySelector('.topbar-avatar').src = avatarUrl
     } catch (error){
-        homePage.querySelector('.update-avatar').errorMessage.textContent = error.message
+        homePage.querySelector('.update-avatar').querySelector('.error-message').textContent = error.message
     }
 }
+
+homePage.querySelector('#cancel-update-avatar').addEventListener('click', function(event){
+    event.preventDefault()
+
+    hide(updateAvatarForm)
+    show(homeProfile)
+    toggle(updateAvatarForm.querySelector('.error-message'))
+})

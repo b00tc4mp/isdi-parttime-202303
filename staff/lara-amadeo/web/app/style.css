@@ -158,11 +158,9 @@ align-items: center;
 }
 
 .topbar-avatar{
-    width: 40px;
-    height: 40px;
+    width: 25px;
+    height: 25px;
     border-radius: 100px;
-    cursor: pointer;
-
 }
 
 .topbar-actions{
@@ -205,6 +203,38 @@ align-items: center;
     .topbar-actions{
         margin-right: 40px;
     }
+}
+
+.profile{
+    max-width: 600px;
+}
+
+.profile-navigation-container{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 16px;
+}
+
+.navigation-row{
+    color: #3B4257;
+    font-family: 'Inter';
+    font-size: 16px;
+    font-weight: 500;
+    background-color:#F2F5F7;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px;
+    height: fit-content;
+    cursor: pointer;
+}
+
+.nav-row-avatar{
+    margin-bottom: 16px;
 }
 
 .subtitle {

@@ -1,14 +1,8 @@
 
 
 var checkUserExists = (registrationName, registrationEmail, registrationPassword,registrationRepPassword) => {
-    var foundUser
-    for (let i = 0; i < users.length; i++){
-        var user = users[i]
-        
-        if(registrationEmail === user.email){
-            foundUser = user
-        } 
-    }
+    var foundUser = findUser(users, registrationEmail)
+
     if (foundUser) throw new Error('User already exists')
 
     if(registrationPassword !== registrationRepPassword) throw new Error('Passwords do not match')
@@ -22,49 +16,47 @@ var checkUserExists = (registrationName, registrationEmail, registrationPassword
 }
 
 var checkCredentials = (inputEmail, inputPassword) => {
-    var foundUser
-
-    for (let i = 0; i < users.length; i++){
-        var user = users[i]
-
-        if (inputEmail === user.email){
-        foundUser = user
-        }
-    }
+    var foundUser = findUser(users, inputEmail)
 
     if (!foundUser || foundUser.password !== inputPassword) throw new Error('Invalid email or password')
 }
 
-var updatePassword = (users, authenticatedEmail, currentPassword, newPassword, confirmNewPassword) =>{
+var updatePassword = (users, authenticatedEmail, currentPassword, newPassword, confirmNewPassword) => {
 
-    if (currentPassword !== authenticatedPassword) throw new Error('Invalid current password')
+    var foundUser = findUser(users, authenticatedEmail)
 
-    if (currentPassword === newPassword) throw new Error('Current password cannot be the same as new password')
+    if (!foundUser)
+        throw new Error('User not found')
 
-    if (newPassword !== confirmNewPassword) throw new Error('New passwords do not match')
+    if (currentPassword !== authenticatedPassword)
+        throw new Error('Invalid current password')
 
-    for (let i = 0; i < users.length; i++){
-        var user = users[i]
+    if (currentPassword === newPassword)
+        throw new Error('Current password cannot be the same as new password')
 
-        if (user.email === authenticatedEmail){
-            users[i].password = newPassword
-            authenticatedPassword = newPassword
-        }
-    }
-}
+    if (newPassword !== confirmNewPassword)
+        throw new Error('New passwords do not match')
+
+    foundUser.password = newPassword
+    authenticatedPassword = newPassword
+ }
 
 
 var updateEmail = (users, authenticatedEmail, currentEmail, newEmail, confirmNewEmail) => {
 
     var user = findUser(users, authenticatedEmail)
 
-    if (!user) throw new Error('User not found')
+    if (!user)
+    throw new Error('User not found')
 
-    if (currentEmail!== authenticatedEmail) throw new Error('Invalid current email')
+    if (currentEmail!== authenticatedEmail)
+    throw new Error('Invalid current email')
 
-    if (currentEmail === newEmail) throw new Error('Current email cannot be the same as new email')
+    if (currentEmail === newEmail)
+    throw new Error('Current email cannot be the same as new email')
 
-    if (newEmail !== confirmNewEmail) throw new Error('New emails do not match')
+    if (newEmail !== confirmNewEmail)
+    throw new Error('New emails do not match')
 
     user.email = newEmail
     authenticatedEmail = newEmail
@@ -74,7 +66,9 @@ var updateEmail = (users, authenticatedEmail, currentEmail, newEmail, confirmNew
 var updateAvatar = (authenticatedEmail, avatarUrl) => {
 
     var user = findUser(users, authenticatedEmail)
-    if (!user) throw new Error('User not found')
+    if (!user)
+    throw new Error('User not found')
 
     user.avatar = avatarUrl
 } 
+

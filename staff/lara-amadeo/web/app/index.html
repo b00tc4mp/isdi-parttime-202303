@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Web</title>
     <link rel="stylesheet" href="style.css">
+    <link href='https://css.gg/css' rel='stylesheet'>
 </head>
 <body>
     <div class="registration off">
@@ -39,7 +40,7 @@
 
     </div>
 
-    <div class="login _off">
+    <div class="login off">
         <div class="centered-containers">
 
             <h1 class="title">Welcome back!</h1>
@@ -62,7 +63,7 @@
 
         </div>
     </div>
-    <div class="homepage off">
+    <div class="homepage _off">
         <header class="topbar">
             <div class="logo-and-hello">
             <p class="home-logo">🍑</p>
@@ -71,11 +72,31 @@
 
             <div class="topbar-actions">
                 <img class="topbar-avatar" src="https://media.istockphoto.com/id/1223671392/vector/default-profile-picture-avatar-photo-placeholder-vector-illustration.jpg?s=612x612&w=0&k=20&c=s0aTdmT5aU6b8ot7VKm11DeID6NctRCpB755rA1BIP0=" alt="">
-                <a class="link" id="update-mail">Update email</a>
-                <a class="link" id="update-password">Update password</a>
-                <a class="link" id="logout">Log out</a>
+                <a class="link">Profile</a>
             </div>
         </header>
+
+        <div class="profile off">
+            <div class="centered-containers">
+                <h1 class="title">Profile settings</h1>
+
+                <div class="profile-navigation-container">
+                    <div class="navigation-row nav-row-email">
+                        <a>Update email</a>
+                        <i class="gg-arrow-right"></i>
+                    </div>
+                    <div class="navigation-row nav-row-password">
+                        <a>Update password</a>
+                        <i class="gg-arrow-right"></i>
+                    </div>
+                    <div class="navigation-row nav-row-avatar">
+                        <a>Update avatar</a>
+                        <i class="gg-arrow-right"></i>
+                    </div>
+                    <a class="link" id="logout">Log out</a>
+                </div>
+            </div>
+        </div>
 
         <div class="update-password off">
             
@@ -133,7 +154,7 @@
         </div>
         </div>
 
-        <div class="update-avatar off">
+        <div class="update-avatar _off">
             
             <div class="centered-containers">
                 <h1 class="title">Profile settings</h1>
@@ -156,9 +177,8 @@
                     </div>
                 </form>
         </div>
-        </div>
+        </div> 
     </div>
-
     <script src="scripts/data.js"></script>
     <script src="scripts/validators.js"></script>
     <script src="scripts/logic.js"></script>
