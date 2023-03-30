@@ -15,11 +15,14 @@ body {
 }
 
 .page {
-    display: flex;
-    flex-direction: column;
     width: 100%;
     height: 100%;
     background-color: var(--basecolor);
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
@@ -30,10 +33,30 @@ body {
 
 .login{
 }
+*/
 
 .home{
+    padding-top: 4rem;
+    padding-bottom: 4rem;
 }
-*/
+
+.home-header, .home-footer {
+    position: fixed;
+    background-color: dodgerblue;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 4rem;
+}
+
+.home-header {
+    top: 0;
+}
+
+.home-footer {
+    bottom: 0;
+}
 
 .form {
    min-width: 60vw;
@@ -80,8 +103,18 @@ body {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
+.home-header-nav {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+}
 
-.home-profile {
+.home-header-avatar {
+    width: 2rem;
+    border-radius: 1rem;
+}
+
+.profile-password-form {
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -101,3 +134,4 @@ body {
 .off {
     display: none !important;
 }
+

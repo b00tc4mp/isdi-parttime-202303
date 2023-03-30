@@ -1,18 +1,29 @@
-var registerPage = document.querySelector(".register")
-var loginPage = document.querySelector(".login")
-var homePage = document.querySelector(".home")
 var authenticatedEmail
 
-registerPage.querySelector("form").addEventListener("submit", function (event) {
+var registerPage = document.querySelector(".register")
+var registerForm = registerPage.querySelector('form')
+
+var loginPage = document.querySelector(".login")
+var loginForm = loginPage.querySelector('form')
+
+var homePage = document.querySelector(".home")
+var avatarImage = homePage.querySelector('.home-header-avatar')
+var profileLink = homePage.querySelector('a')
+
+var profilePanel = homePage.querySelector('.profile')
+var updateUserAvatarForm = profilePanel.querySelector('.profile-avatar-form')
+var updateUserPasswordForm = profilePanel.querySelector('.profile-password-form')
+
+registerForm.onsubmit = function (event) {
     event.preventDefault()
 
-    registerPage.querySelector("input[name=name]").classList.remove("imput-highlight")
-    registerPage.querySelector("input[name=email]").classList.remove("imput-highlight")
-    registerPage.querySelector("input[name=password]").classList.remove("imput-highlight")
+    event.target.name.remove("imput-highlight")
+    event.target.email.remove("imput-highlight")
+    event.target.password.remove("imput-highlight")
 
-    var username = registerPage.querySelector("input[name=name]").value
-    var email = registerPage.querySelector("input[name=email]").value
-    var password = registerPage.querySelector("input[name=password]").value
+    var username = event.target.name.value
+    var email = event.target.email.value
+    var password = event.target.password.value
 
     try {
         registerUser(username, email, password)
@@ -20,84 +31,102 @@ registerPage.querySelector("form").addEventListener("submit", function (event) {
         registerPage.classList.add("off")
         loginPage.classList.remove("off")
 
-        registerPage.querySelector("input[name=name]").value = ""
-        registerPage.querySelector("input[name=email]").value = ""
-        registerPage.querySelector("input[name=password]").value = ""
+        event.target.name.value = ""
+        event.target.email.value = ""
+        event.target.password.value = ""
     }
     catch (error) {
         alert(error.message)
 
-        if (error.type === 0) { 
-            registerPage.querySelector("input[name=email]").focus()
-            registerPage.querySelector("input[name=email]").classList.add("imput-highlight")
+        if (error.cause === "email") { 
+            event.target.email.focus()
+            event.target.email.classList.add("imput-highlight")
         }
 
-        else if (error.type === 2) {
-            registerPage.querySelector("input[name=name]").focus()
-            registerPage.querySelector("input[name=name]").classList.add("imput-highlight")
+        else if (error.cause === "name") {
+            event.target.name.focus()
+            event.target.name.classList.add("imput-highlight")
         }
-        else if (error.type === 3) { 
-            registerPage.querySelector("input[name=email]").focus()
-            registerPage.querySelector("input[name=email]").classList.add("imput-highlight")
-        }
-        else if (error.type === 4) { 
-            registerPage.querySelector("input[name=password]").focus()
-            registerPage.querySelector("input[name=password]").classList.add("imput-highlight")
+        else if (error.cause === "password") { 
+            event.target.password.focus()
+            event.target.password.classList.add("imput-highlight")
         }
     }    
-})
+}
 
-loginPage.querySelector("form").addEventListener("submit", function (event) {
+registerPage.querySelector("a").onclick = function (event) {
     event.preventDefault()
 
-    var email = loginPage.querySelector("input[name=email]").value
-    var password = loginPage.querySelector("input[name=password]").value
+    hide(registerPage)
+    show(loginPage)
+}
+
+loginForm.onsubmit = function (event) {
+    event.preventDefault()
+
+    var email = event.target.email.value
+    var password = event.target.password.value
 
     try {
-        var result = authenticateUser(email, password)
+        authenticateUser(email, password)
 
-        loginPage.classList.add("off")
-        loginPage.querySelector("input[name=password]").value = ""
+        openSession(retrieveUser(email))
 
-        openSession (email)
+        hide(loginPage)
+
+        event.target.password.value = ""
+
     }
     catch(error) {
         alert(error.message)
     }
-})
+}
 
-registerPage.querySelector("a").addEventListener("click", function (event) {
+loginPage.querySelector("a").onclick = function (event) {
     event.preventDefault()
 
-    registerPage.classList.add("off")
-    loginPage.classList.remove("off")
-})
+    hide(loginPage)
+    show(registerPage)
+}
 
-loginPage.querySelector("a").addEventListener("click", function (event) {
+profileLink.onclick = function (event) {
     event.preventDefault()
 
-    loginPage.classList.add("off")
-    registerPage.classList.remove("off")
-})
+    show(profilePanel)
+}
 
-homePage.querySelector("a[name=profile]").addEventListener("click", function (event) {
+updateUserAvatarForm.onsubmit = function (event) {
     event.preventDefault()
 
-    homePage.querySelector(".home-profile").classList.remove("off")
-})
+    var url = event.target.url.value
 
-homePage.querySelector(".home-profile").querySelector("form").addEventListener("submit", function (event) {
+    try {
+        updateUserAvatar(authenticatedEmail, url)
+
+        alert('avatar updated')
+
+        avatarImage.src = url
+    } catch (error) {
+        alert(error.message)
+    }
+}
+
+homePage.querySelector("button[name=logout]").onclick = function(event){
+    hide(homePage)
+
+    closeSession()
+}
+
+updateUserPasswordForm.onsubmit = function (event) {
     event.preventDefault()
 
-    var formUpdatePasword = homePage.querySelector(".home-profile").querySelector("form")
+    event.target.password.classList.remove("imput-highlight")
+    event.target.newPassword.classList.remove("imput-highlight")
+    event.target.newPasswordConfirm.classList.remove("imput-highlight")
 
-    formUpdatePasword.querySelector("input[name=password]").classList.remove("imput-highlight")
-    formUpdatePasword.querySelector("input[name=newPassword]").classList.remove("imput-highlight")
-    formUpdatePasword.querySelector("input[name=newPasswordConfirm]").classList.remove("imput-highlight")
-
-    var password = formUpdatePasword.querySelector("input[name=password]").value
-    var newPassword = formUpdatePasword.querySelector("input[name=newPassword]").value
-    var newPasswordConfirm = formUpdatePasword.querySelector("input[name=newPasswordConfirm]").value
+    var password = event.target.password.value
+    var newPassword = event.target.newPassword.value
+    var newPasswordConfirm = event.target.newPasswordConfirm.value
 
     
     try {
@@ -105,46 +134,41 @@ homePage.querySelector(".home-profile").querySelector("form").addEventListener("
         
         alert("the password is update")
 
-        homePage.querySelector(".home-profile").classList.add("off")
-
-        formUpdatePasword.querySelector("input[name=password]").value = ""
-        formUpdatePasword.querySelector("input[name=newPassword]").value = ""
-        formUpdatePasword.querySelector("input[name=newPasswordConfirm]").cvalue = ""
+        event.target.password.value = ""
+        event.target.newPassword.value = ""
+        event.target.newPasswordConfirm.cvalue = ""
     }
     catch (error) {
 
         alert(error.message)
 
-        if (error.type === 2) {
-            formUpdatePasword.querySelector("input[name=newPassword]").focus()
-            formUpdatePasword.querySelector("input[name=password]").classList.add("imput-highlight")
-            formUpdatePasword.querySelector("input[name=newPassword]").classList.add("imput-highlight")
+        if (error.cause === "password") {
+            event.target.newPassword.focus()
+            event.target.password.classList.add("imput-highlight")
+            event.target.newPassword.classList.add("imput-highlight")
         }
-        else if (error.type === 3) { 
-            formUpdatePasword.querySelector("input[name=newPassword]").focus()
-            formUpdatePasword.querySelector("input[name=newPassword]").classList.add("imput-highlight")
+        else if (error.cause === "newPassword") { 
+            event.target.newPassword.focus()
+            event.target.newPassword.classList.add("imput-highlight")
         }
-        else if (error.type === 4) { 
-            registerPage.querySelector("input[name=newPasswordConfirm]").focus()
-            registerPage.querySelector("input[name=newPasswordConfirm]").classList.add("imput-highlight")
+        else if (error.cause === "newPasswordConfirm") { 
+            event.target.newPasswordConfirm.focus()
+            event.target.newPasswordConfirm.classList.add("imput-highlight")
         }
     }
+}
 
+function openSession(user) {
+    authenticatedEmail = user.email 
 
-})
+    show(homePage)
+    hide(profilePanel)
 
-homePage.querySelector("button[name=logout]").addEventListener("click", function(event){
+    homePage.querySelector(".name").innerText  = "Helo, " +user.name
 
-    homePage.classList.add("off")
-    closeSession()
-    
-})
+    if (user.avatar)
+    avatarImage.src = user.avatar
 
-function openSession(email) {
-    authenticatedEmail = email 
-
-    homePage.classList.remove("off")
-    homePage.querySelector(".name").innerText  = "Helo, " +nameEmail(email)
 }
 
 function closeSession() {
@@ -152,5 +176,10 @@ function closeSession() {
 
     homePage.querySelector(".name").innerText  = ""
 
-    loginPage.classList.remove("off")
+    show(loginPage)
 }
+
+
+// cambiar layout de home 2035
+//añadir avatar
+// cargar avatar si exite

@@ -1,11 +1,10 @@
-function registerUser (username, email, password) {
-    if (username==="") throw new Error("the name is empty", {type: 2})
-    if (email.includes("@") == false) throw new Error("the email is wrong", {type: 3})
-    if (password.length<8) throw new Error("password must be greater than eight characters", {type: 4})
-
-    var foundUser = findUserByEmail(email)
+function registerUser (name, email, password) {
+    validateName(name)
+    validateEmail(email)
+    validatePassword(password)
     
-    if (foundUser) throw new Error("user already exists", {type: 0})
+    if (findUserByEmail(email)) 
+        throw new Error("user already exists")
 
     users.push ({
         name: username,
@@ -16,32 +15,57 @@ function registerUser (username, email, password) {
 }
 
 function authenticateUser(email, password) {
+    validateEmail(email)
+    validatePassword(password)
+
     var foundUser = findUserByEmail(email)
 
-    if (!foundUser || foundUser.password !== password) throw new Error("wrong email or password")
-    
-    return true 
+    if (!foundUser || foundUser.password !== password) 
+        throw new Error("wrong email or password")
 }
 
+function updateUserAvatar(email, avatar) {
+    validateEmail(email)
+    validateUrl(avatar, 'avatar url')
+
+    var foundUser = findUserByEmail(email)
+
+    if (!foundUser)
+        throw new Error('user not found')
+
+    foundUser.avatar = avatar
+}
+
+
 function updateUserPassword(email, password, newPassword, newPasswordConfirm) {
-    if (newPassword === password) throw new Error("the new password is equal to the old password", {type: 2})
-    if (newPassword.length < 8) throw new Error("the new password must be greater than eight characters", {type: 3})
-    if (newPassword !== newPasswordConfirm) throw new Error("the confirm password is different than then new password", {type: 4})
+    validateEmail(email)
+    validatePassword(password)
+    validatePassword(newPassword, 'new password')
+    validatePassword(newPasswordConfirm, 'new password confirm')
+
+    if (newPassword === password) throw new Error("the new password is equal to the old password", {cause: "newPassword"})
+
+    if (newPassword !== newPasswordConfirm) throw new Error("the confirm password is different than then new password", {cause: "newPasswordConfirm"})
 
     var foundUser = findUserByEmail(email)
 
     if (!foundUser) throw new Error("Error to user")
-    if (foundUser.password !== newPassword)  throw new Error("Error the pasword is invalid")
+    if (foundUser.password !== password)  throw new Error("Error the pasword is invalid", {cause: "password"})
 
-    user.password = newPassword
-
-    return true
+    foundUser.password = newPassword
 }
 
-function nameEmail (email) {
+function retrieveUser (email) {
+    validateEmail(email)
+
     var foundUser = findUserByEmail(email)
     if (!foundUser) throw new Error("Error to user")
    
-    return foundUser.name
+    var user = {
+        name: foundUser.name,
+        email: foundUser.email
+    }
+
+    return user
 
 }
