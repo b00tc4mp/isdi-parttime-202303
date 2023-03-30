@@ -29,11 +29,11 @@ registerForm.addEventListener("submit", (event) => {
 
   try {
     registerUser(registerName, registerEmail, registerPassword);
+    registerPage.classList.add("off");
+    loginPage.classList.remove("off");
   } catch (error) {
     alert(error.message);
   }
-  registerPage.classList.add("off");
-  loginPage.classList.remove("off");
 });
 
 registerPage.querySelector("a").addEventListener("click", (event) => {
