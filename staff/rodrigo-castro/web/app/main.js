@@ -1,12 +1,17 @@
 //presentation
 var userLogged
+var redText = document.querySelector('.red-text')
 
 var registerPage = document.querySelector('.register-page')
 
 var homePage = document.querySelector('.home-page')
 var homeBar = document.querySelector('.home-bar')
+var homePageRedText = homePage.querySelector('.red-text')
+var myProfileButton = homeBar.querySelector('.menu-buttons[name=my-profile]')
 var profileOptions = homePage.querySelector('.profile-options')
-var avatarMenu = homePage.querySelector('.change-avatar-menu')
+var changePasswordMenu = homePage.querySelector('.change-password-menu')
+
+var changeAvatarMenu = homePage.querySelector('.change-avatar-menu')
 var changeAvatarButton = homePage.querySelector('.change-avatar')
 var changeAvatarForm = homePage.querySelector('.change-avatar-menu').querySelector('form')
 var avatarImg = homePage.querySelector('.horizontal-menu').querySelector('.user-avatar')
@@ -23,21 +28,13 @@ registerPage.querySelector('form').addEventListener('submit', function(event) {
     var userPassword = registerPage.querySelector('.input-field[name=password]').value
 
     try {
-        checkNewUser(userEmail)
+        
+        registerUserFull(userEmail, userName, emailExpression, userPassword, users)
+        resetPage(registerPage)
+        showElement(loginPage)
 
-        validateName(userName)
-
-        validateEmail(userEmail, emailExpression)
-
-        validatePassword(userPassword)
-
-        registerNewUser(users, userName.trim(), userEmail, userPassword)
-
-        resetRegisterPage(registerPage)
-
-        loginPage.classList.remove('off')
     } catch(error){
-        registerPage.querySelector('.red-text').textContent = error.message
+        redText.textContent = error.message
     }
 
 })
@@ -54,40 +51,42 @@ loginPage.querySelector('form').addEventListener('submit', (event) => {
 
         goToHomePage(homePage, foundUser, avatarImg)        
         
-        resetLoginPage(loginPage)
+        resetPage(loginPage)
         
-        userLogged = JSON.parse(JSON.stringify(foundUser))  // userLogged = Object.assign({}, foundUser) -> otra forma de copiar objetos
+        userLogged = JSON.parse(JSON.stringify(foundUser))
+        delete userLogged.password
+        // userLogged = Object.assign({}, foundUser) -> otra forma de copiar objetos
     } catch(error){
         loginPageRedText.textContent = error.message
     }
 })
 
-homeBar.querySelector('.menu-buttons[name=my-profile]').addEventListener('click', () => {
-    homePage.querySelector('.profile-options').classList.remove('off')
-    homePage.querySelector('.change-password-menu').classList.add('off')
+myProfileButton.addEventListener('click', () => {
+    toggleElement(profileOptions)
+    hideElement(changePasswordMenu, changeAvatarMenu)
+    resetPage(changeAvatarMenu)
 })
 
-homePage.querySelector('.change-password').addEventListener('click', () => {
-    homePage.querySelector('.change-password-menu').querySelector('.red-text').classList.remove('green-text')
-    homePage.querySelector('.change-password-menu').querySelector('.red-text').textContent = ''
+homePage.querySelector('.change-password').addEventListener('click', () => { // REFACTORIZAR PA Q QUEDE MAS LINDO
+    changePasswordMenu.querySelector('.red-text').classList.remove('green-text')
+    changePasswordMenu.querySelector('.red-text').textContent = ''
     homePage.querySelector('.profile-options').classList.add('off')
-    homePage.querySelector('.change-password-menu').classList.remove('off')
+    changePasswordMenu.classList.remove('off')
 })
 
-homePage.querySelector('form').addEventListener('submit', (event) => {
+homePage.querySelector('form').addEventListener('submit', (event) => { 
     event.preventDefault();
     try {
-        changePassword(userLogged, users)
+        changePassword(userLogged, users, homePageRedText)
     } catch(error){
         homePage.querySelector('.red-text').textContent = error.message
     }
     homePage.querySelector('form').reset()
-    
 })
 
 changeAvatarButton.onclick = function() {
-    avatarMenu.classList.remove('off')
-    profileOptions.classList.add('off')
+    showElement(changeAvatarMenu)
+    hideElement(profileOptions)
 }
 
 changeAvatarForm.onsubmit = function(event) {
@@ -95,7 +94,8 @@ changeAvatarForm.onsubmit = function(event) {
     var avatarUrl = event.target.avatarurl.value
 
     try {
-        updateUserAvatar(userLogged, avatarUrl)
+        updateUserAvatar(userLogged, avatarUrl, avatarImg)
+        changeAvatarForm.reset()
     } catch(error){
         console.log(error.message)
         alert(error.message)
@@ -103,22 +103,22 @@ changeAvatarForm.onsubmit = function(event) {
 }
 
 homeBar.querySelector('[name=logout]').addEventListener('click', () => {
-    homePage.classList.add('off')
-    homePage.querySelector('.change-password-menu').classList.add('off')
-    homePage.querySelector('.profile-options').classList.add('off')
-    loginPage.classList.remove('off')
+    hideElement(homePage, changeAvatarMenu, changePasswordMenu, profileOptions)
+    showElement(loginPage)
     avatarImg.src = defaultAvatar
     userLogged = undefined
 })
 
 document.querySelector(".go-to-sign-in").addEventListener('click', (event) => {
-    event.preventDefault();
-    registerPage.classList.add("off");
-    loginPage.classList.remove("off")
+    event.preventDefault()
+    hideElement(registerPage)
+    resetPage(loginPage)
+    showElement(loginPage)
 })
 
 document.querySelector(".register-now-button").addEventListener("click", (event) => {
-    event.preventDefault();
-    loginPage.classList.add("off");
-    registerPage.classList.remove("off");
+    event.preventDefault()
+    hideElement(loginPage)
+    resetPage(registerPage)
+    showElement(registerPage)
 })

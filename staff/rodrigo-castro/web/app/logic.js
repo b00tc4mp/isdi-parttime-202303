@@ -17,11 +17,12 @@ const findUser = (users, userEmail) => {
     return  users.find(user => user.email === userEmail)
 }
 
-const changePassword = (userLogged, users) => {
-    homePage.querySelector('.red-text').textContent = ''
+const changePassword = (userLogged, users, homePageRedText) => {
+    homePageRedText.textContent = ''
     var previousPassword = homePage.querySelector('.previous-password').value
+    var foundUser = findUser(users, userLogged.email)
     
-    if (previousPassword !== userLogged.password) throw new Error('Your password is incorrect')
+    if (previousPassword !== foundUser.password) throw new Error('Your password is incorrect')
 
     var newPassword = homePage.querySelector('.new-password').value
 
@@ -43,7 +44,7 @@ const changePassword = (userLogged, users) => {
     homePage.querySelector('.red-text').classList.add('green-text')
 }
 
-const updateUserAvatar = (userLogged, avatarUrl) => {
+const updateUserAvatar = (userLogged, avatarUrl, avatarImg) => {
     validateEmail(userLogged.email, emailExpression)
     validateUrl(avatarUrl, 'Avatar url')
 
@@ -55,16 +56,26 @@ const updateUserAvatar = (userLogged, avatarUrl) => {
     avatarImg.src = foundUser.avatar
 }
 
-const resetLoginPage = (loginPage) => {
-    loginPage.querySelector('.red-text').textContent = ''
-    loginPage.classList.add('off')
-    loginPage.querySelector('form').reset()
+const registerUserFull = (userEmail, userName, emailExpression, userPassword, users) => {
+    checkNewUser(userEmail)
+
+    validateName(userName)
+
+    validateEmail(userEmail, emailExpression)
+
+    validatePassword(userPassword)
+
+    registerNewUser(users, userName.trim(), userEmail, userPassword)
 }
 
-const resetRegisterPage = (registerPage) => {
-    registerPage.querySelector('.red-text').textContent = ''
-    registerPage.querySelector('form').reset()
-    registerPage.classList.add('off')
+const resetPage = (page) => {
+    page.querySelector('.red-text').textContent = ''
+    page.querySelector('form').reset()
+    page.classList.add('off')
+}
+
+const resetHomePage = (homePage) => { // TODO !!!!
+
 }
 
 const goToHomePage = (homePage, foundUser, avatarImg) => {
@@ -73,3 +84,4 @@ const goToHomePage = (homePage, foundUser, avatarImg) => {
     if(foundUser.avatar)
         avatarImg.src = foundUser.avatar
 }
+

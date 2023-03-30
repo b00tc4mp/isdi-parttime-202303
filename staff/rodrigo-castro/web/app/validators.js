@@ -16,4 +16,5 @@ function validateName(userName){
 
 function validatePassword(userPassword){
     if (userPassword.length < 8) throw new Error('Password must have at least 8 characters')
+    if (!passwordExpression.test(userPassword)) throw new Error('Password format is not valid')
 }
