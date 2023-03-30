@@ -9,6 +9,7 @@ var homePageMain = homePage.querySelector('.home__main')
 var authenticatedEmail
 var loggedUserName
 
+
 registerPage.querySelector('form').onsubmit = function(event) {
     event.preventDefault()
 
@@ -116,7 +117,7 @@ function closeProfilePages() {
 /*  TODO:   
             - Foto perfil 20230328 2100
             - canviar alerts per missatges en pantalla?o un toast?
-            - visibilitat del password en ull?
+            - tancar ulls de les contrasenyes amb el canvi de pagina
             - objectiu de la app: xarxa social:
                 - rollo ig?
                 - ig de stickers?
@@ -129,4 +130,5 @@ function closeProfilePages() {
             - les funcions del classList en una sola funcio que gestioni totes ls classes que shan dobrir i tancar de cop? amb un for? function(...containers) amb un for dins 2118 
             - fitxers 'utils' : funcio de classList i funcio shw/hide pass?
             - canviar els ifs de off per un toggle (profile-anchor i/o closeProilePages)
+            -toggle eye per veure els passwords
 */              

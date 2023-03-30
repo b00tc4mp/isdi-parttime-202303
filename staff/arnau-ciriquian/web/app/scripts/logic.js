@@ -83,8 +83,8 @@ function updateUsername(email, oldUsername, newUsername, password) {
     foundUser.name = newUsername
 }
 
-function showHidePassword() {
-    var password = loginPage.querySelector('.login__password')
+function actualPasswordEyeToggle(container, passwordClass) {
+    var password = container.querySelector(passwordClass)
 
     if (password.type === 'password') {
         password.type = 'text'

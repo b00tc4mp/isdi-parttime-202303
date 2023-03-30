@@ -146,6 +146,18 @@ form {
     gap: 1rem;
 }
 
+.password-container{
+    position: relative;
+}
+
+.fa-eye{
+    position: absolute;
+    top: 20%;
+    right: 4%;
+    cursor: pointer;
+    color: rgb(137, 137, 137);
+}
+
 .form__button {
     color: rgb(0, 0, 0);
     font-weight: bolder;

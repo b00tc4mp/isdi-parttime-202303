@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <title>App - Arnau</title>
 </head>
 <body>
@@ -18,8 +19,15 @@
                 <div class="inputs__box">
                     <input class="form__input" type="text" name="name" placeholder="username">
                     <input class="form__input" type="email" name="email" placeholder="email">
-                    <input class="form__input" type="password" name="password" placeholder="password">
-                    <input class="form__input" type="password" name="passwordConfirmation" placeholder="password confirmation">
+                    
+                    <div class="password-container">
+                        <input class="form__input register__password" type="password" name="password" placeholder="password">
+                        <i class="register-eye fa-solid fa-eye"></i>
+                    </div>
+                    <div class="password-container">
+                        <input class="form__input register__password--confirm" type="password" name="password" placeholder="password confirmation">
+                        <i class="register-confirm-eye fa-solid fa-eye"></i>
+                    </div>
                 </div>
                 <button class="form__button" type="submit">Register</button>
             </form>
@@ -33,11 +41,9 @@
             <form class="login__form">
                 <div class="inputs__box">
                     <input class="form__input" type="email" name="email" placeholder="email">
-                    <input class="form__input login__password" type="password" name="password" placeholder="password">
-                    
-                    <div>
-                        <input class="input__password--show" type="checkbox">
-                        <label class="text" for="input__password--show">Show password</label>
+                    <div class="password-container">
+                        <input class="form__input login__password" type="password" name="password" placeholder="password">
+                        <i class="login-eye fa-solid fa-eye"></i>
                     </div>
                 </div>
                 <button class="form__button" type="submit">Login</button>
@@ -56,14 +62,14 @@
                 <a class="navigation__anchor--logout" href=""><img class="anchor__logout--icon" src="images/galaxy.svg"></a>
             </div>
         </header>
-        <div class="home__main home--page _off">
+        <div class="home__main home--page off">
             <p class="text">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur, culpa eaque! Fuga sint, sapiente veniam recusandae nostrum nisi sequi obcaecati assumenda delectus similique iste harum deserunt quos, exercitationem, magnam eius!
                 Est animi, error tempora doloribus dolorem vel nemo, aspernatur consequatur adipisci maxime labore nam odit ducimus voluptatibus quaerat saepe ab voluptatum perferendis accusantium natus amet deleniti dignissimos aliquid quia. Hic.
                 Quae modi quod ea, sapiente, quasi explicabo, esse laboriosam alias itaque maiores veniam? Doloremque illum repudiandae totam suscipit hic illo iste magni repellat explicabo rem dolores, odio modi quasi aliquam.
             </p>
         </div>
-        <div class="home__profile page off">
+        <div class="home__profile page _off">
             <h2 class="text profile__user">Update your profile</h2>
             <p class="text"><a class="profile__anchor--username" href="">Change user name</a></p>
             <p class="text"><a class="profile__anchor--email" href="">Change email</a></p>
@@ -77,7 +83,11 @@
                 <div class="inputs__box">
                     <input class="form__input" type="text" name="oldUsername" placeholder="old username">
                     <input class="form__input" type="text" name="newUsername" placeholder="new username">
-                    <input class="form__input" type="password" name="password" placeholder="password">
+
+                    <div class="password-container">
+                        <input class="form__input username__password" type="password" name="password" placeholder="password">
+                        <i class="username-eye fa-solid fa-eye"></i>
+                    </div>
                 </div>
                 <button class="form__button" type="submit">Change username</button>
             </form>
@@ -90,7 +100,10 @@
                     <input class="form__input" type="email" name="oldEmail" placeholder="old email">
                     <input class="form__input" type="email" name="newEmail" placeholder="new email">
                     <input class="form__input" type="email" name="newEmailConfirmation" placeholder="new email confirmation">
-                    <input class="form__input" type="password" name="emailPassword" placeholder="password">
+                    <div class="password-container">
+                        <input class="form__input email__password" type="password" name="emailPassword" placeholder="password">
+                        <i class="email-eye fa-solid fa-eye"></i>
+                    </div>
                 </div>
                 <button class="form__button" type="submit">Change email</button>
             </form>
@@ -100,9 +113,19 @@
             <h1 class="text">Change password</h1>
             <form class="password__form">
                 <div class="inputs__box">
-                    <input class="form__input" type="password" name="oldPassword" placeholder="old password">
-                    <input class="form__input" type="password" name="newPassword" placeholder="new password">
-                    <input class="form__input" type="password" name="newPasswordConfirmation" placeholder="new password confirmation">
+
+                    <div class="password-container">
+                        <input class="form__input old__password" type="password" name="oldPassword" placeholder="old password">
+                        <i class="old-eye fa-solid fa-eye"></i>
+                    </div>
+                    <div class="password-container">
+                        <input class="form__input new__password" type="password" name="newPassword" placeholder="new password">
+                        <i class="new-eye fa-solid fa-eye"></i>
+                    </div>
+                    <div class="password-container">
+                        <input class="form__input new__password--confirm" type="password" name="newPasswordConfirmation" placeholder="new password confirmation">
+                        <i class="new-confirm-eye fa-solid fa-eye"></i>
+                    </div>
                 </div>
                 <button class="form__button" type="submit">Change password</button>
             </form>
@@ -110,11 +133,11 @@
         </div>
     </div>
 
-    <script src="scripts/utils.js"></script>
     <script src="scripts/validators.js"></script>
     <script src="scripts/data.js"></script>
     <script src="scripts/logic.js"></script>
     <script src="scripts/main.js"></script>
+    <script src="scripts/utils.js"></script>
     <script src="scripts/anchors.js"></script>
 </body>
 </html>

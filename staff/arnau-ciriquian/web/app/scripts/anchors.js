@@ -1,11 +1,13 @@
 registerPage.querySelector('.register__anchor--login').onclick = function(event) {
     event.preventDefault()
     showHideContainer(registerPage, loginPage)
+    registerPage.querySelector('.register__form').reset()
 }
 
 loginPage.querySelector('.login__anchor--register').onclick = function(event) {
     event.preventDefault()
     showHideContainer(registerPage, loginPage)
+    loginPage.querySelector('.login__form').reset()
 }
 
 homePage.querySelector('.home__anchor--profile').onclick = function(event) {
@@ -56,14 +58,17 @@ homePage.querySelector('.navigation__anchor--logout').onclick = function(event) 
 homePage.querySelector('.password__anchor--profile').onclick = function(event) {
     event.preventDefault()
     showHideContainer(homePagePassword, homePageProfile)
+    homePagePassword.querySelector('.password__form').reset()
 }
 
 homePage.querySelector('.email__anchor--profile').onclick = function(event) {
     event.preventDefault()
     showHideContainer(homePageEmail, homePageProfile)
+    homePageEmail.querySelector('.email__form').reset()
 }
 
 homePage.querySelector('.username__anchor--profile').onclick = function(event) {
     event.preventDefault()
     showHideContainer(homePageUsername, homePageProfile)
+    homePageUsername.querySelector('.username__form').reset()
 }
