@@ -4,30 +4,36 @@ const registerPage = document.querySelector(".register");
 //* VARIABLES DE LOGIN
 const logInPage = document.querySelector(".login")
 const logInForm = document.querySelector(".login form");
-const loginRegistrationAnchor = document.querySelector(".login .register-anchor");
+const loginRegistrationAnchor = document.querySelector(".login-register-anchor");
 //* VARIABLES DE HOME
 const homePage = document.querySelector(".home");
-const welcomeMessage = document.querySelector(".welcome-msj");
-const logOutButton = document.querySelector(".log-out-button");
+const welcomeMessage = document.querySelector(".home-header-user-welcome-msj");
+const logOutButton = document.querySelector(".home-header-left-items-log-out-button");
+const settingsButton = document.querySelector(".home-header-left-items-config-icon");
+const headerMenu = document.querySelector(".home-menu")
 //* VARIABLES WARNINGS
-const successRegisterAdivice = document.querySelector(".success-advice-p");
-const failRegisterAdvice = document.querySelector(".fail-register-warning");
-const failLogInAdvice = document.querySelector(".fail-login-advice-p")
+const successRegisterAdivice = document.querySelector(".login-success-warning");
+const failRegisterAdvice = document.querySelector(".register .fail-warning");
+const failLogInAdvice = document.querySelector(".login .fail-warning")
 //* VARIABLES DE FORMULARIO DE CAMBIO DE CONTRASEÑA 
-const changePasswordMenuAnchor = document.querySelector(".change-pass-anchor");
+const changePasswordMenuAnchor = document.querySelector(".home-menu-change-pass-anchor");
 const changePasswordMenu = document.querySelector(".change-password-menu");
 const cancelChangePasswordButton = document.querySelector(".cancel-change-password");
 const changePasswordForm = document.querySelector(".change-password-menu form");
-
+//* VARIABLES DE AVATAR 
+const avatarMenuAnchor = document.querySelector(".home-menu-avatar-anchor");
+const updateAvatarMenu = document.querySelector(".home-update-avatar-menu"); 
+const updateAvatarForm = document.querySelector(".home-update-avatar-menu .form")
+const cancelUpdateAvatarButton = document.querySelector(".form-avatar-cancel-button");
 var authenticatedEmail
 
 //! PARTE DE REGISTER
-registerPage.querySelector("form").addEventListener('submit', function (event) {
+registerPage.querySelector(".register form").addEventListener('submit', function (event) {
     event.preventDefault();
     var temporalUser = {
-        name: registerPage.querySelector("input[type=text]").value,
-        email: registerPage.querySelector("input[type=email]").value,
-        password: registerPage.querySelector("input[type=password]").value
+        name: registerPage.querySelector(".register .form-username").value,
+        email: registerPage.querySelector(".register .form-email").value,
+        password: registerPage.querySelector(".register .form-password").value
     }
     try{
         registerUser(temporalUser);
@@ -39,12 +45,13 @@ registerPage.querySelector("form").addEventListener('submit', function (event) {
         failRegisterAdvice.textContent = error.message;
     }
 })
+
 //! PARTE DE LOGIN
 logInForm.addEventListener('submit', function (event) {
     event.preventDefault();
     var temporalUser = {
-        email: logInPage.querySelector(".email").value,
-        password: logInPage.querySelector(".password").value
+        email: logInPage.querySelector(".login .form-email").value,
+        password: logInPage.querySelector(".login .form-password").value
     }
     try{
         authenticateUser(temporalUser);
@@ -61,6 +68,7 @@ loginRegistrationAnchor.addEventListener("click", function (event){
     logInPage.classList.add("off");
     registerPage.classList.remove("off");
 })
+
 //! PARTE DE HOME
 logOutButton.addEventListener("click", () => {
     homePage.classList.add("off");
@@ -68,11 +76,20 @@ logOutButton.addEventListener("click", () => {
     logInPage.classList.remove("off");
     authenticatedEmail = undefined;
     resetUserNameInHeader();
+    headerMenu.classList.remove("home-menu-transition");
 })
+settingsButton.addEventListener("click",() => {
+    headerMenu.classList.toggle("home-menu-transition");
+})
+
+
 //! PARTE DE CAMBIAR CONTRASEÑAS
 changePasswordMenuAnchor.addEventListener("click", (event) => {
     event.preventDefault();
     changePasswordMenu.classList.remove("off");
+    //TODO encapsular esto en una funcion porque lo vamos a necesitar entre los anchors 
+    event.preventDefault();
+    updateAvatarMenu.classList.add("off");
 })
 cancelChangePasswordButton.addEventListener("click", (event) => {
     event.preventDefault();
@@ -96,16 +113,22 @@ changePasswordForm.addEventListener("submit", (event) => {
 })
 
 
-
-
-
-
-
-
-
-
-
-
+//! PARTE DE AVATAR 
+avatarMenuAnchor.addEventListener("click", (event) => {
+    event.preventDefault();
+    updateAvatarMenu.classList.remove("off")
+    //TODO encapsular esto en una funcion porque lo vamos a necesitar entre los anchors 
+    changePasswordMenu.classList.add("off");
+    cleanChangePasswordForm();
+    document.querySelector(".fail-password-match-advise").textContent = "";
+})
+cancelUpdateAvatarButton.addEventListener("click", (event) => {
+    event.preventDefault();
+    updateAvatarMenu.classList.add("off");
+})
+updateAvatarForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+})
 
 
 
@@ -120,12 +143,18 @@ changePasswordForm.addEventListener("submit", (event) => {
 document.querySelector(".forgot-password-anchor").addEventListener("click", (event) => {
     event.preventDefault();
 })
-document.querySelector(".option2").addEventListener("click", (event) => {
-    event.preventDefault();
-})
-document.querySelector(".option3").addEventListener("click", (event) => {
+document.querySelector(".home-menu-option3").addEventListener("click", (event) => {
     event.preventDefault();
 })
 
 
 
+/*
+TODO ORGANIZAR EL HTML 
+TODO ORGANIZAR EL CSS CON BEM NAMING 
+TODO EN EL NAV MENU, TENEMOS QUE MANTENER DE VERDE DONDE ESTEMOS ACTUALMENTE PARA QUE EL USER SEPA DONDE ESTAMOS EN TODO MOMENTO.
+TODO HACER LA FUNCION DE CAMBIAR AVATAR 
+TODO HACER FUNCIONES DE SHOW-HIDE, QUE PUEDA ACEPTAR TANTOS ARGUMENTOS COMO QUIERA (TOOLS) 
+TODO VOLVER A MIRAR FUNCIONES DE MAIN POR SI SE REPITE ALGO 
+TODO METER MAS VALIDACIONES, LAS DE CONTRASEÑA Y LAS DE EMAIL.
+*/

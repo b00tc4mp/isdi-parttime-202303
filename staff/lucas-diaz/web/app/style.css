@@ -15,6 +15,7 @@ body{
     justify-content: center;
     font-size: 0.80rem;
 }
+
 .register, .login{
     width: 50%;
     height: 50%;
@@ -55,14 +56,20 @@ label{
     text-align: left;
     margin-left: 15px;
 }
-.name, .email, .password {
+.form-username, .form-email, .form-password {
     flex-basis: 100%;
     height: 50%;
     border-radius: 5px;
     padding-left: 15px;
     margin-left: 15px;
 }
-.submit-sign-up, .log-ing-submit, .log-out-button, .change-password, .cancel-change-password{
+
+
+
+
+
+
+.submit-button, .button , .change-password, .cancel-change-password, .form-avatar-cancel-button, .form-avatar-submit-button{
     flex-basis: 40%;
     background-color: rgb(8, 8, 8);
     color: azure;
@@ -70,45 +77,41 @@ label{
     border-radius: 5px;
     margin-top: 20px;
 }
-
-.submit-sign-up:hover, .log-ing-submit:hover, .change-password:hover{
+.submit-button:hover, .change-password:hover, .form-avatar-submit-button:hover{
     color:#179060;
 }
-
-.log-out-button:hover, .cancel-change-password:hover{
+.log-out-button:hover, .cancel-change-password:hover, .form-avatar-cancel-button:hover{
     color: rgb(231, 108, 108);
 }
 
 
 
-.other-register-options{
+
+/*! LOGIN */
+.login-other-options{
     margin-top: 15px;
     flex-basis: 100%;
     display: flex;
     align-items: center;
-    justify-content:space-between;
-
+    justify-content:center;
+    gap: 1rem;
 }
-.other-register-options .remember-me label{
+.login-other-options-remember-me label{
     margin: 0px;
-}
-.other-register-options .remember-me input{
-    margin-left: 15px;
-}
-.other-register-options a {
-    color: #179060;
 }
 .initialize-register{
     flex-basis: 100%;
 }
-.initialize-register a{
-    color: #179060;
-}
+
+
+/*! HOME  */
+/** HOME HEADER + MENU*/
+
 .home{
-    width: 85%;
-    height: 80%;
+    width: 88%;
+    height: 90%;
     background-color: #313338;
-    border-radius: 12px;
+    border-radius: 10px;
     border: 1px solid rgba(255, 255, 255, 0.125);
     display: flex;
     flex-flow:wrap row;
@@ -118,48 +121,102 @@ label{
     row-gap: 10px;
 }
 .home-header{
-    flex-basis: 70%;
+    display: flex;
+    flex-flow:wrap row;
+    flex-basis: 100%;
+    align-items: center;
+    justify-content:space-between;
     color: azure;
+    gap: 1rem;
 }
-.log-out-button{
-    flex-basis: 15%;
-    margin-top: 0px;;
+.home-header-tittle{
+    flex-basis: 12%;
 }
-.welcome-msj{
+.home-header-left-items{
+    display: flex;
+    gap: 0.5rem;
+}
+.home-header-left-items-log-out-button{
+    flex-basis:auto;
+    margin-top: 0px;
+    padding: 1rem;
+}
+.home-header-left-items-config-icon{
+    width: 3rem;
+    height: 3rem;
+    background-color: white;
+    mix-blend-mode: screen;
+    filter: invert(100%) hue-rotate(180deg);
+    cursor: pointer;
+    animation: rotate-gear 10s infinite linear;
+    align-self:flex-end;
+}
+.home-header-user{
+    display: flex;
+    flex-basis: 100%;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+.home-header-user-avatar {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 1rem;
+    transition: all 200ms;
+}
+.home-header-user-avatar:hover{
+    transform: scale(1.5, 1.5);
+}
+.home-header-user-welcome-msj{
     flex-basis: 100%;
     color: azure;
 }
-
-.home-menu{
+.home-menu ul{
+    flex-basis: 100%;
     display: flex;
-    gap: 10px;
+    gap: 1.5rem;
     background-color: #2b2d31;
     padding: 15px;
     border-radius: 5px;
 }
-
-a{
+.home-menu a{
     font-weight: bold;
     color:azure;
 }
-a:hover{
+.home-menu a:hover{
     color: #179060;
 }
-
-
 .home-menu{
     flex-basis: 100%;
     column-gap: 50px;
+    transform:translateY(-10%); 
+    opacity:0;
+    transition: all 400ms;
 }
+.home-menu-transition{
+    opacity: 1;
+    transform: translateX(0%);
+} 
 
-.change-password-menu{
-    margin-top: 30px;
-    text-align: center;
+/*! CHANGE PASSWORD MENU*/ 
+
+.menu-page{
+    display: flex;
+    flex-flow:wrap row;
+    justify-content: center;
+    flex-basis: 90%;
+    margin: 0px auto;
+    height: auto;
+    padding: 1rem;
     color: azure;
 }
-
-.change-password-menu .form {
+.menu-page h3 {
     flex-basis: 100%;
+    text-align: center;
+}
+.menu-page .form {
+    flex-basis: 100%;
+    display: flex;
     border: 1px solid azure;
     gap: 20px;
     margin-top: 20px;
@@ -168,37 +225,42 @@ a:hover{
     justify-content: flex-start;
     height:fit-content;
 }
-.old-password, .new-password, .new-password-repetition{
+.menu-page .form label {
+    flex-basis: 90%;
+    margin: 0.2rem;
+    padding: 0;
+    font-size: 0.9rem;
+}
+.menu-page .form .form-item{
     flex-basis: 100%;
     border-radius: 5px;
-    padding-left: 15px;
-    margin-left: 15px;
-    padding: 12px;
+    padding: 15px;
 }
-
-.change-password-menu form p {
+.menu-page .form .fail-password-match-advise{
     flex-basis: 100%;
-    justify-content: start;
 }
-.change-password, .cancel-change-password{
-    margin: 0px auto;
+.form-buttons{
+    flex-basis: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    gap: 1rem;
 }
 
-.success-advice-p, .success-password-change-advise{
+
+
+
+.green{
     color: #179060;
     text-align: center;
 }
-.fail-register-warning, .fail-password-match-advise, .fail-login-advice-p{
+.red{
     color: rgb(231, 108, 108);
     text-align: center;
 }
-
 .off{
     display: none !important;
 }
-
-
-
 @media (min-width: 650px){
     .register, .login{
         font-size: 1rem;
@@ -215,6 +277,14 @@ a:hover{
     }
     .other-register-options{
         flex-basis: 80%;
+    }
+}
+@keyframes rotate-gear{
+    from{
+        transform: rotateZ(0deg);
+    }
+    to{
+        transform: rotateZ(360deg);
     }
 }
 

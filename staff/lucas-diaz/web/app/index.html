@@ -13,81 +13,116 @@
         rel="stylesheet">
     <title>App</title>
 </head>
-
 <body>
     <div class="register off">
         <h1 class="register-header">REGISTER</h1>
-        <p class="fail-register-warning"></p>
+        <p class="fail-warning red"></p>
         <form class="form">
             <div class="input-box">
-                <label for="sign-up-name">your username</label>
-                <input type="text" class="name" name="name" placeholder="Enter username">
+                <label>your username</label>
+                <input type="text" class="form-username" name="name" placeholder="Enter username">
             </div>
             <div class="input-box">
-                <label for="sign-up-email">your email</label>
-                <input type="email" class="email" name="email" placeholder="Enter email"   autocomplete="current-password">
+                <label>your email</label>
+                <input type="email" class="form-email" name="email" placeholder="Enter email"
+                    autocomplete="current-password">
             </div>
             <div class="input-box">
-                <label for="sign-up-password">your password</label>
-                <input type="password" name="password" placeholder="Enter password" class="password"  autocomplete="current-password">
+                <label>your password</label>
+                <input type="password" name="password" placeholder="Enter password" class="form-password"
+                    autocomplete="current-password">
             </div>
-            <button type="submit" class="submit-sign-up">SIGN UP</button>
+            <button type="submit" class="submit-button sign-up">SIGN UP</button>
         </form>
     </div>
     <div class="login">
         <h1 class="login-header">LOG IN</h1>
-        <p class="success-advice-p off">User created successfully</p>
-        <p class="fail-login-advice-p"></p>
+        <p class="login-success-warning off">User created successfully</p>
+        <p class="fail-warning red"></p>
         <form class="form">
             <div class="input-box">
-                <label for="log-in-name">your email</label>
-                <input type="email" class="email" name="email" placeholder="Enter email" id="log-in-email" autocomplete="current-password">
+                <label>your email</label>
+                <input type="email" class="form-email" name="email" placeholder="Enter email" autocomplete="current-password">
             </div>
             <div class="input-box">
-                <label for="log-in-password">your password</label>
-                <input type="password" class="password" name="password" placeholder="Enter password" id="log-in-password" autocomplete="current-password">
+                <label>your password</label>
+                <input type="password" class="form-password" name="password" placeholder="Enter password" autocomplete="current-password">
             </div>
-            <div class="other-register-options">
-                <div class="remember-me">
-                    <input type="checkbox" name="remenber" id="log-in-checkbox">
+            <div class="login-other-options">
+                <div class="login-other-options-remember-me">
+                    <input type="checkbox" name="remember" id="log-in-checkbox">
                     <label for="log-in-checkbox">Remember me</label>
                 </div>
-                <a class="forgot-password-anchor" href="">Forgot password?</a>
+                <a class="forgot-password-anchor green" href="">Forgot password?</a>
             </div>
-            <button type="submit" class="log-ing-submit">LOG IN</button>
+            <button type="submit" class="submit-button log-in">LOG IN</button>
             <p class="initialize-register">
-                not a member? <a href="" class="register-anchor">register here</a>
+                not a member? <a href="" class="login-register-anchor green">register here</a>
             </p>
         </form>
     </div>
     <div class="home off">
-        <h1 class="home-header">Home</h1>
-        <button class="log-out-button">Log out</button>
-        <h2 class="welcome-msj">Welcome </h2>
-        <ul class="home-menu">
-            <li><a href="" class="change-pass-anchor">change password</a></li>
-            <li><a href="" class="option2">option 2</a></li>
-            <li><a href="" class="option3">option 3</a></li>
-        </ul>
-        <div class="change-password-menu off">
-            <h3>Password</h3>
+        <header class="home-header">
+            <h1 class="home-header-tittle">Home</h1>
+                <div class="home-header-left-items">
+                    <img class="home-header-left-items-config-icon" src="https://www.iconpacks.net/icons/2/free-settings-icon-3110-thumb.png" alt="">
+                    <button class="home-header-left-items-log-out-button button">Log out</button>
+                </div>
+            <div class="home-header-user">
+                <img class="home-header-user-avatar" src="https://www.pngmart.com/files/15/Happy-Face-PNG-Photo.png"
+                    alt="default avatar">
+                <h2 class="home-header-user-welcome-msj"></h2>
+            </div>
+        </header>
+        <nav class="home-menu">
+            <ul>
+                <li><a href="" class="home-menu-change-pass-anchor">change password</a></li>
+                <li><a href="" class="home-menu-avatar-anchor">Avatar</a></li>
+                <li><a href="" class="home-menu-option3">option 3</a></li>
+            </ul>
+        </nav>
+        <div class="change-password-menu menu-page off">
+            <h3>UPDATE PASSWORD</h3>
             <p>To change current password, provide a new one</p>
             <form class="form">
                 <label for="old-password">Old password: </label>
-                <input type="text" class="old-password" name="old-password" placeholder="Enter old password" autocomplete="current-password">
+                <input type="text" class="old-password form-item" name="old-password" placeholder="Enter old password"
+                    autocomplete="current-password">
                 <label for="new-password">New password:</label>
-                <input type="password" class="new-password" name="new-password" placeholder="Enter new password" id="new-password" autocomplete="current-password"> 
+                <input type="password" class="new-password form-item" name="new-password" placeholder="Enter new password"
+                    id="new-password" autocomplete="current-password">
                 <label for="new-password-repetition">Repeat new password:</label>
-                <input type="password" class="new-password-repetition" name="new-password-repetition" placeholder="Enter again new password" id="new-password-repetition" autocomplete="current-password">
-                <p class="fail-password-match-advise"></p>
-                <button class="cancel-change-password">Cancel</button>
-                <button type="submit" class="change-password">Change password</button>
+                <input type="password" class="new-password-repetition form-item" name="new-password-repetition"
+                    placeholder="Enter again new password" id="new-password-repetition" autocomplete="current-password">
+                <p class="fail-password-match-advise red"></p>
+                <div class="form-buttons">
+                    <button class="cancel-change-password">Cancel</button>
+                    <button type="submit" class="change-password">Change password</button>
+                </div>
             </form>
         </div>
-        <p class="success-password-change-advise off">Changes succesfully done</p>
+        <div class="home-update-avatar-menu menu-page off">
+            <h3>UPDATE AVATAR</h3>
+            <p>To update avatar, please provide a link that contains an image .png or .jpeg</p>
+            <form class="form">
+                <label for="url">Avatar's URL: </label>
+                <input type="url" class="avatar-url-input form-item" name="url" placeholder="Enter url">
+                <div class="form-buttons">
+                    <button class="form-avatar-cancel-button">Cancel</button>
+                    <button type="submit" class="form-avatar-submit-button">Update avatar</button>
+                </div>
+            </form>
+        </div>
+        <p class="success-password-change-advise green off">Changes succesfully done</p>
+        <Avatar class="success-avatar-warning green off">Avatar uploaded succesfully</p>
     </div>
+
+
+
+    <script src="scripts/validators.js"></script>
     <script src="scripts/data.js"></script>
     <script src="scripts/logic.js"></script>
     <script src="scripts/main.js"></script>
 </body>
+
 </html>
