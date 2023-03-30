@@ -1,22 +1,16 @@
 registerPage.querySelector('.register__anchor--login').onclick = function(event) {
     event.preventDefault()
-    
-    registerPage.classList.add('off')
-    loginPage.classList.remove('off')
+    showHideContainer(registerPage, loginPage)
 }
 
 loginPage.querySelector('.login__anchor--register').onclick = function(event) {
     event.preventDefault()
-    
-    loginPage.classList.add('off')
-    registerPage.classList.remove('off')
+    showHideContainer(registerPage, loginPage)
 }
 
 homePage.querySelector('.home__anchor--profile').onclick = function(event) {
     event.preventDefault()
-    
     closeProfilePages()
-
     if (homePageProfile.classList.contains('off')) {
         homePageMain.classList.add('off')
         homePageProfile.classList.remove('off')
@@ -28,37 +22,28 @@ homePage.querySelector('.home__anchor--profile').onclick = function(event) {
 
 homePage.querySelector('.profile__anchor--home').onclick = function(event) {
     event.preventDefault()
-    
-    homePageMain.classList.remove('off')
-    homePageProfile.classList.add('off')
+    showHideContainer(homePageMain, homePageProfile)
 }
 
 homePage.querySelector('.profile__anchor--password').onclick = function(event) {
     event.preventDefault()
-
-    homePageProfile.classList.add('off')
-    homePagePassword.classList.remove('off')
+    showHideContainer(homePageProfile, homePagePassword)
 }
 
 homePage.querySelector('.profile__anchor--email').onclick = function(event) {
     event.preventDefault()
-
-    homePageProfile.classList.add('off')
-    homePageEmail.classList.remove('off')
+    showHideContainer(homePageProfile, homePageEmail)
 }
 
 homePage.querySelector('.profile__anchor--username').onclick = function(event) {
     event.preventDefault()
-
-    homePageProfile.classList.add('off')
-    homePageUsername.classList.remove('off')
+    showHideContainer(homePageProfile, homePageUsername)
 }
 
 homePage.querySelector('.navigation__anchor--logout').onclick = function(event) {
     event.preventDefault()
     
     closeProfilePages()
-
     homePage.classList.add('off')
     homePageProfile.classList.add('off')
     homePageMain.classList.remove('off')
@@ -70,21 +55,15 @@ homePage.querySelector('.navigation__anchor--logout').onclick = function(event) 
 
 homePage.querySelector('.password__anchor--profile').onclick = function(event) {
     event.preventDefault()
-
-    homePagePassword.classList.add('off')
-    homePageProfile.classList.remove('off')
+    showHideContainer(homePagePassword, homePageProfile)
 }
 
 homePage.querySelector('.email__anchor--profile').onclick = function(event) {
     event.preventDefault()
-
-    homePageEmail.classList.add('off')
-    homePageProfile.classList.remove('off')
+    showHideContainer(homePageEmail, homePageProfile)
 }
 
 homePage.querySelector('.username__anchor--profile').onclick = function(event) {
     event.preventDefault()
-
-    homePageUsername.classList.add('off')
-    homePageProfile.classList.remove('off')
+    showHideContainer(homePageUsername, homePageProfile)
 }
