@@ -49,6 +49,7 @@ function retrieveUser(email) {
   let user = {
     name: foundUser.name,
     email: foundUser.email,
+    avatar: "https://cdn-icons-png.flaticon.com/512/3135/3135823.png",
   };
 
   return user;
@@ -74,4 +75,13 @@ function changePassword(email, password, newPassword, newPasswordConfirm) {
     throw new Error("Your password does not have 8 characters 😥");
 
   foundUser.password = newPassword;
+}
+
+function updateAvatar(email, avatar) {
+  validateEmail(email);
+
+  let foundUser = findUserByEmail(email);
+
+  foundUser.avatar = avatar;
+  console.log(foundUser);
 }

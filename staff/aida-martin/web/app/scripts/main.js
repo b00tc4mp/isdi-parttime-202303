@@ -26,10 +26,10 @@ registerForm.onsubmit = function (event) {
   try {
     registerUser(name, email, password, repeatPassword);
 
-    registerPage.classList.add("off");
-    loginPage.classList.remove("off");
+    hidden(registerPage);
+    show(loginPage);
   } catch (error) {
-    registerError.classList.remove("off");
+    show(registerError);
     registerError.innerText = error.message;
   }
 };
@@ -37,8 +37,8 @@ registerForm.onsubmit = function (event) {
 registerPage.querySelector("a").onclick = function () {
   loginForm.reset();
 
-  registerPage.classList.add("off");
-  loginPage.classList.remove("off");
+  hidden(registerPage);
+  show(loginPage);
 };
 
 loginForm.onsubmit = function (event) {
@@ -57,11 +57,13 @@ loginForm.onsubmit = function (event) {
 
     homePage.querySelector(".profile-link").innerText = user.name;
 
-    loginError.classList.add("off");
-    loginPage.classList.add("off");
-    homePage.classList.remove("off");
+    loginForm.reset();
+
+    hidden(loginError);
+    hidden(loginPage);
+    show(homePage);
   } catch (error) {
-    loginError.classList.remove("off");
+    show(loginError);
     loginError.innerText = error.message;
   }
 };
@@ -72,30 +74,30 @@ loginPage.querySelector(".register-link").onclick = function () {
 
   registerForm.reset();
 
-  registerError.classList.add("off");
-  error.classList.add("off");
-  loginPage.classList.add("off");
-  registerPage.classList.remove("off");
+  hidden(registerError);
+  hidden(error);
+  hidden(loginPage);
+  show(registerPage);
 };
 
 homePage.querySelector(".profile-link").onclick = function (event) {
   event.preventDefault();
 
-  homePage.classList.add("off");
-  profilePage.classList.remove("off");
+  hidden(homePage);
+  show(profilePage);
 };
 
 homePage.querySelector(".profile-logout").onclick = function () {
   authenticatedEmail = undefined;
 
-  homePage.classList.add("off");
+  hidden(homePage);
 
-  loginPage.classList.remove("off");
+  show(loginPage);
 };
 
 profilePage.querySelector(".profile-change-password").onclick = function () {
-  profilePage.classList.add("off");
-  changePasswordPage.classList.remove("off");
+  hidden(profilePage);
+  show(changePasswordPage);
 };
 
 changePasswordPage.querySelector(".change-password-form").onsubmit = function (
@@ -118,10 +120,27 @@ changePasswordPage.querySelector(".change-password-form").onsubmit = function (
       newPasswordConfirm
     );
 
-    changePasswordPage.classList.add("off");
-    homePage.classList.remove("off");
+    alert("Your password has been changed 🥰");
+
+    changePasswordForm.reset();
+
+    hidden(changePasswordPage);
+    show(homePage);
   } catch (error) {
-    changePasswordError.classList.remove("off");
+    show(changePasswordError);
     changePasswordError.innerText = error.message;
   }
+};
+
+profilePage.querySelector(".profile-avatar-form").onsubmit = function (event) {
+  event.preventDefault();
+
+  const avatar = event.target.url.value;
+
+  updateAvatar(authenticatedEmail, avatar);
+
+  homePage.querySelector("img").src = avatar;
+
+  hidden(profilePage);
+  show(homePage);
 };
