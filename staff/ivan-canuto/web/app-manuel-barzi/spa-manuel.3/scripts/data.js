@@ -18,14 +18,18 @@ users.push({
     password: '123123123'
 })
 
-const findUserByEmail = (email)=> {
-  let foundUser;
+function findUserByEmail(email) {
+    var foundUser
 
-  for (let i = 0; i < users.length; i++) {
-    
-    if (users[i].email === email) {
-      foundUser = users[i];
-      return foundUser;
+    for (var i = 0; i < users.length; i++) {
+        var user = users[i]
+
+        if (user.email === email) {
+            foundUser = user
+
+            break
+        }
     }
-  }
+
+    return foundUser
 }

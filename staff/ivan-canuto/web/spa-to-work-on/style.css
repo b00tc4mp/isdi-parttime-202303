@@ -1,0 +1,167 @@
+/* resets */
+html, body {
+  min-height: 100vh;
+  max-height: fit-content;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+/* styles */
+
+:root {
+  --basecolor: yellow;
+  --basebgcolor: orange;
+}
+
+.off {
+  display: none !important;
+}
+
+.page {
+  background-color: var(--basebgcolor);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 20px;
+}
+
+.title {
+  color: var(--basecolor);
+  font-size: 50px;
+  margin: 20px 0;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  min-width: 60vw;
+  gap: 1rem;
+}
+
+.input, .button {
+  padding: .5rem .6rem;
+  border-radius: .75rem;
+  background-color: var(--basecolor);
+  box-shadow: 0 0 0 20px yellow inset;
+}
+
+/* .input:-webkit-autofill {
+  background-color: var(--basecolor)!important;
+  -webkit-box-shadow: 0 0 0 20px yellow inset;
+} */
+
+button {
+  cursor: pointer;
+}
+
+.button--accept {
+  background-color: greenyellow;
+}
+
+.button--cancel {
+  background-color: tomato;
+}
+
+@media (min-width: 768px) {
+  .page {
+      background-color: tomato;
+  }
+}
+
+.header {
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background: #70b8ff;
+}
+
+header div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 20px;
+}
+
+header button {
+  padding: 5px 10px;
+  font-size: 15px;
+  border-radius: 7px;
+}
+
+/* .profile {
+  position: static;
+  top: 20%;
+  background: var(--basebgcolor);
+  width: 100vw;
+}
+
+.change-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  width: 400px;
+  background: white;
+  border: 2px solid grey;
+  border-radius: 10px;
+  margin-top: 20px;
+}
+.change-form input {
+  width: 300px;
+} */
+/* 
+@media (min-width: 480px) { */
+  .profile {
+    padding-top: 60px;
+    position: absolute;
+    top: 10%;
+    background: transparent;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: var(--basebgcolor);
+  }
+    
+  .change-form {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 60%;
+    background: white;
+    border: 2px solid grey;
+    border-radius: 10px;
+    margin: 0 20px 15px 20px;
+    padding: 10px 25px 25px 10%;
+  }
+  .change-form h2 {
+    margin: 5px 0 10px 0;
+  }
+  
+  .change-form div {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .change-form input {
+    width: 250px;
+    margin: 5px;
+  }
+
+  html, body {
+    height: 100vh;
+  }
+/* } */
+
+.avatar-image {
+  height: 30px;
+  border-radius: 50%;
+}
