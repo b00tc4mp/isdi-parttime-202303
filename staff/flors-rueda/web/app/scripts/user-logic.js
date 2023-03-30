@@ -49,7 +49,6 @@ export const addNewUser = (mail, username, password) => {
     name: username,
     mail: mail,
     password: password,
-    avatar: 'https://www.slotcharter.net/wp-content/uploads/2020/02/no-avatar.png',
   };
   users.push(user);
   return user

@@ -3,94 +3,67 @@ import {
   clearForms,
   resetAlerts,
   setAlert,
-  setSimpleAlert,
+  setOn,
 } from './general-tools.js';
 
 import {
-  isPasswordCorrect,
-  isMailRegistered,
-  isUsernameRegistered,
   addNewUser,
-  isPasswordSafe,
-  confirmPassword,
-} from '../logic/user.js';
+} from '../user-logic.js';
+
+import { 
+  validateUserPassword, 
+  validateUsername,
+  validateMail,
+  validateNewPassword,
+  validateNewUsername,
+} from '../validators.js';
 
 export const authenticateUser = (user, password) => {
   resetAlerts();
   const username = '@' + user;
-  console.log(username)
-  if (!isUsernameRegistered(username)) {
-    const message = 'This username is not vinculated to any account!';
-    setSimpleAlert('area-login-username', 'alert-danger', message);
-    clearForms();
-    return;
-  } else if (!isPasswordCorrect(username, password)) {
-    const message = 'Incorrect password!';
-    setSimpleAlert('area-login-password', 'alert-danger', message);
-    document.querySelector('.login-form').querySelector('input[name="password"]').value = '';
-    return;
-  } else {
-    return username;
-  };
+  validateUsername(username)
+  validateUserPassword(username, password)
+  return username;
 };
 
-export const doLogin = (login, home) => {
+export const doLogin = (login, home, startHome) => {
   resetAlerts();
   toggleOff(login, home);
+  setOn(startHome)
 };
 
 const registerUser = (mail, username, password) => {
   document.querySelector('.login-form').querySelector('input[name="username"]').value = username;
   const message = `Welcome, ${username}! Your account is registered. You can sign in now!`;
   setAlert('area-login', 'alert-success', message);
-  return addNewUser(mail, username, password);
-};
-
-const registerFailed = (mail, username, password, repeatPassword) => {
-  if (isMailRegistered(mail)) {
-    const message = 'This email is already registered.';
-    setSimpleAlert('area-register-mail', 'alert-danger', message);
-    document.querySelector('.register-form').querySelector('input[name="mail"]').value = '';
-  };
-  if (isUsernameRegistered(username)) {
-    const message = 'This username is not available.';
-    setSimpleAlert('area-register-username', 'alert-danger', message);
-    document.querySelector('.register-form').querySelector('input[name="username"]').value = '';
-  };
-  if (!isPasswordSafe(password)) {
-    const message = 'Use minimum 6 characters, a number, and lower and capital letters.';
-    setSimpleAlert('area-register-password', 'alert-danger', message);
-    document.querySelector('.register-form').querySelector('input[name="password"]').value = '';
-    document.querySelector('.register-form').querySelector('input[name="repeat-password"]').value = '';
-  };
-  if (!confirmPassword(password, repeatPassword)){
-    const message = 'The password and confirmation password do not match.';
-    setSimpleAlert('area-register-repeat-password', 'alert-danger', message);
-    document.querySelector('.register-form').querySelector('input[name="repeat-password"]').value = '';
-  };
+  addNewUser(mail, username, password);
 };
 
 export const doRegister = (register, login) => {
   resetAlerts();
-  const username = document.querySelector('.register-form').querySelector('input[name="username"]').value;
+  const user = document.querySelector('.register-form').querySelector('input[name="username"]').value;
+  const username = '@' + user
   const mail = document.querySelector('.register-form').querySelector('input[name="mail"]').value;
   const password = document.querySelector('.register-form').querySelector('input[name="password"]').value;
   const repeatPassword = document.querySelector('.register-form').querySelector('input[name="repeat-password"]').value;
-  if (isPasswordSafe(password) && !isMailRegistered(mail) && !isUsernameRegistered(username) && confirmPassword(password, repeatPassword)) {
-    toggleOff(register, login);
-    return registerUser(mail, username, password);
-  } else {
-    registerFailed(mail, username, password, repeatPassword);
-  };
+  validateMail(mail);
+  validateNewUsername(username);
+  validateNewPassword(password, repeatPassword);
+  toggleOff(register, login);
+  registerUser(mail, user, password);
 };
 
 export const doLogout = (login, home) => {
   resetAlerts();
   clearForms();
   toggleOff(login, home);
+  document.querySelector('.name').innerText = '';
+  document.querySelector('.username').innerText = '';
+  document.querySelector('.mail').innerText = '';
+  document.querySelector('.avatar').src = 'https://www.slotcharter.net/wp-content/uploads/2020/02/no-avatar.png';
 };
 
-export const validateUsername = (input) => {
+export const controlUsernameInput = (input) => {
   let username = '';
   const regexRule = /^[a-z0-9]*$/;
   if(!regexRule.test(input.value)) {

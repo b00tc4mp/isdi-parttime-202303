@@ -12,6 +12,7 @@
 <body>
     <div class="register off">
         <h1>Register</h1>
+        <div class="alert off area-register"></div>
         <form class="register-form" method="get">
             <input name="mail" type="email" placeholder="your email" required/>
             <div class="alert off area-register-mail"></div>
@@ -26,8 +27,8 @@
         <div class="change-view">Already have an account? <a class="change-view-link">Sign in</a></div>
     </div>
     <div class="login">
-        <div class="alert off area-login"></div>
         <h1>Login</h1>
+        <div class="alert off area-login"></div>
         <form class="login-form" method="get">
             <input name="username" type="text" placeholder="yourusername" maxlength="15" required/>
             <div class="alert off area-login-username"></div>
@@ -38,6 +39,7 @@
         <div class="change-view">You're new here? <a class="change-view-link">Sign up</a></div>
     </div>
     <div class="home off">
+        <!--TODO put all this in a header-->
         <div class="top-buttons">
             <button class="logout">
                 <svg xmlns="http://www.w3.org/2000/svg" height="1.5rem" viewBox="0 96 960 960" width="1.5rem"><path d="M180 936q-24 0-42-18t-18-42V276q0-24 18-42t42-18h291v60H180v600h291v60H180Zm486-185-43-43 102-102H375v-60h348L621 444l43-43 176 176-174 174Z"/></svg>
@@ -63,7 +65,7 @@
                         <p>Username: <span class="username"></span></p>
                         <p>Mail: <span class="mail"></span></p>
                     </div>
-                    <img class="profile-card-avatar avatar" src="" />
+                    <img class="profile-card-avatar avatar" src="https://www.slotcharter.net/wp-content/uploads/2020/02/no-avatar.png" />
                 </div>
             </div>
             <div class="profile-buttons off">
@@ -76,6 +78,7 @@
             </div>
             <div class="edit-profile off">
                 <h2>Edit profile</h2>
+                <div class="alert off area-edit"></div>
                 <form class="edit-form" method="get">
                     <input name="mail" type="email" placeholder=""/>
                     <div class="alert off area-edit-mail"></div>
@@ -91,6 +94,7 @@
             </div>
             <div class="change-password off">
                 <h2>Change password</h2>
+                <div class="alert off area-change"></div>
                 <form class="password-form" method="get">
                     <input name="new-password" type="password" placeholder="new password" required/>
                     <div class="alert off area-change-password"></div>

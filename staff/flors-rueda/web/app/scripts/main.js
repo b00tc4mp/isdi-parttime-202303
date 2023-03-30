@@ -1,6 +1,7 @@
-import { changeView, doRegister, doLogin, doLogout, authenticateUser, validateUsername } from './display/login-register.js';
-import { setOff, setOn, resetAlerts } from './display/general-tools.js'
-import { setNewPassword, setNewUserInfo, displayProfile, setPlaceHolders, displayWelcome } from './display/home.js'
+import { changeView, doRegister, doLogin, doLogout, authenticateUser, controlUsernameInput, } from './display/login-register.js';
+import { setOff, setOn, resetAlerts, } from './display/general-tools.js'
+import { setNewPassword, setNewUserInfo, displayProfile, setPlaceHolders, displayWelcome, } from './display/home.js'
+import { displayLoginError, displayRegisterError, displayChangePasswordError, displayEditUserError } from './display/errors.js';
 
 const register = document.querySelector('.register');
 const login = document.querySelector('.login');
@@ -24,11 +25,11 @@ const usernameLogin = document.querySelector('.login-form').querySelector('input
 let userAuth;
 
 usernameRegister.addEventListener('input', (event) => {
-  validateUsername(usernameRegister);
+  controlUsernameInput(usernameRegister);
 });
 
 usernameLogin.addEventListener('input', (event) => {
-  validateUsername(usernameLogin);
+  controlUsernameInput(usernameLogin);
 });
 
 checkbox.addEventListener('change', (event) => {
@@ -45,15 +46,24 @@ changeViewLinks.forEach((link) => {
 
 registerForm.addEventListener('submit', (event) => {
   event.preventDefault();
-  doRegister(register, login);
+  try {
+    doRegister(register, login);
+  } catch (error) {
+    displayRegisterError(error.message);
+  }
 });
 
 loginForm.addEventListener('submit', (event) => {
   event.preventDefault();
   const username = document.querySelector('.login-form').querySelector('input[name="username"]').value;
   const password = document.querySelector('.login-form').querySelector('input[name="password"]').value;
-  userAuth = authenticateUser(username, password);
-  if(userAuth !== undefined) doLogin(login, home) + displayWelcome(userAuth);
+  try {
+    userAuth = authenticateUser(username, password);
+    doLogin(login, home, startHome);
+    displayWelcome(userAuth)
+  } catch (error) {
+    displayLoginError(error.message);
+  }
 });
 
 
@@ -67,8 +77,11 @@ const toEditProfile = document.querySelector('.to-edit-profile');
 const passwordForm = document.querySelector('.password-form');
 const editForm = document.querySelector('.edit-form');
 
+//TODO: display users posts at home
+
 logout.addEventListener('click', (event) => {
   event.preventDefault();
+  setOff(profile, editProfile, changePassword, profileButtons, startHome)
   userAuth = undefined;
   doLogout(login, home);
 });
@@ -103,12 +116,20 @@ toEditProfile.addEventListener('click', (event) => {
 
 passwordForm.addEventListener('submit', (event) => {
   event.preventDefault();
-  setNewPassword(userAuth, profileButtons, changePassword);
-  displayProfile(userAuth);
+  try {
+    setNewPassword(userAuth, profileButtons, changePassword);
+    displayProfile(userAuth);
+  } catch (error) {
+    displayChangePasswordError(error.message);
+  }
 });
 
 editForm.addEventListener('submit', (event) => {
   event.preventDefault();
-  setNewUserInfo(userAuth, profileButtons, editProfile);
-  displayProfile(userAuth);
+  try {
+    setNewUserInfo(userAuth, profileButtons, editProfile);
+    displayProfile(userAuth);
+  } catch (error) {
+    displayEditUserError(error.message);
+  }
 });
