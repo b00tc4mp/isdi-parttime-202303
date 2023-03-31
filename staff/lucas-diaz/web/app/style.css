@@ -242,7 +242,7 @@ label{
 
 /*! MISCELANEOUS*/
 .green{
-    color: #179060;
+    color: #179060 !important;
     text-align: center;
 }
 .red{

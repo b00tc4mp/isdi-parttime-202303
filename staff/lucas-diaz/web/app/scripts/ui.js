@@ -19,4 +19,13 @@ function toggle(...containers){
     container.classList.toggle('off')
 }
 
-
+function addClass(className, ...containers){
+    for (let container of containers){
+        container.classList.add(className);
+    }
+}
+function removeClass (className, ...containers){
+    for(let container of containers){
+        container.classList.remove(className);
+    }
+}

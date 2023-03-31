@@ -80,10 +80,13 @@ logOutButton.onclick = () => {
 }
 settingsButton.onclick = () => {
     headerMenu.classList.toggle("home-menu-transition");
+    removeClass("green",avatarMenuAnchor,changePasswordMenuAnchor);
 }
 
 //! PARTE DE CAMBIAR CONTRASEÑAS
 changePasswordMenuAnchor.onclick = (event) => {
+    addClass("green", changePasswordMenuAnchor);
+    removeClass("green",avatarMenuAnchor);
     event.preventDefault();
     show(changePasswordMenu);
     hide(updateAvatarMenu);
@@ -113,6 +116,8 @@ changePasswordForm.onsubmit = (event) => {
 //! PARTE DE AVATAR 
 avatarMenuAnchor.onclick = (event) => {
     event.preventDefault();
+    addClass("green", avatarMenuAnchor);
+    removeClass("green",changePasswordMenuAnchor);
     show(updateAvatarMenu);
     hide(changePasswordMenu);
     cleanChangePasswordForm();
@@ -130,6 +135,7 @@ updateAvatarForm.addEventListener("submit", (event) => {
         show(document.querySelector(".success-avatar-warning"));
         avatarImage.src = url;
         vanishWarningIn3Seconds(document.querySelector(".success-avatar-warning"),"off");
+        hide(updateAvatarMenu);
     }catch(error){
         document.querySelector(".home-update-avatar-menu .fail-warning").textContent = (error.message);
     }
