@@ -13,13 +13,10 @@ import {
   validateMail,
   validateNewPassword,
   validateName,
-  validateAvatarUrl,
 } from '../validators.js';
 
 import {
-  confirmPassword,
   findUser,
-  areNewOldPasswordsEqual,
   updateUserPassword,
   updateUserName,
   updateUserMail,
@@ -37,7 +34,7 @@ export const displayProfile = (userAuth) => {
   document.querySelector('.name').innerText = user.name;
   document.querySelector('.username').innerText = user.username;
   document.querySelector('.mail').innerText = user.mail;
-  if (user.avatar) document.querySelector('.avatar').src = user.avatar;
+  user.avatar ? setPredeterminateAvatar(userAuth) : setPredeterminateAvatar();
 }
 
 export const setNewPassword = (userAuth, profileButtons, changePassword) => {
@@ -62,13 +59,11 @@ export const setPlaceHolders = (userAuth) => {
 }
 
 export const getAvatarUrl = (event, deleteAvatar) => {
-  
   const reader = new FileReader() 
   const file = event.target.files[0]; 
   reader.onload = () => {     
-    const avatarBase64 = reader.result;
-    //avatar.src = avatarBase64;
-    setOn(deleteAvatar)
+    reader.result;
+    setOn(deleteAvatar);
   }
   reader.readAsDataURL(file)
   return URL.createObjectURL(file)
@@ -79,12 +74,10 @@ export const setNewUserInfo = (userAuth, profileButtons, editProfile, newAvatar)
   const newName = document.querySelector('.edit-form').querySelector('input[name="display-name"]').value;
   const newMail = document.querySelector('.edit-form').querySelector('input[name="mail"]').value;
   const password = document.querySelector('.edit-form').querySelector('input[name="password"]').value;
-  if (newAvatar) updateUserAvatar(userAuth, newAvatar)
-  
   validateUserPassword(userAuth, password)
   if(newName) validateName(newName) + updateUserName(userAuth, newName);
   if(newMail) validateMail(newMail) + updateUserMail(userAuth, newMail);
-  setPredeterminateAvatar(userAuth);
+  newAvatar ? updateUserAvatar(userAuth, newAvatar) : setPredeterminateAvatar();
   const message = 'Changes saved successfully!';
   setAlert('area-profile', 'alert-success', message);
   toggleOff(profileButtons, editProfile);

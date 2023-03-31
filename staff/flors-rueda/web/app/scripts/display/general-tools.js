@@ -23,6 +23,8 @@ export const setOn = (...items) => {
 export const clearForms = () => {
   const inputs = document.querySelectorAll('input');
   inputs.forEach((input) => (input.value = ''));
+  const filesInputs = document.querySelectorAll('input[type="file"]');
+  filesInputs.forEach((input) => (input.value = ''));
 };
 
 const resetAlertStyles = (alertUser) => {

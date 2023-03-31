@@ -1,5 +1,5 @@
 import { changeView, doRegister, doLogin, doLogout, authenticateUser, controlUsernameInput, } from './display/login-register.js';
-import { setOff, setOn, resetAlerts, setPredeterminateAvatar } from './display/general-tools.js'
+import { setOff, setOn, resetAlerts, setPredeterminateAvatar, clearForms } from './display/general-tools.js'
 import { setNewPassword, setNewUserInfo, displayProfile, setPlaceHolders, displayWelcome, getAvatarUrl } from './display/home.js'
 import { displayLoginError, displayRegisterError, displayChangePasswordError, displayEditUserError } from './display/errors.js';
 
@@ -93,6 +93,8 @@ logout.addEventListener('click', (event) => {
 
 toUserProfile.addEventListener('click', (event) => {
   event.preventDefault();
+  newAvatar = undefined;
+  clearForms();
   setOn(profile, profileButtons);
   setOff(startHome, changePassword, editProfile);
   displayProfile(userAuth);
@@ -100,6 +102,8 @@ toUserProfile.addEventListener('click', (event) => {
 
 toHome.addEventListener('click', (event) => {
   event.preventDefault();
+  newAvatar = undefined;
+  clearForms();
   resetAlerts();
   setOn(startHome);
   setOff(profile, changePassword, editProfile, profileButtons);
@@ -108,13 +112,15 @@ toHome.addEventListener('click', (event) => {
 
 toChangePassword.addEventListener('click', (event) => {
   event.preventDefault();
+  clearForms();
   setOn(changePassword);
   setOff(startHome, editProfile, profileButtons);
 });
 
 toEditProfile.addEventListener('click', (event) => {
   event.preventDefault();
-  setPlaceHolders(userAuth)
+  clearForms();
+  setPlaceHolders(userAuth);
   setOn(editProfile);
   setOff(changePassword, startHome, profileButtons);
 });
@@ -130,9 +136,13 @@ passwordForm.addEventListener('submit', (event) => {
 });
 
 temporalAvatar.addEventListener('change', (event) => {
-  const avatar = document.querySelector('.avatar')
-  newAvatar = getAvatarUrl(event, deleteAvatar)
-  avatar.src = newAvatar
+  try {
+    const avatar = document.querySelector('.avatar')
+    newAvatar = getAvatarUrl(event, deleteAvatar)
+    avatar.src = newAvatar
+  } catch (error) {
+    
+  }
 });
 
 deleteAvatar.addEventListener('click', (event) => {
