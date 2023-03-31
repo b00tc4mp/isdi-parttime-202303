@@ -15,7 +15,6 @@ export const findUser = (username) => {
     mail: loginUser[0].mail,
     avatar: loginUser[0].avatar,
   };
-  console.log(user)
   return user;
 }
 
@@ -55,21 +54,9 @@ export const addNewUser = (mail, username, password) => {
   return user
 };
 
-const hasMinimumLength = (password) => {
-  return password.length >= 6;
-};
-
-const includesLowerAndUpperCase = (password) => {
-  return (password.toLowerCase() !== password && password.toUpperCase() !== password);
-};
-
-const includesNumber = (password) => {
-  const includesNumber = /\d/;
-  return includesNumber.test(password);
-};
-
 export const isPasswordSafe = (password) => {
-  return (hasMinimumLength(password) && includesLowerAndUpperCase(password) && includesNumber(password));
+  const regexRule = /^.[A-Z\a-z\d]{5,}$/
+  return regexRule.test(password);
 };
 
 export const updateUserName = (user, newName) => {
