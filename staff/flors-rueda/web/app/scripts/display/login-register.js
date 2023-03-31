@@ -4,6 +4,7 @@ import {
   resetAlerts,
   setAlert,
   setOn,
+  setPredeterminateAvatar,
 } from './general-tools.js';
 
 import {
@@ -60,7 +61,7 @@ export const doLogout = (login, home) => {
   document.querySelector('.name').innerText = '';
   document.querySelector('.username').innerText = '';
   document.querySelector('.mail').innerText = '';
-  document.querySelector('.avatar').src = 'https://www.slotcharter.net/wp-content/uploads/2020/02/no-avatar.png';
+  setPredeterminateAvatar();
 };
 
 export const controlUsernameInput = (input) => {

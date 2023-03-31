@@ -15,6 +15,7 @@ export const findUser = (username) => {
     mail: loginUser[0].mail,
     avatar: loginUser[0].avatar,
   };
+  console.log(user)
   return user;
 }
 
@@ -85,7 +86,7 @@ export const updateUserMail = (user, newMail) => {
 
 export const updateUserAvatar = (user, newAvatar) => {
   users.filter((eachUser) => {
-    if(eachUser.username === user) eachUser.avatar = newAvatar;
+    if(eachUser.username === user) eachUser.avatar = newAvatar
   });
 };
 

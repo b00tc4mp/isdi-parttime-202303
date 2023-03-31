@@ -3,7 +3,8 @@ import {
   clearForms,
   resetAlerts,
   setAlert,
-  setSimpleAlert,
+  setOn,
+  setPredeterminateAvatar,
 } from './general-tools.js';
 
 import { 
@@ -24,6 +25,7 @@ import {
   updateUserMail,
   updateUserAvatar,
 } from '../user-logic.js';
+
 
 export const displayWelcome = (userAuth) => {
   const user = findUser(userAuth);
@@ -59,16 +61,30 @@ export const setPlaceHolders = (userAuth) => {
   document.querySelector('.edit-form').querySelector('input[name="mail"]').placeholder = user.mail; 
 }
 
-export const setNewUserInfo = (userAuth, profileButtons, editProfile) => {
+export const getAvatarUrl = (event, deleteAvatar) => {
+  
+  const reader = new FileReader() 
+  const file = event.target.files[0]; 
+  reader.onload = () => {     
+    const avatarBase64 = reader.result;
+    //avatar.src = avatarBase64;
+    setOn(deleteAvatar)
+  }
+  reader.readAsDataURL(file)
+  return URL.createObjectURL(file)
+}
+
+export const setNewUserInfo = (userAuth, profileButtons, editProfile, newAvatar) => {
   resetAlerts();
   const newName = document.querySelector('.edit-form').querySelector('input[name="display-name"]').value;
   const newMail = document.querySelector('.edit-form').querySelector('input[name="mail"]').value;
-  const newAvatar = document.querySelector('.edit-form').querySelector('input[name="avatar"]').value;
   const password = document.querySelector('.edit-form').querySelector('input[name="password"]').value;
+  if (newAvatar) updateUserAvatar(userAuth, newAvatar)
+  
   validateUserPassword(userAuth, password)
   if(newName) validateName(newName) + updateUserName(userAuth, newName);
   if(newMail) validateMail(newMail) + updateUserMail(userAuth, newMail);
-  if(newAvatar) updateUserAvatar(userAuth, newAvatar) + validateAvatarUrl(newAvatar);
+  setPredeterminateAvatar(userAuth);
   const message = 'Changes saved successfully!';
   setAlert('area-profile', 'alert-success', message);
   toggleOff(profileButtons, editProfile);

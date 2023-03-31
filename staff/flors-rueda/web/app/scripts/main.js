@@ -1,6 +1,6 @@
 import { changeView, doRegister, doLogin, doLogout, authenticateUser, controlUsernameInput, } from './display/login-register.js';
-import { setOff, setOn, resetAlerts, } from './display/general-tools.js'
-import { setNewPassword, setNewUserInfo, displayProfile, setPlaceHolders, displayWelcome, } from './display/home.js'
+import { setOff, setOn, resetAlerts, setPredeterminateAvatar } from './display/general-tools.js'
+import { setNewPassword, setNewUserInfo, displayProfile, setPlaceHolders, displayWelcome, getAvatarUrl } from './display/home.js'
 import { displayLoginError, displayRegisterError, displayChangePasswordError, displayEditUserError } from './display/errors.js';
 
 const register = document.querySelector('.register');
@@ -76,6 +76,11 @@ const toChangePassword = document.querySelector('.to-change-password');
 const toEditProfile = document.querySelector('.to-edit-profile');
 const passwordForm = document.querySelector('.password-form');
 const editForm = document.querySelector('.edit-form');
+const temporalAvatar = document.querySelector('.edit-form').querySelector('input[type="file"]');
+const deleteAvatar = document.querySelector('[name="delete-avatar"]');
+
+
+let newAvatar;
 
 //TODO: display users posts at home
 
@@ -124,12 +129,29 @@ passwordForm.addEventListener('submit', (event) => {
   }
 });
 
+temporalAvatar.addEventListener('change', (event) => {
+  const avatar = document.querySelector('.avatar')
+  newAvatar = getAvatarUrl(event, deleteAvatar)
+  avatar.src = newAvatar
+});
+
+deleteAvatar.addEventListener('click', (event) => {
+  event.preventDefault();
+  newAvatar = undefined;
+  temporalAvatar.value = '';
+  setPredeterminateAvatar(userAuth);
+  setOff(deleteAvatar);
+  displayProfile(userAuth);
+});
+
 editForm.addEventListener('submit', (event) => {
   event.preventDefault();
   try {
-    setNewUserInfo(userAuth, profileButtons, editProfile);
+    setNewUserInfo(userAuth, profileButtons, editProfile, newAvatar);
     displayProfile(userAuth);
   } catch (error) {
     displayEditUserError(error.message);
   }
 });
+
+

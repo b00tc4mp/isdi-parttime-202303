@@ -1,3 +1,7 @@
+import {
+  findUser,
+} from '../user-logic.js';
+
 export const toggleOff = (...items) => {
   items.forEach((item) => {
     item.classList.toggle('off');
@@ -52,4 +56,13 @@ export const setSimpleAlert = (alertArea, alertColor, alertMessage) => {
   alertUser.innerHTML = `${alertMessage}`;
   alertUser.classList.add(`${alertColor}--simple`);
   alertUser.classList.remove('off');
+};
+
+export const setPredeterminateAvatar = (userAuth) => {
+  if (userAuth) {
+    const user = findUser(userAuth);
+    document.querySelector('.avatar').src = user.avatar;
+  } else {
+    document.querySelector('.avatar').src = 'https://www.slotcharter.net/wp-content/uploads/2020/02/no-avatar.png';
+  };
 };
