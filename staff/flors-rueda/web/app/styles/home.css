@@ -1,17 +1,13 @@
-.home {
-    display: grid;
-    grid-template-columns: 100%;
-    grid-template-rows: 2.25rem 100%;
-}
-    
-.top-buttons {
-    grid-area: 1 / 1 / 2 / 2;
+.navbar {
     display: flex;
     flex-direction: row-reverse;
-    gap: 0.75rem
+    gap: 1rem;
+    position: fixed;
+    right: 1.5rem;
 }
 
-.main-area {
+.home-page {
+    padding-top: 3rem;
     display: grid;
     grid-template-columns: 100%;
     grid-template-rows: 40% 60%;
@@ -97,7 +93,7 @@
 
 
 @media (min-width: 768px) {
-    .main-area  {
+    .home-page  {
         display: grid;
         grid-template-columns: 45% 55%;
         grid-template-rows: 100%;

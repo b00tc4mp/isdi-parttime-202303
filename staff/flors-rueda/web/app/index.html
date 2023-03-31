@@ -39,19 +39,20 @@
         <div class="change-view">You're new here? <a class="change-view-link">Sign up</a></div>
     </div>
     <div class="home off">
-        <!--TODO put all this in a header-->
-        <div class="top-buttons">
-            <button class="logout">
-                <svg xmlns="http://www.w3.org/2000/svg" height="1.5rem" viewBox="0 96 960 960" width="1.5rem"><path d="M180 936q-24 0-42-18t-18-42V276q0-24 18-42t42-18h291v60H180v600h291v60H180Zm486-185-43-43 102-102H375v-60h348L621 444l43-43 176 176-174 174Z"/></svg>
-            </button>
-            <button class="to-user-profile">
-                <svg xmlns="http://www.w3.org/2000/svg" height="1.5rem" viewBox="0 96 960 960" width="1.5rem"><path d="M480 575q-66 0-108-42t-42-108q0-66 42-108t108-42q66 0 108 42t42 108q0 66-42 108t-108 42ZM160 896v-94q0-38 19-65t49-41q67-30 128.5-45T480 636q62 0 123 15.5t127.921 44.694q31.301 14.126 50.19 40.966Q800 764 800 802v94H160Zm60-60h520v-34q0-16-9.5-30.5T707 750q-64-31-117-42.5T480 696q-57 0-111 11.5T252 750q-14 7-23 21.5t-9 30.5v34Zm260-321q39 0 64.5-25.5T570 425q0-39-25.5-64.5T480 335q-39 0-64.5 25.5T390 425q0 39 25.5 64.5T480 515Zm0-90Zm0 411Z"/></svg>
-            </button>
-            <button class="to-home">
-                <svg xmlns="http://www.w3.org/2000/svg" height="1.5rem" viewBox="0 96 960 960" width="1.5rem"><path d="M200 896V576H80l400-360 400 360H760v320h-60v-90H260v90h-60Zm136-470h288L480 297 336 426Zm-76 160h440v-92l-9-8H269l-9 8v92Zm0 160h440V646H260v100Z"/></svg>
-            </button>
-        </div>
-        <div class="main-area">
+        <header>
+            <nav class="navbar">
+                <button class="logout">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="1.5rem" viewBox="0 96 960 960" width="1.5rem"><path d="M180 936q-24 0-42-18t-18-42V276q0-24 18-42t42-18h291v60H180v600h291v60H180Zm486-185-43-43 102-102H375v-60h348L621 444l43-43 176 176-174 174Z"/></svg>
+                </button>
+                <button class="to-user-profile">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="1.5rem" viewBox="0 96 960 960" width="1.5rem"><path d="M480 575q-66 0-108-42t-42-108q0-66 42-108t108-42q66 0 108 42t42 108q0 66-42 108t-108 42ZM160 896v-94q0-38 19-65t49-41q67-30 128.5-45T480 636q62 0 123 15.5t127.921 44.694q31.301 14.126 50.19 40.966Q800 764 800 802v94H160Zm60-60h520v-34q0-16-9.5-30.5T707 750q-64-31-117-42.5T480 696q-57 0-111 11.5T252 750q-14 7-23 21.5t-9 30.5v34Zm260-321q39 0 64.5-25.5T570 425q0-39-25.5-64.5T480 335q-39 0-64.5 25.5T390 425q0 39 25.5 64.5T480 515Zm0-90Zm0 411Z"/></svg>
+                </button>
+                <button class="to-home">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="1.5rem" viewBox="0 96 960 960" width="1.5rem"><path d="M200 896V576H80l400-360 400 360H760v320h-60v-90H260v90h-60Zm136-470h288L480 297 336 426Zm-76 160h440v-92l-9-8H269l-9 8v92Zm0 160h440V646H260v100Z"/></svg>
+                </button>
+            </nav>
+        </header>
+        <div class="home-page">
             <div class="home-start">
             <h1>Home</h1>
                 <p class="welcome"></p>
@@ -84,7 +85,8 @@
                     <div class="alert off area-edit-mail"></div>
                     <input name="display-name" type="text" placeholder=""/>
                     <div class="alert off area-edit-name"></div>
-                    <input name="avatar" type="url" placeholder="avatar url"/>
+                    <input type="file" name="avatar" accept=".jpg, .jpeg, .png .webp"/>
+                    <input class="off" type="button" name="delete-avatar" value="delete" />
                     <div class="alert off area-edit-avatar"></div>
                     Confirm changes?
                     <input name="password" type="password" placeholder="your password" required/>
