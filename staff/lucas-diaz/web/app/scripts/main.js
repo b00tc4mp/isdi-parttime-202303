@@ -51,116 +51,92 @@ registerPage.querySelector(".register form").addEventListener('submit', function
 logInForm.addEventListener('submit', function (event) {
     event.preventDefault();
     var temporalUser = {
-
-        //!! OJOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO VALORES PUESTOS A PROPOSITOS, LUEGO BORRAR LOS = " " QUE LE DAMOS A C/VALOR;
-        email: event.target.email.value = "lucas@gmail.com",
-        password: event.target.password.value = "LucasDiaz22!",
+        email: event.target.email.value,
+        password: event.target.password.value
     }
     try{
-        console.log(temporalUser);
         authenticateUser(temporalUser);
         authenticatedEmail = temporalUser.email;
         addUserNameInHeader(authenticatedEmail);
-        //avatarImage.src = 
-        logInPage.classList.add("off");
-        homePage.classList.remove("off");
-        //TODO CREAR FUNCION PARA QUE RECUPERE EL AVATAR SI LO TIENE CUANDO INICIE SESION EL USER Y ESA FUNCION ENCERRARLA DENTRO DE UN IF QUE COMPRUEBE QUE EL ACTUAL USER TIENE AVATAR.
+        hide(logInPage);
+        show(homePage);
     }catch(error){
         failLogInAdvice.textContent = error.message;
     }
 })
-
-loginRegistrationAnchor.addEventListener("click", function (event ){
+loginRegistrationAnchor.onclick = (event) => {
     event.preventDefault();
-    logInPage.classList.add("off");
-    registerPage.classList.remove("off");
-})
+    hide(logInPage);
+    show(registerPage);
+}
 
 //! PARTE DE HOME
-logOutButton.addEventListener("click", () => {
-    homePage.classList.add("off");
-    changePasswordMenu.classList.add("off");
-    logInPage.classList.remove("off");
+logOutButton.onclick = () => {
+    hide(homePage,changePasswordMenu,updateAvatarMenu);
+    headerMenu.classList.remove("home-menu-transition");
+    show(logInPage);
     authenticatedEmail = undefined;
     resetUserNameInHeader();
-    headerMenu.classList.remove("home-menu-transition");
-})
-settingsButton.addEventListener("click",() => {
+}
+settingsButton.onclick = () => {
     headerMenu.classList.toggle("home-menu-transition");
-})
-
+}
 
 //! PARTE DE CAMBIAR CONTRASEÑAS
-changePasswordMenuAnchor.addEventListener("click", (event) => {
+changePasswordMenuAnchor.onclick = (event) => {
     event.preventDefault();
-    changePasswordMenu.classList.remove("off");
-    //TODO encapsular esto en una funcion porque lo vamos a necesitar entre los anchors 
+    show(changePasswordMenu);
+    hide(updateAvatarMenu);
+}
+cancelChangePasswordButton.onclick = (event) => {
     event.preventDefault();
-    updateAvatarMenu.classList.add("off");
-})
-cancelChangePasswordButton.addEventListener("click", (event) => {
-    event.preventDefault();
-    changePasswordMenu.classList.add("off");
+    hide(changePasswordMenu);
     cleanChangePasswordForm();
     document.querySelector(".fail-password-match-advise").textContent = "";
-})
-changePasswordForm.addEventListener("submit", (event) => {
+}
+changePasswordForm.onsubmit = (event) => {
     event.preventDefault();
     let oldPassword = document.querySelector(".old-password");
     let newPassword = document.querySelector(".new-password");
     let newPasswordRepetition = document.querySelector(".new-password-repetition");
+    
     try{
         updateUserPassword(authenticatedEmail, oldPassword, newPassword, newPasswordRepetition);
-        changePasswordMenu.classList.add("off");
-        document.querySelector(".success-password-change-advise").classList.remove("off");
+        hide(changePasswordMenu);
+        show(document.querySelector(".success-password-change-advise"));
         vanishWarningIn3Seconds(document.querySelector(".success-password-change-advise"),"off");
     } catch(error){
         document.querySelector(".fail-password-match-advise").textContent = error.message;
     }
-})
-
+}
 
 //! PARTE DE AVATAR 
-avatarMenuAnchor.addEventListener("click", (event) => {
+avatarMenuAnchor.onclick = (event) => {
     event.preventDefault();
-    updateAvatarMenu.classList.remove("off")
-    //TODO encapsular esto en una funcion porque lo vamos a necesitar entre los anchors 
-    changePasswordMenu.classList.add("off");
+    show(updateAvatarMenu);
+    hide(changePasswordMenu);
     cleanChangePasswordForm();
     document.querySelector(".fail-password-match-advise").textContent = "";
-})
-cancelUpdateAvatarButton.addEventListener("click", (event) => {
+}
+cancelUpdateAvatarButton.onclick = (event) => {
     event.preventDefault();
-    updateAvatarMenu.classList.add("off");
-})
-
-
-
+    hide(updateAvatarMenu);
+}
 updateAvatarForm.addEventListener("submit", (event) => {
     event.preventDefault();
     var url = event.target.url.value;
     try {
         updateUserAvatar(authenticatedEmail, url);
-        console.log(url);
-        document.querySelector(".success-avatar-warning").classList.remove("off");
-        
+        show(document.querySelector(".success-avatar-warning"));
         avatarImage.src = url;
         vanishWarningIn3Seconds(document.querySelector(".success-avatar-warning"),"off");
-        
     }catch(error){
         document.querySelector(".home-update-avatar-menu .fail-warning").textContent = (error.message);
     }
 })
 
 
-
-
-
-
-
-
 //*FUNCION TEMPORAL PARA QUITAR TODOS LOS ANCHORS VACIOS TEMPORALES 
-
 document.querySelector(".forgot-password-anchor").addEventListener("click", (event) => {
     event.preventDefault();
 })
@@ -168,10 +144,7 @@ document.querySelector(".home-menu-option3").addEventListener("click", (event) =
     event.preventDefault();
 })
 
-
-
-
 //TODO EN EL NAV MENU, TENEMOS QUE MANTENER DE VERDE DONDE ESTEMOS ACTUALMENTE PARA QUE EL USER SEPA DONDE ESTAMOS EN TODO MOMENTO.
 
-//TODO VOLVER A MIRAR FUNCIONES DE MAIN POR SI SE REPITE ALGO 
+
 
