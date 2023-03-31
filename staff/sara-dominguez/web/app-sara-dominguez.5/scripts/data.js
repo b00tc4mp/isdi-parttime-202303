@@ -3,19 +3,19 @@ var users=[]
 users.push({
     name: 'Rufus',
     email: 'rufus@rufus.es',
-    password: '1234567'
+    password: '123456'
 })
 
 users.push({
     name: 'Frida',
     email: 'frida@frida.es',
-    password: '1234567'
+    password: '12345'
 })
 
 users.push({
     name: 'Tigre',
     email: 'tigre@tigre.es',
-    password: '1234567'
+    password: '1234'
 })
 
 function findUserByEmail(email){

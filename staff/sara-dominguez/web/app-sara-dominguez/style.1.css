@@ -1,0 +1,125 @@
+html, body {
+    height: 100%;
+}
+
+body {
+    background-color: rgb(2, 58, 72);
+    margin: 0px;
+    width: 100%;
+}
+
+
+:root {
+    --basewhitecolor: white; 
+    --baseblack: black;   
+    --basebluecolor: rgb(2, 58, 72);
+}
+.login, .home {
+    box-sizing: border-box;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content:baseline;
+    text-align: center;
+    padding: 3rem;
+    font-size: 25px;
+    color: var(----basewhitecolor);
+    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-weight: bolder;
+    font-style: italic;
+}
+
+.register {
+    
+    box-sizing: border-box;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content:baseline;
+    text-align: center;
+    padding: 3rem;
+    font-size: 30px;
+    background-color: var(--baseblacktecolor);
+    color: var(--basebluecolor);
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-style: italic;
+
+}
+
+.register-form, .login-form {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    min-width: 60%;
+    gap: 0.1rem;
+    border: 0.2rem black;
+   
+}
+
+
+
+.login-input, input {
+    border-radius: 12%;
+    background-color: var(--baseblack);
+    color: var(----basewhitecolor);
+}
+
+.register-input {
+    border-radius: 12%;
+    background-color: var(--basebluecolor);
+    color: var(----basewhitecolor);
+}
+.register-button, .login-button, .home-button, button, .home-profile.edit-password-form.button {
+    border-radius: 12%;
+    width: 70px;
+    margin: 1em;
+    display: flex;
+    cap: 0.2rem;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 0.9rem;
+    background-color: var(--baseblack);
+    color: var(----basewhitecolor);
+   
+}
+.register-button{
+    background-color: var(--basebluecolor);
+
+}
+
+.register-button-goToLogin, .login-button-goToRegister {
+    width: 75px;
+    border-radius: 15%;
+    opacity: 1;
+    background-color:  rgba(229, 52, 52, 0); 
+    font-size: 9px;
+    color: var(----basewhitecolor) 
+}
+
+@media {
+    .register-button:hover, .home-profile-edit-password-form-button:hover {
+        background-color: bisque;
+        color: var(--baseblack);
+    }
+}
+
+a {
+    color: var(----basewhitecolor);
+}
+
+.home-profile-edit-password-form {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    min-width: 60;
+    gap: 0.1rem;
+    border: 0.2rem black;
+   
+}
+
+
+.off {
+    display: none; 
+}
+

@@ -1,7 +1,11 @@
 function registerUser(name, email, password) {
-  validateName(name)
-  validateEmail(email) 
-  validatePassword(password)   
+   if (typeof name!== 'string') throw new Error('Name is not a string');
+   if(!name.length) throw new Error('Name is empty')
+   if (typeof email!== 'string') throw new Error('Email is not a string');
+   if(!email.length) throw new Error('Email is empty')
+   if (typeof password!== 'string') throw new Error('Password is not a string');
+   if(!password.length) throw new Error('Password is empty')
+   
 
     var foundUser =findUserByEmail(email)
 
@@ -19,10 +23,11 @@ function registerUser(name, email, password) {
 
 
 function authenticateUser (email, password) {
-    validateEmail(email)    
-    validatePassword(password)
- 
-
+    if (typeof email!== 'string') throw new Error('Email is not a string');
+    if(!email.length) throw new Error('Email is empty')
+    if (typeof password!== 'string') throw new Error('Password is not a string');
+    if(!password.length) throw new Error('Password is empty')
+   
     var foundUser= findUserByEmail(email)
 
     if(!foundUser) throw new Error ('User not found') 
@@ -36,7 +41,8 @@ return !(!foundUser || foundUser.password !== password)
 */
 
 function retrieveUser(email) {
-   validateEmail(email)
+    if(!email.length) throw new Error('Email is empty')
+    if (typeof email!=='string') throw new Error('Email is not a string')
     
     var foundUser = findUserByEmail(email)
    
@@ -57,10 +63,14 @@ function retrieveUser(email) {
 // Function to validate changes or password--homepage-- hay que validarlo con el email
 
 function validatedNewPassword(email, password, userNewPassword,userConfirmNewPassword) {
-    validateEmail(email)
-    validatePassword(password)
-    validateUserNewPassword(userNewPassword)
-    validateUserConfirmNewPassword(userConfirmNewPassword)
+    if (typeof email!== 'string') throw new Error('Email is not a string');
+    if(!email.length) throw new Error('Email is empty')
+    if (typeof password!== 'string') throw new Error('Password is not a string');
+    if(!password.length) throw new Error('Password is empty')
+    if (typeof userNewPassword!== 'string') throw new Error('New password is not a string');
+    if(!userNewPassword.length) throw new Error(' New password is empty')
+    if (typeof userConfirmNewPassword!== 'string') throw new Error('New confirmed password is not a string');
+    if(!userConfirmNewPassword.length) throw new Error('New confirmed password is empty')
 
     var foundUser= findUserByEmail(email)
 
