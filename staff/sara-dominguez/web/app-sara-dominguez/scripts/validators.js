@@ -22,6 +22,11 @@ function validateUserNewPassword(userNewPassword) {
     if(6 > userNewPassword.trim().length > 12) throw new Error('New passwordd minimun 6, maximum 12 characters')
 }
 
+function validateUserAvatar(newAvatar){
+    if (typeof newAvatar!=='string') throw new Error('Avatar is not a string');
+    if(!newAvatar.trim().length) throw new Error('Avatar is empty')   
+}
+
 function validateUserConfirmNewPassword(userConfirmNewPassword) {
     if (typeof userConfirmNewPassword!== 'string') throw new Error('New confirmed password is not a string');
     if(!userConfirmNewPassword.trim().length) throw new Error('New confirmed password is empty')

@@ -1,21 +1,26 @@
 var registerPage= document.querySelector('.register')
+var registerForm = registerPage.querySelector('form')
+
 var loginPage= document.querySelector('.login')
+var loginForm= loginPage.querySelector('form')
 var homePage= document.querySelector('.home')
 var authenticateEmail // es util porque nos serviran los datos para el cambio de sesion...
-var homeMenu = homePage.querySelector('.home-menu')
-var homeProfileEdit = homeMenu.querySelector('.home-profile-edit') 
-var homeProfileEditPassword = homePage.querySelector('.home-profile-edit-password')
+var homeMenu = homePage.querySelector('.home-header').querySelector('.home-menu')
+var myProfileLink = homeMenu.querySelector('a')
+var homeProfileEdit = homePage.querySelector('.profile-edit') 
+var homeProfileEditAvatarForm= homeProfileEdit.querySelector('.profile-edit-avatar-form')
+var homeProfileEditPasswordForm = homePage.querySelector('.profile-edit-password')
 
 
 //REGISTER PAGE
 
 // capture datas Register form
-registerPage.querySelector('form').onsubmit = function(event) {
+registerForm.onsubmit = function(event) {
     event.preventDefault()
 
-    var name = registerPage.querySelector('input[name=name]').value
-    var email = registerPage.querySelector('input[name=email]').value
-    var password = registerPage.querySelector('input[name=password]').value
+    var name = registerForm.querySelector('input[name=name]').value
+    var email = registerForm.querySelector('input[name=email]').value
+    var password = registerForm.querySelector('input[name=password]').value
 
     try{
         var result = registerUser(name,email,password)
@@ -32,11 +37,11 @@ registerPage.querySelector('form').onsubmit = function(event) {
 // LOGIN PAGE
 
 //capture datas Login form
-loginPage.querySelector('form').onsubmit = function (event) {
+loginForm.onsubmit = function (event) {
     event.preventDefault()
 
-    var email = loginPage.querySelector('input[name=email]').value
-    var password = loginPage.querySelector('input[name=password]').value
+    var email = loginForm.querySelector('input[name=email]').value
+    var password = loginForm.querySelector('input[name=password]').value
     
     try{
         var result = authenticateUser(email,password)
@@ -46,7 +51,7 @@ loginPage.querySelector('form').onsubmit = function (event) {
 
         var foundUser = retrieveUser(email)
 
-        homePage.querySelector('h6').innerText = `Hello, ${foundUser.name}`
+        homeMenu.querySelector('.myProfile').innerText = `${foundUser.name}`
         loginPage.classList.add('off')
         homePage.classList.remove('off')
 
@@ -79,35 +84,70 @@ registerPage.querySelector('a').conclick = function(event){
 //Menu my Profile
 // configurate home--button myprofile--con anchor
 
-homeMenu.querySelector('a').onclick = function(event){
+homeMenu.querySelector('.myProfile').onclick = function(event){
     event.preventDefault()
 
    homeProfileEdit.classList.remove('off')
 }
 
-//configurate home--button--update password --con anchor
 
-homeProfileEdit.querySelector('a').onclick = function(event){
+
+//configurate home--button--update avatar --con anchor
+
+homeProfileEdit.querySelector('.updateAvatar').onclick = function(event){
     event.preventDefault()
 
-    homeProfileEdit.querySelector('.home-profile-edit-password').classList.remove('off')
+    homeProfileEdit.querySelector('.profile-edit-avatar-form').classList.remove('off')
 }
 
-//configurate form to chante password (3 inputs)
 
-homeProfileEditPassword.onsubmit = function(event){
+//configurate home--button--update password --con anchor
+
+homeProfileEdit.querySelector('.updatePassword').onclick = function(event){
     event.preventDefault()
 
-    var password= homeProfileEditPassword.querySelector('input[name=password]').value
-    var userNewPassword = homeProfileEditPassword.querySelector('input[name=new-password]').value
-    var userConfirmNewPassword = homeProfileEditPassword.querySelector('input[name=confirm-new-password]').value
+    homeProfileEdit.querySelector('.profile-edit-password').classList.remove('off')
+}
+
+
+
+//configurate form to change avatar
+
+homeProfileEditAvatarForm.onsubmit = function (event){
+    event.preventDefault()
+
+    var newAvatar = homeProfileEditAvatarForm.querySelector('input[name=avatar-url]').value
+    //otras formas de hacerlo 
+    //var url1 = event.target.avatar-url.value (la mas usual) 
+    //var url2= homeProfileEdit.querySelector('profile-edit-avatar-form').avatar-url.value 
+    //var url3 = this.avatar-url.value //(no recomendado)
+
+    try{
+        var result = updateUserAvatar(authenticateUser, newAvatar)
+        if(result === false) throw new Error ('Update avatar failed')
+
+        alert('your avatar has been updated')
+    }catch(error) {
+        alert(error.message)
+    }
+
+}
+
+//configurate form to change password (3 inputs)
+
+homeProfileEditPasswordForm.onsubmit = function(event){
+    event.preventDefault()
+
+    var password= homeProfileEditPasswordForm.querySelector('input[name=password]').value
+    var userNewPassword = homeProfileEditPasswordForm.querySelector('input[name=new-password]').value
+    var userConfirmNewPassword = homeProfileEditPasswordForm.querySelector('input[name=confirm-new-password]').value
     
     try{
         var result = validatedNewPassword (authenticateEmail, password, userNewPassword, userConfirmNewPassword)
 
         if(result === false) throw new Error ('Validate New password failed')
     
-        alert('your new passport has been validated')
+        alert('your new password has been validated')
     }catch(error) {
         alert(error.message)
     }

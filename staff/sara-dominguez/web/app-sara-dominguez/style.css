@@ -2,9 +2,11 @@ html, body {
     height: 100%;
 }
 
-body {
+body, .home {
     width: 100%;
     background-color: rgb(2, 58, 72);
+    padding: 0;
+    margin: 0;
    
 }
 
@@ -14,7 +16,7 @@ body {
     --basebluecolor: rgb(2, 58, 72);
 }
 
-.register, .login, .home {
+.register, .login {
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -25,9 +27,9 @@ body {
     font-size: 20px;
     color: var(--basewhitecolor)
    
-   
 }
-.login-form, .register-form, .logint {
+
+.login-form, .register-form {
     display: flex;
     flex-direction: column;
     gap: 0.25rem;
@@ -62,13 +64,51 @@ a, .register-text-goToLogin, .login-text-goToRegister {
     width: 95px;
 
 }
-
-.home-header {
-    position: fixed;
-    background-color: var(--basewhitecolor);
+.home {
     width: 100%;
+    height: 100%;
+    display: flex;  
+    flex-direction: column;
+    align-items: center;
+}
+.home-header {
+    width: 100%;
+    height: 4rem;
+    position: fixed;
+    background-color: var(--baseblack);
     display: flex;
-    border: 0.3rem solid var(--basewhitecolor);
+    box-sizing: border-box;
+    align-items: center;
+    justify-content:space-between;
+    color: var(--basewhitecolor)
+    
+}
+.home-menu {
+    width: 37%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-left: 0.75rem;
+
+}
+.home-header-avatar {
+    width: 3rem;
+    border-radius: 50%;
+    background-color: transparent;
+   
+}
+.logout {
+    margin-right: 2rem;
+}
+.profile-edit {
+    margin-top: 3.9rem;
+    padding:5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    background-color: var(--baseblue);
 }
 
 .off {

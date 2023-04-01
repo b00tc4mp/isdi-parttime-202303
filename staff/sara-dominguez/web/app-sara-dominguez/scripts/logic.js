@@ -52,6 +52,24 @@ function retrieveUser(email) {
     }
 }
 
+// Function to validate changes of user avatar
+
+function updateUserAvatar(email, newAvatar) {
+   //validateEmail(email)
+  // validateNewAvatar(newAvatar)
+
+   var foundUser = findUserByEmail(email)
+
+    if(!foundUser) throw new Error ('User not found') 
+    if (foundUser.email!== email) throw new Error ('Wrong email')
+        
+    else{
+        foundUser.avatar = newAvatar
+        return foundUser
+    }
+}
+
+
 
 
 // Function to validate changes or password--homepage-- hay que validarlo con el email
