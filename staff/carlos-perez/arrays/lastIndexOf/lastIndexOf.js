@@ -7,7 +7,6 @@ function push(array, ...elements) {
 
 function lastIndexOf(array, index, startPosition) {
     const length = array.length;
-    const positions = [];
     if (startPosition === undefined) {
         for (let i = length-1; i >=0 ; i--) {
             if (array[i] === index) {
