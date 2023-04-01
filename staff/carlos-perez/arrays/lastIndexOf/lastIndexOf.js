@@ -9,17 +9,12 @@ function lastIndexOf(array, index, startPosition) {
     const length = array.length;
     const positions = [];
     if (startPosition === undefined) {
-        for (let i = 0; i < length; i++) {
+        for (let i = length-1; i >=0 ; i--) {
             if (array[i] === index) {
-                push(positions, i);
+                return i;
             }
         }
-        if (positions.length === 0) {
-            return -1;
-        }
-        else {
-            return positions[positions.length - 1];
-        }
+        return -1;
     }
     else {
         if ((startPosition > (length - 1)) || (startPosition < (-length))) {
@@ -30,15 +25,10 @@ function lastIndexOf(array, index, startPosition) {
         }
         for (let i = startPosition; i >= 0; i--) {
             if (array[i] === index) {
-                push(positions, i);
+               return i;
             }
         }
-        if (positions.length === 0) {
-            return -1;
-        }
-        else {
-            return positions[0];
-        }
+        return -1;
     }
 
 }
