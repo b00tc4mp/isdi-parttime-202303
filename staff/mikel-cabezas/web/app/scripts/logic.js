@@ -1,25 +1,22 @@
 function registerUser(name, email, password) {
-    var registerUserSuccess
-    
     validateEmail(email)
     validatePassword(password)
     var checkEmail = users.find(user => user.email === email)
-        if(checkEmail) {
-            // registerUserSuccess = false
-            throw new Error('Email already registered')
-        }
-        if(checkEmail !== email) {
-            name = name.trim()
-            users.push({
-                name: name,
-                email: email,
-                password: password
-            })
-        }
+    if(checkEmail) {
+        throw new Error('Email already registered')
+    }
+    if(checkEmail !== email) {
+        name = name.trim()
+        users.push({
+            name: name,
+            email: email,
+            password: password
+        })
+        return true
+    }
 }
 
 function authenticateUser(email, password)  {
-    var checkAuthenticationSuccess
     console.log(email)
     var checkEmail = users.find(user => user.email === email)
     var checkPassword = users.find(user => user.password === password)
@@ -33,85 +30,89 @@ function authenticateUser(email, password)  {
     }
 }
 
-function gerUserName(email) {
-    var checkEmail = users.find(user => user.email === email)
-    if (checkEmail.email === email) {
-        return checkEmail.name
+function getUserName(email) {
+
+    var userID = users.map(user => user.email).indexOf(email) 
+
+    if (userID === -1) {
+        throw new Error('User or password incorrect')
     }
 
+    if (users[userID].email === email) {
+        return users[userID].name
+    }
+}
+function getCurrentUser(email) {
+    var userID = users.map(user => user.email).indexOf(currentUserEmail) 
+    if (userID !== -1) {
+        return email
+    }
 }
 
 function pushUserDataInForm(email) {
-    var checkEmail = users.find(user => user.email === email)
-    if (checkEmail.email === email) {
-        userAccount.querySelector('form.user-info input[name="name"]').value = checkEmail.name
-        userAccount.querySelector('form.user-info input[name="email"]').value = checkEmail.email
-        userAccount.querySelector('form.user-password input.current-password').value = checkEmail.password
+    var userID = users.map(user => user.email).indexOf(email) 
+    if (users[userID].email === email) {
+        userAccount.querySelector('form.user-info input[name="name"]').value = users[userID].name
+        userAccount.querySelector('form.user-info input[name="email"]').value = users[userID].email
+        userAccount.querySelector('form.user-password input.current-password').value = users[userID].password
+        currentUserEmail = email
     }
 }
 
-function updateUserName(email) {
+function updateUserName(user) {
     var newName = userAccount.querySelector('form.user-info input[name="name"]').value
-    var newEmail = userAccount.querySelector('form.user-info input[name="email"]').value
-    for(i = 0; i < users.length; i++){
-        var currentUser = users[i]
-        if (currentUser.name === newName){
-            userAccount.querySelector('.update-info p.message').innerHTML = 'Nothing changed'
-        }
-  
-        currentUser.name = newName
-
-        newName.disabled = true
-        newEmail.disabled = true
-        return userAccount.querySelector('.user-info').classList.add('off') 
-    }
+        user.name = newName
 }
-function updateUserEmail(email) {
-    var newName = userAccount.querySelector('form.user-info input[name="name"]').value
+function updateUserEmail(currentEmail, newEmail) {
     var newEmail = userAccount.querySelector('form.user-info input[name="email"]').value
-    var userSessionChecker = users.email.find(user => user.email === email)
-    validateEmail(email)
-    for(i = 0; i < users.length; i++){
-        var currentUser = users[i]
-        if (currentUserEmail === newEmail){
+    var userID = users.map(user => user.email).indexOf(currentEmail)
+
+    // var userSessionChecker = users.email.find(user => user.email === email)
+    validateEmail(newEmail)
+        if (users[userID].email !== currentEmail && users[userID].email === newEmail){
             throw new Error('Email already registered')
         }
-        if (currentUserEmail === currentUser && currentUser === email){
-            throw new Error('Email already registered')
+        console.log()
+        if (users[userID].email === currentEmail && users[userID].email !== newEmail){
+            users[userID].email = newEmail
+            userAccount.querySelector('form.user-info input[name="name"]').disabled = true
+            userAccount.querySelector('form.user-info input[name="email"]').disabled = true
+            userAccount.querySelector('.message').classList.add('success')
+            userAccount.querySelector('p.message').innerHTML = 'User info updated!'
         }
-        if (currentUser.email !== newEmail){
-            currentUser.email = newEmail
-        }
-
-        newName.disabled = true
-        newEmail.disabled = true
-        userAccount.querySelector('.user-info').classList.add('off')
-        userAccount.querySelector('.update-info p.message').innerHTML = 'User info changed!'
-
-    }
-}
-
+ }
 
 function updateUserPassword(email) {
-    
-    var currentUser = users.find(user => user.email === email)
+    var userID = users.map(user => user.email).indexOf(email) 
     var currentPassword = userAccount.querySelector('form.user-password input.current-password').value
     var newPassword = userAccount.querySelector('form.user-password input.new-password').value
     var repeatPassword = userAccount.querySelector('form.user-password input.repeat-password').value
 
-    validatePassword(currentPassword, newPassword, repeatPassword, currentUser)
+    validateNewPassword(currentPassword, newPassword, repeatPassword, users[userID])
 
-    currentUser.password = newPassword
+    users[userID].password = newPassword
     currentPassword.disabled = true
-    console.log(newPassword)
     newPassword.disabled = true
     repeatPassword.disabled = true
-    userAccount.querySelector('.user-password').classList.add('off')
-    userAccount.querySelector('.update-password p.message').classList.remove('error')
-    userAccount.querySelector('.update-password p.message').classList.add('success')
-    console.log(users)
-    return userAccount.querySelector('.update-password p.message').innerHTML = 'Password changed!'
+    toggleOffClassInSection(userAccount.querySelector('form.data.user-password .buttons'))
+    userAccount.querySelector('p.message').classList.remove('error')
+    userAccount.querySelector('p.message').classList.add('success')
+    return userAccount.querySelector('p.message').innerHTML = 'Password changed!'
 }
 
+function updateUserImage(user) {
+    var avatar = userAccount.querySelector('.avatar img.image-profile')
+    var imageInput = userAccount.querySelector('form.user-info input[name="file"]')
+    user.imageProfile = avatar.src
+    var avatar = userAccount.querySelector('.avatar img.image-profile').classList.remove('hidden')
+    var avatarHeader = menuHeader.querySelector('.avatar img.image-profile').classList.remove('hidden')
+    imageInput.value = ""
+}
 
-// poner trim a todos los inputs
+function logOut() {
+    currentUserEmail = ''
+    toggleOffClassInSection(userAccount)
+    deleteClassOnContainer(loginPage, 'off')
+    deleteClassOnContainer(bodyPage, 'logged-in')
+}
+

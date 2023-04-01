@@ -1,9 +1,5 @@
 var users = []
-users.push({
-    name: 'Mikel Cabezas',
-    email: 'mikelcabezas@gmail.com',
-    password: '123123123'
-})
+
 users.push({
     name: 'Wendy Darling',
     email: 'wendy@darling.com',
@@ -18,4 +14,9 @@ users.push({
     name: 'Pepito Grillo',
     email: 'pepito@grillo.com',
     password: '123123123'
+})
+users.push({
+    name: 'Mikel Cabezas',
+    email: 'mikelcabezas@gmail.com',
+    password: '123'
 })

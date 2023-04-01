@@ -7,15 +7,11 @@
     <link rel="stylesheet" href="style.css">
     <script src="scripts/data.js" defer></script>
     <script src="scripts/logic.js" defer></script>
-    <script src="scripts/main.js" defer></script>   
-    <script src="scripts/validators.js" defer></script>
-    <script src="scripts/ui.js" defer></script>
-    <script src="scripts/localImagesBase64.js" defer></script>
+    <script src="scripts/main.js" defer></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://use.typekit.net/qmk4sob.css">
-    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
     <title>Form Web</title>
 </head>
 <header>
@@ -23,7 +19,7 @@
     <div class="logo">
         <img src="glasses.svg" alt="Mikel Cabezas">
     </div>
-    <nav class="menu">
+    <div class="menu">
         <ul>
             <li class="login has-submenu">Login
                 <ul class="submenu">
@@ -32,20 +28,15 @@
                 </ul>
             </li>
             <li class="homepage">Homepage</li>
-            <li class="user-account">
-                <div class="avatar">
-                    <div class="letter"></div>
-                    <img class="image-profile hidden" src="" alt="">
-                </div>
-                <div class="user-name">Account settings</div>
-            </li>
+            <li class="user-account">Account settings</li>
             <li class="logout">Logout</li>
         </ul>
-    </nav>
+    </div>
 </div>
 </header>
 <body>
     <div class="section register off" id="register">
+        <!-- TODO implement register page -->
         <div class="container">
             <h1>Register</h1>
             <form class="register-form">
@@ -55,10 +46,7 @@
                 <label for="Email">Email</label>
                 <input type="email" name="email" id="register-email" placeholder="email" _required>
                 <label for="Password">Password</label>
-                <div class="password">
-                    <input type="password" name="password" id="register-password" placeholder="password" _required>
-                    <i class="uil uil-eye"></i>
-                </div>
+                <input type="password" name="password" id="register-password" placeholder="password" _required>
                 <button class="submit" type="submit">Register</button>
                 <div class="login-link">
                     <p>Already registered? <a href="">Login</a></p>
@@ -68,6 +56,7 @@
     </div>
 
     <div class="section login" id="login">
+        <!-- TODO implement login page -->
         <div class="container">
             <h1>Login</h1>
             <form class="login-form">
@@ -75,10 +64,7 @@
                 <label for="Email">Email</label>
                 <input type="email" name="email" placeholder="Your email" _required>
                 <label for="Password">Password</label>
-                <div class="password">
-                    <input type="password" name="password" placeholder="Your password" _required>
-                    <i class="uil uil-eye"></i>
-                </div>
+                <input type="password" name="password" placeholder="Your password" _required>
                 <button class="submit" type="submit">Login</button>
                 <div class="register-link">
                     <p>Not registered? <a href="">Create account</a></p>
@@ -93,71 +79,46 @@
         <h2 class="welcome-user"></h2>
     </div>
     <div class="section user-account off">
-        <div class="sidebar">
-            <div class="title">
-                <h1>Account settings</h1>
-            </div>
-            <ul class="menu-sidebar">
-                <li><a href="#update-profile" class="update-info__profile">Update profile</a></li>
-                <li><a href="#update-password" class="update-info__password">Update password</a></li>
-                <!-- <li><a class="update-info__avatar">Update image profile</a></li> -->
-                <li><a href="#delete-account" class="delete-account">Delete account</a></li>
-            </ul>
+        <!-- TODO homepage -->
+        <div class="title">
+            <h1>Account settings</h1>
+
         </div>
         <div class="container">
             <div class="content">
-                <p class="message"></p> 
-                <div class="update update-info" id="update-profile">
-                    <h2>Update profile</h2>
-                    <p>Press de pencil icon for edit your name or your email</p>
-                    <button class="button--update-info__profile">Edit profile <i class="uil uil-pen"></i></button>
-                    <form class="data user-info">
+                <h2>Hi</h2>
+                <div class="update update-info">
+                    <p><strong>Update your information</strong></p>
+                    <p class="message success"></p> 
+                    <button class="button--update-info__profile">Update my profile</button>
+                    <form class="data user-info off">
                         <label for="">Your name</label>
                         <input type="text" value="" name="name" disabled>
                         <label for="">Your email</label>
                         <input type="email" value="" name="email" disabled>
-                        <div class="avatar">
-                            <div class="letter"></div>
-                            <img class="image-profile hidden" src="" alt="">
-                        </div>
-                        <label for="">Update image profile</label>
-                        <input type="file" name="file" id="" accept=".jpg, .jpeg, .png .webp" disabled>
-                        <div class="buttons off">
+                        <div class="buttons">
                             <button class="button--update-info__cancel-info">Cancel</button>
                             <button class="button--update-info__save-info">Save</button>
                         </div>
                         
                     </form>
                 </div>
-                <div class="update update-password" id="update-password">
-                    <h2>Update password</h2>
-                    <p>Press de pencil icon for edit your password.<br>
-                    You cannot set the same password</p>
-                    <button class="button--update-info__password">Update password <i class="uil uil-pen"></i></button>
-                    <form class="data user-password">
+                <div class="update update-password">
+                    <p><strong>Update your password</strong></p>
+                    <p class="message"></p> 
+                    <button class="button--update-info__password">Update password</button>
+                    <form class="data user-password off">
                         <label for="">Current password</label>
-                        <div class="password current-password">
-                            <input class="current-password" type="password" value="" name="password" disabled>
-                            <i class="uil uil-eye"></i>
-                        </div>
+                        <input class="current-password" type="password" value="" name="password" disabled>
                         <label for="">New password</label>
-                        <div class="password new-password">
-                            <input class="new-password" type="password" value="" name="password" disabled>
-                            <i class="uil uil-eye"></i>
-                        </div>
+                        <input class="new-password" type="password" value="" name="password" disabled>
                         <label for="">Repeat password</label>
-                        <div class="password repeat-password">
-                            <input class="repeat-password" type="password" value="" name="password" autocomplete="off" disabled>
-                            <i class="uil uil-eye"></i>
-                        </div>
-                        <div class="buttons off">
+                        <input class="repeat-password" type="password" value="" name="password" disabled>
+                        <div class="buttons">
                             <button class="button--update-info__cancel-password">Cancel</button>
                             <button class="button--update-info__save-password">Save</button>
                         </div>
                     </form>
-                </div>
-                <div class="delete-account" id="delete-account">
-                    <p class="error">Delete account</p>
                 </div>
             </div>
     </div>
