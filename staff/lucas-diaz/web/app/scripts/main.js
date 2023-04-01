@@ -150,7 +150,6 @@ document.querySelector(".home-menu-option3").addEventListener("click", (event) =
     event.preventDefault();
 })
 
-//TODO EN EL NAV MENU, TENEMOS QUE MANTENER DE VERDE DONDE ESTEMOS ACTUALMENTE PARA QUE EL USER SEPA DONDE ESTAMOS EN TODO MOMENTO.
 
 
 
