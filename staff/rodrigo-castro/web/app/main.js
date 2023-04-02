@@ -10,7 +10,6 @@ var homePageRedText = homePage.querySelector('.red-text')
 var myProfileButton = homeBar.querySelector('.menu-buttons[name=my-profile]')
 var profileOptions = homePage.querySelector('.profile-options')
 var changePasswordMenu = homePage.querySelector('.change-password-menu')
-
 var changeAvatarMenu = homePage.querySelector('.change-avatar-menu')
 var changeAvatarButton = homePage.querySelector('.change-avatar')
 var changeAvatarForm = homePage.querySelector('.change-avatar-menu').querySelector('form')
@@ -47,15 +46,8 @@ loginPage.querySelector('form').addEventListener('submit', (event) => {
     var foundUser = findUser(users, userEmail)
 
     try {
-        if(foundUser === undefined || foundUser.password !== userPassword) throw new Error('Wrong email or password')
-
-        goToHomePage(homePage, foundUser, avatarImg)        
-        
+        logIn(foundUser, userPassword, homePage, avatarImg)
         resetPage(loginPage)
-        
-        userLogged = JSON.parse(JSON.stringify(foundUser))
-        delete userLogged.password
-        // userLogged = Object.assign({}, foundUser) -> otra forma de copiar objetos
     } catch(error){
         loginPageRedText.textContent = error.message
     }
@@ -67,19 +59,23 @@ myProfileButton.addEventListener('click', () => {
     resetPage(changeAvatarMenu)
 })
 
+homePage.querySelector('.change-email').onclick = () => {
+
+}
+
 homePage.querySelector('.change-password').addEventListener('click', () => { // REFACTORIZAR PA Q QUEDE MAS LINDO
-    changePasswordMenu.querySelector('.red-text').classList.remove('green-text')
-    changePasswordMenu.querySelector('.red-text').textContent = ''
-    homePage.querySelector('.profile-options').classList.add('off')
-    changePasswordMenu.classList.remove('off')
+    homePageRedText.classList.remove('green-text')
+    homePageRedText.textContent = ''
+    hideElement(profileOptions)
+    showElement(changePasswordMenu)
 })
 
 homePage.querySelector('form').addEventListener('submit', (event) => { 
     event.preventDefault();
     try {
-        changePassword(userLogged, users, homePageRedText)
+        changePassword(userLogged, users, redText)
     } catch(error){
-        homePage.querySelector('.red-text').textContent = error.message
+        homePageRedText.textContent = error.message
     }
     homePage.querySelector('form').reset()
 })

@@ -17,8 +17,8 @@ const findUser = (users, userEmail) => {
     return  users.find(user => user.email === userEmail)
 }
 
-const changePassword = (userLogged, users, homePageRedText) => {
-    homePageRedText.textContent = ''
+const changePassword = (userLogged, users, redText) => {
+    loginPageRedText.textContent = ''
     var previousPassword = homePage.querySelector('.previous-password').value
     var foundUser = findUser(users, userLogged.email)
     
@@ -85,3 +85,10 @@ const goToHomePage = (homePage, foundUser, avatarImg) => {
         avatarImg.src = foundUser.avatar
 }
 
+const logIn = (foundUser, userPassword, homePage, avatarImg) => {
+    if(foundUser === undefined || foundUser.password !== userPassword) throw new Error('Wrong email or password')
+    goToHomePage(homePage, foundUser, avatarImg)        
+    userLogged = JSON.parse(JSON.stringify(foundUser))
+    delete userLogged.password
+    // userLogged = Object.assign({}, foundUser) -> otra forma de copiar objetos
+}
