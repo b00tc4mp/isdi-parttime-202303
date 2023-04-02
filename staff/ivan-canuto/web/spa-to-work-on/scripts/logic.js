@@ -5,7 +5,7 @@ function registerUser(name, email, password) {
   if (!email.includes('@')) throw new Error("Email doesn't contain a '@'.")
   if (!email.includes('.')) throw new Error("Email doesn't contain a'.', try to put a dot whithin the domain part.")
   validatePassword(password)
-  if (password.length < 6) throw new Error('Password is too short, try one with at least 6 letter.')
+  if (password.length < 6) throw new Error('The password is too short.')
 
   var user = findUserByEmail(email)
 
@@ -64,8 +64,6 @@ function updateUserEmail(email, newEmail, newEmailConfirm, password) {
 
   if (user.password !== password) throw new Error('The password is not correct.')
 
-  // TODO add more input validation
-
   user.email = newEmail
   authenticatedEmail = newEmail
 }
@@ -75,10 +73,10 @@ function updateUserPassword(email, password, newPassword, newPasswordConfirm) {
   var user = findUserByEmail(email)
   if (!user) throw new Error('User not found')
   validatePassword(password)
-  if (password !== user.password) throw new Error('The password is incorrect');
+  if (password !== user.password) throw new Error('The password is incorrect.');
   validatePassword(newPassword, 'new password')
   validatePassword(newPassword, 'new password confirmation')
-  if (newPassword.length < 6) throw new Error('New password is too short, try one with at least 6 letter.');
+  if (newPassword.length < 6) throw new Error('New password is too short.');
   if (newPassword === password) throw new Error('New password cannot be the same as the old password.')
   if (newPassword !== newPasswordConfirm) throw new Error('New passwords do not match.')
 
@@ -96,4 +94,11 @@ function updateUserAvatar(email, newAvatarUrl, password) {
 
   user.avatar = newAvatarUrl
   avatarImage.src = user.avatar
+}
+
+const addOffClass = (page)=>{
+  page.classList.add('off');
+}
+const removeOffClass = (page)=>{
+  page.classList.remove('off');
 }

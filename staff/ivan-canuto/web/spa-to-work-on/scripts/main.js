@@ -4,7 +4,7 @@ var homePage = document.querySelector('.home')
 var authenticatedEmail;
 var profilePanel = homePage.querySelector('.profile')
 var changePasswordForm = profilePanel.querySelector('.change-password')
-var changeEmailForm = profilePanel.querySelector('.change-email')
+// var changeEmailForm = profilePanel.querySelector('.change-email')
 var changeAvatarForm = profilePanel.querySelector('.change-avatar')
 var avatarImage = homePage.querySelector('.avatar-image')
 var avatarPassword = changeAvatarForm.querySelector('input[name="password')
@@ -21,8 +21,8 @@ registerPage.querySelector('form').onsubmit = function (event) {
     try {
         registerUser(name, email, password);
     
-        registerPage.classList.add('off');
-        loginPage.classList.remove('off');
+        addOffClass(registerPage)
+        removeOffClass(loginPage)
         registerPage.querySelector('input[name="name"]').value = ''
         registerPage.querySelector('input[name="email"]').value = ''
         registerPage.querySelector('input[name="password"]').value = ''
@@ -49,8 +49,8 @@ loginPage.querySelector('form').onsubmit = function (event) {
         homePage.querySelector('a').textContent = user.name;
         avatarImage.src = user.avatar
         
-        loginPage.classList.add('off');
-        homePage.classList.remove('off');
+        addOffClass(loginPage)
+        removeOffClass(homePage)
         loginPage.querySelector('input[name="email"]').value = ''
         loginPage.querySelector('input[name="password"]').value = ''
 
@@ -62,23 +62,23 @@ loginPage.querySelector('form').onsubmit = function (event) {
 registerPage.querySelector('a').onclick = function (event) {
     event.preventDefault()
 
-    registerPage.classList.add('off')
-    loginPage.classList.remove('off')
+    addOffClass(registerPage)
+    removeOffClass(loginPage)
 }
 
 loginPage.querySelector('a').onclick = function (event) {
     event.preventDefault()
 
-    loginPage.classList.add('off')
-    registerPage.classList.remove('off')
+    addOffClass(loginPage)
+    removeOffClass(registerPage)
 }
 
 homePage.querySelector('.logout-button').onclick = function (event) {
     event.preventDefault()
 
-    homePage.classList.add('off')
-    loginPage.classList.remove('off')
-    if(!profilePanel.classList.contains('off')) profilePanel.classList.add('off');
+    addOffClass(homePage)
+    removeOffClass(loginPage)
+    if(!profilePanel.classList.contains('off')) addOffClass(profilePanel);
 }
 
 homePage.querySelector('a').onclick = function (event) {
@@ -87,29 +87,29 @@ homePage.querySelector('a').onclick = function (event) {
     profilePanel.classList.toggle('off')
 }
 
-changeEmailForm.onsubmit = function (event) {
-    event.preventDefault();
+// changeEmailForm.onsubmit = function (event) {
+//     event.preventDefault();
 
-    let email = event.target.email.value;
-    let newEmail = event.target.newEmail.value;
-    let newEmailComfirm = event.target.newEmailConfirm.value;
-    let password = event.target.password.value;
+//     let email = event.target.email.value;
+//     let newEmail = event.target.newEmail.value;
+//     let newEmailComfirm = event.target.newEmailConfirm.value;
+//     let password = event.target.password.value;
 
-    try {
-        updateUserEmail(email, newEmail, newEmailComfirm, password)
+//     try {
+//         updateUserEmail(email, newEmail, newEmailComfirm, password)
 
-        profilePanel.classList.add('off')
-        changeEmailForm.querySelector('input[name="email"]').value = ''
-        changeEmailForm.querySelector('input[name="newEmail"]').value = ''
-        changeEmailForm.querySelector('input[name="newEmailConfirm"]').value = ''
-        changeEmailForm.querySelector('input[name="password"]').value = ''
+//         profilePanel.classList.add('off')
+//         changeEmailForm.querySelector('input[name="email"]').value = ''
+//         changeEmailForm.querySelector('input[name="newEmail"]').value = ''
+//         changeEmailForm.querySelector('input[name="newEmailConfirm"]').value = ''
+//         changeEmailForm.querySelector('input[name="password"]').value = ''
 
-        alert('Email updated.')
+//         alert('Email updated.')
 
-    } catch (error) {
-        alert(error.message);
-    }
-}
+//     } catch (error) {
+//         alert(error.message);
+//     }
+// }
 
 changePasswordForm.onsubmit = function (event) {
     event.preventDefault();
@@ -121,7 +121,7 @@ changePasswordForm.onsubmit = function (event) {
     try {
         updateUserPassword(authenticatedEmail, password, newPassword, newPasswordComfirm)
 
-        profilePanel.classList.add('off')
+        addOffClass(profilePanel)
         changePasswordForm.querySelector('input[name="password"]').value = ''
         changePasswordForm.querySelector('input[name="newPassword"]').value = ''
         changePasswordForm.querySelector('input[name="newPasswordConfirm"]').value = ''
@@ -142,7 +142,7 @@ changeAvatarForm.onsubmit = function (event) {
     try {
         updateUserAvatar(authenticatedEmail, newAvatarUrl, password)
 
-        profilePanel.classList.add('off')
+        addOffClass(profilePanel)
         avatarPassword.value = ''
         alert('Avatar updated.')
 
