@@ -6,7 +6,7 @@ console.log(animals.slice(2));
 console.log(animals.slice(2, 4));
 // Expected output: Array ["camel", "duck"]
 
-console.log(animals.slice(1, 5));
+console.log(animals.slice(1, 10));
 // Expected output: Array ["bison", "camel", "duck", "elephant"]
 
 console.log(animals.slice(-2));
@@ -15,5 +15,16 @@ console.log(animals.slice(-2));
 console.log(animals.slice(2, -1));
 // Expected output: Array ["camel", "duck"]
 
+console.log(animals.slice(-4, -2));
+// Expected output: Array ["bison", "camel"]
+
+console.log(animals.slice(-15, -12));
+
+console.log(animals.slice(-2, -3));
+
+console.log(animals.slice(3, 2));
+
 console.log(animals.slice());
 // Expected output: Array ["ant", "bison", "camel", "duck", "elephant"]
+
+console.log('******************************************')
