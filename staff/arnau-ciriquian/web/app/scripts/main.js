@@ -117,6 +117,7 @@ function closeProfilePages() {
 /*  TODO:   
             - Foto perfil 20230328 2100
             - canviar alerts per missatges en pantalla?o un toast?
+            - al fer logout posar un avatar random per evitar deixar lavatar de lusuari previ
             - tancar ulls de les contrasenyes amb el canvi de pagina. Un if? si type text fer un toggle de fa-eye-slash i canvi de tipus
             - objectiu de la app: xarxa social:
                 - rollo ig?
@@ -125,10 +126,12 @@ function closeProfilePages() {
                 - likes, post, comments?
 
             
-    DONE    - ifs del closeProfilePages
-            - transformar el .classList.add('off') i .classList.remove('off') a funcions 20230329 2110
-            - les funcions del classList en una sola funcio que gestioni totes ls classes que shan dobrir i tancar de cop? amb un for? function(...containers) amb un for dins 2118 
-            - fitxers 'utils' : funcio de classList i funcio shw/hide pass?
-            - canviar els ifs de off per un toggle (profile-anchor i/o closeProilePages)
-            -toggle eye per veure els passwords
+    DONE    - 
+            -
+            -
+            -
+
+    PREGUNTES:
+            - pk un primitiu com a parametre no es modifica i un no primitiu si? i pk el no primitiu es modifica si es per index pero no per igualar amb un altre element?
+            exemple del reverse
 */              
