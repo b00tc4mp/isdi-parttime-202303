@@ -27,6 +27,7 @@ function authenticateUser (email, password) {
 
     if(!foundUser) throw new Error ('User not found') 
     if (foundUser.password !== password) throw new Error ('Wrong password')
+    return foundUser
 }
 
 /*
@@ -65,7 +66,6 @@ function updateUserAvatar(email, newAvatar) {
         
     else{
         foundUser.avatar = newAvatar
-        return foundUser
     }
 }
 
@@ -83,7 +83,7 @@ function validatedNewPassword(email, password, userNewPassword,userConfirmNewPas
     var foundUser= findUserByEmail(email)
 
     if(!foundUser) throw new Error ('User not found') 
-    if (userNewPassword !== userConfirmNewPassword) new Error('New password and confirmed password do not match')
+    if (userNewPassword !== userConfirmNewPassword)throw new Error('New password and confirmed password do not match')
     if (foundUser.password !== password) throw new Error ('wrong  actual password') 
     if(password === userNewPassword) throw new Error ('You have to change the password')
     if(foundUser&& userNewPassword === userConfirmNewPassword) foundUser.password = userNewPassword          

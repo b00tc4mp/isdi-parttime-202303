@@ -1,7 +1,8 @@
 function validateName(name) {
     if (typeof name!== 'string') throw new Error('Name is not a string');
     if(!name.trim().length) throw new Error('Name is empty')
-    if(3 < name.trim().length >15) throw new Error('Name minimun 3, maximun 15 characters')
+    if(name.trim().length < 3) throw new Error('Name minimun 3 characters')
+    if(name.trim().length >15) throw new Error('Name maximun 15 characters')
 
     // TODO regex pattern 
 }
@@ -14,12 +15,14 @@ function validateEmail(email) {
 function validatePassword(password) {
     if (typeof password!=='string') throw new Error('Password is not a string');
     if(!password.trim().length) throw new Error('Password is empty')
-    if(6 > password.trim().length > 12) throw new Error('Password minimun 6-maximum 12 characters')
+    if(password.trim().length < 6 ) throw new Error('Password minimun 6 characters')
+    if(password.trim().length > 12) throw new Error('Password maximum 12 characters')
 }   
 function validateUserNewPassword(userNewPassword) {
     if (typeof userNewPassword!== 'string') throw new Error('New password is not a string');
     if(!userNewPassword.trim().length) throw new Error(' New password is empty')
-    if(6 > userNewPassword.trim().length > 12) throw new Error('New passwordd minimun 6, maximum 12 characters')
+    if(userNewPassword.trim().length < 6) throw new Error('New passwordd minimun 6 characters')
+    if(userNewPassword.trim().length > 12) throw new Error('New password maximum 12 characters')
 }
 
 function validateUserAvatar(newAvatar){
@@ -30,5 +33,6 @@ function validateUserAvatar(newAvatar){
 function validateUserConfirmNewPassword(userConfirmNewPassword) {
     if (typeof userConfirmNewPassword!== 'string') throw new Error('New confirmed password is not a string');
     if(!userConfirmNewPassword.trim().length) throw new Error('New confirmed password is empty')
-    if(6 > userConfirmNewPassword.trim().length > 12) throw new Error('New confirmed passwordd minimun 6-maximum 12 characters')
+    if(userConfirmNewPassword.trim().length < 6) throw new Error('New confirmed passwordd minimun 6 characters')
+    if(userConfirmNewPassword.trim().length > 12) throw new Error('New confirmed password maximum 12 characters')
 }

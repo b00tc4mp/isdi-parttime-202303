@@ -4,7 +4,8 @@ var registerForm = registerPage.querySelector('form')
 var loginPage= document.querySelector('.login')
 var loginForm= loginPage.querySelector('form')
 var homePage= document.querySelector('.home')
-var authenticateEmail // es util porque nos serviran los datos para el cambio de sesion...
+var authenticateEmail 
+// es util porque nos serviran los datos para el cambio de sesion...
 var homeMenu = homePage.querySelector('.home-header').querySelector('.home-menu')
 var myProfileLink = homeMenu.querySelector('a')
 var homeProfileEdit = homePage.querySelector('.profile-edit') 
@@ -26,6 +27,7 @@ registerForm.onsubmit = function(event) {
         var result = registerUser(name,email,password)
         if (result === false) throw new Error ('User does exist')
 
+        registerForm.reset()
         registerPage.classList.add('off')
         loginPage.classList.remove('off')
 
@@ -52,6 +54,11 @@ loginForm.onsubmit = function (event) {
         var foundUser = retrieveUser(email)
 
         homeMenu.querySelector('.myProfile').innerText = `${foundUser.name}`
+
+        //TODO añadir avatar image -- clase 28/03/2023
+
+        loginForm.reset()
+
         loginPage.classList.add('off')
         homePage.classList.remove('off')
 
@@ -63,9 +70,10 @@ loginForm.onsubmit = function (event) {
 
 //configurate anchor <a> Login
 
-loginPage.querySelector('a').onclick =function(event){
+loginPage.querySelector('a').onclick = function(event){
     event.preventDefault()
 
+    loginForm.reset()
     loginPage.classList.add('off')
     registerPage.classList.remove('off')
 }
@@ -75,7 +83,8 @@ loginPage.querySelector('a').onclick =function(event){
 registerPage.querySelector('a').conclick = function(event){
     event.preventDefault()
 
-   registerPage.classList.add('off')
+    registerForm.reset()
+    registerPage.classList.add('off')
     loginPage.classList.remove('off')
 }
 
@@ -96,7 +105,6 @@ homeMenu.querySelector('.myProfile').onclick = function(event){
 
 homeProfileEdit.querySelector('.updateAvatar').onclick = function(event){
     event.preventDefault()
-
     homeProfileEdit.querySelector('.profile-edit-avatar-form').classList.remove('off')
 }
 
@@ -151,9 +159,21 @@ homeProfileEditPasswordForm.onsubmit = function(event){
     }catch(error) {
         alert(error.message)
     }
+    homeProfileEditPasswordForm.reset()
 }
 
+//home-header-Logout 
 
+homePage.querySelector('.home-header').querySelector('.home-header-logout').querySelector('.logout').onclick = function(event) {
+    event.preventDefault() 
+    //no necesario al estar fuera de un formulario
+
+    homePage.classList.add('off') 
+    homeProfileEdit.classList.add('off') 
+    homeProfileEditAvatarForm.classList.add('off')
+    homeProfileEditPasswordForm.classList.add('off')
+    loginPage.classList.remove('off')
+}
 
 
 
