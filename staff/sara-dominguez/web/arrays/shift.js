@@ -23,13 +23,13 @@ function shift(array){
     newArrayIndex = 0
 
     for(let i = 1; i < array.length; i++){ 
-        if(i = 0){
+        if(i === 0){
             array[0] = firstElement
             return firstElement
         }
         if(i !== 0){
-        newArray[newArrayIndex]= array[i]
-        newArrayIndex += 1
+            newArray[newArrayIndex]= array[i]
+            newArrayIndex += 1
         }
     }
     
