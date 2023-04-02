@@ -5,3 +5,4 @@ function isArray(element) {
     }
     return false;
 }
+
