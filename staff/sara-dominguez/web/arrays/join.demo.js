@@ -3,8 +3,8 @@ const elements = ['Fire', 'Air', 'Water'];
 console.log(join(newString, "," , elements));
 // Expected output: "Fire,Air,Water"
 
-console.log(elements.join(''));
+console.log(join(" '' ", elements));
 // Expected output: "FireAirWater"
 
-console.log(elements.join('-'));
+console.log(join('-', elements));
 // Expected output: "Fire-Air-Water"

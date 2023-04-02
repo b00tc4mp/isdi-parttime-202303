@@ -1,9 +1,10 @@
-function join(newString, joinWith , elements) {
-    const newString = []
+function join (newString, joinWith , elements) {
+    let newString 
+    
     for(let i = 0; i < elements.length; i++) {
-        const element = elements[i];
-        newString[newString.length] = `${element[i]}${joinWith}`
+       newString = (`${elements[i]}${joinWith}`)
     }
-    return newString
+   return newString
 }
 
+ 
