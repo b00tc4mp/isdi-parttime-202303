@@ -49,11 +49,11 @@ var updateEmail = (users, authenticatedEmail, currentEmail, newEmail, confirmNew
     if (!user)
     throw new Error('User not found')
 
-    if (currentEmail!== authenticatedEmail)
+    if (currentEmail !== authenticatedEmail)
     throw new Error('Invalid current email')
 
     if (currentEmail === newEmail)
-    throw new Error('Current email cannot be the same as new email')
+    throw new Error('New email cannot be the same as current email')
 
     if (newEmail !== confirmNewEmail)
     throw new Error('New emails do not match')

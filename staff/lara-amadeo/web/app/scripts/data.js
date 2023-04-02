@@ -2,13 +2,13 @@ var users = []
 
 
 users.push({
-    name: 'Peter Pan',
+    username: 'Peter Pan',
     email: 'peter@pan.com',
     password: '123123123'
 })
 
 users.push({
-    name: 'Pepito Grillo',
+    username: 'Pepito Grillo',
     email: 'pepito@grillo.com',
     password: '123123123'
 })

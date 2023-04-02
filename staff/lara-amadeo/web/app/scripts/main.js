@@ -66,7 +66,7 @@ loginForm.onsubmit = function(event){
         checkCredentials(inputEmail, inputPassword)
         authenticatedEmail = inputEmail
         authenticatedPassword = inputPassword
-        authenticatedName = users.find((user) => user.email === authenticatedEmail).name
+        authenticatedName = users.find((user) => user.email === authenticatedEmail).username
 
         hide(loginPage)
         show(homePage)
