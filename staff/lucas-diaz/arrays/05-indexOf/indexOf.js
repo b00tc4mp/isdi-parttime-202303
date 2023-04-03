@@ -14,19 +14,14 @@
  */
 
 function indexOf(array, elementToSearch, fromIndex = 0){
-    
     if (fromIndex > array.length) return -1;
-
     if (fromIndex < 0){
         fromIndex = (array.length - (-fromIndex));
     }
-
     for (let i = 0; i < array.length; i++){
-
         if (i < fromIndex){
             continue;
         }
-
         if (array[i] === elementToSearch){
             return i;
         }
