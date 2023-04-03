@@ -246,14 +246,14 @@ body {
   cursor: pointer;
 }
 
-.change-password-menu {
+.change-password-menu, .change-email-menu {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-.change-password-input {
+.changing-inputs {
   width: 15rem;
 }
 

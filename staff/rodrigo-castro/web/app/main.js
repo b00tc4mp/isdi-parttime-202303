@@ -8,8 +8,14 @@ var homePage = document.querySelector('.home-page')
 var homeBar = document.querySelector('.home-bar')
 var homePageRedText = homePage.querySelector('.red-text')
 var myProfileButton = homeBar.querySelector('.menu-buttons[name=my-profile]')
+
 var profileOptions = homePage.querySelector('.profile-options')
+
+var changeEmailMenu = homePage.querySelector('.change-email-menu')
+var emailMenuRedText = changeEmailMenu.querySelector('.red-text')
+
 var changePasswordMenu = homePage.querySelector('.change-password-menu')
+
 var changeAvatarMenu = homePage.querySelector('.change-avatar-menu')
 var changeAvatarButton = homePage.querySelector('.change-avatar')
 var changeAvatarForm = homePage.querySelector('.change-avatar-menu').querySelector('form')
@@ -55,12 +61,22 @@ loginPage.querySelector('form').addEventListener('submit', (event) => {
 
 myProfileButton.addEventListener('click', () => {
     toggleElement(profileOptions)
-    hideElement(changePasswordMenu, changeAvatarMenu)
+    hideElement(changePasswordMenu, changeAvatarMenu, changeEmailMenu)
     resetPage(changeAvatarMenu)
 })
 
 homePage.querySelector('.change-email').onclick = () => {
+    hideElement(profileOptions)
+    showElement(changeEmailMenu)
+}
 
+changeEmailMenu.querySelector('form').onsubmit = (event) => {
+    event.preventDefault()
+    try {
+        changeEmail(userLogged, users, event)
+    } catch(error){
+        emailMenuRedText.textContent = error.message
+    }
 }
 
 homePage.querySelector('.change-password').addEventListener('click', () => { // REFACTORIZAR PA Q QUEDE MAS LINDO
@@ -70,7 +86,7 @@ homePage.querySelector('.change-password').addEventListener('click', () => { // 
     showElement(changePasswordMenu)
 })
 
-homePage.querySelector('form').addEventListener('submit', (event) => { 
+changePasswordMenu.querySelector('form').addEventListener('submit', (event) => { 
     event.preventDefault();
     try {
         changePassword(userLogged, users, redText)

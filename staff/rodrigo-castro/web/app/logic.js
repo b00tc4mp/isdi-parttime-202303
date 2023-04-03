@@ -17,8 +17,28 @@ const findUser = (users, userEmail) => {
     return  users.find(user => user.email === userEmail)
 }
 
+const changeEmail = (userLogged, users, event) => {
+    var userPreviousEmail = event.target.previousemail.value
+    var userNewEmail = event.target.newemail.value
+    var userPassword = event.target.changeemailpasswordExpression.value
+
+    var foundUser = findUser(users, userLogged.email)
+
+    if(userPreviousEmail !== foundUser.email) throw new Error('Email or password incorrect')
+
+    checkNewUser(userNewEmail)
+
+    validateEmail(userNewEmail)
+
+    if(userPassword !== foundUser.password) throw new Error('Email or password incorrect2')
+
+    userLogged.email = userNewEmail
+    foundUser.email = userNewEmail
+    emailMenuRedText.textContent = 'Email succesfully changed'
+    emailMenuRedText.classList.add('green-text')
+}
+
 const changePassword = (userLogged, users, redText) => {
-    loginPageRedText.textContent = ''
     var previousPassword = homePage.querySelector('.previous-password').value
     var foundUser = findUser(users, userLogged.email)
     
@@ -35,7 +55,7 @@ const changePassword = (userLogged, users, redText) => {
     if(newPasswordRepeated !== newPassword) throw new Error (`New passwords don't match`)
 
     userLogged.password = newPassword
-    users.forEach(user => {
+    users.forEach(user => { // Creo que esto podria cambiarlo simplemente por foundUser.password = newPassword
         if(user.email === userLogged.email){
             user.password = userLogged.password
         }
