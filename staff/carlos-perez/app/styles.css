@@ -347,6 +347,10 @@ a {
 
 }
 
+.button-close-profile{
+    max-width: 120px;
+}
+
 .password-change {
     margin-top: 20px;
     display: grid;
