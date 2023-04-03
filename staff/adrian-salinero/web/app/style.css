@@ -1,167 +1,110 @@
-.register {
-  background-color: rgb(114, 234, 245);
+/* resets */
+
+html, body {
+  height: 100%;
 }
-
-.login {
-  background-color: rgb(191, 229, 114);
-}
-
-.home {
-  background-color: rgb(227, 134, 134);
-}
-
-.tooltip {
-  position: relative;
-  display: inline-block;
-  border-bottom: 1px dotted rgb(205, 10, 10);
-}
-
-.tooltip .tooltiptext {
-  visibility: hidden;
-  width: 170px;
-  background-color: black;
-  color: #fff;
-  text-align: center;
-  border-radius: 6px;
-  padding: 5px 0;
-
-  /* Position the tooltip */
-  position: absolute;
-  z-index: 1;
-}
-
-.tooltip:hover .tooltiptext {
-  visibility: visible;
-}
-
-@import url('httpss://fonts.googleapis.com/css?family=Roboto');
 
 body {
-  background:linear-gradient(to right, #ebeeef 0%, #cdd9de 50%, #aeccd8 99%);
+  margin: 0;
+  padding: 0;
+  background-color: var(--basebgcolor);
 }
 
-.signup-form {
-  font-family: "Roboto", sans-serif;
-  width:650px;
-  margin:30px auto;
-  background:linear-gradient(to right, #ffffff 0%, #fafafa 50%, #ffffff 99%);
-  border-radius: 10px;
+/* library */
+
+:root {
+  --basecolor: yellow;
+  --basebgcolor: orange;
 }
 
-.form-header  {
-  background-color: #EFF0F1;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
+.off {
+  display: none !important;
 }
 
-.form-header h1 {
-  font-size: 30px;
-  text-align:center;
-  color:#666;
-  padding:20px 0;
-  border-bottom:1px solid #cccccc;
+.page {
+  height: 100%;
 }
 
-.form-body {
-  padding:10px 40px;
-  color:#666;
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-.form-group{
-  margin-bottom:20px;
+.title {
+  color: var(--basecolor);
 }
 
-.form-body .label-title {
-  color:#1BBA93;
-  font-size: 17px;
-  font-weight: bold;
+.form {
+  display: flex;
+  flex-direction: column;
+  min-width: 60vw;
+  gap: 1rem;
 }
 
-.form-body .form-input {
-    font-size: 17px;
-    box-sizing: border-box;
-    width: 100%;
-    height: 34px;
-    padding-left: 10px;
-    padding-right: 10px;
-    color: #333333;
-    text-align: left;
-    border: 1px solid #d6d6d6;
-    border-radius: 4px;
-    background: white;
-    outline: none;
+.input, .button {
+  padding: .5rem .6rem;
+  border-radius: .75rem;
+  background-color: var(--basecolor);
 }
 
-
-
-.horizontal-group .left{
-  float:left;
-  width:49%;
+.button {
+  cursor: pointer;
 }
 
-.horizontal-group .right{
-  float:right;
-  width:49%;
+.button--accept {
+  background-color: greenyellow;
 }
 
-input[type="file"] {
- outline: none;
- cursor:pointer;
- font-size: 17px;
+.button--cancel {
+  background-color: tomato;
 }
 
-#range-label {
- width:15%;
- padding:5px;
- background-color: #1BBA93;
- color:white;
- border-radius: 5px;
- font-size: 17px;
- position: relative;
- top:-8px;
+@media (min-width: 768px) {
+  .page {
+      background-color: tomato;
+  }
 }
 
+/* components */
 
-::-webkit-input-placeholder {
- color:#d9d9d9;
+.home {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
 }
 
-/*---------------------------------------*/
-/* Form Footer */
-/*---------------------------------------*/
-.form-footer {
- clear:both;
+.home-header, .home-footer {
+  position: fixed;
+  background-color: dodgerblue;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 4rem;
 }
 
-.signup-form .form-footer  {
-  background-color: #EFF0F1;
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
-  padding:10px 40px;
-  text-align: right;
-  border-top: 1px solid #cccccc;
+.home-header {
+  top: 0;
 }
 
-.form-footer span {
-  float:left;
-  margin-top: 10px;
-  color:#999;  
-  font-style: italic;
-  font-weight: thin;
+.home-footer {
+  bottom: 0;
 }
 
-.btn {
-   display:inline-block;
-   padding:10px 20px;
-   background-color: #1BBA93;
-   font-size:17px;
-   border:none;
-   border-radius:5px;
-   color:#bcf5e7;
-   cursor:pointer;
+.home-header-nav {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
 }
 
-.btn:hover {
-  background-color: #169c7b;
-  color:white;
+.home-header-avatar {
+  width: 2rem;
+  border-radius: 1rem;
+}
+
+.profile-password-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
