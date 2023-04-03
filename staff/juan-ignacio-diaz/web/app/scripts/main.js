@@ -28,8 +28,8 @@ registerForm.onsubmit = function (event) {
     try {
         registerUser(username, email, password)
 
-        registerPage.classList.add("off")
-        loginPage.classList.remove("off")
+        hide(registerPage)
+        show(loginPage)
 
         event.target.name.value = ""
         event.target.email.value = ""

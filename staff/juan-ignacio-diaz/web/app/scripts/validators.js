@@ -1,6 +1,7 @@
 function validateEmail(email, cause) {
     if (typeof email !== 'string') throw new Error('email is not an string', {cause: "email"})
     if (!email.trim().length) throw new Error('email is empty', {cause: "email"})
+    if (!email.includes("@")) throw new Error('the email is wrong', {cause: "email"})
 }
 
 function validatePassword(password, explain = 'password') {
