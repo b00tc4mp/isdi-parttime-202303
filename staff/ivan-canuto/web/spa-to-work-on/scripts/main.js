@@ -28,7 +28,12 @@ registerPage.querySelector('form').onsubmit = function (event) {
         registerPage.querySelector('input[name="password"]').value = ''
 
     } catch (error) {
-        alert(error.message);
+        if (error.name === 'Error') {
+            alert(error.message);
+        } else {
+            alert('Sorry, something went wrong.')
+            console.log(error);
+        }
     }
 }
 
@@ -55,7 +60,12 @@ loginPage.querySelector('form').onsubmit = function (event) {
         loginPage.querySelector('input[name="password"]').value = ''
 
     } catch (error) {
-        alert(error.message);
+        if (error.name === 'Error') {
+            alert(error.message);
+        } else {
+            alert('Sorry, something went wrong.')
+            console.log(error);
+        }
     }
 }
 
@@ -129,7 +139,12 @@ changePasswordForm.onsubmit = function (event) {
 
 
     } catch (error) {
-        alert(error.message);
+        if (error.name === 'Error') {
+            alert(error.message);
+        } else {
+            alert('Sorry, something went wrong.')
+            console.log(error);
+        }
     }
 }
 
@@ -147,6 +162,11 @@ changeAvatarForm.onsubmit = function (event) {
         alert('Avatar updated.')
 
     } catch (error) {
-        alert(error.message);
+        if (error.name === 'Error') {
+            alert(error.message);
+        } else {
+            alert('Sorry, something went wrong.')
+            console.log(error);
+        }
     }
 }

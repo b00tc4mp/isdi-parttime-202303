@@ -12,7 +12,7 @@
 <body class="spa-page">
   <section class="welcome-page">
     <h1 class="title-home-page"> Hello, welcome to our page.</h1>
-    <h2>Please log in, or sign in if don't have yet an account.</h2>
+    <h2>Please log in, or register if don't have yet an account.</h2>
     <div class="buttons-home-page">
       <button class="login-button">Log In</button>
       <button class="register-button">Register</button>
@@ -29,10 +29,16 @@
       <input class="input-email" type="email" name="email" placeholder="E-mail">
       <label>Password.</label>
       <input class="input-password" type="password" name="password" placeholder="Password">
+      <span class="register-password-icon password-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 12C1 12 5 4 12 4C19 4 23 12 23 12" stroke="rgba(0,0,0,0.95)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M1 12C1 12 5 20 12 20C19 20 23 12 23 12" stroke="rgba(0,0,0,0.95)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="12" cy="12" r="3" stroke="rgba(0,0,0,0.95)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></circle></svg>
+      </span>
       <label>Repeat password</label>
       <input class="repeated-password" type="password" name="repeated-password" placeholder="Repeat password">
+      <span class="repeated-password-icon password-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 12C1 12 5 4 12 4C19 4 23 12 23 12" stroke="rgba(0,0,0,0.95)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M1 12C1 12 5 20 12 20C19 20 23 12 23 12" stroke="rgba(0,0,0,0.95)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="12" cy="12" r="3" stroke="rgba(0,0,0,0.95)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></circle></svg>
+      </span>
       <div class="buttons">
-        <input class="enter-button" type="submit" value="Enter">
+        <button class="enter-button">Enter</button>
         <button class="go-back" type="button">Go back</button>
       </div>
     </form> 
@@ -46,8 +52,11 @@
       <input class="input-email" type="email" name="email" placeholder="E-mail">
       <label>Password.</label>
       <input class="input-password" type="password" name="password" placeholder="Password">
+      <span class="login-password-icon password-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 12C1 12 5 4 12 4C19 4 23 12 23 12" stroke="rgba(0,0,0,0.95)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M1 12C1 12 5 20 12 20C19 20 23 12 23 12" stroke="rgba(0,0,0,0.95)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="12" cy="12" r="3" stroke="rgba(0,0,0,0.95)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></circle></svg>
+      </span>
       <div class="buttons">
-        <input class="enter-button" type="submit" value="Enter">
+        <button class="enter-button">Enter</button>
         <button class="go-back" type="button">Go back</button>
       </div>
     </form>
@@ -61,7 +70,7 @@
         <a>Our products</a>
         <a>About us</a>
         <a>Vlog</a>
-        <img class="navigation-bar__image" src="images/image-profile.jpg" alt="image-profile">
+        <img class="navigation-bar__image" src="" alt="image-profile">
       </div>
     </header>
     <button class="sign-off__button">Log out</button>
@@ -73,10 +82,10 @@
       <div class="personal-settings">
         <h2 class="personal-settings__title">Personal settings</h2>
         <ul class="personal-settings__list">
-          <li class="change-password__link">Change your password</li>
-          <li>Change your image</li>
-          <li>Change your personal data</li>
-          <li>Delete profile</li>
+          <li class="change-password__link">Change your password.</li>
+          <li class="change-avatar__link">Change your avatar image.</li>
+          <li>Change your personal data.</li>
+          <li>Delete profile.</li>
         </ul>
       </div>
     </div>
@@ -86,24 +95,54 @@
   <section class="change-password__page hidden">
     <div>
       <h1>Change password</h1>
-      <form class="password-form">
-        <div>
+      <form class="password__form">
+        <div class="input-div">
           <label>Enter the old password.</label>
-          <input class="old-password" type="password" placeholder="Old password">
+          <input class="old-password" name="oldPassword" type="password" placeholder="Old password">
+          <span class="old-password-icon password-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 12C1 12 5 4 12 4C19 4 23 12 23 12" stroke="rgba(0,0,0,0.95)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M1 12C1 12 5 20 12 20C19 20 23 12 23 12" stroke="rgba(0,0,0,0.95)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="12" cy="12" r="3" stroke="rgba(0,0,0,0.95)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></circle></svg>
+          </span>
         </div>
-        <div>
+        <div class="input-div">
           <label>Enter the new password.</label>
-          <input class="new-password" type="text" placeholder="New password">
+          <input class="new-password" name="newPassword" type="password" placeholder="New password">
+          <span class="new-password-icon password-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 12C1 12 5 4 12 4C19 4 23 12 23 12" stroke="rgba(0,0,0,0.95)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M1 12C1 12 5 20 12 20C19 20 23 12 23 12" stroke="rgba(0,0,0,0.95)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="12" cy="12" r="3" stroke="rgba(0,0,0,0.95)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></circle></svg>
+          </span>
         </div>
-        <div>
+        <div class="input-div">
           <label>Repeat the new password.</label>
-          <input class="new-password-repeated" type="text" placeholder="New password">
+          <input class="new-password-repeated" name="newPasswordRepeated" type="password" placeholder="New password">
+          <span class="new-password-repeated-icon password-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 12C1 12 5 4 12 4C19 4 23 12 23 12" stroke="rgba(0,0,0,0.95)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M1 12C1 12 5 20 12 20C19 20 23 12 23 12" stroke="rgba(0,0,0,0.95)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="12" cy="12" r="3" stroke="rgba(0,0,0,0.95)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></circle></svg>
+          </span>
         </div>
         <button>Enter</button>
       </form>
       <button class="exit-button">Exit</button>
     </div>
   </section>
+  <section class="change-avatar__page hidden">
+    <div>
+      <h1>Change avatar</h1>
+      <form class="avatar__form">
+        <div class="input-div">
+          <label>New avatar url</label>
+          <input class="new-avatar-url" name="avatarUrl" type="url" placeholder="Avatar url">
+        </div>
+        <div class="input-div">
+          <label>Password</label>
+          <input class="avatar-password" name="password" type="password" placeholder="Password">
+          <span class="avatar-password-icon password-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 12C1 12 5 4 12 4C19 4 23 12 23 12" stroke="rgba(0,0,0,0.95)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M1 12C1 12 5 20 12 20C19 20 23 12 23 12" stroke="rgba(0,0,0,0.95)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="12" cy="12" r="3" stroke="rgba(0,0,0,0.95)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></circle></svg>
+          </span>
+        </div>
+        <button>Enter</button>
+      </form>
+      <button class="exit-button">Exit</button>
+    </div>
+  </section>
+  <script type="text/javascript" src="scripts/validators.js"></script>
   <script type="text/javascript" src="scripts/data.js"></script>
   <script type="text/javascript" src="scripts/logic.js"></script>
   <script type="text/javascript" src="scripts/main.js"></script>

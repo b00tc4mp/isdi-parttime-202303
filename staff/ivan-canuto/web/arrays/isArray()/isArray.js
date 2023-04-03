@@ -1,5 +1,3 @@
-const isArray = (arr)=>{
-  let result;
-  if (Object.prototype.toString.call(arr) === "[object Array]") return window.alert("La variable arr es un arreglo.");
-  else return window.alert("La variable arr no es un arreglo.");
+function isArray(variable) {
+  return typeof variable === 'object' && variable !== null && typeof variable.length === 'number' && variable.length >= 0 && Number.isFinite(variable.length);
 }

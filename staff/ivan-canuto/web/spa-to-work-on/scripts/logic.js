@@ -35,7 +35,6 @@ function retrieveUser(email) {
 
   if (!email.length) throw new Error("This email doesn't exist.")
   if (typeof email !== 'string') throw new Error('Eamil is not a string.')
-  // 2 errores
 
   var user = findUserByEmail(email)
 
@@ -49,24 +48,24 @@ function retrieveUser(email) {
   return user
 }
 
-function updateUserEmail(email, newEmail, newEmailConfirm, password) {
+// function updateUserEmail(email, newEmail, newEmailConfirm, password) {
   
-  var user = findUserByEmail(email)
-  if (!user) throw new Error('User not found')
-  validateEmail(email)
-  if (email !== user.email) throw new Error('The email is incorrect');
-  validateEmail(newEmail, 'new email')
-  validateEmail(newEmailConfirm, 'new email confirmation')
-  const correctEmail = new RegExp(/^[^\s@]+@[^\s@]+\.[^\s@]+$/);
-  if (!correctEmail.test(newEmail)) throw new Error(`The new email entered is not valid.`);
-  if (newEmail === email) throw new Error('New email cannot be the same as the old email.')
-  if (newEmail !== newEmailConfirm) throw new Error('New emails do not match.')
+//   var user = findUserByEmail(email)
+//   if (!user) throw new Error('User not found')
+//   validateEmail(email)
+//   if (email !== user.email) throw new Error('The email is incorrect');
+//   validateEmail(newEmail, 'new email')
+//   validateEmail(newEmailConfirm, 'new email confirmation')
+//   const correctEmail = new RegExp(/^[^\s@]+@[^\s@]+\.[^\s@]+$/);
+//   if (!correctEmail.test(newEmail)) throw new Error(`The new email entered is not valid.`);
+//   if (newEmail === email) throw new Error('New email cannot be the same as the old email.')
+//   if (newEmail !== newEmailConfirm) throw new Error('New emails do not match.')
 
-  if (user.password !== password) throw new Error('The password is not correct.')
+//   if (user.password !== password) throw new Error('The password is not correct.')
 
-  user.email = newEmail
-  authenticatedEmail = newEmail
-}
+//   user.email = newEmail
+//   authenticatedEmail = newEmail
+// }
 
 function updateUserPassword(email, password, newPassword, newPasswordConfirm) {
 

@@ -11,7 +11,7 @@
 </head>
 
 <body>
-    <div class="register page off">
+    <div class="register page container off">
         <h1 class="title">Register</h1>
 
         <form class="form">
@@ -24,7 +24,7 @@
         <p>Go to <a href="">Login</a></p>
     </div>
 
-    <div class="login page">
+    <div class="login page container">
         <h1 class="title">Login</h1>
 
         <form class="form">
@@ -37,7 +37,15 @@
     </div>
 
     <div class="home page off">
-        <div class="profile off">
+        <header class="header">
+            <h1 class="title">Home</h1>
+            <div>
+                <img class="avatar-image" src="" alt="avatar image">
+                <a href="">profile</a>
+            </div>
+            <button class="logout-button">Logout</button>
+        </header>
+        <div class="profile page off">
             <form class="change-avatar change-form">
                 <h2>Update avatar</h2>
                 <div>
@@ -66,14 +74,6 @@
                 </div>
             </form>
         </div>
-        <header class="header">
-            <h1 class="title">Home</h1>
-            <div>
-                <img class="avatar-image" src="" alt="avatar image">
-                <a href="">profile</a>
-            </div>
-            <button class="logout-button">Logout</button>
-        </header>
     </div>
 
     <script src="scripts/validators.js"></script>
