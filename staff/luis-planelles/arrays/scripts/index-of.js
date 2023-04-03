@@ -1,5 +1,4 @@
-const arrayTest = ["ant", "bison", "camel", "duck", "bison"];
-
+//
 const indexOf = (array, matchItem, startPosition = 0) => {
   for (let i = startPosition; i < array.length; i++) {
     if (array[i] === matchItem) {
@@ -8,6 +7,8 @@ const indexOf = (array, matchItem, startPosition = 0) => {
   }
   return -1;
 };
+
+const arrayTest = ["ant", "bison", "camel", "duck", "bison"];
 
 console.log(indexOf(arrayTest, "bison"));
 // Expected output: 1

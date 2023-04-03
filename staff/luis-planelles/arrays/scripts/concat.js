@@ -1,14 +1,17 @@
+//
 const concat = (...args) => {
-  let newArray = [];
+  let arrayResult = [];
 
   for (let arg of args) {
     if (arg.length) {
-      for (a of arg) newArray[newArray.length] = a;
+      for (let item of arg) {
+        arrayResult[arrayResult.length] = item;
+      }
     } else {
-      newArray[newArray.length] == arg;
+      arrayResult[arrayResult.length] == arg;
     }
   }
-  return newArray;
+  return arrayResult;
 };
 
 const array1 = ["a", "b", "c"];

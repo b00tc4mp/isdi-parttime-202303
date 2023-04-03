@@ -1,9 +1,10 @@
-const arrayTest = [5, 12, 8, 130, 44];
-
+//
 const at = (array, index) => {
-  index = index < 0 ? array.length + index : index;
+  let index = index < 0 ? array.length + index : index;
   return array[index];
 };
+
+const arrayTest = [5, 12, 8, 130, 44];
 
 let index = 2;
 

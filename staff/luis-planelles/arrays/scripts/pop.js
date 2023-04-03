@@ -1,12 +1,12 @@
-const plants = ["broccoli", "cauliflower", "cabbage", "kale", "tomato"];
-
+//
 const pop = (array) => {
   const lastItem = array[array.length - 1];
-
   array.length--;
 
   return lastItem;
 };
+
+const plants = ["broccoli", "cauliflower", "cabbage", "kale", "tomato"];
 
 console.log(plants.pop());
 // Expected output: "tomato"

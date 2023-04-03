@@ -1,13 +1,14 @@
-const array1 = [1, 2, 3];
-
+//
 const includes = (array, itemCheck) => {
-  for (item of array) {
+  for (let item of array) {
     if (item === itemCheck) {
       return true;
     }
   }
   return false;
 };
+
+const array1 = [1, 2, 3];
 
 console.log(includes(array1, 2));
 // Expected output: true

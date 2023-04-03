@@ -1,9 +1,11 @@
-let animals = ["pigs", "goats", "sheep"];
-
+//
 const push = (array, pushItem) => {
   array[array.length] = pushItem;
+
   return array.length;
 };
+
+let animals = ["pigs", "goats", "sheep"];
 
 const count = push(animals, "cows");
 console.log(count);
