@@ -29,3 +29,4 @@ function lastIndexOf(array, elementToSearch, fromIndex = 0) {
     }
     return -1
 }
+
