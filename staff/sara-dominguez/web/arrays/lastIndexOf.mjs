@@ -1,3 +1,4 @@
+
 function lastIndexOf(array, element) {
  
     for (let i = array.length - 1; i >= 0; i--) {
@@ -7,3 +8,5 @@ function lastIndexOf(array, element) {
     }
     return -1;
 }
+
+export default lastIndexOf

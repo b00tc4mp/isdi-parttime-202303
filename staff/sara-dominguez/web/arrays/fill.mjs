@@ -24,3 +24,5 @@ function fill(array, elementToInclude, startIndexeElement, finalIndexElement){
     }
         return array;
 }
+
+export default fill 

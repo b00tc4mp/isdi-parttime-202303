@@ -21,4 +21,6 @@ function unshift(array, ...elements) {
     return newArray.length
 }
 
+export default unshift
+
 //TODO llevar los cambios del array a la variable global

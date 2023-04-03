@@ -8,3 +8,5 @@ function at(array, index){
         return element
     }
 }
+
+export default at 

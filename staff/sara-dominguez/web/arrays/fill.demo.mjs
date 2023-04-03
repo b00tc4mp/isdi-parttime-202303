@@ -1,3 +1,5 @@
+import fill from './fill.mjs';
+
 const array1 = [1, 2, 3, 4];
 
 // Fill with 0 from position 2 until position 4

@@ -8,3 +8,5 @@ function concat(array3, array1, array2){
    
    return array3
 }
+
+export default concat

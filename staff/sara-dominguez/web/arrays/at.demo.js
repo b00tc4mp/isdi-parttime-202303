@@ -1,3 +1,6 @@
+import at from './at.mjs'
+
+
 const array1 = [5, 12, 8, 130, 44];
 
 let index = 2;

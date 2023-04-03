@@ -23,5 +23,6 @@ function reverse (input, array, reversed) {
    
 }
 
+export default reverse
 
 

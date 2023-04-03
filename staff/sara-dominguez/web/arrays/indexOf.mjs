@@ -33,3 +33,5 @@ function indexOf(array, element, position) {
     }
 }
     
+
+export default indexOf 

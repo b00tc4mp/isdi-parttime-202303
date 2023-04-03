@@ -4,3 +4,5 @@ function pop(array) {
     
     return last
 }
+
+export default pop

@@ -1,3 +1,4 @@
+import reverse from './reverse.mjs'
 
 const array1 = ['one', 'two', 'three'];
 reverse('array1:', array1);

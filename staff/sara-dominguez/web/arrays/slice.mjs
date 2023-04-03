@@ -8,7 +8,7 @@ function slice(array, start, end){
     return newArray
 }
 
-    
+    export default slice
        
         
    

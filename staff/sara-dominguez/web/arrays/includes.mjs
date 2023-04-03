@@ -6,3 +6,5 @@ function includes(array, element) {
     } 
     return false    
 }
+
+export default includes

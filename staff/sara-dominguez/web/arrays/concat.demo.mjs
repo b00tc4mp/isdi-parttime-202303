@@ -1,3 +1,5 @@
+import concat from './concat.mjs'
+
 const array1 = ['a', 'b', 'c', 6, 'w'];
 const array2 = ['d', 'e', 'f'];
 const array3 = []
