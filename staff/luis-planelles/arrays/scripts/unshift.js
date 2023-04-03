@@ -1,16 +1,17 @@
 //
 const unshift = (array, ...args) => {
-  let argumentsArray = [];
+  const arrayShifted = [];
 
-  for (let i = 0; i < array.length + args.length; i++) {
-    argumentsArray[i] = args[i];
+  for (let i = 0; i < args.length + array.length; i++) {
+    if (i < args.length) {
+      arrayShifted[i] = args[i];
+    } else {
+      arrayShifted[i] = array[i - args.length];
+    }
   }
-  for (let i = 0; i < array.length; i++) {
-    argumentsArray[args.length + i] = array[i];
-  }
-  for (let i = 0; i < argumentsArray.length; i++) {
-    array[i] = argumentsArray[i];
+  for (let i = 0; i < arrayShifted.length; i++) {
+    array[i] = arrayShifted[i];
   }
 
-  return argumentsArray.length;
+  return array.length;
 };

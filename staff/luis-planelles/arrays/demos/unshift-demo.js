@@ -2,10 +2,10 @@
 let numbers = [1, 2, 3];
 const unshiftResult = unshift(numbers, 4, 5);
 
-console.log(numbers);
+console.log(unshiftResult);
 // Expected output: 5
 
-console.log(unshiftResult);
+console.log(numbers);
 // Expected output: Array [4, 5, 1, 2, 3]
 
 let arr = [4, 5, 6];
@@ -25,18 +25,26 @@ console.log(arr);
 
 arr = [1, 2];
 
-console.log(unshift(arr, 0)); // result of the call is 3, which is the new array length
+console.log(unshift(arr, 0));
+// result of the call is 3, which is the new array length
+
 console.log(arr);
 // arr is [0, 1, 2]
 
-console.log(unshift(arr, -2, -1)); // the new array length is 5
+console.log(unshift(arr, -2, -1));
+// the new array length is 5
+
 console.log(arr);
 // arr is [-2, -1, 0, 1, 2]
 
-console.log(unshift(arr, [-4, -3])); // the new array length is 6
+console.log(unshift(arr, [-4, -3]));
+// the new array length is 6
+
 console.log(arr);
 // arr is [[-4, -3], -2, -1, 0, 1, 2]
 
-console.log(unshift(arr, [-7, -6], [-5])); // the new array length is 8
+console.log(unshift(arr, [-7, -6], [-5]));
+// the new array length is 8
+
 console.log(arr);
 // arr is [ [-7, -6], [-5], [-4, -3], -2, -1, 0, 1, 2 ]

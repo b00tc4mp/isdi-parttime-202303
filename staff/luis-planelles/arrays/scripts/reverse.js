@@ -1,14 +1,9 @@
 //
 const reverse = (array) => {
-  let reverseIndex = array.length - 1;
-  let newArray = [];
-
-  for (let i = 0; i < array.length; i++) {
-    newArray[i] = array[reverseIndex];
-    reverseIndex--;
-  }
-  for (let i = 0; i < array.length; i++) {
-    array[i] = newArray[i];
+  for (let i = 0; i < array.length / 2; i++) {
+    const item = array[i];
+    array[i] = array[array.length - 1 - i];
+    array[array.length - 1 - i] = item;
   }
   return array;
 };
