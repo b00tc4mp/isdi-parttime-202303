@@ -1,0 +1,170 @@
+.off {
+    display: none !important;
+}
+
+
+html, body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    font-size: 16px;
+    background-color: var(--basebgcolor);
+}
+
+
+/* library */
+
+:root {
+    --basecolor: rgb(255, 255, 255);
+    --basebgcolor: rgb(218, 216, 214);
+}
+
+.page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    margin: 14rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 6px;
+    width: fit-content;
+    height: fit-content;
+    padding: 60px;
+    color: white;
+    background-color: white;
+}
+
+.title {
+    font-family: sans-serif;
+    font-size: 24px;
+    font-weight: bold;
+    color: #323233;
+}
+
+
+h2 {
+    font-family: sans-serif;
+    font-size: 18px;
+    font-weight: lighter;
+    color: #323233;
+}
+
+
+a {
+    color: #FF6700;
+    font-weight: bold;
+}
+
+.form { 
+    display: flex;
+    flex-direction: column;
+    /* width: 50%; */
+    min-width: 60vw;
+    gap:2rem;
+ }
+
+.input, .button {
+    padding: .5rem .6rem;
+    border-radius: .50rem;
+    border: 0.1rem solid var(--basebgcolor);
+    background-color: var(--basecolor);
+    font-size: 16px;
+}
+
+
+
+.button {
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.962);
+    color: white;
+    border-radius: 2rem;
+}
+
+.update {
+    border: 0.2rem solid #FF6700;
+    color: #FF6700;
+    background-color: transparent;
+}
+
+
+
+/* @media (min-width: 768px) {
+    .page {
+        background-color: var(--basebgcolor);
+    }
+} */
+
+/* components */
+
+.home {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+    /* margin: 4rem; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.home-header, .home-footer {
+    position: fixed;
+    background-color: white;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 4rem;
+}
+
+.home-header {
+    top: 0;
+}
+
+.home-footer {
+    bottom: 1rem;
+    background-color: white;
+}
+
+.home-header-nav {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+}
+
+
+.home-header-avatar {
+    width: 3rem;
+    border-radius: 1rem;
+}
+
+.profile-link {
+    font-family: sans-serif;
+    font-size: 24px;
+    font-weight: bold;
+
+}
+.profile-avatar-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 2rem;
+    margin-bottom: 4rem;
+
+}
+
+.profile-password-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 2rem;
+    margin-bottom: 4rem;
+
+}

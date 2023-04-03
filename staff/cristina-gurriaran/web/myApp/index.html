@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>myApp</title>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+    
+
+    <div class='login page container _off'>
+
+        <h1 class='title'> Log in</h1>
+        
+         <h2> New to myApp?  <a href=""> Sign up </a></h2>
+
+        <form class='form'>
+            <input class='input' type='email' name='email' placeholder='Email address*'>
+            <input class='input' type='password' name='password', placeholder='Password (8+ characters)*'>
+            <button class = 'button' type='submit'> Log in </button>
+        </form>
+
+    </div>
+
+
+
+    <div class='register page container off'>
+        <h1 class ='title'> Sign up </h1>
+
+        <h2> Already have an account? <a href=""> Log in </a></h2>
+
+        <form class='form'>
+            <input class='input'type='name' name='name' placeholder='Name*'>
+            <input class='input'type='email' name='email' placeholder='Email address*'>
+            <input class='input'type='password' name='password' placeholder='Password (8+ characters)*'>
+            <button class='button' type='submit'> Create an account </button>
+
+        </form>
+
+    </div>
+
+    <div class='home off'>
+
+        <header class='home-header'>
+            <h1 class='title'> Home </h1>
+
+            <div class='home-header-nav'>
+                <img class='home-header-avatar' src='https://cdn-icons-png.flaticon.com/512/4925/4925754.png' alt="">
+            <a class='profile-link' href=""> Profile </a>    
+            </div>
+            
+
+
+            <button class='home-header-logout button' type='submit'>Log out</button>
+
+        </header>
+
+
+        <div class='profile container off'>
+            <h1 class= 'title'>Update avatar</h1>
+            <form class='profile-avatar-form'>
+                <input class='input' type='url' name='url'>
+                <button class='button update' type='submit'> Update</button>
+            </form>
+
+            <h1 class='title'>Update password</h1>
+            
+            <form class='profile-password-form'>
+                <input class='input' type='password' name='password' placeholder='Old password*'>
+                <input class='input' type='password' name='newPassword' placeholder='New password*'>
+                <input class="input" type="password" name='newPasswordConfirm' placeholder='Confirm new password*'>
+                <button class='button update' type='submit'>Update</button>
+
+            </form>
+
+
+        </div>
+        <footer class='home-footer'></footer>
+
+    </div>
+
+
+
+
+    <script src="scripts/validators.js"></script>
+    <script src="scripts/data.js"></script>
+    <script src="scripts/logic.js"></script>
+    <script src="scripts/ui.js"></script>
+    <script src="scripts/main.js"></script>
+
+</body>
+</html>
