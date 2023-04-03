@@ -8,9 +8,9 @@
  **Si el índice es mayor o igual a la longitud del array, devuelve -1 
  
  
- *!Si el valor es negativo, se toma restando posiciones desde el final del array.  
- *!aunque el índice sea negativo, la búsqueda seguirá realizándose en un orden incremental
- *!Si el índice calculado es menor de 0, la búsqueda se realizará por todo el array.
+ **Si el valor es negativo, se toma restando posiciones desde el final del array.  
+ **aunque el índice sea negativo, la búsqueda seguirá realizándose en un orden incremental
+ **Si el índice calculado es menor de 0, la búsqueda se realizará por todo el array.
  */
 
 function indexOf(array, elementToSearch, fromIndex = 0){
