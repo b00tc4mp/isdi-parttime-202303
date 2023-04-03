@@ -92,7 +92,7 @@ loginPage.querySelector("a").onclick = function (event) {
 profileLink.onclick = function (event) {
     event.preventDefault()
 
-    show(profilePanel)
+    toggle(profilePanel)
 }
 
 updateUserAvatarForm.onsubmit = function (event) {
