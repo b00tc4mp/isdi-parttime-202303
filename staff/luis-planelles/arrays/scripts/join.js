@@ -1,6 +1,6 @@
 //
-const join = (elements, slitItem = ",") => {
-  let resultString = "";
+const join = (elements, slitItem = ',') => {
+  let resultString = '';
 
   for (let i = 0; i < elements.length; i++) {
     if (i > 0) {

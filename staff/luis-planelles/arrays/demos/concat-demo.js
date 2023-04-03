@@ -1,11 +1,11 @@
-const array1 = ["a", "b", "c"];
-const array2 = ["d", "e", "f"];
+const array1 = ['a', 'b', 'c'];
+const array2 = ['d', 'e', 'f'];
 const array3 = concat(array1, array2);
 
 console.log(array3);
 // Expected output: Array ["a", "b", "c", "d", "e", "f"]
 
-const letters = ["a", "b", "c"];
+const letters = ['a', 'b', 'c'];
 const numbers = [1, 2, 3];
 
 const alphaNumeric = letters.concat(numbers);

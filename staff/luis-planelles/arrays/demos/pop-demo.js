@@ -1,5 +1,5 @@
 //
-const plants = ["broccoli", "cauliflower", "cabbage", "kale", "tomato"];
+const plants = ['broccoli', 'cauliflower', 'cabbage', 'kale', 'tomato'];
 
 console.log(plants.pop());
 // Expected output: "tomato"

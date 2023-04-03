@@ -9,19 +9,19 @@ console.log(array1);
 console.log(firstElement);
 // Expected output: 1
 
-const myFish = ["angel", "clown", "mandarin", "surgeon"];
+const myFish = ['angel', 'clown', 'mandarin', 'surgeon'];
 
 const shifted = shift(myFish);
 
-console.log("myFish after:", myFish);
+console.log('myFish after:', myFish);
 // myFish after: ['clown', 'mandarin', 'surgeon']
 
-console.log("Removed this element:", shifted);
+console.log('Removed this element:', shifted);
 // Removed this element: angel
 
-const names = ["Andrew", "Tyrone", "Paul", "Maria", "Gayatri"];
+const names = ['Andrew', 'Tyrone', 'Paul', 'Maria', 'Gayatri'];
 
-while (typeof (i = shift(names)) !== "undefined") {
+while (typeof (i = shift(names)) !== 'undefined') {
   console.log(i);
 }
 // Andrew, Tyrone, Paul, Maria, Gayatri

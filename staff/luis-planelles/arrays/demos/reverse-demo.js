@@ -1,5 +1,5 @@
 //
-const array1 = ["one", "two", "three"];
+const array1 = ['one', 'two', 'three'];
 
 const reversed = reverse(array1);
 
