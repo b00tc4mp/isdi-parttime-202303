@@ -1,4 +1,7 @@
-function registerUser (name, email, password) {
+import {users} from "./data.js"
+import {validateEmail, validateName, validatePassword, validateUrl} from "./validators.js"
+
+export function registerUser (name, email, password) {
     validateName(name)
     validateEmail(email)
     validatePassword(password)
@@ -14,21 +17,21 @@ function registerUser (name, email, password) {
 
 }
 
-function authenticateUser(email, password) {
+export function authenticateUser(email, password) {
     validateEmail(email)
     validatePassword(password)
 
-    var foundUser = findUserByEmail(email)
+    const foundUser = findUserByEmail(email)
 
     if (!foundUser || foundUser.password !== password) 
         throw new Error("wrong email or password")
 }
 
-function updateUserAvatar(email, avatar) {
+export function updateUserAvatar(email, avatar) {
     validateEmail(email)
     validateUrl(avatar, 'avatar url')
 
-    var foundUser = findUserByEmail(email)
+    const foundUser = findUserByEmail(email)
 
     if (!foundUser)
         throw new Error('user not found')
@@ -37,7 +40,7 @@ function updateUserAvatar(email, avatar) {
 }
 
 
-function updateUserPassword(email, password, newPassword, newPasswordConfirm) {
+export function updateUserPassword(email, password, newPassword, newPasswordConfirm) {
     validateEmail(email)
     validatePassword(password)
     validatePassword(newPassword, 'new password')
@@ -47,7 +50,7 @@ function updateUserPassword(email, password, newPassword, newPasswordConfirm) {
 
     if (newPassword !== newPasswordConfirm) throw new Error("the confirm password is different than then new password", {cause: "newPasswordConfirm"})
 
-    var foundUser = findUserByEmail(email)
+    const foundUser = findUserByEmail(email)
 
     if (!foundUser) throw new Error("Error to user")
     if (foundUser.password !== password)  throw new Error("Error the pasword is invalid", {cause: "password"})
@@ -55,10 +58,10 @@ function updateUserPassword(email, password, newPassword, newPasswordConfirm) {
     foundUser.password = newPassword
 }
 
-function retrieveUser (email) {
+export function retrieveUser (email) {
     validateEmail(email)
 
-    var foundUser = findUserByEmail(email)
+    const foundUser = findUserByEmail(email)
     if (!foundUser) throw new Error("Error to user")
    
     var user = {
@@ -68,4 +71,20 @@ function retrieveUser (email) {
 
     return user
 
+}
+
+
+
+function findUserByEmail(email) {
+    let foundUser
+
+    for (const user of users) {
+        if (user.email === email) {
+            foundUser = user
+
+            break
+        }
+    }
+
+    return foundUser
 }

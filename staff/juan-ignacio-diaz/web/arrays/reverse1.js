@@ -1,4 +1,4 @@
-function reverse(array) {
+export default function reverse(array) {
     let newArray = new Array()
 
     for (let i = array.length-1; i >=0; --i) {
@@ -10,5 +10,3 @@ function reverse(array) {
     }
     return array
 }
-
-export default reverse

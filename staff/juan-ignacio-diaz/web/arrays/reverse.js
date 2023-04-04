@@ -1,4 +1,4 @@
-function reverse(array) {
+export default function reverse(array) {
     for (let i = 0; i < array.length/2; i++) {
         const tmpElement = array[i]
         array[i] =  array[array.length-i-1]
@@ -6,5 +6,3 @@ function reverse(array) {
     }
     return array
 }
-
-export default reverse

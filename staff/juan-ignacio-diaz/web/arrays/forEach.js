@@ -1,7 +1,5 @@
-function forEach(array, callback) {
-    for (let element of array) {      
+export default function forEach(array, callback) {
+    for (const element of array)  
         callback(element)
-    }
 }
 
-export default forEach

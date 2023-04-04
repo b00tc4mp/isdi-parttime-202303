@@ -1,18 +1,22 @@
-var authenticatedEmail
+import {registerUser, authenticateUser, updateUserAvatar, updateUserPassword, retrieveUser} from "./logic.js"
+import {show, hide, toggle} from "./ui.js"
 
-var registerPage = document.querySelector(".register")
-var registerForm = registerPage.querySelector('form')
 
-var loginPage = document.querySelector(".login")
-var loginForm = loginPage.querySelector('form')
+let authenticatedEmail
 
-var homePage = document.querySelector(".home")
-var avatarImage = homePage.querySelector('.home-header-avatar')
-var profileLink = homePage.querySelector('a')
+const registerPage = document.querySelector(".register")
+const registerForm = registerPage.querySelector('form')
 
-var profilePanel = homePage.querySelector('.profile')
-var updateUserAvatarForm = profilePanel.querySelector('.profile-avatar-form')
-var updateUserPasswordForm = profilePanel.querySelector('.profile-password-form')
+const loginPage = document.querySelector(".login")
+const loginForm = loginPage.querySelector('form')
+
+const homePage = document.querySelector(".home")
+const avatarImage = homePage.querySelector('.home-header-avatar')
+const profileLink = homePage.querySelector('a')
+
+const profilePanel = homePage.querySelector('.profile')
+const updateUserAvatarForm = profilePanel.querySelector('.profile-avatar-form')
+const updateUserPasswordForm = profilePanel.querySelector('.profile-password-form')
 
 registerForm.onsubmit = function (event) {
     event.preventDefault()
@@ -21,9 +25,9 @@ registerForm.onsubmit = function (event) {
     event.target.email.remove("imput-highlight")
     event.target.password.remove("imput-highlight")
 
-    var username = event.target.name.value
-    var email = event.target.email.value
-    var password = event.target.password.value
+    const username = event.target.name.value
+    const email = event.target.email.value
+    const password = event.target.password.value
 
     try {
         registerUser(username, email, password)
@@ -64,8 +68,8 @@ registerPage.querySelector("a").onclick = function (event) {
 loginForm.onsubmit = function (event) {
     event.preventDefault()
 
-    var email = event.target.email.value
-    var password = event.target.password.value
+    const email = event.target.email.value
+    const password = event.target.password.value
 
     try {
         authenticateUser(email, password)
@@ -98,7 +102,7 @@ profileLink.onclick = function (event) {
 updateUserAvatarForm.onsubmit = function (event) {
     event.preventDefault()
 
-    var url = event.target.url.value
+    const url = event.target.url.value
 
     try {
         updateUserAvatar(authenticatedEmail, url)
@@ -124,9 +128,9 @@ updateUserPasswordForm.onsubmit = function (event) {
     event.target.newPassword.classList.remove("imput-highlight")
     event.target.newPasswordConfirm.classList.remove("imput-highlight")
 
-    var password = event.target.password.value
-    var newPassword = event.target.newPassword.value
-    var newPasswordConfirm = event.target.newPasswordConfirm.value
+    const password = event.target.password.value
+    const newPassword = event.target.newPassword.value
+    const newPasswordConfirm = event.target.newPasswordConfirm.value
 
     
     try {
