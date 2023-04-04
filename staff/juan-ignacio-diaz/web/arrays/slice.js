@@ -7,3 +7,5 @@ function slice(array, first, last) {
     }
     return newArray
 }
+
+export default slice

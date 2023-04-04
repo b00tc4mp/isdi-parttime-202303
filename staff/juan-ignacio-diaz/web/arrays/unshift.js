@@ -7,3 +7,5 @@ function unshift(array, ...elements){
     }
     return array.length
 }
+
+export default unshift

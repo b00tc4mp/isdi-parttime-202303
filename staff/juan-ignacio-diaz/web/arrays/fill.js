@@ -6,3 +6,5 @@ function fill(array, element, first, last) {
     }
     return array
 }
+
+export default fill

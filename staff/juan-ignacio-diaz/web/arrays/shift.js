@@ -6,3 +6,5 @@ function shift(array){
     array.length--
     return array0
 }
+
+export default shift

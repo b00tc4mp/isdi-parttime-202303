@@ -5,3 +5,5 @@ function isArray(objet) {
 
     return true
 }
+
+export default isArray

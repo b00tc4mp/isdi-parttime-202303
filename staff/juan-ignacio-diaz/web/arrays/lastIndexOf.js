@@ -5,3 +5,5 @@ function lastIndexOf(array, element) {
     }
     return -1
 }
+
+export default lastIndexOf

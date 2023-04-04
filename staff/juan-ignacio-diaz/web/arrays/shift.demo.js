@@ -1,3 +1,5 @@
+import slice from "./slice.js"
+
 var miPescado = ['ángel', 'payaso', 'mandarín', 'cirujano'];
 
 console.log('miPescado antes: ' + miPescado);

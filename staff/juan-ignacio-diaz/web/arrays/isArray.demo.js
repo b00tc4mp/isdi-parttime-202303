@@ -1,3 +1,5 @@
+import isArray from "./isArray.js"
+
 console.log(isArray([1, 2, 3]));  // true
 console.log(isArray({foo: 123})); // false
 console.log(isArray('foobar'));   // false

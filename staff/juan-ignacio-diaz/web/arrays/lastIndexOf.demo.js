@@ -1,3 +1,5 @@
+import lastIndexOf from "./lastIndexOf.js"
+
 const animals = ['Dodo', 'Tiger', 'Penguin', 'Dodo'];
 
 console.log(lastIndexOf(animals, 'Dodo'));

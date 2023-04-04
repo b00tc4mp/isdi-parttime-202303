@@ -1,3 +1,5 @@
+import join from "./join.js"
+
 const elements = ['Fire', 'Air', 'Water'];
 
 console.log(join(elements));

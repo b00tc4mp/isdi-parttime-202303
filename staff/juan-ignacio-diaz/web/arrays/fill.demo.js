@@ -1,6 +1,8 @@
 const array1 = [1, 2, 3, 4];
 
 // Fill with 0 from position 2 until position 4
+import fill from "./fill.js"
+
 console.log(fill(array1, 0, 2, 4));
 // Expected output: Array [1, 2, 0, 0]
 

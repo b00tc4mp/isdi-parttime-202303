@@ -1,9 +1,17 @@
 function from(...objects){
-    if (typeof(objects) === 'string') {
-        let newArray = new Array()
-        for (let i =0 ; i < object.length; i++){
-            newArray[newArray.length] = charAt(i)
+    const items = objects[0]
+    let newArray = new Array()
+    if (typeof(items) === 'string') {   
+        for (let i =0 ; i < items.length; i++){
+            newArray[newArray.length] = items.charAt(i)
+        }
+    }
+    else if (typeof(objects[1]) === 'function' && typeof(items) === 'object' && items.length !== undefined) {
+        for (let i =0 ; i < items.length; i++){
+            newArray[newArray.length] = objects[1](items[i])
         }
     }
     return newArray
 }
+
+export default from

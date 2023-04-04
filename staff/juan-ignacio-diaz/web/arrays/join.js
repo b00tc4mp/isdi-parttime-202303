@@ -7,3 +7,5 @@ function join(array, separator) {
     }
     return arrayJoin
 }
+
+export default join

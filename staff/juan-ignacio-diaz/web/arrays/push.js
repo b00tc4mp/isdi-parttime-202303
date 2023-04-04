@@ -4,3 +4,5 @@ function push(array, ...elements) {
     }   
     return array.length
 }
+
+export default push

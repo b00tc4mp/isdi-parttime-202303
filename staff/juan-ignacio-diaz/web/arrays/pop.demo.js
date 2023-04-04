@@ -1,3 +1,5 @@
+import pop from "./pop.js"
+
 const plants = ['broccoli', 'cauliflower', 'cabbage', 'kale', 'tomato'];
 
 console.log(pop(plants));

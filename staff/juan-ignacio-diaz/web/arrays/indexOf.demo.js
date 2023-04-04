@@ -1,3 +1,5 @@
+import indexOf from "./indexOf.js"
+
 var array = [2, 9, 9];
  
 console.log(indexOf(array, 2))  // 0

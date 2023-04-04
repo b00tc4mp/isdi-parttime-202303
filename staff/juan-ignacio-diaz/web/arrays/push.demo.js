@@ -1,3 +1,5 @@
+import push from "./push.js"
+
 const animals = ['pigs', 'goats', 'sheep'];
 
 const count = push(animals, 'cows');

@@ -3,3 +3,5 @@ function pop(array) {
     array.length--
     return element
 }
+
+export default pop

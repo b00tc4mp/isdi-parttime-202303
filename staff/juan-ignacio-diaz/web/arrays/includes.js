@@ -1,7 +1,9 @@
 function includes(array, element) {
-    for (let item of array){
+    for (const item of array){
         if (item === element)
             return true
     }
     return false
 }
+
+export default includes

@@ -9,3 +9,5 @@ function indexOf(array, element, ini) {
     }
     return -1
 }
+
+export default indexOf
