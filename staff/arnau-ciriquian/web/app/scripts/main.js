@@ -114,17 +114,23 @@ function closeProfilePages() {
     homePagePassword.classList.add('off')
 }
 
-/*  TODO:   
+/*  TODO Web/App:   
             - Foto perfil 20230328 2100
             - canviar alerts per missatges en pantalla?o un toast?
             - al fer logout posar un avatar random per evitar deixar lavatar de lusuari previ
             - tancar ulls de les contrasenyes amb el canvi de pagina. Un if? si type text fer un toggle de fa-eye-slash i canvi de tipus
+            - modularitzar: aplicar imports i exports a la web/app
+            - passar for basics a for of?
             - objectiu de la app: xarxa social:
                 - rollo ig?
                 - ig de stickers?
                 - estil twitter?
                 - likes, post, comments?
 
+    TODO Arrays:
+            - metodes amb callback:
+                -
+            - seguir amb splice
             
     DONE    - 
             -
@@ -132,6 +138,5 @@ function closeProfilePages() {
             -
 
     PREGUNTES:
-            - pk un primitiu com a parametre no es modifica i un no primitiu si? i pk el no primitiu es modifica si es per index pero no per igualar amb un altre element?
-            exemple del reverse
+            - 
 */              
