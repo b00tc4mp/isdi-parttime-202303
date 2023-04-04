@@ -9,3 +9,9 @@ reverse--
 slice--
 shift--
 unshift--
+some--
+every--
+find--
+findIndex--
+map--
+filter--
