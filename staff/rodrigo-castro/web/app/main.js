@@ -76,6 +76,7 @@ changeEmailMenu.querySelector('form').onsubmit = (event) => {
         changeEmail(userLogged, users, event)
     } catch(error){
         emailMenuRedText.textContent = error.message
+        console.log(error)
     }
 }
 

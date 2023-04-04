@@ -18,9 +18,9 @@ const findUser = (users, userEmail) => {
 }
 
 const changeEmail = (userLogged, users, event) => {
-    var userPreviousEmail = event.target.previousemail.value
-    var userNewEmail = event.target.newemail.value
-    var userPassword = event.target.changeemailpasswordExpression.value
+    var userPreviousEmail = homePage.querySelector('input[name=previous-email]').value
+    var userNewEmail = homePage.querySelector('input[name=new-email]').value
+    var userPassword = homePage.querySelector('input[name=change-email-pass]').value
 
     var foundUser = findUser(users, userLogged.email)
 
@@ -28,7 +28,7 @@ const changeEmail = (userLogged, users, event) => {
 
     checkNewUser(userNewEmail)
 
-    validateEmail(userNewEmail)
+    validateEmail(userNewEmail, emailExpression)
 
     if(userPassword !== foundUser.password) throw new Error('Email or password incorrect2')
 
