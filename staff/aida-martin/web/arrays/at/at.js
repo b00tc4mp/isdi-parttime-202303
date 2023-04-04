@@ -1,6 +1,6 @@
 function at(array, index) {
-  if (Math.sign(index) === 1) {
-    return array[index];
+  if (index < 0) {
+    return array[array.length + index];
   }
-  return array[array.length + index];
+  return array[index];
 }
