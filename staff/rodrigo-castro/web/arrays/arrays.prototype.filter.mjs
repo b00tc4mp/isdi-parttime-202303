@@ -1,8 +1,8 @@
 function filter(array, callback){
     let result = []
-    for(const element of array){
-        if(callback(element))
-            result.push(element)
+    for(const i in array){
+        if(callback(array[i]))
+            result.push(array[i])
     }
     return result
 }

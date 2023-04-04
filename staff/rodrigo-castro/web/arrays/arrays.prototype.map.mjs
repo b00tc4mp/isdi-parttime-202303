@@ -1,7 +1,7 @@
 function map(array, callback){
     const result = []
-    for(const element of array){
-        result.push(callback(element))
+    for(const i in array){
+        result[i]= callback(array[i])
     }
     return result
 }

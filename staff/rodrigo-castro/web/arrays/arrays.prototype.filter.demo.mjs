@@ -74,3 +74,11 @@ const arr = [
   
   console.log("Number of Invalid Entries =", invalidEntries);
   // Number of Invalid Entries = 5
+
+  const prueba1 = [1, 2, 3, , 5]
+
+  const notOne = (element) => element !== 1
+
+  console.log(filter(prueba1, notOne))
+  console.log(prueba1.filter(notOne))
+

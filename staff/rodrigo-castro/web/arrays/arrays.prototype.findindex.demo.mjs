@@ -1,6 +1,6 @@
 import findIndex from './arrays.prototype.findindex.mjs'
 
-const array1 = [5, 12, 8, 13, 44];
+const array1 = [5, 12, 18, 13, 44];
 
 const isLargeNumber = (element) => element > 13;
 

@@ -1,6 +1,6 @@
 import map from './arrays.prototype.map.mjs'
 
-const array1 = [1, 4, 9, 16];
+const array1 = [1, 4, , NaN, 9, 16];
 
 const multiplicateByTwo = (element) => element * 2
 

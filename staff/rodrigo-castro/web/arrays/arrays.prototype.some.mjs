@@ -1,10 +1,6 @@
 function some(array, callback){
-    const reference = [1, , 1]
-    for(const element of array){
-        if(element === reference[1])
-            continue
-
-        if(callback(element))
+    for(const i in array){
+        if(callback(array[i]))
             return true
     }
     return false
