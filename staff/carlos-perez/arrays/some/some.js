@@ -3,8 +3,8 @@ function some(array, callback) {
         return false;
     }
 
-    for (const element of array) {
-        if (callback(element)) {
+    for (const property in array) { //Para que no de problemas con los vacíos de los Array
+        if (callback(array[property])) {
             return true;
         }
     }
