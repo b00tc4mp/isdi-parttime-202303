@@ -4,3 +4,7 @@ function push(array,...elements){
     }
     return array.length
 }  
+
+
+const a = [10,20];
+const b = [30,40];
