@@ -3,7 +3,7 @@ if(array.length===0){
     return false;
 }
 
-for(let element in array){
+for(const element of array){
     if(callback(element)){
         return true;
     }

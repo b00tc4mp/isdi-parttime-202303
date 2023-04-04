@@ -9,7 +9,7 @@ console.log(some(array,even));
 var fruits = ['apple', 'banana', 'mango', 'guava'];
 
 function checkAvailability(arr, val) {
-    return arr.some(function (arrVal) {
+    return some(arr,function (arrVal) {
         return val === arrVal;
     });
 }
