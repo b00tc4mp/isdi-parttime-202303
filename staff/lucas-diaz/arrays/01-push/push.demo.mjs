@@ -1,4 +1,4 @@
-
+import push from "./push.mjs"
 
 const animals = ["pigs", "goats", "sheep"];
 
