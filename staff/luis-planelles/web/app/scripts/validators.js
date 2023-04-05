@@ -1,9 +1,10 @@
+//
 const validateName = (name) => {
   const spacesBetween = /\s/g;
 
-  if (!name.length) throw new Error("name is empty");
-  if (typeof name !== "string") throw new Error("name is not a string");
-  if (spacesBetween.test(name)) throw new Error("name contains spaces between");
+  if (!name.length) throw new Error('name is empty');
+  if (typeof name !== 'string') throw new Error('name is not a string');
+  if (spacesBetween.test(name)) throw new Error('name contains spaces between');
 
   return name.trim();
 };
@@ -11,14 +12,14 @@ const validateName = (name) => {
 const validateEmail = (email) => {
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
-  if (!email.length) throw new Error("email is empty");
-  if (typeof email !== "string") throw new Error("email is not an string");
-  if (!emailRegex.test(email)) throw new Error("invalid email");
+  if (!email.length) throw new Error('email is empty');
+  if (typeof email !== 'string') throw new Error('email is not an string');
+  if (!emailRegex.test(email)) throw new Error('invalid email');
 
   return email;
 };
 
-const validatePassword = (password, type = "password") => {
+const validatePassword = (password, type = 'password') => {
   const hasDigit = /\d/;
   const hasLowercase = /[a-z]/;
   const hasUppercase = /[A-Z]/;
@@ -27,7 +28,7 @@ const validatePassword = (password, type = "password") => {
   const isLongEnough = password.length >= 8;
 
   if (!password.length) throw new Error(`${type} is empty`);
-  if (typeof password !== "string") throw new Error(`${type} is not a string`);
+  if (typeof password !== 'string') throw new Error(`${type} is not a string`);
   if (!hasDigit.test(password))
     throw new Error(`${type} not contains one digit`);
   if (!hasLowercase.test(password))
@@ -51,10 +52,10 @@ const updatePasswordValidation = (
   newPasswordConfirm
 ) => {
   const passwordValid = validatePassword(password);
-  const newPasswordValid = validatePassword(newPassword, "new password");
+  const newPasswordValid = validatePassword(newPassword, 'new password');
   const newPasswordConfirmValid = validatePassword(
     newPasswordConfirm,
-    "new password confirm"
+    'new password confirm'
   );
 
   if (passwordValid !== dataBasePassword)
@@ -62,7 +63,14 @@ const updatePasswordValidation = (
   if (newPasswordValid !== newPasswordConfirmValid)
     throw new Error("new password doesn't match with password confirm");
   if (newPasswordValid === passwordValid)
-    throw new Error("new password is equal to old");
+    throw new Error('new password is equal to old');
 
   return newPasswordValid;
+};
+
+export {
+  validateEmail,
+  validateName,
+  validatePassword,
+  updatePasswordValidation,
 };
