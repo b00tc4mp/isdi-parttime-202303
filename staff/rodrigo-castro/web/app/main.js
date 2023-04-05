@@ -1,5 +1,5 @@
 //presentation
-var userLogged
+let userLogged
 
 var registerPage = document.querySelector('.register-page')
 
@@ -88,11 +88,10 @@ homePage.querySelector('.change-password').addEventListener('click', () => { // 
 changePasswordMenu.querySelector('form').addEventListener('submit', (event) => { 
     event.preventDefault();
     try {
-        changePassword(userLogged, users, redText)
+        changePassword(userLogged, users, changePasswordMenu)
     } catch(error){
         homePageRedText.textContent = error.message
     }
-    homePage.querySelector('form').reset()
 })
 
 changeAvatarButton.onclick = function() {
@@ -105,10 +104,8 @@ changeAvatarForm.onsubmit = function(event) {
     var avatarUrl = event.target.avatarurl.value
 
     try {
-        updateUserAvatar(userLogged, avatarUrl, avatarImg)
-        changeAvatarForm.reset()
+        updateUserAvatar(userLogged, avatarUrl, avatarImg, changeAvatarForm)
     } catch(error){
-        console.log(error.message)
         alert(error.message)
     }
 }

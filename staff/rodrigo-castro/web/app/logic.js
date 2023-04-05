@@ -1,10 +1,5 @@
 // logic
 
-const checkNewUser = (userEmail) => {
-    const userFound = users.find(user => user.email === userEmail)
-    if(userFound) throw new Error('Email already registered')
-}
-
 const registerNewUser = (users, userName, userEmail, userPassword) => {
     users.push({
         name: userName,
@@ -39,7 +34,7 @@ const changeEmail = (userLogged, users, event) => {
     changeEmailMenu.querySelector('form').reset()
 }
 
-const changePassword = (userLogged, users, redText) => {
+const changePassword = (userLogged, users, changePasswordMenu) => {
     var previousPassword = homePage.querySelector('.previous-password').value
     var foundUser = findUser(users, userLogged.email)
     
@@ -63,7 +58,7 @@ const changePassword = (userLogged, users, redText) => {
     changePasswordMenu.querySelector('form').reset()
 }
 
-const updateUserAvatar = (userLogged, avatarUrl, avatarImg) => {
+const updateUserAvatar = (userLogged, avatarUrl, avatarImg, changeAvatarForm) => {
     validateEmail(userLogged.email, emailExpression)
     validateUrl(avatarUrl, 'Avatar url')
 
@@ -73,6 +68,8 @@ const updateUserAvatar = (userLogged, avatarUrl, avatarImg) => {
 
     foundUser.avatar = avatarUrl
     avatarImg.src = foundUser.avatar
+
+    changeAvatarForm.reset()
 }
 
 const registerUserFull = (userEmail, userName, emailExpression, userPassword, users) => {
@@ -85,16 +82,6 @@ const registerUserFull = (userEmail, userName, emailExpression, userPassword, us
     validatePassword(userPassword)
 
     registerNewUser(users, userName.trim(), userEmail, userPassword)
-}
-
-const resetPage = (...pages) => {
-    pages.forEach(page => page.querySelector('.red-text').textContent = '')
-    pages.forEach(page => page.querySelector('form').reset())
-    pages.forEach(page => page.classList.add('off'))
-}
-
-const resetHomePage = (homePage) => { // TODO !!!!
-
 }
 
 const goToHomePage = (homePage, foundUser, avatarImg) => {

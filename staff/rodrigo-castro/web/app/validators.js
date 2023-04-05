@@ -1,3 +1,8 @@
+const checkNewUser = (userEmail) => {
+    const userFound = users.find(user => user.email === userEmail)
+    if(userFound) throw new Error('Email already registered')
+}
+
 function validateEmail(email, emailExpression) {
     if(typeof email !== 'string') throw new Error('Email is not a string')
     if(!email.trim().length) throw new Error ('Email is empty')
