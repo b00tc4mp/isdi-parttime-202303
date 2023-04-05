@@ -1,13 +1,7 @@
-function findUserByEmail(email) {
-  for (let i = 0; i < users.length; i++) {
-    let user = users[i];
-    if (user.email === email) {
-      return user;
-    }
-  }
-}
+import { validateEmail, validateName, validatePassword } from "./validators.js";
+import { users } from "./data.js";
 
-function registerUser(name, email, password, repeatPassword) {
+export function registerUser(name, email, password, repeatPassword) {
   validateName(name);
   validateEmail(email);
   validatePassword(password);
@@ -26,7 +20,7 @@ function registerUser(name, email, password, repeatPassword) {
   });
 }
 
-function authenticateUser(email, password) {
+export function authenticateUser(email, password) {
   validateEmail(email);
   validatePassword(password);
 
@@ -39,7 +33,7 @@ function authenticateUser(email, password) {
   }
 }
 
-function retrieveUser(email) {
+export function retrieveUser(email) {
   validateEmail(email);
 
   let foundUser = findUserByEmail(email);
@@ -55,7 +49,12 @@ function retrieveUser(email) {
   return user;
 }
 
-function changePassword(email, password, newPassword, newPasswordConfirm) {
+export function changePassword(
+  email,
+  password,
+  newPassword,
+  newPasswordConfirm
+) {
   validateEmail(email);
   validatePassword(password);
   validatePassword(newPassword, "New password");
@@ -77,11 +76,21 @@ function changePassword(email, password, newPassword, newPasswordConfirm) {
   foundUser.password = newPassword;
 }
 
-function updateAvatar(email, avatar) {
+export function updateAvatar(email, avatar) {
   validateEmail(email);
 
   let foundUser = findUserByEmail(email);
 
   foundUser.avatar = avatar;
-  console.log(foundUser);
+}
+
+// helpers
+
+function findUserByEmail(email) {
+  for (let i = 0; i < users.length; i++) {
+    let user = users[i];
+    if (user.email === email) {
+      return user;
+    }
+  }
 }

@@ -1,3 +1,13 @@
+import {
+  registerUser,
+  authenticateUser,
+  retrieveUser,
+  changePassword,
+  updateAvatar,
+} from "./logic.js";
+
+import { show, hidden, toggle } from "./ui.js";
+
 const registerPage = document.querySelector(".register");
 const registerForm = registerPage.querySelector(".form");
 

@@ -1,4 +1,4 @@
-function validateEmail(email) {
+export function validateEmail(email) {
   if (typeof email !== "string") throw new Error("Email is not a string 😥");
   if (!email.length) throw new Error("Email is empty 😥");
 
@@ -8,8 +8,7 @@ function validateEmail(email) {
 
   if (!validEmail) throw new Error("Email is not valid 😥");
 }
-
-function validatePassword(password, explain = "Password") {
+export function validatePassword(password, explain = "Password") {
   if (typeof password !== "string")
     throw new Error(`${explain} is not a string 😥`);
   if (!password.length) throw new Error(`${explain} is empty 😥`);
@@ -17,7 +16,7 @@ function validatePassword(password, explain = "Password") {
     throw new Error(`${explain} does not have 8 characters 😥`);
 }
 
-function validateName(name) {
+export function validateName(name) {
   if (typeof name !== "string") throw new Error("Name is not a string 😥");
   if (!name.length) throw new Error("Name is empty 😥");
 }
