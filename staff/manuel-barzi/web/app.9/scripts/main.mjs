@@ -3,7 +3,7 @@ console.log('load main')
 import { show, hide } from './ui.mjs'
 import { registerUser, authenticateUser, retrieveUser, updateUserAvatar, updateUserPassword } from './logic.mjs'
 
-let authenticatedUserId
+let authenticatedEmail
 
 const registerPage = document.querySelector('.register')
 const registerForm = registerPage.querySelector('form')
@@ -26,13 +26,13 @@ registerForm.onsubmit = function (event) {
     const email = event.target.email.value
     const password = event.target.password.value
 
-    try {
-        const result = registerUser(name, email, password)
+    const result = registerUser(name, email, password)
 
+    if (!result) {
+        alert('user already exists')
+    } else {
         hide(registerPage)
         show(loginPage)
-    } catch(error) {
-        alert(error.message)
     }
 }
 
@@ -50,9 +50,11 @@ loginForm.onsubmit = function (event) {
     const password = event.target.password.value
 
     try {
-        authenticatedUserId = authenticateUser(email, password)
+        authenticateUser(email, password)
 
-        const user = retrieveUser(authenticatedUserId)
+        authenticatedEmail = email
+
+        const user = retrieveUser(email)
 
         profileLink.innerText = user.name
 
@@ -82,7 +84,7 @@ profileLink.onclick = function (event) {
 }
 
 homePage.querySelector('.home-header-logout').onclick = function () {
-    authenticatedUserId = undefined
+    authenticatedEmail = undefined
 
     hide(homePage, profilePanel)
     show(loginPage)
@@ -91,10 +93,18 @@ homePage.querySelector('.home-header-logout').onclick = function () {
 updateUserAvatarForm.onsubmit = function (event) {
     event.preventDefault()
 
+    /* NOTE
+    const url0 = event.target.url.value
+    const url1 = updateUserAvatarForm.url.value
+    const url2 = this.url.value
+
+    console.log(url0, url1, url2)
+    */
+
     const url = event.target.url.value
 
     try {
-        updateUserAvatar(authenticatedUserId, url)
+        updateUserAvatar(authenticatedEmail, url)
 
         alert('avatar updated')
 
@@ -112,7 +122,7 @@ updateUserPasswordForm.onsubmit = function (event) {
     const newPasswordConfirm = event.target.newPasswordConfirm.value
 
     try {
-        updateUserPassword(authenticatedUserId, password, newPassword, newPasswordConfirm)
+        updateUserPassword(authenticatedEmail, password, newPassword, newPasswordConfirm)
 
         alert('password updated')
     } catch (error) {

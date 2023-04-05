@@ -1,6 +1,6 @@
 console.log('load logic')
 
-import { validateName, validateEmail, validatePassword, validateUrl, validateId } from './validators.mjs'
+import { validateName, validateEmail, validatePassword, validateUrl } from './validators.mjs'
 import { users } from './data.mjs'
 
 export function registerUser(name, email, password) {
@@ -8,53 +8,42 @@ export function registerUser(name, email, password) {
     validateEmail(email)
     validatePassword(password)
 
-    const foundUser = findUserByEmail(email)
+    var foundUser = findUserByEmail(email)
 
     if (foundUser)
         throw new Error('user already exists')
 
-    let id = 'user-1'
-
-    const lastUser = users[users.length - 1]
-
-    if (lastUser)
-        id = 'user-' + (parseInt(lastUser.id.slice(5)) + 1)
-
-    const user = {
-        id,
-        name,
-        email,
-        password
-    }
-
-    users.push(user)
+    users.push({
+        name: name,
+        email: email,
+        password: password
+    })
 }
 
 export function authenticateUser(email, password) {
     validateEmail(email)
     validatePassword(password)
 
-    const foundUser = findUserByEmail(email)
+    var foundUser = findUserByEmail(email)
 
     if (!foundUser)
         throw new Error('user not found')
 
     if (foundUser.password !== password)
         throw new Error('wrong password')
-
-    return foundUser.id
 }
 
-export function retrieveUser(userId) {
-    validateId(userId, 'user id')
+export function retrieveUser(email) {
+    validateEmail(email)
 
-    const foundUser = findUserById(userId)
+    var foundUser = findUserByEmail(email)
 
     if (!foundUser)
         throw new Error('user not found')
 
-    const user = {
-        name: foundUser.name
+    var user = {
+        name: foundUser.name,
+        email: foundUser.email
     }
 
     if (foundUser.avatar)
@@ -63,11 +52,11 @@ export function retrieveUser(userId) {
     return user
 }
 
-export function updateUserAvatar(userId, avatar) {
-    validateId(userId, 'user id')
+export function updateUserAvatar(email, avatar) {
+    validateEmail(email)
     validateUrl(avatar, 'avatar url')
 
-    const foundUser = findUserById(userId)
+    var foundUser = findUserByEmail(email)
 
     if (!foundUser)
         throw new Error('user not found')
@@ -75,13 +64,13 @@ export function updateUserAvatar(userId, avatar) {
     foundUser.avatar = avatar
 }
 
-export function updateUserPassword(userId, password, newPassword, newPasswordConfirm) {
-    validateId(userId, 'user id')
+export function updateUserPassword(email, password, newPassword, newPasswordConfirm) {
+    validateEmail(email)
     validatePassword(password)
     validatePassword(newPassword, 'new password')
     validatePassword(newPasswordConfirm, 'new password confirm')
 
-    const foundUser = findUserById(userId)
+    var foundUser = findUserByEmail(email)
 
     if (!foundUser)
         throw new Error('user not found')
@@ -107,22 +96,6 @@ function findUserByEmail(email) {
         const user = users[i]
 
         if (user.email === email) {
-            foundUser = user
-
-            break
-        }
-    }
-
-    return foundUser
-}
-
-function findUserById(userId) {
-    let foundUser
-
-    for (let i = 0; i < users.length; i++) {
-        const user = users[i]
-
-        if (user.id === userId) {
             foundUser = user
 
             break
