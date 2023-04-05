@@ -1,4 +1,4 @@
-var users = []
+const users = []
 
 users.push({
     name: 'Wendy Darling',
