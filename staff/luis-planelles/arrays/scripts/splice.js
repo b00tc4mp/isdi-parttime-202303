@@ -1,19 +1,23 @@
 const splice = (array, start, itemsAdd = false, ...items) => {
   let spliced = [];
 
-  start = start < 0 ? array.length + start : start;
-
   for (i = 0; i < itemsAdd; i++) {
     spliced[i] = array[start + i];
   }
 
-  for (let i = array.length - 1; i >= start; i--) {
-    const element = array[i];
-
-    array[i + items.length - itemsAdd] = element;
-  }
-  for (let i = 0; i < items.length; i++) {
-    array[start + i] = items[i];
+  if (!items.length) {
+    for (let i = start; i < array.length - 1; i++) {
+      array[i] = array[i + itemsAdd];
+    }
+    array.length = array.length - itemsAdd;
+  } else {
+    for (let i = array.length - 1; i >= start; i--) {
+      const element = array[i];
+      array[i + items.length - itemsAdd] = element;
+    }
+    for (let i = 0; i < items.length; i++) {
+      array[start + i] = items[i];
+    }
   }
 
   if (spliced.length) {
@@ -22,32 +26,14 @@ const splice = (array, start, itemsAdd = false, ...items) => {
   return [];
 };
 
-// console.warn('MyFish2');
-// const myFish2 = ['angel', 'clown', 'drum', 'mandarin', 'sturgeon'];
-// const removed2 = splice(myFish2, 3, 1);
+console.warn('myFish6');
+const myFish6 = ['angel', 'clown', 'mandarin', 'sturgeon'];
+const removed6 = splice(myFish6, -2, 1);
 
-// console.log(myFish2);
-// // myFish is ["angel", "clown", "drum", "sturgeon"]
-// console.log(removed2);
-// // removed is ["mandarin"]
-
-// console.warn('MyFish5');
-// const myFish5 = ['parrot', 'anemone', 'blue', 'trumpet', 'sturgeon'];
-// const removed5 = splice(myFish5, 2, 2);
-
-// console.log(myFish5);
-// // myFish is ["parrot", "anemone", "sturgeon"]
-// console.log(removed5);
-// // removed is ["blue", "trumpet"]
-
-// console.warn('myFish6');
-// const myFish6 = ['angel', 'clown', 'mandarin', 'sturgeon'];
-// const removed6 = splice(myFish6, -2, 1);
-
-// console.log(myFish6);
-// // myFish is ["angel", "clown", "sturgeon"]
-// console.log(removed6);
-// // removed is ["mandarin"]
+console.log(myFish6);
+// myFish is ["angel", "clown", "sturgeon"]
+console.log(removed6);
+// removed is ["mandarin"]
 
 // const myFish7 = ['angel', 'clown', 'mandarin', 'sturgeon'];
 // const removed7 = splice(myFish7, 2);
