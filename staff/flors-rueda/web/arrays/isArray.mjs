@@ -1,4 +1,4 @@
-const isArray = (element) => {
+export const isArray = (element) => {
     return element.constructor === Array;
 }
 

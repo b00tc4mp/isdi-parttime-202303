@@ -1,3 +1,5 @@
+import { pop } from "./pop.mjs"
+
 const plants = ['broccoli', 'cauliflower', 'cabbage', 'kale', 'tomato']
 
 console.log(pop(plants))

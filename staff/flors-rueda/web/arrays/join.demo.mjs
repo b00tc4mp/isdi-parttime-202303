@@ -1,3 +1,5 @@
+import { join } from "./join.mjs";
+
 const elements = ['Fire', 'Air', 'Water'];
 
 console.log(join(elements));

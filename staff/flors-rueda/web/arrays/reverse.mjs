@@ -1,4 +1,4 @@
-const reverse = (array) => {
+export const reverse = (array) => {
     const originalArray = [...array]
     let index = 0
     for(let i = originalArray.length - 1; i >= 0; i--){

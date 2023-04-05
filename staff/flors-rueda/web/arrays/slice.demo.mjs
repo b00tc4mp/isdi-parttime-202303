@@ -1,3 +1,5 @@
+import { slice } from "./slice.mjs";
+
 const animals = ['ant', 'bison', 'camel', 'duck', 'elephant'];
 
 console.log(slice(animals, 2));

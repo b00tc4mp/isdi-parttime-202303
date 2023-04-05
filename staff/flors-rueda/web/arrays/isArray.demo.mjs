@@ -1,3 +1,5 @@
+import { isArray } from "./isArray.mjs";
+
 console.log(isArray([1, 3, 5]));
 // Expected output: true
 

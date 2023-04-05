@@ -1,3 +1,5 @@
+import { includes } from "./includes.mjs";
+
 const array1 = [1, 2, 3];
 
 console.log(includes(array1, 2));

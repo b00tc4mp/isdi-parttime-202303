@@ -1,4 +1,4 @@
-const shift = (array) => {
+export const shift = (array) => {
     const firstElement = array[0];
     const originalArray = [...array];
     array.length = array.length - 1;

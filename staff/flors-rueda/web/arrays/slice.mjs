@@ -1,4 +1,4 @@
-const slice = (array, start = undefined, end = undefined) => {
+export const slice = (array, start = undefined, end = undefined) => {
     if(!start && !end){
         return array;
     };

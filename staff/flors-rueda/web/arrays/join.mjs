@@ -1,4 +1,4 @@
-const join = (array, joiner = ',') => {
+export const join = (array, joiner = ',') => {
     let string = '';
     for(let i = 0; i < array.length; i++){
         string += array[i];

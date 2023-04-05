@@ -1,4 +1,4 @@
-const unshift = (array, ...elements) => {
+export const unshift = (array, ...elements) => {
     for(let i = array.length - 1; i >= 0; i--) {
         array[i + elements.length] = array[i];
     }

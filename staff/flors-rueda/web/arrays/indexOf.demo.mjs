@@ -1,3 +1,5 @@
+import { indexOf } from "./indexOf.mjs";
+
 const beasts = ['ant', 'bison', 'camel', 'duck', 'bison'];
 
 console.log(indexOf(beasts, 'bison'));
