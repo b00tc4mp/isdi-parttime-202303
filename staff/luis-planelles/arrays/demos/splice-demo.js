@@ -10,10 +10,13 @@ console.warn('months2');
 
 const months2 = ['Jan', 'Feb', 'March', 'April', 'June'];
 
-splice(months2, 4, 1, 'May');
+const result = splice(months2, 4, 1, 'May');
+
 // Replaces 1 element at index 4
 console.log(months2);
 // Expected output: Array ["Jan", "Feb", "March", "April", "May"]
+console.log(result);
+// removed is ["june"]
 
 console.warn('MyFish');
 
