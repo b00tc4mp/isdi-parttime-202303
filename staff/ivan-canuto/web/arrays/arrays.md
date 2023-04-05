@@ -15,3 +15,4 @@ find--
 findIndex--
 map--
 filter--
+splice

@@ -1,3 +1,6 @@
+import { registerUser, authenticateUser, retrieveUser, updateUserPassword, updateUserAvatar } from './logic.mjs'
+import { addOffClass, removeOffClass } from './ui.mjs'
+
 var registerPage = document.querySelector('.register')
 var loginPage = document.querySelector('.login')
 var homePage = document.querySelector('.home')

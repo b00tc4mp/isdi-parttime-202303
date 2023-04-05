@@ -1,4 +1,4 @@
-var users = []
+export var users = []
 
 users.push({
     name: 'Wendy Darling',
@@ -20,15 +20,3 @@ users.push({
     password: '123123123',
     avatar: 'https://img.freepik.com/iconos-gratis/icono-perfil-usuario_318-33925.jpg'
 })
-
-const findUserByEmail = (email)=> {
-  let user;
-
-  for (let i = 0; i < users.length; i++) {
-    
-    if (users[i].email === email) {
-      user = users[i];
-      return user;
-    }
-  }
-}

@@ -1,4 +1,7 @@
-function registerUser(name, email, password) {
+import { users } from './data.mjs'
+import { validateName, validateEmail, validatePassword, validateAvatarUrl } from './validators.mjs'
+
+export function registerUser(name, email, password) {
 
   validateName(name)
   validateEmail(email)
@@ -19,7 +22,7 @@ function registerUser(name, email, password) {
   })
 }
 
-function authenticateUser(email, password) {
+export function authenticateUser(email, password) {
 
   validateEmail(email)
   validatePassword(password)
@@ -31,7 +34,7 @@ function authenticateUser(email, password) {
   
 }
 
-function retrieveUser(email) {
+export function retrieveUser(email) {
 
   if (!email.length) throw new Error("This email doesn't exist.")
   if (typeof email !== 'string') throw new Error('Eamil is not a string.')
@@ -67,7 +70,7 @@ function retrieveUser(email) {
 //   authenticatedEmail = newEmail
 // }
 
-function updateUserPassword(email, password, newPassword, newPasswordConfirm) {
+export function updateUserPassword(email, password, newPassword, newPasswordConfirm) {
 
   var user = findUserByEmail(email)
   if (!user) throw new Error('User not found')
@@ -82,7 +85,7 @@ function updateUserPassword(email, password, newPassword, newPasswordConfirm) {
   user.password = newPassword
 }
 
-function updateUserAvatar(email, newAvatarUrl, password) {
+export function updateUserAvatar(email, newAvatarUrl, password) {
   var user = findUserByEmail(email)
 
   if (!user) throw new Error('User not found')
@@ -95,9 +98,15 @@ function updateUserAvatar(email, newAvatarUrl, password) {
   avatarImage.src = user.avatar
 }
 
-const addOffClass = (page)=>{
-  page.classList.add('off');
-}
-const removeOffClass = (page)=>{
-  page.classList.remove('off');
+// Helpers
+const findUserByEmail = (email)=> {
+  let user;
+
+  for (let i = 0; i < users.length; i++) {
+    
+    if (users[i].email === email) {
+      user = users[i];
+      return user;
+    }
+  }
 }
