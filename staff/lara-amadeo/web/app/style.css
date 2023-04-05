@@ -1,5 +1,28 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
+:root{
+    --solid-blue: #021950;
+    --intense-blue: #032882;
+    --accent-purple:#833ee5;
+    --accent-purple-hover: #641BCA;
+
+    --violet-800: #929AC4;
+    --violet-700: #AFB5D4;
+    --violet-600: #929AC4;
+    --violet-500: #D1D4E6;
+    --violet-400: #DEE0ED;
+    --violet-300: #E3E5F0;
+
+    --grey-700:#3B4257 ;
+    --grey-600:#4A536D ;
+    --grey-500:#545F7D ;
+    --grey-400:#657195 ;
+    --grey-300:#8F98B3 ;
+    --grey-200:#AAB1C5 ;
+    --grey-100:#D4D8E2 ;
+    --white:#FFFFFF ;
+}
+
 body{
     margin: 0px;
 }
@@ -60,8 +83,10 @@ align-items: center;
     margin-left: 0px;
 }
 
+
+
 .primary-button{
-    background-color:#1B4DDC ;
+    background-color:var(--solid-blue) ;
     color: #FFFFFF;
     font-family: "Inter";
     font-weight: 600;
@@ -71,20 +96,30 @@ align-items: center;
     border-radius: 12px;
     margin-bottom: 8px;
     cursor: pointer;
+    transition: 0.3s;
+}
+
+.primary-button:hover {
+    background-color: var(--intense-blue);
 }
 
 .secondary-button{
-    background-color:#DFE1E7 ;
-    color: #1B4DDC;
+    color: var(--solid-blue);
     font-family: "Inter";
     font-weight: 600;
     font-size: 16px;
     padding: 12px 20px 12px 20px;
-    border: none;
+    border: 1px solid var(--violet-700);
     border-radius: 12px;
     margin-bottom: 8px;
     cursor: pointer;
+    transition: 0.3s;
 }
+
+.secondary-button:hover {
+    background-color: var(--violet-400);
+}
+
 
 .already-account-container{
     display: flex;
@@ -98,7 +133,7 @@ align-items: center;
 }
 
 .link{
-    color: #1B4DDC;
+    color: var(--accent-purple);
     background: none;
     border: none;
     font-family: "Inter";
@@ -106,6 +141,10 @@ align-items: center;
     font-size: 16px;
     text-decoration: none;
     cursor: pointer;
+}
+
+.link:hover {
+color: var(--accent-purple-hover);
 }
 
 .login{
@@ -117,7 +156,13 @@ align-items: center;
 }
 
 .create-account{
-    margin-bottom: 40px;
+    display: flex;
+    flex-direction: row;
+    margin-top: 32px;
+}
+
+.sign-in{
+    margin-left: 8px;
 }
 
 .error-message{
@@ -143,44 +188,120 @@ align-items: center;
     height: 100vh;
     width: 100%;
     display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.left-container{
+    height: 100vh;
+    width: fit-content;
+    display: flex;
+    align-items: end;
+}
+
+.main-container{
+    height: 100vh;
+    width: 990px;
+    display: flex;
     justify-content: center;
     align-items: center;
 }
+.centre-container{
+    height: 100vh;
+    width: 990px;
+}
 .topbar{
-    height:60px;
-    width: 100%;
-    justify-content: space-between;
-    margin-top: 0;
+    height:100vh;
+    width: 275px;
     display: flex;
-    position: fixed;
-    top: 0;
-    border-bottom: 1px solid #dadada;
+    flex-direction: column;
+    justify-content: space-between;
+    border-right: 1px solid #dadada;
+    margin-left: 40px;
+    padding-right:8px;
+    padding-bottom: 16px;
 }
 
-.topbar-avatar{
-    width: 25px;
-    height: 25px;
-    border-radius: 100px;
+.topbar-logo-and-actions{
+    padding-top: 16px;
 }
-
 .topbar-actions{
+    height: fit-content;
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 32px;
+}
+
+.topbar-actions-row{
+    display: flex;
+    justify-items: center;
+    align-items: center;
+    gap: 8px;
+    padding: 12px;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+.topbar-actions-row:hover{
+    background-color: var(--violet-300);
+}
+
+
+
+.topbar-profile{
     display: flex;
     flex-direction: row;
     gap: 16px;
     align-items: center;
-    margin-right: 20px;
+    justify-content: space-between; 
+    transition: 0.3ms;
+    border-radius: 12px;
+    padding: 12px;
+    cursor: pointer;
 }
+
+.topbar-profile:hover{
+    background-color: var(--violet-300);
+}
+
+.topbar-profile-user-and-avatar{
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+}
+
+.topbar-profile-user-data{
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-right: 40px;
+}
+
+
+.topbar-avatar{
+    width: 40px;
+    height: 40px;
+    border-radius: 100px;
+}
+
 
 .logo-and-hello{
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: 8px;
-    margin-left: 20px;
+    padding-left: 4px;
+    
 }
 .home-logo{
+    width: 40px;
+    height: 40px;
     font-size: 16px;
     margin: 0px;
+    padding: 8px;
+    text-align: center;
 }
 
 .homepage-hello{
@@ -197,12 +318,12 @@ align-items: center;
     .home-logo{
         font-size: 32px; 
     }
-    .logo-and-hello{
+    /* .logo-and-hello{
         margin-left: 40px;
     }
     .topbar-actions{
         margin-right: 40px;
-    }
+    } */
 }
 
 .profile{
@@ -247,15 +368,6 @@ align-items: center;
     margin-top: 0;
 }
 
-.body-text{
-    color: #3B4257;
-    font-family: "Inter";
-    font-size: 16px;
-    font-weight: 400;
-    height: fit-content;
-    margin-bottom: 40px;
-    margin-top: 0;
-}
 
 .button-bar{
     display: flex;

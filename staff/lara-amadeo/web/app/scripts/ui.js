@@ -1,13 +1,13 @@
-function show(...containers){
-    for (container of containers)
+export function show(...containers){
+    for (const container of containers)
     container.classList.remove('off')
 }
 
-function hide(...containers){
-    for  (container of containers)
+export function hide(...containers){
+    for  (const container of containers)
     container.classList.add('off')
 }
-function toggle(...containers){
-    for (container of containers)
+export function toggle(...containers){
+    for (const container of containers)
     container.classList.toggle('off')
 }

@@ -1,4 +1,4 @@
-var users = []
+export var users = []
 
 
 users.push({
@@ -13,6 +13,3 @@ users.push({
     password: '123123123'
 })
 
-var findUser = (users, authenticatedEmail) => {
-    return users.find(user => user.email === authenticatedEmail)
- }

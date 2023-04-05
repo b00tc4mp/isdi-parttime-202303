@@ -1,6 +1,12 @@
+import { validateEmail, validatePassword, validateAvatarFormat } from "./validators.js"
+import { users } from "./data.js"
 
+export var checkUserExists = (registrationName, registrationEmail, registrationPassword,registrationRepPassword) => {
 
-var checkUserExists = (registrationName, registrationEmail, registrationPassword,registrationRepPassword) => {
+    validateEmail(registrationEmail)
+    validatePassword(registrationPassword)
+    validatePassword(registrationRepPassword, 'new password')
+
     var foundUser = findUser(users, registrationEmail)
 
     if (foundUser) throw new Error('User already exists')
@@ -15,13 +21,13 @@ var checkUserExists = (registrationName, registrationEmail, registrationPassword
     }
 }
 
-var checkCredentials = (inputEmail, inputPassword) => {
+export var checkCredentials = (inputEmail, inputPassword) => {
     var foundUser = findUser(users, inputEmail)
 
     if (!foundUser || foundUser.password !== inputPassword) throw new Error('Invalid email or password')
 }
 
-var updatePassword = (users, authenticatedEmail, currentPassword, newPassword, confirmNewPassword) => {
+export var updatePassword = (users, authenticatedEmail, currentPassword, newPassword, confirmNewPassword) => {
 
     var foundUser = findUser(users, authenticatedEmail)
 
@@ -42,7 +48,7 @@ var updatePassword = (users, authenticatedEmail, currentPassword, newPassword, c
  }
 
 
-var updateEmail = (users, authenticatedEmail, currentEmail, newEmail, confirmNewEmail) => {
+export var updateEmail = (users, authenticatedEmail, currentEmail, newEmail, confirmNewEmail) => {
 
     var user = findUser(users, authenticatedEmail)
 
@@ -63,8 +69,9 @@ var updateEmail = (users, authenticatedEmail, currentEmail, newEmail, confirmNew
 }
 
 
-var updateAvatar = (authenticatedEmail, avatarUrl) => {
+export var updateAvatar = (authenticatedEmail, avatarUrl) => {
 
+    validateAvatarFormat(avatarUrl)
     var user = findUser(users, authenticatedEmail)
     if (!user)
     throw new Error('User not found')
@@ -72,3 +79,6 @@ var updateAvatar = (authenticatedEmail, avatarUrl) => {
     user.avatar = avatarUrl
 } 
 
+var findUser = (users, authenticatedEmail) => {
+    return users.find(user => user.email === authenticatedEmail)
+ }

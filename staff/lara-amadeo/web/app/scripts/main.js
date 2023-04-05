@@ -1,3 +1,6 @@
+import { show, hide, toggle } from "./ui.js"
+import { checkUserExists, checkCredentials, updatePassword, updateEmail, updateAvatar } from "./logic.js"
+
 var registrationPage = document.querySelector('.registration')
 var registerForm = registrationPage.querySelector('form')
 
@@ -8,7 +11,8 @@ var homePage = document.querySelector('.homepage')
 var updatePasswordForm = homePage.querySelector('.update-password')
 var updateEmailForm = homePage.querySelector('.update-mail')
 var updateAvatarForm = homePage.querySelector('.update-avatar')
-var homeProfileLink = homePage.querySelector('a') 
+var topbarProfileRow = homePage.querySelector('.topbar-profile')
+var topbarActions =  homePage.querySelector('.topbar-actions')
 var homeProfile = homePage.querySelector('.profile') 
 
 var authenticatedName
@@ -25,9 +29,6 @@ registerForm.onsubmit = function(event){
    var registrationRepPassword = registrationPage.querySelector('input[name=rep-password]').value
 
    try {
-    validateEmail(registrationEmail)
-    validatePassword(registrationPassword)
-    validatePassword(registrationRepPassword, 'new password')
     checkUserExists(registrationName, registrationEmail, registrationPassword,registrationRepPassword)
     hide(registrationPage)
     show(loginPage)
@@ -70,8 +71,8 @@ loginForm.onsubmit = function(event){
 
         hide(loginPage)
         show(homePage)
-        homePage.querySelector('.homepage-hello').innerHTML = "Hello " + authenticatedName + "!"
-        homeProfileLink.innerHTML = authenticatedName
+        topbarProfileRow.querySelector('.topbar-profile-username').innerHTML = authenticatedName
+        topbarProfileRow.querySelector('.topbar-profile-email').innerHTML = authenticatedEmail
     } catch (error) {
         loginPage.querySelector('.error-message').textContent = error.message
     } finally {
@@ -80,7 +81,7 @@ loginForm.onsubmit = function(event){
     }
 }
 
-homeProfileLink.onclick = function(event){
+topbarActions.querySelector('.topbar-settings').onclick = function(event){
     event.preventDefault()
 
     toggle(homeProfile)
@@ -176,7 +177,6 @@ homePage.querySelector('.update-avatar').querySelector('.centered-form').onsubmi
     var avatarUrl = homePage.querySelector('.update-avatar').querySelector('input[name=avatar]').value
 
     try{
-        validateAvatarFormat(avatarUrl)
         updateAvatar(authenticatedEmail, avatarUrl)
         
         alert('avatar updted')
