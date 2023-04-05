@@ -3,8 +3,8 @@ function some(array, callback) {
     return false;
   }
 
-  for (const element of array) {
-    if (callback(element)) {
+  for (const index in array) {
+    if (callback(array[index])) {
       return true;
     }
   }

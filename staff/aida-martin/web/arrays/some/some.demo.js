@@ -24,3 +24,8 @@ const even3 = (element) => element === "";
 
 console.log(some(array1, even3));
 //EXTRA Expected output: false
+
+console.log(some([1, , 3], (x) => x === undefined)); // false
+
+console.log(some([1, , 1], (x) => x !== 1)); // false
+console.log(some([1, undefined, 1], (x) => x !== 1)); // true
