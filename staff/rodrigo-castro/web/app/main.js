@@ -10,7 +10,6 @@ const registerPage = document.querySelector('.register-page')
 
 const homePage = document.querySelector('.home-page')
 const homeBar = document.querySelector('.home-bar')
-const homePageRedText = homePage.querySelector('.red-text')
 const myProfileButton = homeBar.querySelector('.menu-buttons[name=my-profile]')
 
 const profileOptions = homePage.querySelector('.profile-options')

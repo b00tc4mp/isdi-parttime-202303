@@ -86,7 +86,7 @@ export const registerUserFull = (userEmail, userName, userPassword) => {
 
     validatePassword(userPassword)
 
-    registerNewUser(users, userName.trim(), userEmail, userPassword)
+    registerNewUser(userName.trim(), userEmail, userPassword)
 }
 
 export const goToHomePage = (homePage, foundUser, avatarImg) => {
