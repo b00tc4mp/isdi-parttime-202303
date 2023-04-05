@@ -1,28 +1,28 @@
 //presentation
 let userLogged
 
-var registerPage = document.querySelector('.register-page')
+const registerPage = document.querySelector('.register-page')
 
-var homePage = document.querySelector('.home-page')
-var homeBar = document.querySelector('.home-bar')
-var homePageRedText = homePage.querySelector('.red-text')
-var myProfileButton = homeBar.querySelector('.menu-buttons[name=my-profile]')
+const homePage = document.querySelector('.home-page')
+const homeBar = document.querySelector('.home-bar')
+const homePageRedText = homePage.querySelector('.red-text')
+const myProfileButton = homeBar.querySelector('.menu-buttons[name=my-profile]')
 
-var profileOptions = homePage.querySelector('.profile-options')
+const profileOptions = homePage.querySelector('.profile-options')
 
-var changeEmailMenu = homePage.querySelector('.change-email-menu')
-var emailMenuRedText = changeEmailMenu.querySelector('.red-text')
+const changeEmailMenu = homePage.querySelector('.change-email-menu')
+const emailMenuRedText = changeEmailMenu.querySelector('.red-text')
 
-var changePasswordMenu = homePage.querySelector('.change-password-menu')
+const changePasswordMenu = homePage.querySelector('.change-password-menu')
 
-var changeAvatarMenu = homePage.querySelector('.change-avatar-menu')
-var changeAvatarButton = homePage.querySelector('.change-avatar')
-var changeAvatarForm = homePage.querySelector('.change-avatar-menu').querySelector('form')
-var avatarImg = homePage.querySelector('.horizontal-menu').querySelector('.user-avatar')
-var defaultAvatar = 'https://avatarfiles.alphacoders.com/157/thumb-157567.jpg'
+const changeAvatarMenu = homePage.querySelector('.change-avatar-menu')
+const changeAvatarButton = homePage.querySelector('.change-avatar')
+const changeAvatarForm = homePage.querySelector('.change-avatar-menu').querySelector('form')
+const avatarImg = homePage.querySelector('.horizontal-menu').querySelector('.user-avatar')
+const defaultAvatar = 'https://avatarfiles.alphacoders.com/157/thumb-157567.jpg'
 
-var loginPage = document.querySelector('.login-page')
-var loginPageRedText = loginPage.querySelector('.red-text')
+const loginPage = document.querySelector('.login-page')
+const loginPageRedText = loginPage.querySelector('.red-text')
 
 registerPage.querySelector('form').addEventListener('submit', function(event) {
     event.preventDefault()
@@ -90,7 +90,7 @@ changePasswordMenu.querySelector('form').addEventListener('submit', (event) => {
     try {
         changePassword(userLogged, users, changePasswordMenu)
     } catch(error){
-        homePageRedText.textContent = error.message
+        changePasswordMenu.querySelector('.red-text').textContent = error.message
     }
 })
 
