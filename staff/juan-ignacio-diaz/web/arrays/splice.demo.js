@@ -18,3 +18,9 @@ splice(months2, 4, 1, 'May');
 // Replaces 1 element at index 4
 console.log(months2);
 // Expected output: Array ["Jan", "Feb", "March", "April", "May"]
+
+const months3 = ["Jan", "Feb", "March", "April", "-", "June", "July"]
+splice(months3, 4, 2, 'May');
+// Replaces 1 element at index 4
+console.log(months3);
+// Expected output: Array ["Jan", "Feb", "March", "April", "May"]

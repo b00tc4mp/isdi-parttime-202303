@@ -4,13 +4,18 @@ export default function splice(array, start, deleteCount, ...item) {
     if (start > array.length)
         start = array.length 
 
-    for (let i = array.length + item.length - 1; i >= start; i--) {
-        const element = array[i]
+    if (deleteCount === undefined || deleteCount > array.length - start) 
+        deleteCount = array.length - start
 
-        array[i + 1] = element
-    }
+console.log(start, deleteCount)
 
-    array[start] = item1
+    for (let i = array.length + item.length - deleteCount - 1; i > start + deleteCount - item.length -1; i--) 
+        array[i] = array[i - item.length + deleteCount]
+    
+    for (let i = 0; i < item.length; i++)
+        array[start + i] = item[i]
+
+    //array.length = array.length + item.length - deleteCount-1
 
     return []
 }
