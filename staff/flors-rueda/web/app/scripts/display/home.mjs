@@ -58,12 +58,11 @@ export const setPlaceHolders = (userAuth) => {
   document.querySelector('.edit-form').querySelector('input[name="mail"]').placeholder = user.mail; 
 }
 
-export const getAvatarUrl = (event, deleteAvatar) => {
+export const getAvatarUrl = (event) => {
   const reader = new FileReader() 
   const file = event.target.files[0]; 
   reader.onload = () => {     
     reader.result;
-    setOn(deleteAvatar);
   }
   reader.readAsDataURL(file)
   return URL.createObjectURL(file)

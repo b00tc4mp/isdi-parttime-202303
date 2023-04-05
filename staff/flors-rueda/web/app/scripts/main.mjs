@@ -1,5 +1,5 @@
 import { changeView, doRegister, doLogin, doLogout, authenticateUser, controlUsernameInput, } from './display/login-register.mjs';
-import { setOff, setOn, resetAlerts, setPredeterminateAvatar, clearForms } from './display/general-tools.mjs'
+import { setOff, setOn, toggleOff, resetAlerts, setPredeterminateAvatar, clearForms } from './display/general-tools.mjs'
 import { setNewPassword, setNewUserInfo, displayProfile, setPlaceHolders, displayWelcome, getAvatarUrl } from './display/home.mjs'
 import { displayLoginError, displayRegisterError, displayChangePasswordError, displayEditUserError } from './display/errors.mjs';
 
@@ -77,7 +77,8 @@ const toEditProfile = document.querySelector('.to-edit-profile');
 const passwordForm = document.querySelector('.password-form');
 const editForm = document.querySelector('.edit-form');
 const temporalAvatar = document.querySelector('.edit-form').querySelector('input[type="file"]');
-const deleteAvatar = document.querySelector('[name="delete-avatar"]');
+const deleteAvatar = document.querySelector('.delete-avatar');
+const setAvatar = document.querySelector('.set-avatar');
 
 
 let newAvatar;
@@ -138,6 +139,7 @@ passwordForm.addEventListener('submit', (event) => {
 temporalAvatar.addEventListener('change', (event) => {
   try {
     const avatar = document.querySelector('.avatar')
+    toggleOff(deleteAvatar, setAvatar);
     newAvatar = getAvatarUrl(event, deleteAvatar)
     avatar.src = newAvatar
   } catch (error) {
@@ -150,7 +152,7 @@ deleteAvatar.addEventListener('click', (event) => {
   newAvatar = undefined;
   temporalAvatar.value = '';
   setPredeterminateAvatar(userAuth);
-  setOff(deleteAvatar);
+  toggleOff(deleteAvatar, setAvatar);
   displayProfile(userAuth);
 });
 

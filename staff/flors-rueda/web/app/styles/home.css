@@ -91,6 +91,64 @@
     padding-bottom: 5rem;
 }
 
+.edit-avatar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 0.5rem;
+    align-items: center;
+    width: 80%;
+    background-color: var(--color-light100);
+    font-weight: 700;
+    border: solid 0.05em var(--color-light300);
+    padding: 0.15em 0.95em;
+    border-radius: 0.6em;
+    outline: none;
+    transition: background-color 0.2s, border 0.2s, box-shadow 0.2s;
+    color: var(--color-dark100);
+}
+
+.dark-mode .edit-avatar {
+    background-color: var(--color-dark200);
+    border: solid 0.05em var(--color-dark300);
+    color: var(--color-light100);
+}
+
+.edit-avatar:focus, .edit-avatar:active {
+    border: solid 0.05em var(--color-primary300);
+    box-shadow: 0 0 0.25em var(--color-primary300);
+}
+
+.avatar-label {
+    display: flex;
+    flex-direction: row;
+    font-size: 0.65em;
+    font-style: italic;
+    font-weight: 600;
+    width: 8rem;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.delete-avatar {
+    font-size: 1rem;
+    line-height: 1rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    border: 0.1em solid var(--color-primary300);
+}
+
+::-webkit-file-upload-button {
+    display: none;
+}
+
+input[type="file"], input[type="file"]:hover, input[type="file"]:focus {
+    min-width: auto;
+    border: none;
+}
+
+
 
 @media (min-width: 768px) {
     .home-page  {
@@ -139,5 +197,17 @@
         position: relative;
         top: 2rem;
         left: 8.5rem;
+    }
+
+    input[type="file"]:hover, input[type="file"]:focus {
+        border: none;
+        box-shadow: none;
+        cursor: pointer;
+        color: var(--color-primary300);
+    }
+
+    .edit-avatar:hover {
+        border: solid 0.05em var(--color-primary300);
+        box-shadow: 0 0 0.25em var(--color-primary300);
     }
 }
