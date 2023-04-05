@@ -36,6 +36,7 @@ const changeEmail = (userLogged, users, event) => {
     foundUser.email = userNewEmail
     emailMenuRedText.textContent = 'Email succesfully changed'
     emailMenuRedText.classList.add('green-text')
+    changeEmailMenu.querySelector('form').reset()
 }
 
 const changePassword = (userLogged, users, redText) => {
@@ -55,13 +56,11 @@ const changePassword = (userLogged, users, redText) => {
     if(newPasswordRepeated !== newPassword) throw new Error (`New passwords don't match`)
 
     userLogged.password = newPassword
-    users.forEach(user => { // Creo que esto podria cambiarlo simplemente por foundUser.password = newPassword
-        if(user.email === userLogged.email){
-            user.password = userLogged.password
-        }
-    })
-    homePage.querySelector('.red-text').textContent = 'Password succesfully changed'
-    homePage.querySelector('.red-text').classList.add('green-text')
+    foundUser.password = newPassword
+    
+    changePasswordMenu.querySelector('.red-text').textContent = 'Password succesfully changed'
+    changePasswordMenu.querySelector('.red-text').classList.add('green-text')
+    changePasswordMenu.querySelector('form').reset()
 }
 
 const updateUserAvatar = (userLogged, avatarUrl, avatarImg) => {
@@ -88,10 +87,10 @@ const registerUserFull = (userEmail, userName, emailExpression, userPassword, us
     registerNewUser(users, userName.trim(), userEmail, userPassword)
 }
 
-const resetPage = (page) => {
-    page.querySelector('.red-text').textContent = ''
-    page.querySelector('form').reset()
-    page.classList.add('off')
+const resetPage = (...pages) => {
+    pages.forEach(page => page.querySelector('.red-text').textContent = '')
+    pages.forEach(page => page.querySelector('form').reset())
+    pages.forEach(page => page.classList.add('off'))
 }
 
 const resetHomePage = (homePage) => { // TODO !!!!

@@ -1,6 +1,5 @@
 //presentation
 var userLogged
-var redText = document.querySelector('.red-text')
 
 var registerPage = document.querySelector('.register-page')
 
@@ -61,8 +60,7 @@ loginPage.querySelector('form').addEventListener('submit', (event) => {
 
 myProfileButton.addEventListener('click', () => {
     toggleElement(profileOptions)
-    hideElement(changePasswordMenu, changeAvatarMenu, changeEmailMenu)
-    resetPage(changeAvatarMenu)
+    resetPage(changeAvatarMenu, changePasswordMenu, changeEmailMenu)
 })
 
 homePage.querySelector('.change-email').onclick = () => {

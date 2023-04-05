@@ -18,3 +18,6 @@ function validatePassword(userPassword){
     if (userPassword.length < 8) throw new Error('Password must have at least 8 characters')
     if (!passwordExpression.test(userPassword)) throw new Error('Password format is not valid')
 }
+
+var emailExpression = /^[\w-.]+@[a-zA-Z0-9]+(\.[a-zA-Z]{2,4}){1,2}$/
+var passwordExpression = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%&*?])[a-zA-Z\d#$@!%&*?]{8,16}/
