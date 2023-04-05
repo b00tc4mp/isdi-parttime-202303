@@ -1,4 +1,6 @@
-const users = []
+console.log('data loaded')
+
+export const users = []
 
 users.push({
     name: 'Wendy Darling',

@@ -1,4 +1,9 @@
 //presentation
+
+import {showElement, hideElement, toggleElement, resetPage} from './ui.js'
+import { findUser, changeEmail, changePassword, updateUserAvatar, registerUserFull, logIn} from './logic.js'
+
+
 let userLogged
 
 const registerPage = document.querySelector('.register-page')
@@ -9,10 +14,7 @@ const homePageRedText = homePage.querySelector('.red-text')
 const myProfileButton = homeBar.querySelector('.menu-buttons[name=my-profile]')
 
 const profileOptions = homePage.querySelector('.profile-options')
-
 const changeEmailMenu = homePage.querySelector('.change-email-menu')
-const emailMenuRedText = changeEmailMenu.querySelector('.red-text')
-
 const changePasswordMenu = homePage.querySelector('.change-password-menu')
 
 const changeAvatarMenu = homePage.querySelector('.change-avatar-menu')
@@ -22,7 +24,6 @@ const avatarImg = homePage.querySelector('.horizontal-menu').querySelector('.use
 const defaultAvatar = 'https://avatarfiles.alphacoders.com/157/thumb-157567.jpg'
 
 const loginPage = document.querySelector('.login-page')
-const loginPageRedText = loginPage.querySelector('.red-text')
 
 registerPage.querySelector('form').addEventListener('submit', function(event) {
     event.preventDefault()
@@ -33,12 +34,16 @@ registerPage.querySelector('form').addEventListener('submit', function(event) {
 
     try {
         
-        registerUserFull(userEmail, userName, emailExpression, userPassword, users)
+        registerUserFull(userEmail, userName, userPassword)
         resetPage(registerPage)
         showElement(loginPage)
 
     } catch(error){
-        redText.textContent = error.message
+        if(error.cause === 'ownError'){
+            registerPage.querySelector('.red-text').textContent = error.message
+        } else {
+            console.log(error)
+        }
     }
 
 })
@@ -48,13 +53,20 @@ loginPage.querySelector('form').addEventListener('submit', (event) => {
     var userEmail = loginPage.querySelector('.input-field[name=email]').value.toLowerCase()
     var userPassword = loginPage.querySelector('.input-field[name=password]').value
 
-    var foundUser = findUser(users, userEmail)
+    var foundUser = findUser(userEmail)
 
     try {
         logIn(foundUser, userPassword, homePage, avatarImg)
+        userLogged = JSON.parse(JSON.stringify(foundUser))
+        delete userLogged.password
+        // userLogged = Object.assign({}, foundUser) -> otra forma de copiar objetos
         resetPage(loginPage)
     } catch(error){
-        loginPageRedText.textContent = error.message
+        if(error.cause === 'ownError'){
+            loginPage.querySelector('.red-text').textContent = error.message
+        } else {
+            console.log(error)
+        }
     }
 })
 
@@ -71,28 +83,34 @@ homePage.querySelector('.change-email').onclick = () => {
 changeEmailMenu.querySelector('form').onsubmit = (event) => {
     event.preventDefault()
     try {
-        changeEmail(userLogged, users, event)
+        changeEmail(userLogged, homePage, changeEmailMenu)
     } catch(error){
-        emailMenuRedText.textContent = error.message
-        console.log(error)
+        if(error.cause === 'ownError'){
+            changeEmailMenu.querySelector('.red-text').textContent = error.message
+        } else {
+            console.log(error)
+        }
     }
 }
 
-homePage.querySelector('.change-password').addEventListener('click', () => { // REFACTORIZAR PA Q QUEDE MAS LINDO
-    homePageRedText.classList.remove('green-text')
-    homePageRedText.textContent = ''
+homePage.querySelector('.change-password').addEventListener('click', () => { 
+    resetPage(changePasswordMenu)
     hideElement(profileOptions)
     showElement(changePasswordMenu)
 })
 
-changePasswordMenu.querySelector('form').addEventListener('submit', (event) => { 
+changePasswordMenu.querySelector('form').onsubmit = function(event) { 
     event.preventDefault();
     try {
-        changePassword(userLogged, users, changePasswordMenu)
+        changePassword(userLogged, changePasswordMenu)
     } catch(error){
-        changePasswordMenu.querySelector('.red-text').textContent = error.message
+        if(error.cause === 'ownError'){
+            changePasswordMenu.querySelector('.red-text').textContent = error.message
+        } else {
+            console.log(error)
+        }
     }
-})
+}
 
 changeAvatarButton.onclick = function() {
     showElement(changeAvatarMenu)
@@ -106,7 +124,12 @@ changeAvatarForm.onsubmit = function(event) {
     try {
         updateUserAvatar(userLogged, avatarUrl, avatarImg, changeAvatarForm)
     } catch(error){
-        alert(error.message)
+        if(error.cause === 'ownError'){
+            alert(error.message)
+            // changePasswordMenu.querySelector('.red-text').textContent = error.message -> TODO: ACOMODAR!!!!
+        } else {
+            console.log(error)
+        }
     }
 }
 

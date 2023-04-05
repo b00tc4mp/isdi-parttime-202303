@@ -1,6 +1,11 @@
 // logic
+console.log('logic loaded')
 
-const registerNewUser = (users, userName, userEmail, userPassword) => {
+import {checkNewUser, validateEmail, validateUrl, validateName, validatePassword} from './validators.js'
+import {users} from './data.js'
+
+
+export const registerNewUser = (userName, userEmail, userPassword) => {
     users.push({
         name: userName,
         email: userEmail,
@@ -8,47 +13,47 @@ const registerNewUser = (users, userName, userEmail, userPassword) => {
     })
 }
 
-const findUser = (users, userEmail) => {
+export const findUser = (userEmail) => {
     return  users.find(user => user.email === userEmail)
 }
 
-const changeEmail = (userLogged, users, event) => {
+export const changeEmail = (userLogged, homePage, changeEmailMenu) => {
     var userPreviousEmail = homePage.querySelector('input[name=previous-email]').value
     var userNewEmail = homePage.querySelector('input[name=new-email]').value
     var userPassword = homePage.querySelector('input[name=change-email-pass]').value
 
-    var foundUser = findUser(users, userLogged.email)
+    var foundUser = findUser(userLogged.email)
 
-    if(userPreviousEmail !== foundUser.email) throw new Error('Email or password incorrect')
+    if(userPreviousEmail !== foundUser.email) throw new Error('Email or password incorrect', {cause: "ownError"})
 
-    checkNewUser(userNewEmail)
+    checkNewUser(userNewEmail, users)
 
-    validateEmail(userNewEmail, emailExpression)
+    validateEmail(userNewEmail)
 
-    if(userPassword !== foundUser.password) throw new Error('Email or password incorrect2')
+    if(userPassword !== foundUser.password) throw new Error('Email or password incorrect2', {cause: "ownError"})
 
     userLogged.email = userNewEmail
     foundUser.email = userNewEmail
-    emailMenuRedText.textContent = 'Email succesfully changed'
-    emailMenuRedText.classList.add('green-text')
+    changeEmailMenu.querySelector('.red-text').textContent = 'Email succesfully changed'
+    changeEmailMenu.querySelector('.red-text').classList.add('green-text')
     changeEmailMenu.querySelector('form').reset()
 }
 
-const changePassword = (userLogged, users, changePasswordMenu) => {
-    var previousPassword = homePage.querySelector('.previous-password').value
-    var foundUser = findUser(users, userLogged.email)
+export const changePassword = (userLogged, changePasswordMenu) => {
+    var previousPassword = changePasswordMenu.querySelector('.previous-password').value
+    var foundUser = findUser(userLogged.email)
     
-    if (previousPassword !== foundUser.password) throw new Error('Your password is incorrect')
+    if (previousPassword !== foundUser.password) throw new Error('Your password is incorrect', {cause: "ownError"})
 
-    var newPassword = homePage.querySelector('.new-password').value
+    var newPassword = changePasswordMenu.querySelector('.new-password').value
 
-    if(newPassword.length < 8) throw new Error('Password must be at least 8 characters long')
+    if(newPassword.length < 8) throw new Error('Password must be at least 8 characters long', {cause: "ownError"})
 
-    if(newPassword === previousPassword) throw new Error('New password must be different than previous')
+    if(newPassword === previousPassword) throw new Error('New password must be different than previous', {cause: "ownError"})
 
-    var newPasswordRepeated = homePage.querySelector('.repeat-new-password').value
+    var newPasswordRepeated = changePasswordMenu.querySelector('.repeat-new-password').value
 
-    if(newPasswordRepeated !== newPassword) throw new Error (`New passwords don't match`)
+    if(newPasswordRepeated !== newPassword) throw new Error (`New passwords don't match`, {cause: "ownError"})
 
     userLogged.password = newPassword
     foundUser.password = newPassword
@@ -58,13 +63,13 @@ const changePassword = (userLogged, users, changePasswordMenu) => {
     changePasswordMenu.querySelector('form').reset()
 }
 
-const updateUserAvatar = (userLogged, avatarUrl, avatarImg, changeAvatarForm) => {
-    validateEmail(userLogged.email, emailExpression)
+export const updateUserAvatar = (userLogged, avatarUrl, avatarImg, changeAvatarForm) => {
+    validateEmail(userLogged.email)
     validateUrl(avatarUrl, 'Avatar url')
 
-    var foundUser = findUser(users, userLogged.email)
+    var foundUser = findUser(userLogged.email)
 
-    if(!foundUser) throw new Error('User not found')
+    if(!foundUser) throw new Error('User not found', {cause: "ownError"})
 
     foundUser.avatar = avatarUrl
     avatarImg.src = foundUser.avatar
@@ -72,29 +77,26 @@ const updateUserAvatar = (userLogged, avatarUrl, avatarImg, changeAvatarForm) =>
     changeAvatarForm.reset()
 }
 
-const registerUserFull = (userEmail, userName, emailExpression, userPassword, users) => {
-    checkNewUser(userEmail)
+export const registerUserFull = (userEmail, userName, userPassword) => {
+    checkNewUser(userEmail, users)
 
     validateName(userName)
 
-    validateEmail(userEmail, emailExpression)
+    validateEmail(userEmail)
 
     validatePassword(userPassword)
 
     registerNewUser(users, userName.trim(), userEmail, userPassword)
 }
 
-const goToHomePage = (homePage, foundUser, avatarImg) => {
+export const goToHomePage = (homePage, foundUser, avatarImg) => {
     homePage.classList.remove('off')
     homePage.querySelector('a[name=my-profile]').textContent =`${foundUser.name}`
     if(foundUser.avatar)
         avatarImg.src = foundUser.avatar
 }
 
-const logIn = (foundUser, userPassword, homePage, avatarImg) => {
-    if(foundUser === undefined || foundUser.password !== userPassword) throw new Error('Wrong email or password')
-    goToHomePage(homePage, foundUser, avatarImg)        
-    userLogged = JSON.parse(JSON.stringify(foundUser))
-    delete userLogged.password
-    // userLogged = Object.assign({}, foundUser) -> otra forma de copiar objetos
+export const logIn = (foundUser, userPassword, homePage, avatarImg) => {
+    if(foundUser === undefined || foundUser.password !== userPassword) throw new Error('Wrong email or password', {cause: "ownError"})
+    goToHomePage(homePage, foundUser, avatarImg)
 }
