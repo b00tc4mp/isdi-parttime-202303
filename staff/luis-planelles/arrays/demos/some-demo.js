@@ -1,3 +1,4 @@
+//
 const array = [1, 2, 3, 4, 5];
 
 // Checks whether an element is even
@@ -31,7 +32,6 @@ function getBoolean(value) {
   if (typeof value === 'string') {
     value = value.toLowerCase().trim();
   }
-
   return some(TRUTHY_VALUES, (t) => t === value);
 }
 
@@ -39,3 +39,7 @@ console.log(getBoolean(false)); // false
 console.log(getBoolean('false')); // false
 console.log(getBoolean(1)); // true
 console.log(getBoolean('true')); // true
+
+console.log(some([1, , 3], (x) => x === undefined)); // false
+console.log(some([1, , 1], (x) => x !== 1)); // false
+console.log(some([1, undefined, 1], (x) => x !== 1)); // true

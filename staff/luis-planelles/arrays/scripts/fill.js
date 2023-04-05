@@ -1,4 +1,4 @@
-//
+
 const fill = (array, fillItem, startIndex = 0, endIndex = array.length) => {
   startIndex = startIndex < 0 ? array.length + startIndex : startIndex;
 

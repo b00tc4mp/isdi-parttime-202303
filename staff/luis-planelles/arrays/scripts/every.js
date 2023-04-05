@@ -1,4 +1,4 @@
-//
+
 const every = (array, callback) => {
   for (item of array) {
     if (item === undefined) {

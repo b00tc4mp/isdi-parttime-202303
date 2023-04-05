@@ -1,8 +1,9 @@
+//
 const map = (array, callback) => {
-  let arrayResult = [];
+  const mapped = [];
   for (i = 0; i < array.length; i++) {
-    arrayResult[i] = callback(array[i], i);
+    mapped[i] = callback(array[i], i);
   }
 
-  return arrayResult;
+  return mapped;
 };

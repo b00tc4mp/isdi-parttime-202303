@@ -1,4 +1,4 @@
-//
+
 const concat = (...args) => {
   let arrayResult = [];
 

@@ -1,11 +1,7 @@
 //
 const some = (array, callback) => {
-  for (item of array) {
-    if (item === undefined) {
-      continue;
-    }
-    const result = callback(item);
-    if (result) {
+  for (const index in array) {
+    if (callback(array[index])) {
       return true;
     }
   }
