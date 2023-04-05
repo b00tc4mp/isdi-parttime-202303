@@ -1,4 +1,4 @@
-import { clearForms, setAlert, setSimpleAlert } from './general-tools.js';
+import { clearForms, setAlert, setSimpleAlert } from './general-tools.mjs';
 
 export const displayLoginError = (message) => {
   if (message === 'username does not exist') {

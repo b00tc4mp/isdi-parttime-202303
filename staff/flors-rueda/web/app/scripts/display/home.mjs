@@ -5,7 +5,7 @@ import {
   setAlert,
   setOn,
   setPredeterminateAvatar,
-} from './general-tools.js';
+} from './general-tools.mjs';
 
 import { 
   validateUserPassword,
@@ -13,7 +13,7 @@ import {
   validateMail,
   validateNewPassword,
   validateName,
-} from '../validators.js';
+} from '../users/validators.mjs';
 
 import {
   findUser,
@@ -21,7 +21,7 @@ import {
   updateUserName,
   updateUserMail,
   updateUserAvatar,
-} from '../user-logic.js';
+} from '../users/utils.mjs';
 
 
 export const displayWelcome = (userAuth) => {

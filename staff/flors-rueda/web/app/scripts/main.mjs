@@ -1,7 +1,7 @@
-import { changeView, doRegister, doLogin, doLogout, authenticateUser, controlUsernameInput, } from './display/login-register.js';
-import { setOff, setOn, resetAlerts, setPredeterminateAvatar, clearForms } from './display/general-tools.js'
-import { setNewPassword, setNewUserInfo, displayProfile, setPlaceHolders, displayWelcome, getAvatarUrl } from './display/home.js'
-import { displayLoginError, displayRegisterError, displayChangePasswordError, displayEditUserError } from './display/errors.js';
+import { changeView, doRegister, doLogin, doLogout, authenticateUser, controlUsernameInput, } from './display/login-register.mjs';
+import { setOff, setOn, resetAlerts, setPredeterminateAvatar, clearForms } from './display/general-tools.mjs'
+import { setNewPassword, setNewUserInfo, displayProfile, setPlaceHolders, displayWelcome, getAvatarUrl } from './display/home.mjs'
+import { displayLoginError, displayRegisterError, displayChangePasswordError, displayEditUserError } from './display/errors.mjs';
 
 const register = document.querySelector('.register');
 const login = document.querySelector('.login');

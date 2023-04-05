@@ -1,12 +1,37 @@
-import {
-    isPasswordCorrect,
-    isMailRegistered,
-    isUsernameRegistered,
-    areNewOldPasswordsEqual,
-    isPasswordSafe,
-    confirmPassword,
-} from './user-logic.js';
+import users from './data.mjs'
 
+const isMailRegistered = (mail) => {
+  for (let i = 0; i < users.length; i++) {
+    if (users[i].mail === mail) return true;
+  };
+  return false;
+};
+
+const isUsernameRegistered = (username) => {
+  for (let i = 0; i < users.length; i++) {
+    if (users[i].username === username) return true;
+  };
+  return false;
+};
+
+const isPasswordCorrect = (username, password) => {
+  const loginUser = users.filter((user) => user.username === username);
+  return loginUser[0].password === password;
+};
+
+const areNewOldPasswordsEqual = (username, newPassword) => {
+  const loginUser = users.filter((user) => user.username === username);
+  return loginUser[0].password === newPassword;
+};
+
+const confirmPassword = (password, repeatPassword) => {
+  return password === repeatPassword;
+};
+
+export const isPasswordSafe = (password) => {
+  const regexRule = /^.[A-Z\a-z\d]{5,}$/
+  return regexRule.test(password);
+};
 
 export const validateMail = (mail) => {
   if(typeof mail !== 'string') throw new Error('mail is not an string');

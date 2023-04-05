@@ -23,3 +23,5 @@ users.push({
     password: 'Grunt123',
     avatar: 'https://static.wikia.nocookie.net/masseffectfanfiction/images/0/07/Grunt_released_from_the_tank.jpg',
 });
+
+export default users;

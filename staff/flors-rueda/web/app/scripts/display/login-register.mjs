@@ -5,11 +5,9 @@ import {
   setAlert,
   setOn,
   setPredeterminateAvatar,
-} from './general-tools.js';
+} from './general-tools.mjs';
 
-import {
-  addNewUser,
-} from '../user-logic.js';
+import { addNewUser, } from '../users/utils.mjs';
 
 import { 
   validateUserPassword, 
@@ -17,7 +15,7 @@ import {
   validateMail,
   validateNewPassword,
   validateNewUsername,
-} from '../validators.js';
+} from '../users/validators.mjs';
 
 export const authenticateUser = (user, password) => {
   resetAlerts();
