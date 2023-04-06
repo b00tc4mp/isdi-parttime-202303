@@ -87,7 +87,7 @@ let newAvatar;
 
 logout.addEventListener('click', (event) => {
   event.preventDefault();
-  setOff(profile, editProfile, changePassword, profileButtons, startHome)
+  setOff(profile, editProfile, changePassword, profileButtons, startHome, deleteAvatar)
   userAuth = undefined;
   doLogout(login, home);
 });
@@ -98,6 +98,7 @@ toUserProfile.addEventListener('click', (event) => {
   clearForms();
   setOn(profile, profileButtons);
   setOff(startHome, changePassword, editProfile);
+  toggleOff(deleteAvatar, setAvatar);
   displayProfile(userAuth);
 });
 
@@ -106,24 +107,24 @@ toHome.addEventListener('click', (event) => {
   newAvatar = undefined;
   clearForms();
   resetAlerts();
-  setOn(startHome);
-  setOff(profile, changePassword, editProfile, profileButtons);
+  setOn(startHome, setAvatar);
+  setOff(profile, changePassword, editProfile, profileButtons, deleteAvatar);
   displayWelcome(userAuth)
 });
 
 toChangePassword.addEventListener('click', (event) => {
   event.preventDefault();
   clearForms();
-  setOn(changePassword);
-  setOff(startHome, editProfile, profileButtons);
+  setOn(changePassword, setAvatar);
+  setOff(startHome, editProfile, profileButtons, deleteAvatar);
 });
 
 toEditProfile.addEventListener('click', (event) => {
   event.preventDefault();
   clearForms();
   setPlaceHolders(userAuth);
-  setOn(editProfile);
-  setOff(changePassword, startHome, profileButtons);
+  setOn(editProfile, setAvatar);
+  setOff(changePassword, startHome, profileButtons, deleteAvatar);
 });
 
 passwordForm.addEventListener('submit', (event) => {
