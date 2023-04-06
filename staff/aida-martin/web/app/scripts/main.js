@@ -20,15 +20,15 @@ const profilePanel = document.querySelector(".profile");
 const changePasswordForm = profilePanel.querySelector(".profile-password-form");
 const changeAvatarForm = profilePanel.querySelector(".profile-avatar-form");
 
-let authenticatedEmail;
+let authenticatedUserId;
 
 registerForm.onsubmit = function (event) {
   event.preventDefault();
 
-  const name = event.target.name.value.trim();
-  const email = event.target.email.value.trim();
-  const password = event.target.password.value.trim();
-  const repeatPassword = event.target.repeatpassword.value.trim();
+  const name = event.target.name.value;
+  const email = event.target.email.value;
+  const password = event.target.password.value;
+  const repeatPassword = event.target.repeatpassword.value;
   const registerError = registerPage.querySelector(".register-error");
 
   try {
@@ -37,8 +37,12 @@ registerForm.onsubmit = function (event) {
     hidden(registerPage);
     show(loginPage);
   } catch (error) {
-    show(registerError);
-    registerError.innerText = error.message;
+    if (error.cause === "userError") {
+      show(registerError);
+      registerError.innerText = error.message;
+      return;
+    }
+    console.log(error);
   }
 };
 
@@ -57,11 +61,9 @@ loginForm.onsubmit = function (event) {
   const loginError = loginPage.querySelector(".error");
 
   try {
-    authenticateUser(email, password);
+    authenticatedUserId = authenticateUser(email, password);
 
-    authenticatedEmail = email;
-
-    let user = retrieveUser(email);
+    const user = retrieveUser(authenticatedUserId);
 
     homePage.querySelector(".profile-link").innerText = user.name;
 
@@ -70,8 +72,12 @@ loginForm.onsubmit = function (event) {
     hidden(loginError, loginPage);
     show(homePage);
   } catch (error) {
-    show(loginError);
-    loginError.innerText = error.message;
+    if (error.cause === "userError") {
+      show(loginError);
+      loginError.innerText = error.message;
+      return;
+    }
+    console.log(error);
   }
 };
 
@@ -92,7 +98,7 @@ homePage.querySelector(".profile-link").onclick = function (event) {
 };
 
 homePage.querySelector(".profile-logout-button").onclick = function () {
-  authenticatedEmail = undefined;
+  authenticatedUserId = undefined;
 
   hidden(homePage, profilePanel);
   show(loginPage);
@@ -110,7 +116,7 @@ changePasswordForm.onsubmit = function (event) {
 
   try {
     changePassword(
-      authenticatedEmail,
+      authenticatedUserId,
       password,
       newPassword,
       newPasswordConfirm
@@ -119,8 +125,12 @@ changePasswordForm.onsubmit = function (event) {
     hidden(profilePanel);
     changePasswordForm.reset();
   } catch (error) {
-    show(changePasswordError);
-    changePasswordError.innerText = error.message;
+    if (error.cause === "userError") {
+      show(changePasswordError);
+      changePasswordError.innerText = error.message;
+      return;
+    }
+    console.log(error);
   }
 };
 
@@ -128,11 +138,21 @@ changeAvatarForm.onsubmit = function (event) {
   event.preventDefault();
 
   const avatar = event.target.url.value;
+  const changeAvatarError = profilePanel.querySelector(".update-avatar-error");
 
-  updateAvatar(authenticatedEmail, avatar);
+  try {
+    updateAvatar(authenticatedUserId, avatar);
 
-  homePage.querySelector("img").src = avatar;
+    homePage.querySelector("img").src = avatar;
 
-  hidden(profilePanel);
-  show(homePage);
+    hidden(profilePanel);
+    show(homePage);
+  } catch (error) {
+    if (error.cause === "userError") {
+      show(changeAvatarError);
+      changeAvatarError.innerText = error.message;
+      return;
+    }
+    console.log(error);
+  }
 };

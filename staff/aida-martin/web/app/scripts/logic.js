@@ -1,4 +1,9 @@
-import { validateEmail, validateName, validatePassword } from "./validators.js";
+import {
+  validateEmail,
+  validateName,
+  validatePassword,
+  validateUrl,
+} from "./validators.js";
 import { users } from "./data.js";
 
 export function registerUser(name, email, password, repeatPassword) {
@@ -6,18 +11,32 @@ export function registerUser(name, email, password, repeatPassword) {
   validateEmail(email);
   validatePassword(password);
 
-  let foundUser = findUserByEmail(email);
+  const foundUser = findUserByEmail(email);
 
   if (foundUser)
-    throw new Error("You are already registered! Please login! 😅");
+    throw new Error("You are already registered! Please login! 😅", {
+      cause: "userError",
+    });
 
-  if (password !== repeatPassword) throw new Error("Passwords do not match 😥");
+  if (password !== repeatPassword)
+    throw new Error("Passwords do not match 😥", { cause: "userError" });
+
+  let id = "user-1";
+
+  const lastUser = users[users.length - 1];
+
+  if (lastUser) {
+    id = "user-" + (parseInt(lastUser.id.slice(5)) + 1);
+  }
 
   users.push({
-    name: name,
-    email: email,
-    password: password,
+    id,
+    name,
+    email,
+    password,
   });
+
+  console.log(users);
 }
 
 export function authenticateUser(email, password) {
@@ -26,62 +45,72 @@ export function authenticateUser(email, password) {
 
   let foundUser = findUserByEmail(email);
 
-  if (!foundUser) throw new Error("User not found 😥");
+  if (!foundUser) throw new Error("User not found 😥", { cause: "userError" });
 
   if (foundUser.password !== password) {
-    throw new Error("Wrong password 😥");
+    throw new Error("Wrong password 😥", { cause: "userError" });
   }
+
+  return foundUser.id;
 }
 
-export function retrieveUser(email) {
-  validateEmail(email);
+export function retrieveUser(userId) {
+  let foundUser = findUserById(userId);
 
-  let foundUser = findUserByEmail(email);
+  if (!foundUser) throw new Error("User not found 😥", { cause: "userError" });
 
-  if (!foundUser) throw new Error("User not found 😥");
-
-  let user = {
+  const user = {
     name: foundUser.name,
-    email: foundUser.email,
-    avatar: "https://cdn-icons-png.flaticon.com/512/3135/3135823.png",
   };
+
+  if (foundUser.avatar) {
+    user.avatar = foundUser.avatar;
+  }
 
   return user;
 }
 
 export function changePassword(
-  email,
+  userId,
   password,
   newPassword,
   newPasswordConfirm
 ) {
-  validateEmail(email);
   validatePassword(password);
   validatePassword(newPassword, "New password");
   validatePassword(password);
 
-  let foundUser = findUserByEmail(email);
+  let foundUser = findUserById(userId);
 
-  if (!foundUser) throw new Error("User not found 😥");
-  if (password !== foundUser.password) throw new Error("Wrong password 😥");
+  if (!foundUser) throw new Error("User not found 😥", { cause: "userError" });
+  if (password !== foundUser.password)
+    throw new Error("Wrong password 😥", { cause: "userError" });
   if (newPassword !== newPasswordConfirm)
-    throw new Error("New passwords do not match 😥");
+    throw new Error("New passwords do not match 😥", { cause: "userError" });
   if (newPassword === password)
-    throw new Error("Your new password matches the current one 😥");
+    throw new Error("Your new password matches the current one 😥", {
+      cause: "userError",
+    });
   if (!newPasswordConfirm.length)
-    throw new Error("You have not confirm your new password 😥");
+    throw new Error("You have not confirm your new password 😥", {
+      cause: "userError",
+    });
   if (newPassword.length < 8)
-    throw new Error("Your password does not have 8 characters 😥");
+    throw new Error("Your password does not have 8 characters 😥", {
+      cause: "userError",
+    });
 
   foundUser.password = newPassword;
 }
 
-export function updateAvatar(email, avatar) {
-  validateEmail(email);
+export function updateAvatar(userId, url) {
+  validateUrl(url, "Avatar url");
 
-  let foundUser = findUserByEmail(email);
+  let foundUser = findUserById(userId);
 
-  foundUser.avatar = avatar;
+  if (!foundUser) throw new Error("User not found 😥", { cause: "userError" });
+
+  foundUser.avatar = url;
 }
 
 // helpers
@@ -93,4 +122,19 @@ function findUserByEmail(email) {
       return user;
     }
   }
+}
+
+function findUserById(userId) {
+  let foundUser;
+
+  for (let i = 0; i < users.length; i++) {
+    const user = users[i];
+
+    if (user.id === userId) {
+      foundUser = user;
+      break;
+    }
+  }
+
+  return foundUser;
 }

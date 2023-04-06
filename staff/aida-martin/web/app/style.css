@@ -150,7 +150,7 @@ h2 {
     color: #3b5f96;
 }
 
-.register-error, .login-error, .change-password-error {
+.register-error, .login-error, .change-password-error, .update-avatar-error {
     font-weight: 400;
     font-size: 0.563rem;
     text-align: center;
