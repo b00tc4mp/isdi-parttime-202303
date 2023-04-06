@@ -1,35 +1,37 @@
+import { users } from "./data.js"
 import { show, hide, toggle } from "./ui.js"
-import { checkUserExists, checkCredentials, updatePassword, updateEmail, updateAvatar } from "./logic.js"
+import { registerUser, checkCredentials, updatePassword, updateEmail, updateAvatar } from "./logic.js"
 
-var registrationPage = document.querySelector('.registration')
-var registerForm = registrationPage.querySelector('form')
+const registrationPage = document.querySelector('.registration')
+const registerForm = registrationPage.querySelector('form')
 
-var loginPage = document.querySelector('.login')
-var loginForm = loginPage.querySelector('form')
+const loginPage = document.querySelector('.login')
+const loginForm = loginPage.querySelector('form')
 
-var homePage = document.querySelector('.homepage')
-var updatePasswordForm = homePage.querySelector('.update-password')
-var updateEmailForm = homePage.querySelector('.update-mail')
-var updateAvatarForm = homePage.querySelector('.update-avatar')
-var topbarProfileRow = homePage.querySelector('.topbar-profile')
-var topbarActions =  homePage.querySelector('.topbar-actions')
-var homeProfile = homePage.querySelector('.profile') 
+const homePage = document.querySelector('.homepage')
+const updatePasswordForm = homePage.querySelector('.update-password')
+const updateEmailForm = homePage.querySelector('.update-mail')
+const updateAvatarForm = homePage.querySelector('.update-avatar')
+const topbarProfileRow = homePage.querySelector('.topbar-profile')
+const topbarActions =  homePage.querySelector('.topbar-actions')
+const homeProfile = homePage.querySelector('.profile') 
 
-var authenticatedName
-var authenticatedEmail
-var authenticatedPassword
+let authenticatedName
+let authenticatedEmail
+let authenticatedAvatar
+let authenticatedId
 
 //Registration
 registerForm.onsubmit = function(event){
     event.preventDefault()
     
-   var registrationName = registrationPage.querySelector('input[name=username]').value
-   var registrationEmail = registrationPage.querySelector('input[name=email]').value
-   var registrationPassword = registrationPage.querySelector('input[name=password]').value
-   var registrationRepPassword = registrationPage.querySelector('input[name=rep-password]').value
+   const registrationName = registrationPage.querySelector('input[name=username]').value
+   const registrationEmail = registrationPage.querySelector('input[name=email]').value
+   const registrationPassword = registrationPage.querySelector('input[name=password]').value
+   const registrationRepPassword = registrationPage.querySelector('input[name=rep-password]').value
 
    try {
-    checkUserExists(registrationName, registrationEmail, registrationPassword,registrationRepPassword)
+    registerUser(registrationName, registrationEmail, registrationPassword,registrationRepPassword)
     hide(registrationPage)
     show(loginPage)
    } catch (error) {
@@ -60,14 +62,15 @@ loginPage.querySelector('.create-account').querySelector('.link').addEventListen
 loginForm.onsubmit = function(event){
     event.preventDefault()
 
-    var inputEmail = event.target.email.value
-    var inputPassword = event.target.password.value
+    const inputEmail = event.target.email.value
+    const inputPassword = event.target.password.value
 
     try{
         checkCredentials(inputEmail, inputPassword)
         authenticatedEmail = inputEmail
-        authenticatedPassword = inputPassword
         authenticatedName = users.find((user) => user.email === authenticatedEmail).username
+        authenticatedId = users.find((user) => user.email === authenticatedEmail).id
+        authenticatedAvatar = users.find((user => user.email === authenticatedEmail)).avatar
 
         hide(loginPage)
         show(homePage)
@@ -119,12 +122,13 @@ homeProfile.querySelector('.link').onclick = function(event){
 homePage.querySelector('#save-update-password').addEventListener('click', function(event){
     event.preventDefault()
 
-    var currentPassword = homePage.querySelector('input[name=currentPassword]').value
-    var newPassword = homePage.querySelector('input[name=newPassword]').value
-    var confirmNewPassword = homePage.querySelector('input[name=confirmNewPassword]').value
+    const currentPassword = homePage.querySelector('input[name=currentPassword]').value
+    const newPassword = homePage.querySelector('input[name=newPassword]').value
+    const confirmNewPassword = homePage.querySelector('input[name=confirmNewPassword]').value
+    
 
     try{
-        updatePassword(users, authenticatedEmail, currentPassword, newPassword, confirmNewPassword)
+        updatePassword(authenticatedId, currentPassword, newPassword, confirmNewPassword)
         updatePasswordForm.querySelector('.success-message').textContent = "Your password has been updated!"
     } catch (error) {
         homePage.querySelector('.error-message').textContent = error.message
@@ -147,12 +151,12 @@ homePage.querySelector('#cancel-update-password').addEventListener('click', func
 homePage.querySelector('#save-update-email').addEventListener('click', function(event){
     event.preventDefault()
 
-    var currentEmail = homePage.querySelector('input[name=currentEmail]').value
-    var newEmail = homePage.querySelector('input[name=newEmail]').value
-    var confirmNewEmail = homePage.querySelector('input[name=confirmNewEmail]').value
+    const currentEmail = homePage.querySelector('input[name=currentEmail]').value
+    const newEmail = homePage.querySelector('input[name=newEmail]').value
+    const confirmNewEmail = homePage.querySelector('input[name=confirmNewEmail]').value
 
     try {
-        updateEmail(users, authenticatedEmail, currentEmail, newEmail, confirmNewEmail)
+        updateEmail(authenticatedEmail, currentEmail, newEmail, confirmNewEmail)
         updateEmailForm.querySelector('.success-message').textContent = "Your email has been updated!"
     } catch (error) {
         updateEmailForm.querySelector('.error-message').textContent = error.message
@@ -170,21 +174,39 @@ homePage.querySelector('#cancel-update-email').addEventListener('click', functio
     show(homeProfile)
 })
 
-//Confirm update avatar
-homePage.querySelector('.update-avatar').querySelector('.centered-form').onsubmit = function(event){
+// Confirm update avatar
+updateAvatarForm.querySelector('#save-update-avatar').addEventListener('click', function(event){
     event.preventDefault()
 
-    var avatarUrl = homePage.querySelector('.update-avatar').querySelector('input[name=avatar]').value
+    const avatarUrl = homePage.querySelector('.update-avatar').querySelector('input[name=avatar]').value
 
     try{
-        updateAvatar(authenticatedEmail, avatarUrl)
+        updateAvatar(authenticatedId, avatarUrl)
         
-        alert('avatar updted')
+        alert('avatar updated')
         homePage.querySelector('.topbar-avatar').src = avatarUrl
+        authenticatedAvatar = avatarUrl
+        updateAvatarForm.querySelector('.update-avatar-image-preview').src = avatarUrl
     } catch (error){
         homePage.querySelector('.update-avatar').querySelector('.error-message').textContent = error.message
     }
-}
+})
+
+// new update avatar
+// homePage.querySelector('.update-avatar').querySelector('input[name=avatar]').addEventListener('change', function(event){
+
+//     event.preventDefault()
+//     const uploadedFile = event.target.files
+
+//     try{
+//         const srcData = updateAvatar(authenticatedEmail, uploadedFile)
+//         updateAvatarForm.querySelector('.update-avatar-image-preview').src = srcData
+//         authenticatedAvatar = srcData
+//     } catch(error){
+//         homePage.querySelector('.update-avatar').querySelector('.error-message').textContent = error.message
+//     }
+// })
+
 
 homePage.querySelector('#cancel-update-avatar').addEventListener('click', function(event){
     event.preventDefault()

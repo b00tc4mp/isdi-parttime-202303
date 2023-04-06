@@ -1,40 +1,64 @@
-import { validateEmail, validatePassword, validateAvatarFormat } from "./validators.js"
 import { users } from "./data.js"
+import { validateEmail, validatePassword, validateAvatarFormat } from "./validators.js"
 
-export var checkUserExists = (registrationName, registrationEmail, registrationPassword,registrationRepPassword) => {
+export const registerUser = (registrationName, registrationEmail, registrationPassword,registrationRepPassword) => {
 
     validateEmail(registrationEmail)
     validatePassword(registrationPassword)
     validatePassword(registrationRepPassword, 'new password')
 
-    var foundUser = findUser(users, registrationEmail)
+    const foundUser = findUserbyEmail(users, registrationEmail)
 
     if (foundUser) throw new Error('User already exists')
 
     if(registrationPassword !== registrationRepPassword) throw new Error('Passwords do not match')
             
-    else{ users.push({
+    else{ 
+        
+        let id = 'user-1'
+        const lastUser = users[users.length - 1]
+        
+        id = 'user-' + (Number(lastUser.id.slice(5)) + 1)
+
+        users.push({
+                id,
                 username: registrationName,
                 email: registrationEmail,
                 password: registrationPassword
                })
+
+        console.log(users)
     }
 }
 
-export var checkCredentials = (inputEmail, inputPassword) => {
-    var foundUser = findUser(users, inputEmail)
+export const checkCredentials = (inputEmail, inputPassword) => {
+    const foundUser = findUserbyEmail(inputEmail)
 
-    if (!foundUser || foundUser.password !== inputPassword) throw new Error('Invalid email or password')
+    if (!foundUser) throw new Error('User not found')
+    if (foundUser.password !== inputPassword) throw new Error('Invalid email or password')
 }
 
-export var updatePassword = (users, authenticatedEmail, currentPassword, newPassword, confirmNewPassword) => {
+export const retrieveUser = () => {
+    let user =  findUserbyId(authenticatedId)
 
-    var foundUser = findUser(users, authenticatedEmail)
+    if(!user) throw new Error ('User not found')
+
+    else {
+        return user = {
+            name: user.username,
+            avatar: user.avatar
+        }
+    }
+}
+
+export const updatePassword = (authenticatedId, currentPassword, newPassword, confirmNewPassword) => {
+
+    const foundUser = findUserbyId(authenticatedId)
 
     if (!foundUser)
         throw new Error('User not found')
 
-    if (currentPassword !== authenticatedPassword)
+    if (currentPassword !== foundUser.password)
         throw new Error('Invalid current password')
 
     if (currentPassword === newPassword)
@@ -44,13 +68,13 @@ export var updatePassword = (users, authenticatedEmail, currentPassword, newPass
         throw new Error('New passwords do not match')
 
     foundUser.password = newPassword
-    authenticatedPassword = newPassword
+    console.log(users)
  }
 
 
-export var updateEmail = (users, authenticatedEmail, currentEmail, newEmail, confirmNewEmail) => {
+export const updateEmail = (authenticatedEmail, currentEmail, newEmail, confirmNewEmail) => {
 
-    var user = findUser(users, authenticatedEmail)
+    const user = findUserbyEmail(authenticatedEmail)
 
     if (!user)
     throw new Error('User not found')
@@ -68,17 +92,38 @@ export var updateEmail = (users, authenticatedEmail, currentEmail, newEmail, con
     authenticatedEmail = newEmail
 }
 
+//new update user
+// export const updateAvatar = (authenticatedEmail, uploadedFile) => {
 
-export var updateAvatar = (authenticatedEmail, avatarUrl) => {
+//     const user = findUserbyEmail(users, authenticatedEmail)
+
+//     if(!user) throw new Error ('User not found')
+
+//     else{
+//             const reader = new FileReader()
+//             const file = uploadedFile
+//             reader.onload = () => {
+//                     reader.result
+//             } 
+//             reader.readAsDataURL(file)
+//             URL.createObjectURL(file)
+//         }
+// } 
+
+export const updateAvatar = (authenticatedId, avatarUrl) => {
 
     validateAvatarFormat(avatarUrl)
-    var user = findUser(users, authenticatedEmail)
+    const user = findUserbyId(authenticatedId)
     if (!user)
     throw new Error('User not found')
 
     user.avatar = avatarUrl
 } 
 
-var findUser = (users, authenticatedEmail) => {
+const findUserbyEmail = (authenticatedEmail) => {
     return users.find(user => user.email === authenticatedEmail)
+ }
+
+ const findUserbyId = (authenticatedId) => {
+    return users.find(user => user.id === authenticatedId)
  }

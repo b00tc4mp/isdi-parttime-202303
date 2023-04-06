@@ -286,6 +286,10 @@ color: var(--accent-purple-hover);
     border-radius: 100px;
 }
 
+.update-avatar-image-preview{
+    width: 100px;
+    height: auto;
+}
 
 .logo-and-hello{
     display: flex;
@@ -318,12 +322,6 @@ color: var(--accent-purple-hover);
     .home-logo{
         font-size: 32px; 
     }
-    /* .logo-and-hello{
-        margin-left: 40px;
-    }
-    .topbar-actions{
-        margin-right: 40px;
-    } */
 }
 
 .profile{
