@@ -1,19 +1,19 @@
-function validateName(name) {
+export function validateName(name) {
     if(typeof email !== 'string') throw new Error('Email is not a string')
     if(!email.trim().length) throw new Error('Email is empty')
 }
-function validateEmail(email) {
+export function validateEmail(email) {
     if(typeof email !== 'string') throw new Error('Email is not a string')
     if(!email.trim().length) throw new Error('Email is empty')
 }
-function validatePassword(password) {
+export function validatePassword(password) {
     if(!password.trim().length) throw new Error('Password is empty')
 
     if(!password.trim().length > 8) throw new Error('Password must be higher than 8 characters')
 }
-function validateNewPassword(password, newPassword, repeatPassword, email) {
+export function validateNewPassword(newPassword, repeatPassword, user) {
 
-    if(password.trim() !== email.password) 
+    if(password.trim() !== user.password) 
         throw new Error('Not your current password')
     
     if(email.password === newPassword) {
@@ -23,7 +23,7 @@ function validateNewPassword(password, newPassword, repeatPassword, email) {
     
     if(newPassword !== repeatPassword) 
         throw new Error('New password does not match')
-
+        validateNewPassword
     if(!password.trim().length) 
         throw new Error('Password is empty')
 

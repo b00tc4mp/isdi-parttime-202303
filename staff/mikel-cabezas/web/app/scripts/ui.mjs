@@ -1,27 +1,27 @@
-function deleteClassOnContainer(container, ...classToDelete) {
+export function deleteClassOnContainer(container, ...classToDelete) {
     container.classList.remove(...classToDelete);
 } 
 
-function addClassOnContainer(container, ...classToAdd) {
+export function addClassOnContainer(container, ...classToAdd) {
     container.classList.add(...classToAdd)    
 }
 
-function changeMessageOnContainer(container, message, messageType) {
+export function changeMessageOnContainer(container, message, messageType) {
     container.innerHTML = message;
     container.classList.add(messageType);
 
 }
-function clearMessageContainer(container) {
+export function clearMessageContainer(container) {
     container.classList.remove('success');
     container.classList.remove('error');
     container.innerHTML = '';
 } 
-function toggleOffClassInSection(...containers) {
+export function toggleOffClassInSection(...containers) {
     for(var i = 0; i < containers.length; i++)  
         containers[i].classList.toggle('off')
 }
 
-function showHidePassword (container, passwordContainer) {
+export function showHidePassword (container, passwordContainer) {
     var icon = container.querySelector(passwordContainer + '> i')
     
     if(icon.classList.contains('uil-eye')) {

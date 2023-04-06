@@ -1,4 +1,9 @@
-function registerUser(name, email, password) {
+import {users} from './data.mjs'
+import {registerPage, loginPage, homePage, bodyPage, menuHeader, userAccount, registerPageMessage, loginPageMessage, userPageMessage, currentUserID as currentUserId} from './main.mjs'
+console.log(users)
+import {validateEmail, validatePassword, validateNewPassword} from './validators.mjs'
+import { toggleOffClassInSection, deleteClassOnContainer } from './ui.mjs'
+export function registerUser(name, email, password) {
     validateEmail(email)
     validatePassword(password)
     var checkEmail = users.find(user => user.email === email)
@@ -8,6 +13,8 @@ function registerUser(name, email, password) {
     if(checkEmail !== email) {
         name = name.trim()
         users.push({
+            id: 'user-' + parseInt(users.length + 1),
+            // id: users[users.length].slice(5) + parseInt(users.length + 1),
             name: name,
             email: email,
             password: password
@@ -16,23 +23,23 @@ function registerUser(name, email, password) {
     }
 }
 
-function authenticateUser(email, password)  {
-    console.log(email)
-    var checkEmail = users.find(user => user.email === email)
+export function authenticateUser(email, password)  {
+    var checkUserId = users.find(user => user.email === email)
     var checkPassword = users.find(user => user.password === password)
     
-    if (!checkEmail) {
+    if (!checkUserId) {
         throw new Error('User or password incorrect')
     }
 
     if (!checkPassword) {
         throw new Error('User or password incorrect')
     }
+    return checkUserId.id
 }
 
-function getUserName(email) {
+export function getUserName(email) {
 
-    var userID = users.map(user => user.email).indexOf(email) 
+    const userID = users.map(user => user.email).indexOf(email) 
 
     if (userID === -1) {
         throw new Error('User or password incorrect')
@@ -42,30 +49,30 @@ function getUserName(email) {
         return users[userID].name
     }
 }
-function getCurrentUser(email) {
-    var userID = users.map(user => user.email).indexOf(currentUserEmail) 
+export function getCurrentUser(id) {
+    var userID = users.map(user => user.id).indexOf(currentUserId) 
     if (userID !== -1) {
-        return email
+        return id
     }
 }
 
-function pushUserDataInForm(email) {
-    var userID = users.map(user => user.email).indexOf(email) 
-    if (users[userID].email === email) {
+export function pushUserDataInForm(id) {
+    var userID = users.map(user => user.id).indexOf(id) 
+    if (users[userID].id === id) {
         userAccount.querySelector('form.user-info input[name="name"]').value = users[userID].name
         userAccount.querySelector('form.user-info input[name="email"]').value = users[userID].email
         userAccount.querySelector('form.user-password input.current-password').value = users[userID].password
-        currentUserEmail = email
+        const currentUserId = id
     }
 }
 
-function updateUserName(user) {
+export function updateUserName(user) {
     var newName = userAccount.querySelector('form.user-info input[name="name"]').value
         user.name = newName
 }
-function updateUserEmail(currentEmail, newEmail) {
+export function updateUserEmail(currentId, newEmail) {
     var newEmail = userAccount.querySelector('form.user-info input[name="email"]').value
-    var userID = users.map(user => user.email).indexOf(currentEmail)
+    var userID = users.map(user => user.id).indexOf(currentId)
 
     // var userSessionChecker = users.email.find(user => user.email === email)
     validateEmail(newEmail)
@@ -82,15 +89,18 @@ function updateUserEmail(currentEmail, newEmail) {
         }
  }
 
-function updateUserPassword(email) {
-    var userID = users.map(user => user.email).indexOf(email) 
-    var currentPassword = userAccount.querySelector('form.user-password input.current-password').value
-    var newPassword = userAccount.querySelector('form.user-password input.new-password').value
-    var repeatPassword = userAccount.querySelector('form.user-password input.repeat-password').value
+export function updateUserPassword(currentId) {
+    // var userID = users.map(user => user.id).indexOf(id) 
+        var userID = users.map(user => user.id).indexOf(currentId)
 
-    validateNewPassword(currentPassword, newPassword, repeatPassword, users[userID])
+    var currentPassword = userAccount.querySelector('form.user-password input.current-password')
+    var newPassword = userAccount.querySelector('form.user-password input.new-password')
+    var repeatPassword = userAccount.querySelector('form.user-password input.repeat-password')
+    console.log(currentId)
+    console.log(userID)
+    validateNewPassword(currentPassword.value, newPassword.value, repeatPassword.value, userID)
 
-    users[userID].password = newPassword
+    userID.password = newPassword.value
     currentPassword.disabled = true
     newPassword.disabled = true
     repeatPassword.disabled = true
@@ -100,7 +110,7 @@ function updateUserPassword(email) {
     return userAccount.querySelector('p.message').innerHTML = 'Password changed!'
 }
 
-function updateUserImage(user) {
+export function updateUserImage(user) {
     var avatar = userAccount.querySelector('.avatar img.image-profile')
     var imageInput = userAccount.querySelector('form.user-info input[name="file"]')
     user.imageProfile = avatar.src
@@ -109,8 +119,8 @@ function updateUserImage(user) {
     imageInput.value = ""
 }
 
-function logOut() {
-    currentUserEmail = ''
+export function logOut() {
+    const currentUserEmail = ''
     toggleOffClassInSection(userAccount)
     deleteClassOnContainer(loginPage, 'off')
     deleteClassOnContainer(bodyPage, 'logged-in')
