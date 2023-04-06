@@ -1,13 +1,13 @@
 // data
+console.log("load data")
 
-var users = []
+export const users = []
 
 users.push({
     name: 'Wendy Darling',
     email: 'wendy@darling.com',
     password: 'WendyDarling22!'
 })
-
 users.push({
     name: 'Peter Pan',
     email: 'peter@pan.com',
@@ -18,7 +18,6 @@ users.push({
     email: 'pepito@grillo.com',
     password: 'PepitoGrillo22!'
 })
-
 users.push({
     name: 'Lucas Diaz',
     email: 'lucas@gmail.com',

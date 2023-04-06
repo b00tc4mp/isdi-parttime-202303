@@ -1,3 +1,6 @@
+import { registerUser, cleanChangePasswordForm, vanishWarningIn3Seconds, authenticateUser, addUserNameInHeader, resetUserNameInHeader, updateUserPassword, updateUserAvatar } from "./logic.mjs";
+import { show, hide, toggle, addClass, removeClass  } from "./ui.mjs";
+
 // presentation
 //*VARIABLES DE REGISTER
 const registerPage = document.querySelector(".register");
@@ -49,15 +52,16 @@ registerPage.querySelector(".register form").addEventListener('submit', function
 
 //! PARTE DE LOGIN
 logInForm.addEventListener('submit', function (event) {
+
     event.preventDefault();
-    var temporalUser = {
+    const temporalUser = {
         email: event.target.email.value,
         password: event.target.password.value
     }
     try{
         authenticateUser(temporalUser);
         authenticatedEmail = temporalUser.email;
-        addUserNameInHeader(authenticatedEmail);
+        addUserNameInHeader(authenticatedEmail,welcomeMessage);
         hide(logInPage);
         show(homePage);
     }catch(error){
@@ -76,7 +80,7 @@ logOutButton.onclick = () => {
     headerMenu.classList.remove("home-menu-transition");
     show(logInPage);
     authenticatedEmail = undefined;
-    resetUserNameInHeader();
+    resetUserNameInHeader(welcomeMessage);
 }
 settingsButton.onclick = () => {
     headerMenu.classList.toggle("home-menu-transition");
@@ -99,9 +103,9 @@ cancelChangePasswordButton.onclick = (event) => {
 }
 changePasswordForm.onsubmit = (event) => {
     event.preventDefault();
-    let oldPassword = document.querySelector(".old-password");
-    let newPassword = document.querySelector(".new-password");
-    let newPasswordRepetition = document.querySelector(".new-password-repetition");
+    const oldPassword = document.querySelector(".old-password");
+    const newPassword = document.querySelector(".new-password");
+    const newPasswordRepetition = document.querySelector(".new-password-repetition");
     
     try{
         updateUserPassword(authenticatedEmail, oldPassword, newPassword, newPasswordRepetition);
@@ -129,7 +133,7 @@ cancelUpdateAvatarButton.onclick = (event) => {
 }
 updateAvatarForm.addEventListener("submit", (event) => {
     event.preventDefault();
-    var url = event.target.url.value;
+    const url = event.target.url.value;
     try {
         updateUserAvatar(authenticatedEmail, url);
         show(document.querySelector(".success-avatar-warning"));
