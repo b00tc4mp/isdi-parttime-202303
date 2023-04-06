@@ -1,0 +1,36 @@
+/* ___ GENERAL ______ */
+html {
+    height: 100vh;
+}
+body {
+    background: #150d1b;
+    height:500vh;
+}
+
+/* canvas {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    max-height: 100vh;
+    max-width: 100vw;
+    transform: translate(-50%, -50%);
+} */
+
+.canvas {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-self: center;
+    justify-content: center;
+}
+
+canvas {
+    position: sticky;
+    left: auto;
+    right: auto;
+    top: 0px;
+    max-height: 100vh;
+    max-width: 100vw;
+    /* transform: translate(-50%, -50%); */
+}
