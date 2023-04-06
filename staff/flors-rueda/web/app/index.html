@@ -5,7 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./styles/style.css" />
-    <script type="module" src="./scripts/main.mjs" defer></script>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <script type="module" src="./src/main.mjs" defer></script>
     <title>App</title>
 </head>
 <body>
@@ -25,7 +26,7 @@
         </form>
         <div class="change-view">Already have an account? <a class="change-view-link">Sign in</a></div>
     </div>
-    <div class="login off">
+    <div class="login">
         <h1>Login</h1>
         <div class="alert off area-login"></div>
         <form class="login-form" method="get">
@@ -37,7 +38,7 @@
         </form>
         <div class="change-view">You're new here? <a class="change-view-link">Sign up</a></div>
     </div>
-    <div class="home">
+    <div class="home off">
         <header>
             <nav class="navbar">
                 <button class="logout">
@@ -56,7 +57,7 @@
             <h1>Home</h1>
                 <p class="welcome"></p>
             </div>
-            <div class="user-profile">
+            <div class="user-profile off">
                 <h1>Your profile</h1>
                 <div class="alert area-profile"></div>
                 <div class="profile-card">
@@ -76,7 +77,7 @@
                 <button>open</button>
                 <button>inside</button>
             </div>
-            <div class="edit-profile">
+            <div class="edit-profile off">
                 <h2>Edit profile</h2>
                 <div class="alert off area-edit"></div>
                 <form class="edit-form" method="get">

@@ -1,27 +1,8 @@
-import {
-  toggleOff,
-  clearForms,
-  resetAlerts,
-  setAlert,
-  setOn,
-  setPredeterminateAvatar,
-} from './general-tools.mjs';
+import { toggleOff, clearForms, resetAlerts, setAlert, setPredeterminateAvatar, } from './general-tools.mjs';
 
-import { 
-  validateUserPassword,
-  validatePasswordChange,
-  validateMail,
-  validateNewPassword,
-  validateName,
-} from '../users/validators.mjs';
+import { validateUserPassword, validatePasswordChange, validateMail, validateNewPassword, validateName, } from '../users/validators.mjs';
 
-import {
-  findUser,
-  updateUserPassword,
-  updateUserName,
-  updateUserMail,
-  updateUserAvatar,
-} from '../users/utils.mjs';
+import { findUser, updateUserPassword, updateUserName, updateUserMail, updateUserAvatar, } from '../users/data-managers.mjs';
 
 
 export const displayWelcome = (userAuth) => {

@@ -1,73 +1,16 @@
-import { changeView, doRegister, doLogin, doLogout, authenticateUser, controlUsernameInput, } from './display/login-register.mjs';
-import { setOff, setOn, toggleOff, resetAlerts, setPredeterminateAvatar, clearForms } from './display/general-tools.mjs'
-import { setNewPassword, setNewUserInfo, displayProfile, setPlaceHolders, displayWelcome, getAvatarUrl } from './display/home.mjs'
-import { displayLoginError, displayRegisterError, displayChangePasswordError, displayEditUserError } from './display/errors.mjs';
+import { context } from '../display/general-tools.mjs';
+import { login } from './login-page.mjs';
+import { doLogout, } from '../display/login-register.mjs';
+import { setOff, setOn, toggleOff, resetAlerts, setPredeterminateAvatar, clearForms } from '../display/general-tools.mjs'
+import { setNewPassword, setNewUserInfo, displayProfile, setPlaceHolders, displayWelcome, getAvatarUrl } from '../display/home.mjs'
+import { displayChangePasswordError, displayEditUserError } from '../ui/errors.mjs';
 
-const register = document.querySelector('.register');
-const login = document.querySelector('.login');
-const home = document.querySelector('.home');
+export const home = document.querySelector('.home');
+export const startHome = document.querySelector('.home-start');
 const profile = document.querySelector('.user-profile');
 const editProfile = document.querySelector('.edit-profile');
 const changePassword = document.querySelector('.change-password');
-const startHome = document.querySelector('.home-start');
 const profileButtons = document.querySelector('.profile-buttons');
-
-
-// Login & Register
-
-const checkbox = document.querySelector('.mode-checkbox');
-const loginForm = document.querySelector('.login-form');
-const registerForm = document.querySelector('.register-form');
-const changeViewLinks = document.querySelectorAll('.change-view-link');
-const usernameRegister = document.querySelector('.register-form').querySelector('input[name="username"]');
-const usernameLogin = document.querySelector('.login-form').querySelector('input[name="username"]');
-
-let userAuth;
-
-usernameRegister.addEventListener('input', (event) => {
-  controlUsernameInput(usernameRegister);
-});
-
-usernameLogin.addEventListener('input', (event) => {
-  controlUsernameInput(usernameLogin);
-});
-
-checkbox.addEventListener('change', (event) => {
-  event.preventDefault();
-  document.body.classList.toggle('dark-mode');
-});
-
-changeViewLinks.forEach((link) => {
-  link.addEventListener('click', (event) => {
-    event.preventDefault();
-    changeView(register, login);
-  });
-});
-
-registerForm.addEventListener('submit', (event) => {
-  event.preventDefault();
-  try {
-    doRegister(register, login);
-  } catch (error) {
-    displayRegisterError(error.message);
-  }
-});
-
-loginForm.addEventListener('submit', (event) => {
-  event.preventDefault();
-  const username = document.querySelector('.login-form').querySelector('input[name="username"]').value;
-  const password = document.querySelector('.login-form').querySelector('input[name="password"]').value;
-  try {
-    userAuth = authenticateUser(username, password);
-    doLogin(login, home, startHome);
-    displayWelcome(userAuth)
-  } catch (error) {
-    displayLoginError(error.message);
-  }
-});
-
-
-// Home
 
 const logout = document.querySelector('.logout');
 const toUserProfile = document.querySelector('.to-user-profile');
@@ -88,7 +31,7 @@ let newAvatar;
 logout.addEventListener('click', (event) => {
   event.preventDefault();
   setOff(profile, editProfile, changePassword, profileButtons, startHome, deleteAvatar)
-  userAuth = undefined;
+  context.userAuth = undefined;
   doLogout(login, home);
 });
 
@@ -99,7 +42,7 @@ toUserProfile.addEventListener('click', (event) => {
   setOn(profile, profileButtons);
   setOff(startHome, changePassword, editProfile);
   toggleOff(deleteAvatar, setAvatar);
-  displayProfile(userAuth);
+  displayProfile(context.userAuth);
 });
 
 toHome.addEventListener('click', (event) => {
@@ -109,7 +52,7 @@ toHome.addEventListener('click', (event) => {
   resetAlerts();
   setOn(startHome, setAvatar);
   setOff(profile, changePassword, editProfile, profileButtons, deleteAvatar);
-  displayWelcome(userAuth)
+  displayWelcome(context.userAuth)
 });
 
 toChangePassword.addEventListener('click', (event) => {
@@ -130,8 +73,8 @@ toEditProfile.addEventListener('click', (event) => {
 passwordForm.addEventListener('submit', (event) => {
   event.preventDefault();
   try {
-    setNewPassword(userAuth, profileButtons, changePassword);
-    displayProfile(userAuth);
+    setNewPassword(context.userAuth, profileButtons, changePassword);
+    displayProfile(context.userAuth);
   } catch (error) {
     displayChangePasswordError(error.message);
   }
@@ -152,19 +95,17 @@ deleteAvatar.addEventListener('click', (event) => {
   event.preventDefault();
   newAvatar = undefined;
   temporalAvatar.value = '';
-  setPredeterminateAvatar(userAuth);
+  setPredeterminateAvatar(context.userAuth);
   toggleOff(deleteAvatar, setAvatar);
-  displayProfile(userAuth);
+  displayProfile(context.userAuth);
 });
 
 editForm.addEventListener('submit', (event) => {
   event.preventDefault();
   try {
-    setNewUserInfo(userAuth, profileButtons, editProfile, newAvatar);
-    displayProfile(userAuth);
+    setNewUserInfo(context.userAuth, profileButtons, editProfile, newAvatar);
+    displayProfile(context.userAuth);
   } catch (error) {
     displayEditUserError(error.message);
   }
 });
-
-

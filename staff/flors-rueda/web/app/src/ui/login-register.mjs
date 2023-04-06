@@ -7,7 +7,7 @@ import {
   setPredeterminateAvatar,
 } from './general-tools.mjs';
 
-import { addNewUser, getId } from '../users/utils.mjs';
+import { addNewUser, getId } from '../users/data-managers.mjs';
 
 import { 
   validateUserPassword, 

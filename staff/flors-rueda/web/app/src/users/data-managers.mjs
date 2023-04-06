@@ -1,5 +1,7 @@
 import users from './data.mjs'
 
+//TODO organize logic
+
 export const getId = (username) => {
   const loginUser = users.filter((user) => user.username === username);
   return loginUser[0].id;
@@ -13,7 +15,6 @@ export const findUser = (id) => {
     mail: loginUser[0].mail,
     avatar: loginUser[0].avatar,
   };
-  console.log(users)
   return user;
 }
 
