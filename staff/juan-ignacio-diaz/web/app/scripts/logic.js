@@ -1,5 +1,5 @@
-import {users} from "./data.js"
-import {validateEmail, validateName, validatePassword, validateUrl} from "./validators.js"
+import {users, posts} from "./data.js"
+import {validateId, validateEmail, validateName, validatePassword, validateUrl} from "./validators.js"
 
 export function registerUser (name, email, password) {
     validateName(name)
@@ -10,11 +10,11 @@ export function registerUser (name, email, password) {
         throw new Error("user already exists")
 
     users.push ({
-        name: username,
+        id: newUserId(),
+        name: name,
         email: email,
         password: password
     })
-
 }
 
 export function authenticateUser(email, password) {
@@ -25,13 +25,15 @@ export function authenticateUser(email, password) {
 
     if (!foundUser || foundUser.password !== password) 
         throw new Error("wrong email or password")
+    
+    return foundUser.id
 }
 
-export function updateUserAvatar(email, avatar) {
-    validateEmail(email)
+export function updateUserAvatar(userId, avatar) {
+    validateId(userId)
     validateUrl(avatar, 'avatar url')
 
-    const foundUser = findUserByEmail(email)
+    const foundUser = findUserById(userId)
 
     if (!foundUser)
         throw new Error('user not found')
@@ -39,9 +41,8 @@ export function updateUserAvatar(email, avatar) {
     foundUser.avatar = avatar
 }
 
-
-export function updateUserPassword(email, password, newPassword, newPasswordConfirm) {
-    validateEmail(email)
+export function updateUserPassword(userId, password, newPassword, newPasswordConfirm) {
+    validateId(userId)
     validatePassword(password)
     validatePassword(newPassword, 'new password')
     validatePassword(newPasswordConfirm, 'new password confirm')
@@ -50,7 +51,7 @@ export function updateUserPassword(email, password, newPassword, newPasswordConf
 
     if (newPassword !== newPasswordConfirm) throw new Error("the confirm password is different than then new password", {cause: "newPasswordConfirm"})
 
-    const foundUser = findUserByEmail(email)
+    const foundUser = findUserById(userId)
 
     if (!foundUser) throw new Error("Error to user")
     if (foundUser.password !== password)  throw new Error("Error the pasword is invalid", {cause: "password"})
@@ -58,22 +59,49 @@ export function updateUserPassword(email, password, newPassword, newPasswordConf
     foundUser.password = newPassword
 }
 
-export function retrieveUser (email) {
-    validateEmail(email)
+export function retrieveUser(userId) {
+    validateId(userId)
 
-    const foundUser = findUserByEmail(email)
+    const foundUser = findUserById(userId)
     if (!foundUser) throw new Error("Error to user")
    
-    var user = {
+    const user = {
+        id: foundUser.id,
         name: foundUser.name,
-        email: foundUser.email
     }
 
-    return user
+    if (foundUser.avatar)
+        user.avatar = foundUser.avatar
 
+    return user
 }
 
+//helpers
 
+function newUserId() {
+    let userId = 'user-1'
+
+    const lastUser = users[users.length - 1]
+
+    if (lastUser)
+        userId = 'user-' + (parseInt(lastUser.id.slice(5)) + 1)
+
+    return userId
+}
+
+function findUserById(userId) {
+    let foundUser
+
+    for (const user of users) {
+        if (user.id === userId) {
+            foundUser = user
+
+            break
+        }
+    }
+
+    return foundUser
+}
 
 function findUserByEmail(email) {
     let foundUser

@@ -10,6 +10,11 @@ const correctPassword ="Correct password: \n"
     +"-The string must contain at least one special character, but we are escaping reserved RegEx characters to avoid conflict \n"
     +"-The string must be eight characters or longer \n"
 
+export function validateId(id, explain = 'id') {
+    if (typeof id !== 'string') throw new Error(`${explain} is not a string`)
+    if (!id.trim().length) throw new Error(`${explain} is empty`)
+}
+
 export function validateEmail(email, cause) {
     if (typeof email !== 'string') throw new Error('email is not an string', {cause: "email"})
     if (!email.trim().length) throw new Error('email is empty', {cause: "email"})

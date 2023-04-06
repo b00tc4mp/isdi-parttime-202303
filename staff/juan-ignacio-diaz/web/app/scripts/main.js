@@ -1,8 +1,7 @@
 import {registerUser, authenticateUser, updateUserAvatar, updateUserPassword, retrieveUser} from "./logic.js"
 import {show, hide, toggle} from "./ui.js"
 
-
-let authenticatedEmail
+let authenticatedUserId
 
 const registerPage = document.querySelector(".register")
 const registerForm = registerPage.querySelector('form')
@@ -21,23 +20,21 @@ const updateUserPasswordForm = profilePanel.querySelector('.profile-password-for
 registerForm.onsubmit = function (event) {
     event.preventDefault()
 
-    event.target.name.remove("imput-highlight")
-    event.target.email.remove("imput-highlight")
-    event.target.password.remove("imput-highlight")
+    event.target.name.classList.remove("imput-highlight")
+    event.target.email.classList.remove("imput-highlight")
+    event.target.password.classList.remove("imput-highlight")
 
-    const username = event.target.name.value
+    const name = event.target.name.value
     const email = event.target.email.value
     const password = event.target.password.value
 
     try {
-        registerUser(username, email, password)
+        registerUser(name, email, password)
+
+        registerForm.reset()
 
         hide(registerPage)
         show(loginPage)
-
-        event.target.name.value = ""
-        event.target.email.value = ""
-        event.target.password.value = ""
     }
     catch (error) {
         alert(error.message)
@@ -72,14 +69,13 @@ loginForm.onsubmit = function (event) {
     const password = event.target.password.value
 
     try {
-        authenticateUser(email, password)
+        authenticatedUserId = authenticateUser(email, password)
 
-        openSession(retrieveUser(email))
+        openSession(retrieveUser(authenticatedUserId))
+
+        loginForm.reset()
 
         hide(loginPage)
-
-        event.target.password.value = ""
-
     }
     catch(error) {
         alert(error.message)
@@ -105,11 +101,13 @@ updateUserAvatarForm.onsubmit = function (event) {
     const url = event.target.url.value
 
     try {
-        updateUserAvatar(authenticatedEmail, url)
+        updateUserAvatar(authenticatedUserId, url)
 
         alert('avatar updated')
 
         avatarImage.src = url
+        
+        updateUserAvatarForm.reset()
     } catch (error) {
         alert(error.message)
     }
@@ -132,18 +130,14 @@ updateUserPasswordForm.onsubmit = function (event) {
     const newPassword = event.target.newPassword.value
     const newPasswordConfirm = event.target.newPasswordConfirm.value
 
-    
     try {
-        updateUserPassword(authenticatedEmail, password, newPassword, newPasswordConfirm)
+        updateUserPassword(authenticatedUserId, password, newPassword, newPasswordConfirm)
         
         alert("the password is update")
 
-        event.target.password.value = ""
-        event.target.newPassword.value = ""
-        event.target.newPasswordConfirm.cvalue = ""
+        updateUserPasswordForm.reset()
     }
     catch (error) {
-
         alert(error.message)
 
         if (error.cause === "password") {
@@ -163,27 +157,21 @@ updateUserPasswordForm.onsubmit = function (event) {
 }
 
 function openSession(user) {
-    authenticatedEmail = user.email 
+    authenticatedUserId = user.id 
 
     show(homePage)
     hide(profilePanel)
 
-    homePage.querySelector(".name").innerText  = "Helo, " +user.name
+    homePage.querySelector(".name").innerText  = user.name
 
     if (user.avatar)
     avatarImage.src = user.avatar
-
 }
 
 function closeSession() {
-    authenticatedEmail = ""
+    authenticatedUserId = ""
 
     homePage.querySelector(".name").innerText  = ""
 
     show(loginPage)
 }
-
-
-// cambiar layout de home 2035
-//añadir avatar
-// cargar avatar si exite
