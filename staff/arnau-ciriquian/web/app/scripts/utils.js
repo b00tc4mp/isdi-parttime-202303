@@ -1,11 +1,14 @@
-var loginEye = loginPage.querySelector('.login-eye')
-var registerNewEye = registerPage.querySelector('.register-eye')
-var registerConfirmEye = registerPage.querySelector('.register-confirm-eye')
-var usernameEye = homePageUsername.querySelector('.username-eye')
-var emailEye = homePageEmail.querySelector('.email-eye')
-var oldEye = homePagePassword.querySelector('.old-eye')
-var newEye = homePagePassword.querySelector('.new-eye')
-var newConfirmEye = homePagePassword.querySelector('.new-confirm-eye')
+import { actualPasswordEyeToggle } from "./logic.js"
+import { loginPage, registerPage, homePageEmail, homePageUsername, homePagePassword } from "./main.js"
+
+const loginEye = loginPage.querySelector('.login-eye')
+const registerNewEye = registerPage.querySelector('.register-eye')
+const registerConfirmEye = registerPage.querySelector('.register-confirm-eye')
+const usernameEye = homePageUsername.querySelector('.username-eye')
+const emailEye = homePageEmail.querySelector('.email-eye')
+const oldEye = homePagePassword.querySelector('.old-eye')
+const newEye = homePagePassword.querySelector('.new-eye')
+const newConfirmEye = homePagePassword.querySelector('.new-confirm-eye')
 
 loginEye.onclick = function(event){
     event.target.classList.toggle('fa-eye-slash')
@@ -47,6 +50,6 @@ newConfirmEye.onclick = function(event){
     actualPasswordEyeToggle(homePagePassword, '.new__password--confirm')
 }
 
-function showHideContainer(...containers) {
+export function showHideContainer(...containers) {
     containers.forEach(container => container.classList.toggle('off'))
 }

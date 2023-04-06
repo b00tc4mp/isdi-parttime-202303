@@ -1,4 +1,4 @@
-var users = [];
+export const users = [];
 
 users.push({
     name: 'Wendy Darling',
@@ -18,16 +18,16 @@ users.push({
     password: '123123123',
 })
 
-function findUserByEmail(email) {
-    var foundUser
+export function findUserByEmail(email) {
+    let foundUser
 
-    for (var i = 0; i < users.length; i++) {
-        var user = users[i]
+    for (let i = 0; i < users.length; i++) {
+        const user = users[i]
 
         if (user.email === email) {
             foundUser = user
-
-            break
+            return foundUser
+            // break
         }
     }
 

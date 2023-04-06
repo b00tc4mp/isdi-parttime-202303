@@ -1,8 +1,13 @@
-function addNewUser(name, email, password, passwordConfirm) {
+import { validateEmail, validateName, validateNewPassword, validatePasswordConfirm, validatePassword } from './validators.js'
+import { findUserByEmail, users } from './data.js'
+import { /*loggedUserName*/context } from './main.js'
+
+
+export function addNewUser(name, email, password, passwordConfirm) {
     validateName(name)
     validateEmail(email)
 
-    var foundUser = findUserByEmail(email)
+    const foundUser = findUserByEmail(email)
     if (foundUser) throw new Error ('user already exists')
     
     validateNewPassword(password)
@@ -15,33 +20,33 @@ function addNewUser(name, email, password, passwordConfirm) {
         })
 }
 
-function authenticateUser(email, password) {
+export function authenticateUser(email, password) {
     validateEmail(email)
     validatePassword(password)
 
-    var foundUser = findUserByEmail(email)
+    const foundUser = findUserByEmail(email)
     if (!foundUser) throw new Error('user not found')
     if (foundUser.password !== password) throw new Error('wrong password')
 }
 
-function getLoggedUser(email) {
+export function getLoggedUser(email) {
     validateEmail(email)
-    
-    var foundUser = findUserByEmail(email)
+    //debugger
+    const foundUser = findUserByEmail(email)
     if(!foundUser) throw new Error('user not found')
 
-    var user = {
+    const user = {
         name: foundUser.name,
         email: foundUser.email
     }
 
-    loggedUserName = foundUser.name
+    //loggedUserName = foundUser.name
     
     return user
 }
 
-function updateUserPassword(email, password, newPassword, newPasswordConfirmation) {
-    var foundUser = findUserByEmail(email)
+export function updateUserPassword(email, password, newPassword, newPasswordConfirmation) {
+    const foundUser = findUserByEmail(email)
     if (!foundUser) throw new Error('user not found')
     if (password !== foundUser.password) throw new Error('old password is not correct')
 
@@ -52,11 +57,11 @@ function updateUserPassword(email, password, newPassword, newPasswordConfirmatio
     foundUser.password = newPassword
 }
 
-function updateUserEmail(email, newEmail, newEmailConfirmation, password) {
-    var foundUser = findUserByEmail(email)
-    var newEmailUserFound = findUserByEmail(newEmail)
+export function updateUserEmail(email, newEmail, newEmailConfirmation, password) {
+    const foundUser = findUserByEmail(email)
+    const newEmailUserFound = findUserByEmail(newEmail)
     
-    if (email !== authenticatedEmail) throw new Error('email does not correspond to acount email')
+    if (email !== context.userID) throw new Error('email does not correspond to acount email')
     if (!foundUser) throw new Error('user not found')
     if (email !== foundUser.email) throw new Error('email does not correspond to actual email')
     if (!newEmail.match(/\S+@\S+\.\S+/)) throw new Error('new email is not a valid adress')
@@ -65,11 +70,11 @@ function updateUserEmail(email, newEmail, newEmailConfirmation, password) {
     if (password !== foundUser.password) throw new Error('incorrect password')
     
     foundUser.email = newEmail
-    authenticatedEmail = newEmail
+    context.userID = newEmail
 }
 
-function updateUsername(email, oldUsername, newUsername, password) {
-    var foundUser = findUserByEmail(email)
+export function updateUsername(email, oldUsername, newUsername, password) {
+    const foundUser = findUserByEmail(email)
     if (!foundUser) throw new Error('user not found')
 
     validateName(oldUsername, 'old username')
@@ -83,8 +88,8 @@ function updateUsername(email, oldUsername, newUsername, password) {
     foundUser.name = newUsername
 }
 
-function actualPasswordEyeToggle(container, passwordClass) {
-    var password = container.querySelector(passwordClass)
+export function actualPasswordEyeToggle(container, passwordClass) {
+    const password = container.querySelector(passwordClass)
 
     if (password.type === 'password') {
         password.type = 'text'

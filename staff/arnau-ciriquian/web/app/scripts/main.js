@@ -1,22 +1,25 @@
-var registerPage = document.querySelector('.register')
-var loginPage = document.querySelector('.login')
-var homePage = document.querySelector('.home')
-var homePageProfile = homePage.querySelector('.home__profile')
-var homePagePassword = homePage.querySelector('.home__password')
-var homePageUsername = homePage.querySelector('.home__username')
-var homePageEmail = homePage.querySelector('.home__email')
-var homePageMain = homePage.querySelector('.home__main')
-var authenticatedEmail
-var loggedUserName
+import { addNewUser, authenticateUser, getLoggedUser, updateUserPassword, updateUserEmail, updateUsername } from "./logic.js"
+
+export const registerPage = document.querySelector('.register')
+export const loginPage = document.querySelector('.login')
+export const homePage = document.querySelector('.home')
+export const homePageProfile = homePage.querySelector('.home__profile')
+export const homePagePassword = homePage.querySelector('.home__password')
+export const homePageUsername = homePage.querySelector('.home__username')
+export const homePageEmail = homePage.querySelector('.home__email')
+export const homePageMain = homePage.querySelector('.home__main')
+export const context = {
+    userID: null
+}
+//export var loggedUserName = ''
 
 
 registerPage.querySelector('form').onsubmit = function(event) {
     event.preventDefault()
-
-    var newUser = event.target.name.value
-    var newEmail = event.target.email.value
-    var newPassword = event.target.password.value
-    var confirmedPassword = event.target.passwordConfirmation.value
+    const newUser = event.target.name.value
+    const newEmail = event.target.email.value
+    const newPassword = event.target.password.value
+    const confirmedPassword = event.target.passwordConfirmation.value
 
     try {
         addNewUser(newUser, newEmail, newPassword, confirmedPassword)
@@ -31,14 +34,14 @@ registerPage.querySelector('form').onsubmit = function(event) {
 
 loginPage.querySelector('form').onsubmit = function(event) {
     event.preventDefault()
-
-    var email = event.target.email.value
-    var password = event.target.password.value
+    //debugger
+    const email = event.target.email.value
+    const password = event.target.password.value
 
     try {
         authenticateUser(email, password)
-        authenticatedEmail = email
-        var foundUser = getLoggedUser(email)
+        context.userID = email
+        const foundUser = getLoggedUser(email)
 
         loginPage.classList.add('off')
         homePage.classList.remove('off')
@@ -107,18 +110,21 @@ homePage.querySelector('.username__form').onsubmit = function(event) {
     }
 }
 
-function closeProfilePages() {
+export function closeProfilePages() {
 // si afegeixo canvi d'avatar afegir el close profile pertinent
     homePageUsername.classList.add('off')
     homePageEmail.classList.add('off')
     homePagePassword.classList.add('off')
 }
 
+
 /*  TODO Web/App - objectiu de la app: xarxa social:
     - ig de stickers?
     - estil twitter?
     - likes, post, comments?:   
     - rollo ig?
+            - reorganirtzar fitxer a logica (un fitxer per a cada logica), helpers (en funcio del seu us), pagines (anchors + main de cada una) etc 20230406 2030
+            - afegir favicon
             - afegir id als users 20230405 2115 i modificar tots els scripts de validar a traves del id en comptes del mail
             - Foto perfil 20230328 2100
             - canviar alerts per missatges en pantalla?o un toast?
@@ -130,8 +136,9 @@ function closeProfilePages() {
             - mirar cause pels errors??
             - poder crear un post (dun en un), text o imatge amb la data del post:
                 comncem amb boto + al  footer
-                seguim amb window modular?
-            - 
+                seguim amb ventana modal?
+            - implementar a home vista dels posts per ordre de mes nous a mes vells
+            -
 
     TODO Arrays:
             - metodes amb callback:

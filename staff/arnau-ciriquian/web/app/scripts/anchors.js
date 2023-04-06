@@ -1,3 +1,6 @@
+import { showHideContainer } from "./utils.js"
+import { closeProfilePages, registerPage, loginPage, homePage, homePageProfile, homePageEmail, homePagePassword, homePageUsername, homePageMain, context, /*loggedUserName*/ } from "./main.js"
+
 registerPage.querySelector('.register__anchor--login').onclick = function(event) {
     event.preventDefault()
     showHideContainer(registerPage, loginPage)
@@ -51,8 +54,8 @@ homePage.querySelector('.navigation__anchor--logout').onclick = function(event) 
     homePageMain.classList.remove('off')
     loginPage.classList.remove('off')
 
-    authenticatedEmail = '';
-    loggedUserName = {};
+    context.userID = null
+    //loggedUserName = {}
 }
 
 homePage.querySelector('.password__anchor--profile').onclick = function(event) {
