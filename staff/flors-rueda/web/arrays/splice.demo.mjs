@@ -12,6 +12,11 @@ splice(months, 4, 1, 'May');
 console.log(months);
 // Expected output: Array ["Jan", "Feb", "March", "April", "May"]
 
+splice(months, 2, 2);
+// Replaces 1 element at index 4
+console.log(months);
+// Expected output: Array ["Jan", "Feb", "March", "April", "May"]
+
 
 var myFish = ['angel', 'clown', 'mandarin', 'sturgeon'];
 var removed = splice(myFish, 2, 0, 'drum');
