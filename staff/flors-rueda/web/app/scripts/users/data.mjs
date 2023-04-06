@@ -1,6 +1,7 @@
 const users = [];
 
 users.push({
+    id: 'A-000',
     username: '@garrus',
     name: 'Garrus Vakarian',
     mail: 'garrus@csec.net', 
@@ -9,6 +10,7 @@ users.push({
 });
 
 users.push({
+    id: 'A-001',
     username: '@liara',
     name: 'Liara Tsoni',
     mail: 'liara@uoe.net',
@@ -17,6 +19,7 @@ users.push({
 });
 
 users.push({ 
+    id: 'A-002',
     username: '@grunt',
     name: 'Grunt',
     mail: 'grunt@krogan.net',

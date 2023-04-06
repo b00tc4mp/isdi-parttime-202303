@@ -14,13 +14,13 @@ const isUsernameRegistered = (username) => {
   return false;
 };
 
-const isPasswordCorrect = (username, password) => {
-  const loginUser = users.filter((user) => user.username === username);
+const isPasswordCorrect = (id, password) => {
+  const loginUser = users.filter((user) => user.id === id);
   return loginUser[0].password === password;
 };
 
-const areNewOldPasswordsEqual = (username, newPassword) => {
-  const loginUser = users.filter((user) => user.username === username);
+const areNewOldPasswordsEqual = (id, newPassword) => {
+  const loginUser = users.filter((user) => user.id === id);
   return loginUser[0].password === newPassword;
 };
 
@@ -45,9 +45,9 @@ const validatePassword = (password) => {
   if(typeof password !== 'string') throw new Error('password is not a string');
 }
 
-export const validateUserPassword = (username, password) => {
+export const validateUserPassword = (id, password) => {
   validatePassword(password)
-  if(!isPasswordCorrect(username, password)) throw Error('password incorrect');
+  if(!isPasswordCorrect(id, password)) throw Error('password incorrect');
 };
 
 export const validateNewPassword = (password, repeatPassword) => {
@@ -57,9 +57,9 @@ export const validateNewPassword = (password, repeatPassword) => {
   if(!confirmPassword(password, repeatPassword)) throw new Error('password and confirmation password are different');
 };
 
-export const validatePasswordChange = (username, newPassword) => {
+export const validatePasswordChange = (id, newPassword) => {
   validatePassword(newPassword);
-  if(areNewOldPasswordsEqual(username, newPassword)) throw new Error('new and old password are the same');
+  if(areNewOldPasswordsEqual(id, newPassword)) throw new Error('new and old password are the same');
 };
 
 export const validateName = (name) => {

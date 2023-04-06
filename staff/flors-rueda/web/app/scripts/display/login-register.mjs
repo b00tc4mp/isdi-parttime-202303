@@ -7,7 +7,7 @@ import {
   setPredeterminateAvatar,
 } from './general-tools.mjs';
 
-import { addNewUser, } from '../users/utils.mjs';
+import { addNewUser, getId } from '../users/utils.mjs';
 
 import { 
   validateUserPassword, 
@@ -21,8 +21,9 @@ export const authenticateUser = (user, password) => {
   resetAlerts();
   const username = '@' + user;
   validateUsername(username)
-  validateUserPassword(username, password)
-  return username;
+  const id = getId(username)
+  validateUserPassword(id, password)
+  return id;
 };
 
 export const doLogin = (login, home, startHome) => {
