@@ -11,13 +11,18 @@ export function registerUser(name, email, password) {
   if (password.length < 6) throw new Error('The password is too short.')
 
   var user = findUserByEmail(email)
-
   if (user) throw new Error('User already exists.')
 
+  let id = 'user-1'
+  
+  let lastUser = users[users.length - 1]
+  if(lastUser) id = 'user-' + (parseInt(lastUser.id.slice(5)) + 1)
+
   users.push({
-      name: name,
-      email: email,
-      password: password,
+      id,
+      name,
+      email,
+      password,
       avatar: 'https://img.freepik.com/iconos-gratis/icono-perfil-usuario_318-33925.jpg'
   })
 }
@@ -27,33 +32,34 @@ export function authenticateUser(email, password) {
   validateEmail(email)
   validatePassword(password)
 
-  var user = findUserByEmail(email)
+  const user = findUserByEmail(email)
 
   if (!user) throw new Error('User not found.')
   if (user.password !== password) throw new Error('Password is incorrect.')
-  
+
+  return user.id  
 }
 
-export function retrieveUser(email) {
+export function retrieveUser(userId) {
 
-  if (!email.length) throw new Error("This email doesn't exist.")
-  if (typeof email !== 'string') throw new Error('Eamil is not a string.')
+  if (!userId.length) throw new Error("This email doesn't exist.")
+  if (typeof userId !== 'string') throw new Error('Eamil is not a string.')
 
-  var user = findUserByEmail(email)
+  let user = findUserById(userId)
 
   if (!user) throw new Error('User not found.')
 
-  var user = {
-      name: user.name,
-      email: user.email,
-      avatar: user.avatar
+  user = {
+    id: user.id,
+    name: user.name,
+    avatar: user.avatar
   }
   return user
 }
 
 // function updateUserEmail(email, newEmail, newEmailConfirm, password) {
   
-//   var user = findUserByEmail(email)
+//   var user = findUserById(userId)
 //   if (!user) throw new Error('User not found')
 //   validateEmail(email)
 //   if (email !== user.email) throw new Error('The email is incorrect');
@@ -72,7 +78,7 @@ export function retrieveUser(email) {
 
 export function updateUserPassword(email, password, newPassword, newPasswordConfirm) {
 
-  var user = findUserByEmail(email)
+  var user = findUserById(email)
   if (!user) throw new Error('User not found')
   validatePassword(password)
   if (password !== user.password) throw new Error('The password is incorrect.');
@@ -85,8 +91,9 @@ export function updateUserPassword(email, password, newPassword, newPasswordConf
   user.password = newPassword
 }
 
-export function updateUserAvatar(email, newAvatarUrl, password) {
-  var user = findUserByEmail(email)
+export function updateUserAvatar(userId, newAvatarUrl, password) {
+const avatarImage = document.querySelector('.avatar-image')
+var user = findUserById(userId)
 
   if (!user) throw new Error('User not found')
   validateAvatarUrl(newAvatarUrl)
@@ -105,6 +112,18 @@ const findUserByEmail = (email)=> {
   for (let i = 0; i < users.length; i++) {
     
     if (users[i].email === email) {
+      user = users[i];
+      return user;
+    }
+  }
+}
+
+const findUserById = (userId)=> {
+  let user;
+
+  for (let i = 0; i < users.length; i++) {
+    
+    if (users[i].id === userId) {
       user = users[i];
       return user;
     }

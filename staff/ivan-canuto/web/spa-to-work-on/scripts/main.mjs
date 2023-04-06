@@ -1,18 +1,17 @@
 import { registerUser, authenticateUser, retrieveUser, updateUserPassword, updateUserAvatar } from './logic.mjs'
 import { addOffClass, removeOffClass } from './ui.mjs'
 
-var registerPage = document.querySelector('.register')
-var loginPage = document.querySelector('.login')
-var homePage = document.querySelector('.home')
-var authenticatedEmail;
-var profilePanel = homePage.querySelector('.profile')
-var changePasswordForm = profilePanel.querySelector('.change-password')
-// var changeEmailForm = profilePanel.querySelector('.change-email')
-var changeAvatarForm = profilePanel.querySelector('.change-avatar')
-var avatarImage = homePage.querySelector('.avatar-image')
-var avatarPassword = changeAvatarForm.querySelector('input[name="password')
-var avatarUrl = changeAvatarForm.querySelector('input[name="avatarUrl')
-avatarUrl.value = avatarImage.src
+const registerPage = document.querySelector('.register')
+const loginPage = document.querySelector('.login')
+const homePage = document.querySelector('.home')
+let authenticatedUserId;
+const profilePanel = homePage.querySelector('.profile')
+const changePasswordForm = profilePanel.querySelector('.change-password')
+// const changeEmailForm = profilePanel.querySelector('.change-email')
+const changeAvatarForm = profilePanel.querySelector('.change-avatar')
+const avatarImage = homePage.querySelector('.avatar-image')
+const avatarPassword = changeAvatarForm.querySelector('input[name="password')
+const avatarUrl = changeAvatarForm.querySelector('input[name="avatarUrl')
 
 registerPage.querySelector('form').onsubmit = function (event) {
     event.preventDefault();
@@ -47,12 +46,10 @@ loginPage.querySelector('form').onsubmit = function (event) {
     const password = event.target.password.value;
 
     try {
-        authenticateUser(email, password);
-
-        authenticatedEmail = email;
+        authenticatedUserId = authenticateUser(email, password);
 
         // This is to get only the username and the user's email.
-        let user = retrieveUser(authenticatedEmail);
+        let user = retrieveUser(authenticatedUserId);
         
         homePage.querySelector('a').textContent = user.name;
         avatarImage.src = user.avatar
@@ -65,6 +62,7 @@ loginPage.querySelector('form').onsubmit = function (event) {
     } catch (error) {
         if (error.name === 'Error') {
             alert(error.message);
+            console.log(error);
         } else {
             alert('Sorry, something went wrong.')
             console.log(error);
@@ -98,6 +96,9 @@ homePage.querySelector('a').onclick = function (event) {
     event.preventDefault()
 
     profilePanel.classList.toggle('off')
+    const inputsProfilePanel = profilePanel.querySelectorAll('input')
+    inputsProfilePanel.forEach(input => input.value = '')
+    avatarUrl.value = avatarImage.src
 }
 
 // changeEmailForm.onsubmit = function (event) {
@@ -132,7 +133,7 @@ changePasswordForm.onsubmit = function (event) {
     let newPasswordComfirm = event.target.newPasswordConfirm.value;
 
     try {
-        updateUserPassword(authenticatedEmail, password, newPassword, newPasswordComfirm)
+        updateUserPassword(authenticatedUserId, password, newPassword, newPasswordComfirm)
 
         addOffClass(profilePanel)
         changePasswordForm.querySelector('input[name="password"]').value = ''
@@ -158,7 +159,7 @@ changeAvatarForm.onsubmit = function (event) {
     let password = event.target.password.value;
 
     try {
-        updateUserAvatar(authenticatedEmail, newAvatarUrl, password)
+        updateUserAvatar(authenticatedUserId, newAvatarUrl, password)
 
         addOffClass(profilePanel)
         avatarPassword.value = ''
