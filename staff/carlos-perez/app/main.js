@@ -1,23 +1,52 @@
 //Data
 
-let users = [];
+const users = [];
 
 users.push({
+    id: 'user-1',
     name: 'Wendy Darling',
     email: 'wendy@darling.com',
     password: '123123123'
 })
 
 users.push({
+    id: 'user-2',
     name: 'Peter Pan',
     email: 'peter@pan.com',
     password: '123123123'
 })
 
 users.push({
+    id: 'user-3',
     name: 'Pepito Grillo',
     email: 'pepito@grillo.com',
     password: '123123123'
+})
+
+export const posts = []
+
+posts.push({
+    id: 'post-1',
+    author: 'user-1',
+    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/SNice.svg/1200px-SNice.svg.png',
+    text: 'Smile!',
+    date: new Date()
+})
+
+posts.push({
+    id: 'post-2',
+    author: 'user-1',
+    image: 'https://img.icons8.com/color/512/avatar.png',
+    text: 'I ♥️ Avatars!',
+    date: new Date()
+})
+
+posts.push({
+    id: 'post-3',
+    author: 'user-2',
+    image: 'https://img.icons8.com/color/512/avatar.png',
+    text: 'I ♥️ Avatars too!',
+    date: new Date()
 })
 
 let activeUser;
@@ -41,13 +70,39 @@ function userExist(email) {
     return userPosition;
 }
 
+function userExistById(id){
+    let userPosition = null;
+    for (let i = 0; i < users.length; i++) {
+        let user = users[i];
+        if (user.id === id) {
+            userPosition = i;
+            break;
+        }
+    }
+
+    if (userPosition === null) {
+        return -1;
+    }
+
+    return userPosition;
+}
+
 function addUser(name, email, password) {
 
     if (userExist(email) !== -1) {
         throw new Error("El usuario ya existe");
     }
+    
+    let id = 'user-1';
+
+    const lastUser = users[users.length - 1];
+
+    if (lastUser){
+        id = 'user-' + (parseInt(lastUser.id.slice(5)) + 1);
+    }
 
     users.push({
+        id: id,
         name: name,
         email: email,
         password: password
@@ -66,7 +121,7 @@ function authenticateUser(email, password) {
     if (users[userPosition].password !== password) {
         throw new Error("Contraseña incorrecta");
     }
-    activeUser = { name: users[userPosition].name, email: users[userPosition].email };
+    activeUser = { name: users[userPosition].name, id: users[userPosition].id };
 }
 
 function getInitials(name) {
@@ -74,7 +129,7 @@ function getInitials(name) {
 }
 
 function changePassword(oldpass, newpass, passcheck) {
-    let userPosition = userExist(activeUser.email);
+    let userPosition = userExistById(activeUser.id);
     if (userPosition === -1) {
        throw new Error("El usuario no existe");
     }
@@ -87,11 +142,11 @@ function changePassword(oldpass, newpass, passcheck) {
         throw new Error("La nueva contraseña no coincide con su comprobación");
     }
 
-    users[userExist(activeUser.email)].password = newpass;
+    users[userPosition].password = newpass;
 }
 
 function changeMail(oldmail, newmail, mailcheck) {
-    let userPosition = userExist(activeUser.email);
+    let userPosition = userExistById(activeUser.id);
     if (userPosition === -1) {
        throw new Error("El usuario no existe");
     }
@@ -104,8 +159,16 @@ function changeMail(oldmail, newmail, mailcheck) {
         throw new Error("El nuevo correo no corresponde con su comprobación");
     }
 
-    users[userExist(activeUser.email)].email = newmail;
-    activeUser.email = newmail;
+    users[userPosition].email = newmail;
+}
+
+function retrieveMail(activeUser){
+    let userPosition = userExistById(activeUser.id);
+    if (userPosition === -1) {
+        throw new Error("El usuario no existe");
+     }
+
+     return users[userPosition].email;
 }
 
 
@@ -242,7 +305,7 @@ profileColumn.querySelector('.button-profile').addEventListener('click', functio
     hideSection(homeSaludo);
     showSection(profileView);
     profileView.querySelector('.profile-name').textContent = activeUser.name;
-    profileView.querySelector('.profile-email').textContent = activeUser.email;
+    profileView.querySelector('.profile-email').textContent = retrieveMail(activeUser);
     resetPasswordChangeView();
     resetChangeMailView();
 })
