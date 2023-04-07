@@ -11,12 +11,12 @@ export function validatePassword(password) {
 
     if(!password.trim().length > 8) throw new Error('Password must be higher than 8 characters')
 }
-export function validateNewPassword(newPassword, repeatPassword, user) {
+export function validateNewPassword(password, newPassword, repeatPassword, user) {
 
     if(password.trim() !== user.password) 
         throw new Error('Not your current password')
     
-    if(email.password === newPassword) {
+    if(user.password === newPassword) {
         userAccount.querySelector('p.message').classList.add('error')
         throw new Error('You need to set a new password')
     }

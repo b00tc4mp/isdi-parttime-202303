@@ -1,3 +1,6 @@
+export const bodyPage = document.querySelector('body')
+
+
 export function deleteClassOnContainer(container, ...classToDelete) {
     container.classList.remove(...classToDelete);
 } 
@@ -36,4 +39,8 @@ export function showHidePassword (container, passwordContainer) {
         icon.parentElement.querySelector(passwordContainer + '> input').setAttribute('type', 'password')
         return
     }
+}
+
+export const context = {
+    userId: null
 }

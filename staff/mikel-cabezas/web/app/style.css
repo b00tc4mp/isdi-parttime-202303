@@ -213,6 +213,7 @@ li.user-account img, li.user-account img {
     position: relative;
     bottom: 1px;
     font-size: 15px;
+    text-transform: uppercase;
 }
 .user-name {
     align-self: center;
@@ -334,6 +335,7 @@ input:disabled {
     align-content: center;
     flex-direction: row;
     margin-bottom: 10px;
+    cursor: pointer;
 }
 .section.user-account .container {
     background-color: transparent;

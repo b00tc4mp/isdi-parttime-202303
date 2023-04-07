@@ -1,8 +1,10 @@
 import {users} from './data.mjs'
-import {registerPage, loginPage, homePage, bodyPage, menuHeader, userAccount, registerPageMessage, loginPageMessage, userPageMessage, currentUserID as currentUserId} from './main.mjs'
-console.log(users)
+import { menuHeader } from './pages/header.mjs'
+import { userAccount } from './pages/user-account.mjs'
 import {validateEmail, validatePassword, validateNewPassword} from './validators.mjs'
-import { toggleOffClassInSection, deleteClassOnContainer } from './ui.mjs'
+import { bodyPage, toggleOffClassInSection, deleteClassOnContainer, context } from './ui.mjs'
+import { loginPage, loginPageMessage } from './pages/login-page.mjs'
+import {findUserById, findUserByEmail} from './logic/helpers/data-managers.mjs'
 export function registerUser(name, email, password) {
     validateEmail(email)
     validatePassword(password)
@@ -37,24 +39,7 @@ export function authenticateUser(email, password)  {
     return checkUserId.id
 }
 
-export function getUserName(email) {
 
-    const userID = users.map(user => user.email).indexOf(email) 
-
-    if (userID === -1) {
-        throw new Error('User or password incorrect')
-    }
-
-    if (users[userID].email === email) {
-        return users[userID].name
-    }
-}
-export function getCurrentUser(id) {
-    var userID = users.map(user => user.id).indexOf(currentUserId) 
-    if (userID !== -1) {
-        return id
-    }
-}
 
 export function pushUserDataInForm(id) {
     var userID = users.map(user => user.id).indexOf(id) 
@@ -66,22 +51,25 @@ export function pushUserDataInForm(id) {
     }
 }
 
-export function updateUserName(user) {
+export function updateUserName(userId) {
+    var user = findUserById(userId)
     var newName = userAccount.querySelector('form.user-info input[name="name"]').value
         user.name = newName
 }
-export function updateUserEmail(currentId, newEmail) {
+export function updateUserEmail(userId, newEmail) {
+    var user = findUserById(userId)
     var newEmail = userAccount.querySelector('form.user-info input[name="email"]').value
-    var userID = users.map(user => user.id).indexOf(currentId)
 
     // var userSessionChecker = users.email.find(user => user.email === email)
     validateEmail(newEmail)
-        if (users[userID].email !== currentEmail && users[userID].email === newEmail){
+    const currentUserEmail = findUserById(userId)
+
+        if (user.email !== currentUserEmail.email && user.email === newEmail){
             throw new Error('Email already registered')
         }
         console.log()
-        if (users[userID].email === currentEmail && users[userID].email !== newEmail){
-            users[userID].email = newEmail
+        if (user.email === currentUserEmail.email && user.email !== newEmail){
+            user.email = newEmail
             userAccount.querySelector('form.user-info input[name="name"]').disabled = true
             userAccount.querySelector('form.user-info input[name="email"]').disabled = true
             userAccount.querySelector('.message').classList.add('success')
@@ -90,17 +78,18 @@ export function updateUserEmail(currentId, newEmail) {
  }
 
 export function updateUserPassword(currentId) {
-    // var userID = users.map(user => user.id).indexOf(id) 
-        var userID = users.map(user => user.id).indexOf(currentId)
+        // var userID = users.map(user => user.id).indexOf(currentId)
+        const userId = context.userId
+        const user = findUserById(userId)
 
     var currentPassword = userAccount.querySelector('form.user-password input.current-password')
     var newPassword = userAccount.querySelector('form.user-password input.new-password')
     var repeatPassword = userAccount.querySelector('form.user-password input.repeat-password')
-    console.log(currentId)
-    console.log(userID)
-    validateNewPassword(currentPassword.value, newPassword.value, repeatPassword.value, userID)
+    // console.log(currentId)
+    console.log(userId)
+    validateNewPassword(currentPassword.value, newPassword.value, repeatPassword.value, user)
 
-    userID.password = newPassword.value
+    user.password = newPassword.value
     currentPassword.disabled = true
     newPassword.disabled = true
     repeatPassword.disabled = true
@@ -113,7 +102,7 @@ export function updateUserPassword(currentId) {
 export function updateUserImage(user) {
     var avatar = userAccount.querySelector('.avatar img.image-profile')
     var imageInput = userAccount.querySelector('form.user-info input[name="file"]')
-    user.imageProfile = avatar.src
+    context.imageProfile = avatar.src
     var avatar = userAccount.querySelector('.avatar img.image-profile').classList.remove('hidden')
     var avatarHeader = menuHeader.querySelector('.avatar img.image-profile').classList.remove('hidden')
     imageInput.value = ""
