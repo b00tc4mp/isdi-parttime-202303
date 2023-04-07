@@ -1,7 +1,11 @@
 import { actualPasswordEyeToggle } from "./logic.js"
-import { loginPage, registerPage, homePageEmail, homePageUsername, homePagePassword } from "./main.js"
+import { loginPage } from "./pages/login-page.js"
+import { registerPage } from "./pages/register-page.js"
+import { homePageEmail, homePagePassword, homePageUsername } from "./pages/home-page.js"
 
-const loginEye = loginPage.querySelector('.login-eye')
+const logPage = document.querySelector('.login')
+
+const loginEye = logPage.querySelector('.login-eye')
 const registerNewEye = registerPage.querySelector('.register-eye')
 const registerConfirmEye = registerPage.querySelector('.register-confirm-eye')
 const usernameEye = homePageUsername.querySelector('.username-eye')
@@ -52,4 +56,15 @@ newConfirmEye.onclick = function(event){
 
 export function showHideContainer(...containers) {
     containers.forEach(container => container.classList.toggle('off'))
+}
+
+export const context = {
+    userID: null
+}
+
+export function closeProfilePages() {
+    // si afegeixo canvi d'avatar afegir el close profile pertinent
+    homePageUsername.classList.add('off')
+    homePageEmail.classList.add('off')
+    homePagePassword.classList.add('off')
 }

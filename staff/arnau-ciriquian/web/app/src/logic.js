@@ -1,6 +1,7 @@
 import { validateEmail, validateName, validateNewPassword, validatePasswordConfirm, validatePassword } from './validators.js'
 import { findUserByEmail, users } from './data.js'
-import { /*loggedUserName*/context } from './main.js'
+import { context } from './ui.js'
+// import { /*loggedUserName*/context } from './main.js'
 
 
 export function addNewUser(name, email, password, passwordConfirm) {
