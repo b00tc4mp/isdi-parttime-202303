@@ -1,9 +1,14 @@
-function registerUser(name, email, password) {
+console.log('load logic') 
+
+import { validateName, validateEmail, validatePassword, validatedNewPassword, validateUserConfirmNewPassword } from './validators.mjs'
+import{ users } from './data.mjs'
+
+ export function registerUser(name, email, password) {
   validateName(name)
   validateEmail(email) 
   validatePassword(password)   
 
-    var foundUser =findUserByEmail(email)
+    let foundUser =findUserByEmail(email)
 
     if(foundUser )
         throw new Error('User already exists') 
@@ -18,12 +23,12 @@ function registerUser(name, email, password) {
 }
 
 
-function authenticateUser (email, password) {
+export function authenticateUser (email, password) {
     validateEmail(email)    
     validatePassword(password)
  
 
-    var foundUser= findUserByEmail(email)
+    let foundUser= findUserByEmail(email)
 
     if(!foundUser) throw new Error ('User not found') 
     if (foundUser.password !== password) throw new Error ('Wrong password')
@@ -36,16 +41,16 @@ return (!foundUser || foundUser.password !== password)? false : true
 return !(!foundUser || foundUser.password !== password) 
 */
 
-function retrieveUser(email) {
+export function retrieveUser(email) {
    validateEmail(email)
     
-    var foundUser = findUserByEmail(email)
+    let foundUser = findUserByEmail(email)
    
     if(!foundUser) throw new Error ('User not found') 
     if (foundUser.email !== email) throw new Error ('Wrong email')
         
     else{
-        var user = {
+        const user = {
             name: foundUser.name, 
             email: foundUser.email
         } 
@@ -55,11 +60,11 @@ function retrieveUser(email) {
 
 // Function to validate changes of user avatar
 
-function updateUserAvatar(email, newAvatar) {
+export function updateUserAvatar(email, newAvatar) {
    //validateEmail(email)
   // validateNewAvatar(newAvatar)
 
-   var foundUser = findUserByEmail(email)
+   let foundUser = findUserByEmail(email)
 
     if(!foundUser) throw new Error ('User not found') 
     if (foundUser.email!== email) throw new Error ('Wrong email')
@@ -74,13 +79,13 @@ function updateUserAvatar(email, newAvatar) {
 
 // Function to validate changes or password--homepage-- hay que validarlo con el email
 
-function validatedNewPassword(email, password, userNewPassword,userConfirmNewPassword) {
+export function validatedNewPassword(email, password, userNewPassword,userConfirmNewPassword) {
     validateEmail(email)
     validatePassword(password)
     validateUserNewPassword(userNewPassword)
     validateUserConfirmNewPassword(userConfirmNewPassword)
 
-    var foundUser= findUserByEmail(email)
+    let foundUser= findUserByEmail(email)
 
     if(!foundUser) throw new Error ('User not found') 
     if (userNewPassword !== userConfirmNewPassword)throw new Error('New password and confirmed password do not match')
@@ -90,4 +95,19 @@ function validatedNewPassword(email, password, userNewPassword,userConfirmNewPas
 }
 
 
+// Helper functions
 
+export function findUserByEmail(email){
+
+    let foundUser
+
+    for(const i = 0; i< users.length; i++){
+        const user = users[i]
+
+        if(user.email === email){
+            foundUser= user
+        break
+        }
+    }
+    return foundUser
+}

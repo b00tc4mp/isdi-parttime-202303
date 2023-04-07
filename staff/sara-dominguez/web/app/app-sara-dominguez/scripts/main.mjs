@@ -1,16 +1,18 @@
-var registerPage= document.querySelector('.register')
-var registerForm = registerPage.querySelector('form')
+import { registerUser, authenticateUser, retrieveUser, validatedNewPassword, findUserByEmail } from './logic.mjs'
 
-var loginPage= document.querySelector('.login')
-var loginForm= loginPage.querySelector('form')
-var homePage= document.querySelector('.home')
-var authenticateEmail 
+const registerPage= document.querySelector('.register')
+const registerForm = registerPage.querySelector('form')
+
+const loginPage= document.querySelector('.login')
+const loginForm= loginPage.querySelector('form')
+const homePage= document.querySelector('.home')
+let authenticateEmail 
 // es util porque nos serviran los datos para el cambio de sesion...
-var homeMenu = homePage.querySelector('.home-header').querySelector('.home-menu')
-var myProfileLink = homeMenu.querySelector('a')
-var homeProfileEdit = homePage.querySelector('.profile-edit') 
-var homeProfileEditAvatarForm= homeProfileEdit.querySelector('.profile-edit-avatar-form')
-var homeProfileEditPasswordForm = homePage.querySelector('.profile-edit-password')
+const homeMenu = homePage.querySelector('.home-header').querySelector('.home-menu')
+const myProfileLink = homeMenu.querySelector('a')
+const homeProfileEdit = homePage.querySelector('.profile-edit') 
+const homeProfileEditAvatarForm= homeProfileEdit.querySelector('.profile-edit-avatar-form')
+const homeProfileEditPasswordForm = homePage.querySelector('.profile-edit-password')
 
 
 //REGISTER PAGE
@@ -19,12 +21,12 @@ var homeProfileEditPasswordForm = homePage.querySelector('.profile-edit-password
 registerForm.onsubmit = function(event) {
     event.preventDefault()
 
-    var name = registerForm.querySelector('input[name=name]').value
-    var email = registerForm.querySelector('input[name=email]').value
-    var password = registerForm.querySelector('input[name=password]').value
+    const name = registerForm.querySelector('input[name=name]').value
+    const email = registerForm.querySelector('input[name=email]').value
+    const password = registerForm.querySelector('input[name=password]').value
 
     try{
-        var result = registerUser(name,email,password)
+        const result = registerUser(name,email,password)
         if (result === false) throw new Error ('User does exist')
 
         registerForm.reset()
@@ -42,16 +44,16 @@ registerForm.onsubmit = function(event) {
 loginForm.onsubmit = function (event) {
     event.preventDefault()
 
-    var email = loginForm.querySelector('input[name=email]').value
-    var password = loginForm.querySelector('input[name=password]').value
+    const email = loginForm.querySelector('input[name=email]').value
+    const password = loginForm.querySelector('input[name=password]').value
     
     try{
-        var result = authenticateUser(email,password)
+        const result = authenticateUser(email,password)
         if(result === false) throw new Error ('wrong email or password')
 
         authenticateEmail = email
 
-        var foundUser = retrieveUser(email)
+        const foundUser = retrieveUser(email)
 
         homeMenu.querySelector('.myProfile').innerText = `${foundUser.name}`
 
@@ -124,14 +126,14 @@ homeProfileEdit.querySelector('.updatePassword').onclick = function(event){
 homeProfileEditAvatarForm.onsubmit = function (event){
     event.preventDefault()
 
-    var newAvatar = homeProfileEditAvatarForm.querySelector('input[name=avatar-url]').value
+    const newAvatar = homeProfileEditAvatarForm.querySelector('input[name=avatar-url]').value
     //otras formas de hacerlo 
-    //var url1 = event.target.avatar-url.value (la mas usual) 
-    //var url2= homeProfileEdit.querySelector('profile-edit-avatar-form').avatar-url.value 
-    //var url3 = this.avatar-url.value //(no recomendado)
+    //const url1 = event.target.avatar-url.value (la mas usual) 
+    //const url2= homeProfileEdit.querySelector('profile-edit-avatar-form').avatar-url.value 
+    //const url3 = this.avatar-url.value //(no recomendado)
 
     try{
-        var result = updateUserAvatar(authenticateUser, newAvatar)
+        const result = updateUserAvatar(authenticateUser, newAvatar)
         if(result === false) throw new Error ('Update avatar failed')
 
         alert('your avatar has been updated')
@@ -146,12 +148,12 @@ homeProfileEditAvatarForm.onsubmit = function (event){
 homeProfileEditPasswordForm.onsubmit = function(event){
     event.preventDefault()
 
-    var password= homeProfileEditPasswordForm.querySelector('input[name=password]').value
-    var userNewPassword = homeProfileEditPasswordForm.querySelector('input[name=new-password]').value
-    var userConfirmNewPassword = homeProfileEditPasswordForm.querySelector('input[name=confirm-new-password]').value
+    const password= homeProfileEditPasswordForm.querySelector('input[name=password]').value
+    const userNewPassword = homeProfileEditPasswordForm.querySelector('input[name=new-password]').value
+    const userConfirmNewPassword = homeProfileEditPasswordForm.querySelector('input[name=confirm-new-password]').value
     
     try{
-        var result = validatedNewPassword (authenticateEmail, password, userNewPassword, userConfirmNewPassword)
+        const result = validatedNewPassword (authenticateEmail, password, userNewPassword, userConfirmNewPassword)
 
         if(result === false) throw new Error ('Validate New password failed')
     
@@ -161,6 +163,7 @@ homeProfileEditPasswordForm.onsubmit = function(event){
     }
     homeProfileEditPasswordForm.reset()
 }
+console.log('load main') 
 
 //home-header-Logout 
 
