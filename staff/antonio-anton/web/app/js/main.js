@@ -96,7 +96,7 @@ loginPage.querySelector('form').addEventListener('submit', function (event) {
     var password = loginPage.querySelector('input[name=password]').value
     console.log(email + ' entrar')
     var result = authenticateUser(email, password)
-
+console.log(result + ' -> resultado auth')
 
     if (result === false) {
       

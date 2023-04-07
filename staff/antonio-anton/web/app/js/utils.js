@@ -3,7 +3,7 @@ var countDownDate = new Date("Jul 21, 2023 21:30:00").getTime();
 
 // Update the count down every 1 second
 var x = setInterval(function() {
-
+  console.log (btoa("Hello, world"));
   // Get todays date and time
   var now = new Date().getTime();
 

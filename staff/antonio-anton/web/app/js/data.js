@@ -3,28 +3,28 @@ var users = []
 users.push({
     name: 'Tom Hanks',
     email: 'THanks@actors.com',
-    password: 'T50855073'
+    password: 'VDUwODU1MDcz' /*T50855073*/
 })
 
 users.push({
     name: 'Robert de Niro',
     email: 'RdNiro@actors.com',
-    password: 'K50825073'
+    password: 'VDUwODU1MDcz'
 })
 
 users.push({
     name: 'Nicolas Cage',
     email: 'NCage@actors.com',
-    password: 'W50855072'
+    password: 'VDUwODU1MDcz'
 })
 
 users.push({
     name: 'Sylvester Stallone',
     email: 'SStallone@actors.com',
-    password: 'U60855071'
+    password: 'VDUwODU1MDcz'
 })
 users.push({
     name: 'Antonio Antón',
     email: 'aanton@actors.com',
-    password: 'U60855071'
+    password: 'YW50b25pbw==' /*antonio*/ 
 })

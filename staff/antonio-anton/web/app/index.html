@@ -7,15 +7,67 @@
         <link rel="stylesheet" href="style.css">
     </head>
     <header  class="header">
-        <a href="#" class="IdiCoders">IsdiCoders Developer</a>
-        <nav id="nitems" class="nav-items">
-          <a id="ahome" class="off" href="#home">Home</a>
-          <a id="alogin" onclick="loginsection()" href="#login">Login</a>
-          <a class="off" id="ahello" onclick="logigout()" >hello!</a>
-          <a class="off" id="alogout" onclick="logigout()" >Logout</a>
+
+      
+        
+      
+      <nav class="navbar" id="nitems">
+
+        <!-- LOGO -->
+        
+        <div class="logo">Isdi</div>
+        
+        <!-- NAVIGATION MENU -->
+        
+        <ul class="nav-links">
+        
+        <!-- USING CHECKBOX HACK -->
+        
+        <input type="checkbox" id="checkbox_toggle" />
+        
+        <label for="checkbox_toggle" class="hamburger">&#9776;</label>
+        
+        <!-- NAVIGATION MENUS -->
+        
+        <div class="menu navlist-right" >
+        
+        <li><a href="/">Home</a></li>
+        
+        <li><a id="alogin" onclick="loginsection()"  href="#login">Login</a></li>
+        
+        <li class="profile">
+        
+          <a href="/" class="">Profile</a>
+        
+        <!-- DROPDOWN MENU -->
+        
+          <ul class="dropdown">
+        
+            <li><a href="/">Dropdown 1 </a></li>
+            
+            <li><a  id="alogout" onclick="logigout()" >Logout</a></li>
+        
+          </ul>
+        
+        </li>
+        
+        
+        
+        </div>
+        
+        </ul>
+        
         </nav>
+        <!--
+        <nav id="nitems" class="navbar">
+          <a id="ahome" class="off" href="#home">Home</a>
+          
+          <a class="off" id="ahello" onclick="logigout()" >hello!</a>
+          
+        </nav>-->
       </header>
     <body>
+      <div class="container">
         <div class="register off" id="register">
             <div class="container">
                 <h1>Register</h1>
@@ -44,7 +96,7 @@
                 </form>
               </div>
         </div>
-        <div class="login " id="login">
+        <div class="login off" id="login">
             
                 <div class="container">
                     <h1>Login</h1>
@@ -93,7 +145,7 @@
             
             </div>
         </div>
-        
+      </div>
     </body>
     <footer class="footer">
         <div class="copy">&copy; 2023 Isdi Developer</div>

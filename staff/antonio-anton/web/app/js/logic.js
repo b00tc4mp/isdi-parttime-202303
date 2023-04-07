@@ -17,7 +17,7 @@ function registerUser(name, email, password) {
     users.push({
         name: name,
         email: email,
-        password: password
+        password: btoa(password)
     })
 
     return true
@@ -25,11 +25,15 @@ function registerUser(name, email, password) {
 
 function authenticateUser(email, password) {
     var foundUser
-    
+    if (typeof email !== 'string') throw new Error('email is not an string')
+    if (!email.length) throw new Error('email is empty')
+    if (typeof password !== 'string') throw new Error('password is not a string')
+    if (!password.length) throw new Error('password is empty')
+
     for (var i = 0; i < users.length; i++) {
         var user = users[i]
         
-        console.log(user.email === email)
+        console.log(user.email )
 
         if (user.email === email) {
             foundUser = user
@@ -38,15 +42,12 @@ function authenticateUser(email, password) {
         }
     }
 
-    if (!foundUser || user.password !== password)
+    if (!foundUser || user.password !== btoa(password))
         return false
 
     return true
 
-    // WARN "nice", but not easy to read
-    // return (!foundUser || foundUser.password !== password)? false : true
-    // return !(!foundUser || foundUser.password !== password) 
-}
+}  
 
 function updateUserPassword(email, password, newPassword, newPasswordConfirm) {
     // TODO implement me
