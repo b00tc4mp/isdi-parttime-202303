@@ -2,7 +2,7 @@ import { authenticateUser } from "../logic/authenticate-user.js"
 import { getLoggedUser } from "../logic/login-user.js"
 import { context, showHideContainer  } from "../ui.js"
 import { registerPage } from "./register-page.js"
-import { homePage, homePageMain } from "./home-page.js"
+import { homePage, homePageMain, DEFAULT_AVATAR_URL, avatarImage } from "./home-page.js"
 
 export const loginPage = document.querySelector('.login')
 
@@ -16,7 +16,7 @@ loginPage.querySelector('form').onsubmit = function(event) {
         context.userID = authenticateUser(email, password)
         const foundUser = getLoggedUser(context.userID)
 
-        // avatarImage.src = user.avatar? user.avatar : DEFAULT_AVATAR_URL
+        avatarImage.src = foundUser.avatar? foundUser.avatar : DEFAULT_AVATAR_URL
 
         loginPage.classList.add('off')
         homePage.classList.remove('off')

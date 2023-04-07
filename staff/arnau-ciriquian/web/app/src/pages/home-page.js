@@ -3,13 +3,36 @@ import { updateUsername } from "../logic/update-user-name.js"
 import { closeProfilePages, context, showHideContainer } from "../ui.js"
 import { updateUserPassword } from "../logic/update-user-password.js"
 import { updateUserEmail } from "../logic/update-user-email.js"
+import { updateUserAvatar } from "../logic/update-user-avatar.js"
+
+export const DEFAULT_AVATAR_URL = './images/space-dog.svg'
 
 export const homePage = document.querySelector('.home')
+export const avatarImage = homePage.querySelector('.avatar')
 export const homePageProfile = homePage.querySelector('.home__profile')
 export const homePagePassword = homePage.querySelector('.home__password')
 export const homePageUsername = homePage.querySelector('.home__username')
 export const homePageEmail = homePage.querySelector('.home__email')
+export const homePageAvatar = homePage.querySelector('.home__avatar')
 export const homePageMain = homePage.querySelector('.home__main')
+
+homePage.querySelector('.avatar__form').onsubmit = function(event) {
+    event.preventDefault()
+
+    const newAvatar = event.target.newAvatar.value
+
+    try {
+        updateUserAvatar(context.userID, newAvatar)
+        alert('avatar updated')
+
+        avatarImage.src = newAvatar
+        homePageProfile.classList.remove('off')
+        homePageAvatar.classList.add('off')
+        homePage.querySelector('.avatar__form').reset()
+    } catch (error) {
+        alert(error.message)
+    }
+}
 
 homePage.querySelector('.password__form').onsubmit = function(event) {
     event.preventDefault()
@@ -17,7 +40,6 @@ homePage.querySelector('.password__form').onsubmit = function(event) {
     const oldPassword = event.target.oldPassword.value
     const newPassword = event.target.newPassword.value
     const confirmedPassword = event.target.newPasswordConfirmation.value
-    const email = context.userID
 
     try {
         updateUserPassword(context.userID, oldPassword, newPassword, confirmedPassword)
@@ -103,6 +125,11 @@ homePage.querySelector('.profile__anchor--username').onclick = function(event) {
     showHideContainer(homePageProfile, homePageUsername)
 }
 
+homePage.querySelector('.profile__anchor--avatar').onclick = function(event) {
+    event.preventDefault()
+    showHideContainer(homePageProfile, homePageAvatar)
+}
+
 homePage.querySelector('.navigation__anchor--logout').onclick = function(event) {
     event.preventDefault()
     
@@ -131,4 +158,10 @@ homePage.querySelector('.username__anchor--profile').onclick = function(event) {
     event.preventDefault()
     showHideContainer(homePageUsername, homePageProfile)
     homePageUsername.querySelector('.username__form').reset()
+}
+
+homePage.querySelector('.avatar__anchor--profile').onclick = function(event) {
+    event.preventDefault()
+    showHideContainer(homePageAvatar, homePageProfile)
+    homePageAvatar.querySelector('.avatar__form').reset()
 }

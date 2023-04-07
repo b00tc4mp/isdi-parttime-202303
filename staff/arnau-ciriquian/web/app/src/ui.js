@@ -1,6 +1,6 @@
 import { loginPage } from "./pages/login-page.js"
 import { registerPage } from "./pages/register-page.js"
-import { homePageEmail, homePagePassword, homePageUsername } from "./pages/home-page.js"
+import { homePageAvatar, homePageEmail, homePagePassword, homePageUsername } from "./pages/home-page.js"
 
 const logPage = document.querySelector('.login')
 
@@ -62,7 +62,7 @@ export const context = {
 }
 
 export function closeProfilePages() {
-    // si afegeixo canvi d'avatar afegir el close profile pertinent
+    homePageAvatar.classList.add('off')
     homePageUsername.classList.add('off')
     homePageEmail.classList.add('off')
     homePagePassword.classList.add('off')

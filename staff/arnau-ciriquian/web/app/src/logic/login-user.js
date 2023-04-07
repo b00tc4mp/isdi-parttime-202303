@@ -12,9 +12,9 @@ export function getLoggedUser(userID) {
         name: foundUser.name,
     }
 
-    // if (foundUser.avatar) {
-    //     user.avatar = foundUser.avatar
-    // }
+    if (foundUser.avatar) {
+        user.avatar = foundUser.avatar
+    }
     
     return user
 }

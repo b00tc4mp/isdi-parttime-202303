@@ -5,9 +5,7 @@ import './pages/login-page.js'
         - estil twitter?
         - likes, post, comments?:   
         - rollo ig?
-                - Foto perfil 20230328 2100
                 - canviar alerts per missatges en pantalla?o un toast?
-                - al fer logout posar un avatar random per evitar deixar lavatar de lusuari previ
                 - tancar ulls de les contrasenyes amb el canvi de pagina. Un if? si type text fer un toggle de fa-eye-slash i canvi de tipus
                 - passar for basics a for of?
                 - mirar cause pels errors??
@@ -20,11 +18,7 @@ import './pages/login-page.js'
                 
     TODO Arrays:
                 - metodes amb callback:
-                -
                 - seguir amb splice, rersoldre afegir X i  als months
-            
-    DONE    
-                - 
 
     PREGUNTES:
             - 

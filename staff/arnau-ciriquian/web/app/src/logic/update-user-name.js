@@ -1,7 +1,8 @@
 import { findUserById } from "./helpers/data-managers.js"
-import { validateName } from "./helpers/validators.js"
+import { validateName, validateId } from "./helpers/validators.js"
 
 export function updateUsername(userId, oldUsername, newUsername, password) {
+    validateId(userId)
     const foundUser = findUserById(userId)
     if (!foundUser) throw new Error('user not found')
 

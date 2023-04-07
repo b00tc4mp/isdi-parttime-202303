@@ -1,7 +1,8 @@
 import { findUserByEmail, findUserById } from "./helpers/data-managers.js"
-import { context } from "../ui.js"
+import { validateId } from "./helpers/validators.js"
 
 export function updateUserEmail(userId, email, newEmail, newEmailConfirmation, password) {
+    validateId(userId, 'user id')
     const foundUser = findUserById(userId)
     const newEmailUserFound = findUserByEmail(newEmail)
     
