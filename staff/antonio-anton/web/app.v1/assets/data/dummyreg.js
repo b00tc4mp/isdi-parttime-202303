@@ -11,7 +11,8 @@ users.push({
     name: 'Robert de Niro',
     email: 'RdNiro@actors.com',
     password: 'VDUwODU1MDcz',
-    emailnotificatios: true
+    emailnotificatios: true,
+    createdOn: new Date()
 })
 
 users.push({
@@ -19,7 +20,8 @@ users.push({
     name: 'Nicolas Cage',
     email: 'NCage@actors.com',
     password: 'VDUwODU1MDcz',
-    emailnotificatios: true
+    emailnotificatios: true,
+    createdOn: new Date()
 })
 
 users.push({
@@ -27,12 +29,14 @@ users.push({
     name: 'Sylvester Stallone',
     email: 'SStallone@actors.com',
     password: 'VDUwODU1MDcz',
-    emailnotificatios: true
+    emailnotificatios: true,
+    createdOn: new Date()
 })
 users.push({
     guid:'',
     name: 'Antonio Antón',
     email: 'aanton@actors.com',
     password: 'YW50b25pbw==', /*antonio*/ 
-    emailnotificatios: true
+    emailnotificatios: true,
+    createdOn: new Date()
 })
