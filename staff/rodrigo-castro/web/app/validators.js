@@ -16,15 +16,21 @@ export function validateUrl(avatarUrl, explain = 'url'){
     if(!avatarUrl.trim().length) throw new Error(`${explain} is empty`, {cause: "ownError"})
 }
 
+export function validateId(id, explain = 'id'){
+    if(typeof id !== 'string') throw new Error(`${explain} is not a string`, {cause: "ownError"})
+    if(!id.trim().length) throw new Error(`${explain} is empty`, {cause: "ownError"})
+}
+
 export function validateName(userName){
     if (userName.trim().length < 1) throw new Error('Name is empty', {cause: "ownError"})
     if (/\d/.test(userName)) throw new Error ('Name contains numbers', {cause: "ownError"})
 }
 
-export function validatePassword(userPassword){
-    if (userPassword.length < 8) throw new Error('Password must have at least 8 characters', {cause: "ownError"})
-    if (!passwordExpression.test(userPassword)) throw new Error('Password format is not valid', {cause: "ownError"})
+export function validatePassword(userPassword, message = 'password'){
+    if (userPassword.length < 8) throw new Error(`${message} must have at least 8 characters`, {cause: "ownError"})
+    if (!passwordExpression.test(userPassword)) throw new Error(`${message} format is not valid`, {cause: "ownError"})
 }
 
 const emailExpression = /^[\w-.]+@[a-zA-Z0-9]+(\.[a-zA-Z]{2,4}){1,2}$/
-const passwordExpression = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%&*?])[a-zA-Z\d#$@!%&*?]{8,16}/
+const passwordExpression = /^[a-zA-Z\d#$@!%&*?]{8,16}/
+// const passwordExpression = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%&*?])[a-zA-Z\d#$@!%&*?]{8,16}/

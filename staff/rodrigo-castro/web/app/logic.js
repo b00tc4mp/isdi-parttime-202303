@@ -1,28 +1,33 @@
 // logic
 console.log('logic loaded')
 
-import {checkNewUser, validateEmail, validateUrl, validateName, validatePassword} from './validators.js'
+import {checkNewUser, validateEmail, validateUrl, validateName, validatePassword, validateId} from './validators.js'
 import {users} from './data.js'
 
 
-export const registerNewUser = (userName, userEmail, userPassword) => {
+export const registerNewUser = (userName, userEmail, userPassword, id) => {
     users.push({
+        id,
         name: userName,
         email: userEmail,
         password: userPassword
     })
 }
 
+export const findUserById = (userId) => {
+    return  users.find(user => user.id === userId)
+}
+
 export const findUser = (userEmail) => {
     return  users.find(user => user.email === userEmail)
 }
 
-export const changeEmail = (userLogged, homePage, changeEmailMenu) => {
+export const changeEmail = (authenticatedUserId, homePage, changeEmailMenu) => {
     var userPreviousEmail = homePage.querySelector('input[name=previous-email]').value
     var userNewEmail = homePage.querySelector('input[name=new-email]').value
     var userPassword = homePage.querySelector('input[name=change-email-pass]').value
 
-    var foundUser = findUser(userLogged.email)
+    var foundUser = findUserById(authenticatedUserId)
 
     if(userPreviousEmail !== foundUser.email) throw new Error('Email or password incorrect', {cause: "ownError"})
 
@@ -32,30 +37,35 @@ export const changeEmail = (userLogged, homePage, changeEmailMenu) => {
 
     if(userPassword !== foundUser.password) throw new Error('Email or password incorrect2', {cause: "ownError"})
 
-    userLogged.email = userNewEmail
     foundUser.email = userNewEmail
     changeEmailMenu.querySelector('.red-text').textContent = 'Email succesfully changed'
     changeEmailMenu.querySelector('.red-text').classList.add('green-text')
     changeEmailMenu.querySelector('form').reset()
 }
 
-export const changePassword = (userLogged, changePasswordMenu) => {
+export const changePassword = (userId, changePasswordMenu) => {
     var previousPassword = changePasswordMenu.querySelector('.previous-password').value
-    var foundUser = findUser(userLogged.email)
+    var newPassword = changePasswordMenu.querySelector('.new-password').value
+    var newPasswordRepeated = changePasswordMenu.querySelector('.repeat-new-password').value
+    
+    
+    validateId(userId)
+    validatePassword(previousPassword)
+    validatePassword(newPassword, 'new password')
+    validatePassword(newPasswordRepeated, 'new password confirm')
+    
+    var foundUser = findUserById(userId)
     
     if (previousPassword !== foundUser.password) throw new Error('Your password is incorrect', {cause: "ownError"})
 
-    var newPassword = changePasswordMenu.querySelector('.new-password').value
 
     if(newPassword.length < 8) throw new Error('Password must be at least 8 characters long', {cause: "ownError"})
 
     if(newPassword === previousPassword) throw new Error('New password must be different than previous', {cause: "ownError"})
 
-    var newPasswordRepeated = changePasswordMenu.querySelector('.repeat-new-password').value
 
     if(newPasswordRepeated !== newPassword) throw new Error (`New passwords don't match`, {cause: "ownError"})
 
-    userLogged.password = newPassword
     foundUser.password = newPassword
     
     changePasswordMenu.querySelector('.red-text').textContent = 'Password succesfully changed'
@@ -63,13 +73,13 @@ export const changePassword = (userLogged, changePasswordMenu) => {
     changePasswordMenu.querySelector('form').reset()
 }
 
-export const updateUserAvatar = (userLogged, avatarUrl, avatarImg, changeAvatarForm) => {
-    validateEmail(userLogged.email)
+export const updateUserAvatar = (userId, avatarUrl, avatarImg, changeAvatarForm) => {
+    validateId(userId, 'user id')
     validateUrl(avatarUrl, 'Avatar url')
 
-    var foundUser = findUser(userLogged.email)
+    var foundUser = findUserById(userId)
 
-    if(!foundUser) throw new Error('User not found', {cause: "ownError"})
+    if(!foundUser) throw new Error('Something went wrong. User not found', {cause: "ownError"})
 
     foundUser.avatar = avatarUrl
     avatarImg.src = foundUser.avatar
@@ -86,7 +96,14 @@ export const registerUserFull = (userEmail, userName, userPassword) => {
 
     validatePassword(userPassword)
 
-    registerNewUser(userName.trim(), userEmail, userPassword)
+    const lastUser = users[users.length - 1]
+
+    let id = 'user-1'
+
+    if(lastUser)
+        id = 'user-' + (parseInt(lastUser.id.slice(5)) + 1)
+
+    registerNewUser(userName.trim(), userEmail, userPassword, id)
 }
 
 export const goToHomePage = (homePage, foundUser, avatarImg) => {
@@ -96,7 +113,33 @@ export const goToHomePage = (homePage, foundUser, avatarImg) => {
         avatarImg.src = foundUser.avatar
 }
 
-export const logIn = (foundUser, userPassword, homePage, avatarImg) => {
+export const authenticateUser = (userEmail, userPassword, homePage, avatarImg) => {
+    validateEmail(userEmail)
+    validatePassword(userPassword)
+
+    const foundUser = findUser(userEmail)
+    
     if(foundUser === undefined || foundUser.password !== userPassword) throw new Error('Wrong email or password', {cause: "ownError"})
+    
     goToHomePage(homePage, foundUser, avatarImg)
+
+    return foundUser.id
+}
+
+export const retrieveUser = (userId) => {
+    validateId(userId, 'user id')
+
+    const foundUser = findUserById(userId)
+
+    if(!foundUser) throw new Error('User not found')
+
+    const user = {
+        name: foundUser.name
+    }
+
+    if (foundUser.avatar)
+        user.avatar = foundUser.avatar
+
+    return user
+
 }

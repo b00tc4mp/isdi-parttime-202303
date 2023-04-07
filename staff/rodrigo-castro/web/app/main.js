@@ -1,10 +1,9 @@
 //presentation
 
 import {showElement, hideElement, toggleElement, resetPage} from './ui.js'
-import { findUser, changeEmail, changePassword, updateUserAvatar, registerUserFull, logIn} from './logic.js'
+import { findUser, changeEmail, changePassword, updateUserAvatar, registerUserFull, authenticateUser, retrieveUser} from './logic.js'
 
-
-let userLogged
+let authenticatedUserId
 
 const registerPage = document.querySelector('.register-page')
 
@@ -49,17 +48,26 @@ registerPage.querySelector('form').addEventListener('submit', function(event) {
 
 loginPage.querySelector('form').addEventListener('submit', (event) => {
     event.preventDefault();
-    var userEmail = loginPage.querySelector('.input-field[name=email]').value.toLowerCase()
-    var userPassword = loginPage.querySelector('.input-field[name=password]').value
+    const userEmail = loginPage.querySelector('.input-field[name=email]').value.toLowerCase()
+    const userPassword = loginPage.querySelector('.input-field[name=password]').value
 
-    var foundUser = findUser(userEmail)
-
+    
     try {
-        logIn(foundUser, userPassword, homePage, avatarImg)
-        userLogged = JSON.parse(JSON.stringify(foundUser))
-        delete userLogged.password
+        
+        authenticatedUserId = authenticateUser(userEmail, userPassword, homePage, avatarImg)
+        console.log(authenticatedUserId)
+
+        const user = retrieveUser(authenticatedUserId)
+        console.log(user)
+
+        // userLogged = JSON.parse(JSON.stringify(foundUser))
+        
+        // delete userLogged.password
+        
         // userLogged = Object.assign({}, foundUser) -> otra forma de copiar objetos
+        
         resetPage(loginPage)
+
     } catch(error){
         if(error.cause === 'ownError'){
             loginPage.querySelector('.red-text').textContent = error.message
@@ -82,7 +90,7 @@ homePage.querySelector('.change-email').onclick = () => {
 changeEmailMenu.querySelector('form').onsubmit = (event) => {
     event.preventDefault()
     try {
-        changeEmail(userLogged, homePage, changeEmailMenu)
+        changeEmail(authenticatedUserId, homePage, changeEmailMenu)
     } catch(error){
         if(error.cause === 'ownError'){
             changeEmailMenu.querySelector('.red-text').textContent = error.message
@@ -101,7 +109,7 @@ homePage.querySelector('.change-password').addEventListener('click', () => {
 changePasswordMenu.querySelector('form').onsubmit = function(event) { 
     event.preventDefault();
     try {
-        changePassword(userLogged, changePasswordMenu)
+        changePassword(authenticatedUserId, changePasswordMenu)
     } catch(error){
         if(error.cause === 'ownError'){
             changePasswordMenu.querySelector('.red-text').textContent = error.message
@@ -121,7 +129,7 @@ changeAvatarForm.onsubmit = function(event) {
     var avatarUrl = event.target.avatarurl.value
 
     try {
-        updateUserAvatar(userLogged, avatarUrl, avatarImg, changeAvatarForm)
+        updateUserAvatar(authenticatedUserId, avatarUrl, avatarImg, changeAvatarForm)
     } catch(error){
         if(error.cause === 'ownError'){
             alert(error.message)
@@ -136,7 +144,7 @@ homeBar.querySelector('[name=logout]').addEventListener('click', () => {
     hideElement(homePage, changeAvatarMenu, changePasswordMenu, profileOptions)
     showElement(loginPage)
     avatarImg.src = defaultAvatar
-    userLogged = undefined
+    authenticatedUserId = undefined
 })
 
 document.querySelector(".go-to-sign-in").addEventListener('click', (event) => {
