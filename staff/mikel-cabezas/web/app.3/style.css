@@ -329,12 +329,7 @@ input:disabled {
 
 /* ___ USER SETTINGS ______ */
 
-.go-back {
-    display: flex;
-    align-content: center;
-    flex-direction: row;
-    margin-bottom: 10px;
-}
+
 .section.user-account .container {
     background-color: transparent;
     padding: 30px;

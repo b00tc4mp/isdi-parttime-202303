@@ -8,8 +8,6 @@ body {
     color: #fff;
     font-family: 'acumin-pro', sans-serif;
     position: relative;
-    padding: 0;
-    margin: 0;
 }
 
 .hidden, .off {
@@ -20,46 +18,12 @@ body {
 .section {
     width: 100%;
     height: 100%;
-    /* overflow: hidden; */
+    overflow: hidden;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
     align-content: center;
     justify-content: center;
-}
-
-.section.user-account {
-    flex-direction: row;
-    align-items: flex-start;
-    align-content: flex-start;
-    /* overflow: hidden; */
-    /* position: absolute; */
-}
-
-.sidebar {
-    background-color: #132f46;
-    padding: 30px;
-    width: calc(30% - 60px);
-    height: calc(100% - 120px);
-    margin-top: 60px;
-    position: fixed;
-    left: 0;
-}
-.sidebar .title h1 {
-    font-size: 27px;
-    text-align: left;
-}
-ul.menu-sidebar {
-    list-style: none;
-    padding: 0;
-    margin-top: 5px;
-}
-ul.menu-sidebar li {
-    padding: 10px 0;
-    color: #fff;
-}
-ul.menu-sidebar li a {
-    color: rgb(255 255 255 / 80%);
 }
 
 
@@ -75,7 +39,6 @@ ul.menu-sidebar li a {
     flex-direction: column;
     text-align: center;
 }
-
 /* ______ END GENERAL ___ */
 
 
@@ -106,10 +69,9 @@ a {
 /* ___ HEADER ______ */
 
 header {
-    position: fixed;
+    position: absolute;
     top: 0;
     width: 100%;
-    background: #081826;
 }
 
 .header-wrapper {
@@ -138,7 +100,6 @@ header {
 .menu > ul > li {
     padding: 15px 10px;
     cursor: pointer;
-    align-self: center;
 }
 li.login.has-submenu {
     position: relative;
@@ -167,62 +128,8 @@ header li {
 .menu .logout, .menu .homepage, body.logged-in .menu .login, .menu .user-account {
     display: none;
 }
-body.logged-in .menu .logout, body.logged-in .menu .homepage {
+body.logged-in .menu .logout, body.logged-in .menu .homepage, body.logged-in .menu .user-account {
     display: block;
-}
-body.logged-in .menu li.user-account {
-    display:flex;
-    flex-direction:row
-}
-
-li.user-account img, li.user-account img {
-    background: #fff;
-    width: 30px;
-    height: 30px;
-    border-radius: 100px;
-}
-.avatar {
-    background: #078197;
-    border-radius: 100px;
-    width: 30px;
-    height: 30px;
-    display: flex;
-    align-self: center;
-    justify-content: center;
-    align-items: center;
-    margin-right: 5px;
-    position: relative;
-}
-.section.user-account .avatar {
-    border-radius: 100px;
-    /* width: 85px; */
-    /* height: 85px; */
-    display: flex;
-    align-self: flex-start;
-    justify-content: center;
-    align-items: center;
-    margin-right: 5px;
-    margin-top: 35px;
-    transform: scale(2.5);
-    margin-bottom: 26px;
-    left: 25px;
-}
-.letter {
-    font-weight: 700;
-    letter-spacing: -.7px;
-    position: relative;
-    bottom: 1px;
-    font-size: 15px;
-}
-.user-name {
-    align-self: center;
-    line-height: 1;
-}
-
-img.image-profile {
-    width: 100%;
-    position: absolute;
-    border-radius: 100px;
 }
 
 /* ______ END HEADER ___ */
@@ -241,12 +148,11 @@ form {
 .message.success {
     color: #49b056;
 }
-.message.error,
-.delete-account p {
+.message.error {
     color: #e95959;
 }
 
-input:not([name="file"]) {
+input {
     background-color: rgba(43,47,49, 0.7);
     background-color: rgb(35 46 56 / 70%);
     color: #fff;
@@ -257,9 +163,6 @@ input:not([name="file"]) {
     border-radius: 10px;
     text-align: center;
     transition: linear .2s;
-}
-input[type="file"] {
-    margin: 10px 0 20px 5px;
 }
 input::placeholder {
     color: #ffffff9a;
@@ -299,18 +202,6 @@ input:disabled {
 /* .container .login p, .container .register p {
     margin: 25px 0 0;
 } */
-.password {
-    display: flex;
-    align-items: center;
-    position: relative;
-}
-.password > i.uil {
-    margin: 5px 0 12px;
-    position: absolute;
-    right: 10px;
-    opacity: .7;
-    font-size: 1.3rem;
-}
 /* ______ END FORM ___ */
 
 
@@ -325,34 +216,17 @@ input:disabled {
 /* ______ END HOME ___ */
 
 
-
-
 /* ___ USER SETTINGS ______ */
 
-.go-back {
-    display: flex;
-    align-content: center;
-    flex-direction: row;
-    margin-bottom: 10px;
+/* .update form.data {
+    height: 100%;
+    overflow: inherit;
+    transition: linear .2s;
 }
-.section.user-account .container {
-    background-color: transparent;
-    padding: 30px;
-    max-width: none;
-    width: calc(70% - 60px);
-    border-radius: 0;
-    display: flex;
-    flex-direction: column;
-    text-align: left;
-    height: calc(100% - 120px);
-    margin-top: 60px;
-    margin-left: 30%;
-
-}
-.section.user-account .container h2,
-.section.user-account .container input {
-    text-align: left;
-}
+.update form.data.toggle {
+    height: 0;
+    overflow: hidden;
+} */
 
 .section.user-account h2 {
     margin-bottom: 0;
@@ -376,19 +250,13 @@ button.button--update-info__cancel-password
     padding: 8px 10px;
     border-radius: 10px;
     border: solid 2px #078197;
+    max-width: 135px;
     margin: auto;
     width: 100%;
     margin-top: 0px;
     cursor: pointer;
     margin-bottom: 20px;
     transition: linear .2s;
-}
-
-button.button--update-info__profile {
-    max-width: 108px;
-}
-button.button--update-info__password {
-    max-width: 145px;
 }
 
 button.button--update-info__save-info,
@@ -408,18 +276,7 @@ button[disabled] {
     opacity: .6;
     background: transparent;
 }
-.update {
-    max-width: 380px;
-}
-.section.user-account .password input {
-    width: 100%;
-}
-.update form {
-    max-width: 280px;
-}
-.update > p {
-    margin-top: 0;
-}
+
 /* ______ END USER SETTINGS ___ */
 
 /* input:-webkit-autofill,
