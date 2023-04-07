@@ -1,8 +1,8 @@
-import { authenticateUser, getLoggedUser } from "../logic.js"
-import { context  } from "../ui.js"
+import { authenticateUser } from "../logic/authenticate-user.js"
+import { getLoggedUser } from "../logic/login-user.js"
+import { context, showHideContainer  } from "../ui.js"
 import { registerPage } from "./register-page.js"
 import { homePage, homePageMain } from "./home-page.js"
-import { showHideContainer } from "../ui.js"
 
 export const loginPage = document.querySelector('.login')
 

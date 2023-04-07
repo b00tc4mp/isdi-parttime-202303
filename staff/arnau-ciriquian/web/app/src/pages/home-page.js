@@ -1,6 +1,8 @@
 import { loginPage } from "./login-page.js"
-import { updateUserPassword, updateUserEmail, updateUsername } from "../logic.js"
-import { showHideContainer, closeProfilePages, context } from "../ui.js"
+import { updateUsername } from "../logic/update-user-name.js"
+import { closeProfilePages, context, showHideContainer } from "../ui.js"
+import { updateUserPassword } from "../logic/update-user-password.js"
+import { updateUserEmail } from "../logic/update-user-email.js"
 
 export const homePage = document.querySelector('.home')
 export const homePageProfile = homePage.querySelector('.home__profile')
@@ -108,7 +110,6 @@ homePage.querySelector('.navigation__anchor--logout').onclick = function(event) 
     loginPage.classList.remove('off')
 
     context.userID = null
-    //loggedUserName = {}
 }
 
 homePage.querySelector('.password__anchor--profile').onclick = function(event) {

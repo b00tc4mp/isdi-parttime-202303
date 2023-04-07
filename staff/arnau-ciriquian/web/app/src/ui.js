@@ -1,4 +1,3 @@
-import { actualPasswordEyeToggle } from "./logic.js"
 import { loginPage } from "./pages/login-page.js"
 import { registerPage } from "./pages/register-page.js"
 import { homePageEmail, homePagePassword, homePageUsername } from "./pages/home-page.js"
@@ -67,4 +66,14 @@ export function closeProfilePages() {
     homePageUsername.classList.add('off')
     homePageEmail.classList.add('off')
     homePagePassword.classList.add('off')
+}
+
+function actualPasswordEyeToggle(container, passwordClass) {
+    const password = container.querySelector(passwordClass)
+
+    if (password.type === 'password') {
+        password.type = 'text'
+    } else {
+        password.type = 'password'
+    }
 }
