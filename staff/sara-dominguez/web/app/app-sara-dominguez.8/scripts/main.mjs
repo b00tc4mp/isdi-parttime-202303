@@ -1,4 +1,4 @@
-import { registerUser, authenticateUser, retrieveUser, validatedNewPassword, updateUserAvatar } from './logic.mjs'
+import { registerUser, authenticateUser, retrieveUser, updateUserAvatar, validatedNewPassword } from './logic.mjs'
 
 const registerPage= document.querySelector('.register')
 const registerForm = registerPage.querySelector('form')
@@ -6,10 +6,10 @@ const registerForm = registerPage.querySelector('form')
 const loginPage= document.querySelector('.login')
 const loginForm= loginPage.querySelector('form')
 const homePage= document.querySelector('.home')
-let authenticateEmail 
+let authenticadedUserId  
 // es util porque nos serviran los datos para el cambio de sesion...
 const homeMenu = homePage.querySelector('.home-header').querySelector('.home-menu')
-const myProfileLink = homeMenu.querySelector('a')
+const myProfileLink = homeMenu.querySelector('.myProfile')
 const homeProfileEdit = homePage.querySelector('.profile-edit') 
 const homeProfileEditAvatarForm= homeProfileEdit.querySelector('.profile-edit-avatar-form')
 const homeProfileEditPasswordForm = homePage.querySelector('.profile-edit-password-form')
@@ -26,9 +26,8 @@ registerForm.onsubmit = function(event) {
     const password = registerForm.querySelector('input[name=password]').value
 
     try{
-        const result = registerUser(name,email,password)
-        if (result === false) throw new Error ('User does exist')
-
+        registerUser(name,email,password)
+        
         registerForm.reset()
         registerPage.classList.add('off')
         loginPage.classList.remove('off')
@@ -48,25 +47,27 @@ loginForm.onsubmit = function (event) {
     const password = loginForm.querySelector('input[name=password]').value
     
     try{
-        const result = authenticateUser(email,password)
-        if(result === false) throw new Error ('wrong email or password')
+        authenticadedUserId = authenticateUser(email,password)
+        
+        const user = retrieveUser(authenticadedUserId)
 
-        authenticateEmail = email
+        myProfileLink.innerText = `${user.name}`
 
-        const foundUser = retrieveUser(email)
+        if(user.avatar){
+            homeMenu.querySelector('.home-header-avatar').src = user.avatar
+        }
 
-        homeMenu.querySelector('.myProfile').innerText = `${foundUser.name}`
-
-        //TODO añadir avatar image -- clase 28/03/2023
 
         loginForm.reset()
 
         loginPage.classList.add('off')
         homePage.classList.remove('off')
 
-    } catch(error) {
-    alert(error.message)
-    }
+        
+        }   catch (error) {
+            alert(error.message)
+        }
+    
 }
 
 
@@ -126,17 +127,18 @@ homeProfileEdit.querySelector('.updatePassword').onclick = function(event){
 homeProfileEditAvatarForm.onsubmit = function (event){
     event.preventDefault()
 
-    let newAvatar = homeProfileEditAvatarForm.querySelector('input[name=avatar-url]').value
+    const newAvatar = homeProfileEditAvatarForm.querySelector('input[name=avatar-url]').value
+    
     //otras formas de hacerlo 
     //const url1 = event.target.avatar-url.value (la mas usual) 
     //const url2= homeProfileEdit.querySelector('profile-edit-avatar-form').avatar-url.value 
     //const url3 = this.avatar-url.value //(no recomendado)
 
     try{
-        updateUserAvatar(authenticateUser, newAvatar)
-        
-
+        updateUserAvatar(authenticadedUserId, newAvatar)
+       
         alert('your avatar has been updated')
+        homeMenu.querySelector('.home-header-avatar').src = newAvatar
     }catch(error) {
         alert(error.message)
     }
@@ -153,16 +155,18 @@ homeProfileEditPasswordForm.onsubmit = function(event){
     const userConfirmNewPassword = homeProfileEditPasswordForm.querySelector('input[name=confirm-new-password]').value
     
     try{
-        const result = validatedNewPassword (authenticateEmail, password, userNewPassword, userConfirmNewPassword)
+        validatedNewPassword (authenticadedUserId , password, userNewPassword, userConfirmNewPassword)
 
-        if(result === false) throw new Error ('Validate New password failed')
     
-        alert('your new password has been validated')
+    alert('your new password has been validated')
     }catch(error) {
         alert(error.message)
     }
+    
     homeProfileEditPasswordForm.reset()
+    homeProfileEdit.querySelector('.profile-edit-password').classList.add('off')
 }
+
 console.log('load main') 
 
 //home-header-Logout 

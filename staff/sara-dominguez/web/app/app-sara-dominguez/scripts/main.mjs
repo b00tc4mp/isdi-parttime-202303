@@ -1,18 +1,21 @@
-import { registerUser, authenticateUser, retrieveUser, validatedNewPassword } from './logic.mjs'
+import { show, hide, toggle} from './ui.mjs'
+import { registerUser, authenticateUser, retrieveUser, updateUserAvatar, validatedNewPassword } from './logic.mjs'
 
 const registerPage= document.querySelector('.register')
 const registerForm = registerPage.querySelector('form')
 
 const loginPage= document.querySelector('.login')
 const loginForm= loginPage.querySelector('form')
+
 const homePage= document.querySelector('.home')
 let authenticadedUserId  
-// es util porque nos serviran los datos para el cambio de sesion...
+
 const homeMenu = homePage.querySelector('.home-header').querySelector('.home-menu')
 const myProfileLink = homeMenu.querySelector('.myProfile')
+
 const homeProfileEdit = homePage.querySelector('.profile-edit') 
 const homeProfileEditAvatarForm= homeProfileEdit.querySelector('.profile-edit-avatar-form')
-const homeProfileEditPasswordForm = homePage.querySelector('.profile-edit-password')
+const homeProfileEditPasswordForm = homePage.querySelector('.profile-edit-password-form')
 
 
 //REGISTER PAGE
@@ -21,17 +24,16 @@ const homeProfileEditPasswordForm = homePage.querySelector('.profile-edit-passwo
 registerForm.onsubmit = function(event) {
     event.preventDefault()
 
-    const name = registerForm.querySelector('input[name=name]').value
-    const email = registerForm.querySelector('input[name=email]').value
-    const password = registerForm.querySelector('input[name=password]').value
+    const name = event.target.name.value
+    const email = event.target.email.value
+    const password = event.target.password.value
 
     try{
-        const result = registerUser(name,email,password)
-        if (result === false) throw new Error ('User does exist')
-
+        registerUser(name,email,password)
+        
         registerForm.reset()
-        registerPage.classList.add('off')
-        loginPage.classList.remove('off')
+        hide(registerPage)
+        show(loginPage)
 
     } catch (error) {
         alert(error.message)
@@ -44,8 +46,8 @@ registerForm.onsubmit = function(event) {
 loginForm.onsubmit = function (event) {
     event.preventDefault()
 
-    const email = loginForm.querySelector('input[name=email]').value
-    const password = loginForm.querySelector('input[name=password]').value
+    const email = event.target.email.value
+    const password = event.target.password.value
     
     try{
         authenticadedUserId = authenticateUser(email,password)
@@ -54,16 +56,21 @@ loginForm.onsubmit = function (event) {
 
         myProfileLink.innerText = `${user.name}`
 
-        //TODO añadir avatar image -- clase 28/03/2023
+        if(user.avatar){
+            homeMenu.querySelector('.home-header-avatar').src = user.avatar
+        }
+
 
         loginForm.reset()
 
-        loginPage.classList.add('off')
-        homePage.classList.remove('off')
+        hide (loginPage)
+        show(homePage)
 
-    } catch(error) {
-    alert(error.message)
-    }
+        
+        }   catch (error) {
+            alert(error.message)
+        }
+    
 }
 
 
@@ -83,8 +90,8 @@ registerPage.querySelector('a').conclick = function(event){
     event.preventDefault()
 
     registerForm.reset()
-    registerPage.classList.add('off')
-    loginPage.classList.remove('off')
+    hide(registerPage)
+    show(loginPage)
 }
 
 //HOME PAGE
@@ -95,7 +102,7 @@ registerPage.querySelector('a').conclick = function(event){
 homeMenu.querySelector('.myProfile').onclick = function(event){
     event.preventDefault()
 
-   homeProfileEdit.classList.remove('off')
+   show(homeProfileEdit)
 }
 
 
@@ -104,7 +111,7 @@ homeMenu.querySelector('.myProfile').onclick = function(event){
 
 homeProfileEdit.querySelector('.updateAvatar').onclick = function(event){
     event.preventDefault()
-    homeProfileEdit.querySelector('.profile-edit-avatar-form').classList.remove('off')
+    show(homeProfileEdit.querySelector('.profile-edit-avatar-form'))
 }
 
 
@@ -113,7 +120,7 @@ homeProfileEdit.querySelector('.updateAvatar').onclick = function(event){
 homeProfileEdit.querySelector('.updatePassword').onclick = function(event){
     event.preventDefault()
 
-    homeProfileEdit.querySelector('.profile-edit-password').classList.remove('off')
+    show(homeProfileEdit.querySelector('.profile-edit-password'))
 }
 
 
@@ -123,21 +130,22 @@ homeProfileEdit.querySelector('.updatePassword').onclick = function(event){
 homeProfileEditAvatarForm.onsubmit = function (event){
     event.preventDefault()
 
-    const newAvatar = homeProfileEditAvatarForm.querySelector('input[name=avatar-url]').value
+    const newAvatar = event.target.avatarUrl.value
+    
     //otras formas de hacerlo 
     //const url1 = event.target.avatar-url.value (la mas usual) 
     //const url2= homeProfileEdit.querySelector('profile-edit-avatar-form').avatar-url.value 
     //const url3 = this.avatar-url.value //(no recomendado)
 
     try{
-        const result = updateUserAvatar(authenticateUser, newAvatar)
-        if(result === false) throw new Error ('Update avatar failed')
-
+        updateUserAvatar(authenticadedUserId, newAvatar)
+       
         alert('your avatar has been updated')
+        homeMenu.querySelector('.home-header-avatar').src = newAvatar
     }catch(error) {
         alert(error.message)
     }
-
+    
 }
 
 //configurate form to change password (3 inputs)
@@ -145,9 +153,9 @@ homeProfileEditAvatarForm.onsubmit = function (event){
 homeProfileEditPasswordForm.onsubmit = function(event){
     event.preventDefault()
 
-    const password= homeProfileEditPasswordForm.querySelector('input[name=password]').value
-    const userNewPassword = homeProfileEditPasswordForm.querySelector('input[name=new-password]').value
-    const userConfirmNewPassword = homeProfileEditPasswordForm.querySelector('input[name=confirm-new-password]').value
+    const password= event.target.password.value
+    const userNewPassword = event.target.newPassword.value
+    const userConfirmNewPassword = event.target.confirmNewPassword.value
     
     try{
         validatedNewPassword (authenticadedUserId , password, userNewPassword, userConfirmNewPassword)
@@ -159,7 +167,7 @@ homeProfileEditPasswordForm.onsubmit = function(event){
     }
     
     homeProfileEditPasswordForm.reset()
-    homeProfileEdit.querySelector('.profile-edit-password').classList.add('off')
+    hide(homeProfileEdit.querySelector('.profile-edit-password'))
 }
 
 console.log('load main') 
@@ -170,11 +178,11 @@ homePage.querySelector('.home-header').querySelector('.home-header-logout').quer
     event.preventDefault() 
     //no necesario al estar fuera de un formulario
 
-    homePage.classList.add('off') 
-    homeProfileEdit.classList.add('off') 
-    homeProfileEditAvatarForm.classList.add('off')
-    homeProfileEditPasswordForm.classList.add('off')
-    loginPage.classList.remove('off')
+    hide(homePage)
+    hide(homeProfileEdit)
+    hide(homeProfileEditAvatarForm)
+    hide(homeProfileEditPasswordForm)
+    show(loginPage)
 }
 
 

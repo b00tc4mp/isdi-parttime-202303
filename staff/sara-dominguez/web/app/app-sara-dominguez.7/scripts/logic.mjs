@@ -60,14 +60,14 @@ export function retrieveUser(email) {
 
 // Function to validate changes of user avatar
 
-export function updateUserAvatar(email, newAvatar) {
+export function updateUserAvatar(id, newAvatar) {
    //validateEmail(email)
   // validateNewAvatar(newAvatar)
 
-   let foundUser = findUserByEmail(email)
+   let foundUser = findUserById(id)
 
     if(!foundUser) throw new Error ('User not found') 
-    if (foundUser.email!== email) throw new Error ('Wrong email')
+    if (foundUser.id!== id) throw new Error ('Wrong email')
         
     else{
         foundUser.avatar = newAvatar
