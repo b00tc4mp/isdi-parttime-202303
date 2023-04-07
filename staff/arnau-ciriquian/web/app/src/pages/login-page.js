@@ -13,9 +13,10 @@ loginPage.querySelector('form').onsubmit = function(event) {
     const password = event.target.password.value
 
     try {
-        authenticateUser(email, password)
-        context.userID = email
-        const foundUser = getLoggedUser(email)
+        context.userID = authenticateUser(email, password)
+        const foundUser = getLoggedUser(context.userID)
+
+        // avatarImage.src = user.avatar? user.avatar : DEFAULT_AVATAR_URL
 
         loginPage.classList.add('off')
         homePage.classList.remove('off')

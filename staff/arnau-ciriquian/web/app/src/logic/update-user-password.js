@@ -1,8 +1,8 @@
-import { findUserByEmail } from "./helpers/data-managers.js"
+import { findUserById } from "./helpers/data-managers.js"
 import { validateNewPassword, validatePasswordConfirm } from "./helpers/validators.js"
 
-export function updateUserPassword(email, password, newPassword, newPasswordConfirmation) {
-    const foundUser = findUserByEmail(email)
+export function updateUserPassword(userID, password, newPassword, newPasswordConfirmation) {
+    const foundUser = findUserById(userID)
     if (!foundUser) throw new Error('user not found')
     if (password !== foundUser.password) throw new Error('old password is not correct')
 

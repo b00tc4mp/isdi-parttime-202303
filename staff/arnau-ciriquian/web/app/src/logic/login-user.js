@@ -1,19 +1,20 @@
 
-import { validateEmail } from "./helpers/validators.js"
-import { findUserByEmail } from "./helpers/data-managers.js"
+import { validateId } from "./helpers/validators.js"
+import { findUserById } from "./helpers/data-managers.js"
 
-export function getLoggedUser(email) {
-    validateEmail(email)
+export function getLoggedUser(userID) {
+    validateId(userID, 'user id')
     
-    const foundUser = findUserByEmail(email)
+    const foundUser = findUserById(userID)
     if(!foundUser) throw new Error('user not found')
 
     const user = {
         name: foundUser.name,
-        email: foundUser.email
     }
 
-    //loggedUserName = foundUser.name
+    // if (foundUser.avatar) {
+    //     user.avatar = foundUser.avatar
+    // }
     
     return user
 }

@@ -28,3 +28,8 @@ export function validatePassword(password) {
     if (typeof password !== 'string') throw new Error('password is not a string')
     if(!password.length) throw new Error('password is empty')
 }
+
+export function validateId(id, explain = 'id') {
+    if (typeof id !== 'string') throw new Error(`${explain} is not a string`)
+    if (!id.trim().length) throw new Error(`${explain} is empty`)
+}

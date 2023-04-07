@@ -20,7 +20,8 @@ homePage.querySelector('.password__form').onsubmit = function(event) {
     const email = context.userID
 
     try {
-        updateUserPassword(email, oldPassword, newPassword, confirmedPassword)
+        updateUserPassword(context.userID, oldPassword, newPassword, confirmedPassword)
+        alert('password updated')
 
         homePageProfile.classList.remove('off')
         homePagePassword.classList.add('off')
@@ -39,7 +40,8 @@ homePage.querySelector('.email__form').onsubmit = function(event) {
     const password = event.target.emailPassword.value
 
     try {
-        updateUserEmail(oldEmail, newEmail, confirmedEmail, password)
+        updateUserEmail(context.userID, oldEmail, newEmail, confirmedEmail, password)
+        alert('email updated')
 
         homePageProfile.classList.remove('off')
         homePageEmail.classList.add('off')
@@ -55,10 +57,11 @@ homePage.querySelector('.username__form').onsubmit = function(event) {
     const oldUsername = event.target.oldUsername.value
     const newUsername = event.target.newUsername.value
     const password = event.target.password.value
-    const email = context.userID
 
     try {
-        updateUsername(email, oldUsername, newUsername, password)
+        updateUsername(context.userID, oldUsername, newUsername, password)
+        alert('name updated')
+        homePage.querySelector('.home__anchor--profile').innerText = newUsername
 
         homePageProfile.classList.remove('off')
         homePageUsername.classList.add('off')

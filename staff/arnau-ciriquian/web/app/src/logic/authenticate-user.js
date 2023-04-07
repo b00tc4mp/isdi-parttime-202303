@@ -8,4 +8,6 @@ export function authenticateUser(email, password) {
     const foundUser = findUserByEmail(email)
     if (!foundUser) throw new Error('user not found')
     if (foundUser.password !== password) throw new Error('wrong password')
+
+    return foundUser.id
 }

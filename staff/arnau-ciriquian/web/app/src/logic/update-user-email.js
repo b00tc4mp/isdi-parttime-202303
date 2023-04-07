@@ -1,11 +1,10 @@
-import { findUserByEmail } from "./helpers/data-managers.js"
+import { findUserByEmail, findUserById } from "./helpers/data-managers.js"
 import { context } from "../ui.js"
 
-export function updateUserEmail(email, newEmail, newEmailConfirmation, password) {
-    const foundUser = findUserByEmail(email)
+export function updateUserEmail(userId, email, newEmail, newEmailConfirmation, password) {
+    const foundUser = findUserById(userId)
     const newEmailUserFound = findUserByEmail(newEmail)
     
-    if (email !== context.userID) throw new Error('email does not correspond to acount email')
     if (!foundUser) throw new Error('user not found')
     if (email !== foundUser.email) throw new Error('email does not correspond to actual email')
     if (!newEmail.match(/\S+@\S+\.\S+/)) throw new Error('new email is not a valid adress')
