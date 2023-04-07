@@ -1,7 +1,7 @@
 console.log('load logic') 
 
-import { validateName, validateEmail, validatePassword, validateUserNewPassword, validateUserConfirmNewPassword, validateId } from './validators.mjs'
-import {users} from './data.mjs'
+import { validateName, validateEmail, validatePassword, validateUserNewPassword, validateUserConfirmNewPassword } from './validators.mjs'
+import { users } from './data.mjs'
 
  export function registerUser(name, email, password) {
   validateName(name)
@@ -13,22 +13,13 @@ import {users} from './data.mjs'
     if(foundUser )
         throw new Error('User already exists') 
 
-    const lastUser = users[users.length - 1]
+    // TODO mark email input in red
     
-    let id = 'user-1'
-
-    if(lastUser) 
-        id = 'user-' + (parseInt(lastUser.id.slice(5)) + 1)
-    
-    
-      const user = ({
-        id,
-        name,
-        email,
-        password,
+     users.push({
+        name: name,
+        email: email,
+        password: password,
         })
-
-    users.push(user)
 }
 
 
@@ -39,13 +30,9 @@ export function authenticateUser (email, password) {
 
     let foundUser= findUserByEmail(email)
 
-    if(!foundUser) 
-        throw new Error ('User not found') 
-
-    if (foundUser.password !== password) 
-        throw new Error ('Wrong password')
-    
-    return foundUser.id
+    if(!foundUser) throw new Error ('User not found') 
+    if (foundUser.password !== password) throw new Error ('Wrong password')
+    return foundUser
 }
 
 /*
@@ -54,17 +41,18 @@ return (!foundUser || foundUser.password !== password)? false : true
 return !(!foundUser || foundUser.password !== password) 
 */
 
-export function retrieveUser(userId) {
-   validateId(userId)
+export function retrieveUser(email) {
+   validateEmail(email)
     
-    let foundUser = findUserById(userId)
+    let foundUser = findUserByEmail(email)
    
     if(!foundUser) throw new Error ('User not found') 
-
+    if (foundUser.email !== email) throw new Error ('Wrong email')
         
     else{
         const user = {
             name: foundUser.name, 
+            email: foundUser.email
         } 
         return user
     }
@@ -72,14 +60,14 @@ export function retrieveUser(userId) {
 
 // Function to validate changes of user avatar
 
-function updateUserAvatar(id, newAvatar) {
+export function updateUserAvatar(email, newAvatar) {
    //validateEmail(email)
   // validateNewAvatar(newAvatar)
 
-   let foundUser = findUserById(userId)
+   let foundUser = findUserByEmail(email)
 
     if(!foundUser) throw new Error ('User not found') 
-    if (foundUser.id!== id) throw new Error ('Wrong email')
+    if (foundUser.email!== email) throw new Error ('Wrong email')
         
     else{
         foundUser.avatar = newAvatar
@@ -91,20 +79,19 @@ function updateUserAvatar(id, newAvatar) {
 
 // Function to validate changes or password--homepage-- hay que validarlo con el email
 
-export function validatedNewPassword(id, password, userNewPassword,userConfirmNewPassword) {
-    validateId(id)
+export function validatedNewPassword(email, password, userNewPassword,userConfirmNewPassword) {
+    validateEmail(email)
     validatePassword(password)
     validateUserNewPassword(userNewPassword)
     validateUserConfirmNewPassword(userConfirmNewPassword)
 
-    let foundUser= findUserById(id)
+    let foundUser= findUserByEmail(email)
 
     if(!foundUser) throw new Error ('User not found') 
     if (userNewPassword !== userConfirmNewPassword)throw new Error('New password and confirmed password do not match')
     if (foundUser.password !== password) throw new Error ('wrong  actual password') 
     if(password === userNewPassword) throw new Error ('You have to change the password')
-    
-    foundUser.password = userNewPassword          
+    if(foundUser&& userNewPassword === userConfirmNewPassword) foundUser.password = userNewPassword          
 }
 
 
@@ -114,24 +101,10 @@ export function findUserByEmail(email){
 
     let foundUser
 
-    for(let i = 0; i< users.length; i++){
-        let user = users[i]
+    for(const i = 0; i< users.length; i++){
+        const user = users[i]
 
         if(user.email === email){
-            foundUser= user
-        break
-        }
-    }
-    return foundUser
-}
-export function findUserById(userId){
-
-    let foundUser
-
-    for(let i = 0; i< users.length; i++){
-        let user = users[i]
-
-        if(user.id === userId){
             foundUser= user
         break
         }

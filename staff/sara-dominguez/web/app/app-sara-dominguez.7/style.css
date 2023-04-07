@@ -15,7 +15,7 @@ body, .home {
     --basebluecolor: rgb(2, 58, 72);
 }
 
-.register, .login, .home-profile-edit-password {
+.register, .login {
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -27,7 +27,7 @@ body, .home {
     color: var(--basewhitecolor)
 }
 
-.login-form, .register-form, .home-profile-edit-password-form{
+.login-form, .register-form {
     display: flex;
     flex-direction: column;
     gap: 0.25rem;

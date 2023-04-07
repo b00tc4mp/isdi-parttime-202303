@@ -1,4 +1,4 @@
-import { registerUser, authenticateUser, retrieveUser, validatedNewPassword } from './logic.mjs'
+import { registerUser, authenticateUser, retrieveUser, validatedNewPassword, findUserByEmail } from './logic.mjs'
 
 const registerPage= document.querySelector('.register')
 const registerForm = registerPage.querySelector('form')
@@ -6,10 +6,10 @@ const registerForm = registerPage.querySelector('form')
 const loginPage= document.querySelector('.login')
 const loginForm= loginPage.querySelector('form')
 const homePage= document.querySelector('.home')
-let authenticadedUserId  
+let authenticateEmail 
 // es util porque nos serviran los datos para el cambio de sesion...
 const homeMenu = homePage.querySelector('.home-header').querySelector('.home-menu')
-const myProfileLink = homeMenu.querySelector('.myProfile')
+const myProfileLink = homeMenu.querySelector('a')
 const homeProfileEdit = homePage.querySelector('.profile-edit') 
 const homeProfileEditAvatarForm= homeProfileEdit.querySelector('.profile-edit-avatar-form')
 const homeProfileEditPasswordForm = homePage.querySelector('.profile-edit-password')
@@ -48,11 +48,14 @@ loginForm.onsubmit = function (event) {
     const password = loginForm.querySelector('input[name=password]').value
     
     try{
-        authenticadedUserId = authenticateUser(email,password)
-        
-        const user = retrieveUser(authenticadedUserId)
+        const result = authenticateUser(email,password)
+        if(result === false) throw new Error ('wrong email or password')
 
-        myProfileLink.innerText = `${user.name}`
+        authenticateEmail = email
+
+        const foundUser = retrieveUser(email)
+
+        homeMenu.querySelector('.myProfile').innerText = `${foundUser.name}`
 
         //TODO añadir avatar image -- clase 28/03/2023
 
@@ -150,18 +153,16 @@ homeProfileEditPasswordForm.onsubmit = function(event){
     const userConfirmNewPassword = homeProfileEditPasswordForm.querySelector('input[name=confirm-new-password]').value
     
     try{
-        validatedNewPassword (authenticadedUserId , password, userNewPassword, userConfirmNewPassword)
+        const result = validatedNewPassword (authenticateEmail, password, userNewPassword, userConfirmNewPassword)
 
+        if(result === false) throw new Error ('Validate New password failed')
     
-    alert('your new password has been validated')
+        alert('your new password has been validated')
     }catch(error) {
         alert(error.message)
     }
-    
     homeProfileEditPasswordForm.reset()
-    homeProfileEdit.querySelector('.profile-edit-password').classList.add('off')
 }
-
 console.log('load main') 
 
 //home-header-Logout 

@@ -38,7 +38,3 @@ export function validateUserConfirmNewPassword(userConfirmNewPassword) {
     if(userConfirmNewPassword.trim().length < 6) throw new Error('New confirmed passwordd minimun 6 characters')
     if(userConfirmNewPassword.trim().length > 12) throw new Error('New confirmed password maximum 12 characters')
 }
-
-export function validateId(id, explain = 'id'){
-    if (typeof id!=='string') throw new Error(`${explain} is not a string`);  
-}
