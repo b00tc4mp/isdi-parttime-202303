@@ -31,6 +31,9 @@ const updateAvatarForm = document.querySelector(".home-update-avatar-menu .form"
 const cancelUpdateAvatarButton = document.querySelector(".form-avatar-cancel-button");
 var authenticatedEmail
 
+//*VARIABLES DE FOOTER
+const footerSite = document.querySelector(".footer");
+
 //! PARTE DE REGISTER
 registerPage.querySelector(".register form").addEventListener('submit', function (event) {
     event.preventDefault();
@@ -56,7 +59,7 @@ logInForm.addEventListener('submit', function (event) {
     event.preventDefault();
     const temporalUser = {
         email: event.target.email.value,
-        password: event.target.password.value
+        password: event.target.password.value = "LucasDiaz22!"
     }
     try{
         authenticateUser(temporalUser);
@@ -64,6 +67,7 @@ logInForm.addEventListener('submit', function (event) {
         addUserNameInHeader(authenticatedEmail,welcomeMessage);
         hide(logInPage);
         show(homePage);
+        show(footerSite);
     }catch(error){
         failLogInAdvice.textContent = error.message;
     }
@@ -76,7 +80,7 @@ loginRegistrationAnchor.onclick = (event) => {
 
 //! PARTE DE HOME
 logOutButton.onclick = () => {
-    hide(homePage,changePasswordMenu,updateAvatarMenu);
+    hide(homePage,changePasswordMenu,updateAvatarMenu,footerSite);
     headerMenu.classList.remove("home-menu-transition");
     show(logInPage);
     authenticatedEmail = undefined;

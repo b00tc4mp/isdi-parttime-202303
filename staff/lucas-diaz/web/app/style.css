@@ -11,9 +11,9 @@ body{
     background-color: #1e1f22;
     display: flex;
     flex-flow:wrap row;
-    align-items: center;
+    align-content: flex-start;
     justify-content: center;
-    font-size: 0.80rem;
+    font-size: 1rem;
 }
 
 /*! SHARED STYLES*/
@@ -36,12 +36,14 @@ body{
 .register, .login{
     width: 50%;
     height: 50%;
+    margin-top: 20vh;
     border-radius: 12px;
     display: flex;
     flex-flow:wrap row;
     align-items: center;
     justify-content: center;
     padding: 16px;
+    
 }
 .register-header, .login-header{
     height: 15%;
@@ -69,9 +71,10 @@ body{
     justify-content: flex-start;
 }
 label{
-    flex-basis: 50%;
+    flex-basis: 65%;
     text-align: left;
     margin-left: 15px;
+    font-size: .8rem;
 }
 .form-username, .form-email, .form-password {
     flex-basis: 100%;
@@ -80,7 +83,9 @@ label{
     padding-left: 15px;
     margin-left: 15px;
 }
-
+p{
+    font-size: .7rem;
+}
 /*! LOGIN */
 .login-other-options{
     margin-top: 15px;
@@ -99,19 +104,16 @@ label{
 
 /*! HOME --> HOME-HEADER + HOME-MENÚ*/
 .home{
-    width: 88%;
-    height: 90%;
-    background-color: #313338;
-    border-radius: 10px;
-    border: 1px solid rgba(255, 255, 255, 0.125);
+    width: 100%;
+    height: 92%;
     display: flex;
     flex-flow:wrap row;
     align-content: flex-start;
     justify-content:space-between;
-    padding: 16px;
-    row-gap: 10px;
+    row-gap: 5px;
 }
 .home-header{
+    background-color: #55816026;
     display: flex;
     flex-flow:wrap row;
     flex-basis: 100%;
@@ -119,9 +121,11 @@ label{
     justify-content:space-between;
     color: azure;
     gap: 1rem;
+    padding: 10px
 }
 .home-header-tittle{
     flex-basis: 12%;
+    font-size: 1.5rem;
 }
 .home-header-left-items{
     display: flex;
@@ -161,6 +165,7 @@ label{
 .home-header-user-welcome-msj{
     flex-basis: 100%;
     color: azure;
+    font-size: 1rem;
 }
 .home-menu ul{
     flex-basis: 100%;
@@ -174,6 +179,7 @@ label{
     flex: 1;
     font-weight: bold;
     color:azure;
+    font-size: .7rem;
 }
 .home-menu a:hover{
     color: #179060;
@@ -184,6 +190,7 @@ label{
     transform:translateY(-10%); 
     opacity:0;
     transition: all 400ms;
+    margin: .2rem;
 }
 .home-menu-transition{
     opacity: 1;
@@ -204,6 +211,7 @@ label{
 .menu-page h3 {
     flex-basis: 100%;
     text-align: center;
+    font-size: 0.9rem;
 }
 .menu-page .form {
     flex-basis: 100%;
@@ -220,7 +228,7 @@ label{
     flex-basis: 90%;
     margin: 0.2rem;
     padding: 0;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
 }
 .menu-page .form .form-item{
     flex-basis: 100%;
@@ -239,6 +247,12 @@ label{
     gap: 1rem;
 }
 
+/*! FOOTER*/
+.footer{
+    height: 7.9%;
+    width: 100%;
+    background-color: #55816026;
+}
 
 /*! MISCELANEOUS*/
 .green{
@@ -269,7 +283,27 @@ label{
     .other-register-options{
         flex-basis: 80%;
     }
+    .home{
+    margin-top: 10px;
+    max-width: 700px;
+    height: 88vh;
+    background-color: #313338;
+    border-radius: 10px 10px 0px 0px;
+    padding: 16px;
+    row-gap: 10px;
+    }
+    .home-header{
+        background-color: #313338;
+    }
+    .footer{
+        height: 6%;
+        width: 732px;
+        border-radius: 0px 0px 10px 10px;
+        
+        background-color: #55816026;
+    }
 }
+
 @keyframes rotate-gear{
     from{
         transform: rotateZ(0deg);
