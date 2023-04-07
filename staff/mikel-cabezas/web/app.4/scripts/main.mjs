@@ -13,7 +13,7 @@ export const userAccount = document.querySelector('.section.user-account')
 export const registerPageMessage = document.querySelector('.section.register').querySelector('.message')
 export const loginPageMessage = document.querySelector('.section.login').querySelector('.message')
 export const userPageMessage = document.querySelector('.section.user-account').querySelector('.message')
-export let currentUserID
+export let currentUserEmail
 
 registerPage.querySelector('form.register-form').onsubmit = function(event) {
     event.preventDefault()
@@ -43,17 +43,16 @@ loginPage.querySelector('form.login-form').onsubmit = function(event) {
     try {
         const currentUser = getUserName(email)
         const separateUserName = currentUser.split(' ')
-        currentUserID = authenticateUser(email, password)
+        authenticateUser(email, password)
         clearMessageContainer(loginPageMessage)
         toggleOffClassInSection(loginPage, homePage)
         bodyPage.classList.add('logged-in')
         const userName = getUserName(email)
-
         const welcomeUser = document.querySelector('.welcome-user').innerHTML = `Welcome ${userName}!`
         menuHeader.querySelector('.user-name').innerText = currentUser
         menuHeader.querySelector('.avatar .letter').innerText = separateUserName[0][0] + separateUserName[1][0]
         userAccount.querySelector('.avatar .letter').innerText = separateUserName[0][0] + separateUserName[1][0]
-        pushUserDataInForm(currentUserID)
+        pushUserDataInForm(email)
     } catch(error) {
         loginPage.querySelector('.message').classList.remove('success')
         loginPage.querySelector('.message').classList.add('error')
@@ -102,8 +101,8 @@ userAccount.querySelector('.button--update-info__profile').onclick = function() 
     userAccount.querySelector('form.user-info input[name="email"]').removeAttribute('disabled')
     userAccount.querySelector('form.user-info input[name="file"]').removeAttribute('disabled')
     userAccount.querySelector('.button--update-info__profile').disabled = true
-    // currentUserID = userAccount.querySelector('form.user-info input[name="email"]').value
-    return currentUserID
+    currentUserEmail = userAccount.querySelector('form.user-info input[name="email"]').value
+    return currentUserEmail
 }
 
 userAccount.querySelector('.button--update-info__cancel-info').onclick = function(event) {
@@ -122,17 +121,14 @@ userAccount.querySelector('.button--update-info__save-info').onclick = function(
     const userName = userAccount.querySelector('form.user-info input[name="name"]').value
     const userNameInput = userAccount.querySelector('form.user-info input[name="name"]')
     const imageInput = userAccount.querySelector('form.user-info input[name="file"]')
-    // const userID = users.map(user => user.email).indexOf(currentUserID)
-    // const userID = users.map(user => user.email).indexOf(email)
-    const userID = users.find(user => user.email === email)
-
-    // if (users[userID].email === currentUserID) {
+    const userID = users.map(user => user.email).indexOf(currentUserEmail)
+    if (users[userID].email === currentUserEmail) {
         try {
-            if(userName !== userID.name) {
-                updateUserName(userID)
+            if(userName !== users[userID].name) {
+                updateUserName(users[userID])
             }
-            if(email !== userID.email) {
-                updateUserEmail(userID.email, email)
+            if(email !== currentUserEmail) {
+                updateUserEmail(users[userID].email, email)
             }
             userNameInput.disabled = true
             emailInput.disabled = true
@@ -146,9 +142,9 @@ userAccount.querySelector('.button--update-info__save-info').onclick = function(
             loginPage.querySelector('.message').classList.add('error')        
             userAccount.querySelector('.message').textContent = error.message     
         }
-    // }
+    }
     if(file.length !== 0) {
-        updateUserImage(userID)
+        updateUserImage(users[userID])
     }
     userAccount.querySelector('.button--update-info__profile').removeAttribute('disabled')
 }
@@ -165,11 +161,9 @@ userAccount.querySelector('.button--update-info__save-password').onclick = funct
     event.preventDefault()
 
     try {
-        const userID = users.find(user => user.id === currentUserID)
-
         var email = userAccount.querySelector('form.user-info input[name="email"]').value
         userAccount.querySelector('.button--update-info__password').removeAttribute('disabled')
-        updateUserPassword(userID.email) 
+        updateUserPassword(email) 
     } catch(error) {
         userAccount.querySelector('p.message').classList.add('error')
         userAccount.querySelector('p.message').textContent = error.message
@@ -222,12 +216,7 @@ userAccount.querySelector('.repeat-password > i').onclick = function() {
 }
 
 userAccount.querySelector('.delete-account p').onclick = function() {
-    // var userID = users.map(user => user.currentUserId).indexOf(currentUserId)
-    users.splice(currentUserID, 1)
+    var userID = users.map(user => user.email).indexOf(currentUserEmail)
+    users.splice(userID, 1)
     logOut()
-}
-userAccount.querySelector('.go-back').onclick = function(event) {
-    event.preventDefault()
-    toggleOffClassInSection(userAccount)
-    toggleOffClassInSection(homePage)
 }
