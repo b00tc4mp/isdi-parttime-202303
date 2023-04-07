@@ -12,7 +12,7 @@ const homeMenu = homePage.querySelector('.home-header').querySelector('.home-men
 const myProfileLink = homeMenu.querySelector('a')
 const homeProfileEdit = homePage.querySelector('.profile-edit') 
 const homeProfileEditAvatarForm= homeProfileEdit.querySelector('.profile-edit-avatar-form')
-const homeProfileEditPasswordForm = homePage.querySelector('.profile-edit-password')
+const homeProfileEditPasswordForm = homePage.querySelector('.profile-edit-password-form')
 
 
 //REGISTER PAGE

@@ -4,7 +4,7 @@ var registerForm = registerPage.querySelector('form')
 var loginPage= document.querySelector('.login')
 var loginForm= loginPage.querySelector('form')
 var homePage= document.querySelector('.home')
-var authenticateEmail 
+var authenticatedEmail 
 // es util porque nos serviran los datos para el cambio de sesion...
 var homeMenu = homePage.querySelector('.home-header').querySelector('.home-menu')
 var myProfileLink = homeMenu.querySelector('a')
@@ -49,7 +49,7 @@ loginForm.onsubmit = function (event) {
         var result = authenticateUser(email,password)
         if(result === false) throw new Error ('wrong email or password')
 
-        authenticateEmail = email
+        authenticatedEmail = email
 
         var foundUser = retrieveUser(email)
 
@@ -131,7 +131,7 @@ homeProfileEditAvatarForm.onsubmit = function (event){
     //var url3 = this.avatar-url.value //(no recomendado)
 
     try{
-        var result = updateUserAvatar(authenticateUser, newAvatar)
+        var result = updateUserAvatar(authenticatedEmail, newAvatar)
         if(result === false) throw new Error ('Update avatar failed')
 
         alert('your avatar has been updated')
@@ -151,7 +151,7 @@ homeProfileEditPasswordForm.onsubmit = function(event){
     var userConfirmNewPassword = homeProfileEditPasswordForm.querySelector('input[name=confirm-new-password]').value
     
     try{
-        var result = validatedNewPassword (authenticateEmail, password, userNewPassword, userConfirmNewPassword)
+        var result = validatedNewPassword (authenticatedEmail, password, userNewPassword, userConfirmNewPassword)
 
         if(result === false) throw new Error ('Validate New password failed')
     
