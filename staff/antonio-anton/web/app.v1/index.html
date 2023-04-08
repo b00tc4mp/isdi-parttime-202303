@@ -13,8 +13,8 @@
 
     <title>App Dev - PoP App Landing Page</title>
 
-    <!-- Bootstrap core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap core CSS *unused yet*-->
+    <link href="scr/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
 
 
@@ -22,7 +22,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 
 <!-- Custom app CSS Files -->
-    <link rel="stylesheet" href="assets/css/pop-app-dev.css">
+    <link rel="stylesheet" href="scr/assets/css/pop-app-dev.css">
 
   </head>
 
@@ -50,7 +50,7 @@
             <!-- ***** Logo Start ***** -->
             
                 <a href="index.html" class="logo">
-                    <img src="assets/images/logo.png" alt="Chain App Dev">
+                    <img src="scr/assets/images/logo.png" alt="Chain App Dev">
                 </a>
 
             <!-- ***** Logo End ***** -->
@@ -133,15 +133,18 @@
         <div class="user_register">
             <form>
                 <label>Full Name</label>
-                <input type="text" />
+                <input type="text" name="name" id="name" placeholder="Your Name" required/>
                 <br />
 
                 <label>Email Address</label>
-                <input type="email" />
+                <input type="email" name="email" id="email" placeholder="Your email" required/>
                 <br />
 
                 <label>Password</label>
-                <input type="password" />
+                <input type="password" name="password" id="password" placeholder="Your password" required/>
+                <br />
+                <label>Repeat Password</label>
+                <input type="password" name="repassword" id="repassword" placeholder="Repeat your password" required />
                 <br />
 
                 <div class="checkbox">
@@ -151,7 +154,7 @@
 
                 <div class="action_btns">
                     <div class="one_half"><a href="#" class="btn back_btn"><i class="fa fa-angle-double-left"></i> Back</a></div>
-                    <div class="one_half last"><a href="#" class="btn btn_red">Register</a></div>
+                    <div class="one_half last"> <input type="submit" class="btn btn_red" value="Register" /></div>
                 </div>
             </form>
         </div>
@@ -167,7 +170,7 @@
               <div class="left-content show-up header-text wow fadeInLeft" data-wow-duration="1s" data-wow-delay="1s">
                 <div class="row">
                   <div class="col-lg-12">
-                    <h2>Pop</h2>
+                    <h2>PoP</h2>
                     <p>PoP helps you communicate and share with people who are part of your life :-) </p>
                   </div>
                   
@@ -176,7 +179,7 @@
             </div>
             <div class="col-lg-6">
               <div class="right-image wow fadeInRight" data-wow-duration="1s" data-wow-delay="0.5s">
-                <img src="assets/images/slider-dec.png" alt="">
+                <img src="scr/assets/images/slider-dec.png" alt="">
               </div>
             </div>
           </div>
@@ -227,17 +230,17 @@
   </footer>
 
   <!-- dummy user data scripts -->
-  <script src="assets/data/dummyreg.js"></script>
+  <script src="scr/assets/data/dummyreg.js"></script>
 
   <!-- Scripts -->
 
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/js/popup.js"></script>
+  <script src="scr/vendor/jquery/jquery.min.js"></script>
+  <script src="scr/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="scr/assets/js/popup.js"></script>
   
   <!-- Custom Scripts -->
 
-  <script src="assets/js/custom.js"></script>
- <script src="assets/js/utility.js"></script>
+  <script src="scr/assets/js/custom.js"></script>
+ <script src="scr/assets/js/utility.js"></script>
 </body>
 </html>
