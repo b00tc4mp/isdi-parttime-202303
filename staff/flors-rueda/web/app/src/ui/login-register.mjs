@@ -21,7 +21,7 @@ const registerUser = (mail, username, password) => {
 export const register = (register, login) => {
   resetAlerts();
   const user = document.querySelector('.register-form').querySelector('input[name="username"]').value;
-  const username = '@' + user;
+  const username = '@' + user.toLowerCase();
   const mail = document.querySelector('.register-form').querySelector('input[name="mail"]').value;
   const password = document.querySelector('.register-form').querySelector('input[name="password"]').value;
   const repeatPassword = document.querySelector('.register-form').querySelector('input[name="repeat-password"]').value;
@@ -42,7 +42,7 @@ export const logout = (login, home) => {
 
 export const controlUsernameInput = (input) => {
   let username = '';
-  const regexRule = /^[a-z0-9]*$/;
+  const regexRule = /^[a-zA-Z0-9]*$/;
   if(!regexRule.test(input.value)) {
     username = input.value.slice(0, -1);
   } else {

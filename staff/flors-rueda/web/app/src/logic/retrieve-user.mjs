@@ -1,7 +1,6 @@
 import users from './users/data.mjs'
 
 export const retrieveUser = (id) => {
-  console.log(id)
   const loginUser = users.filter((user) => user.id === id);
   let user = {
     username: loginUser[0].username,

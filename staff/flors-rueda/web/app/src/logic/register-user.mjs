@@ -27,6 +27,5 @@ export const addNewUser = (mail, username, password, repeatPassword) => {
     password: password,
   };
   users.push(user);
-  console.log(users)
   return user
 };
