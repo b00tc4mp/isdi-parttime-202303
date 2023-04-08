@@ -37,13 +37,12 @@ const footerSite = document.querySelector(".footer");
 //! PARTE DE REGISTER
 registerPage.querySelector(".register form").addEventListener('submit', function (event) {
     event.preventDefault();
-    var temporalUser = {
-        name: event.target.name.value,
-        email: event.target.email.value,
-        password: event.target.password.value
-    }
+    const temporalUserName = event.target.name.value;
+    const temporalEmail = event.target.email.value;
+    const temporalPassword = event.target.password.value;
+
     try{
-        registerUser(temporalUser);
+        registerUser(temporalUserName, temporalEmail, temporalPassword);
         hide(registerPage);
         show(logInPage);
         show(successRegisterAdivice)
@@ -57,15 +56,15 @@ registerPage.querySelector(".register form").addEventListener('submit', function
 logInForm.addEventListener('submit', function (event) {
 
     event.preventDefault();
-    const temporalUser = {
-        email: event.target.email.value,
-        password: event.target.password.value = "LucasDiaz22!"
-    }
+    const email = event.target.email.value;
+    const password = event.target.password.value;
+
     try{
-        authenticateUser(temporalUser);
-        authenticatedEmail = temporalUser.email;
+        authenticateUser(email, password);
+        authenticatedEmail = email;
         addUserNameInHeader(authenticatedEmail,welcomeMessage);
         hide(logInPage);
+        failLogInAdvice.textContent = "";
         show(homePage);
         show(footerSite);
     }catch(error){
@@ -75,6 +74,7 @@ logInForm.addEventListener('submit', function (event) {
 loginRegistrationAnchor.onclick = (event) => {
     event.preventDefault();
     hide(logInPage);
+    failLogInAdvice.textContent = "";
     show(registerPage);
 }
 

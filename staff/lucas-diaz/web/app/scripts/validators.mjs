@@ -1,13 +1,5 @@
 console.log("load validators")
-export function validateEmail(user) {
-    const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
-
-    if (!user.email.trim()) throw new Error("Email is empty")
-    if ( typeof user.email !== "string") throw new Error("Email is not a string");
-    if (user.email === " ") throw new Error("Email cant be a blankSpace")
-    if (!emailRegex.test(user.email)) throw new Error('Invalid email format')
-}
-export function validateEmailOnly(email){
+export function validateEmail(email) {
     const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
 
     if (!email.trim()) throw new Error("Email is empty")
@@ -15,20 +7,21 @@ export function validateEmailOnly(email){
     if (email === " ") throw new Error("Email cant be a blankSpace")
     if (!emailRegex.test(email)) throw new Error('Invalid email format')
 }
-export function validateUsername(user){
-    if (!user.name.trim()) throw new Error("Username is empty");
-    if ( typeof user.name !== "string") throw new Error("Username is not a string");
-    if (user.name === " ") throw new Error("Username cant be a blankSpace")
+
+export function validateUsername(userName){
+    if (!userName.trim()) throw new Error("Username is empty");
+    if ( typeof userName !== "string") throw new Error("Username is not a string");
+    if (userName === " ") throw new Error("Username cant be a blankSpace")
 }
 
-export function validatePassword (user){
+export function validatePassword (password){
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/
 
-    if (!user.password) throw new Error("Password is empty")
-    if ( typeof user.password !== "string") throw new Error("Password is not a string");
-    if (user.password === " ") throw new Error("Password cant be a blankSpace")
-    if(user.password.trim().length < 4) throw new Error("Password is shorter than 4 characters");
-    if (!passwordRegex.test(user.password)) throw new Error(`password format incorrect`)
+    if (!password) throw new Error("Password is empty")
+    if ( typeof password !== "string") throw new Error("Password is not a string");
+    if (password === " ") throw new Error("Password cant be a blankSpace")
+    if(password.trim().length < 4) throw new Error("Password is shorter than 4 characters");
+    if (!passwordRegex.test(password)) throw new Error(`password format incorrect`)
 }
 export function validatePasswordsChanges(password, newPassword, newPasswordConfirm){
     if(!password.value.trim()) throw new Error("Password is empty")

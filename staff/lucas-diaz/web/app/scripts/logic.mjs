@@ -1,17 +1,22 @@
 console.log("load logic")
 
-import {validateEmail, validateEmailOnly, validateUsername, validatePassword, validatePasswordsChanges, validateUrl, } from "./validators.mjs"
+import {validateEmail, validateUsername, validatePassword, validatePasswordsChanges, validateUrl, } from "./validators.mjs"
 import { users } from "./data.mjs";
 
-export const registerUser = (temporalUser) => {
-    validateUsername(temporalUser);
-    validateEmail(temporalUser);
-    validatePassword(temporalUser);
-    const foundUser = users.find(user => user.email === temporalUser.email);
+export const registerUser = (userName,email,password) => {
+    validateUsername(userName);
+    validateEmail(email);
+    validatePassword(password);
+    const foundUser = users.find(user => user.email === email);
     if (foundUser){
-        throw new Error("This name already exist");
+        throw new Error("This profile already exist");
     }
-    users.push(temporalUser);
+    users.push({
+        id: "id",
+        name: userName,
+        email: email,
+        password: password
+    });
 }
 export const cleanChangePasswordForm = () => {
     document.querySelector(".old-password").value ="";
@@ -23,12 +28,13 @@ export const vanishWarningIn3Seconds = (advice, className) => {
         advice.classList.add(className);
     },4000);
 }
-export const authenticateUser = (temporalUser) => {
-    validateEmail(temporalUser);
-    validatePassword(temporalUser)
+export const authenticateUser = (email,password) => {
+    validateEmail(email);
+    validatePassword(password)
     
-    const foundUser = users.find(user => user.email === temporalUser.email);
-    if (!foundUser || foundUser.password !== temporalUser.password) throw new Error("Email or password wrong")
+    const foundUser = users.find(user => user.email === email);
+
+    if (!foundUser || foundUser.password !== password) throw new Error("Email or password wrong")
 }
 export const addUserNameInHeader = (authenticatedEmail, welcomeMessage) => {
     const currentUser = users.find( user => user.email === authenticatedEmail);
