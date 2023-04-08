@@ -2,7 +2,9 @@ console.log('load home-page')
 
 import { show, hide, context } from "../ui.mjs"
 import { loginPage } from "./login-page.mjs"
-import { updateUserAvatar, validatedNewPassword } from "../logic.mjs"
+import { updateUserAvatar } from '../logic/update-user-avatar.mjs'
+import { validatedNewPassword } from "../logic/validated-user-newpassword.mjs"
+
 
 export const DEFAULT_AVATAR_URL = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png"
 
@@ -95,7 +97,7 @@ homeProfileEditPasswordForm.onsubmit = function(event){
     hide(homeProfileEdit.querySelector('.profile-edit-password'))
 }
 
-console.log('load main') 
+
 
 //home-header-Logout 
 

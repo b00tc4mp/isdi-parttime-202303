@@ -1,9 +1,12 @@
 console.log('load login-page')
 
-import { authenticateUser, retrieveUser} from "../logic.mjs"
+import { authenticateUser } from '../logic/authenticate-user.mjs'
+import { retrieveUser } from "../logic/retrieve-user.mjs"
 import { context, hide, show } from "../ui.mjs"
 import { registerPage } from "./register-page.mjs"
 import { homePage, myProfileLink, avatarImage, DEFAULT_AVATAR_URL } from "./home-page.mjs"
+
+
 
 
 export const loginPage= document.querySelector('.login')

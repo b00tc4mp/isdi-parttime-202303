@@ -1,6 +1,6 @@
 console.log('load register-page')
 
-import { registerUser } from "../logic.mjs"
+import { registerUser } from "../logic/register-user.mjs"
 import { show, hide } from "../ui.mjs"
 import { loginPage } from "./login-page.mjs"
 
