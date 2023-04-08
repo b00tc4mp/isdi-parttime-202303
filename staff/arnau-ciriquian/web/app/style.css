@@ -112,6 +112,13 @@ footer {
     bottom: 0;
 }
 
+.main-tittle {
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0);
+    height: 10rem;
+    width: 90%;
+}
+
 .home__navigation--profile {
     display: flex;
     justify-content: center;
@@ -120,8 +127,23 @@ footer {
     margin: 0 1rem;
 }
 
-.avatar {
+.predefined-avatars {
+    width: 200px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.avatar, .predefined-avatar {
     width: 2.5rem;
+}
+
+.predefined-avatar {
+    border-radius: 50%;
+}
+
+.pre-avatar-shadow {
+    box-shadow: 0px 0px 5px 5px rgb(0, 247, 255);
 }
 
 .anchor__logout--icon {

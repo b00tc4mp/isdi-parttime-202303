@@ -1,6 +1,6 @@
 import { loginPage } from "./login-page.js"
 import { updateUsername } from "../logic/update-user-name.js"
-import { closeProfilePages, context, showHideContainer } from "../ui.js"
+import { closeProfilePages, context, showHideContainer, unshadowPredefinedAvatars } from "../ui.js"
 import { updateUserPassword } from "../logic/update-user-password.js"
 import { updateUserEmail } from "../logic/update-user-email.js"
 import { updateUserAvatar } from "../logic/update-user-avatar.js"
@@ -15,11 +15,18 @@ export const homePageUsername = homePage.querySelector('.home__username')
 export const homePageEmail = homePage.querySelector('.home__email')
 export const homePageAvatar = homePage.querySelector('.home__avatar')
 export const homePageMain = homePage.querySelector('.home__main')
+export const spaceDog = homePage.querySelector('.space-dog')
+export const alien = homePage.querySelector('.alien')
+export const meteorite = homePage.querySelector('.meteorite')
+export const galaxy = homePage.querySelector('.galaxy')
+let newAvatar = ''
 
 homePage.querySelector('.avatar__form').onsubmit = function(event) {
     event.preventDefault()
 
-    const newAvatar = event.target.newAvatar.value
+    if (!newAvatar) {
+        newAvatar = event.target.newAvatar.value
+    }
 
     try {
         updateUserAvatar(context.userID, newAvatar)
@@ -29,9 +36,39 @@ homePage.querySelector('.avatar__form').onsubmit = function(event) {
         homePageProfile.classList.remove('off')
         homePageAvatar.classList.add('off')
         homePage.querySelector('.avatar__form').reset()
+        newAvatar = ''
+        unshadowPredefinedAvatars()
     } catch (error) {
         alert(error.message)
     }
+}
+
+spaceDog.onclick = function() {
+    unshadowPredefinedAvatars()
+    spaceDog.classList.add('pre-avatar-shadow')
+
+    newAvatar = './images/space-dog.svg'
+}
+
+alien.onclick = function(event) {
+    unshadowPredefinedAvatars()
+    alien.classList.add('pre-avatar-shadow')
+
+    newAvatar = './images/alien.svg'
+}
+
+meteorite.onclick = function(event) {
+    unshadowPredefinedAvatars()
+    meteorite.classList.add('pre-avatar-shadow')
+
+    newAvatar = './images/meteorite.svg'
+}
+
+galaxy.onclick = function(event) {
+    unshadowPredefinedAvatars()
+    galaxy.classList.add('pre-avatar-shadow')
+
+    newAvatar = './images/galaxy.svg'
 }
 
 homePage.querySelector('.password__form').onsubmit = function(event) {

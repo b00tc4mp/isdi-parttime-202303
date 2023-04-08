@@ -1,6 +1,6 @@
 import { loginPage } from "./pages/login-page.js"
 import { registerPage } from "./pages/register-page.js"
-import { homePageAvatar, homePageEmail, homePagePassword, homePageUsername } from "./pages/home-page.js"
+import { homePageAvatar, homePageEmail, homePagePassword, homePageUsername, alien, spaceDog, meteorite, galaxy } from "./pages/home-page.js"
 
 const logPage = document.querySelector('.login')
 
@@ -66,6 +66,13 @@ export function closeProfilePages() {
     homePageUsername.classList.add('off')
     homePageEmail.classList.add('off')
     homePagePassword.classList.add('off')
+}
+
+export function unshadowPredefinedAvatars() {
+    alien.classList.remove('pre-avatar-shadow')
+    spaceDog.classList.remove('pre-avatar-shadow')
+    meteorite.classList.remove('pre-avatar-shadow')
+    galaxy.classList.remove('pre-avatar-shadow')
 }
 
 function actualPasswordEyeToggle(container, passwordClass) {
