@@ -23,7 +23,7 @@ export function validateNewPassword(password, newPassword, repeatPassword, user)
     
     if(newPassword !== repeatPassword) 
         throw new Error('New password does not match')
-        validateNewPassword
+        
     if(!password.trim().length) 
         throw new Error('Password is empty')
 

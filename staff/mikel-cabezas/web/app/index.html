@@ -5,12 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <script type="module" src="scripts/data.mjs" defer></script>
-    <script type="module" src="scripts/logic.mjs" defer></script>
+    <!-- <script type="module" src="scripts/data.mjs" defer></script> -->
+    <!-- <script type="module" src="scripts/logic.mjs" defer></script> -->
     <script type="module" src="scripts/main.mjs" defer></script>   
-    <script type="module" src="scripts/validators.mjs" defer></script>
+    <!-- <script type="module" src="scripts/validators.mjs" defer></script>
     <script type="module" src="scripts/ui.mjs" defer></script>
-    <script type="module" src="scripts/localImagesBase64.mjs" defer></script>
+    <script type="module" src="scripts/localImagesBase64.mjs" defer></script> -->
     <script type="module" src="scripts/pages/login-page.mjs" defer></script>
     <script type="module" src="scripts/pages/home-page.mjs" defer></script>
     <script type="module" src="scripts/pages/header.mjs" defer></script>
@@ -94,8 +94,20 @@
 
     <div class="section home off">
         <!-- TODO homepage -->
-        <h1>Home</h1>
-        <h2 class="welcome-user"></h2>
+        <div class="top">
+            <h1>Home</h1>
+            <h2 class="welcome-user"></h2>
+            <button class="create-post">Create post</button>
+        </div>
+        <div class="overlay create-post off">
+            <form>
+                <input type="file" name="" id="">
+                <textarea name="" id="" cols="30" rows="10"></textarea>
+                <button type="cancel">Cancel</button>
+                <button type="submit">Create post</button>
+            </form>
+        </div>
+        <div class="posts"></div>
     </div>
     <div class="section user-account off">
         <div class="sidebar">
@@ -175,3 +187,5 @@
     </div>
 </body>
 </html>
+
+

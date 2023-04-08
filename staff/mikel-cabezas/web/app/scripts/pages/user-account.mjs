@@ -1,8 +1,13 @@
 import { toggleOffClassInSection, showHidePassword } from '../ui.mjs'
 import { context, changeMessageOnContainer } from '../ui.mjs'
 import { file, img, avatarHeader, printImage } from '../localImagesBase64.mjs'
-import { updateUserImage, updateUserName, updateUserEmail, updateUserPassword } from '../logic.mjs'
-import { getUserName, findUserByEmail, findUserById } from '../logic/helpers/data-managers.mjs'
+import { updateUserImage } from '../logic/update-user-image.mjs'
+import { updateUserName } from '../logic/update-user-name.mjs'
+import { updateUserEmail } from '../logic/update-user-email.mjs'
+import { updateUserPassword } from '../logic/update-user-password.mjs'
+import { getUserName, findUserByEmail, findUserById, getCurrentUser } from '../logic/helpers/data-managers.mjs'
+import { users } from '../data.mjs'
+import { logOut} from '../logic/logout.mjs'
 
 
 
@@ -84,6 +89,7 @@ userAccount.querySelector('.button--update-info__save-password').onclick = funct
         var email = userAccount.querySelector('form.user-info input[name="email"]').value
         userAccount.querySelector('.button--update-info__password').removeAttribute('disabled')
         updateUserPassword(userId) 
+
     } catch(error) {
         userAccount.querySelector('p.message').classList.add('error')
         userAccount.querySelector('p.message').textContent = error.message
@@ -114,7 +120,10 @@ userAccount.querySelector('.repeat-password > i').onclick = function() {
 
 userAccount.querySelector('.delete-account p').onclick = function() {
     // var userID = users.map(user => user.currentUserId).indexOf(currentUserId)
-    users.splice(currentUserID, 1)
+    const userId = context.userId
+    getCurrentUser(userId)
+    const user = parseInt(getCurrentUser(userId).slice(5) - 1)
+    users.splice(user, 1)
     logOut()
 }
 userAccount.querySelector('.go-back').onclick = function(event) {

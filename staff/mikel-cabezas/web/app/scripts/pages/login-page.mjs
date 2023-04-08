@@ -1,9 +1,9 @@
-import { authenticateUser } from '../logic.mjs'
+import { authenticateUser } from '../logic/authenticate-users.mjs'
 import { context, toggleOffClassInSection, bodyPage, clearMessageContainer, showHidePassword } from '../ui.mjs'
 import { homePage } from './home-page.mjs'
 import { menuHeader } from './header.mjs'
 import { userAccount } from './user-account.mjs'
-import { pushUserDataInForm } from '../logic.mjs'
+import { pushUserDataInForm } from '../logic/push-user-data-in-form.mjs'
 import { getUserName, findUserByEmail } from '../logic/helpers/data-managers.mjs'
 
 
@@ -18,10 +18,10 @@ loginPage.querySelector('form.login-form').onsubmit = function(event) {
         const userId = authenticateUser(email, password)
         const currentUser = getUserName(userId)
         const separateUserName = getUserName(userId).split(' ')
-        console.log(separateUserName)
         clearMessageContainer(loginPageMessage)
         toggleOffClassInSection(loginPage, homePage)
         bodyPage.classList.add('logged-in')
+        context.userId = userId
         const userName = getUserName(userId)
 
         const welcomeUser = document.querySelector('.welcome-user').innerHTML = `Welcome ${userName}!`

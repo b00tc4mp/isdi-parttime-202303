@@ -3,7 +3,7 @@ import { homePage } from "./home-page.mjs"
 import { registerPage } from "./register-page.mjs"
 import { loginPage } from "./login-page.mjs"
 import { userAccount } from "./user-account.mjs"
-import { logOut } from "../logic.mjs"
+import { logOut } from "../logic/logout.mjs"
 
 export const menuHeader = document.querySelector('header .menu')
 
