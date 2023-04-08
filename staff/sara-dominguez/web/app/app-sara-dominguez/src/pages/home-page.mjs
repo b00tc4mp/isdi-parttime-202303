@@ -4,6 +4,7 @@ import { show, hide, context } from "../ui.mjs"
 import { loginPage } from "./login-page.mjs"
 import { updateUserAvatar } from '../logic/update-user-avatar.mjs'
 import { validatedNewPassword } from "../logic/validated-user-newpassword.mjs"
+import createPost from "../logic/create-post.mjs"
 
 
 export const DEFAULT_AVATAR_URL = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png"
@@ -17,6 +18,8 @@ const homeProfileEdit = homePage.querySelector('.profile-edit')
 const homeProfileEditAvatarForm= homeProfileEdit.querySelector('.profile-edit-avatar-form')
 const homeProfileEditPasswordForm = homePage.querySelector('.profile-edit-password-form')
 
+const addPostButton = homePage.querySelector('.add-post-button')
+const addPostPanel = homePage.querySelector('.add-post')
 
 
 //HOME PAGE
@@ -97,7 +100,31 @@ homeProfileEditPasswordForm.onsubmit = function(event){
     hide(homeProfileEdit.querySelector('.profile-edit-password'))
 }
 
+// add post button
 
+addPostButton.onclick = function(event){
+    show(addPostPanel)
+}
+
+//create post / post form
+
+addPostPanel.querySelector('.add-post-form').onsubmit = function(event){
+    event.preventDefault()
+
+    const imageUrl = event.target.imageUrl.value
+    const text = event.target.text.value
+    
+
+    try{
+        createPost(context.userId, imageUrl, text)
+
+        alert('your post has been created')
+    }catch(error) {
+        alert(error.message)
+    }
+    addPostPanel.querySelector('.add-post-form').reset()
+    hide(addPostPanel)
+}
 
 //home-header-Logout 
 

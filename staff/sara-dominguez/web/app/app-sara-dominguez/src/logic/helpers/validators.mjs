@@ -27,9 +27,9 @@ export function validateUserNewPassword(userNewPassword) {
     if(userNewPassword.trim().length > 12) throw new Error('New password maximum 12 characters')
 }
 
-export function validateUserAvatar(newAvatar){
-    if (typeof newAvatar!=='string') throw new Error('Avatar is not a string');
-    if(!newAvatar.trim().length) throw new Error('Avatar is empty')   
+export function validateUserAvatar(newAvatar, explain = 'url'){
+    if (typeof newAvatar!=='string') throw new Error(`${explain} is not a string`);
+    if(!newAvatar.trim().length) throw new Error(`${explain} is empty`)   
 }
 
 export function validateUserConfirmNewPassword(userConfirmNewPassword) {
@@ -41,4 +41,9 @@ export function validateUserConfirmNewPassword(userConfirmNewPassword) {
 
 export function validateId(id, explain = 'id'){
     if (typeof id!=='string') throw new Error(`${explain} is not a string`);  
+}
+
+export function validateText(text){
+    if (typeof text!=='string') throw new Error('Avatar is not a string');
+    if(!text.trim().length) throw new Error('Avatar is empty') 
 }
