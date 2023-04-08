@@ -1,18 +1,18 @@
-import { context } from '../display/general-tools.mjs';
-import { login } from './login-page.mjs';
-import { doLogout, } from '../display/login-register.mjs';
-import { setOff, setOn, toggleOff, resetAlerts, setPredeterminateAvatar, clearForms } from '../display/general-tools.mjs'
-import { setNewPassword, setNewUserInfo, displayProfile, setPlaceHolders, displayWelcome, getAvatarUrl } from '../display/home.mjs'
+import { context } from '../ui/general-tools.mjs';
+import { loginPage } from './login-page.mjs';
+import { logout, } from '../ui/login-register.mjs';
+import { setOff, setOn, toggleOff, resetAlerts, setPredeterminateAvatar, clearForms, getImgUrl } from '../ui/general-tools.mjs'
+import { setNewPassword, setNewUserInfo, displayProfile, setPlaceHolders, displayWelcome, } from '../ui/home.mjs'
 import { displayChangePasswordError, displayEditUserError } from '../ui/errors.mjs';
 
-export const home = document.querySelector('.home');
+export const homePage = document.querySelector('.home');
 export const startHome = document.querySelector('.home-start');
 const profile = document.querySelector('.user-profile');
 const editProfile = document.querySelector('.edit-profile');
 const changePassword = document.querySelector('.change-password');
 const profileButtons = document.querySelector('.profile-buttons');
 
-const logout = document.querySelector('.logout');
+const toLogout = document.querySelector('.logout');
 const toUserProfile = document.querySelector('.to-user-profile');
 const toHome = document.querySelector('.to-home');
 const toChangePassword = document.querySelector('.to-change-password');
@@ -28,11 +28,11 @@ let newAvatar;
 
 //TODO: display users posts at home
 
-logout.addEventListener('click', (event) => {
+toLogout.addEventListener('click', (event) => {
   event.preventDefault();
   setOff(profile, editProfile, changePassword, profileButtons, startHome, deleteAvatar)
   context.userAuth = undefined;
-  doLogout(login, home);
+  logout(loginPage, homePage);
 });
 
 toUserProfile.addEventListener('click', (event) => {
@@ -65,7 +65,7 @@ toChangePassword.addEventListener('click', (event) => {
 toEditProfile.addEventListener('click', (event) => {
   event.preventDefault();
   clearForms();
-  setPlaceHolders(userAuth);
+  setPlaceHolders(context.userAuth);
   setOn(editProfile, setAvatar);
   setOff(changePassword, startHome, profileButtons, deleteAvatar);
 });
@@ -84,7 +84,7 @@ temporalAvatar.addEventListener('change', (event) => {
   try {
     const avatar = document.querySelector('.avatar')
     toggleOff(deleteAvatar, setAvatar);
-    newAvatar = getAvatarUrl(event, deleteAvatar)
+    newAvatar = getImgUrl(event)
     avatar.src = newAvatar
   } catch (error) {
     

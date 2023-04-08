@@ -1,59 +1,36 @@
-import {
-  toggleOff,
-  clearForms,
-  resetAlerts,
-  setAlert,
-  setOn,
-  setPredeterminateAvatar,
-} from './general-tools.mjs';
+import { toggleOff, clearForms, resetAlerts, setAlert, setOn, setPredeterminateAvatar, } from './general-tools.mjs';
 
-import { addNewUser, getId } from '../users/data-managers.mjs';
+import { addNewUser } from '../logic/register-user.mjs'
 
-import { 
-  validateUserPassword, 
-  validateUsername,
-  validateMail,
-  validateNewPassword,
-  validateNewUsername,
-} from '../users/validators.mjs';
+import {authenticateUser} from '../logic/authenticate-user.mjs'
 
-export const authenticateUser = (user, password) => {
-  resetAlerts();
-  const username = '@' + user;
-  validateUsername(username)
-  const id = getId(username)
-  validateUserPassword(id, password)
-  return id;
-};
-
-export const doLogin = (login, home, startHome) => {
+export const login = (login, home, startHome, username, password) => {
   resetAlerts();
   toggleOff(login, home);
   setOn(startHome)
+  let userAuth = authenticateUser(username, password);
+  return userAuth
 };
 
 const registerUser = (mail, username, password) => {
   document.querySelector('.login-form').querySelector('input[name="username"]').value = username;
   const message = `Welcome, ${username}! Your account is registered. You can sign in now!`;
   setAlert('area-login', 'alert-success', message);
-  addNewUser(mail, username, password);
 };
 
-export const doRegister = (register, login) => {
+export const register = (register, login) => {
   resetAlerts();
   const user = document.querySelector('.register-form').querySelector('input[name="username"]').value;
-  const username = '@' + user
+  const username = '@' + user;
   const mail = document.querySelector('.register-form').querySelector('input[name="mail"]').value;
   const password = document.querySelector('.register-form').querySelector('input[name="password"]').value;
   const repeatPassword = document.querySelector('.register-form').querySelector('input[name="repeat-password"]').value;
-  validateMail(mail);
-  validateNewUsername(username);
-  validateNewPassword(password, repeatPassword);
+  addNewUser(mail, username, password, repeatPassword);
   toggleOff(register, login);
-  registerUser(mail, user, password);
+  registerUser(mail, user, password, repeatPassword);
 };
 
-export const doLogout = (login, home) => {
+export const logout = (login, home) => {
   resetAlerts();
   clearForms();
   toggleOff(login, home);

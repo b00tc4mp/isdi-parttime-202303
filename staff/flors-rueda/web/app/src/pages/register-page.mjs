@@ -1,21 +1,21 @@
-import { doRegister, controlUsernameInput, } from '../ui/login-register.mjs';
+import { register, controlUsernameInput, } from '../ui/login-register.mjs';
 import { displayRegisterError, } from '../ui/errors.mjs';
-import { login } from './login-page.mjs'
+import { loginPage } from './login-page.mjs'
 
-export const register = document.querySelector('.register');
+export const registerPage = document.querySelector('.register');
 const registerForm = document.querySelector('.register-form');
 const usernameRegister = document.querySelector('.register-form').querySelector('input[name="username"]');
 
 usernameRegister.addEventListener('input', (event) => {
-    controlUsernameInput(usernameRegister);
-  });
+  controlUsernameInput(usernameRegister);
+});
 
-  registerForm.addEventListener('submit', (event) => {
-    event.preventDefault();
-    try {
-      doRegister(register, login);
-    } catch (error) {
-      displayRegisterError(error.message);
-    }
-  });
+registerForm.addEventListener('submit', (event) => {
+  event.preventDefault();
+  try {
+    register(registerPage, loginPage);
+  } catch (error) {
+    displayRegisterError(error.message);
+  }
+});
   

@@ -1,6 +1,4 @@
-import {
-  findUser,
-} from '../users/data-managers.mjs';
+import { retrieveUser, } from '../logic/retrieve-user.mjs';
 
 export const context = { userAuth: null, }
 
@@ -64,9 +62,19 @@ export const setSimpleAlert = (alertArea, alertColor, alertMessage) => {
 
 export const setPredeterminateAvatar = (userAuth) => {
   if (userAuth) {
-    const user = findUser(userAuth);
+    const user = retrieveUser(userAuth);
     document.querySelector('.avatar').src = user.avatar;
   } else {
     document.querySelector('.avatar').src = 'https://www.slotcharter.net/wp-content/uploads/2020/02/no-avatar.png';
   };
 };
+
+export const getImgUrl = (event) => {
+  const reader = new FileReader() 
+  const file = event.target.files[0]; 
+  reader.onload = () => {     
+    reader.result;
+  }
+  reader.readAsDataURL(file)
+  return URL.createObjectURL(file)
+}
