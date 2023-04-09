@@ -4,11 +4,14 @@ import { closeProfilePages, context, showHideContainer, unshadowPredefinedAvatar
 import { updateUserPassword } from "../logic/update-user-password.js"
 import { updateUserEmail } from "../logic/update-user-email.js"
 import { updateUserAvatar } from "../logic/update-user-avatar.js"
+import { createNewPost } from "../logic/create-new-post.js"
 
 export const DEFAULT_AVATAR_URL = './images/space-dog.svg'
 
 export const homePage = document.querySelector('.home')
 export const avatarImage = homePage.querySelector('.avatar')
+const homePageAddPost = homePage.querySelector('.home__anchor--new-post')
+const homePagePost = homePage.querySelector('.home__post')
 export const homePageProfile = homePage.querySelector('.home__profile')
 export const homePagePassword = homePage.querySelector('.home__password')
 export const homePageUsername = homePage.querySelector('.home__username')
@@ -20,6 +23,29 @@ export const alien = homePage.querySelector('.alien')
 export const meteorite = homePage.querySelector('.meteorite')
 export const galaxy = homePage.querySelector('.galaxy')
 let newAvatar = ''
+
+homePageAddPost.onclick = function(event) {
+    event.preventDefault()
+
+    showHideContainer(homePageMain, homePagePost)
+}
+
+homePagePost.querySelector('.post__form').onsubmit = function(event) {
+    event.preventDefault()
+
+    const newPostImage = event.target.newPostImage.value
+    const newPostText = event.target.newPostText.value
+
+    try {
+        createNewPost(context.userID, newPostImage, newPostText)
+        alert ('Posted!')
+
+        homePagePost.querySelector('.post__form').reset()
+        showHideContainer(homePagePost, homePageMain)
+    } catch (error) {
+        alert(error.message)
+    }
+}
 
 homePage.querySelector('.avatar__form').onsubmit = function(event) {
     event.preventDefault()
@@ -33,8 +59,7 @@ homePage.querySelector('.avatar__form').onsubmit = function(event) {
         alert('avatar updated')
 
         avatarImage.src = newAvatar
-        homePageProfile.classList.remove('off')
-        homePageAvatar.classList.add('off')
+        showHideContainer(homePageProfile, homePageAvatar)
         homePage.querySelector('.avatar__form').reset()
         newAvatar = ''
         unshadowPredefinedAvatars()
@@ -82,8 +107,7 @@ homePage.querySelector('.password__form').onsubmit = function(event) {
         updateUserPassword(context.userID, oldPassword, newPassword, confirmedPassword)
         alert('password updated')
 
-        homePageProfile.classList.remove('off')
-        homePagePassword.classList.add('off')
+        showHideContainer(homePageProfile, homePagePassword)
         homePage.querySelector('.password__form').reset()
     } catch (error) {
         alert(error.message)
@@ -102,8 +126,7 @@ homePage.querySelector('.email__form').onsubmit = function(event) {
         updateUserEmail(context.userID, oldEmail, newEmail, confirmedEmail, password)
         alert('email updated')
 
-        homePageProfile.classList.remove('off')
-        homePageEmail.classList.add('off')
+        showHideContainer(homePageProfile, homePageEmail)
         homePage.querySelector('.email__form').reset()
     } catch (error) {
         alert(error.message)
@@ -122,8 +145,7 @@ homePage.querySelector('.username__form').onsubmit = function(event) {
         alert('name updated')
         homePage.querySelector('.home__anchor--profile').innerText = newUsername
 
-        homePageProfile.classList.remove('off')
-        homePageUsername.classList.add('off')
+        showHideContainer(homePageProfile, homePageUsername)
         homePage.querySelector('.username__form').reset()
     } catch (error) {
         alert(error.message)

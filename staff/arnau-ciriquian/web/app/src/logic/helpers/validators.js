@@ -38,3 +38,8 @@ export function validateUrl(url, explain = 'url') {
     if (typeof url !== 'string') throw new Error(`${explain} is not a string`)
     if (!url.trim().length) throw new Error(`${explain} is empty`)
 }
+
+export function validateText(text, explain = 'text') {
+    if (typeof text !== 'string') throw new Error(`${explain} is not a string`)
+    if (!text.trim().length) throw new Error(`${text} is empty`)
+}

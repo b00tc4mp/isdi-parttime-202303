@@ -13,7 +13,7 @@ import './pages/login-page.js'
                 comncem amb boto + al  footer
                 seguim amb ventana modal?
                 - implementar a home vista dels posts per ordre de mes nous a mes vells
-                -
+                - refactor de la home-page - dividir en pagines per a cada funcionalitat? avatar, name, password, email i posts
                 
                 
     TODO Arrays:
