@@ -90,6 +90,46 @@
     padding-top: 1em;
 }
 
+.post-modal {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.4rem;
+    width: 75%;
+    padding: 1rem;
+    min-height: 50%;
+    position: absolute;
+    top: 20%;
+    left: 7%;
+    right: 2%;
+    background-color: var(--color-light100);
+    border: 0.01rem solid var(--color-primary300);
+    border-radius: 1rem;
+    z-index: 2;
+    text-align: justify;
+}
+
+.post-image {
+    border-radius: 0.5rem;
+    overflow: hidden;
+    height: 5rem;
+    width: 5rem;
+}
+
+.dark-mode .post-modal {
+    background-color: var(--color-dark200);
+    border: 0.01rem solid var(--color-primary300);
+}
+
+.cancel-post {
+    font-size: 0.75rem;
+    line-height: 0.75rem;
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: 50%;
+    border: 0.15em solid var(--color-primary300);
+}
+  
 
 
 
@@ -141,6 +181,12 @@
         position: relative;
         top: 2rem;
         left: 8.5rem;
+    }
+
+    .post-modal {
+        top: 20%;
+        left: 10%;
+        right: 10%;
     }
 
 }

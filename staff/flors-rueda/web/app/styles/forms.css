@@ -109,7 +109,7 @@ input:focus {
     gap: 1.5em;
 }
 
-.edit-avatar {
+.edit-avatar, .add-post-image {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -126,18 +126,18 @@ input:focus {
     color: var(--color-dark100);
 }
 
-.dark-mode .edit-avatar {
+.dark-mode .edit-avatar, .dark-mode .add-post-image {
     background-color: var(--color-dark200);
     border: solid 0.05em var(--color-dark300);
     color: var(--color-light100);
 }
 
-.edit-avatar:focus, .edit-avatar:active {
+.edit-avatar:focus, .edit-avatar:active, .add-post-image:focus, .add-post-image:active {
     border: solid 0.05em var(--color-primary300);
     box-shadow: 0 0 0.25em var(--color-primary300);
 }
 
-.avatar-label {
+.avatar-label, .image-lable {
     display: flex;
     flex-direction: row;
     font-size: 0.65em;

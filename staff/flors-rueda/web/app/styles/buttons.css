@@ -91,6 +91,12 @@ button svg {
     width: 45%;
 }
 
+.cancel-post {
+    position: absolute;
+    top: 0.5em;
+    right: 0.5em;
+}
+
 @media (min-width: 768px) {
     button:hover {
         color: var(--color-dark300);

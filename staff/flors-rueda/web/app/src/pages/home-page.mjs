@@ -13,6 +13,10 @@ const toLogout = document.querySelector('.logout');
 const toUserProfile = document.querySelector('.to-user-profile');
 const toHome = document.querySelector('.to-home');
 
+const postModal = document.querySelector('.post-modal');
+const toNewPost = document.querySelector('.to-new-post');
+const cancelPost = document.querySelector('.cancel-post')
+
 toLogout.addEventListener('click', (event) => {
   event.preventDefault();
   clearForms();
@@ -38,4 +42,25 @@ toHome.addEventListener('click', (event) => {
   setOff(profile, profileButtons, profileForms);
   displayWelcome(context.userAuth)
 });
+
+const openModal = (modal) => {
+  const blur = document.querySelector('.blur');
+  setOn(modal, blur);
+};
+
+const closeModal  = (modal) => {
+  const blur = document.querySelector('.blur');
+  setOff(modal, blur);
+};
+
+
+toNewPost.addEventListener('click', (event) => {
+  event.preventDefault();
+  openModal(postModal)
+})
+
+cancelPost.addEventListener('click', (event) => {
+  event.preventDefault();
+  closeModal(postModal)
+})
 
