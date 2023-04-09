@@ -75,7 +75,7 @@ button:active {
 }
 
 
-.logout, .to-user-profile, .to-home {
+.logout, .to-user-profile, .to-home, .to-new-post {
     padding-top: 0.35rem;
     padding-right: 1.9rem;
     border-radius: 50%;

@@ -101,6 +101,71 @@ input:focus {
     -webkit-tap-highlight-color: var(--color-primary-transparence);
 }
 
+.edit-form, .password-form, .mail-form, .delete-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+    gap: 1.5em;
+}
+
+.edit-avatar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 0.5rem;
+    align-items: center;
+    width: 80%;
+    background-color: var(--color-light100);
+    font-weight: 700;
+    border: solid 0.05em var(--color-light300);
+    padding: 0.15em 0.95em;
+    border-radius: 0.6em;
+    outline: none;
+    transition: background-color 0.2s, border 0.2s, box-shadow 0.2s;
+    color: var(--color-dark100);
+}
+
+.dark-mode .edit-avatar {
+    background-color: var(--color-dark200);
+    border: solid 0.05em var(--color-dark300);
+    color: var(--color-light100);
+}
+
+.edit-avatar:focus, .edit-avatar:active {
+    border: solid 0.05em var(--color-primary300);
+    box-shadow: 0 0 0.25em var(--color-primary300);
+}
+
+.avatar-label {
+    display: flex;
+    flex-direction: row;
+    font-size: 0.65em;
+    font-style: italic;
+    font-weight: 600;
+    width: 9rem;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.delete-img {
+    font-size: 0.75rem;
+    line-height: 0.75rem;
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: 50%;
+    border: 0.15em solid var(--color-primary300);
+}
+
+::-webkit-file-upload-button {
+    display: none;
+}
+
+input[type="file"], input[type="file"]:hover, input[type="file"]:focus {
+    min-width: auto;
+    border: none;
+}
+
 
 @media (min-width: 768px) {
     .change-view a:hover {
@@ -119,6 +184,18 @@ input:focus {
     input {
         font-size: 0.75em;
         font-weight: 700;
+    }
+
+    input[type="file"]:hover, input[type="file"]:focus {
+        border: none;
+        box-shadow: none;
+        cursor: pointer;
+        color: var(--color-primary300);
+    }
+
+    .edit-avatar:hover {
+        border: solid 0.05em var(--color-primary300);
+        box-shadow: 0 0 0.25em var(--color-primary300);
     }
 }
 

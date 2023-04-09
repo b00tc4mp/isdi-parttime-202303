@@ -14,7 +14,7 @@ const editProfile = document.querySelector('.edit-profile');
 const editForm = document.querySelector('.edit-form');
 const editUsername = document.querySelector('.edit-form').querySelector('input[name="username"]');
 const temporalAvatar = document.querySelector('.edit-form').querySelector('input[type="file"]');
-const deleteAvatar = document.querySelector('.delete-avatar');
+const deleteAvatar = document.querySelector('.edit-avatar').querySelector('.delete-img');
 const setAvatar = document.querySelector('.set-avatar');
 
 const toChangePassword = document.querySelector('.to-change-password');
@@ -95,6 +95,7 @@ passwordForm.addEventListener('submit', (event) => {
 toEditMail.addEventListener('click', (event) => {
   event.preventDefault();
   clearForms();
+  setPlaceHolders(context.userAuth);
   setOn(editMail, profileForms);
   setOff(profileButtons, changePassword, editProfile, deleteAccount)
 });
@@ -113,7 +114,7 @@ toDeleteAccount.addEventListener('click', (event) => {
   event.preventDefault();
   clearForms();
   setOn(deleteAccount,profileForms);
-  setOff(deleteAvatar, setAvatar, profileButtons, changePassword, editProfile);
+  setOff(deleteAvatar, editProfile, setAvatar, profileButtons, changePassword, editMail );
 });
   
 deleteForm.addEventListener('submit', (event) => {
