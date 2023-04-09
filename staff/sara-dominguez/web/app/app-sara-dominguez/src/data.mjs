@@ -6,7 +6,7 @@ users.push({
     id: 'user-1',
     name: 'Rufus',
     email: 'rufus@rufus.es',
-    password: '1234567'
+    password: 'Aa-1234'
     
 })
 
@@ -14,14 +14,14 @@ users.push({
     id: 'user-2',
     name: 'Frida',
     email: 'frida@frida.es',
-    password: '1234567'
+    password: 'Aa-1234'
 })
 
 users.push({
     id: 'user-3',
     name: 'Tigre',
     email: 'tigre@tigre.es',
-    password: '1234567'
+    password: 'Aa-1234'
 })
 
 
