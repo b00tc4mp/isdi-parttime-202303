@@ -184,6 +184,10 @@ p {
     gap: 0.05em
 }
 
+/*TODO: refine post cards style*/
+
+/*TODO: check why not all post images align themself*/
+
 .post-image {
     border-radius: 0.05em;
     overflow: hidden;

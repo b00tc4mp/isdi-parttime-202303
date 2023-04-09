@@ -4,6 +4,7 @@ import { updateUserPassword } from '../logic/update-user-password.mjs';
 import { retrieveUser } from '../logic/retrieve-user.mjs'
 import { deleteAccount } from '../logic/delete-account.mjs';
 import { getMail } from '../logic/users/data-managers.mjs';
+import { getPostsSorted } from '../logic/posts/data-managers.mjs';
 
 export const displayWelcome = (userAuth) => {
   const user = retrieveUser(userAuth);
@@ -83,3 +84,63 @@ export const cleanNewAvatarInput = (newAvatar) => {
   setOn(setAvatar);
   newAvatar = undefined
 }
+
+//TODO: add validators to print post, plus try catch
+
+//TODO: refactor that, please...
+
+export const printPosts = () => {
+  const postsDisplay = document.querySelector('.posts-display');
+  const posts = getPostsSorted();
+  posts.forEach((post) => {
+
+    const postAuthor = retrieveUser(post.author)
+    const newPost = document.createElement('div');
+    newPost.classList.add('post');
+    postsDisplay.append(newPost);
+
+    const postAuthorData = document.createElement('div');
+    postAuthorData.classList.add('post-author-data');
+    newPost.append(postAuthorData);
+
+    const authorAvatar = document.createElement('img');
+    authorAvatar.src = postAuthor.avatar;
+    authorAvatar.classList.add('post-author-avatar');
+    postAuthorData.append(authorAvatar);
+
+    const authorName = document.createElement('div');
+    authorName.innerHTML = postAuthor.name;
+    authorName.classList.add('post-author-name');
+    postAuthorData.append(authorName);
+    
+    const authorUsername = document.createElement('div');
+    authorUsername.innerHTML = postAuthor.username;
+    authorUsername.classList.add('post-author-username');
+    postAuthorData.append(authorUsername);
+
+    const mainData = document.createElement('div');
+    mainData.classList.add('post-main-data');
+    newPost.append(mainData);
+
+    const postImg = document.createElement('img');
+    postImg.src = post.image;
+    postImg.classList.add('post-image');
+    mainData.append(postImg);
+
+    const postText = document.createElement('div');
+    postText.innerHTML = post.text;
+    postText.classList.add('post-text');
+    mainData.append(postText);
+
+    const postStats = document.createElement('div');
+    postStats.classList.add('post-stats-data');
+    newPost.append(postStats);
+
+    const postDate = document.createElement('div');
+    postDate.innerHTML = post.date.toLocaleDateString('en-GB');
+    postDate.classList.add('post-date');
+    postStats.append(postDate);
+
+
+  });
+};

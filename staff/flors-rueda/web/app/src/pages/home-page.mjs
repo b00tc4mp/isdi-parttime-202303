@@ -2,7 +2,7 @@ import { context } from '../ui/general-tools.mjs';
 import { loginPage } from './login-page.mjs';
 import { logout, } from '../ui/login-register.mjs';
 import { setOff, setOn, resetAlerts, clearForms, } from '../ui/general-tools.mjs'
-import { displayProfile, displayWelcome, } from '../ui/home.mjs'
+import { displayProfile, displayWelcome, printPosts, } from '../ui/home.mjs'
 import { profile, profileButtons, } from './home-edit-profile-page.mjs';
 
 export const homePage = document.querySelector('.home');
@@ -64,3 +64,4 @@ cancelPost.addEventListener('click', (event) => {
   closeModal(postModal)
 })
 
+//TODO: add create post logic
