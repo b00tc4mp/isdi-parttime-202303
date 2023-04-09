@@ -7,6 +7,7 @@ users.push({
     name: 'Rufus',
     email: 'rufus@rufus.es',
     password: '1234567'
+    
 })
 
 users.push({
