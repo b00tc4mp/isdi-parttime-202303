@@ -13,8 +13,14 @@ export const validatePassword = (password, explain= 'password') => {
     if (!passwordRegex.test(password)) throw new Error(`${explain} format incorrect`)
 }
 
-export const validateAvatarFormat = (avatarUrl) => {
-    const avatarRegex = /\.(gif|jpe?g|tiff?|png|webp|bmp)$/i
+// export const validateUrlFormat = (url) => {
+//     const avatarRegex = /\.(gif|jpe?g|tiff?|png|webp|bmp)$/
 
-    if (!avatarRegex.test(avatarUrl)) throw new Error('Image format invalid')
-}
+//     if (!avatarRegex.test(url)) throw new Error('Image1 format invalid')
+// }
+
+// export const validateBase64ImageFormat = (base64Url) => {
+//     const avatarRegex = /^(data:image\/(?:png|jpeg|jpg|gif);base64,)[a-zA-Z0-9+/=\s]+$/
+
+//     if (!avatarRegex.test(base64Url)) throw new Error('Image format invalid')
+// }

@@ -1,11 +1,12 @@
 import { show, hide, toggle, context } from "../ui.js"
 import { updatePassword } from "../logic/updatePassword.js"
 import { updateEmail } from "../logic/updateEmail.js"
-import { updateAvatar } from "../logic/updateAvatar.js"
+import { getImageFromLocal } from "../logic/getImageFromLocal.js"
 import { loginPage } from "./login-page.js"
 import { findUserbyId } from "../logic/helpers/data-managers.js"
 import { createPost } from "../logic/createPost.js" 
 import { posts } from "../data.js"
+import { updateAvatar } from "../logic/updateAvatar.js"
 
 
 export const homePage = document.querySelector('.homepage')
@@ -116,34 +117,30 @@ homePage.querySelector('#cancel-update-email').addEventListener('click', functio
     show(homeProfile)
 })
 
-// Confirm update avatar
-// updateAvatarForm.querySelector('#save-update-avatar').addEventListener('click', function(event){
-//     event.preventDefault()
-
-//     const avatarUrl = homePage.querySelector('.update-avatar').querySelector('input[name=avatar]').value
-
-//     try{
-//         updateAvatar(context.userId, avatarUrl)
-        
-//         alert('avatar updated')
-//         homePage.querySelector('.topbar-avatar').src = avatarUrl
-//         // authenticatedAvatar = avatarUrl
-//         updateAvatarForm.querySelector('.update-avatar-image-preview').src = avatarUrl
-//     } catch (error){
-//         homePage.querySelector('.update-avatar').querySelector('.error-message').textContent = error.message
-//     }
-// })
-
-// new update avatar
+// Update avatar image preview
 homePage.querySelector('.update-avatar').querySelector('input[name=avatar]').addEventListener('change', function(event){
 
     event.preventDefault()
-    const uploadedFile = event.target.files
+    const uploadedFile = event.target.files[0]
 
     try{
-        const srcData = updateAvatar(uploadedFile)
+        const srcData = getImageFromLocal(uploadedFile)
         updateAvatarForm.querySelector('.update-avatar-image-preview').src = srcData
-        
+    } catch(error){
+        homePage.querySelector('.update-avatar').querySelector('.error-message').textContent = error.message
+    }
+})
+
+// Confirm update avatar
+updateAvatarForm.querySelector('#save-update-avatar').addEventListener('click', function(event){
+    event.preventDefault()
+
+    const localImage = updateAvatarForm.querySelector('.update-avatar-image-preview').src
+
+    try{
+        const image = updateAvatar(localImage)
+        homePage.querySelector('.topbar-avatar').src = image
+        homePage.querySelector('.update-avatar').querySelector('.success-message').textContent = 'Avatar updated!'
     } catch(error){
         homePage.querySelector('.update-avatar').querySelector('.error-message').textContent = error.message
     }

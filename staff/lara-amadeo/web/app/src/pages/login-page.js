@@ -40,6 +40,8 @@ loginForm.onsubmit = function(event){
         show(homePage)
         topbarProfileRow.querySelector('.topbar-profile-username').innerHTML = context.userName
         topbarProfileRow.querySelector('.topbar-profile-email').innerHTML = authenticatedEmail
+        topbarProfileRow.querySelector('.topbar-avatar').src = context.userAvatar
+        
         showPosts()
     } catch (error) {
         loginPage.querySelector('.error-message').textContent = error.message
