@@ -1,5 +1,3 @@
-import { context, toggleOffClassInSection } from "../ui.mjs";
-import { homePage } from "../pages/home-page.mjs";
 import { getUserName } from "./helpers/data-managers.mjs";
 import { posts } from '../data.mjs'
 import { updatePosts } from '../logic/update-posts.mjs'
@@ -25,11 +23,9 @@ export function createPost(userId, image, title, text) {
         throw new Error(`User with ${userId} not found`)
     }
     
-// import {userAccount} from './main.mjs'
  const img = document.querySelector('.section.user-account').querySelector('form.user-info .image-profile')
  const avatarHeader = document.querySelector('header .menu').querySelector('.avatar img.image-profile')
 
-    // validateImage(imageSource)
     const currentPost = parseInt(posts.length + 1)
     const newPost = posts.push({
         id: 'post-' + currentPost,
@@ -40,7 +36,6 @@ export function createPost(userId, image, title, text) {
         postDate: new Date()
     })
     updatePosts()
-    console.log(posts)
 }
 
 

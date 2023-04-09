@@ -11,7 +11,6 @@ export function registerUser(name, email, password) {
         name = name.trim()
         users.push({
             id: 'user-' + parseInt(users.length + 1),
-            // id: users[users.length].slice(5) + parseInt(users.length + 1),
             name: name,
             email: email,
             password: password

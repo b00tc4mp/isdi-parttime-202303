@@ -1,11 +1,11 @@
 import { toggleOffClassInSection, showHidePassword } from '../ui.mjs'
 import { context, changeMessageOnContainer } from '../ui.mjs'
-import { file, img, avatarHeader, printImage } from '../localImagesBase64.mjs'
+import { file } from '../localImagesBase64.mjs'
 import { uploadImage } from '../logic/update-user-image.mjs'
 import { updateUserName } from '../logic/update-user-name.mjs'
 import { updateUserEmail } from '../logic/update-user-email.mjs'
 import { updateUserPassword } from '../logic/update-user-password.mjs'
-import { getUserName, findUserByEmail, findUserById, getCurrentUser } from '../logic/helpers/data-managers.mjs'
+import { getUserName, findUserById, getCurrentUser } from '../logic/helpers/data-managers.mjs'
 import { users } from '../data.mjs'
 import { logOut} from '../logic/logout.mjs'
 import { homePage } from './home-page.mjs'
@@ -21,7 +21,6 @@ userAccount.querySelector('.button--update-info__profile').onclick = function() 
     userAccount.querySelector('form.user-info input[name="email"]').removeAttribute('disabled')
     userAccount.querySelector('form.user-info input[name="file"]').removeAttribute('disabled')
     userAccount.querySelector('.button--update-info__profile').disabled = true
-    // currentUserID = userAccount.querySelector('form.user-info input[name="email"]').value
     return context.userId
 }
 
@@ -41,13 +40,10 @@ userAccount.querySelector('.button--update-info__save-info').onclick = function(
     const userName = userAccount.querySelector('form.user-info input[name="name"]').value
     const userNameInput = userAccount.querySelector('form.user-info input[name="name"]')
     const imageInput = userAccount.querySelector('form.user-info input[name="file"]')
-    // const userID = users.map(user => user.email).indexOf(currentUserID)
-    // const userID = users.map(user => user.email).indexOf(email)
     const userId = context.userId
     const currentUserEmail = findUserById(userId)
     const currentUserName = getUserName(userId)
 
-    // if (users[userID].email === currentUserID) {
         try {
             if(userName !== currentUserName) {
                 updateUserName(userId)
@@ -71,7 +67,6 @@ userAccount.querySelector('.button--update-info__save-info').onclick = function(
             userAccount.querySelector('.message').classList.add('error')        
             userAccount.querySelector('.message').textContent = error.message     
         }
-    // }
 
     userAccount.querySelector('.button--update-info__profile').removeAttribute('disabled')
 }
@@ -100,7 +95,6 @@ userAccount.querySelector('.button--update-info__save-password').onclick = funct
     }
 }
 
-
 userAccount.querySelector('.button--update-info__cancel-password').onclick = function(event) {
     event.preventDefault()
     userAccount.querySelector('.user-password').classList.add('off')
@@ -123,7 +117,6 @@ userAccount.querySelector('.repeat-password > i').onclick = function() {
 }
 
 userAccount.querySelector('.delete-account p').onclick = function() {
-    // var userID = users.map(user => user.currentUserId).indexOf(currentUserId)
     const userId = context.userId
     getCurrentUser(userId)
     const user = parseInt(getCurrentUser(userId).slice(5) - 1)

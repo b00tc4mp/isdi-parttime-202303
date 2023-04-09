@@ -1,7 +1,6 @@
-import { context, toggleOffClassInSection } from "../ui.mjs";
 import { homePage } from "../pages/home-page.mjs";
-import { getUserName } from "./helpers/data-managers.mjs";
 import { posts } from '../data.mjs'
+import { cutText} from './max-characters.mjs'
 export function updatePosts() {
     const existentArticleElement = homePage.querySelector('.posts')
     if(existentArticleElement) {
@@ -19,44 +18,12 @@ export function updatePosts() {
             articleElement.appendChild(printImage)
             articleElement.appendChild(printTitle)
             articleElement.appendChild(printText)
-            // const printImage = homePage.querySelector('.posts img')
-            // const printText = homePage.querySelector('.posts .text')
             printImage.src = article.image
             printTitle.innerText = article.title
-            printText.innerText = article.text.substring(0, 60) + '...'
-    
-            //  cutText(printText, 60)
+            const textToCut = article.text
+            printText.innerText = cutText (textToCut, 60)
         })
-    
     }
-
-    // const existentArticleElement = homePage.querySelector('.posts').children.length
-    // if( posts.length >= 1) {
-    //     posts.forEach(article => {
-    //         if(article.id > existentArticleElement ) {
-
-    //         } else { 
-
-    //             const articleElement = document.createElement('article')
-    //             const printImage = document.createElement('img')
-    //             const printText = document.createElement('p')
-    //             const printTitle = document.createElement('h3')
-    //             printText.classList.add('excerpt')
-    //             printTitle.classList.add('title')
-    //             homePage.querySelector('.posts').appendChild(articleElement)
-    //             articleElement.appendChild(printImage)
-    //             articleElement.appendChild(printTitle)
-    //             articleElement.appendChild(printText)
-    //             printImage.src = article.image
-    //             printTitle.innerText = article.title
-    //             printText.innerText = article.text.substring(0, 60) + '...'
-    //         }
-    
-    //     })
-    
-    // }
-
-
 }
 
 // TODO steps

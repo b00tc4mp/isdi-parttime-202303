@@ -21,13 +21,7 @@ menuHeader.querySelector('.user-account').onclick = function(event) {
     event.preventDefault()
     toggleOffClassInSection(homePage, userAccount)
 }
-// menuHeader.querySelector('.logo').onclick = function(event) {
-//     event.preventDefault()
-//     addClassOnContainer(loginPage, 'off')
-//     addClassOnContainer(registerPage, 'off')
-//     addClassOnContainer(userAccount, 'off')
-//     deleteClassOnContainer(homePage, 'off')
-// }
+
 
 menuHeader.querySelector('.logout').onclick = function(event) {
     event.preventDefault()
