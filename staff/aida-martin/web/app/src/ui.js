@@ -4,7 +4,7 @@ export function show(...containers) {
   }
 }
 
-export function hidden(...containers) {
+export function hide(...containers) {
   for (let i = 0; i < containers.length; i++) {
     containers[i].classList.add("off");
   }
@@ -15,3 +15,7 @@ export function toggle(...containers) {
     containers[i].classList.toggle("off");
   }
 }
+
+export const context = {
+  userId: null,
+};
