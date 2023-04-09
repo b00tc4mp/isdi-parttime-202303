@@ -1,5 +1,5 @@
 /*Email validation*/
-function emailValidation(email)
+export function emailValidation(email)
 {
     var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
@@ -14,7 +14,7 @@ function emailValidation(email)
   }
 }
 /*Simple password validation*/ 
-  function passwordValidation(input) {
+export function passwordValidation(input) {
     var passw = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
     if (input.match(passw)) {
        

@@ -1,3 +1,5 @@
+export const users = []
+
 users.push({
     guid:'',
     name: 'Tom Hanks',
