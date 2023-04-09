@@ -3,6 +3,7 @@ import {
   validateName,
   validatePassword,
   validateUrl,
+  validateId,
 } from "./validators.js";
 import { users } from "./data.js";
 
@@ -43,7 +44,7 @@ export function authenticateUser(email, password) {
   validateEmail(email);
   validatePassword(password);
 
-  let foundUser = findUserByEmail(email);
+  const foundUser = findUserByEmail(email);
 
   if (!foundUser) throw new Error("User not found 😥", { cause: "userError" });
 
@@ -55,7 +56,9 @@ export function authenticateUser(email, password) {
 }
 
 export function retrieveUser(userId) {
-  let foundUser = findUserById(userId);
+  validateId(userId, "User ID");
+
+  const foundUser = findUserById(userId);
 
   if (!foundUser) throw new Error("User not found 😥", { cause: "userError" });
 
@@ -76,6 +79,7 @@ export function changePassword(
   newPassword,
   newPasswordConfirm
 ) {
+  validateId(userId, "User ID");
   validatePassword(password);
   validatePassword(newPassword, "New password");
   validatePassword(password);
@@ -104,6 +108,7 @@ export function changePassword(
 }
 
 export function updateAvatar(userId, url) {
+  validateId(userId, "User ID");
   validateUrl(url, "Avatar url");
 
   let foundUser = findUserById(userId);
@@ -117,7 +122,7 @@ export function updateAvatar(userId, url) {
 
 function findUserByEmail(email) {
   for (let i = 0; i < users.length; i++) {
-    let user = users[i];
+    const user = users[i];
     if (user.email === email) {
       return user;
     }
@@ -125,16 +130,11 @@ function findUserByEmail(email) {
 }
 
 function findUserById(userId) {
-  let foundUser;
-
   for (let i = 0; i < users.length; i++) {
     const user = users[i];
 
     if (user.id === userId) {
-      foundUser = user;
-      break;
+      return user;
     }
   }
-
-  return foundUser;
 }

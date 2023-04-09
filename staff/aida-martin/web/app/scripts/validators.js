@@ -35,3 +35,10 @@ export function validateUrl(url, explain = "Url") {
   if (!url.trim().length)
     throw new Error(`${explain} is empty 😥`, { cause: "userError" });
 }
+
+export function validateId(id, explain = "User ID") {
+  if (typeof id !== "string")
+    throw new Error(`${explain} is not a string 😥`, { cause: "userError" });
+  if (!id.trim().length)
+    throw new Error(`${explain} is empty 😥`, { cause: "userError" });
+}
