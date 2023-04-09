@@ -1,4 +1,5 @@
-import { register, controlUsernameInput, } from '../ui/login-register.mjs';
+import { controlUsernameInput, } from '../ui/general-tools.mjs'
+import { register } from '../ui/login-register.mjs';
 import { displayRegisterError, } from '../ui/errors.mjs';
 import { loginPage } from './login-page.mjs'
 

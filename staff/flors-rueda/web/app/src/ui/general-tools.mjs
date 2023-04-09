@@ -1,6 +1,6 @@
 import { retrieveUser, } from '../logic/retrieve-user.mjs';
 
-export const context = { userAuth: null, }
+export const context = { userAuth: undefined, }
 
 export const toggleOff = (...items) => {
   items.forEach((item) => {
@@ -25,6 +25,10 @@ export const clearForms = () => {
   inputs.forEach((input) => (input.value = ''));
   const filesInputs = document.querySelectorAll('input[type="file"]');
   filesInputs.forEach((input) => (input.value = ''));
+  const filesDelete = document.querySelectorAll('.delete-img');
+  filesDelete.forEach((item) => {
+    item.classList.add('off');
+  });
 };
 
 const resetAlertStyles = (alertUser) => {
@@ -77,4 +81,15 @@ export const getImgUrl = (event) => {
   }
   reader.readAsDataURL(file)
   return URL.createObjectURL(file)
+}
+
+export const controlUsernameInput = (input) => {
+  let username = '';
+  const regexRule = /^[a-zA-Z0-9]*$/;
+  if(!regexRule.test(input.value)) {
+    username = input.value.slice(0, -1);
+  } else {
+    username = input.value
+  }
+  input.value = username
 }

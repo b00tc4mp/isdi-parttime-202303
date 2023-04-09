@@ -25,6 +25,7 @@ export const addNewUser = (mail, username, password, repeatPassword) => {
     name: username.replace('@', ''),
     mail: mail,
     password: password,
+    joined: new Date(Date.now())
   };
   users.push(user);
   return user

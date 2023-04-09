@@ -50,6 +50,10 @@ export const validateUserPassword = (id, password) => {
   if(!isPasswordCorrect(id, password)) throw Error('password incorrect');
 };
 
+export const validateRepeatPassword = (password, repeatPassword) => {
+  if(!confirmPassword(password, repeatPassword)) throw new Error('password and confirmation password are different');
+};
+
 export const validateNewPassword = (password, repeatPassword) => {
   validatePassword(password);
   validatePassword(repeatPassword);

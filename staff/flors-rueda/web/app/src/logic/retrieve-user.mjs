@@ -5,8 +5,8 @@ export const retrieveUser = (id) => {
   let user = {
     username: loginUser[0].username,
     name: loginUser[0].name,
-    mail: loginUser[0].mail,
     avatar: loginUser[0].avatar,
+    joined: loginUser[0].joined,
   };
   return user;
 };

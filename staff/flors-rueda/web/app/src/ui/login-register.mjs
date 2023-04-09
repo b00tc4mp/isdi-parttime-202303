@@ -4,15 +4,15 @@ import { addNewUser } from '../logic/register-user.mjs'
 
 import {authenticateUser} from '../logic/authenticate-user.mjs'
 
-export const login = (login, home, startHome, username, password) => {
+export const login = (userAuth, login, home, startHome, username, password) => {
   resetAlerts();
+  userAuth = authenticateUser(username, password);
   toggleOff(login, home);
-  setOn(startHome)
-  let userAuth = authenticateUser(username, password);
+  setOn(startHome);
   return userAuth
 };
 
-const registerUser = (mail, username, password) => {
+const registerUser = (username) => {
   document.querySelector('.login-form').querySelector('input[name="username"]').value = username;
   const message = `Welcome, ${username}! Your account is registered. You can sign in now!`;
   setAlert('area-login', 'alert-success', message);
@@ -27,29 +27,19 @@ export const register = (register, login) => {
   const repeatPassword = document.querySelector('.register-form').querySelector('input[name="repeat-password"]').value;
   addNewUser(mail, username, password, repeatPassword);
   toggleOff(register, login);
-  registerUser(mail, user, password, repeatPassword);
+  registerUser(user);
 };
 
 export const logout = (login, home) => {
+  console.log('loginout')
   resetAlerts();
   clearForms();
   toggleOff(login, home);
   document.querySelector('.name').innerText = '';
   document.querySelector('.username').innerText = '';
-  document.querySelector('.mail').innerText = '';
+  document.querySelector('.since').innerText = '';
   setPredeterminateAvatar();
 };
-
-export const controlUsernameInput = (input) => {
-  let username = '';
-  const regexRule = /^[a-zA-Z0-9]*$/;
-  if(!regexRule.test(input.value)) {
-    username = input.value.slice(0, -1);
-  } else {
-    username = input.value
-  }
-  input.value = username
-}
 
 export const changeView = (register, login) => {
   resetAlerts();

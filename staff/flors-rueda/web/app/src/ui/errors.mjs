@@ -1,5 +1,7 @@
 import { clearForms, setAlert, setSimpleAlert } from './general-tools.mjs';
 
+//TODO: Add new edit user options errors
+
 export const displayLoginError = (message) => {
   if (message === 'username does not exist') {
     setSimpleAlert('area-login-username', 'alert-danger', message);

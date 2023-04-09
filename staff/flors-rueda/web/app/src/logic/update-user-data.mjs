@@ -1,8 +1,8 @@
 import users from './users/data.mjs'
 
-import { validateName, validateUserPassword, validateMail } from './users/validators.mjs';
+import { validateName, validateUserPassword, validateMail, validateNewUsername } from './users/validators.mjs';
 
-export const updateUserName = (id, newName, password) => {
+export const updateName = (id, newName, password) => {
   validateName(newName)
   validateUserPassword(id, password)
   users.filter((user) => {
@@ -11,8 +11,8 @@ export const updateUserName = (id, newName, password) => {
 };
   
 export const updateUserMail = (id, newMail, password) => {
-  validateUserPassword(id, password)
   validateMail(newMail)
+  validateUserPassword(id, password)
   users.filter((user) => {
     if (user.id === id) user.mail = newMail;
   });
@@ -22,5 +22,14 @@ export const updateUserAvatar = (id, newAvatar, password) => {
   validateUserPassword(id, password)
   users.filter((user) => {
     if (user.id === id) user.avatar = newAvatar
+  });
+};
+
+export const updateUsername = (id, newUsername, password) => {
+  let username = '@' + newUsername.toLowerCase()
+  validateNewUsername(username)
+  validateUserPassword(id, password)
+  users.filter((user) => {
+    if (user.id === id) user.username = username
   });
 };

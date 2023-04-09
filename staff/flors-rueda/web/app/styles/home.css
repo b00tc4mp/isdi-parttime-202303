@@ -130,12 +130,12 @@
     gap: 0.5rem;
 }
 
-.delete-avatar {
-    font-size: 1rem;
-    line-height: 1rem;
-    width: 1.5rem;
-    height: 1.5rem;
-    border-radius: 50%;
+.delete-img {
+    font-size: 0.5rem;
+    line-height: 0.5rem;
+    width: 0.25rem;
+    height: 0.5rem;
+    border-radius: 35%;
     border: 0.1em solid var(--color-primary300);
 }
 
