@@ -1,4 +1,4 @@
-onsole.log('load login-module')
+Console.log('load login-module')
 
 import authenticateUser from '../helpers/auth-user.js'
 //import retrieveUser from '../logic/retrieve-user.mjs'
