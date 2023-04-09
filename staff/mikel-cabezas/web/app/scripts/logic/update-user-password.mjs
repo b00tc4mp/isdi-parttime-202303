@@ -1,6 +1,6 @@
 import { context, toggleOffClassInSection } from "../ui.mjs"
 import { findUserById } from "./helpers/data-managers.mjs"
-import { validateNewPassword } from '../validators.mjs'
+import { validateNewPassword } from './helpers/validators.mjs'
 import { userAccount } from "../pages/user-account.mjs"
 
 export function updateUserPassword(currentId) {

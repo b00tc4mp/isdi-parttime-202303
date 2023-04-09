@@ -1,18 +1,48 @@
 import { context, toggleOffClassInSection } from "../ui.mjs";
-import { getCurrentUser } from "./helpers/data-managers.mjs";
 import { homePage } from "../pages/home-page.mjs";
+import { getUserName } from "./helpers/data-managers.mjs";
+import { posts } from '../data.mjs'
+import { updatePosts } from '../logic/update-posts.mjs'
 
-export function createPost(userId, image, text) {
-    toggleOffClassInSection(homePage.querySelector('.overlay.create-post'))
+let srcNewImage
 
+const file = document.querySelector('.section.home').querySelector('form input[type="file"]')
 
-    const user = getCurrentUser(userId)
+const printImage = file.onchange = function (event) {
+    const file = event.target.files[0]
+    const image = new FileReader()
+    image.onload = () => {
+        const base64 = image.result
+        srcNewImage = base64
+    }
+    image.readAsDataURL(file)
+}
 
-    if (!user) {
+export function createPost(userId, image, title, text) {
+
+    const userName = getUserName(userId)
+    if (!userId) {
         throw new Error(`User with ${userId} not found`)
     }
+    
+// import {userAccount} from './main.mjs'
+ const img = document.querySelector('.section.user-account').querySelector('form.user-info .image-profile')
+ const avatarHeader = document.querySelector('header .menu').querySelector('.avatar img.image-profile')
 
+    // validateImage(imageSource)
+    const currentPost = parseInt(posts.length + 1)
+    const newPost = posts.push({
+        id: 'post-' + currentPost,
+        author: userName,
+        image: srcNewImage,
+        title: title, 
+        text: text,
+        postDate: new Date()
+    })
+    updatePosts()
+    console.log(posts)
 }
+
 
 // TODO steps
     // check user with userId exists

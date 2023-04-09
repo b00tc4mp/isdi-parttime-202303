@@ -2,6 +2,12 @@ export function validateName(name) {
     if(typeof email !== 'string') throw new Error('Email is not a string')
     if(!email.trim().length) throw new Error('Email is empty')
 }
+export function validateImage(inputImage) {
+    const acceptedImageTypes = ['image/gif', 'image/jpeg', 'image/png'];
+    if(typeof inputImage !== 'file') throw new Error('Image is not a file')
+    if(inputImage !== 'image/gif' || inputImage !== 'image/jpeg' || inputImage !== 'image/png' || inputImage !== 'image/webp' ) throw new Error('Image is not a file')
+    if(!inputImage) throw new Error('Image is empty')
+}
 export function validateEmail(email) {
     if(typeof email !== 'string') throw new Error('Email is not a string')
     if(!email.trim().length) throw new Error('Email is empty')

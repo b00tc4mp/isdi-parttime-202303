@@ -1,13 +1,15 @@
 import { toggleOffClassInSection, showHidePassword } from '../ui.mjs'
 import { context, changeMessageOnContainer } from '../ui.mjs'
 import { file, img, avatarHeader, printImage } from '../localImagesBase64.mjs'
-import { updateUserImage } from '../logic/update-user-image.mjs'
+import { uploadImage } from '../logic/update-user-image.mjs'
 import { updateUserName } from '../logic/update-user-name.mjs'
 import { updateUserEmail } from '../logic/update-user-email.mjs'
 import { updateUserPassword } from '../logic/update-user-password.mjs'
 import { getUserName, findUserByEmail, findUserById, getCurrentUser } from '../logic/helpers/data-managers.mjs'
 import { users } from '../data.mjs'
 import { logOut} from '../logic/logout.mjs'
+import { homePage } from './home-page.mjs'
+import { menuHeader } from './header.mjs'
 
 
 
@@ -59,16 +61,18 @@ userAccount.querySelector('.button--update-info__save-info').onclick = function(
             toggleOffClassInSection(userAccount.querySelector('.buttons'))
             userAccount.querySelector('.button--update-info__profile').disabled = true
             changeMessageOnContainer(userPageMessage, 'User updated!', 'success')
-
+            if(file.length !== 0) {
+                uploadImage(context.userId, userAccount.querySelector('.avatar img.image-profile'), userAccount.querySelector('form.user-info input[name="file"]'), 'users')
+                const avatarHeader = menuHeader.querySelector('.avatar img.image-profile').classList.remove('hidden')
+                const avatar = userAccount.querySelector('.avatar img.image-profile').classList.remove('hidden')
+            }
         } catch (error) {
             userAccount.querySelector('.message').classList.remove('success')
             userAccount.querySelector('.message').classList.add('error')        
             userAccount.querySelector('.message').textContent = error.message     
         }
     // }
-    if(file.length !== 0) {
-        updateUserImage(context.userId)
-    }
+
     userAccount.querySelector('.button--update-info__profile').removeAttribute('disabled')
 }
 userAccount.querySelector('.button--update-info__password').onclick = function(event) {

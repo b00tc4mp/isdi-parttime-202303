@@ -39,7 +39,7 @@ posts.push({
     id: 'post-2',
     author: 'Mikel Cabezas',
     image: 'https://www.elmueble.com/medio/2022/11/13/hack-de-mesita-de-noche-de-ikea-visto-en-instagram_1da01de6_221113173324_600x600.jpg',
-    title: 'IVAR Hack entrance room',
+    title: 'Rast chest of drawer Hack',
     text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Non, a adipisci ut inventore animi nihil numquam alias? Saepe magnam repellendus nulla assumenda mollitia voluptates pariatur fuga ab cupiditate? Quae, debitis.',
     date: new Date()
 })

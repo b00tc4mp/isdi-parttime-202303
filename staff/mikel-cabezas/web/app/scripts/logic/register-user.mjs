@@ -1,4 +1,4 @@
-import { validateEmail, validatePassword } from "../validators.mjs"
+import { validateEmail, validatePassword } from "./helpers/validators.mjs"
 import { users } from "../data.mjs"
 export function registerUser(name, email, password) {
     validateEmail(email)

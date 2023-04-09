@@ -5,7 +5,7 @@ import { menuHeader } from './header.mjs'
 import { userAccount } from './user-account.mjs'
 import { pushUserDataInForm } from '../logic/push-user-data-in-form.mjs'
 import { getUserName, findUserByEmail } from '../logic/helpers/data-managers.mjs'
-
+import { registerPage } from './register-page.mjs'
 
 export const loginPage = document.querySelector('.section.login')
 export const loginPageMessage = document.querySelector('.section.login').querySelector('.message')
@@ -38,6 +38,7 @@ loginPage.querySelector('form.login-form').onsubmit = function(event) {
 
         pushUserDataInForm(userId)
         context.userId = userId
+
     } catch(error) {
         loginPage.querySelector('.message').classList.remove('success')
         loginPage.querySelector('.message').classList.add('error')

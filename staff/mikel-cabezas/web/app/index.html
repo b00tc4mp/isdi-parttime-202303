@@ -97,14 +97,20 @@
         <div class="top">
             <h1>Home</h1>
             <h2 class="welcome-user"></h2>
-            <button class="create-post">Create post</button>
+            <button class="button--create-post">Create post <i class="material-symbols-outlined">add</i></button>
         </div>
         <div class="overlay create-post off">
             <form>
-                <input type="file" name="" id="">
-                <textarea name="" id="" cols="30" rows="10"></textarea>
-                <button type="cancel">Cancel</button>
-                <button type="submit">Create post</button>
+                <label for="text">Title of your post</label>
+                <input type="text" class="title">
+                <label for="file">Upload yopur image</label>
+                <input type="file" name="file" id="" accept=".jpg, .jpeg, .png .webp">
+                <label for="textarea">Write your process</label>
+                <textarea name="" id="" cols="30" rows="5"></textarea>
+                <div class="buttons">
+                    <button class="button--create-post_cancel" type="cancel">Cancel</button>
+                    <button class="button--create-post_save" type="submit">Create post</button>
+                </div>
             </form>
         </div>
         <div class="posts"></div>

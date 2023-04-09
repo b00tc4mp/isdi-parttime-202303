@@ -1,5 +1,5 @@
 import { findUserById } from "./helpers/data-managers.mjs"
-import { validateEmail } from "../validators.mjs"
+import { validateEmail } from "./helpers/validators.mjs"
 import { userAccount } from "../pages/user-account.mjs"
 
 export function updateUserEmail(userId, newEmail) {
