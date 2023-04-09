@@ -4,6 +4,7 @@ import {
   retrieveUser,
   changePassword,
   updateAvatar,
+  errorShow,
 } from "./logic.js";
 
 import { show, hidden, toggle } from "./ui.js";
@@ -37,12 +38,7 @@ registerForm.onsubmit = function (event) {
     hidden(registerPage);
     show(loginPage);
   } catch (error) {
-    if (error.cause === "userError") {
-      show(registerError);
-      registerError.innerText = error.message;
-      return;
-    }
-    console.log(error);
+    errorShow(registerError, error);
   }
 };
 
@@ -72,12 +68,7 @@ loginForm.onsubmit = function (event) {
     hidden(loginError, loginPage);
     show(homePage);
   } catch (error) {
-    if (error.cause === "userError") {
-      show(loginError);
-      loginError.innerText = error.message;
-      return;
-    }
-    console.log(error);
+    errorShow(loginError, error);
   }
 };
 
@@ -124,13 +115,17 @@ changePasswordForm.onsubmit = function (event) {
 
     hidden(profilePanel);
     changePasswordForm.reset();
+    changeAvatarForm.reset();
   } catch (error) {
-    if (error.cause === "userError") {
-      show(changePasswordError);
-      changePasswordError.innerText = error.message;
+    changePasswordForm.reset();
+    changeAvatarForm.reset();
+
+    if (error.message.includes("User ID")) {
+      hidden(profilePanel, homePage);
+      show(loginPage);
       return;
     }
-    console.log(error);
+    errorShow(changePasswordError, error);
   }
 };
 
@@ -145,14 +140,19 @@ changeAvatarForm.onsubmit = function (event) {
 
     homePage.querySelector("img").src = avatar;
 
+    changePasswordForm.reset();
+    changeAvatarForm.reset();
     hidden(profilePanel);
     show(homePage);
   } catch (error) {
-    if (error.cause === "userError") {
-      show(changeAvatarError);
-      changeAvatarError.innerText = error.message;
+    changePasswordForm.reset();
+    changeAvatarForm.reset();
+
+    if (error.message.includes("User ID")) {
+      hidden(profilePanel, homePage);
+      show(loginPage);
       return;
     }
-    console.log(error);
+    errorShow(changeAvatarError, error);
   }
 };

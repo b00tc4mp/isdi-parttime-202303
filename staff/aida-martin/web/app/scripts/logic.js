@@ -6,6 +6,7 @@ import {
   validateId,
 } from "./validators.js";
 import { users } from "./data.js";
+import { show } from "./ui.js";
 
 export function registerUser(name, email, password, repeatPassword) {
   validateName(name);
@@ -116,6 +117,15 @@ export function updateAvatar(userId, url) {
   if (!foundUser) throw new Error("User not found 😥", { cause: "userError" });
 
   foundUser.avatar = url;
+}
+
+export function errorShow(page, error) {
+  if (error.cause === "userError") {
+    show(page);
+    page.innerText = error.message;
+    return;
+  }
+  console.log(error);
 }
 
 // helpers
