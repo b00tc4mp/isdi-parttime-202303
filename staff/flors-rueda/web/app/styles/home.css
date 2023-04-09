@@ -11,10 +11,17 @@
     display: grid;
     grid-template-columns: 100%;
     grid-template-rows: 40% 60%;
-    grid-area: 2 / 1 / 3 / 2; 
 }
 
-.home-start { grid-area: 1 / 1 / 3 / 2; }
+p {
+    margin-block-start: 0;
+}
+
+.home-start {
+    display: flex;
+    flex-direction: column;
+    gap: 0.05em
+}
 
 .user-profile { grid-area: 1 / 1 / 2 / 2; }
 
@@ -109,7 +116,7 @@
     text-align: justify;
 }
 
-.post-image {
+.new-post-image {
     border-radius: 0.5rem;
     overflow: hidden;
     height: 5rem;
@@ -129,10 +136,83 @@
     border-radius: 50%;
     border: 0.15em solid var(--color-primary300);
 }
+
+.posts-display {
+    display: flex;
+    flex-direction: column;
+    gap: 1em
+}
   
+.post {
+    width: 100%;
+    border: 1px solid red;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    align-self: center;
+}
 
+.post-author-data {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 0.5em;
+}
 
+.post-author-username {
+    font-weight: 100;
+}
 
+.post-author-data p {
+    margin-block-start: 0;
+    margin-block-end: 0;
+}
+
+.post-author-avatar {
+    border-radius: 50%;
+    overflow: hidden;
+    height: 2rem;
+    width: 2rem;
+}
+
+.post-main-data {
+    display: flex;
+    flex-direction: column;
+    gap: 0.05em
+}
+
+.post-image {
+    border-radius: 0.05em;
+    overflow: hidden;
+    align-self: center;
+    height: 15rem;
+    width: 15rem;
+}
+
+.post-text {
+    text-align: justify;
+    padding: 0 0.75em;
+}
+
+.post-stats-data {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 0.75em;
+}
+
+.post-date {
+    color: var(--color-dark100);
+    font-weight: 300;
+}
+
+.dark-mode .post-date {
+    color: var(--color-light300);
+}
 
 @media (min-width: 768px) {
     .home-page  {
@@ -189,4 +269,32 @@
         right: 10%;
     }
 
+    .posts-display {
+        display: flex;
+        flex-direction: row;
+        gap: 1em;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .post {
+        width: 45%;
+        height: 26.7rem;
+    }
+
+}
+
+@media (min-width: 1000px) { 
+    .posts-display {
+        display: flex;
+        flex-direction: row;
+        gap: 1em;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .post {
+        width: 30%;
+        height: 28.25rem;
+    }
 }

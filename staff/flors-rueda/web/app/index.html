@@ -26,7 +26,7 @@
         </form>
         <div class="change-view">Already have an account? <a class="change-view-link">Sign in</a></div>
     </div>
-    <div class="login">
+    <div class="login off">
         <h1>Login</h1>
         <div class="alert off area-login"></div>
         <form class="login-form" method="get">
@@ -38,7 +38,7 @@
         </form>
         <div class="change-view">You're new here? <a class="change-view-link">Sign up</a></div>
     </div>
-    <div class="home off">
+    <div class="home">
         <header>
             <nav class="navbar">
                 <button class="logout">
@@ -59,7 +59,7 @@
             <section class="post-modal off">
                 <button class="cancel-post">X</button>
                 <h2>New post</h2>
-                <img class="post-image" src="https://www.slotcharter.net/wp-content/uploads/2020/02/no-avatar.png" />
+                <img class="new-post-image" src="https://www.slotcharter.net/wp-content/uploads/2020/02/no-avatar.png" />
                 <div class="add-post-image" tabindex="0">
                     <label for="image" class="image-label">
                         <button class="delete-img off">x</button>
@@ -73,9 +73,11 @@
                     <button class="save-post">Post</button>
                 </form>  
             </section>
-            <div class="home-start off">
-            <h1>Home</h1>
-                <p class="welcome"></p>
+            <div class="home-start">
+                <h1>Home</h1>
+                <p class="welcome">Welcome, ${user.name}! Check what's going on:</p>
+                <div class="posts-display">
+                </div>
             </div>
             <div class="user-profile off">
                 <h1>Your profile</h1>

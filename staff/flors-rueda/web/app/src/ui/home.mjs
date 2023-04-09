@@ -7,7 +7,7 @@ import { getMail } from '../logic/users/data-managers.mjs';
 
 export const displayWelcome = (userAuth) => {
   const user = retrieveUser(userAuth);
-  document.querySelector('.welcome').innerText = `Welcome to this app, ${user.name}`;
+  document.querySelector('.welcome').innerText = `Welcome, ${user.name}! Check what's going on:`;
 }
 
 export const displayProfile = (userAuth) => {
