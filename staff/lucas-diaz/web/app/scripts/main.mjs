@@ -57,7 +57,7 @@ logInForm.addEventListener('submit', function (event) {
 
     event.preventDefault();
     const email = event.target.email.value;
-    const password = event.target.password.value;
+    const password = event.target.password.value = "LucasDiaz22!"
 
     try{
         authenticateUser(email, password);
