@@ -62,3 +62,21 @@
     height: fit-content;
     margin: 0;
 }
+
+.tiny-text{
+    color: var(--grey-500);
+    font-family: "Inter";
+    font-size: 12px;
+    font-weight: 400;
+    height: fit-content;
+    margin: 0;
+}
+
+.tiny-text-bold{
+    color: var(--grey-500);
+    font-family: "Inter";
+    font-size: 12px;
+    font-weight: 500;
+    height: fit-content;
+    margin: 0;
+}

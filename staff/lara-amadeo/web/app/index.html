@@ -107,113 +107,167 @@
             </div>
         </div>
         <div class="main-container">
-            <div class="profile off">
-                <div class="centered-containers">
-                    <h1 class="title">Profile settings</h1>
-    
-                    <div class="profile-navigation-container">
-                        <div class="navigation-row nav-row-email">
-                            <a>Update email</a>
-                            <div class="icon-s"><i class="uil uil-angle-right-b"></i></i></div>                        </div>
-                        <div class="navigation-row nav-row-password">
-                            <a>Update password</a>
-                            <div class="icon-s"><i class="uil uil-angle-right-b"></i></div>
-                        </div>
-                        <div class="navigation-row nav-row-avatar">
-                            <a>Update avatar</a>
-                            <div class="icon-s"><i class="uil uil-angle-right-b"></i></div>                        </div>
-                        <a class="link" id="logout">Log out</a>
+            <div class="middle-section">
+                <div class="feed">
+                    <div class="feed-creation-post-button">
+                        <button class="primary-button create-post-button">Create</button>
                     </div>
-                </div>
-            </div>
-    
-            <div class="update-password off">
-                
-                <div class="centered-containers">
-                    <h1 class="title">Profile settings</h1>
-                    <h2 class="subtitle">Password update</h2>
-                   
-                    <form class="centered-form">
-        
-                        <label for="currentPassword" class="text-field-label">Current password</label>
-                        <input type="password" name="currentPassword" class="text-field">
-        
-                        <label for="newPassword" class="text-field-label">New password</label>
-                        <input type="password" name="newPassword" class="text-field">
-    
-                        <label for="confirmNewPassword" class="text-field-label">Confirm new password</label>
-                        <input type="password" name="confirmNewPassword" class="text-field">
-    
-                        <p class="error-message"></p>
-                        <p class="success-message"></p>
-                        
-                        <div class="button-bar">
-                        <button class="secondary-button" id="cancel-update-password" type="submit">Cancel</button>
-                        <button class="primary-button" id="save-update-password" type="submit">Save</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-    
-            <div class="update-mail off">
-      
-                <div class="centered-containers">
-                    <h1 class="title">Profile settings</h1>
-                    <h2 class="subtitle">Email update</h2>
-                   
-                    <form class="centered-form">
-        
-                        <label for="currentEmail" class="text-field-label">Current email</label>
-                        <input type="text" name="currentEmail" class="text-field">
-        
-                        <label for="newEmail" class="text-field-label">New email</label>
-                        <input type="text" name="newEmail" class="text-field">
-    
-                        <label for="confirmNewEmail" class="text-field-label">Confirm new email</label>
-                        <input type="text" name="confirmNewEmail" class="text-field">
-    
-                        <p class="error-message"></p>
-                        <p class="success-message"></p>
-                        
-                        <div class="button-bar">
-                        <button class="secondary-button" id="cancel-update-email" type="submit">Cancel</button>
-                        <button class="primary-button" id="save-update-email" type="submit">Save</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-    
-            <div class="update-avatar off">
-                
-                <div class="centered-containers">
-                    <h1 class="title">Profile settings</h1>
-                    <h2 class="subtitle">Avatar update</h2>
-                   
-                    <form class="centered-form">
-    
-                        <p class="body-text">Select an image for your avatar
-                        </p>
-        
-                        <input type="text" name="avatar">
-                        <!-- <input type="file" name="avatar"> -->
-                        <img src="https://media.istockphoto.com/id/1223671392/vector/default-profile-picture-avatar-photo-placeholder-vector-illustration.jpg?s=612x612&w=0&k=20&c=s0aTdmT5aU6b8ot7VKm11DeID6NctRCpB755rA1BIP0=" alt="" class="update-avatar-image-preview">
-        
-                        <p class="error-message"></p>
-                        <p class="success-message"></p>
-                        
-                        <div class="button-bar">
-                        <button class="secondary-button" id="cancel-update-avatar" type="submit">Cancel</button>
-                        <button class="primary-button" id="save-update-avatar" type="submit">Save</button>
-                        </div>
-                    </form>
-            </div>
-            </div> 
-        </div>
-        
 
-        
+                    <div class="post">
+                        <div class="post-user-data">
+                            <div class="post-avatar">
+                                <img class="post-avatar" src="https://media.istockphoto.com/id/1223671392/vector/default-profile-picture-avatar-photo-placeholder-vector-illustration.jpg?s=612x612&w=0&k=20&c=s0aTdmT5aU6b8ot7VKm11DeID6NctRCpB755rA1BIP0=" alt="">
+                            </div>
+                            <div class="post-user-data-info">
+                                <p class="post-user-data-info-username small-text-bold">username</p>
+                                <p class="tiny-text post-user-data-info-time">4h ago</p>
+                            </div>
+                        </div>
+                        
+                        <div class="post-image">
+                            <img class="user-post-image" src="https://images.ecestaticos.com/h34TvzTFVdrau9Un4Wdmwhed_e4=/0x115:2265x1390/1200x900/filters:fill(white):format(jpg)/f.elconfidencial.com%2Foriginal%2F8ec%2F08c%2F85c%2F8ec08c85c866ccb70c4f1c36492d890f.jpg">
+                        </div>
+
+                        <div class="post-caption">
+                            <p class="small-text post-caption-text">A very long caption for the photo of the moment!</p>
+                            <div class="icon-s"><i class="uil uil-heart"></i></div>
+                        </div>
+                    </div>
+
+                </div>
+
+                    <div class="settings off">
+                        <div class="profile">
+                            <div class="centered-containers">
+                                <h1 class="title">Profile settings</h1>
+                
+                                <div class="profile-navigation-container">
+                                    <div class="navigation-row nav-row-email">
+                                        <a>Update email</a>
+                                        <div class="icon-s"><i class="uil uil-angle-right-b"></i></i></div>                        </div>
+                                    <div class="navigation-row nav-row-password">
+                                        <a>Update password</a>
+                                        <div class="icon-s"><i class="uil uil-angle-right-b"></i></div>
+                                    </div>
+                                    <div class="navigation-row nav-row-avatar">
+                                        <a>Update avatar</a>
+                                        <div class="icon-s"><i class="uil uil-angle-right-b"></i></div>                        </div>
+                                    <a class="link" id="logout">Log out</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="update-password off">
+                        
+                        <div class="centered-containers">
+                            <h1 class="title">Profile settings</h1>
+                            <h2 class="subtitle">Password update</h2>
+                        
+                            <form class="centered-form">
+                
+                                <label for="currentPassword" class="text-field-label">Current password</label>
+                                <input type="password" name="currentPassword" class="text-field">
+                
+                                <label for="newPassword" class="text-field-label">New password</label>
+                                <input type="password" name="newPassword" class="text-field">
+            
+                                <label for="confirmNewPassword" class="text-field-label">Confirm new password</label>
+                                <input type="password" name="confirmNewPassword" class="text-field">
+            
+                                <p class="error-message"></p>
+                                <p class="success-message"></p>
+                                
+                                <div class="button-bar">
+                                <button class="secondary-button" id="cancel-update-password" type="submit">Cancel</button>
+                                <button class="primary-button" id="save-update-password" type="submit">Save</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+            
+                    <div class="update-mail off">
+            
+                        <div class="centered-containers">
+                            <h1 class="title">Profile settings</h1>
+                            <h2 class="subtitle">Email update</h2>
+                        
+                            <form class="centered-form">
+                
+                                <label for="currentEmail" class="text-field-label">Current email</label>
+                                <input type="text" name="currentEmail" class="text-field">
+                
+                                <label for="newEmail" class="text-field-label">New email</label>
+                                <input type="text" name="newEmail" class="text-field">
+            
+                                <label for="confirmNewEmail" class="text-field-label">Confirm new email</label>
+                                <input type="text" name="confirmNewEmail" class="text-field">
+            
+                                <p class="error-message"></p>
+                                <p class="success-message"></p>
+                                
+                                <div class="button-bar">
+                                <button class="secondary-button" id="cancel-update-email" type="submit">Cancel</button>
+                                <button class="primary-button" id="save-update-email" type="submit">Save</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+            
+                
+                    <div class="update-avatar off">
+                        
+                        <div class="centered-containers">
+                            <h1 class="title">Profile settings</h1>
+                            <h2 class="subtitle">Avatar update</h2>
+                        
+                            <form class="centered-form">
+            
+                                <p class="body-text">Select an image for your avatar
+                                </p>
+                
+                                <!-- <input type="text" name="avatar"> -->
+                                <input type="file" name="avatar">
+                                <img src="https://media.istockphoto.com/id/1223671392/vector/default-profile-picture-avatar-photo-placeholder-vector-illustration.jpg?s=612x612&w=0&k=20&c=s0aTdmT5aU6b8ot7VKm11DeID6NctRCpB755rA1BIP0=" class="update-avatar-image-preview">
+                
+                                <p class="error-message"></p>
+                                <p class="success-message"></p>
+                                
+                                <div class="button-bar">
+                                <button class="secondary-button" id="cancel-update-avatar" type="submit">Cancel</button>
+                                <button class="primary-button" id="save-update-avatar" type="submit">Save</button>
+                                </div>
+                            </form>
+                    </div>
+                    </div>
+            </div>
+            <div class="right-section"></div>
+        </div>
     </div>
-   <script type="module" src="scripts/data.js"></script>
-    <script type="module" src="scripts/main.js"></script>
+    
+<div class="creation-post-modal off">
+        <div class="centered-containers">
+            <form class="centered-form">
+                
+                <p class="title">Create a post!</p>
+
+                <label for="imageUrl" class="text-field-label">Select an image(URL)</label>
+                <input class="text-field" type="text" name="imageUrl">
+
+                <label for="caption" class="text-field-label">Post description</label>
+                <input class="text-area" type="text" name="caption"></input>
+
+                <p class="error-message"></p>
+                <p class="success-message"></p>
+
+                <div class="button-bar">
+                    <button class="secondary-button" id="cancel-post-publication" type="submit">Cancel</button>
+                    <button class="primary-button" id="post-publication" type="submit">Post</button>
+                    </div>
+            </form>
+        </div>
+</div>
+
+    <script type="module" src="./src/pages/login-page.js"></script>
 </body>
 </html>
