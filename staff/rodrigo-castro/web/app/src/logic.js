@@ -1,8 +1,9 @@
 // logic
 console.log('logic loaded')
 
-import {checkNewUser, validateEmail, validateUrl, validateName, validatePassword, validateId} from './validators.js'
-import {users} from './data.js'
+import { checkNewUser, validateEmail, validateUrl, validateName, validatePassword, validateId } from './validators.js'
+import { context } from './ui.js'
+import { users } from './data.js'
 
 
 export const registerNewUser = (userName, userEmail, userPassword, id) => {
@@ -22,12 +23,12 @@ export const findUser = (userEmail) => {
     return  users.find(user => user.email === userEmail)
 }
 
-export const changeEmail = (authenticatedUserId, homePage, changeEmailMenu) => {
+export const changeEmail = (userId, homePage, changeEmailMenu) => {
     var userPreviousEmail = homePage.querySelector('input[name=previous-email]').value
     var userNewEmail = homePage.querySelector('input[name=new-email]').value
     var userPassword = homePage.querySelector('input[name=change-email-pass]').value
 
-    var foundUser = findUserById(authenticatedUserId)
+    var foundUser = findUserById(userId)
 
     if(userPreviousEmail !== foundUser.email) throw new Error('Email or password incorrect', {cause: "ownError"})
 

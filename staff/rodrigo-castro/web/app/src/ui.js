@@ -22,3 +22,7 @@ export const resetPage = (...pages) => {
 export const resetHomePage = (homePage) => { // TODO !!!!
 
 }
+
+export const context = {
+    userId: null
+}
