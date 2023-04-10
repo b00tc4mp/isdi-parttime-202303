@@ -71,6 +71,14 @@ img{
     height: 200px;
 }
 
+article{
+    border-top: 2px solid black;
+}
+
+article:first-child{
+    border-top: none;
+}
+
 /** Globales **/
 .contenedor {
     width: min(90%, 120rem);

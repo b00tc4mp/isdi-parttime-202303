@@ -255,6 +255,7 @@ addPosts.querySelector('.button-cancel').addEventListener('click', function (eve
 })
 
 function muestraPosts(){
+    postListPanel.innerHTML='';
     let posts=getPosts();
     posts.forEach(post => {
         const postItem=document.createElement('article');
