@@ -4,7 +4,7 @@ let activeUser;
 
 //Logic
 
-import {addUser, authenticateUser, getInitials, changePassword, changeMail, retrieveMail} from "./logic.mjs";
+import {addUser, authenticateUser, getInitials, changePassword, changeMail, retrieveMail, createPost} from "./logic.mjs";
 
 
 //Presentation
@@ -41,6 +41,7 @@ var header = document.querySelector('.header');
 var homeTitle = homePage.querySelector('.title');
 var mailChange = profileView.querySelector('.mail-change');
 var passwordChange = profileView.querySelector('.password-change');
+var addPosts = homePage.querySelector('.addpost');
 
 function resetRegister() {
     registerPage.querySelector('input[id=nombre]').value = null;
@@ -84,6 +85,7 @@ function initiate() {
     headerNotLogged();
     hideSection(mailChange);
     hideSection(passwordChange);
+    hideSection(addPost);
 }
 
 initiate();
@@ -154,6 +156,11 @@ profileColumn.querySelector('.button-exit').addEventListener('click', function (
     showSection(loginPage);
 })
 
+profileColumn.querySelector('.button-post').addEventListener('click', function (event){
+event.preventDefault();
+showSection(addPosts);
+})
+
 profileView.querySelector('.button-update-password').addEventListener('click', function (event) {
     event.preventDefault();
     let oldPassword = profileView.querySelector('.password-old').value;
@@ -221,4 +228,12 @@ profileView.querySelector('.button-close-profile').addEventListener('click', fun
     hideSection(passwordChange);
     hideSection(profileView);
     showSection(homeSaludo);
+})
+
+addPosts.querySelector('.button-create').addEventListener('click', function (event){
+    event.preventDefault();
+    let imagen = addPost.querySelector('.input-imagen').value;
+    let texto = addPost.querySelector('.input-texto').value;
+
+    addPost(activeUser.id, imagen, texto);
 })

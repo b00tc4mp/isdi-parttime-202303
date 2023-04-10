@@ -83,11 +83,18 @@
             </div>
             <button class="boton boton--primario button-profile">Ver Perfil</button>
             <button class="boton boton--primario button-exit">Salir</button>
+            <button class="boton boton--primario button-post">Postear</button>
         </div>
         <div class="saludo">
             <h3 class="centrar-texto">Home</h3>
-            <span class="ripple"></span>
-            <p>Tu contenido estará aquí próximamente</p>
+            <div class="addpost">
+                <form class="formulario">
+                    <input class="input campo input-imagen" type="url" name="image" placeholder="image url">
+                    <textarea class="input campo input-texto" name="text" cols="30" rows="10" placeholder="text"></textarea>
+                    <button class="boton boton--primario button-create" type="submit">Create</button>
+                    <button class="boton boton--primario button-cancel" type="cancel">Cancel</button>
+                </form>
+            </div>
         </div>
 
         <div class="profile-view">
