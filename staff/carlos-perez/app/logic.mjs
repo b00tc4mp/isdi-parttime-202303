@@ -120,9 +120,9 @@ export function retrieveMail(activeUser){
 
 export function createPost(userId, image, text) {
 
-    const user = findUserById(userId);
+    const user = users[userExistById(userId)];
 
-    if (!user) throw new Error(`user with id ${userId} not found`);
+    if (user===-1) throw new Error(`user with id ${userId} not found`);
 
     let id = 'post-1';
 

@@ -85,7 +85,7 @@ function initiate() {
     headerNotLogged();
     hideSection(mailChange);
     hideSection(passwordChange);
-    hideSection(addPost);
+    hideSection(addPosts);
 }
 
 initiate();
@@ -232,8 +232,14 @@ profileView.querySelector('.button-close-profile').addEventListener('click', fun
 
 addPosts.querySelector('.button-create').addEventListener('click', function (event){
     event.preventDefault();
-    let imagen = addPost.querySelector('.input-imagen').value;
-    let texto = addPost.querySelector('.input-texto').value;
+    let imagen = addPosts.querySelector('.input-imagen').value;
+    let texto = addPosts.querySelector('.input-texto').value;
 
-    addPost(activeUser.id, imagen, texto);
+    createPost(activeUser.id, imagen, texto);
+    hideSection(addPosts);
+})
+
+addPosts.querySelector('.button-cancel').addEventListener('click', function (event){
+    event.preventDefault();
+    hideSection(addPosts);
 })
