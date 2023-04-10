@@ -7,7 +7,10 @@ export function validateEmail(email) {
     if (email === " ") throw new Error("Email cant be a blankSpace")
     if (!emailRegex.test(email)) throw new Error('Invalid email format')
 }
-
+export function validateId (id){
+    if ( typeof id !== "string") throw new Error("id is not a string");
+    if (!id.trim()) throw new Error("id is empty");
+}
 export function validateUsername(userName){
     if (!userName.trim()) throw new Error("Username is empty");
     if ( typeof userName !== "string") throw new Error("Username is not a string");

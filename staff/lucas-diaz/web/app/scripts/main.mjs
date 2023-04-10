@@ -29,7 +29,10 @@ const avatarMenuAnchor = document.querySelector(".home-menu-avatar-anchor");
 const updateAvatarMenu = document.querySelector(".home-update-avatar-menu"); 
 const updateAvatarForm = document.querySelector(".home-update-avatar-menu .form")
 const cancelUpdateAvatarButton = document.querySelector(".form-avatar-cancel-button");
-var authenticatedEmail
+var authenticatedUserId
+
+//*VARIABLES DE POST 
+const postAreaPage = document.querySelector(".home-main-content");
 
 //*VARIABLES DE FOOTER
 const footerSite = document.querySelector(".footer");
@@ -57,12 +60,13 @@ logInForm.addEventListener('submit', function (event) {
 
     event.preventDefault();
     const email = event.target.email.value;
-    const password = event.target.password.value = "LucasDiaz22!"
+    const password = event.target.password.value;
 
     try{
-        authenticateUser(email, password);
-        authenticatedEmail = email;
-        addUserNameInHeader(authenticatedEmail,welcomeMessage);
+        authenticatedUserId = authenticateUser(email, password);
+
+        addUserNameInHeader(authenticatedUserId,welcomeMessage);
+
         hide(logInPage);
         failLogInAdvice.textContent = "";
         show(homePage);
@@ -81,6 +85,7 @@ loginRegistrationAnchor.onclick = (event) => {
 //! PARTE DE HOME
 logOutButton.onclick = () => {
     hide(homePage,changePasswordMenu,updateAvatarMenu,footerSite);
+    show(postAreaPage);
     headerMenu.classList.remove("home-menu-transition");
     show(logInPage);
     authenticatedEmail = undefined;
@@ -88,7 +93,9 @@ logOutButton.onclick = () => {
 }
 settingsButton.onclick = () => {
     headerMenu.classList.toggle("home-menu-transition");
+    hide(changePasswordMenu,updateAvatarMenu);
     removeClass("green",avatarMenuAnchor,changePasswordMenuAnchor);
+    postAreaPage.classList.toggle("off");
 }
 
 //! PARTE DE CAMBIAR CONTRASEÑAS
@@ -112,7 +119,7 @@ changePasswordForm.onsubmit = (event) => {
     const newPasswordRepetition = document.querySelector(".new-password-repetition");
     
     try{
-        updateUserPassword(authenticatedEmail, oldPassword, newPassword, newPasswordRepetition);
+        updateUserPassword(authenticatedUserId, oldPassword, newPassword, newPasswordRepetition);
         hide(changePasswordMenu);
         show(document.querySelector(".success-password-change-advise"));
         vanishWarningIn3Seconds(document.querySelector(".success-password-change-advise"),"off");
@@ -139,7 +146,7 @@ updateAvatarForm.addEventListener("submit", (event) => {
     event.preventDefault();
     const url = event.target.url.value;
     try {
-        updateUserAvatar(authenticatedEmail, url);
+        updateUserAvatar(authenticatedUserId, url);
         show(document.querySelector(".success-avatar-warning"));
         avatarImage.src = url;
         vanishWarningIn3Seconds(document.querySelector(".success-avatar-warning"),"off");

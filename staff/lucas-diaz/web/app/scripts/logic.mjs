@@ -1,6 +1,6 @@
 console.log("load logic")
 
-import {validateEmail, validateUsername, validatePassword, validatePasswordsChanges, validateUrl, } from "./validators.mjs"
+import {validateEmail, validateUsername,validateId, validatePassword, validatePasswordsChanges, validateUrl, } from "./validators.mjs"
 import { users } from "./data.mjs";
 
 export const registerUser = (userName,email,password) => {
@@ -34,26 +34,38 @@ export const vanishWarningIn3Seconds = (advice, className) => {
         advice.classList.add(className);
     },4000);
 }
+
+
+//? DONE
 export const authenticateUser = (email,password) => {
+    debugger;
     validateEmail(email);
     validatePassword(password)
     
     const foundUser = users.find(user => user.email === email);
 
     if (!foundUser || foundUser.password !== password) throw new Error("Email or password wrong")
+    return foundUser.id;
 }
-export const addUserNameInHeader = (authenticatedEmail, welcomeMessage) => {
-    const currentUser = users.find( user => user.email === authenticatedEmail);
+
+//?DONE 
+export const addUserNameInHeader = (authenticatedUserId, welcomeMessage) => {
+    const currentUser = users.find( user => user.id === authenticatedUserId);
     welcomeMessage.textContent = currentUser.name;
 }
+
+
+
 export const resetUserNameInHeader = (welcomeMessage) => { 
     welcomeMessage.textContent = "Welcome ";
 }
-export function updateUserPassword(email, password, newPassword, newPasswordConfirm) {
+export function updateUserPassword(authenticatedUserId, password, newPassword, newPasswordConfirm) {
     validatePasswordsChanges(password,newPassword, newPasswordConfirm);
+    validateId( authenticatedUserId)
 
-    const currentUser =  users.find(user => user.email === email);
-    const currentUserIndex = users.findIndex(user => user.email === email);
+
+    const currentUser =  users.find(user => user.id === authenticatedUserId);
+    const currentUserIndex = users.findIndex(user => user.id === authenticatedUserId);
 
     if (currentUser.password !== password.value) throw new Error("typed password isn't actual password user's value")
     if (password.value === newPassword.value) throw new Error("Password is equal than new password")
@@ -61,10 +73,10 @@ export function updateUserPassword(email, password, newPassword, newPasswordConf
 
     users[currentUserIndex].password = newPassword.value;
 }
-export const updateUserAvatar = (email, url) => { 
-    validateEmailOnly(email);
+export const updateUserAvatar = (authenticatedUserId, url) => { 
+    validateId(authenticatedUserId);
     validateUrl(url);
-    const foundUser = users.find(user => user.email === email);
+    const foundUser = users.find(user => user.id === authenticatedUserId);
     if (!foundUser) throw new Error("user not found");
     foundUser.avatar = url;
 }
