@@ -9,11 +9,9 @@ import './pages/login-page.js'
                 - tancar ulls de les contrasenyes amb el canvi de pagina. Un if? si type text fer un toggle de fa-eye-slash i canvi de tipus
                 - passar for basics a for of?
                 - mirar cause pels errors??
-                - poder crear un post (dun en un), text o imatge amb la data del post:
-                comncem amb boto + al  footer
-                seguim amb ventana modal?
                 - implementar a home vista dels posts per ordre de mes nous a mes vells
                 - refactor de la home-page - dividir en pagines per a cada funcionalitat? avatar, name, password, email i posts
+                - register a homepage directe sense passar per login
                 
                 
     TODO Arrays:
