@@ -93,6 +93,10 @@ body {
     align-items: center;
 }
 
+.home__post--feed {
+    overflow: scroll;
+}
+
 header, footer {
     background-color: var(--pagecolor);
     position: fixed;
