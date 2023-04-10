@@ -15,6 +15,7 @@ export function hide(...containers){
     for  (const container of containers)
     container.classList.add('off')
 }
+
 export function toggle(...containers){
     for (const container of containers)
     container.classList.toggle('off')
@@ -25,6 +26,7 @@ export function addClass(className, ...containers){
         container.classList.add(className);
     }
 }
+
 export function removeClass (className, ...containers){
     for(const container of containers){
         container.classList.remove(className);

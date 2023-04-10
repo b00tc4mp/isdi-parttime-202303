@@ -24,23 +24,22 @@ export const registerUser = (userName,email,password) => {
         password: password
     });
 }
+
 export const cleanChangePasswordForm = () => {
     document.querySelector(".old-password").value ="";
     document.querySelector(".new-password").value = "";
     document.querySelector(".new-password-repetition").value = "";
 }
+
 export const vanishWarningIn3Seconds = (advice, className) => {
     setTimeout(() => {
         advice.classList.add(className);
     },4000);
 }
 
-
-//? DONE
 export const authenticateUser = (email,password) => {
-    debugger;
     validateEmail(email);
-    validatePassword(password)
+    validatePassword(password);
     
     const foundUser = users.find(user => user.email === email);
 
@@ -48,17 +47,15 @@ export const authenticateUser = (email,password) => {
     return foundUser.id;
 }
 
-//?DONE 
 export const addUserNameInHeader = (authenticatedUserId, welcomeMessage) => {
     const currentUser = users.find( user => user.id === authenticatedUserId);
     welcomeMessage.textContent = currentUser.name;
 }
 
-
-
 export const resetUserNameInHeader = (welcomeMessage) => { 
     welcomeMessage.textContent = "Welcome ";
 }
+
 export function updateUserPassword(authenticatedUserId, password, newPassword, newPasswordConfirm) {
     validatePasswordsChanges(password,newPassword, newPasswordConfirm);
     validateId( authenticatedUserId)
@@ -73,6 +70,7 @@ export function updateUserPassword(authenticatedUserId, password, newPassword, n
 
     users[currentUserIndex].password = newPassword.value;
 }
+
 export const updateUserAvatar = (authenticatedUserId, url) => { 
     validateId(authenticatedUserId);
     validateUrl(url);
