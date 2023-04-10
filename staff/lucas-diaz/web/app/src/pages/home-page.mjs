@@ -5,18 +5,19 @@ import { logInPage } from "./login-page.mjs";
 import { footerSite } from "./footer-page.mjs";
 
 //* VARIABLES DE HOME
+
+export const DEFAUTL_AVATAR_URL = "https://img.icons8.com/color/512/avatar.png";
 export const homePage = document.querySelector(".home");
 const logOutButton = document.querySelector(".home-header-left-items-log-out-button");
 const settingsButton = document.querySelector(".home-header-left-items-config-icon");
 const headerMenu = document.querySelector(".home-menu")
-const avatarImage = document.querySelector(".home-header-user-avatar");
-
 //* VARIABLES DE FORMULARIO DE CAMBIO DE CONTRASEÑA 
 const changePasswordMenuAnchor = document.querySelector(".home-menu-change-pass-anchor");
 const changePasswordMenu = document.querySelector(".change-password-menu");
 const cancelChangePasswordButton = document.querySelector(".cancel-change-password");
 const changePasswordForm = document.querySelector(".change-password-menu form");
 //* VARIABLES DE AVATAR 
+export const avatarImage = document.querySelector(".home-header-user-avatar");
 const avatarMenuAnchor = document.querySelector(".home-menu-avatar-anchor");
 const updateAvatarMenu = document.querySelector(".home-update-avatar-menu"); 
 const updateAvatarForm = document.querySelector(".home-update-avatar-menu .form")
@@ -31,6 +32,7 @@ logOutButton.onclick = () => {
     hide(homePage,changePasswordMenu,updateAvatarMenu,footerSite);
     show(postAreaPage);
     headerMenu.classList.remove("home-menu-transition");
+    avatarImage.src = DEFAUTL_AVATAR_URL;
     show(logInPage);
     context.userId = null;
     resetUserNameInHeader(context.welcomeMessage);
@@ -88,13 +90,14 @@ cancelUpdateAvatarButton.onclick = (event) => {
 }
 updateAvatarForm.addEventListener("submit", (event) => {
     event.preventDefault();
-    const url = event.target.url.value;
+    let url = event.target.url.value;
     try {
         updateUserAvatar(context.userId, url);
         show(document.querySelector(".success-avatar-warning"));
         avatarImage.src = url;
         vanishWarningIn3Seconds(document.querySelector(".success-avatar-warning"),"off");
         hide(updateAvatarMenu);
+        event.target.url.value = "";
     }catch(error){
         document.querySelector(".home-update-avatar-menu .fail-warning").textContent = (error.message);
     }

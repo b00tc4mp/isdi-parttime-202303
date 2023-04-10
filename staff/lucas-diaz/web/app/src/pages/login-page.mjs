@@ -1,9 +1,9 @@
 console.log("load login-page");
 
-import { authenticateUser, addUserNameInHeader } from "../logic.mjs";
+import { authenticateUser, addUserNameInHeader, setExistingAvatar } from "../logic.mjs";
 import { context, show, hide } from "../ui.mjs";
 import { registerPage } from "./register-page.mjs";
-import { homePage } from "./home-page.mjs";
+import { homePage, DEFAUTL_AVATAR_URL, avatarImage} from "./home-page.mjs";
 import { footerSite } from "./footer-page.mjs";
 
 console.log("load login-page");
@@ -17,12 +17,13 @@ const failLogInAdvice = document.querySelector(".login .fail-warning")
 logInForm.addEventListener('submit', function (event) {
     event.preventDefault();
     const email = event.target.email.value;
-    const password = event.target.password.value = "LucasDiaz22!";
+    const password = event.target.password.value = "LucasDiaz22!";   //! OJO ELIMINAR ESTO
     try{
         context.userId = authenticateUser(email, password);
-        addUserNameInHeader(context.userId, context.welcomeMessage);
+        addUserNameInHeader(context.userId, context.welcomeMessage, avatarImage);
         hide(logInPage);
         failLogInAdvice.textContent = "";
+        setExistingAvatar(context.userId, DEFAUTL_AVATAR_URL, avatarImage);
         show(homePage);
         show(footerSite);
     }catch(error){

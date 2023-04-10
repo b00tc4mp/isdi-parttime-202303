@@ -3,6 +3,7 @@ console.log("load logic")
 import {validateEmail, validateUsername,validateId, validatePassword, validatePasswordsChanges, validateUrl, } from "./validators.mjs"
 import { users } from "./data.mjs";
 
+
 export const registerUser = (userName,email,password) => {
     validateUsername(userName);
     validateEmail(email);
@@ -69,6 +70,15 @@ export function updateUserPassword(authenticatedUserId, password, newPassword, n
     if (newPassword.value !== newPasswordConfirm.value) throw new Error("New password and new password confirmation are not the same")
 
     users[currentUserIndex].password = newPassword.value;
+}
+
+export function setExistingAvatar(authenticatedUserId, defaultUrl, avatarImage){
+    const currentUser = users.find( user => user.id === authenticatedUserId);
+    if (currentUser.avatar){
+        avatarImage.src = currentUser.avatar;
+        return;
+    }
+    avatarImage.src = defaultUrl;
 }
 
 export const updateUserAvatar = (authenticatedUserId, url) => { 

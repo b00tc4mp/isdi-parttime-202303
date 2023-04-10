@@ -25,7 +25,8 @@ users.push({
     id: "user-4",
     name: 'Lucas Diaz',
     email: 'lucas@gmail.com',
-    password: 'LucasDiaz22!'
+    password: 'LucasDiaz22!',
+    avatar: "https://png.pngtree.com/element_pic/00/16/07/08577f369b99bed.jpg"
 })
 
 export const posts = []
