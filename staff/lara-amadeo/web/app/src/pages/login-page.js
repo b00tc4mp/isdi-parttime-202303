@@ -4,7 +4,7 @@ import { context } from "../ui.js"
 import { show, hide } from "../ui.js"
 import { checkCredentials } from "../logic/authenticateUser.js"
 import { homePage, homeProfile } from "./home-page.js"
-import { showPosts } from "../logic/showPostsInFeed.js"
+import { showPosts } from "../logic/managePostsInFeed.js"
 import { registrationPage } from "../pages/register-page.js"
 
 export const loginPage = document.querySelector('.login')

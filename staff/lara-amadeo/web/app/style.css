@@ -218,6 +218,7 @@ color: var(--accent-purple-hover);
     justify-content: center;
     align-items: center;
     margin: 0px;
+    margin-left: 200px;
 }
 
 .middle-section {
@@ -241,6 +242,8 @@ color: var(--accent-purple-hover);
     margin-left: 40px;
     padding-right:8px;
     padding-bottom: 16px;
+    position: fixed;
+    top: 0px;
 }
 
 .topbar-logo-and-actions{
@@ -374,14 +377,22 @@ margin-top: 10px;
 
 
 
-.post{
+.posts{
     max-width: 440px;
     width: 100%;
     height: fit-content;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 8px;
+    gap: 40px;
+}
+
+.post{
+    width: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap:8px
 }
 
 .post-user-data{
@@ -401,15 +412,16 @@ margin-top: 10px;
 }
 
 .post-image{
-    width: 440px;
-    height: fit-content;
+    width: 100%;
+    height: 440px;
     background-color: #AAB1C5;
     position: relative;
 }
 
 .user-post-image{
-    width: 100%;
-    height: auto;
+    width: 440px;
+    height: 440px;
+    object-fit: cover;
 }
 
 .post-caption{

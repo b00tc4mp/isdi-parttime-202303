@@ -2,16 +2,17 @@ import { users } from "../../data.js"
 
 
 export const retrieveUser = (userId) => {
-    let user =  findUserbyId(userId)
+    let foundUser =  findUserbyId(userId)
 
-    if(!user) throw new Error ('User not found')
+    if(!foundUser) throw new Error ('User not found')
 
     else {
-        return user = {
-            id: user.id,
-            name: user.username,
-            avatar: user.avatar
+        const user = {
+            id: foundUser.id,
+            name: foundUser.username,
+            avatar: foundUser.avatar
         }
+        return user
     }
 }
 

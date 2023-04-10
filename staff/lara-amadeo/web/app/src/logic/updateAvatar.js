@@ -1,12 +1,12 @@
-import { context } from "../ui.js"
+
 // import { validateBase64ImageFormat } from "./helpers/validators.js"  
 
-export function updateAvatar(url){
-    if(!url) throw new Error('Image not uploaded correctly')
-    
-    // if(!validateBase64ImageFormat(url)) throw new Error('Image format invalid')
-    
-    context.userAvatar = url
+import { findUserbyId } from "./helpers/data-managers.js"
 
+export function updateAvatar(userId, url){
+    if(!url) throw new Error('Image not uploaded correctly')
+   
+    const foundUser = findUserbyId(userId)
+    foundUser.avatar = url
     return url
 }

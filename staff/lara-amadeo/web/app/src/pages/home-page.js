@@ -3,10 +3,12 @@ import { updatePassword } from "../logic/updatePassword.js"
 import { updateEmail } from "../logic/updateEmail.js"
 import { getImageFromLocal } from "../logic/getImageFromLocal.js"
 import { loginPage } from "./login-page.js"
-import { findUserbyId } from "../logic/helpers/data-managers.js"
-import { createPost } from "../logic/createPost.js" 
+import { findUserbyId, retrieveUser } from "../logic/helpers/data-managers.js"
+import { createPost } from "../logic/createPost.js" 
 import { posts } from "../data.js"
 import { updateAvatar } from "../logic/updateAvatar.js"
+import { showPosts, updatePosts } from "../logic/managePostsInFeed.js"
+
 
 
 export const homePage = document.querySelector('.homepage')
@@ -136,10 +138,16 @@ updateAvatarForm.querySelector('#save-update-avatar').addEventListener('click', 
     event.preventDefault()
 
     const localImage = updateAvatarForm.querySelector('.update-avatar-image-preview').src
+    const user = retrieveUser(context.userId)
 
     try{
-        const image = updateAvatar(localImage)
+
+        const image = updateAvatar(context.userId, localImage)
         homePage.querySelector('.topbar-avatar').src = image
+        context.userAvatar = image
+        user.avatar = image
+        updatePosts()
+        showPosts()
         homePage.querySelector('.update-avatar').querySelector('.success-message').textContent = 'Avatar updated!'
     } catch(error){
         homePage.querySelector('.update-avatar').querySelector('.error-message').textContent = error.message
@@ -172,6 +180,9 @@ createPostForm.querySelector('#post-publication').onclick = (event) => {
         createPostForm.querySelector('.success-message').textContent = 'Post created'
         console.log(posts)
 
+        updatePosts()
+        showPosts()
+        hide(createPostModal)
     } catch(error){
         createPostForm.querySelector('.error-message').textContent = error.message
     }
