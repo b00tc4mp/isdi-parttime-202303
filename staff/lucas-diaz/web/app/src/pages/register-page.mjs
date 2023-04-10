@@ -1,6 +1,6 @@
-console.log("load register-page");
+import  registerUser  from "../logic/register-user.mjs";
+import { vanishWarningIn3Seconds } from "../logic/helpers/data-managers.mjs";
 
-import { registerUser, vanishWarningIn3Seconds } from "../logic.mjs";
 import { show, hide } from "../ui.mjs";
 import { logInPage } from "./login-page.mjs";
 

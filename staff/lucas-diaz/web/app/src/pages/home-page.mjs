@@ -1,5 +1,8 @@
-console.log("load home-page");
-import {  cleanChangePasswordForm, vanishWarningIn3Seconds, resetUserNameInHeader, updateUserPassword, updateUserAvatar } from "../logic.mjs";
+import {  cleanChangePasswordForm, vanishWarningIn3Seconds, resetUserNameInHeader } from "../logic/helpers/data-managers.mjs";
+
+import  updateUserPassword  from "../logic/update-user-password.mjs";
+import  updateUserAvatar  from "../logic/update-user-avatar.mjs";
+
 import { context, show, hide, addClass, removeClass  } from "../ui.mjs";
 import { logInPage } from "./login-page.mjs";
 import { footerSite } from "./footer-page.mjs";

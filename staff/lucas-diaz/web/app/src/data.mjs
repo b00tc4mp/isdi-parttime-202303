@@ -1,6 +1,3 @@
-// data
-console.log("load data")
-
 export const users = []
 
 users.push({

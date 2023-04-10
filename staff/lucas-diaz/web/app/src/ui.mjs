@@ -1,5 +1,3 @@
-console.log("load ui")
-
 export const cleanUser = (registerPage) => {
     registerPage.querySelector("input[type=text]").value = ""
     registerPage.querySelector("input[type=email]").value = ""

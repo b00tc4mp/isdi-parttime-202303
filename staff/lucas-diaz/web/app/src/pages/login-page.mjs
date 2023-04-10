@@ -1,12 +1,11 @@
-console.log("load login-page");
-
-import { authenticateUser, addUserNameInHeader, setExistingAvatar } from "../logic.mjs";
+import  authenticateUser  from "../logic/authenticate-user.mjs";
+import  addUserNameInHeader  from "../logic/add-username-in-header.mjs";
+import  setExistingAvatar  from "../logic/set-existing-avatar.mjs";
 import { context, show, hide } from "../ui.mjs";
 import { registerPage } from "./register-page.mjs";
 import { homePage, DEFAUTL_AVATAR_URL, avatarImage} from "./home-page.mjs";
 import { footerSite } from "./footer-page.mjs";
 
-console.log("load login-page");
 //* VARIABLES DE LOGIN PAGE
 export const logInPage = document.querySelector(".login")
 const logInForm = document.querySelector(".login form");
