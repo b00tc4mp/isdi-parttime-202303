@@ -186,6 +186,7 @@ form {
     background-color: var(--pagecolor);
     border-radius: 5%;
     overflow: hidden;
+    margin: 0.2rem;
 }
 
 .home__post--image {

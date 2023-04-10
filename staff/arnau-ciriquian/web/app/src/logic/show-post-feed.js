@@ -1,6 +1,9 @@
 import { posts, users } from "../data.js"
+import { validateId } from "./helpers/validators.js"
 
 export function showPostFeed() {
+    /*separar en una funcio retriveposts per guardar els post ja reversed (toReverse) i fer les validacions de id validateId(userId) i llavors aqui poder fer un forEach */
+
     let latestPostImage
     let latestPostText
     let latestPostAuthor
@@ -17,15 +20,15 @@ export function showPostFeed() {
                 latestPostAuthor = user.name
             }
         }
-        latestPostDate = post.date
+        latestPostDate = post.date.toLocaleString()
 
-        latestPost = `<div class="inputs__box--feed">
+        latestPost = `<article class="inputs__box--feed">
             <img class="home__post--image" src="${latestPostImage}">
             <p class="text">${latestPostText}</p>
             <div class="home__post--info">
             <p class="text">${latestPostAuthor}</p>
             <p class="text">${latestPostDate}</p>
-            </div></div>`
+            </div></article>`
         
         postFeed += latestPost
     }

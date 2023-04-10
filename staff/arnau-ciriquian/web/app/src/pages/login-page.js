@@ -24,7 +24,7 @@ loginPage.querySelector('form').onsubmit = function(event) {
         homePageMain.classList.remove('off')
         homePage.querySelector('.home__anchor--profile').innerText = foundUser.name
 
-        homePageMain.querySelector('.home__post--feed').innerHTML = showPostFeed()
+        homePageMain.querySelector('.home__post--feed').innerHTML = showPostFeed(context.userID, 'user id')
 
         loginPage.querySelector('form').reset()
     } catch (error) {
