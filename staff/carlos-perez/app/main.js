@@ -4,7 +4,7 @@ let activeUser;
 
 //Logic
 
-import {addUser, authenticateUser, getInitials, changePassword, changeMail, retrieveMail, createPost} from "./logic.mjs";
+import {addUser, authenticateUser, getInitials, changePassword, changeMail, retrieveMail, createPost, getPosts} from "./logic.mjs";
 
 
 //Presentation
@@ -42,6 +42,7 @@ var homeTitle = homePage.querySelector('.title');
 var mailChange = profileView.querySelector('.mail-change');
 var passwordChange = profileView.querySelector('.password-change');
 var addPosts = homePage.querySelector('.addpost');
+var postListPanel= homePage.querySelector('.posts-list');
 
 function resetRegister() {
     registerPage.querySelector('input[id=nombre]').value = null;
@@ -86,6 +87,7 @@ function initiate() {
     hideSection(mailChange);
     hideSection(passwordChange);
     hideSection(addPosts);
+    hideSection(postListPanel);
 }
 
 initiate();
@@ -117,6 +119,8 @@ document.querySelector('.formulario-login').addEventListener('submit', function 
         activeUser=authenticateUser(email, password);
         hideSection(loginPage);
         showSection(homePage);
+        muestraPosts();
+        showSection(postListPanel);
         headerLogged();
         addProfileNameAndImage(activeUser);
     }
@@ -158,6 +162,7 @@ profileColumn.querySelector('.button-exit').addEventListener('click', function (
 
 profileColumn.querySelector('.button-post').addEventListener('click', function (event){
 event.preventDefault();
+hideSection(postListPanel);
 showSection(addPosts);
 })
 
@@ -232,14 +237,40 @@ profileView.querySelector('.button-close-profile').addEventListener('click', fun
 
 addPosts.querySelector('.button-create').addEventListener('click', function (event){
     event.preventDefault();
+    hideSection(postListPanel);
     let imagen = addPosts.querySelector('.input-imagen').value;
     let texto = addPosts.querySelector('.input-texto').value;
 
     createPost(activeUser.id, imagen, texto);
     hideSection(addPosts);
+    muestraPosts();
+    showSection(postListPanel);
 })
 
 addPosts.querySelector('.button-cancel').addEventListener('click', function (event){
     event.preventDefault();
     hideSection(addPosts);
+    muestraPosts();
+    showSection(postListPanel);
 })
+
+function muestraPosts(){
+    let posts=getPosts();
+    posts.forEach(post => {
+        const postItem=document.createElement('article');
+
+        const image = document.createElement('img');
+        image.src=post.image;
+
+        const text = document.createElement('p');
+        text.innerText = post.text;
+
+        const date= document.createElement('time');
+        date.innerText=post.date;
+
+        postItem.append(image,text, date);
+
+        postListPanel.appendChild(postItem);
+    }
+    )
+}
