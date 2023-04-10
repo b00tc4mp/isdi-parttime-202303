@@ -26,8 +26,8 @@ export const posts = []
 posts.push({
     id: 'post-1',
     author: 'user-1',
-    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/SNice.svg/1200px-SNice.svg.png',
-    text: 'Smile!',
+    image: 'https://i.pinimg.com/originals/3f/bc/d5/3fbcd57a031c934f4dbc5872874ecde8.jpg',
+    text: 'Bear with me...',
     date: new Date()
 })
 
@@ -35,7 +35,7 @@ posts.push({
     id: 'post-2',
     author: 'user-1',
     image: 'https://img.icons8.com/color/512/avatar.png',
-    text: 'I ♥️ Avatars!',
+    text: 'Feeling blue...',
     date: new Date()
 })
 

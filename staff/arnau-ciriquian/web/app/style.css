@@ -85,7 +85,6 @@ body {
 .home--page {
     width: 90%;
     height: 80%;
-    background-color: var(--pagecolor);
     margin-top: 3rem;
     margin-bottom: 3rem;
     display: flex;
@@ -173,6 +172,27 @@ form {
 
 .form__input--text {
     height: 5rem;
+}
+
+.inputs__box--feed {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: var(--pagecolor);
+    border-radius: 5%;
+    overflow: hidden;
+}
+
+.home__post--image {
+    width: 40%;
+}
+
+.home__post--info {
+    background-color: rgba(41, 60, 137, 0.404);
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
 }
 
 .inputs__box {

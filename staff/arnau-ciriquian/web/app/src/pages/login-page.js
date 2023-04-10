@@ -3,6 +3,7 @@ import { getLoggedUser } from "../logic/login-user.js"
 import { context, showHideContainer  } from "../ui.js"
 import { registerPage } from "./register-page.js"
 import { homePage, homePageMain, DEFAULT_AVATAR_URL, avatarImage } from "./home-page.js"
+import { showPostFeed } from "../logic/show-post-feed.js"
 
 export const loginPage = document.querySelector('.login')
 
@@ -22,6 +23,9 @@ loginPage.querySelector('form').onsubmit = function(event) {
         homePage.classList.remove('off')
         homePageMain.classList.remove('off')
         homePage.querySelector('.home__anchor--profile').innerText = foundUser.name
+
+        homePageMain.querySelector('.home__post--feed').innerHTML = showPostFeed()
+
         loginPage.querySelector('form').reset()
     } catch (error) {
         alert(error.message)
