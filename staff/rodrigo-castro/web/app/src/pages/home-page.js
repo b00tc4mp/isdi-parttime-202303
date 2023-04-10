@@ -1,7 +1,9 @@
 console.log('load home page')
 
 import {showElement, hideElement, toggleElement, resetPage, context} from '../ui.js'
-import { changeEmail, changePassword, updateUserAvatar } from '../logic.js'
+import { updateUserAvatar } from '../logic/update-user-avatar.js'
+import { changeEmail } from '../logic/update-user-email.js'
+import { changePassword } from '../logic/update-user-password.js'
 import { loginPage } from './login-page.js'
 
 export const homePage = document.querySelector('.home-page')
@@ -9,7 +11,7 @@ const homeBar = document.querySelector('.home-bar')
 const myProfileButton = homeBar.querySelector('.menu-buttons[name=my-profile]')
 
 const profileOptions = homePage.querySelector('.profile-options')
-const changeEmailMenu = homePage.querySelector('.change-email-menu')
+export const changeEmailMenu = homePage.querySelector('.change-email-menu')
 const changePasswordMenu = homePage.querySelector('.change-password-menu')
 
 const changeAvatarMenu = homePage.querySelector('.change-avatar-menu')
@@ -70,7 +72,8 @@ changeAvatarForm.onsubmit = function(event) {
     var avatarUrl = event.target.avatarurl.value
 
     try {
-        updateUserAvatar(context.userId, avatarUrl, avatarImg, changeAvatarForm)
+        updateUserAvatar(context.userId, avatarUrl, avatarImg)
+        changeAvatarForm.reset()
     } catch(error){
         if(error.cause === 'ownError'){
             alert(error.message)
@@ -82,7 +85,7 @@ changeAvatarForm.onsubmit = function(event) {
 }
 
 homeBar.querySelector('[name=logout]').addEventListener('click', () => {
-    hideElement(homePage, changeAvatarMenu, changePasswordMenu, profileOptions)
+    hideElement(homePage, changeAvatarMenu, changePasswordMenu, profileOptions, changeEmailMenu)
     showElement(loginPage)
     avatarImg.src = DEFAULT_AVATAR_URL
     context.userId = undefined
