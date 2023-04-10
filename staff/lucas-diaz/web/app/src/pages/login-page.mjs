@@ -17,6 +17,7 @@ logInForm.addEventListener('submit', function (event) {
     event.preventDefault();
     const email = event.target.email.value;
     const password = event.target.password.value = "LucasDiaz22!";   //! OJO ELIMINAR ESTO
+    
     try{
         context.userId = authenticateUser(email, password);
         addUserNameInHeader(context.userId, context.welcomeMessage, avatarImage);

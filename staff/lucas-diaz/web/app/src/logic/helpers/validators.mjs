@@ -39,3 +39,7 @@ export function validateUrl(url){
     if (!avatarRegex.test(url)) throw new Error('Image format invalid');
 }
 
+export function validateText(text){
+    if ( typeof text !== "string") throw new Error("text is not a string");
+    if (!text.trim()) throw new Error("url is empty");
+}
