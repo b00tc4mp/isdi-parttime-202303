@@ -48,7 +48,7 @@ temporalAvatar.addEventListener('change', (event) => {
   try {
     const avatar = document.querySelector('.avatar');
     toggleOff(deleteAvatar, setAvatar);
-    newAvatar = getImgUrl(event, deleteAvatar);
+    newAvatar = getImgUrl(event);
     avatar.src = newAvatar;
   } catch (error) {}
 });
@@ -65,7 +65,6 @@ deleteAvatar.addEventListener('click', (event) => {
 editForm.addEventListener('submit', (event) => {
   event.preventDefault();
   try {
-    console.log(newAvatar)
     setNewUserInfo(context.userAuth, profileButtons, newAvatar);
     displayProfile(context.userAuth);
     setOff(deleteAvatar, setAvatar, editProfile, profileForms);

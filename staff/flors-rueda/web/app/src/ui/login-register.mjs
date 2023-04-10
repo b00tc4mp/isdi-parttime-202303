@@ -31,7 +31,6 @@ export const register = (register, login) => {
 };
 
 export const logout = (login, home) => {
-  console.log('loginout')
   resetAlerts();
   clearForms();
   toggleOff(login, home);

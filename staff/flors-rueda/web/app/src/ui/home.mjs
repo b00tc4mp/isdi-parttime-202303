@@ -5,6 +5,7 @@ import { retrieveUser } from '../logic/retrieve-user.mjs'
 import { deleteAccount } from '../logic/delete-account.mjs';
 import { getMail } from '../logic/users/data-managers.mjs';
 import { getPostsSorted } from '../logic/posts/data-managers.mjs';
+import { uploadPost } from '../logic/upload-post.mjs';
 
 export const displayWelcome = (userAuth) => {
   const user = retrieveUser(userAuth);
@@ -51,7 +52,6 @@ export const setNewMail = (userAuth, profileButtons, editProfile) => {
 }
 
 export const setNewUserInfo = (userAuth, profileButtons, newAvatar) => {
-  console.log(newAvatar)
   resetAlerts();
   const newName = document.querySelector('.edit-form').querySelector('input[name="display-name"]').value;
   const newUsername = document.querySelector('.edit-form').querySelector('input[name="username"]').value;
@@ -89,8 +89,19 @@ export const cleanNewAvatarInput = (newAvatar) => {
 
 //TODO: refactor that, please...
 
+export const openModal = (modal) => {
+  const blur = document.querySelector('.blur');
+  setOn(modal, blur);
+};
+
+export const closeModal  = (modal) => {
+  const blur = document.querySelector('.blur');
+  setOff(modal, blur);
+};
+
 export const printPosts = () => {
   const postsDisplay = document.querySelector('.posts-display');
+  postsDisplay.innerHTML = '';
   const posts = getPostsSorted();
   posts.forEach((post) => {
 
@@ -144,3 +155,9 @@ export const printPosts = () => {
 
   });
 };
+
+export const post = (postImg, postText, userAuth, postModal) => {
+  uploadPost(postImg, postText, userAuth);
+  closeModal(postModal);
+  printPosts();
+}

@@ -1,6 +1,6 @@
 import { retrieveUser, } from '../logic/retrieve-user.mjs';
 
-export const context = { userAuth: undefined, }
+export const context = { userAuth: undefined}
 
 export const toggleOff = (...items) => {
   items.forEach((item) => {
