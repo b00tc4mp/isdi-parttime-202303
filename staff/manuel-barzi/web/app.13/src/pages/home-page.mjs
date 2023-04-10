@@ -5,7 +5,6 @@ import updateUserAvatar from '../logic/update-user-avatar.mjs'
 import updateUserPassword from '../logic/update-user-password.mjs'
 import createPost from '../logic/create-post.mjs'
 import { loginPage } from './login-page.mjs'
-import retrievePosts from '../logic/retrieve-posts.mjs'
 
 export const DEFAULT_AVATAR_URL = 'https://img.icons8.com/color/512/avatar.png'
 
@@ -18,10 +17,7 @@ const updateUserAvatarForm = profilePanel.querySelector('.profile-avatar-form')
 const updateUserPasswordForm = profilePanel.querySelector('.profile-password-form')
 
 const addPostPanel = homePage.querySelector('.add-post')
-const addPostForm = addPostPanel.querySelector('form')
 const addPostButton = homePage.querySelector('.add-post-button')
-
-const postListPanel = homePage.querySelector('.post-list')
 
 profileLink.onclick = function (event) {
     event.preventDefault()
@@ -75,7 +71,7 @@ updateUserPasswordForm.onsubmit = function (event) {
 
 addPostButton.onclick = () => show(addPostPanel)
 
-addPostForm.onsubmit = event => {
+addPostPanel.querySelector('form').onsubmit = event => {
     event.preventDefault()
 
     const image = event.target.image.value
@@ -84,58 +80,9 @@ addPostForm.onsubmit = event => {
     try {
         createPost(context.userId, image, text)
 
+        alert('post created')
+
         hide(addPostPanel)
-
-        renderPosts()
-    } catch(error) {
-        alert(error.message)
-    }
-}
-
-addPostForm.querySelector('.cancel').onclick = event => {
-    event.preventDefault()
-
-    addPostForm.reset()
-
-    hide(addPostPanel)
-}
-
-
-export function renderPosts() {
-    try {
-        const posts = retrievePosts(context.userId)
-        
-        // NOTE the imperative way
-        /*
-        postListPanel.innerHTML = ''
-
-        posts.forEach(post => {
-            const postItem = document.createElement('article')
-
-            const image = document.createElement('img')
-            image.src = post.image
-
-            const text = document.createElement('p')
-            text.innerText = post.text
-
-            const date = document.createElement('time')
-            date.innerText = post.date.toLocaleString()
-
-            postItem.append(image, text, date)
-
-            postListPanel.appendChild(postItem)
-        })
-        */
-
-        // NOTE declarative way
-        postListPanel.innerHTML = posts.reduce((accum, post) => {
-            return accum + `<article>
-                <img src="${post.image}">
-                <p>${post.text}</p>
-                <time>${post.date.toLocaleString()}</time>
-            </article>`
-        }, '')
-
     } catch(error) {
         alert(error.message)
     }

@@ -29,7 +29,7 @@ export default function createPost(userId, image, text) {
         author: userId,
         image,
         text,
-        date: new Date
+        data: new Date
     }
 
     posts.push(post)

@@ -30,7 +30,7 @@ posts.push({
     author: 'user-1',
     image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/SNice.svg/1200px-SNice.svg.png',
     text: 'Smile!',
-    date: new Date(2023, 0, 31, 23, 45, 0)
+    date: new Date()
 })
 
 posts.push({
@@ -38,7 +38,7 @@ posts.push({
     author: 'user-1',
     image: 'https://img.icons8.com/color/512/avatar.png',
     text: 'I ♥️ Avatars!',
-    date: new Date(2023, 1, 28, 0, 0, 0)
+    date: new Date()
 })
 
 posts.push({
@@ -46,5 +46,5 @@ posts.push({
     author: 'user-2',
     image: 'https://img.icons8.com/color/512/avatar.png',
     text: 'I ♥️ Avatars too!',
-    date: new Date(2023, 2, 31, 1, 0, 0)
+    date: new Date()
 })
