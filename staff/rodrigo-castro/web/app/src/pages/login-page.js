@@ -1,6 +1,6 @@
 console.log('load login page')
 
-import { authenticateUser } from '../logic/authenticate-user.js'
+import authenticateUser from '../logic/authenticate-user.js'
 import { retrieveUser } from '../logic/retrieve-user.js'
 import { context, resetPage, hideElement, showElement } from '../ui.js'
 import { registerPage } from './register-page.js'

@@ -1,7 +1,7 @@
 import { validateEmail, validatePassword } from './helpers/validators.js'
 import { findUser } from './helpers/data-managers.js'
 
-export const authenticateUser = (userEmail, userPassword, homePage, avatarImg) => {
+export default function authenticateUser(userEmail, userPassword, homePage, avatarImg) {
     validateEmail(userEmail)
     validatePassword(userPassword)
 

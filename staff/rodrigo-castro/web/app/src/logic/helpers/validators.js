@@ -31,6 +31,11 @@ export function validatePassword(userPassword, message = 'password'){
     if (!passwordExpression.test(userPassword)) throw new Error(`${message} format is not valid`, {cause: "ownError"})
 }
 
+export function validateText(postText, explain = 'text'){
+    if(typeof postText !== 'string') throw new Error(`${explain} is not a string`, {cause: "ownError"})
+    if (postText.trim().length < 1) throw new Error('Text is empty', {cause: "ownError"})
+}
+
 const emailExpression = /^[\w-.]+@[a-zA-Z0-9]+(\.[a-zA-Z]{2,4}){1,2}$/
 const passwordExpression = /^[a-zA-Z\d#$@!%&*?]{8,16}/
 // const passwordExpression = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%&*?])[a-zA-Z\d#$@!%&*?]{8,16}/

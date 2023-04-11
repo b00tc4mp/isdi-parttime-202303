@@ -261,6 +261,31 @@ body {
   height: 9rem;
 }
 
+.add-post-modal {
+  position: fixed;
+  top: 0;
+}
+
+.add-post-modal > form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  gap: 2rem;
+  background-color: var(--bar-color);
+}
+
+.add-post-modal > form > input, .add-post-modal > form > textarea {
+  max-width: 25rem;
+} 
+
+.add-post-modal > form > div > button {
+  color: rgba(255, 255, 255, 0.8);
+  border-color: rgba(0, 0, 0, 0.6);
+}
+
 input:-webkit-autofill {
   transition: background-color 5000s;
   -webkit-text-fill-background-color: #fff !important;

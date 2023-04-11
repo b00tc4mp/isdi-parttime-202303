@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Text+Me+One&display=swap" rel="stylesheet">
-
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 </head>
 <body>
     <div class="register-page off">
@@ -44,6 +44,7 @@
         <nav class="home-bar">
             <ul class="horizontal-menu">
                 <li><a href="#" class="menu-buttons">Home</a></li>
+                <li><a href="#" class="menu-buttons" name="new-post">Post</a></li>
                 <li>
                     <div>
                         <img src="https://avatarfiles.alphacoders.com/157/thumb-157567.jpg" alt="" class="user-avatar">
@@ -54,7 +55,7 @@
             </ul>
         </nav>
         <div class="under-menu ">
-            <ul class="profile-options must-be-reset off">
+            <ul class="profile-options off">
                 <li>My information</li>
                 <li>Settings</li>
                 <li class="change-email">Change email</li>
@@ -90,6 +91,18 @@
                 </form>
             </div>
         </div>
+
+        <div class="add-post-modal off">
+            <form action="">
+                <input class="input-field" type="url" name="url" placeholder="Insert image url">
+                <textarea name="text" cols="30" rows="10" class="post-text input-field" placeholder="Insert caption"></textarea>
+                <div class="buttons">
+                    <button class="submit-buttons" type="submit">Post</button>
+                    <button class="submit-buttons cancel-post">Cancel</button>
+                </div>
+            </form>
+        </div>
+
     </div>
 
 
