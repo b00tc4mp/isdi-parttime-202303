@@ -7,6 +7,3 @@ export default function toReversed(array) {
   }
   return newArray;
 }
-
-//nuevo[0] = original[2 (3-0-1)]
-//nuevo[2 (3-0-1)] = original[0]
