@@ -7,6 +7,8 @@ import { context, show, hide, addClass, removeClass  } from "../ui.mjs";
 import { logInPage } from "./login-page.mjs";
 import { footerSite } from "./footer-page.mjs";
 import createPost from "../logic/create-post.mjs";
+import retrievePosts from "../logic/retrieve-posts.mjs";
+import { posts } from "../data.mjs";
 
 //* VARIABLES DE HOME
 
@@ -29,27 +31,28 @@ const cancelUpdateAvatarButton = document.querySelector(".form-avatar-cancel-but
 
 
 //*VARIABLES DE POST 
-const postAreaPage = document.querySelector(".home-main-content");
+const postsListPanel = document.querySelector(".home-posts-content");
 export const postModal = document.querySelector(".home-add-post-modal");
 export const failPostMessage = document.querySelector(".home-add-post-modal form .fail-warning");
 
 //! PARTE DE HOME
 logOutButton.onclick = () => {
     hide(homePage,changePasswordMenu,updateAvatarMenu,footerSite,postModal);
-    show(postAreaPage);
+    show(postsListPanel);
     headerMenu.classList.remove("home-menu-transition");
     postModal.classList.remove("home-add-post-modal-transition");
     avatarImage.src = DEFAUTL_AVATAR_URL;
     show(logInPage);
     context.userId = null;
     resetUserNameInHeader(context.welcomeMessage);
+    postsListPanel.innerHTML ="";
 }
 
 settingsButton.onclick = () => {
     headerMenu.classList.toggle("home-menu-transition");
     hide(changePasswordMenu,updateAvatarMenu);
     removeClass("green",avatarMenuAnchor,changePasswordMenuAnchor);
-    postAreaPage.classList.toggle("off");
+    postsListPanel.classList.toggle("off");
 }
 
 //! PARTE DE CAMBIAR CONTRASEÑAS
@@ -130,12 +133,55 @@ postModal.querySelector(".form").onsubmit = (event) => {
         event.target.url.value = "";
         event.target.text.value = "";
         failPostMessage.textContent = "";
+        renderPosts();
+
+
     } catch(error){
         failPostMessage.textContent = error.message;
-        //(error.message);
     }
 }
 
+postModal.querySelector(".form-post-cancel-button").onclick = (event) => {
+    event.preventDefault();
+    hide(postModal);
+    
+}
 
+export function renderPosts () {
+    try{
+        
+/*         postsListPanel.innerHTML ="";
+        
 
-// nos falta el footerPage
+        posts.forEach(post => {
+            const postItem = document.createElement("article");
+
+            const image = document.createElement("img")
+            image.src = post.image;
+            
+
+            const text = document.createElement("p");
+            text.innerText = post.text;
+
+            const date = document.createElement("time");
+            date.innerText = post.date.toLocaleString();
+            postItem.append(image,text,date);
+
+            postsListPanel.appendChild(postItem);
+        })
+ */
+        const posts = retrievePosts(context.userId);
+        
+        postsListPanel.innerHTML = posts.reduce((accum, post) => {
+            return accum + `<article>
+                <img src="${post.image}">
+                <p>${post.text}</p>
+                <time>${post.date.toLocaleString()}</time>
+            </article> `
+        }, "")
+
+    }catch(error){
+        alert(error.message)
+    }
+    
+}

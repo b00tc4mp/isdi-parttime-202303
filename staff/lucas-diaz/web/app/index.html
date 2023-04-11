@@ -16,7 +16,7 @@
 </head>
 
 <body>
-    <div class="register off">
+    <section class="register off">
         <h1 class="register-header">REGISTER</h1>
         <p class="fail-warning red"></p>
         <form class="form">
@@ -36,9 +36,9 @@
             </div>
             <button type="submit" class="submit-button sign-up">SIGN UP</button>
         </form>
-    </div>
+    </section>
 
-    <div class="login">
+    <section class="login">
         <h1 class="login-header">LOG IN</h1>
         <p class="login-success-warning green off">User created successfully</p>
         <p class="fail-warning red"></p>
@@ -63,9 +63,9 @@
                 not a member? <a href="" class="login-register-anchor green">register here</a>
             </p>
         </form>
-    </div>
+    </section>
 
-    <div class="home off">
+    <section class="home off">
         <header class="home-header">
             <h1 class="home-header-tittle">Home</h1>
                 <div class="home-header-left-items">
@@ -121,24 +121,23 @@
         <p class="success-password-change-advise green off">Changes succesfully done</p>
         <p class="success-avatar-warning green off">Avatar uploaded succesfully</p>
 
-        <div class="home-main-content ">
+        <section class="home-posts-content ">
+            <!--INPLEMENT ME-->
+        </section>
+    </section>
 
-        </div>
-    </div>
-
-    <div class="home-add-post-modal off">
+    <section class="home-add-post-modal off">
         <form class="form">
             <label for="url">Post image:</label>
             <input type="url" class="form-post-url-input form-item" name="url" placeholder="Enter url">
             <textarea name="text" cols="30" rows="5" placeholder="What do yo want to say ??"></textarea>
             <div class="form-buttons">
-                <button class="form-post-cancel-button">Cancel   </button>
+                <button type="button" class="form-post-cancel-button">Cancel   </button>
                 <button type="submit" class="form-post-submit-button">Update post</button>
                 <p class="fail-warning red"></p>
             </div>
         </form>
-    </div>
-
+    </section>
 
     <footer class="footer off">
         <button class="footer-button button"> + </button>

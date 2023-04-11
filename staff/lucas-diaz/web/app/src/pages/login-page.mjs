@@ -3,7 +3,7 @@ import  addUserNameInHeader  from "../logic/add-username-in-header.mjs";
 import  setExistingAvatar  from "../logic/set-existing-avatar.mjs";
 import { context, show, hide } from "../ui.mjs";
 import { registerPage } from "./register-page.mjs";
-import { homePage, DEFAUTL_AVATAR_URL, avatarImage} from "./home-page.mjs";
+import { homePage, DEFAUTL_AVATAR_URL, avatarImage, renderPosts} from "./home-page.mjs";
 import { footerSite } from "./footer-page.mjs";
 
 //* VARIABLES DE LOGIN PAGE
@@ -24,6 +24,11 @@ logInForm.addEventListener('submit', function (event) {
         hide(logInPage);
         failLogInAdvice.textContent = "";
         setExistingAvatar(context.userId, DEFAUTL_AVATAR_URL, avatarImage);
+
+        //TODO ORDER AND PAINT POSTS 
+        //lo metemos en homepage porque es un tema interno de homepage
+        renderPosts();
+
         show(homePage);
         show(footerSite);
     }catch(error){

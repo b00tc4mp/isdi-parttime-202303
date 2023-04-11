@@ -209,15 +209,37 @@ label{
     visibility: visible;
 } 
 
-.home-main-content{
-    width: 100%;
 
+/*! POST AREA*/
+.home-posts-content{
+    width: 100%;
     padding: 1rem;
     padding-bottom: 7rem;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    gap: 1rem;
 }
-.home-main-content p{
+.home-posts-content article {
+    padding: 1rem;
+    flex-basis: 70%;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    gap: 1rem;
+    background-color: #313338;
+    border-radius: .3rem;
+
+}
+.home-posts-content p, .home-posts-content time{
+    flex-basis: 100%;
     color: white;
+    text-align: center;
     font-size: 0.8rem;
+}
+.home-posts-content img{
+    width: 200px;
+    height: 200px;
 }
 
 /*! CHANGE PASSWORD & AVATAR MENU*/
@@ -273,7 +295,7 @@ label{
     gap: 1rem;
 }
 
-
+/*! MODAL PARA AÑADIR UN POST*/
 .home-add-post-modal{
     width: 80%;
     position: fixed;
@@ -289,7 +311,6 @@ label{
     background-color: #313338;
     padding: 0.5rem;
 }
-
 .home-add-post-modal .form{
     gap: 1rem;
 }
@@ -306,6 +327,8 @@ label{
     flex-basis: 90%;
     border-radius: .3rem;
 }
+
+
 
 /*! FOOTER*/
 .footer{
