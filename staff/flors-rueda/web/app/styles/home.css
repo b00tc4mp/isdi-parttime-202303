@@ -218,6 +218,12 @@ p {
     color: var(--color-light300);
 }
 
+.to-edit-post {
+    height: 1.5rem;
+    width: 1.5rem;
+    fill:var(--color-primary300)
+}
+
 @media (min-width: 768px) {
     .home-page  {
         display: grid;

@@ -2,7 +2,7 @@ import { context, toggleOff } from '../ui/general-tools.mjs';
 import { loginPage } from './login-page.mjs';
 import { logout, } from '../ui/login-register.mjs';
 import { setOff, setOn, resetAlerts, clearForms, getImgUrl } from '../ui/general-tools.mjs'
-import { displayProfile, displayWelcome, printPosts, closeModal, openModal, post} from '../ui/home.mjs'
+import { displayProfile, displayWelcome, renderPosts, closeModal, openModal, post} from '../ui/home.mjs'
 import { profile, profileButtons, } from './home-edit-profile-page.mjs';
 
 export const homePage = document.querySelector('.home');
@@ -40,7 +40,7 @@ toHome.addEventListener('click', (event) => {
   resetAlerts();
   setOn(startHome);
   setOff(profile, profileButtons, profileForms);
-  printPosts();
+  renderPosts(context.userAuth);
   displayWelcome(context.userAuth)
 });
 

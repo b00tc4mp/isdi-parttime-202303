@@ -1,6 +1,6 @@
 import { context, controlUsernameInput, } from '../ui/general-tools.mjs';
 import { changeView, login, } from '../ui/login-register.mjs';
-import { displayWelcome, printPosts, } from '../ui/home.mjs'
+import { displayWelcome, renderPosts, } from '../ui/home.mjs'
 import { displayLoginError, } from '../ui/errors.mjs';
 import { registerPage } from './register-page.mjs';
 import { homePage, startHome } from "./home-page.mjs";
@@ -28,7 +28,7 @@ loginForm.addEventListener('submit', (event) => {
   try {
     context.userAuth = login(context.userAuth, loginPage, homePage, startHome, username, password);
     displayWelcome(context.userAuth);
-    printPosts();
+    renderPosts(context.userAuth);
   } catch (error) {
     displayLoginError(error.message);
   }
