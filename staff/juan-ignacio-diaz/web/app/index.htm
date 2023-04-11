@@ -40,12 +40,12 @@
             <h1 class="title">Home</h1>
 
             <nav class="home-header-nav"> 
-                <p class = "name"></p>
-                <a name ="profile" href=""><img class="home-header-avatar" src="file:///C:/Users/jignacio/Downloads/EmojiSmileyMehSad.svg" alt="profile"></a>
+                <img class="home-header-avatar" src="" alt="">
+                <a class = "name" href="">Profile</a>
             </nav>
             <button class = "button" name = "logout">Logout</button>   
         </header>
-        <div class="profile off">
+        <div class="profile container off">
             <h2>Update avatar</h2>
 
             <form class="profile-avatar-form">
@@ -63,9 +63,23 @@
             </form>
         </div>
 
-        <footer class="home-footer"></footer>
+        <div class="add-post container off">
+            <form class="container">
+                <input class="input" type="url" name="image" placeholder="image url">
+                <textarea class="input" name="text" cols="30" rows="10" placeholder="text"></textarea>
+                <button class="button" type="submit">Create</button>
+                <button class="button cancel" type="button">Cancel</button>
+            </form>
+        </div>
+
+        <div class="post-list">
+        </div>
+
+        <footer class="home-footer">
+            <button class="add-post-button">+</button>
+        </footer>
     </div>
 
-    <script type ="module" src="scripts/main.js"></script>
+    <script type ="module" src="./src/main.mjs"></script>
 </body>
 </html>
