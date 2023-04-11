@@ -128,6 +128,8 @@ a {
 
 .boton {
     display: block;
+    justify-self: center;
+    align-self: center;
     font-family: var(--fuenteHeading);
     color: var(--blanco);
     text-align: center;
@@ -135,7 +137,6 @@ a {
     font-size: 1.8rem;
     text-transform: uppercase;
     font-weight: 700;
-    margin-bottom: 2rem;
     border: none;
     border-radius: 5px;
 }
@@ -254,6 +255,12 @@ a {
     align-items: center;
     justify-content: center;
     margin-top: 150px;
+}
+
+.nav-buttons{
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
 }
 
 
