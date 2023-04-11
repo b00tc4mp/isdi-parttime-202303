@@ -1,4 +1,3 @@
-//
 const validateName = (name) => {
   const spacesBetween = /\s/g;
 
@@ -38,7 +37,7 @@ const validatePassword = (password, type = 'password') => {
   if (!hasSpecialChar.test(password))
     throw new Error(`${type} not contains one special character`);
   if (!noWhitespace.test(password))
-    throw new Error(`${type}  contains any whitespace characters`);
+    throw new Error(`${type} contains any whitespace characters`);
   if (!isLongEnough)
     throw new Error(`${type} not be at least 8 characters long`);
 
@@ -68,7 +67,19 @@ const updatePasswordValidation = (
   return newPasswordValid;
 };
 
+const validateUrl = (url, explain = 'url') => {
+  if (typeof url !== 'string') throw new Error(`${explain} is not a string`);
+  if (!url.trim().length) throw new Error(`${explain} is empty`);
+};
+
+const validateText = (text, explain = 'text') => {
+  if (typeof text !== 'string') throw new Error(`${explain} is not a string`);
+  if (!text.trim().length) throw new Error(`${explain} is empty`);
+};
+
 export {
+  validateText,
+  validateUrl,
   validateEmail,
   validateName,
   validatePassword,

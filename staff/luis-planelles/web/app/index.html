@@ -5,84 +5,83 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>App</title>
-
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" href="style.css" />
   </head>
 
   <body>
-    <div class="register page off">
+    <div class="register page container off">
       <h1 class="title">Register</h1>
 
       <form class="form">
         <input class="input" type="text" name="name" placeholder="name" />
         <input class="input" type="email" name="email" placeholder="email" />
-        <input
-          class="input"
-          type="password"
-          name="password"
-          placeholder="password"
-        />
+        <input class="input" type="password" name="password" placeholder="password"/>
         <button class="button" type="submit">Register</button>
       </form>
 
       <p>Go to <a href="">Login</a></p>
     </div>
 
-    <div class="login page">
+    <div class="login page container _off">
       <h1 class="title">Login</h1>
 
       <form class="form">
         <input class="input" type="email" name="email" placeholder="email" />
-        <input
-          class="input"
-          type="password"
-          name="password"
-          placeholder="password"
-        />
+        <input class="input" type="password" name="password" placeholder="password"/>
         <button class="button" type="submit">Login</button>
       </form>
-
       <p>Go to <a href="">Register</a></p>
     </div>
 
-    <div class="home page off">
-      <h1 class="title">Home</h1>
+    <div class="home off">
+      <header class="home-header">
+        <h1><a class="title" href="“#”">Home</a></h1>
 
-      <p class="grettings"></p>
+        <nav class="home-header-nav">
+          <img class="home-header-avatar" src="" alt="" />
+          <a href="">Profile</a>
+        </nav>
 
-      <button class="button log-out">Logout</button>
+        <button class="home-header-logout">Logout</button>
+      </header>
 
-      <p><a class="link-profile" href="">profile</a></p>
+      <section class="profile container off">
+        <h2>Update avatar</h2>
 
-      <div class="profile-info"></div>
-
-      <div class="update-passsword off">
-        <h2>Update password</h2>
-
-        <form class="form">
-          <input
-            class="input"
-            type="password"
-            name="password"
-            placeholder="password"
-          />
-          <input
-            class="input"
-            type="password"
-            name="newPassword"
-            placeholder="new password"
-          />
-          <input
-            class="input"
-            type="password"
-            name="newPasswordConfirm"
-            placeholder="new password confirmation"
-          />
+        <form class="profile-avatar-form">
+          <input class="input" type="url" name="url" />
           <button class="button" type="submit">Update</button>
         </form>
-      </div>
+
+        <h2>Update password</h2>
+
+        <form class="profile-password-form">
+          <input class="input" type="password" name="password" placeholder="password"/>
+          <input class="input" type="password" name="newPassword" placeholder="new password"/>
+          <input class="input" type="password" name="newPasswordConfirm" placeholder="password confirmation"/>
+          <button class="button" type="submit">Update</button>
+        </form>
+      </section>
+
+        <section class="add-post container off">
+          <form class="container">
+              <input class="input" type="url" name="image" placeholder="image url">
+              <textarea class="input" name="text" cols="30" rows="10" placeholder="text"></textarea>
+              <button class="button" type="submit">Create</button>
+              <button class="button cancel" type="button">Cancel</button>
+          </form>
+      </section>
+
+      <section class="post-list">
+          <!-- TODO implement me! -->
+      </section>
+    
+    <footer class="home-footer">
+      <button class="add-post-button">+</button>
+    </footer>
     </div>
 
-    <script type="module" src="scripts/main.js"></script>
+    <script type="module" src="src/main.js"></script>
   </body>
 </html>
