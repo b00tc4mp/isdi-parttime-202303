@@ -41,6 +41,8 @@ newPostModal.querySelector('form').onsubmit = (event) => {
         const text = newPostModal.querySelector('[name=text]').value
         
         createPost(context.userId, image, text)
+        newPostModal.querySelector('form').reset()
+        hideElement(newPostModal)
         console.log(posts)
     } catch(error){
             alert(error.message)
