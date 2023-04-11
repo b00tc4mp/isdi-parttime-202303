@@ -17,7 +17,7 @@ body{
 }
 
 /*! SHARED STYLES*/
-.submit-button, .button , .change-password, .cancel-change-password, .form-avatar-cancel-button, .form-avatar-submit-button{
+.submit-button, .button , .change-password, .cancel-change-password, .form-avatar-cancel-button, .form-avatar-submit-button, .home-add-post-modal .form button {
     flex-basis: 40%;
     background-color: rgb(8, 8, 8);
     color: azure;
@@ -25,10 +25,10 @@ body{
     border-radius: 5px;
     margin-top: 20px;
 }
-.submit-button:hover, .change-password:hover, .form-avatar-submit-button:hover{
-    color:#179060;
+.submit-button:hover, .change-password:hover, .form-avatar-submit-button:hover, .home-add-post-modal .form-post-submit-button:hover {
+    color:#17AF96;
 }
-.log-out-button:hover, .cancel-change-password:hover, .form-avatar-cancel-button:hover, .home-header-left-items-log-out-button:hover{
+.log-out-button:hover, .cancel-change-password:hover, .form-avatar-cancel-button:hover, .home-header-left-items-log-out-button:hover, .home-add-post-modal .form-post-cancel-button:hover{
     color: rgb(231, 108, 108);
 }
 
@@ -96,6 +96,7 @@ label{
     margin: 0px;
 }
 .initialize-register{
+    margin-top: 1rem;
     flex-basis: 100%;
 }
 
@@ -117,7 +118,7 @@ label{
     top: 0;
     left: 0;
 
-    background-color: #252c27;
+    background-color: #004241;
     display: flex;
     flex-flow:wrap row;
     align-items: center;
@@ -187,7 +188,7 @@ label{
     font-size: .7rem;
 }
 .home-menu a:hover{
-    color: #179060;
+    color: #17AF96;
 }
 .home-menu{
     position: fixed;
@@ -272,6 +273,40 @@ label{
     gap: 1rem;
 }
 
+
+.home-add-post-modal{
+    width: 80%;
+    position: fixed;
+    bottom: 170px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    border-radius: 0.3rem;
+    background-color: #313338;
+    padding: 0.5rem;
+}
+
+.home-add-post-modal .form{
+    gap: 1rem;
+}
+.home-add-post-modal .form textarea{
+    flex-basis: 90%;
+    border-radius: .5rem;
+}
+.home-add-post-modal .form label{
+    text-align: center;
+    font-size: .9rem;
+    margin: 0px;
+}
+.form-post-url-input{
+    flex-basis: 90%;
+    border-radius: .3rem;
+}
+
 /*! FOOTER*/
 .footer{
     position: fixed;
@@ -279,11 +314,10 @@ label{
     left: 0;
     height: 8%;
     width: 100%;
-    background-color: #252c27;
+    background-color: #004241;
     display: flex;
     justify-content: center;
     align-items: center;
-
 }
 .footer-button{
     flex-basis: 15%;
@@ -292,7 +326,7 @@ label{
 }
 /*! MISCELANEOUS*/
 .green{
-    color: #179060 !important;
+    color: #17AF96 !important;
     text-align: center;
 }
 .red{
@@ -323,7 +357,7 @@ label{
     margin-top: 10px;
     max-width: 700px;
     height: auto;
-    background-color: #313338;
+    background-color: #262629;
     border-radius: 10px 10px 0px 0px;
     row-gap: 10px;
     }
@@ -343,6 +377,11 @@ label{
     }
     .menu-page{
         margin-top: 0px;
+    }
+    .home-add-post-modal{
+        max-width: 700px;
+        left: 50%;
+        transform: translateX(-50%);
     }
 }
 

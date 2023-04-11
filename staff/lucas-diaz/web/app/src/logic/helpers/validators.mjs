@@ -41,5 +41,5 @@ export function validateUrl(url){
 
 export function validateText(text){
     if ( typeof text !== "string") throw new Error("text is not a string");
-    if (!text.trim()) throw new Error("url is empty");
+    if (!text.trim()) throw new Error("text is empty");
 }

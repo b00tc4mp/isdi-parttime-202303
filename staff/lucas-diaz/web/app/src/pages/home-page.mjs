@@ -6,6 +6,7 @@ import  updateUserAvatar  from "../logic/update-user-avatar.mjs";
 import { context, show, hide, addClass, removeClass  } from "../ui.mjs";
 import { logInPage } from "./login-page.mjs";
 import { footerSite } from "./footer-page.mjs";
+import createPost from "../logic/create-post.mjs";
 
 //* VARIABLES DE HOME
 
@@ -29,17 +30,21 @@ const cancelUpdateAvatarButton = document.querySelector(".form-avatar-cancel-but
 
 //*VARIABLES DE POST 
 const postAreaPage = document.querySelector(".home-main-content");
+export const postModal = document.querySelector(".home-add-post-modal");
+export const failPostMessage = document.querySelector(".home-add-post-modal form .fail-warning");
 
 //! PARTE DE HOME
 logOutButton.onclick = () => {
-    hide(homePage,changePasswordMenu,updateAvatarMenu,footerSite);
+    hide(homePage,changePasswordMenu,updateAvatarMenu,footerSite,postModal);
     show(postAreaPage);
     headerMenu.classList.remove("home-menu-transition");
+    postModal.classList.remove("home-add-post-modal-transition");
     avatarImage.src = DEFAUTL_AVATAR_URL;
     show(logInPage);
     context.userId = null;
     resetUserNameInHeader(context.welcomeMessage);
 }
+
 settingsButton.onclick = () => {
     headerMenu.classList.toggle("home-menu-transition");
     hide(changePasswordMenu,updateAvatarMenu);
@@ -110,6 +115,26 @@ updateAvatarForm.addEventListener("submit", (event) => {
 document.querySelector(".home-menu-option3").addEventListener("click", (event) => {
     event.preventDefault();
 })
+
+//! PARTE DEL FORM DEL MODAL
+
+postModal.querySelector(".form").onsubmit = (event) => {
+    event.preventDefault();
+
+    const image = event.target.url.value;
+    const text = event.target.text.value;
+
+    try{
+        createPost(context.userId, image, text);
+        hide(postModal);
+        event.target.url.value = "";
+        event.target.text.value = "";
+        failPostMessage.textContent = "";
+    } catch(error){
+        failPostMessage.textContent = error.message;
+        //(error.message);
+    }
+}
 
 
 
