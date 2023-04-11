@@ -4,7 +4,7 @@ let activeUser;
 
 //Logic
 
-import {addUser, authenticateUser, getInitials, changePassword, changeMail, retrieveMail, createPost, getPosts} from "./logic.mjs";
+import {addUser, authenticateUser, getInitials, changePassword, changeMail, retrieveMail, createPost, getPosts} from "./logic.js";
 
 
 //Presentation

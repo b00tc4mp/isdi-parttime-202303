@@ -1,4 +1,4 @@
-import { users, posts } from "./data.mjs";
+import { users, posts } from "./data.js";
 
 export function userExist(email) {
     let userPosition = null;
