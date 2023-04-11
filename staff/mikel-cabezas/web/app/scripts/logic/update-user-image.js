@@ -1,4 +1,4 @@
-import { findUserById } from './helpers/data-managers.mjs'
+import { findUserById } from './helpers/data-managers.js'
 
 export function uploadImage(user, imageTarget, imageSource) {
     const id = findUserById(user)

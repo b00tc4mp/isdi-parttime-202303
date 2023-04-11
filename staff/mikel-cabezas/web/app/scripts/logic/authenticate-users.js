@@ -1,4 +1,4 @@
-import { users } from '../data.mjs'
+import { users } from '../data.js'
 
 export function authenticateUser(email, password)  {
     var checkUserId = users.find(user => user.email === email)

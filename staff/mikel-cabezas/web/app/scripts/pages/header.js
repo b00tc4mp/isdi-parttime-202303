@@ -1,9 +1,9 @@
-import { toggleOffClassInSection, deleteClassOnContainer, addClassOnContainer, bodyPage } from "../ui.mjs"
-import { homePage } from "./home-page.mjs"
-import { registerPage } from "./register-page.mjs"
-import { loginPage } from "./login-page.mjs"
-import { userAccount } from "./user-account.mjs"
-import { logOut } from "../logic/logout.mjs"
+import { toggleOffClassInSection, deleteClassOnContainer, addClassOnContainer, bodyPage } from "../ui.js"
+import { homePage } from "./home-page.js"
+import { registerPage } from "./register-page.js"
+import { loginPage } from "./login-page.js"
+import { userAccount } from "./user-account.js"
+import { logOut } from "../logic/logout.js"
 
 export const menuHeader = document.querySelector('header .menu')
 

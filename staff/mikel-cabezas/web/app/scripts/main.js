@@ -3,8 +3,8 @@
 // import {file, img, avatarHeader, printImage} from './localImagesBase64.mjs'
 // import {registerUser, getCurrentUser, pushUserDataInForm, updateUserName, updateUserEmail, updateUserPassword, updateUserImage, logOut} from './logic.mjs'
 // import {deleteClassOnContainer, addClassOnContainer, changeMessageOnContainer, clearMessageContainer, toggleOffClassInSection, showHidePassword} from './ui.mjs'
-
-export let currentUserID 
+import {loginPage } from './pages/login-page.js'
+// export let currentUserID 
 
 
 

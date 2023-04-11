@@ -1,5 +1,5 @@
-import { users } from '../data.mjs'
-import { userAccount } from '../pages/user-account.mjs'
+import { users } from '../data.js'
+import { userAccount } from '../pages/user-account.js'
 export function pushUserDataInForm(id) {
     var userID = users.map(user => user.id).indexOf(id) 
     if (users[userID].id === id) {

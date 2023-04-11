@@ -1,6 +1,6 @@
-import { userAccount } from '../pages/user-account.mjs'
-import { bodyPage, toggleOffClassInSection, deleteClassOnContainer } from '../ui.mjs'
-import { loginPage } from '../pages/login-page.mjs'
+import { userAccount } from '../pages/user-account.js'
+import { bodyPage, toggleOffClassInSection, deleteClassOnContainer } from '../ui.js'
+import { loginPage } from '../pages/login-page.js'
 
 export function logOut() {
     const currentUserEmail = ''

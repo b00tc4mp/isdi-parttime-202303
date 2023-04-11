@@ -7,13 +7,13 @@
     <link rel="stylesheet" href="style.css">
     <!-- <script type="module" src="scripts/data.mjs" defer></script> -->
     <!-- <script type="module" src="scripts/logic.mjs" defer></script> -->
-    <script type="module" src="scripts/main.mjs" defer></script>   
+    <script type="module" src="scripts/main.js" defer></script>   
     <!-- <script type="module" src="scripts/validators.mjs" defer></script>
     <script type="module" src="scripts/ui.mjs" defer></script>
     <script type="module" src="scripts/localImagesBase64.mjs" defer></script> -->
-    <script type="module" src="scripts/pages/login-page.mjs" defer></script>
+    <!-- <script type="module" src="scripts/pages/login-page.mjs" defer></script>
     <script type="module" src="scripts/pages/home-page.mjs" defer></script>
-    <script type="module" src="scripts/pages/header.mjs" defer></script>
+    <script type="module" src="scripts/pages/header.mjs" defer></script> -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap" rel="stylesheet">
@@ -43,6 +43,10 @@
                     <img class="image-profile hidden" src="" alt="">
                 </div>
                 <div class="user-name">Account settings</div>
+                <ul class="submenu user-options">
+                    <li>User settings</li>
+                    <li>User profile</li>
+                </ul>
             </li>
             <li class="logout">Logout</li>
         </ul>
@@ -104,7 +108,7 @@
                 <label for="text">Title of your post</label>
                 <input type="text" class="title">
                 <label for="file">Upload yopur image</label>
-                <input type="file" name="file" id="" accept=".jpg, .jpeg, .png .webp">
+                <input type="file" name="file" id="" accept=".jpg, .jpeg, .png, .webp">
                 <label for="textarea">Write your process</label>
                 <textarea name="" id="" cols="30" rows="5"></textarea>
                 <div class="buttons">

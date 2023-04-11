@@ -1,7 +1,7 @@
-import { context, toggleOffClassInSection } from "../ui.mjs"
-import { findUserById } from "./helpers/data-managers.mjs"
-import { validateNewPassword } from './helpers/validators.mjs'
-import { userAccount } from "../pages/user-account.mjs"
+import { context, toggleOffClassInSection } from "../ui.js"
+import { findUserById } from "./helpers/data-managers.js"
+import { validateNewPassword } from './helpers/validators.js'
+import { userAccount } from "../pages/user-account.js"
 
 export function updateUserPassword(currentId) {
     const userId = context.userId

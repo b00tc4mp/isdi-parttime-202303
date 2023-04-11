@@ -1,12 +1,13 @@
-import { authenticateUser } from '../logic/authenticate-users.mjs'
-import { context, toggleOffClassInSection, bodyPage, clearMessageContainer, showHidePassword } from '../ui.mjs'
-import { homePage } from './home-page.mjs'
-import { menuHeader } from './header.mjs'
-import { userAccount } from './user-account.mjs'
-import { pushUserDataInForm } from '../logic/push-user-data-in-form.mjs'
-import { getUserName, findUserByEmail } from '../logic/helpers/data-managers.mjs'
-import { registerPage } from './register-page.mjs'
-import { updatePosts } from '../logic/update-posts.mjs'
+import { authenticateUser } from '../logic/authenticate-users.js'
+import { context, toggleOffClassInSection, bodyPage, clearMessageContainer, showHidePassword } from '../ui.js'
+import { homePage } from './home-page.js'
+import { menuHeader } from './header.js'
+import { userAccount } from './user-account.js'
+import { pushUserDataInForm } from '../logic/push-user-data-in-form.js'
+import { getUserName, findUserByEmail } from '../logic/helpers/data-managers.js'
+import { registerPage } from './register-page.js'
+import { updatePosts } from '../logic/update-posts.js'
+import { pushUserDataToHeader } from '../logic/push-user-to-header.js'
 
 export const loginPage = document.querySelector('.section.login')
 export const loginPageMessage = document.querySelector('.section.login').querySelector('.message')
@@ -40,6 +41,7 @@ loginPage.querySelector('form.login-form').onsubmit = function(event) {
         pushUserDataInForm(userId)
         context.userId = userId
         updatePosts(userId)
+        pushUserDataToHeader(userId)
 
     } catch(error) {
         loginPage.querySelector('.message').classList.remove('success')

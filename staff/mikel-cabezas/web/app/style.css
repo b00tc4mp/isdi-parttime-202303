@@ -210,8 +210,11 @@ li.login.has-submenu {
 header li {
     font-size: 16px;
     padding: 5px 0px;
+    transition: linear .2s;
 }
-
+body .menu li:hover {
+    background: #ffffff0d;
+}
 .menu .logout, .menu .homepage, body.logged-in .menu .login, .menu .user-account {
     display: none;
 }
@@ -220,7 +223,30 @@ body.logged-in .menu .logout, body.logged-in .menu .homepage {
 }
 body.logged-in .menu li.user-account {
     display:flex;
-    flex-direction:row
+    flex-direction:row;
+    position: relative;
+}
+
+li.user-account:hover ul.submenu.user-options {
+    display: block;
+}
+
+li.user-account ul.submenu.user-options {
+    position: absolute;
+    top: 60px;
+    background: var(--dark);
+    padding: 0;
+    list-style: none;
+    width: calc(100%);
+    /* left: 20px; */
+    display: none;
+    box-sizing: border-box;
+    left: 0;
+}
+
+li.user-account ul.submenu.user-options li {
+    padding: 10px 25px 12px;
+
 }
 
 li.user-account img, li.user-account img {

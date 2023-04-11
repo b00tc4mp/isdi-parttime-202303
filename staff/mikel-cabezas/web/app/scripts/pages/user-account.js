@@ -1,15 +1,15 @@
-import { toggleOffClassInSection, showHidePassword } from '../ui.mjs'
-import { context, changeMessageOnContainer } from '../ui.mjs'
-import { file } from '../localImagesBase64.mjs'
-import { uploadImage } from '../logic/update-user-image.mjs'
-import { updateUserName } from '../logic/update-user-name.mjs'
-import { updateUserEmail } from '../logic/update-user-email.mjs'
-import { updateUserPassword } from '../logic/update-user-password.mjs'
-import { getUserName, findUserById, getCurrentUser } from '../logic/helpers/data-managers.mjs'
-import { users } from '../data.mjs'
-import { logOut} from '../logic/logout.mjs'
-import { homePage } from './home-page.mjs'
-import { menuHeader } from './header.mjs'
+import { toggleOffClassInSection, showHidePassword } from '../ui.js'
+import { context, changeMessageOnContainer } from '../ui.js'
+import { file } from '../localImagesBase64.js'
+import { uploadImage } from '../logic/update-user-image.js'
+import { updateUserName } from '../logic/update-user-name.js'
+import { updateUserEmail } from '../logic/update-user-email.js'
+import { updateUserPassword } from '../logic/update-user-password.js'
+import { getUserName, findUserById, getCurrentUser } from '../logic/helpers/data-managers.js'
+import { users } from '../data.js'
+import { logOut} from '../logic/logout.js'
+import { homePage } from './home-page.js'
+import { menuHeader } from './header.js'
 
 
 
@@ -57,7 +57,7 @@ userAccount.querySelector('.button--update-info__save-info').onclick = function(
             toggleOffClassInSection(userAccount.querySelector('.buttons'))
             userAccount.querySelector('.button--update-info__profile').disabled = true
             changeMessageOnContainer(userPageMessage, 'User updated!', 'success')
-            if(file.length !== 0) {
+            if(imageInput.files.length !== 0) {
                 uploadImage(context.userId, userAccount.querySelector('.avatar img.image-profile'), userAccount.querySelector('form.user-info input[name="file"]'), 'users')
                 const avatarHeader = menuHeader.querySelector('.avatar img.image-profile').classList.remove('hidden')
                 const avatar = userAccount.querySelector('.avatar img.image-profile').classList.remove('hidden')

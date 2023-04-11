@@ -1,5 +1,5 @@
-import { users } from "../../data.mjs";
-import { context } from "../../ui.mjs";
+import { users } from "../../data.js";
+import { context } from "../../ui.js";
 
 export function findUserByEmail (email) {
     let foundUser

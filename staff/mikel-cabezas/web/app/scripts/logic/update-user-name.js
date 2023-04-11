@@ -1,5 +1,5 @@
-import { findUserById } from "./helpers/data-managers.mjs"
-import { userAccount } from "../pages/user-account.mjs"
+import { findUserById } from "./helpers/data-managers.js"
+import { userAccount } from "../pages/user-account.js"
 
 export function updateUserName(userId) {
     const user = findUserById(userId)

@@ -1,6 +1,6 @@
-import { getUserName } from "./helpers/data-managers.mjs";
-import { posts } from '../data.mjs'
-import { updatePosts } from '../logic/update-posts.mjs'
+import { getUserName } from "./helpers/data-managers.js";
+import { posts } from '../data.js'
+import { updatePosts } from './update-posts.js'
 
 let srcNewImage
 

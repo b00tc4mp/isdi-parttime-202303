@@ -1,7 +1,7 @@
-import { context, toggleOffClassInSection } from "../ui.mjs"
-import { createPost } from "../logic/create-post.mjs"
-import { updatePosts } from '../logic/update-posts.mjs'
-import { getCurrentUser } from "../logic/helpers/data-managers.mjs"
+import { context, toggleOffClassInSection } from "../ui.js"
+import { createPost } from "../logic/create-post.js"
+import { updatePosts } from '../logic/update-posts.js'
+import { getCurrentUser } from "../logic/helpers/data-managers.js"
 
 export const homePage = document.querySelector('.section.home')
 
