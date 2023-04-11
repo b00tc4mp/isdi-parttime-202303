@@ -3,6 +3,8 @@ import { loginPage } from "./login-page.js";
 import errorShow from "../logic/helpers/error-managers.js";
 import changePassword from "../logic/update-user-password.js";
 import updateAvatar from "../logic/update-user-avatar.js";
+import createPost from "../logic/create-post.js";
+import retrievePosts from "../logic/retrieve-posts.js";
 
 export const DEFAULT_AVATAR_URL =
   "https://cdn-icons-png.flaticon.com/512/3135/3135823.png";
@@ -13,11 +15,21 @@ export const profileLink = document.querySelector(".profile-link");
 const profilePanel = document.querySelector(".profile");
 const changePasswordForm = profilePanel.querySelector(".profile-password-form");
 const changeAvatarForm = profilePanel.querySelector(".profile-avatar-form");
+const changePasswordError = profilePanel.querySelector(
+  ".change-password-error"
+);
+const changeAvatarError = profilePanel.querySelector(".update-avatar-error");
+
+const addPostForm = homePage.querySelector(".posts");
+const addPostError = homePage.querySelector(".add-post-error");
 
 profileLink.onclick = function (event) {
   event.preventDefault();
 
   toggle(profilePanel);
+  changePasswordForm.reset();
+  changeAvatarForm.reset();
+  hide(changeAvatarError, changePasswordError);
 };
 
 homePage.querySelector(".profile-logout-button").onclick = function () {
@@ -34,14 +46,11 @@ changePasswordForm.onsubmit = function (event) {
   const password = event.target.oldpassword.value;
   const newPassword = event.target.newpassword.value.trim();
   const newPasswordConfirm = event.target.repeatnewpassword.value.trim();
-  const changePasswordError = profilePanel.querySelector(
-    ".change-password-error"
-  );
 
   try {
     changePassword(context.userId, password, newPassword, newPasswordConfirm);
 
-    hide(profilePanel);
+    hide(profilePanel, changeAvatarError, changePasswordError);
     changePasswordForm.reset();
     changeAvatarForm.reset();
   } catch (error) {
@@ -61,7 +70,6 @@ changeAvatarForm.onsubmit = function (event) {
   event.preventDefault();
 
   const avatar = event.target.url.value;
-  const changeAvatarError = profilePanel.querySelector(".update-avatar-error");
 
   try {
     updateAvatar(context.userId, avatar);
@@ -70,8 +78,7 @@ changeAvatarForm.onsubmit = function (event) {
 
     changePasswordForm.reset();
     changeAvatarForm.reset();
-    hide(profilePanel);
-    show(homePage);
+    hide(profilePanel, changeAvatarError, changePasswordError);
   } catch (error) {
     changePasswordForm.reset();
     changeAvatarForm.reset();
@@ -84,3 +91,54 @@ changeAvatarForm.onsubmit = function (event) {
     errorShow(changeAvatarError, error);
   }
 };
+
+homePage.querySelector(".new-post-button").onclick = () => {
+  show(addPostForm);
+};
+
+addPostForm.onsubmit = (event) => {
+  event.preventDefault();
+
+  const image = event.target.image.value;
+  const text = event.target.text.value;
+
+  try {
+    createPost(context.userId, image, text);
+
+    renderPosts();
+
+    hide(addPostForm);
+  } catch (error) {
+    errorShow(addPostError, error);
+  }
+};
+
+homePage.querySelector(".cancel").onclick = (event) => {
+  event.preventDefault();
+
+  addPostForm.reset();
+
+  hide(addPostForm);
+};
+
+export function renderPosts() {
+  try {
+    const posts = retrievePosts(context.userId);
+
+    homePage.querySelector(".posts-list").innerHTML = posts.reduce(
+      (accum, post) => {
+        return (
+          accum +
+          `<article>
+      <img src="${post.image}">
+      <p>${post.text}</p>
+      <time>${post.date.toLocaleString()}</time>
+      </article>`
+        );
+      },
+      ""
+    );
+  } catch (error) {
+    alert(error.message);
+  }
+}

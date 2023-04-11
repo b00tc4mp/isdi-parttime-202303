@@ -47,7 +47,7 @@
       </p>
     </div>
 
-    <div class="login">
+    <div class="login off">
       <h1 class="title">WELCOME!</h1>
 
       <form class="form">
@@ -73,16 +73,20 @@
       </p>
     </div>
 
-    <div class="home off">
+    <div class="home _off">
       <div class="home-header">
-        <h1 class="title">HOME</h1>
+        <h1 class="home-title title">HOME</h1>
 
         <div class="home-header-nav">
-          <img class="home-header-avatar" src="" alt="" />
+          <img
+            class="avatar home-header-avatar"
+            src="https://cdn-icons-png.flaticon.com/512/3135/3135823.png"
+            alt=""
+          />
           <a href="" class="profile-link">Profile</a>
-        </div>
 
-        <button class="button profile-logout-button">LOG OUT</button>
+          <button class="button profile-logout-button">LOG OUT</button>
+        </div>
       </div>
 
       <div class="profile off">
@@ -127,6 +131,29 @@
           <button class="button change-password-button">UPDATE</button>
         </form>
       </div>
+
+      <div class="button-new-post-container">
+        <button class="button new-post-button">NEW POST</button>
+      </div>
+
+      <form class="posts form off">
+        <h2>CREATE A NEW POST</h2>
+        <input class="input" type="url" name="image" placeholder="Image url" />
+        <textarea
+          class="textarea"
+          name="text"
+          cols="30"
+          rows="10"
+          placeholder="Text"
+        ></textarea>
+
+        <p class="add-post-error error off"></p>
+
+        <button class="button" type="submit">CREATE</button>
+        <button class="button cancel" type="button">CANCEL</button>
+      </form>
+
+      <div class="posts-list"></div>
     </div>
 
     <script type="module" src="src/main.js"></script>

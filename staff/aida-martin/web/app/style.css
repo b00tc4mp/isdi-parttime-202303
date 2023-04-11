@@ -5,8 +5,13 @@
     font-family: 'Inter', sans-serif;
 }
 
+html {
+    width: 100%;
+    height: 100%;
+}
+
 body {
-    background: #A2BADF;
+    background: #5589D9;
     width: 100vw;
     height: 100vh;
     display: flex;
@@ -23,11 +28,17 @@ body {
     text-align: center;
 }
 
+.home-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #5589D9;
+}
+
 h2 {
     font-size: .8rem;
 }
 
-.register, .login, .profile, .change-password {
+.register, .login, .profile, .change-password, .posts {
     background: #ffffff;
     width: 14rem;
     padding: 2rem;
@@ -40,20 +51,22 @@ h2 {
 .home {
     height: 100%;
     display: flex;
+    width: 100%;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-top: 76px;
 }
 
-.home-header {
+.home-header{
     position: fixed;
     top: 0;
-    padding: 25px;
-    background-color: #b1d1ff;
+    padding: 14px 30px 30px;
+    background-color: #ffffff;
     width: 100%;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-end;
 }
 
 .home-header-nav {
@@ -62,7 +75,7 @@ h2 {
     gap: .5rem;
 }
 
-.home-header-avatar {
+.avatar {
     width: 2rem;
     border-radius: 1rem;
 }
@@ -78,17 +91,20 @@ h2 {
     margin-top: 1.25rem;
 }
 
-.input {
+.input, .textarea {
     height: 1.75rem;
     font-weight: 500;
     font-size: 0.625rem;
     color: #000000;
-    line-height: 0.047rem;
     border: 0;
     background: rgba(223, 221, 221, 0.8);
     border-radius: 0.75rem;
     padding: 0.75rem;
     outline: none;
+}
+
+.textarea {
+    height: auto;
 }
 
 .button {
@@ -109,11 +125,8 @@ h2 {
     margin-top: 0.313rem;
 }
 
-.login-button {
-    margin-top: 0.938rem;
-}
-
 .profile-logout-button {
+    margin-left: .5rem;
     width: 5rem;
 }
 
@@ -147,16 +160,40 @@ h2 {
 
 .profile-link {
     font-weight: 600;
-    color: #3b5f96;
+    color: #5589D9;
 }
 
-.register-error, .login-error, .change-password-error, .update-avatar-error {
+.register-error, .login-error, .change-password-error, .update-avatar-error, .add-post-error {
     font-weight: 400;
     font-size: 0.563rem;
     text-align: center;
     color: red;
     margin-top: -0.625rem;
     margin-bottom: -0.625rem;
+}
+
+/*.posts-list {
+    /*background: #000000;
+    margin-top: 52px;
+    width: 100%;
+    /*height: fit-content;
+    height: 40rem;
+}*/
+
+.button-new-post-container {
+    width: 100%;
+    padding-right: 30px;
+    position: absolute;
+    top: 5.5rem;
+    display: flex;
+    justify-content: end;
+}
+
+.new-post-button {
+    width: 6rem;
+    background: #ffffff;
+    color: #5589D9;
+    font-weight: 600;
 }
 
 .off {

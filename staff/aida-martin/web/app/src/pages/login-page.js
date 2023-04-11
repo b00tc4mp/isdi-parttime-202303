@@ -1,5 +1,6 @@
 import authenticateUser from "../logic/authenticate-user.js";
 import retrieveUser from "../logic/retrieve-user.js";
+import errorShow from "../logic/helpers/error-managers.js";
 import { context, show, hide } from "../ui.js";
 import { registerPage, registerForm, registerError } from "./register-page.js";
 import {

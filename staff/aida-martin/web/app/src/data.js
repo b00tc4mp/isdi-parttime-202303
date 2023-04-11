@@ -29,3 +29,30 @@ users.push({
 });
 
 export const posts = [];
+
+posts.push({
+  id: "post-1",
+  author: "user-1",
+  image:
+    "https://byatrip.com/wp-content/uploads/espana-lanzarote-mirador-del-rio.jpg",
+  text: "Hello from Lanzarote!",
+  date: new Date(2023, 1, 23, 12, 32, 0),
+});
+
+posts.push({
+  id: "post-2",
+  author: "user-2",
+  image:
+    "https://s1.eestatic.com/2022/08/17/mujer/actualidad/696191216_226510665_1706x960.jpg",
+  text: "Around the world!",
+  date: new Date(2023, 2, 14, 16, 23, 0),
+});
+
+posts.push({
+  id: "post-3",
+  author: "user-4",
+  image:
+    "https://elviajerofeliz.com/wp-content/uploads/2020/01/Escapada-fin-de-semana-en-autocaravana.-%C2%A1Inolvidable.jpg",
+  text: "Yeah!",
+  date: new Date(2023, 4, 10, 11, 56, 0),
+});
