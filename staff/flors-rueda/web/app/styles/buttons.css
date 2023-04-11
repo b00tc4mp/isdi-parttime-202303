@@ -33,7 +33,7 @@ button:active {
 .mode-toggle{
     position: fixed;
     bottom: 1em;
-    right: 1em;
+    left: 1em;
 }
 
 .mode-checkbox {

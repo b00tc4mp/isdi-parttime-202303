@@ -1,10 +1,90 @@
-.navbar {
+.nav-header{
+    height: 3.125rem;
     display: flex;
-    flex-direction: row-reverse;
-    gap: 1rem;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 0.1rem;
+  }
+
+  .navbar{
     position: fixed;
-    right: 1.5rem;
+    top: 1.5rem;
+    left: 5rem;
+    width: 100%;
+    z-index: 100;
+    opacity: 0;
+    transition: opacity 0.5s linear;
+  }
+  
+  .navbar.show{
+    opacity: 1;
+    transition: opacity 0.5s linear;
+  }
+
+  .home-page {
+    height: 100%;
+  }
+  
+  .nav-menu{
+    position: fixed;
+    padding-top: 0.3rem;
+    border: 0.1rem solid var(--color-secondary200);;
+    z-index: 200;
+    border-radius: 1rem;
+    width: 2.8rem;
+    height: 2.8rem;
+    background: var(--color-secondary-transparence);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+
+  .dark-mode .nav-menu {
+    background: var(--color-secondary-transparence);
+  }
+  
+  
+  .nav-menu span{
+    width: 1.7rem;
+    height: 0.25rem;
+    margin-bottom: 0.3rem;
+    position: relative;
+    border-radius: 0.2rem;
+    transform-origin: 0.25rem 0rem;
+    background-color: var(--color-primary200);
+    transition: all .2s linear;
+  }
+  
+  .nav-menu.close {
+    padding-top: 0;
+    padding-left: 0.95rem;
+  }
+  
+  .nav-menu.close span {
+    opacity: 1;
+    width: 2.07rem;
+    transform: rotate(45deg) translate(0px, 0px);
+  }
+  
+  .nav-menu.close span:nth-child(2){
+    transform: rotate(-45deg) translate(-0.5rem, 0.25rem);
+  }
+  
+  .nav-menu.close span:nth-child(3){
+    display: none;
+  }
+
+  .navbar button{
+    background: var(--color-secondary-transparence);
+    border-color: var(--color-secondary200);
 }
+
+.navbar button svg {
+    fill: var(--color-primary200);
+}
+
 
 .home-page {
     padding-top: 3rem;
@@ -291,6 +371,19 @@ p {
     .post {
         width: 45%;
         height: 26.7rem;
+    }
+
+    .navbar {
+        opacity: 1;
+        display: flex;
+        flex-direction: row-reverse;
+        gap: 1rem;
+        position: absolute;
+        width: 90%;
+    }
+
+    .nav-menu {
+        display: none;
     }
 
 }

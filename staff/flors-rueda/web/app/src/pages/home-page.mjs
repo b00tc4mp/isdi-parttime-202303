@@ -15,7 +15,26 @@ const toHome = document.querySelector('.to-home');
 
 const postModal = document.querySelector('.post-modal');
 const toNewPost = document.querySelector('.to-new-post');
-const cancelPost = document.querySelector('.cancel-post')
+const cancelPost = document.querySelector('.cancel-post');
+
+
+const toggleNav = document.querySelector('.nav-menu');
+const nav = document.querySelector('.navbar');
+const page = document.querySelector('.home-page');
+
+toggleNav.addEventListener('click', (event)  => {
+  event.preventDefault();
+  toggleNav.classList.toggle('close')
+  nav.classList.toggle('show')
+})
+
+page.addEventListener('click', (event)  => {
+  if((nav.classList).contains('show')){
+    event.preventDefault();
+    nav.classList.remove('show')
+    toggleNav.classList.remove('close')
+  }
+})
 
 toLogout.addEventListener('click', (event) => {
   event.preventDefault();
