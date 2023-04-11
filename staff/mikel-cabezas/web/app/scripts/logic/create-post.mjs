@@ -22,6 +22,15 @@ export function createPost(userId, image, title, text) {
     if (!userId) {
         throw new Error(`User with ${userId} not found`)
     }
+    if (!file) {
+        throw new Error(`Image is empty`)
+    }
+    if(!title) {
+        throw new Error(`Title is empty`)
+    }
+    if(!text) {
+        throw new Error(`Text is empty`)
+    }
     
  const img = document.querySelector('.section.user-account').querySelector('form.user-info .image-profile')
  const avatarHeader = document.querySelector('header .menu').querySelector('.avatar img.image-profile')
@@ -33,9 +42,9 @@ export function createPost(userId, image, title, text) {
         image: srcNewImage,
         title: title, 
         text: text,
-        postDate: new Date()
+        date: new Date()
     })
-    updatePosts()
+    updatePosts(userId)
 }
 
 

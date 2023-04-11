@@ -36,6 +36,7 @@ export function getUserName(userId) {
 export function getCurrentUser(id) {
     const userID = context.userId
     if (userID !== -1) {
-        return id
+        // return id
+        return userID
     }
 }

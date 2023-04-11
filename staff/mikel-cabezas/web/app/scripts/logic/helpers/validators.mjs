@@ -36,3 +36,8 @@ export function validateNewPassword(password, newPassword, repeatPassword, user)
     if(!password.trim().length > 8) 
         throw new Error('Password must be higher than 8 characters')
 }
+
+export function validateId(userId) {
+    if(typeof userId !== 'string') throw new Error('User is not a string')
+    if(!userId) throw new Error('Image is empty')
+}
