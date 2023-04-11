@@ -4,7 +4,7 @@ export default function reduce(array, callback, initialValue) {
 
   for (let i = 0; i < array.length; i++) {
     currentValue = array[i];
-    accumulator = callback(accumulator, currentValue, initialValue);
+    accumulator = callback(accumulator, currentValue);
   }
   return accumulator;
 }
