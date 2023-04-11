@@ -5,8 +5,13 @@ import { updateUserPassword } from "../logic/update-user-password.js"
 import { updateUserEmail } from "../logic/update-user-email.js"
 import { updateUserAvatar } from "../logic/update-user-avatar.js"
 import { createNewPost } from "../logic/create-new-post.js"
+import alienImage from "../../images/alien.svg"
+import spaceDogImage from "../../images/space-dog.svg"
+import galaxyImage from "../../images/galaxy.svg"
+import meteoriteImage from "../../images/meteorite.svg"
 
-export const DEFAULT_AVATAR_URL = './images/space-dog.svg'
+//export const DEFAULT_AVATAR_URL = './images/space-dog.svg'
+export const DEFAULT_AVATAR_URL = spaceDogImage
 
 export const homePage = document.querySelector('.home')
 export const avatarImage = homePage.querySelector('.avatar')
@@ -72,28 +77,28 @@ spaceDog.onclick = function() {
     unshadowPredefinedAvatars()
     spaceDog.classList.add('pre-avatar-shadow')
 
-    newAvatar = './images/space-dog.svg'
+    newAvatar = spaceDogImage
 }
 
 alien.onclick = function(event) {
     unshadowPredefinedAvatars()
     alien.classList.add('pre-avatar-shadow')
 
-    newAvatar = './images/alien.svg'
+    newAvatar = alienImage
 }
 
 meteorite.onclick = function(event) {
     unshadowPredefinedAvatars()
     meteorite.classList.add('pre-avatar-shadow')
 
-    newAvatar = './images/meteorite.svg'
+    newAvatar = meteoriteImage
 }
 
 galaxy.onclick = function(event) {
     unshadowPredefinedAvatars()
     galaxy.classList.add('pre-avatar-shadow')
 
-    newAvatar = './images/galaxy.svg'
+    newAvatar = galaxyImage
 }
 
 homePage.querySelector('.password__form').onsubmit = function(event) {

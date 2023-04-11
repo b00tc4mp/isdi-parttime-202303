@@ -13,7 +13,7 @@ import './pages/login-page.js'
                 - refactor de la home-page - dividir en pagines per a cada funcionalitat? avatar, name, password, email i posts
                 - register a homepage directe sense passar per login
                 - cancel post button 20230410 2045
-                - poder editar el text d'un post
+                - poder editar el text d'un post (fer un feed només dels posts del user? mateixa funcio del showpostfeed pero afegint un anchor a la declaracio d'html per poder editar el post?)
                 
                 
     TODO Arrays:
