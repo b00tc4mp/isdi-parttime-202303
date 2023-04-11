@@ -139,6 +139,7 @@ a {
     font-weight: 700;
     border: none;
     border-radius: 5px;
+    margin: 2px 2px 2px 2px;
 }
 
 .boton:hover {
@@ -258,24 +259,23 @@ a {
 }
 
 .nav-buttons{
-    display: flex;
-    flex-direction: row;
-    gap: 5px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
 }
 
 
 .profile-column {
     width: 100%;
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
     align-items:center;
-    justify-content:space-around;
     margin: 0;
-    padding-right: 10px;
-    padding-left: 10px;
-    border-right: 2px solid var(--gris);
     background: var(--background-dark);
     position: fixed;
+}
+
+.profile-column h1{
+    justify-self: center;
 }
 
 .profile-image {
@@ -283,6 +283,7 @@ a {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    justify-self: center;
     margin-top: 10px;
     margin-bottom: 10px;
 }
@@ -303,12 +304,12 @@ a {
 }
 
 .profile-view {
-    width: 80vw;
+    width: 100vw;
     min-width: 300px;
     margin-top: 250px;
     display: flex;
     flex-direction: column;
-    align-self: center;
+    align-items: center;
 }
 
 .button-close-profile{
@@ -321,6 +322,7 @@ a {
     grid-template-columns: 1fr;
     align-items: center;
     justify-items: start;
+    align-self: center;
     width: 100%;
 }
 
