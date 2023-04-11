@@ -4,7 +4,7 @@ posts.push({
     id: 'Post-A-000',
     author: 'A-000',
     text: 'Doing some calibrations',
-    image: 'https://static.wikia.nocookie.net/masseffect/images/0/0d/ME3_Garrus_Normandy.png',
+    image: 'https://static.wikia.nocookie.net/masseffect/images/e/e1/Normandy_Render.png',
     date: new Date('April 3, 2023 12:15:30'),
 });
 

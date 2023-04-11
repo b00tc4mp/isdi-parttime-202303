@@ -221,7 +221,8 @@ p {
 .to-edit-post {
     height: 1.5rem;
     width: 1.5rem;
-    fill:var(--color-primary300)
+    fill:var(--color-primary300);
+    cursor: pointer;
 }
 
 @media (min-width: 768px) {
