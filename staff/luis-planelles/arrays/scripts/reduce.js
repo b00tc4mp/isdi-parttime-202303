@@ -4,8 +4,16 @@ const reduce = (array, callback, initialValue = 0, index = 0) => {
   let reduced = initialValue;
 
   for (let item of array) {
-    reduced = callback(reduced, item, index);
-    index++;
+    if (item && item.length && !isNaN(item)) {
+      for (i of item) {
+        reduced = callback(reduced, i, index);
+        index++;
+      }
+    } else {
+      reduced = callback(reduced, item, index);
+      index++;
+    }
   }
+
   return reduced;
 };
