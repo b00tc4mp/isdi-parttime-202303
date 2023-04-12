@@ -1,7 +1,12 @@
 //Data
 
+import {users} from "./data.js";
+
 let activeUser;
 
+const context = sessionStorage;
+
+import { userExistById } from "./logic.js";
 //Logic
 
 import {addUser, authenticateUser, getInitials, changePassword, changeMail, retrieveMail, createPost, getPosts} from "./logic.js";
@@ -88,6 +93,17 @@ function initiate() {
     hideSection(passwordChange);
     hideSection(addPosts);
     hideSection(postListPanel);
+    if(context.userid){
+        if(context.userid !== ''){
+        let position=userExistById(context.userid);
+        activeUser={name: users[position].name, id: users[position].id}
+        hideSection(loginPage);
+        showSection(homePage);
+        muestraPosts();
+        showSection(postListPanel);
+        headerLogged();
+        addProfileNameAndImage(activeUser);}
+    }
 }
 
 initiate();
@@ -117,6 +133,7 @@ document.querySelector('.formulario-login').addEventListener('submit', function 
 
     try {
         activeUser=authenticateUser(email, password);
+        context.userid=activeUser.id;
         hideSection(loginPage);
         showSection(homePage);
         muestraPosts();
@@ -154,6 +171,7 @@ profileColumn.querySelector('.button-profile').addEventListener('click', functio
 profileColumn.querySelector('.button-exit').addEventListener('click', function (event) {
     event.preventDefault();
     activeUser = null;
+    context.userid = '';
     resetLogin();
     hideSection(homePage);
     headerNotLogged();
