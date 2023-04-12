@@ -4,7 +4,7 @@ import { displayWelcome, } from '../ui/home.mjs'
 import { displayLoginError, } from '../ui/errors.mjs';
 import { registerPage } from './register-page.mjs';
 import { homePage, mainHome } from "./home-page.mjs";
-import { renderPosts } from '../ui/posts.mjs';
+import { renderAllPosts } from '../ui/posts.mjs';
 
 export const loginPage = document.querySelector('.login');
 const loginForm = document.querySelector('.login-form');
@@ -29,7 +29,7 @@ loginForm.addEventListener('submit', (event) => {
   try {
     context.userAuth = login(context.userAuth, loginPage, homePage, mainHome, username, password);
     displayWelcome(context.userAuth);
-    renderPosts(context.userAuth);
+    renderAllPosts(context.userAuth);
   } catch (error) {
     displayLoginError(error.message);
   }

@@ -1,4 +1,5 @@
 import { retrieveUser, } from '../logic/retrieve-user.mjs';
+import { updatePost } from '../logic/update-post.mjs';
 
 export const context = { userAuth: undefined}
 
@@ -102,23 +103,23 @@ export const openModal = (modal, previousPost) => {
 
   const selectedNewPostImg = document.querySelector('.new-post-image');
   const newPostTextInput = document.querySelector('.new-post-form').querySelector('input[name="post-text"]');
-  const sendPost = document.querySelector('.new-post-form')
+  const sendPost = document.querySelector('.new-post-form');
+  const setNewPostImg = document.querySelector('.set-image');
 
   if(previousPost) {
     selectedNewPostImg.src = previousPost.image;
     newPostTextInput.value = previousPost.text;
     sendPost.addEventListener('submit', (event) => {
       event.preventDefault(); 
-      updatePost(previousPost, newPostTextInput.value, selectedNewPostImg.src)
-      post(newPostImg, newPostText, context.userAuth, postModal)
+      updatePost(previousPost, newPostTextInput.value, selectedNewPostImg.src, previousPost.id)
       clearForms();
-      temporalNewPostImg.value = '';
-      selectedNewPostImg.src = 'https://www.slotcharter.net/wp-content/uploads/2020/02/no-avatar.png';
-      setOn(setNewPostImg)
+      selectedNewPostImg.src = 'https://sgame.etsisi.upm.es/pictures/12946.png';
+      setOn(setNewPostImg);
     })
   }
 
 };
+
 
 export const closeModal  = (modal) => {
   const blur = document.querySelector('.blur');

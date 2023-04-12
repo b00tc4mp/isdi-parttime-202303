@@ -16,6 +16,9 @@ let newPostImg;
 
 cancelPost.addEventListener('click', (event) => {
   event.preventDefault();
+  clearForms();
+  selectedNewPostImg.src = 'https://sgame.etsisi.upm.es/pictures/12946.png';
+  setOn(setNewPostImg);
   closeModal(postModal);
 });
   
@@ -31,7 +34,7 @@ deleteNewPostImg.addEventListener('click', (event) => {
   event.preventDefault();
   newPostImg = undefined;
   temporalNewPostImg.value = '';
-  selectedNewPostImg.src = 'https://www.slotcharter.net/wp-content/uploads/2020/02/no-avatar.png';
+  selectedNewPostImg.src = 'https://sgame.etsisi.upm.es/pictures/12946.png';
   toggleOff(deleteNewPostImg, setNewPostImg);
 });
   
@@ -40,7 +43,6 @@ sendPost.addEventListener('submit', (event) => {
   const newPostText = newPostTextInput.value;
   post(newPostImg, newPostText, context.userAuth, postModal)
   clearForms();
-  temporalNewPostImg.value = '';
-  selectedNewPostImg.src = 'https://www.slotcharter.net/wp-content/uploads/2020/02/no-avatar.png';
+  selectedNewPostImg.src = 'https://sgame.etsisi.upm.es/pictures/12946.png';
   setOn(setNewPostImg);
 })

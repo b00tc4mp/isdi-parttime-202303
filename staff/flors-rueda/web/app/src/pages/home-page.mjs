@@ -5,7 +5,7 @@ import { setOff, setOn, resetAlerts, clearForms, openModal } from '../ui/general
 import { displayProfile, displayWelcome, } from '../ui/home.mjs'
 import { profile, profileButtons, } from './home-edit-profile-page.mjs';
 import { postModal } from './home-posts-modal-page.mjs';
-import { renderPosts } from '../ui/posts.mjs';
+import { renderAllPosts } from '../ui/posts.mjs';
 
 export const homePage = document.querySelector('.home');
 export const mainHome = document.querySelector('.home-main');
@@ -58,7 +58,7 @@ toHome.addEventListener('click', (event) => {
   resetAlerts();
   setOn(mainHome);
   setOff(profile, profileButtons, profileForms);
-  renderPosts(context.userAuth);
+  renderAllPosts(context.userAuth);
   displayWelcome(context.userAuth)
 });
 

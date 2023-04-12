@@ -1,6 +1,6 @@
 import posts from './data/posts/data.mjs';
 
-export const updatePost = (initialPost, newText, newPostImg) => {
+export const updatePost = (initialPost, newText, newPostImg, id) => {
   const editedPost = initialPost;
   editedPost.text = newText;
   editedPost.image = newPostImg;
