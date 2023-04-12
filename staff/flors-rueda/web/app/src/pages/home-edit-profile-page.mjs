@@ -30,6 +30,8 @@ const toDeleteAccount = document.querySelector('.to-delete-account');
 const deleteAccount = document.querySelector('.delete-account');
 const deleteForm = document.querySelector('.delete-form');
 
+const toggleLightToggle = document.querySelector('.hide-mode-toggle')
+
 toChangePassword.addEventListener('click', (event) => {
   event.preventDefault();
   clearForms();
@@ -129,4 +131,10 @@ deleteAvatar.addEventListener('click', (event) => {
   toggleOff(deleteAvatar, setAvatar);
   displayProfile(context.userAuth);
 });
-  
+
+toggleLightToggle.addEventListener('click', (event) => {
+  event.preventDefault();
+  const toggle = document.querySelector('.mode-toggle');
+  toggleOff(toggle);
+  toggleLightToggle.textContent === 'hide light switch' ? toggleLightToggle.textContent = 'show light switch' : toggleLightToggle.textContent = 'hide light switch'
+});
