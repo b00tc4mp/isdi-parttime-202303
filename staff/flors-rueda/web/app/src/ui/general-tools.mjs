@@ -32,6 +32,15 @@ export const clearForms = () => {
   });
 };
 
+export const clearPostModal = (modal) => {
+  clearForms();
+  modal.className = 'post-modal';
+  const selectedNewPostImg = document.querySelector('.new-post-image');
+  const setNewPostImg = document.querySelector('.set-image');
+  selectedNewPostImg.src = 'https://sgame.etsisi.upm.es/pictures/12946.png';
+  setOn(setNewPostImg);
+}
+
 const resetAlertStyles = (alertUser) => {
   alertUser.classList.remove('alert-success');
   alertUser.classList.remove('alert-warning');
@@ -98,30 +107,21 @@ export const controlUsernameInput = (input) => {
 //TODO: add validators to print post, plus try catch -> validate user is logged, 
 
 export const openModal = (modal, previousPost) => {
+  previousPost ? modal.classList.add(`editing-${previousPost.id}`) : modal.classList.add('creating')
   const blur = document.querySelector('.blur');
   setOn(modal, blur);
-
   const selectedNewPostImg = document.querySelector('.new-post-image');
   const newPostTextInput = document.querySelector('.new-post-form').querySelector('input[name="post-text"]');
-  const sendPost = document.querySelector('.new-post-form');
-  const setNewPostImg = document.querySelector('.set-image');
-
   if(previousPost) {
     selectedNewPostImg.src = previousPost.image;
     newPostTextInput.value = previousPost.text;
-    sendPost.addEventListener('submit', (event) => {
-      event.preventDefault(); 
-      updatePost(previousPost, newPostTextInput.value, selectedNewPostImg.src, previousPost.id)
-      clearForms();
-      selectedNewPostImg.src = 'https://sgame.etsisi.upm.es/pictures/12946.png';
-      setOn(setNewPostImg);
-    })
-  }
 
+  }
 };
 
 
 export const closeModal  = (modal) => {
+  clearPostModal(modal)
   const blur = document.querySelector('.blur');
   setOff(modal, blur);
 };

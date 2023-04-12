@@ -1,4 +1,4 @@
-import { clearForms, getImgUrl, setOn, toggleOff, closeModal } from '../ui/general-tools.mjs';
+import { clearForms, getImgUrl, setOn, toggleOff, closeModal,} from '../ui/general-tools.mjs';
 import { context } from '../ui/general-tools.mjs';
 import { post } from '../ui/posts.mjs';
 
@@ -42,7 +42,4 @@ sendPost.addEventListener('submit', (event) => {
   event.preventDefault(); 
   const newPostText = newPostTextInput.value;
   post(newPostImg, newPostText, context.userAuth, postModal)
-  clearForms();
-  selectedNewPostImg.src = 'https://sgame.etsisi.upm.es/pictures/12946.png';
-  setOn(setNewPostImg);
 })

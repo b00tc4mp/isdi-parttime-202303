@@ -44,13 +44,13 @@ const renderPost = (post, userAuth) => {
 
 
 //TODO find out why sometimes doesnt replace old post correctly and fails to autofill de placeholders
-function editPost(event, posts) {
+const editPost = (event, posts) => {
   const postId = event.target.dataset.postId;
   const post = posts.find(post => post.id === postId);
   openModal(postModal, post);
 }
 
-export const renderAllPosts = (userAuth, postModal) => {
+export const renderAllPosts = (userAuth) => {
   const posts = getPostsSorted();
   const postList = document.querySelector('.posts-display');
   postList.innerHTML = '';
@@ -68,7 +68,12 @@ export const renderAllPosts = (userAuth, postModal) => {
 };
 
 export const post = (postImg, postText, userAuth, postModal) => {
-  uploadPost(postImg, postText, userAuth);
+  if(postModal.classList.contains('creating')) uploadPost(postImg, postText, userAuth)
+  else {
+    let postId = (postModal.classList.value).split('editing-')[1];
+    updatePost(postText, postImg, postId)
+  }
+  
   closeModal(postModal);
-  renderAllPosts(userAuth, postModal);
+  renderAllPosts(userAuth);
 };
