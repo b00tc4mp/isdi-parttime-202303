@@ -2,6 +2,11 @@
 
 import {users} from "./data.js";
 
+const usersJson = JSON.stringify(users);
+
+const almacen=localStorage;
+almacen.users=usersJson;
+
 let activeUser;
 
 const context = sessionStorage;
