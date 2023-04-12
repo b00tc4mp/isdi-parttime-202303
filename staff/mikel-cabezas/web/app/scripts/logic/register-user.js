@@ -17,5 +17,6 @@ export function registerUser(name, email, password) {
         }
         users.push(user)
         saveUsers()
+        return user.name
     }
 }

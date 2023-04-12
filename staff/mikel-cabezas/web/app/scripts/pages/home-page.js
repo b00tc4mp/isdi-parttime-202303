@@ -3,7 +3,6 @@ import { createPost } from "../logic/create-post.js"
 import { updatePosts } from '../logic/update-posts.js'
 import { getCurrentUser } from "../logic/helpers/data-managers.js"
 import { renderPosts } from "../logic/render-posts.js"
-
 export const homePage = document.querySelector('.section.home')
 
 const image = homePage.querySelector('.overlay.create-post form > input[name="file"') 
@@ -50,9 +49,10 @@ homePage.querySelector('button.button--create-post_save').onclick = function(eve
 
 export function renderUser() {
     const user = context.userId
-    console.log(user)
 
     if(user) {
+        
         renderPosts(user)
     }
+    return user
 }

@@ -14,11 +14,12 @@ export function renderPosts(userId) {
         let recentPostsFirst = posts.reverse()
     
         recentPostsFirst.forEach(article => {
-
-            const author = users.find(user => user.id === article.author).name 
+            const date = article.date
+            const author = users.find(user => user.id === article.author).name
+            // const author = users.find(user => user.id === article.author).name 
             const postsList = existentArticleElement
 
-            if(userId !== article.author) {
+            if(userId !== author) {
                 const postContainer = document.createElement('article')
                 postsList.appendChild(postContainer)
                 postContainer.innerHTML = `
@@ -30,10 +31,10 @@ export function renderPosts(userId) {
                             ${author}
                         </div>
                         <div class="post-date">
-                            ${article.date.getDate()}/${article.date.getMonth() + 1}/${article.date.getFullYear()}
+                            <time>    ${article.date.toLocaleString()}</time>
                         </div>
-                    </div>
-                    `    
+                        </div>
+                        `    
             }
             
         })

@@ -2,6 +2,8 @@ import { context, toggleOffClassInSection } from "../ui.js"
 import { findUserById } from "./helpers/data-managers.js"
 import { validateNewPassword } from './helpers/validators.js'
 import { userAccount } from "../pages/user-account.js"
+import { saveUsers } from "../data.js"
+
 
 export function updateUserPassword(currentId) {
     const userId = context.userId
@@ -22,6 +24,6 @@ export function updateUserPassword(currentId) {
 
     userAccount.querySelector('p.message').classList.remove('error')
     userAccount.querySelector('p.message').classList.add('success')
-    
+    saveUsers ()
     return userAccount.querySelector('p.message').innerHTML = 'Password changed!'
 }

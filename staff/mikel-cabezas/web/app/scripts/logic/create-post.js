@@ -1,6 +1,7 @@
-import { getUserName } from "./helpers/data-managers.js";
-import { posts } from '../data.js'
+import { getCurrentUser, getUserName } from "./helpers/data-managers.js";
+import { posts, savePosts } from '../data.js'
 import { updatePosts } from './update-posts.js'
+import { context } from "../ui.js";
 
 let srcNewImage
 
@@ -18,7 +19,9 @@ const printImage = file.onchange = function (event) {
 
 export function createPost(userId, image, title, text) {
 
-    const userName = getUserName(userId)
+    // const user = getUserName(userId)
+    const id = context.userId
+    console.log(id)
     if (!userId) {
         throw new Error(`User with ${userId} not found`)
     }
@@ -32,18 +35,20 @@ export function createPost(userId, image, title, text) {
         throw new Error(`Text is empty`)
     }
     
- const img = document.querySelector('.section.user-account').querySelector('form.user-info .image-profile')
- const avatarHeader = document.querySelector('header .menu').querySelector('.avatar img.image-profile')
+    const img = document.querySelector('.section.user-account').querySelector('form.user-info .image-profile')
+    const avatarHeader = document.querySelector('header .menu').querySelector('.avatar img.image-profile')
 
     const currentPost = parseInt(posts.length + 1)
-    const newPost = posts.push({
+    const post = {
         id: 'post-' + currentPost,
-        author: userName,
+        author: id,
         image: srcNewImage,
         title: title, 
         text: text,
         date: new Date()
-    })
+    }
+    posts.push(post)
+    savePosts()
     updatePosts(userId)
 }
 

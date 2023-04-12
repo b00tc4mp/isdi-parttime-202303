@@ -5,14 +5,21 @@
 // import {deleteClassOnContainer, addClassOnContainer, changeMessageOnContainer, clearMessageContainer, toggleOffClassInSection, showHidePassword} from './ui.mjs'
 import {loginPage } from './pages/login-page.js'
 import { homePage, renderUser } from './pages/home-page.js'
-import { context, deleteClassOnContainer, addClassOnContainer } from './ui.js'
+import { context, deleteClassOnContainer, addClassOnContainer, bodyPage } from './ui.js'
+import { pushUserDataToHeader } from './logic/push-user-to-header.js'
+import { pushUserDataInForm } from './logic/push-user-data-in-form.js'
+
 
 if( !renderUser() ) {
     deleteClassOnContainer(loginPage, ('off'))
     addClassOnContainer(homePage, 'off')
 } else {
+    const userId = context.userId
     deleteClassOnContainer(homePage, ('off'))
     addClassOnContainer(loginPage, 'off')
+    pushUserDataInForm(userId)
+bodyPage.classList.add('logged-in')
+    pushUserDataToHeader(userId)
     renderUser()
 }
 

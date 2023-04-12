@@ -57,5 +57,5 @@ export function saveUsers () {
 }
 
 export function savePosts () {
-    localStorage.usersJson = JSON.stringify(posts)
+    localStorage.postsJson = JSON.stringify(posts)
 }

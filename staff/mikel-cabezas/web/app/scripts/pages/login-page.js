@@ -11,7 +11,6 @@ import { pushUserDataToHeader } from '../logic/push-user-to-header.js'
 
 export const loginPage = document.querySelector('.section.login')
 export const loginPageMessage = document.querySelector('.section.login').querySelector('.message')
-
 loginPage.querySelector('form.login-form').onsubmit = function(event) {
     event.preventDefault()
     const email = loginPage.querySelector('input[name="email"').value.trim()
@@ -19,8 +18,8 @@ loginPage.querySelector('form.login-form').onsubmit = function(event) {
     try {
         renderUser()
         const userId = authenticateUser(email, password)
-        const currentUser = getUserName(userId)
-        const separateUserName = getUserName(userId).split(' ')
+        // const currentUser = getUserName(userId)
+        // const separateUserName = getUserName(userId).split(' ')
         clearMessageContainer(loginPageMessage)
         toggleOffClassInSection(loginPage, homePage)
         bodyPage.classList.add('logged-in')
@@ -28,21 +27,21 @@ loginPage.querySelector('form.login-form').onsubmit = function(event) {
         const userName = getUserName(userId)
 
         const welcomeUser = document.querySelector('.welcome-user').innerHTML = `Welcome ${userName}!`
-        menuHeader.querySelector('.user-name').innerText = currentUser
+        // menuHeader.querySelector('.user-name').innerText = currentUser
 
-        if (separateUserName.length === 1) {
-            menuHeader.querySelector('.avatar .letter').innerText = separateUserName[0][0] + separateUserName[0][1]
-            userAccount.querySelector('.avatar .letter').innerText = separateUserName[0][0] + separateUserName[0][1]
-        }
-        if (separateUserName.length > 1) {
-            menuHeader.querySelector('.avatar .letter').innerText = separateUserName[0][0] + separateUserName[1][0]
-            userAccount.querySelector('.avatar .letter').innerText = separateUserName[0][0] + separateUserName[1][0]
-        }
+        // if (separateUserName.length === 1) {
+        //     menuHeader.querySelector('.avatar .letter').innerText = separateUserName[0][0] + separateUserName[0][1]
+        //     userAccount.querySelector('.avatar .letter').innerText = separateUserName[0][0] + separateUserName[0][1]
+        // }
+        // if (separateUserName.length > 1) {
+        //     menuHeader.querySelector('.avatar .letter').innerText = separateUserName[0][0] + separateUserName[1][0]
+        //     userAccount.querySelector('.avatar .letter').innerText = separateUserName[0][0] + separateUserName[1][0]
+        // }
+        pushUserDataToHeader(userId)
 
         pushUserDataInForm(userId)
         context.userId = userId
         updatePosts(userId)
-        pushUserDataToHeader(userId)
 
     } catch(error) {
         loginPage.querySelector('.message').classList.remove('success')

@@ -58,6 +58,7 @@ userAccount.querySelector('.button--update-info__save-info').onclick = function(
             userAccount.querySelector('.button--update-info__profile').disabled = true
             changeMessageOnContainer(userPageMessage, 'User updated!', 'success')
             if(imageInput.files.length !== 0) {
+                debugger
                 uploadImage(context.userId, userAccount.querySelector('.avatar img.image-profile'), userAccount.querySelector('form.user-info input[name="file"]'), 'users')
                 const avatarHeader = menuHeader.querySelector('.avatar img.image-profile').classList.remove('hidden')
                 const avatar = userAccount.querySelector('.avatar img.image-profile').classList.remove('hidden')
