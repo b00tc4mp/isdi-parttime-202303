@@ -1,6 +1,6 @@
-import { generateUUID } from './data/helpers.mjs';
-import users from './data/users/data.mjs';
-import { validateMail, validateNewPassword, validateNewUsername } from './data/users/validators.mjs';
+import { generateUUID } from './data/helpers.js';
+import users from './data/users/data.js';
+import { validateMail, validateNewPassword, validateNewUsername } from './data/users/validators.js';
   
 export const addNewUser = (mail, username, password, repeatPassword) => {
   validateMail(mail);

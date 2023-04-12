@@ -1,6 +1,6 @@
-import { clearForms, getImgUrl, setOn, toggleOff, closeModal,} from '../ui/general-tools.mjs';
-import { context } from '../ui/general-tools.mjs';
-import { post } from '../ui/posts.mjs';
+import { clearForms, getImgUrl, setOn, toggleOff, } from '../ui/general-tools.js';
+import { context } from '../ui/general-tools.js';
+import { closePostModal, post } from '../ui/posts.js';
 
 export const postModal = document.querySelector('.post-modal');
 
@@ -19,7 +19,7 @@ cancelPost.addEventListener('click', (event) => {
   clearForms();
   selectedNewPostImg.src = 'https://sgame.etsisi.upm.es/pictures/12946.png';
   setOn(setNewPostImg);
-  closeModal(postModal);
+  closePostModal(postModal)
 });
   
 temporalNewPostImg.addEventListener('change', (event) => {

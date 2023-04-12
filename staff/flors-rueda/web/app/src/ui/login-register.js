@@ -1,8 +1,8 @@
-import { toggleOff, clearForms, resetAlerts, setAlert, setOn, setPredeterminateAvatar, } from './general-tools.mjs';
+import { toggleOff, clearForms, resetAlerts, setAlert, setOn, setPredeterminateAvatar, } from './general-tools.js';
 
-import { addNewUser } from '../logic/register-user.mjs'
+import { addNewUser } from '../logic/register-user.js'
 
-import {authenticateUser} from '../logic/authenticate-user.mjs'
+import {authenticateUser} from '../logic/authenticate-user.js'
 
 export const login = (userAuth, login, home, startHome, username, password) => {
   resetAlerts();

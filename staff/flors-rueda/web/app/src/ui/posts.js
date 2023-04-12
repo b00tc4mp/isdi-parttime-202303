@@ -1,9 +1,30 @@
-import { getPostsSorted } from '../logic/retrieve-posts-sorted-by-date.mjs';
-import { uploadPost } from '../logic/upload-post.mjs';
-import { updatePost } from '../logic/update-post.mjs';
-import { retrieveUser } from '../logic/retrieve-user.mjs';
-import { closeModal, openModal } from './general-tools.mjs';
-import { postModal } from '../pages/home-posts-modal-page.mjs';
+import { setOn, clearForms, setOff } from './general-tools.js';
+import { getPostsSorted } from '../logic/retrieve-posts-sorted-by-date.js';
+import { uploadPost } from '../logic/upload-post.js';
+import { updatePost } from '../logic/update-post.js';
+import { retrieveUser } from '../logic/retrieve-user.js';
+import { postModal } from '../pages/home-posts-modal-page.js';
+
+export const openPostModal = (modal, previousPost) => {
+  previousPost ? postModal.classList.add(`editing-${previousPost.id}`) : modal.classList.add('creating')
+  const blur = document.querySelector('.blur');
+  setOn(modal, blur);
+};
+
+export const clearPostModal = (modal) => {
+  clearForms();
+  modal.className = 'post-modal';
+  const selectedNewPostImg = document.querySelector('.new-post-image');
+  const setNewPostImg = document.querySelector('.set-image');
+  selectedNewPostImg.src = 'https://sgame.etsisi.upm.es/pictures/12946.png';
+  setOn(setNewPostImg);
+}
+
+export const closePostModal = (modal) => {
+  clearPostModal(modal)
+  const blur = document.querySelector('.blur');
+  setOff(modal, blur);
+};
 
 const renderPost = (post, userAuth) => {
   const postAuthor = retrieveUser(post.author);
@@ -33,7 +54,7 @@ const renderPost = (post, userAuth) => {
     )}</time>`;
   }
   if (post.author === userAuth) {
-    html += `<svg class="to-edit-post" data-post-id="${post.id}" xmlns="http://www.w3.org/2000/svg" viewBox="0 96 960 960"><path d="M180 1044q-24 0-42-18t-18-42V384q0-24 18-42t42-18h405l-60 60H180v600h600V636l60-60v408q0 24-18 42t-42 18H180Zm300-360Zm182-352 43 42-285 284v86h85l286-286 42 42-303 304H360V634l302-302Zm171 168L662 332l100-100q17-17 42.311-17T847 233l84 85q17 18 17 42.472T930 402l-97 98Z"/></svg>
+    html += `<svg class="to-edit-post" xmlns="http://www.w3.org/2000/svg" viewBox="0 96 960 960"><path d="M180 1044q-24 0-42-18t-18-42V384q0-24 18-42t42-18h405l-60 60H180v600h600V636l60-60v408q0 24-18 42t-42 18H180Zm300-360Zm182-352 43 42-285 284v86h85l286-286 42 42-303 304H360V634l302-302Zm171 168L662 332l100-100q17-17 42.311-17T847 233l84 85q17 18 17 42.472T930 402l-97 98Z"/></svg>
       </div>`;
   } else {
     html += `</div>`;
@@ -44,24 +65,26 @@ const renderPost = (post, userAuth) => {
 
 
 //TODO find out why sometimes doesnt replace old post correctly and fails to autofill de placeholders
-const editPost = (event, posts) => {
-  const postId = event.target.dataset.postId;
-  const post = posts.find(post => post.id === postId);
-  openModal(postModal, post);
+const editPost = (post, postModal) => {
+  if(!postModal) return
+  postModal.querySelector('.new-post-image').src = post.image;
+  postModal.querySelector('.new-post-form').querySelector('input[name="post-text"]'). value = post.text
+  openPostModal(postModal, post)
+
 }
 
-export const renderAllPosts = (userAuth) => {
+export const renderAllPosts = (userAuth, postModal) => {
   const posts = getPostsSorted();
   const postList = document.querySelector('.posts-display');
   postList.innerHTML = '';
   posts.forEach(post => {
     const postElement = renderPost(post, userAuth);
     postList.appendChild(postElement);
-    if(userAuth === post.author) {
+    if (userAuth === post.author) {
       const editButton = postElement.querySelector('.to-edit-post');
       editButton.addEventListener('click', (event) => {
         event.preventDefault();
-        editPost(event, posts);
+        editPost(post, postModal);
       });
     }
   });
@@ -73,7 +96,8 @@ export const post = (postImg, postText, userAuth, postModal) => {
     let postId = (postModal.classList.value).split('editing-')[1];
     updatePost(postText, postImg, postId)
   }
-  
-  closeModal(postModal);
-  renderAllPosts(userAuth);
+  closePostModal(postModal);
+  renderAllPosts(userAuth, postModal);
 };
+
+

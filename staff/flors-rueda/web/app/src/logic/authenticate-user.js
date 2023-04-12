@@ -1,6 +1,6 @@
-import { validateUsername, validateUserPassword} from './data/users/validators.mjs'
+import { validateUsername, validateUserPassword} from './data/users/validators.js'
 
-import { getId } from './data/users/data-managers.mjs'
+import { getId } from './data/users/data-managers.js'
 
 export const authenticateUser = (user, password) => {
   const username = '@' + user.toLowerCase();

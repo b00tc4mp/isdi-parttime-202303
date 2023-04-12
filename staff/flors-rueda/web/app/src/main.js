@@ -1,4 +1,4 @@
-import { loginPage } from './pages/login-page.mjs';
+import { loginPage } from './pages/login-page.js';
 
 const checkbox = document.querySelector('.mode-checkbox');
 

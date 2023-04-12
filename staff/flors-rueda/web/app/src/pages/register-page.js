@@ -1,7 +1,7 @@
-import { controlUsernameInput, } from '../ui/general-tools.mjs'
-import { register } from '../ui/login-register.mjs';
-import { displayRegisterError, } from '../ui/errors.mjs';
-import { loginPage } from './login-page.mjs'
+import { controlUsernameInput, } from '../ui/general-tools.js'
+import { register } from '../ui/login-register.js';
+import { displayRegisterError, } from '../ui/errors.js';
+import { loginPage } from './login-page.js'
 
 export const registerPage = document.querySelector('.register');
 const registerForm = document.querySelector('.register-form');

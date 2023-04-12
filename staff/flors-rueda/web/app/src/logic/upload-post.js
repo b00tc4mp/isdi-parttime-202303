@@ -1,5 +1,5 @@
-import { generateUUID } from './data/helpers.mjs';
-import posts from './data/posts/data.mjs';
+import { generateUUID } from './data/helpers.js';
+import posts from './data/posts/data.js';
 
 export const uploadPost = (postImg, postText, authorID) => {
   const newPost = {};

@@ -1,9 +1,9 @@
-import { toggleOff, setOn, setOff, clearForms, resetAlerts, setAlert, setPredeterminateAvatar,} from './general-tools.mjs';
-import { updateUserAvatar, updateUserMail, updateName, updateUsername } from '../logic/update-user-data.mjs';
-import { updateUserPassword } from '../logic/update-user-password.mjs';
-import { retrieveUser } from '../logic/retrieve-user.mjs'
-import { deleteAccount } from '../logic/delete-account.mjs';
-import { getMail } from '../logic/data/users/data-managers.mjs';
+import { toggleOff, setOn, setOff, clearForms, resetAlerts, setAlert, setPredeterminateAvatar,} from './general-tools.js';
+import { updateUserAvatar, updateUserMail, updateName, updateUsername } from '../logic/update-user-data.js';
+import { updateUserPassword } from '../logic/update-user-password.js';
+import { retrieveUser } from '../logic/retrieve-user.js'
+import { deleteAccount } from '../logic/delete-account.js';
+import { getMail } from '../logic/data/users/data-managers.js';
 
 export const displayWelcome = (userAuth) => {
   const user = retrieveUser(userAuth);

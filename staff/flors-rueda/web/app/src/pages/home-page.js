@@ -1,11 +1,11 @@
-import { context,  } from '../ui/general-tools.mjs';
-import { loginPage } from './login-page.mjs';
-import { logout, } from '../ui/login-register.mjs';
-import { setOff, setOn, resetAlerts, clearForms, openModal } from '../ui/general-tools.mjs'
-import { displayProfile, displayWelcome, } from '../ui/home.mjs'
-import { profile, profileButtons, } from './home-edit-profile-page.mjs';
-import { postModal } from './home-posts-modal-page.mjs';
-import { renderAllPosts } from '../ui/posts.mjs';
+import { context,  } from '../ui/general-tools.js';
+import { loginPage } from './login-page.js';
+import { logout, } from '../ui/login-register.js';
+import { setOff, setOn, resetAlerts, clearForms, } from '../ui/general-tools.js'
+import { displayProfile, displayWelcome, } from '../ui/home.js'
+import { profile, profileButtons, } from './home-edit-profile-page.js';
+import { postModal } from './home-posts-modal-page.js';
+import { openPostModal, renderAllPosts } from '../ui/posts.js';
 
 export const homePage = document.querySelector('.home');
 export const mainHome = document.querySelector('.home-main');
@@ -58,13 +58,16 @@ toHome.addEventListener('click', (event) => {
   resetAlerts();
   setOn(mainHome);
   setOff(profile, profileButtons, profileForms);
-  renderAllPosts(context.userAuth);
+  renderAllPosts(context.userAuth, postModal);
   displayWelcome(context.userAuth)
 });
 
+
+// TODO: figure out why modal sometimes fails
+
 toNewPost.addEventListener('click', (event) => {
   event.preventDefault();
-  openModal(postModal);
+  openPostModal(postModal);
 });
 
 

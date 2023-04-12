@@ -1,4 +1,4 @@
-import { clearForms, setAlert, setSimpleAlert } from './general-tools.mjs';
+import { clearForms, setAlert, setSimpleAlert } from './general-tools.js';
 
 //TODO: Add new edit user options errors
 

@@ -1,10 +1,10 @@
-import { context, controlUsernameInput,  } from '../ui/general-tools.mjs';
-import { setOff, setOn, toggleOff, resetAlerts, setPredeterminateAvatar, clearForms, getImgUrl } from '../ui/general-tools.mjs'
-import { setNewPassword, setNewUserInfo, displayProfile, setPlaceHolders, setNewMail, deleteUser, setAlertUserDeleted, cleanNewAvatarInput } from '../ui/home.mjs'
-import { displayEditUserError } from '../ui/errors.mjs';
-import { mainHome, homePage, profileForms } from './home-page.mjs';
-import { logout, } from '../ui/login-register.mjs';
-import { loginPage } from './login-page.mjs';
+import { context, controlUsernameInput,  } from '../ui/general-tools.js';
+import { setOff, setOn, toggleOff, resetAlerts, setPredeterminateAvatar, clearForms, getImgUrl } from '../ui/general-tools.js'
+import { setNewPassword, setNewUserInfo, displayProfile, setPlaceHolders, setNewMail, deleteUser, setAlertUserDeleted, cleanNewAvatarInput } from '../ui/home.js'
+import { displayEditUserError } from '../ui/errors.js';
+import { mainHome, homePage, profileForms } from './home-page.js';
+import { logout, } from '../ui/login-register.js';
+import { loginPage } from './login-page.js';
 
 export const profile = document.querySelector('.user-profile');
 export const profileButtons = document.querySelector('.profile-buttons');

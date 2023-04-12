@@ -1,4 +1,4 @@
-import users from './data.mjs'
+import users from './data.js'
 
 const isMailRegistered = (mail) => {
   for (let i = 0; i < users.length; i++) {

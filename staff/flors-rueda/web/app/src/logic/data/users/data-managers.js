@@ -1,4 +1,4 @@
-import users from './data.mjs'
+import users from './data.js'
 
 export const getId = (username) => {
   const loginUser = users.filter((user) => user.username === username);

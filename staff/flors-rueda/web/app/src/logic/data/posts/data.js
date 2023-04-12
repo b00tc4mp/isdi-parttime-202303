@@ -1,4 +1,4 @@
-const posts = [];
+let posts = [];
 
 posts.push({
     id: '6a535fe1-db76-4430-004b-de2cac090610',

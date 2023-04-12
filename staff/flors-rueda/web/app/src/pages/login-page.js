@@ -1,10 +1,11 @@
-import { context, controlUsernameInput, } from '../ui/general-tools.mjs';
-import { changeView, login, } from '../ui/login-register.mjs';
-import { displayWelcome, } from '../ui/home.mjs'
-import { displayLoginError, } from '../ui/errors.mjs';
-import { registerPage } from './register-page.mjs';
-import { homePage, mainHome } from "./home-page.mjs";
-import { renderAllPosts } from '../ui/posts.mjs';
+import { context, controlUsernameInput, } from '../ui/general-tools.js';
+import { changeView, login, } from '../ui/login-register.js';
+import { displayWelcome, } from '../ui/home.js'
+import { displayLoginError, } from '../ui/errors.js';
+import { registerPage } from './register-page.js';
+import { homePage, mainHome } from "./home-page.js";
+import { renderAllPosts } from '../ui/posts.js';
+import { postModal } from './home-posts-modal-page.js';
 
 export const loginPage = document.querySelector('.login');
 const loginForm = document.querySelector('.login-form');
@@ -29,7 +30,7 @@ loginForm.addEventListener('submit', (event) => {
   try {
     context.userAuth = login(context.userAuth, loginPage, homePage, mainHome, username, password);
     displayWelcome(context.userAuth);
-    renderAllPosts(context.userAuth);
+    renderAllPosts(context.userAuth, postModal);
   } catch (error) {
     displayLoginError(error.message);
   }
