@@ -23,8 +23,7 @@ body {
 .page {
   background-color: var(--basebgcolor);
   height: 100vh;
-  margin-top: 60px;
-  padding-bottom: 20px;
+  padding-bottom: 60px;
 }
 
 .container {
@@ -101,6 +100,17 @@ header button {
   border-radius: 7px;
 }
 
+.home-footer {
+  position: fixed;
+  bottom: 0;
+  width: 100vw;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background: #70b8ff;
+  height: 60px;
+}
+
 /* .profile {
   position: static;
   top: 20%;
@@ -123,47 +133,147 @@ header button {
 .change-form input {
   width: 300px;
 } */
-/* 
-@media (min-width: 480px) { */
-  .profile {
-    padding-top: 60px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background: var(--basebgcolor);
-  }
-    
-  .change-form {
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 60%;
-    background: white;
-    border: 2px solid grey;
-    border-radius: 10px;
-    margin: 0 20px 15px 20px;
-    padding: 10px 25px 25px 10%;
-  }
-  .change-form h2 {
-    margin: 5px 0 10px 0;
-  }
+
+.profile {
+  padding-top: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: var(--basebgcolor);
+}
   
-  .change-form div {
-    display: flex;
-    flex-wrap: wrap;
-  }
+.change-form {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 60%;
+  background: white;
+  border: 2px solid grey;
+  border-radius: 10px;
+  margin: 0 20px 15px 20px;
+  padding: 10px 25px 25px 10%;
+}
+.change-form h2 {
+  margin: 5px 0 10px 0;
+}
 
-  .change-form input {
-    width: 250px;
-    margin: 5px;
-  }
+.change-form div {
+  display: flex;
+  flex-wrap: wrap;
+}
 
-  html, body {
-    height: 100vh;
-  }
-/* } */
+.change-form input {
+  width: 250px;
+  margin: 5px;
+}
+
+html, body {
+  height: 100vh;
+}
 
 .avatar-image {
   height: 30px;
   border-radius: 50%;
 }
+
+a {
+  cursor: pointer;
+  user-select: none;
+}
+
+.add-post {
+  width: 100vw;
+  height: 100vmax;
+  background-color: rgba(0, 0, 0, 0.545);
+  position: absolute;
+  top: 0;
+  z-index: 10;
+}
+
+.add-post-form {
+  background: white;
+  padding: 20px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  position: fixed;
+  bottom: 150px;
+}
+
+.post-url {
+  width: 250px;
+  border: 2px solid black;
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 0 0 0 20px yellow inset;
+}
+
+.post-text {
+  width: 250px;
+  border: 2px solid black;
+  height: 100px;
+  box-shadow: 0 0 0 60px yellow inset;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.created-posts {
+  display: flex;
+  justify-content: flex-start;
+  padding: 20px;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.home {
+  margin: 60px 0px;
+}
+
+.user-post {
+  padding: 20px;
+  height: 200px;
+  width: 150px;
+  background: white;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  user-select: none;
+  overflow: hidden;
+}
+
+.user-post p {
+  margin: 0 0 10px 0;
+}
+
+.image-post {
+  height: 150px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.bigger-post{
+  position: fixed;
+  top: 30%;
+  right: 30%;
+  gap: 20px;
+  height: 400px;
+  width: 300px;
+}
+
+.bigger-post img {
+  height: fit-content;
+  margin: 30px;
+}
+
+.dark-background {
+  width: 100vw;
+  height: 100vmax;
+  background-color: rgba(0, 0, 0, 0.545);
+  position: absolute;
+  top: 0;
+  z-index: 10;
+}
+

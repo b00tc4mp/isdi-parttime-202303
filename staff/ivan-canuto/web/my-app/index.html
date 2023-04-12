@@ -10,14 +10,6 @@
 </head>
 
 <body class="spa-page">
-  <section class="welcome-page">
-    <h1 class="title-home-page"> Hello, welcome to our page.</h1>
-    <h2>Please log in, or register if don't have yet an account.</h2>
-    <div class="buttons-home-page">
-      <button class="login-button">Log In</button>
-      <button class="register-button">Register</button>
-    </div>
-  </section>
 
   <section class="register-page hidden">
     <h1 class="title-register">Hello there new client.</h1>
@@ -39,12 +31,12 @@
       </span>
       <div class="buttons">
         <button class="enter-button">Enter</button>
-        <button class="go-back" type="button">Go back</button>
+        <button class="go-login-page" type="button">Go LogIn Page</button>
       </div>
     </form> 
   </section>
   
-  <section class="login-page hidden">
+  <section class="login-page">
     <h1>Hello there usual client.</h1>
     <h2>Log in to enjoy to enter and enjoy our content.</h2>
     <form class="login-form">
@@ -57,7 +49,7 @@
       </span>
       <div class="buttons">
         <button class="enter-button">Enter</button>
-        <button class="go-back" type="button">Go back</button>
+        <button class="go-register-page" type="button">Go Register Page</button>
       </div>
     </form>
   </section>
@@ -142,9 +134,7 @@
       <button class="exit-button">Exit</button>
     </div>
   </section>
-  <script type="text/javascript" src="scripts/validators.js"></script>
-  <script type="text/javascript" src="scripts/data.js"></script>
-  <script type="text/javascript" src="scripts/logic.js"></script>
-  <script type="text/javascript" src="scripts/main.js"></script>
+  
+  <script type="module" src="src/main.js"></script>
 </body>
 </html>

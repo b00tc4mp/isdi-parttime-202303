@@ -45,11 +45,22 @@ input {
   font-weight: bold;
   cursor: pointer;
 }
-.login-button:hover, .register-button:hover, .go-back:hover, .enter-button:hover {
+
+.enter-button, .go-register-page, .go-login-page {
+  margin-top: 20px;
+  width: fit-content;
+  height: 30px;
+  background: #82ff60;
+  border: 1px solid black;
+  border-radius: 7px;
+  margin-right: 0.5em;
+  padding: 0 10px;
+}
+
+.login-button:hover, .register-button:hover, .go-register-page:hover, .go-login-page:hover, .enter-button:hover {
   background: rgb(42, 202, 42);
   cursor: pointer;
 }
-
 
 .register-page {
   color: green;
@@ -65,18 +76,6 @@ input {
   flex-direction: column;
   align-items: start;
 }
-
-.enter-button, .go-back {
-  margin-top: 20px;
-  width: 70px;
-  height: 30px;
-  background: #82ff60;
-  border: 1px solid black;
-  border-radius: 7px;
-  margin-right: 0.5em
-}
-
-
 
 .login-page {
   color: green;

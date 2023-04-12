@@ -15,4 +15,6 @@ find--
 findIndex--
 map--
 filter--
-splice
+splice--
+toReversed--
+reduce--

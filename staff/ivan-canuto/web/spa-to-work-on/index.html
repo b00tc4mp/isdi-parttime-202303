@@ -41,7 +41,7 @@
             <h1 class="title">Home</h1>
             <div>
                 <img class="avatar-image" src="" alt="avatar image">
-                <a href="">profile</a>
+                <a>profile</a>
             </div>
             <button class="logout-button">Logout</button>
         </header>
@@ -55,7 +55,7 @@
                 </div>
             </form>
             <!-- <form class="change-email change-form">
-                <h2>Update email</h2>
+                <h2>    Update email</h2>
                 <div>
                     <input class="input" type="email" name="email" placeholder="email">
                     <input class="input" type="email" name="newEmail" placeholder="new email">
@@ -74,8 +74,23 @@
                 </div>
             </form>
         </div>
+        <section class="created-posts">
+            
+        </section>
+        <div class="add-post container off">
+            <form class="add-post-form">
+                <input class="post-url" type="url" name="postImage" placeholder="URL Image">
+                <textarea class="post-text" name="postText" placeholder="Post text" cols="30" rows="10"></textarea>
+                <!-- <input class="post-text" type="text" name="postText" placeholder="Post text"> -->
+                <button class="button">Create post</button>
+                <button class="cancel-button button" type="button">Canel</button>
+            </form>
+        </div>
+        <footer class="home-footer">
+            <button class="add-post-button">+</button>
+        </footer>
     </div>
-    <script type="module" src="scripts/main.mjs"></script>
+    <script type="module" src="src/main.mjs"></script>
 </body>
 
 </html>
