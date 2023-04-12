@@ -8,6 +8,7 @@ import {
   profileLink,
   avatarImage,
   DEFAULT_AVATAR_URL,
+  renderPosts,
 } from "./home-page.js";
 
 export const loginPage = document.querySelector(".login");
@@ -31,6 +32,7 @@ loginForm.onsubmit = function (event) {
 
     loginForm.reset();
 
+    renderPosts();
     hide(loginError, loginPage);
     show(homePage);
   } catch (error) {

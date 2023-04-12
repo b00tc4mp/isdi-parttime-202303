@@ -20,6 +20,10 @@ body {
     align-items: center;
 }
 
+.scroll-lock {
+    overflow-y: hidden;
+}
+
 .title, h2 {
     font-size: 1rem;
     font-weight: 800;
@@ -67,6 +71,7 @@ h2 {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
+    z-index: 1;
 }
 
 .home-header-nav {
@@ -172,13 +177,14 @@ h2 {
     margin-bottom: -0.625rem;
 }
 
-/*.posts-list {
-    /*background: #000000;
-    margin-top: 52px;
+.posts-list {
+    margin-top: 9rem;
     width: 100%;
-    /*height: fit-content;
-    height: 40rem;
-}*/
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
 
 .button-new-post-container {
     width: 100%;
@@ -194,6 +200,29 @@ h2 {
     background: #ffffff;
     color: #5589D9;
     font-weight: 600;
+}
+
+.modal {
+    background: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+}
+
+article {
+    background-color: #ffffff;
+}
+
+.post-image {
+    width: 100%;
+    height: 200px;
 }
 
 .off {

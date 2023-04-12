@@ -20,13 +20,17 @@ const changePasswordError = profilePanel.querySelector(
 );
 const changeAvatarError = profilePanel.querySelector(".update-avatar-error");
 
+const addPostModal = homePage.querySelector(".modal");
 const addPostForm = homePage.querySelector(".posts");
 const addPostError = homePage.querySelector(".add-post-error");
+const postsList = homePage.querySelector(".posts-list");
+
+const bodyPage = document.querySelector("body");
 
 profileLink.onclick = function (event) {
   event.preventDefault();
 
-  toggle(profilePanel);
+  toggle(profilePanel, postsList);
   changePasswordForm.reset();
   changeAvatarForm.reset();
   hide(changeAvatarError, changePasswordError);
@@ -51,6 +55,7 @@ changePasswordForm.onsubmit = function (event) {
     changePassword(context.userId, password, newPassword, newPasswordConfirm);
 
     hide(profilePanel, changeAvatarError, changePasswordError);
+    show(postsList);
     changePasswordForm.reset();
     changeAvatarForm.reset();
   } catch (error) {
@@ -79,6 +84,7 @@ changeAvatarForm.onsubmit = function (event) {
     changePasswordForm.reset();
     changeAvatarForm.reset();
     hide(profilePanel, changeAvatarError, changePasswordError);
+    show(postsList);
   } catch (error) {
     changePasswordForm.reset();
     changeAvatarForm.reset();
@@ -93,7 +99,9 @@ changeAvatarForm.onsubmit = function (event) {
 };
 
 homePage.querySelector(".new-post-button").onclick = () => {
-  show(addPostForm);
+  show(addPostModal);
+
+  bodyPage.classList.add("scroll-lock");
 };
 
 addPostForm.onsubmit = (event) => {
@@ -107,7 +115,8 @@ addPostForm.onsubmit = (event) => {
 
     renderPosts();
 
-    hide(addPostForm);
+    bodyPage.classList.remove("scroll-lock");
+    hide(addPostModal);
   } catch (error) {
     errorShow(addPostError, error);
   }
@@ -118,26 +127,26 @@ homePage.querySelector(".cancel").onclick = (event) => {
 
   addPostForm.reset();
 
-  hide(addPostForm);
+  bodyPage.classList.remove("scroll-lock");
+  hide(addPostModal);
 };
 
 export function renderPosts() {
   try {
     const posts = retrievePosts(context.userId);
 
-    homePage.querySelector(".posts-list").innerHTML = posts.reduce(
-      (accum, post) => {
-        return (
-          accum +
-          `<article>
-      <img src="${post.image}">
+    console.log(posts);
+
+    postsList.innerHTML = posts.reduce((accum, post) => {
+      return (
+        accum +
+        `<article>
+      <img class="post-image" src="${post.image}">
       <p>${post.text}</p>
       <time>${post.date.toLocaleString()}</time>
       </article>`
-        );
-      },
-      ""
-    );
+      );
+    }, "");
   } catch (error) {
     alert(error.message);
   }

@@ -15,7 +15,7 @@
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
   </head>
   <body>
-    <div class="register off">
+    <section class="register off">
       <h1 class="title">CREATE ACCOUNT</h1>
 
       <form class="form">
@@ -45,9 +45,9 @@
       <p class="login-answer">
         Have already an account? <a href="#" class="login-link">Login here</a>
       </p>
-    </div>
+    </section>
 
-    <div class="login _off">
+    <section class="login _off">
       <h1 class="title">WELCOME!</h1>
 
       <form class="form">
@@ -71,9 +71,9 @@
         Not a member?
         <a href="#" class="register-link">Sign up here</a>
       </p>
-    </div>
+    </section>
 
-    <div class="home off">
+    <section class="home off">
       <div class="home-header">
         <h1 class="home-title title">HOME</h1>
 
@@ -136,25 +136,32 @@
         <button class="button new-post-button">NEW POST</button>
       </div>
 
-      <form class="posts form off">
-        <h2>CREATE A NEW POST</h2>
-        <input class="input" type="url" name="image" placeholder="Image url" />
-        <textarea
-          class="textarea"
-          name="text"
-          cols="30"
-          rows="10"
-          placeholder="Text"
-        ></textarea>
+      <div class="modal off">
+        <form class="posts form">
+          <h2>CREATE A NEW POST</h2>
+          <input
+            class="input"
+            type="url"
+            name="image"
+            placeholder="Image url"
+          />
+          <textarea
+            class="textarea"
+            name="text"
+            cols="30"
+            rows="10"
+            placeholder="Text"
+          ></textarea>
 
-        <p class="add-post-error error off"></p>
+          <p class="add-post-error error off"></p>
 
-        <button class="button" type="submit">CREATE</button>
-        <button class="button cancel" type="button">CANCEL</button>
-      </form>
+          <button class="button" type="submit">CREATE</button>
+          <button class="button cancel" type="button">CANCEL</button>
+        </form>
+      </div>
 
       <div class="posts-list"></div>
-    </div>
+    </section>
 
     <script type="module" src="src/main.js"></script>
   </body>
