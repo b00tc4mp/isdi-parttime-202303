@@ -1,6 +1,6 @@
-import users from './users/data.mjs';
+import users from './data/users/data.mjs';
 
-import { validateUserPassword, validatePasswordChange, validateNewPassword } from "./users/validators.mjs";
+import { validateUserPassword, validatePasswordChange, validateNewPassword } from "./data/users/validators.mjs";
 
 export const updateUserPassword = (id, oldPassword, repeatPassword, newPassword) => {
   validateNewPassword(newPassword, repeatPassword);

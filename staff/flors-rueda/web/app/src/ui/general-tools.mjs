@@ -93,3 +93,34 @@ export const controlUsernameInput = (input) => {
   }
   input.value = username
 }
+
+//TODO: add validators to print post, plus try catch -> validate user is logged, 
+
+export const openModal = (modal, previousPost) => {
+  const blur = document.querySelector('.blur');
+  setOn(modal, blur);
+
+  const selectedNewPostImg = document.querySelector('.new-post-image');
+  const newPostTextInput = document.querySelector('.new-post-form').querySelector('input[name="post-text"]');
+  const sendPost = document.querySelector('.new-post-form')
+
+  if(previousPost) {
+    selectedNewPostImg.src = previousPost.image;
+    newPostTextInput.value = previousPost.text;
+    sendPost.addEventListener('submit', (event) => {
+      event.preventDefault(); 
+      updatePost(previousPost, newPostTextInput.value, selectedNewPostImg.src)
+      post(newPostImg, newPostText, context.userAuth, postModal)
+      clearForms();
+      temporalNewPostImg.value = '';
+      selectedNewPostImg.src = 'https://www.slotcharter.net/wp-content/uploads/2020/02/no-avatar.png';
+      setOn(setNewPostImg)
+    })
+  }
+
+};
+
+export const closeModal  = (modal) => {
+  const blur = document.querySelector('.blur');
+  setOff(modal, blur);
+};

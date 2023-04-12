@@ -1,12 +1,14 @@
-.nav-header{
+/*Navbar*/
+
+.nav-header {
     height: 3.125rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding-top: 0.1rem;
-  }
+}
 
-  .navbar{
+.navbar {
     position: fixed;
     top: 1.5rem;
     left: 5rem;
@@ -14,21 +16,17 @@
     z-index: 100;
     opacity: 0;
     transition: opacity 0.5s linear;
-  }
-  
-  .navbar.show{
+}
+
+.navbar.show {
     opacity: 1;
     transition: opacity 0.5s linear;
-  }
+}
 
-  .home-page {
-    height: 100%;
-  }
-  
-  .nav-menu{
+.nav-menu {
     position: fixed;
     padding-top: 0.3rem;
-    border: 0.1rem solid var(--color-secondary200);;
+    border: 0.1rem solid var(--color-secondary200);
     z-index: 200;
     border-radius: 1rem;
     width: 2.8rem;
@@ -39,14 +37,9 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
-  }
+}
 
-  .dark-mode .nav-menu {
-    background: var(--color-secondary-transparence);
-  }
-  
-  
-  .nav-menu span{
+.nav-menu span {
     width: 1.7rem;
     height: 0.25rem;
     margin-bottom: 0.3rem;
@@ -55,28 +48,28 @@
     transform-origin: 0.25rem 0rem;
     background-color: var(--color-primary200);
     transition: all .2s linear;
-  }
-  
-  .nav-menu.close {
+}
+
+.nav-menu.close {
     padding-top: 0;
     padding-left: 0.95rem;
-  }
-  
-  .nav-menu.close span {
+}
+
+.nav-menu.close span {
     opacity: 1;
     width: 2.07rem;
     transform: rotate(45deg) translate(0px, 0px);
-  }
-  
-  .nav-menu.close span:nth-child(2){
-    transform: rotate(-45deg) translate(-0.5rem, 0.25rem);
-  }
-  
-  .nav-menu.close span:nth-child(3){
-    display: none;
-  }
+}
 
-  .navbar button{
+.nav-menu.close span:nth-child(2) {
+    transform: rotate(-45deg) translate(-0.5rem, 0.25rem);
+}
+
+.nav-menu.close span:nth-child(3) {
+    display: none;
+}
+
+.navbar button {
     background: var(--color-secondary-transparence);
     border-color: var(--color-secondary200);
 }
@@ -85,10 +78,12 @@
     fill: var(--color-primary200);
 }
 
+/*Page*/
 
 .home-page {
     padding-top: 3rem;
     display: grid;
+    height: 100%;
     grid-template-columns: 100%;
     grid-template-rows: 40% 60%;
 }
@@ -97,13 +92,42 @@ p {
     margin-block-start: 0;
 }
 
-.home-start {
+.home-main {
     display: flex;
     flex-direction: column;
     gap: 0.05em
 }
 
-.user-profile { grid-area: 1 / 1 / 2 / 2; }
+.change-password,
+.edit-profile,
+.delete-account,
+.edit-mail {
+    grid-area: 2 / 1 / 3 / 2;
+    padding-bottom: 5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.delete-account p {
+    margin-block-end: 0;
+    padding-top: 1em;
+}
+
+.profile-buttons {
+    padding: 5rem 1rem 0;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    grid-area: 2 / 1 / 3 / 2;
+}
+
+/*Profile Card*/
+
+.user-profile {
+    grid-area: 1 / 1 / 2 / 2;
+}
 
 .profile-card {
     height: 10rem;
@@ -132,7 +156,7 @@ p {
     color: var(--color-dark100);
 }
 
-.profile-card p {
+.profile-card p, time {
     font-weight: 600;
 }
 
@@ -155,27 +179,7 @@ p {
     box-shadow: var(--color-secondary200) -0.5rem 0 3rem;
 }
 
-.profile-buttons {
-    padding: 5rem 1rem 0;
-    display: flex;
-    justify-content: space-around;
-    flex-direction: row;
-    gap: 0.5rem;
-    flex-wrap: wrap;
-    grid-area: 2 / 1 / 3 / 2; 
-}
-
-.change-password, .edit-profile, .delete-account, .edit-mail {
-    grid-area: 2 / 1 / 3 / 2; 
-    padding-bottom: 5rem;
-    display: flex;
-    flex-direction: column;
-}
-
-.delete-account p {
-    margin-block-end: 0;
-    padding-top: 1em;
-}
+/*Posts*/
 
 .post-modal {
     display: flex;
@@ -222,7 +226,7 @@ p {
     flex-direction: column;
     gap: 1em
 }
-  
+
 .post {
     width: 100%;
     border: 1px solid red;
@@ -301,19 +305,21 @@ p {
 .to-edit-post {
     height: 1.5rem;
     width: 1.5rem;
-    fill:var(--color-primary300);
+    fill: var(--color-primary300);
     cursor: pointer;
 }
 
+/* Responsiveness */
+
 @media (min-width: 768px) {
-    .home-page  {
+    .home-page {
         display: grid;
         grid-template-columns: 45% 55%;
         grid-template-rows: 100%;
-        grid-area: 2 / 1 / 3 / 2; 
+        grid-area: 2 / 1 / 3 / 2;
     }
 
-    .home-start{ 
+    .home-main {
         grid-area: 1 / 1 / 2 / 3;
     }
 
@@ -321,7 +327,11 @@ p {
         grid-area: 1 / 1 / 2 / 2;
     }
 
-    .profile-buttons, .change-password, .edit-profile, .delete-account, .edit-mail {
+    .profile-buttons,
+    .change-password,
+    .edit-profile,
+    .delete-account,
+    .edit-mail {
         padding-top: 5rem;
         padding-left: 2rem;
         grid-area: 1 / 2 / 2 / 3;
@@ -337,7 +347,7 @@ p {
     .profile-card {
         height: 20rem;
     }
-    
+
     .profile-card-data {
         height: 10rem;
         margin: 8rem 3rem 0rem 5rem;
@@ -386,9 +396,13 @@ p {
         display: none;
     }
 
+    .to-edit-post:hover, .to-edit-post:active {
+        fill: var(--color-secondary300);
+    }
+
 }
 
-@media (min-width: 1000px) { 
+@media (min-width: 1000px) {
     .posts-display {
         display: flex;
         flex-direction: row;

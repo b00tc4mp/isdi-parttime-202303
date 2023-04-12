@@ -1,3 +1,5 @@
+/*TODO put alerts into modal and focus correspondig input*/
+
 .alert, .static-alert {
     align-self: center;
     width: 85%;
@@ -10,7 +12,7 @@
     box-shadow: var(--color-light300) 0 0.25rem 1.15rem;
 }
 
-.dark-mode .alert {
+.dark-mode .alert,.dark-mode .static-alert {
     box-shadow: var(--color-dark300) 0 0.25rem 1.15rem;
 }
 

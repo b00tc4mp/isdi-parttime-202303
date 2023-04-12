@@ -1,6 +1,6 @@
-import users from './users/data.mjs'
+import users from './data/users/data.mjs'
 
-import { validateName, validateUserPassword, validateMail, validateNewUsername } from './users/validators.mjs';
+import { validateName, validateUserPassword, validateMail, validateNewUsername } from './data/users/validators.mjs';
 
 export const updateName = (id, newName, password) => {
   validateName(newName)

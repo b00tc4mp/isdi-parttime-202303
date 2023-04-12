@@ -1,7 +1,7 @@
 const users = [];
 
 users.push({
-    id: 'A-000',
+    id: 'fabefe75-f2c6-44e0-0c6f-6049623491c4',
     username: '@garrus',
     name: 'Garrus Vakarian',
     mail: 'garrus@csec.net', 
@@ -11,7 +11,7 @@ users.push({
 });
 
 users.push({
-    id: 'A-001',
+    id: '79a8a6ef-305e-4a07-0422-523c3d632d52',
     username: '@liara',
     name: 'Liara Tsoni',
     mail: 'liara@uoe.net',
@@ -21,7 +21,7 @@ users.push({
 });
 
 users.push({ 
-    id: 'A-002',
+    id: '1e53f274-0d45-467d-1986d-4c3d7a1c5827',
     username: '@grunt',
     name: 'Grunt',
     mail: 'grunt@krogan.net',

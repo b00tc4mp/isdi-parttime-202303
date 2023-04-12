@@ -21,18 +21,18 @@ export const displayLoginError = (message) => {
 export const displayRegisterError = (message) => {
   if (message === 'mail is already registered') {
     setSimpleAlert('area-register-mail', 'alert-danger', message);
-    document.querySelector('.register-form').querySelector('input[name="mail"]').value = '';
+    document.querySelector('.register_form').querySelector('input[name="mail"]').value = '';
     return;
   };
   if (message === 'username not available') {
     setSimpleAlert('area-register-username', 'alert-danger', message);
-    document.querySelector('.register-form').querySelector('input[name="username"]').value = '';
+    document.querySelector('.register_form').querySelector('input[name="username"]').value = '';
     return;
   };
   if (message === 'password is not safe' || message === 'password and confirmation password are different') {
     setSimpleAlert('area-register-password', 'alert-danger', message);
-    document.querySelector('.register-form').querySelector('input[name="password"]').value = '';
-    document.querySelector('.register-form').querySelector('input[name="repeat-password"]').value = '';
+    document.querySelector('.register_form').querySelector('input[name="password"]').value = '';
+    document.querySelector('.register_form').querySelector('input[name="repeat-password"]').value = '';
     return;
   };
   setAlert('area-register', 'alert-danger', 'sorry, something went wrong!');

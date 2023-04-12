@@ -30,6 +30,30 @@ button:active {
     transform: translateY(0);
 }
 
+.logout, .to-user-profile, .to-home, .to-new-post {
+    padding-top: 0.35rem;
+    padding-right: 1.9rem;
+    border-radius: 50%;
+    width: 2.25rem;
+    height: 2.25rem;
+}
+
+button svg {
+    fill: var(--color-primary300);
+}
+
+.profile-buttons button {
+    width: 45%;
+}
+
+.cancel-post {
+    position: absolute;
+    top: 0.5em;
+    right: 0.5em;
+}
+
+/*Light mode toggle*/
+
 .mode-toggle{
     position: fixed;
     bottom: 1em;
@@ -68,34 +92,13 @@ button:active {
     cursor: pointer;
 }
 
-
 .mode-checkbox:checked + .mode-label .mode-switch{
     transform: translateX(0.90rem);
     box-shadow: var(--color-secondary200) 0.15rem 0.15rem 0.35rem;
 }
 
 
-.logout, .to-user-profile, .to-home, .to-new-post {
-    padding-top: 0.35rem;
-    padding-right: 1.9rem;
-    border-radius: 50%;
-    width: 2.25rem;
-    height: 2.25rem;
-}
-
-button svg {
-    fill: var(--color-primary300);
-}
-
-.profile-buttons button {
-    width: 45%;
-}
-
-.cancel-post {
-    position: absolute;
-    top: 0.5em;
-    right: 0.5em;
-}
+/*Responsiveness*/
 
 @media (min-width: 768px) {
     button:hover {

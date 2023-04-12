@@ -1,9 +1,10 @@
 import { context, controlUsernameInput, } from '../ui/general-tools.mjs';
 import { changeView, login, } from '../ui/login-register.mjs';
-import { displayWelcome, renderPosts, } from '../ui/home.mjs'
+import { displayWelcome, } from '../ui/home.mjs'
 import { displayLoginError, } from '../ui/errors.mjs';
 import { registerPage } from './register-page.mjs';
-import { homePage, startHome } from "./home-page.mjs";
+import { homePage, mainHome } from "./home-page.mjs";
+import { renderPosts } from '../ui/posts.mjs';
 
 export const loginPage = document.querySelector('.login');
 const loginForm = document.querySelector('.login-form');
@@ -26,7 +27,7 @@ loginForm.addEventListener('submit', (event) => {
   const username = document.querySelector('.login-form').querySelector('input[name="username"]').value;
   const password = document.querySelector('.login-form').querySelector('input[name="password"]').value;
   try {
-    context.userAuth = login(context.userAuth, loginPage, homePage, startHome, username, password);
+    context.userAuth = login(context.userAuth, loginPage, homePage, mainHome, username, password);
     displayWelcome(context.userAuth);
     renderPosts(context.userAuth);
   } catch (error) {

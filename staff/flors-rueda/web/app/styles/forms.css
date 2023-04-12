@@ -42,7 +42,7 @@ input {
     color: var(--color-dark100);
 }
 
-.dark-mode .login-form, .dark-mode .register-form  {
+.dark-mode .login-form, .dark-mode .register_form  {
     border: 0.01em solid var(--color-dark300);
     box-shadow: var(--color-dark300) 0 0.5rem 1rem;
 }

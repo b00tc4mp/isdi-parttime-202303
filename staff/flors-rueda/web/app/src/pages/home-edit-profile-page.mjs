@@ -2,12 +2,13 @@ import { context, controlUsernameInput,  } from '../ui/general-tools.mjs';
 import { setOff, setOn, toggleOff, resetAlerts, setPredeterminateAvatar, clearForms, getImgUrl } from '../ui/general-tools.mjs'
 import { setNewPassword, setNewUserInfo, displayProfile, setPlaceHolders, setNewMail, deleteUser, setAlertUserDeleted, cleanNewAvatarInput } from '../ui/home.mjs'
 import { displayEditUserError } from '../ui/errors.mjs';
-import { startHome, homePage, profileForms } from './home-page.mjs';
+import { mainHome, homePage, profileForms } from './home-page.mjs';
 import { logout, } from '../ui/login-register.mjs';
 import { loginPage } from './login-page.mjs';
 
 export const profile = document.querySelector('.user-profile');
 export const profileButtons = document.querySelector('.profile-buttons');
+export let newAvatar;
 
 const toEditProfile = document.querySelector('.to-edit-profile');
 const editProfile = document.querySelector('.edit-profile');
@@ -29,51 +30,6 @@ const toDeleteAccount = document.querySelector('.to-delete-account');
 const deleteAccount = document.querySelector('.delete-account');
 const deleteForm = document.querySelector('.delete-form');
 
-export let newAvatar;
-
-toEditProfile.addEventListener('click', (event) => {
-  event.preventDefault();
-  clearForms();
-  resetAlerts();
-  setPlaceHolders(context.userAuth);
-  setOn(editProfile, setAvatar, profileForms);
-  setOff(startHome, profileButtons, changePassword, editMail, deleteAccount);
-});
-
-editUsername.addEventListener('input', (event) => {
-  controlUsernameInput(editUsername);
-});
-
-temporalAvatar.addEventListener('change', (event) => {
-  try {
-    const avatar = document.querySelector('.avatar');
-    toggleOff(deleteAvatar, setAvatar);
-    newAvatar = getImgUrl(event);
-    avatar.src = newAvatar;
-  } catch (error) {}
-});
-
-deleteAvatar.addEventListener('click', (event) => {
-  event.preventDefault();
-  newAvatar = undefined;
-  temporalAvatar.value = '';
-  setPredeterminateAvatar(context.userAuth);
-  toggleOff(deleteAvatar, setAvatar);
-  displayProfile(context.userAuth);
-});
-  
-editForm.addEventListener('submit', (event) => {
-  event.preventDefault();
-  try {
-    setNewUserInfo(context.userAuth, profileButtons, newAvatar);
-    displayProfile(context.userAuth);
-    setOff(deleteAvatar, setAvatar, editProfile, profileForms);
-    cleanNewAvatarInput(newAvatar)
-  } catch (error) {
-    displayEditUserError(error.message);
-  }
-});
-
 toChangePassword.addEventListener('click', (event) => {
   event.preventDefault();
   clearForms();
@@ -89,7 +45,6 @@ passwordForm.addEventListener('submit', (event) => {
     displayProfile(context.userAuth);
   } catch (error) { }
 });
-
 
 toEditMail.addEventListener('click', (event) => {
   event.preventDefault();
@@ -128,3 +83,50 @@ deleteForm.addEventListener('submit', (event) => {
     console.log(error)
   }
 });
+
+toEditProfile.addEventListener('click', (event) => {
+  event.preventDefault();
+  clearForms();
+  resetAlerts();
+  setPlaceHolders(context.userAuth);
+  setOn(editProfile, setAvatar, profileForms);
+  setOff(mainHome, profileButtons, changePassword, editMail, deleteAccount);
+});
+
+editUsername.addEventListener('input', (event) => {
+  controlUsernameInput(editUsername);
+});
+
+editForm.addEventListener('submit', (event) => {
+  event.preventDefault();
+  try {
+    setNewUserInfo(context.userAuth, profileButtons, newAvatar);
+    displayProfile(context.userAuth);
+    setOff(deleteAvatar, setAvatar, editProfile, profileForms);
+    cleanNewAvatarInput(newAvatar)
+  } catch (error) {
+    displayEditUserError(error.message);
+  }
+});
+
+
+// Edit avatar
+
+temporalAvatar.addEventListener('change', (event) => {
+  try {
+    const avatar = document.querySelector('.avatar');
+    toggleOff(deleteAvatar, setAvatar);
+    newAvatar = getImgUrl(event);
+    avatar.src = newAvatar;
+  } catch (error) {}
+});
+
+deleteAvatar.addEventListener('click', (event) => {
+  event.preventDefault();
+  newAvatar = undefined;
+  temporalAvatar.value = '';
+  setPredeterminateAvatar(context.userAuth);
+  toggleOff(deleteAvatar, setAvatar);
+  displayProfile(context.userAuth);
+});
+  
