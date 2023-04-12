@@ -39,6 +39,10 @@
     cursor: pointer;
 }
 
+.dark-mode .nav-menu {
+    background: var(--color-secondary-transparence);
+}
+
 .nav-menu span {
     width: 1.7rem;
     height: 0.25rem;

@@ -20,11 +20,11 @@ const registerUser = (username) => {
 
 export const register = (register, login) => {
   resetAlerts();
-  const user = document.querySelector('.register_form').querySelector('input[name="username"]').value;
+  const user = document.querySelector('.register-form').querySelector('input[name="username"]').value;
   const username = '@' + user.toLowerCase();
-  const mail = document.querySelector('.register_form').querySelector('input[name="mail"]').value;
-  const password = document.querySelector('.register_form').querySelector('input[name="password"]').value;
-  const repeatPassword = document.querySelector('.register_form').querySelector('input[name="repeat-password"]').value;
+  const mail = document.querySelector('.register-form').querySelector('input[name="mail"]').value;
+  const password = document.querySelector('.register-form').querySelector('input[name="password"]').value;
+  const repeatPassword = document.querySelector('.register-form').querySelector('input[name="repeat-password"]').value;
   addNewUser(mail, username, password, repeatPassword);
   toggleOff(register, login);
   registerUser(user);
