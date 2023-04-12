@@ -4,18 +4,17 @@ import { findUserById } from './helpers/data-managers.js'
 export default function retrieveUser(userId) {
     validateId(userId, 'user id')
 
-    let user = findUserById(userId)
+    const foundUser = findUserById(userId)
 
-    if (!user)
+    if (!foundUser)
         throw new Error('user not found')
 
-    user = {
-        name: user.name,
-        avatar: user.avatar
+    const user = {
+        name: foundUser.name
     }
 
-    if (user.avatar)
-        user.avatar = user.avatar
+    if (foundUser.avatar)
+        user.avatar = foundUser.avatar
 
     return user
 }

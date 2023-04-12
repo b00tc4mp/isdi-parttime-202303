@@ -5,13 +5,13 @@ export default function authenticateUser(email, password) {
     validateEmail(email)
     validatePassword(password)
 
-    const user = findUserByEmail(email)
+    const foundUser = findUserByEmail(email)
 
-    if (!user)
+    if (!foundUser)
         throw new Error('user not found')
 
-    if (user.password !== password)
+    if (foundUser.password !== password)
         throw new Error('wrong password')
 
-    return user.id
+    return foundUser.id
 }

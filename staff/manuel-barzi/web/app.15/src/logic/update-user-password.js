@@ -1,6 +1,5 @@
 import { validatePassword, validateId } from './helpers/validators.js'
 import { findUserById } from './helpers/data-managers.js'
-import { saveUsers } from '../data.js'
 
 export default function updateUserPassword(userId, password, newPassword, newPasswordConfirm) {
     validateId(userId, 'user id')
@@ -8,12 +7,12 @@ export default function updateUserPassword(userId, password, newPassword, newPas
     validatePassword(newPassword, 'new password')
     validatePassword(newPasswordConfirm, 'new password confirm')
 
-    const user = findUserById(userId)
+    const foundUser = findUserById(userId)
 
-    if (!user)
+    if (!foundUser)
         throw new Error('user not found')
 
-    if (password !== user.password)
+    if (password !== foundUser.password)
         throw new Error('wrong password')
 
     if (newPassword !== newPasswordConfirm)
@@ -22,7 +21,5 @@ export default function updateUserPassword(userId, password, newPassword, newPas
     if (newPassword === password)
         throw new Error('new password equals old password')
 
-    user.password = newPassword
-
-    saveUsers()
+    foundUser.password = newPassword
 }

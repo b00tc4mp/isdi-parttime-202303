@@ -6,13 +6,12 @@ import updateUserPassword from '../logic/update-user-password.js'
 import createPost from '../logic/create-post.js'
 import { loginPage } from './login-page.js'
 import retrievePosts from '../logic/retrieve-posts.js'
-import retrieveUser from '../logic/retrieve-user.js'
 
-const DEFAULT_AVATAR_URL = 'https://img.icons8.com/color/512/avatar.png'
+export const DEFAULT_AVATAR_URL = 'https://img.icons8.com/color/512/avatar.png'
 
 export const homePage = document.querySelector('.home')
-const avatarImage = homePage.querySelector('.home-header-avatar')
-const profileLink = homePage.querySelector('a')
+export const avatarImage = homePage.querySelector('.home-header-avatar')
+export const profileLink = homePage.querySelector('a')
 
 const profilePanel = homePage.querySelector('.profile')
 const updateUserAvatarForm = profilePanel.querySelector('.profile-avatar-form')
@@ -31,7 +30,7 @@ profileLink.onclick = function (event) {
 }
 
 homePage.querySelector('.home-header-logout').onclick = function () {
-    delete context.userId
+    context.userId = null
     avatarImage.src = DEFAULT_AVATAR_URL
 
     hide(homePage, profilePanel)
@@ -60,7 +59,7 @@ updateUserPasswordForm.onsubmit = function (event) {
     event.preventDefault()
 
     const password = event.target.password.value
-    const newPassword = event.target.newPassword.value
+    const newPassword =  event.target.newPassword.value
     const newPasswordConfirm = event.target.newPasswordConfirm.value
 
     try {
@@ -81,14 +80,14 @@ addPostForm.onsubmit = event => {
 
     const image = event.target.image.value
     const text = event.target.text.value
-
+    
     try {
         createPost(context.userId, image, text)
 
         hide(addPostPanel)
 
         renderPosts()
-    } catch (error) {
+    } catch(error) {
         alert(error.message)
     }
 }
@@ -105,7 +104,30 @@ addPostForm.querySelector('.cancel').onclick = event => {
 export function renderPosts() {
     try {
         const posts = retrievePosts(context.userId)
+        
+        // NOTE the imperative way
+        /*
+        postListPanel.innerHTML = ''
 
+        posts.forEach(post => {
+            const postItem = document.createElement('article')
+
+            const image = document.createElement('img')
+            image.src = post.image
+
+            const text = document.createElement('p')
+            text.innerText = post.text
+
+            const date = document.createElement('time')
+            date.innerText = post.date.toLocaleString()
+
+            postItem.append(image, text, date)
+
+            postListPanel.appendChild(postItem)
+        })
+        */
+
+        // NOTE declarative way
         postListPanel.innerHTML = posts.reduce((accum, post) => {
             return accum + `<article>
                 <img src="${post.image}">
@@ -114,26 +136,7 @@ export function renderPosts() {
             </article>`
         }, '')
 
-        return true
-    } catch (error) {
+    } catch(error) {
         alert(error.message)
-
-        return false
-    }
-}
-
-export function renderUser() {
-    try {
-        const user = retrieveUser(context.userId)
-
-        profileLink.innerText = user.name
-
-        avatarImage.src = user.avatar ? user.avatar : DEFAULT_AVATAR_URL
-
-        return true
-    } catch (error) {
-        alert(error.message)
-
-        return false
     }
 }
