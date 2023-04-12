@@ -1,5 +1,5 @@
 import { homePage } from "../pages/home-page.js";
-import { posts } from '../data.js'
+import { posts, users } from '../data.js'
 import { cutText} from './max-characters.js'
 import { getCurrentUser } from "./helpers/data-managers.js";
 
@@ -15,11 +15,12 @@ export function renderPosts(userID, userPosts) {
     
         let recentPostsFirst = posts.reverse()
     
-
-
-            const postsList = existentArticleElement
-
-                postsList.innerHTML = posts.reduce((accumulator, post) => {
+        
+        const postsList = existentArticleElement
+        
+        postsList.innerHTML = posts.reduce((accumulator, post) => {
+            
+            const author = users.find(user => user.id === post.author).name 
 
                     return accumulator + `<article>
                         <img src="${post.image}" >
@@ -27,7 +28,7 @@ export function renderPosts(userID, userPosts) {
                         <p class="excerpt">${cutText(post.text, 35)}</p>
                         <div class="date-author">
                             <div class="post-author">
-                                ${post.author}
+                                ${author}
                             </div>
                             <div class="post-date">
                                 ${post.date.getDate()}/${post.date.getMonth() + 1}/${post.date.getFullYear()}

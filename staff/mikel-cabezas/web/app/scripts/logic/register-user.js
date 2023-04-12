@@ -1,5 +1,5 @@
 import { validateEmail, validatePassword } from "./helpers/validators.js"
-import { users } from "../data.js"
+import { users, saveUsers } from "../data.js"
 export function registerUser(name, email, password) {
     validateEmail(email)
     validatePassword(password)
@@ -9,12 +9,13 @@ export function registerUser(name, email, password) {
     }
     if(checkEmail !== email) {
         name = name.trim()
-        users.push({
+        const user = {
             id: 'user-' + parseInt(users.length + 1),
             name: name,
             email: email,
             password: password
-        })
-        return true
+        }
+        users.push(user)
+        saveUsers()
     }
 }

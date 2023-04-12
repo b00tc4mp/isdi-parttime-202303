@@ -4,6 +4,18 @@
 // import {registerUser, getCurrentUser, pushUserDataInForm, updateUserName, updateUserEmail, updateUserPassword, updateUserImage, logOut} from './logic.mjs'
 // import {deleteClassOnContainer, addClassOnContainer, changeMessageOnContainer, clearMessageContainer, toggleOffClassInSection, showHidePassword} from './ui.mjs'
 import {loginPage } from './pages/login-page.js'
+import { homePage, renderUser } from './pages/home-page.js'
+import { context, deleteClassOnContainer, addClassOnContainer } from './ui.js'
+
+if( !renderUser() ) {
+    deleteClassOnContainer(loginPage, ('off'))
+    addClassOnContainer(homePage, 'off')
+} else {
+    deleteClassOnContainer(homePage, ('off'))
+    addClassOnContainer(loginPage, 'off')
+    renderUser()
+}
+
 // export let currentUserID 
 
 

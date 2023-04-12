@@ -41,6 +41,7 @@ export function showHidePassword (container, passwordContainer) {
     }
 }
 
-export const context = {
-    userId: null
-}
+// export const context = {
+//     userId: null
+// }
+export const context = sessionStorage

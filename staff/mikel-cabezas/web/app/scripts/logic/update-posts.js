@@ -3,7 +3,7 @@ import { posts, users } from '../data.js'
 import { cutText} from './max-characters.js'
 import { validateId } from "./helpers/validators.js";
 import { context } from '../ui.js'
-import { renderPosts } from "./render-posts.js";
+import { renderPosts, renderLastPost } from "./render-posts.js";
 
 
 export function updatePosts(userId) {
@@ -19,7 +19,8 @@ export function updatePosts(userId) {
     if (!loggedIn) {
         throw new Error('Not logged In')
     }
-    renderPosts(userId, true, true)
+    renderPosts(userId)
+    // renderLastPost(userId)
 }
 
 // TODO steps

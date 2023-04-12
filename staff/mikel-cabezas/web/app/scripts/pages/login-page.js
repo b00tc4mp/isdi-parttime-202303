@@ -1,6 +1,6 @@
 import { authenticateUser } from '../logic/authenticate-users.js'
 import { context, toggleOffClassInSection, bodyPage, clearMessageContainer, showHidePassword } from '../ui.js'
-import { homePage } from './home-page.js'
+import { homePage, renderUser } from './home-page.js'
 import { menuHeader } from './header.js'
 import { userAccount } from './user-account.js'
 import { pushUserDataInForm } from '../logic/push-user-data-in-form.js'
@@ -17,6 +17,7 @@ loginPage.querySelector('form.login-form').onsubmit = function(event) {
     const email = loginPage.querySelector('input[name="email"').value.trim()
     const password = loginPage.querySelector('input[name="password"').value
     try {
+        renderUser()
         const userId = authenticateUser(email, password)
         const currentUser = getUserName(userId)
         const separateUserName = getUserName(userId).split(' ')
