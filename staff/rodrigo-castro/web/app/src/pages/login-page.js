@@ -21,14 +21,14 @@ loginPage.querySelector('form').addEventListener('submit', (event) => {
 
         const user = retrieveUser(context.userId)
 
-        homePage.querySelector('a[name=my-profile]').textContent =`${user.name}`
+        homePage.querySelector('.menu-text').textContent =`${user.name}`
         
         if(user.avatar)
         avatarImg.src = user.avatar
         
         resetPage(loginPage)
         
-        renderPosts()
+        // renderPosts()
 
         showElement(homePage)
         
