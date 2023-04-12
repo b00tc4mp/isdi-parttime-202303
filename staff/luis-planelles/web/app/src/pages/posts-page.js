@@ -1,6 +1,7 @@
 import createPost from '../logic/create-posts.js';
 import retrievePosts from '../logic/retrieve-posts.js';
 import { context } from '../ui.js';
+import { show, hide } from '../ui.js';
 
 const homePage = document.querySelector('.home');
 
