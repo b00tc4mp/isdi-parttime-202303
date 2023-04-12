@@ -81,7 +81,7 @@
 /*Page*/
 
 .home-page {
-    padding-top: 3rem;
+    padding-top: 1rem;
     display: grid;
     height: 100%;
     grid-template-columns: 100%;
