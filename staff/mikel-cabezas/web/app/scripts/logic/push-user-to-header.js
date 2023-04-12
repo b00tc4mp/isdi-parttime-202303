@@ -1,7 +1,7 @@
-import { menuHeader } from "../pages/header";
-import { getUserName } from "./helpers/data-managers";
-import { userAccount } from "../pages/user-account";
-import { context } from "../ui";
+import { menuHeader } from "../pages/header.js";
+import { getUserName } from "./helpers/data-managers.js";
+import { userAccount } from "../pages/user-account.js";
+import { context } from "../ui.js";
 
 export function pushUserDataToHeader(userId) {
 
