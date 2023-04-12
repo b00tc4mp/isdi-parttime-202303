@@ -1,5 +1,5 @@
-import { posts, users } from "../data.mjs"
-import { validateId } from "./helpers/validators.mjs"
+import { posts, users } from "../data.js"
+import { validateId } from "./helpers/validators.js"
 
 
 //traverse post

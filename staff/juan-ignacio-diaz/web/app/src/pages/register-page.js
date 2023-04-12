@@ -1,6 +1,6 @@
-import registerUser from '../logic/register-user.mjs'
-import {show, hide} from '../ui.mjs'
-import {loginPage} from './login-page.mjs'
+import registerUser from '../logic/register-user.js'
+import {show, hide} from '../ui.js'
+import {loginPage} from './login-page.js'
 
 export const registerPage = document.querySelector(".register")
 const registerForm = registerPage.querySelector('form')

@@ -1,10 +1,10 @@
-import {context, show, hide, toggle} from "../ui.mjs"
-import updateUserAvatar from '../logic/update-user-avatar.mjs'
-import updateUserPassword from '../logic/update-user-password.mjs'
-import {loginPage} from './login-page.mjs'
+import {context, show, hide, toggle} from "../ui.js"
+import updateUserAvatar from '../logic/update-user-avatar.js'
+import updateUserPassword from '../logic/update-user-password.js'
+import {loginPage} from './login-page.js'
 
-import createPost from '../logic/create-post.mjs'
-import retrievePosts from '../logic/retrieve-posts.mjs'
+import createPost from '../logic/create-post.js'
+import retrievePosts from '../logic/retrieve-posts.js'
 
 export const homePage = document.querySelector(".home")
 export const avatarImage = homePage.querySelector('.home-header-avatar')
