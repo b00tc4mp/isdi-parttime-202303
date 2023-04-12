@@ -10,7 +10,6 @@ import spaceDogImage from "../../images/space-dog.svg"
 import galaxyImage from "../../images/galaxy.svg"
 import meteoriteImage from "../../images/meteorite.svg"
 
-//export const DEFAULT_AVATAR_URL = './images/space-dog.svg'
 export const DEFAULT_AVATAR_URL = spaceDogImage
 
 export const homePage = document.querySelector('.home')
@@ -228,4 +227,20 @@ homePage.querySelector('.avatar__anchor--profile').onclick = function(event) {
     event.preventDefault()
     showHideContainer(homePageAvatar, homePageProfile)
     homePageAvatar.querySelector('.avatar__form').reset()
+}
+
+export function renderUser() {
+    try {
+        const user = getLoggedUser(context.userID)
+
+        homePage.querySelector('.home__anchor--profile').innerText = user.name
+
+        avatarImage.src = user.avatar? user.avatar : DEFAULT_AVATAR_URL
+
+        return true
+    }catch (error) {
+        alert(error.message)
+
+        return false
+    }
 }

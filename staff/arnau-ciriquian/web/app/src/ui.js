@@ -57,9 +57,7 @@ export function showHideContainer(...containers) {
     containers.forEach(container => container.classList.toggle('off'))
 }
 
-export const context = {
-    userID: null
-}
+export const context = sessionStorage
 
 export function closeProfilePages() {
     homePageAvatar.classList.add('off')
