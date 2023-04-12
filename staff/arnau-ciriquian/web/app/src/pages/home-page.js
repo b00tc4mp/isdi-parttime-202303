@@ -9,13 +9,14 @@ import alienImage from "../../images/alien.svg"
 import spaceDogImage from "../../images/space-dog.svg"
 import galaxyImage from "../../images/galaxy.svg"
 import meteoriteImage from "../../images/meteorite.svg"
+import { getLoggedUser } from "../logic/login-user.js"
 
 export const DEFAULT_AVATAR_URL = spaceDogImage
 
 export const homePage = document.querySelector('.home')
 export const avatarImage = homePage.querySelector('.avatar')
 const homePageAddPost = homePage.querySelector('.home__anchor--new-post')
-const homePagePost = homePage.querySelector('.home__post')
+export const homePagePost = homePage.querySelector('.home__post')
 export const homePageProfile = homePage.querySelector('.home__profile')
 export const homePagePassword = homePage.querySelector('.home__password')
 export const homePageUsername = homePage.querySelector('.home__username')
