@@ -30,7 +30,7 @@ posts.push({
     author: 'user-1',
     image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Smiley.svg/1200px-Smiley.svg.png',
     text: 'Smile!',
-    date: new Date(),
+    date: new Date(2022, 11, 20, 22, 0, 5),
 })
 
 posts.push({
@@ -38,7 +38,7 @@ posts.push({
     author: 'user-1',
     image: 'https://s1.abcstatics.com/media/play/2020/09/29/avatar-kE4H--1024x512@abc.jpeg',
     text: 'I ❤️ Avatars!',
-    date: new Date(),
+    date: new Date(2023, 2, 11, 13, 11, 0),
 })
 
 posts.push({
@@ -46,5 +46,5 @@ posts.push({
     author: 'user-2',
     image: 'https://s1.abcstatics.com/media/play/2020/09/29/avatar-kE4H--1024x512@abc.jpeg',
     text: 'I ❤️ Avatars too!',
-    date: new Date(),
+    date: new Date(2023, 3, 1, 12, 32, 44),
 })

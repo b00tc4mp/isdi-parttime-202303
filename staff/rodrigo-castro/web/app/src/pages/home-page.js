@@ -7,6 +7,7 @@ import { changePassword } from '../logic/update-user-password.js'
 import { loginPage } from './login-page.js'
 import createPost from '../logic/create-post.js'
 import { posts } from '../data.js'
+import retrievePosts from '../logic/retrieve-posts.js'
 
 export const homePage = document.querySelector('.home-page')
 const homeBar = document.querySelector('.home-bar')
@@ -15,6 +16,7 @@ const myProfileButton = homeBar.querySelector('.menu-buttons[name=my-profile]')
 const newPostButton = homeBar.querySelector('[name=new-post]')
 const newPostModal = homePage.querySelector('.add-post-modal')
 const cancelModal = newPostModal.querySelector('.cancel-post')
+const postListPanel = homePage.querySelector('.post-list')
 
 const profileOptions = homePage.querySelector('.profile-options')
 export const changeEmailMenu = homePage.querySelector('.change-email-menu')
@@ -36,20 +38,22 @@ cancelModal.onclick = () => {
 
 newPostModal.querySelector('form').onsubmit = (event) => {
     event.preventDefault()
+    const image = newPostModal.querySelector('[name=url]').value
+    const text = newPostModal.querySelector('[name=text]').value
+    
     try {
-        const image = newPostModal.querySelector('[name=url]').value
-        const text = newPostModal.querySelector('[name=text]').value
-        
         createPost(context.userId, image, text)
         newPostModal.querySelector('form').reset()
         hideElement(newPostModal)
+        alert('post created')
         console.log(posts)
     } catch(error){
             alert(error.message)
             console.log(error)
     }
-
 }
+
+
 
 myProfileButton.addEventListener('click', () => {
     toggleElement(profileOptions)
@@ -113,6 +117,25 @@ changeAvatarForm.onsubmit = function(event) {
             console.log(error)
         }
     }
+}
+
+export function renderPosts() {
+    try {
+        const posts = retrievePosts(context.userId)
+    
+        postListPanel.innerHTML = posts.reduce((accum, post) => {
+            return accum + `<article class='post-container'>
+                <img src='${post.image}'>
+                <p>${post.text}</p>
+                <time>${post.date.toLocaleString()}</time>
+            </article>`
+        }, '')
+    } catch(error){
+        alert(error.message)
+        console.log(error)
+    }
+    
+
 }
 
 homeBar.querySelector('[name=logout]').addEventListener('click', () => {

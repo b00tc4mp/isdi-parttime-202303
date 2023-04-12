@@ -208,6 +208,35 @@ body {
   cursor: pointer;
 }
 
+.post-list {
+  width: 100vw;
+  height: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 1rem;
+}
+
+.post-container {
+  display: flex;
+  box-sizing: border-box;
+  flex-direction: column;
+  width: 90%;
+  height: fit-content;
+  padding: 1rem;
+  gap: 0.5rem;
+  background-color: var(--bar-color);
+}
+
+.post-container > img {
+  max-width: 100%;
+  height: auto;
+}
+
+.post-container > p {
+  margin: 0;
+}
+
 .under-menu {
   flex-grow: 1;
   width: 100%;
