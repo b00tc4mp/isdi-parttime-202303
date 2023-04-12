@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>App</title>
-
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -41,14 +41,14 @@
             <h1 class="title">Home</h1>
 
             <nav class="home-header-nav">
-                <img class="home-header-avatar" src="https://img.icons8.com/color/512/avatar.png" alt="">
+                <img class="home-header-avatar" src="" alt="">
                 <a href="">Profile</a>
             </nav>
             
             <button class="home-header-logout">Logout</button>
         </header>
 
-        <div class="profile container off">
+        <section class="profile container off">
             <h2>Update avatar</h2>
 
             <form class="profile-avatar-form">
@@ -64,16 +64,27 @@
                 <input class="input" type="password" name="newPasswordConfirm" placeholder="new password confirmation">
                 <button class="button" type="submit">Update</button>
             </form>
-        </div>
+        </section>
 
-        <footer class="home-footer"></footer>
+        <section class="add-post container off">
+            <form class="container">
+                <input class="input" type="url" name="image" placeholder="image url">
+                <textarea class="input" name="text" cols="30" rows="10" placeholder="text"></textarea>
+                <button class="button" type="submit">Create</button>
+                <button class="button cancel" type="button">Cancel</button>
+            </form>
+        </section>
+
+        <section class="post-list">
+            <!-- TODO implement me! -->
+        </section>
+
+        <footer class="home-footer">
+            <button class="add-post-button">+</button>
+        </footer>
     </div>
 
-    <script src="scripts/validators.js"></script>
-    <script src="scripts/data.js"></script>
-    <script src="scripts/logic.js"></script>
-    <script src="scripts/ui.js"></script>
-    <script src="scripts/main.js"></script>
+    <script type="module" src="src/main.js"></script>
 </body>
 
 </html>
