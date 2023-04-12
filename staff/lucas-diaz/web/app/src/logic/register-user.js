@@ -1,5 +1,5 @@
-import {validateEmail, validateUsername, validatePassword } from "./helpers/validators.mjs"
-import { users } from "../data.mjs";
+import {validateEmail, validateUsername, validatePassword } from "./helpers/validators.js"
+import { users } from "../data.js";
 
 
 export default function registerUser (userName,email,password) {

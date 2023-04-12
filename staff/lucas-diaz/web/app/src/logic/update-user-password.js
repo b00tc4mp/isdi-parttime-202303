@@ -1,5 +1,5 @@
-import { validatePasswordsChanges, validateId } from "./helpers/validators.mjs";
-import { users } from "../data.mjs";
+import { validatePasswordsChanges, validateId } from "./helpers/validators.js";
+import { users } from "../data.js";
 
 
 export default function updateUserPassword(authenticatedUserId, password, newPassword, newPasswordConfirm) {

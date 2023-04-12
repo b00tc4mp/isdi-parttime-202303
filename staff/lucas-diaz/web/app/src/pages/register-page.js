@@ -1,8 +1,8 @@
-import  registerUser  from "../logic/register-user.mjs";
-import { vanishWarningIn3Seconds } from "../logic/helpers/data-managers.mjs";
+import  registerUser  from "../logic/register-user.js";
+import { vanishWarningIn3Seconds } from "../logic/helpers/data-managers.js";
 
-import { show, hide } from "../ui.mjs";
-import { logInPage } from "./login-page.mjs";
+import { show, hide } from "../ui.js";
+import { logInPage } from "./login-page.js";
 
 //*VARIABLES DE REGISTER
 export const registerPage = document.querySelector(".register");

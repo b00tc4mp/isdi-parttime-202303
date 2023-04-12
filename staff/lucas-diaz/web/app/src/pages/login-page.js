@@ -1,10 +1,10 @@
-import  authenticateUser  from "../logic/authenticate-user.mjs";
-import  addUserNameInHeader  from "../logic/add-username-in-header.mjs";
-import  setExistingAvatar  from "../logic/set-existing-avatar.mjs";
-import { context, show, hide } from "../ui.mjs";
-import { registerPage } from "./register-page.mjs";
-import { homePage, DEFAUTL_AVATAR_URL, avatarImage, renderPosts} from "./home-page.mjs";
-import { footerSite } from "./footer-page.mjs";
+import  authenticateUser  from "../logic/authenticate-user.js";
+import  addUserNameInHeader  from "../logic/add-username-in-header.js";
+import  setExistingAvatar  from "../logic/set-existing-avatar.js";
+import { context, show, hide } from "../ui.js";
+import { registerPage } from "./register-page.js";
+import { homePage, DEFAUTL_AVATAR_URL, avatarImage, renderPosts} from "./home-page.js";
+import { footerSite } from "./footer-page.js";
 
 //* VARIABLES DE LOGIN PAGE
 export const logInPage = document.querySelector(".login")
@@ -15,8 +15,8 @@ const failLogInAdvice = document.querySelector(".login .fail-warning")
 
 logInForm.addEventListener('submit', function (event) {
     event.preventDefault();
-    const email = event.target.email.value;
-    const password = event.target.password.value = "LucasDiaz22!";   //! OJO ELIMINAR ESTO
+    const email = event.target.email.value = "lucas@gmail.com"
+    const password = event.target.password.value = "LucasDiaz22!"
     
     try{
         context.userId = authenticateUser(email, password);

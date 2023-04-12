@@ -1,5 +1,5 @@
-import { validateId } from "./helpers/validators.mjs";
-import { users, posts } from "../data.mjs";
+import { validateId } from "./helpers/validators.js";
+import { users, posts } from "../data.js";
 
 
 export default function retrievePosts (userId) {

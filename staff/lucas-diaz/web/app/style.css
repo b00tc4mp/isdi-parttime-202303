@@ -359,6 +359,11 @@ label{
 .off{
     display: none !important;
 }
+.fade{
+    opacity: 15%;
+}
+
+
 @media (min-width: 650px){
     .register, .login{
         font-size: 1rem;

@@ -1,5 +1,5 @@
-import { validateId, validateUrl, validateText } from "../logic/helpers/validators.mjs";
-import { users, posts } from "../data.mjs";
+import { validateId, validateUrl, validateText } from "../logic/helpers/validators.js";
+import { users, posts } from "../data.js";
 
 export default  function createPost(userId, image, text){
     validateId(userId);

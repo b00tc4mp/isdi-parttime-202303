@@ -1,14 +1,14 @@
-import {  cleanChangePasswordForm, vanishWarningIn3Seconds, resetUserNameInHeader } from "../logic/helpers/data-managers.mjs";
+import {  cleanChangePasswordForm, vanishWarningIn3Seconds, resetUserNameInHeader } from "../logic/helpers/data-managers.js";
 
-import  updateUserPassword  from "../logic/update-user-password.mjs";
-import  updateUserAvatar  from "../logic/update-user-avatar.mjs";
+import  updateUserPassword  from "../logic/update-user-password.js";
+import  updateUserAvatar  from "../logic/update-user-avatar.js";
 
-import { context, show, hide, addClass, removeClass  } from "../ui.mjs";
-import { logInPage } from "./login-page.mjs";
-import { footerSite } from "./footer-page.mjs";
-import createPost from "../logic/create-post.mjs";
-import retrievePosts from "../logic/retrieve-posts.mjs";
-import { posts } from "../data.mjs";
+import { context, show, hide, addClass, removeClass  } from "../ui.js";
+import { logInPage } from "./login-page.js";
+import { footerSite } from "./footer-page.js";
+import createPost from "../logic/create-post.js";
+import retrievePosts from "../logic/retrieve-posts.js";
+import { posts } from "../data.js";
 
 //* VARIABLES DE HOME
 
@@ -31,13 +31,14 @@ const cancelUpdateAvatarButton = document.querySelector(".form-avatar-cancel-but
 
 
 //*VARIABLES DE POST 
-const postsListPanel = document.querySelector(".home-posts-content");
+export const postsListPanel = document.querySelector(".home-posts-content");
 export const postModal = document.querySelector(".home-add-post-modal");
 export const failPostMessage = document.querySelector(".home-add-post-modal form .fail-warning");
 
 //! PARTE DE HOME
 logOutButton.onclick = () => {
     hide(homePage,changePasswordMenu,updateAvatarMenu,footerSite,postModal);
+    postsListPanel.classList.remove("fade");
     show(postsListPanel);
     headerMenu.classList.remove("home-menu-transition");
     postModal.classList.remove("home-add-post-modal-transition");
@@ -50,9 +51,10 @@ logOutButton.onclick = () => {
 
 settingsButton.onclick = () => {
     headerMenu.classList.toggle("home-menu-transition");
-    hide(changePasswordMenu,updateAvatarMenu);
+    hide(changePasswordMenu,updateAvatarMenu,postModal);
     removeClass("green",avatarMenuAnchor,changePasswordMenuAnchor);
     postsListPanel.classList.toggle("off");
+    postsListPanel.classList.remove("fade");
 }
 
 //! PARTE DE CAMBIAR CONTRASEÑAS
@@ -133,6 +135,7 @@ postModal.querySelector(".form").onsubmit = (event) => {
         event.target.url.value = "";
         event.target.text.value = "";
         failPostMessage.textContent = "";
+        postsListPanel.classList.remove("fade");
         renderPosts();
 
 
@@ -144,7 +147,7 @@ postModal.querySelector(".form").onsubmit = (event) => {
 postModal.querySelector(".form-post-cancel-button").onclick = (event) => {
     event.preventDefault();
     hide(postModal);
-    
+    postsListPanel.classList.remove("fade");
 }
 
 export function renderPosts () {

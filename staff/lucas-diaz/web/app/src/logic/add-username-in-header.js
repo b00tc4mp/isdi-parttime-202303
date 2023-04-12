@@ -1,4 +1,4 @@
-import { users } from "../data.mjs";
+import { users } from "../data.js";
 
 export default function addUserNameInHeader (authenticatedUserId, welcomeMessage) {
     const currentUser = users.find( user => user.id === authenticatedUserId);

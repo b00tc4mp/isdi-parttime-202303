@@ -1,5 +1,5 @@
-import {validateId, validateUrl } from "./helpers/validators.mjs"
-import { users } from "../data.mjs";
+import {validateId, validateUrl } from "./helpers/validators.js"
+import { users } from "../data.js";
 
 
 export default function updateUserAvatar(authenticatedUserId, url)  { 
