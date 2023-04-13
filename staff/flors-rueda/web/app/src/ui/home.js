@@ -14,7 +14,7 @@ export const displayProfile = (userAuth) => {
   const user = retrieveUser(userAuth);
   document.querySelector('.name').innerText = user.name;
   document.querySelector('.username').innerText = user.username;
-  document.querySelector('.since').innerText = (user.joined).toLocaleDateString('en-GB');
+  document.querySelector('.since').innerText = new Date(user.joined).toLocaleDateString('en-GB');
   user.avatar ? setPredeterminateAvatar(userAuth) : setPredeterminateAvatar();
 }
 

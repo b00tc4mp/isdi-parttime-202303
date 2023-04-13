@@ -29,7 +29,8 @@ temporalNewPostImg.addEventListener('change', (event) => {
     selectedNewPostImg.src = newPostImg;
   } catch (error) {}
 });
-  
+
+
 deleteNewPostImg.addEventListener('click', (event) => {
   event.preventDefault();
   newPostImg = undefined;

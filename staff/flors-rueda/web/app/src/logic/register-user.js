@@ -1,6 +1,8 @@
 import { generateUUID } from './data/helpers.js';
+import { saveUsers } from './data/users/data-managers.js';
 import users from './data/users/data.js';
 import { validateMail, validateNewPassword, validateNewUsername } from './data/users/validators.js';
+
   
 export const addNewUser = (mail, username, password, repeatPassword) => {
   validateMail(mail);
@@ -15,5 +17,6 @@ export const addNewUser = (mail, username, password, repeatPassword) => {
     joined: new Date(Date.now())
   };
   users.push(user);
+  saveUsers();
   return user
 };

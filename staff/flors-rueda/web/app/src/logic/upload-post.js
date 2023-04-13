@@ -1,5 +1,6 @@
 import { generateUUID } from './data/helpers.js';
 import posts from './data/posts/data.js';
+import { savePosts } from './data/posts/data-managers.js';
 
 export const uploadPost = (postImg, postText, authorID) => {
   const newPost = {};
@@ -9,4 +10,5 @@ export const uploadPost = (postImg, postText, authorID) => {
   newPost.image = postImg;
   newPost.date =  new Date(Date.now());
   posts.push(newPost);
+  savePosts();
 };

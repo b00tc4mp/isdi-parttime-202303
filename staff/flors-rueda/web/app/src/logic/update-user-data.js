@@ -1,6 +1,6 @@
-import users from './data/users/data.js'
-
+import users from './data/users/data.js';
 import { validateName, validateUserPassword, validateMail, validateNewUsername } from './data/users/validators.js';
+import { saveUsers } from './data/users/data-managers.js';
 
 export const updateName = (id, newName, password) => {
   validateName(newName)
@@ -8,6 +8,7 @@ export const updateName = (id, newName, password) => {
   users.filter((user) => {
     if (user.id === id) user.name = newName;
   });
+  saveUsers()
 };
   
 export const updateUserMail = (id, newMail, password) => {
@@ -16,6 +17,7 @@ export const updateUserMail = (id, newMail, password) => {
   users.filter((user) => {
     if (user.id === id) user.mail = newMail;
   });
+  saveUsers()
 };
   
 export const updateUserAvatar = (id, newAvatar, password) => {
@@ -23,6 +25,7 @@ export const updateUserAvatar = (id, newAvatar, password) => {
   users.filter((user) => {
     if (user.id === id) user.avatar = newAvatar
   });
+  saveUsers()
 };
 
 export const updateUsername = (id, newUsername, password) => {
@@ -32,4 +35,5 @@ export const updateUsername = (id, newUsername, password) => {
   users.filter((user) => {
     if (user.id === id) user.username = username
   });
+  saveUsers();
 };

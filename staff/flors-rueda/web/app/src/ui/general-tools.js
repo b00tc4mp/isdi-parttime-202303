@@ -1,7 +1,6 @@
 import { retrieveUser, } from '../logic/retrieve-user.js';
-import { updatePost } from '../logic/update-post.js';
 
-export const context = { userAuth: undefined}
+export const context = sessionStorage
 
 export const toggleOff = (...items) => {
   items.forEach((item) => {

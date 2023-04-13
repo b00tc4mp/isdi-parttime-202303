@@ -1,6 +1,6 @@
 import users from './data/users/data.js';
-
-import { validateUserPassword, validatePasswordChange, validateNewPassword } from "./data/users/validators.js";
+import { saveUsers } from './data/users/data-managers.js';
+import { validateUserPassword, validatePasswordChange, validateNewPassword } from './data/users/validators.js';
 
 export const updateUserPassword = (id, oldPassword, repeatPassword, newPassword) => {
   validateNewPassword(newPassword, repeatPassword);
@@ -9,4 +9,5 @@ export const updateUserPassword = (id, oldPassword, repeatPassword, newPassword)
   users.filter((user) => {
     if (user.id === id) user.password = newPassword;
   });
+  saveUsers();
 };
