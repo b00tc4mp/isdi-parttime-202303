@@ -7,7 +7,8 @@ import { findUserbyId, retrieveUser } from "../logic/helpers/data-managers.js"
 import { createPost } from "../logic/createPost.js" 
 import { posts } from "../data.js"
 import { updateAvatar } from "../logic/updateAvatar.js"
-import { showPosts, updatePosts } from "../logic/managePostsInFeed.js"
+import { showPosts } from "../logic/managePostsInFeed.js"
+import { showPostsInProfile } from "../logic/showPostsinProfile.js"
 
 
 
@@ -15,8 +16,9 @@ export const homePage = document.querySelector('.homepage')
 const updatePasswordForm = homePage.querySelector('.update-password')
 const updateEmailForm = homePage.querySelector('.update-mail')
 const updateAvatarForm = homePage.querySelector('.update-avatar')
-const topbarActions =  homePage.querySelector('.topbar-actions')
-export const homeProfile = homePage.querySelector('.settings')
+const sidebarActions =  homePage.querySelector('.sidebar-actions')
+export const settingSection = homePage.querySelector('.settings')
+const settingsSectionMenu = homePage.querySelector('.settings-content')
 
 export const feed = homePage.querySelector('.feed')
 export const feedPost = feed.querySelector('.post')
@@ -24,37 +26,39 @@ export const feedPost = feed.querySelector('.post')
 const createPostModal = document.querySelector('.creation-post-modal')
 const createPostForm = createPostModal.querySelector('form')
 
+const profileSection = homePage.querySelector('.profile')
 
 
-topbarActions.querySelector('.topbar-settings').onclick = function(event){
+
+sidebarActions.querySelector('.sidebar-settings').onclick = function(event){
     event.preventDefault()
 
-    toggle(homeProfile)
-    toggle(feed)
+    show(settingSection)
+    hide(feed, profileSection)
     hide(updateEmailForm, updatePasswordForm, updateAvatarForm)
 }
 
-homeProfile.querySelector('.nav-row-email').onclick = function(event){
+settingSection.querySelector('.nav-row-email').onclick = function(event){
     event.preventDefault()
 
-    hide(homeProfile)
+    hide(settingsSectionMenu)
     show(updateEmailForm)
 }
-homeProfile.querySelector('.nav-row-password').onclick = function(event){
+settingSection.querySelector('.nav-row-password').onclick = function(event){
     event.preventDefault()
 
-    hide(homeProfile)
+    hide(settingsSectionMenu)
     show(updatePasswordForm)
 }
 
-homeProfile.querySelector('.nav-row-avatar').onclick = function(event){
+settingSection.querySelector('.nav-row-avatar').onclick = function(event){
     event.preventDefault()
 
-    hide(homeProfile)
+    hide(settingsSectionMenu)
     show(updateAvatarForm)
 }
 
-homeProfile.querySelector('.link').onclick = function(event){
+settingSection.querySelector('.link').onclick = function(event){
     event.preventDefault()
 
     hide(homePage)
@@ -87,7 +91,7 @@ homePage.querySelector('#cancel-update-password').addEventListener('click', func
     event.preventDefault()
 
     hide(updatePasswordForm)
-    show(homeProfile)
+    show(settingSection)
 })
 
 //Confirm update mail
@@ -116,7 +120,7 @@ homePage.querySelector('#cancel-update-email').addEventListener('click', functio
     event.preventDefault()
 
     hide(updateEmailForm)
-    show(homeProfile)
+    show(settingSection)
 })
 
 // Update avatar image preview
@@ -143,10 +147,9 @@ updateAvatarForm.querySelector('#save-update-avatar').addEventListener('click', 
     try{
 
         const image = updateAvatar(context.userId, localImage)
-        homePage.querySelector('.topbar-avatar').src = image
+        homePage.querySelector('.sidebar-avatar').src = image
         context.userAvatar = image
         user.avatar = image
-        updatePosts()
         showPosts()
         homePage.querySelector('.update-avatar').querySelector('.success-message').textContent = 'Avatar updated!'
     } catch(error){
@@ -159,7 +162,7 @@ homePage.querySelector('#cancel-update-avatar').addEventListener('click', functi
     event.preventDefault()
 
     hide(updateAvatarForm)
-    show(homeProfile)
+    show(settingSection)
     toggle(updateAvatarForm.querySelector('.error-message'))
 })
 
@@ -179,8 +182,6 @@ createPostForm.querySelector('#post-publication').onclick = (event) => {
         createPost(context.userId, image, caption)
         createPostForm.querySelector('.success-message').textContent = 'Post created'
         console.log(posts)
-
-        updatePosts()
         showPosts()
         hide(createPostModal)
     } catch(error){
@@ -191,4 +192,27 @@ createPostForm.querySelector('#post-publication').onclick = (event) => {
 createPostForm.querySelector('#cancel-post-publication').onclick = (event) => {
     event.preventDefault()
     hide(createPostModal)
+}
+
+//Go to profile
+homePage.querySelector('.sidebar-profile').onclick = () => {
+
+
+    try{
+        const user = retrieveUser(context.userId)
+        profileSection.querySelector('.personal-profile-image').src = user.avatar
+        profileSection.querySelector('.personal-profile-username').innerHTML = user.name
+        hide(feed)
+        showPostsInProfile()
+        show(profileSection)
+
+    } catch(error){
+        alert(error)
+    }
+}
+
+//Go to home
+homePage.querySelector('.sidebar-home').onclick = () => {
+    hide(profileSection, settingSection)
+    show(feed)
 }

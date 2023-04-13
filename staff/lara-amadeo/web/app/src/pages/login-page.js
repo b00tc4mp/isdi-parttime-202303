@@ -3,13 +3,13 @@ import { users } from "../data.js"
 import { context } from "../ui.js"
 import { show, hide } from "../ui.js"
 import { checkCredentials } from "../logic/authenticateUser.js"
-import { homePage, homeProfile } from "./home-page.js"
+import { homePage, settingSection } from "./home-page.js"
 import { showPosts } from "../logic/managePostsInFeed.js"
 import { registrationPage } from "../pages/register-page.js"
 
 export const loginPage = document.querySelector('.login')
 const loginForm = loginPage.querySelector('form')
-const topbarProfileRow = homePage.querySelector('.topbar-profile')
+const sidebarProfileRow = homePage.querySelector('.sidebar-profile')
 
 let authenticatedEmail
 
@@ -37,16 +37,16 @@ loginForm.onsubmit = function(event){
         context.userAvatar = users.find((user => user.email === authenticatedEmail)).avatar
 
         hide(loginPage)
-        show(homePage)
-        topbarProfileRow.querySelector('.topbar-profile-username').innerHTML = context.userName
-        topbarProfileRow.querySelector('.topbar-profile-email').innerHTML = authenticatedEmail
-        topbarProfileRow.querySelector('.topbar-avatar').src = context.userAvatar
-        
         showPosts()
+        show(homePage)
+        sidebarProfileRow.querySelector('.sidebar-profile-username').innerHTML = context.userName
+        sidebarProfileRow.querySelector('.sidebar-profile-email').innerHTML = authenticatedEmail
+        sidebarProfileRow.querySelector('.sidebar-avatar').src = context.userAvatar
+        
     } catch (error) {
         loginPage.querySelector('.error-message').textContent = error.message
     } finally {
         loginPage.querySelector('input[name=password]').value= ''
-        hide(homeProfile)
+        hide(settingSection)
     }
 }

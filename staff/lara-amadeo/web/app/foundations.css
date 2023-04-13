@@ -80,3 +80,31 @@
     height: fit-content;
     margin: 0;
 }
+
+.heading-M-bold{
+    color: var(--grey-700);
+    font-family: "Inter";
+    font-size: 32px;
+    font-weight: 500;
+    height: fit-content;
+    margin: 0;
+}
+
+.title{
+    color: #3B4257;
+    font-family: "Inter";
+    font-size: 24px;
+    font-weight: 600;
+    height: fit-content;
+    margin-bottom: 16px;
+}
+
+.subtitle {
+    color: #3B4257;
+    font-family: "Inter";
+    font-size: 16px;
+    font-weight: 600;
+    height: fit-content;
+    margin-bottom: 40px;
+    margin-top: 0;
+}

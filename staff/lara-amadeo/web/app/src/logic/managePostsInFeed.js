@@ -1,17 +1,20 @@
 import { posts } from "../data.js"
 import { homePage } from "../pages/home-page.js"
 import { retrieveUser } from "./helpers/data-managers.js"
+import { formatPostDate } from "./formatPostDate.js"
 
 export function showPosts(){
        
+        homePage.querySelector('.posts').innerHTML = ''
 
         if(posts.length > 1) {
 
-            const descendantPosts = posts.reverse()
-        
+            const descendantPosts = posts.toReversed()
             descendantPosts.forEach(post =>{
                 const userId ='user-' + Number((post.author).slice(5))
                 const user = retrieveUser(userId)
+                const formatedDate = formatPostDate(post.date)
+
 
                 const publication = document.createElement('div')
                 publication.classList.add('post')
@@ -34,7 +37,7 @@ export function showPosts(){
                 const postDate = document.createElement('p')
                 postDate.classList.add('post-user-data-info-time')
                 postDate.classList.add('tiny-text')
-                postDate.textContent = post.date
+                postDate.textContent = formatedDate
 
                 const postImage = document.createElement('div')
                 postImage.classList.add('post-image')
@@ -79,9 +82,4 @@ export function showPosts(){
         }
     }
 
-export function updatePosts(){
-    const existingPosts = homePage.querySelector('.posts')
-
-    if(existingPosts) existingPosts.innerHTML = ''
-}
 
