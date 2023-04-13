@@ -1,9 +1,9 @@
 const validateName = (name) => {
-  const spacesBetween = /\s/g;
+  const containsSpaces = /\s/g;
 
   if (!name.length) throw new Error('name is empty');
   if (typeof name !== 'string') throw new Error('name is not a string');
-  if (spacesBetween.test(name)) throw new Error('name contains spaces between');
+  if (containsSpaces.test(name)) throw new Error('name contains spaces');
 
   return name.trim();
 };

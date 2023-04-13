@@ -14,8 +14,6 @@ const toggle = (...containers) => {
     containers[i].classList.toggle('off');
 };
 
-const context = {
-  userId: null,
-};
+const context = sessionStorage;
 
 export { show, hide, toggle, context };

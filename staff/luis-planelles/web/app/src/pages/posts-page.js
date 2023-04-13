@@ -3,20 +3,19 @@ import retrievePosts from '../logic/retrieve-posts.js';
 import { context } from '../ui.js';
 import { show, hide } from '../ui.js';
 
-const homePage = document.querySelector('.home');
-
-const addPostButton = homePage.querySelector('.add-post-button');
-const addPostPanel = homePage.querySelector('.add-post');
-const postListPanel = homePage.querySelector('.post-list');
-const addPostForm = addPostPanel.querySelector('form');
+const homePage = document.querySelector('.home'),
+  addPostButton = homePage.querySelector('.add-post-button'),
+  addPostPanel = homePage.querySelector('.add-post'),
+  addPostForm = addPostPanel.querySelector('form'),
+  postListPanel = homePage.querySelector('.post-list');
 
 addPostButton.onclick = () => show(addPostPanel);
 
 addPostForm.onsubmit = (event) => {
   event.preventDefault();
 
-  const image = event.target.image.value;
-  const text = event.target.text.value;
+  const image = event.target.image.value,
+    text = event.target.text.value;
 
   try {
     createPost(context.userId, image, text);
@@ -45,14 +44,18 @@ const renderPosts = (userId) => {
       return (
         accum +
         `<article>
-                <img src="${post.image}">
-                <p>${post.text}</p>
-                <time>${post.date.toLocaleString()}</time>
-            </article>`
+          <img src="${post.image}">
+          <p>${post.text}</p>
+          <time>${post.date.toLocaleString()}</time>
+      </article>`
       );
     }, '');
+
+    return true;
   } catch (error) {
     alert(error.message);
+
+    return false;
   }
 };
 

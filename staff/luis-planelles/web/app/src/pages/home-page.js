@@ -3,22 +3,19 @@ import updateUserPassword from '../logic/update-user-password.js';
 import loginPage from './login-page.js';
 import updateUserAvatar from '../logic/update-user-avatar.js';
 import DEFAULT_AVATAR_URL from '../logic/helpers/global-variables.js';
+import retrieveUser from '../logic/retrieve-user.js';
 
-const homePage = document.querySelector('.home');
-const avatarImage = homePage.querySelector('.home-header-avatar');
-
-const homeLinks = homePage.querySelectorAll('a');
-const profileLink = homeLinks[1];
-const goHome = homeLinks[0];
-
-const profilePanel = homePage.querySelector('.profile');
-const updateUserAvatarForm = profilePanel.querySelector('.profile-avatar-form');
-const updateUserPasswordForm = profilePanel.querySelector(
-  '.profile-password-form'
-);
+const homePage = document.querySelector('.home'),
+  avatarImage = homePage.querySelector('.home-header-avatar'),
+  homeLinks = homePage.querySelectorAll('a'),
+  profileLink = homeLinks[1],
+  goHome = homeLinks[0],
+  profilePanel = homePage.querySelector('.profile'),
+  updateUserAvatarForm = profilePanel.querySelector('.profile-avatar-form'),
+  updateUserPasswordForm = profilePanel.querySelector('.profile-password-form');
 
 homePage.querySelector('.home-header-logout').onclick = () => {
-  context.userId = null;
+  delete context.userId;
   avatarImage.src = DEFAULT_AVATAR_URL;
 
   hide(homePage, profilePanel);
@@ -59,9 +56,9 @@ updateUserAvatarForm.onsubmit = (event) => {
 updateUserPasswordForm.onsubmit = (event) => {
   event.preventDefault();
 
-  const password = event.target.password.value;
-  const newPassword = event.target.newPassword.value;
-  const newPasswordConfirm = event.target.newPasswordConfirm.value;
+  const password = event.target.password.value,
+    newPassword = event.target.newPassword.value,
+    newPasswordConfirm = event.target.newPasswordConfirm.value;
 
   try {
     updateUserPassword(
@@ -79,4 +76,19 @@ updateUserPasswordForm.onsubmit = (event) => {
   }
 };
 
-export { homePage, avatarImage, profileLink };
+const renderUser = (userId) => {
+  try {
+    const user = retrieveUser(userId);
+
+    profileLink.innerText = user.name;
+    avatarImage.src = user.avatar ? user.avatar : DEFAULT_AVATAR_URL;
+
+    return true;
+  } catch (error) {
+    alert(error.message);
+
+    return false;
+  }
+};
+
+export { homePage, avatarImage, profileLink, renderUser };

@@ -6,15 +6,15 @@ import rederPosts from './posts-page.js';
 import { context, show, hide } from '../ui.js';
 import DEFAULT_AVATAR_URL from '../logic/helpers/global-variables.js';
 
-const loginPage = document.querySelector('.login');
-const loginForm = loginPage.querySelector('form');
-const avatarImage = document.querySelector('.home-header-avatar');
+const loginPage = document.querySelector('.login'),
+  loginForm = loginPage.querySelector('form'),
+  avatarImage = document.querySelector('.home-header-avatar');
 
 loginForm.addEventListener('submit', (event) => {
   event.preventDefault();
 
-  const loginEmail = event.target.email.value;
-  const loginPassword = event.target.password.value;
+  const loginEmail = event.target.email.value,
+    loginPassword = event.target.password.value;
 
   try {
     context.userId = authenticateUser(loginEmail, loginPassword);

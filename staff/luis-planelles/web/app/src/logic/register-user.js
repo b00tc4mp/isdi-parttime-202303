@@ -1,10 +1,11 @@
+import { users, saveUsers } from '../data.js';
+import { findUserByEmail } from './helpers/data-managers.js';
+import DEFAULT_AVATAR_URL from './helpers/global-variables.js';
 import {
   validateEmail,
   validateName,
   validatePassword,
 } from './helpers/validators.js';
-
-import DEFAULT_AVATAR_URL from './helpers/global-variables.js';
 
 const registerUser = (name, email, password) => {
   const nameValid = validateName(name);
@@ -32,6 +33,8 @@ const registerUser = (name, email, password) => {
   };
 
   users.push(newUser);
+
+  saveUsers();
 
   return newUser;
 };

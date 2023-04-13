@@ -1,6 +1,7 @@
 //
 import { findUserById } from './helpers/data-managers.js';
 import { updatePasswordValidation } from './helpers/validators.js';
+import { saveUsers } from '../data.js';
 
 const updateUserPassword = (
   userId,
@@ -18,6 +19,8 @@ const updateUserPassword = (
     newPasswordConfirm
   );
   foundUser.info.password = newPasswordValid;
+
+  saveUsers();
 };
 
 export default updateUserPassword;
