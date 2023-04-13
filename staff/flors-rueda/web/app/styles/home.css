@@ -10,9 +10,13 @@
 
 .navbar {
     position: fixed;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: start;
     top: 1.5rem;
     left: 5rem;
-    width: 100%;
+    width: 70%;
+    gap: 1rem;
     z-index: 100;
     opacity: 0;
     transition: opacity 0.5s linear;
@@ -82,6 +86,14 @@
     fill: var(--color-primary200);
 }
 
+/*Footer*/
+
+footer {
+    position: fixed;
+    bottom: 2.5rem;
+    right: 0.75rem
+}
+
 /*Page*/
 
 .home-page {
@@ -118,7 +130,7 @@ p {
 }
 
 .profile-buttons {
-    padding: 5rem 1rem 0;
+    padding: 3.5rem 1rem 0;
     display: flex;
     justify-content: space-around;
     flex-direction: row;
@@ -143,7 +155,7 @@ p {
     border: 0.05em solid var(--color-primary300);
     border-radius: 0.6em;
     color: var(--color-secondary300);
-    height: 8.5rem;
+    padding-top: 1rem;
     margin: 1rem;
     max-width: 90%;
     grid-area: 1 / 1;
@@ -233,12 +245,26 @@ p {
 
 .post {
     width: 100%;
-    border: 1px solid red;
+    border: 0.05rem solid var(--color-light200);
+    border-radius: 3rem 0.3rem 0.3rem;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    justify-content: space-between;
     align-self: center;
+    height: fit-content;
+}
+
+.dark-mode .post {
+    border: 0.05rem solid var(--color-dark300);
+}
+
+.post-header {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
 }
 
 .post-author-data {
@@ -247,7 +273,11 @@ p {
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
-    gap: 0.5em;
+    gap: 0.3em;
+}
+
+.to-edit-post {
+    align-self: flex-start;
 }
 
 .post-author-username {
@@ -262,14 +292,15 @@ p {
 .post-author-avatar {
     border-radius: 50%;
     overflow: hidden;
-    height: 2rem;
-    width: 2rem;
+    height: 2.25rem;
+    width: 2.25rem;
 }
 
-.post-main-data {
+.post-body {
     display: flex;
     flex-direction: column;
-    gap: 0.05em
+    gap: 0.05em;
+    justify-content: start;
 }
 
 /*TODO: refine post cards style*/
@@ -277,29 +308,43 @@ p {
 /*TODO: check why not all post images align themself*/
 
 .post-image {
-    border-radius: 0.05em;
+    padding: 0.5rem 0;
     overflow: hidden;
     align-self: center;
     height: 15rem;
-    width: 15rem;
+    width: 100%;
+    max-width: 100%;
+    border-radius: 5%;
 }
 
 .post-text {
     text-align: justify;
+    max-width: 100%;
     padding: 0 0.75em;
+    white-space: pre-wrap;
+    overflow: hidden;
+
+}
+
+.post-footer {
+    box-sizing: border-box;
+    display: flex;
+    padding: 0.5rem 0 0.15rem;
+    flex-direction: row;
 }
 
 .post-stats-data {
     display: flex;
     flex-direction: row-reverse;
     justify-content: space-between;
-    align-items: center;
+    align-items: end;
     padding: 0 0.75em;
 }
 
 .post-date {
     color: var(--color-dark100);
     font-weight: 300;
+    font-style: italic;
 }
 
 .dark-mode .post-date {
@@ -314,6 +359,57 @@ p {
 }
 
 /* Responsiveness */
+
+@media (orientation: landscape) {
+    .home-page {
+        display: grid;
+        grid-template-columns: 45% 55%;
+        grid-template-rows: 100%;
+        grid-area: 2 / 1 / 3 / 2;
+    }
+
+    .home-main {
+        grid-area: 1 / 1 / 2 / 3;
+    }
+
+    .user-profile {
+        grid-area: 1 / 1 / 2 / 2;
+    }
+
+    .profile-buttons,
+    .change-password,
+    .edit-profile,
+    .delete-account,
+    .edit-mail {
+        padding-top: 3rem;
+        padding-left: 2rem;
+        grid-area: 1 / 2 / 2 / 3;
+    }
+
+    .post {
+        width: 45%;
+        height: 20rem;
+    }
+
+    .post-body {
+        white-space: nowrap; 
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin-bottom: auto;
+    }
+
+    .posts-display {
+        display: flex;
+        flex-direction: row;
+        gap: 1em;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+
+
+
+}
 
 @media (min-width: 768px) {
     .home-page {
@@ -353,11 +449,10 @@ p {
     }
 
     .profile-card-data {
-        height: 10rem;
         margin: 8rem 3rem 0rem 5rem;
-        width: 15rem;
-        padding-top: 4rem;
-        padding-left: 2rem;
+        width: 14rem;
+        padding-top: 4.5rem;
+        padding-left: 3.5rem;
     }
 
     .profile-card-avatar {
@@ -382,18 +477,15 @@ p {
         justify-content: center;
     }
 
-    .post {
-        width: 45%;
-        height: 26.7rem;
-    }
 
     .navbar {
         opacity: 1;
         display: flex;
         flex-direction: row-reverse;
         gap: 1rem;
-        position: absolute;
         width: 90%;
+        position: absolute;
+
     }
 
     .nav-menu {
@@ -406,7 +498,7 @@ p {
 
 }
 
-@media (min-width: 1000px) {
+@media (min-width: 1240px) {
     .posts-display {
         display: flex;
         flex-direction: row;
@@ -419,4 +511,12 @@ p {
         width: 30%;
         height: 28.25rem;
     }
+
+    .post-body {
+        white-space: nowrap; 
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin-bottom: auto;
+    }
+
 }

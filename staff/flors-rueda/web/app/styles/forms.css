@@ -1,4 +1,5 @@
-.register, .login {
+.register,
+.login {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -16,7 +17,8 @@
     min-height: 18rem;
 }
 
-.login-form, .register-form {
+.login-form,
+.register-form {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -42,7 +44,8 @@ input {
     color: var(--color-dark100);
 }
 
-.dark-mode .login-form, .dark-mode .register_form  {
+.dark-mode .login-form,
+.dark-mode .register_form {
     border: 0.01em solid var(--color-dark300);
     box-shadow: var(--color-dark300) 0 0.5rem 1rem;
 }
@@ -54,13 +57,13 @@ input {
     color: var(--color-light100);
 }
 
-.dark-mode ::-webkit-input-placeholder{
+.dark-mode ::-webkit-input-placeholder {
     font-style: italic;
     font-weight: 300;
     color: var(--color-light200);
 }
 
-::-webkit-input-placeholder{
+::-webkit-input-placeholder {
     font-style: italic;
     font-weight: 300;
     color: var(--color-dark200);
@@ -71,7 +74,8 @@ input:focus {
     box-shadow: 0 0 0.25em var(--color-primary300);
 }
 
-[name=username], [name=mail]{
+[name=username],
+[name=mail] {
     text-transform: lowercase
 }
 
@@ -88,12 +92,12 @@ input:focus {
     box-shadow: var(--color-light200) 0 0.5rem 1rem;
 }
 
-.dark-mode .change-view{
+.dark-mode .change-view {
     border: 0.01em solid var(--color-dark300);
     box-shadow: var(--color-dark300) 0 0.5rem 1rem;
 }
 
-.change-view a{
+.change-view a {
     color: var(--color-primary300);
     font-weight: 700;
     transition: color 0.2s, text-shadow 0.2s;
@@ -101,7 +105,10 @@ input:focus {
     -webkit-tap-highlight-color: var(--color-primary-transparence);
 }
 
-.edit-form, .password-form, .mail-form, .delete-form {
+.edit-form,
+.password-form,
+.mail-form,
+.delete-form {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -109,7 +116,8 @@ input:focus {
     gap: 1.5em;
 }
 
-.edit-avatar, .add-post-image {
+.edit-avatar,
+.add-post-image {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -126,18 +134,23 @@ input:focus {
     color: var(--color-dark100);
 }
 
-.dark-mode .edit-avatar, .dark-mode .add-post-image {
+.dark-mode .edit-avatar,
+.dark-mode .add-post-image {
     background-color: var(--color-dark200);
     border: solid 0.05em var(--color-dark300);
     color: var(--color-light100);
 }
 
-.edit-avatar:focus, .edit-avatar:active, .add-post-image:focus, .add-post-image:active {
+.edit-avatar:focus,
+.edit-avatar:active,
+.add-post-image:focus,
+.add-post-image:active {
     border: solid 0.05em var(--color-primary300);
     box-shadow: 0 0 0.25em var(--color-primary300);
 }
 
-.avatar-label, .image-lable {
+.avatar-label,
+.image-lable {
     display: flex;
     flex-direction: row;
     font-size: 0.65em;
@@ -161,7 +174,9 @@ input:focus {
     display: none;
 }
 
-input[type="file"], input[type="file"]:hover, input[type="file"]:focus {
+input[type="file"],
+input[type="file"]:hover,
+input[type="file"]:focus {
     min-width: auto;
     border: none;
 }
@@ -186,7 +201,8 @@ input[type="file"], input[type="file"]:hover, input[type="file"]:focus {
         font-weight: 700;
     }
 
-    input[type="file"]:hover, input[type="file"]:focus {
+    input[type="file"]:hover,
+    input[type="file"]:focus {
         border: none;
         box-shadow: none;
         cursor: pointer;
@@ -198,5 +214,3 @@ input[type="file"], input[type="file"]:hover, input[type="file"]:focus {
         box-shadow: 0 0 0.25em var(--color-primary300);
     }
 }
-
-

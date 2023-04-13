@@ -20,17 +20,18 @@
     --color-light300: #c0c0c0;
     --color-light200: #e4e4e4;
     --color-light100: #fafdff;
-    --color-warning300:#7f5b00;
-    --color-warning200:#ffda37;
-    --color-warning100:#fbfbc4;   
+    --color-warning300: #7f5b00;
+    --color-warning200: #ffda37;
+    --color-warning100: #fbfbc4;
     --color-danger300: #7e0e08;
     --color-danger200: #e3332a;
     --color-danger100: #ec6772;
-    --color-success300:#377e3f;
-    --color-success200:#53b65a;
-    --color-success100:#ddf8e4;     
+    --color-success300: #377e3f;
+    --color-success200: #53b65a;
+    --color-success100: #ddf8e4;
 }
 
+/*TODO fix dark mode*/
 
 body {
     margin: 0;
@@ -65,21 +66,23 @@ body {
     display: none;
 }
 
-h1{
+h1 {
     margin-block-start: 0;
     margin-block-end: 0.1em;
     color: var(--color-primary300);
     font-size: 2rem;
 }
 
-h2{
+h2 {
     margin-block-start: 0;
     font-size: 1.5rem;
     color: var(--color-secondary200);
 }
 
 @media (min-width: 768px) {
-    html, body {
+
+    html,
+    body {
         font-size: 1.15em;
     }
 }

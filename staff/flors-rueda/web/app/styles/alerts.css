@@ -1,6 +1,7 @@
 /*TODO put alerts into modal and focus correspondig input*/
 
-.alert, .static-alert {
+.alert,
+.static-alert {
     align-self: center;
     width: 85%;
     max-width: 30rem;
@@ -12,7 +13,8 @@
     box-shadow: var(--color-light300) 0 0.25rem 1.15rem;
 }
 
-.dark-mode .alert,.dark-mode .static-alert {
+.dark-mode .alert,
+.dark-mode .static-alert {
     box-shadow: var(--color-dark300) 0 0.25rem 1.15rem;
 }
 
@@ -56,7 +58,7 @@
     border: 0.01em solid var(--color-warning200);
     color: var(--color-warning300);
     background-color: var(--color-warning100);
-    padding-left: 0.25em;   
+    padding-left: 0.25em;
     padding-right: 0.15em;
 }
 
@@ -76,9 +78,9 @@
     -webkit-tap-highlight-color: transparent;
 }
 
-@media (min-width: 768px) { 
-    .close-alert:hover{
+@media (min-width: 768px) {
+    .close-alert:hover {
         text-shadow: var(--color-dark100) 0.05em 0 0.01em;
     }
-    
+
 }
