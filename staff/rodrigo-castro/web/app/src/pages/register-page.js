@@ -1,5 +1,6 @@
 console.log('load register-page')
 
+import { saveUsers } from '../data.js'
 import { registerUserFull } from '../logic/register-user.js'
 import { resetPage, showElement, hideElement } from '../ui.js'
 import { loginPage } from './login-page.js'
@@ -14,9 +15,12 @@ registerPage.querySelector('form').addEventListener('submit', function(event) {
     var userPassword = registerPage.querySelector('.input-field[name=password]').value
 
     try {
-        
         registerUserFull(userEmail, userName, userPassword)
+
+        saveUsers()
+
         resetPage(registerPage)
+        
         showElement(loginPage)
 
     } catch(error){

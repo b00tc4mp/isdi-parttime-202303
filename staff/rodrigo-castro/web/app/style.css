@@ -5,12 +5,15 @@ html {
 }
 
 :root {
-  --bar-color: rgba(0, 0, 0, 0.3);
+  --bar-color: rgba(178,167,159,1);
   --bar-buttons-color: rgba(255, 255, 255, 0.8);
-  --background-color: rgba(254,241,228, 1);
-  --input-background-color: rgba(255, 255, 255, 0.8);
-  --submit-buttons-color: rgba(0, 0, 0, 0);
+  --background-color: rgba(254, 241, 228, 1);
+  --input-background-color: rgba(255, 255, 255, 1);
+  --submit-buttons-color: rgba(255, 255, 255, 1);
   --submit-buttons-border: 0.5px solid rgba(0, 0, 0, 0.3);
+  --input-field-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+  --modal-windows-back: rgba(0, 0, 0, 0.5);
+  --all-titles-color: rgba(0, 0, 0, 1)
 }
 
 body {
@@ -42,7 +45,7 @@ body {
 }
 
 .all-titles {
-  color: rgba(0, 0, 0, 0.4);
+  color: var(--all-titles-color);
   height: fit-content;
   margin: 0;
   display: flex;
@@ -63,7 +66,8 @@ body {
 
 .input-field {
   text-align: left;
-  border: 0.5px solid ;
+  border: none;
+  box-shadow: var(--input-field-shadow);
   width: 80%;
   padding: 1rem 1rem 1rem 1rem;
   margin: 0.5rem;
@@ -79,9 +83,9 @@ body {
 }
 
 .red-text {
-  color: red;
+  color: rgb(255, 128, 128);
   font-family: 'Lato', sans-serif;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 1rem;
   width: 80%;
   height: 2rem;
@@ -92,7 +96,7 @@ body {
 }
 
 .green-text {
-  color: green;
+  color: rgb(153, 255, 153);
 }
 
 .secondary-text {
@@ -151,6 +155,7 @@ body {
   border-radius: 1.5rem;
   background-color: var(--submit-buttons-color);
   border: var(--submit-buttons-border);
+  box-shadow: var(--input-field-shadow);
   cursor: pointer;
   transition: 2s;
 }
@@ -211,37 +216,50 @@ body {
   display: none;
 }
 
-@media (min-width: 768px) {
-  .home-bar {
+@media (min-width: 768px) and (max-width: 1263px) {  
+  .horizontal-menu {
     position: fixed;
     top:0;
     left: 0;
-    width: 50px;
-    height: 100%;
-    background-color: var(--bar-color);
-  }
-  
-  .horizontal-menu {
-    box-sizing: border-box;
+    min-width: 3rem;
     min-height: 100vh;
-    width: 1rem;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    align-items: stretch;
-    padding: 2rem;
-    margin: 0;
-    list-style: none;
+    background-color: var(--bar-color);
+    box-sizing: border-box;
+  }
+}
+
+@media (min-width: 1264px) {
+  .horizontal-menu {
+    position: fixed;
+    top:0;
+    left: 0;
+    min-width: 8rem;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    background-color: var(--bar-color);
+    box-sizing: border-box;
+  }
+
+  .horizontal-menu .menu-text {
+    display: none;
   }
 }
 
 .post-list {
-  width: 100vw;
+  width: 90vw;
   height: 100vw;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding-top: 1rem;
+  align-items: center;
+  padding-top: 8rem;
+  margin: 0;
+  border: 0;
 }
 
 .post-container {
@@ -252,7 +270,10 @@ body {
   height: fit-content;
   padding: 1rem;
   gap: 0.5rem;
-  background-color: var(--bar-color);
+  margin-bottom: 1.5rem;
+  background-color: white;
+  /* border: 0.5px solid var(--modal-windows-back); */
+  box-shadow: var(--input-field-shadow);
 }
 
 .post-container > img {
@@ -286,8 +307,8 @@ body {
 }
 
 .profile-options {
-  background-color: var(--bar-color);
-  color: var(--bar-buttons-color);
+  background-color: var(--input-background-color);
+  box-shadow: var(--input-field-shadow);
   width: 60%;
   max-width: 20rem;
   height: fit-content;
@@ -299,6 +320,7 @@ body {
   padding: 2rem;
   gap: 1.2rem;
   font-size: 1.2rem;
+  font-weight: 400;
   cursor: pointer;
 }
 
@@ -317,29 +339,31 @@ body {
   height: 9rem;
 }
 
-.add-post-modal {
+.modal-window {
   position: fixed;
   top: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: var(--modal-windows-back);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
 }
 
-.add-post-modal > form {
+.modal-window > form {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  width: 100vw;
+  height: 100%;
+  width: 100%;
   gap: 2rem;
-  background-color: var(--bar-color);
 }
 
-.add-post-modal > form > input, .add-post-modal > form > textarea {
+.modal-window > form > input, .modal-window > form > textarea {
   max-width: 25rem;
-} 
-
-.add-post-modal > form > div > button {
-  color: var(--bar-buttons-color);
-  border-color: rgba(0, 0, 0, 0.6);
 }
 
 input:-webkit-autofill {

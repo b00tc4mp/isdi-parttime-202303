@@ -4,8 +4,8 @@ import authenticateUser from '../logic/authenticate-user.js'
 import { retrieveUser } from '../logic/retrieve-user.js'
 import { context, resetPage, hideElement, showElement } from '../ui.js'
 import { registerPage } from './register-page.js'
-import { homePage, avatarImg, renderPosts } from './home-page.js'
-
+import { homePage, avatarImg, renderPosts, renderUsers } from './home-page.js'
+ 
 
 export const loginPage = document.querySelector('.login-page')
 
@@ -19,16 +19,11 @@ loginPage.querySelector('form').addEventListener('submit', (event) => {
         
         context.userId = authenticateUser(userEmail, userPassword, homePage, avatarImg)
 
-        const user = retrieveUser(context.userId)
+        renderUsers()
 
-        homePage.querySelector('.menu-text').textContent =`${user.name}`
-        
-        if(user.avatar)
-        avatarImg.src = user.avatar
-        
+        renderPosts()
+
         resetPage(loginPage)
-        
-        // renderPosts()
 
         showElement(homePage)
         

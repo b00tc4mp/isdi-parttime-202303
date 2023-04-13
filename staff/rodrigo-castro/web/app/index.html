@@ -30,7 +30,7 @@
             <button class="submit-buttons" type="submit">Register</button>
         </form>
     </div>
-    <div class="login-page _off">
+    <div class="login-page off">
         <h1 class="all-titles">LOGIN</h1>
         <div class="red-text"></div>
         <form class="inputs">
@@ -48,48 +48,64 @@
 
 
     <div class="home-page off">
-        <nav class="home-bar">
+        
             <ul class="horizontal-menu">
-                <li><a href="#" class="menu-buttons"><i class="uil uil-home"></i><span class="menu-text">Home</span></a></li>
-                <li><a href="#" class="menu-buttons" name="new-post"><i class="uil uil-camera-plus"></i><span class="menu-text">Post</span></a></li>
-                <li>
+                <li name="home"><a href="#" class="menu-buttons"><i class="uil uil-home"></i><span class="menu-text">Home</span></a></li>
+                <li name="new-post"><a href="#" class="menu-buttons"><i class="uil uil-camera-plus"></i><span class="menu-text">Post</span></a></li>
+                <li name="my-profile">
                     <div>
                         <img src="https://avatarfiles.alphacoders.com/157/thumb-157567.jpg" alt="" class="user-avatar">
-                        <a href="#" class="menu-buttons" name="my-profile"><span class="menu-text">Username</span></a>
+                        <a href="#" class="menu-buttons"><span class="menu-text">Username</span></a>
                     </div>
                 </li>
-                <li><a href="#" class="menu-buttons" name="logout"><i class="uil uil-signout"></i><span class="menu-text">Logout</span></a></li>
+                <li name="logout"><a href="#" class="menu-buttons"><i class="uil uil-signout"></i><span class="menu-text">Logout</span></a></li>
             </ul>
-        </nav>
-        <section class="under-menu off">
-            <ul class="profile-options off">
-                <li>My information</li>
+
+        <section class="modal-window off" name="modal-profile-options">
+            <ul class="profile-options">
+                <li>My profile</li>
                 <li>Settings</li>
                 <li class="change-email">Change email</li>
                 <li class="change-password">Change password</li>
                 <li class="change-avatar">Change avatar</li>
             </ul>
-            <div class="change-email-menu off">
+            <button class="submit-buttons close-profile-options" type="button">Cancel</button>
+        </section>
+
+        <section class="modal-window off" name="modal-change-email">
+            <div class="change-email-menu">
                 <h2 class="all-titles change-email-title">Change Email</h2>
                 <div class="red-text"></div>
                 <form class="inputs ">
                     <input class="input-field changing-inputs change-email-input" type="email" name="previous-email" placeholder="Previous email">
                     <input class="input-field changing-inputs new-email-input" type="email" name="new-email" placeholder="New email">
                     <input class="input-field changing-inputs change-email-pass-input" type="password" name="change-email-pass" placeholder="Password">
-                    <button class="submit-buttons change-my-password" name="change-my-password" type="submit">Save</button>
+                    <div>
+                        <button class="submit-buttons change-my-password" name="change-my-password" type="submit">Save</button>
+                        <button class="submit-buttons cancel-email-change" type="button">Cancel</button>
+                    </div>
                 </form>
             </div>
-            <div class="change-password-menu off">
+        </section>
+
+        <section class="modal-window off" name="modal-change-password">
+            <div class="change-password-menu">
                 <h2 class="all-titles change-pass-title">Change Password</h2>
                 <div class="red-text"></div>
                 <form class="inputs ">
                     <input class="input-field changing-inputs previous-password" type="password" name="previous-pasword" placeholder="Previous password">
                     <input class="input-field changing-inputs new-password" type="password" name="new-password" placeholder="New password">
                     <input class="input-field changing-inputs repeat-new-password" type="password" name="repeat-new-password" placeholder="Repeat New Password">
-                    <button class="submit-buttons change-my-password" name="change-my-password" type="submit">Save</button>
+                    <div>
+                        <button class="submit-buttons change-my-password" name="change-my-password" type="submit">Save</button>
+                        <button class="submit-buttons cancel-password-change" type="button">Cancel</button>
+                    </div>
                 </form>
             </div>
-            <div class="change-avatar-menu off">
+        </section>
+
+        <section class="modal-window off">
+            <div class="change-avatar-menu">
                 <h2 class="all-titles change-avatar-title">Change Avatar</h2>
                 <div class="red-text"></div>
                 <form action="" class="inputs">
@@ -99,13 +115,13 @@
             </div>
         </section>
 
-        <section class="add-post-modal off">
+        <section class="modal-window off" name="modal-new-post">
             <form action="">
                 <input class="input-field" type="url" name="url" placeholder="Insert image url">
                 <textarea name="text" cols="30" rows="10" class="post-text input-field" placeholder="Insert caption"></textarea>
                 <div class="buttons">
                     <button class="submit-buttons" type="submit">Post</button>
-                    <button class="submit-buttons cancel-post">Cancel</button>
+                    <button class="submit-buttons cancel-post" type="button">Cancel</button>
                 </div>
             </form>
         </section>

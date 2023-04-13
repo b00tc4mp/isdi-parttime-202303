@@ -6,21 +6,23 @@ import { changeEmail } from '../logic/update-user-email.js'
 import { changePassword } from '../logic/update-user-password.js'
 import { loginPage } from './login-page.js'
 import createPost from '../logic/create-post.js'
-import { posts } from '../data.js'
+import { posts, savePosts, saveUsers } from '../data.js'
 import retrievePosts from '../logic/retrieve-posts.js'
+import { retrieveUser } from '../logic/retrieve-user.js'
 
 export const homePage = document.querySelector('.home-page')
-const homeBar = document.querySelector('.home-bar')
-const myProfileButton = homeBar.querySelector('.menu-buttons[name=my-profile]')
+const horizontalMenu = document.querySelector('.horizontal-menu')
+const myProfileButton = horizontalMenu.querySelector('li[name=my-profile]')
 
-const newPostButton = homeBar.querySelector('[name=new-post]')
-const newPostModal = homePage.querySelector('.add-post-modal')
+const newPostButton = horizontalMenu.querySelector('li[name=new-post]')
+const newPostModal = homePage.querySelector('section[name=modal-new-post]')
 const cancelModal = newPostModal.querySelector('.cancel-post')
 const postListPanel = homePage.querySelector('.post-list')
 
-const profileOptions = homePage.querySelector('.profile-options')
-export const changeEmailMenu = homePage.querySelector('.change-email-menu')
-const changePasswordMenu = homePage.querySelector('.change-password-menu')
+const profileOptionsModal = homePage.querySelector('section[name=modal-profile-options]')
+export const changeEmailMenu = homePage.querySelector('section[name=modal-change-email]')
+const changePasswordMenu = homePage.querySelector('section[name=modal-change-password]')
+const closeProfileOptions = homePage.querySelector('.close-profile-options')
 
 const changeAvatarMenu = homePage.querySelector('.change-avatar-menu')
 const changeAvatarButton = homePage.querySelector('.change-avatar')
@@ -43,9 +45,17 @@ newPostModal.querySelector('form').onsubmit = (event) => {
     
     try {
         createPost(context.userId, image, text)
+
         newPostModal.querySelector('form').reset()
+
         hideElement(newPostModal)
+
         alert('post created')
+
+        savePosts()
+
+        renderPosts()
+
         console.log(posts)
     } catch(error){
             alert(error.message)
@@ -56,12 +66,12 @@ newPostModal.querySelector('form').onsubmit = (event) => {
 
 
 myProfileButton.addEventListener('click', () => {
-    toggleElement(profileOptions)
+    toggleElement(profileOptionsModal)
     resetPage(changeAvatarMenu, changePasswordMenu, changeEmailMenu)
 })
 
 homePage.querySelector('.change-email').onclick = () => {
-    hideElement(profileOptions)
+    hideElement(profileOptionsModal)
     showElement(changeEmailMenu)
 }
 
@@ -69,6 +79,7 @@ changeEmailMenu.querySelector('form').onsubmit = (event) => {
     event.preventDefault()
     try {
         changeEmail(context.userId, homePage, changeEmailMenu)
+        saveUsers()
     } catch(error){
         if(error.cause === 'ownError'){
             changeEmailMenu.querySelector('.red-text').textContent = error.message
@@ -78,9 +89,13 @@ changeEmailMenu.querySelector('form').onsubmit = (event) => {
     }
 }
 
+homePage.querySelector('.cancel-email-change').onclick = () => {
+    hideElement(changeEmailMenu) //TODO: VER SI HAY QUE LIMPIAR
+}
+
 homePage.querySelector('.change-password').addEventListener('click', () => { 
     resetPage(changePasswordMenu)
-    hideElement(profileOptions)
+    hideElement(profileOptionsModal)
     showElement(changePasswordMenu)
 })
 
@@ -88,6 +103,7 @@ changePasswordMenu.querySelector('form').onsubmit = function(event) {
     event.preventDefault();
     try {
         changePassword(context.userId, changePasswordMenu)
+        saveUsers()
     } catch(error){
         if(error.cause === 'ownError'){
             changePasswordMenu.querySelector('.red-text').textContent = error.message
@@ -97,9 +113,13 @@ changePasswordMenu.querySelector('form').onsubmit = function(event) {
     }
 }
 
+homePage.querySelector('.cancel-password-change').onclick = () => {
+    hideElement(changePasswordMenu)
+}
+
 changeAvatarButton.onclick = function() {
     showElement(changeAvatarMenu)
-    hideElement(profileOptions)
+    hideElement(profileOptionsModal)
 }
 
 changeAvatarForm.onsubmit = function(event) {
@@ -109,6 +129,7 @@ changeAvatarForm.onsubmit = function(event) {
     try {
         updateUserAvatar(context.userId, avatarUrl, avatarImg)
         changeAvatarForm.reset()
+        saveUsers()
     } catch(error){
         if(error.cause === 'ownError'){
             alert(error.message)
@@ -116,6 +137,29 @@ changeAvatarForm.onsubmit = function(event) {
         } else {
             console.log(error)
         }
+    }
+}
+
+closeProfileOptions.onclick = function() {
+    hideElement(profileOptionsModal) // TODO: VER SI HAY QUE LIMPIAR
+}
+
+export function renderUsers() {
+    try{
+        const user = retrieveUser(context.userId)
+        
+        homePage.querySelector('.menu-text').textContent =`${user.name}`
+        
+        if(user.avatar)
+        avatarImg.src = user.avatar
+        
+        return true
+    } catch(error){
+        alert(error.message)
+        
+        console.log(error)
+        
+        return false
     }
 }
 
@@ -130,17 +174,21 @@ export function renderPosts() {
                 <time>${post.date.toLocaleString()}</time>
             </article>`
         }, '')
+
+        return true
     } catch(error){
         alert(error.message)
         console.log(error)
+        
+        return false
     }
     
 
 }
 
-homeBar.querySelector('[name=logout]').addEventListener('click', () => {
-    hideElement(homePage, changeAvatarMenu, changePasswordMenu, profileOptions, changeEmailMenu, newPostModal)
+horizontalMenu.querySelector('li[name=logout]').addEventListener('click', () => {
+    hideElement(homePage, changeAvatarMenu, changePasswordMenu, profileOptionsModal, changeEmailMenu, newPostModal)
     showElement(loginPage)
     avatarImg.src = DEFAULT_AVATAR_URL
-    context.userId = null
+    delete context.userId
 })

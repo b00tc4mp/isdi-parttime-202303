@@ -23,6 +23,4 @@ export const resetHomePage = (homePage) => { // TODO !!!!
 
 }
 
-export const context = {
-    userId: null
-}
+export const context = sessionStorage
