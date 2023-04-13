@@ -31,7 +31,4 @@ export function removeClass (className, ...containers){
     }
 }
 
-export const context = {
-    userId: null,
-    welcomeMessage: document.querySelector(".home-header-user-welcome-msj")
-}
+export const context = sessionStorage

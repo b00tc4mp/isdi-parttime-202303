@@ -1,10 +1,9 @@
 import  authenticateUser  from "../logic/authenticate-user.js";
-import  addUserNameInHeader  from "../logic/add-username-in-header.js";
-import  setExistingAvatar  from "../logic/set-existing-avatar.js";
 import { context, show, hide } from "../ui.js";
 import { registerPage } from "./register-page.js";
 import { homePage, DEFAUTL_AVATAR_URL, avatarImage, renderPosts} from "./home-page.js";
 import { footerSite } from "./footer-page.js";
+import renderUser from "../logic/render-user.js" 
 
 //* VARIABLES DE LOGIN PAGE
 export const logInPage = document.querySelector(".login")
@@ -12,6 +11,7 @@ const logInForm = document.querySelector(".login form");
 const loginRegistrationAnchor = document.querySelector(".login-register-anchor");
 //* VARIABLES WARNINGS
 const failLogInAdvice = document.querySelector(".login .fail-warning")
+const welcomeMessage = document.querySelector(".home-header-user-welcome-msj")
 
 logInForm.addEventListener('submit', function (event) {
     event.preventDefault();
@@ -20,10 +20,11 @@ logInForm.addEventListener('submit', function (event) {
     
     try{
         context.userId = authenticateUser(email, password);
-        addUserNameInHeader(context.userId, context.welcomeMessage, avatarImage);
+
+        renderUser(context.userId,welcomeMessage, DEFAUTL_AVATAR_URL, avatarImage);
+
         hide(logInPage);
         failLogInAdvice.textContent = "";
-        setExistingAvatar(context.userId, DEFAUTL_AVATAR_URL, avatarImage);
 
         //TODO ORDER AND PAINT POSTS 
         //lo metemos en homepage porque es un tema interno de homepage

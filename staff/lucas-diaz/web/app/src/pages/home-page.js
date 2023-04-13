@@ -1,8 +1,8 @@
-import {  cleanChangePasswordForm, vanishWarningIn3Seconds, resetUserNameInHeader } from "../logic/helpers/data-managers.js";
+import {  cleanChangePasswordForm, vanishWarningIn3Seconds } from "../logic/helpers/data-managers.js";
 
 import  updateUserPassword  from "../logic/update-user-password.js";
 import  updateUserAvatar  from "../logic/update-user-avatar.js";
-
+import renderuser from "../logic/render-user.js";
 import { context, show, hide, addClass, removeClass  } from "../ui.js";
 import { logInPage } from "./login-page.js";
 import { footerSite } from "./footer-page.js";
@@ -44,8 +44,7 @@ logOutButton.onclick = () => {
     postModal.classList.remove("home-add-post-modal-transition");
     avatarImage.src = DEFAUTL_AVATAR_URL;
     show(logInPage);
-    context.userId = null;
-    resetUserNameInHeader(context.welcomeMessage);
+    delete context.userId; 
     postsListPanel.innerHTML ="";
 }
 
@@ -188,3 +187,4 @@ export function renderPosts () {
     }
     
 }
+
