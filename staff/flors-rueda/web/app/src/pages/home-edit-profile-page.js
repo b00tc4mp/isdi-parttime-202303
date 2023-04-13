@@ -118,9 +118,14 @@ temporalAvatar.addEventListener('change', (event) => {
   try {
     const avatar = document.querySelector('.avatar');
     toggleOff(deleteAvatar, setAvatar);
-    newAvatar = getImgUrl(event);
-    avatar.src = newAvatar;
-  } catch (error) {}
+    getImgUrl(event, (imageUrl) => {
+      newAvatar = imageUrl;
+      avatar.src = newAvatar;
+    });
+  } catch (error) {
+    console.error(error);
+  }
+
 });
 
 deleteAvatar.addEventListener('click', (event) => {

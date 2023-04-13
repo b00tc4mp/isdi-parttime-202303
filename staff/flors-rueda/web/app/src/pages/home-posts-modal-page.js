@@ -25,9 +25,13 @@ cancelPost.addEventListener('click', (event) => {
 temporalNewPostImg.addEventListener('change', (event) => {
   try {
     toggleOff(deleteNewPostImg, setNewPostImg);
-    newPostImg = getImgUrl(event);
-    selectedNewPostImg.src = newPostImg;
-  } catch (error) {}
+    getImgUrl(event, (imageUrl) => {
+      newPostImg = imageUrl;
+      selectedNewPostImg.src = newPostImg;
+    });
+  } catch (error) {
+    console.error(error);
+  }
 });
 
 

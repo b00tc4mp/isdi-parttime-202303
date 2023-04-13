@@ -1,4 +1,4 @@
-import { setOn, clearForms, setOff, getImgUrl } from './general-tools.js';
+import { setOn, clearForms, setOff, } from './general-tools.js';
 import { getPostsSorted } from '../logic/retrieve-posts-sorted-by-date.js';
 import { uploadPost } from '../logic/upload-post.js';
 import { updatePost } from '../logic/update-post.js';

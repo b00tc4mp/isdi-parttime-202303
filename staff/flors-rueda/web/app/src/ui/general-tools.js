@@ -73,14 +73,13 @@ export const setPredeterminateAvatar = (userAuth) => {
   };
 };
 
-export const getImgUrl = (event) => {
-  const reader = new FileReader() 
-  const file = event.target.files[0]; 
-  reader.onload = () => {     
-    reader.result;
-  }
-  reader.readAsDataURL(file)
-  return URL.createObjectURL(file)
+export const getImgUrl = (event, callback) => {
+  const file = event.target.files[0];
+  const reader = new FileReader();
+  reader.onload = () => {
+    callback(reader.result);
+  };
+  reader.readAsDataURL(file);
 }
 
 export const controlUsernameInput = (input) => {
