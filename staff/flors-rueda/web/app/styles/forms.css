@@ -9,6 +9,34 @@
 
 }
 
+.new-post-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    gap: 1em;
+}
+
+textarea {
+    width: 100%;
+    height: 5em;
+    padding: 0.75rem 1rem;
+    border: solid 0.05em var(--color-light300);
+    box-sizing: border-box;
+    border-radius: 0.25rem;
+    background-color: var(--color-light100);
+    font-size: 16px;
+    font-weight: 400;
+    resize: none;
+}
+
+.dark-mode textarea {
+    background-color: var(--color-dark200);
+    border: 0.01em solid var(--color-dark300);
+}
+
+
 .login-form {
     min-height: 12rem;
 }
@@ -68,6 +96,15 @@ input {
     font-weight: 300;
     color: var(--color-dark200);
 }
+
+textarea:focus, textarea:active {
+    outline: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    border: solid 0.05em var(--color-primary300);
+    box-shadow: 0 0 0.25em var(--color-primary300);
+}
+
 
 input:focus {
     border: solid 0.05em var(--color-primary300);

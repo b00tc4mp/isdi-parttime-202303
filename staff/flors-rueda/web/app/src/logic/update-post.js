@@ -11,3 +11,5 @@ export const updatePost = (newText, newPostImg, id) => {
   });
   savePosts();
 };
+
+// validate input, validate userAuth, verify post exists, verify post belongs to user

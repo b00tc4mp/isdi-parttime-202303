@@ -122,6 +122,10 @@ footer button {
     box-shadow: var(--color-secondary200) 0.15rem 0.15rem 0.35rem;
 }
 
+.to-edit-post {
+    -webkit-tap-highlight-color: var(--color-primary-transparence);
+}
+
 
 /*Responsiveness*/
 

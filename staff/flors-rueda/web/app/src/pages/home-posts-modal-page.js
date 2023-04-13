@@ -8,7 +8,7 @@ const temporalNewPostImg = document.querySelector('.add-post-image').querySelect
 const deleteNewPostImg = document.querySelector('.add-post-image').querySelector('.delete-img');
 const setNewPostImg = document.querySelector('.set-image');
 const selectedNewPostImg = document.querySelector('.new-post-image');
-const newPostTextInput = document.querySelector('.new-post-form').querySelector('input[name="post-text"]');
+const newPostTextInput = document.querySelector('.new-post-form').querySelector('textarea[name="post-text"]');
 const sendPost = document.querySelector('.new-post-form');
 const cancelPost = document.querySelector('.cancel-post');
 let newPostImg;

@@ -7,6 +7,8 @@ if(posts.length === 0) {
         text: 'Doing some calibrations',
         image: 'https://static.wikia.nocookie.net/masseffect/images/e/e1/Normandy_Render.png',
         date: new Date('April 3, 2023 12:15:30'),
+        likes: ['79a8a6ef-305e-4a07-0422-523c3d632d52', '1e53f274-0d45-467d-1986d-4c3d7a1c5827'],
+        favorite: ['79a8a6ef-305e-4a07-0422-523c3d632d52']
     });
     
     posts.push({
@@ -15,6 +17,8 @@ if(posts.length === 0) {
         text: `A Quarantine Zone For A Plague That Kills Turians. Why Don't We Ever Go Anywhere Nice?`,
         image: 'https://static.wikia.nocookie.net/masseffect/images/e/ec/Codex_Omega.png',
         date: new Date('April 8, 2023 12:15:30'),
+        likes: ['79a8a6ef-305e-4a07-0422-523c3d632d52'],
+        favorite: [],
     });
     
     posts.push({
@@ -23,6 +27,8 @@ if(posts.length === 0) {
         text: 'Shepaaaaaaaaaaaaaard',
         image: 'https://oyster.ignimgs.com/mediawiki/apis.ign.com/mass-effect-3/f/f2/Normandy_First_Visit_slice11.png',
         date: new Date('April 6, 2023 12:15:30'),
+        likes: ['fabefe75-f2c6-44e0-0c6f-6049623491c4', '79a8a6ef-305e-4a07-0422-523c3d632d52'],
+        favorite: ['79a8a6ef-305e-4a07-0422-523c3d632d52']
     });
 }
 

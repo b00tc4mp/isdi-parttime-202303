@@ -221,6 +221,7 @@ p {
     overflow: hidden;
     height: 5rem;
     width: 5rem;
+    align-self: center;
 }
 
 .dark-mode .post-modal {
@@ -252,10 +253,12 @@ p {
     align-items: flex-start;
     align-self: center;
     height: fit-content;
+    box-shadow: var(--color-light200) 0 0.5rem 1rem;
 }
 
 .dark-mode .post {
     border: 0.05rem solid var(--color-dark300);
+    box-shadow: var(--color-dark300) 0 0.5rem 1rem;
 }
 
 .post-header {
@@ -296,56 +299,66 @@ p {
     width: 2.25rem;
 }
 
-.post-body {
-    display: flex;
-    flex-direction: column;
-    gap: 0.05em;
-    justify-content: start;
-}
-
 /*TODO: refine post cards style*/
 
 /*TODO: check why not all post images align themself*/
 
+.post-image-container {
+    display: flex;
+    align-self: center;
+    align-items: center;
+}
+
 .post-image {
     padding: 0.5rem 0;
     overflow: hidden;
-    align-self: center;
     height: 15rem;
-    width: 100%;
-    max-width: 100%;
+    width: 15rem;
     border-radius: 5%;
 }
 
 .post-text {
     text-align: justify;
-    max-width: 100%;
-    padding: 0 0.75em;
+    max-width: 90%;
+    padding-left: 0.95em;
     white-space: pre-wrap;
     overflow: hidden;
-
+    justify-content: start;
 }
 
 .post-footer {
-    box-sizing: border-box;
-    display: flex;
-    padding: 0.5rem 0 0.15rem;
-    flex-direction: row;
-}
-
-.post-stats-data {
     display: flex;
     flex-direction: row-reverse;
     justify-content: space-between;
+    padding: 0.5rem 0.75rem 0.15rem;
     align-items: end;
-    padding: 0 0.75em;
+    width: 90%;
 }
+
 
 .post-date {
     color: var(--color-dark100);
     font-weight: 300;
     font-style: italic;
 }
+
+.post-favorite, .post-likes {
+    display: flex;
+    display: row;
+    font-size: 0.85em;
+    align-self: center;
+    text-align: 2em;
+}
+
+
+.post-likes, .post-favorite {
+    height: 2rem;
+    width: 2rem;
+    fill: var(--color-primary300);
+    cursor: pointer;
+    align-self: center;
+}
+
 
 .dark-mode .post-date {
     color: var(--color-light300);
@@ -385,30 +398,6 @@ p {
         padding-left: 2rem;
         grid-area: 1 / 2 / 2 / 3;
     }
-
-    .post {
-        width: 45%;
-        height: 20rem;
-    }
-
-    .post-body {
-        white-space: nowrap; 
-        overflow: hidden;
-        text-overflow: ellipsis;
-        margin-bottom: auto;
-    }
-
-    .posts-display {
-        display: flex;
-        flex-direction: row;
-        gap: 1em;
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-
-
-
-
 }
 
 @media (min-width: 768px) {
@@ -496,6 +485,18 @@ p {
         fill: var(--color-secondary300);
     }
 
+    .post {
+        width: 40%;
+        height: 22rem;
+    }
+
+    .post-text {
+        white-space: nowrap; 
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin-bottom: auto;
+    }
+
 }
 
 @media (min-width: 1240px) {
@@ -509,10 +510,10 @@ p {
 
     .post {
         width: 30%;
-        height: 28.25rem;
+        height: 22rem;
     }
 
-    .post-body {
+    .post-text {
         white-space: nowrap; 
         overflow: hidden;
         text-overflow: ellipsis;
