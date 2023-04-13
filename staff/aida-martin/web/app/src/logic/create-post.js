@@ -24,7 +24,7 @@ export default function createPost(userId, image, text) {
     author: userId,
     image,
     text,
-    date: new Date(),
+    date: new Date().toLocaleString(),
   };
 
   posts.push(post);

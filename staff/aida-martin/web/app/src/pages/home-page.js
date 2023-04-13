@@ -117,6 +117,8 @@ addPostForm.onsubmit = (event) => {
 
     renderPosts();
 
+    addPostForm.reset();
+
     bodyPage.classList.remove("scroll-lock");
     hide(addPostModal);
   } catch (error) {
@@ -145,7 +147,7 @@ export function renderPosts() {
         `<article>
       <img class="post-image" src="${post.image}">
       <p>${post.text}</p>
-      <time>${post.date.toLocaleString()}</time>
+      <time>${post.date}</time>
       </article>`
       );
     }, "");
