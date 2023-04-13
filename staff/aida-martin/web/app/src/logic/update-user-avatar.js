@@ -1,13 +1,16 @@
 import { validateId, validateUrl } from "./helpers/validators.js";
 import { findUserById } from "./helpers/data-managers.js";
+import { saveUsers } from "../data.js";
 
 export default function updateAvatar(userId, url) {
   validateId(userId, "User ID");
   validateUrl(url, "Avatar url");
 
-  let foundUser = findUserById(userId);
+  let user = findUserById(userId);
 
-  if (!foundUser) throw new Error("User not found 😥", { cause: "userError" });
+  if (!user) throw new Error("User not found 😥", { cause: "userError" });
 
-  foundUser.avatar = url;
+  user.avatar = url;
+
+  saveUsers();
 }

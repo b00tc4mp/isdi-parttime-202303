@@ -1,5 +1,6 @@
 import { validateId, validatePassword } from "./helpers/validators.js";
 import { findUserById } from "./helpers/data-managers.js";
+import { saveUsers } from "../data.js";
 
 export default function changePassword(
   userId,
@@ -12,10 +13,10 @@ export default function changePassword(
   validatePassword(newPassword, "New password");
   validatePassword(password);
 
-  let foundUser = findUserById(userId);
+  let user = findUserById(userId);
 
-  if (!foundUser) throw new Error("User not found 😥", { cause: "userError" });
-  if (password !== foundUser.password)
+  if (!user) throw new Error("User not found 😥", { cause: "userError" });
+  if (password !== user.password)
     throw new Error("Wrong password 😥", { cause: "userError" });
   if (newPassword !== newPasswordConfirm)
     throw new Error("New passwords do not match 😥", { cause: "userError" });
@@ -32,5 +33,7 @@ export default function changePassword(
       cause: "userError",
     });
 
-  foundUser.password = newPassword;
+  user.password = newPassword;
+
+  saveUsers();
 }

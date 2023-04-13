@@ -21,6 +21,7 @@ const changePasswordError = profilePanel.querySelector(
 );
 const changeAvatarError = profilePanel.querySelector(".update-avatar-error");
 
+const newPostButton = homePage.querySelector(".button-new-post-container");
 const addPostModal = homePage.querySelector(".modal");
 const addPostForm = homePage.querySelector(".posts");
 const addPostError = homePage.querySelector(".add-post-error");
@@ -31,7 +32,7 @@ const bodyPage = document.querySelector("body");
 profileLink.onclick = function (event) {
   event.preventDefault();
 
-  toggle(profilePanel, postsList);
+  toggle(profilePanel, postsList, newPostButton);
   changePasswordForm.reset();
   changeAvatarForm.reset();
   hide(changeAvatarError, changePasswordError);
@@ -56,7 +57,7 @@ changePasswordForm.onsubmit = function (event) {
     changePassword(context.userId, password, newPassword, newPasswordConfirm);
 
     hide(profilePanel, changeAvatarError, changePasswordError);
-    show(postsList);
+    show(postsList, newPostButton);
     changePasswordForm.reset();
     changeAvatarForm.reset();
   } catch (error) {
@@ -85,7 +86,7 @@ changeAvatarForm.onsubmit = function (event) {
     changePasswordForm.reset();
     changeAvatarForm.reset();
     hide(profilePanel, changeAvatarError, changePasswordError);
-    show(postsList);
+    show(postsList, newPostButton);
   } catch (error) {
     changePasswordForm.reset();
     changeAvatarForm.reset();
@@ -99,7 +100,7 @@ changeAvatarForm.onsubmit = function (event) {
   }
 };
 
-homePage.querySelector(".new-post-button").onclick = () => {
+newPostButton.onclick = () => {
   show(addPostModal);
 
   bodyPage.classList.add("scroll-lock");
