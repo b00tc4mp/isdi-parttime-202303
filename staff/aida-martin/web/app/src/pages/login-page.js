@@ -1,15 +1,8 @@
 import authenticateUser from "../logic/authenticate-user.js";
-import retrieveUser from "../logic/retrieve-user.js";
 import errorShow from "../logic/helpers/error-managers.js";
 import { context, show, hide } from "../ui.js";
 import { registerPage, registerForm, registerError } from "./register-page.js";
-import {
-  homePage,
-  profileLink,
-  avatarImage,
-  DEFAULT_AVATAR_URL,
-  renderPosts,
-} from "./home-page.js";
+import { homePage, renderPosts, renderUser } from "./home-page.js";
 
 export const loginPage = document.querySelector(".login");
 export const loginForm = loginPage.querySelector(".form");
@@ -24,15 +17,11 @@ loginForm.onsubmit = function (event) {
   try {
     context.userId = authenticateUser(email, password);
 
-    const user = retrieveUser(context.userId);
-
-    profileLink.innerText = user.name;
-
-    avatarImage.src = user.avatar ?? DEFAULT_AVATAR_URL;
+    renderUser();
+    renderPosts();
 
     loginForm.reset();
 
-    renderPosts();
     hide(loginError, loginPage);
     show(homePage);
   } catch (error) {

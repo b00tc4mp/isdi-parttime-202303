@@ -5,13 +5,14 @@ import changePassword from "../logic/update-user-password.js";
 import updateAvatar from "../logic/update-user-avatar.js";
 import createPost from "../logic/create-post.js";
 import retrievePosts from "../logic/retrieve-posts.js";
+import retrieveUser from "../logic/retrieve-user.js";
 
-export const DEFAULT_AVATAR_URL =
+const DEFAULT_AVATAR_URL =
   "https://cdn-icons-png.flaticon.com/512/3135/3135823.png";
 
 export const homePage = document.querySelector(".home");
-export const avatarImage = document.querySelector(".home-header-avatar");
-export const profileLink = document.querySelector(".profile-link");
+const avatarImage = document.querySelector(".home-header-avatar");
+const profileLink = document.querySelector(".profile-link");
 const profilePanel = document.querySelector(".profile");
 const changePasswordForm = profilePanel.querySelector(".profile-password-form");
 const changeAvatarForm = profilePanel.querySelector(".profile-avatar-form");
@@ -147,7 +148,25 @@ export function renderPosts() {
       </article>`
       );
     }, "");
+
+    return true;
   } catch (error) {
     alert(error.message);
+
+    return false;
+  }
+}
+
+export function renderUser() {
+  try {
+    const user = retrieveUser(context.userId);
+
+    profileLink.innerText = user.name;
+
+    avatarImage.src = user.avatar ? user.avatar : DEFAULT_AVATAR_URL;
+
+    return true;
+  } catch (error) {
+    return false;
   }
 }

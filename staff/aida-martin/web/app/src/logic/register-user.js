@@ -4,7 +4,7 @@ import {
   validatePassword,
 } from "./helpers/validators.js";
 import { findUserByEmail } from "./helpers/data-managers.js";
-import { users } from "../data.js";
+import { users, saveUsers } from "../data.js";
 
 export default function registerUser(name, email, password, repeatPassword) {
   validateName(name);
@@ -29,12 +29,14 @@ export default function registerUser(name, email, password, repeatPassword) {
     id = "user-" + (parseInt(lastUser.id.slice(5)) + 1);
   }
 
-  users.push({
+  const user = {
     id,
     name,
     email,
     password,
-  });
+  };
 
-  console.log(users);
+  users.push(user);
+
+  saveUsers();
 }

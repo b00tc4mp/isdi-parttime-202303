@@ -16,6 +16,4 @@ export function toggle(...containers) {
   }
 }
 
-export const context = {
-  userId: null,
-};
+export const context = sessionStorage;
