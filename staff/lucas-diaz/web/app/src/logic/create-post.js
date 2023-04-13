@@ -1,4 +1,4 @@
-import { validateId, validateUrl, validateText } from "../logic/helpers/validators.js";
+import { validateId, validateUrl, validateText } from "./helpers/validators.js";
 import { users, posts } from "../data.js";
 
 export default  function createPost(userId, image, text){
