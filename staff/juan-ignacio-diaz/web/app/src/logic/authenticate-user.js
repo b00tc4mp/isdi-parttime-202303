@@ -5,10 +5,10 @@ export default function authenticateUser(email, password) {
     validateEmail(email)
     validatePassword(password)
 
-    const foundUser = findUserByEmail(email)
+    const user = findUserByEmail(email)
 
-    if (!foundUser || foundUser.password !== password) 
+    if (!user || user.password !== password) 
         throw new Error("wrong email or password")
     
-    return foundUser.id
+    return user.id
 }

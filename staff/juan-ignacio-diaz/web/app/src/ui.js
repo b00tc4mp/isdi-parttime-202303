@@ -13,6 +13,4 @@ export function toggle(...containers) {
         containers[i].classList.toggle('off')
 }
 
-export const context = {
-    userId: null
-}
+export const context = sessionStorage

@@ -1,5 +1,6 @@
 import { validateId, validatePassword } from './helpers/validators.js'
 import { findUserById } from './helpers/data-managers.js'
+import { saveUsers } from '../data.js'
 
 export default function updateUserPassword(userId, password, newPassword, newPasswordConfirm) {
     validateId(userId)
@@ -11,10 +12,12 @@ export default function updateUserPassword(userId, password, newPassword, newPas
 
     if (newPassword !== newPasswordConfirm) throw new Error("the confirm password is different than then new password", {cause: "newPasswordConfirm"})
 
-    const foundUser = findUserById(userId)
+    const user = findUserById(userId)
 
-    if (!foundUser) throw new Error("Error to user")
-    if (foundUser.password !== password)  throw new Error("Error the pasword is invalid", {cause: "password"})
+    if (!user) throw new Error("Error to user")
+    if (user.password !== password)  throw new Error("Error the pasword is invalid", {cause: "password"})
 
-    foundUser.password = newPassword
+    user.password = newPassword
+
+    saveUsers()
 }

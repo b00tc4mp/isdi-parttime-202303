@@ -1,6 +1,6 @@
-import {validateId, validateUrl, validateText} from './helpers/validators.js'
-import {findUserById, newPostId} from './helpers/data-managers.js'
-import {posts} from '../data.js'
+import { validateId, validateUrl, validateText } from './helpers/validators.js'
+import { findUserById, newPostId } from './helpers/data-managers.js'
+import { posts, savePosts } from '../data.js'
 
 export default function createPost(userId, image, text) {
     validateId(userId, 'user id')
@@ -20,4 +20,6 @@ export default function createPost(userId, image, text) {
     }
 
     posts.push(post)
+
+    savePosts()
 }

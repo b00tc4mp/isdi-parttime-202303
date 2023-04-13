@@ -2,6 +2,7 @@ import {context, show, hide, toggle} from "../ui.js"
 import updateUserAvatar from '../logic/update-user-avatar.js'
 import updateUserPassword from '../logic/update-user-password.js'
 import {loginPage} from './login-page.js'
+import retrieveUser from '../logic/retrieve-user.js'
 
 import createPost from '../logic/create-post.js'
 import retrievePosts from '../logic/retrieve-posts.js'
@@ -25,7 +26,7 @@ const postListPanel = homePage.querySelector('.post-list')
 profileLink.onclick = function (event) {
     event.preventDefault()
 
-    toggle(profilePanel)
+    toggle(profilePanel, postListPanel)
 }
 
 homePage.querySelector("button[name=logout]").onclick = function(event){
@@ -36,19 +37,13 @@ homePage.querySelector("button[name=logout]").onclick = function(event){
     closeSession()
 }
 
-function closeSession() {
-    context.user = ""
-
-    show(loginPage)
-}
-
 updateUserAvatarForm.onsubmit = function (event) {
     event.preventDefault()
 
     const url = event.target.url.value
 
     try {
-        updateUserAvatar(context.user, url)
+        updateUserAvatar(context.userId, url)
 
         alert('avatar updated')
 
@@ -73,7 +68,7 @@ updateUserPasswordForm.onsubmit = function (event) {
     const newPasswordConfirm = event.target.newPasswordConfirm.value
 
     try {
-        updateUserPassword(context.user, password, newPassword, newPasswordConfirm)
+        updateUserPassword(context.userId, password, newPassword, newPasswordConfirm)
         
         alert("the password is update")
 
@@ -139,4 +134,25 @@ export function renderPosts() {
     } catch(error) {
         alert(error.message)
     }
+}
+
+export function openSession(userId) {
+    context.userId = userId
+    
+    const user = retrieveUser(userId) 
+
+    hide(profilePanel)
+    renderPosts()
+
+    profileLink.innerText  = user.name
+
+    avatarImage.src = user.avatar? user.avatar : DEFAULT_AVATAR_URL
+
+    show(homePage)
+}
+
+function closeSession() {
+    delete context.userId
+
+    show(loginPage)
 }
