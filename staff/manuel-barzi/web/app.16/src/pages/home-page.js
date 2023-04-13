@@ -24,9 +24,6 @@ const addPostButton = homePage.querySelector('.add-post-button')
 
 const postListPanel = homePage.querySelector('.post-list')
 
-const editPostPanel = homePage.querySelector('.edit-post')
-const editPostForm = editPostPanel.querySelector('form')
-
 profileLink.onclick = function (event) {
     event.preventDefault()
 
@@ -104,72 +101,18 @@ addPostForm.querySelector('.cancel').onclick = event => {
     hide(addPostPanel)
 }
 
-editPostForm.onsubmit = event => {
-    event.preventDefault()
-
-    const postId = event.target.postId.value
-    const image = event.target.image.value
-    const text = event.target.text.value
-
-    try {
-        console.log('TODO call updatePost', postId, image, text)
-        //TODO updatePost(context.userId, postId, image, text)
-
-        hide(editPostPanel)
-
-        renderPosts()
-    } catch (error) {
-        alert(error.message)
-    }
-}
-
-editPostForm.querySelector('.cancel').onclick = event => {
-    event.preventDefault()
-
-    editPostForm.reset()
-
-    hide(editPostPanel)
-}
-
 
 export function renderPosts() {
     try {
         const posts = retrievePosts(context.userId)
 
-        postListPanel.innerHTML = ''
-
-        posts.forEach(post => {
-            const postItem = document.createElement('article')
-
-            const image = document.createElement('img')
-            image.src = post.image
-
-            const text = document.createElement('p')
-            text.innerText = post.text
-
-            const date = document.createElement('time')
-            date.innerText = post.date.toLocaleString()
-
-            if (post.author === context.userId) {
-                const button = document.createElement('button')
-                button.innerText = 'Edit'
-
-                button.onclick = () => {
-                    editPostForm.querySelector('input[type=hidden]').value = post.id
-                    editPostForm.querySelector('input[type=url]').value = post.image
-                    editPostForm.querySelector('textarea').value = post.text
-
-                    show(editPostPanel)
-                }
-
-                postItem.append(image, text, date, button)
-            } else {
-                postItem.append(image, text, date)
-            }
-
-
-            postListPanel.appendChild(postItem)
-        })
+        postListPanel.innerHTML = posts.reduce((accum, post) => {
+            return accum + `<article>
+                <img src="${post.image}">
+                <p>${post.text}</p>
+                <time>${post.date.toLocaleString()}</time>
+            </article>`
+        }, '')
 
         return true
     } catch (error) {

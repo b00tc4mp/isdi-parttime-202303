@@ -110,7 +110,7 @@ body {
     gap: 1rem;
 }
 
-.add-post, .edit-post {
+.add-post {
     position: fixed;
     top: 0;
     height: 100vh;
