@@ -1,10 +1,6 @@
-
 const every = (array, callback) => {
-  for (item of array) {
-    if (item === undefined) {
-      continue;
-    }
-    const result = callback(item);
+  for (index in array) {
+    const result = callback(array[index]);
     if (!result) {
       return false;
     }
