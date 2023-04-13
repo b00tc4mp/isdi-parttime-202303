@@ -28,7 +28,7 @@ loginForm.addEventListener('submit', (event) => {
   const username = document.querySelector('.login-form').querySelector('input[name="username"]').value;
   const password = document.querySelector('.login-form').querySelector('input[name="password"]').value;
   try {
-    context.userAuth = login(context.userAuth, loginPage, homePage, mainHome, username, password);
+    context.userAuth = login(loginPage, homePage, mainHome, username, password);
     displayWelcome(context.userAuth);
     renderAllPosts(context.userAuth, postModal);
   } catch (error) {

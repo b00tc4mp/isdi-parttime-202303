@@ -8,6 +8,7 @@ import { loginPage } from './login-page.js';
 
 export const profile = document.querySelector('.user-profile');
 export const profileButtons = document.querySelector('.profile-buttons');
+export const toggle = document.querySelector('.mode-toggle');
 export let newAvatar;
 
 const toEditProfile = document.querySelector('.to-edit-profile');
@@ -30,7 +31,15 @@ const toDeleteAccount = document.querySelector('.to-delete-account');
 const deleteAccount = document.querySelector('.delete-account');
 const deleteForm = document.querySelector('.delete-form');
 
-const toggleLightToggle = document.querySelector('.hide-mode-toggle')
+
+const toggleLightToggle = document.querySelector('.hide-mode-toggle');
+toggleLightToggle.textContent = (toggle.classList).contains('off') ? 'hide light switch' : 'show light switch'
+
+toggleLightToggle.addEventListener('click', (event) => {
+  event.preventDefault();
+  toggleOff(toggle);
+  toggleLightToggle.textContent === 'hide light switch' ? toggleLightToggle.textContent = 'show light switch' : toggleLightToggle.textContent = 'hide light switch'
+});
 
 toChangePassword.addEventListener('click', (event) => {
   event.preventDefault();
@@ -137,9 +146,4 @@ deleteAvatar.addEventListener('click', (event) => {
   displayProfile(context.userAuth);
 });
 
-toggleLightToggle.addEventListener('click', (event) => {
-  event.preventDefault();
-  const toggle = document.querySelector('.mode-toggle');
-  toggleOff(toggle);
-  toggleLightToggle.textContent === 'hide light switch' ? toggleLightToggle.textContent = 'show light switch' : toggleLightToggle.textContent = 'hide light switch'
-});
+

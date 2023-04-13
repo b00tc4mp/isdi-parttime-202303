@@ -1,14 +1,13 @@
-import { toggleOff, clearForms, resetAlerts, setAlert, setOn, setPredeterminateAvatar, } from './general-tools.js';
-
+import { toggleOff, clearForms, resetAlerts, setAlert, setOn, setPredeterminateAvatar, setOff} from './general-tools.js';
 import { addNewUser } from '../logic/register-user.js'
-
 import {authenticateUser} from '../logic/authenticate-user.js'
+import { toggle } from '../pages/home-edit-profile-page.js';
 
-export const login = (userAuth, login, home, startHome, username, password) => {
+export const login = (login, home, startHome, username, password) => {
   resetAlerts();
-  userAuth = authenticateUser(username, password);
-  toggleOff(login, home);
-  setOn(startHome);
+  const userAuth = authenticateUser(username, password);
+  setOff(login, toggle)
+  setOn(home, startHome);
   return userAuth
 };
 
@@ -34,6 +33,7 @@ export const logout = (login, home) => {
   resetAlerts();
   clearForms();
   toggleOff(login, home);
+  setOn(toggle)
   document.querySelector('.name').innerText = '';
   document.querySelector('.username').innerText = '';
   document.querySelector('.since').innerText = '';
