@@ -19,16 +19,10 @@ logInForm.addEventListener('submit', function (event) {
     
     try{
         context.userId = authenticateUser(email, password);
-
         renderUser(context.userId,welcomeMessage, DEFAUTL_AVATAR_URL, avatarImage);
-
         hide(logInPage);
         failLogInAdvice.textContent = "";
-
-        //TODO ORDER AND PAINT POSTS 
-        //lo metemos en homepage porque es un tema interno de homepage
         renderPosts();
-
         show(homePage);
         show(footerSite);
     }catch(error){

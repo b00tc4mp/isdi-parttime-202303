@@ -1,5 +1,4 @@
 import {  cleanChangePasswordForm, vanishWarningIn3Seconds } from "../logic/helpers/data-managers.js";
-
 import  updateUserPassword  from "../logic/update-user-password.js";
 import  updateUserAvatar  from "../logic/update-user-avatar.js";
 import { context, show, hide, addClass, removeClass  } from "../ui.js";
@@ -11,24 +10,24 @@ import retrieveUser from "../logic/retrieve-user.js";
 
 
 //* VARIABLES DE HOME
-
 export const DEFAUTL_AVATAR_URL = "https://img.icons8.com/color/512/avatar.png";
 export const homePage = document.querySelector(".home");
 const logOutButton = document.querySelector(".home-header-left-items-log-out-button");
 const settingsButton = document.querySelector(".home-header-left-items-config-icon");
 const headerMenu = document.querySelector(".home-menu")
+
 //* VARIABLES DE FORMULARIO DE CAMBIO DE CONTRASEÑA 
 const changePasswordMenuAnchor = document.querySelector(".home-menu-change-pass-anchor");
 const changePasswordMenu = document.querySelector(".change-password-menu");
 const cancelChangePasswordButton = document.querySelector(".cancel-change-password");
 const changePasswordForm = document.querySelector(".change-password-menu form");
+
 //* VARIABLES DE AVATAR 
 export const avatarImage = document.querySelector(".home-header-user-avatar");
 const avatarMenuAnchor = document.querySelector(".home-menu-avatar-anchor");
 const updateAvatarMenu = document.querySelector(".home-update-avatar-menu"); 
 const updateAvatarForm = document.querySelector(".home-update-avatar-menu .form")
 const cancelUpdateAvatarButton = document.querySelector(".form-avatar-cancel-button");
-
 
 //*VARIABLES DE POST 
 export const postsListPanel = document.querySelector(".home-posts-content");
@@ -121,7 +120,6 @@ document.querySelector(".home-menu-option3").addEventListener("click", (event) =
 })
 
 //! PARTE DEL FORM DEL MODAL
-
 postModal.querySelector(".form").onsubmit = (event) => {
     event.preventDefault();
 
@@ -137,19 +135,18 @@ postModal.querySelector(".form").onsubmit = (event) => {
         postsListPanel.classList.remove("fade");
         renderPosts();
 
-
     } catch(error){
         failPostMessage.textContent = error.message;
     }
 }
+
 postModal.querySelector(".form-post-cancel-button").onclick = (event) => {
     event.preventDefault();
     hide(postModal);
     postsListPanel.classList.remove("fade");
 }
 
-
-
+//! PINTA INFO PARA EL USER
 export function renderPosts () {
     try{
         
