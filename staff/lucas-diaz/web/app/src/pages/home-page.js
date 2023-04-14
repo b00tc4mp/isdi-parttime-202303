@@ -2,13 +2,13 @@ import {  cleanChangePasswordForm, vanishWarningIn3Seconds } from "../logic/help
 
 import  updateUserPassword  from "../logic/update-user-password.js";
 import  updateUserAvatar  from "../logic/update-user-avatar.js";
-import renderuser from "../logic/render-user.js";
 import { context, show, hide, addClass, removeClass  } from "../ui.js";
 import { logInPage } from "./login-page.js";
 import { footerSite } from "./footer-page.js";
 import createPost from "../logic/create-post.js";
 import retrievePosts from "../logic/retrieve-posts.js";
-import { posts } from "../data.js";
+import retrieveUser from "../logic/retrieve-user.js";
+
 
 //* VARIABLES DE HOME
 
@@ -142,12 +142,13 @@ postModal.querySelector(".form").onsubmit = (event) => {
         failPostMessage.textContent = error.message;
     }
 }
-
 postModal.querySelector(".form-post-cancel-button").onclick = (event) => {
     event.preventDefault();
     hide(postModal);
     postsListPanel.classList.remove("fade");
 }
+
+
 
 export function renderPosts () {
     try{
@@ -187,4 +188,16 @@ export function renderPosts () {
     }
     
 }
+
+export function renderUser(userId, welcomeMessage, DEFAUTL_AVATAR, avatarImage){
+
+    const currentUser = retrieveUser(userId)
+    welcomeMessage.textContent = `${currentUser.name}`;
+
+    if (currentUser.avatar){
+        avatarImage.src = currentUser.avatar;
+        return;
+    }
+    avatarImage.src = DEFAUTL_AVATAR;
+} 
 

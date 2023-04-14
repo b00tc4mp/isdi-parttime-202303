@@ -1,9 +1,8 @@
 import  authenticateUser  from "../logic/authenticate-user.js";
 import { context, show, hide } from "../ui.js";
 import { registerPage } from "./register-page.js";
-import { homePage, DEFAUTL_AVATAR_URL, avatarImage, renderPosts} from "./home-page.js";
+import { homePage, DEFAUTL_AVATAR_URL, avatarImage, renderPosts, renderUser} from "./home-page.js";
 import { footerSite } from "./footer-page.js";
-import renderUser from "../logic/render-user.js" 
 
 //* VARIABLES DE LOGIN PAGE
 export const logInPage = document.querySelector(".login")

@@ -1,4 +1,5 @@
 import {validateEmail, validateUsername, validatePassword } from "./helpers/validators.js"
+import { findUserByEmail } from "./helpers/data-managers.js";
 import { users } from "../data.js";
 
 
@@ -6,7 +7,7 @@ export default function registerUser (userName,email,password) {
     validateUsername(userName);
     validateEmail(email);
     validatePassword(password);
-    const foundUser = users.find(user => user.email === email);
+    const foundUser = findUserByEmail(email);
     if (foundUser)
         throw new Error("This profile already exist");
 

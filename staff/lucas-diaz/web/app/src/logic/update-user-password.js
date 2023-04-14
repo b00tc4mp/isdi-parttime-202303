@@ -1,5 +1,6 @@
 import { validatePasswordsChanges, validateId } from "./helpers/validators.js";
 import { users } from "../data.js";
+import { findUserById } from "./helpers/data-managers.js";
 
 
 export default function updateUserPassword(authenticatedUserId, password, newPassword, newPasswordConfirm) {
@@ -7,7 +8,7 @@ export default function updateUserPassword(authenticatedUserId, password, newPas
     validateId( authenticatedUserId)
 
 
-    const currentUser =  users.find(user => user.id === authenticatedUserId);
+    const currentUser =  findUserById(authenticatedUserId);
     const currentUserIndex = users.findIndex(user => user.id === authenticatedUserId);
 
     if (currentUser.password !== password.value) throw new Error("typed password isn't actual password user's value")

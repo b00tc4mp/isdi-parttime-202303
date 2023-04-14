@@ -1,12 +1,13 @@
 import { validateId, validateUrl, validateText } from "./helpers/validators.js";
 import { users, posts } from "../data.js";
+import { findUserById } from "./helpers/data-managers.js";
 
 export default  function createPost(userId, image, text){
     validateId(userId);
     validateUrl(image);
     validateText(text);
 
-    const foundUser = users.find(user => user.id === userId);
+    const foundUser = findUserById(userId);
 
     if (!foundUser) throw new Error (`user with id ${userId} not found`);
 

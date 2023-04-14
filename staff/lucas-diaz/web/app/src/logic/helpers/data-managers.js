@@ -1,3 +1,5 @@
+import { users } from "../../data";
+
 export const vanishWarningIn3Seconds = (advice, className) => {
     setTimeout(() => {
         advice.classList.add(className);
@@ -10,4 +12,12 @@ export const cleanChangePasswordForm = () => {
     document.querySelector(".new-password-repetition").value = "";
 }
 
+export function findUserById(userId){
+    let foundUser = users.find(user => user.id === userId)
+    return foundUser;
+}
 
+export function findUserByEmail(email){
+    let foundUser = users.find(user => user.email === email)
+    return foundUser;
+}
