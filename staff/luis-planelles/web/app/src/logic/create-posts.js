@@ -1,10 +1,11 @@
 import { posts, savePost } from '../data.js';
 import { findUserById } from './helpers/data-managers.js';
-import { validateUrl, validateText } from './helpers/validators.js';
+import { validateUrl, validateText, validateId } from './helpers/validators.js';
 
 const createPost = (userId, postImage, postText) => {
   validateUrl(postImage, 'image url');
   validateText(postText);
+  validateId(userId);
 
   const foundUser = findUserById(userId);
 
@@ -18,6 +19,7 @@ const createPost = (userId, postImage, postText) => {
   posts.push({
     id: postId,
     author: userId,
+    authorName: foundUser.info.name,
     image: postImage,
     text: postText,
     date: new Date(),

@@ -64,6 +64,10 @@ body {
   background-color: tomato;
 }
 
+.button--edit {
+  background-color: greenyellow;
+}
+
 @media (min-width: 768px) {
   .page {
     background-color: tomato;
@@ -113,7 +117,8 @@ body {
   gap: 1rem;
 }
 
-.add-post {
+.add-post,
+.edit-post {
   position: fixed;
   top: 0;
   height: 100vh;

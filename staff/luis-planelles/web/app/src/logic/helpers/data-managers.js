@@ -1,5 +1,6 @@
 //
 import { users } from '../../data.js';
+import { posts } from '../../data.js';
 
 const findUserByEmail = (email) => {
   let foundUser;
@@ -33,4 +34,18 @@ const findUserById = (userId) => {
   return foundUser;
 };
 
-export { findUserByEmail, findUserById };
+const getPostById = (postId) => {
+  let postUser;
+
+  for (let i = 0; i < posts.length; i++) {
+    if (posts[i].id === postId) {
+      postUser = posts[i];
+
+      break;
+    }
+  }
+
+  return postUser;
+};
+
+export { findUserByEmail, findUserById, getPostById };

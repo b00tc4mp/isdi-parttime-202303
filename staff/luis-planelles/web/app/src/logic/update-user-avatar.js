@@ -1,9 +1,10 @@
-import { validateUrl } from './helpers/validators.js';
+import { validateUrl, validateId } from './helpers/validators.js';
 import { findUserById } from './helpers/data-managers.js';
 import { saveUsers } from '../data.js';
 
 const updateUserAvatar = (userId, avatar) => {
   validateUrl(avatar, 'avatar url');
+  validateId(userId);
 
   const foundUser = findUserById(userId);
 

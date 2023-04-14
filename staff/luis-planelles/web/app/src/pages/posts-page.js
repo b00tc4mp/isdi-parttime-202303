@@ -1,13 +1,18 @@
 import createPost from '../logic/create-posts.js';
 import retrievePosts from '../logic/retrieve-posts.js';
+import retrieveUser from '../logic/retrieve-user.js';
 import { context } from '../ui.js';
 import { show, hide } from '../ui.js';
+import { getHomePage } from './home-page.js';
+import updatePost from '../logic/update-post.js';
+import retrieveAvatar from '../logic/retrive-avatar.js';
 
-const homePage = document.querySelector('.home'),
-  addPostButton = homePage.querySelector('.add-post-button'),
-  addPostPanel = homePage.querySelector('.add-post'),
+const addPostButton = getHomePage().querySelector('.add-post-button'),
+  addPostPanel = getHomePage().querySelector('.add-post'),
   addPostForm = addPostPanel.querySelector('form'),
-  postListPanel = homePage.querySelector('.post-list');
+  postListPanel = getHomePage().querySelector('.post-list'),
+  editPostPanel = getHomePage().querySelector('.edit-post'),
+  editPostForm = editPostPanel.querySelector('form');
 
 addPostButton.onclick = () => show(addPostPanel);
 
@@ -36,20 +41,76 @@ addPostForm.querySelector('.cancel').onclick = (event) => {
   hide(addPostPanel);
 };
 
-const renderPosts = (userId) => {
-  try {
-    const posts = retrievePosts(userId);
+editPostForm.onsubmit = (event) => {
+  event.preventDefault();
 
-    postListPanel.innerHTML = posts.reduce((accum, post) => {
-      return (
-        accum +
-        `<article>
-          <img src="${post.image}">
-          <p>${post.text}</p>
-          <time>${post.date.toLocaleString()}</time>
-      </article>`
-      );
-    }, '');
+  const postId = event.target.postId.value,
+    image = event.target.image.value,
+    text = event.target.text.value;
+
+  try {
+    updatePost(context.userId, postId, image, text);
+
+    hide(editPostPanel);
+
+    renderPosts();
+  } catch (error) {
+    alert(error.message);
+  }
+};
+
+editPostForm.querySelector('.cancel').onclick = (event) => {
+  event.preventDefault();
+
+  editPostForm.reset();
+
+  hide(editPostPanel);
+};
+
+export function renderPosts() {
+  try {
+    const posts = retrievePosts(context.userId);
+
+    postListPanel.innerHTML = '';
+
+    posts.forEach((post) => {
+      const postItem = document.createElement('article'),
+        avatarAuthor = retrieveAvatar(post.author);
+
+      const author = document.createElement('p');
+      author.innerText = post.authorName;
+
+      const avatar = document.createElement('img');
+      avatar.src = avatarAuthor;
+
+      const image = document.createElement('img');
+      image.src = post.image;
+
+      const text = document.createElement('p');
+      text.innerText = post.text;
+
+      const date = document.createElement('time');
+      date.innerText = post.date.toLocaleString();
+
+      if (post.author === context.userId) {
+        const button = document.createElement('button');
+        button.innerText = 'Edit';
+
+        button.onclick = () => {
+          editPostForm.querySelector('input[type=hidden]').value = post.id;
+          editPostForm.querySelector('input[type=url]').value = post.image;
+          editPostForm.querySelector('textarea').value = post.text;
+
+          show(editPostPanel);
+        };
+
+        postItem.append(author, avatar, image, text, date, button);
+      } else {
+        postItem.append(author, avatar, image, text, date);
+      }
+
+      postListPanel.appendChild(postItem);
+    });
 
     return true;
   } catch (error) {
@@ -57,6 +118,6 @@ const renderPosts = (userId) => {
 
     return false;
   }
-};
+}
 
 export default renderPosts;

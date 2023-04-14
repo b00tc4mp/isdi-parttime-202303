@@ -1,5 +1,5 @@
 import authenticateUser from '../logic/authenticate-user.js';
-import { homePage, profileLink } from './home-page.js';
+import { getHomePage, profileLink } from './home-page.js';
 import registerPage from './register-page.js';
 import retrieveUser from '../logic/retrieve-user.js';
 import rederPosts from './posts-page.js';
@@ -27,7 +27,7 @@ loginForm.addEventListener('submit', (event) => {
     loginForm.reset();
 
     hide(loginPage);
-    show(homePage);
+    show(getHomePage());
     rederPosts(context.userId);
   } catch (error) {
     alert(error.message);

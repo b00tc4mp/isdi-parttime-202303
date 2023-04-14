@@ -77,7 +77,13 @@ const validateText = (text, explain = 'text') => {
   if (!text.trim().length) throw new Error(`${explain} is empty`);
 };
 
+const validateId = (id, explain = 'id') => {
+  if (typeof id !== 'string') throw new Error(`${explain} is not a string`);
+  if (!id.trim().length) throw new Error(`${explain} is empty`);
+};
+
 export {
+  validateId,
   validateText,
   validateUrl,
   validateEmail,

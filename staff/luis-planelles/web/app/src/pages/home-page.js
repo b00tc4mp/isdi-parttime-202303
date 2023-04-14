@@ -5,20 +5,21 @@ import updateUserAvatar from '../logic/update-user-avatar.js';
 import DEFAULT_AVATAR_URL from '../logic/helpers/global-variables.js';
 import retrieveUser from '../logic/retrieve-user.js';
 
-const homePage = document.querySelector('.home'),
-  avatarImage = homePage.querySelector('.home-header-avatar'),
-  homeLinks = homePage.querySelectorAll('a'),
+const getHomePage = () => document.querySelector('.home');
+
+const avatarImage = getHomePage().querySelector('.home-header-avatar'),
+  homeLinks = getHomePage().querySelectorAll('a'),
   profileLink = homeLinks[1],
   goHome = homeLinks[0],
-  profilePanel = homePage.querySelector('.profile'),
+  profilePanel = getHomePage().querySelector('.profile'),
   updateUserAvatarForm = profilePanel.querySelector('.profile-avatar-form'),
   updateUserPasswordForm = profilePanel.querySelector('.profile-password-form');
 
-homePage.querySelector('.home-header-logout').onclick = () => {
+getHomePage().querySelector('.home-header-logout').onclick = () => {
   delete context.userId;
   avatarImage.src = DEFAULT_AVATAR_URL;
 
-  hide(homePage, profilePanel);
+  hide(getHomePage(), profilePanel);
   show(loginPage);
 };
 
@@ -26,7 +27,7 @@ goHome.onclick = (event) => {
   event.preventDefault();
 
   hide(profilePanel);
-  show(homePage);
+  show(getHomePage());
 };
 
 profileLink.onclick = (event) => {
@@ -91,4 +92,4 @@ const renderUser = (userId) => {
   }
 };
 
-export { homePage, avatarImage, profileLink, renderUser };
+export { avatarImage, profileLink, renderUser, getHomePage };
