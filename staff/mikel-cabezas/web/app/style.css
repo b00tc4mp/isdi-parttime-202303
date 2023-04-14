@@ -632,3 +632,129 @@ input:-webkit-autofill:active  {
   transition: background-color 500000s;
   -webkit-text-fill-color: #fff !important;
 } */
+
+
+
+
+
+
+/* @media (prefers-color-scheme: dark) {
+
+    :root {
+        --main-green: #1a1d20;
+    }
+
+    .container {
+        background-color: var(--dark);
+    }
+
+    h1, h2, h3, h4, h5, h6, p, span, time {
+        color: var(--white) !important;
+    }
+    input::placeholder {
+        color: var(--white);
+    }
+    i.uil {
+        color: var(--white) !important;
+    }
+
+    textarea, input:not([name="file"]) {
+        background: rgb(59,59,59);
+        color: var(--white);
+    }
+    form label {
+        color: var(--white);
+    }
+    .create-post form {
+        background: var(--dark);
+        padding: 30px 30px 10px;
+        border-radius: 20px;
+        width: auto;
+        max-width: 350px;
+    }
+    article {
+        background: var(--dark);
+    }
+
+    button.button--update-info__cancel-info, 
+    button.button--update-info__cancel-password, 
+    button.button--create-post_cancel {
+        background: var(--dark);
+        border: solid 2px var(--main-brown);
+        color: var(--white);
+    }
+
+    .post-author {
+        color: var(--white);
+    }
+
+} */
+
+a.user-theme {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    line-height: 1;
+}
+.user-theme .material-symbols-outlined {
+    font-size: 32px;
+}
+.material-symbols-outlined.on {
+    color: #70bd7a;
+}
+
+html[data-theme="dark"]:root {
+    --main-green: #1a1d20;
+}
+
+html[data-theme="dark"] .container {
+    background-color: var(--dark);
+}
+
+html[data-theme="dark"] h1, 
+html[data-theme="dark"] h2, 
+html[data-theme="dark"] h3, 
+html[data-theme="dark"] h4, 
+html[data-theme="dark"] h5, 
+html[data-theme="dark"] h6, 
+html[data-theme="dark"] p, 
+html[data-theme="dark"] span, 
+html[data-theme="dark"] time {
+    color: var(--white) !important;
+}
+html[data-theme="dark"] input::placeholder {
+    color: var(--white);
+}
+html[data-theme="dark"] i.uil {
+    color: var(--white) !important;
+}
+
+html[data-theme="dark"] textarea, html[data-theme="dark"]  input:not([name="file"]) {
+    background: rgb(59,59,59);
+    color: var(--white);
+}
+html[data-theme="dark"] form label {
+    color: var(--white);
+}
+html[data-theme="dark"] .create-post form {
+    background: var(--dark);
+    padding: 30px 30px 10px;
+    border-radius: 20px;
+    width: auto;
+    max-width: 350px;
+}
+html[data-theme="dark"] article {
+    background: var(--dark);
+}
+
+html[data-theme="dark"] button.button--update-info__cancel-info, 
+html[data-theme="dark"] button.button--update-info__cancel-password, 
+html[data-theme="dark"] button.button--create-post_cancel {
+    background: var(--dark);
+    border: solid 2px var(--main-brown);
+    color: var(--white);
+}
+
+html[data-theme="dark"] .post-author {
+    color: var(--white);
+} 

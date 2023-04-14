@@ -1,10 +1,7 @@
 import { homePage } from "../pages/home-page.js";
 import { posts, users } from '../data.js'
 import { cutText} from './max-characters.js'
-import { getCurrentUser, getUserName } from "./helpers/data-managers.js";
-
-
-
+// import {default as homePage} from "../pages/home-page.js";
 export function renderPosts(userId) {
     const existentArticleElement = homePage.querySelector('.posts')
     
@@ -15,8 +12,14 @@ export function renderPosts(userId) {
     
         recentPostsFirst.forEach(article => {
             const date = article.date
+
+            // const dateInObject = JSON.parse(date, (key, value) => {
+            //     if (key === '' && typeof value === 'string') {
+            //       return new Date(value);
+            //     }
+            //     return value;
+            //   });
             const author = users.find(user => user.id === article.author).name
-            // const author = users.find(user => user.id === article.author).name 
             const postsList = existentArticleElement
 
             if(userId !== author) {
@@ -31,10 +34,10 @@ export function renderPosts(userId) {
                             ${author}
                         </div>
                         <div class="post-date">
-                            <time>    ${article.date.toLocaleString()}</time>
+                               <time>${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}</time>
                         </div>
-                        </div>
-                        `    
+                    </div>
+                `    
             }
             
         })

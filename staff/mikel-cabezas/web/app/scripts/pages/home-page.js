@@ -3,6 +3,7 @@ import { createPost } from "../logic/create-post.js"
 import { updatePosts } from '../logic/update-posts.js'
 import { getCurrentUser } from "../logic/helpers/data-managers.js"
 import { renderPosts } from "../logic/render-posts.js"
+
 export const homePage = document.querySelector('.section.home')
 
 const image = homePage.querySelector('.overlay.create-post form > input[name="file"') 

@@ -1,13 +1,13 @@
 import { authenticateUser } from '../logic/authenticate-users.js'
 import { context, toggleOffClassInSection, bodyPage, clearMessageContainer, showHidePassword } from '../ui.js'
 import { homePage, renderUser } from './home-page.js'
-import { menuHeader } from './header.js'
-import { userAccount } from './user-account.js'
+
 import { pushUserDataInForm } from '../logic/push-user-data-in-form.js'
-import { getUserName, findUserByEmail } from '../logic/helpers/data-managers.js'
+import { getUserName } from '../logic/helpers/data-managers.js'
 import { registerPage } from './register-page.js'
 import { updatePosts } from '../logic/update-posts.js'
 import { pushUserDataToHeader } from '../logic/push-user-to-header.js'
+
 
 export const loginPage = document.querySelector('.section.login')
 export const loginPageMessage = document.querySelector('.section.login').querySelector('.message')
