@@ -22,10 +22,11 @@ export function renderPosts(userId) {
             const author = users.find(user => user.id === article.author).name
             const postsList = existentArticleElement
 
-            if(userId !== author) {
                 const postContainer = document.createElement('article')
                 postsList.appendChild(postContainer)
                 postContainer.innerHTML = `
+                ${userId === author ? '<button class="edit">edit</button>' : ''}
+    
                     <img src="${article.image}" >
                     <h3 class="title">${article.title}</h3>
                     <p class="excerpt">${cutText(article.text, 35)}</p>
@@ -38,7 +39,6 @@ export function renderPosts(userId) {
                         </div>
                     </div>
                 `    
-            }
             
         })
         recentPostsFirst = posts.reverse()

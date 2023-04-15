@@ -10,13 +10,13 @@ import { pushUserDataToHeader } from './logic/push-user-to-header.js'
 import { pushUserDataInForm } from './logic/push-user-data-in-form.js'
 import { userAccount } from './pages/user-account.js'
 
-// if(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-//     localStorage.theme = 'dark'
-//     document.querySelector('html').classList.add('dark')
-// } else {
-//     localStorage.theme = 'light'
-//     document.querySelector('html').classList.add('light')
-// }
+if(!localStorage.theme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    localStorage.theme = 'dark'
+    document.querySelector('html').classList.add('dark')
+} else if(!localStorage.theme && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+    localStorage.theme = 'light'
+    document.querySelector('html').classList.add('light')
+}
 
 if(localStorage.theme === 'light') {
     // alert('light')
