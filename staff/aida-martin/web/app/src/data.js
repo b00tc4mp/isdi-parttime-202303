@@ -32,6 +32,8 @@ export const users =
 export const posts =
   "postsJson" in localStorage ? JSON.parse(localStorage.postsJson) : [];
 
+posts.forEach((post) => (post.date = new Date(post.date)));
+
 // posts.push({
 //   id: "post-1",
 //   author: "user-1",

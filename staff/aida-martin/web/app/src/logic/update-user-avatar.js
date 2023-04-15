@@ -1,6 +1,7 @@
 import { validateId, validateUrl } from "./helpers/validators.js";
 import { findUserById } from "./helpers/data-managers.js";
 import { saveUsers } from "../data.js";
+import { renderPosts } from "../pages/home-page.js";
 
 export default function updateAvatar(userId, url) {
   validateId(userId, "User ID");
@@ -13,4 +14,5 @@ export default function updateAvatar(userId, url) {
   user.avatar = url;
 
   saveUsers();
+  renderPosts();
 }

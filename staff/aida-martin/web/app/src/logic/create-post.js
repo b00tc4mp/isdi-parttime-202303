@@ -21,10 +21,12 @@ export default function createPost(userId, image, text) {
 
   const post = {
     id,
+    name: user.name,
+    avatar,
     author: userId,
     image,
     text,
-    date: new Date().toLocaleString(),
+    date: new Date(),
   };
 
   posts.push(post);

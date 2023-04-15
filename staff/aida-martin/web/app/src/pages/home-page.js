@@ -1,5 +1,6 @@
 import { context, show, hide, toggle } from "../ui.js";
 import { loginPage } from "./login-page.js";
+import { findUserById } from "../logic/helpers/data-managers.js";
 import errorShow from "../logic/helpers/error-managers.js";
 import changePassword from "../logic/update-user-password.js";
 import updateAvatar from "../logic/update-user-avatar.js";
@@ -26,6 +27,8 @@ const addPostModal = homePage.querySelector(".modal");
 const addPostForm = homePage.querySelector(".posts");
 const addPostError = homePage.querySelector(".add-post-error");
 const postsList = homePage.querySelector(".posts-list");
+const editPostModal = homePage.querySelector(".edit-post-modal");
+const editPostForm = homePage.querySelector(".edit-post-form");
 
 const bodyPage = document.querySelector("body");
 
@@ -139,23 +142,62 @@ export function renderPosts() {
   try {
     const posts = retrievePosts(context.userId);
 
-    console.log(posts);
+    postsList.innerHTML = "";
 
-    postsList.innerHTML = posts.reduce((accum, post) => {
-      return (
-        accum +
-        `<article>
-      <img class="post-image" src="${post.image}">
-      <p>${post.text}</p>
-      <time>${post.date}</time>
-      </article>`
+    posts.forEach((post) => {
+      const postItem = document.createElement("article");
+      const user = findUserById(post.author);
+
+      const name = document.createElement("p");
+      name.classList.add("post-user");
+      name.innerText = user.name;
+
+      const avatar = document.createElement("img");
+      avatar.classList.add("post-avatar");
+
+      if (
+        user.avatar
+          ? (avatar.src = user.avatar)
+          : (avatar.src = DEFAULT_AVATAR_URL)
       );
-    }, "");
+
+      const image = document.createElement("img");
+      image.classList.add("post-image");
+      image.src = post.image;
+
+      const text = document.createElement("p");
+      text.classList.add("post-text");
+      text.innerText = post.text;
+
+      const date = document.createElement("time");
+      date.classList.add("post-date");
+      date.innerText = post.date.toLocaleString();
+
+      if (post.author === context.userId) {
+        const button = document.createElement("button");
+        button.classList.add("edit-post-button");
+        button.classList.add("button");
+        button.innerText = "EDIT";
+
+        button.onclick = () => {
+          editPostForm.querySelector("input[type=hidden]").value = post.id;
+          editPostForm.querySelector("input[type=url").value = post.image;
+          editPostForm.querySelector("textarea").value = post.text;
+
+          show(editPostModal);
+        };
+
+        postItem.append(image, name, avatar, date, text, button);
+      } else {
+        postItem.append(image, name, avatar, date, text);
+      }
+
+      postsList.appendChild(postItem);
+    });
 
     return true;
   } catch (error) {
-    alert(error.message);
-
+    console.log(error);
     return false;
   }
 }
