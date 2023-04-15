@@ -18,6 +18,8 @@ const handleLikes = (postId, userId) => {
 
   post.likesCount = post.likesUsers.length;
   savePost();
+
+  return post;
 };
 
 export default handleLikes;

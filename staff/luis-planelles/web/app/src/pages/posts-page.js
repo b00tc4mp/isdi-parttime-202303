@@ -114,7 +114,9 @@ export function renderPosts() {
         };
       } else {
         button.onclick = () => {
-          handleLikes(post.id, context.userId);
+          const postLikes = handleLikes(post.id, context.userId);
+          likesCount.innerText = postLikes.likesUsers.length;
+          likesUsers.innerText = postLikes.likesUsers;
         };
       }
       postItem.append(
