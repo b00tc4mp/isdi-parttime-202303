@@ -1,4 +1,4 @@
-import { users } from "../../data.js";
+import { users, posts } from "../../data.js";
 
 export function findUserByEmail(email) {
   for (let i = 0; i < users.length; i++) {
@@ -15,6 +15,16 @@ export function findUserById(userId) {
 
     if (user.id === userId) {
       return user;
+    }
+  }
+}
+
+export function findPostById(postId) {
+  for (let i = 0; i < posts.length; i++) {
+    const post = posts[i];
+
+    if (post.id === postId) {
+      return post;
     }
   }
 }

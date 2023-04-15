@@ -7,6 +7,7 @@ import updateAvatar from "../logic/update-user-avatar.js";
 import createPost from "../logic/create-post.js";
 import retrievePosts from "../logic/retrieve-posts.js";
 import retrieveUser from "../logic/retrieve-user.js";
+import updatePosts from "../logic/update-posts.js";
 
 const DEFAULT_AVATAR_URL =
   "https://cdn-icons-png.flaticon.com/512/3135/3135823.png";
@@ -29,6 +30,7 @@ const addPostError = homePage.querySelector(".add-post-error");
 const postsList = homePage.querySelector(".posts-list");
 const editPostModal = homePage.querySelector(".edit-post-modal");
 const editPostForm = homePage.querySelector(".edit-post-form");
+const editPostError = homePage.querySelector(".edit-post-error");
 
 const bodyPage = document.querySelector("body");
 
@@ -90,6 +92,8 @@ changeAvatarForm.onsubmit = function (event) {
     changeAvatarForm.reset();
     hide(profilePanel, changeAvatarError, changePasswordError);
     show(postsList, newPostButton);
+
+    renderPosts();
   } catch (error) {
     changePasswordForm.reset();
     changeAvatarForm.reset();
@@ -136,6 +140,36 @@ homePage.querySelector(".cancel").onclick = (event) => {
 
   bodyPage.classList.remove("scroll-lock");
   hide(addPostModal);
+};
+
+editPostForm.onsubmit = (event) => {
+  event.preventDefault();
+
+  const post = event.target.postId.value;
+  const image = event.target.image.value;
+  const text = event.target.text.value;
+
+  try {
+    updatePosts(context.userId, post, image, text);
+
+    renderPosts();
+
+    editPostForm.reset();
+
+    bodyPage.classList.remove("scroll-lock");
+    hide(editPostModal);
+  } catch (error) {
+    errorShow(editPostError, error);
+  }
+};
+
+editPostForm.querySelector(".cancel").onclick = (event) => {
+  event.preventDefault();
+
+  editPostForm.reset();
+
+  bodyPage.classList.remove("scroll-lock");
+  hide(editPostModal);
 };
 
 export function renderPosts() {

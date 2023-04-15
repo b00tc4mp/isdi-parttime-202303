@@ -52,7 +52,7 @@ h2 {
     box-shadow: 2px 2px 7px 2px rgba(0, 0, 0, 0.25);
 }
 
-.posts {
+.posts, .edit-post-form {
     margin: 0;
 }
 
@@ -169,7 +169,7 @@ h2 {
     color: #5589D9;
 }
 
-.register-error, .login-error, .change-password-error, .update-avatar-error, .add-post-error {
+.register-error, .login-error, .change-password-error, .update-avatar-error, .add-post-error, .edit-post-error {
     font-weight: 400;
     font-size: 0.563rem;
     text-align: center;
@@ -180,8 +180,9 @@ h2 {
 
 .posts-list {
     padding-top: 2rem;
+    padding-bottom: 2rem;
     width: 21.87rem;
-    height: 100%;
+    height: fit-content;
     display: flex;
     flex-direction: column;
     align-self: center;

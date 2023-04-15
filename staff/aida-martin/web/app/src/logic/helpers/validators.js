@@ -46,5 +46,6 @@ export function validateId(id, explain = "User ID") {
 export function validateText(text, explain = "Text") {
   if (typeof text !== "string")
     throw new Error(`${explain} is not a string 😥`, { cause: "userError" });
-  if (!text.trim().length) throw new Error(`${explain} is empty 😥`);
+  if (!text.trim().length)
+    throw new Error(`${explain} is empty 😥`, { cause: "userError" });
 }

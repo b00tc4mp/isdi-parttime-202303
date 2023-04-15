@@ -14,5 +14,4 @@ export default function updateAvatar(userId, url) {
   user.avatar = url;
 
   saveUsers();
-  renderPosts();
 }

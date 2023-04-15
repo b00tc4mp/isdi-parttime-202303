@@ -9,7 +9,7 @@ export default function createPost(userId, image, text) {
 
   const user = findUserById(userId);
 
-  if (!user) throw new Error("User with ID ${userId} not found");
+  if (!user) throw new Error("User not found 😥", { cause: "userError" });
 
   let id = "post-1";
 
@@ -22,7 +22,7 @@ export default function createPost(userId, image, text) {
   const post = {
     id,
     name: user.name,
-    avatar,
+    avatar: user.avatar,
     author: userId,
     image,
     text,
