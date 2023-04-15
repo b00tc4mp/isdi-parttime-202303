@@ -6,14 +6,14 @@ import { updateUserAvatar } from '../logic/update-user-avatar.js'
 import { validatedNewPassword } from "../logic/validated-user-newpassword.js"
 import createPost from "../logic/create-post.js"
 import retrievePosts from "../logic/retrieve-posts.js"
+import retrieveUser from "../logic/retrieve-user.js"
 
-
-export const DEFAULT_AVATAR_URL = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png"
+const DEFAULT_AVATAR_URL = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png"
 
 export const homePage= document.querySelector('.home')
 export const homeMenu = homePage.querySelector('.home-header').querySelector('.home-menu')
-export const myProfileLink = homeMenu.querySelector('.myProfile')
-export const avatarImage =homeMenu.querySelector('.home-header-avatar')
+const myProfileLink = homeMenu.querySelector('.myProfile')
+const avatarImage =homeMenu.querySelector('.home-header-avatar')
 
 const homeProfileEdit = homePage.querySelector('.profile-edit') 
 const homeProfileEditAvatarForm= homeProfileEdit.querySelector('.profile-edit-avatar-form')
@@ -141,31 +141,13 @@ addPostForm.querySelector('.cancel').onclick = function(event){
 
 //home-header-Logout 
 
-homePage.querySelector('.home-header').querySelector('.home-header-logout').querySelector('.logout').onclick = function(event) {
-    event.preventDefault() //no sería necesario al estar fuera de un formulario, podriamos omitirlo
-
-    context.userId = null
+document.querySelector('.logout').onclick = function (event) {
+    event.preventDefault()
+    delete context.userId
     avatarImage.src = DEFAULT_AVATAR_URL
     
     hide(homePage, homeProfileEdit, homeProfileEditAvatarForm, homeProfileEditPasswordForm)
     show(loginPage)
-}
-
-export function renderUser() {
-    //mantenemos el usuario, su nombre y su avatar en session storage
-    try{
-        const user = retrieveUser(context.userId)
-
-        myProfileLink.innerText = user.name
-
-        avatarImage.src = user.avatar? user.avatar : DEFAULT_AVATAR_URL
-
-        return true
-    }catch(error){
-        alert(error.message)
-
-        return false
-    }
 }
 
 export function renderPosts() {
@@ -206,8 +188,27 @@ export function renderPosts() {
             </article>`
         }, '')
 
+        return true
     }catch(error){
     alert(error.message)
+    return false
     }
 }
  
+export function renderUser() {
+    //mantenemos el usuario, su nombre y su avatar en session storage
+    try{
+        const user = retrieveUser(context.userId)
+
+        myProfileLink.innerText = user.name
+
+        avatarImage.src = user.avatar ? user.avatar : DEFAULT_AVATAR_URL
+
+        return true
+    }catch(error){
+        alert(error.message)
+
+
+        return false
+    }
+}

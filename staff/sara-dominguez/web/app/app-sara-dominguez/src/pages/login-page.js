@@ -1,10 +1,9 @@
 console.log('load login-page')
 
 import { authenticateUser } from '../logic/authenticate-user.js'
-import { retrieveUser } from "../logic/retrieve-user.js"
 import { context, hide, show } from "../ui.js"
 import { registerPage } from "./register-page.js"
-import { homePage, myProfileLink, avatarImage, DEFAULT_AVATAR_URL, renderPosts } from "./home-page.js"
+import { homePage, renderPosts, renderUser } from "./home-page.js"
 
 
 
@@ -24,15 +23,8 @@ loginForm.onsubmit = function (event) {
     try{
         context.userId = authenticateUser(email,password)
         
-        const user = retrieveUser(context.userId)
-
-        myProfileLink.innerText = `${user.name}`
-
+        renderUser()
         
-        avatarImage.src = user.avatar? user.avatar: DEFAULT_AVATAR_URL
-        
-
-
         loginForm.reset()
 
         hide (loginPage)
