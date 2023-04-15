@@ -1,5 +1,5 @@
 import { validatePasswordsChanges, validateId } from "./helpers/validators.js";
-import { users } from "../data.js";
+import { users, saveUsers} from "../data.js";
 import { findUserById } from "./helpers/data-managers.js";
 
 
@@ -16,4 +16,7 @@ export default function updateUserPassword(authenticatedUserId, password, newPas
     if (newPassword.value !== newPasswordConfirm.value) throw new Error("New password and new password confirmation are not the same")
 
     users[currentUserIndex].password = newPassword.value;
+
+    saveUsers();
+
 }

@@ -1,6 +1,6 @@
-export const users = []
+export const users = "usersJson" in localStorage  ? JSON.parse(localStorage.usersJson) : []
 
-users.push({
+/* users.push({
     id: "user-1",
     name: 'Wendy Darling',
     email: 'wendy@darling.com',
@@ -9,7 +9,7 @@ users.push({
 users.push({
     id: "user-2",
     name: 'Peter Pan',
-    email: 'peter@pan.com',
+    email: 'peter@pan.com',  
     password: 'PeterPan22!'
 })
 users.push({
@@ -24,11 +24,11 @@ users.push({
     email: 'lucas@gmail.com',
     password: 'LucasDiaz22!',
     avatar: "https://static.vecteezy.com/system/resources/previews/019/861/654/non_2x/3d-modern-house-or-home-isometric-modern-building-and-architecture-free-png.png"
-})
+}) */
 
-export const posts = []
+export const posts = "postsJson" in localStorage  ? JSON.parse(localStorage.postsJson) : []
 
-posts.push({
+/* posts.push({
     id: "post-1",
     author: "user-1",
     image: "https://img.freepik.com/vector-gratis/planes-diseno-casa_23-2147665806.jpg?2",
@@ -47,6 +47,14 @@ posts.push({
     author: "user-4",
     image: "https://static.vecteezy.com/system/resources/previews/019/861/654/non_2x/3d-modern-house-or-home-isometric-modern-building-and-architecture-free-png.png",
     text: "How about this style??",
-    date: new Date()
+    date: new Date(2023, 4, 15, 20, 15)
 })
+ */
 
+export function saveUsers(){
+    localStorage.usersJson = JSON.stringify(users);
+}
+
+export function savePosts(){
+    localStorage.postsJson = JSON.stringify(posts);
+}

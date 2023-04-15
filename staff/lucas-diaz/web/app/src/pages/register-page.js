@@ -22,6 +22,7 @@ registerForm.addEventListener('submit', function (event) {
         show(logInPage);
         show(successRegisterAdivice)
         vanishWarningIn3Seconds(successRegisterAdivice, "off")
+        registerForm.reset();
     } catch (error){
         failRegisterAdvice.textContent = error.message;
     }

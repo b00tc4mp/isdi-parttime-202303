@@ -1,5 +1,5 @@
 import { validateId, validateUrl, validateText } from "./helpers/validators.js";
-import { users, posts } from "../data.js";
+import { posts, savePosts } from "../data.js";
 import { findUserById } from "./helpers/data-managers.js";
 
 export default  function createPost(userId, image, text){
@@ -25,4 +25,5 @@ export default  function createPost(userId, image, text){
     }
 
     posts.push(post);
+    savePosts();
 }

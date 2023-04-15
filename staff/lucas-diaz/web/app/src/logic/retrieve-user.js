@@ -6,14 +6,14 @@ import { findUserById } from "./helpers/data-managers";
 
 export default function retrieveUser (userId) {
     validateId(userId);
-    let foundUser = findUserById(userId);
+    let user = findUserById(userId);
 
-    if (!foundUser) throw new Error ("User not found");
+    if (!user) throw new Error ("User not found");
 
-    foundUser = {
-        name: foundUser.name,
-        avatar: foundUser.avatar,
+    user = {
+        name: user.name,
+        avatar: user.avatar,
     }
 
-    return foundUser;
+    return user;
 }

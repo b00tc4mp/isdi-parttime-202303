@@ -10,11 +10,12 @@ import retrieveUser from "../logic/retrieve-user.js";
 
 
 //* VARIABLES DE HOME
-export const DEFAUTL_AVATAR_URL = "https://img.icons8.com/color/512/avatar.png";
+const DEFAUTL_AVATAR_URL = "https://img.icons8.com/color/512/avatar.png";
 export const homePage = document.querySelector(".home");
 const logOutButton = document.querySelector(".home-header-left-items-log-out-button");
 const settingsButton = document.querySelector(".home-header-left-items-config-icon");
 const headerMenu = document.querySelector(".home-menu")
+const welcomeMessage = document.querySelector(".home-header-user-welcome-msj")
 
 //* VARIABLES DE FORMULARIO DE CAMBIO DE CONTRASEÑA 
 const changePasswordMenuAnchor = document.querySelector(".home-menu-change-pass-anchor");
@@ -23,7 +24,7 @@ const cancelChangePasswordButton = document.querySelector(".cancel-change-passwo
 const changePasswordForm = document.querySelector(".change-password-menu form");
 
 //* VARIABLES DE AVATAR 
-export const avatarImage = document.querySelector(".home-header-user-avatar");
+const avatarImage = document.querySelector(".home-header-user-avatar");
 const avatarMenuAnchor = document.querySelector(".home-menu-avatar-anchor");
 const updateAvatarMenu = document.querySelector(".home-update-avatar-menu"); 
 const updateAvatarForm = document.querySelector(".home-update-avatar-menu .form")
@@ -180,21 +181,28 @@ export function renderPosts () {
             </article> `
         }, "")
 
+        return true;
     }catch(error){
         alert(error.message)
+        return false;
     }
-    
 }
 
-export function renderUser(userId, welcomeMessage, DEFAUTL_AVATAR, avatarImage){
-
-    const currentUser = retrieveUser(userId)
-    welcomeMessage.textContent = `${currentUser.name}`;
-
-    if (currentUser.avatar){
-        avatarImage.src = currentUser.avatar;
-        return;
+export function renderUser(){
+    try{
+        const currentUser = retrieveUser(context.userId)
+        welcomeMessage.textContent = `${currentUser.name}`;
+    
+        if (currentUser.avatar){
+            avatarImage.src = currentUser.avatar;
+        } else{
+            avatarImage.src = DEFAUTL_AVATAR_URL;
+        }
+        return true;
+        
+    } catch (error) {
+        alert(error.message);
+        return false;
     }
-    avatarImage.src = DEFAUTL_AVATAR;
 } 
 
