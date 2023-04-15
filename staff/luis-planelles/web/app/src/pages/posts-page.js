@@ -1,11 +1,11 @@
 import createPost from '../logic/create-posts.js';
 import retrievePosts from '../logic/retrieve-posts.js';
-import retrieveUser from '../logic/retrieve-user.js';
 import { context } from '../ui.js';
 import { show, hide } from '../ui.js';
 import { getHomePage } from './home-page.js';
 import updatePost from '../logic/update-post.js';
 import retrieveAvatar from '../logic/retrive-avatar.js';
+import handleLikes from '../logic/like-button.js';
 
 const addPostButton = getHomePage().querySelector('.add-post-button'),
   addPostPanel = getHomePage().querySelector('.add-post'),
@@ -92,6 +92,15 @@ export function renderPosts() {
       const date = document.createElement('time');
       date.innerText = post.date.toLocaleString();
 
+      const button = document.createElement('button');
+      button.innerText = 'like';
+
+      const likesUsers = document.createElement('p');
+      likesUsers.innerText = post.likesUsers;
+
+      const likesCount = document.createElement('p');
+      likesCount.innerText = post.likesCount;
+
       if (post.author === context.userId) {
         const button = document.createElement('button');
         button.innerText = 'Edit';
@@ -103,11 +112,21 @@ export function renderPosts() {
 
           show(editPostPanel);
         };
-
-        postItem.append(author, avatar, image, text, date, button);
       } else {
-        postItem.append(author, avatar, image, text, date);
+        button.onclick = () => {
+          handleLikes(post.id, context.userId);
+        };
       }
+      postItem.append(
+        author,
+        avatar,
+        image,
+        text,
+        date,
+        button,
+        likesUsers,
+        likesCount
+      );
 
       postListPanel.appendChild(postItem);
     });

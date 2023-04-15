@@ -6,6 +6,7 @@ const updatePost = (userId, postId, postImage, postText) => {
   validateUrl(postImage, 'image url');
   validateText(postText);
   validateId(userId);
+  validateId(postId);
 
   const foundUser = findUserById(userId);
 

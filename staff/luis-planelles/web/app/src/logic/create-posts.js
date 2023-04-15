@@ -22,6 +22,8 @@ const createPost = (userId, postImage, postText) => {
     authorName: foundUser.info.name,
     image: postImage,
     text: postText,
+    likesCount: '',
+    likesUsers: [],
     date: new Date(),
   });
 

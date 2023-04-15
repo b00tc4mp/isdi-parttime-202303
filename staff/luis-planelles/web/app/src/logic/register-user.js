@@ -12,6 +12,10 @@ const registerUser = (name, email, password) => {
   const emailValid = validateEmail(email);
   const passwordValid = validatePassword(password);
 
+  const nameInData = users.some((user) => user.info.name === name);
+
+  if (nameInData) throw new Error('name exists');
+
   const foundUser = findUserByEmail(email);
 
   if (foundUser) throw new Error('user already exists');
