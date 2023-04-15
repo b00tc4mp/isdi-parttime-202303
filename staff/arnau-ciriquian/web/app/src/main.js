@@ -1,16 +1,19 @@
 import { loginPage } from './pages/login-page.js'
 import { homePage, homePageMain, renderUser } from './pages/home-page.js'
 import showPostFeed from './logic/show-post-feed'
-import { context, showHideContainer } from './ui.js'
+import { context, showHideContainer, showContainer, hideContainer } from './ui.js'
+import { findUserById } from './logic/helpers/data-managers.js'
+
 if (context.userID === undefined) {
-        showHideContainer(loginPage)
+        showContainer(loginPage)
 } else {
-        if (renderUser()) {
+        if (findUserById(context.userID)) {
                 if (showPostFeed()){
-                        showHideContainer(homePage, homePageMain)
+                        homePageMain.querySelector('.home__post--feed').innerHTML = showPostFeed()
+                        showContainer(homePage, homePageMain)
                 }
         } else {
-                showHideContainer(loginPage)
+                showContainer(loginPage)
         }
 }
 
@@ -27,8 +30,6 @@ if (context.userID === undefined) {
                 - refactor de la home-page - dividir en pagines per a cada funcionalitat? avatar, name, password, email i posts
                 - cancel post button 20230410 2045
                 - poder editar el text d'un post (boto directament al mateix feed en funcio del loged user)
-                - sessionStorage, arreglar el userID i autologin en fer refresh
-                - localStorage
                 - avatar juntament amb el nom a cada post
                 - like / dislike a cada post
 

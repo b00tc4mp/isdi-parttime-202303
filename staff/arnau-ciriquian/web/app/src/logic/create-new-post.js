@@ -1,6 +1,6 @@
 import { validateId, validateUrl, validateText } from "./helpers/validators.js"
 import { findUserById } from "./helpers/data-managers.js"
-import { posts } from "../data.js"
+import { posts, savePosts } from "../data.js"
 
 export function createNewPost(userId, image, text){
     validateId(userId)
@@ -23,8 +23,10 @@ export function createNewPost(userId, image, text){
         author: userId,
         image,
         text,
-        date: new Date
+        date: (new Date).toLocaleString()
     }
 
     posts.push(post)
+
+    savePosts()
 }

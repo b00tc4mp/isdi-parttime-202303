@@ -208,6 +208,7 @@ homePage.querySelector('.navigation__anchor--logout').onclick = function(event) 
     loginPage.classList.remove('off')
 
     context.userID = null
+    homePageMain.querySelector('.home__post--feed').innerHTML = ''
 }
 
 homePage.querySelector('.password__anchor--profile').onclick = function(event) {

@@ -57,6 +57,14 @@ export function showHideContainer(...containers) {
     containers.forEach(container => container.classList.toggle('off'))
 }
 
+export function showContainer(...containers) {
+    containers.forEach(container => container.classList.remove('off'))
+}
+
+export function hideContainer(...containers) {
+    containers.forEach(container => container.classList.add('off'))
+}
+
 export const context = sessionStorage
 
 export function closeProfilePages() {

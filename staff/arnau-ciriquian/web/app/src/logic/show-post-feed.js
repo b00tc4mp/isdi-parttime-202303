@@ -21,7 +21,7 @@ export default function showPostFeed() {
                     latestPostAuthor = user.name
                 }
             }
-            latestPostDate = post.date.toLocaleString()
+            latestPostDate = post.date
 
             latestPost = `<article class="inputs__box--feed">
                 <img class="home__post--image" src="${latestPostImage}">

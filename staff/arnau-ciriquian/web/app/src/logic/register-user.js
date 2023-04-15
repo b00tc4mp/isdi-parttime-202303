@@ -1,6 +1,6 @@
 import { validateEmail, validateName, validateNewPassword, validatePasswordConfirm } from "./helpers/validators.js"
 import { findUserByEmail } from "./helpers/data-managers.js"
-import { users } from "../data.js"
+import { saveUsers, users } from "../data.js"
 
 export function addNewUser(name, email, password, passwordConfirm) {
     validateName(name)
@@ -25,5 +25,7 @@ export function addNewUser(name, email, password, passwordConfirm) {
         name,
         email,
         password,
-        })
+    })
+
+    saveUsers()
 }
