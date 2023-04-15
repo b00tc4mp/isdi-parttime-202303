@@ -4,8 +4,7 @@ import { updatePosts } from './update-posts.js'
 import { context } from "../ui.js";
 
 let srcNewImage
-
-const file = document.querySelector('.section.home').querySelector('form input[type="file"]')
+const file = document.querySelector('.section.home').querySelector('form.edit-post input[type="file"]')
 
 const printImage = file.onchange = function (event) {
     const file = event.target.files[0]
@@ -17,11 +16,10 @@ const printImage = file.onchange = function (event) {
     image.readAsDataURL(file)
 }
 
-export function createPost(userId, image, title, text) {
+export function editPost(userId, postId, title, text) {
 
     // const user = getUserName(userId)
     const id = context.userId
-    console.log(id)
     if (!userId) {
         throw new Error(`User with ${userId} not found`)
     }
@@ -38,8 +36,8 @@ export function createPost(userId, image, title, text) {
     const img = document.querySelector('.section.user-account').querySelector('form.user-info .image-profile')
     const avatarHeader = document.querySelector('header .menu').querySelector('.avatar img.image-profile')
 
-    const currentPost = parseInt(posts.length + 1)
-    const post = {
+    const currentPost = postId.slice(5)
+    posts[currentPost] = {
         id: 'post-' + currentPost,
         author: id,
         image: srcNewImage,
@@ -47,7 +45,6 @@ export function createPost(userId, image, title, text) {
         text: text,
         date: new Date()
     }
-    posts.push(post)
     savePosts()
     updatePosts(userId)
 }

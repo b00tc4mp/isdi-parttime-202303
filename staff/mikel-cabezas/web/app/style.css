@@ -187,6 +187,7 @@ header {
     padding: 15px 10px;
     cursor: pointer;
     align-self: center;
+    line-height: 1.8;
 }
 li.login.has-submenu {
     position: relative;
@@ -237,7 +238,8 @@ li.user-account ul.submenu.user-options {
     background: var(--dark);
     padding: 0;
     list-style: none;
-    width: calc(100%);
+    min-width: 145px;
+    width: 100%;
     /* left: 20px; */
     display: none;
     box-sizing: border-box;
@@ -475,27 +477,48 @@ input.title {
     justify-content: center;
     z-index: 11;
 }
+
 .posts {
     display: flex;
     /* flex-direction: column; */
     flex-wrap: wrap;
     width: 100%;
-    max-width: 520px;
     position: relative;
     align-self: center;
-    gap: 10px;
     padding: 20px 0;
 }
 
 article {
     position: relative;
-    width: calc(50% - 25px);
+    width: 100%;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
     background: var(--white);
     padding: 10px;
     border-radius: 10px;
+}
+
+@media (min-width: 481px) {
+    .posts {
+        gap: 10px;
+        max-width: 700px;
+
+    }
+    
+    article {
+        width: calc(50% - 25px);
+    }
+}
+@media (min-width: 980px) {
+    .posts {
+        gap: 8px;
+        max-width: 880px;
+    }
+    
+    article {
+        width: calc(33.33% - 26px);
+    }
 }
 .posts img {
     width: 100%;

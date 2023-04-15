@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="color-scheme" content="dark light">
 
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=0.2">
     <!-- <script type="module" src="scripts/data.mjs" defer></script> -->
     <!-- <script type="module" src="scripts/logic.mjs" defer></script> -->
     <script type="module" src="scripts/main.js" defer></script>   
@@ -106,16 +106,31 @@
             <button class="button--create-post">Create post <i class="material-symbols-outlined">add</i></button>
         </div>
         <div class="overlay create-post off">
-            <form>
+            <form class="create-post">
                 <label for="text">Title of your post</label>
                 <input type="text" class="title">
-                <label for="file">Upload yopur image</label>
+                <label for="file">Upload your image</label>
                 <input type="file" name="file" id="" accept=".jpg, .jpeg, .png, .webp">
                 <label for="textarea">Write your process</label>
                 <textarea name="" id="" cols="30" rows="5"></textarea>
                 <div class="buttons">
                     <button class="button--create-post_cancel" type="cancel">Cancel</button>
                     <button class="button--create-post_save" type="submit">Create post</button>
+                </div>
+            </form>
+        </div>
+        <div class="overlay edit-post off">
+            <form class="edit-post">
+                <input type="hidden">
+                <label for="text">Title of your post</label>
+                <input type="text" class="title">
+                <label for="file">Upload your image</label>
+                <input type="file" name="file" id="" accept=".jpg, .jpeg, .png, .webp">
+                <label for="textarea">Write your process</label>
+                <textarea name="" id="" cols="30" rows="5"></textarea>
+                <div class="buttons">
+                    <button class="button--edit-post_cancel" type="cancel">Cancel</button>
+                    <button class="button--edit-post_save" type="submit">Update post</button>
                 </div>
             </form>
         </div>

@@ -1,6 +1,7 @@
 import { homePage } from "../pages/home-page.js";
 import { posts, users } from '../data.js'
 import { cutText} from './max-characters.js'
+import { toggleOffClassInSection } from "../ui.js";
 // import {default as homePage} from "../pages/home-page.js";
 export function renderPosts(userId) {
     const existentArticleElement = homePage.querySelector('.posts')
@@ -12,21 +13,13 @@ export function renderPosts(userId) {
     
         recentPostsFirst.forEach(article => {
             const date = article.date
-
-            // const dateInObject = JSON.parse(date, (key, value) => {
-            //     if (key === '' && typeof value === 'string') {
-            //       return new Date(value);
-            //     }
-            //     return value;
-            //   });
             const author = users.find(user => user.id === article.author).name
+            const authorID = users.find(user => user.id === article.author).id
             const postsList = existentArticleElement
 
                 const postContainer = document.createElement('article')
                 postsList.appendChild(postContainer)
                 postContainer.innerHTML = `
-                ${userId === author ? '<button class="edit">edit</button>' : ''}
-    
                     <img src="${article.image}" >
                     <h3 class="title">${article.title}</h3>
                     <p class="excerpt">${cutText(article.text, 35)}</p>
@@ -38,8 +31,22 @@ export function renderPosts(userId) {
                                <time>${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}</time>
                         </div>
                     </div>
-                `    
-            
+                `
+                if(userId === authorID) {
+                    const editButton = document.createElement('button')
+                    editButton.classList.add('edit')
+                    editButton.classList.add(article.id)
+                    editButton.innerText = 'edit'
+                    postContainer.appendChild(editButton)
+                    document.querySelector(`button.edit.${article.id}`).onclick = (event) => {
+                        const postIdInput = document.querySelector(`form.edit-post input[type="hidden"]`)
+                        postIdInput.classList.add(`${article.id}`)
+                        toggleOffClassInSection(homePage.querySelector('.overlay.edit-post'))
+                        homePage.querySelector('form.edit-post').reset
+                    
+                        // editPost(userId, article.id, image, title, text)
+                    }
+                }
         })
         recentPostsFirst = posts.reverse()
     }
