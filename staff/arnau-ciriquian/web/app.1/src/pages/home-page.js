@@ -9,16 +9,14 @@ import alienImage from "../../images/alien.svg"
 import spaceDogImage from "../../images/space-dog.svg"
 import galaxyImage from "../../images/galaxy.svg"
 import meteoriteImage from "../../images/meteorite.svg"
-import { getLoggedUser } from "../logic/login-user.js"
-import retrievePosts from "../logic/retrivePosts.js"
-import { savePosts } from "../data.js"
 
+//export const DEFAULT_AVATAR_URL = './images/space-dog.svg'
 export const DEFAULT_AVATAR_URL = spaceDogImage
 
 export const homePage = document.querySelector('.home')
 export const avatarImage = homePage.querySelector('.avatar')
 const homePageAddPost = homePage.querySelector('.home__anchor--new-post')
-export const homePagePost = homePage.querySelector('.home__post')
+const homePagePost = homePage.querySelector('.home__post')
 export const homePageProfile = homePage.querySelector('.home__profile')
 export const homePagePassword = homePage.querySelector('.home__password')
 export const homePageUsername = homePage.querySelector('.home__username')
@@ -46,11 +44,9 @@ homePagePost.querySelector('.post__form').onsubmit = function(event) {
     try {
         createNewPost(context.userID, newPostImage, newPostText)
         alert ('Posted!')
-        //savePosts()
 
         homePagePost.querySelector('.post__form').reset()
         showHideContainer(homePagePost, homePageMain)
-        retrievePosts(context.userID)
     } catch (error) {
         alert(error.message)
     }
@@ -232,20 +228,4 @@ homePage.querySelector('.avatar__anchor--profile').onclick = function(event) {
     event.preventDefault()
     showHideContainer(homePageAvatar, homePageProfile)
     homePageAvatar.querySelector('.avatar__form').reset()
-}
-
-export function renderUser() {
-    try {
-        const user = getLoggedUser(context.userID)
-
-        homePage.querySelector('.home__anchor--profile').innerText = user.name
-
-        avatarImage.src = user.avatar? user.avatar : DEFAULT_AVATAR_URL
-
-        return true
-    }catch (error) {
-        alert(error.message)
-
-        return false
-    }
 }

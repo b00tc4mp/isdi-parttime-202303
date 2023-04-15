@@ -1,18 +1,4 @@
-import { loginPage } from './pages/login-page.js'
-import { homePage, homePageMain, renderUser } from './pages/home-page.js'
-import showPostFeed from './logic/show-post-feed'
-import { context, showHideContainer } from './ui.js'
-if (context.userID === undefined) {
-        showHideContainer(loginPage)
-} else {
-        if (renderUser()) {
-                if (showPostFeed()){
-                        showHideContainer(homePage, homePageMain)
-                }
-        } else {
-                showHideContainer(loginPage)
-        }
-}
+import './pages/login-page.js'
 
 /*  TODO Web/App - objectiu de la app: xarxa social:
         - ig de stickers?
@@ -25,13 +11,9 @@ if (context.userID === undefined) {
                 - mirar cause pels errors??
                 - passar la funcio showPostFeed cada vegada que alguna pagina porti a home main
                 - refactor de la home-page - dividir en pagines per a cada funcionalitat? avatar, name, password, email i posts
+                - register a homepage directe sense passar per login
                 - cancel post button 20230410 2045
-                - poder editar el text d'un post (boto directament al mateix feed en funcio del loged user)
-                - sessionStorage, arreglar el userID i autologin en fer refresh
-                - localStorage
-                - avatar juntament amb el nom a cada post
-                - like / dislike a cada post
-
+                - poder editar el text d'un post (fer un feed només dels posts del user? mateixa funcio del showpostfeed pero afegint un anchor a la declaracio d'html per poder editar el post?)
                 
                 
     TODO Arrays:

@@ -1,8 +1,9 @@
-import { authenticateUser } from "../logic/authenticate-user.js" 
+import { authenticateUser } from "../logic/authenticate-user.js"
+import { getLoggedUser } from "../logic/login-user.js"
 import { context, showHideContainer  } from "../ui.js"
 import { registerPage } from "./register-page.js"
-import { homePage, homePageMain, renderUser } from "./home-page.js"
-import showPostFeed from "../logic/show-post-feed.js"
+import { homePage, homePageMain, DEFAULT_AVATAR_URL, avatarImage } from "./home-page.js"
+import { showPostFeed } from "../logic/show-post-feed.js"
 
 export const loginPage = document.querySelector('.login')
 
@@ -14,12 +15,16 @@ loginPage.querySelector('form').onsubmit = function(event) {
 
     try {
         context.userID = authenticateUser(email, password)
-        
-        renderUser()
-        homePageMain.querySelector('.home__post--feed').innerHTML = showPostFeed()
+        const foundUser = getLoggedUser(context.userID)
 
-        showHideContainer(loginPage, homePage)
+        avatarImage.src = foundUser.avatar? foundUser.avatar : DEFAULT_AVATAR_URL
+
+        loginPage.classList.add('off')
+        homePage.classList.remove('off')
         homePageMain.classList.remove('off')
+        homePage.querySelector('.home__anchor--profile').innerText = foundUser.name
+
+        homePageMain.querySelector('.home__post--feed').innerHTML = showPostFeed(context.userID, 'user id')
 
         loginPage.querySelector('form').reset()
     } catch (error) {
