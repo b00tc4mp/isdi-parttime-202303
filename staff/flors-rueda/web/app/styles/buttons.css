@@ -122,7 +122,7 @@ footer button {
     box-shadow: var(--color-secondary200) 0.15rem 0.15rem 0.35rem;
 }
 
-.to-edit-post {
+.to-edit-post, .post-favorite svg, .post-like svg {
     -webkit-tap-highlight-color: var(--color-primary-transparence);
 }
 
@@ -164,13 +164,16 @@ footer button {
         background-color: var(--color-secondary-transparence) !important;
     }
 
-
     .profile-buttons button {
         width: 75%;
     }
 
     .logout {
         margin-left: 70vw;
+    }
+
+    .post-favorite svg:hover, .post-like svg:hover, .dark-mode .post-favorite svg:hover, .dark-mode .post-like svg:hover{
+        fill: var(--color-primary300);
     }
 
 

@@ -3,6 +3,7 @@ import { homePage } from "./pages/home-page.js";
 import { context, setOff, setOn } from "./ui/general-tools.js";
 import { renderAllPosts } from "./ui/posts.js";
 import { toggle } from "./pages/home-edit-profile-page.js";
+import { postModal } from "./pages/home-posts-modal-page.js";
 
 const checkbox = document.querySelector(".mode-checkbox");
 
@@ -17,7 +18,7 @@ else document.body.classList.remove("dark-mode")
 
 if (!context.userAuth) setOn(loginPage);
 else {
-  renderAllPosts()
+  renderAllPosts(context.userAuth, postModal)
   setOn(homePage)
   setOff(toggle)
 }

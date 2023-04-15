@@ -1,4 +1,4 @@
-import posts from './data/posts/data.js';
+import { posts } from './data/posts/data.js';
 import { savePosts } from './data/posts/data-managers.js';
 
 export const updatePost = (newText, newPostImg, id) => {

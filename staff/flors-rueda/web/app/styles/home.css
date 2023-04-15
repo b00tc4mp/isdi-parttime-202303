@@ -149,6 +149,7 @@ p {
     height: 10rem;
     width: 100%;
     display: grid;
+    padding-bottom: 2rem;
 }
 
 .profile-card-data {
@@ -328,7 +329,7 @@ p {
 
 .post-footer {
     display: flex;
-    flex-direction: row-reverse;
+    flex-direction: row;
     justify-content: space-between;
     padding: 0.5rem 0.75rem 0.15rem;
     align-items: end;
@@ -342,21 +343,34 @@ p {
     font-style: italic;
 }
 
-.post-favorite, .post-likes {
+.post-favorite, .post-like {
     display: flex;
-    display: row;
-    font-size: 0.85em;
-    align-self: center;
-    text-align: 2em;
+    flex-direction: row;
+}
+
+.post-footer b {
+  font-size: 1.15em;
+  padding-top: 0.25em;
+  padding-left: 0.15em;
+  color: var(--color-dark200);
+  margin-block-end: 0;
+}
+
+.dark-mode .post-footer b {
+    color: var(--color-light300);
 }
 
 
-.post-likes, .post-favorite {
+.like-button, .fav-button{
     height: 2rem;
     width: 2rem;
-    fill: var(--color-primary300);
+    fill: var(--color-secondary300);
     cursor: pointer;
-    align-self: center;
+    padding-bottom: 0.3rem;
+}
+
+.dark-mode .like-button, .dark-mode .fav-button{
+    fill: var(--color-secondary200);
 }
 
 
