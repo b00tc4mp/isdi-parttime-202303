@@ -1,4 +1,4 @@
-import { userAccount } from "../pages/user-account"
+import { userAccount } from "../pages/user-account.js"
 
 export function getTheme() {
     if(!localStorage.theme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {

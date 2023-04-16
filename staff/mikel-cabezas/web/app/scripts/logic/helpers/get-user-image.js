@@ -1,5 +1,5 @@
 import { getPostUserName, getPostUserImage } from "./data-managers.js"
-import { context } from "../../ui"
+import { context } from "../../ui.js"
 
 export function returnUserImage(path, userId) {
     const user = getPostUserName(userId)
