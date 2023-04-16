@@ -19,6 +19,7 @@ export default  function createPost(userId, image, text){
     const post = {
         id,
         author: userId,
+        username: foundUser.name,
         image,
         text,
         date: new Date
