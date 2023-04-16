@@ -132,34 +132,12 @@
             </form>
         </section>
 
-        <section class="modal-window off" name="modal-edit-post">
-            <form action="">
-                <input type="hidden" name="hidden">
-                <input class="input-field" type="url" name="url" placeholder="Insert image url">
-                <textarea name="text" cols="30" rows="10" class="post-text input-field" placeholder="Insert caption"></textarea>
-                <div class="buttons">
-                    <button class="submit-buttons" type="submit">Update</button>
-                    <button class="submit-buttons cancel-edition" type="button">Cancel</button>
-                </div>
-            </form>
-        </section>
-
         <section class="post-list">
             <!-- <article class="post-container">
                 <img src='https://s1.abcstatics.com/media/play/2020/09/29/avatar-kE4H--1024x512@abc.jpeg'>
                 <p>I ❤️ Avatars!</p>
-                <time>June 23, 2022</time>
+                <div><div><time>${post.date.toLocaleString()}</time> by ${user.name}</div>${post.author === context.userId ? '<button><i class="uil uil-edit"></i></button>' : ''}</div>
             </article> -->
-
-            <!-- postListPanel.innerHTML = posts.reduce((accum, post) => {
-                const user = findUserById(post.author)
-                return accum + `<article class='post-container'>
-                    <img src='${post.image}'>
-                    <p>${post.text}</p>
-                    <div><time>${post.date.toLocaleString()}</time> by ${user.name}</div>
-                </article>`
-            }, '') -->
-
         </section>
 
     </div>

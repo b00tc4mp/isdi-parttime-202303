@@ -72,29 +72,28 @@ cancelEdition.onclick = () => {
     hideElement(editPostModal)
 }
 
-editPostModal.querySelector('form').onsubmit = (event) => {
-    event.preventDefault()
-    const image = editPostModal.querySelector('input[name=url]').value
-    const text = editPostModal.querySelector('textarea[name=text]').value
-    const postId = editPostModal.querySelector('input[name=hidden]').value
+// editPostModal.querySelector('form').onsubmit = (event) => {
+//     event.preventDefault()
+//     const image = editPostModal.querySelector('[name=url]').value
+//     const text = editPostModal.querySelector('[name=text]').value
     
-    try {
-        editPost(context.userId, postId, image, text)
+//     try {
+//         const postId = renderPosts()
+//         console.log(postId)
+//         // editPost(context.userId, postId, image, text) FALTA ESTA LOGICA
         
-        editPostModal.querySelector('form').reset()
+//         editPostModal.querySelector('form').reset()
         
-        hideElement(editPostModal)
+//         hideElement(editPostModal)
         
-        alert('Post updated')
+//         alert('Post updated')
         
-        savePosts()
-
-        renderPosts()
-    } catch(error){
-            alert(error.message)
-            console.log(error)
-    }
-}
+//         savePosts()
+//     } catch(error){
+//             alert(error.message)
+//             console.log(error)
+//     }
+// }
 
 myProfileButton.addEventListener('click', () => {
     toggleElement(profileOptionsModal)
@@ -219,14 +218,7 @@ export function renderPosts() {
             const postFooterLeft = document.createElement('div')
 
             const postFooterLeftTime = document.createElement('time')
-            
-            const postDate = post.date
-
-            const day = postDate.getDate().toString().padStart(2, '0')
-            const month = (postDate.getMonth() + 1).toString().padStart(2, '0')
-            const year = postDate.getFullYear()
-
-            postFooterLeftTime.innerText = `${day}/${month}/${year}`
+            postFooterLeftTime.innerText = post.date
 
             if(post.author === context.userId) {
                 const postEditButton = document.createElement('button')
@@ -251,9 +243,31 @@ export function renderPosts() {
                 postEditButton.onclick = () => {
                     showElement(editPostModal)
                     
-                    editPostModal.querySelector('input[name=hidden]').value = post.id
                     editPostModal.querySelector('input[name=url]').value = post.image
                     editPostModal.querySelector('textarea[name=text]').value = post.text
+
+                    editPostModal.querySelector('form').onsubmit = (event) => {
+                        event.preventDefault()
+                        const image = editPostModal.querySelector('[name=url]').value
+                        const text = editPostModal.querySelector('[name=text]').value
+                        
+                        try {
+                            editPost(context.userId, post.id, image, text)
+                            
+                            editPostModal.querySelector('form').reset()
+                            
+                            hideElement(editPostModal)
+                            
+                            alert('Post updated')
+                            
+                            savePosts()
+
+                            renderPosts()
+                        } catch(error){
+                                alert(error.message)
+                                console.log(error)
+                        }
+                    }
                 }
             } else {
                 const user = findUserById(post.author)

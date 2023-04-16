@@ -10,7 +10,6 @@ import { posts, savePosts, saveUsers } from '../data.js'
 import retrievePosts from '../logic/retrieve-posts.js'
 import { retrieveUser } from '../logic/retrieve-user.js'
 import { findUserById } from '../logic/helpers/data-managers.js'
-import editPost from '../logic/edit-post.js'
 
 export const homePage = document.querySelector('.home-page')
 const horizontalMenu = document.querySelector('.horizontal-menu')
@@ -20,11 +19,6 @@ const newPostButton = horizontalMenu.querySelector('li[name=new-post]')
 const newPostModal = homePage.querySelector('section[name=modal-new-post]')
 const cancelModal = newPostModal.querySelector('.cancel-post')
 const postListPanel = homePage.querySelector('.post-list')
-
-// TODO VER BOTON EDICION DE POST const editPostButton = 
-const editPostModal = homePage.querySelector('section[name=modal-edit-post]')
-const cancelEdition = homePage.querySelector('.cancel-edition')
-
 
 const profileOptionsModal = homePage.querySelector('section[name=modal-profile-options]')
 export const changeEmailMenu = homePage.querySelector('section[name=modal-change-email]')
@@ -62,39 +56,15 @@ newPostModal.querySelector('form').onsubmit = (event) => {
         savePosts()
 
         renderPosts()
+
+        console.log(posts)
     } catch(error){
             alert(error.message)
             console.log(error)
     }
 }
 
-cancelEdition.onclick = () => {
-    hideElement(editPostModal)
-}
 
-editPostModal.querySelector('form').onsubmit = (event) => {
-    event.preventDefault()
-    const image = editPostModal.querySelector('input[name=url]').value
-    const text = editPostModal.querySelector('textarea[name=text]').value
-    const postId = editPostModal.querySelector('input[name=hidden]').value
-    
-    try {
-        editPost(context.userId, postId, image, text)
-        
-        editPostModal.querySelector('form').reset()
-        
-        hideElement(editPostModal)
-        
-        alert('Post updated')
-        
-        savePosts()
-
-        renderPosts()
-    } catch(error){
-            alert(error.message)
-            console.log(error)
-    }
-}
 
 myProfileButton.addEventListener('click', () => {
     toggleElement(profileOptionsModal)
@@ -202,71 +172,14 @@ export function renderPosts() {
     try {
         const posts = retrievePosts(context.userId)
         
-        postListPanel.innerHTML = ''
-
-        posts.forEach(post => {
-            const postItem = document.createElement('article')
-            postItem.classList.add('post-container')
-
-            const postImg = document.createElement('img')
-            postImg.src = post.image
-
-            const postCaption = document.createElement('p')
-            postCaption.innerText = post.text
-
-            const postFooter = document.createElement('div')
-
-            const postFooterLeft = document.createElement('div')
-
-            const postFooterLeftTime = document.createElement('time')
-            
-            const postDate = post.date
-
-            const day = postDate.getDate().toString().padStart(2, '0')
-            const month = (postDate.getMonth() + 1).toString().padStart(2, '0')
-            const year = postDate.getFullYear()
-
-            postFooterLeftTime.innerText = `${day}/${month}/${year}`
-
-            if(post.author === context.userId) {
-                const postEditButton = document.createElement('button')
-                postEditButton.classList.add('edit-button')
-    
-                const postEditButtonIcon = document.createElement('i')
-                postEditButtonIcon.classList.add('uil')
-                postEditButtonIcon.classList.add('uil-edit')
-    
-                postEditButton.append(postEditButtonIcon)
-
-                const user = findUserById(post.author)
-    
-                postFooterLeft.append(postFooterLeftTime, ` by ${user.name}`)
-    
-                postFooter.append(postFooterLeft, postEditButton)
-    
-                postItem.append(postImg, postCaption, postFooter)
-    
-                postListPanel.appendChild(postItem)
-
-                postEditButton.onclick = () => {
-                    showElement(editPostModal)
-                    
-                    editPostModal.querySelector('input[name=hidden]').value = post.id
-                    editPostModal.querySelector('input[name=url]').value = post.image
-                    editPostModal.querySelector('textarea[name=text]').value = post.text
-                }
-            } else {
-                const user = findUserById(post.author)
-    
-                postFooterLeft.append(postFooterLeftTime, ` by ${user.name}`)
-    
-                postFooter.append(postFooterLeft)
-    
-                postItem.append(postImg, postCaption, postFooter)
-    
-                postListPanel.appendChild(postItem)
-            }
-        })
+        postListPanel.innerHTML = posts.reduce((accum, post) => {
+            const user = findUserById(post.author)
+            return accum + `<article class='post-container'>
+                <img src='${post.image}'>
+                <p>${post.text}</p>
+                <div><div><time>${post.date.toLocaleString()}</time> by ${user.name}</div>${post.author === context.userId ? `<button class="edit-button ${post.author} ${post.id}" type="button"><i class="uil uil-edit"></i></button>` : ''}</div>
+            </article>`
+        }, '')
 
         return true
     } catch(error){
@@ -275,7 +188,28 @@ export function renderPosts() {
         
         return false
     }
+    
+
 }
+
+document.querySelectorAll('.edit-button').forEach((button) => {
+    console.log('hello')
+    
+    // button.addEventListener('click', () => {
+    //     console.log('HOLA!')
+    })
+    
+    
+    // button.onclick = function () {
+    //     showElement(newPostModal)
+    //     const postId = button.classList[2]
+
+    //     console.log(postId)
+        // newPostModal.querySelector('[name=url]').value
+        
+        // const image = newPostModal.querySelector('[name=url]').value
+        // const text = newPostModal.querySelector('[name=text]').value
+    // })
 
 horizontalMenu.querySelector('li[name=logout]').addEventListener('click', () => {
     hideElement(homePage, changeAvatarMenu, changePasswordMenu, profileOptionsModal, changeEmailMenu, newPostModal)
