@@ -22,7 +22,8 @@ body {
 
 .page {
   background-color: var(--basebgcolor);
-  height: 100vh;
+  min-height: 100vh;
+  max-height: fit-content;
   padding-bottom: 60px;
 }
 
@@ -52,11 +53,6 @@ body {
   background-color: var(--basecolor);
   box-shadow: 0 0 0 20px yellow inset;
 }
-
-/* .input:-webkit-autofill {
-  background-color: var(--basecolor)!important;
-  -webkit-box-shadow: 0 0 0 20px yellow inset;
-} */
 
 button {
   cursor: pointer;
@@ -105,41 +101,35 @@ header button {
   bottom: 0;
   width: 100vw;
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
   background: #70b8ff;
   height: 60px;
 }
 
-/* .profile {
-  position: static;
-  top: 20%;
-  background: var(--basebgcolor);
-  width: 100vw;
-}
-
-.change-form {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  width: 400px;
-  background: white;
-  border: 2px solid grey;
-  border-radius: 10px;
-  margin-top: 20px;
-}
-.change-form input {
-  width: 300px;
-} */
-
 .profile {
-  padding-top: 60px;
+  padding-top: 100px;
+  width: 100vw;
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: var(--basebgcolor);
+  background-color: rgba(0, 0, 0, 0.545);
+  position: fixed;
+  top: 0;
+  z-index: 10;
+}
+
+.close-changeform-button {
+  background: rgb(255, 107, 107);
+  border-radius: 10px;
+  margin-top: 15px;
+  padding: 10px 20px;
+  font-size: 15px;
+}
+
+.name-avatar-profile {
+  cursor: pointer;
+  user-select: none;
 }
   
 .change-form {
@@ -150,7 +140,6 @@ header button {
   background: white;
   border: 2px solid grey;
   border-radius: 10px;
-  margin: 0 20px 15px 20px;
   padding: 10px 25px 25px 10%;
 }
 .change-form h2 {
@@ -173,15 +162,11 @@ html, body {
 
 .avatar-image {
   height: 30px;
+  width: 30px;
   border-radius: 50%;
 }
 
-a {
-  cursor: pointer;
-  user-select: none;
-}
-
-.add-post {
+.add-post, .edit-post {
   width: 100vw;
   height: 100vmax;
   background-color: rgba(0, 0, 0, 0.545);
@@ -190,7 +175,7 @@ a {
   z-index: 10;
 }
 
-.add-post-form {
+.add-post-form, .edit-post-form {
   background: white;
   padding: 20px;
   border-radius: 20px;
@@ -223,8 +208,9 @@ a {
   display: flex;
   justify-content: flex-start;
   padding: 20px;
-  gap: 10px;
+  gap: 15px;
   flex-wrap: wrap;
+  padding-bottom: 20px;
 }
 
 .home {
@@ -249,31 +235,111 @@ a {
 }
 
 .image-post {
-  height: 150px;
   border-radius: 10px;
   margin-bottom: 10px;
+  object-fit: contain;
+  height: 100px;
 }
 
 .bigger-post{
   position: fixed;
-  top: 30%;
-  right: 30%;
+  top: 17%;
   gap: 20px;
   height: 400px;
-  width: 300px;
+  max-width: 300px;
+  width: fit-content;
+  cursor: default;
 }
 
 .bigger-post img {
   height: fit-content;
-  margin: 30px;
+  width: 300px;
+  max-height: 200px;
 }
 
-.dark-background {
-  width: 100vw;
-  height: 100vmax;
+.selected-post-page {
+  width: 100%;
+  min-height: 100vmax;
+  max-height: fit-content;
   background-color: rgba(0, 0, 0, 0.545);
-  position: absolute;
+  position: fixed;
   top: 0;
+  left: 0;
   z-index: 10;
+  display: flex;
+  justify-content: center;
 }
 
+.pop-up-window {
+  background: rgb(159, 159, 255);
+  width: 200px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  border-radius: 7.5px;
+  position: fixed;
+  bottom: 13%;
+}
+
+.pop-up-window-div {
+  display: flex;
+  justify-content: center;
+}
+
+.close-post-button {
+  background: rgb(255, 116, 116);
+  font-size: 15px;
+  cursor: pointer;
+  width: fit-content;
+  height: fit-content;
+  padding: 5px 10px;
+  border: 0.5px solid grey;
+  border-radius: 3px;
+}
+
+.edit-post-button {
+  background: rgb(127, 127, 255);
+  font-size: 15px;
+  cursor: pointer;
+  width: fit-content;
+  height: fit-content;
+  padding: 5px 10px;
+  border: 0.5px solid grey;
+  border-radius: 3px;
+}
+
+.avatar-author-div {
+  display: flex;
+  margin-bottom: 10px;
+  gap: 10px;
+  align-items: center;
+}
+
+.avatar-author-post {
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+}
+
+.post-author {
+  font-weight: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.bigger-post .avatar-author-div {
+  height: fit-content;
+  width: 250px;
+  margin: 0;
+}
+
+.bigger-post .avatar-author-post {
+  height: 40px;
+  width: 40px ;
+}
+
+.bigger-post .post-author {
+  font-weight: 30px;
+}

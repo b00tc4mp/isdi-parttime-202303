@@ -1,13 +1,13 @@
 import {authenticateUser} from '../logic/authenticate-user.js'
-import {retrieveUser} from '../logic/retrieve-user.js'
 import {addOffClass, removeOffClass, context} from '../ui.js'
 import {homePage} from './home-page.js'
 import {registerPage} from './register-page.js'
 import { renderPost } from '../logic/render-post.js'
+import { renderUser } from '../logic/render-user.js'
 
 export const loginPage = document.querySelector('.login')
+export const avatarImage = homePage.querySelector('.avatar-image')
 const loginForm = loginPage.querySelector('form')
-const avatarImage = homePage.querySelector('.avatar-image')
 
 loginPage.querySelector('form').onsubmit = function (event) {
   event.preventDefault();
@@ -18,19 +18,8 @@ loginPage.querySelector('form').onsubmit = function (event) {
   try {
       context.userId = authenticateUser(email, password);
 
-      // This is to get only the username and the user's email.
-      let user = retrieveUser(context.userId);
-      
-      homePage.querySelector('a').textContent = user.name;
-      avatarImage.src = user.avatar
-
+      renderUser()
       renderPost()
-
-      // posts.forEach(post =>{
-      //   if (post.author === user.id) {
-      //     renderPost(post.image, post.text, post.id)
-      //   }
-      // })
       
       loginForm.reset()
       addOffClass(loginPage)

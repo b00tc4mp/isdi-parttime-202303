@@ -13,7 +13,7 @@ export const validatePassword = (password, explanation = 'password')=>{
   if (typeof password!=='string') throw new Error(`The ${explanation} is not a string.`)
 }
 
-export const validateAvatarUrl = (newAvatarUrl, explanation = 'avatar url')=>{
+export const validateUrl = (newAvatarUrl, explanation = 'url')=>{
   if (!newAvatarUrl.trim().length) throw new Error(`The ${explanation} field is empty.`);
   if (typeof newAvatarUrl !=='string') throw new Error(`The ${explanation} is not a string.`)
 

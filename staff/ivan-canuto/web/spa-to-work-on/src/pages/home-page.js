@@ -17,20 +17,18 @@ const avatarPassword = profilePanel.querySelector('input[name="password"]')
 const addPostButton = homePage.querySelector('.add-post-button')
 const cancelButton = homePage.querySelector('.cancel-button')
 const addPostForm = homePage.querySelector('.add-post-form')
-
+const closePostButtons = createdPosts.querySelectorAll('.close-post-button')
+const editPostPage = homePage.querySelector('edit-post')
 
 homePage.querySelector('.logout-button').onclick = function () {
   addOffClass(homePage, profilePanel)
   removeOffClass(loginPage)
   context.userId = null
-  context.postId = null
-  while(createdPosts.firstChild) createdPosts.removeChild(createdPosts.firstChild)
+  // while(createdPosts.firstChild) createdPosts.removeChild(createdPosts.firstChild)
 }
 
-homePage.querySelector('a').onclick = function (event) {
-  event.preventDefault()
-
-  toggleClass(profilePanel)
+homePage.querySelector('.name-avatar-profile').onclick = function (event) {
+  removeOffClass(profilePanel)
   const inputsProfilePanel = profilePanel.querySelectorAll('input')
   inputsProfilePanel.forEach(input => input.value = '')
   avatarUrl.value = avatarImage.src
@@ -84,6 +82,10 @@ changeAvatarForm.onsubmit = function (event) {
   }
 }
 
+profilePanel.querySelector('.close-changeform-button').onclick = function () {
+  addOffClass(profilePanel)
+}
+
 addPostButton.onclick = function () {
   removeOffClass(addPostPage)
 }
@@ -97,8 +99,8 @@ addPostForm.onsubmit = function (e) {
   try {
     createPost(context.userId, postImageUrl, postText)
     addOffClass(addPostPage)
-    renderPost()
     addPostForm.reset()
+    renderPost()
 
   } catch (error) {
     if (error.name === 'Error') {
@@ -108,10 +110,8 @@ addPostForm.onsubmit = function (e) {
         console.log(error);
     }
   }
-
 }
 
 cancelButton.onclick = function () {
   addOffClass(addPostPage)
 }
-

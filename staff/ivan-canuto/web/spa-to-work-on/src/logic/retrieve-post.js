@@ -1,4 +1,3 @@
-import { findUserById } from "./helpers/data-manager.js"
 import { users, posts } from "../data.js"
 import { validateId } from "./helpers/validators.js"
 

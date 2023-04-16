@@ -1,6 +1,6 @@
 import {validateName, validateEmail, validatePassword} from './helpers/validators.js'
 import {findUserByEmail} from './helpers/data-manager.js'
-import {users} from '../data.js'
+import {saveUsers, users} from '../data.js'
 
 export function registerUser(name, email, password) {
 
@@ -26,4 +26,6 @@ export function registerUser(name, email, password) {
       password,
       avatar: 'https://img.freepik.com/iconos-gratis/icono-perfil-usuario_318-33925.jpg'
   })
+
+  saveUsers()
 }

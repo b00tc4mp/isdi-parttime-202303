@@ -24,7 +24,7 @@
         <p>Go to <a href="">Login</a></p>
     </div>
 
-    <div class="login page container">
+    <div class="login page container off">
         <h1 class="title">Login</h1>
 
         <form class="form">
@@ -39,7 +39,7 @@
     <div class="home page off">
         <header class="header">
             <h1 class="title">Home</h1>
-            <div>
+            <div class="name-avatar-profile">
                 <img class="avatar-image" src="" alt="avatar image">
                 <a>profile</a>
             </div>
@@ -54,16 +54,6 @@
                     <button class="button">Update</button>
                 </div>
             </form>
-            <!-- <form class="change-email change-form">
-                <h2>    Update email</h2>
-                <div>
-                    <input class="input" type="email" name="email" placeholder="email">
-                    <input class="input" type="email" name="newEmail" placeholder="new email">
-                    <input class="input" type="email" name="newEmailConfirm" placeholder="new email confirmation">
-                    <input class="input" type="password" name="password" placeholder="password">
-                    <button class="button">Update</button>
-                </div>
-            </form> -->
             <form class="change-password change-form">
                 <h2>Update password</h2>
                 <div>
@@ -73,16 +63,27 @@
                     <button class="button">Update</button>
                 </div>
             </form>
+            <button class="close-changeform-button">Close</button>
         </div>
         <section class="created-posts">
             
         </section>
         <div class="add-post container off">
             <form class="add-post-form">
-                <input class="post-url" type="url" name="postImage" placeholder="URL Image">
+                <input class="post-url" type="url" name="postImage" placeholder="URL Image" autocomplete="off">
                 <textarea class="post-text" name="postText" placeholder="Post text" cols="30" rows="10"></textarea>
                 <!-- <input class="post-text" type="text" name="postText" placeholder="Post text"> -->
                 <button class="button">Create post</button>
+                <button class="cancel-button button" type="button">Canel</button>
+            </form>
+        </div>
+        
+        <div class="edit-post container off">
+            <form class="edit-post-form">
+                <input class="post-url" type="url" name="postImage" placeholder="URL Image">
+                <textarea class="post-text" name="postText" placeholder="Post text" cols="30" rows="10"></textarea>
+                <!-- <input class="post-text" type="text" name="postText" placeholder="Post text"> -->
+                <button class="button">Edit post</button>
                 <button class="cancel-button button" type="button">Canel</button>
             </form>
         </div>
@@ -90,7 +91,7 @@
             <button class="add-post-button">+</button>
         </footer>
     </div>
-    <script type="module" src="src/main.mjs"></script>
+    <script type="module" src="src/main.js"></script>
 </body>
 
 </html>
