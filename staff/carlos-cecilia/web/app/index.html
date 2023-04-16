@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
-    <title>Document</title>
+    <title>Carlos Cecilia APP</title>
 </head>
 <body>
 
@@ -32,14 +32,15 @@
             <form action="" class="register__form">
                 <h1>Register for free ISDI classes</h1>
                 <!--TODO implement register page-->
-                <input class="register__input" type="text" name="Name" placeholder="Your name">
-                <input class="register__input" type="email" name="Email" placeholder="Your email">
+                <input class="register__input" type="text" name="name" placeholder="Your name">
+                <input class="register__input" type="email" name="email" placeholder="Your email">
                 <div class="register__password-bar"> 
                     <div class="register__password-strength"></div>
                 </div>   
-                <input class="register__input" type="password" name="Password" placeholder="Your password">
+                <input class="register__input" type="password" name="password" placeholder="Your password">
                 <button class="register__button" type="submit">Register</button>
             </form>
+            <a href="#">Already have an account? Log in</a>
         </div>
     </div>
 
@@ -48,8 +49,8 @@
     <div class="container__form">
         <form class="login__form">
             <h1>Login</h1>
-            <input class="login__input" type="email" name="Email" placeholder="Your email">
-            <input class="login__input" type="password" name="Password" placeholder="Your password">
+            <input class="login__input" type="email" name="email" placeholder="Your email">
+            <input class="login__input" type="password" name="password" placeholder="Your password">
             <button class="login__button" type="submit">Login</button>
             <a class="login__register" href="">Registrate</a> 
         </form>
@@ -57,7 +58,24 @@
     </div>
     <div class="home off">
         <div class="container">
-            <h1>Home</h1>
+            <div class="home__side-menu">
+                <h1 class="home__title">Home</h1>
+                <p>Hello Pepito!</p>
+                <button>Logout</button>
+            </div>
+            <div class="home__content">
+                <p><a href="#">profile</a></p>
+            </div>
+        </div>
+        <div class="profile off">
+            <h2>Update password</h2>
+            <form>
+                <input class="input" type="password" name="password" placeholder="Password">
+                <input class="input" type="password" name="newPassword" placeholder="New password">
+                <input class="input" type="password" name="newPasswordConfirm" placeholder="New password confirmation">
+                <button class="button" type="submit">Uptade</button>
+            </form>
+
         </div>
     </div>
 

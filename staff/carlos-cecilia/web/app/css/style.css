@@ -72,9 +72,6 @@ body{
     width: 100%;
     padding: 40px;
     background-color: #fafafa;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 
 }
 .register__password-strength {
@@ -115,4 +112,11 @@ button {
 }
 button:hover {
     background-color: rosybrown;
+}
+
+
+/*------------------HOME--------------------*/
+
+.home__side-menu {
+    width: 200px;
 }
