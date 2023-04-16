@@ -1,5 +1,6 @@
 import { findUserById } from "./helpers/data-managers.js"
 import { validateUrl, validateId } from "./helpers/validators.js"
+import { saveUsers } from "../data.js"
 
 export function updateUserAvatar(userId, avatar) {
     validateId(userId)
@@ -9,4 +10,5 @@ export function updateUserAvatar(userId, avatar) {
     if (!foundUser) throw new Error('user not found')
 
     foundUser.avatar = avatar
+    saveUsers()
 }

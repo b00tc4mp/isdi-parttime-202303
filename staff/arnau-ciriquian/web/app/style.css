@@ -144,6 +144,10 @@ footer {
     width: 2.5rem;
 }
 
+.post__avatar {
+    height: 3rem;
+}
+
 .predefined-avatar {
     border-radius: 50%;
 }
@@ -190,13 +194,22 @@ form {
 }
 
 .home__post--image {
-    width: 40%;
+    margin: 0.5rem;
+    height: 9rem;
 }
 
 .home__post--info {
     background-color: rgba(41, 60, 137, 0.404);
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+}
+
+.post__info--user {
+    display: flex;
+    justify-content: end;
+    align-items: center;
     width: 100%;
 }
 

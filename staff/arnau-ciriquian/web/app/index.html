@@ -82,16 +82,22 @@
                 <input class="form__input" type="text" name="newPostImage" placeholder="new post image url">
                 <textarea class="form__input--text" name="newPostText" cols="30" rows="10" placeholder="new post text"></textarea>
                 <div class="new-post__form--buttons">
-                    <button class="form__button" type="submit">Post!</button>
-                    <button class="form__button" type="cancel">Cancel</button>
+                    <button class="form__button" type="submit">Post</button>
+                    <button class="form__button cancel__button" type="button">Cancel</button>
                 </div>
             </form>
         </div>
-        <!-- <div class="home__profile home--page off">
-            <div class="home__profile--feed">
-
-            </div>
-        </div> -->
+        <div class="home__post--edit page off">
+            <form class="post__form">
+                <input class="input" type="hidden" name="postId">
+                <input class="form__input" type="url" name="newPostImage" placeholder="new post image url">
+                <textarea class="form__input--text" name="newPostText" cols="30" rows="10" placeholder="new post text"></textarea>
+                <div class="new-post__form--buttons">
+                    <button class="form__button" type="submit">Update</button>
+                    <button class="form__button cancel__button" type="button">Cancel</button>
+                </div>
+            </form>
+        </div>
         <div class="home__profile page off">
             <h2 class="text profile__user">Update your profile</h2>
             <p class="text"><a class="profile__anchor--avatar" href="">Change avatar</a></p>

@@ -16,7 +16,7 @@ loginPage.querySelector('form').onsubmit = function(event) {
         context.userID = authenticateUser(email, password)
         
         renderUser()
-        homePageMain.querySelector('.home__post--feed').innerHTML = showPostFeed()
+        showPostFeed()
 
         showHideContainer(loginPage, homePage)
         homePageMain.classList.remove('off')

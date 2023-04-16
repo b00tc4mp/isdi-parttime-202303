@@ -1,6 +1,7 @@
 import { validateEmail, validateName, validateNewPassword, validatePasswordConfirm } from "./helpers/validators.js"
 import { findUserByEmail } from "./helpers/data-managers.js"
 import { saveUsers, users } from "../data.js"
+import { DEFAULT_AVATAR_URL } from "../pages/home-page.js"
 
 export function addNewUser(name, email, password, passwordConfirm) {
     validateName(name)
@@ -25,6 +26,7 @@ export function addNewUser(name, email, password, passwordConfirm) {
         name,
         email,
         password,
+        avatar: DEFAULT_AVATAR_URL
     })
 
     saveUsers()

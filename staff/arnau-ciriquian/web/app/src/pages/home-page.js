@@ -11,7 +11,7 @@ import galaxyImage from "../../images/galaxy.svg"
 import meteoriteImage from "../../images/meteorite.svg"
 import { getLoggedUser } from "../logic/login-user.js"
 import retrievePosts from "../logic/retrivePosts.js"
-import { savePosts } from "../data.js"
+import { updatePost } from "../logic/updatePost.js"
 
 export const DEFAULT_AVATAR_URL = spaceDogImage
 
@@ -25,6 +25,7 @@ export const homePageUsername = homePage.querySelector('.home__username')
 export const homePageEmail = homePage.querySelector('.home__email')
 export const homePageAvatar = homePage.querySelector('.home__avatar')
 export const homePageMain = homePage.querySelector('.home__main')
+export const homePostEdit = homePage.querySelector('.home__post--edit')
 export const spaceDog = homePage.querySelector('.space-dog')
 export const alien = homePage.querySelector('.alien')
 export const meteorite = homePage.querySelector('.meteorite')
@@ -45,16 +46,52 @@ homePagePost.querySelector('.post__form').onsubmit = function(event) {
 
     try {
         createNewPost(context.userID, newPostImage, newPostText)
-        alert ('Posted!')
-        //savePosts()
-
+        
         homePagePost.querySelector('.post__form').reset()
         showHideContainer(homePagePost, homePageMain)
         retrievePosts(context.userID)
     } catch (error) {
         alert(error.message)
     }
+    
+    alert ('Posted!')
 }
+
+homePagePost.querySelector('.cancel__button').onclick = function() {
+    homePagePost.querySelector('.post__form').reset()
+    showHideContainer(homePagePost, homePageMain)
+}
+
+
+
+homePostEdit.querySelector('.post__form').onsubmit = function(event) {
+    event.preventDefault()
+
+    const newPostImage = event.target.newPostImage.value
+    const newPostText = event.target.newPostText.value
+    const postId = homePostEdit.querySelector('input[type=hidden]').value
+
+    try {
+        updatePost(context.userID, postId, newPostImage, newPostText)
+        
+        homePostEdit.querySelector('.post__form').reset()
+        showHideContainer(homePostEdit, homePageMain)
+        retrievePosts(context.userID)
+    } catch (error) {
+        alert(error.message)
+    }
+    
+    alert ('Updated!')
+}
+
+homePostEdit.querySelector('.cancel__button').onclick = function() {
+    homePostEdit.querySelector('.post__form').reset()
+    showHideContainer(homePostEdit, homePageMain)
+}
+
+
+
+
 
 homePage.querySelector('.avatar__form').onsubmit = function(event) {
     event.preventDefault()
