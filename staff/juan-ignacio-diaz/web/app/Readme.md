@@ -18,4 +18,19 @@ as a client i want to write a text and choose an image from disk and a create a 
 
 ## List posts
 
-TODO implment me!
+- implment me!
+
+## Update post
+
+- discern my posts in post list (presentation) and show edit button on them
+- open edit modal on edit button click
+- call update post logic on edit form submit
+- implement update post logic
+
+## Author name and avatar in post
+
+- TODO
+
+## Like / unlike in post
+
+- TODO

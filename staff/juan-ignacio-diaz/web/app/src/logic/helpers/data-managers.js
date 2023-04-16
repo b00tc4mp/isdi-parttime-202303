@@ -49,3 +49,17 @@ export function newPostId() {
 
     return postId
 }
+
+export function findPostById(postId) {
+    let foundPost
+
+    for (const post of posts) {
+        if (post.id === postId) {
+            foundPost = post
+
+            break
+        }
+    }
+
+    return foundPost
+}

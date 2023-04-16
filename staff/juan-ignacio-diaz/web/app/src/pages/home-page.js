@@ -3,9 +3,11 @@ import updateUserAvatar from '../logic/update-user-avatar.js'
 import updateUserPassword from '../logic/update-user-password.js'
 import {loginPage} from './login-page.js'
 import retrieveUser from '../logic/retrieve-user.js'
+import retrieveUserName from '../logic/retrieve-userName.js'
 
 import createPost from '../logic/create-post.js'
 import retrievePosts from '../logic/retrieve-posts.js'
+import { updatePost } from "../logic/update-post.js"
 
 export const homePage = document.querySelector(".home")
 export const avatarImage = homePage.querySelector('.home-header-avatar')
@@ -20,6 +22,9 @@ const updateUserPasswordForm = profilePanel.querySelector('.profile-password-for
 const addPostPanel = homePage.querySelector('.add-post')
 const addPostFrom = addPostPanel.querySelector('form')
 const addPostButton = homePage.querySelector('.add-post-button')
+
+const editPostPanel = homePage.querySelector('.edit-post')
+const editPostForm = editPostPanel.querySelector('form')
 
 const postListPanel = homePage.querySelector('.post-list')
 
@@ -118,18 +123,93 @@ addPostFrom.querySelector('.cancel').onclick = function() {
     hide(addPostPanel)
 }
 
+editPostForm.onsubmit = function(event) {
+    event.preventDefault()
+
+    const postId = event.target.postId.value
+    const image = event.target.image.value
+    const text = event.target.text.value
+
+    try {
+        updatePost (context.userId, postId, image, text)
+
+        hide(editPostPanel)
+
+        renderPosts()
+    } catch (error) {
+        alert(error.message)
+    }
+}
+
+editPostForm.querySelector('.cancel').onclick = function(event) {
+    editPostForm.reset()
+
+    hide(editPostPanel)
+}
+
 export function renderPosts() {
     try {
         const posts = retrievePosts(context.userId)
 
-        // NOTE declarative way
+        postListPanel.innerHTML = ''
+
+        posts.forEach(post => {
+            const postItem = document.createElement('article')
+            postItem.className = "post-article post-text"
+
+            const postAuthor = document.createElement("h3")
+            text.innerText = retrieveUserName(post.userId)
+
+            const postMessage = document.createElement('div')
+            postMessage.className = "post-menssage"
+
+            const image = document.createElement("img")
+            image.src = post.image
+            image.className = "post-image"
+
+            const text = document.createElement("p")
+            text.innerText = post.text
+
+            postMessage.append(image, text)
+
+            const date = document.createElement("time")
+            date.innerText = post.date.toLocaleString()
+
+            if (post.author === context.userId) {
+                const button = document.createElement("button")
+                button.innerText = "Edit"
+
+                button.onclick = function() {
+                    editPostForm.querySelector("input[type=hidden]").value = post.id
+                    editPostForm.querySelector("input[type=url]").value = post.image
+                    editPostForm.querySelector("textarea").value = post.text
+
+                    show(editPostPanel)
+                }
+
+                postItem.append(postMessage, date, button)
+            } else {
+                postItem.append(postMessage, date)
+            }
+
+            if ("dateLastModified" in post) {
+                const dateLastModified = document.createElement("timeLastModified")
+                dateLastModified.innerText = "Last Modified " + post.dateLastModified.toLocaleString()
+
+                postItem.appendChild(dateLastModified)
+            }
+
+            postListPanel.appendChild(postItem)
+        })
+
+/*         // NOTE declarative way
         postListPanel.innerHTML = posts.reduce((accum, post) => {
             return accum + `<article class = "post-article post-text">
                 <img class ="post-image" src="${post.image}">
                 <p>${post.text}</p>
                 <time>${post.date.toLocaleString()}</time>
             </article>`
-        }, '')
+        }, '') */
 
     } catch(error) {
         alert(error.message)
@@ -137,18 +217,27 @@ export function renderPosts() {
 }
 
 export function openSession(userId) {
-    context.userId = userId
-    
-    const user = retrieveUser(userId) 
+    try {
+        context.userId = userId
+        
+        const user = retrieveUser(userId) 
 
-    hide(profilePanel)
-    renderPosts()
+        hide(profilePanel)
+        renderPosts()
 
-    profileLink.innerText  = user.name
+        profileLink.innerText  = user.name
 
-    avatarImage.src = user.avatar? user.avatar : DEFAULT_AVATAR_URL
+        avatarImage.src = user.avatar? user.avatar : DEFAULT_AVATAR_URL
 
-    show(homePage)
+        show(homePage)
+
+        return true
+    } catch (error) {
+        alert(error.message)
+
+        return false
+    }
+
 }
 
 function closeSession() {

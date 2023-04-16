@@ -152,7 +152,7 @@ body {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
-.add-post {
+.add-post, .edit-post {
     position: absolute;
     top: 0;
     height: 100vh;
@@ -166,6 +166,18 @@ body {
     border: 0.2rem outset rgb(51, 56, 44);
     border-radius: 12px;
 
+}
+
+.post-menssage {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+    background-color: var(--basecolor);
+    border-radius: 12px;
+    justify-content: left;
+    align-items: center;
+    gap: 4rem;
 }
 
 .post-image {
