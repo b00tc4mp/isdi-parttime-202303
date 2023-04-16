@@ -29,8 +29,13 @@ as a client i want to write a text and choose an image from disk and a create a 
 
 ## Author name and avatar in post
 
-- TODO
+- TODO 
+- añadir elemtos en post
+- buscar el usuario en la recarga de cada post y dibujar 
 
 ## Like / unlike in post
 
 - TODO
+- añadir botones de + y -
+- metodo de actulizacion del post
+- recargar el post y posicionarlo donde estaba

@@ -1,11 +1,9 @@
 
 export const users = 'usersJson' in localStorage? JSON.parse(localStorage.usersJson) : []
-
-
 export const posts = 'postsJson' in localStorage? JSON.parse(localStorage.postsJson) : []
 
 posts.forEach(post => post.date = new Date(post.date))
-posts.forEach(post => post.dateLastModified = new Date(post.dateLastModified))
+posts.forEach(function(post) {if ("dateLastModified" in post) post.dateLastModified = new Date(post.dateLastModified)})
 
 export function saveUsers() {
     localStorage.usersJson = JSON.stringify(users)
@@ -27,7 +25,8 @@ if (users.length === 0) {
         id: 'user-2',
         name: "Peter Pan",
         email: "peter@pan.com",
-        password: "123123123"
+        password: "123123123",
+        likes: 2
     })
 
     users.push({

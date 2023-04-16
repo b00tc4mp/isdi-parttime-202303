@@ -2,6 +2,7 @@ import authenticateUser from '../logic/authenticate-user.js'
 import { show, hide } from '../ui.js'
 import { registerPage } from './register-page.js'
 import { openSession } from './home-page.js'
+import { msAlert } from './alert-page.js'
 
 export const loginPage = document.querySelector(".login")
 const loginForm = loginPage.querySelector('form')
@@ -21,7 +22,7 @@ loginForm.onsubmit = function (event) {
         openSession(userId)
     }
     catch(error) {
-        alert(error.message)
+        msAlert(error.message)
     }
 }
 

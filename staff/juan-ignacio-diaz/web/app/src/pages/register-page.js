@@ -1,6 +1,7 @@
 import registerUser from '../logic/register-user.js'
 import {show, hide} from '../ui.js'
 import {loginPage} from './login-page.js'
+import { msAlert } from './alert-page.js'
 
 export const registerPage = document.querySelector(".register")
 const registerForm = registerPage.querySelector('form')
@@ -25,7 +26,7 @@ registerForm.onsubmit = function (event) {
         show(loginPage)
     }
     catch (error) {
-        alert(error.message)
+        msAlert(error.message)
 
         if (error.cause === "email") { 
             event.target.email.focus()

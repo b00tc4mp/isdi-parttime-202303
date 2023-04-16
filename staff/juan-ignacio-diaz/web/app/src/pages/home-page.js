@@ -1,9 +1,9 @@
-import {context, show, hide, toggle} from "../ui.js"
+import { context, show, hide, toggle } from "../ui.js"
 import updateUserAvatar from '../logic/update-user-avatar.js'
 import updateUserPassword from '../logic/update-user-password.js'
-import {loginPage} from './login-page.js'
+import { loginPage } from './login-page.js'
+import { msAlert } from './alert-page.js'
 import retrieveUser from '../logic/retrieve-user.js'
-import retrieveUserName from '../logic/retrieve-userName.js'
 
 import createPost from '../logic/create-post.js'
 import retrievePosts from '../logic/retrieve-posts.js'
@@ -50,13 +50,13 @@ updateUserAvatarForm.onsubmit = function (event) {
     try {
         updateUserAvatar(context.userId, url)
 
-        alert('avatar updated')
+        msAlert('avatar updated')
 
         avatarImage.src = url
         
         updateUserAvatarForm.reset()
     } catch (error) {
-        alert(error.message)
+        msAlert(error.message)
     }
 }
 
@@ -75,12 +75,12 @@ updateUserPasswordForm.onsubmit = function (event) {
     try {
         updateUserPassword(context.userId, password, newPassword, newPasswordConfirm)
         
-        alert("the password is update")
+        msAlert("the password is update")
 
         updateUserPasswordForm.reset()
     }
     catch (error) {
-        alert(error.message)
+        msAlert(error.message)
 
         if (error.cause === "password") {
             event.target.newPassword.focus()
@@ -110,10 +110,11 @@ addPostFrom.onsubmit = function(event) {
         createPost(context.userId, image, text)
 
         hide(addPostPanel)
+        addPostFrom.reset
 
         renderPosts()
     } catch(error) {
-        alert(error.message)
+        msAlert(error.message)
     }
 }
 
@@ -137,7 +138,7 @@ editPostForm.onsubmit = function(event) {
 
         renderPosts()
     } catch (error) {
-        alert(error.message)
+        msAlert(error.message)
     }
 }
 
@@ -157,27 +158,80 @@ export function renderPosts() {
             const postItem = document.createElement('article')
             postItem.className = "post-article post-text"
 
-            const postAuthor = document.createElement("h3")
-            text.innerText = retrieveUserName(post.userId)
+
+            const postAuthor = document.createElement('div')
+            postAuthor.className = "post-Author"
+
+            const user = retrieveUser(post.author)
+
+            const postAuthorName = document.createElement("h1")
+            postAuthorName.className = "name"
+            postAuthorName.innerText = retrieveUser(post.author).name
+            
+            if (user.avatar) {
+                const postAuthorAvatar = document.createElement("img")
+                postAuthorAvatar.className = "home-header-avatar"
+                postAuthorAvatar.src = user.avatar
+
+                postAuthor.append(postAuthorAvatar, postAuthorName)
+            }
+            else 
+                postAuthor.append(postAuthorName)
 
             const postMessage = document.createElement('div')
             postMessage.className = "post-menssage"
 
-            const image = document.createElement("img")
-            image.src = post.image
-            image.className = "post-image"
+                const image = document.createElement("img")
+                image.src = post.image
+                image.className = "post-image"
 
-            const text = document.createElement("p")
-            text.innerText = post.text
+                const text = document.createElement("p")
+                text.innerText = post.text
 
             postMessage.append(image, text)
 
-            const date = document.createElement("time")
-            date.innerText = post.date.toLocaleString()
+            postItem.append(postAuthor, postMessage)
 
-            if (post.author === context.userId) {
-                const button = document.createElement("button")
-                button.innerText = "Edit"
+            const postInfo = document.createElement('div')
+            postInfo.className = "post-info"
+
+                const date = document.createElement("time")
+                date.innerText = post.date.toLocaleString()
+
+                if (post.author === context.userId) {
+                    const button = document.createElement("button")
+                    button.innerText = "Edit"
+
+                    button.onclick = function() {
+                        editPostForm.querySelector("input[type=hidden]").value = post.id
+                        editPostForm.querySelector("input[type=url]").value = post.image
+                        editPostForm.querySelector("textarea").value = post.text
+
+                        show(editPostPanel)
+                    }
+
+                    postInfo.append(date, button)
+                } 
+                else {
+                    postInfo.append(date)
+                }
+
+                if ("dateLastModified" in post) {
+                    const dateLastModified = document.createElement("time")
+                    dateLastModified.innerText = "Last Modified " + post.dateLastModified.toLocaleString()
+
+                    postInfo.appendChild(dateLastModified)
+                }
+
+
+                /*
+                const divLikes = document.createElement("div")
+
+                let likesPost = 0
+                if("likes" in post) likesPost = post.likes
+
+                const buttonLikesPlus = document.createElement("button")
+                button.innerText = "+"
 
                 button.onclick = function() {
                     editPostForm.querySelector("input[type=hidden]").value = post.id
@@ -186,33 +240,27 @@ export function renderPosts() {
 
                     show(editPostPanel)
                 }
+                */                 
 
-                postItem.append(postMessage, date, button)
-            } else {
-                postItem.append(postMessage, date)
-            }
 
-            if ("dateLastModified" in post) {
-                const dateLastModified = document.createElement("timeLastModified")
-                dateLastModified.innerText = "Last Modified " + post.dateLastModified.toLocaleString()
-
-                postItem.appendChild(dateLastModified)
-            }
+            postItem.appendChild(postInfo)
 
             postListPanel.appendChild(postItem)
         })
 
-/*         // NOTE declarative way
+/* 
+        // NOTE declarative way
         postListPanel.innerHTML = posts.reduce((accum, post) => {
             return accum + `<article class = "post-article post-text">
                 <img class ="post-image" src="${post.image}">
                 <p>${post.text}</p>
                 <time>${post.date.toLocaleString()}</time>
             </article>`
-        }, '') */
+        }, '') 
+*/
 
     } catch(error) {
-        alert(error.message)
+        msAlert(error.message)
     }
 }
 
@@ -233,7 +281,7 @@ export function openSession(userId) {
 
         return true
     } catch (error) {
-        alert(error.message)
+        msAlert(error.message)
 
         return false
     }
