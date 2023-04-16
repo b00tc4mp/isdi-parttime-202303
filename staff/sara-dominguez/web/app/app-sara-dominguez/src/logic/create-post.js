@@ -2,7 +2,7 @@ console.log('load create-post')
 
 import { validateId, validateUserAvatar, validateText } from "./helpers/validators.js"
 import {findUserById} from "./helpers/data-managers.js"
-import { posts } from "../data.js"
+import { posts, savePosts } from "../data.js"
 
 export default function createPost(userId, image, text) {
     validateId(userId, 'user id')
@@ -34,4 +34,5 @@ export default function createPost(userId, image, text) {
         date: new Date() //podriamos obviar los () si a un constructor no se le envia argumentos
     }
     posts.push(post)
+    savePosts()
 }

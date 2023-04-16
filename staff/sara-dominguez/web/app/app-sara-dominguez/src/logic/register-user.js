@@ -2,7 +2,7 @@ console.log('load register-user')
 
 import { validateName, validateEmail, validatePassword } from "./helpers/validators.js"
 import { findUserByEmail } from "./helpers/data-managers.js"
-import { users } from "../data.js"
+import { users, saveUsers } from "../data.js"
 
 export function registerUser(name, email, password) {
     validateName(name)
@@ -30,5 +30,6 @@ export function registerUser(name, email, password) {
           })
   
       users.push(user)
+      saveUsers()
   }
   

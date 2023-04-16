@@ -2,6 +2,7 @@ console.log('validated-user-newPasssword')
 
 import { validateId, validatePassword, validateUserNewPassword, validateUserConfirmNewPassword } from "./helpers/validators.js"
 import { findUserById } from "./helpers/data-managers.js"
+import { saveUsers } from "../data.js"
 
 export function validatedNewPassword(id, password, userNewPassword,userConfirmNewPassword) {
     validateId(id)
@@ -16,5 +17,6 @@ export function validatedNewPassword(id, password, userNewPassword,userConfirmNe
     if (foundUser.password !== password) throw new Error ('wrong  actual password') 
     if(password === userNewPassword) throw new Error ('You have to change the password')
     
-    foundUser.password = userNewPassword          
+    foundUser.password = userNewPassword    
+    saveUsers()      
 }
