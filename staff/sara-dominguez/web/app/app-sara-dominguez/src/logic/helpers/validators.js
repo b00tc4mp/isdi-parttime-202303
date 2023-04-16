@@ -73,8 +73,15 @@ export function validateUserConfirmNewPassword(userConfirmNewPassword) {
 export function validateId(id, explain = 'id'){
     if (typeof id!=='string') throw new Error(`${explain} is not a string`);  
 }
+export function validatePostId(postId, explain = 'post id'){
+    if (typeof postId!=='string') throw new Error(`${explain} is not a string`);  
+}
+export function validatePostUrl(imageUrl, explain = 'image url'){
+    if (typeof imageUrl!=='string') throw new Error(`${explain} is not a string`);
+    if(!imageUrl.trim().length) throw new Error(`${explain} is empty`)   
+}
 
 export function validateText(text){
-    if (typeof text!=='string') throw new Error('Avatar is not a string');
-    if(!text.trim().length) throw new Error('Avatar is empty') 
+    if (typeof text!=='string') throw new Error('Text is not a string');
+    if(!text.trim().length) throw new Error('Text is empty') 
 }

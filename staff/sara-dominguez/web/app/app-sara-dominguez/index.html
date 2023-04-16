@@ -80,15 +80,25 @@
             </div>
         
 
-            <div class="add-post container off">
+            <section class="add-post container off">
                 <form class="add-post-form container">
                     <input class="input" type="url" name="imageUrl" placeholder="image url">
                     <textarea class="input" name="text" cols="30" rows="10" placeholder="text"></textarea>
                     <button class="button" type="submit">Create</button>
                     <button class="button cancel" type="button">Cancel</button> 
                 </form>
-            </div>
-            
+            </section>
+
+            <section class="edit-post container off">
+                <form class="edit-post-form container">
+                    <input class="input" type="hidden" name="postId">
+                    <input class="input" type="url" name="imageUrl" placeholder="image url">
+                    <textarea class="input" name="text" cols="30" rows="10" placeholder="text"></textarea>
+                    <button class="button" type="submit">Update Post</button>
+                    <button class="button cancel" type="button">Cancel</button> 
+                </form>
+            </section>
+
             <div class="post-list">
 
 

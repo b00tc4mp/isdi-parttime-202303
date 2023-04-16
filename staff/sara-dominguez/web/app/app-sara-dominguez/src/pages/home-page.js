@@ -7,6 +7,7 @@ import { validatedNewPassword } from "../logic/validated-user-newpassword.js"
 import createPost from "../logic/create-post.js"
 import retrievePosts from "../logic/retrieve-posts.js"
 import retrieveUser from "../logic/retrieve-user.js"
+import {updatePost} from "../logic/update-post.js"
 
 const DEFAULT_AVATAR_URL = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png"
 
@@ -19,9 +20,14 @@ const homeProfileEdit = homePage.querySelector('.profile-edit')
 const homeProfileEditAvatarForm= homeProfileEdit.querySelector('.profile-edit-avatar-form')
 const homeProfileEditPasswordForm = homePage.querySelector('.profile-edit-password-form')
 
-const addPostButton = homePage.querySelector('.add-post-button')
 const addPostPanel = homePage.querySelector('.add-post')
 const addPostForm = addPostPanel.querySelector('.add-post-form')
+const addPostButton = homePage.querySelector('.add-post-button')
+
+const editPostPanel = homePage.querySelector('.edit-post')
+const editPostForm = editPostPanel.querySelector('.edit-post-form')
+//edit button no existe como tal, está en cada uno de mis posts. Con Javascript no puedo ponerle un onclick a un elemento creado de forma declarativa. Hay que declararlo imperativamente si o si. Con Reac si podriamos.
+
 
 const postListPanel = homePage.querySelector('.post-list')
 
@@ -130,18 +136,48 @@ addPostForm.onsubmit = function(event){
     hide(addPostPanel)
 }
 
-//button cancel post
+//button cancel post (add post)
 
 addPostForm.querySelector('.cancel').onclick = function(event){
-    preventDefault()
+    event.preventDefault()
 
-    addPostForm(reset)
+    addPostForm.reset()
     hide(addPostPanel)
 }
 
+//edit post (update post) / post form
+
+editPostForm.onsubmit = function(event){
+    event.preventDefault()
+
+    const postId= event.target.postId.value
+    const imageUrl = event.target.imageUrl.value
+    const text = event.target.text.value
+    
+    try{
+        updatePost(context.userId, postId, imageUrl, text)
+
+        alert('your post has been updated')
+    }catch(error) {
+        alert(error.message)
+    }
+    renderPosts()
+    hide(editPostPanel)
+}
+
+//button cancel post (update post)
+
+editPostForm.querySelector('.cancel').onclick = function(event){
+    event.preventDefault()
+
+    editPostForm.reset()
+    hide(editPostPanel)
+}
+
+
 //home-header-Logout 
 
-document.querySelector('.logout').onclick = function (event) {
+homePage.querySelector('.logout').onclick = function (event) {
     event.preventDefault()
     delete context.userId
     avatarImage.src = DEFAULT_AVATAR_URL
@@ -155,7 +191,7 @@ export function renderPosts() {
     try{
         const posts = retrievePosts(context.userId)
         
-        /*
+        
         //forma imperativa 
 
         //vaciar el panel antes de pintar de nuevo todos los posts
@@ -170,23 +206,43 @@ export function renderPosts() {
             text.innerText = post.text
 
             const date= document.createElement('time')
-            date.innerText = post.date().toLocaleString()
+            date.innerText = post.date.toLocaleString()
 
-            postItem.append(image, text)
+            if(post.author === context.userId) {
+                const button = document.createElement('button')
+                button.innerText = 'Edit'
+
+                // TODO add onclick listener
+                button.onclick = () =>{
+                    editPostForm.querySelector('input[type=hidden]').value = post.id
+                    editPostForm.querySelector('input[type=url]').value = post.image
+                    editPostForm.querySelector('textarea').value = post.text
+
+                    show (editPostPanel)
+                }
+
+
+                postItem.append(image, text, date, button)
+
+            }else{
+
+                postItem.append(image, text, date)
+            }
 
             postListPanel.appendChild(postItem)
 
         });
-        */
+        
 
-        //forma declarativa
+        /*//forma declarativa
         postListPanel.innerHTML = posts.reduce((accum, post) => {
             return accum + `<article>
                 <img src="${post.image}"> 
                 <p>${post.text}</p>
                 <time>${post.date.toLocaleString()}</time>
+                ${post.author === context.userId ? '<button>Edit</button>' : ' '}
             </article>`
-        }, '')
+        }, '')*/
 
         return true
     }catch(error){
