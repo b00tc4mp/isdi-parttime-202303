@@ -3,11 +3,10 @@ import { context, toggleOffClassInSection, bodyPage, clearMessageContainer, show
 import { homePage, renderUser } from './home-page.js'
 
 import { pushUserDataInForm } from '../logic/push-user-data-in-form.js'
-import { getUserName } from '../logic/helpers/data-managers.js'
+import { getUserName, getUserImage } from '../logic/helpers/data-managers.js'
 import { registerPage } from './register-page.js'
 import { updatePosts } from '../logic/update-posts.js'
 import { pushUserDataToHeader } from '../logic/push-user-to-header.js'
-
 
 export const loginPage = document.querySelector('.section.login')
 export const loginPageMessage = document.querySelector('.section.login').querySelector('.message')
@@ -23,20 +22,13 @@ loginPage.querySelector('form.login-form').onsubmit = function(event) {
         clearMessageContainer(loginPageMessage)
         toggleOffClassInSection(loginPage, homePage)
         bodyPage.classList.add('logged-in')
-        context.userId = userId
         const userName = getUserName(userId)
+        const userImage = getUserImage(userId)
+        context.userId = userId
+        context.image = userImage
 
         const welcomeUser = document.querySelector('.welcome-user').innerHTML = `Welcome ${userName}!`
-        // menuHeader.querySelector('.user-name').innerText = currentUser
 
-        // if (separateUserName.length === 1) {
-        //     menuHeader.querySelector('.avatar .letter').innerText = separateUserName[0][0] + separateUserName[0][1]
-        //     userAccount.querySelector('.avatar .letter').innerText = separateUserName[0][0] + separateUserName[0][1]
-        // }
-        // if (separateUserName.length > 1) {
-        //     menuHeader.querySelector('.avatar .letter').innerText = separateUserName[0][0] + separateUserName[1][0]
-        //     userAccount.querySelector('.avatar .letter').innerText = separateUserName[0][0] + separateUserName[1][0]
-        // }
         pushUserDataToHeader(userId)
 
         pushUserDataInForm(userId)

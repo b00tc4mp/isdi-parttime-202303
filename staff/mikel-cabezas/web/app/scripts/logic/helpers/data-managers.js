@@ -32,6 +32,17 @@ export function getUserName(userId) {
     return foundUser
 }
 
+export function getUserImage(userId) {
+
+    let foundUser
+    users.forEach(user => {
+        if (user.id === userId) {
+            foundUser = user.image
+        }
+    })
+    return foundUser
+}
+
 
 export function getCurrentUser(id) {
     const userID = context.userId
@@ -39,4 +50,27 @@ export function getCurrentUser(id) {
         // return id
         return userID
     }
+}
+
+
+export function getPostUserName(postUserId) {
+
+    let foundUser
+    users.forEach(user => {
+        if (user.id === postUserId) {
+            foundUser = user.name
+        }
+    })
+    return foundUser
+}
+
+export function getPostUserImage(postUserId) {
+
+    let foundUser
+    users.forEach(user => {
+        if (user.id === postUserId) {
+            foundUser = user.image
+        }
+    })
+    return foundUser
 }

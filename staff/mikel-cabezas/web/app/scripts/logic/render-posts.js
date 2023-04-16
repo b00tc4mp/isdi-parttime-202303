@@ -1,150 +1,179 @@
 import { homePage } from "../pages/home-page.js";
-import { posts, users } from '../data.js'
+import { posts, savePosts, saveUsers, users } from '../data.js'
 import { cutText} from './max-characters.js'
-import { toggleOffClassInSection } from "../ui.js";
+import { toggleOffClassInSection, context } from "../ui.js";
+import {returnUserImage } from "./helpers/get-user-image.js";
 // import {default as homePage} from "../pages/home-page.js";
+import { getPostUserName, getPostUserImage, getUserImage, findUserById } from "./helpers/data-managers.js"
+import { imageToBase64 } from "../localImagesBase64.js";
+
 export function renderPosts(userId) {
     const existentArticleElement = homePage.querySelector('.posts')
-    
     existentArticleElement.innerHTML = ''
     if( posts.length >= 1) {
-    
-        let recentPostsFirst = posts.reverse()
-    
+        let recentPostsFirst = posts.toReversed()
+        let currentPost
         recentPostsFirst.forEach(article => {
             const date = article.date
-            const author = users.find(user => user.id === article.author).name
+            const currentUser = findUserById(userId)
+
+    
+
+
+            const author = users.find(user => user.id === article.author)
             const authorID = users.find(user => user.id === article.author).id
-            const postsList = existentArticleElement
+            const postId = article.id
 
-                const postContainer = document.createElement('article')
-                postsList.appendChild(postContainer)
-                postContainer.innerHTML = `
-                    <img src="${article.image}" >
-                    <h3 class="title">${article.title}</h3>
-                    <p class="excerpt">${cutText(article.text, 35)}</p>
-                    <div class="date-author">
-                        <div class="post-author">
-                            ${author}
-                        </div>
-                        <div class="post-date">
-                               <time>${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}</time>
-                        </div>
-                    </div>
-                `
-                if(userId === authorID) {
-                    const editButton = document.createElement('button')
-                    editButton.classList.add('edit')
-                    editButton.classList.add(article.id)
-                    editButton.innerText = 'edit'
-                    postContainer.appendChild(editButton)
-                    document.querySelector(`button.edit.${article.id}`).onclick = (event) => {
-                        const postIdInput = document.querySelector(`form.edit-post input[type="hidden"]`)
-                        postIdInput.classList.add(`${article.id}`)
-                        toggleOffClassInSection(homePage.querySelector('.overlay.edit-post'))
-                        homePage.querySelector('form.edit-post').reset
-                    
-                        // editPost(userId, article.id, image, title, text)
-                    }
+            const postsList = existentArticleElement
+            const postContainer = document.createElement('article')
+
+            postContainer.classList.add(postId)
+            postsList.appendChild(postContainer)
+
+                const postAuthor = document.createElement('div')
+                postAuthor.classList.add('post-author')
+                postContainer.appendChild(postAuthor)
+
+                    const avatar = document.createElement('div')
+                    avatar.classList.add('avatar')
+                    postAuthor.appendChild(avatar)
+
+                        const letter = document.createElement('div')
+                        letter.classList.add('letter')
+                        avatar.appendChild(letter)
+
+
+                        const imageProfile = document.createElement('img')
+                        imageProfile.classList.add('image-profile')
+                        imageProfile.classList.add('hidden')
+                        avatar.appendChild(imageProfile)
+
+
+                    const userName = document.createElement('div')
+                    userName.classList.add('user-name')
+                    postAuthor.appendChild(userName)
+
+                const postImage = document.createElement('img')
+                postContainer.appendChild(postImage)
+                postImage.src = article.image
+                // imageToBase64(postImage, postImage.src)
+
+                const titleAndInteractions = document.createElement('div')
+                titleAndInteractions.classList.add('title-and-interactions')
+                postContainer.appendChild(titleAndInteractions)
+
+                const postTitle = document.createElement('h3')
+                postTitle.classList.add('title')
+                titleAndInteractions.appendChild(postTitle)
+                postTitle.innerText = article.title
+
+
+                const likePost = document.createElement('div')
+                likePost.classList.add('material-symbols-outlined')
+                likePost.classList.add('like')
+                titleAndInteractions.appendChild(likePost)
+                likePost.innerText = 'favorite'
+
+                const isLikedPost = currentUser.likedPosts.find(post => post === postId)
+
+                if(isLikedPost === postId) {
+                    likePost.classList.add('liked')
                 }
-        })
-        recentPostsFirst = posts.reverse()
-    }
-}
 
-export function renderUserPosts(userId) {
-    const existentArticleElement = homePage.querySelector('.posts')
-    
-    existentArticleElement.innerHTML = ''
-    if( posts.length >= 1) {
-    
-        let recentPostsFirst = posts.reverse()
-    
-        recentPostsFirst.forEach(article => {
+                likePost.onclick = (event) => {
+                    const currentUser = findUserById(userId)
+                    const userLikedPosts = currentUser.likedPosts
+                    const postId = event.target.classList.value.split(' ').pop()
+                    const indexLikedPost = currentUser.likedPosts.findIndex(post => post === postId)
 
-            const author = users.find(user => user.id === article.author).name 
-            const postsList = existentArticleElement
+                    if(likePost.classList.contains('liked')) {
+                        likePost.classList.remove('liked')
+                        currentUser.likedPosts.splice(indexLikedPost, 1)
+                    } else {
+                        likePost.classList.add('liked')
+    
+                        if(isLikedPost !== postId) {
+                            currentUser.likedPosts.push(article.id)
+                        }
+                    }
+                    saveUsers()
+                }
 
-            if(userId === article.author) {
-                const postContainer = document.createElement('article')
-                postsList.appendChild(postContainer)
-                postContainer.innerHTML = `
-                    <img src="${article.image}" >
-                    <h3 class="title">${article.title}</h3>
-                    <p class="excerpt">${cutText(article.text, 35)}</p>
-                    <div class="date-author">
-                        <div class="post-author">
-                            ${author}
-                        </div>
-                        <div class="post-date">
-                            ${article.date.getDate()}/${article.date.getMonth() + 1}/${article.date.getFullYear()}
-                        </div>
-                    </div>
-                    `    
-            }
+
+                const postExcerpt = document.createElement('p')
+                postExcerpt.classList.add('excerpt')
+                postContainer.appendChild(postExcerpt)
+                postExcerpt.innerText = cutText(article.text, 35)
+
+                const postDate = document.createElement('time')
+                postDate.classList.add('post-date')
+                postContainer.appendChild(postDate)
+                postDate.innerText = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`
+
+
+
+                const user = author.name
+                const userImage = getUserImage(author.id)
+                const separateUserName = user.split(' ')
+                userName.innerText = user
+                if (userImage) {
+                    imageProfile.src = userImage
+                    imageProfile.classList.remove('hidden')
+                }
             
-        })
-        recentPostsFirst = posts.reverse()
-    }
-}
+                if (!userImage && separateUserName.length === 1) {
+                    letter.innerText = separateUserName[0][0] + separateUserName[0][1]
+                }
+                if (!userImage && separateUserName.length > 1) {
+                    letter.innerText = separateUserName[0][0] + separateUserName[1][0]
+                }
 
-export function renderLastPost(userId) {
-    const existentArticleElement = homePage.querySelector('.posts')
-    let recentPostsFirst = posts.reverse()
-    const postsList = existentArticleElement
-    existentArticleElement.innerHTML = ''
-    if( posts.length >= 1) {
-    
-    
-        for(let i = posts.length; i > 0; i--) {
-            const lastPost = posts.find(post => post.author === userId)
-            const author = users.find(user => user.id === lastPost.author).name
-            if (lastPost) {
-                const postContainer = document.createElement('article')
-                console.log(author)
 
-                postsList.appendChild(postContainer)
-                return postContainer.innerHTML = `
-                    <img src="${lastPost.image}" >
-                    <h3 class="title">${lastPost.title}</h3>
-                    <p class="excerpt">${cutText(lastPost.text, 35)}</p>
-                    <div class="date-author">
-                        <div class="post-author">
-                            ${author}
-                        </div>
-                        <div class="post-date">
-                            ${lastPost.date.getDate()}/${lastPost.date.getMonth() + 1}/${lastPost.date.getFullYear()}
-                        </div>
-                    </div>
-                    `    
+            if(userId === authorID) {
+                const editForm = document.querySelector('.section.home').querySelector('form.edit-post')
+                const editButton = document.createElement('button')
+                const editButtonIcon = document.createElement('i')
+                editButtonIcon.classList.add('uil-pen')
+                editButtonIcon.classList.add('uil')
+                editButton.classList.add('edit')
+                editButton.classList.add(postId)
+                editButton.innerText = 'edit'
+                postAuthor.appendChild(editButton)
+                editButton.appendChild(editButtonIcon)
+                editButton.onclick = (event) => {
+                    const postId = event.target.classList.value.split(' ').pop()
+                    toggleOffClassInSection(homePage.querySelector('.overlay.edit-post'))
+                    const file = document.querySelector('.section.home').querySelector('form.edit-post input[name="file"]')
+                    const postImage = document.querySelector('.section.home').querySelector('form.edit-post .post-image')
+                    
+                    const currentPost = postId.slice(5) - 1
+                    const currentImage = posts[currentPost].image
+                    postImage.src = currentImage
+        
+                    const postIdInput = document.querySelector(`form.edit-post input[type="hidden"]`)
+                    postIdInput.classList.add(`${postId}`)
+        
+                    const postTitle = document.querySelector('.section.home').querySelector('form.edit-post .title')
+                    const postText = document.querySelector('.section.home').querySelector('form.edit-post textarea')
+        
+                    
+                    // imageToBase64(file, postImage.src)
+                    
+                    const printImage = file.onchange = function (event) {
+                        const file = event.target.files[0]
+                        const image = new FileReader()
+                        image.onload = () => {
+                            const base64 = image.result
+                            postImage.src = base64
+                        }
+                        image.readAsDataURL(file)
+                    }
+                    postImage.src = posts[currentPost].image
+                    postTitle.value = posts[currentPost].title
+                    postText.value = posts[currentPost].text
+                }
             }
-        }
-
-
-        // recentPostsFirst.forEach(article => {
-
-        //     const author = users.find(user => user.id === article.author).name 
-        //     const postsList = existentArticleElement
-
-        //     if(userId === article.author) {
-        //         const postContainer = document.createElement('article')
-        //         postsList.appendChild(postContainer)
-        //         postContainer.innerHTML = `
-        //             <img src="${article.image}" >
-        //             <h3 class="title">${article.title}</h3>
-        //             <p class="excerpt">${cutText(article.text, 35)}</p>
-        //             <div class="date-author">
-        //                 <div class="post-author">
-        //                     ${author}
-        //                 </div>
-        //                 <div class="post-date">
-        //                     ${article.date.getDate()}/${article.date.getMonth() + 1}/${article.date.getFullYear()}
-        //                 </div>
-        //             </div>
-        //             `    
-        //     }
-            
-        // })
-        recentPostsFirst = posts.reverse()
+        })
     }
 }
+

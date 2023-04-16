@@ -1,3 +1,4 @@
+
 export const bodyPage = document.querySelector('body')
 
 
@@ -45,3 +46,5 @@ export function showHidePassword (container, passwordContainer) {
 //     userId: null
 // }
 export const context = sessionStorage
+
+

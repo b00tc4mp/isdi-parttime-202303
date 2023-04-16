@@ -117,7 +117,7 @@ userAccount.querySelector('.repeat-password > i').onclick = function() {
     showHidePassword(userAccount, '.repeat-password')
 }
 
-userAccount.querySelector('.delete-account p').onclick = function() {
+userAccount.querySelector('.delete-account button').onclick = function() {
     const userId = context.userId
     getCurrentUser(userId)
     const user = parseInt(getCurrentUser(userId).slice(5) - 1)

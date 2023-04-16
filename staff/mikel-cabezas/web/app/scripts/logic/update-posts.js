@@ -3,7 +3,7 @@ import { posts, users } from '../data.js'
 import { cutText} from './max-characters.js'
 import { validateId } from "./helpers/validators.js";
 import { context } from '../ui.js'
-import { renderPosts, renderLastPost } from "./render-posts.js";
+import { renderPosts } from "./render-posts.js";
 
 
 export function updatePosts(userId) {

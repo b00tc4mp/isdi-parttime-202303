@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="color-scheme" content="dark light">
 
-    <link rel="stylesheet" href="style.css?v=0.2.1">
+    <link rel="stylesheet" href="style.css?v=0.2.4">
     <!-- <script type="module" src="scripts/data.mjs" defer></script> -->
     <!-- <script type="module" src="scripts/logic.mjs" defer></script> -->
     <script type="module" src="scripts/main.js" defer></script>   
@@ -16,6 +16,7 @@
     <!-- <script type="module" src="scripts/pages/login-page.mjs" defer></script>
     <script type="module" src="scripts/pages/home-page.mjs" defer></script>
     <script type="module" src="scripts/pages/header.mjs" defer></script> -->
+    <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap" rel="stylesheet">
@@ -28,7 +29,7 @@
 <header>
 <div class="header-wrapper">
     <div class="logo">
-        <img src="glasses.svg" alt="Mikel Cabezas">
+        <img src="logo.svg" alt="Mikel Cabezas">
     </div>
     <nav class="menu">
         <ul>
@@ -109,6 +110,7 @@
             <form class="create-post">
                 <label for="text">Title of your post</label>
                 <input type="text" class="title">
+                <img class="post-image" src="" alt="">
                 <label for="file">Upload your image</label>
                 <input type="file" name="file" id="" accept=".jpg, .jpeg, .png, .webp">
                 <label for="textarea">Write your process</label>
@@ -122,11 +124,12 @@
         <div class="overlay edit-post off">
             <form class="edit-post">
                 <input type="hidden">
-                <label for="text">Title of your post</label>
+                <label for="text">Edit title</label>
                 <input type="text" class="title">
-                <label for="file">Upload your image</label>
+                <img class="post-image" src="" alt="">
+                <label for="file">Edit your image</label>
                 <input type="file" name="file" id="" accept=".jpg, .jpeg, .png, .webp">
-                <label for="textarea">Write your process</label>
+                <label for="textarea">Edit your process</label>
                 <textarea name="" id="" cols="30" rows="5"></textarea>
                 <div class="buttons">
                     <button class="button--edit-post_cancel" type="cancel">Cancel</button>
@@ -177,9 +180,9 @@
                             <img class="image-profile hidden" src="" alt="">
                         </div>
                         <label for="">Update image profile</label>
-                        <input type="file" name="file" id="" accept=".jpg, .jpeg, .png .webp" disabled>
+                        <input type="file" name="file" id="" accept=".jpg, .jpeg, .png, .webp" disabled>
                         <div class="buttons off">
-                            <button class="button--update-info__cancel-info">Cancel</button>
+                            <button class="button--update-info__cancel-info" type="cancel">Cancel</button>
                             <button class="button--update-info__save-info">Save</button>
                         </div>
                         
@@ -207,13 +210,13 @@
                             <i class="uil uil-eye"></i>
                         </div>
                         <div class="buttons off">
-                            <button class="button--update-info__cancel-password">Cancel</button>
+                            <button class="button--update-info__cancel-password" type="cancel">Cancel</button>
                             <button class="button--update-info__save-password">Save</button>
                         </div>
                     </form>
                 </div>
                 <div class="delete-account" id="delete-account">
-                    <p class="error">Delete account</p>
+                    <button class="error">Delete account</button>
                 </div>
             </div>
     </div>

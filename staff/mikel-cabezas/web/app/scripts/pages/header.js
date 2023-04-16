@@ -4,8 +4,11 @@ import { registerPage } from "./register-page.js"
 import { loginPage } from "./login-page.js"
 import { userAccount } from "./user-account.js"
 import { logOut } from "../logic/logout.js"
+import { createPostForm } from "../logic/create-post.js"
+import { editPostForm } from "../logic/edit-post.js"
 
 export const menuHeader = document.querySelector('header .menu')
+export const header = document.querySelector('header')
 
 menuHeader.querySelector('.submenu-element.login').onclick = function(event) {
     event.preventDefault()
@@ -30,4 +33,26 @@ menuHeader.querySelector('.logout').onclick = function(event) {
     addClassOnContainer(registerPage, 'off')
     addClassOnContainer(homePage, 'off')
     logOut()
+}
+menuHeader.querySelector('.homepage').onclick = function(event) {
+    event.preventDefault()
+    if(document.querySelector('body').classList.contains('logged-in')) {
+        deleteClassOnContainer(homePage, 'off')
+        addClassOnContainer(loginPage, 'off')
+        addClassOnContainer(registerPage, 'off')
+        addClassOnContainer(userAccount, 'off')
+        addClassOnContainer(editPostForm, 'off')
+        addClassOnContainer(createPostForm, 'off')
+    }
+}
+header.querySelector('.logo').onclick = function(event) {
+    event.preventDefault()
+    if(document.querySelector('body').classList.contains('logged-in')) {
+        deleteClassOnContainer(homePage, 'off')
+        addClassOnContainer(loginPage, 'off')
+        addClassOnContainer(registerPage, 'off')
+        addClassOnContainer(userAccount, 'off')
+        addClassOnContainer(editPostForm, 'off')
+        addClassOnContainer(createPostForm, 'off')
+    }
 }

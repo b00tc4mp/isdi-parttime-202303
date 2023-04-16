@@ -108,7 +108,10 @@ button.button--update-info__cancel-info,
 button.button--update-info__cancel-password, 
 button.button--create-post,
 button.button--create-post_cancel,
-button.button--create-post_save {
+button.button--create-post_save,
+button.button--edit-post,
+button.button--edit-post_cancel,
+button.button--edit-post_save {
     background: var(--main-brown);
     color: #fff;
     padding: 8px 10px;
@@ -172,6 +175,10 @@ header {
 .logo {
     display: flex;
     padding-left: 20px;
+    cursor: pointer;
+}
+.logo img {
+    width: 145px;
 }
 .menu {
     padding-right: 20px;
@@ -321,12 +328,16 @@ form {
 .message.error {
     color: #f38686;
 }
-.delete-account p {
+.delete-account button {
     background: #c1574c;
+    border: solid 2px #c1574c;
     width: fit-content;
     padding: 7px 10px 8px;
     font-size: 14px;
-    border-radius: 10px
+    border-radius: 10px;
+    transition: linear .2s;
+    cursor: pointer;
+
 }
 
 input:not([name="file"]) {
@@ -340,9 +351,9 @@ input:not([name="file"]) {
     text-align: center;
     transition: linear .2s;
 }
-input[type="file"] {
+.overlay input[type="file"] {
     margin: 10px 0 20px 5px;
-    color: var(--dark);
+    color: var(--white);
 }
 input::placeholder {
     color: var(--main-green);
@@ -426,8 +437,13 @@ h2.welcome-user {
 }
 .section.home form textarea {
     margin-bottom: 20px;
-    width: 100%;
     max-width: 350px;
+    appearance: none;
+    padding: 8px 15px;
+    border: solid 2px var(--main-brown);
+    border-radius: 10px;
+    text-align: left;
+    transition: linear .2s;
 }
 label[for="textarea"] {
     margin-bottom: 8px;
@@ -436,7 +452,11 @@ input.title {
     text-align: left;
     margin-bottom: 20px;
 }
-.create-post form {
+label[for="file"] {
+    margin-top: 15px;
+}
+.create-post form,
+.edit-post form {
     background: var(--white);
     padding: 30px 30px 10px;
     border-radius: 20px;
@@ -486,6 +506,7 @@ input.title {
     position: relative;
     align-self: center;
     padding: 20px 0;
+    justify-content: center;
 }
 
 article {
@@ -524,10 +545,27 @@ article {
     width: 100%;
     border-radius: 5px 5px 0 0;
 }
+.title-and-interactions {
+    display: flex;
+    align-items: center;
+    margin: 15px 0 5px;
+    justify-content: space-between;
+}
 article h3.title {
-    margin-bottom: 0;
+    margin: 0;
     text-align: left;
     color: var(--dark);
+}
+
+.title-and-interactions .like {
+    cursor: pointer;
+}
+.like.liked {
+    font-variation-settings:
+    'FILL' 1,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 48
 }
 article p.excerpt {
     margin-top: 4px;
@@ -537,14 +575,16 @@ article p.excerpt {
 
 }
 
-button.button--create-post {
-    width: 120px;
+
+/* button.button--create-post {
+    width: 121px;
     display: flex;
     align-items: center;
-    justify-content: center;
-}
+    justify-content: center; 
+}*/ 
+
 button.button--create-post {
-    width: 121px;
+    width: 120px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -558,6 +598,58 @@ button.button--create-post i {
     display: flex;
     align-items: center;
 }
+button.button--edit-post {
+    width: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+button.button--edit-post i {
+    margin-left: 4px;
+    width: 20px;
+    height: 20px;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+}
+
+.posts .post-author {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 10px;
+}
+
+.posts .post-author img {
+    border-radius: 100px;
+}
+
+button.edit {
+    margin-left: auto;
+    background: var(--main-brown);
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 10px;
+    border: solid 2px var(--main-brown);
+    cursor: pointer;
+    transition: linear .2s;
+}
+
+button.edit i {
+    margin-left: 6px;
+}
+
+button:hover {
+    background: transparent;
+    color: var(--white);
+
+}
+button[type="cancel"]:hover {
+    background: var(--main-brown);
+    color: var(--white);
+
+}
+
 
 /* END POSTS */
 
@@ -619,7 +711,8 @@ button.button--update-info__save-password {
 
 button.button--update-info__cancel-info,
 button.button--update-info__cancel-password,
-button.button--create-post_cancel {
+button.button--create-post_cancel,
+button.button--edit-post_cancel {
     /* max-width: 100px; */
     width: calc(50% - 10px);
     background: var(--white);
@@ -734,6 +827,11 @@ html[data-theme="dark"] .container {
     background-color: var(--dark);
 }
 
+input[type="file"] {
+    margin: 10px 0 20px 5px;
+    color: var(--white);
+}
+
 html[data-theme="dark"] h1, 
 html[data-theme="dark"] h2, 
 html[data-theme="dark"] h3, 
@@ -759,7 +857,8 @@ html[data-theme="dark"] textarea, html[data-theme="dark"]  input:not([name="file
 html[data-theme="dark"] form label {
     color: var(--white);
 }
-html[data-theme="dark"] .create-post form {
+html[data-theme="dark"] .create-post form,
+html[data-theme="dark"] .edit-post form {
     background: var(--dark);
     padding: 30px 30px 10px;
     border-radius: 20px;
@@ -772,10 +871,16 @@ html[data-theme="dark"] article {
 
 html[data-theme="dark"] button.button--update-info__cancel-info, 
 html[data-theme="dark"] button.button--update-info__cancel-password, 
-html[data-theme="dark"] button.button--create-post_cancel {
-    background: var(--dark);
+html[data-theme="dark"] button.button--create-post_cancel,
+html[data-theme="dark"] button.button--edit-post_cancel {
+    background: transparent;
     border: solid 2px var(--main-brown);
     color: var(--white);
+}
+html[data-theme="dark"] button[type="cancel"]:hover {
+    background: var(--main-brown);
+    color: var(--white);
+
 }
 
 html[data-theme="dark"] .post-author {

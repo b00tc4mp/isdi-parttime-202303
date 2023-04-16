@@ -3,28 +3,23 @@ import { posts, savePosts } from '../data.js'
 import { updatePosts } from './update-posts.js'
 import { context } from "../ui.js";
 
-let srcNewImage
-const file = document.querySelector('.section.home').querySelector('form.edit-post input[type="file"]')
+export const editPostForm = document.querySelector('.section.home').querySelector('.overlay.edit-post')
 
-const printImage = file.onchange = function (event) {
-    const file = event.target.files[0]
-    const image = new FileReader()
-    image.onload = () => {
-        const base64 = image.result
-        srcNewImage = base64
-    }
-    image.readAsDataURL(file)
-}
+export function editPost(userId, postId, title, text, image) {
 
-export function editPost(userId, postId, title, text) {
+
+
+    const currentPost = postId.slice(5) - 1
 
     // const user = getUserName(userId)
     const id = context.userId
     if (!userId) {
         throw new Error(`User with ${userId} not found`)
     }
-    if (!file.value) {
-        throw new Error(`Image is empty`)
+    if (!image) {
+        const currentImage = posts.find(post => post.id === postId).image 
+
+        srcNewImage = currentImage
     }
     if(!title) {
         throw new Error(`Title is empty`)
@@ -36,14 +31,13 @@ export function editPost(userId, postId, title, text) {
     const img = document.querySelector('.section.user-account').querySelector('form.user-info .image-profile')
     const avatarHeader = document.querySelector('header .menu').querySelector('.avatar img.image-profile')
 
-    const currentPost = postId.slice(5)
     posts[currentPost] = {
-        id: 'post-' + currentPost,
+        id: posts[currentPost].id,
         author: id,
-        image: srcNewImage,
+        image: image,
         title: title, 
         text: text,
-        date: new Date()
+        date: posts[currentPost].date
     }
     savePosts()
     updatePosts(userId)

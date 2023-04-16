@@ -5,7 +5,10 @@ import { context } from "../ui.js";
 
 let srcNewImage
 
+export const createPostForm = document.querySelector('.section.home').querySelector('.overlay.create-post')
+
 const file = document.querySelector('.section.home').querySelector('form input[type="file"]')
+const postImage = document.querySelector('.section.home').querySelector('form.create-post .post-image')
 
 const printImage = file.onchange = function (event) {
     const file = event.target.files[0]
@@ -15,13 +18,12 @@ const printImage = file.onchange = function (event) {
         srcNewImage = base64
     }
     image.readAsDataURL(file)
+    postImage.src = srcNewImage
 }
 
 export function createPost(userId, image, title, text) {
 
-    // const user = getUserName(userId)
-    const id = context.userId
-    console.log(id)
+    console.log(userId)
     if (!userId) {
         throw new Error(`User with ${userId} not found`)
     }
@@ -37,11 +39,17 @@ export function createPost(userId, image, title, text) {
     
     const img = document.querySelector('.section.user-account').querySelector('form.user-info .image-profile')
     const avatarHeader = document.querySelector('header .menu').querySelector('.avatar img.image-profile')
-
+    debugger
     const currentPost = parseInt(posts.length + 1)
+
+    // console.log('posts.lastIndexOf(posts[posts.length])', posts.lastIndexOf(posts[posts.length - 1]) + 1);
+    // console.log('posts.length', posts.length);
+    // console.log('currentPost', currentPost);
+
+
     const post = {
         id: 'post-' + currentPost,
-        author: id,
+        author: userId,
         image: srcNewImage,
         title: title, 
         text: text,

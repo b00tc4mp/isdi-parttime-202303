@@ -13,7 +13,8 @@ export function registerUser(name, email, password) {
             id: 'user-' + parseInt(users.length + 1),
             name: name,
             email: email,
-            password: password
+            password: password,
+            likedPosts: []
         }
         users.push(user)
         saveUsers()
