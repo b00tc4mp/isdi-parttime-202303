@@ -67,7 +67,7 @@ editPostForm.querySelector('.cancel').onclick = (event) => {
   hide(editPostPanel);
 };
 
-export function renderPosts() {
+const renderPosts = () => {
   try {
     const posts = retrievePosts(context.userId);
 
@@ -82,9 +82,11 @@ export function renderPosts() {
 
       const avatar = document.createElement('img');
       avatar.src = avatarAuthor;
+      avatar.classList.add('post-avatar');
 
       const image = document.createElement('img');
       image.src = post.image;
+      image.classList.add('post-image');
 
       const text = document.createElement('p');
       text.innerText = post.text;
@@ -119,6 +121,7 @@ export function renderPosts() {
           likesUsers.innerText = postLikes.likesUsers;
         };
       }
+
       postItem.append(
         author,
         avatar,
@@ -139,6 +142,6 @@ export function renderPosts() {
 
     return false;
   }
-}
+};
 
 export default renderPosts;
