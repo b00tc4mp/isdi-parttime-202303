@@ -1,19 +1,14 @@
-//
 import { users } from '../../data.js';
 import { posts } from '../../data.js';
 
 const findUserByEmail = (email) => {
   let foundUser;
 
-  for (let i = 0; i < users.length; i++) {
-    let user = users[i];
-
+  users.forEach((user) => {
     if (user.email === email) {
       foundUser = user;
-
-      break;
     }
-  }
+  });
 
   return foundUser;
 };
@@ -21,15 +16,11 @@ const findUserByEmail = (email) => {
 const findUserById = (userId) => {
   let foundUser;
 
-  for (let i = 0; i < users.length; i++) {
-    const user = users[i];
-
+  users.forEach((user) => {
     if (user.id === userId) {
       foundUser = user;
-
-      break;
     }
-  }
+  });
 
   return foundUser;
 };
@@ -37,13 +28,11 @@ const findUserById = (userId) => {
 const getPostById = (postId) => {
   let postUser;
 
-  for (let i = 0; i < posts.length; i++) {
-    if (posts[i].id === postId) {
-      postUser = posts[i];
-
-      break;
+  posts.forEach((post) => {
+    if (post.id === postId) {
+      postUser = post;
     }
-  }
+  });
 
   return postUser;
 };
