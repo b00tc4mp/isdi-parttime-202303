@@ -14,6 +14,7 @@ const userId = context.userId
 
 try {
     const userId = getCurrentUser()
+    updatePosts(userId)
     if(userId) {
         updatePosts(userId)
     }

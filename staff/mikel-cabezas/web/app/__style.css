@@ -188,9 +188,9 @@ header {
 .menu {
     /* padding-right: 20px; */
     margin-left: auto;
-    position: absolute;
+    /* position: absolute;
     right: -100vw;
-    height: 100vh;
+    height: 100vh; */
     top: 0;
     background: var(--main-green);
     width: 80%;
@@ -811,7 +811,7 @@ input:-webkit-autofill:active  {
 
 
 
-/* @media (prefers-color-scheme: dark) {
+ @media (prefers-color-scheme: dark) { 
 
     :root {
         --main-green: #1a1d20;
@@ -861,7 +861,7 @@ input:-webkit-autofill:active  {
         color: var(--white);
     }
 
-} */
+} 
 
 a.user-theme {
     display: flex;
@@ -874,9 +874,9 @@ a.user-theme {
 }
 .material-symbols-outlined.on {
     color: #70bd7a;
-}
+}   
 
-html[data-theme="dark"]:root {
+/* html[data-theme="dark"]:root {
     --main-green: #1a1d20;
 }
 
@@ -942,4 +942,4 @@ html[data-theme="dark"] button[type="cancel"]:hover {
 
 html[data-theme="dark"] .post-author {
     color: var(--white);
-} 
+}  */

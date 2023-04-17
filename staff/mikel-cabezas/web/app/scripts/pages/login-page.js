@@ -33,7 +33,6 @@ loginPage.querySelector('form.login-form').onsubmit = function(event) {
 
         pushUserDataInForm(userId)
         context.userId = userId
-        updatePosts(userId)
 
     } catch(error) {
         loginPage.querySelector('.message').classList.remove('success')
