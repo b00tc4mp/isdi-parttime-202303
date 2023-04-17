@@ -8,5 +8,5 @@ export default function retrievePosts(userId) {
 
   if (!found) throw new Error(`User with ID ${userId} not found`);
 
-  return posts.toReversed();
+  return posts.toReversed(); //TODO toSorted (para que se ordenen por fecha)
 }

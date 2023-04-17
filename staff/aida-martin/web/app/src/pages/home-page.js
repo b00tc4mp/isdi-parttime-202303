@@ -2,13 +2,13 @@ import { context, show, hide, toggle } from "../ui.js";
 import { loginPage } from "./login-page.js";
 import { findUserById } from "../logic/helpers/data-managers.js";
 import errorShow from "../logic/helpers/error-managers.js";
-import formatDate from "../logic/helpers/format-date.js";
+//import formatDate from "../logic/helpers/format-date.js";
 import changePassword from "../logic/update-user-password.js";
 import updateAvatar from "../logic/update-user-avatar.js";
 import createPost from "../logic/create-post.js";
 import retrievePosts from "../logic/retrieve-posts.js";
 import retrieveUser from "../logic/retrieve-user.js";
-import updatePosts from "../logic/update-posts.js";
+import updatePost from "../logic/update-post.js";
 
 const DEFAULT_AVATAR_URL =
   "https://cdn-icons-png.flaticon.com/512/3135/3135823.png";
@@ -154,7 +154,7 @@ editPostForm.onsubmit = (event) => {
   const text = event.target.text.value;
 
   try {
-    updatePosts(context.userId, post, image, text);
+    updatePost(context.userId, post, image, text);
 
     renderPosts();
 
@@ -209,7 +209,7 @@ export function renderPosts() {
 
       const date = document.createElement("time");
       date.classList.add("post-date");
-      date.innerText = formatDate(post.date);
+      date.innerText = post.date.toLocaleString("en-UK");
 
       if (post.author === context.userId) {
         const button = document.createElement("button");
