@@ -13,7 +13,10 @@ const handleLikes = (postId, userId) => {
   if (!post.likesUsers.includes(user.name)) {
     post.likesUsers.push(user.name);
   } else {
-    post.likesUsers.pop(user.name);
+    const index = post.likesUsers.indexOf(user.name);
+    if (index > -1) {
+      post.likesUsers.splice(index, 1);
+    }
   }
 
   post.likesCount = post.likesUsers.length;

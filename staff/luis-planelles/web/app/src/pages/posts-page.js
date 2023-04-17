@@ -5,7 +5,8 @@ import { show, hide } from '../ui.js';
 import { getHomePage } from './home-page.js';
 import updatePost from '../logic/update-post.js';
 import retrieveAvatar from '../logic/retrive-avatar.js';
-import handleLikes from '../logic/like-button.js';
+import handleLikes from '../logic/like-posts.js';
+import retrieveUser from '../logic/retrieve-user.js';
 
 const addPostButton = getHomePage().querySelector('.add-post-button'),
   addPostPanel = getHomePage().querySelector('.add-post'),
@@ -69,69 +70,103 @@ editPostForm.querySelector('.cancel').onclick = (event) => {
 
 const renderPosts = () => {
   try {
-    const posts = retrievePosts(context.userId);
+    const posts = retrievePosts(context.userId),
+      user = retrieveUser(context.userId);
 
     postListPanel.innerHTML = '';
 
     posts.forEach((post) => {
-      const postItem = document.createElement('article'),
-        avatarAuthor = retrieveAvatar(post.author);
+      const postItem = document.createElement('article');
+      postItem.classList.add('posts-users');
+
+      const postHeader = document.createElement('div');
+      postHeader.classList.add('post-header');
+
+      const avatarAuthor = retrieveAvatar(post.author);
 
       const author = document.createElement('p');
+      author.classList.add('post-author');
       author.innerText = post.authorName;
 
       const avatar = document.createElement('img');
-      avatar.src = avatarAuthor;
       avatar.classList.add('post-avatar');
+      avatar.src = avatarAuthor;
+
+      postHeader.append(avatar, author);
 
       const image = document.createElement('img');
-      image.src = post.image;
       image.classList.add('post-image');
+      image.src = post.image;
 
       const text = document.createElement('p');
+      text.classList.add('post-text');
       text.innerText = post.text;
 
       const date = document.createElement('time');
-      date.innerText = post.date.toLocaleString();
+      date.innerText = post.date.toLocaleString('en-US', {
+        hour12: true,
+        hour: 'numeric',
+        minute: 'numeric',
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric',
+      });
 
-      const button = document.createElement('button');
-      button.innerText = 'like';
+      const postLikesInfo = document.createElement('div');
+      postLikesInfo.classList.add('post-likes-info');
+
+      const buttonLike = document.createElement('button');
+      const heartIcon = document.createElement('i');
+      heartIcon.classList.add('far', 'fa-heart');
+      buttonLike.classList.add('button-like');
+
+      buttonLike.appendChild(heartIcon);
+
+      if (post.likesUsers.includes(user.name)) {
+        heartIcon.classList.add('fas');
+      }
+
+      buttonLike.onclick = () => {
+        const postLikes = handleLikes(post.id, context.userId);
+        const heartIcon = buttonLike.querySelector('.fa-heart');
+        heartIcon.classList.toggle('fas');
+        likesCount.innerText = postLikes.likesUsers.length;
+        likesUsers.innerText = postLikes.likesUsers;
+      };
 
       const likesUsers = document.createElement('p');
+      likesUsers.classList.add('likes-users');
       likesUsers.innerText = post.likesUsers;
 
       const likesCount = document.createElement('p');
+      likesCount.classList.add('likes-count');
       likesCount.innerText = post.likesCount;
 
-      if (post.author === context.userId) {
-        const button = document.createElement('button');
-        button.innerText = 'Edit';
+      postLikesInfo.append(buttonLike, likesCount, likesUsers);
 
-        button.onclick = () => {
+      if (post.author === context.userId) {
+        const buttonEdit = document.createElement('button');
+        buttonEdit.classList.add('button-edit');
+        buttonEdit.innerText = 'Edit';
+
+        buttonEdit.onclick = () => {
           editPostForm.querySelector('input[type=hidden]').value = post.id;
           editPostForm.querySelector('input[type=url]').value = post.image;
           editPostForm.querySelector('textarea').value = post.text;
 
           show(editPostPanel);
         };
+        postItem.append(
+          postHeader,
+          image,
+          buttonEdit,
+          postLikesInfo,
+          text,
+          date
+        );
       } else {
-        button.onclick = () => {
-          const postLikes = handleLikes(post.id, context.userId);
-          likesCount.innerText = postLikes.likesUsers.length;
-          likesUsers.innerText = postLikes.likesUsers;
-        };
+        postItem.append(postHeader, image, postLikesInfo, text, date);
       }
-
-      postItem.append(
-        author,
-        avatar,
-        image,
-        text,
-        date,
-        button,
-        likesUsers,
-        likesCount
-      );
 
       postListPanel.appendChild(postItem);
     });
