@@ -15,7 +15,6 @@ export default function updatePost(userId, postId, image, text){
 
     if (foundUser.id !== foundPost.author) throw new Error ("The current user Id doesnt belong to post Id");
 
-    console.log("hola")
     foundPost.image = image;
     foundPost.text = text;
     savePosts();

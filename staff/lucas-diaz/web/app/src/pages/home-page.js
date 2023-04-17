@@ -46,7 +46,7 @@ const editPostModalForm = document.querySelector(".home-edit-post-form");
 
 //! PARTE DE HOME
 logOutButton.onclick = () => {
-    hide(homePage,changePasswordMenu,updateAvatarMenu,footerSite,postModal);
+    hide(homePage,changePasswordMenu,updateAvatarMenu,footerSite,postModal,editPostModal);
     postsListPanel.classList.remove("fade");
     show(postsListPanel);
     headerMenu.classList.remove("home-menu-transition");
@@ -58,7 +58,7 @@ logOutButton.onclick = () => {
 }
 settingsButton.onclick = () => {
     headerMenu.classList.toggle("home-menu-transition");
-    hide(changePasswordMenu,updateAvatarMenu,postModal);
+    hide(changePasswordMenu,updateAvatarMenu,postModal,editPostModal);
     removeClass("green",avatarMenuAnchor,changePasswordMenuAnchor);
     postsListPanel.classList.toggle("off");
     postsListPanel.classList.remove("fade");
@@ -154,7 +154,6 @@ postModalCancelButton.onclick = (event) => {
 }
 
 //!PARTE DE EDITAR POST MODAL
-
 editPostModalForm.onsubmit = (event) => {
     event.preventDefault();
 
@@ -173,7 +172,11 @@ editPostModalForm.onsubmit = (event) => {
         failPostMessage.textContent = error.message;
     }
 }
-
+editPostModalCancelButton.onclick = (event) => {
+    event.preventDefault();
+    hide(editPostModal);
+    postsListPanel.classList.remove("fade");
+}
 
 //! PINTA INFO PARA EL USER
 export function renderPosts () {
