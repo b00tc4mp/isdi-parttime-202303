@@ -25,7 +25,7 @@ export function createNewPost(userId, image, text){
         author: userId,
         image,
         text,
-        date: (new Date).toLocaleString()
+        date: (new Date).toLocaleDateString('en-UK')
     }
 
     posts.push(post)

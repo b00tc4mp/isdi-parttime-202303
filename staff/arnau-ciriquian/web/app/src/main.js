@@ -29,13 +29,18 @@ if (context.userID === undefined) {
                 - mirar cause pels errors??
                 - refactor de la home-page - dividir en pagines per a cada funcionalitat? avatar, name, password, email i posts
                 - like / dislike a cada post
+                - transformar els data-managers a funcions amb .find (finduserbyid, findemailbyid, findpostbyid)
 
                 
                 
-    TODO Arrays:
+        TODO Arrays:
                 - metodes amb callback:
                 - seguir amb splice, rersoldre afegir X i  als months
 
-    PREGUNTES:
+        TODO Curri:
+                - Crear un constructor new Curri
+                - generar els prototypes dels arrays en el Curri pk funcioni com si fos un array
+
+        PREGUNTES:
             - 
 */              

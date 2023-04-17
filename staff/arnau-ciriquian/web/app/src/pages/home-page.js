@@ -62,8 +62,6 @@ homePagePost.querySelector('.cancel__button').onclick = function() {
     showHideContainer(homePagePost, homePageMain)
 }
 
-
-
 homePostEdit.querySelector('.post__form').onsubmit = function(event) {
     event.preventDefault()
 
@@ -88,10 +86,6 @@ homePostEdit.querySelector('.cancel__button').onclick = function() {
     homePostEdit.querySelector('.post__form').reset()
     showHideContainer(homePostEdit, homePageMain)
 }
-
-
-
-
 
 homePage.querySelector('.avatar__form').onsubmit = function(event) {
     event.preventDefault()
