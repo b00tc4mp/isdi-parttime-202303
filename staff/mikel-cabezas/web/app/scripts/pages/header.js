@@ -14,6 +14,14 @@ menuHeader.querySelector('.submenu-element.login').onclick = function(event) {
     event.preventDefault()
     toggleOffClassInSection(registerPage, loginPage)
 }
+// header.querySelector('.toggle-menu').onclick = function(event) {
+//     event.preventDefault()
+//     header.querySelector('.menu').classList.add('open')
+// }
+// header.querySelector('.close-menu').onclick = function(event) {
+//     event.preventDefault()
+//     header.querySelector('.menu').classList.remove('open')
+// }
 
 menuHeader.querySelector('.submenu-element.register').onclick = function(event) {
     event.preventDefault()

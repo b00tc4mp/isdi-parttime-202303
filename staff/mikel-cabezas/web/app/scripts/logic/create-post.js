@@ -39,7 +39,6 @@ export function createPost(userId, image, title, text) {
     
     const img = document.querySelector('.section.user-account').querySelector('form.user-info .image-profile')
     const avatarHeader = document.querySelector('header .menu').querySelector('.avatar img.image-profile')
-    debugger
     const currentPost = parseInt(posts.length + 1)
 
     // console.log('posts.lastIndexOf(posts[posts.length])', posts.lastIndexOf(posts[posts.length - 1]) + 1);
