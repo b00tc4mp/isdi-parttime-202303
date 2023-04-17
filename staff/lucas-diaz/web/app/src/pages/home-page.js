@@ -8,7 +8,7 @@ import createPost from "../logic/create-post.js";
 import retrievePosts from "../logic/retrieve-posts.js";
 import retrieveUser from "../logic/retrieve-user.js";
 import updatePostAvatar from "../logic/update-post-avatar.js";
-
+import updatePost from "../logic/update-post.js";
 
 //* VARIABLES DE HOME
 const DEFAUTL_AVATAR_URL = "https://img.icons8.com/color/512/avatar.png";
@@ -31,10 +31,18 @@ const updateAvatarMenu = document.querySelector(".home-update-avatar-menu");
 const updateAvatarForm = document.querySelector(".home-update-avatar-menu .form")
 const cancelUpdateAvatarButton = document.querySelector(".form-avatar-cancel-button");
 
-//*VARIABLES DE POST 
+//*VARIABLES DE POSTS
 export const postsListPanel = document.querySelector(".home-posts-content");
+//*VARIABLES DE MODAL DE CREATE POST 
 export const postModal = document.querySelector(".home-add-post-modal");
 export const failPostMessage = document.querySelector(".home-add-post-modal form .fail-warning");
+const postModalCancelButton = document.querySelector(".form-post-cancel-button");
+const postModalForm =  postModal.querySelector(".form");
+
+ //*VARIABLES PARA EDITAR POST
+const editPostModal = document.querySelector(".home-edit-post-modal");
+const editPostModalCancelButton = document.querySelector(".home-edit-form-post-cancel-button");
+const editPostModalForm = document.querySelector(".home-edit-post-form"); 
 
 //! PARTE DE HOME
 logOutButton.onclick = () => {
@@ -48,7 +56,6 @@ logOutButton.onclick = () => {
     delete context.userId; 
     postsListPanel.innerHTML ="";
 }
-
 settingsButton.onclick = () => {
     headerMenu.classList.toggle("home-menu-transition");
     hide(changePasswordMenu,updateAvatarMenu,postModal);
@@ -115,14 +122,13 @@ updateAvatarForm.addEventListener("submit", (event) => {
         document.querySelector(".home-update-avatar-menu .fail-warning").textContent = (error.message);
     }
 })
-
 //*FUNCION TEMPORAL PARA QUITAR TODOS LOS ANCHORS VACIOS TEMPORALES 
 document.querySelector(".home-menu-option3").addEventListener("click", (event) => {
     event.preventDefault();
 })
 
 //! PARTE DEL FORM DEL MODAL
-postModal.querySelector(".form").onsubmit = (event) => {
+postModalForm.onsubmit = (event) => {
     event.preventDefault();
 
     const image = event.target.url.value;
@@ -141,51 +147,82 @@ postModal.querySelector(".form").onsubmit = (event) => {
         failPostMessage.textContent = error.message;
     }
 }
-
-postModal.querySelector(".form-post-cancel-button").onclick = (event) => {
+postModalCancelButton.onclick = (event) => {
     event.preventDefault();
     hide(postModal);
     postsListPanel.classList.remove("fade");
 }
 
+//!PARTE DE EDITAR POST MODAL
+
+editPostModalForm.onsubmit = (event) => {
+    event.preventDefault();
+
+    const image = event.target.url.value;
+    const text = event.target.text.value;
+    const postId = event.target.postId.value;
+    try{
+        updatePost(context.userId, postId, image, text);
+        hide(editPostModal);
+        postsListPanel.classList.remove("fade");
+        postsListPanel.innerHTML ="";
+        renderPosts();
+
+    } catch(error){
+        alert(error.message)
+        failPostMessage.textContent = error.message;
+    }
+}
+
+
 //! PINTA INFO PARA EL USER
 export function renderPosts () {
     try{
-        
-/*         postsListPanel.innerHTML ="";
-        
-
-        posts.forEach(post => {
-            const postItem = document.createElement("article");
-
-            const image = document.createElement("img")
-            image.src = post.image;
-            
-
-            const text = document.createElement("p");
-            text.innerText = post.text;
-
-            const date = document.createElement("time");
-            date.innerText = post.date.toLocaleString();
-            postItem.append(image,text,date);
-
-            postsListPanel.appendChild(postItem);
-        })
- */
         const posts = retrievePosts(context.userId);
-
         updatePostAvatar(context.userId);
         
-        postsListPanel.innerHTML = posts.reduce((accum, post) => {
-            return accum + `<article>
-                <img class="home-post-content-article-avatar" src=${post.userNameAvatar}
-                    alt="avatar-img">
-                <p class="home-post-content-article-userName">${post.userName}</p>
-                <img class="home-post-content-article-img" src="${post.image}">
-                <p class="home-post-content-article-text">${post.text}</p>
-                <time class="home-post-content-article-date">${post.date.toLocaleString()}</time>
-            </article> `
-        }, "")
+        posts.forEach(post => {
+            const postItem = document.createElement("article");
+            
+            const postUserAvatar = document.createElement("img")
+            postUserAvatar.classList.add("home-post-content-article-avatar")
+            postUserAvatar.src = post.userNameAvatar;
+            
+            const postUserName = document.createElement("p");
+            postUserName.classList.add("home-post-content-article-userName")
+            postUserName.textContent = post.userName;
+
+            const postImg = document.createElement("img");
+            postImg.classList.add("home-post-content-article-img");
+            postImg.src = post.image;
+
+            const postText = document.createElement("p");
+            postText.classList.add("home-post-content-article-text");
+            postText.innerText = post.text;
+            
+            const postDate = document.createElement("time");
+            postDate.classList.add("home-post-content-article-date");
+            postDate.innerText = post.date.toLocaleString();
+
+            if(post.author === context.userId){
+                const editPostModalButton = document.createElement("button")
+                editPostModalButton.classList.add("home-eddit-post-modal-button")
+                editPostModalButton.innerText = "Edit"
+
+                editPostModalButton.onclick = () => {
+                    editPostModalForm.querySelector(".form-post-url-input").value = post.image;
+                    editPostModalForm.querySelector(".home-edit-hidden-input").value = post.id
+                    editPostModalForm.querySelector("textarea").value = post.text;
+                    show(editPostModal);
+                    postsListPanel.classList.add("fade");
+                }
+
+                postItem.append(postUserAvatar, postUserName, editPostModalButton, postImg, postText, postDate);
+            } else{
+                postItem.append(postUserAvatar, postUserName, postImg, postText, postDate);
+            }
+            postsListPanel.appendChild(postItem);
+        })
 
         return true;
     }catch(error){
@@ -193,7 +230,6 @@ export function renderPosts () {
         return false;
     }
 }
-
 export function renderUser(){
     try{
         const currentUser = retrieveUser(context.userId)

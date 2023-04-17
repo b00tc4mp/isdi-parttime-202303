@@ -28,6 +28,9 @@ users.push({
 
 export const posts = "postsJson" in localStorage  ? JSON.parse(localStorage.postsJson) : []
 
+// esto lo hacemos porque el objeto cuando viene de JSON la date vuelve como string y tenemos que volver a pasarla a formato Date
+posts.forEach(post => post.date = new Date(post.date));
+
 /* posts.push({
     id: "post-1",
     author: "user-1",

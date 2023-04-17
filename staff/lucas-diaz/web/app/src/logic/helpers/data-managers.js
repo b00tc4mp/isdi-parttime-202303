@@ -26,3 +26,8 @@ export function findUserPostByUserId(userId){
     let foundPost = posts.find(post => post.author === userId)
     return foundPost;
 }
+
+export function findUserPostByPostId(postId){
+    let foundPost = posts.find(post => post.id === postId)
+    return foundPost;
+}
