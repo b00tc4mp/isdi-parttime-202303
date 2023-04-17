@@ -393,13 +393,35 @@ body {
   height: auto;
 }
 
-.post-container > p {
+.post-container > div > p {
   margin: 0;
 }
 
 .post-container > div {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  height: 2rem;
+  margin: 0;
+}
+
+.post-container > div > div {
+  display: flex;
+  align-items: center;
+}
+
+.post-container > div > div > p {
+  font-size: 0.8rem;
+}
+
+.like-button {
+  height: 2rem;
+  border: none;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.liked {
+  color: red;
 }
 
 .edit-button {

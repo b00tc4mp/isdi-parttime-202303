@@ -9,7 +9,7 @@ import createPost from '../logic/create-post.js'
 import { posts, savePosts, saveUsers } from '../data.js'
 import retrievePosts from '../logic/retrieve-posts.js'
 import { retrieveUser } from '../logic/retrieve-user.js'
-import { findUserById } from '../logic/helpers/data-managers.js'
+import { findPostById, findUserById } from '../logic/helpers/data-managers.js'
 import editPost from '../logic/edit-post.js'
 
 export const homePage = document.querySelector('.home-page')
@@ -99,6 +99,7 @@ editPostModal.querySelector('form').onsubmit = (event) => {
 myProfileButton.addEventListener('click', () => {
     toggleElement(profileOptionsModal)
     resetPage(changeAvatarMenu, changePasswordMenu, changeEmailMenu)
+    console.log(likeButtons)
 })
 
 homePage.querySelector('.change-email').onclick = () => {
@@ -211,8 +212,35 @@ export function renderPosts() {
             const postImg = document.createElement('img')
             postImg.src = post.image
 
+            const postCaptionAndLike = document.createElement('div')
+
             const postCaption = document.createElement('p')
             postCaption.innerText = post.text
+
+            const likesContainer = document.createElement('div')
+
+            const likesCounter = document.createElement('p')
+            
+            if((post.likedBy).length > 1) {
+                likesCounter.innerText = `${(post.likedBy).length} likes`
+            } else if((post.likedBy).length > 0){
+                likesCounter.innerText = `${(post.likedBy).length} like`
+            }
+
+            const likeButton = document.createElement('button')
+            likeButton.classList.add('like-button')
+
+            const likeHeart = document.createElement('i')
+            likeHeart.classList.add('uil')
+            likeHeart.classList.add('uil-heart-sign')
+            if(post.likedBy.includes(context.userId))
+                likeHeart.classList.add('liked')
+
+            likeButton.append(likeHeart)
+
+            likesContainer.append(likesCounter, likeButton)
+
+            postCaptionAndLike.append(postCaption, likesContainer)
 
             const postFooter = document.createElement('div')
 
@@ -226,7 +254,7 @@ export function renderPosts() {
             const month = (postDate.getMonth() + 1).toString().padStart(2, '0')
             const year = postDate.getFullYear()
 
-            postFooterLeftTime.innerText = `${day}/${month}/${year}`
+            postFooterLeftTime.innerText = `${day}/${month}/${year}-`
 
             if(post.author === context.userId) {
                 const postEditButton = document.createElement('button')
@@ -244,7 +272,7 @@ export function renderPosts() {
     
                 postFooter.append(postFooterLeft, postEditButton)
     
-                postItem.append(postImg, postCaption, postFooter)
+                postItem.append(postImg, postCaptionAndLike, postFooter)
     
                 postListPanel.appendChild(postItem)
 
@@ -262,10 +290,29 @@ export function renderPosts() {
     
                 postFooter.append(postFooterLeft)
     
-                postItem.append(postImg, postCaption, postFooter)
+                postItem.append(postImg, postCaptionAndLike, postFooter)
     
                 postListPanel.appendChild(postItem)
             }
+
+            const foundUser = findUserById(context.userId)
+            const foundPost = findPostById(post.id)
+
+            likeButton.onclick = () => {
+                likeHeart.classList.toggle('liked')
+
+                if(!foundPost.likedBy.includes(foundUser.id)){
+                    foundPost.likedBy.push(foundUser.id)
+                    savePosts()
+                    renderPosts()
+                } else {
+                    const index = foundPost.likedBy.indexOf(foundUser.id)
+                    foundPost.likedBy.splice(index, 1)
+                    savePosts()
+                    renderPosts()
+                }
+            }
+
         })
 
         return true
