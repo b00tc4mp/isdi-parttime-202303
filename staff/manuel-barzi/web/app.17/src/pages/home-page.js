@@ -7,7 +7,6 @@ import createPost from '../logic/create-post.js'
 import { loginPage } from './login-page.js'
 import retrievePosts from '../logic/retrieve-posts.js'
 import retrieveUser from '../logic/retrieve-user.js'
-import updatePost from '../logic/update-post.js'
 
 const DEFAULT_AVATAR_URL = 'https://img.icons8.com/color/512/avatar.png'
 
@@ -113,7 +112,8 @@ editPostForm.onsubmit = event => {
     const text = event.target.text.value
 
     try {
-        updatePost(context.userId, postId, image, text)
+        console.log('TODO call updatePost', postId, image, text)
+        //TODO updatePost(context.userId, postId, image, text)
 
         hide(editPostPanel)
 
