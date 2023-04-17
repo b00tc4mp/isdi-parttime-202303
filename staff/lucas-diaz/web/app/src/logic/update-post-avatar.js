@@ -9,6 +9,10 @@ export default function updatePostAvatar(contextUserId){
     const user = findUserById(contextUserId);
     const userPost = findUserPostByUserId(contextUserId);
 
+    if (!userPost){
+        return;
+    }
+
     if (user.avatar !== userPost.userNameAvatar){
         userPost.userNameAvatar = user.avatar;
     }

@@ -173,6 +173,7 @@ export function renderPosts () {
         })
  */
         const posts = retrievePosts(context.userId);
+
         updatePostAvatar(context.userId);
         
         postsListPanel.innerHTML = posts.reduce((accum, post) => {
