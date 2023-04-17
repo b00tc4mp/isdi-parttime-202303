@@ -2,6 +2,7 @@ import { context, show, hide, toggle } from "../ui.js";
 import { loginPage } from "./login-page.js";
 import { findUserById } from "../logic/helpers/data-managers.js";
 import errorShow from "../logic/helpers/error-managers.js";
+import formatDate from "../logic/helpers/format-date.js";
 import changePassword from "../logic/update-user-password.js";
 import updateAvatar from "../logic/update-user-avatar.js";
 import createPost from "../logic/create-post.js";
@@ -23,7 +24,10 @@ const changePasswordError = profilePanel.querySelector(
 );
 const changeAvatarError = profilePanel.querySelector(".update-avatar-error");
 
-const newPostButton = homePage.querySelector(".button-new-post-container");
+const newPostButtonContainer = homePage.querySelector(
+  ".button-new-post-container"
+);
+const newPostButton = homePage.querySelector(".new-post-button");
 const addPostModal = homePage.querySelector(".modal");
 const addPostForm = homePage.querySelector(".posts");
 const addPostError = homePage.querySelector(".add-post-error");
@@ -37,7 +41,7 @@ const bodyPage = document.querySelector("body");
 profileLink.onclick = function (event) {
   event.preventDefault();
 
-  toggle(profilePanel, postsList, newPostButton);
+  toggle(profilePanel, postsList, newPostButtonContainer);
   changePasswordForm.reset();
   changeAvatarForm.reset();
   hide(changeAvatarError, changePasswordError);
@@ -62,7 +66,7 @@ changePasswordForm.onsubmit = function (event) {
     changePassword(context.userId, password, newPassword, newPasswordConfirm);
 
     hide(profilePanel, changeAvatarError, changePasswordError);
-    show(postsList, newPostButton);
+    show(postsList, newPostButtonContainer);
     changePasswordForm.reset();
     changeAvatarForm.reset();
   } catch (error) {
@@ -91,7 +95,7 @@ changeAvatarForm.onsubmit = function (event) {
     changePasswordForm.reset();
     changeAvatarForm.reset();
     hide(profilePanel, changeAvatarError, changePasswordError);
-    show(postsList, newPostButton);
+    show(postsList, newPostButtonContainer);
 
     renderPosts();
   } catch (error) {
@@ -205,7 +209,7 @@ export function renderPosts() {
 
       const date = document.createElement("time");
       date.classList.add("post-date");
-      date.innerText = post.date.toLocaleString();
+      date.innerText = formatDate(post.date);
 
       if (post.author === context.userId) {
         const button = document.createElement("button");
