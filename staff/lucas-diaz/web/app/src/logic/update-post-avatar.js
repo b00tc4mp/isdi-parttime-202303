@@ -12,7 +12,6 @@ export default function updatePostAvatar(contextUserId){
     if (!userPost){
         return;
     }
-
     if (user.avatar !== userPost.userNameAvatar){
         userPost.userNameAvatar = user.avatar;
     }

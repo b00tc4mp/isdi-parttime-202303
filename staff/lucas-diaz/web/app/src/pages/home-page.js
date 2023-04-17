@@ -33,6 +33,7 @@ const cancelUpdateAvatarButton = document.querySelector(".form-avatar-cancel-but
 
 //*VARIABLES DE POSTS
 export const postsListPanel = document.querySelector(".home-posts-content");
+
 //*VARIABLES DE MODAL DE CREATE POST 
 export const postModal = document.querySelector(".home-add-post-modal");
 export const failPostMessage = document.querySelector(".home-add-post-modal form .fail-warning");
@@ -118,6 +119,8 @@ updateAvatarForm.addEventListener("submit", (event) => {
         vanishWarningIn3Seconds(document.querySelector(".success-avatar-warning"),"off");
         hide(updateAvatarMenu);
         event.target.url.value = "";
+        postsListPanel.innerHTML ="";
+        renderPosts();
     }catch(error){
         document.querySelector(".home-update-avatar-menu .fail-warning").textContent = (error.message);
     }
@@ -202,6 +205,14 @@ export function renderPosts () {
             const postText = document.createElement("p");
             postText.classList.add("home-post-content-article-text");
             postText.innerText = post.text;
+
+            const likeIcon = document.createElement("span");
+            likeIcon.classList.add("material-symbols-rounded");
+            likeIcon.textContent = "favorite"
+            // TODO ADD EVENT 
+            likeIcon.onclick = () => {
+                console.log("hola")
+            }
             
             const postDate = document.createElement("time");
             postDate.classList.add("home-post-content-article-date");
@@ -220,9 +231,9 @@ export function renderPosts () {
                     postsListPanel.classList.add("fade");
                 }
 
-                postItem.append(postUserAvatar, postUserName, editPostModalButton, postImg, postText, postDate);
+                postItem.append(postUserAvatar, postUserName, editPostModalButton, postImg, postText, likeIcon, postDate);
             } else{
-                postItem.append(postUserAvatar, postUserName, postImg, postText, postDate);
+                postItem.append(postUserAvatar, postUserName, postImg, postText, likeIcon,postDate);
             }
             postsListPanel.appendChild(postItem);
         })
