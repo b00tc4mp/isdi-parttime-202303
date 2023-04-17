@@ -18,5 +18,5 @@ export const toggleFav = (postId, userId) => {
   };
   saveFavorites();
   savePosts();
-  return (favorites[index].usersId).length
+  return index === -1 ? 1 : (favorites[index].usersId).length
 }
