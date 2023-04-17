@@ -23,4 +23,6 @@ Curri.prototype.map = function map(callback) {
     return mapped
 }
 
+// TODO implement more Curri methods (same as Array methods)
+
 export default Curri
