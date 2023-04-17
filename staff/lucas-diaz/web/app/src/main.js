@@ -18,10 +18,3 @@ else {
     }else 
         show(logInPage);
 }
-
-
-
-
-
-
-

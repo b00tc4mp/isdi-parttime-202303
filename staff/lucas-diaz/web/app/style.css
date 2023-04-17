@@ -225,21 +225,40 @@ label{
     flex-basis: 70%;
     display: flex;
     flex-flow: row wrap;
-    justify-content: center;
+    justify-content: flex-start;
     gap: 1rem;
     background-color: #313338;
     border-radius: .3rem;
+    color: white;
+}
+.home-post-content-article-userName{
+    color: rgb(173, 231, 173);
+    flex-basis: 40%;
+}
+
+
+.home-post-content-article-text{
+    color: white;
+    font-size: 0.8rem;
+    flex-basis: 100%;
+    text-align: left;
 
 }
-.home-posts-content p, .home-posts-content time{
+.home-post-content-article-date{
+    text-align: right;
+    font-size: 0.7rem;
     flex-basis: 100%;
-    color: white;
-    text-align: center;
-    font-size: 0.8rem;
 }
-.home-posts-content img{
-    width: 200px;
-    height: 200px;
+.home-post-content-article-img{
+    height: 260px;
+    flex-basis: 100%; 
+}
+.home-post-content-article-avatar{
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    background-color: grey;
+    padding: .2rem
 }
 
 /*! CHANGE PASSWORD & AVATAR MENU*/
@@ -410,6 +429,9 @@ label{
         max-width: 700px;
         left: 50%;
         transform: translateX(-50%);
+    }
+    .home-post-content-article-img{
+        height: 400px; 
     }
 }
 

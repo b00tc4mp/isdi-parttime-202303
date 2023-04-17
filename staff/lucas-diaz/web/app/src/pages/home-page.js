@@ -7,6 +7,7 @@ import { footerSite } from "./footer-page.js";
 import createPost from "../logic/create-post.js";
 import retrievePosts from "../logic/retrieve-posts.js";
 import retrieveUser from "../logic/retrieve-user.js";
+import updatePostAvatar from "../logic/update-post-avatar.js";
 
 
 //* VARIABLES DE HOME
@@ -172,12 +173,16 @@ export function renderPosts () {
         })
  */
         const posts = retrievePosts(context.userId);
+        updatePostAvatar(context.userId);
         
         postsListPanel.innerHTML = posts.reduce((accum, post) => {
             return accum + `<article>
-                <img src="${post.image}">
-                <p>${post.text}</p>
-                <time>${post.date.toLocaleString()}</time>
+                <img class="home-post-content-article-avatar" src=${post.userNameAvatar}
+                    alt="avatar-img">
+                <p class="home-post-content-article-userName">${post.userName}</p>
+                <img class="home-post-content-article-img" src="${post.image}">
+                <p class="home-post-content-article-text">${post.text}</p>
+                <time class="home-post-content-article-date">${post.date.toLocaleString()}</time>
             </article> `
         }, "")
 

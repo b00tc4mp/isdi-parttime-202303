@@ -1,4 +1,4 @@
-import { users } from "../../data";
+import { users, posts } from "../../data";
 
 export const vanishWarningIn3Seconds = (advice, className) => {
     setTimeout(() => {
@@ -20,4 +20,9 @@ export function findUserById(userId){
 export function findUserByEmail(email){
     let foundUser = users.find(user => user.email === email)
     return foundUser;
+}
+
+export function findUserPostByUserId(userId){
+    let foundPost = posts.find(post => post.author === userId)
+    return foundPost;
 }
