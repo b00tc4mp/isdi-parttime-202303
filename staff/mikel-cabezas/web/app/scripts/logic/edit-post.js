@@ -37,7 +37,8 @@ export function editPost(userId, postId, title, text, image) {
         image: image,
         title: title, 
         text: text,
-        date: posts[currentPost].date
+        date: posts[currentPost].date,
+        likes: posts[currentPost].likes
     }
     savePosts()
     updatePosts(userId)

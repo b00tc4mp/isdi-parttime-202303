@@ -61,6 +61,13 @@ export function renderPosts(userId) {
                 const titleAndInteractions = document.createElement('div')
                 titleAndInteractions.classList.add('title-and-interactions')
                 postContainer.appendChild(titleAndInteractions)
+                const totalLikesPost = document.createElement('div')
+                postContainer.appendChild(totalLikesPost)
+                const postIdIndex = postId.slice(5)
+                if(article.likes) {
+                    totalLikesPost.innerText = article.likes + ' likes'
+
+                }
 
                 const postTitle = document.createElement('h3')
                 postTitle.classList.add('title')
@@ -71,32 +78,45 @@ export function renderPosts(userId) {
                 const likePost = document.createElement('div')
                 likePost.classList.add('material-symbols-outlined')
                 likePost.classList.add('like')
+                totalLikesPost.classList.add('total-likes-post')
                 titleAndInteractions.appendChild(likePost)
                 likePost.innerText = 'favorite'
 
                 const isLikedPost = currentUser.likedPosts.find(post => post === postId)
-
                 if(isLikedPost === postId) {
                     likePost.classList.add('liked')
                 }
-
                 likePost.onclick = (event) => {
                     const currentUser = findUserById(userId)
                     const userLikedPosts = currentUser.likedPosts
-                    const postId = event.target.classList.value.split(' ').pop()
+                    const postId = article.id.slice(5)
                     const indexLikedPost = currentUser.likedPosts.findIndex(post => post === postId)
 
                     if(likePost.classList.contains('liked')) {
                         likePost.classList.remove('liked')
                         currentUser.likedPosts.splice(indexLikedPost, 1)
+                        if (posts[postId - 1].likes > 1) {
+                            posts[postId - 1].likes-- + ' likes'
+                            totalLikesPost.innerText = posts[postId].likes
+                        }
+                        if (posts[postId - 1].likes === 1) {
+                            posts[postId - 1].likes-- + ' likes'
+                            totalLikesPost.innerText = ''
+                        }
+
                     } else {
                         likePost.classList.add('liked')
+
+                            posts[postId - 1].likes++ + ' likes'
+                            totalLikesPost.innerText = posts[postId - 1].likes
     
                         if(isLikedPost !== postId) {
+                            
                             currentUser.likedPosts.push(article.id)
                         }
                     }
                     saveUsers()
+                    savePosts()
                 }
 
 

@@ -44,7 +44,7 @@ export function createPost(userId, image, title, text) {
     // console.log('posts.lastIndexOf(posts[posts.length])', posts.lastIndexOf(posts[posts.length - 1]) + 1);
     // console.log('posts.length', posts.length);
     // console.log('currentPost', currentPost);
-
+debugger
 
     const post = {
         id: 'post-' + currentPost,
@@ -52,8 +52,10 @@ export function createPost(userId, image, title, text) {
         image: srcNewImage,
         title: title, 
         text: text,
-        date: new Date()
+        date: new Date(),
+        likes: 0
     }
+    console.log(post.likes)
     posts.push(post)
     savePosts()
     updatePosts(userId)
