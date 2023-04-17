@@ -88,8 +88,7 @@ deleteForm.addEventListener('submit', (event) => {
     deleteUser(context.userAuth);
     logout(loginPage, homePage);
     setAlertUserDeleted();
-    setOff(profileForms)
-    context.userAuth = undefined
+    setOff(profile, profileForms, profileButtons, mainHome)
   } catch (error) {
     console.log(error)
   }

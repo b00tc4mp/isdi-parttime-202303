@@ -39,7 +39,6 @@ toLogout.addEventListener('click', (event) => {
   event.preventDefault();
   clearForms();
   setOff(profile, profileForms, profileButtons, mainHome)
-  delete context.userAuth;
   logout(loginPage, homePage);
 });
 

@@ -4,6 +4,9 @@ export const savePosts = () => {
     localStorage.postsJson = JSON.stringify(posts)
 }
 
-export const saveFavorites = () => {
+export const saveFavorites = (newFavorites) => {
+    if(newFavorites) {
+      localStorage.favoritesJson = JSON.stringify(newFavorites) 
+    }
     localStorage.favoritesJson = JSON.stringify(favorites)
 }

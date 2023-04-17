@@ -7,7 +7,6 @@ export const toggleLike = (postId, userId) => {
   validatePostExists(postId)
   const index = posts.findIndex(post => post.id === postId);
   const userIndex = posts[index].likes.indexOf(userId);
-  console.log(userIndex)
   if (userIndex === -1) {
     posts[index].likes.push(userId);
   } else {

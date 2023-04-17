@@ -1,4 +1,4 @@
-import { toggleOff, clearForms, resetAlerts, setAlert, setOn, setPredeterminateAvatar, setOff} from './general-tools.js';
+import { toggleOff, clearForms, resetAlerts, setAlert, setOn, setPredeterminateAvatar, setOff, context} from './general-tools.js';
 import { addNewUser } from '../logic/register-user.js'
 import {authenticateUser} from '../logic/authenticate-user.js'
 import { toggle } from '../pages/home-edit-profile-page.js';
@@ -37,6 +37,7 @@ export const logout = (login, home) => {
   document.querySelector('.name').innerText = '';
   document.querySelector('.username').innerText = '';
   document.querySelector('.since').innerText = '';
+  delete context.userAuth;
   setPredeterminateAvatar();
 };
 
