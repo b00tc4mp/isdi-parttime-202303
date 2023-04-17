@@ -1,6 +1,6 @@
 import { findUserbyEmail } from "./helpers/data-managers.js"
 
-export const checkCredentials = (inputEmail, inputPassword) => {
+export const authenticateUser = (inputEmail, inputPassword) => {
     const foundUser = findUserbyEmail(inputEmail)
 
     if (!foundUser) throw new Error('User not found')

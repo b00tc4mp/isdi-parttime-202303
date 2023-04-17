@@ -7,9 +7,10 @@ export const retrieveUser = (userId) => {
     if(!foundUser) throw new Error ('User not found')
 
     else {
+        
         const user = {
-            id: foundUser.id,
-            name: foundUser.username,
+            username: foundUser.username,
+            email: foundUser.email,
             avatar: foundUser.avatar
         }
         return user

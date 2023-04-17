@@ -31,7 +31,7 @@
                 <label for="rep-password" class="text-field-label">Repeat password</label>
                 <input type="password" name="rep-password" class="text-field">
                 
-                <button class="primary-button" type="submit">Sign up</button>
+                <button class="button-S primary-button" type="submit">Sign up</button>
             </form>
 
             <p class="error-message"></p>
@@ -44,7 +44,7 @@
 
     </div>
 
-    <div class="login _off">
+    <div class="login off">
         <div class="centered-containers">
 
             <h1 class="title">Welcome back!</h1>
@@ -58,7 +58,7 @@
 
                 <p class="error-message"></p>
 
-                <button class="primary-button" type="submit">Log in</button>
+                <button class="button-S primary-button" type="submit">Log in</button>
 
                 <div class="create-account">
                     <p class="body-text">New to <strong>Helio</strong>?</p><a href="" class="link sign-in">Sign in</a>
@@ -68,7 +68,7 @@
         </div>
     </div>
 
-    <div class="homepage off">
+    <div class="homepage">
         <div class="left-container">
             <div class="sidebar">
                 <div class="sidebar-logo-and-actions">
@@ -117,8 +117,9 @@
             <div class="middle-section">
 
                 <div class="feed">
-                    <div class="feed-creation-post-button">
-                        <button class="primary-button create-post-button">Create</button>
+                    <div class="header">
+                        <p class="heading-M-bold">Home</p>
+                        <button class="button-S primary-button create-post-button">Create</button>
                     </div>
 
                     <div class="posts">
@@ -206,7 +207,7 @@
                                     <div class="navigation-row nav-row-avatar">
                                         <a>Update avatar</a>
                                         <div class="icon-s"><i class="uil uil-angle-right-b"></i></div>                        </div>
-                                    <a class="link" id="logout">Log out</a>
+                                    <a class="link logout-link" id="logout">Log out</a>
                                 </div>
                             </div>
                 </div>
@@ -232,8 +233,8 @@
                                 <p class="success-message"></p>
                                 
                                 <div class="button-bar">
-                                <button class="secondary-button" id="cancel-update-password" type="submit">Cancel</button>
-                                <button class="primary-button" id="save-update-password" type="submit">Save</button>
+                                <button class="button-S secondary-button" id="cancel-update-password" type="submit">Cancel</button>
+                                <button class="button-S primary-button" id="save-update-password" type="submit">Save</button>
                                 </div>
                             </form>
                         </div>
@@ -260,8 +261,8 @@
                                 <p class="success-message"></p>
                                 
                                 <div class="button-bar">
-                                <button class="secondary-button" id="cancel-update-email" type="submit">Cancel</button>
-                                <button class="primary-button" id="save-update-email" type="submit">Save</button>
+                                <button class="button-S secondary-button" id="cancel-update-email" type="submit">Cancel</button>
+                                <button class="button-S primary-button" id="save-update-email" type="submit">Save</button>
                                 </div>
                             </form>
                         </div>
@@ -280,14 +281,16 @@
                                 </p>
 
                                 <input type="file" name="avatar">
+                                <div class="update-avatar-image-preview-container">
                                 <img src="https://media.istockphoto.com/id/1223671392/vector/default-profile-picture-avatar-photo-placeholder-vector-illustration.jpg?s=612x612&w=0&k=20&c=s0aTdmT5aU6b8ot7VKm11DeID6NctRCpB755rA1BIP0=" class="update-avatar-image-preview">
-                
+                                </div>
+
                                 <p class="error-message"></p>
                                 <p class="success-message"></p>
                                 
                                 <div class="button-bar">
-                                <button class="secondary-button" id="cancel-update-avatar" type="submit">Cancel</button>
-                                <button class="primary-button" id="save-update-avatar" type="submit">Save</button>
+                                <button class="button-S secondary-button" id="cancel-update-avatar" type="submit">Cancel</button>
+                                <button class="button-S primary-button" id="save-update-avatar" type="submit">Save</button>
                                 </div>
                             </form>
                     </div>
@@ -296,7 +299,10 @@
                 </div>
 
             </div>
-        <div class="right-section"></div>
+
+            <div class="right-section"></div>
+        </div>
+    </div>
     </div>
 <div class="creation-post-modal off">
         <div class="centered-containers">
@@ -314,13 +320,40 @@
                 <p class="success-message"></p>
 
                 <div class="button-bar">
-                    <button class="secondary-button" id="cancel-post-publication" type="submit">Cancel</button>
-                    <button class="primary-button" id="post-publication" type="submit">Post</button>
+                    <button class="button-S secondary-button" id="cancel-post-publication" type="submit">Cancel</button>
+                    <button class="button-S primary-button" id="post-publication" type="submit">Post</button>
                     </div>
             </form>
         </div>
 </div>
 
+<div class="edit-post-modal off">
+    <div class="centered-containers">
+        <form class="centered-form">
+            
+            <p class="title">Edit post</p>
+
+            <input class="text-field" type="hidden" name="postId">
+            <input class="" type="file" name="imageUrl">
+
+            
+            <label for="caption" class="text-field-label">Post caption</label>
+            <textarea class="text-area" name="caption"></textarea>
+
+            <div class="edit-post-image-preview-container">
+            <img src="https://media.istockphoto.com/id/1223671392/vector/default-profile-picture-avatar-photo-placeholder-vector-illustration.jpg?s=612x612&w=0&k=20&c=s0aTdmT5aU6b8ot7VKm11DeID6NctRCpB755rA1BIP0=" alt="" class="edit-post-image-preview">
+            </div>
+
+            <p class="error-message"></p>
+            <p class="success-message"></p>
+
+            <div class="button-bar">
+                <button class="button-S secondary-button" id="cancel-edit-post" type="submit">Cancel</button>
+                <button class="button-S primary-button" id="save-edit-post" type="submit">Save</button>
+                </div>
+        </form>
+    </div>
+</div>
 
 <script type="module" src="src/main.js"></script>
 </body>

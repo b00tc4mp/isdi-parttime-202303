@@ -1,15 +1,14 @@
 // import { validateUrlFormat } from "./helpers/validators.js"
 
-export const getImageFromLocal = (uploadedFile) => {
+export const getImageFromLocal = (uploadedFile, callback) => {
 
         // validateUrlFormat(uploadedFile)
 
         const reader = new FileReader()
         const file = uploadedFile
         reader.onload = () => {
-                    reader.result
+                callback(reader.result)
         } 
         reader.readAsDataURL(file)
-        return URL.createObjectURL(file)
 }
 

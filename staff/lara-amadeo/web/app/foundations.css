@@ -55,7 +55,7 @@
 }
 
 .small-text-bold{
-    color: var(--grey-500);
+    color: var(--grey-700);
     font-family: "Inter";
     font-size: 14px;
     font-weight: 500;
@@ -107,4 +107,24 @@
     height: fit-content;
     margin-bottom: 40px;
     margin-top: 0;
+}
+
+.button-XS{
+    font-family: "Inter";
+    font-weight: 600;
+    font-size: 14px;
+    padding: 8px 16px 8px 16px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.button-S{
+    font-family: "Inter";
+    font-weight: 600;
+    font-size: 16px;
+    padding: 12px 16px 12px 16px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: 0.3s;
 }
