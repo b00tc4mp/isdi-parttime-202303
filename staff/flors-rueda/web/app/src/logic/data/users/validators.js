@@ -87,10 +87,10 @@ export const validateNewUsername = (username) => {
   if(!regexRule.test(username)) throw new Error('username format is not correct');
 }
 
-/*TODO figure out a way to validate the base64 url
+
 export const validateAvatarUrl = (url) => {
     if(typeof url !== 'string') throw new Error('url is not a string');
     if(!url.trim().length) throw new Error('url is empty');
-    const regexRule = /\.(jpg|jpeg|png|webp)$/;
-    if (!regexRule.test(url)) throw new Error('is not an image url');
-};*/
+    const regexRule = /^\s*(?:(?:[A-Za-z0-9+/]{4})+\s*)*[A-Za-z0-9+/]*={0,2}\s*$/;
+    if (regexRule.test(url)) throw new Error('is not an image url');
+};
