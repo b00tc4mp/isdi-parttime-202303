@@ -45,6 +45,11 @@ deleteNewPostImg.addEventListener('click', (event) => {
   
 sendPost.addEventListener('submit', (event) => {
   event.preventDefault(); 
-  const newPostText = newPostTextInput.value;
-  post(newPostImg, newPostText, context.userAuth, postModal)
+  try {
+    const newPostText = newPostTextInput.value;
+    post(newPostImg, newPostText, context.userAuth, postModal)
+  } catch (error) {
+    console.error(error);
+  }
+
 })

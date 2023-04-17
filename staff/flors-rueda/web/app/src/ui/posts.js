@@ -1,41 +1,41 @@
-import { setOn, clearForms, setOff } from "./general-tools.js";
-import { getPostsSorted } from "../logic/retrieve-posts-sorted-by-date.js";
-import { uploadPost } from "../logic/upload-post.js";
-import { updatePost } from "../logic/update-post.js";
-import { retrieveUser } from "../logic/retrieve-user.js";
-import { postModal } from "../pages/home-posts-modal-page.js";
-import { toggleFav } from "../logic/fav-post.js";
-import { isPostFavByUser } from "../logic/data/posts/validators.js";
-import { toggleLike } from "../logic/like-post.js";
+import { setOn, clearForms, setOff } from './general-tools.js';
+import { getPostsSorted } from '../logic/retrieve-posts-sorted-by-date.js';
+import { uploadPost } from '../logic/upload-post.js';
+import { updatePost } from '../logic/update-post.js';
+import { retrieveUser } from '../logic/retrieve-user.js';
+import { postModal } from '../pages/home-posts-modal-page.js';
+import { toggleFav } from '../logic/fav-post.js';
+import { toggleLike } from '../logic/like-post.js';
+import { isPostFavByUser } from '../logic/data/helpers.js';
 
 export const openPostModal = (modal, previousPost) => {
-  const title = document.querySelector(".modal-title");
-  const button = document.querySelector(".save-post");
+  const title = document.querySelector('.modal-title');
+  const button = document.querySelector('.save-post');
   if (previousPost) {
     postModal.classList.add(`editing-${previousPost.id}`);
-    title.innerHTML = "Edit";
-    button.innerHTML = "save";
+    title.innerHTML = 'Edit';
+    button.innerHTML = 'save';
   } else {
-    modal.classList.add("creating");
-    title.innerHTML = "Create";
-    button.innerHTML = "post";
+    modal.classList.add('creating');
+    title.innerHTML = 'Create';
+    button.innerHTML = 'post';
   }
-  const blur = document.querySelector(".blur");
+  const blur = document.querySelector('.blur');
   setOn(modal, blur);
 };
 
 export const clearPostModal = (modal) => {
   clearForms();
-  modal.className = "post-modal";
-  const selectedNewPostImg = document.querySelector(".new-post-image");
-  const setNewPostImg = document.querySelector(".set-image");
-  selectedNewPostImg.src = "https://sgame.etsisi.upm.es/pictures/12946.png";
+  modal.className = 'post-modal';
+  const selectedNewPostImg = document.querySelector('.new-post-image');
+  const setNewPostImg = document.querySelector('.set-image');
+  selectedNewPostImg.src = 'https://sgame.etsisi.upm.es/pictures/12946.png';
   setOn(setNewPostImg);
 };
 
 export const closePostModal = (modal) => {
   clearPostModal(modal);
-  const blur = document.querySelector(".blur");
+  const blur = document.querySelector('.blur');
   setOff(modal, blur);
 };
 
@@ -72,7 +72,7 @@ const press = (item) => {
 
 const renderPost = (post, userAuth) => {
   const postAuthor = retrieveUser(post.author);
-  const postArticle = document.createElement("article");
+  const postArticle = document.createElement('article');
   const isPostFav = isPostFavByUser(post.id, userAuth);
   const favPath = isPostFav ? favFillPath : favUnfillPath;
   const favClass =  isPostFav ? 'filled' : '';
@@ -80,7 +80,7 @@ const renderPost = (post, userAuth) => {
   const likePath = isPostLike ? likeFillPath : likeUnfillPath;
   const likeClass =  isPostLike ? 'filled' : '';
 
-  postArticle.classList.add("post");
+  postArticle.classList.add('post');
   let html = `<div class="post-header">
                   <div class="post-author-data">
                   <img class="post-author-avatar" src="${postAuthor.avatar}" />
@@ -101,7 +101,7 @@ const renderPost = (post, userAuth) => {
             <div class="post-like">
             <svg class="like-button ${likeClass}" xmlns="http://www.w3.org/2000/svg" viewBox="0 96 960 960"><path d="${likePath}"/></svg>
             <b>${post.likes.length}</b></div>`;
-  let timeDifference = new Date() - new Date(post.date);
+  let timeDifference = new Date() - post.date;
   const hours = Math.floor(timeDifference / 3600000);
   if (hours <= 24) {
     const minutes = Math.floor(timeDifference / 60000);
@@ -111,7 +111,7 @@ const renderPost = (post, userAuth) => {
       html += `<time class="post-date">${minutes} minutes ago</time>`;
     if (minutes === 0) html += `<time class="post-date">just now</time></div>`;
   } else {
-    html += `<time class="post-date">${new Date(post.date).toLocaleDateString(
+    html += `<time class="post-date">${post.date.toLocaleDateString(
       "en-GB"
     )}</time></div>`;
   }
@@ -138,15 +138,23 @@ export const renderAllPosts = (userAuth, postModal) => {
     const likeButton = postElement.querySelector('.like-button');
     favButton.addEventListener('click', (event) => {
       event.preventDefault();
-      press(favButton)
+      try {
+              press(favButton)
       const fav = toggleFav(post.id, userAuth);
       postElement.querySelector('.post-favorite').querySelector('b').innerText = fav
+      } catch (error) {
+        console.log(error)
+      }
     });
     likeButton.addEventListener('click', (event) => {
       event.preventDefault();
-      press(likeButton);
+      try {
+              press(likeButton);
       const likes = toggleLike(post.id, userAuth);
       postElement.querySelector('.post-like').querySelector('b').innerText = likes
+      } catch (error) {
+        console.log(error)
+      }
     });
     if (userAuth === post.author) {
       const editButton = postElement.querySelector('.to-edit-post');
@@ -163,7 +171,7 @@ export const post = (postImg, postText, userAuth, postModal) => {
     uploadPost(postImg, postText, userAuth);
   else {
     let postId = postModal.classList.value.split('editing-')[1];
-    updatePost(postText, postImg, postId);
+    updatePost(postText, postImg, postId, userAuth);
   }
   closePostModal(postModal);
   renderAllPosts(userAuth, postModal);

@@ -1,37 +1,4 @@
-import users from './data.js'
-
-const isMailRegistered = (mail) => {
-  for (let i = 0; i < users.length; i++) {
-    if (users[i].mail === mail) return true;
-  };
-  return false;
-};
-
-const isUsernameRegistered = (username) => {
-  for (let i = 0; i < users.length; i++) {
-    if (users[i].username === username) return true;
-  };
-  return false;
-};
-
-const isPasswordCorrect = (id, password) => {
-  const loginUser = users.filter((user) => user.id === id);
-  return loginUser[0].password === password;
-};
-
-const areNewOldPasswordsEqual = (id, newPassword) => {
-  const loginUser = users.filter((user) => user.id === id);
-  return loginUser[0].password === newPassword;
-};
-
-const confirmPassword = (password, repeatPassword) => {
-  return password === repeatPassword;
-};
-
-export const isPasswordSafe = (password) => {
-  const regexRule = /^.[A-Z\a-z\d]{5,}$/
-  return regexRule.test(password);
-};
+import { areNewOldPasswordsEqual, confirmPassword, isIdRegistered, isMailRegistered, isPasswordCorrect, isPasswordSafe, isUsernameRegistered } from '../helpers.js';
 
 export const validateMail = (mail) => {
   if(typeof mail !== 'string') throw new Error('mail is not an string');
@@ -87,10 +54,17 @@ export const validateNewUsername = (username) => {
   if(!regexRule.test(username)) throw new Error('username format is not correct');
 }
 
-
 export const validateAvatarUrl = (url) => {
     if(typeof url !== 'string') throw new Error('url is not a string');
     if(!url.trim().length) throw new Error('url is empty');
     const regexRule = /^\s*(?:(?:[A-Za-z0-9+/]{4})+\s*)*[A-Za-z0-9+/]*={0,2}\s*$/;
     if (regexRule.test(url)) throw new Error('is not an image url');
+};
+
+export const validateUserID = (id) => {
+  if(typeof id !== 'string') throw new Error('id is not a string');
+  if(!id.trim().length) throw new Error('id is empty');
+  if(!isIdRegistered(id)) throw new Error('id does not exist');
+  const regexRule = /^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/;
+  if(!regexRule.test(id)) throw new Error('id format is not correct');
 };
