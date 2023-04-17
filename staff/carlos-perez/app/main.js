@@ -292,7 +292,14 @@ function muestraPosts(){
         const date= document.createElement('time');
         date.innerText=post.date;
 
-        postItem.append(image,text, date);
+        if (post.author === context.userid) {
+            const button = document.createElement('button');
+            button.innerText = 'Edit';
+
+            postItem.append(image, text, date, button);
+        } else {
+            postItem.append(image, text, date);
+        }
 
         postListPanel.appendChild(postItem);
     }
