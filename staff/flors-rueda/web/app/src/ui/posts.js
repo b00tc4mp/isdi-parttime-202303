@@ -73,13 +73,12 @@ const press = (item) => {
 const renderPost = (post, userAuth) => {
   const postAuthor = retrieveUser(post.author);
   const postArticle = document.createElement("article");
-
   const isPostFav = isPostFavByUser(post.id, userAuth);
   const favPath = isPostFav ? favFillPath : favUnfillPath;
   const favClass =  isPostFav ? 'filled' : '';
   const isPostLike = (post.likes).includes(userAuth);
   const likePath = isPostLike ? likeFillPath : likeUnfillPath;
-  const likeClass =  isPostFav ? 'filled' : '';
+  const likeClass =  isPostLike ? 'filled' : '';
 
   postArticle.classList.add("post");
   let html = `<div class="post-header">
@@ -140,9 +139,7 @@ export const renderAllPosts = (userAuth, postModal) => {
     favButton.addEventListener('click', (event) => {
       event.preventDefault();
       press(favButton)
-      let fav = postElement.querySelector('.post-favorite').querySelector('b').innerText
-      const effect = toggleFav(post.id, userAuth);
-      fav = fav < post.fav ? post.fav : post.fav + effect
+      const fav = toggleFav(post.id, userAuth);
       postElement.querySelector('.post-favorite').querySelector('b').innerText = fav
     });
     likeButton.addEventListener('click', (event) => {

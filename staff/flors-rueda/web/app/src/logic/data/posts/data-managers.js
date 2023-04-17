@@ -1,4 +1,4 @@
-import { posts, favorites } from './data'
+import { posts, favorites } from './data.js'
 
 export const savePosts = () => {
     localStorage.postsJson = JSON.stringify(posts)

@@ -300,10 +300,6 @@ p {
     width: 2.25rem;
 }
 
-/*TODO: refine post cards style*/
-
-/*TODO: check why not all post images align themself*/
-
 .post-image-container {
     display: flex;
     align-self: center;
