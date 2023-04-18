@@ -10,16 +10,21 @@ const updatePost = (userId, postId, postImage, postText) => {
 
   const foundUser = findUserById(userId);
 
-  if (!foundUser) throw new Error('user not found');
+  if (!foundUser) throw new Error(`user with id ${userId} not found`);
 
   let postUser = getPostById(postId);
 
-  if (!postUser) throw new Error('post not found');
+  if (!postUser) throw new Error(`post with id ${postId} not found`);
+
+  if (postUser.author !== userId)
+    throw new Error(
+      `post with id ${postId} does not belong to user with id ${userId}`
+    );
 
   postUser.image = postImage;
   postUser.text = postText;
   postUser.date = new Date();
-  postUser.edit = true;
+  postUser.editDate = new Date();
 
   savePost();
 };
