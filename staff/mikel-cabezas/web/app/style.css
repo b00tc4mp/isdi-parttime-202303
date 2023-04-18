@@ -474,6 +474,17 @@ label[for="file"] {
     font-size: 14px;
     color: var(--dark);
 }
+time.post-date {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: baseline;
+}
+.post-edited {
+    margin-left: 6px;
+    font-style: italic;
+    font-size: 85%;
+}
 .post-author {
     color: var(--main-brown);
     /* padding: 1px 11px 3px; */
@@ -488,7 +499,7 @@ label[for="file"] {
 /* POSTS  */
 
 .overlay {
-    background: #040d16eb;
+    background: #16181be8;
     position: fixed;
     top: 0;
     width: 100%;

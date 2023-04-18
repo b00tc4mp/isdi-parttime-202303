@@ -87,10 +87,6 @@ export function renderPosts(userId) {
                 if(isLikedPost === postId) {
                     likePost.classList.add('liked')
                 }
-                
-                console.log(article.likes)
-      
-                
                 likePost.onclick = (event) => {
                     const currentUser = findUserById(userId)
                     const userLikedPosts = currentUser.likedPosts
@@ -143,6 +139,14 @@ export function renderPosts(userId) {
                 postDate.classList.add('post-date')
                 postContainer.appendChild(postDate)
                 postDate.innerText = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`
+
+                if(article.lastModify) {
+                    const isEdited = document.createElement('div')
+                    isEdited.classList.add('post-edited')
+                    isEdited.innerText = '(Edited)'
+                    postDate.appendChild(isEdited)
+
+                }
 
 
 

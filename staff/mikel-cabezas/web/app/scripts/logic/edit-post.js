@@ -38,6 +38,7 @@ export function editPost(userId, postId, title, text, image) {
         title: title, 
         text: text,
         date: posts[currentPost].date,
+        lastModify: new Date(),
         likes: posts[currentPost].likes
     }
     savePosts()
