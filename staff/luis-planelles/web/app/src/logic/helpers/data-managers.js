@@ -2,39 +2,15 @@ import { users } from '../../data.js';
 import { posts } from '../../data.js';
 
 const findUserByEmail = (email) => {
-  let foundUser;
-
-  users.forEach((user) => {
-    if (user.email === email) {
-      foundUser = user;
-    }
-  });
-
-  return foundUser;
+  return users.find((user) => user.email === email);
 };
 
 const findUserById = (userId) => {
-  let foundUser;
-
-  users.forEach((user) => {
-    if (user.id === userId) {
-      foundUser = user;
-    }
-  });
-
-  return foundUser;
+  return users.find((user) => user.id === userId);
 };
 
 const getPostById = (postId) => {
-  let postUser;
-
-  posts.forEach((post) => {
-    if (post.id === postId) {
-      postUser = post;
-    }
-  });
-
-  return postUser;
+  return posts.find((post) => post.id === postId);
 };
 
 export { findUserByEmail, findUserById, getPostById };
