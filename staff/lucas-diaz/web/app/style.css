@@ -18,13 +18,12 @@ body{
 
 /*! SHARED STYLES*/
 .submit-button, .button , .change-password, .cancel-change-password, .form-avatar-cancel-button, .form-avatar-submit-button, .home-add-post-modal .form button, .home-edit-form-post-cancel-button, .home-edit-form-post-submit-button {
-    flex-basis: 40%;
-    background-color: rgb(12, 12, 12);
+    background-color: rgb(0 36 36);
     color: azure;
-    height: 50px;
     border-radius: .6rem;
-    border: 1px solid black;
-    margin-top: 20px;
+    border: none;
+    margin-top: 0.2rem;
+    padding: 0.6rem 1rem;
 }
 
 .submit-button:active, .change-password:active, .form-avatar-submit-button:active, .home-add-post-modal .form-post-submit-button:active, .footer-button:active, .home-edit-post-modal-button:active, .home-edit-form-post-submit-button:active {
@@ -120,13 +119,14 @@ label{
     top: 0;
     left: 0;
 
-    background-color: #004241;
+    background-color: #1e3a3a;
     display: flex;
     flex-flow:wrap row;
     align-items: center;
     justify-content:space-between;
     color: azure;
     gap: .5rem;
+    z-index: 10;
 
 }
 .home-header-tittle{
@@ -142,16 +142,15 @@ label{
 }
 .home-header-left-items-log-out-button{
     flex-basis:auto;
-    margin-top: 0px;
-    padding: 1rem;
+
 }
 .home-header-left-items-config-icon{
-    width: 3rem;
-    height: 3rem;
+    width: 2.4rem;
+    height: 2.4rem;
     filter: invert(100%) hue-rotate(180deg);
     cursor: pointer;
     animation: rotate-gear 10s infinite linear;
-    align-self:flex-end;
+    align-self: center;
 }
 .home-header-user{
     display: flex;
@@ -224,7 +223,7 @@ label{
 }
 .home-posts-content article {
     padding: 1rem;
-    flex-basis: 70%;
+    flex-basis: 100%;
     display: flex;
     flex-flow: row wrap;
     justify-content: flex-start;
@@ -232,10 +231,12 @@ label{
     background-color: #313338;
     border-radius: .3rem;
     color: white;
+    
 }
 .home-post-content-article-userName{
     color: rgb(173, 231, 173);
     flex-basis: 57%;
+    align-self: center;
 }
 .home-post-content-article-text{
     color: white;
@@ -252,9 +253,17 @@ label{
     flex-basis: 100%;
     color: rgb(150, 150, 150);
 }
+.post-image-container {
+    width: 100%;
+    display: flex;
+    position: relative;
+    padding-bottom: 100%;
+}
 .home-post-content-article-img{
-    height: 260px;
-    flex-basis: 100%; 
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    object-fit: contain;
 }
 .home-post-content-article-avatar{
     width: 2rem;
@@ -265,12 +274,22 @@ label{
 }
 .home-edit-post-modal-button{
     border-radius: .6rem;
-    border: 1px solid black;
-    flex-basis: 18%;
-    background-color: rgb(12, 12, 12);
+    border: none;
+    background-color: rgb(28 28 28);
     color: white;
+    padding: 0.5rem 1rem;
+    margin-left: auto;
 }
 .material-symbols-rounded{
+    font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 48;
+    color: rgb(223, 223, 223);
+    transition: all 200ms;
+}
+.material-symbols-rounded-liked{
     font-variation-settings:
     'FILL' 1,
     'wght' 400,
@@ -279,7 +298,6 @@ label{
     color: red;
     transition: all 200ms;
 }
-
 .material-symbols-rounded:hover{
     transform: scale(1.5, 1.5);
 }
@@ -310,13 +328,13 @@ label{
 .menu-page .form {
     flex-basis: 100%;
     display: flex;
-    border: 1px solid azure;
     gap: 0.3rem;
     margin-top: 20px;
     border-radius: 10px;
     padding: 10px;
     justify-content: flex-start;
     height:fit-content;
+    background-color: #2b2d31;
 }
 .menu-page .form label {
     flex-basis: 90%;
@@ -338,7 +356,7 @@ label{
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
-    gap: 1rem;
+    gap: .6rem;
 }
 
 
@@ -357,6 +375,7 @@ label{
     border-radius: 0.3rem;
     background-color: #313338;
     padding: 0.5rem;
+    box-shadow: 0.5rem 0.5rem 2rem black;
 }
 .home-add-post-modal .form, .home-edit-post-form{
     gap: 1rem;
@@ -383,15 +402,13 @@ label{
     left: 0;
     height: 8%;
     width: 100%;
-    background-color: #004241;
+    background-color: #1e3a3a;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 .footer-button{
     flex-basis: 15%;
-    margin-top: 0;
-    font-size: 2rem;
 }
 /*! MISCELANEOUS*/
 .green{
@@ -437,17 +454,11 @@ label{
     }
     .home-header{
         background-color: #252c27;
-    }
-    .footer{
-        height: 6%;
-
-        border-radius: 0px 0px 10px 10px;
-        
-        background-color: #252c27;
+        z-index: 10;
     }
     .home-main-content{ 
-    padding-top: 100rem;
-    padding-bottom: 8rem;
+        padding-top: 100rem;
+        padding-bottom: 8rem;
     }
     .menu-page{
         margin-top: 0px;
@@ -457,18 +468,21 @@ label{
         left: 50%;
         transform: translateX(-50%);
     }
-    .home-post-content-article-img{
-        height: 400px; 
-    }
-
     .log-out-button:hover, .cancel-change-password:hover, .form-avatar-cancel-button:hover, .home-header-left-items-log-out-button:hover, .home-add-post-modal .form-post-cancel-button:hover, .home-edit-form-post-cancel-button:hover{
         color: rgb(231, 108, 108);
     }
     .submit-button:hover, .change-password:hover, .form-avatar-submit-button:hover, .home-add-post-modal .form-post-submit-button:hover, .footer-button:hover, .home-edit-post-modal-button:hover, .home-edit-form-post-submit-button:hover {
         color:#17AF96;
     }
+    .home-posts-content {
+        padding-top: 1731px;
+    }
+    .footer{
+        height: 6%;
+        border-radius: 0px 0px 10px 10px;
+        background-color: #252c27;
+    }
 }
-
 @keyframes rotate-gear{
     from{
         transform: rotateZ(0deg);
@@ -479,3 +493,19 @@ label{
 }
 
 
+
+/* control (no soltar)--> k (ojito, uno a uno)--> u  */
+/* asdasdasdk */
+/*
+cot
+
+
+verde header --> #1f3c3c
+
+
+cosita de navegador 
+
+control + shift + c ---> item selector in chrome 
+shift arriba -- va de 10 en 10 
+control + shift + m --> switchea entre mobile y desktop pero tenemos que darle un click al dom , al HTML. 
+*/

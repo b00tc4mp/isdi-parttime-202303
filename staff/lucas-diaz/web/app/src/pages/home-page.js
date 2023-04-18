@@ -199,9 +199,14 @@ export function renderPosts () {
             postUserName.classList.add("home-post-content-article-userName")
             postUserName.textContent = post.userName;
 
+            const postImageContainer = document.createElement("div");
+            postImageContainer.classList.add("post-image-container");
+            
             const postImg = document.createElement("img");
             postImg.classList.add("home-post-content-article-img");
             postImg.src = post.image;
+
+            postImageContainer.appendChild(postImg);
 
             const postText = document.createElement("p");
             postText.classList.add("home-post-content-article-text");
@@ -236,9 +241,9 @@ export function renderPosts () {
                     postsListPanel.classList.add("fade");
                 }
 
-                postItem.append(postUserAvatar, postUserName, editPostModalButton, postImg, likeIcon, likeIconText,postText, postDate);
+                postItem.append(postUserAvatar, postUserName, editPostModalButton, postImageContainer, likeIcon, likeIconText,postText, postDate);
             } else{
-                postItem.append(postUserAvatar, postUserName, postImg,likeIcon,likeIconText, postText,postDate);
+                postItem.append(postUserAvatar, postUserName, postImageContainer,likeIcon,likeIconText, postText,postDate);
             }
             postsListPanel.appendChild(postItem);
         })
