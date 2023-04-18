@@ -23,7 +23,8 @@ export default  function createPost(userId, image, text){
         userName: foundUser.name,
         image,
         text,
-        date: new Date
+        date: new Date,
+        likeCounter: 0
     }
 
     posts.push(post);

@@ -9,6 +9,7 @@ import retrievePosts from "../logic/retrieve-posts.js";
 import retrieveUser from "../logic/retrieve-user.js";
 import updatePostAvatar from "../logic/update-post-avatar.js";
 import updatePost from "../logic/update-post.js";
+import likeAPost from "../logic/like-a-post.js";
 
 //* VARIABLES DE HOME
 const DEFAUTL_AVATAR_URL = "https://img.icons8.com/color/512/avatar.png";
@@ -209,9 +210,13 @@ export function renderPosts () {
             const likeIcon = document.createElement("span");
             likeIcon.classList.add("material-symbols-rounded");
             likeIcon.textContent = "favorite"
-            // TODO ADD EVENT 
+            
+            const likeIconText = document.createElement("p");
+            likeIconText.classList.add("home-post-content-article-icon-text");
+            likeIconText.textContent = `${post.likeCounter} likes`;
+            
             likeIcon.onclick = () => {
-                console.log("hola")
+                likeAPost(context.userId, post, likeIconText);
             }
             
             const postDate = document.createElement("time");
@@ -220,7 +225,7 @@ export function renderPosts () {
 
             if(post.author === context.userId){
                 const editPostModalButton = document.createElement("button")
-                editPostModalButton.classList.add("home-eddit-post-modal-button")
+                editPostModalButton.classList.add("home-edit-post-modal-button")
                 editPostModalButton.innerText = "Edit"
 
                 editPostModalButton.onclick = () => {
@@ -231,9 +236,9 @@ export function renderPosts () {
                     postsListPanel.classList.add("fade");
                 }
 
-                postItem.append(postUserAvatar, postUserName, editPostModalButton, postImg, postText, likeIcon, postDate);
+                postItem.append(postUserAvatar, postUserName, editPostModalButton, postImg, likeIcon, likeIconText,postText, postDate);
             } else{
-                postItem.append(postUserAvatar, postUserName, postImg, postText, likeIcon,postDate);
+                postItem.append(postUserAvatar, postUserName, postImg,likeIcon,likeIconText, postText,postDate);
             }
             postsListPanel.appendChild(postItem);
         })

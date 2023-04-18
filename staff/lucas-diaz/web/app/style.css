@@ -17,18 +17,20 @@ body{
 }
 
 /*! SHARED STYLES*/
-.submit-button, .button , .change-password, .cancel-change-password, .form-avatar-cancel-button, .form-avatar-submit-button, .home-add-post-modal .form button {
+.submit-button, .button , .change-password, .cancel-change-password, .form-avatar-cancel-button, .form-avatar-submit-button, .home-add-post-modal .form button, .home-edit-form-post-cancel-button, .home-edit-form-post-submit-button {
     flex-basis: 40%;
-    background-color: rgb(8, 8, 8);
+    background-color: rgb(12, 12, 12);
     color: azure;
     height: 50px;
-    border-radius: 5px;
+    border-radius: .6rem;
+    border: 1px solid black;
     margin-top: 20px;
 }
-.submit-button:hover, .change-password:hover, .form-avatar-submit-button:hover, .home-add-post-modal .form-post-submit-button:hover {
+
+.submit-button:active, .change-password:active, .form-avatar-submit-button:active, .home-add-post-modal .form-post-submit-button:active, .footer-button:active, .home-edit-post-modal-button:active, .home-edit-form-post-submit-button:active {
     color:#17AF96;
 }
-.log-out-button:hover, .cancel-change-password:hover, .form-avatar-cancel-button:hover, .home-header-left-items-log-out-button:hover, .home-add-post-modal .form-post-cancel-button:hover{
+.log-out-button:active, .cancel-change-password:active, .form-avatar-cancel-button:active, .home-header-left-items-log-out-button:active, .home-add-post-modal .form-post-cancel-button:active, .home-edit-form-post-cancel-button:active{
     color: rgb(231, 108, 108);
 }
 
@@ -226,7 +228,7 @@ label{
     display: flex;
     flex-flow: row wrap;
     justify-content: flex-start;
-    gap: 1rem;
+    gap: .7rem;
     background-color: #313338;
     border-radius: .3rem;
     color: white;
@@ -246,8 +248,9 @@ label{
 }
 .home-post-content-article-date{
     text-align: right;
-    font-size: 0.7rem;
+    font-size: 0.68rem;
     flex-basis: 100%;
+    color: rgb(150, 150, 150);
 }
 .home-post-content-article-img{
     height: 260px;
@@ -259,6 +262,30 @@ label{
     border-radius: 50%;
     background-color: grey;
     padding: .2rem
+}
+.home-edit-post-modal-button{
+    border-radius: .6rem;
+    border: 1px solid black;
+    flex-basis: 18%;
+    background-color: rgb(12, 12, 12);
+    color: white;
+}
+.material-symbols-rounded{
+    font-variation-settings:
+    'FILL' 1,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 48;
+    color: red;
+    transition: all 200ms;
+}
+
+.material-symbols-rounded:hover{
+    transform: scale(1.5, 1.5);
+}
+.home-post-content-article-icon-text{
+    padding-top: .2rem;
+    font-size: .8rem;
 }
 
 /*! CHANGE PASSWORD & AVATAR MENU*/
@@ -284,7 +311,7 @@ label{
     flex-basis: 100%;
     display: flex;
     border: 1px solid azure;
-    gap: 20px;
+    gap: 0.3rem;
     margin-top: 20px;
     border-radius: 10px;
     padding: 10px;
@@ -300,7 +327,7 @@ label{
 .menu-page .form .form-item{
     flex-basis: 100%;
     border-radius: 5px;
-    padding: 15px;
+    padding: 10px;
 }
 .menu-page .form .fail-password-match-advise,.home-update-avatar-menu .fail-warning{
     flex-basis: 100%;
@@ -313,6 +340,7 @@ label{
     justify-content: center;
     gap: 1rem;
 }
+
 
 /*! MODAL PARA AÑADIR UN POST*/
 .home-add-post-modal, .home-edit-post-modal{
@@ -431,6 +459,13 @@ label{
     }
     .home-post-content-article-img{
         height: 400px; 
+    }
+
+    .log-out-button:hover, .cancel-change-password:hover, .form-avatar-cancel-button:hover, .home-header-left-items-log-out-button:hover, .home-add-post-modal .form-post-cancel-button:hover, .home-edit-form-post-cancel-button:hover{
+        color: rgb(231, 108, 108);
+    }
+    .submit-button:hover, .change-password:hover, .form-avatar-submit-button:hover, .home-add-post-modal .form-post-submit-button:hover, .footer-button:hover, .home-edit-post-modal-button:hover, .home-edit-form-post-submit-button:hover {
+        color:#17AF96;
     }
 }
 
