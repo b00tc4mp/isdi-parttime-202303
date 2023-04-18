@@ -101,4 +101,93 @@ Curri.prototype.findIndex = function findIndex(callback) {
   return -1;
 };
 
+Curri.prototype.from = function from(callback) {
+  let arrayResult = new Curri();
+
+  if (!this.length) {
+    for (let i = 0; i < this[0].length; i++) {
+      arrayResult[i] = this[0][i];
+    }
+    return arrayResult;
+  }
+
+  for (let i = 0; i < this.length; i++) {
+    arrayResult[i] =
+      typeof callback === 'function' ? callback(this[i]) : this[i];
+  }
+  return arrayResult;
+};
+
+Curri.prototype.some = function some(callback) {
+  for (let i = 0; i < this.length; i++) {
+    if (callback(this[i])) {
+      return true;
+    }
+  }
+};
+
+Curri.prototype.includes = function includes(item) {
+  for (let i = 0; i < this.length; i++) {
+    if (this[i] === item) {
+      return true;
+    }
+  }
+  return false;
+};
+
+Curri.prototype.indexOf = function indexOf(matchItem, startPosition = 0) {
+  for (let i = startPosition; i < this.length; i++) {
+    if (this[i] === matchItem) {
+      return i;
+    }
+  }
+  return -1;
+};
+
+Curri.prototype.isArray = function isArray() {
+  if (this && typeof this === 'object' && this.length && !this.byteLength) {
+    return true;
+  }
+  return false;
+};
+
+Curri.prototype.join = function join(slitItem = ',') {
+  let resultString = '';
+
+  for (let i = 0; i < this.length; i++) {
+    if (i > 0) {
+      resultString += slitItem;
+    }
+    resultString += this[i];
+  }
+  return resultString;
+};
+
+Curri.prototype.lastIndexOf = function lastIndexOf(matchItem, fromIndex = 0) {
+  let indexLastItem = -1;
+
+  for (let i = fromIndex; i < this.length; i++) {
+    if (this[i] === matchItem) {
+      indexLastItem = i;
+    }
+  }
+  return indexLastItem;
+};
+
+Curri.prototype.pop = function pop() {
+  const lastItem = this[this.length - 1];
+  delete this[this.length - 1];
+  this.length--;
+
+  return lastItem;
+};
+
+Curri.prototype.push = function push(...args) {
+  for (let i = 0; i < args.length; i++) {
+    this[this.length] = args[i];
+    this.length++;
+  }
+  return this.length;
+};
+
 export default Curri;

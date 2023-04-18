@@ -95,3 +95,71 @@ console.log(result); // 1
 
 result = numbers.findIndex((element) => element > 4);
 console.log(result); // -1
+
+console.warn('from');
+
+let word = new Curri();
+word[0] = 'foo';
+
+console.log(word.from()); // f o o
+console.log(numbers.from((x) => x + x)); // 2 4 6
+
+console.warn('some');
+
+const even = (element) => element % 2 === 0;
+
+console.log(numbers.some(even)); // true
+
+console.warn('includes');
+
+console.log(numbers.includes(2)); // true
+console.log(numbers.includes(4)); // false
+
+console.warn('index-of');
+
+console.log(numbers.indexOf(2)); // 1
+console.log(numbers.indexOf(4)); // -1
+
+console.warn('isArray');
+
+const emptyArray = new Curri();
+
+console.log(numbers.isArray()); // true
+console.log(emptyArray.isArray()); // false
+
+console.warn('join');
+
+console.log(c.join()); // A,B,C
+console.log(c.join('')); // ABC
+console.log(c.join('-')); // A-B-C
+
+console.warn('lastIndexOf');
+
+const animals = new Curri();
+
+animals[0] = 'Dodo';
+animals.length++;
+animals[1] = 'Tiger';
+animals.length++;
+animals[2] = 'Penguin';
+animals.length++;
+animals[3] = 'Dodo';
+animals.length++;
+
+console.log(animals.lastIndexOf('Dodo')); // 3
+console.log(animals.lastIndexOf('Tiger')); // 1
+console.log(animals.lastIndexOf('Duck')); // -1
+
+console.warn('pop');
+
+console.log(animals.pop());
+console.log(animals);
+console.log(animals.pop());
+console.log(animals);
+
+console.warn('push');
+
+console.log(animals.push('tux'));
+console.log(animals);
+console.log(animals.push('Guido Van Rossum'));
+console.log(animals);
