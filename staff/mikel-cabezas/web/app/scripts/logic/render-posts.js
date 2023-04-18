@@ -17,9 +17,6 @@ export function renderPosts(userId) {
             const date = article.date
             const currentUser = findUserById(userId)
 
-    
-
-
             const author = users.find(user => user.id === article.author)
             const authorID = users.find(user => user.id === article.author).id
             const postId = article.id
@@ -64,9 +61,11 @@ export function renderPosts(userId) {
                 const totalLikesPost = document.createElement('div')
                 postContainer.appendChild(totalLikesPost)
                 const postIdIndex = postId.slice(5)
-                if(article.likes) {
+                if (article.likes === 1) {
+                    totalLikesPost.innerText = article.likes + ' like'
+                }
+                if (article.likes > 1) {
                     totalLikesPost.innerText = article.likes + ' likes'
-
                 }
 
                 const postTitle = document.createElement('h3')
@@ -82,10 +81,16 @@ export function renderPosts(userId) {
                 titleAndInteractions.appendChild(likePost)
                 likePost.innerText = 'favorite'
 
+
                 const isLikedPost = currentUser.likedPosts.find(post => post === postId)
+
                 if(isLikedPost === postId) {
                     likePost.classList.add('liked')
                 }
+                
+                console.log(article.likes)
+      
+                
                 likePost.onclick = (event) => {
                     const currentUser = findUserById(userId)
                     const userLikedPosts = currentUser.likedPosts
@@ -95,20 +100,29 @@ export function renderPosts(userId) {
                     if(likePost.classList.contains('liked')) {
                         likePost.classList.remove('liked')
                         currentUser.likedPosts.splice(indexLikedPost, 1)
-                        if (posts[postId - 1].likes > 1) {
-                            posts[postId - 1].likes-- + ' likes'
-                            totalLikesPost.innerText = posts[postId].likes
-                        }
-                        if (posts[postId - 1].likes === 1) {
-                            posts[postId - 1].likes-- + ' likes'
+                        if (article.likes === 1) {
+                            article.likes-- 
                             totalLikesPost.innerText = ''
+                        }
+                        if (article.likes === 2) {
+                            article.likes-- 
+                            totalLikesPost.innerText = article.likes + ' like'
+                        }
+                        if (article.likes > 2) {
+                            article.likes-- 
+                            totalLikesPost.innerText = article.likes + ' likes'
                         }
 
                     } else {
                         likePost.classList.add('liked')
-
-                            posts[postId - 1].likes++ + ' likes'
-                            totalLikesPost.innerText = posts[postId - 1].likes
+                        if (article.likes > 0) {
+                            article.likes++ 
+                            totalLikesPost.innerText = article.likes + ' likes'
+                        }
+                        if (article.likes === 0) {
+                            article.likes++ 
+                            totalLikesPost.innerText = article.likes + ' like'
+                        }
     
                         if(isLikedPost !== postId) {
                             

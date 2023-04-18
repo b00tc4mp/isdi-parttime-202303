@@ -12,15 +12,15 @@ const image = homePage.querySelector('.overlay.create-post form > input[name="fi
 const text = homePage.querySelector('.overlay.create-post form > input[name="text"') 
 const userId = context.userId
 
-try {
-    const userId = getCurrentUser()
-    updatePosts(userId)
-    if(userId) {
-        updatePosts(userId)
-    }
-} catch(error) {
-    console.log(error.message)
-}
+// try {
+//     const userId = getCurrentUser()
+//     updatePosts(userId)
+//     if(userId) {
+//         updatePosts(userId)
+//     }
+// } catch(error) {
+//     console.log(error.message)
+// }
 
 homePage.querySelector('button.button--create-post').onclick = function(event) {
     event.preventDefault()

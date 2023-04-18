@@ -32,6 +32,7 @@ loginPage.querySelector('form.login-form').onsubmit = function(event) {
         pushUserDataToHeader(userId)
 
         pushUserDataInForm(userId)
+        renderUser()
         context.userId = userId
 
     } catch(error) {

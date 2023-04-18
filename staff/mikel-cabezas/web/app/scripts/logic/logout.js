@@ -10,4 +10,5 @@ export function logOut() {
     deleteClassOnContainer(bodyPage, 'logged-in')
     // sessionStorage.clear()
     delete context.userId
+    delete sessionStorage.userId
 }

@@ -9,7 +9,7 @@ import { getUserName, findUserById, getCurrentUser } from '../logic/helpers/data
 import { users } from '../data.js'
 import { logOut} from '../logic/logout.js'
 import { homePage } from './home-page.js'
-import { menuHeader } from './header.js'
+import { menuHeader } from '../template-parts/header.js'
 
 
 

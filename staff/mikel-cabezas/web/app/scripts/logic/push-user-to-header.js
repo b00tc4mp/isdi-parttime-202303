@@ -1,4 +1,4 @@
-import { menuHeader } from "../pages/header.js";
+import { menuHeader } from "../template-parts/header.js";
 import { getUserName } from "./helpers/data-managers.js";
 import { userAccount } from "../pages/user-account.js";
 import { context } from "../ui.js";

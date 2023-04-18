@@ -44,7 +44,6 @@ export function createPost(userId, image, title, text) {
     // console.log('posts.lastIndexOf(posts[posts.length])', posts.lastIndexOf(posts[posts.length - 1]) + 1);
     // console.log('posts.length', posts.length);
     // console.log('currentPost', currentPost);
-debugger
 
     const post = {
         id: 'post-' + currentPost,

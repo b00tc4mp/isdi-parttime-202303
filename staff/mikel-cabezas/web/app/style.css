@@ -13,6 +13,7 @@
     --overlay-black: #00000021;
     --white: #e0dcda;
     --dark: #262c30;
+    --red: #c1574c;
 
 
 
@@ -329,8 +330,8 @@ form {
     color: #f38686;
 }
 .delete-account button {
-    background: #c1574c;
-    border: solid 2px #c1574c;
+    background: var(--red);
+    border: solid 2px var(--red);
     width: fit-content;
     padding: 7px 10px 8px;
     font-size: 14px;
@@ -561,6 +562,7 @@ article h3.title {
     cursor: pointer;
 }
 .like.liked {
+    color:var(--red);
     font-variation-settings:
     'FILL' 1,
     'wght' 400,
