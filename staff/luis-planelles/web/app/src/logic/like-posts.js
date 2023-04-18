@@ -8,15 +8,13 @@ const handleLikes = (postId, userId) => {
   validateId(postId);
 
   const post = getPostById(postId),
-    user = retrieveUser(userId);
+    user = retrieveUser(userId),
+    userIndex = post.likesUsers.indexOf(user.name);
 
-  if (!post.likesUsers.includes(user.name)) {
+  if (userIndex === -1) {
     post.likesUsers.push(user.name);
   } else {
-    const index = post.likesUsers.indexOf(user.name);
-    if (index > -1) {
-      post.likesUsers.splice(index, 1);
-    }
+    post.likesUsers.splice(userIndex, 1);
   }
 
   post.likesCount = post.likesUsers.length;
