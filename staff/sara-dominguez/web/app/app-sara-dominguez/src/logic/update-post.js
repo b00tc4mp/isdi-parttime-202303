@@ -7,7 +7,7 @@
     // - save posts
     
     import { posts, savePosts } from "../data.js";
-import { renderPosts } from "../pages/home-page.js";
+    import { renderPosts } from "../pages/home-page.js";
     import { findUserById, findPostById } from "./helpers/data-managers.js"; 
     import { validateId, validatePostId, validatePostUrl, validateText } from "./helpers/validators.js";
 

@@ -156,12 +156,12 @@ editPostForm.onsubmit = function(event){
     
     try{
         updatePost(context.userId, postId, imageUrl, text)
-
+        renderPosts()
         alert('your post has been updated')
     }catch(error) {
         alert(error.message)
     }
-    renderPosts()
+    
     hide(editPostPanel)
 }
 
