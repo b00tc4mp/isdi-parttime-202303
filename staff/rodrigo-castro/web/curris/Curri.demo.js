@@ -167,3 +167,114 @@ array5.length++
 array5.length++
 
 array5.forEach(element => console.log(element))
+
+console.log('INCLUDES METHOD')
+console.log(array4.includes(130))
+
+console.log('INDEX OF METHOD')
+console.log(array4.indexOf(44))
+
+console.log('JOIN METHOD')
+console.log(array4.join('-'))
+
+console.log('LAST INDEX OF METHOD')
+console.log(array4.lastIndexOf(444))
+
+console.log('REDUCE METHOD')
+const array6 = new Curri
+
+array6[0] = 1
+array6.length++
+array6[1] = 2
+array6.length++
+array6[2] = 3
+array6.length++
+array6[3] = 4
+array6.length++
+
+// console.log(array6.reduce(0))
+
+console.log('REVERSE METHOD')
+console.log(array3.reverse())
+
+console.log('SHIFT METHOD')
+console.warn(array6.shift())
+console.warn(array6)
+
+console.log('SLICE METHOD')
+const animals = new Curri 
+animals[0] = 'ant'
+animals.length++
+animals[1] = 'bison'
+animals.length++
+animals[2] = 'camel'
+animals.length++
+animals[3] = 'duck'
+animals.length++
+animals[4] = 'elephant'
+animals.length++
+
+console.log(animals.slice(2));
+// Expected output: Array ["camel", "duck", "elephant"]
+
+console.log(animals.slice(2, 4));
+// Expected output: Array ["camel", "duck"]
+
+console.log(animals.slice(1, 10));
+// Expected output: Array ["bison", "camel", "duck", "elephant"]
+
+console.log(animals.slice(-2));
+// Expected output: Array ["duck", "elephant"]
+
+console.log(animals.slice(2, -1));
+// Expected output: Array ["camel", "duck"]
+
+console.log(animals.slice(-4, -2));
+// Expected output: Array ["bison", "camel"]
+
+console.log(animals.slice(-15, -12));
+
+console.log(animals.slice(-2, -3));
+
+console.log(animals.slice(3, 2));
+
+console.log(animals.slice());
+// Expected output: Array ["ant", "bison", "camel", "duck", "elephant"]
+
+console.log('SOME METHOD')
+console.log(array3.some((element) => element === 9))
+console.log(array3.some((element) => element === 90))
+console.log(array3.some((element) => element === undefined)) // NO CUMPLE !!!  (debería ser false)
+
+console.log('TO REVERSED METHOD')
+console.log(array3)
+console.log(array3.toReversed())
+
+console.log('UNSHIFT METHOD')
+
+const array7 = new Curri
+array7[0] = 15
+array7.length++
+array7[1] = 7
+array7.length++
+array7[2] = 8
+array7.length++
+array7[3] = 130
+array7.length++
+array7[4] = 44
+array7.length++
+
+const array8 = new Curri
+array8[0] = 1
+array8.length++
+array8[1] = 2
+array8.length++
+array8[2] = 3
+array8.length++
+array8[3] = 4
+array8.length++
+
+console.log(array7)
+console.log(array8)
+console.log(array7.unshift(array8))
+console.log(array7)
