@@ -32,7 +32,7 @@ export function editPost(userId, postId, title, text, image) {
     const avatarHeader = document.querySelector('header .menu').querySelector('.avatar img.image-profile')
 
     posts[currentPost] = {
-        id: posts[currentPost].id,
+        id,
         author: id,
         image: image,
         title: title, 

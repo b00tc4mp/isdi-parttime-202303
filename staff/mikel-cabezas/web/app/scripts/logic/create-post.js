@@ -52,7 +52,7 @@ export function createPost(userId, image, title, text) {
         title: title, 
         text: text,
         date: new Date(),
-        likes: 0
+        likes: []
     }
     console.log(post.likes)
     posts.push(post)

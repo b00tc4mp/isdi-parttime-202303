@@ -61,11 +61,11 @@ export function renderPosts(userId) {
                 const totalLikesPost = document.createElement('div')
                 postContainer.appendChild(totalLikesPost)
                 const postIdIndex = postId.slice(5)
-                if (article.likes === 1) {
-                    totalLikesPost.innerText = article.likes + ' like'
+                if (article.likes.length === 1) {
+                    totalLikesPost.innerText = article.likes.length + ' like'
                 }
-                if (article.likes > 1) {
-                    totalLikesPost.innerText = article.likes + ' likes'
+                if (article.likes.length > 1) {
+                    totalLikesPost.innerText = article.likes.length + ' likes'
                 }
 
                 const postTitle = document.createElement('h3')
@@ -87,37 +87,50 @@ export function renderPosts(userId) {
                 if(isLikedPost === postId) {
                     likePost.classList.add('liked')
                 }
+
+                // users[0].likedPosts = []
+                // users[1].likedPosts = []
+
+                // article.likes = []
+                // savePosts()
+                // saveUsers()
+
                 likePost.onclick = (event) => {
+                
                     const currentUser = findUserById(userId)
                     const userLikedPosts = currentUser.likedPosts
                     const postId = article.id.slice(5)
-                    const indexLikedPost = currentUser.likedPosts.findIndex(post => post === postId)
+                    const indexFavPost = currentUser.likedPosts.findIndex(post => post === postId)
+                    const indexLikedPost = article.likes.findIndex(user => user === userId)
+                    // console.log(userId)
+                    // console.log(indexLikedPost)
+                    // console.log(article.likes)
 
                     if(likePost.classList.contains('liked')) {
+
                         likePost.classList.remove('liked')
                         currentUser.likedPosts.splice(indexLikedPost, 1)
-                        if (article.likes === 1) {
-                            article.likes-- 
+                        article.likes.splice(indexLikedPost, 1)
+                        if (article.likes.length === 0) {
                             totalLikesPost.innerText = ''
                         }
-                        if (article.likes === 2) {
-                            article.likes-- 
-                            totalLikesPost.innerText = article.likes + ' like'
+                        if (article.likes.length === 1) {
+                            totalLikesPost.innerText = article.likes.length + ' like'
                         }
-                        if (article.likes > 2) {
-                            article.likes-- 
-                            totalLikesPost.innerText = article.likes + ' likes'
+                        if (article.likes.length > 1) {
+                            totalLikesPost.innerText = article.likes.length + ' likes'
                         }
 
                     } else {
+
                         likePost.classList.add('liked')
-                        if (article.likes > 0) {
-                            article.likes++ 
-                            totalLikesPost.innerText = article.likes + ' likes'
+                        if (article.likes.length > 0) {
+                            article.likes.push(userId)
+                            totalLikesPost.innerText = article.likes.length + ' likes'
                         }
-                        if (article.likes === 0) {
-                            article.likes++ 
-                            totalLikesPost.innerText = article.likes + ' like'
+                        if (article.likes.length === 0) {
+                            article.likes.push(userId)
+                            totalLikesPost.innerText = article.likes.length + ' like'
                         }
     
                         if(isLikedPost !== postId) {
