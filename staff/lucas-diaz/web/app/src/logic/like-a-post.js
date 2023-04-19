@@ -12,7 +12,7 @@ export default function likeAPost(userId, post, likeIcon, likeIconText){
     if (!foundUser)  throw new Error ("There is no user with this id");
     if (!foundPost)  throw new Error ("There is no post with this post id")
 
-    if(foundUser.likedPosts.includes(foundPost.id)){
+    if(foundPost.likeCounter.includes(foundUser.id)){
         likeIcon.classList.remove("material-symbols-rounded-liked");
 
         const foundPostIndex = foundUser.likedPosts.indexOf(foundPost.id);

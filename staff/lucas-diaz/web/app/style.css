@@ -446,6 +446,9 @@ label{
         justify-content: center;
         padding: 16px;
     }
+    .sign-up, .log-in {
+        padding: 1rem 6rem;
+    }
     .other-register-options{
         flex-basis: 80%;
     }
@@ -488,6 +491,7 @@ label{
         background-color: #252c27;
     }
 }
+
 @keyframes rotate-gear{
     from{
         transform: rotateZ(0deg);
