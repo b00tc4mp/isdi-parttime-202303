@@ -1,5 +1,3 @@
-/* resets */
-
 html,
 body {
   height: 100%;
@@ -8,8 +6,6 @@ body {
   background-color: whitesmoke;
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
-
-/* library */
 
 .off {
   display: none !important;
@@ -235,9 +231,9 @@ textarea {
 }
 
 .post-image {
-  width: 420px;
-  border-radius: 4px;
-  height: 280px;
+  width: 26rem;
+  border-radius: 0.4rem;
+  height: 18rem;
   object-fit: cover;
 }
 
