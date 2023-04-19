@@ -105,9 +105,7 @@ const editPost = (post, postModal) => {
   openPostModal(postModal, post);
 };
 
-export const renderAllPosts = (userAuth, postModal) => {
-  const posts = getPostsSorted();
-  const postList = document.querySelector('.posts-display');
+export const renderAllPosts = (userAuth, postModal, postList = document.querySelector('.posts-list'), posts = getPostsSorted()) => {
   postList.innerHTML = '';
   posts.forEach((post) => {
     const postElement = renderPost(post, userAuth);

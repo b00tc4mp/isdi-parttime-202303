@@ -1,7 +1,7 @@
 import { toggleOff, clearForms, resetAlerts, setAlert, setOn, setPredeterminateAvatar, setOff, context} from './general-tools.js';
 import { addNewUser } from '../logic/register-user.js'
 import {authenticateUser} from '../logic/authenticate-user.js'
-import { toggle } from '../pages/home-edit-profile-page.js';
+import { toggle } from '../pages/home-user-profile-page.js';
 
 export const login = (login, home, startHome, username, password) => {
   resetAlerts();

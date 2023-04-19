@@ -5,10 +5,15 @@ import { displayEditUserError } from '../ui/errors.js';
 import { mainHome, homePage, profileForms } from './home-page.js';
 import { logout, } from '../ui/login-register.js';
 import { loginPage } from './login-page.js';
+import { renderAllPosts } from '../components/posts-render.js';
+import { postModal } from './home-posts-modal-page.js';
+import { getPostsSorted } from '../logic/retrieve-posts-sorted-by-date.js';
+import { getFavPosts } from '../logic/retrieve-fav-posts.js';
 
 export const profile = document.querySelector('.user-profile');
 export const profileButtons = document.querySelector('.profile-buttons');
 export const toggle = document.querySelector('.mode-toggle');
+export const favoritesPage = document.querySelector('.favorites');
 export let newAvatar;
 
 const toEditProfile = document.querySelector('.to-edit-profile');
@@ -31,6 +36,7 @@ const toDeleteAccount = document.querySelector('.to-delete-account');
 const deleteAccount = document.querySelector('.delete-account');
 const deleteForm = document.querySelector('.delete-form');
 
+const toFavorites = document.querySelector('.to-favorites');
 
 const toggleLightToggle = document.querySelector('.hide-mode-toggle');
 toggleLightToggle.textContent = (toggle.classList).contains('off') ? 'hide light switch' : 'show light switch'
@@ -39,6 +45,17 @@ toggleLightToggle.addEventListener('click', (event) => {
   event.preventDefault();
   toggleOff(toggle);
   toggleLightToggle.textContent === 'hide light switch' ? toggleLightToggle.textContent = 'show light switch' : toggleLightToggle.textContent = 'hide light switch'
+});
+
+toFavorites.addEventListener('click', (event) => {
+  event.preventDefault();
+  clearForms();
+  const postFavsList = document.querySelector('.favorites-post-list');
+  const favPosts = getPostsSorted(getFavPosts(context.userAuth));
+  console.log(favPosts);
+  renderAllPosts(context.userAuth, postModal, postFavsList, favPosts);
+  setOn(favoritesPage);
+  setOff(profileButtons, changePassword, editProfile, deleteAccount, profileForms);
 });
 
 toChangePassword.addEventListener('click', (event) => {

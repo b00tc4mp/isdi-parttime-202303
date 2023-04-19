@@ -3,7 +3,7 @@ import { loginPage } from './login-page.js';
 import { logout, } from '../ui/login-register.js';
 import { setOff, setOn, resetAlerts, clearForms, } from '../ui/general-tools.js'
 import { displayProfile, displayWelcome, } from '../ui/home.js'
-import { profile, profileButtons, } from './home-edit-profile-page.js';
+import { favoritesPage, profile, profileButtons, } from './home-user-profile-page.js';
 import { postModal } from './home-posts-modal-page.js';
 import { openPostModal, } from '../ui/posts.js';
 import { renderAllPosts } from '../components/posts-render.js';
@@ -48,7 +48,7 @@ toUserProfile.addEventListener('click', (event) => {
   clearForms();
   resetAlerts();
   setOn(profile, profileButtons);
-  setOff(mainHome, profileForms);
+  setOff(mainHome, profileForms, favoritesPage);
   displayProfile(context.userAuth);
 });
 

@@ -269,10 +269,14 @@ p {
     border: 0.15em solid var(--color-primary300)
 }
 
-.posts-display {
+.posts-list, .favorites-post-list {
     display: flex;
     flex-direction: column;
-    gap: 1em
+    gap: 2rem;
+}
+
+.favorites {
+    grid-area: 2 / 1 / 3 / 2;
 }
 
 .post {
@@ -505,7 +509,7 @@ p {
         width: 50%;
     }
 
-    .posts-display {
+    .posts-list {
         display: flex;
         flex-direction: row;
         gap: 1em;
@@ -547,7 +551,7 @@ p {
 }
 
 @media (min-width: 1240px) {
-    .posts-display {
+    .posts-list {
         display: flex;
         flex-direction: row;
         gap: 1em;
