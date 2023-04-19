@@ -1,8 +1,15 @@
 import changePassword from "../logic/update-user-password.js";
 import updateAvatar from "../logic/update-user-avatar.js";
-import { hide, show } from "../ui.js";
+import errorShow from "../logic/helpers/error-managers.js";
+import { context, hide, show } from "../ui.js";
 
-export default function initProfilePanel(homePage, avatarImage) {
+export default function initProfilePanel(
+  homePage,
+  avatarImage,
+  renderPosts,
+  postsList,
+  newPostButtonContainer
+) {
   const profilePanel = document.querySelector(".profile");
   const changePasswordForm = profilePanel.querySelector(
     ".profile-password-form"

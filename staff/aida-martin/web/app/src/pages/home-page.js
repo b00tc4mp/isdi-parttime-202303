@@ -9,7 +9,7 @@ import initAddPostPanel from "../components/add-post-panel.js";
 import initEditPostPanel from "../components/edit-post-panel.js";
 
 const DEFAULT_AVATAR_URL =
-  "https://cdn-icons-png.flaticon.com/512/3135/3135823.png";
+  "https://cdn-icons-png.flaticon.com/512/219/219989.png";
 
 export const homePage = document.querySelector(".home");
 const avatarImage = document.querySelector(".home-header-avatar");
@@ -20,20 +20,26 @@ const newPostButtonContainer = homePage.querySelector(
 );
 const newPostButton = homePage.querySelector(".new-post-button");
 
+const postsList = homePage.querySelector(".posts-list");
+
 const {
   profilePanel,
   changePasswordForm,
   changePasswordError,
   changeAvatarForm,
   changeAvatarError,
-} = initProfilePanel(homePage, avatarImage);
+} = initProfilePanel(
+  homePage,
+  avatarImage,
+  renderPosts,
+  postsList,
+  newPostButtonContainer
+);
 const addPostModal = initAddPostPanel(homePage, renderPosts);
 const { editPostModal, editPostForm } = initEditPostPanel(
   homePage,
   renderPosts
 );
-
-const postsList = homePage.querySelector(".posts-list");
 
 export const bodyPage = document.querySelector("body");
 
@@ -70,6 +76,9 @@ export function renderPosts() {
       const postItem = document.createElement("article");
       const user = findUserById(post.author);
 
+      const userContainer = document.createElement("div");
+      userContainer.classList.add("user-container-post");
+
       const name = document.createElement("p");
       name.classList.add("post-user");
       name.innerText = user.name;
@@ -77,15 +86,22 @@ export function renderPosts() {
       const avatar = document.createElement("img");
       avatar.classList.add("post-avatar");
 
+      userContainer.append(avatar, name);
+
       if (
         user.avatar
           ? (avatar.src = user.avatar)
           : (avatar.src = DEFAULT_AVATAR_URL)
       );
 
+      const imageContainer = document.createElement("div");
+      imageContainer.classList.add("image-container-post");
+
       const image = document.createElement("img");
       image.classList.add("post-image");
       image.src = post.image;
+
+      imageContainer.append(image);
 
       const text = document.createElement("p");
       text.classList.add("post-text");
@@ -109,9 +125,9 @@ export function renderPosts() {
           show(editPostModal);
         };
 
-        postItem.append(image, name, avatar, date, text, button);
+        postItem.append(userContainer, imageContainer, date, text, button);
       } else {
-        postItem.append(image, name, avatar, date, text);
+        postItem.append(userContainer, imageContainer, date, text);
       }
 
       postsList.appendChild(postItem);
