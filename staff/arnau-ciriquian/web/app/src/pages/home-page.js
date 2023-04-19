@@ -1,7 +1,7 @@
 import { loginPage } from "./login-page.js"
 import { updateUsername } from "../logic/update-user-name.js"
 import { closeProfilePages, context, showHideContainer, unshadowPredefinedAvatars } from "../ui.js"
-import { updateUserPassword } from "../logic/update-user-password.js"
+
 import { updateUserEmail } from "../logic/update-user-email.js"
 import { updateUserAvatar } from "../logic/update-user-avatar.js"
 import { createNewPost } from "../logic/create-new-post.js"
@@ -10,8 +10,8 @@ import spaceDogImage from "../../images/space-dog.svg"
 import galaxyImage from "../../images/galaxy.svg"
 import meteoriteImage from "../../images/meteorite.svg"
 import { getLoggedUser } from "../logic/login-user.js"
-import retrievePosts from "../logic/retrivePosts.js"
-import { updatePost } from "../logic/updatePost.js"
+import retrievePosts from "../logic/retrive-posts.js"
+import { updatePost } from "../logic/update-post.js"
 
 export const DEFAULT_AVATAR_URL = spaceDogImage
 
@@ -134,24 +134,6 @@ galaxy.onclick = function(event) {
     galaxy.classList.add('pre-avatar-shadow')
 
     newAvatar = galaxyImage
-}
-
-homePage.querySelector('.password__form').onsubmit = function(event) {
-    event.preventDefault()
-
-    const oldPassword = event.target.oldPassword.value
-    const newPassword = event.target.newPassword.value
-    const confirmedPassword = event.target.newPasswordConfirmation.value
-
-    try {
-        updateUserPassword(context.userID, oldPassword, newPassword, confirmedPassword)
-        alert('password updated')
-
-        showHideContainer(homePageProfile, homePagePassword)
-        homePage.querySelector('.password__form').reset()
-    } catch (error) {
-        alert(error.message)
-    } 
 }
 
 homePage.querySelector('.email__form').onsubmit = function(event) {
