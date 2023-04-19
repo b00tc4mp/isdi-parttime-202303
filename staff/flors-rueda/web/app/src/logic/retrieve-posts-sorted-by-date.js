@@ -1,6 +1,6 @@
 import { posts, favorites } from './data/posts/data.js';
 
-export const getPostsSorted = () => {
+export const getPostsSorted = (postsToSort = posts) => {
   const sortedPosts = posts.sort((recent, past) => Number(new Date(past.date)) - Number(new Date(recent.date)),);
   sortedPosts.forEach(post => {
     post.date = new Date(post.date);

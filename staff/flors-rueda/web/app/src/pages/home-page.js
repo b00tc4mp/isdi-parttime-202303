@@ -5,7 +5,8 @@ import { setOff, setOn, resetAlerts, clearForms, } from '../ui/general-tools.js'
 import { displayProfile, displayWelcome, } from '../ui/home.js'
 import { profile, profileButtons, } from './home-edit-profile-page.js';
 import { postModal } from './home-posts-modal-page.js';
-import { openPostModal, renderAllPosts } from '../ui/posts.js';
+import { openPostModal, } from '../ui/posts.js';
+import { renderAllPosts } from '../components/posts-render.js';
 
 export const homePage = document.querySelector('.home');
 export const mainHome = document.querySelector('.home-main');

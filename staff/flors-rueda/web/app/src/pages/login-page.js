@@ -4,8 +4,8 @@ import { displayWelcome, } from '../ui/home.js'
 import { displayLoginError, } from '../ui/errors.js';
 import { registerPage } from './register-page.js';
 import { homePage, mainHome } from "./home-page.js";
-import { renderAllPosts } from '../ui/posts.js';
 import { postModal } from './home-posts-modal-page.js';
+import { renderAllPosts } from '../components/posts-render.js';
 
 export const loginPage = document.querySelector('.login');
 const loginForm = document.querySelector('.login-form');
