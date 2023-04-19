@@ -10,6 +10,7 @@ import retrieveUser from "../logic/retrieve-user.js";
 import updatePostAvatar from "../logic/update-post-avatar.js";
 import updatePost from "../logic/update-post.js";
 import likeAPost from "../logic/like-a-post.js";
+import updatePostLikeIcon from "../logic/update-post-like-icon.js";
 
 //* VARIABLES DE HOME
 const DEFAUTL_AVATAR_URL = "https://img.icons8.com/color/512/avatar.png";
@@ -218,11 +219,14 @@ export function renderPosts () {
             
             const likeIconText = document.createElement("p");
             likeIconText.classList.add("home-post-content-article-icon-text");
-            likeIconText.textContent = `${post.likeCounter} likes`;
+            likeIconText.textContent = `${post.likeCounter.length} likes`;
             
+            updatePostLikeIcon(context.userId,post,likeIcon);
+
             likeIcon.onclick = () => {
-                likeAPost(context.userId, post, likeIconText);
+                likeAPost(context.userId, post, likeIcon, likeIconText);
             }
+
             
             const postDate = document.createElement("time");
             postDate.classList.add("home-post-content-article-date");

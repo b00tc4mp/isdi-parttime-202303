@@ -3,7 +3,7 @@ import { findUserById, findUserPostByPostId } from "./helpers/data-managers";
 import { validateId } from "./helpers/validators";
 
 
-export default function likeAPost(userId, post, likeIconText){
+export default function likeAPost(userId, post, likeIcon, likeIconText){
     validateId(userId);
 
     let foundUser = findUserById(userId);
@@ -12,29 +12,26 @@ export default function likeAPost(userId, post, likeIconText){
     if (!foundUser)  throw new Error ("There is no user with this id");
     if (!foundPost)  throw new Error ("There is no post with this post id")
 
-
-    // si tiene la clase, se la quitamos --("material-symbols-rounded-liked")
-
-
-    
-    // si no la tiene, se la damos 
-
-
-
-    // Tenemos que separar esta logica entre los 2 de arriba 
     if(foundUser.likedPosts.includes(foundPost.id)){
-        const index = foundUser.likedPosts.indexOf(foundPost.id);
-        foundUser.likedPosts.splice(index,1);
-        foundPost.likeCounter -= 1;
-        likeIconText.textContent = `${foundPost.likeCounter} likes`
+        likeIcon.classList.remove("material-symbols-rounded-liked");
+
+        const foundPostIndex = foundUser.likedPosts.indexOf(foundPost.id);
+        foundUser.likedPosts.splice(foundPostIndex,1);
+
+        const foundUserIndex = foundPost.likeCounter.indexOf(foundUser.id)
+        foundPost.likeCounter.splice(foundUserIndex,1);
+        
+        likeIconText.textContent = `${foundPost.likeCounter.length} likes`
         savePosts();
         saveUsers();
         return;
     }
+    
 
     foundUser.likedPosts.push(foundPost.id);
-    foundPost.likeCounter += 1;
-    likeIconText.textContent = `${foundPost.likeCounter} likes`
+    foundPost.likeCounter.push(foundUser.id);
+    likeIconText.textContent = `${foundPost.likeCounter.length} likes`
+    likeIcon.classList.add("material-symbols-rounded-liked");
     savePosts();
     saveUsers();
 }
