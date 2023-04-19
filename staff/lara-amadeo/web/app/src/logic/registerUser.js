@@ -28,7 +28,8 @@ export const registerUser = (registrationName, registrationEmail, registrationPa
             username: registrationName,
             email: registrationEmail,
             password: registrationPassword,
-            avatar: DEFAULT_AVATAR_URL
+            avatar: DEFAULT_AVATAR_URL,
+            likedPosts: []
         })
 
         saveUsersInStorage()

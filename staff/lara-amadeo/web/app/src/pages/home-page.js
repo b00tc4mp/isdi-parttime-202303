@@ -7,7 +7,7 @@ import { findUserbyId, retrieveUser } from "../logic/helpers/data-managers.js"
 import { createPost } from "../logic/createPost.js"
 import { posts, savePostsInStorage, saveUsersInStorage, users } from "../data.js"
 import { updateAvatar } from "../logic/updateAvatar.js"
-import { showPosts } from "../logic/managePostsInFeed.js"
+import { showPosts } from "../logic/showPosts.js"
 import { showPostsInProfile } from "../logic/showPostsinProfile.js"
 
 
@@ -81,7 +81,7 @@ homePage.querySelector('#save-update-password').addEventListener('click', functi
 
     try {
         updatePassword(context.userId, currentPassword, newPassword, confirmNewPassword)
-        updatePasswordForm.querySelector('.success-message').textContent = "Your password has been updated!"
+        updatePasswordForm.querySelector('.success-message').textContent = 'Your password has been updated!'
         saveUsersInStorage()
     } catch (error) {
         homePage.querySelector('.error-message').textContent = error.message
@@ -89,6 +89,9 @@ homePage.querySelector('#save-update-password').addEventListener('click', functi
         updatePasswordForm.querySelector('input[name=currentPassword]').value = ''
         updatePasswordForm.querySelector('input[name=newPassword]').value = ''
         updatePasswordForm.querySelector('input[name=confirmNewPassword]').value = ''
+        updatePasswordForm.querySelector('.success-message').textContent = ''
+        homePage.querySelector('.error-message').textContent = ''
+
     }
 })
 
@@ -117,9 +120,11 @@ homePage.querySelector('#save-update-email').addEventListener('click', function 
     } catch (error) {
         updateEmailForm.querySelector('.error-message').textContent = error.message
     } finally {
-        updateEmailForm.querySelector('input[name=currentEmail]').value = ""
-        updateEmailForm.querySelector('input[name=newEmail]').value = ""
-        updateEmailForm.querySelector('input[name=confirmNewEmail]').value = ""
+        updateEmailForm.querySelector('input[name=currentEmail]').value = ''
+        updateEmailForm.querySelector('input[name=newEmail]').value = ''
+        updateEmailForm.querySelector('input[name=confirmNewEmail]').value = ''
+        updateEmailForm.querySelector('.success-message').textContent = ''
+        updateEmailForm.querySelector('.error-message').textContent = ''
     }
 })
 
@@ -143,6 +148,8 @@ homePage.querySelector('.update-avatar').querySelector('input[name=avatar]').add
         })
     } catch (error) {
         homePage.querySelector('.update-avatar').querySelector('.error-message').textContent = error.message
+    } finally{
+        homePage.querySelector('.update-avatar').querySelector('.error-message').textContent = ''
     }
 })
 
@@ -164,6 +171,9 @@ updateAvatarForm.querySelector('#save-update-avatar').addEventListener('click', 
         homePage.querySelector('.update-avatar').querySelector('.success-message').textContent = 'Avatar updated!'
     } catch (error) {
         homePage.querySelector('.update-avatar').querySelector('.error-message').textContent = error.message
+    } finally{
+        homePage.querySelector('.update-avatar').querySelector('.error-message').innerHTML = ''
+        homePage.querySelector('.update-avatar').querySelector('.success-message').innerHTML = ''
     }
 })
 
@@ -195,6 +205,9 @@ createPostForm.querySelector('#post-publication').onclick = (event) => {
         hide(createPostModal)
     } catch (error) {
         createPostForm.querySelector('.error-message').textContent = error.message
+    } finally{
+        createPostForm.querySelector('.success-message').innerHTML = ''
+        createPostForm.querySelector('.error-message').innerHTML = ''
     }
 }
 
@@ -235,7 +248,6 @@ export function renderUser() {
 }
 
 //Edit post
-
 editPostModal.querySelector('input[type=file]').addEventListener('change', function(event){
     event.preventDefault()
     const uploadedFile = event.target.files[0]
@@ -247,6 +259,8 @@ editPostModal.querySelector('input[type=file]').addEventListener('change', funct
         })
     } catch(error){
         editPostModal.querySelector('.error-message').textContent = error.message
+    } finally {
+        editPostModal.querySelector('.error-message').innerHTML = ''
     }
 })
 
@@ -262,16 +276,28 @@ editPostModal.querySelector('#save-edit-post').onclick = (event) => {
     try{
         post.image = postImgSrc
         post.text = postCaption
-        setTimeout(hide(editPostModal), 5000)
+        setTimeout(hide(editPostModal), 10000)
         savePostsInStorage()
         showPosts()
         editPostModal.querySelector('.success-message').innerHTML = 'Post updated'
     } catch(error){
         editPostModal.querySelector('.error-message').innerHTML = error.message
+    } finally {
+        editPostModal.querySelector('.success-message').innerHTML = ''
+        editPostModal.querySelector('.success-message').innerHTML = ''
     }
 }
 
 editPostModal.querySelector('#cancel-edit-post').onclick = (event) => {
     event.preventDefault()
     hide(editPostModal)
+}
+// delete likedPosts
+homePage.querySelector('.delete').onclick = () => {
+    users.forEach(user => user.likedPosts = [])
+    saveUsersInStorage()
+
+    posts.forEach(post => delete post.likes)
+    savePostsInStorage()
+    console.log(users)
 }

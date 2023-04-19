@@ -31,5 +31,4 @@ export function createPost(userId, image, text) {
 
     posts.push(newPost)
     savePostsInStorage()
-    console.log(posts)
 }

@@ -1,9 +1,11 @@
 import { posts } from "../data.js"
 import { homePage } from "../pages/home-page.js"
-import { retrieveUser } from "./helpers/data-managers.js"
+import { findUserbyId, retrieveUser } from "./helpers/data-managers.js"
 import { formatPostDate } from "./formatPostDate.js"
 import { context, show } from "../ui.js"
 import { editPostModal } from "../pages/home-page.js"
+
+import likeAndUnlikePost from "./likeAndUnlikePost.js"
 
 
 export function showPosts(){
@@ -15,7 +17,7 @@ export function showPosts(){
             const descendantPosts = posts.toReversed()
             descendantPosts.forEach(post =>{
                 const userId ='user-' + Number((post.author).slice(5))
-                const user = retrieveUser(userId)
+                const user = findUserbyId(userId)
                 const formatedDate = formatPostDate(post.date)
 
                 const publication = document.createElement('div')
@@ -60,11 +62,31 @@ export function showPosts(){
                 postCaptionText.classList.add('small-text')
 
                 const postLikeIconDiv = document.createElement('div')
-                postLikeIconDiv.classList.add('icon-s')
+                postLikeIconDiv.classList.add('icon-s-container')
 
-                const likeIcon = document.createElement('i')
-                likeIcon.classList.add('uil')
-                likeIcon.classList.add('uil-heart')
+                const likeIcon = document.createElement('span')
+                likeIcon.innerHTML = 'favorite'
+                likeIcon.classList.add('material-symbols-rounded')
+                likeIcon.classList.add('icon-s')
+                likeIcon.classList.add('pointer')
+                
+                const postAlreadyLikedByUser = user.likedPosts.includes(post.id)
+
+                if(postAlreadyLikedByUser){
+                    likeIcon.classList.add('like-icon-filled')
+
+                    likeIcon.onclick = () => {
+                        likeIcon.classList.remove('like-icon-filled')
+                        likeAndUnlikePost(post, user)
+                        showPosts()
+                    }
+                } else {
+                    likeIcon.onclick = () => {
+                        likeIcon.classList.add('like-icon-filled')
+                        likeAndUnlikePost(post, user)
+                        showPosts()
+                        }
+                }
                 
                 const postsDiv = document.querySelector('.posts')
                 postUserDataInfo.append(postUsername, postDate)

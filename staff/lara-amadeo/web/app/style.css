@@ -23,6 +23,8 @@
     --grey-200:#AAB1C5 ;
     --grey-100:#D4D8E2 ;
     --white:#FFFFFF ;
+
+    --red: #F44336;
 }
 
 body{
@@ -181,7 +183,7 @@ color: var(--accent-purple-hover);
     font-family: 'Inter';
     font-size: 14px;
     font-weight: 400;
-    color: rgb(255, 43, 71);
+    color: var(--red);
     margin-top: 0px;
     margin-bottom: 24px;
 }
@@ -583,6 +585,7 @@ padding-right: 40px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
 }
 /* end feed */
 
@@ -614,8 +617,18 @@ padding-right: 40px;
     margin-bottom: 16px;
 }
 
+.pointer{
+    cursor: pointer;
+}
 
-
+.like-icon-filled{
+    color: var(--red);
+    font-variation-settings:
+    'FILL' 1,
+    'wght' 500,
+    'GRAD' 0,
+    'opsz' 48
+}
 
 .off{
     display: none;

@@ -3,7 +3,7 @@ import { feed, homePage, renderUser, settingSection} from "./home-page.js"
 import { context } from "../ui.js"
 import { show, hide } from "../ui.js"
 import { authenticateUser } from "../logic/authenticateUser.js"
-import { showPosts } from "../logic/managePostsInFeed.js"
+import { showPosts } from "../logic/showPosts.js"
 import { registrationPage } from "../pages/register-page.js"
 
 
