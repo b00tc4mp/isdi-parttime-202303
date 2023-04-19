@@ -1,15 +1,8 @@
 function Curri() {
-    if (arguments.length === 1 && typeof arguments[0] === 'number') {
-        this.length = arguments[0]
-    } else {
-        for (let i = 0; i < arguments.length; i++)
-            this[i] = arguments[i]
-
-        this.length = arguments.length
-    }
+    this.length = 0
 }
 
-Curri.of = function () {
+Curri.of = function() {
     const c = new Curri
 
     for (let i = 0; i < arguments.length; i++) {
@@ -21,10 +14,10 @@ Curri.of = function () {
     return c
 }
 
-Curri.prototype.forEach = function (callback) {
+Curri.prototype.forEach = function(callback) {
     for (let i = 0; i < this.length; i++) {
         const element = this[i]
-
+        
         callback(element, i, this)
     }
 }
@@ -34,7 +27,7 @@ Curri.prototype.map = function map(callback) {
 
     for (let i = 0; i < this.length; i++) {
         const element = this[i]
-
+        
         mapped[mapped.length] = callback(element)
         mapped.length++
     }
