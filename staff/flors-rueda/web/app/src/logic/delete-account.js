@@ -1,10 +1,11 @@
 import users from './data/users/data.js';
 import { getUserIndex, saveUsers } from './data/users/data-managers.js';
-import { validateUserPassword, validateRepeatPassword } from './data/users/validators.js';
+import { validateUserPassword, validateRepeatPassword, validateUserID } from './data/users/validators.js';
 import { saveFavorites, savePosts } from './data/posts/data-managers.js';
 import { favorites, posts } from './data/posts/data.js';
 
 export const deleteAccount = (id, password, repeatPassword) => {
+  validateUserID(id);
   validateUserPassword(id, password);
   validateRepeatPassword(password, repeatPassword);
 
