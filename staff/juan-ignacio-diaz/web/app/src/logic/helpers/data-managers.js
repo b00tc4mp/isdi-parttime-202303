@@ -12,31 +12,12 @@ export function newUserId() {
 }
 
 export function findUserById(userId) {
-    let foundUser
+    return users.find(user => user.id === userId)
 
-    for (const user of users) {
-        if (user.id === userId) {
-            foundUser = user
-
-            break
-        }
-    }
-
-    return foundUser
 }
 
 export function findUserByEmail(email) {
-    let foundUser
-
-    for (const user of users) {
-        if (user.email === email) {
-            foundUser = user
-
-            break
-        }
-    }
-
-    return foundUser
+    return users.find(user => user.email === email)
 }
 
 export function newPostId() {
@@ -51,15 +32,5 @@ export function newPostId() {
 }
 
 export function findPostById(postId) {
-    let foundPost
-
-    for (const post of posts) {
-        if (post.id === postId) {
-            foundPost = post
-
-            break
-        }
-    }
-
-    return foundPost
+    return posts.find(post => post.id === postId)
 }
