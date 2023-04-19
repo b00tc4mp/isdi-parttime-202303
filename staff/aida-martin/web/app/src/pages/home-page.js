@@ -1,14 +1,12 @@
 import { context, show, hide, toggle } from "../ui.js";
 import { loginPage } from "./login-page.js";
 import { findUserById } from "../logic/helpers/data-managers.js";
-import errorShow from "../logic/helpers/error-managers.js";
 //import formatDate from "../logic/helpers/format-date.js";
-import changePassword from "../logic/update-user-password.js";
-import updateAvatar from "../logic/update-user-avatar.js";
-import createPost from "../logic/create-post.js";
 import retrievePosts from "../logic/retrieve-posts.js";
 import retrieveUser from "../logic/retrieve-user.js";
-import updatePost from "../logic/update-post.js";
+import initProfilePanel from "../components/profile-panel.js";
+import initAddPostPanel from "../components/add-post-panel.js";
+import initEditPostPanel from "../components/edit-post-panel.js";
 
 const DEFAULT_AVATAR_URL =
   "https://cdn-icons-png.flaticon.com/512/3135/3135823.png";
@@ -16,27 +14,28 @@ const DEFAULT_AVATAR_URL =
 export const homePage = document.querySelector(".home");
 const avatarImage = document.querySelector(".home-header-avatar");
 const profileLink = document.querySelector(".profile-link");
-const profilePanel = document.querySelector(".profile");
-const changePasswordForm = profilePanel.querySelector(".profile-password-form");
-const changeAvatarForm = profilePanel.querySelector(".profile-avatar-form");
-const changePasswordError = profilePanel.querySelector(
-  ".change-password-error"
-);
-const changeAvatarError = profilePanel.querySelector(".update-avatar-error");
 
 const newPostButtonContainer = homePage.querySelector(
   ".button-new-post-container"
 );
 const newPostButton = homePage.querySelector(".new-post-button");
-const addPostModal = homePage.querySelector(".modal");
-const addPostForm = homePage.querySelector(".posts");
-const addPostError = homePage.querySelector(".add-post-error");
-const postsList = homePage.querySelector(".posts-list");
-const editPostModal = homePage.querySelector(".edit-post-modal");
-const editPostForm = homePage.querySelector(".edit-post-form");
-const editPostError = homePage.querySelector(".edit-post-error");
 
-const bodyPage = document.querySelector("body");
+const {
+  profilePanel,
+  changePasswordForm,
+  changePasswordError,
+  changeAvatarForm,
+  changeAvatarError,
+} = initProfilePanel(homePage, avatarImage);
+const addPostModal = initAddPostPanel(homePage, renderPosts);
+const { editPostModal, editPostForm } = initEditPostPanel(
+  homePage,
+  renderPosts
+);
+
+const postsList = homePage.querySelector(".posts-list");
+
+export const bodyPage = document.querySelector("body");
 
 profileLink.onclick = function (event) {
   event.preventDefault();
@@ -55,125 +54,10 @@ homePage.querySelector(".profile-logout-button").onclick = function () {
   show(loginPage);
 };
 
-changePasswordForm.onsubmit = function (event) {
-  event.preventDefault();
-
-  const password = event.target.oldpassword.value;
-  const newPassword = event.target.newpassword.value.trim();
-  const newPasswordConfirm = event.target.repeatnewpassword.value.trim();
-
-  try {
-    changePassword(context.userId, password, newPassword, newPasswordConfirm);
-
-    hide(profilePanel, changeAvatarError, changePasswordError);
-    show(postsList, newPostButtonContainer);
-    changePasswordForm.reset();
-    changeAvatarForm.reset();
-  } catch (error) {
-    changePasswordForm.reset();
-    changeAvatarForm.reset();
-
-    if (error.message.includes("User ID")) {
-      hide(profilePanel, homePage);
-      show(loginPage);
-      return;
-    }
-    errorShow(changePasswordError, error);
-  }
-};
-
-changeAvatarForm.onsubmit = function (event) {
-  event.preventDefault();
-
-  const avatar = event.target.url.value;
-
-  try {
-    updateAvatar(context.userId, avatar);
-
-    homePage.querySelector("img").src = avatar;
-
-    changePasswordForm.reset();
-    changeAvatarForm.reset();
-    hide(profilePanel, changeAvatarError, changePasswordError);
-    show(postsList, newPostButtonContainer);
-
-    renderPosts();
-  } catch (error) {
-    changePasswordForm.reset();
-    changeAvatarForm.reset();
-
-    if (error.message.includes("User ID")) {
-      hide(profilePanel, homePage);
-      show(loginPage);
-      return;
-    }
-    errorShow(changeAvatarError, error);
-  }
-};
-
 newPostButton.onclick = () => {
   show(addPostModal);
 
   bodyPage.classList.add("scroll-lock");
-};
-
-addPostForm.onsubmit = (event) => {
-  event.preventDefault();
-
-  const image = event.target.image.value;
-  const text = event.target.text.value;
-
-  try {
-    createPost(context.userId, image, text);
-
-    renderPosts();
-
-    addPostForm.reset();
-
-    bodyPage.classList.remove("scroll-lock");
-    hide(addPostModal);
-  } catch (error) {
-    errorShow(addPostError, error);
-  }
-};
-
-homePage.querySelector(".cancel").onclick = (event) => {
-  event.preventDefault();
-
-  addPostForm.reset();
-
-  bodyPage.classList.remove("scroll-lock");
-  hide(addPostModal);
-};
-
-editPostForm.onsubmit = (event) => {
-  event.preventDefault();
-
-  const post = event.target.postId.value;
-  const image = event.target.image.value;
-  const text = event.target.text.value;
-
-  try {
-    updatePost(context.userId, post, image, text);
-
-    renderPosts();
-
-    editPostForm.reset();
-
-    bodyPage.classList.remove("scroll-lock");
-    hide(editPostModal);
-  } catch (error) {
-    errorShow(editPostError, error);
-  }
-};
-
-editPostForm.querySelector(".cancel").onclick = (event) => {
-  event.preventDefault();
-
-  editPostForm.reset();
-
-  bodyPage.classList.remove("scroll-lock");
-  hide(editPostModal);
 };
 
 export function renderPosts() {
