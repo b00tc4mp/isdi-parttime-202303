@@ -4,7 +4,7 @@ const atIndex = (arr, index)=>{
   for(let i = 0; i < temporaryIndex.length; i++) {
     if (temporaryIndex.includes('-')) {
       negativeNumber = true;
-      temporaryIndex = temporaryIndex.slice(1);
+      temporaryIndex = Number(temporaryIndex.slice(1));
     }
   }
   if(!negativeNumber) {

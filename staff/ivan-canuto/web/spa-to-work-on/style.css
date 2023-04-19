@@ -244,7 +244,6 @@ html, body {
 .bigger-post{
   position: fixed;
   top: 17%;
-  gap: 20px;
   height: 400px;
   max-width: 300px;
   width: fit-content;
@@ -252,6 +251,7 @@ html, body {
 }
 
 .bigger-post img {
+  margin: 10px 0;
   height: fit-content;
   width: 300px;
   max-height: 200px;
@@ -342,4 +342,32 @@ html, body {
 
 .bigger-post .post-author {
   font-weight: 30px;
+}
+
+.under-image {
+  display: flex;
+  align-items: center;
+}
+
+.heart-icon {
+  cursor: pointer;
+  margin-right: 5px;
+}
+
+.red-bg {
+  background: rgb(255, 107, 107); 
+  border-radius: 50%;
+  padding: 3px 2px 1px 2px;
+}
+
+.under-image-big-post {
+  margin: 0 0 10px 10px;
+}
+
+.date-post {
+  margin: 0px 0 0 10px !important;
+}
+
+.likes-post {
+  margin-top: 10px !important;
 }

@@ -1,9 +1,10 @@
 import {authenticateUser} from '../logic/authenticate-user.js'
 import {addOffClass, removeOffClass, context} from '../ui.js'
-import {homePage} from './home-page.js'
+import {createdPosts, homePage} from './home-page.js'
 import {registerPage} from './register-page.js'
 import { renderPost } from '../logic/render-post.js'
 import { renderUser } from '../logic/render-user.js'
+import { renderLikes } from '../logic/render-likes.js'
 
 export const loginPage = document.querySelector('.login')
 export const avatarImage = homePage.querySelector('.avatar-image')
@@ -20,6 +21,7 @@ loginPage.querySelector('form').onsubmit = function (event) {
 
       renderUser()
       renderPost()
+      renderLikes()
       
       loginForm.reset()
       addOffClass(loginPage)

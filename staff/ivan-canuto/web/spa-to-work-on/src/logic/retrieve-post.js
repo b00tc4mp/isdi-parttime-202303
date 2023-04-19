@@ -5,9 +5,9 @@ export function retrievePost(userId) {
 
   validateId(userId, 'user id')
 
-  let foundUser = users.some(user => user.id === userId)
+  let user = users.some(user => user.id === userId)
 
-  if (!foundUser) throw new Error(`User with ${userId} not found.`)
+  if (!user) throw new Error(`User with ${userId} not found.`)
 
   return posts.toReversed()
 }

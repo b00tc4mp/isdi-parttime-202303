@@ -8,7 +8,7 @@ const find = (array, callback)=>{
 const includesLetter = (element, letter) => {
   if(typeof element !== 'string' || typeof letter !== 'string') return console.log('One of the parameters of the callback function is not a string');
   for(let i = 0; i < element.length; i++) {
-    if(element[i] === letter) return element;
+    if(element[i] === letter) return true;
   }
-  return undefined
+  return false
 }
