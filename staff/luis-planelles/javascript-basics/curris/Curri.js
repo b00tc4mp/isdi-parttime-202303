@@ -190,4 +190,127 @@ Curri.prototype.push = function push(...args) {
   return this.length;
 };
 
+Curri.prototype.reduce = function reduce(callback, initialValue = 0) {
+  if (!this.length && !initialValue) throw new Error('TypeError');
+
+  let reduced = initialValue;
+
+  for (let i = 0; i < this.length; i++) {
+    const item = this[i];
+
+    if (item && !isNaN(item) && item.length) {
+      for (let j = 0; i < item.length; i++) {
+        const itemInItem = item[j];
+        reduced = callback(reduced, itemInItem, index);
+      }
+    } else {
+      reduced = callback(reduced, item, i);
+    }
+  }
+
+  return reduced;
+};
+
+Curri.prototype.reverse = function reverse(array) {
+  for (let i = 0; i < this.length / 2; i++) {
+    const previousItem = this[i];
+    this[i] = this[this.length - 1 - i];
+    this[this.length - 1 - i] = previousItem;
+  }
+  return this;
+};
+
+Curri.prototype.shift = function shift() {
+  const firstItem = this[0];
+
+  for (let i = 0; i < this.length - 1; i++) {
+    this[i] = this[i + 1];
+  }
+  if (this.length) {
+    this.length--;
+  }
+
+  return firstItem;
+};
+
+Curri.prototype.slice = function slice(sliceStart = 0, sliceEnd = false) {
+  let curriResult = new Curri();
+  let index = 0;
+
+  sliceStart = sliceStart < 0 ? this.length + sliceStart : sliceStart;
+  sliceEnd = sliceEnd < 0 ? this.length + sliceEnd : sliceEnd;
+
+  for (let i = sliceStart; i < this.length; i++) {
+    if (i !== sliceEnd) {
+      curriResult[index] = this[i];
+      curriResult.length++;
+      index++;
+    }
+  }
+  const iterations = this.length - curriResult.length;
+
+  for (let i = 0; i < iterations; i++) {
+    this[i] = curriResult[i];
+    curriResult.length++;
+    delete this[this.length - 1];
+    this.length--;
+  }
+  return this;
+};
+
+Curri.prototype.splice = function splice(start, itemsAdd = false, ...items) {
+  let spliced = new Curri();
+  start = start < 0 ? this.length + start : start;
+
+  if (itemsAdd) {
+    for (i = 0; i < itemsAdd; i++) {
+      spliced[i] = this[start + i];
+    }
+  }
+  itemsAdd = !itemsAdd ? start : itemsAdd;
+
+  if (!items.length) {
+    for (let i = start; i < this.length - 1; i++) {
+      this[i] = this[i + itemsAdd];
+    }
+    this.length = this.length - itemsAdd;
+  } else {
+    for (let i = this.length - 1; i >= start; i--) {
+      this[i + items.length - itemsAdd] = this[i];
+    }
+    for (let i = 0; i < items.length; i++) {
+      this[start + i] = items[i];
+    }
+  }
+
+  return spliced;
+};
+
+Curri.prototype.toReversed = function toReversed() {
+  const reversed = new Curri();
+  for (let i = 0; i < this.length; i++) {
+    reversed[i] = this[this.length - 1 - i];
+    reversed.length++;
+  }
+  return reversed;
+};
+
+Curri.prototype.unshift = function unshift(...args) {
+  const curriShifted = new Curri();
+
+  for (let i = 0; i < args.length + this.length; i++) {
+    if (i < args.length) {
+      curriShifted[i] = args[i];
+    } else {
+      curriShifted[i] = this[i - args.length];
+    }
+    curriShifted.length++;
+  }
+  for (let i = 0; i < curriShifted.length; i++) {
+    this[i] = curriShifted[i];
+  }
+
+  return this.length;
+};
+
 export default Curri;

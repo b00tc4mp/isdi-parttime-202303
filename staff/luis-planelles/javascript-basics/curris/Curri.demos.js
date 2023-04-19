@@ -163,3 +163,55 @@ console.log(animals.push('tux'));
 console.log(animals);
 console.log(animals.push('Guido Van Rossum'));
 console.log(animals);
+
+console.warn('reduce');
+
+numbers[3] = 4;
+numbers.length++;
+
+const initialValue = 0;
+const sumWithInitial = numbers.reduce(
+  (accumulator, currentValue) => accumulator + currentValue,
+  initialValue
+);
+
+console.log(sumWithInitial); // 10
+
+console.warn('reverse');
+console.log(numbers.reverse()); // [4, 3, 2 ,1]
+
+console.warn('shift');
+
+numbers.shift();
+console.log(numbers); // [ 3, 2, 1 ] lenght:3
+
+console.warn('slice');
+
+animals.length++;
+
+console.log(animals.slice(2));
+// Expected output: Array ["tux", "Guido Van Rossum", "tux"]
+
+console.warn('splice');
+
+animals.splice(1, 0, 'tux');
+// Inserts at index 1
+console.log(animals); // ["tux", "tux", "tux"]
+
+console.warn('toReversed');
+
+const reversedItems = numbers.toReversed();
+console.log(reversedItems); // [1, 2, 3]
+console.log(numbers); // [3, 2, 1]
+
+console.warn('unshift');
+
+console.log(numbers);
+
+const unshiftResult = numbers.unshift(4, 5);
+
+console.log(unshiftResult);
+// Expected output: 5
+
+console.log(numbers);
+// Expected output: Array [4, 5, 3, 2, 1]
