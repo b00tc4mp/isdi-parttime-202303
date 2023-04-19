@@ -13,6 +13,7 @@ export const updatePost = (newText, newPostImg, id, userId) => {
   const editedPost = originalPost;
   if(newText) editedPost.text = newText;
   if(newPostImg) editedPost.image = newPostImg;
+  (editedPost.edited).push(new Date)
   posts.filter((post) => {
     if (post.id === id) post = editedPost;
   });

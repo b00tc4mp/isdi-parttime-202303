@@ -16,6 +16,7 @@ export const uploadPost = (postImg, postText, authorID) => {
   newPost.image = postImg;
   newPost.date =  new Date(Date.now());
   newPost.likes = new Array,
+  newPost.edited = new Array,
   posts.push(newPost);
   savePosts();
 };
