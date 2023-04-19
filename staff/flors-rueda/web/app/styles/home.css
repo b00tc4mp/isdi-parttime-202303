@@ -98,10 +98,13 @@ footer {
 
 .home-page {
     padding-top: 1rem;
+}
+
+.home-user-page {
     display: grid;
     height: 100%;
     grid-template-columns: 100%;
-    grid-template-rows: 40% 60%;
+    grid-template-rows: 38% 62%;
 }
 
 p {
@@ -411,7 +414,7 @@ p {
 /* Responsiveness */
 
 @media (orientation: landscape) {
-    .home-page {
+    .home-user-page {
         display: grid;
         grid-template-columns: 45% 55%;
         grid-template-rows: 100%;
@@ -438,7 +441,7 @@ p {
 }
 
 @media (min-width: 768px) {
-    .home-page {
+    .home-user-page {
         display: grid;
         grid-template-columns: 45% 55%;
         grid-template-rows: 100%;
