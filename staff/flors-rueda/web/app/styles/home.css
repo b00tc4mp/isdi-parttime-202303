@@ -199,21 +199,48 @@ p {
 /*Posts*/
 
 .post-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+}
+
+.post-modal-header {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    padding: 0.2rem;
+}
+
+.post-modal-header h2{
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    padding-top: 0.5rem;
+    padding-left: 0.5rem;
+}
+
+.post-modal-body {
     display: flex;
     flex-direction: column;
     justify-content: center;
     gap: 0.4rem;
-    width: 75%;
     padding: 1rem;
-    min-height: 50%;
-    position: absolute;
-    top: 20%;
-    left: 7%;
-    right: 2%;
+}
+
+.post-modal-content {
+    display: flex;
+    flex-direction: column;
+    width: 75%;
     background-color: var(--color-light100);
     border: 0.01rem solid var(--color-primary300);
     border-radius: 1rem;
-    z-index: 2;
     text-align: justify;
 }
 
@@ -236,7 +263,7 @@ p {
     width: 1.75rem;
     height: 1.75rem;
     border-radius: 50%;
-    border: 0.15em solid var(--color-primary300);
+    border: 0.15em solid var(--color-primary300)
 }
 
 .posts-display {
@@ -462,10 +489,17 @@ p {
         left: 8.5rem;
     }
 
-    .post-modal {
-        top: 20%;
-        left: 10%;
-        right: 10%;
+    
+    .post-modal-body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 0.4rem;
+        padding: 1rem;
+    }
+    
+    .post-modal-content {
+        width: 50%;
     }
 
     .posts-display {

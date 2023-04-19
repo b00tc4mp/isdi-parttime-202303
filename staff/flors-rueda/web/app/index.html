@@ -70,23 +70,30 @@
         </header>
         <section class="home-page">
             <section class="post-modal off">
-                <button class="cancel-post">X</button>
-                <h2 class="modal-title">Post</h2>
-                <img class="new-post-image" src="https://sgame.etsisi.upm.es/pictures/12946.png" />
-                <form class="new-post-form">
-                    <div class="add-post-image" tabindex="0">
-                        <button class="delete-img off">x</button>
-                        <svg class="set-image" xmlns="http://www.w3.org/2000/svg" height="2rem" viewBox="0 96 960 960"
-                            width="2rem" fill="var(--color-primary300)">
-                            <path
-                                d="M180 936q-24.75 0-42.375-17.625T120 876V276q0-24.75 17.625-42.375T180 216h409v60H180v600h600V468h60v408q0 24.75-17.625 42.375T780 936H180Zm520-498v-81h-81v-60h81v-81h60v81h81v60h-81v81h-60ZM240 774h480L576 582 449 749l-94-124-115 149Zm-60-498v600-600Z" />
-                        </svg>
-                        <input type="file" name="image" accept=".jpg, .jpeg, .png, .webp" />
-                        <button class="delete-img off">x</button>
+                <div class="post-modal-content">
+                    <div class="post-modal-header">
+                        <button class="cancel-post">X</button>
+                        <h2 class="modal-title">Post</h2>
                     </div>
-                    <textarea name="post-text" type="text" maxlength="180" placeholder="max 180 chars"></textarea>
-                    <button type="submit" class="save-post">send</button>
-                </form>
+                    <div class="post-modal-body">
+                    <img class="new-post-image" src="https://sgame.etsisi.upm.es/pictures/12946.png" />
+                    <form class="new-post-form">
+                        <div class="add-post-image" tabindex="0">
+                            <button class="delete-img off">x</button>
+                            <svg class="set-image" xmlns="http://www.w3.org/2000/svg" height="2rem" viewBox="0 96 960 960"
+                                width="2rem" fill="var(--color-primary300)">
+                                <path
+                                    d="M180 936q-24.75 0-42.375-17.625T120 876V276q0-24.75 17.625-42.375T180 216h409v60H180v600h600V468h60v408q0 24.75-17.625 42.375T780 936H180Zm520-498v-81h-81v-60h81v-81h60v81h81v60h-81v81h-60ZM240 774h480L576 582 449 749l-94-124-115 149Zm-60-498v600-600Z" />
+                            </svg>
+                            <input type="file" name="image" accept=".jpg, .jpeg, .png, .webp" />
+                            <button class="delete-img off">x</button>
+                        </div>
+                        <textarea name="post-text" type="text" maxlength="180" placeholder="max 180 chars"></textarea>
+                        <button type="submit" class="save-post">send</button>
+                    </form>
+                    </div>
+                   
+                </div>
             </section>
             <section class="home-main">
                 <h1>Home</h1>
@@ -114,6 +121,8 @@
                 <button class="to-delete-account">delete account</button>
                 <button class="hide-mode-toggle"></button>
                 <button>inside</button>
+            </div>
+            <div class="posts-display-user">
             </div>
             <section class="profile-forms off">
                 <div class="edit-profile off">

@@ -11,6 +11,18 @@ import { isPostFavByUser } from '../logic/data/helpers.js';
 export const openPostModal = (modal, previousPost) => {
   const title = document.querySelector('.modal-title');
   const button = document.querySelector('.save-post');
+  const modalContent = document.querySelector('.post-modal-content');
+  const viewportHeight = window.innerHeight;
+  const viewportWidth = window.innerWidth;
+  modalContent.style.top = `${viewportHeight / 2 - modalContent.offsetHeight / 2}px`;
+  modalContent.style.left = `${viewportWidth / 2 - modalContent.offsetWidth / 2}px`;
+
+  const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+  const scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
+  window.onscroll = () => {
+    window.scrollTo(scrollLeft, scrollTop);
+  }
+
   if (previousPost) {
     postModal.classList.add(`editing-${previousPost.id}`);
     title.innerHTML = 'Edit';
@@ -36,6 +48,7 @@ export const clearPostModal = (modal) => {
 export const closePostModal = (modal) => {
   clearPostModal(modal);
   const blur = document.querySelector('.blur');
+  window.onscroll = () =>{};
   setOff(modal, blur);
 };
 

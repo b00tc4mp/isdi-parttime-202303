@@ -52,12 +52,6 @@ button svg {
     width: 45%;
 }
 
-.cancel-post {
-    position: absolute;
-    top: 0.5em;
-    right: 0.5em;
-}
-
 .to-new-post {
     padding-top: 0.3rem;
     padding-right: 2.25rem;
