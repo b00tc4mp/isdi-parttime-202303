@@ -4,22 +4,20 @@ import { savePost } from '../data';
 
 const updatePost = (userId, postId, postImage, postText) => {
   validateUrl(postImage, 'image url');
-  validateText(postText);
-  validateId(userId);
-  validateId(postId);
+  validateText(postText, 'post text');
+  validateId(userId, 'post user id');
+  validateId(postId, 'post id');
 
   const foundUser = findUserById(userId);
 
-  if (!foundUser) throw new Error(`user with id ${userId} not found`);
+  if (!foundUser) throw new Error(`user id not found`);
 
   let postUser = getPostById(postId);
 
-  if (!postUser) throw new Error(`post with id ${postId} not found`);
+  if (!postUser) throw new Error(`post id not found`);
 
   if (postUser.author !== userId)
-    throw new Error(
-      `post with id ${postId} does not belong to user with id ${userId}`
-    );
+    throw new Error(`post author id dont match with request user id`);
 
   postUser.image = postImage;
   postUser.text = postText;

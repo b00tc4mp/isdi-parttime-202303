@@ -1,46 +1,16 @@
-import createPost from '../logic/create-posts.js';
 import retrievePosts from '../logic/retrieve-posts.js';
 import { context } from '../ui.js';
 import { show, hide } from '../ui.js';
-import { getHomePage } from './home-page.js';
 import updatePost from '../logic/update-post.js';
 import retrieveAvatar from '../logic/retrive-avatar.js';
 import handleLikes from '../logic/like-posts.js';
 import retrieveUser from '../logic/retrieve-user.js';
+import getHomePage from '../components/get-home-page.js';
 
-const addPostButton = getHomePage().querySelector('.add-post-button'),
-  addPostPanel = getHomePage().querySelector('.add-post'),
-  addPostForm = addPostPanel.querySelector('form'),
-  postListPanel = getHomePage().querySelector('.post-list'),
-  editPostPanel = getHomePage().querySelector('.edit-post'),
+const homePage = getHomePage(),
+  postListPanel = homePage.querySelector('.post-list'),
+  editPostPanel = homePage.querySelector('.edit-post'),
   editPostForm = editPostPanel.querySelector('form');
-
-addPostButton.onclick = () => show(addPostPanel);
-
-addPostForm.onsubmit = (event) => {
-  event.preventDefault();
-
-  const image = event.target.image.value,
-    text = event.target.text.value;
-
-  try {
-    createPost(context.userId, image, text);
-
-    hide(addPostPanel);
-
-    renderPosts(context.userId);
-  } catch (error) {
-    alert(error.message);
-  }
-};
-
-addPostForm.querySelector('.cancel').onclick = (event) => {
-  event.preventDefault();
-
-  addPostForm.reset();
-
-  hide(addPostPanel);
-};
 
 editPostForm.onsubmit = (event) => {
   event.preventDefault();

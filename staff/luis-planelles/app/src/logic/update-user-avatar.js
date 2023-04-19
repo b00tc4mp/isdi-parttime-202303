@@ -4,7 +4,7 @@ import { saveUsers } from '../data.js';
 
 const updateUserAvatar = (userId, avatar) => {
   validateUrl(avatar, 'avatar url');
-  validateId(userId);
+  validateId(userId, 'user id');
 
   const foundUser = findUserById(userId);
 

@@ -4,8 +4,8 @@ import { validateUrl, validateText, validateId } from './helpers/validators.js';
 
 const createPost = (userId, postImage, postText) => {
   validateUrl(postImage, 'image url');
-  validateText(postText);
-  validateId(userId);
+  validateText(postText, 'text');
+  validateId(userId, 'user id');
 
   const foundUser = findUserById(userId);
 
