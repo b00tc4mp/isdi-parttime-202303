@@ -1,6 +1,7 @@
 import { loginPage } from "./login-page.js"
 import { updateUsername } from "../logic/update-user-name.js"
 import { closeProfilePages, context, showHideContainer, unshadowPredefinedAvatars } from "../ui.js"
+import initUpdatePassword from "../components/update-password.js"
 
 import { updateUserEmail } from "../logic/update-user-email.js"
 import { updateUserAvatar } from "../logic/update-user-avatar.js"
@@ -20,12 +21,17 @@ export const avatarImage = homePage.querySelector('.avatar')
 const homePageAddPost = homePage.querySelector('.home__anchor--new-post')
 export const homePagePost = homePage.querySelector('.home__post')
 export const homePageProfile = homePage.querySelector('.home__profile')
-export const homePagePassword = homePage.querySelector('.home__password')
+//export const homePagePassword = homePage.querySelector('.home__password')
 export const homePageUsername = homePage.querySelector('.home__username')
 export const homePageEmail = homePage.querySelector('.home__email')
 export const homePageAvatar = homePage.querySelector('.home__avatar')
 export const homePageMain = homePage.querySelector('.home__main')
 export const homePostEdit = homePage.querySelector('.home__post--edit')
+
+//const updatePasswordPanel = initUpdatePassword(homePage)
+export const homePagePassword = initUpdatePassword(homePage)
+
+
 export const spaceDog = homePage.querySelector('.space-dog')
 export const alien = homePage.querySelector('.alien')
 export const meteorite = homePage.querySelector('.meteorite')

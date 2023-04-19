@@ -4,6 +4,7 @@ import { homePageAvatar, homePageEmail, homePagePassword, homePageUsername, home
 
 const logPage = document.querySelector('.login')
 
+/*
 const loginEye = logPage.querySelector('.login-eye')
 const registerNewEye = registerPage.querySelector('.register-eye')
 const registerConfirmEye = registerPage.querySelector('.register-confirm-eye')
@@ -52,6 +53,7 @@ newConfirmEye.onclick = function(event){
     event.target.classList.toggle('fa-eye-slash')
     actualPasswordEyeToggle(homePagePassword, '.new__password--confirm')
 }
+*/
 
 export function showHideContainer(...containers) {
     containers.forEach(container => container.classList.toggle('off'))

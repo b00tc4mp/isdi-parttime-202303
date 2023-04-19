@@ -40,6 +40,7 @@ if (context.userID === undefined) {
         TODO Curri:
                 - Crear un constructor new Curri
                 - generar els prototypes dels arrays en el Curri pk funcioni com si fos un array
+                - jasmine: html amb links de cdn, fitxer curri i fitxer curri.spec.js
 
         PREGUNTES:
             - 
