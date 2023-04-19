@@ -1,10 +1,10 @@
 console.log('load login page')
 
 import authenticateUser from '../logic/authenticate-user.js'
-import { retrieveUser } from '../logic/retrieve-user.js'
 import { context, resetPage, hideElement, showElement } from '../ui.js'
 import { registerPage } from './register-page.js'
-import { homePage, avatarImg, renderPosts, renderUsers } from './home-page.js'
+import { homePage, renderPosts, renderUsers } from './home-page.js'
+import initProfilePanel from '../components/profile-panel.js'
  
 
 export const loginPage = document.querySelector('.login-page')
@@ -17,7 +17,7 @@ loginPage.querySelector('form').addEventListener('submit', (event) => {
     
     try {
         
-        context.userId = authenticateUser(userEmail, userPassword, homePage, avatarImg)
+        context.userId = authenticateUser(userEmail, userPassword)
 
         renderUsers()
 
