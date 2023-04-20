@@ -1,24 +1,27 @@
 function Curri() {
-    this.length = 0
+    for (let i = 0; i < arguments.length; i++)
+        this[i] = arguments[i]
+
+    this.length = arguments.length
 }
 
-Curri.of = function(){
-    const c = new Curri;
+Curri.of = function() {
+    const c = new Curri
 
-    for(let i=0; i<arguments.length; i++){
-        c[i]=arguments[i];
+    for (let i = 0; i < arguments.length; i++) {
+        c[i] = arguments[i]
 
-        c.length++;
+        c.length++
     }
 
-    return c;
+    return c
 }
 
 Curri.prototype.forEach = function(callback) {
     for (let i = 0; i < this.length; i++) {
         const element = this[i]
         
-        callback(element)
+        callback(element, i, this)
     }
 }
 
@@ -34,3 +37,7 @@ Curri.prototype.map = function map(callback) {
 
     return mapped
 }
+
+// TODO implement more Curri methods (same as Array methods)
+
+window.Curri = Curri
