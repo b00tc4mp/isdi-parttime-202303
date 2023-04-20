@@ -187,6 +187,25 @@ homePage.querySelector('#cancel-update-avatar').addEventListener('click', functi
 })
 
 // Create new post
+
+// new post image preview
+createPostForm.querySelector('input[name=imageUrl]').addEventListener('change', function (event) {
+    event.preventDefault()
+
+    const uploadedFile = event.target.files[0]
+    const imagePreview = createPostForm.querySelector('.update-avatar-image-preview')
+    try {
+        getImageFromLocal(uploadedFile, imageUrl => {
+            const srcData = imageUrl
+            imagePreview.src = srcData
+        })
+    } catch (error) {
+        createPostForm.querySelector('.error-message').textContent = error.message
+    } finally{
+        createPostForm.querySelector('.error-message').textContent = ''
+    }
+})
+//Confirm create new post
 homePage.querySelector('.create-post-button').onclick = () => {
     show(createPostModal)
 }
@@ -194,13 +213,12 @@ homePage.querySelector('.create-post-button').onclick = () => {
 createPostForm.querySelector('#post-publication').onclick = (event) => {
     event.preventDefault()
 
-    const image = createPostForm.querySelector('input[name=imageUrl]').value
+    const image = createPostForm.querySelector('.update-avatar-image-preview').src
     const caption = createPostForm.querySelector('input[name=caption]').value
 
     try {
         createPost(context.userId, image, caption)
         createPostForm.querySelector('.success-message').textContent = 'Post created'
-        console.log(posts)
         showPosts()
         hide(createPostModal)
     } catch (error) {
@@ -292,12 +310,13 @@ editPostModal.querySelector('#cancel-edit-post').onclick = (event) => {
     event.preventDefault()
     hide(editPostModal)
 }
-// delete likedPosts
+
+// [INTERNAL] delete likedPosts
 homePage.querySelector('.delete').onclick = () => {
     users.forEach(user => user.likedPosts = [])
     saveUsersInStorage()
 
     posts.forEach(post => delete post.likes)
     savePostsInStorage()
-    console.log(users)
 }
+

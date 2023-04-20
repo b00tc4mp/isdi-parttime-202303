@@ -1,4 +1,4 @@
-import { showPosts } from "./logic/managePostsInFeed.js"
+import { showPosts } from "./logic/showPosts.js"
 import { feed, homePage, renderUser } from "./pages/home-page.js"
 import { loginPage } from "./pages/login-page.js"
 import { context, hide, show } from "./ui.js"

@@ -1,6 +1,6 @@
 function isArray(array){
 
-    if(array.constructor === Array) return true
+    if(array.constructor === Curri) return true
 
     else return false
 }
