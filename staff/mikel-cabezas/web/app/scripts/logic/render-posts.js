@@ -59,8 +59,14 @@ export function renderPosts(userId) {
                 titleAndInteractions.classList.add('title-and-interactions')
                 postContainer.appendChild(titleAndInteractions)
                 const totalLikesPost = document.createElement('div')
-                postContainer.appendChild(totalLikesPost)
                 const postIdIndex = postId.slice(5)
+                
+                const postTitle = document.createElement('h3')
+                postTitle.classList.add('title')
+                postContainer.appendChild(postTitle)
+                postContainer.appendChild(totalLikesPost)
+                postTitle.innerText = article.title
+                
                 if (article.likes.length === 1) {
                     totalLikesPost.innerText = article.likes.length + ' like'
                 }
@@ -68,14 +74,11 @@ export function renderPosts(userId) {
                     totalLikesPost.innerText = article.likes.length + ' likes'
                 }
 
-                const postTitle = document.createElement('h3')
-                postTitle.classList.add('title')
-                titleAndInteractions.appendChild(postTitle)
-                postTitle.innerText = article.title
-
-
                 const likePost = document.createElement('div')
                 likePost.classList.add('material-symbols-outlined')
+
+
+
                 likePost.classList.add('like')
                 totalLikesPost.classList.add('total-likes-post')
                 titleAndInteractions.appendChild(likePost)
@@ -88,6 +91,25 @@ export function renderPosts(userId) {
                     likePost.classList.add('liked')
                 }
 
+                // for(let i = 0; i < 6; i++) {
+                //     const userId = article.likes[i]
+                //     const usersLikedPost = document.createElement('div')
+                //     usersLikedPost.classList.add('users-liked-post')
+                //     totalLikesPost.appendChild(usersLikedPost)
+                //         console.log(userId)
+                //     returnUserImage(usersLikedPost, userId)
+                    
+                // }
+
+                article.likes.forEach(userId => {
+                    const usersLikedPost = document.createElement('div')
+                    usersLikedPost.classList.add('users-liked-post')
+                    totalLikesPost.appendChild(usersLikedPost)
+                        console.log(userId)
+                    returnUserImage(usersLikedPost, userId)
+                })
+
+
                 // users[0].likedPosts = []
                 // users[1].likedPosts = []
 
@@ -95,8 +117,25 @@ export function renderPosts(userId) {
                 // savePosts()
                 // saveUsers()
 
+
+
+                const user = author.name
+                const userImage = getUserImage(author.id)
+                const separateUserName = user.split(' ')
+                userName.innerText = user
+                if (userImage) {
+                    imageProfile.src = userImage
+                    imageProfile.classList.remove('hidden')
+                }
+            
+                if (!userImage && separateUserName.length === 1) {
+                    letter.innerText = separateUserName[0][0] + separateUserName[0][1]
+                }
+                if (!userImage && separateUserName.length > 1) {
+                    letter.innerText = separateUserName[0][0] + separateUserName[1][0]
+                }
+
                 likePost.onclick = (event) => {
-                
                     const currentUser = findUserById(userId)
                     const userLikedPosts = currentUser.likedPosts
                     const postId = article.id.slice(5)
@@ -163,21 +202,6 @@ export function renderPosts(userId) {
 
 
 
-                const user = author.name
-                const userImage = getUserImage(author.id)
-                const separateUserName = user.split(' ')
-                userName.innerText = user
-                if (userImage) {
-                    imageProfile.src = userImage
-                    imageProfile.classList.remove('hidden')
-                }
-            
-                if (!userImage && separateUserName.length === 1) {
-                    letter.innerText = separateUserName[0][0] + separateUserName[0][1]
-                }
-                if (!userImage && separateUserName.length > 1) {
-                    letter.innerText = separateUserName[0][0] + separateUserName[1][0]
-                }
 
 
             if(userId === authorID) {

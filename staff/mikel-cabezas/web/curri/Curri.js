@@ -1,12 +1,31 @@
 function Curri() {
-    this.length = 0
+    if (arguments.length === 1 && typeof arguments[0] === 'number') {
+        this.length = arguments[0]
+    } else {
+        for (let i = 0; i < arguments.length; i++)
+            this[i] = arguments[i]
+
+        this.length = arguments.length
+    }
 }
 
-Curri.prototype.forEach = function(callback) {
+Curri.of = function () {
+    const c = new Curri
+
+    for (let i = 0; i < arguments.length; i++) {
+        c[i] = arguments[i]
+
+        c.length++
+    }
+
+    return c
+}
+
+Curri.prototype.forEach = function (callback) {
     for (let i = 0; i < this.length; i++) {
         const element = this[i]
-        
-        callback(element)
+
+        callback(element, i, this)
     }
 }
 
@@ -15,7 +34,7 @@ Curri.prototype.map = function map(callback) {
 
     for (let i = 0; i < this.length; i++) {
         const element = this[i]
-        
+
         mapped[mapped.length] = callback(element)
         mapped.length++
     }
@@ -23,16 +42,8 @@ Curri.prototype.map = function map(callback) {
     return mapped
 }
 
+// TODO implement more Curri methods (same as Array methods)
 
-Curri.prototype.pop = function(array) {
-    const last = array[array.length - 1]
-
-    array.length--
-
-    return last
-}
-
-
-
+window.Curri = Curri
 
 export default Curri

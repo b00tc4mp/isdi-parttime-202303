@@ -27,15 +27,18 @@ homePage.querySelector('button.button--create-post').onclick = function(event) {
     const userId = context.userId
     if (userId !== null) {
         toggleOffClassInSection(homePage.querySelector('.overlay.create-post'))
+        document.body.classList.add('block-scroll')
     }
 }
 homePage.querySelector('button.button--create-post_cancel').onclick = function(event) {
     event.preventDefault()
+    document.body.classList.remove('block-scroll')
     toggleOffClassInSection(homePage.querySelector('.overlay.create-post'))
     homePage.querySelector('form').reset
 }
 homePage.querySelector('button.button--create-post_save').onclick = function(event) {
     event.preventDefault()
+    document.body.classList.remove('block-scroll')
     const userId = context.userId
     const title = homePage.querySelector('form input.title').value
     const text = homePage.querySelector('form textarea').value

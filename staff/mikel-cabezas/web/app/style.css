@@ -1,29 +1,19 @@
 /* ___ GENERAL ______ */
-/* html, body {
-    height: 100%;
-} */
+
 :root {
-    /* --main-green: #091d30; */
-    /* --main-brown: #078197; */
-    /* --main-green: #728381; */
-    /* --white: #EEE4E0; */
-    /* --dark: #30393E; */
     --main-green: #859895;
     --main-brown: #705D55;
     --overlay-black: #00000021;
     --white: #e0dcda;
     --dark: #262c30;
     --red: #c1574c;
-
-
-
 }
 
 html {
     min-height: 100vh;
     display: flex;
-    /* width: 100vw; */
 }
+
 body {
     background: #132f46;
     background: var(--main-green);
@@ -34,13 +24,18 @@ body {
     margin: 0;
     width: 100%;
 }
+
+body.block-scroll {
+    overflow: hidden;
+}
+
 form label {
     color: var(--dark);
 }
+
 .hidden, .off {
     display: none !important;
 }
-
 
 .section {
     width: 100%;
@@ -70,24 +65,27 @@ form label {
     position: fixed;
     left: 0;
 }
+
 .sidebar .title h1 {
     font-size: 27px;
     text-align: left;
     color: var(--white);
 }
+
 ul.menu-sidebar {
     list-style: none;
     padding: 0;
     margin-top: 5px;
 }
+
 ul.menu-sidebar li {
     padding: 10px 0;
     color: #fff;
 }
+
 ul.menu-sidebar li a {
     color: rgb(255 255 255 / 80%);
 }
-
 
 .container {
     background-color: #1f3a50;
@@ -173,17 +171,21 @@ header {
     max-width: 1200px;
     margin: auto;
 }
+
 .logo {
     display: flex;
     padding-left: 20px;
     cursor: pointer;
 }
+
 .logo img {
     width: 145px;
 }
+
 .menu {
     padding-right: 20px;
 }
+
 .menu > ul {
     display: flex;
     flex-direction: row;
@@ -191,6 +193,7 @@ header {
     margin: 0;
 
 }
+
 .menu > ul > li {
     padding: 15px 10px;
     cursor: pointer;
@@ -201,6 +204,7 @@ li.login.has-submenu {
     position: relative;
     list-style: none;
 }
+
 .login ul.submenu {
     display: none;
     position: absolute;
@@ -213,6 +217,7 @@ li.login.has-submenu {
     padding: 15px 20px;
     border-radius: 10px;
 }
+
 .login:hover ul.submenu {
     display: block;
 }
@@ -224,6 +229,7 @@ header li {
 body .menu li:hover {
     background: #ffffff0d;
 }
+
 .menu .logout, .menu .homepage, body.logged-in .menu .login, .menu .user-account {
     display: none;
 }
@@ -265,6 +271,7 @@ li.user-account img, li.user-account img {
     height: 30px;
     border-radius: 100px;
 }
+
 .avatar {
     background: var(--main-brown);
     border-radius: 100px;
@@ -277,6 +284,7 @@ li.user-account img, li.user-account img {
     margin-right: 5px;
     position: relative;
 }
+
 .section.user-account .avatar {
     border-radius: 100px;
     /* width: 85px; */
@@ -291,6 +299,7 @@ li.user-account img, li.user-account img {
     margin-bottom: 26px;
     left: 25px;
 }
+
 .letter {
     font-weight: 700;
     letter-spacing: -.7px;
@@ -299,6 +308,7 @@ li.user-account img, li.user-account img {
     font-size: 15px;
     text-transform: uppercase;
 }
+
 .user-name {
     align-self: center;
     line-height: 1;
@@ -312,23 +322,29 @@ img.image-profile {
 
 /* ______ END HEADER ___ */
 
+
+
 /* ___ FORM ______ */
 
 form {
     display: flex;
     flex-direction: column;
 }
+
 .message {
     /* margin-top: 10px; */
     margin-bottom: 10px;
     padding-bottom: 10px;
 }
+
 .message.success {
     color: #49b056;
 }
+
 .message.error {
     color: #f38686;
 }
+
 .delete-account button {
     background: var(--red);
     border: solid 2px var(--red);
@@ -352,6 +368,7 @@ input:not([name="file"]) {
     text-align: center;
     transition: linear .2s;
 }
+
 .overlay input[type="file"] {
     margin: 10px 0 20px 5px;
     color: var(--white);
@@ -381,6 +398,7 @@ button.submit {
 .container .login, .container .register {
     font-size: 12px
 }
+
 .register-link p, .login-link p {
     margin: 0;
     color: var(--dark);
@@ -392,14 +410,14 @@ button.submit {
 input:disabled {
     background-color: rgba(255, 255, 255, .45);
 }
-/* .container .login p, .container .register p {
-    margin: 25px 0 0;
-} */
+
+
 .password {
     display: flex;
     align-items: center;
     position: relative;
 }
+
 .password > i.uil {
     margin: 5px 0 12px;
     position: absolute;
@@ -408,6 +426,7 @@ input:disabled {
     font-size: 1.3rem;
     color: var(--dark);
 }
+
 /* ______ END FORM ___ */
 
 
@@ -422,20 +441,25 @@ input:disabled {
     padding-top: 80px;
     justify-content: flex-start;
 }
+
 .section.home .top {
     display: flex;
     width: 100%;
     flex-direction: column;
 }
+
 .section.home .top h1 {
     margin-top: 20px;
 }
+
 .section-user-account h1, .section-user-account h2 {
     text-align: center;
 }
+
 h2.welcome-user {
     margin-top: 0;
 }
+
 .section.home form textarea {
     margin-bottom: 20px;
     max-width: 350px;
@@ -446,9 +470,11 @@ h2.welcome-user {
     text-align: left;
     transition: linear .2s;
 }
+
 label[for="textarea"] {
     margin-bottom: 8px;
 }
+
 input.title {
     text-align: left;
     margin-bottom: 20px;
@@ -456,6 +482,7 @@ input.title {
 label[for="file"] {
     margin-top: 15px;
 }
+
 .create-post form,
 .edit-post form {
     background: var(--white);
@@ -464,12 +491,14 @@ label[for="file"] {
     width: auto;
     max-width: 350px;
 }
+
 .date-author {
     gap: 10px;
     display: flex;
     justify-content: space-between;
     margin-top: auto;
 }
+
 .post-author, .post-date {
     font-size: 14px;
     color: var(--dark);
@@ -480,17 +509,20 @@ time.post-date {
     flex-wrap: wrap;
     align-items: baseline;
 }
+
 .post-edited {
     margin-left: 6px;
     font-style: italic;
     font-size: 85%;
 }
+
 .post-author {
     color: var(--main-brown);
     /* padding: 1px 11px 3px; */
     border-radius: 100px;
     font-weight: 700;
 }
+
 /* ______ END HOME ___ */
 
 
@@ -553,16 +585,19 @@ article {
         width: calc(33.33% - 26px);
     }
 }
+
 .posts img {
     width: 100%;
     border-radius: 5px 5px 0 0;
 }
+
 .title-and-interactions {
     display: flex;
     align-items: center;
     margin: 15px 0 5px;
     justify-content: space-between;
 }
+
 article h3.title {
     margin: 0;
     text-align: left;
@@ -572,6 +607,7 @@ article h3.title {
 .title-and-interactions .like {
     cursor: pointer;
 }
+
 .like.liked {
     color:var(--red);
     font-variation-settings:
@@ -580,6 +616,7 @@ article h3.title {
     'GRAD' 0,
     'opsz' 48
 }
+
 article p.excerpt {
     margin-top: 4px;
     font-size: 14px;
@@ -587,14 +624,6 @@ article p.excerpt {
     color: var(--dark);
 
 }
-
-
-/* button.button--create-post {
-    width: 121px;
-    display: flex;
-    align-items: center;
-    justify-content: center; 
-}*/ 
 
 button.button--create-post {
     width: 120px;
@@ -611,6 +640,7 @@ button.button--create-post i {
     display: flex;
     align-items: center;
 }
+
 button.button--edit-post {
     width: 120px;
     display: flex;
@@ -655,8 +685,8 @@ button.edit i {
 button:hover {
     background: transparent;
     color: var(--white);
-
 }
+
 button[type="cancel"]:hover {
     background: var(--main-brown);
     color: var(--white);
@@ -678,6 +708,7 @@ button[type="cancel"]:hover {
     margin-bottom: 10px;
     cursor: pointer;
 }
+
 .section.user-account .container {
     background-color: transparent;
     padding: 30px;
@@ -690,8 +721,8 @@ button[type="cancel"]:hover {
     height: calc(100% - 120px);
     margin-top: 60px;
     margin-left: 30%;
-
 }
+
 .section.user-account .container h2,
 .section.user-account .container input {
     text-align: left;
@@ -708,11 +739,10 @@ button[type="cancel"]:hover {
     gap: 10px;
 }
 
-
-
 button.button--update-info__profile {
     max-width: 108px;
 }
+
 button.button--update-info__password {
     max-width: 145px;
 }
@@ -743,94 +773,79 @@ button[disabled] {
 .update {
     max-width: 380px;
 }
+
 .section.user-account .password input {
     width: 100%;
 }
+
 .update form {
     max-width: 280px;
 }
+
 .update > p {
     margin-top: 0;
 }
-/* ______ END USER SETTINGS ___ */
-
-/* input:-webkit-autofill,
-input:-webkit-autofill:hover, 
-input:-webkit-autofill:focus, 
-input:-webkit-autofill:active  {
-  transition: background-color 500000s;
-  -webkit-text-fill-color: #fff !important;
-} */
-
-
-
-
-
-
-/* @media (prefers-color-scheme: dark) {
-
-    :root {
-        --main-green: #1a1d20;
-    }
-
-    .container {
-        background-color: var(--dark);
-    }
-
-    h1, h2, h3, h4, h5, h6, p, span, time {
-        color: var(--white) !important;
-    }
-    input::placeholder {
-        color: var(--white);
-    }
-    i.uil {
-        color: var(--white) !important;
-    }
-
-    textarea, input:not([name="file"]) {
-        background: rgb(59,59,59);
-        color: var(--white);
-    }
-    form label {
-        color: var(--white);
-    }
-    .create-post form {
-        background: var(--dark);
-        padding: 30px 30px 10px;
-        border-radius: 20px;
-        width: auto;
-        max-width: 350px;
-    }
-    article {
-        background: var(--dark);
-    }
-
-    button.button--update-info__cancel-info, 
-    button.button--update-info__cancel-password, 
-    button.button--create-post_cancel {
-        background: var(--dark);
-        border: solid 2px var(--main-brown);
-        color: var(--white);
-    }
-
-    .post-author {
-        color: var(--white);
-    }
-
-} */
-
 a.user-theme {
     display: flex;
     gap: 8px;
     align-items: center;
     line-height: 1;
 }
+
 .user-theme .material-symbols-outlined {
     font-size: 32px;
 }
+
 .material-symbols-outlined.on {
     color: #70bd7a;
 }
+
+.post-author{
+    position: relative;
+    cursor: pointer;
+  }
+  .post-author[title]:hover::after {
+    content: attr(title);
+    position: absolute;
+    top: -115%;
+    left: -5px;
+    width: max-content;
+    font-size: 14px;
+    background: #202528;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: linear .2s;
+}
+
+.total-likes-post {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.posts .users-liked-post .post-author {
+    margin-bottom: 10px;
+    position: relative;
+    margin-right: -10px;
+}
+.users-liked-post:first-child {
+    margin-left: 10px;
+}
+.posts .users-liked-post .post-author .avatar {
+    width: 24px;
+    height: 24px;
+    box-shadow: -2px 1px 2px 0px rgba(0,0,0,0.3);
+}
+.posts .users-liked-post .post-author .letter {
+    font-size: 10px;
+    bottom: 0px;
+}
+
+/* ______ END USER SETTINGS ___ */
+
+
+
+/* ___ DARK THEME ______ */
 
 html[data-theme="dark"]:root {
     --main-green: #1a1d20;
@@ -856,9 +871,11 @@ html[data-theme="dark"] span,
 html[data-theme="dark"] time {
     color: var(--white) !important;
 }
+
 html[data-theme="dark"] input::placeholder {
     color: var(--white);
 }
+
 html[data-theme="dark"] i.uil {
     color: var(--white) !important;
 }
@@ -867,9 +884,11 @@ html[data-theme="dark"] textarea, html[data-theme="dark"]  input:not([name="file
     background: rgb(59,59,59);
     color: var(--white);
 }
+
 html[data-theme="dark"] form label {
     color: var(--white);
 }
+
 html[data-theme="dark"] .create-post form,
 html[data-theme="dark"] .edit-post form {
     background: var(--dark);
@@ -878,6 +897,7 @@ html[data-theme="dark"] .edit-post form {
     width: auto;
     max-width: 350px;
 }
+
 html[data-theme="dark"] article {
     background: var(--dark);
 }
@@ -890,6 +910,7 @@ html[data-theme="dark"] button.button--edit-post_cancel {
     border: solid 2px var(--main-brown);
     color: var(--white);
 }
+
 html[data-theme="dark"] button[type="cancel"]:hover {
     background: var(--main-brown);
     color: var(--white);
@@ -899,3 +920,5 @@ html[data-theme="dark"] button[type="cancel"]:hover {
 html[data-theme="dark"] .post-author {
     color: var(--white);
 } 
+
+/* END DARK THEME */
