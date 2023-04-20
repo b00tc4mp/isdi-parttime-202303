@@ -1,12 +1,18 @@
-function curri() {
-  this.length = 0;
+function curri(...elements) {
+  if (elements.length === 1 && typeof elements[0] === "number") {
+    this.length = elements[0];
+  } else {
+    for (let i = 0; i < elements.length; i++) this[i] = elements[i];
+
+    this.length = elements.length;
+  }
 }
 
 curri.prototype.forEach = function (callback) {
   for (let i = 0; i < this.length; i++) {
     const element = this[i];
 
-    callback(element);
+    callback(element, i, this);
   }
 };
 
@@ -23,7 +29,17 @@ curri.prototype.map = function (callback) {
   return mapped;
 };
 
-// TODO implement more Curri methods (same as Array methods)
+curri.of = function (...elements) {
+  const c = new curri();
+
+  for (let i = 0; i < elements.length; i++) {
+    c[i] = elements[i];
+
+    c.length++;
+  }
+
+  return c;
+};
 
 curri.prototype.at = function at(index) {
   if (index < 0) {
