@@ -1,9 +1,10 @@
 import { loginPage } from "./pages/login-page.js";
-import { homePage } from "./pages/home-page.js";
+import { addPostModal, homePage } from "./pages/home-page.js";
 import { context, setOff, setOn } from "./ui/general-tools.js";
 import { toggle } from "./pages/home-user-profile-page.js";
-import { postModal } from "./pages/home-posts-modal-page.js";
 import { renderAllPosts } from "./components/posts-render.js";
+
+addPostModal
 
 const checkbox = document.querySelector(".mode-checkbox");
 
@@ -18,7 +19,7 @@ else document.body.classList.remove("dark-mode")
 
 if (!context.userAuth) setOn(loginPage);
 else {
-  renderAllPosts(context.userAuth, postModal)
+  renderAllPosts(context.userAuth, addPostModal)
   setOn(homePage)
   setOff(toggle)
 }

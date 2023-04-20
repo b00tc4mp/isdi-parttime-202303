@@ -2,11 +2,10 @@ import { context, controlUsernameInput,  } from '../ui/general-tools.js';
 import { setOff, setOn, toggleOff, resetAlerts, setPredeterminateAvatar, clearForms, getImgUrl } from '../ui/general-tools.js'
 import { setNewPassword, setNewUserInfo, displayProfile, setPlaceHolders, setNewMail, deleteUser, setAlertUserDeleted, cleanNewAvatarInput } from '../ui/home.js'
 import { displayEditUserError } from '../ui/errors.js';
-import { mainHome, homePage, profileForms } from './home-page.js';
+import { mainHome, homePage, profileForms, addPostModal } from './home-page.js';
 import { logout, } from '../ui/login-register.js';
 import { loginPage } from './login-page.js';
 import { renderAllPosts } from '../components/posts-render.js';
-import { postModal } from './home-posts-modal-page.js';
 import { getPostsSorted } from '../logic/retrieve-posts-sorted-by-date.js';
 import { getFavPosts } from '../logic/retrieve-fav-posts.js';
 
@@ -52,8 +51,7 @@ toFavorites.addEventListener('click', (event) => {
   clearForms();
   const postFavsList = document.querySelector('.favorites-post-list');
   const favPosts = getPostsSorted(getFavPosts(context.userAuth));
-  console.log(favPosts);
-  renderAllPosts(context.userAuth, postModal, postFavsList, favPosts);
+  renderAllPosts(context.userAuth, addPostModal, postFavsList, favPosts);
   setOn(favoritesPage);
   setOff(profileButtons, changePassword, editProfile, deleteAccount, profileForms);
 });

@@ -1,7 +1,6 @@
 import { setOn, clearForms, setOff } from './general-tools.js';
 import { uploadPost } from '../logic/upload-post.js';
 import { updatePost } from '../logic/update-post.js';
-import { postModal } from '../pages/home-posts-modal-page.js';
 import { renderAllPosts } from '../components/posts-render.js';
 
 export const openPostModal = (modal, previousPost) => {
@@ -20,7 +19,7 @@ export const openPostModal = (modal, previousPost) => {
   }
 
   if (previousPost) {
-    postModal.classList.add(`editing-${previousPost.id}`);
+    modal.classList.add(`editing-${previousPost.id}`);
     title.innerHTML = 'Edit';
     button.innerHTML = 'save';
   } else {
