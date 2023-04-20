@@ -88,6 +88,8 @@ h2 {
 
 .avatar, .post-avatar {
     width: 2rem;
+    height: 2rem;
+    object-fit: cover;
     border-radius: 1rem;
     border: 2px solid #ffffff;
 }

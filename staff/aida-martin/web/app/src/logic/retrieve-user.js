@@ -9,7 +9,7 @@ export default function retrieveUser(userId) {
   if (!user) throw new Error("User not found 😥", { cause: "userError" });
 
   user = {
-    name: user.name,
+    name: user.name.split(" ")[0],
     avatar: user.avatar,
   };
 
