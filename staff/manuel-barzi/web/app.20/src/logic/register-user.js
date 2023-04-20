@@ -14,9 +14,7 @@ export default function registerUser(name, email, password) {
 
     let id = 'user-1'
 
-    const _users = users()
-
-    const lastUser = _users[_users.length - 1]
+    const lastUser = users[users.length - 1]
 
     if (lastUser)
         id = 'user-' + (parseInt(lastUser.id.slice(5)) + 1)
@@ -28,7 +26,7 @@ export default function registerUser(name, email, password) {
         password
     }
 
-    _users.push(user)
+    users.push(user)
 
-    saveUsers(_users)
+    saveUsers()
 }

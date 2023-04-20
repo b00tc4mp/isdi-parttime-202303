@@ -1,6 +1,6 @@
 import { validateId, validateUrl, validateText } from './helpers/validators.js'
 import { findUserById } from './helpers/data-managers.js'
-import { users, posts, savePosts } from '../data.js'
+import { posts, savePosts } from '../data.js'
 
 export default function createPost(userId, image, text) {
     validateId(userId, 'user id')
@@ -19,9 +19,7 @@ export default function createPost(userId, image, text) {
 
     let id = 'post-1'
 
-    const _posts = posts()
-
-    const lastPost = _posts[_posts.length - 1]
+    const lastPost = posts[posts.length - 1]
 
     if (lastPost)
         id = 'post-' + (parseInt(lastPost.id.slice(5)) + 1)
@@ -34,7 +32,7 @@ export default function createPost(userId, image, text) {
         date: new Date
     }
 
-    _posts.push(post)
+    posts.push(post)
 
-    savePosts(_posts)
+    savePosts()
 }
