@@ -25,9 +25,7 @@ as a client i want to write a text and choose an image from disk and a create a 
 - DONE discern my posts in post list (presentation) and show edit button on them
 - TODO open edit modal on edit button click
 - TODO call update post logic on edit form submit
-- TODO re render posts
 - TODO implement update post logic
-
 
 ## Author name and avatar in post
 
@@ -35,13 +33,5 @@ as a client i want to write a text and choose an image from disk and a create a 
 
 ## Like / unlike in post
 
-- TODO add heart button in each post
-- TODO call toggle like on heart button click
-- TODO re render posts
-- TODO implement toggle like logic
-
-## Save / unsave in post
-
 - TODO
-
 
