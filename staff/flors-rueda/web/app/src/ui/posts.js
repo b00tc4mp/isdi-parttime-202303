@@ -1,7 +1,7 @@
 import { setOn, clearForms, setOff } from './general-tools.js';
 import { uploadPost } from '../logic/upload-post.js';
 import { updatePost } from '../logic/update-post.js';
-import { renderAllPosts } from '../components/posts-render.js';
+import initPostsList from '../components/posts-list.js';
 
 export const openPostModal = (modal, previousPost) => {
   const title = document.querySelector('.modal-title');
@@ -31,8 +31,7 @@ export const openPostModal = (modal, previousPost) => {
   setOn(modal, blur);
 };
 
-
-export const clearPostModal = (modal) => {
+const clearPostModal = (modal) => {
   clearForms();
   modal.className = 'post-modal';
   const selectedNewPostImg = document.querySelector('.new-post-image');
@@ -48,15 +47,13 @@ export const closePostModal = (modal) => {
   setOff(modal, blur);
 };
 
-
-
-export const post = (postImg, postText, userAuth, postModal) => {
-  if (postModal.classList.contains('creating'))
+export const post = (postImg, postText, userAuth, modal) => {
+  if (modal.classList.contains('creating'))
     uploadPost(postImg, postText, userAuth);
   else {
-    let postId = postModal.classList.value.split('editing-')[1];
+    let postId = modal.classList.value.split('editing-')[1];
     updatePost(postText, postImg, postId, userAuth);
   }
-  closePostModal(postModal);
-  renderAllPosts(userAuth, postModal);
+  closePostModal(modal);
+  initPostsList(userAuth, modal, 'all');
 };

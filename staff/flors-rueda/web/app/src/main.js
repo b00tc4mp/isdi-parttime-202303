@@ -2,7 +2,7 @@ import { loginPage } from "./pages/login-page.js";
 import { addPostModal, homePage } from "./pages/home-page.js";
 import { context, setOff, setOn } from "./ui/general-tools.js";
 import { toggle } from "./pages/home-user-profile-page.js";
-import { renderAllPosts } from "./components/posts-render.js";
+import initPostsList from "./components/posts-list.js";
 
 addPostModal
 
@@ -19,8 +19,8 @@ else document.body.classList.remove("dark-mode")
 
 if (!context.userAuth) setOn(loginPage);
 else {
-  renderAllPosts(context.userAuth, addPostModal)
-  setOn(homePage)
-  setOff(toggle)
+  initPostsList(context.userAuth, addPostModal, 'all');
+  setOn(homePage);
+  setOff(toggle);
 }
 

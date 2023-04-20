@@ -15,42 +15,41 @@ export default function initPostModal(userAuth) {
 
 
     cancelPost.addEventListener('click', (event) => {
-    event.preventDefault();
-    clearForms();
-    selectedNewPostImg.src = 'https://sgame.etsisi.upm.es/pictures/12946.png';
-    setOn(setNewPostImg);
-    closePostModal(addPostModal)
-    });
-    
-    temporalNewPostImg.addEventListener('change', (event) => {
-    try {
-        toggleOff(deleteNewPostImg, setNewPostImg);
-        getImgUrl(event, (imageUrl) => {
-        newPostImg = imageUrl;
-        selectedNewPostImg.src = newPostImg;
-        });
-    } catch (error) {
-        console.error(error);
-    }
+        event.preventDefault();
+        clearForms();
+        selectedNewPostImg.src = 'https://sgame.etsisi.upm.es/pictures/12946.png';
+        setOn(setNewPostImg);
+        closePostModal(addPostModal)
     });
 
+    temporalNewPostImg.addEventListener('change', (event) => {
+        try {
+            toggleOff(deleteNewPostImg, setNewPostImg);
+            getImgUrl(event, (imageUrl) => {
+                newPostImg = imageUrl;
+                selectedNewPostImg.src = newPostImg;
+            });
+        } catch (error) {
+            console.error(error);
+        }
+    });
 
     deleteNewPostImg.addEventListener('click', (event) => {
-    event.preventDefault();
-    newPostImg = undefined;
-    temporalNewPostImg.value = '';
-    selectedNewPostImg.src = 'https://sgame.etsisi.upm.es/pictures/12946.png';
-    toggleOff(deleteNewPostImg, setNewPostImg);
+        event.preventDefault();
+        newPostImg = undefined;
+        temporalNewPostImg.value = '';
+        selectedNewPostImg.src = 'https://sgame.etsisi.upm.es/pictures/12946.png';
+        toggleOff(deleteNewPostImg, setNewPostImg);
     });
-  
+
     sendPost.addEventListener('submit', (event) => {
-    event.preventDefault(); 
-    try {
-        const newPostText = newPostTextInput.value;
-        post(newPostImg, newPostText, userAuth, addPostModal)
-    } catch (error) {
-        console.error(error);
-    }
+        event.preventDefault();
+        try {
+            const newPostText = newPostTextInput.value;
+            post(newPostImg, newPostText, userAuth, addPostModal);
+        } catch (error) {
+            console.error(error);
+        }
 
     })
 

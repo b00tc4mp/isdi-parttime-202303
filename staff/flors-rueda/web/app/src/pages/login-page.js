@@ -4,8 +4,7 @@ import { displayWelcome, } from '../ui/home.js'
 import { displayLoginError, } from '../ui/errors.js';
 import { registerPage } from './register-page.js';
 import { addPostModal, homePage, mainHome } from "./home-page.js";
-import { renderAllPosts } from '../components/posts-render.js';
-
+import initPostsList from '../components/posts-list.js';
 
 
 export const loginPage = document.querySelector('.login');
@@ -31,7 +30,7 @@ loginForm.addEventListener('submit', (event) => {
   try {
     context.userAuth = login(loginPage, homePage, mainHome, username, password);
     displayWelcome(context.userAuth);
-    renderAllPosts(context.userAuth, addPostModal);
+    initPostsList(context.userAuth, addPostModal, 'all')
   } catch (error) {
     displayLoginError(error.message);
   }

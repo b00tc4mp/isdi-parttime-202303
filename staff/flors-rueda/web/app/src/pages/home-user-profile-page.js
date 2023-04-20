@@ -5,9 +5,7 @@ import { displayEditUserError } from '../ui/errors.js';
 import { mainHome, homePage, profileForms, addPostModal } from './home-page.js';
 import { logout, } from '../ui/login-register.js';
 import { loginPage } from './login-page.js';
-import { renderAllPosts } from '../components/posts-render.js';
-import { getPostsSorted } from '../logic/retrieve-posts-sorted-by-date.js';
-import { getFavPosts } from '../logic/retrieve-fav-posts.js';
+import initPostsList from '../components/posts-list.js';
 
 export const profile = document.querySelector('.user-profile');
 export const profileButtons = document.querySelector('.profile-buttons');
@@ -50,8 +48,7 @@ toFavorites.addEventListener('click', (event) => {
   event.preventDefault();
   clearForms();
   const postFavsList = document.querySelector('.favorites-post-list');
-  const favPosts = getPostsSorted(getFavPosts(context.userAuth));
-  renderAllPosts(context.userAuth, addPostModal, postFavsList, favPosts);
+  initPostsList(context.userAuth, addPostModal, 'fav', postFavsList);
   setOn(favoritesPage);
   setOff(profileButtons, changePassword, editProfile, deleteAccount, profileForms);
 });

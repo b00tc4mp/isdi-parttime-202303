@@ -5,7 +5,7 @@ import { setOff, setOn, resetAlerts, clearForms, } from '../ui/general-tools.js'
 import { displayProfile, displayWelcome, } from '../ui/home.js'
 import { favoritesPage, profile, profileButtons, } from './home-user-profile-page.js';
 import { openPostModal, } from '../ui/posts.js';
-import { renderAllPosts } from '../components/posts-render.js';
+import initPostsList from '../components/posts-list.js';
 import initPostModal from '../components/post-modal.js';
 
 export const homePage = document.querySelector('.home');
@@ -59,12 +59,9 @@ toHome.addEventListener('click', (event) => {
   resetAlerts();
   setOn(mainHome);
   setOff(profile, profileButtons, profileForms);
-  renderAllPosts(context.userAuth, addPostModal);
+  initPostsList(context.userAuth, addPostModal, 'all');
   displayWelcome(context.userAuth)
 });
-
-
-// TODO: figure out why modal sometimes fails
 
 toNewPost.addEventListener('click', (event) => {
   event.preventDefault();
