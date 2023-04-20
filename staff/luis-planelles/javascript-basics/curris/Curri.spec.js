@@ -166,6 +166,30 @@ describe('Curri', () => {
     });
   });
 
+  describe('from', () => {
+    it('should return a new iterable array from argument', () => {
+      const testCurri = new Curri();
+
+      const result = testCurri.from('foo');
+
+      expect(result.length).toBe(3);
+      expect(result[0]).toBe('f');
+      expect(result[1]).toBe('o');
+      expect(result[2]).toBe('o');
+    });
+
+    it('should return a new iterable array from argument by callback', () => {
+      const testCurri = new Curri(1, 2, 3);
+
+      const result = testCurri.from(testCurri, (x) => x + x);
+
+      expect(result.length).toBe(3);
+      expect(result[0]).toBe(2);
+      expect(result[1]).toBe(4);
+      expect(result[2]).toBe(6);
+    });
+  });
+
   describe('some', () => {
     it('should return true if some item in curri match the condition', () => {
       const testCurri = new Curri(1, 2, 3, 4, 5);
@@ -315,6 +339,53 @@ describe('Curri', () => {
       expect(testCurri.length).toBe(2);
       expect(testCurri[0]).toBe(2);
       expect(testCurri[1]).toBe(3);
+    });
+  });
+
+  describe('slice', () => {
+    const testCurri = new Curri('ant', 'bison', 'camel', 'duck', 'elephant');
+
+    it('should return a new curri slice from start index', () => {
+      const result = testCurri.slice(2);
+
+      expect(testCurri.length).toBe(5);
+      expect(testCurri[0]).toBe('ant');
+      expect(testCurri[4]).toBe('elephant');
+
+      expect(result.length).toBe(3);
+      expect(result[0]).toBe('camel');
+      expect(result[1]).toBe('duck');
+      expect(result[2]).toBe('elephant');
+    });
+
+    it('should return a new curri slice from the end if start index is negative', () => {
+      const result = testCurri.slice(-2);
+
+      expect(testCurri.length).toBe(5);
+
+      expect(result.length).toBe(2);
+      expect(result[0]).toBe('duck');
+      expect(result[1]).toBe('elephant');
+    });
+
+    it('should return a new curri slice by item from start to end index ', () => {
+      const result = testCurri.slice(2, 4);
+
+      expect(testCurri.length).toBe(5);
+
+      expect(result.length).toBe(2);
+      expect(result[0]).toBe('camel');
+      expect(result[1]).toBe('duck');
+    });
+
+    it('should return a new curri empty curri and doesnt modify original without calling arguments', () => {
+      const result = testCurri.slice();
+
+      expect(testCurri.length).toBe(5);
+      expect(testCurri[0]).toBe('ant');
+      expect(testCurri[4]).toBe('elephant');
+
+      expect(result.length).toBe(0);
     });
   });
 

@@ -109,21 +109,16 @@ Curri.prototype.findIndex = function findIndex(callback) {
   return -1;
 };
 
-Curri.prototype.from = function from(callback) {
-  let arrayResult = new Curri();
-
-  if (!this.length) {
-    for (let i = 0; i < this[0].length; i++) {
-      arrayResult[i] = this[0][i];
+Curri.prototype.from = function from(arg, callback) {
+  for (let i = 0; i < arg.length; i++) {
+    if (callback) {
+      this[i] = callback(arg[i]);
+    } else {
+      this[i] = arg[i];
     }
-    return arrayResult;
   }
-
-  for (let i = 0; i < this.length; i++) {
-    arrayResult[i] =
-      typeof callback === 'function' ? callback(this[i]) : this[i];
-  }
-  return arrayResult;
+  this.length = arg.length;
+  return this;
 };
 
 Curri.prototype.some = function some(callback) {
@@ -243,6 +238,11 @@ Curri.prototype.shift = function shift() {
 
 Curri.prototype.slice = function slice(sliceStart = 0, sliceEnd = false) {
   let curriResult = new Curri();
+
+  if (!arguments.length) {
+    return curriResult;
+  }
+
   let index = 0;
 
   sliceStart = sliceStart < 0 ? this.length + sliceStart : sliceStart;
@@ -255,15 +255,8 @@ Curri.prototype.slice = function slice(sliceStart = 0, sliceEnd = false) {
       index++;
     }
   }
-  const iterations = this.length - curriResult.length;
 
-  for (let i = 0; i < iterations; i++) {
-    this[i] = curriResult[i];
-    curriResult.length++;
-    delete this[this.length - 1];
-    this.length--;
-  }
-  return this;
+  return curriResult;
 };
 
 Curri.prototype.splice = function splice(start, itemsAdd = false, ...items) {
