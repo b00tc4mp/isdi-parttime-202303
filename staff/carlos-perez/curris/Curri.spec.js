@@ -1,22 +1,20 @@
-import Curri from './Curri.js'
-
 describe('Curri', () => {
     describe('constructor', () => {
         it('should create a new instance with the given elements', () => {
-            const c = new Curri(10, 20, 30)
+            const c = new Curri(10, 20, 30);
 
-            expect(c).toBeInstanceOf(Curri)
-            expect(c.length).toBe(3)
-            expect(c[0]).toBe(10)
-            expect(c[1]).toBe(20)
-            expect(c[2]).toBe(30)
+            expect(c).toBeInstanceOf(Curri);
+            expect(c.length).toBe(3);
+            expect(c[0]).toBe(10);
+            expect(c[1]).toBe(20);
+            expect(c[2]).toBe(30);
         })
-
+        
         it('should create a new instance with no elements and the length of the given numeric argument', function () {
-            const c = new Curri(10)
+            const c = new Curri(10);
 
-            expect(c).toBeInstanceOf(Curri)
-            expect(c.length).toBe(10)
+            expect(c).toBeInstanceOf(Curri);
+            expect(c.length).toBe(10);
         })
 
         // TODO
@@ -67,6 +65,31 @@ describe('Curri', () => {
             expect(c2[2]).toBe(c[2].toLowerCase())
         })
     })
+
+    describe('push', () => { it('should add new elements at the end of Curri', () => {
+        const c = new Curri;
+
+        const result = c.push(10,20,30);
+
+        expect(c).toBeInstanceOf(Curri);
+        expect(c.length).toBe(3);
+        expect(c.length).toBe(result);
+        expect(c[0]).toBe(10);
+    })
+
+    
+})
+
+describe('pop', () => { it('should delete the last element of Curri', () =>{
+    const c = new Curri(10, 20, 30);
+
+    const result = c.pop();
+
+    expect(c).toBeInstanceOf(Curri);
+    expect(c.length).toBe(2);
+    expect(result).toBe(30);
+
+})})
 
     // TODO
     //     console.log('Curry.of')
