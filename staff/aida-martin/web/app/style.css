@@ -262,3 +262,19 @@ article {
 .off {
     display: none;
 }
+
+@media (min-width: 768px) {
+    .posts-list {
+        width: 40rem;
+    }
+
+    .post-image {
+        height: 20rem;
+    }
+}
+
+@media (max-width: 320px) {
+    .posts-list {
+        width: 18rem;
+    }
+}
