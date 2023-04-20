@@ -41,8 +41,6 @@ const { editPostModal, editPostForm } = initEditPostPanel(
   renderPosts
 );
 
-export const bodyPage = document.querySelector("body");
-
 profileLink.onclick = function (event) {
   event.preventDefault();
 
@@ -63,7 +61,7 @@ homePage.querySelector(".profile-logout-button").onclick = function () {
 newPostButton.onclick = () => {
   show(addPostModal);
 
-  bodyPage.classList.add("scroll-lock");
+  document.body.classList.add("scroll-lock");
 };
 
 export function renderPosts() {
@@ -123,6 +121,7 @@ export function renderPosts() {
           editPostForm.querySelector("textarea").value = post.text;
 
           show(editPostModal);
+          document.body.classList.add("scroll-lock");
         };
 
         postItem.append(userContainer, imageContainer, date, text, button);

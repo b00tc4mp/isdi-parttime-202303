@@ -1,7 +1,6 @@
 import createPost from "../logic/create-post.js";
 import { context, hide } from "../ui.js";
 import errorShow from "../logic/helpers/error-managers.js";
-import { bodyPage } from "../pages/home-page.js";
 
 export default function initAddPostPanel(homePage, renderPosts) {
   const addPostModal = homePage.querySelector(".modal");
@@ -21,7 +20,7 @@ export default function initAddPostPanel(homePage, renderPosts) {
 
       addPostForm.reset();
 
-      bodyPage.classList.remove("scroll-lock");
+      document.body.classList.remove("scroll-lock");
       hide(addPostModal);
     } catch (error) {
       errorShow(addPostError, error);
@@ -33,7 +32,7 @@ export default function initAddPostPanel(homePage, renderPosts) {
 
     addPostForm.reset();
 
-    bodyPage.classList.remove("scroll-lock");
+    document.body.classList.remove("scroll-lock");
     hide(addPostModal);
   };
 

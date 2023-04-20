@@ -1,7 +1,6 @@
 import updatePost from "../logic/update-post.js";
 import { context, hide } from "../ui.js";
 import errorShow from "../logic/helpers/error-managers.js";
-import { bodyPage } from "../pages/home-page.js";
 
 export default function initEditPostPanel(homePage, renderPosts) {
   const editPostModal = homePage.querySelector(".edit-post-modal");
@@ -22,7 +21,7 @@ export default function initEditPostPanel(homePage, renderPosts) {
 
       editPostForm.reset();
 
-      bodyPage.classList.remove("scroll-lock");
+      document.body.classList.remove("scroll-lock");
       hide(editPostModal);
     } catch (error) {
       errorShow(editPostError, error);
@@ -34,7 +33,7 @@ export default function initEditPostPanel(homePage, renderPosts) {
 
     editPostForm.reset();
 
-    bodyPage.classList.remove("scroll-lock");
+    document.body.classList.remove("scroll-lock");
     hide(editPostModal);
   };
   return { editPostModal, editPostForm };
