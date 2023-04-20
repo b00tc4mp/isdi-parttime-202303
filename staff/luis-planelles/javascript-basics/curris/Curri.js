@@ -152,7 +152,7 @@ Curri.prototype.indexOf = function indexOf(matchItem, startPosition = 0) {
   return -1;
 };
 
-Curri.prototype.isArray = function isArray() {
+Curri.prototype.isCurri = function isCurri() {
   if (this && typeof this === 'object' && this.length && !this.byteLength) {
     return true;
   }
@@ -235,9 +235,9 @@ Curri.prototype.shift = function shift() {
     this[i] = this[i + 1];
   }
   if (this.length) {
+    delete this[this.length - 1];
     this.length--;
   }
-
   return firstItem;
 };
 
@@ -305,7 +305,7 @@ Curri.prototype.toReversed = function toReversed() {
 
 Curri.prototype.unshift = function unshift(...args) {
   const curriShifted = new Curri();
-
+  let index = 0;
   for (let i = 0; i < args.length + this.length; i++) {
     if (i < args.length) {
       curriShifted[i] = args[i];
@@ -315,8 +315,10 @@ Curri.prototype.unshift = function unshift(...args) {
     curriShifted.length++;
   }
   for (let i = 0; i < curriShifted.length; i++) {
-    this[i] = curriShifted[i];
+    this[index] = curriShifted[i];
+    index++;
   }
+  this.length = index;
 
   return this.length;
 };

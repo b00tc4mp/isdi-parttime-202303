@@ -207,4 +207,157 @@ describe('Curri', () => {
       expect(result).toBe(-1);
     });
   });
+
+  describe('isCurry', () => {
+    it('should return true when object is a curri', () => {
+      const testCurri = new Curri(10, 20, 30);
+      const result = testCurri.isCurri();
+
+      expect(result).toBe(true);
+    });
+  });
+
+  describe('join', () => {
+    it('should return new string with joined elements by coma', () => {
+      const testCurri = new Curri(10, 20, 30);
+      const result = testCurri.join();
+
+      expect(result).toBe('10,20,30');
+    });
+
+    it('should return new string with joined elements', () => {
+      const testCurri = new Curri(10, 20, 30);
+      const result = testCurri.join('');
+
+      expect(result).toBe('102030');
+    });
+
+    it('should return new string with joined elements bay item', () => {
+      const testCurri = new Curri(10, 20, 30);
+      const result = testCurri.join('-');
+
+      expect(result).toBe('10-20-30');
+    });
+  });
+
+  describe('lastIndexOf', () => {
+    it('should return index of last element meets in curri', () => {
+      const testCurri = new Curri('Dodo', 'Tiger', 'Penguin', 'Dodo');
+      const result = testCurri.lastIndexOf('Dodo');
+
+      expect(result).toBe(3);
+    });
+  });
+
+  describe('pop', () => {
+    it('should put off the last element in curri', () => {
+      const testCurri = new Curri('Dodo', 'Tiger', 'Penguin', 'Dodo');
+      const result = testCurri.pop('Dodo');
+
+      expect(result).toBe('Dodo');
+      expect(testCurri.length).toBe(3);
+      expect(testCurri[0]).toBe('Dodo');
+      expect(testCurri[1]).toBe('Tiger');
+      expect(testCurri[2]).toBe('Penguin');
+    });
+  });
+
+  describe('push', () => {
+    it('should add item in the end of a curri and return the length of curri', () => {
+      const testCurri = new Curri('pigs', 'goats', 'sheep');
+      const result = testCurri.push('Guido Van Rossum');
+
+      expect(result).toBe(4);
+      expect(testCurri.length).toBe(4);
+      expect(testCurri[0]).toBe('pigs');
+      expect(testCurri[3]).toBe('Guido Van Rossum');
+    });
+
+    it('should add items in the end of a curri and return the length of curri', () => {
+      const testCurri = new Curri('pigs', 'goats', 'sheep');
+      const result = testCurri.push('Guido Van Rossum', 'Python');
+
+      expect(result).toBe(5);
+      expect(testCurri.length).toBe(5);
+      expect(testCurri[4]).toBe('Python');
+    });
+  });
+
+  describe('reduce', () => {
+    it('should return an item consecuence of callback function on each element of the array', () => {
+      const testCurri = new Curri(1, 2, 3, 4);
+      const result = testCurri.reduce(
+        (accumulator, currentValue) => accumulator + currentValue,
+        0
+      );
+
+      expect(result).toBe(10);
+    });
+  });
+
+  describe('reverse', () => {
+    it('should swicht the original curri ordered rigthside left', () => {
+      const testCurri = new Curri(1, 2, 3, 4);
+      const result = testCurri.reverse();
+
+      expect(result.length).toBe(4);
+      expect(testCurri[0]).toBe(4);
+      expect(testCurri[3]).toBe(1);
+    });
+  });
+
+  describe('shift', () => {
+    it('should get off first item in curri and return it', () => {
+      const testCurri = new Curri(1, 2, 3);
+      const result = testCurri.shift();
+
+      expect(result).toBe(1);
+      expect(testCurri.length).toBe(2);
+      expect(testCurri[0]).toBe(2);
+      expect(testCurri[1]).toBe(3);
+    });
+  });
+
+  describe('splice', () => {
+    it('should return a original curri splice by item from start index', () => {
+      const testCurri = new Curri('Jan', 'March', 'April', 'June');
+      testCurri.splice(1, 0, 'Feb');
+
+      expect(testCurri.length).toBe(4);
+      expect(testCurri[0]).toBe('Jan');
+      expect(testCurri[1]).toBe('Feb');
+      expect(testCurri[3]).toBe('June');
+    });
+  });
+
+  describe('toReversed', () => {
+    it('should return new curri with reversed items', () => {
+      const testCurri = new Curri(1, 2, 3);
+      const result = testCurri.toReversed();
+
+      expect(testCurri.length).toBe(3);
+      expect(testCurri[0]).toBe(1);
+      expect(testCurri[1]).toBe(2);
+      expect(testCurri[2]).toBe(3);
+
+      expect(result.length).toBe(3);
+      expect(result[0]).toBe(3);
+      expect(result[1]).toBe(2);
+      expect(result[2]).toBe(1);
+    });
+  });
+
+  describe('toReversed', () => {
+    it('should return new length of original curri with new items at the biginning', () => {
+      const testCurri = new Curri(1, 2, 3);
+      const result = testCurri.unshift(4, 5);
+
+      console.log(testCurri);
+      expect(result).toBe(5);
+      expect(testCurri.length).toBe(5);
+      expect(testCurri[0]).toBe(4);
+      expect(testCurri[2]).toBe(1);
+      expect(testCurri[4]).toBe(3);
+    });
+  });
 });
