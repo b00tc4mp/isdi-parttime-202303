@@ -2,7 +2,7 @@ import { context, controlUsernameInput,  } from '../ui/general-tools.js';
 import { setOff, setOn, toggleOff, resetAlerts, setPredeterminateAvatar, clearForms, getImgUrl } from '../ui/general-tools.js'
 import { setNewPassword, setNewUserInfo, displayProfile, setPlaceHolders, setNewMail, deleteUser, setAlertUserDeleted, cleanNewAvatarInput } from '../ui/home.js'
 import { displayEditUserError } from '../ui/errors.js';
-import { mainHome, homePage, profileForms, addPostModal } from './home-page.js';
+import { mainHome, homePage, profileForms, postModal } from './home-page.js';
 import { logout, } from '../ui/login-register.js';
 import { loginPage } from './login-page.js';
 import initPostsList from '../components/posts-list.js';
@@ -48,7 +48,7 @@ toFavorites.addEventListener('click', (event) => {
   event.preventDefault();
   clearForms();
   const postFavsList = document.querySelector('.favorites-post-list');
-  initPostsList(context.userAuth, addPostModal, 'fav', postFavsList);
+  initPostsList(context.userAuth, postModal, 'fav', postFavsList);
   setOn(favoritesPage);
   setOff(profileButtons, changePassword, editProfile, deleteAccount, profileForms);
 });

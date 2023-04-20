@@ -3,7 +3,7 @@ import { changeView, login, } from '../ui/login-register.js';
 import { displayWelcome, } from '../ui/home.js'
 import { displayLoginError, } from '../ui/errors.js';
 import { registerPage } from './register-page.js';
-import { addPostModal, homePage, mainHome } from "./home-page.js";
+import { postModal, homePage, mainHome } from "./home-page.js";
 import initPostsList from '../components/posts-list.js';
 
 
@@ -30,7 +30,7 @@ loginForm.addEventListener('submit', (event) => {
   try {
     context.userAuth = login(loginPage, homePage, mainHome, username, password);
     displayWelcome(context.userAuth);
-    initPostsList(context.userAuth, addPostModal, 'all')
+    initPostsList(context.userAuth, postModal, 'all')
   } catch (error) {
     displayLoginError(error.message);
   }

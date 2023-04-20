@@ -4,14 +4,13 @@ import { logout, } from '../ui/login-register.js';
 import { setOff, setOn, resetAlerts, clearForms, } from '../ui/general-tools.js'
 import { displayProfile, displayWelcome, } from '../ui/home.js'
 import { favoritesPage, profile, profileButtons, } from './home-user-profile-page.js';
-import { openPostModal, } from '../ui/posts.js';
 import initPostsList from '../components/posts-list.js';
 import initPostModal from '../components/post-modal.js';
 
 export const homePage = document.querySelector('.home');
 export const mainHome = document.querySelector('.home-main');
 export const profileForms = document.querySelector('.profile-forms');
-export const addPostModal = initPostModal(context.userAuth);
+export const postModal = initPostModal(context.userAuth);
 
 const toNewPost = document.querySelector('.to-new-post');
 
@@ -59,13 +58,13 @@ toHome.addEventListener('click', (event) => {
   resetAlerts();
   setOn(mainHome);
   setOff(profile, profileButtons, profileForms);
-  initPostsList(context.userAuth, addPostModal, 'all');
+  initPostsList(context.userAuth, postModal, 'all');
   displayWelcome(context.userAuth)
 });
 
 toNewPost.addEventListener('click', (event) => {
   event.preventDefault();
-  openPostModal(addPostModal);
+  postModal.openPostModal();
 });
 
 

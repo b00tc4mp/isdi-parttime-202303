@@ -3,7 +3,7 @@ import { favorites } from './data/posts/data.js'
 import { validatePostExists } from './data/posts/validators.js';
 
 
-export const handleFav = (postId, userId) => {
+export const toggleFav = (postId, userId) => {
   validatePostExists(postId);
   const index = favorites.findIndex(favorite => favorite.postId === postId);
   if (index === -1) {
