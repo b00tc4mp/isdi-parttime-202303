@@ -70,13 +70,13 @@ describe('Curri', () => {
     it('should return new curri whit orginal curri and new concatenated', () => {
       const testCurri = new Curri(10, 20, 30);
       const testCurri2 = new Curri(40, 50, 60);
-      const curriResult = testCurri.concat(testCurri2);
+      const result = testCurri.concat(testCurri2);
 
-      expect(curriResult).toBeInstanceOf(Curri);
-      expect(curriResult.length).toBe(6);
-      expect(curriResult[0]).toBe(10);
-      expect(curriResult[3]).toBe(40);
-      expect(curriResult[5]).toBe(60);
+      expect(result).toBeInstanceOf(Curri);
+      expect(result.length).toBe(6);
+      expect(result[0]).toBe(10);
+      expect(result[3]).toBe(40);
+      expect(result[5]).toBe(60);
     });
   });
 
@@ -84,11 +84,11 @@ describe('Curri', () => {
     it('should return true if every item in curri meets the condition', () => {
       const testCurri = new Curri(10, 20, 30);
 
-      const curriResultTrue = testCurri.every((item) => item > 9);
-      const curriResultFalse = testCurri.every((item) => item < 30);
+      const resultTrue = testCurri.every((item) => item > 9);
+      const resultFalse = testCurri.every((item) => item < 30);
 
-      expect(curriResultTrue).toBe(true);
-      expect(curriResultFalse).toBe(false);
+      expect(resultTrue).toBe(true);
+      expect(resultFalse).toBe(false);
     });
   });
 
