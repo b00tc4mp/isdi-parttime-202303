@@ -259,6 +259,12 @@ article {
     font-style: italic;
 }
 
+.likes-icon {
+    width: 1.2rem;
+    height: 1.2rem;
+    filter: opacity(.7);
+}
+
 .off {
     display: none;
 }

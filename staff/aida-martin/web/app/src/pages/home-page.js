@@ -7,9 +7,12 @@ import retrieveUser from "../logic/retrieve-user.js";
 import initProfilePanel from "../components/profile-panel.js";
 import initAddPostPanel from "../components/add-post-panel.js";
 import initEditPostPanel from "../components/edit-post-panel.js";
+import { isLiked } from "../logic/liked-post.js";
 
 const DEFAULT_AVATAR_URL =
   "https://cdn-icons-png.flaticon.com/512/219/219989.png";
+const DEFAULT_LIKES_ICON_URL =
+  "https://cdn-icons-png.flaticon.com/512/1077/1077086.png";
 
 export const homePage = document.querySelector(".home");
 const avatarImage = document.querySelector(".home-header-avatar");
@@ -101,6 +104,19 @@ export function renderPosts() {
 
       imageContainer.append(image);
 
+      const likesIcon = document.createElement("img");
+      likesIcon.classList.add("likes-icon");
+      likesIcon.src = "https://cdn-icons-png.flaticon.com/512/1077/1077086.png";
+
+      likesIcon.onclick = () => {
+        if (isLiked(likesIcon, DEFAULT_LIKES_ICON_URL)) {
+          likesIcon.src = DEFAULT_LIKES_ICON_URL;
+          return;
+        }
+        likesIcon.src =
+          "https://cdn-icons-png.flaticon.com/512/1216/1216686.png";
+      };
+
       const text = document.createElement("p");
       text.classList.add("post-text");
       text.innerText = post.text;
@@ -124,9 +140,16 @@ export function renderPosts() {
           document.body.classList.add("scroll-lock");
         };
 
-        postItem.append(userContainer, imageContainer, date, text, button);
+        postItem.append(
+          userContainer,
+          imageContainer,
+          likesIcon,
+          date,
+          text,
+          button
+        );
       } else {
-        postItem.append(userContainer, imageContainer, date, text);
+        postItem.append(userContainer, imageContainer, likesIcon, date, text);
       }
 
       postsList.appendChild(postItem);
