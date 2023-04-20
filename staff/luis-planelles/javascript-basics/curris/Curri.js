@@ -306,6 +306,7 @@ Curri.prototype.toReversed = function toReversed() {
 Curri.prototype.unshift = function unshift(...args) {
   const curriShifted = new Curri();
   let index = 0;
+
   for (let i = 0; i < args.length + this.length; i++) {
     if (i < args.length) {
       curriShifted[i] = args[i];

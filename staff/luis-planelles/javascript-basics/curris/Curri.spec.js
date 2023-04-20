@@ -347,12 +347,11 @@ describe('Curri', () => {
     });
   });
 
-  describe('toReversed', () => {
+  describe('unshift', () => {
     it('should return new length of original curri with new items at the biginning', () => {
       const testCurri = new Curri(1, 2, 3);
       const result = testCurri.unshift(4, 5);
 
-      console.log(testCurri);
       expect(result).toBe(5);
       expect(testCurri.length).toBe(5);
       expect(testCurri[0]).toBe(4);
