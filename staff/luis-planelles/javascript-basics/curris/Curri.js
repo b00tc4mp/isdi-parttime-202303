@@ -1,12 +1,17 @@
 function Curri() {
-  this.length = 0;
+  if (arguments.length === 1 && typeof arguments[0] === 'number') {
+    this.length = arguments[0];
+  } else {
+    for (let i = 0; i < arguments.length; i++) {
+      this[i] = arguments[i];
+    }
+    this.length = arguments.length;
+  }
 }
 
-Curri.prototype.forEach = function (callback) {
+Curri.prototype.forEach = function (callback = false) {
   for (let i = 0; i < this.length; i++) {
-    const element = this[i];
-
-    callback(element);
+    callback(this[i], i, this);
   }
 };
 
@@ -73,10 +78,13 @@ Curri.prototype.fill = function fill(
 
 Curri.prototype.filter = function filter(callback) {
   const filtered = new Curri();
+  let index = 0;
   for (let i = 0; i < this.length; i++) {
     const result = callback(this[i]);
     if (result) {
-      filtered[i] = this[i];
+      filtered[index] = this[i];
+      index++;
+      filtered.length = index;
     }
   }
   return filtered;
