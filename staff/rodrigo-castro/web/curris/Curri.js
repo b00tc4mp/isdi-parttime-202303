@@ -2,13 +2,44 @@ console.log('Curri.js loaded')
 
 function Curri() {
     this.length = 0
+    if(arguments.length === 1 && typeof arguments[0] === 'number'){
+        this.length = arguments[0]
+    }
+    
+    if(arguments.length === 1 && typeof arguments[0] !== 'number'){
+        this.length = 1
+        this[0] = arguments[0]
+    } 
+    
+    if(arguments.length > 1) {
+        this.length = arguments.length
+        for(let i = 0; i < arguments.length; i++){
+            this[i] = arguments[i]
+        }
+    }
+}
+
+Curri.of = function() {
+    const c = new Curri
+
+    for(let i = 0; i < arguments.length; i++){
+        c[i] = arguments[i]
+    }
+}
+
+Curri.isCurri = function() {
+    const reference = new Curri
+    if(this.constructor === reference.constructor){
+        return true
+    }
+    return false
 }
 
 Curri.prototype.forEach = function(callback) {
     for(let i = 0; i < this.length; i++) {
         const element = this[i]
 
-        callback(element)
+        callback(element, i, this)
     }
 }
 
@@ -168,6 +199,20 @@ Curri.prototype.lastIndexOf = function(element) {
     return -1
 }
 
+Curri.prototype.reduce = function (callback, initialValue) {
+    let firstIndex = 0
+    if(initialValue === undefined){
+        initialValue = this[0]
+        firstIndex = 1
+    }
+
+    let accum = initialValue
+    for(let i = firstIndex; i < this.length; i++) {
+        accum = callback(accum, this[i])
+    }
+    return accum
+}
+
 Curri.prototype.reverse = function() {
     let inverted = []
     for(let i = 0; i < this.length; i++){
@@ -262,5 +307,7 @@ Curri.prototype.unshift = function (elements) {
 }
 
 // TODO implement more Curri methods (same as Array methods)
+
+window.Curri = Curri
 
 export default Curri
