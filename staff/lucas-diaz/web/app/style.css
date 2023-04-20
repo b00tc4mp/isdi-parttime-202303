@@ -455,10 +455,14 @@ label{
     .home{
     margin-top: 10px;
     max-width: 700px;
+    min-height: 100vh;
     height: auto;
-    background-color: #262629;
     border-radius: 10px 10px 0px 0px;
     row-gap: 10px;
+    }
+    .home-posts-content {
+        padding-top: 120px;
+        height: fit-content;
     }
     .home-header{
         background-color: #252c27;
@@ -482,9 +486,7 @@ label{
     .submit-button:hover, .change-password:hover, .form-avatar-submit-button:hover, .home-add-post-modal .form-post-submit-button:hover, .footer-button:hover, .home-edit-post-modal-button:hover, .home-edit-form-post-submit-button:hover {
         color:#17AF96;
     }
-    .home-posts-content {
-        padding-top: 1500px;
-    }
+    
     .footer{
         height: 6%;
         border-radius: 0px 0px 10px 10px;

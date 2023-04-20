@@ -146,6 +146,7 @@ postModalForm.onsubmit = (event) => {
         event.target.text.value = "";
         failPostMessage.textContent = "";
         postsListPanel.classList.remove("fade");
+        postsListPanel.innerHTML ="";
         renderPosts();
 
     } catch(error){
