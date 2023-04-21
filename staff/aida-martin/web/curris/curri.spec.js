@@ -147,3 +147,25 @@ describe("concat", () => {
     expect(c3[5]).toBe(60);
   });
 });
+
+describe("every", () => {
+  it("should check if all elements meet a condition", () => {
+    const c = new curri(10, 20, 30);
+
+    const a = c.every((element) => element > 9);
+    const a1 = c.every((element) => element > 10);
+
+    expect(a).toBe(true);
+    expect(a1).toBe(false);
+  });
+
+  it("should always show true with a empty curri", () => {
+    const c = new curri();
+
+    const a = c.every((element) => element > 9);
+    const a1 = c.every((element) => element > 10);
+
+    expect(a).toBe(true);
+    expect(a1).toBe(true);
+  });
+});
