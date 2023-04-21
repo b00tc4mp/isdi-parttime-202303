@@ -1,6 +1,6 @@
 import { retrieveUser } from "./retrieve-user.js"
 import { context } from "../ui.js";
-import { avatarImage } from '../pages/login-page.js'
+import { avatarImage } from '../pages/home-page.js'
 import { homePage } from "../pages/home-page.js";
 
 export const renderUser = ()=>{

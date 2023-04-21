@@ -354,10 +354,21 @@ html, body {
   margin-right: 5px;
 }
 
+.favorite-icon {
+  cursor: pointer;
+  margin-right: 5px;
+}
+
 .red-bg {
   background: rgb(255, 107, 107); 
   border-radius: 50%;
   padding: 3px 2px 1px 2px;
+}
+
+.yellow-bg {
+  background: rgb(255, 249, 68); 
+  border-radius: 50%;
+  padding: 2px;
 }
 
 .under-image-big-post {

@@ -20,7 +20,8 @@ export const createPost = (userId, postUrl, postText)=>{
     author: user.id,
     image: postUrl,
     text: postText,
-    date: date.toLocaleDateString()
+    date: date.toLocaleDateString(),
+    likes: []
   }
   posts.push(post)
 

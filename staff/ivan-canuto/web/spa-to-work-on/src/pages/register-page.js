@@ -19,6 +19,7 @@ registerPage.querySelector('form').onsubmit = function (event) {
       registerForm.reset()
       addOffClass(registerPage)
       removeOffClass(loginPage)
+      saveUsers()
 
   } catch (error) {
       if (error.name === 'Error') {

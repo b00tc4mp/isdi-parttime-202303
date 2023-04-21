@@ -24,7 +24,8 @@ export function registerUser(name, email, password) {
       name,
       email,
       password,
-      avatar: 'https://img.freepik.com/iconos-gratis/icono-perfil-usuario_318-33925.jpg'
+      avatar: 'https://img.freepik.com/iconos-gratis/icono-perfil-usuario_318-33925.jpg',
+      favPosts: []
   })
 
   saveUsers()

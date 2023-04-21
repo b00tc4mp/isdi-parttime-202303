@@ -1,5 +1,5 @@
-import {findUserById} from './helpers/data-manager.js'
-import {validateUrl, validatePassword} from './helpers/validators.js'
+import { findUserById } from './helpers/data-manager.js'
+import { validateUrl, validatePassword } from './helpers/validators.js'
 import { renderPost } from './render-post.js'
 
 const avatarImage = document.querySelector('.avatar-image')

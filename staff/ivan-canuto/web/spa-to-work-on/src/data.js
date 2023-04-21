@@ -5,7 +5,8 @@ export const users = 'usersJson' in localStorage? JSON.parse(localStorage.usersJ
 //     name: 'Wendy Darling',
 //     email: 'wendy@darling.com',
 //     password: '123123123',
-//     avatar: 'https://img.freepik.com/iconos-gratis/icono-perfil-usuario_318-33925.jpg'
+//     avatar: 'https://img.freepik.com/iconos-gratis/icono-perfil-usuario_318-33925.jpg',
+//     favPosts: []
 // })
 
 // users.push({
@@ -13,7 +14,8 @@ export const users = 'usersJson' in localStorage? JSON.parse(localStorage.usersJ
 //     name: 'Peter Pan',
 //     email: 'peter@pan.com',
 //     password: '123123123',
-//     avatar: 'https://img.freepik.com/iconos-gratis/icono-perfil-usuario_318-33925.jpg'
+//     avatar: 'https://img.freepik.com/iconos-gratis/icono-perfil-usuario_318-33925.jpg',
+//     favPosts: []
 // })
 
 // users.push({
@@ -21,7 +23,8 @@ export const users = 'usersJson' in localStorage? JSON.parse(localStorage.usersJ
 //     name: 'Pepito Grillo',
 //     email: 'pepito@grillo.com',
 //     password: '123123123',
-//     avatar: 'https://img.freepik.com/iconos-gratis/icono-perfil-usuario_318-33925.jpg'
+//     avatar: 'https://img.freepik.com/iconos-gratis/icono-perfil-usuario_318-33925.jpg',
+//     favPosts: []
 // })
 
 export const posts = 'postsJson' in localStorage? JSON.parse(localStorage.postsJson) : []
@@ -32,7 +35,8 @@ let date = new Date()
 //     author: 'user-1',
 //     image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/SNice.svg/1200px-SNice.svg.png',
 //     text: 'Smile!',
-//     date: date.toLocaleDateString()
+//     date: date.toLocaleDateString(),
+//     likes: []
 // })
 
 // posts.push({
@@ -40,7 +44,8 @@ let date = new Date()
 //     author: 'user-1',
 //     image: 'https://img.icons8.com/color/512/avatar.png',
 //     text: 'I ♥️ Avatars!',
-//     date: date.toLocaleDateString()
+//     date: date.toLocaleDateString(),
+//     likes: []
 // })
 
 // posts.push({
@@ -48,10 +53,9 @@ let date = new Date()
 //     author: 'user-2',
 //     image: 'https://img.icons8.com/color/512/avatar.png',
 //     text: 'I ♥️ Avatars too!',
-//     date: date.toLocaleDateString()
+//     date: date.toLocaleDateString(),
+//     likes: []
 // })
-
-export const likedPostsId = 'likedPostsIdJson' in localStorage? JSON.parse(localStorage.likedPostsIdJson) : []
 
 export const saveUsers = () => {
     localStorage.usersJson = JSON.stringify(users)
@@ -59,8 +63,4 @@ export const saveUsers = () => {
 
 export const savePosts = () => {
     localStorage.postsJson = JSON.stringify(posts)
-}
-
-export const saveLikedPost = () => {
-    localStorage.likedPostsIdJson = JSON.stringify(likedPostsId)
 }

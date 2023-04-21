@@ -1,27 +1,19 @@
-import { context } from "../ui.js";
-import { createdPosts } from "../pages/home-page.js";
+import { context, removeOffClass, addOffClass } from "../ui.js";
 
-export const selectPost = (postId)=>{
-  let postToSelect;
-  const allPosts = createdPosts.querySelectorAll('.user-post')
-  allPosts.forEach(post => {
-    if(post.id === postId) postToSelect = post
-  })
-  postToSelect.classList.add('bigger-post')
-  postToSelect.parentElement.classList.add('selected-post-page')
-  postToSelect.parentElement.querySelector('.pop-up-window').classList.remove('off')
-  context.postId = postId
+export const selectPost = (userPost, likeIcon, likesInPost, favoriteIcon, popUpWindow, underImage)=>{
+  
+  userPost.classList.add('bigger-post')
+  userPost.parentElement.classList.add('selected-post-page')
+  removeOffClass(likeIcon, likesInPost, favoriteIcon, popUpWindow)
+  underImage.classList.add('under-image-big-post')
+  context.postId = userPost.id
 }
 
-export const unselectPost = (postId)=>{
-  let postToUnselect;
-  const allPosts = createdPosts.querySelectorAll('.user-post')
-  allPosts.forEach(post => {
-    if(post.id === postId) postToUnselect = post
-  })
-  if(!postToUnselect) throw new Error('Post not found')
-  postToUnselect.classList.remove('bigger-post')
-  postToUnselect.parentElement.classList.remove('selected-post-page')
-  postToUnselect.parentElement.querySelector('.pop-up-window').classList.add('off')
-  context.postId = null
+export const unselectPost = (userPost, likeIcon, likesInPost, favoriteIcon, popUpWindow, underImage)=>{
+  
+  userPost.classList.remove('bigger-post')
+  userPost.parentElement.classList.remove('selected-post-page')
+  addOffClass(likeIcon, likesInPost, favoriteIcon, popUpWindow)
+  underImage.classList.remove('under-image-big-post')
+  delete context.postId
 }

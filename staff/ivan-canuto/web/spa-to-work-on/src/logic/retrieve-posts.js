@@ -1,7 +1,7 @@
 import { users, posts } from "../data.js"
 import { validateId } from "./helpers/validators.js"
 
-export function retrievePost(userId) {
+export function retrievePosts(userId) {
 
   validateId(userId, 'user id')
 
