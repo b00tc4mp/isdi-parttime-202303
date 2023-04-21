@@ -1,5 +1,5 @@
 import { validateId, validateText, validateUrl } from "./helpers/validators"
-import { users, posts } from "../data.js"
+import { users, posts, savePost } from "../data.js"
 
 
 export default function editPost(userId, postId, image, text) {
@@ -11,11 +11,11 @@ export default function editPost(userId, postId, image, text) {
     
     validateText(text)
 
-    const foundUser = users.find(user => user.id === userId)
+    const foundUser = users().find(user => user.id === userId)
 
     if(!foundUser) throw new Error('User id not valid')
 
-    const foundPost = posts.find(post => post.id === postId)
+    const foundPost = posts().find(post => post.id === postId)
 
     if(!foundPost) throw new Error('Post id not valid')
 
@@ -24,4 +24,6 @@ export default function editPost(userId, postId, image, text) {
     foundPost.image = image
 
     foundPost.text = text
+
+    savePost(foundPost)
 }

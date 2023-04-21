@@ -1,5 +1,6 @@
 import { validateId, validatePassword } from './helpers/validators.js'
 import { findUserById } from './helpers/data-managers.js'
+import { saveUser } from '../data.js'
 
 export const changePassword = (userId, changePasswordMenu) => {
     var previousPassword = changePasswordMenu.querySelector('.previous-password').value
@@ -29,4 +30,6 @@ export const changePassword = (userId, changePasswordMenu) => {
     changePasswordMenu.querySelector('.red-text').textContent = 'Password succesfully changed'
     changePasswordMenu.querySelector('.red-text').classList.add('green-text')
     changePasswordMenu.querySelector('form').reset()
+
+    saveUser()
 }

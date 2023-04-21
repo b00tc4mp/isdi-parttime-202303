@@ -1,6 +1,5 @@
 import { renderPosts } from "../pages/home-page.js"
 import { hideElement, context } from "../ui.js"
-import { savePosts } from "../data.js"
 import createPost from "../logic/create-post.js"
 
 export default function initNewPostModal(homePage) {
@@ -24,8 +23,6 @@ export default function initNewPostModal(homePage) {
             hideElement(newPostModal)
 
             alert('post created')
-
-            savePosts()
 
             renderPosts()
         } catch(error){

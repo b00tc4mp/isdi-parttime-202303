@@ -2,7 +2,6 @@ console.log('load home page')
 
 import {showElement, hideElement, toggleElement, resetPage, context} from '../ui.js'
 import { loginPage } from './login-page.js'
-import { savePosts } from '../data.js'
 import retrievePosts from '../logic/retrieve-posts.js'
 import { retrieveUser } from '../logic/retrieve-user.js'
 import { findPostById, findUserById } from '../logic/helpers/data-managers.js'
@@ -47,8 +46,6 @@ editPostModal.querySelector('form').onsubmit = (event) => {
         hideElement(editPostModal)
         
         alert('Post updated')
-        
-        savePosts()
 
         renderPosts()
     } catch(error){
@@ -131,13 +128,13 @@ export function renderPosts() {
 
             const postFooterLeftTime = document.createElement('time')
             
-            const postDate = post.date
+            const postDate = post.date.toLocaleString()
 
-            const day = postDate.getDate().toString().padStart(2, '0')
-            const month = (postDate.getMonth() + 1).toString().padStart(2, '0')
-            const year = postDate.getFullYear()
+            // const day = postDate.getDate().toString().padStart(2, '0')
+            // const month = (postDate.getMonth() + 1).toString().padStart(2, '0')
+            // const year = postDate.getFullYear()
 
-            postFooterLeftTime.innerText = `${day}/${month}/${year}-`
+            postFooterLeftTime.innerText = `${postDate}-`
 
             if(post.author === context.userId) {
                 const postEditButton = document.createElement('button')
@@ -186,12 +183,12 @@ export function renderPosts() {
 
                 if(!foundPost.likedBy.includes(foundUser.id)){
                     foundPost.likedBy.push(foundUser.id)
-                    savePosts()
+                    savePost(foundPost)
                     renderPosts()
                 } else {
                     const index = foundPost.likedBy.indexOf(foundUser.id)
                     foundPost.likedBy.splice(index, 1)
-                    savePosts()
+                    savePost(foundPost)
                     renderPosts()
                 }
             }

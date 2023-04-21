@@ -1,7 +1,8 @@
 import { validateId, validateUrl } from "./helpers/validators.js"
 import { findUserById } from "./helpers/data-managers.js"
+import { saveUser } from '../data.js'
 
-export const updateUserAvatar = (userId, avatarUrl, avatarImg, changeAvatarForm) => {
+export const updateUserAvatar = (userId, avatarUrl, avatarImg) => {
     validateId(userId, 'user id')
     validateUrl(avatarUrl, 'Avatar url')
 
@@ -11,5 +12,7 @@ export const updateUserAvatar = (userId, avatarUrl, avatarImg, changeAvatarForm)
 
     foundUser.avatar = avatarUrl
     avatarImg.src = foundUser.avatar
+
+    saveUser(foundUser)
 
 }

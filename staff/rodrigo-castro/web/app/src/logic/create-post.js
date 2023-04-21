@@ -1,6 +1,6 @@
 import { validateId, validateUrl, validateText } from './helpers/validators.js'
 import { findUserById } from './helpers/data-managers.js'
-import { posts } from '../data.js'
+import { posts, savePosts } from '../data.js'
 
 export default function createPost(userId, image, text) {
     validateId(userId)
@@ -11,9 +11,11 @@ export default function createPost(userId, image, text) {
 
     if(!user) throw new Error(`User with id ${userId} not found`) // maybe un something went wrong al usuario y este mensaje por consola
 
-    const lastPost = posts[posts.length - 1]
-
+    const _posts = posts()
+    
     let id = 'post-1'
+    
+    const lastPost = _posts[_posts.length - 1]
 
     if(lastPost)
         id = 'post-' + (parseInt(lastPost.id.slice(5)) + 1)
@@ -27,5 +29,7 @@ export default function createPost(userId, image, text) {
         likedBy: []
     }
 
-    posts.push(post)
+    _posts.push(post)
+
+    savePosts(_posts)
 }

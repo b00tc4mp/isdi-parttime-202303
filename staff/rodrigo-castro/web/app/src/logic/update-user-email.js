@@ -1,6 +1,6 @@
 import { findUserById } from './helpers/data-managers.js'
 import { validateEmail, checkNewUser } from './helpers/validators.js'
-import { users } from '../data.js'
+import { users, saveUser } from '../data.js'
 
 export const changeEmail = (userId, homePage, changeEmailMenu) => {
     var userPreviousEmail = homePage.querySelector('input[name=previous-email]').value
@@ -21,4 +21,6 @@ export const changeEmail = (userId, homePage, changeEmailMenu) => {
     changeEmailMenu.querySelector('.red-text').textContent = 'Email succesfully changed'
     changeEmailMenu.querySelector('.red-text').classList.add('green-text')
     changeEmailMenu.querySelector('form').reset()
+
+    saveUser()
 }
