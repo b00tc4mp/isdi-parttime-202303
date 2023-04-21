@@ -11,8 +11,17 @@ html {
 }
 
 :root {
+    --white: #ffffff;
+    --black: #000000;
+    --title-black: #000000cc;
     --general-color: #729fa7;
     --header-home-color: #405a5e;
+    --background-input: #dfddddcc;
+    --background-modal: #00000099;
+    --button-shadow: #0000004d;
+    --error-color: #ff0000;
+    --likes-color: #e27d1e;
+    
 }
 
 body {
@@ -30,7 +39,7 @@ body {
 .title, h2 {
     font-size: 1rem;
     font-weight: 800;
-    color: rgba(0, 0, 0, 0.8);
+    color: var(--title-black);
     line-height: 0.983rem;
     text-align: center;
 }
@@ -38,7 +47,7 @@ body {
 .home-title {
     font-size: 1.3rem;
     font-weight: 600;
-    color: #ffffff;
+    color: var(--white);
 }
 
 h2 {
@@ -46,7 +55,7 @@ h2 {
 }
 
 .register, .login, .profile, .change-password, .posts, .edit-post-form {
-    background: #ffffff;
+    background: var(--white);
     width: 14rem;
     padding: 2rem;
     display: flex;
@@ -72,7 +81,7 @@ h2 {
     position: fixed;
     top: 0;
     padding: 14px 30px 30px;
-    background-color: #405a5e;
+    background-color: var(--header-home-color);
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -91,7 +100,7 @@ h2 {
     height: 2rem;
     object-fit: cover;
     border-radius: 1rem;
-    border: 2px solid #ffffff;
+    border: 2px solid var(--white);
 }
 
 .profile {
@@ -109,9 +118,9 @@ h2 {
     height: 1.75rem;
     font-weight: 500;
     font-size: 0.625rem;
-    color: #000000;
+    color: var(--black);
     border: 0;
-    background: rgba(223, 221, 221, 0.8);
+    background: var(--background-input);
     border-radius: 0.75rem;
     padding: 0.75rem;
     outline: none;
@@ -125,12 +134,12 @@ h2 {
     width: auto;
     font-weight: 500;
     font-size: 0.75rem;
-    color: #ffffff;
+    color: var(--white);
     border: 0;
     background: var(--general-color);
     border-radius: .9rem;
     padding: 0.5rem 0.75rem;
-    box-shadow: 0 4px 7px 0 rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 7px 0 var(--button-shadow);
 }
 
 .register-button {
@@ -161,7 +170,7 @@ h2 {
 
 .login-link, .register-link, .forgot-password-link {
     font-weight: 600;
-    color: #000000;
+    color: var(--black);
 }
 
 .forgot-password-link {
@@ -172,14 +181,14 @@ h2 {
 
 .profile-link {
     font-weight: 400;
-    color: #ffffff;
+    color: var(--white);
 }
 
 .register-error, .login-error, .change-password-error, .update-avatar-error, .add-post-error, .edit-post-error {
     font-weight: 400;
     font-size: 0.563rem;
     text-align: center;
-    color: red;
+    color: var(--error-color);
     margin-top: -0.625rem;
     margin-bottom: -0.625rem;
 }
@@ -204,14 +213,14 @@ h2 {
 }
 
 .new-post-button, .edit-post-button {
-    background: #ffffff;
+    background: var(--white);
     color: var(--general-color);
     font-weight: 600;
 }
 
 .modal, .edit-post-modal {
-    background: rgba(0, 0, 0, 0.6);
-    color: #fff;
+    background: var(--background-modal);
+    color: var(--white);
     position: fixed;
     top: 0;
     left: 0;
@@ -224,8 +233,8 @@ h2 {
 }
 
 article {
-    background-color: #405a5e;
-    color: #ffffff;
+    background-color: var(--header-home-color);
+    color: var(--white);
     padding: 1rem .5rem;
     gap: .5rem;
     display: flex;
@@ -259,10 +268,30 @@ article {
     font-style: italic;
 }
 
-.likes-icon {
-    width: 1.2rem;
-    height: 1.2rem;
-    filter: opacity(.7);
+.likes-container {
+    display: flex;
+    align-items: center;
+    gap: .3rem;
+    font-size: .9rem;
+}
+
+.material-symbols-outlined {
+    align-self: flex-start;
+    font-variation-settings:
+  'FILL' 0,
+  'wght' 200,
+  'GRAD' -25,
+  'opsz' 48
+}
+
+.material-symbols-outlined.fill {
+    align-self: flex-start;
+    color: var(--likes-color);
+    font-variation-settings:
+  'FILL' 1,
+  'wght' 200,
+  'GRAD' -25,
+  'opsz' 48
 }
 
 .off {

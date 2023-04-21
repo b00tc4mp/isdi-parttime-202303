@@ -7,12 +7,10 @@ import retrieveUser from "../logic/retrieve-user.js";
 import initProfilePanel from "../components/profile-panel.js";
 import initAddPostPanel from "../components/add-post-panel.js";
 import initEditPostPanel from "../components/edit-post-panel.js";
-import { isLiked } from "../logic/liked-post.js";
+import toggleLikePost from "../logic/toggle-like-post.js";
 
 const DEFAULT_AVATAR_URL =
   "https://cdn-icons-png.flaticon.com/512/219/219989.png";
-const DEFAULT_LIKES_ICON_URL =
-  "https://cdn-icons-png.flaticon.com/512/1077/1077086.png";
 
 export const homePage = document.querySelector(".home");
 const avatarImage = document.querySelector(".home-header-avatar");
@@ -102,19 +100,46 @@ export function renderPosts() {
       image.classList.add("post-image");
       image.src = post.image;
 
-      imageContainer.append(image);
+      imageContainer.appendChild(image);
 
-      const likesIcon = document.createElement("img");
-      likesIcon.classList.add("likes-icon");
-      likesIcon.src = "https://cdn-icons-png.flaticon.com/512/1077/1077086.png";
+      const likesContainer = document.createElement("div");
+      likesContainer.classList.add("likes-container");
+
+      const likesIcon = document.createElement("span");
+      likesIcon.innerText = "favorite";
+      likesIcon.classList.add("material-symbols-outlined");
+
+      const likesText = document.createElement("p");
+
+      likesContainer.append(likesIcon, likesText);
+
+      const likeSingular = "like";
+      const likePlural = "likes";
+
+      const countLikes = (post.likes && post.likes.length) || 0;
+
+      if (countLikes > 1) {
+        likesText.innerText = `${countLikes} ${likePlural}`;
+      } else if (countLikes === 1) {
+        likesText.innerText = `${countLikes} ${likeSingular}`;
+      } else {
+        likesText.innerText = "";
+      }
+
+      if (post.likes && post.likes.includes(context.userId)) {
+        likesIcon.classList.add("fill");
+      } else {
+        likesIcon.classList.remove("fill");
+      }
 
       likesIcon.onclick = () => {
-        if (isLiked(likesIcon, DEFAULT_LIKES_ICON_URL)) {
-          likesIcon.src = DEFAULT_LIKES_ICON_URL;
-          return;
+        try {
+          toggleLikePost(context.userId, post.id);
+
+          renderPosts();
+        } catch (error) {
+          console.log(error.message);
         }
-        likesIcon.src =
-          "https://cdn-icons-png.flaticon.com/512/1216/1216686.png";
       };
 
       const text = document.createElement("p");
@@ -143,13 +168,19 @@ export function renderPosts() {
         postItem.append(
           userContainer,
           imageContainer,
-          likesIcon,
+          likesContainer,
           date,
           text,
           button
         );
       } else {
-        postItem.append(userContainer, imageContainer, likesIcon, date, text);
+        postItem.append(
+          userContainer,
+          imageContainer,
+          likesContainer,
+          date,
+          text
+        );
       }
 
       postsList.appendChild(postItem);
