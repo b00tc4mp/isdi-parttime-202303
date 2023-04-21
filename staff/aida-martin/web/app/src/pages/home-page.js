@@ -75,6 +75,7 @@ export function renderPosts() {
     posts.forEach((post) => {
       const postItem = document.createElement("article");
       const user = findUserById(post.author);
+      const currentUser = findUserById(context.userId);
 
       const userContainer = document.createElement("div");
       userContainer.classList.add("user-container-post");
@@ -138,7 +139,7 @@ export function renderPosts() {
         likesIcon.classList.remove("fill");
       }
 
-      if (user.saves && user.saves.includes(post.id)) {
+      if (currentUser.saves && currentUser.saves.includes(post.id)) {
         savesIcon.classList.add("fill");
       } else {
         savesIcon.classList.remove("fill");
