@@ -1,3 +1,6 @@
+import pop from "./pop";
+
+
 const plants = ['broccoli', 'cauliflower', 'cabbage', 'kale', 'tomato'];
 
 

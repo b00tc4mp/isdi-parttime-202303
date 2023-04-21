@@ -227,7 +227,6 @@ export function renderPosts () {
             likeIcon.onclick = () => {
                 likeAPost(context.userId, post, likeIcon, likeIconText);
             }
-
             
             const postDate = document.createElement("time");
             postDate.classList.add("home-post-content-article-date");
