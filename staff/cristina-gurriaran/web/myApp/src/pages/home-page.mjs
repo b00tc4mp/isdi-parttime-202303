@@ -3,8 +3,9 @@ console.log('load home-page')
 import {context, show, hide} from '../ui.mjs'
 import updateUserAvatar from '../logic/update-user-avatar.mjs'
 import updateUserPassword from '../logic/update-user-password.mjs'
-import createPost from '../../../myApp.2/src/logic/create-post.mjs'
+import createPost from '../logic/create-post.mjs'
 import {loginPage} from './login-page.mjs'
+import retrievePosts from '../logic/retrieve-posts.mjs'
 
 export const DEFAULT_AVATAR_URL = 'https://cdn-icons-png.flaticon.com/512/4925/4925754.png'
 
@@ -17,7 +18,12 @@ const updateUserAvatarForm = profilePanel.querySelector ('.profile-avatar-form')
 const updateUserPasswordForm = profilePanel.querySelector('.profile-password-form')
 
 const addPostPanel = homePage.querySelector('.add-post')
+const addPostForm = addPostPanel.querySelector('form')
 const addPostButton = homePage.querySelector('.add-post-button')
+
+const postListPannel = homePage.querySelector('.post-list')
+
+
 
 profileLink.onclick = function(event) {
     event.preventDefault()
@@ -72,19 +78,53 @@ updateUserPasswordForm.onsubmit = function (event) {
 
 addPostButton.onclick = () => show(addPostPanel)
 
-addPostPanel.querySelector('form').onsubmit = event => {
+addPostForm.onsubmit = event => {
     event.preventDefault()
 
     const image = event.target.image.value
     const text = event.target.text.value
-    
-    try {
+
+    try{
         createPost(context.userId, image, text)
+        hide (addPostPanel)
+        renderPosts()
 
-        alert('post created')
-
-        hide(addPostPanel)
     } catch(error) {
+        alert(error.message)
+    }
+
+}
+
+addPostForm.querySelector('.cancel').onclick = event => {
+    event.preventDefault()
+    
+    addPostForm.reset()
+    hide(addPostPanel)
+}
+
+export function renderPosts(){
+    postListPannel.innerHTML = ''
+
+    try{
+        const posts = retrievePosts(context.userId)
+
+        posts.forEach(post => {
+            const postItem = document.createElement('article')
+            const image = document.createElement('img')
+            image.src = post.image
+
+            const text = document.createElement('p')
+            text.innerText = post.text
+
+            const date = document.createElement('time')
+            date.innerText = post.date.toLocaleString()
+
+            postItem.append(image, text, date)
+
+            postListPannel.appendChild(postItem)
+        })
+
+    } catch(error){
         alert(error.message)
     }
 }

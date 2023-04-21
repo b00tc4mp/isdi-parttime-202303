@@ -26,6 +26,32 @@ users.push({
     avatar:'https://cdn-icons-png.flaticon.com/512/4925/4925812.png'
 })
 
+export const posts = []
+
+posts.push({
+    id: 'post-1',
+    author: 'user-1',
+    image: 'https://pbs.twimg.com/media/D0WAz5hXgAM68qK?format=jpg&name=medium',
+    text: 'Face malfunction',
+    date: new Date()
+})
+
+posts.push({
+    id: 'post-2',
+    author: 'user-1',
+    image: 'https://pbs.twimg.com/media/D0BnpNHWkAAynSf?format=jpg&name=medium',
+    text: '♥️ COFFEE',
+    date: new Date()
+})
+
+posts.push({
+    id: 'post-3',
+    author: 'user-2',
+    image: 'https://pbs.twimg.com/media/Dz9oo2uWkAAPVMm?format=jpg&name=medium',
+    text: 'Ideal companion',
+    date: new Date()
+})
+
 
 
 

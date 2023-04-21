@@ -1,5 +1,5 @@
 import {validateId, validatePassword} from "./helpers/validators.mjs"
-import { findUserById } from "./helpers/data-managers.mjs"
+import {findUserById} from "./helpers/data-managers.mjs"
 
 
 
@@ -26,3 +26,4 @@ export default function updateUserPassword(userId, password,newPassword,newPassw
     foundUser.password = newPassword
 
 }
+

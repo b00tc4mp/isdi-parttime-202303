@@ -26,32 +26,6 @@ users.push({
     avatar:'https://cdn-icons-png.flaticon.com/512/4925/4925812.png'
 })
 
-export const posts = []
-
-posts.push({
-    id: 'post-1',
-    author: 'user-1',
-    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/SNice.svg/1200px-SNice.svg.png',
-    text: 'Smile!',
-    date: new Date()
-})
-
-posts.push({
-    id: 'post-2',
-    author: 'user-1',
-    image: 'https://img.icons8.com/color/512/avatar.png',
-    text: 'I ♥️ Avatars!',
-    date: new Date()
-})
-
-posts.push({
-    id: 'post-3',
-    author: 'user-2',
-    image: 'https://img.icons8.com/color/512/avatar.png',
-    text: 'I ♥️ Avatars too!',
-    date: new Date()
-})
-
 
 
 

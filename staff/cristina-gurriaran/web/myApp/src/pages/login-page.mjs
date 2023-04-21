@@ -4,7 +4,7 @@ import authenticateUser from '../logic/authenticate-user.mjs'
 import retrieveUser from '../logic/retrieve-user.mjs'
 import { context, show, hide } from '../ui.mjs'
 import { registerPage } from './register-page.mjs'
-import { homePage, profileLink, avatarImage, DEFAULT_AVATAR_URL } from './home-page.mjs'
+import { homePage, profileLink, avatarImage, DEFAULT_AVATAR_URL, renderPosts } from './home-page.mjs'
 
 
 export const loginPage = document.querySelector('.login')
@@ -28,6 +28,9 @@ loginForm.onsubmit = function (event) {
         loginForm.reset()
 
         hide(loginPage)
+
+        renderPosts()
+
         show(homePage)
 
     } catch (error) {

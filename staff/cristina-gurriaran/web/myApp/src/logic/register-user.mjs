@@ -2,7 +2,7 @@ import {validateName, validateEmail,validatePassword} from './helpers/validators
 
 import {findUserByEmail} from './helpers/data-managers.mjs'
 
-import { users } from '../data.mjs'
+import {users} from '../data.mjs'
 
 export function registerUser(name, email, password) {
     validateName(name)
@@ -13,7 +13,7 @@ export function registerUser(name, email, password) {
 
     if(foundUser) 
         throw new Error ('user already exists')
-    let id = 'user -1'
+    let id = 'user-1'
 
     const lastUser = users[users.length-1]
      if (lastUser)

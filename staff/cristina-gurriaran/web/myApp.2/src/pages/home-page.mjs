@@ -3,8 +3,8 @@ console.log('load home-page')
 import {context, show, hide} from '../ui.mjs'
 import updateUserAvatar from '../logic/update-user-avatar.mjs'
 import updateUserPassword from '../logic/update-user-password.mjs'
+import createPost from '../../../myApp.2/src/logic/create-post.mjs'
 import {loginPage} from './login-page.mjs'
-import createPost from '../logic/create-post.mjs'
 
 export const DEFAULT_AVATAR_URL = 'https://cdn-icons-png.flaticon.com/512/4925/4925754.png'
 
@@ -16,9 +16,8 @@ const profilePanel = homePage.querySelector('.profile')
 const updateUserAvatarForm = profilePanel.querySelector ('.profile-avatar-form')
 const updateUserPasswordForm = profilePanel.querySelector('.profile-password-form')
 
-const addPostPanel = homePage.querySelector('add-post')
-const addPostButton = homePage.querySelector('add-post-button')
-
+const addPostPanel = homePage.querySelector('.add-post')
+const addPostButton = homePage.querySelector('.add-post-button')
 
 profileLink.onclick = function(event) {
     event.preventDefault()
