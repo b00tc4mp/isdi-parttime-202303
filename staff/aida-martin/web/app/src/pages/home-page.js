@@ -8,6 +8,7 @@ import initProfilePanel from "../components/profile-panel.js";
 import initAddPostPanel from "../components/add-post-panel.js";
 import initEditPostPanel from "../components/edit-post-panel.js";
 import toggleLikePost from "../logic/toggle-like-post.js";
+import toggleSavePost from "../logic/toggle-save-post.js";
 
 const DEFAULT_AVATAR_URL =
   "https://cdn-icons-png.flaticon.com/512/219/219989.png";
@@ -102,16 +103,21 @@ export function renderPosts() {
 
       imageContainer.appendChild(image);
 
-      const likesContainer = document.createElement("div");
-      likesContainer.classList.add("likes-container");
+      const likesAndSavesContainer = document.createElement("div");
+      likesAndSavesContainer.classList.add("likes-saves-container");
 
       const likesIcon = document.createElement("span");
       likesIcon.innerText = "favorite";
       likesIcon.classList.add("material-symbols-outlined");
 
+      const savesIcon = document.createElement("span");
+      savesIcon.innerText = "bookmark";
+      savesIcon.classList.add("material-symbols-outlined");
+      savesIcon.classList.add("saves");
+
       const likesText = document.createElement("p");
 
-      likesContainer.append(likesIcon, likesText);
+      likesAndSavesContainer.append(likesIcon, likesText, savesIcon);
 
       const likeSingular = "like";
       const likePlural = "likes";
@@ -132,9 +138,25 @@ export function renderPosts() {
         likesIcon.classList.remove("fill");
       }
 
+      if (user.saves && user.saves.includes(post.id)) {
+        savesIcon.classList.add("fill");
+      } else {
+        savesIcon.classList.remove("fill");
+      }
+
       likesIcon.onclick = () => {
         try {
           toggleLikePost(context.userId, post.id);
+
+          renderPosts();
+        } catch (error) {
+          console.log(error.message);
+        }
+      };
+
+      savesIcon.onclick = () => {
+        try {
+          toggleSavePost(context.userId, post.id);
 
           renderPosts();
         } catch (error) {
@@ -168,7 +190,7 @@ export function renderPosts() {
         postItem.append(
           userContainer,
           imageContainer,
-          likesContainer,
+          likesAndSavesContainer,
           date,
           text,
           button
@@ -177,7 +199,7 @@ export function renderPosts() {
         postItem.append(
           userContainer,
           imageContainer,
-          likesContainer,
+          likesAndSavesContainer,
           date,
           text
         );
