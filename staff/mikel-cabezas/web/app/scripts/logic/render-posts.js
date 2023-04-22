@@ -99,8 +99,6 @@ export function renderPosts(userId) {
                 const savePost = document.createElement('div')
                 savePost.classList.add('material-symbols-outlined')
 
-
-
                 likePost.classList.add('like')
                 totalLikesPost.classList.add('total-likes-post')
                 titleAndInteractions.appendChild(likePost)
@@ -128,7 +126,6 @@ export function renderPosts(userId) {
                         const usersLikedPost = document.createElement('div')
                         usersLikedPost.classList.add('users-liked-post')
                         totalLikesPost.appendChild(usersLikedPost)
-                            console.log(userId)
                         returnUserImage(usersLikedPost, userId)
                     }
                 }
@@ -168,14 +165,12 @@ export function renderPosts(userId) {
 
                 }
     
-
                 // article.likes.forEach(userId => {
                 //     const usersLikedPost = document.createElement('div')
                 //     usersLikedPost.classList.add('users-liked-post')
                 //     totalLikesPost.appendChild(usersLikedPost)
                 //     returnUserImage(usersLikedPost, userId)
                 // })
-
 
                 // users[0].likedPosts = []
                 // users[1].likedPosts = []
@@ -184,39 +179,22 @@ export function renderPosts(userId) {
                 // savePosts()
                 // saveUsers()
 
-
-
-
                 savePost.onclick = (event) => {
                     const currentUser = findUserById(userId)
                     const userLikedPosts = currentUser.likedPosts
                     const postId = article.id.slice(5)
-                    const indexFavPost = currentUser.likedPosts.findIndex(post => post === postId)
+                    const indexFavPost = currentUser.likedPosts.findIndex(post => post === article.id)
                     const findFavPost = currentUser.likedPosts.find(post => post === article.id)
-                    // console.log(userId)
-                    // console.log(indexLikedPost)
-                    // console.log(article.likes)
+
                     if(savePost.classList.contains('filled')) {
-
                         savePost.classList.remove('filled')
-                        console.log(currentUser.likedPosts)
                         currentUser.likedPosts.splice(indexFavPost, 1)
-                        console.log(currentUser.likedPosts)
-                        currentUser.likedPosts.splice(indexFavPost, 1)
-
-
                     } else {
                         if(!findFavPost) {
                             savePost.classList.add('filled')
                             currentUser.likedPosts.push(article.id)
                         }
-
-                        // if(isLikedPost !== postId) {
-                            
-                        //     currentUser.likedPosts.push(article.id)
-                        // }
                     }
-                    console.log(currentUser.likedPosts)
                     saveUsers()
                     savePosts()
                     renderPosts(userId)
@@ -237,9 +215,6 @@ export function renderPosts(userId) {
                     if(likePost.classList.contains('filled')) {
 
                         likePost.classList.remove('filled')
-                        console.log(currentUser.likedPosts)
-                        currentUser.likedPosts.splice(indexLikedPost, 1)
-                        console.log(currentUser.likedPosts)
                         article.likes.splice(indexLikedPost, 1)
                         if (article.likes.length === 0) {
                             totalLikesPost.innerText = ''

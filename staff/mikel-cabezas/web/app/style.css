@@ -570,14 +570,13 @@ time.post-date {
 
 .posts {
     display: flex;
-    /* flex-direction: column; */
     flex-wrap: wrap;
     width: 100%;
     position: relative;
     align-self: center;
-    padding: 20px 0;
+    padding: 20px;
     justify-content: center;
-}
+    box-sizing: border-box;}
 
 article {
     position: relative;
@@ -855,12 +854,14 @@ a.user-theme {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    align-items: center;
+    padding: 5px 0 2px;
 }
 
 .posts .users-liked-post .post-author {
-    margin-bottom: 10px;
     position: relative;
     margin-right: -10px;
+    margin-bottom: 0;
 }
 .users-liked-post:first-child {
     margin-left: 10px;
