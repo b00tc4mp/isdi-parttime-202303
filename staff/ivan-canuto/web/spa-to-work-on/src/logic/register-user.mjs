@@ -3,6 +3,7 @@ import {findUserByEmail} from './helpers/data-manager.js'
 import {saveUsers, users} from '../data.js'
 
 export function registerUser(name, email, password) {
+  const usersApp = users()
 
   validateName(name)
   validateEmail(email)
@@ -16,10 +17,10 @@ export function registerUser(name, email, password) {
 
   let id = 'user-1'
   
-  let lastUser = users[users.length - 1]
+  let lastUser = usersApp[usersApp.length - 1]
   if(lastUser) id = 'user-' + (parseInt(lastUser.id.slice(5)) + 1)
 
-  users.push({
+  usersApp.push({
       id,
       name,
       email,
@@ -28,5 +29,5 @@ export function registerUser(name, email, password) {
       favPosts: []
   })
 
-  saveUsers()
+  saveUsers(usersApp)
 }

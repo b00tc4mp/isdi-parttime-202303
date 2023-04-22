@@ -1,7 +1,9 @@
 import { users, saveUsers } from '../data.js'
+import { findUserById } from './helpers/data-manager.js'
 
 export const saveFavoritePost = (userId, postId, renderedPost)=>{
-  const user = users.find(user => user.id === userId)
+  const usersApp = users()
+  const user = findUserById(userId)
   const favIcon = renderedPost.querySelector('.favorite-icon')
 
   if(!user.favPosts.includes(postId)) {
@@ -14,5 +16,5 @@ export const saveFavoritePost = (userId, postId, renderedPost)=>{
     const indexIcon = user.favPosts.indexOf(postId)
     user.favPosts.splice(indexIcon, 1)
   }
-  saveUsers()
+  saveUsers(usersApp)
 }

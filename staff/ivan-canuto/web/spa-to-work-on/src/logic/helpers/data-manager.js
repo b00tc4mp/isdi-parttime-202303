@@ -1,24 +1,26 @@
-import {users} from '../../data.js'
+import { users } from '../../data.js'
 
 export const findUserByEmail = (email)=> {
+  const usersApp = users()
   let user;
-
-  for (let i = 0; i < users.length; i++) {
+  
+  for (let i = 0; i < usersApp.length; i++) {
     
-    if (users[i].email === email) {
-      user = users[i];
+    if (usersApp[i].email === email) {
+      user = usersApp[i];
       return user;
     }
   }
 }
 
 export const findUserById = (userId)=> {
+  const usersApp = users()
   let user;
 
-  for (let i = 0; i < users.length; i++) {
+  for (let i = 0; i < usersApp.length; i++) {
     
-    if (users[i].id === userId) {
-      user = users[i];
+    if (usersApp[i].id === userId) {
+      user = usersApp[i];
       return user;
     }
   }

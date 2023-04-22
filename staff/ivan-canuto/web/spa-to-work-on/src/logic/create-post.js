@@ -1,8 +1,11 @@
 import { findUserById } from "./helpers/data-manager.js"
 import { validateUrl, validateId, validateText } from "./helpers/validators.js"
-import { posts, savePosts } from '../data.js'
+import { savePosts, posts } from '../data.js'
+import { renderPost } from "./render-post.js"
 
 export const createPost = (userId, postUrl, postText)=>{
+  const postsApp = posts()
+
   validateId(userId, 'user id')
   let user = findUserById(userId)
   if (!user) throw new Error('User not found.')
@@ -11,7 +14,7 @@ export const createPost = (userId, postUrl, postText)=>{
   validateText(postText)
 
   let id = 'post-1'
-  const lastPost = posts[posts.length - 1]
+  const lastPost = postsApp[postsApp.length - 1]
   if (lastPost) id = 'post-' + (parseInt(lastPost.id.slice(5)) + 1)
 
   let date = new Date()
@@ -23,7 +26,8 @@ export const createPost = (userId, postUrl, postText)=>{
     date: date.toLocaleDateString(),
     likes: []
   }
-  posts.push(post)
+  postsApp.push(post)
 
-  savePosts()
+  savePosts(postsApp)
+  renderPost()
 }

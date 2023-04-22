@@ -1,4 +1,4 @@
-export const users = 'usersJson' in localStorage? JSON.parse(localStorage.usersJson) : []
+export const users = () => 'usersJson' in localStorage? JSON.parse(localStorage.usersJson) : []
 
 // users.push({
 //     id: 'user-1',
@@ -27,7 +27,7 @@ export const users = 'usersJson' in localStorage? JSON.parse(localStorage.usersJ
 //     favPosts: []
 // })
 
-export const posts = 'postsJson' in localStorage? JSON.parse(localStorage.postsJson) : []
+export const posts = () => 'postsJson' in localStorage? JSON.parse(localStorage.postsJson) : []
 let date = new Date()
 
 // posts.push({
@@ -57,10 +57,10 @@ let date = new Date()
 //     likes: []
 // })
 
-export const saveUsers = () => {
+export const saveUsers = (users) => {
     localStorage.usersJson = JSON.stringify(users)
 }
 
-export const savePosts = () => {
+export const savePosts = (posts) => {
     localStorage.postsJson = JSON.stringify(posts)
 }

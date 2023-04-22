@@ -1,13 +1,11 @@
-import { createdPosts, homePage } from "../pages/home-page.js"
+import { createdPosts } from "../pages/home-page.js"
 import { retrievePosts } from "./retrieve-posts.js"
-import { addOffClass, context, removeOffClass } from "../ui.js"
-import { selectPost, unselectPost } from "../logic/select-post.js"
-import { updatePost } from "./update-post.js"
+import { context } from "../ui.js"
 import { users } from "../data.js"
 import initUserPostPanel from "../components/user-post-panel.js"
-import initEditPostPanel from "../components/edit-post-panel.js"
 
 export const renderPost = ()=>{
+  const usersApp = users()
   try {
       const posts = retrievePosts(context.userId)
       createdPosts.innerHTML = ''
@@ -57,7 +55,7 @@ export const renderPost = ()=>{
       likeIcon.classList.add('heart-icon', 'off')
       likesInPost.classList.add('likes-post', 'off')
 
-      const user = users.find(user => user.id === post.author)
+      const user = usersApp.find(user => user.id === post.author)
       avatarAuthorPost.src = user.avatar
       postAuthor.textContent = post.author
       userPost.id = post.id
@@ -86,8 +84,6 @@ export const renderPost = ()=>{
       closePostButton.classList.add('close-post-button')
       closePostButton.textContent = 'Close'
       popUpWindow.appendChild(closePostButton)
-
-      
 
       createdPosts.appendChild(postContainer)
     })

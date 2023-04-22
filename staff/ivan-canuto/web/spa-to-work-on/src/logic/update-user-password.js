@@ -1,7 +1,10 @@
+import { saveUsers } from '../data.js'
 import {findUserById} from './helpers/data-manager.js'
 import {validatePassword} from './helpers/validators.js'
+import { users } from '../data.js'
 
 export function updateUserPassword(email, password, newPassword, newPasswordConfirm) {
+  const usersApp = users()
 
   var user = findUserById(email)
   if (!user) throw new Error('User not found')
@@ -14,4 +17,5 @@ export function updateUserPassword(email, password, newPassword, newPasswordConf
   if (newPassword !== newPasswordConfirm) throw new Error('New passwords do not match.')
 
   user.password = newPassword
+  saveUsers(usersApp)
 }

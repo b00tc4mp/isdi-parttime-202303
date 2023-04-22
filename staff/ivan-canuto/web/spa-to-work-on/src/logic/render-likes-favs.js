@@ -1,13 +1,15 @@
-import { posts, users } from "../data.js";
+import { posts } from "../data.js";
 import { createdPosts } from "../pages/home-page.js";
 import { context } from "../ui.js";
+import { findUserById } from "./helpers/data-manager.js";
 
 export const renderLikesAndFavs = ()=>{
+  const postsApp = posts()
   const allRenderedPosts = createdPosts.querySelectorAll('.user-post')
-  const user = users.find(acutalUser => acutalUser.id === context.userId)
+  const user = findUserById(context.userId)
 
   // To mark like icon
-  posts.forEach(post => {
+  postsApp.forEach(post => {
     let renderedPost;
     allRenderedPosts.forEach(userPost => {
       if(userPost.id === post.id) renderedPost = userPost

@@ -1,8 +1,9 @@
 import { updatePost } from "../logic/update-post.js"
 import { renderPost } from "../logic/render-post.js"
 import { addOffClass, removeOffClass, context } from "../ui.js"
-import { selectPost, unselectPost } from "../logic/select-post.js"
+import { selectPost, unselectPost } from "../logic/select-unselect-post.js"
 import { posts } from "../data.js"
+import { homePage } from "../pages/home-page.js"
 
 export default function initEditPostPanel (userPost, userId, editPostPage, editPostForm) {
   const likeIcon = userPost.querySelector('.heart-icon')
@@ -11,7 +12,7 @@ export default function initEditPostPanel (userPost, userId, editPostPage, editP
   const popUpWindow = userPost.parentElement.querySelector('.pop-up-window')
   const underImage = userPost.querySelector('.under-image')
   
-  const post = posts.find(post => post.id === userPost.id)
+  const post = posts().find(post => post.id === userPost.id)
   unselectPost(userPost, likeIcon, likesInPost, favoriteIcon, popUpWindow, underImage)
   context.postId = userPost.id
   removeOffClass(editPostPage)

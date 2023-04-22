@@ -1,4 +1,4 @@
-import { selectPost, unselectPost } from "../logic/select-post.js"
+import { selectPost, unselectPost } from "../logic/select-unselect-post.js"
 import { context } from "../ui.js"
 import { homePage } from "../pages/home-page.js"
 import initEditPostPanel from "./edit-post-panel.js"

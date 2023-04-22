@@ -1,14 +1,16 @@
 import { posts, savePosts } from "../data.js"
 import { findUserById } from "./helpers/data-manager.js"
 import { validateId } from "./helpers/validators.js"
+import { renderPost } from "./render-post.js"
 
 export const likePost = (userId, postId, renderedPost)=>{
+  const postsApp = posts()
   validateId(userId, 'user id')
   let user = findUserById(userId)
   if(!user) throw new Error(`User with ${userId} not found`)
 
   validateId(postId, 'post id')
-  const post = posts.find(post => post.id === postId)
+  const post = postsApp.find(post => post.id === postId)
   if(post === undefined) throw new Error('There must be an error, post not found')
 
   const icon = renderedPost.querySelector('.heart-icon')
@@ -28,9 +30,8 @@ export const likePost = (userId, postId, renderedPost)=>{
     let indexUserId = post.likes.indexOf(userId)
     post.likes.splice(indexUserId, 1)
   }
-  savePosts()
+  savePosts(postsApp)
 }
-renderedPost()
 
 
 // export const likePost = (userId, postId, post)=>{
