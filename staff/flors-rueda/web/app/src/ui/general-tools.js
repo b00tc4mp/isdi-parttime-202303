@@ -93,7 +93,10 @@ export const controlUsernameInput = (input) => {
     username = input.value
   }
   input.value = username
-}
+};
 
-//TODO: add validators to print post, plus try catch -> validate user is logged, 
+export const stripHTML = (text) => {
+  const regexRule = /(<([^>]+)>)/ig;
+  return text.replace(regexRule, '');
+};
 

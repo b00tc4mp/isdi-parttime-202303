@@ -1,9 +1,11 @@
 import { saveFavorites, savePosts } from './data/posts/data-managers.js';
 import { favorites } from './data/posts/data.js'
 import { validatePostExists } from './data/posts/validators.js';
+import { validateUserID } from './data/users/validators.js';
 
 
 export const toggleFav = (postId, userId) => {
+  validateUserID(userId);
   validatePostExists(postId);
   const index = favorites.findIndex(favorite => favorite.postId === postId);
   if (index === -1) {

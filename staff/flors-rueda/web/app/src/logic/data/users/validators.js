@@ -65,6 +65,4 @@ export const validateUserID = (id) => {
   if(typeof id !== 'string') throw new Error('id is not a string');
   if(!id.trim().length) throw new Error('id is empty');
   if(!isIdRegistered(id)) throw new Error('id does not exist');
-  const regexRule = /^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/;
-  if(!regexRule.test(id)) throw new Error('id format is not correct');
 };

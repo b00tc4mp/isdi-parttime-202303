@@ -5,9 +5,9 @@ import { validateUserID } from './data/users/validators.js';
 
 export const updatePost = (newText, newPostImg, id, userId) => {
   validatePostExists(id);
+  validateUserID(userId);
   const originalPost = posts.filter((post) => { if (post.id === id) return post })[0];
   validatePostAuthor(originalPost, userId);
-  validateUserID(userId);
   if(newPostImg) validatePostImage(newPostImg);
   validatePostText(newText);
   const editedPost = originalPost;

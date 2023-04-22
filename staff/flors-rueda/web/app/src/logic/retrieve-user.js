@@ -1,6 +1,8 @@
 import users from './data/users/data.js'
+import { validateUserID } from './data/users/validators.js';
 
 export const retrieveUser = (id) => {
+  validateUserID(id);
   const loginUser = users.filter((user) => user.id === id);
   let user = {
     username: loginUser[0].username,

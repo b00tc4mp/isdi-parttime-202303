@@ -4,7 +4,8 @@ import { validatePostExists } from './data/posts/validators.js';
 
 
 export const toggleLike = (postId, userId) => {
-  validatePostExists(postId)
+  validateUserID(userId);
+  validatePostExists(postId);
   const index = posts.findIndex(post => post.id === postId);
   const userIndex = posts[index].likes.indexOf(userId);
   if (userIndex === -1) {

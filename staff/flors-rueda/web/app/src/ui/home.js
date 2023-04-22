@@ -1,4 +1,4 @@
-import { toggleOff, setOn, setOff, clearForms, resetAlerts, setAlert, setPredeterminateAvatar,} from './general-tools.js';
+import { toggleOff, setOn, setOff, clearForms, resetAlerts, setAlert, setPredeterminateAvatar, stripHTML,} from './general-tools.js';
 import { updateUserAvatar, updateUserMail, updateName, updateUsername } from '../logic/update-user-data.js';
 import { updateUserPassword } from '../logic/update-user-password.js';
 import { retrieveUser } from '../logic/retrieve-user.js'
@@ -50,8 +50,8 @@ export const setNewMail = (userAuth, profileButtons, editProfile) => {
 }
 
 export const setNewUserInfo = (userAuth, profileButtons, newAvatar) => {
-  resetAlerts();
-  const newName = document.querySelector('.edit-form').querySelector('input[name="display-name"]').value;
+  resetAlerts(); 
+  const newName = stripHTML(document.querySelector('.edit-form').querySelector('input[name="display-name"]').value);
   const newUsername = document.querySelector('.edit-form').querySelector('input[name="username"]').value;
   const password = document.querySelector('.edit-form').querySelector('input[name="password"]').value;
   if(newName) updateName(userAuth, newName, password);

@@ -1,13 +1,17 @@
 import { updatePost } from '../logic/update-post.js';
 import { uploadPost } from '../logic/upload-post.js';
-import { clearForms, getImgUrl, setOn, toggleOff, setOff} from '../ui/general-tools.js';
+import { clearForms, getImgUrl, setOn, toggleOff, setOff, stripHTML} from '../ui/general-tools.js';
 import initPostsList from './posts-list.js';
 
 
-export default function initPostModal(userAuth) {
+export default function initPostModal(context) {
+    
+
     const addPostModal = document.querySelector('.post-modal');
 
     const openPostModal = (previousPost) => {
+        const userAuth = context.userAuth
+        console.log('context:', context, '\nuserAuth:', userAuth)
         const title = document.querySelector('.modal-title');
         const button = document.querySelector('.save-post');
         const modalContent = document.querySelector('.post-modal-content');
@@ -94,14 +98,17 @@ export default function initPostModal(userAuth) {
     sendPost.addEventListener('submit', (event) => {
         event.preventDefault();
         try {
+            const userAuth = context.userAuth
             const newPostText = newPostTextInput.value;
-            post(newPostImg, newPostText, userAuth);
+            const cleanText = stripHTML(newPostText)
+            post(newPostImg, cleanText, userAuth);
         } catch (error) {
             console.error(error);
         }
     });
 
-    const post = (postImg, postText, userAuth) => {
+    const post = (postImg, postText) => {
+        const userAuth = context.userAuth
         if (addPostModal.classList.contains('creating'))
             uploadPost(postImg, postText, userAuth);
         else {

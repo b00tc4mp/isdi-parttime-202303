@@ -1,9 +1,10 @@
 import users from './data/users/data.js';
-import { validateName, validateUserPassword, validateMail, validateNewUsername, validateAvatarUrl } from './data/users/validators.js';
+import { validateName, validateUserPassword, validateMail, validateNewUsername, validateAvatarUrl, validateUserID } from './data/users/validators.js';
 import { saveUsers } from './data/users/data-managers.js';
 
 export const updateName = (id, newName, password) => {
   validateName(newName)
+  validateUserID(id);
   validateUserPassword(id, password)
   users.filter((user) => {
     if (user.id === id) user.name = newName;
@@ -13,6 +14,7 @@ export const updateName = (id, newName, password) => {
   
 export const updateUserMail = (id, newMail, password) => {
   validateMail(newMail)
+  validateUserID(id);
   validateUserPassword(id, password)
   users.filter((user) => {
     if (user.id === id) user.mail = newMail;
@@ -22,6 +24,7 @@ export const updateUserMail = (id, newMail, password) => {
   
 export const updateUserAvatar = (id, newAvatar, password) => {
   validateAvatarUrl(newAvatar)
+  validateUserID(id);
   validateUserPassword(id, password)
   users.filter((user) => {
     if (user.id === id) user.avatar = newAvatar
@@ -32,6 +35,7 @@ export const updateUserAvatar = (id, newAvatar, password) => {
 export const updateUsername = (id, newUsername, password) => {
   let username = '@' + newUsername.toLowerCase()
   validateNewUsername(username)
+  validateUserID(id);
   validateUserPassword(id, password)
   users.filter((user) => {
     if (user.id === id) user.username = username
