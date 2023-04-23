@@ -10,14 +10,6 @@ import getHomePage from '../components/get-home-page.js';
 const homePage = getHomePage(),
   postListPanel = homePage.querySelector('.post-list');
 
-const createEditButton = (post) => {
-  const buttonEdit = document.createElement('button');
-  buttonEdit.classList.add('button-edit');
-  buttonEdit.innerText = 'Edit';
-  buttonEdit.onclick = () => initEditPostPanel(post);
-  return buttonEdit;
-};
-
 const createAuthorElement = (post) => {
   const author = document.createElement('p');
   author.classList.add('post-author');
@@ -33,6 +25,14 @@ const createAvatarElement = (post) => {
   avatar.src = avatarAuthor;
 
   return avatar;
+};
+
+const createEditButton = (post) => {
+  const buttonEdit = document.createElement('button');
+  buttonEdit.classList.add('button-edit');
+  buttonEdit.innerText = 'Edit';
+  buttonEdit.onclick = () => initEditPostPanel(homePage, post);
+  return buttonEdit;
 };
 
 const renderPostHeader = (post) => {
