@@ -1,28 +1,36 @@
-import { posts, savePost } from '../data';
-import { getPostById } from './helpers/data-managers';
+import { savePost } from '../data';
+import { findUserById, findPostById } from './helpers/data-managers';
 import { validateId } from './helpers/validators';
-import retrieveUser from './retrieve-user';
 
-const handleLikes = (postId, userId) => {
+const toggleLikesPost = (postId, userId) => {
   validateId(userId, 'user id');
   validateId(postId, 'post id');
 
-  const post = getPostById(postId),
-    user = retrieveUser(userId),
-    userIndex = post.likesUsers.indexOf(user.name);
+  const user = findUserById(userId);
+  if (!user) throw new Error(`user with id ${userId} not found`);
 
+  const post = findPostById(postId);
   if (!post) throw new Error('post doesnt exist');
 
-  if (userIndex === -1) {
-    post.likesUsers.push(user.name);
+  if (!post.likesUsers) {
+    post.likesUsers = [user.info.name];
   } else {
-    post.likesUsers.splice(userIndex, 1);
+    const userIndex = post.likesUsers.indexOf(user.info.name);
+
+    if (userIndex < 0) {
+      post.likesUsers.push(user.info.name);
+    } else {
+      post.likesUsers.splice(userIndex, 1);
+
+      if (!post.likesUsers.length) {
+        delete post.likesUsers;
+      }
+    }
   }
 
-  post.likesCount = post.likesUsers.length;
-  savePost();
+  savePost(post);
 
   return post;
 };
 
-export default handleLikes;
+export default toggleLikesPost;
