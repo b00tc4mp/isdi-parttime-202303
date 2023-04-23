@@ -95,10 +95,13 @@ export function renderPosts() {
             const postCaptionAndLike = document.createElement('div')
 
             const postCaption = document.createElement('p')
-            postCaption.innerText = post.text
+            
+            const postCaptionBold = document.createElement('b')
+            postCaptionBold.innerText = post.text
 
+            
             const likesContainer = document.createElement('div')
-
+            
             const likesCounter = document.createElement('p')
             
             if((post.likedBy).length > 1) {
@@ -106,29 +109,30 @@ export function renderPosts() {
             } else if((post.likedBy).length > 0){
                 likesCounter.innerText = `${(post.likedBy).length} like`
             }
-
+            
             const likeButton = document.createElement('button')
             likeButton.classList.add('like-button')
-
+            
             const likeHeart = document.createElement('i')
             likeHeart.classList.add('uil')
             likeHeart.classList.add('uil-heart-sign')
             if(post.likedBy.includes(context.userId))
-                likeHeart.classList.add('liked')
-
+            likeHeart.classList.add('liked')
+            
             likeButton.append(likeHeart)
-
+            
             likesContainer.append(likesCounter, likeButton)
-
+            
+            postCaption.append(postCaptionBold)
             postCaptionAndLike.append(postCaption, likesContainer)
-
+            
             const postFooter = document.createElement('div')
 
             const postFooterLeft = document.createElement('div')
 
             const postFooterLeftTime = document.createElement('time')
-            
-            const postDate = post.date.toLocaleString()
+
+            const postDate = post.date.toLocaleString('en-UK')
 
             // const day = postDate.getDate().toString().padStart(2, '0')
             // const month = (postDate.getMonth() + 1).toString().padStart(2, '0')

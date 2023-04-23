@@ -56,6 +56,9 @@ Curri.prototype.map = function map(callback) {
 }
 
 Curri.prototype.at = function(index) {
+    if(index === undefined)
+        index = 0
+
     if(index >= 0){
         for(let i = 0; i < this.length; i++){
             if(i === index){
@@ -74,15 +77,19 @@ Curri.prototype.at = function(index) {
 }
 
 Curri.prototype.concat = function(...arrays) {
-    let result = this
+    let result = new Curri
+    for(let i = 0; i < this.length; i++){
+        result[i] = this[i]
+    }
     let counter = this.length
     for(let i = 0; i < arrays.length; i++){
         for(let j = 0; j < arrays[i].length; j++){
             result[counter] = arrays[i][j]
             counter++
         }
-        this.length = this.length + arrays[i].length
+        // result.length = result.length + arrays[i].length
     }
+    result.length = counter
     return result
 }
 
@@ -125,11 +132,15 @@ Curri.prototype.fill = function(fillElement, startElement = 0, endElement = this
 }
 
 Curri.prototype.filter = function(callback) {
-    let result = []
+    let result = new Curri
+    let counter = 0
     for(let i = 0; i < this.length; i++){
-        if(callback(this[i]))
-            result.push(this[i])
+        if(callback(this[i])){
+            result[counter] = this[i]
+            counter++
+        }
     }
+    result.length = counter
     return result
 }
 
