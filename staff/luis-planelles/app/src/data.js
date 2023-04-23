@@ -5,14 +5,6 @@ const users = () => {
   return users;
 };
 
-const posts = () => {
-  const posts =
-    'postsJson' in localStorage ? JSON.parse(localStorage.postsJson) : [];
-  posts.forEach((post) => (post.date = new Date(post.date)));
-
-  return posts;
-};
-
 const saveUsers = (users) => {
   localStorage.usersJson = JSON.stringify(users);
 };
@@ -29,6 +21,14 @@ const saveUser = (user) => {
   }
 
   saveUsers(_users);
+};
+
+const posts = () => {
+  const posts =
+    'postsJson' in localStorage ? JSON.parse(localStorage.postsJson) : [];
+  posts.forEach((post) => (post.date = new Date(post.date)));
+
+  return posts;
 };
 
 const savePosts = (posts) => {
