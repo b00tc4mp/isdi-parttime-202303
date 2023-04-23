@@ -147,6 +147,16 @@ textarea {
   width: 8rem;
 }
 
+.login-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background-color: red;
+  max-width: 270px;
+  padding: 0.5rem;
+  box-sizing: border-box;
+}
+
 .home {
   padding-top: 4rem;
   padding-bottom: 4rem;
@@ -247,6 +257,7 @@ textarea {
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  padding: 0.3rem;
 }
 
 .likes-count {
