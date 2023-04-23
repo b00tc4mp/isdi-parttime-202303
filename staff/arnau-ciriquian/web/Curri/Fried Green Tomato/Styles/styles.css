@@ -6,7 +6,8 @@ html {
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-around;
+    gap: 1rem;
+    margin-left: 1rem;
 }
 
 h1, h2, h3, p, header {

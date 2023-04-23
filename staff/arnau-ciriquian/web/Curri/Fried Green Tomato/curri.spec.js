@@ -1,5 +1,5 @@
 import Curri from "./curri.js";
-import { describe, it, expect, objectsList, methodsList, itsList } from "./fried-green-tomato.js";
+import { describe, it, expect } from "./fried-green-tomato.js";
 
 describe('Curri', () => {
     describe('constructor', () => {

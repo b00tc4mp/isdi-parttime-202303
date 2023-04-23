@@ -4,9 +4,7 @@ testVersion.innerText = `v: ${version}`
 const testTittle = document.querySelector('.test-tittle')
 testTittle.append(testVersion)
 const testFeed = document.querySelector('.test-feed')
-export const objectsList = []
-export const methodsList = []
-export let itsList = []
+
 let lastItem
 let objectContainer
 let methodContainer
@@ -15,7 +13,6 @@ let methodContainer
 export function describe (description, callback) {
     
     if (!lastItem) {
-        objectsList.push(description)
         lastItem = 'describe'
         
         objectContainer = document.createElement('article')
@@ -27,10 +24,9 @@ export function describe (description, callback) {
         objectContainer.append(objectName)
         testFeed.append(objectContainer)
     } else if (lastItem === 'describe' || lastItem === 'it') {
-        methodContainer = document.createElement('article')
-        methodsList.push(description)
         lastItem = 'describe'
-
+        
+        methodContainer = document.createElement('article')
         methodContainer.classList.add('test-feed__method')
 
         const methodName = document.createElement('h2')
@@ -44,10 +40,6 @@ export function describe (description, callback) {
 }
 
 export function it (description, callback) {
-    if (lastItem === 'describe') {
-        itsList = []
-    }
-
     const itContainer = document.createElement('article')
     itContainer.classList.add('test-feed__it')
                 
