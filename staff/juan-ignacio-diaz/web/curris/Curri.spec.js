@@ -1,5 +1,68 @@
 import Curri from './Curri.js'
 
+describe('Curri', () => {
+    describe('constructor', () => {
+        it('should create a new instance with the given elements', () => {
+            const c = new Curri(10, 20, 30)
+
+            expect(c).toBeInstanceOf(Curri)
+            expect(c.length).toBe(3)
+            expect(c[0]).toBe(10)
+            expect(c[1]).toBe(20)
+            expect(c[2]).toBe(30)
+        })
+
+        it('should create a new instance with no elements and the length of the given numeric argument', function() {
+            const c = new Curri(10)
+
+            expect(c).toBeInstanceOf(Curri)
+            expect(c.length).toBe(10)
+        })
+
+        // const c3 = new Curri(true)
+        // console.log(c3)
+        // // Curri { 0: true, length: 1 }
+    })
+})
+
+describe('push', () => {
+    describe('method push', () => {
+        it('should add first element', () => {
+            const c = new Curri
+
+            const count = animals.push('cows');
+
+            expect(count).toBe(1)
+            expect(c[0]).toBe('cows')
+        })
+
+        it('should add three elements chickens, cats, dogs', function() {
+            const c = new Curri
+
+            let count = c.push('cows');
+            count = c.push('chickens', 'cats', 'dogs');
+
+            expect(count).toBe(4)
+            expect(c[0]).toBe('cows')
+            expect(c[1]).toBe('chickens')
+            expect(c[2]).toBe('cats')
+            expect(c[3]).toBe('dogs')
+        })
+
+    })
+})
+
+
+
+
+
+
+
+
+/*
+/////////////////////////
+import Curri from './Curri.js'
+
 
 
 ////////////////////
@@ -88,7 +151,7 @@ const cfe = new Curri
 cfe.push('A', 'B', 'C')
 cfe.forEach(elem => console.log(elem))
 
-
+*/
 /*
 const cf2 = c.map(elem => elem.toLowerCase())
 cf2.forEach(elem => console.log(elem))

@@ -5,6 +5,8 @@ import { msAlert } from "./alert-page.js"
 
 import retrieveUser from "../logic/retrieve-user.js"
 import retrievePosts from "../logic/retrieve-posts.js"
+import toggleLikePost from "../logic/toggle-like-post.js"
+import toggleSavePost from "../logic/toggle-save-post.js"
 
 import initProfilePanel from "../components/profile-panel.js"
 import initAddPostPanel from "../components/add-post-panel.js"
@@ -42,6 +44,7 @@ addPostButton.onclick = () => show(addPostPanel)
 export function renderPosts() {
     try {
         const posts = retrievePosts(context.userId)
+        const activeUser = retrieveUser(context.userId)
 
         postListPanel.innerHTML = ""
 
@@ -106,6 +109,37 @@ export function renderPosts() {
                 else {
                     postInfo.append(date)
                 }
+
+                const likeButton = document.createElement('button')
+                const countLikes = post.likes && post.likes.length || 0
+                likeButton.innerText = post.likes && post.likes.includes(context.userId) ? `❤️ (${countLikes})` : `🤍 (${countLikes})`
+                
+                likeButton.onclick = function() {
+                    try {
+                        toggleLikePost(context.userId, post.id)
+    
+                        renderPosts()
+                    } catch(error) {
+                        alert(error.message)
+                    }
+                }
+
+                postItem.appendChild(likeButton)
+
+                const savePostButton = document.createElement('button')
+                savePostButton.innerText = activeUser.savePosts && activeUser.savePosts.includes(post.id)? `Saved` : `Unsaved`      
+                      
+                savePostButton.onclick = function() {
+                    try {
+                        toggleSavePost(context.userId, post.id)
+    
+                        renderPosts()
+                    } catch(error) {
+                        alert(error.message)
+                    }
+                }
+
+                postItem.appendChild(savePostButton)
 
                 if ("dateLastModified" in post) {
                     const dateLastModified = document.createElement("time")

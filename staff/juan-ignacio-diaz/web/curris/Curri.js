@@ -1,5 +1,24 @@
-function Curri(){
-    this.length = 0
+function Curri() {
+    if (arguments.length === 1 && typeof arguments[0] === 'number') {
+        this.length = arguments[0]
+    } else {
+        for (let i = 0; i < arguments.length; i++)
+            this[i] = arguments[i]
+
+        this.length = arguments.length
+    }
+}
+
+Curri.of = function () {
+    const c = new Curri
+
+    for (let i = 0; i < arguments.length; i++) {
+        c[i] = arguments[i]
+
+        c.length++
+    }
+
+    return c
 }
 
 Curri.prototype.push  = function(...elements) {

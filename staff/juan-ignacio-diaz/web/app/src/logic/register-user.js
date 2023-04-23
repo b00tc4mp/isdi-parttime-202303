@@ -10,12 +10,14 @@ export default function registerUser (name, email, password) {
     if (findUserByEmail(email)) 
         throw new Error("user already exists")
 
-    users.push ({
+    const tmpUsers = users()
+    
+    tmpUsers.push({
         id: newUserId(),
         name: name,
         email: email,
         password: password
     })
 
-    saveUsers()
+    saveUsers(tmpUsers)
 }

@@ -11,15 +11,15 @@ export default function createPost(userId, image, text) {
 
     if (!user) throw new Error(`user with id ${userId} not found`)
 
-    const post = {
+    const tmpPosts = posts()
+
+    tmpPosts.push({
         id: newPostId(),
         author: userId,
         image,
         text,
         date: new Date
-    }
+    })
 
-    posts.push(post)
-
-    savePosts()
+    savePosts(tmpPosts)
 }

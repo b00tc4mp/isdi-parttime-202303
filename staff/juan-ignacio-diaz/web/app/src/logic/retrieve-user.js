@@ -9,11 +9,14 @@ export default function retrieveUser(userId) {
    
     const user = {
         id: foundUser.id,
-        name: foundUser.name,
+        name: foundUser.name
     }
 
     if (foundUser.avatar)
         user.avatar = foundUser.avatar
+
+    if (foundUser.savePosts)
+        user.savePosts = foundUser.savePosts
 
     return user
 }

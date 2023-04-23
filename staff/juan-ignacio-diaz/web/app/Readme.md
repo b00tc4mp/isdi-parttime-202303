@@ -38,4 +38,7 @@ as a client i want to write a text and choose an image from disk and a create a 
 - TODO
 - añadir botones de + y -
 - metodo de actulizacion del post
-- recargar el post y posicionarlo donde estaba
+
+## Save / unsave in post
+
+- TODO

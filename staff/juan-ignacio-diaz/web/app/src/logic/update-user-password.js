@@ -1,6 +1,6 @@
 import { validateId, validatePassword } from './helpers/validators.js'
 import { findUserById } from './helpers/data-managers.js'
-import { saveUsers } from '../data.js'
+import { saveUser } from '../data.js'
 
 export default function updateUserPassword(userId, password, newPassword, newPasswordConfirm) {
     validateId(userId)
@@ -19,5 +19,5 @@ export default function updateUserPassword(userId, password, newPassword, newPas
 
     user.password = newPassword
 
-    saveUsers()
+    saveUser(user)
 }
