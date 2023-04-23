@@ -1,7 +1,7 @@
 //
 import { findUserById } from './helpers/data-managers.js';
-import { updatePasswordValidation } from './helpers/validators.js';
-import { saveUsers } from '../data.js';
+import { validateId, updatePasswordValidation } from './helpers/validators.js';
+import { saveUser } from '../data.js';
 
 const updateUserPassword = (
   userId,
@@ -9,6 +9,8 @@ const updateUserPassword = (
   newPassword,
   newPasswordConfirm
 ) => {
+  validateId(userId, 'user id');
+
   const foundUser = findUserById(userId);
   if (!foundUser) throw new Error("user doesn't exists");
 
@@ -20,7 +22,7 @@ const updateUserPassword = (
   );
   foundUser.info.password = newPasswordValid;
 
-  saveUsers();
+  saveUser(foundUser);
 };
 
 export default updateUserPassword;

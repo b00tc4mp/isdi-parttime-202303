@@ -1,11 +1,14 @@
 import { users, posts } from '../data.js';
+import { validateId } from './helpers/validators.js';
 
 const retrievePosts = (userId) => {
-  const found = users.some((user) => user.id === userId);
+  validateId(userId, 'user id');
+
+  const found = users().some((user) => user.id === userId);
 
   if (!found) throw new Error(`user with id ${userId} not found`);
 
-  return posts.toReversed();
+  return posts().toReversed();
 };
 
 export default retrievePosts;

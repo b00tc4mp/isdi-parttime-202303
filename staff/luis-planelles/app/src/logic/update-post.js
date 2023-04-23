@@ -1,4 +1,4 @@
-import { findUserById, getPostById } from './helpers/data-managers';
+import { findUserById, findPostById } from './helpers/data-managers';
 import { validateId, validateUrl, validateText } from './helpers/validators';
 import { savePost } from '../data';
 
@@ -12,7 +12,7 @@ const updatePost = (userId, postId, postImage, postText) => {
 
   if (!foundUser) throw new Error(`user id not found`);
 
-  let postUser = getPostById(postId);
+  let postUser = findPostById(postId);
 
   if (!postUser) throw new Error(`post id not found`);
 
@@ -24,7 +24,7 @@ const updatePost = (userId, postId, postImage, postText) => {
   postUser.date = new Date();
   postUser.editDate = new Date();
 
-  savePost();
+  savePost(postUser);
 };
 
 export default updatePost;

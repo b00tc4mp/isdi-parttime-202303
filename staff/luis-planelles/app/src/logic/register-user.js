@@ -12,9 +12,9 @@ const registerUser = (name, email, password) => {
   const emailValid = validateEmail(email);
   const passwordValid = validatePassword(password);
 
-  const nameInData = users.some((user) => user.info.name === name);
+  const nameInData = users().some((user) => user.info.name === name);
 
-  if (nameInData) throw new Error('name exists');
+  if (nameInData) throw new Error('name already exists');
 
   const foundUser = findUserByEmail(email);
 
@@ -22,9 +22,13 @@ const registerUser = (name, email, password) => {
 
   let id = 'user-1';
 
-  const lastUser = users[users.length - 1];
+  const _users = users();
 
-  if (lastUser) id = 'user-' + (parseInt(lastUser.id.slice(5)) + 1);
+  const lastUser = _users[_users.length - 1];
+
+  if (lastUser) {
+    id = 'user-' + (parseInt(lastUser.id.slice(5)) + 1);
+  }
 
   const newUser = {
     id: id,
@@ -36,9 +40,9 @@ const registerUser = (name, email, password) => {
     },
   };
 
-  users.push(newUser);
+  _users.push(newUser);
 
-  saveUsers();
+  saveUsers(_users);
 
   return newUser;
 };

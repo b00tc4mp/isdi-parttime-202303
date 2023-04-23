@@ -1,16 +1,18 @@
-import { users } from '../../data.js';
-import { posts } from '../../data.js';
+import { users, posts } from '../../data.js';
 
 const findUserByEmail = (email) => {
-  return users.find((user) => user.email === email);
+  const foundUser = users().find((user) => user.email === email);
+  return foundUser;
 };
 
 const findUserById = (userId) => {
-  return users.find((user) => user.id === userId);
+  const foundUser = users().find((user) => user.id === userId);
+  return foundUser;
 };
 
-const getPostById = (postId) => {
-  return posts.find((post) => post.id === postId);
+const findPostById = (postId) => {
+  const foundPost = posts().find((post) => post.id === postId);
+  return foundPost;
 };
 
-export { findUserByEmail, findUserById, getPostById };
+export { findUserByEmail, findUserById, findPostById };

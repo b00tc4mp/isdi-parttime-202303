@@ -1,4 +1,4 @@
-import { posts, savePost } from '../data.js';
+import { savePosts, posts } from '../data.js';
 import { findUserById } from './helpers/data-managers.js';
 import { validateUrl, validateText, validateId } from './helpers/validators.js';
 
@@ -12,22 +12,27 @@ const createPost = (userId, postImage, postText) => {
   if (!foundUser) throw new Error('User not found');
 
   let postId = 'post-1';
-  const lastPost = posts[posts.length - 1];
 
-  if (lastPost) postId = 'post-' + (parseInt(lastPost.id.slice(5)) + 1);
+  const _posts = posts();
 
-  posts.push({
+  const lastPost = _posts[_posts.length - 1];
+
+  if (lastPost) {
+    postId = 'post-' + (parseInt(lastPost.id.slice(5)) + 1);
+  }
+
+  const post = {
     id: postId,
     author: userId,
     authorName: foundUser.info.name,
     image: postImage,
     text: postText,
-    likesCount: '',
-    likesUsers: [],
     date: new Date(),
-  });
+  };
 
-  savePost();
+  _posts.push(post);
+
+  savePosts(_posts);
 };
 
 export default createPost;
