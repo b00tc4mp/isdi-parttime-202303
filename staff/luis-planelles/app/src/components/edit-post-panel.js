@@ -2,10 +2,9 @@ import { findPostById } from '../logic/helpers/data-managers';
 import updatePost from '../logic/update-post';
 import renderPosts from '../pages/posts-page';
 import { show, hide, context } from '../ui';
-import getHomePage from './get-home-page';
 
-const initEditPostPanel = (post) => {
-  const editPostPanel = getHomePage().querySelector('.edit-post'),
+const initEditPostPanel = (homePage, post) => {
+  const editPostPanel = homePage.querySelector('.edit-post'),
     editPostForm = editPostPanel.querySelector('form');
 
   editPostForm.onsubmit = (event) => {
@@ -34,7 +33,8 @@ const initEditPostPanel = (post) => {
   };
 
   const foundPost = findPostById(post.id);
-  if (!foundPost) throw new Error(`${post} to edit is not found`);
+  if (!foundPost)
+    throw new Error(`post with id: ${post.id} to edit, is not found`);
 
   editPostForm.querySelector('input[type=hidden]').value = post.id;
   editPostForm.querySelector('input[type=url]').value = post.image;
