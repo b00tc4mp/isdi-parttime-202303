@@ -63,6 +63,7 @@ body {
 
 .home__post--feed {
     overflow: scroll;
+    width: 90%;
 }
 
 header, footer {
@@ -115,6 +116,10 @@ footer {
 
 .avatar, .predefined-avatar {
     width: 2.5rem;
+}
+
+.like-button {
+    width: 1rem;
 }
 
 .post__avatar {

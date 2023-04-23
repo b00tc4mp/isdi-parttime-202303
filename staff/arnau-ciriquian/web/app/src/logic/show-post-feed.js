@@ -2,6 +2,8 @@ import { users } from "../data.js"
 import { context, hideContainer, showContainer } from "../ui.js"
 import retrievePosts from "./retrive-posts.js"
 import { homePageMain, homePostEdit } from "../pages/home-page.js"
+import toggleLikePost from "../logic/toggle-like-post.js"
+
 
 export default function showPostFeed() {
     try {
@@ -47,6 +49,23 @@ export default function showPostFeed() {
 
             postUser.append(avatar, userName)
 
+            const likeButton = document.createElement('img')
+            likeButton.classList.add('like-button')
+            likeButton.src = post.likes && post.likes.includes(context.userID) ? './images/heart-filled.png' : './images/heart-empty.png'
+
+            const likeCounter = document.createElement('p')
+            likeCounter.innerText = post.likes ? post.likes.length : ''
+
+            likeButton.onclick = () => {
+                try {
+                    toggleLikePost(context.userID, post.id)
+
+                    showPostFeed()
+                } catch(error) {
+                    alert(error.message)
+                }
+            }
+
             if (post.author === context.userID) {
                 const button = document.createElement('button')
                 button.innerText = 'Edit'
@@ -60,9 +79,9 @@ export default function showPostFeed() {
                     hideContainer(homePageMain)
                 }
 
-                postInfo.append(postUser, date, button)
+                postInfo.append(postUser, date, likeButton, likeCounter, button)
             } else {
-                postInfo.append(postUser, date)
+                postInfo.append(postUser, date, likeButton, likeCounter)
             }
 
             postItem.append(image, text, postInfo)

@@ -25,7 +25,6 @@ if (context.userID === undefined) {
                 - passar for basics a for of?
                 - mirar cause pels errors??
                 - refactor de la home-page - dividir en pagines per a cada funcionalitat? avatar, name, password, email i posts
-                - like / dislike a cada post
                 - favoritos?
                 - transformar els data-managers a funcions amb .find (finduserbyid, findemailbyid, findpostbyid)
                 - refactoritzar fitxers src, potser codi que es pot utilitzar en una altra app deixarlo en la seva pagina sol? rollo el codi dels ulls del password

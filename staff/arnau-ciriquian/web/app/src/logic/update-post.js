@@ -16,7 +16,7 @@ export function updatePost(userId, postId, image, text) {
     const post = findpostbyid(postId)
     if(!post) throw new Error('post not found')
 
-        // aplicar nomes quan es corregeixin els data-managers a funcions if i daquesta manera crear la const post que se li retorna les dades del post quan es crida la funcio findpostbyid -> if (post.author !== postId) throw new Error('post with id ${postid}  not found')
+    if (post.author !== userId) throw new Error(`post with id ${postId} does not belong to user with id ${userId}`)
 
     post.image = image
     post.text = text
