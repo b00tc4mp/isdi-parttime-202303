@@ -1,0 +1,634 @@
+/* ___ GENERAL ______ */
+/* html, body {
+    height: 100%;
+} */
+:root {
+    /* --main-green: #091d30; */
+    /* --main-brown: #078197; */
+    /* --main-green: #728381; */
+    /* --white: #EEE4E0; */
+    /* --dark: #30393E; */
+    --main-green: #859895;
+    --main-brown: #705D55;
+    --overlay-black: #00000021;
+    --white: #e0dcda;
+    --dark: #262c30;
+
+
+
+}
+
+html {
+    min-height: 100vh;
+    display: flex;
+    /* width: 100vw; */
+}
+body {
+    background: #132f46;
+    background: var(--main-green);
+    color: var(--white);
+    font-family: 'acumin-pro', sans-serif;
+    position: relative;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+form label {
+    color: var(--dark);
+}
+.hidden, .off {
+    display: none !important;
+}
+
+
+.section {
+    width: 100%;
+    height: 100%;
+    /* overflow: hidden; */
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+}
+
+.section.user-account {
+    flex-direction: row;
+    align-items: flex-start;
+    align-content: flex-start;
+    /* overflow: hidden; */
+    /* position: absolute; */
+}
+
+.sidebar {
+    background-color: var(--overlay-black);
+    padding: 30px;
+    width: calc(30% - 60px);
+    height: calc(100% - 120px);
+    margin-top: 60px;
+    position: fixed;
+    left: 0;
+}
+.sidebar .title h1 {
+    font-size: 27px;
+    text-align: left;
+    color: var(--white);
+}
+ul.menu-sidebar {
+    list-style: none;
+    padding: 0;
+    margin-top: 5px;
+}
+ul.menu-sidebar li {
+    padding: 10px 0;
+    color: #fff;
+}
+ul.menu-sidebar li a {
+    color: rgb(255 255 255 / 80%);
+}
+
+
+.container {
+    background-color: #1f3a50;
+    background-color: var(--white);
+    padding: 30px;
+    max-width: 460px;
+    max-width: 260px;
+    width: 100%;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+button.button--update-info__profile,
+button.button--update-info__password,
+button.button--update-info__save-info,
+button.button--update-info__save-password,
+button.button--update-info__cancel-info,
+button.button--update-info__cancel-password, 
+button.button--create-post,
+button.button--create-post_cancel,
+button.button--create-post_save {
+    background: var(--main-brown);
+    color: #fff;
+    padding: 8px 10px;
+    border-radius: 10px;
+    border: solid 2px var(--main-brown);
+    margin: auto;
+    width: 100%;
+    margin-top: 0px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    transition: linear .2s;
+}
+
+/* ______ END GENERAL ___ */
+
+
+
+
+/* ___ FONTS ______ */
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'soleto', sans-serif;
+    text-align: center;
+    color: var(--dark);
+}
+
+h1 {
+    font-size: 32px;
+    margin-top: 0;
+    font-weight: 100;
+    margin-bottom: 10px;
+}
+a {
+    color: var(--main-brown);
+    text-decoration: none;
+}
+/* ______ END FONTS ___ */
+
+
+
+
+/* ___ HEADER ______ */
+
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: var(--dark);
+    z-index: 10;
+}
+
+.header-wrapper {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: auto;
+}
+.logo {
+    display: flex;
+    padding-left: 20px;
+}
+.menu {
+    padding-right: 20px;
+}
+.menu > ul {
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    margin: 0;
+
+}
+.menu > ul > li {
+    padding: 15px 10px;
+    cursor: pointer;
+    align-self: center;
+}
+li.login.has-submenu {
+    position: relative;
+    list-style: none;
+}
+.login ul.submenu {
+    display: none;
+    position: absolute;
+    left: -10px;
+    top: 20px;
+    padding-left: 5px;
+    margin-top: 24px;
+    list-style: none;
+    background: #132f46;
+    padding: 15px 20px;
+    border-radius: 10px;
+}
+.login:hover ul.submenu {
+    display: block;
+}
+header li {
+    font-size: 16px;
+    padding: 5px 0px;
+    transition: linear .2s;
+}
+body .menu li:hover {
+    background: #ffffff0d;
+}
+.menu .logout, .menu .homepage, body.logged-in .menu .login, .menu .user-account {
+    display: none;
+}
+body.logged-in .menu .logout, body.logged-in .menu .homepage {
+    display: block;
+}
+body.logged-in .menu li.user-account {
+    display:flex;
+    flex-direction:row;
+    position: relative;
+}
+
+li.user-account:hover ul.submenu.user-options {
+    display: block;
+}
+
+li.user-account ul.submenu.user-options {
+    position: absolute;
+    top: 60px;
+    background: var(--dark);
+    padding: 0;
+    list-style: none;
+    width: calc(100%);
+    /* left: 20px; */
+    display: none;
+    box-sizing: border-box;
+    left: 0;
+}
+
+li.user-account ul.submenu.user-options li {
+    padding: 10px 25px 12px;
+
+}
+
+li.user-account img, li.user-account img {
+    background: #fff;
+    width: 30px;
+    height: 30px;
+    border-radius: 100px;
+}
+.avatar {
+    background: var(--main-brown);
+    border-radius: 100px;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-self: center;
+    justify-content: center;
+    align-items: center;
+    margin-right: 5px;
+    position: relative;
+}
+.section.user-account .avatar {
+    border-radius: 100px;
+    /* width: 85px; */
+    /* height: 85px; */
+    display: flex;
+    align-self: flex-start;
+    justify-content: center;
+    align-items: center;
+    margin-right: 5px;
+    margin-top: 35px;
+    transform: scale(2.5);
+    margin-bottom: 26px;
+    left: 25px;
+}
+.letter {
+    font-weight: 700;
+    letter-spacing: -.7px;
+    position: relative;
+    bottom: 1px;
+    font-size: 15px;
+    text-transform: uppercase;
+}
+.user-name {
+    align-self: center;
+    line-height: 1;
+}
+
+img.image-profile {
+    width: 100%;
+    position: absolute;
+    border-radius: 100px;
+}
+
+/* ______ END HEADER ___ */
+
+/* ___ FORM ______ */
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+.message {
+    /* margin-top: 10px; */
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+}
+.message.success {
+    color: #49b056;
+}
+.message.error {
+    color: #f38686;
+}
+.delete-account p {
+    background: #c1574c;
+    width: fit-content;
+    padding: 7px 10px 8px;
+    font-size: 14px;
+    border-radius: 10px
+}
+
+input:not([name="file"]) {
+    background-color: #fff;
+    color: var(--dark);
+    margin: 5px 5px 10px;
+    padding: 8px 15px;
+    min-width: 220px;
+    border: solid 2px var(--main-brown);
+    border-radius: 10px;
+    text-align: center;
+    transition: linear .2s;
+}
+input[type="file"] {
+    margin: 10px 0 20px 5px;
+    color: var(--dark);
+}
+input::placeholder {
+    color: var(--main-green);
+}
+input:focus {
+    border: solid 2px #28bed8;
+    box-shadow: 0 0 3px #28bed87e;
+    outline: none;
+    transition: linear .2s;
+}
+button.submit {
+    background: var(--main-brown);
+    color: #fff;
+    padding: 8px 10px;
+    border-radius: 10px;
+    border: solid 2px var(--main-brown);
+    max-width: 255px;
+    margin: auto;
+    width: 100%;
+    margin-top: 5px;
+    cursor: pointer;
+}
+
+.container .login, .container .register {
+    font-size: 12px
+}
+.register-link p, .login-link p {
+    margin: 0;
+    color: var(--dark);
+}
+
+.register-link, .login-link {
+    margin-top: 25px;
+}
+input:disabled {
+    background-color: rgba(255, 255, 255, .45);
+}
+/* .container .login p, .container .register p {
+    margin: 25px 0 0;
+} */
+.password {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+.password > i.uil {
+    margin: 5px 0 12px;
+    position: absolute;
+    right: 10px;
+    opacity: .7;
+    font-size: 1.3rem;
+    color: var(--dark);
+}
+/* ______ END FORM ___ */
+
+
+
+
+/* ___ HOME ______ */
+
+.section.home {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    padding-top: 80px;
+    justify-content: flex-start;
+}
+.section.home .top {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+}
+.section.home .top h1 {
+    margin-top: 20px;
+}
+.section-user-account h1, .section-user-account h2 {
+    text-align: center;
+}
+h2.welcome-user {
+    margin-top: 0;
+}
+.section.home form textarea {
+    margin-bottom: 20px;
+    width: 100%;
+    max-width: 350px;
+}
+label[for="textarea"] {
+    margin-bottom: 8px;
+}
+input.title {
+    text-align: left;
+    margin-bottom: 20px;
+}
+.create-post form {
+    background: var(--white);
+    padding: 30px 30px 10px;
+    border-radius: 20px;
+    width: auto;
+    max-width: 350px;
+}
+.date-author {
+    gap: 10px;
+    display: flex;
+    justify-content: space-between;
+    margin-top: auto;
+}
+.post-author, .post-date {
+    font-size: 14px;
+    color: var(--dark);
+}
+.post-author {
+    color: var(--main-brown);
+    /* padding: 1px 11px 3px; */
+    border-radius: 100px;
+    font-weight: 700;
+}
+/* ______ END HOME ___ */
+
+
+
+
+/* POSTS  */
+
+.overlay {
+    background: #040d16eb;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 11;
+}
+.posts {
+    display: flex;
+    /* flex-direction: column; */
+    flex-wrap: wrap;
+    width: 100%;
+    max-width: 520px;
+    position: relative;
+    align-self: center;
+    gap: 10px;
+    padding: 20px 0;
+}
+
+article {
+    position: relative;
+    width: calc(50% - 25px);
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    background: var(--white);
+    padding: 10px;
+    border-radius: 10px;
+}
+.posts img {
+    width: 100%;
+    border-radius: 5px 5px 0 0;
+}
+article h3.title {
+    margin-bottom: 0;
+    text-align: left;
+    color: var(--dark);
+}
+article p.excerpt {
+    margin-top: 4px;
+    font-size: 14px;
+    margin-bottom: 8px;
+    color: var(--dark);
+
+}
+
+button.button--create-post {
+    width: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+button.button--create-post {
+    width: 121px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+button.button--create-post i {
+    margin-left: 4px;
+    width: 20px;
+    height: 20px;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+}
+
+/* END POSTS */
+
+
+
+
+/* ___ USER SETTINGS ______ */
+
+.go-back {
+    display: flex;
+    align-content: center;
+    flex-direction: row;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+.section.user-account .container {
+    background-color: transparent;
+    padding: 30px;
+    max-width: none;
+    width: calc(70% - 60px);
+    border-radius: 0;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    height: calc(100% - 120px);
+    margin-top: 60px;
+    margin-left: 30%;
+
+}
+.section.user-account .container h2,
+.section.user-account .container input {
+    text-align: left;
+}
+
+.section.user-account h2 {
+    margin-bottom: 0;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+
+
+button.button--update-info__profile {
+    max-width: 108px;
+}
+button.button--update-info__password {
+    max-width: 145px;
+}
+
+button.button--update-info__save-info,
+button.button--update-info__save-password {
+    width: calc(50% - 10px);
+}
+
+button.button--update-info__cancel-info,
+button.button--update-info__cancel-password,
+button.button--create-post_cancel {
+    /* max-width: 100px; */
+    width: calc(50% - 10px);
+    background: var(--white);
+    border: solid 2px var(--main-brown);
+    color: var(--main-brown);
+}
+
+button[disabled] {
+    opacity: .6;
+    background: transparent;
+    color: var(--main-brown);
+    /* color: var(--dark); */
+}
+
+.update {
+    max-width: 380px;
+}
+.section.user-account .password input {
+    width: 100%;
+}
+.update form {
+    max-width: 280px;
+}
+.update > p {
+    margin-top: 0;
+}
+/* ______ END USER SETTINGS ___ */
+
+/* input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active  {
+  transition: background-color 500000s;
+  -webkit-text-fill-color: #fff !important;
+} */
