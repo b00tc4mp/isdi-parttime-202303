@@ -1,14 +1,14 @@
 import { findUserById } from "./helpers/data-managers.js"
 import { validateUrl, validateId } from "./helpers/validators.js"
-import { saveUser } from "../data.js"
+import { saveUsers } from "../data.js"
 
 export function updateUserAvatar(userId, avatar) {
     validateId(userId)
     validateUrl(avatar, 'avatar url')
-    const user = findUserById(userId)
+    const foundUser = findUserById(userId)
 
-    if (!user) throw new Error('user not found')
+    if (!foundUser) throw new Error('user not found')
 
-    user.avatar = avatar
-    saveUser(user)
+    foundUser.avatar = avatar
+    saveUsers()
 }

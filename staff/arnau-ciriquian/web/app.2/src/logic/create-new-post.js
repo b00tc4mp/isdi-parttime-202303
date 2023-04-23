@@ -15,9 +15,7 @@ export function createNewPost(userId, image, text){
 
     let id = 'post-1'
 
-    const _posts = posts()
-
-    const lastPost = _posts[_posts.length - 1]
+    const lastPost = posts[posts.length - 1]
 
     if (lastPost)
         id = 'post-' + (parseInt(lastPost.id.slice(5)) + 1)
@@ -30,8 +28,8 @@ export function createNewPost(userId, image, text){
         date: (new Date).toLocaleDateString('en-UK')
     }
 
-    _posts.push(post)
+    posts.push(post)
 
-    savePosts(_posts)
+    savePosts()
     showPostFeed()
 }

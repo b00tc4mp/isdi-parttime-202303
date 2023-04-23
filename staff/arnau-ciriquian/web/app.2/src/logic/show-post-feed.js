@@ -9,8 +9,6 @@ export default function showPostFeed() {
         homePageMain.querySelector('.home__post--feed').innerHTML = ''
 
         posts.forEach(post => {
-            const _users = users()
-
             const postItem = document.createElement('article')
             postItem.classList.add('inputs__box--feed')
 
@@ -38,7 +36,7 @@ export default function showPostFeed() {
             let avatar = document.createElement('img')
             avatar.classList.add('post__avatar')
 
-            for (const user of _users) {
+            for (const user of users) {
                 if (post.author === user.id) {
                     avatar.src = user.avatar
                     userName.innerText = user.name

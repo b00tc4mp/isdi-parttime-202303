@@ -1,4 +1,4 @@
-export const users = () => 'usersJson' in localStorage? JSON.parse(localStorage.usersJson) : []
+export const users = 'usersJson' in localStorage? JSON.parse(localStorage.usersJson) : []
 
 // users.push({
 //     id: 'user-1',
@@ -21,7 +21,7 @@ export const users = () => 'usersJson' in localStorage? JSON.parse(localStorage.
 //     password: '123123123',
 // })
 
-export const posts = () => 'postsJson' in localStorage? JSON.parse(localStorage.postsJson) : []
+export const posts = 'postsJson' in localStorage? JSON.parse(localStorage.postsJson) : []
 
 
 // posts.push({
@@ -48,36 +48,10 @@ export const posts = () => 'postsJson' in localStorage? JSON.parse(localStorage.
 //     date: new Date()
 // })
 
-export function saveUsers(users) {
+export function saveUsers() {
     localStorage.usersJson = JSON.stringify(users)
 }
 
-export function saveUser(user) {
-    const _users = users()
-
-    const index = _users.findIndex(_user => _user.id === user.id)
-
-    if (index < 0)
-        _users.push(user)
-    else
-        _users.splice(index, 1, user)
-
-    saveUsers(_users)
-}
-
-export function savePosts(posts) {
+export function savePosts() {
     localStorage.postsJson = JSON.stringify(posts)
-}
-
-export function savePost(post) {
-    const _posts = posts()
-
-    const index = _posts.findIndex(_post => _post.id === post.id)
-
-    if (index < 0)
-        _posts.push(post)
-    else
-        _posts.splice(index, 1, post)
-
-    savePosts(_posts)
 }

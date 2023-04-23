@@ -15,15 +15,13 @@ export function addNewUser(name, email, password, passwordConfirm) {
 
     let id = 'user-1'
 
-    const _users = users()
-
-    const lastUser = _users[_users.length - 1]
+    const lastUser = users[users.length - 1]
 
     if (lastUser) {
         id = 'user-' + (parseInt(lastUser.id.slice(5)) + 1)
     }
     
-    _users.push({
+    users.push({
         id,
         name,
         email,
@@ -31,5 +29,5 @@ export function addNewUser(name, email, password, passwordConfirm) {
         avatar: DEFAULT_AVATAR_URL
     })
 
-    saveUsers(_users)
+    saveUsers()
 }
