@@ -64,4 +64,15 @@ Curri.prototype.pop = function pop(){
    return last;
 }
 
+Curri.prototype.includes = function includes(item) {
+    for (let i = 0; i < this.length; i++) {
+      if (this[i] === item) {
+        return true;
+      }
+    }
+    return false;
+  };
+
+
+
 window.Curri = Curri

@@ -91,9 +91,20 @@ describe('pop', () => { it('should delete the last element of Curri', () =>{
 
 })})
 
-    // TODO
-    //     console.log('Curry.of')
-    //     const c = Curri.of(10, 20, 30)
-    //     console.log(c)
-    //     // Curry { 0: 10, 1: 20, 2: 30, length: 3 }
+
+describe('includes', () => { it('should check if a given element is an element of Curri', () =>{
+    const c = new Curri(10, 20, 30);
+
+    const result = c.includes(30);
+
+    expect(c).toBeInstanceOf(Curri);
+    expect(c.length).toBe(3);
+    expect(result).toBe(true);
+
+    const result2 = c.includes(1);
+
+    expect(result2).toBe(false);
+
+})})
+
 })
