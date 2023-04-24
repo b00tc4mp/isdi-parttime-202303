@@ -191,21 +191,120 @@ describe('Curri', () => {
         })
     })
 
-    // describe('lastIndexOf', () => {
-    //     it('should return the position of a element in a collection of elements', () => {
-    //         const c = new Curri(2, 5, 9, 2)
+    describe('lastIndexOf', () => {
+        it('should return the position of a element in a collection of elements', () => {
+            const c = new Curri(2, 5, 9, 2)
 
-    //         const r1 = c.lastIndexOf(2)
-    //         expect(r1).toBe(3)
-    //         const r2 = c.lastIndexOf(7)
-    //         expect(r2).toBe(-1)
-    //         const r3 = c.lastIndexOf(2, 3)
-    //         expect(r1).toBe(3)
-    //         const r4 = c.lastIndexOf(2, -2)
-    //         expect(r4).toBe(0)
-    //     })
-    // })
+            const r1 = c.lastIndexOf(2)
+            expect(r1).toBe(3)
+            const r2 = c.lastIndexOf(7)
+            expect(r2).toBe(-1)
+            const r3 = c.lastIndexOf(2, 3)
+            expect(r1).toBe(3)
+            const r4 = c.lastIndexOf(2, -2)
+            expect(r4).toBe(0)
+            const r5 = c.lastIndexOf(2, 2)
+            expect(r5).toBe(0)
+        })
+    })
+
+    describe('reduce', () => {
+        it('should iteratively apply a callback function to each element of an array, reducing the array to a single value by accumulating the results', ()=> {
+            const c = new Curri(1, 2, 3, 4)
+            const initialValue = 0
+
+            const r1 = c.reduce((accumulator, currentValue) => accumulator + currentValue, initialValue)
+            expect(r1).toBe(10)
+
+            const c2 = new Curri(10, 20, 30, 40)
+            const r2 = c2.reduce((accumulator, currentValue) => accumulator + currentValue)
+            expect(r2).toBe(100)
+
+        })
+    })
+
+    describe('reverse', () => {
+        it('should return a new Curri with the elements of the original curri but with inverse order', () => {
+            const c = new Curri(1, 2, 3)
+
+            const r1 = c.reverse()
+            expect(r1[0]).toBe(3)
+            expect(r1[1]).toBe(2)
+            expect(r1[2]).toBe(1)
+
+        })
+    })
+
+    describe('shift', () => {
+        it('should delete the first element of a collection of elements', () => {
+            const c = new Curri(10, 20, 30)
+
+            const r1 = c.shift()
+            expect(c[0]).toBe(20)
+            expect(c[1]).toBe(30)
+            expect(c.length).toBe(2)
+            expect(r1).toBe(10)
+
+        })
+    })
+
+    describe('slice', () => {
+        it('should take a part of a collection of elements given by an start and an end', () => {
+            const c = new Curri('ant', 'bison', 'camel', 'duck', 'elephant')
+
+            const r1 = c.slice(2)
+            expect(r1[0]).toBe("camel")
+            expect(r1[1]).toBe("duck")
+            expect(r1[2]).toBe("elephant")
+
+            const r2 = c.slice(2, 4)
+            expect(r2[0]).toBe("camel")
+            expect(r2[1]).toBe("duck")
+            
+
+            const r3 = c.slice(-2)
+            expect(r3[0]).toBe("duck")
+            expect(r3[1]).toBe("elephant")
+
+            const r4 = c.slice(2, -1)
+            expect(r4[0]).toBe("camel")
+            expect(r4[1]).toBe("duck")
+
+            const r5 = c.slice(-6)
+            expect(r5[0]).toBe("ant")
+            expect(r5[1]).toBe("bison")
+            expect(r5[2]).toBe("camel")
+            expect(r5[3]).toBe("duck")
+            expect(r5[4]).toBe("elephant")
+
+        })
+    })
+
+    describe('some', () => {
+        it('should check if any element of the collection meets the condition of the callback', () => {
+            const c = new Curri(1, 2, 3, 4, 5)
+            const even = (element) => element % 2 === 0
+
+            const r1 = c.some(even)
+            expect(r1).toBe(true)
+        })
+    })
+
+    describe('unshift', () => {
+        it('should return the length of the array when the elements gievn are inserted at the beggining of the array', () => {
+            const c = new Curri(1, 2, 3)
+            const r1 = c.unshift(4, 5)
+
+            expect(r1).toBe(5)
+            expect(c[0]).toBe(4)
+            expect(c[1]).toBe(5)
+            expect(c[2]).toBe(1)
+            expect(c[3]).toBe(2)
+            expect(c[4]).toBe(3)
+        })
+    })
 })
+
 
 
 

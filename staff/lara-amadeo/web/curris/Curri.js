@@ -157,32 +157,139 @@ Curri.isCurri = function(collection){
     else return false
 }
 
-// Curri.prototype.lastIndexOf = function(element, lessThanPosition){
-//     let value
+Curri.prototype.lastIndexOf = function(element, lessThanPosition){
+      let value
 
-//     if(!lessThanPosition){
-//         for(let i = this.length - 1; i >= 0; --i){
-//             if(this[i] === element) {
-//                 value = i
-//                 return value
-//             }
-//         } return value ? value : -1
-//     } else {
-//         if (lessThanPosition >= 0){
-//             for(let i = lessThanPosition; i >= 0; --i){
-//                 if (this[i] === element){
-//                     value = i
-//                     return value
-//                 }
-//             } return -1
-//         } else {
-//             const initialPosition = this.length + lessThanPosition
-//             for(let i = initialPosition; i >= 0; --i){
-//                 if(this[i] === element){
-//                     value = i
-//                     return value
-//                 }
-//             } return -1
-//         }
-//     }
-// }
+    if(!lessThanPosition){
+        for(let i = this.length-1; i >= 0; --i){
+            if(this[i] === element) {
+                value = i
+                return value
+            }
+        } return value ? value : -1
+    } else {
+        if (lessThanPosition >= 0){
+            for(let i = lessThanPosition; i >= 0; --i){
+                if (this[i] === element){
+                    value = i
+                    return value
+                }
+            } return -1
+        } else {
+           const initialPosition = this.length + lessThanPosition
+            for(let i = initialPosition; i >= 0; --i){
+                if(this[i] === element){
+                    value = i
+                    return value
+                }
+            } return -1
+        }
+    }
+}
+
+Curri.prototype.reduce = function(callback, initialValue){
+    const hasInitialValue = initialValue !== undefined
+
+    let accum = hasInitialValue ? initialValue : this[0]
+
+    for (let i = hasInitialValue ? 0 : 1; i < this.length; i++)
+        accum = callback(accum, this[i])
+
+    return accum
+}
+
+Curri.prototype.reverse = function(){
+    let newCurri = new Curri
+    let index = 0
+    for (let i = this.length-1; i >= 0; --i){
+        newCurri[index] = this[i]
+        index++
+        newCurri.length++
+    }
+
+    for (let i = 0; i < newCurri.length; i++){
+        this[i] = newCurri[i]
+    }
+    
+    return this
+}
+
+Curri.prototype.shift = function(){
+    let removed
+    if(this.length === 0) return undefined
+
+    else {
+        removed = this[0]
+        for(let i = 1; i < this.length; i++){
+            this[i-1] = this[i]
+        } 
+        delete this[this.length - 1]
+        this.length = this.length-1
+        return removed
+    }
+}
+
+Curri.prototype.slice = function(start, end){
+    let newArray = new Curri
+
+    if(!start && !end || start < -this.length) { 
+        let initialPosition = 0
+        let index = 0
+
+        for(let i = initialPosition; i < this.length; i++){
+            newArray[index] = this[i]
+            index++
+        }
+            return newArray
+    }
+
+    else if(!end){
+        let initialPosition = start >= 0 ? start : start + this.length
+        let index = 0
+
+        for(let i = initialPosition; i < this.length; i++){
+            newArray[index] = this[i]
+            index++
+        }
+            return newArray
+    } 
+    
+    else { 
+        let initialPosition = start >= 0 ? start : start + this.length
+        let endPosition = end >= 0 ? end : end + this.length
+        let index = 0
+
+        for(let i = initialPosition; i < endPosition; i++){
+            newArray[index] = this[i]
+            index++
+        }
+            return newArray
+    }
+}
+
+Curri.prototype.some = function(callback){
+    for(let i = 0; i < this.length; i++){
+        if(callback(this[i])) 
+        return true
+    } return false
+}
+
+Curri.prototype.unshift = function(...elements){
+    let newCurri = new Curri
+    let index = 0
+    for(let i = 0; i < elements.length; i++){
+        newCurri[index] = elements[i]
+        index++
+        newCurri.length++
+    }
+
+    for(let i = 0; i < this.length; i++){
+        newCurri[newCurri.length] = this[i]
+        newCurri.length++
+    }
+    
+    for(let i = 0; i < newCurri.length; i++)
+        this[i] = newCurri[i]
+
+    return newCurri.length
+}

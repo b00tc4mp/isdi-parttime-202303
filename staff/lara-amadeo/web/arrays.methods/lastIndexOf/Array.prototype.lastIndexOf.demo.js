@@ -8,3 +8,4 @@ console.log(numbers.lastIndexOf(2, 2)) // 0
 
 console.log(numbers.lastIndexOf(2, -2)) // 0
 console.log(numbers.lastIndexOf(2, -1)) // 3
+

@@ -1,30 +1,12 @@
-function lastIndexOf(array, element, lessThanPosition){
-    let value
+import { lastIndexOf } from "./lastIndexOf.js";
 
-    if(!lessThanPosition){
-        for(let i = array.length-1; i >= 0; i++){
-            if(array[i] === element) {
-                value = i
-                return value
-            }
-        } return value ? value : -1
-    } else {
-        if (lessThanPosition >= 0){
-            for(let i = lessThanPosition; i <= 0; --i){
-                if (array[i] === element){
-                    value = i
-                    return value
-                }
-            } return -1
-        } else {
-            initialPosition = array.length + lessThanPosition
-            for(let i = initialPosition; i >= 0; --i){
-                if(array[i] === element){
-                    value = i
-                    return value
-                }
-            } return -1
-        }
-    }
-}
-    
+const numbers = [2, 5, 9, 2];
+
+console.log(lastIndexOf(numbers, 2)) // 3
+console.log(lastIndexOf(numbers, 7))  // -1
+
+console.log(lastIndexOf(numbers, 2, 3)) // 3
+console.log(lastIndexOf(numbers, 2, 2)) // 0
+
+console.log(lastIndexOf(numbers, 2, -2)) // 0
+console.log(lastIndexOf(numbers, 2, -1)) // 3
