@@ -10,4 +10,5 @@ export const authenticateUser = (loginEmail, loginPassword)=>{
   if(!user) throw new Error('User not found.')
   if(loginPassword !== user.password) throw new Error('Incorrect password.')
 
+  return user.id
 }

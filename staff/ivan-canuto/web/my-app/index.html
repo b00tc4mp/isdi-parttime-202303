@@ -11,7 +11,7 @@
 
 <body class="spa-page">
 
-  <section class="register-page hidden">
+  <section class="register-page off">
     <h1 class="title-register">Hello there new client.</h1>
     <h2>Register to be able to acces.</h2>
     <form class="register-form">
@@ -36,7 +36,7 @@
     </form> 
   </section>
   
-  <section class="login-page">
+  <section class="login-page off">
     <h1>Hello there usual client.</h1>
     <h2>Log in to enjoy to enter and enjoy our content.</h2>
     <form class="login-form">
@@ -44,7 +44,7 @@
       <input class="input-email" type="email" name="email" placeholder="E-mail">
       <label>Password.</label>
       <input class="input-password" type="password" name="password" placeholder="Password">
-      <span class="login-password-icon password-icon">
+      <span class="eye-icon password-icon">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 12C1 12 5 4 12 4C19 4 23 12 23 12" stroke="rgba(0,0,0,0.95)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M1 12C1 12 5 20 12 20C19 20 23 12 23 12" stroke="rgba(0,0,0,0.95)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="12" cy="12" r="3" stroke="rgba(0,0,0,0.95)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></circle></svg>
       </span>
       <div class="buttons">
@@ -54,7 +54,7 @@
     </form>
   </section>
 
-  <section class="home-page hidden">
+  <section class="home-page off">
     <header class="home-page__header">
       <h1 class="header__title"></h1>
       <div class="navigation-bar">
@@ -62,13 +62,13 @@
         <a>Our products</a>
         <a>About us</a>
         <a>Vlog</a>
-        <img class="navigation-bar__image" src="" alt="image-profile">
+        <img class="profile__image" src="" alt="image-profile">
       </div>
     </header>
     <button class="sign-off__button">Log out</button>
   </section>
 
-  <section class="profile-page hidden">
+  <section class="profile-page off">
     <h1>Hello! This is your profile.</h1>
     <div class="settings">
       <div class="personal-settings">
@@ -84,28 +84,28 @@
     <button class="return-profile-page__button">Return to home page</button>
   </section>
   
-  <section class="change-password__page hidden">
+  <section class="change-password__page off">
     <div>
       <h1>Change password</h1>
       <form class="password__form">
         <div class="input-div">
           <label>Enter the old password.</label>
           <input class="old-password" name="oldPassword" type="password" placeholder="Old password">
-          <span class="old-password-icon password-icon">
+          <span class="eye-icon password-icon">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 12C1 12 5 4 12 4C19 4 23 12 23 12" stroke="rgba(0,0,0,0.95)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M1 12C1 12 5 20 12 20C19 20 23 12 23 12" stroke="rgba(0,0,0,0.95)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="12" cy="12" r="3" stroke="rgba(0,0,0,0.95)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></circle></svg>
           </span>
         </div>
         <div class="input-div">
           <label>Enter the new password.</label>
           <input class="new-password" name="newPassword" type="password" placeholder="New password">
-          <span class="new-password-icon password-icon">
+          <span class="eye-icon password-icon">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 12C1 12 5 4 12 4C19 4 23 12 23 12" stroke="rgba(0,0,0,0.95)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M1 12C1 12 5 20 12 20C19 20 23 12 23 12" stroke="rgba(0,0,0,0.95)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="12" cy="12" r="3" stroke="rgba(0,0,0,0.95)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></circle></svg>
           </span>
         </div>
         <div class="input-div">
           <label>Repeat the new password.</label>
           <input class="new-password-repeated" name="newPasswordRepeated" type="password" placeholder="New password">
-          <span class="new-password-repeated-icon password-icon">
+          <span class="eye-icon password-icon">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 12C1 12 5 4 12 4C19 4 23 12 23 12" stroke="rgba(0,0,0,0.95)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M1 12C1 12 5 20 12 20C19 20 23 12 23 12" stroke="rgba(0,0,0,0.95)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="12" cy="12" r="3" stroke="rgba(0,0,0,0.95)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></circle></svg>
           </span>
         </div>
@@ -114,7 +114,7 @@
       <button class="exit-button">Exit</button>
     </div>
   </section>
-  <section class="change-avatar__page hidden">
+  <section class="change-avatar__page off">
     <div>
       <h1>Change avatar</h1>
       <form class="avatar__form">
@@ -125,7 +125,7 @@
         <div class="input-div">
           <label>Password</label>
           <input class="avatar-password" name="password" type="password" placeholder="Password">
-          <span class="avatar-password-icon password-icon">
+          <span class="eye-icon password-icon">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 12C1 12 5 4 12 4C19 4 23 12 23 12" stroke="rgba(0,0,0,0.95)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M1 12C1 12 5 20 12 20C19 20 23 12 23 12" stroke="rgba(0,0,0,0.95)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="12" cy="12" r="3" stroke="rgba(0,0,0,0.95)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></circle></svg>
           </span>
         </div>

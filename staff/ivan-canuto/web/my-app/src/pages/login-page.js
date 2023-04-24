@@ -1,6 +1,8 @@
 import { homePage } from "./home-page.js";
 import { registerPage } from "./register-page.js";
 import { authenticateUser } from "../logic/authenticate-user.js";
+import { createAlert } from '../logic/create-alert.js'
+import { addOffClass, context, removeOffClass } from "../ui.js";
 
 export const loginPage = document.querySelector('.login-page');
 const loginForm = loginPage.querySelector('.login-form');
@@ -8,8 +10,8 @@ const loginPasswordIcon = loginPage.querySelector('.login-password-icon');
 const goRegisterPage = loginPage.querySelector('.go-register-page');
 
 goRegisterPage.addEventListener('click', ()=>{
-  loginPage.classList.remove('hidden');
-  registerPage.classList.add('hidden');
+  addOffClass(loginPage)
+  removeOffClass(registerPage)
 })
 
 loginForm.addEventListener('submit', (e)=>{
@@ -20,18 +22,11 @@ loginForm.addEventListener('submit', (e)=>{
 
   try {
 
-    authenticateUser(loginEmail, loginPassword);
-    let authenticatedEmail = loginEmail;
+    context.userId = authenticateUser(loginEmail, loginPassword);
 
-    let user = retrieveUser(authenticatedEmail)
-
-    headerTitle.textContent = user.name + '!'
-    profileImage.src = user.avatar
-
-    loginPage.classList.add('hidden');
-    homePage.classList.remove('hidden');
-    loginPage.querySelector('.input-email').value = '';
-    loginPage.querySelector('.input-password').value = '';
+    addOffClass(loginPage)
+    removeOffClass(homePage)
+    loginForm.reset()
 
   } catch(error) {
     if (error.name === 'Error') {

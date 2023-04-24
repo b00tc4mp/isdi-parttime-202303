@@ -1,10 +1,10 @@
-import { findUserByEmail } from "./helpers/data-managers.js"
+import { findUserByEmail, findUserById } from "./helpers/data-managers.js"
 
-export const retrieveUser = (email)=>{
-  if(!email.length) throw new Error("The email doesn't exist.")
-  if(typeof email !== 'string') throw new Error("Email is not a string.")
+export const retrieveUser = (userId)=>{
+  if(!userId.length) throw new Error("The user id doesn't exist.")
+  if(typeof userId !== 'string') throw new Error("The user id is not a string.")
 
-  let user = findUserByEmail(email)
+  let user = findUserById(userId)
 
   if(!user) throw new Error("User not found.")
 

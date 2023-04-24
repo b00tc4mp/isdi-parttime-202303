@@ -1,12 +1,16 @@
+import { addOffClass, removeOffClass } from '../ui.js';
 import './change-icon.js'
+import { loginPage } from './login-page.js';
+import { changeAvatar } from '../logic/change-avatar.js'
+import { changePassword } from '../logic/change-password.js'
 
 export const homePage = document.querySelector('.home-page');
 export const profilePage = document.querySelector('.profile-page')
 const changePasswordPage = document.querySelector('.change-password__page');
 const changeAvatarPage = document.querySelector('.change-avatar__page');
 
-let authenticatedEmail;
-const profileImage = homePage.querySelector('.navigation-bar__image');
+export const profileImage = homePage.querySelector('.profile__image');
+export const headerTitle = document.querySelector('.header__title');
 const logOutButton = homePage.querySelector('.sign-off__button');
 const returnProfileButton = profilePage.querySelector('.return-profile-page__button')
 const changePasswordLink = profilePage.querySelector('.change-password__link');
@@ -14,31 +18,29 @@ const changeAvatarLink = profilePage.querySelector('.change-avatar__link');
 const passwordForm = changePasswordPage.querySelector('.password__form');
 const avatarForm = changeAvatarPage.querySelector('.avatar__form');
 const inputsPasswordForm = passwordForm.querySelectorAll('input');
-const headerTitle = document.querySelector('.header__title');
 
 profileImage.addEventListener('click', ()=>{
-  homePage.classList.add('hidden');
-  profilePage.classList.remove('hidden');
+  addOffClass(homePage)
+  removeOffClass(profilePage)
 })
 
 logOutButton.addEventListener('click', ()=>{
-  homePage.classList.add('hidden');
-  loginPage.classList.remove('hidden');
+  addOffClass(homePage)
+  removeOffClass(loginPage)
+  delete context.userId
 })
 
 returnProfileButton.addEventListener('click', ()=> {
-  profilePage.classList.add('hidden');
-  homePage.classList.remove('hidden');
-  changePasswordPage.classList.add('hidden');
-  changeAvatarPage.classList.add('hidden');
+  addOffClass(profilePage, changePasswordPage, changeAvatarPage)
+  removeOffClass(homePage)
 })
 
 changePasswordLink.addEventListener('click', ()=>{
-  changePasswordPage.classList.remove('hidden');
+removeOffClass(changePasswordPage)
 })
 
 changeAvatarLink.addEventListener('click', ()=>{
-  changeAvatarPage.classList.remove('hidden');
+  removeOffClass(changeAvatarPage)
 })
 
 passwordForm.addEventListener('submit', (e)=>{
@@ -52,7 +54,7 @@ passwordForm.addEventListener('submit', (e)=>{
   try {
 
     changePassword(authenticatedEmail, oldPassword, newPassword, newPasswordRepeated)
-    inputsPasswordForm.forEach(input => input.value = '');
+    inputsPasswordForm.reset()
     changePasswordPage.classList.add('hidden');
 
   } catch(error) {
@@ -76,7 +78,7 @@ avatarForm.addEventListener('submit', (e)=>{
 
     changeAvatar(authenticatedEmail, avatarUrl, password)
     avatarForm.querySelector('input[name="password"]').value = '';
-    changeAvatarPage.classList.add('hidden');
+    addOffClass(changeAvatarPage)
 
   } catch(error) {
     if (error.name === 'Error') {
@@ -89,11 +91,11 @@ avatarForm.addEventListener('submit', (e)=>{
 })
 
 changePasswordPage.querySelector('.exit-button').addEventListener('click', ()=>{
-  inputsPasswordForm.forEach(input => input.value = '');
-  changePasswordPage.classList.add('hidden');
+  inputsPasswordForm.reset()
+  addOffClass(changePasswordPage)
 })
 
 changeAvatarPage.querySelector('.exit-button').addEventListener('click', ()=>{
-  avatarForm.querySelector('input[name="password"]').value = '';
-  changeAvatarPage.classList.add('hidden');
+  avatarForm.reset()
+  addOffClass(changeAvatarPage)
 })
