@@ -16,11 +16,6 @@ describe('Curri', () => {
             expect(c).toBeInstanceOf(Curri);
             expect(c.length).toBe(10);
         })
-
-        // TODO
-        // const c3 = new Curri(true)
-        // console.log(c3)
-        // // Curri { 0: true, length: 1 }
     })
 
     describe('forEach', () => {
@@ -104,6 +99,30 @@ describe('includes', () => { it('should check if a given element is an element o
     const result2 = c.includes(1);
 
     expect(result2).toBe(false);
+
+})})
+
+describe('at', () => { it('should return the element of Curri at given index', () =>{
+    const c = new Curri(10, 20, 30);
+
+    const result = c.at(1);
+
+    expect(c).toBeInstanceOf(Curri);
+    expect(result).toBe(20);
+
+    const result2 = c.at(-1);
+
+    expect(result2).toBe(30);
+
+})})
+
+describe('fill', () => { it('should fill Curri with an item at given indexes', () =>{
+    const c = new Curri(10, 20, 30);
+
+    const result = c.fill(1,1,3);
+
+    expect(c).toBeInstanceOf(Curri);
+    expect(result).toEqual(new Curri(10,1,1));
 
 })})
 
