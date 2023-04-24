@@ -1,5 +1,3 @@
-console.log('Curri.js loaded')
-
 function Curri() {
     this.length = 0
     if(arguments.length === 1 && typeof arguments[0] === 'number'){
@@ -25,6 +23,9 @@ Curri.of = function() {
     for(let i = 0; i < arguments.length; i++){
         c[i] = arguments[i]
     }
+    c.length = arguments.length
+
+    return c
 }
 
 Curri.isCurri = function() {
@@ -35,8 +36,8 @@ Curri.isCurri = function() {
     return false
 }
 
-Curri.prototype.forEach = function(callback) {
-    for(let i = 0; i < this.length; i++) {
+Curri.prototype.forEach = function (callback) {
+    for (let i = 0; i < this.length; i++) {
         const element = this[i]
 
         callback(element, i, this)
@@ -161,12 +162,6 @@ Curri.prototype.findIndex = function(callback) {
     return -1
 }
 
-Curri.prototype.forEach = function(callback) {
-    for(let i = 0; i < this.length; i++){
-        callback(this[i])
-    }
-}
-
 Curri.prototype.includes = function(elementSearched) {
     for(let i = 0; i < this.length; i++) {
         if(this[i] === elementSearched){
@@ -201,8 +196,8 @@ Curri.prototype.join = function(separator = ',') {
     return result
 }
 
-Curri.prototype.lastIndexOf = function(element) {
-    for(let i = this.length; i >= 0; i--){
+Curri.prototype.lastIndexOf = function(element = undefined) {
+    for(let i = this.length-1; i >= 0; i--){
         if(this[i] === element){
             return i
         }
@@ -249,7 +244,7 @@ Curri.prototype.slice = function(start = 0, end = this.length) {
         let result = new Curri
         let counter = 0
         
-        if(end < -this.length || start > this.length) return []
+        if(end < -this.length || start > this.length) return result
     
         if(start < -this.length)
             start = 0
@@ -264,6 +259,7 @@ Curri.prototype.slice = function(start = 0, end = this.length) {
                     result[counter] = this[i]
                     counter++
                 }
+                result.length = counter
                 return result     
             }
             
@@ -271,6 +267,7 @@ Curri.prototype.slice = function(start = 0, end = this.length) {
                 result[counter] = this[i]
                 counter++
             }
+            result.length = counter
             return result        
         }
     
@@ -279,6 +276,7 @@ Curri.prototype.slice = function(start = 0, end = this.length) {
                 result[counter] = this[i]
                 counter++
             }
+            result.length = counter
             return result   
         }
     
@@ -286,6 +284,7 @@ Curri.prototype.slice = function(start = 0, end = this.length) {
             result[counter] = this[i]
             counter++
         }
+        result.length = counter
         return result
 }
 
@@ -314,6 +313,7 @@ Curri.prototype.unshift = function (elements) {
     for(let i = 0; i < elements.length; i++){
         this[i] = elements[i]
     }
+    this.length = elements.length
     return this.length
 }
 
