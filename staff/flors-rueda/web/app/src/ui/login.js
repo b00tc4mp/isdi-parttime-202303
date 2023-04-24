@@ -1,20 +1,5 @@
 import { clearForms, toggleOff } from './general-tools.js';
 
-
-
-
-export const logout = (login, home) => {
-  resetAlerts();
-  clearForms();
-  toggleOff(login, home);
-  setOn(toggle)
-  document.querySelector('.name').innerText = '';
-  document.querySelector('.username').innerText = '';
-  document.querySelector('.since').innerText = '';
-  delete context.userAuth;
-  setPredeterminateAvatar();
-};
-
 export const changeView = (changeViewLink, register, login) => { 
   clearForms();
   const message = document.querySelector('.login-page__change-view').querySelector('p')

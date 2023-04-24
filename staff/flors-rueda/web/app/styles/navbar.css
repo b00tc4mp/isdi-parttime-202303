@@ -2,7 +2,7 @@
     height: 3.125rem;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: end;
     padding: 0.5rem 1rem;
 }
 
@@ -10,8 +10,9 @@
     position: fixed;
     display: flex;
     flex-direction: row-reverse;
-    justify-content: start;
-    top: 1.5rem;
+    justify-content: space-around;
+    align-items: start;
+    top: 1.25rem;
     left: 5rem;
     width: 70%;
     gap: 1rem;
@@ -32,7 +33,8 @@
 
 .nav-header__menu {
     position: fixed;
-    padding-top: 0.3rem;
+    padding-top: 0.2rem;
+    padding-bottom: 0.1rem;
     border: 0.1rem solid var(--color-secondary-200);
     z-index: 200;
     border-radius: 1rem;
@@ -61,6 +63,7 @@
     opacity: 1;
     width: 2.07rem;
     transform: rotate(45deg) translate(0px, 0px);
+    margin-left: 0.75rem;
 }
 
 .nav-header__menu.close span:nth-child(2) {
@@ -79,8 +82,7 @@
 .nav-header__logout,
 .nav-header__to-user-profile,
 .nav-header__to-home {
-    padding-top: 0.35rem;
-    padding-right: 1.9rem;
+    padding: 0.35rem;
     border-radius: 50%;
     width: 2.25rem;
     height: 2.25rem;

@@ -1,5 +1,5 @@
 import initThemeToggle from './components/theme-toggle.js';
-import { homeMain, homePage } from './pages/home-page.js';
+import { homeMain, homePage, navbar } from './pages/home-page.js';
 import { login, loginPage } from './pages/login-page.js';
 import { context, setOff, setOn } from './ui/general-tools.js';/*
 import { loginPage } from './pages/login-page.js';
@@ -16,6 +16,6 @@ initThemeToggle(context)
 if (!context.userAuth) setOn(loginPage, login);
 else {
   //initPostsList(context.userAuth, postModal, 'all');
-  setOn(homePage, homeMain);
+  setOn(homePage, homeMain, navbar);
   displayWelcome(context.userAuth)
 }

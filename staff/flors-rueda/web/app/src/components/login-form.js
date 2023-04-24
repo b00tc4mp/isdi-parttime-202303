@@ -2,8 +2,9 @@ import { displayLoginError } from '../ui/errors.js';
 import { controlUsernameInput, setOff, setOn } from '../ui/general-tools.js';
 import { authenticateUser } from '../logic/authenticate-user.js';
 import { displayWelcome } from '../ui/home.js';
+import { homeMain, homePage, navbar } from '../pages/home-page.js';
 
-export default function initLoginForm(context, loginPage, homePage, homeMain) {
+export default function initLoginForm(context, loginPage) {
     const loginForm = document.querySelector('.login-page__login__form');
     const usernameLogin = loginForm.querySelector('input[name="username"]');
 
@@ -16,7 +17,7 @@ export default function initLoginForm(context, loginPage, homePage, homeMain) {
         const password = loginForm.querySelector('input[name="password"]').value
         const token = authenticateUser(username, password);
         setOff(loginPage)
-        setOn(homePage, homeMain);
+        setOn(homePage, homeMain, navbar);
         return token
       };
 

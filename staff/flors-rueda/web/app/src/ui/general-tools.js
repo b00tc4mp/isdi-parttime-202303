@@ -61,9 +61,9 @@ export const setAlert = (alertColor, alertMessage, alertTitle) => {
 export const setPredeterminateAvatar = (userAuth) => {
   if (userAuth) {
     const user = retrieveUser(userAuth);
-    document.querySelector('.avatar').src = user.avatar;
+    document.querySelector('.profile-card__avatar').src = user.avatar;
   } else {
-    document.querySelector('.avatar').src = 'https://www.slotcharter.net/wp-content/uploads/2020/02/no-avatar.png';
+    document.querySelector('.profile-card__avatar').src = 'https://www.slotcharter.net/wp-content/uploads/2020/02/no-avatar.png';
   };
 };
 

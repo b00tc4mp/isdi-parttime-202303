@@ -27,7 +27,7 @@
     --color-secondary-400: #5d708a;
     --color-secondary-500: #77869c;
     --color-secondary-600: #919daf;
-    --color-secondary-transparence: #02172775;
+    --color-secondary-transparence: #095793aa;
     --color-surface-100: #f8f8f8;
     --color-surface-200: #efefef;
     --color-surface-300: #e8e8e8;
@@ -92,7 +92,7 @@ body {
     right: 0;
     width: 100%;
     height: 100%;
-    background: var(--color-secondary-transparence);
+    background: var(--color-primary-transparence);
     backdrop-filter: blur(3px);
     z-index: 3;
 }

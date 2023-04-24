@@ -1,19 +1,31 @@
-import { loginPage } from '../pages/login-page.js';
-import { logout, } from '../ui/login-register.js';
-import { setOff, setOn, resetAlerts, clearForms, } from '../ui/general-tools.js'
-import { displayProfile, displayWelcome, } from '../ui/home.js'
-import { favoritesPage, profile, profileButtons, } from '../pages/home-user-profile-page.js';
-import initPostsList from './posts-list.js';
+import { svg } from '../../assets/svg-paths.js';
+import { clearForms, resetAlert, setOff, setOn, setPredeterminateAvatar } from '../ui/general-tools.js';
+import { login, loginPage } from '../pages/login-page.js';
 
+export default function initNavbar(context, homePage, homeMain, homeUser, postModal) {
 
-export default function initNavbar(context, homePage, mainHome, postModal, profileForms) {
-    const toLogout = document.querySelector('.logout');
-    const toUserProfile = document.querySelector('.to-user-profile');
-    const toHome = document.querySelector('.to-home');
+  const navbar = document.querySelector('.nav-header');
+  const profileForms = document.querySelector('.profile-forms');
+  const profileUserPosts = document.querySelector('.home-page__user-profile--posts')
+  const profileFavs = document.querySelector('.home-page__user-profile--favorites');
+  const profileButtons = document.querySelector('.home-page__user-profile--buttons')
+  const alert = document.querySelector('.alert')
+
+  const toLogout = navbar.querySelector('.nav-header__logout');
+  const toUserProfile = navbar.querySelector('.nav-header__to-user-profile');
+  const toHome = navbar.querySelector('.nav-header__to-home');
+
+  
+  const svgLogout = document.querySelector('.nav-header__logout--icon').querySelector('path')
+  const svgUserProfile = document.querySelector('.nav-header__to-user-profile--icon').querySelector('path')
+  const svgHome = document.querySelector('.nav-header__to-home--icon').querySelector('path')
+
+  svgLogout.setAttribute('d', svg.logout)
+  svgUserProfile.setAttribute('d', svg.userProfile)
+  svgHome.setAttribute('d', svg.home)
     
-    const toggleNav = document.querySelector('.nav-menu');
-    const nav = document.querySelector('.navbar');
-    const page = document.querySelector('.home-page');
+  const toggleNav = navbar.querySelector('.nav-header__menu');
+  const nav = navbar.querySelector('.nav-header__navbar');
     
     toggleNav.addEventListener('click', (event)  => {
       event.preventDefault();
@@ -21,39 +33,43 @@ export default function initNavbar(context, homePage, mainHome, postModal, profi
       nav.classList.toggle('show')
     })
     
-    page.addEventListener('click', (event)  => {
+    
+    homePage.addEventListener('click', (event)  => {
       if((nav.classList).contains('show')){
         event.preventDefault();
         nav.classList.remove('show')
         toggleNav.classList.remove('close')
       }
     })
-    
-    toLogout.addEventListener('click', (event) => {
-      event.preventDefault();
-      clearForms();
-      setOff(profile, profileForms, profileButtons, mainHome)
-      logout(loginPage, homePage);
-    });
-    
+
     toUserProfile.addEventListener('click', (event) => {
       event.preventDefault();
       clearForms();
-      resetAlerts();
-      setOn(profile, profileButtons);
-      setOff(mainHome, profileForms, favoritesPage);
-      displayProfile(context.userAuth);
+      resetAlert(alert);
+      setOn(homeUser, profileButtons);
+      setOff(homeMain, profileForms, profileUserPosts, profileFavs);
     });
-    
+
     toHome.addEventListener('click', (event) => {
       event.preventDefault();
       clearForms();
-      resetAlerts();
-      setOn(mainHome);
-      setOff(profile, profileButtons, profileForms);
-      initPostsList(context.userAuth, postModal, 'all');
-      displayWelcome(context.userAuth)
+      resetAlert(alert);
+      setOn(homeMain);
+      setOff(homeUser, profileButtons, profileForms,profileUserPosts, profileFavs);
+      //initPostsList(context.userAuth, postModal, 'all');
     });
+    
 
+    toLogout.addEventListener('click', (event) => {
+      event.preventDefault();
+      clearForms();
+      resetAlert(alert);
+      delete context.userAuth;
+      setOff(homePage, homeMain, homeUser, profileButtons, profileForms,profileUserPosts, profileFavs, navbar)
+      setOn(loginPage, login)
+      setPredeterminateAvatar()
+    });
+    
+    return navbar
 }
 

@@ -1,7 +1,5 @@
 import { clearForms, setAlert } from './general-tools.js';
 
-//TODO: Add new edit user options errors
-
 export const displayLoginError = (message, form) => {
   const title = 'Oh, no!';
   if (message === 'username does not exist') {

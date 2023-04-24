@@ -10,7 +10,6 @@ import initLoginForm from '../components/login-form.js';
 import initRegisterForm from '../components/register-form.js';
 import { context } from '../ui/general-tools.js';
 import { changeView } from '../ui/login.js';
-import { homeMain, homePage } from './home-page.js';
 
 export const loginPage = document.querySelector('.login-page');
 export const register = document.querySelector('.login-page__register');
@@ -25,7 +24,7 @@ changeViewLink.addEventListener('click', (event) => {
 
 initRegisterForm(changeViewLink, register, login);
 
-initLoginForm(context, loginPage, homePage, homeMain);
+initLoginForm(context, loginPage);
 
 
 /*
