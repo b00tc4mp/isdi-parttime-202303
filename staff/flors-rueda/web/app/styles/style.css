@@ -1,47 +1,74 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,500;0,700;0,900;1,100;1,400&display=swap');
 
-@import './forms.css';
-@import './buttons.css';
-@import './alerts.css';
-@import './home.css';
 
-:root {
-    --color-primary300: #fb8404;
-    --color-primary200: #faaf3e;
-    --color-primary100: #f4c784;
-    --color-primary-transparence: #ffbd6698;
-    --color-secondary300: #000c6a;
-    --color-secondary200: #6c93e8;
-    --color-secondary100: #95c0fa;
-    --color-secondary-transparence: #375e90be;
-    --color-dark300: #000000;
-    --color-dark200: #3b3b3b;
-    --color-dark100: #5c5c5c;
-    --color-light300: #c0c0c0;
-    --color-light200: #e4e4e4;
-    --color-light100: #fafdff;
-    --color-warning300: #7f5b00;
-    --color-warning200: #ffda37;
-    --color-warning100: #fbfbc4;
-    --color-danger300: #7e0e08;
-    --color-danger200: #e3332a;
-    --color-danger100: #ec6772;
-    --color-success300: #377e3f;
-    --color-success200: #53b65a;
-    --color-success100: #ddf8e4;
+@import './button.css';
+@import './inputs.css';
+@import './home-page.css';
+@import './login-page.css';
+@import './alert.css';
+@import './navbar.css';
+@import './post-modal.css';
+@import './post-card.css';
+@import './profile-card.css';
+@import './theme-toggle.css';
+
+
+:root, html[data-theme="light"] {
+    --color-primary-100:  #ff4d00;
+    --color-primary-200:  #ff8000;
+    --color-primary-300:  #ff8f2f;
+    --color-primary-400:  #ff905e;
+    --color-primary-500:  #ffa378;
+    --color-primary-600:  #ffb97f;
+    --color-primary-transparence: #ff4d008d;    
+    --color-secondary-100: #083254;
+    --color-secondary-200: #294665;
+    --color-secondary-300: #445a77;
+    --color-secondary-400: #5d708a;
+    --color-secondary-500: #77869c;
+    --color-secondary-600: #919daf;
+    --color-secondary-transparence: #02172775;
+    --color-surface-100: #f8f8f8;
+    --color-surface-200: #efefef;
+    --color-surface-300: #e8e8e8;
+    --color-surface-400: #dedede;
+    --color-warning-100: #c39200;
+    --color-warning-200: #ffbf00;
+    --color-warning-300: #ffe2a1;
+    --color-danger-100: #7c0903;
+    --color-danger-200: #e3332a;
+    --color-danger-300: #f46f7a;
+    --color-success-100: #377e3f;
+    --color-success-200: #53b65a;
+    --color-success-300: #ddf8e4;
+
 }
 
-/*TODO fix dark mode*/
+html[data-theme="dark"] {
+    --color-surface-100:  #070707;
+    --color-surface-200:  #1b1b1b;
+    --color-surface-300:  #202020;
+    --color-surface-400:  #252525;
+    --color-secondary-100: #919daf;
+    --color-secondary-200: #77869c;
+    --color-secondary-300: #5d708a;
+    --color-secondary-400: #445a77;
+    --color-secondary-500: #294665;
+    --color-secondary-600: #083254;
+}
 
 body {
     margin: 0;
-    padding: 1rem;
     font-family: 'Roboto', sans-serif;
     font-size: 1.05em;
-    background-color: var(--color-light100);
-    color: var(--color-dark200);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: var(--color-surface-100);
+    color: var(--color-primary-100);
     height: 100%;
     transition: color 600ms, background-color 600ms;
+    -webkit-tap-highlight-color: var(--color-primary-transparence);
 }
 
 .blur {
@@ -52,14 +79,22 @@ body {
     right: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5);
+    background: var(--color-secondary-transparence);
     backdrop-filter: blur(3px);
     z-index: 1;
 }
 
-.dark-mode {
-    background-color: var(--color-dark200);
-    color: var(--color-light200);
+.extra-blur {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--color-secondary-transparence);
+    backdrop-filter: blur(3px);
+    z-index: 3;
 }
 
 .off {
@@ -69,28 +104,47 @@ body {
 h1 {
     margin-block-start: 0;
     margin-block-end: 0.1em;
-    color: var(--color-primary300);
+    color: var(--color-primary-200);
     font-size: 2rem;
 }
 
 h2 {
     margin-block-start: 0;
     font-size: 1.5rem;
-    color: var(--color-secondary200);
+    margin-block-end: 0.1em;
+    color: var(--color-secondary-100);
+}
+
+p {
+    margin: 0;
+    margin-block-start: 0;
+    margin-block-end: 0;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 3.5rem;
+    z-index: -1;
+    background: linear-gradient(0deg, var(--color-surface-400) 0%, var(--color-surface-100) 100%);
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    align-items: end;
+
+}
+
+.git-logo {
+    fill: var(--color-secondary-600);
+    height: 1.5rem;
+    width: 1.5rem;
+    padding: 0.25rem 0.75rem 0.5rem;
 }
 
 @media (min-width: 768px) {
-
     html,
     body {
         font-size: 1.15em;
-    }
-}
-
-@media (max-width: 300px) {
-
-    html,
-    body {
-        font-size: 0.85em;
     }
 }

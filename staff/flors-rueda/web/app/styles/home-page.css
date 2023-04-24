@@ -1,0 +1,84 @@
+.home-page__user-profile {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: initial;
+}
+
+.home-page__main--title,
+.home-page__user-profile--title,
+.profile-forms__title {
+    padding: 0.45rem 1.5rem;
+}
+
+.home-page__main--posts-list,
+.home-page__user-profile--favorites--post-list,
+.home-page__user-profile--posts--post-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.home-page__user-profile--buttons {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    padding: 0 1rem;
+}
+
+.home-page__user-profile--buttons button{
+    width: 45%;
+    padding: 0;
+}
+
+.profile-forms form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+    gap: 1em;
+    padding: 0.5rem 0.15rem;
+}
+
+.profile-forms__delete-account--alert {
+    width: 100%;
+    text-align: center;
+    background-color: var(--color-danger-300);
+    color: var(--color-danger-100);
+    font-weight: 400;
+    padding: 0.5rem 0;
+}
+
+.home-page__new-post {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 0.75rem
+}
+
+.home-page__new-post--button {
+    padding: 0;
+    border-radius: 50%;
+    width: 2.75rem;
+    height: 2.75rem;
+}
+
+.home-page__new-post--button svg {
+    height: 2rem;
+    width: 2rem;
+    fill: var(--color-secondary-100);
+}
+
+
+@media (min-width: 768px) {
+    .home-page__main--posts-list {
+        display: flex;
+        flex-direction: row;
+        gap: 1em;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+
+}
