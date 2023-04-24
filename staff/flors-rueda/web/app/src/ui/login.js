@@ -1,13 +1,7 @@
 import { clearForms, toggleOff } from './general-tools.js';
 
 
-export const login = (login, home, startHome, username, password) => {
-  resetAlerts();
-  const userAuth = authenticateUser(username, password);
-  setOff(login, toggle)
-  setOn(home, startHome);
-  return userAuth
-};
+
 
 export const logout = (login, home) => {
   resetAlerts();

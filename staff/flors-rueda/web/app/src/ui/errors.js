@@ -2,20 +2,22 @@ import { clearForms, setAlert } from './general-tools.js';
 
 //TODO: Add new edit user options errors
 
-export const displayLoginError = (message) => {
+export const displayLoginError = (message, form) => {
+  const title = 'Oh, no!';
   if (message === 'username does not exist') {
-    setSimpleAlert('area-login-username', 'alert-danger', message);
-    clearForms();
+    const focusInput = form.querySelector('input[name="username"]')
+    setAlert('danger', message, title)
+    focusInput.classList.add('invalid-input');
     return;
   };
   if (message === 'password incorrect') {
-    setSimpleAlert('area-login-password', 'alert-danger', message);
-    document.querySelector('.login-form').querySelector('input[name="password"]').value = '';
+    const focusInput = form.querySelector('input[name="password"]')
+    setAlert('danger', message, title)
+    focusInput.classList.add('invalid-input');
     return;
   };
-  setAlert('area-login', 'alert-danger', 'sorry, something went wrong!');
-  clearForms();
-  console.log(`login error: ${message}`);
+  setAlert('danger', 'sorry, something went wrong!', title);
+  console.log(`register error: ${message}`);
 };
 
 export const displayRegisterError = (message, form) => {

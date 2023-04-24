@@ -6,8 +6,11 @@ import { registerPage } from './register-page.js';
 import { postModal, homePage, mainHome } from "./home-page.js";
 import initPostsList from '../components/posts-list.js';*/
 
+import initLoginForm from '../components/login-form.js';
 import initRegisterForm from '../components/register-form.js';
+import { context } from '../ui/general-tools.js';
 import { changeView } from '../ui/login.js';
+import { homeMain, homePage } from './home-page.js';
 
 export const loginPage = document.querySelector('.login-page');
 export const register = document.querySelector('.login-page__register');
@@ -22,30 +25,10 @@ changeViewLink.addEventListener('click', (event) => {
 
 initRegisterForm(changeViewLink, register, login);
 
-
+initLoginForm(context, loginPage, homePage, homeMain);
 
 
 /*
-const loginForm = document.querySelector('.login-form');
-const usernameLogin = document.querySelector('.login-form').querySelector('input[name="username"]');
-export const changeViewLinks = document.querySelectorAll('.change-view-link');
-
-usernameLogin.addEventListener('input', (event) => {
-  controlUsernameInput(usernameLogin);
-});
 
 
-
-loginForm.addEventListener('submit', (event) => {
-  event.preventDefault();
-  const username = document.querySelector('.login-form').querySelector('input[name="username"]').value;
-  const password = document.querySelector('.login-form').querySelector('input[name="password"]').value;
-  try {
-    context.userAuth = login(loginPage, homePage, mainHome, username, password);
-    displayWelcome(context.userAuth);
-    initPostsList(context.userAuth, postModal, 'all')
-  } catch (error) {
-    displayLoginError(error.message);
-  }
-});
 */

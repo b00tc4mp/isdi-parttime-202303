@@ -1,4 +1,4 @@
-import { toggleOff, setOn, setOff, clearForms, resetAlerts, setAlert, setPredeterminateAvatar, stripHTML,} from './general-tools.js';
+import { toggleOff, setOn, setOff, clearForms, resetAlert, setAlert, setPredeterminateAvatar, stripHTML,} from './general-tools.js';
 import { updateUserAvatar, updateUserMail, updateName, updateUsername } from '../logic/update-user-data.js';
 import { updateUserPassword } from '../logic/update-user-password.js';
 import { retrieveUser } from '../logic/retrieve-user.js'
@@ -6,8 +6,10 @@ import { deleteAccount } from '../logic/delete-account.js';
 import { getMail } from '../logic/data/users/data-managers.js';
 
 export const displayWelcome = (userAuth) => {
+  const alert = document.querySelector('.alert');
+  resetAlert(alert)
   const user = retrieveUser(userAuth);
-  document.querySelector('.welcome').innerText = `Welcome, ${user.name}! Check what's going on:`;
+  document.querySelector('.home-page__main--welcome').innerText = `Welcome, ${user.name}! Check what's going on:`;
 }
 
 export const displayProfile = (userAuth) => {
