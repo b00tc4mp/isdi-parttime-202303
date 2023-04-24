@@ -3,9 +3,9 @@ import { context } from '../ui.js';
 
 import initEditPostPanel from '../components/edit-post-panel.js';
 import retrieveAvatar from '../logic/retrive-avatar.js';
-import toggleLikesPost from '../logic/like-posts.js';
 import retrieveUser from '../logic/retrieve-user.js';
 import getHomePage from '../components/get-home-page.js';
+import renderPostLikesInfo from '../components/likes-post-info.js';
 
 const homePage = getHomePage(),
   postListPanel = homePage.querySelector('.post-list');
@@ -68,74 +68,14 @@ const createPostText = (post) => {
   return text;
 };
 
-const createLikeButton = (isLiked) => {
-  const buttonLike = document.createElement('button'),
-    heartIcon = document.createElement('i');
-
-  heartIcon.classList.add('far', 'fa-heart');
-  buttonLike.classList.add('button-like');
-  buttonLike.appendChild(heartIcon);
-  if (isLiked) {
-    heartIcon.classList.add('fas');
-  }
-  return buttonLike;
-};
-
-const updateLikesInfo = (likesUsers, likesCount, postLikes) => {
-  likesCount.innerText = !postLikes.likesUsers
-    ? ''
-    : postLikes.likesUsers.length;
-  likesUsers.innerText = !postLikes.likesUsers ? '' : postLikes.likesUsers;
-};
-
-const handleLikeClick = (
-  buttonLike,
-  post,
-  toggleLikes,
-  likesUsers,
-  likesCount
-) => {
-  try {
-    const postLikes = toggleLikes(post.id, context.userId);
-    const heartIcon = buttonLike.querySelector('.fa-heart');
-    heartIcon.classList.toggle('fas');
-    updateLikesInfo(likesUsers, likesCount, postLikes);
-  } catch (error) {
-    alert(error.message);
-  }
-};
-
-const renderPostLikesInfo = (post, user, toggleLikes) => {
-  const postLikesInfo = document.createElement('div');
-  postLikesInfo.classList.add('post-likes-info');
-
-  const isLiked = post.likesUsers && post.likesUsers.includes(user.name),
-    buttonLike = createLikeButton(isLiked);
-
-  buttonLike.onclick = () =>
-    handleLikeClick(buttonLike, post, toggleLikes, likesUsers, likesCount);
-
-  const likesUsers = document.createElement('p');
-  likesUsers.classList.add('likes-users');
-  likesUsers.innerText = !post.likesUsers ? '' : post.likesUsers;
-
-  const likesCount = document.createElement('p');
-  likesCount.classList.add('likes-count');
-  likesCount.innerText = !post.likesUsers ? '' : post.likesUsers.length;
-
-  postLikesInfo.append(buttonLike, likesCount, likesUsers);
-
-  return postLikesInfo;
-};
-
-const renderPostItem = (post, user, toggleLikes) => {
+const renderPostItem = (post, user) => {
   const postItem = document.createElement('article');
   postItem.classList.add('posts-users');
 
   const postHeader = renderPostHeader(post),
     postImage = createPostImage(post),
     postText = createPostText(post),
-    postLikesInfo = renderPostLikesInfo(post, user, toggleLikes);
+    postLikesInfo = renderPostLikesInfo(post, user);
 
   postItem.append(postHeader, postImage, postLikesInfo, postText);
 
@@ -150,7 +90,7 @@ const renderPosts = () => {
     postListPanel.innerHTML = '';
 
     posts.forEach((post) => {
-      const postItem = renderPostItem(post, user, toggleLikesPost);
+      const postItem = renderPostItem(post, user);
 
       const date = document.createElement('time');
       date.innerText = post.date.toLocaleString('en-ES');
