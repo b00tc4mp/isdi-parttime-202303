@@ -1,42 +1,28 @@
 import { loginPage } from "./login-page.js"
-import { updateUsername } from "../logic/update-user-name.js"
-import { closeProfilePages, context, showHideContainer, unshadowPredefinedAvatars } from "../ui.js"
+import { closeProfilePages, context, showHideContainer } from "../ui.js"
 import initUpdatePassword from "../components/update-password.js"
-
-import { updateUserEmail } from "../logic/update-user-email.js"
-import { updateUserAvatar } from "../logic/update-user-avatar.js"
-import { createNewPost } from "../logic/create-new-post.js"
-import alienImage from "../../images/alien.svg"
-import spaceDogImage from "../../images/space-dog.svg"
-import galaxyImage from "../../images/galaxy.svg"
-import meteoriteImage from "../../images/meteorite.svg"
+import initUpdateEmail from "../components/update-email.js"
+import initUpdateAvatar from "../components/update-avatar.js"
+import initUpdateName from "../components/update-name.js"
+import initCreatePost from "../components/create-post.js"
+import initUpdatePost from "../components/update-post.js"
 import { getLoggedUser } from "../logic/login-user.js"
-import retrievePosts from "../logic/retrive-posts.js"
-import { updatePost } from "../logic/update-post.js"
 
+import spaceDogImage from "../../images/space-dog.svg"
 export const DEFAULT_AVATAR_URL = spaceDogImage
 
 export const homePage = document.querySelector('.home')
 export const avatarImage = homePage.querySelector('.avatar')
 const homePageAddPost = homePage.querySelector('.home__anchor--new-post')
-export const homePagePost = homePage.querySelector('.home__post')
 export const homePageProfile = homePage.querySelector('.home__profile')
-//export const homePagePassword = homePage.querySelector('.home__password')
-export const homePageUsername = homePage.querySelector('.home__username')
-export const homePageEmail = homePage.querySelector('.home__email')
-export const homePageAvatar = homePage.querySelector('.home__avatar')
 export const homePageMain = homePage.querySelector('.home__main')
-export const homePostEdit = homePage.querySelector('.home__post--edit')
 
-//const updatePasswordPanel = initUpdatePassword(homePage)
 export const homePagePassword = initUpdatePassword(homePage)
-
-
-export const spaceDog = homePage.querySelector('.space-dog')
-export const alien = homePage.querySelector('.alien')
-export const meteorite = homePage.querySelector('.meteorite')
-export const galaxy = homePage.querySelector('.galaxy')
-let newAvatar = ''
+export const homePageUsername = initUpdateName(homePage)
+export const homePageEmail = initUpdateEmail(homePage)
+export const homePageAvatar = initUpdateAvatar(homePage)
+export const homePagePost = initCreatePost(homePage)
+export const homePostEdit = initUpdatePost(homePage)
 
 homePageAddPost.onclick = function(event) {
     event.preventDefault()
@@ -44,140 +30,14 @@ homePageAddPost.onclick = function(event) {
     showHideContainer(homePageMain, homePagePost)
 }
 
-homePagePost.querySelector('.post__form').onsubmit = function(event) {
-    event.preventDefault()
-
-    const newPostImage = event.target.newPostImage.value
-    const newPostText = event.target.newPostText.value
-
-    try {
-        createNewPost(context.userID, newPostImage, newPostText)
-        
-        homePagePost.querySelector('.post__form').reset()
-        showHideContainer(homePagePost, homePageMain)
-        retrievePosts(context.userID)
-    } catch (error) {
-        alert(error.message)
-    }
-    
-    alert ('Posted!')
-}
-
 homePagePost.querySelector('.cancel__button').onclick = function() {
     homePagePost.querySelector('.post__form').reset()
     showHideContainer(homePagePost, homePageMain)
 }
 
-homePostEdit.querySelector('.post__form').onsubmit = function(event) {
-    event.preventDefault()
-
-    const newPostImage = event.target.newPostImage.value
-    const newPostText = event.target.newPostText.value
-    const postId = homePostEdit.querySelector('input[type=hidden]').value
-
-    try {
-        updatePost(context.userID, postId, newPostImage, newPostText)
-        
-        homePostEdit.querySelector('.post__form').reset()
-        showHideContainer(homePostEdit, homePageMain)
-        retrievePosts(context.userID)
-    } catch (error) {
-        alert(error.message)
-    }
-    
-    alert ('Updated!')
-}
-
 homePostEdit.querySelector('.cancel__button').onclick = function() {
     homePostEdit.querySelector('.post__form').reset()
     showHideContainer(homePostEdit, homePageMain)
-}
-
-homePage.querySelector('.avatar__form').onsubmit = function(event) {
-    event.preventDefault()
-
-    if (!newAvatar) {
-        newAvatar = event.target.newAvatar.value
-    }
-
-    try {
-        updateUserAvatar(context.userID, newAvatar)
-        alert('avatar updated')
-
-        avatarImage.src = newAvatar
-        showHideContainer(homePageProfile, homePageAvatar)
-        homePage.querySelector('.avatar__form').reset()
-        newAvatar = ''
-        unshadowPredefinedAvatars()
-    } catch (error) {
-        alert(error.message)
-    }
-}
-
-spaceDog.onclick = function() {
-    unshadowPredefinedAvatars()
-    spaceDog.classList.add('pre-avatar-shadow')
-
-    newAvatar = spaceDogImage
-}
-
-alien.onclick = function(event) {
-    unshadowPredefinedAvatars()
-    alien.classList.add('pre-avatar-shadow')
-
-    newAvatar = alienImage
-}
-
-meteorite.onclick = function(event) {
-    unshadowPredefinedAvatars()
-    meteorite.classList.add('pre-avatar-shadow')
-
-    newAvatar = meteoriteImage
-}
-
-galaxy.onclick = function(event) {
-    unshadowPredefinedAvatars()
-    galaxy.classList.add('pre-avatar-shadow')
-
-    newAvatar = galaxyImage
-}
-
-homePage.querySelector('.email__form').onsubmit = function(event) {
-    event.preventDefault()
-
-    const oldEmail = event.target.oldEmail.value
-    const newEmail = event.target.newEmail.value
-    const confirmedEmail = event.target.newEmailConfirmation.value
-    const password = event.target.emailPassword.value
-
-    try {
-        updateUserEmail(context.userID, oldEmail, newEmail, confirmedEmail, password)
-        alert('email updated')
-
-        showHideContainer(homePageProfile, homePageEmail)
-        homePage.querySelector('.email__form').reset()
-    } catch (error) {
-        alert(error.message)
-    }
-}
-
-homePage.querySelector('.username__form').onsubmit = function(event) {
-    event.preventDefault()
-
-    const oldUsername = event.target.oldUsername.value
-    const newUsername = event.target.newUsername.value
-    const password = event.target.password.value
-
-    try {
-        updateUsername(context.userID, oldUsername, newUsername, password)
-        alert('name updated')
-        homePage.querySelector('.home__anchor--profile').innerText = newUsername
-
-        showHideContainer(homePageProfile, homePageUsername)
-        homePage.querySelector('.username__form').reset()
-    } catch (error) {
-        alert(error.message)
-    }
 }
 
 homePage.querySelector('.home__anchor--profile').onclick = function(event) {

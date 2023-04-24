@@ -1,6 +1,7 @@
 import { loginPage } from "./login-page.js"
 import { showHideContainer } from "../ui.js"
 import { addNewUser } from "../logic/register-user.js"
+import { hideAllPasswords, unslashAllEyes } from "../logic/password-eyes.js"
 
 export const registerPage = document.querySelector('.register')
 
@@ -17,6 +18,10 @@ registerPage.querySelector('form').onsubmit = function(event) {
 
         registerPage.classList.add('off')
         loginPage.classList.remove('off')
+
+        hideAllPasswords(registerPage, '.register__password', '.register__password--confirm')
+        unslashAllEyes(registerPage, '.register-eye', '.register-confirm-eye')
+
         registerPage.querySelector('form').reset()
     } catch (error) {
         alert(error.message)
@@ -27,5 +32,8 @@ registerPage.querySelector('.register__anchor--login').onclick = function(event)
     event.preventDefault()
 
     showHideContainer(registerPage, loginPage)
+    hideAllPasswords(registerPage, '.register__password', '.register__password--confirm')
+    unslashAllEyes(registerPage, '.register-eye', '.register-confirm-eye')
+
     registerPage.querySelector('.register__form').reset()
 }
