@@ -1,28 +1,29 @@
 console.log('load home-page')
 
 import {context, show, hide} from '../ui.mjs'
-import updateUserAvatar from '../logic/update-user-avatar.mjs'
-import updateUserPassword from '../logic/update-user-password.mjs'
-import createPost from '../logic/create-post.mjs'
 import {loginPage} from './login-page.mjs'
 import retrievePosts from '../logic/retrieve-posts.mjs'
+import retrieveUser from '../logic/retrieve-user.mjs'
 
-export const DEFAULT_AVATAR_URL = 'https://cdn-icons-png.flaticon.com/512/4925/4925754.png'
+import initProfilePanel from '../components/profile-panel.js'
+import initAddPostPanel from '../components/add-post-panel.js'
+import initEditPostPanel from '../components/edit-post-panel.js'
+
+import toggleLikePost from '../logic/toggle-like.post.js'
 
 export const homePage = document.querySelector(' .home')
-export const avatarImage = homePage.querySelector('.home-header-avatar')
-export const profileLink = homePage.querySelector('a')
 
-const profilePanel = homePage.querySelector('.profile')
-const updateUserAvatarForm = profilePanel.querySelector ('.profile-avatar-form')
-const updateUserPasswordForm = profilePanel.querySelector('.profile-password-form')
-
-const addPostPanel = homePage.querySelector('.add-post')
-const addPostForm = addPostPanel.querySelector('form')
+const DEFAULT_AVATAR_URL = 'https://cdn-icons-png.flaticon.com/512/4925/4925754.png'
+const avatarImage = homePage.querySelector('.home-header-avatar')
+const profileLink = homePage.querySelector('a')
 const addPostButton = homePage.querySelector('.add-post-button')
 
-const postListPannel = homePage.querySelector('.post-list')
+const profilePanel = initProfilePanel(homePage, avatarImage)
+const addPostPanel = initAddPostPanel(homePage, renderPosts)
+const editPostPanel = initEditPostPanel(homePage, renderPosts)
 
+const editPostForm = editPostPanel.querySelector('form')
+const postListPannel = homePage.querySelector('.post-list')
 
 
 profileLink.onclick = function(event) {
@@ -32,80 +33,20 @@ profileLink.onclick = function(event) {
 }
 
 homePage.querySelector('.home-header-logout').onclick = function(){
-    context.userId = null
+    delete context.userId
     avatarImage.src = DEFAULT_AVATAR_URL
 
     hide(homePage, profilePanel)
     show(loginPage)
 }
 
-
-updateUserAvatarForm.onsubmit = function (event) {
-    event.preventDefault()
-
-    const url = event.target.url.value
-
-    try {
-        updateUserAvatar(context.userId, url)
-        alert ('avatar succesfully updated')
-        avatarImage.src = url
-        updateUserAvatarForm.reset()
-
-    } catch (error) {
-        alert(error.message)
-    }
-}
-
-
-
-updateUserPasswordForm.onsubmit = function (event) {
-    event.preventDefault()
-
-    const password = event.target.password.value
-    const newPassword = event.target.newPassword.value
-    const newPasswordConfirm = event.target.newPasswordConfirm.value
-
-    try {
-        updateUserPassword(context.userId, password, newPassword,newPasswordConfirm)
-
-        alert('Password succesfully updated')
-        updateUserPasswordForm.reset()
-
-    } catch (error) {
-        alert(error.message)
-    } 
-}
-
 addPostButton.onclick = () => show(addPostPanel)
 
-addPostForm.onsubmit = event => {
-    event.preventDefault()
-
-    const image = event.target.image.value
-    const text = event.target.text.value
-
-    try{
-        createPost(context.userId, image, text)
-        hide (addPostPanel)
-        renderPosts()
-
-    } catch(error) {
-        alert(error.message)
-    }
-
-}
-
-addPostForm.querySelector('.cancel').onclick = event => {
-    event.preventDefault()
-    
-    addPostForm.reset()
-    hide(addPostPanel)
-}
 
 export function renderPosts(){
     postListPannel.innerHTML = ''
 
-    try{
+    try {
         const posts = retrievePosts(context.userId)
 
         posts.forEach(post => {
@@ -119,12 +60,71 @@ export function renderPosts(){
             const date = document.createElement('time')
             date.innerText = post.date.toLocaleString()
 
-            postItem.append(image, text, date)
+            if (post.author === context.userId) {
+
+                const button = document.createElement('button')
+                button.innerText = 'Edit'
+
+                button.onclick = () => {
+                    editPostForm.querySelector('input[type=hidden').value = post.id
+                    editPostForm.querySelector('input[type=url').value = post.image
+                    editPostForm.querySelector('textarea').value = post.text
+
+                    show(editPostPanel)
+                }
+
+                postItem.append(image, text, date, button)
+                
+            } else {
+                postItem.append(image, text, date)
+            }
+
+            const likeButton = document.createElement('button')
+            const countLikes = post.likes && post.likes.length || 0
+            likeButton.innerText = post.likes && post.likes.includes(context.userId) ? `❤️ (${countLikes})` : `🤍 (${countLikes})`
+            
+            likeButton.onclick = () => {
+                try {
+                    toggleLikePost(context.userId, post.id)
+
+                    renderPosts()
+                } catch(error) {
+                    alert(error.message)
+                }
+            }
+
+            postItem.appendChild(likeButton)
 
             postListPannel.appendChild(postItem)
+            
         })
+        
+        return true
 
     } catch(error){
         alert(error.message)
+
+        return false
+    }
+}
+
+
+export function renderUser() {
+    try {
+
+        const user = retrieveUser(context.userId)
+
+        profileLink.innerText = user.name
+
+        avatarImage.src = user.avatar? user.avatar : DEFAULT_AVATAR_URL
+
+        return true
+
+    } catch (error) {
+
+        alert(error.message)
+
+        return false
+     
     }
 }
