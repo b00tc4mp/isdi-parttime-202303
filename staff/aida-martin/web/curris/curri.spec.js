@@ -169,3 +169,7 @@ describe("every", () => {
     expect(a1).toBe(true);
   });
 });
+
+describe("fill", () => {
+  it("");
+});
