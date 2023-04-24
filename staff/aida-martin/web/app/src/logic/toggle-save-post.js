@@ -1,6 +1,6 @@
 import { validateId } from "./helpers/validators.js";
 import { findPostById, findUserById } from "./helpers/data-managers";
-import { saveUsers } from "../data.js";
+import { saveUser } from "../data.js";
 
 export default function toggleSavePost(userId, postId) {
   validateId(userId, "User ID");
@@ -30,5 +30,5 @@ export default function toggleSavePost(userId, postId) {
     }
   }
 
-  saveUsers();
+  saveUser(user);
 }

@@ -1,70 +1,43 @@
-export const users =
+export const users = () =>
   "usersJson" in localStorage ? JSON.parse(localStorage.usersJson) : [];
 
-// users.push({
-//   id: "user-1",
-//   name: "Wendy Darling",
-//   email: "wendy@darling.com",
-//   password: "123123123",
-// });
-
-// users.push({
-//   id: "user-2",
-//   name: "Peter Pan",
-//   email: "peter@pan.com",
-//   password: "123123123",
-// });
-
-// users.push({
-//   id: "user-3",
-//   name: "Pepito Grillo",
-//   email: "pepito@grillo.com",
-//   password: "123123123",
-// });
-
-// users.push({
-//   id: "user-4",
-//   name: "Aida",
-//   email: "aidamg93@gmail.com",
-//   password: "123123123",
-// });
-
-export const posts =
+export const posts = () =>
   "postsJson" in localStorage ? JSON.parse(localStorage.postsJson) : [];
 
-posts.forEach((post) => (post.date = new Date(post.date)));
+posts().forEach((post) => (post.date = new Date(post.date)));
 
-// posts.push({
-//   id: "post-1",
-//   author: "user-1",
-//   image:
-//     "https://byatrip.com/wp-content/uploads/espana-lanzarote-mirador-del-rio.jpg",
-//   text: "Hello from Lanzarote!",
-//   date: new Date(2023, 0, 23, 12, 32, 0),
-// });
-
-// posts.push({
-//   id: "post-2",
-//   author: "user-2",
-//   image:
-//     "https://s1.eestatic.com/2022/08/17/mujer/actualidad/696191216_226510665_1706x960.jpg",
-//   text: "Around the world!",
-//   date: new Date(2023, 1, 14, 16, 23, 0),
-// });
-
-// posts.push({
-//   id: "post-3",
-//   author: "user-4",
-//   image:
-//     "https://elviajerofeliz.com/wp-content/uploads/2020/01/Escapada-fin-de-semana-en-autocaravana.-%C2%A1Inolvidable.jpg",
-//   text: "Yeah!",
-//   date: new Date(2023, 3, 10, 11, 56, 0),
-// });
-
-export function saveUsers() {
+export function saveUsers(users) {
   localStorage.usersJson = JSON.stringify(users);
 }
 
-export function savePosts() {
+export function savePosts(posts) {
   localStorage.postsJson = JSON.stringify(posts);
+}
+
+export function saveUser(user) {
+  const _users = users();
+
+  const index = _users.findIndex((_user) => _user.id === user.id);
+
+  if (index < 0) {
+    _users.push(user);
+  } else {
+    _users.splice(index, 1, user);
+  }
+
+  saveUsers(_users);
+}
+
+export function savePost(post) {
+  const _posts = posts();
+
+  const index = _posts.findIndex((_post) => _post.id === post.id);
+
+  if (index < 0) {
+    _posts.push(post);
+  } else {
+    _posts.splice(index, 1, post);
+  }
+
+  savePosts(_posts);
 }

@@ -13,7 +13,10 @@ export default function createPost(userId, image, text) {
 
   let id = "post-1";
 
-  const lastPost = posts[posts.length - 1];
+  //Con barra baja por hacer una variable "privada". Hacemos esto para no llamar a la función dos veces después en lastPost
+  const _posts = posts();
+
+  const lastPost = _posts[_posts.length - 1];
 
   if (lastPost) {
     id = "post-" + (parseInt(lastPost.id.slice(5)) + 1);
@@ -29,7 +32,7 @@ export default function createPost(userId, image, text) {
     date: new Date(),
   };
 
-  posts.push(post);
+  _posts.push(post);
 
-  savePosts();
+  savePosts(_posts);
 }

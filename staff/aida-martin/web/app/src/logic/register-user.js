@@ -23,7 +23,10 @@ export default function registerUser(name, email, password, repeatPassword) {
 
   let id = "user-1";
 
-  const lastUser = users[users.length - 1];
+  //Con barra baja por hacer una variable "privada". Hacemos esto para no llamar a la función dos veces después en lastUser
+  const _users = users();
+
+  const lastUser = _users[_users.length - 1];
 
   if (lastUser) {
     id = "user-" + (parseInt(lastUser.id.slice(5)) + 1);
@@ -36,7 +39,7 @@ export default function registerUser(name, email, password, repeatPassword) {
     password,
   };
 
-  users.push(user);
+  _users.push(user);
 
-  saveUsers();
+  saveUsers(_users);
 }

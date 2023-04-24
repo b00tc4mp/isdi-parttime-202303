@@ -1,6 +1,6 @@
 import { validateId } from "./helpers/validators.js";
 import { findPostById, findUserById } from "./helpers/data-managers";
-import { savePosts } from "../data.js";
+import { savePost } from "../data.js";
 
 export default function toggleLikePost(userId, postId) {
   validateId(userId, "User ID");
@@ -30,5 +30,5 @@ export default function toggleLikePost(userId, postId) {
     }
   }
 
-  savePosts();
+  savePost(post);
 }
