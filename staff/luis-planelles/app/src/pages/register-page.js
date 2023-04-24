@@ -1,7 +1,7 @@
 //
-import loginPage from './login-page.js';
 import registerUser from '../logic/register-user.js';
-import { show, hide } from '../ui.js';
+import { hide, show } from '../ui.js';
+import loginPage from './login-page.js';
 
 const registerPage = document.querySelector('.register'),
   registerForm = registerPage.querySelector('form');

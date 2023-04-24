@@ -1,5 +1,5 @@
 import { savePost } from '../data';
-import { findUserById, findPostById } from './helpers/data-managers';
+import { findPostById, findUserById } from './helpers/data-managers';
 import { validateId } from './helpers/validators';
 
 const toggleLikesPost = (postId, userId) => {

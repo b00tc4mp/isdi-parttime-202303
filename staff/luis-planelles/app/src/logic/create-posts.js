@@ -1,6 +1,6 @@
-import { savePosts, posts } from '../data.js';
+import { posts, savePosts } from '../data.js';
 import { findUserById } from './helpers/data-managers.js';
-import { validateUrl, validateText, validateId } from './helpers/validators.js';
+import { validateId, validateText, validateUrl } from './helpers/validators.js';
 
 const createPost = (userId, postImage, postText) => {
   validateUrl(postImage, 'image url');

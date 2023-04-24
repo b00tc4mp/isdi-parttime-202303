@@ -1,11 +1,10 @@
-import retrievePosts from '../logic/retrieve-posts.js';
-import { context } from '../ui.js';
-
 import initEditPostPanel from '../components/edit-post-panel.js';
-import retrieveAvatar from '../logic/retrive-avatar.js';
-import retrieveUser from '../logic/retrieve-user.js';
 import getHomePage from '../components/get-home-page.js';
 import renderPostLikesInfo from '../components/likes-post-info.js';
+import retrievePosts from '../logic/retrieve-posts.js';
+import retrieveUser from '../logic/retrieve-user.js';
+import retrieveAvatar from '../logic/retrive-avatar.js';
+import { context } from '../ui.js';
 
 const homePage = getHomePage(),
   postListPanel = homePage.querySelector('.post-list');

@@ -1,4 +1,4 @@
-import { users, posts } from '../data.js';
+import { posts, users } from '../data.js';
 import { validateId } from './helpers/validators.js';
 
 const retrievePosts = (userId) => {

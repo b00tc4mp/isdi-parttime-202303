@@ -1,7 +1,7 @@
 //
-import { findUserById } from './helpers/data-managers.js';
-import { validateId, updatePasswordValidation } from './helpers/validators.js';
 import { saveUser } from '../data.js';
+import { findUserById } from './helpers/data-managers.js';
+import { updatePasswordValidation, validateId } from './helpers/validators.js';
 
 const updateUserPassword = (
   userId,

@@ -1,5 +1,5 @@
-import loginPage from './pages/login-page.js';
 import { homePage, renderUser } from './pages/home-page.js';
+import loginPage from './pages/login-page.js';
 import renderPost from './pages/posts-page.js';
 import { context, show } from './ui.js';
 

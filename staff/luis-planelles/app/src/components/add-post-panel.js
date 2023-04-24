@@ -1,6 +1,6 @@
-import { context, hide } from '../ui.js';
 import createPost from '../logic/create-posts.js';
 import renderPosts from '../pages/posts-page.js';
+import { context, hide } from '../ui.js';
 
 const initAddPostPanel = (homePage) => {
   const addPostPanel = homePage.querySelector('.add-post');

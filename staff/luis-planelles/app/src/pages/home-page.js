@@ -1,10 +1,10 @@
-import { context, show, hide, toggle } from '../ui.js';
-import loginPage from './login-page.js';
-import DEFAULT_AVATAR_URL from '../logic/helpers/global-variables.js';
-import retrieveUser from '../logic/retrieve-user.js';
-import initProfilePanel from '../components/profile-panel.js';
 import initAddPostPanel from '../components/add-post-panel.js';
 import getHomePage from '../components/get-home-page.js';
+import initProfilePanel from '../components/profile-panel.js';
+import DEFAULT_AVATAR_URL from '../logic/helpers/global-variables.js';
+import retrieveUser from '../logic/retrieve-user.js';
+import { context, hide, show, toggle } from '../ui.js';
+import loginPage from './login-page.js';
 
 const homePage = getHomePage(),
   avatarImage = homePage.querySelector('.home-header-avatar'),

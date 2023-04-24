@@ -1,6 +1,6 @@
-import { findUserById, findPostById } from './helpers/data-managers';
-import { validateId, validateUrl, validateText } from './helpers/validators';
 import { savePost } from '../data';
+import { findPostById, findUserById } from './helpers/data-managers';
+import { validateId, validateText, validateUrl } from './helpers/validators';
 
 const updatePost = (userId, postId, postImage, postText) => {
   validateUrl(postImage, 'image url');

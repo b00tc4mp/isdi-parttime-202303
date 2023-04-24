@@ -1,4 +1,4 @@
-import { users, posts } from '../../data.js';
+import { posts, users } from '../../data.js';
 
 const findUserByEmail = (email) => {
   const foundUser = users().find((user) => user.email === email);

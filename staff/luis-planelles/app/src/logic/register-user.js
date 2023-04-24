@@ -1,4 +1,4 @@
-import { users, saveUsers } from '../data.js';
+import { saveUsers, users } from '../data.js';
 import { findUserByEmail } from './helpers/data-managers.js';
 import DEFAULT_AVATAR_URL from './helpers/global-variables.js';
 import {
