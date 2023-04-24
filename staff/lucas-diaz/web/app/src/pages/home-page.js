@@ -1,8 +1,7 @@
 
-import { context, show, hide, addClass, removeClass  } from "../ui.js";
+import { context, show, hide, removeClass  } from "../ui.js";
 import { logInPage } from "./login-page.js";
 import { footerSite } from "./footer-page.js";
-import createPost from "../logic/create-post.js";
 import retrievePosts from "../logic/retrieve-posts.js";
 import retrieveUser from "../logic/retrieve-user.js";
 import updatePostAvatar from "../logic/update-post-avatar.js";
@@ -10,6 +9,7 @@ import updatePost from "../logic/update-post.js";
 import likeAPost from "../logic/like-a-post.js";
 import updatePostLikeIcon from "../logic/update-post-like-icon.js";
 import initHeaderMenu from "../components/header-menu.js";
+import initAddPostPanel from "../components/add-post-panel.js";
 
 //* VARIABLES DE HOME
 const DEFAUTL_AVATAR_URL = "https://img.icons8.com/color/512/avatar.png";
@@ -22,10 +22,9 @@ const welcomeMessage = document.querySelector(".home-header-user-welcome-msj")
 export const postsListPanel = document.querySelector(".home-posts-content");
 
 //*VARIABLES DE MODAL DE CREATE POST  
-export const postModal = document.querySelector(".home-add-post-modal");
-export const failPostMessage = document.querySelector(".home-add-post-modal form .fail-warning");
-const postModalCancelButton = document.querySelector(".form-post-cancel-button");
-const postModalForm =  postModal.querySelector(".form");
+
+export const postModal = initAddPostPanel(renderPosts, postsListPanel);
+
 
  //*VARIABLES PARA EDITAR POST
 const editPostModal = document.querySelector(".home-edit-post-modal");
@@ -60,32 +59,6 @@ document.querySelector(".home-menu-option3").addEventListener("click", (event) =
     event.preventDefault();
 })
 
-//! PARTE DEL FORM DEL MODAL
-postModalForm.onsubmit = (event) => {
-    event.preventDefault();
-
-    const image = event.target.url.value;
-    const text = event.target.text.value;
-
-    try{
-        createPost(context.userId, image, text);
-        hide(postModal);
-        event.target.url.value = "";
-        event.target.text.value = "";
-        failPostMessage.textContent = "";
-        postsListPanel.classList.remove("fade");
-        postsListPanel.innerHTML ="";
-        renderPosts();
-
-    } catch(error){
-        failPostMessage.textContent = error.message;
-    }
-}
-postModalCancelButton.onclick = (event) => {
-    event.preventDefault();
-    hide(postModal);
-    postsListPanel.classList.remove("fade");
-}
 
 //!PARTE DE EDITAR POST MODAL
 editPostModalForm.onsubmit = (event) => {
