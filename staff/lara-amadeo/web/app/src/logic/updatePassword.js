@@ -1,13 +1,14 @@
+import { saveUserInStorage } from "../data.js"
 import { findUserbyId } from "./helpers/data-managers.js"
 
 export const updatePassword = (userId, currentPassword, newPassword, confirmNewPassword) => {
 
-    const foundUser = findUserbyId(userId)
+    const user = findUserbyId(userId)
 
-    if (!foundUser)
+    if (!user)
         throw new Error('User not found')
 
-    if (currentPassword !== foundUser.password)
+    if (currentPassword !== user.password)
         throw new Error('Invalid current password')
 
     if (currentPassword === newPassword)
@@ -16,5 +17,7 @@ export const updatePassword = (userId, currentPassword, newPassword, confirmNewP
     if (newPassword !== confirmNewPassword)
         throw new Error('New passwords do not match')
 
-    foundUser.password = newPassword
+    user.password = newPassword
+
+    saveUserInStorage(user)
  }

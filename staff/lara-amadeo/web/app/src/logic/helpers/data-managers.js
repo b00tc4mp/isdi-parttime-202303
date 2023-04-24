@@ -18,9 +18,11 @@ export const retrieveUser = (userId) => {
 }
 
 export const findUserbyEmail = (email) => {
-    return users.find(user => user.email === email)
+    const _users = users()
+    return _users.find(user => user.email === email)
  }
 
 export const findUserbyId = (userId) => {
-    return users.find(user => user.id === userId)
+    const _users = users()
+    return _users.find(user => user.id === userId)
  }

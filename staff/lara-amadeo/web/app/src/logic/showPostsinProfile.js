@@ -3,7 +3,8 @@ import { posts } from "../data.js"
 
 export function showPostsInProfile(){
 
-    const userPost = posts.filter(post => post.author === context.userId)
+    const _posts = posts()
+    const userPost = _posts.filter(post => post.author === context.userId)
 
     document.querySelector('.personal-profile-posts').innerHTML = ''
 

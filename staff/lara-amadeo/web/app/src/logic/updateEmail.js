@@ -1,3 +1,4 @@
+import { saveUserInStorage } from "../data.js"
 import { findUserbyEmail } from "./helpers/data-managers.js"
 
 export const updateEmail = (email, currentEmail, newEmail, confirmNewEmail) => {
@@ -18,4 +19,6 @@ export const updateEmail = (email, currentEmail, newEmail, confirmNewEmail) => {
 
     user.email = newEmail
     email = newEmail
+
+    saveUserInStorage(user)
 }

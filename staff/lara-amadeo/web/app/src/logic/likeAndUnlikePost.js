@@ -1,100 +1,47 @@
-import { savePostsInStorage, saveUsersInStorage } from "../data"
+import { savePostInStorage, saveUserInStorage, posts, users } from "../data.js"
 
-export default function likeAndUnlike (post, user) {
+export default function likeAndUnlike (post, userId) {
 
-    const postAlreadyLikedByUser = user.likedPosts.includes(post.id)
+    const _posts = posts()
+    const _post = _posts.find(_post => _post.id === post.id)
+    
+    const _users = users()
+    const _user = _users.find(_user => _user.id === userId)
 
-    if(!postAlreadyLikedByUser){
+        const postAlreadyLikedByUser = _user.likedPosts.includes(_post.id)
 
-        const likesInPost = "likes" in post
-        if (likesInPost){
-            post.likes.push(user.id)
-        } else {
-            post.likes = []
-            post.likes.push(user.id)
+        if(!postAlreadyLikedByUser){
+
+            const likesInPost = "likes" in _post
+            if (likesInPost){
+                _post.likes.push(userId)
+            } else {
+                _post.likes = []
+                _post.likes.push(userId)
+            }
+
+            const likedPostsInUser = "likedPosts" in _user
+            if(likedPostsInUser){
+                _user.likedPosts.push(post.id)
+            } else {
+                _user.likedPosts = []
+                _user.likedPosts.push(post.id)
+            }
+            savePostInStorage(_post)
+            saveUserInStorage(_user)
+        } else{
+            const indexPostInUser = _user.likedPosts.findIndex(elem => elem === post.id)
+            _user.likedPosts.splice(indexPostInUser, 1)
+
+            const indexUserInPost = _post.likes.findIndex(elem => elem.id === userId) 
+            _post.likes.splice(indexUserInPost, 1)
+
+            savePostInStorage(_post)
+            saveUserInStorage(_user)
         }
-
-        const likedPostsInUser = "likedPosts" in user
-        if(likedPostsInUser){
-            user.likedPosts.push(post.id)
-        } else {
-            user.likedPosts = []
-            user.likedPosts.push(post.id)
-        }
-        savePostsInStorage()
-        saveUsersInStorage()
-    } else{
-        const indexPostInUser = user.likedPosts.findIndex(elem => elem === post.id)
-        user.likedPosts.splice(indexPostInUser, 1)
-
-        const indexUserInPost = post.likes.findIndex(elem => elem.id === user.id) 
-        post.likes.splice(indexUserInPost, 1)
-
-        savePostsInStorage()
-        saveUsersInStorage()
-    }
-
+    
+    
 }
 
 
 
-
-
-
-
-
-// if(user.likedPosts.length >= 1)
-// const postAlreadyLikedByUser = user.likedPosts.includes(postId)
-
-// if(!postAlreadyLikedByUser){
-//     likeIcon.classList.add('like-icon-filled')
-//     user.likedPosts.push(postId)
-//     saveUsersInStorage()
-
-//     if(likedPosts.length >= 1){
-//         likedPosts[likedPosts.length] = {
-//             userId: user.id,
-//             postId: postId
-//         }
-//         saveLikedPostsInStorage()
-//     } else {
-//         likedPosts[0] = {
-//                     userId: user.id,
-//                     postId: postId
-//                     }
-//         saveLikedPostsInStorage()
-//     }
-// } else{
-//     likeIcon.classList.remove('like-icon-filled')
-
-//     const indexPostinUser = user.likedPosts.findIndex(elem => elem === postId)
-//     user.likedPosts.splice(indexPostinUser, 1)
-//     saveUsersInStorage()
-
-//     const indexPostinLikedPosts = likedPosts.findIndex(elem => elem.id === likedPosts.postId) 
-//     likedPosts.splice(indexPostinLikedPosts, 1)
-//     saveLikedPostsInStorage()
-// }
-
-
-// if (localStorage.likedPosts.length >= 1) {
-//     const postAlreadyLiked = user.likedPosts.includes(postId)
-
-//     if (!postAlreadyLiked) {
-        
-//         likedPosts[likedPosts.length] = {
-//             userId: user.id,
-//             postId: postId
-//         }
-//         saveLikedPostsInStorage()
-//     }
-// } else {
-//     likedPosts[0] = {
-//         userId: user.id,
-//         postId: postId
-//     }
-//     user.likedPosts = []
-//     user.likedPosts.push(postId)
-//     saveLikedPostsInStorage()
-//     saveUsersInStorage()
-// }

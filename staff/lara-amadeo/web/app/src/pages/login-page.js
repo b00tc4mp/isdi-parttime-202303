@@ -1,5 +1,5 @@
 
-import { feed, homePage, renderUser, settingSection} from "./home-page.js"
+import { feed, homePage, renderUser} from "./home-page.js"
 import { context } from "../ui.js"
 import { show, hide } from "../ui.js"
 import { authenticateUser } from "../logic/authenticateUser.js"
@@ -37,10 +37,7 @@ loginForm.onsubmit = function(event){
         hide(loginPage)
         show(homePage, feed)
         renderUser()
-        showPosts()
-        hide(settingSection)
-
-        
+        showPosts()        
         
     } catch (error) {
         loginPage.querySelector('.error-message').textContent = error.message

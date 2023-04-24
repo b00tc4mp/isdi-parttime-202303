@@ -140,3 +140,17 @@
     cursor: pointer;
     transition: 0.3s;
 }
+
+.avatar-icon-m-container{
+    width: 32px;
+    height: 32px;
+    background-color: var(--violet-300);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.material-symbols-rounded.icon-s.topbar{
+    color: var(--intense-blue)
+}

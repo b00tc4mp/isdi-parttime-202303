@@ -11,7 +11,7 @@
     --violet-600: #929AC4;
     --violet-500: #D1D4E6;
     --violet-400: #DEE0ED;
-    --violet-300: #E3E5F0;
+    --violet-300: #e8eaf4;
     --violet-200: #F4F5F9;
     --violet-100:#F8F9FB;
 
@@ -31,13 +31,13 @@ body{
     margin: 0px;
     position: relative;
     display: flex;
+    min-height: 100vh;
 }
 
 
 .registration{
 background-color:#F8FAFB;
 width: 100%;
-height: 100vh;
 display: flex;
 justify-content: center;
 align-items: center;
@@ -162,7 +162,6 @@ color: var(--accent-purple-hover);
 
 .login{
     background-color:#F8FAFB ;
-    height: 100vh;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -199,15 +198,18 @@ color: var(--accent-purple-hover);
 
 .homepage{
     margin: 0px;
-    height: 100vh;
+    width: 100%;
+    position: relative;
+}
+
+.content-container{
+    margin: 0px;
     width: 100%;
     display: flex;
     flex-direction: row;
     align-items: center;
     position: relative;
 }
-
-
 
 .left-container{
     height: 100vh;
@@ -219,8 +221,7 @@ color: var(--accent-purple-hover);
 }
 
 .main-container{
-    height: 100vh;
-    width: 100%;
+    width: calc(100% - 230px);
     display: flex;
     flex-direction: row;
     margin: 0px;
@@ -230,15 +231,15 @@ color: var(--accent-purple-hover);
 
 .middle-section {
     width: 60%;
-    height: 100vh;
+    border-right:1px solid var(--grey-100) ;
 }
 
 .right-section {
-    width: 40%;
-    height: 100vh;
-    background-color: pink;
+    min-width: 473px;
 }
 
+
+/* sidebar */
 .sidebar{
     height:100vh;
     width: 100%;
@@ -312,8 +313,46 @@ color: var(--accent-purple-hover);
 .sidebar-avatar{
     width: 40px;
     height: 40px;
-    border-radius: 100px;
+    border-radius: 8px;
+    object-fit: cover;
 }
+
+.sidebar-profile-email{
+    width: 100px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+/* end sidebar */
+
+/* topbar */
+
+.topbar-container{
+    width: 100%;
+    height: 64px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 16px;
+    padding-right: 16px;
+    box-sizing: border-box;
+    display: none;
+}
+
+.topbar-right-side{
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+}
+
+.topbar-avatar{
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
 
 .update-avatar-image-preview-container{
     display: flex;
@@ -346,10 +385,16 @@ color: var(--accent-purple-hover);
 .home-logo{
     width: 40px;
     height: 40px;
-    font-size: 16px;
     margin: 0px;
     padding: 8px;
-    text-align: center;
+}
+
+.sidebar-logo-text{
+    font-size: 32px;
+    font-family: "Inter";
+    font-weight: 600;
+    color: var(--intense-blue);
+    margin: 0px;
 }
 
 .homepage-hello{
@@ -357,15 +402,6 @@ color: var(--accent-purple-hover);
     font-family: "Inter";
     font-size: 16px;
     font-weight: 600;
-}
-
-@media (min-width: 768px){
-    .homepage-hello{
-        font-size: 24px;
-    }
-    .home-logo{
-        font-size: 32px; 
-    }
 }
 
 /* settings */
@@ -466,18 +502,12 @@ color: var(--accent-purple-hover);
 }
 
 
-@media(max-width: 975px) {
-    .personal-profile-post{
-        width: calc(100% - 20px);
-        
-    }
-}
+
 /* end-profile */
 
 /* feed */
 .feed{
 width: auto;
-height: 100vh;
 display: flex;
 flex-direction: column;
 align-items: center;
@@ -563,7 +593,8 @@ padding-right: 40px;
 .post-avatar{
   width: 32px; 
   height: 32px;
-  border-radius: 50px; 
+  border-radius: 8px;
+  object-fit: cover;
 }
 
 .post-image{
@@ -622,13 +653,33 @@ padding-right: 40px;
 }
 
 .like-icon-filled{
-    color: var(--red);
     font-variation-settings:
     'FILL' 1,
     'wght' 500,
     'GRAD' 0,
-    'opsz' 48
+    'opsz' 48;
+    color: var(--red);
 }
+
+
+@media (max-width: 798px){
+    .left-container {display: none;}
+    .topbar-container {display: flex;}
+    .main-container {left:0px; width: 100%;}
+    .feed {padding-left: 16px; padding-right: 16px;}
+ }
+ 
+ @media(max-width: 1200px) {
+     .right-section{display: none;}
+     .middle-section{width: 100%; border: none;}
+  }
+ 
+  @media(max-width: 975px) {
+     .personal-profile-post{
+         width: calc(100% - 20px);
+         
+     }
+ }
 
 .off{
     display: none;

@@ -7,8 +7,10 @@ export function createPost(userId, image, text) {
 
     if (!user) throw new Error(`User with id ${userId} not found`)
 
+    const _posts = posts()
+
     let newPost = {}
-    if(posts.length === 0) {
+    if(_posts.length === 0) {
         newPost = {
             id: 'post-1',
             author: userId,
@@ -17,7 +19,7 @@ export function createPost(userId, image, text) {
             date: new Date
         }
     } else {
-        const lastPostId = posts[posts.length - 1].id
+        const lastPostId = _posts[_posts.length - 1].id
         const newPostId = 'post-' + (Number((lastPostId).slice(5)) + 1)
     
         newPost = {
@@ -29,6 +31,6 @@ export function createPost(userId, image, text) {
         }
     }
 
-    posts.push(newPost)
-    savePostsInStorage()
+    _posts.push(newPost)
+    savePostsInStorage(_posts)
 }
