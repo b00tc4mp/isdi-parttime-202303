@@ -338,6 +338,9 @@ color: var(--accent-purple-hover);
     padding-right: 16px;
     box-sizing: border-box;
     display: none;
+    position: fixed;
+    background-color: #FFFFFF;
+    z-index: 50;
 }
 
 .topbar-right-side{
@@ -506,16 +509,16 @@ color: var(--accent-purple-hover);
 /* end-profile */
 
 /* feed */
+
 .feed{
 width: auto;
 display: flex;
 flex-direction: column;
 align-items: center;
-margin-top: 10px;
+margin-top: 40px;
 padding-left: 40px;
 padding-right: 40px;
 }
-
 
 .creation-post-modal{
     position: fixed;
@@ -555,6 +558,7 @@ padding-right: 40px;
     object-fit: cover;
     position: absolute;
 }
+
 
 .posts{
     max-width: 440px;
@@ -610,6 +614,11 @@ padding-right: 40px;
     object-fit: cover;
 }
 
+.post-action-icons{
+    display: flex;
+    gap: 8px;
+}
+
 .post-caption{
     width: 100%;
     height: auto;
@@ -617,6 +626,27 @@ padding-right: 40px;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+}
+
+.pointer{
+    cursor: pointer;
+}
+
+.material-symbols-rounded.icon-s.pointer.like-icon-filled{
+    font-variation-settings:
+    'FILL' 1,
+    'wght' 500,
+    'GRAD' 0,
+    'opsz' 48;
+    color: var(--red);
+}
+
+.save-icon-filled{
+    font-variation-settings:
+    'FILL' 1,
+    'wght' 500,
+    'GRAD' 0,
+    'opsz' 48;
 }
 /* end feed */
 
@@ -648,25 +678,14 @@ padding-right: 40px;
     margin-bottom: 16px;
 }
 
-.pointer{
-    cursor: pointer;
-}
 
-.like-icon-filled{
-    font-variation-settings:
-    'FILL' 1,
-    'wght' 500,
-    'GRAD' 0,
-    'opsz' 48;
-    color: var(--red);
-}
 
 
 @media (max-width: 798px){
     .left-container {display: none;}
     .topbar-container {display: flex;}
     .main-container {left:0px; width: 100%;}
-    .feed {padding-left: 16px; padding-right: 16px;}
+    .feed {padding-left: 16px; padding-right: 16px; margin-top: 84px;}
  }
  
  @media(max-width: 1200px) {

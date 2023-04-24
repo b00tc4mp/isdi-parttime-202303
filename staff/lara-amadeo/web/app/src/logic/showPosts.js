@@ -1,10 +1,10 @@
-import { posts } from "../data.js"
+import { posts, saveUserInStorage } from "../data.js"
 import { homePage } from "../pages/home-page.js"
 import { findUserbyId } from "./helpers/data-managers.js"
 import { formatPostDate } from "./formatPostDate.js"
 import { context, show } from "../ui.js"
 import { editPostModal } from "../components/edit-post-panel.js"
-
+import saveAndUnsavePost from "./saveAndUnsavePost.js"
 import likeAndUnlikePost from "./likeAndUnlikePost.js"
 
 
@@ -62,6 +62,9 @@ export function showPosts(){
                 postCaptionText.classList.add('post-caption-text')
                 postCaptionText.classList.add('small-text')
 
+                const postActionIcons = document.createElement('div')
+                postActionIcons.classList.add('post-action-icons')
+
                 const postLikeIconDiv = document.createElement('div')
                 postLikeIconDiv.classList.add('icon-s-container')
 
@@ -89,33 +92,65 @@ export function showPosts(){
                         }
                 }
                 
-                const postsDiv = document.querySelector('.posts')
-                postUserDataInfo.append(postUsername, postDate)
+                const postSaveIconDiv = document.createElement('div')
+                postSaveIconDiv.classList.add('icon-s-container')
 
+                const saveIcon = document.createElement('span')
+                saveIcon.innerHTML = 'bookmark'
+                saveIcon.classList.add('material-symbols-rounded')
+                saveIcon.classList.add('icon-s')
+                saveIcon.classList.add('pointer')
+
+                if(user.savedPosts === undefined){
+                    user.savedPosts = []
+                    saveUserInStorage(user)
+                }
+                const postAlreadySavedByUser = user.savedPosts.includes(_post.id)
+
+                if(!postAlreadySavedByUser){
+                    saveIcon.onclick = () => {
+                        saveAndUnsavePost(_post, user.id)
+                        showPosts()
+                    }
+                } else {
+                    saveIcon.classList.add('save-icon-filled')
+
+                    saveIcon.onclick = () => {
+                        saveAndUnsavePost(_post, user.id)
+                        showPosts()
+                    }
+                }
+
+                //edit icon
                 if(_post.author === user.id){
                     const editPostButton = document.createElement('button')
                     editPostButton.innerText = 'Edit post'
                     editPostButton.classList.add('button-XS')
                     editPostButton.classList.add('secondary-button')
-
+                    
                     editPostButton.onclick = () => {
                         editPostModal.querySelector('input[type=hidden]').value = _post.id 
                         editPostModal.querySelector('.edit-post-image-preview').src = _post.image
                         editPostModal.querySelector('.text-area').value = _post.text
-
+                        
                         show(editPostModal)
                     }
                     postUserData.append(postUserAvatar, postUserDataInfo)
                     headerPost.append(postUserData,editPostButton)
                 } else {
-                postUserData.append(postUserAvatar, postUserDataInfo)
-                headerPost.append(postUserData)
+                    postUserData.append(postUserAvatar, postUserDataInfo)
+                    headerPost.append(postUserData)
                 }
+                
+                const postsDiv = document.querySelector('.posts')
+                postUserDataInfo.append(postUsername, postDate)
 
                 postImage.appendChild(userPostImage)
                 
+                postSaveIconDiv.appendChild(saveIcon)
                 postLikeIconDiv.appendChild(likeIcon)
-                postCaption.append(postCaptionText, postLikeIconDiv)
+                postActionIcons.append(postSaveIconDiv, postLikeIconDiv)
+                postCaption.append(postCaptionText, postActionIcons)
 
                 publication.appendChild(headerPost)
                 publication.appendChild(postImage)
