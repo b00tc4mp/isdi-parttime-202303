@@ -1,45 +1,47 @@
-function Curri() {
-    if (arguments.length === 1 && typeof arguments[0] === 'number') {
-        this.length = arguments[0]
-    } else {
-        for (let i = 0; i < arguments.length; i++)
-            this[i] = arguments[i]
+class Curri {
+    constructor() {
+        if (arguments.length === 1 && typeof arguments[0] === 'number') {
+            this.length = arguments[0]
+        } else {
+            for (let i = 0; i < arguments.length; i++)
+                this[i] = arguments[i]
 
-        this.length = arguments.length
-    }
-}
-
-Curri.of = function () {
-    const c = new Curri
-
-    for (let i = 0; i < arguments.length; i++) {
-        c[i] = arguments[i]
-
-        c.length++
+            this.length = arguments.length
+        }
     }
 
-    return c
-}
+    static of() {
+        const c = new Curri
 
-Curri.prototype.forEach = function (callback) {
-    for (let i = 0; i < this.length; i++) {
-        const element = this[i]
+        for (let i = 0; i < arguments.length; i++) {
+            c[i] = arguments[i]
 
-        callback(element, i, this)
-    }
-}
+            c.length++
+        }
 
-Curri.prototype.map = function map(callback) {
-    const mapped = new Curri
-
-    for (let i = 0; i < this.length; i++) {
-        const element = this[i]
-
-        mapped[mapped.length] = callback(element)
-        mapped.length++
+        return c
     }
 
-    return mapped
+    forEach(callback) {
+        for (let i = 0; i < this.length; i++) {
+            const element = this[i]
+
+            callback(element, i, this)
+        }
+    }
+
+    map(callback) {
+        const mapped = new Curri
+
+        for (let i = 0; i < this.length; i++) {
+            const element = this[i]
+
+            mapped[mapped.length] = callback(element)
+            mapped.length++
+        }
+
+        return mapped
+    }
 }
 
 // TODO implement more Curri methods (same as Array methods)
