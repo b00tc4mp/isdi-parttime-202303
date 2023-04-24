@@ -24,7 +24,11 @@ if (context.userID === undefined) {
                 - tancar ulls de les contrasenyes amb el canvi de pagina. register i login fet, falta canvi nom, password i mail
                 - passar for basics a for of?
                 - mirar cause pels errors??
+                - material symbols google - likes
                 - favoritos?
+                - acabar video classes
+                - canviar nom show-posts a render-posts
+                - poder afegir fotos dsd el pc
                 
         TODO Arrays:
                 - metodes amb callback:
