@@ -5,11 +5,11 @@ import { footerSite } from "./footer-page.js";
 import retrievePosts from "../logic/retrieve-posts.js";
 import retrieveUser from "../logic/retrieve-user.js";
 import updatePostAvatar from "../logic/update-post-avatar.js";
-import updatePost from "../logic/update-post.js";
 import likeAPost from "../logic/like-a-post.js";
 import updatePostLikeIcon from "../logic/update-post-like-icon.js";
 import initHeaderMenu from "../components/header-menu.js";
 import initAddPostPanel from "../components/add-post-panel.js";
+import initEditPostPanel from "../components/edit-post-panel.js";
 
 //* VARIABLES DE HOME
 const DEFAUTL_AVATAR_URL = "https://img.icons8.com/color/512/avatar.png";
@@ -22,14 +22,10 @@ const welcomeMessage = document.querySelector(".home-header-user-welcome-msj")
 export const postsListPanel = document.querySelector(".home-posts-content");
 
 //*VARIABLES DE MODAL DE CREATE POST  
+export const postModal = initAddPostPanel(renderPosts);
 
-export const postModal = initAddPostPanel(renderPosts, postsListPanel);
-
-
- //*VARIABLES PARA EDITAR POST
-const editPostModal = document.querySelector(".home-edit-post-modal");
-const editPostModalCancelButton = document.querySelector(".home-edit-form-post-cancel-button");
-const editPostModalForm = document.querySelector(".home-edit-post-form"); 
+//* VARIABLES DE EDITAR MODAL DE POST 
+const { editPostModal, editPostModalForm } = initEditPostPanel(postsListPanel, renderPosts);
 
 //* VARIABLE DE HEADER
 const {headerMenu, avatarImage, changePasswordMenu, updateAvatarMenu, avatarMenuAnchor, changePasswordMenuAnchor} = initHeaderMenu(postsListPanel);
@@ -59,31 +55,6 @@ document.querySelector(".home-menu-option3").addEventListener("click", (event) =
     event.preventDefault();
 })
 
-
-//!PARTE DE EDITAR POST MODAL
-editPostModalForm.onsubmit = (event) => {
-    event.preventDefault();
-
-    const image = event.target.url.value;
-    const text = event.target.text.value;
-    const postId = event.target.postId.value;
-    try{
-        updatePost(context.userId, postId, image, text);
-        hide(editPostModal);
-        postsListPanel.classList.remove("fade");
-        postsListPanel.innerHTML ="";
-        renderPosts();
-
-    } catch(error){
-        alert(error.message)
-        failPostMessage.textContent = error.message;
-    }
-}
-editPostModalCancelButton.onclick = (event) => {
-    event.preventDefault();
-    hide(editPostModal);
-    postsListPanel.classList.remove("fade");
-}
 
 //! PINTA INFO PARA EL USER
 export function renderPosts () {
