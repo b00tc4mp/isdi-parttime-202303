@@ -1,4 +1,4 @@
-import { clearForms, setAlert, setSimpleAlert } from './general-tools.js';
+import { clearForms, setAlert } from './general-tools.js';
 
 //TODO: Add new edit user options errors
 
@@ -18,25 +18,27 @@ export const displayLoginError = (message) => {
   console.log(`login error: ${message}`);
 };
 
-export const displayRegisterError = (message) => {
-  if (message === 'mail is already registered') {
-    setSimpleAlert('area-register-mail', 'alert-danger', message);
-    document.querySelector('.register_form').querySelector('input[name="mail"]').value = '';
+export const displayRegisterError = (message, form) => {
+  const title = 'Oh, no!';
+  if (message === 'mail is already registered' || message === 'mail format is not valid') {
+    const focusInput = form.querySelector('input[name="mail"]')
+    setAlert('danger', message, title)
+    focusInput.classList.add('invalid-input');
     return;
   };
   if (message === 'username not available') {
-    setSimpleAlert('area-register-username', 'alert-danger', message);
-    document.querySelector('.register_form').querySelector('input[name="username"]').value = '';
+    const focusInput = form.querySelector('input[name="username"]')
+    setAlert('danger', message, title)
+    focusInput.classList.add('invalid-input');
     return;
   };
   if (message === 'password is not safe' || message === 'password and confirmation password are different') {
-    setSimpleAlert('area-register-password', 'alert-danger', message);
-    document.querySelector('.register_form').querySelector('input[name="password"]').value = '';
-    document.querySelector('.register_form').querySelector('input[name="repeat-password"]').value = '';
+    const focusInputs = [form.querySelector('input[name="password"]'), form.querySelector('input[name="repeat-password"]')]
+    setAlert('danger', message, title)
+    focusInputs.forEach((input) => (input.classList.add('invalid-input')));
     return;
-  };
-  setAlert('area-register', 'alert-danger', 'sorry, something went wrong!');
-  clearForms(); 
+  } 
+  setAlert('danger', 'sorry, something went wrong!', title);
   console.log(`register error: ${message}`);
 };
 

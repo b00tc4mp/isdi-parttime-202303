@@ -1,3 +1,4 @@
+import { svg } from '../../assets/svg-paths.js';
 import { retrieveUser, } from '../logic/retrieve-user.js';
 
 export const context = sessionStorage
@@ -23,48 +24,39 @@ export const setOn = (...items) => {
 export const clearForms = () => {
   const inputs = document.querySelectorAll('input');
   inputs.forEach((input) => (input.value = ''));
+  inputs.forEach((input) => (input.classList.remove('invalid-input')));
   const textAreas = document.querySelectorAll('textarea');
   textAreas.forEach((area) => (area.value = ''));
   const filesInputs = document.querySelectorAll('input[type="file"]');
   filesInputs.forEach((input) => (input.value = ''));
-  const filesDelete = document.querySelectorAll('.delete-img');
-  filesDelete.forEach((item) => {
-    item.classList.add('off');
-  });
 };
 
-const resetAlertStyles = (alertUser) => {
-  alertUser.classList.remove('alert-success');
-  alertUser.classList.remove('alert-warning');
-  alertUser.classList.remove('alert-danger');
-  alertUser.classList.add('off');
+export const resetAlert = (alert) => {
+  alert.classList.remove('success');
+  alert.classList.remove('warning');
+  alert.classList.remove('danger');
+  alert.classList.add('off');
+  const inputs = document.querySelectorAll('input');
+  inputs.forEach((input) => (input.classList.remove('invalid-input')));
 };
 
-export const resetAlerts = () => {
-  const alerts = document.querySelectorAll('.alert');
-  if (alerts.length > 0) {
-    alerts.forEach((alertUser) => resetAlertStyles(alertUser));
-  };
-};
-
-export const setAlert = (alertArea, alertColor, alertMessage) => {
-  const alertUser = document.querySelector(`.${alertArea}`);
-  alertUser.innerHTML = `${alertMessage}<span class='close-alert'>x</span>`;
-  alertUser.classList.add(alertColor);
-  alertUser.classList.remove('off');
-  const closeAlert = document.querySelector(`.${alertArea}`).querySelector('.close-alert');
+export const setAlert = (alertColor, alertMessage, alertTitle) => {
+  const alert = document.querySelector('.alert');
+  resetAlert(alert)
+  const svgAlert = alert.querySelector('svg').querySelector('path')
+  alertColor === 'danger' ? svgAlert.setAttribute('d', svg.ko) : svgAlert.setAttribute('d', svg.happy) 
+  alert.querySelector('h2').innerText = alertTitle
+  alert.querySelector('p').innerHTML = alertMessage
+  alert.classList.add(alertColor);
+  alert.classList.remove('off');
+  const closeAlert = alert.querySelector('.alert__right--close');
   closeAlert.addEventListener('click', (event) => {
     event.preventDefault();
-    alertUser.classList.add('off');
+    alert.classList.add('off');
+    resetAlert(alert)
   });
 };
 
-export const setSimpleAlert = (alertArea, alertColor, alertMessage) => {
-  const alertUser = document.querySelector(`.${alertArea}`);
-  alertUser.innerHTML = `${alertMessage}`;
-  alertUser.classList.add(`${alertColor}--simple`);
-  alertUser.classList.remove('off');
-};
 
 export const setPredeterminateAvatar = (userAuth) => {
   if (userAuth) {

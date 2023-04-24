@@ -34,7 +34,7 @@
     cursor: pointer;
 }
 
-.positive, .positive h2{
+.success, .success h2{
     fill: var(--color-success-100);
     background-color: var(--color-success-300);
     color: var(--color-success-100);
@@ -46,11 +46,18 @@
     padding-right: 1rem;
 }
 
-.negative, .negative h2{
+.danger, .danger h2{
     fill: var(--color-danger-100);
     background-color: var(--color-danger-300);
     color: var(--color-danger-100);
     border-color: var(--color-danger-300);
+}
+
+.warning, .warning h2{
+    fill: var(--color-warning-100);
+    background-color: var(--color-warning-300);
+    color: var(--color-warning-100);
+    border-color: var(--color-warning-300);
 }
 
 @media (min-width: 768px) {
