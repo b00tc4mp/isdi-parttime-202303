@@ -16,11 +16,10 @@ const createLikeButton = (isLiked) => {
 };
 
 const updateLikesInfo = (likesUsers, likesCount, postLikes) => {
-  likesCount.innerText = !postLikes.likesUsers
-    ? ''
-    : postLikes.likesUsers.length;
+  const postLikesUsers = postLikes.likesUsers;
 
-  likesUsers.innerText = !postLikes.likesUsers ? '' : postLikes.likesUsers;
+  likesUsers.innerText = !postLikesUsers ? '' : postLikesUsers;
+  likesCount.innerText = !postLikesUsers ? '' : postLikesUsers.length;
 };
 
 const handleLikeClick = (buttonLike, post, likesUsers, likesCount) => {

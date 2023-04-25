@@ -7,10 +7,10 @@ const toggleLikesPost = (postId, userId) => {
   validateId(postId, 'post id');
 
   const user = findUserById(userId);
-  if (!user) throw new Error(`user with id ${userId} not found`);
+  if (!user) throw new Error(`user id: ${userId} not found`);
 
   const post = findPostById(postId);
-  if (!post) throw new Error('post doesnt exist');
+  if (!post) throw new Error(`post id: ${postId} not found`);
 
   if (!post.likesUsers) {
     post.likesUsers = [user.info.name];

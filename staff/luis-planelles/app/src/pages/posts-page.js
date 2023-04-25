@@ -1,4 +1,5 @@
 import initEditPostPanel from '../components/edit-post-panel.js';
+import renderPostFavourite from '../components/favourites-post.js';
 import getHomePage from '../components/get-home-page.js';
 import renderPostLikesInfo from '../components/likes-post-info.js';
 import retrievePosts from '../logic/retrieve-posts.js';
@@ -59,6 +60,18 @@ const createPostImage = (post) => {
   return image;
 };
 
+const renderPostImageFooter = (post, user) => {
+  const postImageFooter = document.createElement('div');
+  postImageFooter.classList.add('post-image-footer');
+
+  const postLikesInfo = renderPostLikesInfo(post, user),
+    postFavoriteButton = renderPostFavourite(post, context.userId);
+
+  postImageFooter.append(postLikesInfo, postFavoriteButton);
+
+  return postImageFooter;
+};
+
 const createPostText = (post) => {
   const text = document.createElement('p');
   text.classList.add('post-text');
@@ -74,9 +87,9 @@ const renderPostItem = (post, user) => {
   const postHeader = renderPostHeader(post),
     postImage = createPostImage(post),
     postText = createPostText(post),
-    postLikesInfo = renderPostLikesInfo(post, user);
+    postImageFooter = renderPostImageFooter(post, user);
 
-  postItem.append(postHeader, postImage, postLikesInfo, postText);
+  postItem.append(postHeader, postImage, postImageFooter, postText);
 
   return postItem;
 };
