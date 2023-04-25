@@ -1,7 +1,7 @@
-import { findPostById } from '../logic/helpers/data-managers';
-import updatePost from '../logic/update-post';
-import renderPosts from '../pages/posts-page';
-import { context, hide, show } from '../ui';
+import { findPostById } from '../logic/helpers/data-managers.js';
+import updatePost from '../logic/update-post.js';
+import renderPosts from '../pages/posts-page.js';
+import { context, hide, show } from '../ui.js';
 
 const initEditPostPanel = (homePage, post) => {
   const editPostPanel = homePage.querySelector('.edit-post'),

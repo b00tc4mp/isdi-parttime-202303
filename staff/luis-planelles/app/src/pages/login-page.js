@@ -3,7 +3,6 @@ import DEFAULT_AVATAR_URL from '../logic/helpers/global-variables.js';
 import retrieveUser from '../logic/retrieve-user.js';
 import { context, hide, show } from '../ui.js';
 import { homePage, profileLink } from './home-page.js';
-import rederPosts from './posts-page.js';
 import registerPage from './register-page.js';
 
 const loginPage = document.querySelector('.login'),
@@ -28,7 +27,10 @@ loginForm.addEventListener('submit', (event) => {
 
     hide(loginPage);
     show(homePage);
-    rederPosts(context.userId);
+    {
+      renderPosts;
+    }
+    context.userId;
   } catch (error) {
     alert(error.message);
   }

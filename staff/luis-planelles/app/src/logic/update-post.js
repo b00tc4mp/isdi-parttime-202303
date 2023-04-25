@@ -3,10 +3,10 @@ import { findPostById, findUserById } from './helpers/data-managers';
 import { validateId, validateText, validateUrl } from './helpers/validators';
 
 const updatePost = (userId, postId, postImage, postText) => {
-  validateUrl(postImage, 'image url');
-  validateText(postText, 'post text');
-  validateId(userId, 'post user id');
-  validateId(postId, 'post id');
+  validateUrl(postImage, 'updatePost: image url');
+  validateText(postText, 'updatePost: post text');
+  validateId(userId, 'updatePost: post user id');
+  validateId(postId, 'updatePost: post id');
 
   const foundUser = findUserById(userId);
 

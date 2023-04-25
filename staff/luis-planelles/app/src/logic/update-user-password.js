@@ -9,7 +9,7 @@ const updateUserPassword = (
   newPassword,
   newPasswordConfirm
 ) => {
-  validateId(userId, 'user id');
+  validateId(userId, 'updateUserPassword: user id');
 
   const foundUser = findUserById(userId);
   if (!foundUser) throw new Error("user doesn't exists");

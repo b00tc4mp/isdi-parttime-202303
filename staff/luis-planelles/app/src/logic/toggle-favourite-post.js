@@ -3,8 +3,8 @@ import { findPostById, findUserById } from './helpers/data-managers';
 import { validateId } from './helpers/validators';
 
 const toggleFavouritePost = (postId, userId) => {
-  validateId(postId, 'post id');
-  validateId(postId, 'user id');
+  validateId(postId, 'toggleFavouritePost: post id');
+  validateId(postId, 'toggleFavouritePost: user id');
 
   const foundUser = findUserById(userId);
   if (!foundUser) throw new Error(`user: ${userId} not found`);

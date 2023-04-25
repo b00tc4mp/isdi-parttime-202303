@@ -28,10 +28,15 @@ const createAvatarElement = (post) => {
 };
 
 const createEditButton = (post) => {
-  const buttonEdit = document.createElement('button');
+  const buttonEdit = document.createElement('button'),
+    editIcon = document.createElement('i');
+
+  editIcon.classList.add('far', 'fa-pen');
   buttonEdit.classList.add('button-edit');
-  buttonEdit.innerText = 'Edit';
+  buttonEdit.appendChild(editIcon);
+
   buttonEdit.onclick = () => initEditPostPanel(homePage, post);
+
   return buttonEdit;
 };
 
