@@ -8,6 +8,7 @@ import { findPostById, findUserById } from '../logic/helpers/data-managers.js'
 import editPost from '../logic/edit-post.js'
 import initProfilePanel from '../components/profile-panel.js'
 import initNewPostModal from '../components/add-post-panel.js'
+import { savePost } from '../data.js'
 
 export const homePage = document.querySelector('.home-page')
 const horizontalMenu = document.querySelector('.horizontal-menu')
@@ -132,13 +133,13 @@ export function renderPosts() {
 
             const postFooterLeftTime = document.createElement('time')
 
-            const postDate = post.date.toLocaleString('en-UK')
+            const postDate = post.date //.toLocaleString('en-UK')
 
-            // const day = postDate.getDate().toString().padStart(2, '0')
-            // const month = (postDate.getMonth() + 1).toString().padStart(2, '0')
-            // const year = postDate.getFullYear()
+            const day = postDate.getDate().toString().padStart(2, '0')
+            const month = (postDate.getMonth() + 1).toString().padStart(2, '0')
+            const year = postDate.getFullYear()
 
-            postFooterLeftTime.innerText = `${postDate}-`
+            postFooterLeftTime.innerText = `${day}/${month}/${year}-`
 
             if(post.author === context.userId) {
                 const postEditButton = document.createElement('button')
