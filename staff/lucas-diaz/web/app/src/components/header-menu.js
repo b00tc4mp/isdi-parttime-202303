@@ -3,10 +3,11 @@ import updateUserPassword from "../logic/update-user-password.js";
 import updateUserAvatar from "../logic/update-user-avatar.js";
 import { context, show, hide, addClass, removeClass } from "../ui.js";
 import { renderPosts } from "../pages/home-page.js";
+import { footerSite } from "../pages/footer-page.js";
+import { homePage } from "../pages/home-page.js";
+import { logInPage } from "../pages/login-page.js";
 
-
-
-export default function initHeaderMenu(postsListPanel){
+export default function initHeaderMenu(postsListPanel,postModal, editPostModal, DEFAUTL_AVATAR_URL){
     //* VARIABLES MADRE
     const headerMenu = document.querySelector(".home-menu")
 
@@ -22,6 +23,10 @@ export default function initHeaderMenu(postsListPanel){
     const updateAvatarMenu = document.querySelector(".home-update-avatar-menu"); 
     const updateAvatarForm = document.querySelector(".home-update-avatar-menu .form")
     const cancelUpdateAvatarButton = document.querySelector(".form-avatar-cancel-button");
+
+    //* VARIABLES DE SETTINGS Y LOG OUT 
+    const settingsButton = document.querySelector(".home-header-left-items-config-icon");
+    const logOutButton = document.querySelector(".home-header-left-items-log-out-button");
 
 
     //! PARTE DE CAMBIAR CONTRASEÑAS
@@ -84,6 +89,34 @@ export default function initHeaderMenu(postsListPanel){
             document.querySelector(".home-update-avatar-menu .fail-warning").textContent = (error.message);
         }
     })
-    return { headerMenu, avatarImage, changePasswordMenu, updateAvatarMenu, avatarMenuAnchor, changePasswordMenuAnchor }
+
+    settingsButton.onclick = () => {
+        headerMenu.classList.toggle("home-menu-transition");
+        hide(changePasswordMenu,updateAvatarMenu,postModal,editPostModal);
+        removeClass("green",avatarMenuAnchor,changePasswordMenuAnchor);
+        postsListPanel.classList.toggle("off");
+        postsListPanel.classList.remove("fade");
+    }
+
+    //*FUNCION TEMPORAL PARA QUITAR TODOS LOS ANCHORS VACIOS TEMPORALES 
+    document.querySelector(".home-menu-option3").addEventListener("click", (event) => {
+        event.preventDefault();
+    })
+
+    //! PARTE DE HOME
+    logOutButton.onclick = () => {
+        hide(homePage,changePasswordMenu,updateAvatarMenu,footerSite,postModal,editPostModal);
+        postsListPanel.classList.remove("fade");
+        show(postsListPanel);
+        headerMenu.classList.remove("home-menu-transition");
+        postModal.classList.remove("home-add-post-modal-transition");
+        avatarImage.src = DEFAUTL_AVATAR_URL;
+        show(logInPage);
+        delete context.userId; 
+        postsListPanel.innerHTML ="";
+    }
+
+
+    return { headerMenu, avatarImage }
 }
 

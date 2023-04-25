@@ -4,6 +4,7 @@ import { registerPage } from "./register-page.js";
 import { homePage, renderPosts, renderUser} from "./home-page.js";
 import { footerSite } from "./footer-page.js";
 
+
 //* VARIABLES DE LOGIN PAGE
 export const logInPage = document.querySelector(".login")
 const logInForm = document.querySelector(".login form");

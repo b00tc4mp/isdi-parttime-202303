@@ -1,7 +1,5 @@
 
-import { context, show, hide, removeClass  } from "../ui.js";
-import { logInPage } from "./login-page.js";
-import { footerSite } from "./footer-page.js";
+import { context, show } from "../ui.js";
 import retrievePosts from "../logic/retrieve-posts.js";
 import retrieveUser from "../logic/retrieve-user.js";
 import updatePostAvatar from "../logic/update-post-avatar.js";
@@ -14,47 +12,17 @@ import initEditPostPanel from "../components/edit-post-panel.js";
 //* VARIABLES DE HOME
 const DEFAUTL_AVATAR_URL = "https://img.icons8.com/color/512/avatar.png";
 export const homePage = document.querySelector(".home");
-const logOutButton = document.querySelector(".home-header-left-items-log-out-button");
-const settingsButton = document.querySelector(".home-header-left-items-config-icon");
 const welcomeMessage = document.querySelector(".home-header-user-welcome-msj")
 
-//*VARIABLES DE POSTS
+//*VARIABLES DE POSTS PANEL
 export const postsListPanel = document.querySelector(".home-posts-content");
 
-//*VARIABLES DE MODAL DE CREATE POST  
+//*VARIABLES DE MODAL DE CREATE & EDIT POST  
 export const postModal = initAddPostPanel(renderPosts);
-
-//* VARIABLES DE EDITAR MODAL DE POST 
 const { editPostModal, editPostModalForm } = initEditPostPanel(postsListPanel, renderPosts);
 
 //* VARIABLE DE HEADER
-const {headerMenu, avatarImage, changePasswordMenu, updateAvatarMenu, avatarMenuAnchor, changePasswordMenuAnchor} = initHeaderMenu(postsListPanel);
-
-//! PARTE DE HOME
-logOutButton.onclick = () => {
-    hide(homePage,changePasswordMenu,updateAvatarMenu,footerSite,postModal,editPostModal);
-    postsListPanel.classList.remove("fade");
-    show(postsListPanel);
-    headerMenu.classList.remove("home-menu-transition");
-    postModal.classList.remove("home-add-post-modal-transition");
-    avatarImage.src = DEFAUTL_AVATAR_URL;
-    show(logInPage);
-    delete context.userId; 
-    postsListPanel.innerHTML ="";
-}
-settingsButton.onclick = () => {
-    headerMenu.classList.toggle("home-menu-transition");
-    hide(changePasswordMenu,updateAvatarMenu,postModal,editPostModal);
-    removeClass("green",avatarMenuAnchor,changePasswordMenuAnchor);
-    postsListPanel.classList.toggle("off");
-    postsListPanel.classList.remove("fade");
-}
-
-//*FUNCION TEMPORAL PARA QUITAR TODOS LOS ANCHORS VACIOS TEMPORALES 
-document.querySelector(".home-menu-option3").addEventListener("click", (event) => {
-    event.preventDefault();
-})
-
+const { avatarImage } = initHeaderMenu(postsListPanel, postModal,editPostModal, DEFAUTL_AVATAR_URL);
 
 //! PINTA INFO PARA EL USER
 export function renderPosts () {
@@ -147,4 +115,3 @@ export function renderUser(){
         return false;
     }
 } 
-
