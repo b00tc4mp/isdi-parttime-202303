@@ -59,7 +59,7 @@ export default function initHeaderMenu(postsListPanel,postModal, editPostModal, 
         }
     }
 
-    //! PARTE DE AVATAR 
+    //! PARTE DE CAMBIAR AVATAR 
     avatarMenuAnchor.onclick = (event) => {
         event.preventDefault();
         addClass("green", avatarMenuAnchor);
@@ -89,21 +89,13 @@ export default function initHeaderMenu(postsListPanel,postModal, editPostModal, 
             document.querySelector(".home-update-avatar-menu .fail-warning").textContent = (error.message);
         }
     })
-
-    settingsButton.onclick = () => {
-        headerMenu.classList.toggle("home-menu-transition");
-        hide(changePasswordMenu,updateAvatarMenu,postModal,editPostModal);
-        removeClass("green",avatarMenuAnchor,changePasswordMenuAnchor);
-        postsListPanel.classList.toggle("off");
-        postsListPanel.classList.remove("fade");
-    }
-
-    //*FUNCION TEMPORAL PARA QUITAR TODOS LOS ANCHORS VACIOS TEMPORALES 
+    
+    //!FUNCION TEMPORAL PARA QUITAR TODOS LOS ANCHORS VACIOS TEMPORALES 
     document.querySelector(".home-menu-option3").addEventListener("click", (event) => {
         event.preventDefault();
     })
-
-    //! PARTE DE HOME
+    
+    //! PARTE DE SETTINGS Y LOG OUT 
     logOutButton.onclick = () => {
         hide(homePage,changePasswordMenu,updateAvatarMenu,footerSite,postModal,editPostModal);
         postsListPanel.classList.remove("fade");
@@ -115,8 +107,15 @@ export default function initHeaderMenu(postsListPanel,postModal, editPostModal, 
         delete context.userId; 
         postsListPanel.innerHTML ="";
     }
-
-
+    
+    settingsButton.onclick = () => {
+        headerMenu.classList.toggle("home-menu-transition");
+        hide(changePasswordMenu,updateAvatarMenu,postModal,editPostModal);
+        removeClass("green",avatarMenuAnchor,changePasswordMenuAnchor);
+        postsListPanel.classList.toggle("off");
+        postsListPanel.classList.remove("fade");
+    }
+    
     return { headerMenu, avatarImage }
 }
 

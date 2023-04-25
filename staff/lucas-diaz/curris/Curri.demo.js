@@ -1,4 +1,4 @@
-import { Curri } from "./curri.js";
+import { Curri } from "./Curri.js";
 
 let c = new Curri;
 

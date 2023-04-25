@@ -98,6 +98,7 @@ export function renderPosts () {
         return false;
     }
 }
+
 export function renderUser(){
     try{
         const currentUser = retrieveUser(context.userId)
