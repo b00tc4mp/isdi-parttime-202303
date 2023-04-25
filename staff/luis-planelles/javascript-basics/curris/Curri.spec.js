@@ -28,35 +28,6 @@ describe('Curri', () => {
     });
   });
 
-  describe('forEach', () => {
-    it('should iterate over a collection of elements', () => {
-      const c = new Curri('A', 'B', 'C');
-
-      const a = [];
-
-      c.forEach((elem, i) => (a[i] = elem));
-
-      expect(a.length).toBe(c.length);
-      expect(a[0]).toBe(c[0]);
-      expect(a[1]).toBe(c[1]);
-      expect(a[2]).toBe(c[2]);
-    });
-  });
-
-  describe('map', () => {
-    it('should iterate over a collection of elements and return a new collection with all them mapped', () => {
-      const c = new Curri('A', 'B', 'C');
-
-      const c2 = c.map((elem) => elem.toLowerCase());
-
-      expect(c2).toBeInstanceOf(Curri);
-      expect(c2.length).toBe(c.length);
-      expect(c2[0]).toBe(c[0].toLowerCase());
-      expect(c2[1]).toBe(c[1].toLowerCase());
-      expect(c2[2]).toBe(c[2].toLowerCase());
-    });
-  });
-
   describe('at', () => {
     it('should return element in curri by index', () => {
       const testCurri = new Curri(12, 20, 30);
@@ -166,6 +137,21 @@ describe('Curri', () => {
     });
   });
 
+  describe('forEach', () => {
+    it('should iterate over a collection of elements', () => {
+      const c = new Curri('A', 'B', 'C');
+
+      const a = [];
+
+      c.forEach((elem, i) => (a[i] = elem));
+
+      expect(a.length).toBe(c.length);
+      expect(a[0]).toBe(c[0]);
+      expect(a[1]).toBe(c[1]);
+      expect(a[2]).toBe(c[2]);
+    });
+  });
+
   describe('from', () => {
     it('should return a new iterable array from argument', () => {
       const testCurri = new Curri();
@@ -187,17 +173,6 @@ describe('Curri', () => {
       expect(result[0]).toBe(2);
       expect(result[1]).toBe(4);
       expect(result[2]).toBe(6);
-    });
-  });
-
-  describe('some', () => {
-    it('should return true if some item in curri match the condition', () => {
-      const testCurri = new Curri(1, 2, 3, 4, 5);
-
-      const even = (element) => element % 2 === 0;
-      const result = testCurri.some(even);
-
-      expect(result).toBe(true);
     });
   });
 
@@ -235,7 +210,7 @@ describe('Curri', () => {
   describe('isCurry', () => {
     it('should return true when object is a curri', () => {
       const testCurri = new Curri(10, 20, 30);
-      const result = testCurri.isCurri();
+      const result = Curri.isCurri(testCurri);
 
       expect(result).toBe(true);
     });
@@ -271,6 +246,24 @@ describe('Curri', () => {
 
       expect(result).toBe(3);
     });
+  });
+
+  describe('map', () => {
+    it('should iterate over a collection of elements and return a new collection with all them mapped', () => {
+      const c = new Curri('A', 'B', 'C');
+
+      const c2 = c.map((elem) => elem.toLowerCase());
+
+      expect(c2).toBeInstanceOf(Curri);
+      expect(c2.length).toBe(c.length);
+      expect(c2[0]).toBe(c[0].toLowerCase());
+      expect(c2[1]).toBe(c[1].toLowerCase());
+      expect(c2[2]).toBe(c[2].toLowerCase());
+    });
+  });
+
+  describe('of', () => {
+    it('', () => {});
   });
 
   describe('pop', () => {
@@ -386,6 +379,17 @@ describe('Curri', () => {
       expect(testCurri[4]).toBe('elephant');
 
       expect(result.length).toBe(0);
+    });
+  });
+
+  describe('some', () => {
+    it('should return true if some item in curri match the condition', () => {
+      const testCurri = new Curri(1, 2, 3, 4, 5);
+
+      const even = (element) => element % 2 === 0;
+      const result = testCurri.some(even);
+
+      expect(result).toBe(true);
     });
   });
 
