@@ -1,5 +1,13 @@
 function Curri() {
   this.length = 0
+  if (arguments.length === 1 && typeof arguments[0] === 'number') {
+    this.length = arguments[0]
+  } else {
+    for (let i = 0; i < arguments.length; i++) {
+      this[i] = arguments[i]
+      this.length++
+    }
+  }
 }
 
 Curri.of = function () {
@@ -8,15 +16,14 @@ Curri.of = function () {
     c[i] = arguments[i]
     c.length++
   }
+  return c
 }
 
 Curri.prototype.forEach = function(callback) {
   for(let i = 0; i < this.length; i++) {
     let element = this[i]
-    let context = this
-    let object = {element, i, context}
-
-    callback(object)
+    
+    callback(element, i, this)
   }
 }
 
@@ -88,7 +95,7 @@ Curri.prototype.every = function(callback) {
 
 Curri.prototype.fill = function(element, start = 0, end = this.length-1) {
   if (end >= this.length) end = this.length - 1
-  for (let i = start; i <= end; i++) {
+  for (let i = start; i < end; i++) {
     this[i] = element
   }
 }
@@ -151,8 +158,9 @@ Curri.prototype.lastIndexOf = function(item) {
   let index;
   for (let i = 0; i < this.length; i++) {
     const element = this[i]
-    if (item = element) index = i
+    if (item === element) index = i
   }
+  if(index === undefined) index = -1
   return index
 }
 
@@ -184,6 +192,7 @@ Curri.prototype.reverse = function() {
   for (let i = 0; i < this.length; i++) {
     this[i] = reversed[i]
   }
+  return reversed
 }
 
 Curri.prototype.shift = function() {
@@ -227,10 +236,10 @@ Curri.prototype.splice = function(start, deleteCount, ...elements) {
   for(let i = start; i < this.length - deleteCount; i++) {
     this[i] = this[i + deleteCount]
   }
-  // for(let i = 0; i < deleteCount; i++) {
-  //   this.length--
-  // }
-  this.length -= deleteCount
+  for(let i = 0; i < deleteCount; i++) {
+    delete this[this.length - 1]
+    this.length--
+  }
   
   // Añadir elementos
   this.length += elements.length

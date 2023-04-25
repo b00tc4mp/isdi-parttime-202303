@@ -222,3 +222,8 @@ c21[5]= 'Arrivederci'
 c21.length += 6
 console.log(c21.unshift('Bon dia', 'Com va?'));
 console.log(c21);
+
+const c22 = new Curri(10,20,30)
+console.log(c22);
+
+console.log(Curri.of(1,2,3));
