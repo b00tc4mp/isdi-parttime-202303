@@ -33,7 +33,7 @@ Curri.prototype.indexOf = function(element, initialPosition = 0){
     return -1
 }
 
-Curri.prototype.fill = function fill(element, initialPosition = 0, lastPosition = this.length) {
+Curri.prototype.fill = function(element, initialPosition = 0, lastPosition = this.length) {
     for(let i = initialPosition; i < lastPosition; i++){
             this[i] = element
         };
@@ -60,9 +60,70 @@ Curri.prototype.isCurri = function(curri) {
     return true
 }
 
+Curri.prototype.every = function(callback){
+    for (let i = 0; i < this.length; i++){
+        if(!callback(this[i]))
+        return false
+    }
+    return true
+}
 
+Curri.prototype.filter = function(callback){
+    const newCurri = new Curri
+    
+    for(let i = 0; i < this.length; i++){
+        if(callback(this[i]))
+        newCurri[newCurri.length] = this[i]
+        newCurri.length++
+    }
+    return newCurri
+}
 
+Curri.prototype.find = function(callback){
+    for(let i = 0; i < this.length; i++) {
+        if(callback(this[i]))
+        return this[i]
+    }
+    return undefined
+}
 
+Curri.prototype.findIndex = function(callback){
+    for(let i = 0; i < this.length; i++) {
+        if(callback(this[i]))
+        return i
+    }
+    return -1
+}
+
+Curri.prototype.includes = function(element){
+    for(let i = 0; i < this.length; i++){
+        if(element === this[i])
+        return true
+    }
+    return false
+}
+
+Curri.prototype.map = function(callback){
+    const newCurri = new Curri
+    for(let i = 0; i < this.length; i++){
+        newCurri[newCurri.length] = callback(this[i])
+        newCurri.length++
+    }
+    return newCurri
+}
+
+Curri.prototype.pop = function(){
+    const lastElement = this[this.length - 1]
+    delete this[this.length - 1]
+    this.length--
+    return lastElement
+
+}
+
+Curri.prototype.push = function(element){
+    this[this.length] = element
+    return this.length
+}
 
 export default Curri
 
