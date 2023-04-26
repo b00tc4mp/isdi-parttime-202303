@@ -1,6 +1,7 @@
 import authenticateUser from '../logic/authenticate-user.js';
 import DEFAULT_AVATAR_URL from '../logic/helpers/global-variables.js';
 import retrieveUser from '../logic/retrieve-user.js';
+import renderPosts from '../pages/posts-page.js';
 import { context, hide, show } from '../ui.js';
 import { homePage, profileLink } from './home-page.js';
 import registerPage from './register-page.js';
@@ -27,9 +28,9 @@ loginForm.addEventListener('submit', (event) => {
 
     hide(loginPage);
     show(homePage);
-    {
-      renderPosts;
-    }
+
+    renderPosts();
+
     context.userId;
   } catch (error) {
     alert(error.message);
