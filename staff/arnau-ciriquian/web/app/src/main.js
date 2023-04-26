@@ -26,7 +26,6 @@ if (context.userID === undefined) {
                 - mirar cause pels errors??
                 - material symbols google - likes
                 - favoritos?
-                - acabar video classes
                 - canviar nom show-posts a render-posts
                 - poder afegir fotos dsd el pc
                 
@@ -36,6 +35,10 @@ if (context.userID === undefined) {
 
         TODO Curri:
                 - Fried Green Tomato (Testarossa), poder fer varis objectes?
+
+        TODO Misc:
+                - Repasar Bind
+                - acabar video classes
 
         PREGUNTES:
             - 
