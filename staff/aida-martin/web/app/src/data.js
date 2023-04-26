@@ -1,10 +1,14 @@
 export const users = () =>
   "usersJson" in localStorage ? JSON.parse(localStorage.usersJson) : [];
 
-export const posts = () =>
-  "postsJson" in localStorage ? JSON.parse(localStorage.postsJson) : [];
+export const posts = () => {
+  const posts =
+    "postsJson" in localStorage ? JSON.parse(localStorage.postsJson) : [];
 
-posts().forEach((post) => (post.date = new Date(post.date)));
+  posts.forEach((post) => (post.date = new Date(post.date)));
+
+  return posts;
+};
 
 export function saveUsers(users) {
   localStorage.usersJson = JSON.stringify(users);
