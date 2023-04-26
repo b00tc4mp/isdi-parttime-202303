@@ -146,49 +146,16 @@ export function renderPosts() {
                     dateLastModified.innerText = "Last Modified " + post.dateLastModified.toLocaleString()
 
                     postInfo.appendChild(dateLastModified)
-                }
-
-
-                /*
-                const divLikes = document.createElement("div")
-
-                let likesPost = 0
-                if("likes" in post) likesPost = post.likes
-
-                const buttonLikesPlus = document.createElement("button")
-                button.innerText = "+"
-
-                button.onclick = function() {
-                    editPostForm.querySelector("input[type=hidden]").value = post.id
-                    editPostForm.querySelector("input[type=url]").value = post.image
-                    editPostForm.querySelector("textarea").value = post.text
-
-                    show(editPostPanel)
-                }
-                */                 
-
+                }       
 
             postItem.appendChild(postInfo)
 
             postListPanel.appendChild(postItem)
         })
 
-/* 
-        // NOTE declarative way
-        postListPanel.innerHTML = posts.reduce((accum, post) => {
-            return accum + `<article class = "post-article post-text">
-                <img class ="post-image" src="${post.image}">
-                <p>${post.text}</p>
-                <time>${post.date.toLocaleString()}</time>
-            </article>`
-        }, '') 
-*/   
-
-
     } catch(error) {
         msAlert(error.message)
     }
-    
 }
 
 export function openSession(userId) {

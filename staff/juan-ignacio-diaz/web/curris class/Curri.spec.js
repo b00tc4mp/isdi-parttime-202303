@@ -52,6 +52,7 @@ describe('push', () => {
     })
 })
 
+
 describe('at', () => {
     describe('method at', () => {
         it('should 2 order element', () => {
@@ -165,7 +166,6 @@ describe('every', () => {
     })
 })
 
-
 describe('fill', () => {
     describe('method fill', () => {
         it('should element 1, 2, 3, 4 fill 0 start 2 end 4', () => {
@@ -214,20 +214,3 @@ describe('fill', () => {
         })
     })
 })
-
-/*
-
-
-
-/////////////////////////////
-console.log("forEach")
-const cfe = new Curri
-
-cfe.push('A', 'B', 'C')
-cfe.forEach(elem => console.log(elem))
-
-*/
-/*
-const cf2 = c.map(elem => elem.toLowerCase())
-cf2.forEach(elem => console.log(elem))
-*/

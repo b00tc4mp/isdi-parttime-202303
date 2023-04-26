@@ -35,10 +35,10 @@ Curri.prototype.at = function(index) {
     return this[index]
 }
 
-Curri.prototype.concat = function(curri2) {
+Curri.prototype.concat = function(curri1, curri2) {
     let newCurri = new Curri()
-    for (let i = 0 ; i < this.length; i++) { 
-        newCurri[newCurri.length] = this[i]
+    for (let i = 0 ; i < curri1.length; i++) { 
+        newCurri[newCurri.length] = curri1[i]
         newCurri.length++
     }
     for (let i = 0 ; i < curri2.length; i++) {
