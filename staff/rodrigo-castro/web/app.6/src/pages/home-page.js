@@ -90,8 +90,6 @@ export function renderPosts() {
             const postItem = document.createElement('article')
             postItem.classList.add('post-container')
 
-            const postHeader = document.createElement('div')
-
             const postImg = document.createElement('img')
             postImg.src = post.image
 
@@ -191,12 +189,12 @@ export function renderPosts() {
                 if(!foundPost.likedBy.includes(foundUser.id)){
                     foundPost.likedBy.push(foundUser.id)
                     savePost(foundPost)
-                    return renderPosts()
+                    renderPosts()
                 } else {
                     const index = foundPost.likedBy.indexOf(foundUser.id)
                     foundPost.likedBy.splice(index, 1)
                     savePost(foundPost)
-                    return renderPosts()
+                    renderPosts()
                 }
             }
 

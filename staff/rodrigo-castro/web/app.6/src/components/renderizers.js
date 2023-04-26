@@ -1,64 +1,3 @@
-console.log('load home page')
-
-import {showElement, hideElement, toggleElement, resetPage, context} from '../ui.js'
-import { loginPage } from './login-page.js'
-import retrievePosts from '../logic/retrieve-posts.js'
-import { retrieveUser } from '../logic/retrieve-user.js'
-import { findPostById, findUserById } from '../logic/helpers/data-managers.js'
-import editPost from '../logic/edit-post.js'
-import initProfilePanel from '../components/profile-panel.js'
-import initNewPostModal from '../components/add-post-panel.js'
-import { savePost } from '../data.js'
-
-export const homePage = document.querySelector('.home-page')
-const horizontalMenu = document.querySelector('.horizontal-menu')
-const myProfileButton = horizontalMenu.querySelector('li[name=my-profile]')
-
-const { profileOptionsModal, changeEmailMenu, changePasswordMenu, changeAvatarMenu, avatarImg, DEFAULT_AVATAR_URL } = initProfilePanel(homePage)
-const { newPostModal } = initNewPostModal(homePage)
-
-const newPostButton = horizontalMenu.querySelector('li[name=new-post]')
-const postListPanel = homePage.querySelector('.post-list')
-
-// TODO VER BOTON EDICION DE POST const editPostButton = 
-const editPostModal = homePage.querySelector('section[name=modal-edit-post]')
-const cancelEdition = homePage.querySelector('.cancel-edition')
-
-newPostButton.onclick = () => {
-    showElement(newPostModal)
-}
-
-
-cancelEdition.onclick = () => {
-    hideElement(editPostModal)
-}
-
-editPostModal.querySelector('form').onsubmit = (event) => {
-    event.preventDefault()
-    const image = editPostModal.querySelector('input[name=url]').value
-    const text = editPostModal.querySelector('textarea[name=text]').value
-    const postId = editPostModal.querySelector('input[name=hidden]').value
-    
-    try {
-        editPost(context.userId, postId, image, text)
-        
-        editPostModal.querySelector('form').reset()
-        
-        hideElement(editPostModal)
-        
-        alert('Post updated')
-
-        renderPosts()
-    } catch(error){
-            alert(error.message)
-            console.log(error)
-    }
-}
-
-myProfileButton.addEventListener('click', () => {
-    toggleElement(profileOptionsModal)
-    resetPage(changeAvatarMenu, changePasswordMenu, changeEmailMenu)
-})
 
 
 export function renderUsers() {
@@ -90,21 +29,16 @@ export function renderPosts() {
             const postItem = document.createElement('article')
             postItem.classList.add('post-container')
 
-            const postHeader = document.createElement('div')
-
             const postImg = document.createElement('img')
             postImg.src = post.image
 
             const postCaptionAndLike = document.createElement('div')
 
             const postCaption = document.createElement('p')
-            
-            const postCaptionBold = document.createElement('b')
-            postCaptionBold.innerText = post.text
+            postCaption.innerText = post.text
 
-            
             const likesContainer = document.createElement('div')
-            
+
             const likesCounter = document.createElement('p')
             
             if((post.likedBy).length > 1) {
@@ -112,30 +46,29 @@ export function renderPosts() {
             } else if((post.likedBy).length > 0){
                 likesCounter.innerText = `${(post.likedBy).length} like`
             }
-            
+
             const likeButton = document.createElement('button')
             likeButton.classList.add('like-button')
-            
+
             const likeHeart = document.createElement('i')
             likeHeart.classList.add('uil')
             likeHeart.classList.add('uil-heart-sign')
             if(post.likedBy.includes(context.userId))
-            likeHeart.classList.add('liked')
-            
+                likeHeart.classList.add('liked')
+
             likeButton.append(likeHeart)
-            
+
             likesContainer.append(likesCounter, likeButton)
-            
-            postCaption.append(postCaptionBold)
+
             postCaptionAndLike.append(postCaption, likesContainer)
-            
+
             const postFooter = document.createElement('div')
 
             const postFooterLeft = document.createElement('div')
 
             const postFooterLeftTime = document.createElement('time')
-
-            const postDate = post.date //.toLocaleString('en-UK')
+            
+            const postDate = post.date
 
             const day = postDate.getDate().toString().padStart(2, '0')
             const month = (postDate.getMonth() + 1).toString().padStart(2, '0')
@@ -190,13 +123,13 @@ export function renderPosts() {
 
                 if(!foundPost.likedBy.includes(foundUser.id)){
                     foundPost.likedBy.push(foundUser.id)
-                    savePost(foundPost)
-                    return renderPosts()
+                    savePosts()
+                    renderPosts()
                 } else {
                     const index = foundPost.likedBy.indexOf(foundUser.id)
                     foundPost.likedBy.splice(index, 1)
-                    savePost(foundPost)
-                    return renderPosts()
+                    savePosts()
+                    renderPosts()
                 }
             }
 
@@ -210,10 +143,3 @@ export function renderPosts() {
         return false
     }
 }
-
-horizontalMenu.querySelector('li[name=logout]').addEventListener('click', () => {
-    hideElement(homePage, changeAvatarMenu, changePasswordMenu, profileOptionsModal, changeEmailMenu, newPostModal)
-    showElement(loginPage)
-    avatarImg.src = DEFAULT_AVATAR_URL
-    delete context.userId
-})

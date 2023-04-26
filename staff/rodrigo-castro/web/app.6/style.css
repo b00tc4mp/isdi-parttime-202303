@@ -67,15 +67,15 @@ body {
 .input-field {
   text-align: left;
   border: none;
-  /* box-shadow: var(--input-field-shadow); */
-  width: 100%;
+  box-shadow: var(--input-field-shadow);
+  width: 80%;
   padding: 1rem 1rem 1rem 1rem;
+  margin: 0.5rem;
   font-family: 'Lato', sans-serif;
   font-weight: 300;
   font-size: 1rem;
   border-radius: 1.5rem;
   background-color: var(--input-background-color);
-  box-sizing: border-box;
 }
 
 .input-field:focus {
@@ -148,22 +148,21 @@ body {
 }
 
 .submit-buttons {
-  height: auto;
-  width: auto;
-  padding: 0.7rem 1.5rem;
+  height: 3rem;
+  width: 5rem;
   font-family: 'Lato', sans-serif;
   font-size: 1rem;
   border-radius: 1.5rem;
   background-color: var(--submit-buttons-color);
-  border: none;
-  /* box-shadow: var(--input-field-shadow); */
+  border: var(--submit-buttons-border);
+  box-shadow: var(--input-field-shadow);
   cursor: pointer;
   transition: 2s;
 }
 
 .home-page {
   min-height: 100vh;
-  width: 100%;
+  width: 70%;
   padding: 0;
   margin: 0;
   display: flex;
@@ -251,34 +250,19 @@ header > nav {
   margin-left: auto;
 }
 
-.post-list {
-  width: 100vw;
-  max-width: 500px;
-  height: auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding-top: 4rem;
-  margin: 0;
-  border: 0;
-}
-
 @media (min-width: 768px) and (max-width: 1000px) {  
   header {
     position: fixed;
     border-right: 1px solid #e8e8e8;
     top:0;
     left: 0;
-    min-width: 0; /* debe ser cer0 para sobreescribir el anterior*/
-    width: 6rem;
+    min-width: 4rem;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 1rem 0;
-    /* padding-top: 1rem;
-    padding-bottom: 1rem; */
+    padding-top: 1rem;
+    padding-bottom: 2rem;
     background-color: var(--bar-color);
     box-sizing: border-box;
   }
@@ -286,10 +270,6 @@ header > nav {
   header > nav > ul {
     display: flex;
     flex-direction: column;
-  }
-
-  header > nav > ul > li {
-    display: flex;
   }
 
   header > div, header > div > a {
@@ -324,7 +304,6 @@ header > nav {
   .logout {
     margin-top: auto;
     margin-bottom: 1rem;
-    margin-left: 0;
   }
 }
 
@@ -334,14 +313,14 @@ header > nav {
     border-right: 1px solid #e8e8e8;
     top:0;
     left: 0;
-    min-width: 0;
-    width: 12rem;
+    width: auto;
+    min-width: 12rem;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     margin: 0;
-    padding: 1rem 2rem 1rem 2rem;
+    padding: 1rem 2rem 2rem 2rem;
     background-color: var(--bar-color);
     /* box-sizing: border-box; */
   }
@@ -368,7 +347,6 @@ header > nav {
     display: flex;
     width: 100%;
     justify-content: center;
-    gap: 0.5rem;
   }
 
   .horizontal-menu > li > a {
@@ -407,7 +385,6 @@ header > nav {
     display: flex;
     font-size: 1.2rem;
     text-decoration: none;
-    font-weight: 500;
   }
 
   .logout {
@@ -415,22 +392,20 @@ header > nav {
     margin-bottom: 1rem;
   }
 
-  .post-list {
-    width: 100vw - 12rem;
-    /* max-width: 500px; */
-    height: auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding-top: 4rem;
-    margin: 0;
-    border: 0;
-  }
-
 }
 
-
+.post-list {
+  width: 100vw;
+  max-width: 500px;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 4rem;
+  margin: 0;
+  border: 0;
+}
 
 .post-container {
   display: flex;
@@ -517,21 +492,14 @@ header > nav {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 90%;
-  max-width: 25rem;
 }
 
 .changing-inputs {
-  /* width: 15rem; */
+  width: 15rem;
 }
 
-.change-avatar-menu {
-  width: 80%;
-  max-width: 25rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+.change-avatar-menu > form {
+  height: 9rem;
 }
 
 .modal-window {
@@ -547,29 +515,17 @@ header > nav {
   align-items: center;
 }
 
-.modal-window > form, .modal-window > div > form {
+.modal-window > form {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: auto;
+  height: 100%;
   width: 100%;
-  max-width: 25rem;
-  padding: 2rem;
   gap: 2rem;
-  margin: 0;
-  background-color: var(--bar-color);
-  border-radius: 1.5rem;
-  box-sizing: border-box;
 }
 
 .modal-window > form > input, .modal-window > form > textarea {
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.modal-window .form-new-post {
-  width: 90%;
   max-width: 25rem;
 }
 
