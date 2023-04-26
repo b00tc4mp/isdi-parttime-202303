@@ -11,6 +11,7 @@ export default function retrieveUser(userId) {
   user = {
     name: user.name.split(" ")[0],
     avatar: user.avatar,
+    saves: user.saves,
   };
 
   if (user.avatar) {

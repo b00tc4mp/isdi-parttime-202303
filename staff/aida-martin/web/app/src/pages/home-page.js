@@ -1,6 +1,5 @@
 import { context, show, hide, toggle } from "../ui.js";
 import { loginPage } from "./login-page.js";
-import { findUserById } from "../logic/helpers/data-managers.js";
 //import formatDate from "../logic/helpers/format-date.js";
 import retrievePosts from "../logic/retrieve-posts.js";
 import retrieveUser from "../logic/retrieve-user.js";
@@ -74,8 +73,8 @@ export function renderPosts() {
 
     posts.forEach((post) => {
       const postItem = document.createElement("article");
-      const user = findUserById(post.author);
-      const currentUser = findUserById(context.userId);
+      const user = retrieveUser(post.author);
+      const currentUser = retrieveUser(context.userId);
 
       const userContainer = document.createElement("div");
       userContainer.classList.add("user-container-post");
