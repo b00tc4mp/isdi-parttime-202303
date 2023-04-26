@@ -1,9 +1,9 @@
 function isArray(array){
 
-    if(array.constructor === Array) {
-        return true
-    }   
-    return false
+    if(array.constructor === Array)
+    return true
+    
+  
 }
 
 

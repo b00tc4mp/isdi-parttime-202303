@@ -1,18 +1,6 @@
 
-function fill(array,element,initialPosition,lastPosition){
+function fill(array,element,initialPosition = 0,lastPosition = array.length){
     
-    if(!initialPosition && !lastPosition){
-        for(let i=0; i<array.length; i++){
-            array[i] = element
-        } return array
-    }
-
-    if (!lastPosition){
-        for(let i=initialPosition; i<array.length; i++){
-            array[i] = element
-        } return array
-    }
-
     for(let i=initialPosition; i<lastPosition; i++){
         array[i] = element
     } return array
