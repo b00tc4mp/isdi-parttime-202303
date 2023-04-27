@@ -215,19 +215,22 @@ describe('fill', () => {
     })
 })
 
-/*
+describe('filter', () => {
+    describe('method filter', () => {
+        it('should element spray, exuberant, limit, elite, destruction, present filter word length >6', () =>{
+            const c = new Curri('spray', 'exuberant', 'limit', 'elite', 'destruction', 'present')
 
+            const callback = (word) => word.length > 6;
 
+            let r = new Curri
+            r = c.filter(callback)
 
-/////////////////////////////
-console.log("forEach")
-const cfe = new Curri
+            expect(r).toBeInstanceOf(Curri)
+            expect(r.length).toBe(3)
+            expect(r[0]).toBe('exuberant')
+            expect(r[1]).toBe('destruction')
+            expect(r[2]).toBe('present')
 
-cfe.push('A', 'B', 'C')
-cfe.forEach(elem => console.log(elem))
-
-*/
-/*
-const cf2 = c.map(elem => elem.toLowerCase())
-cf2.forEach(elem => console.log(elem))
-*/
+        })
+    })
+})
