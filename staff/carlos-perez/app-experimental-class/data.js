@@ -1,20 +1,120 @@
 //Data
 
+export class Like{
+    #likeId;
+    #userId;
+    #userLikeId;
+
+    constructor(likeId, userId, userLikeId){
+        this.#likeId=likeId;
+        this.#userId=userId;
+        this.#userLikeId=userLikeId;
+    }
+
+    get getLikeId(){
+        return this.#likeId;
+    }
+    get getUserId(){
+        return this.#userId;
+    }
+    get getUserLikeId(){
+        return this.#userLikeId;
+    }
+
+    //No tiene sentido ningún setter, porque no vamos a modificar los valores de un Like
+    //Un Like se creará o destruirá, no se modificará
+}
+
+export class Post {
+    #id;
+    #userId;
+    #text;
+    #imageURL;
+    likes = [];
+    likeCounter=0;
+
+    constructor(id, userId, text, imageURL) {
+        if (id != undefined && userId != undefined) {
+            this.#id = id;
+            this.#userId = userId;
+            this.#text = text;
+            this.#imageURL = imageURL;
+        }
+        else {
+            throw new Error("ID and userID are required");
+        }
+    }
+
+    get getID(){
+        return this.#id;
+    }
+
+    get getUserID(){
+        return this.#userId;
+    }
+
+    get getText(){
+        return this.#text;
+    }
+
+    get getImgURL(){
+        return this.#imageURL;
+    }
+
+    //set setId no tiene sentido, porque el ID del post es PK, no se modifica y se asigna al crearse;
+    //set setUserID tampoco tiene sentido, el cambio de autor de un post no está contemplado
+
+    set setText(text){
+        this.#text=text;
+    }
+
+    set setImgURL(ImgURL){
+        this.#imageURL=ImgURL;
+    }
+
+    addLike(userID, userLikeId){
+        this.likeCounter++;
+        this.likes.push(new Like(this.likeCounter,userID, userLikeId));
+    }
+
+    searchLike(userLikeId){
+        likePosition=-1;
+        for(let i=0; i<this.likes.length; i++){
+            if(likes[i].getUserLikeId===userLikeId){
+                likePosition=i;
+            }
+        }
+        return likePosition;
+    }
+
+    removeLike(userLikeId){
+        const likePosition=this.searchLike(userLikeId);
+        if(likePosition!=-1){
+            this.likes.splice(likePosition,1);
+        }
+        else{
+            throw new Error('Like not found');
+        }
+    }
+}
+
 export class User {
     #id;
     #name;
     #email;
     #password;
+    posts=[];
+    postCounter=0;
 
     constructor(id, name, email, password) {
 
-        if(id!= undefined){
-        this.#id = id;
-        this.#name = name;
-        this.#email = email;
-        this.#password = password;
+        if (id != undefined) {
+            this.#id = id;
+            this.#name = name;
+            this.#email = email;
+            this.#password = password;
         }
-        else{
+        else {
             throw new Error("id es un campo obligatorio");
         }
     }
@@ -48,6 +148,27 @@ export class User {
     set setPassword(password) {
         this.#password = password;
     }
+
+    post(text, imageURL){
+        this.posts.add(new Post((this.postCounter), this.#id, text, imageURL));
+    }
+
+    searchPost(postId){
+        const postPosition = -1;
+        for(let i=0; i<this.posts.length; i++){
+            if(posts[i].getId===postId){
+                postPosition=i;
+            }
+        }
+        return postPosition;
+    }
+
+    removePost(postId){
+        const postPosition=this.searchPost(postId);
+        if(postPosition!=-1){
+            this.posts.splice(postPosition,1);
+        }
+    }
 }
 
 export class Users {
@@ -61,12 +182,12 @@ export class Users {
         }
         else {
             this.users = users;
-            this.idCounter = users.length-1;
+            this.idCounter = users.length - 1;
         }
     }
 
     addUser = (name, email, password) => {
-        this.users.push(new User(this.idCounter,name, email, password));
+        this.users.push(new User(this.idCounter, name, email, password));
         this.idCounter++;
     }
 
@@ -77,7 +198,7 @@ export class Users {
 }
 
 export let appUsers = new Users();
+//Test Users
 appUsers.addUser('Wendy Darling', 'wendy@darling.com', '123123123');
 appUsers.addUser('Peter Pan', 'peter@pan.com', '123123123');
 appUsers.addUser('Pepito Grillo', 'pepito@grillo.com', '123123123');
-console.log(appUsers);
