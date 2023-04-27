@@ -1,135 +1,6 @@
-//Data
-
-class User {
-    name;
-    email;
-    password;
-    isAdmin;
-
-    constructor(name, email, password, isAdmin) {
-        this.name = name;
-        this.email = email;
-        this.password = password;
-        this.isAdmin = isAdmin;
-    }
-
-    setName(name) {
-        this.name = name;
-    }
-
-    setEmail(email) {
-        this.email = email;
-    }
-
-    setPassword(password) {
-        this.password = password;
-    }
-
-    setIsAdmin(isAdmin) {
-        this.isAdmin = isAdmin;
-    }
-}
-
-class Users {
-    users;
-
-    constructor(users) {
-        this.users = users;
-    }
-
-    addUser = (name, email, password, isAdmin) => {
-        this.users.push(new User(name, email, password, isAdmin));
-    }
-}
-
-let demoUsers = [];
-demoUsers.push(new User('Wendy Darling', 'wendy@darling.com', '123123123', true));
-demoUsers.push(new User('Peter Pan', 'peter@pan.com', '123123123', false));
-demoUsers.push(new User('Pepito Grillo', 'pepito@grillo.com', '123123123', false));
-let appUsers = new Users(demoUsers);
-
-let activeUser;
-
 //Logic
 
-function userExist(email) {
-    let userPosition = null;
-    for (let i = 0; i < appUsers.users.length; i++) {
-        let user = appUsers.users[i];
-        if (user.email === email) {
-            userPosition = i;
-            break;
-        }
-    }
-    if (userPosition !== null) {
-        return userPosition;
-    }
-    else {
-        return -1;
-    }
-}
-
-function addUser(name, email, password) {
-
-    if (userExist(email) !== -1) {
-        throw new Error("El usuario ya existe");
-    }
-
-    appUsers.addUser(name, email, password, false);
-    return true;
-}
-
-function authenticateUser(email, password) {
-
-    let userPosition = userExist(email);
-
-    if (userPosition === -1) {
-        throw new Error("El usuario no existe");
-    }
-
-    if (appUsers.users[userPosition].password !== password) {
-        throw new Error("Contraseña incorrecta");
-    }
-    activeUser = { name: appUsers.users[userPosition].name, email: appUsers.users[userPosition].email };
-}
-
-function getInitials(name) {
-    return name.split(" ").map((n) => n[0]).join("");
-}
-
-function changePassword(oldpass, newpass, passcheck) {
-    let userPosition = userExist(activeUser.email);
-    if (userPosition === -1) {
-        throw new Error("El usuario no existe");
-    }
-    if (oldpass !== appUsers.users[userPosition].password) {
-        throw new Error("Contraseña antigua incorrecta");
-    }
-
-    if (newpass !== passcheck) {
-        throw new Error("La nueva contraseña no coincide con su comprobación");
-    }
-
-    appUsers.users[userExist(activeUser.email)].setPassword(newpass);
-}
-
-function changeMail(oldmail, newmail, mailcheck) {
-    let userPosition = userExist(activeUser.email);
-    if (userPosition === -1) {
-        throw new Error("El usuario no existe");
-    }
-
-    if (oldmail !== appUsers.users[userPosition].email) {
-        throw new Error("Correo antiguo incorrecto");
-    }
-
-    if (newmail !== mailcheck) {
-        throw new Error("El nuevo correo no corresponde con su comprobación");
-    }
-
-    appUsers.users[userExist(activeUser.email)].setEmail(newmail);
-    activeUser.email = newmail;
-}
+import {addUser, authenticateUser, getInitials, changePassword, changeMail, activeUser, userEmailById, resetActiveUser} from "./logic.js"
 
 //Presentation
 function hideSection(section) {
@@ -254,14 +125,15 @@ profileColumn.querySelector('.button-profile').addEventListener('click', functio
     hideSection(homeSaludo);
     showSection(profileView);
     profileView.querySelector('.profile-name').textContent = activeUser.name;
-    profileView.querySelector('.profile-email').textContent = activeUser.email;
+    profileView.querySelector('.profile-email').textContent = userEmailById(activeUser.id);
     resetPasswordChangeView();
     resetChangeMailView();
 })
 
 profileColumn.querySelector('.button-exit').addEventListener('click', function (event) {
     event.preventDefault();
-    activeUser = null;
+    resetActiveUser();
+    
     resetLogin();
     hideSection(homePage);
     headerNotLogged();
