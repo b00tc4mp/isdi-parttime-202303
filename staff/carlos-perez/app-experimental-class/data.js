@@ -72,19 +72,23 @@ export class Post {
         this.#imageURL=ImgURL;
     }
 
-    addLike(userID, userLikeId){
-        this.likeCounter++;
-        this.likes.push(new Like(this.likeCounter,userID, userLikeId));
-    }
-
     searchLike(userLikeId){
-        likePosition=-1;
         for(let i=0; i<this.likes.length; i++){
             if(likes[i].getUserLikeId===userLikeId){
-                likePosition=i;
+                return i;
             }
         }
-        return likePosition;
+        return -1;
+    }
+
+    addLike(userID, userLikeId){
+        if(this.searchLike(userLikeId)===-1){
+        this.likeCounter++;
+        this.likes.push(new Like(this.likeCounter,userID, userLikeId));
+        }
+        else{ //Si el usuario le da a like una segunda vez, el like ya existe, así que elimina el like, porque ya no le gusta
+            this.removeLike(userLikeId);
+        }
     }
 
     removeLike(userLikeId){
@@ -105,6 +109,7 @@ export class User {
     #password;
     posts=[];
     postCounter=0;
+    likes=[];
 
     constructor(id, name, email, password) {
 
@@ -157,7 +162,7 @@ export class User {
         const postPosition = -1;
         for(let i=0; i<this.posts.length; i++){
             if(posts[i].getId===postId){
-                postPosition=i;
+                return i;
             }
         }
         return postPosition;
@@ -167,6 +172,34 @@ export class User {
         const postPosition=this.searchPost(postId);
         if(postPosition!=-1){
             this.posts.splice(postPosition,1);
+        }
+    }
+
+    searchLike(postID){
+        for(let i=0; i<this.likes.length; i++){
+            if(likes[i]===postID){
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    like(postID){
+        if(this.searchLike(postID)===-1){
+        this.likes.add(postID);
+        }
+        else{
+            this.unlike(postID); //Si el usuario le da a like una segunda vez, el like ya existe, así que elimina el like, porque ya no le gusta
+        }
+    }
+
+    unlike(postID){
+        const likePosition = this.searchLike(postID);
+        if(likePosition!=-1){
+            this.likes.splice(likePosition,1);
+        }
+        else{
+            throw new Error("You do not like this");
         }
     }
 }
