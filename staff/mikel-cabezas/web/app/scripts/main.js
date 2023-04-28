@@ -12,7 +12,7 @@ const user = context.userId
 if( !renderUser() ) {
     deleteClassOnContainer(loginPage, ('off'))
     addClassOnContainer(homePage, 'off')
-} else if (user) {
+} else {
     const userId = context.userId
     deleteClassOnContainer(homePage, ('off'))
     addClassOnContainer(loginPage, 'off')
