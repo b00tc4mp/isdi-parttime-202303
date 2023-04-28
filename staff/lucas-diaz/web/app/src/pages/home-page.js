@@ -18,7 +18,7 @@ const welcomeMessage = document.querySelector(".home-header-user-welcome-msj")
 export const postsListPanel = document.querySelector(".home-posts-content");
 
 //*VARIABLES DE MODAL DE CREATE & EDIT POST  
-export const postModal = initAddPostPanel(renderPosts);
+export const postModal = initAddPostPanel(renderPosts, postsListPanel);
 const { editPostModal, editPostModalForm } = initEditPostPanel(postsListPanel, renderPosts);
 
 //* VARIABLE DE HEADER
