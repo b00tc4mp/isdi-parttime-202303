@@ -30,6 +30,7 @@ export class Post {
     #userId;
     #text;
     #imageURL;
+    #date;
     likes = [];
     likeCounter=0;
 
@@ -39,6 +40,7 @@ export class Post {
             this.#userId = userId;
             this.#text = text;
             this.#imageURL = imageURL;
+            this.#date=new Date();
         }
         else {
             throw new Error("ID and userID are required");
@@ -61,6 +63,10 @@ export class Post {
         return this.#imageURL;
     }
 
+    get getDate(){
+        return this.#date;
+    }
+
     //set setId no tiene sentido, porque el ID del post es PK, no se modifica y se asigna al crearse;
     //set setUserID tampoco tiene sentido, el cambio de autor de un post no está contemplado
 
@@ -70,6 +76,10 @@ export class Post {
 
     set setImgURL(ImgURL){
         this.#imageURL=ImgURL;
+    }
+
+    set setDate(date){
+        this.#date=date;
     }
 
     searchLike(userLikeId){
