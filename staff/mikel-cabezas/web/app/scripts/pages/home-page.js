@@ -63,6 +63,22 @@ homePage.querySelector('button.button--edit-post_save').onclick = function(event
     toggleOffClassInSection(homePage.querySelector('.overlay.edit-post'))
 }
 
+homePage.querySelector('.overlay.create-post').onclick = (event) => {
+    event.target.remove()
+    document.body.classList.remove('block-scroll')
+}
+homePage.querySelector('.overlay.edit-post').onclick = (event) => {
+    event.target.remove()
+    document.body.classList.remove('block-scroll')
+}
+
+document.querySelector('.home').onkeydown = (event) => {
+    if(event.keyCode == 27){
+       homePage.querySelector('.overlay:not(.off)').classList.add('off')
+       document.body.classList.remove('block-scroll')
+    }
+}
+
 export function renderUser() {
     const user = context.userId
     if(user) {

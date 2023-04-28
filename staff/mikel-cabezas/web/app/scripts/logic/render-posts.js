@@ -5,11 +5,12 @@ import { cutText} from './max-characters.js'
 import { deleteClassOnContainer, addClassOnContainer } from "../ui.js";
 import {returnUserImage } from "./helpers/get-user-image.js";
 import { findUserById } from "./helpers/data-managers.js"
-import { renderAllUserLikedPost } from "../components/posts/render-users-liked-post.js";
+import { renderAllUserLikedPost } from "../components/helpers/render-users-liked-post.js";
 import { imageToBase64 } from "../localImagesBase64.js";
 import { savePostToFavorites, userLikedPost } from "./posts/posts-data.js";
-import { showEditPost } from "../components/posts/edit-post-panel.js";
-import { renderEntirePost } from "../components/posts/render-entire-post.js";
+import { showEditPost } from "../components/helpers/edit-post-panel.js";
+import { renderEntirePost } from "../components/helpers/render-entire-post.js";
+import {savePost} from "../data.js"
 export function renderPosts(userId) {
     const _posts = posts()
     const _users = users()
@@ -28,7 +29,7 @@ export function renderPosts(userId) {
                 const postsList = existentArticleElement
                 const postContainer = document.createElement('article')
                 postContainer.classList.add(postId)
-                postContainer.setAttribute('style', `background: linear-gradient(180deg, rgba(0,0,0,.2) 0%, rgba(0,0,0,0) 10%, rgba(0,0,0,0) 50%, rgba(0,0,0,.6) 100%),  url(${article.image})`)
+                postContainer.setAttribute('style', `background:  linear-gradient(180deg, rgba(0,0,0,.2) 0%, rgba(0,0,0,0) 10%, rgba(0,0,0,0) 50%, rgba(0,0,0,.6) 100%),  url(${article.image}) center / cover`)
                 postsList.appendChild(postContainer)
                 returnUserImage(postContainer, article.author, 'userName')
                 const postAuthor = postContainer.querySelector('.post-author')
@@ -115,8 +116,14 @@ export function renderPosts(userId) {
                 favoritePost.onclick = () => savePostToFavorites(article, favoritePost, userId)
                 likePost.onclick = () => userLikedPost(userId, article, likePost, totalLikesPost)
                 console.log(userId)
-                spaceImage.onclick = () => renderEntirePost(article, existentArticleElement, userId)
-                commentPost.onclick = () => renderEntirePost(article, existentArticleElement, userId)
+                spaceImage.onclick = () => {
+                    renderEntirePost(article, existentArticleElement, userId)
+                    document.body.classList.add('block-scroll')
+                }
+                commentPost.onclick = () => {
+                    renderEntirePost(article, existentArticleElement, userId)
+                    document.body.classList.add('block-scroll')
+                }
                 const postDate = document.createElement('time')
                 postDate.classList.add('post-date')
                 postContainer.appendChild(postDate)

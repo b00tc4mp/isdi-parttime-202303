@@ -1,5 +1,5 @@
-import { returnUserImage } from "../../logic/helpers/get-user-image"
-import { addClassOnContainer } from "../../ui"
+import { returnUserImage } from "../../logic/helpers/get-user-image.js"
+import { addClassOnContainer } from "../../ui.js"
 
 export function renderAllUserLikedPost(postContainer, article) {
     if(!article) {

@@ -5,7 +5,7 @@ import { context } from "../ui.js";
 
 let srcNewImage
 
-const _posts = posts()
+// const _posts = posts()
 
 export const createPostForm = document.querySelector('.section.home').querySelector('.overlay.create-post')
 

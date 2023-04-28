@@ -746,9 +746,10 @@ button.close {
 
 article.single.post {
     width: 100%;
-    max-width: 750px;
+    max-width: 920px;
     flex-direction: row;
     box-sizing: border-box;
+    margin: 30px;
 }
 .post-image-container {
     width: 65%;
@@ -814,6 +815,7 @@ button[name="post-comment"] {
     position: absolute;
     top: -30px;
     right: 0;
+    cursor: pointer;
 }
 
 /* END SINGLE POSTS */

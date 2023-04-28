@@ -222,7 +222,21 @@ export function renderEntirePost(articleId, containerToRender, userId) {
         totalLikesPost.onclick = () => renderAllUserLikedPost(postInfoContainer, article)
         favoritePost.onclick = () => savePostToFavorites(article, favoritePost, userId)
         likePost.onclick = () => userLikedPost(userId, article, likePost, totalLikesPost)
-        closeButton.onclick = () => singlePostContainer.remove()
+        closeButton.onclick = () => {
+            singlePostContainer.remove()
+            document.body.classList.remove('block-scroll')
+        }
+        // homePage.querySelector('.overlay.single-post').onclick = (event) => {
+        //     event.preventDefault
+        //     singlePostContainer.remove()
+        //     document.body.classList.remove('block-scroll')
+        // }
+        window.onkeydown = (event) => {
+            if(event.keyCode == 27){
+               homePage.querySelector('.overlay.single-post').remove()
+               document.body.classList.remove('block-scroll')
+            }
+        }
     } catch (error) {
         console.log(error.message)
         console.log(error.stack)

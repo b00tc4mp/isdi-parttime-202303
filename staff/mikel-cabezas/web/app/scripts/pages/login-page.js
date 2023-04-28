@@ -15,7 +15,7 @@ loginPage.querySelector('form.login-form').onsubmit = function(event) {
     const email = loginPage.querySelector('input[name="email"').value.trim()
     const password = loginPage.querySelector('input[name="password"').value
     try {
-        renderUser()
+        // renderUser()
         const userId = authenticateUser(email, password)
         // const currentUser = getUserName(userId)
         // const separateUserName = getUserName(userId).split(' ')
