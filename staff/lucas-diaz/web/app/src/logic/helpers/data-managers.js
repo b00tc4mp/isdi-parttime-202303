@@ -13,21 +13,21 @@ export const cleanChangePasswordForm = () => {
 }
 
 export function findUserById(userId){
-    let foundUser = users.find(user => user.id === userId)
+    let foundUser = users().find(user => user.id === userId)
     return foundUser;
 }
 
 export function findUserByEmail(email){
-    let foundUser = users.find(user => user.email === email)
+    let foundUser = users().find(user => user.email === email)
     return foundUser;
 }
 
 export function findUserPostByUserId(userId){
-    let foundPost = posts.find(post => post.author === userId)
+    let foundPost = posts().find(post => post.author === userId)
     return foundPost;
 }
 
 export function findUserPostByPostId(postId){
-    let foundPost = posts.find(post => post.id === postId)
+    let foundPost = posts().find(post => post.id === postId)
     return foundPost;
 }

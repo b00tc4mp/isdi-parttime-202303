@@ -1,4 +1,4 @@
-export const users = "usersJson" in localStorage  ? JSON.parse(localStorage.usersJson) : []
+export const users = () => "usersJson" in localStorage  ? JSON.parse(localStorage.usersJson) : []
 
 /* users.push({
     id: "user-1",
@@ -26,10 +26,18 @@ users.push({
     avatar: "https://static.vecteezy.com/system/resources/previews/019/861/654/non_2x/3d-modern-house-or-home-isometric-modern-building-and-architecture-free-png.png"
 }) */
 
-export const posts = "postsJson" in localStorage  ? JSON.parse(localStorage.postsJson) : []
+export const posts = () => {
+
+    const posts = "postsJson" in localStorage  ? JSON.parse(localStorage.postsJson) : []
+
+    posts.forEach(post => post.date = new Date(post.date));
+    
+    return posts
+}
 
 // esto lo hacemos porque el objeto cuando viene de JSON la date vuelve como string y tenemos que volver a pasarla a formato Date
-posts.forEach(post => post.date = new Date(post.date));
+
+
 
 /* posts.push({
     id: "post-1",
@@ -54,10 +62,40 @@ posts.push({
 })
  */
 
-export function saveUsers(){
+
+
+export function saveUsers(users){
     localStorage.usersJson = JSON.stringify(users);
 }
 
-export function savePosts(){
+export function saveUser(user){
+    const _users = users()
+
+    const index = _users.findIndex(_user => _user.id === user.id)
+    
+    if (index < 0)
+        _users.push(user)
+    else 
+        _users.splice(index, 1, user)
+    saveUsers(_users)
+}
+
+
+export function savePosts(posts){
     localStorage.postsJson = JSON.stringify(posts);
 }
+
+export function savePost(post){
+    const _posts = posts()
+
+    const index = _posts.findIndex(_post => _post.id === post.id)
+    
+    if (index < 0)
+        _posts.push(post)
+    else 
+        _posts.splice(index, 1, post)
+
+
+    savePosts(_posts)
+}
+

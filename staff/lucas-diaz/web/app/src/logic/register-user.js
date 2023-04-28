@@ -11,13 +11,14 @@ export default function registerUser (userName,email,password) {
     if (foundUser)
         throw new Error("This profile already exist");
 
-    const lastUser = users.at(-1);
+    const _users = users()
+    const lastUser = _users.at(-1);
     let id = "user-1";
 
     if (lastUser)
         id = "user-" + (parseInt(lastUser.id.slice(5)) + 1)
 
-    users.push({
+    _users.push({
         id,
         name: userName,
         email: email,
@@ -25,5 +26,5 @@ export default function registerUser (userName,email,password) {
         avatar: "https://cdn1.iconfinder.com/data/icons/user-pictures/100/unknown-512.png",
         likedPosts: []
     });
-    saveUsers();
+    saveUsers(_users);
 }

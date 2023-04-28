@@ -7,12 +7,15 @@ export default  function createPost(userId, image, text){
     validateUrl(image);
     validateText(text);
 
+
     const foundUser = findUserById(userId);
 
     if (!foundUser) throw new Error (`user with id ${userId} not found`);
 
+    const _posts = posts()
+
     let id = "post-1";
-    const lastPost = posts.at(-1);
+    const lastPost = _posts.at(-1);
     if (lastPost){
         id = "post-" + (parseInt(lastPost.id.slice(5)) +1)
     }
@@ -27,6 +30,6 @@ export default  function createPost(userId, image, text){
         likeCounter: []
     }
 
-    posts.push(post);
-    savePosts();
+    _posts.push(post);
+    savePosts(_posts);
 }

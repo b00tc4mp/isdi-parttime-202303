@@ -1,4 +1,4 @@
-import { savePosts, saveUsers } from "../data";
+import { savePost, saveUser } from "../data";
 import { findUserById, findUserPostByPostId } from "./helpers/data-managers";
 import { validateId } from "./helpers/validators";
 
@@ -22,8 +22,8 @@ export default function likeAPost(userId, post, likeIcon, likeIconText){
         foundPost.likeCounter.splice(foundUserIndex,1);
         
         likeIconText.textContent = `${foundPost.likeCounter.length} likes`
-        savePosts();
-        saveUsers();
+        savePost(foundPost);
+        saveUser(foundUser);
         return;
     }
     
@@ -32,6 +32,6 @@ export default function likeAPost(userId, post, likeIcon, likeIconText){
     foundPost.likeCounter.push(foundUser.id);
     likeIconText.textContent = `${foundPost.likeCounter.length} likes`
     likeIcon.classList.add("material-symbols-rounded-liked");
-    savePosts();
-    saveUsers();
+    savePost(foundPost);
+    saveUser(foundUser);
 }
