@@ -1,6 +1,6 @@
-import curri from "./curri.js";
+import Curri from "./Curri.js";
 
-const c = new curri();
+const c = new Curri();
 
 c[0] = "A";
 c.length++;
@@ -27,7 +27,7 @@ c2.forEach((elem) => console.log(elem));
 console.log(" ");
 console.log("AT");
 
-const c3 = new curri();
+const c3 = new Curri();
 
 c3[0] = 5;
 c3.length++;
@@ -54,7 +54,7 @@ console.log(`Using an index of ${index} item returned is ${c3.at(index)}`);
 console.log(" ");
 console.log("CONCAT");
 
-const c4 = new curri();
+const c4 = new Curri();
 
 c4[0] = "a";
 c4.length++;
@@ -63,7 +63,7 @@ c4.length++;
 c4[2] = "c";
 c4.length++;
 
-const c5 = new curri();
+const c5 = new Curri();
 
 c5[0] = "d";
 c5.length++;
@@ -75,7 +75,7 @@ c5.length++;
 const c6 = c4.concat(c5);
 
 console.log(c6);
-// Expected output: curri {"a", "b", "c", "d", "e", "f"}
+// Expected output: Curri {"a", "b", "c", "d", "e", "f"}
 
 //
 console.log(" ");
@@ -83,7 +83,7 @@ console.log("EVERY");
 
 const isBelowThreshold = (currentValue) => currentValue < 40;
 
-const c7 = new curri();
+const c7 = new Curri();
 
 c7[0] = 1;
 c7.length++;
@@ -106,7 +106,7 @@ const prueba = (element) => element > 10;
 console.log(c7.every(prueba));
 //EXTRA Expected output: false
 
-const c8 = new curri();
+const c8 = new Curri();
 
 console.log(c8.every(isBelowThreshold));
 //EXTRA Expected output: true
@@ -118,7 +118,7 @@ console.log(c8.every(prueba));
 console.log(" ");
 console.log("FILL");
 
-const c9 = new curri();
+const c9 = new Curri();
 
 c9[0] = 1;
 c9.length++;
@@ -131,27 +131,27 @@ c9.length++;
 
 // Fill with 0 from position 2 until position 4
 console.log(c9.fill(0, 2, 4));
-// Expected output: curri {1, 2, 0, 0}
+// Expected output: Curri {1, 2, 0, 0}
 
 // Fill with 5 from position 1
 console.log(c9.fill(5, 1));
-// Expected output: curri {1, 5, 5, 5}
+// Expected output: Curri {1, 5, 5, 5}
 
 console.log(c9.fill(6));
-// Expected output: curri {6, 6, 6, 6}
+// Expected output: Curri {6, 6, 6, 6}
 
 //EXTRAS:
 console.log(c9.fill(0, -1));
-// Expected output: curri {6, 6, 6, 0}
+// Expected output: Curri {6, 6, 6, 0}
 
 console.log(c9.fill(0, 1, -1));
-// Expected output: curri {6, 0, 0, 0}
+// Expected output: Curri {6, 0, 0, 0}
 
 //
 console.log(" ");
 console.log("FILTER");
 
-const c10 = new curri();
+const c10 = new Curri();
 
 c10[0] = "spray";
 c10.length++;
@@ -169,13 +169,13 @@ c10.length++;
 const result = c10.filter((word) => word.length > 6);
 
 console.log(result);
-// Expected output: curri {"exuberant", "destruction", "present"}
+// Expected output: Curri {"exuberant", "destruction", "present"}
 
 //
 console.log(" ");
 console.log("FIND");
 
-const c11 = new curri();
+const c11 = new Curri();
 
 c11[0] = 5;
 c11.length++;
@@ -207,7 +207,7 @@ console.log(found2);
 console.log(" ");
 console.log("FINDINDEX");
 
-const c12 = new curri();
+const c12 = new Curri();
 
 c12[0] = 5;
 c12.length++;
@@ -237,7 +237,7 @@ console.log(c12.findIndex((element) => element === 13));
 console.log(" ");
 console.log("INCLUDES");
 
-const c13 = new curri();
+const c13 = new Curri();
 
 c13[0] = 1;
 c13.length++;
@@ -249,7 +249,7 @@ c13.length++;
 console.log(c13.includes(2));
 // Expected output: true
 
-const c14 = new curri();
+const c14 = new Curri();
 
 c14[0] = "cat";
 c14.length++;
@@ -268,7 +268,7 @@ console.log(c14.includes("at"));
 console.log(" ");
 console.log("INDEXOF");
 
-const c15 = new curri();
+const c15 = new Curri();
 
 c15[0] = "ant";
 c15.length++;
@@ -303,7 +303,7 @@ console.log("---");
 console.log(" ");
 console.log("JOIN");
 
-const c16 = new curri();
+const c16 = new Curri();
 
 c16[0] = "Fire";
 c16.length++;
@@ -325,7 +325,7 @@ console.log(c16.join("-"));
 console.log(" ");
 console.log("LASTINDEXOF");
 
-const c17 = new curri();
+const c17 = new Curri();
 
 c17[0] = "Dodo";
 c17.length++;
@@ -348,7 +348,7 @@ console.log(c17.lastIndexOf("Tiger"));
 console.log(" ");
 console.log("POP");
 
-const c18 = new curri();
+const c18 = new Curri();
 
 c18[0] = "broccoli";
 c18.length++;
@@ -365,19 +365,19 @@ console.log(c18.pop());
 // Expected output: "tomato"
 
 console.log(c18);
-// Expected output: curri {"broccoli", "cauliflower", "cabbage", "kale"}
+// Expected output: Curri {"broccoli", "cauliflower", "cabbage", "kale"}
 
 console.log(c18.pop());
 // Expected output: "kale"
 
 console.log(c18);
-// Expected output: curri {"broccoli", "cauliflower", "cabbage"}
+// Expected output: Curri {"broccoli", "cauliflower", "cabbage"}
 
 //
 console.log(" ");
 console.log("PUSH");
 
-const c19 = new curri();
+const c19 = new Curri();
 
 c19[0] = "pigs";
 c19.length++;
@@ -390,19 +390,19 @@ const count = c19.push("cows");
 console.log(count);
 // Expected output: 4
 console.log(c19);
-// Expected output: curri {"pigs", "goats", "sheep", "cows"}
+// Expected output: Curri {"pigs", "goats", "sheep", "cows"}
 
 const count2 = c19.push("chickens", "cats", "dogs");
 console.log(count2);
 // Expected output: 7
 console.log(c19);
-// Expected output: curri {"pigs", "goats", "sheep", "cows", "chickens", "cats", "dogs"}
+// Expected output: Curri {"pigs", "goats", "sheep", "cows", "chickens", "cats", "dogs"}
 
 //
 console.log(" ");
 console.log("REDUCE");
 
-const c20 = new curri();
+const c20 = new Curri();
 
 c20[0] = 1;
 c20.length++;
@@ -424,7 +424,7 @@ console.log(sumWithInitial);
 // Expected output: 10
 
 // EXTRA:
-const c21 = new curri();
+const c21 = new Curri();
 
 c21[0] = 1;
 c21.length++;
@@ -451,7 +451,7 @@ console.log(sumWithInitial2);
 // Expected output: 30
 
 // EXTRA:
-const c22 = new curri();
+const c22 = new Curri();
 
 c22[0] = 1;
 c22.length++;
@@ -488,7 +488,7 @@ console.log(subtractionWithoutInitial);
 console.log(" ");
 console.log("REVERSE");
 
-const c23 = new curri();
+const c23 = new Curri();
 
 c23[0] = "one";
 c23.length++;
@@ -499,22 +499,22 @@ c23.length++;
 c23[3] = "four";
 c23.length++;
 
-console.log("curri1:", c23);
-// Expected output: "array1:" curri {"one", "two", "three"}
+console.log("Curri1:", c23);
+// Expected output: "array1:" Curri {"one", "two", "three"}
 
 const reversed = c23.reverse();
 console.log("reversed:", reversed);
-// Expected output: "reversed:" curri {"three", "two", "one"}
+// Expected output: "reversed:" Curri {"three", "two", "one"}
 
 // Careful: reverse is destructive -- it changes the original array.
-console.log("curri1:", c23);
-// Expected output: "array1:" curri {"three", "two", "one"}
+console.log("Curri1:", c23);
+// Expected output: "array1:" Curri {"three", "two", "one"}
 
 //
 console.log(" ");
 console.log("SHIFT");
 
-const c24 = new curri();
+const c24 = new Curri();
 
 c24[0] = "1";
 c24.length++;
@@ -526,7 +526,7 @@ c24.length++;
 const firstElement = c24.shift();
 
 console.log(c24);
-// Expected output: curri {2, 3}
+// Expected output: Curri {2, 3}
 
 console.log(firstElement);
 // Expected output: 1
@@ -535,7 +535,7 @@ console.log(firstElement);
 console.log(" ");
 console.log("SLICE");
 
-const c25 = new curri();
+const c25 = new Curri();
 
 c25[0] = "ant";
 c25.length++;
@@ -549,34 +549,34 @@ c25[4] = "elephant";
 c25.length++;
 
 console.log(c25.slice(2));
-// Expected output: curri {"camel", "duck", "elephant"}
+// Expected output: Curri {"camel", "duck", "elephant"}
 
 console.log(c25.slice(2, 4));
-// Expected output: curri {"camel", "duck"}
+// Expected output: Curri {"camel", "duck"}
 
 console.log(c25.slice(1, 5));
-// Expected output: curri {"bison", "camel", "duck", "elephant"}
+// Expected output: Curri {"bison", "camel", "duck", "elephant"}
 
 console.log(c25.slice(-2));
-// Expected output: curri {"duck", "elephant"}
+// Expected output: Curri {"duck", "elephant"}
 
 console.log(c25.slice(2, -1));
-// Expected output: curri {"camel", "duck"}
+// Expected output: Curri {"camel", "duck"}
 
 console.log(c25.slice(9));
-// EXTRA Expected output: curri {}
+// EXTRA Expected output: Curri {}
 
 console.log(c25.slice(0, 9));
-// EXTRA Expected output: curri {"ant", "bison", "camel", "duck", "elephant"}
+// EXTRA Expected output: Curri {"ant", "bison", "camel", "duck", "elephant"}
 
 console.log(c25.slice());
-// Expected output: curri {"ant", "bison", "camel", "duck", "elephant"}
+// Expected output: Curri {"ant", "bison", "camel", "duck", "elephant"}
 
 //
 console.log(" ");
 console.log("SOME");
 
-const c26 = new curri();
+const c26 = new Curri();
 
 c26[0] = 1;
 c26.length++;
@@ -605,14 +605,14 @@ const even2 = (element) => element === 1;
 console.log(c26.some(even2));
 //EXTRA Expected output: true
 
-const c27 = new curri();
+const c27 = new Curri();
 
 const even3 = (element) => element === "";
 
 console.log(c27.some(even3));
 //EXTRA Expected output: false
 
-// const c28 = new curri();
+// const c28 = new Curri();
 
 // c28[0] = 1;
 // c28.length++;
@@ -622,7 +622,7 @@ console.log(c27.some(even3));
 // console.log(c28.some((x) => x === undefined));
 // false
 
-// const c29 = new curri();
+// const c29 = new Curri();
 
 // c29[0] = 1;
 // c29.length++;
@@ -639,3 +639,35 @@ console.log(c27.some(even3));
 //
 console.log(" ");
 console.log("SPLICE");
+
+// const c28 = new Curri(
+//   "Jan",
+//   "Feb",
+//   "March",
+//   "April",
+//   "June",
+//   "July",
+//   "August",
+//   "September",
+//   "October",
+//   "November",
+//   "December"
+// );
+
+// console.log(c28.splice(3, 5, "X", "Y", "Z"));
+// Expected output: Curri {'April', 'June', 'July', 'August', 'September'}
+
+// console.log(c28);
+// Expected output: Curri {'Jan', 'Feb', 'March', 'X', 'Y', 'Z', 'October', 'November', 'December'}
+
+// const c29 = new Curri("Jan", "Feb", "March", "April", "June", "July", "August");
+// console.log(c29.splice(2, 4, "X", "Y"));
+// Expected output: Curri  {'March', 'April', 'June', 'July'}
+// console.log(c29);
+// Expected output: Curri {'Jan', 'Feb', 'X', 'Y', 'August'}
+
+// const c30 = new Curri(1, 2, 3, 5, 6);
+// console.log(c30.splice(3, 0, 4));
+// Expected output: []
+// console.log(c30);
+// Expected output: [1, 2, 3, 4, 5, 6]

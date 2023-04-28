@@ -1,4 +1,4 @@
-class curri {
+class Curri {
   constructor(...elements) {
     if (elements.length === 1 && typeof elements[0] === "number") {
       this.length = elements[0];
@@ -18,7 +18,7 @@ class curri {
   }
 
   map(callback) {
-    const mapped = new curri();
+    const mapped = new Curri();
 
     for (let i = 0; i < this.length; i++) {
       const element = this[i];
@@ -31,7 +31,7 @@ class curri {
   }
 
   static of(...elements) {
-    const c = new curri();
+    const c = new Curri();
 
     for (let i = 0; i < elements.length; i++) {
       c[i] = elements[i];
@@ -49,8 +49,8 @@ class curri {
     return this[index];
   }
 
-  concat(curri2) {
-    const concatted = new curri();
+  concat(Curri2) {
+    const concatted = new Curri();
 
     for (let i = 0; i < this.length; i++) {
       const element = this[i];
@@ -58,8 +58,8 @@ class curri {
       concatted.length++;
     }
 
-    for (let i = 0; i < curri2.length; i++) {
-      const element2 = curri2[i];
+    for (let i = 0; i < Curri2.length; i++) {
+      const element2 = Curri2[i];
       concatted[concatted.length] = element2;
       concatted.length++;
     }
@@ -94,7 +94,7 @@ class curri {
   }
 
   filter(callback) {
-    let filtered = new curri();
+    let filtered = new Curri();
 
     for (let i = 0; i < this.length; i++) {
       const element = this[i];
@@ -151,7 +151,7 @@ class curri {
     return -1;
   }
 
-  // curri.prototype.isArray = function () {
+  // Curri.prototype.isArray = function () {
   //   if (this === null) return false;
 
   //   if (typeof this !== "object") return false;
@@ -236,7 +236,7 @@ class curri {
 
   slice(start = 0, end = this.length) {
     let sliced = { ...this };
-    let newCurri = new curri();
+    let newCurri = new Curri();
 
     if (start < 0) start = this.length + start;
 
@@ -265,6 +265,46 @@ class curri {
     }
     return false;
   }
+
+  //   splice(start, deleteCount, ...items) {
+  //     const extracted = new Curri();
+
+  //     for (let i = start; i < start + deleteCount; i++) {
+  //       const element = this[i];
+
+  //       extracted[extracted.length] = element;
+  //       extracted.length++;
+  //     }
+
+  //     if (deleteCount > 0) {
+  //       for (let i = start + deleteCount; i < this.length; i++) {
+  //         const element = this[i];
+  // CAMBIADO EL - 1 POR EL - ITEMS.LENGTH
+  //         this[i - (deleteCount - items.length)] = element;
+  //       }
+
+  //CAMBIADO EL - 1 POR - ITEMS.LENGTH
+  //       delete this[this.length - 1];
+
+  //       this.length -= deleteCount - items.length;
+
+  //       delete this[this.length];
+  //     }
+
+  //AÑADIDO ESTE FOR PARA RECORRER LOS ITEMS Y AÑADIRLOS EN LA POSICIÓN QUE TOQUE
+  //     for (let i = 0; i < items.length; i++) {
+  //       this[start + i] = items[i];
+  //     }
+
+  //     return extracted;
+  //   }
+  // }
+
+  // toReversed() {
+
+  // }
+
+  // unshift() {
 }
 
-export default curri;
+export default Curri;
