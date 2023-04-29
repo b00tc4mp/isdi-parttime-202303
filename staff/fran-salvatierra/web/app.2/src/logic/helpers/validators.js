@@ -22,8 +22,8 @@ export function validateUrl(url, explain = 'url') {
 }
 
 export function validateId(id, explain = 'id') {
-    // if (typeof id !== 'string') throw new Error(`${explain} is not a string`)
-    // if (!id.trim().length) throw new Error(`${explain} is empty`)
+    if (typeof id !== 'string') throw new Error(`${explain} is not a string`)
+    if (!id.trim().length) throw new Error(`${explain} is empty`)
 }
 
 export function validateText(text, explain = 'text') {

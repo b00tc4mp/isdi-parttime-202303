@@ -1,8 +1,6 @@
 console.log('load data')
 
-export const users = () => {
-    'usersJson' in localStorage ? JSON.parse(localStorage.usersJson) : []
-}
+export const users = () => 'usersJson' in localStorage ? JSON.parse(localStorage.usersJson) : []
 
 // users.push({
 //     id: 'user-1',

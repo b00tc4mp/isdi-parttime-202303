@@ -17,6 +17,7 @@ export default class Login extends Component {
                 <p>Go to <a href="">Register</a></p>
             </div>`
         )
+        console.log(1)
         this.container.querySelector('form').onsubmit = event => {
             event.preventDefault()
 
@@ -24,26 +25,12 @@ export default class Login extends Component {
             const password = event.target.password.value
 
             try {
-                // context.userId = authenticateUser(email, password) Para evitar autenticación - + agil mover por paginas
+                context.userId = authenticateUser(email, password)
 
                 this.onAuthenticated()
             } catch (error) {
                 alert(error.message)
             }
         }
-
-        this.container.querySelector('a').onclick = event => {
-            event.preventDefault();
-
-            this.onRegisterClick();
-        }
-    }
-
-    onAuthenticated() {
-        console.log('Go to home');
-    }
-
-    onRegisterClick() {
-        console.log('Go to register');
     }
 }

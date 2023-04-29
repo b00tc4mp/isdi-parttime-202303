@@ -7,7 +7,7 @@ export function findUserByEmail(email) {
     //     if (user.email === email) return user
     // }
 
-    return users.find(user => user.email === email)
+    return users().find(user => user.email === email)
 }
 
 export function findUserById(userId) {

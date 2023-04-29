@@ -1,3 +1,5 @@
+console.log('load main')
+
 import App from './app.js'
 import { Component } from './library/composito.js'
 
