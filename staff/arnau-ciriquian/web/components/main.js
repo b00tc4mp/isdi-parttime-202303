@@ -84,7 +84,7 @@ const startButton = new AddButton(`Let's go!`)
 startButton.container.onclick = function() {
     const proposalDiv = document.querySelector('.proposal')
     if (proposalDiv)
-        proposalDiv.parentNode.removeChild(proposalDiv)
+        document.body.removeChild(proposalDiv)
     types = ['Fire', 'Water', 'Grass']
     const presentPokemons = new AddProposal()
     startButton.container.innerText = 'Refresh!'
