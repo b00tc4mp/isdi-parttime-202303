@@ -1,7 +1,7 @@
 import { findUserById } from '../helpers/data-managers.js'
 import { saveUser, savePost } from '../../data.js'
-import { renderPosts } from '../render-posts.js'
-import { validateId } from '../helpers/validators.js'
+import { renderPosts } from './render-posts.js'
+import { validateId, validatePost, validateLikePostIconTarget, validateTotalPostLikesTarget } from '../helpers/validators.js'
 export function savePostToFavorites(article, favoritePost, userId) {
     validateId(userId)
     const currentUser = findUserById(userId)
@@ -21,42 +21,34 @@ export function savePostToFavorites(article, favoritePost, userId) {
     renderPosts(userId)
 }
 
-export function userLikedPost(userId, article, likePost, totalLikesPost) {
-    
-    if(!userId) {
-        throw new Error('Invalid userId')
-    }
-    if(!article) {
-        throw new Error('Invalid article')
-    }
-    if(!likePost) {
-        throw new Error('Invalid invalid input source')
-    }
-    if(!totalLikesPost) {
-        throw new Error('Invalid invalid output source')
-    }
+export function userLikedPost(userId, article, likePostIcon, totalPostLikes) {
+    validateId(userId)
+    validatePost(article)
+    validateLikePostIconTarget(postId)
+    validateTotalPostLikesTarget(postId)
+
     const indexLikedPost = article.likes.findIndex(user => user === userId)
-    if(likePost.classList.contains('filled')) {
-        likePost.classList.remove('filled')
+    if(likePostIcon.classList.contains('filled')) {
+        likePostIcon.classList.remove('filled')
         article.likes.splice(indexLikedPost, 1)
         if (article.likes.length === 0) {
-            totalLikesPost.innerText = ''
+            totalPostLikes.innerText = ''
         }
         if (article.likes.length === 1) {
-            totalLikesPost.innerText = article.likes.length + ' like'
+            totalPostLikes.innerText = article.likes.length + ' like'
         }
         if (article.likes.length > 1) {
-            totalLikesPost.innerText = article.likes.length + ' likes'
+            totalPostLikes.innerText = article.likes.length + ' likes'
         }
     } else {
-        likePost.classList.add('filled')
+        likePostIcon.classList.add('filled')
         if (article.likes.length > 0) {
             article.likes.push(userId)
-            totalLikesPost.innerText = article.likes.length + ' likes'
+            totalPostLikes.innerText = article.likes.length + ' likes'
         }
         if (article.likes.length === 0) {
             article.likes.push(userId)
-            totalLikesPost.innerText = article.likes.length + ' like'
+            totalPostLikes.innerText = article.likes.length + ' like'
         }
     }
     savePost(article)

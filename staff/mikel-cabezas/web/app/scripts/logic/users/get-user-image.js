@@ -1,5 +1,4 @@
-import { getPostUserName, getPostUserImage, getUserName } from "./data-managers.js"
-import { context } from "../../ui.js"
+import { getPostUserName, getPostUserImage, getUserName } from "../helpers/data-managers.js"
 export function returnUserImage(path, userId, showName, hideImage) {
 
     if(!userId) {

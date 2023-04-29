@@ -1,21 +1,26 @@
-import { homePage } from "../pages/home-page.js";
-import {loginPage} from "../pages/login-page.js";
-import { posts, users } from '../data.js'
-import { cutText} from './max-characters.js'
-import { deleteClassOnContainer, addClassOnContainer } from "../ui.js";
-import {returnUserImage } from "./helpers/get-user-image.js";
-import { findUserById } from "./helpers/data-managers.js"
-import { renderAllUserLikedPost } from "../components/helpers/render-users-liked-post.js";
-import { imageToBase64 } from "../localImagesBase64.js";
-import { savePostToFavorites, userLikedPost } from "./posts/posts-data.js";
-import { showEditPost } from "../components/helpers/edit-post-panel.js";
-import { renderEntirePost } from "../components/helpers/render-entire-post.js";
-import {savePost} from "../data.js"
+import { homePage } from "../../pages/home-page.js";
+import {loginPage} from "../../pages/login-page.js";
+import { posts, users } from '../../data.js'
+import { cutText} from '../../components/helpers/max-characters.js'
+import {returnUserImage } from "../users/get-user-image.js";
+import { findUserById } from "../helpers/data-managers.js"
+import { renderAllUserLikedPost } from "../../components/helpers/render-users-liked-post.js";
+import { savePostToFavorites, userLikedPost } from "./posts-data.js";
+import { showEditPost } from "../../components/helpers/edit-post-panel.js";
+import { renderEntirePost } from "../../components/helpers/render-entire-post.js";
+import { validateId } from "../helpers/validators.js";
+import { context, deleteClassOnContainer, addClassOnContainer } from "../../ui.js";
 export function renderPosts(userId) {
-    const _posts = posts()
-    const _users = users()
+    validateId(userId)
+    if (!context.userId) {
+        throw new Error('Not logged In')
+    }
+
     deleteClassOnContainer(homePage, 'off')
     addClassOnContainer(loginPage, 'off')
+
+    const _posts = posts()
+    const _users = users()
     const existentArticleElement = homePage.querySelector('.posts')
     existentArticleElement.innerHTML = ''
     if( _posts.length >= 1) {
@@ -39,7 +44,7 @@ export function renderPosts(userId) {
                 const titleAndInteractions = document.createElement('div')
                 titleAndInteractions.classList.add('title-and-interactions')
                 postContainer.appendChild(titleAndInteractions)
-                const totalLikesPost = document.createElement('div')
+                const totalPostLikes = document.createElement('div')
                 const postTitle = document.createElement('h3')
                 postTitle.classList.add('title')
                 postContainer.appendChild(postTitle)
@@ -50,7 +55,7 @@ export function renderPosts(userId) {
                 postContainer.appendChild(postExcerpt)
                 postExcerpt.innerText = cutText(article.text, 35)
                 
-                postContainer.appendChild(totalLikesPost)
+                postContainer.appendChild(totalPostLikes)
                 
                 const totalCommentsPost = document.createElement('div')
                 totalCommentsPost.classList.add('comments-count')
@@ -60,10 +65,10 @@ export function renderPosts(userId) {
 
 
                 if (article.likes.length === 1) {
-                    totalLikesPost.innerText = article.likes.length + ' like'
+                    totalPostLikes.innerText = article.likes.length + ' like'
                 }
                 if (article.likes.length > 1) {
-                    totalLikesPost.innerText = article.likes.length + ' likes'
+                    totalPostLikes.innerText = article.likes.length + ' likes'
                 }
 
                 if (article.comments.length === 1) {
@@ -78,7 +83,7 @@ export function renderPosts(userId) {
                 const favoritePost = document.createElement('div')
                 favoritePost.classList.add('material-symbols-outlined')
                 likePost.classList.add('like')
-                totalLikesPost.classList.add('total-likes-post')
+                totalPostLikes.classList.add('total-likes-post')
                 titleAndInteractions.appendChild(likePost)
                 likePost.innerText = 'favorite'
 
@@ -108,13 +113,13 @@ export function renderPosts(userId) {
                         const userId = article.likes[i]
                         const usersLikedPost = document.createElement('div')
                         usersLikedPost.classList.add('users-liked-post')
-                        totalLikesPost.appendChild(usersLikedPost)
+                        totalPostLikes.appendChild(usersLikedPost)
                         returnUserImage(usersLikedPost, userId)
                     }
                 }
-                totalLikesPost.onclick = () => renderAllUserLikedPost(postContainer, article)
+                totalPostLikes.onclick = () => renderAllUserLikedPost(postContainer, article)
                 favoritePost.onclick = () => savePostToFavorites(article, favoritePost, userId)
-                likePost.onclick = () => userLikedPost(userId, article, likePost, totalLikesPost)
+                likePost.onclick = () => userLikedPost(userId, article, likePost, totalPostLikes)
                 console.log(userId)
                 spaceImage.onclick = () => {
                     renderEntirePost(article, existentArticleElement, userId)

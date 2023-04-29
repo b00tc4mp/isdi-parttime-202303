@@ -1,4 +1,4 @@
-import { userAccount } from "../pages/user-account.js"
+import { userAccount } from "../../pages/user-account.js"
 
 export function getTheme() {
     if(!localStorage.theme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
@@ -22,7 +22,6 @@ export function getTheme() {
         userAccount.querySelector('.user-theme .material-symbols-outlined').classList.add ('on')
         userAccount.querySelector('.user-theme').classList.remove ('light')
         userAccount.querySelector('.user-theme').classList.add ('dark')
-        
     }
 
     userAccount.querySelector('.user-theme').onclick = (event) => {

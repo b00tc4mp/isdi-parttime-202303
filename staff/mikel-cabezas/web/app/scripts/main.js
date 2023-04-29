@@ -1,9 +1,9 @@
 import {loginPage } from './pages/login-page.js'
 import { homePage, renderUser } from './pages/home-page.js'
 import { context, deleteClassOnContainer, addClassOnContainer, bodyPage } from './ui.js'
-import { pushUserDataToHeader } from './logic/push-user-to-header.js'
-import { pushUserDataInForm } from './logic/push-user-data-in-form.js'
-import { getTheme } from './logic/get-theme.js'
+import { pushUserDataToHeader } from './components/helpers/push-user-to-header.js'
+import { pushUserDataInForm } from './components/helpers/push-user-data-in-form.js'
+import { getTheme } from './logic/helpers/get-theme.js'
 import './template-parts/footer.js'
 
 getTheme()

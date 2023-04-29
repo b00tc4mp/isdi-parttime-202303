@@ -1,5 +1,5 @@
-import { validateEmail, validatePassword } from "./helpers/validators.js"
-import { users, saveUser } from "../data.js"
+import { validateEmail, validatePassword } from "../helpers/validators.js"
+import { users, saveUser } from "../../data.js"
 
 export function registerUser(name, email, password) {
     const _users = users()

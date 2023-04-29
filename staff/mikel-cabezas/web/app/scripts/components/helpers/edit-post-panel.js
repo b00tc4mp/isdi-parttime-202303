@@ -1,5 +1,5 @@
 import { toggleOffClassInSection } from "../../ui.js"
-import { posts, savePosts } from "../../data.js"
+import { posts } from "../../data.js"
 
 export function showEditPost(articleId, homePage) {
     const _posts = posts()
@@ -19,8 +19,6 @@ export function showEditPost(articleId, homePage) {
     const postTitle = document.querySelector('.section.home').querySelector('form.edit-post .title')
     const postText = document.querySelector('.section.home').querySelector('form.edit-post textarea')
 
-    // imageToBase64(file, postImage.src)
-    
     const printImage = file.onchange = function (event) {
         const file = event.target.files[0]
         const image = new FileReader()

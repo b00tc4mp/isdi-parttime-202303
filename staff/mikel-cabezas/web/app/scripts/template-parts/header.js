@@ -1,14 +1,12 @@
-import { toggleOffClassInSection, deleteClassOnContainer, addClassOnContainer, bodyPage } from "../ui.js"
+import { context, toggleOffClassInSection, deleteClassOnContainer, addClassOnContainer, bodyPage } from "../ui.js"
 import { homePage } from "../pages/home-page.js"
 import { registerPage } from "../pages/register-page.js"
 import { loginPage } from "../pages/login-page.js"
 import { userAccount } from "../pages/user-account.js"
-import { logOut } from "../logic/logout.js"
-import { createPostForm } from "../logic/create-post.js"
-import { editPostForm } from "../logic/edit-post.js"
-import { pushUserDataToHeader } from "../logic/push-user-to-header.js"
-import { pushUserDataInForm } from "../logic/push-user-data-in-form.js"
-import { context } from "../ui.js"
+import { logOut } from "../logic/helpers/logout.js"
+import { editPostForm } from "../logic/posts/edit-post.js"
+import { pushUserDataToHeader } from "../components/helpers/push-user-to-header.js"
+import { pushUserDataInForm } from "../components/helpers/push-user-data-in-form.js"
 
 export const menuHeader = document.querySelector('header .menu')
 export const header = document.querySelector('header')
@@ -44,7 +42,6 @@ menuHeader.querySelector('.homepage').onclick = function(event) {
         addClassOnContainer(registerPage, 'off')
         addClassOnContainer(userAccount, 'off')
         addClassOnContainer(editPostForm, 'off')
-        addClassOnContainer(createPostForm, 'off')
     }
 }
 header.querySelector('.logo').onclick = function(event) {
@@ -55,6 +52,5 @@ header.querySelector('.logo').onclick = function(event) {
         addClassOnContainer(registerPage, 'off')
         addClassOnContainer(userAccount, 'off')
         addClassOnContainer(editPostForm, 'off')
-        addClassOnContainer(createPostForm, 'off')
     }
 }

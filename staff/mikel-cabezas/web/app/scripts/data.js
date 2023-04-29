@@ -6,15 +6,13 @@ export function saveUsers (users) {
 
 export function saveUser (user) {
     const _users = users()
-    const index = _users.findIndex(_users => users.id === user.id)
+    const index = _users.findIndex(_users => _users.id === user.id)
     if(index < 0)
         _users.push(user)
     else
         _users.splice(index, 1, user)
     saveUsers(_users)
 }
-
-
 
 export const posts = () => {
     const posts = 'postsJson' in localStorage? JSON.parse(localStorage.postsJson) : []
@@ -27,13 +25,9 @@ export const posts = () => {
 
     return posts
 }
-// posts().forEach(post => post.date = new Date (post.date))
-
 
 export function savePost (post) {
     const _posts = posts()
-    // const findPost = _posts.find(_posts => _posts.id === post)
-    // const index = _posts.findIndex(_posts => _posts.id === findPost.id)
     const index = _posts.findIndex(_posts => _posts.id === post.id)
     if(index < 0)
         _posts.push(post)
@@ -42,9 +36,6 @@ export function savePost (post) {
 
     savePosts(_posts)
 }
-
-
-
 
 export function savePosts (posts) {
     localStorage.postsJson = JSON.stringify(posts)

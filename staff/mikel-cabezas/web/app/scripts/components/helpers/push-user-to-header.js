@@ -1,14 +1,9 @@
-import { menuHeader } from "../template-parts/header.js";
-import { getUserName } from "./helpers/data-managers.js";
-import { userAccount } from "../pages/user-account.js";
-import { context } from "../ui.js";
+import { menuHeader } from "../../template-parts/header.js";
+import { getUserName } from "../../logic/helpers/data-managers.js";
+import { userAccount } from "../../pages/user-account.js";
+import { context } from "../../ui.js";
 
 export function pushUserDataToHeader(userId) {
-
-
-
-
-
     const currentUser = getUserName(userId)
     const separateUserName = currentUser.split(' ')
 

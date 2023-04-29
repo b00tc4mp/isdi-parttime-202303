@@ -1,6 +1,6 @@
 import { showHidePassword, toggleOffClassInSection, clearMessageContainer, addClassOnContainer, changeMessageOnContainer } from "../ui.js"
 import { loginPage, loginPageMessage } from "./login-page.js"
-import { registerUser } from "../logic/register-user.js"
+import { registerUser } from "../logic/users/register-user.js"
 
 export const registerPage = document.querySelector('.section.register')
 export const registerPageMessage = document.querySelector('.section.register').querySelector('.message')

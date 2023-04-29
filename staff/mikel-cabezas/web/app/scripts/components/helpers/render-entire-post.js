@@ -1,35 +1,25 @@
-import { returnUserImage } from "../../logic/helpers/get-user-image"
-import { findUserById, getPostbyId } from "../../logic/helpers/data-managers"
-import { addClassOnContainer } from "../../ui"
-import { posts, savePost, savePosts, users } from '../../data.js'
+import { returnUserImage } from "../../logic/users/get-user-image"
+import { posts, users } from '../../data.js'
 import { homePage } from "../../pages/home-page.js"
 import { userLikedPost, savePostToFavorites } from "../../logic/posts/posts-data.js"
-import { cutText } from "../../logic/max-characters"
-
+import { cutText } from "./max-characters.js"
+import renderComments from "./render-comments.js"
+import createNewComment from "../../logic/posts/create-post-comment"
 
 export function renderEntirePost(articleId, containerToRender, userId) {
-
-    const _posts = posts()
+    // const _posts = posts()
     const _users = users()
-    if(!articleId) {
-        throw new Error('Invalid article')
-    }
+    validatePost(articleId)
     try {
-        
         const postsContainer = homePage.querySelector('.posts')
         const article = articleId
-        // const article = getPostbyId(articleId)
 
         const singlePostContainer = document.createElement('div')
         singlePostContainer.classList.add('overlay')
         singlePostContainer.classList.add(`single-post`)
         postsContainer.appendChild(singlePostContainer)
        
-
-
-
         const date = article.date
-        const currentUser = findUserById(userId)
         const authorID = _users.find(user => user.id === article.author).id
         const postId = article.id
         const postsList = singlePostContainer
@@ -64,7 +54,6 @@ export function renderEntirePost(articleId, containerToRender, userId) {
         postInfoContainer.appendChild(postTitle)
         postTitle.innerText = article.title
 
-
         const favoritePost = document.createElement('div')
         favoritePost.classList.add('material-symbols-outlined')
         const findFavPost = _users.find(user => user.likedPosts === article.id)
@@ -72,7 +61,6 @@ export function renderEntirePost(articleId, containerToRender, userId) {
             favoritePost.classList.add('filled')
         }
         
-
         const postExcerpt = document.createElement('p')
         postExcerpt.classList.add('excerpt')
         postInfoContainer.appendChild(postExcerpt)
@@ -82,28 +70,20 @@ export function renderEntirePost(articleId, containerToRender, userId) {
         postInfoContainer.appendChild(postDate)
         postDate.innerText = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`
 
-
-
-
         const totalLikesPost = document.createElement('div')
         const totalCommentsPost = document.createElement('div')
 
         postInfoContainer.appendChild(totalLikesPost)
         postInfoContainer.appendChild(totalCommentsPost)
         
-        if (article.likes.length === 1) {
+        if (article.likes.length === 1) 
             totalLikesPost.innerText = article.likes.length + ' like'
-        }
-        if (article.likes.length > 1) {
+        if (article.likes.length > 1) 
             totalLikesPost.innerText = article.likes.length + ' likes'
-        }
-        
-        if (article.comments.length === 1) {
+        if (article.comments.length === 1) 
             totalCommentsPost.innerText = article.comments.length + ' comment'
-        }
-        if (article.comments.length > 1) {
+        if (article.comments.length > 1) 
             totalCommentsPost.innerText = article.comments.length + ' comments'
-        }
 
         const likePost = document.createElement('div')
         likePost.classList.add('material-symbols-outlined')
@@ -114,38 +94,11 @@ export function renderEntirePost(articleId, containerToRender, userId) {
         commentsContainer.classList.add('comments-container')
         postInfoContainer.appendChild(commentsContainer)
 
-        
-        function renderComments () {
-            commentsContainer.innerHTML = '' 
-            article.comments.forEach(comment => {
-                const singleCommentContainer = document.createElement('div')
-                singleCommentContainer.classList.add('single-comment-container')
-                commentsContainer.appendChild(singleCommentContainer)
-                returnUserImage(singleCommentContainer, comment.user)
-    
-                const userComment = document.createElement('div')
-                userComment.classList.add('user-comment')
-                singleCommentContainer.appendChild(userComment)
-                returnUserImage(userComment, comment.user, 'userName', 'hideUserImage')
-    
-    
-                const textComment = document.createElement('div')
-                textComment.classList.add('comment')
-                userComment.appendChild(textComment)
-                textComment.innerText = comment.comment
-            })
-        }
-        renderComments()
-
-
-
-
+        renderComments(article, commentsContainer )
 
         const titleAndInteractions = document.createElement('div')
         titleAndInteractions.classList.add('title-and-interactions')
         postInfoContainer.appendChild(titleAndInteractions)
-
-        
         
         titleAndInteractions.appendChild(likePost)
         likePost.innerText = 'favorite'
@@ -155,9 +108,8 @@ export function renderEntirePost(articleId, containerToRender, userId) {
 
         const isLikedPost = article.likes.find(user => user === userId)
 
-        if(isLikedPost === userId) {
+        if(isLikedPost === userId) 
             likePost.classList.add('filled')
-        }
 
         for(let i = 0; i < article.likes.length; i++) {
             if(i < 6) {
@@ -169,11 +121,9 @@ export function renderEntirePost(articleId, containerToRender, userId) {
             }
         }
 
-
         const newCommentContainer = document.createElement('div')
         newCommentContainer.classList.add('new-comment-container')
         postInfoContainer.appendChild(newCommentContainer)
-
 
         const newCommentForm = document.createElement('form')
         newCommentForm.classList.add('new-comment-form')
@@ -192,13 +142,10 @@ export function renderEntirePost(articleId, containerToRender, userId) {
 
         newCommentSubmit.onclick = (event) => {
             event.preventDefault()
-            article.comments.push({
-                user: userId,
-                comment: newCommentInput.value
-            })
-            savePost(article)
-            newCommentForm.reset
-            renderComments()
+            console.log(newCommentInput.value)
+            createNewComment (article, userId, newCommentForm, newCommentInput.value)
+            newCommentForm.reset()
+            renderComments(article, commentsContainer)
         }
 
         if(article.lastModify) {
@@ -226,11 +173,6 @@ export function renderEntirePost(articleId, containerToRender, userId) {
             singlePostContainer.remove()
             document.body.classList.remove('block-scroll')
         }
-        // homePage.querySelector('.overlay.single-post').onclick = (event) => {
-        //     event.preventDefault
-        //     singlePostContainer.remove()
-        //     document.body.classList.remove('block-scroll')
-        // }
         window.onkeydown = (event) => {
             if(event.keyCode == 27){
                homePage.querySelector('.overlay.single-post').remove()

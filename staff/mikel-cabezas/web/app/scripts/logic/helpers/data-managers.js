@@ -1,17 +1,18 @@
 import { users, posts } from "../../data.js";
 import { context } from "../../ui.js";
 
-export function findUserByEmail (email) {
+export function findUserByEmail(email) {
     let foundUser
     users().forEach(user => {
         if (user.email === email) {
-            foundUser = user.email
+            // foundUser = user.email
+            foundUser = user
         }
     })
     return foundUser
 }
 
-export function findUserById (userId) {
+export function findUserById(userId) {
     let foundUser
     users().forEach(user => {
         if (user.id === userId) {
@@ -43,7 +44,6 @@ export function getUserImage(userId) {
     return foundUser
 }
 
-
 export function getCurrentUser(id) {
     const userID = context.userId
     if (userID !== -1) {
@@ -51,7 +51,6 @@ export function getCurrentUser(id) {
         return userID
     }
 }
-
 
 export function getPostUserName(postUserId) {
 
