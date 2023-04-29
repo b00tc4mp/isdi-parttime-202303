@@ -91,39 +91,19 @@ export function renderPosts() {
             postItem.classList.add('post-container')
 
             const postHeader = document.createElement('div')
-            const user = findUserById(post.author)
-
-            const avatar = document.createElement('img')
-            avatar.src = user.avatar
-            avatar.classList.add('user-avatar')
-
-            const name = document.createElement('p')
-            name.classList.add('author-name')
-            name.innerText = user.name
-
-            const time = document.createElement('time')
-            const date = post.date
-            const day = date.getDate().toString().padStart(2, '0')
-            const month = (date.getMonth() + 1).toString().padStart(2, '0')
-            const year = date.getFullYear()
-            time.innerText = `· ${day}/${month}/${year}`
-
-            postHeader.append(avatar, name, time)
-            postHeader.classList.add('post-header')
 
             const postImg = document.createElement('img')
             postImg.src = post.image
 
-            const footer = document.createElement('div')
+            const postCaptionAndLike = document.createElement('div')
 
             const postCaption = document.createElement('p')
-            postCaption.innerText = post.text
             
-            const captionName = document.createElement('p')
-            captionName.classList.add('author-name')
-            captionName.innerText = user.name
+            const postCaptionBold = document.createElement('b')
+            postCaptionBold.innerText = post.text
 
-            // const likesContainer = document.createElement('div')
+            
+            const likesContainer = document.createElement('div')
             
             const likesCounter = document.createElement('p')
             
@@ -144,9 +124,24 @@ export function renderPosts() {
             
             likeButton.append(likeHeart)
             
-            // likesContainer.append(likesCounter, likeButton)
+            likesContainer.append(likesCounter, likeButton)
             
-            footer.append(captionName, postCaption)
+            postCaption.append(postCaptionBold)
+            postCaptionAndLike.append(postCaption, likesContainer)
+            
+            const postFooter = document.createElement('div')
+
+            const postFooterLeft = document.createElement('div')
+
+            const postFooterLeftTime = document.createElement('time')
+
+            const postDate = post.date //.toLocaleString('en-UK')
+
+            const day = postDate.getDate().toString().padStart(2, '0')
+            const month = (postDate.getMonth() + 1).toString().padStart(2, '0')
+            const year = postDate.getFullYear()
+
+            postFooterLeftTime.innerText = `${day}/${month}/${year}-`
 
             if(post.author === context.userId) {
                 const postEditButton = document.createElement('button')
@@ -158,9 +153,13 @@ export function renderPosts() {
     
                 postEditButton.append(postEditButtonIcon)
 
-                postHeader.append(postEditButton)
+                const user = findUserById(post.author)
     
-                postItem.append(postHeader, postImg, likeButton, likesCounter, footer)
+                postFooterLeft.append(postFooterLeftTime, ` by ${user.name}`)
+    
+                postFooter.append(postFooterLeft, postEditButton)
+    
+                postItem.append(postImg, postCaptionAndLike, postFooter)
     
                 postListPanel.appendChild(postItem)
 
@@ -172,7 +171,13 @@ export function renderPosts() {
                     editPostModal.querySelector('textarea[name=text]').value = post.text
                 }
             } else {
-                postItem.append(postHeader, postImg, likeButton, likesCounter, footer)
+                const user = findUserById(post.author)
+    
+                postFooterLeft.append(postFooterLeftTime, ` by ${user.name}`)
+    
+                postFooter.append(postFooterLeft)
+    
+                postItem.append(postImg, postCaptionAndLike, postFooter)
     
                 postListPanel.appendChild(postItem)
             }

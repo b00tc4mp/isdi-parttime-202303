@@ -464,7 +464,7 @@ header > nav {
   width: 90%;
   height: fit-content;
   padding: 1rem;
-  /* gap: 0.5rem; */
+  gap: 0.5rem;
   margin-bottom: 1.5rem;
   background-color: var(--white-000);
   /* border: 0.5px solid var(--modal-windows-back); */
@@ -474,19 +474,18 @@ header > nav {
 .post-container > img {
   max-width: 100%;
   height: auto;
-  margin: 0.25rem 0;
 }
 
 .post-container > div > p {
   margin: 0;
 }
 
-.post-container > div, .post-container > p {
+.post-container > div {
   display: flex;
-  /* justify-content: space-between; */
+  justify-content: space-between;
   align-items: center;
+  height: 2rem;
   margin: 0;
-  gap: 0.5rem;
 }
 
 .post-container > div > div {
@@ -498,21 +497,8 @@ header > nav {
   font-size: 0.8rem;
 }
 
-.post-container .post-header {
-  display: flex;
-  align-items: center;
-  justify-content: start;
-  gap: 0.5rem;
-}
-
-.author-name {
-  font-weight: 400;
-}
-
 .like-button {
-  /* height: 2rem; */
-  width: fit-content;
-  padding: 0.25rem 0;
+  height: 2rem;
   border: none;
   background-color: var(--transparent);
 }
@@ -524,7 +510,6 @@ header > nav {
 .edit-button {
   border: none;
   background-color: var(--white-000);
-  margin-left: auto;
 }
 
 @media (min-width: 768px) and (max-width: 1263px) {  
