@@ -1,5 +1,5 @@
-import { findUserById } from '../logic/helpers/data-managers';
-import toggleFavouritePost from '../logic/toggle-favourite-post';
+import retrieveUser from '../../logic/retrieve-user';
+import toggleFavouritePost from '../../logic/toggle-favourite-post';
 
 const createFavouritesButton = (isFavourite) => {
   const buttonFavourites = document.createElement('button'),
@@ -26,14 +26,15 @@ const handleFavoriteClick = (postFavouriteButton, post, user) => {
 };
 
 const checkFavoritePost = (post, userId) => {
-  const foundUser = findUserById(userId);
+  try {
+    const retrievedUser = retrieveUser(userId);
+    const isFavourite =
+      retrievedUser.favourites && retrievedUser.favourites.includes(post.id);
 
-  if (!foundUser) throw new Error(`user id: ${userId} not found`);
-
-  const isFavourite =
-    foundUser.info.favourites && foundUser.info.favourites.includes(post.id);
-
-  return isFavourite;
+    return isFavourite;
+  } catch (error) {
+    alert(error.message);
+  }
 };
 
 const renderPostFavourite = (post, user) => {

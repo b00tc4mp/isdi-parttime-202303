@@ -1,7 +1,7 @@
-import { findPostById } from '../logic/helpers/data-managers.js';
 import updatePost from '../logic/update-post.js';
 import renderPosts from '../pages/posts-page.js';
 import { context, hide, show } from '../ui.js';
+import getEditPost from './helpers/get-edit-post.js';
 
 const initEditPostPanel = (homePage, post) => {
   const editPostPanel = homePage.querySelector('.edit-post'),
@@ -32,15 +32,12 @@ const initEditPostPanel = (homePage, post) => {
     hide(editPostPanel);
   };
 
-  const foundPost = findPostById(post.id);
-  if (!foundPost)
-    throw new Error(`post with id: ${post.id} to edit, is not found`);
-
-  editPostForm.querySelector('input[type=hidden]').value = post.id;
-  editPostForm.querySelector('input[type=url]').value = post.image;
-  editPostForm.querySelector('textarea').value = post.text;
-
-  show(editPostPanel);
+  try {
+    getEditPost(post, editPostForm);
+    show(editPostPanel);
+  } catch (error) {
+    alert(error.message);
+  }
 
   return editPostPanel;
 };

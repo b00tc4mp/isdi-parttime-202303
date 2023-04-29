@@ -1,9 +1,9 @@
 import initAddPostPanel from '../components/add-post-panel.js';
-import getHomePage from '../components/get-home-page.js';
 import initProfilePanel from '../components/profile-panel.js';
 import DEFAULT_AVATAR_URL from '../logic/helpers/global-variables.js';
 import retrieveUser from '../logic/retrieve-user.js';
 import { context, hide, show, toggle } from '../ui.js';
+import getHomePage from './helpers/get-home-page.js';
 import loginPage from './login-page.js';
 
 const homePage = getHomePage(),
@@ -42,10 +42,12 @@ addPostButton.onclick = () => {
 
 const renderUser = (userId) => {
   try {
-    const user = retrieveUser(userId);
+    const retrievedUser = retrieveUser(userId);
 
-    profileLink.innerText = user.name;
-    avatarImage.src = user.avatar ? user.avatar : DEFAULT_AVATAR_URL;
+    profileLink.innerText = retrievedUser.name;
+    avatarImage.src = retrievedUser.avatar
+      ? retrievedUser.avatar
+      : DEFAULT_AVATAR_URL;
 
     return true;
   } catch (error) {

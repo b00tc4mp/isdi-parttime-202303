@@ -18,11 +18,13 @@ loginForm.addEventListener('submit', (event) => {
 
   try {
     context.userId = authenticateUser(loginEmail, loginPassword);
-    const user = retrieveUser(context.userId);
+    const retrievedUser = retrieveUser(context.userId);
 
-    profileLink.innerText = user.name;
+    profileLink.innerText = retrievedUser.name;
 
-    avatarImage.src = user.avatar ? user.avatar : DEFAULT_AVATAR_URL;
+    avatarImage.src = retrievedUser.avatar
+      ? retrievedUser.avatar
+      : DEFAULT_AVATAR_URL;
 
     loginForm.reset();
 

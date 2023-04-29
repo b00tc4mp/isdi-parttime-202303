@@ -1,11 +1,18 @@
+import {
+  createLikesCount,
+  createLikesUsers,
+} from '../components/add-like-info.js';
 import initEditPostPanel from '../components/edit-post-panel.js';
-import renderPostFavourite from '../components/favourites-post.js';
-import getHomePage from '../components/get-home-page.js';
-import renderPostLikesInfo from '../components/likes-post-info.js';
+import renderPostFavourite from '../components/helpers/render-favourite.js';
+import {
+  renderLikeButton,
+  renderLikesInfo,
+} from '../components/helpers/render-like.js';
+import retrieveAvatar from '../logic/retrieve-avatar.js';
 import retrievePosts from '../logic/retrieve-posts.js';
 import retrieveUser from '../logic/retrieve-user.js';
-import retrieveAvatar from '../logic/retrive-avatar.js';
 import { context } from '../ui.js';
+import getHomePage from './helpers/get-home-page.js';
 
 const homePage = getHomePage(),
   postListPanel = homePage.querySelector('.post-list');
@@ -65,14 +72,14 @@ const createPostImage = (post) => {
   return image;
 };
 
-const renderPostImageFooter = (post, user) => {
+const renderPostImageFooter = (post, likesCount, likesUsers) => {
   const postImageFooter = document.createElement('div');
   postImageFooter.classList.add('post-image-footer');
 
-  const postLikesInfo = renderPostLikesInfo(post, user),
+  const postLikeButton = renderLikeButton(post, likesCount, likesUsers),
     postFavoriteButton = renderPostFavourite(post, context.userId);
 
-  postImageFooter.append(postLikesInfo, postFavoriteButton);
+  postImageFooter.append(postLikeButton, postFavoriteButton);
 
   return postImageFooter;
 };
@@ -85,16 +92,35 @@ const createPostText = (post) => {
   return text;
 };
 
-const renderPostItem = (post, user) => {
+const createPostDate = (post) => {
+  const date = document.createElement('time');
+  date.innerText = post.date.toLocaleString('en-ES');
+
+  return date;
+};
+
+const renderPostItem = (post) => {
   const postItem = document.createElement('article');
   postItem.classList.add('posts-users');
+
+  const likesUsers = createLikesUsers(post),
+    likesCount = createLikesCount(post);
 
   const postHeader = renderPostHeader(post),
     postImage = createPostImage(post),
     postText = createPostText(post),
-    postImageFooter = renderPostImageFooter(post, user);
+    postImageFooter = renderPostImageFooter(post, likesCount, likesUsers),
+    postLikesInfo = renderLikesInfo(likesCount, likesUsers),
+    postDate = createPostDate(post);
 
-  postItem.append(postHeader, postImage, postImageFooter, postText);
+  postItem.append(
+    postHeader,
+    postImage,
+    postImageFooter,
+    postLikesInfo,
+    postText,
+    postDate
+  );
 
   return postItem;
 };
@@ -106,15 +132,11 @@ const renderPosts = () => {
 
     postListPanel.innerHTML = '';
 
-    posts.forEach((post) => {
+    for (const post of posts) {
       const postItem = renderPostItem(post, user);
 
-      const date = document.createElement('time');
-      date.innerText = post.date.toLocaleString('en-ES');
-      postItem.append(date);
-
       postListPanel.append(postItem);
-    });
+    }
 
     return true;
   } catch (error) {
