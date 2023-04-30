@@ -8,7 +8,7 @@ import { findPostById, findUserById } from '../logic/helpers/data-managers.js'
 import editPost from '../logic/edit-post.js'
 import initProfilePanel from '../components/profile-panel.js'
 import initNewPostModal from '../components/add-post-panel.js'
-import toggleLikePost from '../logic/toggle-like-post.js'
+import { savePost } from '../data.js'
 
 export const homePage = document.querySelector('.home-page')
 const horizontalMenu = document.querySelector('.horizontal-menu')
@@ -94,7 +94,7 @@ export function renderPosts() {
             const user = findUserById(post.author)
 
             const avatar = document.createElement('img')
-            avatar.src = user.avatar ? user.avatar : DEFAULT_AVATAR_URL
+            avatar.src = user.avatar
             avatar.classList.add('user-avatar')
 
             const name = document.createElement('p')
@@ -178,9 +178,22 @@ export function renderPosts() {
                 postListPanel.appendChild(postItem)
             }
 
+            const foundUser = findUserById(context.userId)
+            const foundPost = findPostById(post.id)
+
             likeButton.onclick = () => {
                 likeHeart.classList.toggle('liked')
-                toggleLikePost(context.userId, post.id)
+
+                if(!foundPost.likedBy.includes(foundUser.id)){
+                    foundPost.likedBy.push(foundUser.id)
+                    savePost(foundPost)
+                    return renderPosts()
+                } else {
+                    const index = foundPost.likedBy.indexOf(foundUser.id)
+                    foundPost.likedBy.splice(index, 1)
+                    savePost(foundPost)
+                    return renderPosts()
+                }
             }
 
         })

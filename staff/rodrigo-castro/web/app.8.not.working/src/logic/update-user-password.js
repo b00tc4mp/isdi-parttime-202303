@@ -31,5 +31,5 @@ export const changePassword = (userId, changePasswordMenu) => {
     changePasswordMenu.querySelector('.red-text').classList.add('green-text')
     changePasswordMenu.querySelector('form').reset()
 
-    saveUser(foundUser)
+    saveUser()
 }

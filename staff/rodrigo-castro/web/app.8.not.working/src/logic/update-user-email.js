@@ -22,5 +22,5 @@ export const changeEmail = (userId, homePage, changeEmailMenu) => {
     changeEmailMenu.querySelector('.red-text').classList.add('green-text')
     changeEmailMenu.querySelector('form').reset()
 
-    saveUser(foundUser)
+    saveUser()
 }

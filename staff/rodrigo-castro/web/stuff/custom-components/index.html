@@ -9,10 +9,17 @@
 <body>
     <script>
         class Component {
-            constructor(template) {
-                const parser = new DOMParser
+            constructor(templateOrElement) {
+                if(typeof templateOrElement === 'string'){
+                    const parser = new DOMParser
+    
+                    this.container = parser.parseFromString(templateOrElement, 'text/html').body.children[0]
+                } else this.container = templateOrElement
+            }
 
-                this.container = parser.parseFromString(template, 'text/html').body.children[0]
+            add(...components) {
+                components.forEach(component => this.container.appendChild(component.container))
+                
             }
         }
 
@@ -30,7 +37,27 @@
 
         class List extends Component {
             constructor(...elements){
-                super(`<ul>${elements.map(elem => `<li>${elem}</li>`).join('')}</ul>`)
+                super(`<ul></ul>`)
+
+                elements.forEach(element => {
+                    const item = new Item(element)
+
+                    // this.container.append(item.container)
+                    this.add(item)
+                })
+            }
+        }
+
+        class Item extends Component {
+            constructor(element) {
+                super(`<li>
+                    <h2><a href="https://google.com/search?q=${element}" target="_blank">${element}</a></h2>
+                    <button>alert</button>
+                    </li>`)
+
+                    this.container.querySelector('button').onclick = function() {
+                    alert(element)
+                    }
             }
         }
 
@@ -39,7 +66,10 @@
         const fruitList = new List('banana', 'orange', 'mango', 'lemon')
         const carList = new List('Tesla', 'Ferrari', 'Peugeout')
 
-        document.body.append(helloWorld.container, helloRodri.container, fruitList.container, carList.container)
+        const body = new Component(document.body)
+
+        body.add(helloWorld, helloRodri, fruitList, carList)
+        // document.body.append(helloWorld.container, helloRodri.container, fruitList.container, carList.container)
 
     </script>
 </body>

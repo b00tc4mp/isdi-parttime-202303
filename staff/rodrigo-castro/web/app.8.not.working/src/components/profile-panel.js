@@ -26,6 +26,7 @@ export default function initProfilePanel(homePage){
         event.preventDefault()
         try {
             changeEmail(context.userId, homePage, changeEmailMenu)
+            saveUsers()
         } catch(error){
             if(error.cause === 'ownError'){
                 changeEmailMenu.querySelector('.red-text').textContent = error.message
@@ -49,6 +50,7 @@ export default function initProfilePanel(homePage){
         event.preventDefault();
         try {
             changePassword(context.userId, changePasswordMenu)
+            saveUsers()
         } catch(error){
             if(error.cause === 'ownError'){
                 changePasswordMenu.querySelector('.red-text').textContent = error.message
@@ -74,6 +76,7 @@ export default function initProfilePanel(homePage){
         try {
             updateUserAvatar(context.userId, avatarUrl, avatarImg)
             changeAvatarForm.reset()
+            saveUsers()
         } catch(error){
             if(error.cause === 'ownError'){
                 alert(error.message)

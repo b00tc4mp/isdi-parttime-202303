@@ -1,21 +1,7 @@
-console.log('load main')
+import App from './app.js'
+import Component from './library/composito.js'
 
-import { homePage, renderPosts, renderUsers } from "./pages/home-page.js"
-import { loginPage } from "./pages/login-page.js"
-import { context, hideElement, showElement } from "./ui"
+const app = new App()
+const body = new Component(document.body)
 
-if(!context.userId) {
-    showElement(loginPage)
-} else {
-    if(renderUsers()){
-        if(renderPosts()){
-            showElement(homePage)
-            hideElement(loginPage)
-        }
-    } else {
-        showElement(loginPage)
-        hideElement(homePage)
-    }
-
-}
-
+body.add(app)

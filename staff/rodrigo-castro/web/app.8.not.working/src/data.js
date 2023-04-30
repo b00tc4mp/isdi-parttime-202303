@@ -31,6 +31,7 @@ export const posts = () => {
     return posts
 }
 
+
 // posts.push({
 //     id: 'post-1',
 //     author: 'user-1',
