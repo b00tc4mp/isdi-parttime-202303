@@ -66,6 +66,12 @@ h2 {
     box-shadow: 2px 2px 7px 2px rgba(0, 0, 0, 0.25);
 }
 
+.login-page {
+    display: flex;
+    margin: auto;
+    align-self: center;
+}
+
 .posts, .edit-post-form {
     margin: 0;
 }
