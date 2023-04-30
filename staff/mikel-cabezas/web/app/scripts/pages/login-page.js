@@ -3,6 +3,7 @@ import { context, toggleOffClassInSection, bodyPage, clearMessageContainer, show
 import { homePage, renderUser } from './home-page.js'
 import { getUserName, getUserImage } from '../logic/helpers/data-managers.js'
 import { registerPage } from './register-page.js'
+import {pushUserDataToHeader} from '../components/helpers/push-user-to-header.js'
 
 export const loginPage = document.querySelector('.section.login')
 export const loginPageMessage = document.querySelector('.section.login').querySelector('.message')
@@ -20,8 +21,9 @@ loginPage.querySelector('form.login-form').onsubmit = function(event) {
         context.userId = userId
         context.image = userImage
         const welcomeUser = document.querySelector('.welcome-user').innerHTML = `Welcome ${userName}!`
-        renderUser()
         context.userId = userId
+        renderUser()
+        pushUserDataToHeader(userId)
 
     } catch(error) {
         loginPage.querySelector('.message').classList.remove('success')

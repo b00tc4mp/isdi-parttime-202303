@@ -20,7 +20,7 @@ export function clearMessageContainer(container) {
 } 
 
 export function toggleOffClassInSection(...containers) {
-    for(const i = 0; i < containers.length; i++)  
+    for(let i = 0; i < containers.length; i++)  
         containers[i].classList.toggle('off')
 }
 
