@@ -1,16 +1,21 @@
 import { Component } from "../library/composito.js";
 import toggleLikePost from "../logic/toggle-like-post.js";
 import toggleSavePost from "../logic/toggle-save-post.js";
+import retrieveUser from "../logic/retrieve-user.js";
 import { context } from "../ui.js";
 
 export default class Post extends Component {
-  constructor(post, user, currentUser, defaultAvatar) {
+  constructor(post, currentUser, defaultAvatar) {
+    const user = retrieveUser(post.author);
+
     const likeSingular = "like";
     const likePlural = "likes";
 
+    console.log(post.id, currentUser.saves);
+
     const countLikes = (post.likes && post.likes.length) || 0;
 
-    super(`<article>
+    super(`<article data-id="${post.id}">
     <div class="user-container-post">
     <img class="post-avatar" src="${user.avatar ? user.avatar : defaultAvatar}">
     <p class="post-user">${user.name}</p>

@@ -5,7 +5,7 @@ import { context, show, hide, toggle } from "../ui.js";
 //import { loginPage } from "./login-page.js";
 //import formatDate from "../logic/helpers/format-date.js";
 // import retrievePosts from "../logic/retrieve-posts.js";
-// import retrieveUser from "../logic/retrieve-user.js";
+import retrieveUser from "../logic/retrieve-user.js";
 // import initProfilePanel from "../components/profile-panel.js";
 // import initAddPostPanel from "../components/add-post-panel.js";
 // import initEditPostPanel from "../components/edit-post-panel.js";
@@ -32,19 +32,22 @@ export default class Home extends Component {
     const DEFAULT_AVATAR_URL =
       "https://cdn-icons-png.flaticon.com/512/219/219989.png";
     const posts = retrievePosts(context.userId);
+    const currentUser = retrieveUser(context.userId);
 
-    const _posts = new Posts(posts, DEFAULT_AVATAR_URL);
+    const _posts = new Posts(posts, currentUser, DEFAULT_AVATAR_URL);
 
     _posts.onPostLikeToggled = () => {
       const posts = retrievePosts(context.userId);
+      const currentUser = retrieveUser(context.userId);
 
-      _posts.refreshPosts(posts);
+      _posts.refreshPosts(posts, currentUser, DEFAULT_AVATAR_URL);
     };
 
     _posts.onPostSaveToggled = () => {
       const posts = retrievePosts(context.userId);
+      const currentUser = retrieveUser(context.userId);
 
-      _posts.refreshPosts(posts);
+      _posts.refreshPosts(posts, currentUser, DEFAULT_AVATAR_URL);
     };
 
     this.add(_posts);
