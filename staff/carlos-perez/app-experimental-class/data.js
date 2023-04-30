@@ -4,6 +4,7 @@ export class Like{
     #likeId;
     #userId;
     #userLikeId;
+    //Habrá que añadir el id del post, dados los cambios hechos hoy
 
     constructor(likeId, userId, userLikeId){
         this.#likeId=likeId;
@@ -25,13 +26,57 @@ export class Like{
     //Un Like se creará o destruirá, no se modificará
 }
 
+export class Likes{
+    likes;
+
+    constructor(likes){
+        if(likes.length===0){
+            likes=[];
+        }
+        else{
+            this.likes=likes;
+        }
+    }
+
+    searchLike(likeId){
+        for(let i=0; i<this.likes.length; i++){
+            if(likes[i].getLikeId===likeId){
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    //Revisar esto
+
+    addLike(likeID,userID, userLikeId){
+        if(this.searchLike(userLikeId)===-1){
+        this.likes.push(new Like(userLikeId+likeID,userID, userLikeId));
+        }
+        else{ //Si el usuario le da a like una segunda vez, el like ya existe, así que elimina el like, porque ya no le gusta
+            this.removeLike(userLikeId);
+        }
+    }
+
+    removeLike(userLikeId){
+        const likePosition=this.searchLike(userLikeId);
+        if(likePosition!=-1){
+            this.likes.splice(likePosition,1);
+        }
+        else{
+            throw new Error('Like not found');
+        }
+    }
+    
+}
+
 export class Post {
     #id;
     #userId;
     #text;
     #imageURL;
     #date;
-    likes = [];
+    likes=[];
     likeCounter=0;
 
     constructor(id, userId, text, imageURL) {
@@ -95,6 +140,7 @@ export class Post {
         if(this.searchLike(userLikeId)===-1){
         this.likeCounter++;
         this.likes.push(new Like(this.likeCounter,userID, userLikeId));
+        return this.likeCounter;
         }
         else{ //Si el usuario le da a like una segunda vez, el like ya existe, así que elimina el like, porque ya no le gusta
             this.removeLike(userLikeId);
@@ -112,13 +158,68 @@ export class Post {
     }
 }
 
+export class Posts{
+    posts;
+
+    constructor(posts) {
+        if (posts === undefined) {
+            this.posts = [];
+        }
+        else {
+            this.posts=posts;
+        }
+    }
+
+    get getPosts(){
+        return this.posts;
+    }
+
+    addPost(id, userId, text, imageURL){
+        this.posts.push(new Post(id, userId, text, imageURL));
+    }
+
+    searchPostPosition(id){
+        for(let i=0; i<this.posts.length; i++){
+            if(this.posts[i].getID===id){
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    deletePost(id, userId){
+        const postPosition=this.searchPostPosition(id);
+        if(postPosition!=-1 && this.posts[postPosition].getUserID===userId){
+            this.posts.splice(postPosition,1);
+        }
+        else{
+            throw new Error("El post no se encuentra");
+        }
+    }
+
+    retrievePostbyID(id){
+        const postPosition=this.searchPostPosition(id);
+        if(postPosition!=-1){
+            return this.posts[postPosition];
+        }
+    }
+
+    retrieveUserPosts(userID){
+        const result=[];
+        for(let i=0; i<this.posts.length; i++){
+            if(this.posts[i].getUserID===userID){
+                result.push(this.posts[i]);
+            }
+        }
+        return result;
+    }
+}
+
 export class User {
     #id;
     #name;
     #email;
     #password;
-    posts=[];
-    postCounter=0;
     likes=[];
 
     constructor(id, name, email, password) {
@@ -162,27 +263,6 @@ export class User {
 
     set setPassword(password) {
         this.#password = password;
-    }
-
-    post(text, imageURL){
-        this.posts.add(new Post((this.postCounter), this.#id, text, imageURL));
-    }
-
-    searchPost(postId){
-        const postPosition = -1;
-        for(let i=0; i<this.posts.length; i++){
-            if(posts[i].getId===postId){
-                return i;
-            }
-        }
-        return postPosition;
-    }
-
-    removePost(postId){
-        const postPosition=this.searchPost(postId);
-        if(postPosition!=-1){
-            this.posts.splice(postPosition,1);
-        }
     }
 
     searchLike(postID){
