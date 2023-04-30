@@ -32,6 +32,18 @@ body {
     flex-direction: column;
 }
 
+.app {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.posts-container {
+    display: flex;
+    flex-direction: column;
+}
+
 .scroll-lock {
     overflow-y: hidden;
 }

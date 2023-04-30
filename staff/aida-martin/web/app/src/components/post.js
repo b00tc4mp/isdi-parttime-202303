@@ -11,8 +11,6 @@ export default class Post extends Component {
     const likeSingular = "like";
     const likePlural = "likes";
 
-    console.log(post.id, currentUser.saves);
-
     const countLikes = (post.likes && post.likes.length) || 0;
 
     super(`<article data-id="${post.id}">
@@ -41,7 +39,12 @@ export default class Post extends Component {
     }">bookmark</span>
     </div>
     <time class="post-date">${post.date.toLocaleString("en-GB")}</time>
-    <p class="post-text"${post.text}</p>
+    <p class="post-text">${post.text}</p>
+    ${
+      post.author === context.userId
+        ? "<button class='edit-post-button button'>EDIT</button>"
+        : ""
+    }
     </article>`);
 
     this.container.querySelector(".likes").onclick = () => {
@@ -62,6 +65,6 @@ export default class Post extends Component {
   }
 
   onSaveToggled() {
-    throw new Error("Not overriden");
+    throw new Error("Not overridden");
   }
 }

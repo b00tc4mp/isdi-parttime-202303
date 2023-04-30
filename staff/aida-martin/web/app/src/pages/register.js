@@ -35,6 +35,8 @@ export default class Register extends Component {
     </p>
   </section>`);
 
+    const registerForm = this.container.querySelector("form");
+
     this.container.onsubmit = function (event) {
       event.preventDefault();
 
@@ -46,8 +48,7 @@ export default class Register extends Component {
       try {
         registerUser(name, email, password, repeatPassword);
 
-        // hide(registerPage);
-        // show(loginPage);
+        registerForm.reset();
         alert("registrado");
       } catch (error) {
         alert("no registrado");
@@ -56,10 +57,7 @@ export default class Register extends Component {
     };
 
     this.container.querySelector(".login-link").onclick = () => {
-      // loginForm.reset();
-
-      // hide(registerPage);
-      // show(loginPage);
+      registerForm.reset();
 
       this.onLoginClick();
     };

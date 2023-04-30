@@ -30,6 +30,8 @@ export default class Login extends Component {
         </p>
       </section>`);
 
+    const loginForm = this.container.querySelector("form");
+
     this.container.querySelector("form").onsubmit = (event) => {
       event.preventDefault();
 
@@ -39,28 +41,23 @@ export default class Login extends Component {
       try {
         context.userId = authenticateUser(email, password);
 
-        // renderUser();
-        // renderPosts();
+        loginForm.reset();
 
-        // loginForm.reset();
-
-        // hide(loginError, loginPage);
-        // show(homePage);
+        //hide(loginError);
 
         this.onAuthenticated();
 
         alert("autenticado");
       } catch (error) {
         alert("no autenticado");
-        // errorShow(loginError, error);
+        //errorShow(loginError, error);
       }
     };
 
     this.container.querySelector(".register-link").onclick = () => {
-      // registerForm.reset();
+      loginForm.reset();
 
-      // hide(registerError, loginError, loginPage);
-      // show(registerPage);
+      // hide(registerError, loginError);
 
       this.onRegisterClick();
     };
