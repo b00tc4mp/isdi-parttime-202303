@@ -1,4 +1,5 @@
 import Alert from "./components/alert.js";
+import Navbar from "./components/navbar.js";
 import ThemeToggle from "./components/theme-toggle.js";
 import { Component } from "./library/mew.js";
 import Home from "./pages/home.js";
@@ -13,6 +14,7 @@ export default class App extends Component {
     const register = new Register();
     const themeToggle = new ThemeToggle();
     const home = new Home();
+    const navbar = new Navbar();
 
     login.onRegisterClick = () => {
       this.remove(login);
@@ -26,7 +28,7 @@ export default class App extends Component {
 
     login.onAuthenticated = () => {
       this.remove(login);
-      this.add(home);
+      this.add(navbar, home);
     };
 
     register.onRegistered = () => {
