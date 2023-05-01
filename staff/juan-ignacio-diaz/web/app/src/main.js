@@ -1,13 +1,9 @@
 console.log('load main')
 
-import { show } from "./ui.js"
-import { loginPage } from './pages/login-page.js'
-import { openSession } from "./pages/home-page.js"
+import App from './app.js'
+import { Component } from './library/composito.js'
 
-if ("userId" in sessionStorage) {
-    if (!openSession(sessionStorage.userId))
-        show(loginPage)
-}
-else {
-    show(loginPage)
-}
+const app = new App()
+const body = new Component(document.body)
+
+body.add(app)
