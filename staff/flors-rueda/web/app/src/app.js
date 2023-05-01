@@ -5,6 +5,7 @@ import { Component } from "./library/mew.js";
 import Home from "./pages/home.js";
 import Login from "./pages/login.js";
 import Register from "./pages/register.js";
+import { context } from "./ui/general-tools.js";
 
 export default class App extends Component {
   constructor() {
@@ -42,6 +43,7 @@ export default class App extends Component {
       }
     };
 
-    this.add(login, themeToggle);
+
+    context.userAuth ? this.add(navbar, home) : this.add(login, themeToggle);
   }
 }
