@@ -1,6 +1,6 @@
 import { svg } from '../../assets/svg-paths.js';
 import { clearForms, resetAlert, setOff, setOn, setPredeterminateAvatar } from '../ui/general-tools.js';
-import { login, loginPage } from '../pages/login-page.js';
+import { login, loginPage } from '../pages/login.js';
 
 export default function initNavbar(context, homePage, homeMain, homeUser, postModal) {
 
@@ -67,7 +67,7 @@ export default function initNavbar(context, homePage, homeMain, homeUser, postMo
       delete context.userAuth;
       setOff(homePage, homeMain, homeUser, profileButtons, profileForms,profileUserPosts, profileFavs, navbar)
       setOn(loginPage, login)
-      setPredeterminateAvatar()
+      setPredeterminateAvatar(context.userAuth)
     });
     
     return navbar

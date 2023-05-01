@@ -1,3 +1,4 @@
+import { svg } from '../../assets/svg-paths.js';
 import { updatePost } from '../logic/update-post.js';
 import { uploadPost } from '../logic/upload-post.js';
 import { clearForms, getImgUrl, setOn, toggleOff, setOff, stripHTML} from '../ui/general-tools.js';
@@ -5,16 +6,28 @@ import initPostsList from './posts-list.js';
 
 
 export default function initPostModal(context) {
-    
-
     const addPostModal = document.querySelector('.post-modal');
+
+    const postModalForm = document.querySelector('.post-modal__form')
+
+    const setNewPostImg = postModalForm.querySelector('.post-modal__set-img');
+    const svgImg = setNewPostImg.querySelector('path');
+    svgImg.setAttribute('d', svg.newImage);
+
+    const temporalNewPostImg = postModalForm.querySelector('input[type="file"]');
+    const deleteNewPostImg = postModalForm.querySelector('.input__file-delete');
+    const selectedNewPostImg = document.querySelector('.post-modal__selected-image');
+    const newPostTextInput = postModalForm.querySelector('textarea');
+    const sendPost = postModalForm.querySelector('.post-modal__form--submit');
+    const cancelPost = document.querySelector('.post-modal__cancel');
+    const deletePost = document.querySelector('.post-modal__form--delete');
+    let newPostImg;
 
     const openPostModal = (previousPost) => {
         const userAuth = context.userAuth
-        console.log('context:', context, '\nuserAuth:', userAuth)
-        const title = document.querySelector('.modal-title');
-        const button = document.querySelector('.save-post');
-        const modalContent = document.querySelector('.post-modal-content');
+        const title = document.querySelector('.post-modal__title');
+        const button = document.querySelector('.post-modal__form--submit');
+        const modalContent = document.querySelector('.post-modal__content');
         const viewportHeight = window.innerHeight;
         const viewportWidth = window.innerWidth;
         modalContent.style.top = `${viewportHeight / 2 - modalContent.offsetHeight / 2}px`;
@@ -42,8 +55,6 @@ export default function initPostModal(context) {
       const clearPostModal = () => {
         clearForms();
         addPostModal.className = 'post-modal';
-        const selectedNewPostImg = document.querySelector('.new-post-image');
-        const setNewPostImg = document.querySelector('.set-image');
         selectedNewPostImg.src = 'https://us.123rf.com/450wm/mathier/mathier1905/mathier190500002/134557216-no-thumbnail-image-placeholder-for-forums-blogs-and-websites.jpg';
         setOn(setNewPostImg);
       };
@@ -55,24 +66,10 @@ export default function initPostModal(context) {
         setOff(addPostModal, blur);
       };
 
-
-
-    const temporalNewPostImg = document.querySelector('.add-post-image').querySelector('input[type="file"]');
-    const deleteNewPostImg = document.querySelector('.add-post-image').querySelector('.delete-img');
-    const setNewPostImg = document.querySelector('.set-image');
-    const selectedNewPostImg = document.querySelector('.new-post-image');
-    const newPostTextInput = document.querySelector('.new-post-form').querySelector('textarea[name="post-text"]');
-    const sendPost = document.querySelector('.new-post-form');
-    const cancelPost = document.querySelector('.cancel-post');
-    let newPostImg;
-
-
     cancelPost.addEventListener('click', (event) => {
         event.preventDefault();
         clearForms();
-        selectedNewPostImg.src = 'https://sgame.etsisi.upm.es/pictures/12946.png';
-        setOn(setNewPostImg);
-        closePostModal(addPostModal)
+        closePostModal()
     });
 
     temporalNewPostImg.addEventListener('change', (event) => {
@@ -89,9 +86,9 @@ export default function initPostModal(context) {
 
     deleteNewPostImg.addEventListener('click', (event) => {
         event.preventDefault();
-        newPostImg = undefined;
         temporalNewPostImg.value = '';
-        selectedNewPostImg.src = 'https://sgame.etsisi.upm.es/pictures/12946.png';
+        newPostImg = undefined;
+        selectedNewPostImg.src = 'https://us.123rf.com/450wm/mathier/mathier1905/mathier190500002/134557216-no-thumbnail-image-placeholder-for-forums-blogs-and-websites.jpg';
         toggleOff(deleteNewPostImg, setNewPostImg);
     });
 
@@ -118,8 +115,6 @@ export default function initPostModal(context) {
         closePostModal();
         initPostsList(userAuth, addPostModal, 'all');
     };
-
-
 
     return { addPostModal, openPostModal, closePostModal }
 }

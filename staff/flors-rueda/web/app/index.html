@@ -39,35 +39,6 @@
             <span class="alert__right--close">ok, I get it</span>
         </div>
     </section>
-    <section class="login-page off">
-        <section class="login-page__register off">
-            <h1 class="login-page__register__title">Register</h1>
-            <form class="login-page__register__form" method="get">
-                <input class="login-page__register-input" name="mail" type="email" placeholder="your email" required />
-                <input class="login-page__register-input" name="username" type="text" placeholder="yourusername"
-                    maxlength="15" required />
-                <input class="login-page__register-input" name="password" type="password" placeholder="your password"
-                    required />
-                <input class="login-page__register-input" name="repeat-password" type="password"
-                    placeholder="confirm your password" required />
-                <button class="login-page__register-submit" type="submit">create user</button>
-            </form>
-        </section>
-        <section class="login-page__login off">
-            <h1 class="login-page__login__title">Login</h1>
-            <form class="login-page__login__form" method="get">
-                <input class="login-page__login-input" name="username" type="text" placeholder="yourusername"
-                    maxlength="15" required />
-                <input class="login-page__login-input" name="password" type="password" placeholder="your password"
-                    required />
-                <button class="login-page__login-submit" type="submit">sign in</button>
-            </form>
-        </section>
-        <div class="login-page__change-view">
-            <p>You're new here?</p>
-            <p><a class="login-page__change-view--link">Sign up</a></p>
-        </div>
-    </section>
     <section class="home-page off">
         <section class="post-modal off">
             <div class="post-modal__content">
@@ -91,7 +62,7 @@
                         <textarea class="post-modal__form-input--textarea" name="post-text" type="text" maxlength="180"
                             placeholder="max 180 chars"></textarea>
                         <button type="submit" class="post-modal__form--submit">send</button>
-                        <button type="button" class="post-modal__form--delete">delete</button>
+                        <button type="button" class="post-modal__form--delete off">delete</button>
                     </form>
                 </div>
             </div>
@@ -129,9 +100,7 @@
             <div class="home-page__user-profile--buttons off">
                 <button class="home-page__user-profile--to-edit-profile">edit profile</button>
                 <button class="home-page__user-profile--to-change-password">change password</button>
-                <button class="home-page__user-profile--to-edit-mail">change email</button>
                 <button class="home-page__user-profile--to-favorites">my favorites</button>
-                <button class="home-page__user-profile--hide-mode-toggle">set light mode</button>
                 <button class="home-page__user-profile--to-delete-account">delete account</button>
             </div>
         </section>
@@ -139,6 +108,8 @@
             <h2 class="profile-forms__title"></h2>
             <section class="profile-forms__edit-profile off">
                 <form class="profile-forms__edit-profile--form" method="get">
+                    <input class="profile-forms__edit-mail--form-input--mail" name="mail" type="email" placeholder=""
+                    required />
                     <input class="profile-forms__edit-profile--form-input--username" name="username" type="text"
                         placeholder="" />
                     <input class="profile-forms__edit-profile--form-input--name" name="name" type="text"
@@ -170,16 +141,6 @@
                     <button class="profile-forms__change-password--form-submit" type="submit">save</button>
                 </form>
             </div>
-            <div class="profile-forms__edit-mail off">
-                <form class="profile-forms__edit-mail--form" method="get">
-                    <input class="profile-forms__edit-mail--form-input--mail" name="mail" type="email" placeholder=""
-                        required />
-                    Confirm changes?
-                    <input class="profile-forms__edit-mail--form-input--password" name="password" type="password"
-                        placeholder="your password" required />
-                    <button class="profile-forms__edit-mail--form-submit" type="submit">save</button>
-                </form>
-            </div>
             <div class="profile-forms__delete-account off">
                 <div class="profile-forms__delete-account--alert">If you delete your account you'll loose everything:
                     username,
@@ -203,13 +164,13 @@
             <h2>Favorites</h2>
             <div class="home-page__user-profile--favorites--post-list"></div>
         </section>
+    <footer>
         <section class="home-page__new-post">
             <button class="home-page__new-post--button">
                 <svg class="home-page__new-post--svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 96 960 960"><path /></svg>
             </button>
         </section>
     </section>
-    <footer>
         <section class="theme-toggle">
             <input type="checkbox" class="theme-toggle__checkbox" id="checkbox">
             <label for="checkbox" class="theme-toggle__label">

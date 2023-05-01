@@ -4,7 +4,8 @@ import users from './data/users/data.js';
 import { validateMail, validateNewPassword, validateNewUsername } from './data/users/validators.js';
 
   
-export const registerUser = (mail, username, password, repeatPassword) => {
+export const registerUser = (mail, userName, password, repeatPassword) => {
+  const username = '@' + userName.toLowerCase();
   validateMail(mail);
   validateNewUsername(username);
   validateNewPassword(password, repeatPassword);
