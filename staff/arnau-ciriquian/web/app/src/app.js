@@ -1,22 +1,63 @@
 import Component from "./library/composito.js";
-//import Login
-//import Register
-//import Home
+import Login from "./pages/login.js";
+import Register from "./pages/register.js";
+import Home from "./pages/home.js";
+import { context } from "./ui.js";
 
 export default class App extends Component {
     constructor() {
-        super('<div><div>')
+        super('<div class="main-div"><div>')
 
-        //const login = new Login
-        //const register = new Register
-        //const home = new Home
+        const login = new Login
+        const register = new Register
+        let home = new Home
+        if (context.userID) {home = new Home}
 
-        //login.onRegisterClick
+        login.onRegisterClick = () => {
+            this.remove(login)
+            this.add(register)
+        }
 
-        //login.onAuthenticated
+        login.onAuthenticated = () => {
+            this.remove(login)
+            home = new Home
+            this.add(home)
+        }
+        
+        //problemes de overriden! to fix!
+        home.onLoggedOut = () => {
+            this.add(login)
+            this.remove(home)
+        }
+        
+        register.onLoginClick = () => {
+            this.remove(register)
+            this.add(login)
+        }
 
-        //if (logged user, es a dir quan es fa un refresh de la pagina) llavors fer this.add(home), no?
-        //this.add(login) -> només si el user no està logejat i en session storage
+        register.onRegistered = () => {
+            this.remove(register)
+            this.add(login)
+        }
 
+        context.userID ? this.add(home) : this.add(login)
+        
+        let newPost
+        
+        // home.onNewPost = () => {
+        //     newPost = new NewPost
+        //     newPost.onPosted = () => {
+        //         home.add(_posts)
+        //         home.remove(newPost)
+        //     }
+    
+        //     //podriem fer un unic evento?? onPostedOrCanceled?
+        //     newPost.onCanceledPost = () => {
+        //         home.add(_posts)
+        //         home.remove(newPost)
+        //     }
+        //     home.add(newPost)
+        //     home.remove(_posts)
+        // }
     }
 }

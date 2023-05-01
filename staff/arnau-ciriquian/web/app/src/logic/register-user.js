@@ -1,7 +1,8 @@
 import { validateEmail, validateName, validateNewPassword, validatePasswordConfirm } from "./helpers/validators.js"
 import { findUserByEmail } from "./helpers/data-managers.js"
 import { saveUsers, users } from "../data.js"
-import { DEFAULT_AVATAR_URL } from "../pages/home-page.js"
+import spaceDogImage from "../../images/space-dog.svg"
+export const DEFAULT_AVATAR_URL = spaceDogImage
 
 export function addNewUser(name, email, password, passwordConfirm) {
     validateName(name)

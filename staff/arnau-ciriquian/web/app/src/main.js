@@ -1,10 +1,10 @@
 import Component from "./library/composito.js";
-// import App from './app.js'
+import App from './app.js'
 
-//const app = new App()
+const app = new App()
 const body = new Component(document.body)
 
-//body.add(app)
+body.add(app)
 
 /*  TODO Web/App - objectiu de la app: xarxa social:
         - ig d'acudits

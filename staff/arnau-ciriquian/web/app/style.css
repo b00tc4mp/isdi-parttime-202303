@@ -28,6 +28,11 @@ body {
     display: none !important;
 }
 
+.main-div {
+    height: 100%;
+    width: 100%;
+}
+
 .page {
     min-width: 250px;
     min-height: 350px;
@@ -52,7 +57,7 @@ body {
 
 .home--page {
     width: 90%;
-    height: 80%;
+    height: 90%;
     margin-top: 3rem;
     margin-bottom: 3rem;
     display: flex;
@@ -64,6 +69,10 @@ body {
 .home__post--feed {
     overflow: scroll;
     width: 90%;
+}
+
+.home__main {
+    overflow: scroll;
 }
 
 header, footer {
@@ -148,6 +157,13 @@ form {
     align-items: center;
 }
 
+.home__post {
+    height: 100%;
+    width: 100%;
+    background-color: rgba(240, 248, 255, 0.593);
+    z-index: 6;
+}
+
 .form__input {
     width: 200px;
     height: 20px;
@@ -172,7 +188,7 @@ form {
 
 .home__post--image {
     margin: 0.5rem;
-    height: 9rem;
+    height: 18rem;
 }
 
 .home__post--info {

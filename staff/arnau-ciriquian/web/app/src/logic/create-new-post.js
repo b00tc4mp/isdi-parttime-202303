@@ -1,8 +1,7 @@
 import { validateId, validateUrl, validateText } from "./helpers/validators.js"
 import { findUserById } from "./helpers/data-managers.js"
 import { posts, savePosts } from "../data.js"
-import showPostFeed from "./show-post-feed.js"
-import { homePageMain } from "../pages/home-page.js"
+//import showPostFeed from "./show-post-feed.js"
 
 export function createNewPost(userId, image, text){
     validateId(userId)
@@ -33,5 +32,5 @@ export function createNewPost(userId, image, text){
     _posts.push(post)
 
     savePosts(_posts)
-    showPostFeed()
+    //showPostFeed()
 }
