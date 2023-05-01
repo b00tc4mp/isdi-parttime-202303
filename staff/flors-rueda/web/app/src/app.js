@@ -1,4 +1,5 @@
 import Alert from "./components/alert.js";
+import ThemeToggle from "./components/theme-toggle.js";
 import { Component } from "./library/mew.js";
 import Login from "./pages/login.js";
 import Register from "./pages/register.js";
@@ -9,6 +10,7 @@ export default class App extends Component {
 
     const login = new Login();
     const register = new Register();
+    const themeToggle = new ThemeToggle()
 
     login.onRegisterClick = () => {
       this.remove(login);
@@ -36,6 +38,6 @@ export default class App extends Component {
       }
     };
 
-    this.add(login);
+    this.add(login, themeToggle);
   }
 }

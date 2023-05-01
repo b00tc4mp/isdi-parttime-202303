@@ -121,20 +121,6 @@ p {
     margin-block-end: 0;
 }
 
-footer {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    height: 3.5rem;
-    z-index: -1;
-    background: linear-gradient(0deg, var(--color-surface-400) 0%, var(--color-surface-100) 100%);
-    display: flex;
-    flex-direction: row;
-    justify-content: end;
-    align-items: end;
-
-}
-
 .git-logo {
     fill: var(--color-secondary-600);
     height: 1.5rem;
