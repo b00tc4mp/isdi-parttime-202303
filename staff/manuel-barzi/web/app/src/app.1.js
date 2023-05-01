@@ -8,21 +8,39 @@ export default class App extends Component {
     constructor() {
         super('<div></div>')
 
-        const showLogin = home => {
+        if (context.userId) {
+            const home = new Home
+
+            this.add(home)
+        } else {
             const login = new Login
 
             login.onRegisterClick = () => {
                 const register = new Register
 
-                register.onLoginClick = () => {
+                // register.onLoginClick = () => {
+                //     this.remove(register)
+                //     this.add(login)
+                // }
+
+                // register.onRegistered = () => {
+                //     this.remove(register)
+                //     this.add(login)
+                // }
+
+                // register.onLoginClick = register.onRegistered = () => {
+                //     this.remove(register)
+                //     this.add(login)
+                // }
+
+                const goToLogin = () => {
                     this.remove(register)
                     this.add(login)
                 }
 
-                register.onRegistered = () => {
-                    this.remove(register)
-                    this.add(login)
-                }
+                register.onLoginClick = goToLogin
+                register.onRegistered = goToLogin
+
 
                 this.remove(login)
                 this.add(register)
@@ -31,26 +49,11 @@ export default class App extends Component {
             login.onAuthenticated = () => {
                 const home = new Home
 
-                home.onLoggedOut = () => {
-                    this.remove(home)
-                    this.add(login)
-                }
-
                 this.remove(login)
                 this.add(home)
             }
 
-            if (home)
-                this.remove(home)
             this.add(login)
         }
-
-        if (context.userId) {
-            const home = new Home
-
-            home.onLoggedOut = () => showLogin(home)
-
-            this.add(home)
-        } else showLogin()
     }
 }

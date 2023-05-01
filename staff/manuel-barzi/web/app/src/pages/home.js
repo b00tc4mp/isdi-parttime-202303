@@ -1,7 +1,9 @@
 import { Component } from '../library/composito.js'
-import retrievePosts from '../logic/retrieve-posts.js'
 import Posts from '../components/posts.js'
 import { context } from '../ui.js'
+import retrieveUser from '../logic/retrieve-user.js'
+import AddPostModal from '../components/add-post-modal.js'
+import Profile from '../components/profile.js'
 
 export default class Home extends Component {
     constructor() {
@@ -24,16 +26,62 @@ export default class Home extends Component {
         </footer>
     </div>`)
 
-        const posts = retrievePosts(context.userId)
+        let profile
 
-        const _posts = new Posts(posts)
+        try {
+            const user = retrieveUser(context.userId)
 
-        _posts.onPostLikeToggled = () => {
-            const posts = retrievePosts(context.userId)
+            this.container.querySelector('img').src = user.avatar
 
-            _posts.refreshPosts(posts)
+            const profileLink = this.container.querySelector('a')
+
+            profileLink.innerText = user.name
+
+            profileLink.onclick = event => {
+                event.preventDefault()
+
+                profile = new Profile
+
+                main.removeChild(posts.container)
+                main.appendChild(profile.container)
+            }
+        } catch (error) {
+            alert(error.message)
         }
 
-        this.container.querySelector('main').appendChild(_posts.container)
+        const posts = new Posts
+
+        const main = this.container.querySelector('main')
+
+        main.appendChild(posts.container)
+
+        this.container.querySelector('.home-header-logout').onclick = () => {
+            delete context.userId
+
+            this.onLoggedOut()
+        }
+
+        this.container.querySelector('.add-post-button').onclick = () => {
+            const addPostModal = new AddPostModal
+
+            addPostModal.onCancel = () => main.removeChild(addPostModal.container)
+
+            addPostModal.onPostCreated = () => {
+                main.removeChild(addPostModal.container)
+
+                posts.renderPosts()
+            }
+
+            main.appendChild(addPostModal.container)
+        }
+
+        this.container.querySelector('h1').onclick = () => {
+            main.removeChild(profile.container)
+            main.appendChild(posts.container)
+        }
+    }
+
+    onLoggedOut() {
+        throw new Error('not overridden')
     }
 }

@@ -15,5 +15,35 @@ export default class Register extends Component {
 
         <p>Go to <a href="">Login</a></p>
     </div>`)
+
+        this.container.querySelector('form').onsubmit = event => {
+            event.preventDefault()
+
+            const name = event.target.name.value
+            const email = event.target.email.value
+            const password = event.target.password.value
+
+            try {
+                registerUser(name, email, password)
+
+                this.onRegistered()
+            } catch (error) {
+                alert(error.message)
+            }
+        }
+
+        this.container.querySelector('a').onclick = event => {
+            event.preventDefault()
+
+            this.onLoginClick()
+        }
+    }
+
+    onLoginClick() {
+        throw new Error('not overridden')
+    }
+
+    onRegistered() {
+        throw new Error('not overridden')
     }
 }
