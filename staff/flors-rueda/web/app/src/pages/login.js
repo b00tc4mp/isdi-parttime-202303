@@ -22,10 +22,12 @@ export default class Login extends Component {
             </div>
           </section>`)
 
-    this.container.querySelector('[name="username"]').input = event => {
-      const username = event.target.username;
-      controlUsernameInput(username);
-    }
+    
+    const usernameInput = this.container.querySelector('[name="username"]');
+
+    usernameInput.addEventListener('input', (event)  => {
+      controlUsernameInput(usernameInput);
+    });
 
     this.container.querySelector('form').onsubmit = event => {
       event.preventDefault();

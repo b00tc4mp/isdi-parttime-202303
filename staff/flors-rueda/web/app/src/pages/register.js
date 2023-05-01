@@ -1,8 +1,7 @@
 import { registerUser } from '../logic/register-user.js'
 import { Component } from '../library/mew.js';
 import { displayRegisterError } from '../ui/errors.js';
-import { cleanFocusInputs, setAlert } from '../ui/general-tools.js';
-import Alert from '../components/alert.js';
+import { controlUsernameInput } from '../ui/general-tools.js';
 
 export default class Register extends Component {
   constructor() {
@@ -25,10 +24,11 @@ export default class Register extends Component {
             </section>`
     )
 
-    this.container.querySelector('[name="username"]').input = event => {
-      const username = event.target.username;
-      controlUsernameInput(username);
-    }
+    const usernameInput = this.container.querySelector('[name="username"]');
+
+    usernameInput.addEventListener('input', (event)  => {
+      controlUsernameInput(usernameInput);
+    });
 
     this.container.querySelector('form').onsubmit = event => {
       event.preventDefault();
