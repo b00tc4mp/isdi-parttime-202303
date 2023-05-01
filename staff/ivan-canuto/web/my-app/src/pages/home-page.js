@@ -18,6 +18,7 @@ const changeAvatarLink = profilePage.querySelector('.change-avatar__link');
 const passwordForm = changePasswordPage.querySelector('.password__form');
 const avatarForm = changeAvatarPage.querySelector('.avatar__form');
 const inputsPasswordForm = passwordForm.querySelectorAll('input');
+export const createdPosts = homePage.querySelector('.created-posts')
 
 profileImage.addEventListener('click', ()=>{
   addOffClass(homePage)

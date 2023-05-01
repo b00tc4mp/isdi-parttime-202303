@@ -1,5 +1,5 @@
 import { createPost } from "../logic/create-post.js";
-import { renderPost } from "../logic/render-post.js";
+import { renderPosts } from "../logic/render-posts.js";
 import { context, addOffClass } from "../ui.js";
 
 export default function initAddPostPanel (homePage) {
@@ -17,7 +17,7 @@ export default function initAddPostPanel (homePage) {
       createPost(context.userId, postImageUrl, postText)
       addOffClass(addPostPage)
       addPostForm.reset()
-      renderPost()
+      renderPosts()
 
     } catch (error) {
       if (error.name === 'Error') {
@@ -31,6 +31,8 @@ export default function initAddPostPanel (homePage) {
 
   cancelButton.onclick = function () {
     addOffClass(addPostPage)
+    addPostForm.reset()
+    document.body.classList.toggle('fixed-scroll')
   }
 
   return addPostPage

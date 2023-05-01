@@ -205,7 +205,7 @@ html, body {
   padding: 10px;
 }
 
-.posts-list {
+.created-posts {
   display: flex;
   justify-content: flex-start;
   padding: 20px;

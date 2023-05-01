@@ -2,7 +2,7 @@ import {authenticateUser} from '../logic/authenticate-user.js'
 import {addOffClass, removeOffClass, context} from '../ui.js'
 import {homePage} from './home-page.js'
 import {registerPage} from './register-page.js'
-import { renderPost } from '../logic/render-post.js'
+import { renderPosts } from '../logic/render-posts.js'
 import { renderUser } from '../logic/render-user.js'
 import { renderLikesAndFavs } from '../logic/render-likes-favs.js'
 
@@ -19,7 +19,7 @@ loginPage.querySelector('form').onsubmit = function (event) {
       context.userId = authenticateUser(email, password);
 
       renderUser()
-      renderPost()
+      renderPosts()
       renderLikesAndFavs()
       
       loginForm.reset()

@@ -1,6 +1,7 @@
 import { updateUserPassword } from '../logic/update-user-password.js'
 import { updateUserAvatar } from '../logic/update-user-avatar.js'
 import { context, addOffClass } from '../ui.js'
+import { users } from '../data.js'
 
 export default function initProfilePanel(homePage, avatarImage) {
   const profilePanel = homePage.querySelector('.profile')
@@ -8,6 +9,9 @@ export default function initProfilePanel(homePage, avatarImage) {
   const changeAvatarForm = profilePanel.querySelector('.change-avatar')
   const avatarPassword = profilePanel.querySelector('input[name="password"]')
   const avatarUrl = profilePanel.querySelector('input[name="avatarUrl"]')
+  const usersApp = users()
+  const user = usersApp.find(user => user.id === context.userId)
+  avatarUrl.value = user.avatar
 
   changePasswordForm.onsubmit = function (event) {
     event.preventDefault();

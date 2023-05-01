@@ -1,7 +1,7 @@
 import { validateText, validateUrl, validateId } from "./helpers/validators.js"
-import { posts, savePosts } from "../data.js"
+import { posts, savePost } from "../data.js"
 import { findUserById } from "./helpers/data-manager.js"
-import { renderPost } from "./render-post.js"
+// import { renderPost } from "./render-posts.js"
 
 export const updatePost = (userId, postId, postImageUrl, postText)=>{
   const postsApp = posts()
@@ -21,6 +21,5 @@ export const updatePost = (userId, postId, postImageUrl, postText)=>{
   post.text = postText
   post.image = postImageUrl
 
-  savePosts(postsApp)
-  renderPost()
+  savePost(post)
 }

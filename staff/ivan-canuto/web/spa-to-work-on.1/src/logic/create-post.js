@@ -1,7 +1,6 @@
 import { findUserById } from "./helpers/data-manager.js"
 import { validateUrl, validateId, validateText } from "./helpers/validators.js"
-import { savePosts, posts } from '../data.js'
-import { renderPost } from "./render-post.js"
+import { savePost, posts } from '../data.js'
 
 export const createPost = (userId, postUrl, postText)=>{
   const postsApp = posts()
@@ -26,8 +25,6 @@ export const createPost = (userId, postUrl, postText)=>{
     date: date.toLocaleDateString(),
     likes: []
   }
-  postsApp.push(post)
 
-  savePosts(postsApp)
-  renderPost()
+  savePost(post)
 }

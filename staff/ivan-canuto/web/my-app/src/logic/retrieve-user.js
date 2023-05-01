@@ -1,4 +1,4 @@
-import { findUserByEmail, findUserById } from "./helpers/data-managers.js"
+import { findUserById } from "./helpers/data-managers.js"
 
 export const retrieveUser = (userId)=>{
   if(!userId.length) throw new Error("The user id doesn't exist.")

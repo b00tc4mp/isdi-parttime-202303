@@ -6,16 +6,18 @@ import { loginPage } from "./login-page.js";
 export const homePage = document.querySelector('.home')
 export const createdPosts = homePage.querySelector('.created-posts')
 export const avatarImage = homePage.querySelector('.avatar-image')
-const profilePanel = initProfilePanel(homePage, avatarImage)
-const addPostPanel = initAddPostPanel(homePage)
 const addPostButton = homePage.querySelector('.add-post-button')
 
 addPostButton.onclick = function () {
+  const addPostPanel = initAddPostPanel(homePage)
   removeOffClass(addPostPanel)
+  document.body.classList.toggle('fixed-scroll')
 }
-  
-homePage.querySelector('.name-avatar-profile').onclick = function (event) {
+
+homePage.querySelector('.name-avatar-profile').onclick = function () {
+  const profilePanel = initProfilePanel(homePage, avatarImage)
   removeOffClass(profilePanel)
+  document.body.classList.toggle('fixed-scroll')
 }
 
 homePage.querySelector('.logout-button').onclick = function () {

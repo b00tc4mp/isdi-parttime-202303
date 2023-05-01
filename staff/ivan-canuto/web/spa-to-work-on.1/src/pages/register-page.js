@@ -1,5 +1,5 @@
 import { saveUsers } from '../data.js'
-import {registerUser} from '../logic/register-user.mjs'
+import {registerUser} from '../logic/register-user.js'
 import { addOffClass, removeOffClass } from '../ui.js'
 import { loginPage } from './login-page.js'
 

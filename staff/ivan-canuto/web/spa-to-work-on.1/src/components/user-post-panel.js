@@ -18,6 +18,7 @@ export default function initUserPostPanel (userPost, post) {
   selectPost(userPost, likeIcon, likesInPost, favoriteIcon, popUpWindow, underImage)
   
   closePostButton.addEventListener('click', ()=>{
+    document.body.classList.remove('fixed-scroll')
     unselectPost(userPost, likeIcon, likesInPost, favoriteIcon, popUpWindow, underImage)
   })
 

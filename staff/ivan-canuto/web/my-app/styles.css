@@ -345,6 +345,20 @@ label {
   padding: 20px 30px 50px 30px;
 }
 
+.created-posts {
+  /* padding: 0 50px; */
+}
+
+.user-post {
+  /* min-width: fit-content; */
+  /* padding: 50px; */
+}
+
+.image-post {
+
+}
+
+
 
 /* Assistant classes */
 

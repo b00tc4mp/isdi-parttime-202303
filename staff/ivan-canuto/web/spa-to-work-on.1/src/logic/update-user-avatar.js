@@ -1,7 +1,7 @@
-import { saveUsers } from '../data.js'
+import { saveUser } from '../data.js'
 import { findUserById } from './helpers/data-manager.js'
 import { validateUrl, validatePassword } from './helpers/validators.js'
-import { renderPost } from './render-post.js'
+import { renderPosts } from './render-posts.js'
 import { users } from '../data.js'
 
 const avatarImage = document.querySelector('.avatar-image')
@@ -17,6 +17,7 @@ export function updateUserAvatar(userId, newAvatarUrl, password) {
 
   user.avatar = newAvatarUrl
   avatarImage.src = user.avatar
-  saveUsers(usersApp)
+  saveUser(user)
+  renderPosts()
 }
   

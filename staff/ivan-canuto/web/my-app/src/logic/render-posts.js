@@ -2,9 +2,9 @@ import { createdPosts } from "../pages/home-page.js"
 import { retrievePosts } from "./retrieve-posts.js"
 import { context } from "../ui.js"
 import { users } from "../data.js"
-import initUserPostPanel from "../components/user-post-panel.js"
+// import initUserPostPanel from "../components/user-post-panel.js"
 
-export const renderPost = ()=>{
+export const renderPosts = ()=>{
   const usersApp = users()
   try {
       const posts = retrievePosts(context.userId)

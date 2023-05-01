@@ -14,22 +14,25 @@ export const renderLikesAndFavs = ()=>{
     allRenderedPosts.forEach(userPost => {
       if(userPost.id === post.id) renderedPost = userPost
     })
-    post.likes.forEach(idUser => {
-      if(idUser === context.userId) {
-        renderedPost.querySelector('.heart-icon').innerHTML = ''
-        renderedPost.querySelector('.heart-icon').textContent = '❤️'
-      }
-    })
+    const likedPost = post.likes.some(id => id === user.id)
+    const likeIcon = renderedPost.querySelector('.heart-icon')
+
+    if (likedPost) {
+      likeIcon.querySelector('span').classList.add('liked', 'filled')
+    } else {
+      likeIcon.querySelector('span').classList.remove('liked', 'filled')
+    }
     
     // To get the quantity of likes
-    const likesPost= renderedPost.querySelector('.likes-post')
-    likesPost.textContent = post.likes.length + ' likes'
-  })
-  
-  allRenderedPosts.forEach(userPost => {
-    if(user.favPosts.includes(userPost.id)) {
-      userPost.querySelector('.favorite-icon').innerHTML = ''
-      userPost.querySelector('.favorite-icon').textContent = '⭐'
+    const likesInPost= renderedPost.querySelector('.likes-post')
+    likesInPost.textContent = post.likes.length + ' likes'
+    
+    // To mark favorite icon
+    const favIcon = renderedPost.querySelector('.favorite-icon')
+    if(user.favPosts.includes(post.id)) {
+      favIcon.querySelector('span').classList.add('saved', 'filled')
+    } else {
+      favIcon.querySelector('span').classList.remove('saved', 'filled')
     }
   })
 }
