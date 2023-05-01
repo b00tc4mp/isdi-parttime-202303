@@ -25,6 +25,9 @@ export default class Home extends Component {
             const posts = retrievePosts(context.userID)
             const _posts = new Posts(posts)
             this.add(_posts)
+
+            //retriveUser i aplicar per queryselector el parametres del nom al anchor i l'avatar
+            //+ llogica per entrar al profile (onclick) 20230501 2110
         }
 
         this.container.querySelector('.home__anchor--new-post').onclick = event => {
@@ -43,6 +46,7 @@ export default class Home extends Component {
             this.container.removeChild(this.container.children[2])
             this.add(newPost)
 
+            //newPost.onPosted = newPost.onCanceled = () -> crida en cadena
             newPost.onPostedOrCanceled = () => {
                 this.remove(newPost)
 

@@ -44,23 +44,5 @@ export default class App extends Component {
         }
 
         context.userID ? this.add(home) : this.add(login)
-        
-        let newPost
-        
-        // home.onNewPost = () => {
-        //     newPost = new NewPost
-        //     newPost.onPosted = () => {
-        //         home.add(_posts)
-        //         home.remove(newPost)
-        //     }
-    
-        //     //podriem fer un unic evento?? onPostedOrCanceled?
-        //     newPost.onCanceledPost = () => {
-        //         home.add(_posts)
-        //         home.remove(newPost)
-        //     }
-        //     home.add(newPost)
-        //     home.remove(_posts)
-        // }
     }
 }
