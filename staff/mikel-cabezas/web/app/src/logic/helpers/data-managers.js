@@ -5,16 +5,7 @@ export function findUserByEmail(email) {
     let foundUser
     users().forEach(user => {
         if (user.email === email) {
-            foundUser = user.email
-        }
-    })
-    return foundUser
-}
-
-export function findUserByEmail2(email) {
-    let foundUser
-    users().forEach(user => {
-        if (user.email === email) {
+            // foundUser = user.email
             foundUser = user
         }
     })
@@ -53,7 +44,6 @@ export function getUserImage(userId) {
     return foundUser
 }
 
-
 export function getCurrentUser(id) {
     const userID = context.userId
     if (userID !== -1) {
@@ -61,7 +51,6 @@ export function getCurrentUser(id) {
         return userID
     }
 }
-
 
 export function getPostUserName(postUserId) {
 

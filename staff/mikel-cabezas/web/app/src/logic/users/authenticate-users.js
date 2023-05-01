@@ -1,14 +1,12 @@
-import { users } from '../data.js'
-import {validateEmail, validatePassword} from '../logic/helpers/validators.js'
-import {findUserByEmail2} from '../logic/helpers/data-managers.js'
-
+import { users } from '../../data.js'
+import { validateEmail, validatePassword } from '../helpers/validators.js'
+import { findUserByEmail } from '../helpers/data-managers.js'
 
 export function authenticateUser(email, password)  {
-    debugger
     validateEmail(email)
     validatePassword(password) 
-    const user = findUserByEmail2 (email)
     const _users = users()
+    const user = findUserByEmail(email)
     
     if (!user) {
         throw new Error('User or password incorrect')

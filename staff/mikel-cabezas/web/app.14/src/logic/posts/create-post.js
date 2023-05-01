@@ -8,7 +8,9 @@ const file = document.querySelector('.section.home').querySelector('form input[t
 const postImage = document.querySelector('.section.home').querySelector('form.create-post .post-image')
 const printImage = file.onchange = function (event) {
     const file = event.target.files[0]
+    validateImage(file)
     const image = new FileReader()
+
     image.onload = () => {
         const base64 = image.result
         srcNewImage = base64
@@ -19,7 +21,6 @@ const printImage = file.onchange = function (event) {
 
 export function createPost(userId, image, title, text) {
     validateId(userId)
-    validateImage(image)
     validateText(title)
     validateText(text)
     const _posts = posts()

@@ -1,11 +1,10 @@
 import { context, toggleOffClassInSection } from "../ui.js"
 import { createPost } from "../logic/posts/create-post.js"
 import { editPost } from "../logic/posts/edit-post.js"
-import { renderPosts } from "../logic/posts/render-posts.js"
+// import { renderPosts } from "../logic/posts/render-posts.js"
 
+// export const editPostForm = document.querySelector('.section.home').querySelector('.overlay.edit-post')
 export const homePage = document.querySelector('.section.home')
-export const editPostForm = document.querySelector('.section.home').querySelector('.overlay.edit-post')
-
 const image = homePage.querySelector('.overlay.create-post form > input[name="file"') 
 // const text = homePage.querySelector('.overlay.create-post form > input[name="text"') 
 // const userId = context.userId

@@ -25,12 +25,6 @@ body {
     width: 100%;
 }
 
-.main-content {
-    min-height: 100vh;
-}
-section.login, section.register {
-    min-height: 100vh;
-}
 body.block-scroll {
     overflow: hidden;
 }
@@ -574,7 +568,7 @@ time.post-date {
     z-index: 11;
 }
 
-.posts > section {
+.posts {
     display: flex;
     flex-wrap: wrap;
     width: 100%;
@@ -596,7 +590,7 @@ article {
 }
 
 @media (min-width: 481px) {
-    .posts  > section{
+    .posts {
         gap: 10px;
         max-width: 700px;
 
@@ -607,7 +601,7 @@ article {
     }
 }
 @media (min-width: 980px) {
-    .posts  > section{
+    .posts {
         gap: 8px;
         max-width: 1000px;
     }
