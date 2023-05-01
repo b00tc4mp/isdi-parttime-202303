@@ -11,7 +11,6 @@ export default class App extends Component {
         const login = new Login
         const register = new Register
         let home = new Home
-        if (context.userID) {home = new Home}
 
         login.onRegisterClick = () => {
             this.remove(login)
@@ -22,9 +21,13 @@ export default class App extends Component {
             this.remove(login)
             home = new Home
             this.add(home)
+
+            home.onLoggedOut = () => {
+                this.add(login)
+                this.remove(home)
+            }
         }
         
-        //problemes de overriden! to fix!
         home.onLoggedOut = () => {
             this.add(login)
             this.remove(home)

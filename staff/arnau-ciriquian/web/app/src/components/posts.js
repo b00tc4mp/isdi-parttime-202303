@@ -4,7 +4,7 @@ import { context } from "../ui.js";
 
 export default class Posts extends Component {
     constructor(posts) {
-        super(`<div class="home__post--feed home__page">        
+        super(`<div class="home__post--feed">        
                 </div>`)
 
         posts.forEach(post => {
@@ -28,5 +28,7 @@ export default class Posts extends Component {
 
             this.add(_post)
         })
+
+        //this.add(posts)
     }
 }

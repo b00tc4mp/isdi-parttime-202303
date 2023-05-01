@@ -55,20 +55,15 @@ body {
     align-items: center;
 }
 
-.home--page {
+.home__post--feed {
+    overflow: scroll;
     width: 90%;
     height: 90%;
     margin-top: 3rem;
     margin-bottom: 3rem;
     display: flex;
-    justify-content: center;
     flex-direction: column;
     align-items: center;
-}
-
-.home__post--feed {
-    overflow: scroll;
-    width: 90%;
 }
 
 .home__main {
@@ -176,19 +171,21 @@ form {
 }
 
 .inputs__box--feed {
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     background-color: var(--postcolor);
     border-radius: 5%;
-    overflow: hidden;
+    /*overflow: hidden;*/
     margin: 0.2rem;
 }
 
 .home__post--image {
     margin: 0.5rem;
     height: 18rem;
+    width: 18rem;
 }
 
 .home__post--info {

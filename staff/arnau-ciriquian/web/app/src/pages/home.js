@@ -16,8 +16,6 @@ export default class Home extends Component {
                     <a class="navigation__anchor--logout" href=""><img class="anchor__logout--icon" src="images/rocket-launch.svg"></a>
                 </div>
             </header>
-            <div class="home__main home--page">
-            </div>
             <footer>
                 <p class="add-post-anchor"><a class="home__anchor--new-post" href="">Add new post</a></p>
             </footer>
@@ -26,7 +24,7 @@ export default class Home extends Component {
         if (context.userID) {
             const posts = retrievePosts(context.userID)
             const _posts = new Posts(posts)
-            this.container.children[1].append(_posts.container)
+            this.add(_posts)
         }
 
         this.container.querySelector('.home__anchor--new-post').onclick = event => {
@@ -42,23 +40,22 @@ export default class Home extends Component {
 
         this.onNewPost = () => {
             newPost = new NewPost
-
+            this.container.removeChild(this.container.children[2])
             this.add(newPost)
-            //this.remove(_posts)
 
             newPost.onPostedOrCanceled = () => {
-                //this.add(_posts)
                 this.remove(newPost)
 
-                const updatedPosts = retrievePosts(context.userID)
-                _posts.refreshPosts(updatedPosts)
+                const posts = retrievePosts(context.userID)
+                const _posts = new Posts(posts)
+                this.add(_posts)
             }
         }
         
         this.container.querySelector('.navigation__anchor--logout').onclick = event => {
             event.preventDefault()
         
-            context.userID = null
+            sessionStorage.removeItem('userID')
             document.querySelector('.home__post--feed').innerHTML = ''
 
             this.onLoggedOut()
