@@ -21,6 +21,7 @@ export default class Post extends Component {
     <button class = "buttom-save">${activeUser.savePosts && activeUser.savePosts.includes(post.id)? 'Saved' : 'Unsaved'}</button>
     <div class = "post-info">
         <time>Date ${post.date.toLocaleString()}</time>
+        <button>Edit</button>
         <time>${post.dateLastModified ? 'Last Modified ' + post.dateLastModified.toLocaleString(): ''}</time>
     </div>
 </article>`)
