@@ -1,5 +1,8 @@
 import { registerUser } from '../logic/register-user.js'
 import { Component } from '../library/mew.js';
+import { displayRegisterError } from '../ui/errors.js';
+import { cleanFocusInputs, setAlert } from '../ui/general-tools.js';
+import Alert from '../components/alert.js';
 
 export default class Register extends Component {
   constructor() {
@@ -29,21 +32,26 @@ export default class Register extends Component {
 
     this.container.querySelector('form').onsubmit = event => {
       event.preventDefault();
+      const form = this.container.querySelector('form')
       const mail = event.target.mail.value;
       const username = event.target.username.value;
       const password = event.target.password.value;
       const repeatPassword = event.target.repeatPassword.value;
       try {
         registerUser(mail, username, password, repeatPassword);
-        this.onRegistered()
+        this.onRegistered();
       } catch (error) {
-        alert(error.message)
-      }
+        const alert = displayRegisterError(error.message, form);
+        this.add(alert);
+        alert.onCloseClick = () => {
+          this.remove(alert);
+        }
+      };
     }
 
     this.container.querySelector('.login-page__change-view--link').onclick = event => {
-      event.preventDefault() 
-      this.onLoginClick()
+      event.preventDefault();
+      this.onLoginClick();
     }
   }
 

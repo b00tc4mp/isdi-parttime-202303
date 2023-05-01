@@ -1,29 +1,41 @@
-import { Component } from './library/mew.js'
-import Login from './pages/login.js'
-import Register from './pages/register.js'
+import Alert from "./components/alert.js";
+import { Component } from "./library/mew.js";
+import Login from "./pages/login.js";
+import Register from "./pages/register.js";
 
 export default class App extends Component {
-    constructor() {
-        super('<div></div>')
+  constructor() {
+    super("<div></div>");
 
-        const login = new Login
-        const register = new Register
+    const login = new Login();
+    const register = new Register();
 
-        login.onRegisterClick = () => {
-            this.remove(login);
-            this.add(register);
-        }
+    login.onRegisterClick = () => {
+      this.remove(login);
+      this.add(register);
+    };
 
-        register.onLoginClick = () => {
-            this.remove(register);
-            this.add(login);
-        }
+    register.onLoginClick = () => {
+      this.remove(register);
+      this.add(login);
+    };
 
-        login.onAuthenticated = () => {
-            this.remove(login);
-            console.log('haiii!');
-        }
+    login.onAuthenticated = () => {
+      this.remove(login);
+      console.log("haiii!");
+    };
 
-        this.add(login);
-    }
+    register.onRegistered = () => {
+      const message = `Hello, ${(register.container.querySelector('[name="username"]').value)}! Your account is registered. You can sign in now!`;
+      this.remove(register);
+      this.add(login);
+      const alert = new Alert('success', message, 'Done!');
+      this.add(alert);
+      alert.onCloseClick = () => {
+        this.remove(alert);
+      }
+    };
+
+    this.add(login);
+  }
 }

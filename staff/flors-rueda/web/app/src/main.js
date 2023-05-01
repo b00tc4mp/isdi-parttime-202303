@@ -1,7 +1,7 @@
-import App from './app.js'
-import { Component } from './library/mew.js'
+import App from './app.js';
+import { Component } from './library/mew.js';
 
-const app = new App()
-const body = new Component(document.body)
+const app = new App();
+const body = new Component(document.body);
 
-body.add(app)
+body.add(app);

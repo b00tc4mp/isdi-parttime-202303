@@ -31,6 +31,11 @@ export const clearForms = () => {
   filesInputs.forEach((input) => (input.value = ''));
 };
 
+export const cleanFocusInputs = () => {
+  const inputs = document.querySelectorAll('input');
+  inputs.forEach((input) => (input.classList.remove('invalid-input')));
+};
+
 export const resetAlert = (alert) => {
   alert.classList.remove('success');
   alert.classList.remove('warning');

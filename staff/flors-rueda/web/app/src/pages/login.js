@@ -1,26 +1,6 @@
-/*
-import initLoginForm from '../components/login-form.js';
-import initRegisterForm from '../components/register-form.js';
-import { context } from '../ui/general-tools.js';
-import { changeView } from '../ui/login.js';
-
-export const loginPage = document.querySelector('.login-page');
-export const register = document.querySelector('.login-page__register');
-export const login = document.querySelector('.login-page__login');
-
-const changeViewLink = document.querySelector('.login-page__change-view--link');
-
-changeViewLink.addEventListener('click', (event) => {
-  event.preventDefault();
-  changeView(changeViewLink, login, register)
-});
-
-initRegisterForm(changeViewLink, register, login);
-initLoginForm(context, loginPage);
-*/
-
 import { Component } from '../library/mew.js';
 import { authenticateUser } from '../logic/authenticate-user.js';
+import { displayLoginError } from '../ui/errors.js';
 import { context, controlUsernameInput } from '../ui/general-tools.js';
 
 export default class Login extends Component {
@@ -49,13 +29,18 @@ export default class Login extends Component {
 
     this.container.querySelector('form').onsubmit = event => {
       event.preventDefault();
+      const form = this.container.querySelector('form')
       const username = event.target.username.value;
       const password = event.target.password.value;
       try {
         context.userAuth = authenticateUser(username, password);
         this.onAuthenticated()
       } catch (error) {
-        alert(error.message)
+        const alert = displayLoginError(error.message, form);
+        this.add(alert);
+        alert.onCloseClick = () => {
+          this.remove(alert);
+        }
       }
     }
 
