@@ -1,13 +1,7 @@
-import { showPosts } from "./logic/showPosts.js"
-import { feed, homePage, renderUser } from "./pages/home-page.js"
-import { loginPage } from "./pages/login-page.js"
-import { context, hide, show } from "./ui.js"
+import { Component } from "./library/master-component.js"
+import { App } from "./app.js"
 
-if(context.userId === undefined){
-    hide(homePage)
-    show(loginPage)
-} else {
-    renderUser()
-    showPosts()
-    show(homePage, feed)
-}
+const app = new App()
+const  body = new Component(document.body)
+
+body.add(app)

@@ -3,6 +3,7 @@ import { retrieveUser } from "../logic/helpers/data-managers.js"
 import { showPostsInProfile } from "../logic/showPostsinProfile.js"
 import { createPostModal } from "../components/new-post-panel.js"
 import { initSettingsSection } from "../components/settings-section.js"
+import { posts } from "../data.js"
 
 export const homePage = document.querySelector('.homepage')
 const sidebarActions = homePage.querySelector('.sidebar-actions')
@@ -42,7 +43,11 @@ homePage.querySelector('.sidebar-profile').onclick = () => {
         show(profileSection)
 
     } catch (error) {
-        alert(error)
+        generateToast({
+            message: error.message,
+            type: errorToast, 
+            length: '3000ms'
+        })
     }
 }
 
@@ -52,37 +57,5 @@ homePage.querySelector('.sidebar-home').onclick = () => {
     show(feed)
 }
 
-export function renderUser() {
-    const user = retrieveUser(context.userId)
 
-    sidebarProfileRow.querySelector('.sidebar-profile-username').innerHTML = user.username
-    sidebarProfileRow.querySelector('.sidebar-profile-email').innerHTML = user.email
-    sidebarProfileRow.querySelector('.sidebar-avatar').src = user.avatar
-    topbarContainer.querySelector('.topbar-avatar').src = user.avatar
-}
-
-//-----------[internal]---------------
-// [INTERNAL] delete likedPosts
-// homePage.querySelector('.delete').onclick = () => {
-//     // const _users = users()
-//     // _users.forEach(_user => _user.likedPosts = [])
-//     // saveUsersInStorage(_users)
-
-//     // const _posts = posts()
-//     // for(let i = _posts.length - 1; i > -1; i--)
-//     // _posts.length--
-//     // savePostsInStorage(_posts)
-
-//     // const _users = users()
-
-//     // _users.forEach(user => delete user.likedPosts)
-//     // saveUsersInStorage(_users)
-
-//     // const _posts = posts()
-//     // const post = _posts.find(post => post.id === 'post-1')
-
-//     // delete post.likes
-
-//     // savePostInStorage(post)
-// }
 

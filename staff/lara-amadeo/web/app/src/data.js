@@ -1,10 +1,11 @@
+import { formatPostDate } from "./logic/formatPostDate"
+
 export const users = () => "usersJSON" in localStorage? JSON.parse(localStorage.usersJSON) : []
     
 export const posts = () => {   
     const posts = 'postsJSON' in localStorage? JSON.parse(localStorage.postsJSON) : []
 
     posts.forEach(post => post.date = new Date(post.date))
-
     return posts
 }
 

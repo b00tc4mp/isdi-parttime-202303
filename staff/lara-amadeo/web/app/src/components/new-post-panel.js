@@ -1,7 +1,7 @@
 import { createPost } from "../logic/createPost.js"
 import { getImageFromLocal } from "../logic/getImageFromLocal.js"
 import { showPosts } from "../logic/showPosts.js"
-import { hide, context } from "../ui.js"
+import { hide, context, generateToast, successToast } from "../ui.js"
 
 export const createPostModal = document.querySelector('.creation-post-modal')
 const createPostForm = createPostModal.querySelector('form')
@@ -19,9 +19,11 @@ createPostForm.querySelector('input[name=imageUrl]').addEventListener('change', 
             imagePreview.src = srcData
         })
     } catch (error) {
-        createPostForm.querySelector('.error-message').textContent = error.message
-    } finally{
-        createPostForm.querySelector('.error-message').textContent = ''
+        generateToast({
+            message: error.message,
+            type: errorToast, 
+            length: '3000ms'
+        })
     }
 })
 
@@ -34,14 +36,19 @@ createPostForm.querySelector('#post-publication').onclick = (event) => {
 
     try {
         createPost(context.userId, image, caption)
-        createPostForm.querySelector('.success-message').textContent = 'Post created'
+        generateToast({
+            message: 'Post created!',
+            type: successToast,
+            length
+        })
         showPosts()
         hide(createPostModal)
     } catch (error) {
-        createPostForm.querySelector('.error-message').textContent = error.message
-    } finally{
-        createPostForm.querySelector('.success-message').innerHTML = ''
-        createPostForm.querySelector('.error-message').innerHTML = ''
+        generateToast({
+            message: error.message,
+            type: errorToast, 
+            length: '3000ms'
+        })
     }
 }
 

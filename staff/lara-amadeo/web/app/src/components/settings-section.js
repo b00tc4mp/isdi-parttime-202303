@@ -4,8 +4,8 @@ import { updatePassword } from "../logic/updatePassword.js"
 import { updateEmail } from "../logic/updateEmail.js"
 import { getImageFromLocal } from "../logic/getImageFromLocal.js"
 import { findUserbyId, retrieveUser } from "../logic/helpers/data-managers.js"
-import { hide, show, toggle, context } from "../ui.js"
-import { renderUser } from "../pages/home-page.js"
+import { hide, show, context, successToast } from "../ui.js"
+import { renderUser } from "../logic/renderUser.js"
 
 export function initSettingsSection(homePage){
 
@@ -57,16 +57,21 @@ homePage.querySelector('#save-update-password').addEventListener('click', functi
 
     try {
         updatePassword(context.userId, currentPassword, newPassword, confirmNewPassword)
-        updatePasswordForm.querySelector('.success-message').textContent = 'Your password has been updated!'
+        generateToast({
+            message: 'Your password has been updated!',
+            type: successToast, 
+            length: '3000ms'
+        })
     } catch (error) {
-        homePage.querySelector('.error-message').textContent = error.message
+        generateToast({
+            message: error.message,
+            type: errorToast, 
+            length: '3000ms'
+        })
     } finally {
         updatePasswordForm.querySelector('input[name=currentPassword]').value = ''
         updatePasswordForm.querySelector('input[name=newPassword]').value = ''
         updatePasswordForm.querySelector('input[name=confirmNewPassword]').value = ''
-        updatePasswordForm.querySelector('.success-message').textContent = ''
-        homePage.querySelector('.error-message').textContent = ''
-
     }
 })
 
@@ -90,16 +95,23 @@ homePage.querySelector('#save-update-email').addEventListener('click', function 
 
     try {
         updateEmail(user.email, currentEmail, newEmail, confirmNewEmail)
-        updateEmailForm.querySelector('.success-message').textContent = "Your email has been updated!"
+        generateToast({
+            message: 'Your email has been updated!',
+            type: successToast, 
+            length: '3000ms'
+        })
         renderUser()
     } catch (error) {
-        updateEmailForm.querySelector('.error-message').textContent = error.message
+        generateToast({
+            message: error.message,
+            type: errorToast, 
+            length: '3000ms'
+        })
     } finally {
         updateEmailForm.querySelector('input[name=currentEmail]').value = ''
         updateEmailForm.querySelector('input[name=newEmail]').value = ''
         updateEmailForm.querySelector('input[name=confirmNewEmail]').value = ''
-        updateEmailForm.querySelector('.success-message').textContent = ''
-        updateEmailForm.querySelector('.error-message').textContent = ''
+
     }
 })
 
@@ -122,9 +134,11 @@ homePage.querySelector('.update-avatar').querySelector('input[name=avatar]').add
             imagePreview.src = srcData
         })
     } catch (error) {
-        homePage.querySelector('.update-avatar').querySelector('.error-message').textContent = error.message
-    } finally{
-        homePage.querySelector('.update-avatar').querySelector('.error-message').textContent = ''
+        generateToast({
+            message: error.message,
+            type: errorToast, 
+            length: '3000ms'
+        })
     }
 })
 
@@ -142,12 +156,17 @@ updateAvatarForm.querySelector('#save-update-avatar').addEventListener('click', 
         context.userAvatar = image
         user.avatar = image
         showPosts()
-        homePage.querySelector('.update-avatar').querySelector('.success-message').textContent = 'Avatar updated!'
+        generateToast({
+            message: 'Avatar updated!',
+            type: successToast, 
+            length: '3000ms'
+        })
     } catch (error) {
-        homePage.querySelector('.update-avatar').querySelector('.error-message').textContent = error.message
-    } finally{
-        homePage.querySelector('.update-avatar').querySelector('.error-message').innerHTML = ''
-        homePage.querySelector('.update-avatar').querySelector('.success-message').innerHTML = ''
+        generateToast({
+            message: error.message,
+            type: errorToast, 
+            length: '3000ms'
+        })
     }
 })
 
@@ -157,7 +176,6 @@ homePage.querySelector('#cancel-update-avatar').addEventListener('click', functi
 
     hide(updateAvatarForm)
     show(settingsSectionMenu)
-    toggle(updateAvatarForm.querySelector('.error-message'))
 })
 
 return { profileSection, settingSection, settingsSectionMenu, updateEmailForm, updatePasswordForm, updateAvatarForm }

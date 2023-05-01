@@ -21,7 +21,11 @@ registerForm.onsubmit = function(event){
     hide(registrationPage)
     show(loginPage)
    } catch (error) {
-    registrationPage.querySelector('.error-message').textContent = error.message
+    generateToast({
+        message: error.message,
+        type: errorToast, 
+        length: '3000ms'
+    })
    }
    finally {
     registrationPage.querySelector('input[name=password]').value = ''
@@ -30,8 +34,3 @@ registerForm.onsubmit = function(event){
 }
 
 //Already an account
-registrationPage.querySelector('a').addEventListener('click', function(event){
-    event.preventDefault()
-    hide(registrationPage)
-    show(loginPage)
-})

@@ -27,7 +27,7 @@
     --red: #F44336;
 }
 
-body{
+.body{
     margin: 0px;
     position: relative;
     display: flex;
@@ -122,7 +122,7 @@ align-items: center;
     display: flex;
     flex-direction:row;
     justify-content: space-between;
-    
+    margin-top: 40px;
 }
 
 .already-account-container{
@@ -176,24 +176,6 @@ color: var(--accent-purple-hover);
 
 .sign-in{
     margin-left: 8px;
-}
-
-.error-message{
-    font-family: 'Inter';
-    font-size: 14px;
-    font-weight: 400;
-    color: var(--red);
-    margin-top: 0px;
-    margin-bottom: 24px;
-}
-
-.success-message{
-    font-family: 'Inter';
-    font-size: 14px;
-    font-weight: 400;
-    color: rgb(13, 142, 11);
-    margin-top: 0px;
-    margin-bottom: 24px;
 }
 
 .homepage{
@@ -647,6 +629,7 @@ padding-right: 40px;
     'wght' 500,
     'GRAD' 0,
     'opsz' 48;
+    color: var(--grey-700)
 }
 /* end feed */
 
@@ -678,8 +661,39 @@ padding-right: 40px;
     margin-bottom: 16px;
 }
 
+.toast-container{
+    position: fixed;
+    top: 32px;
+    right: 60px;
+    display: grid;
+    justify-items: end;
+    gap: 16px;
+    z-index: 100;
+}
 
+.toast{
+    font-family: "Inter";
+    font-size: 16px;
+    font-weight: 400;
+    margin: 0px;
+    color: var(--white);
+    background-color: #032882;
+    animation: toastIt 3000ms cubic-bezier(0.785, 0.135, 0.15, 0.86) forwards;
+    box-shadow: 0px 8px 16px -4px rgba(0, 0, 0, 0.15);
+    padding: 12px 16px 12px 16px;
+    border-radius: 12px;   
+}
 
+@keyframes toastIt {
+ 0%, 100% {
+    transform: translate(150%);
+    opacity: 0;
+ }
+ 10%, 90% {
+    transform: translate(0%);
+    opacity: 1;
+ } 
+}
 
 @media (max-width: 798px){
     .left-container {display: none;}

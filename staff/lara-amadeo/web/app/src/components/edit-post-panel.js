@@ -1,6 +1,6 @@
 import { getImageFromLocal } from "../logic/getImageFromLocal.js"
 import { showPosts } from "../logic/showPosts.js"
-import { hide } from "../ui.js"
+import { hide, generateToast, successToast } from "../ui.js"
 import { posts, savePostInStorage } from "../data.js"
 
 export const editPostModal = document.querySelector('.edit-post-modal')
@@ -16,9 +16,11 @@ export const editPostModal = document.querySelector('.edit-post-modal')
                 imagePreview.src = srcData
             })
         } catch(error){
-            editPostModal.querySelector('.error-message').textContent = error.message
-        } finally {
-            editPostModal.querySelector('.error-message').innerHTML = ''
+            generateToast({
+                message: error.message,
+                type: errorToast, 
+                length: '3000ms'
+            })
         }
     })
     
@@ -37,13 +39,18 @@ export const editPostModal = document.querySelector('.edit-post-modal')
             post.text = postCaption
             savePostInStorage(post)
             showPosts()
-            editPostModal.querySelector('.success-message').innerHTML = 'Post updated'
+            generateToast({
+                message: 'Post updated!',
+                type: successToast,
+                length
+            })
             hide(editPostModal)
         } catch(error){
-            editPostModal.querySelector('.error-message').innerHTML = error.message
-        } finally {
-            editPostModal.querySelector('.success-message').innerHTML = ''
-            editPostModal.querySelector('.success-message').innerHTML = ''
+            generateToast({
+                message: error.message,
+                type: errorToast, 
+                length: '3000ms'
+            })
         }
     }
     
