@@ -1,7 +1,9 @@
 import { Component } from "../library/composito.js";
-import { retrievePosts } from "../logic/retrieve-posts.js";
 import Posts from "../components/posts.js";
 import { context } from "../ui.js";
+import { users } from "../data.js";
+import addPostModal from "../components/add-post-modal.js"
+import Profile from "../components/profile-modal.js";
 
 export default class Home extends Component {
   constructor() {
@@ -22,38 +24,46 @@ export default class Home extends Component {
         </footer>
     </div>`)
 
-      const posts = retrievePosts(context.userId)
-  
-      const _posts = new Posts(posts)
+    try {
+      const main = this.container.querySelector('main')
+      const user = users().find(user => user.id === context.userId)
+      this.container.querySelector('.avatar-image').src = user.avatar
+      this.container.querySelector('a').innerHTML = user.name
+      
+      const _posts = new Posts
+      
+      main.appendChild(_posts.container)
 
-      this.container.querySelector('main').appendChild(_posts.container)
+      this.container.querySelector('.add-post-button').onclick = () => {
+        const addPost = new addPostModal
+        document.body.classList.add('fixed-scroll')
 
-      _posts.onToggleLike = () => {
-        const posts = retrievePosts(context.userId)
+        addPost.refreshPosts = () => _posts.renderPosts()
+        addPost.removeAddPost = () => main.removeChild(addPost.container)
 
-        _posts.refreshPosts(posts)
+        main.appendChild(addPost.container)
+      }
+      
+      this.container.querySelector('.name-avatar-profile').onclick = () => {
+        const profile = new Profile
+        document.body.classList.toggle('fixed-scroll')
+
+        profile.removeProfile = () => this.remove(profile)
+        profile.changeAvatarImage = () => this.container.querySelector('.avatar-image').value = user.avatar
+
+        this.add(profile)
       }
 
-    this.container.querySelector('.add-post-button').onclick = () => {
-      this.showAddPost()
-      // removeOffClass(addPostPanel)
-      // document.body.classList.toggle('fixed-scroll')
-    }
-    
-    this.container.querySelector('.name-avatar-profile').onclick = function () {
-      this.showProfile()
-      // removeOffClass(profilePanel)
-      // document.body.classList.toggle('fixed-scroll')
-    }
+      this.container.querySelector('.logout-button').onclick = () => {
+        this.returnLogin()
+        delete context.userId
+      }
 
-    this.container.querySelector('.logout-button').onclick = function () {
-      this.returnLogin()
-      // addOffClass(homePage)
-      // removeOffClass(loginPage)
-      // delete context.userId
+    }catch (error) {
+      console.log(error);
     }
   }
-
+  
   showAddPost() {
     throw new Error('not overriden')
   }

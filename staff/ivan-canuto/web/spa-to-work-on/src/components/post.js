@@ -2,8 +2,9 @@ import { Component } from "../library/composito.js";
 import { context } from "../ui.js";
 import { users } from "../data.js";
 import { toggleLikePost } from "../logic/toggle-like-post.js";
-import { selectPost } from "../logic/select-unselect-post.js";
-import { unselectPost } from "../logic/select-unselect-post.js";
+import { saveFavoritePost } from "../logic/save-favorite-post.js";
+import { selectPost, unselectPost } from "../logic/select-unselect-post.js";
+import editPostModal from "../components/edit-post-modal.js"
 
 export default class Post extends Component {
   constructor(post) {
@@ -26,43 +27,57 @@ export default class Post extends Component {
       </div>`
     )
 
-    const userPost = this.container.querySelector('.user-post')
-    const likeIcon = userPost.querySelector('.heart-icon')
-    const likesInPost = userPost.querySelector('.likes-post')
-    const favoriteIcon = userPost.querySelector('.favorite-icon')
-    const popUpWindow = userPost.parentElement.querySelector('.pop-up-window')
-    const underImage = userPost.querySelector('.under-image')
-    const closePostButton = this.container.querySelector('.close-post-button')
-    
-    
-    userPost.onclick = function () {
-      selectPost(userPost, likeIcon, likesInPost, favoriteIcon, popUpWindow, underImage)
-    }
-    
-    closePostButton.addEventListener('click', ()=>{
-      document.body.classList.remove('fixed-scroll')
-      unselectPost(userPost, likeIcon, likesInPost, favoriteIcon, popUpWindow, underImage)
-    })
-
-    likeIcon.onclick = () => {
-      toggleLikePost(context.userId, context.postId, userPost)
-
-      this.toggleLike()
-    }
-    // likeIcon.onclick = function () {likePost(context.userId, context.postId, userPost)}
-    favoriteIcon.onclick = function () {saveFavoritePost(context.userId, context.postId, userPost)}
-
-    if (context.userId === post.author) {
-      const editPostButton = this.container.querySelector('.edit-post-button')
-      const editPostPage = this.container.querySelector('.edit-post')
-      const editPostForm = this.container.querySelector('.edit-post-form')
-      editPostButton.onclick = function () {
-        // initEditPostPanel(userPost, post.author, editPostPage, editPostForm)
+    try {
+      const userPost = this.container.querySelector('.user-post')
+      const likeIcon = userPost.querySelector('.heart-icon')
+      const likesInPost = userPost.querySelector('.likes-post')
+      const favoriteIcon = userPost.querySelector('.favorite-icon')
+      const popUpWindow = userPost.parentElement.querySelector('.pop-up-window')
+      const underImage = userPost.querySelector('.under-image')
+      const closePostButton = this.container.querySelector('.close-post-button')
+      
+      if (context.selected === post.id) selectPost(userPost, likeIcon, likesInPost, favoriteIcon, popUpWindow, underImage)
+      
+      userPost.onclick = function () {
+        selectPost(userPost, likeIcon, likesInPost, favoriteIcon, popUpWindow, underImage)
+        context.selected = post.id
       }
+      
+      closePostButton.addEventListener('click', ()=>{
+        document.body.classList.remove('fixed-scroll')
+        unselectPost(userPost, likeIcon, likesInPost, favoriteIcon, popUpWindow, underImage)
+        delete context.selected
+      })
+
+      likeIcon.onclick = () => {
+        toggleLikePost(context.userId, context.postId, userPost)
+
+        this.toggleLikeFav()
+      }
+      
+      favoriteIcon.onclick = () => {
+        saveFavoritePost(context.userId, context.postId, userPost)
+        
+        this.toggleLikeFav()
+      }
+
+      if (context.userId === post.author) {
+        this.container.querySelector('.edit-post-button').onclick = () => {
+          const editPost = new editPostModal(userPost, post)
+          editPost.removeEditPost = () => this.remove(editPost)
+          editPost.refreshPostsFromEdit = () => this.refreshPost()
+          this.add(editPost)
+        }
+      }
+    } catch (error) {
+      console.log(error);
     }
   }
 
-  toggleLike() {
+  toggleLikeFav() {
+    throw new Error('not overriden')
+  }
+  refreshPost() {
     throw new Error('not overriden')
   }
 }

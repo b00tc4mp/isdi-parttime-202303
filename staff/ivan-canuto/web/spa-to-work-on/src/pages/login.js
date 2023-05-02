@@ -2,7 +2,6 @@ import { Component } from "../library/composito.js";
 import { authenticateUser } from "../logic/authenticate-user.js";
 import { context } from "../ui.js";
 
-
 export default class Login extends Component {
   constructor() {
     super(`<div class="login page container">
@@ -16,8 +15,9 @@ export default class Login extends Component {
 
         <p>Go to <a href="">Register</a></p>
     </div>`)
-
-    this.container.querySelector('form').onsubmit = (event) => {
+    
+    const loginForm = this.container.querySelector('form')
+    loginForm.onsubmit = (event) => {
       event.preventDefault();
     
       const email = event.target.email.value;
@@ -25,6 +25,8 @@ export default class Login extends Component {
     
       try {
         context.userId = authenticateUser(email, password);
+
+        loginForm.reset()
 
         this.onAuthenticated()
           
@@ -42,6 +44,8 @@ export default class Login extends Component {
     this.container.querySelector('a').onclick = (event) => {
       event.preventDefault()
     
+      loginForm.reset()
+
       this.onRegisterClick()
     }
   }

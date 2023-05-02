@@ -1,9 +1,9 @@
 import { Component } from "../library/composito.js";
-import { posts } from "../data.js";
 import { context } from "../ui.js";
+import { updatePost } from "../logic/update-post.js"
 
 export default class EditPost extends Component {
-  constructor() {
+  constructor(userPost, post) {
     super(`<div class="edit-post container">
       <form class="edit-post-form">
           <input class="post-url" type="url" name="postImage" placeholder="URL Image">
@@ -14,11 +14,6 @@ export default class EditPost extends Component {
   </div>`)
 
     const editPostForm = this.container.querySelector('.edit-post-form')
-    
-    const post = posts().find(post => post.id === userPost.id)
-    context.postId = userPost.id
-    this.addEditPost()
-    removeOffClass(editPostPage)
     editPostForm.querySelector('input').value = post.image
     editPostForm.querySelector('textarea').value = post.text
 
@@ -30,20 +25,18 @@ export default class EditPost extends Component {
       let postText = editPostForm.querySelector('textarea').value
 
       try {
-        // updatePost(userId, userPost.id, postImageUrl, postText)
+        updatePost(context.userId, userPost.id, postImageUrl, postText)
         this.removeEditPost()
-        addOffClass(editPostPage)
-        // selectPost(userPost, likeIcon, likesInPost, favoriteIcon, popUpWindow, underImage)
-        // renderPosts()
+        this.refreshPostsFromEdit()
         
       } catch (error) {
-        alert(error.message)
+        console.log(error);
       }
     })
 
-    editPostPage.querySelector('.cancel-button').onclick = function () {
+    this.container.querySelector('.cancel-button').onclick = () => {
       editPostForm.reset()
-      addOffClass(editPostPage)
+      this.removeEditPost()
       document.body.classList.toggle('fixed-scroll')
     }
   }
@@ -52,7 +45,7 @@ export default class EditPost extends Component {
     throw new Error('not overriden')
   }
 
-  addEditPost() {
+  refreshPostsFromEdit() {
     throw new Error('not overriden')
   }
 }
