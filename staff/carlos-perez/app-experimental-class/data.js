@@ -321,7 +321,7 @@ export class Users {
     }
 
     addUser = (name, email, password) => {
-        this.users.push(new User(this.idCounter, name, email, password));
+        this.users.push(new User('user'+this.idCounter, name, email, password));
         this.idCounter++;
     }
 
