@@ -1,14 +1,35 @@
-export default function Login(props) {
+import { context } from "../ui.js"
+import authenticateUser from "../logic/authenticateUser.js"
+
+export default function Login({ onRegisterClick, onUserLoggedIn }) {
     function handleRegisterClick(event) {
         event.preventDefault();
 
-        props.onRegisterClick();
+        onRegisterClick();
+    }
+
+    function handleLogin(event) {
+      event.preventDefault();
+
+      const email = event.target.email.value;
+      const password = event.target.password.value;
+
+      try {
+        context.userId = authenticateUser(email, password);
+
+        //loginForm.reset();
+        //hide(loginError);
+
+        onUserLoggedIn();
+      } catch (error) {
+        console.log(error.message);
+      }
     }
 
     return <section className="login">
     <h1 className="title">WELCOME!</h1>
 
-    <form className="form">
+    <form className="form" onSubmit={handleLogin}>
       <input className="input" type="email" name="email" placeholder="Email" />
 
       <input
