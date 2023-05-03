@@ -2,6 +2,7 @@ import { Component } from "./library/composito.js";
 import Login from "./pages/login.js";
 import Register from "./pages/register.js";
 import Home from "./pages/home.js";
+// import EditPostPanel from "../components/edit-post-panel.js";
 import { context } from "./ui.js";
 
 export default class App extends Component {
@@ -19,7 +20,7 @@ export default class App extends Component {
       this.add(login);
     }
 
-    register.onLoginClick = () => {
+    register.onLoginClick = register.onRegistered = () => {
       this.remove(register);
       this.add(login);
     };
@@ -55,6 +56,10 @@ export default class App extends Component {
       this.remove(home);
       this.add(login);
     };
+
+    // home.openEditPostPanel = () => {
+    //   const editPostPanel = new EditPostPanel();
+    // };
 
     return home;
   }

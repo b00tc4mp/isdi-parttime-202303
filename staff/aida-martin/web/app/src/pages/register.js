@@ -37,7 +37,7 @@ export default class Register extends Component {
 
     const registerForm = this.container.querySelector("form");
 
-    this.container.onsubmit = function (event) {
+    this.container.onsubmit = (event) => {
       event.preventDefault();
 
       const name = event.target.name.value;
@@ -49,9 +49,10 @@ export default class Register extends Component {
         registerUser(name, email, password, repeatPassword);
 
         registerForm.reset();
-        alert("registrado");
+
+        this.onRegistered();
       } catch (error) {
-        alert("no registrado");
+        console.log(error.message);
         // errorShow(registerError, error);
       }
     };
@@ -65,6 +66,10 @@ export default class Register extends Component {
 
   //Este método se declara aquí por si se nos olvida declararlo, nos avisa, pero no hace falta
   onLoginClick() {
-    throw new Error("implement me");
+    throw new Error("Not overridden");
+  }
+
+  onRegistered() {
+    throw new Error("Not overridden");
   }
 }

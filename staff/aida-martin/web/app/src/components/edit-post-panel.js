@@ -1,40 +1,32 @@
-import updatePost from "../logic/update-post.js";
-import { context, hide } from "../ui.js";
-import errorShow from "../logic/helpers/error-managers.js";
+import { Component } from "../library/composito.js";
 
-export default function initEditPostPanel(homePage, renderPosts) {
-  const editPostModal = homePage.querySelector(".edit-post-modal");
-  const editPostForm = homePage.querySelector(".edit-post-form");
-  const editPostError = homePage.querySelector(".edit-post-error");
+export default class EditPostPanel extends Component {
+  constructor() {
+    super(`<div class="edit-post-modal">
+    <form class="edit-post-form form">
+      <h2>EDIT YOUR POST</h2>
+      <input class="input" type="hidden" name="postId" />
+      <input
+        class="input"
+        type="url"
+        name="image"
+        placeholder="Image url"
+      />
+      <textarea
+        class="textarea"
+        name="text"
+        cols="30"
+        rows="10"
+        placeholder="Text"
+      ></textarea>
 
-  editPostForm.onsubmit = (event) => {
-    event.preventDefault();
+      <p class="edit-post-error error off"></p>
 
-    const post = event.target.postId.value;
-    const image = event.target.image.value;
-    const text = event.target.text.value;
+      <button class="button" type="submit">UPDATE</button>
+      <button class="button cancel" type="button">CANCEL</button>
+    </form>
+  </div>`);
 
-    try {
-      updatePost(context.userId, post, image, text);
-
-      renderPosts();
-
-      editPostForm.reset();
-
-      document.body.classList.remove("scroll-lock");
-      hide(editPostModal);
-    } catch (error) {
-      errorShow(editPostError, error);
-    }
-  };
-
-  editPostForm.querySelector(".cancel").onclick = (event) => {
-    event.preventDefault();
-
-    editPostForm.reset();
-
-    document.body.classList.remove("scroll-lock");
-    hide(editPostModal);
-  };
-  return { editPostModal, editPostForm };
+    // document.body.classList.add("scroll-lock");
+  }
 }

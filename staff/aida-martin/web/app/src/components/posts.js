@@ -1,48 +1,38 @@
 import { Component } from "../library/composito.js";
 import Post from "./post.js";
+import retrievePosts from "../logic/retrieve-posts.js";
+import retrieveUser from "../logic/retrieve-user.js";
+import { context } from "../ui.js";
 
 export default class Posts extends Component {
-  constructor(posts, currentUser, defaultAvatar) {
+  constructor(defaultAvatar) {
     super(`<section class="posts-list"></section>`);
 
-    posts.forEach((post) => {
-      const _post = new Post(post, currentUser, defaultAvatar);
-
-      _post.onLikeToggled = () => {
-        this.onPostLikeToggled();
-      };
-
-      _post.onSaveToggled = () => {
-        this.onPostSaveToggled();
-      };
-
-      this.add(_post);
-    });
+    this.renderPosts(defaultAvatar);
   }
 
-  onPostLikeToggled() {
-    throw new Error("Not overriden");
-  }
-
-  onPostSaveToggled() {
-    throw new Error("Not overriden");
-  }
-
-  refreshPosts(posts, currentUser, defaultAvatar) {
+  renderPosts(defaultAvatar) {
     this.container.innerHTML = "";
 
-    posts.forEach((post) => {
-      const _post = new Post(post, currentUser, defaultAvatar);
+    try {
+      const posts = retrievePosts(context.userId);
+      const user = retrieveUser(context.userId);
 
-      _post.onLikeToggled = () => {
-        this.onPostLikeToggled();
-      };
+      posts.forEach((post) => {
+        const _post = new Post(post, user, defaultAvatar);
 
-      _post.onSaveToggled = () => {
-        this.onPostSaveToggled();
-      };
+        _post.onLikeToggled = () => {
+          this.renderPosts(user, defaultAvatar);
+        };
 
-      this.add(_post);
-    });
+        _post.onSaveToggled = () => {
+          this.renderPosts(user, defaultAvatar);
+        };
+
+        this.add(_post);
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
   }
 }

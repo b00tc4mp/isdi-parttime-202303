@@ -37,7 +37,6 @@ export function validateUrl(url, explain = "Url") {
 }
 
 export function validateId(id, explain = "User ID") {
-  console.log(id);
   if (typeof id !== "string")
     throw new Error(`${explain} is not a string 😥`, { cause: "userError" });
   if (!id.trim().length)

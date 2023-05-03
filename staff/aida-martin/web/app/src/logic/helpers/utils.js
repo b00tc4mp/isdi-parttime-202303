@@ -1,4 +1,4 @@
-export default function formatDate(date) {
+function formatDate(date) {
   let day = date.getDate();
   day = day < 10 ? `0${day}` : day;
 
@@ -17,4 +17,18 @@ export default function formatDate(date) {
   seconds = seconds < 10 ? `0${seconds}` : seconds;
 
   return `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
+}
+
+export default function formatLikes(post) {
+  const countLikes = (post.likes && post.likes.length) || 0;
+
+  if (countLikes > 1) {
+    return `${countLikes} likes`;
+  }
+
+  if (countLikes === 1) {
+    return `${countLikes} like`;
+  }
+
+  return "";
 }

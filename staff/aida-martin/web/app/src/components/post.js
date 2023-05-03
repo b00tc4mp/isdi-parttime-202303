@@ -1,4 +1,5 @@
 import { Component } from "../library/composito.js";
+import formatLikes from "../logic/helpers/utils.js";
 import toggleLikePost from "../logic/toggle-like-post.js";
 import toggleSavePost from "../logic/toggle-save-post.js";
 import retrieveUser from "../logic/retrieve-user.js";
@@ -6,17 +7,10 @@ import { context } from "../ui.js";
 
 export default class Post extends Component {
   constructor(post, currentUser, defaultAvatar) {
-    const user = retrieveUser(post.author);
-
-    const likeSingular = "like";
-    const likePlural = "likes";
-
-    const countLikes = (post.likes && post.likes.length) || 0;
-
     super(`<article data-id="${post.id}">
     <div class="user-container-post">
-    <img class="post-avatar" src="${user.avatar ? user.avatar : defaultAvatar}">
-    <p class="post-user">${user.name}</p>
+    <img class="post-avatar" src="">
+    <p class="post-user"></p>
     </div>
     <div class="image-container-post">
     <img class="post-image" src="${post.image}">
@@ -25,13 +19,7 @@ export default class Post extends Component {
     <span class="material-symbols-outlined likes ${
       post.likes && post.likes.includes(context.userId) ? "fill" : "unfill"
     }">favorite</span>
-    <p>${
-      countLikes > 1
-        ? `${countLikes} ${likePlural}`
-        : countLikes === 1
-        ? `${countLikes} ${likeSingular}`
-        : ""
-    }</p>
+    <p class="count-likes"></p>
     <span class="material-symbols-outlined saves ${
       currentUser.saves && currentUser.saves.includes(post.id)
         ? "fill"
@@ -46,6 +34,16 @@ export default class Post extends Component {
         : ""
     }
     </article>`);
+
+    const postAuthor = retrieveUser(post.author);
+
+    this.container.querySelector(".post-avatar").src = postAuthor.avatar
+      ? postAuthor.avatar
+      : defaultAvatar;
+
+    this.container.querySelector(".post-user").innerText = postAuthor.name;
+
+    this.container.querySelector(".count-likes").innerText = formatLikes(post);
 
     this.container.querySelector(".likes").onclick = () => {
       toggleLikePost(context.userId, post.id);
