@@ -16,7 +16,11 @@ export default class Alert extends Component {
                 </section>`);
 
     this.container.querySelector(".alert__right--close").onclick = () => {
-      this.onCloseClick();
+      try {
+        this.onCloseClick();
+      } catch (error) {
+        console.log(`close alert error: ${error}`)
+      } 
     };
   }
 

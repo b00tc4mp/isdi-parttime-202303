@@ -1,5 +1,6 @@
 import { svg } from '../../assets/svg-paths.js';
 import { Component } from '../library/mew.js';
+import { clearForms, context, resetAlert } from '../ui/general-tools.js';
 
 export default class NewPost extends Component {
     constructor() {
@@ -10,7 +11,16 @@ export default class NewPost extends Component {
                 </section>`
         );
 
+      this.container.querySelector('button').onclick = event => {
+        event.preventDefault();
+        clearForms();
+        delete context.userAuth
+      }
         
+    }
+
+    onLogoutClick() {
+      throw new Error("not overridden");
     }
   
   }

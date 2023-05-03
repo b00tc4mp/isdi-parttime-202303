@@ -11,39 +11,54 @@ export default class App extends Component {
   constructor() {
     super("<div></div>");
 
-    const login = new Login();
-    const register = new Register();
     const themeToggle = new ThemeToggle();
-    const home = new Home();
-    const navbar = new Navbar();
 
-    login.onRegisterClick = () => {
-      this.remove(login);
-      this.add(register);
-    };
+    if(context.userAuth){
+      const home = new Home();
+      const navbar = new Navbar();
 
-    register.onLoginClick = () => {
-      this.remove(register);
-      this.add(login);
-    };
+      this.add(navbar, home, themeToggle)
+    } else {
+      const login = new Login();
+      const register = new Register();
 
-    login.onAuthenticated = () => {
-      this.remove(login);
-      this.add(navbar, home);
-    };
+      login.onRegisterClick = () => {
+        this.remove(login);
+        this.add(register);
+      };
+  
+      register.onLoginClick = () => {
+        this.remove(register);
+        this.add(login);
+      };
+  
+      login.onAuthenticated = () => {
+        this.remove(login);
+        const navbar = new Navbar();
+        const home = new Home();
+        this.add(navbar, home);
+      };
+  
+      register.onRegistered = () => {
+        const message = `Hello, ${(register.container.querySelector('[name="username"]').value)}! Your account is registered. You can sign in now!`;
+        this.remove(register);
+        this.add(login);
+        const alert = new Alert('success', message, 'Done!');
+        this.add(alert);
+        alert.onCloseClick = () => {
+          this.remove(alert);
+        }
+      };
+  
+  
+      this.add(login, themeToggle)
 
-    register.onRegistered = () => {
-      const message = `Hello, ${(register.container.querySelector('[name="username"]').value)}! Your account is registered. You can sign in now!`;
-      this.remove(register);
-      this.add(login);
-      const alert = new Alert('success', message, 'Done!');
-      this.add(alert);
-      alert.onCloseClick = () => {
-        this.remove(alert);
-      }
-    };
+    }
+    
 
 
-    context.userAuth ? this.add(navbar, home) : this.add(login, themeToggle);
+
+
+
   }
 }

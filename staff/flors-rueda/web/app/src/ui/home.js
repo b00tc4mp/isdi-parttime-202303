@@ -5,13 +5,6 @@ import { retrieveUser } from '../logic/retrieve-user.js'
 import { deleteAccount } from '../logic/delete-account.js';
 import { getMail } from '../logic/data/users/data-managers.js';
 
-export const displayWelcome = (userAuth) => {
-  const alert = document.querySelector('.alert');
-  resetAlert(alert)
-  const user = retrieveUser(userAuth);
-  document.querySelector('.home-page__main--welcome').innerText = `Welcome, ${user.name}! Check what's going on:`;
-}
-
 export const displayProfile = (userAuth) => {
   const user = retrieveUser(userAuth);
   document.querySelector('.name').innerText = user.name;

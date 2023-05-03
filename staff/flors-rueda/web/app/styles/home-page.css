@@ -21,7 +21,7 @@
 
 .home-page__main--welcome {
     color: var(--color-secondary-200);
-    padding: 0.15rem 1.15rem;
+    padding: 0.15rem 1.15rem 1rem;
 }
 
 .home-page__user-profile--buttons {
@@ -75,6 +75,12 @@
     fill: var(--color-secondary-100);
 }
 
+.home-page {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding-bottom: 3.5rem;
+}
 
 @media (min-width: 768px) {
     .home-page__main--posts-list {

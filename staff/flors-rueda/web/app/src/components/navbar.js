@@ -27,8 +27,12 @@ export default class Navbar extends Component {
 
     toggleNav.addEventListener('click', (event)  => {
         event.preventDefault();
-        toggleNav.classList.toggle('close')
-        nav.classList.toggle('show')
+        try {
+            toggleNav.classList.toggle('close')
+            nav.classList.toggle('show') 
+        } catch (error) {
+            console.log(`navbar error: ${error}`)
+        }
       })
   }
 }

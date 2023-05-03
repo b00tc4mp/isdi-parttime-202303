@@ -51,7 +51,11 @@ export default class Register extends Component {
 
     this.container.querySelector('.login-page__change-view--link').onclick = event => {
       event.preventDefault();
-      this.onLoginClick();
+      try {
+        this.onLoginClick();
+      } catch (error) {
+        console.log(`change view error: ${error}`)
+      }
     }
   }
 
