@@ -4,8 +4,8 @@ import { context, hide } from "../ui.js"
 import { msAlert } from "../pages/alert-page.js" 
 
 export default function initAddPostPanel(homePage, renderPosts) {
-    const addPostPanel = homePage.querySelector('.add-post')
-    const addPostFrom = addPostPanel.querySelector('form')
+    const addPostPanel = homePage.querySelector(".add-post")
+    const addPostFrom = addPostPanel.querySelector("form")
 
     addPostFrom.onsubmit = function(event) {
         event.preventDefault()
@@ -25,7 +25,7 @@ export default function initAddPostPanel(homePage, renderPosts) {
         }
     }
 
-    addPostFrom.querySelector('.cancel').onclick = function() {
+    addPostFrom.querySelector(".cancel").onclick = function() {
         addPostFrom.reset()
 
         hide(addPostPanel)

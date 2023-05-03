@@ -8,7 +8,7 @@ export default function authenticateUser(email, password) {
     const user = findUserByEmail(email)
 
     if (!user || user.password !== password) 
-        throw new Error('wrong email or password')
+        throw new Error("wrong email or password")
     
     return user.id
 }

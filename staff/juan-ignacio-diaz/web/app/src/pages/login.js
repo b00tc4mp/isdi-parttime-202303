@@ -1,4 +1,5 @@
 import { Component } from '../library/composito.js'
+import { context } from '../ui.js'
 import { msAlert } from './alert-page.js'
 
 import authenticateUser from '../logic/authenticate-user.js'
@@ -23,10 +24,10 @@ export default class Login extends Component {
             const password = event.target.password.value
         
             try {
-                const userId = authenticateUser(email, password)
+                context.userId = authenticateUser(email, password)
         
                 this.container.querySelector('form').reset()
-                this.onAuthenticated(userId) //openSession(userId)
+                this.onAuthenticated() //openSession(userId)
             }
             catch(error) {
                 msAlert(error.message)
@@ -45,7 +46,7 @@ export default class Login extends Component {
         throw new Error('not overridden')
     }
 
-    onAuthenticated(userId) {
+    onAuthenticated() {
         throw new Error('not overridden')
     }
 }

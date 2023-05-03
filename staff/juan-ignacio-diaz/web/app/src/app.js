@@ -9,45 +9,50 @@ export default class App extends Component {
     constructor() {
         super(`<div></div>`)
 
-        const login = new Login
-        const register = new Register
-        const home = new Home
+        const showLogin = home => {
+            const login = new Login
 
-        login.OnRegisterClick = () => {
-            this.remove(login)
-            this.add(register)
+            login.onRegisterClick = () => {
+                const register = new Register
+
+                register.onLoginClick = () => {
+                    this.remove(register)
+                    this.add(login)
+                }
+
+                register.onRegistered = () => {
+                    this.remove(register)
+                    this.add(login)
+                }
+
+                this.remove(login)
+                this.add(register)
+            }
+
+            login.onAuthenticated = () => {
+                const home = new Home
+
+                home.onLoggedOut = () => {
+                    this.remove(home)
+                    this.add(login)
+                }
+
+                this.remove(login)
+                this.add(home)
+            }
+
+            if (home)
+                this.remove(home)
+            this.add(login)
         }
 
-        login.onAuthenticated = (userId) => {
-            context.userId = userId
-            home.loadPosts()
+        if (context.userId) {
+            const home = new Home
 
-            this.remove(login)
+            home.onLoggedOut = () => showLogin(home)
+
             this.add(home)
-        }
-
-        register.onRegisterSave = () => {
-            this.remove(register)
-            this.add(login)
-        }
-
-        register.onLoginClik = () => {
-            this.remove(register)
-            this.add(login)
-        }
-
-        home.onCloseSession = () => {
-            delete context.userId
-            
-            this.remove(home)
-            this.add(login)
-        }
-
-        if (context.userId && context.userId !== '') {
-            this.add(home)
-        }
-        else 
-            this.add(login)
+        } else showLogin()
     }
 
 }

@@ -2,8 +2,6 @@ import { Component } from '../library/composito.js'
 import { context } from '../ui.js'
 
 import Posts from '../components/posts.js'
-import retrievePosts from "../logic/retrieve-posts.js"
-
 
 export default class Home extends Component {
     constructor() {
@@ -25,6 +23,8 @@ export default class Home extends Component {
     </footer>
 </div>`)
 
+        const main = this.container.querySelector('main')
+
         // this.container.querySelector("a") .onclick = function (event) {
         //     event.preventDefault()
 
@@ -32,57 +32,23 @@ export default class Home extends Component {
         // }
 
         this.container.querySelector("button[name=logout]").onclick = () => {
+            delete context.userId
+            
             //avatarImage.src = DEFAULT_AVATAR_URL
             //homePage.querySelector(".name").innerText  = ""
 
-            this.onCloseSession()
+            this.onLoggedOut()
         }
 
         //addPostButton.onclick = () => show(addPostPanel)
 
-        if (context.userId && context.userId !== '') {
-            const posts = retrievePosts(context.userId)
+        const posts = new Posts
 
-            const tmpPosts = new Posts(posts)
-            
-            tmpPosts.onPostLikeToggled = () => {
-                const posts = retrievePosts(context.userId)
-                
-                tmpPosts.refreshPosts(posts)
-            }
-
-            tmpPosts.onPostSaveToggled = () => {
-                const posts = retrievePosts(context.userId)
-                
-                tmpPosts.refreshPosts(posts)
-            }
-
-            this.container.querySelector('main').appendChild(tmpPosts.container)
-        }
+        main.appendChild(posts.container)
     }
 
-    onCloseSession() {
+    onLoggedOut() {
         throw new Error('not overridden')
-    }
-
-    loadPosts() {
-        const posts = retrievePosts(context.userId)
-
-        const tmpPosts = new Posts(posts)
-        
-        tmpPosts.onPostLikeToggled = () => {
-            const posts = retrievePosts(context.userId)
-            
-            tmpPosts.refreshPosts(posts)
-        }
-
-        tmpPosts.onPostSaveToggled = () => {
-            const posts = retrievePosts(context.userId)
-            
-            tmpPosts.refreshPosts(posts)
-        }
-
-        this.container.querySelector('main').appendChild(tmpPosts.container)
     }
 }
 

@@ -54,6 +54,7 @@ body {
     font-size: medium;
 }
 
+
 .home{
     padding-top: 4rem;
     padding-bottom: 4rem;
@@ -94,7 +95,7 @@ body {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
-.input, .button {
+.input, button {
     font-style: normal;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     border: 2px;
