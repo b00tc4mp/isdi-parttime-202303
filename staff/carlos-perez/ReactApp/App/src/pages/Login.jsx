@@ -1,5 +1,6 @@
 
 import {userExistById, addUser, authenticateUser, getInitials, changePassword, changeMail, retrieveMail, createPost, getPosts} from '../logic.js'
+import {context} from '../main.js'
 
 export default function Login(props) {
     function handleRegisterClick(event) {
@@ -10,9 +11,19 @@ export default function Login(props) {
 
     function handleAuthClick(event){
         event.preventDefault();
-        props.onAuthClick();
         //login
-
+        const email = event.target.email.value;
+        const password = event.target.password.value;
+    
+        try {
+            let activeUser=authenticateUser(email, password);
+            context.userid=activeUser.id;
+            context.userName=activeUser.name;
+            props.onAuthClick();
+        }
+        catch (error) {
+           alert(error.message);
+        }
     }
 
     return <div>
@@ -22,7 +33,7 @@ export default function Login(props) {
         <div className="login contenedor">
             <h3 className="centrar-texto">Acceso</h3>
 
-            <form className="formulario-login">
+            <form className="formulario-login" onSubmit={handleAuthClick}>
                 <div className="campo">
                     <label className="campo__label" for="email">E-mail</label>
                     <input className="campo__field" type="email" placeholder="Tu E-mail" id="email" required />
@@ -33,7 +44,7 @@ export default function Login(props) {
                 </div>
 
                 <div className="campo">
-                    <input type="submit" value="Acceder" className="boton boton--primariom" onClick={handleAuthClick} />
+                    <input type="submit" value="Acceder" className="boton boton--primariom" />
                 </div>
             </form>
             <p>Ir a <a href="" onClick={handleRegisterClick}>Registro</a></p>

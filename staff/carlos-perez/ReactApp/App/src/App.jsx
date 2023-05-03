@@ -7,9 +7,9 @@ import Home from './pages/Home.jsx'
 
 export default class App extends Component {
   constructor(props) {
-      super(props)
+      super(props);
 
-      this.state = { view: 'login' }
+      this.state = { view: 'login' };
   }
 
   handleGoToRegister = () => {
@@ -24,15 +24,11 @@ export default class App extends Component {
     this.setState({ view: 'home' })
   }
 
-  handleAuthClick = () =>{
-    this.setState({ view: 'home' })
-  }
-
   render() {
 
     switch(this.state.view){
-        case 'login': return <Login onRegisterClick={this.handleGoToRegister} />;
-        case 'register': return <Register onLoginClick={this.handleGoToLogin} />;
+        case 'login': return <Login onRegisterClick={this.handleGoToRegister} onAuthClick={this.handleGoToHome}/>;
+        case 'register': return <Register onLoginClick={this.handleGoToLogin}  />;
         case 'home': return <Home />
         default: return <Login onRegisterClick={this.handleGoToRegister} />;
     }

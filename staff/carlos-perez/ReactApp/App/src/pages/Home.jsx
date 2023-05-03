@@ -1,9 +1,14 @@
+import {userExistById, addUser, authenticateUser, getInitials, changePassword, changeMail, retrieveMail, createPost, getPosts} from '../logic.js'
+import {context} from '../main.js'
+
 export default function Home(props) {
     function handlePostClick(event) {
         event.preventDefault()
 
         props.onPostClick()
     }
+
+
 
 return <div className="home contenedor">
 <div className="profile-column">
