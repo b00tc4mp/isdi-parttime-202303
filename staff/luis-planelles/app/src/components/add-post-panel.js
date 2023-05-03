@@ -1,37 +1,39 @@
+import { Component } from '../library/composito.js';
 import createPost from '../logic/create-posts.js';
-import renderPosts from '../pages/posts-page.js';
-import { context, hide } from '../ui.js';
+import { context } from '../ui.js';
 
-const initAddPostPanel = (homePage) => {
-  const addPostPanel = homePage.querySelector('.add-post');
-  const addPostForm = addPostPanel.querySelector('form');
+class AddPostPanel extends Component {
+  constructor() {
+    super(`<section class="add-post container">
+      <form class="container">
+          <input class="input" type="url" name="image" placeholder="image url">
+          <textarea class="input" name="text" cols="30" rows="10" placeholder="text"></textarea>
+          <button class="button" type="submit">Create</button>
+          <button class="button cancel" type="button">Cancel</button>
+      </form>
+  </section>`);
 
-  addPostForm.onsubmit = (event) => {
-    event.preventDefault();
+    this.container.querySelector('.cancel').onclick = (event) => {
+      event.preventDefault();
 
-    const image = event.target.image.value;
-    const text = event.target.text.value;
+      this.onCancel();
+    };
 
-    try {
-      createPost(context.userId, image, text);
+    this.container.querySelector('form').onsubmit = (event) => {
+      event.preventDefault();
 
-      hide(addPostPanel);
+      const image = event.target.image.value;
+      const text = event.target.text.value;
 
-      renderPosts();
-    } catch (error) {
-      alert(error.message);
-    }
-  };
+      try {
+        createPost(context.userId, image, text);
 
-  addPostForm.querySelector('.cancel').onclick = (event) => {
-    event.preventDefault();
+        this.onPostCreated();
+      } catch (error) {
+        alert(error.message);
+      }
+    };
+  }
+}
 
-    addPostForm.reset();
-
-    hide(addPostPanel);
-  };
-
-  return addPostPanel;
-};
-
-export default initAddPostPanel;
+export default AddPostPanel;

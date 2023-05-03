@@ -17,8 +17,8 @@ body {
 
 .container {
   display: flex;
-  flex-direction: column;
   justify-content: center;
+  flex-direction: column;
   align-items: center;
   gap: 0.5rem;
 }
@@ -134,7 +134,7 @@ textarea {
   width: 8rem;
 }
 
-.login-container {
+.credentials-container {
   flex-direction: column;
   width: 100%;
   background-color: rgb(218, 216, 216);
@@ -145,11 +145,11 @@ textarea {
 }
 
 .login * {
-  border: 0;
   display: flex;
-  width: 40%;
   justify-content: center;
   align-items: center;
+  border: 0;
+  width: 40%;
 }
 
 .login .title {
@@ -170,16 +170,6 @@ textarea {
   margin: 1.5rem;
   height: 2rem;
   width: 8rem;
-}
-
-.login-container {
-  flex-direction: column;
-  width: 100%;
-  background-color: rgb(218, 216, 216);
-  max-width: 350px;
-  padding: 2.5rem;
-  box-sizing: border-box;
-  border-radius: 0.4rem;
 }
 
 .home {

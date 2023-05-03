@@ -1,5 +1,5 @@
 import retrieveUser from '../../logic/retrieve-user.js';
-import toggleLikesPost from '../../logic/toggle-like-post.js';
+import toggleLikePost from '../../logic/toggle-like-post.js';
 import { context } from '../../ui.js';
 import createLikeButton from '../button-like.js';
 
@@ -12,7 +12,7 @@ const updateLikesInfo = (likesCount, likesUsers, postLikes) => {
 
 const handleLikeClick = (buttonLike, post, likesCount, likesUsers) => {
   try {
-    const postLikes = toggleLikesPost(post.id, context.userId),
+    const postLikes = toggleLikePost(post.id, context.userId),
       heartIcon = buttonLike.querySelector('.fa-heart');
 
     heartIcon.classList.toggle('fas');

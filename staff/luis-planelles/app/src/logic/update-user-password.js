@@ -1,4 +1,3 @@
-//
 import { saveUser } from '../data.js';
 import { findUserById } from './helpers/data-managers.js';
 import { updatePasswordValidation, validateId } from './helpers/validators.js';
@@ -9,7 +8,7 @@ const updateUserPassword = (
   newPassword,
   newPasswordConfirm
 ) => {
-  validateId(userId, 'updateUserPassword: user id');
+  validateId(userId, 'user id');
 
   const foundUser = findUserById(userId);
   if (!foundUser) throw new Error("user doesn't exists");

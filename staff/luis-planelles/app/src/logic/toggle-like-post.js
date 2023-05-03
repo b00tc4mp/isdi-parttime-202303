@@ -21,7 +21,7 @@ const handlePostLikeUSers = (user, post) => {
   return post;
 };
 
-const toggleLikesPost = (postId, userId) => {
+const toggleLikePost = (postId, userId) => {
   validateId(userId, 'user id');
   validateId(postId, 'post id');
 
@@ -37,4 +37,4 @@ const toggleLikesPost = (postId, userId) => {
   return updatedPost;
 };
 
-export default toggleLikesPost;
+export default toggleLikePost;

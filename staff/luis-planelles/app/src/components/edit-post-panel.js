@@ -1,6 +1,6 @@
 import updatePost from '../logic/update-post.js';
 import renderPosts from '../pages/posts-page.js';
-import { context, hide, show } from '../ui.js';
+import { context } from '../ui.js';
 import getEditPost from './helpers/get-edit-post.js';
 
 const initEditPostPanel = (homePage, post) => {
@@ -29,12 +29,12 @@ const initEditPostPanel = (homePage, post) => {
 
     editPostForm.reset();
 
-    hide(editPostPanel);
+    // hide(editPostPanel);
   };
 
   try {
     getEditPost(post, editPostForm);
-    show(editPostPanel);
+    // show(editPostPanel);
   } catch (error) {
     alert(error.message);
   }
