@@ -37,5 +37,8 @@ ReactDOM.createRoot(document.getElementById('root')).render(
                 - acabar video classes
 
         PREGUNTES:
-            - 
+                - Like Toggle - aplicat amb la funcio al post i a traves de handles fins a home (a traves de posts) per activar un setState per fer re-render? Mala praxis? Alternativa?
+                (sense re-render es feia like pero només es veia al fer refresh)
+
+                - handle log out dsd class Home a App (no acepta la funcion fuera del constructor y dsd dentro no se llama en el render, solucion?)
 */              

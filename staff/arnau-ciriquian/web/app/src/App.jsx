@@ -26,7 +26,6 @@ export default class App extends Component {
     this.setState({ view: 'home' })
   }
 
-
   render() {
     switch (this.state.view) {
       case 'login':
@@ -36,7 +35,7 @@ export default class App extends Component {
         return <Register onLoginClick={this.handleGoToLogin} onUserRegistered={this.handleGoToLogin}/>
 
       case 'home':
-        return <Home />
+        return <Home onLoggedOut={this.handleGoToLogin}/>
     }
   }
 }

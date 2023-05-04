@@ -41,7 +41,7 @@ export default function Login({ onRegisterClick, onUserLoggedIn }) {
             </div>
             <button className="form__button" type="submit">Login</button>
         </form>    
-        <p className="text">Go to <a className="login__anchor--register" href="" onClick={handleRegisterClick}>Register</a></p>
+        <p className="text">Go to <a className="login__anchor--register" href="" >Register</a></p>
     </div>
 </div>
 }

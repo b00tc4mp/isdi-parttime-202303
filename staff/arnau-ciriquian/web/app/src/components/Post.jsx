@@ -1,7 +1,8 @@
-import { users } from "../../data.js"
-import { context } from "../../ui.js"
+import { users } from "../data.js"
+import { context } from "../ui.js"
+import toggleLikePost from "../logic/toggleLikePost.js"
 
-export default function Post({ post: {image, text, date, likes, author} }) {
+export default function Post({ post: {image, text, date, likes, author, id}, onLikePostClick }) {
     const _users = users()
     let avatar
     let name
@@ -10,6 +11,18 @@ export default function Post({ post: {image, text, date, likes, author} }) {
             avatar = user.avatar
             name = user.name
         }
+    }
+
+    function handleLikePostClick(event) {
+        event.preventDefault()
+        
+        try {
+            toggleLikePost(context.userId, id)
+            onLikePostClick()
+        }catch (error) {
+            alert(error.message)
+        }
+
     }
 
     return <article className="inputs__box--feed">
@@ -21,11 +34,9 @@ export default function Post({ post: {image, text, date, likes, author} }) {
             <p className="text">{name}</p>
         </div>
         <time className="text">{date}</time>
-        <img className="like-button" src={likes && likes.includes(context.userId) ? './images/heart-filled.png' : './images/heart-empty.png'} />
+        <img className="like-button" src={likes && likes.includes(context.userId) ? './images/heart-filled.png' : './images/heart-empty.png'} onClick={handleLikePostClick}/>
         <p>{likes ? likes.length : 0}</p>
         {author === context.userId && <button className="post__edit--button">Edit</button>}
     </div>
 </article>
 }
-
-//Falta el like button
