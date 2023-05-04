@@ -7,42 +7,6 @@
     <title>Document</title>
 </head>
 <body>
-    <script>
-        class Component {
-            constructor(template){
-                
-                const parser = new DOMParser
-                this.container = parser.parseFromString(template, "text/html").body.children[0];
-            }
-        }
-
-        class HeloWorld extends Component{
-            constructor(){
-                super(`<h1>Hello World</h1>`)
-            }
-        }
-
-        class Helo extends Component{
-            constructor(name){
-                super(`<h1>Hello ${name}</h1>`)
-            }
-        }
-
-        class List extends Component{
-            constructor(...elements){
-                super(`<ul>${elements.map(element => `<li>${element}</li>`).join("")}</ul>`)
-            }
-        }
-
-        const helloWorld = new HeloWorld();
-        const helloLucas = new Helo("Lucas");
-        const fruitList = new List("Banana", "Orange", "Mango");
-        document.body.append(helloWorld.container ,helloLucas.container, fruitList.container)
-
-    </script>
-
-
-
 
 
     <script src="main.js"></script>
