@@ -1,32 +1,27 @@
-import authenticateUser from '../logic/authenticateUser.js'
-import { context } from '../ui.js'
-import PropTypes from 'prop-types'
+import authenticateUser from "../logic/authenticate-user.js"
 
-export default function Login({onRegisterClick, onUserLoggedIn}) {
-    Login.propTypes = {
-        onRegisterClick: PropTypes.func,
-        onUserLoggedIn: PropTypes.func
-    }
-
+export default function Login(props) {
     function handleRegisterClick(event) {
         event.preventDefault()
   
-        onRegisterClick()
+        props.onRegisterClick()
     }
 
-    function handleLogin(event) {
+    function logUserInClick(event) {
         event.preventDefault()
 
-        const email = event.target.email.value,
-        password = event.target.password.value
-
+        const email = document.querySelector('input[name=email]').value
+        const password = document.querySelector('input[name=password]').value
+        
         try{
             const userId = authenticateUser(email, password)
 
-            context.userId = userId
 
-            onUserLoggedIn()
-        } catch(error){
+
+            if(userId){
+                props.onLoginAttemptClick(userId)
+            }
+        } catch(error) {
             alert(error.message)
         }
     }
@@ -34,7 +29,7 @@ export default function Login({onRegisterClick, onUserLoggedIn}) {
     return <div className="login-page">
     <h1 className="all-titles">LOGIN</h1>
     <div className="red-text"></div>
-    <form className="inputs" onSubmit={handleLogin}>
+    <form className="inputs">
             <input className="input-field" type="email" name="email" placeholder="Email"/>
             <input className="input-field" type="password" name="password" placeholder="Password"/>
             <div className="remember-me">
@@ -43,7 +38,7 @@ export default function Login({onRegisterClick, onUserLoggedIn}) {
             </div>
             <div className="forgot-password">Forgot your <a className="forgot-password-button">password</a>?</div>
             <div className="already-registered">Don't have an account? <a className="register-now-button" onClick={handleRegisterClick}>Register now</a></div>
-            <button className="submit-buttons" type="submit">Login</button>
+            <button className="submit-buttons" type="submit" onClick={logUserInClick}>Login</button>
     </form>
     </div>
   }

@@ -1,27 +1,21 @@
-import PropTypes from 'prop-types'
-import { registerUserFull } from '../logic/registerUser.js'
+import { registerUserFull } from "../logic/register-user.js"
 
-export default function Register({onLoginClick}) {
-    Register.propTypes = {
-        onLoginClick: PropTypes.func
-    }
-    
+export default function Register(props) {
     function handleLoginClick(event) {
         event.preventDefault()
   
-        onLoginClick()
+        props.onLoginClick()
     }
 
-    function handleRegister(event) {
+    function registerUserClick(event) {
         event.preventDefault()
 
-        const email = event.target.email.value
-        const username = event.target.name.value
-        const password = event.target.password.value
-
         try{
-            registerUserFull(email, username, password)
+            const email = document.querySelector('input[name=email]').value
+            const username = document.querySelector('input[name=name]').value
+            const password = document.querySelector('input[name=password]').value
     
+            registerUserFull(email, username, password)
             document.querySelector('form').reset()
         } catch(error){
             alert(error.message)
@@ -31,12 +25,12 @@ export default function Register({onLoginClick}) {
     return <div className="register-page">
     <h1 className="all-titles">REGISTER</h1>
     <div className="red-text"></div>
-    <form className="inputs" onSubmit={handleRegister}>
+    <form className="inputs">
         <input className="input-field" type="text" name="name" placeholder="User name"/>
         <input className="input-field" type="email" name="email" placeholder="Email"/>
         <input className="input-field" type="password" name="password" placeholder="Password"/>
         <div className="secondary-text">Already registered? <a className="go-to-sign-in" onClick={handleLoginClick}>Sign in</a></div>
-        <button className="submit-buttons" type="submit">Register</button>
+        <button className="submit-buttons" type="submit" onClick={registerUserClick}>Register</button>
     </form>
     </div>
   }
