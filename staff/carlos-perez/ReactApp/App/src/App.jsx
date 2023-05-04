@@ -24,6 +24,10 @@ export default class App extends Component {
     this.setState({ view: 'home' })
   }
 
+  /*handlePostClick = () =>{
+    this.setState({ view: 'home'})
+  }*/
+
   render() {
 
     switch(this.state.view){
