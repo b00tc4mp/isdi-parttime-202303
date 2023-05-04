@@ -1,34 +1,34 @@
-function formatDate(date) {
-  let day = date.getDate();
-  day = day < 10 ? `0${day}` : day;
+function formatDate (date) {
+  let day = date.getDate()
+  day = day < 10 ? `0${day}` : day
 
-  let month = date.getMonth() + 1;
-  month = month < 10 ? `0${month}` : month;
+  let month = date.getMonth() + 1
+  month = month < 10 ? `0${month}` : month
 
-  const year = date.getFullYear();
+  const year = date.getFullYear()
 
-  let hours = date.getHours();
-  hours = hours < 10 ? `0${hours}` : hours;
+  let hours = date.getHours()
+  hours = hours < 10 ? `0${hours}` : hours
 
-  let minutes = date.getMinutes();
-  minutes = minutes < 10 ? `0${minutes}` : minutes;
+  let minutes = date.getMinutes()
+  minutes = minutes < 10 ? `0${minutes}` : minutes
 
-  let seconds = date.getSeconds();
-  seconds = seconds < 10 ? `0${seconds}` : seconds;
+  let seconds = date.getSeconds()
+  seconds = seconds < 10 ? `0${seconds}` : seconds
 
-  return `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
+  return `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`
 }
 
-export default function formatLikes(post) {
-  const countLikes = (post.likes && post.likes.length) || 0;
+export default function formatLikes (post) {
+  const countLikes = (post.likes && post.likes.length) || 0
 
   if (countLikes > 1) {
-    return `${countLikes} likes`;
+    return `${countLikes} likes`
   }
 
   if (countLikes === 1) {
-    return `${countLikes} like`;
+    return `${countLikes} like`
   }
 
-  return "";
+  return ''
 }

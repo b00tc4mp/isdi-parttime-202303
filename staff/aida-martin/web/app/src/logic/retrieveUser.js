@@ -1,22 +1,24 @@
-import { validateId } from "./helpers/validators.js";
-import { findUserById } from "./helpers/dataManagers.js";
+import { validateId } from './helpers/validators.js'
+import { findUserById } from './helpers/dataManagers.js'
 
-export default function retrieveUser(userId) {
-  validateId(userId, "User ID");
+export default function retrieveUser (userId) {
+  validateId(userId, 'User ID')
 
-  let user = findUserById(userId);
+  let user = findUserById(userId)
 
-  if (!user) throw new Error("User not found 😥", { cause: "userError" });
+  if (!user) throw new Error('User not found 😥', { cause: 'userError' })
 
   user = {
-    name: user.name.split(" ")[0],
+    name: user.name.split(' ')[0],
     avatar: user.avatar,
-    saves: user.saves,
-  };
-
-  if (user.avatar) {
-    user.avatar = user.avatar;
+    saves: user.saves
   }
 
-  return user;
+  const avatar = user.avatar
+
+  if (user.avatar) {
+    user.avatar = avatar
+  }
+
+  return user
 }

@@ -1,30 +1,50 @@
-//import Posts from "../components/posts.js";
-import { context } from "../ui.js";
-import retrieveUser from "../logic/retrieveUser.js";
+// import Posts from "../components/posts.js";
+import { Component } from 'react'
+import { context } from '../ui.js'
+import retrieveUser from '../logic/retrieveUser.js'
+import { DEFAULT_AVATAR_URL } from '../constans.js'
 
-export default function Home (props) {
-    const DEFAULT_AVATAR_URL =
-    "https://cdn-icons-png.flaticon.com/512/219/219989.png";
-    const currentUser = retrieveUser(context.userId);
+export default class Home extends Component {
+  constructor (props) {
+    super(props)
 
-    //const posts = new Posts(DEFAULT_AVATAR_URL);
+    const { onLogOut } = props
+    this.onLogOut = onLogOut
+    this.state = { view: 'posts', modal: null }
+  }
+  // const posts = new Posts(DEFAULT_AVATAR_URL);
 
-    return <section className="home">
-    <div className="home-header">
-      <h1 className="home-title title">HOME</h1>
+  handleLogOut = () => {
+    context.removeItem('userId')
 
-      <div className="home-header-nav">
-        <img className="avatar home-header-avatar" src={currentUser.avatar ? currentUser.avatar
-      : DEFAULT_AVATAR_URL} alt="" />
-        <a href="" className="profile-link">{currentUser.name}</a>
+    this.onLogOut()
+  }
 
-        <button className="button profile-logout-button">LOG OUT</button>
-      </div>
-    </div>
-    <div className="button-new-post-container">
-    <button className="button new-post-button">NEW POST</button>
-    </div>
+  render () {
+    const currentUser = retrieveUser(context.userId)
 
-    <main className='posts-container'></main>
-  </section>
+    return (
+      <section className='home'>
+        <div className='home-header'>
+          <h1 className='home-title title'>HOME</h1>
+
+          <div className='home-header-nav'>
+            <img
+              className='avatar home-header-avatar' src={currentUser.avatar
+                ? currentUser.avatar
+                : DEFAULT_AVATAR_URL} alt=''
+            />
+            <a href='' className='profile-link'>{currentUser.name}</a>
+
+            <button className='button profile-logout-button' onClick={this.handleLogOut}>LOG OUT</button>
+          </div>
+        </div>
+        <div className='button-new-post-container'>
+          <button className='button new-post-button'>NEW POST</button>
+        </div>
+
+        <main className='posts-container' />
+      </section>
+    )
+  }
 }

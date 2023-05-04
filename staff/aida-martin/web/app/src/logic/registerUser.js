@@ -1,45 +1,45 @@
 import {
   validateName,
   validateEmail,
-  validatePassword,
-} from "./helpers/validators.js";
-import { findUserByEmail } from "./helpers/data-managers.js";
-import { users, saveUsers } from "../data.js";
+  validatePassword
+} from './helpers/validators.js'
+import { findUserByEmail } from './helpers/dataManagers.js'
+import { users, saveUsers } from '../data.js'
 
-export default function registerUser(name, email, password, repeatPassword) {
-  validateName(name);
-  validateEmail(email);
-  validatePassword(password);
+export default function registerUser (name, email, password, repeatPassword) {
+  validateName(name)
+  validateEmail(email)
+  validatePassword(password)
 
-  const foundUser = findUserByEmail(email);
+  const foundUser = findUserByEmail(email)
 
-  if (foundUser)
-    throw new Error("You are already registered! Please login! 😅", {
-      cause: "userError",
-    });
+  if (foundUser) {
+    throw new Error('You are already registered! Please login! 😅', {
+      cause: 'userError'
+    })
+  }
 
-  if (password !== repeatPassword)
-    throw new Error("Passwords do not match 😥", { cause: "userError" });
+  if (password !== repeatPassword) { throw new Error('Passwords do not match 😥', { cause: 'userError' }) }
 
-  let id = "user-1";
+  let id = 'user-1'
 
-  //Con barra baja por hacer una variable "privada". Hacemos esto para no llamar a la función dos veces después en lastUser
-  const _users = users();
+  // Con barra baja por hacer una variable "privada". Hacemos esto para no llamar a la función dos veces después en lastUser
+  const _users = users()
 
-  const lastUser = _users[_users.length - 1];
+  const lastUser = _users[_users.length - 1]
 
   if (lastUser) {
-    id = "user-" + (parseInt(lastUser.id.slice(5)) + 1);
+    id = 'user-' + (parseInt(lastUser.id.slice(5)) + 1)
   }
 
   const user = {
     id,
     name,
     email,
-    password,
-  };
+    password
+  }
 
-  _users.push(user);
+  _users.push(user)
 
-  saveUsers(_users);
+  saveUsers(_users)
 }
