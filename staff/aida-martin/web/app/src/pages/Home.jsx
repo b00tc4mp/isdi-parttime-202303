@@ -3,6 +3,7 @@ import { Component } from 'react'
 import { context } from '../ui.js'
 import retrieveUser from '../logic/retrieveUser.js'
 import { DEFAULT_AVATAR_URL } from '../constans.js'
+import Posts from '../components/Posts.jsx'
 
 export default class Home extends Component {
   constructor (props) {
@@ -12,7 +13,6 @@ export default class Home extends Component {
     this.onLogOut = onLogOut
     this.state = { view: 'posts', modal: null }
   }
-  // const posts = new Posts(DEFAULT_AVATAR_URL);
 
   handleLogOut = () => {
     context.removeItem('userId')
@@ -25,7 +25,7 @@ export default class Home extends Component {
 
     return (
       <section className='home'>
-        <div className='home-header'>
+        <header className='home-header'>
           <h1 className='home-title title'>HOME</h1>
 
           <div className='home-header-nav'>
@@ -38,12 +38,15 @@ export default class Home extends Component {
 
             <button className='button profile-logout-button' onClick={this.handleLogOut}>LOG OUT</button>
           </div>
-        </div>
+        </header>
+
         <div className='button-new-post-container'>
           <button className='button new-post-button'>NEW POST</button>
         </div>
 
-        <main className='posts-container' />
+        <main className='posts-container'>
+          {this.state.view === 'posts' && <Posts currentUser={currentUser} />}
+        </main>
       </section>
     )
   }
