@@ -1,14 +1,13 @@
 import { Component } from 'react'
-import Login from './pages/Login'
-import Register from './pages/Register'
-import Home from './pages/Home'
-import { context } from './ui'
+import Login from './pages/Login.jsx'
+import Register from './pages/Register.jsx'
+import Home from './pages/Home.jsx'
 
 export default class App extends Component {
     constructor(props) {
         super(props)
 
-        this.state = { view: context.userId? 'home' : 'login' }
+        this.state = { view: 'login' }
     }
 
     handleGoToRegister = () => this.setState({ view: 'register' })

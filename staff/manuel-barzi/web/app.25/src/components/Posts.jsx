@@ -1,6 +1,6 @@
-import retrievePosts from '../logic/retrievePosts'
-import Post from './Post'
-import { context } from '../ui'
+import retrievePosts from '../logic/retrievePosts.js'
+import Post from './Post.jsx'
+import { context } from '../ui.js'
 
 export default function Posts() {
     console.log('Posts -> render')

@@ -1,7 +1,7 @@
-import Posts from '../components/Posts'
+import Posts from '../components/Posts.jsx'
 import { Component } from 'react'
-import AddPostModal from '../components/AddPostModal'
-import Profile from '../components/Profile'
+import AddPostModal from '../components/AddPostModal.jsx'
+import Profile from '../components/Profile.jsx'
 
 export default class Home extends Component {
     constructor(props) {
@@ -20,7 +20,7 @@ export default class Home extends Component {
         this.setState({ view: 'profile' })
     }
 
-    handleGoToPosts = () => this.setState({ view: 'posts' }) 
+    handleGoToPosts = () => this.setState({ view: 'posts' })
 
     render() {
         console.log('Home -> render')
@@ -41,10 +41,7 @@ export default class Home extends Component {
                 {this.state.view === 'posts' && <Posts />}
                 {this.state.view === 'profile' && <Profile />}
 
-                {this.state.modal === 'add-post' && <AddPostModal
-                    onCancel={this.handleCloseAddPost}
-                    onPostCreated={this.handleCloseAddPost}
-                />}
+                {this.state.modal === 'add-post' && <AddPostModal onCancel={this.handleCloseAddPost} />}
             </main>
 
             <footer className="home-footer">
