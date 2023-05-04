@@ -1,9 +1,16 @@
 class Component {
-    constructor(template){
-        
-        const parser = new DOMParser
-        this.container = parser.parseFromString(template, "text/html").body.children[0];
+    constructor(templateOrElement){
+        if (typeof templateOrElement === "string"){
+            const parser = new DOMParser
+            this.container = parser.parseFromString(templateOrElement, "text/html").body.children[0];
+
+        } else this.container = templateOrElement;
     }
+
+    add(...components){
+        components.forEach(component => this.container.appendChild(component.container))
+    }
+
 }
 
 class HeloWorld extends Component{
@@ -25,7 +32,8 @@ class List extends Component{
         elements.forEach(element => {
             const item = new Item(element)
 
-            this.container.append(item.container);
+            //this.container.append(item.container);
+            this.add(item)
         })
     }
 }
@@ -47,4 +55,10 @@ class Item extends Component{
 const helloWorld = new HeloWorld();
 const helloLucas = new Helo("Lucas");
 const fruitList = new List("Banana", "Orange", "Mango");
-document.body.append(helloWorld.container ,helloLucas.container, fruitList.container)
+const carList = new List('ferrari', 'tesla', 'lexus', 'dacia')
+
+
+const body = new Component(document.body)
+
+
+body.add(helloWorld ,helloLucas, fruitList, carList)
