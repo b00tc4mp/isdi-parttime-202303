@@ -39,8 +39,8 @@ export default class Login extends Component {
         this.container.querySelector("form").onsubmit = event => {
             event.preventDefault();
 
-            const email = event.target.email.value 
-            const password = event.target.password.value 
+            const email = event.target.email.value = "lucas@gmail.com"
+            const password = event.target.password.value = "LucasDiaz22!!"
 
             try {
                 context.userId = authenticateUser(email, password);
@@ -70,10 +70,10 @@ export default class Login extends Component {
     }
 
     onRegisterClick() {
-        throw new Error ("not overridden")
+        throw new Error("not overridden")
     }
 
     onAuthenticated() {
-        throw new Error ("not overridden")
+        throw new Error("not overridden")
     }
 }
