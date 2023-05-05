@@ -1,6 +1,6 @@
-import Component from "../library/composito";
-import authenticateUser from "../logic/authenticate-user";
-import { context } from "../ui";
+import Component from "../library/composito.js";
+import authenticateUser from "../logic/authenticate-user.js";
+import { context } from "../ui.js";
 
 
 export default class Login extends Component {
@@ -39,8 +39,8 @@ export default class Login extends Component {
         this.container.querySelector("form").onsubmit = event => {
             event.preventDefault();
 
-            const email = event.target.email.value = "lucas@gmail.com"
-            const password = event.target.password.value = "LucasDiaz22!!"
+            const email = event.target.email.value 
+            const password = event.target.password.value 
 
             try {
                 context.userId = authenticateUser(email, password);
