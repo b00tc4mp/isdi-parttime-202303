@@ -1,15 +1,18 @@
 import Posts from '../components/Posts.jsx'
-import { findUserById } from '../logic/helpers/dataManagers.js'
-import { context } from '../ui.js'
+import { findUserById } from '../logic/helpers/dataManagers'
+import { context } from '../ui'
 import { Component } from 'react'
-import AddPostModal from '../components/addPostModal.jsx'
-import Profile from '../components/Profile.jsx'
+import AddPostModal from '../components/AddPostModal'
+import ChangeEmail from '../components/ChangeEmail'
+import ChangePassword from '../components/ChagePassword'
+import ChangeAvatar from '../components/ChangeAvatar'
+import Profile from '../components/Profile'
 import PropTypes from 'prop-types'
 
 export default class Home extends Component {
     constructor(props){
         super(props)
-        
+
         Home.propTypes = {
             onLogout: PropTypes.func
         }
@@ -17,19 +20,25 @@ export default class Home extends Component {
         this.state = { modal: null }
     }
 
-    handleAddPost = () => this.setState({ modal: 'add-post'})
+    handleCloseModal = () => this.setState({ modal: null })
+    
+    handleOpenAddPost = () => this.setState({ modal: 'add-post'})
 
-    handleCancelAddPost = () => this.setState({ modal: null })
+    handleOpenProfile = () => this.setState({ modal: 'profile'})
 
-    handleProfile = () => this.setState({ modal: 'profile'})
+    handleOpenChangeEmail = () => this.setState({ modal: 'change-email'})
 
-    handleCancelProfile = () => this.setState({ modal: null })
+    handleOpenChangePassword = () => this.setState({ modal: 'change-password'})
+
+    handleOpenChangeAvatar = () => this.setState({ modal: 'change-avatar'})
+
+    handleLikeToggled = () => this.setState({modal: null})
 
     handleLogout = (event) => {
         event.preventDefault()
 
         delete context.userId
-
+        
         this.props.onLogout()
     }
     
@@ -42,8 +51,8 @@ export default class Home extends Component {
             <nav>
                 <ul className="horizontal-menu">
                     <li name="home"><a href="#" className="menu-buttons"><i className="uil uil-home"></i><span className="menu-text">Home</span></a></li>
-                    <li name="new-post" onClick={this.handleAddPost}><a href="#" className="menu-buttons"><i className="uil uil-camera-plus"></i><span className="menu-text">Post</span></a></li>
-                    <li name="my-profile" onClick={this.handleProfile}>
+                    <li name="new-post" onClick={this.handleOpenAddPost}><a href="#" className="menu-buttons"><i className="uil uil-camera-plus"></i><span className="menu-text">Post</span></a></li>
+                    <li name="my-profile" onClick={this.handleOpenProfile}>
                         <img src={user.avatar || 'https://i.pinimg.com/originals/f1/0f/f7/f10ff70a7155e5ab666bcdd1b45b726d.jpg'} alt="" className="user-avatar"/>
                         <a href="#" className="menu-buttons"><span className="menu-text" name="authenticated-user-name">Profile</span></a>
                     </li>
@@ -52,11 +61,34 @@ export default class Home extends Component {
             </nav>
         </header>
         <main className="post-list">
-            <Posts />
+            <Posts onLikeToggled={this.handleLikeToggled}/>
 
-            {this.state.modal === 'add-post' && <AddPostModal onCancel={this.handleCancelAddPost}/>}
+            {this.state.modal === 'add-post' && <AddPostModal 
+                onCancel={this.handleCloseModal} 
+                onPostCreated={this.handleCloseModal}
+            />}
 
-            {this.state.modal === 'profile' && <Profile onCancel={this.handleCancelProfile}/>}
+            {this.state.modal === 'profile' && <Profile 
+                onCancel={this.handleCloseModal}
+                onChangeEmail={this.handleOpenChangeEmail}
+                onChangePassword={this.handleOpenChangePassword}
+                onChangeAvatar={this.handleOpenChangeAvatar}
+            />}
+
+            {this.state.modal === 'change-email' && <ChangeEmail
+                onCancel={this.handleCloseModal}
+                onEmailChanged={this.handleCloseModal}
+            />}
+
+            {this.state.modal === 'change-password' && <ChangePassword
+                onCancel={this.handleCloseModal}
+                onPasswordChanged={this.handleCloseModal}
+            />}
+
+            {this.state.modal === 'change-avatar' && <ChangeAvatar
+                onCancel={this.handleCloseModal}
+                onAvatarChanged={this.handleCloseModal}
+            />}
         </main>
     </div>
     }

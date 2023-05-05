@@ -1,6 +1,6 @@
 console.log('load data managers')
 
-import { users, posts } from "../../data.js"
+import { users, posts } from "../../data"
 
 export const findUserById = (userId) => {
     return  users().find(user => user.id === userId)

@@ -1,13 +1,9 @@
-import { findUserById } from './helpers/data-managers.js'
-import { validateEmail, checkNewUser } from './helpers/validators.js'
-import { users, saveUser } from '../data.js'
+import { findUserById } from './helpers/dataManagers'
+import { validateEmail, checkNewUser } from './helpers/validators'
+import { users, saveUser } from '../data'
 
-export const changeEmail = (userId, homePage, changeEmailMenu) => {
-    var userPreviousEmail = homePage.querySelector('input[name=previous-email]').value
-    var userNewEmail = homePage.querySelector('input[name=new-email]').value
-    var userPassword = homePage.querySelector('input[name=change-email-pass]').value
-
-    var foundUser = findUserById(userId)
+export const changeEmail = (userId, userPreviousEmail, userNewEmail, userPassword) => {
+    const foundUser = findUserById(userId)
 
     if(userPreviousEmail !== foundUser.email) throw new Error('Email or password incorrect', {cause: "ownError"})
 
@@ -18,9 +14,9 @@ export const changeEmail = (userId, homePage, changeEmailMenu) => {
     if(userPassword !== foundUser.password) throw new Error('Email or password incorrect2', {cause: "ownError"})
 
     foundUser.email = userNewEmail
-    changeEmailMenu.querySelector('.red-text').textContent = 'Email succesfully changed'
-    changeEmailMenu.querySelector('.red-text').classList.add('green-text')
-    changeEmailMenu.querySelector('form').reset()
+    // changeEmailMenu.querySelector('.red-text').textContent = 'Email succesfully changed'
+    // changeEmailMenu.querySelector('.red-text').classList.add('green-text')
+    // changeEmailMenu.querySelector('form').reset()
 
     saveUser(foundUser)
 }

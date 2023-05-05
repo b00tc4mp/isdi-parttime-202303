@@ -1,5 +1,5 @@
 import { validateId, validateText, validateUrl } from "./helpers/validators"
-import { users, posts, savePost } from "../data.js"
+import { users, posts, savePost } from "../data"
 
 
 export default function editPost(userId, postId, image, text) {

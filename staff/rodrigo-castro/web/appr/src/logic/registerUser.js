@@ -1,7 +1,7 @@
 console.log('load register user')
 
-import { saveUsers, users } from "../data.js"
-import { checkNewUser, validateName, validateEmail, validatePassword } from "./helpers/validators.js"
+import { saveUsers, users } from "../data"
+import { checkNewUser, validateName, validateEmail, validatePassword } from "./helpers/validators"
 
 export const registerNewUser = (userName, userEmail, userPassword, id) => {
     users.push({

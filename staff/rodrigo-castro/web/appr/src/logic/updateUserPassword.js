@@ -1,13 +1,8 @@
-import { validateId, validatePassword } from './helpers/validators.js'
-import { findUserById } from './helpers/data-managers.js'
-import { saveUser } from '../data.js'
+import { validateId, validatePassword } from './helpers/validators'
+import { findUserById } from './helpers/dataManagers'
+import { saveUser } from '../data'
 
-export const changePassword = (userId, changePasswordMenu) => {
-    var previousPassword = changePasswordMenu.querySelector('.previous-password').value
-    var newPassword = changePasswordMenu.querySelector('.new-password').value
-    var newPasswordRepeated = changePasswordMenu.querySelector('.repeat-new-password').value
-    
-    
+export const changePassword = (userId, previousPassword, newPassword, newPasswordRepeated) => {
     validateId(userId)
     validatePassword(previousPassword)
     validatePassword(newPassword, 'new password')
@@ -22,14 +17,13 @@ export const changePassword = (userId, changePasswordMenu) => {
 
     if(newPassword === previousPassword) throw new Error('New password must be different than previous', {cause: "ownError"})
 
-
     if(newPasswordRepeated !== newPassword) throw new Error (`New passwords don't match`, {cause: "ownError"})
 
     foundUser.password = newPassword
     
-    changePasswordMenu.querySelector('.red-text').textContent = 'Password succesfully changed'
-    changePasswordMenu.querySelector('.red-text').classList.add('green-text')
-    changePasswordMenu.querySelector('form').reset()
+    // changePasswordMenu.querySelector('.red-text').textContent = 'Password succesfully changed'
+    // changePasswordMenu.querySelector('.red-text').classList.add('green-text')
+    // changePasswordMenu.querySelector('form').reset()
 
     saveUser(foundUser)
 }

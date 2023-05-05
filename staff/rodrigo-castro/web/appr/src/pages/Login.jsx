@@ -1,5 +1,5 @@
-import authenticateUser from '../logic/authenticateUser.js'
-import { context } from '../ui.js'
+import authenticateUser from '../logic/authenticateUser'
+import { context } from '../ui'
 import PropTypes from 'prop-types'
 
 export default function Login({onRegisterClick, onUserLoggedIn}) {

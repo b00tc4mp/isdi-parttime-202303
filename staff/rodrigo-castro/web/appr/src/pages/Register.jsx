@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { registerUserFull } from '../logic/registerUser.js'
+import { registerUserFull } from '../logic/registerUser'
 
 export default function Register({onLoginClick}) {
     Register.propTypes = {

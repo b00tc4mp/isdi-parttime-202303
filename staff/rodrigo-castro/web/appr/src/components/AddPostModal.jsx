@@ -1,11 +1,11 @@
-import { context } from '../ui.js'
 import PropTypes from 'prop-types'
-// import createPost from '../logic/createPost.js'
+import { context } from '../ui'
+import { createPost } from '../logic/createPost'
 
-export default function AddPostModal({ onCancel, onPost }) {
+export default function AddPostModal({ onCancel, onPostCreated }) {
     AddPostModal.propTypes = {
         onCancel: PropTypes.func,
-        onPost: PropTypes.func
+        onPostCreated: PropTypes.func
     }
     
     function handleCancel (event) {
@@ -14,22 +14,23 @@ export default function AddPostModal({ onCancel, onPost }) {
         onCancel()
     }
 
-    // function handlePost (event) {
-    //     event.preventDefault()
+    function handleCreatePost (event) {
+        event.preventDefault()
 
-    //     const url = event.target.url.value,
-    //     text = event.target.text.value
+        const image = event.target.url.value,
+        text = event.target.text.value
 
-    //     try{
+        try{
+            createPost(context.userId, image, text)
 
-    //         onPost()
-    //     } catch(error){
-    //         alert(error.message)
-    //     }
-    // }
+            onPostCreated()
+        } catch(error){
+            alert(error.message)
+        }
+    }
 
     return <section className="modal-window" name="modal-new-post">
-    <form className="form-new-post" action="">
+    <form className="form-new-post" action="" onSubmit={handleCreatePost}>
         <input className="input-field" type="url" name="url" placeholder="Insert image url"/>
         <textarea name="text" cols="30" rows="10" className="post-text input-field" placeholder="Insert caption"></textarea>
         <div className="buttons">
