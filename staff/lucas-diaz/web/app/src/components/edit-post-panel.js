@@ -31,7 +31,7 @@ export default function initEditPostPanel (postsListPanel, renderPosts) {
             alert(error.message)
             failPostMessage.textContent = error.message;
         }
-    }
+    } 
     editPostModalCancelButton.onclick = (event) => {
         event.preventDefault();
         hide(editPostModal);
@@ -40,3 +40,6 @@ export default function initEditPostPanel (postsListPanel, renderPosts) {
 
     return {editPostModal, editPostModalForm }
 }
+
+//hola
+//hola
