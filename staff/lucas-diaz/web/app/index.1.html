@@ -17,54 +17,7 @@
 </head>
 
 <body>
-    <section class="register off">
-        <h1 class="register-header">REGISTER</h1>
-        <p class="fail-warning red"></p>
-        <form class="form">
-            <div class="input-box">
-                <label>your username</label>
-                <input type="text" class="form-username" name="name" placeholder="Enter username">
-            </div>
-            <div class="input-box">
-                <label>your email</label>
-                <input type="email" class="form-email" name="email" placeholder="Enter email"
-                    autocomplete="current-password">
-            </div>
-            <div class="input-box">
-                <label>your password</label>
-                <input type="password" name="password" placeholder="Enter password" class="form-password"
-                    autocomplete="current-password">
-            </div>
-            <button type="submit" class="submit-button sign-up">SIGN UP</button>
-        </form>
-    </section>
 
-    <section class="login off">
-        <h1 class="login-header">LOG IN</h1>
-        <p class="login-success-warning green off">User created successfully</p>
-        <p class="fail-warning red"></p>
-        <form class="form">
-            <div class="input-box">
-                <label>your email</label>
-                <input type="email" class="form-email" name="email" placeholder="Enter email" autocomplete="current-password">
-            </div>
-            <div class="input-box">
-                <label>your password</label>
-                <input type="password" class="form-password" name="password" placeholder="Enter password" autocomplete="current-password">
-            </div>
-            <div class="login-other-options">
-                <div class="login-other-options-remember-me">
-                    <input type="checkbox" name="remember" id="log-in-checkbox">
-                    <label for="log-in-checkbox">Remember me</label>
-                </div>
-                <a class="forgot-password-anchor green" href="">Forgot password?</a>
-            </div>
-            <button type="submit" class="submit-button log-in">LOG IN</button>
-            <p class="initialize-register">
-                not a member? <a href="" class="login-register-anchor green">register here</a>
-            </p>
-        </form>
-    </section>
 
     <section class="home off">
         <header class="home-header">
@@ -78,14 +31,16 @@
                     alt="default avatar">
                 <h2 class="home-header-user-welcome-msj"></h2>
             </div>
+            <nav class="home-menu">
+                <ul>
+                    <li><a href="" class="home-menu-change-pass-anchor">change password</a></li>
+                    <li><a href="" class="home-menu-avatar-anchor">Avatar</a></li>
+                    <li><a href="" class="home-menu-option3">option 3</a></li>
+                </ul>
+            </nav>
         </header>
-        <nav class="home-menu">
-            <ul>
-                <li><a href="" class="home-menu-change-pass-anchor">change password</a></li>
-                <li><a href="" class="home-menu-avatar-anchor">Avatar</a></li>
-                <li><a href="" class="home-menu-option3">option 3</a></li>
-            </ul>
-        </nav>
+
+
         <div class="change-password-menu menu-page off">
             <h3>UPDATE PASSWORD</h3>
             <p>To change current password, provide a new one</p>
@@ -121,12 +76,12 @@
         </div>
         <p class="success-password-change-advise green off">Changes succesfully done</p>
         <p class="success-avatar-warning green off">Avatar uploaded succesfully</p>
-
         <section class="home-posts-content ">
             <!--INPLEMENT ME-->
         </section>
+        
     </section>
-
+    
     <section class="home-add-post-modal off">
         <form class="form">
             <label for="url">Create post:</label>
@@ -154,9 +109,13 @@
         </form>
     </section>
 
+
+
     <footer class="footer off">
         <button class="footer-button button"> + </button>
     </footer>
+
+
     <script type="module" src="src/main.js"></script>
 </body>
 

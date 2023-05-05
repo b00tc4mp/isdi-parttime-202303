@@ -36,18 +36,18 @@ export default class Login extends Component {
         const logInForm = this.container.querySelector(".login form");
         const loginRegistrationAnchor = this.container.querySelector(".login-register-anchor");
 
-        this.container.querySelector("form").onsubmit = function (event) {
+        this.container.querySelector("form").onsubmit = event => {
             event.preventDefault();
 
-            const email = event.target.email.value
-            const password = event.target.password.value
+            const email = event.target.email.value = "lucas@gmail.com"
+            const password = event.target.password.value = "LucasDiaz22!!"
 
             try {
                 context.userId = authenticateUser(email, password);
                 failLogInAdvice.textContent = "";
                 logInForm.reset();
 
-                alert("TODO go to home")
+                this.onAuthenticated();
 
             } catch (error) {
                 failLogInAdvice.textContent = error.message;
@@ -66,10 +66,14 @@ export default class Login extends Component {
             event.preventDefault();
         })
 
-        
+
     }
 
     onRegisterClick() {
-        console.log("Go to register")
+        throw new Error ("not overridden")
+    }
+
+    onAuthenticated() {
+        throw new Error ("not overridden")
     }
 }

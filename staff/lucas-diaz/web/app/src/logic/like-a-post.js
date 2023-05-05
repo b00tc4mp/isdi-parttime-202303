@@ -5,7 +5,6 @@ import { validateId } from "./helpers/validators";
 
 export default function likeAPost(userId, post, likeIcon, likeIconText){
     validateId(userId);
-
     let foundUser = findUserById(userId);
     let foundPost = findUserPostByPostId(post.id);
 
@@ -21,16 +20,17 @@ export default function likeAPost(userId, post, likeIcon, likeIconText){
         const foundUserIndex = foundPost.likeCounter.indexOf(foundUser.id)
         foundPost.likeCounter.splice(foundUserIndex,1);
         
-        likeIconText.textContent = `${foundPost.likeCounter.length} likes`
+        likeIconText.textContent = `${foundPost.likeCounter.length} ${foundPost.likeCounter.length === 1 ? "like" : "likes"}`
         savePost(foundPost);
         saveUser(foundUser);
         return;
     }
     
-
     foundUser.likedPosts.push(foundPost.id);
     foundPost.likeCounter.push(foundUser.id);
-    likeIconText.textContent = `${foundPost.likeCounter.length} likes`
+
+    likeIconText.textContent = `${foundPost.likeCounter.length} ${foundPost.likeCounter.length === 1 ? "like" : "likes"}`
+    
     likeIcon.classList.add("material-symbols-rounded-liked");
     savePost(foundPost);
     saveUser(foundUser);

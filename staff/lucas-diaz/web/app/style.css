@@ -229,6 +229,7 @@ label{
     flex-flow: row wrap;
     justify-content: center;
     gap: 1rem;
+    background-color: #1e1f22;
 }
 .home-posts-content article {
     padding: 1rem;

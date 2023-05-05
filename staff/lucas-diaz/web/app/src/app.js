@@ -1,6 +1,7 @@
-import Component from "./library/composito";
+import Component from "./library/composito.js";
 import Login from "./pages/login.js"
-import Register from "./pages/register";
+import Register from "./pages/register.js";
+import Home from "./pages/home.js";
 
 export default class App extends Component{
     constructor(){
@@ -8,6 +9,7 @@ export default class App extends Component{
 
         const login = new Login
         const register = new Register
+        const home = new Home
 
 
         login.onRegisterClick = () => {
@@ -18,6 +20,11 @@ export default class App extends Component{
         register.onRegisterForm = () => {
             this.remove(register);
             this.add(login);
+        }
+
+        login.onAuthenticated = () => {
+            this.remove(login);
+            this.add(home)
         }
 
         this.add(login)
