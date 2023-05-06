@@ -1,10 +1,29 @@
+import { useState } from 'react'
+
 import { DEFAULT_AVATAR_URL } from '../constans'
 import { context } from '../ui.js'
 import retrieveUser from '../logic/retrieveUser'
 import formatLikes from '../logic/helpers/utils.js'
+import toggleLikePost from '../logic/toggleLikePost.js'
+import toggleSavePost from '../logic/toggleSavePost.js'
 
 export default function Post ({ currentUser, post }) {
   const postAuthor = retrieveUser(post.author)
+
+  const [isLiked, setIsLiked] = useState(post.likes && post.likes.includes(context.userId))
+  const [isSaved, setIsSaved] = useState(currentUser.saves && currentUser.saves.includes(post.id))
+  const [likeText, setLikeText] = useState(formatLikes(post))
+
+  function handleLikePost () {
+    const _post = toggleLikePost(context.userId, post.id)
+    setIsLiked(!isLiked)
+    setLikeText(formatLikes(_post))
+  }
+
+  function handleSavePost () {
+    toggleSavePost(context.userId, post.id)
+    setIsSaved(!isSaved)
+  }
 
   return (
     <article data-id={post.id}>
@@ -16,11 +35,10 @@ export default function Post ({ currentUser, post }) {
         <img className='post-image' src={post.image} />
       </div>
       <div className='likes-saves-container'>
-        <span className={`material-symbols-outlined likes ${post.likes && post.likes.includes(context.userId) ? 'fill' : 'unfill'}`}>favorite</span>
-        <p className='count-likes'>{formatLikes(post)}</p>
-        <span className={`material-symbols-outlined saves ${currentUser.saves && currentUser.saves.includes(post.id)
-        ? 'fill'
-        : 'unfill'}`}
+        <span className={`material-symbols-outlined likes ${isLiked ? 'fill' : 'unfill'}`} onClick={handleLikePost}>favorite</span>
+        <p className='count-likes'>{likeText}</p>
+        <span
+          className={`material-symbols-outlined saves ${isSaved ? 'fill' : 'unfill'}`} onClick={handleSavePost}
         >bookmark
         </span>
       </div>

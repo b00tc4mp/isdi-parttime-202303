@@ -1,5 +1,5 @@
 import { validateId } from './helpers/validators.js'
-import { findPostById, findUserById } from './helpers/data-managers'
+import { findPostById, findUserById } from './helpers/dataManagers.js'
 import { savePost } from '../data.js'
 
 export default function toggleLikePost (userId, postId) {
@@ -31,4 +31,5 @@ export default function toggleLikePost (userId, postId) {
   }
 
   savePost(post)
+  return post
 }

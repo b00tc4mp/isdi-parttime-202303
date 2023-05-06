@@ -44,7 +44,7 @@ export default class Home extends Component {
           <button className='button new-post-button'>NEW POST</button>
         </div>
 
-        <main className='posts-container'>
+        <main className='main-container'>
           {this.state.view === 'posts' && <Posts currentUser={currentUser} />}
         </main>
       </section>

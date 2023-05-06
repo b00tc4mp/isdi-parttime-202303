@@ -39,7 +39,7 @@ body {
   flex-direction: column;
 }
 
-.posts-container {
+.main-container {
   display: flex;
   flex-direction: column;
 }
