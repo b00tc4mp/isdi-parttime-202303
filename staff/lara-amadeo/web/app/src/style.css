@@ -27,7 +27,7 @@
     --red: #F44336;
 }
 
-.body{
+#root{
     margin: 0px;
     position: relative;
     display: flex;
@@ -123,6 +123,13 @@ align-items: center;
     flex-direction:row;
     justify-content: space-between;
     margin-top: 40px;
+}
+
+.centered-content-container{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
 }
 
 .already-account-container{
@@ -392,7 +399,7 @@ color: var(--accent-purple-hover);
 /* settings */
 
 .settings{
-    width: auto;
+    width: 100%;
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -400,7 +407,9 @@ color: var(--accent-purple-hover);
     margin-top: 10px;
     padding-left: 40px;
     padding-right: 40px;
+    box-sizing: border-box;
 }
+
 
 /* profile */
 .profile{
@@ -634,7 +643,8 @@ padding-right: 40px;
 /* end feed */
 
 .profile-navigation-container{
-    width: 100%;
+    max-width: 350px;
+    min-width: 343px;
     display: flex;
     flex-direction: column;
     gap: 8px;

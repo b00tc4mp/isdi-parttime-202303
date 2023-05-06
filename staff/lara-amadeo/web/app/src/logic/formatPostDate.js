@@ -1,4 +1,4 @@
-export function formatPostDate(postDate){
+export default function formatPostDate(postDate){
 
     const currentDate = new Date()
     const currentDateDay = currentDate.getDate()

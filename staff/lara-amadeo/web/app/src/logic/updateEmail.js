@@ -1,14 +1,15 @@
 import { saveUserInStorage } from "../data.js"
-import { findUserbyEmail } from "./helpers/data-managers.js"
+import { findUserbyId } from "./helpers/data-managers.js"
+import { context } from "../ui.js"
 
-export const updateEmail = (email, currentEmail, newEmail, confirmNewEmail) => {
+export const updateEmail = (currentEmail, newEmail, confirmNewEmail) => {
 
-    const user = findUserbyEmail(email)
+    const user = findUserbyId(context.userId)
 
     if (!user)
     throw new Error('User not found')
 
-    if (currentEmail !== email)
+    if (currentEmail !== user.email)
     throw new Error('Invalid current email')
 
     if (currentEmail === newEmail)
@@ -18,7 +19,6 @@ export const updateEmail = (email, currentEmail, newEmail, confirmNewEmail) => {
     throw new Error('New emails do not match')
 
     user.email = newEmail
-    email = newEmail
 
     saveUserInStorage(user)
 }

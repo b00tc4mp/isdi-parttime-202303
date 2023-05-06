@@ -1,7 +1,7 @@
 import { posts, savePostsInStorage } from "../data.js";
 import { findUserbyId } from "./helpers/data-managers.js";
 
-export function createPost(userId, image, text) {
+export default function createPost(userId, image, text) {
 
     const user = findUserbyId(userId)
 

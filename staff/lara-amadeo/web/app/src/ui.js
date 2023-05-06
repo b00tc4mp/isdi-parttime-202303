@@ -1,16 +1,4 @@
-export function show(...containers){
-    for (const container of containers)
-    container.classList.remove('off')
-}
 
-export function hide(...containers){
-    for  (const container of containers)
-    container.classList.add('off')
-}
-export function toggle(...containers){
-    for (const container of containers)
-    container.classList.toggle('off')
-}
 
 export const context = sessionStorage
 
@@ -21,7 +9,7 @@ export const successToast = '#4CAF50'
 export const errorToast = '#F44336'
 
 function initToast(){
-    document.body.insertAdjacentHTML('afterbegin', `<div class="toast-container"></div>`)
+    document.body.insertAdjacentHTML('afterbegin', `<div className="toast-container"></div>`)
 
     toastContainer = document.querySelector('.toast-container')
 }
@@ -32,7 +20,7 @@ export function generateToast({
     type = '#8F8F8F',
     length = '3000ms'
 }){
-    toastContainer.insertAdjacentHTML('beforeend', `<p class="toast" style="background-color: ${type}; animation-duration: ${length}"> ${message}</p>`)
+    toastContainer.insertAdjacentHTML('beforeend', `<p className="toast" style="background-color: ${type}; animation-duration: ${length}"> ${message}</p>`)
 
     const toast = toastContainer.lastElementChild
     toast.addEventListener('animationend', () => toast.remove())

@@ -1,4 +1,3 @@
-import { formatPostDate } from "./logic/formatPostDate"
 
 export const users = () => "usersJSON" in localStorage? JSON.parse(localStorage.usersJSON) : []
     
