@@ -2,6 +2,7 @@ import Component from "../library/composito.js";
 import { context } from "../ui";
 import Posts from "../components/posts.js";
 import retrieveUser from "../logic/retrieve-user.js";
+import AddPostModal from "../components/add-post-modal.js";
 
 
 export default class Home extends Component {
@@ -16,7 +17,7 @@ export default class Home extends Component {
                     <button class="home-header-left-items-log-out-button button">Log out</button>
                 </div>
             <div class="home-header-user">
-                <img class="home-header-user-avatar" src="${retrieveUser(context.userId).avatar} "https://img.icons8.com/color/512/avatar.png"}" alt="default avatar">
+                <img class="home-header-user-avatar" src="" alt="default avatar">
                 <h2 class="home-header-user-welcome-msj"></h2>
             </div>
             <nav class="home-menu">
@@ -25,7 +26,7 @@ export default class Home extends Component {
                     <li><a href="" class="home-menu-avatar-anchor">Avatar</a></li>
                     <li><a href="" class="home-menu-option3">option 3</a></li>
                 </ul>
-            </nav>
+            </nav>   
             </header>
 
             <main class="home-posts-content">
@@ -36,14 +37,47 @@ export default class Home extends Component {
             </footer>
         </div>
     `)
+        try{
+            this.container.querySelector(".home-header-user-avatar").src = retrieveUser(context.userId).avatar
+            const settingsIcon = this.container.querySelector(".home-header-left-items-config-icon")
+
+            settingsIcon.onclick = function () {
+                throw new Error ("TODO: show settings nav")
+            }
+
+        }catch(error){
+            alert(error.message)
+        }
 
         const posts = new Posts();
+
         this.container.querySelector(".home-posts-content").appendChild(posts.container);
 
         this.container.querySelector(".home-header-left-items-log-out-button").onclick = () => {
             delete context.userId
 
             this.onLoggedOut()
+        }
+
+
+        this.container.querySelector(".footer-button").onclick = () => {
+            const addPostModal = new AddPostModal;
+
+            addPostModal.onCancelButton = () => {
+                this.container.querySelector("main").classList.remove("fade");
+                this.container.querySelector("footer").removeChild(addPostModal.container);
+            }
+
+            addPostModal.onPostCreated = () => {
+                this.container.querySelector("main").classList.remove("fade");
+                this.container.querySelector("footer").removeChild(addPostModal.container);
+
+                posts.renderPosts();
+            }
+
+            this.container.querySelector("main").classList.add("fade");
+            this.container.querySelector("footer").appendChild(addPostModal.container);
+
         }
     }
 

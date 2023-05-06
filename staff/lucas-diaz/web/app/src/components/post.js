@@ -7,7 +7,7 @@ import { context } from "../ui.js";
 export default class Post extends Component {
     constructor(post) {
         super(`<article>
-        <img class="home-post-content-article-avatar" src="${retrieveUser(context.userId).avatar}">
+        <img class="home-post-content-article-avatar" src="">
         <p class="home-post-content-article-userName">${post.userName}</p>
         <button class="home-edit-post-modal-button">Edit</button>
         <div class="post-image-container">
@@ -19,7 +19,12 @@ export default class Post extends Component {
         <time class="home-post-content-article-date">${post.date.toLocaleString()}</time>
         </article>`)
 
-        
+        try{
+            this.container.querySelector(".home-post-content-article-avatar").src = retrieveUser(context.userId).avatar
+        }catch(error){
+            alert(error.message)
+        }
+
         const likeIcon = this.container.querySelector("span");
         const likeIconText = this.container.querySelector(".home-post-content-article-icon-text");
 
