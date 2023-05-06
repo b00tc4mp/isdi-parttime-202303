@@ -145,7 +145,7 @@ a {
     }
 }
 
-.add-post, .edit-post{
+.add-post, .edit-post {
     position:fixed;
     z-index: 10;
     width: 100%;

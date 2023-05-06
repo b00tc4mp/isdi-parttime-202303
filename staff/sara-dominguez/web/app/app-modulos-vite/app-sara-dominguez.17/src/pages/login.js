@@ -27,6 +27,7 @@ export default class Login extends Component {
                 context.userId = authenticateUser(email,password)
                 
                 this.onAuthenticated()
+                
             } catch (error) {
                 alert(error.message)
             }
@@ -37,6 +38,7 @@ export default class Login extends Component {
         
            this.onRegisterClick()
         }
+
     }
 
     onRegisterClick()  {

@@ -23,7 +23,7 @@ export default class Register extends Component {
         
             try{
                 registerUser(name,email,password)
-                this.onRegistered()
+                alert('TODO go to Login')
             } catch (error) {
                 alert(error.message)
             }
@@ -38,8 +38,5 @@ export default class Register extends Component {
 
     onLoginClick() {
         console.log('go to login')
-    }
-    onRegistered(){
-        console.log('registered')
     }
 }

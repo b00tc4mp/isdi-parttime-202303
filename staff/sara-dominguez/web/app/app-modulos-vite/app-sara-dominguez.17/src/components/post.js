@@ -12,13 +12,9 @@ export default class Post extends Component {
         </article>`)
 
         this.container.querySelector('button').onclick = () => {
-            try { 
-                toggleLikePost(context.userId, post.id)
+            toggleLikePost(context.userId, post.id)
 
-                this.onLikeToggled()
-            }catch(error) {
-                alert(error.message)
-            }
+            this.onLikeToggled()
         }
     }
 
