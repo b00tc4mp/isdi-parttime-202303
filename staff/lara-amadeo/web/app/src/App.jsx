@@ -23,11 +23,16 @@ export default class App extends Component {
   }
 
   render() {
-
     switch(this.state.view){
       case 'login': return <Login onSignUpClick={this.handleGoToRegister} onLoginClick={this.handleGoToHome}/>
       case 'register': return <Register onLogInClick={this.handleGoToLogin}/>
-      case 'home': return <Home />
-    }    
-  }
+      case 'home':  return <Home />
+    }
 }
+}
+
+// switch(this.state.view){
+//   case 'login': return <Login onSignUpClick={this.handleGoToRegister} onLoginClick={this.handleGoToHome}/>
+//   case 'register': return <Register onLogInClick={this.handleGoToLogin}/>
+//   case 'home':  return <Home />
+// }

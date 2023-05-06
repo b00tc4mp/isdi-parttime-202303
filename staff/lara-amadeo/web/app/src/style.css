@@ -34,6 +34,10 @@
     min-height: 100vh;
 }
 
+body{
+    margin: 0px;
+}
+
 
 .registration{
 background-color:#F8FAFB;

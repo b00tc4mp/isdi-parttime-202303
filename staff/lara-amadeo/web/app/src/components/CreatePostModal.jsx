@@ -1,5 +1,6 @@
-import { context } from "../ui"
+import { context, successToast, errorToast, generateToast } from "../ui"
 import createPost from '../logic/createPost'
+ 
 
 export default function CreatePostModal(props){
 
@@ -17,7 +18,6 @@ export default function CreatePostModal(props){
     //         })
     //         this.forceUpdate()
     //     } catch(error){
-    //         console.log(error.message)
     //     }
     // }
 
@@ -28,10 +28,17 @@ export default function CreatePostModal(props){
         
         try{
             createPost(context.userId, image, caption)
+            generateToast({
+                message: 'Post created!',
+                type: successToast
+            })
 
             props.onCreatePostClick()
         } catch(error){
-            console.log(error)
+            generateToast({
+                message: error.message,
+                type: errorToast
+            })
         }
     }
 

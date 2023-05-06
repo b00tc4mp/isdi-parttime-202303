@@ -17,11 +17,10 @@ export default function Post(props){
             props.onLikeButtonClick()
         
         } catch(error){
-            console.log(error.message)
-            // generateToast({
-            //     message: error.message,
-            //     type: errorToast
-            // })
+            generateToast({
+                message: error.message,
+                type: errorToast
+            })
         }
     }
 
@@ -31,13 +30,15 @@ export default function Post(props){
 
             props.onSaveButtonClick()
         } catch(error){
-            console.log(error.message)
+            generateToast({
+                message: error.message,
+                type: errorToast
+            })
         }
     }
 
-    function handleOpenEditPostModal(){
-        props.onEditPostButton()
-
+    function handleOpenEditPostModal(id){
+        props.onEditPostButton(id) 
         
     }
 
@@ -52,7 +53,7 @@ export default function Post(props){
             </div>
 
         </div>
-        {userLogged.id === props.post.author ? <button className="button-XS secondary-button" onClick={handleOpenEditPostModal}>Edit post</button> : '' }
+        {userLogged.id === props.post.author ? <button className="button-XS secondary-button" onClick={() => handleOpenEditPostModal(props.post.id)}>Edit post</button> : '' }
     </div>
 
     <div className="post-image">

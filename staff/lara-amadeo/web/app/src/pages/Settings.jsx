@@ -25,6 +25,8 @@ export default class Settings extends Component{
 
     returnToSettingsMenu = () => {
         this.setState({ view: 'menu' })
+
+        this.props.onSidebarUpdates()
     }
 
     render(){

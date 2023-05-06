@@ -1,5 +1,5 @@
 import { updateAvatar } from '../../logic/updateAvatar'
-import { context } from '../../ui'
+import { context, successToast, errorToast } from '../../ui'
 import { retrieveUser } from '../../logic/helpers/data-managers'
 
 export default function UpdateAvatar(props){
@@ -21,9 +21,15 @@ export default function UpdateAvatar(props){
             user.avatar = image
             props.onSaveUpdateAvatarClick()
 
-            console.log('avatar updated')
+            generateToast({
+                message: 'Avatar updated!',
+                type: successToast
+            })
         } catch(error){
-            console.log(error.message)
+            generateToast({
+                message: error.message,
+                type: errorToast
+            })
         }
     }
     

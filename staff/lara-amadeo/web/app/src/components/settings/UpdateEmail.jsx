@@ -1,4 +1,5 @@
 import { updateEmail } from '../../logic/updateEmail'
+import { generateToast, successToast, errorToast } from '../../ui'
 
 export default function UpdateEmail(props){
 
@@ -17,11 +18,17 @@ export default function UpdateEmail(props){
 
         try{
             updateEmail(currentEmail, newEmail, confirmNewEmail)
-            console.log('email updated')
+            generateToast({
+                message: 'Email updated!',
+                type: successToast
+            })
 
             props.onSaveUpdateEmailClick()
         } catch(error){
-            console.log(error.message)
+            generateToast({
+                message: error.message,
+                type: errorToast
+            })
         }
     }
 

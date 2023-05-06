@@ -1,4 +1,4 @@
-import { context } from "../../ui"
+import { context, successToast, errorToast } from "../../ui"
 import { updatePassword } from '../../logic/updatePassword'
 
 export default function UpdatePassword(props){
@@ -12,11 +12,17 @@ export default function UpdatePassword(props){
 
         try{
             updatePassword(context.userId, currentPassword, newPassword, confirmNewPassword)
-            console.log('password updated')
+            generateToast({
+                message: 'Password updated!',
+                type: successToast
+            })
 
             props.onSaveUpdatePasswordClick()
         } catch(error){
-            console.log(error.message)
+            generateToast({
+                message: error.message,
+                type: errorToast
+            })
         }
     }
 
