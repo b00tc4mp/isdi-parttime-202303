@@ -1,7 +1,7 @@
 import Component from "../library/composito.js";
-import retrievePosts from "../logic/retrieve-posts.js";
 import { context } from "../ui";
 import Posts from "../components/posts.js";
+import retrieveUser from "../logic/retrieve-user.js";
 
 
 export default class Home extends Component {
@@ -16,8 +16,7 @@ export default class Home extends Component {
                     <button class="home-header-left-items-log-out-button button">Log out</button>
                 </div>
             <div class="home-header-user">
-                <img class="home-header-user-avatar" src=""
-                    alt="default avatar">
+                <img class="home-header-user-avatar" src="${retrieveUser(context.userId).avatar} "https://img.icons8.com/color/512/avatar.png"}" alt="default avatar">
                 <h2 class="home-header-user-welcome-msj"></h2>
             </div>
             <nav class="home-menu">
@@ -29,7 +28,6 @@ export default class Home extends Component {
             </nav>
             </header>
 
-
             <main class="home-posts-content">
             </main>
 
@@ -37,19 +35,19 @@ export default class Home extends Component {
                 <button class="footer-button button"> + </button>
             </footer>
         </div>
-        
     `)
 
-        const posts = retrievePosts(context.userId);
-        const _posts = new Posts(posts);
+        const posts = new Posts();
+        this.container.querySelector(".home-posts-content").appendChild(posts.container);
 
+        this.container.querySelector(".home-header-left-items-log-out-button").onclick = () => {
+            delete context.userId
 
-        _posts.onPostLikeToggled = () => {
-            const posts = retrievePosts(context.userId);
-
-            _posts.refreshPosts(posts)
+            this.onLoggedOut()
         }
+    }
 
-        this.container.querySelector(".home-posts-content").appendChild(_posts.container);
+    onLoggedOut() {
+        throw new Error("not overridden")
     }
 }

@@ -118,5 +118,3 @@ export default function initHeaderMenu(postsListPanel,postModal, editPostModal, 
     
     return { headerMenu, avatarImage }
 }
-
-//Holll

@@ -45,8 +45,6 @@ export default class Register extends Component {
                 failRegisterAdvice.textContent = error.message;
             }
         })
-        
-
     }
 
     onRegisterForm() {

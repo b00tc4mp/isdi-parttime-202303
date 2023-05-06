@@ -1,34 +1,31 @@
 import Component from "../library/composito";
+import retrievePosts from "../logic/retrieve-posts";
+import { context } from "../ui";
 import Post from "./post";
 
 
 export default class Posts extends Component {
-    constructor(posts) {
+    constructor() {
         super(`<section class="home-posts-content"></section>`)
 
-        posts.forEach((post) => {
-            const _post = new Post(post);
-
-            _post.onLikeToggled = () => this.onPostLikeToggled()
-
-            this.add(_post);
-        })
+        this.renderPosts();
     }
 
-    onPostLikeToggled() {
-        throw new Error("not overridden")
-    }
+    renderPosts() {
+        try {
+            this.container.innerHTML = "";
+            const posts = retrievePosts(context.userId);
 
-    refreshPosts(posts) {
-        this.container.innerHTML = "";
+            posts.forEach( post => {
+                const _post = new Post(post);
 
-        posts.forEach((post) => {
+                _post.onLikeToggled = () => this.renderPosts();
 
-            const _post = new Post(post);
+                this.add(_post);
+            })
 
-            _post.onLikeToggled = () => this.onPostLikeToggled()
-
-            this.add(_post);
-        })
+        } catch (error) {
+            alert(error.message)
+        }
     }
 }

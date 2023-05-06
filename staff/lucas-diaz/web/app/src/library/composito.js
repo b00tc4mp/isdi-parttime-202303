@@ -1,5 +1,3 @@
-console.log("Composito v0");
-
 export default class Component {
     constructor(templateOrElement){
         if (typeof templateOrElement === "string"){
