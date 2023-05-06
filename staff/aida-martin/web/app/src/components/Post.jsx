@@ -15,14 +15,22 @@ export default function Post ({ currentUser, post }) {
   const [likeText, setLikeText] = useState(formatLikes(post))
 
   function handleLikePost () {
-    const _post = toggleLikePost(context.userId, post.id)
-    setIsLiked(!isLiked)
-    setLikeText(formatLikes(_post))
+    try {
+      const _post = toggleLikePost(context.userId, post.id)
+      setIsLiked(!isLiked)
+      setLikeText(formatLikes(_post))
+    } catch (error) {
+      console.log(error.message)
+    }
   }
 
   function handleSavePost () {
-    toggleSavePost(context.userId, post.id)
-    setIsSaved(!isSaved)
+    try {
+      toggleSavePost(context.userId, post.id)
+      setIsSaved(!isSaved)
+    } catch (error) {
+      console.log(error.message)
+    }
   }
 
   return (

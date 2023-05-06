@@ -1,9 +1,10 @@
 // import Posts from "../components/posts.js";
 import { Component } from 'react'
-import { context } from '../ui.js'
+import { context, openModal, hideModal } from '../ui.js'
 import retrieveUser from '../logic/retrieveUser.js'
 import { DEFAULT_AVATAR_URL } from '../constans.js'
 import Posts from '../components/Posts.jsx'
+import AddPostPanel from '../components/AddPostPanel.jsx'
 
 export default class Home extends Component {
   constructor (props) {
@@ -18,6 +19,18 @@ export default class Home extends Component {
     context.removeItem('userId')
 
     this.onLogOut()
+  }
+
+  handleOpenAddPost = () => {
+    this.setState({ modal: 'add-post' })
+
+    openModal()
+  }
+
+  handleCloseAddPost = () => {
+    this.setState({ modal: null })
+
+    hideModal()
   }
 
   render () {
@@ -41,11 +54,13 @@ export default class Home extends Component {
         </header>
 
         <div className='button-new-post-container'>
-          <button className='button new-post-button'>NEW POST</button>
+          <button className='button new-post-button' onClick={this.handleOpenAddPost}>NEW POST</button>
         </div>
 
         <main className='main-container'>
           {this.state.view === 'posts' && <Posts currentUser={currentUser} />}
+
+          {this.state.modal === 'add-post' && <AddPostPanel onPostCreated={this.handleCloseAddPost} onCancel={this.handleCloseAddPost} />}
         </main>
       </section>
     )

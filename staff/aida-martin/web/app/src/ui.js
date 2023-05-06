@@ -1,19 +1,8 @@
-export function show(...containers) {
-  for (let i = 0; i < containers.length; i++) {
-    containers[i].classList.remove("off");
-  }
+export const openModal = () => {
+  document.body.classList.add('scroll-lock')
+}
+export const hideModal = () => {
+  document.body.classList.remove('scroll-lock')
 }
 
-export function hide(...containers) {
-  for (let i = 0; i < containers.length; i++) {
-    containers[i].classList.add("off");
-  }
-}
-
-export function toggle(...containers) {
-  for (let i = 0; i < containers.length; i++) {
-    containers[i].classList.toggle("off");
-  }
-}
-
-export const context = sessionStorage;
+export const context = sessionStorage
