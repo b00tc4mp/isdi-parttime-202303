@@ -5,6 +5,7 @@ import retrieveUser from '../logic/retrieveUser.js'
 import { DEFAULT_AVATAR_URL } from '../constans.js'
 import Posts from '../components/Posts.jsx'
 import AddPostPanel from '../components/AddPostPanel.jsx'
+import EditPostPanel from '../components/EditPostPanel.jsx'
 
 export default class Home extends Component {
   constructor (props) {
@@ -12,7 +13,7 @@ export default class Home extends Component {
 
     const { onLogOut } = props
     this.onLogOut = onLogOut
-    this.state = { view: 'posts', modal: null }
+    this.state = { view: 'posts', modal: null, modalPost: null }
   }
 
   handleLogOut = () => {
@@ -27,7 +28,13 @@ export default class Home extends Component {
     openModal()
   }
 
-  handleCloseAddPost = () => {
+  handleOpenEditPost = (post) => {
+    this.setState({ modal: 'edit-post', modalPost: post })
+
+    openModal()
+  }
+
+  handleCloseAddOrEditPost = () => {
     this.setState({ modal: null })
 
     hideModal()
@@ -58,9 +65,11 @@ export default class Home extends Component {
         </div>
 
         <main className='main-container'>
-          {this.state.view === 'posts' && <Posts currentUser={currentUser} />}
+          {this.state.view === 'posts' && <Posts currentUser={currentUser} onEditPost={this.handleOpenEditPost} />}
 
-          {this.state.modal === 'add-post' && <AddPostPanel onPostCreated={this.handleCloseAddPost} onCancel={this.handleCloseAddPost} />}
+          {this.state.modal === 'add-post' && <AddPostPanel onPostCreated={this.handleCloseAddOrEditPost} onCancel={this.handleCloseAddOrEditPost} />}
+
+          {this.state.modal === 'edit-post' && <EditPostPanel onPostEdited={this.handleCloseAddOrEditPost} onCancel={this.handleCloseAddOrEditPost} post={this.state.modalPost} />}
         </main>
       </section>
     )

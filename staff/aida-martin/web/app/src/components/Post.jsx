@@ -7,7 +7,7 @@ import formatLikes from '../logic/helpers/utils.js'
 import toggleLikePost from '../logic/toggleLikePost.js'
 import toggleSavePost from '../logic/toggleSavePost.js'
 
-export default function Post ({ currentUser, post }) {
+export default function Post ({ currentUser, post, onEditPost }) {
   const postAuthor = retrieveUser(post.author)
 
   const [isLiked, setIsLiked] = useState(post.likes && post.likes.includes(context.userId))
@@ -33,6 +33,10 @@ export default function Post ({ currentUser, post }) {
     }
   }
 
+  function handleEditPost () {
+    onEditPost(post)
+  }
+
   return (
     <article data-id={post.id}>
       <div className='user-container-post'>
@@ -53,7 +57,7 @@ export default function Post ({ currentUser, post }) {
       <time className='post-date'>{post.date.toLocaleString('en-GB')}</time>
       <p className='post-text'>{post.text}</p>
       {
-      post.author === context.userId && <button className='edit-post-button button'>EDIT</button>
+      post.author === context.userId && <button className='edit-post-button button' onClick={handleEditPost}>EDIT</button>
     }
     </article>
   )

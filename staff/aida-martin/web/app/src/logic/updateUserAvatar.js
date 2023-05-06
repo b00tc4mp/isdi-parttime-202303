@@ -1,5 +1,5 @@
 import { validateId, validateUrl } from './helpers/validators.js'
-import { findUserById } from './helpers/data-managers.js'
+import { findUserById } from './helpers/dataManagers.js'
 import { saveUser } from '../data.js'
 
 export default function updateAvatar (userId, url) {
