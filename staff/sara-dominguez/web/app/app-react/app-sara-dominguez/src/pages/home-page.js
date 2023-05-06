@@ -1,7 +1,7 @@
 console.log('load home-page')
 
 import { show, hide, context } from "../ui.js"
-import { loginPage } from "./login-page.js"
+import { loginPage } from "./login.js"
 import retrievePosts from "../logic/retrieve-posts.js"
 import retrieveUser from "../logic/retrieve-user.js"
 import initProfilePanel from "../components/profile-edit-panel.js"
