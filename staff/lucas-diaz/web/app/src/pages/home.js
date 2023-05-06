@@ -3,6 +3,8 @@ import { context } from "../ui";
 import Posts from "../components/posts.js";
 import retrieveUser from "../logic/retrieve-user.js";
 import AddPostModal from "../components/add-post-modal.js";
+import UpdateAvatar from "../components/update-avatar.js";
+import UpdatePassword from "../components/update-password.js";
 
 
 export default class Home extends Component {
@@ -37,21 +39,44 @@ export default class Home extends Component {
             </footer>
         </div>
     `)
-        try{
-            this.container.querySelector(".home-header-user-avatar").src = retrieveUser(context.userId).avatar
-            const settingsIcon = this.container.querySelector(".home-header-left-items-config-icon")
 
-            settingsIcon.onclick = function () {
-                throw new Error ("TODO: show settings nav")
+        const homeMenu = this.container.querySelector(".home-menu");
+        const main = this.container.querySelector(".home-posts-content");
+        const footer = this.container.querySelector("footer");
+        const settingsIcon = this.container.querySelector(".home-header-left-items-config-icon");
+
+        try {
+            this.container.querySelector(".home-header-user-avatar").src = retrieveUser(context.userId).avatar
+            
+            settingsIcon.onclick = () => {
+                main.innerHTML = "";
+                homeMenu.classList.toggle("home-menu-transition");
             }
 
-        }catch(error){
+
+            this.container.querySelector(".home-menu-avatar-anchor").onclick = event => {
+                event.preventDefault();
+                const updateAvatar = new UpdateAvatar
+                main.innerHTML = "";
+                main.appendChild(updateAvatar.container);
+            }
+
+            this.container.querySelector(".home-menu-change-pass-anchor").onclick = event => {
+                event.preventDefault();
+                console.log("hola")
+                const changePassword = new UpdatePassword
+                main.innerHTML = "";
+                main.appendChild(changePassword.container);
+            }
+
+
+        } catch (error) {
             alert(error.message)
         }
 
         const posts = new Posts();
 
-        this.container.querySelector(".home-posts-content").appendChild(posts.container);
+        main.appendChild(posts.container);
 
         this.container.querySelector(".home-header-left-items-log-out-button").onclick = () => {
             delete context.userId
@@ -59,25 +84,33 @@ export default class Home extends Component {
             this.onLoggedOut()
         }
 
-
         this.container.querySelector(".footer-button").onclick = () => {
             const addPostModal = new AddPostModal;
 
             addPostModal.onCancelButton = () => {
-                this.container.querySelector("main").classList.remove("fade");
-                this.container.querySelector("footer").removeChild(addPostModal.container);
+                main.classList.remove("fade");
+                footer.removeChild(addPostModal.container);
             }
 
             addPostModal.onPostCreated = () => {
-                this.container.querySelector("main").classList.remove("fade");
-                this.container.querySelector("footer").removeChild(addPostModal.container);
+                main.classList.remove("fade");
+                footer.removeChild(addPostModal.container);
 
                 posts.renderPosts();
             }
 
-            this.container.querySelector("main").classList.add("fade");
-            this.container.querySelector("footer").appendChild(addPostModal.container);
+            main.classList.add("fade");
+            main.innerHTML = "";
+            main.appendChild(posts.container);
+            homeMenu.classList.remove("home-menu-transition");
+            footer.appendChild(addPostModal.container);
 
+        }
+
+        this.container.querySelector(".home-header-tittle").onclick = () => {
+            main.innerHTML = "";
+            main.appendChild(posts.container);
+            homeMenu.classList.remove("home-menu-transition");
         }
     }
 

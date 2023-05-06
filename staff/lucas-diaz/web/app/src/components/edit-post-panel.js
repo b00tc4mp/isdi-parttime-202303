@@ -40,6 +40,3 @@ export default function initEditPostPanel (postsListPanel, renderPosts) {
 
     return {editPostModal, editPostModalForm }
 }
-
-//hola
-//hola

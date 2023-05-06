@@ -328,6 +328,7 @@ label{
     height: auto;
     padding: 1rem;
     color: azure;
+    margin-top: 100px;
 }
 .menu-page h3 {
     flex-basis: 100%;

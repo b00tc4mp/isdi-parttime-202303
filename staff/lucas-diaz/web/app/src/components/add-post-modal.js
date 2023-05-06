@@ -26,12 +26,8 @@ export default class AddPostModal extends Component {
             const image = event.target.url.value
             const text = event.target.text.value
 
-            console.log(image, text)
-
-
             try{
                 createPost(context.userId , image , text);
-
                 this.onPostCreated()
 
             }catch(error){
