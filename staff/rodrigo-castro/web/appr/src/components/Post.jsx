@@ -3,10 +3,11 @@ import { context } from "../ui"
 import toggleLikePost from '../logic/toggleLikePost'
 import PropTypes from 'prop-types'
 
-export default function Post({post: {id, image, text, date, likedBy, author}, onLike}) {
+export default function Post({post: {id, image, text, date, likedBy, author}, onLike, onEdit}) {
     Post.propTypes = {
         post: PropTypes.object,
-        onLike: PropTypes.func
+        onLike: PropTypes.func,
+        onEdit: PropTypes.func
     }
 
     const day = date.getDate().toString()
@@ -25,12 +26,16 @@ export default function Post({post: {id, image, text, date, likedBy, author}, on
         }
     }
 
+    const handleEdit = (id) => {
+        onEdit(id)
+    }
+
     return <article className="post-container">
         <div className="post-header">
             <img src={user.avatar} className="user-avatar"/>
             <p className="author-name">{user.name}</p>
             <time>· {day} {month} {year}</time>
-            {author === context.userId? <button className="edit-button"><i className="uil uil-edit"></i></button> : ''}
+            {author === context.userId? <button className="edit-button" onClick={() => handleEdit(id)}><i className="uil uil-edit"></i></button> : ''}
         </div>
         <img src={image}/>
         <button className={likedBy.includes(context.userId) ? "like-button liked" : "like-button"} onClick={handleLike}><i className="uil uil-heart-sign"></i></button>

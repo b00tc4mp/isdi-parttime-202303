@@ -24,7 +24,7 @@ export default function ChangeAvatar({onCancel, onAvatarChanged}) {
         }
     }
 
-    return <section className="modal-window off" name="modal-change-avatar">
+    return <section className="modal-window" name="modal-change-avatar">
     <div className="change-avatar-menu">
         <div className="red-text"></div>
         <form action="" className="inputs" onSubmit={handleChangeAvatar}>

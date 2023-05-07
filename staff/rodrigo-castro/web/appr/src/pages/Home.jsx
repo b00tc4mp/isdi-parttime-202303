@@ -6,6 +6,7 @@ import AddPostModal from '../components/AddPostModal'
 import ChangeEmail from '../components/ChangeEmail'
 import ChangePassword from '../components/ChagePassword'
 import ChangeAvatar from '../components/ChangeAvatar'
+import EditPost from '../components/EditPost'
 import Profile from '../components/Profile'
 import PropTypes from 'prop-types'
 
@@ -17,7 +18,7 @@ export default class Home extends Component {
             onLogout: PropTypes.func
         }
 
-        this.state = { modal: null }
+        this.state = { modal: null, postId: null }
     }
 
     handleCloseModal = () => this.setState({ modal: null })
@@ -33,6 +34,8 @@ export default class Home extends Component {
     handleOpenChangeAvatar = () => this.setState({ modal: 'change-avatar'})
 
     handleLikeToggled = () => this.setState({modal: null})
+
+    handleEditClicked = (id) => this.setState({modal: 'edit-post', postId:id})
 
     handleLogout = (event) => {
         event.preventDefault()
@@ -60,8 +63,8 @@ export default class Home extends Component {
                 </ul>
             </nav>
         </header>
-        <main className="post-list">
-            <Posts onLikeToggled={this.handleLikeToggled}/>
+        <main className="main-content">
+            <Posts onLikeToggled={this.handleLikeToggled} onEditClicked={(id) => this.handleEditClicked(id)}/>
 
             {this.state.modal === 'add-post' && <AddPostModal 
                 onCancel={this.handleCloseModal} 
@@ -88,6 +91,12 @@ export default class Home extends Component {
             {this.state.modal === 'change-avatar' && <ChangeAvatar
                 onCancel={this.handleCloseModal}
                 onAvatarChanged={this.handleCloseModal}
+            />}
+
+            {this.state.modal === 'edit-post' && <EditPost
+                onCancel={this.handleCloseModal}
+                onPostEdited={this.handleCloseModal}
+                postId={this.state.postId}
             />}
         </main>
     </div>

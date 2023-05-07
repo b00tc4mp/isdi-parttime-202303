@@ -3,7 +3,7 @@ import { context } from '../ui'
 import Post from './Post.jsx'
 import PropTypes from 'prop-types'
 
-export default function Posts({onLikeToggled}) {
+export default function Posts({onLikeToggled, onEditClicked}) {
     Posts.proptypes = {
         onLikeToggled: PropTypes.func
     }
@@ -15,8 +15,10 @@ export default function Posts({onLikeToggled}) {
             onLikeToggled()
         }
 
-        return <section>
-            { posts.map(post => <Post post={post} onLike={handleLike}/>)}
+        const handleEdit = (id) => onEditClicked(id)
+
+        return <section className='posts-list'>
+            { posts.map(post => <Post post={post} onLike={handleLike} onEdit={ (id) => handleEdit(id)}/>)}
         </section>
     } catch(error) {
         alert(error.message)

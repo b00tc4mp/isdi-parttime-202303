@@ -26,7 +26,7 @@ export default function ChangePassword({onCancel, onPasswordChanged}) {
         }
     }
 
-    return <section className="modal-window off" name="modal-change-password">
+    return <section className="modal-window" name="modal-change-password">
         <div className="change-password-menu">
             <div className="red-text"></div>
             <form className="inputs" onSubmit={handleChangePassword}>

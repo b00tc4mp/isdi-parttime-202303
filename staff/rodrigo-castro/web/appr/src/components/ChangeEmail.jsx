@@ -26,7 +26,7 @@ export default function ChangeEmail({onCancel, onEmailChanged}) {
 
     const handleCancelChangeEmail = () => onCancel()
     
-    return <section className="modal-window off" name="modal-change-email">
+    return <section className="modal-window" name="modal-change-email">
     <div className="change-email-menu">
         <div className="red-text"></div>
         <form className="inputs" onSubmit={handleChangeEmail}>
