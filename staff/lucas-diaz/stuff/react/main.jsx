@@ -4,11 +4,10 @@ function HelloWorld() {
 
 function Login(props) {
 
-    function handleRegisterClick(event){
+    function handleRegisterClick(event) {
         event.preventDefault();
         props.onRegisterClick();
     }
-
 
     return <section className="login">
         <h1 className="login-header">LOG IN</h1>
@@ -17,15 +16,15 @@ function Login(props) {
         <form className="form">
             <div className="input-box">
                 <label>your email</label>
-                <input type="email" className="form-email" name="email" placeholder="Enter email" autoComplete="current-password"/>
+                <input type="email" className="form-email" name="email" placeholder="Enter email" autoComplete="current-password" />
             </div>
             <div className="input-box">
                 <label>your password</label>
-                <input type="password" className="form-password" name="password" placeholder="Enter password" autoComplete="current-password"/>
+                <input type="password" className="form-password" name="password" placeholder="Enter password" autoComplete="current-password" />
             </div>
             <div className="login-other-options">
                 <div className="login-other-options-remember-me">
-                    <input type="checkbox" name="remember" id="log-in-checkbox"/>
+                    <input type="checkbox" name="remember" id="log-in-checkbox" />
                     <label htmlFor="log-in-checkbox">Remember me</label>
                 </div>
                 <a className="forgot-password-anchor green" href="">Forgot password?</a>
@@ -38,52 +37,51 @@ function Login(props) {
     </section>
 }
 
-function Register(){
+function Register() {
     return <section className="register">
-    <h1 className="register-header">REGISTER</h1>
-    <p className="fail-warning red"></p>
-    <form className="form">
-        <div className="input-box">
-            <label>your username</label>
-            <input type="text" className="form-username" name="name" placeholder="Enter username"/>
-        </div>
-        <div className="input-box">
-            <label>your email</label>
-            <input type="email" className="form-email" name="email" placeholder="Enter email"
-                autoComplete="current-password"/>
-        </div>
-        <div className="input-box">
-            <label>your password</label>
-            <input type="password" name="password" placeholder="Enter password" className="form-password"
-                autoComplete="current-password"/>
-        </div>
-        <button type="submit" className="submit-button sign-up">SIGN UP</button>
-    </form>
-</section>
+        <h1 className="register-header">REGISTER</h1>
+        <p className="fail-warning red"></p>
+        <form className="form">
+            <div className="input-box">
+                <label>your username</label>
+                <input type="text" className="form-username" name="name" placeholder="Enter username" />
+            </div>
+            <div className="input-box">
+                <label>your email</label>
+                <input type="email" className="form-email" name="email" placeholder="Enter email"
+                    autoComplete="current-password" />
+            </div>
+            <div className="input-box">
+                <label>your password</label>
+                <input type="password" name="password" placeholder="Enter password" className="form-password"
+                    autoComplete="current-password" />
+            </div>
+            <button type="submit" className="submit-button sign-up">SIGN UP</button>
+        </form>
+    </section>
 }
 
 class App extends React.Component {
-    constructor (props){
+    constructor(props) {
         super(props)
 
-        this.state = { view: "login"}
-
+        this.state = { view: "login" }
     }
 
     handleGoToRegister() {
-        this.setState({ view: "register"})
+        this.setState({ view: "register" })
     }
 
 
-    render(){
+    render() {
         return this.state.view === "login" ?
-            <Login onRegisterClick={this.handleGoToRegister.bind(this)} />
+            <Login onRegisterClick={this.handleGoToRegister.bind(this)}/>
             :
-            <Register/> 
+            <Register />
     }
 }
 
 
 
-ReactDOM.createRoot(document.querySelector("#root")).render(<App/>);
+ReactDOM.createRoot(document.querySelector("#root")).render(<App />);
 
