@@ -2,14 +2,7 @@ function HelloWorld() {
     return <h1>Hello World!</h1>
 }
 
-function Login(props) {
-
-    function handleRegisterClick(event){
-        event.preventDefault();
-        props.onRegisterClick();
-    }
-
-
+function Login() {
     return <section className="login">
         <h1 className="login-header">LOG IN</h1>
         <p className="login-success-warning green off">User created successfully</p>
@@ -32,7 +25,7 @@ function Login(props) {
             </div>
             <button type="submit" className="submit-button log-in">LOG IN</button>
             <p className="initialize-register">
-                not a member? <a href="" onClick={handleRegisterClick} className="login-register-anchor green">register here</a>
+                not a member? <a href="" className="login-register-anchor green">register here</a>
             </p>
         </form>
     </section>
@@ -62,28 +55,7 @@ function Register(){
 </section>
 }
 
-class App extends React.Component {
-    constructor (props){
-        super(props)
 
-        this.state = { view: "login"}
-
-    }
-
-    handleGoToRegister() {
-        this.setState({ view: "register"})
-    }
-
-
-    render(){
-        return this.state.view === "login" ?
-            <Login onRegisterClick={this.handleGoToRegister.bind(this)} />
-            :
-            <Register/> 
-    }
-}
-
-
-
-ReactDOM.createRoot(document.querySelector("#root")).render(<App/>);
+const container = document.querySelector("#root");
+ReactDOM.createRoot(container).render([ <HelloWorld/>, <Login/>, <Register/>]);
 
