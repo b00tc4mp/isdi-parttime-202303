@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { DEFAULT_AVATAR_URL } from '../constans'
+import { DEFAULT_AVATAR_URL } from '../constants'
 import { context } from '../ui.js'
 import retrieveUser from '../logic/retrieveUser'
 import formatLikes from '../logic/helpers/utils.js'

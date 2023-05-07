@@ -1,7 +1,7 @@
 import { Component } from 'react'
 import { context, openModal, hideModal } from '../ui.js'
 import retrieveUser from '../logic/retrieveUser.js'
-import { DEFAULT_AVATAR_URL } from '../constans.js'
+import { DEFAULT_AVATAR_URL } from '../constants.js'
 import Posts from '../components/Posts.jsx'
 import AddPostPanel from '../components/AddPostPanel.jsx'
 import EditPostPanel from '../components/EditPostPanel.jsx'
@@ -11,7 +11,7 @@ export default class Home extends Component {
   constructor (props) {
     super(props)
 
-    // Lo que yo había hecho antes de this.props:
+    // Lo que yo había hecho antes de this.props.onLogOut():
     // const { onLogOut } = props
     // this.onLogOut = onLogOut
     this.state = { view: 'posts', modal: null, modalPost: null }
