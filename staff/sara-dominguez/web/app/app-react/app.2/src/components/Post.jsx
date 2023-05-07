@@ -37,7 +37,7 @@ export default function Post({ post: { image, text, date, likes } }) {
     console.log('post')
 
     return <article>
-        <img src={image} width="250px" />
+        <img src={image}/>
         <p>{text}</p>
         <time>{date.toLocaleString()}</time>
         <button>{likes && likes.includes(context.userId) ? '❤️' : '🤍'}

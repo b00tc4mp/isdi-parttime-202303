@@ -1,7 +1,7 @@
 console.log('load create-post')
 
 import { validateId, validateUserAvatar, validateText } from "./helpers/validators.js"
-import {findUserById} from "./helpers/dataManagers.js"
+import {findUserById} from "./helpers/data-managers.js"
 import { posts, savePosts } from "../data.js"
 
 export default function createPost(userId, image, text) {

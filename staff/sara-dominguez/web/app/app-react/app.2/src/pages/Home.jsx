@@ -50,10 +50,7 @@ export default class Home extends Component {
             {this.state.view === 'profile' && < Profile />}
 
 
-            {this.state.modal === 'add-post' && <AddPostModal 
-                onCancel={this.handleCloseAddPost}
-                onPostCreated={this.handleCloseAddPost}
-            />}
+            {this.state.modal === 'add-post' && <AddPostModal onCancel={this.handleCloseAddPost}/>}
 
         </main>
 
