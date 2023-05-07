@@ -2,7 +2,8 @@ import { Component } from "react"
 import { getLoggedUser } from "../logic/getLoggedUser.js"
 import { context } from "../ui.js"
 import Posts from "../components/Posts.jsx"
-import App from "../App.jsx"
+import AddPost from "../components/AddPost.jsx"
+import Profile from "../components/Profile.jsx"
 
 let user
 
@@ -12,6 +13,7 @@ export default class Home extends Component {
 
         this.state = {
             view: 'posts',
+            modal: null,
         }
         
         user = getLoggedUser(context.userId)    
@@ -22,8 +24,16 @@ export default class Home extends Component {
         this.props.onLoggedOut()
     }
     
-    handleToggledLike = () => {
-        this.forceUpdate()
+    handleToggledLike = () => this.forceUpdate()
+
+    handleAddPostModal = () => this.setState({ modal: 'addPost' })
+
+    handleClosePostModal = () => this.setState({ modal: null })
+
+    handleGoToProfile = (event) => {
+        event.preventDefault()
+
+        this.setState({ modal: 'profile' })
     }
     
     render() {
@@ -31,17 +41,19 @@ export default class Home extends Component {
             <header className="home__navigation">
                 <nav className="home__navigation--profile">
                     <img className="avatar" src={user.avatar} />
-                    <p className="text"><a className="home__anchor--profile" href="">{user.name}</a></p>
+                    <p className="text"><a className="home__anchor--profile" href="" onClick={this.handleGoToProfile}>{user.name}</a></p>
                 </nav>
                 <div>
                     <button className="navigation__anchor--logout" href="" onClick={this.handleLogOut}><img className="anchor__logout--icon" src="images/rocket-launch.svg" /></button>
                 </div>
             </header>
             <main>
-                { this.state.view === 'posts' && <Posts onToggleLike={this.handleToggledLike}/>}
+                { this.state.view === 'posts' && <Posts onToggleLike={this.handleToggledLike}/> }
+                { this.state.modal === 'addPost' && <AddPost onAddPostClick={this.handleClosePostModal} onCancelPostClick={this.handleClosePostModal}/> }
+                { this.state.modal === 'profile' && <Profile />}
             </main>
             <footer>
-                <p className="add-post-anchor"><a className="home__anchor--new-post" href="">Add new post</a></p>
+                <p className="add-post-anchor"><button className="home__anchor--new-post" href="" onClick={this.handleAddPostModal}>Add new post</button></p>
             </footer>
         </div> 
     }

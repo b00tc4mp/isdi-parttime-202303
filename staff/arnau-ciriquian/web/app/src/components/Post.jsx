@@ -22,7 +22,6 @@ export default function Post({ post: {image, text, date, likes, author, id}, onL
         }catch (error) {
             alert(error.message)
         }
-
     }
 
     return <article className="inputs__box--feed">
