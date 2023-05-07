@@ -37,7 +37,14 @@ function Login(props) {
     </section>
 }
 
-function Register() {
+function Register(props) {
+
+    function handleLoginClick(event){
+        event.preventDefault();
+        props.onLoginClick();
+
+    }
+
     return <section className="register">
         <h1 className="register-header">REGISTER</h1>
         <p className="fail-warning red"></p>
@@ -58,6 +65,9 @@ function Register() {
             </div>
             <button type="submit" className="submit-button sign-up">SIGN UP</button>
         </form>
+{         <p className="initialize-login">
+                alreaddy loged? <a href="" onClick={handleLoginClick} className="register-login-anchor green">Go to login!</a>
+        </p> }
     </section>
 }
 
@@ -68,16 +78,18 @@ class App extends React.Component {
         this.state = { view: "login" }
     }
 
-    handleGoToRegister() {
-        this.setState({ view: "register" })
+    handleGoToRegister = () => {
+        this.setState({ view: "register"})
+    }
+    handleGoToLogin = () => {
+        this.setState({view : "login"})
     }
 
-
     render() {
-        return this.state.view === "login" ?
-            <Login onRegisterClick={this.handleGoToRegister.bind(this)}/>
-            :
-            <Register />
+        if (this.state.view === "login") 
+            return <Login onRegisterClick={this.handleGoToRegister}/>
+        else
+            return <Register  onLoginClick={this.handleGoToLogin}/>
     }
 }
 
