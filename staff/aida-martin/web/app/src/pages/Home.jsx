@@ -1,4 +1,3 @@
-// import Posts from "../components/posts.js";
 import { Component } from 'react'
 import { context, openModal, hideModal } from '../ui.js'
 import retrieveUser from '../logic/retrieveUser.js'
@@ -6,20 +5,22 @@ import { DEFAULT_AVATAR_URL } from '../constans.js'
 import Posts from '../components/Posts.jsx'
 import AddPostPanel from '../components/AddPostPanel.jsx'
 import EditPostPanel from '../components/EditPostPanel.jsx'
+import Profile from '../components/Profile.jsx'
 
 export default class Home extends Component {
   constructor (props) {
     super(props)
 
-    const { onLogOut } = props
-    this.onLogOut = onLogOut
+    // Lo que yo había hecho antes de this.props:
+    // const { onLogOut } = props
+    // this.onLogOut = onLogOut
     this.state = { view: 'posts', modal: null, modalPost: null }
   }
 
   handleLogOut = () => {
     context.removeItem('userId')
 
-    this.onLogOut()
+    this.props.onLogOut()
   }
 
   handleOpenAddPost = () => {
@@ -40,13 +41,23 @@ export default class Home extends Component {
     hideModal()
   }
 
+  handleGoToProfile = event => {
+    event.preventDefault()
+
+    this.setState({ view: 'profile' })
+  }
+
+  handleGoToPosts = () => {
+    this.setState({ view: 'posts' })
+  }
+
   render () {
     const currentUser = retrieveUser(context.userId)
 
     return (
       <section className='home'>
         <header className='home-header'>
-          <h1 className='home-title title'>HOME</h1>
+          <h1 className='home-title title' onClick={this.handleGoToPosts}>HOME</h1>
 
           <div className='home-header-nav'>
             <img
@@ -54,18 +65,23 @@ export default class Home extends Component {
                 ? currentUser.avatar
                 : DEFAULT_AVATAR_URL} alt=''
             />
-            <a href='' className='profile-link'>{currentUser.name}</a>
+            <a href='' className='profile-link' onClick={this.handleGoToProfile}>{currentUser.name}</a>
 
             <button className='button profile-logout-button' onClick={this.handleLogOut}>LOG OUT</button>
           </div>
         </header>
 
-        <div className='button-new-post-container'>
-          <button className='button new-post-button' onClick={this.handleOpenAddPost}>NEW POST</button>
-        </div>
+        {
+          this.state.view !== 'profile' &&
+            <div className='button-new-post-container'>
+              <button className='button new-post-button' onClick={this.handleOpenAddPost}>NEW POST</button>
+            </div>
+        }
 
         <main className='main-container'>
           {this.state.view === 'posts' && <Posts currentUser={currentUser} onEditPost={this.handleOpenEditPost} />}
+
+          {this.state.view === 'profile' && <Profile onUpdateUserAvatar={this.handleGoToPosts} onUpdateUserPassword={this.handleGoToPosts} />}
 
           {this.state.modal === 'add-post' && <AddPostPanel onPostCreated={this.handleCloseAddOrEditPost} onCancel={this.handleCloseAddOrEditPost} />}
 
