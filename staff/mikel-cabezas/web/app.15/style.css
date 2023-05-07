@@ -451,7 +451,7 @@ input:disabled {
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
-    padding-top: 80px;
+    padding-top: 60px;
     justify-content: flex-start;
 }
 

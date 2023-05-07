@@ -4,7 +4,6 @@
   --main-green: #859895;
   --main-brown: #705D55;
   --overlay-black: #00000021;
-  --overlay-black-solid: #18191c;
   --white: #e0dcda;
   --dark: #262c30;
   --red: #c1574c;
@@ -59,21 +58,18 @@ form label {
   flex-direction: row;
   align-items: flex-start;
   align-content: flex-start;
-  width: calc(100% - 300px);
-  margin-left: 300px;
-  justify-content: flex-start;
   /* overflow: hidden; */
   /* position: absolute; */
 }
 
 .sidebar {
-  background-color: var(--overlay-black-solid);
+  background-color: var(--overlay-black);
   padding: 30px;
-  width: 300px;
-  height: calc(100% - 60px);
+  width: calc(30% - 60px);
+  height: calc(100% - 120px);
+  margin-top: 60px;
   position: fixed;
   left: 0;
-  box-sizing: border-box;
 }
 
 .sidebar .title h1 {
@@ -455,7 +451,7 @@ input:disabled {
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
-  padding-top: 60px;
+  padding-top: 80px;
   justify-content: flex-start;
 }
 
@@ -486,12 +482,6 @@ h2.welcome-user {
   border-radius: 10px;
   text-align: left;
   transition: linear .2s;
-  border-radius: 10px;
-}
-textarea {
-  border-radius: 10px;
-  margin-bottom: 20px;
-  padding: 8px 15px;
 }
 
 label[for="textarea"] {
@@ -585,7 +575,7 @@ time.post-date {
   z-index: 11;
 }
 
-.posts {
+.posts > section {
   display: flex;
   flex-wrap: wrap;
   width: 100%;
@@ -593,19 +583,7 @@ time.post-date {
   align-self: center;
   padding: 20px;
   justify-content: center;
-  box-sizing: border-box;
-}
-
-.posts {
-  display: flex;
-  flex-wrap: wrap;
-  width: 100%;
-  position: relative;
-  align-self: center;
-  padding: 20px;
-  justify-content: center;
-  box-sizing: border-box;
-}
+  box-sizing: border-box;}
 
 article {
   position: relative;
@@ -619,7 +597,7 @@ article {
 }
 
 @media (min-width: 481px) {
-  .posts {
+  .posts  > section{
       gap: 10px;
       max-width: 700px;
 
@@ -630,7 +608,7 @@ article {
   }
 }
 @media (min-width: 980px) {
-  .posts {
+  .posts  > section{
       gap: 8px;
       max-width: 1000px;
   }
@@ -748,13 +726,10 @@ button.edit {
   cursor: pointer;
   transition: linear .2s;
   margin-bottom: 0;
-  display: flex;
-  align-self: center;
 }
 
-button.edit .edit-post {
-  margin-left: 5px;
-  font-size: 15px;
+button.edit i {
+  margin-left: 6px;
 }
 
 button:hover {
@@ -865,24 +840,18 @@ button[name="post-comment"] {
   cursor: pointer;
 }
 
-.section.user-account .container,
-.update.update-password {
+.section.user-account .container {
   background-color: transparent;
   padding: 30px;
   max-width: none;
-  width: 100%;
+  width: calc(70% - 60px);
   border-radius: 0;
   display: flex;
   flex-direction: column;
   text-align: left;
   height: calc(100% - 120px);
-}
-
-.section.user-account .container.user-account {
-  padding-bottom: 0px;
-}
-.container.update.update-password {
-  padding-top: 0px;
+  margin-top: 60px;
+  margin-left: 30%;
 }
 
 .section.user-account .container h2,
@@ -892,7 +861,6 @@ button[name="post-comment"] {
 
 .section.user-account h2 {
   margin-bottom: 0;
-  margin-top: 0;
 }
 
 .buttons {
@@ -908,7 +876,6 @@ button.button--update-info__profile {
 
 button.button--update-info__password {
   max-width: 145px;
-  margin-left: 0;
 }
 
 button.button--update-info__save-info,
@@ -960,7 +927,7 @@ a.user-theme {
   font-size: 32px;
 }
 
-html[data-theme="dark"] .theme.material-symbols-outlined {
+.material-symbols-outlined.on {
   color: #70bd7a;
 }
 
@@ -1006,9 +973,7 @@ html[data-theme="dark"] .theme.material-symbols-outlined {
   font-size: 10px;
   bottom: 0px;
 }
-.section.user-account .delete-account {
-  margin-left: 30px;
-}
+
 /* ______ END USER SETTINGS ___ */
 
 

@@ -1,39 +1,15 @@
-import registerUser from '../logic/users/registerUser.js'
 
-export default function Register({onLoginClick, onUserRegistered}) {
-    console.log('Home -> register')
 
+export default function Register(props) {
     function handleLoginClick(event) {
       event.preventDefault()
-      onLoginClick()
+      props.onLoginClick()
     }
-
-    function handleRegister(event) {
-        event.preventDefault()
-
-        const name = event.target.name.value
-        const email = event.target.email.value
-        const password = event.target.password.value
-        debugger
-        try {
-            const checkNewUserIsRegister = registerUser(name, email, password)        
-
-            if(checkNewUserIsRegister) {
-                document.querySelector('.message').classList.add('success')
-                event.target.reset()
-                onUserRegistered()
-            }
-        } catch(error) {
-            document.querySelector('.message').classList.add('error')
-            document.querySelector('.message').textContent = error.message
-        }
-    }
-    
-
+  
     return <section className="section register" id="register">
     <div className="container">
         <h1>Register</h1>
-        <form className="register-form" onSubmit={handleRegister}>
+        <form className="register-form">
             <div className="message"></div>
             <label>Name</label>
             <input type="text" name="name" id="register-name" placeholder="Your name" />
