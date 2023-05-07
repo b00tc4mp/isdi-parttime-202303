@@ -1,4 +1,4 @@
-console.log('load register-user')
+console.log('load registerUser')
 
 import { validateName, validateEmail, validatePassword } from "./helpers/validators.js"
 import { findUserByEmail } from "./helpers/dataManagers.js"
