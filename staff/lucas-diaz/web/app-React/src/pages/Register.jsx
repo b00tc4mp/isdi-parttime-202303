@@ -1,22 +1,34 @@
-import registerUser from "../../../app.8/src/logic/register-user";
+import registerUser from "../logic/registerUser.js"
 
 export default function Register(props) {
+
+    
+
+
 
     function handleLoginClick(event) {
         event.preventDefault();
         props.onLoginClick();
     }
+
     function handleRegister(event) {
         event.preventDefault();
 
-        const temporalUserName = event.target.name.value
+        const temporalUserName = event.target.name.value;
         const temporalEmail = event.target.email.value;
         const temporalPassword = event.target.password.value;
-
-        registerUser()
+        const failRegisterAdvice = document.querySelector(".register .fail-warning");
+        const registerForm = document.querySelector(".register form")
         
+        try{
+            registerUser(temporalUserName, temporalEmail, temporalPassword);
+            registerForm.reset();
+            props.onUserRegistered();
+            
+        } catch (error){
+            failRegisterAdvice.textContent = error.message;
+        }
     }
-
 
     return <div className="container">
         <section className="register">

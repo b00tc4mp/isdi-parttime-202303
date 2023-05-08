@@ -1,5 +1,5 @@
 import {validateEmail, validateUsername, validatePassword } from "./helpers/validators.js"
-import { findUserByEmail } from "./helpers/data-managers.js";
+import { findUserByEmail } from "./helpers/dataManagers.js";
 import { users, saveUsers } from "../data.js";
 
 
