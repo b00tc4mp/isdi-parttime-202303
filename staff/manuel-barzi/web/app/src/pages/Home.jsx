@@ -3,6 +3,7 @@ import { Component } from 'react'
 import AddPostModal from '../components/AddPostModal'
 import Profile from '../components/Profile'
 import EditPostModal from '../components/EditPostModal'
+import './Home.css'
 
 export default class Home extends Component {
     constructor(props) {
@@ -30,7 +31,7 @@ export default class Home extends Component {
 
         return <div className="home">
             <header className="home-header">
-                <h1 className="title" onClick={this.handleGoToPosts}>Home</h1>
+                <h1 className="home-header-title" onClick={this.handleGoToPosts}>Home</h1>
 
                 <nav className="home-header-nav">
                     <img className="home-header-avatar" src="" alt="" />

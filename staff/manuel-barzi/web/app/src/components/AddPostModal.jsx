@@ -2,6 +2,8 @@ import { context } from '../ui'
 import createPost from '../logic/createPost'
 
 export default function AddPostModal({ onCancel, onPostCreated }) {
+    console.log('AddPostModal -> render')
+
     function handleCancel(event) {
         event.preventDefault()
 
@@ -23,7 +25,7 @@ export default function AddPostModal({ onCancel, onPostCreated }) {
         }
     }
 
-    return <section className="add-post container">
+    return <section className="modal container">
         <form className="container" onSubmit={handleCreatePost}>
             <input className="input" type="url" name="image" placeholder="image url" />
             <textarea className="input" name="text" cols="30" rows="10" placeholder="text"></textarea>

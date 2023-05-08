@@ -3,6 +3,8 @@ import updatePost from '../logic/updatePost'
 import retrievePost from '../logic/retrievePost'
 
 export default function EditPostModal({ onCancel, onPostUpdated, postId }) {
+    console.log('EditPostModal -> render')
+
     function handleCancel(event) {
         event.preventDefault()
 
@@ -27,7 +29,7 @@ export default function EditPostModal({ onCancel, onPostUpdated, postId }) {
     try {
         const { image, text } = retrievePost(context.userId, postId)
 
-        return <section className="edit-post container">
+        return <section className="modal container">
             <form className="container" onSubmit={handleupdatePost}>
                 <input className="input" type="url" name="image" placeholder="image url" defaultValue={image} />
                 <textarea className="input" name="text" cols="30" rows="10" placeholder="text" defaultValue={text}></textarea>

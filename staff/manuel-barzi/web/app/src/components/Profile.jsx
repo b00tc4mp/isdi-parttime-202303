@@ -1,3 +1,5 @@
+import './Profile.css'
+
 export default function Profile() {
     console.log('Profile -> render')
 
