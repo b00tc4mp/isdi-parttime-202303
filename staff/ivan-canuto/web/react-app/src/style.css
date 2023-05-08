@@ -1,0 +1,551 @@
+/* resets */
+html, body {
+  min-height: 100vh;
+  max-height: fit-content;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+/* styles */
+
+:root {
+  --basecolor: yellow;
+  --basebgcolor: orange;
+}
+
+.off {
+  display: none !important;
+}
+
+.page {
+  background-color: var(--basebgcolor);
+  min-height: 100vh;
+  max-height: fit-content;
+  padding-bottom: 60px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.title {
+  color: var(--basecolor);
+  font-size: 50px;
+  margin: 20px 0;
+  cursor: pointer;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  min-width: 60vw;
+  gap: 1rem;
+}
+
+.input, .button {
+  padding: .5rem .6rem;
+  border-radius: .75rem;
+  background-color: var(--basecolor);
+  box-shadow: 0 0 0 20px yellow inset;
+}
+
+button {
+  cursor: pointer;
+}
+
+.button--accept {
+  background-color: greenyellow;
+}
+
+.button--cancel {
+  background-color: tomato;
+}
+
+@media (min-width: 768px) {
+  .page {
+      background-color: tomato;
+  }
+}
+
+.header {
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  background: #70b8ff;
+  height: fit-content;
+  z-index: 20;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  gap: 10px;
+  padding: 10px 0;
+  flex-wrap: wrap;
+}
+
+.header h1 {
+  margin: 0;
+}
+
+header div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 20px;
+}
+
+header button {
+  padding: 5px 10px;
+  font-size: 15px;
+  border-radius: 7px;
+}
+
+.home-footer {
+  position: fixed;
+  bottom: 0;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #70b8ff;
+  height: 60px;
+}
+
+.profile {
+  padding: 110px 0;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.545);
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 20;
+}
+
+
+.menu-icon {
+  cursor: pointer;
+  margin-right: 20px;
+  font-size: xx-large;
+}
+
+.menu {
+  height: fit-content;
+  background-color: rgb(232, 232, 232);
+  margin: 0;
+  padding: 10px 10px 10px 30px;
+  display: flex;
+  gap: 20px;
+  top: 120px;
+  list-style-position: inside;
+  position: fixed;
+  width: 100vw;
+  border-bottom: 2px solid black;
+}
+
+@media (min-width: 442px) {
+  .menu {
+    top: 78px;
+  }
+}
+
+.menu li {
+  cursor: pointer;
+  padding: 10px 5px;
+  margin: 0;
+  font-size: 17px;
+}
+
+.menu li:hover {
+  background: rgb(216, 216, 216);
+}
+
+@media (min-width: 630px) {
+  main div{
+    display: flex;
+    flex-direction: row;
+  }
+
+  .menu {
+    margin: -2px -2px 0 0;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    border: 2px solid black;
+    height: 80vh;
+    min-width: 150px;
+    width: 100px;
+    left: 0;
+  }
+}
+
+.close-changeform-button {
+  background: rgb(255, 107, 107);
+  border-radius: 10px;
+  margin-top: 15px;
+  padding: 10px 20px;
+  font-size: 15px;
+}
+
+.name-avatar-profile {
+  cursor: pointer;
+  user-select: none;
+}
+  
+.change-form {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 60%;
+  background: white;
+  border: 2px solid grey;
+  border-radius: 10px;
+  padding: 10px 25px 25px 10%;
+}
+.change-form h2 {
+  margin: 5px 0 10px 0;
+}
+
+.change-form div {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.change-form input {
+  width: 250px;
+  margin: 5px;
+}
+
+html, body {
+  height: 100vh;
+}
+
+.avatar-image {
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+}
+
+.add-post, .edit-post {
+  width: 100vw;
+  height: 100vmax;
+  background-color: rgba(0, 0, 0, 0.545);
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 30;
+}
+
+.add-post-form, .edit-post-form {
+  background: white;
+  padding: 20px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  position: fixed;
+  bottom: 150px;
+}
+
+.post-url {
+  width: 250px;
+  border: 2px solid black;
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 0 0 0 20px yellow inset;
+}
+
+.post-text {
+  width: 250px;
+  border: 2px solid black;
+  height: 100px;
+  box-shadow: 0 0 0 60px yellow inset;
+  border-radius: 10px;
+  padding: 10px;
+  overflow: hidden;
+}
+
+.posts-list {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  gap: 15px;
+  flex-wrap: wrap;
+  padding: 50px 0;
+}
+
+.open-menu {
+  margin: 100px 0 0 0;
+}
+
+.home {
+  margin: 60px 0px;
+}
+
+.user-post {
+  padding: 20px 20px 20px 20px;
+  width: 75%;
+  max-width: 400px;
+  max-height: 400px;
+  margin: 0;
+  background: white;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  user-select: none;
+  overflow-y: scroll;
+}
+
+.user-post::-webkit-scrollbar {
+  display: none;
+}
+
+@media (min-width: 630px) {
+  .open-menu {
+    margin: 0 0 0 90px;
+  }
+}
+
+.text-post {
+  margin: 0 20px 30px 20px;
+  text-align: justify;
+  overflow-wrap: break-word;
+}
+
+.image-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.image-post {
+  border-radius: 10px;
+  margin-bottom: 10px;
+  object-fit: contain;
+  width: 70%;
+  max-height: 50vh;
+  max-width: 60vw;
+}
+
+.bigger-post{
+  position: fixed;
+  top: 17%;
+  height: 400px;
+  max-width: 300px;
+  width: fit-content;
+  cursor: default;
+}
+
+.bigger-post img {
+  margin: 10px 0;
+  height: fit-content;
+  width: 300px;
+  max-height: 200px;
+}
+
+.selected-post-page {
+  width: 100%;
+  min-height: 100vmax;
+  max-height: fit-content;
+  background-color: rgba(0, 0, 0, 0.545);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+}
+
+.above-image {
+  height: 40px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  gap: 5px;
+  border-radius: 7.5px;
+  margin: 0 10px 30px 10px;
+}
+
+.above-image div {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.post-user-avatar {
+  height: 25px;
+}
+
+.post-user-name {
+  font-size: 20px;
+}
+
+.edit-post-button, .delete-post-button {
+  background: rgb(127, 127, 255);
+  font-size: 13px;
+  cursor: pointer;
+  width: fit-content;
+  height: fit-content;
+  padding: 2px 5px;
+  border: 0.5px solid grey;
+  border-radius: 3px;
+}
+
+.delete-post-button {
+  background-color: rgb(255, 131, 131);
+}
+
+.avatar-author-div {
+  display: flex;
+  margin-bottom: 10px;
+  gap: 10px;
+  align-items: center;
+}
+
+.avatar-author-post {
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+}
+
+.post-author {
+  font-weight: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.bigger-post .avatar-author-div {
+  height: fit-content;
+  width: 250px;
+  margin: 0;
+}
+
+.bigger-post .avatar-author-post {
+  height: 40px;
+  width: 40px ;
+}
+
+.bigger-post .post-author {
+  font-weight: 30px;
+}
+
+.under-image {
+  display: flex;
+  align-items: center;
+  margin: 0 0 15px 20px;
+}
+
+.heart-icon, .favorite-icon, .comment-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 25px;
+  width: 25px;
+  cursor: pointer;
+  margin-right: 5px;
+}
+
+.under-image-big-post {
+  margin: 0 0 10px 10px;
+}
+
+.date-post {
+  margin: 0px 0 0 10px !important;
+}
+
+.likes-post {
+  text-align: center;
+}
+
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 48
+}
+
+.filled {
+  font-variation-settings:
+  'FILL' 1,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 48
+}
+
+.liked {
+  color: red;
+}
+
+.saved {
+  color: rgb(255, 187, 0);
+}
+
+.fixed-scroll {
+  overflow: hidden;
+}
+
+.comment-section {
+  min-height: 300px;
+  max-height: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.comment {
+  width: 100%;
+}
+
+.add-comment_button {
+  position: absolute;
+  bottom: 0;
+}
+
+.above-comments {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: center;
+}
+
+.above-comments div {
+  display: flex;
+  gap: 10px;
+}
+
+.above-comments p {
+  margin: 0;
+}
+
+.add-comment_form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  position: absolute;
+  bottom: 0;
+}
+
+.add-comment_form textarea {
+  background: rgb(236, 236, 236);
+}
+
+.add-comment_form button {
+  width: 50%;
+  border-radius: 5px;
+}
