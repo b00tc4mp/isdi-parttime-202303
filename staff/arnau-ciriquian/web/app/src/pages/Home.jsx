@@ -4,6 +4,7 @@ import { context } from "../ui.js"
 import Posts from "../components/Posts.jsx"
 import AddPost from "../components/AddPost.jsx"
 import Profile from "../components/Profile.jsx"
+import UpdateAvatar from "../components/UpdateAvatar.jsx"
 
 let user
 
@@ -28,13 +29,22 @@ export default class Home extends Component {
 
     handleAddPostModal = () => this.setState({ modal: 'addPost' })
 
-    handleClosePostModal = () => this.setState({ modal: null })
+    handleCloseModal = () => this.setState({ modal: null })
+
+    handleGoToAvatarModal = () => this.setState({ modal: 'updateAvatar' })
+
+    handleGoBackToProfile = () => {
+        user = getLoggedUser(context.userId)
+        
+        this.setState({ modal: 'profile' })
+    }
 
     handleGoToProfile = (event) => {
         event.preventDefault()
 
         this.setState({ modal: 'profile' })
     }
+
     
     render() {
         return <div className="home">
@@ -49,8 +59,9 @@ export default class Home extends Component {
             </header>
             <main>
                 { this.state.view === 'posts' && <Posts onToggleLike={this.handleToggledLike}/> }
-                { this.state.modal === 'addPost' && <AddPost onAddPostClick={this.handleClosePostModal} onCancelPostClick={this.handleClosePostModal}/> }
-                { this.state.modal === 'profile' && <Profile />}
+                { this.state.modal === 'addPost' && <AddPost onAddPostClick={this.handleCloseModal} onCancelPostClick={this.handleCloseModal}/> }
+                { this.state.modal === 'profile' && <Profile onExitProfileClick={this.handleCloseModal} onGoToUpdateAvatarClick={this.handleGoToAvatarModal}/>}
+                { this.state.modal === 'updateAvatar' && <UpdateAvatar onCancelProfileUpdate={this.handleGoBackToProfile} onUpdateUserAvatarClick={this.handleGoBackToProfile}/>}
             </main>
             <footer>
                 <p className="add-post-anchor"><button className="home__anchor--new-post" href="" onClick={this.handleAddPostModal}>Add new post</button></p>
