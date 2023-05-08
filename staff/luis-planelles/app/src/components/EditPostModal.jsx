@@ -11,7 +11,7 @@ function EditPostModal({postId, onCancel, onPostUpdated}){
   } catch(error){
     alert(error.message)
   }
-
+ 
   function handleEditUpdatePost(event){
     event.preventDefault()
 
@@ -19,7 +19,7 @@ function EditPostModal({postId, onCancel, onPostUpdated}){
     textEditForm = event.target.text.value
 
     try{
-      updatePost(context.userId, postEdit.id, imageEditForm, textEditForm)
+      updatePost(context.userId, postId, imageEditForm, textEditForm)
   
       onPostUpdated()
     } catch (error){

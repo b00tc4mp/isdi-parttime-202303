@@ -11,7 +11,7 @@ function Posts({onEditPostClick, onLikePostClick, onFavouriteClick}) {
             { posts.map(post => 
             <Post 
                 key={post.id} 
-                onEditPostButton={() => onEditPostClick(post.id)}
+                onEditPostButton={onEditPostClick}
                 onLikePostButton={onLikePostClick}
                 onFavouritePostButton={onFavouriteClick} 
                 post={post} />)

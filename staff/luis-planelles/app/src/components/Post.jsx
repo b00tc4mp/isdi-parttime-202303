@@ -11,6 +11,7 @@ function Post({ post: { id, image, text, date, likes},
               }) {
 
   let retrievedUser
+  
   try {
     retrievedUser = retrieveUser(context.userId)
     
@@ -18,14 +19,14 @@ function Post({ post: { id, image, text, date, likes},
     alert(error.message)
   }    
 
-  function handleEditClick(id){
+  function handleEditClick(){
     onEditPostButton(id)
   }
 
-  function handleLikeClick(postId){
+  function handleLikeClick(){
 
     try{
-      toggleLikePost(postId, context.userId)
+      toggleLikePost(id, context.userId)
 
       onLikePostButton()
     } catch(error) {
@@ -33,9 +34,9 @@ function Post({ post: { id, image, text, date, likes},
     }
   }
 
-  function handleFavouriteClick(postId){
+  function handleFavouriteClick(){
     try{
-      toggleFavouritePost(postId, context.userId)
+      toggleFavouritePost(id, context.userId)
 
       onFavouritePostButton()
     } catch(error) {
@@ -50,18 +51,18 @@ function Post({ post: { id, image, text, date, likes},
           <img className='post-avatar' src={retrievedUser.avatar} />
           <p className='post-author'>{retrievedUser.name}</p>
           <button className='button-edit' onClick={handleEditClick}>
-          <i className='far fa-pen'></i> 
+            <i className='far fa-pen'></i> 
           </button>
           
         </div>
         <img className='post-image' src={image} />
         <div className='post-image-footer'>
-          <button className='button-like' onClick={() => handleLikeClick(id)}>
+          <button className='button-like' onClick={handleLikeClick}>
           {likes && likes.includes(retrievedUser.name) 
             ? <i className='fa fa-heart'></i> 
             : <i className='far fa-heart'></i>} 
           </button>
-          <button className='button-favourites' onClick={() => handleFavouriteClick(id)}>
+          <button className='button-favourites' onClick={handleFavouriteClick}>
           {retrievedUser.favourites && retrievedUser.favourites.includes(id) 
             ? <i className='fas fa-bookmark'></i> 
             : <i className='far fa-bookmark'></i>

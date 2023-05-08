@@ -2,11 +2,11 @@ import { Component } from 'react'
 import updateUserAvatar from '../logic/updateUserAvatar'
 import updateUserPassword from '../logic/updateUserPassword'
 import { context } from '../ui'
+import Posts from './Posts'
 
 class Profile extends Component {
     constructor(props){
         super(props)
-
     }
 
      handleUpdateAvatar = (event) => {
@@ -15,14 +15,12 @@ class Profile extends Component {
         const avatarUrl = event.target.avatarUrl.value;
 
         try {
-
             updateUserAvatar(context.userId, avatarUrl)
             alert('avatar updated')
 
         }catch (error){
             alert(error.message)
         }
-
      }
 
      handleUpdatePassword = (event) => {
@@ -33,7 +31,6 @@ class Profile extends Component {
         newPasswordConfirm = event.target.newPasswordConfirm.value;
 
         try {
-            
             updateUserPassword(
                 context.userId, 
                 password, 
@@ -55,25 +52,30 @@ class Profile extends Component {
      }
         
         render() {
-            return <div className="profile container">
-                <h4>Update avatar</h4>
-    
-                <form className="profile-avatar-form" onSubmit={this.handleUpdateAvatar}>
-                    <input className="input" type="url" name="avatarUrl" />
-                    <button className="button" type="submit">Update</button>
-                </form>
-    
-                <h4>Update password</h4>
-    
-                <form className="profile-password-form" onSubmit={this.handleUpdatePassword}>
-                    <input className="input" type="password" name="password" placeholder="password" />
-                    <input className="input" type="password" name="newPassword" placeholder="new password" />
-                    <input className="input" type="password" name="newPasswordConfirm" placeholder="new password confirmation" />
-                    <button className="button" type="submit">Update</button>
-                </form>
+            return <div className="profile">
+                    <div className='update-options'>
+                        <h4>Update avatar</h4>
+            
+                        <form className="profile-avatar-form" onSubmit={this.handleUpdateAvatar}>
+                            <input className="input" type="url" name="avatarUrl" />
+                            <button className="button" type="submit">Update</button>
+                        </form>
 
-                <p> Go to{' '} <a href="" onClick={this.handleHomeClick}> Home </a> </p>
-            </div>
+                        <h4>Update password</h4>
+            
+                        <form className="profile-password-form" onSubmit={this.handleUpdatePassword}>
+                            <input className="input" type="password" name="password" placeholder="password" />
+                            <input className="input" type="password" name="newPassword" placeholder="new password" />
+                            <input className="input" type="password" name="newPasswordConfirm" placeholder="new password confirmation" />
+                            <button className="button" type="submit">Update</button>
+                        </form>
+
+                        <p className='profile-go-home'> Go to{' '} <a href="" onClick={this.handleHomeClick}> Home </a> </p>
+                    </div>
+                    <div className='profile-posts'>
+                        <Posts />
+                    </div>
+                </div>
         }
 }
 
