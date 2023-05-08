@@ -2,19 +2,19 @@ import { savePost } from '../data';
 import { findPostById, findUserById } from './helpers/data-managers';
 import { validateId } from './helpers/validators';
 
-const handlePostLikeUSers = (user, post) => {
-  if (!post.likesUsers) {
-    post.likesUsers = [user.info.name];
+const handlePostLikeUSers = (post, user) => {
+  if (!post.likes) {
+    post.likes = [user.info.name];
   } else {
-    const userIndex = post.likesUsers.indexOf(user.info.name);
+    const userIndex = post.likes.indexOf(user.info.name);
 
     if (userIndex < 0) {
-      post.likesUsers.push(user.info.name);
+      post.likes.push(user.info.name);
     } else {
-      post.likesUsers.splice(userIndex, 1);
+      post.likes.splice(userIndex, 1);
 
-      if (!post.likesUsers.length) {
-        delete post.likesUsers;
+      if (!post.likes.length) {
+        delete post.likes;
       }
     }
   }
@@ -31,7 +31,7 @@ const toggleLikePost = (postId, userId) => {
   const foundPost = findPostById(postId);
   if (!foundPost) throw new Error(`post id: ${postId} not found`);
 
-  const updatedPost = handlePostLikeUSers(foundUser, foundPost);
+  const updatedPost = handlePostLikeUSers(foundPost, foundUser);
   savePost(updatedPost);
 
   return updatedPost;
