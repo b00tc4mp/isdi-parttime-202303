@@ -3,16 +3,17 @@ import Posts from '../components/Posts.jsx'
 import Settings from "./Settings.jsx"
 import CreatePostModal from "../components/CreatePostModal.jsx"
 import EditPostModal from "../components/EditPostModal.jsx"
-import SidebarMenu from "../components/sidebar.jsx"
-import { users } from "../data.js"
-import { saveUsersInStorage } from "../data.js"
+import SidebarMenu from "../components/SidebarMenu.jsx"
+import Profile from "./Profile.jsx"
+import DeletionPostModal from "../components/DeletionPostModal.jsx"
+import { users, saveUsersInStorage } from "../data.js"
+
 
 export default class Home extends Component{
     constructor(props){
         super(props)
 
         this.state = { view: 'posts', modal: null , postId: undefined}
-        let postId
     }
 
     handleGoToSettings = () => {
@@ -41,6 +42,13 @@ export default class Home extends Component{
         console.log(id)
     }
 
+    openDeletePostModal = (id) => {
+        this.setState({ modal: 'deletionConfirmation', postId: id })
+    }
+
+    closeDeletePostModal = () => {
+        this.setState({ modal: null })
+    }
     
     closeEditCreationModal = () => {
         this.setState({ modal: null })
@@ -54,6 +62,11 @@ export default class Home extends Component{
     handleGoToHome = () => {
         this.setState({ view: 'posts' })
     }
+
+    handleGoToProfile = () => {
+        this.setState({ view: 'profile' })
+    }
+
 
     render(){
 
@@ -71,7 +84,7 @@ export default class Home extends Component{
         </div>
         <div className="content-container">
         <div className="left-container">
-           {<SidebarMenu onSettingsRow={this.handleGoToSettings} onHomeRow={this.handleGoToHome}/>}
+           {<SidebarMenu onSettingsRow={this.handleGoToSettings} onHomeRow={this.handleGoToHome} onProfileComponent={this.handleGoToProfile} />}
         </div>
         <div className="main-container">
                 <div className="middle-section">
@@ -81,14 +94,17 @@ export default class Home extends Component{
                     onSavePost={this.handleToggleSave}
                     onCreateButton={this.openPostCreationModal}
                     onEditPostButtonClick={(id)=> this.openEditPostModal(id)}
+                    onDeletePostButtonClick={(id) => this.openDeletePostModal(id)}
                     />}
                     {this.state.view === 'settings' && <Settings onSidebarUpdates={this.updateSidebarRender}/>}
+                    {this.state.view === 'profile' && <Profile />}
                 </div>
                 <div className="right-section"></div>
         </div>
             
             {this.state.modal === 'createPost' && <CreatePostModal onCreatePostClick={this.closePostCreationModal} onCancelCreatePostButton={this.closePostCreationModal}/>}
             {this.state.modal === 'editPost' && <EditPostModal postId={this.state.postId} onConfirmEditPost={this.closeEditCreationModal} onCancelEditPost={this.closeEditCreationModal}/>}
+            {this.state.modal === 'deletionConfirmation' && <DeletionPostModal postId={this.state.postId} onCancelDeletePost={this.closeDeletePostModal} onConfirmDeletePost={this.closeDeletePostModal}/>}
         </div>
     </div>
     }

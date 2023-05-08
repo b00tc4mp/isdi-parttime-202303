@@ -1,11 +1,11 @@
-import retrievePosts from "../logic/retrievePosts"
 import { context, errorToast, generateToast, successToast } from "../ui"
 import updatePost from "../logic/updatePost"
+import { posts } from "../data"
 
 export default function EditPostModal(props){
-    const posts = retrievePosts(context.userId)
+    const _posts = posts()
 
-    const post = posts.find(post => post.id === props.postId)
+    const post = _posts.find(post => post.id === props.postId)
 
     function onCancel(event){
         event.preventDefault()
@@ -14,7 +14,7 @@ export default function EditPostModal(props){
 
     function handleConfirmationEditPost(event){
         event.preventDefault()
-        const postImgSrc = event.target.image.src 
+        const postImgSrc = event.target.image.value 
         const postCaption = event.target.caption.value
 
         try{

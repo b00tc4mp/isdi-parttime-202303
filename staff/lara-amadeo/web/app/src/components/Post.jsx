@@ -42,6 +42,10 @@ export default function Post(props){
         
     }
 
+    function handleOpenDeletionModal(id){
+        props.onDeletePostButton(id)
+    }
+
     return <div className="post">
     <div className="header-post">
         <div className="post-user-data">
@@ -53,7 +57,11 @@ export default function Post(props){
             </div>
 
         </div>
-        {userLogged.id === props.post.author ? <button className="button-XS secondary-button" onClick={() => handleOpenEditPostModal(props.post.id)}>Edit post</button> : '' }
+        <div className="header-post-actions">
+            {userLogged.id === props.post.author ? <button className="button-XS secondary-button" onClick={() => handleOpenEditPostModal(props.post.id)}>Edit post</button> : '' }
+
+            {userLogged.id === props.post.author ? <button className="critical-button icon-button" onClick={() => handleOpenDeletionModal(props.post.id)}><div className="icon-s-container"><span className="material-symbols-rounded icon-s icon-critical pointer">delete</span></div></button> : '' }
+        </div>
     </div>
 
     <div className="post-image">
@@ -79,3 +87,5 @@ export default function Post(props){
     </div>
 </div>
 }
+
+<button className="button-XS"><div className="icon-s-container"><span className="material-symbols-rounded icon-s pointer">delete</span></div></button>

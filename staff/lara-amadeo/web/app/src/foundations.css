@@ -15,6 +15,10 @@
 
 }
 
+.icon-critical{
+    color: var(--red-400) !important
+}
+
 .material-symbols-rounded.icon-m{
     font-size: 24px;
     color: var(--grey-700);
@@ -29,6 +33,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.icon-button{
+    border-radius: 8px;
 }
 
 .icon-m-container{

@@ -24,7 +24,10 @@
     --grey-100:#D4D8E2 ;
     --white:#FFFFFF ;
 
-    --red: #F44336;
+    --red-400: #F44336;
+    --red-200: #F6655A;
+    --red-300: #FB5548;
+    --red-100: #FDECEA;
 }
 
 #root{
@@ -105,7 +108,7 @@ align-items: center;
 .primary-button{
     background-color:var(--solid-blue) ;
     color: #FFFFFF;
-    border: none;
+    border: none; 
 }
 
 .primary-button:hover {
@@ -115,6 +118,16 @@ align-items: center;
 .secondary-button{
     color: var(--solid-blue);
     border: 1px solid var(--violet-700);
+}
+
+.critical-button{
+    background-color: var(--red-100);
+    border: 0px
+}
+
+.critical-button:hover{
+    background-color: #FCDBD8;
+    color: #FFFFFF
 }
 
 .secondary-button:hover {
@@ -408,7 +421,7 @@ color: var(--accent-purple-hover);
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    margin-top: 10px;
+    margin-top: 40px;
     padding-left: 40px;
     padding-right: 40px;
     box-sizing: border-box;
@@ -442,7 +455,7 @@ color: var(--accent-purple-hover);
 .personal-profile-image{
     width: 160px;
     height: 160px;
-    border-radius: 200px;
+    border-radius: 24px;
     object-fit: cover;
 }
 
@@ -499,6 +512,49 @@ color: var(--accent-purple-hover);
     position: absolute;
 }
 
+.tabs-container{
+
+    list-style-type: none;
+    min-width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    /* border-bottom: 1px solid var(--grey-100); */
+    margin-bottom: 16px;
+    box-sizing: border-box;
+    padding-bottom: 4px;
+    justify-content: space-evenly;
+}
+
+.tab-elem{
+    text-align: center;
+    font-family: "Inter";
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--grey-700);
+    padding: 8px 32px 8px 32px;
+    border-radius: 12px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    align-items: center;
+}
+
+.tab-elem-selected{
+
+    width: 8px;
+    height: 8px;
+    border-radius: 50px;
+    background-color: #021950;
+    position: absolute;
+    bottom: -4px;
+}
+
+.tab-elem:hover{
+    background-color: var(--violet-100);
+}
 
 
 /* end-profile */
@@ -577,6 +633,12 @@ padding-right: 40px;
     display: flex;
     justify-content: space-between;
     width: 100%;
+}
+
+.header-post-actions{
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
 }
 
 .post-user-data{
@@ -723,7 +785,7 @@ padding-right: 40px;
  
   @media(max-width: 975px) {
      .personal-profile-post{
-         width: calc(100% - 20px);
+         width: 100%;
          
      }
  }

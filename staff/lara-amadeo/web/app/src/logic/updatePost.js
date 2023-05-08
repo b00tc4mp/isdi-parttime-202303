@@ -1,12 +1,10 @@
-import { savePostInStorage } from "../data";
-import { context } from "../ui";
-import retrievePosts from "./retrievePosts";
+import { posts, savePostInStorage } from "../data"
 
 export default function updatePost(postId, image, text){
-    const posts = retrievePosts(context.userId)
-    const post = posts.find(post => post.id === postId)
+    const _posts = posts()
+    const post = _posts.find(post => post.id === postId)
 
-    post.image = image
+    post.image = image ? image : post.image
     post.text = text
 
     savePostInStorage(post)

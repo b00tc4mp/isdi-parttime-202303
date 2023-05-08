@@ -20,6 +20,10 @@ export default function Posts(props){
         props.onEditPostButtonClick(id)
     }
 
+    function handleOpenDeleteModal(id){
+        props.onDeletePostButtonClick(id)
+    }
+
 
     try{
         const posts = retrievePosts(context.userId)
@@ -36,6 +40,7 @@ export default function Posts(props){
                 onLikeButtonClick={handleLikePost}
                 onSaveButtonClick={handleSavePost}
                 onEditPostButton={(id) => handleOpenEditModal(id)}
+                onDeletePostButton={(id) => handleOpenDeleteModal(id)}
                 />)}
         </div>     
     </div>
