@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { userExistById, addUser, authenticateUser, getInitials, changePassword, changeMail, retrieveMail, createPost, getPosts } from '../logic.js'
+import {getInitials} from '../logic/retrieveUserInfo.js'
 import { context } from '../main.js'
 
 export default class Home extends Component {

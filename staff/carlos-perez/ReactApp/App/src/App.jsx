@@ -1,6 +1,4 @@
 import { Component } from 'react'
-import { users, posts} from './data.js'
-import {userExistById, addUser, authenticateUser, getInitials, changePassword, changeMail, retrieveMail, createPost, getPosts} from './logic.js'
 import Login from './pages/Login.jsx'
 import Register from './pages/Register.jsx'
 import Home from './pages/Home.jsx'

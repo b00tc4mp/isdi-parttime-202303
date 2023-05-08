@@ -1,5 +1,5 @@
 
-import {userExistById, addUser, authenticateUser, getInitials, changePassword, changeMail, retrieveMail, createPost, getPosts} from '../logic.js'
+import {authenticateUser} from '../logic/authenticateUser.js'
 import {context} from '../main.js'
 
 export default function Login(props) {
