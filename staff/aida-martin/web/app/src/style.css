@@ -213,7 +213,7 @@ h2 {
   margin-bottom: -0.625rem;
 }
 
-.posts-list {
+.posts-list, .saved-posts-list {
   padding-top: 2rem;
   padding-bottom: 2rem;
   width: 21.87rem;

@@ -1,10 +1,17 @@
 import Post from './Post'
 import retrievePosts from '../logic/retrievePosts'
+import retrieveSavedPosts from '../logic/retrieveSavedPosts'
 import { context } from '../ui'
 
-export default function Posts ({ currentUser, onEditPost, onLiked, onSaved }) {
+export default function Posts ({ currentUser, mySavedPosts = false, onEditPost, onLiked, onSaved }) {
   try {
-    const posts = retrievePosts(context.userId)
+    let posts
+
+    if (!mySavedPosts) {
+      posts = retrievePosts(context.userId)
+    } else {
+      posts = retrieveSavedPosts(context.userId, mySavedPosts)
+    }
 
     return <section className='posts-list'>{posts.map(post => <Post currentUser={currentUser} post={post} onEditPost={onEditPost} onLiked={onLiked} onSaved={onSaved} key={post.id} />)}</section>
   } catch (error) {

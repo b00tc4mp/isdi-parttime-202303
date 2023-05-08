@@ -51,6 +51,10 @@ export default class Home extends Component {
     this.setState({ view: 'posts' })
   }
 
+  handleGoToSavedPosts = () => {
+    this.setState({ view: 'saved-posts' })
+  }
+
   render () {
     const currentUser = retrieveUser(context.userId)
 
@@ -81,7 +85,9 @@ export default class Home extends Component {
         <main className='main-container'>
           {this.state.view === 'posts' && <Posts currentUser={currentUser} onEditPost={this.handleOpenEditPost} onLiked={this.handleGoToPosts} onSaved={this.handleGoToPosts} />}
 
-          {this.state.view === 'profile' && <Profile onUpdateUserAvatar={this.handleGoToPosts} onUpdateUserPassword={this.handleGoToPosts} />}
+          {this.state.view === 'profile' && <Profile onUpdateUserAvatar={this.handleGoToPosts} onUpdateUserPassword={this.handleGoToPosts} onSavedPosts={this.handleGoToSavedPosts} />}
+
+          {this.state.view === 'saved-posts' && <Posts currentUser={currentUser} mySavedPosts onEditPost={this.handleOpenEditPost} onLiked={this.handleGoToSavedPosts} onSaved={this.handleGoToSavedPosts} />}
 
           {this.state.modal === 'add-post' && <AddPostPanel onPostCreated={this.handleCloseAddOrEditPost} onCancel={this.handleCloseAddOrEditPost} />}
 
