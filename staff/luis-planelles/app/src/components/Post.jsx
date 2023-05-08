@@ -43,15 +43,15 @@ function Post({ post: { id, image, text, date, likes},
     }
   }
 
-    console.log(retrievedUser.favourites && retrievedUser.favourites.includes(id), retrievedUser.favourites, id)
-
   return (
     <div className='post-users container'>
       <article>
         <div className='post-header'>
           <img className='post-avatar' src={retrievedUser.avatar} />
           <p className='post-author'>{retrievedUser.name}</p>
-          <button className='button-edit' onClick={handleEditClick}>edit</button>
+          <button className='button-edit' onClick={handleEditClick}>
+          <i className='far fa-pen'></i> 
+          </button>
           
         </div>
         <img className='post-image' src={image} />
