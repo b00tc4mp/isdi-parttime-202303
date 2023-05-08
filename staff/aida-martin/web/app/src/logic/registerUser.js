@@ -2,9 +2,9 @@ import {
   validateName,
   validateEmail,
   validatePassword
-} from './helpers/validators.js'
-import { findUserByEmail } from './helpers/dataManagers.js'
-import { users, saveUsers } from '../data.js'
+} from './helpers/validators'
+import { findUserByEmail } from './helpers/dataManagers'
+import { users, saveUsers } from '../data'
 
 export default function registerUser (name, email, password, repeatPassword) {
   validateName(name)

@@ -1,5 +1,5 @@
-import { context } from '../ui.js'
-import authenticateUser from '../logic/authenticateUser.js'
+import { context } from '../ui'
+import authenticateUser from '../logic/authenticateUser'
 
 export default function Login ({ onRegisterClick, onUserLoggedIn }) {
   function handleRegisterClick (event) {

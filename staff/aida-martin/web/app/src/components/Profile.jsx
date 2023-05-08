@@ -1,6 +1,6 @@
-import updateAvatar from '../logic/updateUserAvatar.js'
-import changePassword from '../logic/updateUserPassword.js'
-import { context } from '../ui.js'
+import updateAvatar from '../logic/updateUserAvatar'
+import changePassword from '../logic/updateUserPassword'
+import { context } from '../ui'
 
 export default function Profile ({ onUpdateUserAvatar, onUpdateUserPassword }) {
   function updateUserAvatar (event) {

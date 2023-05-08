@@ -1,6 +1,6 @@
-import { validateId } from './helpers/validators.js'
-import { findPostById, findUserById } from './helpers/dataManagers.js'
-import { saveUser } from '../data.js'
+import { validateId } from './helpers/validators'
+import { findPostById, findUserById } from './helpers/dataManagers'
+import { saveUser } from '../data'
 
 export default function toggleSavePost (userId, postId) {
   validateId(userId, 'User ID')

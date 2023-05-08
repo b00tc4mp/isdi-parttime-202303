@@ -1,5 +1,5 @@
-import { validateId } from './helpers/validators.js'
-import { findUserById } from './helpers/dataManagers.js'
+import { validateId } from './helpers/validators'
+import { findUserById } from './helpers/dataManagers'
 
 export default function retrieveUser (userId) {
   validateId(userId, 'User ID')

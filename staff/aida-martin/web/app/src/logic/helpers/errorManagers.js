@@ -1,4 +1,4 @@
-import { show } from '../../ui.js'
+import { show } from '../../ui'
 
 export default function errorShow (page, error) {
   if (error.cause === 'userError') {

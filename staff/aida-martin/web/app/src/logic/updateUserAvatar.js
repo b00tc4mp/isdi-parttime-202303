@@ -1,6 +1,6 @@
-import { validateId, validateUrl } from './helpers/validators.js'
-import { findUserById } from './helpers/dataManagers.js'
-import { saveUser } from '../data.js'
+import { validateId, validateUrl } from './helpers/validators'
+import { findUserById } from './helpers/dataManagers'
+import { saveUser } from '../data'
 
 export default function updateAvatar (userId, url) {
   validateId(userId, 'User ID')

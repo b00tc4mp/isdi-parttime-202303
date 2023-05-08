@@ -1,5 +1,5 @@
-import createPost from '../logic/createPost.js'
-import { context } from '../ui.js'
+import createPost from '../logic/createPost'
+import { context } from '../ui'
 
 export default function AddPostPanel ({ onPostCreated, onCancel }) {
   function handleCreatePost (event) {

@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import updatePost from '../logic/updatePost.js'
-import { context } from '../ui.js'
+import updatePost from '../logic/updatePost'
+import { context } from '../ui'
 
 export default function EditPostPanel ({ post, onPostEdited, onCancel }) {
   const [text, setText] = useState(post.text)

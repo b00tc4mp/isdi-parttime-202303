@@ -1,11 +1,11 @@
 import { Component } from 'react'
-import { context, openModal, hideModal } from '../ui.js'
-import retrieveUser from '../logic/retrieveUser.js'
-import { DEFAULT_AVATAR_URL } from '../constants.js'
-import Posts from '../components/Posts.jsx'
-import AddPostPanel from '../components/AddPostPanel.jsx'
-import EditPostPanel from '../components/EditPostPanel.jsx'
-import Profile from '../components/Profile.jsx'
+import { context, openModal, hideModal } from '../ui'
+import retrieveUser from '../logic/retrieveUser'
+import { DEFAULT_AVATAR_URL } from '../constants'
+import Posts from '../components/Posts'
+import AddPostPanel from '../components/AddPostPanel'
+import EditPostPanel from '../components/EditPostPanel'
+import Profile from '../components/Profile'
 
 export default class Home extends Component {
   constructor (props) {
@@ -79,7 +79,7 @@ export default class Home extends Component {
         }
 
         <main className='main-container'>
-          {this.state.view === 'posts' && <Posts currentUser={currentUser} onEditPost={this.handleOpenEditPost} />}
+          {this.state.view === 'posts' && <Posts currentUser={currentUser} onEditPost={this.handleOpenEditPost} onLiked={this.handleGoToPosts} onSaved={this.handleGoToPosts} />}
 
           {this.state.view === 'profile' && <Profile onUpdateUserAvatar={this.handleGoToPosts} onUpdateUserPassword={this.handleGoToPosts} />}
 
