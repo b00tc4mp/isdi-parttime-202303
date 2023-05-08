@@ -1,5 +1,5 @@
 import { validateId } from "./helpers/validators";
-import { findUserById } from "./helpers/data-managers";
+import { findUserById } from "./helpers/dataManagers";
 
 
 // NOS DA EL USER SIN PASSWORD NI EMAIL , PARA ELLO LO HACEMOS CON UN FIND(() => {})

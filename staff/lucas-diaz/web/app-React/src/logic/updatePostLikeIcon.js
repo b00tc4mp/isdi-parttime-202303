@@ -1,4 +1,4 @@
-import { findUserById, findUserPostByPostId } from "./helpers/data-managers";
+import { findUserById, findUserPostByPostId } from "./helpers/dataManagers";
 import { validateId } from "./helpers/validators";
 
 export default function updatePostLikeIcon(userId, post, likeIcon, likeIconText){
