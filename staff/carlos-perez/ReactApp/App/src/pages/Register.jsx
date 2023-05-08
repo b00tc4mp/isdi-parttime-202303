@@ -1,8 +1,29 @@
+import {addUser} from "../logic/registerUser.js"
+
 export default function Register(props) {
     function handleLoginClick(event) {
         event.preventDefault()
 
         props.onLoginClick()
+    }
+
+    function handleRegisterClick(event){
+        event.preventDefault()
+
+        props.onRegisterClick()
+
+        const name = event.target.name.value;
+        const email= event.target.email.value;
+        const password = event.target.password.value;
+
+        try{
+            addUser(name, email, password);
+        }
+        catch(error){
+            alert(error.message);
+        }
+
+
     }
     return <div>
         <header className="header">
@@ -14,7 +35,7 @@ export default function Register(props) {
             <form className="formulario">
                 <div className="campo">
                     <label className="campo__label" for="nombre">Nombre</label>
-                    <input className="campo__field register-input" type="text" placeholder="Tu Nombre" id="nombre" required/>
+                    <input className="campo__field register-input" type="text" placeholder="Tu Nombre" id="name" required/>
                 </div>
                 <div className="campo">
                     <label className="campo__label" for="email">E-mail</label>
@@ -26,7 +47,7 @@ export default function Register(props) {
                 </div>
 
                 <div className="campo">
-                    <input type="submit" value="Enviar" className="boton boton--primario"/>
+                    <input type="submit" value="Enviar" className="boton boton--primario" onClick={handleRegisterClick}/>
                 </div>
 
                 <p>Ir a <a href="" onClick={handleLoginClick}>Acceso</a></p>

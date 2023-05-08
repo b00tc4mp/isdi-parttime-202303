@@ -22,6 +22,10 @@ export default class App extends Component {
     this.setState({ view: 'home' })
   }
 
+  handleRegisterClick = () =>{
+    this.setState({view : 'home'})
+  }
+
   /*handlePostClick = () =>{
     this.setState({ view: 'home'})
   }*/
@@ -30,7 +34,7 @@ export default class App extends Component {
 
     switch(this.state.view){
         case 'login': return <Login onRegisterClick={this.handleGoToRegister} onAuthClick={this.handleGoToHome}/>;
-        case 'register': return <Register onLoginClick={this.handleGoToLogin}  />;
+        case 'register': return <Register onLoginClick={this.handleGoToLogin} onRegisterClick={this.handleRegisterClick} />;
         case 'home': return <Home />
         default: return <Login onRegisterClick={this.handleGoToRegister} />;
     }
