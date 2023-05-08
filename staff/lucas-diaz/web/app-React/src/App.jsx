@@ -1,7 +1,7 @@
 import React from "react";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-
+import Home from "./pages/Home";
 
 export default class App extends React.Component {
   constructor(props) {
@@ -10,18 +10,24 @@ export default class App extends React.Component {
     this.state = { view: "login" }
   }
 
-  handleGoToRegister = () => {
-    this.setState({ view: "register" })
-  }
-  handleGoToLogin = () => {
-    this.setState({ view: "login" })
-  }
+  handleGoToRegister = () => this.setState({ view: "register" })
+
+  handleGoToLogin = () => this.setState({ view: "login" })
+
+  handleGoToHome = () => this.setState({ view: "home" });
+
 
   render() {
-    if (this.state.view === "login")
-      return <Login onRegisterClick={this.handleGoToRegister} />
-    else
-      return <Register onLoginClick={this.handleGoToLogin} />
+    switch (this.state.view) {
+      case "login":
+        return <Login onRegisterClick={this.handleGoToRegister} onUserLogedin={this.handleGoToHome} />
+
+      case "register":
+        return <Register onLoginClick={this.handleGoToLogin} />
+        
+      case "home":
+        return <Home/>
+    }
   }
 }
 

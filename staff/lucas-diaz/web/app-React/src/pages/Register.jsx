@@ -28,9 +28,9 @@ export default function Register(props) {
                 </div>
                 <button type="submit" className="submit-button sign-up">SIGN UP</button>
             </form>
-            {<p className="initialize-login">
-                alreaddy loged? <a href="" onClick={handleLoginClick} className="register-login-anchor green">Go to login!</a>
-            </p>}
+            <p className="initialize-login">
+                Alreaddy logged?<a href="" onClick={handleLoginClick} className="register-login-anchor green"> Go to login!</a>
+            </p>
         </section>
     </div>
 }

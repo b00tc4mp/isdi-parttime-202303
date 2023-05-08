@@ -1,3 +1,4 @@
+import { context } from "../ui.js";
 
 export default function Login(props) {
 
@@ -6,12 +7,27 @@ export default function Login(props) {
         props.onRegisterClick();
     }
 
+    function handleLogin(event){
+        event.preventDefault();
+        
+        const email = event.target.email.value;
+        const password = event.target.password.value;
+
+        try{
+            const userId = authenticateUser(email, password)
+
+            
+        }catch(error){
+            alert(error.message)
+        }
+    }
+
     return <div className="container">
         <section className="login">
             <h1 className="login-header">LOG IN</h1>
             <p className="login-success-warning green off">User created successfully</p>
             <p className="fail-warning red"></p>
-            <form className="form">
+            <form className="form" onSubmit={handleLogin}>
                 <div className="input-box">
                     <label>your email</label>
                     <input type="email" className="form-email" name="email" placeholder="Enter email" autoComplete="current-password" />
@@ -29,7 +45,7 @@ export default function Login(props) {
                 </div>
                 <button type="submit" className="submit-button log-in">LOG IN</button>
                 <p className="initialize-register">
-                    not a member? <a href="" onClick={handleRegisterClick} className="login-register-anchor green">register here</a>
+                    Not a member? <a href="" onClick={handleRegisterClick} className="login-register-anchor green">register here</a>
                 </p>
             </form>
         </section>
