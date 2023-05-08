@@ -54,7 +54,7 @@ export default function Post( { post, post: {image, title, text, comments, likes
     </div>
     <img className="space-image" />
     <div className="title-and-interactions">
-        <div className={`material-symbols-outlined like ${isLikedPost === userId ? ' filled' : ''}`}
+        <div className={`material-symbols-outlined ${isLikedPost === userId ? 'like filled' : 'like'}`}
  onClick={handleToggleLike}>favorite</div>
         <div className="material-symbols-outlined comment">maps_ugc</div>
         <div className={currentUser.likedPosts.find(post => post === id) === id ? 'material-symbols-outlined save filled' : 'material-symbols-outlined save'} onClick={handleToggleSave}>bookmark</div>

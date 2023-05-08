@@ -2,12 +2,12 @@ import UpdateUserInfo from "./UpdateUserInfo"
 import UpdateUserPassword from "./UpdateUserPassword"
 import Sidebar from "./sidebarProfilePanel"
 
-export default function Profile( {goBackClick} ) {
+export default function Profile() {
 
 
     return <> 
-    <Sidebar goBackClick={goBackClick}/>
-        <div className="section user-account start-animation">
+    <Sidebar />
+        <div className="section user-account">
             <UpdateUserInfo />
             <UpdateUserPassword />
 

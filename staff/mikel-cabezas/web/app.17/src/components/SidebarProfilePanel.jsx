@@ -1,6 +1,6 @@
 import { userToggleTheme } from "./helpers/getTheme"
 
-export default function Sidebar( {goBackClick} ) {
+export default function Sidebar() {
     // TODO PREGUNTAR PORQUE NO VA EN EL TRY
 
     function handleToggleTheme(event) {
@@ -10,8 +10,8 @@ export default function Sidebar( {goBackClick} ) {
     }
 
     return <> 
-        <div className="sidebar start-animation">
-            <div className="go-back" onClick={goBackClick}>
+        <div className="sidebar">
+            <div className="go-back">
                 <div className="material-symbols-outlined">
                     arrow_back
                 </div> 

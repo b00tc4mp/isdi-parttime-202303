@@ -22,7 +22,7 @@ return <>
         <div className="letter">{letters}</div>
         <img className={userImage ? 'image-profile' : 'hidden image-profile'} src={userImage ? userImage : ''} alt="" />
     </div>
-    <div className="user-name">{user}</div>
+    <div className="user-name">{user.name}</div>
     </>
 
 }

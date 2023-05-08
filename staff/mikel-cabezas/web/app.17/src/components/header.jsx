@@ -13,9 +13,9 @@ constructor(props) {
 
     handleHome = () => {
         try {
-            this.props.onHomeClick()
+            props.onHomeClick
         } catch (error) {
-            console.log(error.message)
+            console.log(message.error)
         }
     }
 
@@ -30,7 +30,6 @@ constructor(props) {
     }
     handleUserProfile = () => {
         try {
-            document.querySelector('li.user-settings').classList.add('current')
             this.props.onUserProfile()
         } catch (error) {
             console.log(error.message)
@@ -69,16 +68,62 @@ constructor(props) {
                             <div className="letter"></div>
                             <img className="image-profile hidden" src="" alt="" />
                         </div>
-                        <div className="user-name">User name</div>
+                        <div className="user-name">Account settings</div>
+                        <ul className="submenu user-options">
+                            <li>User settings</li>
+                            <li onClick={this.handleUserProfile}>User profile</li>
+                        </ul>
                     </li>
-                    <li><span class="material-symbols-outlined">web_stories</span>
-                    Feed</li>
-                    <li className="user-settings" onClick={this.handleUserProfile}><span class="material-symbols-outlined filled">settings</span>
-                        User settings</li>
-                    <li className="logout" onClick={this.handleLogout}><span class="material-symbols-outlined"> logout </span>Logout</li>
+                    <li className="logout" onClick={this.handleLogout}>Logout</li>
                 </ul>
             </nav>
         </div>
     </header>
     }
 }
+
+
+
+
+// menuHeader.querySelector('.submenu-element.login').onclick = function(event) {
+//     event.preventDefault()
+//     toggleOffClassInSection(registerPage, loginPage)
+// }
+// menuHeader.querySelector('.submenu-element.register').onclick = function(event) {
+//     event.preventDefault()
+//     toggleOffClassInSection(registerPage, loginPage)
+// }
+// menuHeader.querySelector('.user-account').onclick = function(event) {
+//     event.preventDefault()
+//     toggleOffClassInSection(homePage, userAccount)
+//     pushUserDataToHeader(userId)
+//     pushUserDataInForm(userId)
+// }
+// menuHeader.querySelector('.logout').onclick = function(event) {
+//     event.preventDefault()
+//     deleteClassOnContainer(bodyPage, 'logged-in')
+//     deleteClassOnContainer(loginPage, 'off')
+//     addClassOnContainer(registerPage, 'off')
+//     addClassOnContainer(homePage, 'off')
+//     logOut()
+// }
+// menuHeader.querySelector('.homepage').onclick = function(event) {
+//     event.preventDefault()
+//     if(document.querySelector('body').classList.contains('logged-in')) {
+//         deleteClassOnContainer(homePage, 'off')
+//         addClassOnContainer(loginPage, 'off')
+//         addClassOnContainer(registerPage, 'off')
+//         addClassOnContainer(userAccount, 'off')
+//         addClassOnContainer(editPostForm, 'off')
+//     }
+// }
+// header.querySelector('.logo').onclick = function(event) {
+//     event.preventDefault()
+//     if(document.querySelector('body').classList.contains('logged-in')) {
+//         deleteClassOnContainer(homePage, 'off')
+//         addClassOnContainer(loginPage, 'off')
+//         addClassOnContainer(registerPage, 'off')
+//         addClassOnContainer(userAccount, 'off')
+//         addClassOnContainer(editPostForm, 'off')
+//     }
+// }
