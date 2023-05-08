@@ -1,4 +1,4 @@
-import { users } from "../../data.js";
+import {users} from "../../data.js";
 
 export function userExist(email) {
     let userPosition = null;

@@ -1,5 +1,5 @@
 import { users } from "../data.js";
-import { userExist } from "./authenticateUser.js"
+import { userExist } from "./helpers/data-manager.js"
 
 export function addUser(name, email, password) {
 

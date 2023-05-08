@@ -1,10 +1,11 @@
-import {userExist} from "./helpers/data-manager"
+import {users} from "../data.js"
+import { userExist } from "./helpers/data-manager.js"
 
 export function authenticateUser(email, password) {
-    
+
     let userPosition = userExist(email);
 
-    if(userPosition === -1){
+    if (userPosition === -1) {
         throw new Error("El usuario no existe");
     }
 

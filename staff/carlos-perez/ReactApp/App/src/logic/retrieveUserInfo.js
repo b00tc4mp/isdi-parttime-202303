@@ -1,5 +1,5 @@
 import { users } from "../data.js";
-import { userExistById } from "./authenticateUser.js"
+import {userExistById} from "./helpers/data-manager.js"
 
 export function retrieveMail(activeUser){
     let userPosition = userExistById(activeUser.id);

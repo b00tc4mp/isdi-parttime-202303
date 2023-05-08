@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import {getInitials} from '../logic/retrieveUserInfo.js'
+import { getInitials } from '../logic/retrieveUserInfo.js'
 import { context } from '../main.js'
 
 export default class Home extends Component {
@@ -11,10 +11,10 @@ export default class Home extends Component {
     }
 
 
-   /* handlePostClick = event => {
-        event.preventDefault()
-        props.onPostClick()
-    } */
+    /* handlePostClick = event => {
+         event.preventDefault()
+         props.onPostClick()
+     } */
     //Posts
 
     initials(name) {
