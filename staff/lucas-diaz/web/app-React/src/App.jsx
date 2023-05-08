@@ -23,10 +23,10 @@ export default class App extends React.Component {
         return <Login onRegisterClick={this.handleGoToRegister} onUserLogedin={this.handleGoToHome} />
 
       case "register":
-        return <Register onLoginClick={this.handleGoToLogin} onUserRegistered={this.handleGoToLogin}/>
-        
+        return <Register onLoginClick={this.handleGoToLogin} onUserRegistered={this.handleGoToLogin} />
+
       case "home":
-        return <Home/>
+        return <Home />
     }
   }
 }

@@ -1,6 +1,7 @@
+import Posts from "../components/Posts"
 
 export default function Home() {
-    
+
     return <div className="home">
         <header className="home-header">
             <h1 className="home-header-tittle">Home</h1>
@@ -22,6 +23,7 @@ export default function Home() {
         </header>
 
         <main className="home-posts-content">
+            <Posts />
         </main>
 
         <footer className="footer">

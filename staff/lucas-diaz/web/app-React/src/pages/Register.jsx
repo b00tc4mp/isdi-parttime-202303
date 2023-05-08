@@ -1,11 +1,6 @@
 import registerUser from "../logic/registerUser.js"
 
 export default function Register(props) {
-
-    
-
-
-
     function handleLoginClick(event) {
         event.preventDefault();
         props.onLoginClick();
@@ -19,13 +14,13 @@ export default function Register(props) {
         const temporalPassword = event.target.password.value;
         const failRegisterAdvice = document.querySelector(".register .fail-warning");
         const registerForm = document.querySelector(".register form")
-        
-        try{
+
+        try {
             registerUser(temporalUserName, temporalEmail, temporalPassword);
             registerForm.reset();
             props.onUserRegistered();
-            
-        } catch (error){
+
+        } catch (error) {
             failRegisterAdvice.textContent = error.message;
         }
     }

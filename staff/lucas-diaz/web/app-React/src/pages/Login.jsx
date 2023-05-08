@@ -3,24 +3,23 @@ import authenticateUser from "../logic/authenticateUser.js"
 
 
 export default function Login(props) {
-
     function handleRegisterClick(event) {
         event.preventDefault();
         props.onRegisterClick();
     }
 
-    function handleLogin(event){
+    function handleLogin(event) {
         event.preventDefault();
-        
-        const email = event.target.email.value = "lucas@gmail.com";
-        const password = event.target.password.value = "LucasDiaz22!!";
 
-        try{
+        const email = event.target.email.value = "lucas@gmail.com";
+        const password = event.target.password.value = "LucasDiaz22!";
+
+        try {
             const userId = authenticateUser(email, password)
             context.userId = userId;
             props.onUserLogedin();
 
-        }catch(error){
+        } catch (error) {
             alert(error.message)
         }
     }

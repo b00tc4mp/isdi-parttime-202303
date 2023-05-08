@@ -233,12 +233,14 @@ label{
 .home-posts-content{
     width: 100%;
     padding: 1rem;
-    padding-bottom: 7rem;
+    padding-bottom: 3rem;
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
     gap: 1rem;
     background-color: #1e1f22;
+    height: auto;
+    margin-top: 40rem;
 }
 .home-posts-content article {
     padding: 1rem;
