@@ -4,7 +4,7 @@ import Post from './Post.jsx'
 
 //lo hacemos con map y no con forEach porque necesitamos que nos devuelva un array
 
-export default function Posts({ onEditPost }) {
+export default function Posts() {
     console.log('posts')
     
     try {
@@ -12,7 +12,7 @@ export default function Posts({ onEditPost }) {
 
         return <section>
 
-            {posts.map(post => <Post post={post} onEditPost={onEditPost} />)} 
+            {posts.map(post => <Post post={post} />)} 
 
         </section>
 
