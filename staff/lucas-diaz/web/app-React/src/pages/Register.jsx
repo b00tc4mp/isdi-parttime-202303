@@ -1,17 +1,28 @@
+import registerUser from "../../../app.8/src/logic/register-user";
 
 export default function Register(props) {
 
     function handleLoginClick(event) {
         event.preventDefault();
         props.onLoginClick();
-
     }
+    function handleRegister(event) {
+        event.preventDefault();
+
+        const temporalUserName = event.target.name.value
+        const temporalEmail = event.target.email.value;
+        const temporalPassword = event.target.password.value;
+
+        registerUser()
+        
+    }
+
 
     return <div className="container">
         <section className="register">
             <h1 className="register-header">REGISTER</h1>
             <p className="fail-warning red"></p>
-            <form className="form">
+            <form className="form" onSubmit={handleRegister}>
                 <div className="input-box">
                     <label>your username</label>
                     <input type="text" className="form-username" name="name" placeholder="Enter username" />
