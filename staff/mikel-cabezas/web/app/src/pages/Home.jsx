@@ -34,11 +34,11 @@ export default class Home extends Component {
         }, 300)
         setTimeout(() => {
             this.setState({ modal: 'null' })        
-        }, 700)
+        }, 900)
         setTimeout(() => {
             document.querySelector('.sidebar').classList.remove('start-animation')
             document.querySelector('.section.user-account').classList.remove('start-animation')
-        }, 850)
+        }, 1050)
     }
     render() {
         return <>
