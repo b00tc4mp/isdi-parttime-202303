@@ -1,7 +1,7 @@
 console.log('load retrieve user')
 
 import { validateId } from './helpers/validators'
-import { findUserById } from './helpers/data-managers'
+import { findUserById } from './helpers/dataManagers'
 
 export const retrieveUser = (userId) => {
     validateId(userId, 'user id')

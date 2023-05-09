@@ -213,6 +213,16 @@ header > nav {
   height: 2rem;
   width: 2rem;
   border-radius: 1rem;
+  object-fit: cover;
+}
+
+.user-avatar-big{
+  background-color: none;
+  height: 5rem;
+  width: 5rem;
+  border-radius: 2.5rem;
+  margin-bottom: 1.2rem;
+  object-fit: cover;
 }
 
 .horizontal-menu > li {
@@ -497,6 +507,10 @@ header > nav {
   .profile-options {
     font-size: 1.3rem;
   }
+
+  .submit-buttons {
+    font-size: 1.3rem;
+  }
 }
 
 @media (min-width: 1001px) {
@@ -605,6 +619,10 @@ header > nav {
   }
 
   .profile-options {
+    font-size: 1.3rem;
+  }
+
+  .submit-buttons {
     font-size: 1.3rem;
   }
 }

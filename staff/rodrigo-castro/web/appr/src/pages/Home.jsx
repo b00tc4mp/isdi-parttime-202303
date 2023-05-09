@@ -1,5 +1,5 @@
-import Posts from '../components/Posts.jsx'
-import { findUserById } from '../logic/helpers/dataManagers'
+import Posts from '../components/Posts'
+import { retrieveUser } from '../logic/retrieveUser'
 import { context } from '../ui'
 import { Component } from 'react'
 import AddPostModal from '../components/AddPostModal'
@@ -46,7 +46,7 @@ export default class Home extends Component {
     }
     
     render() {
-    const user = findUserById(context.userId)
+    const user = retrieveUser(context.userId) // Modificar, meter en el constructor!!!!
     
     return <div className="home-page">
         <header>

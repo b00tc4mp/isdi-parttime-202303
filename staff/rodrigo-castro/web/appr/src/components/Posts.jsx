@@ -18,7 +18,7 @@ export default function Posts({onLikeToggled, onEditClicked}) {
         const handleEdit = (id) => onEditClicked(id)
 
         return <section className='posts-list'>
-            { posts.map(post => <Post post={post} onLike={handleLike} onEdit={ (id) => handleEdit(id)}/>)}
+            { posts.map(post => <Post key={post.id} post={post} onLike={handleLike} onEdit={ (id) => handleEdit(id)}/>)}
         </section>
     } catch(error) {
         alert(error.message)
