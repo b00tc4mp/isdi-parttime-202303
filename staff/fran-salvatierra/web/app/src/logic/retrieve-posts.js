@@ -2,7 +2,7 @@ import { validateId } from './helpers/validators.js'
 import { users, posts } from '../data.js'
 
 export default function retrievePosts(userId) {
-    validateId(userId, 'user id')
+    validateId(userId, 'use id')
 
     const found = users().some(user => user.id === userId)
 

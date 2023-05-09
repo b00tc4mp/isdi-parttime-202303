@@ -1,5 +1,5 @@
-import registerUser from '../logic/register-user.js';
-import { Component } from "../library/composito.js";
+import registerUser from '../logic/register-user.js'
+import { Component } from '../library/composito.js'
 
 export default class Register extends Component {
     constructor() {
@@ -14,44 +14,6 @@ export default class Register extends Component {
         </form>
 
         <p>Go to <a href="">Login</a></p>
-    </div>`);
-        
-        this.container.querySelector('form').onsubmit = event => {
-            event.preventDefault();
-            const name = document.querySelector('input[name="name"]').value;
-            const email = document.querySelector('input[name="email"]').value;
-            const password = document.querySelector('input[name="password"]').value;
-            
-
-            try {
-                registerUser(name, email, password)
-                this.onRegistered()
-    
-            } catch (error) {
-                alert(error.message)
-            }
-        }
-
-        this.container.querySelector('a').onclick = event => {
-            event.preventDefault()
-        
-            try {
-                this.onLoginClick()
-
-            } catch (error) {
-                alert(error.message)
-            }
-        }
+    </div>`)
     }
-
-    
-
-    onRegistered(){
-        console.log('Go to login')
-    }
-
-    onLoginClick(){
-        console.log('Go to login')
-    }
-
 }

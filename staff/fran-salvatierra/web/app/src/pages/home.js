@@ -1,7 +1,7 @@
-import { Component } from '../library/composito.js';
-import  retrievePosts  from '../logic/retrieve-posts.js';
-import  Posts  from '../components/posts.js'
-import { context } from '../ui.js';
+import { Component } from '../library/composito.js'
+import retrievePosts from '../logic/retrieve-posts.js'
+import Posts from '../components/posts.js'
+import { context } from '../ui.js'
 
 export default class Home extends Component {
     constructor() {
@@ -17,16 +17,23 @@ export default class Home extends Component {
             <button class="home-header-logout">Logout</button>
         </header>
 
-        <main>TODO show list</main>
+        <main></main>
 
         <footer class="home-footer">
             <button class="add-post-button">+</button>
         </footer>
-    </div>`);
-        debugger
-        const posts = retrievePosts(context.userId);
+    </div>`)
+
+        const posts = retrievePosts(context.userId)
+
         const _posts = new Posts(posts)
 
-        this.container.querySelector('main').appendChild(_posts.container);
+        _posts.onPostLikeToggled = () => {
+            const posts = retrievePosts(context.userId)
+
+            _posts.refreshPosts(posts)
+        }
+
+        this.container.querySelector('main').appendChild(_posts.container)
     }
 }
