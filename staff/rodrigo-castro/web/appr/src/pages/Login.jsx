@@ -41,8 +41,8 @@ export default function Login({onRegisterClick, onUserLoggedIn}) {
                 <input className="checkbox" type="checkbox" name="remember-me"/>
                 <div className="remember-me-text">Remember me</div>
             </div>
-            <div className="forgot-password">Forgot your <a className="forgot-password-button">password</a>?</div>
-            <div className="already-registered">Don't have an account? <a className="register-now-button" onClick={handleRegisterClick}>Register now</a></div>
+            <div className="forgot-password">Forgot your <a className="link">password</a>?</div>
+            <div className="already-registered">Don't have an account? <a className="link" onClick={handleRegisterClick}>Register now</a></div>
             <button className="submit-buttons" type="submit">Login</button>
     </form>
     </div>

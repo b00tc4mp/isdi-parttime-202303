@@ -26,6 +26,7 @@ export default class Profile extends Component {
     render() {
         return <section className="modal-window" name="modal-profile-options">
             <div className="modal-profile-options">
+                
                 <ul className="profile-options">
                     <li>My profile</li>
                     <li>Settings</li>

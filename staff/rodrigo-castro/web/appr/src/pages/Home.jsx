@@ -96,6 +96,7 @@ export default class Home extends Component {
             {this.state.modal === 'edit-post' && <EditPost
                 onCancel={this.handleCloseModal}
                 onPostEdited={this.handleCloseModal}
+                onPostDeleted={this.handleCloseModal}
                 postId={this.state.postId}
             />}
         </main>
