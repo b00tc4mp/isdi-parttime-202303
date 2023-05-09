@@ -1,4 +1,4 @@
-import './pages/login-page.js'
+import './pages/login-page'
 
 /*  TODO Web/App - objectiu de la app: xarxa social:
         - ig de stickers?

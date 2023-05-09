@@ -1,7 +1,7 @@
-import { createNewPost } from "../logic/create-new-post.js"
+import { createNewPost } from "../logic/create-new-post"
 import { showHideContainer, context } from "../ui"
 import retrievePosts from "../logic/retrive-posts"
-import { homePageMain } from "../pages/home-page.js"
+import { homePageMain } from "../pages/home-page"
 
 export default function initCreatePost(homePage) {
     const homePagePost = homePage.querySelector('.home__post')

@@ -1,9 +1,9 @@
-import { authenticateUser } from "../logic/authenticate-user.js" 
-import { context, showHideContainer } from "../ui.js"
-import { registerPage } from "./register-page.js"
-import { homePage, homePageMain, renderUser } from "./home-page.js"
-import showPostFeed from "../logic/show-post-feed.js"
-import { unslashAllEyes, hideAllPasswords } from "../logic/password-eyes.js"
+import { authenticateUser } from "../logic/authenticate-user" 
+import { context, showHideContainer } from "../ui"
+import { registerPage } from "./register-page"
+import { homePage, homePageMain, renderUser } from "./home-page"
+import showPostFeed from "../logic/show-post-feed"
+import { unslashAllEyes, hideAllPasswords } from "../logic/password-eyes"
 
 export const loginPage = document.querySelector('.login')
 

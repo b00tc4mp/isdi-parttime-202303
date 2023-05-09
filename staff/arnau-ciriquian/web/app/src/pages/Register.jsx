@@ -1,4 +1,4 @@
-import { registerUser } from "../logic/registerUser.js"
+import { registerUser } from "../logic/registerUser"
 
 export default function Register({ onLoginClick, onUserRegistered }) {
     function handleLoginClick(event) {

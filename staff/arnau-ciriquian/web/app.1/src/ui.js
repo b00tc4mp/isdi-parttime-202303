@@ -1,6 +1,6 @@
-import { loginPage } from "./pages/login-page.js"
-import { registerPage } from "./pages/register-page.js"
-import { homePageAvatar, homePageEmail, homePagePassword, homePageUsername, alien, spaceDog, meteorite, galaxy } from "./pages/home-page.js"
+import { loginPage } from "./pages/login-page"
+import { registerPage } from "./pages/register-page"
+import { homePageAvatar, homePageEmail, homePagePassword, homePageUsername, alien, spaceDog, meteorite, galaxy } from "./pages/home-page"
 
 const logPage = document.querySelector('.login')
 

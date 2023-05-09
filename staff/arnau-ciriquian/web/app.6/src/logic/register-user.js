@@ -1,6 +1,6 @@
-import { validateEmail, validateName, validateNewPassword, validatePasswordConfirm } from "./helpers/validators.js"
-import { findUserByEmail } from "./helpers/data-managers.js"
-import { saveUsers, users } from "../data.js"
+import { validateEmail, validateName, validateNewPassword, validatePasswordConfirm } from "./helpers/validators"
+import { findUserByEmail } from "./helpers/data-managers"
+import { saveUsers, users } from "../data"
 import spaceDogImage from "../../images/space-dog.svg"
 export const DEFAULT_AVATAR_URL = spaceDogImage
 

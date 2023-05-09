@@ -1,18 +1,18 @@
-import { loginPage } from "./login-page.js"
-import { updateUsername } from "../logic/update-user-name.js"
-import { closeProfilePages, context, showHideContainer, unshadowPredefinedAvatars } from "../ui.js"
-import initUpdatePassword from "../components/update-password.js"
+import { loginPage } from "./login-page"
+import { updateUsername } from "../logic/update-user-name"
+import { closeProfilePages, context, showHideContainer, unshadowPredefinedAvatars } from "../ui"
+import initUpdatePassword from "../components/update-password"
 
-import { updateUserEmail } from "../logic/update-user-email.js"
-import { updateUserAvatar } from "../logic/update-user-avatar.js"
-import { createNewPost } from "../logic/create-new-post.js"
+import { updateUserEmail } from "../logic/update-user-email"
+import { updateUserAvatar } from "../logic/update-user-avatar"
+import { createNewPost } from "../logic/create-new-post"
 import alienImage from "../../images/alien.svg"
 import spaceDogImage from "../../images/space-dog.svg"
 import galaxyImage from "../../images/galaxy.svg"
 import meteoriteImage from "../../images/meteorite.svg"
-import { getLoggedUser } from "../logic/login-user.js"
-import retrievePosts from "../logic/retrive-posts.js"
-import { updatePost } from "../logic/update-post.js"
+import { getLoggedUser } from "../logic/login-user"
+import retrievePosts from "../logic/retrive-posts"
+import { updatePost } from "../logic/update-post"
 
 export const DEFAULT_AVATAR_URL = spaceDogImage
 

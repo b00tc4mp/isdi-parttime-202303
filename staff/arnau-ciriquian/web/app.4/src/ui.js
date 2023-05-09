@@ -1,5 +1,5 @@
-import { homePageAvatar, homePageEmail, homePagePassword, homePageUsername, homePagePost } from "./pages/home-page.js"
-import { alien, spaceDog, meteorite, galaxy } from "./components/update-avatar.js"
+import { homePageAvatar, homePageEmail, homePagePassword, homePageUsername, homePagePost } from "./pages/home-page"
+import { alien, spaceDog, meteorite, galaxy } from "./components/update-avatar"
 
 export function showHideContainer(...containers) {
     containers.forEach(container => container.classList.toggle('off'))

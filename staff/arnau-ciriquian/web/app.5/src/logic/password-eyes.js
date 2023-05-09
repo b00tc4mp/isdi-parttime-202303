@@ -1,6 +1,6 @@
-import { loginPage } from "../pages/login-page.js"
-import { registerPage } from "../pages/register-page.js"
-import { homePageEmail, homePagePassword, homePageUsername } from "../pages/home-page.js"
+import { loginPage } from "../pages/login-page"
+import { registerPage } from "../pages/register-page"
+import { homePageEmail, homePagePassword, homePageUsername } from "../pages/home-page"
 
 const logPage = document.querySelector('.login')
 const regPage = document.querySelector('.register')

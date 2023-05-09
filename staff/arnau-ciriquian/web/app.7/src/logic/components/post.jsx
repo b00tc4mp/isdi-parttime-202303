@@ -1,5 +1,5 @@
-import { users } from "../../data.js"
-import { context } from "../../ui.js"
+import { users } from "../../data"
+import { context } from "../../ui"
 
 export default function Post({ post: {image, text, date, likes, author} }) {
     const _users = users()

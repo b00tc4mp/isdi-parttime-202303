@@ -1,5 +1,5 @@
 import { Component } from 'react'
-import { context } from './ui.js'
+import { context } from './ui'
 import Login from './pages/Login.jsx'
 import Register from './pages/Register.jsx'
 import Home from './pages/Home.jsx'

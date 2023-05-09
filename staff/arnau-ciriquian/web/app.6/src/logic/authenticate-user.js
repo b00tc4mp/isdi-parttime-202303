@@ -1,5 +1,5 @@
-import { validateEmail, validatePassword } from "./helpers/validators.js"
-import { findUserByEmail } from "./helpers/data-managers.js"
+import { validateEmail, validatePassword } from "./helpers/validators"
+import { findUserByEmail } from "./helpers/data-managers"
 
 export function authenticateUser(email, password) {
     validateEmail(email)

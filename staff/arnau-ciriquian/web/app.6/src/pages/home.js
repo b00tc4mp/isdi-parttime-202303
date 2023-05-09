@@ -1,8 +1,8 @@
-import Component from "../library/composito.js";
-import Posts from "../components/posts.js";
-import retrievePosts from "../logic/retrive-posts.js";
-import { context } from "../ui.js";
-import NewPost from "../components/new-post.js";
+import Component from "../library/composito";
+import Posts from "../components/posts";
+import retrievePosts from "../logic/retrive-posts";
+import { context } from "../ui";
+import NewPost from "../components/new-post";
 
 export default class Home extends Component {
     constructor() {

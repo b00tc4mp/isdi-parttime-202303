@@ -1,6 +1,6 @@
-import { updateUserPassword } from "../logic/update-user-password.js"
-import { showHideContainer, context } from "../ui.js"
-import { homePageProfile } from "../pages/home-page.js"
+import { updateUserPassword } from "../logic/update-user-password"
+import { showHideContainer, context } from "../ui"
+import { homePageProfile } from "../pages/home-page"
 
 
 export default function initUpdatePassword(homePage) {

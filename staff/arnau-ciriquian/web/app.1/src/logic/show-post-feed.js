@@ -1,5 +1,5 @@
-import { posts, users } from "../data.js"
-import { validateId } from "./helpers/validators.js"
+import { posts, users } from "../data"
+import { validateId } from "./helpers/validators"
 
 export function showPostFeed() {
     /*separar en una funcio retriveposts per guardar els post ja reversed (toReverse) i fer les validacions de id validateId(userId) i llavors aqui poder fer un forEach */

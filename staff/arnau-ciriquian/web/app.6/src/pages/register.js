@@ -1,5 +1,5 @@
-import Component from "../library/composito.js";
-import { addNewUser } from "../logic/register-user.js";
+import Component from "../library/composito";
+import { addNewUser } from "../logic/register-user";
 
 export default class Register extends Component {
     constructor() {

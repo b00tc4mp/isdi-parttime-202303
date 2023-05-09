@@ -1,7 +1,7 @@
-import { validateEmail, validateName, validateNewPassword, validatePasswordConfirm } from "./helpers/validators.js"
-import { findUserByEmail } from "./helpers/data-managers.js"
-import { saveUsers, users } from "../data.js"
-import { DEFAULT_AVATAR_URL } from "../pages/home-page.js"
+import { validateEmail, validateName, validateNewPassword, validatePasswordConfirm } from "./helpers/validators"
+import { findUserByEmail } from "./helpers/data-managers"
+import { saveUsers, users } from "../data"
+import { DEFAULT_AVATAR_URL } from "../pages/home-page"
 
 export function addNewUser(name, email, password, passwordConfirm) {
     validateName(name)

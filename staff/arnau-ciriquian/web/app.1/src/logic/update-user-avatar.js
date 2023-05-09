@@ -1,5 +1,5 @@
-import { findUserById } from "./helpers/data-managers.js"
-import { validateUrl, validateId } from "./helpers/validators.js"
+import { findUserById } from "./helpers/data-managers"
+import { validateUrl, validateId } from "./helpers/validators"
 
 export function updateUserAvatar(userId, avatar) {
     validateId(userId)

@@ -1,8 +1,8 @@
 import { Component } from "react"
-import { getLoggedUser } from "../logic/getLoggedUser.js"
-import { DEFAULT_AVATAR_URL } from "../logic/registerUser.js"
-import { context } from "../ui.js"
-import Posts from "../logic/components/posts.jsx"
+import { getLoggedUser } from "../logic/getLoggedUser"
+import { DEFAULT_AVATAR_URL } from "../logic/registerUser"
+import { context } from "../ui"
+import Posts from "../logic/components/posts"
 
 let user
 

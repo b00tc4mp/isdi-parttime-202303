@@ -1,5 +1,5 @@
-import Component from "./library/composito.js";
-import App from './app.js'
+import Component from "./library/composito";
+import App from './app'
 
 const app = new App()
 const body = new Component(document.body)

@@ -1,5 +1,5 @@
-import { posts, users } from "../data.js";
-import { validateId } from "./helpers/validators.js";
+import { posts, users } from "../data";
+import { validateId } from "./helpers/validators";
 
 export default function retrievePosts(userId) {
     validateId(userId, 'user id')

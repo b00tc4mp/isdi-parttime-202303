@@ -1,4 +1,4 @@
-import Curri from "./curri.js"
+import Curri from "./curri"
 
 describe('Curri', () => {
     describe('constructor', () => {

@@ -1,7 +1,7 @@
-import { updatePost } from "../logic/update-post.js"
+import { updatePost } from "../logic/update-post"
 import { showHideContainer, context } from "../ui"
 import retrievePosts from "../logic/retrive-posts"
-import { homePageMain } from "../pages/home-page.js"
+import { homePageMain } from "../pages/home-page"
 
 export default function initUpdatePost(homePage) {
     const homePostEdit = homePage.querySelector('.home__post--edit')

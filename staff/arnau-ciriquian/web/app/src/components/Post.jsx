@@ -1,8 +1,8 @@
-import { users } from "../data.js"
-import { context } from "../ui.js"
-import toggleLikePost from "../logic/toggleLikePost.js"
+import { users } from "../data"
+import { context } from "../ui"
+import toggleLikePost from "../logic/toggleLikePost"
 
-export default function Post({ post: {image, text, date, likes, author, id}, onLikePostClick }) {
+export default function Post({ post: {image, text, date, likes, author, id}, onLikePostClick, onEditClick }) {
     const _users = users()
     let avatar
     let name
@@ -24,6 +24,10 @@ export default function Post({ post: {image, text, date, likes, author, id}, onL
         }
     }
 
+    function handleOpenEditModal() {
+        onEditClick(id)
+    }
+
     return <article className="inputs__box--feed">
     <img className="home__post--image" src={image} />
     <p className="text">{text}</p>
@@ -35,7 +39,7 @@ export default function Post({ post: {image, text, date, likes, author, id}, onL
         <time className="text">{date}</time>
         <img className="like-button" src={likes && likes.includes(context.userId) ? './images/heart-filled.png' : './images/heart-empty.png'} onClick={handleLikePostClick}/>
         <p>{likes ? likes.length : 0}</p>
-        {author === context.userId && <button className="post__edit--button">Edit</button>}
+        {author === context.userId && <button className="post__edit--button" onClick={handleOpenEditModal}>Edit</button>}
     </div>
 </article>
 }

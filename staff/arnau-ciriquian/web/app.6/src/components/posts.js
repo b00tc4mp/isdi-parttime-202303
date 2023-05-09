@@ -1,6 +1,6 @@
-import Component from "../library/composito.js";
-import Post from "./post.js";
-import { context } from "../ui.js";
+import Component from "../library/composito";
+import Post from "./post";
+import { context } from "../ui";
 
 export default class Posts extends Component {
     constructor(posts) {

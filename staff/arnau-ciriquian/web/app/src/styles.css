@@ -19,7 +19,7 @@ body {
 main {
   display: flex;
   justify-content: center;
-  width: 50%;
+  width: 80%;
   height: 100%;
 }
 
@@ -151,17 +151,14 @@ footer {
   align-items: center;
 }
 
-.avatar, .predefined-avatar {
+.avatar, .predefined-avatar, .post__avatar {
   width: 2.5rem;
-  border-radius: 50%;
+  height: 2.5rem;
+  border-radius: 40%;
 }
 
 .like-button {
   width: 1rem;
-}
-
-.post__avatar {
-  height: 3rem;
 }
 
 .predefined-avatar {
@@ -277,10 +274,5 @@ a, .text {
   .page {
       width: 350px;
       height: 375px;
-  }
-
-  .main-logo {
-      margin-top: 10rem;
-      width: 400px;
   }
 }

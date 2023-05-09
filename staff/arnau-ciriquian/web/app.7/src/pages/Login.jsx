@@ -1,5 +1,5 @@
 import { authenticateUser } from "../logic/authenticateUser"
-import { context } from "../ui.js"
+import { context } from "../ui"
 
 export default function Login({ onRegisterClick, onUserLoggedIn }) {
     function handleRegisterClick(event) {

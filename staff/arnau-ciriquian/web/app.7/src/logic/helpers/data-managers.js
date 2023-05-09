@@ -1,4 +1,4 @@
-import { users, posts } from "../../data.js"
+import { users, posts } from "../../data"
 
 export function findUserByEmail(email) {
     return users().find(user => user.email === email)

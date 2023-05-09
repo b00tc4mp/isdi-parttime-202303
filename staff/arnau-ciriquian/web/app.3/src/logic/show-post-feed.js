@@ -1,7 +1,7 @@
-import { users } from "../data.js"
-import { context, hideContainer, showContainer } from "../ui.js"
-import retrievePosts from "./retrive-posts.js"
-import { homePageMain, homePostEdit } from "../pages/home-page.js"
+import { users } from "../data"
+import { context, hideContainer, showContainer } from "../ui"
+import retrievePosts from "./retrive-posts"
+import { homePageMain, homePostEdit } from "../pages/home-page"
 
 export default function showPostFeed() {
     try {

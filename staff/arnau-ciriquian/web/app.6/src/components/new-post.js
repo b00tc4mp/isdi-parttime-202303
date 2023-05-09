@@ -1,6 +1,6 @@
-import Component from "../library/composito.js";
-import { createNewPost } from "../logic/create-new-post.js";
-import { context } from "../ui.js";
+import Component from "../library/composito";
+import { createNewPost } from "../logic/create-new-post";
+import { context } from "../ui";
 
 export default class NewPost extends Component {
     constructor() {

@@ -1,8 +1,8 @@
-import { users } from "../data.js"
-import { context, hideContainer, showContainer } from "../ui.js"
-import retrievePosts from "./retrive-posts.js"
-import { homePageMain, homePostEdit } from "../pages/home-page.js"
-import toggleLikePost from "./toggle-like-post.js"
+import { users } from "../data"
+import { context, hideContainer, showContainer } from "../ui"
+import retrievePosts from "./retrive-posts"
+import { homePageMain, homePostEdit } from "../pages/home-page"
+import toggleLikePost from "./toggle-like-post"
 
 
 export default function showPostFeed() {

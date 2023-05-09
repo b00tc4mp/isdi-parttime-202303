@@ -1,8 +1,8 @@
-import { loginPage } from './pages/login-page.js'
-import { homePage, homePageMain, renderUser } from './pages/home-page.js'
+import { loginPage } from './pages/login-page'
+import { homePage, homePageMain, renderUser } from './pages/home-page'
 import showPostFeed from './logic/show-post-feed'
-import { context, showHideContainer, showContainer, hideContainer } from './ui.js'
-import { findUserById } from './logic/helpers/data-managers.js'
+import { context, showHideContainer, showContainer, hideContainer } from './ui'
+import { findUserById } from './logic/helpers/data-managers'
 
 if (context.userID === undefined) {
         showContainer(loginPage)

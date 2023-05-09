@@ -1,6 +1,6 @@
-import { updateUserEmail } from "../logic/update-user-email.js"
-import { context, showHideContainer } from "../ui.js"
-import { homePageProfile } from "../pages/home-page.js"
+import { updateUserEmail } from "../logic/update-user-email"
+import { context, showHideContainer } from "../ui"
+import { homePageProfile } from "../pages/home-page"
 
 export default function initUpdateEmail(homePage) {
     const homePageEmail = homePage.querySelector('.home__email')

@@ -1,6 +1,6 @@
-import Component from "../library/composito.js";
-import { findUserById } from "../logic/helpers/data-managers.js";
-import { context } from "../ui.js";
+import Component from "../library/composito";
+import { findUserById } from "../logic/helpers/data-managers";
+import { context } from "../ui";
 
 export default class Post extends Component {
     constructor(post) {

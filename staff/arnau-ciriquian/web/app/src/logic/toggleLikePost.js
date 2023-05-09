@@ -1,7 +1,7 @@
-import { validateId } from "./helpers/validators.js";
-import { savePost } from "../data.js";
-import { findUserById, findpostbyid } from "./helpers/data-managers.js";
-//import showPostFeed from "./show-post-feed.js";
+import { validateId } from "./helpers/validators";
+import { savePost } from "../data";
+import { findUserById, findPostById } from "./helpers/data-managers";
+//import showPostFeed from "./show-post-feed";
 
 export default function toggleLikePost(userId, postId) {
     validateId(userId, 'user id')
@@ -10,7 +10,7 @@ export default function toggleLikePost(userId, postId) {
     const user = findUserById(userId)
     if (!user) throw new Error(`user not found`)
 
-    const post = findpostbyid(postId)
+    const post = findPostById(postId)
     if(!post) throw new Error('post not found')
 
     if (!post.likes) {

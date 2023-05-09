@@ -1,5 +1,5 @@
-import { findUserByEmail, findUserById } from "./helpers/data-managers.js"
-import { validateId } from "./helpers/validators.js"
+import { findUserByEmail, findUserById } from "./helpers/data-managers"
+import { validateId } from "./helpers/validators"
 
 export function updateUserEmail(userId, email, newEmail, newEmailConfirmation, password) {
     validateId(userId, 'user id')

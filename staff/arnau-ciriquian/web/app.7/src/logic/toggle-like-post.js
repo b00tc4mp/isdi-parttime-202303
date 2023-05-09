@@ -1,7 +1,7 @@
-import { validateId } from "./helpers/validators.js";
-import { savePost } from "../data.js";
-import { findUserById, findpostbyid } from "./helpers/data-managers.js";
-//import showPostFeed from "./show-post-feed.js";
+import { validateId } from "./helpers/validators";
+import { savePost } from "../data";
+import { findUserById, findpostbyid } from "./helpers/data-managers";
+//import showPostFeed from "./show-post-feed";
 
 export default function toggleLikePost(userId, postId) {
     validateId(userId, 'user id')

@@ -1,6 +1,6 @@
-import { updateUsername } from "../logic/update-user-name.js"
-import { showHideContainer, context } from "../ui.js"
-import { homePageProfile } from "../pages/home-page.js"
+import { updateUsername } from "../logic/update-user-name"
+import { showHideContainer, context } from "../ui"
+import { homePageProfile } from "../pages/home-page"
 
 export default function initUpdateName(homePage) {
     const homePageUsername = homePage.querySelector('.home__username')

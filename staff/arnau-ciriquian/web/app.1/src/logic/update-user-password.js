@@ -1,5 +1,5 @@
-import { findUserById } from "./helpers/data-managers.js"
-import { validateNewPassword, validatePasswordConfirm, validateId } from "./helpers/validators.js"
+import { findUserById } from "./helpers/data-managers"
+import { validateNewPassword, validatePasswordConfirm, validateId } from "./helpers/validators"
 
 export function updateUserPassword(userId, password, newPassword, newPasswordConfirmation) {
     validateId(userId)

@@ -1,10 +1,11 @@
 import { Component } from "react"
-import { getLoggedUser } from "../logic/getLoggedUser.js"
-import { context } from "../ui.js"
-import Posts from "../components/Posts.jsx"
-import AddPost from "../components/AddPost.jsx"
-import Profile from "../components/Profile.jsx"
-import UpdateAvatar from "../components/UpdateAvatar.jsx"
+import { getLoggedUser } from "../logic/getLoggedUser"
+import { context } from "../ui"
+import Posts from "../components/Posts"
+import AddPost from "../components/AddPost"
+import Profile from "../components/Profile"
+import UpdateAvatar from "../components/UpdateAvatar"
+import EditPost from "../components/EditPost"
 
 let user
 
@@ -15,6 +16,7 @@ export default class Home extends Component {
         this.state = {
             view: 'posts',
             modal: null,
+            postId: null
         }
         
         user = getLoggedUser(context.userId)    
@@ -45,6 +47,8 @@ export default class Home extends Component {
         this.setState({ modal: 'profile' })
     }
 
+    handleOpenPostEditor = postId => this.setState({ modal: 'edit-post', postId })
+
     
     render() {
         return <div className="home">
@@ -58,10 +62,27 @@ export default class Home extends Component {
                 </div>
             </header>
             <main>
-                { this.state.view === 'posts' && <Posts onToggleLike={this.handleToggledLike}/> }
-                { this.state.modal === 'addPost' && <AddPost onAddPostClick={this.handleCloseModal} onCancelPostClick={this.handleCloseModal}/> }
-                { this.state.modal === 'profile' && <Profile onExitProfileClick={this.handleCloseModal} onGoToUpdateAvatarClick={this.handleGoToAvatarModal}/>}
-                { this.state.modal === 'updateAvatar' && <UpdateAvatar onCancelProfileUpdate={this.handleGoBackToProfile} onUpdateUserAvatarClick={this.handleGoBackToProfile}/>}
+                { this.state.view === 'posts' && <Posts
+                    onToggleLike={this.handleToggledLike}
+                    onEditClicked={this.handleOpenPostEditor}
+                /> }
+                { this.state.modal === 'addPost' && <AddPost
+                    onAddPostClick={this.handleCloseModal}
+                    onCancelPostClick={this.handleCloseModal}
+                /> }
+                {this.state.modal === 'edit-post' && <EditPost
+                    onPostUpdated={this.handleCloseModal}
+                    onCancel={this.handleCloseModal}
+                    postId={this.state.postId}
+                />}
+                { this.state.modal === 'profile' && <Profile
+                    onExitProfileClick={this.handleCloseModal}
+                    onGoToUpdateAvatarClick={this.handleGoToAvatarModal}
+                />}
+                { this.state.modal === 'updateAvatar' && <UpdateAvatar
+                    onCancelProfileUpdate={this.handleGoBackToProfile}
+                    onUpdateUserAvatarClick={this.handleGoBackToProfile}
+                />}
             </main>
             <footer>
                 <p className="add-post-anchor"><button className="home__anchor--new-post" href="" onClick={this.handleAddPostModal}>Add new post</button></p>

@@ -1,8 +1,8 @@
-import Component from "./library/composito.js";
-import Login from "./pages/login.js";
-import Register from "./pages/register.js";
-import Home from "./pages/home.js";
-import { context } from "./ui.js";
+import Component from "./library/composito";
+import Login from "./pages/login";
+import Register from "./pages/register";
+import Home from "./pages/home";
+import { context } from "./ui";
 
 export default class App extends Component {
     constructor() {

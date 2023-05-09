@@ -1,6 +1,6 @@
-import { context } from "../../ui.js"
-import retrievePosts from "../retrivePosts.js"
-import Post from "./post.jsx"
+import { context } from "../../ui"
+import retrievePosts from "../retrivePosts"
+import Post from "./post"
 
 export default function Posts() {
     try {

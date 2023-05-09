@@ -1,6 +1,6 @@
-import Component from "../library/composito.js"
-import { authenticateUser } from "../logic/authenticate-user.js" 
-import { context } from "../ui.js"
+import Component from "../library/composito"
+import { authenticateUser } from "../logic/authenticate-user" 
+import { context } from "../ui"
 
 export default class Login extends Component {
     constructor() {

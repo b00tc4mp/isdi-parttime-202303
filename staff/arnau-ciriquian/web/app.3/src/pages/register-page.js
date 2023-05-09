@@ -1,6 +1,6 @@
-import { loginPage } from "./login-page.js"
-import { showHideContainer } from "../ui.js"
-import { addNewUser } from "../logic/register-user.js"
+import { loginPage } from "./login-page"
+import { showHideContainer } from "../ui"
+import { addNewUser } from "../logic/register-user"
 
 export const registerPage = document.querySelector('.register')
 

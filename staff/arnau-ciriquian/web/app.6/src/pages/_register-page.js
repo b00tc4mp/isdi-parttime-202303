@@ -1,7 +1,7 @@
-import { loginPage } from "./login-page.js"
-import { showHideContainer } from "../ui.js"
-import { addNewUser } from "../logic/register-user.js"
-import { hideAllPasswords, unslashAllEyes } from "../logic/password-eyes.js"
+import { loginPage } from "./login-page"
+import { showHideContainer } from "../ui"
+import { addNewUser } from "../logic/register-user"
+import { hideAllPasswords, unslashAllEyes } from "../logic/password-eyes"
 
 export const registerPage = document.querySelector('.register')
 
