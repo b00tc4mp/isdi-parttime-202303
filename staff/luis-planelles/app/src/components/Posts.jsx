@@ -2,7 +2,7 @@ import retrievePosts from '../logic/retrievePosts.js'
 import { context } from '../ui.js'
 import Post from './Post.jsx'
 
-function Posts({onEditPostClick, onLikePostClick, onFavouriteClick}) {
+function Posts({onEditPost, onLikePost, onFavourite}) {
 
     try {
         const posts = retrievePosts(context.userId)
@@ -11,9 +11,9 @@ function Posts({onEditPostClick, onLikePostClick, onFavouriteClick}) {
             { posts.map(post => 
             <Post 
                 key={post.id} 
-                onEditPostButton={onEditPostClick}
-                onLikePostButton={onLikePostClick}
-                onFavouritePostButton={onFavouriteClick} 
+                onEditPostButton={onEditPost}
+                onLikePostButton={onLikePost}
+                onFavouritePostButton={onFavourite} 
                 post={post} />)
             }
         </section>

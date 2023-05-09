@@ -1,15 +1,10 @@
-import { Component } from 'react'
-import updateUserAvatar from '../logic/updateUserAvatar'
-import updateUserPassword from '../logic/updateUserPassword'
-import { context } from '../ui'
-import Posts from './Posts'
+import { context } from "../ui";
+import Posts from "./Posts";
 
-class Profile extends Component {
-    constructor(props){
-        super(props)
-    }
 
-     handleUpdateAvatar = (event) => {
+function Profile({onLikePost, onEditPost, onFavourite}) {
+
+    function handleUpdateAvatar(event) {
         event.preventDefault()
 
         const avatarUrl = event.target.avatarUrl.value;
@@ -21,9 +16,9 @@ class Profile extends Component {
         }catch (error){
             alert(error.message)
         }
-     }
+    }
 
-     handleUpdatePassword = (event) => {
+    function handleUpdatePassword(event){
         event.preventDefault()
 
         const password = event.target.password.value,
@@ -43,40 +38,47 @@ class Profile extends Component {
         }catch (error){
             alert(error.message)
         }
-     }
+    }
 
-     handleHomeClick = (event) => {
-        event.preventDefault()
-        
-        this.props.onHomeClick()
-     }
-        
-        render() {
-            return <div className="profile">
-                    <div className='update-options'>
-                        <h4>Update avatar</h4>
-            
-                        <form className="profile-avatar-form" onSubmit={this.handleUpdateAvatar}>
-                            <input className="input" type="url" name="avatarUrl" />
-                            <button className="button" type="submit">Update</button>
-                        </form>
+    function handleOpenEditPost(id){
+        onEditPost(id)
+    }
 
-                        <h4>Update password</h4>
-            
-                        <form className="profile-password-form" onSubmit={this.handleUpdatePassword}>
-                            <input className="input" type="password" name="password" placeholder="password" />
-                            <input className="input" type="password" name="newPassword" placeholder="new password" />
-                            <input className="input" type="password" name="newPasswordConfirm" placeholder="new password confirmation" />
-                            <button className="button" type="submit">Update</button>
-                        </form>
+    function handleTogledLike(){
+        onLikePost()
+      }
+  
+    function handleToggleFavourite(){
+        onFavourite()
+    }
 
-                        <p className='profile-go-home'> Go to{' '} <a href="" onClick={this.handleHomeClick}> Home </a> </p>
-                    </div>
-                    <div className='profile-posts'>
-                        <Posts />
-                    </div>
-                </div>
-        }
-}
+    return <div className="profile">
+            <div className='update-options'>
+                <h4>Update avatar</h4>
+    
+                <form className="profile-avatar-form" onSubmit={handleUpdateAvatar}>
+                    <input className="input" type="url" name="avatarUrl" />
+                    <button className="button" type="submit">Update</button>
+                </form>
+
+                <h4>Update password</h4>
+    
+                <form className="profile-password-form" onSubmit={handleUpdatePassword}>
+                    <input className="input" type="password" name="password" placeholder="password" />
+                    <input className="input" type="password" name="newPassword" placeholder="new password" />
+                    <input className="input" type="password" name="newPasswordConfirm" placeholder="new password confirmation" />
+                    <button className="button" type="submit">Update</button>
+                </form>
+
+            </div>
+            <div className='profile-posts'>
+                <Posts 
+                    onLikePost={handleTogledLike}
+                    onEditPost={handleOpenEditPost}
+                    onFavourite={handleToggleFavourite}
+                />
+            </div>
+        </div>
+    }
 
 export default Profile

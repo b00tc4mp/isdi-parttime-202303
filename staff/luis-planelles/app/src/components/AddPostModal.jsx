@@ -1,8 +1,8 @@
 import createPost from '../logic/createPost'
 import { context } from '../ui'
 
-function AddPostModal(props) {
-    console.log(props)
+function AddPostModal({onCancel, onPostCreate}) {
+
     function handleCancelAddPost(event) {
         event.preventDefault()
         

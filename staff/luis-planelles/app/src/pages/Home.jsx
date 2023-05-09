@@ -2,6 +2,7 @@ import { Component } from 'react'
 import AddPostModal from '../components/AddPostModal.jsx'
 import EditPostModal from '../components/EditPostModal.jsx'
 import Posts from '../components/Posts.jsx'
+import Profile from '../components/Profile.jsx'
 import retrieveUser from '../logic/retrieveUser.js'
 import { context } from '../ui.js'
 
@@ -20,30 +21,26 @@ class Home extends Component {
       alert(error.message)
     }
     
-    this.state = { view: 'posts', modal: null }
+    this.state = { view: 'posts', modal: null, postId: null}
+  }
+  
+  hadleLogOutButton = () =>  {
+    this.props.onLoggedOut()
     
+    delete context.userId
     }
-
-    hadleLogOutButton = () =>  {
-      this.props.onLoggedOut()
-
-      delete context.userId
-    }
-
+    
     handleOpenAddPost = () => this.setState({ modal: 'add-post' })
- 
+    
     handleOpenEditPost = postId => {
-      this.setState({ modal: 'edit-post', editPostId: postId });
+      this.setState({ modal: 'edit-post', postId });
     };
 
     handleCloseModals = () => this.setState({ modal: null })
-
-    handleGoToProfile = event => {
-        event.preventDefault()
-
-        this.props.onProfileClick()
-    }
-
+    
+    handleGoToProfile = (postId) => {this.setState({ view: 'profile', postId })
+    } 
+  
     handleGoToPosts = () => this.setState({ view: 'posts' })
 
     handleTogledLike = () => {
@@ -61,7 +58,7 @@ class Home extends Component {
       
                 <nav className="home-header-nav">
                   <img className="home-header-avatar" src={this.avatar} alt="" />
-                  <a href="" onClick={this.handleGoToProfile}>{this.name}</a>
+                  <button onClick={this.handleGoToProfile}>{this.name}</button>
                 </nav>
       
                 <button className="home-header-logout" onClick={this.hadleLogOutButton}>Logout</button>
@@ -70,9 +67,9 @@ class Home extends Component {
               <main>
                 {this.state.view === 'posts' && (
                   <Posts 
-                    onLikePostClick={this.handleTogledLike}
-                    onEditPostClick={this.handleOpenEditPost}
-                    onFavouriteClick={this.handleToggleFavourite}
+                    onLikePost={this.handleTogledLike}
+                    onEditPost={this.handleOpenEditPost}
+                    onFavourite={this.handleToggleFavourite}
                   />
                 )}
                 {this.state.modal === 'add-post' && (
@@ -81,11 +78,19 @@ class Home extends Component {
                     onPostCreate={this.handleCloseModals}
                   />
                 )}
+                {this.state.view === 'profile' && (
+                  <Profile
+                    onLikePost={this.handleTogledLike}
+                    onEditPost={this.handleOpenEditPost}
+                    onFavourite={this.handleToggleFavourite}
+                    postId={this.state.postId}
+                  />
+                )}
                 {this.state.modal === 'edit-post' && (
                   <EditPostModal
                     onCancel={this.handleCloseModals}
                     onPostUpdated={this.handleCloseModals}
-                    postId={this.state.editPostId} 
+                    postId={this.state.postId} 
                   />
                 )}
               </main>

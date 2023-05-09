@@ -4,6 +4,7 @@ import { context } from "../ui"
 
 
 function EditPostModal({postId, onCancel, onPostUpdated}){
+  console.log(postId)
   let postEdit
 
   try {
