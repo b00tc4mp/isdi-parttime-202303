@@ -232,12 +232,11 @@ h2 {
   justify-content: flex-end;
 }
 
-.new-post-button, .edit-post-button {
+.new-post-button, .edit-post-button, .delete-post-button {
   background: var(--white);
   color: var(--general-color);
   font-weight: 600;
 }
-
 .modal, .edit-post-modal {
   background: var(--background-modal);
   color: var(--white);
@@ -276,8 +275,16 @@ article {
   border-radius: .4rem;
 }
 
-.edit-post-button {
+.edit-delete-container-post {
+  display: flex;
   align-self: end;
+  gap: .3rem;
+}
+
+.edit-post-button, .delete-post-button {
+  display: flex;
+  align-items: center;
+  padding: 0.2rem 0.4rem;
 }
 
 .post-user {

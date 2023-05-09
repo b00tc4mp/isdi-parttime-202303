@@ -1,47 +1,57 @@
 export const users = () =>
-  "usersJson" in localStorage ? JSON.parse(localStorage.usersJson) : [];
+  'usersJson' in localStorage ? JSON.parse(localStorage.usersJson) : []
 
 export const posts = () => {
   const posts =
-    "postsJson" in localStorage ? JSON.parse(localStorage.postsJson) : [];
+    'postsJson' in localStorage ? JSON.parse(localStorage.postsJson) : []
 
-  posts.forEach((post) => (post.date = new Date(post.date)));
+  posts.forEach((post) => (post.date = new Date(post.date)))
 
-  return posts;
-};
-
-export function saveUsers(users) {
-  localStorage.usersJson = JSON.stringify(users);
+  return posts
 }
 
-export function savePosts(posts) {
-  localStorage.postsJson = JSON.stringify(posts);
+export function saveUsers (users) {
+  localStorage.usersJson = JSON.stringify(users)
 }
 
-export function saveUser(user) {
-  const _users = users();
+export function savePosts (posts) {
+  localStorage.postsJson = JSON.stringify(posts)
+}
 
-  const index = _users.findIndex((_user) => _user.id === user.id);
+export function saveUser (user) {
+  const _users = users()
+
+  const index = _users.findIndex((_user) => _user.id === user.id)
 
   if (index < 0) {
-    _users.push(user);
+    _users.push(user)
   } else {
-    _users.splice(index, 1, user);
+    _users.splice(index, 1, user)
   }
 
-  saveUsers(_users);
+  saveUsers(_users)
 }
 
-export function savePost(post) {
-  const _posts = posts();
+export function savePost (post) {
+  const _posts = posts()
 
-  const index = _posts.findIndex((_post) => _post.id === post.id);
+  const index = _posts.findIndex((_post) => _post.id === post.id)
 
   if (index < 0) {
-    _posts.push(post);
+    _posts.push(post)
   } else {
-    _posts.splice(index, 1, post);
+    _posts.splice(index, 1, post)
   }
 
-  savePosts(_posts);
+  savePosts(_posts)
+}
+
+export function deletePost (post) {
+  const _posts = posts()
+
+  const index = _posts.findIndex((_post) => _post.id === post.id)
+
+  _posts.splice(index, 1)
+
+  savePosts(_posts)
 }

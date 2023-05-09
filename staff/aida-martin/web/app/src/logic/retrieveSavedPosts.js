@@ -2,7 +2,7 @@ import { validateId } from './helpers/validators'
 import { posts } from '../data'
 import retrieveUser from './retrieveUser'
 
-export default function retrieveSavedPosts (userId, mySavedPosts) {
+export default function retrieveSavedPosts (userId, mySavedPosts = false) {
   validateId(userId, 'User ID')
 
   if (!mySavedPosts) {

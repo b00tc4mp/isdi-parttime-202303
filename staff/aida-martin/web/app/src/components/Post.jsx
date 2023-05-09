@@ -4,8 +4,9 @@ import retrieveUser from '../logic/retrieveUser'
 import formatLikes from '../logic/helpers/utils'
 import toggleLikePost from '../logic/toggleLikePost'
 import toggleSavePost from '../logic/toggleSavePost'
+import deletedAPost from '../logic/deletedAPost'
 
-export default function Post ({ currentUser, post, onEditPost, onLiked, onSaved }) {
+export default function Post ({ currentUser, post, onEditPost, onLiked, onSaved, onDeletePost }) {
   const postAuthor = retrieveUser(post.author)
 
   function handleLikePost () {
@@ -30,6 +31,15 @@ export default function Post ({ currentUser, post, onEditPost, onLiked, onSaved 
     onEditPost(post)
   }
 
+  function handleDeletePost () {
+    try {
+      deletedAPost(context.userId, post.id)
+      onDeletePost()
+    } catch (error) {
+      console.log(error.message)
+    }
+  }
+
   return (
     <article data-id={post.id}>
       <div className='user-container-post'>
@@ -50,8 +60,20 @@ export default function Post ({ currentUser, post, onEditPost, onLiked, onSaved 
       <time className='post-date'>{post.date.toLocaleString('en-GB')}</time>
       <p className='post-text'>{post.text}</p>
       {
-      post.author === context.userId && <button className='edit-post-button button' onClick={handleEditPost}>EDIT</button>
-    }
+        post.author === context.userId &&
+          <div className='edit-delete-container-post'>
+            <button className='edit-post-button button' onClick={handleEditPost}>
+              <span className='material-symbols-outlined edit'>
+                stylus
+              </span>
+            </button>
+            <button className='delete-post-button button' onClick={handleDeletePost}>
+              <span className='material-symbols-outlined delete'>
+                delete
+              </span>
+            </button>
+          </div>
+      }
     </article>
   )
 }

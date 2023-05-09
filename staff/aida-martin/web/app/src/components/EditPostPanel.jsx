@@ -1,13 +1,12 @@
-import { useState } from 'react'
 import updatePost from '../logic/updatePost'
 import { context } from '../ui'
 
 export default function EditPostPanel ({ post, onPostEdited, onCancel }) {
-  const [text, setText] = useState(post.text)
-  const [image, setImage] = useState(post.image)
-
   function handleEditPost (event) {
     event.preventDefault()
+
+    const image = event.target.image.value
+    const text = event.target.text.value
 
     try {
       updatePost(context.userId, post.id, image, text)
@@ -16,14 +15,6 @@ export default function EditPostPanel ({ post, onPostEdited, onCancel }) {
     } catch (error) {
       console.log(error.message)
     }
-  }
-
-  function handleChangeText (event) {
-    setText(event.target.value)
-  }
-
-  function handleChangeImage (event) {
-    setImage(event.target.value)
   }
 
   function handleCancel (event) {
@@ -40,8 +31,7 @@ export default function EditPostPanel ({ post, onPostEdited, onCancel }) {
           className='input'
           type='url'
           name='image'
-          value={image}
-          onChange={handleChangeImage}
+          defaultValue={post.image}
           placeholder='Image url'
         />
         <textarea
@@ -49,8 +39,7 @@ export default function EditPostPanel ({ post, onPostEdited, onCancel }) {
           name='text'
           cols='30'
           rows='10'
-          value={text}
-          onChange={handleChangeText}
+          defaultValue={post.text}
           placeholder='Text'
         />
 

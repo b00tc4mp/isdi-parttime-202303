@@ -83,7 +83,7 @@ export default class Home extends Component {
         }
 
         <main className='main-container'>
-          {this.state.view === 'posts' && <Posts currentUser={currentUser} onEditPost={this.handleOpenEditPost} onLiked={this.handleGoToPosts} onSaved={this.handleGoToPosts} />}
+          {this.state.view === 'posts' && <Posts currentUser={currentUser} onEditPost={this.handleOpenEditPost} onLiked={this.handleGoToPosts} onSaved={this.handleGoToPosts} onDeletePost={this.handleGoToPosts} />}
 
           {this.state.view === 'profile' && <Profile onUpdateUserAvatar={this.handleGoToPosts} onUpdateUserPassword={this.handleGoToPosts} onSavedPosts={this.handleGoToSavedPosts} />}
 
