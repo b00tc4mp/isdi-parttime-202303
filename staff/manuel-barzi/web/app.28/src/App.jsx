@@ -6,8 +6,6 @@ import { context } from './ui'
 
 export default class App extends Component {
     constructor(props) {
-        console.log('App -> constructor')
-
         super(props)
 
         this.state = { view: context.userId? 'home' : 'login' }
@@ -19,18 +17,6 @@ export default class App extends Component {
 
     handleGoToHome = () => this.setState({ view: 'home' })
 
-    componentWillMount() {
-        console.log('App -> componentWillMount')
-    }
-
-    componentDidMount() {
-        console.log('App -> componentDidMount')
-    }
-
-    componentWillUnmount() {
-        console.log('App -> componentWillUnmount')
-    }
-
     render() {
         console.log('App -> render')
 
@@ -40,7 +26,7 @@ export default class App extends Component {
             case 'register':
                 return <Register onLoginClick = {this.handleGoToLogin} />
             case 'home':
-                return <Home onLoggedOut={this.handleGoToLogin}/>
+                return <Home />
         }
   }
 }

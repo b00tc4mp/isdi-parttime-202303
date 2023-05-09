@@ -1,28 +1,12 @@
 import './Profile.css'
-import { context } from '../ui'
-import updateUserAvatar from '../logic/updateUserAvatar'
 
-export default function Profile({ onUserAvatarUpdated }) {
+export default function Profile() {
     console.log('Profile -> render')
-
-    const handleUpdateAvatar = event => {
-        event.preventDefault()
-
-        const url = event.target.url.value
-
-        try {
-            updateUserAvatar(context.userId, url)
-
-            onUserAvatarUpdated()
-        } catch (error) {
-            alert(error.message)
-        }
-    }
 
     return <section className="profile container">
         <h2>Update avatar</h2>
 
-        <form className="profile-avatar-form" onSubmit={handleUpdateAvatar}>
+        <form className="profile-avatar-form">
             <input className="input" type="url" name="url" />
             <button className="button" type="submit">Update</button>
         </form>

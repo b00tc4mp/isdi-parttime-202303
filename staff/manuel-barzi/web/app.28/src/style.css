@@ -15,15 +15,11 @@ body {
 :root {
   --basecolor: yellow;
   --basebgcolor: orange;
-  --homebgcolor: dodgerblue;
 }
 
-:root.dark {
-  --basecolor: gold;
-  --basebgcolor: tomato;
-  --homebgcolor: blue;
+.off {
+  display: none !important;
 }
-
 
 .page {
   height: 100%;

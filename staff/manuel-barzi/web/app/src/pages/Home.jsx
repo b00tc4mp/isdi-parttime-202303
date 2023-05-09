@@ -4,12 +4,28 @@ import AddPostModal from '../components/AddPostModal'
 import Profile from '../components/Profile'
 import EditPostModal from '../components/EditPostModal'
 import './Home.css'
+import { context } from '../ui'
+import retrieveUser from '../logic/retrieveUser'
 
 export default class Home extends Component {
     constructor(props) {
+        console.log('Home -> constructor')
+
         super(props)
 
-        this.state = { view: 'posts', modal: null, postId: null }
+        try {
+            const user = retrieveUser(context.userId)
+
+            this.state = {
+                view: 'posts',
+                modal: null,
+                postId: null,
+                lastPostsUpdate: Date.now(),
+                user
+            }
+        } catch (error) {
+            alert(error.message)
+        }
     }
 
     handleOpenAddPostModal = () => this.setState({ modal: 'add-post' })
@@ -26,6 +42,38 @@ export default class Home extends Component {
 
     handleGoToPosts = () => this.setState({ view: 'posts' })
 
+    handleSwitchMode = () => document.querySelector(':root').classList.toggle('dark')
+
+    handlePostCreated = () => this.setState({ modal: null, lastPostsUpdate: Date.now() })
+
+    componentWillMount() {
+        console.log('Home -> componentWillMount')
+    }
+
+    componentDidMount() {
+        console.log('Home -> componentDidMount')
+    }
+
+    componentWillUnmount() {
+        console.log('Home -> componentWillUnmount')
+    }
+
+    handleLogout = () => {
+        delete context.userId
+
+        this.props.onLoggedOut()
+    }
+
+    handleUserAvatarUpdated = () => {
+        try {
+            const user = retrieveUser(context.userId)
+
+            this.setState({ user })
+        } catch (error) {
+            alert(error.message)
+        }
+    }
+
     render() {
         console.log('Home -> render')
 
@@ -34,20 +82,21 @@ export default class Home extends Component {
                 <h1 className="home-header-title" onClick={this.handleGoToPosts}>Home</h1>
 
                 <nav className="home-header-nav">
-                    <img className="home-header-avatar" src="" alt="" />
-                    <a href="" onClick={this.handleGoToProfile}>Profile</a>
+                    <img className="home-header-avatar" src={this.state.user.avatar} alt="" />
+                    <a href="" onClick={this.handleGoToProfile}>{this.state.user.name}</a>
                 </nav>
 
-                <button className="home-header-logout">Logout</button>
+                <button onClick={this.handleSwitchMode}>Switch Mode</button>
+                <button onClick={this.handleLogout} className="home-header-logout">Logout</button>
             </header>
 
             <main>
-                {this.state.view === 'posts' && <Posts onEditPost={this.handleOpenEditPostModal} />}
-                {this.state.view === 'profile' && <Profile />}
+                {this.state.view === 'posts' && <Posts onEditPost={this.handleOpenEditPostModal} lastPostsUpdate={this.state.lastPostsUpdate} />}
+                {this.state.view === 'profile' && <Profile onUserAvatarUpdated={this.handleUserAvatarUpdated} />}
 
                 {this.state.modal === 'add-post' && <AddPostModal
                     onCancel={this.handleCloseModal}
-                    onPostCreated={this.handleCloseModal}
+                    onPostCreated={this.handlePostCreated}
                 />}
 
                 {this.state.modal === 'edit-post' && <EditPostModal

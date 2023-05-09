@@ -1,31 +1,57 @@
 import retrievePosts from '../logic/retrievePosts'
 import Post from './Post'
 import { context } from '../ui'
+import { Component } from 'react'
 
-export default function Posts({ onEditPost }) {
-    console.log('Posts -> render')
+export default class Posts extends Component {
+    constructor(props) {
+        console.log('Posts -> constructor')
 
-    // function handleEditPost(postId) {
-    //     onEditPost(postId)
-    // }
+        super(props)
 
-    // try {
-    //     const posts = retrievePosts(context.userId)
+        try {
+            const posts = retrievePosts(context.userId)
 
-    //     return <section>
-    //         { posts.map(post => <Post post={post} onEditPost={handleEditPost} />)}
-    //     </section>
-    // } catch (error) {
-    //     alert(error.message)
-    // }
+            this.state = { posts }
+        } catch (error) {
+            alert(error.message)
+        }
+    }
 
-    try {
-        const posts = retrievePosts(context.userId)
+    handleRefreshPosts = () => {
+        try {
+            const posts = retrievePosts(context.userId)
+
+            this.setState({ posts })
+        } catch (error) {
+            alert(error.message)
+        }
+    }
+
+    componentWillMount() {
+        console.log('Posts -> componentWillMount')
+    }
+
+    componentDidMount() {
+        console.log('Posts -> componentDidMount')
+    }
+
+    componentWillReceiveProps(newProps) {
+        console.log('Posts -> componentWillReceiveProps')
+
+        if (this.props.lastPostsUpdate !== newProps.lastPostsUpdate)
+            this.handleRefreshPosts()
+    }
+
+    componentWillUnmount() {
+        console.log('Posts -> componentWillUnmount')
+    }
+
+    render() {
+        console.log('Posts -> render')
 
         return <section>
-            {posts.map(post => <Post post={post} onEditPost={onEditPost} />)}
+            {this.state.posts.map(post => <Post key={post.id} post={post} onEditPost={this.props.onEditPost} onToggledLikePost={this.handleRefreshPosts} onPostDeleted={this.handleRefreshPosts} />)}
         </section>
-    } catch (error) {
-        alert(error.message)
     }
 }
