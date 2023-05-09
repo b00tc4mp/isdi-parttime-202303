@@ -14,7 +14,7 @@ export default class App extends React.Component {
 
   handleGoToLogin = () => this.setState({ view: "login" })
 
-  handleGoToHome = () => this.setState({ view: "home" });
+  handleGoToHome = () => this.setState({ view: "home" })
 
 
   render() {
