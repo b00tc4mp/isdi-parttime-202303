@@ -14,7 +14,7 @@ export default class Home extends Component {
     try {
       const currentUser = retrieveUser(context.userId)
 
-      this.state = { view: 'posts', modal: null, modalPost: null, currentUser }
+      this.state = { view: 'posts', modal: null, modalPost: null, currentUser, theme: 'light' }
     } catch (error) {
       console.log(error.message)
     }
@@ -55,11 +55,28 @@ export default class Home extends Component {
   }
 
   handleGoToPosts = () => {
-    this.setState({ view: 'posts' })
+    try {
+      const currentUser = retrieveUser(context.userId)
+      this.setState({ view: 'posts', currentUser })
+    } catch (error) {
+      console.log(error.message)
+    }
   }
 
   handleGoToSavedPosts = () => {
     this.setState({ view: 'saved-posts' })
+  }
+
+  handleSwitchMode = () => {
+    const root = document.querySelector(':root')
+
+    root.classList.toggle('dark')
+
+    if (root.classList.contains('dark')) {
+      this.setState({ theme: 'dark' })
+    } else {
+      this.setState({ theme: 'light' })
+    }
   }
 
   render () {
@@ -83,6 +100,16 @@ export default class Home extends Component {
         {
           this.state.view !== 'profile' &&
             <div className='button-new-post-container'>
+              <button className='button toggle-theme-button' onClick={this.handleSwitchMode}>
+                {this.state.theme === 'dark' &&
+                  <span className='material-symbols-outlined theme'>
+                    sunny
+                  </span>}
+                {this.state.theme === 'light' &&
+                  <span className='material-symbols-outlined theme'>
+                    dark_mode
+                  </span>}
+              </button>
               <button className='button new-post-button' onClick={this.handleOpenAddPost}>NEW POST</button>
             </div>
         }

@@ -23,9 +23,18 @@ html {
   --likes-color: #e27d1e;
 }
 
-/* :root.dark { */
-
-/* } */
+:root.dark {
+  --white: #ffffff;
+  --black: #000000;
+  --title-black: #000000cc;
+  --general-color: #53747a;
+  --header-home-color: #233133;
+  --background-input: #dfddddcc;
+  --background-modal: #00000099;
+  --button-shadow: #0000004d;
+  --error-color: #ff0000;
+  --likes-color: #e27d1e;
+}
 
 body {
   background: var(--general-color);
@@ -230,12 +239,21 @@ h2 {
 .button-new-post-container {
   width: 100%;
   padding-right: 1.87rem;
+  padding-left: 1.87rem;
   padding-top: 5.5rem;
   display: flex;
-  justify-content: flex-end;
+  align-items: center;
 }
 
-.new-post-button, .edit-post-button, .delete-post-button {
+.new-post-button {
+  margin-left: auto;
+}
+
+.toggle-theme-button {
+  margin-right: auto;
+}
+
+.new-post-button, .edit-post-button, .delete-post-button, .toggle-theme-button {
   background: var(--white);
   color: var(--general-color);
   font-weight: 600;
@@ -284,7 +302,7 @@ article {
   gap: .3rem;
 }
 
-.edit-post-button, .delete-post-button {
+.edit-post-button, .delete-post-button, .toggle-theme-button {
   display: flex;
   align-items: center;
   padding: 0.2rem 0.4rem;
@@ -332,7 +350,7 @@ article {
   margin-left: auto;
 }
 
-.material-symbols-outlined.edit, .delete {
+.material-symbols-outlined.edit, .delete, .theme {
   font-variation-settings:
   'FILL' 1,
   'wght' 200,
