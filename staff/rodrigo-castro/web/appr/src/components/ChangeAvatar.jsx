@@ -25,7 +25,7 @@ export default function ChangeAvatar({onCancel, onAvatarChanged}) {
     }
 
     return <section className="modal-window" name="modal-change-avatar">
-    <div className="change-avatar-menu">
+    <div className="updating-menus">
         <div className="red-text"></div>
         <form action="" className="inputs" onSubmit={handleChangeAvatar}>
             <input type="text" className="input-field" type="text" name="avatarurl" placeholder="Insert avatar url" autoComplete="off"/>

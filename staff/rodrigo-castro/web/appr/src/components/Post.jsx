@@ -1,6 +1,7 @@
 import { findUserById } from "../logic/helpers/dataManagers"
 import { context } from "../ui"
 import toggleLikePost from '../logic/toggleLikePost'
+import './Post.css'
 import PropTypes from 'prop-types'
 
 export default function Post({post: {id, image, text, date, likedBy, author}, onLike, onEdit}) {

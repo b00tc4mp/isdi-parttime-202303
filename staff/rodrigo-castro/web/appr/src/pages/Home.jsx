@@ -8,6 +8,7 @@ import ChangePassword from '../components/ChagePassword'
 import ChangeAvatar from '../components/ChangeAvatar'
 import EditPost from '../components/EditPost'
 import Profile from '../components/Profile'
+import './Home.css'
 import PropTypes from 'prop-types'
 
 export default class Home extends Component {

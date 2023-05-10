@@ -2,6 +2,7 @@ import PropTypes from 'prop-types'
 import { Component } from 'react'
 import { retrieveUser } from '../logic/retrieveUser'
 import { context } from '../ui'
+import './Profile.css'
 
 export default class Profile extends Component {
     constructor(props){

@@ -1,6 +1,7 @@
 import retrievePosts from '../logic/retrievePosts'
 import { context } from '../ui'
 import Post from './Post.jsx'
+import './Posts.css'
 import PropTypes from 'prop-types'
 
 export default function Posts({onLikeToggled, onEditClicked}) {
