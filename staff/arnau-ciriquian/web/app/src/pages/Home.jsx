@@ -7,38 +7,48 @@ import Profile from "../components/Profile"
 import UpdateAvatar from "../components/UpdateAvatar"
 import EditPost from "../components/EditPost"
 
-let user
-
 export default class Home extends Component {
     constructor(props) {
         super(props)
 
-        this.state = {
-            view: 'posts',
-            modal: null,
-            postId: null
+        try {
+            const user = getLoggedUser(context.userId)
+
+            this.state = {
+                view: 'posts',
+                modal: null,
+                postId: null,
+                lastPostUpdate: Date.now(),
+                user
+            }
+        }catch (error) {
+            alert(error.message)
         }
-        
-        user = getLoggedUser(context.userId)    
+            
     }
 
     handleLogOut = () => {
         delete context.userId
         this.props.onLoggedOut()
     }
-    
-    handleToggledLike = () => this.forceUpdate()
 
     handleAddPostModal = () => this.setState({ modal: 'addPost' })
 
-    handleCloseModal = () => this.setState({ modal: null })
+    handleCloseModal = () => this.setState({ modal: null, lastPostsUpdate: Date.now() })
+
+    handlePostCreated = () => this.setState({ modal: null, lastPostsUpdate: Date.now() })
 
     handleGoToAvatarModal = () => this.setState({ modal: 'updateAvatar' })
 
     handleGoBackToProfile = () => {
-        user = getLoggedUser(context.userId)
+        try {
+            const user = getLoggedUser(context.userId)
+            
+            this.setState({ modal: 'profile', user })
+        }catch(error) {
+            alert(error.message)
+        }
         
-        this.setState({ modal: 'profile' })
     }
 
     handleGoToProfile = (event) => {
@@ -54,8 +64,8 @@ export default class Home extends Component {
         return <div className="home">
             <header className="home__navigation">
                 <nav className="home__navigation--profile">
-                    <img className="avatar" src={user.avatar} />
-                    <p className="text"><a className="home__anchor--profile" href="" onClick={this.handleGoToProfile}>{user.name}</a></p>
+                    <img className="avatar" src={this.state.user.avatar} />
+                    <p className="text"><a className="home__anchor--profile" href="" onClick={this.handleGoToProfile}>{this.state.user.name}</a></p>
                 </nav>
                 <div>
                     <button className="navigation__anchor--logout" href="" onClick={this.handleLogOut}><img className="anchor__logout--icon" src="images/rocket-launch.svg" /></button>
@@ -63,11 +73,11 @@ export default class Home extends Component {
             </header>
             <main>
                 { this.state.view === 'posts' && <Posts
-                    onToggleLike={this.handleToggledLike}
                     onEditClicked={this.handleOpenPostEditor}
+                    lastPostsUpdate={this.state.lastPostsUpdate}
                 /> }
                 { this.state.modal === 'addPost' && <AddPost
-                    onAddPostClick={this.handleCloseModal}
+                    onAddPostClick={this.handlePostCreated}
                     onCancelPostClick={this.handleCloseModal}
                 /> }
                 {this.state.modal === 'edit-post' && <EditPost

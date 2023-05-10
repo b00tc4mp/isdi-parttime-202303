@@ -26,6 +26,7 @@ export default function EditPost ({ onPostUpdated, onCancel, postId }) {
         }
     }
 
+    try {
     const post = retrievePost(context.userId, postId)
 
     return <div className="home__post--edit modal">
@@ -39,4 +40,8 @@ export default function EditPost ({ onPostUpdated, onCancel, postId }) {
                 </div>
             </form>
         </div>
+
+    } catch (error) {
+        alert(error.message)
+    }
 } 
