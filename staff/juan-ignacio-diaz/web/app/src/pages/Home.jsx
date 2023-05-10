@@ -67,7 +67,10 @@ export default class Home extends Component {
 
     handleModifyedPost = () => this.setState({ view: 'posts', lastPostsUpdate: Date.now() }) 
 
-    handleTypePost = (event) => this.setState({ typePosts: event.target.value })
+    handleTypePost = (event) => {
+        console.log(event.target.value)
+        this.setState({ typePosts: event.target.value })
+    }
 
     handleOpenAlert = (message) => this.props.onMenssageAlert(message)
 

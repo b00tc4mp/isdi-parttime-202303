@@ -14,7 +14,7 @@ export default class Posts extends Component {
 
         try {
             let posts
-    
+            console.log(this.props.typePosts)
             if (this.props.typePosts === 'all')     
                 posts = retrievePosts(context.userId)
             else if (this.props.typePosts === 'user') 
@@ -33,7 +33,7 @@ export default class Posts extends Component {
         console.log('Posts -> refresh')
         try {
             let posts
-    
+            console.log(this.props.typePosts)
             if (this.props.typePosts === 'all')     
                 posts = retrievePosts(context.userId)
             else if (this.props.typePosts === 'user') 
@@ -48,7 +48,7 @@ export default class Posts extends Component {
         }  
     }
 
-    componentWillReceiveProps(newProps) {
+    componentDidUpdate(newProps) {
         console.log('Posts -> componentWillReceiveProps')
 
         if (this.props.lastPostsUpdate !== newProps.lastPostsUpdate || this.props.typePosts !== newProps.typePosts)

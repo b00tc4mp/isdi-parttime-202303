@@ -10,5 +10,5 @@ export default function retrieweSavePosts(userId){
 
     if (!user) throw new Error(`user with id ${userId} not found`)
 
-    return posts().filter(post => user.savePosts.includes(post.id)).toReversed()
+    return posts().filter(post => (user.savePosts && user.savePosts.includes(post.id))).toReversed()
 }

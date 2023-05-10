@@ -7,7 +7,7 @@ import deletePost from '../logic/deletePost'
 
 
 export default function Post ({ post: { id, author, image, text, date, likes, dateLastModified}, onModifyPost, onEditPost, onMenssageAlert}) {
-    console.log('Post  -> render')
+    //console.log('Post  -> render')
 
     const handleLikePost = () => {
         try {
