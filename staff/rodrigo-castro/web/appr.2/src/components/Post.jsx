@@ -26,7 +26,7 @@ export default function Post({post: {id, image, text, date, likedBy, author}, on
         }
     }
 
-    const handleEdit = () => {
+    const handleEdit = (id) => {
         onEdit(id)
     }
 
@@ -35,7 +35,7 @@ export default function Post({post: {id, image, text, date, likedBy, author}, on
             <img src={user.avatar} className="user-avatar"/>
             <p className="author-name">{user.name}</p>
             <time>· {day} {month} {year}</time>
-            {author === context.userId? <button className="edit-button" onClick={handleEdit}><i className="uil uil-edit"></i></button> : ''}
+            {author === context.userId? <button className="edit-button" onClick={() => handleEdit(id)}><i className="uil uil-edit"></i></button> : ''}
         </div>
         <img src={image}/>
         <button className={likedBy.includes(context.userId) ? "like-button liked" : "like-button"} onClick={handleLike}><i className="uil uil-heart-sign"></i></button>

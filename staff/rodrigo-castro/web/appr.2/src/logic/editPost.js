@@ -1,10 +1,15 @@
-import { validateId } from "./helpers/validators"
-import { users, posts, savePosts } from "../data"
+import { validateId, validateText, validateUrl } from "./helpers/validators"
+import { users, posts, savePost } from "../data"
 
-export default function deletePost(userId, postId) {
+
+export default function editPost(userId, postId, image, text) {
     validateId(userId)
 
     validateId(postId)
+    
+    validateUrl(image)
+    
+    validateText(text)
 
     const foundUser = users().find(user => user.id === userId)
 
@@ -16,11 +21,9 @@ export default function deletePost(userId, postId) {
 
     if(!foundUser.id === foundPost.author) throw new Error(`Post doesn't belong to this user`)
 
-    const _posts = posts()
+    foundPost.image = image
 
-    const index = _posts.findIndex(post => post.id === postId)
+    foundPost.text = text
 
-    _posts.splice(index, 1)
-
-    savePosts(_posts)
+    savePost(foundPost)
 }

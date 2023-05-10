@@ -64,10 +64,10 @@ export default class Home extends Component {
             </nav>
         </header>
         <main className="main-content">
-            <Posts onLikeToggled={this.handleLikeToggled} onEditClicked={this.handleEditClicked}/>
+            <Posts onLikeToggled={this.handleLikeToggled} onEditClicked={(id) => this.handleEditClicked(id)}/>
 
             {this.state.modal === 'add-post' && <AddPostModal 
-                onCancel={this.handleCloseModal}
+                onCancel={this.handleCloseModal} 
                 onPostCreated={this.handleCloseModal}
             />}
 

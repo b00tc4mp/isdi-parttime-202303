@@ -1,29 +1,22 @@
-import { validateId, validateText, validateUrl } from "./helpers/validators"
-import { users, posts, savePost } from "../data"
+import { validateText, validateUrl } from "./helpers/validators"
+import { savePost } from "../data"
+import retrievePost from "./retrievePost"
 
 
 export default function editPost(userId, postId, image, text) {
-    validateId(userId)
-
-    validateId(postId)
+    const post = retrievePost(userId, postId)
     
     validateUrl(image)
     
     validateText(text)
 
-    const foundUser = users().find(user => user.id === userId)
+    if(!post) throw new Error('Post id not valid')
 
-    if(!foundUser) throw new Error('User id not valid')
+    if(userId !== post.author) throw new Error(`Post doesn't belong to this user`)
 
-    const foundPost = posts().find(post => post.id === postId)
+    post.image = image
 
-    if(!foundPost) throw new Error('Post id not valid')
+    post.text = text
 
-    if(!foundUser.id === foundPost.author) throw new Error(`Post doesn't belong to this user`)
-
-    foundPost.image = image
-
-    foundPost.text = text
-
-    savePost(foundPost)
+    savePost(post)
 }

@@ -42,7 +42,7 @@ export default function Login({onRegisterClick, onUserLoggedIn}) {
                 <div className="remember-me-text">Remember me</div>
             </div>
             <div className="forgot-password">Forgot your <a className="link">password</a>?</div>
-            <div className="already-registered">Dont have an account? <a className="link" onClick={handleRegisterClick}>Register now</a></div>
+            <div className="already-registered">Don't have an account? <a className="link" onClick={handleRegisterClick}>Register now</a></div>
             <button className="submit-buttons" type="submit">Login</button>
     </form>
     </div>

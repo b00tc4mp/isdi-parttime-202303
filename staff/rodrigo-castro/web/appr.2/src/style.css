@@ -314,7 +314,6 @@ header > nav {
   padding: 0.25rem 0;
   border: none;
   background-color: var(--transparent);
-  font-size: 1.2rem;
 }
 
 .likes-counter {
@@ -329,7 +328,6 @@ header > nav {
   border: none;
   background-color: var(--white-000);
   margin-left: auto;
-  font-size: 1.2rem;
 }
 
 .change-password-menu, .change-email-menu {
@@ -502,6 +500,10 @@ header > nav {
     right: 0;
   }
 
+  .edit-button, .like-button {
+    font-size: 1.2rem;
+  }
+
   .profile-options {
     font-size: 1.3rem;
   }
@@ -610,6 +612,10 @@ header > nav {
     padding-top: 4rem;
     margin: 0;
     border: 0;
+  }
+
+  .edit-button, .like-button {
+    font-size: 1.2rem;
   }
 
   .profile-options {
