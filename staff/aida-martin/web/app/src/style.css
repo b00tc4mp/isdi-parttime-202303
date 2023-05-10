@@ -21,8 +21,11 @@ html {
   --button-shadow: #0000004d;
   --error-color: #ff0000;
   --likes-color: #e27d1e;
-  
 }
+
+/* :root.dark { */
+
+/* } */
 
 body {
   background: var(--general-color);
@@ -264,7 +267,7 @@ article {
 .user-container-post {
   display: flex;
   gap: .3rem;
-  width: fit-content;
+  width: auto;
   align-items: center;
 }
 
@@ -287,6 +290,12 @@ article {
   padding: 0.2rem 0.4rem;
 }
 
+.private {
+  margin-left: auto;
+  display: flex;
+  align-self: center;
+}
+
 .post-user {
   font-weight: 400;
 }
@@ -303,7 +312,6 @@ article {
 }
 
 .material-symbols-outlined {
-  align-self: flex-start;
   font-variation-settings:
 'FILL' 0,
 'wght' 200,
@@ -312,7 +320,6 @@ article {
 }
 
 .material-symbols-outlined.fill {
-  align-self: flex-start;
   color: var(--likes-color);
   font-variation-settings:
 'FILL' 1,
@@ -323,6 +330,14 @@ article {
 
 .material-symbols-outlined.saves {
   margin-left: auto;
+}
+
+.material-symbols-outlined.edit, .delete {
+  font-variation-settings:
+  'FILL' 1,
+  'wght' 200,
+  'GRAD' -25,
+  'opsz' 24
 }
 
 .off {

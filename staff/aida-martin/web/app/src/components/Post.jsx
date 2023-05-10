@@ -4,7 +4,7 @@ import retrieveUser from '../logic/retrieveUser'
 import formatLikes from '../logic/helpers/utils'
 import toggleLikePost from '../logic/toggleLikePost'
 import toggleSavePost from '../logic/toggleSavePost'
-import deletedAPost from '../logic/deletedAPost'
+import deletePost from '../logic/deletePost'
 
 export default function Post ({ currentUser, post, onEditPost, onLiked, onSaved, onDeletePost }) {
   const postAuthor = retrieveUser(post.author)
@@ -33,7 +33,7 @@ export default function Post ({ currentUser, post, onEditPost, onLiked, onSaved,
 
   function handleDeletePost () {
     try {
-      deletedAPost(context.userId, post.id)
+      deletePost(context.userId, post.id)
       onDeletePost()
     } catch (error) {
       console.log(error.message)
@@ -45,6 +45,12 @@ export default function Post ({ currentUser, post, onEditPost, onLiked, onSaved,
       <div className='user-container-post'>
         <img className='post-avatar' src={postAuthor.avatar ? postAuthor.avatar : DEFAULT_AVATAR_URL} />
         <p className='post-user'>{postAuthor.name}</p>
+        {
+        post.author === context.userId &&
+          <span className='material-symbols-outlined private'>
+            lock_open
+          </span>
+            }
       </div>
       <div className='image-container-post'>
         <img className='post-image' src={post.image} />

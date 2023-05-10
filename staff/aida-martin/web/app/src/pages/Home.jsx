@@ -11,10 +11,17 @@ export default class Home extends Component {
   constructor (props) {
     super(props)
 
+    try {
+      const currentUser = retrieveUser(context.userId)
+
+      this.state = { view: 'posts', modal: null, modalPost: null, currentUser }
+    } catch (error) {
+      console.log(error.message)
+    }
+
     // Lo que yo había hecho antes de this.props.onLogOut():
     // const { onLogOut } = props
     // this.onLogOut = onLogOut
-    this.state = { view: 'posts', modal: null, modalPost: null }
   }
 
   handleLogOut = () => {
@@ -56,8 +63,6 @@ export default class Home extends Component {
   }
 
   render () {
-    const currentUser = retrieveUser(context.userId)
-
     return (
       <section className='home'>
         <header className='home-header'>
@@ -65,11 +70,11 @@ export default class Home extends Component {
 
           <div className='home-header-nav'>
             <img
-              className='avatar home-header-avatar' src={currentUser.avatar
-                ? currentUser.avatar
+              className='avatar home-header-avatar' src={this.state.currentUser.avatar
+                ? this.state.currentUser.avatar
                 : DEFAULT_AVATAR_URL} alt=''
             />
-            <a href='' className='profile-link' onClick={this.handleGoToProfile}>{currentUser.name}</a>
+            <a href='' className='profile-link' onClick={this.handleGoToProfile}>{this.state.currentUser.name}</a>
 
             <button className='button profile-logout-button' onClick={this.handleLogOut}>LOG OUT</button>
           </div>
@@ -83,11 +88,11 @@ export default class Home extends Component {
         }
 
         <main className='main-container'>
-          {this.state.view === 'posts' && <Posts currentUser={currentUser} onEditPost={this.handleOpenEditPost} onLiked={this.handleGoToPosts} onSaved={this.handleGoToPosts} onDeletePost={this.handleGoToPosts} />}
+          {this.state.view === 'posts' && <Posts currentUser={this.state.currentUser} onEditPost={this.handleOpenEditPost} onLiked={this.handleGoToPosts} onSaved={this.handleGoToPosts} onDeletePost={this.handleGoToPosts} />}
 
           {this.state.view === 'profile' && <Profile onUpdateUserAvatar={this.handleGoToPosts} onUpdateUserPassword={this.handleGoToPosts} onSavedPosts={this.handleGoToSavedPosts} />}
 
-          {this.state.view === 'saved-posts' && <Posts currentUser={currentUser} mySavedPosts onEditPost={this.handleOpenEditPost} onLiked={this.handleGoToSavedPosts} onSaved={this.handleGoToSavedPosts} />}
+          {this.state.view === 'saved-posts' && <Posts currentUser={this.state.currentUser} mySavedPosts onEditPost={this.handleOpenEditPost} onLiked={this.handleGoToSavedPosts} onSaved={this.handleGoToSavedPosts} />}
 
           {this.state.modal === 'add-post' && <AddPostPanel onPostCreated={this.handleCloseAddOrEditPost} onCancel={this.handleCloseAddOrEditPost} />}
 

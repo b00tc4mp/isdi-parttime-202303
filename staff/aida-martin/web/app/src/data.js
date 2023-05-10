@@ -45,13 +45,3 @@ export function savePost (post) {
 
   savePosts(_posts)
 }
-
-export function deletePost (post) {
-  const _posts = posts()
-
-  const index = _posts.findIndex((_post) => _post.id === post.id)
-
-  _posts.splice(index, 1)
-
-  savePosts(_posts)
-}
