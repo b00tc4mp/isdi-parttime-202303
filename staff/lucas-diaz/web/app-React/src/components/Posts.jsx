@@ -12,7 +12,7 @@ export default function Posts() {
 
 
         return <section className="home-posts-content">
-            {posts.map(post =>  <Post post={post} user={user}/> )}
+            {posts.map((post, index) =>  <Post key={index} post={post} user={user}/> )}
         </section>
 
     } catch (error) {

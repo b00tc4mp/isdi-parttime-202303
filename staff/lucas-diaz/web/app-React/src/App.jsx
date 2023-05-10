@@ -20,6 +20,8 @@ export default class App extends React.Component {
   render() {
     switch (this.state.view) {
       case "login":
+
+      
         return <Login
           onRegisterClick={this.handleGoToRegister}
           onUserLogedin={this.handleGoToHome}
