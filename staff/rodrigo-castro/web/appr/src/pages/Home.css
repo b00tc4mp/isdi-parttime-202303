@@ -94,6 +94,7 @@ header > div {
     width: 100vw;
     position: absolute;
     font-size: clamp(1rem, 0.9625rem + 0.2vw, 1.125rem);
+    color: var(--black-100);
     top: 4rem;
     height: auto;
     display: flex;

@@ -17,6 +17,7 @@
   
   .post-container > div > p {
     margin: 0;
+    color: var(--black-100);
   }
   
   .post-container > div, .post-container > p {
@@ -43,6 +44,7 @@
     padding: 0.25rem 0;
     border: none;
     background-color: var(--transparent);
+    color: var(--black-100);
     font-size: 1.2rem;
   }
   
@@ -59,4 +61,5 @@
     background-color: var(--white-000);
     margin-left: auto;
     font-size: 1.2rem;
+    color: var(--black-100);
   }
