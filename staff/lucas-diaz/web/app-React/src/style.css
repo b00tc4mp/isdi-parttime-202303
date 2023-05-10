@@ -127,7 +127,7 @@ label{
     flex-flow:wrap row;
     align-content: flex-start;
     justify-content:space-between;
-    row-gap: 10px;
+    row-gap: 20px;
 
 }
 .home-header{
@@ -135,7 +135,6 @@ label{
     width: 100%;
     top: 0;
     left: 0;
-
     background-color: #1e3a3a;
     display: flex;
     flex-flow:wrap row;
@@ -256,7 +255,7 @@ label{
 }
 .home-post-content-article-userName{
     color: rgb(173, 231, 173);
-    flex-basis: 57%;
+    flex-basis: 48%;
     align-self: center;
 }
 .home-post-content-article-text{
@@ -324,6 +323,10 @@ label{
 .material-symbols-rounded:hover{
     transform: scale(1.5, 1.5);
 }
+.bin{
+    padding-top: 0.3rem;
+}
+
 .home-post-content-article-icon-text{
     padding-top: .2rem;
     font-size: .8rem;

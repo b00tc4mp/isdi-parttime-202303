@@ -8,10 +8,12 @@ export default function Post(props) {
     function handleEditClick() {
 
     }
-    function handleHeartClick(){
+    function handleHeartClick() {
 
     }
+    function handleDeleteClick() {
 
+    }
 
     try {
 
@@ -23,9 +25,10 @@ export default function Post(props) {
     return <article>
         <img className="home-post-content-article-avatar" src={user.avatar} />
         <p className="home-post-content-article-userName">{post.userName}</p>
-        
-        {post.author === context.userId ? <button className="home-edit-post-modal-button" onClick={handleEditClick}>Edit</button> : null} 
-            
+        {post.author === context.userId ? <span className="material-symbols-rounded bin" onClick={handleDeleteClick}>
+            delete
+        </span> : null}
+        {post.author === context.userId ? <button className="home-edit-post-modal-button" onClick={handleEditClick}>Edit</button> : null}
         <div className="post-image-container">
             <img className="home-post-content-article-img" src={post.image} />
         </div>
