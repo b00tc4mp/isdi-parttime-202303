@@ -54,32 +54,7 @@ body {
   font-size: medium;
 }
 
-.home{
-  padding-top: 4rem;
-  padding-bottom: 4rem;
-}
 
-.home-header, .home-footer {
-  position: fixed;
-  background-color: dodgerblue;
-  width: 100%;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  height: 4rem;
-}
-
-.home-header {
-  top: 0;
-  border-bottom-left-radius: .75rem;
-  border-bottom-right-radius: .75rem;
-}
-
-.home-footer {
-  bottom: 0;
-  border-top-left-radius: .75rem;
-  border-top-right-radius: .75rem;
-}
 
 .form {
  min-width: 60vw;
@@ -124,39 +99,6 @@ body {
 .goto {
   font-style: normal;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-}
-
-.home-header-nav {
-  display: flex;
-  align-items: center;
-  gap: .4rem;
-}
-
-.home-header-avatar {
-  width: 2rem;
-  border-radius: 1rem;
-}
-
-.profile-avatar-form {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: 100%;
-  background-color: var(--basecolor);
-  justify-content: center;
-  align-items: center;
-
-}
-
-.profile-password-form {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: 100%;
-  background-color: var(--basecolor);
-  justify-content: center;
-  align-items: center;
-
 }
 
 .name {

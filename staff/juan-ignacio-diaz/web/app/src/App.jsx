@@ -36,47 +36,30 @@ export default class App extends Component {
   }
 
   render() {
-    console.log('App -> render')
+      console.log('App -> render')
 
-    switch (this.state.view){
-      case'login':
-        return <div>
-          <Login 
+      return <>
+          {this.state.view === 'login' && <Login 
             onRegisterClick={this.handleGotoRegister} 
             onUserLoggedIn={this.handleGoToHome} onMenssageAlert={this.handleOpenAlert}
+            /> 
+          }   
+          {this.state.view === 'register' && <Register 
+            onLoginClick={this.handleGotoLogin} 
+            onRegistered={this.handleGotoLogin}
+            onMenssageAlert={this.handleOpenAlert}
             />
-            {this.state.modal === 'alert' && <AlertModal 
+          }
+          {this.state.view ===  'home' && <Home 
+            onLogout={this.handleGotoLogin}
+            onMenssageAlert={this.handleOpenAlert}
+            />
+          }
+          {this.state.modal === 'alert' && <AlertModal 
             onAccept={this.hanleCloseAlert}
             message={this.message}
-            />}
-        </div>
-
-      case 'register':
-        return <div><Register 
-          onLoginClick={this.handleGotoLogin} 
-          onRegistered={this.handleGotoLogin}
-          onMenssageAlert={this.handleOpenAlert}
           />
-           {this.state.modal === 'alert' && <AlertModal 
-            onAccept={this.hanleCloseAlert}
-            message={this.message}
-            />}
-          </div>
-
-      case 'home':
-        return <div><Home 
-          onLogout={this.handleGotoLogin}
-          onMenssageAlert={this.handleOpenAlert}
-          />
-            {this.state.modal === 'alert' && <AlertModal 
-            onAccept={this.hanleCloseAlert}
-            message={this.message}
-            />}
-          </div>
+          }
+        </>
       }
-
-
-      
-    
-  }
 }

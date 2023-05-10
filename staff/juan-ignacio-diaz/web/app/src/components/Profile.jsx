@@ -3,6 +3,8 @@ import { context } from '../ui'
 import updateUserAvatar from "../logic/updateUserAvatar"
 import updateUserPassword from "../logic/updateUserPassword"
 
+import './Profile.css'
+
 export default function Profile({onEditedProfile, onMenssageAlert}){
     console.log('Profile ->render')
 
@@ -14,7 +16,7 @@ export default function Profile({onEditedProfile, onMenssageAlert}){
         try{
             updateUserAvatar (context.userId, url)
 
-            alert("avatar updated")
+            onMenssageAlert("avatar updated")
 
             event.target.reset()
             onEditedProfile()
@@ -38,14 +40,14 @@ export default function Profile({onEditedProfile, onMenssageAlert}){
         try {
             updateUserPassword(context.userId, password, newPassword, newPasswordConfirm)
             
-            alert("the password is update")
+            onMenssageAlert("the password is update")
 
             event.target.reset()
 
             onEditedProfile()
         }
         catch (error) {
-            alert(error.message)
+            onMenssageAlert(error.message)
 
             if (error.cause === "password") {
                 event.target.newPassword.focus()

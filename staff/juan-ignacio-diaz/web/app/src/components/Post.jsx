@@ -3,14 +3,13 @@ import { context } from '../ui'
 import retrieveUser from '../logic/retrieveUser'
 import toggleLikePost from '../logic/toggleLikePost'
 import toggleSavePost from '../logic/toggleSavePost'
+import deletePost from '../logic/deletePost'
 
 
 export default function Post ({ post: { id, author, image, text, date, likes, dateLastModified}, onModifyPost, onEditPost, onMenssageAlert}) {
     console.log('Post  -> render')
 
-    function handleLikePost (event) {
-        event.preventDefault()
-
+    const handleLikePost = () => {
         try {
             toggleLikePost(context.userId, id)
 
@@ -21,10 +20,8 @@ export default function Post ({ post: { id, author, image, text, date, likes, da
         }
     }
 
-    function handleSavePost (event) {
-        event.preventDefault()
-
-        try {
+    const handleSavePost = () => {
+         try {
             toggleSavePost(context.userId, id)
 
             onModifyPost()
@@ -34,16 +31,22 @@ export default function Post ({ post: { id, author, image, text, date, likes, da
         }
     }
 
-    function handleEditPost (event) {
-        event.preventDefault()
+    const handleEditPost = () => onEditPost(id)
 
-        onEditPost(id)
+    const handleDeletePost = () => {
+        try{
+            deletePost(context.userId, id)
+
+            onModifyPost()
+        }
+        catch(error){
+            onMenssageAlert(error.message)
+        }
     }
 
     try {
         const activeUser = retrieveUser(context.userId)
         const postUser = retrieveUser(author)
- 
 
         return <article className="post-article post-text">
         <div className="post-Author">
@@ -57,7 +60,8 @@ export default function Post ({ post: { id, author, image, text, date, likes, da
         <button className = "button-save" onClick={handleSavePost}> {activeUser.savePosts && activeUser.savePosts.includes(id)? 'Saved' : 'Unsaved'}</button>
         <div className = "post-info">
             <time>Date {date.toLocaleString()}</time>
-            {postUser.id === activeUser.id ?  <button onClick={handleEditPost}>Edit</button> : ''}           
+            {postUser.id === activeUser.id ?  <button onClick={handleEditPost}>Edit</button> : ''} 
+            {postUser.id === activeUser.id ?  <button onClick={handleDeletePost}>Delete</button> : ''}           
             <time>{dateLastModified ? 'Last Modified ' + dateLastModified.toLocaleString(): ''}</time>
         </div>
     </article>

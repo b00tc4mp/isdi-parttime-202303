@@ -9,12 +9,20 @@ import AddPostModal from '../components/AddPostModal';
 
 import retrieveUser from '../logic/retrieveUser';
 
+import './Home.css'
+
 
 export default class Home extends Component {
     constructor(props) {
+        console.log('Posts -> home')
+
         super(props)
 
-        this.state = { view: 'posts', modal: null }
+        this.state = { view: 'posts', 
+            modal: null, 
+            typePosts: 'all',
+            lastPostsUpdate: Date.now()
+        }
 
         try{
             this.user = retrieveUser(context.userId) 
@@ -53,13 +61,15 @@ export default class Home extends Component {
 
     handleOpenAddPost = () => this.setState({ modal: 'add-post' })
 
-    handleCloseModalPost = () => this.setState({ modal: null })
+    handleCloseModalPost = () => this.setState({ modal: null, lastPostsUpdate: Date.now() })
 
     handleGoToPosts = () => this.setState({ view: 'posts' }) 
 
-    handleOpenAlert = (message) => {
-        this.props.onMenssageAlert(message)
-      }
+    handleModifyedPost = () => this.setState({ view: 'posts', lastPostsUpdate: Date.now() }) 
+
+    handleTypePost = (event) => this.setState({ typePosts: event.target.value })
+
+    handleOpenAlert = (message) => this.props.onMenssageAlert(message)
 
     render() {
         console.log('Home -> render')
@@ -80,6 +90,8 @@ export default class Home extends Component {
                 onModifyedPost={this.handleGoToPosts}
                 onEditedPost={this.handleOpenEditPost}
                 onMenssageAlert={this.handleOpenAlert}
+                typePosts={this.state.typePosts}
+                lastPostsUpdate={this.state.lastPostsUpdate}
             />}
 
             {this.state.view === 'profile' && <Profile 
@@ -103,8 +115,13 @@ export default class Home extends Component {
         </main>
 
         <footer className="home-footer">
-            <button className="add-post-button" onClick={this.handleOpenAddPost}>+</button>
+            <button className="add-post-button" onChange={this.handleOpenAddPost}>+</button>
+            <select onChange={this.handleTypePost}>
+                <option value="all" >All</option>
+                <option value="user" >User</option>
+                <option value="save">Save</option>
+            </select>
         </footer>
     </div>
- }
+ }  
 }
