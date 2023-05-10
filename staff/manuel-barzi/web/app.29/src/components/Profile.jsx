@@ -3,6 +3,8 @@ import { context } from '../ui'
 import updateUserAvatar from '../logic/updateUserAvatar'
 
 export default function Profile({ onUserAvatarUpdated }) {
+    console.log('Profile -> render')
+
     const handleUpdateAvatar = event => {
         event.preventDefault()
 
@@ -16,8 +18,6 @@ export default function Profile({ onUserAvatarUpdated }) {
             alert(error.message)
         }
     }
-
-    console.log('Profile -> render')
 
     return <section className="profile container">
         <h2>Update avatar</h2>

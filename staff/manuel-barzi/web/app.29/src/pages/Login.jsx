@@ -2,13 +2,15 @@ import { context } from '../ui'
 import authenticateUser from '../logic/authenticateUser'
 
 export default function Login({ onRegisterClick, onUserLoggedIn }) {
-    const handleRegisterClick = event => {
+    console.log('Login -> render')
+
+    function handleRegisterClick(event) {
         event.preventDefault()
 
         onRegisterClick()
     }
 
-    const handleLogin = event => {
+    function handleLogin(event) {
         event.preventDefault()
 
         const email = event.target.email.value
@@ -25,8 +27,6 @@ export default function Login({ onRegisterClick, onUserLoggedIn }) {
         }
     }
 
-    console.log('Login -> render')
-    
     return <div className="login page container">
         <h1 className="title">Login</h1>
 
