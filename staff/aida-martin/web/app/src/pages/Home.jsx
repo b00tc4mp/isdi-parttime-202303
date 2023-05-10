@@ -3,8 +3,8 @@ import { context, openModal, hideModal } from '../ui'
 import retrieveUser from '../logic/retrieveUser'
 import { DEFAULT_AVATAR_URL } from '../constants'
 import Posts from '../components/Posts'
-import AddPostPanel from '../components/AddPostPanel'
-import EditPostPanel from '../components/EditPostPanel'
+import AddPostModal from '../components/Modals/AddPostModal'
+import EditPostModal from '../components/Modals/EditPostModal'
 import Profile from '../components/Profile'
 
 export default class Home extends Component {
@@ -121,9 +121,9 @@ export default class Home extends Component {
 
           {this.state.view === 'saved-posts' && <Posts currentUser={this.state.currentUser} mySavedPosts onEditPost={this.handleOpenEditPost} onLiked={this.handleGoToSavedPosts} onSaved={this.handleGoToSavedPosts} />}
 
-          {this.state.modal === 'add-post' && <AddPostPanel onPostCreated={this.handleCloseAddOrEditPost} onCancel={this.handleCloseAddOrEditPost} />}
+          {this.state.modal === 'add-post' && <AddPostModal onPostCreated={this.handleCloseAddOrEditPost} onCancel={this.handleCloseAddOrEditPost} />}
 
-          {this.state.modal === 'edit-post' && <EditPostPanel onPostEdited={this.handleCloseAddOrEditPost} onCancel={this.handleCloseAddOrEditPost} post={this.state.modalPost} />}
+          {this.state.modal === 'edit-post' && <EditPostModal onPostEdited={this.handleCloseAddOrEditPost} onCancel={this.handleCloseAddOrEditPost} post={this.state.modalPost} />}
         </main>
       </section>
     )

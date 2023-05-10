@@ -1,7 +1,7 @@
-import createPost from '../logic/createPost'
-import { context } from '../ui'
+import createPost from '../../logic/createPost'
+import { context } from '../../ui'
 
-export default function AddPostPanel ({ onPostCreated, onCancel }) {
+export default function AddPostModal ({ onPostCreated, onCancel }) {
   function handleCreatePost (event) {
     event.preventDefault()
 

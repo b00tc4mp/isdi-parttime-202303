@@ -1,7 +1,7 @@
-import updatePost from '../logic/updatePost'
-import { context } from '../ui'
+import updatePost from '../../logic/updatePost'
+import { context } from '../../ui'
 
-export default function EditPostPanel ({ post, onPostEdited, onCancel }) {
+export default function EditPostModal ({ post, onPostEdited, onCancel }) {
   function handleEditPost (event) {
     event.preventDefault()
 
