@@ -110,6 +110,11 @@ export default class Home extends Component {
                     dark_mode
                   </span>}
               </button>
+              <button className='button saved-posts-button' onClick={this.handleGoToSavedPosts}>
+                <span className='material-symbols-outlined favs'>
+                  pages
+                </span>
+              </button>
               <button className='button new-post-button' onClick={this.handleOpenAddPost}>NEW POST</button>
             </div>
         }
@@ -117,7 +122,7 @@ export default class Home extends Component {
         <main className='main-container'>
           {this.state.view === 'posts' && <Posts currentUser={this.state.currentUser} onEditPost={this.handleOpenEditPost} onLiked={this.handleGoToPosts} onSaved={this.handleGoToPosts} onDeletePost={this.handleGoToPosts} />}
 
-          {this.state.view === 'profile' && <Profile onUpdateUserAvatar={this.handleGoToPosts} onUpdateUserPassword={this.handleGoToPosts} onSavedPosts={this.handleGoToSavedPosts} />}
+          {this.state.view === 'profile' && <Profile onUpdateUserAvatar={this.handleGoToPosts} onUpdateUserPassword={this.handleGoToPosts} />}
 
           {this.state.view === 'saved-posts' && <Posts currentUser={this.state.currentUser} mySavedPosts onEditPost={this.handleOpenEditPost} onLiked={this.handleGoToSavedPosts} onSaved={this.handleGoToSavedPosts} />}
 

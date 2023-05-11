@@ -2,7 +2,7 @@ import updateAvatar from '../logic/updateUserAvatar'
 import changePassword from '../logic/updateUserPassword'
 import { context } from '../ui'
 
-export default function Profile ({ onUpdateUserAvatar, onUpdateUserPassword, onSavedPosts }) {
+export default function Profile ({ onUpdateUserAvatar, onUpdateUserPassword }) {
   function updateUserAvatar (event) {
     event.preventDefault()
 
@@ -33,15 +33,9 @@ export default function Profile ({ onUpdateUserAvatar, onUpdateUserPassword, onS
     }
   }
 
-  function showSavedPosts () {
-    onSavedPosts()
-  }
-
   return (
     <div className='profile'>
       <h1 className='title'>YOUR PROFILE</h1>
-
-      <button className='button save-posts-button' type='submit' onClick={showSavedPosts}>SAVED POSTS</button>
 
       <form className='form profile-avatar-form' onSubmit={updateUserAvatar}>
         <h2>UPDATE AVATAR</h2>

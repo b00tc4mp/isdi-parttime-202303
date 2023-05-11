@@ -253,11 +253,12 @@ h2 {
   margin-right: auto;
 }
 
-.new-post-button, .edit-post-button, .delete-post-button, .toggle-theme-button {
+.new-post-button, .edit-post-button, .delete-post-button, .toggle-theme-button, .saved-posts-button {
   background: var(--white);
   color: var(--general-color);
   font-weight: 600;
 }
+
 .modal, .edit-post-modal {
   background: var(--background-modal);
   color: var(--white);
@@ -302,10 +303,14 @@ article {
   gap: .3rem;
 }
 
-.edit-post-button, .delete-post-button, .toggle-theme-button {
+.edit-post-button, .delete-post-button, .toggle-theme-button, .saved-posts-button {
   display: flex;
   align-items: center;
   padding: 0.2rem 0.4rem;
+}
+
+.saved-posts-button {
+  margin-left: 8rem;
 }
 
 .private {
@@ -329,7 +334,7 @@ article {
   font-size: .9rem;
 }
 
-.material-symbols-outlined {
+.material-symbols-outlined, .favs {
   font-variation-settings:
 'FILL' 0,
 'wght' 200,
