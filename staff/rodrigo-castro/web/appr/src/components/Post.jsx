@@ -4,10 +4,10 @@ import toggleLikePost from '../logic/toggleLikePost'
 import './Post.css'
 import PropTypes from 'prop-types'
 
-export default function Post({post: {id, image, text, date, likedBy, author}, onLike, onEdit}) {
+export default function Post({post: {id, image, text, date, likedBy, author}, onToggledLikePost, onEdit}) {
     Post.propTypes = {
         post: PropTypes.object,
-        onLike: PropTypes.func,
+        onToggledLikePost: PropTypes.func,
         onEdit: PropTypes.func
     }
 
@@ -17,11 +17,11 @@ export default function Post({post: {id, image, text, date, likedBy, author}, on
     
     const user = findUserById(author)
     
-    const handleLike = () => {
+    const handleToggleLikePost = () => {
         try{
             toggleLikePost(context.userId, id)
 
-            onLike()
+            onToggledLikePost()
         } catch(error){
             alert(error.message)
         }
@@ -39,7 +39,7 @@ export default function Post({post: {id, image, text, date, likedBy, author}, on
             {author === context.userId? <button className="edit-button" onClick={handleEdit}><i className="uil uil-edit"></i></button> : ''}
         </div>
         <img src={image}/>
-        <button className={likedBy.includes(context.userId) ? "like-button liked" : "like-button"} onClick={handleLike}><i className="uil uil-heart-sign"></i></button>
+        <button className={likedBy.includes(context.userId) ? "like-button liked" : "like-button"} onClick={handleToggleLikePost}><i className="uil uil-heart-sign"></i></button>
         {likedBy.length > 0? <p className="likes-counter">{likedBy.length} {likedBy.length > 1? 'likes' : 'like'}</p> : ''}
         <div>
             <p className="author-name">{user.name}</p><p>{text}</p>

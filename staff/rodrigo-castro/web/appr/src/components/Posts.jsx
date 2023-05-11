@@ -1,26 +1,44 @@
 import retrievePosts from '../logic/retrievePosts'
 import { context } from '../ui'
 import Post from './Post.jsx'
+import { Component } from 'react'
 import './Posts.css'
 import PropTypes from 'prop-types'
 
-export default function Posts({onLikeToggled, onEditClicked}) {
-    Posts.proptypes = {
-        onLikeToggled: PropTypes.func
-    }
+export default class Posts extends Component {
+    constructor(props){
+        super(props)
 
-    try {
-        const posts = retrievePosts(context.userId)
-
-        const handleLike = () => {
-            onLikeToggled()
+        Posts.proptypes = {
+            onLikeToggled: PropTypes.func,
+            onEditClicked: PropTypes.func
         }
+        
+        try {
+            const posts = retrievePosts(context.userId)
 
-        return <section className='posts-list'>
-            { posts.map(post => <Post key={post.id} post={post} onLike={handleLike} onEdit={onEditClicked}/>)}
-        </section>
-    } catch(error) {
-        alert(error.message)
+            this.state = { posts }
+        } catch(error) {
+            alert(error.message)
+        }
     }
     
+    handleToggledLikePost = () => {
+        try {
+            const posts = retrievePosts(context.userId)
+
+            this.setState({ posts })
+        } catch(error) {
+            alert(error.message)
+        }
+    }
+    
+    render() {
+        console.log('Posts -> render')
+    
+
+        return <section className='posts-list'>
+            { this.state.posts.map(post => <Post key={post.id} post={post} onToggledLikePost={this.handleToggledLikePost} onEdit={this.props.onEditClicked}/>)}
+        </section>
+    }
 }

@@ -19,7 +19,7 @@ export default class Home extends Component {
             onLogout: PropTypes.func
         }
 
-        this.state = { modal: null, postId: null }
+        this.state = { modal: null, postId: null, postsMustUpdate: false }
     }
 
     handleCloseModal = () => this.setState({ modal: null })
@@ -34,9 +34,9 @@ export default class Home extends Component {
 
     handleOpenChangeAvatar = () => this.setState({ modal: 'change-avatar'})
 
-    handleLikeToggled = () => this.setState({modal: null})
-
     handleEditClicked = (id) => this.setState({modal: 'edit-post', postId:id})
+
+    handlePostChange = () => this.setState({ postsMustUpdate: true})
 
     handleLogout = (event) => {
         event.preventDefault()
@@ -65,7 +65,7 @@ export default class Home extends Component {
             </nav>
         </header>
         <main className="main-content">
-            <Posts onLikeToggled={this.handleLikeToggled} onEditClicked={this.handleEditClicked}/>
+            <Posts onEditClicked={this.handleEditClicked} postsMustUpdate={this.state.postsMustUpdate}/>
 
             {this.state.modal === 'add-post' && <AddPostModal 
                 onCancel={this.handleCloseModal}
@@ -97,7 +97,7 @@ export default class Home extends Component {
             {this.state.modal === 'edit-post' && <EditPost
                 onCancel={this.handleCloseModal}
                 onPostEdited={this.handleCloseModal}
-                onPostDeleted={this.handleCloseModal}
+                onPostDeleted={this.handlePostChange}
                 postId={this.state.postId}
             />}
         </main>
