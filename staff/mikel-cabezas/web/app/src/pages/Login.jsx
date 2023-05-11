@@ -1,6 +1,6 @@
 import { context } from "../ui.js"
 import authenticateUser from '../logic/users/authenticateUsers.js'
-import { pushUserDataToHeader } from "../components/helpers/push-user-to-header.js"
+// import { pushUserDataToHeader } from "../components/helpers/push-user-to-header.js"
 
 export default function Login({onRegisterClick, onUserLoggedIn}) {
     console.log('Home -> login')
@@ -19,7 +19,7 @@ export default function Login({onRegisterClick, onUserLoggedIn}) {
         try {
             const userId = authenticateUser(email, password)
             context.userId = userId
-            pushUserDataToHeader(userId)
+            // pushUserDataToHeader(userId)
             onUserLoggedIn()
             context.userId
         } catch (error) {

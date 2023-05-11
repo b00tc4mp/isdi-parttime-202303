@@ -1,56 +1,54 @@
-import { Component } from "react"
+import { useState } from "react"
 import Posts from "../components/Posts"
 import AddPostModal from "../components/AddPostModal"
 import { EditPostModal } from "../components/EditPostModal"
 import Profile from "../components/UserProfilePanel"
 import Header from "../components/header"
+import './Home.css'
 
-export default class Home extends Component {
-    constructor(props) {
-        super(props)
-        console.log('Home -> render')
-        this.state = { view: 'posts', modal: null }
-    }
+export default function Home(props) {
+        const [view, setView] = useState('posts')
+        const [modal, setModal] = useState(null)
+        const [postId, setPostId] = useState(null)
 
-    handleAddPost = () => this.setState({ modal: 'add-post' })
-    handleModalOff = () => this.setState({ modal: null })
-    handleToggleLikesSaves = () => this.forceUpdate()
-    handleEditPost = (id) => this.setState({ modal: 'edit-post', postId: id })
-    handleLogOut = () => this.props.onLogoutClick()
-    handleQuitUser = () => this.setState({ modal: 'null' })
-
-    handleGoToUserProfile = () => {
-    this.setState({ modal: 'user-profile' })        
-        setTimeout(() => {
-            document.querySelector('.sidebar').classList.remove('start-animation')
-            document.querySelector('.section.user-account').classList.remove('start-animation')
-        }, 5)
-    }
-    handleGoBackClick = () => {
-        document.querySelector('.section.user-account').classList.add('start-animation')
-        document.querySelector('li.user-settings').classList.remove('current')
-        setTimeout(() => {
-            document.querySelector('.sidebar').classList.add('start-animation')
-        }, 300)
-        setTimeout(() => {
-            this.setState({ modal: 'null' })        
-        }, 900)
-        setTimeout(() => {
-            document.querySelector('.sidebar').classList.remove('start-animation')
-            document.querySelector('.section.user-account').classList.remove('start-animation')
-        }, 1050)
-    }
-    render() {
+            const handleAddPost = () => setModal('add-post')
+            const handleModalOff = () => setModal(null)
+            // const handleToggleLikesSaves = () => forceUpdate()
+            const handleEditPost = (id) => {
+                setModal('edit-post')
+                setPostId(id)
+            }
+            const handleLogOut = () => props.onLogoutClick()
+            const handleQuitUser = () => setModal('null')
+        
+            const handleGoToUserProfile = () => {
+                setModal('user-profile')
+                setTimeout(() => {
+                    document.querySelector('.sidebar').classList.remove('start-animation')
+                    document.querySelector('.section.user-account').classList.remove('start-animation')
+                }, 5)
+            }
+            const handleGoBackClick = () => {
+                document.querySelector('.section.user-account').classList.add('start-animation')
+                document.querySelector('li.user-settings').classList.remove('current')
+                setTimeout(() => {
+                    document.querySelector('.sidebar').classList.add('start-animation')
+                }, 300)
+                setTimeout(() => {
+                    setModal('null')
+                    document.querySelector('.sidebar').classList.remove('start-animation')
+                    document.querySelector('.section.user-account').classList.remove('start-animation')
+                }, 900)
+            }
         return <>
-        <Header onUserProfile={this.handleGoToUserProfile} onLoggedOut={() => this.handleLogOut()} onHomeClick={this.handleQuitUser} />
+        <Header onUserProfile={handleGoToUserProfile} onLoggedOut={() => handleLogOut} onHomeClick={handleQuitUser} />
         <main>
             <section className="section home">               
-                {this.state.view === 'posts' && <Posts onAddPostClick={this.handleAddPost} onToggleLike={this.handleToggleLikesSaves} onToggleSave={this.handleToggleLikesSaves} onEditPost={(id) => this.handleEditPost(id)}/> }
-                {this.state.modal === 'user-profile' && <Profile goBackClick={this.handleGoBackClick}  />}
+                {view === 'posts' && <Posts onAddPostClick={handleAddPost}  onEditPost={(id) => handleEditPost(id)}/> }
+                {modal === 'user-profile' && <Profile goBackClick={handleGoBackClick}  />}
             </section>
-            {this.state.modal === 'add-post' && <AddPostModal onCancel={this.handleModalOff} onCreateNewPost={this.handleModalOff} />}
-            {this.state.modal === 'edit-post' && <EditPostModal postId={this.state.postId} onUpdate={this.handleModalOff} onCancel={this.handleModalOff}/>}
+            {modal === 'add-post' && <AddPostModal onCancel={handleModalOff} onCreateNewPost={handleModalOff} />}
+            {modal === 'edit-post' && <EditPostModal postId={postId} onUpdate={handleModalOff} onCancel={handleModalOff}/>}
         </main>
         </>
-    }
 }

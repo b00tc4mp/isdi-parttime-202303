@@ -1,7 +1,9 @@
 import { context } from "../ui"
-import returnUserImage from "../logic/users/getUserImage"
+import UserImage from "./UserImage"
 import { findUserById } from "../logic/helpers/dataManagers"
 import { userLikedPost, savePostToFavorites } from "../../../app.15_lastVanilla/src/logic/posts/posts-data"
+import './Post.css'
+
 
 export default function Post( { post, post: {image, title, text, comments, likes, id, date, author, lastModify }, onToggleLikePost, onToggleSavePost, onEditPostButton } ) {
     
@@ -49,7 +51,7 @@ export default function Post( { post, post: {image, title, text, comments, likes
         onEditPostButton(id)
     }
     return <article className={id} style={postStyle}>
-    <div className="post-author">{returnUserImage(userContainer, author, 'showName')}
+    <div className="post-author"><UserImage userId={author}/>
     {userId === author ? <button className={`edit ${id}`} onClick={() => handleEditPostButton(id)}>edit <span className="material-symbols-outlined pencil edit-post">edit</span></button> : ''}
     </div>
     <img className="space-image" />

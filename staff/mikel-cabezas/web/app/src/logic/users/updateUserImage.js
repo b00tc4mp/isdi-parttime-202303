@@ -1,8 +1,7 @@
 import { findUserById } from '../helpers/dataManagers.js'
 import { users, saveUser } from "../../data.js"
 import { context } from '../../ui.js'
-import { pushUserDataToHeader } from "../../components/helpers/push-user-to-header.js"
-import { pushUserDataInForm } from "../../components/helpers/push-user-data-in-form.js"
+
 
 
 const _users = users()
