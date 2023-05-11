@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { useState, useEffect } from 'react'
 import { context } from '../ui'
 
 import Post from './Post.jsx'
@@ -6,67 +6,69 @@ import retrievePosts from '../logic/retrievePosts'
 import retrieveUserPosts from '../logic/retrieveUserPosts'
 import retrieveSavePosts from '../logic/retrieveSavePosts'
 
-export default class Posts extends Component {
-    constructor(props){
-        console.log('Posts -> render')
+export default function Posts({ onEditedPost, typePosts, lastPostsUpdate, onMenssageAlert }) {
+    console.log('Posts -> render')
 
-        super(props)
+    let tmpPosts
 
-        try {
-            let posts
-            console.log(this.props.typePosts)
-            if (this.props.typePosts === 'all')     
-                posts = retrievePosts(context.userId)
-            else if (this.props.typePosts === 'user') 
-                posts = retrieveUserPosts(context.userId)
-            else if (this.props.typePosts === 'save') 
-                posts = retrieveSavePosts(context.userId)
-    
-            this.state = { posts }
-        }
-        catch (error) {
-            this.props.onMenssageAlert(error.message)
-        }  
+    try {   
+        console.log(typePosts)
+        if (typePosts === 'all')     
+            tmpPosts = retrievePosts(context.userId)
+        else if (typePosts === 'user') 
+            tmpPosts = retrieveUserPosts(context.userId)
+        else if (typePosts === 'save') 
+            tmpPosts = retrieveSavePosts(context.userId)
     }
+    catch (error) {
+        onMenssageAlert(error.message)
+    }  
+    
+    const [posts, setPosts] =useState(tmpPosts)
 
-    handleRefreshPosts = ()  => {
+    const handleRefreshPosts = ()  => {
         console.log('Posts -> refresh')
+
+        let tmpPosts
+
         try {
-            let posts
-            console.log(this.props.typePosts)
-            if (this.props.typePosts === 'all')     
-                posts = retrievePosts(context.userId)
-            else if (this.props.typePosts === 'user') 
-                posts = retrieveUserPosts(context.userId)
-            else if (this.props.typePosts === 'save') 
-                posts = retrieveSavePosts(context.userId)
+            console.log(typePosts)
+            if (typePosts === 'all')     
+                tmpPosts = retrievePosts(context.userId)
+            else if (typePosts === 'user') 
+                tmpPosts = retrieveUserPosts(context.userId)
+            else if (typePosts === 'save') 
+                tmpPosts = retrieveSavePosts(context.userId)
     
-            this.setState({ posts })
+            setPosts(tmpPosts)
         }
         catch (error) {
-            this.props.onMenssageAlert(error.message)
+            onMenssageAlert(error.message)
         }  
     }
 
-    componentDidUpdate(newProps) {
-        console.log('Posts -> componentWillReceiveProps')
+    // useEffect(() => {
+    //     console.log('Posts -> "componentDidMount" with hooks')
 
-        if (this.props.lastPostsUpdate !== newProps.lastPostsUpdate || this.props.typePosts !== newProps.typePosts)
-            this.handleRefreshPosts()
-    }
+    //     return () => console.log('Posts -> "componentWillUnmount" with hooks')
+    // }, [])
 
-    render() {
-        return <section>
-        {this.state.posts.map(post => <Post 
+    useEffect(() => {
+        console.log('Posts -> "componentWillReceiveProps" with hooks')
+        console.log(typePosts)
+        console.log(lastPostsUpdate)
+        
+        if (lastPostsUpdate)
+            handleRefreshPosts()
+    }, [lastPostsUpdate, typePosts])
+
+    return <section>
+        {posts.map(post => <Post 
             key={post.id} 
             post={post} 
-            onModifyPost={this.handleRefreshPosts}
-            onEditPost={this.props.onEditedPost}
-            onMenssageAlert={this.props.onMenssageAlert}
+            onModifyPost={handleRefreshPosts}
+            onEditPost={onEditedPost}
+            onMenssageAlert={onMenssageAlert}
         />)}
-         </section>
-    }
-
-                                              
-
+    </section>
 }

@@ -1,4 +1,4 @@
-import { Component } from 'react'
+import { useState } from 'react'
 import { context } from './ui'
 
 import Login from './pages/Login'
@@ -7,59 +7,51 @@ import Home from './pages/Home'
 
 import AlertModal from './components/AlertModal'
 
-export default class App extends Component {
-  constructor() {
-    super()
+export default function App() {
+    const [view, setView] = useState(context.userId? 'home' : 'login')
+    const [modal, setModal] = useState(null)
+    const [message, setMessage] = useState(null)
 
-    this.state = { view: context.userId? 'home' : 'login', modal: null }
-  }
+    const handleGotoRegister = () => setView('register')
 
-  handleGotoRegister = () => {
-    this.setState({ view: 'register'})
-  }
+    const handleGotoLogin = () => setView('login')
 
-  handleGotoLogin = () => {
-    this.setState({ view: 'login' })
-  }
+    const handleGoToHome = () => setView('home')
 
-  handleGoToHome = () => {
-    this.setState({ view: 'home' })
-  }
+    const handleOpenAlert = (message) => {
+      setMessage(message)
+      setModal('alert')
+    }
 
-  handleOpenAlert = (message) => {
-    this.message = message
-    this.setState({ modal: 'alert'})
-  }
+    const hanleCloseAlert = () => {
+      setMessage(null)
+      setModal(null)
+    }
 
-  hanleCloseAlert = () => {
-    this.setState({ modal: null})
-  }
+    console.log('App -> render')
 
-  render() {
-      console.log('App -> render')
-
-      return <>
-          {this.state.view === 'login' && <Login 
-            onRegisterClick={this.handleGotoRegister} 
-            onUserLoggedIn={this.handleGoToHome} onMenssageAlert={this.handleOpenAlert}
-            /> 
-          }   
-          {this.state.view === 'register' && <Register 
-            onLoginClick={this.handleGotoLogin} 
-            onRegistered={this.handleGotoLogin}
-            onMenssageAlert={this.handleOpenAlert}
-            />
-          }
-          {this.state.view ===  'home' && <Home 
-            onLogout={this.handleGotoLogin}
-            onMenssageAlert={this.handleOpenAlert}
-            />
-          }
-          {this.state.modal === 'alert' && <AlertModal 
-            onAccept={this.hanleCloseAlert}
-            message={this.message}
+    return <>
+        {view === 'login' && <Login 
+          onRegisterClick={handleGotoRegister} 
+          onUserLoggedIn={handleGoToHome} onMenssageAlert={handleOpenAlert}
+          /> 
+        }   
+        {view === 'register' && <Register 
+          onLoginClick={handleGotoLogin} 
+          onRegistered={handleGotoLogin}
+          onMenssageAlert={handleOpenAlert}
           />
-          }
-        </>
-      }
+        }
+        {view === 'home' && <Home 
+          onLogout={handleGotoLogin}
+          onMenssageAlert={handleOpenAlert}
+          />
+        }
+        {modal === 'alert' && <AlertModal 
+          onAccept={hanleCloseAlert}
+          message={message}
+        />
+        }
+      </>
+
 }

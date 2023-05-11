@@ -67,23 +67,20 @@ export default function Profile({onEditedProfile, onMenssageAlert}){
 
 
     return <section className="profile container">
-    <article>
-        <h2>Update avatar</h2>
+    <h2>Update avatar</h2>
 
-        <form className="profile-avatar-form" onSubmit={handleEditAvatar}>
-            <input className="input" type="url" name="url"/>
-            <button className="button" type="submit">Update</button>
-        </form>
-    </article>
-    <article>
-        <h2>Update password</h2>
+    <form className="profile-avatar-form" onSubmit={handleEditAvatar}>
+        <input className="input" type="url" name="url"/>
+        <button className="button" type="submit">Update</button>
+    </form>
 
-        <form className="profile-password-form" onSubmit={handleChangePassword}>
-            <input className="input" type="password" name="password" placeholder="password"/>
-            <input className="input" type="password" name="newPassword" placeholder="new password"/>
-            <input className="input" type="password" name="newPasswordConfirm" placeholder="new password confirmation"/>
-            <button className="button" type="submit">Update</button>
-        </form>
-    </article>
+    <h2>Update password</h2>
+
+    <form className="profile-password-form" onSubmit={handleChangePassword}>
+        <input className="input" type="password" name="password" placeholder="password"/>
+        <input className="input" type="password" name="newPassword" placeholder="new password"/>
+        <input className="input" type="password" name="newPasswordConfirm" placeholder="new password confirmation"/>
+        <button className="button" type="submit">Update</button>
+    </form>
 </section>
 }

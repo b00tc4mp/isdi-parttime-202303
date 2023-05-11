@@ -57,12 +57,12 @@ export default function Post ({ post: { id, author, image, text, date, likes, da
             <p>{text}</p>
         </div>
         <button className = "button-likes" onClick={handleLikePost}>{likes && likes.includes(context.userId) ? '❤️' : '🤍'} ({likes? likes.length : 0})</button>
-        <button className = "button-save" onClick={handleSavePost}> {activeUser.savePosts && activeUser.savePosts.includes(id)? '📌' : '🔘'}</button>
+        <button className = "button-save" onClick={handleSavePost}> {activeUser.savePosts && activeUser.savePosts.includes(id)? 'Saved' : 'Unsaved'}</button>
         <div className = "post-info">
-            <time>📎 {date.toLocaleString()}</time>
-            {postUser.id === activeUser.id ?  <button onClick={handleEditPost}>🖍</button> : ''} 
-            {postUser.id === activeUser.id ?  <button onClick={handleDeletePost}>🗑</button> : ''}           
-            <time>{dateLastModified ? '✏ ' + dateLastModified.toLocaleString(): ''}</time>
+            <time>Date {date.toLocaleString()}</time>
+            {postUser.id === activeUser.id ?  <button onClick={handleEditPost}>Edit</button> : ''} 
+            {postUser.id === activeUser.id ?  <button onClick={handleDeletePost}>Delete</button> : ''}           
+            <time>{dateLastModified ? 'Last Modified ' + dateLastModified.toLocaleString(): ''}</time>
         </div>
     </article>
     }

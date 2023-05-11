@@ -126,7 +126,7 @@ body {
 .post-menssage {
   display: flex;
   flex-direction: row;
-  width: 97%;
+  width: 100%;
   height: 100%;
   background-color: var(--basecolor);
   border-radius: 12px;

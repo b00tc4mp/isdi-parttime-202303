@@ -1,5 +1,4 @@
 .profile-avatar-form {
-    padding: 1rem;
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -7,12 +6,10 @@
     background-color: var(--basecolor);
     justify-content: center;
     align-items: center;
-    border-radius: 12px;
-    gap: 0.5rem
+  
   }
   
   .profile-password-form {
-    padding: 1rem;
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -20,7 +17,6 @@
     background-color: var(--basecolor);
     justify-content: center;
     align-items: center;
-    border-radius: 12px;
-    gap: 0.5rem
+  
   }
   
