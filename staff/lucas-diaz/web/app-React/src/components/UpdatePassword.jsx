@@ -14,14 +14,12 @@ export default function UpdatePassword(props) {
         } catch (error) {
             document.querySelector(".fail-password-match-advise").textContent = error.message;
         }
-
     }
 
     function handleCancelClick(event) {
         event.preventDefault();
         props.onCancelClick();
     }
-
 
     return <div className="change-password-menu menu-page">
         <h3>UPDATE PASSWORD</h3>

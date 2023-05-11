@@ -18,7 +18,6 @@ export default function Login(props) {
             const userId = authenticateUser(email, password)
             context.userId = userId;
             props.onUserLogedin();
-
         } catch (error) {
             alert(error.message)
         }

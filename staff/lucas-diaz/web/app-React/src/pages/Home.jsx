@@ -20,7 +20,6 @@ export default class Home extends Component {
                 // lastPostsUpdate: Date.now(),
                 user
             }
-
         } catch (error) {
             alert(error.message)
         }
@@ -52,7 +51,7 @@ export default class Home extends Component {
     handleCancelUpdatedAvatar = () => {
         const headerMenu = document.querySelector(".home-menu");
         headerMenu.classList.toggle("home-menu-transition");
-        this.setState({view: "posts"})
+        this.setState({ view: "posts" })
     }
     //? SETTINGS --> PASSWORD 
     handlePasswordAnchor = (event) => {
@@ -62,19 +61,16 @@ export default class Home extends Component {
         //headerMenu.classList.toggle("home-menu-transition");
         this.setState({ view: "password" });
     }
-
     handleUpdatedPassword = () => {
         const headerMenu = document.querySelector(".home-menu");
         headerMenu.classList.toggle("home-menu-transition");
         this.setState({ view: "posts" });
     }
-
-    handleCancelUpdatedPassword = () =>{
+    handleCancelUpdatedPassword = () => {
         const headerMenu = document.querySelector(".home-menu");
         headerMenu.classList.toggle("home-menu-transition");
         this.setState({ view: "posts" });
     }
-
     //? ADD POST MODAL 
     handleFooterButtonClick = () => {
         this.setState({ modal: "add-post" })
