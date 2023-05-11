@@ -2,6 +2,14 @@ import { validateId, validateUrl, validateText } from './helpers/validators'
 import { findUserById } from './helpers/dataManagers'
 import { posts, savePosts } from '../data'
 
+/**
+ * Creates a new post, creates an ID for it and saves it in database
+ *
+ * @param {string} userId The user's ID (Post author)
+ * @param {string} image The post's image
+ * @param {string} text The post's text
+ */
+
 export default function createPost (userId, image, text) {
   validateId(userId, 'User ID')
   validateUrl(image, 'Image URL')
@@ -13,7 +21,6 @@ export default function createPost (userId, image, text) {
 
   let id = 'post-1'
 
-  // Con barra baja por hacer una variable "privada". Hacemos esto para no llamar a la función dos veces después en lastPost
   const _posts = posts()
 
   const lastPost = _posts[_posts.length - 1]

@@ -2,6 +2,15 @@ import { validateId, validatePassword } from './helpers/validators'
 import { findUserById } from './helpers/dataManagers'
 import { saveUser } from '../data'
 
+/**
+ * Updates user's password in database
+ *
+ * @param {string} userId The user's ID
+ * @param {string} password The user's current password
+ * @param {string} newPassword The user's new password
+ * @param {string} newPasswordConfirm The user's new password
+ */
+
 export default function changePassword (
   userId,
   password,

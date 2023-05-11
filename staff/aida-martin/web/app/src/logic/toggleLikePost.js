@@ -2,6 +2,13 @@ import { validateId } from './helpers/validators'
 import { findPostById, findUserById } from './helpers/dataManagers'
 import { savePost } from '../data'
 
+/**
+ * Adds or removes post's likes. Update post in database
+ *
+ * @param {string} userId The user's ID
+ * @param {string} postId The post's ID
+ */
+
 export default function toggleLikePost (userId, postId) {
   validateId(userId, 'User ID')
   validateId(postId, 'Post ID')

@@ -9,7 +9,7 @@ import deletePost from '../logic/deletePost'
 export default function Post ({ currentUser, post, onEditPost, onLiked, onSaved, onDeletePost }) {
   const postAuthor = retrieveUser(post.author)
 
-  function handleLikePost () {
+  const handleLikePost = () => {
     try {
       toggleLikePost(context.userId, post.id)
       onLiked()
@@ -18,7 +18,7 @@ export default function Post ({ currentUser, post, onEditPost, onLiked, onSaved,
     }
   }
 
-  function handleSavePost () {
+  const handleSavePost = () => {
     try {
       toggleSavePost(context.userId, post.id)
       onSaved()
@@ -27,11 +27,11 @@ export default function Post ({ currentUser, post, onEditPost, onLiked, onSaved,
     }
   }
 
-  function handleEditPost () {
+  const handleEditPost = () => {
     onEditPost(post)
   }
 
-  function handleDeletePost () {
+  const handleDeletePost = () => {
     try {
       deletePost(context.userId, post.id)
       onDeletePost()

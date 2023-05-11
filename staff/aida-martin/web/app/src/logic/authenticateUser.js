@@ -1,17 +1,26 @@
 import { validateEmail, validatePassword } from './helpers/validators'
 import { findUserByEmail } from './helpers/dataManagers'
 
+/**
+ * Authenticates a user by email and password
+ *
+ * @param {string} email The user's email
+ * @param {string} password The user's password
+ *
+ * @returns {string} The user's id
+ */
+
 export default function authenticateUser (email, password) {
   validateEmail(email)
   validatePassword(password)
 
-  const foundUser = findUserByEmail(email)
+  const user = findUserByEmail(email)
 
-  if (!foundUser) throw new Error('User not found 😥', { cause: 'userError' })
+  if (!user) throw new Error('User not found 😥', { cause: 'userError' })
 
-  if (foundUser.password !== password) {
+  if (user.password !== password) {
     throw new Error('Wrong password 😥', { cause: 'userError' })
   }
 
-  return foundUser.id
+  return user.id
 }

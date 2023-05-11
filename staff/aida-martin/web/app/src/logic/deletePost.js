@@ -1,6 +1,13 @@
 import { findUserById, findPostById } from './helpers/dataManagers'
 import { posts, users, savePosts, saveUsers } from '../data'
 
+/**
+ * Deletes a post and all its data, updates data in the database (users, posts)
+ *
+ * @param {string} userId The user's ID
+ * @param {string} postId The post's ID
+ */
+
 export default function deletePost (userId, postId) {
   const user = findUserById(userId)
   const post = findPostById(postId)

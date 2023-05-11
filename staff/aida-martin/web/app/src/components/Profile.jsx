@@ -3,7 +3,7 @@ import changePassword from '../logic/updateUserPassword'
 import { context } from '../ui'
 
 export default function Profile ({ onUpdateUserAvatar, onUpdateUserPassword }) {
-  function updateUserAvatar (event) {
+  const updateUserAvatar = event => {
     event.preventDefault()
 
     const avatar = event.target.url.value
@@ -17,7 +17,7 @@ export default function Profile ({ onUpdateUserAvatar, onUpdateUserPassword }) {
     }
   }
 
-  function updateUserPassword (event) {
+  const updateUserPassword = event => {
     event.preventDefault()
 
     const password = event.target.oldpassword.value

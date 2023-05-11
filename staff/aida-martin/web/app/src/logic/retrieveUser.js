@@ -1,6 +1,14 @@
 import { validateId } from './helpers/validators'
 import { findUserById } from './helpers/dataManagers'
 
+/**
+ * Retrieves the current user
+ *
+ * @param {string} userId The user's ID
+ *
+ * @returns {object} The current user
+ */
+
 export default function retrieveUser (userId) {
   validateId(userId, 'User ID')
 

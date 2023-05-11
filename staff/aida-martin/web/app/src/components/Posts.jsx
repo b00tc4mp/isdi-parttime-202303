@@ -1,19 +1,28 @@
+import { useState, useEffect } from 'react'
 import Post from './Post'
 import retrievePosts from '../logic/retrievePosts'
 import retrieveSavedPosts from '../logic/retrieveSavedPosts'
 import { context } from '../ui'
 
-export default function Posts ({ currentUser, mySavedPosts = false, onEditPost, onLiked, onSaved, onDeletePost }) {
+export default function Posts ({ currentUser, mySavedPosts = false, onEditPost, lastPostsUpdate, onRefreshUser }) {
   try {
-    let posts
+    const [posts, setPosts] = useState(!mySavedPosts ? retrievePosts(context.userId) : retrieveSavedPosts(context.userId, mySavedPosts))
 
-    if (!mySavedPosts) {
-      posts = retrievePosts(context.userId)
-    } else {
-      posts = retrieveSavedPosts(context.userId, mySavedPosts)
+    const handleRefreshPosts = () => {
+      try {
+        setPosts(!mySavedPosts ? retrievePosts(context.userId) : retrieveSavedPosts(context.userId, mySavedPosts))
+
+        onRefreshUser()
+      } catch (error) {
+        console.log(error)
+      }
     }
 
-    return <section className='posts-list'>{posts.map(post => <Post currentUser={currentUser} post={post} onEditPost={onEditPost} onLiked={onLiked} onSaved={onSaved} onDeletePost={onDeletePost} key={post.id} />)}</section>
+    useEffect(() => {
+      if (lastPostsUpdate) { handleRefreshPosts() }
+    }, [lastPostsUpdate])
+
+    return <section className='posts-list'>{posts.map(post => <Post currentUser={currentUser} post={post} onEditPost={onEditPost} onLiked={handleRefreshPosts} onSaved={handleRefreshPosts} onDeletePost={handleRefreshPosts} key={post.id} />)}</section>
   } catch (error) {
     console.log(error.message)
   }

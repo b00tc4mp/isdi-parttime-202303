@@ -2,6 +2,13 @@ import { validateId } from './helpers/validators'
 import { findPostById, findUserById } from './helpers/dataManagers'
 import { saveUser } from '../data'
 
+/**
+ * Adds or removes post's saves. Update user in database
+ *
+ * @param {string} userId The user's ID
+ * @param {string} postId The post's ID
+ */
+
 export default function toggleSavePost (userId, postId) {
   validateId(userId, 'User ID')
   validateId(postId, 'Post ID')

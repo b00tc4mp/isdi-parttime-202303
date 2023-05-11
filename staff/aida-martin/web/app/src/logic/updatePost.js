@@ -2,6 +2,15 @@ import { validateId, validateUrl, validateText } from './helpers/validators'
 import { findUserById, findPostById } from './helpers/dataManagers'
 import { savePost } from '../data'
 
+/**
+ * Updates post's data in database
+ *
+ * @param {string} userId The user's ID
+ * @param {string} postId The post's ID
+ * @param {string} image The post's image
+ * @param {string} text The post's text
+ */
+
 export default function updatePost (userId, postId, image, text) {
   validateId(userId, 'User ID')
   validateId(postId, 'Post ID')

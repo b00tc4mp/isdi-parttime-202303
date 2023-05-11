@@ -6,6 +6,15 @@ import {
 import { findUserByEmail } from './helpers/dataManagers'
 import { users, saveUsers } from '../data'
 
+/**
+ * Registers a new user with their name, email and password. Updates database
+ *
+ * @param {string} name The user's name
+ * @param {string} email The user's email
+ * @param {string} password The user's password
+ * @param {string} repeatPassword The user's password
+ */
+
 export default function registerUser (name, email, password, repeatPassword) {
   validateName(name)
   validateEmail(email)
