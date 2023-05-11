@@ -5,6 +5,8 @@ import Home from "./pages/Home";
 
 export default class App extends React.Component {
   constructor(props) {
+    console.log('Home -> constructor')
+    
     super(props)
 
     this.state = { view: "login" }
@@ -21,7 +23,7 @@ export default class App extends React.Component {
     switch (this.state.view) {
       case "login":
 
-      
+
         return <Login
           onRegisterClick={this.handleGoToRegister}
           onUserLogedin={this.handleGoToHome}

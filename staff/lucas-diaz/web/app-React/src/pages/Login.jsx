@@ -12,7 +12,7 @@ export default function Login(props) {
         event.preventDefault();
 
         const email = event.target.email.value = "lucas@gmail.com";
-        const password = event.target.password.value = "LucasDiaz22!";
+        const password = event.target.password.value = "LucasDiaz22!!";
 
         try {
             const userId = authenticateUser(email, password)

@@ -10,7 +10,7 @@ export default function Posts() {
         const posts = retrievePosts(context.userId);
         const user = retrieveUser(context.userId);
 
-
+        
         return <section className="home-posts-content">
             {posts.map((post, index) =>  <Post key={index} post={post} user={user}/> )}
         </section>

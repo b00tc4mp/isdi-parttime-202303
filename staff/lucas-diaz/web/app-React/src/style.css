@@ -232,14 +232,14 @@ label{
 .home-posts-content{
     width: 100%;
     padding: 1rem;
-    padding-bottom: 3rem;
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
     gap: 1rem;
     background-color: #1e1f22;
     height: auto;
-    margin-top: 40rem;
+    margin-top: 2rem;
+    padding-bottom: 5rem;
 }
 .home-posts-content article {
     padding: 1rem;
@@ -342,7 +342,8 @@ label{
     height: auto;
     padding: 1rem;
     color: azure;
-    margin-top: 100px;
+    margin-top: 0px;
+    gap: 1rem;
 }
 .menu-page h3 {
     flex-basis: 100%;
@@ -374,9 +375,9 @@ label{
     border-radius: 5px;
     padding: 10px;
 }
-.menu-page .form .fail-password-match-advise,.home-update-avatar-menu .fail-warning{
+.menu-page .form .fail-password-match-advise,.fail-warning{
     flex-basis: 100%;
-    padding: 0.5rem;
+    font-size: .9rem;
 }
 .form-buttons{
     flex-basis: 100%;
@@ -413,7 +414,7 @@ label{
 }
 .home-add-post-modal .form label, .home-edit-post-form label{
     text-align: center;
-    font-size: .9rem;
+    font-size: 1rem;
     margin: 0px;
 }
 .form-post-url-input{

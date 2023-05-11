@@ -15,12 +15,12 @@ export default function AddPostModal(props) {
             let text = event.target.text.value 
 
             createPost(context.userId, image, text);
-
+            
             props.onCreatedPost();
 
             console.log(image, text);
         }catch(error){
-            alert(error.message)
+            document.querySelector(".fail-warning").textContent = error.message;
         }
     }
 
@@ -30,9 +30,9 @@ export default function AddPostModal(props) {
             <input type="url" className="form-post-url-input form-item" name="url" placeholder="Enter an image by typing a url" />
             <textarea name="text" cols="30" rows="5" placeholder="What do yo want to say ??"></textarea>
             <div className="form-buttons">
-                <button type="button" className="form-post-cancel-button" onClick={handleCancelClick}>Cancel   </button>
+            <p className="fail-warning red"></p>
+                <button type="button" className="form-post-cancel-button" onClick={handleCancelClick}>Cancel</button>
                 <button type="submit" className="form-post-submit-button">Create post</button>
-                <p className="fail-warning red"></p>
             </div>
         </form>
     </section>
