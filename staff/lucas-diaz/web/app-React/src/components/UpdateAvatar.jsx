@@ -1,8 +1,11 @@
+import { useState } from "react";
 import updateUserAvatar from "../logic/updateUserAvatar";
 import { context } from "../ui";
 
 
 export default function UpdateAvatar(props) {
+
+    const [errorMessage, setErrorMessage] = useState("");
 
     function handleUpdateAvatar(event) {
         event.preventDefault();
@@ -12,7 +15,7 @@ export default function UpdateAvatar(props) {
             updateUserAvatar(context.userId, url);
             props.onUpdatedAvatar();
         } catch (error) {
-            document.querySelector(".home-update-avatar-menu .fail-warning").textContent = (error.message);
+            setErrorMessage(error.message)
         }
     }
 
@@ -28,7 +31,7 @@ export default function UpdateAvatar(props) {
             <label htmlFor="url">Avatar's URL: </label>
             <input type="url" className="avatar-url-input form-item" name="url" placeholder="Enter url" />
             <div className="form-buttons">
-                <p className="fail-warning red"></p>
+                { errorMessage &&  <p className="fail-warning red">{errorMessage}</p>}
                 <button className="form-avatar-cancel-button" onClick={handleCancelClick}>Cancel</button>
                 <button type="submit" className="form-avatar-submit-button">Update avatar</button>
             </div>

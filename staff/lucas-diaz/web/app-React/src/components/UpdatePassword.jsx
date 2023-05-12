@@ -1,18 +1,22 @@
 import updateUserPassword from "../logic/updateUserPassword.js"
 import { context } from "../ui.js";
+import { useState } from "react";
 
 export default function UpdatePassword(props) {
+    const [errorMessage, setErrorMessage] = useState("");
+
     function handleUpdatePassword(event) {
         event.preventDefault();
         try {
-            const oldPassword = document.querySelector(".old-password");
-            const newPassword = document.querySelector(".new-password");
-            const newPasswordRepetition = document.querySelector(".new-password-repetition");
+            const oldPassword = event.target.elements["old-password"].value;
+            const newPassword = event.target.elements["new-password"].value;
+            const newPasswordRepetition = event.target.elements["new-password-repetition"].value;
+            console.log(oldPassword, newPassword, newPasswordRepetition);
             updateUserPassword(context.userId, oldPassword, newPassword, newPasswordRepetition);
             props.onUpdatedPassword();
 
         } catch (error) {
-            document.querySelector(".fail-password-match-advise").textContent = error.message;
+            setErrorMessage(error.message)
         }
     }
 
@@ -34,7 +38,7 @@ export default function UpdatePassword(props) {
             <label htmlFor="new-password-repetition">Repeat new password:</label>
             <input type="password" className="new-password-repetition form-item" name="new-password-repetition"
                 placeholder="Enter again new password" id="new-password-repetition" autoComplete="current-password" />
-            <p className="fail-password-match-advise red"></p>
+            {errorMessage && <p className="fail-password-match-advise red">{errorMessage}</p>}
             <div className="form-buttons">
                 <button className="cancel-change-password" onClick={handleCancelClick}>Cancel</button>
                 <button type="submit" className="change-password">Change password</button>
