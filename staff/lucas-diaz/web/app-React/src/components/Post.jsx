@@ -1,4 +1,5 @@
 import deletePost from "../logic/deletePost.js";
+import likeAPost from "../logic/likeAPost.js";
 import { context } from "../ui.js";
 
 
@@ -9,8 +10,14 @@ export default function Post(props) {
     function handleEditClick() {
 
     }
-    function handleHeartClick() {
 
+    function handleHeartClick() {
+        try{
+            likeAPost(context.userId, post)
+            props.onLikeClick();
+        }catch(error){
+            alert(error.message)
+        }
     }
     function handleDeleteClick() {
         try {

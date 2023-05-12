@@ -17,6 +17,10 @@ export default class Posts extends Component {
         this.forceUpdate();
     }
 
+    handleToggleLike = () => {
+        this.forceUpdate();
+    }
+
 
     render() {
         try {
@@ -30,6 +34,7 @@ export default class Posts extends Component {
                     post={post}
                     user={user}
                     onDeleteClick={this.handleDeletePost}
+                    onLikeClick={this.handleToggleLike}
                 />)}
             </section>
 
