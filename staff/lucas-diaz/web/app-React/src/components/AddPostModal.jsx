@@ -1,7 +1,9 @@
+import { useState } from "react";
 import createPost from "../logic/createPost.js"
 import { context } from "../ui.js";
 
 export default function AddPostModal(props) {
+    const [errorMessage, setErrorMesagge] = useState("");
 
     function handleCancelClick(event){
         event.preventDefault();
@@ -17,10 +19,9 @@ export default function AddPostModal(props) {
             createPost(context.userId, image, text);
             
             props.onCreatedPost();
-
-            console.log(image, text);
+            
         }catch(error){
-            document.querySelector(".fail-warning").textContent = error.message;
+            setErrorMesagge(error.message)
         }
     }
 
@@ -30,7 +31,7 @@ export default function AddPostModal(props) {
             <input type="url" className="form-post-url-input form-item" name="url" placeholder="Enter an image by typing a url" />
             <textarea name="text" cols="30" rows="5" placeholder="What do yo want to say ??"></textarea>
             <div className="form-buttons">
-            <p className="fail-warning red"></p>
+            {errorMessage && <p className="fail-warning red">{errorMessage}</p>}
                 <button type="button" className="form-post-cancel-button" onClick={handleCancelClick}>Cancel</button>
                 <button type="submit" className="form-post-submit-button">Create post</button>
             </div>

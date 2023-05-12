@@ -26,9 +26,9 @@ export function validatePassword (password){
     if (!passwordRegex.test(password)) throw new Error(`password format incorrect`)
 }
 export function validatePasswordsChanges(password, newPassword, newPasswordConfirm){
-    if(!password.value.trim()) throw new Error("Password is empty")
-    if(!newPassword.value.trim()) throw new Error("New password is empty")
-    if(!newPasswordConfirm.value.trim()) throw new Error("New password confirmation is empty")
+    if(!password.trim()) throw new Error("Password is empty")
+    if(!newPassword.trim()) throw new Error("New password is empty")
+    if(!newPasswordConfirm.trim()) throw new Error("New password confirmation is empty")
 }  
 
 export function validateUrl(url){

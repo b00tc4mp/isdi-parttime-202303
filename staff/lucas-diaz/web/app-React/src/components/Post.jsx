@@ -1,3 +1,4 @@
+import deletePost from "../logic/deletePost.js";
 import { context } from "../ui.js";
 
 
@@ -12,14 +13,16 @@ export default function Post(props) {
 
     }
     function handleDeleteClick() {
+        try {
+            deletePost(context.userId, post.id);
+            props.onDeleteClick();
 
+        } catch (error) {
+            alert(error.message)
+        }
     }
 
-    try {
 
-    } catch (error) {
-        alert(error.message)
-    }
 
 
     return <article>

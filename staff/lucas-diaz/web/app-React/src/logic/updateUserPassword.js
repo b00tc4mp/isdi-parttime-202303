@@ -12,11 +12,11 @@ export default function updateUserPassword(authenticatedUserId, password, newPas
     const currentUser =  findUserById(authenticatedUserId);
     const currentUserIndex = _users.findIndex(user => user.id === authenticatedUserId);
 
-    if (currentUser.password !== password.value) throw new Error("typed password isn't actual password user's value")
-    if (password.value === newPassword.value) throw new Error("Password is equal than new password")
-    if (newPassword.value !== newPasswordConfirm.value) throw new Error("New password and new password confirmation are not the same")
+    if (currentUser.password !== password) throw new Error("typed password isn't actual password user's value")
+    if (password === newPassword) throw new Error("Password is equal than new password")
+    if (newPassword !== newPasswordConfirm) throw new Error("New password and new password confirmation are not the same")
 
-    _users[currentUserIndex].password = newPassword.value;
+    _users[currentUserIndex].password = newPassword;
 
     saveUsers(_users);
 

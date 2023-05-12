@@ -8,10 +8,10 @@ export default function UpdatePassword(props) {
     function handleUpdatePassword(event) {
         event.preventDefault();
         try {
-            const oldPassword = event.target.elements["old-password"].value;
-            const newPassword = event.target.elements["new-password"].value;
-            const newPasswordRepetition = event.target.elements["new-password-repetition"].value;
-            console.log(oldPassword, newPassword, newPasswordRepetition);
+            const oldPassword = event.target.elements["old-password"].value
+            const newPassword = event.target.elements["new-password"].value
+            const newPasswordRepetition = event.target.elements["new-password-repetition"].value
+
             updateUserPassword(context.userId, oldPassword, newPassword, newPasswordRepetition);
             props.onUpdatedPassword();
 
