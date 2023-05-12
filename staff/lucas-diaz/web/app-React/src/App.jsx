@@ -2,6 +2,7 @@ import React from "react";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Home from "./pages/Home";
+import { context } from "./ui";
 
 export default class App extends React.Component {
   constructor(props) {
@@ -9,7 +10,7 @@ export default class App extends React.Component {
 
     super(props)
 
-    this.state = { view: "login" }
+    this.state = context.userId ? { view: "home" } : { view: "login" }
   }
 
   handleGoToRegister = () => this.setState({ view: "register" })

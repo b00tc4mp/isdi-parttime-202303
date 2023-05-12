@@ -30,6 +30,7 @@ export default class Home extends Component {
         const headerMenu = document.querySelector(".home-menu");
         headerMenu.classList.toggle("home-menu-transition");
         document.querySelector("main").classList.toggle("fade");
+        this.setState({view : null});
     }
     handleLogOutClick = () => {
         delete context.userId

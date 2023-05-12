@@ -1,6 +1,9 @@
 import registerUser from "../logic/registerUser.js"
+import React, { useState } from "react";
 
 export default function Register(props) {
+    const [errorMessage, setErrorMessage] = useState("");
+
     function handleLoginClick(event) {
         event.preventDefault();
         props.onLoginClick();
@@ -12,23 +15,22 @@ export default function Register(props) {
         const temporalUserName = event.target.name.value;
         const temporalEmail = event.target.email.value;
         const temporalPassword = event.target.password.value;
-        const failRegisterAdvice = document.querySelector(".register .fail-warning");
-        const registerForm = document.querySelector(".register form")
+
 
         try {
             registerUser(temporalUserName, temporalEmail, temporalPassword);
-            registerForm.reset();
+            event.target.reset();
             props.onUserRegistered();
 
         } catch (error) {
-            failRegisterAdvice.textContent = error.message;
+            setErrorMessage(error.message);
         }
     }
 
     return <div className="container">
         <section className="register">
             <h1 className="register-header">REGISTER</h1>
-            <p className="fail-warning red"></p>
+            {errorMessage && <p className="fail-warning red">{errorMessage}</p>}
             <form className="form" onSubmit={handleRegister}>
                 <div className="input-box">
                     <label>your username</label>
