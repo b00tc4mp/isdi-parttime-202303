@@ -31,6 +31,8 @@ export default function Post({post: {id, image, text, date, likedBy, author}, on
         onEdit(id)
     }
 
+    console.log('Post -> render')
+
     return <article className="post-container">
         <div className="post-header">
             <img src={user.avatar} className="user-avatar"/>

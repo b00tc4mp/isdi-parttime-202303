@@ -19,12 +19,26 @@ export default class Home extends Component {
             onLogout: PropTypes.func
         }
 
-        this.state = { modal: null, postId: null, postsMustUpdate: false }
+        try {
+            const user = retrieveUser(context.userId) // Modificar, meter en el constructor!!!!
+            
+            this.state = {
+                modal: null,
+                postId: null,
+                lastPostsUpdate: Date.now(),
+                user
+            }
+        } catch(error){
+            alert(error.alert)
+        }
+
     }
 
     handleCloseModal = () => this.setState({ modal: null })
     
     handleOpenAddPost = () => this.setState({ modal: 'add-post'})
+
+    handlePostsModified = () => this.setState({ modal: null, lastPostsUpdate: Date.now()})
 
     handleOpenProfile = () => this.setState({ modal: 'profile'})
 
@@ -34,9 +48,18 @@ export default class Home extends Component {
 
     handleOpenChangeAvatar = () => this.setState({ modal: 'change-avatar'})
 
-    handleEditClicked = (id) => this.setState({modal: 'edit-post', postId:id})
+    handleAvatarChanged = () => {
+        try {
+            const user = retrieveUser(context.userId)
 
-    handlePostChange = () => this.setState({ postsMustUpdate: true})
+            this.setState({ modal: null, user, lastPostsUpdate: Date.now()})
+        } catch(error){
+            alert(error.message)
+        }
+        
+    }
+
+    handleEditClicked = (id) => this.setState({modal: 'edit-post', postId:id})
 
     handleLogout = (event) => {
         event.preventDefault()
@@ -46,9 +69,7 @@ export default class Home extends Component {
         this.props.onLogout()
     }
     
-    render() {
-    const user = retrieveUser(context.userId) // Modificar, meter en el constructor!!!!
-    
+    render() {    
     return <div className="home-page">
         <header>
             <div name="my-app"><a href="#"><i className="uil uil-scenery"></i><span></span></a></div>
@@ -57,7 +78,7 @@ export default class Home extends Component {
                     <li name="home"><a href="#" className="menu-buttons"><i className="uil uil-home"></i><span className="menu-text">Home</span></a></li>
                     <li name="new-post" onClick={this.handleOpenAddPost}><a href="#" className="menu-buttons"><i className="uil uil-camera-plus"></i><span className="menu-text">Post</span></a></li>
                     <li name="my-profile" onClick={this.handleOpenProfile}>
-                        <img src={user.avatar || 'https://i.pinimg.com/originals/f1/0f/f7/f10ff70a7155e5ab666bcdd1b45b726d.jpg'} alt="" className="user-avatar"/>
+                        <img src={this.state.user.avatar || 'https://i.pinimg.com/originals/f1/0f/f7/f10ff70a7155e5ab666bcdd1b45b726d.jpg'} alt="" className="user-avatar"/>
                         <a href="#" className="menu-buttons"><span className="menu-text" name="authenticated-user-name">Profile</span></a>
                     </li>
                     <li className="logout" name="logout" onClick={this.handleLogout}><a href="#" className="menu-buttons"><i className="uil uil-signout"></i><span className="menu-text">Logout</span></a></li>
@@ -65,11 +86,11 @@ export default class Home extends Component {
             </nav>
         </header>
         <main className="main-content">
-            <Posts onEditClicked={this.handleEditClicked} postsMustUpdate={this.state.postsMustUpdate}/>
+            <Posts onEditClicked={this.handleEditClicked} lastPostsUpdate={this.state.lastPostsUpdate}/>
 
             {this.state.modal === 'add-post' && <AddPostModal 
                 onCancel={this.handleCloseModal}
-                onPostCreated={this.handleCloseModal}
+                onPostCreated={this.handlePostsModified}
             />}
 
             {this.state.modal === 'profile' && <Profile 
@@ -91,13 +112,13 @@ export default class Home extends Component {
 
             {this.state.modal === 'change-avatar' && <ChangeAvatar
                 onCancel={this.handleCloseModal}
-                onAvatarChanged={this.handleCloseModal}
+                onAvatarChanged={this.handleAvatarChanged}
             />}
 
             {this.state.modal === 'edit-post' && <EditPost
                 onCancel={this.handleCloseModal}
-                onPostEdited={this.handleCloseModal}
-                onPostDeleted={this.handlePostChange}
+                onPostEdited={this.handlePostsModified}
+                onPostDeleted={this.handlePostsModified}
                 postId={this.state.postId}
             />}
         </main>

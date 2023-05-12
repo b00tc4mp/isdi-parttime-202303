@@ -23,7 +23,7 @@ export default class Posts extends Component {
         }
     }
     
-    handleToggledLikePost = () => {
+    handleRefreshPosts = () => {
         try {
             const posts = retrievePosts(context.userId)
 
@@ -33,12 +33,31 @@ export default class Posts extends Component {
         }
     }
     
+    componentDidMount() {
+        console.log('Posts -> componentDidMount')
+    }
+    
+    componentWillMount() {
+        console.log('Posts -> componentWillMount')
+    }
+
+    componentWillReceiveProps(newProps) {
+        console.log('Posts -> componentWillReceiveProps')
+
+        if(this.props.lastPostsUpdate !== newProps.lastPostsUpdate)
+            this.handleRefreshPosts()
+    }
+
+    componentWillUnmount() {
+        console.log('Posts -> componentWillUnmount')
+    }
+    
     render() {
         console.log('Posts -> render')
     
 
         return <section className='posts-list'>
-            { this.state.posts.map(post => <Post key={post.id} post={post} onToggledLikePost={this.handleToggledLikePost} onEdit={this.props.onEditClicked}/>)}
+            { this.state.posts.map(post => <Post key={post.id} post={post} onToggledLikePost={this.handleRefreshPosts} onEdit={this.props.onEditClicked}/>)}
         </section>
     }
 }
