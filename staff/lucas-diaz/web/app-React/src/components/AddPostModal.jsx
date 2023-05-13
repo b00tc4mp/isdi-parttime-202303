@@ -12,10 +12,10 @@ export default function AddPostModal(props) {
     function handleCreatePost(event){
         event.preventDefault();
 
-        try{
-            let image = event.target.url.value
-            let text = event.target.text.value 
+        let image = event.target.url.value
+        let text = event.target.text.value 
 
+        try{
             createPost(context.userId, image, text);
             
             props.onCreatedPost();

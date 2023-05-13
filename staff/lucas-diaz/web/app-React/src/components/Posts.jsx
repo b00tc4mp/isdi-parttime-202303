@@ -13,7 +13,7 @@ export default class Posts extends Component {
     }
 
     handleDeletePost = () => {
-        this.setState( { view: true })
+        this.setState({ view: true })
         this.forceUpdate();
     }
 

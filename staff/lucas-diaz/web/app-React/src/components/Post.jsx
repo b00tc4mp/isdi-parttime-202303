@@ -9,8 +9,7 @@ export default function Post(props) {
     const { post, user } = props
 
     function handleEditClick() {
-        //   TENEMOSQUE AVISAR AL ABUELO  
-        
+        console.log("todavia nada")
     }
 
     function handleHeartClick() {

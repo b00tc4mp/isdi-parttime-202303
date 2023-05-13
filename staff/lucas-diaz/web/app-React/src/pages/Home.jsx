@@ -31,7 +31,7 @@ export default class Home extends Component {
         const headerMenu = document.querySelector(".home-menu");
         headerMenu.classList.toggle("home-menu-transition");
         document.querySelector("main").classList.toggle("fade");
-        this.setState({view : null});
+        this.setState({ view: null });
     }
     handleLogOutClick = () => {
         delete context.userId
@@ -49,6 +49,7 @@ export default class Home extends Component {
         const headerMenu = document.querySelector(".home-menu");
         headerMenu.classList.toggle("home-menu-transition");
         this.setState({ view: "posts" })
+        this.forceUpdate();
     }
     handleCancelUpdatedAvatar = () => {
         const headerMenu = document.querySelector(".home-menu");
@@ -88,12 +89,16 @@ export default class Home extends Component {
     }
 
     //? UPDATE POST  MODAL
+    handleEditClicked = () => {
+        this.setState({ modal: "update-post" })
+    }
+
     handleUpdatedPost = () => {
-        this.setState({modal: null})
+        this.setState({ modal: null })
     }
 
     handleCancelUpdatePost = () => {
-        this.setState({modal: null})
+        this.setState({ modal: null })
     }
 
     render() {
@@ -120,7 +125,7 @@ export default class Home extends Component {
             </header>
 
             <main className="container">
-                {this.state.view === "posts" && <Posts />}
+                {this.state.view === "posts" && <Posts/>}
                 {this.state.view === "avatar" && <UpdateAvatar
                     onUpdatedAvatar={this.handleUpdatedAvatar}
                     onCancelClick={this.handleCancelUpdatedAvatar}
@@ -133,17 +138,12 @@ export default class Home extends Component {
             </main>
 
             <footer className="footer">
-
-                {this.state.modal === "update-post" && <UpdatePost
-                    onUpdatedPost={this.handleUpdatedPost}
-                    onCancelClick={this.handleCancelUpdatePost}
-                
-                />}
-
+                {this.state.modal === "update-post" && <UpdatePost/>}
                 {this.state.modal === "add-post" && <AddPostModal
                     onCancelClick={this.handleCancelAddPost}
                     onCreatedPost={this.handleCreatedPost}
                 />}
+
                 <button className="footer-button button" onClick={this.handleFooterButtonClick}> + </button>
             </footer>
         </div>

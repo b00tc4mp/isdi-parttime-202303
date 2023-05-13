@@ -3,16 +3,13 @@ export default function UpdatePost(props){
 
     function handleUpdatePost(event){
         event.preventDefault();
-        // esto avisa al padre lo que pasa cuando le  damos a update
         props.onUpdatedPost()
     }
 
     function handleCancelClick(event){
         event.preventDefault();
-        //esto es loq ue pasa  c
         props.onCancelClick()
     }
-
 
 
     return <section className="home-edit-post-modal off">
