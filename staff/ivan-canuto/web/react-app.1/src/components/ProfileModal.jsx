@@ -4,11 +4,11 @@ import updateUserAvatar from "../logic/updateUserAvatar";
 
 export default function Profile(props) {
 
-  const closeProfile = () => {
+  function closeProfile() {
     props.onClose()
   }
 
-  const handleChangeAvatar = (event) => {
+  function handleChangeAvatar(event) {
     event.preventDefault()
 
     const avatarUrl = event.target.avatarUrl.value
@@ -24,7 +24,7 @@ export default function Profile(props) {
     }
   }
 
-  const handleChangePassword = (event) => {
+  function handleChangePassword(event) {
     event.preventDefault()
 
     const password = event.target.password.value

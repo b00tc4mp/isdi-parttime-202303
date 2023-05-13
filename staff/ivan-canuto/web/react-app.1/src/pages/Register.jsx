@@ -1,13 +1,13 @@
 import { registerUser } from "../logic/registerUser"
 
 export default function Register (props) {
-  const handleOnLogin = (event) => {
+  function handleOnLogin(event) {
     event.preventDefault()
 
     props.onLoginClick()
   }
 
-  const handleRegisterIn = (event) => {
+  function handleRegisterIn(event) {
     event.preventDefault()
 
     const name = event.target.name.value

@@ -1,10 +1,10 @@
 import { saveUser } from '../data'
-import retrieveUser from './retrieveUser'
+import { findUserById } from './helpers/dataManager'
 
 export const saveFavoritePost = (userId, postId)=>{
   const userPost = Array.from(document.querySelectorAll('.user-post')).find(post => post.id === postId)
 
-  const user = retrieveUser(userId)
+  const user = findUserById(userId)
   const favIcon = userPost.querySelector('.favorite-icon')
 
   if(!user.favPosts.includes(postId)) {

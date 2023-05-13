@@ -5,16 +5,20 @@ import { retrievePosts } from "../logic/retrievePosts"
 
 export default function SavedPosts(props) {
   
-  const handleRender = () => {
+  function handleRender() {
     props.handleRender()
   }
+  
+  let postsListClass
+  if(props.menuState) postsListClass = 'posts-list open-menu'
+  else postsListClass = 'posts-list'
   
   try {
     const posts = retrievePosts(context.userId)
     const _users = users()
     const user = _users.find(user => user.id === context.userId)
 
-    return <section className='posts-list'>
+    return <section className={postsListClass}>
       {posts.map(post => {
         if(user.favPosts.includes(post.id))
           return <Post key={post.id} post={post} handleRender={handleRender}/>

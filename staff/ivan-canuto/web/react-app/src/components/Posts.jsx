@@ -1,22 +1,38 @@
 import { retrievePosts } from "../logic/retrievePosts";
 import Post from "./Post";
 import { context } from "../ui";
+import { useState } from "react";
 
 export default function Posts(props) {
 
-  function handleRender() {
-    props.handleRender()
+  let _posts;
+
+  try {
+    _posts = retrievePosts(context.userId)
+    
+  } catch(error) {
+    alert(error)
+    console.log(error.stack);
   }
 
-  let postsListClass
-  if(props.menuState) postsListClass = 'posts-list open-menu'
-  else postsListClass = 'posts-list'
+  const [posts, setPosts] = useState(_posts)
+
+  const renderPosts = () => {
+    try {
+      _posts = retrievePosts(context.userId)
+      setPosts(_posts)
+
+    } catch(error) {
+      alert(error)
+      console.log(error);
+    }
+  }
 
   try {
     const posts = retrievePosts(context.userId)
 
-    return <section className={postsListClass}>
-      {posts.map(post => <Post key={post.id} post={post} handleRender={handleRender}/>)}
+    return <section className="posts-list">
+    {posts.map(post => <Post key={post.id} post={post} handleOpenEditPost={props.handleOpenEditPost} handleRender={renderPosts}/>)}
     </section>
   } catch (error) {
     alert(error)

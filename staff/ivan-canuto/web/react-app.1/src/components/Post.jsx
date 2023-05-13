@@ -1,43 +1,61 @@
+import React from "react";
 import { context } from "../ui";
 import { toggleLikePost } from "../logic/toggleLikePost";
 import { saveFavoritePost } from "../logic/saveFavoritePost";
 import { findUserById } from "../logic/helpers/dataManager";
+import EditPost from "./EditPostModal";
 import deletePost from  "../logic/deletePost"
 import Comments from "./Comments";
-import { useState } from "react";
 
-export default function Post(props) {
+export default class Post extends React.Component {
+  constructor(props) {
+    super(props)
 
-  const [modal, setModal] = useState('post')
+    this.state = { modal: null , comments: false}
+  }
 
-  const handleDeletePost = () => {
+  handleOpenEditPost = () => {
+    document.body.classList.add('fixed-scroll')
+    this.setState({ modal: 'editPost' })
+  }
+
+  handleCloseEditPost = () => {
+    document.body.classList.remove('fixed-scroll')
+    this.setState({ modal: null})
+  }
+
+  handleRender = () => {
+    this.props.handleRender()
+  }
+  
+  handleDeletePost = () => {
     try {
       deletePost()
-      props.handleRender()
-    
+      this.props.handleRender()
     } catch (error) {
       alert(error)
       console.log(error.stack);
     }
   }
 
-  const handleCloseCommentModal = () => {
-    setModal('post')
-    props.handleRender()
+  handleAddComment = () => {
+    this.setState({ modal: 'addComment' })
   }
 
-  const handleToggleLikeFav = () => {
-    props.handleRender()
+  handleCloseAddComment = () => {
+    this.setState({ modal: null })
   }
 
+  
+  render() {
     try {
       
-      const { image, id, likes, date, text, author, comments } = props.post
+      const { image, id, likes, date, text, author, comments } = this.props.post
       const user = findUserById(context.userId)
       const postAuthor = findUserById(author)
 
       return <article className="user-post" id={id}>
-      {modal === 'post' && <>
+      {!this.state.comments && <>
         <div className="above-image">
           <div>
             <img className="post-user-avatar" src={postAuthor.avatar} alt="post-user-avatar" />
@@ -48,13 +66,18 @@ export default function Post(props) {
           <div>
             <button className="edit-post-button" onClick={() => {
               context.postId = id
-              props.handleOpenEditPost()
+              this.handleOpenEditPost()
             }}><span className="material-symbols-outlined">edit</span></button>
             <button className="delete-post-button" onClick={() => {
               context.postId = id
-              handleDeletePost()
+              this.handleDeletePost()
             }}><span className="material-symbols-outlined">delete</span></button>
           </div>}
+
+          {this.state.modal === 'editPost' && <EditPost
+          onCloseModal={this.handleCloseEditPost}
+          renderPosts={this.handleRender}
+          />}
         </div>
 
         <div className="image-container">
@@ -64,17 +87,16 @@ export default function Post(props) {
         <div className="under-image">
           <i className="favorite-icon" onClick={() => {
             saveFavoritePost(context.userId, id)
-            handleToggleLikeFav()
             }}>{(user.favPosts.includes(id))? <span className="material-symbols-outlined saved filled">star</span> : <span className="material-symbols-outlined">star</span>}</i>
 
           <span className="material-symbols-outlined comment-icon" onClick={() => {
             context.postId = id
-            setModal('comments')
-            }}>mode_comment</span>
+            this.setState({ comments: true })
+            }}  >mode_comment</span>
           
           <i className="heart-icon" onClick={() => {
             toggleLikePost(context.userId, id)
-            handleToggleLikeFav()
+            this.handleRender()
           }}>{(likes.includes(context.userId))? <span className="material-symbols-outlined filled liked">favorite</span> : <span className="material-symbols-outlined">favorite</span>}</i>
 
           <p className="likes-post">{likes.length} likes</p>
@@ -84,17 +106,15 @@ export default function Post(props) {
         <p className="text-post">{text}</p>
       </>}
       
-      {modal === 'comments' && <Comments
-        handleRender={props.handleRender}
-        onCloseCommentModal={handleCloseCommentModal}
-        post={props.post}
-        // addRemoveButton={modal === 'addComment' ? true : false}
-      />}
+      {this.state.comments && <Comments
+        onCancelAddComment={this.handleCloseAddComment}
+        onClickAddComment={this.handleAddComment}
+        addRemoveButton={this.state.modal === 'addComment' ? true : false}/>}
     </article>
     
     } catch (error) {
       alert(error)
       console.log(error.stack);
     }
-  
+  }
 } 

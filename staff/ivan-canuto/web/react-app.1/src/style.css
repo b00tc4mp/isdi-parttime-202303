@@ -229,11 +229,10 @@ html, body {
   height: 100vh;
 }
 
-.avatar-image, .post-user-avatar {
+.avatar-image {
   height: 30px;
   width: 30px;
   border-radius: 50%;
-  object-fit: cover;
 }
 
 .add-post, .edit-post {
@@ -284,8 +283,11 @@ html, body {
   justify-content: space-around;
   gap: 15px;
   flex-wrap: wrap;
-  padding: 70px 0 30px 0;
-  margin-top: 75px;
+  padding: 50px 0;
+}
+
+.open-menu {
+  margin: 100px 0 0 0;
 }
 
 .home {
@@ -378,30 +380,32 @@ html, body {
 
 .above-image div {
   display: flex;
+  gap: 10px;
   align-items: center;
 }
 
 .post-user-avatar {
   height: 25px;
-  width: 25px;
   border-radius: 50%;
-  object-fit: cover;
-  margin-right: 10px;
 }
 
 .post-user-name {
-  font-size: 15px;
+  font-size: 20px;
 }
 
 .edit-post-button, .delete-post-button {
-  background: white;
+  background: rgb(127, 127, 255);
   font-size: 13px;
   cursor: pointer;
   width: fit-content;
   height: fit-content;
-  padding: 0px 5px;
-  border: 0px solid grey;
-  /* border-radius: 3px; */
+  padding: 2px 5px;
+  border: 0.5px solid grey;
+  border-radius: 3px;
+}
+
+.delete-post-button {
+  background-color: rgb(255, 131, 131);
 }
 
 .avatar-author-div {
@@ -449,7 +453,7 @@ html, body {
   align-items: center;
   justify-content: center;
   height: 25px;
-  width: 20px;
+  width: 25px;
   cursor: pointer;
   margin-right: 5px;
 }
@@ -471,7 +475,7 @@ html, body {
   'FILL' 0,
   'wght' 400,
   'GRAD' 0,
-  'opsz' 24
+  'opsz' 48
 }
 
 .filled {
@@ -479,7 +483,7 @@ html, body {
   'FILL' 1,
   'wght' 400,
   'GRAD' 0,
-  'opsz' 24
+  'opsz' 48
 }
 
 .liked {
@@ -495,7 +499,7 @@ html, body {
 }
 
 .comment-section {
-  min-height: 400px;
+  min-height: 300px;
   max-height: 500px;
   display: flex;
   flex-direction: column;
@@ -503,25 +507,8 @@ html, body {
   position: relative;
 }
 
-.comments {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  gap: 10px;
-}
-
 .comment {
-  display: flex;
-  justify-content: space-between;
   width: 100%;
-}
-
-.comment-author {
-  font-weight: bold;
-}
-
-.delete-comment_icon {
-  cursor: pointer;
 }
 
 .add-comment_button {

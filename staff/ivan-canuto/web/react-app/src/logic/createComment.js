@@ -1,16 +1,19 @@
+import { savePost } from "../data"
 import { users } from "../data"
-import { posts } from "../data"
 import { context } from "../ui"
+import { v4 as uuidv4 } from 'uuid';
 
-export default function createComment(commentText) {
+export default function createComment(commentText, post) {
 
   const _users = users()
   const user = _users.find(user => user.id === context.userId)
-  const _posts = posts()
-  const post = _posts.find(post => post.id === context.postId)
+  const _post = post
 
-  post.comments.push({
+  _post.comments.push({
     author: user.name,
-    text: commentText
+    authorId: user.id,
+    text: commentText,
+    id: uuidv4()
   })
+  savePost(_post)
 }

@@ -1,19 +1,19 @@
 export default function Menu(props) {
 
-  const showHomePage = () => {
+  function onHomePageClick() {
     props.onHomePage()
   }
 
-  const showOwnPosts = () => {
+  function showOwnPosts() {
     props.showOwnPosts()
   }
   
-  const showSavedPosts = () => {
+  function showSavedPosts() {
     props.showSavedPosts()
   }
 
   return <ul className="menu">
-    <li onClick={showHomePage}>Home page</li>
+    <li onClick={onHomePageClick}>Home page</li>
     <li onClick={showOwnPosts}>Own osts</li>
     <li onClick={showSavedPosts}>Saved posts</li>
   </ul>

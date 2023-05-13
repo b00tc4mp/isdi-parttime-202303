@@ -3,11 +3,11 @@ import { context } from "../ui";
 
 export default function AddPost(props) {
 
-  const handleCloseClick = () => {
+  function handleCloseClick() {
     props.onCancel()
   }
 
-  const handleCreatePost = (event) => {
+  function handleCreatePost(event) {
     event.preventDefault()
 
     const image = event.target.postImage.value

@@ -1,14 +1,14 @@
 import { context } from "../ui";
 import { updatePost } from "../logic/updatePost"
-import retrievePost from "../logic/retrievePost";
+import { posts } from "../data";
 
 export default function EditPost(props) {
 
-  const onCancelClick = () => {
+  function onCancelClick() {
     props.onCloseModal()
   }
 
-  const handleEditButton = (event) => {
+  function handleEditButton(event) {
     event.preventDefault()
     
     const postId = props.id
@@ -17,6 +17,7 @@ export default function EditPost(props) {
 
     try {
       updatePost(context.userId, context.postId, image, text)
+      props.renderPosts()
       props.onCloseModal()
 
     } catch (error) {
@@ -25,7 +26,7 @@ export default function EditPost(props) {
     }
   }
   
-  const post = retrievePost(context.postId)
+  const post = posts().find(post => post.id === context.postId)
   
   return <div className="edit-post container">
   <form className="edit-post-form" onSubmit={handleEditButton}>

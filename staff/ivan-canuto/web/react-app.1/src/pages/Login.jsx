@@ -2,13 +2,13 @@ import authenticateUser from "../logic/authenticateUser"
 import { context } from "../ui"
 
 export default function Login (props) {
-  const handleRegisterClick = (event) => {
+  function handleRegisterClick(event) {
     event.preventDefault()
 
     props.onRegisterClick()
   }
 
-  const handleLogin = (event) => {
+  function handleLogin(event) {
     event.preventDefault()
 
     const email = event.target.email.value

@@ -1,4 +1,4 @@
-import React from "react"
+import { useState } from "react"
 import Profile from "../components/ProfileModal"
 import AddPost from "../components/AddPostModal"
 import Posts from "../components/Posts"
@@ -6,101 +6,120 @@ import Menu from "../components/menu"
 import OwnPosts from "../components/OwnPosts"
 import SavedPosts from "../components/SavedPosts"
 import { context } from "../ui"
-import { users } from "../data"
+import retrieveUser from "../logic/retrieveUser"
+import EditPost from "../components/EditPostModal"
+import Header from "../components/Header"
 
-export default class Home extends React.Component {
-  constructor(props) {
-    super(props)
-
-    this.state = { view: 'posts', modal: null, menu: false }
+export default function Home(props) {
+  
+  const [view, setView] = useState('posts')
+  const [modal, setModal] = useState(null)
+  const [menu, setMenu] = useState(false)
+  
+   const handleReturnToPosts = () => {
+    setView('posts')
   }
 
-  handleReturnToPosts = () => {
-    this.setState({ view: 'posts' })
-  }
-
-  handleOpenAddPost = () => {
+   const handleOpenAddPost = () => {
     document.body.classList.add('fixed-scroll')
-    this.setState({ modal: 'addPost' })
+    setModal('addPost')
   }
-  handleCloseAddPost = () => {
+   const handleCloseAddPost = () => {
     document.body.classList.remove('fixed-scroll')
-    this.setState({ modal: null })
+    setModal(null)
   }
   
-  handleOpenProfile = () => {
+   const handleOpenProfile = () => {
     document.body.classList.add('fixed-scroll')
-    this.setState({ modal: 'profile' })
+    setModal('profile')
   }
 
-  handleCloseProfile = () => {
+   const handleCloseProfile = () => {
     document.body.classList.remove('fixed-scroll')
-    this.setState({ modal: null })
+    setModal(null)
   }
 
-  handleReturnToLogin = () => {
-    this.props.onLoggedOut()
+   const handleReturnToLogin = () => {
+    props.onLoggedOut()
     delete context.userId
   }
 
-  handleToggleMenu = () => {
-    this.setState({ menu: !this.state.menu })
+  const handleToggleMenu = () => {
+    setMenu(!menu)
   }
 
-  showOwnPosts = () => {
-    this.setState({ view: 'ownPosts' })
+  const showOwnPosts = () => {
+    setView('ownPosts')
   }
 
-  showSavedPosts = () => {
-    this.setState({ view: 'savedPosts' })
+  const showSavedPosts = () => {
+    setView('savedPosts')
   }
 
-  render() {
-    const user = users().find(user => user.id === context.userId)
+  const handleOpenEditPost = () => {
+    document.body.classList.add('fixed-scroll')
+    setModal('editPost')
+  }
+
+  const handleCloseEditPost = () => {
+    document.body.classList.remove('fixed-scroll')
+    setModal(null)
+  }
+
+  let user;
+  try {
+    user = retrieveUser(context.userId)
+    
+  } catch (error) {
+    alert(error)
+    console.log(error);
+  }
 
       return <div className="home page">
-    <header className="header">
-        <span className="material-symbols-outlined menu-icon" onClick={() => {
-          this.handleToggleMenu()
-          this.forceUpdate()
-        }}>menu</span>
-        <h1 className="title" onClick={this.handleReturnToPosts}>Home</h1>
-        <div className="name-avatar-profile" onClick={this.handleOpenProfile}>  
-            <img className="avatar-image" src={user.avatar} alt="avatar image" />
-            <a>{user.name}</a>
-        </div>
-        <button className="logout-button" onClick={this.handleReturnToLogin}>Logout</button>
-    </header>
+    <Header
+      user={user}
+      handleToggleMenu={handleToggleMenu}
+      handleReturnToPosts={handleReturnToPosts}
+      handleOpenProfile={handleOpenProfile}
+      handleReturnToLogin={handleReturnToLogin}
+    />
 
     <main>
-      {this.state.modal === 'profile' && <Profile
-        onClose={this.handleCloseProfile}
+      {modal === 'profile' && <Profile
+        onClose={handleCloseProfile}
       />}
-      {this.state.view === 'posts' && <Posts
-        handleRender={() => this.forceUpdate()}
-        menuState={this.state.menu}
+
+      {view === 'posts' && <Posts
+        handleOpenEditPost={handleOpenEditPost}
       />}
-      {this.state.menu && <Menu
-        onHomePage={this.handleReturnToPosts}
-        showOwnPosts={this.showOwnPosts}
-        showSavedPosts={this.showSavedPosts}
+
+      {menu && <Menu
+        onHomePage={handleReturnToPosts}
+        showOwnPosts={showOwnPosts}
+        showSavedPosts={showSavedPosts}
       />}
-      {this.state.modal === 'addPost' && <AddPost
-        onCancel={this.handleCloseAddPost}
+
+      {modal === 'addPost' && <AddPost
+        onCancel={handleCloseAddPost}
       />}
-      {this.state.view === 'ownPosts' && <OwnPosts
-        handleRender={() => this.forceUpdate()}
-        menuState={this.state.menu}
+
+      {modal === 'editPost' && <EditPost
+        onCloseModal={handleCloseEditPost}
       />}
-      {this.state.view === 'savedPosts' && <SavedPosts
-        handleRender={() => this.forceUpdate()}
-        menuState={this.state.menu}
+
+      {view === 'ownPosts' && <OwnPosts
+        menuState={menu}
+        handleToggleMenu={handleToggleMenu}
+      />}
+
+      {view === 'savedPosts' && <SavedPosts
+        menuState={menu}
+        handleToggleMenu={handleToggleMenu}
       />}
     </main> 
 
     <footer className="home-footer">
-        <button className="add-post-button" onClick={this.handleOpenAddPost}>+</button>
+        <button className="add-post-button" onClick={handleOpenAddPost}>+</button>
     </footer>
   </div>
-  }
 }
