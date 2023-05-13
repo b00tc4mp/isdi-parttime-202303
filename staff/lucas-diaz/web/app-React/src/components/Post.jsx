@@ -1,5 +1,6 @@
 import deletePost from "../logic/deletePost.js";
 import likeAPost from "../logic/likeAPost.js";
+import updatePost from "../logic/updatePost.js";
 import { context } from "../ui.js";
 
 
@@ -8,7 +9,8 @@ export default function Post(props) {
     const { post, user } = props
 
     function handleEditClick() {
-
+        //   TENEMOSQUE AVISAR AL ABUELO  
+        
     }
 
     function handleHeartClick() {

@@ -1,8 +1,11 @@
 import { context } from "../ui.js";
 import authenticateUser from "../logic/authenticateUser.js"
+import { useState } from "react";
 
 
 export default function Login(props) {
+    const[errorMessage, setErrorMessage] = useState("");
+
     function handleRegisterClick(event) {
         event.preventDefault();
         props.onRegisterClick();
@@ -12,14 +15,14 @@ export default function Login(props) {
         event.preventDefault();
 
         const email = event.target.email.value = "lucas@gmail.com";
-        const password = event.target.password.value = "LucasDiaz22!!";
+        const password = event.target.password.value = "LucasDiaz22!";
 
         try {
             const userId = authenticateUser(email, password)
             context.userId = userId;
             props.onUserLogedin();
         } catch (error) {
-            alert(error.message)
+            setErrorMessage(error.message)
         }
     }
 
@@ -27,7 +30,7 @@ export default function Login(props) {
         <section className="login">
             <h1 className="login-header">LOG IN</h1>
             <p className="login-success-warning green off">User created successfully</p>
-            <p className="fail-warning red"></p>
+            {errorMessage && <p className="fail-warning red">{errorMessage}</p>}
             <form className="form" onSubmit={handleLogin}>
                 <div className="input-box">
                     <label>your email</label>

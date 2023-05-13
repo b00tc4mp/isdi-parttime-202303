@@ -1,12 +1,12 @@
 import { savePost, saveUser } from "../data";
-import { findUserById, findUserPostByPostId } from "./helpers/dataManagers";
+import { findUserById, findPostByPostId } from "./helpers/dataManagers";
 import { validateId } from "./helpers/validators";
 
 
 export default function likeAPost(userId, post) {
     validateId(userId);
     let foundUser = findUserById(userId);
-    let foundPost = findUserPostByPostId(post.id);
+    let foundPost = findPostByPostId(post.id);
 
     if (!foundUser) throw new Error("There is no user with this id");
     if (!foundPost) throw new Error("There is no post with this post id")

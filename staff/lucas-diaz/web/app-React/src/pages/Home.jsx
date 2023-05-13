@@ -5,6 +5,7 @@ import Posts from "../components/Posts"
 import AddPostModal from "../components/AddPostModal";
 import UpdateAvatar from "../components/UpdateAvatar";
 import UpdatePassword from "../components/UpdatePassword";
+import UpdatePost from "../components/UpdatePost";
 
 export default class Home extends Component {
     constructor(props) {
@@ -86,6 +87,15 @@ export default class Home extends Component {
         document.querySelector("main").classList.remove("fade");
     }
 
+    //? UPDATE POST  MODAL
+    handleUpdatedPost = () => {
+        this.setState({modal: null})
+    }
+
+    handleCancelUpdatePost = () => {
+        this.setState({modal: null})
+    }
+
     render() {
         console.log("Home -> render")
 
@@ -123,6 +133,13 @@ export default class Home extends Component {
             </main>
 
             <footer className="footer">
+
+                {this.state.modal === "update-post" && <UpdatePost
+                    onUpdatedPost={this.handleUpdatedPost}
+                    onCancelClick={this.handleCancelUpdatePost}
+                
+                />}
+
                 {this.state.modal === "add-post" && <AddPostModal
                     onCancelClick={this.handleCancelAddPost}
                     onCreatedPost={this.handleCreatedPost}
