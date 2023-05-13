@@ -1,7 +1,7 @@
 import Posts from '../components/Posts'
 import { retrieveUser } from '../logic/retrieveUser'
 import { context } from '../ui'
-import { Component } from 'react'
+import { useState } from 'react'
 import AddPostModal from '../components/AddPostModal'
 import ChangeEmail from '../components/ChangeEmail'
 import ChangePassword from '../components/ChagePassword'
@@ -11,117 +11,122 @@ import Profile from '../components/Profile'
 import './Home.css'
 import PropTypes from 'prop-types'
 
-export default class Home extends Component {
-    constructor(props){
-        super(props)
-
-        Home.propTypes = {
-            onLogout: PropTypes.func
-        }
-
-        try {
-            const user = retrieveUser(context.userId) // Modificar, meter en el constructor!!!!
-            
-            this.state = {
-                modal: null,
-                postId: null,
-                lastPostsUpdate: Date.now(),
-                user
-            }
-        } catch(error){
-            alert(error.alert)
-        }
-
+export default function Home(props) {
+    Home.propTypes = {
+        onLogout: PropTypes.func
     }
 
-    handleCloseModal = () => this.setState({ modal: null })
+    const [modal, setModal] = useState(null)
+    const [postId, setPostId] = useState(null)
+    const [lastPostsUpdate, setLastPostsUpdate] = useState(Date.now())
+
+    let _user
+
+    try{
+        _user = retrieveUser(context.userId)
+    } catch(error){
+        alert(error.message)
+    }
+
+    const [user, setUser] = useState(_user)
+
+    const handleCloseModal = () => setModal(null)
     
-    handleOpenAddPost = () => this.setState({ modal: 'add-post'})
+    const handleOpenAddPost = () => setModal('add-post')
 
-    handlePostsModified = () => this.setState({ modal: null, lastPostsUpdate: Date.now()})
+    const handlePostsModified = () => {
+        setModal(null)
 
-    handleOpenProfile = () => this.setState({ modal: 'profile'})
+        setLastPostsUpdate(Date.now)
+    }
 
-    handleOpenChangeEmail = () => this.setState({ modal: 'change-email'})
+    const handleOpenProfile = () => setModal('profile')
 
-    handleOpenChangePassword = () => this.setState({ modal: 'change-password'})
+    const handleOpenChangeEmail = () => setModal('change-email')
 
-    handleOpenChangeAvatar = () => this.setState({ modal: 'change-avatar'})
+    const handleOpenChangePassword = () => setModal('change-password')
 
-    handleAvatarChanged = () => {
+    const handleOpenChangeAvatar = () => setModal('change-avatar')
+
+    const handleAvatarChanged = () => {
         try {
             const user = retrieveUser(context.userId)
 
-            this.setState({ modal: null, user, lastPostsUpdate: Date.now()})
+            setModal(null)
+
+            setUser(user)
+
+            setLastPostsUpdate(Date.now())
         } catch(error){
             alert(error.message)
         }
-        
     }
 
-    handleEditClicked = (id) => this.setState({modal: 'edit-post', postId:id})
+    const handleEditClicked = (id) => {
+        setModal('edit-post')
 
-    handleLogout = (event) => {
+        setPostId(id)
+    }
+
+    const handleLogout = (event) => {
         event.preventDefault()
 
         delete context.userId
         
-        this.props.onLogout()
+        props.onLogout()
     }
     
-    render() {    
     return <div className="home-page">
         <header>
             <div name="my-app"><a href="#"><i className="uil uil-scenery"></i><span></span></a></div>
             <nav>
                 <ul className="horizontal-menu">
                     <li name="home"><a href="#" className="menu-buttons"><i className="uil uil-home"></i><span className="menu-text">Home</span></a></li>
-                    <li name="new-post" onClick={this.handleOpenAddPost}><a href="#" className="menu-buttons"><i className="uil uil-camera-plus"></i><span className="menu-text">Post</span></a></li>
-                    <li name="my-profile" onClick={this.handleOpenProfile}>
-                        <img src={this.state.user.avatar || 'https://i.pinimg.com/originals/f1/0f/f7/f10ff70a7155e5ab666bcdd1b45b726d.jpg'} alt="" className="user-avatar"/>
+                    <li name="new-post" onClick={handleOpenAddPost}><a href="#" className="menu-buttons"><i className="uil uil-camera-plus"></i><span className="menu-text">Post</span></a></li>
+                    <li name="my-profile" onClick={handleOpenProfile}>
+                        <img src={user.avatar || 'https://i.pinimg.com/originals/f1/0f/f7/f10ff70a7155e5ab666bcdd1b45b726d.jpg'} alt="" className="user-avatar"/>
                         <a href="#" className="menu-buttons"><span className="menu-text" name="authenticated-user-name">Profile</span></a>
                     </li>
-                    <li className="logout" name="logout" onClick={this.handleLogout}><a href="#" className="menu-buttons"><i className="uil uil-signout"></i><span className="menu-text">Logout</span></a></li>
+                    <li className="logout" name="logout" onClick={handleLogout}><a href="#" className="menu-buttons"><i className="uil uil-signout"></i><span className="menu-text">Logout</span></a></li>
                 </ul>
             </nav>
         </header>
         <main className="main-content">
-            <Posts onEditClicked={this.handleEditClicked} lastPostsUpdate={this.state.lastPostsUpdate}/>
+            <Posts onEditClicked={handleEditClicked} lastPostsUpdate={lastPostsUpdate}/>
 
-            {this.state.modal === 'add-post' && <AddPostModal 
-                onCancel={this.handleCloseModal}
-                onPostCreated={this.handlePostsModified}
+            {modal === 'add-post' && <AddPostModal 
+                onCancel={handleCloseModal}
+                onPostCreated={handlePostsModified}
             />}
 
-            {this.state.modal === 'profile' && <Profile 
-                onCancel={this.handleCloseModal}
-                onChangeEmail={this.handleOpenChangeEmail}
-                onChangePassword={this.handleOpenChangePassword}
-                onChangeAvatar={this.handleOpenChangeAvatar}
+            {modal === 'profile' && <Profile 
+                onCancel={handleCloseModal}
+                onChangeEmail={handleOpenChangeEmail}
+                onChangePassword={handleOpenChangePassword}
+                onChangeAvatar={handleOpenChangeAvatar}
             />}
 
-            {this.state.modal === 'change-email' && <ChangeEmail
-                onCancel={this.handleCloseModal}
-                onEmailChanged={this.handleCloseModal}
+            {modal === 'change-email' && <ChangeEmail
+                onCancel={handleCloseModal}
+                onEmailChanged={handleCloseModal}
             />}
 
-            {this.state.modal === 'change-password' && <ChangePassword
-                onCancel={this.handleCloseModal}
-                onPasswordChanged={this.handleCloseModal}
+            {modal === 'change-password' && <ChangePassword
+                onCancel={handleCloseModal}
+                onPasswordChanged={handleCloseModal}
             />}
 
-            {this.state.modal === 'change-avatar' && <ChangeAvatar
-                onCancel={this.handleCloseModal}
-                onAvatarChanged={this.handleAvatarChanged}
+            {modal === 'change-avatar' && <ChangeAvatar
+                onCancel={handleCloseModal}
+                onAvatarChanged={handleAvatarChanged}
             />}
 
-            {this.state.modal === 'edit-post' && <EditPost
-                onCancel={this.handleCloseModal}
-                onPostEdited={this.handlePostsModified}
-                onPostDeleted={this.handlePostsModified}
-                postId={this.state.postId}
+            {modal === 'edit-post' && <EditPost
+                onCancel={handleCloseModal}
+                onPostEdited={handlePostsModified}
+                onPostDeleted={handlePostsModified}
+                postId={postId}
             />}
         </main>
     </div>
-    }
 }

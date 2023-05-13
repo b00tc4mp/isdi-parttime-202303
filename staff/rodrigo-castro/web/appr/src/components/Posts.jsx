@@ -1,63 +1,52 @@
 import retrievePosts from '../logic/retrievePosts'
 import { context } from '../ui'
 import Post from './Post.jsx'
-import { Component } from 'react'
+import { useState, useEffect } from 'react'
 import './Posts.css'
 import PropTypes from 'prop-types'
 
-export default class Posts extends Component {
-    constructor(props){
-        super(props)
+export default function Posts({onEditClicked, lastPostsUpdate}) {
+    Posts.propTypes = {
+        lastPostsUpdate: PropTypes.date,
+        onEditClicked: PropTypes.func
+    }
 
-        Posts.proptypes = {
-            onLikeToggled: PropTypes.func,
-            onEditClicked: PropTypes.func
-        }
+    let _posts
+
+    try {
+        _posts = retrievePosts(context.userId) 
+    } catch(error) {
+        alert(error.message)
+    }
+
+    const [posts, setPosts] = useState(_posts)
         
+    const handleRefreshPosts = () => {
         try {
             const posts = retrievePosts(context.userId)
 
-            this.state = { posts }
+            setPosts(posts)
         } catch(error) {
             alert(error.message)
         }
     }
-    
-    handleRefreshPosts = () => {
-        try {
-            const posts = retrievePosts(context.userId)
 
-            this.setState({ posts })
-        } catch(error) {
-            alert(error.message)
-        }
-    }
-    
-    componentDidMount() {
-        console.log('Posts -> componentDidMount')
-    }
-    
-    componentWillMount() {
-        console.log('Posts -> componentWillMount')
-    }
+    useEffect(() => {
+        console.log('Posts -> "componentDidMount" with hooks')
 
-    componentWillReceiveProps(newProps) {
-        console.log('Posts -> componentWillReceiveProps')
+        return () => console.log('Posts -> "componentWillUnmount" with hooks')
+    })
 
-        if(this.props.lastPostsUpdate !== newProps.lastPostsUpdate)
-            this.handleRefreshPosts()
-    }
+    useEffect(() => {
+        console.log('Posts -> "componentWillRecieveProps" with hooks')
 
-    componentWillUnmount() {
-        console.log('Posts -> componentWillUnmount')
-    }
+        if(lastPostsUpdate)
+            handleRefreshPosts()
+    }, [lastPostsUpdate])
     
-    render() {
-        console.log('Posts -> render')
-    
+    console.log('Posts -> render')
 
-        return <section className='posts-list'>
-            { this.state.posts.map(post => <Post key={post.id} post={post} onToggledLikePost={this.handleRefreshPosts} onEdit={this.props.onEditClicked}/>)}
-        </section>
-    }
+    return <section className='posts-list'>
+        { posts.map(post => <Post key={post.id} post={post} onToggledLikePost={handleRefreshPosts} onEdit={onEditClicked}/>)}
+    </section>
 }
