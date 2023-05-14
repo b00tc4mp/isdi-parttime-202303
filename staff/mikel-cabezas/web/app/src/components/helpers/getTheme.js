@@ -28,15 +28,19 @@ export  function initTheme() {
 
     if(!localStorage.theme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
         theme = 'dark'
+        localStorage.theme = 'dark'
     } else if(!localStorage.theme && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
         theme = 'light'
+        localStorage.theme = 'light'
     }
 
     if(localStorage.theme === 'light') {
         theme = 'light'
+        localStorage.theme = 'light'
     }
     if(localStorage.theme === 'dark') {
         theme = 'dark'
+        localStorage.theme = 'dark'
     }
     return theme
 }

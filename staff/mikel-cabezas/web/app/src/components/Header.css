@@ -99,7 +99,7 @@ header {
     background: #ffffff0d;
   }
   
-  .menu .logout, .menu .homepage, body.logged-in .menu .login, .menu .user-account {
+  /* .menu .logout, .menu .homepage, body.logged-in .menu .login, .menu .user-account {
     display: none;
   }
   body.logged-in .menu .logout, body.logged-in .menu .homepage {
@@ -109,7 +109,7 @@ header {
     display:flex;
     flex-direction:row;
     position: relative;
-  }
+  } */
   
   li.user-account:hover ul.submenu.user-options {
     display: block;

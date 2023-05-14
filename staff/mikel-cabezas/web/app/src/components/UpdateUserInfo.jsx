@@ -3,8 +3,12 @@ import { findUserById } from "../logic/helpers/dataManagers"
 import updateUserName from "../logic/users/updateUserName"
 import updateUserEmail from "../logic/users/updateUserEmail"
 import uploadImage from "../logic/users/updateUserImage"
+import { useState } from "react"
 
-export default function UpdateUserInfo() {
+export default function UpdateUserInfo( {savelUpdateProfile, setSavelUpdateProfile} ) {
+
+
+
     // TODO PREGUNTAR PORQUE NO VA EN EL TRY
     const userId = context.userId
     const user = findUserById(userId)
@@ -17,6 +21,11 @@ export default function UpdateUserInfo() {
     } else if (!context.image && separateUserName.length > 1) {
         letters = separateUserName[0][0] + separateUserName[1][0]
     }
+
+    const [disabled, setDisabled] = useState(true)
+
+ 
+
     function handleConvertImageToBase64(event) {
         const file = event.target
         const imagePostPreview = document.querySelector('.data.user-info .avatar img')
@@ -36,13 +45,10 @@ export default function UpdateUserInfo() {
         imagePostPreview.classList.remove('hidden')
     }
 
-    function handleUpdateProfile(event) {
+    function handleUpdateProfile(event) {        
         event.preventDefault()
         try {
-            event.target.parentElement.querySelector('[name="name"]').removeAttribute('disabled')
-            event.target.parentElement.querySelector('[type="email"]').removeAttribute('disabled')
-            event.target.parentElement.querySelector('[type="file"]').removeAttribute('disabled')
-            event.target.parentElement.querySelector('.buttons').classList.remove('off')
+            setDisabled(false)
         } catch(error) {
             console.log(error.message)
         }
@@ -50,18 +56,15 @@ export default function UpdateUserInfo() {
     function handleSavelUpdateProfile(event) {
         event.preventDefault()
         try {
-            const name = event.target.parentElement.parentElement.querySelector('[name]')
-            const email = event.target.parentElement.parentElement.querySelector('[type="email"]')
-            const image = event.target.parentElement.parentElement.querySelector('[type="file"]')
+            setDisabled(true)
+            const name = event.target.parentElement.parentElement.elements['name']
+            const email = event.target.parentElement.parentElement.elements['email']
+            const image = event.target.parentElement.parentElement.elements['file']
             user.name !== name.value && updateUserName(userId, name.value)
             user.email !== email.value && updateUserEmail(userId, email.value)
             user.image !== image && uploadImage(userId, image)
-
-            event.target.parentElement.parentElement.querySelector('[type="file"]').setAttribute('disabled', '')
-            event.target.parentElement.parentElement.querySelector('[name]').setAttribute('disabled', '')
-            event.target.parentElement.parentElement.querySelector('[type="email"]').setAttribute('disabled', '')
-            event.target.parentElement.parentElement.querySelector('.buttons').classList.add('off')
-
+            setDisabled(true)
+            // setSavelUpdateProfile()
         } catch(error) {
             console.log(error.stack)
         }
@@ -70,11 +73,7 @@ export default function UpdateUserInfo() {
     function handleCancelUpdateProfile(event) {
         event.preventDefault()
         try {
-            debugger
-            event.target.parentElement.parentElement.querySelector('[name="name"]').setAttribute('disabled', '')
-            event.target.parentElement.parentElement.querySelector('[type="email"]').setAttribute('disabled', '')
-            event.target.parentElement.parentElement.querySelector('[type="file"]').setAttribute('disabled', '')
-            event.target.parentElement.parentElement.querySelector('.buttons').classList.add('off')
+            setDisabled(true)
         } catch(error) {
             console.log(error.stack)
         }
@@ -88,16 +87,16 @@ export default function UpdateUserInfo() {
                 <button className="button--update-info__profile" onClick={handleUpdateProfile} >Edit profile <i className="uil uil-pen"></i></button>
                 <form className="data user-info">
                     <label htmlFor="">Your name</label>
-                    <input type="text" defaultValue={user.name} name="name" disabled />
+                    <input type="text" defaultValue={user.name} name="name" disabled={disabled} />
                     <label htmlFor="">Your email</label>
-                    <input type="email" defaultValue={user.email} name="email" disabled />
+                    <input type="email" defaultValue={user.email} name="email" disabled={disabled} />
                     <div className="avatar">
                         <div className="letter">{letters}</div>
                         <img className={!context.image || context.image === 'undefined' && separateUserName.length === 1 ? 'image-profile hidden' : 'image-profile'} src={user.image} alt="" />
                     </div>
                     <label htmlFor="">Update image profile</label>
                     <input type="file" name="file" id="" accept=".jpg, .jpeg, .png, .webp" onClick={handleConvertImageToBase64}  />
-                    <div className="buttons off" >
+                    <div className={`buttons ${!disabled ? '' : 'off'}`} >
                         <button className="button--update-info__cancel-info" type="cancel" onClick={handleCancelUpdateProfile}>Cancel</button>
                         <button className="button--update-info__save-info" onClick={handleSavelUpdateProfile}>Save</button>
                     </div>

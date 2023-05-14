@@ -2,10 +2,11 @@ import { useState } from "react"
 import Login from "./pages/Login.jsx"
 import Register from "./pages/Register.jsx"
 import Home from './pages/Home.jsx'
-import Header from './components/header.jsx'
+import Header from './components/Header.jsx'
 import { context } from "./ui.js"
+import UpdateUserInfo from "./components/UpdateUserInfo.jsx"
 
-export default function App() {
+export default function App( {UpdateUserInfo, handleSavelUpdateProfile} ) {
 
   localStorage.theme === 'dark' ? document.querySelector(':root').classList.add('dark') : ''
   
@@ -20,10 +21,10 @@ export default function App() {
   
         switch (view) {
           case 'login':
-            return [<Header />, <Login onRegisterClick={handleGoToRegister} onUserLoggedIn={handleGoToHome} />]
+            return [<Header handleSavelUpdateProfile />, <Login onRegisterClick={handleGoToRegister} onUserLoggedIn={handleGoToHome} />]
             // return [<Header  pushUserDataToHeader={renderUser} />, <Login onRegisterClick={handleGoToRegister} onUserLoggedIn={handleGoToHome} />]
           case 'register':
-            return [<Header onLoggedOut={handleGoToLogin} />, <Register onLoginClick={handleGoToLogin} onUserRegistered={handleGoToLogin} />]
+            return [<Header handleSavelUpdateProfile onLoggedOut={handleGoToLogin} />, <Register onLoginClick={handleGoToLogin} onUserRegistered={handleGoToLogin} />]
           case 'home':
             return [<Home onLogoutClick={() => handleGoToLogin} />]
         }

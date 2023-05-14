@@ -1,5 +1,4 @@
 import { posts, savePost } from '../../data.js'
-// import { renderPosts } from './render-posts.js'
 import { context } from "../../ui.js";
 import { validateId, validateText } from '../helpers/validators.js';
 

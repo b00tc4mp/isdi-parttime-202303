@@ -1,22 +1,24 @@
 import { context } from "../ui"
 import { updateUserPassword } from "../logic/users/updateUserPassword"
+import { useState } from "react"
 
 export default function UpdateUserPassword() {
     const userId = context.userId
 
+    const [disabled, setDisabled] = useState(true)
+
+
     function handleUpdatePassword (event) {
         event.preventDefault()
         try {
-            const currentPassword = event.target.parentElement.parentElement.querySelector('input.current-password')
-            const newPassword = event.target.parentElement.parentElement.querySelector('input.new-password')
-            const repeatPassword = event.target.parentElement.parentElement.querySelector('input.repeat-password')
-            const buttons = event.target.parentElement.parentElement.querySelector('.buttons')
+            debugger
+            const currentPassword = event.target.parentElement.parentElement.elements['password']
+            const newPassword = event.target.parentElement.parentElement.elements['new-password']
+            const repeatPassword = event.target.parentElement.parentElement.elements['repeat-password']
+            const buttons = event.target.parentElement.parentElement.elements['.buttons']
             currentPassword && newPassword  && repeatPassword && updateUserPassword(userId, currentPassword, newPassword, repeatPassword)
-            currentPassword.setAttribute('disabled', '')
-            newPassword.setAttribute('disabled', '')
-            repeatPassword.setAttribute('disabled', '')
+            curresetDisabled(true)
             event.target.parentElement.parentElement.reset()
-            buttons.classList.add('off')
         } catch(error) {
             console.log(error.stack)
         }
@@ -25,10 +27,7 @@ export default function UpdateUserPassword() {
     function handleUpdatePasswordClick(event) {
         event.preventDefault()
         try {
-            event.target.parentElement.querySelector('input.current-password').removeAttribute('disabled')
-            event.target.parentElement.querySelector('input.new-password').removeAttribute('disabled')
-            event.target.parentElement.querySelector('input.repeat-password').removeAttribute('disabled')
-            event.target.parentElement.querySelector('.buttons').classList.remove('off')
+            setDisabled(false)
         } catch(error) {
             console.log(error.message)
         }
@@ -36,10 +35,7 @@ export default function UpdateUserPassword() {
     function handleCancelUpdatePassword(event) {
         event.preventDefault()
         try {
-            event.target.parentElement.querySelector('input.current-password').setAttribute('disabled', '')
-            event.target.parentElement.querySelector('input.new-password').setAttribute('disabled', '')
-            event.target.parentElement.querySelector('input.repeat-password').setAttribute('disabled', '')
-            event.target.parentElement.querySelector('.buttons').classList.add('off')
+            setDisabled(true)
         } catch(error) {
             console.log(error.message)
         }
@@ -54,20 +50,20 @@ export default function UpdateUserPassword() {
             <form className="data user-password">
                 <label htmlFor="">Current password</label>
                 <div className="password current-password">
-                    <input className="current-password" type="password" defaultValue="" name="password" disabled />
+                    <input className="current-password" type="password" defaultValue="" name="password" disabled={disabled} />
                     <i className="uil uil-eye"></i>
                 </div>
                 <label htmlFor="">New password</label>
                 <div className="password new-password">
-                    <input className="new-password" type="password" defaultValue="" name="password" disabled />
+                    <input className="new-password" type="password" defaultValue="" name="new-password" disabled={disabled} />
                     <i className="uil uil-eye"></i>
                 </div>
                 <label htmlFor="">Repeat password</label>
                 <div className="password repeat-password">
-                    <input className="repeat-password" type="password" defaultValue="" name="password" autoComplete="off" disabled />
+                    <input className="repeat-password" type="password" defaultValue="" name="repeat-password" autoComplete="off" disabled={disabled} />
                     <i className="uil uil-eye"></i>
                 </div>
-                <div className="buttons off">
+                <div className={`buttons ${!disabled ? '' : 'off'}`}>
                     <button className="button--update-info__cancel-password" type="cancel" onClick={handleCancelUpdatePassword}>Cancel</button>
                     <button className="button--update-info__save-password" onClick={handleUpdatePassword}>Save</button>
                 </div>

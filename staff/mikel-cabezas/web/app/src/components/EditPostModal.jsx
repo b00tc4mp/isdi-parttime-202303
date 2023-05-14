@@ -2,15 +2,9 @@ import { context } from "../ui"
 import {editPost} from '../logic/posts/editPost'
 import { getPostbyId } from "../logic/helpers/dataManagers"
 
-
-
-
-export function EditPostModal( { postId, onCancel, onUpdate }) {
-
-    
+export function EditPostModal( { postId, onCancel, onPostUpdated }) {
     const userId = context.userId
     const post = getPostbyId(postId)
-
 
     function handleCancelEditPost(event) {
         event.preventDefault()
@@ -18,23 +12,23 @@ export function EditPostModal( { postId, onCancel, onUpdate }) {
     }
     function handleUpdateEditPost(event) {
         event.preventDefault()
-        const title = document.querySelector('.edit-post .title').value
-        const text = document.querySelector('.edit-post textarea').value
-        const image = document.querySelector('.edit-post .post-image').src
+        const title = event.target.parentElement.parentElement.elements['title'].value
+        const text = event.target.parentElement.parentElement.elements['text'].value
+        const image = event.target.parentElement.parentElement.children['post-image'].src
         editPost(userId, postId, title, text, image)
-        onUpdate()
+        onPostUpdated()
     }
 
     return  <div className="overlay edit-post">
     <form className="edit-post">
         <input type="hidden" />
         <label htmlFor="text">Edit title</label>
-        <input type="text" className="title" defaultValue={post.title}/>
-        <img className="post-image" src={post.image} alt="" />
+        <input type="text" className="title" name="title" defaultValue={post.title}/>
+        <img className="post-image" name="post-image" src={post.image} alt="" />
         <label htmlFor="file">Edit your image</label>
         <input type="file" name="file" id="" accept=".jpg, .jpeg, .png, .webp" />
         <label htmlFor="textarea">Edit your process</label>
-        <textarea name="" id="" cols="30" rows="5"  defaultValue={post.text}></textarea>
+        <textarea id="" cols="30" rows="5" name="text" defaultValue={post.text}></textarea>
         <div className="buttons">
             <button className="button--edit-post_cancel" type="cancel" onClick={handleCancelEditPost}>Cancel</button>
             <button className="button--edit-post_save" type="submit" onClick={handleUpdateEditPost}>Update post</button>

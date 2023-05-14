@@ -1,19 +1,37 @@
-import { context } from "../ui.js"
-import './Header.css'
 
-export default function Header(props) {
+import { useEffect, useState } from "react"
+import { context } from "../ui.js"
+import { findUserById } from "../logic/helpers/dataManagers.js"
+import UserImage from "./UserImage"
+import './Header.css'
+import UpdateUserInfo from "./UpdateUserInfo.jsx"
+
+export default function Header( {onUserProfile, onHomeClick, onLoggedOut, goBack, goBackClick} ) {
+    const [current, setCurrent] = useState(false)
+    const [loggedIn, setloggedIn] = useState(false)
+    const [savelUpdateProfile, setSavelUpdateProfile] = useState(null)
+
+    const userId = context.userId
+
+    const controlCurrentItem = () => {
+        debugger
+        if (current) {
+            return 'current'
+        } else if (!current) {
+            return ''
+        }
+    }
     const handleHome = () => {
         try {
-            props.onHomeClick()
+            onHomeClick()
         } catch (error) {
             console.log(error.message)
         }
     }
-
     const handleLogout = () => {
         try {
             delete context.userId
-            props.onLoggedOut()
+            onLoggedOut()
             // document.body.classList.remove('logged-in')
         } catch (error) {
             console.log(error.stack)
@@ -21,16 +39,16 @@ export default function Header(props) {
     }
     const handleUserProfile = () => {
         try {
-            // document.querySelector('li.user-settings').classList.add('current')
-            props.onUserProfile()
+            setCurrent(Date.now())
+            onUserProfile()
         } catch (error) {
             console.log(error.message)
         }
     }
     const renderUser = () => {
         try {
-            const userId = context.userId
             if(userId) {
+                setloggedIn(true)
                 // document.body.classList.add('logged-in')
               }
             // if(userId && document.body.classList.contains('logged-in'))
@@ -39,36 +57,70 @@ export default function Header(props) {
             console.log(error.message)
         }
     }
-    return <>
-        <header onLoad={renderUser}>
-            <div className="header-wrapper">
-                <div className="logo">
-                    <img src="/logo.svg" alt="Ikea Hacks" />
+
+    // useEffect(() => {
+    //     alert('meh')
+    // }, [])
+
+    useEffect(() => {
+        console.log(current)
+        if(current) {
+            alert(current)
+            setCurrent(true)
+            console.log(`current state of current = ${current}`)
+        }
+    }, [current])
+
+    // useEffect(() => {
+    //     console.log(goBack)
+    //     console.log(`current state of goBack = ${goBack}`)
+    //     if(goBack) {
+    //         alert('go back')
+    //         console.log(`current state of goBack = ${goBack}`)
+    //         setCurrent(false)
+    //     }
+    // }, [goBack])
+
+    if (loggedIn) {
+        return <>
+            <header onLoad={renderUser}>
+                <div className="header-wrapper">
+                    <div className="logo">
+                        <img src="/logo.svg" alt="Ikea Hacks" />
+                    </div>
+                    <nav className="menu">
+                        <ul>
+                            <li className="homepage" onClick={handleHome}>Homepage</li>
+                            <li className="user-account">
+                                <UserImage userId={userId}/>
+                            </li>
+                            <li><span className="material-symbols-outlined">web_stories</span>
+                            Feed</li>
+                            {console.log(current) }
+                            <li className={`user-settings ${controlCurrentItem()}`} onClick={handleUserProfile}><span className="material-symbols-outlined filled">settings</span>
+                                User settings</li>
+                            <li className="logout" onClick={handleLogout}><span className="material-symbols-outlined"> logout </span>Logout</li>
+                        </ul>
+                    </nav>
                 </div>
-                <nav className="menu">
-                    <ul>
-                        <li className="login has-submenu">Login
-                            <ul className="submenu">
-                                <li className="submenu-element register">Register</li>
-                                <li className="submenu-element login">Login</li>
-                            </ul>
-                        </li>
-                        <li className="homepage" onClick={handleHome}>Homepage</li>
-                        <li className="user-account">
-                            <div className="avatar">
-                                <div className="letter"></div>
-                                <img className="image-profile hidden" src="" alt="" />
-                            </div>
-                            <div className="user-name">User name</div>
-                        </li>
-                        <li><span className="material-symbols-outlined">web_stories</span>
-                        Feed</li>
-                        <li className="user-settings" onClick={handleUserProfile}><span className="material-symbols-outlined filled">settings</span>
-                            User settings</li>
-                        <li className="logout" onClick={handleLogout}><span className="material-symbols-outlined"> logout </span>Logout</li>
-                    </ul>
-                </nav>
-            </div>
-        </header>
-    </>
+            </header>
+        </>
+    } else {
+        return <>
+            <header onLoad={renderUser}>
+                <div className="header-wrapper">
+                    <div className="logo">
+                        <img src="/logo.svg" alt="Ikea Hacks" />
+                    </div>
+                    <nav className="menu">
+                        <ul>
+                            <li className="submenu-element register">Register</li>
+                            <li className="submenu-element login">Login</li>
+                        </ul>
+                    </nav>
+                </div>
+            </header>
+        </>
+    }
+
 }

@@ -1,10 +1,10 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Post from "./Post"
 import retrievePosts from "../logic/posts/retrievePosts"
 import { context } from "../ui"
 import './Posts.css'
 
-export default function Posts({onToggleLike, onToggleSave, onEditPost, onAddPostClick}) {
+export default function Posts({onToggleLike, onToggleSave, onEditPost, onAddPostClick, lastPostsUpdate, onToggleLikePostClick, onToggleSavePostClick}) {
     const userId = context.userId
 
     let _posts
@@ -16,10 +16,24 @@ export default function Posts({onToggleLike, onToggleSave, onEditPost, onAddPost
 
     const [posts, setPosts] = useState( _posts )
 
-    function refreshPosts() {
+    function handleRefreshPosts() {
         try {
             const _posts = retrievePosts(userId)
             setPosts( _posts )
+        } catch (error) {
+            console.log(error)
+        }
+    } 
+    function handleToggleLikePost() {
+        try {
+            onToggleLikePostClick()
+        } catch (error) {
+            console.log(error)
+        }
+    } 
+    function handleToggleSavePost() {
+        try {
+            onToggleSavePostClick()
         } catch (error) {
             console.log(error)
         }
@@ -33,6 +47,14 @@ export default function Posts({onToggleLike, onToggleSave, onEditPost, onAddPost
         onAddPostClick()
     }
 
+    useEffect(() => {
+        console.log('Refresh Posts -> render in useEffect')
+        if(lastPostsUpdate) {
+            alert('joder')
+            handleRefreshPosts()
+        }
+    }, [lastPostsUpdate])
+
     try {
         return  <>
             <div className="top">
@@ -42,7 +64,7 @@ export default function Posts({onToggleLike, onToggleSave, onEditPost, onAddPost
             </div>
             <div className="posts">
                 {posts.map(post => {
-                return <Post key={post.id} post={post} onToggleLikePost={refreshPosts} onToggleSavePost={refreshPosts} onEditPostButton={(id) => handleEditPost(id)} />
+                return <Post key={post.id} post={post} onToggleLikePost={handleToggleLikePost} onToggleSavePost={handleToggleSavePost} onEditPostButton={(id) => handleEditPost(id)} />
             })}
             </div>
         </>

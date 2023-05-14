@@ -1,6 +1,5 @@
 import { findUserById } from '../helpers/dataManagers.js'
 import { saveUser, savePost } from '../../data.js'
-// import { renderPosts } from './render-posts.js'
 import { validateId, validatePost, validateLikePostIconTarget, validateTotalPostLikesTarget } from '../helpers/validators.js'
 export function savePostToFavorites(article, favoritePost, userId) {
     validateId(userId)
@@ -8,17 +7,14 @@ export function savePostToFavorites(article, favoritePost, userId) {
     const indexFavPost = currentUser.likedPosts.findIndex(post => post === article.id)
     const findFavPost = currentUser.likedPosts.find(post => post === article.id)
 
-    if(favoritePost.classList.contains('filled')) {
-        favoritePost.classList.remove('filled')
+    if(findFavPost) {
         currentUser.likedPosts.splice(indexFavPost, 1)
     } else {
         if(!findFavPost) {
-            favoritePost.classList.add('filled')
             currentUser.likedPosts.push(article.id)
         }
     }
     saveUser(currentUser)
-    renderPosts(userId)
 }
 
 export function userLikedPost(userId, article, likePostIcon, totalPostLikes) {
@@ -28,8 +24,8 @@ export function userLikedPost(userId, article, likePostIcon, totalPostLikes) {
     validateTotalPostLikesTarget(article.id)
 
     const indexLikedPost = article.likes.findIndex(user => user === userId)
-    if(likePostIcon.classList.contains('filled')) {
-        likePostIcon.classList.remove('filled')
+    const userLikedPost = article.likes.find(user => user === userId)
+    if(userLikedPost) {
         article.likes.splice(indexLikedPost, 1)
         if (article.likes.length === 0) {
             totalPostLikes.innerText = ''
@@ -41,7 +37,6 @@ export function userLikedPost(userId, article, likePostIcon, totalPostLikes) {
             totalPostLikes.innerText = article.likes.length + ' likes'
         }
     } else {
-        likePostIcon.classList.add('filled')
         if (article.likes.length > 0) {
             article.likes.push(userId)
             totalPostLikes.innerText = article.likes.length + ' likes'
@@ -52,5 +47,4 @@ export function userLikedPost(userId, article, likePostIcon, totalPostLikes) {
         }
     }
     savePost(article)
-    // renderPosts(userId)
 }

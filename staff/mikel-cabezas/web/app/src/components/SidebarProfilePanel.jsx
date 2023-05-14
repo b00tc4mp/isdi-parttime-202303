@@ -1,8 +1,15 @@
 import { userToggleTheme } from "./helpers/getTheme"
+import { useState } from "react"
 
 export default function Sidebar( {goBackClick} ) {
-    // TODO PREGUNTAR PORQUE NO VA EN EL TRY
 
+    const [ goBack, setGoBack ] = useState(false)
+    alert('goBack')
+    const handleBackClick = () => {
+        setGoBack(Date.now())
+        goBackClick()
+    }
+    
     function handleToggleTheme(event) {
         event.preventDefault
         const userAccount = document.querySelector('.menu-sidebar')
@@ -10,8 +17,8 @@ export default function Sidebar( {goBackClick} ) {
     }
 
     return <> 
-        <div className="sidebar start-animation">
-            <div className="go-back" onClick={goBackClick}>
+        <div className="sidebar _start-animation">
+            <div className="go-back" onClick={handleBackClick}>
                 <div className="material-symbols-outlined">
                     arrow_back
                 </div> 
@@ -25,6 +32,7 @@ export default function Sidebar( {goBackClick} ) {
                 <li><a href="#update-password" className="update-info__password">Update password</a></li>
                 <li><a href="#delete-account" className="delete-account">Delete account</a></li>
                 <li>
+                    {/* user toggle theme pending to solve the conversion form js to react */}
                     <a href="#theme" className="user-theme" onClick={handleToggleTheme}>
                         Dark theme
                         <div className="theme material-symbols-outlined">{document.documentElement.getAttribute('data-theme') === 'light' ? 'toggle_off' : 'toggle_on'}</div>

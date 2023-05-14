@@ -14,8 +14,6 @@ export default function Post( { post, post: {image, title, text, comments, likes
     const currentUser = findUserById(userId)
     const postDate = date
     const now = new Date()
-    const userContainer = document.querySelector('article .user-info')
-    const savePost = document.querySelector('article .save')
     const isLikedPost = post.likes.find(user => user === userId)
 
     const difference = now - postDate
