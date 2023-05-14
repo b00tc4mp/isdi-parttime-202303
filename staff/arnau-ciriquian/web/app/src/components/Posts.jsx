@@ -2,6 +2,7 @@ import { context } from "../ui"
 import retrievePosts from "../logic/retrivePosts"
 import Post from "./Post"
 import { useState, useEffect } from "react"
+import './Posts.css'
 
 export default function Posts({ onEditClicked, lastPostsUpdate }) {
     let _posts    

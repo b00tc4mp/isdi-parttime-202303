@@ -1,6 +1,7 @@
 import { users } from "../data"
 import { context } from "../ui"
 import toggleLikePost from "../logic/toggleLikePost"
+import "./Post.css"
 
 export default function Post({ post: {image, text, date, likes, author, id}, onLikePostClick, onEditClick }) {
     const _users = users()

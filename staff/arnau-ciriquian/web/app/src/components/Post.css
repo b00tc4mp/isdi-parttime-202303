@@ -1,0 +1,43 @@
+.inputs__box--feed {
+  height: 1000px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: var(--postcolor);
+  border-radius: 5%;
+  margin: 0.2rem;
+}
+
+.home__post--image {
+  margin: 2rem;
+  max-width: 90%;
+  max-height: 40rem;
+}
+
+.home__post--info {
+  display: flex;
+  justify-content: space-around;
+  width: 90%;
+  align-items: center;
+  gap: 1rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+.post__info--user {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  width: 100%;
+}
+
+.like-button {
+  width: 1rem;
+}
+
+.post__avatar {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 40%;
+}
