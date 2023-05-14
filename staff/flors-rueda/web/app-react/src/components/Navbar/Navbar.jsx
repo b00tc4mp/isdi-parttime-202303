@@ -1,32 +1,32 @@
-import { svg } from '../../assets/svg-paths'
-import { useRef } from 'react'
+import { svg } from '../../../assets/svg-paths';
+import { useRef } from 'react';
+import './Navbar.css'
 
 export default function Navbar({ onLogoutClick, onProfileClick, onHomeClick}) {
-    const headerRef = useRef(null)
-    const btnRef = useRef(null)
+    const headerRef = useRef(null);
+    const btnRef = useRef(null);
 
-    function toggleNavbar(event) {
+    const toggleNavbar = (event) => {
         event.preventDefault();
         headerRef.current.classList.toggle('show');
         btnRef.current.classList.toggle('close');
     };
 
-    function handleLogoutClick(event) {
+    const handleLogoutClick = (event) => {
         event.preventDefault();
         onLogoutClick();
     };
 
-    function handleProfileClick(event) {
+    const handleProfileClick = (event) => {
         if (onProfileClick) {
           onProfileClick(event);
         }
       };
 
-    function handleHomeClick(event) {
+    const handleHomeClick = (event) => {
         event.preventDefault();
         onHomeClick();
     };
-
 
     return <header className="nav-header">
             <button className="nav-header__menu" ref={btnRef} onClick={toggleNavbar}>

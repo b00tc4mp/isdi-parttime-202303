@@ -1,42 +1,64 @@
-import { Component } from 'react';
-import Navbar from '../components/Navbar';
-import { context } from '../ui/general-tools';
-import Posts from '../components/Posts';
-import { toggleLike } from '../logic/toggle-like';
-import Profile from '../components/Profile';
+import Posts from '../components/Posts'
+import { useState } from 'react'
+import NewPost from '../components/PostModals/NewPost'
+import EditPost from '../components/PostModals/EditPost'
+import { context }from '../context'
+import { svg } from '../../assets/svg-paths'
+import Navbar from '../components/Navbar/Navbar'
+import './Home.css'
 
-export default class Home extends Component {
-    constructor(props) {
-        super(props);
-        this.state = { view: 'posts' };
+export default function Home({ onLoggedOut }) {
+    const [view, setView] = useState('posts');
+    const [modal, setModal] = useState(null);
+    const [postId, setPostId] = useState(null);
+    const [lastPostsUpdate, setLastPostsUpdate] = useState(null);
+
+    const handleOpenNewPostModal = () => setModal('new-post');
+    const handleOpenEditPostModal = (postId) => {
+        setPostId(postId)
+        setModal('edit-post')
+    }
+    const handleCloseModal = () => setModal(null)
+
+
+    
+    const handleGoToProfile = event => {
+        event.preventDefault()
+        setView('profile')
     }
 
-    handleGoToProfile = (event) => {
-        event.preventDefault();
-        this.setState({ view: 'profile' });
-      }
-
-
-
-    handleGoToPosts = () => this.setState({ view: 'posts' });
-
-    handleLike = (postData) => {
+    /*const handleUserAvatarUpdated = () => {
         try {
-            const result = toggleLike(postData, context.userAuth)
-            return result
+            const user = retrieveUser(context.userId)
+            setUser(user)
         } catch (error) {
             alert(error.message)
-        }   
+        }
+    }*/
+
+    const handleGoToPosts = () => setView('posts')
+
+
+    const handleLogout = () => {
+        delete context.userAuth
+        onLoggedOut()
     }
 
-    render() {
-        return <div className="home">
-            <Navbar onLogoutClick={this.props.onLogout} onProfileClick={this.handleGoToProfile} onHomeClick={this.handleGoToPosts} />
-            <section className="home-page__main">
-                {this.state.view === 'posts' && <Posts handleLike={this.handleLike} />}
-                {this.state.view === 'profile' && <Profile />}
-            </section>
+    console.log('Home -> render')
+
+    return <div className="home">
+      <Navbar onLogoutClick={handleLogout} onProfileClick={handleGoToProfile} onHomeClick={handleGoToPosts} />
+      <main className="home-page__main">
+          {view === 'posts' && <Posts onEditPost={handleOpenEditPostModal}/>}
+          {modal === 'new-post' && <NewPost onCancel={handleCloseModal} onPostCreated={handleCloseModal}/>}
+          {modal === 'edit-post' && <EditPost onCancel={handleCloseModal} postId={postId} />}
+        </main>
+        <div className="home-page__new-post">
+            <button className="home-page__new-post--button">
+                <svg className="home-page__new-post--svg" onClick={handleOpenNewPostModal} xmlns="http://www.w3.org/2000/svg" viewBox="0 96 960 960"><path d={svg.plus}/></svg>
+            </button>
         </div>
+    </div>
     }
-}
+
 

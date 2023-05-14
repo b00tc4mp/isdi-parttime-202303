@@ -1,27 +1,27 @@
-import { authenticateUser } from '../logic/authenticate-user.js';
-import { context } from '../ui/general-tools.js';
+import { authenticateUser } from '../logic/authenticate-user';
+import { context }from '../context';
+import './LoginRegister.css'
 
 export default function Login({ onRegisterClick, onUserLoggedIn }) {
-    function handleRegisterClick(event) {
+    const handleRegisterClick = (event) => {
         event.preventDefault();
         onRegisterClick();
     }
 
-    function handleLogin(event) {
+    const handleLogin = event => {
         event.preventDefault();
-      
         const username = event.target.username.value;
         const password = event.target.password.value;
-        //let alert = { color: 'danger', title: 'oh, no!' };
-      
         try {
-          const userAuth = authenticateUser(username, password);
-          context.userAuth = userAuth;
-          onUserLoggedIn();
+            const userAuth = authenticateUser(username, password);
+            context.userAuth = userAuth;
+            onUserLoggedIn();
         } catch (error) {
-          alert(`${error.cuase}: ${error.message}`)
+            console.log(`login error: ${error.message}`);
         }
-      }
+    }
+
+    console.log('Login -> render');
 
     return <section className="login-page" onSubmit={handleLogin}>
         {/*alert should go in here*/}

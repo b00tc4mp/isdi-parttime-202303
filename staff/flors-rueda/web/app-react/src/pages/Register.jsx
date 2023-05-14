@@ -1,12 +1,14 @@
+import { context }from "../context";
+import { authenticateUser } from "../logic/authenticate-user";
 import { registerUser } from "../logic/register-user";
 
-export default function Register({ onLoginClick }) {
-    function handleLoginClick(event) {
+export default function Register({ onLoginClick, onUserRegistered }) {
+    const handleLoginClick = (event) => {
         event.preventDefault();
         onLoginClick();
     }
 
-    function handleRegister(event) {
+    const handleRegister = (event) => {
         event.preventDefault();
 
         const mail = event.target.mail.value;
@@ -15,10 +17,10 @@ export default function Register({ onLoginClick }) {
         const repeatPassword = event.target.password.value;
 
         try {
-            registerUser(mail, username, password, repeatPassword)
-            onLoginClick();
+            registerUser(mail, username, password, repeatPassword);
+            onUserRegistered();
         } catch (error) {
-            alert(`${error.cuase}: ${error.message}`)
+            console.log(`register error: ${error.message}`);
         }
     }
   

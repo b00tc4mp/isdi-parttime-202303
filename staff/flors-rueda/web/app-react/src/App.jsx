@@ -1,31 +1,28 @@
-import { Component } from 'react'
-import Login from './pages/Login.jsx'
-import Register from './pages/Register.jsx'
-import Home from './pages/Home.jsx'
-import { context } from './ui/general-tools.js'
+import { useState } from 'react';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import Home from './pages/Home';
+import { context }from './context';
 
-export default class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { view: context.userAuth ? 'home' : 'login' };
-  }
+export default function App() {
+  const [view, setView] = useState(context.userAuth ? 'home' : 'login');
 
-  handleGoToRegister = () => this.setState({ view: 'register' });
-  handleGoToLogin = () => this.setState({ view: 'login' });
-  handleGoToHome = () => this.setState({ view: 'home' });
-  handleLogout = () => {
-    delete context.userAuth;
-    this.setState({ view: 'login'});
-}
+  const handleGoToRegister = () => setView('register');
+  const handleGoToLogin = () => setView('login');
+  const handleGoToHome = () => setView('home');
 
-  render() {
-    switch (this.state.view) {
-        case 'login':
-            return <Login onRegisterClick={this.handleGoToRegister} onUserLoggedIn={this.handleGoToHome} />
-        case 'register':
-            return <Register onLoginClick = {this.handleGoToLogin} />
-        case 'home':
-            return <Home onLogout={this.handleLogout}/>
-        }
-    }
+  /*const handleSwitchMode = () => document.querySelector(':root').classList.toggle('dark')
+              <button onClick={handleSwitchMode}>Switch Mode</button>
+  */
+
+  console.log('App -> render');
+
+  switch (view) {
+    case 'login':
+      return <Login onRegisterClick={handleGoToRegister} onUserLoggedIn={handleGoToHome} />
+    case 'register':
+      return <Register onLoginClick={handleGoToLogin} onUserRegistered={handleGoToLogin} />
+    case 'home':
+      return <Home onLoggedOut={handleGoToLogin} />
+  };
 }

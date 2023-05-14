@@ -93,3 +93,12 @@
     width: 1.5rem;
     fill: var(--color-primary-200);
 }
+
+@media (min-width: 768px) {
+    .nav-header__navbar button:hover svg {
+        fill: var(--color-secondary-200)
+    }
+    .nav-header__menu:hover .nav-header__menu-line {
+        background-color: var(--color-secondary-200)
+    }
+}
