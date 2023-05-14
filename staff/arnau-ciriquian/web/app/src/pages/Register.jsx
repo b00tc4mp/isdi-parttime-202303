@@ -1,13 +1,13 @@
 import { registerUser } from "../logic/registerUser"
 
 export default function Register({ onLoginClick, onUserRegistered }) {
-    function handleLoginClick(event) {
+    const handleLoginClick = event => {
         event.preventDefault()
 
         onLoginClick()
     }
 
-    function handleResgiter(event) {
+    const handleResgiter = event => {
         event.preventDefault()
 
         const name = event.target.name.value
@@ -23,6 +23,8 @@ export default function Register({ onLoginClick, onUserRegistered }) {
             alert(error.message)
         }
     }
+
+    console.log('Register -> Render')
 
     return <div className="register">
         <header className="main-tittle">

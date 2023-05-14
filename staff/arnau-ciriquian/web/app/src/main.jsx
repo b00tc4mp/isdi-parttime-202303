@@ -15,6 +15,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
                 - comentaris en els posts
                 - favoritos
                 - delete post 20230509 2030
+                - editar ReadMe a modo stories de que vol el client 20230510 2118
                 -
                 - canviar alerts per missatges en pantalla?o un toast?
                 - tancar ulls de les contrasenyes amb el canvi de pagina. register i login fet, falta canvi nom, password i mail

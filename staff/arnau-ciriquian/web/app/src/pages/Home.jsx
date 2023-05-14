@@ -1,4 +1,4 @@
-import { Component } from "react"
+import { useState } from "react"
 import { getLoggedUser } from "../logic/getLoggedUser"
 import { context } from "../ui"
 import Posts from "../components/Posts"
@@ -7,96 +7,89 @@ import Profile from "../components/Profile"
 import UpdateAvatar from "../components/UpdateAvatar"
 import EditPost from "../components/EditPost"
 
-export default class Home extends Component {
-    constructor(props) {
-        super(props)
+export default function Home({ onLoggedOut }) {
+    const [view, setView] = useState('posts')
+    const [modal, setModal] = useState(null)
+    const [postId, setPostId] = useState(null)
+    const [lastPostsUpdate, setLastPostsUpdate] = useState(null)
+    let _user
 
-        try {
-            const user = getLoggedUser(context.userId)
-
-            this.state = {
-                view: 'posts',
-                modal: null,
-                postId: null,
-                lastPostUpdate: Date.now(),
-                user
-            }
-        }catch (error) {
-            alert(error.message)
-        }
-            
+    try {
+        _user = getLoggedUser(context.userId)
+    }catch (error) {
+        alert(error.message)
     }
+    
+    const [user, setUser] = useState(_user)
 
-    handleLogOut = () => {
+    const handleLogOut = () => {
         delete context.userId
-        this.props.onLoggedOut()
+        onLoggedOut()
     }
 
-    handleAddPostModal = () => this.setState({ modal: 'addPost' })
-
-    handleCloseModal = () => this.setState({ modal: null, lastPostsUpdate: Date.now() })
-
-    handlePostCreated = () => this.setState({ modal: null, lastPostsUpdate: Date.now() })
-
-    handleGoToAvatarModal = () => this.setState({ modal: 'updateAvatar' })
-
-    handleGoBackToProfile = () => {
+    const handleAddPostModal = () => setModal('addPost')
+    const handleCloseModal = () => {
+        setModal(null)
+        setLastPostsUpdate(Date.now())
+    }
+    const handlePostCreated = () => {
+        setModal(null)
+        setLastPostsUpdate(Date.now())
+    }
+    const handleGoToAvatarModal = () => setModal('updateAvatar')
+    const handleGoBackToProfile = () => {
+        setModal('profile')
         try {
-            const user = getLoggedUser(context.userId)
-            
-            this.setState({ modal: 'profile', user })
+            const _user = getLoggedUser(context.userId)
+            setUser(_user)
         }catch(error) {
             alert(error.message)
         }
-        
     }
-
-    handleGoToProfile = (event) => {
+    const handleGoToProfile = event => {
         event.preventDefault()
-
-        this.setState({ modal: 'profile' })
+        setModal('profile')
     }
-
-    handleOpenPostEditor = postId => this.setState({ modal: 'edit-post', postId })
-
+    const handleOpenPostEditor = postId => {
+        setModal('edit-post')
+        setPostId(postId)
+    }
     
-    render() {
-        return <div className="home">
+    return <div className="home">
             <header className="home__navigation">
                 <nav className="home__navigation--profile">
-                    <img className="avatar" src={this.state.user.avatar} />
-                    <p className="text"><a className="home__anchor--profile" href="" onClick={this.handleGoToProfile}>{this.state.user.name}</a></p>
+                    <img className="avatar" src={user.avatar} />
+                    <p className="text"><a className="home__anchor--profile" href="" onClick={handleGoToProfile}>{user.name}</a></p>
                 </nav>
                 <div>
-                    <button className="navigation__anchor--logout" href="" onClick={this.handleLogOut}><img className="anchor__logout--icon" src="images/rocket-launch.svg" /></button>
+                    <button className="navigation__anchor--logout" href="" onClick={handleLogOut}><img className="anchor__logout--icon" src="images/rocket-launch.svg" /></button>
                 </div>
             </header>
             <main>
-                { this.state.view === 'posts' && <Posts
-                    onEditClicked={this.handleOpenPostEditor}
-                    lastPostsUpdate={this.state.lastPostsUpdate}
+                { view === 'posts' && <Posts
+                    onEditClicked={handleOpenPostEditor}
+                    lastPostsUpdate={lastPostsUpdate}
                 /> }
-                { this.state.modal === 'addPost' && <AddPost
-                    onAddPostClick={this.handlePostCreated}
-                    onCancelPostClick={this.handleCloseModal}
+                { modal === 'addPost' && <AddPost
+                    onAddPostClick={handlePostCreated}
+                    onCancelPostClick={handleCloseModal}
                 /> }
-                {this.state.modal === 'edit-post' && <EditPost
-                    onPostUpdated={this.handleCloseModal}
-                    onCancel={this.handleCloseModal}
-                    postId={this.state.postId}
+                {modal === 'edit-post' && <EditPost
+                    onPostUpdated={handleCloseModal}
+                    onCancel={handleCloseModal}
+                    postId={postId}
                 />}
-                { this.state.modal === 'profile' && <Profile
-                    onExitProfileClick={this.handleCloseModal}
-                    onGoToUpdateAvatarClick={this.handleGoToAvatarModal}
+                { modal === 'profile' && <Profile
+                    onExitProfileClick={handleCloseModal}
+                    onGoToUpdateAvatarClick={handleGoToAvatarModal}
                 />}
-                { this.state.modal === 'updateAvatar' && <UpdateAvatar
-                    onCancelProfileUpdate={this.handleGoBackToProfile}
-                    onUpdateUserAvatarClick={this.handleGoBackToProfile}
+                { modal === 'updateAvatar' && <UpdateAvatar
+                    onCancelProfileUpdate={handleGoBackToProfile}
+                    onUpdateUserAvatarClick={handleGoBackToProfile}
                 />}
             </main>
             <footer>
-                <p className="add-post-anchor"><button className="home__anchor--new-post" href="" onClick={this.handleAddPostModal}>Add new post</button></p>
+                <p className="add-post-anchor"><button className="home__anchor--new-post" href="" onClick={handleAddPostModal}>Add new post</button></p>
             </footer>
         </div> 
-    }
 }
