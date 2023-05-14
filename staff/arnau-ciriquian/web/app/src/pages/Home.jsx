@@ -5,7 +5,10 @@ import Posts from "../components/Posts"
 import AddPost from "../components/AddPost"
 import Profile from "../components/Profile"
 import UpdateAvatar from "../components/UpdateAvatar"
+import UpdateEmail from "../components/UpdateEmail"
 import EditPost from "../components/EditPost"
+import UpdateUsername from "../components/UpdateUsername"
+import UpdatePassword from "../components/UpdatePassword"
 
 export default function Home({ onLoggedOut }) {
     const [view, setView] = useState('posts')
@@ -37,6 +40,9 @@ export default function Home({ onLoggedOut }) {
         setLastPostsUpdate(Date.now())
     }
     const handleGoToAvatarModal = () => setModal('updateAvatar')
+    const handleGoToEmailModal = () => setModal('updateEmail')
+    const handleGoToUsernameModal = () => setModal('updateUsername')
+    const handleGoToPasswordModal = () => setModal('updatePassword')
     const handleGoBackToProfile = () => {
         setModal('profile')
         try {
@@ -84,10 +90,25 @@ export default function Home({ onLoggedOut }) {
                 { modal === 'profile' && <Profile
                     onExitProfileClick={handleCloseModal}
                     onGoToUpdateAvatarClick={handleGoToAvatarModal}
+                    onGoToUpdateEmailClick={handleGoToEmailModal}
+                    onGoToUpdateUsernameClick={handleGoToUsernameModal}
+                    onGoToUpdatePasswordClick={handleGoToPasswordModal}
                 />}
                 { modal === 'updateAvatar' && <UpdateAvatar
                     onCancelProfileUpdate={handleGoBackToProfile}
                     onUpdateUserAvatarClick={handleGoBackToProfile}
+                />}
+                { modal === 'updateEmail' && <UpdateEmail
+                    onCancelProfileUpdate={handleGoBackToProfile}
+                    onUpdateUserEmailClick={handleGoBackToProfile}
+                />}
+                { modal === 'updateUsername' && <UpdateUsername
+                    onCancelProfileUpdate={handleGoBackToProfile}
+                    onUpdateUsernameClick={handleGoBackToProfile}
+                />}
+                { modal === 'updatePassword' && <UpdatePassword
+                    onCancelProfileUpdate={handleGoBackToProfile}
+                    onUpdatePasswordClick={handleGoBackToProfile}
                 />}
             </main>
             <footer>
