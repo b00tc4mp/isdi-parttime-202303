@@ -27,8 +27,18 @@ export default class Posts extends Component {
         } catch (error){
             alert(error.message)
         }
-
     }
+    componentWillMount(){
+        console.log('Posts-> componentWillMount')
+    }
+    componentWillReceiveProps(newProps) { 
+        console.log('Posts -> componenWillReceiveProps')
+
+        if (this.props.lastPostsUpdate !== newProps.lastPostsUpdate){
+            this.handleRefreshPost()
+        }
+    }
+
     render () {
         console.log('posts -> render')
     //     return <section>
@@ -43,7 +53,12 @@ export default class Posts extends Component {
 
 
         return <section>
-            {this.state.posts.map(post => <Post post={post} onEditPost={this.props.onEditPost} onToggledLikePost={this.handleRefreshPost} onPostDeleted={this.handleRefreshPost}/>)} 
+            {this.state.posts.map((post) => <Post 
+                key={post.id}
+                post={post} 
+                onEditPost={this.props.onEditPost} 
+                onToggledLikePost={this.handleRefreshPost} 
+                onPostDeleted={this.handleRefreshPost}/>)} 
         
         </section>
     }

@@ -9,7 +9,6 @@ export default class App extends Component {
       super(props)
 
       this.state = { view: context.userId ? 'home' : 'login' }
-      
   }
 
   handleGoToRegister = () => this.setState({ view: 'register' })
@@ -18,8 +17,6 @@ export default class App extends Component {
 
   handleGoToHome = () => this.setState({ view: 'home' })
  
- 
-
 
   render() {
     console.log('App ->render')
@@ -32,7 +29,7 @@ export default class App extends Component {
         return <Register onLoginClick={this.handleGoToLogin} onUserRegistered={this.handleGoToLogin}/>
 
       case 'home':
-          return <Home onLoggedOutClick={this.handleGoToLogin}/>
+          return <Home/>
     }
   } 
 }

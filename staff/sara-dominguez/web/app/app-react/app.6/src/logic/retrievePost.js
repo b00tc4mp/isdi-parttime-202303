@@ -1,8 +1,7 @@
-console.log('load retrievePost')
-
 import { validateId } from "./helpers/validators.js"
-import { users} from "../data.js"
+import { users } from "../data.js"
 import { findPostById } from "./helpers/dataManagers.js"
+
 
 export default function retrievePost(userId, postId) {
     validateId(userId)
@@ -12,9 +11,9 @@ export default function retrievePost(userId, postId) {
 
     if(!foundUser) throw new Error(`User with ${userId} not found`)
 
-    const post = findPostById(postId)
-
-    if(!post) throw new Error(`User with ${postId} not found`)
+    const post= findPostById(postId)
+    if (!post) throw new Error('post not found') 
 
     return post
+
 }
