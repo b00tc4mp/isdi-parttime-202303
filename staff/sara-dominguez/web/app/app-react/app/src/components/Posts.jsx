@@ -1,65 +1,58 @@
-import { Component } from 'react'
+import { useState, useEffect } from 'react'
 import retrievePosts from '../logic/retrievePosts.js'
 import { context } from '../ui.js'
 import Post from './Post.jsx'
 
 //lo hacemos con map y no con forEach porque necesitamos que nos devuelva un array
 
-export default class Posts extends Component {
-    constructor(props) {
-        super(props);
-    
+export default function Posts({onEditPost, lastPostsUpdate}) {
+    let _posts
     try {
-        const posts = retrievePosts(context.userId)
-
-        this.state = { posts }
+        _posts = retrievePosts(context.userId)
 
     } catch (error){
         alert(error.message)
     }
-}
-    handleRefreshPost = () => {
+    const[posts, setPosts] = useState(_posts )
+
+    const handleRefreshPost = () => {
         try {
             const posts = retrievePosts(context.userId)
     
-            this.setState({ posts })
-    
+            setPosts(posts)
         } catch (error){
             alert(error.message)
         }
     }
-    componentWillMount(){
-        console.log('Posts-> componentWillMount')
-    }
-    componentWillReceiveProps(newProps) { 
-        console.log('Posts -> componenWillReceiveProps')
+    // componentWillMount(){
+    //     console.log('Posts-> componentWillMount')
+    // }
+    // componentWillReceiveProps(newProps) { 
+    //     console.log('Posts -> componenWillReceiveProps')
 
-        if (this.props.lastPostsUpdate !== newProps.lastPostsUpdate){
-            this.handleRefreshPost()
-        }
-    }
+    //     if (this.props.lastPostsUpdate !== newProps.lastPostsUpdate){
+    //         this.handleRefreshPost()
+    //     }
+    // }
+// está renderizando dos veces porque esta funcion se ejecuta siempre cuando carga la aplicacion aunque nos haya cambiado nada.
+    useEffect(() => {
+        console.log('Posts-> componenWillReceiveProps with Hooks')
 
-    render () {
+        if (lastPostsUpdate) 
+            handleRefreshPost()
+    },[lastPostsUpdate])
+
+
         console.log('posts -> render')
-    //     return <section>
-    //     {this.state.posts.map((post, index) => <Post
-    //         key={index}
-    //         post={post}
-    //         onPostDeleted={this.handleRefreshPost}
-    //         onToggledLikedPost={this.handleRefreshPost}
-    //         onEditPost={this.props.onEditPost}
-    //     />)}
-    // </section>
-
 
         return <section>
-            {this.state.posts.map((post) => <Post 
+            {posts.map((post) => <Post 
                 key={post.id}
                 post={post} 
-                onEditPost={this.props.onEditPost} 
-                onToggledLikePost={this.handleRefreshPost} 
-                onPostDeleted={this.handleRefreshPost}/>)} 
+                onEditPost={onEditPost} 
+                onToggledLikePost={handleRefreshPost} 
+                onPostDeleted={handleRefreshPost}/>)} 
         
         </section>
-    }
+    
 }

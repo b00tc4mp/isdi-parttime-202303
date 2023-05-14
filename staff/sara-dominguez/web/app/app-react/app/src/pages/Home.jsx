@@ -1,84 +1,105 @@
-import { Component } from 'react'
+import { useState } from 'react'
 import Posts from "../components/Posts.jsx"
 import AddPostModal from '../components/AddPostModal.jsx'
 import Profile from '../components/Profile.jsx'
 import { context } from '../ui.js'
 import EditPostModal from '../components/EditPostModal.jsx'
+import retrieveUser from '../logic/retrieveUser'
 
 
-export default class Home extends Component {
-    constructor(props) {
-        super(props)
+export default function Home({ onLoggedOut }) {
+    const [view, setView] = useState('posts')
+    const [modal, setModal] = useState(null)
+    const [postId, setPostId] = useState(null)
+    const [lastPostsUpdate, setLastPostsUpdate] = useState(null)
 
-        this.state = { view: 'posts', modal: null, postId: null, lastPostsUpdate: Date.now() }
-    }
+        let _user
 
-    handleOpenAddPostModal = () => this.setState({ modal: 'add-post' })
-    
-    handleOpenEditPostModal = (postId) => this.setState({ modal: 'edit-post' , postId})
-
-    handleCloseModal = () => this.setState({ modal: null })
-
-    handleGoToProfile = (event) => {
-        event.preventDefault()
-        
-        this.setState({ view: 'profile'})
-    }
-
-    handleGoToPosts = (event) => {
-        event.preventDefault()
-        
-        this.setState({ view: 'posts'})
-    }
-
-    handlePostCreated = () => this.setState({ modal: null, lastPostsUpdate: Date.now()})
+        try {
+            _user = retrieveUser(context.userId)
+        } catch (error) {
+            alert(error.message)
+        }
+        const [user, setUser] = useState(_user)
     
 
-    handleLogOut = () => {
+    const handleOpenAddPostModal = () => setModal('add-post')
+    
+    const handleOpenEditPostModal = (postId) => {
+        setPostId(postId)
+        setModal('edit-post') 
+    } 
+        
+    const handleCloseModal = () => setModal(null)
+
+    const handleGoToProfile = (event) => {
+        event.preventDefault()
+        
+        setView('profile')
+    }
+
+    const handleGoToPosts = () => setView('posts')
+
+    const handlePostCreated = () => {
+        setModal(null)
+        setLastPostsUpdate(Date.now())
+    }
+
+    const handleLogOut = () => {
         delete (context.userId)
         
-        this.props.onLoggedOut()
+        onLoggedOut()
     }
 
-    render() {
+    const handleUserAvatarUpdated = () => {
+        try {
+            const user = retrieveUser(context.userId)
+
+            setUser(user)
+        } catch (error) {
+            alert(error.message)
+        }
+    }
+
+   
     console.log('Home->render') 
 
     return <div className="home">
         <header className="home-header">
 
-        <h3 className="home-header-title" onClick={this.handleGoToPosts}>HOME</h3>
+        <h3 className="home-header-title" onClick={handleGoToPosts}>HOME</h3>
         <div className="home-menu" >
-                <img className="home-header-avatar" src="" alt="" />
+                <img className="home-header-avatar" src={user.avatar} alt="" />
 
-                <button className="home-menu-myprofile-button"><a href="" className="myProfile" onClick={this.handleGoToProfile}>My Profile</a></button>
+                <button className="home-menu-myprofile-button"><a href="" className="myProfile" onClick={handleGoToProfile}>{user.name}</a></button>
             </div>
     
-        <h3 className="home-header-logout logout" name="logout"><a href="" className="logout" onClick={this.handleLogOut}>Logout</a></h3>
+        <h3 className="home-header-logout logout" name="logout"><a href="" className="logout" onClick={handleLogOut}>Logout</a></h3>
 
         </header>
     
         <main>
-            {this.state.view === 'posts' && < Posts onEditPost={this.handleOpenEditPostModal} lastPostsUpdate={this.state.lastPostsUpdate}/>}
+            {view === 'posts' && < Posts onEditPost={handleOpenEditPostModal} lastPostsUpdate={lastPostsUpdate}/>}
 
-            {this.state.view === 'profile' && < Profile />}
+            {view === 'profile' && < Profile onUserAvatarUpdated={handleUserAvatarUpdated}/>}
 
 
-            {this.state.modal === 'add-post' && <AddPostModal 
-                onCancel={this.handleCloseModal}
-                onPostCreated={this.handlePostCreated}
+            {modal === 'add-post' && <AddPostModal 
+                onCancel={handleCloseModal}
+                onPostCreated={handlePostCreated}
             />}
-               {this.state.modal === 'edit-post' && <EditPostModal 
-                onCancel={this.handleCloseModal}
-                onPostUpdated={this.handlePostCreated}
-                postId={this.state.postId}
+               {modal === 'edit-post' && <EditPostModal 
+                onCancel={handleCloseModal}
+                onPostUpdated={handlePostCreated}
+                postId={postId}
             />}
 
         </main>
 
             <footer className="home-footer">
-                <button className="add-post-button" onClick={this.handleOpenAddPostModal}>+</button>
+                <button className="add-post-button" onClick={handleOpenAddPostModal}>+</button>
 
             </footer>
     </div>
-    }
 }
+
