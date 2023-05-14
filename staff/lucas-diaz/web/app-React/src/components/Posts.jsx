@@ -21,6 +21,10 @@ export default class Posts extends Component {
         this.forceUpdate();
     }
 
+    handleOpenEditModal = (id) => {
+        this.props.onEditPostButtonClick(id)
+    }
+
 
     render() {
         try {
@@ -35,6 +39,7 @@ export default class Posts extends Component {
                     user={user}
                     onDeleteClick={this.handleDeletePost}
                     onLikeClick={this.handleToggleLike}
+                    onEditPostButton={this.handleOpenEditModal}
                 />)}
             </section>
 

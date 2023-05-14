@@ -17,7 +17,7 @@ export default class Home extends Component {
             this.state = {
                 view: "posts",
                 modal: null,
-                // postId: null,
+                postId: null,
                 // lastPostsUpdate: Date.now(),
                 user
             }
@@ -76,7 +76,7 @@ export default class Home extends Component {
     }
     //? ADD POST MODAL 
     handleFooterButtonClick = () => {
-        this.setState({ modal: "add-post" })
+        this.setState({ modal: "addPost" })
         document.querySelector("main").classList.add("fade");
     }
     handleCancelAddPost = () => {
@@ -89,17 +89,15 @@ export default class Home extends Component {
     }
 
     //? UPDATE POST  MODAL
-    handleEditClicked = () => {
-        this.setState({ modal: "update-post" })
+    openEditPostModal = (id) => {
+        this.setState({modal: "updatePost", postId: id})
+
+    }
+    CloseUpdatePostModal = () => {
+        this.setState({modal : null})
+        this.forceUpdate();
     }
 
-    handleUpdatedPost = () => {
-        this.setState({ modal: null })
-    }
-
-    handleCancelUpdatePost = () => {
-        this.setState({ modal: null })
-    }
 
     render() {
         console.log("Home -> render")
@@ -125,7 +123,7 @@ export default class Home extends Component {
             </header>
 
             <main className="container">
-                {this.state.view === "posts" && <Posts/>}
+                {this.state.view === "posts" && <Posts onEditPostButtonClick={this.openEditPostModal}/>}
                 {this.state.view === "avatar" && <UpdateAvatar
                     onUpdatedAvatar={this.handleUpdatedAvatar}
                     onCancelClick={this.handleCancelUpdatedAvatar}
@@ -138,8 +136,12 @@ export default class Home extends Component {
             </main>
 
             <footer className="footer">
-                {this.state.modal === "update-post" && <UpdatePost/>}
-                {this.state.modal === "add-post" && <AddPostModal
+                {this.state.modal === "updatePost" && <UpdatePost
+                    postId = {this.state.postId}
+                    onUpdatedPost={this.CloseUpdatePostModal}
+                    onCancelClick={this.CloseUpdatePostModal}
+                />}
+                {this.state.modal === "addPost" && <AddPostModal
                     onCancelClick={this.handleCancelAddPost}
                     onCreatedPost={this.handleCreatedPost}
                 />}

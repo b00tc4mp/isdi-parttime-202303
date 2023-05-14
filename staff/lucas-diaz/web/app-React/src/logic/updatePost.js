@@ -10,7 +10,7 @@ export default function updatePost(userId, postId, image, text){
     const foundUser = findUserById(userId);
     if (!foundUser) throw new Error (`user with id ${userId} not found`);
 
-    const foundPost = findUserPostByPostId(postId);
+    const foundPost = findPostByPostId(postId);
     if (!foundPost) throw new Error (`post with id ${postId} not found`);
 
     if (foundUser.id !== foundPost.author) throw new Error ("The current user Id doesnt belong to post Id");

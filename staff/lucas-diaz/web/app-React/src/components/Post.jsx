@@ -1,6 +1,5 @@
 import deletePost from "../logic/deletePost.js";
 import likeAPost from "../logic/likeAPost.js";
-import updatePost from "../logic/updatePost.js";
 import { context } from "../ui.js";
 
 
@@ -8,8 +7,8 @@ export default function Post(props) {
     //destructuring de props, para no hacer todo el tiempo props.post.userName
     const { post, user } = props
 
-    function handleEditClick() {
-        console.log("todavia nada")
+    function openEditPostModal(id) {
+        props.onEditPostButton(id);
     }
 
     function handleHeartClick() {
@@ -39,7 +38,7 @@ export default function Post(props) {
         {post.author === context.userId ? <span className="material-symbols-rounded bin" onClick={handleDeleteClick}>
             delete
         </span> : null}
-        {post.author === context.userId ? <button className="home-edit-post-modal-button" onClick={handleEditClick}>Edit</button> : null}
+        {post.author === context.userId ? <button className="home-edit-post-modal-button" onClick={() => openEditPostModal(post.id)}>Edit</button> : null}
         <div className="post-image-container">
             <img className="home-post-content-article-img" src={post.image} />
         </div>
