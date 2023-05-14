@@ -1,5 +1,5 @@
-import { context } from "../ui/general-tools"
-import ProfileCard from "./ProfileCard"
+import { context } from '../context';
+import ProfileCard from './ProfileCard';
 
 
 export default function Profile() {
@@ -7,7 +7,6 @@ export default function Profile() {
 
   try {
     return <ProfileCard userId={context.userAuth} />
-
   } catch (error) {
     alert(`posts error: ${error.message}`)
   }

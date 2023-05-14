@@ -15,17 +15,15 @@ import { savePost } from '../data/data-managers';
 export const updatePost = (newText, newPostImg, id, userId) => {
   validatePostExists(id);
   validateUserID(userId);
-  validatePostText(postText);validatePostImage(newPostImg);
-  const originalPost = posts.filter((post) => { if (post.id === id) return post })[0];
+  validatePostText(newText);validatePostImage(newPostImg);
+  const _posts = posts()
+  const originalPost = _posts.filter((post) => { if (post.id === id) return post })[0];
   validatePostAuthor(originalPost, userId);
-  if(newPostImg) validatePostImage(postImg);
+  if(newPostImg) validatePostImage(newPostImg);
   validatePostText(newText);
   const editedPost = originalPost;
   if(newText) editedPost.text = newText;
   if(newPostImg) editedPost.image = newPostImg;
   (editedPost.edited).push(new Date)
-  posts.filter((post) => {
-    if (post.id === id) post = editedPost;
-  });
   savePost(editedPost);
 };

@@ -15,6 +15,5 @@ export const retrievePost = (userId, postId) => {
     validateUserID(userId);
     const post = findPostById(postId)
     post.date = new Date(post.date)
-    console.log(post)
     return post
 }

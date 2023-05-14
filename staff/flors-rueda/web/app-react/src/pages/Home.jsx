@@ -6,12 +6,12 @@ import { context }from '../context'
 import { svg } from '../../assets/svg-paths'
 import Navbar from '../components/Navbar/Navbar'
 import './Home.css'
+import Profile from '../components/Profile'
 
 export default function Home({ onLoggedOut }) {
     const [view, setView] = useState('posts');
     const [modal, setModal] = useState(null);
     const [postId, setPostId] = useState(null);
-    const [lastPostsUpdate, setLastPostsUpdate] = useState(null);
 
     const handleOpenNewPostModal = () => setModal('new-post');
     const handleOpenEditPostModal = (postId) => {
@@ -27,17 +27,7 @@ export default function Home({ onLoggedOut }) {
         setView('profile')
     }
 
-    /*const handleUserAvatarUpdated = () => {
-        try {
-            const user = retrieveUser(context.userId)
-            setUser(user)
-        } catch (error) {
-            alert(error.message)
-        }
-    }*/
-
     const handleGoToPosts = () => setView('posts')
-
 
     const handleLogout = () => {
         delete context.userAuth
@@ -50,8 +40,9 @@ export default function Home({ onLoggedOut }) {
       <Navbar onLogoutClick={handleLogout} onProfileClick={handleGoToProfile} onHomeClick={handleGoToPosts} />
       <main className="home-page__main">
           {view === 'posts' && <Posts onEditPost={handleOpenEditPostModal}/>}
+          {view === 'profile' && <Profile/>}
           {modal === 'new-post' && <NewPost onCancel={handleCloseModal} onPostCreated={handleCloseModal}/>}
-          {modal === 'edit-post' && <EditPost onCancel={handleCloseModal} postId={postId} />}
+          {modal === 'edit-post' && <EditPost onCancel={handleCloseModal} postId={postId} onPostUpdated={handleCloseModal} />}
         </main>
         <div className="home-page__new-post">
             <button className="home-page__new-post--button">
