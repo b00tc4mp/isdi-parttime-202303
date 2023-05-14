@@ -1,57 +1,43 @@
 import { context } from "../ui"
 import retrievePosts from "../logic/retrivePosts"
 import Post from "./Post"
-import { Component } from "react"
+import { useState, useEffect } from "react"
 
-/*export default function Posts({ onToggleLike, onEditClicked }) {
-    function handleToggleLike() {
-        onToggleLike()
-    }
-
-    
-
+export default function Posts({ onEditClicked, lastPostsUpdate }) {
+    let _posts    
     try {
-        const posts = retrievePosts(context.userId)
-
-        return <section className="home__post--feed">
-            { posts.map(post => <Post post={post} onLikePostClick={handleToggleLike} onEditClick={onEditClicked}/>)}
-        </section>
+        _posts = retrievePosts(context.userId)
     } catch (error) {
         alert(error.message)
     }
-}*/
 
-export default class Posts extends Component {
-    constructor(props) {
-        super(props)
+    const[posts, setPosts] = useState(_posts)
 
+    const handleRefreshPosts = () => {
         try {
-            const posts = retrievePosts(context.userId)
+            const _posts = retrievePosts(context.userId)
 
-            this.state = { posts }
+            setPosts(_posts)
         } catch (error) {
             alert(error.message)
         }
     }
 
-    handleRefreshPosts = () => {
-        try {
-            const posts = retrievePosts(context.userId)
+    useEffect(() => {
+        console.log('Posts -> "ComponentDidMount" with hooks')
 
-            this.setState({ posts })
-        } catch (error) {
-            alert(error.message)
-        }
-    }
+        return () => console.log('Posts -> "ComponentWillUnmount" with hooks')
+    }, [])
 
-    componentWillReceiveProps(newProps) {
-        if (this.props.lastPostsUpdate !== newProps.lastPostsUpdate)
-            this.handleRefreshPosts()
-    }
+    useEffect(() => {
+        console.log('Posts -> "ComponentWillRecieveProps" with hooks')
 
-    render() {
-        return <section className="home__post--feed">
-        { this.state.posts.map(post => <Post post={post} onLikePostClick={this.handleRefreshPosts} onEditClick={this.props.onEditClicked}/>)}
+        if (lastPostsUpdate)
+            handleRefreshPosts()
+
+    }, [lastPostsUpdate])
+    
+    return <section className="home__post--feed">
+        { posts.map(post => <Post key={post.id} post={post} onLikePostClick={handleRefreshPosts} onEditClick={onEditClicked}/>)}
     </section>
-    }
 }

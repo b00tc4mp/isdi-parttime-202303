@@ -2,7 +2,7 @@ import { updateUserAvatar } from "../logic/updateUserAvatar"
 import { context } from "../ui"
 
 export default function UpdateAvatar({ onUpdateUserAvatarClick, onCancelProfileUpdate }) {
-    function handleUpdateUserAvatar(event) {
+    const handleUpdateUserAvatar = event => {
         event.preventDefault()
         const avatar = event.target.newAvatar.value
 
@@ -15,9 +15,7 @@ export default function UpdateAvatar({ onUpdateUserAvatarClick, onCancelProfileU
         }
     }
 
-    function handleCancelProfileUpdate() {
-        onCancelProfileUpdate()
-    }
+    const handleCancelProfileUpdate = () => onCancelProfileUpdate()
 
     return <div className="modal">
         <div className="home__avatar page">

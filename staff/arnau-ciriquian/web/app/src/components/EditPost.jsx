@@ -5,13 +5,13 @@ import { updatePost } from "../logic/updatePost"
 
 export default function EditPost ({ onPostUpdated, onCancel, postId }) {
     
-    function handleCancel(event) {
+    const handleCancel = event => {
         event.preventDefault()
 
         onCancel()
     }
 
-    function handleupdatePost(event) {
+    const handleupdatePost = event => {
         event.preventDefault()
 
         const image = event.target.image.value

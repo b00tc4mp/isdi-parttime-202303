@@ -2,7 +2,7 @@ import { createNewPost } from "../logic/createNewPost"
 import { context } from "../ui"
 
 export default function AddPost({ onAddPostClick, onCancelPostClick }) {
-    function handleAddNewPost(event) {
+    const handleAddNewPost = event => {
         event.preventDefault()
 
         const image = event.target.image.value
@@ -17,7 +17,7 @@ export default function AddPost({ onAddPostClick, onCancelPostClick }) {
         }
     }
 
-    function handleCancelNewPost(event) {
+    const handleCancelNewPost = event => {
         event.preventDefault()
 
         onCancelPostClick()

@@ -1,11 +1,7 @@
 export default function Profile({ onExitProfileClick, onGoToUpdateAvatarClick }) {
-    function handleExitProfile() {
-        onExitProfileClick()
-    }
-
-    function handleGoToUpdateAvatar() {
-        onGoToUpdateAvatarClick()
-    }
+    const handleExitProfile = () => onExitProfileClick()
+    
+    const handleGoToUpdateAvatar = () => onGoToUpdateAvatarClick()
 
     return <div className="modal">
         <div className="home__profile page">

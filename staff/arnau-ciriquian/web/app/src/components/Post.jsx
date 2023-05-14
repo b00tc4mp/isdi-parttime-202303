@@ -13,7 +13,7 @@ export default function Post({ post: {image, text, date, likes, author, id}, onL
         }
     }
 
-    function handleLikePostClick(event) {
+    const handleLikePostClick = event => {
         event.preventDefault()
         
         try {
@@ -24,9 +24,9 @@ export default function Post({ post: {image, text, date, likes, author, id}, onL
         }
     }
 
-    function handleOpenEditModal() {
-        onEditClick(id)
-    }
+    const handleOpenEditModal = () => onEditClick(id)
+
+    //console.log('Post -> Render')
 
     return <article className="inputs__box--feed">
     <img className="home__post--image" src={image} />

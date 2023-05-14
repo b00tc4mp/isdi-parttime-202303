@@ -54,6 +54,8 @@ export default function Home({ onLoggedOut }) {
         setModal('edit-post')
         setPostId(postId)
     }
+
+    console.log('Home -> Render')
     
     return <div className="home">
             <header className="home__navigation">
