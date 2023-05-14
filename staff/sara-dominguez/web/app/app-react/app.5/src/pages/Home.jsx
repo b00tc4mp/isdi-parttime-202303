@@ -1,10 +1,10 @@
-// vamos a hacer que pueda tener estados
-
 import { Component } from 'react'
 import Posts from "../components/Posts.jsx"
 import AddPostModal from '../components/AddPostModal.jsx'
 import Profile from '../components/Profile.jsx'
-import {EditPostModal} from '../components/EditPostModal.jsx'
+import { context } from '../ui.js'
+import EditPostModal from '../components/EditPostModal.jsx'
+
 
 export default class Home extends Component {
     constructor(props) {
@@ -14,10 +14,9 @@ export default class Home extends Component {
     }
 
     handleOpenAddPostModal = () => this.setState({ modal: 'add-post' })
-
-    handleOpenEditPostModal = (postId) => this.setState({ modal: 'edit-post', postId })
-
     
+    handleOpenEditPostModal = (postId) => this.setState({ modal: 'edit-post' , postId})
+
     handleCloseModal = () => this.setState({ modal: null })
 
     handleGoToProfile = (event) => {
@@ -30,6 +29,13 @@ export default class Home extends Component {
         event.preventDefault()
         
         this.setState({ view: 'posts'})
+    }
+
+
+    handleLogOut = () => {
+        delete (context.userId)
+        
+        this.props.onLoggedOut()
     }
 
     render() {
@@ -45,12 +51,13 @@ export default class Home extends Component {
                 <button className="home-menu-myprofile-button"><a href="" className="myProfile" onClick={this.handleGoToProfile}>My Profile</a></button>
             </div>
     
-        <h3 className="home-header-logout logout" name="logout"><a href="" className="logout">Logout</a></h3>
+        <h3 className="home-header-logout logout" name="logout"><a href="" className="logout" onClick={this.handleLogOut}>Logout</a></h3>
 
         </header>
     
         <main>
             {this.state.view === 'posts' && < Posts onEditPost={this.handleOpenEditPostModal}/>}
+
             {this.state.view === 'profile' && < Profile />}
 
 
@@ -58,7 +65,7 @@ export default class Home extends Component {
                 onCancel={this.handleCloseModal}
                 onPostCreated={this.handleCloseModal}
             />}
-             {this.state.modal === 'edit-post' && <EditPostModal 
+               {this.state.modal === 'edit-post' && <EditPostModal 
                 onCancel={this.handleCloseModal}
                 onPostUpdated={this.handleCloseModal}
                 postId={this.state.postId}
