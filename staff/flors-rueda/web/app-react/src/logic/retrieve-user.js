@@ -1,16 +1,16 @@
+import { findUserById } from '../data/data-managers.js';
 import users from '../data/users.js';
 import { validateUserID } from '../data/validators-users.js';
 
 export const retrieveUser = (id) => {
   validateUserID(id);
-  const _users = users() 
-  const _user = _users.filter((user) => user.id === id);
+  const _user = findUserById(id);
   let user = {
-    username: _user[0].username,
-    name: _user[0].name,
-    avatar: _user[0].avatar,
-    favs: _user[0].favs,
-    joined: _user[0].joined,
+    username: _user.username,
+    name: _user.name,
+    avatar: _user.avatar,
+    favs: _user.favs,
+    joined: _user.joined,
   };
   return user;
 };

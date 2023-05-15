@@ -1,4 +1,4 @@
-import Posts from '../components/Posts'
+import Posts from '../components/Posts/Posts'
 import { useState } from 'react'
 import NewPost from '../components/PostModals/NewPost'
 import EditPost from '../components/PostModals/EditPost'
@@ -20,14 +20,11 @@ export default function Home({ onLoggedOut }) {
     }
     const handleCloseModal = () => setModal(null)
 
+    const handleGoToPosts = () => setView('posts');
 
-    
-    const handleGoToProfile = event => {
-        event.preventDefault()
-        setView('profile')
-    }
+    const handleGoToProfile = () => setView('profile');
 
-    const handleGoToPosts = () => setView('posts')
+    const handleGoToFavs = () => setView('favs');
 
     const handleLogout = () => {
         delete context.userAuth
@@ -37,10 +34,11 @@ export default function Home({ onLoggedOut }) {
     console.log('Home -> render')
 
     return <div className="home">
-      <Navbar onLogoutClick={handleLogout} onProfileClick={handleGoToProfile} onHomeClick={handleGoToPosts} />
+      <Navbar onLogoutClick={handleLogout} onProfileClick={handleGoToProfile} onFavsClick={handleGoToFavs} onHomeClick={handleGoToPosts} />
       <main className="home-page__main">
-          {view === 'posts' && <Posts onEditPost={handleOpenEditPostModal}/>}
+          {view === 'posts' && <Posts onEditPost={handleOpenEditPostModal} type={'home'}/>}
           {view === 'profile' && <Profile/>}
+          {view === 'favs' && <Posts onEditPost={handleOpenEditPostModal} type={'favs'} />}
           {modal === 'new-post' && <NewPost onCancel={handleCloseModal} onPostCreated={handleCloseModal}/>}
           {modal === 'edit-post' && <EditPost onCancel={handleCloseModal} postId={postId} onPostUpdated={handleCloseModal} />}
         </main>

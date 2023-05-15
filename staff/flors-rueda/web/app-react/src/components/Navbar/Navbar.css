@@ -81,7 +81,8 @@
 
 .nav-header__logout,
 .nav-header__to-user-profile,
-.nav-header__to-home {
+.nav-header__to-home,
+.nav-header__to-favs {
     padding: 0.35rem;
     border-radius: 50%;
     width: 2.25rem;

@@ -19,9 +19,14 @@ export const getUserIndex = (id) => {
   return users.indexOf(loginUser[0]);
 }
 
-export function findPostById(postId) {
+export const findPostById = (postId) => {
   const _posts = posts();
   return _posts.find(post => post.id === postId);
+}
+
+export const findUserById = (userId) => {
+  const _users = users();
+  return _users.find(user => user.id === userId);
 }
 
 export const saveUsers = (users) => {

@@ -1,19 +1,30 @@
-import { svg } from '../../assets/svg-paths'
-import { context  } from '../context'
-import { retrievePost } from '../logic/retrieve-post'
-import { retrieveUser } from '../logic/retrieve-user'
-import { toggleLike } from '../logic/toggle-like';
+import { svg } from '../../../assets/svg-paths';
+import { context  } from '../../context';
+import { retrievePost } from '../../logic/retrieve-post';
+import { retrieveUser } from '../../logic/retrieve-user';
+import { toggleFav } from '../../logic/toggle-fav';
+import { toggleLike } from '../../logic/toggle-like';
+import './Posts.css';
 
-export default function Post({ postId, authorId, onEditPost, onToggledLikePost }) {
+export default function Post({ postId, authorId, onEditPost, onToggledLike, onToggledFav }) {
     const post = retrievePost(context.userAuth, postId);
-    const author = retrieveUser(authorId)
-    const handleEditPost = () => onEditPost(postId)
+    const author = retrieveUser(authorId);
+    const handleEditPost = () => onEditPost(postId);
     const handleToggleLikePost = () => {
         try {
-            toggleLike(postId, context.userAuth)
-            onToggledLikePost()
+            toggleLike(postId, context.userAuth);
+            onToggledLike();
         } catch(error) {
-            console.log(`post error: ${error.message}`);
+            console.log(`post like error: ${error.message}`);
+        }
+    }
+
+    const handleToggleFavPost = () => {
+        try {
+            toggleFav(postId, context.userAuth);
+            onToggledFav();
+        } catch(error) {
+            console.log(`post fav error: ${error.message}`);
         }
     }
     
@@ -50,7 +61,7 @@ export default function Post({ postId, authorId, onEditPost, onToggledLikePost }
         <b>{post.likes.length}</b></div>
       <div className="post__footer">
       <div className="post__footer--favorite">
-      <svg className="post__footer--favorite-button" xmlns="http://www.w3.org/2000/svg" viewBox="0 96 960 960"><path d={(retrieveUser(context.userAuth).favs).includes(post.id) ? svg.fillStar : svg.emptyStar}/></svg>
+      <svg className="post__footer--favorite-button" onClick={handleToggleFavPost} xmlns="http://www.w3.org/2000/svg" viewBox="0 96 960 960"><path d={(retrieveUser(context.userAuth).favs).includes(post.id) ? svg.fillStar : svg.emptyStar}/></svg>
       </div>
       {time}
       </div>

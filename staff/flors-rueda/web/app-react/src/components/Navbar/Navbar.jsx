@@ -2,7 +2,7 @@ import { svg } from '../../../assets/svg-paths';
 import { useRef } from 'react';
 import './Navbar.css'
 
-export default function Navbar({ onLogoutClick, onProfileClick, onHomeClick}) {
+export default function Navbar({ onLogoutClick, onProfileClick, onHomeClick, onFavsClick}) {
     const headerRef = useRef(null);
     const btnRef = useRef(null);
 
@@ -18,15 +18,14 @@ export default function Navbar({ onLogoutClick, onProfileClick, onHomeClick}) {
     };
 
     const handleProfileClick = (event) => {
-        if (onProfileClick) {
-          onProfileClick(event);
-        }
-      };
-
-    const handleHomeClick = (event) => {
         event.preventDefault();
-        onHomeClick();
+        onProfileClick();
     };
+
+    const handleFavsClick = () => onFavsClick();
+
+    const handleHomeClick = () => onHomeClick();
+ 
 
     return <header className="nav-header">
             <button className="nav-header__menu" ref={btnRef} onClick={toggleNavbar}>
@@ -43,6 +42,9 @@ export default function Navbar({ onLogoutClick, onProfileClick, onHomeClick}) {
                 </button>
                 <button className="nav-header__to-home" onClick={handleHomeClick}>
                     <svg className="nav-header__to-home--icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 96 960 960"><path d={svg.home}/></svg>
+                </button>
+                <button className="nav-header__to-favs" onClick={handleFavsClick}>
+                    <svg className="nav-header__to-favs--icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 96 960 960"><path d={svg.fillStar} /></svg>
                 </button>
             </nav>
         </header>
