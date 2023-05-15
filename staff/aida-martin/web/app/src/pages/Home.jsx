@@ -1,6 +1,8 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { context, openModal, hideModal } from '../ui'
 import retrieveUser from '../logic/retrieveUser'
+import toggleTheme from '../logic/toggleTheme'
+import retrieveTheme from '../logic/retrieveTheme'
 import { DEFAULT_AVATAR_URL } from '../constants'
 import Posts from '../components/Posts'
 import AddPostModal from '../components/Modals/AddPostModal'
@@ -11,7 +13,6 @@ export default function Home ({ onLogOut }) {
   const [view, setView] = useState('posts')
   const [modal, setModal] = useState(null)
   const [modalPost, setModalPost] = useState(null)
-  const [theme, setTheme] = useState('light')
   const [lastPostsUpdate, setLastPostsUpdate] = useState(null)
 
   let _currentUser
@@ -23,6 +24,27 @@ export default function Home ({ onLogOut }) {
   }
 
   const [currentUser, setCurrentUser] = useState(_currentUser)
+
+  let _theme
+
+  try {
+    _theme = retrieveTheme()
+    console.log(_theme)
+  } catch (error) {
+    console.log(error.message)
+  }
+
+  const [theme, setTheme] = useState(_theme)
+
+  useEffect(() => {
+    const root = document.querySelector(':root')
+    if (theme === 'dark') {
+      root.classList.add('dark')
+      return
+    }
+
+    root.classList.remove('dark')
+  }, [theme])
 
   const handleLogOut = () => {
     context.removeItem('userId')
@@ -76,14 +98,10 @@ export default function Home ({ onLogOut }) {
   }
 
   const handleSwitchMode = () => {
-    const root = document.querySelector(':root')
-
-    root.classList.toggle('dark')
-
-    if (root.classList.contains('dark')) {
-      setTheme('dark')
-    } else {
-      setTheme('light')
+    try {
+      setTheme(toggleTheme())
+    } catch (error) {
+      console.log(error.message)
     }
   }
 
@@ -123,11 +141,11 @@ export default function Home ({ onLogOut }) {
               <button className='button toggle-theme-button' onClick={handleSwitchMode}>
                 {theme === 'dark' &&
                   <span className='material-symbols-outlined theme'>
-                    sunny
+                    dark_mode
                   </span>}
                 {theme === 'light' &&
                   <span className='material-symbols-outlined theme'>
-                    dark_mode
+                    sunny
                   </span>}
               </button>
               <button className='button saved-posts-button' onClick={handleGoToSavedPosts}>

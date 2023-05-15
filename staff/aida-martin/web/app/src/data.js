@@ -10,12 +10,19 @@ export const posts = () => {
   return posts
 }
 
+export const theme = () =>
+  'theme' in localStorage ? localStorage.theme : 'light'
+
 export function saveUsers (users) {
   localStorage.usersJson = JSON.stringify(users)
 }
 
 export function savePosts (posts) {
   localStorage.postsJson = JSON.stringify(posts)
+}
+
+export function saveTheme (theme) {
+  localStorage.theme = theme
 }
 
 export function saveUser (user) {

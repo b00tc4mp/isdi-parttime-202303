@@ -1,4 +1,4 @@
-import { users, posts } from '../../data'
+import { users, posts, theme } from '../../data'
 
 /**
  * Finds user by email
@@ -34,4 +34,8 @@ export function findUserById (userId) {
 
 export function findPostById (postId) {
   return posts().find((post) => post.id === postId)
+}
+
+export function findTheme () {
+  return theme()
 }
