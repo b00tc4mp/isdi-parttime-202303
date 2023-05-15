@@ -20,8 +20,10 @@ html {
   --green-alert:rgb(153, 255, 153);
   --blue: blue;
   --red: red;
+  --yellow: rgb(234, 202, 22);
   --transparent: rgba(0, 0, 0, 0);
   --black-transparent: rgba(0, 0, 0, 0.8);
+  --transition: 0;
 }
 
 :root.dark {
@@ -37,6 +39,7 @@ html {
   --black-100: rgba(255, 255, 255, 1);
 
   --black-transparent: rgba(255, 255, 255, 0.2);
+  --transition: 0;
 }
 
 body {
@@ -51,6 +54,7 @@ body {
   cursor: default;
   font-family: 'Lato', sans-serif;
   font-weight: 300;
+  transition: var(--transition);
 }
 
 .all-titles {
@@ -203,6 +207,7 @@ body {
   height: auto;
   box-sizing: border-box;
   border-radius: 1.5rem;
+  transition: var(--transition);
 }
 
 .modal-window > form > input, .modal-window > form > textarea {

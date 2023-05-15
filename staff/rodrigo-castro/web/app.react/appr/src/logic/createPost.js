@@ -26,7 +26,6 @@ export function createPost(userId, image, text) {
         image,
         text,
         date: new Date,
-        likedBy: []
     }
 
     _posts.push(post)

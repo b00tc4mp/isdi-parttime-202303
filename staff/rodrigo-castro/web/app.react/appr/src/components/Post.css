@@ -38,9 +38,15 @@
   .author-name {
     font-weight: 400;
   }
+
+  .post-options {
+    display: flex;
+    justify-content: space-between;
+  }
   
-  .like-button {
+  .post-button {
     width: fit-content;
+    display: flex;
     padding: 0.25rem 0;
     border: none;
     background-color: var(--transparent);
@@ -55,10 +61,15 @@
   .liked {
     color: var(--red);
   }
+
+  .saved {
+    color: green;
+  }
   
   .edit-button {
     border: none;
     background-color: var(--white-000);
+    display: flex;
     margin-left: auto;
     font-size: 1.2rem;
     color: var(--black-100);

@@ -28,6 +28,17 @@ export default function Home(props) {
         alert(error.message)
     }
 
+    if(!context.mode)
+        context.mode = 'light'
+
+    if(context.mode === 'dark'){
+        if(!document.querySelector('html').classList.contains('dark'))    
+            document.querySelector('html').classList.add('dark')
+    } else {
+        if(document.querySelector('html').classList.contains('dark'))    
+            document.querySelector('html').classList.remove('dark')
+    }
+
     const [user, setUser] = useState(_user)
 
     const handleCloseModal = () => setModal(null)
@@ -78,16 +89,17 @@ export default function Home(props) {
     
     return <div className="home-page">
         <header>
-            <div name="my-app"><a href="#"><i className="uil uil-scenery"></i><span></span></a></div>
+            <div name="my-app"><a href="#"><span className="material-symbols-rounded">emoticon</span><span></span></a></div>
             <nav>
                 <ul className="horizontal-menu">
-                    <li name="home"><a href="#" className="menu-buttons"><i className="uil uil-home"></i><span className="menu-text">Home</span></a></li>
-                    <li name="new-post" onClick={handleOpenAddPost}><a href="#" className="menu-buttons"><i className="uil uil-camera-plus"></i><span className="menu-text">Post</span></a></li>
+                    <li name="home"><a href="#" className="menu-buttons"><span className="material-symbols-rounded">home</span><span className="menu-text">Home</span></a></li>
+                    <li name="new-post" onClick={handleOpenAddPost}><a href="#" className="menu-buttons"><span className="material-symbols-rounded">add_a_photo</span><span className="menu-text">Post</span></a></li>
                     <li name="my-profile" onClick={handleOpenProfile}>
                         <img src={user.avatar || 'https://i.pinimg.com/originals/f1/0f/f7/f10ff70a7155e5ab666bcdd1b45b726d.jpg'} alt="" className="user-avatar"/>
                         <a href="#" className="menu-buttons"><span className="menu-text" name="authenticated-user-name">Profile</span></a>
                     </li>
-                    <li className="logout" name="logout" onClick={handleLogout}><a href="#" className="menu-buttons"><i className="uil uil-signout"></i><span className="menu-text">Logout</span></a></li>
+                    
+                    <li className="logout" name="logout" onClick={handleLogout}><a href="#" className="menu-buttons"><span className="material-symbols-rounded">logout</span><span className="menu-text">Logout</span></a></li>
                 </ul>
             </nav>
         </header>

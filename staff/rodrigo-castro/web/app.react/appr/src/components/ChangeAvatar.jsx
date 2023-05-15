@@ -28,7 +28,7 @@ export default function ChangeAvatar({onCancel, onAvatarChanged}) {
     <div className="updating-menus">
         <div className="red-text"></div>
         <form action="" className="inputs" onSubmit={handleChangeAvatar}>
-            <input type="text" className="input-field" type="text" name="avatarurl" placeholder="Insert avatar url" autoComplete="off"/>
+            <input type="text" className="input-field" name="avatarurl" placeholder="Insert avatar url" autoComplete="off"/>
             <div>
                 <button className="submit-buttons">Save</button>
                 <button className="submit-buttons cancel-avatar-change" type="button" onClick={handleCancel}>Cancel</button>

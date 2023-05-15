@@ -7,7 +7,6 @@ import PropTypes from 'prop-types'
 
 export default function Posts({onEditClicked, lastPostsUpdate}) {
     Posts.propTypes = {
-        lastPostsUpdate: PropTypes.date,
         onEditClicked: PropTypes.func
     }
 
@@ -47,6 +46,6 @@ export default function Posts({onEditClicked, lastPostsUpdate}) {
     console.log('Posts -> render')
 
     return <section className='posts-list'>
-        { posts.map(post => <Post key={post.id} post={post} onToggledLikePost={handleRefreshPosts} onEdit={onEditClicked}/>)}
+        { posts.map(post => <Post key={post.id} post={post} onToggledLikePost={handleRefreshPosts} onToggleSavePost={handleRefreshPosts} onEdit={onEditClicked}/>)}
     </section>
 }
