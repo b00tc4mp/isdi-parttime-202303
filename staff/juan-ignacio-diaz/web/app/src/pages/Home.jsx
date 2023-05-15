@@ -22,6 +22,12 @@ export default function Home({ onLogout, onMenssageAlert }) {
         onMenssageAlert(error.message)
     }
 
+    if (tmpUser.mode)
+        if (tmpUser.mode === 'dark') 
+            document.querySelector(':root').classList.remove('dark')
+        else
+            document.querySelector(':root').classList.add('dark')
+
     const [user, setUser] = useState(tmpUser)
     const [view, setView] = useState('posts')
     const [modal, setModal] = useState(null)
@@ -93,8 +99,9 @@ export default function Home({ onLogout, onMenssageAlert }) {
         />}
 
         {view === 'profile' && <Profile 
-            onEditProfile={handledEditedProfile}
+            onEditedProfile={handledEditedProfile}
             onMenssageAlert={onMenssageAlert} 
+            user={user}
         />}
         
         {modal === 'edit-post' && <EditPostModal 

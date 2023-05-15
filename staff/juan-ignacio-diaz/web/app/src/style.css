@@ -11,7 +11,14 @@ body {
 :root {
   --basecolor:rgb(25, 195, 121);
   --basehighlight: rgb(99, 195, 25);
+  --homebgcolor: rgb(241, 241, 247);
 
+}
+
+:root.dark {
+  --basecolor: rgb(53, 206, 89);
+  --basebgcolor: rgb(92, 142, 53);
+  --homebgcolor: rgb(56, 59, 58);
 }
 
 .page {

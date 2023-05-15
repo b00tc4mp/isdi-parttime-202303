@@ -45,6 +45,33 @@ export function savePost(post) {
 }
 
 
+export const postsAuction = () => {
+    const posts = 'postsAuctionJson' in localStorage? JSON.parse(localStorage.postsAuctionJson) : []
+
+    posts.forEach(postAuction => postAuction.dateEnd = new Date(postAuction.dateEnd))
+
+    return postsAuction
+}
+
+export function savePostsAuction(postsAuction) {
+    localStorage.postsAuctionJson = JSON.stringify(postsAuction)
+}
+
+export function savePostAuction(postAuction) {
+    const tmpPostsAuction = postsAuction()
+
+    const index = tmpPostsAuction.findIndex(tmpPostAuction => tmpPostAuction.id === postAuction.id)
+
+    if (index < 0)
+        tmpPostsAuction.push(postAuction)
+    else
+        tmpPostsAuction.splice(index, 1, postAuction)
+
+    savePostsAuction(tmpPostsAuction)
+}
+
+
+//carga de vacio
 if (users().length === 0) {
     const tmpUsers = []
     tmpUsers.push({

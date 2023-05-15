@@ -5,7 +5,7 @@
   
   .home-header, .home-footer {
     position: fixed;
-    background-color: dodgerblue;
+    background-color: var(--homebgcolor);
     width: 100%;
     display: flex;
     justify-content: space-around;

@@ -35,3 +35,7 @@ export function newPostId() {
 export function findPostById(postId) {
     return posts().find(post => post.id === postId)
 }
+
+export function findPostAuctionById(postId) {
+    return postsAuction().find(postAuction => postAuction.id === postId)
+}

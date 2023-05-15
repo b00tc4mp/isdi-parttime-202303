@@ -1,14 +1,42 @@
 import { context } from '../ui' 
 
+import updateUserMode from "../logic/updateUserMode"
 import updateUserAvatar from "../logic/updateUserAvatar"
 import updateUserPassword from "../logic/updateUserPassword"
 
 import './Profile.css'
 
-export default function Profile({onEditedProfile, onMenssageAlert}){
+export default function Profile({ onEditedProfile, onMenssageAlert, user }){
     console.log('Profile ->render')
 
-    function handleEditAvatar(event) {
+    const handleSwitchMode = () => {
+
+        let mode
+
+        if (user.mode)
+            if (user.mode === 'dark') {
+                mode = ''
+                document.querySelector(':root').classList.remove('dark')
+            }
+            else {
+                mode = 'dark'
+                document.querySelector(':root').classList.add('dark')
+            }
+
+        try{
+            updateUserMode (context.userId, mode)
+
+            onMenssageAlert("mode updated")
+
+            onEditedProfile()
+        }
+        catch(error) {
+            onMenssageAlert(error.message)
+        }
+        document.querySelector(':root').classList.toggle('dark')
+    }
+
+    const handleEditAvatar = (event) => {
         event.preventDefault()
 
         const url = event.target.url.value
@@ -26,7 +54,7 @@ export default function Profile({onEditedProfile, onMenssageAlert}){
         }
     }
 
-    function handleChangePassword(event) {
+    const  handleChangePassword = (event) => {
         event.preventDefault()
 
         event.target.password.classList.remove("imput-highlight")
@@ -66,24 +94,29 @@ export default function Profile({onEditedProfile, onMenssageAlert}){
     }
 
 
-    return <section className="profile container">
-    <article>
-        <h2>Update avatar</h2>
+    return <>
+            <section className="profile container">
+                <article>
+                    <button className="button" onClick={handleSwitchMode}>Switch Mode</button>
+                </article>
+                <article>
+                    <h2>Update avatar</h2>
 
-        <form className="profile-avatar-form" onSubmit={handleEditAvatar}>
-            <input className="input" type="url" name="url"/>
-            <button className="button" type="submit">Update</button>
-        </form>
-    </article>
-    <article>
-        <h2>Update password</h2>
+                    <form className="profile-avatar-form" onSubmit={handleEditAvatar}>
+                        <input className="input" type="url" name="url"/>
+                        <button className="button" type="submit">Update</button>
+                    </form>
+                </article>
+                <article>
+                    <h2>Update password</h2>
 
-        <form className="profile-password-form" onSubmit={handleChangePassword}>
-            <input className="input" type="password" name="password" placeholder="password"/>
-            <input className="input" type="password" name="newPassword" placeholder="new password"/>
-            <input className="input" type="password" name="newPasswordConfirm" placeholder="new password confirmation"/>
-            <button className="button" type="submit">Update</button>
-        </form>
-    </article>
-</section>
+                    <form className="profile-password-form" onSubmit={handleChangePassword}>
+                        <input className="input" type="password" name="password" placeholder="password"/>
+                        <input className="input" type="password" name="newPassword" placeholder="new password"/>
+                        <input className="input" type="password" name="newPasswordConfirm" placeholder="new password confirmation"/>
+                        <button className="button" type="submit">Update</button>
+                    </form>
+                </article>
+            </section>
+        </>
 }

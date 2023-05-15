@@ -18,5 +18,8 @@ export default function retrieveUser(userId) {
     if (foundUser.savePosts)
         user.savePosts = foundUser.savePosts
 
+    if (foundUser.mode)
+        user.mode = foundUser.mode
+
     return user
 }

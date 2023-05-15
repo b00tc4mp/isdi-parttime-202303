@@ -10,6 +10,13 @@ gif.....
 
 ### Use case
 
+- add post
+- modify post
+- remove post
+- toggle like post
+- toggle fav post
+- post auction
+
 ## Technical description
 
 ### Data Model
@@ -20,14 +27,26 @@ User
 - email (string)
 - password (string)
 - avatar (string)
-- favs (array Post Id)
+- favs (string array, refers to Post Id)
 
 Post
 - id (string)
+- author (string, refers to User id)
+- image (string)
+- text (string)
+- likes (string array, refers to User id)
+- date (date, refers to create post)
+- dateLastModified (date, refers to last  modified post)
+
+postsAuction
+- postId (string, post id)
+- dateEnd (date, end auction)
+- price (number, actual price)
+- userId (string, id user auction})
 
 ##  "PLanning"
 
-Stories
+### Stories
 
 ## Add post
 
@@ -40,6 +59,7 @@ as a client i want to write a text and choose an image from disk and a create a 
 - in modal show a form with post and cancel buttons, and an input field for the text
 - on click post creates a new post in database by means of create-post logic
 - on click cancel closes the modal window
+- on click change mode
 
 ### Data
 
@@ -47,7 +67,7 @@ as a client i want to write a text and choose an image from disk and a create a 
 
 ## List posts
 
-- implment me!
+- 
 
 ## Update post
 
@@ -71,3 +91,23 @@ as a client i want to write a text and choose an image from disk and a create a 
 ## Save / unsave in post
 
 - TODO
+
+## Auction post
+
+- seller
+    - seller management modal
+    - check post and user
+    - check post status
+    - initial price
+    - auction end date
+    - save sales
+
+- buyer
+    - purchase bid management modal
+    - bid entry
+    - bid up
+    - update sales
+
+- auction
+    - check sale date
+    - make sale

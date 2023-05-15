@@ -15,8 +15,8 @@ export function validateId(id, explain = 'id') {
     if (!id.trim().length) throw new Error(`${explain} is empty`)
 }
 
-export function validateEmail(email, cause) {
-    if (typeof email !== 'string') throw new Error('email is not an string', {cause: "email"})
+export function validateEmail(email, explain = 'email') {
+    if (typeof email !== 'string') throw new Error(`${explain} is not a string`, {cause: "email"})
     if (!email.trim().length) throw new Error('email is empty', {cause: "email"})
     if (!regexEmail.test(email)) throw new Error('the email is wrong', {cause: "email"})
 }
@@ -39,5 +39,10 @@ export function validateUrl(url, explain = 'url') {
 
 export function validateText(text, explain = 'text') {
     if (typeof text !== 'string') throw new Error(`${explain} is not a string`)
+    if (!text.trim().length) throw new Error(`${explain} is empty`)
+}
+
+export function validateNumber(number, explain = 'number') {
+    if (typeof text !== 'number') throw new Error(`${explain} is not a number`)
     if (!text.trim().length) throw new Error(`${explain} is empty`)
 }
