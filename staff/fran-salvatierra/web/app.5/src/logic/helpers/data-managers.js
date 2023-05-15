@@ -1,4 +1,4 @@
-import { users, posts } from '../../data'
+import { users, posts } from '../../data.js'
 
 export function findUserByEmail(email) {
     // for (let i = 0; i < users.length; i++) {

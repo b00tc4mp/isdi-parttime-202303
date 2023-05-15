@@ -1,0 +1,43 @@
+/* eslint-disable react/prop-types */
+import registerUser from '../logic/registerUser'
+export default function Register({ onLoginClick }) {
+    const handleLoginClick = e => {
+        e.preventDefault()
+
+        onLoginClick()
+    }
+
+    const handleRegister = e => {
+        e.preventDefault()
+
+        const name = e.target.name.value
+        const email = e.target.email.value
+        const password = e.target.password.value
+
+        try {
+            registerUser(name, email, password)
+
+            
+        } catch (error) {
+            alert(error.message)
+        }
+
+    }
+
+
+
+    console.log('Register -> render')
+    
+    return <div className="register page container">
+        <h1 className="title">Register</h1>
+
+        <form className="form" onClick={handleRegister}>
+            <input className="input" type="text" name="name" placeholder="name" />
+            <input className="input" type="email" name="email" placeholder="email" />
+            <input className="input" type="password" name="password" placeholder="password" />
+            <button className="button" onClick={handleLoginClick} type="submit">Register</button>
+        </form>
+
+        <p>Go to <a href="" onClick={handleLoginClick}>Login</a></p>
+    </div>
+}
