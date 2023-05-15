@@ -1,0 +1,77 @@
+/* resets */
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+/* styles */
+
+:root {
+  --basecolor: yellow;
+  --basebgcolor: orange;
+}
+
+.page {
+  background-color: var(--basebgcolor);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.title {
+  color: var(--basecolor);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  min-width: 60vw;
+  gap: 1rem;
+}
+
+@media (min-width: 576px) {
+    .form {
+      flex-direction: row;
+      justify-content: center;
+    }
+}
+
+.input, .button {
+  padding: .5rem .6rem;
+  border-radius: .75rem;
+  background-color: var(--basecolor);
+}
+
+.button {
+  cursor: pointer;
+}
+
+@media (min-width: 768px) {
+  .button:hover {
+      background-color: goldenrod;
+  }
+}
+
+.off {
+  display: none;
+}
+
+.buttonrandom {
+  background: green;
+  cursor: pointer;
+}
+
+.alert {
+  margin: 1.2em;
+  padding: 1em 2em;
+  color: black;
+  background: rgb(255, 46, 46);
+  border-radius: 7px;
+}
