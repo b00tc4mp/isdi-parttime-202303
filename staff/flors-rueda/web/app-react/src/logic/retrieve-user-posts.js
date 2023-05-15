@@ -3,7 +3,7 @@ import posts from "../data/posts";
 import { validateUserID } from "../data/validators-users";
 
 /**
-
+TODO: add documentation to all logic functions
  */
 export const retrieveUserPosts = (userId) => {
   validateUserID(userId);

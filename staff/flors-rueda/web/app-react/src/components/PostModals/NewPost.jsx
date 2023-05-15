@@ -56,19 +56,15 @@ export default function NewPostModal({ onCancel, onPostCreated }) {
       <div className="post-modal__body">
         {selectedImage ?
           <img
-            className="post-modal__selected-image"
-            src={selectedImage.base64}
-            alt="Selected Image"
+            className="post-modal__selected-image" src={selectedImage.base64} alt="Selected Image"
           /> :
           <img
-            className="post-modal__selected-image"
-            src="https://us.123rf.com/450wm/mathier/mathier1905/mathier190500002/134557216-no-thumbnail-image-placeholder-for-forums-blogs-and-websites.jpg"
-            alt="Selected Image"
+            className="post-modal__selected-image" src="https://us.123rf.com/450wm/mathier/mathier1905/mathier190500002/134557216-no-thumbnail-image-placeholder-for-forums-blogs-and-websites.jpg" alt="Selected Image"
           />
         }
 
         <form className="post-modal__form" onSubmit={handleCreatePost}>
-          <div className="input__file" tabindex="0">
+          <div className="input__file" tabIndex="0">
             <button className="input__file-delete off">x</button>
             {/*TODO: clean code, put styles in css */}
             <svg className="post-modal__set-img" xmlns="http://www.w3.org/2000/svg" height="2rem"

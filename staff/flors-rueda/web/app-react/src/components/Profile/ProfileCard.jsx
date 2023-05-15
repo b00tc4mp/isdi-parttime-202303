@@ -1,4 +1,5 @@
 import { svg } from "../../../assets/svg-paths";
+import { context } from "../../context";
 import { retrieveUser } from "../../logic/retrieve-user";
 import './ProfileCard.css'
 
@@ -10,7 +11,8 @@ export default function ProfileCard(userId) {
     return <article className="user-card">
             <div className="user-card__border">
               <svg className="user-card__settings" xmlns="http://www.w3.org/2000/svg" viewBox="0 96 960 960">
-                <path d={svg.settings}/>
+                <path d={userId.userId.userId === context.userAuth ? svg.settings : ''}/>
+                {/*TODO: add settings*/}
               </svg>
               <img className="user-card__avatar" src={userData.avatar} />
             </div>

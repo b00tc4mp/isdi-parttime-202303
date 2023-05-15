@@ -14,7 +14,7 @@ export default function EditPostModal({ onCancel, postId, onPostUpdated}) {
             const retrievedPost = retrievePost(context.userAuth, postId);
             setPost(retrievedPost);
             setSelectedImage({
-                base64: retrievedPost.image,
+              base64: retrievedPost.image,
             });
         } catch (error) {
             console.log(`edit post error: ${error.message}`);
@@ -27,6 +27,7 @@ export default function EditPostModal({ onCancel, postId, onPostUpdated}) {
     };
 
     const handleImageChange = (event) => {
+      try{
         const file = event.target.files[0];
         if (file) {
             const reader = new FileReader();
@@ -40,9 +41,13 @@ export default function EditPostModal({ onCancel, postId, onPostUpdated}) {
         } else {
             setSelectedImage(null);
         }
+      } catch {
+        console.log(`edit post error: ${error.message}`);
+      }
+
     };
 
-    const handleDeleteImage = (event) => {
+    const handleDeleteImage = () => {
         setSelectedImage(null);
     };
 
@@ -69,14 +74,7 @@ export default function EditPostModal({ onCancel, postId, onPostUpdated}) {
         <h2 className="post-modal__title">Edit Post</h2>
       </div>
       <div className="post-modal__body">
-        {selectedImage ? (
-          <img
-            className="post-modal__selected-image"
-            src={selectedImage.base64}
-            alt="Selected Image"
-          />
-        ) : null}
-
+        {selectedImage ? <img className="post-modal__selected-image" src={selectedImage.base64} alt="Selected Image"/> : null}
         <form className="post-modal__form" onSubmit={handleUpdatePost}>
           <div className="input__file" tabIndex="0">
             <button className="input__file-delete off">x</button>

@@ -19,25 +19,30 @@ export default function Home({ onLoggedOut }) {
         setPostId(postId)
         setModal('edit-post')
     }
-    const handleCloseModal = () => setModal(null)
+    const handleCloseModal = () => setModal(null);
 
     const handleGoToPosts = () => setView('posts');
 
     const handleGoToProfile = () => {
         setUserId(context.userAuth);
-        setView('profile')
+        setView('profile');
     }
 
     const handleGotToAuthorProfile = (userId) => {
         setUserId(userId);
-        setView('profile')
+        setView('profile');
     }
 
     const handleGoToFavs = () => setView('favs');
 
     const handleLogout = () => {
-        delete context.userAuth
-        onLoggedOut()
+        delete context.userAuth;
+        onLoggedOut();
+    }
+
+    const handleSubmitPost = () => {
+        handleCloseModal();
+        handleGoToPosts();
     }
 
     console.log('Home -> render')
@@ -46,10 +51,10 @@ export default function Home({ onLoggedOut }) {
       <Navbar onLogoutClick={handleLogout} onProfileClick={handleGoToProfile} onFavsClick={handleGoToFavs} onHomeClick={handleGoToPosts} />
       <main className="home-page__main">
           {view === 'posts' && <Posts onEditPost={handleOpenEditPostModal} type={'home'} onAuthorProfile={handleGotToAuthorProfile} />}
-          {view === 'profile' && <Profile userId={userId}/>}
+          {view === 'profile' && <Profile userId={userId} onEditPost={handleOpenEditPostModal}/>}
           {view === 'favs' && <Posts onEditPost={handleOpenEditPostModal} type={'favs'} onAuthorProfile={handleGotToAuthorProfile} />}
-          {modal === 'new-post' && <NewPost onCancel={handleCloseModal} onPostCreated={handleCloseModal}/>}
-          {modal === 'edit-post' && <EditPost onCancel={handleCloseModal} postId={postId} onPostUpdated={handleCloseModal} />}
+          {modal === 'new-post' && <NewPost onCancel={handleCloseModal} onPostCreated={handleSubmitPost}/>}
+          {modal === 'edit-post' && <EditPost onCancel={handleCloseModal} postId={postId} onPostUpdated={handleSubmitPost} />}
         </main>
         <div className="home-page__new-post">
             <button className="home-page__new-post--button">
