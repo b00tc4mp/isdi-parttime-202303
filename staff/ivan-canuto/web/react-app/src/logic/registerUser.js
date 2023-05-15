@@ -2,6 +2,14 @@ import {validateName, validateEmail, validatePassword} from './helpers/validator
 import {findUserByEmail} from './helpers/dataManager'
 import {saveUsers, users} from '../data'
 
+/**
+ * Registers a new user with a name, an email, and a password
+ * 
+ * @param {string} name The user's name
+ * @param {string} email The user's email
+ * @param {string} password The user's password
+ */
+
 export function registerUser(name, email, password) {
   const usersApp = users()
 
@@ -25,8 +33,7 @@ export function registerUser(name, email, password) {
       name,
       email,
       password,
-      avatar: 'https://img.freepik.com/iconos-gratis/icono-perfil-usuario_318-33925.jpg',
-      favPosts: []
+      avatar: 'https://img.freepik.com/iconos-gratis/icono-perfil-usuario_318-33925.jpg'
   })
 
   saveUsers(usersApp)

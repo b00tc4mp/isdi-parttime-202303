@@ -11,6 +11,7 @@ export default function SavedPosts(props) {
   
   try {
     const posts = retrievePosts(context.userId)
+    // RetreiveSavedPost -> crear esta funció que te devuelva los posts favoritos
     const _users = users()
     const user = _users.find(user => user.id === context.userId)
 

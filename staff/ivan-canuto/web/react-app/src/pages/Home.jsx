@@ -15,6 +15,7 @@ export default function Home(props) {
   const [view, setView] = useState('posts')
   const [modal, setModal] = useState(null)
   const [menu, setMenu] = useState(false)
+  const [lastPostsUpdate, setLastPostsUpdate] = useState(null)
   
    const handleReturnToPosts = () => {
     setView('posts')
@@ -24,19 +25,10 @@ export default function Home(props) {
     document.body.classList.add('fixed-scroll')
     setModal('addPost')
   }
-   const handleCloseAddPost = () => {
-    document.body.classList.remove('fixed-scroll')
-    setModal(null)
-  }
-  
+
    const handleOpenProfile = () => {
     document.body.classList.add('fixed-scroll')
     setModal('profile')
-  }
-
-   const handleCloseProfile = () => {
-    document.body.classList.remove('fixed-scroll')
-    setModal(null)
   }
 
    const handleReturnToLogin = () => {
@@ -61,10 +53,18 @@ export default function Home(props) {
     setModal('editPost')
   }
 
-  const handleCloseEditPost = () => {
+  const handleLastPostsUpdate = () => {
+    document.body.classList.remove('fixed-scroll')
+    setLastPostsUpdate(Date.now())
+    setModal(null)
+  }
+  
+  const handleCloseModal = () => {
     document.body.classList.remove('fixed-scroll')
     setModal(null)
   }
+
+  const handleSwitchMode = () => document.querySelector(':root').classList.toggle('dark')
 
   let user;
   try {
@@ -82,15 +82,18 @@ export default function Home(props) {
       handleReturnToPosts={handleReturnToPosts}
       handleOpenProfile={handleOpenProfile}
       handleReturnToLogin={handleReturnToLogin}
+      handleSwitchMode={handleSwitchMode}
     />
 
     <main>
       {modal === 'profile' && <Profile
-        onClose={handleCloseProfile}
-      />}
+        onUpdatedAvatar={handleLastPostsUpdate}
+        onCancel={handleCloseModal}
+        />}
 
       {view === 'posts' && <Posts
         handleOpenEditPost={handleOpenEditPost}
+        lastPostsUpdate={lastPostsUpdate}
       />}
 
       {menu && <Menu
@@ -100,11 +103,13 @@ export default function Home(props) {
       />}
 
       {modal === 'addPost' && <AddPost
-        onCancel={handleCloseAddPost}
-      />}
+        onCreatedPost={handleLastPostsUpdate}
+        onCancel={handleCloseModal}
+        />}
 
       {modal === 'editPost' && <EditPost
-        onCloseModal={handleCloseEditPost}
+        onUpdatedPost={handleLastPostsUpdate}
+        onCancel={handleCloseModal}
       />}
 
       {view === 'ownPosts' && <OwnPosts

@@ -4,15 +4,21 @@ import { users } from "../data";
 import { savePosts } from "../data";
 import { saveUser } from "../data";
 
+/**
+ * Deletes a user's post
+ * 
+ * @param {object} post The post's object from database
+ * @param {string} userId The user's id
+ */
 
-export default function deletePost() {
+export default function deletePost(post, userId) {
 
   const _users = users()
-  const user = _users.find(user => user.id === context.userId)
+  const user = _users.find(user => user.id === userId)
+  const userPost = post
   const _posts = posts()
-  const userPost = _posts.find(post => post.id === context.postId)
   const postIndex = _posts.indexOf(userPost)
-  const favPostIndex = user.favPosts.indexOf(context.postId)
+  const favPostIndex = user.favPosts.indexOf(post.id)
   
   try {
     _posts.splice(postIndex, 1)

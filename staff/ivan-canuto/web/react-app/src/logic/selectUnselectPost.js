@@ -1,5 +1,11 @@
 import { context, addOffClass, removeOffClass } from "../ui";
 
+/**
+ * Saves the favorite posts 
+ * 
+ * @param {string} postId The post's id
+ */
+
 export const selectPost = (postId)=>{
   const posts = document.querySelectorAll('.user-post')
   let userPost;

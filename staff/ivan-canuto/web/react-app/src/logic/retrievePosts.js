@@ -1,6 +1,14 @@
 import { users, posts } from "../data"
 import { validateId } from "./helpers/validators"
 
+/**
+ * Retrieves the posts form database
+ * 
+ * @param {string} userId The user's id
+ * 
+ * @returns {array} The array of posts from database
+*/
+
 export function retrievePosts(userId) {
   const usersApp = users()
   const postsApp = posts()

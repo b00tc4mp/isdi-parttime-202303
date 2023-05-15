@@ -5,7 +5,7 @@ import retrievePost from "../logic/retrievePost";
 export default function EditPost(props) {
 
   const onCancelClick = () => {
-    props.onCloseModal()
+    props.onCancel()
   }
 
   const handleEditButton = (event) => {
@@ -17,7 +17,7 @@ export default function EditPost(props) {
 
     try {
       updatePost(context.userId, context.postId, image, text)
-      props.onCloseModal()
+      props.onUpdatedPost()
 
     } catch (error) {
       alert(error)
@@ -25,7 +25,7 @@ export default function EditPost(props) {
     }
   }
   
-  const post = retrievePost(context.postId)
+  const post = retrievePost(context.userId, context.postId)
   
   return <div className="edit-post container">
   <form className="edit-post-form" onSubmit={handleEditButton}>

@@ -1,17 +1,18 @@
 import { posts, savePost } from "../data"
 import { findUserById } from "./helpers/dataManager"
 import { validateId } from "./helpers/validators"
+import retrievePost from "./retrievePost"
 
-export const toggleLikePost = (userId, postId)=>{
-  const userPost = Array.from(document.querySelectorAll('.user-post')).find(post => post.id === postId)
-  const postsApp = posts()
+export const toggleLikePost = (userId, post)=>{
+  const userPost = Array.from(document.querySelectorAll('.user-post')).find(_post => _post.id === post.id)
+  if(!userPost) throw new Error('Post not found')
+
   validateId(userId, 'user id')
   let user = findUserById(userId)
   if(!user) throw new Error(`User with ${userId} not found`)
-
-  validateId(postId, 'post id')
-  const post = postsApp.find(post => post.id === postId)
-  if(post === undefined) throw new Error('There must be an error, post not found')
+  
+  if(!post.likes) 
+    post.likes = []
 
   const likesPost = userPost.querySelector('.likes-post')
   const likedPost = post.likes.some(id => id === userId)

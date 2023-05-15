@@ -20,7 +20,7 @@ export default function Comments(props) {
 
   const handleDeleteComment = (post, commentId) => {
     deleteComment(post, commentId)
-    props.handleRender()
+    props.handleRefreshPosts()
   }
 
   function handleCreateComment(event) {

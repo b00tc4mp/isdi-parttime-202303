@@ -5,7 +5,7 @@ import updateUserAvatar from "../logic/updateUserAvatar";
 export default function Profile(props) {
 
   const closeProfile = () => {
-    props.onClose()
+    props.onCloseModal()
   }
 
   const handleChangeAvatar = (event) => {
@@ -16,7 +16,7 @@ export default function Profile(props) {
 
     try {
       updateUserAvatar(context.userId, avatarUrl, password)
-      closeProfile()
+      onUpdatedAvatar()
 
     } catch (error) {
       alert(error.message)

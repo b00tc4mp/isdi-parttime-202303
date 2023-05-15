@@ -14,10 +14,13 @@ body {
 :root {
   --basecolor: yellow;
   --basebgcolor: orange;
+  --bgheaderfooter: #70b8ff;
 }
 
-.off {
-  display: none !important;
+:root.dark {
+  --basecolor: rgb(182, 182, 0);
+  --basebgcolor: rgb(177, 115, 0);
+  --bgheaderfooter: #003b77;
 }
 
 .page {
@@ -77,16 +80,25 @@ button {
   position: fixed;
   top: 0;
   width: 100vw;
-  background: #70b8ff;
+  background: var(--bgheaderfooter);
   height: fit-content;
   z-index: 20;
+}
+
+.header div {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-evenly;
   gap: 10px;
   padding: 10px 0;
   flex-wrap: wrap;
+}
+
+@media (min-width: 424px) {
+    .header div {
+      padding: 10px 20px;
+    }
 }
 
 .header h1 {
@@ -113,7 +125,7 @@ header button {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #70b8ff;
+  background: var(--bgheaderfooter);
   height: 60px;
 }
 

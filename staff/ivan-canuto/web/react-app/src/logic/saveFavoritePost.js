@@ -1,18 +1,27 @@
 import { saveUser } from '../data'
-import retrieveUser from './retrieveUser'
+import { findUserById } from './helpers/dataManager'
 
-export const saveFavoritePost = (userId, postId)=>{
-  const userPost = Array.from(document.querySelectorAll('.user-post')).find(post => post.id === postId)
+/**
+ * Saves the favorite posts from user
+ * 
+ * @param {string} userId The user's id
+ * @param {object} post The post's object
+ */
 
-  const user = retrieveUser(userId)
+export const saveFavoritePost = (userId, post)=>{
+  const userPost = Array.from(document.querySelectorAll('.user-post')).find(_post => _post.id === post.id)
+  const user = findUserById(userId)
   const favIcon = userPost.querySelector('.favorite-icon')
 
-  if(!user.favPosts.includes(postId)) {
+  if(!user.favPosts) 
+    user.favPosts = []
+  
+  if(!user.favPosts.includes(post.id)) {
     favIcon.querySelector('span').classList.add('saved', 'filled')
-    user.favPosts.push(postId)
+    user.favPosts.push(post.id)
   } else {
     favIcon.querySelector('span').classList.remove('saved', 'filled')
-    const indexIcon = user.favPosts.indexOf(postId)
+    const indexIcon = user.favPosts.indexOf(post.id)
     user.favPosts.splice(indexIcon, 1)
   }
   saveUser(user)
