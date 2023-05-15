@@ -12,14 +12,12 @@ import { findUserByEmail } from './helpers/data-managers'
 export default function authenticateUser(email, password) {
     validateEmail(email)
     validatePassword(password)
+    debugger
 
-    const user = findUserByEmail(email)
+    const foundUser = findUserByEmail(email)
 
-    if (!user)
-        throw new Error('user not found')
+    if (foundUser === undefined || foundUser.password !== password)
+        throw new Error('wrong email or password')
 
-    if (user.password !== password)
-        throw new Error('wrong password')
-
-    return user.id
+    return foundUser.id
 }

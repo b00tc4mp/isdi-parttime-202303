@@ -1,8 +1,13 @@
-/* eslint-disable react/prop-types */
+import PropTypes from 'prop-types'
 import { context } from '../ui'
 import authenticateUser from '../logic/authenticateUser'
 
 export default function Login({ onRegisterClick, onUserLoggedIn }) {
+    Login.propTypes = {
+        onRegisterClick: PropTypes.func,
+        onUserLoggedIn: PropTypes.func
+    }
+    
     const handleRegisterClick = event => {
         event.preventDefault()
 

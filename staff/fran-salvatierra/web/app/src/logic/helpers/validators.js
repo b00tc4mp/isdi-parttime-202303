@@ -6,6 +6,11 @@ export function validateEmail(email) {
     // TODO validate email format with regex pattern
 }
 
+export const checkNewUser = (userEmail, users) => {
+    const userFound = users().find(user => user.email === userEmail)
+    if(userFound) throw new Error('Email already registered', {cause: "ownError"})
+}
+
 export function validatePassword(password, explain = 'password') {
     if (typeof password !== 'string') throw new Error(`${explain} is not a string`)
     if (password.trim().length < 8) throw new Error(`${explain} length lower than 8 characters`)

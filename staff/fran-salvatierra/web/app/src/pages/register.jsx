@@ -1,6 +1,10 @@
-/* eslint-disable react/prop-types */
+import PropTypes from 'prop-types'
 import registerUser from '../logic/registerUser'
 export default function Register({ onLoginClick }) {
+
+    Register.propTypes = {
+        onLoginClick: PropTypes.func
+    }
     const handleLoginClick = e => {
         e.preventDefault()
 
@@ -14,11 +18,13 @@ export default function Register({ onLoginClick }) {
         const email = e.target.email.value
         const password = e.target.password.value
 
-        try {
+        try{
             registerUser(name, email, password)
-
             
-        } catch (error) {
+    
+            document.querySelector('form').reset()
+            onLoginClick()
+        } catch(error){
             alert(error.message)
         }
 
@@ -31,11 +37,11 @@ export default function Register({ onLoginClick }) {
     return <div className="register page container">
         <h1 className="title">Register</h1>
 
-        <form className="form" onClick={handleRegister}>
+        <form className="form" onSubmit={handleRegister}>
             <input className="input" type="text" name="name" placeholder="name" />
             <input className="input" type="email" name="email" placeholder="email" />
             <input className="input" type="password" name="password" placeholder="password" />
-            <button className="button" onClick={handleLoginClick} type="submit">Register</button>
+            <button className="button" type="submit">Register</button>
         </form>
 
         <p>Go to <a href="" onClick={handleLoginClick}>Login</a></p>
