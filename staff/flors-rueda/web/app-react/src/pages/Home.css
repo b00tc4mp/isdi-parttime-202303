@@ -1,3 +1,11 @@
+.home-page__main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-bottom: 5rem;  
+}
+
+
 .home-page__user-profile {
     display: flex;
     flex-direction: column;

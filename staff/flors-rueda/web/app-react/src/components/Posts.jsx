@@ -1,26 +1,34 @@
-//import { getPostsSorted } from '../logic/retrieve-posts-sorted-by-date'
-import Post from './Post'
-import { retrievePosts } from '../logic/retrieve-posts'
-import { context } from '../context'
+import Post from './Post';
+import { retrievePosts } from '../logic/retrieve-posts';
+import { context } from '../context';
+import { useState, useEffect } from 'react';
 
 
 export default function Posts({ onEditPost }) {
-    console.log('Posts -> render')
-  
-    try {
-      const _posts = retrievePosts(context.userAuth)
-  
-      return <main>
-        <h1 className="home-page__main--title">Home</h1>
-        <p className="home-page__main--welcome"></p>
-        <div className="home-page__main--posts-list">
-          { _posts.map((post) => <Post postId={post.id} authorId={post.author} key={post.id} onEditPost={onEditPost} />)}
-        </div>
-      </main>
-  
-    } catch (error) {
-      console.log(`posts error: ${error.message}`)
-    }
-  }
+  const [posts, setPosts] = useState([]);
 
-  //TODO retrieveUSer info, retrievePost info, move necesari logic here,
+  const handleRefreshPosts = () => {
+    try {
+      const updatedPosts = retrievePosts(context.userAuth);
+      setPosts(updatedPosts);
+    } catch (error) {
+      console.log(`posts error: ${error.message}`);
+    }
+  };
+
+  useEffect(() => {
+    handleRefreshPosts();
+  }, []);
+
+  return (
+    <main>
+      <h1 className="home-page__main--title">Home</h1>
+      <p className="home-page__main--welcome"></p>
+      <div className="home-page__main--posts-list">
+        {posts.map((post) => (
+          <Post postId={post.id} authorId={post.author} key={post.id} onEditPost={onEditPost} onToggledLikePost={handleRefreshPosts}/>
+        ))}
+      </div>
+    </main>
+  );
+}

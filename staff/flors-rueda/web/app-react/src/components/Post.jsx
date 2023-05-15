@@ -2,6 +2,7 @@ import { svg } from '../../assets/svg-paths'
 import { context  } from '../context'
 import { retrievePost } from '../logic/retrieve-post'
 import { retrieveUser } from '../logic/retrieve-user'
+import { toggleLike } from '../logic/toggle-like';
 
 export default function Post({ postId, authorId, onEditPost, onToggledLikePost }) {
     const post = retrievePost(context.userAuth, postId);
@@ -9,7 +10,7 @@ export default function Post({ postId, authorId, onEditPost, onToggledLikePost }
     const handleEditPost = () => onEditPost(postId)
     const handleToggleLikePost = () => {
         try {
-            //toggleLikePost(context.userId, id)
+            toggleLike(postId, context.userAuth)
             onToggledLikePost()
         } catch(error) {
             console.log(`post error: ${error.message}`);
