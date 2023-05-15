@@ -12,6 +12,7 @@ export default function Home({ onLoggedOut }) {
     const [view, setView] = useState('posts');
     const [modal, setModal] = useState(null);
     const [postId, setPostId] = useState(null);
+    const [userId, setUserId] = useState(null);
 
     const handleOpenNewPostModal = () => setModal('new-post');
     const handleOpenEditPostModal = (postId) => {
@@ -22,7 +23,15 @@ export default function Home({ onLoggedOut }) {
 
     const handleGoToPosts = () => setView('posts');
 
-    const handleGoToProfile = () => setView('profile');
+    const handleGoToProfile = () => {
+        setUserId(context.userAuth);
+        setView('profile')
+    }
+
+    const handleGotToAuthorProfile = (userId) => {
+        setUserId(userId);
+        setView('profile')
+    }
 
     const handleGoToFavs = () => setView('favs');
 
@@ -36,9 +45,9 @@ export default function Home({ onLoggedOut }) {
     return <div className="home">
       <Navbar onLogoutClick={handleLogout} onProfileClick={handleGoToProfile} onFavsClick={handleGoToFavs} onHomeClick={handleGoToPosts} />
       <main className="home-page__main">
-          {view === 'posts' && <Posts onEditPost={handleOpenEditPostModal} type={'home'}/>}
-          {view === 'profile' && <Profile userId={context.userAuth}/>}
-          {view === 'favs' && <Posts onEditPost={handleOpenEditPostModal} type={'favs'} />}
+          {view === 'posts' && <Posts onEditPost={handleOpenEditPostModal} type={'home'} onAuthorProfile={handleGotToAuthorProfile} />}
+          {view === 'profile' && <Profile userId={userId}/>}
+          {view === 'favs' && <Posts onEditPost={handleOpenEditPostModal} type={'favs'} onAuthorProfile={handleGotToAuthorProfile} />}
           {modal === 'new-post' && <NewPost onCancel={handleCloseModal} onPostCreated={handleCloseModal}/>}
           {modal === 'edit-post' && <EditPost onCancel={handleCloseModal} postId={postId} onPostUpdated={handleCloseModal} />}
         </main>

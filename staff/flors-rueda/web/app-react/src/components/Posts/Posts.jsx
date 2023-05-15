@@ -6,7 +6,7 @@ import { retrieveFavoritePosts } from '../../logic/retrieve-favorite-posts';
 import './Posts.css';
 import { retrieveUserPosts } from '../../logic/retrieve-user-posts';
 
-export default function Posts({ onEditPost, type }) {
+export default function Posts({ onAuthorProfile, onEditPost, type }) {
   const [posts, setPosts] = useState([]);
 
   const handleRefreshPosts = () => {
@@ -35,7 +35,7 @@ export default function Posts({ onEditPost, type }) {
       <p className="home-page__main--welcome"></p>
       <div className="home-page__main--posts-list">
         {posts.map((post) => (
-          <Post postId={post.id} authorId={post.author} key={post.id} onEditPost={onEditPost} onToggledLike={handleRefreshPosts} onToggledFav={handleRefreshPosts}/>
+          <Post postId={post.id} authorId={post.author} key={post.id} onEditPost={onEditPost} onToggledLike={handleRefreshPosts} onAuthorProfile={onAuthorProfile} onToggledFav={handleRefreshPosts} isProfileView={type === 'favs' || type === 'home' ? false : true}/>
         ))}
       </div>
     </main>

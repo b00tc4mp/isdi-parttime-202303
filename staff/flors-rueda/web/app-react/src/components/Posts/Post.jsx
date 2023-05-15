@@ -6,10 +6,11 @@ import { toggleFav } from '../../logic/toggle-fav';
 import { toggleLike } from '../../logic/toggle-like';
 import './Posts.css';
 
-export default function Post({ postId, authorId, onEditPost, onToggledLike, onToggledFav }) {
+export default function Post({ postId, authorId, onEditPost, onToggledLike, onToggledFav, isProfileView, onAuthorProfile}) {
     const post = retrievePost(context.userAuth, postId);
     const author = retrieveUser(authorId);
     const handleEditPost = () => onEditPost(postId);
+    const handleToAuthorProfile = () => onAuthorProfile(post.author);
     const handleToggleLikePost = () => {
         try {
             toggleLike(postId, context.userAuth);
@@ -42,12 +43,12 @@ export default function Post({ postId, authorId, onEditPost, onToggledLike, onTo
     }
     
     console.log(`Post ${post.id} -> render`)
-    return <article className="post-card">
+    return <article className={isProfileView ? "post-card__profile" : "post-card"}>
         <div className="post-card__header">
-                    <div className="post-card__header--author-data">
+                    {isProfileView ? '' : <div className="post-card__header--author-data" onClick={handleToAuthorProfile}>
                     <img className="post-card__header--author-avatar" src={author.avatar}/>
                     <p className="post-card__header--author-name">{author.name}</p>
-                    <p className="post-card__header--author-username">{author.username}</p></div>
+                    <p className="post-card__header--author-username">{author.username}</p></div>}
      {post.author === context.userAuth ? <svg className="post-card__header--to-edit-post" onClick={handleEditPost} xmlns="http://www.w3.org/2000/svg" viewBox="0 96 960 960"><path d={svg.edit}/></svg> : ''}
       </div>
       <div className="post-card__body--image-container">

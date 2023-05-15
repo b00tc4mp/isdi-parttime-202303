@@ -10,6 +10,18 @@
     box-shadow: var(--color-surface-400) 0 0.5rem 1rem;
 }
 
+.post-card__profile {
+    width: 125%;
+    border: 0.05rem solid var(--color-surface-400);
+    border-radius: 0.3rem 0.3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    align-self: center;
+    height: fit-content;
+    box-shadow: var(--color-surface-400) 0 0.5rem 1rem;
+}
+
 .post-card__header {
     box-sizing: border-box;
     display: flex;
