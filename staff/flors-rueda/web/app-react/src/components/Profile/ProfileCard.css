@@ -1,0 +1,52 @@
+.user-card {
+    width: 75%;
+    background-color: var(--color-surface-100);
+    border-radius: 1.5rem;
+    padding-bottom: 1rem;
+    text-align: center;
+    box-shadow: 0 0.25rem 1rem var(--color-secondary-600);
+  }
+  
+  .user-card__border {
+    position: relative;
+    width: 10rem;
+    height: 10rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+  }
+  
+  .user-card__settings {
+    height: 2.5rem;
+    width: 2.5rem;
+    position: absolute;
+    top: 15%;
+    right: -5%;
+    transform: translate(50%, -50%);
+    fill: var(--color-primary-300);
+  }
+  
+  .user-card__avatar {
+    border-radius: 50%;
+    overflow: hidden;
+    height: 8rem;
+    width: 8rem;
+    background-color: var(--color-surface-400);
+    position: relative;
+    z-index: 1;
+  }
+  
+  .user-card__name {
+    color: var(--color-primary-300);
+    font-size: 1em;
+    font-weight: 500;
+  }
+  
+  .user-card__username {
+    color: var(--color-secondary-100);
+    font-size: 0.85em;
+    font-weight: 200;
+  }
+  

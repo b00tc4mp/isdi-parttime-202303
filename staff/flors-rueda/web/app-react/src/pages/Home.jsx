@@ -6,7 +6,7 @@ import { context }from '../context'
 import { svg } from '../../assets/svg-paths'
 import Navbar from '../components/Navbar/Navbar'
 import './Home.css'
-import Profile from '../components/Profile'
+import Profile from '../components/Profile/Profile'
 
 export default function Home({ onLoggedOut }) {
     const [view, setView] = useState('posts');
@@ -37,7 +37,7 @@ export default function Home({ onLoggedOut }) {
       <Navbar onLogoutClick={handleLogout} onProfileClick={handleGoToProfile} onFavsClick={handleGoToFavs} onHomeClick={handleGoToPosts} />
       <main className="home-page__main">
           {view === 'posts' && <Posts onEditPost={handleOpenEditPostModal} type={'home'}/>}
-          {view === 'profile' && <Profile/>}
+          {view === 'profile' && <Profile userId={context.userAuth}/>}
           {view === 'favs' && <Posts onEditPost={handleOpenEditPostModal} type={'favs'} />}
           {modal === 'new-post' && <NewPost onCancel={handleCloseModal} onPostCreated={handleCloseModal}/>}
           {modal === 'edit-post' && <EditPost onCancel={handleCloseModal} postId={postId} onPostUpdated={handleCloseModal} />}

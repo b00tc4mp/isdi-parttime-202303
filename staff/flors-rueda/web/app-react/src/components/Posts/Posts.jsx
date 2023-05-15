@@ -4,6 +4,7 @@ import { context } from '../../context';
 import { useState, useEffect } from 'react';
 import { retrieveFavoritePosts } from '../../logic/retrieve-favorite-posts';
 import './Posts.css';
+import { retrieveUserPosts } from '../../logic/retrieve-user-posts';
 
 export default function Posts({ onEditPost, type }) {
   const [posts, setPosts] = useState([]);
@@ -11,10 +12,12 @@ export default function Posts({ onEditPost, type }) {
   const handleRefreshPosts = () => {
     try {
       let updatedPosts;
-      if(type === 'favs') {
-        updatedPosts = retrieveFavoritePosts(context.userAuth)
-      } else {
+      if (type === 'favs') {
+        updatedPosts = retrieveFavoritePosts(context.userAuth);
+      } else if (type === 'home') {
         updatedPosts = retrievePosts(context.userAuth);
+      } else {
+        updatedPosts = retrieveUserPosts(type.userId)
       }
       setPosts(updatedPosts);
     } catch (error) {

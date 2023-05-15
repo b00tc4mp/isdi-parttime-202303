@@ -3,8 +3,6 @@
 
 @import './button.css';
 @import './inputs.css';
-@import './post-card.css';
-@import './profile-card.css';
 @import './theme-toggle.css';
 
 
@@ -114,13 +112,6 @@ p {
     margin: 0;
     margin-block-start: 0;
     margin-block-end: 0;
-}
-
-.git-logo {
-    fill: var(--color-secondary-600);
-    height: 1.5rem;
-    width: 1.5rem;
-    padding: 0.25rem 0.75rem 0.5rem;
 }
 
 @media (min-width: 768px) {
