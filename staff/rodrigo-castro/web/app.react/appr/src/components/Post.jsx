@@ -18,9 +18,11 @@ export default function Post({post: {id, image, text, date, likedBy, author}, on
     const year = date.getFullYear()
     
     let user
+    let authenticatedUser
 
     try {
         user = findUserById(author)
+        authenticatedUser = findUserById(context.userId)
     } catch(error){
         alert(error.message)
     }
@@ -60,8 +62,8 @@ export default function Post({post: {id, image, text, date, likedBy, author}, on
         </div>
         <img src={image}/>
         <div className="post-options">
-            <button className={`post-button ${likedBy && likedBy.includes(context.userId) ? 'liked' : ''}`} onClick={handleToggleLikePost}><span className="material-symbols-rounded">favorite</span></button>
-            <button className={`post-button ${user.savedPosts && user.savedPosts.includes(id) ? 'liked' : ''}`} onClick={handleToggleSavePost}><span className="material-symbols-rounded">bookmark</span></button>
+            <button className={`post-button ${likedBy && likedBy.includes(context.userId) ? 'liked filled' : ''}`} onClick={handleToggleLikePost}><span className="material-symbols-rounded">favorite</span></button>
+            <button className={`post-button ${authenticatedUser.savedPosts && authenticatedUser.savedPosts.includes(id) ? 'filled' : ''}`} onClick={handleToggleSavePost}><span className="material-symbols-rounded">bookmark</span></button>
         </div>
         {likedBy && likedBy.length > 0? <p className="likes-counter">{likedBy.length} {likedBy.length > 1? 'likes' : 'like'}</p> : ''}
         <div>

@@ -4,16 +4,22 @@ import Post from './Post.jsx'
 import { useState, useEffect } from 'react'
 import './Posts.css'
 import PropTypes from 'prop-types'
+import { retrieveUser } from '../logic/retrieveUser'
+import retrieveSavedPosts from '../logic/retrieveSavedPosts'
+import { findUserById } from '../logic/helpers/dataManagers'
 
-export default function Posts({onEditClicked, lastPostsUpdate}) {
+export default function Posts({onEditClicked, lastPostsUpdate, postsToShow}) {
     Posts.propTypes = {
         onEditClicked: PropTypes.func
     }
 
     let _posts
+    let user
 
     try {
-        _posts = retrievePosts(context.userId) 
+        _posts = retrievePosts(context.userId)
+
+        user = findUserById(context.userId)
     } catch(error) {
         alert(error.message)
     }
@@ -22,7 +28,15 @@ export default function Posts({onEditClicked, lastPostsUpdate}) {
         
     const handleRefreshPosts = () => {
         try {
-            const posts = retrievePosts(context.userId)
+            let posts
+            
+            if (postsToShow === 'all')
+                posts = retrievePosts(context.userId)
+            else if(postsToShow === 'saved')
+                if(user.savedPosts)
+                    posts = retrieveSavedPosts(context.userId)
+                else
+                    posts = []
 
             setPosts(posts)
         } catch(error) {
@@ -42,6 +56,12 @@ export default function Posts({onEditClicked, lastPostsUpdate}) {
         if(lastPostsUpdate)
             handleRefreshPosts()
     }, [lastPostsUpdate])
+
+    useEffect(() => {
+        console.log('Posts -> "componentWillRecieveProps" with hooks')
+
+        handleRefreshPosts()
+    }, [postsToShow])
     
     console.log('Posts -> render')
 
