@@ -30,7 +30,7 @@ export default function Post({ post: { id, image, text, date, likes, author }, o
 
     console.log('Post -> render')
 
-    const _user = retrieveUser(context.userId)
+    const _user = retrieveUser(author)
 
     return <article>
         <div className="user-info__post">

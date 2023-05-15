@@ -12,7 +12,6 @@ import { findUserByEmail } from './helpers/data-managers'
 export default function authenticateUser(email, password) {
     validateEmail(email)
     validatePassword(password)
-    debugger
 
     const foundUser = findUserByEmail(email)
 
