@@ -1,26 +1,48 @@
-import retrievePosts from '../logic/retrievePosts.js'
-import { context } from '../ui.js'
-import Post from './Post.jsx'
+import { useEffect, useState } from 'react';
+import retrievePosts from '../logic/retrievePosts.js';
+import { context } from '../ui.js';
+import Post from './Post.jsx';
 
-function Posts({onEditPost, onLikePost, onFavourite}) {
+const Posts = ({onEditPost, lastPostUpdate}) => {
+        
+        let postsRetrieved
 
-    try {
-        const posts = retrievePosts(context.userId)
+        try {
+            postsRetrieved = retrievePosts(context.userId)
+            
+        } catch (error) {
+            alert(error.message)
+        }
+        
+    const [posts, setPosts] = useState(postsRetrieved);
 
-        return <section>            
-            { posts.map(post => 
-            <Post 
-                key={post.id} 
-                onEditPostButton={onEditPost}
-                onLikePostButton={onLikePost}
-                onFavouritePostButton={onFavourite} 
-                post={post} />)
-            }
-        </section>
+    const handleRefreshPost = () => {
+        try {
+            const postsRetrieved = retrievePosts(context.userId)
+            setPosts(postsRetrieved)
+    
+        } catch (error) {
+            alert(error.message)
+        }
+    };
 
-    } catch (error) {
-        alert(error.message)
+    useEffect(() =>{
+        if(lastPostUpdate) handleRefreshPost()
+    }, [lastPostUpdate]);
+
+    return <section className='container'>            
+        { posts.map(post => 
+        <Post 
+            key={post.id} 
+            onEdit={onEditPost}
+            onLike={handleRefreshPost}
+            onFavourite={handleRefreshPost}
+            onDelete={handleRefreshPost}
+            post={post} />)
+        }
+    </section>
+
     }
-}
+
 
 export default Posts

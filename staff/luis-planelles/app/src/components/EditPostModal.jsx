@@ -3,8 +3,7 @@ import updatePost from "../logic/updatePost"
 import { context } from "../ui"
 
 
-function EditPostModal({postId, onCancel, onPostUpdated}){
-  console.log(postId)
+const EditPostModal = ({postId, onCancel, onPostUpdated}) => {
   let postEdit
 
   try {
@@ -13,7 +12,7 @@ function EditPostModal({postId, onCancel, onPostUpdated}){
     alert(error.message)
   }
  
-  function handleEditUpdatePost(event){
+  const handleEditUpdatePost = (event) => {
     event.preventDefault()
 
     const imageEditForm = event.target.image.value,
@@ -26,11 +25,11 @@ function EditPostModal({postId, onCancel, onPostUpdated}){
     } catch (error){
       alert(error.message)
     }
-  }
+  },
 
-  function handleCancelEditPost(){
+  handleCancelEditPost = () => {
     onCancel()
-  }
+  };
     
   return <section className="edit-post container">
       <form className="container" onSubmit={handleEditUpdatePost}>

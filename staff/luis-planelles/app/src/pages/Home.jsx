@@ -1,105 +1,93 @@
-import { Component } from 'react'
+import { useState } from 'react'
 import AddPostModal from '../components/AddPostModal.jsx'
 import EditPostModal from '../components/EditPostModal.jsx'
 import Posts from '../components/Posts.jsx'
 import Profile from '../components/Profile.jsx'
 import retrieveUser from '../logic/retrieveUser.js'
 import { context } from '../ui.js'
+import './Home.css'
 
+const Home = ({onLoggedOut}) => {
 
-class Home extends Component {
-  constructor(props) {
-    super(props)
+  const [view, setView] = useState('posts'),
+  [modal, setModal] = useState(null),
+  [postId, setPostId] = useState(null),
+  [lastUpdate, setLastUpdate] = useState(null);
+
+  let loggedUser
     
     try{
-      const loggedUser = retrieveUser(context.userId)
-
-      this.name = loggedUser.name
-      this.avatar = loggedUser.avatar
-    
+      loggedUser = retrieveUser(context.userId)
+      
     }catch (error){
       alert(error.message)
     }
-    
-    this.state = { view: 'posts', modal: null, postId: null}
-  }
-  
-  hadleLogOutButton = () =>  {
-    this.props.onLoggedOut()
-    
+
+  const hadleLogOutButton = () =>  {
     delete context.userId
-    }
+    onLoggedOut()
+  },
     
-    handleOpenAddPost = () => this.setState({ modal: 'add-post' })
+  handleOpenAddPost = () => setModal('add-post'),
     
-    handleOpenEditPost = postId => {
-      this.setState({ modal: 'edit-post', postId });
-    };
+  handleOpenEditPost = postId => {
+    setModal('edit-post')
+    setPostId(postId);
+  },
 
-    handleCloseModals = () => this.setState({ modal: null })
+  handleCloseModals = () => setModal(null),
     
-    handleGoToProfile = (postId) => {this.setState({ view: 'profile', postId })
-    } 
+  handleGoToProfile = (postId) => { 
+    setView('profile')
+    setPostId(postId)
+  },
   
-    handleGoToPosts = () => this.setState({ view: 'posts' })
+  handleGoToPosts = () => setView('posts'),
 
-    handleTogledLike = () => {
-      this.forceUpdate()
-    }
+  handlePostUpdated = () => {
+    setModal(null)
+    setLastUpdate(Date.now()) 
+  };
 
-    handleToggleFavourite = () => {
-      this.forceUpdate()
+  return <div className='home page container'>
+          <header className='home-header'>
+            <h1 className='title' onClick={handleGoToPosts}>Home</h1>
+            <nav className='home-header-nav'>
+              <img className='home-header-avatar' src={loggedUser.avatar} alt=''/>
+              <a className='home-header-user' onClick={handleGoToProfile}>{loggedUser.name}</a>
+            </nav>
+            <button className='home-header-logout' onClick={hadleLogOutButton}>logout</button>
+          </header>
+  
+          <main>
+            {view === 'posts' && (
+              <Posts
+              lastPostUpdate={lastUpdate}
+              onEditPost={handleOpenEditPost}
+              />
+            )}
+            {modal === 'add-post' && (
+              <AddPostModal 
+                onCancel={handleCloseModals} 
+                onPostCreate={handlePostUpdated}
+              />
+            )}
+            {view === 'profile' && (
+              <Profile/>
+            )}
+            {modal === 'edit-post' && (
+              <EditPostModal
+                onCancel={handleCloseModals}
+                onPostUpdated={handlePostUpdated}
+                postId={postId} 
+              />
+            )}
+          </main>
+  
+          <footer className='home-footer'>
+            <button className='add-post-button' onClick={handleOpenAddPost}>+</button>
+          </footer>
+        </div>
     }
-
-    render() { 
-      return <div className="home">
-              <header className="home-header">
-                <h1 className="title" onClick={this.handleGoToPosts}>Home</h1>
-      
-                <nav className="home-header-nav">
-                  <img className="home-header-avatar" src={this.avatar} alt="" />
-                  <button onClick={this.handleGoToProfile}>{this.name}</button>
-                </nav>
-      
-                <button className="home-header-logout" onClick={this.hadleLogOutButton}>Logout</button>
-              </header>
-      
-              <main>
-                {this.state.view === 'posts' && (
-                  <Posts 
-                    onLikePost={this.handleTogledLike}
-                    onEditPost={this.handleOpenEditPost}
-                    onFavourite={this.handleToggleFavourite}
-                  />
-                )}
-                {this.state.modal === 'add-post' && (
-                  <AddPostModal 
-                    onCancel={this.handleCloseModals} 
-                    onPostCreate={this.handleCloseModals}
-                  />
-                )}
-                {this.state.view === 'profile' && (
-                  <Profile
-                    onLikePost={this.handleTogledLike}
-                    onEditPost={this.handleOpenEditPost}
-                    onFavourite={this.handleToggleFavourite}
-                    postId={this.state.postId}
-                  />
-                )}
-                {this.state.modal === 'edit-post' && (
-                  <EditPostModal
-                    onCancel={this.handleCloseModals}
-                    onPostUpdated={this.handleCloseModals}
-                    postId={this.state.postId} 
-                  />
-                )}
-              </main>
-      
-              <footer className="home-footer">
-                <button className="add-post-button" onClick={this.handleOpenAddPost}>+</button>
-              </footer>
-            </div>
-    }
-  }
 
 export default Home

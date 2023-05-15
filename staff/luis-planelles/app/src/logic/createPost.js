@@ -3,9 +3,9 @@ import { findUserById } from './helpers/data-managers.js';
 import { validateId, validateText, validateUrl } from './helpers/validators.js';
 
 const createPost = (userId, postImage, postText) => {
-  validateUrl(postImage, 'create post: image url');
-  validateText(postText, 'create post: text');
-  validateId(userId, 'create post: user id');
+  validateUrl(postImage, 'image url');
+  validateText(postText, 'text');
+  validateId(userId, 'user id');
 
   const foundUser = findUserById(userId);
 
@@ -25,6 +25,7 @@ const createPost = (userId, postImage, postText) => {
     id: postId,
     author: userId,
     authorName: foundUser.info.name,
+    avatar: foundUser.info.avatar,
     image: postImage,
     text: postText,
     date: new Date(),

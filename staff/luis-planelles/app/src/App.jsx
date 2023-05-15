@@ -1,40 +1,27 @@
-import { Component } from 'react';
+import { useState } from 'react';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import { context } from './ui';
 
+const App = () => {
 
-class App extends Component {
-  constructor() {
-    super();
+  const [view, setView ] = useState(context.userId ? 'home' : 'login'),
+  
+  handleGoToRegister = () =>  setView('register'), 
+  
+  handleGoToLogin = () =>  setView('login'), 
+  
+  handleGoToHome = () => setView('home');
 
-    this.state = { view: 'login' };
-  }
-
-  handleGoToRegister = () => {
-    this.setState({ view: 'register' });
-  };
-
-  handleGoToLogin = () => {
-    this.setState({ view: 'login' });
-  };
-
-  handleGoToHome = () => {
-    this.setState({ view: 'home' });
-  }
-
-  render() {
-    switch (this.state.view) {
+  switch (view) {
       case 'login':
-        return <Login onRegisterClick={this.handleGoToRegister} onUserLoggedIn={this.handleGoToHome} />;
+        return <Login onRegisterClick={handleGoToRegister} onUserLoggedIn={handleGoToHome} />;
       case 'register':
-        return <Register onLoginClick={this.handleGoToLogin} onUserRegistered={this.handleGoToHome}/>;
+        return <Register onLoginClick={handleGoToLogin} onUserRegistered={handleGoToHome}/>;
       case 'home':
-        return <Home onLoggedOut={this.handleGoToLogin} onProfileClick={this.handleGoToProfile}/>
-
+        return <Home onLoggedOut={handleGoToLogin}/>
     }
-
-  }
 }
 
 export default App
