@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import './home.css'
 import { context, openModal, hideModal } from '../ui'
 import retrieveUser from '../logic/retrieveUser'
 import toggleTheme from '../logic/toggleTheme'
@@ -29,7 +30,6 @@ export default function Home ({ onLogOut }) {
 
   try {
     _theme = retrieveTheme()
-    console.log(_theme)
   } catch (error) {
     console.log(error.message)
   }
@@ -121,7 +121,7 @@ export default function Home ({ onLogOut }) {
   return (
     <section className='home'>
       <header className='home-header'>
-        <h1 className='home-title title' onClick={handleGoToPosts}>HOME</h1>
+        <h1 className='home-title' onClick={handleGoToPosts}>HOME</h1>
 
         <div className='home-header-nav'>
           <img
@@ -131,14 +131,14 @@ export default function Home ({ onLogOut }) {
           />
           <a href='' className='profile-link' onClick={handleGoToProfile}>{currentUser.name}</a>
 
-          <button className='button profile-logout-button' onClick={handleLogOut}>LOG OUT</button>
+          <button className='button logout-button' onClick={handleLogOut}>LOG OUT</button>
         </div>
       </header>
 
       {
           view !== 'profile' &&
             <div className='button-new-post-container'>
-              <button className='button toggle-theme-button' onClick={handleSwitchMode}>
+              <button className='button reverse-color icon-button toggle-theme-button' onClick={handleSwitchMode}>
                 {theme === 'dark' &&
                   <span className='material-symbols-outlined theme'>
                     dark_mode
@@ -148,12 +148,12 @@ export default function Home ({ onLogOut }) {
                     sunny
                   </span>}
               </button>
-              <button className='button saved-posts-button' onClick={handleGoToSavedPosts}>
+              <button className='button reverse-color icon-button saved-posts-button' onClick={handleGoToSavedPosts}>
                 <span className='material-symbols-outlined favs'>
                   pages
                 </span>
               </button>
-              <button className='button new-post-button' onClick={handleOpenAddPost}>NEW POST</button>
+              <button className='button reverse-color new-post-button' onClick={handleOpenAddPost}>NEW POST</button>
             </div>
         }
 

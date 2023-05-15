@@ -1,3 +1,4 @@
+import './addPostModal.css'
 import createPost from '../../logic/createPost'
 import { context } from '../../ui'
 
@@ -25,7 +26,7 @@ export default function AddPostModal ({ onPostCreated, onCancel }) {
 
   return (
     <div className='modal'>
-      <form className='posts form' onSubmit={handleCreatePost}>
+      <form className='form-window add-post-form form' onSubmit={handleCreatePost}>
         <h2>CREATE A NEW POST</h2>
         <input
           className='input'

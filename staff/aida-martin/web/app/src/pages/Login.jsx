@@ -1,3 +1,4 @@
+import './login.css'
 import { context } from '../ui'
 import authenticateUser from '../logic/authenticateUser'
 
@@ -25,7 +26,7 @@ export default function Login ({ onRegisterClick, onUserLoggedIn }) {
   }
 
   return (
-    <section className='login'>
+    <section className='login form-window'>
       <h1 className='title'>WELCOME!</h1>
 
       <form className='form' onSubmit={handleLogin}>
@@ -38,7 +39,7 @@ export default function Login ({ onRegisterClick, onUserLoggedIn }) {
           placeholder='Password'
         />
 
-        <a href='#' className='forgot-password-link'>Forgot password?</a>
+        <a href='#' className='forgot-password-link link'>Forgot password?</a>
 
         <p className='login-error error off' />
 
@@ -46,7 +47,7 @@ export default function Login ({ onRegisterClick, onUserLoggedIn }) {
       </form>
 
       <p className='register-answer'>
-        Not a member? <a href='#' onClick={handleRegisterClick} className='register-link'>Sign up here</a>
+        Not a member? <a href='#' onClick={handleRegisterClick} className='register-link link'>Sign up here</a>
       </p>
     </section>
   )

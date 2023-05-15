@@ -1,3 +1,4 @@
+import './post.css'
 import { DEFAULT_AVATAR_URL } from '../constants'
 import { context } from '../ui'
 import retrieveUser from '../logic/retrieveUser'
@@ -43,7 +44,7 @@ export default function Post ({ currentUser, post, onEditPost, onLiked, onSaved,
   return (
     <article data-id={post.id}>
       <div className='user-container-post'>
-        <img className='post-avatar' src={postAuthor.avatar ? postAuthor.avatar : DEFAULT_AVATAR_URL} />
+        <img className='avatar' src={postAuthor.avatar ? postAuthor.avatar : DEFAULT_AVATAR_URL} />
         <p className='post-user'>{postAuthor.name}</p>
         {
         post.author === context.userId &&
@@ -68,12 +69,12 @@ export default function Post ({ currentUser, post, onEditPost, onLiked, onSaved,
       {
         post.author === context.userId &&
           <div className='edit-delete-container-post'>
-            <button className='edit-post-button button' onClick={handleEditPost}>
+            <button className='button reverse-color icon-button edit-post-button' onClick={handleEditPost}>
               <span className='material-symbols-outlined edit'>
                 stylus
               </span>
             </button>
-            <button className='delete-post-button button' onClick={handleDeletePost}>
+            <button className='button reverse-color icon-button delete-post-button' onClick={handleDeletePost}>
               <span className='material-symbols-outlined delete'>
                 delete
               </span>

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import './posts.css'
 import Post from './Post'
 import retrievePosts from '../logic/retrievePosts'
 import retrieveSavedPosts from '../logic/retrieveSavedPosts'

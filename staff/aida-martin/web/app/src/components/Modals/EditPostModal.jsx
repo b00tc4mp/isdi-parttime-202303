@@ -1,3 +1,4 @@
+import './editPostModal.css'
 import updatePost from '../../logic/updatePost'
 import { context } from '../../ui'
 
@@ -24,8 +25,8 @@ export default function EditPostModal ({ post, onPostEdited, onCancel }) {
   }
 
   return (
-    <div className='edit-post-modal'>
-      <form className='edit-post-form form' onSubmit={handleEditPost}>
+    <div className='modal'>
+      <form className='form-window edit-post-form form' onSubmit={handleEditPost}>
         <h2>EDIT YOUR POST</h2>
         <input
           className='input'

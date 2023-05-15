@@ -1,3 +1,4 @@
+import './register.css'
 import registerUser from '../logic/registerUser'
 
 export default function Register ({ onLoginClick, onUserRegisteredIn }) {
@@ -26,7 +27,7 @@ export default function Register ({ onLoginClick, onUserRegisteredIn }) {
   }
 
   return (
-    <section className='register'>
+    <section className='register form-window'>
       <h1 className='title'>CREATE ACCOUNT</h1>
 
       <form className='form' onSubmit={handleRegister}>
@@ -54,7 +55,7 @@ export default function Register ({ onLoginClick, onUserRegisteredIn }) {
       </form>
 
       <p className='login-answer'>
-        Have already an account? <a href='#' onClick={handleLoginClick} className='login-link'>Login here</a>
+        Have already an account? <a href='#' onClick={handleLoginClick} className='login-link link'>Login here</a>
       </p>
     </section>
   )
