@@ -13,29 +13,15 @@ export default function ThemeToggle({ onToggleChange }) {
   
     return (
       <section className="theme-toggle">
-        <input
-          type="checkbox"
-          className="theme-toggle__checkbox"
-          id="checkbox"
-          checked={isChecked}
-          onChange={handleToggleChange}
-        />
+        <input type="checkbox" className="theme-toggle__checkbox" id="checkbox" checked={isChecked} onChange={handleToggleChange}/>
         <label htmlFor="checkbox" className="theme-toggle__label">
           <i>
-            <svg
-              className="theme-toggle__label--moon"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 96 960 960"
-            >
+            <svg className="theme-toggle__label--moon" xmlns="http://www.w3.org/2000/svg"  viewBox="0 96 960 960">
               <path d={svg.sun} />
             </svg>
           </i>
           <i>
-            <svg
-              className="theme-toggle__label--sun"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 96 960 960"
-            >
+            <svg className="theme-toggle__label--sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 96 960 960">
               <path d={svg.moon} />
             </svg>
           </i>
