@@ -6,7 +6,6 @@ import { context } from "./ui";
 
 export default class App extends React.Component {
   constructor(props) {
-    console.log('Home -> constructor')
 
     super(props)
 

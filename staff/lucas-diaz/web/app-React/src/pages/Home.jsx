@@ -18,7 +18,7 @@ export default class Home extends Component {
                 view: "posts",
                 modal: null,
                 postId: null,
-                // lastPostsUpdate: Date.now(),
+                lastPostsUpdate: Date.now(),
                 user
             }
         } catch (error) {
@@ -84,18 +84,20 @@ export default class Home extends Component {
         document.querySelector("main").classList.remove("fade");
     }
     handleCreatedPost = () => {
-        this.setState({ modal: null })
+        this.setState({ modal: null, lastPostsUpdate: Date.now() })
         document.querySelector("main").classList.remove("fade");
     }
 
     //? UPDATE POST  MODAL
     openEditPostModal = (id) => {
         this.setState({modal: "updatePost", postId: id})
-
     }
     CloseUpdatePostModal = () => {
         this.setState({modal : null})
         this.forceUpdate();
+    }
+    HandleUpdatedPost = () => {
+        this.setState({modal : null, lastPostsUpdate: Date.now()})
     }
 
 
@@ -123,7 +125,10 @@ export default class Home extends Component {
             </header>
 
             <main className="container">
-                {this.state.view === "posts" && <Posts onEditPostButtonClick={this.openEditPostModal}/>}
+                {this.state.view === "posts" && <Posts 
+                    onEditPostButtonClick={this.openEditPostModal}
+                    lastPostsUpdate={this.state.lastPostsUpdate}
+                />}
                 {this.state.view === "avatar" && <UpdateAvatar
                     onUpdatedAvatar={this.handleUpdatedAvatar}
                     onCancelClick={this.handleCancelUpdatedAvatar}
@@ -138,7 +143,7 @@ export default class Home extends Component {
             <footer className="footer">
                 {this.state.modal === "updatePost" && <UpdatePost
                     postId = {this.state.postId}
-                    onUpdatedPost={this.CloseUpdatePostModal}
+                    onUpdatedPost={this.HandleUpdatedPost}
                     onCancelClick={this.CloseUpdatePostModal}
                 />}
                 {this.state.modal === "addPost" && <AddPostModal
