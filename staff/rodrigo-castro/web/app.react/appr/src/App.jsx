@@ -15,6 +15,17 @@ export default function App() {
 
     const handleLogout = () => setView('login')
 
+    if(!localStorage.mode)
+        localStorage.mode = 'light'
+
+    if(localStorage.mode === 'dark'){
+        if(!document.querySelector('html').classList.contains('dark'))
+            document.querySelector('html').classList.add('dark')
+    } else {
+        if(document.querySelector('html').classList.contains('dark'))   
+            document.querySelector('html').classList.remove('dark')
+    }
+
     switch(view){
         case 'login':
             return <Login onRegisterClick={handleGoToRegister} onUserLoggedIn={handleGoToHome}/>
@@ -22,5 +33,5 @@ export default function App() {
             return <Register onLoginClick={handleGoToLogin}/>
         case 'home':
             return <Home onLogout={handleLogout}/>
-    }  
+    }
 }

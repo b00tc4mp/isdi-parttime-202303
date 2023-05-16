@@ -29,17 +29,6 @@ export default function Home(props) {
         alert(error.message)
     }
 
-    if(!context.mode)
-        context.mode = 'light'
-
-    if(context.mode === 'dark'){
-        if(!document.querySelector('html').classList.contains('dark'))    
-            document.querySelector('html').classList.add('dark')
-    } else {
-        if(document.querySelector('html').classList.contains('dark'))    
-            document.querySelector('html').classList.remove('dark')
-    }
-
     const [user, setUser] = useState(_user)
 
     const handleCloseModal = () => setModal(null)

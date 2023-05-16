@@ -6,7 +6,6 @@ import './Posts.css'
 import PropTypes from 'prop-types'
 import { retrieveUser } from '../logic/retrieveUser'
 import retrieveSavedPosts from '../logic/retrieveSavedPosts'
-import { findUserById } from '../logic/helpers/dataManagers'
 
 export default function Posts({onEditClicked, lastPostsUpdate, postsToShow}) {
     Posts.propTypes = {
@@ -19,7 +18,7 @@ export default function Posts({onEditClicked, lastPostsUpdate, postsToShow}) {
     try {
         _posts = retrievePosts(context.userId)
 
-        user = findUserById(context.userId)
+        user = retrieveUser(context.userId)
     } catch(error) {
         alert(error.message)
     }
@@ -37,7 +36,7 @@ export default function Posts({onEditClicked, lastPostsUpdate, postsToShow}) {
                     posts = retrieveSavedPosts(context.userId)
                 else
                     posts = []
-
+                    
             setPosts(posts)
         } catch(error) {
             alert(error.message)

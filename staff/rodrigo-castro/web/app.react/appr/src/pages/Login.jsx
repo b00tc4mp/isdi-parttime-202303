@@ -25,8 +25,6 @@ export default function Login({onRegisterClick, onUserLoggedIn}) {
 
             context.userId = userId
 
-            const mode = context.theme ? 'light' : context.theme
-
             onUserLoggedIn()
         } catch(error){
             alert(error.message)

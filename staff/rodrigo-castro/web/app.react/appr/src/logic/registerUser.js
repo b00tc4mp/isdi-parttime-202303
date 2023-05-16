@@ -38,6 +38,4 @@ export const registerUserFull = (userEmail, userName, userPassword) => {
     })
 
     saveUsers(_users)
-
-    // registerNewUser(userName.trim(), userEmail, userPassword, id)
 }

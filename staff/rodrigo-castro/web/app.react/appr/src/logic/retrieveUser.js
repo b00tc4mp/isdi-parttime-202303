@@ -11,12 +11,15 @@ export const retrieveUser = (userId) => {
     if(!foundUser) throw new Error('User not found')
 
     const user = {
-        name: foundUser.name
+        id: foundUser.id,
+        name: foundUser.name,
     }
 
     if (foundUser.avatar)
         user.avatar = foundUser.avatar
 
-    return user
+    if(foundUser.savedPosts)
+        user.savedPosts = foundUser.savedPosts
 
+    return user
 }
