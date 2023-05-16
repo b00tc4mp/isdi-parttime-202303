@@ -1,11 +1,13 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Register from './pages/Register'
 import Login from './pages/Login'
 import Home from './pages/Home'
-import { context } from './ui'
+import { context, setTheme, getTheme } from './ui'
 
 export default function App () {
   const [view, setView] = useState(context.userId ? 'home' : 'login')
+
+  useEffect(() => setTheme(getTheme()), [])
 
   const handleGoToRegister = () => {
     setView('register')

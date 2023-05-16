@@ -1,9 +1,7 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import './home.css'
-import { context, openModal, hideModal } from '../ui'
+import { context, openModal, hideModal, setTheme, getTheme } from '../ui'
 import retrieveUser from '../logic/retrieveUser'
-import toggleTheme from '../logic/toggleTheme'
-import retrieveTheme from '../logic/retrieveTheme'
 import { DEFAULT_AVATAR_URL } from '../constants'
 import Posts from '../components/Posts'
 import AddPostModal from '../components/Modals/AddPostModal'
@@ -15,6 +13,7 @@ export default function Home ({ onLogOut }) {
   const [modal, setModal] = useState(null)
   const [modalPost, setModalPost] = useState(null)
   const [lastPostsUpdate, setLastPostsUpdate] = useState(null)
+  const [dark, setDark] = useState(getTheme() === 'dark')
 
   let _currentUser
 
@@ -25,26 +24,6 @@ export default function Home ({ onLogOut }) {
   }
 
   const [currentUser, setCurrentUser] = useState(_currentUser)
-
-  let _theme
-
-  try {
-    _theme = retrieveTheme()
-  } catch (error) {
-    console.log(error.message)
-  }
-
-  const [theme, setTheme] = useState(_theme)
-
-  useEffect(() => {
-    const root = document.querySelector(':root')
-    if (theme === 'dark') {
-      root.classList.add('dark')
-      return
-    }
-
-    root.classList.remove('dark')
-  }, [theme])
 
   const handleLogOut = () => {
     context.removeItem('userId')
@@ -71,7 +50,7 @@ export default function Home ({ onLogOut }) {
     hideModal()
   }
 
-  const handleGoToProfile = event => {
+  const handleGoToProfile = (event) => {
     event.preventDefault()
 
     setView('profile')
@@ -98,11 +77,12 @@ export default function Home ({ onLogOut }) {
   }
 
   const handleSwitchMode = () => {
-    try {
-      setTheme(toggleTheme())
-    } catch (error) {
-      console.log(error.message)
-    }
+    const dark = getTheme() === 'light'
+
+    const theme = dark ? 'dark' : 'light'
+
+    setTheme(theme)
+    setDark(dark)
   }
 
   const handlePostUpdated = () => {
@@ -121,52 +101,96 @@ export default function Home ({ onLogOut }) {
   return (
     <section className='home'>
       <header className='home-header'>
-        <h1 className='home-title' onClick={handleGoToPosts}>HOME</h1>
+        <h1 className='home-title' onClick={handleGoToPosts}>
+          HOME
+        </h1>
 
         <div className='home-header-nav'>
           <img
-            className='avatar home-header-avatar' src={currentUser.avatar
-              ? currentUser.avatar
-              : DEFAULT_AVATAR_URL} alt=''
+            className='avatar home-header-avatar'
+            src={currentUser.avatar ? currentUser.avatar : DEFAULT_AVATAR_URL}
+            alt=''
           />
-          <a href='' className='profile-link' onClick={handleGoToProfile}>{currentUser.name}</a>
+          <a href='' className='profile-link' onClick={handleGoToProfile}>
+            {currentUser.name}
+          </a>
 
-          <button className='button logout-button' onClick={handleLogOut}>LOG OUT</button>
+          <button className='button logout-button' onClick={handleLogOut}>
+            LOG OUT
+          </button>
         </div>
       </header>
 
-      {
-          view !== 'profile' &&
-            <div className='button-new-post-container'>
-              <button className='button reverse-color icon-button toggle-theme-button' onClick={handleSwitchMode}>
-                {theme === 'dark' &&
-                  <span className='material-symbols-outlined theme'>
-                    dark_mode
-                  </span>}
-                {theme === 'light' &&
-                  <span className='material-symbols-outlined theme'>
-                    sunny
-                  </span>}
-              </button>
-              <button className='button reverse-color icon-button saved-posts-button' onClick={handleGoToSavedPosts}>
-                <span className='material-symbols-outlined favs'>
-                  pages
-                </span>
-              </button>
-              <button className='button reverse-color new-post-button' onClick={handleOpenAddPost}>NEW POST</button>
-            </div>
-        }
+      {view !== 'profile' && (
+        <div className='button-new-post-container'>
+          <button
+            className='button reverse-color icon-button toggle-theme-button'
+            onClick={handleSwitchMode}
+          >
+            {dark
+              ? (
+                <span className='material-symbols-outlined theme'>dark_mode</span>
+                )
+              : (
+                <span className='material-symbols-outlined theme'>sunny</span>
+                )}
+          </button>
+          <button
+            className='button reverse-color icon-button saved-posts-button'
+            onClick={handleGoToSavedPosts}
+          >
+            <span className='material-symbols-outlined favs'>pages</span>
+          </button>
+          <button
+            className='button reverse-color new-post-button'
+            onClick={handleOpenAddPost}
+          >
+            NEW POST
+          </button>
+        </div>
+      )}
 
       <main className='main-container'>
-        {view === 'posts' && <Posts currentUser={currentUser} onEditPost={handleOpenEditPost} lastPostsUpdate={lastPostsUpdate} onRefreshUser={handleRefreshCurrentUser} />}
+        {view === 'posts' && (
+          <Posts
+            currentUser={currentUser}
+            onEditPost={handleOpenEditPost}
+            lastPostsUpdate={lastPostsUpdate}
+            onRefreshUser={handleRefreshCurrentUser}
+          />
+        )}
 
-        {view === 'profile' && <Profile onUpdateUserAvatar={handleGoToPosts} onUpdateUserPassword={handleGoToPosts} />}
+        {view === 'profile' && (
+          <Profile
+            onUpdateUserAvatar={handleGoToPosts}
+            onUpdateUserPassword={handleGoToPosts}
+          />
+        )}
 
-        {view === 'saved-posts' && <Posts currentUser={currentUser} mySavedPosts onEditPost={handleOpenEditPost} lastPostsUpdate={lastPostsUpdate} onRefreshUser={handleRefreshCurrentUser} />}
+        {view === 'saved-posts' && (
+          <Posts
+            currentUser={currentUser}
+            mySavedPosts
+            onEditPost={handleOpenEditPost}
+            lastPostsUpdate={lastPostsUpdate}
+            onRefreshUser={handleRefreshCurrentUser}
+          />
+        )}
 
-        {modal === 'add-post' && <AddPostModal onPostCreated={handlePostUpdated} onCancel={handleCloseAddOrEditPost} />}
+        {modal === 'add-post' && (
+          <AddPostModal
+            onPostCreated={handlePostUpdated}
+            onCancel={handleCloseAddOrEditPost}
+          />
+        )}
 
-        {modal === 'edit-post' && <EditPostModal onPostEdited={handlePostUpdated} onCancel={handleCloseAddOrEditPost} post={modalPost} />}
+        {modal === 'edit-post' && (
+          <EditPostModal
+            onPostEdited={handlePostUpdated}
+            onCancel={handleCloseAddOrEditPost}
+            post={modalPost}
+          />
+        )}
       </main>
     </section>
   )

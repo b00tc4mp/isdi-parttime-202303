@@ -16,5 +16,7 @@ export default function retrieveSavedPosts (userId) {
 
   const user = retrieveUser(userId)
 
+  if (!user) throw new Error('User ID not found 😥')
+
   return posts().filter((post) => user.saves?.includes(post.id)).toReversed() // TODO toSorted (para que se ordenen por fecha)
 }
