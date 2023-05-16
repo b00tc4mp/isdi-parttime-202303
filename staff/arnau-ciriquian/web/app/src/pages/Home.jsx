@@ -70,7 +70,7 @@ export default function Home({ onLoggedOut }) {
                     <p className="text"><a className="home__anchor--profile" href="" onClick={handleGoToProfile}>{user.name}</a></p>
                 </nav>
                 <div>
-                    <button className="navigation__anchor--logout" href="" onClick={handleLogOut}><img className="anchor__logout--icon" src="images/rocket-launch.svg" /></button>
+                    <button className="navigation__anchor--logout" href="" onClick={handleLogOut}><img className="anchor__logout--icon" src="../../images/logout.png" /></button>
                 </div>
             </header>
             <main>

@@ -11,7 +11,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 
 /*  TODO Web/App - objectiu de la app: xarxa social:
         - ig d'acudits
-                - dark mode 20230509 2005 (guardar valor en session per mantenir el dark en fer refresh)
+                - dark mode 20230509 2005 i 20230515 2040 (guardar valor en session per mantenir el dark en fer refresh)
                 - comentaris en els posts
                 - favoritos
                 - delete post 20230509 2030
