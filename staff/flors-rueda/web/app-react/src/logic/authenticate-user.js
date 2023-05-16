@@ -1,5 +1,5 @@
 import { validateUsername, validateUserPassword} from '../data/validators-users';
-import { getId } from '../../../app/src/logic/data/users/data-managers';
+import { getId } from '../data/data-managers';
 
 /**
  * Authenticates a user by username and password
