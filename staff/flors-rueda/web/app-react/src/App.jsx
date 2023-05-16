@@ -12,7 +12,7 @@ export default function App() {
   const handleGoToLogin = () => setView('login');
   const handleGoToHome = () => setView('home');
 
-  let storedTheme = context.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  let storedTheme = context.theme || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
   if (storedTheme) document.documentElement.setAttribute('data-theme', storedTheme);
 
   const handleSwitchMode = () => {

@@ -1,19 +1,25 @@
 import ProfileCard from './ProfileCard';
 import './Profile.css'
 import Posts from '../Posts/Posts';
+import { useState } from 'react';
+import Settings from './Settings/Settings';
 
+export default function Profile({ userId, onEditPost }) {
+  const [view, setView] = useState('posts');
 
-export default function Profile(userId) {
-  console.log('Profile -> render')
+  const handleGoToSettings = () => setView('settings');
+
+  console.log('Profile -> render');
 
   try {
-    return <section className="user-profile">
-      <ProfileCard userId={userId} />
-      <Posts type={userId} />
-    </section>
-    
-    
+    return (
+      <section className="user-profile">
+        <ProfileCard userId={userId} onSettingsClick={handleGoToSettings} />
+        {view === 'posts' && (<Posts type={userId} userId={userId} onEditPost={onEditPost} />)}
+        {view === 'settings' && (<Settings  />)}
+      </section>
+    );
   } catch (error) {
-    alert(`posts error: ${error.message}`)
+    console.log(`profile error: ${error.message}`);
   }
 }

@@ -6,7 +6,7 @@ import { retrieveFavoritePosts } from '../../logic/retrieve-favorite-posts';
 import './Posts.css';
 import { retrieveUserPosts } from '../../logic/retrieve-user-posts';
 
-export default function Posts({ onAuthorProfile, onEditPost, type }) {
+export default function Posts({ onAuthorProfile, onEditPost, type, userId }) {
   const [posts, setPosts] = useState([]);
 
   const handleRefreshPosts = () => {
@@ -17,7 +17,7 @@ export default function Posts({ onAuthorProfile, onEditPost, type }) {
       } else if (type === 'home') {
         updatedPosts = retrievePosts(context.userAuth);
       } else {
-        updatedPosts = retrieveUserPosts(type.userId)
+        updatedPosts = retrieveUserPosts(userId);
       }
       setPosts(updatedPosts);
     } catch (error) {
@@ -35,7 +35,17 @@ export default function Posts({ onAuthorProfile, onEditPost, type }) {
       <p className="home-page__main--welcome"></p>
       <div className="home-page__main--posts-list">
         {posts.map((post) => (
-          <Post postId={post.id} authorId={post.author} key={post.id} onEditPost={onEditPost} onToggledLike={handleRefreshPosts} onAuthorProfile={onAuthorProfile} onToggledFav={handleRefreshPosts} isProfileView={type === 'favs' || type === 'home' ? false : true}/>
+          <Post
+            postId={post.id}
+            authorId={post.author}
+            key={post.id}
+            onEditPost={onEditPost}
+            onToggledLike={handleRefreshPosts}
+            onAuthorProfile={onAuthorProfile}
+            onToggledFav={handleRefreshPosts}
+            isProfileView={type === 'favs' || type === 'home' ? false : true}
+            userId={userId}
+          />
         ))}
       </div>
     </main>
