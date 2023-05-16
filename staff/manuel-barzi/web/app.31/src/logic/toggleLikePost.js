@@ -1,5 +1,6 @@
 import { validateId } from './helpers/validators'
-import { savePost, findUserById, findPostById } from '../data'
+import { findUserById, findPostById } from './helpers/data-managers'
+import { savePost } from '../data'
 
 export default function toggleLikePost(userId, postId) {
     validateId(userId, 'user id')

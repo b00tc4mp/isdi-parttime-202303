@@ -1,5 +1,5 @@
 import { validateEmail, validatePassword } from './helpers/validators'
-import { findUserByEmail } from './helpers/data-managers'
+import { findUserByEmail } from '../data'
 
 /**
  * Authenticates a user by email and password
@@ -9,17 +9,23 @@ import { findUserByEmail } from './helpers/data-managers'
  * 
  * @returns {string} The user's id
  */
-export default function authenticateUser(email, password) {
+export default function authenticateUser(email, password, callback) {
     validateEmail(email)
     validatePassword(password)
 
-    const user = findUserByEmail(email)
+    findUserByEmail(email, user => {
+        if (!user) {
+            callback(new Error('user not found'))
 
-    if (!user)
-        throw new Error('user not found')
+            return
+        }
+    
+        if (user.password !== password) {
+            callback(new Error('wrong password'))
 
-    if (user.password !== password)
-        throw new Error('wrong password')
-
-    return user.id
+            return
+        }
+    
+        callback(null, user.id)
+    })
 }

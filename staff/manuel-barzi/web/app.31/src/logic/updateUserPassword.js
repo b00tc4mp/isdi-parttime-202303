@@ -1,5 +1,6 @@
 import { validatePassword, validateId } from './helpers/validators'
-import { saveUser, findUserById } from '../data'
+import { findUserById } from './helpers/data-managers'
+import { saveUser } from '../data'
 
 export default function updateUserPassword(userId, password, newPassword, newPasswordConfirm) {
     validateId(userId, 'user id')

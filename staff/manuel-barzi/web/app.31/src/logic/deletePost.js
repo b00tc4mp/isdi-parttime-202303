@@ -1,5 +1,6 @@
 import { validateId } from './helpers/validators'
-import { savePosts, posts, findUserById, findPostById } from '../data'
+import { findUserById, findPostById } from './helpers/data-managers'
+import { savePosts, posts } from '../data'
 
 export default function deletePost(userId, postId) {
     validateId(userId, 'user id')

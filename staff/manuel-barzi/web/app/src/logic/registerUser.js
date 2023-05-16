@@ -1,34 +1,36 @@
 import { validateName, validateEmail, validatePassword } from './helpers/validators'
-import { findUserByEmail } from './helpers/data-managers'
-import { users, saveUsers } from '../data'
+import { saveUsers, findUserByEmail, loadUsers } from '../data'
 
-export default function registerUser(name, email, password) {
+export default function registerUser(name, email, password, callback) {
     validateName(name)
     validateEmail(email)
     validatePassword(password)
 
-    const foundUser = findUserByEmail(email)
+    findUserByEmail(email, foundUser => {
+        if (foundUser) {
+            callback(new Error('user already exists'))
 
-    if (foundUser)
-        throw new Error('user already exists')
+            return
+        }
 
-    let id = 'user-1'
+        let id = 'user-1'
 
-    const _users = users()
+        loadUsers(users => {
+            const lastUser = users[users.length - 1]
 
-    const lastUser = _users[_users.length - 1]
+            if (lastUser)
+                id = 'user-' + (parseInt(lastUser.id.slice(5)) + 1)
 
-    if (lastUser)
-        id = 'user-' + (parseInt(lastUser.id.slice(5)) + 1)
+            const user = {
+                id,
+                name,
+                email,
+                password
+            }
 
-    const user = {
-        id,
-        name,
-        email,
-        password
-    }
+            users.push(user)
 
-    _users.push(user)
-
-    saveUsers(_users)
+            saveUsers(users, () => callback(null))
+        })
+    })
 }
