@@ -1,4 +1,4 @@
-import './register.css'
+import './Register.css'
 import registerUser from '../logic/registerUser'
 
 export default function Register ({ onLoginClick, onUserRegisteredIn }) {

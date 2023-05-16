@@ -1,11 +1,11 @@
 import { useState } from 'react'
-import './home.css'
+import './Home.css'
 import { context, openModal, hideModal, setTheme, getTheme } from '../ui'
 import retrieveUser from '../logic/retrieveUser'
 import { DEFAULT_AVATAR_URL } from '../constants'
 import Posts from '../components/Posts'
-import AddPostModal from '../components/Modals/AddPostModal'
-import EditPostModal from '../components/Modals/EditPostModal'
+import AddPostModal from '../components/modals/AddPostModal'
+import EditPostModal from '../components/modals/EditPostModal'
 import Profile from '../components/Profile'
 
 export default function Home ({ onLogOut }) {

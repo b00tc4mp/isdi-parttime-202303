@@ -1,4 +1,4 @@
-import './profile.css'
+import './Profile.css'
 import updateAvatar from '../logic/updateUserAvatar'
 import changePassword from '../logic/updateUserPassword'
 import { context } from '../ui'

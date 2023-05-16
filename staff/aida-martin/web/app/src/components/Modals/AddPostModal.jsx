@@ -1,4 +1,4 @@
-import './addPostModal.css'
+import './AddPostModal.css'
 import createPost from '../../logic/createPost'
 import { context } from '../../ui'
 

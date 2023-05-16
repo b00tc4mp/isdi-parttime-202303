@@ -1,4 +1,4 @@
-import './post.css'
+import './Post.css'
 import { DEFAULT_AVATAR_URL } from '../constants'
 import { context } from '../ui'
 import retrieveUser from '../logic/retrieveUser'

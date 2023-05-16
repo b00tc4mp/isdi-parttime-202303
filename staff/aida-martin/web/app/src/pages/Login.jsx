@@ -1,4 +1,4 @@
-import './login.css'
+import './Login.css'
 import { context } from '../ui'
 import authenticateUser from '../logic/authenticateUser'
 
