@@ -4,6 +4,10 @@
     left: 1em;
 }
 
+.theme-toggle input {
+    width: 2rem;
+}
+
 .theme-toggle svg{
     fill: var(--color-primary-100);
     height: 0.75rem;
