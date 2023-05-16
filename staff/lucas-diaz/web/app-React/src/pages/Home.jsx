@@ -1,158 +1,155 @@
 import retrieveUser from "../logic/retrieveUser";
 import { context } from "../ui"
-import { Component } from "react";
+import { useState } from "react";
 import Posts from "../components/Posts"
 import AddPostModal from "../components/AddPostModal";
 import UpdateAvatar from "../components/UpdateAvatar";
 import UpdatePassword from "../components/UpdatePassword";
 import UpdatePost from "../components/UpdatePost";
 
-export default class Home extends Component {
-    constructor(props) {
-        super(props)
+export default function Home({ onLogOutClick }) {
+    const [view, setView] = useState("posts");
+    const [modal, setModal] = useState(null);
+    const [postId, setPostId] = useState(null);
+    const [lastPostUpdate, setLastPostUpdate] = useState(Date.now())
 
-        try {
-            const user = retrieveUser(context.userId)
-
-            this.state = {
-                view: "posts",
-                modal: null,
-                postId: null,
-                lastPostsUpdate: Date.now(),
-                user
-            }
-        } catch (error) {
-            alert(error.message)
-        }
+    let _user
+    try {
+        _user = retrieveUser(context.userId)
+    } catch (error) {
+        alert(error.message)
     }
 
+    const [user, setUser] = useState(_user);
+
     //? SETTINGS Y LOG OUT 
-    handleSettingsClick = () => {
+    const handleSettingsClick = () => {
         const headerMenu = document.querySelector(".home-menu");
         headerMenu.classList.toggle("home-menu-transition");
         document.querySelector("main").classList.toggle("fade");
-        this.setState({ view: null });
+        setView(null);
     }
-    handleLogOutClick = () => {
+    const handleLogOutClick = () => {
         delete context.userId
-        this.props.onLogOutClick();
+        onLogOutClick();
     }
     //? SETTINGS --> AVATAR 
-    handleAvatarAnchor = (event) => {
+    const handleAvatarAnchor = (event) => {
         event.preventDefault();
         document.querySelector("main").classList.remove("fade");
         const headerMenu = document.querySelector(".home-menu");
         //headerMenu.classList.toggle("home-menu-transition");
-        this.setState({ view: "avatar" });
+        setView("avatar");
     }
-    handleUpdatedAvatar = () => {
+    const handleUpdatedAvatar = () => {
         const headerMenu = document.querySelector(".home-menu");
         headerMenu.classList.toggle("home-menu-transition");
-        this.setState({ view: "posts" })
-        this.forceUpdate();
+        setView("posts")
+        forceUpdate();
     }
-    handleCancelUpdatedAvatar = () => {
+    const handleCancelUpdatedAvatar = () => {
         const headerMenu = document.querySelector(".home-menu");
         headerMenu.classList.toggle("home-menu-transition");
-        this.setState({ view: "posts" })
+        setView("posts")
     }
     //? SETTINGS --> PASSWORD 
-    handlePasswordAnchor = (event) => {
+    const handlePasswordAnchor = (event) => {
         event.preventDefault();
         document.querySelector("main").classList.remove("fade");
         const headerMenu = document.querySelector(".home-menu");
         //headerMenu.classList.toggle("home-menu-transition");
-        this.setState({ view: "password" });
+        setView("password");
     }
-    handleUpdatedPassword = () => {
+    const handleUpdatedPassword = () => {
         const headerMenu = document.querySelector(".home-menu");
         headerMenu.classList.toggle("home-menu-transition");
-        this.setState({ view: "posts" });
+        setView("posts");
     }
-    handleCancelUpdatedPassword = () => {
+    const handleCancelUpdatedPassword = () => {
         const headerMenu = document.querySelector(".home-menu");
         headerMenu.classList.toggle("home-menu-transition");
-        this.setState({ view: "posts" });
+        setView("posts");
     }
     //? ADD POST MODAL 
-    handleFooterButtonClick = () => {
-        this.setState({ modal: "addPost" })
+    const handleFooterButtonClick = () => {
+        setModal("addPost")
         document.querySelector("main").classList.add("fade");
     }
-    handleCancelAddPost = () => {
-        this.setState({ modal: null })
+    const handleCancelAddPost = () => {
+        setModal(null)
         document.querySelector("main").classList.remove("fade");
     }
-    handleCreatedPost = () => {
-        this.setState({ modal: null, lastPostsUpdate: Date.now() })
+    const handleCreatedPost = () => {
+        setModal(null);
+        setLastPostUpdate(Date.now())
         document.querySelector("main").classList.remove("fade");
     }
 
     //? UPDATE POST  MODAL
-    openEditPostModal = (id) => {
-        this.setState({modal: "updatePost", postId: id})
+    const openEditPostModal = (id) => {
+        setModal("updatePost")
+        setPostId(id)
     }
-    CloseUpdatePostModal = () => {
-        this.setState({modal : null})
-        this.forceUpdate();
+    const CloseUpdatePostModal = () => {
+        setModal(null)
+        forceUpdate();
     }
-    HandleUpdatedPost = () => {
-        this.setState({modal : null, lastPostsUpdate: Date.now()})
+    const HandleUpdatedPost = () => {
+        setModal(null);
+        setLastPostUpdate(Date.now());
     }
 
+    console.log("Home -> render")
 
-    render() {
-        console.log("Home -> render")
+    return <div className="home">
+        <header className="home-header">
+            <h1 className="home-header-tittle">Home</h1>
+            <div className="home-header-left-items">
+                <img className="home-header-left-items-config-icon" src="https://www.iconpacks.net/icons/2/free-settings-icon-3110-thumb.png" alt="" onClick={handleSettingsClick} />
+                <button className="home-header-left-items-log-out-button button" onClick={handleLogOutClick} >Log out</button>
+            </div>
+            <div className="home-header-user">
+                <img className="home-header-user-avatar" src={user.avatar} alt="default avatar" />
+                <h2 className="home-header-user-welcome-msj"></h2>
+            </div>
+            <nav className="home-menu">
+                <ul>
+                    <li><a href="" className="home-menu-change-pass-anchor" onClick={handlePasswordAnchor}>change password</a></li>
+                    <li><a href="" className="home-menu-avatar-anchor" onClick={handleAvatarAnchor}>Avatar</a></li>
+                    <li><a href="" className="home-menu-option3">option 3</a></li>
+                </ul>
+            </nav>
+        </header>
 
-        return <div className="home">
-            <header className="home-header">
-                <h1 className="home-header-tittle">Home</h1>
-                <div className="home-header-left-items">
-                    <img className="home-header-left-items-config-icon" src="https://www.iconpacks.net/icons/2/free-settings-icon-3110-thumb.png" alt="" onClick={this.handleSettingsClick} />
-                    <button className="home-header-left-items-log-out-button button" onClick={this.handleLogOutClick} >Log out</button>
-                </div>
-                <div className="home-header-user">
-                    <img className="home-header-user-avatar" src={this.state.user.avatar} alt="default avatar" />
-                    <h2 className="home-header-user-welcome-msj"></h2>
-                </div>
-                <nav className="home-menu">
-                    <ul>
-                        <li><a href="" className="home-menu-change-pass-anchor" onClick={this.handlePasswordAnchor}>change password</a></li>
-                        <li><a href="" className="home-menu-avatar-anchor" onClick={this.handleAvatarAnchor}>Avatar</a></li>
-                        <li><a href="" className="home-menu-option3">option 3</a></li>
-                    </ul>
-                </nav>
-            </header>
+        <main className="container">
+            {view === "posts" && <Posts
+                onEditPostButtonClick={openEditPostModal}
+                lastPostsUpdate={lastPostUpdate}
+            />}
+            {view === "avatar" && <UpdateAvatar
+                onUpdatedAvatar={handleUpdatedAvatar}
+                onCancelClick={handleCancelUpdatedAvatar}
+            />}
+            {view === "password" && <UpdatePassword
+                onUpdatedPassword={handleUpdatedPassword}
+                onCancelClick={handleCancelUpdatedPassword}
+            />
+            }
+        </main>
 
-            <main className="container">
-                {this.state.view === "posts" && <Posts 
-                    onEditPostButtonClick={this.openEditPostModal}
-                    lastPostsUpdate={this.state.lastPostsUpdate}
-                />}
-                {this.state.view === "avatar" && <UpdateAvatar
-                    onUpdatedAvatar={this.handleUpdatedAvatar}
-                    onCancelClick={this.handleCancelUpdatedAvatar}
-                />}
-                {this.state.view === "password" && <UpdatePassword
-                    onUpdatedPassword={this.handleUpdatedPassword}
-                    onCancelClick={this.handleCancelUpdatedPassword}
-                />
-                }
-            </main>
+        <footer className="footer">
+            {modal === "updatePost" && <UpdatePost
+                postId={postId}
+                onUpdatedPost={HandleUpdatedPost}
+                onCancelClick={CloseUpdatePostModal}
+            />}
+            {modal === "addPost" && <AddPostModal
+                onCancelClick={handleCancelAddPost}
+                onCreatedPost={handleCreatedPost}
+            />}
 
-            <footer className="footer">
-                {this.state.modal === "updatePost" && <UpdatePost
-                    postId = {this.state.postId}
-                    onUpdatedPost={this.HandleUpdatedPost}
-                    onCancelClick={this.CloseUpdatePostModal}
-                />}
-                {this.state.modal === "addPost" && <AddPostModal
-                    onCancelClick={this.handleCancelAddPost}
-                    onCreatedPost={this.handleCreatedPost}
-                />}
+            <button className="footer-button button" onClick={handleFooterButtonClick}> + </button>
+        </footer>
+    </div>
 
-                <button className="footer-button button" onClick={this.handleFooterButtonClick}> + </button>
-            </footer>
-        </div>
-    }
 }
