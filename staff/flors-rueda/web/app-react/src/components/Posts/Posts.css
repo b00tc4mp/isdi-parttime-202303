@@ -11,7 +11,7 @@
 }
 
 .post-card__profile {
-    width: 150%;
+    width: 135%;
     border: 0.05rem solid var(--color-surface-400);
     border-radius: 0.3rem 0.3rem;
     display: flex;

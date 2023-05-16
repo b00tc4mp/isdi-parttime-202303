@@ -15,7 +15,8 @@ import { savePost } from '../data/data-managers';
 export const updatePost = (newText, newPostImg, id, userId) => {
   validatePostExists(id);
   validateUserID(userId);
-  validatePostText(newText);validatePostImage(newPostImg);
+  validatePostText(newText);
+  validatePostImage(newPostImg);
   const _posts = posts()
   const originalPost = _posts.filter((post) => { if (post.id === id) return post })[0];
   validatePostAuthor(originalPost, userId);

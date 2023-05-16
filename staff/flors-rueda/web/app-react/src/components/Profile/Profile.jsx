@@ -6,6 +6,7 @@ import Settings from './Settings/Settings';
 
 export default function Profile({ userId, onEditPost }) {
   const [view, setView] = useState('posts');
+  const [selectedAvatar, setSelectedAvatar] = useState(null);
 
   const handleGoToSettings = () => setView('settings');
 
@@ -14,9 +15,9 @@ export default function Profile({ userId, onEditPost }) {
   try {
     return (
       <section className="user-profile">
-        <ProfileCard userId={userId} onSettingsClick={handleGoToSettings} />
-        {view === 'posts' && (<Posts type={userId} userId={userId} onEditPost={onEditPost} />)}
-        {view === 'settings' && (<Settings  />)}
+        <ProfileCard userId={userId} onSettingsClick={handleGoToSettings} selectedAvatar={selectedAvatar} />
+        {view === 'posts' && <Posts type={userId} userId={userId} onEditPost={onEditPost} />}
+        {view === 'settings' && <Settings selectedAvatar={selectedAvatar} onAvatarChange={setSelectedAvatar} />}
       </section>
     );
   } catch (error) {

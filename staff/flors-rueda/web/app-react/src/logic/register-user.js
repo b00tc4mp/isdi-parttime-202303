@@ -21,7 +21,7 @@ export const registerUser = (mail, username, password, repeatPassword) => {
     username: '@' + username.toLowerCase(),
     name: username,
     mail: mail,
-    avatar: 'https://i.pinimg.com/736x/72/c4/3c/72c43c0e10161d3f741681380cfa2986.jpg',
+    avatar: {random: true, src: Math.random().toString(36).substring(7)},
     password: password,
     joined: new Date(Date.now()),
     favs: new Array,

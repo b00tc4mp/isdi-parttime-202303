@@ -1,0 +1,27 @@
+.settings-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    justify-content: center;
+    align-items: center;
+    width: 100%
+}
+
+.settings-form--button {
+    width: 50%;
+}
+
+.settings-form--save {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    padding-top: 1rem;
+}
+
+.settings-form--save button {
+width: 5rem;
+}
+
+.settings-form--input {
+    width: 90%;
+}

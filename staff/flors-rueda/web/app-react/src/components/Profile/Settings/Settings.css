@@ -1,0 +1,39 @@
+.profile-settings,
+.profile-settings__menu {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    justify-content: center;
+    align-items: start;
+    width: 90%;
+    padding: 0 1rem;
+}
+
+button.profile-settings__selection {
+    background: none;
+    color: inherit;
+    border: none;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.profile-settings__selection {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    color: var(--color-secondary-400) !important;
+    font-size: 1.25em !important;
+}
+
+.profile-settings__selection--icon {
+    fill: var(--color-secondary-300);
+}
+
+.profile-settings__title {
+    font-size: 1.45em;
+    color: var(--color-primary-300)
+}
+

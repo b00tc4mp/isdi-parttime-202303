@@ -28,7 +28,7 @@
     fill: var(--color-primary-300);
   }
   
-  .user-card__avatar {
+  .user-card__avatar, .user-card__avatar-image {
     border-radius: 50%;
     overflow: hidden;
     height: 8rem;

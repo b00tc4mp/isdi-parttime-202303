@@ -54,6 +54,7 @@ export default function EditPostModal({ onCancel, postId, onPostUpdated}) {
     const handleUpdatePost = (event) => {
         event.preventDefault();
         const image = selectedImage.base64;
+        console.log(image)
         const text = event.target.text.value;
         try {
             updatePost(text, image, postId, context.userAuth);

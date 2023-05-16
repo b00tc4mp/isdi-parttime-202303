@@ -2,45 +2,59 @@ import { svg } from '../../../assets/svg-paths'
 import { context } from '../../context'
 import { uploadPost } from '../../logic/upload-post';
 import { useState } from 'react';
+import imageCompression from 'browser-image-compression'
 import './PostModals.css'
 
 export default function NewPostModal({ onCancel, onPostCreated }) {
   const [selectedImage, setSelectedImage] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleCancel = (event) => {
     event.preventDefault();
     onCancel();
   };
 
-  const handleImageChange = (event) => {
+  const handleImageChange = async (event) => {
     const file = event.target.files[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        setSelectedImage({
-          file: file,
-          base64: reader.result,
+      try {
+        const compressedFile = await imageCompression(file, {
+          maxSizeMB: 0.5,
+          useWebWorker: true,
         });
-      };
-      reader.readAsDataURL(file);
+
+        const reader = new FileReader();
+        reader.onload = () => {
+          setSelectedImage({
+            file: compressedFile,
+            base64: reader.result,
+          });
+        };
+        reader.readAsDataURL(compressedFile);
+      } catch (error) {
+        console.log('Image compression error:', error);
+      }
     } else {
       setSelectedImage(null);
     }
   };
 
-  const handleDeleteImage = (event) => {
+  const handleDeleteImage = () => {
     setSelectedImage(null);
   }
 
-  const handleCreatePost = (event) => {
+  const handleCreatePost = async (event) => {
     event.preventDefault();
     const image = selectedImage.base64;
     const text = event.target.text.value;
 
+    setIsSubmitting(true);
     try {
-      uploadPost(image, text, context.userAuth);
+      await uploadPost(image, text, context.userAuth);
+      setIsSubmitting(false);
       onPostCreated();
     } catch (error) {
+      setIsSubmitting(false);
       console.log(`new post error: ${error.message}`);
     }
   }
@@ -62,10 +76,8 @@ export default function NewPostModal({ onCancel, onPostCreated }) {
             className="post-modal__selected-image" src="https://us.123rf.com/450wm/mathier/mathier1905/mathier190500002/134557216-no-thumbnail-image-placeholder-for-forums-blogs-and-websites.jpg" alt="Selected Image"
           />
         }
-
-        <form className="post-modal__form" onSubmit={handleCreatePost}>
+          <form className="post-modal__form" onSubmit={handleCreatePost}>
           <div className="input__file" tabIndex="0">
-            <button className="input__file-delete off">x</button>
             {/*TODO: clean code, put styles in css */}
             <svg className="post-modal__set-img" xmlns="http://www.w3.org/2000/svg" height="2rem"
               onClick={selectedImage ? handleDeleteImage : undefined} viewBox="0 96 960 960" width="2rem" fill="var(--color-primary-100)">
@@ -76,10 +88,13 @@ export default function NewPostModal({ onCancel, onPostCreated }) {
           </div>
           <textarea className="post-modal__form-input--textarea" name="text" type="text" maxLength="180"
             placeholder="max 180 chars"></textarea>
-          <button type="submit" className="post-modal__form--submit">send</button>
+          {isSubmitting ? (
+            <div className="post-modal__loading">posting...</div>
+          ) : (
+            <button type="submit" className="post-modal__form--submit">send</button>
+          )}
         </form>
       </div>
     </div>
   </section>
 }
-
