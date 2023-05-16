@@ -17,7 +17,7 @@ export default function Login(props) {
     
         try {
             let activeUser=authenticateUser(email, password);
-            context.userid=activeUser.id;
+            context.userId=activeUser.id;
             context.userName=activeUser.name;
             props.onAuthClick();
         }

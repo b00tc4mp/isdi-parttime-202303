@@ -46,3 +46,20 @@ posts.push({
     text: 'I ♥️ Avatars too!',
     date: new Date()
 })
+
+export function savePosts(posts) {
+    localStorage.postsJson = JSON.stringify(posts)
+}
+
+export function savePost(post) {
+    const _posts = posts()
+
+    const index = _posts.findIndex(_post => _post.id === post.id)
+
+    if (index < 0)
+        _posts.push(post)
+    else
+        _posts.splice(index, 1, post)
+
+    savePosts(_posts)
+}
