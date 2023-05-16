@@ -1,33 +1,45 @@
 import { useState } from 'react'
-import AddPostModal from '../components/AddPostModal.jsx'
-import EditPostModal from '../components/EditPostModal.jsx'
-import Posts from '../components/Posts.jsx'
-import Profile from '../components/Profile.jsx'
-import retrieveUser from '../logic/retrieveUser.js'
-import { context } from '../ui.js'
+import AddPostModal from '../components/AddPostModal'
+import EditPostModal from '../components/EditPostModal'
+import Posts from '../components/Posts'
+import Profile from '../components/Profile'
+import ProfileUpdateModal from '../components/ProfileUpdateModal'
+import retrieveUser from '../logic/retrieveUser'
+import { context } from '../ui'
 import './Home.css'
 
 const Home = ({onLoggedOut}) => {
 
   const [view, setView] = useState('posts'),
-  [modal, setModal] = useState(null),
-  [postId, setPostId] = useState(null),
-  [lastUpdate, setLastUpdate] = useState(null);
-
+    [modal, setModal] = useState(null),
+    [postId, setPostId] = useState(null),
+    [lastUpdate, setLastUpdate] = useState(null);
+    
   let loggedUser
     
-    try{
-      loggedUser = retrieveUser(context.userId)
+  try{
+    loggedUser = retrieveUser(context.userId)
       
-    }catch (error){
+  } catch (error){
       alert(error.message)
-    }
+  }
+    
+  const [user, setUser] = useState(loggedUser);
 
   const hadleLogOutButton = () =>  {
     delete context.userId
     onLoggedOut()
   },
     
+  handleGoToProfile = (postId) => { 
+    setView('profile')
+    setPostId(postId)
+  },
+
+  handleOpenEditProfile = () => setModal('edit-profile'),
+  
+  handleGoToPosts = () => setView('posts'),
+  
   handleOpenAddPost = () => setModal('add-post'),
     
   handleOpenEditPost = postId => {
@@ -36,17 +48,24 @@ const Home = ({onLoggedOut}) => {
   },
 
   handleCloseModals = () => setModal(null),
-    
-  handleGoToProfile = (postId) => { 
-    setView('profile')
-    setPostId(postId)
-  },
-  
-  handleGoToPosts = () => setView('posts'),
 
   handlePostUpdated = () => {
     setModal(null)
     setLastUpdate(Date.now()) 
+  },
+
+  handleProfileUpdated = () => {
+    setModal(null)
+  },
+
+  handleUserAvatarUpdated = () => {
+    try {
+        const user = retrieveUser(context.userId)
+
+        setUser(user)
+    } catch (error) {
+        alert(error.message)
+    }
   };
 
   return <div className='home page container'>
@@ -73,13 +92,20 @@ const Home = ({onLoggedOut}) => {
               />
             )}
             {view === 'profile' && (
-              <Profile/>
+              <Profile onOpenEditProfile={handleOpenEditProfile} />
             )}
             {modal === 'edit-post' && (
               <EditPostModal
                 onCancel={handleCloseModals}
                 onPostUpdated={handlePostUpdated}
                 postId={postId} 
+              />
+            )}
+            {modal === 'edit-profile' && (
+              <ProfileUpdateModal
+              onCancel={handleCloseModals}
+              onProfileUpdated={handleProfileUpdated}
+              onUserAvatarUpdated={handleUserAvatarUpdated}
               />
             )}
           </main>

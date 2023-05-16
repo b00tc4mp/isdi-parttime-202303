@@ -23,7 +23,7 @@ const Post = ({ post: { id, author, authorName, avatar, image, text, date, likes
 
   const handleEditClick = () =>{
     onEdit(id)
-  }
+  },
 
   handleLikeClick = () => {
 
