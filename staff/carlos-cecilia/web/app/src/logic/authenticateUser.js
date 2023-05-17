@@ -10,11 +10,11 @@ import { findUserByEmail } from './helpers/data-managers'
  * @returns {string} The user's id
  */
 
-export default function authenticateUser(email, passowrd) {
+export default function authenticateUser(email, password) {
 
     validateEmail(email)
-    validatePassword(passoword)
-
+    validatePassword(password)
+    debugger
     const user = findUserByEmail
 
     if(!user)

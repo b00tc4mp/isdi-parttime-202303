@@ -1,7 +1,7 @@
 import { context } from '../ui' 
 import createPost from '../logic/createPost'
 
-export default funcion AddPostModal ({ onCancel, onPostCreated}) {
+export default function AddPostModal ({ onCancel, onPostCreated}) {
 
     console.log('AddPostalModal -> render')
 

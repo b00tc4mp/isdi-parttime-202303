@@ -8,7 +8,7 @@ export default function deletePost (userId, postId) {
     validateId(userId, 'user id')
     validateId(postId, 'post id')
 
-    const user findUserById(userId)
+    const user = findUserById(userId)
 
     if(!user) throw new Error(`user with id ${userId} not found`)
 
@@ -16,7 +16,7 @@ export default function deletePost (userId, postId) {
 
     if(!post) throw new Error(`post with id ${postId} not found`)
 
-    if(post.author !== userId) throw new Error(´post with id ${postId} does not belong to user with id ${userId}´)
+    if(post.author !== userId) throw new Error(`post with id ${postId} does not belong to user with id ${userId}`)
 
     _post.splice(index, 1)
 
