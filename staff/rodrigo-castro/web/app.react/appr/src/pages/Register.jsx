@@ -1,9 +1,10 @@
 import PropTypes from 'prop-types'
 import { registerUserFull } from '../logic/registerUser'
 
-export default function Register({onLoginClick}) {
+export default function Register({onLoginClick, onUserRegistered}) {
     Register.propTypes = {
-        onLoginClick: PropTypes.func
+        onLoginClick: PropTypes.func,
+        onUserRegistered: PropTypes.func
     }
     
     function handleLoginClick(event) {
@@ -20,9 +21,14 @@ export default function Register({onLoginClick}) {
         const password = event.target.password.value
 
         try{
-            registerUserFull(email, username, password)
-    
-            document.querySelector('form').reset()
+            registerUserFull(email, username, password, error => {
+                if(error) {
+                    alert(error.message)
+                }
+                
+                document.querySelector('form').reset()
+                onUserRegistered()
+            })
         } catch(error){
             alert(error.message)
         }

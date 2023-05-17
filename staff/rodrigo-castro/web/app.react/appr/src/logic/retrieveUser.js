@@ -1,25 +1,29 @@
 console.log('load retrieve user')
 
 import { validateId } from './helpers/validators'
-import { findUserById } from './helpers/dataManagers'
+import { findUserById } from '../data'
 
-export const retrieveUser = (userId) => {
+export const retrieveUser = (userId, callback) => {
     validateId(userId, 'user id')
 
-    const foundUser = findUserById(userId)
+    findUserById(userId, foundUser => {
+        if(!foundUser){
+            alert(new Error('User not found'))
 
-    if(!foundUser) throw new Error('User not found')
-
-    const user = {
-        id: foundUser.id,
-        name: foundUser.name,
-    }
-
-    if (foundUser.avatar)
-        user.avatar = foundUser.avatar
-
-    if(foundUser.savedPosts)
-        user.savedPosts = foundUser.savedPosts
-
-    return user
+            return
+        } 
+    
+        const user = {
+            id: foundUser.id,
+            name: foundUser.name,
+        }
+    
+        if (foundUser.avatar)
+            user.avatar = foundUser.avatar
+    
+        if(foundUser.savedPosts)
+            user.savedPosts = foundUser.savedPosts
+    
+        callback(null, user)
+    })
 }

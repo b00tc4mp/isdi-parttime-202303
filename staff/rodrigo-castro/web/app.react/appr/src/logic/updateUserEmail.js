@@ -1,6 +1,5 @@
-import { findUserById } from './helpers/dataManagers'
 import { validateEmail, checkNewUser } from './helpers/validators'
-import { users, saveUser } from '../data'
+import { loadUsers, saveUser, findUserById } from '../data'
 
 export const changeEmail = (userId, userPreviousEmail, userNewEmail, userPassword) => {
     const foundUser = findUserById(userId)

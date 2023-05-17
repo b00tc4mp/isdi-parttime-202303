@@ -1,6 +1,5 @@
 import { validateId, validatePassword } from './helpers/validators'
-import { findUserById } from './helpers/dataManagers'
-import { saveUser } from '../data'
+import { saveUser, findUserById } from '../data'
 
 export const changePassword = (userId, previousPassword, newPassword, newPasswordRepeated) => {
     validateId(userId)

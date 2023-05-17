@@ -1,7 +1,7 @@
 import Posts from '../components/Posts'
 import { retrieveUser } from '../logic/retrieveUser'
 import { context } from '../ui'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import AddPostModal from '../components/AddPostModal'
 import ChangeEmail from '../components/ChangeEmail'
 import ChangePassword from '../components/ChagePassword'
@@ -20,16 +20,24 @@ export default function Home(props) {
     const [postId, setPostId] = useState(null)
     const [lastPostsUpdate, setLastPostsUpdate] = useState(Date.now())
     const [postsToShow, setPostsToShow] = useState('all')
+    const [user, setUser] = useState()
 
-    let _user
+    useEffect(() => {
+        try{
+            retrieveUser(context.userId, (error, user) => {
+                if(error){
+                    alert(error.message)
+    
+                    return
+                }
 
-    try{
-        _user = retrieveUser(context.userId)
-    } catch(error){
-        alert(error.message)
-    }
+                setUser(user)
+            })
+        } catch(error){
+            alert(error.message)
+        }
+    }, [])
 
-    const [user, setUser] = useState(_user)
 
     const handleCloseModal = () => setModal(null)
     
@@ -92,10 +100,12 @@ export default function Home(props) {
                 <ul className="horizontal-menu">
                     <li name="home" onClick={handleFilterAllPosts}><a href="#" className="menu-buttons"><span className="material-symbols-rounded">home</span><span className="menu-text">Home</span></a></li>
                     <li name="new-post" onClick={handleOpenAddPost}><a href="#" className="menu-buttons"><span className="material-symbols-rounded">add_a_photo</span><span className="menu-text">Post</span></a></li>
+                    {user && <>
                     <li name="my-profile" onClick={handleOpenProfile}>
                         <img src={user.avatar || 'https://i.pinimg.com/originals/f1/0f/f7/f10ff70a7155e5ab666bcdd1b45b726d.jpg'} alt="" className="user-avatar"/>
                         <a href="#" className="menu-buttons"><span className="menu-text" name="authenticated-user-name">Profile</span></a>
                     </li>
+                    </>}
                     
                     <li className="logout" name="logout" onClick={handleLogout}><a href="#" className="menu-buttons"><span className="material-symbols-rounded">logout</span><span className="menu-text">Logout</span></a></li>
                 </ul>

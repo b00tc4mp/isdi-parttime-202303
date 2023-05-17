@@ -1,6 +1,55 @@
 console.log('data loaded')
 
-export const users = () => 'usersJson' in localStorage? JSON.parse(localStorage.usersJson) : []
+const DELAY = 3000
+
+export function users2(callback) {
+    setTimeout(() => {
+        callback('usersJson' in localStorage? JSON.parse(localStorage.usersJson) : [])
+    }, DELAY);
+}
+
+export const loadUsers = callback => setTimeout(() => {
+    
+    callback('usersJson' in localStorage? JSON.parse(localStorage.usersJson) : [])
+
+}, DELAY)
+
+export function saveUsers(users, callback) {
+    setTimeout(() => {
+        localStorage.usersJson = JSON.stringify(users)
+
+        callback()
+    }, DELAY)
+}
+
+export function saveUser(user, callback) {
+    loadUsers(users => {
+        const index = users.findIndex(_user => _user.id === user.id)
+    
+        if (index < 0)
+            users.push(user)
+        else
+            users.splice(index, 1, user)
+    
+        saveUsers(users, callback)
+    })
+}
+
+export const findUser = (userEmail, callback) => {
+    loadUsers(users => {
+        const user = users.find(user => user.email === userEmail)
+
+        callback(user)
+    })
+}
+
+export const findUserById = (userId, callback) => {
+    loadUsers(users => {
+        const user = users.find(user => user.id === userId)
+
+        callback(user)
+    })
+}
 
 // users.push({
 //     id: 'user-1',
@@ -31,6 +80,27 @@ export const posts = () => {
     return posts
 }
 
+export function savePosts(posts) {
+    localStorage.postsJson = JSON.stringify(posts)
+}
+
+export function savePost(post) {
+    const _posts = posts()
+
+    const index = _posts.findIndex(_post => _post.id === post.id)
+
+    if (index < 0)
+        _posts.push(post)
+    else
+        _posts.splice(index, 1, post)
+
+    savePosts(_posts)
+}
+
+export const findPostById = (postId) => {
+    return posts().find(post => post.id === postId)
+}
+
 // posts.push({
 //     id: 'post-1',
 //     author: 'user-1',
@@ -54,37 +124,3 @@ export const posts = () => {
 //     text: 'I ❤️ Avatars too!',
 //     date: new Date(2023, 3, 1, 12, 32, 44),
 // })
-
-export function saveUsers(users) {
-    localStorage.usersJson = JSON.stringify(users)
-}
-
-export function saveUser(user) {
-    const _users = users()
-
-    const index = _users.findIndex(_user => _user.id === user.id)
-
-    if (index < 0)
-        _users.push(user)
-    else
-        _users.splice(index, 1, user)
-
-    saveUsers(_users)
-}
-
-export function savePosts(posts) {
-    localStorage.postsJson = JSON.stringify(posts)
-}
-
-export function savePost(post) {
-    const _posts = posts()
-
-    const index = _posts.findIndex(_post => _post.id === post.id)
-
-    if (index < 0)
-        _posts.push(post)
-    else
-        _posts.splice(index, 1, post)
-
-    savePosts(_posts)
-}

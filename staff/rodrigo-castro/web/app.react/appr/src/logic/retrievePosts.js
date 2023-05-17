@@ -1,12 +1,18 @@
 import { validateId } from './helpers/validators'
-import { users, posts } from '../data'
+import { posts, loadUsers } from '../data'
 
-export default function retrievePosts(userId) {
+export default function retrievePosts(userId, callback) {
     validateId(userId, 'user id')
 
-    const found = users().some(user => user.id === userId)
+    loadUsers(users => {
+        const found = users.some(user => user.id === userId)
+    
+        if(!found){
+            callback(new Error ('User id not valid'))
 
-    if(!found) throw new Error ('User id not valid')
-
-    return posts().toReversed()
+            return
+        } 
+    
+        callback(null, posts().toReversed())
+    })
 }

@@ -1,6 +1,5 @@
 import { validateId } from './helpers/validators'
-import { savePost } from "../data"
-import { findPostById, findUserById } from "./helpers/dataManagers"
+import { savePost, findPostById, findUserById } from "../data"
 
 export default (userId, postId) => {    
     validateId(userId, 'user id')

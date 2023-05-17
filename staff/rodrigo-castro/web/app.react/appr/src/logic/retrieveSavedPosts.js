@@ -1,5 +1,5 @@
 import { validateId } from './helpers/validators'
-import { users, posts } from '../data'
+import { loadUsers, posts } from '../data'
 
 export default function retrieveSavedPosts(userId) {
     validateId(userId, 'user id')

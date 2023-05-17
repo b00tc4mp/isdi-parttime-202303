@@ -1,4 +1,4 @@
-import { findUserById } from "../logic/helpers/dataManagers"
+import { findUserById } from "../data"
 import { context } from "../ui"
 import toggleLikePost from '../logic/toggleLikePost'
 import toggleSavePost from '../logic/toggleSavePost'

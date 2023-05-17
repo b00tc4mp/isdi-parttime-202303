@@ -1,16 +1,16 @@
 import { validateId } from "./helpers/validators"
-import { users, posts, savePosts } from "../data"
+import { posts, savePosts, findUserById, findPostById } from "../data"
 
 export default function deletePost(userId, postId) {
     validateId(userId)
 
     validateId(postId)
 
-    const foundUser = users().find(user => user.id === userId)
+    const foundUser = findUserById(userId)
 
     if(!foundUser) throw new Error('User id not valid')
 
-    const foundPost = posts().find(post => post.id === postId)
+    const foundPost = findPostById(postId)
 
     if(!foundPost) throw new Error('Post id not valid')
 

@@ -4,26 +4,46 @@ import Post from './Post.jsx'
 import { useState, useEffect } from 'react'
 import './Posts.css'
 import PropTypes from 'prop-types'
-import { retrieveUser } from '../logic/retrieveUser'
+// import { retrieveUser } from '../logic/retrieveUser'
 import retrieveSavedPosts from '../logic/retrieveSavedPosts'
 
 export default function Posts({onEditClicked, lastPostsUpdate, postsToShow}) {
     Posts.propTypes = {
         onEditClicked: PropTypes.func
     }
+    const [posts, setPosts] = useState()
 
-    let _posts
-    let user
+    // let user
 
-    try {
-        _posts = retrievePosts(context.userId)
+    useEffect(() => {
+        try {
+            retrievePosts(context.userId, (error, posts) => {
+                if(error){
+                    alert(error.message)
+    
+                    return
+                }
+    
+                setPosts(posts)
+            })
+        } catch(error) {
+            alert(error.message)
+        }
+    })
 
-        user = retrieveUser(context.userId)
-    } catch(error) {
-        alert(error.message)
-    }
+    //     retrieveUser(context.userId, (error, user) => {
+    //         if(error){
+    //             alert(error.message)
 
-    const [posts, setPosts] = useState(_posts)
+    //             return
+    //         }
+
+    //         setUser(user) 
+    //     })
+    // } catch(error) {
+    //     alert(error.message)
+    // }
+
         
     const handleRefreshPosts = () => {
         try {
@@ -65,6 +85,6 @@ export default function Posts({onEditClicked, lastPostsUpdate, postsToShow}) {
     console.log('Posts -> render')
 
     return <section className='posts-list'>
-        { posts.map(post => <Post key={post.id} post={post} onToggledLikePost={handleRefreshPosts} onToggleSavePost={handleRefreshPosts} onEdit={onEditClicked}/>)}
+        { posts && posts.map(post => <Post key={post.id} post={post} onToggledLikePost={handleRefreshPosts} onToggleSavePost={handleRefreshPosts} onEdit={onEditClicked}/>)}
     </section>
 }
