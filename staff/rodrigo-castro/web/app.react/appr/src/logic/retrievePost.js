@@ -1,18 +1,21 @@
 import { validateId } from "./helpers/validators"
 import { findUserById, findPostById } from "../data"
 
-export default function retrievePost(userId, postId) {
+export default function retrievePost(userId, postId, callback) {
     validateId(userId, 'user id')
-
     validateId(postId, 'post id')
 
-    const foundUser = findUserById(userId)
-
-    if(!foundUser) throw new Error ('User id not valid')
-
-    const foundPost = findPostById(postId)
-
-    if(!foundPost) throw new Error ('Post id not valid')
-
-    return foundPost
+    findUserById(userId, foundUser => {
+        if(!foundUser){
+            callback(new Error ('User id not valid'))
+        }
+    
+        findPostById(postId, foundPost => {
+            if(!foundPost){
+                callback(new Error ('Post id not valid'))
+            }
+        
+            callback(null, foundPost)
+        })
+    })
 }

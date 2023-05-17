@@ -50,9 +50,15 @@ export default function Post({post: {id, image, text, date, likedBy, author}, on
     
     const handleToggleLikePost = () => {
         try{
-            toggleLikePost(context.userId, id)
+            toggleLikePost(context.userId, id, error => {
+                if(error){
+                    alert(error.message)
 
-            onToggledLikePost()
+                    return
+                }
+
+                onToggledLikePost()
+            })
         } catch(error){
             alert(error.message)
         }
@@ -60,9 +66,15 @@ export default function Post({post: {id, image, text, date, likedBy, author}, on
 
     const handleToggleSavePost = () => {
         try{
-            toggleSavePost(context.userId, id)
+            toggleSavePost(context.userId, id, error => {
+                if(error){
+                    alert(error.message)
 
-            onToggleSavePost()
+                    return
+                }
+
+                onToggleSavePost()
+            })
         } catch(error){
             alert(error.message)
         }

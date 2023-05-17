@@ -3,6 +3,7 @@ import retrievePost from '../logic/retrievePost'
 import editPost from '../logic/editPost'
 import { context } from '../ui'
 import deletePost from '../logic/deletePost'
+import { useEffect, useState } from 'react'
 
 export default function EditPost({onCancel, postId, onPostEdited, onPostDeleted}) {
     EditPost.propTypes = {
@@ -11,6 +12,8 @@ export default function EditPost({onCancel, postId, onPostEdited, onPostDeleted}
         onPostEdited: PropTypes.func,
         onPostDeleted: PropTypes.func
     }
+
+    const [post, setPost] = useState()
 
     const handleCancelEdit = () => onCancel()
 
@@ -53,14 +56,35 @@ export default function EditPost({onCancel, postId, onPostEdited, onPostDeleted}
         }
     }
 
-    try{
-        const post = retrievePost(context.userId, postId) // ARREGLAR ESTO Y SU LOGICA CORRESPONDIENTE!!!!!
+    // LO DE AQUI DEBAJO ME GENERA DUDAS DE QUE ESTE BIEN... PEDIR DE REVISAR CON MANU
+
+    useEffect(() => {
+        try{
+            retrievePost(context.userId, postId, (error, post) => {
+                if(error){
+                    alert(error.message)
+    
+                    return
+                }
+    
+                setPost(post)
+            })
+        } catch(error){
+            alert(error.message)
+        }
+    }, [])
+
 
         return <section className="modal-window" name="modal-edit-post">
             <form action="" onSubmit={handleUpdatePost}>
                 <input type="hidden" name="hidden"/>
+                {post && <>
                 <input className="input-field" type="url" name="url" defaultValue={post.image}/>
                 <textarea name="text" cols="30" rows="10" className="post-text input-field" defaultValue={post.text}></textarea>
+                </> || <>
+                    <input className="input-field"></input>
+                    <textarea cols="30" rows="10" className="post-text input-field"></textarea>
+                </>}
                 <div className="buttons">
                     <button className="submit-buttons" type="button" onClick={handleDelete}>Delete</button>
                     <button className="submit-buttons" type="submit">Update</button>
@@ -68,8 +92,4 @@ export default function EditPost({onCancel, postId, onPostEdited, onPostDeleted}
                 </div>
             </form>
         </section>
-    } catch(error){
-        alert(error.message)
-    }
-
 }
