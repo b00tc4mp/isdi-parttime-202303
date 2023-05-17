@@ -1,9 +1,10 @@
-import { findUserById } from "../data"
 import { context } from "../ui"
 import toggleLikePost from '../logic/toggleLikePost'
 import toggleSavePost from '../logic/toggleSavePost'
 import './Post.css'
 import PropTypes from 'prop-types'
+import { retrieveUser } from "../logic/retrieveUser"
+import { useEffect, useState } from 'react'
 
 export default function Post({post: {id, image, text, date, likedBy, author}, onToggledLikePost, onEdit, onToggleSavePost}) {
     Post.propTypes = {
@@ -12,20 +13,40 @@ export default function Post({post: {id, image, text, date, likedBy, author}, on
         onEdit: PropTypes.func,
         onToggleSavePost: PropTypes.func
     }
-
+    
     const day = date.getDate().toString()
     const month = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'][date.getMonth()]
     const year = date.getFullYear()
     
-    let user
-    let authenticatedUser
+    const [user, setUser] = useState()
+    const [authenticatedUser, setAuthenticatedUser] = useState()
 
-    try {
-        user = findUserById(author)
-        authenticatedUser = findUserById(context.userId)
-    } catch(error){
-        alert(error.message)
-    }
+    useEffect(() => {
+        try {
+            retrieveUser(author, (error, user) => {
+                if(error){
+                    alert(error.message)
+    
+                    return
+                }
+                
+                setUser(user)
+            })
+    
+            retrieveUser(context.userId, (error, authenticatedUser) => {
+                if(error){
+                    alert(error.message)
+
+                    return
+                }
+
+                setAuthenticatedUser(authenticatedUser)
+            })
+        } catch(error){
+            alert(error.message)
+        }
+    }, [])
+
     
     const handleToggleLikePost = () => {
         try{
@@ -54,7 +75,7 @@ export default function Post({post: {id, image, text, date, likedBy, author}, on
     console.log('Post -> render')
 
     return <article className="post-container">
-        <div className="post-header">
+        {user && <><div className="post-header">
             <img src={user.avatar} className="user-avatar"/>
             <p className="author-name">{user.name}</p>
             <time>· {day} {month} {year}</time>
@@ -68,6 +89,6 @@ export default function Post({post: {id, image, text, date, likedBy, author}, on
         {likedBy && likedBy.length > 0? <p className="likes-counter">{likedBy.length} {likedBy.length > 1? 'likes' : 'like'}</p> : ''}
         <div>
             <p className="author-name">{user.name}</p><p>{text}</p>
-        </div>
+        </div></>}
     </article>
 }

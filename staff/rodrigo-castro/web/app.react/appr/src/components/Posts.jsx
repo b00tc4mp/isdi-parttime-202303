@@ -29,7 +29,7 @@ export default function Posts({onEditClicked, lastPostsUpdate, postsToShow}) {
         } catch(error) {
             alert(error.message)
         }
-    })
+    }, [])
 
     //     retrieveUser(context.userId, (error, user) => {
     //         if(error){
@@ -44,24 +44,48 @@ export default function Posts({onEditClicked, lastPostsUpdate, postsToShow}) {
     //     alert(error.message)
     // }
 
-        
     const handleRefreshPosts = () => {
         try {
-            let posts
-            
-            if (postsToShow === 'all')
-                posts = retrievePosts(context.userId)
-            else if(postsToShow === 'saved')
-                if(user.savedPosts)
-                    posts = retrieveSavedPosts(context.userId)
-                else
-                    posts = []
-                    
-            setPosts(posts)
+            retrievePosts(context.userId, (error, posts) => {
+                if(error){
+                    alert(error.message)
+    
+                    return
+                }
+    
+                setPosts(posts)
+            })
         } catch(error) {
             alert(error.message)
         }
     }
+
+        
+    // const handleRefreshPosts = () => {
+    //     try {
+    //         let posts
+            
+    //         if (postsToShow === 'all'){
+    //             retrievePosts(context.userId, (error, posts) => {
+    //                 if(error){
+    //                     alert(error.message)
+        
+    //                     return
+    //                 }
+        
+    //                 setPosts(posts)
+    //             })
+    //         } else if(postsToShow === 'saved')
+    //             if(user.savedPosts)
+    //                 posts = retrieveSavedPosts(context.userId)
+    //             else
+    //                 posts = []
+                    
+    //         setPosts(posts)
+    //     } catch(error) {
+    //         alert(error.message)
+    //     }
+    // }
 
     useEffect(() => {
         console.log('Posts -> "componentDidMount" with hooks')
