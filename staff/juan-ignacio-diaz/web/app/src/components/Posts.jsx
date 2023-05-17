@@ -62,13 +62,15 @@ export default function Posts({ onEditedPost, typePosts, lastPostsUpdate, onMens
             handleRefreshPosts()
     }, [lastPostsUpdate, typePosts])
 
-    return <section>
-        {posts.map(post => <Post 
-            key={post.id} 
-            post={post} 
-            onModifyPost={handleRefreshPosts}
-            onEditPost={onEditedPost}
-            onMenssageAlert={onMenssageAlert}
-        />)}
-    </section>
+    return <>
+        <section>
+            {posts.map(post => <Post 
+                key={post.id} 
+                post={post} 
+                onModifyPost={handleRefreshPosts}
+                onEditPost={onEditedPost}
+                onMenssageAlert={onMenssageAlert}
+            />)}
+        </section>
+    </>
 }

@@ -27,15 +27,17 @@ export default function Login({ onRegisterClick, onUserLoggedIn, onMenssageAlert
         }   
     }
 
-    return <div className="login page container">
-        <h1 className="title">Login</h1>
+    return <>
+        <div className="login page container">
+            <h1 className="title">Login</h1>
 
-        <form className="form" action="" onSubmit={handleLogin}>
-            <input className="input" type="email" name="email" placeholder="usuario@dominio.com" /><br/>
-            <input className="input" type="password" size="10" name="password" placeholder="password" /><br/>
-            <button className = "button" type="submit">Login</button>
-        </form>
+            <form className="form" action="" onSubmit={handleLogin}>
+                <input className="input" type="email" name="email" placeholder="usuario@dominio.com" /><br/>
+                <input className="input" type="password" size="10" name="password" placeholder="password" /><br/>
+                <button className = "button" type="submit">Login</button>
+            </form>
 
-        <p>Go to <a href="" onClick={handleRegisterClick}>Register</a></p>
-    </div>
+            <p>Go to <a href="" onClick={handleRegisterClick}>Register</a></p>
+        </div>
+    </>
 }

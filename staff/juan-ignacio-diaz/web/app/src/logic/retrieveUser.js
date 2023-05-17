@@ -7,7 +7,7 @@ export default function retrieveUser(userId) {
     const foundUser = findUserById(userId)
     if (!foundUser) throw new Error("Error to user")
    
-    const user = {
+    let user = {
         id: foundUser.id,
         name: foundUser.name
     }

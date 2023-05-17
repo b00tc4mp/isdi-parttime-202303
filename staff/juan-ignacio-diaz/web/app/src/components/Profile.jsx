@@ -13,18 +13,22 @@ export default function Profile({ onEditedProfile, onMenssageAlert, user }){
 
         let mode
 
-        if (user.mode)
+        if (user.mode )
             if (user.mode === 'dark') {
-                mode = ''
+                mode = 'light'
                 document.querySelector(':root').classList.remove('dark')
             }
             else {
                 mode = 'dark'
                 document.querySelector(':root').classList.add('dark')
             }
+        else {
+            mode = 'dark'
+            document.querySelector(':root').classList.add('dark')
+        }
 
         try{
-            updateUserMode (context.userId, mode)
+            updateUserMode(context.userId, mode)
 
             onMenssageAlert("mode updated")
 

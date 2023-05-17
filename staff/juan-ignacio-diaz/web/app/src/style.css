@@ -12,13 +12,14 @@ body {
   --basecolor:rgb(25, 195, 121);
   --basehighlight: rgb(99, 195, 25);
   --homebgcolor: rgb(241, 241, 247);
-
+  --namecolor: rgb(25, 36, 30);
 }
 
 :root.dark {
   --basecolor: rgb(53, 206, 89);
   --basebgcolor: rgb(92, 142, 53);
   --homebgcolor: rgb(56, 59, 58);
+  --namecolor: rgb(77, 153, 111);
 }
 
 .page {
@@ -42,26 +43,6 @@ body {
 .login{
 }
 */
-
-.alert{
-  position: fixed;
-  top: 0;
-  height: 100vh;
-  width: 100vw;
-  background-color: rgba(0, 0, 0, 0.545);
-  z-index: 100;
-}
-
-.msAlert{
-  background-color: rgba(247, 244, 244);
-  border-radius: 12px;
-  padding: 2rem;
-  font-style: italic;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-  font-size: medium;
-}
-
-
 
 .form {
  min-width: 60vw;
@@ -112,6 +93,7 @@ body {
   font-style: italic;
   font-size: medium;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
+  color: var(--namecolor);
 }
 
 .add-post, .edit-post {
@@ -121,60 +103,4 @@ body {
   width: 100vw;
   background-color: rgba(0, 0, 0, 0.545);
   z-index: 10;
-}
-
-.post-article {
-  padding-left: 1.5rem;
-  border: 0.2rem outset rgb(51, 56, 44);
-  border-radius: 12px;
-
-}
-
-.post-menssage {
-  display: flex;
-  flex-direction: row;
-  width: 97%;
-  height: 100%;
-  background-color: var(--basecolor);
-  border-radius: 12px;
-  justify-content: left;
-  align-items: center;
-  gap: 4rem;
-}
-
-.post-Author {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  height: 100%;
-
-  justify-content: left;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.post-info {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  height: 100%;
-
-  justify-content: left;
-  align-items: center;
-  gap: 4rem;
-
-  font-size: smaller;
-  font-style: normal;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-}
-
-.post-image {
-  width: 4rem;
-  border-radius: 1rem;
-}
-
-.post-text {
-  font-style: italic;
-  font-size: medium;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }

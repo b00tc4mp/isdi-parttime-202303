@@ -20,7 +20,5 @@ export default function updatePost(userId, postId, image, text) {
     if(text !== '') post.text = text
     post.dateLastModified = new Date
 
-
-
     savePost(post)  
 }

@@ -45,19 +45,21 @@ export default function Register({ onLoginClick, onRegistered, onMenssageAlert})
     
     }
 
-    return <div className="register page container">
-        <h1 className="title">Register</h1>
+    return <>
+        <div className="register page container">
+            <h1 className="title">Register</h1>
 
-        <form className="form" action="" onSubmit={handleRegister}>
-            <label className="title" htmlFor="nameRegister">Name: </label>
-            <input className="input" type="text" name="name" placeholder="name" />
-            <label className="title" htmlFor="emailRegister">E-mail: </label>
-            <input className="input" type="email" name="email" placeholder="usuario@dominio.com" />
-            <label className="title" htmlFor="passwordRegister">Password: </label>
-            <input className="input" type="password" name="password" placeholder="password" /><br/>
-            <button className = "button" type="submit">Register</button>
-        </form>
+            <form className="form" action="" onSubmit={handleRegister}>
+                <label className="title" htmlFor="nameRegister">Name: </label>
+                <input className="input" type="text" name="name" placeholder="name" />
+                <label className="title" htmlFor="emailRegister">E-mail: </label>
+                <input className="input" type="email" name="email" placeholder="usuario@dominio.com" />
+                <label className="title" htmlFor="passwordRegister">Password: </label>
+                <input className="input" type="password" name="password" placeholder="password" /><br/>
+                <button className = "button" type="submit">Register</button>
+            </form>
 
-        <p>Go to <a href="" onClick={handleLoginClick}>Login</a></p>
-    </div>
+            <p>Go to <a href="" onClick={handleLoginClick}>Login</a></p>
+        </div>
+    </>
 }
