@@ -21,9 +21,15 @@ export default function EditPost({onCancel, postId, onPostEdited, onPostDeleted}
         const text = event.target.text.value
 
         try{
-            editPost(context.userId, postId, image, text)
+            editPost(context.userId, postId, image, text, error => {
+                if(error){
+                    alert(error.message)
 
-            onPostEdited()
+                    return
+                }
+
+                onPostEdited()
+            })
         } catch(error){
             alert(error.message)
         }
@@ -33,16 +39,22 @@ export default function EditPost({onCancel, postId, onPostEdited, onPostDeleted}
         event.preventDefault()
 
         try{
-            deletePost(context.userId, postId)
+            deletePost(context.userId, postId, error => {
+                if(error){
+                    alert(error.message)
 
-            onPostDeleted()
+                    return
+                }
+
+                onPostDeleted()
+            })
         } catch(error){
             alert(error.message)
         }
     }
 
     try{
-        const post = retrievePost(context.userId, postId)
+        const post = retrievePost(context.userId, postId) // ARREGLAR ESTO Y SU LOGICA CORRESPONDIENTE!!!!!
 
         return <section className="modal-window" name="modal-edit-post">
             <form action="" onSubmit={handleUpdatePost}>

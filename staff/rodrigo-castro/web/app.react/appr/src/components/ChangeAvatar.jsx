@@ -16,9 +16,15 @@ export default function ChangeAvatar({onCancel, onAvatarChanged}) {
         const avatar = event.target.avatarurl.value
 
         try{
-            updateUserAvatar(context.userId, avatar)
+            updateUserAvatar(context.userId, avatar, error => {
+                if(error){
+                    alert(error.message)
 
-            onAvatarChanged()
+                    return
+                }
+
+                onAvatarChanged()
+            })
         } catch(error){
             alert(error.message)
         }

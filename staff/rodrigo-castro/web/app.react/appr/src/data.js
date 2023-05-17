@@ -1,6 +1,6 @@
 console.log('data loaded')
 
-const DELAY = 3000
+const DELAY = 1000
 
 export function users2(callback) {
     setTimeout(() => {
@@ -72,33 +72,44 @@ export const findUserById = (userId, callback) => {
 //     password: '123123123'
 // })
 
-export const posts = () => {
-    const posts = 'postsJson' in localStorage? JSON.parse(localStorage.postsJson) : []
+export const loadPosts = (callback) => {
+    setTimeout(() => {
+        const posts = 'postsJson' in localStorage? JSON.parse(localStorage.postsJson) : []
     
-    posts.forEach(post => post.date = new Date(post.date))
-
-    return posts
+        posts.forEach(post => post.date = new Date(post.date))
+    
+        callback(posts)
+    }, DELAY)
 }
 
-export function savePosts(posts) {
-    localStorage.postsJson = JSON.stringify(posts)
+export function savePosts(posts, callback) {
+    setTimeout(() => {
+        localStorage.postsJson = JSON.stringify(posts)
+
+        callback()
+    }, DELAY)
 }
 
-export function savePost(post) {
-    const _posts = posts()
+export function savePost(post, callback) {
+    loadPosts(posts => {
+        const index = posts.findIndex(_post => _post.id === post.id)
+    
+        if (index < 0)
+            posts.push(post)
+        else
+            posts.splice(index, 1, post)
+    
+        savePosts(posts, callback)
+    })
 
-    const index = _posts.findIndex(_post => _post.id === post.id)
-
-    if (index < 0)
-        _posts.push(post)
-    else
-        _posts.splice(index, 1, post)
-
-    savePosts(_posts)
 }
 
-export const findPostById = (postId) => {
-    return posts().find(post => post.id === postId)
+export const findPostById = (postId, callback) => {
+    loadPosts(posts => {
+        const post = posts.find(post => post.id === postId)
+
+        callback(post)
+    })
 }
 
 // posts.push({

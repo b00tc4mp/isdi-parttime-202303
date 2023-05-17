@@ -1,33 +1,41 @@
 import { validateId, validateUrl, validateText } from './helpers/validators'
-import { posts, savePosts, findUserById } from '../data'
+import { savePosts, findUserById, loadPosts } from '../data'
 
-export function createPost(userId, image, text) {
+export function createPost(userId, image, text, callback) {
     validateId(userId)
     validateUrl(image)
     validateText(text)
 
-    const user = findUserById(userId)
-
-    if(!user) throw new Error(`User with id ${userId} not found`) // maybe un something went wrong al usuario y este mensaje por consola
-
-    const _posts = posts()
+    findUserById(userId, user => {
+        if(!user){
+            callback(new Error(`User with id ${userId} not found`))
+        }
     
-    let id = 'post-1'
-    
-    const lastPost = _posts[_posts.length - 1]
+        loadPosts(posts => {
+            if(!posts){
+                callback(new Error(`Posts not found`))
 
-    if(lastPost)
-        id = 'post-' + (parseInt(lastPost.id.slice(5)) + 1)
+                return
+            }
 
-    const post = {
-        id,
-        author: userId,
-        image,
-        text,
-        date: new Date,
-    }
-
-    _posts.push(post)
-
-    savePosts(_posts)
+            let id = 'post-1'
+            
+            const lastPost = posts[posts.length - 1]
+        
+            if(lastPost)
+                id = 'post-' + (parseInt(lastPost.id.slice(5)) + 1)
+        
+            const post = {
+                id,
+                author: userId,
+                image,
+                text,
+                date: new Date,
+            }
+        
+            posts.push(post)
+        
+            savePosts(posts, () => callback(null))
+        })
+    })
 }

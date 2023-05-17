@@ -4,7 +4,7 @@ import Post from './Post.jsx'
 import { useState, useEffect } from 'react'
 import './Posts.css'
 import PropTypes from 'prop-types'
-// import { retrieveUser } from '../logic/retrieveUser'
+import { retrieveUser } from '../logic/retrieveUser'
 import retrieveSavedPosts from '../logic/retrieveSavedPosts'
 
 export default function Posts({onEditClicked, lastPostsUpdate, postsToShow}) {
@@ -12,8 +12,7 @@ export default function Posts({onEditClicked, lastPostsUpdate, postsToShow}) {
         onEditClicked: PropTypes.func
     }
     const [posts, setPosts] = useState()
-
-    // let user
+    const [user, setUser] = useState()
 
     useEffect(() => {
         try {
@@ -26,66 +25,70 @@ export default function Posts({onEditClicked, lastPostsUpdate, postsToShow}) {
     
                 setPosts(posts)
             })
+
+            retrieveUser(context.userId, (error, user) => {
+                if(error){
+                    alert(error.message)
+        
+                    return
+                }
+        
+                setUser(user) 
+            })
         } catch(error) {
             alert(error.message)
         }
     }, [])
 
-    //     retrieveUser(context.userId, (error, user) => {
-    //         if(error){
-    //             alert(error.message)
 
-    //             return
-    //         }
 
-    //         setUser(user) 
-    //     })
-    // } catch(error) {
-    //     alert(error.message)
-    // }
-
-    const handleRefreshPosts = () => {
-        try {
-            retrievePosts(context.userId, (error, posts) => {
-                if(error){
-                    alert(error.message)
-    
-                    return
-                }
-    
-                setPosts(posts)
-            })
-        } catch(error) {
-            alert(error.message)
-        }
-    }
-
-        
     // const handleRefreshPosts = () => {
     //     try {
-    //         let posts
-            
-    //         if (postsToShow === 'all'){
-    //             retrievePosts(context.userId, (error, posts) => {
-    //                 if(error){
-    //                     alert(error.message)
-        
-    //                     return
-    //                 }
-        
-    //                 setPosts(posts)
-    //             })
-    //         } else if(postsToShow === 'saved')
-    //             if(user.savedPosts)
-    //                 posts = retrieveSavedPosts(context.userId)
-    //             else
-    //                 posts = []
-                    
-    //         setPosts(posts)
+    //         retrievePosts(context.userId, (error, posts) => {
+    //             if(error){
+    //                 alert(error.message)
+    
+    //                 return
+    //             }
+    
+    //             setPosts(posts)
+    //         })
     //     } catch(error) {
     //         alert(error.message)
     //     }
     // }
+
+        
+    const handleRefreshPosts = () => {
+        try {            
+            if (postsToShow === 'all'){
+                retrievePosts(context.userId, (error, posts) => {
+                    if(error){
+                        alert(error.message)
+        
+                        return
+                    }
+        
+                    setPosts(posts)
+                })
+            } else if(postsToShow === 'saved'){
+                if(user.savedPosts)
+                    retrieveSavedPosts(context.userId, (error, posts) => {
+                        if(error){
+                            alert(error.message)
+
+                            return
+                        }
+
+                        setPosts(posts)
+                    })
+                else
+                    setPosts([])
+            }
+        } catch(error) {
+            alert(error.message)
+        }
+    }
 
     useEffect(() => {
         console.log('Posts -> "componentDidMount" with hooks')

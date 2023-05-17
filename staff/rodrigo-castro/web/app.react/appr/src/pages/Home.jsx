@@ -67,13 +67,18 @@ export default function Home(props) {
 
     const handleAvatarChanged = () => {
         try {
-            const user = retrieveUser(context.userId)
+            retrieveUser(context.userId, (error, user) => {
+                if(error){
+                    alert(error.message)
+                }
+                
+                setModal(null)
+    
+                setUser(user)
+    
+                setLastPostsUpdate(Date.now())
+            })
 
-            setModal(null)
-
-            setUser(user)
-
-            setLastPostsUpdate(Date.now())
         } catch(error){
             alert(error.message)
         }

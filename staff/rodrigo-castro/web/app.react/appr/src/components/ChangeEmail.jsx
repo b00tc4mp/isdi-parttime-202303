@@ -16,9 +16,13 @@ export default function ChangeEmail({onCancel, onEmailChanged}) {
         const password = event.target['change-email-pass'].value
 
         try{
-            changeEmail(context.userId, previousEmail, newEmail, password)
+            changeEmail(context.userId, previousEmail, newEmail, password, (error) => {
+                if(error){
+                    alert(error.message)
+                }
 
-            onEmailChanged()
+                onEmailChanged()
+            })
         } catch(error) {
             alert(error.message)
         }

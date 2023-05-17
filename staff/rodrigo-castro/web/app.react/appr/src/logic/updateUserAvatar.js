@@ -1,15 +1,19 @@
 import { validateId, validateUrl } from "./helpers/validators"
 import { saveUser, findUserById } from '../data'
 
-export const updateUserAvatar = (userId, avatarUrl) => {
+export const updateUserAvatar = (userId, avatarUrl, callback) => {
     validateId(userId, 'user id')
     validateUrl(avatarUrl, 'Avatar url')
 
-    const foundUser = findUserById(userId)
+    findUserById(userId, (foundUser) => {
+        if(!foundUser){
+            alert(new Error('Something went wrong. User not found', {cause: "ownError"}))
 
-    if(!foundUser) throw new Error('Something went wrong. User not found', {cause: "ownError"})
+            return
+        }
 
-    foundUser.avatar = avatarUrl
+        foundUser.avatar = avatarUrl
 
-    saveUser(foundUser)
+        saveUser(foundUser, () => callback(null))
+    })
 }

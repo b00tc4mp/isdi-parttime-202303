@@ -74,8 +74,9 @@ export default function Post({post: {id, image, text, date, likedBy, author}, on
 
     console.log('Post -> render')
 
-    return <article className="post-container">
-        {user && <><div className="post-header">
+    return <>
+    {user && <><article className="post-container">
+        <div className="post-header">
             <img src={user.avatar} className="user-avatar"/>
             <p className="author-name">{user.name}</p>
             <time>· {day} {month} {year}</time>
@@ -89,6 +90,7 @@ export default function Post({post: {id, image, text, date, likedBy, author}, on
         {likedBy && likedBy.length > 0? <p className="likes-counter">{likedBy.length} {likedBy.length > 1? 'likes' : 'like'}</p> : ''}
         <div>
             <p className="author-name">{user.name}</p><p>{text}</p>
-        </div></>}
-    </article>
+        </div>
+    </article></>}
+    </>
 }

@@ -1,5 +1,5 @@
 import { validateId } from './helpers/validators'
-import { posts, loadUsers } from '../data'
+import { loadUsers, loadPosts } from '../data'
 
 export default function retrievePosts(userId, callback) {
     validateId(userId, 'user id')
@@ -11,8 +11,16 @@ export default function retrievePosts(userId, callback) {
             callback(new Error ('User id not valid'))
 
             return
-        } 
-    
-        callback(null, posts().toReversed())
+        }
+
+        loadPosts(posts => {
+            if(!posts){
+                callback(new Error('Posts not found')) //VERIFICAR SI MANU LO HIZO ASÍ
+
+                return
+            }
+
+            callback(null, posts.toReversed())
+        })
     })
 }

@@ -1,21 +1,36 @@
-import { validateEmail, checkNewUser } from './helpers/validators'
+import { validateEmail, validateId, validatePassword } from './helpers/validators'
 import { loadUsers, saveUser, findUserById } from '../data'
 
-export const changeEmail = (userId, userPreviousEmail, userNewEmail, userPassword) => {
-    const foundUser = findUserById(userId)
-
-    if(userPreviousEmail !== foundUser.email) throw new Error('Email or password incorrect', {cause: "ownError"})
-
-    checkNewUser(userNewEmail, users)
-
+export const changeEmail = (userId, userPreviousEmail, userNewEmail, userPassword, callback) => {
+    validateId(userId)
+    validateEmail(userPreviousEmail)
     validateEmail(userNewEmail)
+    validatePassword(userPassword)
+    
+    findUserById(userId, (foundUser) => {
+        if(userPreviousEmail !== foundUser.email){
+            alert(new Error('Email or password incorrect', {cause: "ownError"}))
 
-    if(userPassword !== foundUser.password) throw new Error('Email or password incorrect2', {cause: "ownError"})
+            return
+        }
 
-    foundUser.email = userNewEmail
-    // changeEmailMenu.querySelector('.red-text').textContent = 'Email succesfully changed'
-    // changeEmailMenu.querySelector('.red-text').classList.add('green-text')
-    // changeEmailMenu.querySelector('form').reset()
+        loadUsers(users => {
+            if(users.some(user => user.email === userNewEmail)){
+                alert(new Error('Email already registered', {cause: "ownError"}))
 
-    saveUser(foundUser)
+                return
+            }
+
+            if(userPassword !== foundUser.password){
+                alert(new Error('Email or password incorrect2', {cause: "ownError"}))
+            }
+        
+            foundUser.email = userNewEmail
+            // changeEmailMenu.querySelector('.red-text').textContent = 'Email succesfully changed'
+            // changeEmailMenu.querySelector('.red-text').classList.add('green-text')
+            // changeEmailMenu.querySelector('form').reset()
+        
+            saveUser(foundUser, () => callback(null))
+        })
+    })
 }
