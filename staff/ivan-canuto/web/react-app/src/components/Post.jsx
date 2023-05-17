@@ -1,19 +1,29 @@
 import { context } from "../ui";
 import { toggleLikePost } from "../logic/toggleLikePost";
 import { saveFavoritePost } from "../logic/saveFavoritePost";
-import { findUserById } from "../logic/helpers/dataManager";
+import { findUserById } from "../data";
 import deletePost from  "../logic/deletePost"
 import Comments from "./Comments";
 import { useState } from "react";
+import './components-styles/Post.css'
 
-export default function Post(props) {
+
+export default function Post(post, handleOpenEditPost, handleRefreshPosts) {
 
   const [modal, setModal] = useState('post')
 
   const handleDeletePost = (postId) => {
     try {
-      deletePost(postId, context.userId)
-      props.handleRefreshPosts()
+      deletePost(postId, context.userId, (error) => {
+        if(error) {
+          alert(error)
+          console.log(error.stack)
+
+          return
+        }
+        
+        handleRefreshPosts()
+      })
     
     } catch (error) {
       alert(error)
@@ -23,11 +33,11 @@ export default function Post(props) {
 
   const handleCloseCommentModal = () => {
     setModal('post')
-    props.handleRefreshPosts()
+    handleRefreshPosts()
   }
 
   const handleToggleLikeFav = () => {
-    props.handleRefreshPosts()
+    handleRefreshPosts()
   }
 
   const handlePostScroll = (event) => {
@@ -37,12 +47,11 @@ export default function Post(props) {
       post.scrollTop = post.scrollHeight
       event.stopPropagation()
     }
-    console.log(event);
   }
 
     try {
       
-      const { image, id, likes, date, text, author, comments } = props.post
+      const { image, id, likes, date, text, author, comments } = post
       const user = findUserById(context.userId)
       const postAuthor = findUserById(author)
 
@@ -58,9 +67,9 @@ export default function Post(props) {
           <div>
             <button className="edit-post-button" onClick={() => {
               context.postId = id
-              props.handleOpenEditPost()}
+              handleOpenEditPost()}
               }><span className="material-symbols-outlined">edit</span></button>
-            <button className="delete-post-button" onClick={() => handleDeletePost(props.post)}><span className="material-symbols-outlined">delete</span></button>
+            <button className="delete-post-button" onClick={() => handleDeletePost(post)}><span className="material-symbols-outlined">delete</span></button>
           </div>}
         </div>
 
@@ -70,9 +79,9 @@ export default function Post(props) {
 
         <div className="under-image">
           <i className="favorite-icon" onClick={() => {
-            saveFavoritePost(context.userId, props.post)
+            saveFavoritePost(context.userId, post)
             handleToggleLikeFav()
-            }}>{(!user.favPosts || !user.favPosts.includes(id))? <span className="material-symbols-outlined">star</span> : <span className="material-symbols-outlined saved filled">star</span>}</i>
+            }}>{(!user.favPosts || !user.favPosts.includes(id))? <span className="material-symbols-outlined">bookmark</span> : <span className="material-symbols-outlined saved filled">bookmark</span>}</i>
 
           <span className="material-symbols-outlined comment-icon" onClick={() => {
             context.postId = id
@@ -80,7 +89,7 @@ export default function Post(props) {
             }}>mode_comment</span>
           
           <i className="heart-icon" onClick={() => {
-            toggleLikePost(context.userId, props.post)
+            toggleLikePost(context.userId, post)
             handleToggleLikeFav()
           }}>{(!likes || !likes.includes(context.userId))? <span className="material-symbols-outlined">favorite</span> : <span className="material-symbols-outlined filled liked">favorite</span>}</i>
 
@@ -92,9 +101,9 @@ export default function Post(props) {
       </>}
       
       {modal === 'comments' && <Comments
-        handleRefreshPosts={props.handleRefreshPosts}
+        handleRefreshPosts={handleRefreshPosts}
         onCloseCommentModal={handleCloseCommentModal}
-        post={props.post}
+        post={post}
         // addRemoveButton={modal === 'addComment' ? true : false}
       />}
     </article>

@@ -1,8 +1,5 @@
-import { context } from "../ui";
-import { posts } from "../data";
-import { users } from "../data";
-import { savePosts } from "../data";
-import { saveUser } from "../data";
+import { findUserById, loadPosts, savePosts } from "../data";
+import { validateId } from "./helpers/validators";
 
 /**
  * Deletes a user's post
@@ -11,26 +8,26 @@ import { saveUser } from "../data";
  * @param {string} userId The user's id
  */
 
-export default function deletePost(post, userId) {
+export default function deletePost(post, userId, callBack) {
 
-  const _users = users()
-  const user = _users.find(user => user.id === userId)
-  const userPost = post
-  const _posts = posts()
-  const postIndex = _posts.indexOf(userPost)
-  const favPostIndex = user.favPosts.indexOf(post.id)
-  
-  try {
-    _posts.splice(postIndex, 1)
+  validateId(userId, 'user id')
+
+  findUserById(userId, (user) => {
+
+    const favPostIndex = user.favPosts.indexOf(post.id)
 
     if(favPostIndex >= 0)
       user.favPosts.splice(favPostIndex, 1)
 
-    savePosts(_posts)
-    saveUser(user)
-    
-  } catch(error) {
-    alert('Sorry, there must be an error.')
-    console.log(error.stack);
-  }
+    loadPosts(posts => {
+
+      const userPost = post
+
+      const postIndex = posts.indexOf(userPost)
+      posts.splice(postIndex, 1)
+      
+      savePosts(posts, () => callBack(null))
+    })
+    saveUser(user, () => callBack(null))
+  })
 }

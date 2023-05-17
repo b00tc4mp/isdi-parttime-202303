@@ -1,18 +1,34 @@
-import { saveUser } from '../data'
-import { findUserById } from './helpers/dataManager'
-import { validateUrl, validatePassword } from './helpers/validators'
+import { saveUser, findUserById } from '../data'
+import { validateUrl, validatePassword, validateId } from './helpers/validators'
 
 const avatarImage = document.querySelector('.avatar-image')
-export default function updateUserAvatar(userId, newAvatarUrl, password) {
-  let user = findUserById(userId)
+export default function updateUserAvatar(userId, newAvatarUrl, password, callBack) {
   
-  if (!user) throw new Error('User not found')
+  validateId(userId, 'user id')
   validateUrl(newAvatarUrl)
-  if (newAvatarUrl === user.avatar) throw new Error('New avatar cannot be the same as the old avatar.')
   validatePassword(password)
-  if (password !== user.password) throw new Error('The password is incorrect');
+  
+  if (newAvatarUrl === user.avatar) {
+    callBack(new Error('New avatar cannot be the same as the old avatar.'))
+  
+    return
+  }
 
-  user.avatar = newAvatarUrl
-  saveUser(user)
+  if (password !== user.password) {
+    callBack(new Error('The password is incorrect'))
+
+    return
+  }
+
+  findUserById(userId, (user) => {
+    if (!user) {
+      callBack(new Error('User not found'))
+
+      return
+    }
+
+    user.avatar = newAvatarUrl
+    saveUser(user, () => callBack(null))
+  })
 }
   

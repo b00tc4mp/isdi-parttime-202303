@@ -1,6 +1,8 @@
 import { context } from "../ui";
 import updateUserPassword from "../logic/updateUserPassword";
 import updateUserAvatar from "../logic/updateUserAvatar";
+import './components-styles/ProfileModal.css'
+
 
 export default function Profile(props) {
 
@@ -15,8 +17,16 @@ export default function Profile(props) {
     const password = event.target.password.value
 
     try {
-      updateUserAvatar(context.userId, avatarUrl, password)
-      onUpdatedAvatar()
+      updateUserAvatar(context.userId, avatarUrl, password, (error) => {
+        if(error) {
+          alert(error)
+          console.log(error.stack);
+
+          return
+        }
+        
+        onUpdatedAvatar()
+      })
 
     } catch (error) {
       alert(error.message)
@@ -32,8 +42,16 @@ export default function Profile(props) {
     const newPasswordConfirm = event.target.newPasswordConfirm.value
 
     try {
-      updateUserPassword(context.userId, password, newPassword, newPasswordConfirm)
-      closeProfile()
+      updateUserPassword(context.userId, password, newPassword, newPasswordConfirm, (error) => {
+        if(error) {
+          alert(error)
+          console.log(error.stack);
+
+          return
+        }
+        
+        closeProfile()
+      })
 
     } catch (error) {
       alert(error.message)

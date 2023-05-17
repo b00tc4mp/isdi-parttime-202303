@@ -5,22 +5,19 @@ import { useState } from "react"
 import retrieveUser from "../logic/retrieveUser"
 import deleteComment from "../logic/deleteComment"
 import Comment from "./Comment"
+import './components-styles/Comments.css'
 
-export default function Comments(props) {
+
+export default function Comments({ onCloseCommentModal, handleRefreshPosts, post }) {
 
   const [addComment, setAddComment] = useState(false)
 
   const handleCloseCommentModal = () => {
-    props.onCloseCommentModal()
+    onCloseCommentModal()
   }
 
   const toggleAddComment = () => {
     setAddComment(!addComment)
-  }
-
-  const handleDeleteComment = (post, commentId) => {
-    deleteComment(post, commentId)
-    props.handleRefreshPosts()
   }
 
   function handleCreateComment(event) {
@@ -29,8 +26,15 @@ export default function Comments(props) {
     const commentText = event.target.commentText.value
 
     try {
-      createComment(commentText, props.post)
-      toggleAddComment()
+      createComment(commentText, post, (error) => {
+        if(error) {
+          alert(error.stack)
+
+          return
+        }
+        
+        toggleAddComment()
+      })
 
     } catch(error) {
 
@@ -38,11 +42,53 @@ export default function Comments(props) {
       console.log(error.stack);
     }
   }
+  
+  const handleDeleteComment = (post, commentId) => {
+    try{
+      
+      deleteComment(post, commentId, (error) => {
+        if (error) {
+          alert(error)
+          console.log(error.stack)
+
+          return
+        }
+        
+        handleRefreshPosts()
+      })
+
+    } catch (error) {
+      alert(error)
+      console.log(error.stack)
+    }
+  }
 
   try {
-    const post = retrievePost(context.userId, context.postId)
+    let post;
     const comments = post.comments
-    const user = retrieveUser(post.author)
+    let user;
+
+    retrievePost(context.userId, post.id, (error, _post) => {
+      if (error) {
+        alert(error)
+        console.log(error)
+
+        return
+      }
+
+      post = _post
+    })
+    
+    retrieveUser(post.author, (error,_user) => {
+      if (error) {
+        alert(error)
+        console.log(error)
+
+        return
+      }
+
+      user= _user
+    })
 
   return <>
   <section className="comment-section">

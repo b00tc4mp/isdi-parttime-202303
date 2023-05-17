@@ -1,4 +1,4 @@
-import { users, posts } from "../data"
+import { loadPosts, findUserById } from "../data"
 import { validateId } from "./helpers/validators"
 
 /**
@@ -9,15 +9,21 @@ import { validateId } from "./helpers/validators"
  * @returns {array} The array of posts from database
 */
 
-export function retrievePosts(userId) {
-  const usersApp = users()
-  const postsApp = posts()
+export function retrievePosts(userId, callBack) {
 
   validateId(userId, 'user id')
 
-  let user = usersApp.some(user => user.id === userId)
+  findUserById(userId, (user) => {
 
-  if (!user) throw new Error(`User with ${userId} not found.`)
+    if (!user) {
+      callBack(new Error(`User with ${userId} not found.`))
 
-  return postsApp.toReversed()
+      return
+    }
+    
+    loadPosts(posts => {
+
+      callBack(null, posts.toReversed())
+    })
+  })
 }

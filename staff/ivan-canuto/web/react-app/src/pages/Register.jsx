@@ -1,10 +1,12 @@
 import { registerUser } from "../logic/registerUser"
+import './pages-styles/Register.css'
 
-export default function Register (props) {
+
+export default function Register ({ onLoginClick, onRegisterUser }) {
   const handleOnLogin = (event) => {
     event.preventDefault()
 
-    props.onLoginClick()
+    onLoginClick()
   }
 
   const handleRegisterIn = (event) => {
@@ -15,8 +17,15 @@ export default function Register (props) {
     const password = event.target.password.value
 
     try {
-      registerUser(name, email, password)
-      props.onRegisterUser()
+      registerUser(name, email, password, (error)=> {
+        if(error) {
+          alert(error.stack)
+          
+          return
+        }
+          
+          onRegisterUser()
+      })
 
     } catch (error) {
       alert(error)

@@ -10,12 +10,20 @@ import { retrievePosts } from "./retrievePosts"
  * @returns {object} The post's object
 */
 
-export default function retrievePost(userId ,postId) {
+export default function retrievePost(userId ,postId, callBack) {
   validateId(userId, 'user id')
   validateId(postId, 'post id')
   
-  const posts = retrievePosts(userId)
-  const post = posts.find(post => post.id === postId)
+  retrievePosts(userId, (error, _posts) => {
+    if (error) {
+      alert(error)
+      console.log(error)
 
-  return post
+      return
+    }
+
+    const post = _posts.find(post => post.id === postId)
+  
+    callBack(null, post)
+  })
 }

@@ -1,11 +1,13 @@
 import authenticateUser from "../logic/authenticateUser"
 import { context } from "../ui"
+import './pages-styles/Login.css'
 
-export default function Login (props) {
+
+export default function Login ({ onRegisterClick, onLoggedInUser }) {
   const handleRegisterClick = (event) => {
     event.preventDefault()
 
-    props.onRegisterClick()
+    onRegisterClick()
   }
 
   const handleLogin = (event) => {
@@ -15,8 +17,17 @@ export default function Login (props) {
     const password = event.target.password.value
 
     try {
-      context.userId = authenticateUser(email, password)
-      props.onLoggedInUser()
+      authenticateUser(email, password, (error, userId) => {
+        if(error) {
+          alert(error)
+
+          return
+        }
+
+        context.userId = userId
+        
+        onLoggedInUser()
+      })
       
     } catch (error) {
       alert(error)

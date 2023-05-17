@@ -2,12 +2,13 @@ import { createPost } from "../logic/createPost";
 import { context } from "../ui";
 import { useState } from "react";
 
-export default function AddPost(props) {
+
+export default function AddPost({ onCancel, onCreatedPost }) {
 
   const [selectedImage, setSelectedImage] = useState(null);
 
   const handleCloseClick = () => {
-    props.onCancel()
+    onCancel()
   }
 
   const handleImageUpload = (event) => {
@@ -25,10 +26,17 @@ export default function AddPost(props) {
     const text = event.target.postText.value
 
     try {
-      const updatedSelectedImage = selectedImage
-      createPost(context.userId, imageUrl, updatedSelectedImage, text)
-      props.onCreatedPost()
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      createPost(context.userId, imageUrl, selectedImage, text, (error) => {
+        
+        if (error) {
+          alert(error.stack)
+
+          return
+        }
+        
+        onCreatedPost()
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      })
 
     } catch (error) {
       alert(error)

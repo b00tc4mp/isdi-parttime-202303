@@ -1,23 +1,47 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Profile from "../components/ProfileModal"
 import AddPost from "../components/AddPostModal"
 import Posts from "../components/Posts"
 import Menu from "../components/menu"
-import OwnPosts from "../components/OwnPosts"
-import SavedPosts from "../components/SavedPosts"
 import { context } from "../ui"
 import retrieveUser from "../logic/retrieveUser"
 import EditPost from "../components/EditPostModal"
 import Header from "../components/Header"
+import './pages-styles/Home.css'
+
 
 export default function Home(props) {
   
-  const [view, setView] = useState('posts')
+  const [view, setView] = useState(context.view || 'posts')
   const [modal, setModal] = useState(null)
   const [menu, setMenu] = useState(false)
   const [lastPostsUpdate, setLastPostsUpdate] = useState(null)
+  const [user, setUser] = useState()
   
-   const handleReturnToPosts = () => {
+  useEffect(() => {
+    
+    try {
+     retrieveUser(context.userId, (error, _user) => {
+  
+      if(error) {
+        alert(error)
+        console.log(error.stack)
+  
+        return
+      }
+  
+      setUser(_user)
+     })
+      
+    } catch (error) {
+      alert(error)
+      console.log(error);
+    }
+  
+  }, [])
+
+
+   const handleReturnToHome = () => {
     setView('posts')
   }
 
@@ -41,7 +65,7 @@ export default function Home(props) {
   }
 
   const showOwnPosts = () => {
-    setView('ownPosts')
+    setView('userPosts')
   }
 
   const showSavedPosts = () => {
@@ -63,41 +87,51 @@ export default function Home(props) {
     document.body.classList.remove('fixed-scroll')
     setModal(null)
   }
+  
+  const handleUpdatedAvatar = () => {
+    try {
+      retrieveUser(context.userId, (error, user) => {
+        if (error) {
+          alert(error.message)
+          console.log(error.stack)
 
-  const handleSwitchMode = () => document.querySelector(':root').classList.toggle('dark')
-
-  let user;
-  try {
-    user = retrieveUser(context.userId)
-    
-  } catch (error) {
-    alert(error)
-    console.log(error);
+          return
+        }
+        
+        setUser(user)
+      })
+      
+    } catch (error) {
+      alert(error)
+      console.log(error);
+    }
   }
+  
+  console.log('Home -> render')
 
-      return <div className="home page">
+  return <div className="home page">
     <Header
       user={user}
       handleToggleMenu={handleToggleMenu}
-      handleReturnToPosts={handleReturnToPosts}
+      handleReturnToHome={handleReturnToHome}
       handleOpenProfile={handleOpenProfile}
       handleReturnToLogin={handleReturnToLogin}
-      handleSwitchMode={handleSwitchMode}
     />
 
     <main>
+      <Posts
+        view={view}
+        handleOpenEditPost={handleOpenEditPost}
+        lastPostsUpdate={lastPostsUpdate}
+      />
+
       {modal === 'profile' && <Profile
-        onUpdatedAvatar={handleLastPostsUpdate}
+        onUpdatedAvatar={handleUpdatedAvatar}
         onCancel={handleCloseModal}
         />}
 
-      {view === 'posts' && <Posts
-        handleOpenEditPost={handleOpenEditPost}
-        lastPostsUpdate={lastPostsUpdate}
-      />}
-
       {menu && <Menu
-        onHomePage={handleReturnToPosts}
+        onHomePage={handleReturnToHome}
         showOwnPosts={showOwnPosts}
         showSavedPosts={showSavedPosts}
       />}
@@ -112,15 +146,6 @@ export default function Home(props) {
         onCancel={handleCloseModal}
       />}
 
-      {view === 'ownPosts' && <OwnPosts
-        menuState={menu}
-        handleToggleMenu={handleToggleMenu}
-      />}
-
-      {view === 'savedPosts' && <SavedPosts
-        menuState={menu}
-        handleToggleMenu={handleToggleMenu}
-      />}
     </main> 
 
     <footer className="home-footer">

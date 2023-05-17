@@ -1,7 +1,5 @@
-import { posts, savePost } from "../data"
-import { findUserById } from "./helpers/dataManager"
+import { savePost, findUserById } from "../data"
 import { validateId } from "./helpers/validators"
-import retrievePost from "./retrievePost"
 
 export const toggleLikePost = (userId, post)=>{
   const userPost = Array.from(document.querySelectorAll('.user-post')).find(_post => _post.id === post.id)

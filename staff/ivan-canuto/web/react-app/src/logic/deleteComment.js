@@ -8,7 +8,7 @@ import { savePost } from "../data"
  * @param {string} commentId The comment's id
  */
 
-export default function deleteComment(post, commentId) {
+export default function deleteComment(post, commentId, callBack) {
   validateId(commentId, 'comment id')
 
   const _post = post
@@ -16,5 +16,5 @@ export default function deleteComment(post, commentId) {
   const commentIndex = comments.findIndex(comment => comment.id === commentId)
 
   comments.splice(commentIndex, 1)
-  savePost(_post)
+  savePost(_post, () => callBack(null))
 }

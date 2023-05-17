@@ -2,22 +2,30 @@ import { context } from "../ui";
 import { updatePost } from "../logic/updatePost"
 import retrievePost from "../logic/retrievePost";
 
-export default function EditPost(props) {
+
+export default function EditPost({ onCancel, onUpdatedPost }) {
 
   const onCancelClick = () => {
-    props.onCancel()
+    onCancel()
   }
 
   const handleEditButton = (event) => {
     event.preventDefault()
     
-    const postId = props.id
     const image = event.target.postImage.value
     const text = event.target.postText.value
 
     try {
-      updatePost(context.userId, context.postId, image, text)
-      props.onUpdatedPost()
+      updatePost(context.userId, context.postId, image, text, (error) => {
+        if(error) {
+          alert(error)
+          console.log(error.stack)
+
+          return
+        }
+        
+        onUpdatedPost()
+      })
 
     } catch (error) {
       alert(error)

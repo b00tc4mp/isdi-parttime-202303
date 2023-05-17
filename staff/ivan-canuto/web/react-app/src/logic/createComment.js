@@ -1,7 +1,7 @@
-import { savePost } from "../data"
-import { users } from "../data"
+import { findUserById, loadUsers, savePost } from "../data"
 import { context } from "../ui"
 import { v4 as uuidv4 } from 'uuid';
+import { validateText } from "./helpers/validators";
 
 /**
  * Creates a comment in post
@@ -10,17 +10,28 @@ import { v4 as uuidv4 } from 'uuid';
  * @param {object} post The post's object form database
  */
 
-export default function createComment(commentText, post) {
+export default function createComment(commentText, post, callBack) {
+  validateText(commentText)
 
-  const _users = users()
-  const user = _users.find(user => user.id === context.userId)
-  const _post = post
+  findUserById(context.userId, (user) => {
 
-  _post.comments.push({
-    author: user.name,
-    authorId: user.id,
-    text: commentText,
-    id: uuidv4()
+    if(!user) {
+      callBack(new Error('User not found.'))
+  
+      return
+    }
+      
+        const _post = post
+      
+        if(!_post.comments) _post.comments = []
+      
+        _post.comments.push({
+          author: user.name,
+          authorId: user.id,
+          text: commentText,
+          id: uuidv4()
+        })
+        savePost(_post, () => callBack(null))
+    
   })
-  savePost(_post)
 }

@@ -1,19 +1,42 @@
-import { saveUser } from '../data'
-import {findUserById} from './helpers/dataManager'
-import {validatePassword} from './helpers/validators'
+import { saveUser, findUserById } from '../data'
+import { validateId, validatePassword } from './helpers/validators'
 
-export default function updateUserPassword(userId, password, newPassword, newPasswordConfirm) {
+export default function updateUserPassword(userId, password, newPassword, newPasswordConfirm, callBack) {
 
-  let user = findUserById(userId)
-  if (!user) throw new Error('User not found')
+  validateId(userId, 'user id')
   validatePassword(password)
-  if (password !== user.password) throw new Error('The password is incorrect.');
   validatePassword(newPassword, 'new password')
-  validatePassword(newPassword, 'new password confirmation')
-  if (newPassword.length < 6) throw new Error('New password is too short.');
-  if (newPassword === password) throw new Error('New password cannot be the same as the old password.')
-  if (newPassword !== newPasswordConfirm) throw new Error('New passwords do not match.')
+  validatePassword(newPasswordConfirm, 'new password confirmation')
+  if (password !== user.password) {
+    callBack(new Error('The password is incorrect.'))
 
-  user.password = newPassword
-  saveUser(user)
+    return
+  }
+  if (newPassword.length < 6) {
+    callBack(new Error('New password is too short.'))
+
+    return
+  }
+  if (newPassword === password) {
+    callBack(new Error('New password cannot be the same as the old password.'))
+
+    return
+  }
+  if (newPassword !== newPasswordConfirm) {
+    callBack(new Error('New passwords do not match.'))
+
+    return
+  }
+
+  findUserById(userId, (user) => {
+    if (!user) {
+      callBack(new Error('User not found'))
+      
+      return
+    }
+    
+    user.password = newPassword
+    saveUser(user, () => callBack(null))
+  })
+
 }

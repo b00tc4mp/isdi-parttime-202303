@@ -1,4 +1,4 @@
-import { findUserById } from "./helpers/dataManager";
+import { findUserById } from "../data";
 import { validateId } from "./helpers/validators";
 
 /**
@@ -9,18 +9,22 @@ import { validateId } from "./helpers/validators";
  * @returns {object} The new user's object
  */
 
-export default function retrieveUser(userId) {
-  validateId(userId)
+export default function retrieveUser(userId, callBack) {
+  validateId(userId, 'user id')
 
-  let user = findUserById(userId)
+  findUserById(userId, (user) => {
+    if(!user) {
+      callBack(new Error('User not found.'))
 
-  if(!user) throw new Error('User not found.')
-
-  user = {
-    name: user.name,
-    avatar: user.avatar,
-    favPosts: user.favPosts
-  }
-
-  return user
+      return
+    }
+    
+     const _user = {
+      name: user.name,
+      avatar: user.avatar,
+      favPosts: user.favPosts
+    }
+  
+    callBack(null, _user)
+  })
 }

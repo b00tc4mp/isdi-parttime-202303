@@ -1,5 +1,4 @@
-import { saveUser } from '../data'
-import { findUserById } from './helpers/dataManager'
+import { saveUser, findUserById } from '../data'
 
 /**
  * Saves the favorite posts from user
