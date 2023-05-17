@@ -45,6 +45,8 @@ export default function Post({ post: { id, image, text, date, likes, author }, o
             {author === context.userId && <button onClick={handleEditPost}>📝</button>}
             {author === context.userId && <button onClick={handleDeletePost}>🗑</button>}
             <button onClick={null}>⭐️</button>
+            {author === context.userId && <button onClick={null}>🤑</button>}
+            <button onClick={null}>$ VALOR</button>
         </div>
     </article>
 }
