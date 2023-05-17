@@ -1,9 +1,8 @@
-import { validateId, validateCallback } from './helpers/validators'
-import { findUserById, loadPosts } from '../data'
+import { validateId } from './helpers/validators'
+import { findUserById, posts } from '../data'
 
 export default function retrievePosts(userId, callback) {
     validateId(userId, 'user id')
-    validateCallback(callback)
 
     findUserById(userId, user => {
         if (!user) {
@@ -12,6 +11,6 @@ export default function retrievePosts(userId, callback) {
             return
         }
 
-        loadPosts(posts => callback(null, posts.toReversed()))
+        callback(null, posts().toReversed())
     })
 }

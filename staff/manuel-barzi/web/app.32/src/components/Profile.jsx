@@ -9,16 +9,9 @@ export default function Profile({ onUserAvatarUpdated }) {
         const url = event.target.url.value
 
         try {
-            updateUserAvatar(context.userId, url, error => {
-                if (error) {
-                    alert(error.message)
+            updateUserAvatar(context.userId, url)
 
-                    return
-                }
-                
-                onUserAvatarUpdated()
-            })
-
+            onUserAvatarUpdated()
         } catch (error) {
             alert(error.message)
         }

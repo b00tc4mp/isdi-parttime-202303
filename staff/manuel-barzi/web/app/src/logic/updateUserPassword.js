@@ -1,27 +1,30 @@
-import { validatePassword, validateId } from './helpers/validators'
+import { validatePassword, validateId, validateCallback } from './helpers/validators'
 import { saveUser, findUserById } from '../data'
 
-export default function updateUserPassword(userId, password, newPassword, newPasswordConfirm) {
+export default function updateUserPassword(userId, password, newPassword, newPasswordConfirm, validateCallback) {
     validateId(userId, 'user id')
     validatePassword(password)
     validatePassword(newPassword, 'new password')
+    if (newPassword === password) throw new Error('new password equals old password')
     validatePassword(newPasswordConfirm, 'new password confirm')
+    if (newPassword !== newPasswordConfirm) throw new Error('password confirmation mismatch')
+    validateCallback(callback)
 
-    const user = findUserById(userId)
+    findUserById(userId, user => {
+        if (!user) {
+            callback(new Error('user not found'))
 
-    if (!user)
-        throw new Error('user not found')
+            return
+        }
 
-    if (password !== user.password)
-        throw new Error('wrong password')
+        if (password !== user.password) {
+            callback(new Error('wrong password'))
 
-    if (newPassword !== newPasswordConfirm)
-        throw new Error('password confirmation mismatch')
+            return
+        }
 
-    if (newPassword === password)
-        throw new Error('new password equals old password')
+        user.password = newPassword
 
-    user.password = newPassword
-
-    saveUser(user)
+        saveUser(user, () => callback(null))
+    })
 }

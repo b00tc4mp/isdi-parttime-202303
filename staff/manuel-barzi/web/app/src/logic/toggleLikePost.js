@@ -1,36 +1,40 @@
-import { validateId } from './helpers/validators'
+import { validateId, validateCallback } from './helpers/validators'
 import { savePost, findUserById, findPostById } from '../data'
 
-export default function toggleLikePost(userId, postId) {
+export default function toggleLikePost(userId, postId, callback) {
     validateId(userId, 'user id')
     validateId(postId, 'post id')
+    validateCallback(callback)
 
-    const user = findUserById(userId)
+    findUserById(userId, user => {
+        if (!user) {
+            callback(new Error(`user with id ${userId} not found`))
 
-    if (!user) throw new Error(`user with id ${userId} not found`)
-
-    const post = findPostById(postId)
-
-    if (!post) throw new Error(`post with id ${postId} not found`)
-
-    if (!post.likes) {
-        post.likes = [userId]
-    } else {
-        //TODO steps
-        // - extract index of userId in post.likes
-        // - if index < 0 then add userId to post.likes
-        // - else if index >= 0 remove userId from post.likes (splice)
-
-        const index = post.likes.indexOf(userId)
-
-        if (index < 0)
-            post.likes.push(userId)
-        else {
-            post.likes.splice(index, 1)
-
-            if (!post.likes.length) delete post.likes
+            return
         }
-    }
 
-    savePost(post)
+        findPostById(postId, post => {
+            if (!post) {
+                callback(new Error(`post with id ${postId} not found`))
+
+                return
+            }
+
+            if (!post.likes) {
+                post.likes = [userId]
+            } else {
+                const index = post.likes.indexOf(userId)
+
+                if (index < 0)
+                    post.likes.push(userId)
+                else {
+                    post.likes.splice(index, 1)
+
+                    if (!post.likes.length) delete post.likes
+                }
+            }
+
+            savePost(post, () => callback(null))
+        })
+    })
 }

@@ -1,16 +1,20 @@
-import { validateUrl, validateId } from './helpers/validators'
+import { validateUrl, validateId, validateCallback } from './helpers/validators'
 import { saveUser, findUserById } from '../data'
 
-export default function updateUserAvatar(userId, avatar) {
+export default function updateUserAvatar(userId, avatar, callback) {
     validateId(userId, 'user id')
     validateUrl(avatar, 'avatar url')
+    validateCallback(callback)
 
-    const user = findUserById(userId)
+    findUserById(userId, user => {
+        if (!user) {
+            callback(new Error('user not found'))
 
-    if (!user)
-        throw new Error('user not found')
+            return
+        }
 
-    user.avatar = avatar
+        user.avatar = avatar
 
-    saveUser(user)
+        saveUser(user, () => callback(null))
+    })
 }

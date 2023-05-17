@@ -63,15 +63,9 @@ export default function Home({ onLoggedOut }) {
 
     const handleUserAvatarUpdated = () => {
         try {
-            retrieveUser(context.userId, (error, user) => {
-                if (error) {
-                    alert(error.message)
+            const user = retrieveUser(context.userId)
 
-                    return
-                }
-
-                setUser(user)
-            })
+            setUser(user)
         } catch (error) {
             alert(error.message)
         }

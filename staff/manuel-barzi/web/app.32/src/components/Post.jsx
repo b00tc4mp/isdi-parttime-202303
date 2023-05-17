@@ -17,15 +17,9 @@ export default function Post({ post: { id, image, text, date, likes, author }, o
 
     const handleDeletePost = () => {
         try {
-            deletePost(context.userId, id, error => {
-                if (error) {
-                    alert(error.message)
+            deletePost(context.userId, id)
 
-                    return
-                }
-
-                onPostDeleted()
-            })
+            onPostDeleted()
         } catch(error) {
             alert(error.message)
         }
