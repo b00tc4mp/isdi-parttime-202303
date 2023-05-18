@@ -1,5 +1,5 @@
 import { context } from "../ui";
-import { toggleLikePost } from "../logic/toggleLikePost";
+import toggleLikePost from "../logic/toggleLikePost";
 import { saveFavoritePost } from "../logic/saveFavoritePost";
 import deletePost from  "../logic/deletePost"
 import Comments from "./Comments";
@@ -8,24 +8,28 @@ import './components-styles/Post.css'
 import { findUserById } from "../data";
 
 
-export default function Post(post, handleOpenEditPost, handleRefreshPosts, user) {
+export default function Post({post, handleOpenEditPost, handleRefreshPosts, user}) {
 
   const [modal, setModal] = useState('post')
-  const [postAuthor, setAuthor] = useState()
+  const [postAuthor, setPostAuthor] = useState()
+
+  const { image, id, likes, date, text, author } = post
 
   useEffect(() => {
     try {
       findUserById(author, (_postAuthor) => {
-        if(_postAuthor) {
-          throw new Error('User not found')
+        if(!_postAuthor) {
+          alert(new Error('Author not found'))
     
+          return
         }
+        setPostAuthor(_postAuthor)
       })
     } catch (error) {
       alert(error.message)
       console.log(error.stack);
     }
-  })
+  }, [])
 
   const handleDeletePost = (postId) => {
     try {
@@ -64,16 +68,18 @@ export default function Post(post, handleOpenEditPost, handleRefreshPosts, user)
     }
   }
 
-  const { image, id, likes, date, text, author } = post
+  console.log('Post -> render')
+
 
     return <article className="user-post" id={id} onScroll={handlePostScroll}>
     {modal === 'post' && <>
       <div className="above-image">
-        <div>
-              <img className="post-user-avatar" src={postAuthor.avatar} alt="post-user-avatar" />
-              <p className="post-user-name">{postAuthor.name}</p>
-        </div>
-
+        {postAuthor && <>
+          <div>
+                <img className="post-user-avatar" src={postAuthor.avatar} alt="post-user-avatar" />
+                <p className="post-user-name">{postAuthor.name}</p>
+          </div>
+        </>}
         {(author === user.id) && 
         <div>
           <button className="edit-post-button" onClick={() => {
@@ -90,8 +96,16 @@ export default function Post(post, handleOpenEditPost, handleRefreshPosts, user)
 
       <div className="under-image">
         <i className="favorite-icon" onClick={() => {
-            saveFavoritePost(context.userId, post)
-            handleToggleLikeFav()
+            saveFavoritePost(context.userId, post, (error) => {
+              if (error) {
+                alert(error.message)
+                console.log(error.stack)
+
+                return
+              }
+              
+              handleToggleLikeFav()
+            })
           }}>{(!user.favPosts || !user.favPosts.includes(id))? <span className="material-symbols-outlined">bookmark</span> : <span className="material-symbols-outlined saved filled">bookmark</span>}
         </i>
 
@@ -101,8 +115,16 @@ export default function Post(post, handleOpenEditPost, handleRefreshPosts, user)
           }}>mode_comment</span>
         
         <i className="heart-icon" onClick={() => {
-          toggleLikePost(context.userId, post)
-          handleToggleLikeFav()
+          toggleLikePost(context.userId, post, (error) => {
+            if (error) {
+              alert(error.message)
+              console.log(error.stack);
+
+              return
+            }
+            
+            handleToggleLikeFav()
+          })
         }}>{(!likes || !likes.includes(context.userId))? <span className="material-symbols-outlined">favorite</span> : <span className="material-symbols-outlined filled liked">favorite</span>}</i>
 
         <p className="likes-post">{likes ? likes.length + ' likes' : '0 likes'}</p>
@@ -116,7 +138,7 @@ export default function Post(post, handleOpenEditPost, handleRefreshPosts, user)
       handleRefreshPosts={handleRefreshPosts}
       onCloseCommentModal={handleCloseCommentModal}
       post={post}
-      // addRemoveButton={modal === 'addComment' ? true : false}
+      user={user}
     />}
   </article>
 

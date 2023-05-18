@@ -1,12 +1,23 @@
-import { validateText, validateUrl, validateId } from "./helpers/validators"
+import { validateText, validateUrl, validateId, validateCallback } from "./helpers/validators"
 import { loadPosts, savePost, findUserById } from "../data"
 
-export const updatePost = (userId, postId, postImageUrl, postText)=>{
+/**
+ * Updates the post with new data
+ * 
+ * @param {string} userId The user id
+ * @param {string} postId The post id
+ * @param {URL} postImageUrl the url of the image
+ * @param {string} postText The text of the post
+ * @param {function} callBack A function to catch errors and display them to the user.
+ */
+
+export const updatePost = (userId, postId, postImageUrl, postText, callBack)=>{
 
   validateId(userId, 'user id')
   validateId(postId, 'post id')
   validateUrl(postImageUrl)
   validateText(postText)
+  validateCallback(callBack)
   
   findUserById(userId, (user) => {
     if (!user) {

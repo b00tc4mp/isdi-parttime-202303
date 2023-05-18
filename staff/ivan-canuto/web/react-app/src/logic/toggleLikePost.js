@@ -1,44 +1,53 @@
 import { savePost, findUserById } from "../data"
-import { validateId } from "./helpers/validators"
+import { validateCallback, validateId } from "./helpers/validators"
 
-export const toggleLikePost = (userId, post)=>{
-  
-  const [user, setUser] = useState()
+/**
+ * Toggles the user likes in posts
+ * 
+ * @param {string} userId The user id
+ * @param {object} post The post object with information about it
+ * @param {function} callBack A function to catch errors and display them to the user.
+ */
+
+export default function toggleLikePost(userId, post, callBack) {
   
   validateId(userId, 'user id')
-
+  validateCallback(callBack)
+  
   const userPost = Array.from(document.querySelectorAll('.user-post')).find(_post => _post.id === post.id)
-  if(!userPost) throw new Error('Post not found')
+  if(!userPost) callBack(new Error('Post not found'))
+  
+  let user;
 
   findUserById(userId, (_user) => {
-    if (!user) {
+    if (!_user) {
       callBack(new Error(`User not found.`))
 
       return
     }
 
-    setUser(_user)
-  })
+    user = _user
+    
+    if(!post.likes) 
+      post.likes = []
   
-  if(!post.likes) 
-    post.likes = []
-
-  const likesPost = userPost.querySelector('.likes-post')
-  const likedPost = post.likes.some(id => id === userId)
-  const likeIcon = userPost.querySelector('.heart-icon')
-
-  if (!likedPost) {
-    likeIcon.querySelector('span').classList.add('liked', 'filled')
-    likesPost.textContent = (parseInt(likesPost.textContent[0]) + 1) + ' likes'
-    post.likes.push(userId)
-  } else {
-    likeIcon.querySelector('span').classList.remove('liked', 'filled')
-    likesPost.textContent = (parseInt(likesPost.textContent[0]) - 1) + ' likes'
-    let indexUserId = post.likes.indexOf(userId)
-    post.likes.splice(indexUserId, 1)
-  }
-
-  savePost(post)
+    const likesPost = userPost.querySelector('.likes-post')
+    const likedPost = post.likes.some(id => id === userId)
+    const likeIcon = userPost.querySelector('.heart-icon')
+  
+    if (!likedPost) {
+      likeIcon.querySelector('span').classList.add('liked', 'filled')
+      likesPost.textContent = (parseInt(likesPost.textContent[0]) + 1) + ' likes'
+      post.likes.push(userId)
+    } else {
+      likeIcon.querySelector('span').classList.remove('liked', 'filled')
+      likesPost.textContent = (parseInt(likesPost.textContent[0]) - 1) + ' likes'
+      let indexUserId = post.likes.indexOf(userId)
+      post.likes.splice(indexUserId, 1)
+    }
+  
+    savePost(post, () => callBack(null))
+  })
 }
 
 

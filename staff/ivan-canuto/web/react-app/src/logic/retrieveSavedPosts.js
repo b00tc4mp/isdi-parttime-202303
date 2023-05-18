@@ -1,20 +1,28 @@
 import { loadPosts } from "../data"
-import { validateId } from "./helpers/validators"
+import { validateCallback, validateId } from "./helpers/validators"
 import retrieveUser from "./retrieveUser"
 
 /**
  * Retrieves the saved posts form database
  * 
  * @param {string} userId The user's id
+ * @param {function} callBack A function to catch errors and display them to the user., and returns the array of saved post by the user
  * 
- * @returns {array} The array of saved posts
 */
 
 export function retrieveSavedPosts(userId, callBack) {
   
   validateId(userId, 'user id')
+  validateCallback(callBack)
   
-  retrieveUser(userId, (user) => {
+  retrieveUser(userId, (error, user) => {
+
+    if (error) {
+      alert(error.message)
+      console.log(error.stack)
+
+      return
+    }
 
     loadPosts(posts => {
 

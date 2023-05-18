@@ -1,16 +1,18 @@
 import { findUserById } from "../data";
-import { validateId } from "./helpers/validators";
+import { validateCallback, validateId } from "./helpers/validators";
 
 /**
  * Retrieves the name, avatar, and favorite posts of the user
  * 
  * @param {string} userId The user's id
+ * @param {function} callBack A function to catch errors and display them to the user., and returns the user information required
  * 
- * @returns {object} The new user's object
  */
 
 export default function retrieveUser(userId, callBack) {
+
   validateId(userId, 'user id')
+  validateCallback(callBack)
 
   findUserById(userId, (user) => {
     if(!user) {
@@ -24,7 +26,7 @@ export default function retrieveUser(userId, callBack) {
       avatar: user.avatar,
       favPosts: user.favPosts
     }
-  
+
     callBack(null, _user)
   })
 }

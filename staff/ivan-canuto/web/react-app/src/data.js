@@ -1,3 +1,5 @@
+import { validateId } from "./logic/helpers/validators"
+
 const DELAY = 100
 
 export const loadUsers = callBack => { setTimeout(() => {
@@ -13,7 +15,7 @@ export const saveUsers = (users, callBack) => { setTimeout(() => {
 export const saveUser = (user, callBack) => {
     loadUsers(users => {
 
-        const index = users.findIndex(oldUser => oldUser.id == user.id)
+        const index = users.findIndex(oldUser => oldUser.id === user.id)
     
         if(index < 0) {
             users.push(user)
@@ -27,15 +29,15 @@ export const saveUser = (user, callBack) => {
 
 export const findUserByEmail = (email, callBack)=> {
     loadUsers((users) => {
-        let user = users.find(_user => _user.email = email)
-    
+        let user = users.find(_user => _user.email === email)
+        
         callBack(user)
     })
 }
 
 export const findUserById = (userId, callBack)=> {
     loadUsers((users) => {
-        let user = users.find(_user => _user.id = userId)
+        let user = users.find(_user => _user.id === userId)
 
         callBack(user)
     })
@@ -56,7 +58,7 @@ export const savePost = (post, callBack) => {
     
     loadPosts(posts => {
 
-        const index = posts.findIndex(oldPost => oldPost.id == post.id)
+        const index = posts.findIndex(oldPost => oldPost.id === post.id)
     
         if(index < 0) {
             posts.push(post)
@@ -65,5 +67,13 @@ export const savePost = (post, callBack) => {
         }
     
         savePosts(posts, callBack)
+    })
+}
+
+export const findPostById = (postId, callback) => {
+    loadPosts(posts => {
+        const post = posts.find(_post => _post.id === postId)
+
+        callback(post)
     })
 }

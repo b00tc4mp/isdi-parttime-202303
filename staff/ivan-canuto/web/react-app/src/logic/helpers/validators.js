@@ -30,3 +30,7 @@ export const validateText = (text, explanation = 'text')=>{
   if (!text.trim().length) throw new Error(`The ${explanation} field is empty.`);
   if (typeof text !=='string') throw new Error(`The ${explanation} is not a string.`)
 }
+
+export const validateCallback = (callBack, explanation = 'CallBack') => {
+  if (typeof callBack !== 'function') throw new Error(`${explanation} is not a function.`)
+}

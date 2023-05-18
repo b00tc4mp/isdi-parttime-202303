@@ -1,4 +1,4 @@
-import { validateUrl, validateId, validateText } from "./helpers/validators"
+import { validateUrl, validateId, validateText, validateCallback } from "./helpers/validators"
 import { savePost, findUserById, loadPosts } from '../data'
 
 /**
@@ -7,10 +7,13 @@ import { savePost, findUserById, loadPosts } from '../data'
  * @param {string} userId The user's id
  * @param {string} imageUrl The url of the post's image
  * @param {image} selectedImage The image selected
- * @param {*} postText The description of the post
+ * @param {string} postText The description of the post
+ * @param {function} callBack A function to catch errors and display them to the user.
  */
 
 export const createPost = (userId, imageUrl, selectedImage, postText, callBack) => {
+
+  validateCallback(callBack)
   
   if(imageUrl && selectedImage) {
     callBack(new Error('An url and an image file are entered, please enter only one of them.'))

@@ -1,5 +1,14 @@
 import { saveUser, findUserById } from '../data'
-import { validateId, validatePassword } from './helpers/validators'
+import { validateCallback, validateId, validatePassword } from './helpers/validators'
+
+/**
+ * 
+ * @param {string} userId The user id
+ * @param {string} password The user password
+ * @param {string} newPassword The new user password
+ * @param {string} newPasswordConfirm The new user password confirmation
+ * @param {function} callBack A function to catch errors and display them to the user.
+ */
 
 export default function updateUserPassword(userId, password, newPassword, newPasswordConfirm, callBack) {
 
@@ -7,6 +16,8 @@ export default function updateUserPassword(userId, password, newPassword, newPas
   validatePassword(password)
   validatePassword(newPassword, 'new password')
   validatePassword(newPasswordConfirm, 'new password confirmation')
+  validateCallback(callBack)
+
   if (password !== user.password) {
     callBack(new Error('The password is incorrect.'))
 

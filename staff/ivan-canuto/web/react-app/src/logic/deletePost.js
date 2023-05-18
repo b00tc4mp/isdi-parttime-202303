@@ -1,16 +1,18 @@
 import { findUserById, loadPosts, savePosts } from "../data";
-import { validateId } from "./helpers/validators";
+import { validateCallback, validateId } from "./helpers/validators";
 
 /**
  * Deletes a user's post
  * 
  * @param {object} post The post's object from database
  * @param {string} userId The user's id
+ * @param {function} callBack A function to catch errors and display them to the user.
  */
 
 export default function deletePost(post, userId, callBack) {
 
   validateId(userId, 'user id')
+  validateCallback(callBack)
 
   findUserById(userId, (user) => {
 
@@ -25,6 +27,8 @@ export default function deletePost(post, userId, callBack) {
     if(favPostIndex >= 0)
       user.favPosts.splice(favPostIndex, 1)
 
+    saveUser(user, () => callBack(null))
+
     loadPosts(posts => {
 
       const userPost = post
@@ -34,6 +38,5 @@ export default function deletePost(post, userId, callBack) {
       
       savePosts(posts, () => callBack(null))
     })
-    saveUser(user, () => callBack(null))
   })
 }

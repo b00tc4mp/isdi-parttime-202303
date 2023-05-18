@@ -2,7 +2,7 @@ import { context } from "../ui"
 import './components-styles/Comment.css'
 
 
-export default function Comment({ post, comment, handleDeleteComment }) {
+export default function Comment({ comment, post, handleDeleteComment }) {
 
   return <div className="comment">
   <div>

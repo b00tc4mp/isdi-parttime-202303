@@ -8,7 +8,7 @@ import Comment from "./Comment"
 import './components-styles/Comments.css'
 
 
-export default function Comments({ onCloseCommentModal, handleRefreshPosts, post }) {
+export default function Comments({ onCloseCommentModal, handleRefreshPosts, post, user }) {
 
   const [addComment, setAddComment] = useState(false)
 
@@ -64,31 +64,6 @@ export default function Comments({ onCloseCommentModal, handleRefreshPosts, post
   }
 
   try {
-    let post;
-    const comments = post.comments
-    let user;
-
-    retrievePost(context.userId, post.id, (error, _post) => {
-      if (error) {
-        alert(error)
-        console.log(error)
-
-        return
-      }
-
-      post = _post
-    })
-    
-    retrieveUser(post.author, (error,_user) => {
-      if (error) {
-        alert(error)
-        console.log(error)
-
-        return
-      }
-
-      user= _user
-    })
 
   return <>
   <section className="comment-section">
@@ -103,10 +78,10 @@ export default function Comments({ onCloseCommentModal, handleRefreshPosts, post
     <h2>Post comments</h2>
 
     <div className="comments">
-      {comments.map(comment => <Comment
+      {post.comments && post.comments.map(comment => <Comment
       key={comment.id}
-      post={post}
       comment={comment}
+      post={post}
       handleDeleteComment={handleDeleteComment}/>
       )}
     </div>

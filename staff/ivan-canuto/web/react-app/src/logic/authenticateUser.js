@@ -1,19 +1,19 @@
-import {validateEmail, validatePassword} from './helpers/validators'
-import {findUserByEmail} from '../data'
+import { validateCallback, validateEmail, validatePassword } from './helpers/validators'
+import { findUserByEmail } from '../data'
 
 /**
  * Authenticates an user by email and password
  * 
  * @param {string} email The user's email
  * @param {string} password The user's password
- * 
- * @returns {string} The user's id
+ * @param {function} callBack A function to catch the errors and show them to the user
  */
 
 export default function authenticateUser(email, password, callBack) {
 
   validateEmail(email)
   validatePassword(password)
+  validateCallback(callBack)
 
   findUserByEmail(email, (user) => {
 

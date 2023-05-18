@@ -1,16 +1,18 @@
 import { findUserById, loadPosts } from "../data"
-import { validateId } from "./helpers/validators"
+import { validateCallback, validateId } from "./helpers/validators"
 
 /**
  * Retrieves the user's posts form database
  * 
  * @param {string} userId The user's id
+ * @param {function} callBack A function to catch errors and display them to the user., and returns the array of posts made by user
  * 
- * @returns {array} The array of user's posts
 */
 
 export function retrieveUserPosts(userId, callBack) {
+
   validateId(userId, 'user id')
+  validateCallback(callBack)
   
   findUserById(userId, (user) => {
     if (!user) {

@@ -1,4 +1,4 @@
-import { validateName, validateEmail, validatePassword } from './helpers/validators'
+import { validateName, validateEmail, validatePassword, validateCallback } from './helpers/validators'
 import { loadUsers, saveUsers, findUserByEmail } from '../data'
 
 /**
@@ -7,12 +7,15 @@ import { loadUsers, saveUsers, findUserByEmail } from '../data'
  * @param {string} name The user's name
  * @param {string} email The user's email
  * @param {string} password The user's password
+ * @param {function} callBack A function to catch errors and display them to the user.
  */
 
 export function registerUser(name, email, password, callBack) {
 
   validateName(name)
   validateEmail(email)
+  validateCallback(callBack)
+
   if (!email.includes('@')) throw new Error("Email doesn't contain a '@'.")
   if (!email.includes('.')) throw new Error("Email doesn't contain a'.', try to put a dot whithin the domain part.")
   validatePassword(password)

@@ -10,62 +10,8 @@ import { findUserById } from "../data";
 
 export default function Posts({ handleOpenEditPost, lastPostsUpdate, view }) {
 
-  const [posts, setPosts] = useState()
-  const [user, setUser] = useState()
-  
-  useEffect(() => {
-    try {
-      if(view === 'posts')
-        retrievePosts(context.userId, (error, _posts) => {
-          if (error) {
-            alert(error.message)
-            console.log(error)
-
-            return
-          }
-
-          setPosts(_posts)
-        })
-
-      else if(view === 'savedPosts')
-        retrieveSavedPosts(context.userId, (error, _posts) => {
-          if (error) {
-            alert(error.message)
-            console.log(error)
-
-            return
-          }
-
-          setPosts(_posts)
-        })
-
-      else if(view === 'userPosts')
-        retrieveUserPosts(context.userId, (error, _posts) => {
-          if (error) {
-            alert(error.message)
-            console.log(error)
-
-            return
-          }
-
-          setPosts(_posts)
-        })
-
-        findUserById(context.userId, (_user) => {
-  
-          if(!_user) {
-            throw new Error('User not found.')
-          }
-      
-          setUser(_user)
-        })
-      
-    } catch(error) {
-      alert(error)
-      console.log(error.stack);
-    }
-  }, [])
-
+  const [posts, setPosts] = useState(null)
+  const [user, setUser] = useState(null)
 
   const refreshPosts = () => {
     try {
@@ -111,7 +57,24 @@ export default function Posts({ handleOpenEditPost, lastPostsUpdate, view }) {
       console.log(error);
     }
   }
+  
+  useEffect(() => {
+    refreshPosts()
 
+    try {
+      findUserById(context.userId, (_user) => {
+        if(!_user) 
+          alert('User not found.')
+
+        setUser(_user)
+      })
+
+    } catch (error) {
+      alert(error.message)
+      console.log(error.stack);
+    }
+  }, [])
+  
   useEffect(() => {
     console.log('Posts -> "ComponentDidMount" with hooks.');
 
@@ -121,10 +84,14 @@ export default function Posts({ handleOpenEditPost, lastPostsUpdate, view }) {
   useEffect(() => {
     console.log('Posts -> "ComponentWillRecieveProps" with hooks.');
 
-    if(lastPostsUpdate || view) 
+    if(lastPostsUpdate) {
+      console.log('hola');
       refreshPosts()
+    }
       
-  }, [lastPostsUpdate, view])
+  }, [lastPostsUpdate])
+
+  console.log('Postsss -> render')
 
   return <section className="posts-list">
     {posts && posts.map(post => 
@@ -132,4 +99,3 @@ export default function Posts({ handleOpenEditPost, lastPostsUpdate, view }) {
     )}
   </section>
 }
-
