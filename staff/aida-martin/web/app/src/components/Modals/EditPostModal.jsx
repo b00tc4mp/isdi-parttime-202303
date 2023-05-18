@@ -10,9 +10,14 @@ export default function EditPostModal ({ post, onPostEdited, onCancel }) {
     const text = event.target.text.value
 
     try {
-      updatePost(context.userId, post.id, image, text)
+      updatePost(context.userId, post.id, image, text, (error) => {
+        if (error) {
+          console.log(error)
 
-      onPostEdited()
+          return
+        }
+        onPostEdited()
+      })
     } catch (error) {
       console.log(error.message)
     }

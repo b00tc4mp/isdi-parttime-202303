@@ -1,6 +1,5 @@
-import { validateId, validateUrl, validateText } from './helpers/validators'
-import { findUserById, findPostById } from './helpers/dataManagers'
-import { savePost } from '../data'
+import { validateId, validateUrl, validateText, validateCallback } from './helpers/validators'
+import { savePost, findUserById, findPostById } from '../data'
 
 /**
  * Updates post's data in database
@@ -11,22 +10,36 @@ import { savePost } from '../data'
  * @param {string} text The post's text
  */
 
-export default function updatePost (userId, postId, image, text) {
+export default function updatePost (userId, postId, image, text, callback) {
   validateId(userId, 'User ID')
   validateId(postId, 'Post ID')
   validateUrl(image, 'Image URL')
   validateText(text, 'Text')
+  validateCallback(callback)
 
-  const user = findUserById(userId)
-  const post = findPostById(postId)
+  findUserById(userId, user => {
+    if (!user) {
+      callback(new Error('User not found 😥', { cause: 'userError' }))
 
-  if (!user) throw new Error('User not found 😥', { cause: 'userError' })
-  if (!post) throw new Error('User not found 😥', { cause: 'userError' })
+      return
+    }
 
-  if (post.author !== userId) { throw new Error('Post not found 😥', { cause: 'userError' }) }
+    findPostById(postId, post => {
+      if (!post) {
+        callback(new Error('User not found 😥', { cause: 'userError' }))
 
-  post.image = image
-  post.text = text
+        return
+      }
 
-  savePost(post)
+      if (post.author !== userId) {
+        callback(new Error('Post not found 😥', { cause: 'userError' }))
+
+        return
+      }
+      post.image = image
+      post.text = text
+
+      savePost(post, () => callback(null))
+    })
+  })
 }

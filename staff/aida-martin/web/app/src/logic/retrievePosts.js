@@ -1,5 +1,5 @@
-import { validateId } from './helpers/validators'
-import { users, posts } from '../data'
+import { validateId, validateCallback } from './helpers/validators'
+import { findUserById, loadPosts } from '../data'
 
 /**
  * Retrieves all posts from the database
@@ -9,12 +9,17 @@ import { users, posts } from '../data'
  * @returns {string array} All posts sorted by creation
  */
 
-export default function retrievePosts (userId) {
+export default function retrievePosts (userId, callback) {
   validateId(userId, 'User ID')
+  validateCallback(callback)
 
-  const found = users().some((user) => user.id === userId)
+  findUserById(userId, user => {
+    if (!user) {
+      callback(new Error(`User with ID ${userId} not found`))
 
-  if (!found) throw new Error(`User with ID ${userId} not found`)
+      return
+    }
 
-  return posts().toReversed() // TODO toSorted (para que se ordenen por fecha)
+    loadPosts(posts => callback(null, posts.toReversed())) // TODO toSorted (para que se ordenen por fecha)
+  })
 }

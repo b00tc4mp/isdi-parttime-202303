@@ -1,10 +1,10 @@
 import {
   validateName,
   validateEmail,
-  validatePassword
+  validatePassword,
+  validateCallback
 } from './helpers/validators'
-import { findUserByEmail } from './helpers/dataManagers'
-import { users, saveUsers } from '../data'
+import { loadUsers, saveUsers, findUserByEmail } from '../data'
 
 /**
  * Registers a new user with their name, email and password. Updates database
@@ -15,40 +15,47 @@ import { users, saveUsers } from '../data'
  * @param {string} repeatPassword The user's password
  */
 
-export default function registerUser (name, email, password, repeatPassword) {
+export default function registerUser (name, email, password, repeatPassword, callback) {
   validateName(name)
   validateEmail(email)
   validatePassword(password)
+  validateCallback(callback)
 
-  const foundUser = findUserByEmail(email)
-
-  if (foundUser) {
-    throw new Error('You are already registered! Please login! 😅', {
+  if (password !== repeatPassword) {
+    throw new Error('Passwords do not match 😢', {
       cause: 'userError'
     })
   }
 
-  if (password !== repeatPassword) { throw new Error('Passwords do not match 😥', { cause: 'userError' }) }
+  findUserByEmail(email, foundUser => {
+    if (foundUser) {
+      callback(new Error('You are already registered! Please login! 😅', {
+        cause: 'userError'
+      }))
 
-  let id = 'user-1'
+      return
+    }
 
-  // Con barra baja por hacer una variable "privada". Hacemos esto para no llamar a la función dos veces después en lastUser
-  const _users = users()
+    let id = 'user-1'
 
-  const lastUser = _users[_users.length - 1]
+    loadUsers(users => {
+      const lastUser = users[users.length - 1]
 
-  if (lastUser) {
-    id = 'user-' + (parseInt(lastUser.id.slice(5)) + 1)
-  }
+      if (lastUser) {
+        id = 'user-' + (parseInt(lastUser.id.slice(5)) + 1)
+      }
 
-  const user = {
-    id,
-    name,
-    email,
-    password
-  }
+      const user = {
+        id,
+        name,
+        email,
+        password
+      }
 
-  _users.push(user)
+      users.push(user)
 
-  saveUsers(_users)
+      // el null de que "no ha habido error"
+      saveUsers(users, () => callback(null))
+    })
+  })
 }

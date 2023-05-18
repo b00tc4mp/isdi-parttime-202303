@@ -17,9 +17,17 @@ export default function Register ({ onLoginClick, onUserRegisteredIn }) {
     const repeatPassword = event.target.repeatpassword.value
 
     try {
-      registerUser(name, email, password, repeatPassword)
+      registerUser(name, email, password, repeatPassword, error => {
+        // este error es asíncrono (del callback)
+        if (error) {
+          console.log(error.message)
 
-      onUserRegisteredIn()
+          return
+        }
+
+        onUserRegisteredIn()
+      })
+      // este error es síncrono (de los validadores)
     } catch (error) {
       console.log(error.message)
       // errorShow(registerError, error);

@@ -1,6 +1,5 @@
-import { validateId, validateUrl, validateText } from './helpers/validators'
-import { findUserById } from './helpers/dataManagers'
-import { posts, savePosts } from '../data'
+import { validateId, validateUrl, validateText, validateCallback } from './helpers/validators'
+import { loadPosts, savePosts, findUserById } from '../data'
 
 /**
  * Creates a new post, creates an ID for it and saves it in database
@@ -10,36 +9,41 @@ import { posts, savePosts } from '../data'
  * @param {string} text The post's text
  */
 
-export default function createPost (userId, image, text) {
+export default function createPost (userId, image, text, callback) {
   validateId(userId, 'User ID')
   validateUrl(image, 'Image URL')
   validateText(text)
+  validateCallback(callback)
 
-  const user = findUserById(userId)
+  findUserById(userId, user => {
+    if (!user) {
+      callback(new Error('User not found 😥', { cause: 'userError' }))
 
-  if (!user) throw new Error('User not found 😥', { cause: 'userError' })
+      return
+    }
 
-  let id = 'post-1'
+    let id = 'post-1'
 
-  const _posts = posts()
+    loadPosts(posts => {
+      const lastPost = posts[posts.length - 1]
 
-  const lastPost = _posts[_posts.length - 1]
+      if (lastPost) {
+        id = 'post-' + (parseInt(lastPost.id.slice(5)) + 1)
+      }
 
-  if (lastPost) {
-    id = 'post-' + (parseInt(lastPost.id.slice(5)) + 1)
-  }
+      const post = {
+        id,
+        name: user.name,
+        avatar: user.avatar,
+        author: userId,
+        image,
+        text,
+        date: new Date()
+      }
 
-  const post = {
-    id,
-    name: user.name,
-    avatar: user.avatar,
-    author: userId,
-    image,
-    text,
-    date: new Date()
-  }
+      posts.push(post)
 
-  _posts.push(post)
-
-  savePosts(_posts)
+      savePosts(posts, () => callback(null))
+    })
+  })
 }

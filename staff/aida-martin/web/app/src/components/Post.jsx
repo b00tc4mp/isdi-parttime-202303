@@ -1,19 +1,24 @@
 import './Post.css'
 import { DEFAULT_AVATAR_URL } from '../constants'
 import { context } from '../ui'
-import retrieveUser from '../logic/retrieveUser'
 import formatLikes from '../logic/helpers/utils'
 import toggleLikePost from '../logic/toggleLikePost'
 import toggleSavePost from '../logic/toggleSavePost'
 import deletePost from '../logic/deletePost'
 
 export default function Post ({ currentUser, post, onEditPost, onLiked, onSaved, onDeletePost }) {
-  const postAuthor = retrieveUser(post.author)
+  // Hay que cambiarlo a un estado y try catch, pero ¿no hacer esto?
 
   const handleLikePost = () => {
     try {
-      toggleLikePost(context.userId, post.id)
-      onLiked()
+      toggleLikePost(context.userId, post.id, error => {
+        if (error) {
+          console.log(error.message)
+
+          return
+        }
+        onLiked()
+      })
     } catch (error) {
       console.log(error.message)
     }
@@ -21,8 +26,15 @@ export default function Post ({ currentUser, post, onEditPost, onLiked, onSaved,
 
   const handleSavePost = () => {
     try {
-      toggleSavePost(context.userId, post.id)
-      onSaved()
+      toggleSavePost(context.userId, post.id, error => {
+        if (error) {
+          console.log(error.message)
+
+          return
+        }
+
+        onSaved()
+      })
     } catch (error) {
       console.log(error.message)
     }
@@ -34,8 +46,14 @@ export default function Post ({ currentUser, post, onEditPost, onLiked, onSaved,
 
   const handleDeletePost = () => {
     try {
-      deletePost(context.userId, post.id)
-      onDeletePost()
+      deletePost(context.userId, post.id, error => {
+        if (error) {
+          console.log(error.message)
+
+          return
+        }
+        onDeletePost()
+      })
     } catch (error) {
       console.log(error.message)
     }
@@ -44,8 +62,8 @@ export default function Post ({ currentUser, post, onEditPost, onLiked, onSaved,
   return (
     <article data-id={post.id}>
       <div className='user-container-post'>
-        <img className='avatar' src={postAuthor.avatar ? postAuthor.avatar : DEFAULT_AVATAR_URL} />
-        <p className='post-user'>{postAuthor.name}</p>
+        <img className='avatar' src={post.avatar ? post.avatar : DEFAULT_AVATAR_URL} />
+        <p className='post-user'>{post.name}</p>
         {
         post.author === context.userId &&
           <span className='material-symbols-outlined private'>

@@ -78,3 +78,7 @@ export function validateText (text, explain = 'Text') {
   if (typeof text !== 'string') { throw new Error(`${explain} is not a string 😥`, { cause: 'userError' }) }
   if (!text.trim().length) { throw new Error(`${explain} is empty 😥`, { cause: 'userError' }) }
 }
+
+export function validateCallback (callback, explain = 'Callback') {
+  if (typeof callback !== 'function') { throw new Error(`${explain} is not a function 😥`) }
+}

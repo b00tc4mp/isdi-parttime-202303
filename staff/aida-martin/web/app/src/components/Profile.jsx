@@ -10,9 +10,15 @@ export default function Profile ({ onUpdateUserAvatar, onUpdateUserPassword }) {
     const avatar = event.target.url.value
 
     try {
-      updateAvatar(context.userId, avatar)
+      updateAvatar(context.userId, avatar, error => {
+        if (error) {
+          console.log(error.message)
 
-      onUpdateUserAvatar()
+          return
+        }
+
+        onUpdateUserAvatar()
+      })
     } catch (error) {
       console.log(error.message)
     }
@@ -26,9 +32,15 @@ export default function Profile ({ onUpdateUserAvatar, onUpdateUserPassword }) {
     const newPasswordConfirm = event.target.repeatnewpassword.value.trim()
 
     try {
-      changePassword(context.userId, password, newPassword, newPasswordConfirm)
+      changePassword(context.userId, password, newPassword, newPasswordConfirm, error => {
+        if (error) {
+          console.log(error.message)
 
-      onUpdateUserPassword()
+          return
+        }
+
+        onUpdateUserPassword()
+      })
     } catch (error) {
       console.log(error.message)
     }

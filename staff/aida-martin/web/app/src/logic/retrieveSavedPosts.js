@@ -1,6 +1,5 @@
-import { validateId } from './helpers/validators'
-import { posts } from '../data'
-import retrieveUser from './retrieveUser'
+import { validateId, validateCallback } from './helpers/validators'
+import { loadPosts, findUserById } from '../data'
 
 /**
  * Retrieves user's saved posts of the user from the database
@@ -11,12 +10,17 @@ import retrieveUser from './retrieveUser'
  * @returns {string array} Array of user's saved posts
  */
 
-export default function retrieveSavedPosts (userId) {
+export default function retrieveSavedPosts (userId, callback) {
   validateId(userId, 'User ID')
+  validateCallback(callback)
 
-  const user = retrieveUser(userId)
+  findUserById(userId, user => {
+    if (!user) {
+      callback(new Error('User ID not found 😥'))
 
-  if (!user) throw new Error('User ID not found 😥')
+      return
+    }
 
-  return posts().filter((post) => user.saves?.includes(post.id)).toReversed() // TODO toSorted (para que se ordenen por fecha)
+    loadPosts(posts => callback(null, posts.filter((post) => user.saves?.includes(post.id)).toReversed())) // TODO toSorted (para que se ordenen por fecha)
+  })
 }
