@@ -51,13 +51,12 @@ export default function Post({ post: { id, image, text, date, likes, author, fav
     console.log('Post -> render')
 
     return <article>
-        <h2><img src={author.avatar} width="20px" /> {author.name}</h2>
         <img src={image} width="200px" />
         <p>{text}</p>
         <time>{date.toLocaleString()}</time>
         <button onClick={handleToggleLikePost}>{likes.includes(context.userId) ? '❤️' : '🤍'} ({likes ? likes.length : 0})</button>
-        {author.id === context.userId && <button onClick={handleEditPost}>📝</button>}
-        {author.id === context.userId && <button onClick={handleDeletePost}>🗑</button>}
-        <button onClick={handleToggleSavePost}>{fav ? '⭐️' : '✩'}</button>
+        {author === context.userId && <button onClick={handleEditPost}>📝</button>}
+        {author === context.userId && <button onClick={handleDeletePost}>🗑</button>}
+        <button onClick={handleToggleSavePost}>{fav? '⭐️' : '✩'}</button>
     </article>
 }
