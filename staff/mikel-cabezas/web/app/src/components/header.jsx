@@ -6,21 +6,13 @@ import UserImage from "./UserImage"
 import './Header.css'
 import UpdateUserInfo from "./UpdateUserInfo.jsx"
 
-export default function Header( {onUserProfile, onHomeClick, onLoggedOut, goBack, goBackClick} ) {
-    const [current, setCurrent] = useState(false)
+export default function Header( {onUserProfile, onHomeClick, onLoggedOut, selected, onSetThemeClick} ) {
+    const [current, setCurrent] = useState(null)
     const [loggedIn, setloggedIn] = useState(false)
     const [savelUpdateProfile, setSavelUpdateProfile] = useState(null)
+    const [selectedItem, setselectedItem] = useState(null)
 
     const userId = context.userId
-
-    const controlCurrentItem = () => {
-        debugger
-        if (current) {
-            return 'current'
-        } else if (!current) {
-            return ''
-        }
-    }
     const handleHome = () => {
         try {
             onHomeClick()
@@ -49,37 +41,14 @@ export default function Header( {onUserProfile, onHomeClick, onLoggedOut, goBack
         try {
             if(userId) {
                 setloggedIn(true)
-                // document.body.classList.add('logged-in')
               }
-            // if(userId && document.body.classList.contains('logged-in'))
-            //     pushUserDataToHeader(userId)
+
         } catch (error) {
             console.log(error.message)
         }
     }
 
-    // useEffect(() => {
-    //     alert('meh')
-    // }, [])
-
-    useEffect(() => {
-        console.log(current)
-        if(current) {
-            alert(current)
-            setCurrent(true)
-            console.log(`current state of current = ${current}`)
-        }
-    }, [current])
-
-    // useEffect(() => {
-    //     console.log(goBack)
-    //     console.log(`current state of goBack = ${goBack}`)
-    //     if(goBack) {
-    //         alert('go back')
-    //         console.log(`current state of goBack = ${goBack}`)
-    //         setCurrent(false)
-    //     }
-    // }, [goBack])
+    
 
     if (loggedIn) {
         return <>
@@ -96,8 +65,7 @@ export default function Header( {onUserProfile, onHomeClick, onLoggedOut, goBack
                             </li>
                             <li><span className="material-symbols-outlined">web_stories</span>
                             Feed</li>
-                            {console.log(current) }
-                            <li className={`user-settings ${controlCurrentItem()}`} onClick={handleUserProfile}><span className="material-symbols-outlined filled">settings</span>
+                            <li className={`user-settings ${selected === 'user-profile' ? 'current' : ''}`} onClick={handleUserProfile}><span className="material-symbols-outlined filled">settings</span>
                                 User settings</li>
                             <li className="logout" onClick={handleLogout}><span className="material-symbols-outlined"> logout </span>Logout</li>
                         </ul>

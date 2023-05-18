@@ -7,12 +7,10 @@ export function savePostToFavorites(userId, article, thisEvent) {
     const indexFavPost = currentUser.likedPosts.findIndex(post => post === article.id)
     const findFavPost = currentUser.likedPosts.find(post => post === article.id)
 
-    if(thisEvent.target.classList.contains('filled')) {
-        thisEvent.target.classList.remove('filled')
+    if(findFavPost) {
         currentUser.likedPosts.splice(indexFavPost, 1)
     } else {
         if(!findFavPost) {
-            thisEvent.target.classList.add('filled')
             currentUser.likedPosts.push(article.id)
         }
     }
@@ -25,11 +23,10 @@ export function userLikedPost(userId, article, thisEvent) {
     validateLikePostIconTarget(article.id)
     validateTotalPostLikesTarget(article.id)
     const indexLikedPost = article.likes.findIndex(user => user === userId)
-    if(thisEvent.target.classList.contains('filled')) {
-        thisEvent.target.classList.remove('filled')
+    const userLikedPost = article.likes.find(user => user === userId)
+    if(userLikedPost) {
         article.likes.splice(indexLikedPost, 1)
     } else {
-        thisEvent.target.classList.add('filled')
         if (article.likes.length === 0) {
             article.likes.push(userId)
         } else if (article.likes.length > 0) {

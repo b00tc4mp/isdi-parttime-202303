@@ -6,7 +6,7 @@
   left: 600px;
   background: var(--dark);
   position: absolute;
-  transition: linear .5s;
+  transition: linear .8s;
 }
 
 .sidebar {
@@ -24,7 +24,9 @@
   left: 0;
 }
 .section.user-account.start-animation {
-  left: -500px;
+  left: calc(-(100% - 600px));
+  width: 600px;
+  transform-origin: left;
 }
 
 .sidebar .title h1 {

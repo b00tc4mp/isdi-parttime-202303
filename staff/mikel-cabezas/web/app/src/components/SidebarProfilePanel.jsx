@@ -1,23 +1,35 @@
 import { userToggleTheme } from "./helpers/getTheme"
 import { useState } from "react"
 
-export default function Sidebar( {goBackClick} ) {
+export default function Sidebar( {goBackClick, selected, onSetThemeClick, onThemeSet} ) {
 
     const [ goBack, setGoBack ] = useState(false)
-    alert('goBack')
+    
     const handleBackClick = () => {
         setGoBack(Date.now())
-        goBackClick()
+        goBackClick(event)
     }
     
-    function handleToggleTheme(event) {
-        event.preventDefault
-        const userAccount = document.querySelector('.menu-sidebar')
-        userToggleTheme(userAccount)
+    const handleToggleTheme = () => {
+        onSetThemeClick()
+        if(localStorage.theme !== 'dark') {
+            localStorage.theme = 'dark'
+            userToggleTheme()
+        } else if(localStorage.theme === 'dark') {
+            localStorage.theme = 'light'
+            userToggleTheme()
+        }
     }
 
+    const startAnimation = (ms) => {
+        setTimeout(() => {
+            return 'start-animation'
+        }, ms)
+    }
+
+
     return <> 
-        <div className="sidebar _start-animation">
+        <div className={`sidebar _start-animation ${selected === 'user-profile' ? startAnimation(300) : ''}`}>
             <div className="go-back" onClick={handleBackClick}>
                 <div className="material-symbols-outlined">
                     arrow_back

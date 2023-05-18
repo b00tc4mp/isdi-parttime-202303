@@ -1,14 +1,22 @@
 import UpdateUserInfo from "./UpdateUserInfo"
 import UpdateUserPassword from "./UpdateUserPassword"
-import Sidebar from "./sidebarProfilePanel"
+import Sidebar from "./SidebarProfilePanel"
 import Header from "./Header"
 import './UserProfilePanel.css'
 
-export default function Profile( {goBack, goBackClick, onSavelUpdateProfile, onUserProfile, savelUpdateProfile, setSavelUpdateProfile} ) {
+export default function Profile( {goBack, goBackClick, onSavelUpdateProfile, onUserProfile, savelUpdateProfile, setSavelUpdateProfile, selected, onSetThemeClick, onThemeSet} ) {
+    let animationClass
+
+    const startAnimation = (ms) => {
+        setTimeout(() => {
+            animationClass =  'start-animation'
+            return animationClass
+        }, ms)
+    }
+
     return <> 
-    <Sidebar goBackClick={goBackClick} goBack={goBack}/>
-    <div className={`section user-account`
-        }>
+    <Sidebar goBackClick={goBackClick} goBack={goBack} selected={selected} onThemeSet={onThemeSet} onSetThemeClick={onSetThemeClick} />
+    <div className={`section user-account ${selected === 'user-profile' ? startAnimation(300) : ''}`}>
         <UpdateUserInfo onSavelUpdateProfile={onSavelUpdateProfile} savelUpdateProfile={savelUpdateProfile} setSavelUpdateProfile={setSavelUpdateProfile} />
         <UpdateUserPassword />
 

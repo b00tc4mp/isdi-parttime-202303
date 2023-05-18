@@ -7,7 +7,7 @@ import { context } from "./ui.js"
 import UpdateUserInfo from "./components/UpdateUserInfo.jsx"
 
 export default function App( {UpdateUserInfo, handleSavelUpdateProfile} ) {
-
+  // use ref em lugar de query selector
   localStorage.theme === 'dark' ? document.querySelector(':root').classList.add('dark') : ''
   
     const [view, setView] = useState( context.userId ? 'home' : 'login' )
