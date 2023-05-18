@@ -17,7 +17,7 @@ export default function EditPost({ onCancel, onUpdatedPost }) {
 
     try {
       updatePost(context.userId, context.postId, image, text, (error) => {
-        if(error) {
+        if(error.message) {
           alert(error)
           console.log(error.stack)
 
@@ -33,7 +33,16 @@ export default function EditPost({ onCancel, onUpdatedPost }) {
     }
   }
   
-  const post = retrievePost(context.userId, context.postId)
+  let post;
+  retrievePost(context.userId, context.postId, (error, _post) => {
+    if(error.message) {
+      alert(error)
+      console.log(error.stack)
+
+      return
+    }
+    post = _post
+  })
   
   return <div className="edit-post container">
   <form className="edit-post-form" onSubmit={handleEditButton}>

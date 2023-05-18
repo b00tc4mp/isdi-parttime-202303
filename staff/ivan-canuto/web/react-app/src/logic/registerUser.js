@@ -18,8 +18,8 @@ export function registerUser(name, email, password, callBack) {
   validatePassword(password)
   if (password.length < 6) throw new Error('The password is too short.')
 
-  findUserByEmail(email, (foundUser) => {
-    if (foundUser) {
+  findUserByEmail(email, (user) => {
+    if (user) {
       callBack(new Error('User already exists.'))
     
       return
@@ -29,7 +29,7 @@ export function registerUser(name, email, password, callBack) {
 
     loadUsers(users => {
 
-      let lastUser = usersApp[usersApp.length - 1]
+      let lastUser = users[users.length - 1]
       if(lastUser) id = 'user-' + (parseInt(lastUser.id.slice(5)) + 1)
   
       usersApp.push({
@@ -40,7 +40,7 @@ export function registerUser(name, email, password, callBack) {
           avatar: 'https://img.freepik.com/iconos-gratis/icono-perfil-usuario_318-33925.jpg'
       })
   
-      saveUsers(usersApp, () => callBack(null))
+      saveUsers(users, () => callBack(null))
     })
   })
   

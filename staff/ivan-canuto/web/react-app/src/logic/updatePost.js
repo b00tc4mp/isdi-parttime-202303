@@ -10,7 +10,7 @@ export const updatePost = (userId, postId, postImageUrl, postText)=>{
   
   findUserById(userId, (user) => {
     if (!user) {
-      callBack(new Error(`User with id ${userId} not found.`))
+      callBack(new Error(`User not found.`))
       
       return
     }

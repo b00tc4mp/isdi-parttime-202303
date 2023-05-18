@@ -2,12 +2,23 @@ import { savePost, findUserById } from "../data"
 import { validateId } from "./helpers/validators"
 
 export const toggleLikePost = (userId, post)=>{
+  
+  const [user, setUser] = useState()
+  
+  validateId(userId, 'user id')
+
   const userPost = Array.from(document.querySelectorAll('.user-post')).find(_post => _post.id === post.id)
   if(!userPost) throw new Error('Post not found')
 
-  validateId(userId, 'user id')
-  let user = findUserById(userId)
-  if(!user) throw new Error(`User with ${userId} not found`)
+  findUserById(userId, (_user) => {
+    if (!user) {
+      callBack(new Error(`User not found.`))
+
+      return
+    }
+
+    setUser(_user)
+  })
   
   if(!post.likes) 
     post.likes = []

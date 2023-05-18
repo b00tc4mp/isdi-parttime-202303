@@ -5,47 +5,106 @@ import { useState, useEffect } from "react";
 import { retrieveSavedPosts } from "../logic/retrieveSavedPosts";
 import { retrieveUserPosts } from "../logic/retrieveUserPosts";
 import './components-styles/Posts.css'
+import { findUserById } from "../data";
 
 
 export default function Posts({ handleOpenEditPost, lastPostsUpdate, view }) {
 
-  let _posts;
+  const [posts, setPosts] = useState()
+  const [user, setUser] = useState()
   
-  try {
-    if(view === 'posts') {
-      _posts = retrievePosts(context.userId)
-      context.view = 'posts'
+  useEffect(() => {
+    try {
+      if(view === 'posts')
+        retrievePosts(context.userId, (error, _posts) => {
+          if (error) {
+            alert(error.message)
+            console.log(error)
 
-    } else if(view === 'savedPosts') {
-      _posts = retrieveSavedPosts(context.userId)
-      context.view = 'savedPosts'
+            return
+          }
 
-    } else if(view === 'userPosts') {
-      _posts = retrieveUserPosts(context.userId)
-      context.view = 'userPosts'
+          setPosts(_posts)
+        })
+
+      else if(view === 'savedPosts')
+        retrieveSavedPosts(context.userId, (error, _posts) => {
+          if (error) {
+            alert(error.message)
+            console.log(error)
+
+            return
+          }
+
+          setPosts(_posts)
+        })
+
+      else if(view === 'userPosts')
+        retrieveUserPosts(context.userId, (error, _posts) => {
+          if (error) {
+            alert(error.message)
+            console.log(error)
+
+            return
+          }
+
+          setPosts(_posts)
+        })
+
+        findUserById(context.userId, (_user) => {
+  
+          if(!_user) {
+            throw new Error('User not found.')
+          }
+      
+          setUser(_user)
+        })
+      
+    } catch(error) {
+      alert(error)
+      console.log(error.stack);
     }
-    
-  } catch(error) {
-    alert(error)
-    console.log(error.stack);
-  }
+  }, [])
 
-  const [posts, setPosts] = useState(_posts)
 
   const refreshPosts = () => {
     try {
-      let posts;
 
       if(view === 'posts')
-        posts = retrievePosts(context.userId)
+        retrievePosts(context.userId, (error, _posts) => {
+          if (error) {
+            alert(error.message)
+            console.log(error)
+
+            return
+          }
+
+          setPosts(_posts)
+        })
 
       else if(view === 'savedPosts')
-        posts = retrieveSavedPosts(context.userId)
+        retrieveSavedPosts(context.userId, (error, _posts) => {
+          if (error) {
+            alert(error.message)
+            console.log(error)
+
+            return
+          }
+
+          setPosts(_posts)
+        })
 
       else if(view === 'userPosts')
-        posts = retrieveUserPosts(context.userId)
+        retrieveUserPosts(context.userId, (error, _posts) => {
+          if (error) {
+            alert(error.message)
+            console.log(error)
 
-      setPosts(posts)
+            return
+          }
+
+          setPosts(_posts)
+        })
 
     } catch(error) {
       alert(error)
@@ -68,7 +127,9 @@ export default function Posts({ handleOpenEditPost, lastPostsUpdate, view }) {
   }, [lastPostsUpdate, view])
 
   return <section className="posts-list">
-    {posts.map(post => <Post key={post.id} post={post} handleOpenEditPost={handleOpenEditPost} handleRefreshPosts={refreshPosts}/>)}
+    {posts && posts.map(post => 
+      <Post key={post.id} post={post} handleOpenEditPost={handleOpenEditPost} handleRefreshPosts={refreshPosts} user={user}/>
+    )}
   </section>
 }
 

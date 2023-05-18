@@ -14,6 +14,12 @@ export default function deletePost(post, userId, callBack) {
 
   findUserById(userId, (user) => {
 
+    if(!user) {
+      callBack(new Error('User not found.'))
+
+      return
+    }
+
     const favPostIndex = user.favPosts.indexOf(post.id)
 
     if(favPostIndex >= 0)

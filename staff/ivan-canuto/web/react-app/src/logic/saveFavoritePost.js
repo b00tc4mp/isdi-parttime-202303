@@ -8,8 +8,20 @@ import { saveUser, findUserById } from '../data'
  */
 
 export const saveFavoritePost = (userId, post)=>{
+
+  const [user, setUser] = useState()
+
   const userPost = Array.from(document.querySelectorAll('.user-post')).find(_post => _post.id === post.id)
-  const user = findUserById(userId)
+
+  findUserById(userId, (_user) => {
+    if (!user) {
+      callBack(new Error(`User with ${userId} not found.`))
+
+      return
+    }
+
+    setUser(_user)
+  })
   const favIcon = userPost.querySelector('.favorite-icon')
 
   if(!user.favPosts) 

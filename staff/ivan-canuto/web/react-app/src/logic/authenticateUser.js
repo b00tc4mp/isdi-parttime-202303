@@ -15,13 +15,14 @@ export default function authenticateUser(email, password, callBack) {
   validateEmail(email)
   validatePassword(password)
 
-  const user = findUserByEmail(email, (user) => {
+  findUserByEmail(email, (user) => {
 
     if(!user){
       callBack(new Error('User not found.'))
 
       return
     }
+    
     if(user.password !== password) {
       callBack(new Error('Password is incorrect.'))
 
