@@ -61,7 +61,7 @@ export default function Home({ onLoggedOut }) {
         onLoggedOut()
     }
 
-    const handleRefreshUser = () => {
+    const handleUserAvatarUpdated = () => {
         try {
             retrieveUser(context.userId, (error, user) => {
                 if (error) {
@@ -95,13 +95,8 @@ export default function Home({ onLoggedOut }) {
         </header>
 
         <main>
-            {view === 'posts' && <Posts
-                onEditPost={handleOpenEditPostModal}
-                lastPostsUpdate={lastPostsUpdate}
-                user={user}
-                onRefreshPosts={handleRefreshUser}
-            />}
-            {view === 'profile' && <Profile onUserAvatarUpdated={handleRefreshUser} />}
+            {view === 'posts' && <Posts onEditPost={handleOpenEditPostModal} lastPostsUpdate={lastPostsUpdate} />}
+            {view === 'profile' && <Profile onUserAvatarUpdated={handleUserAvatarUpdated} />}
 
             {modal === 'add-post' && <AddPostModal
                 onCancel={handleCloseModal}

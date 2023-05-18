@@ -1,7 +1,7 @@
 import { validateId, validateCallback } from './helpers/validators'
-import { savePost, findUserById, findPostById } from '../data'
+import { findUserById, findPostById } from '../data'
 
-export default function toggleLikePost(userId, postId, callback) {
+export default function retrievePost(userId, postId, callback) {
     validateId(userId, 'user id')
     validateId(postId, 'post id')
     validateCallback(callback)
@@ -20,14 +20,7 @@ export default function toggleLikePost(userId, postId, callback) {
                 return
             }
 
-            const index = post.likes.indexOf(userId)
-
-            if (index < 0)
-                post.likes.push(userId)
-            else
-                post.likes.splice(index, 1)
-
-            savePost(post, () => callback(null))
+            callback(null, post)
         })
     })
 }

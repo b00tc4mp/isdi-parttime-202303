@@ -26,8 +26,7 @@ export default function registerUser(name, email, password, callback) {
                 id,
                 name,
                 email,
-                password,
-                favs: []
+                password
             }
 
             users.push(user)

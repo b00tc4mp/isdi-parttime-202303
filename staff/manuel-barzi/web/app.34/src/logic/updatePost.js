@@ -1,9 +1,11 @@
-import { validateId, validateCallback } from './helpers/validators'
+import { validateId, validateUrl, validateText, validateCallback } from './helpers/validators'
 import { savePost, findUserById, findPostById } from '../data'
 
-export default function toggleLikePost(userId, postId, callback) {
+export default function updatePost(userId, postId, image, text, callback) {
     validateId(userId, 'user id')
     validateId(postId, 'post id')
+    validateUrl(image, 'image url')
+    validateText(text)
     validateCallback(callback)
 
     findUserById(userId, user => {
@@ -20,12 +22,15 @@ export default function toggleLikePost(userId, postId, callback) {
                 return
             }
 
-            const index = post.likes.indexOf(userId)
+            if (post.author !== userId) {
+                callback(new Error(`post with id ${postId} does not belong to user with id ${userId}`))
 
-            if (index < 0)
-                post.likes.push(userId)
-            else
-                post.likes.splice(index, 1)
+                return
+            }
+
+            post.image = image
+            post.text = text
+            post.date = new Date
 
             savePost(post, () => callback(null))
         })

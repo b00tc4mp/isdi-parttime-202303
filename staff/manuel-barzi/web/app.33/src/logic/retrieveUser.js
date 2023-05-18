@@ -14,8 +14,7 @@ export default function retrieveUser(userId, callback) {
     
         const _user = {
             name: user.name,
-            avatar: user.avatar,
-            favs: user.favs
+            avatar: user.avatar
         }
     
         callback(null, _user)

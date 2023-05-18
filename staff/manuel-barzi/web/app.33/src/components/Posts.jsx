@@ -3,7 +3,7 @@ import Post from './Post'
 import { context } from '../ui'
 import { useState, useEffect } from 'react'
 
-export default function Posts({ onEditPost, lastPostsUpdate, user, onRefreshPosts }) {
+export default function Posts({ onEditPost, lastPostsUpdate }) {
     const [posts, setPosts] = useState()
 
     useEffect(() => handleRefreshPosts(), [])
@@ -18,8 +18,6 @@ export default function Posts({ onEditPost, lastPostsUpdate, user, onRefreshPost
                 }
 
                 setPosts(posts)
-
-                onRefreshPosts()
             })
         } catch (error) {
             alert(error.message)
@@ -42,14 +40,6 @@ export default function Posts({ onEditPost, lastPostsUpdate, user, onRefreshPost
     console.log('Posts -> render')
 
     return <section>
-        {posts && posts.map(post => <Post
-            key={post.id}
-            post={post}
-            onEditPost={onEditPost}
-            onToggledLikePost={handleRefreshPosts}
-            onPostDeleted={handleRefreshPosts}
-            onToggledSavePost={handleRefreshPosts}
-            user={user}
-        />)}
+        {posts && posts.map(post => <Post key={post.id} post={post} onEditPost={onEditPost} onToggledLikePost={handleRefreshPosts} onPostDeleted={handleRefreshPosts} />)}
     </section>
 }
