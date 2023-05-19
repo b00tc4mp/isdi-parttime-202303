@@ -6,4 +6,4 @@ users.forEach(user => {
 
 localStorage.usersJson = JSON.stringify(users)
 
-// Esto se hace una vez al arrancar
+// Esto se hace una vez en consola para aplicarlo a todos los que haya de antes

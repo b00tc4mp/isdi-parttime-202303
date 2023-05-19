@@ -16,7 +16,7 @@ export default function Home ({ onLogOut }) {
   const [dark, setDark] = useState(getTheme() === 'dark')
   const [user, setUser] = useState()
 
-  useEffect(() => handleRefreshCurrentUser(), [])
+  useEffect(() => handleRefreshUser(), [])
 
   const handleLogOut = () => {
     context.removeItem('userId')
@@ -53,7 +53,7 @@ export default function Home ({ onLogOut }) {
     try {
       setView('posts')
 
-      handleRefreshCurrentUser()
+      handleRefreshUser()
     } catch (error) {
       console.log(error.message)
     }
@@ -63,7 +63,7 @@ export default function Home ({ onLogOut }) {
     try {
       setView('saved-posts')
 
-      handleRefreshCurrentUser()
+      handleRefreshUser()
     } catch (error) {
       console.log(error.message)
     }
@@ -83,7 +83,7 @@ export default function Home ({ onLogOut }) {
     setLastPostsUpdate(Date.now())
   }
 
-  const handleRefreshCurrentUser = () => {
+  const handleRefreshUser = () => {
     try {
       retrieveUser(context.userId, (error, user) => {
         if (error) {
@@ -159,7 +159,6 @@ export default function Home ({ onLogOut }) {
             currentUser={user}
             onEditPost={handleOpenEditPost}
             lastPostsUpdate={lastPostsUpdate}
-            onRefreshUser={handleRefreshCurrentUser}
           />
         )}
 
@@ -176,7 +175,6 @@ export default function Home ({ onLogOut }) {
             mySavedPosts
             onEditPost={handleOpenEditPost}
             lastPostsUpdate={lastPostsUpdate}
-            onRefreshUser={handleRefreshCurrentUser}
           />
         )}
 

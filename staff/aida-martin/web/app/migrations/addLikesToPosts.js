@@ -6,4 +6,4 @@ posts.forEach(post => {
 
 localStorage.postsJson = JSON.stringify(posts)
 
-// Esto se hace una vez al arrancar
+// Esto se hace una vez en consola para aplicarlo a todos los que haya de antes

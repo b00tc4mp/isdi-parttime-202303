@@ -49,7 +49,8 @@ export default function registerUser (name, email, password, repeatPassword, cal
         id,
         name,
         email,
-        password
+        password,
+        saves: []
       }
 
       users.push(user)

@@ -6,7 +6,7 @@ import toggleLikePost from '../logic/toggleLikePost'
 import toggleSavePost from '../logic/toggleSavePost'
 import deletePost from '../logic/deletePost'
 
-export default function Post ({ currentUser, post, onEditPost, onLiked, onSaved, onDeletePost }) {
+export default function Post ({ post, onEditPost, onLiked, onSaved, onDeletePost }) {
   const handleLikePost = () => {
     try {
       toggleLikePost(context.userId, post.id, error => {
@@ -63,7 +63,7 @@ export default function Post ({ currentUser, post, onEditPost, onLiked, onSaved,
         <img className='avatar' src={post.author.avatar ? post.author.avatar : DEFAULT_AVATAR_URL} />
         <p className='post-user'>{post.author.name}</p>
         {
-        post.author === context.userId &&
+        post.author.id === context.userId &&
           <span className='material-symbols-outlined private'>
             lock_open
           </span>
@@ -76,14 +76,14 @@ export default function Post ({ currentUser, post, onEditPost, onLiked, onSaved,
         <span className={`material-symbols-outlined likes ${post.likes && post.likes.includes(context.userId) ? 'fill' : 'unfill'}`} onClick={handleLikePost}>favorite</span>
         <p className='count-likes'>{formatLikes(post)}</p>
         <span
-          className={`material-symbols-outlined saves ${currentUser.saves && currentUser.saves.includes(post.id) ? 'fill' : 'unfill'}`} onClick={handleSavePost}
+          className={`material-symbols-outlined saves ${post.saves ? 'fill' : 'unfill'}`} onClick={handleSavePost}
         >bookmark
         </span>
       </div>
       <time className='post-date'>{post.date.toLocaleString('en-GB')}</time>
       <p className='post-text'>{post.text}</p>
       {
-        post.author === context.userId &&
+        post.author.id === context.userId &&
           <div className='edit-delete-container-post'>
             <button className='button reverse-color icon-button edit-post-button' onClick={handleEditPost}>
               <span className='material-symbols-outlined edit'>

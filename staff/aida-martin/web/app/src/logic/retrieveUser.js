@@ -22,8 +22,7 @@ export default function retrieveUser (userId, callback) {
 
     const _user = {
       name: user.name.split(' ')[0],
-      avatar: user.avatar,
-      saves: user.saves
+      avatar: user.avatar
     }
 
     const avatar = user.avatar

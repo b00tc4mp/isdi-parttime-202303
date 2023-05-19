@@ -5,7 +5,7 @@ import retrievePosts from '../logic/retrievePosts'
 import retrieveSavedPosts from '../logic/retrieveSavedPosts'
 import { context } from '../ui'
 
-export default function Posts ({ currentUser, mySavedPosts = false, onEditPost, lastPostsUpdate, onRefreshUser }) {
+export default function Posts ({ user, mySavedPosts = false, onEditPost, lastPostsUpdate, onRefreshUser }) {
   const [posts, setPosts] = useState()
 
   // esto se hace solo una vez (por eso no tiene a quién observar)
@@ -22,7 +22,6 @@ export default function Posts ({ currentUser, mySavedPosts = false, onEditPost, 
           }
 
           setPosts(posts)
-          onRefreshUser()
         })
       } else {
         retrieveSavedPosts(context.userId, (error, savedPosts) => {
@@ -33,7 +32,6 @@ export default function Posts ({ currentUser, mySavedPosts = false, onEditPost, 
           }
 
           setPosts(savedPosts)
-          onRefreshUser()
         })
       }
     } catch (error) {
@@ -47,7 +45,7 @@ export default function Posts ({ currentUser, mySavedPosts = false, onEditPost, 
 
   return (
     <section className='posts-list'>
-      {posts && posts.map(post => <Post currentUser={currentUser} post={post} onEditPost={onEditPost} onLiked={handleRefreshPosts} onSaved={handleRefreshPosts} onDeletePost={handleRefreshPosts} onRefreshUser={onRefreshUser} key={post.id} />)}
+      {posts && posts.map(post => <Post user={user} post={post} onEditPost={onEditPost} onLiked={handleRefreshPosts} onSaved={handleRefreshPosts} onDeletePost={handleRefreshPosts} key={post.id} />)}
     </section>
   )
 }
