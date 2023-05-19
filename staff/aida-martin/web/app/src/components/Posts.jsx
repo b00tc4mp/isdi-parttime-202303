@@ -5,7 +5,7 @@ import retrievePosts from '../logic/retrievePosts'
 import retrieveSavedPosts from '../logic/retrieveSavedPosts'
 import { context } from '../ui'
 
-export default function Posts ({ user, mySavedPosts = false, onEditPost, lastPostsUpdate, onRefreshUser }) {
+export default function Posts ({ user, mySavedPosts = false, onEditPost, lastPostsUpdate }) {
   const [posts, setPosts] = useState()
 
   // esto se hace solo una vez (por eso no tiene a quién observar)
