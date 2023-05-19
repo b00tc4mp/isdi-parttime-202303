@@ -40,25 +40,6 @@ export default function Posts({onEditClicked, lastPostsUpdate, postsToShow}) {
         }
     }, [])
 
-
-
-    // const handleRefreshPosts = () => {
-    //     try {
-    //         retrievePosts(context.userId, (error, posts) => {
-    //             if(error){
-    //                 alert(error.message)
-    
-    //                 return
-    //             }
-    
-    //             setPosts(posts)
-    //         })
-    //     } catch(error) {
-    //         alert(error.message)
-    //     }
-    // }
-
-        
     const handleRefreshPosts = () => {
         try {            
             if (postsToShow === 'all'){

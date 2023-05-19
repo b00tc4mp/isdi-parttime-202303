@@ -103,12 +103,22 @@ export default function Home(props) {
             <div name="my-app"><a href="#"><span className="material-symbols-rounded">emoticon</span><span></span></a></div>
             <nav>
                 <ul className="horizontal-menu">
-                    <li name="home" onClick={handleFilterAllPosts}><a href="#" className="menu-buttons"><span className="material-symbols-rounded">home</span><span className="menu-text">Home</span></a></li>
-                    <li name="new-post" onClick={handleOpenAddPost}><a href="#" className="menu-buttons"><span className="material-symbols-rounded">add_a_photo</span><span className="menu-text">Post</span></a></li>
+                    <li name="home" onClick={handleFilterAllPosts}>
+                        <a href="#" className="menu-buttons">
+                            <span className={`material-symbols-rounded ${postsToShow === 'all' && modal === null ? 'filled' : ''}`}>home</span>
+                            <span className="menu-text">{postsToShow === 'all' && modal === null ? <b>Home</b> : 'Home'}</span>
+                        </a>
+                    </li>
+                    <li name="new-post" onClick={handleOpenAddPost}>
+                        <a href="#" className="menu-buttons">
+                            <span className={`material-symbols-rounded ${modal === 'add-post' ? 'filled' : ''}`}>add_a_photo</span>
+                            <span className="menu-text">{modal === 'add-post' ? <b>Post</b> : 'Post'}</span>
+                        </a>
+                    </li>
                     {user && <>
                     <li name="my-profile" onClick={handleOpenProfile}>
-                        <img src={user.avatar || 'https://i.pinimg.com/originals/f1/0f/f7/f10ff70a7155e5ab666bcdd1b45b726d.jpg'} alt="" className="user-avatar"/>
-                        <a href="#" className="menu-buttons"><span className="menu-text" name="authenticated-user-name">Profile</span></a>
+                        <img src={user.avatar || 'https://i.pinimg.com/originals/f1/0f/f7/f10ff70a7155e5ab666bcdd1b45b726d.jpg'} alt="" className={`user-avatar ${modal === 'profile' ? 'selected' : ''}`}/>
+                        <a href="#" className="menu-buttons"><span className="menu-text" name="authenticated-user-name">{modal === 'profile' ? <b>Profile</b> : 'Profile'}</span></a>
                     </li>
                     </>}
                     

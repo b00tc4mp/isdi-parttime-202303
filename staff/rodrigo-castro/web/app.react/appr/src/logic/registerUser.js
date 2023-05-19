@@ -41,7 +41,8 @@ export const registerUserFull = (userEmail, userName, userPassword, callback) =>
                 id,
                 name: userName,
                 email: userEmail,
-                password: userPassword
+                password: userPassword,
+                savedPosts: []
             })
         
             saveUsers(users, () => callback(null))

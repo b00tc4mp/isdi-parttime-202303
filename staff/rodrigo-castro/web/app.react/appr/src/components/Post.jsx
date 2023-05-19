@@ -46,7 +46,6 @@ export default function Post({post: {id, image, text, date, likedBy, author}, on
             alert(error.message)
         }
     }, [])
-
     
     const handleToggleLikePost = () => {
         try{
@@ -72,9 +71,19 @@ export default function Post({post: {id, image, text, date, likedBy, author}, on
 
                     return
                 }
-
-                onToggleSavePost()
+                
+                retrieveUser(context.userId, (error, authenticatedUser) => {
+                    if(error){
+                        alert(error.message)
+    
+                        return
+                    }
+    
+                    setAuthenticatedUser(authenticatedUser)
+                    onToggleSavePost()
+                })
             })
+
         } catch(error){
             alert(error.message)
         }

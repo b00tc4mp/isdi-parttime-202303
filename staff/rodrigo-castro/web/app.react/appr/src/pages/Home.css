@@ -257,3 +257,15 @@ header > div {
         border: 0;
       }
   }
+
+  .selected {
+    outline: 2px solid var(--black-100);
+  }
+
+  .filled {
+    font-variation-settings:
+    'FILL' 1,
+    'wght' 500,
+    'GRAD' 0,
+    'opsz' 48;
+}

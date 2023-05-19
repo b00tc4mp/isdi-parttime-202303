@@ -82,8 +82,8 @@ export default function EditPost({onCancel, postId, onPostEdited, onPostDeleted}
                 <input className="input-field" type="url" name="url" defaultValue={post.image}/>
                 <textarea name="text" cols="30" rows="10" className="post-text input-field" defaultValue={post.text}></textarea>
                 </> || <>
-                    <input className="input-field"></input>
-                    <textarea cols="30" rows="10" className="post-text input-field"></textarea>
+                    <input className="input-field" disabled placeholder="Loading..."></input>
+                    <textarea cols="30" rows="10" className="post-text input-field" disabled placeholder="Loading..."></textarea>
                 </>}
                 <div className="buttons">
                     <button className="submit-buttons" type="button" onClick={handleDelete}>Delete</button>
