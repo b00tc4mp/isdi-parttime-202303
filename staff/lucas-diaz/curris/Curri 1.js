@@ -191,3 +191,6 @@ Curri.prototype.findIndex = function (callback){
     return undefined;
 }
 
+
+// hello !! 
+
