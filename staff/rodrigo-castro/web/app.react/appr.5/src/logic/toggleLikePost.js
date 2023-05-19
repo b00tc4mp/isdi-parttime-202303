@@ -15,14 +15,20 @@ export default (userId, postId, callback) => {
                 callback(new Error (`Post id ${postId} not found`))
             }
         
-            const index = post.likedBy.indexOf(userId)
-    
-            if(index < 0)
-                post.likedBy.push(userId)
-            else{
-                post.likedBy.splice(index, 1)
+            if(!post.likedBy){
+                post.likedBy = [userId]
+            } else {
+                const index = post.likedBy.indexOf(userId)
+        
+                if(index < 0)
+                    post.likedBy.push(userId)
+                else{
+                    post.likedBy.splice(index, 1)
+        
+                    if(!post.likedBy.length) delete post.likedBy
+                }
             }
-            
+        
             savePost(post, () => callback(null))
         })
     })

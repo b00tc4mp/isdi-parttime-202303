@@ -21,6 +21,9 @@ export const retrieveUser = (userId, callback) => {
         if (foundUser.avatar)
             user.avatar = foundUser.avatar
     
+        if(foundUser.savedPosts)
+            user.savedPosts = foundUser.savedPosts
+    
         callback(null, user)
     })
 }

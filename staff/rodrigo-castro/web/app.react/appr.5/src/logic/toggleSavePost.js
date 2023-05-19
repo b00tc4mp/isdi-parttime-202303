@@ -15,14 +15,19 @@ export default (userId, postId, callback) => {
                 callback(new Error (`Post id ${postId} not found`))
             }
         
-            const index = user.savedPosts.indexOf(postId)
-    
-            if(index < 0)
-                user.savedPosts.push(postId)
-            else{
-                user.savedPosts.splice(index, 1)
+            if(!user.savedPosts){
+                user.savedPosts = [postId]
+            } else {
+                const index = user.savedPosts.indexOf(postId)
+        
+                if(index < 0)
+                    user.savedPosts.push(postId)
+                else{
+                    user.savedPosts.splice(index, 1)
+        
+                    if(!user.savedPosts.length) delete user.savedPosts
+                }
             }
-
             saveUser(user, () => callback(null))
         })
     })

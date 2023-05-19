@@ -3,10 +3,10 @@ import toggleLikePost from '../logic/toggleLikePost'
 import toggleSavePost from '../logic/toggleSavePost'
 import './Post.css'
 import PropTypes from 'prop-types'
-import { retrieveUser } from "../logic/retrieveUser"
-import { useEffect, useState } from 'react'
+// import { retrieveUser } from "../logic/retrieveUser"
+// import { useEffect, useState } from 'react'
 
-export default function Post({post: {id, image, text, date, likedBy, author}, onToggledLikePost, onEdit, onToggleSavePost}) {
+export default function Post({post: {id, image, text, date, likedBy, author: {authorId, name, avatar}, isFav}, onToggledLikePost, onEdit, onToggleSavePost}) {
     Post.propTypes = {
         post: PropTypes.object,
         onToggledLikePost: PropTypes.func,
@@ -17,35 +17,6 @@ export default function Post({post: {id, image, text, date, likedBy, author}, on
     const day = date.getDate().toString()
     const month = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'][date.getMonth()]
     const year = date.getFullYear()
-    
-    const [user, setUser] = useState()
-    const [authenticatedUser, setAuthenticatedUser] = useState()
-
-    useEffect(() => {
-        try {
-            retrieveUser(author, (error, user) => {
-                if(error){
-                    alert(error.message)
-    
-                    return
-                }
-                
-                setUser(user)
-            })
-    
-            retrieveUser(context.userId, (error, authenticatedUser) => {
-                if(error){
-                    alert(error.message)
-
-                    return
-                }
-
-                setAuthenticatedUser(authenticatedUser)
-            })
-        } catch(error){
-            alert(error.message)
-        }
-    }, [])
     
     const handleToggleLikePost = () => {
         try{
@@ -72,16 +43,7 @@ export default function Post({post: {id, image, text, date, likedBy, author}, on
                     return
                 }
                 
-                retrieveUser(context.userId, (error, authenticatedUser) => {
-                    if(error){
-                        alert(error.message)
-    
-                        return
-                    }
-    
-                    setAuthenticatedUser(authenticatedUser)
-                    onToggleSavePost()
-                })
+                onToggleSavePost()
             })
 
         } catch(error){
@@ -96,21 +58,21 @@ export default function Post({post: {id, image, text, date, likedBy, author}, on
     console.log('Post -> render')
 
     return <>
-    {user && <><article className="post-container">
+    {authorId && <><article className="post-container">
         <div className="post-header">
-            <img src={user.avatar} className="user-avatar"/>
-            <p className="author-name">{user.name}</p>
+            <img src={avatar} className="user-avatar"/>
+            <p className="author-name">{name}</p>
             <time>· {day} {month} {year}</time>
-            {author === context.userId? <button className="edit-button" onClick={handleEdit}><span className="material-symbols-rounded">edit</span></button> : ''}
+            {authorId === context.userId? <button className="edit-button" onClick={handleEdit}><span className="material-symbols-rounded">edit</span></button> : ''}
         </div>
         <img src={image}/>
         <div className="post-options">
             <button className={`post-button ${likedBy && likedBy.includes(context.userId) ? 'liked filled' : ''}`} onClick={handleToggleLikePost}><span className="material-symbols-rounded">favorite</span></button>
-            <button className={`post-button ${authenticatedUser.savedPosts && authenticatedUser.savedPosts.includes(id) ? 'filled' : ''}`} onClick={handleToggleSavePost}><span className="material-symbols-rounded">bookmark</span></button>
+            <button className={`post-button ${isFav ? 'filled' : ''}`} onClick={handleToggleSavePost}><span className="material-symbols-rounded">bookmark</span></button>
         </div>
-        {likedBy && likedBy.length > 0? <p className="likes-counter">{likedBy.length} {likedBy.length > 1? 'likes' : 'like'}</p> : ''}
+        {likedBy.length > 0? <p className="likes-counter">{likedBy.length} {likedBy.length > 1? 'likes' : 'like'}</p> : ''}
         <div>
-            <p className="author-name">{user.name}</p><p>{text}</p>
+            <p className="author-name">{name}</p><p>{text}</p>
         </div>
     </article></>}
     </>
