@@ -27,20 +27,12 @@ export default function toggleLikePost (userId, postId, callback) {
         return
       }
 
-      if (!post.likes) {
-        post.likes = [userId]
+      const index = post.likes.indexOf(userId)
+
+      if (index < 0) {
+        post.likes.push(userId)
       } else {
-        const index = post.likes.indexOf(userId)
-
-        if (index < 0) {
-          post.likes.push(userId)
-        } else {
-          post.likes.splice(index, 1)
-
-          if (!post.likes.length) {
-            delete post.likes
-          }
-        }
+        post.likes.splice(index, 1)
       }
 
       savePost(post, () => callback(null))

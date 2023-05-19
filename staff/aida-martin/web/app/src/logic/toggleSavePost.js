@@ -27,20 +27,12 @@ export default function toggleSavePost (userId, postId, callback) {
         return
       }
 
-      if (!user.saves) {
-        user.saves = [postId]
+      const index = user.saves.indexOf(postId)
+
+      if (index < 0) {
+        user.saves.push(postId)
       } else {
-        const index = user.saves.indexOf(postId)
-
-        if (index < 0) {
-          user.saves.push(postId)
-        } else {
-          user.saves.splice(index, 1)
-
-          if (!user.saves.length) {
-            delete user.saves
-          }
-        }
+        user.saves.splice(index, 1)
       }
 
       saveUser(user, () => callback(null))

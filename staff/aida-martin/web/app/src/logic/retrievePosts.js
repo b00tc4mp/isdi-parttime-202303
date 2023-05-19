@@ -1,5 +1,5 @@
 import { validateId, validateCallback } from './helpers/validators'
-import { findUserById, loadPosts } from '../data'
+import { findUserById, loadPosts, loadUsers } from '../data'
 
 /**
  * Retrieves all posts from the database
@@ -20,6 +20,22 @@ export default function retrievePosts (userId, callback) {
       return
     }
 
-    loadPosts(posts => callback(null, posts.toReversed())) // TODO toSorted (para que se ordenen por fecha)
+    loadPosts(posts => {
+      loadUsers(users => {
+        posts.forEach(post => {
+          post.saves = user.saves.includes(post.id)
+
+          const _user = users.find(user => user.id === post.author)
+
+          post.author = {
+            id: _user.id,
+            name: _user.name.split(' ')[0],
+            avatar: _user.avatar
+          }
+        })
+
+        callback(null, posts.toReversed()) // TODO toSorted (para que se ordenen por fecha)
+      })
+    })
   })
 }

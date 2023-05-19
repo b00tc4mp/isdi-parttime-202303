@@ -7,8 +7,6 @@ import toggleSavePost from '../logic/toggleSavePost'
 import deletePost from '../logic/deletePost'
 
 export default function Post ({ currentUser, post, onEditPost, onLiked, onSaved, onDeletePost }) {
-  // Hay que cambiarlo a un estado y try catch, pero ¿no hacer esto?
-
   const handleLikePost = () => {
     try {
       toggleLikePost(context.userId, post.id, error => {
@@ -62,8 +60,8 @@ export default function Post ({ currentUser, post, onEditPost, onLiked, onSaved,
   return (
     <article data-id={post.id}>
       <div className='user-container-post'>
-        <img className='avatar' src={post.avatar ? post.avatar : DEFAULT_AVATAR_URL} />
-        <p className='post-user'>{post.name}</p>
+        <img className='avatar' src={post.author.avatar ? post.author.avatar : DEFAULT_AVATAR_URL} />
+        <p className='post-user'>{post.author.name}</p>
         {
         post.author === context.userId &&
           <span className='material-symbols-outlined private'>

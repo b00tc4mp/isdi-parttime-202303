@@ -33,8 +33,6 @@ export default function createPost (userId, image, text, callback) {
 
       const post = {
         id,
-        name: user.name,
-        avatar: user.avatar,
         author: userId,
         image,
         text,

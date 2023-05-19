@@ -1,5 +1,5 @@
 import { validateId, validateUrl, validateCallback } from './helpers/validators'
-import { loadPosts, savePosts, saveUser, findUserById } from '../data'
+import { saveUser, findUserById } from '../data'
 
 /**
  * Updates user's avatar in database
@@ -23,13 +23,5 @@ export default function updateAvatar (userId, url, callback) {
     user.avatar = url
 
     saveUser(user, () => callback(null))
-
-    loadPosts(posts => {
-      const userPosts = posts.filter((post) => post.author === userId)
-
-      userPosts.forEach((post) => { post.avatar = url })
-
-      savePosts(posts, () => callback(null))
-    })
   })
 }
