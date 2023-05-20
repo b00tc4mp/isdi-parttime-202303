@@ -27,7 +27,7 @@ export default function UpdatePost(props){
 
     return <section className="home-edit-post-modal">
     <form className="home-edit-post-form form" onSubmit={handleUpdatePost}>
-        <label htmlFor="url">Eddit post:</label>
+        <label htmlFor="url">Edit post:</label>
         <input type="url" className="form-post-url-input form-item" name="url" placeholder="Enter url" defaultValue= {post.image}/>
         <input type="hidden" className="home-edit-hidden-input" name="postId"/>
         <textarea name="text" cols="30" rows="5" defaultValue= {post.text}></textarea>

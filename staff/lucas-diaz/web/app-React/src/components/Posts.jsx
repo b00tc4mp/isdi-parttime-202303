@@ -68,9 +68,6 @@ export default class Posts extends Component {
     }
 
 
-    
-
-
     render() {
             return <section className="home-posts-content">
                 {this.state.posts.map((post, index) => <Post
@@ -82,7 +79,5 @@ export default class Posts extends Component {
                     onEditPostButton={this.handleOpenEditModal}
                 />)}
             </section>
-
-
     }
 }

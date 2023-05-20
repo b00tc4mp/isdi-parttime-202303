@@ -5,7 +5,6 @@ import Home from "./pages/Home";
 import { context } from "./ui";
 
 export default function App() {
-
   const [view, setView] = useState(context.userId ? "home" : "login")
 
   const handleGoToRegister = () => setView("register")

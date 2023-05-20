@@ -23,12 +23,7 @@ export default function Home({ onLogOutClick }) {
     const [user, setUser] = useState(_user);
 
     //? SETTINGS Y LOG OUT 
-    const handleSettingsClick = () => {
-        const headerMenu = document.querySelector(".home-menu");
-        headerMenu.classList.toggle("home-menu-transition");
-        document.querySelector("main").classList.toggle("fade");
-        setView(null);
-    }
+    const handleSettingsClick = () => setView(null);
     const handleLogOutClick = () => {
         delete context.userId
         onLogOutClick();
@@ -36,53 +31,25 @@ export default function Home({ onLogOutClick }) {
     //? SETTINGS --> AVATAR 
     const handleAvatarAnchor = (event) => {
         event.preventDefault();
-        document.querySelector("main").classList.remove("fade");
-        const headerMenu = document.querySelector(".home-menu");
-        //headerMenu.classList.toggle("home-menu-transition");
         setView("avatar");
     }
-    const handleUpdatedAvatar = () => {
-        const headerMenu = document.querySelector(".home-menu");
-        headerMenu.classList.toggle("home-menu-transition");
-        setView("posts")
-        forceUpdate();
-    }
-    const handleCancelUpdatedAvatar = () => {
-        const headerMenu = document.querySelector(".home-menu");
-        headerMenu.classList.toggle("home-menu-transition");
-        setView("posts")
-    }
+    const handleUpdatedAvatar = () => setView("posts")
+    const handleCancelUpdatedAvatar = () => setView("posts")
+
     //? SETTINGS --> PASSWORD 
     const handlePasswordAnchor = (event) => {
         event.preventDefault();
-        document.querySelector("main").classList.remove("fade");
-        const headerMenu = document.querySelector(".home-menu");
-        //headerMenu.classList.toggle("home-menu-transition");
         setView("password");
     }
-    const handleUpdatedPassword = () => {
-        const headerMenu = document.querySelector(".home-menu");
-        headerMenu.classList.toggle("home-menu-transition");
-        setView("posts");
-    }
-    const handleCancelUpdatedPassword = () => {
-        const headerMenu = document.querySelector(".home-menu");
-        headerMenu.classList.toggle("home-menu-transition");
-        setView("posts");
-    }
+    const handleUpdatedPassword = () => setView("posts");
+    const handleCancelUpdatedPassword = () => setView("posts");
+
     //? ADD POST MODAL 
-    const handleFooterButtonClick = () => {
-        setModal("addPost")
-        document.querySelector("main").classList.add("fade");
-    }
-    const handleCancelAddPost = () => {
-        setModal(null)
-        document.querySelector("main").classList.remove("fade");
-    }
+    const handleFooterButtonClick = () => setModal("addPost")
+    const handleCancelAddPost = () => setModal(null)
     const handleCreatedPost = () => {
         setModal(null);
         setLastPostUpdate(Date.now())
-        document.querySelector("main").classList.remove("fade");
     }
 
     //? UPDATE POST  MODAL
@@ -90,10 +57,8 @@ export default function Home({ onLogOutClick }) {
         setModal("updatePost")
         setPostId(id)
     }
-    const CloseUpdatePostModal = () => {
-        setModal(null)
-        forceUpdate();
-    }
+    const CloseUpdatePostModal = () => setModal(null)
+
     const HandleUpdatedPost = () => {
         setModal(null);
         setLastPostUpdate(Date.now());
@@ -112,7 +77,10 @@ export default function Home({ onLogOutClick }) {
                 <img className="home-header-user-avatar" src={user.avatar} alt="default avatar" />
                 <h2 className="home-header-user-welcome-msj"></h2>
             </div>
-            <nav className="home-menu">
+            <nav className={`home-menu 
+                ${view === null ? "home-menu-transition" : ""} 
+                ${view === "avatar" || view === "posts" || view === "password" ? "" : "home-menu-transition"}
+                `}>
                 <ul>
                     <li><a href="" className="home-menu-change-pass-anchor" onClick={handlePasswordAnchor}>change password</a></li>
                     <li><a href="" className="home-menu-avatar-anchor" onClick={handleAvatarAnchor}>Avatar</a></li>
@@ -121,7 +89,10 @@ export default function Home({ onLogOutClick }) {
             </nav>
         </header>
 
-        <main className="container">
+        <main className={`container 
+            ${modal === "addPost" || view === null || modal === "updatePost" ? "fade" : ""} 
+            ${view === "avatar" || view === "posts" || view === "password" || modal === null ? "" : "fade"}
+            `}>
             {view === "posts" && <Posts
                 onEditPostButtonClick={openEditPostModal}
                 lastPostsUpdate={lastPostUpdate}
