@@ -13,7 +13,7 @@ This is not an IG app but tries to.
 - add post
 - modify post
 - remove post
-- toggle like post
+- toggle like post 
 - toggle fav post
 
 ## __Technical description__
