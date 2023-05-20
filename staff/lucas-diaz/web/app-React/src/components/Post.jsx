@@ -12,10 +12,10 @@ export default function Post(props) {
     }
 
     function handleHeartClick() {
-        try{
+        try {
             likeAPost(context.userId, post)
             props.onLikeClick();
-        }catch(error){
+        } catch (error) {
             alert(error.message)
         }
     }
@@ -43,6 +43,7 @@ export default function Post(props) {
         </div>
         <span className={post.likeCounter.includes(context.userId) ? "material-symbols-rounded material-symbols-rounded-liked" : "material-symbols-rounded"} onClick={handleHeartClick}>favorite</span>
         <p className="home-post-content-article-icon-text">{post.likeCounter.length} {post.likeCounter.length === 1 ? "like" : "likes"}</p>
+        <button className="home-post-content-article-saved"><span className="material-symbols-rounded">bookmark</span></button>
         <p className="home-post-content-article-text">{post.text}</p>
         <time className="home-post-content-article-date">{post.date.toLocaleString()}</time>
     </article>

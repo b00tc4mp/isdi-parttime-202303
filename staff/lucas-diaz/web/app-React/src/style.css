@@ -292,6 +292,13 @@ label{
     background-color: grey;
     padding: .2rem
 }
+.home-post-content-article-saved{
+    background-color: transparent;
+    border:none;
+    flex-basis: 100%;
+    flex-basis: 70%;
+    text-align: right;
+}
 .home-edit-post-modal-button{
     border-radius: .6rem;
     border: none;
