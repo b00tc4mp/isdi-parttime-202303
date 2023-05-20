@@ -1,4 +1,4 @@
-import { updateUserEmail } from "../logic/update-user-email"
+import { updateUserEmail } from "../logic/updateUserEmail"
 import { context } from "../ui"
 
 export default function UpdateEmail({ onUpdateUserEmailClick, onCancelProfileUpdate }) {
@@ -11,11 +11,16 @@ export default function UpdateEmail({ onUpdateUserEmailClick, onCancelProfileUpd
         const password = event.target.emailPassword.value
 
         try {
-            updateUserEmail(context.userId, oldEmail, newEmail, confirmedEmail, password)
+            updateUserEmail(context.userId, oldEmail, newEmail, confirmedEmail, password, error => {
+                if (error) {
+                    alert(error.message)
 
-            alert('email updated')
+                    return
+                }
+                alert('email updated')
 
-            onUpdateUserEmailClick()
+                onUpdateUserEmailClick()
+            })
         } catch (error) {
             alert(error.message)
         }
@@ -24,19 +29,19 @@ export default function UpdateEmail({ onUpdateUserEmailClick, onCancelProfileUpd
     const handleCancelProfileUpdate = () => onCancelProfileUpdate()
 
     return <div className="modal">
-    <h1 className="text">Change email</h1>
-    <form className="email__form" onSubmit={handleUpdateUserEmail}>
-        <div className="inputs__box">
-            <input className="form__input" type="email" name="oldEmail" placeholder="old email"/>
-            <input className="form__input" type="email" name="newEmail" placeholder="new email"/>
-            <input className="form__input" type="email" name="newEmailConfirmation" placeholder="new email confirmation"/>
-            <div className="password-container">
-                <input className="form__input email__password" type="password" name="emailPassword" placeholder="password"/>
-                <i className="email-eye fa-solid fa-eye"></i>
+        <h1 className="text">Change email</h1>
+        <form className="email__form" onSubmit={handleUpdateUserEmail}>
+            <div className="inputs__box">
+                <input className="form__input" type="email" name="oldEmail" placeholder="old email" />
+                <input className="form__input" type="email" name="newEmail" placeholder="new email" />
+                <input className="form__input" type="email" name="newEmailConfirmation" placeholder="new email confirmation" />
+                <div className="password-container">
+                    <input className="form__input email__password" type="password" name="emailPassword" placeholder="password" />
+                    <i className="email-eye fa-solid fa-eye"></i>
+                </div>
             </div>
-        </div>
-        <button className="form__button" type="submit">Change email</button>
-    </form>
-    <button className="email__anchor--profile" href="" onClick={handleCancelProfileUpdate}>Profile</button>
-</div>
+            <button className="form__button" type="submit">Change email</button>
+        </form>
+        <button className="email__anchor--profile" href="" onClick={handleCancelProfileUpdate}>Profile</button>
+    </div>
 }

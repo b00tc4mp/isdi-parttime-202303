@@ -7,9 +7,15 @@ export default function UpdateAvatar({ onUpdateUserAvatarClick, onCancelProfileU
         const avatar = event.target.newAvatar.value
 
         try {
-            updateUserAvatar(context.userId, avatar)
+            updateUserAvatar(context.userId, avatar, error => {
+                if (error) {
+                    alert(error.message)
 
-            onUpdateUserAvatarClick()
+                    return
+                }
+
+                onUpdateUserAvatarClick()
+            })
         } catch (error) {
             alert(error.message)
         }
@@ -22,7 +28,7 @@ export default function UpdateAvatar({ onUpdateUserAvatarClick, onCancelProfileU
             <h1 className="text">Change avatar</h1>
             <form className="avatar__form" onSubmit={handleUpdateUserAvatar}>
                 <div className="inputs__box">
-                    <input className="form__input" type="text" name="newAvatar" placeholder="new avatar url"/>
+                    <input className="form__input" type="text" name="newAvatar" placeholder="new avatar url" />
                 </div>
                 {/* <div className="predefined-avatars">
                     <img className="predefined-avatar alien" src="./images/alien.svg"/>

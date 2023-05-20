@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { getLoggedUser } from "../logic/getLoggedUser"
 import { context } from "../ui"
 import Posts from "../components/Posts"
@@ -15,15 +15,23 @@ export default function Home({ onLoggedOut }) {
     const [modal, setModal] = useState(null)
     const [postId, setPostId] = useState(null)
     const [lastPostsUpdate, setLastPostsUpdate] = useState(null)
-    let _user
+    const [user, setUser] = useState()
 
-    try {
-        _user = getLoggedUser(context.userId)
-    }catch (error) {
-        alert(error.message)
-    }
-    
-    const [user, setUser] = useState(_user)
+    useEffect(() => {
+        try {
+            getLoggedUser(context.userId, (error, user) => {
+                if (error) {
+                    alert(error.message)
+
+                    return
+                }
+
+                setUser(user)
+            })
+        }catch (error) {
+            alert(error.message)
+        }
+    }, [])
 
     const handleLogOut = () => {
         delete context.userId
@@ -46,8 +54,15 @@ export default function Home({ onLoggedOut }) {
     const handleGoBackToProfile = () => {
         setModal('profile')
         try {
-            const _user = getLoggedUser(context.userId)
-            setUser(_user)
+            getLoggedUser(context.userId, (error, user) => {
+                if (error) {
+                    alert(error.message)
+
+                    return
+                }
+
+                setUser(user)
+            })
         }catch(error) {
             alert(error.message)
         }
@@ -66,8 +81,10 @@ export default function Home({ onLoggedOut }) {
     return <div className="home">
             <header className="home__navigation">
                 <nav className="home__navigation--profile">
-                    <img className="avatar" src={user.avatar} />
-                    <p className="text"><a className="home__anchor--profile" href="" onClick={handleGoToProfile}>{user.name}</a></p>
+                    {user && <>
+                        <img className="avatar" src={user.avatar} />
+                        <p className="text"><a className="home__anchor--profile" href="" onClick={handleGoToProfile}>{user.name}</a></p>
+                    </>}
                 </nav>
                 <div>
                     <button className="navigation__anchor--logout" href="" onClick={handleLogOut}><img className="anchor__logout--icon" src="../../images/logout.png" /></button>

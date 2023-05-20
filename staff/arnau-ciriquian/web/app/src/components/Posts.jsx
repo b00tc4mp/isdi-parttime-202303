@@ -5,20 +5,21 @@ import { useState, useEffect } from "react"
 import './Posts.css'
 
 export default function Posts({ onEditClicked, lastPostsUpdate }) {
-    let _posts    
-    try {
-        _posts = retrievePosts(context.userId)
-    } catch (error) {
-        alert(error.message)
-    }
+    const[posts, setPosts] = useState()
 
-    const[posts, setPosts] = useState(_posts)
+    useEffect(() => handleRefreshPosts(), [])
 
     const handleRefreshPosts = () => {
         try {
-            const _posts = retrievePosts(context.userId)
+            retrievePosts(context.userId, (error, posts) => {
+                if(error){
+                    alert(error.message)
 
-            setPosts(_posts)
+                    return
+                }
+
+                setPosts(posts)
+            })
         } catch (error) {
             alert(error.message)
         }
@@ -39,6 +40,6 @@ export default function Posts({ onEditClicked, lastPostsUpdate }) {
     }, [lastPostsUpdate])
     
     return <section className="home__post--feed">
-        { posts.map(post => <Post key={post.id} post={post} onLikePostClick={handleRefreshPosts} onEditClick={onEditClicked}/>)}
+        {posts && posts.map(post => <Post key={post.id} post={post} onLikePostClick={handleRefreshPosts} onEditClick={onEditClicked}/>)}
     </section>
 }

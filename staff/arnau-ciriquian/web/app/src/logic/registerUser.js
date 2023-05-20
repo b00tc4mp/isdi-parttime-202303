@@ -1,36 +1,42 @@
-import { validateEmail, validateName, validateNewPassword, validatePasswordConfirm } from "./helpers/validators"
-import { findUserByEmail } from "./helpers/data-managers"
-import { saveUsers, users } from "../data"
+import { validateEmail, validateName, validateNewPassword, validatePasswordConfirm, validateCallback } from "./helpers/validators"
+import { loadUsers, saveUsers, findUserByEmail } from "../data"
 import PunAvatar from "../../images/PunIntendedLike.png"
 export const DEFAULT_AVATAR_URL = PunAvatar
 
-export function registerUser(name, email, password, passwordConfirm) {
+export function registerUser(name, email, password, passwordConfirm, callback) {
     validateName(name)
     validateEmail(email)
-
-    const foundUser = findUserByEmail(email)
-    if (foundUser) throw new Error ('user already exists')
-    
     validateNewPassword(password)
     validatePasswordConfirm(password, passwordConfirm)
+    validateCallback(callback)
 
-    let id = 'user-1'
+    findUserByEmail(email, user => {
+        if (user) {
+            callback(new Error('user already exists'))
 
-    const _users = users()
+            return
+        }
 
-    const lastUser = _users[_users.length - 1]
+        let id = 'user-1'
 
-    if (lastUser) {
-        id = 'user-' + (parseInt(lastUser.id.slice(5)) + 1)
-    }
-    
-    _users.push({
-        id,
-        name,
-        email,
-        password,
-        avatar: DEFAULT_AVATAR_URL
+        loadUsers(users => {
+            const lastUser = users[users.length - 1]
+
+            if (lastUser) {
+                id = 'user-' + (parseInt(lastUser.id.slice(5)) + 1)
+            }
+
+            const user = {
+                id,
+                name,
+                email,
+                password,
+                avatar: DEFAULT_AVATAR_URL
+            }
+
+            users.push(user)
+
+            saveUsers(users, () => callback(null))
+        })
     })
-
-    saveUsers(_users)
 }

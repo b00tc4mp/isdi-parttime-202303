@@ -1,13 +1,24 @@
-import { validateEmail, validatePassword } from "./helpers/validators"
-import { findUserByEmail } from "./helpers/data-managers"
+import { validateEmail, validatePassword, validateCallback } from "./helpers/validators"
+import { findUserByEmail } from "../data"
 
-export function authenticateUser(email, password) {
+export function authenticateUser(email, password, callback) {
     validateEmail(email)
     validatePassword(password)
+    validateCallback(callback)
 
-    const foundUser = findUserByEmail(email)
-    if (!foundUser) throw new Error('user not found')
-    if (foundUser.password !== password) throw new Error('wrong password')
+    findUserByEmail(email, user => {
+        if (!user) {
+            callback(new Error('user not found'))
 
-    return foundUser.id
+            return
+        }
+
+        if (user.password !== password) {
+            callback(new Error('wrong password'))
+
+            return
+        }
+
+        callback(null, user.id)
+    })
 }

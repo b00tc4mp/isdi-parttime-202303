@@ -16,10 +16,16 @@ export default function Register({ onLoginClick, onUserRegistered }) {
         const passwordConfirmation = event.target.passwordConfirmation.value
 
         try {
-            registerUser(name, email, password, passwordConfirmation)
+            registerUser(name, email, password, passwordConfirmation, error => {
+                if (error) {
+                    alert(error.message)
 
-            onUserRegistered()
-        }catch (error) {
+                    return
+                }
+
+                onUserRegistered()
+            })
+        } catch (error) {
             alert(error.message)
         }
     }
@@ -36,7 +42,7 @@ export default function Register({ onLoginClick, onUserRegistered }) {
                 <div className="inputs__box">
                     <input className="form__input" type="text" name="name" placeholder="username" />
                     <input className="form__input" type="email" name="email" placeholder="email" />
-                    
+
                     <div className="password-container">
                         <input className="form__input register__password" type="password" name="password" placeholder="password" />
                         <i className="register-eye fa-solid fa-eye"></i>

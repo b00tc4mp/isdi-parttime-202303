@@ -1,31 +1,34 @@
-import { validateId } from "./helpers/validators";
-import { savePost } from "../data";
-import { findUserById, findPostById } from "./helpers/data-managers";
-//import showPostFeed from "./show-post-feed";
+import { validateId, validateCallback } from "./helpers/validators";
+import { savePost, findUserById, findPostById } from "../data";
 
-export default function toggleLikePost(userId, postId) {
+export default function toggleLikePost(userId, postId, callback) {
     validateId(userId, 'user id')
     validateId(postId, 'post id')
+    validateCallback(callback)
 
-    const user = findUserById(userId)
-    if (!user) throw new Error(`user not found`)
+    findUserById(userId, user => {
+        if (!user) {
+            callback(new Error(`user not found`))
 
-    const post = findPostById(postId)
-    if(!post) throw new Error('post not found')
-
-    if (!post.likes) {
-        post.likes = [userId]
-    } else {
-        const index = post.likes.indexOf(userId)
-
-        if (index <0)
-            post.likes.push(userId)
-        else {
-            post.likes.splice(index, 1)
-
-            if (!post.likes.length) delete post.likes
+            return
         }
-    }
 
-    savePost(post)
+        findPostById(postId, post => {
+            if(!post) {
+                callback(new Error('post not found'))
+
+                return
+            }
+
+            const index = post.likes.indexOf(userId)
+
+            if (index < 0)
+                post.likes.push(userId)
+            else {
+                post.likes.splice(index, 1)
+            }
+            
+            savePost(post, () => callback(null))
+        })
+    })
 }
