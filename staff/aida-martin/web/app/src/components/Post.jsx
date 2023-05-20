@@ -39,7 +39,7 @@ export default function Post ({ post, onEditPost, onLiked, onSaved, onDeletePost
   }
 
   const handleEditPost = () => {
-    onEditPost(post)
+    onEditPost(post.id)
   }
 
   const handleDeletePost = () => {

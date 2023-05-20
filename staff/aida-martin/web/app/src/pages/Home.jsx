@@ -11,7 +11,7 @@ import Profile from '../components/Profile'
 export default function Home ({ onLogOut }) {
   const [view, setView] = useState('posts')
   const [modal, setModal] = useState(null)
-  const [modalPost, setModalPost] = useState(null)
+  const [postId, setPostId] = useState(null)
   const [lastPostsUpdate, setLastPostsUpdate] = useState(null)
   const [dark, setDark] = useState(getTheme() === 'dark')
   const [user, setUser] = useState()
@@ -30,9 +30,9 @@ export default function Home ({ onLogOut }) {
     openModal()
   }
 
-  const handleOpenEditPost = (post) => {
+  const handleOpenEditPost = (postId) => {
     setModal('edit-post')
-    setModalPost(post)
+    setPostId(postId)
 
     openModal()
   }
@@ -189,7 +189,7 @@ export default function Home ({ onLogOut }) {
           <EditPostModal
             onPostEdited={handlePostUpdated}
             onCancel={handleCloseAddOrEditPost}
-            post={modalPost}
+            postId={postId}
           />
         )}
       </main>
