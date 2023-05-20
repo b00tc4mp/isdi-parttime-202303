@@ -23,6 +23,8 @@ export default function retrieveSavedPosts (userId, callback) {
 
     loadPosts(posts => {
       loadUsers(users => {
+        posts = posts.filter(post => post.visibility === 'public' || user.id === post.author)
+
         posts.forEach(post => {
           post.saves = user.saves.includes(post.id)
 

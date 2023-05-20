@@ -45,7 +45,7 @@ export default function Posts ({ user, mySavedPosts = false, onEditPost, lastPos
 
   return (
     <section className='posts-list'>
-      {posts && posts.map(post => <Post user={user} post={post} onEditPost={onEditPost} onLiked={handleRefreshPosts} onSaved={handleRefreshPosts} onDeletePost={handleRefreshPosts} key={post.id} />)}
+      {posts && posts.map(post => <Post user={user} post={post} onEditPost={onEditPost} onLiked={handleRefreshPosts} onSaved={handleRefreshPosts} onDeletePost={handleRefreshPosts} onPrivatizePost={handleRefreshPosts} key={post.id} />)}
     </section>
   )
 }

@@ -22,6 +22,8 @@ export default function retrievePosts (userId, callback) {
 
     loadPosts(posts => {
       loadUsers(users => {
+        posts = posts.filter(post => post.visibility === 'public' || user.id === post.author)
+
         posts.forEach(post => {
           post.saves = user.saves.includes(post.id)
 
@@ -32,9 +34,9 @@ export default function retrievePosts (userId, callback) {
             name: _user.name.split(' ')[0],
             avatar: _user.avatar
           }
-        })
 
-        callback(null, posts.toReversed()) // TODO toSorted (para que se ordenen por fecha)
+          callback(null, posts.toReversed()) // TODO toSorted (para que se ordenen por fecha)
+        })
       })
     })
   })

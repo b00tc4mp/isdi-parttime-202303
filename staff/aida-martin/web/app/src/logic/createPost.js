@@ -37,7 +37,8 @@ export default function createPost (userId, image, text, callback) {
         image,
         text,
         date: new Date(),
-        likes: []
+        likes: [],
+        visibility: 'public'
       }
 
       posts.push(post)
