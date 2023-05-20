@@ -13,7 +13,7 @@ export default function retrievePosts(userId, callback) {
         }
 
         loadPosts(posts => {
-            callback(posts.toReversed())
+            callback(null, posts.toReversed())
         })
     })
 }

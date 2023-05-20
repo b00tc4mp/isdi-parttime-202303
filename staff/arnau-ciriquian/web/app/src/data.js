@@ -64,6 +64,6 @@ export function savePost(post, callback) {
     })   
 }
 
-export function findPostById (postId, callback) {
-    loadPosts(posts => posts.find(post => post.id === postId))
+export const findPostById = (postId, callback) => {
+    loadPosts(posts => callback(posts.find(post => post.id === postId)))
 }

@@ -1,5 +1,5 @@
 import { context } from "../ui"
-import retrievePosts from "../logic/retrivePosts"
+import retrievePosts from "../logic/retrievePosts"
 import Post from "./Post"
 import { useState, useEffect } from "react"
 import './Posts.css'
@@ -17,7 +17,7 @@ export default function Posts({ onEditClicked, lastPostsUpdate }) {
 
                     return
                 }
-
+                
                 setPosts(posts)
             })
         } catch (error) {
@@ -38,6 +38,8 @@ export default function Posts({ onEditClicked, lastPostsUpdate }) {
             handleRefreshPosts()
 
     }, [lastPostsUpdate])
+
+    console.log('Posts -> render')
     
     return <section className="home__post--feed">
         {posts && posts.map(post => <Post key={post.id} post={post} onLikePostClick={handleRefreshPosts} onEditClick={onEditClicked}/>)}

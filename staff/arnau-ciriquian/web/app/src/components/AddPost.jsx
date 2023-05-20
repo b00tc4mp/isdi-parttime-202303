@@ -9,9 +9,15 @@ export default function AddPost({ onAddPostClick, onCancelPostClick }) {
         const text = event.target.text.value
 
         try  {
-            createNewPost(context.userId, image, text)
+            createNewPost(context.userId, image, text, error => {
+                if(error) {
+                    alert(error.message)
 
-            onAddPostClick()
+                    return
+                }
+                onAddPostClick()
+            })
+
         }catch (error) {
             alert(error.message)
         }

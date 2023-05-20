@@ -14,7 +14,7 @@ export default function retrievePost(userId, postId, callback) {
         }
 
         findPostById(postId, post => {
-            if (!user) {
+            if (!post) {
                 callback(new Error(`post with id ${postId} not found`))
 
                 return
