@@ -3,81 +3,81 @@ import Post from "./Post.jsx";
 import { context } from "../ui.js";
 import retrieveUser from "../logic/retrieveUser.js";
 import { Component } from "react";
+import { useState, useEffect } from "react";
 
 
-export default class Posts extends Component {
-    constructor(props) {
-        super(props)
-        console.log("Posts -> render")
-        try{
+export default function Posts({ onEditPostButtonClick, lastPostsUpdate }) {
+    console.log("Posts -> render")
+
+    let _posts, _user
+
+    try {
+        _posts = retrievePosts(context.userId);
+        _user = retrieveUser(context.userId);
+    } catch (error) {
+        alert(error.message)
+    }
+
+    const [posts, setPosts] = useState(_posts)
+    const [user, setUser] = useState(_user)
+    const [isInitialRun, setIsInitialRun] = useState(true)
+    //const [view, setView] = useState(view)
+
+    const handleDeletePost = () => {
+        try {
             const posts = retrievePosts(context.userId);
-            const user = retrieveUser(context.userId);
-            this.state = { posts, user, view: false }
-
-        }catch(error){
+            setPosts(posts)
+        } catch (error) {
             alert(error.message)
         }
     }
 
-    handleDeletePost = () => {
-        try{
+    const handleToggleLike = () => {
+        try {
             const posts = retrievePosts(context.userId);
-            this.setState({ posts })
-        }catch(error){
+            setPosts(posts)
+        } catch (error) {
             alert(error.message)
         }
     }
 
-    handleToggleLike = () =>{ 
-        try{
+    const handleRefreshPosts = () => {
+        try {
             const posts = retrievePosts(context.userId);
-            this.setState({ posts })
-        }catch(error){
-            alert(error.message)
-        }
-    }
-
-    handleRefreshPosts = () => {
-        try{
-            const posts = retrievePosts(context.userId);
-            this.setState({ posts })
-        }catch(error){
+            setPosts(posts)
+        } catch (error) {
             alert(error.message);
         }
     }
 
-    handleOpenEditModal = (id) => {
-        this.props.onEditPostButtonClick(id)
+    const handleOpenEditModal = (id) => {
+        onEditPostButtonClick(id)
     }
 
-    UNSAFE_componentWillMount(){
-        console.log("Posts --> componentWillMount")
-    }
+    useEffect(() => {
+        console.log("Posts --> componentDidMount with hooks")
+        return () => console.log("Posts --> componentWillUnmount with hooks")
+    }, [])
 
-    componentDidMount(){
-        console.log("Posts --> componentDidMount")
-    }
-
-
-    UNSAFE_componentWillReceiveProps(newProps){
-        console.log("Posts -> componentWillReciveProps")
-
-        if (this.props.lastPostsUpdate !== newProps.lastPostsUpdate)
-            this.handleRefreshPosts();
-        
-    }
+    useEffect(() => {
+        if (isInitialRun) {
+            setIsInitialRun(false)
+            return
+        } else {
+            console.log("Posts -> componentWillReciveProps with hooks")
+            handleRefreshPosts();
+        }
+    }, [lastPostsUpdate])
 
 
-    render() {
-            return <section className="home-posts-content">
-                {this.state.posts.map((post, index) => <Post
-                    key={index}
-                    post={post}
-                    user={this.state.user}
-                    onDeleteClick={this.handleDeletePost}
-                    onLikeClick={this.handleToggleLike}
-                    onEditPostButton={this.handleOpenEditModal}
-                />)}
-            </section>
-    }
+    return <section className="home-posts-content">
+        {posts.map((post, index) => <Post
+            key={index}
+            post={post}
+            user={user}
+            onDeleteClick={handleDeletePost}
+            onLikeClick={handleToggleLike}
+            onEditPostButton={handleOpenEditModal}
+        />)}
+    </section>
 }

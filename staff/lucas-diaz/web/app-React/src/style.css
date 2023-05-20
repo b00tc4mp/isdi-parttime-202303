@@ -177,9 +177,9 @@ label{
     gap: 1rem;
 }
 .home-header-user-avatar {
-    width: 3rem;
-    height: 3rem;
-    border-radius: 1rem;
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 50%;
     transition: all 200ms;
     margin: 0rem 1rem .5rem 1rem;
 }

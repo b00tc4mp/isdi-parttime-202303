@@ -77,10 +77,7 @@ export default function Home({ onLogOutClick }) {
                 <img className="home-header-user-avatar" src={user.avatar} alt="default avatar" />
                 <h2 className="home-header-user-welcome-msj"></h2>
             </div>
-            <nav className={`home-menu 
-                ${view === null ? "home-menu-transition" : ""} 
-                ${view === "avatar" || view === "posts" || view === "password" ? "" : "home-menu-transition"}
-                `}>
+            <nav className={`home-menu ${view === null ? "home-menu-transition" : ""} ${view === "avatar" || view === "posts" || view === "password" ? "" : "home-menu-transition"}`}>
                 <ul>
                     <li><a href="" className="home-menu-change-pass-anchor" onClick={handlePasswordAnchor}>change password</a></li>
                     <li><a href="" className="home-menu-avatar-anchor" onClick={handleAvatarAnchor}>Avatar</a></li>
@@ -89,10 +86,7 @@ export default function Home({ onLogOutClick }) {
             </nav>
         </header>
 
-        <main className={`container 
-            ${modal === "addPost" || view === null || modal === "updatePost" ? "fade" : ""} 
-            ${view === "avatar" || view === "posts" || view === "password" || modal === null ? "" : "fade"}
-            `}>
+        <main className={`container ${modal === "addPost" || view === null || modal === "updatePost" ? "fade" : ""} ${view === "avatar" || view === "posts" || view === "password" || modal === null ? "" : "fade"}`}>
             {view === "posts" && <Posts
                 onEditPostButtonClick={openEditPostModal}
                 lastPostsUpdate={lastPostUpdate}
