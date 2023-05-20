@@ -6,7 +6,8 @@
     // - modify post with new data
     // - save posts
     
-    import { savePost, findUserById, findPostById } from "../data.js";
+    import { savePost } from "../data.js";
+    import { findUserById, findPostById } from "./helpers/dataManagers.js"; 
     import { validateId, validatePostId, validatePostUrl, validateText } from "./helpers/validators.js";
 
     export function updatePost(userId, postId, imageUrl, text) {

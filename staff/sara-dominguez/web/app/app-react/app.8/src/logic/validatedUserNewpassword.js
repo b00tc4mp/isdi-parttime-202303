@@ -1,7 +1,8 @@
 console.log('validated-user-newPasssword')
 
 import { validateId, validatePassword, validateUserNewPassword, validateUserConfirmNewPassword } from "./helpers/validators.js"
-import { saveUser, findUserById } from "../data.js"
+import { findUserById } from "./helpers/data-managers.js"
+import { saveUser } from "../data.js"
 
 export function validatedNewPassword(userId, password, userNewPassword,userConfirmNewPassword) {
     validateId(userId)

@@ -1,18 +1,35 @@
 import { validateEmail, validatePassword } from "./helpers/validators.js"
-import { findUserByEmail } from "./helpers/dataManagers.js"
+import { findUserByEmail } from "../data.js"
 
-export function authenticateUser (email, password) {
+/**
+ * Authenticate a user by email and password
+ * 
+ * @param {string} email the user`s email
+ * @param {string} password the user`s password
+ * 
+ * @returns {string} The user's id
+ */
+
+export function authenticateUser (email, password, callback) {
     validateEmail(email)    
     validatePassword(password)
  
 
-    let foundUser= findUserByEmail(email)
+    findUserByEmail(email, foundUser =>{
+        if(!foundUser) {
+           callback(new Error ('User not found'))
 
-    if(!foundUser) 
-        throw new Error ('User not found') 
-
-    if (foundUser.password !== password) 
-        throw new Error ('Wrong password')
+            return
+        }
     
-    return foundUser.id
+        if (foundUser.password !== password) {
+            callback(new Error ('Wrong password'))
+
+            return
+        }
+        
+        callback(null, foundUser.id)
+        // este null es de que no ha habido errores, se indica primero)
+    })
 }
+

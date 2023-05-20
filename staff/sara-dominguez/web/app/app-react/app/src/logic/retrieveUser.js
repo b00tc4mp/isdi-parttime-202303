@@ -1,26 +1,28 @@
 console.log('load retrieve-user')
 
 import { validateId } from "./helpers/validators.js"
-import { findUserById } from "./helpers/dataManagers.js"
+import { findUserById } from "../data.js"
 
-export default function retrieveUser(userId) {
+export default function retrieveUser(userId, callback) {
     validateId(userId)
-     
-     let user= findUserById(userId)
-    
-     if(!user) throw new Error ('User not found') 
- 
-     else{
 
-        user = {
-             name: user.name, 
-             avatar: user.avatar
-        } 
+    findUserById(userId, user => {
+        if (!user) {
+            callback(new Error('User not found'))
 
-         if(user.avatar) 
-             user.avatar = user.avatar
- 
-         return user
-     }
- }
- 
+            return
+
+        }else {
+            const _user = {
+                name: user.name,
+                avatar: user.avatar
+            }
+
+            // if (user.avatar)
+            //     user.avatar = user.avatar
+
+            callback(null, _user)
+        }
+    })
+}
+

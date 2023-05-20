@@ -1,19 +1,35 @@
 console.log('update-user-avatar')
 
 import { validateId, validateUserAvatar } from "./helpers/validators.js"
-import { findUserById } from "./helpers/dataManagers.js"
-import { saveUser } from "../data.js"
+import { saveUser, findUserById } from "../data.js"
 
-export function updateUserAvatar(userId, newAvatar) {
+// export function updateUserAvatar(userId, newAvatar) {
+//     validateId(userId)
+//     validateUserAvatar(newAvatar)
+
+//    const user = findUserById(userId)
+
+//     if(!user) throw new Error ('User not found') 
+        
+//     user.avatar = newAvatar
+    
+//     saveUser(user)
+// }
+
+export function updateUserAvatar(userId, newAvatar, callback) {
     validateId(userId)
     validateUserAvatar(newAvatar)
 
-   const user = findUserById(userId)
+   findUserById(userId, user => {
+       if(!user) {
+           callback(new Error ('User not found'))
 
-    if(!user) throw new Error ('User not found') 
-        
-    user.avatar = newAvatar
-    
-    saveUser(user)
+           return
+    } 
+       user.avatar = newAvatar
+       saveUser(user)
+       
+       callback(null, user)
+   })
 }
 

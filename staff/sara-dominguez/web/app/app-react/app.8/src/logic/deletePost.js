@@ -1,5 +1,5 @@
 import { savePost, posts } from "../data.js";
-import { findUserById, findPostById } from "../data.js"; 
+import { findUserById, findPostById } from "./helpers/dataManagers.js"; 
 import { validateId, validatePostId } from "./helpers/validators.js";
 
 export default function deletePost(userId, postId) {

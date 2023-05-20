@@ -1,6 +1,6 @@
 import { registerUser } from "../logic/registerUser.js"
 
-export default function Register({ onLoginClick, onUserRegistered }) {
+export default function Register({onLoginClick, onUserRegistered}) {
     console.log('Register->render')
 
     function handleLoginClick(event) {
@@ -9,25 +9,17 @@ export default function Register({ onLoginClick, onUserRegistered }) {
         onLoginClick()
     }
 
-    function handleRegister(event) {
+    function handleRegister (event) {
         event.preventDefault()
 
         const name = event.target.name.value
         const email = event.target.email.value
         const password = event.target.password.value
+    
+        try{
+            registerUser(name,email,password)
 
-        // hay que validar los errores sincronos y los asincronos
-        try {
-            registerUser(name, email, password, error => {
-                if (error) {
-                    alert.error(error.message)
-
-                    return
-                }
-
-                onUserRegistered()
-            })
-
+            onUserRegistered()
         } catch (error) {
             alert(error.message)
         }

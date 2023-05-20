@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import Posts from "../components/Posts.jsx"
 import AddPostModal from '../components/AddPostModal.jsx'
 import Profile from '../components/Profile.jsx'
@@ -12,24 +12,15 @@ export default function Home({ onLoggedOut }) {
     const [modal, setModal] = useState(null)
     const [postId, setPostId] = useState(null)
     const [lastPostsUpdate, setLastPostsUpdate] = useState(null)
-    const [user, setUser] = useState()
 
-//solo quiero que lo ejecute una vez, por eso utilizo useEffect. Para que cambie estado a usuario la primera vez.
-    useEffect(() => {
-        try {
-            retrieveUser(context.userId, (error, user) => {
-                if (error) {
-                    alert(error.message)
+    let _user
 
-                    return
-                }
-                setUser(user)
-            })
-
-        } catch (error) {
-            alert(error.message)
-        }
-    }, [])
+    try {
+        _user = retrieveUser(context.userId)
+    } catch (error) {
+        alert(error.message)
+    }
+    const [user, setUser] = useState(_user)
 
 
     const handleOpenAddPostModal = () => setModal('add-post')
@@ -62,15 +53,9 @@ export default function Home({ onLoggedOut }) {
 
     const handleUserAvatarUpdated = () => {
         try {
-            retrieveUser(context.userId, (error, user) => {
-                if (error) {
-                    alert(error.message)
+            const user = retrieveUser(context.userId)
 
-                    return
-                }
-                setUser(user)
-            })
-            
+            setUser(user)
         } catch (error) {
             alert(error.message)
         }
@@ -84,11 +69,9 @@ export default function Home({ onLoggedOut }) {
 
             <h3 className="home-header-title" onClick={handleGoToPosts}>HOME</h3>
             <div className="home-menu" >
-                (user && <>
-                {<img className="home-header-avatar" src={user.avatar} alt="" />}
+                <img className="home-header-avatar" src={user.avatar} alt="" />
 
-                {<button className="home-menu-myprofile-button"><a href="" className="myProfile" onClick={handleGoToProfile}>{user.name}</a></button>}
-                </>)
+                <button className="home-menu-myprofile-button"><a href="" className="myProfile" onClick={handleGoToProfile}>{user.name}</a></button>
             </div>
 
             <h3 className="home-header-logout logout" name="logout"><a href="" className="logout" onClick={handleLogOut}>Logout</a></h3>
