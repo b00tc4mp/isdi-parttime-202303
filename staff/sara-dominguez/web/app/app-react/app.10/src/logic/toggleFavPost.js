@@ -1,7 +1,7 @@
-import { savePost, findUserById, findPostById } from "../data.js";
+import { saveUser, findUserById, findPostById } from "../data.js";
 import { validateId, validatePostId, validateCallback } from "./helpers/validators.js";
 
-export default function toggleLikePost(userId, postId, callback) {
+export default function toggleFavPost(userId, postId, callback) {
     validateId(userId)
     validatePostId(postId)
     validateCallback(callback)
@@ -19,18 +19,18 @@ export default function toggleLikePost(userId, postId, callback) {
 
                 return
             }
-            const index = post.likes.indexOf(userId)
 
+            const index = user.favs.indexOf(postId)
                 if (index < 0) {
-                    post.likes.push(userId)
+                    user.favs.push(postId)
                 } else {
-                    post.likes.splice(index, 1)
+                    user.favs.splice(index, 1)
 
-                    if (!post.likes.length) delete post.likes
+                    if (!user.favs.length) delete user.fav
                 }
             
-            
-            savePost(post, () => callback(null))
+
+            saveUser(user, () => callback(null))
         })
     })
 }
