@@ -15,6 +15,8 @@ export default function retrievePosts(userId, callback) {
         loadPosts(posts => {
             loadUsers(users => {
                 posts.forEach(post => {
+                    post.fav = user.favs.includes(post.id)
+
                     const _user = users.find(user => user.id === post.author)
 
                     post.author = {

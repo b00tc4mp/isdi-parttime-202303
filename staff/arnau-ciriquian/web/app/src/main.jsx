@@ -13,7 +13,6 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         - ig d'acudits
                 - dark mode 20230509 2005 i 20230515 2040 (guardar valor en session per mantenir el dark en fer refresh)
                 - comentaris en els posts
-                - favoritos
                 - editar ReadMe a modo stories de que vol el client 20230510 2118
                 - setTimeOut animacions? algun modal?
                 - Compra/Venta de posts entre usuaris

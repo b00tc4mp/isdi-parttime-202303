@@ -31,7 +31,8 @@ export function registerUser(name, email, password, passwordConfirm, callback) {
                 name,
                 email,
                 password,
-                avatar: DEFAULT_AVATAR_URL
+                avatar: DEFAULT_AVATAR_URL,
+                favs: []
             }
 
             users.push(user)

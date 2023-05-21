@@ -28,7 +28,8 @@ export function createNewPost(userId, image, text, callback) {
                 image,
                 text,
                 date: (new Date).toLocaleDateString('en-UK'),
-                likes: []
+                likes: [],
+                hidden: false
             }
 
             posts.push(post)

@@ -18,7 +18,7 @@
 
 .home__post--info {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 10px;
   width: 100%;
   justify-items: center;
@@ -59,7 +59,7 @@
   justify-content: center;
 }
 
-.like-button, .edit--icon, .delete--icon, .favorite--icon {
+.like-button, .edit--icon, .delete--icon, .favorite--icon, .hide--icon {
   width: 1.5rem;
   height: 1.5rem;
 }
@@ -77,7 +77,7 @@
   justify-content: space-between;
 }
 
-.post__edit, .post__delete {
+.post__edit, .post__delete, .post__hide {
   height: 1.5rem;
   display: flex;
   align-items: center;
