@@ -22,12 +22,13 @@ export default function Home({ onLogOutClick }) {
 
     const [user, setUser] = useState(_user);
 
-    //? SETTINGS Y LOG OUT 
+    //? SETTINGS, LOG OUT Y HOME
     const handleSettingsClick = () => setView(null);
     const handleLogOutClick = () => {
         delete context.userId
         onLogOutClick();
     }
+    const handleHomeClick = () => setView("posts")
     //? SETTINGS --> AVATAR 
     const handleAvatarAnchor = (event) => {
         event.preventDefault();
@@ -68,7 +69,7 @@ export default function Home({ onLogOutClick }) {
 
     return <div className="home">
         <header className="home-header">
-            <h1 className="home-header-tittle">Home</h1>
+            <h1 className="home-header-tittle" onClick={handleHomeClick}>Home</h1>
             <div className="home-header-left-items">
                 <img className="home-header-left-items-config-icon" src="https://www.iconpacks.net/icons/2/free-settings-icon-3110-thumb.png" alt="" onClick={handleSettingsClick} />
                 <button className="home-header-left-items-log-out-button button" onClick={handleLogOutClick} >Log out</button>
@@ -113,7 +114,11 @@ export default function Home({ onLogOutClick }) {
                 onCreatedPost={handleCreatedPost}
             />}
 
+            <button className="footer-button" onClick={handleHomeClick}><span className="material-symbols-outlined">home</span></button>
+            <button className="footer-button"><span className="material-symbols-outlined">sell</span></button>
             <button className="footer-button button" onClick={handleFooterButtonClick}> + </button>
+            <button className="footer-button"><span className="material-symbols-outlined">bookmarks</span></button>
+            <button className="footer-button"><span className="material-symbols-outlined">account_circle</span></button>
         </footer>
     </div>
 
