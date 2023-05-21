@@ -28,19 +28,21 @@ export default function UpdateUsername({ onUpdateUsernameClick, onCancelProfileU
     const handleCancelProfileUpdate = () => onCancelProfileUpdate()
 
     return <div className="modal">
-        <h1 className="text">Change username</h1>
-        <form className="username__form" onSubmit={handleUpdateUsername}>
-            <div className="inputs__box">
-                <input className="form__input" type="text" name="oldUsername" placeholder="old username" />
-                <input className="form__input" type="text" name="newUsername" placeholder="new username" />
+        <div className="home__username page">
+            <h1 className="text">Change username</h1>
+            <form className="username__form" onSubmit={handleUpdateUsername}>
+                <div className="inputs__box">
+                    <input className="form__input" type="text" name="oldUsername" placeholder="old username" />
+                    <input className="form__input" type="text" name="newUsername" placeholder="new username" />
 
-                <div className="password-container">
-                    <input className="form__input username__password" type="password" name="password" placeholder="password" />
-                    <i className="username-eye fa-solid fa-eye"></i>
+                    <div className="password-container">
+                        <input className="form__input username__password" type="password" name="password" placeholder="password" />
+                        <i className="username-eye fa-solid fa-eye"></i>
+                    </div>
                 </div>
-            </div>
-            <button className="form__button" type="submit">Change username</button>
-        </form>
-        <button className="username__anchor--profile" href="" onClick={handleCancelProfileUpdate}>Profile</button>
+                <button className="form__button" type="submit">Change username</button>
+            </form>
+            <button className="username__anchor--profile" href="" onClick={handleCancelProfileUpdate}>Profile</button>
+        </div>
     </div>
 }

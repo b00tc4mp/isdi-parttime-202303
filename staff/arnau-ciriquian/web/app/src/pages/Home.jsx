@@ -9,6 +9,7 @@ import UpdateEmail from "../components/UpdateEmail"
 import EditPost from "../components/EditPost"
 import UpdateUsername from "../components/UpdateUsername"
 import UpdatePassword from "../components/UpdatePassword"
+import "./Home.css"
 
 export default function Home({ onLoggedOut }) {
     const [view, setView] = useState('posts')
@@ -87,7 +88,7 @@ export default function Home({ onLoggedOut }) {
                     </>}
                 </nav>
                 <div>
-                    <button className="navigation__anchor--logout" href="" onClick={handleLogOut}><img className="anchor__logout--icon" src="../../images/logout.png" /></button>
+                    <img className="anchor__logout--icon" src="../../images/logout.png" onClick={handleLogOut}/>
                 </div>
             </header>
             <main>
@@ -129,7 +130,7 @@ export default function Home({ onLoggedOut }) {
                 />}
             </main>
             <footer>
-                <p className="add-post-anchor"><button className="home__anchor--new-post" href="" onClick={handleAddPostModal}>Add new post</button></p>
+                <p className="add-post-anchor"><img className="new__post--icon" src="../../images/new_post.png" onClick={handleAddPostModal}/></p>
             </footer>
         </div> 
 }

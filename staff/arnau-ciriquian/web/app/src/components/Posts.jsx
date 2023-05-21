@@ -42,6 +42,6 @@ export default function Posts({ onEditClicked, lastPostsUpdate }) {
     console.log('Posts -> render')
     
     return <section className="home__post--feed">
-        {posts && posts.map(post => <Post key={post.id} post={post} onLikePostClick={handleRefreshPosts} onEditClick={onEditClicked}/>)}
+        {posts && posts.map(post => <Post key={post.id} post={post} onLikePostClick={handleRefreshPosts} onEditClick={onEditClicked} onDeletePostClick={handleRefreshPosts}/>)}
     </section>
 }

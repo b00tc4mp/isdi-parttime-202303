@@ -1,4 +1,4 @@
-import { findUserById, loadPosts } from "../data";
+import { findUserById, loadPosts, loadUsers } from "../data";
 import { validateId, validateCallback } from "./helpers/validators";
 
 export default function retrievePosts(userId, callback) {
@@ -13,7 +13,18 @@ export default function retrievePosts(userId, callback) {
         }
 
         loadPosts(posts => {
-            callback(null, posts.toReversed())
+            loadUsers(users => {
+                posts.forEach(post => {
+                    const _user = users.find(user => user.id === post.author)
+
+                    post.author = {
+                        id: _user.id,
+                        name: _user.name,
+                        avatar: _user.avatar
+                    }
+                })
+                callback(null, posts.toReversed())
+            })
         })
     })
 }

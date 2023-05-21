@@ -29,19 +29,21 @@ export default function UpdateEmail({ onUpdateUserEmailClick, onCancelProfileUpd
     const handleCancelProfileUpdate = () => onCancelProfileUpdate()
 
     return <div className="modal">
-        <h1 className="text">Change email</h1>
-        <form className="email__form" onSubmit={handleUpdateUserEmail}>
-            <div className="inputs__box">
-                <input className="form__input" type="email" name="oldEmail" placeholder="old email" />
-                <input className="form__input" type="email" name="newEmail" placeholder="new email" />
-                <input className="form__input" type="email" name="newEmailConfirmation" placeholder="new email confirmation" />
-                <div className="password-container">
-                    <input className="form__input email__password" type="password" name="emailPassword" placeholder="password" />
-                    <i className="email-eye fa-solid fa-eye"></i>
+        <div className="home__email page">
+            <h1 className="text">Change email</h1>
+            <form className="email__form" onSubmit={handleUpdateUserEmail}>
+                <div className="inputs__box">
+                    <input className="form__input" type="email" name="oldEmail" placeholder="old email" />
+                    <input className="form__input" type="email" name="newEmail" placeholder="new email" />
+                    <input className="form__input" type="email" name="newEmailConfirmation" placeholder="new email confirmation" />
+                    <div className="password-container">
+                        <input className="form__input email__password" type="password" name="emailPassword" placeholder="password" />
+                        <i className="email-eye fa-solid fa-eye"></i>
+                    </div>
                 </div>
-            </div>
-            <button className="form__button" type="submit">Change email</button>
-        </form>
-        <button className="email__anchor--profile" href="" onClick={handleCancelProfileUpdate}>Profile</button>
+                <button className="form__button" type="submit">Change email</button>
+            </form>
+            <button className="email__anchor--profile" href="" onClick={handleCancelProfileUpdate}>Profile</button>
+        </div>
     </div>
 }

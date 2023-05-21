@@ -11,11 +11,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 
 /*  TODO Web/App - objectiu de la app: xarxa social:
         - ig d'acudits
-                - Asincronia users i posts (local storage) -> Muerte...
                 - dark mode 20230509 2005 i 20230515 2040 (guardar valor en session per mantenir el dark en fer refresh)
                 - comentaris en els posts
                 - favoritos
-                - delete post 20230509 2030
                 - editar ReadMe a modo stories de que vol el client 20230510 2118
                 - setTimeOut animacions? algun modal?
                 - Compra/Venta de posts entre usuaris
