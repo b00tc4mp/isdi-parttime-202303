@@ -10,7 +10,6 @@ export default function Home( {onLogoutClick, onUserProfile, onSetThemeClick} ) 
         const [view, setView] = useState('posts')
         const [modal, setModal] = useState(null)
         const [theme, setTheme] = useState('')
-        // PARTIR DESDE AQUI EL SET THEME
         const [postId, setPostId] = useState(null)
         const [lastPostsUpdate, setLastPostsUpdate] = useState(null)
 
@@ -36,7 +35,7 @@ export default function Home( {onLogoutClick, onUserProfile, onSetThemeClick} ) 
                 setPostId(id)
             }
             const handleLogOut = () => {
-                delete context.id
+                setView('')
                 onLogoutClick()
             }
             const handleQuitUser = () => setModal('null')
@@ -52,12 +51,7 @@ export default function Home( {onLogoutClick, onUserProfile, onSetThemeClick} ) 
                 }
 
                 onUserProfile()
-                // METER AQUI START ANIMATION????
-                
-                // setTimeout(() => {
-                //     document.querySelector('.sidebar').classList.remove('start-animation')
-                //     document.querySelector('.section.user-account').classList.remove('start-animation')
-                // }, 5)
+   
             }
             const handleGoBackClick = (event) => {
 
@@ -67,16 +61,7 @@ export default function Home( {onLogoutClick, onUserProfile, onSetThemeClick} ) 
                     setModal(null)
                 }, 1000
                 )
-            //     document.querySelector('.section.user-account').classList.add('start-animation')
-            //     document.querySelector('li.user-settings').classList.remove('current')
-            //     setTimeout(() => {
-            //         document.querySelector('.sidebar').classList.add('start-animation')
-            //     }, 300)
-            //     setTimeout(() => {
-            //         setModal('null')
-            //         document.querySelector('.sidebar').classList.remove('start-animation')
-            //         document.querySelector('.section.user-account').classList.remove('start-animation')
-            //     }, 900)
+
             }
             const handleSetThemeClick = (event) => {
                 setModal('user-profile')
@@ -92,7 +77,7 @@ export default function Home( {onLogoutClick, onUserProfile, onSetThemeClick} ) 
 
   
         return <>
-            <Header onUserProfile={handleGoToUserProfile} onLoggedOut={() => handleLogOut} onHomeClick={handleQuitUser} selected={modal}  />
+            <Header onUserProfile={handleGoToUserProfile} onLoggedOut={handleLogOut} onHomeClick={handleQuitUser} selected={modal}  />
             <main>
                 <section className="section home">               
                     {view === 'posts' && <Posts onAddPostClick={handleAddPost}  onEditPost={(id) => handleEditPost(id)} lastPostsUpdate={lastPostsUpdate} onToggleLikePostClick={onToggleLikePostClick} onToggleSavePostClick={onToggleSavePostClick} /> }

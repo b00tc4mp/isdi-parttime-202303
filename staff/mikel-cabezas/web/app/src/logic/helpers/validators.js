@@ -35,7 +35,6 @@ export function validatePassword(password) {
 }
 
 export function validateNewPassword(password, newPassword, repeatPassword, user) {
-
     if(password.trim() !== user.password) 
         throw new Error('Not your current password')
     

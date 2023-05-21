@@ -16,8 +16,13 @@ export default function UpdateUserPassword() {
             const repeatPassword = event.target.parentElement.parentElement.elements['repeat-password']
             const buttons = event.target.parentElement.parentElement.elements['.buttons']
             currentPassword && newPassword  && repeatPassword && updateUserPassword(userId, currentPassword, newPassword, repeatPassword)
-            curresetDisabled(true)
-            event.target.parentElement.parentElement.reset()
+            setDisabled(true)
+            setTimeout(() => {
+                currentPassword.disabled = true
+                newPassword.disabled = true
+                repeatPassword.disabled = true
+                updateUserPassword && event.target.parentElement.parentElement.reset()
+            }, 100); 
         } catch(error) {
             console.log(error.stack)
         }

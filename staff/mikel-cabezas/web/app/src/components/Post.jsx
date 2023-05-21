@@ -1,17 +1,21 @@
 import { context } from "../ui"
 import UserImage from "./UserImage"
-import { findUserById } from "../logic/helpers/dataManagers"
 import { userLikedPost, savePostToFavorites } from "../../../app.15_lastVanilla/src/logic/posts/posts-data"
 import './Post.css'
+import retrieveUser from "../logic/users/retrieveUser"
 
 
-export default function Post( { post, post: {image, title, text, comments, likes, id, date, author, lastModify }, onToggleLikePost, onToggleSavePost, onEditPostButton } ) {
+export default function Post( { post, post: {image, title, text, comments, likes, id, date, author, lastModify }, onToggleLikePost, onToggleSavePost, onEditPostButton }, callback ) {
     
     const postStyle = {
         background: `linear-gradient(180deg, rgba(0,0,0,.2) 0%, rgba(0,0,0,0) 10%, rgba(0,0,0,0) 50%, rgba(0,0,0,.6) 100%), url(${image}) center / cover`
     }
     const userId = context.userId
-    const currentUser = findUserById(userId)
+    // const currentUser = context.userId
+    // const currentUser = retrieveUser(userId, user => {
+    //     alert(user)
+    //     callback(user.id)
+    // })
     const postDate = date
     const now = new Date()
     const isLikedPost = post.likes.find(user => user === userId)
@@ -49,7 +53,8 @@ export default function Post( { post, post: {image, title, text, comments, likes
         onEditPostButton(id)
     }
     return <article className={id} style={postStyle}>
-    <div className="post-author"><UserImage userId={author}/>
+    <div className="post-author">
+        <UserImage userId={author}/>
     {userId === author ? <button className={`edit ${id}`} onClick={() => handleEditPostButton(id)}>edit <span className="material-symbols-outlined pencil edit-post">edit</span></button> : ''}
     </div>
     <img className="space-image" />
@@ -57,7 +62,7 @@ export default function Post( { post, post: {image, title, text, comments, likes
         <div className={`material-symbols-outlined like ${isLikedPost === userId ? ' filled' : ''}`}
  onClick={handleToggleLike}>favorite</div>
         <div className="material-symbols-outlined comment">maps_ugc</div>
-        <div className={currentUser.likedPosts.find(post => post === id) === id ? 'material-symbols-outlined save filled' : 'material-symbols-outlined save'} onClick={handleToggleSave}>bookmark</div>
+        {/* <div className={currentUser.likedPosts.find(post => post === id) === id ? 'material-symbols-outlined save filled' : 'material-symbols-outlined save'} onClick={handleToggleSave}>bookmark</div> */}
     </div>
     <h3 className="title">{title}</h3>
     <p className="excerpt">{text}</p>

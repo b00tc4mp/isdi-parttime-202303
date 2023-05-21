@@ -1,19 +1,25 @@
-import { users } from '../../data.js'
+// import { users } from '../../data.js'
 import { validateEmail, validatePassword } from '../helpers/validators.js'
-import { findUserByEmail } from '../helpers/dataManagers.js'
+import { findUserByEmail } from '../../data.js'
 
-export default function authenticateUser(email, password)  {
+export default function authenticateUser(email, password, callback)  {
     validateEmail(email)
     validatePassword(password) 
-    const _users = users()
-    const user = findUserByEmail(email)
-    
-    if (!user) {
-        throw new Error('User or password incorrect')
-    }
 
-    if (!user.password) {
-        throw new Error('User or password incorrect')
-    }
-    return user.id
+    findUserByEmail(email, user => {
+        if (!user) {
+            callback(new Error('User or password incorrect'))
+            
+            return
+        }
+    
+        if (!user.password) {
+            callback(new Error('User or password incorrect'))
+            
+            return
+        }
+        callback(null, user.id)
+
+    })
+    
 }

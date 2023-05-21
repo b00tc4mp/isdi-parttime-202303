@@ -1,10 +1,10 @@
 import { context } from "../ui"
 import {editPost} from '../logic/posts/editPost'
-import { getPostbyId } from "../logic/helpers/dataManagers"
+import { findPostbyId } from "../data"
 
 export function EditPostModal( { postId, onCancel, onPostUpdated }) {
     const userId = context.userId
-    const post = getPostbyId(postId)
+    const post = findPostbyId(postId)
 
     function handleCancelEditPost(event) {
         event.preventDefault()

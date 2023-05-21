@@ -15,16 +15,25 @@ export default function Register({onLoginClick, onUserRegistered}) {
         const email = event.target.email.value
         const password = event.target.password.value
         try {
-            const checkNewUserIsRegister = registerUser(name, email, password)        
+            const checkNewUserIsRegister = registerUser(name, email, password, error => {
+                if(error) {
+                    alert(error.message)
 
-            if(checkNewUserIsRegister) {
-                document.querySelector('.message').classList.add('success')
-                event.target.reset()
-                onUserRegistered()
-            }
+                    return
+                }
+
+                if(checkNewUserIsRegister) {
+                    // document.querySelector('.message').classList.add('success')
+                    event.target.reset()
+                    onUserRegistered()
+                }
+            })        
+
+   
         } catch(error) {
-            document.querySelector('.message').classList.add('error')
-            document.querySelector('.message').textContent = error.message
+            error.message
+            // document.querySelector('.message').classList.add('error')
+            // document.querySelector('.message').textContent = error.message
         }
     }
     

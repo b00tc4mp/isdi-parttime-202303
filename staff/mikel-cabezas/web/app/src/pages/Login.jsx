@@ -12,16 +12,22 @@ export default function Login({onRegisterClick, onUserLoggedIn}) {
 
     function handleLogin(event) {
         event.preventDefault()
-
         const email = event.target.email.value
         const password = event.target.password.value
+        let userId
 
         try {
-            const userId = authenticateUser(email, password)
-            context.userId = userId
-            // pushUserDataToHeader(userId)
-            onUserLoggedIn()
-            context.userId
+            authenticateUser(email, password, (error, userId) => {
+                if (error) {
+                    alert(error.message)
+                    
+                    return
+                }
+                
+                context.userId = userId
+                
+                onUserLoggedIn()
+            })
         } catch (error) {
             console.log(error)
         }

@@ -1,7 +1,6 @@
 
 import { useEffect, useState } from "react"
 import { context } from "../ui.js"
-import { findUserById } from "../logic/helpers/dataManagers.js"
 import UserImage from "./UserImage"
 import './Header.css'
 import UpdateUserInfo from "./UpdateUserInfo.jsx"
@@ -24,7 +23,6 @@ export default function Header( {onUserProfile, onHomeClick, onLoggedOut, select
         try {
             delete context.userId
             onLoggedOut()
-            // document.body.classList.remove('logged-in')
         } catch (error) {
             console.log(error.stack)
         }

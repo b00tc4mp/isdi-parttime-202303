@@ -1,5 +1,5 @@
 import { context } from "../ui"
-import { findUserById } from "../logic/helpers/dataManagers"
+import { findUserById } from "../data"
 import updateUserName from "../logic/users/updateUserName"
 import updateUserEmail from "../logic/users/updateUserEmail"
 import uploadImage from "../logic/users/updateUserImage"
@@ -7,24 +7,43 @@ import { useState } from "react"
 
 export default function UpdateUserInfo( {savelUpdateProfile, setSavelUpdateProfile} ) {
 
-
-
-    // TODO PREGUNTAR PORQUE NO VA EN EL TRY
+    const [user, setUser] = useState()
     const userId = context.userId
-    const user = findUserById(userId)
-    const separateUserName = user['name'].split(' ')
+    findUserById(userId, (error, user) => {
+        if(!user) {
+            callback(new Error ('user not found'))
 
+            return
+        }
+        if (error) {
+            alert(error.message)
+
+            return
+        }
+        const _user = {
+            name: user.name, 
+            image: user.image
+        }     
+        setTimeout(() => {
+            setUser(user)
+        }, 1000);
+    })
+    
     let newImage
     let letters
-    if (!context.image && separateUserName.length === 1) {
-        letters = separateUserName[0][0] + separateUserName[0][1]
-    } else if (!context.image && separateUserName.length > 1) {
-        letters = separateUserName[0][0] + separateUserName[1][0]
+    if(user) {
+        const separateUserName = user['name'].split(' ')
+    
+        if (!context.image && separateUserName.length === 1) {
+            letters = separateUserName[0][0] + separateUserName[0][1]
+        } else if (!context.image && separateUserName.length > 1) {
+            letters = separateUserName[0][0] + separateUserName[1][0]
+        }
+
     }
 
-    const [disabled, setDisabled] = useState(true)
 
- 
+    const [disabled, setDisabled] = useState(true)
 
     function handleConvertImageToBase64(event) {
         const file = event.target
@@ -62,7 +81,10 @@ export default function UpdateUserInfo( {savelUpdateProfile, setSavelUpdateProfi
             const image = event.target.parentElement.parentElement.elements['file']
             user.name !== name.value && updateUserName(userId, name.value)
             user.email !== email.value && updateUserEmail(userId, email.value)
-            user.image !== image && uploadImage(userId, image)
+            if (image.src) 
+                user.image !== image && uploadImage(userId, image, error => { error ? alert(error.message) : '' })
+
+
             setDisabled(true)
             // setSavelUpdateProfile()
         } catch(error) {
@@ -79,7 +101,8 @@ export default function UpdateUserInfo( {savelUpdateProfile, setSavelUpdateProfi
         }
     }
 
-    return <> 
+    if(user) {
+        return <> 
         <div className="container user-account">
             <div className="update update-info" id="update-profile">
                 <h2>Update profile</h2>
@@ -104,4 +127,5 @@ export default function UpdateUserInfo( {savelUpdateProfile, setSavelUpdateProfi
             </div>
         </div>
     </>
+    }
 }
