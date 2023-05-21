@@ -27,7 +27,7 @@ export function deletePost(userId, postId, callback) {
             } 
 
             loadPosts(posts => {
-                const index = posts.indexOf(postId)
+                const index = posts.findIndex(post => post.id === postId)
 
                 posts.splice(index, 1)
 

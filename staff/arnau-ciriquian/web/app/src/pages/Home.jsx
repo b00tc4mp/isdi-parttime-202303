@@ -10,6 +10,7 @@ import EditPost from "../components/EditPost"
 import UpdateUsername from "../components/UpdateUsername"
 import UpdatePassword from "../components/UpdatePassword"
 import "./Home.css"
+import updateUserFavs from "../logic/updateUserFavs"
 
 export default function Home({ onLoggedOut }) {
     const [view, setView] = useState('posts')
@@ -48,6 +49,24 @@ export default function Home({ onLoggedOut }) {
         setModal(null)
         setLastPostsUpdate(Date.now())
     }
+
+    const handleGoToFavoriteFeed = () => {
+        updateUserFavs(context.userId, error => {
+            if (error) {
+                alert(error.message)
+
+                return
+            }
+            setView('Favs')
+            setModal(null)
+        })
+    }
+
+    const handleGoToMainFeed = () => {
+        setView('posts')
+        setModal(null)
+    }
+
     const handleGoToAvatarModal = () => setModal('updateAvatar')
     const handleGoToEmailModal = () => setModal('updateEmail')
     const handleGoToUsernameModal = () => setModal('updateUsername')
@@ -106,11 +125,14 @@ export default function Home({ onLoggedOut }) {
                     postId={postId}
                 />}
                 { modal === 'profile' && <Profile
+                    onGoToMainFeed={handleGoToMainFeed}
+                    onGoToFavoriteFeed={handleGoToFavoriteFeed}
                     onExitProfileClick={handleCloseModal}
                     onGoToUpdateAvatarClick={handleGoToAvatarModal}
                     onGoToUpdateEmailClick={handleGoToEmailModal}
                     onGoToUpdateUsernameClick={handleGoToUsernameModal}
                     onGoToUpdatePasswordClick={handleGoToPasswordModal}
+                    onDeleteAccountClick={handleLogOut}
                 />}
                 { modal === 'updateAvatar' && <UpdateAvatar
                     onCancelProfileUpdate={handleGoBackToProfile}

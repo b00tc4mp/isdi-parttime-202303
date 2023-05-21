@@ -1,4 +1,4 @@
-import { findUserById, loadPosts, loadUsers } from "../data";
+import { findUserById, loadPosts, loadUsers, saveUser } from "../data";
 import { validateId, validateCallback } from "./helpers/validators";
 
 export default function retrievePosts(userId, callback) {
@@ -30,5 +30,3 @@ export default function retrievePosts(userId, callback) {
         })
     })
 }
-
-//El manu te moltes més coses aqui..

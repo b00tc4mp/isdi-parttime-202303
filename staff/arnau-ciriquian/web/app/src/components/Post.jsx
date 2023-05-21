@@ -54,10 +54,6 @@ export default function Post({ post: { image, text, date, likes, author, id, fav
     const handleOpenEditModal = () => onEditClick(id)
 
     const handleDeletePost = () => {
-
-
-        console.log('delete me')
-
         try {
             deletePost(context.userId, id, error => {
                 if (error) {

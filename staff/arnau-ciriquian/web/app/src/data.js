@@ -1,4 +1,4 @@
-const DELAY = 500
+const DELAY = 1
 
 //USERS DATA
 

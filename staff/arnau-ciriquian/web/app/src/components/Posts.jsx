@@ -3,6 +3,7 @@ import retrievePosts from "../logic/retrievePosts"
 import Post from "./Post"
 import { useState, useEffect } from "react"
 import './Posts.css'
+import updateUserFavs from "../logic/updateUserFavs"
 
 export default function Posts({ onEditClicked, lastPostsUpdate }) {
     const[posts, setPosts] = useState()
