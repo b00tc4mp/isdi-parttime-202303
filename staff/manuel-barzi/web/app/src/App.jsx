@@ -3,14 +3,12 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import Home from './pages/Home'
 import { context } from './ui'
+import Alert from './components/Alert'
+import Context from './Context'
 
 export default function App() {
-    // const viewState = useState(context.userId ? 'home' : 'login')
-
-    // const view = viewState[0]
-    // const setView = viewState[1]
-
     const [view, setView] = useState(context.userId ? 'home' : 'login')
+    const [feedback, setFeedback] = useState(null)
 
     const handleGoToRegister = () => setView('register')
 
@@ -18,14 +16,16 @@ export default function App() {
 
     const handleGoToHome = () => setView('home')
 
-    console.log('App -> render')
+    const handleAcceptAlert = () => setFeedback(null)
 
-    switch (view) {
-        case 'login':
-            return <Login onRegisterClick={handleGoToRegister} onUserLoggedIn={handleGoToHome} />
-        case 'register':
-            return <Register onLoginClick={handleGoToLogin} onUserRegistered={handleGoToLogin} />
-        case 'home':
-            return <Home onLoggedOut={handleGoToLogin} />
-    }
+    const handleShowAlert = (message, level = 'info') => setFeedback({ message, level })
+
+    console.debug('App -> render')
+
+    return <Context.Provider value={{ alert: handleShowAlert }}>
+        {view === 'login' && <Login onRegisterClick={handleGoToRegister} onUserLoggedIn={handleGoToHome} />}
+        {view === 'register' && <Register onLoginClick={handleGoToLogin} onUserRegistered={handleGoToLogin} />}
+        {view === 'home' && <Home onLoggedOut={handleGoToLogin} />}
+        {feedback && <Alert message={feedback.message} level={feedback.level} onAccept={handleAcceptAlert} />}
+    </Context.Provider>
 }
