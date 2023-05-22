@@ -11,7 +11,7 @@ export default function Posts({ onEditPostButtonClick, lastPostsUpdate, view }) 
 
     let _posts, _user
 
-    try {
+    function chechWeatherPostsOrSavedPosts() {
         if (view === "savedPosts") {
             const retrievedPosts = retrievePosts(context.userId);
             _posts = retrieveSavedPosts(context.userId, retrievedPosts)
@@ -20,6 +20,12 @@ export default function Posts({ onEditPostButtonClick, lastPostsUpdate, view }) 
             _posts = retrievePosts(context.userId);
             _user = retrieveUser(context.userId);
         }
+
+        return [_posts , _user]
+    }
+
+    try {
+        const [_posts, _user] = chechWeatherPostsOrSavedPosts()
     } catch (error) {
         alert(error.message)
     }
@@ -27,12 +33,11 @@ export default function Posts({ onEditPostButtonClick, lastPostsUpdate, view }) 
     const [posts, setPosts] = useState(_posts)
     const [user, setUser] = useState(_user)
     const [isInitialRun, setIsInitialRun] = useState(true)
-    //const [view, setView] = useState(view)
 
     const handleDeletePost = () => {
         try {
-            const posts = retrievePosts(context.userId);
-            setPosts(posts)
+            const [_posts] = chechWeatherPostsOrSavedPosts()
+            setPosts(_posts)
         } catch (error) {
             alert(error.message)
         }
@@ -40,8 +45,8 @@ export default function Posts({ onEditPostButtonClick, lastPostsUpdate, view }) 
 
     const handleToggleLike = () => {
         try {
-            const posts = retrievePosts(context.userId);
-            setPosts(posts)
+            const [_posts] = chechWeatherPostsOrSavedPosts()
+            setPosts(_posts)
         } catch (error) {
             alert(error.message)
         }
@@ -49,10 +54,9 @@ export default function Posts({ onEditPostButtonClick, lastPostsUpdate, view }) 
 
     const handleRefreshPosts = () => {
         try {
-            const posts = retrievePosts(context.userId);
-            setPosts(posts)
+            const [_posts, _user] = chechWeatherPostsOrSavedPosts()
         } catch (error) {
-            alert(error.message);
+            alert(error.message)
         }
     }
 
@@ -62,8 +66,9 @@ export default function Posts({ onEditPostButtonClick, lastPostsUpdate, view }) 
 
     const handletoggleSavePost = () => {
         try {
-            const posts = retrievePosts(context.userId);
-            setPosts(posts)
+            const [_posts, _user] = chechWeatherPostsOrSavedPosts()
+            setPosts(_posts)
+            setUser(_user)
         } catch (error) {
             alert(error.message)
         }

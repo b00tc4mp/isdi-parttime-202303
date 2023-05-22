@@ -13,6 +13,6 @@ export default function retrieveSavedPosts(userId, posts) {
         const savedPosts = posts.filter((post) => foundUser.savedPosts.includes(post.id));
         return savedPosts;
     } else {
-        return undefined;
+        return [];
     }
 }

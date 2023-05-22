@@ -64,6 +64,7 @@ export default function Home({ onLogOutClick }) {
         setModal(null);
         setLastPostUpdate(Date.now());
     }
+    //? SAVE POSTS 
     const handleFooterFavButtonClick = () => setView("savedPosts")
 
 
