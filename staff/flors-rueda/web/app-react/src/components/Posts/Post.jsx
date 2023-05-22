@@ -7,8 +7,9 @@ import { toggleLike } from '../../logic/toggle-like';
 import { colors } from '../../../assets/avatar';
 import Avatar from 'boring-avatars';
 import './Posts.css';
+import { togglePublicStat } from '../../logic/toggle-public-stat';
 
-export default function Post({ post, author, onEditPost, onToggledLike, onToggledFav, isProfileView, onAuthorProfile, userId }) {
+export default function Post({ post, author, onEditPost, onToggledPublicStat, onToggledLike, onToggledFav, isProfileView, onAuthorProfile, userId }) {
     const handleEditPost = () => onEditPost(post.id);
     const handleToAuthorProfile = () => onAuthorProfile(author.id);
     const handleToggleLikePost = () => {
@@ -34,6 +35,20 @@ export default function Post({ post, author, onEditPost, onToggledLike, onToggle
                     return;
                 }
                 onToggledFav();
+            });
+        } catch (error) {
+            console.log(`post fav error: ${error.message}`);
+        }
+    }
+
+    const handleToggledPublicStat = () => {
+        try {
+            togglePublicStat(post.id, context.userAuth, error => {
+                if(error){
+                    console.log(`post fav error: ${error.message}`);
+                    return;
+                }
+                onToggledPublicStat();
             });
         } catch (error) {
             console.log(`post fav error: ${error.message}`);
@@ -72,6 +87,7 @@ export default function Post({ post, author, onEditPost, onToggledLike, onToggle
                     <p className="post-card__header--author-username">{author.username}</p>
                 </div>
             )}
+            {(post.author === context.userAuth || author.id === context.userAuth)  && (<svg className="post-card__header--to-edit-post" onClick={handleToggledPublicStat} xmlns="http://www.w3.org/2000/svg" viewBox="0 96 960 960"><path d={post.isPublic ? svg.lockOpen : svg.lock} /></svg>)}
             {(post.author === context.userAuth || author.id === context.userAuth)  && (<svg className="post-card__header--to-edit-post" onClick={handleEditPost} xmlns="http://www.w3.org/2000/svg" viewBox="0 96 960 960"><path d={svg.edit} /></svg>)}</div>
         <div className="post-card__body--image-container">
             <img className="post-card__body--image-container--image" src={post.image} />

@@ -28,18 +28,23 @@ export default function Posts({ onAuthorProfile, onEditPost, type, userId }) {
           setPosts(posts);
         });
       } else {
-        retrieveUserPosts(type, (error, posts) => {
+        retrieveUserPosts(type, context.userAuth, (error, posts) => {
           if (error) {
             console.log(`posts error: ${error.message}`);
             return;
           }
           setPosts(posts);
-        });;
+        });
       }
     } catch (error) {
       console.log(`posts error: ${error.message}`);
     }
   };
+
+  const handleOnEditPost = (postId) => {
+    onEditPost(postId);
+    handleRefreshPosts();
+  }
 
   useEffect(() => {
     handleRefreshPosts();
@@ -55,10 +60,11 @@ export default function Posts({ onAuthorProfile, onEditPost, type, userId }) {
             post={post}
             author={post.author}
             key={post.id}
-            onEditPost={onEditPost}
+            onEditPost={handleOnEditPost}
             onToggledLike={handleRefreshPosts}
             onAuthorProfile={onAuthorProfile}
             onToggledFav={handleRefreshPosts}
+            onToggledPublicStat={handleRefreshPosts}
             isProfileView={type === 'favs' || type === 'home' ? false : true}
             userId={userId}
           />

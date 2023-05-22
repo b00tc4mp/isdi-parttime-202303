@@ -20,20 +20,25 @@ export const retrievePosts = (userId, callback) => {
     loadPosts(posts => {
       loadUsers(users => {
         posts.sort((recent, past) => Number(new Date(past.date)) - Number(new Date(recent.date)));
+        let _posts = [];
         posts.forEach(post => {
-          post.isFav = user.favs.includes(post.id);
+          if(post.isPublic || userId === post.author) {
+            post.isFav = user.favs.includes(post.id);
 
-          const _user = users.find(user => user.id === post.author);
-
-          post.author = {
-            id: _user.id,
-            name: _user.name,
-            username: _user.username,
-            avatar: _user.avatar
+            const _user = users.find(user => user.id === post.author);
+  
+            post.author = {
+              id: _user.id,
+              name: _user.name,
+              username: _user.username,
+              avatar: _user.avatar
+            }
+          _posts.push(post)
           }
+
         })
 
-        callback(null, posts);
+        callback(null, _posts);
       })
     })
   })

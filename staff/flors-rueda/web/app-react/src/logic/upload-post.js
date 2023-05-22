@@ -33,6 +33,7 @@ export const uploadPost = (postImg, postText, authorId, callback) => {
         post.date =  new Date(Date.now());
         post.likes = new Array;
         post.edited = new Array;
+        post.isPublic = true
         posts.push(post)
         savePosts(posts, () => callback(null))
     })

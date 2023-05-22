@@ -6,7 +6,7 @@ import { validateUserID } from '../data/validators-users';
 /**
 TODO: add documentation to all logic functions
  */
-export const retrieveUserPosts = (userId, callback) => {
+export const retrieveUserPosts = (userId, userAuth, callback) => {
   //validateUserID(userId);
   findUserById(userId, user => {
     if (!user) {
@@ -17,8 +17,10 @@ export const retrieveUserPosts = (userId, callback) => {
       let _posts = [];
         posts.sort((recent, past) => Number(new Date(past.date)) - Number(new Date(recent.date)));
         posts.forEach(post => {
-          post.isFav = user.favs.includes(post.id);
-          if(post.author === user.id) _posts.push(post);
+          if(post.isPublic || userId === post.author){
+            post.isFav = user.favs.includes(post.id);
+            if(post.author === user.id) _posts.push(post);
+          }
         })
         callback(null, _posts)
     })

@@ -18,21 +18,21 @@ export const retrieveFavoritePosts = (userId, callback) => {
         posts.sort((recent, past) => Number(new Date(past.date)) - Number(new Date(recent.date)));
         posts.forEach(post => {
           if(user.favs.includes(post.id)){
-            post.isFav = user.favs.includes(post.id);
+            if(post.isPublic || userId === post.author){
+              post.isFav = user.favs.includes(post.id);
 
-            const _user = users.find(user => user.id === post.author);
-            
-            post.author = {
-              id: _user.id,
-              name: _user.name,
-              username: _user.username,
-              avatar: _user.avatar
-            };
-
-            _posts.push(post);
+              const _user = users.find(user => user.id === post.author);
+              
+              post.author = {
+                id: _user.id,
+                name: _user.name,
+                username: _user.username,
+                avatar: _user.avatar
+              };
+  
+              _posts.push(post);
+            }
           };
-
-
         })
 
         callback(null, _posts)
