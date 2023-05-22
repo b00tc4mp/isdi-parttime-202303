@@ -5,7 +5,7 @@ import { retrievePost } from '../../logic/retrieve-post';
 import { updatePost } from '../../logic/update-post';
 import './PostModals.css';
 
-export default function EditPostModal({ onCancel, postId, onPostUpdated}) {
+export default function EditPostModal({ onCancel, postId, onPostUpdated, onDeleteModal}) {
     const [selectedImage, setSelectedImage] = useState(null);
     const [post, setPost] = useState(null);
 
@@ -28,6 +28,11 @@ export default function EditPostModal({ onCancel, postId, onPostUpdated}) {
         event.preventDefault();
         onCancel();
     };
+
+    const handleDelete = (event) => {
+      event.preventDefault();
+      onDeleteModal(postId);
+  };
 
     const handleImageChange = (event) => {
       try{
@@ -106,19 +111,9 @@ export default function EditPostModal({ onCancel, postId, onPostUpdated}) {
           </div>
           {post && (
             <>
-              <textarea
-                className="post-modal__form-input--textarea"
-                name="text"
-                type="text"
-                maxLength="180"
-                defaultValue={post.text}
-              ></textarea>
-              <button
-                type="submit"
-                className="post-modal__form--submit"
-              >
-                save
-              </button>
+              <textarea className="post-modal__form-input--textarea" name="text" type="text" maxLength="180" defaultValue={post.text}></textarea>
+              <button type="submit" className="post-modal__form--submit">save</button>
+              <button type="button" onClick={handleDelete} className="post-modal__form--delete danger">delete</button>
             </>
           )}
         </form>

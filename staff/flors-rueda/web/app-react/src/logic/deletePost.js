@@ -1,15 +1,16 @@
 import { validateUserID, validateUserPassword } from '../data/validators-users'
 import { validatePostAuthor, validatePostExists } from '../data/validators-posts'
 import { loadPosts, savePosts } from '../data/data';
+import { findPostById, findUserById } from '../data/data-managers';
 
-export const deletePost = (userId, postId, password) => {
+export const deletePost = (userId, postId, callback) => {
     /*validateUserID(userId);
     validatePostExists(postId);
     validatePostAuthor(postId, userId);
     validateUserPassword(userId, password);*/
 
     findUserById(userId, user => {
-        if (!user || user.password !== password) {
+        if (!user) {
             callback(new Error('authentication failed'));
             return;
         }

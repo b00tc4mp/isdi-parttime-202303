@@ -2,6 +2,7 @@ import Posts from '../components/Posts/Posts'
 import { useState } from 'react'
 import NewPost from '../components/PostModals/NewPost'
 import EditPost from '../components/PostModals/EditPost'
+import DeletePost from '../components/PostModals/DeletePost'
 import { context }from '../context'
 import { svg } from '../../assets/svg-paths'
 import Navbar from '../components/Navbar/Navbar'
@@ -15,10 +16,17 @@ export default function Home({ onLoggedOut }) {
     const [userId, setUserId] = useState(null);
   
     const handleOpenNewPostModal = () => setModal('new-post');
+
     const handleOpenEditPostModal = (postId) => {
       setPostId(postId);
       setModal('edit-post');
     };
+
+    const handleOpenDeletePostModal = (postId) => {
+      setPostId(postId);
+      setModal('delete-post');
+    };
+
     const handleCloseModal = () => setModal(null);
     //TODO add delete post modal and feature
   
@@ -52,7 +60,8 @@ export default function Home({ onLoggedOut }) {
           {view === 'profile' && <Profile userId={userId} onEditPost={handleOpenEditPostModal} onDeleteAccount={handleLogout} />}
           {view === 'favs' && (<Posts type={'favs'} onEditPost={handleOpenEditPostModal} onAuthorProfile={handleGoToProfile}/>)}
           {modal === 'new-post' && <NewPost onCancel={handleCloseModal} onPostCreated={handleSubmitPost} />}
-          {modal === 'edit-post' && <EditPost onCancel={handleCloseModal} postId={postId} onPostUpdated={handleSubmitPost} />}
+          {modal === 'edit-post' && <EditPost onCancel={handleCloseModal} postId={postId} onPostUpdated={handleSubmitPost} onDeleteModal={handleOpenDeletePostModal} />}
+          {modal === 'delete-post' && <DeletePost onCancel={handleCloseModal} postId={postId} onDelete={handleSubmitPost}/>}
         </main>
         <div className="home-page__new-post">
           <button className="home-page__new-post--button">
