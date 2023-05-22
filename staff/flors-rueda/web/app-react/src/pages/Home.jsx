@@ -1,5 +1,5 @@
 import Posts from '../components/Posts/Posts'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import NewPost from '../components/PostModals/NewPost'
 import EditPost from '../components/PostModals/EditPost'
 import DeletePost from '../components/PostModals/DeletePost'
@@ -14,6 +14,7 @@ export default function Home({ onLoggedOut }) {
     const [modal, setModal] = useState(null);
     const [postId, setPostId] = useState(null);
     const [userId, setUserId] = useState(null);
+    const [key, setKey] = useState(null);
   
     const handleOpenNewPostModal = () => setModal('new-post');
 
@@ -30,7 +31,10 @@ export default function Home({ onLoggedOut }) {
     const handleCloseModal = () => setModal(null);
     //TODO add delete post modal and feature
   
-    const handleGoToPosts = () => setView('posts');
+    const handleGoToPosts = () => {
+      setView('posts');
+      setKey(Date.now()); // Generate a unique key for the Posts component
+    };
   
     const handleGoToProfile = (userId) => {
       userId ? setUserId(userId) : setUserId(context.userAuth);
@@ -56,7 +60,7 @@ export default function Home({ onLoggedOut }) {
       <div className="home">
         <Navbar onLogoutClick={handleLogout} onProfileClick={handleGoToProfile} onFavsClick={handleGoToFavs} onHomeClick={handleGoToPosts} />
         <main className="home-page__main">
-          {view === 'posts' && (<Posts type={'home'} onEditPost={handleOpenEditPostModal} onAuthorProfile={handleGoToProfile}/>)}
+          {view === 'posts' && (<Posts key={key} type={'home'} onEditPost={handleOpenEditPostModal} onAuthorProfile={handleGoToProfile}/>)}
           {view === 'profile' && <Profile userId={userId} onEditPost={handleOpenEditPostModal} onDeleteAccount={handleLogout} />}
           {view === 'favs' && (<Posts type={'favs'} onEditPost={handleOpenEditPostModal} onAuthorProfile={handleGoToProfile}/>)}
           {modal === 'new-post' && <NewPost onCancel={handleCloseModal} onPostCreated={handleSubmitPost} />}
