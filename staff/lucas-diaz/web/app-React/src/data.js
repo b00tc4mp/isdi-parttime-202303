@@ -1,84 +1,53 @@
-export const users = () => "usersJson" in localStorage  ? JSON.parse(localStorage.usersJson) : []
+import { users } from "../../app-React.2/src/data"
 
-/* users.push({
-    id: "user-1",
-    name: 'Wendy Darling',
-    email: 'wendy@darling.com',
-    password: 'WendyDarling22!'
-})
-users.push({
-    id: "user-2",
-    name: 'Peter Pan',
-    email: 'peter@pan.com',  
-    password: 'PeterPan22!'
-})
-users.push({
-    id: "user-3",
-    name: 'Pepito Grillo',
-    email: 'pepito@grillo.com',
-    password: 'PepitoGrillo22!'
-})
-users.push({
-    id: "user-4",
-    name: 'Lucas Diaz',
-    email: 'lucas@gmail.com',
-    password: 'LucasDiaz22!',
-    avatar: "https://static.vecteezy.com/system/resources/previews/019/861/654/non_2x/3d-modern-house-or-home-isometric-modern-building-and-architecture-free-png.png"
-}) */
+const DELAY = 100
+
+export const loadUsers = callback => setTimeout(() => {
+    callback("usersJson" in localStorage  ? JSON.parse(localStorage.usersJson) : [])
+}, DELAY) 
+
 
 export const posts = () => {
-
     const posts = "postsJson" in localStorage  ? JSON.parse(localStorage.postsJson) : []
 
     posts.forEach(post => post.date = new Date(post.date));
-    
     return posts
 }
 
-// esto lo hacemos porque el objeto cuando viene de JSON la date vuelve como string y tenemos que volver a pasarla a formato Date
+/* export const pos ts = callback => setTimeout(() => {
+    const posts = "postsJson" in localStorage ? JSON.parse(localStorage.postsJson) : []
+ 
+    posts.forEach(post => post.date = new Date(post.date));
+
+    callback(posts)
+}, 100) */
 
 
+export function saveUsers(users, callback){
+    setTimeout(() => {
+        localStorage.usersJson = JSON.stringify(users);
 
-/* posts.push({
-    id: "post-1",
-    author: "user-1",
-    image: "https://img.freepik.com/vector-gratis/planes-diseno-casa_23-2147665806.jpg?2",
-    text: "Love interiorism",
-    date: new Date(2023, 0, 31, 23, 45)
-})
-posts.push({
-    id: "post-2",
-    author: "user-3",
-    image: "https://creazilla-store.fra1.digitaloceanspaces.com/cliparts/35137/house-home-clipart-xl.png",
-    text: "Love this style",
-    date: new Date(2023, 1, 28, 30)
-})
-posts.push({
-    id: "post-3",
-    author: "user-4",
-    image: "https://static.vecteezy.com/system/resources/previews/019/861/654/non_2x/3d-modern-house-or-home-isometric-modern-building-and-architecture-free-png.png",
-    text: "How about this style??",
-    date: new Date(2023, 4, 15, 20, 15)
-})
- */
-
-
-
-export function saveUsers(users){
-    localStorage.usersJson = JSON.stringify(users);
+        callback(); //avisa, en el sentido de que te llama cuando finaliza el proceso 
+    }, DELAY);
 }
 
-export function saveUser(user){
-    const _users = users()
-
-    const index = _users.findIndex(_user => _user.id === user.id)
+export function saveUser(user, callback){
+    loadUsers(users => {
+        const index = users.findIndex(_user => _user.id === user.id)
     
-    if (index < 0)
-        _users.push(user)
-    else 
-        _users.splice(index, 1, user)
-    saveUsers(_users)
+        if (index < 0)
+            users.push(user)
+        else 
+            users.splice(index, 1, user)
+        saveUsers(users, callback)
+    })
 }
+
+
+
+
+
+
 
 
 export function savePosts(posts){

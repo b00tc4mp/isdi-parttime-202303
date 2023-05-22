@@ -18,9 +18,9 @@ export default function Register(props) {
 
 
         try {
-            registerUser(temporalUserName, temporalEmail, temporalPassword);
+            registerUser(temporalUserName, temporalEmail, temporalPassword, () => props.onUserRegistered());
             event.target.reset();
-            props.onUserRegistered();
+            
 
         } catch (error) {
             setErrorMessage(error.message);
