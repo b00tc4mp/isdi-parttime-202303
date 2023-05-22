@@ -16,8 +16,7 @@ export function createPost(userId, image, title, text) {
         text: text,
         date: new Date(),
         comments: [],
-        likes: [],
-        visibility: 'public'
+        likes: []
     }
     _posts.push(post)
     savePosts(_posts)

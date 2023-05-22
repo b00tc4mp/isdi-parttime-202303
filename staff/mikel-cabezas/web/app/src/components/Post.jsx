@@ -3,14 +3,45 @@ import UserImage from "./UserImage"
 import { userLikedPost, savePostToFavorites } from "../../../app.15_lastVanilla/src/logic/posts/posts-data"
 import './Post.css'
 import retrieveUser from "../logic/users/retrieveUser"
-
+import { useEffect, useState } from "react"
+import { findUserById } from "../data"
 
 export default function Post( { post, post: {image, title, text, comments, likes, id, date, author, lastModify }, onToggleLikePost, onToggleSavePost, onEditPostButton }, callback ) {
+    
+    const userId = context.userId
+
+    const [user, setUser] = useState()
+    const [userSavePost, setUserSavePost] = useState()
     
     const postStyle = {
         background: `linear-gradient(180deg, rgba(0,0,0,.2) 0%, rgba(0,0,0,0) 10%, rgba(0,0,0,0) 50%, rgba(0,0,0,.6) 100%), url(${image}) center / cover`
     }
-    const userId = context.userId
+
+    useEffect(() => {
+        findUserById(userId, (error, _user) => {
+
+            if(!_user) {
+                callback(new Error ('user not found'))
+
+                return
+            }
+            if (error) {
+                alert(error.message)
+
+                return
+            }
+
+            setTimeout(() => {
+                setUser(_user.likedPosts)
+                console.log(user)
+                checkUserPostSavedPosts()
+            }, 1000);
+            
+        })
+
+
+    }, []) 
+
     // const currentUser = context.userId
     // const currentUser = retrieveUser(userId, user => {
     //     alert(user)
@@ -43,7 +74,18 @@ export default function Post( { post, post: {image, title, text, comments, likes
         userLikedPost(userId, post, event)
         onToggleLikePost()
     }
+    function checkUserPostSavedPosts() {
+        // const findPost = user.find(user => user.likedPosts === id)
+        // if(findPost)
+        //     setUserSavePost(false)
+            
+        // if(!findPost)
+        //     setUserSavePost(true)
+
+    }
     function handleToggleSave(event) {
+        checkUserPostSavedPosts()
+
         savePostToFavorites(userId, post, event)
         onToggleSavePost()
     }
@@ -52,24 +94,27 @@ export default function Post( { post, post: {image, title, text, comments, likes
     function handleEditPostButton(id) {
         onEditPostButton(id)
     }
-    return <article className={id} style={postStyle}>
-    <div className="post-author">
-        <UserImage userId={author}/>
-    {userId === author ? <button className={`edit ${id}`} onClick={() => handleEditPostButton(id)}>edit <span className="material-symbols-outlined pencil edit-post">edit</span></button> : ''}
-    </div>
-    <img className="space-image" />
-    <div className="title-and-interactions">
-        <div className={`material-symbols-outlined like ${isLikedPost === userId ? ' filled' : ''}`}
- onClick={handleToggleLike}>favorite</div>
-        <div className="material-symbols-outlined comment">maps_ugc</div>
-        {/* <div className={currentUser.likedPosts.find(post => post === id) === id ? 'material-symbols-outlined save filled' : 'material-symbols-outlined save'} onClick={handleToggleSave}>bookmark</div> */}
-    </div>
-    <h3 className="title">{title}</h3>
-    <p className="excerpt">{text}</p>
-    <div className="post-likes">{likes.length < 1 ? '' : countLikes }</div>
-    <div className="comments-count">{comments.length} comments</div>
-    <time className="post-date">{newDate} {lastModify ? <span className="post-edited">Edited</span> : ''}</time>
-</article>
+    
+    if(user) {
+        return <article className={id} style={postStyle}>
+            <div className="post-author">
+                <UserImage userId={author}/>
+            {userId === author ? <button className={`edit ${id}`} onClick={() => handleEditPostButton(id)}>edit <span className="material-symbols-outlined pencil edit-post">edit</span></button> : ''}
+            </div>
+            <img className="space-image" />
+            <div className="title-and-interactions">
+                <div className={`material-symbols-outlined like ${isLikedPost === userId ? ' filled' : ''}`}
+        onClick={handleToggleLike}>favorite</div>
+                <div className="material-symbols-outlined comment">maps_ugc</div>
+                <div className={user.find(post => post === id) === id ? 'material-symbols-outlined save filled' : 'material-symbols-outlined save'} onClick={handleToggleSave}>bookmark</div>
+            </div>
+            <h3 className="title">{title}</h3>
+            <p className="excerpt">{text}</p>
+            <div className="post-likes">{likes.length < 1 ? '' : countLikes }</div>
+            <div className="comments-count">{comments.length} comments</div>
+            <time className="post-date">{newDate} {lastModify ? <span className="post-edited">Edited</span> : ''}</time>
+        </article>
+    }
 }
 
 
