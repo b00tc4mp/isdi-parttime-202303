@@ -1,25 +1,32 @@
-import { validateId, validateUrl, validateText } from './helpers/validators'
-import { findUserById, newPostId } from './helpers/dataManagers'
-import { posts, savePosts } from '../data'
+import { validateId, validateUrl, validateText, validateCallback } from './helpers/validators'
+import { loadPosts, savePosts, findUserById, newPostId } from '../data'
 
-export default function createPost(userId, image, text) {
+export default function createPost(userId, image, text, callback) {
     validateId(userId, 'user id')
     validateUrl(image, 'image url')
     validateText(text)
+    validateCallback(callback)
 
-    const user = findUserById(userId)
+    findUserById(userId, user => {
+        if (!user) {
+            callback(new Error(`user with id ${userId} not found`))
+            
+            return
+        }
 
-    if (!user) throw new Error(`user with id ${userId} not found`)
+        loadPosts(posts => {
+            newPostId(id => {
+                posts.push({
+                    id: id,
+                    author: userId,
+                    image,
+                    text,
+                    date: new Date,
+                    likes: []
+                })
 
-    const tmpPosts = posts()
-
-    tmpPosts.push({
-        id: newPostId(),
-        author: userId,
-        image,
-        text,
-        date: new Date
+                savePosts(posts, () => callback(null))
+            })
+        })
     })
-
-    savePosts(tmpPosts)
 }

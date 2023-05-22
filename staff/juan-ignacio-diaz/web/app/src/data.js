@@ -1,48 +1,109 @@
 
-export const users = () => 'usersJson' in localStorage? JSON.parse(localStorage.usersJson) : []
+const DELAY = 100
 
-export const posts = () => {
-    const posts = 'postsJson' in localStorage? JSON.parse(localStorage.postsJson) : []
+export const loadUsers = callback => 
+    setTimeout(() =>
+        callback('usersJson' in localStorage? JSON.parse(localStorage.usersJson) : [])
+        , DELAY
+    )
 
-    posts.forEach(post => post.date = new Date(post.date))
-    posts.forEach(post => {if ("dateLastModified" in post) post.dateLastModified = new Date(post.dateLastModified)})
+export const saveUsers = (users, callback) =>
+    setTimeout(() => {
+            localStorage.usersJson = JSON.stringify(users)
 
-    return posts
-}
+            callback()
+        }
+        , DELAY
+    )
 
-export function saveUsers(users) {
-    localStorage.usersJson = JSON.stringify(users)
-}
+export const saveUser = (user, callback) =>
+    loadUsers(users => {
+            const index = users.findIndex(tmpUser => tmpUser.id === user.id)
 
-export function savePosts(posts) {
-    localStorage.postsJson = JSON.stringify(posts)
-}
+            if (index < 0)
+                users.push(user)
+            else
+                users.splice(index, 1,  user)
+        
+            saveUsers(users, callback)
+        }
 
-export function saveUser(user) {
-    const tmpUsers = users()
+    )
 
-    const index = tmpUsers.findIndex(tmpUser => tmpUser.id === user.id)
+export const newUserId = callback => 
+    loadUsers(users => {
+            let userId = 'user-1'
 
-    if (index < 0)
-        tmpUsers.push(user)
-    else
-        tmpUsers.splice(index, 1,  user)
+            const lastUser = tmpUser[users.length - 1]
 
-    saveUsers(tmpUsers)
-}
+            if (lastUser)
+                userId = 'user-' + (parseInt(lastUser.id.slice(5)) + 1)
+        
+            callback(userId)
+        }
+    )
 
-export function savePost(post) {
-    const tmpPosts = posts()
+export const findUserById = (userId, callback) =>
+    loadUsers(users =>        
+        callback(users.find(user => user.id === userId))
+    )
 
-    const index = tmpPosts.findIndex(tmpPost => tmpPost.id === post.id)
+export const findUserByEmail = (email, callback) =>
+    loadUsers(users =>        
+        callback(users.find(user => user.email === email))
+    )
 
-    if (index < 0)
-        tmpPosts.push(post)
-    else
-        tmpPosts.splice(index, 1, post)
+export const loadPosts = callback => 
+    setTimeout(() => {
+            const posts = 'postsJson' in localStorage? JSON.parse(localStorage.postsJson) : []
 
-    savePosts(tmpPosts)
-}
+            posts.forEach(post => post.date = new Date(post.date))
+            posts.forEach(post => {if ("dateLastModified" in post) post.dateLastModified = new Date(post.dateLastModified)})
+        
+            callback(posts)
+        }
+        , DELAY
+    )
+
+
+export const savePosts = (posts, callback) =>
+    setTimeout(() => {
+            localStorage.postsJson = JSON.stringify(posts)
+
+            callback()
+        }
+        , DELAY
+    )
+
+export const savePost = (post, callback) =>
+    loadPosts(posts => {
+        const index = posts.findIndex(tmpPost => tmpPost.id === post.id)
+
+        if (index < 0)
+            posts.push(post)
+        else
+            posts.splice(index, 1, post)
+    
+        savePosts(posts, callback)
+    })
+
+export const  newPostId = callback =>
+    loadPosts(posts => {
+        let postId = 'post-1'
+
+        const lastPost = posts[posts.length - 1]
+
+        if (lastPost)
+            postId = 'post-' + (parseInt(lastPost.id.slice(5)) + 1)
+
+        callback(postId)
+    })
+
+
+export const findPostById = (postId, callback) => 
+    loadPosts(posts => 
+        callback(posts.find(post => post.id === postId))
+    )
 
 
 export const postsAuction = () => {
@@ -70,7 +131,33 @@ export function savePostAuction(postAuction) {
     savePostsAuction(tmpPostsAuction)
 }
 
+export function findPostAuctionById(postId) {
+    return postsAuction().find(postAuction => postAuction.id === postId)
+}
 
+/*
+///////////////////////////////////
+const users2 = JSON.parse(localStorage.usersJson)
+
+users2.forEach(user => {
+    if (!user.favs) 
+        user.favs = []
+})
+
+localStorage.usersJson = JSON.stringify(users2)
+
+const posts2 = JSON.parse(localStorage.postsJson)
+
+posts2.forEach(post => {
+    if (!post.likes) 
+        post.likes = []
+})
+
+localStorage.postsJson = JSON.stringify(posts2)
+/////////////////////////////////////
+*/
+
+/*
 //carga de vacio
 if (users().length === 0) {
     const tmpUsers = []
@@ -126,3 +213,4 @@ if (posts().length === 0) {
 
     savePosts(tmpPosts)
 }
+*/

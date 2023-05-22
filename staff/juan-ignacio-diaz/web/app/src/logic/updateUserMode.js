@@ -1,16 +1,19 @@
-import { validateId, validateText } from './helpers/validators'
-import { findUserById } from './helpers/dataManagers'
-import { saveUser } from '../data'
+import { validateId, validateCallback } from './helpers/validators'
+import { saveUser, findUserById } from '../data'
 
-export default function updateUserMode(userId, mode) {
+export default function updateUserMode(userId, mode, callback) {
     validateId(userId)
+    validateCallback(callback)
 
-    const user = findUserById(userId)
+    findUserById(userId, user => {
+        if (!user) {
+            callback(new Error('user not found'))
 
-    if (!user)
-        throw new Error('user not found')
+            return
+        }
 
-    user.mode = mode
+        user.mode = mode
 
-    saveUser(user)
+        saveUser(user, () => callback)
+    })
 }

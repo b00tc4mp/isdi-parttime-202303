@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { context } from '../ui'
 export const DEFAULT_AVATAR_URL = "https://img.icons8.com/color/512/avatar.png"
 
@@ -12,26 +12,34 @@ import retrieveUser from '../logic/retrieveUser';
 import './Home.css'
 
 export default function Home({ onLogout, onMenssageAlert }) {
-    let tmpUser
-
-    try{
-        tmpUser = retrieveUser(context.userId) 
-    } 
-    catch (error) {
-        onMenssageAlert(error.message)
-    }
-
-    if (tmpUser.mode)
-        if (tmpUser.mode === 'dark') document.querySelector(':root').classList.add('dark')
-        else document.querySelector(':root').classList.remove('dark')
-    else document.querySelector(':root').classList.remove('dark')
-
-    const [user, setUser] = useState(tmpUser)
+    const [user, setUser] = useState()
     const [view, setView] = useState('posts')
     const [modal, setModal] = useState(null)
     const [postId, setPostId] = useState(null)
     const [typePosts, setTypePosts] = useState('all')
     const [lastPostsUpdate, setLastPostsUpdate] = useState(null)
+
+    useEffect(() => {
+        try{
+            retrieveUser(context.userId, (error, user) => {
+                if (error) {
+                    onMenssageAlert(error.message)
+
+                    return
+                }
+                setUser(user)
+
+                if (user.mode)
+                    if (user.mode === 'dark') document.querySelector(':root').classList.add('dark')
+                    else document.querySelector(':root').classList.remove('dark')
+                else document.querySelector(':root').classList.remove('dark')
+
+            }) 
+        } 
+        catch (error) {
+            onMenssageAlert(error.message)
+        }
+    }, [])
 
     const handleLogout = () => {
         delete context.userId
@@ -46,7 +54,14 @@ export default function Home({ onLogout, onMenssageAlert }) {
 
     const handledEditedProfile =() => {
         try{
-            setUser(retrieveUser(context.userId))
+            retrieveUser(context.userId, (error, user) => {
+                if (error) {
+                    onMenssageAlert(error.message)
+    
+                    return
+                }
+                setUser(user)
+            })
         } 
         catch (error) {
             onMenssageAlert(error.message)
@@ -82,8 +97,10 @@ export default function Home({ onLogout, onMenssageAlert }) {
                 <h1 className="title" onClick={handleGoToPosts}>Home</h1>
 
                 <nav className="home-header-nav"> 
-                    <img className="home-header-avatar" src={user.avatar? user.avatar : DEFAULT_AVATAR_URL} alt=""/>
-                    <a className = "name" href="" onClick={handleGoToProfile}>{user.name}</a>
+                    {user && <>
+                        <img className="home-header-avatar" src={user.avatar? user.avatar : DEFAULT_AVATAR_URL} alt=""/>
+                        <a className = "name" href="" onClick={handleGoToProfile}>{user.name}</a>
+                    </>}
                 </nav>
                 <button className = "button" name = "logout" onClick={handleLogout}>Logout</button>   
             </header>
@@ -110,7 +127,7 @@ export default function Home({ onLogout, onMenssageAlert }) {
                     onMenssageAlert={onMenssageAlert}
                 />}
 
-                {modal === 'add-post' &&<AddPostModal 
+                {modal === 'add-post' && <AddPostModal 
                     onCancel={handleCloseModalPost}
                     onCreatedPost={handleCloseModalPost}
                     onMenssageAlert={onMenssageAlert}

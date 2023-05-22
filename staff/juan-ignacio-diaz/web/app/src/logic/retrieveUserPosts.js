@@ -1,13 +1,32 @@
-import { posts, users } from "../data"
-import { validateId } from "./helpers/validators"
+import { findUserById, loadPosts } from "../data"
+import { validateId, validateCallback } from "./helpers/validators"
 
 
-export default function retrieweUserPosts(userId){
+export default function retrieweUserPosts(userId, callback){
     validateId(userId, 'user id')
+    validateCallback(callback)
     
-    const user = users().some(user => user.id === userId)
+    findUserById(userId, user => {
+        if (!user) {
+            callback(new Error(`user with id ${userId} not found`))
 
-    if (!user) throw new Error(`user with id ${userId} not found`)
-
-    return posts().filter(post => post.author === userId).toReversed()
+            return
+        }
+    
+        loadPosts(posts => {
+            posts.filter(post => post.author === userId)
+            
+            posts.forEach(post => {
+                post.fav = user.favs.includes(post.id)
+    
+                post.author = {
+                    id: user.id,
+                    name: user.name,
+                    avatar: user.avatar
+                }
+            })
+    
+            callback(null, posts.toReversed())
+        })
+    })
 }

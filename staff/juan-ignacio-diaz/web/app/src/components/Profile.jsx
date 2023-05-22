@@ -28,11 +28,16 @@ export default function Profile({ onEditedProfile, onMenssageAlert, user }){
         }
 
         try{
-            updateUserMode(context.userId, mode)
+            updateUserMode(context.userId, mode, error => {
+                if (error) {
+                    onMenssageAlert(error.message)
 
-            onMenssageAlert("mode updated")
+                    return
+                }
+                onMenssageAlert("mode updated")
 
-            onEditedProfile()
+                onEditedProfile()
+            })
         }
         catch(error) {
             onMenssageAlert(error.message)
@@ -46,12 +51,17 @@ export default function Profile({ onEditedProfile, onMenssageAlert, user }){
         const url = event.target.url.value
 
         try{
-            updateUserAvatar (context.userId, url)
+            updateUserAvatar (context.userId, url, error => {
+                if (error) {
+                    onMenssageAlert(error.message)
 
-            onMenssageAlert("avatar updated")
+                    return
+                }
+                onMenssageAlert("avatar updated")
 
-            event.target.reset()
-            onEditedProfile()
+                event.target.reset()
+                onEditedProfile()
+            })
         }
         catch(error) {
             onMenssageAlert(error.message)
@@ -70,13 +80,18 @@ export default function Profile({ onEditedProfile, onMenssageAlert, user }){
         const newPasswordConfirm = event.target.newPasswordConfirm.value
 
         try {
-            updateUserPassword(context.userId, password, newPassword, newPasswordConfirm)
-            
-            onMenssageAlert("the password is update")
+            updateUserPassword(context.userId, password, newPassword, newPasswordConfirm, error => {
+                if (error) {
+                    onMenssageAlert(error.message)
 
-            event.target.reset()
+                    return
+                }
+                onMenssageAlert("the password is update")
 
-            onEditedProfile()
+                event.target.reset()
+    
+                onEditedProfile()
+            })
         }
         catch (error) {
             onMenssageAlert(error.message)

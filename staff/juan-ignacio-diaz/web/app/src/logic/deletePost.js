@@ -1,29 +1,46 @@
-import { users, saveUsers, posts, savePosts} from "../data"
-import { validateId } from "./helpers/validators"
+import { loadUsers, saveUsers, loadPosts, savePosts} from "../data"
+import { validateId, validateCallback } from "./helpers/validators"
 
 
-export default function deletePost(userId, postId){
+export default function deletePost(userId, postId, callback){
     validateId(userId, 'user id')
     validateId(postId, 'post id')
+    validateCallback(callback)
 
-    const tmpUsers = users()
+    loadUsers(users => {
 
-    const user = tmpUsers.some(user => user.id === userId)
+        const  user = users.find(user => user.id === userId)
+        if (!user) {
+            callback(new Error(`user with id ${userId} not found`))
 
-    if (!user) throw new Error(`user with id ${userId} not found`)
+            return
+        }
+    
+        loadPosts(posts => {
+            const index = posts.findIndex(post => post.id === postId)
+    
+            if (index < 0) {
+                callback(new Error(`post with id ${postId} not found`))
 
-    const tmpPosts = posts()
+                return
+            }
 
-    const index = tmpPosts.findIndex(post => post.id === postId)
+            if (user.id !== posts[index].author){
+                callback(new Error(`Post doesn't belong to this user`))
 
-    if (index >= 0) tmpPosts.splice(index , 1)
-    else throw new Error(`post with id ${postId} not found`)
+                return
+            }  
 
-    tmpUsers.forEach(user => { 
-        if (user.savePosts && user.savePosts.includes(postId)) 
-            user.savePosts.splice(user.savePosts.findIndex(savePost => savePost===postId), 1)
-    });
+            posts.splice(index, 1)
 
-    savePosts(tmpPosts)
-    saveUsers(tmpUsers)
+            users.forEach(user => { 
+                if (user.favs.includes(postId)) 
+                    user.favs.splice(user.favs.findIndex(favs => favs===postId), 1)
+            })
+        
+            savePosts(posts, () =>
+                saveUsers(users, () => callback(null))
+            )
+        })
+    })
 }

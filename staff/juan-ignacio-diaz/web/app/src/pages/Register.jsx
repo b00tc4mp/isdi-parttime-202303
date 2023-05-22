@@ -19,7 +19,13 @@ export default function Register({ onLoginClick, onRegistered, onMenssageAlert})
         const password = event.target.password.value
     
         try {
-            registerUser(name, email, password)
+            registerUser(name, email, password, error => {
+                if (error) {
+                    onMenssageAlert(error.message)
+
+                    return
+                }
+            })
     
             event.target.reset()
     

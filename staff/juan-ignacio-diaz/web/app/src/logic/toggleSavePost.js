@@ -1,30 +1,35 @@
-import { findUserById, findPostById } from "./helpers/dataManagers";
-import { validateId } from "./helpers/validators";
-import { saveUser } from "../data"
+import { validateId, validateCallback } from "./helpers/validators";
+import { saveUser, findUserById, findPostById } from "../data"
 
-export default function toggleSavePost(userId, postId) {
+export default function toggleSavePost(userId, postId, callback) {
     validateId(userId, 'user id')
     validateId(postId, 'post id')
+    validateCallback(callback)
     
-    const user = findUserById(userId)
-    
-    if (!user) throw new Error("Error to user")
+    findUserById(userId, user => {
+        if (!user) {
+            callback(new Error("Error to user"))
 
-    if (!findPostById(postId)) throw new Error(`post with id ${postId} not found`)
+            return
+        }
+        
+        findPostById(postId, post =>{
+            if (!post) {
+                callback(new Error(`post with id ${postId} not found`))
+            
+                return
+            }
 
-    if (!user.savePosts) {
-        user.savePosts = [postId]
-    } else {
-        const index = user.savePosts.indexOf(postId)
+            const index = user.favs.indexOf(postId)
 
-        if (index < 0)
-            user.savePosts.push(postId)
-        else {
-            user.savePosts.splice(index, 1)
+            if (index < 0)
+                user.favs.push(postId)
+            else {
+                user.favs.splice(index, 1)
+            } 
+     
+            saveUser(user, () => callback(null))
+        })
+    })
 
-            if (!user.savePosts.length) delete user.savePosts
-        } 
-    }
-
-    saveUser(user)
 }

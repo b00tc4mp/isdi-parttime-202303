@@ -1,24 +1,40 @@
-import { savePost } from '../data'
-import { findUserById, findPostById } from './helpers/dataManagers'
-import { validateId, validateUrl, validateText } from './helpers/validators'
+import { savePost, findUserById, findPostById } from '../data'
+import { validateId, validateUrl, validateText, validateCallback } from './helpers/validators'
 
-export default function updatePost(userId, postId, image, text) {
+export default function updatePost(userId, postId, image, text, callback) {
     validateId(userId)
     validateId(postId)
+    validateCallback(callback)
     if(image !== '') validateUrl(image)
     if(text !== '') validateText(text)
 
-    if (!findUserById(userId)) throw new Error("Error to user")
+    findUserById(userId, user => {
+        if (!user) {
+            callback(new Error('Error to user'))
 
-    const post = findPostById(postId)
+            return
+        }
 
-    if (!post) throw new Error(`post with id ${postId} not found`)
+        const post = findPostById(postId)
 
-    if (post.author !== userId) throw new Error("Error user and post do not match")
+        if (!post) {
+            callback(new Error(`post with id ${postId} not found`))
 
-    if(image !== '') post.image = image
-    if(text !== '') post.text = text
-    post.dateLastModified = new Date
+            return
+        }
 
-    savePost(post)  
+        if (post.author !== userId) {
+            callback(new Error('Error user and post do not match'))
+
+            return
+        }
+
+        if(image !== '') post.image = image
+        if(text !== '') post.text = text
+        post.dateLastModified = new Date
+
+        savePost(post)  
+
+        callback(null)
+    })
 }

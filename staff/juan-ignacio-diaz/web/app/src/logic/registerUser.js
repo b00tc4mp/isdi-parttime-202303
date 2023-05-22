@@ -1,23 +1,31 @@
-import { users, saveUsers } from "../data"
-import { validateName, validateEmail, validatePassword } from "./helpers/validators"
-import { findUserByEmail, newUserId } from './helpers/dataManagers'
+import { loadUsers, saveUsers, findUserByEmail, newUserId } from "../data"
+import { validateName, validateEmail, validatePassword, validateCallback } from "./helpers/validators"
 
-export default function registerUser (name, email, password) {
+export default function registerUser (name, email, password, callback) {
     validateName(name)
     validateEmail(email)
     validatePassword(password)
-    
-    if (findUserByEmail(email)) 
-        throw new Error("user already exists")
+    validateCallback(callback)
+ 
+    findUserByEmail(email, user => {
+        if (user) {
+            callback(new Error('user already exists'))
 
-    const tmpUsers = users()
-    
-    tmpUsers.push({
-        id: newUserId(),
-        name: name,
-        email: email,
-        password: password
-    })
+            return
+        }
 
-    saveUsers(tmpUsers)
+        loadUsers(users =>{   
+            newUserId(id =>{
+                users.push({
+                    id: id,
+                    name: name,
+                    email: email,
+                    password: password,
+                    favs: []
+                })
+
+                saveUsers(users, () => callback(null))
+            })       
+        })
+     })
 }

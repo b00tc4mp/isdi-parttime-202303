@@ -1,9 +1,28 @@
+import { useState, useEffect } from 'react'
 import { context } from '../ui'
 
 import updatePost from '../logic/updatePost'
 import retrievePost from '../logic/retrievePost'
 
 export default function EditPost({ onCancel, onEditedPost, postId, onMenssageAlert}) {
+    const [post, setPost] = useState(null)
+
+    useEffect(() => {
+        try {
+            retrievePost(context.userId, postId, (error, post) => {
+                if (error) {
+                    onMenssageAlert(error.message)
+
+                    return
+                }
+
+                setPost(post)
+            })
+        } catch (error) {
+            onMenssageAlert(error.message)
+        }
+    }, [postId])
+    
     function handleCancel(event) {  
         event.preventDefault()
 
@@ -17,30 +36,37 @@ export default function EditPost({ onCancel, onEditedPost, postId, onMenssageAle
         const text = event.target.text.value
 
         try {
-            updatePost (context.userId, postId, image, text)
+            updatePost (context.userId, postId, image, text, error => {
+                if (error) {
+                    onMenssageAlert(error.message)
 
-            onEditedPost()
+                    return
+                }
+                
+                onEditedPost()
+            })
+
         } catch(error) {
             onMenssageAlert(error.message)
         }
     }
 
-    try{    
-        const {image, text} = retrievePost(context.userId, postId)
-
-        return <>
-            <section className="edit-post container">
-                <form className="container" onSubmit={handleEditPost}>
-                    <img src={image} className="post-image"/>
-                    <input className="input" type="url" name="image" placeholder="image url"defaultValue={image}/>
-                    <textarea className="input" name="text" cols="30" rows="10" placeholder="text" defaultValue={text}></textarea>
-                    <button className="button" type="submit">Update</button>
-                    <button className="button cancel" type="button" onClick={handleCancel}>Cancel</button>
-                </form>
-            </section>
-        </>            
-    }
-    catch(error){
-        onMenssageAlert(error.message)
-    }
+    return <>
+        {post && <section className="edit-post container">
+            <form className="container" onSubmit={handleEditPost}>
+            {post && <>
+                    <img src={post.image} className="post-image"/>
+                    <input className="input" type="url" name="image" placeholder="image url"defaultValue={post.image}/>
+                    <textarea className="input" name="text" cols="30" rows="10" placeholder="text" defaultValue={post.text}></textarea>
+                    </> 
+                || <>
+                    <input className="input" type="url" name="image" disabled placeholder="Loading..."/>
+                    <textarea className="input" name="text" cols="30" rows="10" disabled placeholder="Loading..."></textarea>
+                </>}               
+                <button className="button" type="submit">Update</button>
+                <button className="button cancel" type="button" onClick={handleCancel}>Cancel</button>
+            </form>
+        </section>}
+    </>        
+    
 }

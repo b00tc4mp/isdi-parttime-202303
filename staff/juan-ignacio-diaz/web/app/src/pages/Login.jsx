@@ -16,17 +16,24 @@ export default function Login({ onRegisterClick, onUserLoggedIn, onMenssageAlert
         const password = event.target.password.value
 
         try {
-            const userId = authenticateUser(email, password)
+            authenticateUser(email, password, (error, userId) => {
+                if (error) {
+                    onMenssageAlert(error.message)
 
-            context.userId = userId
+                    return
+                }
+                context.userId = userId
 
-            onUserLoggedIn() 
+                onUserLoggedIn() 
+            })
         }
         catch (error){
             onMenssageAlert(error.message)
         }   
     }
 
+    console.log('Login -> render')
+    
     return <>
         <div className="login page container">
             <h1 className="title">Login</h1>
