@@ -22,8 +22,6 @@ export default  function createPost(userId, image, text){
     const post = {
         id,
         author: userId,
-        //TODO borrar USERNAME AVATAR
-        userNameAvatar: foundUser.avatar,
         userName: foundUser.name,
         image,
         text,

@@ -64,6 +64,8 @@ export default function Home({ onLogOutClick }) {
         setModal(null);
         setLastPostUpdate(Date.now());
     }
+    const handleFooterFavButtonClick = () => setView("savedPosts")
+
 
     console.log("Home -> render")
 
@@ -78,7 +80,7 @@ export default function Home({ onLogOutClick }) {
                 <img className="home-header-user-avatar" src={user.avatar} alt="default avatar" />
                 <h2 className="home-header-user-welcome-msj"></h2>
             </div>
-            <nav className={`home-menu ${view === null ? "home-menu-transition" : ""} ${view === "avatar" || view === "posts" || view === "password" ? "" : "home-menu-transition"}`}>
+            <nav className={`home-menu ${view === null ? "home-menu-transition" : ""} ${view === "avatar" || view === "posts" || view === "password"  || view === "savedPosts" ?  "" : "home-menu-transition"}`}>
                 <ul>
                     <li><a href="" className="home-menu-change-pass-anchor" onClick={handlePasswordAnchor}>change password</a></li>
                     <li><a href="" className="home-menu-avatar-anchor" onClick={handleAvatarAnchor}>Avatar</a></li>
@@ -91,6 +93,12 @@ export default function Home({ onLogOutClick }) {
             {view === "posts" && <Posts
                 onEditPostButtonClick={openEditPostModal}
                 lastPostsUpdate={lastPostUpdate}
+                view={view}
+            />}
+            {view === "savedPosts" && <Posts
+                onEditPostButtonClick={openEditPostModal}
+                lastPostsUpdate={lastPostUpdate}
+                view={view}
             />}
             {view === "avatar" && <UpdateAvatar
                 onUpdatedAvatar={handleUpdatedAvatar}
@@ -117,7 +125,7 @@ export default function Home({ onLogOutClick }) {
             <button className="footer-button" onClick={handleHomeClick}><span className="material-symbols-outlined">home</span></button>
             <button className="footer-button"><span className="material-symbols-outlined">sell</span></button>
             <button className="footer-button button" onClick={handleFooterButtonClick}> + </button>
-            <button className="footer-button"><span className="material-symbols-outlined">bookmarks</span></button>
+            <button className="footer-button" onClick={handleFooterFavButtonClick}><span className="material-symbols-outlined">bookmarks</span></button>
             <button className="footer-button"><span className="material-symbols-outlined">account_circle</span></button>
         </footer>
     </div>

@@ -2,18 +2,24 @@ import retrievePosts from "../logic/retrievePosts.js"
 import Post from "./Post.jsx";
 import { context } from "../ui.js";
 import retrieveUser from "../logic/retrieveUser.js";
-import { Component } from "react";
 import { useState, useEffect } from "react";
+import retrieveSavedPosts from "../logic/retrieveSavedPosts.js";
 
 
-export default function Posts({ onEditPostButtonClick, lastPostsUpdate }) {
+export default function Posts({ onEditPostButtonClick, lastPostsUpdate, view }) {
     console.log("Posts -> render")
 
     let _posts, _user
 
     try {
-        _posts = retrievePosts(context.userId);
-        _user = retrieveUser(context.userId);
+        if (view === "savedPosts") {
+            const retrievedPosts = retrievePosts(context.userId);
+            _posts = retrieveSavedPosts(context.userId, retrievedPosts)
+            _user = retrieveUser(context.userId);
+        } else {
+            _posts = retrievePosts(context.userId);
+            _user = retrieveUser(context.userId);
+        }
     } catch (error) {
         alert(error.message)
     }
@@ -54,6 +60,15 @@ export default function Posts({ onEditPostButtonClick, lastPostsUpdate }) {
         onEditPostButtonClick(id)
     }
 
+    const handletoggleSavePost = () => {
+        try {
+            const posts = retrievePosts(context.userId);
+            setPosts(posts)
+        } catch (error) {
+            alert(error.message)
+        }
+    }
+
     useEffect(() => {
         console.log("Posts --> componentDidMount with hooks")
         return () => console.log("Posts --> componentWillUnmount with hooks")
@@ -78,6 +93,7 @@ export default function Posts({ onEditPostButtonClick, lastPostsUpdate }) {
             onDeleteClick={handleDeletePost}
             onLikeClick={handleToggleLike}
             onEditPostButton={handleOpenEditModal}
+            OnSavedPostClick={handletoggleSavePost}
         />)}
     </section>
 }

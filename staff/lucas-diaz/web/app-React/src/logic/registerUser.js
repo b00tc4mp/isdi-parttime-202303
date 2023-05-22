@@ -24,7 +24,7 @@ export default function registerUser (userName,email,password) {
         email: email,
         password: password,
         avatar: "https://cdn1.iconfinder.com/data/icons/user-pictures/100/unknown-512.png",
-        likedPosts: []
+        savedPosts: []
     });
     saveUsers(_users);
 }

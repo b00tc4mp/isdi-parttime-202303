@@ -13,21 +13,13 @@ export default function likeAPost(userId, post) {
 
     if (foundPost.likeCounter.includes(foundUser.id)) {
 
-        const foundPostIndex = foundUser.likedPosts.indexOf(foundPost.id);
-        foundUser.likedPosts.splice(foundPostIndex, 1);
-
         const foundUserIndex = foundPost.likeCounter.indexOf(foundUser.id)
         foundPost.likeCounter.splice(foundUserIndex, 1);
 
         savePost(foundPost);
-        saveUser(foundUser);
         return;
     }
 
-    foundUser.likedPosts.push(foundPost.id);
     foundPost.likeCounter.push(foundUser.id);
-
-
     savePost(foundPost);
-    saveUser(foundUser);
 }

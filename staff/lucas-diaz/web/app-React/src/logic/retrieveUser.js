@@ -13,6 +13,7 @@ export default function retrieveUser (userId) {
     user = {
         name: user.name,
         avatar: user.avatar,
+        savedPosts: user.savedPosts
     }
 
     return user;

@@ -1,30 +1,40 @@
-*{
+* {
     padding: 0;
     margin: 0;
     list-style: none;
     text-decoration: none;
     font-family: 'Poppins', sans-serif;
 }
-body{
+
+body {
     height: 100vh;
     width: 100vw;
     background-color: #1e1f22;
     display: flex;
-    flex-flow:wrap column;
+    flex-flow: wrap column;
     align-content: center;
     justify-content: center;
     font-size: 1rem;
 }
 
-.container{
+.container {
     height: 100vh;
     display: flex;
     flex-flow: wrap row;
     justify-content: center;
     align-items: center;
 }
+
 /*! SHARED STYLES*/
-.submit-button, .button , .change-password, .cancel-change-password, .form-avatar-cancel-button, .form-avatar-submit-button, .home-add-post-modal .form button, .home-edit-form-post-cancel-button, .home-edit-form-post-submit-button {
+.submit-button,
+.button,
+.change-password,
+.cancel-change-password,
+.form-avatar-cancel-button,
+.form-avatar-submit-button,
+.home-add-post-modal .form button,
+.home-edit-form-post-cancel-button,
+.home-edit-form-post-submit-button {
     background-color: rgb(0 36 36);
     color: azure;
     border-radius: .6rem;
@@ -34,57 +44,78 @@ body{
     cursor: pointer;
 }
 
-.submit-button:active, .change-password:active, .form-avatar-submit-button:active, .home-add-post-modal .form-post-submit-button:active, .footer-button:active, .home-edit-post-modal-button:active, .home-edit-form-post-submit-button:active {
-    color:#17AF96;
+.submit-button:active,
+.change-password:active,
+.form-avatar-submit-button:active,
+.home-add-post-modal .form-post-submit-button:active,
+.footer-button:active,
+.home-edit-post-modal-button:active,
+.home-edit-form-post-submit-button:active {
+    color: #17AF96;
 }
-.log-out-button:active, .cancel-change-password:active, .form-avatar-cancel-button:active, .home-header-left-items-log-out-button:active, .home-add-post-modal .form-post-cancel-button:active, .home-edit-form-post-cancel-button:active{
+
+.log-out-button:active,
+.cancel-change-password:active,
+.form-avatar-cancel-button:active,
+.home-header-left-items-log-out-button:active,
+.home-add-post-modal .form-post-cancel-button:active,
+.home-edit-form-post-cancel-button:active {
     color: rgb(231, 108, 108);
 }
 
 /*! REGISTER AN LOGING STILES*/
-.register, .login{
+.register,
+.login {
     width: 50%;
     height: 50%;
     border-radius: 12px;
     display: flex;
-    flex-flow:wrap row;
+    flex-flow: wrap row;
     align-items: center;
     justify-content: center;
     padding: 16px;
-    
+
 }
-.register-header, .login-header{
+
+.register-header,
+.login-header {
     height: 15%;
     flex-basis: 100%;
     text-align: center;
     color: azure;
 
 }
-.form{
+
+.form {
     flex-basis: 100%;
     text-align: center;
     display: flex;
-    flex-flow:wrap row;
+    flex-flow: wrap row;
     align-items: center;
     justify-content: center;
     height: 80%;
     color: azure;
 }
-.input-box{
+
+.input-box {
     flex-basis: 80%;
     height: 20%;
     display: flex;
-    flex-flow:wrap row;
+    flex-flow: wrap row;
     align-items: center;
     justify-content: flex-start;
 }
-label{
+
+label {
     flex-basis: 65%;
     text-align: left;
     margin-left: 15px;
     font-size: .8rem;
 }
-.form-username, .form-email, .form-password {
+
+.form-username,
+.form-email,
+.form-password {
     flex-basis: 100%;
     height: 50%;
     border-radius: 5px;
@@ -93,75 +124,85 @@ label{
 }
 
 /*! LOGIN */
-.login-other-options{
+.login-other-options {
     margin-top: 15px;
     flex-basis: 100%;
     display: flex;
     align-items: center;
-    justify-content:center;
+    justify-content: center;
     gap: 1rem;
 }
-.login-other-options-remember-me label{
+
+.login-other-options-remember-me label {
     margin: 0px;
 }
-.initialize-register, .initialize-login{
+
+.initialize-register,
+.initialize-login {
     font-size: .8rem;
     color: white;
     margin-top: 1rem;
     flex-basis: 100%;
 }
-.forgot-password-anchor{
+
+.forgot-password-anchor {
     font-size: .8rem;
 }
-.login-other-options-remember-me{
+
+.login-other-options-remember-me {
     display: flex;
     gap: .5rem;
 }
 
 /*! HOME --> HOME-HEADER + HOME-MENÚ*/
-.home{
+.home {
     margin-top: 200px;
     width: 100%;
     height: 92%;
     display: flex;
-    flex-flow:wrap row;
+    flex-flow: wrap row;
     align-content: flex-start;
-    justify-content:space-between;
+    justify-content: space-between;
     row-gap: 20px;
 
 }
-.home-header{
+
+.home-header {
     position: fixed;
     width: 100%;
     top: 0;
     left: 0;
     background-color: #1e3a3a;
     display: flex;
-    flex-flow:wrap row;
+    flex-flow: wrap row;
     align-items: center;
-    justify-content:space-between;
+    justify-content: space-between;
     color: azure;
     gap: .5rem;
     z-index: 10;
 
 }
-.home-header-tittle{
+
+.home-header-tittle {
     flex-basis: 12%;
     font-size: 1.5rem;
     margin-left: 1rem;
 }
-.home-header-left-items{
+
+.home-header-left-items {
     display: flex;
     gap: .5rem;
     margin-right: 1rem;
     margin-top: .5rem;
 }
-.home-header-left-items-log-out-button{
-    flex-basis:auto;
+
+.home-header-left-items-log-out-button {
+    flex-basis: auto;
     cursor: pointer;
 
 }
-.home-header-left-items-config-icon{
+
+.home-header-left-items-config-icon {
     width: 2.4rem;
     height: 2.4rem;
     filter: invert(100%) hue-rotate(180deg);
@@ -169,13 +210,15 @@ label{
     animation: rotate-gear 10s infinite linear;
     align-self: center;
 }
-.home-header-user{
+
+.home-header-user {
     display: flex;
     flex-basis: 100%;
     justify-content: center;
     align-items: center;
     gap: 1rem;
 }
+
 .home-header-user-avatar {
     width: 3.5rem;
     height: 3.5rem;
@@ -183,15 +226,18 @@ label{
     transition: all 200ms;
     margin: 0rem 1rem .5rem 1rem;
 }
-.home-header-user-avatar:hover{
+
+.home-header-user-avatar:hover {
     transform: scale(1.5, 1.5);
 }
-.home-header-user-welcome-msj{
+
+.home-header-user-welcome-msj {
     flex-basis: 100%;
     color: azure;
     font-size: 1rem;
 }
-.home-menu ul{
+
+.home-menu ul {
     flex-basis: 100%;
     display: flex;
     gap: 1.5rem;
@@ -199,37 +245,41 @@ label{
     padding: 15px;
     border-radius: 5px;
 }
-.home-menu a{
+
+.home-menu a {
     flex: 1;
     font-weight: bold;
-    color:azure;
+    color: azure;
     font-size: .7rem;
 }
-.home-menu a:hover{
+
+.home-menu a:hover {
     color: #17AF96;
 }
-.home-menu{
+
+.home-menu {
     position: fixed;
     top: 130px;
     left: 2vh;
     width: 90%;
-    transform:translateY(-40%); 
-    opacity:0;
+    transform: translateY(-40%);
+    opacity: 0;
     visibility: hidden;
     transition: all 400ms;
     margin: .2rem;
 
 }
-.home-menu-transition{
+
+.home-menu-transition {
 
     opacity: 1;
     transform: translateX(0%);
     visibility: visible;
-} 
+}
 
 
 /*! POST AREA*/
-.home-posts-content{
+.home-posts-content {
     width: 100%;
     padding: 1rem;
     display: flex;
@@ -241,6 +291,7 @@ label{
     margin-top: 2rem;
     padding-bottom: 5rem;
 }
+
 .home-posts-content article {
     padding: 1rem;
     flex-basis: 100%;
@@ -251,14 +302,16 @@ label{
     background-color: #313338;
     border-radius: .3rem;
     color: white;
-    
+
 }
-.home-post-content-article-userName{
+
+.home-post-content-article-userName {
     color: rgb(173, 231, 173);
     flex-basis: 48%;
     align-self: center;
 }
-.home-post-content-article-text{
+
+.home-post-content-article-text {
     color: white;
     font-size: 0.8rem;
     flex-basis: 100%;
@@ -267,39 +320,45 @@ label{
     padding: .4rem;
     border-radius: .5rem;
 }
-.home-post-content-article-date{
+
+.home-post-content-article-date {
     text-align: right;
     font-size: 0.68rem;
     flex-basis: 100%;
     color: rgb(150, 150, 150);
 }
+
 .post-image-container {
     width: 100%;
     display: flex;
     position: relative;
     padding-bottom: 100%;
 }
-.home-post-content-article-img{
+
+.home-post-content-article-img {
     width: 100%;
     height: 100%;
     position: absolute;
     object-fit: contain;
 }
-.home-post-content-article-avatar{
+
+.home-post-content-article-avatar {
     width: 2rem;
     height: 2rem;
     border-radius: 50%;
     background-color: grey;
     padding: .2rem
 }
-.home-post-content-article-saved{
+
+.home-post-content-article-saved {
     background-color: transparent;
-    border:none;
+    border: none;
     flex-basis: 100%;
     flex-basis: 70%;
     text-align: right;
 }
-.home-edit-post-modal-button{
+
+.home-edit-post-modal-button {
     border-radius: .6rem;
     border: none;
     background-color: rgb(28 28 28);
@@ -308,41 +367,56 @@ label{
     margin-left: auto;
     cursor: pointer;
 }
-.material-symbols-rounded{
+
+.material-symbols-rounded {
     font-variation-settings:
-    'FILL' 0,
-    'wght' 400,
-    'GRAD' 0,
-    'opsz' 48;
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 48;
     color: rgb(223, 223, 223);
     transition: all 200ms;
     cursor: pointer;
 }
-.material-symbols-rounded-liked{
+
+.material-symbols-rounded-liked {
     font-variation-settings:
-    'FILL' 1,
-    'wght' 400,
-    'GRAD' 0,
-    'opsz' 48;
+        'FILL' 1,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 48;
     color: red;
     transition: all 200ms;
 }
-.material-symbols-rounded:hover{
+
+.filled{
+    font-variation-settings:
+        'FILL' 1,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 48;
+        transition: all 200ms;
+}
+
+
+
+.material-symbols-rounded:hover {
     transform: scale(1.5, 1.5);
 }
-.bin{
+
+.bin {
     padding-top: 0.3rem;
 }
 
-.home-post-content-article-icon-text{
+.home-post-content-article-icon-text {
     padding-top: .2rem;
     font-size: .8rem;
 }
 
 /*! CHANGE PASSWORD & AVATAR MENU*/
-.menu-page{
+.menu-page {
     display: flex;
-    flex-flow:wrap row;
+    flex-flow: wrap row;
     justify-content: center;
     flex-basis: 90%;
     margin: 0px auto;
@@ -352,14 +426,17 @@ label{
     margin-top: 0px;
     gap: 1rem;
 }
+
 .menu-page h3 {
     flex-basis: 100%;
     text-align: center;
     font-size: 0.9rem;
 }
-.menu-page p{
+
+.menu-page p {
     font-size: .8rem;
 }
+
 .menu-page .form {
     flex-basis: 100%;
     display: flex;
@@ -368,25 +445,30 @@ label{
     border-radius: 10px;
     padding: 10px;
     justify-content: flex-start;
-    height:fit-content;
+    height: fit-content;
     background-color: #2b2d31;
 }
+
 .menu-page .form label {
     flex-basis: 90%;
     margin: 0.2rem;
     padding: 0;
     font-size: 0.7rem;
 }
-.menu-page .form .form-item{
+
+.menu-page .form .form-item {
     flex-basis: 100%;
     border-radius: 5px;
     padding: 10px;
 }
-.menu-page .form .fail-password-match-advise,.fail-warning{
+
+.menu-page .form .fail-password-match-advise,
+.fail-warning {
     flex-basis: 100%;
     font-size: .9rem;
 }
-.form-buttons{
+
+.form-buttons {
     flex-basis: 100%;
     display: flex;
     flex-flow: row wrap;
@@ -396,7 +478,8 @@ label{
 
 
 /*! MODAL PARA AÑADIR UN POST*/
-.home-add-post-modal, .home-edit-post-modal{
+.home-add-post-modal,
+.home-edit-post-modal {
     width: 80%;
     position: fixed;
     bottom: 170px;
@@ -412,26 +495,33 @@ label{
     padding: 0.5rem;
     box-shadow: 0.5rem 0.5rem 2rem black;
 }
-.home-add-post-modal .form, .home-edit-post-form{
+
+.home-add-post-modal .form,
+.home-edit-post-form {
     gap: 1rem;
 }
-.home-add-post-modal .form textarea, .home-edit-post-form textarea{
+
+.home-add-post-modal .form textarea,
+.home-edit-post-form textarea {
     flex-basis: 90%;
     border-radius: .5rem;
 }
-.home-add-post-modal .form label, .home-edit-post-form label{
+
+.home-add-post-modal .form label,
+.home-edit-post-form label {
     text-align: center;
     font-size: 1rem;
     margin: 0px;
 }
-.form-post-url-input{
+
+.form-post-url-input {
     flex-basis: 90%;
     border-radius: .3rem;
 }
 
 
 /*! FOOTER*/
-.footer{
+.footer {
     position: fixed;
     bottom: 0;
     left: 0;
@@ -443,7 +533,8 @@ label{
     align-items: center;
     gap: 1rem;
 }
-.footer-button{
+
+.footer-button {
     height: 2.8rem;
     flex-basis: 15%;
     cursor: pointer;
@@ -459,24 +550,29 @@ label{
 
 
 /*! MISCELANEOUS*/
-.green{
+.green {
     color: #17AF96 !important;
     text-align: center;
 }
-.red{
+
+.red {
     color: rgb(231, 108, 108);
     text-align: center;
 }
-.off{
+
+.off {
     display: none !important;
 }
-.fade{
+
+.fade {
     opacity: 15%;
 }
 
 
-@media (min-width: 650px){
-    .register, .login{
+@media (min-width: 650px) {
+
+    .register,
+    .login {
         font-size: 1rem;
         width: 50%;
         height: 50%;
@@ -484,64 +580,87 @@ label{
         border-radius: 12px;
         border: 1px solid rgba(255, 255, 255, 0.125);
         display: flex;
-        flex-flow:wrap row;
+        flex-flow: wrap row;
         align-items: center;
         justify-content: center;
         padding: 16px;
     }
-    .sign-up, .log-in {
+
+    .sign-up,
+    .log-in {
         padding: 1rem 6rem;
     }
-    .other-register-options{
+
+    .other-register-options {
         flex-basis: 80%;
     }
-    .home{
-    margin-top: 10px;
-    max-width: 700px;
-    min-height: 100vh;
-    height: auto;
-    border-radius: 10px 10px 0px 0px;
-    row-gap: 10px;
+
+    .home {
+        margin-top: 10px;
+        max-width: 700px;
+        min-height: 100vh;
+        height: auto;
+        border-radius: 10px 10px 0px 0px;
+        row-gap: 10px;
     }
+
     .home-posts-content {
         padding-top: 120px;
         height: fit-content;
     }
-    .home-header{
+
+    .home-header {
         background-color: #252c27;
         z-index: 10;
     }
-    .home-main-content{ 
+
+    .home-main-content {
         padding-top: 100rem;
         padding-bottom: 8rem;
     }
-    .menu-page{
+
+    .menu-page {
         margin-top: 0px;
     }
-    .home-add-post-modal{
+
+    .home-add-post-modal {
         max-width: 700px;
         left: 50%;
         transform: translateX(-50%);
     }
-    .log-out-button:hover, .cancel-change-password:hover, .form-avatar-cancel-button:hover, .home-header-left-items-log-out-button:hover, .home-add-post-modal .form-post-cancel-button:hover, .home-edit-form-post-cancel-button:hover{
+
+    .log-out-button:hover,
+    .cancel-change-password:hover,
+    .form-avatar-cancel-button:hover,
+    .home-header-left-items-log-out-button:hover,
+    .home-add-post-modal .form-post-cancel-button:hover,
+    .home-edit-form-post-cancel-button:hover {
         color: rgb(231, 108, 108);
     }
-    .submit-button:hover, .change-password:hover, .form-avatar-submit-button:hover, .home-add-post-modal .form-post-submit-button:hover, .footer-button:hover, .home-edit-post-modal-button:hover, .home-edit-form-post-submit-button:hover {
-        color:#17AF96;
+
+    .submit-button:hover,
+    .change-password:hover,
+    .form-avatar-submit-button:hover,
+    .home-add-post-modal .form-post-submit-button:hover,
+    .footer-button:hover,
+    .home-edit-post-modal-button:hover,
+    .home-edit-form-post-submit-button:hover {
+        color: #17AF96;
     }
-    
-    .footer{
+
+    .footer {
         height: 6%;
         border-radius: 0px 0px 10px 10px;
         background-color: #252c27;
     }
 }
 
-@keyframes rotate-gear{
-    from{
+@keyframes rotate-gear {
+    from {
         transform: rotateZ(0deg);
     }
-    to{
+
+    to {
         transform: rotateZ(360deg);
     }
 }

@@ -1,15 +1,18 @@
 import { validateId } from "./helpers/validators.js";
-import { users, posts } from "../data.js";
+import { findUserById } from "./helpers/dataManagers.js";
 
 
-export default function retrieveSavedPosts (userId,posts) {
+export default function retrieveSavedPosts(userId, posts) {
     validateId(userId);
 
-    const foundUser = users().some(user => user.id === userId)
-    
-    if (!foundUser) throw new Error (`there is no user with this current ${userId} id`);
+    const foundUser = findUserById(userId);
 
-    // tenemos que localizar los posts guardados del user
-    
-    // Tenemos que filtrar dentro de los posts 
+    if (!foundUser) throw new Error(`there is no user with this current ${userId} id`);
+
+    if (foundUser.savedPosts.length > 0) {
+        const savedPosts = posts.filter((post) => foundUser.savedPosts.includes(post.id));
+        return savedPosts;
+    } else {
+        return undefined;
+    }
 }

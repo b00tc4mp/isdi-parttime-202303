@@ -1,5 +1,6 @@
 import deletePost from "../logic/deletePost.js";
 import likeAPost from "../logic/likeAPost.js";
+import savePostInUser from "../logic/savePostInUser.js";
 import { context } from "../ui.js";
 
 
@@ -29,6 +30,15 @@ export default function Post(props) {
         }
     }
 
+    function handleSavePostClick() {
+        try{
+            savePostInUser(context.userId, post);
+            props.OnSavedPostClick(); 
+        }catch(error){
+            alert(error.message)
+        }
+    }
+
     console.log("Post -> render")
 
     return <article>
@@ -43,8 +53,10 @@ export default function Post(props) {
         </div>
         <span className={post.likeCounter.includes(context.userId) ? "material-symbols-rounded material-symbols-rounded-liked" : "material-symbols-rounded"} onClick={handleHeartClick}>favorite</span>
         <p className="home-post-content-article-icon-text">{post.likeCounter.length} {post.likeCounter.length === 1 ? "like" : "likes"}</p>
-        <button className="home-post-content-article-saved"><span className="material-symbols-rounded">bookmark</span></button>
+
+        <button className="home-post-content-article-saved" onClick={handleSavePostClick}><span className= {`material-symbols-rounded ${user.savedPosts.includes(post.id) ? "filled": ""}`}>bookmark</span></button>
+
         <p className="home-post-content-article-text">{post.text}</p>
         <time className="home-post-content-article-date">{post.date.toLocaleString()}</time>
     </article>
-}
+}  
