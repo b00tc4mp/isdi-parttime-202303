@@ -1,4 +1,5 @@
-import { loadUsers, saveUsers } from '../data/data';
+import { loadPosts, loadUsers, savePosts, saveUsers } from '../data/data';
+import { findUserById } from '../data/data-managers';
 import { validateUserID, validateUserPassword } from '../data/validators-users'
 
 export const deleteUser = (userId, password, callback) => {

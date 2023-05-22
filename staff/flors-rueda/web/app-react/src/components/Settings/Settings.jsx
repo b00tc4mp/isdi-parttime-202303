@@ -9,10 +9,10 @@ import { svg } from '../../../assets/svg-paths';
 import { context } from '../../context';
 
 
-export default function Settings({ onAvatarChange, onDeleteAccount }) {
+export default function Settings({ onAvatarChange, onDeleteAccount, user }) {
 
     //TODO fix all problems with async forms
-    
+
     const [selectedOption, setSelectedOption] = useState(null);
     const [selectedAvatar, setSelectedAvatar] = useState(null);
 
@@ -36,11 +36,11 @@ export default function Settings({ onAvatarChange, onDeleteAccount }) {
     const renderSettingsContent = () => {
         switch (selectedOption) {
             case 'name':
-                return <NameForm onSaveClick={handleOnSaveClick} />; //TODO update on profile card too
+                return <NameForm onSaveClick={handleOnSaveClick} user={user} />; //TODO update on profile card too
             case 'avatar':
-                return <AvatarForm onAvatarChange={handleAvatarChange} onSaveClick={handleOnSaveClick} />;
+                return <AvatarForm onAvatarChange={handleAvatarChange} onSaveClick={handleOnSaveClick} user={user}/>;
             case 'mail':
-                return <MailForm onSaveClick={handleOnSaveClick} />
+                return <MailForm onSaveClick={handleOnSaveClick} user={user} />
             case 'password':
                 return <PasswordForm onSaveClick={handleOnSaveClick} />
             case 'delete':
@@ -51,8 +51,7 @@ export default function Settings({ onAvatarChange, onDeleteAccount }) {
         }
     };
 
-    return (
-        <section className="profile-settings">
+    return  <section className="profile-settings">
             <h1 className="profile-settings__title">What do you want to change?</h1>
             <div className="profile-settings__menu">
                 <button className="profile-settings__selection" onClick={() => handleOptionSelect('avatar')}>
@@ -87,5 +86,4 @@ export default function Settings({ onAvatarChange, onDeleteAccount }) {
                 <div className="profile-settings__separetor" />
             </div>
         </section>
-    );
 }

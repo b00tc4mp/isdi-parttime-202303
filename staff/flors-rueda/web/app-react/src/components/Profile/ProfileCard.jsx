@@ -1,28 +1,12 @@
 import { svg } from '../../../assets/svg-paths';
 import { context } from '../../context';
-import { retrieveUser } from '../../logic/retrieve-user';
 import { colors } from '../../../assets/avatar';
 import Avatar from 'boring-avatars';
 import './ProfileCard.css';
-import { useState, useEffect } from 'react';
+import { useState, } from 'react';
 
-export default function ProfileCard({ userId, onSettingsClick, selectedAvatar}) {
+export default function ProfileCard({ userId, onSettingsClick, selectedAvatar, user}) {
   const [isSettingsOn, setIsSettingsOn] = useState(false);
-  const [user, setUser] = useState()
-
-  useEffect(() => {
-      try {
-          retrieveUser(userId, (error, user) => {
-              if (error) {
-                  console.log(error.message);
-                  return;
-              }
-              setUser(user);
-          })
-      } catch (error) {
-        console.log(error.message)
-      }
-  }, [])
 
   const handleSettingsClick = () => {
     onSettingsClick();

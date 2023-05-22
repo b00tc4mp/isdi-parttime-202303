@@ -37,6 +37,7 @@ export default function Home({ onLoggedOut }) {
     };
   
     const handleSubmitPost = () => {
+      //TODO don't close modal until post is submited
       handleCloseModal();
       handleGoToPosts();
     };

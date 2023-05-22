@@ -22,7 +22,7 @@ export default function Posts({ onAuthorProfile, onEditPost, type, userId }) {
       } else if (type === 'home') {
         retrievePosts(context.userAuth, (error, posts) => {
           if (error) {
-            console.log(`posts error: ${error.message}`);
+            console.log(`posts error: ${error.message}`); //TODO figure out why doesn't show the edit button
             return;
           }
           setPosts(posts);
@@ -33,7 +33,6 @@ export default function Posts({ onAuthorProfile, onEditPost, type, userId }) {
             console.log(`posts error: ${error.message}`);
             return;
           }
-          console.log(posts)
           setPosts(posts);
         });;
       }

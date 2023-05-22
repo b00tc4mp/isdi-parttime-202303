@@ -4,7 +4,7 @@ import { updateAvatar } from '../../logic/update-avatar';
 import {context} from '../../context';
 import './Form.css';
 
-export default function AvatarForm({ onAvatarChange, onSaveClick }) {
+export default function AvatarForm({ onAvatarChange, onSaveClick, user }) {
   const [selectedImage, setSelectedImage] = useState(null);
   const [randomSelected, setSelectedRandom] = useState(false);
   const [avatarToSave, setAvatarToSave] = useState(null);
@@ -50,6 +50,7 @@ export default function AvatarForm({ onAvatarChange, onSaveClick }) {
     try {
       if(avatarToSave) {
         const isRandom = selectedImage ? false : true;
+        console.log('saving avatar')
         updateAvatar(isRandom, avatarToSave, context.userAuth, error => {
           if(error) {
             console.log(`update avatar error: ${error.message}`);

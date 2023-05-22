@@ -72,7 +72,7 @@ export default function Post({ post, author, onEditPost, onToggledLike, onToggle
                     <p className="post-card__header--author-username">{author.username}</p>
                 </div>
             )}
-            {post.author === context.userAuth && (<svg className="post-card__header--to-edit-post" onClick={handleEditPost} xmlns="http://www.w3.org/2000/svg" viewBox="0 96 960 960"><path d={svg.edit} /></svg>)}</div>
+            {(post.author === context.userAuth || author.id === context.userAuth)  && (<svg className="post-card__header--to-edit-post" onClick={handleEditPost} xmlns="http://www.w3.org/2000/svg" viewBox="0 96 960 960"><path d={svg.edit} /></svg>)}</div>
         <div className="post-card__body--image-container">
             <img className="post-card__body--image-container--image" src={post.image} />
         </div>

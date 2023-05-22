@@ -1,11 +1,8 @@
 import { context } from '../../context'
-import { retrieveUser } from '../../logic/retrieve-user'
 import { updateMail } from '../../logic/update-mail';
 import './Form.css'
 
-//TODO upload so doesn't use retrieveUser to complete defaultValue
-
-export default function MailForm({ onSaveClick }) {
+export default function MailForm({ onSaveClick, user}) {
 
   const handleSave = (event) => {
     event.preventDefault();
@@ -21,11 +18,11 @@ export default function MailForm({ onSaveClick }) {
     } catch (error) {
       console.log(`update mail ${error.message}`);
     }
-
+    //TODO update defautValue
   }
   return <article className="settings-form">
     <form onSubmit={handleSave}>
-      <input className="settings-form--input" name="mail" required type="email" placeholder="your new mail" defaultValue={retrieveUser(context.userAuth).mail} />
+      <input className="settings-form--input" name="mail" required type="email" placeholder="your new mail" defaultValue={user.mail} />
       <div className="settings-form--save">
         <button type="submit" className="success">save</button>
       </div>

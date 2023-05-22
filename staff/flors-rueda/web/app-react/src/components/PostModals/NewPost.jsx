@@ -13,7 +13,7 @@ export default function NewPostModal({ onCancel, onPostCreated }) {
     onCancel();
   };
 
-  const handleImageChange = async (event) => {
+  const handleImageChange = (event) => {
     try{
       const file = event.target.files[0];
       if (file) {
@@ -38,7 +38,7 @@ export default function NewPostModal({ onCancel, onPostCreated }) {
     setSelectedImage(null);
   }
 
-  const handleCreatePost = async (event) => {
+  const handleCreatePost = (event) => {
     event.preventDefault();
     const image = selectedImage.base64;
     const text = event.target.text.value;

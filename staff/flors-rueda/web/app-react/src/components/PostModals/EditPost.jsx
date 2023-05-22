@@ -10,22 +10,19 @@ export default function EditPostModal({ onCancel, postId, onPostUpdated}) {
     const [post, setPost] = useState(null);
 
     useEffect(() => {
-        try { //TODO figure out why this setPost doesn't sets the post
-            retrievePost(context.userAuth, postId, (error, _post) => {
-              if(error) {
+      try {
+          retrievePost(context.userAuth, postId, (error, post) => {
+              if (error) {
                 console.log(`edit post error: ${error.message}`);
                 return;
               }
-              setPost(_post);
-              setSelectedImage({
-                base64: _post.image,
-              });
-            });
-
-        } catch (error) {
-            console.log(`edit post error: ${error.message}`);
-        }
-    }, [postId]);
+              setPost(post);
+              setSelectedImage(post.image)
+          })
+      } catch (error) {
+        console.log(`edit post error: ${error.message}`);
+      }
+  }, [postId])
 
     const handleCancel = (event) => {
         event.preventDefault();
@@ -38,10 +35,7 @@ export default function EditPostModal({ onCancel, postId, onPostUpdated}) {
         if (file) {
             const reader = new FileReader();
             reader.onload = () => {
-                setSelectedImage({
-                    file: file,
-                    base64: reader.result,
-                });
+                setSelectedImage(reader.result);
             };
             reader.readAsDataURL(file);
         } else {
@@ -59,8 +53,8 @@ export default function EditPostModal({ onCancel, postId, onPostUpdated}) {
 
     const handleUpdatePost = (event) => {
         event.preventDefault();
-        const image = selectedImage.base64;
-        console.log(image)
+        const image = selectedImage;
+
         const text = event.target.text.value;
         try {
             updatePost(text, image, postId, context.userAuth, error => {
@@ -86,7 +80,7 @@ export default function EditPostModal({ onCancel, postId, onPostUpdated}) {
         <h2 className="post-modal__title">Edit Post</h2>
       </div>
       <div className="post-modal__body">
-        {selectedImage ? <img className="post-modal__selected-image" src={selectedImage.base64} alt="Selected Image"/> : null}
+        {selectedImage ? <img className="post-modal__selected-image" src={selectedImage} alt="Selected Image"/> : null}
         <form className="post-modal__form" onSubmit={handleUpdatePost}>
           <div className="input__file" tabIndex="0">
             <button className="input__file-delete off">x</button>
