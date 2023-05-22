@@ -1,8 +1,12 @@
-export default function DropdownItem({icon, text}) {
+import './DropdownItem.css'
+
+export default function DropdownItem({icon, text, iconClass, textClass, dropDownItemClass, onClicked}) {
+    const handleClick = () => onClicked()
+    
     return(
-        <li>
-            <span className={`material-symbols-rounded`}>${icon}</span>
-            <p>${text}</p>
+        <li onClick={handleClick} className={`${dropDownItemClass}`}>
+            <span className={`material-symbols-rounded ${iconClass}`}>{icon}</span>
+            <p className={`${textClass}`}>{text}</p>
         </li>
     )
 }

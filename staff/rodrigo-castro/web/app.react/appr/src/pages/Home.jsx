@@ -135,7 +135,13 @@ export default function Home(props) {
             </nav>
         </header>
         <main className="main-content">
-            <Posts onEditClicked={handleEditClicked} lastPostsUpdate={lastPostsUpdate} postsToShow={postsToShow} user={user}/>
+            <Posts 
+                onEditClicked={handleEditClicked} 
+                lastPostsUpdate={lastPostsUpdate} 
+                postsToShow={postsToShow} 
+                user={user}
+                onPostDeleted={handlePostsModified}
+            />
 
             {modal === 'add-post' && <AddPostModal 
                 onCancel={handleCloseModal}
@@ -167,7 +173,6 @@ export default function Home(props) {
             {modal === 'edit-post' && <EditPost
                 onCancel={handleCloseModal}
                 onPostEdited={handlePostsModified}
-                onPostDeleted={handlePostsModified}
                 postId={postId}
             />}
         </main>

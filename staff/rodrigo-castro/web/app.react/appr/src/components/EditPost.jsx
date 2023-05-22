@@ -20,43 +20,25 @@ export default function EditPost({onCancel, postId, onPostEdited, onPostDeleted}
     const handleUpdatePost = (event) => {
         event.preventDefault()
 
-        const image = event.target.url.value
-        const text = event.target.text.value
+        if(confirm('Are you sure you want to edit?')){
+            const image = event.target.url.value
+            const text = event.target.text.value
 
-        try{
-            editPost(context.userId, postId, image, text, error => {
-                if(error){
-                    alert(error.message)
+            try{
+                editPost(context.userId, postId, image, text, error => {
+                    if(error){
+                        alert(error.message)
 
-                    return
-                }
+                        return
+                    }
 
-                onPostEdited()
-            })
-        } catch(error){
-            alert(error.message)
+                    onPostEdited()
+                })
+            } catch(error){
+                alert(error.message)
+            }
         }
     }
-
-    const handleDelete = (event) => {
-        event.preventDefault()
-
-        try{
-            deletePost(context.userId, postId, error => {
-                if(error){
-                    alert(error.message)
-
-                    return
-                }
-
-                onPostDeleted()
-            })
-        } catch(error){
-            alert(error.message)
-        }
-    }
-
-    // LO DE AQUI DEBAJO ME GENERA DUDAS DE QUE ESTE BIEN... PEDIR DE REVISAR CON MANU
 
     useEffect(() => {
         try{
@@ -86,7 +68,7 @@ export default function EditPost({onCancel, postId, onPostEdited, onPostDeleted}
                     <textarea cols="30" rows="10" className="post-text input-field" disabled placeholder="Loading..."></textarea>
                 </>}
                 <div className="buttons">
-                    <button className="submit-buttons" type="button" onClick={handleDelete}>Delete</button>
+                    {/* <button className="submit-buttons" type="button" onClick={handleDelete}>Delete</button> */}
                     <button className="submit-buttons" type="submit">Update</button>
                     <button className="submit-buttons cancel-edition" type="button" onClick={handleCancelEdit}>Cancel</button>
                 </div>

@@ -4,9 +4,8 @@ import Post from './Post.jsx'
 import { useState, useEffect } from 'react'
 import './Posts.css'
 import PropTypes from 'prop-types'
-import { retrieveUser } from '../logic/retrieveUser'
 
-export default function Posts({onEditClicked, postsToShow, lastPostsUpdate, user }) {
+export default function Posts({onEditClicked, onPostDeleted, postsToShow, lastPostsUpdate, user }) {
     Posts.propTypes = {
         onEditClicked: PropTypes.func
     }
@@ -112,6 +111,14 @@ export default function Posts({onEditClicked, postsToShow, lastPostsUpdate, user
     console.log('Posts -> render')
 
     return <section className='posts-list'>
-        { posts && posts.map(post => <Post key={post.id} post={post} onToggledLikePost={handleRefreshPosts} onToggleSavePost={handleRefreshPosts} onEdit={onEditClicked}/>)}
+        { posts && posts.map(post => (post.privacy === 'public' || post.author.authorId === context.userId) && <Post 
+            key={post.id} 
+            post={post} 
+            onToggledLikePost={handleRefreshPosts} 
+            onToggleSavePost={handleRefreshPosts} 
+            onToggledPrivacy={handleRefreshPosts}
+            onEdit={onEditClicked}
+            onPostDeleted={onPostDeleted}
+        />)}
     </section>
 }

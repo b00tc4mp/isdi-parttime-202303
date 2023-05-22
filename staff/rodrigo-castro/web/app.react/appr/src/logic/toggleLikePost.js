@@ -8,11 +8,15 @@ export default (userId, postId, callback) => {
     findUserById(userId, user => {
         if(!user){
             callback(new Error (`User id ${userId} not found`))
+
+            return
         } 
     
         findPostById(postId, post => {
             if(!post){
                 callback(new Error (`Post id ${postId} not found`))
+
+                return
             }
         
             const index = post.likedBy.indexOf(userId)
