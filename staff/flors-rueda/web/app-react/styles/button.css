@@ -1,10 +1,10 @@
 button {
     appearance: none;
-    border: 0.01em solid var(--color-primary-100);
+    border: 0.01em solid var(--color-primary-200);
     border-radius: 0.6em;
     background-color: var(--color-surface-200);
     box-sizing: border-box;
-    color: var(--color-primary-100);
+    color: var(--color-primary-200);
     font-weight: 700;
     cursor: pointer;
     display: inline-block;
@@ -20,6 +20,27 @@ button {
     will-change: transform;
 }
 
+button.success {
+    border: 0.01em solid var(--color-success-100);
+    color: var(--color-success-100);
+    background-color: var(--color-success-300);
+    -webkit-tap-highlight-color: var(--color-success-transparence);
+}
+
+button.danger {
+    border: 0.01em solid var(--color-danger-100);
+    color: var(--color-danger-100);
+    -webkit-tap-highlight-color: var(--color-danger-transparence);
+    background-color: var(--color-danger-300);
+}
+
+button.warningn {
+    border: 0.01em solid var(--color-warning-100);
+    color: var(--color-warning-100);
+    -webkit-tap-highlight-color: var(--color-warning-transparence);
+    background-color: var(--color-warning-300);
+}
+
 button svg {
     fill: var(--color-primary-100);
 }
@@ -27,7 +48,7 @@ button svg {
 @media (min-width: 768px) {
     button:hover  {
         color: var(--color-surface-200) !important;
-        background-color: var(--color-primary-100) !important;
+        background-color: var(--color-primary-200) !important;
         box-shadow: var(--color-surface-300) 0 0.5rem 1rem !important;
         transform: translateY(-0.15rem) !important;
     }

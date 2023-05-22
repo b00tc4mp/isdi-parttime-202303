@@ -1,0 +1,55 @@
+.settings-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    justify-content: center;
+    align-items: center;
+    width: 100%
+}
+
+.settings-form form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.settings-form--button {
+    width: 50%;
+}
+
+.settings-form--save {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    padding-top: 1rem;
+}
+
+.settings-form--save button {
+    width: 5rem;
+    padding-right: 3.5rem;
+}
+
+.settings-form--save button.danger {
+    padding-right: 4rem;
+}
+
+.settings-form--input {
+    width: 90%;
+}
+
+.settings-form p {
+    margin: 0;
+    font-size: 0.65em;
+    color: var(--color-secondary-100);
+    font-weight: 900;
+}
+
+.delete-info {
+    padding-bottom: 0.5rem;
+    font-weight: 400;
+    color: var(--color-danger-200);
+}
+
+.delete-info b{
+    font-weight: 900;
+}

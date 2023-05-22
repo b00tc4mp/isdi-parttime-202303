@@ -34,11 +34,11 @@
 }
 
 .theme-toggle__switch {
-    width: 0.85rem;
-    height: 0.85rem;
-    background-color: var(--color-secondary-600);
+    width: 0.95rem;
+    height: 0.95rem;
+    background-color: var(--color-terciary-600);
     position: absolute;
-    top: 0.15rem;
+    top: 0.10rem;
     left: 0.20rem;
     border-radius: 50%;
     transition: transform 0.2s linear;
@@ -47,6 +47,6 @@
 }
 
 .theme-toggle__checkbox:checked+.theme-toggle__label .theme-toggle__switch {
-    transform: translateX(0.90rem);
+    transform: translateX(0.85rem);
     box-shadow: var(--color-secondary-600) 0.15rem 0.15rem 0.35rem;
 }

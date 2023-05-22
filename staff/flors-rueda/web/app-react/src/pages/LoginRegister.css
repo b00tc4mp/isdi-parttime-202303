@@ -15,13 +15,13 @@
 .login-page__register,
 .login-page__login {
     align-self: center;
-    border: 0.01em solid var(--color-surface-300);
+    border: 0.01em solid var(--color-surface-200);
     background-color: var(--color-surface-100);
     border-radius: 1em;
     padding: 1em 0 1.5em;
     width: 80vw;
     max-width: 30rem;
-    box-shadow: var(--color-surface-300) 0 0.5rem 1rem;
+    box-shadow: var(--color-surface-200) 0 .5rem 1.5rem;
 }
 
 .login-page__register {
@@ -51,16 +51,16 @@
     font-size: 1em;
     line-height: 1.5em;
     width: fit-content;
-    border: 0.01em solid var(--color-surface-300);
+    border: 0.01em solid var(--color-surface-200);
     background-color: var(--color-surface-100);
     border-radius: 1em;
     text-align: center;
-    box-shadow: var(--color-surface-300) 0 0.5rem 1rem;
-    color: var(--color-primary-400);
+    box-shadow: var(--color-surface-200) 0 .5rem 1.5rem;
+    color: var(--color-terciary-200);
 }
 
 .login-page__change-view--link {
-    color: var(--color-primary-200);
+    color: var(--color-secondary-200);
     font-weight: 700;
     transition: color 0.2s;
     cursor: pointer;

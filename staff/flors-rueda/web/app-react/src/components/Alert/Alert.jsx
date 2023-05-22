@@ -1,5 +1,6 @@
 
-/*import { svg } from '../../assets/svg-paths';
+/*TODO: add alerts to errors
+import { svg } from '../../assets/svg-paths';
 import 'Alert.css';
 
 export default function Alert({ alert: { color, title, message }, onCancel }) {

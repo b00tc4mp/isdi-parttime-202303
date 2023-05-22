@@ -1,25 +1,25 @@
 .post-card {
     width: 90%;
-    border: 0.05rem solid var(--color-surface-400);
+    border: 0.05rem solid var(--color-surface-200);
     border-radius: 3rem 0.3rem 0.3rem;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     align-self: center;
     height: fit-content;
-    box-shadow: var(--color-surface-400) 0 0.5rem 1rem;
+    box-shadow: var(--color-surface-200) 0 .5rem 1.5rem;
 }
 
 .post-card__profile {
-    width: 135%;
-    border: 0.05rem solid var(--color-surface-400);
+    width: 105%;
+    border: 0.05rem solid var(--color-surface-200);
     border-radius: 0.3rem 0.3rem;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     align-self: center;
     height: fit-content;
-    box-shadow: var(--color-surface-400) 0 0.5rem 1rem;
+    box-shadow: var(--color-surface-200) 0 .5rem 1.5rem;
 }
 
 .post-card__header {
@@ -50,6 +50,11 @@
 
 .post-card__header--author-username {
     font-weight: 100;
+    color: var(--color-secondary-200);
+}
+
+.post-card__header--author-name {
+    color: var(--color-terciary-200);
 }
 
 .post-card__header--to-edit-post {
@@ -69,8 +74,8 @@
 .post-card__body--image-container--image {
     padding: 0.5rem 0;
     overflow: hidden;
-    height: 15rem;
-    width: 15rem;
+    height: 20rem;
+    width: 20rem;
     border-radius: 5%;
 }
 
@@ -83,11 +88,22 @@
     justify-content: start;
 }
 
+.post-card__body--like {
+    padding: .75rem 0 0 .75rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .post-card__body--like-button, .post__footer--favorite-button {
     height: 1.5rem;
     width: 1.5rem;
     fill: var(--color-primary-300);
     cursor: pointer;
+}
+
+.post-card__body--like-button {
+    fill: var(--color-terciary-300);
 }
 
 .post__footer {
@@ -101,8 +117,9 @@
 
 
 .post__footer--date {
-    color: var(--color-secondary-400);
-    font-weight: 300;
+    color: var(--color-primary-100);
+    font-size: 0.85em;
+    font-weight: 500;
     font-style: italic;
 }
 

@@ -103,3 +103,73 @@
         background-color: var(--color-secondary-200)
     }
 }
+
+
+/*
+button {
+	background: none !important;
+	color: inherit !important;
+	border: none !important;
+	padding: 0 !important;
+	font: inherit !important;
+	cursor: pointer !important;
+	outline: inherit !important;
+}
+
+
+.navbar {
+  position: absolute;
+  height: 5rem;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: red;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0 0.5rem;
+  gap: 1rem;
+  border-radius: 0 0 .95rem .95rem;
+  margin-bottom: 2rem;
+}
+
+.navbar__option {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.navbar__user,
+.navbar__user--image {
+  border-radius: 50%;
+  overflow: hidden;
+  height: 3.5rem;
+  width: 3.5rem;
+  z-index: 1;
+  box-sizing: border-box;
+}
+
+.navbar__user.active, .navbar__home.active {
+  height: 3rem;
+  width: 3rem;
+  border: solid 0.05em blue;
+  box-shadow: 0 0 0.35em blue;
+}
+
+.navbar__home {
+  border-radius: 50%;
+  height: 3.5rem;
+  width: 3.5rem;
+  background-color: green;
+  box-sizing: border-box;
+}
+
+.navbar__home--icon {
+  height: 80%;
+  width: 80%;
+}
+
+.navbar span {
+    cursor: none;
+}
+*/

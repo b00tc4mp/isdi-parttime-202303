@@ -10,14 +10,14 @@
 
 input {
     width: 80%;
-    background-color: var(--color-surface-200);
+    background-color: var(--color-surface-300);
     font-weight: 700;
     border: solid 0.05em var(--color-surface-300);
     padding: 0.6em 1.2em;
     border-radius: 0.6em;
     outline: none;
     transition: background-color 0.2s, border 0.2s, box-shadow 0.2s;
-    color: var(--color-primary-100);
+    color: var(--color-terciary-100);
 }
 
 ::-webkit-input-placeholder {
@@ -49,7 +49,7 @@ input[type="file"]:focus {
     gap: 0.5rem;
     align-items: center;
     width: 80%;
-    background-color: var(--color-surface-200);
+    background-color: var(--color-surface-300);
     font-weight: 700;
     border: solid 0.05em var(--color-surface-300);
     padding: 0.15em 0.95em;

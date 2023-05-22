@@ -1,7 +1,9 @@
+
 .home-page__main {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    padding-top: 5rem; 
     padding-bottom: 5rem;  
 }
 
@@ -75,12 +77,15 @@
     border-radius: 50%;
     width: 2.75rem;
     height: 2.75rem;
+    -webkit-tap-highlight-color: var(--color-primary-transparence);
+    border: 0.01rem solid var(--color-primary-100);
+    box-shadow: var(--color-surface-400) 0 .5rem 1.5rem;
 }
 
 .home-page__new-post--button svg {
     height: 2rem;
     width: 2rem;
-    fill: var(--color-secondary-100);
+    fill: var(--color-terciary-100);
 }
 
 .home-page {
