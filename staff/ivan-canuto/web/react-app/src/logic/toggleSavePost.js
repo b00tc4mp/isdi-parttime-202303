@@ -9,7 +9,7 @@ import { validateCallback, validateId } from './helpers/validators';
  * @param {function} callBack A function to catch errors and display them to the user.
  */
 
-export const saveFavoritePost = (userId, post, callBack)=>{
+export default function toggleSavePost(userId, post, callBack) {
 
   validateId(userId, 'user id')
   validateCallback(callBack)
@@ -26,17 +26,14 @@ export const saveFavoritePost = (userId, post, callBack)=>{
     let user = _user
 
     const favIcon = userPost.querySelector('.favorite-icon')
-  
-    if(!user.favPosts) 
-      user.favPosts = []
-    
-    if(!user.favPosts.includes(post.id)) {
+
+    if(!user.favs.includes(post.id)) {
       favIcon.querySelector('span').classList.add('saved', 'filled')
-      user.favPosts.push(post.id)
+      user.favs.push(post.id)
     } else {
       favIcon.querySelector('span').classList.remove('saved', 'filled')
-      const indexIcon = user.favPosts.indexOf(post.id)
-      user.favPosts.splice(indexIcon, 1)
+      const indexIcon = user.favs.indexOf(post.id)
+      user.favs.splice(indexIcon, 1)
     }
 
     saveUser(user, () => callBack(null))

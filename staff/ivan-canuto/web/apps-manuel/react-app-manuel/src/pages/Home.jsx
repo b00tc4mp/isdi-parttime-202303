@@ -1,5 +1,5 @@
 import Posts from '../components/Posts'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import AddPostModal from '../components/AddPostModal'
 import Profile from '../components/Profile'
 import EditPostModal from '../components/EditPostModal'
@@ -12,16 +12,24 @@ export default function Home({ onLoggedOut }) {
     const [modal, setModal] = useState(null)
     const [postId, setPostId] = useState(null)
     const [lastPostsUpdate, setLastPostsUpdate] = useState(null)
+    const [user, setUser] = useState()
 
-    let _user
+    useEffect(() => {
+        try {
+            retrieveUser(context.userId, (error, user) => {
+                if (error) {
+                    alert(error.message)
 
-    try {
-        _user = retrieveUser(context.userId)
-    } catch (error) {
-        alert(error.message)
-    }
+                    return
+                }
 
-    const [user, setUser] = useState(_user)
+                setUser(user)
+            })
+        } catch (error) {
+            alert(error.message)
+        }
+    }, [])
+
 
     const handleOpenAddPostModal = () => setModal('add-post')
 
@@ -55,9 +63,15 @@ export default function Home({ onLoggedOut }) {
 
     const handleUserAvatarUpdated = () => {
         try {
-            const user = retrieveUser(context.userId)
+            retrieveUser(context.userId, (error, user) => {
+                if (error) {
+                    alert(error.message)
 
-            setUser(user)
+                    return
+                }
+
+                setUser(user)
+            })
         } catch (error) {
             alert(error.message)
         }
@@ -70,8 +84,10 @@ export default function Home({ onLoggedOut }) {
             <h1 className="home-header-title" onClick={handleGoToPosts}>Home</h1>
 
             <nav className="home-header-nav">
-                <img className="home-header-avatar" src={user.avatar} alt="" />
-                <a href="" onClick={handleGoToProfile}>{user.name}</a>
+                {user && <>
+                    <img className="home-header-avatar" src={user.avatar} alt="" />
+                    <a href="" onClick={handleGoToProfile}>{user.name}</a>
+                </>}
             </nav>
 
             <button onClick={handleSwitchMode}>Switch Mode</button>
@@ -79,8 +95,14 @@ export default function Home({ onLoggedOut }) {
         </header>
 
         <main>
-            {view === 'posts' && <Posts onEditPost={handleOpenEditPostModal} lastPostsUpdate={lastPostsUpdate} />}
-            {view === 'profile' && <Profile onUserAvatarUpdated={handleUserAvatarUpdated} />}
+            {view === 'posts' && <Posts
+                onEditPost={handleOpenEditPostModal}
+                lastPostsUpdate={lastPostsUpdate}
+            />}
+            
+            {view === 'profile' && <Profile
+            onUserAvatarUpdated={handleUserAvatarUpdated}
+            />}
 
             {modal === 'add-post' && <AddPostModal
                 onCancel={handleCloseModal}

@@ -1,14 +1,11 @@
-import retrievePost from "../logic/retrievePost"
-import { context } from "../ui"
 import createComment from "../logic/createComment"
 import { useState } from "react"
-import retrieveUser from "../logic/retrieveUser"
 import deleteComment from "../logic/deleteComment"
 import Comment from "./Comment"
 import './components-styles/Comments.css'
 
 
-export default function Comments({ onCloseCommentModal, handleRefreshPosts, post, user }) {
+export default function Comments({ onCloseCommentModal, handleRefreshPosts, post }) {
 
   const [addComment, setAddComment] = useState(false)
 
@@ -28,7 +25,8 @@ export default function Comments({ onCloseCommentModal, handleRefreshPosts, post
     try {
       createComment(commentText, post, (error) => {
         if(error) {
-          alert(error.stack)
+          alert(error.message)
+          console.log(error.stack)
 
           return
         }
@@ -65,45 +63,45 @@ export default function Comments({ onCloseCommentModal, handleRefreshPosts, post
 
   try {
 
-  return <>
-  <section className="comment-section">
-    <div className="above-comments">
-      <div>
-        <img className="post-user-avatar" src={user.avatar} alt="post-user-avatar" />
-        <p className="post-user-name">{user.name}</p>
+    return <>
+    <section className="comment-section">
+      <div className="above-comments">
+        <div>
+          <img className="post-user-avatar" src={post.author.avatar} alt="post-user-avatar" />
+          <p className="post-user-name">{post.author.name}</p>
+        </div>
+        <button className="return-to-post_button" onClick={handleCloseCommentModal}>Return</button>
       </div>
-      <button className="return-to-post_button" onClick={handleCloseCommentModal}>Return</button>
-    </div>
 
-    <h2>Post comments</h2>
+      <h2>Post comments</h2>
 
-    <div className="comments">
-      {post.comments && post.comments.map(comment => <Comment
-      key={comment.id}
-      comment={comment}
-      post={post}
-      handleDeleteComment={handleDeleteComment}/>
-      )}
-    </div>
-    
-    {addComment ? 
-    <form className="add-comment_form" onSubmit={handleCreateComment}>
-      <textarea className="comment-text" cols="30" rows="10" name="commentText" autoFocus></textarea>
-      <div>
-        <button>Add</button>
-        <button type="button" onClick={toggleAddComment}>Cancel</button>
+      <div className="comments">
+        {post.comments && post.comments.map(comment => <Comment
+        key={comment.id}
+        comment={comment}
+        post={post}
+        handleDeleteComment={handleDeleteComment}/>
+        )}
       </div>
-    </form>
-    :
-    <button className="add-comment_button" onClick={toggleAddComment}>Add comment</button>}
-  </section>
-  </>
+      
+      {addComment ? 
+      <div className="add-comment container">
+        <form className="add-comment_form" onSubmit={handleCreateComment}>
+        <h2>Add comment</h2>
+          <textarea className="comment-text" cols="30" rows="10" name="commentText" autoFocus></textarea>
+          <div className="add-comment_form_buttons">
+            <button>Add</button>
+            <button type="button" onClick={toggleAddComment}>Cancel</button>
+          </div>
+        </form>
+      </div>
+      :
+      <button className="add-comment_button" onClick={toggleAddComment}>Add comment</button>}
+    </section>
+    </>
 
-  } catch(error) {
-    alert(error)
-    console.log(error.stack);
-  }
-
+    } catch(error) {
+      alert(error)
+      console.log(error.stack);
+    }
 }
-
-

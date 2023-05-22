@@ -1,65 +1,46 @@
-import { context } from "../ui";
-import updateUserPassword from "../logic/updateUserPassword";
-import updateUserAvatar from "../logic/updateUserAvatar";
+import './Profile.css'
+import { context } from '../ui'
+import updateUserAvatar from '../logic/updateUserAvatar'
 
-export default function Profile(props) {
+export default function Profile({ onUserAvatarUpdated }) {
+    const handleUpdateAvatar = event => {
+        event.preventDefault()
 
-  const closeProfile = () => {
-    props.onCloseModal()
-  }
+        const url = event.target.url.value
 
-  const handleChangeAvatar = (event) => {
-    event.preventDefault()
+        try {
+            updateUserAvatar(context.userId, url, error => {
+                if (error) {
+                    alert(error.message)
 
-    const avatarUrl = event.target.avatarUrl.value
-    const password = event.target.password.value
+                    return
+                }
+                
+                onUserAvatarUpdated()
+            })
 
-    try {
-      updateUserAvatar(context.userId, avatarUrl, password)
-      onUpdatedAvatar()
-
-    } catch (error) {
-      alert(error.message)
-      console.log(error);
+        } catch (error) {
+            alert(error.message)
+        }
     }
-  }
 
-  const handleChangePassword = (event) => {
-    event.preventDefault()
+    console.log('Profile -> render')
 
-    const password = event.target.password.value
-    const newPassword = event.target.newPassword.value
-    const newPasswordConfirm = event.target.newPasswordConfirm.value
-
-    try {
-      updateUserPassword(context.userId, password, newPassword, newPasswordConfirm)
-      closeProfile()
-
-    } catch (error) {
-      alert(error.message)
-      console.log(error);
-    }
-  }
-  
-  return <div className="profile page">
-  <form className="change-avatar change-form" onSubmit={handleChangeAvatar}>
+    return <section className="profile container">
         <h2>Update avatar</h2>
-        <div>
-            <input className="input" type="url" name="avatarUrl" placeholder="avatar url"/>
-            <input className="input" type="password" name="password" placeholder="password"/>
-            <button className="button">Update</button>
-        </div>
-    </form>
-    <form className="change-password change-form" onSubmit={handleChangePassword}>
+
+        <form className="profile-avatar-form" onSubmit={handleUpdateAvatar}>
+            <input className="input" type="url" name="url" />
+            <button className="button" type="submit">Update</button>
+        </form>
+
         <h2>Update password</h2>
-        <div>
-            <input className="input" type="password" name="password" placeholder="password"/>
-            <input className="input" type="password" name="newPassword" placeholder="new password"/>
-            <input className="input" type="password" name="newPasswordConfirm" placeholder="new password confirmation"/>
-            <button className="button">Update</button>
-        </div>
-    </form>
-    <button className="close-changeform-button" onClick={closeProfile}>Close</button>
-</div>
-  
+
+        <form className="profile-password-form">
+            <input className="input" type="password" name="password" placeholder="password" />
+            <input className="input" type="password" name="newPassword" placeholder="new password" />
+            <input className="input" type="password" name="newPasswordConfirm" placeholder="new password confirmation" />
+            <button className="button" type="submit">Update</button>
+        </form>
+    </section>
 }

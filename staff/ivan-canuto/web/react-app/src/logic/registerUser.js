@@ -35,12 +35,13 @@ export function registerUser(name, email, password, callBack) {
       let lastUser = users[users.length - 1]
       if(lastUser) id = 'user-' + (parseInt(lastUser.id.slice(5)) + 1)
   
-      usersApp.push({
+      users.push({
           id,
           name,
           email,
           password,
-          avatar: 'https://img.freepik.com/iconos-gratis/icono-perfil-usuario_318-33925.jpg'
+          avatar: 'https://img.freepik.com/iconos-gratis/icono-perfil-usuario_318-33925.jpg',
+          favs: []
       })
   
       saveUsers(users, () => callBack(null))

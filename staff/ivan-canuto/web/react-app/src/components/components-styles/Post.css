@@ -1,5 +1,5 @@
 .user-post {
-  padding: 20px 20px 20px 20px;
+  padding: 20px;
   width: 75%;
   max-width: 400px;
   max-height: 400px;
@@ -10,6 +10,7 @@
   user-select: none;
   overflow-y: scroll;
   box-shadow: 2px 2px 2px 2px grey;
+  color: black;
 }
 
 .user-post::-webkit-scrollbar {
@@ -72,7 +73,7 @@
   font-size: 15px;
 }
 
-.edit-post-button, .delete-post-button {
+.edit-post-button, .delete-post-button, .toggle_visible_button, .sell-post-button {
   background: transparent;
   font-size: 13px;
   cursor: pointer;
@@ -80,6 +81,12 @@
   height: fit-content;
   padding: 0px 5px;
   border: 0px solid grey;
+}
+
+.sell-post-button {
+  display: flex;
+  align-items: center;
+  gap: 2px;
 }
 
 .under-image {

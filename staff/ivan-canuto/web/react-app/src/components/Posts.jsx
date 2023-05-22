@@ -5,15 +5,13 @@ import { useState, useEffect } from "react";
 import { retrieveSavedPosts } from "../logic/retrieveSavedPosts";
 import { retrieveUserPosts } from "../logic/retrieveUserPosts";
 import './components-styles/Posts.css'
-import { findUserById } from "../data";
 
 
-export default function Posts({ handleOpenEditPost, lastPostsUpdate, view }) {
+export default function Posts({ handleOpenEditPost, lastPostsUpdate, view , handleOpenPostpriceModal, handleOpenBuyPostModal}) {
 
   const [posts, setPosts] = useState(null)
-  const [user, setUser] = useState(null)
 
-  const refreshPosts = () => {
+  const handleRefreshPosts = () => {
     try {
 
       if(view === 'posts')
@@ -24,6 +22,7 @@ export default function Posts({ handleOpenEditPost, lastPostsUpdate, view }) {
 
             return
           }
+          console.log('Postsss -> render')
 
           setPosts(_posts)
         })
@@ -36,7 +35,7 @@ export default function Posts({ handleOpenEditPost, lastPostsUpdate, view }) {
 
             return
           }
-
+          console.log('Saved postsss -> render')
           setPosts(_posts)
         })
 
@@ -48,6 +47,7 @@ export default function Posts({ handleOpenEditPost, lastPostsUpdate, view }) {
 
             return
           }
+          console.log('Own postsss -> render')
 
           setPosts(_posts)
         })
@@ -56,24 +56,7 @@ export default function Posts({ handleOpenEditPost, lastPostsUpdate, view }) {
       alert(error)
       console.log(error);
     }
-  }
-  
-  useEffect(() => {
-    refreshPosts()
-
-    try {
-      findUserById(context.userId, (_user) => {
-        if(!_user) 
-          alert('User not found.')
-
-        setUser(_user)
-      })
-
-    } catch (error) {
-      alert(error.message)
-      console.log(error.stack);
-    }
-  }, [])
+  } 
   
   useEffect(() => {
     console.log('Posts -> "ComponentDidMount" with hooks.');
@@ -83,19 +66,16 @@ export default function Posts({ handleOpenEditPost, lastPostsUpdate, view }) {
 
   useEffect(() => {
     console.log('Posts -> "ComponentWillRecieveProps" with hooks.');
+    handleRefreshPosts()
 
     if(lastPostsUpdate) {
-      console.log('hola');
-      refreshPosts()
+      handleRefreshPosts()
     }
       
   }, [lastPostsUpdate])
 
-  console.log('Postsss -> render')
-
   return <section className="posts-list">
-    {posts && posts.map(post => 
-      <Post key={post.id} post={post} handleOpenEditPost={handleOpenEditPost} handleRefreshPosts={refreshPosts} user={user}/>
+    {posts && posts.map(post => ((post.author.id !== context.userId) && !post.visible) ? '' : <Post key={post.id} post={post} handleOpenEditPost={handleOpenEditPost} handleRefreshPosts={handleRefreshPosts} handleOpenPostpriceModal={handleOpenPostpriceModal} handleOpenBuyPostModal={handleOpenBuyPostModal}/>
     )}
   </section>
 }

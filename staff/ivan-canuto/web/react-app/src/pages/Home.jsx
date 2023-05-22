@@ -7,149 +7,181 @@ import { context } from "../ui"
 import retrieveUser from "../logic/retrieveUser"
 import EditPost from "../components/EditPostModal"
 import Header from "../components/Header"
-import './pages-styles/Home.css'
-
+import "./pages-styles/Home.css"
+import SetPostPrice from "../components/SetPostPriceModal"
+import BuyPost from "../components/BuyPostModal"
 
 export default function Home(props) {
-  
-  const [view, setView] = useState(context.view || 'posts')
-  const [modal, setModal] = useState(null)
-  const [menu, setMenu] = useState(false)
-  const [lastPostsUpdate, setLastPostsUpdate] = useState(null)
-  const [user, setUser] = useState()
-  
+  const [view, setView] = useState(context.view || "posts");
+  const [modal, setModal] = useState(null);
+  const [menu, setMenu] = useState(false);
+  const [lastPostsUpdate, setLastPostsUpdate] = useState(null);
+  const [user, setUser] = useState();
+
   useEffect(() => {
-    
     try {
-     retrieveUser(context.userId, (error, _user) => {
-  
-      if(error) {
-        alert(error)
-        console.log(error.stack)
-  
-        return
-      }
-  
-      setUser(_user)
-     })
-      
+      retrieveUser(context.userId, (error, _user) => {
+        if (error) {
+          alert(error);
+          console.log(error.stack);
+
+          return;
+        }
+
+        setUser(_user);
+      });
     } catch (error) {
-      alert(error)
+      alert(error);
       console.log(error);
     }
-  
-  }, [])
+  }, []);
 
+  const handleReturnToHome = () => {
+    setView("posts");
+  };
 
-   const handleReturnToHome = () => {
-    setView('posts')
-  }
+  const handleOpenAddPost = () => {
+    document.body.classList.add("fixed-scroll");
+    setModal("addPost");
+  };
 
-   const handleOpenAddPost = () => {
-    document.body.classList.add('fixed-scroll')
-    setModal('addPost')
-  }
+  const handleOpenProfile = () => {
+    document.body.classList.add("fixed-scroll");
+    setModal("profile");
+  };
 
-   const handleOpenProfile = () => {
-    document.body.classList.add('fixed-scroll')
-    setModal('profile')
-  }
-
-   const handleReturnToLogin = () => {
-    props.onLoggedOut()
-    delete context.userId
-  }
+  const handleReturnToLogin = () => {
+    props.onLoggedOut();
+    delete context.userId;
+  };
 
   const handleToggleMenu = () => {
-    setMenu(!menu)
-  }
+    setMenu(!menu);
+  };
 
   const showOwnPosts = () => {
-    setView('userPosts')
-  }
+    setView("userPosts");
+  };
 
   const showSavedPosts = () => {
-    setView('savedPosts')
-  }
+    setView("savedPosts");
+  };
 
   const handleOpenEditPost = () => {
-    document.body.classList.add('fixed-scroll')
-    setModal('editPost')
-  }
+    document.body.classList.add("fixed-scroll");
+    setModal("editPost");
+  };
 
   const handleLastPostsUpdate = () => {
-    document.body.classList.remove('fixed-scroll')
-    setLastPostsUpdate(Date.now())
-    setModal(null)
-  }
-  
+    document.body.classList.remove("fixed-scroll");
+    setLastPostsUpdate(Date.now());
+    setModal(null);
+  };
+
   const handleCloseModal = () => {
-    document.body.classList.remove('fixed-scroll')
-    setModal(null)
-  }
-  
+    document.body.classList.remove("fixed-scroll");
+    setModal(null);
+  };
+
   const handleUpdatedAvatar = () => {
     try {
       retrieveUser(context.userId, (error, user) => {
         if (error) {
-          alert(error.message)
-          console.log(error.stack)
+          alert(error.message);
+          console.log(error.stack);
 
-          return
+          return;
         }
-        
-        setUser(user)
-      })
-      
+
+        setUser(user);
+      });
     } catch (error) {
-      alert(error)
+      alert(error);
       console.log(error);
     }
   }
-  
-  console.log('Home -> render')
 
-  return <div className="home page">
-    <Header
-      user={user}
-      handleToggleMenu={handleToggleMenu}
-      handleReturnToHome={handleReturnToHome}
-      handleOpenProfile={handleOpenProfile}
-      handleReturnToLogin={handleReturnToLogin}
-    />
+  const handleOpenPostpriceModal = () => {
+    document.body.classList.add("fixed-scroll");
+    setModal("setPostPrice")
+  }
 
-    <main>
-      <Posts
-        view={view}
-        handleOpenEditPost={handleOpenEditPost}
-        lastPostsUpdate={lastPostsUpdate}
+  const handleOpenBuyPostModal = () => {
+    document.body.classList.add("fixed-scroll");
+    setModal("buyPostModal")
+  }
+
+  console.log("Home -> render");
+
+  return (
+    <div className="home page">
+      <div className="loader"></div>
+      <Header
+        user={user}
+        handleToggleMenu={handleToggleMenu}
+        handleReturnToHome={handleReturnToHome}
+        handleOpenProfile={handleOpenProfile}
+        handleReturnToLogin={handleReturnToLogin}
       />
 
-      {modal === 'profile' && <Profile
-        onUpdatedAvatar={handleUpdatedAvatar}
-        onCancel={handleCloseModal}
-        />}
+      <main>
+        <Posts
+          handleOpenEditPost={handleOpenEditPost}
+          lastPostsUpdate={lastPostsUpdate}
+          view={view}
+          handleOpenPostpriceModal={handleOpenPostpriceModal}
+          handleOpenBuyPostModal={handleOpenBuyPostModal}
+        />
 
-      {menu && <Menu
-        onHomePage={handleReturnToHome}
-        showOwnPosts={showOwnPosts}
-        showSavedPosts={showSavedPosts}
-      />}
+        {modal === "profile" && (
+          <Profile
+            onUpdatedAvatar={handleUpdatedAvatar}
+            onCancel={handleCloseModal}
+          />
+        )}
 
-      {modal === 'addPost' && <AddPost
-        onCreatedPost={handleLastPostsUpdate}
-        onCancel={handleCloseModal}
-        />}
+        {menu && (
+          <Menu
+            onHomePage={handleReturnToHome}
+            showOwnPosts={showOwnPosts}
+            showSavedPosts={showSavedPosts}
+          />
+        )}
 
-      {modal === 'editPost' && <EditPost
-        onUpdatedPost={handleLastPostsUpdate}
-        onCancel={handleCloseModal}
-      />}
+        {modal === "addPost" && (
+          <AddPost
+            onCreatedPost={handleLastPostsUpdate}
+            onCancel={handleCloseModal}
+          />
+        )}
 
-    </main> 
+        {modal === "editPost" && (
+          <EditPost
+            onUpdatedPost={handleLastPostsUpdate}
+            onCancel={handleCloseModal}
+          />
+        )}
 
-    <footer className="home-footer">
-        <button className="add-post-button" onClick={handleOpenAddPost}>+</button>
-    </footer>
-  </div>
+        {modal === 'setPostPrice' && (
+          <SetPostPrice
+          onSettedPostPrice={handleLastPostsUpdate}
+          onCancel={handleCloseModal}
+          />
+        )}
+        
+        {modal === 'buyPostModal' && (
+          <BuyPost
+          onBuyPost={handleLastPostsUpdate}
+          onCancel={handleCloseModal}
+          />
+        )}
+      </main>
+
+      <footer className="home-footer">
+        <button className="add-post-button" onClick={handleOpenAddPost}>
+          +
+        </button>
+      </footer>
+    </div>
+  );
 }

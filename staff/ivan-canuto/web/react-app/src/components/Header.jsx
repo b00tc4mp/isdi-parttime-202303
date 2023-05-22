@@ -1,13 +1,19 @@
 import { getTheme, setTheme } from "../ui"
 import './components-styles/Header.css'
+import { useState } from "react"
 
 
 export default function Header({ handleToggleMenu, handleReturnToHome, handleOpenProfile, handleReturnToLogin, user }) {
 
+  const [newTheme, setnewTheme] = useState(getTheme())
+
   const switchAppTheme = () => {
-    const theme = getTheme() === 'light' ? 'dark' : 'light'
+    const theme = newTheme === 'light' ? 'dark' : 'light'
     setTheme(theme)
+    setnewTheme(theme)
   }
+
+  const theme = getTheme()
 
   return <>
   <header className="header">
@@ -19,9 +25,8 @@ export default function Header({ handleToggleMenu, handleReturnToHome, handleOpe
             <img className="avatar-image" src={user.avatar} alt="avatar image" />
             <a>{user.name}</a>
         </div>
-      </>
-      }
-      <button className="switch-mode-button" onClick={switchAppTheme}>Switch mode</button>
+      </>}
+      <span className="material-symbols-outlined dark-mode" onClick={switchAppTheme}>{theme === 'light' ? 'light_mode' : 'dark_mode'}</span>
       <button className="logout-button" onClick={handleReturnToLogin}>Logout</button>
     </div>
   </header>

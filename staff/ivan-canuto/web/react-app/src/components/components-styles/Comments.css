@@ -36,3 +36,21 @@
 .above-comments p {
   margin: 0;
 }
+
+.add-comment_form button {
+  width: 50%;
+  border-radius: 5px;
+}
+
+.add-comment_form h2 {
+  margin-top: 0;
+}
+
+.add-comment_form_buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.add-comment_form_buttons button {
+  padding: 5px 10px;
+}

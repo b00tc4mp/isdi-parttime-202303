@@ -1,4 +1,4 @@
-import { findUserById, loadPosts, savePosts } from "../data";
+import { findUserById, loadPosts, savePosts, saveUser } from "../data";
 import { validateCallback, validateId } from "./helpers/validators";
 
 /**
@@ -22,10 +22,10 @@ export default function deletePost(post, userId, callBack) {
       return
     }
 
-    const favPostIndex = user.favPosts.indexOf(post.id)
+    const favPostIndex = user.favs.indexOf(post.id)
 
     if(favPostIndex >= 0)
-      user.favPosts.splice(favPostIndex, 1)
+      user.favs.splice(favPostIndex, 1)
 
     saveUser(user, () => callBack(null))
 

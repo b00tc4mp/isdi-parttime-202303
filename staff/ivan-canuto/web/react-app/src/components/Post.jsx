@@ -1,35 +1,19 @@
-import { context } from "../ui";
-import toggleLikePost from "../logic/toggleLikePost";
-import { saveFavoritePost } from "../logic/saveFavoritePost";
+import { context } from "../ui"
+import toggleLikePost from "../logic/toggleLikePost"
+import toggleSavePost from "../logic/toggleSavePost"
 import deletePost from  "../logic/deletePost"
-import Comments from "./Comments";
-import { useState, useEffect } from "react";
+import Comments from "./Comments"
+import { useState } from "react"
 import './components-styles/Post.css'
-import { findUserById } from "../data";
+import toggleVisibilityPost from "../logic/toggleVisibilityPost"
+import removePostFromSale from "../logic/removePostFromSale"
 
 
-export default function Post({post, handleOpenEditPost, handleRefreshPosts, user}) {
+export default function Post({post, handleOpenEditPost, handleRefreshPosts, handleOpenPostpriceModal, handleOpenBuyPostModal}) {
 
   const [modal, setModal] = useState('post')
-  const [postAuthor, setPostAuthor] = useState()
 
-  const { image, id, likes, date, text, author } = post
-
-  useEffect(() => {
-    try {
-      findUserById(author, (_postAuthor) => {
-        if(!_postAuthor) {
-          alert(new Error('Author not found'))
-    
-          return
-        }
-        setPostAuthor(_postAuthor)
-      })
-    } catch (error) {
-      alert(error.message)
-      console.log(error.stack);
-    }
-  }, [])
+  const { image, id, likes, date, text, author, visible, onSale } = post
 
   const handleDeletePost = (postId) => {
     try {
@@ -68,26 +52,75 @@ export default function Post({post, handleOpenEditPost, handleRefreshPosts, user
     }
   }
 
-  console.log('Post -> render')
+  const toggleVisibility = () => {
+    toggleVisibilityPost(post, (error) => {
+      if(error) {
+        alert(error.message)
+        console.log(error.stack)
+        return
+      }
 
+      handleRefreshPosts()
+    })
+  }
+
+  const toggleSellPost = () => {
+
+    if(onSale) removePostFromSale(id, (error) => {
+      if(error) {
+        alert(error.message)
+        console.log(error.stack)
+        return
+      }
+
+      handleRefreshPosts()
+    })
+    else handleOpenPostpriceModal()
+  }
+
+  console.log('Post -> render')
 
     return <article className="user-post" id={id} onScroll={handlePostScroll}>
     {modal === 'post' && <>
       <div className="above-image">
-        {postAuthor && <>
-          <div>
-                <img className="post-user-avatar" src={postAuthor.avatar} alt="post-user-avatar" />
-                <p className="post-user-name">{postAuthor.name}</p>
-          </div>
-        </>}
-        {(author === user.id) && 
         <div>
-          <button className="edit-post-button" onClick={() => {
-            context.postId = id
-            handleOpenEditPost()}
+              <img className="post-user-avatar" src={author.avatar} alt="post-user-avatar" />
+              <p className="post-user-name">{author.name}</p>
+        </div>
+        <div>
+        {(author.id === context.userId) && <>
+            <button className="toggle_visible_button"><span onClick={toggleVisibility} title={visible ? 'Set post not visible' : 'Set post visible'} className="material-symbols-outlined">{visible ? 'lock_open_right' : 'lock'}</span></button>
+            <button className="edit-post-button" onClick={() => {
+              context.postId = id
+              handleOpenEditPost()}
             }><span className="material-symbols-outlined">edit</span></button>
-          <button className="delete-post-button" onClick={() => handleDeletePost(post)}><span className="material-symbols-outlined">delete</span></button>
-        </div>}
+            <button className="delete-post-button" onClick={() => handleDeletePost(post)}><span className="material-symbols-outlined">delete</span></button>
+            <button className="sell-post-button" onClick={() => {
+              if (onSale !== 'Sold') {
+                context.postId = id
+                toggleSellPost()
+              }
+            }}>
+              <span className="material-symbols-outlined">local_mall</span>
+              {(onSale && onSale !== 'Sold') && `${onSale}€`}
+              {!onSale && 'Put on sale'}
+              {onSale === 'Sold' && 'Post sold'}
+            </button>
+          </>
+        }
+
+        {(author.id !== context.userId && onSale) &&
+          <button className="sell-post-button" title="Post on sale" onClick={() => {
+            if(onSale !== 'Sold') {
+              context.postId = id
+              handleOpenBuyPostModal()
+            }
+          }}>
+            <span className="material-symbols-outlined">local_mall</span>
+            {onSale !== 'Sold' && `${onSale}€`}
+            {onSale === 'Sold' && `Post sold`}
+          </button>}
+        </div>
       </div>
 
       <div className="image-container">
@@ -96,17 +129,16 @@ export default function Post({post, handleOpenEditPost, handleRefreshPosts, user
 
       <div className="under-image">
         <i className="favorite-icon" onClick={() => {
-            saveFavoritePost(context.userId, post, (error) => {
+            toggleSavePost(context.userId, post, (error) => {
               if (error) {
                 alert(error.message)
                 console.log(error.stack)
-
                 return
               }
-              
+
               handleToggleLikeFav()
             })
-          }}>{(!user.favPosts || !user.favPosts.includes(id))? <span className="material-symbols-outlined">bookmark</span> : <span className="material-symbols-outlined saved filled">bookmark</span>}
+          }}>{(!author.favs.includes(id))? <span className="material-symbols-outlined">bookmark</span> : <span className="material-symbols-outlined saved filled">bookmark</span>}
         </i>
 
         <span className="material-symbols-outlined comment-icon" onClick={() => {
@@ -115,11 +147,10 @@ export default function Post({post, handleOpenEditPost, handleRefreshPosts, user
           }}>mode_comment</span>
         
         <i className="heart-icon" onClick={() => {
-          toggleLikePost(context.userId, post, (error) => {
+          toggleLikePost(context.userId, id, (error) => {
             if (error) {
               alert(error.message)
               console.log(error.stack);
-
               return
             }
             
@@ -138,7 +169,6 @@ export default function Post({post, handleOpenEditPost, handleRefreshPosts, user
       handleRefreshPosts={handleRefreshPosts}
       onCloseCommentModal={handleCloseCommentModal}
       post={post}
-      user={user}
     />}
   </article>
 

@@ -5,19 +5,20 @@ import { useState } from "react";
 
 export default function AddPost({ onCancel, onCreatedPost }) {
 
-  const [selectedImage, setSelectedImage] = useState(null);
+  // const [selectedImage, setSelectedImage] = useState(null);
 
   const handleCloseClick = () => {
     onCancel()
   }
 
-  const handleImageUpload = (event) => {
-    let file = event.target.files[0]
-    if(file)
-      setSelectedImage(URL.createObjectURL(file))
-    else
-      setSelectedImage(null)
-  }
+  // const handleImageUpload = (event) => {
+  //   let file = event.target.files[0]
+  //   if(file) {
+  //       setSelectedImage(URL.createObjectURL(file))
+  //     console.log(URL.createObjectURL(file))
+  //   } else
+  //     setSelectedImage(null)
+  // }
 
   const handleCreatePost = (event) => {
     event.preventDefault()
@@ -26,10 +27,11 @@ export default function AddPost({ onCancel, onCreatedPost }) {
     const text = event.target.postText.value
 
     try {
-      createPost(context.userId, imageUrl, selectedImage, text, (error) => {
+      createPost(context.userId, imageUrl, text, (error) => {
         
         if (error) {
-          alert(error.stack)
+          alert(error.message)
+          console.log(error.stack)
 
           return
         }
@@ -47,7 +49,7 @@ export default function AddPost({ onCancel, onCreatedPost }) {
   return <div className="add-post container">
   <form className="add-post-form" onSubmit={handleCreatePost}>
       <input className="post-url" type="url" name="postImage" placeholder="URL Image" autoComplete="off" autoFocus/>
-      <input className="post-selected-image" type="file" name="postSelectedImage" accept="image/*" onChange={handleImageUpload}/>
+      {/* <input className="post-selected-image" type="file" name="postSelectedImage" accept="image/*" onChange={handleImageUpload}/> */}
       <textarea className="post-text" name="postText" placeholder="Post text" cols="30" rows="10"></textarea>
       <button className="button">Create post</button>
       <button className="cancel-button button" type="button" onClick={handleCloseClick}>Canel</button>

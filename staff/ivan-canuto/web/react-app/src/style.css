@@ -3,6 +3,7 @@ html, body {
   min-height: 100vh;
   max-height: fit-content;
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  color: var(--basecolor);
 }
 
 body {
@@ -17,12 +18,13 @@ body {
   --basebgcolor: rgb(255, 255, 255);
   --bgheaderfooter: #e3e3e3;
   --bgpost: #e3e3e3;
+  --inputcolor: rgb(202, 202, 202);
 }
 
 :root.dark {
-  --basecolor: rgb(182, 182, 0);
-  --basebgcolor: rgb(177, 115, 0);
-  --bgheaderfooter: #003b77;
+  --basecolor: rgb(255, 255, 255);
+  --basebgcolor: rgb(70, 70, 70);
+  --bgheaderfooter: #202020;
 }
 
 .page {
@@ -57,7 +59,7 @@ body {
   padding: .5rem .6rem;
   border-radius: .75rem;
   background-color: var(--basecolor);
-  box-shadow: 0 0 0 20px rgb(202, 202, 202) inset;
+  box-shadow: 0 0 0 20px var(--inputcolor) inset;
 }
 
 button {
@@ -99,21 +101,7 @@ html, body {
   height: 100vh;
 }
 
-.add-comment_form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 5px;
-  position: absolute;
-  bottom: 0;
-}
-
-.add-comment_form button {
-  width: 50%;
-  border-radius: 5px;
-}
-
-.add-post, .edit-post {
+.add-post, .edit-post, .set-postprice, .buy-post, .add-comment {
   width: 100vw;
   height: 100vmax;
   background-color: rgba(0, 0, 0, 0.545);
@@ -123,7 +111,7 @@ html, body {
   z-index: 30;
 }
 
-.add-post-form, .edit-post-form {
+.add-post-form, .edit-post-form, .set-postprice-form, .buy-post-form, .add-comment_form {
   background: white;
   padding: 20px;
   border-radius: 20px;
@@ -135,29 +123,52 @@ html, body {
   bottom: 150px;
 }
 
+.set-postprice-form, .buy-post-form {
+  width: 300px;
+  height: 250px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  text-align: center;
+}
+
+.buy-post-form_buttons {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.buy-post-form_buttons button {
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 15px;
+}
+
 .post-url {
   width: 250px;
   border: 2px solid black;
   border-radius: 10px;
   padding: 10px;
-  box-shadow: 0 0 0 20px yellow inset;
+  box-shadow: 0 0 0 20px var(--inputcolor) inset;
 }
 
 .post-text {
   width: 250px;
   border: 2px solid black;
   height: 100px;
-  box-shadow: 0 0 0 60px yellow inset;
+  box-shadow: 0 0 0 60px var(--inputcolor) inset;
   border-radius: 10px;
   padding: 10px;
   overflow: hidden;
 }
 
-/* @media (min-width: 630px) {
-  .open-menu {
-    margin: 0 0 0 90px;
-  }
-} */
+.post-price-tag {
+  cursor: default;
+}
+
+.buy-post-form_buttons {
+  display: flex;
+}
 
 .fixed-scroll {
   overflow: hidden;

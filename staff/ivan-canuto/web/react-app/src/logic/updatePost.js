@@ -6,16 +6,16 @@ import { loadPosts, savePost, findUserById } from "../data"
  * 
  * @param {string} userId The user id
  * @param {string} postId The post id
- * @param {URL} postImageUrl the url of the image
+ * @param {URL} imageUrl the url of the image
  * @param {string} postText The text of the post
  * @param {function} callBack A function to catch errors and display them to the user.
  */
 
-export const updatePost = (userId, postId, postImageUrl, postText, callBack)=>{
+export const updatePost = (userId, postId, imageUrl, postText, callBack)=>{
 
   validateId(userId, 'user id')
   validateId(postId, 'post id')
-  validateUrl(postImageUrl)
+  validateUrl(imageUrl)
   validateText(postText)
   validateCallback(callBack)
   
@@ -43,11 +43,9 @@ export const updatePost = (userId, postId, postImageUrl, postText, callBack)=>{
       }
     
       post.text = postText
-      post.image = postImageUrl
+      post.image = imageUrl
     
       savePost(post, () => callBack(null))
     })
-
   })
-
 }

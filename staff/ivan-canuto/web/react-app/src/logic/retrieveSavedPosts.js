@@ -28,10 +28,10 @@ export function retrieveSavedPosts(userId, callBack) {
 
       let savedPostsApp
       
-      if(!user.favPosts)
+      if(!user.favs)
         savedPostsApp = []
       else
-        savedPostsApp = posts.filter(post => user.favPosts.includes(post.id))
+        savedPostsApp = posts.filter(post => user.favs.includes(post.id))
     
       callBack(null, savedPostsApp.toReversed())
     })

@@ -1,6 +1,4 @@
-import { validateId } from "./logic/helpers/validators"
-
-const DELAY = 100
+const DELAY = 500
 
 export const loadUsers = callBack => { setTimeout(() => {
     callBack('usersJson' in localStorage? JSON.parse(localStorage.usersJson) : [])

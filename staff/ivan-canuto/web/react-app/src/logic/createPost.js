@@ -11,27 +11,12 @@ import { savePost, findUserById, loadPosts } from '../data'
  * @param {function} callBack A function to catch errors and display them to the user.
  */
 
-export const createPost = (userId, imageUrl, selectedImage, postText, callBack) => {
+export const createPost = (userId, imageUrl, postText, callBack) => {
 
-  validateCallback(callBack)
-  
-  if(imageUrl && selectedImage) {
-    callBack(new Error('An url and an image file are entered, please enter only one of them.'))
-  
-    return
-  }
-
-  let postImage;
-  if(imageUrl) {
-    validateUrl(imageUrl)
-    postImage = imageUrl
-  } else {
-    postImage = selectedImage
-  }
-  
-  validateText(postText)
-  
   validateId(userId, 'user id')
+  validateUrl(imageUrl)
+  validateText(postText)
+  validateCallback(callBack)
   
   findUserById(userId, (user) => {
     if (!user) {
@@ -50,9 +35,12 @@ export const createPost = (userId, imageUrl, selectedImage, postText, callBack) 
       const post = {
         id,
         author: user.id,
-        image: postImage,
+        image: imageUrl,
         text: postText,
         date: date.toLocaleDateString(),
+        likes: [],
+        visible: true,
+        onSale: null
       }
     
       savePost(post, () => callBack(null))
