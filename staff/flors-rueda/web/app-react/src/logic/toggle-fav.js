@@ -1,16 +1,26 @@
-import { findUserById, saveUser } from '../data/data-managers.js';
-import { validatePostExists } from '../data/validators-posts.js';
-import { validateUserID } from '../data/validators-users.js';
+import { findPostById, findUserById } from '../data/data-managers';
+import { saveUser } from '../data/data';
+import { validatePostExists } from '../data/validators-posts';
+import { validateUserID } from '../data/validators-users';
 
-export const toggleFav = (postId, userId) => {
-  validateUserID(userId);
-  validatePostExists(postId);
-  const user = findUserById(userId);
-  const favIndex = user.favs.indexOf(postId);
-  if (favIndex === -1) {
-    user.favs.push(postId);
-  } else {
-    user.favs.splice(favIndex, 1);
-  }
-  saveUser(user);
+export const toggleFav = (postId, userId, callback) => {
+  //validateUserID(userId);
+  //validatePostExists(postId);
+  findUserById(userId, user => {
+    if (!user) {
+        callback(new Error(`user with id ${userId} not found`));
+        return;
+    }
+
+    findPostById(postId, post => {
+        if (!post) {
+            callback(new Error(`post with id ${postId} not found`));
+            return;
+        }
+        const index = user.favs.indexOf(postId);
+        index < 0 ? user.favs.push(postId) : user.favs.splice(index, 1);
+        
+        saveUser(user, () => callback(null));
+    })
+})
 }

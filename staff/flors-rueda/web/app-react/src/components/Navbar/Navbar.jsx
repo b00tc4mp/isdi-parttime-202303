@@ -1,5 +1,5 @@
 import { svg } from '../../../assets/svg-paths';
-import { useRef } from 'react';
+import { useState, useRef } from 'react';
 import './Navbar.css'
 
 export default function Navbar({ onLogoutClick, onProfileClick, onHomeClick, onFavsClick}) {
@@ -48,4 +48,77 @@ export default function Navbar({ onLogoutClick, onProfileClick, onHomeClick, onF
                 </button>
             </nav>
         </header>
+
 }
+
+
+
+    /*
+
+        */
+
+
+
+
+
+        /*
+            const [activeButton, setActiveButton] = useState(null);
+
+    const handleButtonHover = (buttonName) => {
+        setActiveButton(buttonName);
+      };
+
+    const handleLogoutClick = (event) => {
+        event.preventDefault();
+        onLogoutClick();
+    };
+
+    const handleProfileClick = (event) => {
+        event.preventDefault();
+        onProfileClick();
+    };
+
+    const handleFavsClick = () => onFavsClick();
+
+    const handleHomeClick = () => onHomeClick();
+
+    return <header>
+    <nav className="navbar">
+      <div className="navbar__option">
+        <button
+          className={`navbar__user ${activeButton === 'user' ? 'active' : ''}`}
+          onMouseEnter={() => handleButtonHover('user')}
+          onMouseLeave={() => handleButtonHover(null)}
+          onClick={handleProfileClick}
+        >
+          <img
+            className="navbar__user--image"
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Cat03.jpg/1200px-Cat03.jpg"
+            alt="User Avatar"
+          />
+        </button>
+        {activeButton === 'user' && <span className="navbar__user--title">profile</span>}
+      </div>
+      <div className="navbar__option">
+        <button
+          className={`navbar__home ${activeButton === 'home' ? 'active' : ''}`}
+          onMouseEnter={() => handleButtonHover('home')}
+          onMouseLeave={() => handleButtonHover(null)}
+          onClick={handleHomeClick}
+        >
+          <svg
+            className="navbar__home--icon"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 96 960 960"
+          >
+            <path d="M154.022 941.978V452.971L480 208.348l326.218 244.543v489.087H561.435V654.565h-162.87v287.413H154.022Z" />
+          </svg>
+        </button>
+        {activeButton === 'home' && <span className="navbar__user--title">home</span>}
+      </div>
+    </nav>
+  </header>
+        
+        
+        
+        */

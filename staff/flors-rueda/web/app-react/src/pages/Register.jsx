@@ -1,6 +1,4 @@
-import { context }from "../context";
-import { authenticateUser } from "../logic/authenticate-user";
-import { registerUser } from "../logic/register-user";
+import { registerUser } from '../logic/register-user';
 
 export default function Register({ onLoginClick, onUserRegistered }) {
     const handleLoginClick = (event) => {
@@ -17,8 +15,13 @@ export default function Register({ onLoginClick, onUserRegistered }) {
         const repeatPassword = event.target.password.value;
 
         try {
-            registerUser(mail, username, password, repeatPassword);
-            onUserRegistered();
+            registerUser(mail, username, password, repeatPassword, error => {
+                if (error) {
+                    console.log(`register error: ${error.message}`);
+                    return;
+                }
+                onUserRegistered();
+            });
         } catch (error) {
             console.log(`register error: ${error.message}`);
         }

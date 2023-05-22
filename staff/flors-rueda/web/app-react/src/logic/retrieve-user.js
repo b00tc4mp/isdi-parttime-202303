@@ -1,16 +1,22 @@
-import { findUserById } from '../data/data-managers.js';
-import users from '../data/users.js';
-import { validateUserID } from '../data/validators-users.js';
+import { findUserById } from '../data/data-managers';
+import { validateUserID } from '../data/validators-users';
 
-export const retrieveUser = (id) => {
-  validateUserID(id);
-  const _user = findUserById(id);
-  let user = {
-    username: _user.username,
-    name: _user.name,
-    avatar: _user.avatar,
-    favs: _user.favs,
-    joined: _user.joined,
-  };
-  return user;
+export const retrieveUser = (userId, callback) => {
+  //validateUserID(id);
+  findUserById(userId, user => {
+    if (!user) {
+        callback(new Error('user not found'));
+        return;
+    }
+
+    const _user = {
+      username: user.username,
+      name: user.name,
+      mail: user.mail,
+      avatar: user.avatar,
+      joined: user.joined,
+    }
+
+    callback(null, _user)
+  })
 };

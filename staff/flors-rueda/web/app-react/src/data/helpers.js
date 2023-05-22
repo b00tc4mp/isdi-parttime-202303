@@ -1,5 +1,4 @@
-import posts from './posts.js';
-import users from './users.js';
+import { loadPosts, loadUsers } from './data';
 
 export const generateUUID = () => {
   let date = new Date().getTime();
@@ -11,41 +10,41 @@ export const generateUUID = () => {
   });
 };
 
-export const isMailRegistered = (mail) => {
-  const _users = users();
-  for (let i = 0; i < _users.length; i++) {
-    if (_users[i].mail === mail) return true;
-  };
-  return false;
-};
+export const isMailRegistered = (mail, callback) =>
+  loadUsers(users => {
+    const isRegistered = users.some(user => user.mail === mail);
+    callback(isRegistered);
+  });
 
-export const isIdRegistered = (id) => {
-  const _users = users();
-  for (let i = 0; i < _users.length; i++) {
-    if (_users[i].id === id) return true;
-  };
-  return false;
-}
+export const isIdRegistered = (id, callback) =>
+  loadUsers(users => {
+    const isRegistered = users.some(user => user.id === id);
+    callback(isRegistered);
+});
 
-export const isUsernameRegistered = (username) => {
-  const _users = users();
-  for (let i = 0; i < _users.length; i++) {
-    if (_users[i].username === username) return true;
-  };
-  return false;
-};
+export const isUsernameRegistered = (username, callback) => 
+  loadUsers(users => {
+    const isRegistered = users.some(user => user.username === username);
+    callback(isRegistered);
+});
 
-export const isPasswordCorrect = (id, password) => {
-  const _users = users();
-  const loginUser = _users.filter((user) => user.id === id);
-  return loginUser[0].password === password;
-};
+export const isPasswordCorrect = (id, password, callback) => 
+  loadUsers(users => {
+    const isCorrectPassword = () => {
+      const loginUser = users.filter((user) => user.id === id);
+      return loginUser[0].password === password;
+    }
+    callback(isCorrectPassword);
+});
 
-export const areNewOldPasswordsEqual = (id, newPassword) => {
-  const _users = users();
-  const loginUser = _users.filter((user) => user.id === id);
-  return loginUser[0].password === newPassword;
-};
+export const areNewOldPasswordsEqual = (id, newPassword, callback) => 
+  loadUsers(users => {
+    const isPasswordsEqual = () => {
+      const loginUser = users.filter((user) => user.id === id);
+      return loginUser[0].password === newPassword;
+    }
+    callback(isPasswordsEqual);
+});
 
 export const confirmPassword = (password, repeatPassword) => {
   return password === repeatPassword;
@@ -56,11 +55,12 @@ export const isPasswordSafe = (password) => {
   return regexRule.test(password);
 };
 
-export const isPostPublished = (id) => {
-  const _posts = posts();
-  for (let i = 0; i < _posts.length; i++) {
-    if (_posts[i].id === id) return true;
-  };
-  return false
-};
+export const isPostPublished = (id, callback) => 
+  loadPosts(posts => {
+    const isPublished = posts.some(post => post.id === id);
+    callback(isPublished);
+  })
+
+
+
 

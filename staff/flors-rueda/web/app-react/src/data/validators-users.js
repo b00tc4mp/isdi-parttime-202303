@@ -1,5 +1,7 @@
 import { areNewOldPasswordsEqual, confirmPassword, isIdRegistered, isMailRegistered, isPasswordCorrect, isPasswordSafe, isUsernameRegistered } from './helpers.js';
 
+//TODO Fix validators to only synchronous stuff
+
 export const validateMail = (mail) => {
   if (typeof mail !== 'string') throw new Error('mail is not an string', { cause: 'mail' });
   if (!mail.trim().length) throw new Error('mail is empty', { cause: 'mail' });

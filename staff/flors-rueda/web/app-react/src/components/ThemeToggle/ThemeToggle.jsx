@@ -4,7 +4,7 @@ import './ThemeToggle.css';
 import { context } from '../../context';
 
 export default function ThemeToggle({ onToggleChange }) {
-    const [isChecked, setIsChecked] = useState(null);
+    const [isChecked, setIsChecked] = useState(context.theme === 'light');
   
     const handleToggleChange = () => {
       context.theme === 'light' ? setIsChecked(false) : setIsChecked(true);

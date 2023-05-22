@@ -11,15 +11,32 @@ export default function Posts({ onAuthorProfile, onEditPost, type, userId }) {
 
   const handleRefreshPosts = () => {
     try {
-      let updatedPosts;
       if (type === 'favs') {
-        updatedPosts = retrieveFavoritePosts(context.userAuth);
+        retrieveFavoritePosts(context.userAuth, (error, posts) => {
+          if (error) {
+            console.log(`posts error: ${error.message}`);
+            return;
+          }
+          setPosts(posts);
+        });
       } else if (type === 'home') {
-        updatedPosts = retrievePosts(context.userAuth);
+        retrievePosts(context.userAuth, (error, posts) => {
+          if (error) {
+            console.log(`posts error: ${error.message}`);
+            return;
+          }
+          setPosts(posts);
+        });
       } else {
-        updatedPosts = retrieveUserPosts(userId);
+        retrieveUserPosts(type, (error, posts) => {
+          if (error) {
+            console.log(`posts error: ${error.message}`);
+            return;
+          }
+          console.log(posts)
+          setPosts(posts);
+        });;
       }
-      setPosts(updatedPosts);
     } catch (error) {
       console.log(`posts error: ${error.message}`);
     }
@@ -36,8 +53,8 @@ export default function Posts({ onAuthorProfile, onEditPost, type, userId }) {
       <div className="home-page__main--posts-list">
         {posts.map((post) => (
           <Post
-            postId={post.id}
-            authorId={post.author}
+            post={post}
+            author={post.author}
             key={post.id}
             onEditPost={onEditPost}
             onToggledLike={handleRefreshPosts}

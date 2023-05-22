@@ -1,5 +1,5 @@
 import { validateUsername, validateUserPassword} from '../data/validators-users';
-import { getId } from '../data/data-managers';
+import { findUserByUsername } from '../data/data-managers';
 
 /**
  * Authenticates a user by username and password
@@ -9,10 +9,17 @@ import { getId } from '../data/data-managers';
  * 
  * @returns {string} The user's id
  */
-export const authenticateUser = (user, password) => {
+export const authenticateUser = (user, password, callback) => {
   const username = '@' + user.toLowerCase();
-  validateUsername(username);
-  const id = getId(username);
-  validateUserPassword(id, password) ;
-  return id;
+  
+  //validateUsername(username);
+  //validatePassword(password);
+  //validateCallback(callback);
+  findUserByUsername(username, user => {
+    if (!user || user.password !== password) {
+        callback(new Error('authentication failed'))
+        return
+    }
+    callback(null, user.id)
+    })
 };

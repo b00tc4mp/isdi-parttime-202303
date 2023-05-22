@@ -1,14 +1,29 @@
-import { saveUser } from '../data/data-managers';
-import users from '../data/users';
-import { validateNewPassword, validatePasswordChange, validateUserID, validateUserPassword } from '../data/validators-users';
+import { saveUser } from '../data/data';
+import { findUserById } from '../data/data-managers';
+import { validateNewPassword, validatePasswordChange, validateUserID } from '../data/validators-users';
 
-export const updatePassword = (id, oldPassword, repeatPassword, newPassword) => {
+export const updatePassword = (userId, oldPassword, repeatPassword, newPassword, callback) => {
     validateNewPassword(newPassword, repeatPassword);
-    validateUserID(id);
-    validateUserPassword(id, oldPassword);
-    validatePasswordChange(id, newPassword);
-    const _users = users()
-    const _user = _users.filter((user) => { if (user.id === userId) return user })[0];
-    _user.password = newPassword;
-    saveUser(_user);
-};
+    //validateUserID(userId);
+    //validatePasswordChange(userId, newPassword);
+
+    findUserById(userId, user => {
+        if (!user) {
+            callback(new Error('user not found'));
+            return;
+        }
+
+        if (oldPassword !== user.password) {
+            callback(new Error('wrong password'));
+            return;
+        }
+
+        if (newPassword === user.password) {
+            callback(new Error('new password equals old password'));
+            return;
+        }
+
+        user.password = newPassword;
+        saveUser(user, () => callback(null));
+    })
+}

@@ -1,7 +1,7 @@
 import { validatePostImage, validatePostText, validatePostExists, validatePostAuthor } from '../data/validators-posts';
 import { validateUserID } from '../data/validators-users';
-import posts from '../data/posts';
-import { savePost } from '../data/data-managers';
+import { findPostById, findUserById} from '../data/data-managers';
+import { savePost } from '../data/data';
 
 /**
  * Edits the post text and image
@@ -12,19 +12,33 @@ import { savePost } from '../data/data-managers';
  * @param {string} userId The user logged id
  * 
  */
-export const updatePost = (newText, newPostImg, id, userId) => {
-  validatePostExists(id);
-  validateUserID(userId);
-  validatePostText(newText);
-  validatePostImage(newPostImg);
-  const _posts = posts()
-  const originalPost = _posts.filter((post) => { if (post.id === id) return post })[0];
-  validatePostAuthor(originalPost, userId);
-  if(newPostImg) validatePostImage(newPostImg);
-  validatePostText(newText);
-  const editedPost = originalPost;
-  if(newText) editedPost.text = newText;
-  if(newPostImg) editedPost.image = newPostImg;
-  (editedPost.edited).push(new Date)
-  savePost(editedPost);
-};
+export const updatePost = (newText, newPostImg, postId, userId, callback) => {
+  //validatePostExists(id);
+  //validateUserID(userId);
+  //validatePostText(newText);
+  //validatePostImage(newPostImg);
+  
+  findUserById(userId, user => {
+    if (!user) {
+        callback(new Error(`user with id ${userId} not found`));
+        return;
+    }
+
+    findPostById(postId, post => {
+        if (!post) {
+            callback(new Error(`post with id ${postId} not found`));
+            return;
+        }
+
+        if (post.author !== userId) {
+            callback(new Error(`post with id ${postId} does not belong to user with id ${userId}`));
+            return;
+        }
+
+        if(newText) post.text = newText;
+        if(newPostImg) post.image= newPostImg;
+        (post.edited).push(new Date)
+        savePost(post, () => callback(null))
+    })
+})
+}

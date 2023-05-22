@@ -20,6 +20,7 @@ export default function Home({ onLoggedOut }) {
       setModal('edit-post');
     };
     const handleCloseModal = () => setModal(null);
+    //TODO add delete post modal and feature
   
     const handleGoToPosts = () => setView('posts');
   
@@ -47,7 +48,7 @@ export default function Home({ onLoggedOut }) {
         <Navbar onLogoutClick={handleLogout} onProfileClick={handleGoToProfile} onFavsClick={handleGoToFavs} onHomeClick={handleGoToPosts} />
         <main className="home-page__main">
           {view === 'posts' && (<Posts type={'home'} onEditPost={handleOpenEditPostModal} onAuthorProfile={handleGoToProfile}/>)}
-          {view === 'profile' && <Profile userId={userId} onEditPost={handleOpenEditPostModal} />}
+          {view === 'profile' && <Profile userId={userId} onEditPost={handleOpenEditPostModal} onDeleteAccount={handleLogout} />}
           {view === 'favs' && (<Posts type={'favs'} onEditPost={handleOpenEditPostModal} onAuthorProfile={handleGoToProfile}/>)}
           {modal === 'new-post' && <NewPost onCancel={handleCloseModal} onPostCreated={handleSubmitPost} />}
           {modal === 'edit-post' && <EditPost onCancel={handleCloseModal} postId={postId} onPostUpdated={handleSubmitPost} />}

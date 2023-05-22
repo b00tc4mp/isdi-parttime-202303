@@ -10,10 +10,23 @@ import { findPostById } from '../data/data-managers';
  * 
  * @returns a post object = { id: string, author: string, text: string, image: string, date: date, edited: array of dates, likes: array of strings}
  */
-export const retrievePost = (userId, postId) => {
-    validatePostExists(postId);
-    validateUserID(userId);
-    const post = findPostById(postId)
-    post.date = new Date(post.date)
-    return post
+export const retrievePost = (userId, postId, callback) => {
+    //validatePostExists(postId);
+    //validateUserID(userId);
+
+    findUserById(userId, user => {
+        if (!user) {
+            callback(new Error(`user with id ${userId} not found`));
+            return;
+        }
+
+        findPostById(postId, post => {
+            if (!post) {
+                callback(new Error(`post with id ${postId} not found`));
+                return;
+            }
+            post.date = new Date(post.date);
+            callback(null, post);
+        })
+    })
 }

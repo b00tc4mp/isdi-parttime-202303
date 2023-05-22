@@ -10,12 +10,18 @@ export default function EditPostModal({ onCancel, postId, onPostUpdated}) {
     const [post, setPost] = useState(null);
 
     useEffect(() => {
-        try {
-            const retrievedPost = retrievePost(context.userAuth, postId);
-            setPost(retrievedPost);
-            setSelectedImage({
-              base64: retrievedPost.image,
+        try { //TODO figure out why this setPost doesn't sets the post
+            retrievePost(context.userAuth, postId, (error, _post) => {
+              if(error) {
+                console.log(`edit post error: ${error.message}`);
+                return;
+              }
+              setPost(_post);
+              setSelectedImage({
+                base64: _post.image,
+              });
             });
+
         } catch (error) {
             console.log(`edit post error: ${error.message}`);
         }
@@ -57,8 +63,13 @@ export default function EditPostModal({ onCancel, postId, onPostUpdated}) {
         console.log(image)
         const text = event.target.text.value;
         try {
-            updatePost(text, image, postId, context.userAuth);
-            onPostUpdated();
+            updatePost(text, image, postId, context.userAuth, error => {
+              if(error) {
+                console.log(`edit post submit error: ${error.message}`);
+                return;
+              }
+              onPostUpdated();
+            });
         } catch (error) {
             console.log(`edit post submit error: ${error.message}`);
         }

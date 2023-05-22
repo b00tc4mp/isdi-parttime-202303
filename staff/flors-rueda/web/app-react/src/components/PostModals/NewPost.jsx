@@ -2,12 +2,11 @@ import { svg } from '../../../assets/svg-paths'
 import { context } from '../../context'
 import { uploadPost } from '../../logic/upload-post';
 import { useState } from 'react';
-import imageCompression from 'browser-image-compression'
+// TODO delete this library from the project import imageCompression from 'browser-image-compression'
 import './PostModals.css'
 
 export default function NewPostModal({ onCancel, onPostCreated }) {
   const [selectedImage, setSelectedImage] = useState(null);
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleCancel = (event) => {
     event.preventDefault();
@@ -15,31 +14,27 @@ export default function NewPostModal({ onCancel, onPostCreated }) {
   };
 
   const handleImageChange = async (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      try {
-        const compressedFile = await imageCompression(file, {
-          maxSizeMB: 0.5,
-          useWebWorker: true,
-        });
-
-        const reader = new FileReader();
-        reader.onload = () => {
-          setSelectedImage({
-            file: compressedFile,
-            base64: reader.result,
-          });
-        };
-        reader.readAsDataURL(compressedFile);
-      } catch (error) {
-        console.log('Image compression error:', error);
+    try{
+      const file = event.target.files[0];
+      if (file) {
+          const reader = new FileReader();
+          reader.onload = () => {
+              setSelectedImage({
+                  file: file,
+                  base64: reader.result,
+              });
+          };
+          reader.readAsDataURL(file);
+      } else {
+          setSelectedImage(null);
       }
-    } else {
-      setSelectedImage(null);
+    } catch {
+      console.log(`new post error: ${error.message}`);
     }
   };
 
   const handleDeleteImage = () => {
+    //TODO clean input (in edit modal too)
     setSelectedImage(null);
   }
 
@@ -48,13 +43,15 @@ export default function NewPostModal({ onCancel, onPostCreated }) {
     const image = selectedImage.base64;
     const text = event.target.text.value;
 
-    setIsSubmitting(true);
     try {
-      await uploadPost(image, text, context.userAuth);
-      setIsSubmitting(false);
-      onPostCreated();
+      uploadPost(image, text, context.userAuth, error => {
+        if(error){
+          console.log(`new post error: ${error.message}`)
+          return;
+        }
+        onPostCreated();
+      });
     } catch (error) {
-      setIsSubmitting(false);
       console.log(`new post error: ${error.message}`);
     }
   }
@@ -88,11 +85,7 @@ export default function NewPostModal({ onCancel, onPostCreated }) {
           </div>
           <textarea className="post-modal__form-input--textarea" name="text" type="text" maxLength="180"
             placeholder="max 180 chars"></textarea>
-          {isSubmitting ? (
-            <div className="post-modal__loading">posting...</div>
-          ) : (
-            <button type="submit" className="post-modal__form--submit">send</button>
-          )}
+          <button type="submit" className="post-modal__form--submit">send</button>
         </form>
       </div>
     </div>

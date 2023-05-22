@@ -1,53 +1,50 @@
-import users from './users.js'
-import posts from './posts.js';
+import { loadPosts, loadUsers } from './data';
 
-export const getId = (username) => {
-  const _users = users();
-  const loginUser = _users.filter((user) => user.username === username);
-  return loginUser[0].id;
-}
+export const getId = (username, callback) => 
+  loadUsers(users => {
+    const getUserId = () => {
+    const user = users.filter((_user) => _user.username === username);
+    return user[0].id;
+    }
+  callback(getUserId)
+  })
 
-export const getMail = (id) => {
-  const _users = users();
-  const loginUser = _users.filter((user) => user.id === id);
-  return loginUser[0].mail;
-}
+export const getMail = (id, callback) => 
+  loadUsers(users => {
+    const getUserMail = () => {
+    const user = users.filter((_user) => _user.id === id);
+    return user[0].mail;
+    }
+  callback(getUserMail)
+  })
 
-export const getUserIndex = (id) => {
-  const _users = users();
-  const loginUser = _users.filter((user) => user.id === id);
-  return users.indexOf(loginUser[0]);
-}
+export const getUserIndex = (id, callback) => 
+  loadUsers(users => {
+    const getIndex = () => {
+    const user = users.filter((_user) => _user.id === id);
+    return users.indexOf(user[0]);
+  }
+  callback(getIndex)
+  })
 
-export const findPostById = (postId) => {
-  const _posts = posts();
-  return _posts.find(post => post.id === postId);
-}
 
-export const findUserById = (userId) => {
-  const _users = users();
-  return _users.find(user => user.id === userId);
-}
+export const findPostById = (postId, callback) => 
+  loadPosts(posts => {
+    callback(posts.find(post => post.id === postId))
+  })
 
-export const saveUsers = (users) => {
-  localStorage.usersJson = JSON.stringify(users);
-}
 
-export const savePosts = (posts) => {
-  localStorage.postsJson = JSON.stringify(posts);
-}
-export const saveUser = (user) => {
-  const _users = users();
-  const index = _users.findIndex(_user => _user.id === user.id);
-  if (index < 0) _users.push(user);
-  else _users.splice(index, 1, user);
-  saveUsers(_users);
-}
+export const findUserById = (userId, callback) => 
+  loadUsers(users => {
+    callback(users.find(user => user.id === userId))
+  })
 
-export const savePost = (post) => {
-  const _posts = posts();
-  const index = _posts.findIndex(_post => _post.id === post.id);
-  if (index < 0) _posts.push(post);
-  else _posts.splice(index, 1, post);
-  savePosts(_posts);
-}
+export const findUserByUsername = (username, callback) => 
+  loadUsers(users => {
+    callback(users.find(user => user.username === username))
+  })
+
+export const findUserByMail = (mail, callback) =>
+  loadUsers(users => {
+    callback(users.find(user => user.mail === mail))
+  })

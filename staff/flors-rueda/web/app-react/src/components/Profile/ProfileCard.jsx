@@ -4,11 +4,29 @@ import { retrieveUser } from '../../logic/retrieve-user';
 import { colors } from '../../../assets/avatar';
 import Avatar from 'boring-avatars';
 import './ProfileCard.css';
+import { useState, useEffect } from 'react';
 
-export default function ProfileCard({ userId, onSettingsClick, selectedAvatar }) {
-  const userData = retrieveUser(userId);
+export default function ProfileCard({ userId, onSettingsClick, selectedAvatar}) {
+  const [isSettingsOn, setIsSettingsOn] = useState(false);
+  const [user, setUser] = useState()
+
+  useEffect(() => {
+      try {
+          retrieveUser(userId, (error, user) => {
+              if (error) {
+                  console.log(error.message);
+                  return;
+              }
+              setUser(user);
+          })
+      } catch (error) {
+        console.log(error.message)
+      }
+  }, [])
+
   const handleSettingsClick = () => {
     onSettingsClick();
+    setIsSettingsOn(!isSettingsOn)
   };
   console.log('ProfileCard -> render');
 
@@ -16,19 +34,9 @@ export default function ProfileCard({ userId, onSettingsClick, selectedAvatar })
     return (
       <article className="user-card">
         <div className="user-card__border">
-          {userId === context.userAuth && (
-            <svg
-              onClick={handleSettingsClick}
-              className="user-card__settings"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 96 960 960"
-            >
-              <path d={svg.settings} />
-            </svg>
-          )}
           <div className="user-card__avatar">
             {selectedAvatar ? (
-              selectedAvatar.length > 6 ?
+              selectedAvatar.length > 10 ?
               <img
                 className="user-card__avatar-image"
                 src={selectedAvatar}
@@ -41,23 +49,41 @@ export default function ProfileCard({ userId, onSettingsClick, selectedAvatar })
               name={selectedAvatar}
             /> 
             ) : (
-              userData.avatar.random ?
+              user.avatar.random ?
               <Avatar
                 size={128}
                 variant="beam"
                 colors={colors}
-                name={userData.avatar.src}
+                name={user.avatar.src}
               /> :
               <img
                 className="user-card__avatar-image"
-                src={userData.avatar.src}
+                src={user.avatar.src}
                 alt="User Avatar"
               />
             )}
           </div>
         </div>
-        <p className="user-card__name">{userData.name}</p>
-        <p className="user-card__username">{userData.username}</p>
+        <div className="user-card__footer">
+        <div className="user-card__data">
+          <div className="user-card__name">
+            <p className="user-card__name">{user.name}</p>
+            <p className="user-card__username">{user.username}</p>
+          </div>
+        </div>
+        {userId === context.userAuth && (
+            <div className="user-view__change"><svg
+            onClick={handleSettingsClick}
+            className="user-view__icon"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 96 960 960"
+          >
+            <path d={isSettingsOn ? svg.album : svg.settings} />
+          </svg>
+            <b className="user-view__name">{isSettingsOn ? 'my posts' : 'settings'}</b>
+          </div>
+          )}
+        </div>
       </article>
     );
   } catch (error) {

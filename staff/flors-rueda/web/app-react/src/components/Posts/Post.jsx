@@ -8,15 +8,19 @@ import { colors } from '../../../assets/avatar';
 import Avatar from 'boring-avatars';
 import './Posts.css';
 
-export default function Post({ postId, authorId, onEditPost, onToggledLike, onToggledFav, isProfileView, onAuthorProfile, userId }) {
-    const post = retrievePost(context.userAuth, postId);
-    const author = retrieveUser(authorId);
-    const handleEditPost = () => onEditPost(postId);
-    const handleToAuthorProfile = () => onAuthorProfile(post.author);
+export default function Post({ post, author, onEditPost, onToggledLike, onToggledFav, isProfileView, onAuthorProfile, userId }) {
+    const handleEditPost = () => onEditPost(post.id);
+    const handleToAuthorProfile = () => onAuthorProfile(author.id);
     const handleToggleLikePost = () => {
         try {
-            toggleLike(postId, context.userAuth);
-            onToggledLike();
+            toggleLike(post.id, context.userAuth, error => {
+                if(error){
+                    console.log(`post fav error: ${error.message}`);
+                    return;
+                }
+                onToggledLike();
+            });
+            
         } catch (error) {
             console.log(`post like error: ${error.message}`);
         }
@@ -24,8 +28,13 @@ export default function Post({ postId, authorId, onEditPost, onToggledLike, onTo
 
     const handleToggleFavPost = () => {
         try {
-            toggleFav(postId, context.userAuth);
-            onToggledFav();
+            toggleFav(post.id, context.userAuth, error => {
+                if(error){
+                    console.log(`post fav error: ${error.message}`);
+                    return;
+                }
+                onToggledFav();
+            });
         } catch (error) {
             console.log(`post fav error: ${error.message}`);
         }
@@ -75,7 +84,7 @@ export default function Post({ postId, authorId, onEditPost, onToggledLike, onTo
             <b>{post.likes.length}</b></div>
         <div className="post__footer">
             <div className="post__footer--favorite">
-                <svg className="post__footer--favorite-button" onClick={handleToggleFavPost} xmlns="http://www.w3.org/2000/svg" viewBox="0 96 960 960"><path d={(retrieveUser(context.userAuth).favs).includes(post.id) ? svg.fillStar : svg.emptyStar} /></svg>
+                <svg className="post__footer--favorite-button" onClick={handleToggleFavPost} xmlns="http://www.w3.org/2000/svg" viewBox="0 96 960 960"><path d={post.isFav ? svg.fillStar : svg.emptyStar} /></svg>
             </div>
             {time}
         </div>

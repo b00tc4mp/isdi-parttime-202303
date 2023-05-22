@@ -1,5 +1,7 @@
 import { isPostPublished } from './helpers';
 
+//TODO Fix validators to only synchronous stuff
+
 export const validatePostText = (text) => {
   if (typeof text !== 'string') throw new Error('text is not a string');
   if (!text.trim().length) throw new Error('text is empty');
