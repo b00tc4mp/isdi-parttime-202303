@@ -1,46 +1,71 @@
-import { savePostInStorage, saveUserInStorage, posts, users } from "../data.js"
+import { savePostInStorage, saveUserInStorage, findUserbyId } from "../data"
+import retrievePost from "./retrievePost"
 
-export default function likeAndUnlike (post, userId) {
+/**
+ * Toggles the like or unlike for a post
+ * @param {object} post A post object
+ * @param {string} userId user's id
+ */
 
-    const _posts = posts()
-    const _post = _posts.find(_post => _post.id === post.id)
-    
-    const _users = users()
-    const _user = _users.find(_user => _user.id === userId)
+export default function likeAndUnlike (postId, userId, callback) {
 
-        const postAlreadyLikedByUser = _user.likedPosts.includes(_post.id)
+    findUserbyId(userId, user => {
+        if(!user){
+            callback(new Error('User not found'))
 
-        if(!postAlreadyLikedByUser){
-
-            const likesInPost = "likes" in _post
-            if (likesInPost){
-                _post.likes.push(userId)
-            } else {
-                _post.likes = []
-                _post.likes.push(userId)
-            }
-
-            const likedPostsInUser = "likedPosts" in _user
-            if(likedPostsInUser){
-                _user.likedPosts.push(post.id)
-            } else {
-                _user.likedPosts = []
-                _user.likedPosts.push(post.id)
-            }
-            savePostInStorage(_post)
-            saveUserInStorage(_user)
-        } else{
-            const indexPostInUser = _user.likedPosts.findIndex(elem => elem === post.id)
-            _user.likedPosts.splice(indexPostInUser, 1)
-
-            const indexUserInPost = _post.likes.findIndex(elem => elem.id === userId) 
-            _post.likes.splice(indexUserInPost, 1)
-
-            savePostInStorage(_post)
-            saveUserInStorage(_user)
+            return
         }
+
+        retrievePost(userId, postId, (error, post) => {
+            if(error){
+                generateToast({
+                    message: error.message,
+                    type: errorToast
+                })
+                console.log(error.stack)
+                return
+            }
+
+            const postAlreadyLikedByUser = user.likedPosts.includes(post.id)
+
+            if(!postAlreadyLikedByUser){
     
+                const likesInPost = post.likes
+                if (likesInPost){
+                    post.likes.push(userId)
+                } else {
+                    post.likes = []
+                    post.likes.push(userId)
+                }
     
+                const likedPostsInUser = "likedPosts" in user
+                if(likedPostsInUser){
+                    user.likedPosts.push(post.id)
+                    savePostInStorage(post, () => callback(null))
+                    saveUserInStorage(user, () => callback(null))
+                } else {
+                    user.likedPosts = []
+                    user.likedPosts.push(post.id)
+                    savePostInStorage(post, () => callback(null))
+                    saveUserInStorage(user, () => callback(null))
+                }
+                
+            } else{
+                const indexPostInUser = user.likedPosts.findIndex(elem => elem === post.id)
+                user.likedPosts.splice(indexPostInUser, 1)
+    
+                const indexUserInPost = post.likes.findIndex(elem => elem.id === userId) 
+                post.likes.splice(indexUserInPost, 1)
+    
+                savePostInStorage(post, () => callback(null))
+                saveUserInStorage(user, () => callback(null))
+            }
+
+        })
+    })
+
+
+        
 }
 
 

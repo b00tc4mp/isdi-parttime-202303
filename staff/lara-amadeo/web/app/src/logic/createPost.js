@@ -1,36 +1,54 @@
-import { posts, savePostsInStorage } from "../data.js";
-import { findUserbyId } from "./helpers/data-managers.js";
+import { savePostsInStorage, findUserbyId, loadPosts } from "../data"
 
-export default function createPost(userId, image, text) {
+/**
+ * Creates a post with the params given
+ * @param {string} userId user's id
+ * @param {url} image post's image url
+ * @param {string} text post's caption
+ * 
+ */
 
-    const user = findUserbyId(userId)
+export default function createPost(userId, image, text, callback) {
 
-    if (!user) throw new Error(`User with id ${userId} not found`)
+   findUserbyId(userId, user => {
 
-    const _posts = posts()
+       if (!user){
+        callback(new Error(`User with id ${userId} not found`))
+        return
+       } 
+   
+       loadPosts(posts => {
 
-    let newPost = {}
-    if(_posts.length === 0) {
-        newPost = {
-            id: 'post-1',
-            author: userId,
-            image,
-            text,
-            date: new Date
-        }
-    } else {
-        const lastPostId = _posts[_posts.length - 1].id
-        const newPostId = 'post-' + (Number((lastPostId).slice(5)) + 1)
-    
-        newPost = {
-            id: newPostId,
-            author: userId,
-            image,
-            text,
-            date: new Date
-        }
-    }
+           let newPost
+           if(posts.length === 0) {
+               newPost = {
+                   id: 'post-1',
+                   author: userId,
+                   image,
+                   text,
+                   date: new Date,
+                   visibility: 'private',
+                   price: 0
+               }
+           } else {
+               const lastPostId = posts[posts.length - 1].id
+               const newPostId = 'post-' + (Number((lastPostId).slice(5)) + 1)
+           
+               newPost = {
+                   id: newPostId,
+                   author: userId,
+                   image,
+                   text,
+                   date: new Date,
+                   visibility: 'private',
+                   price: 0
+               }
+           }
+       
+           posts.push(newPost)
+           savePostsInStorage(posts, () => callback(null))
+       })
+   
+    })
 
-    _posts.push(newPost)
-    savePostsInStorage(_posts)
 }

@@ -1,32 +1,71 @@
-import { retrieveUser } from "../../logic/helpers/data-managers"
+import retrieveUser from "../../logic/retrieveUser"
 import { context } from "../../ui"
-import { posts } from "../../data"
+import './ProfileInformation.css'
+import { useEffect, useState } from "react"
+import retrievePosts from "../../logic/retrievePosts"
 
 export default function ProfileInformation(){
-    const _posts = posts()
-    const user = retrieveUser(context.userId)
-    return <div className="personal-profile-header">
-    <img className="personal-profile-image" src={user.avatar} alt=""/>
 
+    const [user, setUser] = useState()
+    const [posts, setPosts] = useState()
+
+   useEffect(() => {
+       try {
+            retrieveUser(context.userId, (error, user) => {
+                if(error){
+                    generateToast({
+                        message: error.message,
+                        type: errorToast
+                    })
+                    console.log(error.stack)
+                    return
+                }
+                setUser(user)
+    
+                retrievePosts(context.userId, (error, posts) => {
+                    if(error){
+                        generateToast({
+                            message: error.message,
+                            type: errorToast
+                        })
+                        console.log(error.stack)
+                        return
+                    }
+                    setPosts(posts)
+                })
+            })
+        } catch(error) { 
+            generateToast({
+                message: error.message,
+                type: errorToast
+            })
+            console.log(error.stack)
+        }
+   },[]) 
+
+    return <div className="personal-profile-header">
+    {user && <img className="personal-profile-image" src={user.avatar} alt=""/>}
     <div className="personal-profile-data-and-activity">
         <div className="personal-profile-data">
-            <p className="personal-profile-username title">{user.username}</p>
+            {user && <p className="personal-profile-username title">{user.username}</p>}
             <p className="personal-profile-biography body-text">Very long biography of this person or avatar</p>
         </div>
 
         <div className="personal-profile-activity">
             <div className="personal-profile-activity-single">
-                <p className="personal-profile-activity-posts-number body-text-bold">{_posts.reduce((num, post) => (post.author === context.userId ? num+1 : num), 0)}</p>
+                {posts && <>
+                <p className="body-text-bold">{posts.reduce((num, post) => (post.author.id === context.userId ? num+1 : num), 0)}</p>
+                </>}
                 <p className="body-text">posts</p>
             </div>
 
             <div className="personal-profile-activity-single">
-                <p className="personal-profile-activity-followers-number body-text-bold">23</p>
+                <p className="body-text-bold">23</p>
                 <p className="body-text">followers</p>
             </div>
 
             <div className="personal-profile-activity-single">
-                <p className="personal-profile-activity-following-number body-text-bold">23</p>
+                <p className="body-text-bold">23</p>
                 <p className="body-text">following</p>
             </div>
         </div>

@@ -1,45 +1,46 @@
-import { Component } from "react"
-import SettingsMenu from "../components/settings/settingsMenu.jsx"
+import SettingsMenu from "../components/settings/SettingsMenu.jsx"
 import UpdateEmail from "../components/settings/UpdateEmail.jsx"
 import UpdatePassword from "../components/settings/UpdatePassword.jsx"
 import UpdateAvatar from "../components/settings/UpdateAvatar.jsx"
+import { useState } from "react"
+import './Settings.css'
+import Header from "../components/Header.jsx"
 
-export default class Settings extends Component{
-    constructor(props){
-        super(props)
-    
-        this.state = { view: 'menu' }
+export default function Settings({ onSidebarUpdates, onLogOutLink }){
+ 
+    const [view, setView] = useState('menu')
+
+    const handleGoToUpdateEmail = () => {
+        setView('email')
     }
 
-    handleGoToUpdateEmail = () => {
-        this.setState({ view: 'email' })
+    const handleGoToUpdatePassword = () => {
+        setView('password')
     }
 
-    handleGoToUpdatePassword = () => {
-        this.setState({ view: 'password' })
+    const handleGoToUpdateAvatar = () => {
+        setView('avatar')
     }
 
-    handleGoToUpdateAvatar = () => {
-        this.setState({ view: 'avatar' })
+    const returnToSettingsMenu = () => {
+        setView('menu')
+
+        onSidebarUpdates()
     }
 
-    returnToSettingsMenu = () => {
-        this.setState({ view: 'menu' })
-
-        this.props.onSidebarUpdates()
+    const handleLogOut = () => {
+        onLogOutLink()
     }
 
-    render(){
-    return <div className="settings">
-    <div className="header">
-        <p className="heading-M-bold">Settings</p>
-    </div>
+
+    return <div className='settings'>
+        {<Header title={'Settings'}/>}
     <div className="centered-content-container">
-        {this.state.view === 'menu' && <SettingsMenu onEmailRowClick={this.handleGoToUpdateEmail} onPasswordRowClick={this.handleGoToUpdatePassword} onAvatarRowClick={this.handleGoToUpdateAvatar} />}
-        {this.state.view === 'email' && <UpdateEmail onSaveUpdateEmailClick={this.returnToSettingsMenu} onCancelUpdateEmailClick={this.returnToSettingsMenu}/>} 
-        {this.state.view === 'password' && <UpdatePassword onSaveUpdatePasswordClick={this.returnToSettingsMenu} onCancelUpdatePasswordClick={this.returnToSettingsMenu}/>}
-        {this.state.view === 'avatar' && <UpdateAvatar onSaveUpdateAvatarClick={this.returnToSettingsMenu} onCancelUpdateAvatarClick={this.returnToSettingsMenu} />}
+        {view === 'menu' && <SettingsMenu onEmailRowClick={handleGoToUpdateEmail} onPasswordRowClick={handleGoToUpdatePassword} onAvatarRowClick={handleGoToUpdateAvatar} onLogOutButton={handleLogOut} />}
+        {view === 'email' && <UpdateEmail onSaveUpdateEmailClick={returnToSettingsMenu} onCancelUpdateEmailClick={returnToSettingsMenu}/>} 
+        {view === 'password' && <UpdatePassword onSaveUpdatePasswordClick={returnToSettingsMenu} onCancelUpdatePasswordClick={returnToSettingsMenu}/>}
+        {view === 'avatar' && <UpdateAvatar onSaveUpdateAvatarClick={returnToSettingsMenu} onCancelUpdateAvatarClick={returnToSettingsMenu} />}
     </div>
     </div>
-    }
+    
 }

@@ -1,125 +1,197 @@
-import { Component } from "react"
-import Posts from '../components/Posts.jsx'
+import Posts from '../components/posts/Posts'
 import Settings from "./Settings.jsx"
-import CreatePostModal from "../components/CreatePostModal.jsx"
-import EditPostModal from "../components/EditPostModal.jsx"
+import CreatePostModal from "../components/posts/CreatePostModal.jsx"
+import EditPostModal from "../components/posts/EditPostModal.jsx"
+import VisibilityModal from '../components/posts/VisibilityPostModal'
 import SidebarMenu from "../components/SidebarMenu.jsx"
+import SidebarMobile from '../components/SidebarMobile'
+import TopbarMenu from '../components/TopbarMenu'
 import Profile from "./Profile.jsx"
-import DeletionPostModal from "../components/DeletionPostModal.jsx"
-import { users, saveUsersInStorage } from "../data.js"
+import DeletionPostModal from "../components/posts/DeletionPostModal.jsx"
+import { useState } from 'react'
+import './Home.css'
+import SellPostModal from '../components/posts/SellPostModal'
+import BuyPostModal from '../components/posts/BuyPostModal'
 
 
-export default class Home extends Component{
-    constructor(props){
-        super(props)
+export default function Home({ onLogOutLink }) {
 
-        this.state = { view: 'posts', modal: null , postId: undefined}
+    const [view, setView] = useState('posts')
+    const [modal, setModal] = useState(null)
+    const [postId, setPostId] = useState(null)
+    const [lastPostUpdate, setLastPostUpdate] = useState(null)
+    const [lastUserRenderUpdate, setLastUserRenderUpdate] = useState(Date.now())
+    const [mobileSidebar, setMobileSidebar] = useState(null)
+
+
+    const handleGoToSettings = () => {
+        setView('settings')
     }
 
-    handleGoToSettings = () => {
-        this.setState({ view: 'settings' })
+    const openPostCreationModal = () => {
+        setModal('createPost')
     }
 
-    handleToggleLike = () => {
-        this.forceUpdate()
+    const confirmPostCreationModal = () => {
+        setModal(null)
+        setLastPostUpdate(Date.now())
     }
 
-    handleToggleSave = () => {
-        this.forceUpdate()
+    const openEditPostModal = (id) => {
+        setModal('editPost')
+        setPostId(id)
     }
 
-    openPostCreationModal = () => {
-        this.setState({ modal: 'createPost' })
+    const confirmEditPostModal = () => {
+        setModal(null)
+        setLastPostUpdate(Date.now())
+
     }
 
-    closePostCreationModal = () => {
-        this.setState({ modal: null })
-        this.forceUpdate()
+    const openDeletePostModal = (id) => {
+        setModal('deletionConfirmation')
+        setPostId(id)
     }
 
-    openEditPostModal = (id) => {
-        this.setState({ modal: 'editPost', postId: id })
-        console.log(id)
+    const confirmDeletePostModal = () => {
+        setModal(null)
+        setLastPostUpdate(Date.now())
     }
 
-    openDeletePostModal = (id) => {
-        this.setState({ modal: 'deletionConfirmation', postId: id })
+    const closeDeletePostModal = () => {
+        setModal(null)
     }
 
-    closeDeletePostModal = () => {
-        this.setState({ modal: null })
+    const confirmChangeVisibility = () => {
+        setModal(null)
+        setLastPostUpdate(Date.now())
     }
-    
-    closeEditCreationModal = () => {
-        this.setState({ modal: null })
-        this.forceUpdate()
-    }
-
-    updateSidebarRender = () => {
-        this.forceUpdate()
+   
+    const updateSidebarRender = () => {
+        setLastUserRenderUpdate(Date.now())
     }
 
-    handleGoToHome = () => {
-        this.setState({ view: 'posts' })
+    const handleGoToHome = () => {
+        setView('posts')
+        setMobileSidebar(null)
     }
 
-    handleGoToProfile = () => {
-        this.setState({ view: 'profile' })
+    const handleGoToProfile = () => {
+        setView('profile')
     }
 
+    const handleLogOut = () => {
+        onLogOutLink()
+    }
 
-    render(){
+    const handleOpenSidebar = () => {
+        setMobileSidebar('open')
 
-       return <div className="homepage">
+    }
 
-        <div className="topbar-container">
-            <div className="topbar-left-side">
-                <div className="avatar-icon-m-container"><span className="material-symbols-rounded icon-s topbar">menu</span></div>
-            </div>
-            <div className="topbar-right-side">
-                <div className="avatar-icon-m-container"><span className="material-symbols-rounded icon-s topbar">settings</span></div>
-    
-                <img src="https://media.istockphoto.com/id/1223671392/vector/default-profile-picture-avatar-photo-placeholder-vector-illustration.jpg?s=612x612&w=0&k=20&c=s0aTdmT5aU6b8ot7VKm11DeID6NctRCpB755rA1BIP0=" className="topbar-avatar"></img>
-            </div>
-        </div>
+    const handleCloseSidebar = () => {
+            setMobileSidebar(null)
+    }
+
+    const openVisibilityPostModal = (id) => {
+        setModal('visibilityModal')
+        setPostId(id)
+    }
+
+    const openSellPostModal = id => {
+        setModal('sellPostModal')
+        setPostId(id)
+    }
+
+    const confirmSellPost = () => {
+        setModal(null)
+        setLastPostUpdate(Date.now())
+    }
+
+    const openBuyPostModal = id => {
+        setModal('buyPostModal')
+        setPostId(id)
+    }
+
+    const closeAnyPostModal = () => {
+        setModal(null)
+    }
+
+    return <div className="homepage">
+        {<TopbarMenu
+        lastUserRenderUpdate={lastUserRenderUpdate}
+        onSettingsButton={handleGoToSettings}
+        onProfileAvatarButton={handleGoToProfile}
+        onBurguerButton={handleOpenSidebar}/>}
         <div className="content-container">
+            {mobileSidebar === 'open' && <SidebarMobile onCloseSidebarButton={handleCloseSidebar} onHomeMobileSidebarRow={handleGoToHome} sidebarToggle={mobileSidebar}/>}
         <div className="left-container">
-           {<SidebarMenu onSettingsRow={this.handleGoToSettings} onHomeRow={this.handleGoToHome} onProfileComponent={this.handleGoToProfile} />}
+           {<SidebarMenu lastUserRenderUpdate={lastUserRenderUpdate} onSettingsRow={handleGoToSettings} onHomeRow={handleGoToHome} onProfileComponent={handleGoToProfile} />}
         </div>
         <div className="main-container">
                 <div className="middle-section">
-                    {this.state.view === 'posts' &&
+                    {view === 'posts' &&
                     <Posts
-                    onLikePost={this.handleToggleLike}
-                    onSavePost={this.handleToggleSave}
-                    onCreateButton={this.openPostCreationModal}
-                    onEditPostButtonClick={(id)=> this.openEditPostModal(id)}
-                    onDeletePostButtonClick={(id) => this.openDeletePostModal(id)}
+                    onCreateButton={openPostCreationModal}
+                    onEditPostButtonClick={openEditPostModal}
+                    onDeletePostButtonClick={openDeletePostModal}
+                    onVisibilityButton={openVisibilityPostModal}
+                    onSellPostButton={openSellPostModal}
+                    onBuyPostButton={openBuyPostModal}
+                    lastPostUpdate={lastPostUpdate}
                     />}
-                    {this.state.view === 'settings' && <Settings onSidebarUpdates={this.updateSidebarRender}/>}
-                    {this.state.view === 'profile' && <Profile />}
+                    {view === 'settings' && <Settings onSidebarUpdates={updateSidebarRender} onLogOutLink={handleLogOut}/>}
+                    {view === 'profile' && <Profile />}
                 </div>
                 <div className="right-section"></div>
         </div>
             
-            {this.state.modal === 'createPost' && <CreatePostModal onCreatePostClick={this.closePostCreationModal} onCancelCreatePostButton={this.closePostCreationModal}/>}
-            {this.state.modal === 'editPost' && <EditPostModal postId={this.state.postId} onConfirmEditPost={this.closeEditCreationModal} onCancelEditPost={this.closeEditCreationModal}/>}
-            {this.state.modal === 'deletionConfirmation' && <DeletionPostModal postId={this.state.postId} onCancelDeletePost={this.closeDeletePostModal} onConfirmDeletePost={this.closeDeletePostModal}/>}
+            {modal === 'createPost' && <CreatePostModal
+            onCreatePostClick={confirmPostCreationModal}
+            onCancelCreatePostButton={closeAnyPostModal}
+            />}
+
+            {modal === 'editPost' && <EditPostModal
+            postId={postId}
+            onConfirmEditPost={confirmEditPostModal}
+            onCancelEditPost={closeAnyPostModal}
+            />}
+
+            {modal === 'deletionConfirmation' && <DeletionPostModal
+            postId={postId}
+            onCancelDeletePost={closeAnyPostModal}
+            onConfirmDeletePost={confirmDeletePostModal}
+            />}
+
+            {modal === 'visibilityModal' && <VisibilityModal
+            postId={postId}
+            onConfirmChangeVisiblity={confirmChangeVisibility}
+            onCancelChangeVisibility={closeAnyPostModal}
+            />}
+
+            {modal === 'sellPostModal' && <SellPostModal
+            postId={postId}
+            onConfirmSellPost={confirmSellPost}
+            onCancelSellPost={closeAnyPostModal}
+            />}
+
+            {modal === 'buyPostModal' && <BuyPostModal
+            postId={postId}
+            onCancelBuyPost={closeAnyPostModal}
+            />}             
         </div>
     </div>
     }
-}
 
 
 
 
 /*
 handleDeleteThings = () => {
-    const _users = users()
     _users.forEach(_user => _user.likedPosts = [])
     _users.forEach(_user => _user.savedPosts = [])
      saveUsersInStorage(_users)
     }
 
-<button onClick={this.handleDeleteThings} name='delete'>Delete</button>
+<button onClick={handleDeleteThings} name='delete'>Delete</button>
 */

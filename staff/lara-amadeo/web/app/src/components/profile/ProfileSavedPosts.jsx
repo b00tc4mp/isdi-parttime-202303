@@ -1,15 +1,25 @@
-import { posts } from "../../data"
-import { findUserbyId } from "../../logic/helpers/data-managers"
+import { useState } from "react"
 import { context, errorToast, generateToast } from "../../ui"
 import ProfileSavedPost from "./ProfileSavedPost"
+import './ProfileSavedPosts.css'
+import retrieveSavedPosts from "../../logic/retrieveSavedPosts"
 
 export default function ProfileSavedPosts(){
-    let savedPosts
+
+    const [savedPosts, setSavedPosts] = useState()
     
     try{
-    const _posts = posts()
-    const user = findUserbyId(context.userId)
-    savedPosts = _posts.filter(post => user.savedPosts.includes(post.id))
+        retrieveSavedPosts(context.userId, (error, posts) => {
+            if(error){
+                generateToast({
+                       message: error.message,
+                    type: errorToast
+                })
+                console.log(error.stack)
+                return
+            }
+            setSavedPosts(posts)
+        })
     } catch (error){
         generateToast({
             message: error.message,
@@ -17,7 +27,9 @@ export default function ProfileSavedPosts(){
         })
     }
 
-    return <div className="personal-profile-posts">
-    {savedPosts.map(post => <ProfileSavedPost post={post} />)}
-</div>
+    return <>
+    {savedPosts && <div className="personal-profile-posts">
+    {savedPosts.map(post => <ProfileSavedPost key={post.id} post={post} />)}
+    </div>}
+    </>
 }
