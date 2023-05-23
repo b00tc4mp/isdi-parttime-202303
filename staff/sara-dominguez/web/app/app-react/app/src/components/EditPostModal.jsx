@@ -3,7 +3,7 @@ import { updatePost } from '../logic/updatePost'
 import retrievePost from '../logic/retrievePost.js'
 import { useState, useEffect } from 'react'
 
-export default function EditPostModal({ onCancel, onPostUpdated, postId }) {
+export default function EditPostModal({ onCancel, onPostUpdated, postId}) {
     const [post, setPost] = useState(null)
     
     function handleCancel(event) {
@@ -19,7 +19,13 @@ export default function EditPostModal({ onCancel, onPostUpdated, postId }) {
         const text = event.target.text.value
         
         try {
-            updatePost(context.userId, postId, image, text) 
+            updatePost(context.userId, postId, image, text, error =>{
+                if (error) {
+                    alert(error.message)
+
+                    return
+                }
+            }) 
                 
             onPostUpdated()
         } catch (error) {

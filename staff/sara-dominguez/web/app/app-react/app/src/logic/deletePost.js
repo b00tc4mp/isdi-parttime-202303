@@ -1,4 +1,4 @@
-import { savePost, loadPosts } from "../data.js";
+import { savePosts, loadPosts } from "../data.js";
 import { findUserById, findPostById } from "../data.js";
 import { validateId, validatePostId, validateCallback } from "./helpers/validators.js";
 
@@ -32,7 +32,7 @@ export default function deletePost(userId, postId, callback) {
 
                 posts.splice(index, 1)
 
-                savePost(posts, () => callback(null))
+                savePosts(posts, () => callback(null))
 
             })
         })

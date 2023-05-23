@@ -1,5 +1,5 @@
 import { savePost, findUserById, findPostById } from "../data.js";
-import { validateId, validatePostId, validateCallback } from "./helpers/validators.js";
+import { validateCallback, validateId, validatePostId} from "./helpers/validators.js";
 
 export default function toggleLikePost(userId, postId, callback) {
     validateId(userId)
@@ -26,7 +26,7 @@ export default function toggleLikePost(userId, postId, callback) {
                 } else {
                     post.likes.splice(index, 1)
 
-                    if (!post.likes.length) delete post.likes
+                    // if (!post.likes.length) delete post.likes
                 }
             
             

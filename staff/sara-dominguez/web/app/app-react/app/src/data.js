@@ -1,7 +1,7 @@
 // users 
 //  export const loadUsers = () => 'usersJson' in localStorage? JSON.parse(localStorage.usersJson) : []
 
-const DELAY = 1000
+const DELAY = 1
 
 export const loadUsers = (callback) => setTimeout(() => {
     callback('usersJson' in localStorage ? JSON.parse(localStorage.usersJson) : [])

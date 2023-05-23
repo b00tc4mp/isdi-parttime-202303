@@ -8,9 +8,16 @@ export default function Post({ post: { id, image, text, date, likes, author }, o
 
     const handleToggleLikePost = () => {
         try {
-            toggleLikePost(context.userId, id)
+            toggleLikePost(context.userId, id, error => {
+                if (error) {
+                    alert(error.message)
 
-            onToggledLikePost()
+                    return
+                }
+                
+                onToggledLikePost()
+            })
+            
         } catch (error) {
             alert(error.message)
         }
@@ -54,7 +61,7 @@ export default function Post({ post: { id, image, text, date, likes, author }, o
         <img src={image} width="200px" />
         <p>{text}</p>
         <time>{date.toLocaleString()}</time>
-        <button onClick={handleToggleLikePost}>{likes.includes(context.userId) ? '❤️' : '🤍'} ({likes ? likes.length : 0})</button>
+        <button onClick={handleToggleLikePost}>{likes.includes(context.userId) ? '❤️' : '🤍'} {likes ? likes.length : 0}</button>
         {author === context.userId && <button onClick={handleEditPost}>📝</button>}
         {author === context.userId && <button onClick={handleDeletePost}>🗑</button>}
         <button onClick={handleToggleSavePost}>{favs.includes(id)? '⭐️' : '✩'}</button>
