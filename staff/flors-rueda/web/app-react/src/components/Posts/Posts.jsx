@@ -56,7 +56,7 @@ const Posts = ({ onAuthorProfile, onEditPost, type, userId }) => {
       <h1 className="home-page__main--title">{type === 'favs' ? 'Your favorites' : type === 'home' ? 'Home' : ''}</h1>
       <p className="home-page__main--welcome"></p>
       <div className="home-page__main--posts-list">
-        {posts.map((post) => (
+        {posts.length > 0 ? posts.map((post) => (
           <Post
             post={post}
             author={post.author}
@@ -69,7 +69,11 @@ const Posts = ({ onAuthorProfile, onEditPost, type, userId }) => {
             isProfileView={type === 'favs' || type === 'home' ? false : true}
             userId={userId}
           />
-        ))}
+        )) : <div className="home-page__main--no-posts-message">{
+        type === 'favs' ? `You don't have any favorite post yet.` : 
+        type === 'home' ? `Wow, no public posts available right now. Go ahead and publish one!` : 
+        type === context.userAuth ? `You have not posted anything yet!` : 
+        `This user doesn't have any public post.`}</div>}
       </div>
     </main>
   );

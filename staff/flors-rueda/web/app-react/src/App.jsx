@@ -3,7 +3,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Home from './pages/Home';
 import { context }from './context';
-import ThemeToggle from './components/ThemeToggle/ThemeToggle';
+import ThemeToggle from './components/theme-toggle/ThemeToggle';
 import inLogger from './logger';
 
 const App = () => {

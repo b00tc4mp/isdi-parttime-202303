@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import AvatarForm from '../Forms/AvatarForm';
-import MailForm from '../Forms/MailForm';
-import NameForm from '../Forms/NameForm';
-import PasswordForm from '../Forms/PasswordForm';
-import DeleteForm from '../Forms/DeleteForm';
+import AvatarForm from '../forms/AvatarForm';
+import MailForm from '../forms/MailForm';
+import NameForm from '../forms/NameForm';
+import PasswordForm from '../forms/PasswordForm';
+import DeleteForm from '../forms/DeleteForm';
 import './Settings.css';
 import { svg } from '../../../assets/svg-paths';
 import inLogger from '../../logger';

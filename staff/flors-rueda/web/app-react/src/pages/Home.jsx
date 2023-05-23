@@ -1,11 +1,11 @@
-import Posts from '../components/Posts/Posts';
+import Posts from '../components/posts/Posts';
 import { useState, useEffect } from 'react';
-import NewPost from '../components/PostModals/NewPost';
-import EditPost from '../components/PostModals/EditPost';
-import DeletePost from '../components/PostModals/DeletePost';
+import NewPost from '../components/post-modals/NewPost';
+import EditPost from '../components/post-modals/EditPost';
+import DeletePost from '../components/post-modals/DeletePost';
 import { context }from '../context';
 import { svg } from '../../assets/svg-paths';
-import Navbar from '../components/Navbar/Navbar';
+import Navbar from '../components/navbar/Navbar';
 import './Home.css';
 import Profile from '../components/Profile/Profile';
 import inLogger from '../logger';

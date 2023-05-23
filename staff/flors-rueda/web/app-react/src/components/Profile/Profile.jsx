@@ -1,8 +1,8 @@
 import ProfileCard from './ProfileCard';
 import './Profile.css'
-import Posts from '../Posts/Posts';
+import Posts from '../posts/Posts';
 import { useState, useEffect } from 'react';
-import Settings from '../Settings/Settings';
+import Settings from '../settings/Settings';
 import { retrieveUser } from '../../logic/retrieve-user';
 import inLogger from '../../logger';
 
