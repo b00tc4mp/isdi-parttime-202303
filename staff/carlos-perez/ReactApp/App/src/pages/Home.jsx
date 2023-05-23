@@ -1,9 +1,9 @@
-import Posts from '../components/Posts'
+import { Posts } from '../components/Posts'
 import { Component } from 'react';
-import AddPostModal from '../components/AddPostModal'
-import EditPostModal from '../components/EditPostModal'
+import { AddPostModal } from '../components/AddPostModal'
+import { EditPostModal } from '../components/EditPostModal'
 import { getInitials } from '../logic/retrieveUserInfo.js'
-import retrieveUser from '../logic/retrieveUser'
+import { retrieveUser } from '../logic/retrieveUser'
 import { context } from '../main.js'
 
 export default class Home extends Component {
@@ -87,19 +87,19 @@ export default class Home extends Component {
             <div className="saludo">
                 <h3 className="centrar-texto">Home</h3>
                 <main className='post-list'>
-                {this.state.view === 'posts' && <Posts onEditPost={this.handleOpenEditPostModal} lastPostsUpdate={this.state.lastPostsUpdate} />}
+                    {this.state.view === 'posts' && <Posts onEditPost={this.handleOpenEditPostModal} lastPostsUpdate={this.state.lastPostsUpdate} />}
 
-                {this.state.modal === 'add-post' && <AddPostModal
-                    onCancel={this.handleCloseModal}
-                    onPostCreated={this.handlePostUpdated}
-                />}
+                    {this.state.modal === 'add-post' && <AddPostModal
+                        onCancel={this.handleCloseModal}
+                        onPostCreated={this.handlePostUpdated}
+                    />}
 
-                {this.state.modal === 'edit-post' && <EditPostModal
-                    onCancel={this.handleCloseModal}
-                    onPostUpdated={this.handlePostUpdated}
-                    postId={this.state.postId}
-                />}
-            </main>
+                    {this.state.modal === 'edit-post' && <EditPostModal
+                        onCancel={this.handleCloseModal}
+                        onPostUpdated={this.handlePostUpdated}
+                        postId={this.state.postId}
+                    />}
+                </main>
             </div>
         </div>
 

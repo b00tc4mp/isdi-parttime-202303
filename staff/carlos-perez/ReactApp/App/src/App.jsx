@@ -1,14 +1,14 @@
 import { Component } from 'react'
-import Login from './pages/Login.jsx'
-import Register from './pages/Register.jsx'
-import Home from './pages/Home.jsx'
-import context from '../src/main.js'
+import { Login } from './pages/Login.jsx'
+import { Register } from './pages/Register.jsx'
+import { Home } from './pages/Home.jsx'
+import { context } from '../src/main.js'
 
 export default class App extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { view: context.userId? 'home' : 'login'  };
+    this.state = { view: context.userId ? 'home' : 'login' };
   }
 
   handleGoToRegister = () => {
