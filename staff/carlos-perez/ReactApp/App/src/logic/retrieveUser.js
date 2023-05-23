@@ -8,7 +8,7 @@ export default function retrieveUser(userId) {
         throw new Error('user not found')
 
     user = {
-        name: user.name,
+        name: user.name
     }
 
     return user

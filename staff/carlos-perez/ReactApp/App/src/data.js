@@ -52,7 +52,7 @@ export function savePosts(posts) {
 }
 
 export function savePost(post) {
-    const _posts = posts()
+    const _posts = posts
 
     const index = _posts.findIndex(_post => _post.id === post.id)
 

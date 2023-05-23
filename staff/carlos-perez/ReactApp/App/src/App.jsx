@@ -1,7 +1,7 @@
 import { Component } from 'react'
-import { Login } from './pages/Login.jsx'
-import { Register } from './pages/Register.jsx'
-import { Home } from './pages/Home.jsx'
+import  Login  from './pages/Login.jsx'
+import Register from './pages/Register.jsx'
+import Home from './pages/Home.jsx'
 import { context } from '../src/main.js'
 
 export default class App extends Component {

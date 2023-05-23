@@ -1,4 +1,4 @@
-import retrievePosts from '../logic/retrievePosts'
+import {retrievePosts} from '../logic/retrievePosts'
 import Post from './Post'
 import { Component } from 'react'
 

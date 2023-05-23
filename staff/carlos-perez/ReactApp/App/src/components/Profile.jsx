@@ -1,10 +1,10 @@
-import { context } from '../main'
-import {retrieveMailById} from '../logic/retrieveUserInfo'
+import { context } from '../main.js'
+import { retrieveMailById } from '../logic/retrieveUserInfo'
 
 export default function Profile() {
     console.log('Profile -> render')
 
-    const name= context.userName;
+    const name = context.userName;
     const email = retrieveMailById(context.userId);
 
     return <div className="profile-view">

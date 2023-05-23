@@ -1,4 +1,4 @@
-import { context } from '../data'
+import { context } from '../main.js'
 import updatePost from '../logic/updatePost'
 import retrievePost from '../logic/retrievePost'
 

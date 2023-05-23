@@ -1,9 +1,9 @@
-import { Posts } from '../components/Posts'
+import Posts from '../components/Posts'
 import { Component } from 'react';
-import { AddPostModal } from '../components/AddPostModal'
-import { EditPostModal } from '../components/EditPostModal'
+import AddPostModal from '../components/AddPostModal'
+import EditPostModal from '../components/EditPostModal'
 import { getInitials } from '../logic/retrieveUserInfo.js'
-import { retrieveUser } from '../logic/retrieveUser'
+import retrieveUser from '../logic/retrieveUser'
 import { context } from '../main.js'
 
 export default class Home extends Component {

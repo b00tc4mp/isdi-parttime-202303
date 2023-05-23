@@ -1,5 +1,5 @@
-import { context } from '../data.js' 
-import createPost from '../logic/createPost'
+import { context } from '../main.js' 
+import {createPost} from '../logic/createPost'
 
 export default function AddPostModal({ onCancel, onPostCreated }) {
     console.log('AddPostModal -> render')

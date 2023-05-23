@@ -2,8 +2,6 @@ import { findUserById, findPostById } from './helpers/data-manager'
 import { savePosts, posts } from '../data'
 
 export default function deletePost(userId, postId) {
-    validateId(userId, 'user id')
-    validateId(postId, 'post id')
 
     const user = findUserById(userId)
 
@@ -15,7 +13,7 @@ export default function deletePost(userId, postId) {
 
     if (post.author !== userId) throw new Error(`post with id ${postId} does not belong to user with id ${userId}`)
 
-    const _posts = posts()
+    const _posts = posts
 
     const index = _posts.findIndex(post => post.id === postId)
 

@@ -35,9 +35,9 @@ export function userExistById(id) {
 }
 
 export function findUserById(userId) {
-    return users().find(user => user.id = userId);
+    return users.find(user => user.id = userId);
 }
 
 export function findPostById(postId) {
-    return posts().find(post => post.id = postId);
+    return posts.find(post => post.id = postId);
 }

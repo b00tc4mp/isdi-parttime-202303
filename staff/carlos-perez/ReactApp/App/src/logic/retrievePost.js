@@ -3,7 +3,7 @@ import { findPostById } from './helpers/data-manager'
 
 export default function retrievePosts(userId, postId) {
    
-    const found = users().some(user => user.id === userId)
+    const found = users.some(user => user.id === userId)
 
     if (!found) throw new Error(`user with id ${userId} not found`)
 
