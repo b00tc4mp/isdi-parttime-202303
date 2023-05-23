@@ -1,5 +1,5 @@
 import './Post.css'
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import { DEFAULT_AVATAR_URL } from '../constants'
 import { context } from '../ui'
 import formatLikes from '../logic/helpers/utils'
@@ -7,22 +7,25 @@ import toggleLikePost from '../logic/toggleLikePost'
 import toggleSavePost from '../logic/toggleSavePost'
 import deletePost from '../logic/deletePost'
 import togglePrivatizePost from '../logic/privatizePost'
+import Context from '../Context'
 
 export default function Post ({ post, onEditPost, onLiked, onSaved, onDeletePost, onPrivatizePost }) {
+  const { alert } = useContext(Context)
+
   const [privateIcon, setPrivateIcon] = useState(post.visibility === 'public' ? 'lock_open' : 'lock')
 
   const handleLikePost = () => {
     try {
       toggleLikePost(context.userId, post.id, error => {
         if (error) {
-          console.log(error.message)
+          alert(error.message, 'error')
 
           return
         }
         onLiked()
       })
     } catch (error) {
-      console.log(error.message)
+      alert(error.message, 'warn')
     }
   }
 
@@ -30,7 +33,7 @@ export default function Post ({ post, onEditPost, onLiked, onSaved, onDeletePost
     try {
       toggleSavePost(context.userId, post.id, error => {
         if (error) {
-          console.log(error.message)
+          alert(error.message, 'error')
 
           return
         }
@@ -38,7 +41,7 @@ export default function Post ({ post, onEditPost, onLiked, onSaved, onDeletePost
         onSaved()
       })
     } catch (error) {
-      console.log(error.message)
+      alert(error.message, 'warn')
     }
   }
 
@@ -50,14 +53,14 @@ export default function Post ({ post, onEditPost, onLiked, onSaved, onDeletePost
     try {
       deletePost(context.userId, post.id, error => {
         if (error) {
-          console.log(error.message)
+          alert(error.message, 'error')
 
           return
         }
         onDeletePost()
       })
     } catch (error) {
-      console.log(error.message)
+      alert(error.message, 'warn')
     }
   }
 
@@ -65,7 +68,7 @@ export default function Post ({ post, onEditPost, onLiked, onSaved, onDeletePost
     try {
       togglePrivatizePost(context.userId, post.id, error => {
         if (error) {
-          console.log(error.message)
+          alert(error.message, 'error')
 
           return
         }
@@ -74,7 +77,7 @@ export default function Post ({ post, onEditPost, onLiked, onSaved, onDeletePost
         onPrivatizePost()
       })
     } catch (error) {
-      console.log(error.message)
+      alert(error.message, 'warn')
     }
   }
 

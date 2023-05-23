@@ -135,18 +135,17 @@ h2 {
   color: var(--black);
 }
 
-.error {
+/* .error {
   font-weight: 400;
   font-size: 0.563rem;
   text-align: center;
   color: var(--error-color);
   margin-top: -0.625rem;
   margin-bottom: -0.625rem;
-}
+} */
 
 .modal {
   background: var(--background-modal);
-  color: var(--white);
   position: fixed;
   top: 0;
   left: 0;

@@ -1,7 +1,11 @@
 import './Register.css'
+import { useContext } from 'react'
 import registerUser from '../logic/registerUser'
+import Context from '../Context'
 
 export default function Register ({ onLoginClick, onUserRegisteredIn }) {
+  const { alert } = useContext(Context)
+
   const handleLoginClick = event => {
     event.preventDefault()
 
@@ -20,7 +24,7 @@ export default function Register ({ onLoginClick, onUserRegisteredIn }) {
       registerUser(name, email, password, repeatPassword, error => {
         // este error es asíncrono (del callback)
         if (error) {
-          console.log(error.message)
+          alert(error.message, 'error')
 
           return
         }
@@ -29,8 +33,7 @@ export default function Register ({ onLoginClick, onUserRegisteredIn }) {
       })
       // este error es síncrono (de los validadores)
     } catch (error) {
-      console.log(error.message)
-      // errorShow(registerError, error);
+      alert(error.message, 'warn')
     }
   }
 

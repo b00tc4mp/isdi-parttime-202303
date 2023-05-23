@@ -1,11 +1,14 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import './Posts.css'
 import Post from './Post'
 import retrievePosts from '../logic/retrievePosts'
 import retrieveSavedPosts from '../logic/retrieveSavedPosts'
 import { context } from '../ui'
+import Context from '../Context'
 
 export default function Posts ({ user, mySavedPosts = false, onEditPost, lastPostsUpdate }) {
+  const { alert } = useContext(Context)
+
   const [posts, setPosts] = useState()
 
   // esto se hace solo una vez (por eso no tiene a quién observar)
@@ -16,7 +19,7 @@ export default function Posts ({ user, mySavedPosts = false, onEditPost, lastPos
       if (!mySavedPosts) {
         retrievePosts(context.userId, (error, posts) => {
           if (error) {
-            console.log(error.message)
+            alert(error.message, 'error')
 
             return
           }
@@ -26,7 +29,7 @@ export default function Posts ({ user, mySavedPosts = false, onEditPost, lastPos
       } else {
         retrieveSavedPosts(context.userId, (error, savedPosts) => {
           if (error) {
-            console.log(error.message)
+            alert(error.message, 'error')
 
             return
           }
@@ -35,7 +38,7 @@ export default function Posts ({ user, mySavedPosts = false, onEditPost, lastPos
         })
       }
     } catch (error) {
-      console.log(error)
+      alert(error.message, 'warn')
     }
   }
 

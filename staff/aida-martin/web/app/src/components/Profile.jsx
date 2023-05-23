@@ -1,9 +1,13 @@
 import './Profile.css'
+import { useContext } from 'react'
 import updateAvatar from '../logic/updateUserAvatar'
 import changePassword from '../logic/updateUserPassword'
 import { context } from '../ui'
+import Context from '../Context'
 
 export default function Profile ({ onUpdateUserAvatar, onUpdateUserPassword }) {
+  const { alert } = useContext(Context)
+
   const updateUserAvatar = event => {
     event.preventDefault()
 
@@ -12,7 +16,7 @@ export default function Profile ({ onUpdateUserAvatar, onUpdateUserPassword }) {
     try {
       updateAvatar(context.userId, avatar, error => {
         if (error) {
-          console.log(error.message)
+          alert(error.message, 'error')
 
           return
         }
@@ -20,7 +24,7 @@ export default function Profile ({ onUpdateUserAvatar, onUpdateUserPassword }) {
         onUpdateUserAvatar()
       })
     } catch (error) {
-      console.log(error.message)
+      alert(error.message, 'warn')
     }
   }
 
@@ -34,7 +38,7 @@ export default function Profile ({ onUpdateUserAvatar, onUpdateUserPassword }) {
     try {
       changePassword(context.userId, password, newPassword, newPasswordConfirm, error => {
         if (error) {
-          console.log(error.message)
+          alert(error.message, 'error')
 
           return
         }
@@ -42,7 +46,7 @@ export default function Profile ({ onUpdateUserAvatar, onUpdateUserPassword }) {
         onUpdateUserPassword()
       })
     } catch (error) {
-      console.log(error.message)
+      alert(error.message, 'warn')
     }
   }
 

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import './Home.css'
 import { context, openModal, hideModal, setTheme, getTheme } from '../ui'
 import retrieveUser from '../logic/retrieveUser'
@@ -7,8 +7,11 @@ import Posts from '../components/Posts'
 import AddPostModal from '../components/modals/AddPostModal'
 import EditPostModal from '../components/modals/EditPostModal'
 import Profile from '../components/Profile'
+import Context from '../Context'
 
 export default function Home ({ onLogOut }) {
+  const { alert } = useContext(Context)
+
   const [view, setView] = useState('posts')
   const [modal, setModal] = useState(null)
   const [postId, setPostId] = useState(null)
@@ -55,7 +58,7 @@ export default function Home ({ onLogOut }) {
 
       handleRefreshUser()
     } catch (error) {
-      console.log(error.message)
+      alert(error.message, 'warn')
     }
   }
 
@@ -65,7 +68,7 @@ export default function Home ({ onLogOut }) {
 
       handleRefreshUser()
     } catch (error) {
-      console.log(error.message)
+      alert(error.message, 'warn')
     }
   }
 
@@ -87,14 +90,14 @@ export default function Home ({ onLogOut }) {
     try {
       retrieveUser(context.userId, (error, user) => {
         if (error) {
-          console.log(error.message)
+          alert(error.message, 'error')
 
           return
         }
         setUser(user)
       })
     } catch (error) {
-      console.log(error)
+      alert(error.message, 'warn')
     }
   }
 

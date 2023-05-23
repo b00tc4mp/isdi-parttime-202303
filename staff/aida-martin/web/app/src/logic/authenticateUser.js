@@ -26,6 +26,8 @@ export default function authenticateUser (email, password, callback) {
     if (user.password !== password) {
       callback(new Error('Wrong password 😥',
         { cause: 'userError' }))
+
+      return
     }
 
     // el user.id que se mandaba por return ahora por callback

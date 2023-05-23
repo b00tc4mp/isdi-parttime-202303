@@ -1,10 +1,13 @@
 import './EditPostModal.css'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import updatePost from '../../logic/updatePost'
 import retrievePost from '../../logic/retrievePost'
 import { context } from '../../ui'
+import Context from '../../Context'
 
 export default function EditPostModal ({ postId, onPostEdited, onCancel }) {
+  const { alert } = useContext(Context)
+
   const [post, setPost] = useState(null)
 
   function handleEditPost (event) {
@@ -16,14 +19,14 @@ export default function EditPostModal ({ postId, onPostEdited, onCancel }) {
     try {
       updatePost(context.userId, postId, image, text, (error) => {
         if (error) {
-          console.log(error)
+          alert(error.message, 'error')
 
           return
         }
         onPostEdited()
       })
     } catch (error) {
-      console.log(error.message)
+      alert(error.message, 'warn')
     }
   }
 
@@ -37,7 +40,7 @@ export default function EditPostModal ({ postId, onPostEdited, onCancel }) {
     try {
       retrievePost(context.userId, postId, (error, post) => {
         if (error) {
-          console.log(error.message)
+          alert(error.message, 'error')
 
           return
         }
@@ -45,7 +48,7 @@ export default function EditPostModal ({ postId, onPostEdited, onCancel }) {
         setPost(post)
       })
     } catch (error) {
-      console.log(error.message)
+      alert(error.message, 'warn')
     }
   }, [postId])
 

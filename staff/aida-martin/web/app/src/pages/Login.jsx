@@ -1,8 +1,12 @@
 import './Login.css'
+import { useContext } from 'react'
+import Context from '../Context'
 import { context } from '../ui'
 import authenticateUser from '../logic/authenticateUser'
 
 export default function Login ({ onRegisterClick, onUserLoggedIn }) {
+  const { alert } = useContext(Context)
+
   const handleRegisterClick = event => {
     event.preventDefault()
 
@@ -18,7 +22,7 @@ export default function Login ({ onRegisterClick, onUserLoggedIn }) {
     try {
       authenticateUser(email, password, (error, userId) => {
         if (error) {
-          console.log(error.message)
+          alert(error.message, 'error')
 
           return
         }
@@ -28,7 +32,7 @@ export default function Login ({ onRegisterClick, onUserLoggedIn }) {
         onUserLoggedIn()
       })
     } catch (error) {
-      console.log(error.message)
+      alert(error.message, 'warn')
       // errorShow(registerError, error);
     }
   }

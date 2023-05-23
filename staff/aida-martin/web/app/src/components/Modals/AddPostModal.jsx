@@ -1,8 +1,12 @@
 import './AddPostModal.css'
+import { useContext } from 'react'
 import createPost from '../../logic/createPost'
 import { context } from '../../ui'
+import Context from '../../Context'
 
 export default function AddPostModal ({ onPostCreated, onCancel }) {
+  const { alert } = useContext(Context)
+
   function handleCreatePost (event) {
     event.preventDefault()
 
@@ -12,7 +16,7 @@ export default function AddPostModal ({ onPostCreated, onCancel }) {
     try {
       createPost(context.userId, image, text, (error) => {
         if (error) {
-          console.log(error)
+          alert(error.message, 'error')
 
           return
         }
@@ -20,7 +24,7 @@ export default function AddPostModal ({ onPostCreated, onCancel }) {
         onPostCreated()
       })
     } catch (error) {
-      console.log(error.message)
+      alert(error.message, 'warn')
     }
   }
 
