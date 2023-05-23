@@ -7,7 +7,6 @@ import { context } from '../src/main.js'
 export default class App extends Component {
   constructor(props) {
     super(props);
-
     this.state = { view: context.userId ? 'home' : 'login' };
   }
 

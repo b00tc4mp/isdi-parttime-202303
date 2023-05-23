@@ -1,6 +1,5 @@
 import retrievePosts from '../logic/retrievePosts'
 import Post from './Post'
-//import { context } from '../main'
 import { Component } from 'react'
 
 export default class Posts extends Component {
