@@ -5,7 +5,7 @@ import Home from './pages/Home';
 import Alert from './components/alert/Alert';
 import { context }from './ui';
 import ThemeToggle from './components/theme-toggle/ThemeToggle';
-import inLogger from './logger';
+import inLogger from './inLogger';
 import Context from './Context';
 
 const App = () => {

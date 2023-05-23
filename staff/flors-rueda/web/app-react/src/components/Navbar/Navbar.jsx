@@ -1,7 +1,7 @@
 import { svg } from '../../../assets/svg-paths';
 import { useState, useRef } from 'react';
 import './Navbar.css';
-import inLogger from '../../logger';
+import inLogger from '../../inLogger';
 
 const Navbar = ({ onLogoutClick, onProfileClick, onHomeClick, onFavsClick}) => {
     const headerRef = useRef(null);

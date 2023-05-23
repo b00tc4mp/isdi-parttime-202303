@@ -6,7 +6,7 @@ import PasswordForm from '../forms/PasswordForm';
 import DeleteForm from '../forms/DeleteForm';
 import './Settings.css';
 import { svg } from '../../../assets/svg-paths';
-import inLogger from '../../logger';
+import inLogger from '../../inLogger';
 
 const Settings = ({ onAvatarChange, onDeleteAccount, user }) => {
 

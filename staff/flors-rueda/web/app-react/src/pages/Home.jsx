@@ -8,7 +8,7 @@ import { svg } from '../../assets/svg-paths';
 import Navbar from '../components/navbar/Navbar';
 import './Home.css';
 import Profile from '../components/Profile/Profile';
-import inLogger from '../logger';
+import inLogger from '../inLogger';
 
 const Home = ({ onLoggedOut }) => {
     const [view, setView] = useState('posts');

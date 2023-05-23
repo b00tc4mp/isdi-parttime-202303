@@ -1,7 +1,7 @@
 import { authenticateUser } from '../logic/authenticate-user';
 import { context }from '../ui';
 import './LoginRegister.css';
-import inLogger from '../logger';
+import inLogger from '../inLogger';
 import Context from '../Context';
 import { useContext } from 'react';
 

@@ -1,5 +1,5 @@
 import { registerUser } from '../logic/register-user';
-import inLogger from '../logger';
+import inLogger from '../inLogger';
 import Context from '../Context';
 import { useContext } from 'react';
 

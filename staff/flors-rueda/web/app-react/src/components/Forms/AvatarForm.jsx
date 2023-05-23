@@ -3,7 +3,7 @@ import { svg } from '../../../assets/svg-paths';
 import { updateAvatar } from '../../logic/update-avatar';
 import {context} from '../../ui';
 import './Form.css';
-import inLogger from '../../logger';
+import inLogger from '../../inLogger';
 import Context from '../../Context';
 
 const AvatarForm = ({ onAvatarChange, onSaveClick, user }) => {

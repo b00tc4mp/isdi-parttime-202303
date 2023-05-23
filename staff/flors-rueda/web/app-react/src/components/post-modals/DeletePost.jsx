@@ -1,7 +1,7 @@
 import { context } from '../../ui';
 import './PostModals.css';
 import { deletePost } from '../../logic/deletePost';
-import inLogger from '../../logger';
+import inLogger from '../../inLogger';
 import { useContext } from 'react';
 import Context from '../../Context';
 

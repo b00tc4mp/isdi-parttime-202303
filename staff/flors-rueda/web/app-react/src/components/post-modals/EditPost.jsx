@@ -4,7 +4,7 @@ import { useState, useEffect, useContext } from 'react';
 import { retrievePost } from '../../logic/retrieve-post';
 import { updatePost } from '../../logic/update-post';
 import './PostModals.css';
-import inLogger from '../../logger';
+import inLogger from '../../inLogger';
 import Context from '../../Context';
 
 const EditPostModal = ({ onCancel, postId, onPostUpdated, onDeleteModal}) => {

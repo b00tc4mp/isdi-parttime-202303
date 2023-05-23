@@ -2,7 +2,7 @@ import { svg } from '../../../assets/svg-paths';
 import { useState } from 'react';
 import './ThemeToggle.css';
 import { context } from '../../ui';
-import inLogger from '../../logger';
+import inLogger from '../../inLogger';
 
 const ThemeToggle = ({ onToggleChange }) => {
     const [isChecked, setIsChecked] = useState(context.theme === 'light');

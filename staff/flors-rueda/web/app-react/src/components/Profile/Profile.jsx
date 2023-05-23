@@ -4,7 +4,7 @@ import Posts from '../posts/Posts';
 import { useState, useEffect, useContext } from 'react';
 import Settings from '../settings/Settings';
 import { retrieveUser } from '../../logic/retrieve-user';
-import inLogger from '../../logger';
+import inLogger from '../../inLogger';
 import Context from '../../Context';
 
 const Profile = ({ userId, onEditPost, onDeleteAccount }) => {

@@ -1,7 +1,7 @@
 import { context } from '../../ui';
 import { deleteUser } from '../../logic/deleteUser';
 import './Form.css';
-import inLogger from '../../logger';
+import inLogger from '../../inLogger';
 import Context from '../../Context';
 import { useContext } from 'react';
 

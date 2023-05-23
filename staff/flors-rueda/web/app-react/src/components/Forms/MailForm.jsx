@@ -1,7 +1,7 @@
 import { context } from '../../ui';
 import { updateMail } from '../../logic/update-mail';
 import './Form.css';
-import inLogger from '../../logger';
+import inLogger from '../../inLogger';
 import Context from '../../Context';
 import { useContext } from 'react';
 

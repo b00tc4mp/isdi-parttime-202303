@@ -5,7 +5,7 @@ import { useState, useEffect, useContext } from 'react';
 import { retrieveFavoritePosts } from '../../logic/retrieve-favorite-posts';
 import './Posts.css';
 import { retrieveUserPosts } from '../../logic/retrieve-user-posts';
-import inLogger from '../../logger';
+import inLogger from '../../inLogger';
 import Context from '../../Context';
 
 const Posts = ({ onAuthorProfile, onEditPost, type, userId }) => {

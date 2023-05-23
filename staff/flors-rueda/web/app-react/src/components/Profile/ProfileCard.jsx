@@ -4,7 +4,7 @@ import { colors } from '../../../assets/avatar';
 import Avatar from 'boring-avatars';
 import './ProfileCard.css';
 import { useState, useContext} from 'react';
-import inLogger from '../../logger';
+import inLogger from '../../inLogger';
 import Context from '../../Context';
 
 

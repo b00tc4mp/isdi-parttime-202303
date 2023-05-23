@@ -7,7 +7,7 @@ import { colors } from '../../../assets/avatar';
 import Avatar from 'boring-avatars';
 import './Posts.css';
 import { togglePublicStat } from '../../logic/toggle-public-stat';
-import inLogger from '../../logger';
+import inLogger from '../../inLogger';
 import Context from '../../Context';
 
 const Post = ({ post, author, onEditPost, onToggledPublicStat, onToggledLike, onToggledFav, isProfileView, onAuthorProfile, userId }) => {
