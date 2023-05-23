@@ -6,7 +6,7 @@ export default function createPost(userId, image, text) {
     validateId(userId, 'user id')
     validateUrl(image, 'image url')
     validateText(text)
-
+    debugger
     // TODO steps
     // check user with userId exists
     // create post id

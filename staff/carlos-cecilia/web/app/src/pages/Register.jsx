@@ -1,3 +1,5 @@
+import registerUser from "../logic/registerUser"
+
 export default function Register({ onLoginClick }) {
     function handleLoginClick(event) {
         event.preventDefault()
@@ -5,12 +7,27 @@ export default function Register({ onLoginClick }) {
         onLoginClick()
     }
 
+    const handleRegister = function (event) {
+        event.preventDefault()
+
+        const name = event.target.name.value
+        const email = event.target.email.value
+        const password = event.target.password.value
+        debugger
+        try {
+            registerUser(name, email, password) 
+            onLoginClick()
+        } catch (error) {
+            alert(error.message)
+        }
+    }
+
     console.log('Register -> render')
     
     return <div className="register page container">
         <h1 className="title">Register</h1>
 
-        <form className="form">
+        <form className="form" onSubmit={handleRegister}>
             <input className="input" type="text" name="name" placeholder="name" />
             <input className="input" type="email" name="email" placeholder="email" />
             <input className="input" type="password" name="password" placeholder="password" />

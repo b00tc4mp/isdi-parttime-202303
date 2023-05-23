@@ -14,8 +14,7 @@ export default function authenticateUser(email, password) {
 
     validateEmail(email)
     validatePassword(password)
-    debugger
-    const user = findUserByEmail
+    const user = findUserByEmail(email)
 
     if(!user)
 

@@ -26,7 +26,7 @@ export default function app() {
             return <Login onRegisterClick={handleGoToRegister} onUserLoggedIn={handleGoToHome} />
 
             case 'register':
-                return <Register inLoginClick={handleGoToLogin} />
+                return <Register onLoginClick={handleGoToLogin} />
 
             case 'home':
                 return <Home onLoggedOut={handleGoToLogin} />

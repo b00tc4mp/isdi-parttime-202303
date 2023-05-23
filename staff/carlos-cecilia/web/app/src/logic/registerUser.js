@@ -6,6 +6,7 @@ export default function registerUser(name, email, password) {
     validateName(name)
     validateEmail(email)
     validatePassword(password)
+    debugger
 
     const foundUser = findUserByEmail(email)
 
