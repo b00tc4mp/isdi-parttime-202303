@@ -1,13 +1,16 @@
 import { svg } from '../../../assets/svg-paths';
-import { context } from '../../context';
+import { context } from '../../ui';
 import { colors } from '../../../assets/avatar';
 import Avatar from 'boring-avatars';
 import './ProfileCard.css';
-import { useState, } from 'react';
+import { useState, useContext} from 'react';
 import inLogger from '../../logger';
+import Context from '../../Context';
+
 
 const ProfileCard = ({ userId, onSettingsClick, selectedAvatar, user}) => {
   const [isSettingsOn, setIsSettingsOn] = useState(false);
+  const { alert } = useContext(Context);
 
   const handleSettingsClick = () => {
     onSettingsClick();
@@ -71,7 +74,7 @@ const ProfileCard = ({ userId, onSettingsClick, selectedAvatar, user}) => {
       </article>
     );
   } catch (error) {
-    console.log(`ProfileCard error: ${error.message}`);
+    alert(`ProfileCard error: ${error.message}`, 'danger');
   }
 }
 

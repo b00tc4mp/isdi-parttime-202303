@@ -1,22 +1,27 @@
-import { context } from '../../context';
+import { context } from '../../ui';
 import { deleteUser } from '../../logic/deleteUser';
 import './Form.css';
 import inLogger from '../../logger';
+import Context from '../../Context';
+import { useContext } from 'react';
 
 const DeleteForm = ({ onDeleteClick }) => {
+  const { alert } = useContext(Context);
+
   const handleDelete = (event) => {
     event.preventDefault();
     try {
       const password = event.target.password.value;
       deleteUser(context.userAuth, password, error => {
         if(error){
-          console.log(`delete user error: ${error.message}`);
+          alert(`delete user error: ${error.message}`, 'danger');
           return;
         }
         onDeleteClick();
+        alert('We will miss you! We hope you comeback soon.', 'goodbye')
       })
     } catch (error) {
-      console.log(`delete user error: ${error.message}`);
+      alert(`delete user error: ${error.message}`, 'danger');
     }
   }
 

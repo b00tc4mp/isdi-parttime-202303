@@ -1,7 +1,7 @@
 import { svg } from '../../../assets/svg-paths';
 import { useState } from 'react';
 import './ThemeToggle.css';
-import { context } from '../../context';
+import { context } from '../../ui';
 import inLogger from '../../logger';
 
 const ThemeToggle = ({ onToggleChange }) => {

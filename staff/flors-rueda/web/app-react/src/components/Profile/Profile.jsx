@@ -1,12 +1,15 @@
 import ProfileCard from './ProfileCard';
 import './Profile.css'
 import Posts from '../posts/Posts';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import Settings from '../settings/Settings';
 import { retrieveUser } from '../../logic/retrieve-user';
 import inLogger from '../../logger';
+import Context from '../../Context';
 
 const Profile = ({ userId, onEditPost, onDeleteAccount }) => {
+  const { alert } = useContext(Context);
+
   const [view, setView] = useState('posts');
   const [selectedAvatar, setSelectedAvatar] = useState(null);
   const [user, setUser] = useState(null);
@@ -20,7 +23,7 @@ const Profile = ({ userId, onEditPost, onDeleteAccount }) => {
     try {
       retrieveUser(userId, (error, user) => {
         if (error) {
-          console.log(error.message);
+          alert(`profile error: ${error.message}`, 'danger');
           setIsLoading(false);
           return;
         }
@@ -28,7 +31,7 @@ const Profile = ({ userId, onEditPost, onDeleteAccount }) => {
         setIsLoading(false);
       })
     } catch (error) {
-      console.log(error.message);
+      alert(`profile error: ${error.message}`, 'danger');
       setIsLoading(false);
     }
   }, []);
@@ -46,8 +49,8 @@ const Profile = ({ userId, onEditPost, onDeleteAccount }) => {
       </section>
     );
   } catch (error) {
-    console.log(`profile error: ${error.message}`);
-    return <div>Error: {error.message}</div>;
+    alert(`profile error: ${error.message}`, 'danger');
+    return;
   }
 }
 

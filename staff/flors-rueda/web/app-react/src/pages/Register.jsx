@@ -1,7 +1,12 @@
 import { registerUser } from '../logic/register-user';
 import inLogger from '../logger';
+import Context from '../Context';
+import { useContext } from 'react';
+
 
 const Register = ({ onLoginClick, onUserRegistered }) => {
+    const { alert } = useContext(Context);
+    
     const handleLoginClick = (event) => {
         event.preventDefault();
         onLoginClick();
@@ -18,13 +23,14 @@ const Register = ({ onLoginClick, onUserRegistered }) => {
         try {
             registerUser(mail, username, password, repeatPassword, error => {
                 if (error) {
-                    console.log(`register error: ${error.message}`);
+                    alert(`register error: ${error.message}`, 'danger');
                     return;
                 }
                 onUserRegistered();
+                alert(`${username}, your account has been created. You can sign in now!`, 'success');
             });
         } catch (error) {
-            console.log(`register error: ${error.message}`);
+            alert(`register error: ${error.message}`, 'danger');
         }
     }
   

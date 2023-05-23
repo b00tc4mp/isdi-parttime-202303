@@ -1,9 +1,13 @@
 import { authenticateUser } from '../logic/authenticate-user';
-import { context }from '../context';
+import { context }from '../ui';
 import './LoginRegister.css';
 import inLogger from '../logger';
+import Context from '../Context';
+import { useContext } from 'react';
 
 const Login = ({ onRegisterClick, onUserLoggedIn }) => {
+    const { alert } = useContext(Context);
+
     const handleRegisterClick = (event) => {
         event.preventDefault();
         onRegisterClick();
@@ -16,14 +20,14 @@ const Login = ({ onRegisterClick, onUserLoggedIn }) => {
         try {
             authenticateUser(username, password, (error, userId) => {
                 if (error) {
-                    console.log(`login error: ${error.message}`);
+                    alert(`login error: ${error.message}`, 'danger');
                     return;
                 }
                 context.userAuth = userId
                 onUserLoggedIn()
             })
         } catch (error) {
-            console.log(`login error: ${error.message}`);
+            alert(`login error: ${error.message}`, 'danger');
         }
     }
 

@@ -1,9 +1,14 @@
-import { context } from '../../context';
+import { context } from '../../ui';
 import './PostModals.css';
 import { deletePost } from '../../logic/deletePost';
 import inLogger from '../../logger';
+import { useContext } from 'react';
+import Context from '../../Context';
+
 
 const DeletePostModal = ({ onCancel, postId, onDelete}) => {
+    const { alert } = useContext(Context);
+
     const handleCancel = (event) => {
         event.preventDefault();
         onCancel();
@@ -16,13 +21,13 @@ const DeletePostModal = ({ onCancel, postId, onDelete}) => {
             deletePost(context.userAuth, postId, error => {
             
               if(error) {
-                console.log(`delete post submit error: ${error.message}`);
+                alert(`delete post error: ${error.message}`, 'danger');
                 return;
               }
               onDelete();
             });
         } catch (error) {
-            console.log(`delete post submit error: ${error.message}`);
+            alert(`delete post error: ${error.message}`, 'danger');
         }
     };
 

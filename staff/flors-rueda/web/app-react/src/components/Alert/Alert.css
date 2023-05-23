@@ -10,7 +10,7 @@
     align-items: center;
     gap: 1rem;
     padding-bottom: 0.5rem;
-    z-index: 1;
+    z-index: 500;
 }
 
 .alert__left--reaction {
@@ -31,7 +31,6 @@
 
 .alert__right--close {
     align-self: flex-end;
-
     padding-right: 1rem;
     text-decoration-line: underline;
     cursor: pointer;
@@ -61,6 +60,13 @@
     background-color: var(--color-warning-300);
     color: var(--color-warning-100);
     border-color: var(--color-warning-300);
+}
+
+.goodbye, .goodbye h2{
+    fill: var(--color-terciary-100);
+    background-color: var(--color-terciary-600);
+    color: var(--color-terciary-100);
+    border-color: var(--color-terciary-300);
 }
 
 @media (min-width: 768px) {

@@ -1,27 +1,29 @@
 import { svg } from '../../../assets/svg-paths';
-import { context } from '../../context';
-import { useState, useEffect } from 'react';
+import { context } from '../../ui';
+import { useState, useEffect, useContext } from 'react';
 import { retrievePost } from '../../logic/retrieve-post';
 import { updatePost } from '../../logic/update-post';
 import './PostModals.css';
 import inLogger from '../../logger';
+import Context from '../../Context';
 
 const EditPostModal = ({ onCancel, postId, onPostUpdated, onDeleteModal}) => {
     const [selectedImage, setSelectedImage] = useState(null);
     const [post, setPost] = useState(null);
+    const { alert } = useContext(Context);
 
     useEffect(() => {
       try {
           retrievePost(context.userAuth, postId, (error, post) => {
               if (error) {
-                console.log(`edit post error: ${error.message}`);
+                alert(`edit post error: ${error.message}`, 'danger');
                 return;
               }
               setPost(post);
               setSelectedImage(post.image)
           })
       } catch (error) {
-        console.log(`edit post error: ${error.message}`);
+        alert(`edit post error: ${error.message}`, 'danger');
       }
   }, [postId])
 
@@ -48,7 +50,7 @@ const EditPostModal = ({ onCancel, postId, onPostUpdated, onDeleteModal}) => {
             setSelectedImage(null);
         }
       } catch {
-        console.log(`edit post error: ${error.message}`);
+        alert(`edit post error: ${error.message}`, 'danger');
       }
 
     };
@@ -65,13 +67,13 @@ const EditPostModal = ({ onCancel, postId, onPostUpdated, onDeleteModal}) => {
         try {
             updatePost(text, image, postId, context.userAuth, error => {
               if(error) {
-                console.log(`edit post submit error: ${error.message}`);
+                alert(`edit post submit error: ${error.message}`, 'danger');
                 return;
               }
               onPostUpdated();
             });
         } catch (error) {
-            console.log(`edit post submit error: ${error.message}`);
+            alert(`edit post submit error: ${error.message}`, 'danger');
         }
     };
 

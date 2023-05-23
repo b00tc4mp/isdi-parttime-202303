@@ -1,9 +1,13 @@
-import { context } from '../../context';
+import { context } from '../../ui';
 import { updatePassword } from '../../logic/update-password';
 import './Form.css';
 import inLogger from '../../logger';
+import Context from '../../Context';
+import { useContext } from 'react';
 
 const PasswordForm = ({ onSaveClick }) => {
+  const { alert } = useContext(Context);
+
   const handleSave = (event) => {
     event.preventDefault();
     try {
@@ -12,13 +16,13 @@ const PasswordForm = ({ onSaveClick }) => {
       const oldPassword = event.target.oldPassword.value;
       updatePassword(context.userAuth, oldPassword, repeatPassword, newPassword, error => {
         if(error){
-          console.log(`update password error: ${error.message}`);
+          alert(`update password error: ${error.message}`, 'danger');
           return;
         }
         onSaveClick();
       })
     } catch (error) {
-      console.log(`update password error: ${error.message}`);
+      alert(`update password error: ${error.message}`, 'danger');
     }
   }
   

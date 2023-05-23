@@ -1,15 +1,17 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useContext } from 'react';
 import { svg } from '../../../assets/svg-paths';
 import { updateAvatar } from '../../logic/update-avatar';
-import {context} from '../../context';
+import {context} from '../../ui';
 import './Form.css';
 import inLogger from '../../logger';
+import Context from '../../Context';
 
 const AvatarForm = ({ onAvatarChange, onSaveClick, user }) => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [randomSelected, setSelectedRandom] = useState(false);
   const [avatarToSave, setAvatarToSave] = useState(null);
   const fileInputRef = useRef(null);
+  const { alert } = useContext(Context);
 
   const handleAvatarChange = (event) => {
     event.preventDefault();
@@ -26,7 +28,7 @@ const AvatarForm = ({ onAvatarChange, onSaveClick, user }) => {
       };
       reader.readAsDataURL(file);
     } catch (error) {
-      console.log(`original avatar error: ${error}`);
+      alert(`original avatar error: ${error}`, 'danger');
     }
   } else {
     try {
@@ -36,7 +38,7 @@ const AvatarForm = ({ onAvatarChange, onSaveClick, user }) => {
       setAvatarToSave(randomSrc)
       setSelectedRandom(true)
     } catch (error) {
-      console.log(`random avatar error: ${error}`);
+      alert(`random avatar error: ${error}`, 'danger');
     }
   }
 };
@@ -52,17 +54,16 @@ const AvatarForm = ({ onAvatarChange, onSaveClick, user }) => {
     try {
       if(avatarToSave) {
         const isRandom = selectedImage ? false : true;
-        console.log('saving avatar')
         updateAvatar(isRandom, avatarToSave, context.userAuth, error => {
           if(error) {
-            console.log(`update avatar error: ${error.message}`);
+            alert(`update avatar error: ${error.message}`, 'danger');
             return;
           }
           onSaveClick();
         })
       }
     } catch (error) {
-      console.log(`update avatar error: ${error.message}`);
+      alert(`update avatar error: ${error.message}`, 'danger');
     }
   }
 

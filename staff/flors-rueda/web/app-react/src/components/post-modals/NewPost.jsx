@@ -1,13 +1,15 @@
 import { svg } from '../../../assets/svg-paths';
-import { context } from '../../context';
+import { context } from '../../ui';
 import { uploadPost } from '../../logic/upload-post';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 // TODO delete this library from the project import imageCompression from 'browser-image-compression'
 import './PostModals.css';
 import inLogger from '../../logger';
+import Context from '../../Context';
 
 const NewPostModal = ({ onCancel, onPostCreated }) => {
   const [selectedImage, setSelectedImage] = useState(null);
+  const { alert } = useContext(Context);
 
   const handleCancel = (event) => {
     event.preventDefault();
@@ -30,7 +32,7 @@ const NewPostModal = ({ onCancel, onPostCreated }) => {
           setSelectedImage(null);
       }
     } catch {
-      console.log(`new post error: ${error.message}`);
+      alert(`new post error: ${error.message}`, 'danger');
     }
   };
 
@@ -47,13 +49,13 @@ const NewPostModal = ({ onCancel, onPostCreated }) => {
     try {
       uploadPost(image, text, context.userAuth, error => {
         if(error){
-          console.log(`new post error: ${error.message}`)
+          alert(`new post error: ${error.message}`, 'danger')
           return;
         }
         onPostCreated();
       });
     } catch (error) {
-      console.log(`new post error: ${error.message}`);
+      alert(`new post error: ${error.message}`, 'danger');
     }
   }
 

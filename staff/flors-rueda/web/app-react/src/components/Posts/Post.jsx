@@ -1,28 +1,32 @@
 import { svg } from '../../../assets/svg-paths';
-import { context } from '../../context';
+import { context } from '../../ui';
 import { toggleFav } from '../../logic/toggle-fav';
 import { toggleLike } from '../../logic/toggle-like';
+import { useContext } from 'react';
 import { colors } from '../../../assets/avatar';
 import Avatar from 'boring-avatars';
 import './Posts.css';
 import { togglePublicStat } from '../../logic/toggle-public-stat';
 import inLogger from '../../logger';
+import Context from '../../Context';
 
 const Post = ({ post, author, onEditPost, onToggledPublicStat, onToggledLike, onToggledFav, isProfileView, onAuthorProfile, userId }) => {
     const handleEditPost = () => onEditPost(post.id);
     const handleToAuthorProfile = () => onAuthorProfile(author.id);
+    const { alert } = useContext(Context);
+
     const handleToggleLikePost = () => {
         try {
             toggleLike(post.id, context.userAuth, error => {
                 if(error){
-                    console.log(`post fav error: ${error.message}`);
+                    alert(`post like error: ${error.message}`, 'danger');
                     return;
                 }
                 onToggledLike();
             });
             
         } catch (error) {
-            console.log(`post like error: ${error.message}`);
+            alert(`post like error: ${error.message}`, 'danger');
         }
     }
 
@@ -30,13 +34,13 @@ const Post = ({ post, author, onEditPost, onToggledPublicStat, onToggledLike, on
         try {
             toggleFav(post.id, context.userAuth, error => {
                 if(error){
-                    console.log(`post fav error: ${error.message}`);
+                    alert(`post fav error: ${error.message}`, 'danger');
                     return;
                 }
                 onToggledFav();
             });
         } catch (error) {
-            console.log(`post fav error: ${error.message}`);
+            alert(`post fav error: ${error.message}`, 'danger');
         }
     }
 
@@ -44,13 +48,13 @@ const Post = ({ post, author, onEditPost, onToggledPublicStat, onToggledLike, on
         try {
             togglePublicStat(post.id, context.userAuth, error => {
                 if(error){
-                    console.log(`post fav error: ${error.message}`);
+                    alert(`post public stat error: ${error.message}`, 'danger');
                     return;
                 }
                 onToggledPublicStat();
             });
         } catch (error) {
-            console.log(`post fav error: ${error.message}`);
+            alert(`post public stat error: ${error.message}`, 'danger');
         }
     }
 

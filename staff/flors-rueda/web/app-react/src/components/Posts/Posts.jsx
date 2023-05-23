@@ -1,21 +1,23 @@
 import Post from './Post';
 import { retrievePosts } from '../../logic/retrieve-posts';
-import { context } from '../../context';
-import { useState, useEffect } from 'react';
+import { context } from '../../ui';
+import { useState, useEffect, useContext } from 'react';
 import { retrieveFavoritePosts } from '../../logic/retrieve-favorite-posts';
 import './Posts.css';
 import { retrieveUserPosts } from '../../logic/retrieve-user-posts';
 import inLogger from '../../logger';
+import Context from '../../Context';
 
 const Posts = ({ onAuthorProfile, onEditPost, type, userId }) => {
   const [posts, setPosts] = useState([]);
+  const { alert } = useContext(Context);
 
   const handleRefreshPosts = () => {
     try {
       if (type === 'favs') {
         retrieveFavoritePosts(context.userAuth, (error, posts) => {
           if (error) {
-            console.log(`posts error: ${error.message}`);
+            alert(`posts error: ${error.message}`, 'danger');
             return;
           }
           setPosts(posts);
@@ -23,7 +25,7 @@ const Posts = ({ onAuthorProfile, onEditPost, type, userId }) => {
       } else if (type === 'home') {
         retrievePosts(context.userAuth, (error, posts) => {
           if (error) {
-            console.log(`posts error: ${error.message}`); //TODO figure out why doesn't show the edit button
+            alert(`posts error: ${error.message}`, 'danger');
             return;
           }
           setPosts(posts);
@@ -31,14 +33,14 @@ const Posts = ({ onAuthorProfile, onEditPost, type, userId }) => {
       } else {
         retrieveUserPosts(type, context.userAuth, (error, posts) => {
           if (error) {
-            console.log(`posts error: ${error.message}`);
+            alert(`posts error: ${error.message}`, 'danger');
             return;
           }
           setPosts(posts);
         });
       }
     } catch (error) {
-      console.log(`posts error: ${error.message}`);
+      alert(`posts error: ${error.message}`, 'danger');
     }
   };
 
