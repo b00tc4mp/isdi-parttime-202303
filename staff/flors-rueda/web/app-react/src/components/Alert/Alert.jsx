@@ -1,13 +1,17 @@
-
 import { svg } from '../../../assets/svg-paths';
 import './Alert.css';
 import inLogger from '../../logger';
+import { useEffect } from 'react';
 
-const Alert = ({ message, level, onClose }) => {
+const Alert = ({ message, level, onClose, handleAlert }) => {
     const handleClose = (event) => {
         event.preventDefault();
         onClose();
-    }
+    };
+
+    useEffect(() => {
+        handleAlert(message, level);
+    }, []);
 
     return <section className={`alert ${level}`} >
         <div className="alert__left">
