@@ -1,4 +1,4 @@
-import { findUserById, findPostById } from './helpers/data-managers'
+import { findUserById, findPostById } from './helpers/data-manager'
 import { savePosts, posts } from '../data'
 
 export default function deletePost(userId, postId) {

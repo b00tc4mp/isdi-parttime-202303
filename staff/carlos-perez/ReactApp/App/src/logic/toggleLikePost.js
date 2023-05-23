@@ -1,5 +1,5 @@
 import {users} from "../data"
-import { userExistById, findPostById } from './helpers/data-managers'
+import { userExistById, findPostById } from './helpers/data-manager'
 import { savePost } from '../data'
 
 export default function toggleLikePost(userId, postId) {
