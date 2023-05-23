@@ -1,8 +1,9 @@
 import { authenticateUser } from '../logic/authenticate-user';
 import { context }from '../context';
-import './LoginRegister.css'
+import './LoginRegister.css';
+import inLogger from '../logger';
 
-export default function Login({ onRegisterClick, onUserLoggedIn }) {
+const Login = ({ onRegisterClick, onUserLoggedIn }) => {
     const handleRegisterClick = (event) => {
         event.preventDefault();
         onRegisterClick();
@@ -26,8 +27,6 @@ export default function Login({ onRegisterClick, onUserLoggedIn }) {
         }
     }
 
-    console.log('Login -> render');
-
     return <section className="login-page" onSubmit={handleLogin}>
         {/*alert should go in here*/}
             <section className="login-page__login">
@@ -47,3 +46,5 @@ export default function Login({ onRegisterClick, onUserLoggedIn }) {
         </section>
     
 }    
+
+export default inLogger(Login);

@@ -1,9 +1,9 @@
-import { context } from '../../context'
+import { context } from '../../context';
 import { deleteUser } from '../../logic/deleteUser';
-import './Form.css'
+import './Form.css';
+import inLogger from '../../logger';
 
-export default function DeleteForm({ onDeleteClick }) {
-
+const DeleteForm = ({ onDeleteClick }) => {
   const handleDelete = (event) => {
     event.preventDefault();
     try {
@@ -30,3 +30,5 @@ export default function DeleteForm({ onDeleteClick }) {
     </form>
   </article>
 }
+
+export default inLogger(DeleteForm)

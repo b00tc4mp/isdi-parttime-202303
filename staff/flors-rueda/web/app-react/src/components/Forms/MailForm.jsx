@@ -1,8 +1,9 @@
-import { context } from '../../context'
+import { context } from '../../context';
 import { updateMail } from '../../logic/update-mail';
-import './Form.css'
+import './Form.css';
+import inLogger from '../../logger';
 
-export default function MailForm({ onSaveClick, user}) {
+const MailForm = ({ onSaveClick, user}) => {
 
   const handleSave = (event) => {
     event.preventDefault();
@@ -28,4 +29,6 @@ export default function MailForm({ onSaveClick, user}) {
       </div>
     </form>
   </article>
-}
+};
+
+export default inLogger(MailForm)

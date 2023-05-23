@@ -4,12 +4,11 @@ import MailForm from '../Forms/MailForm';
 import NameForm from '../Forms/NameForm';
 import PasswordForm from '../Forms/PasswordForm';
 import DeleteForm from '../Forms/DeleteForm';
-import './Settings.css'
+import './Settings.css';
 import { svg } from '../../../assets/svg-paths';
-import { context } from '../../context';
+import inLogger from '../../logger';
 
-
-export default function Settings({ onAvatarChange, onDeleteAccount, user }) {
+const Settings = ({ onAvatarChange, onDeleteAccount, user }) => {
 
     //TODO fix all problems with async forms
 
@@ -87,3 +86,5 @@ export default function Settings({ onAvatarChange, onDeleteAccount, user }) {
             </div>
         </section>
 }
+
+export default inLogger(Settings)

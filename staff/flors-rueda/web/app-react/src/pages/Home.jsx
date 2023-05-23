@@ -1,15 +1,16 @@
-import Posts from '../components/Posts/Posts'
-import { useState, useEffect } from 'react'
-import NewPost from '../components/PostModals/NewPost'
-import EditPost from '../components/PostModals/EditPost'
-import DeletePost from '../components/PostModals/DeletePost'
-import { context }from '../context'
-import { svg } from '../../assets/svg-paths'
-import Navbar from '../components/Navbar/Navbar'
-import './Home.css'
-import Profile from '../components/Profile/Profile'
+import Posts from '../components/Posts/Posts';
+import { useState, useEffect } from 'react';
+import NewPost from '../components/PostModals/NewPost';
+import EditPost from '../components/PostModals/EditPost';
+import DeletePost from '../components/PostModals/DeletePost';
+import { context }from '../context';
+import { svg } from '../../assets/svg-paths';
+import Navbar from '../components/Navbar/Navbar';
+import './Home.css';
+import Profile from '../components/Profile/Profile';
+import inLogger from '../logger';
 
-export default function Home({ onLoggedOut }) {
+const Home = ({ onLoggedOut }) => {
     const [view, setView] = useState('posts');
     const [modal, setModal] = useState(null);
     const [postId, setPostId] = useState(null);
@@ -54,8 +55,6 @@ export default function Home({ onLoggedOut }) {
       handleGoToPosts();
     };
   
-    console.log('Home -> render');
-  
     return (
       <div className="home">
         <Navbar onLogoutClick={handleLogout} onProfileClick={handleGoToProfile} onFavsClick={handleGoToFavs} onHomeClick={handleGoToPosts} />
@@ -78,5 +77,5 @@ export default function Home({ onLoggedOut }) {
     );
   }
   
-
+export default inLogger(Home);
 

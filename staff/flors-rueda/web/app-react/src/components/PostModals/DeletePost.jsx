@@ -1,14 +1,9 @@
-import { svg } from '../../../assets/svg-paths';
 import { context } from '../../context';
-import { useState, useEffect } from 'react';
-import { retrievePost } from '../../logic/retrieve-post';
-import { updatePost } from '../../logic/update-post';
 import './PostModals.css';
 import { deletePost } from '../../logic/deletePost';
+import inLogger from '../../logger';
 
-export default function DeletePostModal({ onCancel, postId, onDelete}) {
-
-
+const DeletePostModal = ({ onCancel, postId, onDelete}) => {
     const handleCancel = (event) => {
         event.preventDefault();
         onCancel();
@@ -31,8 +26,6 @@ export default function DeletePostModal({ onCancel, postId, onDelete}) {
         }
     };
 
-    console.log('DeletePostModal -> render', postId);
-
     return   <section className="post-delete-modal">
     <div className="post-delete-modal__content">
         <div className="post-delete-modal__header">
@@ -49,3 +42,5 @@ export default function DeletePostModal({ onCancel, postId, onDelete}) {
 </section>
 
 }
+
+export default inLogger(DeletePostModal)

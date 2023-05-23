@@ -4,8 +4,9 @@ import Posts from '../Posts/Posts';
 import { useState, useEffect } from 'react';
 import Settings from '../Settings/Settings';
 import { retrieveUser } from '../../logic/retrieve-user';
+import inLogger from '../../logger';
 
-export default function Profile({ userId, onEditPost, onDeleteAccount }) {
+const Profile = ({ userId, onEditPost, onDeleteAccount }) => {
   const [view, setView] = useState('posts');
   const [selectedAvatar, setSelectedAvatar] = useState(null);
   const [user, setUser] = useState(null);
@@ -32,8 +33,6 @@ export default function Profile({ userId, onEditPost, onDeleteAccount }) {
     }
   }, []);
 
-  console.log('Profile -> render');
-
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -51,3 +50,5 @@ export default function Profile({ userId, onEditPost, onDeleteAccount }) {
     return <div>Error: {error.message}</div>;
   }
 }
+
+export default inLogger(Profile)

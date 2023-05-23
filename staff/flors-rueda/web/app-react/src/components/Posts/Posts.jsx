@@ -5,8 +5,9 @@ import { useState, useEffect } from 'react';
 import { retrieveFavoritePosts } from '../../logic/retrieve-favorite-posts';
 import './Posts.css';
 import { retrieveUserPosts } from '../../logic/retrieve-user-posts';
+import inLogger from '../../logger';
 
-export default function Posts({ onAuthorProfile, onEditPost, type, userId }) {
+const Posts = ({ onAuthorProfile, onEditPost, type, userId }) => {
   const [posts, setPosts] = useState([]);
 
   const handleRefreshPosts = () => {
@@ -72,4 +73,6 @@ export default function Posts({ onAuthorProfile, onEditPost, type, userId }) {
       </div>
     </main>
   );
-}
+};
+
+export default inLogger(Posts);

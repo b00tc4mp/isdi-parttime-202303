@@ -1,6 +1,7 @@
 import { registerUser } from '../logic/register-user';
+import inLogger from '../logger';
 
-export default function Register({ onLoginClick, onUserRegistered }) {
+const Register = ({ onLoginClick, onUserRegistered }) => {
     const handleLoginClick = (event) => {
         event.preventDefault();
         onLoginClick();
@@ -45,3 +46,5 @@ export default function Register({ onLoginClick, onUserRegistered }) {
                 </div>
             </section>
 }
+
+export default inLogger(Register);

@@ -1,10 +1,10 @@
-import { context } from '../../context'
+import { context } from '../../context';
 import { updateName } from '../../logic/update-name';
-import './Form.css'
+import './Form.css';
+import inLogger from '../../logger';
 
-export default function NameForm({ onSaveClick, user}) {
-  
-  const handleSave = (event) => {
+const NameForm = ({ onSaveClick, user}) => {
+    const handleSave = (event) => {
     event.preventDefault();
     try {
       const name = event.target.name.value;
@@ -29,3 +29,5 @@ export default function NameForm({ onSaveClick, user}) {
     </form>
   </article>
 }
+
+export default inLogger(NameForm)

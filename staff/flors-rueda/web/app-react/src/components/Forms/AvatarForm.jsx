@@ -3,8 +3,9 @@ import { svg } from '../../../assets/svg-paths';
 import { updateAvatar } from '../../logic/update-avatar';
 import {context} from '../../context';
 import './Form.css';
+import inLogger from '../../logger';
 
-export default function AvatarForm({ onAvatarChange, onSaveClick, user }) {
+const AvatarForm = ({ onAvatarChange, onSaveClick, user }) => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [randomSelected, setSelectedRandom] = useState(false);
   const [avatarToSave, setAvatarToSave] = useState(null);
@@ -46,7 +47,8 @@ export default function AvatarForm({ onAvatarChange, onSaveClick, user }) {
     onAvatarChange(null);
   };
 
-  const handleSave = () => {
+  const handleSave = (event) => {
+    event.preventDefault()
     try {
       if(avatarToSave) {
         const isRandom = selectedImage ? false : true;
@@ -82,3 +84,5 @@ export default function AvatarForm({ onAvatarChange, onSaveClick, user }) {
       </form>
     </article>
 }
+
+export default inLogger(AvatarForm)

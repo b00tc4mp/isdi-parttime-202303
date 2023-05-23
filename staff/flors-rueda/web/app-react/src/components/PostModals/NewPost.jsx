@@ -1,11 +1,12 @@
-import { svg } from '../../../assets/svg-paths'
-import { context } from '../../context'
+import { svg } from '../../../assets/svg-paths';
+import { context } from '../../context';
 import { uploadPost } from '../../logic/upload-post';
 import { useState } from 'react';
 // TODO delete this library from the project import imageCompression from 'browser-image-compression'
-import './PostModals.css'
+import './PostModals.css';
+import inLogger from '../../logger';
 
-export default function NewPostModal({ onCancel, onPostCreated }) {
+const NewPostModal = ({ onCancel, onPostCreated }) => {
   const [selectedImage, setSelectedImage] = useState(null);
 
   const handleCancel = (event) => {
@@ -56,8 +57,6 @@ export default function NewPostModal({ onCancel, onPostCreated }) {
     }
   }
 
-  console.log('NewPostModal -> render');
-
   return <section className="post-modal">
     <div className="post-modal__content">
       <div className="post-modal__header">
@@ -91,3 +90,5 @@ export default function NewPostModal({ onCancel, onPostCreated }) {
     </div>
   </section>
 }
+
+export default inLogger(NewPostModal)

@@ -2,8 +2,9 @@ import { svg } from '../../../assets/svg-paths';
 import { useState } from 'react';
 import './ThemeToggle.css';
 import { context } from '../../context';
+import inLogger from '../../logger';
 
-export default function ThemeToggle({ onToggleChange }) {
+const ThemeToggle = ({ onToggleChange }) => {
     const [isChecked, setIsChecked] = useState(context.theme === 'light');
   
     const handleToggleChange = () => {
@@ -29,4 +30,6 @@ export default function ThemeToggle({ onToggleChange }) {
         </label>
       </section>
     );
-  }
+}
+
+export default inLogger(ThemeToggle)

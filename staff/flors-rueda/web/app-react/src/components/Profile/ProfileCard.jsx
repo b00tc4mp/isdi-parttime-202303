@@ -4,15 +4,15 @@ import { colors } from '../../../assets/avatar';
 import Avatar from 'boring-avatars';
 import './ProfileCard.css';
 import { useState, } from 'react';
+import inLogger from '../../logger';
 
-export default function ProfileCard({ userId, onSettingsClick, selectedAvatar, user}) {
+const ProfileCard = ({ userId, onSettingsClick, selectedAvatar, user}) => {
   const [isSettingsOn, setIsSettingsOn] = useState(false);
 
   const handleSettingsClick = () => {
     onSettingsClick();
     setIsSettingsOn(!isSettingsOn)
   };
-  console.log('ProfileCard -> render');
 
   try {
     return (
@@ -74,3 +74,5 @@ export default function ProfileCard({ userId, onSettingsClick, selectedAvatar, u
     console.log(`ProfileCard error: ${error.message}`);
   }
 }
+
+export default inLogger(ProfileCard)

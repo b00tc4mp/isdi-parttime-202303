@@ -4,8 +4,9 @@ import Register from './pages/Register';
 import Home from './pages/Home';
 import { context }from './context';
 import ThemeToggle from './components/ThemeToggle/ThemeToggle';
+import inLogger from './logger';
 
-export default function App() {
+const App = () => {
   const [view, setView] = useState(context.userAuth ? 'home' : 'login');
 
   const handleGoToRegister = () => setView('register');
@@ -22,8 +23,6 @@ export default function App() {
     context.theme = targetTheme;
   } 
 
-  console.log('App -> render');
-
   switch (view) {
     case 'login':
       return <>
@@ -39,4 +38,6 @@ export default function App() {
       <ThemeToggle onToggleChange={handleSwitchMode} />
       </>
   };
-}
+};
+
+export default inLogger(App);

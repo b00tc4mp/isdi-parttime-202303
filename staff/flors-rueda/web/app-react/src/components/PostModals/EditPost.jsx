@@ -4,8 +4,9 @@ import { useState, useEffect } from 'react';
 import { retrievePost } from '../../logic/retrieve-post';
 import { updatePost } from '../../logic/update-post';
 import './PostModals.css';
+import inLogger from '../../logger';
 
-export default function EditPostModal({ onCancel, postId, onPostUpdated, onDeleteModal}) {
+const EditPostModal = ({ onCancel, postId, onPostUpdated, onDeleteModal}) => {
     const [selectedImage, setSelectedImage] = useState(null);
     const [post, setPost] = useState(null);
 
@@ -74,8 +75,6 @@ export default function EditPostModal({ onCancel, postId, onPostUpdated, onDelet
         }
     };
 
-    console.log('EditPostModal -> render');
-
     return   <section className="post-modal">
     <div className="post-modal__content">
       <div className="post-modal__header">
@@ -122,3 +121,5 @@ export default function EditPostModal({ onCancel, postId, onPostUpdated, onDelet
   </section>
 
 }
+
+export default inLogger(EditPostModal);

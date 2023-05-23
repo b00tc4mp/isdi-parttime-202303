@@ -1,9 +1,9 @@
 import { context } from '../../context';
 import { updatePassword } from '../../logic/update-password';
-import './Form.css'
+import './Form.css';
+import inLogger from '../../logger';
 
-export default function PasswordForm({ onSaveClick }) {
-  
+const PasswordForm = ({ onSaveClick }) => {
   const handleSave = (event) => {
     event.preventDefault();
     try {
@@ -32,4 +32,6 @@ export default function PasswordForm({ onSaveClick }) {
       </div>
     </form>
   </article>
-}
+};
+
+export default inLogger(PasswordForm)

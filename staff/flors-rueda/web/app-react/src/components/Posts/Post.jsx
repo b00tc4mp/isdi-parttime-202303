@@ -1,15 +1,14 @@
 import { svg } from '../../../assets/svg-paths';
 import { context } from '../../context';
-import { retrievePost } from '../../logic/retrieve-post';
-import { retrieveUser } from '../../logic/retrieve-user';
 import { toggleFav } from '../../logic/toggle-fav';
 import { toggleLike } from '../../logic/toggle-like';
 import { colors } from '../../../assets/avatar';
 import Avatar from 'boring-avatars';
 import './Posts.css';
 import { togglePublicStat } from '../../logic/toggle-public-stat';
+import inLogger from '../../logger';
 
-export default function Post({ post, author, onEditPost, onToggledPublicStat, onToggledLike, onToggledFav, isProfileView, onAuthorProfile, userId }) {
+const Post = ({ post, author, onEditPost, onToggledPublicStat, onToggledLike, onToggledFav, isProfileView, onAuthorProfile, userId }) => {
     const handleEditPost = () => onEditPost(post.id);
     const handleToAuthorProfile = () => onAuthorProfile(author.id);
     const handleToggleLikePost = () => {
@@ -68,7 +67,6 @@ export default function Post({ post, author, onEditPost, onToggledPublicStat, on
         time = <time className="post__footer--date">{post.date.toLocaleDateString("en-GB")}</time>
     }
 
-    console.log(`Post ${post.id} -> render`)
     return <article className={isProfileView ? "post-card__profile" : "post-card"}>
         <div className="post-card__header">
             {!isProfileView && (
@@ -106,3 +104,5 @@ export default function Post({ post, author, onEditPost, onToggledPublicStat, on
         </div>
     </article>
 }
+
+export default inLogger(Post)

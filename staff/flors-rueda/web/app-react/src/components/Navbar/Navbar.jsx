@@ -1,8 +1,9 @@
 import { svg } from '../../../assets/svg-paths';
 import { useState, useRef } from 'react';
-import './Navbar.css'
+import './Navbar.css';
+import inLogger from '../../logger';
 
-export default function Navbar({ onLogoutClick, onProfileClick, onHomeClick, onFavsClick}) {
+const Navbar = ({ onLogoutClick, onProfileClick, onHomeClick, onFavsClick}) => {
     const headerRef = useRef(null);
     const btnRef = useRef(null);
 
@@ -48,8 +49,9 @@ export default function Navbar({ onLogoutClick, onProfileClick, onHomeClick, onF
                 </button>
             </nav>
         </header>
-
 }
+
+export default inLogger(Navbar)
 
 
 
