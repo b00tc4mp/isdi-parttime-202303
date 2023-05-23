@@ -107,7 +107,7 @@ export default function Post({post: {id, image, text, date, likedBy, author: {au
         setPostOptions(null)
     }
 
-    console.debug('Post -> render')
+    console.log('Post -> render')
 
     return <>
     {authorId && <><article className="post-container">
@@ -118,16 +118,7 @@ export default function Post({post: {id, image, text, date, likedBy, author: {au
             {authorId === context.userId && (privacy === 'public' ? <span className="material-symbols-rounded visibility">visibility</span> : <span className="material-symbols-rounded visibility">visibility_off</span>)}
             {authorId === context.userId? <button className="post-options" onClick={handlePostOptions}><span className="material-symbols-rounded">expand_circle_down</span></button> : ''}
         </div>
-        {postOptions === 'show' && <PostMenu 
-        
-            options={[
-                {onClick: handleToggleHide, dropDownItemClass: 'dropdown-item', icon: privacy === 'public'? 'visibility_off' : 'visibility', text: privacy === 'public'? 'Hide' : 'Show', textClass: 'post-menu-text'},
-                {onClick: handleEdit, dropDownItemClass: 'dropdown-item', icon: 'edit', text: 'Edit', textClass: 'post-menu-text'},
-                {onClick: handleDelete, dropDownItemClass: 'dropdown-item', icon: 'delete', text: 'Delete', textClass: 'post-menu-text'}
-            ]}
-            onCloseMenu={handleMenuClosed}
-
-        />}
+        {postOptions === 'show' && <PostMenu privacy={privacy} onToggleHide={handleToggleHide} onEdit={handleEdit} onDelete={handleDelete} onCloseMenu={handleMenuClosed}/>}
         <img src={image}/>
         <div className="post-options">
             <button className={`post-button ${likedBy && likedBy.includes(context.userId) ? 'liked filled' : ''}`} onClick={handleToggleLikePost}><span className="material-symbols-rounded">favorite</span></button>

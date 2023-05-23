@@ -1,4 +1,4 @@
-console.debug('validators loaded')
+console.log('validators loaded')
 
 export const checkNewUser = (userEmail, users) => {
     const userFound = users().find(user => user.email === userEmail)

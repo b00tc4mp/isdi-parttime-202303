@@ -1,3 +1,3 @@
-console.debug('ui loaded')
+console.log('ui loaded')
 
 export const context = sessionStorage

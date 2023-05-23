@@ -1,4 +1,4 @@
-console.debug('data loaded')
+console.log('data loaded')
 
 const DELAY = 1000
 

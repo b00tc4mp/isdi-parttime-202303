@@ -90,25 +90,25 @@ export default function Posts({onEditClicked, onPostDeleted, postsToShow, lastPo
     }
 
     useEffect(() => {
-        console.debug('Posts -> "componentDidMount" with hooks')
+        console.log('Posts -> "componentDidMount" with hooks')
 
-        return () => console.debug('Posts -> "componentWillUnmount" with hooks')
+        return () => console.log('Posts -> "componentWillUnmount" with hooks')
     })
 
     useEffect(() => {
-        console.debug('Posts -> "componentWillRecieveProps" with hooks')
+        console.log('Posts -> "componentWillRecieveProps" with hooks')
 
         if(lastPostsUpdate)
             handleRefreshPosts()
     }, [lastPostsUpdate])
 
     useEffect(() => {
-        console.debug('Posts -> "componentWillRecieveProps" with hooks')
+        console.log('Posts -> "componentWillRecieveProps" with hooks')
 
         handleRefreshPosts()
     }, [postsToShow])
     
-    console.debug('Posts -> render')
+    console.log('Posts -> render')
 
     return <section className='posts-list'>
         { posts && posts.map(post => (post.privacy === 'public' || post.author.authorId === context.userId) && <Post 

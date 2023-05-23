@@ -1,4 +1,4 @@
-console.debug('load retrieve user')
+console.log('load retrieve user')
 
 import { validateId } from './helpers/validators'
 import { findUserById } from '../data'
