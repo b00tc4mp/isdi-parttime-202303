@@ -1,6 +1,5 @@
 import { validatePasswordsChanges, validateId } from "./helpers/validators.js";
-import { users, saveUsers} from "../data.js";
-import { findUserById } from "./helpers/dataManagers.js";
+import { loadUsers, saveUsers, findUserById} from "../data.js";
 
 
 export default function updateUserPassword(authenticatedUserId, password, newPassword, newPasswordConfirm) {

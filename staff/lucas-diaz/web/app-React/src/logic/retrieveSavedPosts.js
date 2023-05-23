@@ -1,5 +1,5 @@
 import { validateId } from "./helpers/validators.js";
-import { findUserById } from "./helpers/dataManagers.js";
+import { findUserById } from "../data.js";
 
 
 export default function retrieveSavedPosts(userId, posts) {

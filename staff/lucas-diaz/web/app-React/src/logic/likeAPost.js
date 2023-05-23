@@ -1,5 +1,4 @@
-import { savePost, saveUser } from "../data";
-import { findUserById, findPostByPostId } from "./helpers/dataManagers";
+import { savePost, findUserById, findPostByPostId } from "../data";
 import { validateId } from "./helpers/validators";
 
 

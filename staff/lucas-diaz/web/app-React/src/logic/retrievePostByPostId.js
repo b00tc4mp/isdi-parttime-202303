@@ -1,5 +1,5 @@
 import { validateId } from "./helpers/validators";
-import { findPostByPostId, findUserById } from "./helpers/dataManagers";
+import { findPostByPostId, findUserById } from "../data";
 
 export default function retrievePostByPostId (userId, postId){
     validateId(userId);

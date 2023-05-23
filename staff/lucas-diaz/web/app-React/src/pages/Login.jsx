@@ -4,7 +4,7 @@ import { useState } from "react";
 
 
 export default function Login(props) {
-    const[errorMessage, setErrorMessage] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
 
     function handleRegisterClick(event) {
         event.preventDefault();
@@ -18,9 +18,16 @@ export default function Login(props) {
         const password = event.target.password.value = "LucasDiaz22!!";
 
         try {
-            const userId = authenticateUser(email, password)
-            context.userId = userId;
-            props.onUserLogedin();
+            authenticateUser(email, password, (error, userId) => {
+                if (error) {
+                    setErrorMessage(error.message)
+                    return;
+                } 
+                
+                context.userId = userId;
+                props.onUserLogedin();
+                
+            })
         } catch (error) {
             setErrorMessage(error.message)
         }

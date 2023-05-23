@@ -1,12 +1,16 @@
 import {validateEmail, validatePassword } from "./helpers/validators.js"
-import { findUserByEmail } from "./helpers/dataManagers.js";
+import { findUserByEmail } from "../data.js";
 
-export default function authenticateUser (email,password) {
+export default function authenticateUser (email,password, callback) {
     validateEmail(email);
     validatePassword(password);
     
-    const user = findUserByEmail(email);
-
-    if (!user || user.password !== password) throw new Error("Email or password wrong")
-    return user.id;
+    findUserByEmail(email, user => {
+        if (!user || user.password !== password){
+            callback(new Error("Email or password wrong"))
+            return
+        }
+        
+        callback(null, user.id);
+    });
 }

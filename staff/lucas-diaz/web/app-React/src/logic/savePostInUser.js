@@ -1,5 +1,4 @@
-import { saveUser } from "../data";
-import { findUserById } from "./helpers/dataManagers";
+import { saveUser, findUserById } from "../data";
 import { validateId } from "./helpers/validators";
 
 export default function savePostInUser(userId, post){

@@ -1,6 +1,6 @@
 import retrieveUser from "../logic/retrieveUser";
 import { context } from "../ui"
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Posts from "../components/Posts"
 import AddPostModal from "../components/AddPostModal";
 import UpdateAvatar from "../components/UpdateAvatar";
@@ -12,15 +12,22 @@ export default function Home({ onLogOutClick }) {
     const [modal, setModal] = useState(null);
     const [postId, setPostId] = useState(null);
     const [lastPostUpdate, setLastPostUpdate] = useState(Date.now())
+    const [user, setUser] = useState();
 
-    let _user
-    try {
-        _user = retrieveUser(context.userId)
-    } catch (error) {
-        alert(error.message)
-    }
+    useEffect(() => {
+        try {
+            retrieveUser(context.userId, (error, user) => {
+                if (error){
+                    alert(error.message)
+                    return;
+                }
+                setUser(user);
+            })
+        } catch (error) {
+            alert(error.message)
+        }
+    }, [])
 
-    const [user, setUser] = useState(_user);
 
     //? SETTINGS, LOG OUT Y HOME
     const handleSettingsClick = () => setView(null);
@@ -78,7 +85,9 @@ export default function Home({ onLogOutClick }) {
                 <button className="home-header-left-items-log-out-button button" onClick={handleLogOutClick} >Log out</button>
             </div>
             <div className="home-header-user">
-                <img className="home-header-user-avatar" src={user.avatar} alt="default avatar" />
+                {user && <>
+                    <img className="home-header-user-avatar" src={user.avatar} alt="default avatar" />
+                </>}
                 <h2 className="home-header-user-welcome-msj"></h2>
             </div>
             <nav className={`home-menu ${view === null ? "home-menu-transition" : ""} ${view === "avatar" || view === "posts" || view === "password"  || view === "savedPosts" ?  "" : "home-menu-transition"}`}>

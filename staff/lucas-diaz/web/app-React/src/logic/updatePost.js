@@ -1,5 +1,4 @@
-import { savePost } from "../data";
-import { findUserById, findPostByPostId } from "./helpers/dataManagers";
+import { savePost, findUserById, findPostByPostId } from "../data";
 import { validateId, validateText, validateUrl } from "./helpers/validators";
 
 export default function updatePost(userId, postId, image, text){
