@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 
 export default function UpdatePost({ postId  ,onUpdatedPost, onCancelClick }) {
 
-    // Tenemos que hacer un set state para almacenar este valor 
+
     const [post, setPost] = useState({})
 
     useEffect(() => {
@@ -17,9 +17,6 @@ export default function UpdatePost({ postId  ,onUpdatedPost, onCancelClick }) {
             alert(error.message);
         }
     }, [post])
-
-
-
 
 
     function handleUpdatePost(event) {
