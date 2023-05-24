@@ -79,6 +79,7 @@ export default function Home({ onLoggedOut }) {
         </header>
 
         <main>
+            <div class="container">
             {view === 'posts' && <Posts onEditPost={handleOpenEditPostModal} lastPostsUpdate={lastPostsUpdate} />}
             {view === 'profile' && <Profile onUserAvatarUpdated={handleUserAvatarUpdated} />}
 
@@ -92,6 +93,7 @@ export default function Home({ onLoggedOut }) {
                 onPostUpdated={handlePostUpdated}
                 postId={postId}
             />}
+        </div>
         </main>
 
         <footer className="home-footer">

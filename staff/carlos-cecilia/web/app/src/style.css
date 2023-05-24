@@ -7,21 +7,24 @@ html, body {
 body {
   margin: 0;
   padding: 0;
+  color: var(--textcolor);
   background-color: var(--basebgcolor);
 }
 
 /* library */
 
 :root {
-  --basecolor: yellow;
-  --basebgcolor: orange;
-  --homebgcolor: dodgerblue;
+  --basecolor: black;
+  --textcolor: black;
+  --basebgcolor: #c3c3c3;
+  --homebgcolor: white;
 }
 
 :root.dark {
-  --basecolor: gold;
-  --basebgcolor: tomato;
-  --homebgcolor: blue;
+  --basecolor: yellow;
+  --textcolor: white;
+  --basebgcolor: rgb(31, 54, 80);
+  --homebgcolor: rgb(29, 29, 29);
 }
 
 
@@ -47,7 +50,8 @@ body {
 .input, .button {
   padding: .5rem .6rem;
   border-radius: .75rem;
-  background-color: var(--basecolor);
+  background-color: var(--basebgcolor);
+  color: var(--textcolor);
 }
 
 .button {
@@ -75,4 +79,41 @@ body {
   width: 100vw;
   background-color: rgba(0, 0, 0, 0.545);
   z-index: 10;
+}
+
+.post {
+ margin-bottom: 20px;
+}
+
+.post__top {
+  position: relative;
+  overflow: hidden;
+  width: auto;
+  background-color: var(--homebgcolor);
+  }
+
+.post__top img {
+  width: 100%;
+}
+
+.post__interact {
+  position: absolute;
+  bottom: 0;
+  right: 5px;
+  width: 40px;
+  height: 90px;
+}
+
+.post__content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 10px;
+}
+
+.post__content-date {
+  font-size: 8px;
+}
+.post__content-text {
+  font-size: 14px;
 }

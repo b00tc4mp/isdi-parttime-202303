@@ -7,6 +7,7 @@ export default function deletePost (userId, postId) {
 
     validateId(userId, 'user id')
     validateId(postId, 'post id')
+    debugger
 
     const user = findUserById(userId)
 
