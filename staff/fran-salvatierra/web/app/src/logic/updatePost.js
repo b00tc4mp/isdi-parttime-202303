@@ -7,6 +7,8 @@ export default function updatePost(userId, postId, image, text) {
     validateId(postId, 'post id')
     validateUrl(image, 'image url')
     validateText(text)
+    /*TODO give valor to a post */
+    // validateValor(valor)
 
     const user = findUserById(userId)
 
@@ -21,6 +23,7 @@ export default function updatePost(userId, postId, image, text) {
     post.image = image
     post.text = text
     post.date = new Date
+    // post.valor = valor
 
     savePost(post)
 }

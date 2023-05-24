@@ -1,7 +1,14 @@
+import PropTypes from 'prop-types'
 import { context } from '../ui'
 import createPost from '../logic/create-post'
 
 export default function AddPostModal({ onCancel, onPostCreated }) {
+
+    AddPostModal.propTypes = {
+        onCancel: PropTypes.func,
+        onPostCreated: PropTypes.func
+    }
+
     console.log('AddPostModal -> render')
 
     function handleCancel(e) {

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import Posts from '../components/Posts'
 import { useState } from 'react'
 import AddPostModal from '../components/AddPostModal'
@@ -7,7 +8,12 @@ import './Home.css'
 import { context } from '../ui'
 import retrieveUser from '../logic/retrieveUser'
 
+
 export default function Home({ onLoggedOut }) {
+    Home.propTypes = {
+        onLoggedOut: PropTypes.func
+    }
+
     const [view, setView] = useState('posts')
     const [modal, setModal] = useState(null)
     const [postId, setPostId] = useState(null)
@@ -81,6 +87,17 @@ export default function Home({ onLoggedOut }) {
         <main>
             {view === 'posts' && <Posts onEditPost={handleOpenEditPostModal} lastPostsUpdate={lastPostsUpdate} />}
             {view === 'profile' && <Profile onUserAvatarUpdated={handleUserAvatarUpdated} />}
+
+            {/* TODO add two options to create a post
+                1- Create a normal post
+                2- Create a music post -> Use spotify api
+                to search songs and listen it && share it 
+                https://developer.spotify.com/documentation/web-api*/}
+
+            {/* {modal === 'choose-post' && <ChoosePost
+                onCancel={handleCancelModal}
+                />
+            } */}
 
             {modal === 'add-post' && <AddPostModal
                 onCancel={handleCloseModal}
