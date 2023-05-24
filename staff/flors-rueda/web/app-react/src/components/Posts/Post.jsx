@@ -75,16 +75,7 @@ const Post = ({ post, author, onEditPost, onToggledPublicStat, onToggledLike, on
         <div className="post-card__header">
             {!isProfileView && (
                 <div className="post-card__header--author-data" onClick={handleToAuthorProfile}>
-                    {author.avatar.random ?
-                        <div className="post-card__header--author-avatar">
-                            <Avatar size={36}
-                                variant="beam"
-                                colors={colors}
-                                name={author.avatar.src} 
-                            />
-                        </div>
-                        : <img className="post-card__header--author-avatar" src={author.avatar.src} />
-                    }
+                    <img className="post-card__header--author-avatar" src={author.avatar} />
                     <p className="post-card__header--author-name">{author.name}</p>
                     <p className="post-card__header--author-username">{author.username}</p>
                 </div>

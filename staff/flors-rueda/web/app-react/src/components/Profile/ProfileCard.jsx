@@ -35,33 +35,9 @@ const ProfileCard = ({ userId, onSettingsClick, selectedAvatar, user }) => {
         <article className="user-card">
           <div className="user-card__border">
             <div className="user-card__avatar">
-              {selectedAvatar ? (
-                selectedAvatar.length > 10 ?
-                  <img
-                    className="user-card__avatar-image"
-                    src={selectedAvatar}
-                    alt="User Avatar"
-                  /> :
-                  <Avatar
-                    size={128}
-                    variant="beam"
-                    colors={colors}
-                    name={selectedAvatar}
-                  />
-              ) : (
-                user.avatar.random ?
-                  <Avatar
-                    size={128}
-                    variant="beam"
-                    colors={colors}
-                    name={user.avatar.src}
-                  /> :
-                  <img
-                    className="user-card__avatar-image"
-                    src={user.avatar.src}
-                    alt="User Avatar"
-                  />
-              )}
+              {selectedAvatar ? <img className="user-card__avatar-image" src={selectedAvatar} alt="User Avatar" />
+               : <img className="user-card__avatar-image" src={user.avatar} alt="User Avatar" />
+              }
             </div>
           </div>
           <div className="user-card__footer">

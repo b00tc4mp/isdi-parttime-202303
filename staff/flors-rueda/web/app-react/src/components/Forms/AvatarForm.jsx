@@ -5,10 +5,10 @@ import {context} from '../../ui';
 import './Form.css';
 import inLogger from '../../inLogger';
 import Context from '../../Context';
+import { generateRandomAvatar } from '../../logic/generate-random-avatar';
 
 const AvatarForm = ({ onAvatarChange, onSaveClick, user }) => {
   const [selectedImage, setSelectedImage] = useState(null);
-  const [randomSelected, setSelectedRandom] = useState(false);
   const [avatarToSave, setAvatarToSave] = useState(null);
   const fileInputRef = useRef(null);
   const { alert } = useContext(Context);
@@ -24,7 +24,6 @@ const AvatarForm = ({ onAvatarChange, onSaveClick, user }) => {
         setSelectedImage(base64);
         onAvatarChange(base64);
         setAvatarToSave(base64)
-        setSelectedRandom(false)
       };
       reader.readAsDataURL(file);
     } catch (error) {
@@ -32,11 +31,15 @@ const AvatarForm = ({ onAvatarChange, onSaveClick, user }) => {
     }
   } else {
     try {
-      const randomSrc = Math.random().toString(36).substring(7);
-      setSelectedImage(null);
-      onAvatarChange(randomSrc)
-      setAvatarToSave(randomSrc)
-      setSelectedRandom(true)
+      generateRandomAvatar(context.userAuth, (error, randomAvatar) => {
+        if (error) {
+            alert(`login error: ${error.message}`, 'danger');
+            return;
+        }
+        console.log(randomAvatar)
+        onAvatarChange(randomAvatar);
+        setAvatarToSave(randomAvatar)
+    })
     } catch (error) {
       alert(`random avatar error: ${error}`, 'danger');
     }
@@ -53,8 +56,7 @@ const AvatarForm = ({ onAvatarChange, onSaveClick, user }) => {
     event.preventDefault()
     try {
       if(avatarToSave) {
-        const isRandom = selectedImage ? false : true;
-        updateAvatar(isRandom, avatarToSave, context.userAuth, error => {
+        updateAvatar(avatarToSave, context.userAuth, error => {
           if(error) {
             alert(`update avatar error: ${error.message}`, 'danger');
             return;

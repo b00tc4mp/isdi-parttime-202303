@@ -1,6 +1,6 @@
 import { loadPosts, savePosts } from '../data/data';
 import { findUserById } from '../data/data-managers';
-import { generateUUID } from '../data/helpers';
+import { generateUUID } from './helpers/generateUUID';
 import { validatePostImage, validatePostText } from '../data/validators-posts';
 import { validateUserID } from '../data/validators-users';
 

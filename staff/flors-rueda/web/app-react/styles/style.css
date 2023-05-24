@@ -43,6 +43,7 @@
     --color-success-200: #53b65a;
     --color-success-300: #ddf8e4;
     --color-success-transparence: #53b65a4b;
+    --color-static-background: #a3a3a3; 
 }
 
 html[data-theme="dark"] {

@@ -58,6 +58,7 @@
     overflow: hidden;
     height: 2.25rem;
     width: 2.25rem;
+    background-color: var(--color-static-background);
 }
 
 .post-card__header--author-username {
