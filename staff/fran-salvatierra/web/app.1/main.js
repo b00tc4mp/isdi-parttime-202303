@@ -13,9 +13,10 @@ document.querySelector('.login').querySelector('form').addEventListener('submit'
 
     // TODO how to get all data from inputs
     console.log('hello sumbit')
+    alert('hola')
 
-    document.querySelector('.login').classList.add('off')
-    document.querySelector('.home').classList.remove('off')
+    // document.querySelector('.login').classList.add('off')
+    // document.querySelector('.home').classList.remove('off')
 })
 
 document.querySelector('.register').querySelector('a').addEventListener('click', function (event) {
