@@ -1,4 +1,4 @@
-import { svg } from '../../../assets/svg-paths';
+import { svg } from '../../../public/svg-paths';
 import { useState, useRef } from 'react';
 import './Navbar.css';
 import inLogger from '../../inLogger';

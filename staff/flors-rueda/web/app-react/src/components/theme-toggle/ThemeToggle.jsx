@@ -1,4 +1,4 @@
-import { svg } from '../../../assets/svg-paths';
+import { svg } from '../../../public/svg-paths';
 import { useState } from 'react';
 import './ThemeToggle.css';
 import { context } from '../../ui';

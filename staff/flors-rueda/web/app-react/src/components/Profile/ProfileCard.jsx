@@ -1,6 +1,6 @@
-import { svg } from '../../../assets/svg-paths';
+import { svg } from '../../../public/svg-paths';
 import { context } from '../../ui';
-import { colors } from '../../../assets/avatar';
+import { colors } from '../../../public/avatar';
 import Avatar from 'boring-avatars';
 import './ProfileCard.css';
 import { useState, useContext } from 'react';

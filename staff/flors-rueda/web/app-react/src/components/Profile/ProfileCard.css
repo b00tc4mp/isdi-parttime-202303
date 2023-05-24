@@ -68,7 +68,8 @@
   overflow: hidden;
   height: 8rem;
   width: 8rem;
-  background-color: var(--color-static-background);
+  background-image: url('../../../public/tile.png');
+  background-repeat: repeat;
   position: relative;
   z-index: 1;
 }

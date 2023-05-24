@@ -1,4 +1,4 @@
-import { svg } from '../../../assets/svg-paths';
+import { svg } from '../../../public/svg-paths';
 import { context } from '../../ui';
 import { useState, useEffect, useContext } from 'react';
 import { retrievePost } from '../../logic/retrieve-post';

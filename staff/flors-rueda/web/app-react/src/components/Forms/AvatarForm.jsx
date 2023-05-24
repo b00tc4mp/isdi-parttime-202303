@@ -1,5 +1,5 @@
 import { useState, useRef, useContext } from 'react';
-import { svg } from '../../../assets/svg-paths';
+import { svg } from '../../../public/svg-paths';
 import { updateAvatar } from '../../logic/update-avatar';
 import {context} from '../../ui';
 import './Form.css';
@@ -36,7 +36,6 @@ const AvatarForm = ({ onAvatarChange, onSaveClick, user }) => {
             alert(`login error: ${error.message}`, 'danger');
             return;
         }
-        console.log(randomAvatar)
         onAvatarChange(randomAvatar);
         setAvatarToSave(randomAvatar)
     })

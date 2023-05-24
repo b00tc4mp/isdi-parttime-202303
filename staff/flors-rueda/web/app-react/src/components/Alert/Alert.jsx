@@ -1,4 +1,4 @@
-import { svg } from '../../../assets/svg-paths';
+import { svg } from '../../../public/svg-paths';
 import './Alert.css';
 import inLogger from '../../inLogger';
 import { useEffect } from 'react';

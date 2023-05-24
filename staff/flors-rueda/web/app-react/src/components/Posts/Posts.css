@@ -58,7 +58,8 @@
     overflow: hidden;
     height: 2.25rem;
     width: 2.25rem;
-    background-color: var(--color-static-background);
+    background-image: url('../../../public/tile.png');
+    background-repeat: repeat;
 }
 
 .post-card__header--author-username {
