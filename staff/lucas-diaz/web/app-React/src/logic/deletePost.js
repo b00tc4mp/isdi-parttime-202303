@@ -1,8 +1,8 @@
 import { validateId } from "./helpers/validators";
-import { loadUsers, posts, savePosts } from "../data";
+import { loadUsers, loadPosts, savePosts } from "../data";
 
 
-export default function deletePost(userId, postId) {
+export default function deletePost(userId, postId, callback) {
     validateId(userId);
 
     loadUsers(foundUser => {
@@ -10,17 +10,19 @@ export default function deletePost(userId, postId) {
 
         if (!found){
             callback(new Error(`there is no user with this current ${userId} id`));
-
+            return;
         } 
 
-        const _posts = posts()
+        loadPosts( _posts => {
 
-        const foundPostIndex = _posts.findIndex(post => post.id === postId)
+            const foundPostIndex = _posts.findIndex(post => post.id === postId)
 
-        if (foundPostIndex !== -1) {
-            _posts.splice(foundPostIndex, 1);
-        }
+            if (foundPostIndex !== -1) {
+                _posts.splice(foundPostIndex, 1);
+            }
+    
+            savePosts(_posts, () => callback(null))
 
-        savePosts(_posts)
+        } )
     })
 }

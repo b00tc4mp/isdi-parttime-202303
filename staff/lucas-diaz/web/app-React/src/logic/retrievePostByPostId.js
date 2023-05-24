@@ -1,12 +1,19 @@
 import { validateId } from "./helpers/validators";
 import { findPostByPostId, findUserById } from "../data";
 
-export default function retrievePostByPostId (userId, postId){
+export default function retrievePostByPostId (userId, postId, callback){
     validateId(userId);
 
-    const foundUser = findUserById(userId)
-    
-    if (!foundUser) throw new Error (`there is no user with this current ${userId} id`);
+    findUserById(userId, foundUser => {
+        if (!foundUser) {
+            callback(new Error (`there is no user with this current ${userId} id`));
+            return;
+        }
+        
 
-    return findPostByPostId(postId);
+        findPostByPostId(postId, foundPost => {
+            callback(foundPost);
+        })
+    })
+    
 }

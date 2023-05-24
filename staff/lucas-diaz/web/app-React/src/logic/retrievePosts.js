@@ -1,5 +1,5 @@
 import { validateId } from "./helpers/validators.js";
-import { loadUsers, posts } from "../data.js";
+import { loadUsers, loadPosts } from "../data.js";
 
 
 export default function retrievePosts (userId, callback) {
@@ -13,6 +13,9 @@ export default function retrievePosts (userId, callback) {
             return
         } 
     
-        callback(null, posts().toReversed());
+        loadPosts((posts) => {
+
+            callback(null, posts.toReversed());
+        }) 
     })
 }

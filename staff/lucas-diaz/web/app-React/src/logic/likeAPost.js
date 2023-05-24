@@ -2,23 +2,36 @@ import { savePost, findUserById, findPostByPostId } from "../data";
 import { validateId } from "./helpers/validators";
 
 
-export default function likeAPost(userId, post) {
+export default function likeAPost(userId, post, callback) {
     validateId(userId);
-    let foundUser = findUserById(userId);
-    let foundPost = findPostByPostId(post.id);
 
-    if (!foundUser) throw new Error("There is no user with this id");
-    if (!foundPost) throw new Error("There is no post with this post id")
+    findUserById(userId, foundUser => {
 
-    if (foundPost.likeCounter.includes(foundUser.id)) {
+        findPostByPostId(post.id, foundPost => {
 
-        const foundUserIndex = foundPost.likeCounter.indexOf(foundUser.id)
-        foundPost.likeCounter.splice(foundUserIndex, 1);
+            if (!foundUser) {
 
-        savePost(foundPost);
-        return;
-    }
+                callback(new Error("There is no user with this id"));
+                return;
+            }
+            if (!foundPost) {
+                callback(new Error("There is no post with this post id"))
+                return
+            }
 
-    foundPost.likeCounter.push(foundUser.id);
-    savePost(foundPost);
+            if (foundPost.likeCounter.includes(foundUser.id)) {
+
+                const foundUserIndex = foundPost.likeCounter.indexOf(foundUser.id)
+                foundPost.likeCounter.splice(foundUserIndex, 1);
+
+                savePost(foundPost, () => callback(null));
+                return;
+            }
+
+            foundPost.likeCounter.push(foundUser.id);
+            savePost(foundPost, () => callback(null));
+
+        });
+    });
+
 }

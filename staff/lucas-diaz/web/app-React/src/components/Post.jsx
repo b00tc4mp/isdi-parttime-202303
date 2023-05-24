@@ -14,16 +14,28 @@ export default function Post(props) {
 
     function handleHeartClick() {
         try {
-            likeAPost(context.userId, post)
-            props.onLikeClick();
+            likeAPost(context.userId, post, error => {
+                if(error){
+                    alert(error.message)
+                    return
+                }
+
+                props.onLikeClick();
+            })
         } catch (error) {
             alert(error.message)
         }
     }
     function handleDeleteClick() {
         try {
-            deletePost(context.userId, post.id);
-            props.onDeleteClick();
+
+            deletePost(context.userId, post.id, error => {
+                if (error){
+                    alert(error.message)
+                    return;
+                }
+                props.onDeleteClick();
+            });
 
         } catch (error) {
             alert(error.message)
@@ -32,8 +44,15 @@ export default function Post(props) {
 
     function handleSavePostClick() {
         try{
-            savePostInUser(context.userId, post);
-            props.OnSavedPostClick(); 
+            savePostInUser(context.userId, post, (error) => {
+                if(error){
+                    alert(error.message)
+                    return
+                }
+                props.OnSavedPostClick(); 
+
+
+            });
         }catch(error){
             alert(error.message)
         }

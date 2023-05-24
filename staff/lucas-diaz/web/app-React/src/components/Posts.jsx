@@ -44,7 +44,7 @@ export default function Posts({ onEditPostButtonClick, lastPostsUpdate, view }) 
             });
 
         } else {
-
+            
             retrievePosts(context.userId, (error, _posts) => {
                 if (error) {
                     alert(error)

@@ -1,6 +1,6 @@
 import { users } from "../../app-React.2/src/data"
 
-const DELAY = 500
+const DELAY = 100
 
 export const loadUsers = callback => setTimeout(() => {
     callback("usersJson" in localStorage ? JSON.parse(localStorage.usersJson) : [])
@@ -45,47 +45,51 @@ export function findUserByEmail(email, callback) {
 
 // --------------------------------------------------------------------------------
 
-
-
-export const posts = () => {
-    const posts = "postsJson" in localStorage ? JSON.parse(localStorage.postsJson) : []
-
-    posts.forEach(post => post.date = new Date(post.date));
-    return posts
-}
-
-/* export const pos ts = callback => setTimeout(() => {
+export const loadPosts = callback => setTimeout(() => {
     const posts = "postsJson" in localStorage ? JSON.parse(localStorage.postsJson) : []
 
     posts.forEach(post => post.date = new Date(post.date));
 
     callback(posts)
-}, 100) */
+}, DELAY) 
 
-export function savePosts(posts) {
-    localStorage.postsJson = JSON.stringify(posts);
+export function savePosts(posts, callback) {
+    setTimeout(() => {
+        localStorage.postsJson = JSON.stringify(posts);
+    
+        callback();
+    }, DELAY);
 }
 
-export function savePost(post) {
-    const _posts = posts()
+export function savePost(post, callback) {
+    
+    loadPosts(_posts => {
+        
+        const index = _posts.findIndex(_post => _post.id === post.id)
 
-    const index = _posts.findIndex(_post => _post.id === post.id)
+        if (index < 0)
+            _posts.push(post)
+        else
+            _posts.splice(index, 1, post)
+    
+        savePosts(_posts, callback)
+    })
 
-    if (index < 0)
-        _posts.push(post)
-    else
-        _posts.splice(index, 1, post)
 
-
-    savePosts(_posts)
 }
 
-export function findPostByUserId(userId) {
-    let foundPost = posts().find(post => post.author === userId)
-    return foundPost;
+export function findPostByUserId(userId, callback) {
+    loadPosts(foundPost => {
+        let post = foundPost.find(post => post.author === userId)
+        
+        callback(post)
+    })
 }
 
-export function findPostByPostId(postId) {
-    let foundPost = posts().find(post => post.id === postId)
-    return foundPost;
+export function findPostByPostId(postId, callback) {
+    loadPosts(foundPost => {
+        let post = foundPost.find(post => post.id === postId)
+
+        callback(post);
+    })
 }
