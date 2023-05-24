@@ -10,12 +10,10 @@ import EditPost from '../components/EditPost'
 import Profile from '../components/Profile'
 import './Home.css'
 import PropTypes from 'prop-types'
+import ProfileBar from '../components/ProfileBar'
+import NavigationBar from '../components/NavigationBar'
 
 export default function Home(props) {
-    Home.propTypes = {
-        onLogout: PropTypes.func
-    }
-
     const [modal, setModal] = useState(null)
     const [postId, setPostId] = useState(null)
     const [lastPostsUpdate, setLastPostsUpdate] = useState(Date.now())
@@ -51,11 +49,7 @@ export default function Home(props) {
 
     const handleOpenProfile = () => setPostsToShow('mine')
     
-    const handleFilterSavedPosts = () => {
-        setPostsToShow('saved')
-        
-        setModal(null)
-    }
+    const handleFilterSavedPosts = () => setPostsToShow('saved')
     
     const handleFilterAllPosts = () => setPostsToShow('all')
     
@@ -105,35 +99,16 @@ export default function Home(props) {
     }
     
     return <div className="home-page">
-        <header>
-            <nav>
-                <ul className="horizontal-menu">
-                    <li>
-                        <div name="my-app" className='logo'><a href="#"><span className="material-symbols-rounded">emoticon</span><span></span></a></div>
-                    </li>
-                    <li name="home" onClick={handleFilterAllPosts}>
-                        <a href="#">
-                            <span className={`menu-buttons material-symbols-rounded ${postsToShow === 'all' && modal === null ? 'filled' : ''}`}>home</span>
-                            <span className="menu-text">{postsToShow === 'all' && modal === null ? <b>Home</b> : 'Home'}</span>
-                        </a>
-                    </li>
-                    <li name="new-post" onClick={handleOpenAddPost}>
-                        <a href="#">
-                            <span className={`menu-buttons material-symbols-rounded ${modal === 'add-post' ? 'filled' : ''}`}>add_a_photo</span>
-                            <span className="menu-text">{modal === 'add-post' ? <b>Post</b> : 'Post'}</span>
-                        </a>
-                    </li>
-                    {user && <>
-                    <li name="my-profile" onClick={handleOpenProfile}>
-                        <img src={user.avatar || 'https://i.pinimg.com/originals/f1/0f/f7/f10ff70a7155e5ab666bcdd1b45b726d.jpg'} alt="" className={`user-avatar ${modal === 'profile' || postsToShow !== 'all' ? 'selected' : ''}`}/>
-                        <a href="#" className="menu-buttons"><span className="menu-text" name="authenticated-user-name">{modal === 'profile' || postsToShow !== 'all' ? <b>Profile</b> : 'Profile'}</span></a>
-                    </li>
-                    </>}
-                    
-                    <li className="logout" name="logout" onClick={handleLogout}><a href="#"><span className="menu-buttons material-symbols-rounded">logout</span><span className="menu-text">Logout</span></a></li>
-                </ul>
-            </nav>
-        </header>
+        <NavigationBar 
+            user={user} 
+            postsToShow={postsToShow} 
+            handleFilterAllPosts={handleFilterAllPosts} 
+            handleOpenAddPost={handleOpenAddPost} 
+            handleOpenProfile={handleOpenProfile} 
+            handleLogout={handleLogout} 
+            modal={modal}
+        />
+
         <main className="main-content">
             <Posts 
                 onEditClicked={handleEditClicked} 
@@ -176,14 +151,14 @@ export default function Home(props) {
                 postId={postId}
             />}
         </main>
-        { postsToShow !== 'all' && 
-        <footer>
-            <ul className='profile-filters'>
-                <li onClick={handleFilterMyPosts}><span className={`menu-buttons material-symbols-rounded ${!modal && postsToShow === 'mine' ? 'filled' : ''}`}>photo_library</span></li>
-                <li onClick={handleFilterSavedPosts}><span className={`menu-buttons material-symbols-rounded ${!modal && postsToShow === 'saved' ? 'filled' : '' }`}>bookmark</span></li>
-                <li onClick={handleFilterLikedPosts}><span className={`menu-buttons material-symbols-rounded ${!modal && postsToShow === 'liked' ? 'filled' : ''}`}>favorite</span></li>
-                <li onClick={handleOpenSettings}><span className={`menu-buttons material-symbols-rounded ${modal === 'profile' ? 'filled' : ''}`}>settings</span></li>
-            </ul>
-        </footer>}
+
+        <ProfileBar 
+            postsToShow={postsToShow} 
+            handleFilterMyPosts={handleFilterMyPosts} 
+            handleFilterSavedPosts={handleFilterSavedPosts} 
+            handleFilterLikedPosts={handleFilterLikedPosts} 
+            handleOpenSettings={handleOpenSettings}
+            modal={modal}
+        />
     </div>
 }

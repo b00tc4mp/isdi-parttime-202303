@@ -6,9 +6,6 @@ import './Posts.css'
 import PropTypes from 'prop-types'
 
 export default function Posts({onEditClicked, onPostDeleted, postsToShow, lastPostsUpdate, user }) {
-    Posts.propTypes = {
-        onEditClicked: PropTypes.func
-    }
     const [posts, setPosts] = useState()
 
     useEffect(() => {

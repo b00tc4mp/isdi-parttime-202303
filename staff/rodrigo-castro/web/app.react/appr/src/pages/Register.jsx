@@ -2,11 +2,6 @@ import PropTypes from 'prop-types'
 import { registerUserFull } from '../logic/registerUser'
 
 export default function Register({onLoginClick, onUserRegistered}) {
-    Register.propTypes = {
-        onLoginClick: PropTypes.func,
-        onUserRegistered: PropTypes.func
-    }
-    
     function handleLoginClick(event) {
         event.preventDefault()
   
@@ -36,7 +31,6 @@ export default function Register({onLoginClick, onUserRegistered}) {
   
     return <div className="register-page">
     <h1 className="all-titles">REGISTER</h1>
-    <div className="red-text"></div>
     <form className="inputs" onSubmit={handleRegister}>
         <input className="input-field" type="text" name="name" placeholder="User name"/>
         <input className="input-field" type="email" name="email" placeholder="Email"/>

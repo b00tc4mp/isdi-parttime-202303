@@ -5,13 +5,6 @@ import { context } from '../ui'
 import './Profile.css'
 
 export default function Profile({ onCancel, onChangeEmail, onChangePassword, onChangeAvatar }) {
-    Profile.propTypes = {
-        onCancel: PropTypes.func,
-        onChangeEmail: PropTypes.func,
-        onChangePassword: PropTypes.func,
-        onChangeAvatar: PropTypes.func
-    }
-
     const [mode, setMode] = useState(localStorage.mode ? localStorage.mode : 'light')
     const [user, setUser] = useState()
 

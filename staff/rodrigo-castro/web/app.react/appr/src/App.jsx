@@ -3,9 +3,12 @@ import Login from './pages/Login.jsx'
 import Register from './pages/Register.jsx'
 import Home from './pages/Home.jsx'
 import { context } from './ui'
+import Alert from './components/Alert.jsx'
+import Context from './Context'
 
 export default function App() {
     const [view, setView] = useState(context.userId === undefined? 'login' : 'home')
+    const [feedback, setFeedback] = useState(null)
 
     const handleGoToRegister = () => setView('register')
 
@@ -13,7 +16,11 @@ export default function App() {
 
     const handleGoToHome = () => setView('home')
 
+    const handleAcceptAlert = () => setFeedback(null)
+
     const handleLogout = () => setView('login')
+
+    const handleShowAlert = (message, level = 'warn') => setFeedback({message, level})
 
     if(!localStorage.mode)
         localStorage.mode = 'light'
@@ -26,12 +33,10 @@ export default function App() {
             document.querySelector('html').classList.remove('dark')
     }
 
-    switch(view){
-        case 'login':
-            return <Login onRegisterClick={handleGoToRegister} onUserLoggedIn={handleGoToHome}/>
-        case 'register':
-            return <Register onLoginClick={handleGoToLogin} onUserRegistered={handleGoToLogin}/>
-        case 'home':
-            return <Home onLogout={handleLogout}/>
-    }
+    return <Context.Provider value={{ alert: handleShowAlert }}>
+        {view === 'login' && <Login onRegisterClick={handleGoToRegister} onUserLoggedIn={handleGoToHome}/>}
+        {view === 'register' && <Register onLoginClick={handleGoToLogin} onUserRegistered={handleGoToLogin}/>}
+        {view === 'home' && <Home onLogout={handleLogout}/>}
+        {feedback && <Alert message={feedback.message} level={feedback.level} onAccept={handleAcceptAlert}/>}
+    </Context.Provider>
 }

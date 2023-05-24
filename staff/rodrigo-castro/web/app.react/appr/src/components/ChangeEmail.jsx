@@ -1,13 +1,7 @@
-import PropTypes from 'prop-types'
 import { changeEmail } from '../logic/updateUserEmail'
 import { context } from '../ui'
 
 export default function ChangeEmail({onCancel, onEmailChanged}) {
-    ChangeEmail.propTypes = {
-        onCancel: PropTypes.func,
-        onEmailChanged: PropTypes.func
-    }
-
     const handleChangeEmail = (event) => {
         event.preventDefault()
 

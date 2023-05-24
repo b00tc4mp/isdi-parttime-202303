@@ -1,18 +1,9 @@
-import PropTypes from 'prop-types'
 import retrievePost from '../logic/retrievePost'
 import editPost from '../logic/editPost'
 import { context } from '../ui'
-import deletePost from '../logic/deletePost'
 import { useEffect, useState } from 'react'
 
 export default function EditPost({onCancel, postId, onPostEdited, onPostDeleted}) {
-    EditPost.propTypes = {
-        onCancel: PropTypes.func,
-        postId: PropTypes.string,
-        onPostEdited: PropTypes.func,
-        onPostDeleted: PropTypes.func
-    }
-
     const [post, setPost] = useState()
 
     const handleCancelEdit = () => onCancel()

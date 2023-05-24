@@ -4,19 +4,13 @@ import toggleSavePost from '../logic/toggleSavePost'
 import deletePost from "../logic/deletePost"
 import PostMenu from "./PostMenu"
 import './Post.css'
-import PropTypes from 'prop-types'
 import { useState } from "react"
 import togglePrivacy from "../logic/togglePrivacy"
-// import { retrieveUser } from "../logic/retrieveUser"
-// import { useEffect, useState } from 'react'
+import { useContext } from 'react'
+import Context from "../Context"
 
 export default function Post({post: {id, image, text, date, likedBy, author: {authorId, name, avatar}, isFav, privacy}, onToggledLikePost, onEdit, onPostDeleted, onToggleSavePost, onToggledPrivacy}) {
-    Post.propTypes = {
-        post: PropTypes.object,
-        onToggledLikePost: PropTypes.func,
-        onEdit: PropTypes.func,
-        onToggleSavePost: PropTypes.func
-    }
+    const { alert } = useContext(Context)
 
     const [postOptions, setPostOptions] = useState(null)
     
@@ -111,6 +105,7 @@ export default function Post({post: {id, image, text, date, likedBy, author: {au
 
     return <>
     {authorId && <><article className="post-container">
+
         <div className="post-header">
             <img src={avatar} className="user-avatar"/>
             <p className="author-name">{name}</p>
@@ -118,16 +113,6 @@ export default function Post({post: {id, image, text, date, likedBy, author: {au
             {authorId === context.userId && (privacy === 'public' ? <span className="material-symbols-rounded visibility">visibility</span> : <span className="material-symbols-rounded visibility">visibility_off</span>)}
             {authorId === context.userId? <button className="post-options" onClick={handlePostOptions}><span className="material-symbols-rounded">expand_circle_down</span></button> : ''}
         </div>
-        {postOptions === 'show' && <PostMenu 
-        
-            options={[
-                {onClick: handleToggleHide, dropDownItemClass: 'dropdown-item', icon: privacy === 'public'? 'visibility_off' : 'visibility', text: privacy === 'public'? 'Hide' : 'Show', textClass: 'post-menu-text'},
-                {onClick: handleEdit, dropDownItemClass: 'dropdown-item', icon: 'edit', text: 'Edit', textClass: 'post-menu-text'},
-                {onClick: handleDelete, dropDownItemClass: 'dropdown-item', icon: 'delete', text: 'Delete', textClass: 'post-menu-text'}
-            ]}
-            onCloseMenu={handleMenuClosed}
-
-        />}
         <img src={image}/>
         <div className="post-options">
             <button className={`post-button ${likedBy && likedBy.includes(context.userId) ? 'liked filled' : ''}`} onClick={handleToggleLikePost}><span className="material-symbols-rounded">favorite</span></button>
@@ -137,6 +122,14 @@ export default function Post({post: {id, image, text, date, likedBy, author: {au
         <div>
             <p className="author-name">{name}</p><p>{text}</p>
         </div>
+        {postOptions === 'show' && <PostMenu 
+            options={[
+                {onClick: handleToggleHide, dropDownItemClass: 'dropdown-item', icon: privacy === 'public'? 'visibility_off' : 'visibility', text: privacy === 'public'? 'Hide' : 'Show', textClass: 'post-menu-text'},
+                {onClick: handleEdit, dropDownItemClass: 'dropdown-item', icon: 'edit', text: 'Edit', textClass: 'post-menu-text'},
+                {onClick: handleDelete, dropDownItemClass: 'dropdown-item', icon: 'delete', text: 'Delete', textClass: 'post-menu-text'}
+            ]}
+            onCloseMenu={handleMenuClosed}
+        />}
     </article></>}
     </>
 }

@@ -1,6 +1,6 @@
 console.debug('data loaded')
 
-const DELAY = 1000
+const DELAY = 200
 
 export function users2(callback) {
     setTimeout(() => {

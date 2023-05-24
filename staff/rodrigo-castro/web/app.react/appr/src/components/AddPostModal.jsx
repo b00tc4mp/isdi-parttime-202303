@@ -1,13 +1,7 @@
-import PropTypes from 'prop-types'
 import { context } from '../ui'
 import { createPost } from '../logic/createPost'
 
-export default function AddPostModal({ onCancel, onPostCreated }) {
-    AddPostModal.propTypes = {
-        onCancel: PropTypes.func,
-        onPostCreated: PropTypes.func
-    }
-    
+export default function AddPostModal({ onCancel, onPostCreated }) {    
     function handleCancel (event) {
         event.preventDefault()
 

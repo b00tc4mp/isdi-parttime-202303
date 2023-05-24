@@ -1,12 +1,11 @@
 import authenticateUser from '../logic/authenticateUser'
 import { context } from '../ui'
 import PropTypes from 'prop-types'
+import { useContext } from 'react'
+import Context from "../Context"
 
 export default function Login({onRegisterClick, onUserLoggedIn}) {
-    Login.propTypes = {
-        onRegisterClick: PropTypes.func,
-        onUserLoggedIn: PropTypes.func
-    }
+    const { alert } = useContext(Context)
 
     function handleRegisterClick(event) {
         event.preventDefault()
@@ -23,7 +22,7 @@ export default function Login({onRegisterClick, onUserLoggedIn}) {
         try{
             authenticateUser(email, password, (error, userId) => {
                 if(error){
-                    alert(error.message)
+                    alert(error.message, 'error')
 
                     return
                 }
@@ -33,13 +32,12 @@ export default function Login({onRegisterClick, onUserLoggedIn}) {
                 onUserLoggedIn()
             })
         } catch(error){
-            alert(error.message)
+            alert(error.message, 'warn')
         }
     }
   
     return <div className="login-page">
     <h1 className="all-titles">LOGIN</h1>
-    <div className="red-text"></div>
     <form className="inputs" onSubmit={handleLogin}>
             <input className="input-field" type="email" name="email" placeholder="Email"/>
             <input className="input-field" type="password" name="password" placeholder="Password"/>

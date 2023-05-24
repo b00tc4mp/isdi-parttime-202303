@@ -1,13 +1,7 @@
-import PropTypes from 'prop-types'
 import { changePassword } from '../logic/updateUserPassword'
 import { context } from '../ui'
 
 export default function ChangePassword({onCancel, onPasswordChanged}) {
-    ChangePassword.propTypes = {
-        onCancel: PropTypes.func,
-        onPasswordChanged: PropTypes.func
-    }
-
     const handleCancelChangePassword = () => onCancel()
 
     const handleChangePassword = (event) => {

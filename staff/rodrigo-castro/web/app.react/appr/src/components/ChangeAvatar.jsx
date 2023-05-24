@@ -1,13 +1,7 @@
-import PropTypes from 'prop-types'
 import { updateUserAvatar } from '../logic/updateUserAvatar'
 import { context } from '../ui'
 
 export default function ChangeAvatar({onCancel, onAvatarChanged}) {
-    ChangeAvatar.propTypes = {
-        onCancel: PropTypes.func,
-        onAvatarChanged: PropTypes.func
-    }
-
     const handleCancel = () => onCancel()
 
     const handleChangeAvatar = (event) => {
