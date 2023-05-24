@@ -25,9 +25,9 @@ export default function EditPostModal({ onCancel, onPostUpdated, postId}) {
 
                     return
                 }
+                onPostUpdated()
             }) 
                 
-            onPostUpdated()
         } catch (error) {
             alert(error.message)
         }
