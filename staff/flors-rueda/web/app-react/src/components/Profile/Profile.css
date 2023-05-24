@@ -1,8 +1,11 @@
-.user-profile {
+.user-profile, .user-profile-logged {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
-    padding-top: 2rem;
     align-items: center;
     justify-content: center;
+}
+
+.user-profile {
+    padding-top: 4.5rem;
+    padding-bottom: 0.5rem;
 }

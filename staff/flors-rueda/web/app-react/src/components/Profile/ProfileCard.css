@@ -1,3 +1,13 @@
+.user {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  gap: 1rem;
+  padding-top: 11rem;
+}
+
 .user-card {
   width: 75%;
   background-color: var(--color-surface-100);
@@ -7,6 +17,7 @@
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  margin-top: -15rem;
 }
 
 .user-card__border {
@@ -23,9 +34,9 @@
 .user-view__change {
   height: 4.5rem;
   width: 4.5rem;
-  margin-right: 1rem;
-  align-self: flex-end;
   display: flex;
+  align-self: flex-end;
+  margin-right: 20%;
   flex-direction: column;
   gap: 0;
   justify-content: center;
@@ -36,6 +47,7 @@
   -webkit-tap-highlight-color: var(--color-primary-transparence);
   border: 0.01rem solid var(--color-secondary-300);
   box-shadow: var(--color-surface-400) 0 .5rem 1.5rem;
+  z-index: 1;
 }
 
 .user-view__icon {
@@ -75,7 +87,8 @@
 
 .user-card__data {
   display: flex;
-  width: 8rem;
+  width: 100%;
+  padding-bottom: 0.5rem;
   flex-direction: row;
   align-items: end;
   justify-content: center;
@@ -84,5 +97,5 @@
 .user-card__footer {
   display: flex;
   align-items: start;
-  justify-content: flex-end;
+  justify-content: center;
 }

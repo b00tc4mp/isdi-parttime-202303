@@ -51,12 +51,11 @@ const Posts = ({ onAuthorProfile, onEditPost, type, userId }) => {
 
   useEffect(() => {
     handleRefreshPosts();
-  }, []);
+  }, [userId]);
 
   return (
     <main>
       <h1 className="home-page__main--title">{type === 'favs' ? 'Your favorites' : type === 'home' ? 'Home' : ''}</h1>
-      <p className="home-page__main--welcome"></p>
       <div className="home-page__main--posts-list">
         {posts.length > 0 ? posts.map((post) => (
           <Post

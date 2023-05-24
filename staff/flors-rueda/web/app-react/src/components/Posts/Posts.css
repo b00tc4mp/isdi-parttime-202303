@@ -1,5 +1,17 @@
-.post-card {
+.home-page__main--posts-list,
+.home-page__user-profile--favorites--post-list,
+.home-page__user-profile--posts--post-list {
+    display: flex;
+    flex-direction: column;
+    margin-top: 0;
+    gap: 1.5rem;
+    padding: 0 1rem;
+}
+
+.post-card, .post-card__profile, .post-card__user {
+    min-width: fit-content;
     width: 90%;
+    padding: 0.05rem 0.5rem 0.25rem;
     border: 0.05rem solid var(--color-surface-200);
     border-radius: 3rem 0.3rem 0.3rem;
     display: flex;
@@ -11,15 +23,15 @@
 }
 
 .post-card__profile {
-    width: 90%;
-    border: 0.05rem solid var(--color-surface-200);
     border-radius: 0.3rem 0.3rem;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    align-self: center;
-    height: fit-content;
-    box-shadow: var(--color-surface-200) 0 .5rem 1.5rem;
+    width: 90%;
+    padding: 0.05rem 0.5rem 0.25rem;
+}
+
+.post-card__user {
+    border-radius: 0.3rem 0.3rem;
+    width: 95%;
+    padding: 0.05rem 0.5rem 0.25rem;
 }
 
 .post-card__header {
@@ -28,7 +40,7 @@
     flex-direction: row;
     justify-content: end;
     align-items: center;
-    width: 100%;
+    width: 95%;
 }
 
 .post-card__header--author-data {

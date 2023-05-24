@@ -71,7 +71,7 @@ const Post = ({ post, author, onEditPost, onToggledPublicStat, onToggledLike, on
         time = <time className="post__footer--date">{post.date.toLocaleDateString("en-GB")}</time>
     }
 
-    return <article className={isProfileView ? "post-card__profile" : "post-card"}>
+    return <article className={!isProfileView ? "post-card" : userId===context.userAuth ? "post-card__profile" : "post-card__user"}>
         <div className="post-card__header">
             {!isProfileView && (
                 <div className="post-card__header--author-data" onClick={handleToAuthorProfile}>

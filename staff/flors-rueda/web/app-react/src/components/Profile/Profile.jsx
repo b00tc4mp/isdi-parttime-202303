@@ -6,6 +6,7 @@ import Settings from '../settings/Settings';
 import { retrieveUser } from '../../logic/retrieve-user';
 import inLogger from '../../inLogger';
 import Context from '../../Context';
+import { context } from '../../ui';
 
 const Profile = ({ userId, onEditPost, onDeleteAccount }) => {
   const { alert } = useContext(Context);
@@ -34,7 +35,7 @@ const Profile = ({ userId, onEditPost, onDeleteAccount }) => {
       alert(`profile error: ${error.message}`, 'danger');
       setIsLoading(false);
     }
-  }, []);
+  }, [userId]);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -42,7 +43,7 @@ const Profile = ({ userId, onEditPost, onDeleteAccount }) => {
 
   try {
     return (
-      <section className="user-profile">
+      <section className={userId === context.userAuth ? "user-profile-logged" : "user-profile"}>
         <ProfileCard userId={userId} onSettingsClick={handleToggleSettings} selectedAvatar={selectedAvatar} isSettingsOn={view === 'settings'} user={user}/>
         {view === 'posts' && <Posts type={userId} userId={userId} onEditPost={onEditPost} />}
         {view === 'settings' && <Settings selectedAvatar={selectedAvatar} onAvatarChange={setSelectedAvatar} onDeleteAccount={onDeleteAccount} user={user}/>}
