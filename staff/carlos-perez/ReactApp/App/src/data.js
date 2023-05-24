@@ -33,7 +33,7 @@ posts.push({
 
 posts.push({
     id: 'post-2',
-    author: 'user-1',
+    author: 'user-2',
     image: 'https://img.icons8.com/color/512/avatar.png',
     text: 'I ♥️ Avatars!',
     date: new Date()
@@ -41,7 +41,7 @@ posts.push({
 
 posts.push({
     id: 'post-3',
-    author: 'user-2',
+    author: 'user-3',
     image: 'https://img.icons8.com/color/512/avatar.png',
     text: 'I ♥️ Avatars too!',
     date: new Date()

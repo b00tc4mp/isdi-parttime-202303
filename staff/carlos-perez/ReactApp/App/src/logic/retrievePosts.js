@@ -1,5 +1,5 @@
 import {posts} from "../data.js"
 
-export function retrievePosts(){
+export function retrievePosts(userId){
     return posts.toReversed();
 }
