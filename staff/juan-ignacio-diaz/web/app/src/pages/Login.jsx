@@ -1,8 +1,14 @@
+import { useContext } from 'react'
+
 import { context } from '../ui'
+import Context from '../context'
+
 import authenticateUser from '../logic/authenticateUser'
 
 
-export default function Login({ onRegisterClick, onUserLoggedIn, onMenssageAlert }) {
+export default function Login({ onRegisterClick, onUserLoggedIn }) {
+    const { alert } = useContext(Context)
+    
     function handleRegisterClick(event) {
         event.preventDefault()
 
@@ -18,7 +24,7 @@ export default function Login({ onRegisterClick, onUserLoggedIn, onMenssageAlert
         try {
             authenticateUser(email, password, (error, userId) => {
                 if (error) {
-                    onMenssageAlert(error.message)
+                    alert(error.message)
 
                     return
                 }
@@ -28,7 +34,7 @@ export default function Login({ onRegisterClick, onUserLoggedIn, onMenssageAlert
             })
         }
         catch (error){
-            onMenssageAlert(error.message)
+            alert(error.message)
         }   
     }
 
@@ -43,7 +49,6 @@ export default function Login({ onRegisterClick, onUserLoggedIn, onMenssageAlert
                 <input className="input" type="password" size="10" name="password" placeholder="password" /><br/>
                 <button className = "button" type="submit">Login</button>
             </form>
-
             <p>Go to <a href="" onClick={handleRegisterClick}>Register</a></p>
         </div>
     </>

@@ -1,5 +1,8 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
+
 import { context } from '../ui'
+import Context from '../context'
+
 export const DEFAULT_AVATAR_URL = "https://img.icons8.com/color/512/avatar.png"
 
 import Profile from '../components/Profile'
@@ -11,7 +14,9 @@ import retrieveUser from '../logic/retrieveUser';
 
 import './Home.css'
 
-export default function Home({ onLogout, onMenssageAlert }) {
+export default function Home({ onLogout }) {
+    const { alert } = useContext(Context)
+
     const [user, setUser] = useState()
     const [view, setView] = useState('posts')
     const [modal, setModal] = useState(null)
@@ -23,7 +28,7 @@ export default function Home({ onLogout, onMenssageAlert }) {
         try{
             retrieveUser(context.userId, (error, user) => {
                 if (error) {
-                    onMenssageAlert(error.message)
+                    alert(error.message)
 
                     return
                 }
@@ -33,11 +38,10 @@ export default function Home({ onLogout, onMenssageAlert }) {
                     if (user.mode === 'dark') document.querySelector(':root').classList.add('dark')
                     else document.querySelector(':root').classList.remove('dark')
                 else document.querySelector(':root').classList.remove('dark')
-
             }) 
         } 
         catch (error) {
-            onMenssageAlert(error.message)
+            alert(error.message)
         }
     }, [])
 
@@ -56,7 +60,7 @@ export default function Home({ onLogout, onMenssageAlert }) {
         try{
             retrieveUser(context.userId, (error, user) => {
                 if (error) {
-                    onMenssageAlert(error.message)
+                    alert(error.message)
     
                     return
                 }
@@ -64,9 +68,8 @@ export default function Home({ onLogout, onMenssageAlert }) {
             })
         } 
         catch (error) {
-            onMenssageAlert(error.message)
+            alert(error.message)
         }
-
         setView('profile')
     }
 
@@ -109,14 +112,12 @@ export default function Home({ onLogout, onMenssageAlert }) {
                 {view === 'posts' && <Posts 
                     onModifyedPost={handleGoToPosts}
                     onEditedPost={handleOpenEditPost}
-                    onMenssageAlert={onMenssageAlert}
                     typePosts={typePosts}
                     lastPostsUpdate={lastPostsUpdate}
                 />}
 
                 {view === 'profile' && <Profile 
                     onEditedProfile={handledEditedProfile}
-                    onMenssageAlert={onMenssageAlert} 
                     user={user}
                 />}
                 
@@ -124,13 +125,11 @@ export default function Home({ onLogout, onMenssageAlert }) {
                     onCancel={handleCloseModalPost}
                     onEditedPost={handleCloseModalPost}
                     postId={postId}
-                    onMenssageAlert={onMenssageAlert}
                 />}
 
                 {modal === 'add-post' && <AddPostModal 
                     onCancel={handleCloseModalPost}
                     onCreatedPost={handleCloseModalPost}
-                    onMenssageAlert={onMenssageAlert}
                 />}
             </main>
 

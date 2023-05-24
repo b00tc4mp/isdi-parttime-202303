@@ -1,4 +1,8 @@
+import { useContext } from 'react'
+
 import { context } from '../ui'
+import Context from '../context'
+
 export const DEFAULT_AVATAR_URL = "https://img.icons8.com/color/512/avatar.png"
 
 import toggleLikePost from '../logic/toggleLikePost'
@@ -7,15 +11,14 @@ import deletePost from '../logic/deletePost'
 
 import './Post.css'
 
-
-export default function Post ({ post: { id, author, image, text, date, likes, dateLastModified, fav}, onModifyPost, onEditPost, onMenssageAlert}) {
-    //console.log('Post  -> render')
+export default function Post ({ post: { id, author, image, text, date, likes, dateLastModified, fav}, onModifyPost, onEditPost}) {
+    const { alert } = useContext(Context)
 
     const handleLikePost = () => {
         try {
             toggleLikePost(context.userId, id, error => {
                 if (error){
-                    onMenssageAlert(error.message)
+                    alert(error.message)
 
                     return
                 }
@@ -23,7 +26,7 @@ export default function Post ({ post: { id, author, image, text, date, likes, da
             })  
         }
         catch(error){
-            onMenssageAlert(error.message)
+            alert(error.message)
         }
     }
 
@@ -31,7 +34,7 @@ export default function Post ({ post: { id, author, image, text, date, likes, da
          try {
             toggleSavePost(context.userId, id, error => {
                 if (error){
-                    onMenssageAlert(error.message)
+                    alert(error.message)
 
                     return
                 }
@@ -39,7 +42,7 @@ export default function Post ({ post: { id, author, image, text, date, likes, da
             })
         }
         catch(error){
-            onMenssageAlert(error.message)
+            alert(error.message)
         }
     }
 
@@ -49,7 +52,7 @@ export default function Post ({ post: { id, author, image, text, date, likes, da
         try{
             deletePost(context.userId, id, error => {
                 if (error){
-                    onMenssageAlert(error.message)
+                    alert(error.message)
 
                     return
                 }
@@ -57,7 +60,7 @@ export default function Post ({ post: { id, author, image, text, date, likes, da
             })
         }
         catch(error){
-            onMenssageAlert(error.message)
+            alert(error.message)
         }
     }
 

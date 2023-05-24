@@ -1,6 +1,12 @@
+import { useContext } from 'react'
+
+import Context from '../context'
+
 import registerUser from "../logic/registerUser"
 
-export default function Register({ onLoginClick, onRegistered, onMenssageAlert}) {
+export default function Register({ onLoginClick, onRegistered}) {
+    const { alert } = useContext(Context)
+
     function handleLoginClick(event) {
         event.preventDefault()
 
@@ -21,24 +27,21 @@ export default function Register({ onLoginClick, onRegistered, onMenssageAlert})
         try {
             registerUser(name, email, password, error => {
                 if (error) {
-                    onMenssageAlert(error.message)
+                    alert(error.message)
 
                     return
                 }
             })
-    
             event.target.reset()
-    
             onRegistered()
         }
         catch (error) {
-            onMenssageAlert(error.message)
+            alert(error.message)
     
             if (error.cause === "email") { 
                 event.target.email.focus()
                 event.target.email.classList.add("imput-highlight")
             }
-    
             else if (error.cause === "name") {
                 event.target.name.focus()
                 event.target.name.classList.add("imput-highlight")
@@ -64,7 +67,6 @@ export default function Register({ onLoginClick, onRegistered, onMenssageAlert})
                 <input className="input" type="password" name="password" placeholder="password" /><br/>
                 <button className = "button" type="submit">Register</button>
             </form>
-
             <p>Go to <a href="" onClick={handleLoginClick}>Login</a></p>
         </div>
     </>

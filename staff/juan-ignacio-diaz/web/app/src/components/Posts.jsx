@@ -1,12 +1,16 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
+
 import { context } from '../ui'
+import Context from '../context'
 
 import Post from './Post.jsx'
 import retrievePosts from '../logic/retrievePosts'
 import retrieveUserPosts from '../logic/retrieveUserPosts'
 import retrieveSavePosts from '../logic/retrieveSavePosts'
 
-export default function Posts({ onEditedPost, typePosts, lastPostsUpdate, onMenssageAlert }) {
+export default function Posts({ onEditedPost, typePosts, lastPostsUpdate }) {
+    const { alert } = useContext(Context)
+
     const [posts, setPosts] = useState()
 
     useEffect(() => handleRefreshPosts(), [])
@@ -17,7 +21,7 @@ export default function Posts({ onEditedPost, typePosts, lastPostsUpdate, onMens
             if (typePosts === 'all')     
                 retrievePosts(context.userId, (error, posts) => {
                     if (error) {
-                        onMenssageAlert(error.message)
+                        alert(error.message)
 
                         return
                     }
@@ -27,7 +31,7 @@ export default function Posts({ onEditedPost, typePosts, lastPostsUpdate, onMens
             else if (typePosts === 'user') 
                 retrieveUserPosts(context.userId, (error, posts) => {
                     if (error) {
-                        onMenssageAlert(error.message)
+                        alert(error.message)
 
                         return
                     }
@@ -37,7 +41,7 @@ export default function Posts({ onEditedPost, typePosts, lastPostsUpdate, onMens
             else if (typePosts === 'save') 
                 retrieveSavePosts(context.userId, (error, posts) => {
                     if (error) {
-                        onMenssageAlert(error.message)
+                        alert(error.message)
 
                         return
                     }
@@ -46,7 +50,7 @@ export default function Posts({ onEditedPost, typePosts, lastPostsUpdate, onMens
                 })
         }
         catch (error) {
-            onMenssageAlert(error.message)
+            alert(error.message)
         }   
     }
 
@@ -66,7 +70,6 @@ export default function Posts({ onEditedPost, typePosts, lastPostsUpdate, onMens
                     post={post} 
                     onModifyPost={handleRefreshPosts}
                     onEditPost={onEditedPost}
-                    onMenssageAlert={onMenssageAlert}
                 />)
             }
         </section>

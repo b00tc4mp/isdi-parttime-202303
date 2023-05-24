@@ -1,8 +1,13 @@
+import { useContext } from 'react'
+
 import { context } from '../ui' 
+import Context from '../context'
 
 import createPost from '../logic/createPost'
 
-export default function AddPostModal({ onCancel, onCreatedPost, onMenssageAlert }) {
+export default function AddPostModal({ onCancel, onCreatedPost }) {
+    const { alert } = useContext(Context)
+
     function handleCancel(event) {
         event.preventDefault()
 
@@ -18,16 +23,14 @@ export default function AddPostModal({ onCancel, onCreatedPost, onMenssageAlert 
         try {
             createPost(context.userId, image, text, error => {
                 if (error) {
-                    onMenssageAlert(error.message)
+                    alert(error.message)
 
                     return
-                }
-                
+                }              
                 onCreatedPost()
             })
-
         } catch(error) {
-            onMenssageAlert(error.message)
+            alert(error.message)
         }
     }
 

@@ -1,25 +1,28 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
+
 import { context } from '../ui'
+import Context from '../Context'
 
 import updatePost from '../logic/updatePost'
 import retrievePost from '../logic/retrievePost'
 
-export default function EditPost({ onCancel, onEditedPost, postId, onMenssageAlert}) {
+export default function EditPost({ onCancel, onEditedPost, postId}) {
+    const { alert } = useContext(Context)
+
     const [post, setPost] = useState(null)
 
     useEffect(() => {
         try {
             retrievePost(context.userId, postId, (error, post) => {
                 if (error) {
-                    onMenssageAlert(error.message)
+                    alert(error.message)
 
                     return
                 }
-
                 setPost(post)
             })
         } catch (error) {
-            onMenssageAlert(error.message)
+            alert(error.message)
         }
     }, [postId])
     
@@ -38,16 +41,14 @@ export default function EditPost({ onCancel, onEditedPost, postId, onMenssageAle
         try {
             updatePost (context.userId, postId, image, text, error => {
                 if (error) {
-                    onMenssageAlert(error.message)
+                    alert(error.message)
 
                     return
-                }
-                
+                }               
                 onEditedPost()
             })
-
         } catch(error) {
-            onMenssageAlert(error.message)
+            alert(error.message)
         }
     }
 

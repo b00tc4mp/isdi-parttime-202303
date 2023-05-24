@@ -1,4 +1,7 @@
+import { useContext } from 'react'
+
 import { context } from '../ui' 
+import Context from '../Context'
 
 import updateUserMode from "../logic/updateUserMode"
 import updateUserAvatar from "../logic/updateUserAvatar"
@@ -6,14 +9,15 @@ import updateUserPassword from "../logic/updateUserPassword"
 
 import './Profile.css'
 
-export default function Profile({ onEditedProfile, onMenssageAlert, user }){
-    console.log('Profile ->render')
+export default function Profile({ onEditedProfile, user }){
+    const { alert } = useContext(Context)
 
     const handleSwitchMode = () => {
 
         let mode
 
-        if (user.mode )
+        if (user.mode ) {
+    console.log(user.mode)
             if (user.mode === 'dark') {
                 mode = 'light'
                 document.querySelector(':root').classList.remove('dark')
@@ -22,6 +26,8 @@ export default function Profile({ onEditedProfile, onMenssageAlert, user }){
                 mode = 'dark'
                 document.querySelector(':root').classList.add('dark')
             }
+    console.log(user.mode)  
+        }          
         else {
             mode = 'dark'
             document.querySelector(':root').classList.add('dark')
@@ -30,17 +36,16 @@ export default function Profile({ onEditedProfile, onMenssageAlert, user }){
         try{
             updateUserMode(context.userId, mode, error => {
                 if (error) {
-                    onMenssageAlert(error.message)
+                    alert(error.message)
 
                     return
                 }
-                onMenssageAlert("mode updated")
-
+                alert("mode updated")
                 onEditedProfile()
             })
         }
         catch(error) {
-            onMenssageAlert(error.message)
+            alert(error.message)
         }
         document.querySelector(':root').classList.toggle('dark')
     }
@@ -53,18 +58,17 @@ export default function Profile({ onEditedProfile, onMenssageAlert, user }){
         try{
             updateUserAvatar (context.userId, url, error => {
                 if (error) {
-                    onMenssageAlert(error.message)
+                    alert(error.message)
 
                     return
                 }
-                onMenssageAlert("avatar updated")
-
+                alert("avatar updated")
                 event.target.reset()
                 onEditedProfile()
             })
         }
         catch(error) {
-            onMenssageAlert(error.message)
+            alert(error.message)
         }
     }
 
@@ -82,19 +86,17 @@ export default function Profile({ onEditedProfile, onMenssageAlert, user }){
         try {
             updateUserPassword(context.userId, password, newPassword, newPasswordConfirm, error => {
                 if (error) {
-                    onMenssageAlert(error.message)
+                    alert(error.message)
 
                     return
                 }
-                onMenssageAlert("the password is update")
-
+                alert("the password is update")
                 event.target.reset()
-    
                 onEditedProfile()
             })
         }
         catch (error) {
-            onMenssageAlert(error.message)
+            alert(error.message)
 
             if (error.cause === "password") {
                 event.target.newPassword.focus()
@@ -112,7 +114,7 @@ export default function Profile({ onEditedProfile, onMenssageAlert, user }){
         }
     }
 
-
+    console.log('Profile ->render')
     return <>
             <section className="profile container">
                 <article>

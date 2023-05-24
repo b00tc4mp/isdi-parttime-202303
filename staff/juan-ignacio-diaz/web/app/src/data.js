@@ -1,5 +1,4 @@
-
-const DELAY = 100
+const DELAY = 0
 
 export const loadUsers = callback => 
     setTimeout(() =>
@@ -27,7 +26,6 @@ export const saveUser = (user, callback) =>
         
             saveUsers(users, callback)
         }
-
     )
 
 export const newUserId = callback => 
