@@ -3,8 +3,6 @@ import { context } from '../../ui';
 import { toggleFav } from '../../logic/toggle-fav';
 import { toggleLike } from '../../logic/toggle-like';
 import { useContext } from 'react';
-import { colors } from '../../../public/avatar';
-import Avatar from 'boring-avatars';
 import './Posts.css';
 import { togglePublicStat } from '../../logic/toggle-public-stat';
 import inLogger from '../../inLogger';

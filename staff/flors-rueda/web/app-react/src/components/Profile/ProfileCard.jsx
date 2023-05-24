@@ -1,7 +1,5 @@
 import { svg } from '../../../public/svg-paths';
 import { context } from '../../ui';
-import { colors } from '../../../public/avatar';
-import Avatar from 'boring-avatars';
 import './ProfileCard.css';
 import { useState, useContext } from 'react';
 import inLogger from '../../inLogger';

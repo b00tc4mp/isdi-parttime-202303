@@ -9,8 +9,6 @@
         "preview": "vite preview"
     },
     "dependencies": {
-        "boring-avatars": "^1.7.0",
-        "browser-image-compression": "^2.0.2",
         "react": "^18.2.0",
         "react-dom": "^18.2.0"
     },

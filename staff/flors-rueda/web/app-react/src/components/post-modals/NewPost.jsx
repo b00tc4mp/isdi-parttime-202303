@@ -2,7 +2,6 @@ import { svg } from '../../../public/svg-paths';
 import { context } from '../../ui';
 import { uploadPost } from '../../logic/upload-post';
 import { useState, useContext } from 'react';
-// TODO delete this library from the project import imageCompression from 'browser-image-compression'
 import './PostModals.css';
 import inLogger from '../../inLogger';
 import Context from '../../Context';
