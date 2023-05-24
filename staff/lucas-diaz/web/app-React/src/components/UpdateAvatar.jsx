@@ -12,13 +12,19 @@ export default function UpdateAvatar(props) {
 
         try {
             let url = event.target.url.value
-            updateUserAvatar(context.userId, url);
-            props.onUpdatedAvatar();
+            updateUserAvatar(context.userId, url, (error) => {
+                if(error){
+                    setErrorMessage(error.message)
+                    return;
+                }
+                props.onUpdatedAvatar();
+            });
+
         } catch (error) {
             setErrorMessage(error.message)
         }
     }
-
+    
     function handleCancelClick(event) {
         event.preventDefault();
         props.onCancelClick();

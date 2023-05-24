@@ -2,15 +2,20 @@ import {validateId, validateUrl } from "./helpers/validators.js"
 import { saveUser, findUserById } from "../data.js";
 
 
-export default function updateUserAvatar(authenticatedUserId, avatarUrl)  { 
+export default function updateUserAvatar(authenticatedUserId, avatarUrl, callback)  { 
     validateId(authenticatedUserId);
     validateUrl(avatarUrl);
 
-    const foundUser = findUserById(authenticatedUserId);
 
-    if (!foundUser) throw new Error("user not found");
+    findUserById(authenticatedUserId, foundUser => {
+        
+        if (!foundUser){
+            callback(new Error("user not found"));
+            return;
+        } 
     
-    foundUser.avatar = avatarUrl;
-    
-    saveUser(foundUser);
+        foundUser.avatar = avatarUrl;
+        
+        saveUser(foundUser, () => callback(null));
+    });
 }
