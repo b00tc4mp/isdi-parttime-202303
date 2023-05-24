@@ -6,15 +6,26 @@ import { useContext } from 'react'
 import Context from '../Context'
 
 export default function Post({ post: { id, image, text, date, likes, author, fav }, onEditPost, onToggledLikePost, onPostDeleted, onToggledSavePost }) {
-    const { alert } = useContext(Context)
+    const { alert, freeze, unfreeze } = useContext(Context)
 
     const handleEditPost = () => onEditPost(id)
 
     const handleToggleLikePost = () => {
         try {
-            toggleLikePost(context.userId, id)
+            freeze()
 
-            onToggledLikePost()
+            toggleLikePost(context.userId, id, error => {
+                unfreeze()
+
+                if (error) {
+                    alert(error.message)
+
+                    return
+                }
+
+                onToggledLikePost()
+            })
+
         } catch (error) {
             alert(error.message)
         }

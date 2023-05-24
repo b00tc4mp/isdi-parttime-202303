@@ -6,12 +6,16 @@ import retrieveRandomMotivationalQuote from '../logic/retrieveRandomMotivational
 import Container from '../library/Container'
 
 export default function Login({ onRegisterClick, onUserLoggedIn }) {
-    const { alert } = useContext(Context)
+    const { alert, freeze, unfreeze } = useContext(Context)
     const [quote, setQuote] = useState(null)
 
     useEffect(() => {
         try {
+            freeze()
+
             retrieveRandomMotivationalQuote((error, quote) => {
+                unfreeze()
+
                 if (error) {
                     alert(error.message)
             

@@ -34,4 +34,5 @@
 
 .home-header-title {
   color: var(--basecolor);
+  cursor: pointer;
 }
