@@ -9,70 +9,96 @@ import retrieveSavedPosts from "../logic/retrieveSavedPosts.js";
 export default function Posts({ onEditPostButtonClick, lastPostsUpdate, view }) {
     console.log("Posts -> render")
 
-    let _posts, _user
+    const [posts, setPosts] = useState([])
+    const [user, setUser] = useState()
+    const [isInitialRun, setIsInitialRun] = useState(true)
 
-    function chechWeatherPostsOrSavedPosts() {
+
+
+    useEffect(() => {
+        try {
+            chechWeatherPostsOrSavedPosts();
+        } catch (error) {
+            alert(error.message);
+        }
+    }, [context.userId, view]);
+
+
+    const chechWeatherPostsOrSavedPosts = () => {
         if (view === "savedPosts") {
-            const retrievedPosts = retrievePosts(context.userId);
-            _posts = retrieveSavedPosts(context.userId, retrievedPosts)
-            _user = retrieveUser(context.userId);
+
+            retrievePosts(context.userId, (error, retrievedPosts) => {
+                if (error) {
+                    alert(error)
+                    return;
+                }
+                retrieveSavedPosts(context.userId, retrievedPosts, (error, _posts) => {
+                    if (error) {
+                        alert(error)
+                        return;
+                    }
+
+                    setPosts(_posts)
+
+                })
+            });
+
         } else {
-            _posts = retrievePosts(context.userId);
-            _user = retrieveUser(context.userId);
+
+            retrievePosts(context.userId, (error, _posts) => {
+                if (error) {
+                    alert(error)
+                    return;
+                }
+                setPosts(_posts)
+            })
         }
 
-        return [_posts , _user]
+        retrieveUser(context.userId, (error, user) => {
+            if (error) {
+                alert(error)
+                return;
+            }
+
+            setUser(user);
+        });
+
     }
 
-    try {
-        const [_posts, _user] = chechWeatherPostsOrSavedPosts()
-    } catch (error) {
-        alert(error.message)
-    }
-
-    const [posts, setPosts] = useState(_posts)
-    const [user, setUser] = useState(_user)
-    const [isInitialRun, setIsInitialRun] = useState(true)
 
     const handleDeletePost = () => {
         try {
-            const [_posts] = chechWeatherPostsOrSavedPosts()
-            setPosts(_posts)
+            chechWeatherPostsOrSavedPosts()
         } catch (error) {
             alert(error.message)
         }
     }
-
     const handleToggleLike = () => {
         try {
-            const [_posts] = chechWeatherPostsOrSavedPosts()
-            setPosts(_posts)
+            chechWeatherPostsOrSavedPosts()
         } catch (error) {
             alert(error.message)
         }
     }
-
     const handleRefreshPosts = () => {
         try {
-            const [_posts, _user] = chechWeatherPostsOrSavedPosts()
+            chechWeatherPostsOrSavedPosts()
         } catch (error) {
             alert(error.message)
         }
     }
-
     const handleOpenEditModal = (id) => {
         onEditPostButtonClick(id)
     }
-
     const handletoggleSavePost = () => {
         try {
-            const [_posts, _user] = chechWeatherPostsOrSavedPosts()
-            setPosts(_posts)
-            setUser(_user)
+            chechWeatherPostsOrSavedPosts()
         } catch (error) {
             alert(error.message)
         }
     }
+
+
 
     useEffect(() => {
         console.log("Posts --> componentDidMount with hooks")
@@ -88,6 +114,8 @@ export default function Posts({ onEditPostButtonClick, lastPostsUpdate, view }) 
             handleRefreshPosts();
         }
     }, [lastPostsUpdate])
+
+
 
 
     return <section className="home-posts-content">

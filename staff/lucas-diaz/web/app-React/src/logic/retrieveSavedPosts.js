@@ -2,17 +2,24 @@ import { validateId } from "./helpers/validators.js";
 import { findUserById } from "../data.js";
 
 
-export default function retrieveSavedPosts(userId, posts) {
+export default function retrieveSavedPosts(userId, posts, callback) {
     validateId(userId);
 
-    const foundUser = findUserById(userId);
+    findUserById(userId, foundUser => {
 
-    if (!foundUser) throw new Error(`there is no user with this current ${userId} id`);
+    if (!foundUser){
+        callback(new Error(`there is no user with this current ${userId} id`));
+        return;
+    } 
 
     if (foundUser.savedPosts.length > 0) {
         const savedPosts = posts.filter((post) => foundUser.savedPosts.includes(post.id));
-        return savedPosts;
+
+        callback(null,savedPosts);
     } else {
-        return [];
+        callback(null, []);
     }
+
+    });
+
 }

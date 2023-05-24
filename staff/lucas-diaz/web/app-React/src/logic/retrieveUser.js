@@ -17,7 +17,6 @@ export default function retrieveUser(userId, callback) {
             avatar: user.avatar,
             savedPosts: user.savedPosts
         }
-
         callback(null, _user);
 
     });

@@ -22,6 +22,7 @@ export default function Register(props) {
                 if (error){
                     console.log(error)
                     setErrorMessage(error.message);
+                    return;
                 }   
                 
                 props.onUserRegistered()

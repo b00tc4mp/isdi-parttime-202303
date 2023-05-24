@@ -74,7 +74,6 @@ export default function Home({ onLogOutClick }) {
     //? SAVE POSTS 
     const handleFooterFavButtonClick = () => setView("savedPosts")
 
-
     console.log("Home -> render")
 
     return <div className="home">
