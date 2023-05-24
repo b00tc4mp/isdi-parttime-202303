@@ -10,7 +10,7 @@
     --aqua: #45c2c5;
     --background-white: rgba(255, 255, 255, 0.85);
     --background-light: rgba(252, 245, 242, 0.85);
-    --background-dark: rgba(236, 230, 226, 0.85);
+    --background-dark: rgba(242, 242, 242, 0.85);
 }
 
 html {
@@ -73,6 +73,9 @@ img{
 
 article{
     border-top: 2px solid black;
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: center;
 }
 
 article:first-child{
@@ -276,6 +279,7 @@ a {
 
 .profile-column h1{
     justify-self: center;
+    cursor: pointer;
 }
 
 .profile-image {
