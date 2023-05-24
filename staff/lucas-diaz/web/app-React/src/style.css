@@ -279,6 +279,10 @@ label {
 
 
 /*! POST AREA*/
+
+.container .home-posts-content {
+    padding-top: 100px;
+}
 .home-posts-content {
     width: 100%;
     padding: 1rem;
