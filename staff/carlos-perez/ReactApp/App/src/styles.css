@@ -76,6 +76,10 @@ article{
     display: grid;
     grid-template-columns: 1fr;
     align-items: center;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    margin-left: 20px;
+    margin-right: 20px;
 }
 
 article:first-child{
