@@ -3,6 +3,7 @@ import authenticateUser from '../logic/authenticateUser'
 import { useContext, useEffect, useState } from 'react'
 import Context from '../Context'
 import retrieveRandomMotivationalQuote from '../logic/retrieveRandomMotivationalQuote'
+import Container from '../library/Container'
 
 export default function Login({ onRegisterClick, onUserLoggedIn }) {
     const { alert } = useContext(Context)
@@ -56,7 +57,7 @@ export default function Login({ onRegisterClick, onUserLoggedIn }) {
 
     console.debug('Login -> render')
 
-    return <div className="login page container">
+    return <Container tag="main">
         <h1 className="title">Login</h1>
 
         { quote && <p><q>{quote}</q></p>}
@@ -68,5 +69,5 @@ export default function Login({ onRegisterClick, onUserLoggedIn }) {
         </form>
 
         <p>Go to <a href="" onClick={handleRegisterClick}>Register</a></p>
-    </div>
+    </Container>
 }

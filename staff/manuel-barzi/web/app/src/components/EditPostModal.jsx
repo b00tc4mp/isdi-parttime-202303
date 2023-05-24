@@ -2,6 +2,7 @@ import { context } from '../ui'
 import updatePost from '../logic/updatePost'
 import retrievePost from '../logic/retrievePost'
 import { useState, useEffect } from 'react'
+import Container from '../library/Container'
 
 export default function EditPostModal({ onCancel, onPostUpdated, postId }) {
     const [post, setPost] = useState(null)
@@ -47,13 +48,13 @@ export default function EditPostModal({ onCancel, onPostUpdated, postId }) {
     console.debug('EditPostModal -> render')
 
     return <>
-        {post && <section className="modal container">
-            <form className="container" onSubmit={handleupdatePost}>
+        {post && <Container tag="section" className="modal">
+            <Container tag="form" className="container" onSubmit={handleupdatePost}>
                 <input className="input" type="url" name="image" placeholder="image url" defaultValue={post.image} />
                 <textarea className="input" name="text" cols="30" rows="10" placeholder="text" defaultValue={post.text}></textarea>
                 <button className="button" type="submit">Update</button>
                 <button className="button cancel" type="button" onClick={handleCancel}>Cancel</button>
-            </form>
-        </section>}
+            </Container>
+        </Container>}
     </>
 }

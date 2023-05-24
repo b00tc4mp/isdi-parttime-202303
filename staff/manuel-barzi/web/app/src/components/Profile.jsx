@@ -1,6 +1,7 @@
 import './Profile.css'
 import { context } from '../ui'
 import updateUserAvatar from '../logic/updateUserAvatar'
+import Container from '../library/Container'
 
 export default function Profile({ onUserAvatarUpdated }) {
     const handleUpdateAvatar = event => {
@@ -26,7 +27,7 @@ export default function Profile({ onUserAvatarUpdated }) {
 
     console.debug('Profile -> render')
 
-    return <section className="profile container">
+    return <Container tag="section">
         <h2>Update avatar</h2>
 
         <form className="profile-avatar-form" onSubmit={handleUpdateAvatar}>
@@ -42,5 +43,5 @@ export default function Profile({ onUserAvatarUpdated }) {
             <input className="input" type="password" name="newPasswordConfirm" placeholder="new password confirmation" />
             <button className="button" type="submit">Update</button>
         </form>
-    </section>
+    </Container>
 }

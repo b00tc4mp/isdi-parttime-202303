@@ -1,4 +1,5 @@
 import registerUser from '../logic/registerUser'
+import Container from '../library/Container'
 
 export default function Register({ onLoginClick, onUserRegistered }) {
     const handleLoginClick = event => {
@@ -31,7 +32,7 @@ export default function Register({ onLoginClick, onUserRegistered }) {
 
     console.debug('Register -> render')
 
-    return <div className="register page container">
+    return <Container tag="main">
         <h1 className="title">Register</h1>
 
         <form className="form" onSubmit={handleRegister}>
@@ -42,5 +43,5 @@ export default function Register({ onLoginClick, onUserRegistered }) {
         </form>
 
         <p>Go to <a href="" onClick={handleLoginClick}>Login</a></p>
-    </div>
+    </Container>
 }

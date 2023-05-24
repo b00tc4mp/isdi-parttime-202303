@@ -6,6 +6,7 @@ import EditPostModal from '../components/EditPostModal'
 import './Home.css'
 import { context } from '../ui'
 import retrieveUser from '../logic/retrieveUser'
+import Container from '../library/Container'
 
 export default function Home({ onLoggedOut }) {
     const [view, setView] = useState('posts')
@@ -94,7 +95,7 @@ export default function Home({ onLoggedOut }) {
             <button onClick={handleLogout} className="home-header-logout">Logout</button>
         </header>
 
-        <main class="container">
+        <Container tag="main">
             {view === 'posts' && <Posts
                 onEditPost={handleOpenEditPostModal}
                 lastPostsUpdate={lastPostsUpdate}
@@ -111,7 +112,7 @@ export default function Home({ onLoggedOut }) {
                 onPostUpdated={handlePostUpdated}
                 postId={postId}
             />}
-        </main>
+        </Container>
 
         <footer className="home-footer">
             <button className="add-post-button" onClick={handleOpenAddPostModal}>+</button>

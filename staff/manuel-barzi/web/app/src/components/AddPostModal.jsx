@@ -1,5 +1,6 @@
 import { context } from '../ui' 
 import createPost from '../logic/createPost'
+import Container from '../library/Container'
 
 export default function AddPostModal({ onCancel, onPostCreated }) {
     console.debug('AddPostModal -> render')
@@ -33,12 +34,12 @@ export default function AddPostModal({ onCancel, onPostCreated }) {
 
     console.debug('AddPostModal -> render')
 
-    return <section className="modal container">
-        <form className="container" onSubmit={handleCreatePost}>
+    return <Container tag="section" className="modal">
+        <Container tag="form" onSubmit={handleCreatePost}>
             <input className="input" type="url" name="image" placeholder="image url" />
             <textarea className="input" name="text" cols="30" rows="10" placeholder="text"></textarea>
             <button className="button" type="submit">Create</button>
             <button className="button cancel" type="button" onClick={handleCancel}>Cancel</button>
-        </form>
-    </section>
+        </Container>
+    </Container>
 }
