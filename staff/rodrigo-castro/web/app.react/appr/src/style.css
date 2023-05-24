@@ -195,7 +195,7 @@ body {
   box-sizing: border-box;
 }
 
-.modal-window .modal-profile-options {
+/* .modal-window {
   background-color: var(--grey-100);
   padding: 2rem;
   margin: 0;
@@ -209,7 +209,7 @@ body {
   box-sizing: border-box;
   border-radius: 1.5rem;
   transition: var(--transition);
-}
+} */
 
 .modal-window > form > input, .modal-window > form > textarea {
   width: 100%;

@@ -1,7 +1,7 @@
 import BarActionIcon from "./BarActionIcon";
 
-export default function ProfileBar ({postsToShow, handleFilterMyPosts, handleFilterSavedPosts, handleFilterLikedPosts, handleOpenSettings, modal}) {
-    return <>{ postsToShow !== 'all' && 
+export default function ProfileBar ({ postsToShow, handleFilterMyPosts, handleFilterSavedPosts, handleFilterLikedPosts, handleOpenSettings, view, modal}) {
+    return <> 
     <footer>
         <ul className='profile-filters'>
             <BarActionIcon 
@@ -21,9 +21,9 @@ export default function ProfileBar ({postsToShow, handleFilterMyPosts, handleFil
             />
             <BarActionIcon 
                 actionOnClick={handleOpenSettings}
-                iconClass={`menu-buttons material-symbols-rounded ${modal === 'profile' ? 'filled' : ''}`}
+                iconClass={`menu-buttons material-symbols-rounded ${view === 'settings' ? 'filled' : ''}`}
                 icon={'settings'}
             />
         </ul>
-    </footer> }</>
+    </footer> </>
 }

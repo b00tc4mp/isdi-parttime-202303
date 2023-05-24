@@ -9,7 +9,6 @@ import ChangeAvatar from '../components/ChangeAvatar'
 import EditPost from '../components/EditPost'
 import Profile from '../components/Profile'
 import './Home.css'
-import PropTypes from 'prop-types'
 import ProfileBar from '../components/ProfileBar'
 import NavigationBar from '../components/NavigationBar'
 
@@ -19,6 +18,7 @@ export default function Home(props) {
     const [lastPostsUpdate, setLastPostsUpdate] = useState(Date.now())
     const [postsToShow, setPostsToShow] = useState('all')
     const [user, setUser] = useState()
+    const [view, setView] = useState('posts')
 
     useEffect(() => {
         try{
@@ -47,17 +47,41 @@ export default function Home(props) {
         setLastPostsUpdate(Date.now)
     }
 
-    const handleOpenProfile = () => setPostsToShow('mine')
+    const handleOpenProfile = () => {
+        setView('posts')
+        
+        setPostsToShow('mine')
+    } 
     
-    const handleFilterSavedPosts = () => setPostsToShow('saved')
+    const handleFilterSavedPosts = () => {
+        setView('posts')
+        
+        setPostsToShow('saved')
+    } 
     
-    const handleFilterAllPosts = () => setPostsToShow('all')
+    const handleFilterAllPosts = () => {
+        setView('posts')
+        
+        setPostsToShow('all')
+    } 
     
-    const handleFilterMyPosts = () => setPostsToShow('mine')
+    const handleFilterMyPosts = () => {
+        setView('posts')
+        
+        setPostsToShow('mine')
+    } 
     
-    const handleFilterLikedPosts = () => setPostsToShow('liked')
+    const handleFilterLikedPosts = () => {
+        setView('posts')
+
+        setPostsToShow('liked')
+    } 
     
-    const handleOpenSettings = () => setModal('profile')
+    const handleOpenSettings = () => {
+        setPostsToShow(null)
+
+        setView('settings')
+    } 
 
     const handleOpenChangeEmail = () => setModal('change-email')
 
@@ -109,7 +133,7 @@ export default function Home(props) {
             modal={modal}
         />
 
-        <main className="main-content">
+        {view === 'posts' && <main className="main-content">
             <Posts 
                 onEditClicked={handleEditClicked} 
                 lastPostsUpdate={lastPostsUpdate} 
@@ -118,16 +142,43 @@ export default function Home(props) {
                 onPostDeleted={handlePostsModified}
             />
 
-            {modal === 'add-post' && <AddPostModal 
+            {/* {modal === 'add-post' && <AddPostModal 
                 onCancel={handleCloseModal}
                 onPostCreated={handlePostsModified}
             />}
 
-            {modal === 'profile' && <Profile 
+            {modal === 'change-email' && <ChangeEmail
                 onCancel={handleCloseModal}
+                onEmailChanged={handleCloseModal}
+            />}
+
+            {modal === 'change-password' && <ChangePassword
+                onCancel={handleCloseModal}
+                onPasswordChanged={handleCloseModal}
+            />}
+
+            {modal === 'change-avatar' && <ChangeAvatar
+                onCancel={handleCloseModal}
+                onAvatarChanged={handleAvatarChanged}
+            />} */}
+
+            {modal === 'edit-post' && <EditPost
+                onCancel={handleCloseModal}
+                onPostEdited={handlePostsModified}
+                postId={postId}
+            />}
+        </main>}
+
+        { view === 'settings' && <Profile 
                 onChangeEmail={handleOpenChangeEmail}
                 onChangePassword={handleOpenChangePassword}
                 onChangeAvatar={handleOpenChangeAvatar}
+                user={user}
+        />}
+
+            {modal === 'add-post' && <AddPostModal 
+                onCancel={handleCloseModal}
+                onPostCreated={handlePostsModified}
             />}
 
             {modal === 'change-email' && <ChangeEmail
@@ -145,20 +196,14 @@ export default function Home(props) {
                 onAvatarChanged={handleAvatarChanged}
             />}
 
-            {modal === 'edit-post' && <EditPost
-                onCancel={handleCloseModal}
-                onPostEdited={handlePostsModified}
-                postId={postId}
-            />}
-        </main>
-
-        <ProfileBar 
+        { postsToShow !== 'all' && <ProfileBar 
             postsToShow={postsToShow} 
+            view={view}
             handleFilterMyPosts={handleFilterMyPosts} 
             handleFilterSavedPosts={handleFilterSavedPosts} 
             handleFilterLikedPosts={handleFilterLikedPosts} 
             handleOpenSettings={handleOpenSettings}
             modal={modal}
-        />
+        />}
     </div>
 }
