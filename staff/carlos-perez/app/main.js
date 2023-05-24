@@ -1,4 +1,4 @@
-//Dataa
+//Data
 
 import {users} from "./data.js";
 
