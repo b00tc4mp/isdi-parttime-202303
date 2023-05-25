@@ -1,5 +1,4 @@
 import './Alert.css'
-import '../../library/Modal.css'
 import Modal from '../../library/Modal'
 
 export default function Alert ({ message, level, onAccept }) {

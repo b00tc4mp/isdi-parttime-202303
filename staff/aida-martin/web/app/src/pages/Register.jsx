@@ -1,12 +1,11 @@
 import './Register.css'
-import '../library/Container.css'
 import { useContext } from 'react'
 import registerUser from '../logic/registerUser'
 import Context from '../Context'
 import Container from '../library/Container'
 
 export default function Register ({ onLoginClick, onUserRegisteredIn }) {
-  const { alert } = useContext(Context)
+  const { alert, freeze, unfreeze } = useContext(Context)
 
   const handleLoginClick = event => {
     event.preventDefault()
@@ -23,7 +22,11 @@ export default function Register ({ onLoginClick, onUserRegisteredIn }) {
     const repeatPassword = event.target.repeatpassword.value
 
     try {
+      freeze()
+
       registerUser(name, email, password, repeatPassword, error => {
+        unfreeze()
+
         // este error es asíncrono (del callback)
         if (error) {
           alert(error.message, 'error')

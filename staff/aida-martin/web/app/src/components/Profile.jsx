@@ -1,5 +1,4 @@
 import './Profile.css'
-import '../library/Container.css'
 import { useContext } from 'react'
 import updateAvatar from '../logic/updateUserAvatar'
 import changePassword from '../logic/updateUserPassword'
@@ -8,7 +7,7 @@ import Context from '../Context'
 import Container from '../library/Container'
 
 export default function Profile ({ onUpdateUserAvatar, onUpdateUserPassword }) {
-  const { alert } = useContext(Context)
+  const { alert, freeze, unfreeze } = useContext(Context)
 
   const updateUserAvatar = event => {
     event.preventDefault()
@@ -16,7 +15,11 @@ export default function Profile ({ onUpdateUserAvatar, onUpdateUserPassword }) {
     const avatar = event.target.url.value
 
     try {
+      freeze()
+
       updateAvatar(context.userId, avatar, error => {
+        unfreeze()
+
         if (error) {
           alert(error.message, 'error')
 
@@ -38,7 +41,11 @@ export default function Profile ({ onUpdateUserAvatar, onUpdateUserPassword }) {
     const newPasswordConfirm = event.target.repeatnewpassword.value.trim()
 
     try {
+      freeze()
+
       changePassword(context.userId, password, newPassword, newPasswordConfirm, error => {
+        unfreeze()
+
         if (error) {
           alert(error.message, 'error')
 

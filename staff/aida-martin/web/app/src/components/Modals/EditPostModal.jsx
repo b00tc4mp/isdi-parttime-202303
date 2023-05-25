@@ -1,6 +1,4 @@
 import './EditPostModal.css'
-import '../../library/Modal.css'
-import '../../library/Container.css'
 import { useState, useEffect, useContext } from 'react'
 import updatePost from '../../logic/updatePost'
 import retrievePost from '../../logic/retrievePost'
@@ -10,7 +8,7 @@ import Modal from '../../library/Modal'
 import Container from '../../library/Container'
 
 export default function EditPostModal ({ postId, onPostEdited, onCancel }) {
-  const { alert } = useContext(Context)
+  const { alert, freeze, unfreeze } = useContext(Context)
 
   const [post, setPost] = useState(null)
 
@@ -21,7 +19,11 @@ export default function EditPostModal ({ postId, onPostEdited, onCancel }) {
     const text = event.target.text.value
 
     try {
+      freeze()
+
       updatePost(context.userId, postId, image, text, (error) => {
+        unfreeze()
+
         if (error) {
           alert(error.message, 'error')
 
@@ -42,7 +44,11 @@ export default function EditPostModal ({ postId, onPostEdited, onCancel }) {
 
   useEffect(() => {
     try {
+      freeze()
+
       retrievePost(context.userId, postId, (error, post) => {
+        unfreeze()
+
         if (error) {
           alert(error.message, 'error')
 

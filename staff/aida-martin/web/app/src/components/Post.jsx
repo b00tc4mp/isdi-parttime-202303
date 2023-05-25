@@ -10,13 +10,16 @@ import togglePrivatizePost from '../logic/privatizePost'
 import Context from '../Context'
 
 export default function Post ({ post, onEditPost, onLiked, onSaved, onDeletePost, onPrivatizePost }) {
-  const { alert } = useContext(Context)
+  const { alert, freeze, unfreeze } = useContext(Context)
 
   const [privateIcon, setPrivateIcon] = useState(post.visibility === 'public' ? 'lock_open' : 'lock')
 
   const handleLikePost = () => {
     try {
+      freeze()
+
       toggleLikePost(context.userId, post.id, error => {
+        unfreeze()
         if (error) {
           alert(error.message, 'error')
 
@@ -31,7 +34,11 @@ export default function Post ({ post, onEditPost, onLiked, onSaved, onDeletePost
 
   const handleSavePost = () => {
     try {
+      freeze()
+
       toggleSavePost(context.userId, post.id, error => {
+        unfreeze()
+
         if (error) {
           alert(error.message, 'error')
 
@@ -51,7 +58,11 @@ export default function Post ({ post, onEditPost, onLiked, onSaved, onDeletePost
 
   const handleDeletePost = () => {
     try {
+      freeze()
+
       deletePost(context.userId, post.id, error => {
+        unfreeze()
+
         if (error) {
           alert(error.message, 'error')
 
@@ -66,7 +77,11 @@ export default function Post ({ post, onEditPost, onLiked, onSaved, onDeletePost
 
   const handlePrivatizePost = () => {
     try {
+      freeze()
+
       togglePrivatizePost(context.userId, post.id, error => {
+        unfreeze()
+
         if (error) {
           alert(error.message, 'error')
 

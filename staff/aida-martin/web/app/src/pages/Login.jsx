@@ -1,5 +1,4 @@
 import './Login.css'
-import '../library/Container.css'
 import { useContext } from 'react'
 import Context from '../Context'
 import { context } from '../ui'
@@ -7,7 +6,7 @@ import authenticateUser from '../logic/authenticateUser'
 import Container from '../library/Container'
 
 export default function Login ({ onRegisterClick, onUserLoggedIn }) {
-  const { alert } = useContext(Context)
+  const { alert, freeze, unfreeze } = useContext(Context)
 
   const handleRegisterClick = event => {
     event.preventDefault()
@@ -22,7 +21,11 @@ export default function Login ({ onRegisterClick, onUserLoggedIn }) {
     const password = event.target.password.value
 
     try {
+      freeze()
+
       authenticateUser(email, password, (error, userId) => {
+        unfreeze()
+
         if (error) {
           alert(error.message, 'error')
 

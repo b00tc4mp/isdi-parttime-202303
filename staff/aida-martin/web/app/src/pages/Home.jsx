@@ -10,7 +10,7 @@ import Profile from '../components/Profile'
 import Context from '../Context'
 
 export default function Home ({ onLogOut }) {
-  const { alert } = useContext(Context)
+  const { alert, freeze, unfreeze } = useContext(Context)
 
   const [view, setView] = useState('posts')
   const [modal, setModal] = useState(null)
@@ -88,7 +88,11 @@ export default function Home ({ onLogOut }) {
 
   const handleRefreshUser = () => {
     try {
+      freeze()
+
       retrieveUser(context.userId, (error, user) => {
+        unfreeze()
+
         if (error) {
           alert(error.message, 'error')
 
@@ -157,6 +161,7 @@ export default function Home ({ onLogOut }) {
       )}
 
       <main className='main-container'>
+
         {view === 'posts' && user && (
           <Posts
             currentUser={user}

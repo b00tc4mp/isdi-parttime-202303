@@ -1,6 +1,4 @@
 import './AddPostModal.css'
-import '../../library/Modal.css'
-import '../../library/Container.css'
 import { useContext } from 'react'
 import createPost from '../../logic/createPost'
 import { context } from '../../ui'
@@ -9,7 +7,7 @@ import Modal from '../../library/Modal'
 import Container from '../../library/Container'
 
 export default function AddPostModal ({ onPostCreated, onCancel }) {
-  const { alert } = useContext(Context)
+  const { alert, freeze, unfreeze } = useContext(Context)
 
   function handleCreatePost (event) {
     event.preventDefault()
@@ -18,7 +16,11 @@ export default function AddPostModal ({ onPostCreated, onCancel }) {
     const text = event.target.text.value
 
     try {
+      freeze()
+
       createPost(context.userId, image, text, (error) => {
+        unfreeze()
+
         if (error) {
           alert(error.message, 'error')
 

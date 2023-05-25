@@ -7,7 +7,7 @@ import { context } from '../ui'
 import Context from '../Context'
 
 export default function Posts ({ user, mySavedPosts = false, onEditPost, lastPostsUpdate }) {
-  const { alert } = useContext(Context)
+  const { alert, freeze, unfreeze } = useContext(Context)
 
   const [posts, setPosts] = useState()
 
@@ -15,9 +15,11 @@ export default function Posts ({ user, mySavedPosts = false, onEditPost, lastPos
   useEffect(() => handleRefreshPosts(), [])
 
   const handleRefreshPosts = () => {
+    freeze()
     try {
       if (!mySavedPosts) {
         retrievePosts(context.userId, (error, posts) => {
+          unfreeze()
           if (error) {
             alert(error.message, 'error')
 
@@ -28,6 +30,7 @@ export default function Posts ({ user, mySavedPosts = false, onEditPost, lastPos
         })
       } else {
         retrieveSavedPosts(context.userId, (error, savedPosts) => {
+          unfreeze()
           if (error) {
             alert(error.message, 'error')
 
