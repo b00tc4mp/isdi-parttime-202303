@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from 'react'
 
 import { context } from '../ui'
-import Context from '../Context'
+import Context from '../context'
 
 import updatePost from '../logic/updatePost'
 import retrievePost from '../logic/retrievePost'
@@ -19,6 +19,7 @@ export default function EditPost({ onCancel, onEditedPost, postId}) {
 
                     return
                 }
+
                 setPost(post)
             })
         } catch (error) {
@@ -44,7 +45,8 @@ export default function EditPost({ onCancel, onEditedPost, postId}) {
                     alert(error.message)
 
                     return
-                }               
+                }         
+
                 onEditedPost()
             })
         } catch(error) {
@@ -53,7 +55,7 @@ export default function EditPost({ onCancel, onEditedPost, postId}) {
     }
 
     return <>
-        {post && <section className="edit-post container">
+        {post && <section className="modal container">
             <form className="container" onSubmit={handleEditPost}>
             {post && <>
                     <img src={post.image} className="post-image"/>

@@ -96,7 +96,7 @@ body {
   color: var(--namecolor);
 }
 
-.add-post, .edit-post {
+.modal {
   position: fixed;
   top: 0;
   height: 100vh;

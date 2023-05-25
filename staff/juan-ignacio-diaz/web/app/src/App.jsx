@@ -7,10 +7,12 @@ import Register from './pages/Register'
 import Home from './pages/Home'
 
 import AlertModal from './components/AlertModal'
+import Loader from './library/Loader'
 
 export default function App() {
     const [view, setView] = useState(context.userId? 'home' : 'login')
     const [messageAlert, setMessageAlert] = useState(null)
+    const [loader, setLoader] = useState(false)
 
     const handleGotoRegister = () => setView('register')
 
@@ -18,13 +20,17 @@ export default function App() {
 
     const handleGoToHome = () => setView('home')
 
-    const handleOpenAlert = (message, level = 'info') => setMessageAlert({ message, level })
+    const alert = (message, level = 'info') => setMessageAlert({ message, level })
 
     const hanleCloseAlert = () => setMessageAlert(null)
 
+    const freeze = () => setLoader(true)
+
+    const unfreeze = () => setLoader(false)
+
     console.log('App -> render')
 
-    return <Context.Provider value={{ alert: handleOpenAlert }}>
+    return <Context.Provider value={{ alert, freeze, unfreeze }}>
         {view === 'login' && <Login 
           onRegisterClick={handleGotoRegister} 
           onUserLoggedIn={handleGoToHome}
@@ -45,6 +51,7 @@ export default function App() {
           level={messageAlert.level}
           />
         }
+        {loader && <Loader />}
       </Context.Provider>
 
 }

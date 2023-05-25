@@ -26,7 +26,8 @@ export default function AddPostModal({ onCancel, onCreatedPost }) {
                     alert(error.message)
 
                     return
-                }              
+                }
+
                 onCreatedPost()
             })
         } catch(error) {
@@ -35,7 +36,7 @@ export default function AddPostModal({ onCancel, onCreatedPost }) {
     }
 
     return <>
-        <section className="add-post container">
+        <section className="modal container">
             <form className="container" onSubmit={handleCreatePost}>
                 <input className="input" type="url" name="image" placeholder="image url"/>
                 <textarea className="input" name="text" cols="30" rows="10" placeholder="text"></textarea>

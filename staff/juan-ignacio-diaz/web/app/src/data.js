@@ -1,4 +1,4 @@
-const DELAY = 0
+const DELAY = 1000
 
 export const loadUsers = callback => 
     setTimeout(() =>

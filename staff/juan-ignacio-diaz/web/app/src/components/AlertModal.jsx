@@ -8,7 +8,7 @@ export default function AlertModal ({ onAccept, message }) {
     }
     
     return <>
-        <div className = "alert container">
+        <div className = "modal container">
             <div className = "msAlert container">
                 <p>{message}</p>
                 <button className = "button" name = "accept" onClick={handleAccepAlert}>Accept</button>
