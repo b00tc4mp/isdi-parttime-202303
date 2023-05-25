@@ -4,7 +4,7 @@ import { context } from '../ui.js'
 import Post from './Post.jsx'
 
 
-export default function Posts({ onEditPost, lastPostsUpdate }) {
+export default function Posts({ onEditPost, lastPostsUpdate, user, onRefreshPost}) {
     const [posts, setPosts] = useState()
 
     useEffect(() => handleRefreshPost(), []) 
@@ -19,6 +19,7 @@ export default function Posts({ onEditPost, lastPostsUpdate }) {
                 }
                 setPosts(posts)
 
+                onRefreshPost() 
             })
 
         } catch (error) {
@@ -44,6 +45,7 @@ export default function Posts({ onEditPost, lastPostsUpdate }) {
             onToggledLikePost={handleRefreshPost}
             onPostDeleted={handleRefreshPost} 
             onToggledSavePost={handleRefreshPost}
+            user={user}
             />)}
     </section>
 }

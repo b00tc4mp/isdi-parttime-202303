@@ -3,7 +3,7 @@ import toggleLikePost from '../logic/toogleLikePost'
 import deletePost from '../logic/deletePost'
 import toggleFavPost from '../logic/toggleFavPost'
 
-export default function Post({ post: { id, image, text, date, likes, author , fav }, onEditPost, onToggledLikePost, onPostDeleted, onToggledSavePost }) {
+export default function Post({ post: { id, image, text, date, likes, author }, onEditPost, onToggledLikePost, onPostDeleted, onToggledSavePost, user: { favs } }) {
     const handleEditPost = () => onEditPost(id)
 
     const handleToggleLikePost = () => {
@@ -58,13 +58,12 @@ export default function Post({ post: { id, image, text, date, likes, author , fa
     console.log('Post -> render')
 
     return <article>
-        <h2><img src={author.avatar} width="20px" /> {author.name}</h2>
         <img src={image} width="200px" />
         <p>{text}</p>
         <time>{date.toLocaleString()}</time>
         <button onClick={handleToggleLikePost}>{likes.includes(context.userId) ? '❤️' : '🤍'} {likes ? likes.length : 0}</button>
-        {author.id === context.userId && <button onClick={handleEditPost}>📝</button>}
-        {author.id === context.userId && <button onClick={handleDeletePost}>🗑</button>}
-        <button onClick={handleToggleSavePost}>{fav? '⭐️' : '✩'}</button>
+        {author === context.userId && <button onClick={handleEditPost}>📝</button>}
+        {author === context.userId && <button onClick={handleDeletePost}>🗑</button>}
+        <button onClick={handleToggleSavePost}>{favs.includes(id)? '⭐️' : '✩'}</button>
     </article>
 }

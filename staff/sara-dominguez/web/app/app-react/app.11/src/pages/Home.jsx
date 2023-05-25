@@ -99,7 +99,8 @@ export default function Home({ onLoggedOut }) {
             {view === 'posts' && < Posts 
             onEditPost={handleOpenEditPostModal} 
             lastPostsUpdate={lastPostsUpdate} 
-           
+            user={user} 
+            onRefreshPost={handleRefreshUser}
             />}
 
             {view === 'profile' && < Profile onUserAvatarUpdated={handleRefreshUser} />}
