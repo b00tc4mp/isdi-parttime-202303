@@ -13,8 +13,7 @@ export default function Posts({ onEditPostButtonClick, lastPostsUpdate, view }) 
     const [user, setUser] = useState()
     const [isInitialRun, setIsInitialRun] = useState(true)
 
-
-
+    
     useEffect(() => {
         try {
             chechWeatherPostsOrSavedPosts();
@@ -54,6 +53,7 @@ export default function Posts({ onEditPostButtonClick, lastPostsUpdate, view }) 
             })
         }
 
+
         retrieveUser(context.userId, (error, user) => {
             if (error) {
                 alert(error)
@@ -62,7 +62,6 @@ export default function Posts({ onEditPostButtonClick, lastPostsUpdate, view }) 
 
             setUser(user);
         });
-
     }
 
 
@@ -114,8 +113,6 @@ export default function Posts({ onEditPostButtonClick, lastPostsUpdate, view }) 
             handleRefreshPosts();
         }
     }, [lastPostsUpdate])
-
-
 
 
     return <section className="home-posts-content">

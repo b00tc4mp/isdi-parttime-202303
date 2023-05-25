@@ -17,7 +17,7 @@ export default function UpdateAvatar(props) {
                     setErrorMessage(error.message)
                     return;
                 }
-                props.onUpdatedAvatar();
+                props.onUpdatedAvatar(url);
             });
 
         } catch (error) {
@@ -29,6 +29,7 @@ export default function UpdateAvatar(props) {
         event.preventDefault();
         props.onCancelClick();
     }
+
 
     return <div className="home-update-avatar-menu menu-page">
         <h3>UPDATE AVATAR</h3>

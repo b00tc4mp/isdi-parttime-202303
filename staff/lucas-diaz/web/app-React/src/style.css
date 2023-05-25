@@ -280,9 +280,6 @@ label {
 
 /*! POST AREA*/
 
-.container .home-posts-content {
-    padding-top: 100px;
-}
 .home-posts-content {
     width: 100%;
     padding: 1rem;
@@ -429,6 +426,11 @@ label {
     color: azure;
     margin-top: 0px;
     gap: 1rem;
+}
+.home-update-avatar-menu, .change-password-menu{
+    position:relative;
+    top: -200px;
+    padding-top: 0px;
 }
 
 .menu-page h3 {

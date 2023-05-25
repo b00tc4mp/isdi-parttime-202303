@@ -13,11 +13,13 @@ export default function Home({ onLogOutClick }) {
     const [postId, setPostId] = useState(null);
     const [lastPostUpdate, setLastPostUpdate] = useState(Date.now())
     const [user, setUser] = useState();
+    const [avatar, setAvatar] = useState(null)
 
+    
     useEffect(() => {
         try {
             retrieveUser(context.userId, (error, user) => {
-                if (error){
+                if (error) {
                     alert(error.message)
                     return;
                 }
@@ -40,8 +42,13 @@ export default function Home({ onLogOutClick }) {
     const handleAvatarAnchor = (event) => {
         event.preventDefault();
         setView("avatar");
+        setLastPostUpdate(Date.now());
     }
-    const handleUpdatedAvatar = () => setView("posts")
+    const handleUpdatedAvatar = (url) => {
+        setAvatar(url)
+        setView("posts")
+    }
+
     const handleCancelUpdatedAvatar = () => setView("posts")
 
     //? SETTINGS --> PASSWORD 
@@ -74,7 +81,10 @@ export default function Home({ onLogOutClick }) {
     //? SAVE POSTS 
     const handleFooterFavButtonClick = () => setView("savedPosts")
 
+
+
     console.log("Home -> render")
+
 
     return <div className="home">
         <header className="home-header">
@@ -85,11 +95,11 @@ export default function Home({ onLogOutClick }) {
             </div>
             <div className="home-header-user">
                 {user && <>
-                    <img className="home-header-user-avatar" src={user.avatar} alt="default avatar" />
+                    <img className="home-header-user-avatar" src={avatar || user.avatar} alt="default avatar" />
                 </>}
                 <h2 className="home-header-user-welcome-msj"></h2>
             </div>
-            <nav className={`home-menu ${view === null ? "home-menu-transition" : ""} ${view === "avatar" || view === "posts" || view === "password"  || view === "savedPosts" ?  "" : "home-menu-transition"}`}>
+            <nav className={`home-menu ${view === null ? "home-menu-transition" : ""} ${view === "avatar" || view === "posts" || view === "password" || view === "savedPosts" ? "" : "home-menu-transition"}`}>
                 <ul>
                     <li><a href="" className="home-menu-change-pass-anchor" onClick={handlePasswordAnchor}>change password</a></li>
                     <li><a href="" className="home-menu-avatar-anchor" onClick={handleAvatarAnchor}>Avatar</a></li>
