@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="register page off">
+        <h1 class="title">Register</h1>
+
+        <form class="form">
+            <input class="input" type="text" name="name" placeholder="name">
+            <input class="input" type="email" name="email" placeholder="email">
+            <input class="input" type="password" name="password" placeholder="password">
+            <button class="button" type="submit">Register</button>
+        </form>
+
+        <p>Go to <a href="">Login</a></p>
+    </div>
+
+    <div class="login page _off">
+        <h1 class="title">Login</h1>
+
+        <form class="form">
+            <input class="input" type="email" name="email" placeholder="email">
+            <input class="input" type="password" name="password" placeholder="password">
+            <button class="button" type="submit">Login</button>
+        </form>
+
+        <p>Go to <a href="">Register</a></p>
+    </div>
+
+    <div class="home page off">
+        <h1 class="title">Home</h1>
+
+        <p>Hello, Pepito!</p>
+
+        <button>Logout</button>
+
+        <p><a href="">profile</a></p>
+
+        <div class="profile off">
+            <h2>Update password</h2>
+
+            <form>
+                <input class="input" type="password" name="password" placeholder="password">
+                <input class="input" type="password" name="newPassword" placeholder="new password">
+                <input class="input" type="password" name="newPasswordConfirm" placeholder="new password confirmation">
+                <button class="button" type="submit">Update</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="scripts/data.js"></script>
+    <script src="scripts/logic.js"></script>
+    <script src="scripts/main.js"></script>
+</body>
+
+</html>

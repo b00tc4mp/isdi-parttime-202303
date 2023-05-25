@@ -1,0 +1,65 @@
+/* resets */
+
+html, body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+/* styles */
+
+:root {
+    --basecolor: yellow;
+    --basebgcolor: orange;
+}
+
+.off {
+    display: none !important;
+}
+
+.page {
+    background-color: var(--basebgcolor);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.title {
+    color: var(--basecolor);
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    min-width: 60vw;
+    gap: 1rem;
+}
+
+.input, .button {
+    padding: .5rem .6rem;
+    border-radius: .75rem;
+    background-color: var(--basecolor);
+}
+
+.button {
+    cursor: pointer;
+}
+
+.button--accept {
+    background-color: greenyellow;
+}
+
+.button--cancel {
+    background-color: tomato;
+}
+
+@media (min-width: 768px) {
+    .page {
+        background-color: tomato;
+    }
+}

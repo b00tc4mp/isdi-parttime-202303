@@ -1,0 +1,120 @@
+/* resets */
+
+html, body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--basebgcolor);
+}
+
+/* library */
+
+:root {
+    --basecolor: yellow;
+    --basebgcolor: orange;
+}
+
+.off {
+    display: none !important;
+}
+
+.page {
+    height: 100%;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: .5rem;
+}
+
+.title {
+    color: var(--basecolor);
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    min-width: 60vw;
+    gap: 1rem;
+}
+
+.input, .button {
+    padding: .5rem .6rem;
+    border-radius: .75rem;
+    background-color: var(--basecolor);
+}
+
+.button {
+    cursor: pointer;
+}
+
+.button--accept {
+    background-color: greenyellow;
+}
+
+.button--cancel {
+    background-color: tomato;
+}
+
+@media (min-width: 768px) {
+    .page {
+        background-color: tomato;
+    }
+}
+
+/* components */
+
+.home {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+}
+
+.home-header, .home-footer {
+    position: fixed;
+    background-color: dodgerblue;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 4rem;
+}
+
+.home-header {
+    top: 0;
+}
+
+.home-footer {
+    bottom: 0;
+}
+
+.home-header-nav {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+}
+
+.home-header-avatar {
+    width: 2rem;
+    border-radius: 1rem;
+}
+
+.profile-password-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.add-post {
+    position: absolute;
+    top: 0;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(0, 0, 0, 0.545);
+    z-index: 10;
+}

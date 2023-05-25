@@ -1,0 +1,38 @@
+.home {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+}
+
+.home-header, .home-footer {
+  position: fixed;
+  background-color: var(--homebgcolor);
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 4rem;
+}
+
+.home-header {
+  top: 0;
+}
+
+.home-footer {
+  bottom: 0;
+}
+
+.home-header-nav {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+
+.home-header-avatar {
+  width: 2rem;
+  border-radius: 1rem;
+}
+
+.home-header-title {
+  color: var(--basecolor);
+  cursor: pointer;
+}
