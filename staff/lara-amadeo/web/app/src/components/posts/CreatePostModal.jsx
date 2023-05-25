@@ -1,8 +1,11 @@
-import { context, successToast, errorToast, generateToast } from "../../ui"
+import { context } from "../../ui"
 import createPost from '../../logic/createPost'
+import { useContext } from "react"
+import Context from "../../Context"
  
 
 export default function CreatePostModal({ onCreatePostClick, onCancelCreatePostButton }){
+    const { generateToast } = useContext(Context)
 
     //let imagePreview
 
@@ -29,26 +32,17 @@ export default function CreatePostModal({ onCreatePostClick, onCancelCreatePostB
         try{
             createPost(context.userId, image, caption, (error) => {
                 if(error){
-                    generateToast({
-                        message: error.message,
-                        type: errorToast
-                    })
+                    generateToast(error.message,'error')
                     console.log(error.stack)
                     return
                 }
 
-                generateToast({
-                    message: 'Post created!',
-                    type: successToast
-                })
+                generateToast(error.message, 'sucess')
     
                 onCreatePostClick()
             })
         } catch(error){
-            generateToast({
-                message: error.message,
-                type: errorToast
-            })
+            generateToast(error.message,'error')
         }
     }
 

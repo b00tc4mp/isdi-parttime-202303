@@ -1,31 +1,28 @@
 import { useEffect, useState } from "react"
 import retrievePost from "../../logic/retrievePost"
-import { context, errorToast, generateToast, successToast } from "../../ui"
+import { context } from "../../ui"
 import togglePostVisibility from "../../logic/togglePostVisibility"
+import { useContext } from "react"
+import Context from "../../Context"
 
 export default function VisibilityModal({ postId, onConfirmChangeVisiblity, onCancelChangeVisibility }){
 
     const [post, setPost] = useState()
     const [visibility, setVisibility] = useState()
+    const { generateToast } = useContext(Context)
 
     useEffect(() => {
         try{
             retrievePost(context.userId, postId, (error, post) => {
                 if(error){
-                    generateToast({
-                        message: error.message,
-                        type: errorToast
-                    })
+                    generateToast(error.message,'error')
                     console.log(error.stack)
                 }
                 setPost(post)
                 setVisibility(post.visibility)
             })
         } catch(error){
-            generateToast({
-                message: error.message,
-                type: errorToast
-            })
+            generateToast(error.message,'error')
             console.log(error.stack)
         }
     })
@@ -36,25 +33,16 @@ export default function VisibilityModal({ postId, onConfirmChangeVisiblity, onCa
         try{
             togglePostVisibility(context.userId, post.id, error => {
                 if(error){
-                    generateToast({
-                        message: error.message,
-                        type: errorToast
-                    })
+                    generateToast(error.message,'error')
                     console.log(error.stack)
                 }
                 setPost(post)
                 setVisibility(post.visibility)
-                generateToast({
-                    message: 'Visibility changed!',
-                    type: successToast
-                })
+                generateToast('Visibility changed!', 'success')
                 onConfirmChangeVisiblity()
             })
         } catch(error){
-            generateToast({
-                message: error.message,
-                type: errorToast
-            })
+            generateToast(error.message,'error')
             console.log(error.stack)
         }
     }

@@ -1,29 +1,26 @@
 import './BuyPostModal.css'
 import { useState } from 'react'
-import { generateToast, errorToast, context } from '../../ui'
+import { context } from '../../ui'
 import retrievePost from '../../logic/retrievePost'
 import formatPostDate from '../../logic/formatPostDate'
+import { useContext } from "react"
+import Context from '../../Context'
 export default function BuyPostModal({ postId, onCancelBuyPost }){
 
     const [post, setPost] = useState()
+    const { generateToast } = useContext(Context)
 
     try{
         retrievePost(context.userId, postId, (error, post) => {
             if(error){
-                generateToast({
-                    message: error.message,
-                    type: errorToast
-                })
+                generateToast(error.message,'error')
                 console.log(error.stack)
                 return
             }
             setPost(post)
         })
     } catch(error){
-        generateToast({
-            message: error.message,
-            type: errorToast
-        })
+        generateToast(error.message,'error')
         console.log(error.stack)
     }
 

@@ -1,13 +1,16 @@
-import { context, errorToast, generateToast } from '../../ui.js'
+import { context } from '../../ui.js'
 import retrievePosts from '../../logic/retrievePosts.js'
 import Post from './Post.jsx'
-import Header from '../Header'
+import Header from '../Header.jsx'
 import { useState, useEffect } from 'react'
 import './Posts.css'
+import { useContext } from 'react'
+import Context from '../../Context.js'
 
 export default function Posts({ onCreateButton, onEditPostButtonClick, onDeletePostButtonClick, onVisibilityButton, lastPostUpdate, onSellPostButton, onBuyPostButton }){
 
     const [posts, setPosts] = useState()
+    const { generateToast } = useContext(Context)
 
     
     useEffect(()=> {
@@ -18,20 +21,14 @@ export default function Posts({ onCreateButton, onEditPostButtonClick, onDeleteP
         try {
             retrievePosts(context.userId, (error, posts)=> {
                 if(error){
-                    generateToast({
-                        message: error.message,
-                        type: errorToast
-                    })
+                    generateToast(error.message,'error')
                     console.log(error.stack)
                     return
                 }
                 setPosts(posts.filter(post => !(post.author.id !== context.userId && post.visibility === 'private')))
             })
         } catch(error){
-            generateToast({
-                message: error.message,
-                type: errorToast
-            })
+            generateToast(error.message,'error')
         }
     }
 

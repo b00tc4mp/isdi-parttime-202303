@@ -1,8 +1,10 @@
 import { registerUser } from '../logic/registerUser'
-import { errorToast, generateToast } from '../ui'
 import './Register.css'
-
+import { useContext } from "react"
+import Context from '../Context'
 export default function Register({ onLogInLink, onSignUpButton }) {
+
+    const { generateToast } = useContext(Context)
 
     function handleLogInClick(event){
         event.preventDefault()
@@ -21,20 +23,14 @@ export default function Register({ onLogInLink, onSignUpButton }) {
         try{
             registerUser(name, email, password, repPassword, error => {
                 if (error){
-                    generateToast({
-                        message: error.message,
-                        type: errorToast
-                    })   
+                    generateToast(error.message,'error')  
                     
                     return
                 }
                 onSignUpButton()
             })  
         } catch(error){
-            generateToast({
-                message: error.message,
-                type: errorToast
-            })
+            generateToast(error.message,'error')
         }
 
     }

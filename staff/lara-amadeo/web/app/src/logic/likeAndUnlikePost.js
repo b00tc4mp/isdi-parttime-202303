@@ -1,6 +1,7 @@
 import { savePostInStorage, saveUserInStorage, findUserbyId } from "../data"
 import retrievePost from "./retrievePost"
 
+
 /**
  * Toggles the like or unlike for a post
  * @param {object} post A post object
@@ -18,10 +19,7 @@ export default function likeAndUnlike (postId, userId, callback) {
 
         retrievePost(userId, postId, (error, post) => {
             if(error){
-                generateToast({
-                    message: error.message,
-                    type: errorToast
-                })
+                callback(new Error(`post with id ${postId} not found`))
                 console.log(error.stack)
                 return
             }

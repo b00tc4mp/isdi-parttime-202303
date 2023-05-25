@@ -1,24 +1,23 @@
 import formatPostDate from '../../logic/formatPostDate'
-import { context, errorToast, generateToast } from "../../ui"
+import { context } from "../../ui"
 import  likeAndUnlike from '../../logic/likeAndUnlikePost'
 import saveAndUnsavePost from '../../logic/saveAndUnsavePost'
 import './Post.css'
 import { useState } from 'react'
 import ContextualModalBox from '../ContextualModalBox'
-
+import { useContext } from 'react'
+import Context from '../../Context'
 
 export default function Post({ post, onLikeButtonClick, onSaveButtonClick, onEditPostButton, onDeletePostButton, onVisibilityButton, onSellPostButton, onBuyPostButton }){
 
     const [modal, setModal] = useState('close')
+    const { generateToast } = useContext(Context)
     
     function handleLikedPost(){
         try{
             likeAndUnlike(post.id, context.userId, error => {
                 if(error){
-                    generateToast({
-                        message: error.message,
-                        type: errorToast
-                    })
+                    generateToast(error.message,'error')
                     console.log(error.stack)
                     return
                 }
@@ -26,10 +25,7 @@ export default function Post({ post, onLikeButtonClick, onSaveButtonClick, onEdi
             })
         
         } catch(error){
-            generateToast({
-                message: error.message,
-                type: errorToast
-            })
+            generateToast(error.message,'error')
             console.log(error.stack)
         }
     }
@@ -38,19 +34,13 @@ export default function Post({ post, onLikeButtonClick, onSaveButtonClick, onEdi
         try{
             saveAndUnsavePost(post.id, context.userId, error => {
                 if(error){
-                    generateToast({
-                        message: error.message,
-                        type: errorToast
-                    })
+                    generateToast(error.message,'error')
                     console.log(error.stack)
                 }
                 onSaveButtonClick()
             })
         } catch(error){
-            generateToast({
-                message: error.message,
-                type: errorToast
-            })
+            generateToast(error.message,'error')
             console.log(error.stack)
         }
     }
@@ -91,15 +81,13 @@ export default function Post({ post, onLikeButtonClick, onSaveButtonClick, onEdi
 
     return <div className="post">
         {modal === 'open' && <ContextualModalBox
-            option1={'Edit post'}
-            onOptionOne={handleOpenEditPostModal}
-            option2={`Make post ${post.visibility === 'private' ? 'public' : 'private'}`}
-            onOptionTwo={handleVisibility}
-            option3={'Sell post'}
-            onOptionThree={handleOpenSellPost}
-            option4={'Delete post'}
-            onOptionFour={handleOpenDeletionModal}
-            critical={'option 4'}
+
+            options={[
+                {text: 'Edit post', onClick: handleOpenEditPostModal},
+                {text: `Make post ${post.visibility === 'private' ? 'public' : 'private'}`, onClick: handleVisibility},
+                {text: 'Sell post', onClick: handleOpenSellPost},
+                {text: 'Delete post', onClick: handleOpenDeletionModal, critical:true},
+            ]}
             onAnywhereClick={handleCloseModal}
         />}
         {console.log('Post -> render')}

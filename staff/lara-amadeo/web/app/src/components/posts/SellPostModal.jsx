@@ -1,30 +1,26 @@
 import { useState } from "react"
-import { generateToast, errorToast, successToast, context } from "../../ui"
+import { context } from "../../ui"
 import retrievePost from "../../logic/retrievePost"
 import sellPost from "../../logic/sellPost"
-
+import { useContext } from "react"
+import Context from "../../Context"
 
 export default function SellPostModal({ postId, onConfirmSellPost, onCancelSellPost }){
 
     const [post, setPost] = useState()
+    const { generateToast } = useContext(Context)
 
     try{
         retrievePost(context.userId, postId, (error, post) => {
             if(error){
-                generateToast({
-                    message: error.message,
-                    type: errorToast
-                })
+                generateToast(error.message,'error')
                 console.log(error.stack)
                 return
             }
             setPost(post)
         })
     } catch(error){
-        generateToast({
-            message: error.message,
-            type: errorToast
-        })
+        generateToast(error.message,'error')
         console.log(error.stack)
     }
 
@@ -34,25 +30,16 @@ export default function SellPostModal({ postId, onConfirmSellPost, onCancelSellP
         try{
             sellPost(context.userId, postId, post.price, newPrice, error => {
                 if(error){
-                    generateToast({
-                        message: error.message,
-                        type: errorToast
-                    })
+                    generateToast(error.message,'error')
                     console.log(error.stack)
 
                     return
                 }
-                generateToast({
-                    message: 'Post in sale!',
-                    type: successToast
-                })
+                generateToast('Post in sale!', 'success')
                 onConfirmSellPost()
             })
         } catch(error){
-            generateToast({
-                message: error.message,
-                type: errorToast
-            })
+            generateToast(error.message,'error')
             console.log(error.stack)
         }
     }

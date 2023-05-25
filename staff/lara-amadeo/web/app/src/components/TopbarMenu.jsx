@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react"
 import retrieveUser from "../logic/retrieveUser"
-import { context, errorToast, generateToast } from "../ui"
+import { context} from "../ui"
 import './TopbarMenu.css'
+import { useContext } from "react"
+import Context from "../Context"
 
 export default function TopbarMenu({ onSettingsButton, onProfileAvatarButton, onBurguerButton, lastUserRenderUpdate }){
 
     const [user, setUser] = useState()
+    const { generateToast } = useContext(Context)
 
     useEffect(() => {refreshUserRender()},[])
 
@@ -25,20 +28,14 @@ export default function TopbarMenu({ onSettingsButton, onProfileAvatarButton, on
       try{
             retrieveUser(context.userId, (error, user) =>{
                 if(error){
-                    generateToast({
-                        message: error.message,
-                        type: errorToast
-                    })
+                    generateToast(error.message,'error')
                     
                     return
                 }
                 setUser(user)
             })
         } catch(error){
-            generateToast({
-                message: error.message,
-                type: errorToast
-            })
+            generateToast(error.message,'error')
         }
     }
 

@@ -1,7 +1,9 @@
-import { context, generateToast, successToast, errorToast } from "../../ui"
+import { context } from "../../ui"
 import { updatePassword } from '../../logic/updatePassword'
 
 export default function UpdatePassword({ onSaveUpdatePasswordClick, onCancelUpdatePasswordClick }){
+
+    const { generateToast } = useContext(Context)
 
     function handleUpdatePassword(event){
         event.preventDefault()
@@ -13,25 +15,16 @@ export default function UpdatePassword({ onSaveUpdatePasswordClick, onCancelUpda
         try{
             updatePassword(context.userId, currentPassword, newPassword, confirmNewPassword, (error) => {
                 if(error){
-                    generateToast({
-                        message: error.message,
-                        type: errorToast
-                    }) 
+                    generateToast(error.message,'error')
                     return
                 }
 
-                generateToast({
-                    message: 'Password updated!',
-                    type: successToast
-                })
+                generateToast('Password updated!', successToast)
     
                 onSaveUpdatePasswordClick()
             })
         } catch(error){
-            generateToast({
-                message: error.message,
-                type: errorToast
-            })
+            generateToast(error.message,'error')
         }
     }
 

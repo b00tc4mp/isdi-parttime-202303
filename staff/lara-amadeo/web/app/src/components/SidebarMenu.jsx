@@ -1,10 +1,14 @@
 import { useEffect } from "react"
 import retrieveUser from "../logic/retrieveUser"
-import { context, errorToast, generateToast } from "../ui"
+import { context } from "../ui"
 import './SidebarMenu.css'
 import { useState } from "react"
+import { useContext } from "react"
+import Context from "../Context"
 
 export default function SidebarMenu({ onSettingsRow, onHomeRow, onProfileComponent, lastUserRenderUpdate }){
+
+    const { generateToast } = useContext(Context)
 
     const [user, setUser] = useState()
 
@@ -28,20 +32,14 @@ export default function SidebarMenu({ onSettingsRow, onHomeRow, onProfileCompone
         try{
             retrieveUser(context.userId, (error, user) => {
                 if(error){
-                    generateToast({
-                        message: error.message,
-                        type: errorToast
-                    })
+                    generateToast(error.message,'error')
                     
                     return
                 }
                 setUser(user)
             })
         } catch(error){
-            generateToast({
-                message: error.message,
-                type: errorToast
-            })
+            generateToast(error.message,'error')
         }
     }
 

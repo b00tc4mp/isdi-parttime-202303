@@ -1,7 +1,9 @@
 import  updateEmail  from '../../logic/updateEmail'
-import { generateToast, successToast, errorToast } from '../../ui'
-
+import { useContext } from "react"
+import Context from '../../Context'
 export default function UpdateEmail({ onCancelUpdateEmailClick, onSaveUpdateEmailClick }){
+
+    const { generateToast } = useContext(Context)
 
     function onCancel(event){
         event.preventDefault()
@@ -19,24 +21,15 @@ export default function UpdateEmail({ onCancelUpdateEmailClick, onSaveUpdateEmai
         try{
             updateEmail(currentEmail, newEmail, confirmNewEmail, (error) => {
                 if(error){
-                    generateToast({
-                        message: error.message,
-                        type: errorToast
-                    })
+                    generateToast(error.message,'error')
                     return
                 }
                 onSaveUpdateEmailClick()
             })
-            generateToast({
-                message: 'Email updated!',
-                type: successToast
-            })
+            generateToast('Email updated!', 'success')
 
         } catch(error){
-            generateToast({
-                message: error.message,
-                type: errorToast
-            })
+            generateToast(error.message,'error')
         }
     }
 

@@ -3,20 +3,19 @@ import { context } from "../../ui"
 import './ProfileInformation.css'
 import { useEffect, useState } from "react"
 import retrievePosts from "../../logic/retrievePosts"
-
+import { useContext } from "react"
+import Context from "../../Context"
 export default function ProfileInformation(){
 
     const [user, setUser] = useState()
     const [posts, setPosts] = useState()
+    const { generateToast } = useContext(Context)
 
    useEffect(() => {
        try {
             retrieveUser(context.userId, (error, user) => {
                 if(error){
-                    generateToast({
-                        message: error.message,
-                        type: errorToast
-                    })
+                    generateToast(error.message,'error')
                     console.log(error.stack)
                     return
                 }
@@ -24,10 +23,7 @@ export default function ProfileInformation(){
     
                 retrievePosts(context.userId, (error, posts) => {
                     if(error){
-                        generateToast({
-                            message: error.message,
-                            type: errorToast
-                        })
+                        generateToast(error.message,'error')
                         console.log(error.stack)
                         return
                     }
@@ -35,10 +31,7 @@ export default function ProfileInformation(){
                 })
             })
         } catch(error) { 
-            generateToast({
-                message: error.message,
-                type: errorToast
-            })
+            generateToast(error.message,'error')
             console.log(error.stack)
         }
    },[]) 

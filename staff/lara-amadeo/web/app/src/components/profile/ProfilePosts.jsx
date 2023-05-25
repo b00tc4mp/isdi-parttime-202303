@@ -3,19 +3,17 @@ import { context } from "../../ui"
 import retrievePosts from "../../logic/retrievePosts"
 import './ProfilePosts.css'
 import { useState } from "react"
-
-export default function ProfilePosts(props){
+import { useContext } from "react"
+import Context from "../../Context"
+export default function ProfilePosts(){
 
     const [posts, setPosts] = useState()
+    const { generateToast } = useContext(Context)
 
     try {
         retrievePosts(context.userId, (error, posts) => {
             if(error){
-                generateToast({
-                    message: error.message,
-                    type: errorToast
-                })
-                console.log(error.stack)
+                generateToast(error.message,'error')
                 console.log(error.stack)
                 return
             }
@@ -23,10 +21,7 @@ export default function ProfilePosts(props){
             setPosts(userPosts)
         })
     } catch(error) {
-        generateToast({
-            message: error.message,
-            type: errorToast
-        })
+        generateToast(error.message,'error')
         console.log(error.stack)
     }
     

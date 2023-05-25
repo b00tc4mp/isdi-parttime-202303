@@ -1,28 +1,25 @@
-import { context, errorToast, generateToast, successToast } from "../../ui"
+import { context } from "../../ui"
 import updatePost from "../../logic/updatePost"
 import retrievePost from "../../logic/retrievePost"
 import { useState } from "react"
+import { useContext } from "react"
+import Context from "../../Context"
 
 export default function EditPostModal({ postId, onCancelEditPost, onConfirmEditPost }){
 
     const [post, setPost] = useState()
+    const { generateToast } = useContext(Context)
 
     try{
         retrievePost(context.userId, postId, (error, post) => {
             if(error){
-                generateToast({
-                    message: error.message,
-                    type: errorToast
-                })
+                generateToast(error.message,'error')
                 return
             }
             setPost(post)
         })
     } catch(error){
-        generateToast({
-            message: error.message,
-            type: errorToast
-        })
+        generateToast(error.message,'error')
         console.log(error.stack)
     }
     
@@ -40,24 +37,15 @@ export default function EditPostModal({ postId, onCancelEditPost, onConfirmEditP
         try{
             updatePost(context.userId ,postId, postImgSrc, postCaption, (error) => {
                 if(error){
-                    generateToast({
-                        message: error.message,
-                        type: errorToast
-                    }) 
+                    generateToast(error.message,'error') 
                     console.log(error.stack)
                 }
                 
-                generateToast({
-                    message: 'Post updated!',
-                    type: successToast
-                })
+                generateToast('Post updated!', 'success')
                 onConfirmEditPost()
             })
         } catch(error){
-            generateToast({
-                message: error.message,
-                type: errorToast
-            })
+            generateToast(error.message,'error')
             console.log(error.stack)
         }
     }

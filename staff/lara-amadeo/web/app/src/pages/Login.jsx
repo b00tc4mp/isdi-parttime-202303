@@ -1,8 +1,14 @@
-import { context, errorToast, generateToast } from "../ui.js"
+import { context } from "../ui.js"
 import { authenticateUser } from '../logic/authenticateUser.js'
 import './Login.css'
+import { useContext } from "react"
+import Context from "../Context.js"
 
 export default function Login({ onSignUpLink, onLoginButton }) {
+
+    
+    const { generateToast } = useContext(Context)
+
     function handleRegisterClick(event) {
         event.preventDefault()
 
@@ -18,10 +24,7 @@ export default function Login({ onSignUpLink, onLoginButton }) {
         try {
             authenticateUser(email, password, (error, userId) => {
                 if (error){
-                    generateToast({
-                        message: error.message,
-                        type: errorToast,
-                    })
+                    generateToast(error.message, 'error')
 
                     return
                 }
@@ -30,10 +33,7 @@ export default function Login({ onSignUpLink, onLoginButton }) {
                 onLoginButton()
             })
         } catch (error) {
-            generateToast({
-                message: error.message,
-                type: errorToast,
-            })
+            generateToast(error.message, 'error')
         } finally {
             event.target.password.value = ''
         }

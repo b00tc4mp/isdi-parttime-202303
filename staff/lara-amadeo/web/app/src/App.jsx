@@ -3,10 +3,13 @@ import Register from "./pages/Register.jsx"
 import Home from "./pages/Home.jsx"
 import { useState } from 'react'
 import { context } from './ui.js'
+import Context from './Context.js'
+import Toast from './components/Toast.jsx'
 
 export default function App() {
  
   const [view, setView] = useState(context.userId ? 'home' : 'login')
+  const [toast, setToast] = useState(null)
   
 
   const handleGoToRegister = () => { setView('register') }
@@ -15,9 +18,15 @@ export default function App() {
 
   const handleGoToHome = () => { setView('home') }
 
-    switch(view){
-      case 'login': return <Login onSignUpLink={handleGoToRegister} onLoginButton={handleGoToHome}/>
-      case 'register': return <Register onLogInLink={handleGoToLogin} onSignUpButton={handleGoToLogin}/>
-      case 'home':  return <Home onLogOutLink={handleGoToLogin} />
-    }
+  const handleShowToast = (message, type, duration = 3000) => setToast({ message, type, length })
+
+
+  const handleRemoveToast = () => setToast(null)
+
+  return <Context.Provider value={ { generateToast: handleShowToast } }>
+  {view === 'login' && <Login onSignUpLink={handleGoToRegister} onLoginButton={handleGoToHome}/>}
+  {view === 'register' && <Register onLogInLink={handleGoToLogin} onSignUpButton={handleGoToLogin}/>}
+  {view === 'home' && <Home onLogOutLink={handleGoToLogin} />}
+  {toast && <Toast message={toast.message} type={toast.type} length={toast.length} endAnimation={handleRemoveToast}/>}
+  </Context.Provider>
 }

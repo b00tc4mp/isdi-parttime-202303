@@ -1,8 +1,11 @@
 import { updateAvatar } from '../../logic/updateAvatar'
-import { context, generateToast, successToast, errorToast } from '../../ui'
-
+import { context } from '../../ui'
+import { useContext } from "react"
+import Context from '../../Context'
 
 export default function UpdateAvatar({ onCancelUpdateAvatarClick, onSaveUpdateAvatarClick }){
+
+    const { generateToast } = useContext(Context)
 
     function onCancel(event){
         event.preventDefault()
@@ -17,27 +20,18 @@ export default function UpdateAvatar({ onCancelUpdateAvatarClick, onSaveUpdateAv
         try{
             updateAvatar(context.userId, imageUrl, (error) => {
                 if(error){
-                    generateToast({
-                        message: error.message,
-                        type: errorToast
-                    })
+                    generateToast(error.message,'error')
                     return
                 }
                 context.userAvatar = imageUrl
                 
                 onSaveUpdateAvatarClick()
 
-                generateToast({
-                    message: 'Avatar updated!',
-                    type: successToast
-                })
+                generateToast('Avatar updated!', 'success')
             })
 
         } catch(error){
-            generateToast({
-                message: error.message,
-                type: errorToast
-            })
+            generateToast(error.message,'error')
         }
     }
     
