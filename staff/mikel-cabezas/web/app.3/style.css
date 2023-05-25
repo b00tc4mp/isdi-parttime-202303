@@ -1,0 +1,426 @@
+/* ___ GENERAL ______ */
+html, body {
+    height: 100%;
+}
+body {
+    background: #132f46;
+    background: #091d30;
+    color: #fff;
+    font-family: 'acumin-pro', sans-serif;
+    position: relative;
+    padding: 0;
+    margin: 0;
+}
+
+.hidden, .off {
+    display: none !important;
+}
+
+
+.section {
+    width: 100%;
+    height: 100%;
+    /* overflow: hidden; */
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+}
+
+.section.user-account {
+    flex-direction: row;
+    align-items: flex-start;
+    align-content: flex-start;
+    /* overflow: hidden; */
+    /* position: absolute; */
+}
+
+.sidebar {
+    background-color: #132f46;
+    padding: 30px;
+    width: calc(30% - 60px);
+    height: calc(100% - 120px);
+    margin-top: 60px;
+    position: fixed;
+    left: 0;
+}
+.sidebar .title h1 {
+    font-size: 27px;
+    text-align: left;
+}
+ul.menu-sidebar {
+    list-style: none;
+    padding: 0;
+    margin-top: 5px;
+}
+ul.menu-sidebar li {
+    padding: 10px 0;
+    color: #fff;
+}
+ul.menu-sidebar li a {
+    color: rgb(255 255 255 / 80%);
+}
+
+
+.container {
+    background-color: #1f3a50;
+    background-color: #132f46;
+    padding: 30px;
+    max-width: 460px;
+    max-width: 260px;
+    width: 100%;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+/* ______ END GENERAL ___ */
+
+
+
+
+/* ___ FONTS ______ */
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'soleto', sans-serif;
+    text-align: center;
+}
+
+h1 {
+    font-size: 32px;
+    margin-top: 0;
+    font-weight: 100;
+    margin-bottom: 10px;
+}
+a {
+    color: #078197;
+    text-decoration: none;
+}
+/* ______ END FONTS ___ */
+
+
+
+
+/* ___ HEADER ______ */
+
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: #081826;
+}
+
+.header-wrapper {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: auto;
+}
+.logo {
+    display: flex;
+    padding-left: 20px;
+}
+.menu {
+    padding-right: 20px;
+}
+.menu > ul {
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    margin: 0;
+
+}
+.menu > ul > li {
+    padding: 15px 10px;
+    cursor: pointer;
+    align-self: center;
+}
+li.login.has-submenu {
+    position: relative;
+    list-style: none;
+}
+.login ul.submenu {
+    display: none;
+    position: absolute;
+    left: -10px;
+    top: 20px;
+    padding-left: 5px;
+    margin-top: 24px;
+    list-style: none;
+    background: #132f46;
+    padding: 15px 20px;
+    border-radius: 10px;
+}
+.login:hover ul.submenu {
+    display: block;
+}
+header li {
+    font-size: 16px;
+    padding: 5px 0px;
+}
+
+.menu .logout, .menu .homepage, body.logged-in .menu .login, .menu .user-account {
+    display: none;
+}
+body.logged-in .menu .logout, body.logged-in .menu .homepage {
+    display: block;
+}
+body.logged-in .menu li.user-account {
+    display:flex;
+    flex-direction:row
+}
+
+li.user-account img, li.user-account img {
+    background: #fff;
+    width: 30px;
+    height: 30px;
+    border-radius: 100px;
+}
+.avatar {
+    background: #078197;
+    border-radius: 100px;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-self: center;
+    justify-content: center;
+    align-items: center;
+    margin-right: 5px;
+    position: relative;
+}
+.section.user-account .avatar {
+    border-radius: 100px;
+    /* width: 85px; */
+    /* height: 85px; */
+    display: flex;
+    align-self: flex-start;
+    justify-content: center;
+    align-items: center;
+    margin-right: 5px;
+    margin-top: 35px;
+    transform: scale(2.5);
+    margin-bottom: 26px;
+    left: 25px;
+}
+.letter {
+    font-weight: 700;
+    letter-spacing: -.7px;
+    position: relative;
+    bottom: 1px;
+    font-size: 15px;
+}
+.user-name {
+    align-self: center;
+    line-height: 1;
+}
+
+img.image-profile {
+    width: 100%;
+    position: absolute;
+    border-radius: 100px;
+}
+
+/* ______ END HEADER ___ */
+
+/* ___ FORM ______ */
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+.message {
+    /* margin-top: 10px; */
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+}
+.message.success {
+    color: #49b056;
+}
+.message.error,
+.delete-account p {
+    color: #e95959;
+}
+
+input:not([name="file"]) {
+    background-color: rgba(43,47,49, 0.7);
+    background-color: rgb(35 46 56 / 70%);
+    color: #fff;
+    margin: 5px 5px 10px;
+    padding: 8px 15px;
+    min-width: 220px;
+    border: solid 2px #078197;
+    border-radius: 10px;
+    text-align: center;
+    transition: linear .2s;
+}
+input[type="file"] {
+    margin: 10px 0 20px 5px;
+}
+input::placeholder {
+    color: #ffffff9a;
+}
+input:focus {
+    border: solid 2px #28bed8;
+    box-shadow: 0 0 3px #28bed87e;
+    outline: none;
+    transition: linear .2s;
+}
+button.submit {
+    background: #078197;
+    color: #fff;
+    padding: 8px 10px;
+    border-radius: 10px;
+    border: solid 2px #078197;
+    max-width: 255px;
+    margin: auto;
+    width: 100%;
+    margin-top: 5px;
+    cursor: pointer;
+}
+
+.container .login, .container .register {
+    font-size: 12px
+}
+.register-link p, .login-link p {
+    margin: 0;
+}
+
+.register-link, .login-link {
+    margin-top: 25px;
+}
+input:disabled {
+    color: rgba(255, 255, 255, .45);
+}
+/* .container .login p, .container .register p {
+    margin: 25px 0 0;
+} */
+.password {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+.password > i.uil {
+    margin: 5px 0 12px;
+    position: absolute;
+    right: 10px;
+    opacity: .7;
+    font-size: 1.3rem;
+}
+/* ______ END FORM ___ */
+
+
+
+
+/* ___ HOME ______ */
+
+.section-user-account h1, .section-user-account h2 {
+    text-align: center;
+}
+
+/* ______ END HOME ___ */
+
+
+
+
+/* ___ USER SETTINGS ______ */
+
+
+.section.user-account .container {
+    background-color: transparent;
+    padding: 30px;
+    max-width: none;
+    width: calc(70% - 60px);
+    border-radius: 0;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    height: calc(100% - 120px);
+    margin-top: 60px;
+    margin-left: 30%;
+
+}
+.section.user-account .container h2,
+.section.user-account .container input {
+    text-align: left;
+}
+
+.section.user-account h2 {
+    margin-bottom: 0;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+button.button--update-info__profile,
+button.button--update-info__password,
+button.button--update-info__save-info,
+button.button--update-info__save-password,
+button.button--update-info__cancel-info,
+button.button--update-info__cancel-password
+ {
+    background: #078197;
+    color: #fff;
+    padding: 8px 10px;
+    border-radius: 10px;
+    border: solid 2px #078197;
+    margin: auto;
+    width: 100%;
+    margin-top: 0px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    transition: linear .2s;
+}
+
+button.button--update-info__profile {
+    max-width: 108px;
+}
+button.button--update-info__password {
+    max-width: 145px;
+}
+
+button.button--update-info__save-info,
+button.button--update-info__save-password {
+    width: calc(50% - 10px);
+}
+
+button.button--update-info__cancel-info,
+button.button--update-info__cancel-password {
+    /* max-width: 100px; */
+    width: calc(50% - 10px);
+    background: #132f46;
+    border: solid 2px #078197;
+}
+
+button[disabled] {
+    opacity: .6;
+    background: transparent;
+}
+.update {
+    max-width: 380px;
+}
+.section.user-account .password input {
+    width: 100%;
+}
+.update form {
+    max-width: 280px;
+}
+.update > p {
+    margin-top: 0;
+}
+/* ______ END USER SETTINGS ___ */
+
+/* input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active  {
+  transition: background-color 500000s;
+  -webkit-text-fill-color: #fff !important;
+} */

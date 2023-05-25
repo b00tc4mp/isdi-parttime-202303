@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="main.js" defer></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.typekit.net/qmk4sob.css">
+    <title>Form Web</title>
+</head>
+<header>
+<div class="header-wrapper">
+    <div class="logo">
+        <img src="glasses.svg" alt="Mikel Cabezas">
+    </div>
+    <div class="menu">
+        <ul>
+            <li class="login has-submenu">Login
+                <ul class="submenu">
+                    <li class="submenu-element register">Register</li>
+                    <li class="submenu-element login">Login</li>
+                </ul>
+            </li>
+            <li class="homepage">Homepage</li>
+            <li class="logout">Logout</li>
+        </ul>
+    </div>
+</div>
+</header>
+<body>
+    <div class="section register off" id="register">
+        <!-- TODO implement register page -->
+        <div class="container">
+            <h1>Register</h1>
+            <form class="register-form">
+                <div class="message"></div>
+                <label for="Name">Name</label>
+                <input type="text" name="name" id="register-name" placeholder="Your name" _required>
+                <label for="Email">Email</label>
+                <input type="email" name="email" id="register-email" placeholder="email" _required>
+                <label for="Password">Password</label>
+                <input type="password" name="password" id="register-password" placeholder="password" _required>
+                <button class="submit" type="submit">Register</button>
+                <div class="login-link">
+                    <p>Already registered? <a href="">Login</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="section login" id="login">
+        <!-- TODO implement login page -->
+        <div class="container">
+            <h1>Login</h1>
+            <form class="login-form">
+                <div class="message"></div>
+                <label for="Email">Email</label>
+                <input type="email" name="email" placeholder="Your email" _required>
+                <label for="Password">Password</label>
+                <input type="password" name="password" placeholder="Your password" _required>
+                <button class="submit" type="submit">Login</button>
+                <div class="register-link">
+                    <p>Not registered? <a href="">Create account</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="section home off">
+        <!-- TODO homepage -->
+        <h1>Home</h1>
+        <h2 class="greetings"></h2>
+    </div>
+</body>
+</html>

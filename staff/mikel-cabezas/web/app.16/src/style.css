@@ -1,0 +1,1064 @@
+/* ___ GENERAL ______ */
+
+:root {
+  --main-green: #859895;
+  --main-brown: #705D55;
+  --overlay-black: #00000021;
+  --white: #e0dcda;
+  --dark: #262c30;
+  --red: #c1574c;
+}
+
+html {
+  min-height: 100vh;
+  display: flex;
+}
+
+body {
+  background: #132f46;
+  background: var(--main-green);
+  color: var(--white);
+  font-family: 'acumin-pro', sans-serif;
+  position: relative;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+.main-content {
+  min-height: 100vh;
+}
+section.login, section.register {
+  min-height: 100vh;
+}
+body.block-scroll {
+  overflow: hidden;
+}
+
+form label {
+  color: var(--dark);
+}
+
+.hidden, .off {
+  display: none !important;
+}
+
+.section {
+  width: 100%;
+  height: 100%;
+  /* overflow: hidden; */
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: center;
+}
+
+.section.user-account {
+  flex-direction: row;
+  align-items: flex-start;
+  align-content: flex-start;
+  /* overflow: hidden; */
+  /* position: absolute; */
+}
+
+.sidebar {
+  background-color: var(--overlay-black);
+  padding: 30px;
+  width: calc(30% - 60px);
+  height: calc(100% - 120px);
+  margin-top: 60px;
+  position: fixed;
+  left: 0;
+}
+
+.sidebar .title h1 {
+  font-size: 27px;
+  text-align: left;
+  color: var(--white);
+}
+
+ul.menu-sidebar {
+  list-style: none;
+  padding: 0;
+  margin-top: 5px;
+}
+
+ul.menu-sidebar li {
+  padding: 10px 0;
+  color: #fff;
+}
+
+ul.menu-sidebar li a {
+  color: rgb(255 255 255 / 80%);
+}
+
+.container {
+  background-color: #1f3a50;
+  background-color: var(--white);
+  padding: 30px;
+  max-width: 460px;
+  max-width: 260px;
+  width: 100%;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+button {
+  background: var(--main-brown);
+  color: #fff;
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: solid 2px var(--main-brown);
+  margin: auto;
+  margin-top: 0px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  transition: linear .2s;
+}
+
+
+button.button--update-info__profile,
+button.button--update-info__password,
+button.button--update-info__save-info,
+button.button--update-info__save-password,
+button.button--update-info__cancel-info,
+button.button--update-info__cancel-password, 
+button.button--create-post,
+button.button--create-post_cancel,
+button.button--create-post_save,
+button.button--edit-post,
+button.button--edit-post_cancel,
+button.button--edit-post_save {
+
+  width: 100%;
+
+}
+
+/* ______ END GENERAL ___ */
+
+
+
+
+/* ___ FONTS ______ */
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'soleto', sans-serif;
+  text-align: center;
+  color: var(--dark);
+}
+
+h1 {
+  font-size: 32px;
+  margin-top: 0;
+  font-weight: 100;
+  margin-bottom: 10px;
+}
+a {
+  color: var(--main-brown);
+  text-decoration: none;
+}
+/* ______ END FONTS ___ */
+
+
+
+
+/* ___ HEADER ______ */
+
+header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: var(--dark);
+  z-index: 10;
+}
+
+.header-wrapper {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.logo {
+  display: flex;
+  padding-left: 20px;
+  cursor: pointer;
+}
+
+.logo img {
+  width: 145px;
+}
+
+.menu {
+  padding-right: 20px;
+}
+
+.menu > ul {
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+  margin: 0;
+
+}
+
+.menu > ul > li {
+  padding: 15px 10px;
+  cursor: pointer;
+  align-self: center;
+  line-height: 1.8;
+}
+li.login.has-submenu {
+  position: relative;
+  list-style: none;
+}
+
+.login ul.submenu {
+  display: none;
+  position: absolute;
+  left: -10px;
+  top: 20px;
+  padding-left: 5px;
+  margin-top: 24px;
+  list-style: none;
+  background: #132f46;
+  padding: 15px 20px;
+  border-radius: 10px;
+}
+
+.login:hover ul.submenu {
+  display: block;
+}
+header li {
+  font-size: 16px;
+  padding: 5px 0px;
+  transition: linear .2s;
+}
+body .menu li:hover {
+  background: #ffffff0d;
+}
+
+.menu .logout, .menu .homepage, body.logged-in .menu .login, .menu .user-account {
+  display: none;
+}
+body.logged-in .menu .logout, body.logged-in .menu .homepage {
+  display: block;
+}
+body.logged-in .menu li.user-account {
+  display:flex;
+  flex-direction:row;
+  position: relative;
+}
+
+li.user-account:hover ul.submenu.user-options {
+  display: block;
+}
+
+li.user-account ul.submenu.user-options {
+  position: absolute;
+  top: 60px;
+  background: var(--dark);
+  padding: 0;
+  list-style: none;
+  min-width: 145px;
+  width: 100%;
+  /* left: 20px; */
+  display: none;
+  box-sizing: border-box;
+  left: 0;
+}
+
+li.user-account ul.submenu.user-options li {
+  padding: 10px 25px 12px;
+
+}
+
+li.user-account img, li.user-account img {
+  background: #fff;
+  width: 30px;
+  height: 30px;
+  border-radius: 100px;
+}
+
+.avatar {
+  background: var(--main-brown);
+  border-radius: 100px;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-self: center;
+  justify-content: center;
+  align-items: center;
+  margin-right: 5px;
+  position: relative;
+}
+
+.section.user-account .avatar {
+  border-radius: 100px;
+  /* width: 85px; */
+  /* height: 85px; */
+  display: flex;
+  align-self: flex-start;
+  justify-content: center;
+  align-items: center;
+  margin-right: 5px;
+  margin-top: 35px;
+  transform: scale(2.5);
+  margin-bottom: 26px;
+  left: 25px;
+}
+
+.letter {
+  font-weight: 700;
+  letter-spacing: -.7px;
+  position: relative;
+  bottom: 1px;
+  font-size: 15px;
+  text-transform: uppercase;
+}
+
+.user-name {
+  align-self: center;
+  line-height: 1;
+}
+
+img.image-profile {
+  width: 100%;
+  position: absolute;
+  border-radius: 100px;
+}
+
+/* ______ END HEADER ___ */
+
+
+
+/* ___ FORM ______ */
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+.message {
+  /* margin-top: 10px; */
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+}
+
+.message.success {
+  color: #49b056;
+}
+
+.message.error {
+  color: #f38686;
+}
+
+.delete-account button {
+  background: var(--red);
+  border: solid 2px var(--red);
+  width: fit-content;
+  padding: 7px 10px 8px;
+  font-size: 14px;
+  border-radius: 10px;
+  transition: linear .2s;
+  cursor: pointer;
+
+}
+
+input:not([name="file"]) {
+  background-color: #fff;
+  color: var(--dark);
+  margin: 5px 5px 10px;
+  padding: 8px 15px;
+  min-width: 220px;
+  border: solid 2px var(--main-brown);
+  border-radius: 10px;
+  text-align: center;
+  transition: linear .2s;
+}
+
+.overlay input[type="file"] {
+  margin: 10px 0 20px 5px;
+  color: var(--white);
+}
+input::placeholder {
+  color: var(--main-green);
+}
+input:focus {
+  border: solid 2px #28bed8;
+  box-shadow: 0 0 3px #28bed87e;
+  outline: none;
+  transition: linear .2s;
+}
+button.submit {
+  background: var(--main-brown);
+  color: #fff;
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: solid 2px var(--main-brown);
+  max-width: 255px;
+  margin: auto;
+  width: 100%;
+  margin-top: 5px;
+  cursor: pointer;
+}
+
+.container .login, .container .register {
+  font-size: 12px
+}
+
+.register-link p, .login-link p {
+  margin: 0;
+  color: var(--dark);
+}
+
+.register-link, .login-link {
+  margin-top: 25px;
+}
+input:disabled {
+  background-color: rgba(255, 255, 255, .45);
+}
+
+
+.password {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.password > i.uil {
+  margin: 5px 0 12px;
+  position: absolute;
+  right: 10px;
+  opacity: .7;
+  font-size: 1.3rem;
+  color: var(--dark);
+}
+
+/* ______ END FORM ___ */
+
+
+
+
+/* ___ HOME ______ */
+
+.section.home {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  padding-top: 80px;
+  justify-content: flex-start;
+}
+
+.section.home .top {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+}
+
+.section.home .top h1 {
+  margin-top: 20px;
+}
+
+.section-user-account h1, .section-user-account h2 {
+  text-align: center;
+}
+
+h2.welcome-user {
+  margin-top: 0;
+}
+
+.section.home form textarea {
+  margin-bottom: 20px;
+  max-width: 350px;
+  appearance: none;
+  padding: 8px 15px;
+  border: solid 2px var(--main-brown);
+  border-radius: 10px;
+  text-align: left;
+  transition: linear .2s;
+}
+
+label[for="textarea"] {
+  margin-bottom: 8px;
+}
+
+input.title {
+  text-align: left;
+  margin-bottom: 20px;
+}
+label[for="file"] {
+  margin-top: 15px;
+}
+
+.create-post form,
+.edit-post form {
+  background: var(--white);
+  padding: 30px 30px 10px;
+  border-radius: 20px;
+  width: auto;
+  max-width: 350px;
+}
+
+.all-users-liked-container {
+  background: var(--white);
+  padding: 30px 30px 10px;
+  border-radius: 20px;
+  width: auto;
+  max-width: 350px;
+  min-height: 310px;
+  min-width: 240px;
+  display: flex;
+  flex-direction: column;
+}
+
+.all-users-liked-container h3.title {
+  padding-bottom: 25px;
+  text-align: center !important;
+  width: 100%;
+}
+
+.date-author {
+  gap: 10px;
+  display: flex;
+  justify-content: space-between;
+  margin-top: auto;
+}
+
+.post-author, .post-date {
+  font-size: 14px;
+  color: var(--dark);
+}
+time.post-date {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: baseline;
+}
+
+.post-edited {
+  margin-left: 6px;
+  font-style: italic;
+  font-size: 85%;
+}
+
+.post-author {
+  color: var(--main-brown);
+  color: var(--white);
+  /* padding: 1px 11px 3px; */
+  border-radius: 100px;
+  font-weight: 700;
+}
+
+/* ______ END HOME ___ */
+
+
+
+
+/* POSTS  */
+
+.overlay {
+  background: #16181be8;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 11;
+}
+
+.posts > section {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  position: relative;
+  align-self: center;
+  padding: 20px;
+  justify-content: center;
+  box-sizing: border-box;}
+
+article {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  background: var(--white);
+  padding: 10px;
+  border-radius: 10px;
+}
+
+@media (min-width: 481px) {
+  .posts  > section{
+      gap: 10px;
+      max-width: 700px;
+
+  }
+  
+  article {
+      width: calc(50% - 25px);
+  }
+}
+@media (min-width: 980px) {
+  .posts  > section{
+      gap: 8px;
+      max-width: 1000px;
+  }
+  
+  article {
+      width: calc(33.33% - 26px);
+  }
+}
+
+.posts .space-image {
+  width: 100%;
+  padding-bottom: 80%;
+  cursor: pointer;
+}
+
+.title-and-interactions {
+  display: flex;
+  align-items: center;
+  margin: 15px 0 5px;
+  /* justify-content: space-between; */
+  margin-top: auto;
+}
+.title-and-interactions .material-symbols-outlined {
+  cursor: pointer;
+}
+.title-and-interactions .comment {
+  margin-left: 6px;
+}
+
+.material-symbols-outlined.save {
+  margin-left: auto;
+}
+.post-author .user-name {
+  text-shadow: 2px 2px 2px #0000004a;
+}
+
+article h3.title {
+  margin: 0;
+  text-align: left;
+  color: var(--white);
+  text-shadow: 2px 2px 2px #0000004a;
+}
+
+
+.material-symbols-outlined.like.filled {
+  color:var(--red);
+}
+.material-symbols-outlined.filled {
+  font-variation-settings:
+  'FILL' 1,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 48
+}
+
+article p.excerpt {
+  margin-top: 4px;
+  font-size: 14px;
+  margin-bottom: 8px;
+  color: var(--white);
+  text-shadow: 2px 2px 2px #0000004a;
+
+}
+
+button.button--create-post {
+  width: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+button.button--create-post i {
+  margin-left: 4px;
+  width: 20px;
+  height: 20px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+}
+
+button.button--edit-post {
+  width: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+button.button--edit-post i {
+  margin-left: 4px;
+  width: 20px;
+  height: 20px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+}
+
+.posts .post-author {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 10px;
+}
+
+.posts .post-author img {
+  border-radius: 100px;
+}
+
+button.edit {
+  margin-left: auto;
+  margin-right: 0;
+  background: var(--main-brown);
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 10px;
+  border: solid 2px var(--main-brown);
+  cursor: pointer;
+  transition: linear .2s;
+  margin-bottom: 0;
+}
+
+button.edit i {
+  margin-left: 6px;
+}
+
+button:hover {
+  background: transparent;
+  color: var(--white);
+}
+
+button[type="cancel"]:hover {
+  background: var(--main-brown);
+  color: var(--white);
+
+}
+
+button.close {
+  margin-top: auto;
+  width: 100%;
+}
+/* END POSTS */
+
+/* ___ SINGLE POSTS ______ */
+
+article.single.post {
+  width: 100%;
+  max-width: 920px;
+  flex-direction: row;
+  box-sizing: border-box;
+  margin: 30px;
+}
+.post-image-container {
+  width: 65%;
+  padding: 5px;
+  box-sizing: border-box;
+}
+.post-image-container img {
+  width: 100%;
+}
+.post-info-container {
+  width: 35%;
+  padding: 5px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+form.new-comment-form {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  box-sizing: border-box;
+  position: relative;
+  align-items: center;
+}
+input[name="comment"] {
+  width: 100%;
+  box-sizing: border-box;
+  margin: 5px 5px;
+  padding: 10px 15px;
+  text-align: left;
+}
+button[name="post-comment"] {
+  position: absolute;
+  margin: 0 !important;
+  right: 10px;
+  padding: 4px 8px;
+  line-height: 1;
+  border-radius: 7px;
+}
+
+.post-info-container .title-and-interactions {
+  margin-top: auto;
+}
+.single-comment-container {
+  display: flex;
+  align-items: flex-start;
+  margin-top: 10px;
+  margin-bottom: 15px;
+}
+.single-comment-container .user-comment {
+  margin-left: 2px;
+}
+.single-comment-container .post-author {
+  font-size: 14px;
+  margin-bottom: 3px;
+}
+.single-comment-container .comment {
+  font-size: 14px;
+}
+
+.material-symbols-outlined.close {
+  position: absolute;
+  top: -30px;
+  right: 0;
+  cursor: pointer;
+}
+
+/* END SINGLE POSTS */
+
+
+
+
+/* ___ USER SETTINGS ______ */
+
+.go-back {
+  display: flex;
+  align-content: center;
+  flex-direction: row;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.section.user-account .container {
+  background-color: transparent;
+  padding: 30px;
+  max-width: none;
+  width: calc(70% - 60px);
+  border-radius: 0;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  height: calc(100% - 120px);
+  margin-top: 60px;
+  margin-left: 30%;
+}
+
+.section.user-account .container h2,
+.section.user-account .container input {
+  text-align: left;
+}
+
+.section.user-account h2 {
+  margin-bottom: 0;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+button.button--update-info__profile {
+  max-width: 108px;
+}
+
+button.button--update-info__password {
+  max-width: 145px;
+}
+
+button.button--update-info__save-info,
+button.button--update-info__save-password {
+  width: calc(50% - 10px);
+}
+
+button.button--update-info__cancel-info,
+button.button--update-info__cancel-password,
+button.button--create-post_cancel,
+button.button--edit-post_cancel {
+  /* max-width: 100px; */
+  width: calc(50% - 10px);
+  background: var(--white);
+  border: solid 2px var(--main-brown);
+  color: var(--main-brown);
+}
+
+button[disabled] {
+  opacity: .6;
+  background: transparent;
+  color: var(--main-brown);
+  /* color: var(--dark); */
+}
+
+.update {
+  max-width: 380px;
+}
+
+.section.user-account .password input {
+  width: 100%;
+}
+
+.update form {
+  max-width: 280px;
+}
+
+.update > p {
+  margin-top: 0;
+}
+a.user-theme {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  line-height: 1;
+}
+
+.user-theme .material-symbols-outlined {
+  font-size: 32px;
+}
+
+.material-symbols-outlined.on {
+  color: #70bd7a;
+}
+
+.post-author{
+  position: relative;
+  cursor: pointer;
+}
+.post-author[title]:hover::after {
+  content: attr(title);
+  position: absolute;
+  top: -115%;
+  left: -5px;
+  width: max-content;
+  font-size: 14px;
+  background: #202528;
+  padding: 5px 10px;
+  border-radius: 5px;
+  transition: linear .2s;
+}
+
+.total-likes-post {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: 5px 0 2px;
+}
+
+.posts .users-liked-post .post-author {
+  position: relative;
+  margin-right: -10px;
+  margin-bottom: 0;
+}
+.users-liked-post:first-child {
+  margin-left: 10px;
+}
+.posts .users-liked-post .post-author .avatar {
+  width: 24px;
+  height: 24px;
+  box-shadow: -2px 1px 2px 0px rgba(0,0,0,0.3);
+}
+.posts .users-liked-post .post-author .letter {
+  font-size: 10px;
+  bottom: 0px;
+}
+
+/* ______ END USER SETTINGS ___ */
+
+
+
+/* ___ DARK THEME ______ */
+
+html[data-theme="dark"]:root {
+  --main-green: #1a1d20;
+}
+
+html[data-theme="dark"] .container {
+  background-color: var(--dark);
+}
+
+input[type="file"] {
+  margin: 10px 0 20px 5px;
+  color: var(--white);
+}
+
+html[data-theme="dark"] h1, 
+html[data-theme="dark"] h2, 
+html[data-theme="dark"] h3, 
+html[data-theme="dark"] h4, 
+html[data-theme="dark"] h5, 
+html[data-theme="dark"] h6, 
+html[data-theme="dark"] p, 
+html[data-theme="dark"] span, 
+html[data-theme="dark"] time {
+  color: var(--white) !important;
+}
+
+html[data-theme="dark"] input::placeholder {
+  color: var(--white);
+}
+
+html[data-theme="dark"] i.uil {
+  color: var(--white) !important;
+}
+
+html[data-theme="dark"] textarea, html[data-theme="dark"]  input:not([name="file"]) {
+  background: rgb(59,59,59);
+  color: var(--white);
+}
+
+html[data-theme="dark"] form label {
+  color: var(--white);
+}
+
+html[data-theme="dark"] .create-post form,
+html[data-theme="dark"] .edit-post form {
+  background: var(--dark);
+
+}
+
+html[data-theme="dark"] .all-users-liked-container {
+  background: var(--dark);
+
+}
+
+html[data-theme="dark"] article {
+  background: var(--dark);
+}
+
+html[data-theme="dark"] button.button--update-info__cancel-info, 
+html[data-theme="dark"] button.button--update-info__cancel-password, 
+html[data-theme="dark"] button.button--create-post_cancel,
+html[data-theme="dark"] button.button--edit-post_cancel {
+  background: transparent;
+  border: solid 2px var(--main-brown);
+  color: var(--white);
+}
+
+html[data-theme="dark"] button[type="cancel"]:hover {
+  background: var(--main-brown);
+  color: var(--white);
+
+}
+
+html[data-theme="dark"] .post-author {
+  color: var(--white);
+} 
+html[data-theme="dark"] input:focus {
+  border: solid 2px #826d65;
+  box-shadow: 0 0 3px #705d55a8;
+  outline: none;
+  transition: linear .2s;
+}
+/* END DARK THEME */
