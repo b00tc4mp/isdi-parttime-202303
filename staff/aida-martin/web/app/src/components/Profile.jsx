@@ -1,9 +1,11 @@
 import './Profile.css'
+import '../library/Container.css'
 import { useContext } from 'react'
 import updateAvatar from '../logic/updateUserAvatar'
 import changePassword from '../logic/updateUserPassword'
 import { context } from '../ui'
 import Context from '../Context'
+import Container from '../library/Container'
 
 export default function Profile ({ onUpdateUserAvatar, onUpdateUserPassword }) {
   const { alert } = useContext(Context)
@@ -51,7 +53,7 @@ export default function Profile ({ onUpdateUserAvatar, onUpdateUserPassword }) {
   }
 
   return (
-    <div className='profile form-window'>
+    <Container className='profile'>
       <h1 className='title'>YOUR PROFILE</h1>
 
       <form className='form profile-avatar-form' onSubmit={updateUserAvatar}>
@@ -92,6 +94,6 @@ export default function Profile ({ onUpdateUserAvatar, onUpdateUserPassword }) {
 
         <button className='button change-password-button' type='submit'>UPDATE</button>
       </form>
-    </div>
+    </Container>
   )
 }

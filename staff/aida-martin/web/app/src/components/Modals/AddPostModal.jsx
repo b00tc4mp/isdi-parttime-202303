@@ -1,8 +1,12 @@
 import './AddPostModal.css'
+import '../../library/Modal.css'
+import '../../library/Container.css'
 import { useContext } from 'react'
 import createPost from '../../logic/createPost'
 import { context } from '../../ui'
 import Context from '../../Context'
+import Modal from '../../library/Modal'
+import Container from '../../library/Container'
 
 export default function AddPostModal ({ onPostCreated, onCancel }) {
   const { alert } = useContext(Context)
@@ -35,8 +39,8 @@ export default function AddPostModal ({ onPostCreated, onCancel }) {
   }
 
   return (
-    <div className='modal'>
-      <form className='form-window add-post-form form' onSubmit={handleCreatePost}>
+    <Modal tag='section'>
+      <Container tag='form' className='add-post-form form' onSubmit={handleCreatePost}>
         <h2>CREATE A NEW POST</h2>
         <input
           className='input'
@@ -56,7 +60,7 @@ export default function AddPostModal ({ onPostCreated, onCancel }) {
 
         <button className='button' type='submit'>CREATE</button>
         <button className='button cancel' type='button' onClick={handleCancel}>CANCEL</button>
-      </form>
-    </div>
+      </Container>
+    </Modal>
   )
 }

@@ -72,22 +72,6 @@ h2 {
   margin-top: 1.25rem;
 }
 
-.form-window {
-  background: var(--white);
-  width: 14rem;
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
-  align-self: center;
-  margin: auto;
-  border-radius: 0.75rem;
-  box-shadow: 2px 2px 7px 2px rgba(0, 0, 0, 0.25);
-}
-
-.form-window > .title, .form-window h2 {
-  text-align: center;
-}
-
 .avatar {
   width: 2rem;
   height: 2rem;
@@ -143,19 +127,6 @@ h2 {
   margin-top: -0.625rem;
   margin-bottom: -0.625rem;
 } */
-
-.modal {
-  background: var(--background-modal);
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 2;
-}
 
 .icon-button {
   display: flex;

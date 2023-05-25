@@ -1,9 +1,13 @@
 import './EditPostModal.css'
+import '../../library/Modal.css'
+import '../../library/Container.css'
 import { useState, useEffect, useContext } from 'react'
 import updatePost from '../../logic/updatePost'
 import retrievePost from '../../logic/retrievePost'
 import { context } from '../../ui'
 import Context from '../../Context'
+import Modal from '../../library/Modal'
+import Container from '../../library/Container'
 
 export default function EditPostModal ({ postId, onPostEdited, onCancel }) {
   const { alert } = useContext(Context)
@@ -55,8 +59,8 @@ export default function EditPostModal ({ postId, onPostEdited, onCancel }) {
   return (
     <>
       {post &&
-        <section className='modal'>
-          <form className='form-window edit-post-form form' onSubmit={handleEditPost}>
+        <Modal tag='section'>
+          <Container tag='form' className='edit-post-form form' onSubmit={handleEditPost}>
             <h2>EDIT YOUR POST</h2>
             <input
               className='input'
@@ -78,8 +82,8 @@ export default function EditPostModal ({ postId, onPostEdited, onCancel }) {
 
             <button className='button' type='submit'>UPDATE</button>
             <button className='button cancel' type='button' onClick={handleCancel}>CANCEL</button>
-          </form>
-        </section>}
+          </Container>
+        </Modal>}
     </>
   )
 }

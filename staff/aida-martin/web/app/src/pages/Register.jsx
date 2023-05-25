@@ -1,7 +1,9 @@
 import './Register.css'
+import '../library/Container.css'
 import { useContext } from 'react'
 import registerUser from '../logic/registerUser'
 import Context from '../Context'
+import Container from '../library/Container'
 
 export default function Register ({ onLoginClick, onUserRegisteredIn }) {
   const { alert } = useContext(Context)
@@ -38,7 +40,7 @@ export default function Register ({ onLoginClick, onUserRegisteredIn }) {
   }
 
   return (
-    <section className='register form-window'>
+    <Container tag='section'>
       <h1 className='title'>CREATE ACCOUNT</h1>
 
       <form className='form' onSubmit={handleRegister}>
@@ -68,6 +70,6 @@ export default function Register ({ onLoginClick, onUserRegisteredIn }) {
       <p className='login-answer'>
         Have already an account? <a href='#' onClick={handleLoginClick} className='login-link link'>Login here</a>
       </p>
-    </section>
+    </Container>
   )
 }

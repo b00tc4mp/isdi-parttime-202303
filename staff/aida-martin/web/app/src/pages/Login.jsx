@@ -1,8 +1,10 @@
 import './Login.css'
+import '../library/Container.css'
 import { useContext } from 'react'
 import Context from '../Context'
 import { context } from '../ui'
 import authenticateUser from '../logic/authenticateUser'
+import Container from '../library/Container'
 
 export default function Login ({ onRegisterClick, onUserLoggedIn }) {
   const { alert } = useContext(Context)
@@ -38,7 +40,7 @@ export default function Login ({ onRegisterClick, onUserLoggedIn }) {
   }
 
   return (
-    <section className='login form-window'>
+    <Container tag='section'>
       <h1 className='title'>WELCOME!</h1>
 
       <form className='form' onSubmit={handleLogin}>
@@ -61,6 +63,6 @@ export default function Login ({ onRegisterClick, onUserLoggedIn }) {
       <p className='register-answer'>
         Not a member? <a href='#' onClick={handleRegisterClick} className='register-link link'>Sign up here</a>
       </p>
-    </section>
+    </Container>
   )
 }
