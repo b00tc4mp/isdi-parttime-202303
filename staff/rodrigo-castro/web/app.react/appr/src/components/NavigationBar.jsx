@@ -25,7 +25,7 @@ export default function NavigationBar({handleFilterAllPosts, handleOpenAddPost, 
                     />
                     {user && <>
                     <li className="profile" onClick={handleOpenProfile}>
-                        <img src={user.avatar || 'https://i.pinimg.com/originals/f1/0f/f7/f10ff70a7155e5ab666bcdd1b45b726d.jpg'} alt="" className={`user-avatar ${modal === 'profile' || postsToShow !== 'all' ? 'selected' : ''}`}/>
+                        <img src={user.avatar || 'https://i.pinimg.com/originals/f1/0f/f7/f10ff70a7155e5ab666bcdd1b45b726d.jpg'} alt="" className={`user-avatar ${postsToShow !== 'all' && modal !== 'add-post' ? 'selected' : ''}`}/>
                         <a href="#" className="menu-buttons"><span className="menu-text" name="authenticated-user-name">{modal === 'profile' || postsToShow !== 'all' ? <b>Profile</b> : 'Profile'}</span></a>
                     </li>
                     </>}

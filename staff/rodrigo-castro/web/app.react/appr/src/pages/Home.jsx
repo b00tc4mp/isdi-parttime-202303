@@ -142,26 +142,6 @@ export default function Home(props) {
                 onPostDeleted={handlePostsModified}
             />
 
-            {/* {modal === 'add-post' && <AddPostModal 
-                onCancel={handleCloseModal}
-                onPostCreated={handlePostsModified}
-            />}
-
-            {modal === 'change-email' && <ChangeEmail
-                onCancel={handleCloseModal}
-                onEmailChanged={handleCloseModal}
-            />}
-
-            {modal === 'change-password' && <ChangePassword
-                onCancel={handleCloseModal}
-                onPasswordChanged={handleCloseModal}
-            />}
-
-            {modal === 'change-avatar' && <ChangeAvatar
-                onCancel={handleCloseModal}
-                onAvatarChanged={handleAvatarChanged}
-            />} */}
-
             {modal === 'edit-post' && <EditPost
                 onCancel={handleCloseModal}
                 onPostEdited={handlePostsModified}
