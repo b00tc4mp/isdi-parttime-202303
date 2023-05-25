@@ -1,12 +1,8 @@
 /* ___ GENERAL ______ */
 
 :root {
-  --main-background: #859895;
-  --container-bg: #e0dcda;
-  --main-button: #705D55;
-  --main-headings: #262c30;
-  --main-text: #262c30;
-  --main-link: #705D55;
+  --main-green: #859895;
+  --main-brown: #705D55;
   --overlay-black: #00000021;
   --overlay-black-plus: #111214;
   --overlay-black-less: #1f2024;
@@ -15,17 +11,6 @@
   --dark: #262c30;
   --red: #c1574c;
 }
-:root.dark {
-  --main-background: #1a1d20;
-  --container-bg: #262c30;
-  --main-button: #705D55;
-  --main-headings: #e0dcda;
-  --main-text: #e0dcda;
-
-}
-/* html[data-theme="dark"] .container {
-  background-color: var(--dark);
-} */
 
 html {
   min-height: 100vh;
@@ -33,7 +18,8 @@ html {
 }
 
 body {
-  background: var(--main-background);
+  background: #132f46;
+  background: var(--main-green);
   color: var(--white);
   font-family: 'acumin-pro', sans-serif;
   position: relative;
@@ -56,7 +42,7 @@ body.block-scroll {
 }
 
 form label {
-  color: var(--main-text);
+  color: var(--dark);
 }
 
 .hidden, .off {
@@ -74,12 +60,28 @@ form label {
   justify-content: center;
 }
 
+
+
+
+.container {
+  background-color: #1f3a50;
+  background-color: var(--white);
+  padding: 30px;
+  max-width: 460px;
+  max-width: 260px;
+  width: 100%;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
 button {
-  background: var(--main-button);
+  background: var(--main-brown);
   color: #fff;
   padding: 8px 10px;
   border-radius: 10px;
-  border: solid 2px var(--main-button);
+  border: solid 2px var(--main-brown);
   margin: auto;
   margin-top: 0px;
   cursor: pointer;
@@ -114,11 +116,6 @@ button.button--edit-post_save {
   justify-content: center;
   z-index: 11;
 }
-
-input[type="file"] {
-  margin: 10px 0 20px 5px;
-  color: var(--white);
-}
 /* ______ END GENERAL ___ */
 
 
@@ -129,7 +126,7 @@ input[type="file"] {
 h1, h2, h3, h4, h5, h6 {
   font-family: 'soleto', sans-serif;
   text-align: center;
-  color: var(--main-headings);
+  color: var(--dark);
 }
 
 h1 {
@@ -139,7 +136,7 @@ h1 {
   margin-bottom: 10px;
 }
 a {
-  color: var(--main-button);
+  color: var(--main-brown);
   text-decoration: none;
 }
 /* ______ END FONTS ___ */
@@ -152,7 +149,6 @@ a {
 form {
   display: flex;
   flex-direction: column;
-  background-color: var(--container-bg);
 }
 
 .message {
@@ -172,12 +168,12 @@ form {
 
 
 input:not([name="file"]) {
-  background-color: var(--container-bg);
-  color: var(--main-text);
+  background-color: #fff;
+  color: var(--dark);
   margin: 5px 5px 10px;
   padding: 8px 15px;
   min-width: 220px;
-  border: solid 2px var(--main-button);
+  border: solid 2px var(--main-brown);
   border-radius: 10px;
   text-align: center;
   transition: linear .2s;
@@ -189,7 +185,7 @@ input:not([name="file"]) {
 }
 
 input::placeholder {
-  color: var(--main-background);
+  color: var(--main-green);
 }
 input:focus {
   border: solid 2px #28bed8;
@@ -198,11 +194,11 @@ input:focus {
   transition: linear .2s;
 }
 button.submit {
-  background: var(--main-button);
+  background: var(--main-brown);
   color: #fff;
   padding: 8px 10px;
   border-radius: 10px;
-  border: solid 2px var(--main-button);
+  border: solid 2px var(--main-brown);
   max-width: 255px;
   margin: auto;
   width: 100%;
@@ -223,8 +219,7 @@ button.submit {
   margin-top: 25px;
 }
 input:disabled {
-  background-color: var(--container-bg);
-  opacity: .7;
+  background-color: rgba(255, 255, 255, .45);
 }
 
 
@@ -248,10 +243,18 @@ input:disabled {
 
 /* ___ DARK THEME ______ */
 
+html[data-theme="dark"]:root {
+  --main-green: #1a1d20;
+}
 
-/* 
+html[data-theme="dark"] .container {
+  background-color: var(--dark);
+}
 
-
+input[type="file"] {
+  margin: 10px 0 20px 5px;
+  color: var(--white);
+}
 
 html[data-theme="dark"] h1, 
 html[data-theme="dark"] h2, 
@@ -302,12 +305,12 @@ html[data-theme="dark"] button.button--update-info__cancel-password,
 html[data-theme="dark"] button.button--create-post_cancel,
 html[data-theme="dark"] button.button--edit-post_cancel {
   background: transparent;
-  border: solid 2px var(--main-button);
+  border: solid 2px var(--main-brown);
   color: var(--white);
 }
 
 html[data-theme="dark"] button[type="cancel"]:hover {
-  background: var(--main-button);
+  background: var(--main-brown);
   color: var(--white);
 
 }
@@ -320,5 +323,5 @@ html[data-theme="dark"] input:focus {
   box-shadow: 0 0 3px #705d55a8;
   outline: none;
   transition: linear .2s;
-} */
+}
 /* END DARK THEME */
