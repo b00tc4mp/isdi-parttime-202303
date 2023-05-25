@@ -27,10 +27,10 @@ export default function AddPostModal({ onCancel, onPostCreated }) {
 
     return <section className="modal">
         <form onSubmit={handleCreatePost}>
-            <input className="input" type="url" name="image" placeholder="image url" />
-            <textarea className="input" name="text" cols="30" rows="10" placeholder="text"></textarea>
-            <button className='boton boton--primario' type="submit">Create</button>
-            <button className='boton boton--primario' type="button" onClick={handleCancel}>Cancel</button>
+            <input className="input" type="url" name="image" placeholder="URL de imagen" />
+            <textarea className="input" name="text" cols="30" rows="10" placeholder="Tus pensamientos e ideas"></textarea>
+            <button className='boton boton--primario' type="submit">Publicar</button>
+            <button className='boton boton--primario' type="button" onClick={handleCancel}>Cancelar</button>
         </form>
     </section>
 }

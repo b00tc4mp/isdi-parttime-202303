@@ -32,8 +32,10 @@ export default function Post({ post: { id, image, text, date, likes, author }, o
         <p>{text}</p>
         <p>id {id}</p>
         <time>{date.toLocaleString()}</time>
+        <div className='article--buttons'>
         <button onClick={handleToggleLikePost}>{likes && likes.includes(context.userId) ? '❤️' : '🤍'} ({likes ? likes.length : 0})</button>
         {author === context.userId && <button onClick={handleEditPost}>📝</button>}
         {author === context.userId && <button onClick={handleDeletePost}>🗑</button>}
+        </div>
     </article>
 }

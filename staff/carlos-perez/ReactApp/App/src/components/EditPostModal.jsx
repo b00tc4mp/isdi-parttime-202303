@@ -31,10 +31,10 @@ export default function EditPostModal({ onCancel, onPostUpdated, postId }) {
 
         return <section className="modal container">
             <form className="container" onSubmit={handleupdatePost}>
-                <input className="input" type="url" name="image" placeholder="image url" defaultValue={image} />
-                <textarea className="input" name="text" cols="30" rows="10" placeholder="text" defaultValue={text}></textarea>
-                <button className="button" type="submit">Update</button>
-                <button className="button cancel" type="button" onClick={handleCancel}>Cancel</button>
+                <input className="input" type="url" name="image" placeholder="URL de imagen" defaultValue={image} />
+                <textarea className="input" name="text" cols="30" rows="10" placeholder="Tus ideas y pensamientos" defaultValue={text}></textarea>
+                <button className="boton boton--primario" type="submit">Actualizar</button>
+                <button className="boton boton--primario cancel" type="button" onClick={handleCancel}>Cancelar</button>
             </form>
         </section>
     } catch (error) {
