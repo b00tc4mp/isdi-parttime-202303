@@ -8,6 +8,9 @@ export default function Post(props) {
     //destructuring de props, para no hacer todo el tiempo props.post.userName
     const { post, user } = props
 
+    console.log(user);
+    console.log(post);
+
     function openEditPostModal() {
         props.onEditPostButton(props.post.id);
     }

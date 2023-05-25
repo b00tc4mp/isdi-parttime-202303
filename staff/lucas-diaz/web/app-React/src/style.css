@@ -427,10 +427,15 @@ label {
     margin-top: 0px;
     gap: 1rem;
 }
-.home-update-avatar-menu, .change-password-menu{
+.home-update-avatar-menu {
     position:relative;
     top: -200px;
     padding-top: 0px;
+}
+
+.change-password-menu{
+    position:relative;
+    top: -150px;
 }
 
 .menu-page h3 {
