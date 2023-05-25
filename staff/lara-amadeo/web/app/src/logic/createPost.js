@@ -41,7 +41,8 @@ export default function createPost(userId, image, text, callback) {
                    text,
                    date: new Date,
                    visibility: 'private',
-                   price: 0
+                   price: 0,
+                   likes
                }
            }
        

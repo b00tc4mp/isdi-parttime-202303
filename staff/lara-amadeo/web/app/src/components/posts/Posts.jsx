@@ -10,7 +10,8 @@ import Context from '../../Context.js'
 export default function Posts({ onCreateButton, onEditPostButtonClick, onDeletePostButtonClick, onVisibilityButton, lastPostUpdate, onSellPostButton, onBuyPostButton }){
 
     const [posts, setPosts] = useState()
-    const { generateToast } = useContext(Context)
+    const { generateToast, freeze, unfreeze } = useContext(Context)
+    
 
     
     useEffect(()=> {
@@ -18,16 +19,20 @@ export default function Posts({ onCreateButton, onEditPostButtonClick, onDeleteP
     },[])
 
     const handleRefreshPosts = () => {
+        freeze()
         try {
             retrievePosts(context.userId, (error, posts)=> {
                 if(error){
                     generateToast(error.message,'error')
                     console.log(error.stack)
+                    unfreeze()
                     return
                 }
+                unfreeze()
                 setPosts(posts.filter(post => !(post.author.id !== context.userId && post.visibility === 'private')))
             })
         } catch(error){
+            unfreeze
             generateToast(error.message,'error')
         }
     }

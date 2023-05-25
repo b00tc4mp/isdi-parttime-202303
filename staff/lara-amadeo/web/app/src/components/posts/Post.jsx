@@ -7,15 +7,18 @@ import { useState } from 'react'
 import ContextualModalBox from '../ContextualModalBox'
 import { useContext } from 'react'
 import Context from '../../Context'
+import Spinner from '../library/Spinner'
 
 export default function Post({ post, onLikeButtonClick, onSaveButtonClick, onEditPostButton, onDeletePostButton, onVisibilityButton, onSellPostButton, onBuyPostButton }){
 
     const [modal, setModal] = useState('close')
-    const { generateToast } = useContext(Context)
+    const { generateToast, freeze, unfreeze } = useContext(Context)
     
     function handleLikedPost(){
+        freeze()
         try{
             likeAndUnlike(post.id, context.userId, error => {
+                unfreeze()
                 if(error){
                     generateToast(error.message,'error')
                     console.log(error.stack)
@@ -25,14 +28,17 @@ export default function Post({ post, onLikeButtonClick, onSaveButtonClick, onEdi
             })
         
         } catch(error){
+            unfreeze()
             generateToast(error.message,'error')
             console.log(error.stack)
         }
     }
 
     function handleSavedPost(){
+        freeze()
         try{
             saveAndUnsavePost(post.id, context.userId, error => {
+                unfreeze()
                 if(error){
                     generateToast(error.message,'error')
                     console.log(error.stack)
@@ -40,6 +46,7 @@ export default function Post({ post, onLikeButtonClick, onSaveButtonClick, onEdi
                 onSaveButtonClick()
             })
         } catch(error){
+            unfreeze()
             generateToast(error.message,'error')
             console.log(error.stack)
         }
@@ -80,7 +87,7 @@ export default function Post({ post, onLikeButtonClick, onSaveButtonClick, onEdi
 
 
     return <div className="post">
-        {modal === 'open' && <ContextualModalBox
+       {modal === 'open' && <ContextualModalBox
 
             options={[
                 {text: 'Edit post', onClick: handleOpenEditPostModal},
@@ -134,4 +141,5 @@ export default function Post({ post, onLikeButtonClick, onSaveButtonClick, onEdi
         </div>}
     </div>
 </div>
+
 }
