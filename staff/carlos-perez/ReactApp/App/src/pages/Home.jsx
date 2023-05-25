@@ -81,7 +81,7 @@ export default class Home extends Component {
                 <div className='dropdown'>
                     <button className='dropbtn boton boton--primario'>Menu</button>
                     <div className="dropdown-content">
-                        <button className="boton boton--primario button-post" onClick={this.handleOpenAddPostModal}>Postear</button>
+                        <button className="boton boton--primario button-post" onClick={this.handleOpenAddPostModal}>Publicar</button>
                         <button className="boton boton--primario button-profile" onClick={this.handleGoToProfile}>Perfil</button>
                         <button className="boton boton--primario button-exit" onClick={this.handleLogout}>Salir</button>
                     </div>
