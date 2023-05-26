@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyApp</title>
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;1,100;1,400&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Text+Me+One&display=swap" rel="stylesheet">
+    
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
+</head>
+<body>
+    <div class="register-page off">
+        <h1 class="all-titles">REGISTER</h1>
+        <div class="red-text"></div>
+        <form class="inputs">
+            <input class="input-field" type="text" name="name" placeholder="User name">
+            <input class="input-field" type="email" name="email" placeholder="Email">
+            <input class="input-field" type="password" name="password" placeholder="Password">
+            <div class="secondary-text">Already registered? <a class="go-to-sign-in">Sign in</a></div>
+            <button class="submit-buttons" type="submit">Register</button>
+        </form>
+    </div>
+    
+    <div class="login-page off">
+        <h1 class="all-titles">LOGIN</h1>
+        <div class="red-text"></div>
+        <form class="inputs">
+                <input class="input-field" type="email" name="email" placeholder="Email">
+                <input class="input-field" type="password" name="password" placeholder="Password">
+                <div class="remember-me">
+                    <input class="checkbox" type="checkbox" name="remember-me">
+                    <div class="remember-me-text">Remember me</div>
+                </div>
+                <div class="forgot-password">Forgot your <a class="forgot-password-button">password</a>?</div>
+                <div class="already-registered">Don't have an account? <a class="register-now-button">Register now</a></div>
+                <button class="submit-buttons" type="submit">Login</button>
+        </form>
+    </div>
+
+
+    <div class="home-page off">
+        
+        <header>
+            <div name="my-app"><a href="#"><i class="uil uil-scenery"></i><span></span></a></div>
+            <nav>
+                <ul class="horizontal-menu">
+                        <li name="home"><a href="#" class="menu-buttons"><i class="uil uil-home"></i><span class="menu-text">Home</span></a></li>
+                        <li name="new-post"><a href="#" class="menu-buttons"><i class="uil uil-camera-plus"></i><span class="menu-text">Post</span></a></li>
+                        <li name="my-profile">
+                            <img src="https://i.pinimg.com/originals/f1/0f/f7/f10ff70a7155e5ab666bcdd1b45b726d.jpg" alt="" class="user-avatar">
+                            <a href="#" class="menu-buttons"><span class="menu-text" name="authenticated-user-name">Profile</span></a>
+                        </li>
+                        <li class="logout" name="logout"><a href="#" class="menu-buttons"><i class="uil uil-signout"></i><span class="menu-text">Logout</span></a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <section class="modal-window off" name="modal-profile-options">
+            <div class="modal-profile-options">
+                <ul class="profile-options">
+                    <li>My profile</li>
+                    <li>Settings</li>
+                    <li class="change-email">Change email</li>
+                    <li class="change-password">Change password</li>
+                    <li class="change-avatar">Change avatar</li>
+                </ul>
+                <button class="submit-buttons close-profile-options" type="button">Cancel</button>
+            </div>
+        </section>
+
+        <section class="modal-window off" name="modal-change-email">
+            <div class="change-email-menu">
+                <!-- <h2 class="all-titles change-email-title">Change Email</h2> -->
+                <div class="red-text"></div>
+                <form class="inputs ">
+                    <input class="input-field changing-inputs change-email-input" type="email" name="previous-email" placeholder="Previous email">
+                    <input class="input-field changing-inputs new-email-input" type="email" name="new-email" placeholder="New email">
+                    <input class="input-field changing-inputs change-email-pass-input" type="password" name="change-email-pass" placeholder="Password">
+                    <div>
+                        <button class="submit-buttons change-my-password" name="change-my-password" type="submit">Save</button>
+                        <button class="submit-buttons cancel-email-change" type="button">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <section class="modal-window off" name="modal-change-password">
+            <div class="change-password-menu">
+                <!-- <h2 class="all-titles change-pass-title">Change Password</h2> -->
+                <div class="red-text"></div>
+                <form class="inputs ">
+                    <input class="input-field changing-inputs previous-password" type="password" name="previous-pasword" placeholder="Previous password">
+                    <input class="input-field changing-inputs new-password" type="password" name="new-password" placeholder="New password">
+                    <input class="input-field changing-inputs repeat-new-password" type="password" name="repeat-new-password" placeholder="Repeat New Password">
+                    <div>
+                        <button class="submit-buttons change-my-password" name="change-my-password" type="submit">Save</button>
+                        <button class="submit-buttons cancel-password-change" type="button">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <section class="modal-window off" name="modal-change-avatar">
+            <div class="change-avatar-menu">
+                <!-- <h2 class="all-titles change-avatar-title">Change Avatar</h2> -->
+                <div class="red-text"></div>
+                <form action="" class="inputs">
+                    <input type="text" class="input-field" type="text" name="avatarurl" placeholder="Insert avatar url" autocomplete="off">
+                    <div>
+                        <button class="submit-buttons">Save</button>
+                        <button class="submit-buttons cancel-avatar-change" type="button">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <section class="modal-window off" name="modal-new-post">
+            <form class="form-new-post" action="">
+                <input class="input-field" type="url" name="url" placeholder="Insert image url">
+                <textarea name="text" cols="30" rows="10" class="post-text input-field" placeholder="Insert caption"></textarea>
+                <div class="buttons">
+                    <button class="submit-buttons" type="submit">Post</button>
+                    <button class="submit-buttons cancel-post" type="button">Cancel</button>
+                </div>
+            </form>
+        </section>
+
+        <section class="modal-window off" name="modal-edit-post">
+            <form action="">
+                <input type="hidden" name="hidden">
+                <input class="input-field" type="url" name="url" placeholder="Insert image url">
+                <textarea name="text" cols="30" rows="10" class="post-text input-field" placeholder="Insert caption"></textarea>
+                <div class="buttons">
+                    <button class="submit-buttons" type="submit">Update</button>
+                    <button class="submit-buttons cancel-edition" type="button">Cancel</button>
+                </div>
+            </form>
+        </section>
+
+        <section class="post-list">
+            <!-- <article class="post-container">
+                <img src='https://s1.abcstatics.com/media/play/2020/09/29/avatar-kE4H--1024x512@abc.jpeg'>
+                <p>I ❤️ Avatars!</p>
+                <time>June 23, 2022</time>
+            </article> -->
+
+            <!-- postListPanel.innerHTML = posts.reduce((accum, post) => {
+                const user = findUserById(post.author)
+                return accum + `<article class='post-container'>
+                    <img src='${post.image}'>
+                    <p>${post.text}</p>
+                    <div><time>${post.date.toLocaleString()}</time> by ${user.name}</div>
+                </article>`
+            }, '') -->
+
+        </section>
+
+    </div>
+
+
+    <script type="module" src="src/main.js"></script>
+</body>
+</html>

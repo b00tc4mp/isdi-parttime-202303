@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyApp</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Text+Me+One&display=swap" rel="stylesheet">
+    <script src="main.js" type="module" defer></script>
+</head>
+<body>
+    <div class="register-page">
+        <!-- TODO: IMPLEMENT REGISTER PAGE 3 INPUT (email, password, nombre)  -->
+        <h1 class="all-titles">REGISTER</h1>
+        <form class="inputs">
+            <div class="text-fields">
+            <input class="input-field" type="text" name="name" placeholder="Name">
+            <input class="input-field" type="email" name="email" placeholder="Email">
+            <input class="input-field" type="password" name="password" placeholder="Password">
+            <div class="already-registered">Already registered? <a class="go-to-sign-in">Sign in</a></div>
+            </div>
+            <div class="button-container">
+                <button class="register-button" type="submit">Register</button>
+            </div>
+        </form>
+    </div>
+    <div class="login-page off">
+        <!-- TODO: IMPLEMENT LOGIN PAGE -->
+        <h1 class="all-titles">LOGIN</h1>
+        <form class="login-inputs">
+            <input class="input-field" type="email" name="email" placeholder="Email">
+            <input class="input-field" type="password" name="password" placeholder="Password">
+            <div class="remember-me">
+                <input class="checkbox" type="checkbox" name="remember-me">
+                <div class="remember-me-text">Remember me</div>
+            </div>
+            <div class="forgot-password">Forgot your <a class="forgot-password-button">password</a>?</div>
+            <div class="dont-have-account">Don't have an account? <a class="register-now-button">Register now</a></div>
+        </form>
+        <div class="button-container">
+            <button class="login-button" type="submit">Login</button>
+        </div>
+    </div>
+
+    <div class="home-page off">
+            <h1 class="all-titles">Home</h1>
+            <!-- TODO: IMPLEMENT HOME PAGE -->
+    </div>
+
+</body>
+</html>
