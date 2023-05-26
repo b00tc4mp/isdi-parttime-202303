@@ -8,39 +8,33 @@ const rl = readline.createInterface({
 
 // Set up the event listener for key presses
 rl.input.on('keypress', (key, data) => {
-    if (data.ctrl && data.name === 'c') {
-        // If Ctrl+C is pressed, exit the program
-        process.exit();
-    } else {
-        // Log the pressed key
-        console.log('Key Pressed:', key);
-    }
-    if (data.name === 's' && menuSelection < 2) {
+   if (data.name === 's' && menuSelection < 2) {
         menuSelection ++
     } else if (data.name === 'w' && menuSelection > 0) {
         menuSelection --
     }
 
-    //refreshScreen()
-    console.log(menuSelection)
+    refreshScreen()
 });
 
 // Set the terminal in raw mode to capture individual key presses
 rl.input.setRawMode(true);
 rl.input.resume();
 
-const posMain  = 10, posMenu = 14
+const posMain  = 16, posMenu = 2, posSelector = 18
 let menuSelection = 0
 
 const renderMenu = () => {
     console.log('')
     console.log('')
-    console.log(' '.repeat(posMain), 'Final ⚓ FantaSea')
-    console.log(' '.repeat(posMenu), 'New Game')
-    console.log(' '.repeat(posMenu), 'Options')
-    console.log(' '.repeat(posMenu), 'Exit Game')
+    console.log(' '.repeat(posMain), 'Final  ⚓️ FantaSea')
+    console.log(' '.repeat(posSelector), (menuSelection === 0 ? '🔱' : ' '.repeat(posMenu)), 'New Game')
+    console.log(' '.repeat(posSelector), (menuSelection === 1 ? '🔱' : ' '.repeat(posMenu)), 'Options')
+    console.log(' '.repeat(posSelector), (menuSelection === 2 ? '🔱' : ' '.repeat(posMenu)), 'Exit Game')
     console.log('')
     console.log('')
+    console.log('(Use "s" and "d" to navigate the menu and "k" to accept)')
+    console.log(menuSelection)
 }
 
 refreshScreen = () => {
