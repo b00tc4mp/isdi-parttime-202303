@@ -5,6 +5,8 @@ import Profile from '../components/Profile.jsx'
 import { context } from '../ui.js'
 import EditPostModal from '../components/EditPostModal.jsx'
 import retrieveUser from '../logic/retrieveUser'
+import { useContext } from 'react'
+import Context from '../components/Context.js'
 
 
 export default function Home({ onLoggedOut }) {
@@ -13,8 +15,10 @@ export default function Home({ onLoggedOut }) {
     const [postId, setPostId] = useState(null)
     const [lastPostsUpdate, setLastPostsUpdate] = useState(null)
     const [user, setUser] = useState()
-
-//solo quiero que lo ejecute una vez, por eso utilizo useEffect. Para que cambie estado a usuario la primera vez.
+    
+    const { alert } = useContext(Context)
+    
+    //solo quiero que lo ejecute una vez, por eso utilizo useEffect. Para que cambie estado a usuario la primera vez.
     useEffect(() => {
         try {
             retrieveUser(context.userId, (error, user) => {

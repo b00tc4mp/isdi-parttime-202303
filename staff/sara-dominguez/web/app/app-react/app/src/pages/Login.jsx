@@ -5,7 +5,7 @@ import Context from '../components/Context.js'
 
 export default function Login({ onRegisterClick, onUserLoggedIn }) {
     console.debug('Login->render')
-
+    
     const { alert } = useContext(Context)
 
     function handleRegisterClick(event) {

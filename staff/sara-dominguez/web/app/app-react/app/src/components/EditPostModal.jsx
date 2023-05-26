@@ -2,8 +2,12 @@ import { context } from '../ui.js'
 import { updatePost } from '../logic/updatePost'
 import retrievePost from '../logic/retrievePost.js'
 import { useState, useEffect } from 'react'
+import { useContext } from 'react'
+import Context from '../components/Context.js'
 
 export default function EditPostModal({ onCancel, onPostUpdated, postId}) {
+    const { alert } = useContext(Context)
+    
     const [post, setPost] = useState(null)
     
     function handleCancel(event) {
