@@ -32,7 +32,7 @@ export default function Register(props) {
         <div className="registro contenedor">
             <h3 className="centrar-texto">Registro</h3>
 
-            <form className="formulario">
+            <form className="formulario" onSubmit={handleRegisterClick}>
                 <div className="campo">
                     <label className="campo__label" for="nombre">Nombre</label>
                     <input className="campo__field register-input" type="text" placeholder="Tu Nombre" id="name" required/>
@@ -47,7 +47,7 @@ export default function Register(props) {
                 </div>
 
                 <div className="campo">
-                    <input type="submit" value="Enviar" className="boton boton--primario" onClick={handleRegisterClick}/>
+                    <input type="submit" value="Enviar" className="boton boton--primario"/>
                 </div>
 
                 <p>Ir a <a href="" onClick={handleLoginClick}>Acceso</a></p>

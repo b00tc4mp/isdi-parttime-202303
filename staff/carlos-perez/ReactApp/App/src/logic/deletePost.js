@@ -1,7 +1,7 @@
 import { findUserById, findPostById } from './helpers/data-manager'
-import { savePost } from '../data'
+import { savePosts, posts } from '../data'
 
-export default function updatePost(userId, postId, image, text) {
+export default function deletePost(userId, postId) {
 
     const user = findUserById(userId)
 
@@ -13,9 +13,11 @@ export default function updatePost(userId, postId, image, text) {
 
     if (post.author !== userId) throw new Error(`post with id ${postId} does not belong to user with id ${userId}`)
 
-    post.image = image
-    post.text = text
-    post.date = new Date
+    const _posts = posts
 
-    savePost(post)
+    const index = _posts.findIndex(post => post.id === postId)
+
+    _posts.splice(index, 1)
+
+    savePosts(_posts)
 }

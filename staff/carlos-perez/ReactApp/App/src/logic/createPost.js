@@ -7,13 +7,8 @@ export function createPost(userId, image, text) {
 
     if (user===-1) throw new Error(`user with id ${userId} not found`);
 
-    let id = 'post-1';
-
-    const lastPost = posts[posts.length - 1];
-
-    if (lastPost)
-        id = 'post-' + (parseInt(lastPost.id.slice(5)) + 1);
-
+    const id = userId+'-'+Date.now();
+    
     const post = {
         id,
         author: userId,

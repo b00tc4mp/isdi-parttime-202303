@@ -17,7 +17,7 @@ export default function Login(props) {
     
         try {
             let activeUser=authenticateUser(email, password);
-            context.userid=activeUser.id;
+            context.userId=activeUser.id;
             context.userName=activeUser.name;
             props.onAuthClick();
         }
@@ -44,7 +44,7 @@ export default function Login(props) {
                 </div>
 
                 <div className="campo">
-                    <input type="submit" value="Acceder" className="boton boton--primariom" />
+                    <input type="submit" value="Acceder" className="boton boton--primario" />
                 </div>
             </form>
             <p>Ir a <a href="" onClick={handleRegisterClick}>Registro</a></p>

@@ -1,4 +1,4 @@
-import {users} from "../../data.js";
+import { users, posts } from "../../data.js";
 
 export function userExist(email) {
     let userPosition = null;
@@ -17,7 +17,7 @@ export function userExist(email) {
     return userPosition;
 }
 
-export function userExistById(id){
+export function userExistById(id) {
     let userPosition = null;
     for (let i = 0; i < users.length; i++) {
         let user = users[i];
@@ -32,4 +32,12 @@ export function userExistById(id){
     }
 
     return userPosition;
+}
+
+export function findUserById(userId) {
+    return users.find(user => user.id = userId);
+}
+
+export function findPostById(postId) {
+    return posts.find(post => post.id = postId);
 }
