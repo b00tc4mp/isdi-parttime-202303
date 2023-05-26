@@ -2,7 +2,7 @@ import createPost from '../logic/createPost.js'
 import { context }  from '../ui.js'
 
 export default function AddPostModal ({onCancel, onPostCreated}){
-    console.log('AddPostModal -> render')
+    console.debug('AddPostModal -> render')
 
     function handleCancel (event) {
         event.preventDefault()

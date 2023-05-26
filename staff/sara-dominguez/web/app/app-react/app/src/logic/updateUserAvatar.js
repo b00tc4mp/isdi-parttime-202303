@@ -1,4 +1,4 @@
-console.log('update-user-avatar')
+console.debug('update-user-avatar')
 
 import { validateId, validateUserAvatar, validateCallback } from "./helpers/validators.js"
 import { saveUser, findUserById } from "../data.js"

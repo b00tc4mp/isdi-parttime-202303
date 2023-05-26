@@ -1,4 +1,4 @@
-console.log('load validators')
+console.debug('load validators')
 
 export function validateName(name) {
 

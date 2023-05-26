@@ -1,4 +1,4 @@
-console.log('validated-user-newPasssword')
+console.debug('validated-user-newPasssword')
 
 import { validateId, validatePassword, validateUserNewPassword, validateUserConfirmNewPassword, validateCallback } from "./helpers/validators.js"
 import { saveUser, findUserById } from "../data.js"

@@ -1,8 +1,12 @@
 import { context } from '../ui.js'
 import { authenticateUser } from '../logic/authenticateUser.js'
+import { useContext } from 'react'
+import Context from '../components/Context.js'
 
 export default function Login({ onRegisterClick, onUserLoggedIn }) {
-    console.log('Login->render')
+    console.debug('Login->render')
+
+    const { alert } = useContext(Context)
 
     function handleRegisterClick(event) {
         event.preventDefault()
@@ -17,9 +21,9 @@ export default function Login({ onRegisterClick, onUserLoggedIn }) {
         const password = event.target.password.value
 
         try {
-           authenticateUser(email, password, (error, userId) => {
+            authenticateUser(email, password, (error, userId) => {
                 if (error) {
-                    alert(error.message)
+                    alert(error.message, 'error')
 
                     return
                 }
@@ -30,7 +34,7 @@ export default function Login({ onRegisterClick, onUserLoggedIn }) {
             })
 
         } catch (error) {
-            throw new Error(error.message)
+            alert(error.message, 'warn')
         }
 
     }

@@ -1,4 +1,4 @@
-console.log('load retrievePost')
+console.debug('load retrievePost')
 
 import { validateId, validateCallback } from "./helpers/validators.js"
 import { loadPosts, findUserById, loadUsers } from "../data.js"

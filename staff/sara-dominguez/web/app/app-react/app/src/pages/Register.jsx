@@ -1,7 +1,7 @@
 import { registerUser } from "../logic/registerUser.js"
 
 export default function Register({ onLoginClick, onUserRegistered }) {
-    console.log('Register->render')
+    console.debug('Register->render')
 
     function handleLoginClick(event) {
         event.preventDefault()

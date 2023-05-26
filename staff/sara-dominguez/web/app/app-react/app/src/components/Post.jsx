@@ -55,7 +55,7 @@ export default function Post({ post: { id, image, text, date, likes, author , fa
         }
     }
 
-    console.log('Post -> render')
+    console.debug('Post -> render')
 
     return <article>
         <h2><img src={author.avatar} width="20px" /> {author.name}</h2>

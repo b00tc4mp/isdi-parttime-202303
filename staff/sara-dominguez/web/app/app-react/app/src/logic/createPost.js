@@ -1,4 +1,4 @@
-console.log('load create-post')
+console.debug('load create-post')
 
 import { validateId, validateUserAvatar, validateText, validateCallback } from "./helpers/validators.js"
 import {findUserById} from "../data.js"

@@ -1,4 +1,4 @@
-console.log('load retrieve-user')
+console.debug('load retrieve-user')
 
 import { validateId, validateCallback } from "./helpers/validators.js"
 import { findUserById } from "../data.js"

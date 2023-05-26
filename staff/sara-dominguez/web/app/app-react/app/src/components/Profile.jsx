@@ -8,7 +8,7 @@
 //     }
 
 //     render() {
-//         console.log('render profile')
+//         console.debug('render profile')
     
 //     return <div className="profile-edit">
 //         <div>
@@ -37,7 +37,7 @@ import { context } from "../ui"
 import {updateUserAvatar} from "../logic/updateUserAvatar"
 
 export default function Profile ({onUserAvatarUpdated}) {
-    console.log('profile->render')
+    console.debug('profile->render')
 
     const handleUpdateAvatar = (event) => {
         event.preventDefault()

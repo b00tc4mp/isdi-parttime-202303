@@ -27,14 +27,14 @@ export default function Posts({ onEditPost, lastPostsUpdate }) {
     }
    
     useEffect(() => {
-        console.log('Posts-> componenWillReceiveProps with Hooks')
+        console.debug('Posts-> componenWillReceiveProps with Hooks')
 
         if (lastPostsUpdate)
             handleRefreshPost()
     }, [lastPostsUpdate])
 
 
-    console.log('posts -> render')
+    console.debug('posts -> render')
 
     return <section>
         {posts && posts.map((post) => <Post

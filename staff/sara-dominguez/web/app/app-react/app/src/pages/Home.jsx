@@ -77,7 +77,7 @@ export default function Home({ onLoggedOut }) {
     }
 
 
-    console.log('Home->render')
+    console.debug('Home->render')
 
     return <div className="home">
         <header className="home-header">

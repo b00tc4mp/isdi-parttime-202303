@@ -50,7 +50,7 @@ export default function EditPostModal({ onCancel, onPostUpdated, postId}) {
     }, [postId])
     
     
-    console.log('render EditPostModal')
+    console.debug('render EditPostModal')
     
     return <>
     {post && <section className="edit-post container">
