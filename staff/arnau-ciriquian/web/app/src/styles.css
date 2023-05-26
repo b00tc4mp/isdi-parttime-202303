@@ -76,6 +76,7 @@ main {
   display: flex;
   justify-content: center;
   align-items: center;
+  padding-top: 10%;
 }
 
 header, footer {
@@ -107,7 +108,7 @@ footer {
 }
 
 .main-logo {
-  margin-top: 5rem;
+  margin-top: 10rem;
   width: 250px;
 }
 

@@ -1,7 +1,28 @@
 import { authenticateUser } from "../logic/authenticateUser"
 import { context } from "../ui"
+import { useEffect, useState } from "react"
+import retrieveRandomJoke from "../logic/retriveRandomJoke"
+import "./login.css"
 
 export default function Login({ onRegisterClick, onUserLoggedIn }) {
+    const [joke, setJoke] = useState(null)
+
+    useEffect(() => {
+        try{
+            retrieveRandomJoke((error, joke) => {
+                if (error) {
+                    alert(error.message)
+
+                    return
+                }
+
+                setJoke(joke)
+            })
+        } catch(error) {
+            alert(error.message)
+        }
+    }, [])
+
     const handleRegisterClick = event => {
         event.preventDefault()
 
@@ -35,6 +56,7 @@ export default function Login({ onRegisterClick, onUserLoggedIn }) {
     return <div className="login">
         <header className="main-tittle">
             <img className="main-logo" src="../images/PunIntendedMain.png" />
+            <h2>Cooking dad jokes since 1991</h2>
         </header>
         <div className="page">
             <h1 className="text">Login</h1>
@@ -49,6 +71,9 @@ export default function Login({ onRegisterClick, onUserLoggedIn }) {
                 <button className="form__button" type="submit">Login</button>
             </form>    
             <p className="text">Go to <a className="login__anchor--register" href="" onClick={handleRegisterClick}>Register</a></p>
+            <div className="joke__container">
+                {joke && <p><q>{joke}</q></p>}
+            </div>
         </div>
     </div>
 }
