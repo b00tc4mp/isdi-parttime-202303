@@ -23,7 +23,7 @@ class Car {
 
 let pos = 0, time = 0
 
-const taxi = new Car(`🚖`)
+const taxi = new Car(`⚓`)
 const thief = new Car('🚘')
 const police = new Car('🚔')
 
