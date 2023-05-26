@@ -1,3 +1,4 @@
+// KEY MANAGEMENT
 const readline = require('readline');
 
 // Create a readline interface
@@ -12,17 +13,50 @@ rl.input.on('keypress', (key, data) => {
         menuSelection ++
     } else if (data.name === 'w' && menuSelection > 0) {
         menuSelection --
+    } else if (data.name === 'k' && menu) {
+        if (menuSelection === 1) {
+            menuSelection = 0
+            menu = false
+            options = true
+        } else if (menuSelection === 2) process.exit()
+    } else if (data.name === 'k' && options) {
+        menu = true
+        options = false
     }
 
     refreshScreen()
 });
 
-// Set the terminal in raw mode to capture individual key presses
-rl.input.setRawMode(true);
-rl.input.resume();
+//CHARACTER MANAGEMENT
+class Character {
+    constructor(icon, name) {
+        this.icon = icon
+        this.name = name
+    }
+}
 
+class Warrior extends Character {
+    super() {
+        this.dmg = 100
+        this.hp = 500
+    }
+
+    attack() {
+        this.dmg += Math.round(20 * (1 - Math.random()))
+        return this.dmg
+    }
+}
+
+const kraken = new Warrior('🦑', 'Kraken')
+kraken.super()
+const megalodon = new Warrior('🦈', 'Megalodon')
+megalodon.super()
+
+//GAME RENDERING
 const posMain  = 16, posMenu = 2, posSelector = 18
 let menuSelection = 0
+let menu = true
+let options = false
 
 const renderMenu = () => {
     console.log('')
@@ -37,10 +71,23 @@ const renderMenu = () => {
     console.log(menuSelection)
 }
 
+const renderOptions = () => {
+    console.log('')
+    console.log('')
+    console.log(' '.repeat(posMain), 'Final  ⚓️ FantaSea')
+    console.log('Final FantSea is a turn based fighting game')
+    console.log('Choose your character and battle against your foes')
+    console.log('Each turn choose your action to defeat them')
+    console.log('Last creature standing wins!')
+    console.log(' '.repeat(posSelector), (menuSelection === 0 ? '🔱' : ' '.repeat(posMenu)), 'Go Back')
+
+}
+
 refreshScreen = () => {
     console.clear()
 
-    renderMenu()
+    if (menu) renderMenu()
+    if (options) renderOptions()
 }
 
 refreshScreen()
