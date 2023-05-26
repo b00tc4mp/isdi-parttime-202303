@@ -10,7 +10,11 @@ export default function ChangeAvatar({onCancel, onAvatarChanged}) {
         const avatar = event.target.avatarurl.value
 
         try{
+            freeze()
+
             updateUserAvatar(context.userId, avatar, error => {
+                unfreeze()
+                
                 if(error){
                     alert(error.message)
 

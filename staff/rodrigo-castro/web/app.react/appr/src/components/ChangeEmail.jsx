@@ -10,7 +10,11 @@ export default function ChangeEmail({onCancel, onEmailChanged}) {
         const password = event.target['change-email-pass'].value
 
         try{
+            freeze()
+
             changeEmail(context.userId, previousEmail, newEmail, password, (error) => {
+                unfreeze()
+                
                 if(error){
                     alert(error.message)
                 }

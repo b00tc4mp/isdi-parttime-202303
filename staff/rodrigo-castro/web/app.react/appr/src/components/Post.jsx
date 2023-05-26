@@ -10,7 +10,7 @@ import { useContext } from 'react'
 import Context from "../Context"
 
 export default function Post({post: {id, image, text, date, likedBy, author: {authorId, name, avatar}, isFav, privacy}, onToggledLikePost, onEdit, onPostDeleted, onToggleSavePost, onToggledPrivacy}) {
-    const { alert } = useContext(Context)
+    const { alert, freeze, unfreeze } = useContext(Context)
 
     const [postOptions, setPostOptions] = useState(null)
     
@@ -20,7 +20,11 @@ export default function Post({post: {id, image, text, date, likedBy, author: {au
     
     const handleToggleLikePost = () => {
         try{
+            freeze()
+
             toggleLikePost(context.userId, id, error => {
+                unfreeze()
+
                 if(error){
                     alert(error.message)
 
@@ -36,7 +40,11 @@ export default function Post({post: {id, image, text, date, likedBy, author: {au
 
     const handleToggleSavePost = () => {
         try{
+            freeze()
+
             toggleSavePost(context.userId, id, error => {
+                unfreeze()
+
                 if(error){
                     alert(error.message)
 
@@ -57,7 +65,11 @@ export default function Post({post: {id, image, text, date, likedBy, author: {au
 
     const handleToggleHide = () => {
         try{
+            freeze()
+
             togglePrivacy(context.userId, id, error => {
+                unfreeze()
+
                 if(error){
                     alert(error.message)
 
@@ -82,7 +94,10 @@ export default function Post({post: {id, image, text, date, likedBy, author: {au
     const handleDelete = () => {
         if(confirm('Are you sure you want to delete?')){
             try{
+                freeze()
                 deletePost(context.userId, id, error => {
+                    unfreeze()
+                    
                     if(error){
                         alert(error.message)
 

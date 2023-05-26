@@ -1,7 +1,7 @@
 import Posts from '../components/Posts'
 import { retrieveUser } from '../logic/retrieveUser'
 import { context } from '../ui'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import AddPostModal from '../components/AddPostModal'
 import ChangeEmail from '../components/ChangeEmail'
 import ChangePassword from '../components/ChagePassword'
@@ -11,6 +11,7 @@ import Profile from '../components/Profile'
 import './Home.css'
 import ProfileBar from '../components/ProfileBar'
 import NavigationBar from '../components/NavigationBar'
+import Context from '../Context'
 
 export default function Home(props) {
     const [modal, setModal] = useState(null)
@@ -20,9 +21,15 @@ export default function Home(props) {
     const [user, setUser] = useState()
     const [view, setView] = useState('posts')
 
+    const { freeze, unfreeze } = useContext(Context)
+
     useEffect(() => {
         try{
+            freeze()
+
             retrieveUser(context.userId, (error, user) => {
+                unfreeze()
+
                 if(error){
                     alert(error.message)
     
@@ -91,7 +98,11 @@ export default function Home(props) {
 
     const handleAvatarChanged = () => {
         try {
+            freeze()
+
             retrieveUser(context.userId, (error, user) => {
+                unfreeze()
+                
                 if(error){
                     alert(error.message)
                 }
@@ -185,5 +196,6 @@ export default function Home(props) {
             handleOpenSettings={handleOpenSettings}
             modal={modal}
         />}
+
     </div>
 }

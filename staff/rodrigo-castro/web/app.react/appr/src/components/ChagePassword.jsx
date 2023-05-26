@@ -12,7 +12,11 @@ export default function ChangePassword({onCancel, onPasswordChanged}) {
         const repeatNewPassword = event.target['repeat-new-password'].value
 
         try{
+            freeze()
+
             changePassword(context.userId, previousPassword, newPassword, repeatNewPassword, error => {
+                unfreeze()
+                
                 if(error){
                     alert(error.message)
 

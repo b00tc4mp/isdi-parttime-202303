@@ -3,9 +3,10 @@ import { context } from '../ui'
 import PropTypes from 'prop-types'
 import { useContext } from 'react'
 import Context from "../Context"
+import Container from '../library/Container'
 
 export default function Login({onRegisterClick, onUserLoggedIn}) {
-    const { alert } = useContext(Context)
+    const { alert, freeze, unfreeze } = useContext(Context)
 
     function handleRegisterClick(event) {
         event.preventDefault()
@@ -20,7 +21,11 @@ export default function Login({onRegisterClick, onUserLoggedIn}) {
         password = event.target.password.value
 
         try{
+            freeze()
+            
             authenticateUser(email, password, (error, userId) => {
+                unfreeze()
+
                 if(error){
                     alert(error.message, 'error')
 
@@ -36,7 +41,7 @@ export default function Login({onRegisterClick, onUserLoggedIn}) {
         }
     }
   
-    return <div className="login-page">
+    return <Container tag="div">
     <h1 className="all-titles">LOGIN</h1>
     <form className="inputs" onSubmit={handleLogin}>
             <input className="input-field" type="email" name="email" placeholder="Email"/>
@@ -49,5 +54,5 @@ export default function Login({onRegisterClick, onUserLoggedIn}) {
             <div className="already-registered">Dont have an account? <a className="link" onClick={handleRegisterClick}>Register now</a></div>
             <button className="submit-buttons" type="submit">Login</button>
     </form>
-    </div>
+    </Container>
   }

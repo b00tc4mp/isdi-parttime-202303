@@ -1,16 +1,22 @@
 import retrievePosts from '../logic/retrievePosts'
 import { context } from '../ui'
 import Post from './Post.jsx'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import './Posts.css'
 import PropTypes from 'prop-types'
+import Context from '../Context'
 
 export default function Posts({onEditClicked, onPostDeleted, postsToShow, lastPostsUpdate, user }) {
+    const { freeze, unfreeze } = useContext(Context)
     const [posts, setPosts] = useState()
 
     useEffect(() => {
         try {
+            freeze()
+
             retrievePosts(context.userId, (error, posts) => {
+                unfreeze()
+
                 if(error){
                     alert(error.message)
     
@@ -27,9 +33,13 @@ export default function Posts({onEditClicked, onPostDeleted, postsToShow, lastPo
 
     const handleRefreshPosts = () => {
         try {
+            freeze()
+
             switch(postsToShow) {
                 case 'all':
                     retrievePosts(context.userId, (error, posts) => {
+                        unfreeze()
+
                         if(error){
                             alert(error.message)
             
@@ -42,6 +52,8 @@ export default function Posts({onEditClicked, onPostDeleted, postsToShow, lastPo
                 
                 case 'saved':
                     retrievePosts(context.userId, (error, posts) => {
+                        unfreeze()
+
                         if(error){
                             alert(error.message)
 
@@ -56,6 +68,8 @@ export default function Posts({onEditClicked, onPostDeleted, postsToShow, lastPo
 
                 case 'mine':
                     retrievePosts(context.userId, (error, posts) => {
+                        unfreeze()
+
                         if(error){
                             alert(error.message)
 
@@ -70,6 +84,8 @@ export default function Posts({onEditClicked, onPostDeleted, postsToShow, lastPo
 
                 case 'liked':
                     retrievePosts(context.userId, (error, posts) => {
+                        unfreeze()
+
                         if(error){
                             alert(error.message)
 

@@ -1,7 +1,11 @@
 import { context } from '../ui'
 import { createPost } from '../logic/createPost'
+import Context from '../Context'
+import { useContext } from 'react'
 
-export default function AddPostModal({ onCancel, onPostCreated }) {    
+export default function AddPostModal({ onCancel, onPostCreated }) {
+    const { freeze, unfreeze } = useContext(Context)
+
     function handleCancel (event) {
         event.preventDefault()
 
@@ -15,7 +19,11 @@ export default function AddPostModal({ onCancel, onPostCreated }) {
         text = event.target.text.value
 
         try{
+            freeze()
+
             createPost(context.userId, image, text, error => {
+                unfreeze()
+                
                 if(error){
                     alert(error.message)
 

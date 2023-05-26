@@ -1,5 +1,5 @@
 import './PostMenu.css'
-import DropdownItem from "./DropdownItem"
+import DropdownItem from "../library/DropdownItem"
 
 
 export default function PostMenu({options, onCloseMenu}) {

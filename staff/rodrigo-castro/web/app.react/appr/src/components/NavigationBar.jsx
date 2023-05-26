@@ -1,4 +1,4 @@
-import BarActionIcon from "./BarActionIcon"
+import BarActionIcon from "../library/BarActionIcon"
 import './NavigationBar.css'
 
 export default function NavigationBar({handleFilterAllPosts, handleOpenAddPost, handleOpenProfile, handleLogout, postsToShow, modal, user}) {
@@ -10,18 +10,18 @@ export default function NavigationBar({handleFilterAllPosts, handleOpenAddPost, 
                         <div name="my-app" ><a href="#"><span className="material-symbols-rounded">emoticon</span></a></div>
                     </li>
                     <BarActionIcon 
-                        actionOnClick={handleFilterAllPosts} 
                         iconClass={`menu-buttons material-symbols-rounded ${postsToShow === 'all' && modal === null ? 'filled' : ''}`} 
                         icon={'home'} 
                         textClass={'menu-text'} 
                         text ={postsToShow === 'all' && modal === null ? <b>Home</b> : 'Home'}
+                        onClick={handleFilterAllPosts} 
                     />
                     <BarActionIcon 
-                        actionOnClick={handleOpenAddPost} 
                         iconClass={`menu-buttons material-symbols-rounded ${modal === 'add-post' ? 'filled' : ''}`} 
                         icon={'add_a_photo'} 
                         textClass={'menu-text'} 
                         text ={modal === 'add-post' ? <b>Post</b> : 'Post'}
+                        onClick={handleOpenAddPost} 
                     />
                     {user && <>
                     <li className="profile" onClick={handleOpenProfile}>
@@ -31,12 +31,12 @@ export default function NavigationBar({handleFilterAllPosts, handleOpenAddPost, 
                     </>}
                     
                     <BarActionIcon 
-                        actionOnClick={handleLogout} 
                         overallClass='logout'
                         iconClass={'menu-buttons material-symbols-rounded'} 
                         icon={'logout'} 
                         textClass={'menu-text'} 
                         text ={'Logout'}
+                        onClick={handleLogout} 
                     />
 
                 </ul>

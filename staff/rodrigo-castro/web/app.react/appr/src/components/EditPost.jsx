@@ -16,7 +16,11 @@ export default function EditPost({onCancel, postId, onPostEdited, onPostDeleted}
             const text = event.target.text.value
 
             try{
+                freeze()
+
                 editPost(context.userId, postId, image, text, error => {
+                    unfreeze()
+
                     if(error){
                         alert(error.message)
 
@@ -33,7 +37,11 @@ export default function EditPost({onCancel, postId, onPostEdited, onPostDeleted}
 
     useEffect(() => {
         try{
+            freeze()
+
             retrievePost(context.userId, postId, (error, post) => {
+                unfreeze()
+                
                 if(error){
                     alert(error.message)
     
