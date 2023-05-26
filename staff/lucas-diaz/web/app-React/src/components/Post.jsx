@@ -64,7 +64,7 @@ export default function Post(props) {
     console.log("Post -> render")
 
     return <article>
-        <img className="home-post-content-article-avatar" src={user.avatar} />
+        <img className="home-post-content-article-avatar" src={post.author.avatar} />
         <p className="home-post-content-article-userName">{post.userName}</p>
         {post.author === context.userId ? <span className="material-symbols-rounded bin" onClick={handleDeleteClick}>
             delete

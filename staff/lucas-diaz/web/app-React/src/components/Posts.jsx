@@ -20,7 +20,7 @@ export default function Posts({ onEditPostButtonClick, lastPostsUpdate, view }) 
         } catch (error) {
             alert(error.message);
         }
-    }, [context.userId, view]);
+    }, []);
 
 
     const chechWeatherPostsOrSavedPosts = () => {
@@ -89,6 +89,7 @@ export default function Posts({ onEditPostButtonClick, lastPostsUpdate, view }) 
     const handleOpenEditModal = (id) => {
         onEditPostButtonClick(id)
     }
+
     const handletoggleSavePost = () => {
         try {
             chechWeatherPostsOrSavedPosts()
