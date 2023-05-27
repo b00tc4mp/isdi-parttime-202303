@@ -7,7 +7,7 @@
   .spinner > div {
     width: 18px;
     height: 18px;
-    background-color: var(--accent-purple);
+    background-color: var(--white);
   
     border-radius: 100%;
     display: inline-block;

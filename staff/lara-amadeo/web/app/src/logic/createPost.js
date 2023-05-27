@@ -28,7 +28,8 @@ export default function createPost(userId, image, text, callback) {
                    text,
                    date: new Date,
                    visibility: 'private',
-                   price: 0
+                   price: 0,
+                   likes: []
                }
            } else {
                const lastPostId = posts[posts.length - 1].id
@@ -42,7 +43,7 @@ export default function createPost(userId, image, text, callback) {
                    date: new Date,
                    visibility: 'private',
                    price: 0,
-                   likes
+                   likes: []
                }
            }
        

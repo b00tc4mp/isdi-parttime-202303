@@ -24,11 +24,11 @@
 }
 
 .error-toast {
-    background-color:var(--red-400);
+    background-color:var(--red-400) !important;
 }
 
 .success-toast {
-    background-color:var(--green-400);
+    background-color:var(--green-400) !important;
 }
 @keyframes toastIt {
  0%, 100% {

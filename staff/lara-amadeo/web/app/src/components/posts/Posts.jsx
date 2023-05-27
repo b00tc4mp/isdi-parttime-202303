@@ -19,7 +19,7 @@ export default function Posts({ onCreateButton, onEditPostButtonClick, onDeleteP
     },[])
 
     const handleRefreshPosts = () => {
-        freeze()
+        freeze('overlay')
         try {
             retrievePosts(context.userId, (error, posts)=> {
                 if(error){

@@ -15,10 +15,10 @@ export default function Post({ post, onLikeButtonClick, onSaveButtonClick, onEdi
     const { generateToast, freeze, unfreeze } = useContext(Context)
     
     function handleLikedPost(){
-        freeze()
+        // freeze()
         try{
             likeAndUnlike(post.id, context.userId, error => {
-                unfreeze()
+                // unfreeze()
                 if(error){
                     generateToast(error.message,'error')
                     console.log(error.stack)
@@ -28,17 +28,17 @@ export default function Post({ post, onLikeButtonClick, onSaveButtonClick, onEdi
             })
         
         } catch(error){
-            unfreeze()
+            // unfreeze()
             generateToast(error.message,'error')
             console.log(error.stack)
         }
     }
 
     function handleSavedPost(){
-        freeze()
+        // freeze()
         try{
             saveAndUnsavePost(post.id, context.userId, error => {
-                unfreeze()
+                // unfreeze()
                 if(error){
                     generateToast(error.message,'error')
                     console.log(error.stack)
@@ -46,7 +46,7 @@ export default function Post({ post, onLikeButtonClick, onSaveButtonClick, onEdi
                 onSaveButtonClick()
             })
         } catch(error){
-            unfreeze()
+            // unfreeze()
             generateToast(error.message,'error')
             console.log(error.stack)
         }

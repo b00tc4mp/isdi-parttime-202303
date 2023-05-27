@@ -37,7 +37,7 @@ export default function CreatePostModal({ onCreatePostClick, onCancelCreatePostB
                     return
                 }
 
-                generateToast(error.message, 'sucess')
+                generateToast('Post created!', 'success')
     
                 onCreatePostClick()
             })

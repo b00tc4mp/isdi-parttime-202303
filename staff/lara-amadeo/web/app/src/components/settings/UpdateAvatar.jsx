@@ -5,7 +5,7 @@ import Context from '../../Context'
 
 export default function UpdateAvatar({ onCancelUpdateAvatarClick, onSaveUpdateAvatarClick }){
 
-    const { generateToast } = useContext(Context)
+    const { generateToast, freeze, unfreeze } = useContext(Context)
 
     function onCancel(event){
         event.preventDefault()
@@ -18,19 +18,22 @@ export default function UpdateAvatar({ onCancelUpdateAvatarClick, onSaveUpdateAv
 
         const imageUrl = event.target.avatar.value
         try{
+            freeze('overlay')
             updateAvatar(context.userId, imageUrl, (error) => {
                 if(error){
+                    unfreeze()
                     generateToast(error.message,'error')
                     return
                 }
                 context.userAvatar = imageUrl
                 
                 onSaveUpdateAvatarClick()
-
+                unfreeze()
                 generateToast('Avatar updated!', 'success')
             })
 
         } catch(error){
+            unfreeze()
             generateToast(error.message,'error')
         }
     }

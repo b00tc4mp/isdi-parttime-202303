@@ -11,7 +11,7 @@ export default function App() {
  
   const [view, setView] = useState(context.userId ? 'home' : 'login')
   const [toast, setToast] = useState(null)
-  const [loader, setLoader] = useState(false)
+  const [loader, setLoader] = useState(null)
   
 
   const handleGoToRegister = () => { setView('register') }
@@ -20,19 +20,19 @@ export default function App() {
 
   const handleGoToHome = () => { setView('home') }
 
-  const handleShowToast = (message, type, duration = 3000) => setToast({ message, type, length })
+  const handleShowToast = (message, type) => setToast({ message, type })
 
   const handleRemoveToast = () => setToast(null)
 
-  const freeze = () => setLoader(true)
+  const freeze = ( overlay=undefined, background=undefined ) => setLoader({ overlay, background })
 
-  const unfreeze = () => setLoader(false)
+  const unfreeze = () => setLoader(null)
 
   return <Context.Provider value={ { generateToast: handleShowToast, freeze, unfreeze } }>
   {view === 'login' && <Login onSignUpLink={handleGoToRegister} onLoginButton={handleGoToHome}/>}
   {view === 'register' && <Register onLogInLink={handleGoToLogin} onSignUpButton={handleGoToLogin}/>}
   {view === 'home' && <Home onLogOutLink={handleGoToLogin} />}
   {toast && <Toast message={toast.message} type={toast.type} length={toast.length} endAnimation={handleRemoveToast}/>}
-  {loader && <div className='modal-overlay'><Spinner/></div>}
+  {loader && <Spinner overlay={loader.overlay} background={loader.background}/>}
   </Context.Provider>
 }

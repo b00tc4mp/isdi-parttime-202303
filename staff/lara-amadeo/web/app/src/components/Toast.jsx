@@ -1,13 +1,11 @@
 import './Toast.css'
-export default function Toast({ message, type, duration ,endAnimation }){
+export default function Toast({ message, type, endAnimation }){
 
     const handleRemoveToast = () => {
         endAnimation()
     }
 
     return <div className="toast-container">
-        <p className={`toast ${type === 'error' ? 'error-toast' : 'sucess-toast'}`} style={animationDuration={duration}} onAnimationEnd={handleRemoveToast}>{message}</p>
+        <p className={`toast ${type === 'error' && 'error-toast'} ${type === 'success' && 'success-toast'} `} onAnimationEnd={handleRemoveToast}>{message}</p>
     </div>
 }
-
-// style={[{backgroundColor:{type}}, {animationDuration:{length}}]}

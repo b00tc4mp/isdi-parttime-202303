@@ -1,9 +1,10 @@
 import { context } from "../../ui"
 import { updatePassword } from '../../logic/updatePassword'
-
+import { useContext } from "react"
+import Context from "../../Context"
 export default function UpdatePassword({ onSaveUpdatePasswordClick, onCancelUpdatePasswordClick }){
 
-    const { generateToast } = useContext(Context)
+    const { generateToast, freeze, unfreeze } = useContext(Context)
 
     function handleUpdatePassword(event){
         event.preventDefault()
@@ -13,17 +14,20 @@ export default function UpdatePassword({ onSaveUpdatePasswordClick, onCancelUpda
         const confirmNewPassword = event.target.confirmNewPassword.value
 
         try{
+            freeze('overlay')
             updatePassword(context.userId, currentPassword, newPassword, confirmNewPassword, (error) => {
                 if(error){
+                    unfreeze()
                     generateToast(error.message,'error')
                     return
                 }
-
+                unfreeze()
                 generateToast('Password updated!', successToast)
     
                 onSaveUpdatePasswordClick()
             })
         } catch(error){
+            unfreeze()
             generateToast(error.message,'error')
         }
     }

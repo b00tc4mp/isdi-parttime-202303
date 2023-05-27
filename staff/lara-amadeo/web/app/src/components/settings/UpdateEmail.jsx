@@ -3,7 +3,7 @@ import { useContext } from "react"
 import Context from '../../Context'
 export default function UpdateEmail({ onCancelUpdateEmailClick, onSaveUpdateEmailClick }){
 
-    const { generateToast } = useContext(Context)
+    const { generateToast, freeze, unfreeze } = useContext(Context)
 
     function onCancel(event){
         event.preventDefault()
@@ -19,16 +19,19 @@ export default function UpdateEmail({ onCancelUpdateEmailClick, onSaveUpdateEmai
         const confirmNewEmail = event.target.confirmNewEmail.value
 
         try{
+            freeze('overlay')
             updateEmail(currentEmail, newEmail, confirmNewEmail, (error) => {
                 if(error){
+                    unfreeze()
                     generateToast(error.message,'error')
                     return
                 }
+                unfreeze()
                 onSaveUpdateEmailClick()
+                generateToast('Email updated!', 'success')
             })
-            generateToast('Email updated!', 'success')
-
         } catch(error){
+            unfreeze()
             generateToast(error.message,'error')
         }
     }

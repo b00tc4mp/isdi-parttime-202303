@@ -50,8 +50,8 @@ export default function SidebarMenu({ onSettingsRow, onHomeRow, onProfileCompone
     return <div className="sidebar">
     <div className="sidebar-logo-and-actions">
         <div className="logo-and-hello">
-        <img src="../public/logo.png" className="home-logo"></img>
-        <p className="sidebar-logo-text">Helio</p>
+        {/*<img src="../public/logo.png" className="home-logo"></img>*/}
+        <p className="sidebar-logo-text">:-)</p>
         </div>
 
         <div className="sidebar-actions">

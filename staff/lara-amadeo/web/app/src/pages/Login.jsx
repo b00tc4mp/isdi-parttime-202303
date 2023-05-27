@@ -3,11 +3,10 @@ import { authenticateUser } from '../logic/authenticateUser.js'
 import './Login.css'
 import { useContext } from "react"
 import Context from "../Context.js"
-
 export default function Login({ onSignUpLink, onLoginButton }) {
 
     
-    const { generateToast } = useContext(Context)
+    const { generateToast, freeze, unfreeze } = useContext(Context)
 
     function handleRegisterClick(event) {
         event.preventDefault()
@@ -21,18 +20,21 @@ export default function Login({ onSignUpLink, onLoginButton }) {
         const email = event.target.email.value
         const password = event.target.password.value
 
+        freeze(undefined, 'background')
         try {
             authenticateUser(email, password, (error, userId) => {
+                
                 if (error){
                     generateToast(error.message, 'error')
-
+                    unfreeze()
                     return
                 }
                 context.userId = userId 
-
                 onLoginButton()
+                unfreeze()
             })
         } catch (error) {
+            unfreeze()
             generateToast(error.message, 'error')
         } finally {
             event.target.password.value = ''
