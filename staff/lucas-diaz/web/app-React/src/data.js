@@ -6,7 +6,6 @@ export const loadUsers = callback => setTimeout(() => {
     callback("usersJson" in localStorage ? JSON.parse(localStorage.usersJson) : [])
 }, DELAY)
 
-
 export function saveUsers(users, callback) {
     setTimeout(() => {
         localStorage.usersJson = JSON.stringify(users);

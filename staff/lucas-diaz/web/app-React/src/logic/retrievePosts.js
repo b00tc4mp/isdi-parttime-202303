@@ -30,3 +30,5 @@ export default function retrievePosts(userId, callback) {
         })
     })
 }
+
+// de esta forma no modificamos el array original de posts, solamente modificamos la logica que almacena temporalmente estos posts con un poco mas de informacion. 

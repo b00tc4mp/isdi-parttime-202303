@@ -69,7 +69,7 @@ export default function Post(props) {
         {post.author === context.userId ? <span className="material-symbols-rounded bin" onClick={handleDeleteClick}>
             delete
         </span> : null}
-        {post.author === context.userId ? <button className="home-edit-post-modal-button" onClick={openEditPostModal}>Edit</button> : null}
+        {post.author.id === context.userId ? <button className="home-edit-post-modal-button" onClick={openEditPostModal}>Edit</button> : null}
         <div className="post-image-container">
             <img className="home-post-content-article-img" src={post.image} />
         </div>
