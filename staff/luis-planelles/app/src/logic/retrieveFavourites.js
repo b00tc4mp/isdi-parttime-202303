@@ -2,7 +2,7 @@ import { loadPosts } from '../data.js';
 import { findUserById } from './helpers/data-managers.js';
 import { validateCallback, validateId } from './helpers/validators.js';
 
-const retrievePosts = (userId, callback) => {
+const retrieveFavourites = (userId, callback) => {
   validateId(userId, 'user id');
   validateCallback(callback);
 
@@ -14,17 +14,13 @@ const retrievePosts = (userId, callback) => {
     }
 
     loadPosts((posts) => {
-      posts.forEach((post) => {
-        post.author = {
-          id: foundUser.id,
-          name: foundUser.info.name,
-          avatar: foundUser.info.avatar,
-        };
-      });
+      const postsUserFavourites = posts.filter((post) =>
+        foundUser.info.favourites.includes(post.id)
+      );
 
-      callback(null, posts.toReversed());
+      callback(null, postsUserFavourites);
     });
   });
 };
 
-export default retrievePosts;
+export { retrieveFavourites };

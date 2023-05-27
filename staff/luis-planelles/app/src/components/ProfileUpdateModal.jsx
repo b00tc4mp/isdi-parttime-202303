@@ -10,10 +10,16 @@ const ProfileUpdateModal = ({onUserAvatarUpdated}) => {
     const avatarUrl = event.target.avatarUrl.value;
 
     try {
-        updateUserAvatar(context.userId, avatarUrl)
+      updateUserAvatar(context.userId, avatarUrl, (error) => {
+        if (error) {
+          alert(error.message)
 
-        onUserAvatarUpdated()
-        alert('avatar updated')
+          return
+      }
+
+      onUserAvatarUpdated()
+      alert('avatar updated')
+      })
 
     }catch (error){
         alert(error.message)

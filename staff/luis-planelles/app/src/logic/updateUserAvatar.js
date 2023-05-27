@@ -1,28 +1,27 @@
-import { posts, savePosts, saveUser } from '../data.js';
+import { saveUser } from '../data.js';
 import { findUserById } from './helpers/data-managers.js';
-import { validateId, validateUrl } from './helpers/validators.js';
+import {
+  validateCallback,
+  validateId,
+  validateUrl,
+} from './helpers/validators.js';
 
-const updateUserPostAvatar = (userId, avatar) => {
-  const _posts = posts();
-
-  for (const post of _posts) {
-    if (post.author === userId && post.avatar !== avatar) post.avatar = avatar;
-  }
-  savePosts(_posts);
-};
-
-const updateUserAvatar = (userId, avatar) => {
+const updateUserAvatar = (userId, avatar, callback) => {
   validateUrl(avatar, 'avatar url');
   validateId(userId, 'user id');
+  validateCallback(callback);
 
-  const foundUser = findUserById(userId);
+  findUserById(userId, (foundUser) => {
+    if (!foundUser) {
+      callback(new Error('user not found'));
 
-  if (!foundUser) throw new Error('user not found');
+      return;
+    }
 
-  foundUser.info.avatar = avatar;
-  saveUser(foundUser);
+    foundUser.info.avatar = avatar;
 
-  updateUserPostAvatar(userId, avatar);
+    saveUser(foundUser, () => callback(null));
+  });
 };
 
 export default updateUserAvatar;

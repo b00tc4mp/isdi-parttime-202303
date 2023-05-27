@@ -50,21 +50,13 @@ const updatePasswordValidation = (
   newPassword,
   newPasswordConfirm
 ) => {
-  const passwordValid = validatePassword(password);
-  const newPasswordValid = validatePassword(newPassword, 'new password');
-  const newPasswordConfirmValid = validatePassword(
-    newPasswordConfirm,
-    'new password confirm'
-  );
-
-  if (passwordValid !== dataBasePassword)
+  if (password !== dataBasePassword)
     throw new Error("original password doesn't match");
-  if (newPasswordValid !== newPasswordConfirmValid)
+  if (newPassword !== newPasswordConfirm)
     throw new Error("new password doesn't match with password confirm");
-  if (newPasswordValid === passwordValid)
-    throw new Error('new password is equal to old');
+  if (newPassword === password) throw new Error('new password is equal to old');
 
-  return newPasswordValid;
+  return newPassword;
 };
 
 const validateUrl = (url, explain = 'url') => {
@@ -77,17 +69,29 @@ const validateText = (text, explain = 'text') => {
   if (!text.trim().length) throw new Error(`${explain} is empty`);
 };
 
+const validateNumber = (number, explain = 'number') => {
+  if (typeof number !== 'number' || isNaN(number))
+    throw new Error(`${explain} is not a valid number`);
+};
+
 const validateId = (id, explain = 'id') => {
   if (typeof id !== 'string') throw new Error(`${explain} is not a string`);
   if (!id.trim().length) throw new Error(`${explain} is empty`);
 };
 
+const validateCallback = (callback, explain = 'callback') => {
+  if (typeof callback !== 'function')
+    throw new Error(`${explain} is not a function`);
+};
+
 export {
   validateId,
   validateText,
+  validateNumber,
   validateUrl,
   validateEmail,
   validateName,
   validatePassword,
   updatePasswordValidation,
+  validateCallback,
 };

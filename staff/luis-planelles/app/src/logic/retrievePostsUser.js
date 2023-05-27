@@ -2,7 +2,7 @@ import { loadPosts } from '../data.js';
 import { findUserById } from './helpers/data-managers.js';
 import { validateCallback, validateId } from './helpers/validators.js';
 
-const retrievePosts = (userId, callback) => {
+const retrievePostsUser = (userId, callback) => {
   validateId(userId, 'user id');
   validateCallback(callback);
 
@@ -14,7 +14,9 @@ const retrievePosts = (userId, callback) => {
     }
 
     loadPosts((posts) => {
-      posts.forEach((post) => {
+      const postsUser = posts.filter((post) => post.author === foundUser.id);
+
+      postsUser.forEach((post) => {
         post.author = {
           id: foundUser.id,
           name: foundUser.info.name,
@@ -22,9 +24,9 @@ const retrievePosts = (userId, callback) => {
         };
       });
 
-      callback(null, posts.toReversed());
+      callback(null, postsUser.toReversed());
     });
   });
 };
 
-export default retrievePosts;
+export default retrievePostsUser;

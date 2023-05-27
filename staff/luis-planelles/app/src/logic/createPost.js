@@ -1,39 +1,48 @@
-import { posts, savePosts } from '../data.js';
+import { loadPosts, savePosts } from '../data.js';
 import { findUserById } from './helpers/data-managers.js';
-import { validateId, validateText, validateUrl } from './helpers/validators.js';
+import {
+  validateCallback,
+  validateId,
+  validateText,
+  validateUrl,
+} from './helpers/validators.js';
 
-const createPost = (userId, postImage, postText) => {
+const createPost = (userId, postImage, postText, callback) => {
   validateUrl(postImage, 'image url');
   validateText(postText, 'text');
   validateId(userId, 'user id');
+  validateCallback(callback);
 
-  const foundUser = findUserById(userId);
+  findUserById(userId, (foundUser) => {
+    if (!foundUser) {
+      callback(new Error('User not found'));
 
-  if (!foundUser) throw new Error('User not found');
+      return;
+    }
 
-  let postId = 'post-1';
+    let postId = 'post-1';
 
-  const _posts = posts();
+    loadPosts((posts) => {
+      const lastPost = posts[posts.length - 1];
 
-  const lastPost = _posts[_posts.length - 1];
+      if (lastPost) {
+        postId = 'post-' + (parseInt(lastPost.id.slice(5)) + 1);
+      }
 
-  if (lastPost) {
-    postId = 'post-' + (parseInt(lastPost.id.slice(5)) + 1);
-  }
+      const post = {
+        id: postId,
+        author: userId,
+        image: postImage,
+        text: postText,
+        date: new Date(),
+        likes: [],
+      };
 
-  const post = {
-    id: postId,
-    author: userId,
-    authorName: foundUser.info.name,
-    avatar: foundUser.info.avatar,
-    image: postImage,
-    text: postText,
-    date: new Date(),
-  };
+      posts.push(post);
 
-  _posts.push(post);
-
-  savePosts(_posts);
+      savePosts(posts, () => callback(null));
+    });
+  });
 };
 
 export default createPost;

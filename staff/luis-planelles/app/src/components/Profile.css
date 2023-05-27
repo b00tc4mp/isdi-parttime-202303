@@ -13,7 +13,6 @@
   height: 100vh;
   width: 100vw;
   background-color: rgba(0, 0, 0, 0.545);
-  z-index: 10;
 }
 
 .profile-update-options {
@@ -58,6 +57,7 @@
   align-items: center;
   border: 0.15rem solid lightgrey;
   padding: 0.3rem;
+  min-width: 26rem;
 }
 
 .profile-info-header {
@@ -69,8 +69,8 @@
 }
 
 .profile-user-avatar {
-  width: 10rem;
-  height: 10rem;
+  width: 9rem;
+  height: 9rem;
   border-radius: 50%;
   object-fit: cover;
 }
@@ -78,16 +78,15 @@
 .profile-user-name {
   font-size: 1.5rem;
   font-weight: bold;
-  margin-right: 5rem;
+  margin-right: 3rem;
+  margin-left: 1rem;
   text-align: center;
 }
 
-.profile-info-header img,
 .profile-info-header p {
   flex: 0 0 50%;
 }
-
-.profile-posts {
+img .profile-posts {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-auto-rows: minmax(140px, auto);

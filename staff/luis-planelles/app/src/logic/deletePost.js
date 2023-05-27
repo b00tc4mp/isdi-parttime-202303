@@ -1,53 +1,48 @@
-import { posts, savePosts, saveUsers, users } from '../data';
-import { findPostById, findUserById } from './helpers/data-managers';
-import { validateId } from './helpers/validators';
+import { loadPosts, loadUsers, savePosts, saveUsers } from '../data';
+import postBelongingUser from './helpers/postBelongingUser';
+import { validateCallback, validateId } from './helpers/validators';
 
-const deleteFavoritesUsers = (postId) => {
-  const _users = users();
+const deleteFavoritesUsers = (postId, callback) => {
+  validateId(postId, 'post id');
+  validateCallback(callback);
 
-  for (const user of _users) {
-    if (user.info.favourites) {
-      const favouritePostIndex = user.info.favourites.findIndex(
-        (post) => post === postId
-      );
+  loadUsers((users) => {
+    for (const user of users) {
+      if (user.info.favourites) {
+        const favouritePostIndex = user.info.favourites.findIndex(
+          (post) => post === postId
+        );
 
-      if (favouritePostIndex !== -1) {
-        user.info.favourites.splice(favouritePostIndex, 1);
-      }
-
-      if (!user.info.favourites.length) {
-        delete user.info.favourites;
+        if (favouritePostIndex !== -1) {
+          user.info.favourites.splice(favouritePostIndex, 1);
+        }
       }
     }
-  }
-
-  saveUsers(_users);
+    saveUsers(users, () => callback(null));
+  });
 };
 
-const deletePost = (userId, postId) => {
-  validateId('user id', userId);
-  validateId('post id', postId);
+const deletePost = (userId, postId, callback) => {
+  validateId(userId, 'user id');
+  validateId(postId, 'post id');
+  validateCallback(callback);
 
-  const foundUser = findUserById(userId);
-  if (!foundUser) throw new Error(`user with id ${userId} not found`);
+  postBelongingUser(userId, 'tomate', (error) => {
+    if (error) {
+      callback(error.message);
+    }
+    return;
+  });
 
-  const foundPost = findPostById(postId);
-  if (!foundPost) throw new Error(`post with id ${postId} not found`);
+  loadPosts((posts) => {
+    const postIndex = posts.findIndex((post) => post.id === postId);
 
-  if (foundUser.id !== foundPost.author)
-    throw new Error(
-      `post with id ${postId} not belong to user with id ${userId}`
-    );
+    posts.splice(postIndex, 1);
 
-  const _posts = posts();
+    savePosts(posts, () => callback(null));
+  });
 
-  const postIndex = _posts.findIndex((post) => post.id === postId);
-
-  _posts.splice(postIndex, 1);
-
-  savePosts(_posts);
-
-  deleteFavoritesUsers(postId);
+  deleteFavoritesUsers(postId, () => callback(null));
 };
 
 export default deletePost;

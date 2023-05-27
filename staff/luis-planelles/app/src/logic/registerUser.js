@@ -1,50 +1,51 @@
-import { saveUsers, users } from '../data.js';
+import { loadUsers, saveUsers } from '../data.js';
 import { findUserByEmail } from './helpers/data-managers.js';
 import DEFAULT_AVATAR_URL from './helpers/global-variables.js';
 import {
+  validateCallback,
   validateEmail,
   validateName,
   validatePassword,
 } from './helpers/validators.js';
 
-const registerUser = (name, email, password) => {
-  const nameValid = validateName(name);
-  const emailValid = validateEmail(email);
-  const passwordValid = validatePassword(password);
+const registerUser = (name, email, password, callback) => {
+  validateName(name);
+  validateEmail(email);
+  validatePassword(password);
+  validateCallback(callback);
 
-  const nameInData = users().some((user) => user.info.name === name);
+  findUserByEmail(email, (foundUser) => {
+    if (foundUser) {
+      callback(new Error('user already exists'));
 
-  if (nameInData) throw new Error('name already exists');
+      return;
+    }
 
-  const foundUser = findUserByEmail(email);
+    let id = 'user-1';
 
-  if (foundUser) throw new Error('user already exists');
+    loadUsers((users) => {
+      const lastUser = users[users.length - 1];
 
-  let id = 'user-1';
+      if (lastUser) {
+        id = 'user-' + (parseInt(lastUser.id.slice(5)) + 1);
+      }
 
-  const _users = users();
+      const newUser = {
+        id,
+        email,
+        info: {
+          name,
+          password,
+          avatar: DEFAULT_AVATAR_URL,
+          favourites: [],
+        },
+      };
 
-  const lastUser = _users[_users.length - 1];
+      users.push(newUser);
 
-  if (lastUser) {
-    id = 'user-' + (parseInt(lastUser.id.slice(5)) + 1);
-  }
-
-  const newUser = {
-    id: id,
-    email: emailValid,
-    info: {
-      name: nameValid,
-      password: passwordValid,
-      avatar: DEFAULT_AVATAR_URL,
-    },
-  };
-
-  _users.push(newUser);
-
-  saveUsers(_users);
-
-  return newUser;
+      saveUsers(users, () => callback(null));
+    });
+  });
 };
 
 export default registerUser;

@@ -13,7 +13,6 @@
   justify-content: space-around;
   align-items: center;
   height: 5rem;
-  z-index: 100;
 }
 
 .home-main {
@@ -40,11 +39,10 @@
 }
 
 .home-header-user {
-  font-size: 1.2rem;
   color: whitesmoke;
 }
 
-.home .title {
+.fa-home {
   color: whitesmoke;
 }
 

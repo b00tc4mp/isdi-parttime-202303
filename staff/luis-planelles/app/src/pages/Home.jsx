@@ -1,6 +1,9 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import AddPostModal from '../components/AddPostModal'
 import EditPostModal from '../components/EditPostModal'
+import Favourites from '../components/Favourites'
+import OnSalePostModal from '../components/OnSalePostModal'
+import PostsUser from '../components/PostUser'
 import Posts from '../components/Posts'
 import Profile from '../components/Profile'
 import ProfileUpdateModal from '../components/ProfileUpdateModal'
@@ -13,67 +16,93 @@ const Home = ({onLoggedOut}) => {
   const [view, setView] = useState('posts'),
     [modal, setModal] = useState(null),
     [postId, setPostId] = useState(null),
-    [lastUpdate, setLastUpdate] = useState(null);
+    [lastUpdate, setLastUpdate] = useState(null),
+    [user, setUser] = useState(null);
     
-  let loggedUser
-    
-  try{
-    loggedUser = retrieveUser(context.userId)
-      
-  } catch (error){
-      alert(error.message)
-  }
-    
-  const [user, setUser] = useState(loggedUser);
-
+  useEffect(() => {
+    try{
+    retrieveUser(context.userId, (error, retrievedUser) => {
+      if(error) {
+        alert(error.message)
+        
+        return 
+      }
+      setUser(retrievedUser)
+    })
+      } catch (error){
+        alert(error.message)
+      }
+    }, [])
+  
   const hadleLogOutButton = () =>  {
     delete context.userId
     onLoggedOut()
   },
     
-  handleGoToProfile = (postId) => { 
+  handleGoToProfile = (event, postId) => {
+    event.preventDefault() 
+
+    setModal(null)
     setView('profile')
     setPostId(postId)
   },
-
+  
   handleOpenEditProfile = () => setModal('edit-profile'),
   
   handleGoToPosts = () => setView('posts'),
   
   handleOpenAddPost = () => setModal('add-post'),
-    
+  
   handleOpenEditPost = postId => {
     setModal('edit-post')
     setPostId(postId);
   },
 
-  handleCloseModals = () => setModal(null),
+  handleOpenSellPost = postId => {
+    setModal('sale-post'),
+    setPostId(postId);
+  },
+  
+  handleOpenFavourites = () => {
+    setModal(null)
+    setView('favourites')
+  },
 
+  handleCloseModals = () => setModal(null),
+  
   handlePostUpdated = () => {
     setModal(null)
     setLastUpdate(Date.now()) 
   },
 
-  handleProfileUpdated = () => {
-    setModal(null)
-  },
+  handleProfileUpdated = () => setModal(null),
+  
+  handleOpenUserPosts = () => setView('user-posts'),
 
-  handleUserAvatarUpdated = () => {
+  handleAvatarUpdated = () => {
     try {
-        const user = retrieveUser(context.userId)
+        retrieveUser(context.userId, (error, user) => {
+            if (error) {
+                alert(error.message)
 
-        setUser(user)
+                return
+            }
+
+            setUser(user)
+        })
     } catch (error) {
         alert(error.message)
     }
   };
-
+  
   return <div className='home page container'>
           <header className='home-header'>
-            <h1 className='title' onClick={handleGoToPosts}>Home</h1>
-            <nav className='home-header-nav'>
-              <img className='home-header-avatar' src={loggedUser.avatar} alt=''/>
-              <a className='home-header-user' onClick={handleGoToProfile}>{loggedUser.name}</a>
+            <i className='fas fa-home' onClick={handleGoToPosts}/>
+            <nav className="home-header-nav">
+            {user && <>
+                <img className="home-header-avatar" src={user.avatar} alt="" />
+                <a href="" onClick={handleGoToProfile}>{user.name}</a>
+            </>}
             </nav>
             <button className='home-header-logout' onClick={hadleLogOutButton}>logout</button>
           </header>
@@ -81,8 +110,9 @@ const Home = ({onLoggedOut}) => {
           <main>
             {view === 'posts' && (
               <Posts
-              lastPostUpdate={lastUpdate}
               onEditPost={handleOpenEditPost}
+              onSellPost={handleOpenSellPost}
+              lastPostUpdate={lastUpdate}
               />
             )}
             {modal === 'add-post' && (
@@ -91,9 +121,6 @@ const Home = ({onLoggedOut}) => {
                 onPostCreate={handlePostUpdated}
               />
             )}
-            {view === 'profile' && (
-              <Profile onOpenEditProfile={handleOpenEditProfile} />
-            )}
             {modal === 'edit-post' && (
               <EditPostModal
                 onCancel={handleCloseModals}
@@ -101,13 +128,37 @@ const Home = ({onLoggedOut}) => {
                 postId={postId} 
               />
             )}
+            {modal === 'sale-post' && (
+              <OnSalePostModal
+                onCancel={handleCloseModals}
+                onPostUpdated={handlePostUpdated}
+                postId={postId} 
+              />
+            )}
+            {view === 'profile' && (
+              <Profile 
+              onOpenEditProfile={handleOpenEditProfile} 
+              onOpenFavourites={handleOpenFavourites}
+              onProfileImageClick={handleOpenUserPosts}
+              />
+            )}
+            {view === 'favourites' && (
+              <Favourites/>
+            )}
+            {view === 'user-posts' && (
+              <PostsUser 
+              onEditPost={handleOpenEditPost}
+              lastPostUpdate={lastUpdate}
+              />
+            )}
             {modal === 'edit-profile' && (
               <ProfileUpdateModal
               onCancel={handleCloseModals}
               onProfileUpdated={handleProfileUpdated}
-              onUserAvatarUpdated={handleUserAvatarUpdated}
+              onUserAvatarUpdated={handleAvatarUpdated}
               />
             )}
+
           </main>
   
           <footer className='home-footer'>

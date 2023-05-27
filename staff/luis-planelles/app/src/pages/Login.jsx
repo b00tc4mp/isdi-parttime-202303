@@ -1,30 +1,39 @@
 import authenticateUser from '../logic/authenticateUser.js';
 import { context } from '../ui.js';
 
-function Login({onRegisterClick, onUserLoggedIn}) {
+const Login = ({onRegisterClick, onUserLoggedIn}) => {
 
-  function handleRegisterClick(event) { 
+  const handleRegisterClick = (event) => { 
     event.preventDefault();
 
     onRegisterClick();
-  }
+  },
 
-  function handleLogin(event) {
+  handleLogin = (event) => {
     event.preventDefault()
     
     const email = event.target.email.value,
     password = event.target.password.value;
 
     try {
-      const userId = authenticateUser(email, password)
-      context.userId = userId
-      
-      onUserLoggedIn()
+      authenticateUser(email, password, (error, userId) => {
+        
+        if (error) {
+          alert(error.message)
+
+          return 
+        } 
+
+        context.userId = userId
+        
+        onUserLoggedIn()
+      })
 
     }catch (error) {
       alert(error.message)
     }
-  } 
+
+  };
 
   return (
     <div className="login page container">
@@ -36,7 +45,7 @@ function Login({onRegisterClick, onUserLoggedIn}) {
         <button className="button"type="submit"> Login </button>
       </form>
       
-      <p> Go to{' '} <a href="" onClick={handleRegisterClick}> Register </a> </p>
+      <p><a href="" onClick={handleRegisterClick}> Register </a> </p>
     </div>
   );
 }

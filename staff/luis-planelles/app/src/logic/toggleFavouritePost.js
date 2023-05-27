@@ -1,36 +1,34 @@
 import { saveUser } from '../data';
 import { findPostById, findUserById } from './helpers/data-managers';
-import { validateId } from './helpers/validators';
+import { validateCallback, validateId } from './helpers/validators';
 
-const toggleFavouritePost = (postId, userId) => {
+const toggleFavouritePost = (postId, userId, callback) => {
   validateId(postId, 'post id');
   validateId(postId, 'user id');
+  validateCallback(callback);
 
-  const foundUser = findUserById(userId);
-  if (!foundUser) throw new Error(`user: ${userId} not found`);
+  findUserById(userId, (foundUser) => {
+    if (!foundUser) {
+      callback(new Error(`user: ${userId} not found`));
 
-  const foundPost = findPostById(postId);
-  if (!foundPost) throw new Error(`post: ${postId} not found`);
-
-  if (!foundUser.info.favourites) {
-    foundUser.info.favourites = [postId];
-  } else {
-    const postIndex = foundUser.info.favourites.indexOf(postId);
-
-    if (postIndex < 0) {
-      foundUser.info.favourites.push(postId);
-    } else {
-      foundUser.info.favourites.splice(postIndex, 1);
+      return;
     }
-  }
 
-  if (!foundUser.info.favourites.length) {
-    delete foundUser.info.favourites;
-  }
+    findPostById(postId, (foundPost) => {
+      if (!foundPost) {
+        callback(new Error(`post with id ${postId} not found`));
 
-  saveUser(foundUser);
+        return;
+      }
 
-  return foundUser;
+      const index = foundUser.info.favourites.indexOf(postId);
+
+      if (index < 0) foundUser.info.favourites.push(postId);
+      else foundUser.info.favourites.splice(index, 1);
+
+      saveUser(foundUser, () => callback(null));
+    });
+  });
 };
 
 export default toggleFavouritePost;

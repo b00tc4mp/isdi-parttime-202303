@@ -1,17 +1,21 @@
 import { findUserById } from './helpers/data-managers.js';
 
-const retrieveUser = (userId) => {
-  let foundUser = findUserById(userId);
+const retrieveUser = (userId, callback) => {
+  findUserById(userId, (foundUser) => {
+    if (!foundUser) {
+      callback(new Error('user not found'));
 
-  if (!foundUser) throw new Error('user not found');
+      return;
+    }
 
-  const retrievedUser = {
-    name: foundUser.info.name,
-    avatar: foundUser.info.avatar,
-    favourites: foundUser.info.favourites,
-  };
+    const retrievedUser = {
+      name: foundUser.info.name,
+      avatar: foundUser.info.avatar,
+      favourites: foundUser.info.favourites,
+    };
 
-  return retrievedUser;
+    callback(null, retrievedUser);
+  });
 };
 
 export default retrieveUser;

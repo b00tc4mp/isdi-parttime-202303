@@ -6,9 +6,9 @@ import { context } from './ui';
 
 const App = () => {
 
-  const [view, setView ] = useState(context.userId ? 'home' : 'login'),
+  const [view, setView ] = useState(context.userId ? 'home' : 'login');
   
-  handleGoToRegister = () =>  setView('register'), 
+  const handleGoToRegister = () =>  setView('register'), 
   
   handleGoToLogin = () =>  setView('login'), 
   
@@ -18,7 +18,7 @@ const App = () => {
       case 'login':
         return <Login onRegisterClick={handleGoToRegister} onUserLoggedIn={handleGoToHome} />;
       case 'register':
-        return <Register onLoginClick={handleGoToLogin} onUserRegistered={handleGoToHome}/>;
+        return <Register onLoginClick={handleGoToLogin} onUserRegistered={handleGoToLogin}/>;
       case 'home':
         return <Home onLoggedOut={handleGoToLogin}/>
     }

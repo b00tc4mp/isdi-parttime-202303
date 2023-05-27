@@ -1,52 +1,56 @@
-//
-const users = () => {
-  const users =
-    'usersJson' in localStorage ? JSON.parse(localStorage.usersJson) : [];
-  return users;
-};
+const DELAY = 100;
 
-const saveUsers = (users) => {
-  localStorage.usersJson = JSON.stringify(users);
-};
+const loadUsers = (callback) =>
+  setTimeout(
+    () =>
+      callback(
+        'usersJson' in localStorage ? JSON.parse(localStorage.usersJson) : []
+      ),
+    DELAY
+  );
 
-const saveUser = (user) => {
-  const _users = users();
+const saveUsers = (users, callback) =>
+  setTimeout(() => {
+    localStorage.usersJson = JSON.stringify(users);
 
-  const index = _users.findIndex((_user) => _user.id === user.id);
+    callback();
+  }, DELAY);
 
-  if (index < 0) {
-    _users.push(user);
-  } else {
-    _users.splice(index, 1, user);
-  }
+const saveUser = (user, callback) =>
+  loadUsers((users) => {
+    const index = users.findIndex((_user) => _user.id === user.id);
 
-  saveUsers(_users);
-};
+    if (index < 0) users.push(user);
+    else users.splice(index, 1, user);
 
-const posts = () => {
-  const posts =
-    'postsJson' in localStorage ? JSON.parse(localStorage.postsJson) : [];
-  posts.forEach((post) => (post.date = new Date(post.date)));
+    saveUsers(users, callback);
+  });
 
-  return posts;
-};
+const loadPosts = (callback) =>
+  setTimeout(() => {
+    const posts =
+      'postsJson' in localStorage ? JSON.parse(localStorage.postsJson) : [];
 
-const savePosts = (posts) => {
-  localStorage.postsJson = JSON.stringify(posts);
-};
+    posts.forEach((post) => (post.date = new Date(post.date)));
 
-const savePost = (post) => {
-  const _posts = posts();
+    callback(posts);
+  }, DELAY);
 
-  const index = _posts.findIndex((_post) => _post.id === post.id);
+const savePosts = (posts, callback) =>
+  setTimeout(() => {
+    localStorage.postsJson = JSON.stringify(posts);
 
-  if (index < 0) {
-    _posts.push(post);
-  } else {
-    _posts.splice(index, 1, post);
-  }
+    callback();
+  }, DELAY);
 
-  savePosts(_posts);
-};
+const savePost = (post, callback) =>
+  loadPosts((posts) => {
+    const index = posts.findIndex((_post) => _post.id === post.id);
 
-export { saveUsers, saveUser, users, savePosts, savePost, posts };
+    if (index < 0) posts.push(post);
+    else posts.splice(index, 1, post);
+
+    savePosts(posts, callback);
+  });
+
+export { loadUsers, saveUser, saveUsers, loadPosts, savePost, savePosts };

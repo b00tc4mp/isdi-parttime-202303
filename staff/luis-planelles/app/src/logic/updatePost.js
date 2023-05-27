@@ -1,30 +1,50 @@
 import { savePost } from '../data';
 import { findPostById, findUserById } from './helpers/data-managers';
-import { validateId, validateText, validateUrl } from './helpers/validators';
+import {
+  validateCallback,
+  validateId,
+  validateText,
+  validateUrl,
+} from './helpers/validators';
 
-const updatePost = (userId, postId, postImage, postText) => {
-  validateUrl(postImage, 'image url');
-  validateText(postText, 'post text');
-  validateId(userId, 'post user id');
+const updatePost = (userId, postId, postImage, postText, callback) => {
+  validateId(userId, 'user id');
   validateId(postId, 'post id');
+  validateUrl(postImage, 'image url');
+  validateText(postText);
+  validateCallback(callback);
 
-  const foundUser = findUserById(userId);
+  findUserById(userId, (foundUser) => {
+    if (!foundUser) {
+      callback(new Error(`user with id ${userId} not found`));
 
-  if (!foundUser) throw new Error(`user id not found`);
+      return;
+    }
 
-  let postUser = findPostById(postId);
+    findPostById(postId, (foundPost) => {
+      if (!foundPost) {
+        callback(new Error(`post with id ${postId} not found`));
 
-  if (!postUser) throw new Error(`post id not found`);
+        return;
+      }
 
-  if (postUser.author !== userId)
-    throw new Error(`post author id dont match with request user id`);
+      if (foundPost.author !== userId) {
+        callback(
+          new Error(
+            `post with id ${postId} does not belong to user with id ${userId}`
+          )
+        );
 
-  postUser.image = postImage;
-  postUser.text = postText;
-  postUser.date = new Date();
-  postUser.editDate = new Date();
+        return;
+      }
 
-  savePost(postUser);
+      foundPost.image = postImage;
+      foundPost.text = postText;
+      foundPost.date = new Date();
+
+      savePost(foundPost, () => callback(null));
+    });
+  });
 };
 
 export default updatePost;
