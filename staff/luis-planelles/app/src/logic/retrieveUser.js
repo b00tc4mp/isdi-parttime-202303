@@ -1,6 +1,10 @@
 import { findUserById } from './helpers/data-managers.js';
+import { validateCallback, validateId } from './helpers/validators.js';
 
 const retrieveUser = (userId, callback) => {
+  validateId(userId, 'user id');
+  validateCallback(callback);
+
   findUserById(userId, (foundUser) => {
     if (!foundUser) {
       callback(new Error('user not found'));

@@ -11,6 +11,7 @@ import retrieveUser from '../logic/retrieveUser'
 import { context } from '../ui'
 import './Home.css'
 
+
 const Home = ({onLoggedOut}) => {
 
   const [view, setView] = useState('posts'),
@@ -83,7 +84,7 @@ const Home = ({onLoggedOut}) => {
     try {
         retrieveUser(context.userId, (error, user) => {
             if (error) {
-                alert(error.message)
+              alert(error.message)
 
                 return
             }
