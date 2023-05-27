@@ -2,116 +2,152 @@ import { useEffect, useState } from "react"
 import Profile from "../components/ProfileModal"
 import AddPost from "../components/AddPostModal"
 import Posts from "../components/Posts"
-import Menu from "../components/menu"
+import SideBarMenu from "../components/SideBarMenu"
 import { context } from "../ui"
 import retrieveUser from "../logic/retrieveUser"
 import EditPost from "../components/EditPostModal"
 import Header from "../components/Header"
 import "./pages-styles/Home.css"
-import SetPostPrice from "../components/SetPostPriceModal"
+import Context from "../Context"
+import { useContext } from "react"
+import VisibilityPost from "../components/VisibilityPostModal"
+import ToggleOnSalePost from "../components/ToggleOnSalePostModal"
+import DeletePost from "../components/DeletePostModal"
 import BuyPost from "../components/BuyPostModal"
 
+
 export default function Home(props) {
-  const [view, setView] = useState(context.view || "posts");
-  const [modal, setModal] = useState(null);
-  const [menu, setMenu] = useState(false);
-  const [lastPostsUpdate, setLastPostsUpdate] = useState(null);
-  const [user, setUser] = useState();
+  const [view, setView] = useState(context.view || "posts")
+  const [modal, setModal] = useState(null)
+  const [menu, setMenu] = useState(false)
+  const [openedMenu, setOpenedMenu] = useState(true)
+  const [lastPostsUpdate, setLastPostsUpdate] = useState(null)
+  const [user, setUser] = useState()
+  const { alert, freeze, unfreeze } = useContext(Context)
 
   useEffect(() => {
     try {
-      retrieveUser(context.userId, (error, _user) => {
-        if (error) {
-          alert(error);
-          console.log(error.stack);
+      freeze()
 
-          return;
+      retrieveUser(context.userId, (error, _user) => {
+        unfreeze()
+
+        if (error) {
+          alert(error.message, 'error')
+          console.debug(error.stack)
+          return
         }
 
-        setUser(_user);
-      });
+        setUser(_user)
+        
+      })
     } catch (error) {
-      alert(error);
-      console.log(error);
+      alert(error.message, 'error')
+      console.debug(error.stack)
     }
-  }, []);
+  }, [])
 
   const handleReturnToHome = () => {
-    setView("posts");
-  };
+    setView("posts")
+    setLastPostsUpdate(Date.now())
+  }
 
   const handleOpenAddPost = () => {
-    document.body.classList.add("fixed-scroll");
-    setModal("addPost");
-  };
+    document.body.classList.add("fixed-scroll")
+    setModal("addPost")
+  }
 
   const handleOpenProfile = () => {
-    document.body.classList.add("fixed-scroll");
-    setModal("profile");
-  };
+    document.body.classList.add("fixed-scroll")
+    setModal("profile")
+  }
 
   const handleReturnToLogin = () => {
-    props.onLoggedOut();
-    delete context.userId;
-  };
+    props.onLoggedOut()
+    delete context.userId
+  }
 
   const handleToggleMenu = () => {
-    setMenu(!menu);
-  };
+    if(!menu) {
+      setMenu(!menu)
+      setOpenedMenu(!openedMenu)
+    } else {
+      setTimeout(() => {
+        setMenu(!menu)
+      }, 400);
+      setOpenedMenu(!openedMenu)
+    }
+  }
 
   const showOwnPosts = () => {
-    setView("userPosts");
-  };
+    setView("userPosts")
+    setLastPostsUpdate(Date.now())
+  }
 
   const showSavedPosts = () => {
-    setView("savedPosts");
-  };
+    setView("savedPosts")
+    setLastPostsUpdate(Date.now())
+  }
 
   const handleOpenEditPost = () => {
-    document.body.classList.add("fixed-scroll");
-    setModal("editPost");
-  };
+    document.body.classList.toggle("fixed-scroll")
+    setModal("editPost")
+  }
 
   const handleLastPostsUpdate = () => {
-    document.body.classList.remove("fixed-scroll");
-    setLastPostsUpdate(Date.now());
-    setModal(null);
-  };
-
+    document.body.classList.remove("fixed-scroll")
+    setLastPostsUpdate(Date.now())
+    setModal(null)
+  }
+  
   const handleCloseModal = () => {
-    document.body.classList.remove("fixed-scroll");
-    setModal(null);
-  };
+    document.body.classList.remove("fixed-scroll")
+    setModal(null)
+  }
 
   const handleUpdatedAvatar = () => {
     try {
-      retrieveUser(context.userId, (error, user) => {
-        if (error) {
-          alert(error.message);
-          console.log(error.stack);
+      freeze()
 
-          return;
+      retrieveUser(context.userId, (error, user) => {
+        unfreeze()
+        
+        if (error) {
+          alert(error.message, 'error')
+          console.debug(error.stack)
+          return
         }
 
-        setUser(user);
-      });
+        setUser(user)
+      })
     } catch (error) {
-      alert(error);
-      console.log(error);
+      alert(error.message, 'error')
+      console.debug(error.stack)
     }
   }
-
-  const handleOpenPostpriceModal = () => {
-    document.body.classList.add("fixed-scroll");
-    setModal("setPostPrice")
+  
+  const handleToggleOnSalePost = () => {
+    document.body.classList.toggle("fixed-scroll")
+    setModal("toggleOnSale")
   }
 
-  const handleOpenBuyPostModal = () => {
-    document.body.classList.add("fixed-scroll");
-    setModal("buyPostModal")
+  const handleOpenBuyPost = () => {
+    document.body.classList.toggle("fixed-scroll")
+    console.log('hola');
+    setModal("buyPost")
+  }
+  
+  const handleOpenDeletePost = () => {
+    document.body.classList.toggle("fixed-scroll")
+    setModal("deletePost")
+  }
+  
+  const handleToggleVisibility = () => {
+    document.body.classList.toggle("fixed-scroll")
+    setModal("toggleVisibility")
   }
 
-  console.log("Home -> render");
+  console.debug("Home -> render")
 
   return (
     <div className="home page">
@@ -126,11 +162,13 @@ export default function Home(props) {
 
       <main>
         <Posts
-          handleOpenEditPost={handleOpenEditPost}
           lastPostsUpdate={lastPostsUpdate}
           view={view}
-          handleOpenPostpriceModal={handleOpenPostpriceModal}
-          handleOpenBuyPostModal={handleOpenBuyPostModal}
+          handleOpenBuyPost={handleOpenBuyPost}
+          handleOpenEditPost={handleOpenEditPost}
+          handleOpenDeletePost={handleOpenDeletePost}
+          handleToggleVisibility={handleToggleVisibility}
+          handleToggleOnSalePost={handleToggleOnSalePost}
         />
 
         {modal === "profile" && (
@@ -141,10 +179,11 @@ export default function Home(props) {
         )}
 
         {menu && (
-          <Menu
+          <SideBarMenu
             onHomePage={handleReturnToHome}
             showOwnPosts={showOwnPosts}
             showSavedPosts={showSavedPosts}
+            openedMenu={openedMenu}
           />
         )}
 
@@ -162,26 +201,40 @@ export default function Home(props) {
           />
         )}
 
-        {modal === 'setPostPrice' && (
-          <SetPostPrice
-          onSettedPostPrice={handleLastPostsUpdate}
-          onCancel={handleCloseModal}
+        {modal === 'toggleOnSale' && (
+          <ToggleOnSalePost
+            onToggledOnSalePost={handleLastPostsUpdate}
+            onCancel={handleCloseModal}
           />
         )}
         
-        {modal === 'buyPostModal' && (
+        {modal === 'buyPost' && (
           <BuyPost
-          onBuyPost={handleLastPostsUpdate}
-          onCancel={handleCloseModal}
+            onBoughtPost={handleLastPostsUpdate}
+            onCancel={handleCloseModal}
+          />
+        )}
+
+        {modal === 'toggleVisibility' && (
+          <VisibilityPost
+            onChangedVisibility={handleLastPostsUpdate}
+            onCancel={handleCloseModal}
+          />
+        )}
+        
+        {modal === 'deletePost' && (
+          <DeletePost
+            onDeletedPost={handleLastPostsUpdate}
+            onCancel={handleCloseModal}
           />
         )}
       </main>
 
       <footer className="home-footer">
         <button className="add-post-button" onClick={handleOpenAddPost}>
-          +
+          Add post
         </button>
       </footer>
     </div>
-  );
+  )
 }

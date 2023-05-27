@@ -1,10 +1,14 @@
-import { context } from "../ui";
-import updateUserPassword from "../logic/updateUserPassword";
-import updateUserAvatar from "../logic/updateUserAvatar";
+import { context } from "../ui"
+import updateUserPassword from "../logic/updateUserPassword"
+import updateUserAvatar from "../logic/updateUserAvatar"
 import './components-styles/ProfileModal.css'
+import Context from "../Context"
+import { useContext } from "react"
+import Container from "../library/Container"
 
 
 export default function Profile(props) {
+  const { alert, freeze, unfreeze } = useContext(Context)
 
   const closeProfile = () => {
     props.onCloseModal()
@@ -17,11 +21,14 @@ export default function Profile(props) {
     const password = event.target.password.value
 
     try {
-      updateUserAvatar(context.userId, avatarUrl, password, (error) => {
-        if(error) {
-          alert(error)
-          console.log(error.stack);
+      freeze()
 
+      updateUserAvatar(context.userId, avatarUrl, password, (error) => {
+        unfreeze()
+
+        if(error) {
+          alert(error.message, 'error')
+          console.debug(error.stack);
           return
         }
         
@@ -29,8 +36,8 @@ export default function Profile(props) {
       })
 
     } catch (error) {
-      alert(error.message)
-      console.log(error);
+      alert(error.message, 'error')
+      console.debug(error.stack);
     }
   }
 
@@ -42,11 +49,14 @@ export default function Profile(props) {
     const newPasswordConfirm = event.target.newPasswordConfirm.value
 
     try {
-      updateUserPassword(context.userId, password, newPassword, newPasswordConfirm, (error) => {
-        if(error) {
-          alert(error)
-          console.log(error.stack);
+      freeze()
 
+      updateUserPassword(context.userId, password, newPassword, newPasswordConfirm, (error) => {
+        unfreeze()
+
+        if(error) {
+          alert(error.message, 'error')
+          console.debug(error.stack);
           return
         }
         
@@ -54,12 +64,12 @@ export default function Profile(props) {
       })
 
     } catch (error) {
-      alert(error.message)
-      console.log(error);
+      alert(error.message, 'error')
+      console.debug(error.stack);
     }
   }
   
-  return <div className="profile page">
+  return <Container tag='section'>
   <form className="change-avatar change-form" onSubmit={handleChangeAvatar}>
         <h2>Update avatar</h2>
         <div>
@@ -78,6 +88,6 @@ export default function Profile(props) {
         </div>
     </form>
     <button className="close-changeform-button" onClick={closeProfile}>Close</button>
-</div>
+</Container>
   
 }

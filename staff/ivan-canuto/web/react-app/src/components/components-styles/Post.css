@@ -17,7 +17,6 @@
   display: none;
 }
 
-
 .text-post {
   margin: 0 20px 30px 20px;
   text-align: justify;
@@ -27,31 +26,30 @@
 .image-container {
   display: flex;
   justify-content: center;
-  margin-bottom: 20px;
 }
 
 .image-post {
   border-radius: 10px;
   margin-bottom: 10px;
   object-fit: contain;
-  width: 70%;
+  width: 90%;
   max-height: 50vh;
   max-width: 60vw;
 }
 
 .above-image {
   height: 40px;
-  margin-bottom: 10px;
   display: flex;
   justify-content: space-between;
   gap: 5px;
   border-radius: 7.5px;
-  margin: 0 10px 30px 10px;
+  margin: 0 10px 10px 10px;
 }
 
 .above-image div {
   display: flex;
   align-items: center;
+  margin-left: 10px;
 }
 
 .post-user-avatar {
@@ -135,4 +133,13 @@
 
 .saved {
   color: rgb(0, 0, 0);
+}
+
+.contextual-menu_icon {
+  cursor: pointer;
+  margin-left: 7px;
+}
+
+.contextual-menu_icon:hover {
+  background: grey;
 }

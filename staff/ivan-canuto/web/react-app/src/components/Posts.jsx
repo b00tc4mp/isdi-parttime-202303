@@ -5,67 +5,80 @@ import { useState, useEffect } from "react";
 import { retrieveSavedPosts } from "../logic/retrieveSavedPosts";
 import { retrieveUserPosts } from "../logic/retrieveUserPosts";
 import './components-styles/Posts.css'
+import Context from "../Context";
+import { useContext } from "react";
 
 
-export default function Posts({ handleOpenEditPost, lastPostsUpdate, view , handleOpenPostpriceModal, handleOpenBuyPostModal}) {
+export default function Posts({ lastPostsUpdate, view, handleOpenBuyPost, handleOpenEditPost, handleOpenDeletePost, handleToggleVisibility, handleToggleOnSalePost}) {
+  const { alert, freeze, unfreeze } = useContext(Context)
 
   const [posts, setPosts] = useState(null)
 
   const handleRefreshPosts = () => {
     try {
+      freeze()
 
-      if(view === 'posts')
+      if(view === 'posts') {
         retrievePosts(context.userId, (error, _posts) => {
+          unfreeze()
+          
           if (error) {
-            alert(error.message)
-            console.log(error)
-
+            alert(error.message, 'error')
+            console.debug(error.stack)
+            
             return
           }
-          console.log('Postsss -> render')
+          console.debug('Postsss -> render')
 
           setPosts(_posts)
         })
-
-      else if(view === 'savedPosts')
+      }
+      
+      else if(view === 'savedPosts') {
         retrieveSavedPosts(context.userId, (error, _posts) => {
+          unfreeze()
+          
           if (error) {
-            alert(error.message)
-            console.log(error)
-
+            alert(error.message, 'error')
+            console.debug(error.stack)
+            
             return
           }
-          console.log('Saved postsss -> render')
+          console.debug('Saved postsss -> render')
           setPosts(_posts)
         })
+      }
 
-      else if(view === 'userPosts')
+      else if(view === 'userPosts') {
         retrieveUserPosts(context.userId, (error, _posts) => {
-          if (error) {
-            alert(error.message)
-            console.log(error)
+          unfreeze()
 
+          if (error) {
+            alert(error.message, 'error')
+            console.debug(error.stack)
+            
             return
           }
-          console.log('Own postsss -> render')
-
+          console.debug('Own postsss -> render')
+          
           setPosts(_posts)
         })
+      }
 
     } catch(error) {
-      alert(error)
-      console.log(error);
+      alert(error.message, 'error')
+      console.debug(error.stack);
     }
   } 
   
   useEffect(() => {
-    console.log('Posts -> "ComponentDidMount" with hooks.');
+    console.debug('Posts -> "ComponentDidMount" with hooks.');
 
-    return () => console.log('Posts -> "ComponentWillUnmount" with hooks.');
+    return () => console.debug('Posts -> "ComponentWillUnmount" with hooks.');
   }, [])
 
   useEffect(() => {
-    console.log('Posts -> "ComponentWillRecieveProps" with hooks.');
+    console.debug('Posts -> "ComponentWillRecieveProps" with hooks.');
     handleRefreshPosts()
 
     if(lastPostsUpdate) {
@@ -75,7 +88,15 @@ export default function Posts({ handleOpenEditPost, lastPostsUpdate, view , hand
   }, [lastPostsUpdate])
 
   return <section className="posts-list">
-    {posts && posts.map(post => ((post.author.id !== context.userId) && !post.visible) ? '' : <Post key={post.id} post={post} handleOpenEditPost={handleOpenEditPost} handleRefreshPosts={handleRefreshPosts} handleOpenPostpriceModal={handleOpenPostpriceModal} handleOpenBuyPostModal={handleOpenBuyPostModal}/>
-    )}
+    {posts && posts.map(post => ((post.author.id !== context.userId) && !post.visible) ? '' : <Post
+      key={post.id}
+      post={post}
+      handleRefreshPosts={handleRefreshPosts}
+      handleOpenEditPost={handleOpenEditPost}
+      handleOpenDeletePost={handleOpenDeletePost}
+      handleToggleVisibility={handleToggleVisibility}
+      handleToggleOnSalePost={handleToggleOnSalePost}
+      handleOpenBuyPost={handleOpenBuyPost}
+    />)}
   </section>
 }

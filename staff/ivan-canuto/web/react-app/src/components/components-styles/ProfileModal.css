@@ -1,17 +1,3 @@
-.profile {
-  padding: 110px 0;
-  width: 100vw;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  align-items: center;
-  background-color: rgba(0, 0, 0, 0.545);
-  position: fixed;
-  top: 0;
-  right: 0;
-  z-index: 20;
-}
-
 .close-changeform-button {
   background: rgb(255, 107, 107);
   border-radius: 10px;

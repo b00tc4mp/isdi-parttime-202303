@@ -1,9 +1,12 @@
 import { createPost } from "../logic/createPost";
 import { context } from "../ui";
-import { useState } from "react";
+import Context from "../Context";
+import { useContext } from "react";
+import Container from "../library/Container";
 
 
 export default function AddPost({ onCancel, onCreatedPost }) {
+  const { alert, freeze, unfreeze } = useContext(Context)
 
   // const [selectedImage, setSelectedImage] = useState(null);
 
@@ -15,7 +18,7 @@ export default function AddPost({ onCancel, onCreatedPost }) {
   //   let file = event.target.files[0]
   //   if(file) {
   //       setSelectedImage(URL.createObjectURL(file))
-  //     console.log(URL.createObjectURL(file))
+  //     console.debug(URL.createObjectURL(file))
   //   } else
   //     setSelectedImage(null)
   // }
@@ -27,11 +30,14 @@ export default function AddPost({ onCancel, onCreatedPost }) {
     const text = event.target.postText.value
 
     try {
+      freeze()
+
       createPost(context.userId, imageUrl, text, (error) => {
-        
+        unfreeze()
+
         if (error) {
-          alert(error.message)
-          console.log(error.stack)
+          alert(error.message, 'error')
+          console.debug(error.stack)
 
           return
         }
@@ -41,18 +47,22 @@ export default function AddPost({ onCancel, onCreatedPost }) {
       })
 
     } catch (error) {
-      alert(error)
-      console.log(error);
+      alert(error.message, 'error')
+      console.debug(error);
     }
   }
 
-  return <div className="add-post container">
-  <form className="add-post-form" onSubmit={handleCreatePost}>
+  return <Container tag='section' className="add-post" onClick={(event) => {
+    if(event.target === document.querySelector('.Container'))
+      onCancel()
+  }}>
+  <form className="add-post_form" onSubmit={handleCreatePost}>
+      <h2>Add form</h2>
       <input className="post-url" type="url" name="postImage" placeholder="URL Image" autoComplete="off" autoFocus/>
       {/* <input className="post-selected-image" type="file" name="postSelectedImage" accept="image/*" onChange={handleImageUpload}/> */}
       <textarea className="post-text" name="postText" placeholder="Post text" cols="30" rows="10"></textarea>
       <button className="button">Create post</button>
       <button className="cancel-button button" type="button" onClick={handleCloseClick}>Canel</button>
   </form>
-</div>
+</Container>
 }

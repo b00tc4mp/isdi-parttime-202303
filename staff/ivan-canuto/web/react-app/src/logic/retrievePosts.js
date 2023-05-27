@@ -37,7 +37,7 @@ export function retrievePosts(userId, callBack) {
               favs: _user.favs
             }
           }
-          // console.log(post);
+          // console.debug(post);
         })
 
         callBack(null, posts.toReversed())

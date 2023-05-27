@@ -3,9 +3,12 @@ import { useState } from "react"
 import deleteComment from "../logic/deleteComment"
 import Comment from "./Comment"
 import './components-styles/Comments.css'
+import Context from "../Context"
+import { useContext } from "react"
 
 
 export default function Comments({ onCloseCommentModal, handleRefreshPosts, post }) {
+  const { alert, freeze, unfreeze } = useContext(Context)
 
   const [addComment, setAddComment] = useState(false)
 
@@ -23,10 +26,14 @@ export default function Comments({ onCloseCommentModal, handleRefreshPosts, post
     const commentText = event.target.commentText.value
 
     try {
+      freeze()
+
       createComment(commentText, post, (error) => {
+        unfreeze()
+        
         if(error) {
-          alert(error.message)
-          console.log(error.stack)
+          alert(error.message, 'error')
+          console.debug(error.stack)
 
           return
         }
@@ -37,17 +44,20 @@ export default function Comments({ onCloseCommentModal, handleRefreshPosts, post
     } catch(error) {
 
       alert(error)
-      console.log(error.stack);
+      console.debug(error.stack);
     }
   }
   
   const handleDeleteComment = (post, commentId) => {
     try{
-      
+      freeze()
+
       deleteComment(post, commentId, (error) => {
+        unfreeze()
+
         if (error) {
-          alert(error)
-          console.log(error.stack)
+          alert(error.message, 'error')
+          console.debug(error.stack)
 
           return
         }
@@ -56,14 +66,12 @@ export default function Comments({ onCloseCommentModal, handleRefreshPosts, post
       })
 
     } catch (error) {
-      alert(error)
-      console.log(error.stack)
+      alert(error.message, 'error')
+      console.debug(error.stack)
     }
   }
 
-  try {
-
-    return <>
+  return <>
     <section className="comment-section">
       <div className="above-comments">
         <div>
@@ -77,10 +85,10 @@ export default function Comments({ onCloseCommentModal, handleRefreshPosts, post
 
       <div className="comments">
         {post.comments && post.comments.map(comment => <Comment
-        key={comment.id}
-        comment={comment}
-        post={post}
-        handleDeleteComment={handleDeleteComment}/>
+          key={comment.id}
+          comment={comment}
+          post={post}
+          handleDeleteComment={handleDeleteComment}/>
         )}
       </div>
       
@@ -98,10 +106,5 @@ export default function Comments({ onCloseCommentModal, handleRefreshPosts, post
       :
       <button className="add-comment_button" onClick={toggleAddComment}>Add comment</button>}
     </section>
-    </>
-
-    } catch(error) {
-      alert(error)
-      console.log(error.stack);
-    }
+  </>
 }

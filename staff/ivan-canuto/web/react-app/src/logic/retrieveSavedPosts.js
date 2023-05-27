@@ -1,6 +1,5 @@
-import { loadPosts } from "../data"
+import { findUserById, loadPosts, loadUsers } from "../data"
 import { validateCallback, validateId } from "./helpers/validators"
-import retrieveUser from "./retrieveUser"
 
 /**
  * Retrieves the saved posts form database
@@ -11,29 +10,37 @@ import retrieveUser from "./retrieveUser"
 */
 
 export function retrieveSavedPosts(userId, callBack) {
-  
+
   validateId(userId, 'user id')
   validateCallback(callBack)
-  
-  retrieveUser(userId, (error, user) => {
+  findUserById(userId, (user) => {
 
-    if (error) {
-      alert(error.message)
-      console.log(error.stack)
+    if (!user) {
+      alert('User not found.')
 
       return
     }
 
-    loadPosts(posts => {
-
-      let savedPostsApp
+    loadUsers(users => {
+      loadPosts(posts => {
       
-      if(!user.favs)
-        savedPostsApp = []
-      else
-        savedPostsApp = posts.filter(post => user.favs.includes(post.id))
-    
-      callBack(null, savedPostsApp.toReversed())
+        posts.forEach(post => {
+          
+          const _user = users.find(user => user.id === post.author)
+          
+          if(_user) {
+            post.author = {
+            id: _user.id,
+            name: _user.name,
+            avatar: _user.avatar,
+            favs: _user.favs
+            }
+          }
+        })
+        const savedPosts = posts.filter(post => user.favs.includes(post.id))
+
+        callBack(null, savedPosts.toReversed())
+      })
     })
   })
 }

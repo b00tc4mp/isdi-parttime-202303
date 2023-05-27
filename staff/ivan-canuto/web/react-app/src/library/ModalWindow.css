@@ -1,0 +1,12 @@
+.ModalWindow {
+  height: 200px;
+  width: 300px;
+  padding: 15px;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  text-align: center;
+  border-radius: 20px;
+}

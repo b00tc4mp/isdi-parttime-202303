@@ -11,6 +11,10 @@ body {
   padding: 0;
 }
 
+body::-webkit-scrollbar {
+  display: none;
+}
+
 /* styles */
 
 :root {
@@ -108,10 +112,10 @@ html, body {
   position: fixed;
   top: 0;
   right: 0;
-  z-index: 30;
+  z-index: 100;
 }
 
-.add-post-form, .edit-post-form, .set-postprice-form, .buy-post-form, .add-comment_form {
+.add-post_form, .set-postprice-form, .buy-post-form, .add-comment_form {
   background: white;
   padding: 20px;
   border-radius: 20px;
@@ -121,6 +125,25 @@ html, body {
   gap: 10px;
   position: fixed;
   bottom: 150px;
+}
+
+.add-post_form h2 {
+  margin: 0;
+}
+
+.edit-post_form {
+  height: 300px;
+}
+
+.edit-post_form div {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.edit-form_text {
+  margin: 0;
 }
 
 .set-postprice-form, .buy-post-form {

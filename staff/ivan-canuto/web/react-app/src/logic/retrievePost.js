@@ -19,7 +19,7 @@ export default function retrievePost(userId ,postId, callBack) {
   retrievePosts(userId, (error, _posts) => {
     if (error) {
       alert(error)
-      console.log(error)
+      console.debug(error)
 
       return
     }

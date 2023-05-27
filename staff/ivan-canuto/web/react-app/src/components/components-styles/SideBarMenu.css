@@ -4,7 +4,7 @@
   font-size: xx-large;
 }
 
-.menu {
+.sidebar-menu {
   margin: -2px -2px 0 0;
   background-color: var(--basebgcolor);
   display: flex;
@@ -12,28 +12,42 @@
   padding: 10px;
   border-right: 2px solid black;
   height: 80vh;
-  min-width: 150px;
   width: 18%;
   min-width: 175px;
   list-style-position: inside;
   position: fixed;
   left: 0;
   top: 120px;
+  animation: slide 0.3s linear forwards;
+}
+
+.closed {
+  animation: slide-back 0.3s linear forwards;
+}
+
+@keyframes slide {
+  0% { left: -300px }
+  100% { left: 0 }
+}
+
+@keyframes slide-back {
+  0% { left: 0 }
+  100% { left: -300px }
 }
 
 @media (min-width: 634px) {
-  .menu {
+  .sidebar-menu {
     top:78px
   }
 }
 
-.menu li {
+.sidebar-menu li {
   cursor: pointer;
   padding: 10px 5px;
   margin: 0;
   font-size: 17px;
 }
 
-.menu li:hover {
+.sidebar-menu li:hover {
   background: rgb(216, 216, 216);
 }
