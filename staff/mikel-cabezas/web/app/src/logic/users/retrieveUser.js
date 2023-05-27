@@ -15,8 +15,7 @@ export default function retrieveUser (userId, callback) {
             image: user.image,
             likedPosts: user.likedPosts
         }        
-        console.log(user)
-        callback(_user)
+        callback(null, _user)
     })
 
 }

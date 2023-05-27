@@ -1,7 +1,6 @@
-
 import { saveUser, savePost, findUserById } from '../../data.js'
 import { validateId, validatePost, validateLikePostIconTarget, validateTotalPostLikesTarget } from '../helpers/validators.js'
-export function savePostToFavorites(article, userId, user) {
+export function savePostToFavorites(article, userId, user, callback) {
     validateId(userId)
     const indexFavPost = user.likedPosts.findIndex(post => post === article.id)
     const findFavPost = user.likedPosts.find(post => post === article.id)
@@ -13,14 +12,10 @@ export function savePostToFavorites(article, userId, user) {
             user.likedPosts.push(article.id)
         }
     }
-    saveUser(user, error => {
-        if(!user) {
-            alert('User not found')
-        }
-    })
+    saveUser(user, () => callback(null))
 }
 
-export function userLikedPost(userId, article, likePostIcon, totalPostLikes) {
+export function userLikedPost(userId, article, callback) {
     validateId(userId)
     validatePost(article.id)
     validateLikePostIconTarget(article.id)
@@ -33,5 +28,8 @@ export function userLikedPost(userId, article, likePostIcon, totalPostLikes) {
     } else {
         article.likes.push(userId)
     }
-    savePost(article)
+    savePost(article, () => callback(null))
 }
+
+// TODO 
+// usar logicas para retrieve user y post

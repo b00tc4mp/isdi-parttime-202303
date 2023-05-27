@@ -4,9 +4,9 @@ import AddPostModal from "../components/AddPostModal"
 import { EditPostModal } from "../components/EditPostModal"
 import Profile from "../components/UserProfilePanel"
 import Header from "../components/Header"
-import { findUserById } from "../data"
 import { context } from "../ui"
 import './Home.css'
+import retrieveUser from "../logic/users/retrieveUser"
 
 export default function Home( {onLogoutClick, onUserProfile, onSetThemeClick} ) {
         const [view, setView] = useState('posts')
@@ -18,14 +18,18 @@ export default function Home( {onLogoutClick, onUserProfile, onSetThemeClick} ) 
         const userId = context.userId
 
         useEffect(() => {
-            findUserById(userId, (error, user) => {
-                if(!user) {
-                    callback(new Error ('user not found'))
-        
-                    return
-                }
-                setUser(user)
-            })
+            try {
+                retrieveUser(userId, (error, user) => {
+                    if(error) {
+                        alert(error.message)
+            
+                        return
+                    }
+                    setUser(user)
+                })
+            } catch(error) {
+                alert(error.message)
+            }
         }, [])
 
             const handleAddPost = () => setModal('add-post')

@@ -15,19 +15,14 @@ export default function UserImage({ userId }) {
 
     useEffect(() => {
         try {
-            findUserById(userId, (error, user) => {
-                if(!userId) {
-                    throw new Error('Invalid userId')
-                }
+            retrieveUser(userId, (error, user) => {
+
                 if (error) {
                     alert(error.message)
 
                     return
                 }
-                setTimeout(() => {
-                    
                     setUser(user)
-                }, 1000);
             })
         } catch (error) {
             alert(error.message)

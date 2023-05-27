@@ -12,8 +12,22 @@ export default function AddPostModal({ onCancel, onCreateNewPost }) {
         const userId = context.userId
         const title = document.querySelector('.create-post input.title').value
         const text = document.querySelector('.create-post textarea').value
-        createPost(userId, newImage, title, text) 
-        onCreateNewPost()
+
+        try {
+            createPost(userId, newImage, title, text, error => {
+                if(error) {
+                    alert(error.message)
+                
+                    return
+                }
+                
+                onCreateNewPost()
+            }) 
+            
+        } catch(error) {
+            alert(error.message)
+        }
+
     }
 
     function handleConvertImageToBase64() {
