@@ -7,6 +7,7 @@ import EditPostModal from '../components/EditPostModal.jsx'
 import retrieveUser from '../logic/retrieveUser'
 import { useContext } from 'react'
 import Context from '../components/Context.js'
+import Container from '../library/Container.jsx'
 
 
 export default function Home({ onLoggedOut }) {
@@ -99,7 +100,7 @@ export default function Home({ onLoggedOut }) {
 
         </header>
 
-        <main>
+        <Container tag="main">
             {view === 'posts' && < Posts 
             onEditPost={handleOpenEditPostModal} 
             lastPostsUpdate={lastPostsUpdate} 
@@ -119,7 +120,7 @@ export default function Home({ onLoggedOut }) {
                 postId={postId}
             />}
 
-        </main>
+        </Container>
 
         <footer className="home-footer">
             <button className="add-post-button" onClick={handleOpenAddPostModal}>+</button>

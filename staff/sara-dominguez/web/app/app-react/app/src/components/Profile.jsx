@@ -2,11 +2,12 @@ import { context } from "../ui"
 import {updateUserAvatar} from "../logic/updateUserAvatar"
 import { useContext } from 'react'
 import Context from '../components/Context.js'
+import Container from '../library/Container.jsx'
 
 export default function Profile ({onUserAvatarUpdated}) {
     console.debug('profile->render')
     
-    const { alert } = useContext(Context)
+    const { alert, freeze, unfreeze } = useContext(Context)
     
     const handleUpdateAvatar = (event) => {
         event.preventDefault()
@@ -14,7 +15,9 @@ export default function Profile ({onUserAvatarUpdated}) {
         const avatarUrl= event.target.avatarUrl.value
 
         try {
+            freeze()
             updateUserAvatar(context.userId, avatarUrl, error => {
+                unfreeze()
                 if (error) {
                     alert(error.message)
 
@@ -29,7 +32,7 @@ export default function Profile ({onUserAvatarUpdated}) {
         }
     }
 
-    return  <div className="profile-edit">
+    return  <Container className="profile-edit">
         <div>
             <h3><a href="" className="updateAvatar">Update Avatar</a></h3>
             <form className="profile-edit-avatar-form" onSubmit={handleUpdateAvatar}>
@@ -47,5 +50,5 @@ export default function Profile ({onUserAvatarUpdated}) {
                 </form>
             </div>
         </div>
-    </div>
+    </Container>
 }

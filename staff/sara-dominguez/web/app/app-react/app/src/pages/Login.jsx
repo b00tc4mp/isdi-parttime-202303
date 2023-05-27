@@ -1,12 +1,32 @@
 import { context } from '../ui.js'
 import { authenticateUser } from '../logic/authenticateUser.js'
-import { useContext } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import Context from '../components/Context.js'
+import retrieveRandomMotivationalQuote from '../logic/retrieveRandomMotivationalQuote.js'
+import Container from '../library/Container.jsx'
 
 export default function Login({ onRegisterClick, onUserLoggedIn }) {
     console.debug('Login->render')
-    
+
     const { alert } = useContext(Context)
+    const [quote, setQuote] = useState(null)
+
+    useEffect(() => {
+        try {
+            retrieveRandomMotivationalQuote((error, quote) => {
+                if (error) {
+                    alert(error.message)
+
+                    return
+                }
+
+                setQuote(quote)
+            })
+        } catch (error) {
+            alert(error.message)
+        }
+    },[])
+
 
     function handleRegisterClick(event) {
         event.preventDefault()
@@ -39,13 +59,15 @@ export default function Login({ onRegisterClick, onUserLoggedIn }) {
 
     }
 
-    return <div className="login container" >
+    return <Container tag="main">
         <h1>Login</h1>
+        {quote && <p>{quote.author}, <q>{quote.content}</q></p>}
         <form className="login-form" onSubmit={handleLogin}>
             <input className="login-input" type='text' name='email' placeholder='email' />
             <input className="login-input" type='text' name='password' placeholder='password' />
             <button className="login-button" type="submit">Enter</  button>
         </form>
         <p className="login-text-goToRegister"> <a href="" onClick={handleRegisterClick}> Go to register</a></p>
-    </div>
+    </Container>
 }
+

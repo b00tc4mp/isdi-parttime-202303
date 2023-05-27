@@ -1,6 +1,7 @@
 import { registerUser } from "../logic/registerUser.js"
 import { useContext } from 'react'
 import Context from '../components/Context.js'
+import Container from "../library/Container.jsx"
 
 export default function Register({ onLoginClick, onUserRegistered }) {
     console.debug('Register->render')
@@ -37,7 +38,7 @@ export default function Register({ onLoginClick, onUserRegistered }) {
         }
     }
 
-    return <div className="register container">
+    return <Container tag="main">
         <h1>Register</h1>
         <form className="register-form" onSubmit={handleRegister}>
             <input className="register-input" type='text' name='name' placeholder='name' />
@@ -46,6 +47,7 @@ export default function Register({ onLoginClick, onUserRegistered }) {
             <button className="register-button" type="submit">Register</button>
         </form>
         <p className="register-text-goToLogin"><a href="" onClick={handleLoginClick}> Go to login</a></p>
-    </div>
+    </Container>
 
 }
+

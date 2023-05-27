@@ -4,24 +4,29 @@ import deletePost from '../logic/deletePost'
 import toggleFavPost from '../logic/toggleFavPost'
 import { useContext } from 'react'
 import Context from '../components/Context.js'
+import Container from '../library/Container.jsx'
 
-export default function Post({ post: { id, image, text, date, likes, author , fav }, onEditPost, onToggledLikePost, onPostDeleted, onToggledSavePost }) {
-    const { alert } = useContext(Context)
-    
+export default function Post({ post: { id, image, text, date, likes, author, fav }, onEditPost, onToggledLikePost, onPostDeleted, onToggledSavePost }) {
+    const { alert, freeze, unfreeze } = useContext(Context)
+
     const handleEditPost = () => onEditPost(id)
 
     const handleToggleLikePost = () => {
         try {
+            freeze()
             toggleLikePost(context.userId, id, error => {
+                unfreeze()
+                
                 if (error) {
                     alert(error.message)
 
+
                     return
                 }
-                
+
                 onToggledLikePost()
             })
-            
+
         } catch (error) {
             alert(error.message)
         }
@@ -29,7 +34,9 @@ export default function Post({ post: { id, image, text, date, likes, author , fa
 
     const handleDeletePost = () => {
         try {
+            freeze()
             deletePost(context.userId, id, error => {
+                unfreeze()
                 if (error) {
                     alert(error.message)
 
@@ -45,7 +52,9 @@ export default function Post({ post: { id, image, text, date, likes, author , fa
 
     const handleToggleSavePost = () => {
         try {
+            freeze()
             toggleFavPost(context.userId, id, error => {
+                unfreeze()
                 if (error) {
                     alert(error.message)
 
@@ -69,6 +78,6 @@ export default function Post({ post: { id, image, text, date, likes, author , fa
         <button onClick={handleToggleLikePost}>{likes.includes(context.userId) ? '❤️' : '🤍'} {likes ? likes.length : 0}</button>
         {author.id === context.userId && <button onClick={handleEditPost}>📝</button>}
         {author.id === context.userId && <button onClick={handleDeletePost}>🗑</button>}
-        <button onClick={handleToggleSavePost}>{fav? '⭐️' : '✩'}</button>
+        <button onClick={handleToggleSavePost}>{fav ? '⭐️' : '✩'}</button>
     </article>
 }

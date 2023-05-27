@@ -14,6 +14,7 @@ body{
 .home {
   padding-top: 4rem;
   padding-bottom: 4rem;
+
 }
 
 /*library*/
@@ -25,13 +26,7 @@ body{
 }
 
 
-.container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: .5rem;
-}
+
 
 .register, .login {
   height: 100%;
@@ -109,6 +104,7 @@ a {
 
 .home-header{
   top: 0;
+
 }
 
 .home-footer{
@@ -130,6 +126,10 @@ a {
   border-radius: 50%;
   background-color: transparent;
  
+}
+
+.home-header-title {
+  cursor: pointer;
 }
 .logout {
   margin-right: 2rem;
@@ -172,4 +172,11 @@ a {
   background-color: var(--basebluecolor);
   color: var(--basewhitecolor)
 }
-
+.modal {
+  position: fixed;
+  top: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(0, 0, 0, 0.545);
+  z-index: 10;
+}
