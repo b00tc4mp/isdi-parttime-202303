@@ -4,13 +4,6 @@ import { writeFile } from 'fs/promises'
 import { Warrior } from './characters.mjs';
 import { renderMenu, renderOptions, renderGame, renderActionsMenu, renderAction, renderLostGame, renderWonGame } from './renders.mjs';
 
-// TEXT SAVE - LOGGER
-//const fs = require('fs')
-
-let result = ''
-
-
-
 // KEY MANAGEMENT
 //const readline = require('readline');
 
@@ -41,7 +34,6 @@ rl.input.on('keypress', (key, data) => {
         } else if (menuSelection === 2) process.exit()
 
     } else if (data.name === 'k' && game) {
-        result = 'k pressed in game'
         if (menuSelection === 0 && playerTurn && !playerAction) {
             playerAction = 'attack'
             menuSelection = 0
@@ -53,10 +45,14 @@ rl.input.on('keypress', (key, data) => {
         } else if (menuSelection === 1 && playerTurn && !playerAction) {
             playerAction = 'special attack'
             menuSelection = 0
+            resolveAction(megalodon, kraken, playerAction)
+            megalodon.reset('damage')
 
         } else if (menuSelection === 2 && playerTurn && !playerAction) {
             playerAction = 'heal'
             menuSelection = 0
+            resolveAction(megalodon, kraken, playerAction)
+            megalodon.reset('heal')
 
         } else if (menuSelection === 0 && playerTurn && playerAction) {
             playerAction = ''
@@ -66,6 +62,7 @@ rl.input.on('keypress', (key, data) => {
             determineEnemyAction()
             resolveAction(kraken, megalodon, enemyAction)
             kraken.reset('damage')
+            kraken.reset('heal')
             //
         } else if (menuSelection === 0 && enemyTurn && enemyAction) {
             enemyAction = ''
@@ -83,7 +80,6 @@ rl.input.on('keypress', (key, data) => {
     }
 
     refreshScreen()
-    console.log('Key Pressed:', key)
 });
 
 
@@ -126,7 +122,6 @@ const resolveAction = (attacker, defender, action) => {
     }
 
     if (attacker.hp <= 0 || defender.hp <= 0) {
-        game = false
         endGame = true
         playerAction = ''
         enemyAction = ''
@@ -141,40 +136,29 @@ const refreshScreen = () => {
     else if (game) {
         renderGame(megalodon, kraken)
         if (playerTurn && !playerAction && megalodon.hp > 0) renderActionsMenu(megalodon)
-        else if (playerTurn && playerAction && megalodon.hp > 0 && kraken.hp > 0){
-            // resolveAction(megalodon, kraken, playerAction)
-            // megalodon.reset('damage')
+        else if (playerTurn && playerAction && megalodon.hp > 0 && kraken.hp > 0) {
             renderAction(megalodon, kraken, playerAction, damage, amountHealed)
         } else if (enemyTurn && kraken.hp > 0 && megalodon.hp > 0) {
-            // determineEnemyAction()
-            // resolveAction(kraken, megalodon, enemyAction)
-            // kraken.reset('damage')
             renderAction(kraken, megalodon, enemyAction, damage, amountHealed)
         }
-        
+
         if (endGame && megalodon.hp <= 0 && kraken.hp > 0) {
             console.clear()
             renderLostGame()
             megalodon.reset('hp')
             kraken.reset('hp')
+            game = false
+
         }
         else if (endGame && kraken.hp <= 0 && megalodon.hp > 0) {
             console.clear()
             renderWonGame()
             megalodon.reset('hp')
             kraken.reset('hp')
+            game = false
+
         }
     }
-
-    console.log(menuSelection)
-
-    writeFile('/Users/Arnau/workspace/isdi-parttime-202303/staff/arnau-ciriquian/fullstack/game/logger.txt', result, err => {
-        if (err) {
-            console.error(err)
-        }
-    })
-
-    result = ''
 }
 
 refreshScreen()

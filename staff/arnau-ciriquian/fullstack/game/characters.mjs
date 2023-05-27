@@ -10,7 +10,7 @@ export class Warrior extends Character {
     super() {
         this.dmg = 100
         this.heal = 50
-        this.hp = 1000
+        this.hp = 500
     }
 
     attack() {
@@ -30,6 +30,7 @@ export class Warrior extends Character {
 
     reset(stat) {
         if (stat === 'damage') this.dmg = 100
-        if (stat === 'hp') this.hp = 1000
+        if (stat === 'heal') this.heal = 50
+        if (stat === 'hp') this.hp = 500
     }
 }
