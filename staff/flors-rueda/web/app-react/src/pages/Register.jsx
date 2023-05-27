@@ -1,11 +1,13 @@
 import { registerUser } from '../logic/register-user';
 import inLogger from '../inLogger';
 import Context from '../Context';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
+import Loader from '../components/loader/Loader';
 
 
 const Register = ({ onLoginClick, onUserRegistered }) => {
     const { alert } = useContext(Context);
+    const [isLoading, setIsLoading] = useState(false);
     
     const handleLoginClick = (event) => {
         event.preventDefault();
@@ -14,7 +16,7 @@ const Register = ({ onLoginClick, onUserRegistered }) => {
 
     const handleRegister = (event) => {
         event.preventDefault();
-
+        setIsLoading(true)
         const mail = event.target.mail.value;
         const username = event.target.username.value;
         const password = event.target.password.value;
@@ -28,11 +30,17 @@ const Register = ({ onLoginClick, onUserRegistered }) => {
                 }
                 onUserRegistered();
                 alert(`${username}, your account has been created. You can sign in now!`, 'success');
+                setIsLoading(false)
             });
         } catch (error) {
             alert(`register error: ${error.message}`, 'danger');
+            setIsLoading(false);
         }
     }
+
+    if (isLoading) {
+        return <Loader />;
+      }
   
     return <section className="login-page">
                 <section className="login-page__register">

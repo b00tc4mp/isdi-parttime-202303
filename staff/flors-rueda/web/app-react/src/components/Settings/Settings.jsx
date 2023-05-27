@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import AvatarForm from '../forms/AvatarForm';
 import MailForm from '../forms/MailForm';
 import NameForm from '../forms/NameForm';
@@ -7,20 +7,36 @@ import DeleteForm from '../forms/DeleteForm';
 import './Settings.css';
 import { svg } from '../../../public/svg-paths';
 import inLogger from '../../inLogger';
+import Loader from '../loader/Loader';
+import Context from '../../Context';
 
 const Settings = ({ onAvatarChange, onDeleteAccount, user }) => {
-
-    //TODO fix all problems with async forms
-
+    const { alert } = useContext(Context);
     const [selectedOption, setSelectedOption] = useState(null);
     const [selectedAvatar, setSelectedAvatar] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleOptionSelect = (option) => {
-        setSelectedOption(selectedOption === option ? null : option);
+        setIsLoading(true)
+        try {
+            setSelectedOption(selectedOption === option ? null : option);
+            setIsLoading(false)
+        } catch (error) {
+            alert(error)
+            setIsLoading(false)
+        } 
     };
 
     const handleOnSaveClick = () => {
-        setSelectedOption(null);
+        setIsLoading(true)
+        try {
+            setSelectedOption(selectedOption === option ? null : option);
+            setIsLoading(false)
+        } catch (error) {
+            alert(error)
+            setIsLoading(false)
+        } 
+        
     }
 
     const handleAvatarChange = (selectedAvatar) => {
@@ -49,6 +65,10 @@ const Settings = ({ onAvatarChange, onDeleteAccount, user }) => {
 
         }
     };
+
+    if(isLoading) {
+        return <Loader />
+    }
 
     return  <section className="profile-settings">
             <h1 className="profile-settings__title">What do you want to change?</h1>

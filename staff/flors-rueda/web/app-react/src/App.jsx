@@ -10,7 +10,7 @@ import Context from './Context';
 
 const App = () => {
   const [view, setView] = useState(context.userAuth ? 'home' : 'login');
-  const [feedback, setFeedback] = useState(null)
+  const [feedback, setFeedback] = useState(null);
 
   const handleGoToRegister = () => setView('register');
   const handleGoToLogin = () => setView('login');
@@ -18,7 +18,7 @@ const App = () => {
 
   const handleCloseAlert = () => setFeedback(null)
 
-  const handleShowAlert = (message, level = 'info') => setFeedback({ message, level })
+  const handleShowAlert = (message, level = 'info') => setFeedback({ message, level });
 
   let storedTheme = context.theme || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
   if (storedTheme) document.documentElement.setAttribute('data-theme', storedTheme);
@@ -28,7 +28,7 @@ const App = () => {
     let targetTheme =  currentTheme === 'light' ? 'dark' : 'light';
     document.documentElement.setAttribute('data-theme', targetTheme);
     context.theme = targetTheme;
-  } 
+  }
 
   return <Context.Provider value={{ alert: handleShowAlert }}> <>
         {view === 'login' && <Login onRegisterClick={handleGoToRegister} onUserLoggedIn={handleGoToHome} />}

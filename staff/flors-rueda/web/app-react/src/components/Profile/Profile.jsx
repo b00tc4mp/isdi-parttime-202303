@@ -7,6 +7,7 @@ import { retrieveUser } from '../../logic/retrieve-user';
 import inLogger from '../../inLogger';
 import Context from '../../Context';
 import { context } from '../../ui';
+import Loader from '../loader/Loader';
 
 const Profile = ({ userId, onEditPost, onDeleteAccount }) => {
   const { alert } = useContext(Context);
@@ -38,7 +39,7 @@ const Profile = ({ userId, onEditPost, onDeleteAccount }) => {
   }, [userId]);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Loader />;
   }
 
   try {
