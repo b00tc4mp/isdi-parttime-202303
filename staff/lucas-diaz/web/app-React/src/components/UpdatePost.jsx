@@ -10,8 +10,13 @@ export default function UpdatePost({ postId  ,onUpdatedPost, onCancelClick }) {
 
     useEffect(() => {
         try {
-            retrievePostByPostId(context.userId, postId, post => {
+            retrievePostByPostId(context.userId, postId, (error, post) => {
+                if (error){
+                    alert(error.message);
+                    return;
+                }
                 setPost(post)
+                
             });
         } catch (error) {
             alert(error.message);

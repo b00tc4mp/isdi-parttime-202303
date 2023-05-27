@@ -4,6 +4,7 @@ import { findPostByPostId, findUserById } from "../data";
 export default function retrievePostByPostId (userId, postId, callback){
     validateId(userId);
 
+    
     findUserById(userId, foundUser => {
         if (!foundUser) {
             callback(new Error (`there is no user with this current ${userId} id`));
@@ -12,8 +13,10 @@ export default function retrievePostByPostId (userId, postId, callback){
         
 
         findPostByPostId(postId, foundPost => {
-            callback(foundPost);
+            callback(null, foundPost);
         })
     })
-    
 }
+
+
+
