@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>saraApp</title>
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+   
+
+
+    <div class="register off">
+
+        <!--TODO implement register page-->
+ 
+        <!---->
+        <h1>Register</h1>
+            <form class="register-form">
+                <input class="register-input" type='text' name='name' placeholder='name'>
+                <input class="register-input" type='text' name='email' placeholder='email'>
+                <input class="register-input" type='text' name='password' placeholder='password'>
+                <button class="register-button" type="submit">Register</button>
+            </form>
+
+            <button class="register-button-goToLogin">Go to <a href="">login</a></button>
+            
+    </div>
+    
+
+
+    <!--TODO implement login page-->
+
+    <div class="login" >
+        <h1>Login</h1>
+       
+            <form class="login-form">
+                <input class="login-input" type='text' name='email' placeholder='email'>
+                <input class="login-input" type='text' name='password' placeholder='password'>
+                <button class="login-button" type="submit">Enter</button>
+            </form>
+            <button class="login-button-goToRegister">Go to <a href="">register</a></button>
+            
+       
+    </div>
+    
+
+    <!--TODO implement home page-->
+    <div class="home off">
+        <h6>Hello, username</h6>
+     
+        <div class="home-menu">
+            <button class="home-menu-myprofile-button"><a href="">My Profile</a></button>
+            <div class="home-profile-edit off">
+                <button><a href="">Update password</a></button>
+                    <div class="home-profile-edit-password off">
+                        <form class="home-profile-edit-password-form">
+                            <input type="text" name='password' placeholder='Enter your password'>
+                            <input type="text" name='new-password' placeholder='Enter new password'>
+                            <input type="text" name='confirm-new-password' placeholder='Confirm new password'>
+                            <button class="home-profile-edit-password-form-button" type="submit">Confirm changes</button>
+                        </form>
+                    </div>
+            </div>
+
+
+        </div>
+        
+       
+    </div>
+    
+    <script src="scripts/data.js"></script>
+    <script src="scripts/logic.js"></script>
+    <script src="scripts/main.js"></script>
+</body>
+</html>
