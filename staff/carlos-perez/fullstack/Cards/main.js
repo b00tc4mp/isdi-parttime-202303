@@ -4,6 +4,8 @@ let option=0;
 let turns=0;
 const cards = ['1','2','3','4','5','6','7','8','9','J','Q','K'];
 let board=[];
+let hiddenBoard=[];
+let stateBoard=[];
 
 function shuffleArray(array) {
     for (var i = array.length - 1; i > 0; i--) {
@@ -14,18 +16,24 @@ function shuffleArray(array) {
     }
 }
 
-const generateBoard = () =>{
+const generateBoards = () =>{
 board=cards.concat(cards);
 shuffleArray(board);
+for(let i=0; i<board.length; i++){
+    hiddenBoard.push('#');
+    stateBoard.push(0);
+}
 }
 
 const game = () =>{
-    generateBoard();
+    generateBoards();
     console.log(board);
-    renderGame();
+    renderBoard();
+    renderGameBoard();
+    renderStateBoard();
 }
 
-const renderGame = () =>{
+const renderBoard = () =>{
 //Show board 
 console.log('* * A B C D *');
 console.log('* * * * * * *')
@@ -38,12 +46,46 @@ for(let i=0; i<6; i++){
     console.log(row);
 }
 console.log('* * * * * * *');
+console.log('');
 }
 
-const moveGame = () =>{
-//Ask for the next card to show
-//Check, if it's the second one, if it's the same card. If true, show them. If false, 
+const renderGameBoard = ()=>{
+    console.log('* * A B C D *');
+    console.log('* * * * * * *')
+    for(let i=0; i<6; i++){
+        let row =(i+1)+' * ';
+        for(let j=0; j<4; j++){
+            row+=hiddenBoard[(i*4)+j]+' ';
+        }
+        row+='*';
+        console.log(row);
+    }
+    console.log('* * * * * * *'); 
+    console.log('');
+}
+
+const renderStateBoard = () => {
+    console.log('* * A B C D *');
+    console.log('* * * * * * *')
+    for(let i=0; i<6; i++){
+        let row =(i+1)+' * ';
+        for(let j=0; j<4; j++){
+            row+=stateBoard[(i*4)+j]+' ';
+        }
+        row+='*';
+        console.log(row);
+    }
+    console.log('* * * * * * *'); 
+    console.log('');
+}
+
+
+const turn = () =>{
+//Ask for the next cards to show.
+//Check if the cards are available, if not, return error message and reset turn
+//Check, if it's the second one, if it's the same card. If true, show them. If false, reset turn
 //Anotate one more turn
+
 }
 
 
