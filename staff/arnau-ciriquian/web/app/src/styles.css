@@ -36,6 +36,12 @@ main {
   --postcolor: rgb(244, 194, 165);
 }
 
+:root.dark {
+  --textcolor: rgb(0, 0, 0);
+  --pagecolor: rgb(105, 67, 67);
+  --postcolor: rgb(196, 114, 67);
+}
+
 .off {
   display: none !important;
 }

@@ -1,7 +1,21 @@
+import { useState } from "react"
 import deleteAccount from "../logic/deleteAccount"
-import { context } from "../ui"
+import { context, getTheme, setTheme } from "../ui"
 
 export default function Profile({ onExitProfileClick, onGoToUpdateAvatarClick, onGoToUpdateEmailClick, onGoToUpdateUsernameClick, onGoToUpdatePasswordClick, onDeleteAccountClick, onGoToFavoriteFeed, onGoToMainFeed }) {
+    //
+    const [dark, setDark] = useState(getTheme() === 'dark')
+
+    const handleToggleDarkMode = () => {
+        const dark = getTheme() === 'light'
+
+        const theme = dark ? 'dark' : 'light'
+
+        setTheme(theme)
+        setDark(dark)
+    }
+    //
+
     const handleExitProfile = () => onExitProfileClick()
     
     const handleGoToUpdateAvatar = () => onGoToUpdateAvatarClick()
@@ -39,6 +53,7 @@ export default function Profile({ onExitProfileClick, onGoToUpdateAvatarClick, o
 
     return <div className="modal">
         <div className="home__profile page">
+            <button className="dark-mode" href="" onClick={handleToggleDarkMode}>Dark mode</button>
             <h2 className="text profile__user">My feed</h2>
             <button className="profile__anchor--avatar" href="" onClick={handleGoToMainFeed}>Main Feed</button>
             <button className="profile__anchor--avatar" href="" onClick={handleGoToFavoriteFeed}>Favs</button>

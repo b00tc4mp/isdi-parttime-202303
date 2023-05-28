@@ -54,17 +54,21 @@ export default function Post({ post: { image, text, date, likes, author, id, fav
     const handleOpenEditModal = () => onEditClick(id)
 
     const handleDeletePost = () => {
-        try {
-            deletePost(context.userId, id, error => {
-                if (error) {
-                    alert(error.message)
+        const confirmation = confirm('Are you sure that you want to delete this post? This action cannot be undone!')
 
-                    return
-                }
-                onDeletePostClick()
-            })
-        } catch (error) {
-            alert(error.message)
+        if (confirmation) {
+            try {
+                deletePost(context.userId, id, error => {
+                    if (error) {
+                        alert(error.message)
+
+                        return
+                    }
+                    onDeletePostClick()
+                })
+            } catch (error) {
+                alert(error.message)
+            }
         }
     }
 
