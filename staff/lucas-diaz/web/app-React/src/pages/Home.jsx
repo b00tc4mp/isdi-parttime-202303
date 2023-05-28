@@ -15,7 +15,7 @@ export default function Home({ onLogOutClick }) {
     const [user, setUser] = useState();
     const [avatar, setAvatar] = useState(null)
 
-    
+
     useEffect(() => {
         try {
             retrieveUser(context.userId, (error, user) => {
@@ -81,7 +81,7 @@ export default function Home({ onLogOutClick }) {
     //? SAVE POSTS 
     const handleFooterFavButtonClick = () => setView("savedPosts")
 
-    
+
     console.log("Home -> render")
 
     return <div className="home">
