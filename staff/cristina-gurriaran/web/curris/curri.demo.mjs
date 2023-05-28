@@ -62,7 +62,12 @@ b.length++
 // console.log(b.pop())
 // console.log(b)
 
-console.log(b.push('10'))
-console.log(b)
+// console.log(b.push('10'))
+// console.log(b)
 
+// const sumWithInitial = (accumulator, currentValue, initialValue) => {
+//     accumulator + currentValue + initialValue}
 
+// console.log(b.reduce(sumWithInitial))
+
+console.log(b.reverse())

@@ -5,7 +5,7 @@ import './Profile.css'
 import { useContext } from "react"
 import Context from '../Context'
 import FavPosts from "./FavPosts"
-import { useState, useEffect} from "react"
+import { useState } from "react"
 
 
 export default function Profile({ onUserAvatarUpdated, onUpdatedUserPassword }) {

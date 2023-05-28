@@ -125,6 +125,47 @@ export class Curri {
         return this.length
     }
 
+    reduce = function(callback, initialValue){
+        let start
+        let accumulator
+      
+        if(initialValue === undefined) 
+        accumulator = this[0]
+        else 
+        accumulator = initialValue
+        
+        if(initialValue === undefined)
+        start = 1
+        else 
+        start = 0
+        
+        for (let i = start; i < this.length; i++){
+         accumulator = callback(accumulator, this[i])
+         this.length++
+        }
+        
+        return accumulator
+    }
+    
+    reverse = function(){
+        let newCurri = new Curri
+        let index = 0
+       
+    
+        for (let i = this.length-1; i >= 0; --i){
+            newCurri[index] = this[i]
+            index++
+            newCurri.length++
+        }
+    
+        for (let i = 0; i < newCurri.length; i++){
+            this[i] = newCurri[i]
+           
+        }
+        
+        return this
+    }
+
 }
 
 

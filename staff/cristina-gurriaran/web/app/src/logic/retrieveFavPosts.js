@@ -1,5 +1,5 @@
 import { validateId, validateCallback } from './helpers/validators'
-import { findUserById, loadPosts, loadUsers } from '../data'
+import { findUserById, loadPosts } from '../data'
 
 
 

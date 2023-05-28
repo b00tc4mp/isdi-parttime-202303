@@ -60,7 +60,7 @@ export default function Post({ post: { id, image, location, title, text, date, l
     }
 
     console.log('Post -> render')
-    
+     
     return <article className='post-container'>
       
         <img className='post-image' src={image} />
