@@ -1,9 +1,21 @@
 // IMPORTS
 import readline from 'readline'
-import { writeFile } from 'fs/promises'
+import { appendFile } from 'fs/promises'
 import { Warrior } from './characters.mjs';
 import { renderMenu, renderOptions, renderGame, renderActionsMenu, renderAction, renderLostGame, renderWonGame } from './renders.mjs';
 
+// TEXT MANAGEMENT
+const logEvent = (result) => {
+    appendFile('/Users/Arnau/workspace/isdi-parttime-202303/staff/arnau-ciriquian/fullstack/game/logBook.txt', result, err => {
+        if (err) {
+            console.error(err)
+        }
+    })
+}
+
+let result = `Session started - ${(new Date).toLocaleString('en-UK')} \n`
+logEvent(result)
+//
 // KEY MANAGEMENT
 //const readline = require('readline');
 
@@ -25,13 +37,24 @@ rl.input.on('keypress', (key, data) => {
             menu = false
             game = true
             playerTurn = true
+            result = `-\nNew Game - ${(new Date).toLocaleString('en-UK')} \n`
+            logEvent(result)
 
         } else if (menuSelection === 1) {
             menuSelection = 0
             menu = false
             options = true
+            result = `-\nMenu to Options \n`
+            logEvent(result)
 
-        } else if (menuSelection === 2) process.exit()
+        } else if (menuSelection === 2) {
+            result = `-\nSession ended - ${(new Date).toLocaleString('en-UK')} \n \n`
+            logEvent(result)
+
+            setTimeout(() => {
+                process.exit()
+            }, 10)
+        }
 
     } else if (data.name === 'k' && game) {
         if (menuSelection === 0 && playerTurn && !playerAction) {
@@ -73,10 +96,14 @@ rl.input.on('keypress', (key, data) => {
     } else if (data.name === 'k' && options) {
         menu = true
         options = false
+        result = `Options to menu \n`
+        logEvent(result)
 
     } else if (data.name === 'k' && endGame) {
         menu = true
         game = false
+        result = `Game ended \n`
+        logEvent(result)
     }
 
     refreshScreen()
@@ -113,19 +140,27 @@ const resolveAction = (attacker, defender, action) => {
     if (action === 'attack') {
         damage = attacker.attack()
         defender.hp = defender.hp - damage
+        result = `${attacker.name} makes an attack of ${damage} damage to enemy ${defender.name} \n`
     } else if (action === 'special attack') {
         damage = attacker.specialAttack()
         defender.hp = defender.hp - damage
+        result = `${attacker.name} makes a special attack of ${damage} damage to enemy ${defender.name} \n`
     } else if (action === 'heal') {
         amountHealed = attacker.healHp()
         attacker.hp = attacker.hp + amountHealed
+        result = `${attacker.name} healed for ${amountHealed} hp \n`
     }
 
-    if (attacker.hp <= 0 || defender.hp <= 0) {
+    logEvent(result)
+
+    if (defender.hp <= 0) {
         endGame = true
         playerAction = ''
         enemyAction = ''
+        result = `${defender.name} lost all hp \n`
+        logEvent(result)
     }
+
 }
 
 const refreshScreen = () => {
