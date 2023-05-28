@@ -1,4 +1,5 @@
 import Posts from '../components/Posts'
+import Profile from '../components/Profile'
 import { Component } from 'react';
 import AddPostModal from '../components/AddPostModal'
 import EditPostModal from '../components/EditPostModal'
@@ -39,9 +40,6 @@ export default class Home extends Component {
     }
 
     handleGoToPosts = () => this.setState({ view: 'posts' })
-
-    handleSwitchMode = () => document.querySelector(':root').classList.toggle('dark')
-
     handlePostUpdated = () => this.setState({ modal: null, lastPostsUpdate: Date.now() })
 
     componentWillMount() {
@@ -91,7 +89,7 @@ export default class Home extends Component {
                 <h3 className="centrar-texto">Home</h3>
                 <main className='post-list'>
                     {this.state.view === 'posts' && <Posts onEditPost={this.handleOpenEditPostModal} lastPostsUpdate={this.state.lastPostsUpdate} />}
-
+                    {this.state.view === 'profile' && <Profile/>}
                     {this.state.modal === 'add-post' && <AddPostModal
                         onCancel={this.handleCloseModal}
                         onPostCreated={this.handlePostUpdated}
