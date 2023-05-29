@@ -25,8 +25,17 @@ export default function retrievePosts(userId, callback) {
                     avatar: _user.avatar
                 }
             })
+            const _posts = posts.filter(post=> {
+                console.log(post)
 
-            callback(null, posts.toReversed());
+                if (post.author.id === userId){
+                    return post.author.id === userId
+
+                } else if (post.author.id !== userId){
+                    return post.visibility === "public"
+                }
+            })
+            callback(null, _posts.toReversed());
         })
     })
 }

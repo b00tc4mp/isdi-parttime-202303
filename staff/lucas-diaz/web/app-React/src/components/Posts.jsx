@@ -13,7 +13,6 @@ export default function Posts({ onEditPostButtonClick, lastPostsUpdate, view }) 
     const [user, setUser] = useState()
     const [isInitialRun, setIsInitialRun] = useState(true)
 
-    
     useEffect(() => {
         try {
             chechWeatherPostsOrSavedPosts();
@@ -21,7 +20,6 @@ export default function Posts({ onEditPostButtonClick, lastPostsUpdate, view }) 
             alert(error.message);
         }
     }, []);
-
 
     const chechWeatherPostsOrSavedPosts = () => {
         if (view === "savedPosts") {
@@ -64,7 +62,6 @@ export default function Posts({ onEditPostButtonClick, lastPostsUpdate, view }) 
         });
     }
 
-
     const handleDeletePost = () => {
         try {
             chechWeatherPostsOrSavedPosts()
@@ -89,7 +86,6 @@ export default function Posts({ onEditPostButtonClick, lastPostsUpdate, view }) 
     const handleOpenEditModal = (id) => {
         onEditPostButtonClick(id)
     }
-
     const handletoggleSavePost = () => {
         try {
             chechWeatherPostsOrSavedPosts()
@@ -97,8 +93,13 @@ export default function Posts({ onEditPostButtonClick, lastPostsUpdate, view }) 
             alert(error.message)
         }
     }
-
-
+    const handleHidePost = () => {
+        try {
+            chechWeatherPostsOrSavedPosts()
+        } catch (error) {
+            alert(error.message)
+        }
+    }
 
     useEffect(() => {
         console.log("Posts --> componentDidMount with hooks")
@@ -125,6 +126,7 @@ export default function Posts({ onEditPostButtonClick, lastPostsUpdate, view }) 
             onLikeClick={handleToggleLike}
             onEditPostButton={handleOpenEditModal}
             OnSavedPostClick={handletoggleSavePost}
+            onHidenPostClick={handleHidePost}
         />)}
     </section>
 }
