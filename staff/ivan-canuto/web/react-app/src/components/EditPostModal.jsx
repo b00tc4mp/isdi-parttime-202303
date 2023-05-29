@@ -73,13 +73,16 @@ export default function EditPost({ onCancel, onUpdatedPost }) {
         <h2 className="edit-form_text">Edit post</h2>
         {post && <>
           <input className="post-url" type="url" name="postImage" placeholder="URL Image" defaultValue={post.image}/>
+          <img className="post-image" src={post.image}/>
           <textarea className="post-text" name="postText" placeholder="Post text" cols="30" rows="10" defaultValue={post.text} autoFocus></textarea>
           </> || <>
           <input className="post-url" type="url" name="postImage" placeholder="Loading..." disabled/>
           <textarea className="post-text" name="postText" placeholder="Loading..." cols="30" rows="10" autoFocus disabled></textarea>
         </>}
-        <button className="button">Edit post</button>
-        <button className="cancel-button button" type="button" onClick={onCancel}>Canel</button>
+        <div className="edit-post-form_buttons">
+          <button className="button">Edit post</button>
+          <button className="cancel-button button" type="button" onClick={onCancel}>Canel</button>
+        </div>
       </ModalWindow>
     </Container>
   </>

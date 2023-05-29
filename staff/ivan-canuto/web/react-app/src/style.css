@@ -106,8 +106,8 @@ html, body {
 }
 
 .add-post, .edit-post, .set-postprice, .buy-post, .add-comment {
-  width: 100vw;
-  height: 100vmax;
+  width: 100%;
+  height: 100%;
   background-color: rgba(0, 0, 0, 0.545);
   position: fixed;
   top: 0;
@@ -123,7 +123,6 @@ html, body {
   flex-direction: column;
   align-items: center;
   gap: 10px;
-  position: fixed;
   bottom: 150px;
 }
 
@@ -132,7 +131,16 @@ html, body {
 }
 
 .edit-post_form {
-  height: 300px;
+  gap: 10px;
+}
+
+.post-image {
+  height: 250px;
+}
+
+.edit-post-form_buttons {
+  display: flex;
+  justify-content: space-evenly;
 }
 
 .edit-post_form div {

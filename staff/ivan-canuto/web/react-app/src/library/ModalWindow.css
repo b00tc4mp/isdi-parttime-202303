@@ -1,5 +1,6 @@
 .ModalWindow {
-  height: 200px;
+  min-height: 200px;
+  max-height: 400px;
   width: 300px;
   padding: 15px;
   background: white;
@@ -9,4 +10,5 @@
   justify-content: space-around;
   text-align: center;
   border-radius: 20px;
+  gap: 10px;
 }

@@ -1,11 +1,11 @@
 import { useContext, useEffect, useState } from "react"
-import { findPostById } from "../data"
 import { context } from "../ui"
 import './components-styles/ToggleOnSalePostModal.css'
 import { setPostPrice , unsetPostPrice } from "../logic/togglePostPrice"
 import Context from "../Context"
 import ModalContainer from "../library/ModalContainer"
 import ModalWindow from "../library/ModalWindow"
+import retrievePost from "../logic/retrievePost"
 
 
 export default function ToggleOnSalePost({ onToggledOnSalePost, onCancel }) {
@@ -16,12 +16,12 @@ export default function ToggleOnSalePost({ onToggledOnSalePost, onCancel }) {
   useEffect(() => {
     freeze()
 
-    findPostById(context.postId, post => {
+    retrievePost(context.userId, context.postId, post => {
       unfreeze()
 
       setOnSale(post.onSale)
     })
-  })
+  }, [])
 
   const handleSetPostPrice = (event) => {
     event.preventDefault()

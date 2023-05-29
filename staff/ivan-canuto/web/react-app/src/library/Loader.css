@@ -102,3 +102,7 @@
     transform: rotate(360deg);
   }
 }
+
+.Loader {
+  z-index: 200;
+}
