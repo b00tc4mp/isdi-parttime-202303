@@ -2,6 +2,8 @@ import { useState } from 'react'
 import { context } from './ui'
 import Context from './context'
 
+//import inLogger from './inLogger';
+
 import Login from './pages/Login'
 import Register from './pages/Register'
 import Home from './pages/Home'
@@ -55,3 +57,5 @@ export default function App() {
       </Context.Provider>
 
 }
+
+//export default inLogger(App);

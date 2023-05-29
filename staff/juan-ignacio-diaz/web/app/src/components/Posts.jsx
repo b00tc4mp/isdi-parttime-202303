@@ -9,7 +9,7 @@ import retrieveUserPosts from '../logic/retrieveUserPosts'
 import retrieveSavePosts from '../logic/retrieveSavePosts'
 
 export default function Posts({ onEditedPost, typePosts, lastPostsUpdate }) {
-    const { alert } = useContext(Context)
+    const { alert, freeze, unfreeze } = useContext(Context)
 
     const [posts, setPosts] = useState()
 
@@ -18,8 +18,10 @@ export default function Posts({ onEditedPost, typePosts, lastPostsUpdate }) {
     const handleRefreshPosts = ()  => {
         console.log('Posts -> refresh')
         try{
-            if (typePosts === 'all')     
+            freeze()
+            if (typePosts === 'all')  
                 retrievePosts(context.userId, (error, posts) => {
+                    unfreeze()
                     if (error) {
                         alert(error.message)
 
@@ -28,8 +30,9 @@ export default function Posts({ onEditedPost, typePosts, lastPostsUpdate }) {
 
                     setPosts(posts)
                 })
-            else if (typePosts === 'user') 
+            else if (typePosts === 'user') {  
                 retrieveUserPosts(context.userId, (error, posts) => {
+                    unfreeze()
                     if (error) {
                         alert(error.message)
 
@@ -38,8 +41,10 @@ export default function Posts({ onEditedPost, typePosts, lastPostsUpdate }) {
 
                     setPosts(posts)
                 })
+            }
             else if (typePosts === 'save') 
                 retrieveSavePosts(context.userId, (error, posts) => {
+                    unfreeze()
                     if (error) {
                         alert(error.message)
 

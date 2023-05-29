@@ -8,10 +8,11 @@ export const DEFAULT_AVATAR_URL = "https://img.icons8.com/color/512/avatar.png"
 import toggleLikePost from '../logic/toggleLikePost'
 import toggleSavePost from '../logic/toggleSavePost'
 import deletePost from '../logic/deletePost'
+import toggleLockPost from '../logic/toggleLockPost'
 
 import './Post.css'
 
-export default function Post ({ post: { id, author, image, text, date, likes, dateLastModified, fav}, onModifyPost, onEditPost}) {
+export default function Post ({ post: { id, author, image, text, date, likes, dateLastModified, fav, lock}, onModifyPost, onEditPost}) {
     const { alert, freeze, unfreeze } = useContext(Context)
 
     const handleLikePost = () => {
@@ -30,7 +31,6 @@ export default function Post ({ post: { id, author, image, text, date, likes, da
             })  
         }
         catch(error){
-            unfreeze()
             alert(error.message)
         }
     }
@@ -50,7 +50,6 @@ export default function Post ({ post: { id, author, image, text, date, likes, da
             })
         }
         catch(error){
-            unfreeze()
             alert(error.message)
         }
     }
@@ -72,10 +71,30 @@ export default function Post ({ post: { id, author, image, text, date, likes, da
             })
         }
         catch(error){
-            unfreeze()
             alert(error.message)
         }
     }
+
+    const handleLockPost = () => {
+        try{
+            freeze()
+            toggleLockPost(context.userId, id, error => {
+                unfreeze()
+                if (error){
+                    alert(error.message)
+
+                    return
+                }
+
+                onModifyPost()
+            })
+        }
+        catch(error){
+            alert(error.message)
+        }
+    }
+
+    const handlePricePost = () => onEditPost(id)
 
     return <>
         <article className="post-article post-text">
@@ -89,12 +108,14 @@ export default function Post ({ post: { id, author, image, text, date, likes, da
             </div>
             <div className = "post-button">
                 <div>
-                    <button className = "button-likes" onClick={handleLikePost}>{likes && likes.includes(context.userId) ? '❤️' : '🤍'} ({likes? likes.length : 0})</button>
+                    <button className = "button-likes" onClick={handleLikePost}>{likes.includes(context.userId) ? '❤️' : '🤍'} ({likes? likes.length : 0})</button>
                     <button className = "button-save" onClick={handleSavePost}> {fav ? '📌' : '🔘'}</button>
                 </div>
                 <div>
                     {context.userId === author.id ? <button onClick={handleEditPost}>🖍</button> : ''} 
                     {context.userId === author.id ? <button onClick={handleDeletePost}>🗑</button> : ''}   
+                    {context.userId === author.id ? <button onClick={handleLockPost}>{lock ? '🔒' : '🔓'}</button> : ''}   
+                    {context.userId === author.id ? <button onClick={handlePricePost}>0</button> : ''} 
                 </div>
             </div>
             <div className = "post-info">

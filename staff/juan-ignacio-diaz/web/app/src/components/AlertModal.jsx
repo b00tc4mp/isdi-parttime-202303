@@ -1,3 +1,5 @@
+import Container from '../library/Container'
+
 import './AlertModal.css'
 
 export default function AlertModal ({ onAccept, message }) {
@@ -8,11 +10,11 @@ export default function AlertModal ({ onAccept, message }) {
     }
     
     return <>
-        <div className = "modal container">
-            <div className = "msAlert container">
+        <Container tag="div" className = "modal">
+            <Container tag="div" className = "msAlert">
                 <p>{message}</p>
                 <button className = "button" name = "accept" onClick={handleAccepAlert}>Accept</button>
-            </div>
-        </div>
+            </Container>
+        </Container>
     </>
 }

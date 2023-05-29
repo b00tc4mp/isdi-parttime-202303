@@ -152,6 +152,24 @@ posts2.forEach(post => {
 })
 
 localStorage.postsJson = JSON.stringify(posts2)
+///
+const posts2 = JSON.parse(localStorage.postsJson)
+
+posts2.forEach(post => {
+    if (!post.lock) 
+        post.lock = false
+})
+
+localStorage.postsJson = JSON.stringify(posts2)
+///
+const posts2 = JSON.parse(localStorage.postsJson)
+
+posts2.forEach(post => {
+    if (!post.price) 
+        post.price = 0
+})
+
+localStorage.postsJson = JSON.stringify(posts2)
 /////////////////////////////////////
 */
 

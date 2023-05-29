@@ -2,6 +2,7 @@ import { useContext } from 'react'
 
 import { context } from '../ui' 
 import Context from '../Context'
+import Container from '../library/Container'
 
 import updateUserMode from "../logic/updateUserMode"
 import updateUserAvatar from "../logic/updateUserAvatar"
@@ -116,7 +117,7 @@ export default function Profile({ onEditedProfile, user }){
 
     console.log('Profile ->render')
     return <>
-            <section className="profile container">
+            <Container tag="section" className="profile">
                 <article>
                     <button className="button" onClick={handleSwitchMode}>Switch Mode</button>
                 </article>
@@ -138,6 +139,6 @@ export default function Profile({ onEditedProfile, user }){
                         <button className="button" type="submit">Update</button>
                     </form>
                 </article>
-            </section>
+            </Container>
         </>
 }

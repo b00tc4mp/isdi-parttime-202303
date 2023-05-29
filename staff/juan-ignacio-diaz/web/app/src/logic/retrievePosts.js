@@ -15,6 +15,8 @@ export default function retriewePosts(userId, callback){
 
         loadUsers(users => {
             loadPosts(posts => {
+                posts.filter(post => !post.lock || (post.lock && post.author === userId))
+
                 posts.forEach(post => {
                     post.fav = user.favs.includes(post.id)
     
