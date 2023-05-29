@@ -14,6 +14,7 @@ export default function retrieveUserLocation(callback) {
       const longitude = coordinates.longitude
       const latitude = coordinates.latitude
       userLocation = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${apiKey}`
+      console.log(userLocation)
     }
     
     function error(error) {
