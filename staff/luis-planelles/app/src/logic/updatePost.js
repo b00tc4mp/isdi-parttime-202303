@@ -16,14 +16,14 @@ const updatePost = (userId, postId, postImage, postText, callback) => {
 
   findUserById(userId, (foundUser) => {
     if (!foundUser) {
-      callback(new Error(`user with id ${userId} not found`));
+      callback(new Error(`user with id ${userId} not exist`));
 
       return;
     }
 
     findPostById(postId, (foundPost) => {
       if (!foundPost) {
-        callback(new Error(`post with id ${postId} not found`));
+        callback(new Error(`post with id ${postId} not exist`));
 
         return;
       }

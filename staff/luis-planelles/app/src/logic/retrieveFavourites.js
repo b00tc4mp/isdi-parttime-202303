@@ -8,7 +8,7 @@ const retrieveFavourites = (userId, callback) => {
 
   findUserById(userId, (foundUser) => {
     if (!foundUser) {
-      callback(new Error(`user with id ${userId} not found`));
+      callback(new Error(`user with id ${userId} not exist`));
 
       return;
     }

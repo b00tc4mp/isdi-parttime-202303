@@ -8,13 +8,13 @@ const postBelongingUser = (userId, postId, callback) => {
 
   findUserById(userId, (foundUser) => {
     if (!foundUser) {
-      callback(new Error(`User with id ${userId} not found`));
+      callback(new Error(`User with id ${userId} not exist`));
       return;
     }
 
     findPostById(postId, (foundPost) => {
       if (!foundPost) {
-        callback(new Error(`Post with id ${postId} not found`));
+        callback(new Error(`Post with id ${postId} not exist`));
         return;
       }
 

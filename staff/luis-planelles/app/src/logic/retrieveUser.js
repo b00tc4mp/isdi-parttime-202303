@@ -7,7 +7,7 @@ const retrieveUser = (userId, callback) => {
 
   findUserById(userId, (foundUser) => {
     if (!foundUser) {
-      callback(new Error('user not found'));
+      callback(new Error('user not exist'));
 
       return;
     }

@@ -10,7 +10,7 @@ const buyPost = (buyerId, sellerId, postId, callback) => {
 
   findUserById(sellerId, (foundSeller) => {
     if (!foundSeller) {
-      callback(new Error(`Seller with id ${sellerId} not found`));
+      callback(new Error(`Seller with id ${sellerId} not exist`));
 
       return;
     }
@@ -18,7 +18,7 @@ const buyPost = (buyerId, sellerId, postId, callback) => {
 
   findUserById(buyerId, (foundBuyer) => {
     if (!foundBuyer) {
-      callback(new Error(`Buyer with id ${buyerId} not found`));
+      callback(new Error(`Buyer with id ${buyerId} not exist`));
 
       return;
     }
@@ -28,7 +28,7 @@ const buyPost = (buyerId, sellerId, postId, callback) => {
     const postIndex = posts.findIndex((post) => post.id === postId);
 
     if (postIndex === -1) {
-      callback(new Error(`Post with id ${postId} not found in database`));
+      callback(new Error(`Post with id ${postId} not exist in database`));
 
       return;
     }

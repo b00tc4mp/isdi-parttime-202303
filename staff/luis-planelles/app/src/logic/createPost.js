@@ -15,7 +15,7 @@ const createPost = (userId, postImage, postText, callback) => {
 
   findUserById(userId, (foundUser) => {
     if (!foundUser) {
-      callback(new Error('User not found'));
+      callback(new Error('User not exist'));
 
       return;
     }
