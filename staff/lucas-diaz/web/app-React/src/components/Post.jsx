@@ -3,12 +3,15 @@ import likeAPost from "../logic/likeAPost.js";
 import savePostInUser from "../logic/savePostInUser.js";
 import hideAPost from "../logic/hideAPost.js";
 import { context } from "../ui.js";
+import { useContext } from "react";
+import Context from "../Context.js";
 
 
 export default function Post(props) {
     //destructuring de props, para no hacer todo el tiempo props.post.userName
     const { post, user } = props
 
+    const {alert} = useContext(Context)
     function openEditPostModal() {
         props.onEditPostButton(props.post.id);
     }
