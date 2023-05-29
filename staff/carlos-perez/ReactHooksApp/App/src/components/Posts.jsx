@@ -1,56 +1,44 @@
 import {retrievePosts} from '../logic/retrievePosts'
 import Post from './Post'
-import { Component } from 'react'
+import { useState, useEffect } from 'react'
 
-export default class Posts extends Component {
-    constructor(props) {
-        console.log('Posts -> constructor')
+export default function Posts({ onEditPost, lastPostsUpdate }) {
+    let _posts
 
-        super(props)
+    try {
+        _posts = retrievePosts()
+    } catch (error) {
+        alert(error.message)
+    }
 
+    const [posts, setPosts] = useState(_posts)
+
+    const handleRefreshPosts = () => {
         try {
             const posts = retrievePosts()
 
-            this.state = { posts }
+            setPosts(posts)
         } catch (error) {
             alert(error.message)
         }
     }
 
-    handleRefreshPosts = () => {
-        try {
-            const posts = retrievePosts()
+    useEffect(() => {
+        console.log('Posts -> "componentDidMount" with hooks')
 
-            this.setState({ posts })
-        } catch (error) {
-            alert(error.message)
-        }
-    }
+        return () => console.log('Posts -> "componentWillUnmount" with hooks')
+    }, [])
 
-    componentWillMount() {
-        console.log('Posts -> componentWillMount')
-    }
+    useEffect(() => {
+        console.log('Posts -> "componentWillReceiveProps" with hooks')
+        
+        if (lastPostsUpdate)
+            handleRefreshPosts()
+    }, [lastPostsUpdate])
 
-    componentDidMount() {
-        console.log('Posts -> componentDidMount')
-    }
+    console.log('Posts -> render')
 
-    componentWillReceiveProps(newProps) {
-        console.log('Posts -> componentWillReceiveProps')
-
-        if (this.props.lastPostsUpdate !== newProps.lastPostsUpdate)
-            this.handleRefreshPosts()
-    }
-
-    componentWillUnmount() {
-        console.log('Posts -> componentWillUnmount')
-    }
-
-    render() {
-        console.log('Posts -> render')
-
-        return <section>
-            {this.state.posts.map(post => <Post key={post.id} post={post} onEditPost={this.props.onEditPost} onToggledLikePost={this.handleRefreshPosts} onPostDeleted={this.handleRefreshPosts} />)}
-        </section>
-    }
+    return <section>
+        {posts.map(post => <Post key={post.id} post={post} onEditPost={onEditPost} onToggledLikePost={handleRefreshPosts} onPostDeleted={handleRefreshPosts} />)}
+    </section>
 }

@@ -1,10 +1,9 @@
-import {users} from "../data"
-import { userExistById, findPostById } from './helpers/data-manager'
+import {findPostById, findUserById } from './helpers/data-manager'
 import { savePost } from '../data'
 
 export default function toggleLikePost(userId, postId) {
 
-    const user = users[userExistById(userId)];
+    const user = findUserById(userId);
 
     if (!user) throw new Error(`user with id ${userId} not found`)
 

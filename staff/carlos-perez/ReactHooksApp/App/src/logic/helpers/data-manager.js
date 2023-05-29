@@ -17,6 +17,10 @@ export function userExist(email) {
     return userPosition;
 }
 
+export function findUserByEmail(email) {
+    return users().find(user => user.email === email)
+}
+
 export function userExistById(id) {
     let userPosition = null;
     for (let i = 0; i < users.length; i++) {
@@ -35,7 +39,7 @@ export function userExistById(id) {
 }
 
 export function findUserById(userId) {
-    return users.find(user => user.id === userId);
+    return users().find(user => user.id === userId);
 }
 
 export function findPostById(postId) {

@@ -1,7 +1,8 @@
 import { userExistById } from "./logic/helpers/data-manager"
 
-export const users = []
+export const users = () => 'usersJson' in localStorage ? JSON.parse(localStorage.usersJson) : []
 
+/*
 users.push({
     id: 'user-1',
     name: 'Wendy Darling',
@@ -21,7 +22,24 @@ users.push({
     name: 'Pepito Grillo',
     email: 'pepito@grillo.com',
     password: '123123123'
-})
+})*/
+
+export function saveUsers(users) {
+    localStorage.usersJson = JSON.stringify(users)
+}
+
+export function saveUser(user) {
+    const _users = users()
+
+    const index = _users.findIndex(_user => _user.id === user.id)
+
+    if (index < 0)
+        _users.push(user)
+    else
+        _users.splice(index, 1, user)
+
+    saveUsers(_users)
+}
 
 export const posts = []
 

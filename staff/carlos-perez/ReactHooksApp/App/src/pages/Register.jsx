@@ -1,16 +1,14 @@
 import {addUser} from "../logic/registerUser.js"
 
-export default function Register(props) {
+export default function Register({ onLoginClick }) {
     function handleLoginClick(event) {
         event.preventDefault()
 
-        props.onLoginClick()
+        onLoginClick()
     }
 
     function handleRegisterClick(event){
         event.preventDefault()
-
-        props.onRegisterClick()
 
         const name = event.target.name.value;
         const email= event.target.email.value;
@@ -18,6 +16,7 @@ export default function Register(props) {
 
         try{
             addUser(name, email, password);
+            alert('Usuario registrado correctamente');
         }
         catch(error){
             alert(error.message);

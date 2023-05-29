@@ -1,25 +1,26 @@
-
+import { findUserById } from '../logic/helpers/data-manager.js'
 import {authenticateUser} from '../logic/authenticateUser.js'
 import {context} from '../main.js'
 
-export default function Login(props) {
-    function handleRegisterClick(event) {
+export default function Login({ onRegisterClick, onAuthClick }) {
+    const handleRegisterClick = event => {
         event.preventDefault()
 
-        props.onRegisterClick()
+        onRegisterClick()
     }
 
-    function handleAuthClick(event){
+    const  handleAuthClick = event =>{
         event.preventDefault();
         //login
         const email = event.target.email.value;
         const password = event.target.password.value;
     
         try {
-            let activeUser=authenticateUser(email, password);
-            context.userId=activeUser.id;
-            context.userName=activeUser.name;
-            props.onAuthClick();
+            const activeUser=authenticateUser(email, password);
+            context.userId=activeUser;
+            const user= findUserById(activeUser);
+            context.userName=user.name;
+            onAuthClick();
         }
         catch (error) {
            alert(error.message);

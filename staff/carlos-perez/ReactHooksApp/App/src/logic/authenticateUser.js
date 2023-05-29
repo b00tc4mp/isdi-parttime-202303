@@ -1,16 +1,14 @@
-import { users } from "../data.js"
-import { userExist } from "./helpers/data-manager.js"
+import { findUserByEmail } from "./helpers/data-manager.js"
 
 export function authenticateUser(email, password) {
 
-    let userPosition = userExist(email);
+    const user = findUserByEmail(email)
 
-    if (userPosition === -1) {
-        throw new Error("El usuario no existe");
-    }
+    if (!user)
+        throw new Error('user not found')
 
-    if (users[userPosition].password !== password) {
-        throw new Error("Contraseña incorrecta");
-    }
-    return { name: users[userPosition].name, id: users[userPosition].id };
+    if (user.password !== password)
+        throw new Error('wrong password')
+
+    return user.id
 }
