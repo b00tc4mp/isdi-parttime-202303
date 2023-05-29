@@ -4,6 +4,7 @@ import { validateId } from './helpers/validators';
 
 const retrieveAvatar = (userId) => {
   validateId(userId, 'user id');
+
   let avatarUrl = DEFAULT_AVATAR_URL;
   users().forEach((user) => {
     if (user.id === userId) {
