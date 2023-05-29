@@ -15,19 +15,15 @@ export default function hideAPost(userId, post, callback){
                 callback(new Error("There is no post with this post id"))
                 return
             }
-            console.log(foundUser.id)
-            console.log(foundPost.author)
+
             if (foundUser.id !== foundPost.author){
                 callback(new Error("user id doesnt match with post author id"))
                 return
             }
-    
             if (foundPost.visibility !== "private"){
                 foundPost.visibility = "private";
-                console.log(foundPost)
             } else {
                 foundPost.visibility = "public";
-                console.log(foundPost)
             }
     
             savePost(foundPost, () => callback(null))

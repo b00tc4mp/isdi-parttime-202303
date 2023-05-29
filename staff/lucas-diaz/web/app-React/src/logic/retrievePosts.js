@@ -26,7 +26,6 @@ export default function retrievePosts(userId, callback) {
                 }
             })
             const _posts = posts.filter(post=> {
-                console.log(post)
 
                 if (post.author.id === userId){
                     return post.author.id === userId
@@ -35,6 +34,7 @@ export default function retrievePosts(userId, callback) {
                     return post.visibility === "public"
                 }
             })
+
             callback(null, _posts.toReversed());
         })
     })

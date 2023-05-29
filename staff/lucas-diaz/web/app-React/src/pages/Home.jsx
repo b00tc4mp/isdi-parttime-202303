@@ -80,6 +80,8 @@ export default function Home({ onLogOutClick }) {
     }
     //? SAVE POSTS 
     const handleFooterFavButtonClick = () => setView("savedPosts")
+    //? USER POSTS
+    const handleFooterUserPostsClick = () => setView("userPosts")
 
 
     console.log("Home -> render")
@@ -97,7 +99,7 @@ export default function Home({ onLogOutClick }) {
                 </>}
                 <h2 className="home-header-user-welcome-msj"></h2>
             </div>
-            <nav className={`home-menu ${view === null ? "home-menu-transition" : ""} ${view === "avatar" || view === "posts" || view === "password" || view === "savedPosts" ? "" : "home-menu-transition"}`}>
+            <nav className={`home-menu ${view === null ? "home-menu-transition" : ""} ${view === "avatar" || view === "posts" || view === "password" || view === "savedPosts" || view === "userPosts"? "" : "home-menu-transition"}`}>
                 <ul>
                     <li><a href="" className="home-menu-change-pass-anchor" onClick={handlePasswordAnchor}>change password</a></li>
                     <li><a href="" className="home-menu-avatar-anchor" onClick={handleAvatarAnchor}>Avatar</a></li>
@@ -117,6 +119,17 @@ export default function Home({ onLogOutClick }) {
                 lastPostsUpdate={lastPostUpdate}
                 view={view}
             />}
+
+
+            {view === "userPosts" && <Posts
+                onEditPostButtonClick={openEditPostModal}
+                lastPostsUpdate={lastPostUpdate}
+                view={view}
+            />}
+
+
+
+
             {view === "avatar" && <UpdateAvatar
                 onUpdatedAvatar={handleUpdatedAvatar}
                 onCancelClick={handleCancelUpdatedAvatar}
@@ -143,7 +156,7 @@ export default function Home({ onLogOutClick }) {
             <button className="footer-button"><span className="material-symbols-outlined">sell</span></button>
             <button className="footer-button button" onClick={handleFooterButtonClick}> + </button>
             <button className="footer-button" onClick={handleFooterFavButtonClick}><span className="material-symbols-outlined">bookmarks</span></button>
-            <button className="footer-button"><span className="material-symbols-outlined">account_circle</span></button>
+            <button className="footer-button" onClick={handleFooterUserPostsClick}><span className="material-symbols-outlined">account_circle</span></button>
         </footer>
     </div>
 

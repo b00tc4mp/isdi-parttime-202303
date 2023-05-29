@@ -4,6 +4,7 @@ import { context } from "../ui.js";
 import retrieveUser from "../logic/retrieveUser.js";
 import { useState, useEffect } from "react";
 import retrieveSavedPosts from "../logic/retrieveSavedPosts.js";
+import retrieveUserPosts from "../logic/retrieveUserPosts.js";
 
 
 export default function Posts({ onEditPostButtonClick, lastPostsUpdate, view }) {
@@ -15,70 +16,102 @@ export default function Posts({ onEditPostButtonClick, lastPostsUpdate, view }) 
 
     useEffect(() => {
         try {
-            chechWeatherPostsOrSavedPosts();
+            checkPostType();
         } catch (error) {
             alert(error.message);
         }
     }, []);
 
-    const chechWeatherPostsOrSavedPosts = () => {
-        if (view === "savedPosts") {
+    const checkPostType = () => {
+        console.log(view);
+        switch (view) {
 
-            retrievePosts(context.userId, (error, retrievedPosts) => {
-                if (error) {
-                    alert(error)
-                    return;
-                }
-                retrieveSavedPosts(context.userId, retrievedPosts, (error, _posts) => {
+            case "posts":
+                retrievePosts(context.userId, (error, _posts) => {
                     if (error) {
                         alert(error)
                         return;
                     }
-
                     setPosts(_posts)
-
                 })
-            });
+                retrieveUser(context.userId, (error, user) => {
+                    if (error) {
+                        alert(error)
+                        return;
+                    }
+                    setUser(user);
+                })
+                break;
 
-        } else {
-            
-            retrievePosts(context.userId, (error, _posts) => {
-                if (error) {
-                    alert(error)
-                    return;
-                }
-                setPosts(_posts)
-            })
+            case "savedPosts":
+                retrievePosts(context.userId, (error, retrievedPosts) => {
+                    if (error) {
+                        alert(error)
+                        return;
+                    }
+                    retrieveSavedPosts(context.userId, retrievedPosts, (error, _posts) => {
+                        if (error) {
+                            alert(error)
+                            return;
+                        }
+                        setPosts(_posts)
+                    })
+                });
+                retrieveUser(context.userId, (error, user) => {
+                    if (error) {
+                        alert(error)
+                        return;
+                    }
+                    setUser(user);
+                })
+                break;
+
+
+
+            case "userPosts":
+                retrievePosts(context.userId, (error, retrievedPosts) => {
+                    if (error) {
+                        alert(error)
+                        return;
+                    }
+                    retrieveUserPosts(context.userId, retrievedPosts, (error, _posts) => {
+                        if (error) {
+                            alert(error)
+                            return;
+                        }
+                        setPosts(_posts)
+                    })
+                });
+                retrieveUser(context.userId, (error, user) => {
+                    if (error) {
+                        alert(error)
+                        return;
+                    }
+                    setUser(user);
+                });
+                break;
+            default:
+                break;
         }
-
-
-        retrieveUser(context.userId, (error, user) => {
-            if (error) {
-                alert(error)
-                return;
-            }
-
-            setUser(user);
-        });
     }
 
     const handleDeletePost = () => {
         try {
-            chechWeatherPostsOrSavedPosts()
+            checkPostType()
         } catch (error) {
             alert(error.message)
         }
     }
     const handleToggleLike = () => {
         try {
-            chechWeatherPostsOrSavedPosts()
+            checkPostType()
         } catch (error) {
             alert(error.message)
         }
     }
     const handleRefreshPosts = () => {
         try {
-            chechWeatherPostsOrSavedPosts()
+            checkPostType()
         } catch (error) {
             alert(error.message)
         }
@@ -88,14 +121,14 @@ export default function Posts({ onEditPostButtonClick, lastPostsUpdate, view }) 
     }
     const handletoggleSavePost = () => {
         try {
-            chechWeatherPostsOrSavedPosts()
+            checkPostType()
         } catch (error) {
             alert(error.message)
         }
     }
     const handleHidePost = () => {
         try {
-            chechWeatherPostsOrSavedPosts()
+            checkPostType()
         } catch (error) {
             alert(error.message)
         }
