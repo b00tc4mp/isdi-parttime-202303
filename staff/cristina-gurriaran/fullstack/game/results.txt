@@ -1,0 +1,3 @@
+🦊 : position = 102, time = 3539 
+🐰 : position = 103, time = 3942 
+🐱 : position = 100, time = 5152 
