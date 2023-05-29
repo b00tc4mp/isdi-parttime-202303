@@ -1,4 +1,4 @@
-import { loadPosts } from '../data.js';
+import { loadPosts, loadUsers } from '../data.js';
 import { findUserById } from './helpers/data-managers.js';
 import { validateCallback, validateId } from './helpers/validators.js';
 
@@ -14,15 +14,19 @@ const retrievePosts = (userId, callback) => {
     }
 
     loadPosts((posts) => {
-      posts.forEach((post) => {
-        post.author = {
-          id: foundUser.id,
-          name: foundUser.info.name,
-          avatar: foundUser.info.avatar,
-        };
-      });
+      loadUsers((users) => {
+        posts.forEach((post) => {
+          const userAuthor = users.find((user) => user.id === post.author);
 
-      callback(null, posts.toReversed());
+          post.author = {
+            id: userAuthor.id,
+            name: userAuthor.info.name,
+            avatar: userAuthor.info.avatar,
+          };
+        });
+
+        callback(null, posts.toReversed());
+      });
     });
   });
 };
