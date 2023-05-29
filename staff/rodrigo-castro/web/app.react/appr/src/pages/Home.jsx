@@ -1,8 +1,11 @@
 import Posts from '../components/Posts'
 import { retrieveUser } from '../logic/retrieveUser'
+import retrieveWeather from '../logic/retrieveWeather'
+import WeatherData from '../components/WeatherData'
 import { context } from '../ui'
 import { useState, useEffect, useContext } from 'react'
 import AddPostModal from '../components/AddPostModal'
+import ChangeCity from '../components/ChangeCity'
 import ChangeEmail from '../components/ChangeEmail'
 import ChangePassword from '../components/ChagePassword'
 import ChangeAvatar from '../components/ChangeAvatar'
@@ -20,6 +23,7 @@ export default function Home(props) {
     const [postsToShow, setPostsToShow] = useState('all')
     const [user, setUser] = useState()
     const [view, setView] = useState('posts')
+    const [summary, setSummary] = useState()
 
     const { freeze, unfreeze } = useContext(Context)
 
@@ -37,7 +41,23 @@ export default function Home(props) {
                 }
 
                 setUser(user)
+
+                if(user.city)
+                    retrieveWeather(user.city, (error, summary) => {
+                        unfreeze()
+        
+                        if(error){
+                            alert(error.message)
+        
+                            return
+                        }
+        
+                        setSummary(summary)
+                    })
             })
+
+            freeze()
+
         } catch(error){
             alert(error.message)
         }
@@ -90,6 +110,8 @@ export default function Home(props) {
         setView('settings')
     } 
 
+    const handleOpenChangeCity = () => setModal('change-city')
+    
     const handleOpenChangeEmail = () => setModal('change-email')
 
     const handleOpenChangePassword = () => setModal('change-password')
@@ -145,6 +167,8 @@ export default function Home(props) {
         />
 
         {view === 'posts' && <main className="main-content">
+            {postsToShow === 'all' && summary && <WeatherData city={user.city} summary={summary} className={"weather"}/>}
+            
             <Posts 
                 onEditClicked={handleEditClicked} 
                 lastPostsUpdate={lastPostsUpdate} 
@@ -161,31 +185,37 @@ export default function Home(props) {
         </main>}
 
         { view === 'settings' && <Profile 
+                onChangeCity={handleOpenChangeCity}
                 onChangeEmail={handleOpenChangeEmail}
                 onChangePassword={handleOpenChangePassword}
                 onChangeAvatar={handleOpenChangeAvatar}
                 user={user}
         />}
 
-            {modal === 'add-post' && <AddPostModal 
-                onCancel={handleCloseModal}
-                onPostCreated={handlePostsModified}
-            />}
+        {modal === 'add-post' && <AddPostModal 
+            onCancel={handleCloseModal}
+            onPostCreated={handlePostsModified}
+        />}
 
-            {modal === 'change-email' && <ChangeEmail
-                onCancel={handleCloseModal}
-                onEmailChanged={handleCloseModal}
-            />}
+        {modal === 'change-city' && <ChangeCity 
+            onCancel={handleCloseModal}
+            onCityChanged={handleCloseModal}
+        />}
 
-            {modal === 'change-password' && <ChangePassword
-                onCancel={handleCloseModal}
-                onPasswordChanged={handleCloseModal}
-            />}
+        {modal === 'change-email' && <ChangeEmail
+            onCancel={handleCloseModal}
+            onEmailChanged={handleCloseModal}
+        />}
 
-            {modal === 'change-avatar' && <ChangeAvatar
-                onCancel={handleCloseModal}
-                onAvatarChanged={handleAvatarChanged}
-            />}
+        {modal === 'change-password' && <ChangePassword
+            onCancel={handleCloseModal}
+            onPasswordChanged={handleCloseModal}
+        />}
+
+        {modal === 'change-avatar' && <ChangeAvatar
+            onCancel={handleCloseModal}
+            onAvatarChanged={handleAvatarChanged}
+        />}
 
         { postsToShow !== 'all' && <ProfileBar 
             postsToShow={postsToShow} 
