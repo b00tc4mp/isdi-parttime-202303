@@ -1,4 +1,4 @@
-const STEP = 5, LAPSE = 200, FINISH = 50
+const STEP = 5, LAPSE = 200, FINISH = 100
 
 class Car {
     constructor(icon, name) {
@@ -20,11 +20,11 @@ class Car {
     }
 
     render() {
-        console.log(' '.repeat(this.distance), this.icon, ' '.repeat(FINISH-this.distance), '|')
+        console.log(' '.repeat(this.distance), this.icon, ' '.repeat(FINISH-this.distance), FINISH-this.distance===0 ? '' : '|')
     }
 
     renderFinish() {
-        console.log(' '.repeat(FINISH+1), '|' , this.icon)
+        console.log(' '.repeat(FINISH+4), '|' , this.icon, this.pos)
     }
 }
 
@@ -41,43 +41,58 @@ const interval = setInterval(() => {
     if (car1.distance < FINISH) {
         car1.render() 
         car1.move()
-        car1.time = time
     }
     else {
-        if (car1.pos != 0 ) 
+        if (car1.pos === 0 ) {
             car1.pos = pos++
+            car1.time = time
+        }
         car1.renderFinish() 
     }
-
 
     if (car2.distance < FINISH) {
         car2.render()
         car2.move()
-        car2.time = time
     }
     else {
-        if (car2.pos != 0 ) 
+        if (car2.pos === 0 ) {
             car2.pos = pos++
+            car2.time = time
+        }
         car2.renderFinish() 
     }
     
     if (car3.distance < FINISH) {
         car3.render()
         car3.move()
-        car3.time = time
     }
     else {
-        if (car3.pos != 0 ) 
+        if (car3.pos === 0 ) {
             car3.pos = pos++
+            car3.time = time
+        }
         car3.renderFinish() 
     }
 
     if (car1.pos != 0 && car2.pos != 0 && car3.pos != 0) {
         clearInterval(interval)
 
-        const result = 'Race\n'+ car1.status() + '\n' + car2.status() + '\n' + car3.status() 
-    
-        console.log(result)        
+        var today = new Date();
+
+        const cars = []
+        cars.push(car1)
+        cars.push(car2)
+        cars.push(car3)
+
+        cars.sort(function(a, b) {
+            return a.pos - b.pos;
+        })
+
+        const result = 'Race ' + today.toLocaleString('es-ES') + '\n'+ cars[0].status() + '\n' + cars[1].status() + '\n' + cars[2].status() + '\n'
+        console.log(result)
+
+        // const result = 'Race\n'+ car1.status() + '\n' + car2.status() + '\n' + car3.status() + '\n'
+        // console.log(result)        
 
         const fs = require('fs');
 
