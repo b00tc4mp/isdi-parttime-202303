@@ -6,7 +6,7 @@ import './Posts.css'
 import { RotatingLines } from 'react-loader-spinner'
 
 
-export default function Posts({ onEditPost, onAddPostClick, lastPostsUpdate, onToggleLikePostClick, onToggleSavePostClick, user }) {
+export default function Posts({ onEditPost, onAddPostClick, lastPostsUpdate, onToggleLikePostClick, onToggleSavePostClick, user, onHideMenuOptions }) {
     const userId = context.userId
     const [posts, setPosts] = useState()
     useEffect(() => handleRefreshPosts(), [])
@@ -47,6 +47,10 @@ export default function Posts({ onEditPost, onAddPostClick, lastPostsUpdate, onT
         event.preventDefault()
         onAddPostClick()
     }
+    function handleHideMenuOptions() {
+        alert('refresh')
+        handleRefreshPosts()
+    }
 
     useEffect(() => {
         console.log('Refresh Posts -> render in useEffect')
@@ -76,7 +80,9 @@ export default function Posts({ onEditPost, onAddPostClick, lastPostsUpdate, onT
                         user={user}
                         onToggleLikePost={handleToggleLikePost}
                         onToggleSavePost={handleToggleSavePost}
-                        onEditPostButton={(id) => handleEditPost(id)} />
+                        onEditPostButton={(id) => handleEditPost(id)} 
+                        onHideMenuOptions={handleHideMenuOptions}
+                        />
                 })}
             </div>
         </>

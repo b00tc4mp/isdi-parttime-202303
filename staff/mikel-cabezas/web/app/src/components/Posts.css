@@ -102,9 +102,14 @@
   .posts .post-author {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     margin-bottom: 10px;
   }
-  
+  .posts span.location {
+    font-size: 12px;
+    margin-left: 35px;
+    font-weight: 300;
+  }
   .posts .post-author img {
     border-radius: 100px;
   }
@@ -114,7 +119,7 @@
     margin-right: 0;
     background: var(--main-button);
     color: #fff;
-    padding: 5px 10px;
+    padding: 5px;
     border-radius: 10px;
     border: solid 2px var(--main-button);
     cursor: pointer;
@@ -125,7 +130,7 @@
   }
   
   button.edit .edit-post {
-    margin-left: 5px;
+    /* margin-left: 5px; */
     font-size: 15px;
   }
   

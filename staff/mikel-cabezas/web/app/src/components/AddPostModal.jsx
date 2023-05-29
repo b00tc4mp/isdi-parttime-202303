@@ -1,12 +1,46 @@
 import { createPost } from '../logic/posts/createPost.js'
 import { context } from '../ui.js'
+import retrieveUserLocation from "../logic/posts/retrieveUserLocation"
+import { useState, useEffect } from 'react'
+
 
 export default function AddPostModal({ onCancel, onCreateNewPost }) {
+
+    const [userLocation, setUserLocation] = useState(null)
+
+
     let newImage
     function handleCancelAddPost(event) {
         event.preventDefault()
         onCancel()
     }
+    function getUserLocation() {
+        retrieveUserLocation((error, location) => {
+            if (error) {
+                error.message
+
+                return 
+            }
+            setUserLocation(location)
+        })
+    }
+    useEffect(() => {
+        try {
+            getUserLocation()
+        } catch (error) {
+            alert(error.message)
+        }
+    }, [])
+    useEffect(() => {
+        try {
+            if(userLocation !== null) {
+                alert('userLocation changed')
+                getUserLocation()
+            }
+        } catch (error) {
+            alert(error.message)
+        }
+    }, [userLocation])
     function handleAddNewPost(event) {
         event.preventDefault()
         const userId = context.userId
@@ -14,7 +48,7 @@ export default function AddPostModal({ onCancel, onCreateNewPost }) {
         const text = document.querySelector('.create-post textarea').value
 
         try {
-            createPost(userId, newImage, title, text, error => {
+            createPost(userId, newImage, title, text, userLocation, error => {
                 if(error) {
                     alert(error.message)
                 

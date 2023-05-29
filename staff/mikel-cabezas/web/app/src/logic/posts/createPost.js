@@ -1,7 +1,7 @@
 import {loadPosts, savePosts } from '../../data.js'
 import { validateId, validateText } from '../helpers/validators.js'
 
-export function createPost(userId, image, title, text, callback) {
+export function createPost(userId, image, title, text, location, callback) {
     validateId(userId)
     validateText(title)
     validateText(text)
@@ -17,7 +17,10 @@ export function createPost(userId, image, title, text, callback) {
             date: new Date(),
             comments: [],
             likes: [],
-            visibility: 'public'
+            visibility: 'public',
+        }
+        if(location) {
+            post.location = location
         }
         _posts.push(post)
         savePosts(_posts, () => callback(null))

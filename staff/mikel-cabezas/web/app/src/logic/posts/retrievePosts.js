@@ -30,7 +30,6 @@ export default function retrievePosts(userId, callback) {
         }
 
         loadPosts((posts) => {
-            //vamos a recorrer todos los posts
             posts.forEach(post => {
                 // para c/post vamos a buscar su user propio
                 const _user = users.find(user => user.id === post.author)

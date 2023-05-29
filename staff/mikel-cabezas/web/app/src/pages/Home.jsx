@@ -91,13 +91,18 @@ export default function Home( {onLogoutClick, onUserProfile, onSetThemeClick} ) 
                     localStorage.theme = 'light'
                 }
             }
+            const handleHideMenuOptions = () => {
+                alert('posts')
+                setView('posts')
+                
+            }
 
   
         return <>
             <Header onUserProfile={handleGoToUserProfile} onLoggedOut={handleLogOut} onHomeClick={handleQuitUser} selected={modal}  />
             <main>
                 <section className="section home">               
-                    {view === 'posts' && <Posts onAddPostClick={handleAddPost}  onEditPost={(id) => handleEditPost(id)} lastPostsUpdate={lastPostsUpdate} onToggleLikePostClick={onToggleLikePostClick} onToggleSavePostClick={onToggleSavePostClick} user={user} /> }
+                    {view === 'posts' && <Posts onAddPostClick={handleAddPost}  onEditPost={(id) => handleEditPost(id)} lastPostsUpdate={lastPostsUpdate} onToggleLikePostClick={onToggleLikePostClick} onToggleSavePostClick={onToggleSavePostClick} user={user} onHideMenuOptions={handleHideMenuOptions} /> }
                     {modal === 'user-profile' && <Profile goBackClick={handleGoBackClick} selected={modal} onUserProfile={onUserProfile} onThemeSet={theme} themeState={setTheme} onSetThemeClick={handleSetThemeClick} />}
                 </section>
                 {modal === 'add-post' && <AddPostModal onCancel={handleModalOff} onCreateNewPost={handlePostCreated} />}

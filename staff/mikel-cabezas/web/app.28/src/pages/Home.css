@@ -1,0 +1,365 @@
+.section.home {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+  
+  .section.home .top {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+  }
+  
+  .section.home .top h1 {
+    margin-top: 20px;
+  }
+  
+  .section-user-account h1, .section-user-account h2 {
+    text-align: center;
+  }
+  
+  h2.welcome-user {
+    margin-top: 0;
+  }
+  
+  .section.home form textarea {
+    margin-bottom: 20px;
+    max-width: 350px;
+    appearance: none;
+    padding: 8px 15px;
+    border: solid 2px var(--main-button);
+    border-radius: 10px;
+    text-align: left;
+    transition: linear .2s;
+    border-radius: 10px;
+  }
+  textarea {
+    border-radius: 10px;
+    margin-bottom: 20px;
+    padding: 8px 15px;
+  }
+  
+  label[for="textarea"] {
+    margin-bottom: 8px;
+  }
+  
+  main input.title {
+    text-align: left;
+    margin-bottom: 20px;
+  }
+  label[for="file"] {
+    margin-top: 15px;
+  }
+  
+  .create-post form,
+  .edit-post form {
+    padding: 30px 30px 10px;
+    border-radius: 20px;
+    width: auto;
+    max-width: 350px;
+  }
+  
+  .all-users-liked-container {
+    background: var(--white);
+    padding: 30px 30px 10px;
+    border-radius: 20px;
+    width: auto;
+    max-width: 350px;
+    min-height: 310px;
+    min-width: 240px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .all-users-liked-container h3.title {
+    padding-bottom: 25px;
+    text-align: center !important;
+    width: 100%;
+  }
+  
+  .date-author {
+    gap: 10px;
+    display: flex;
+    justify-content: space-between;
+    margin-top: auto;
+  }
+  
+  .post-author, .post-date {
+    font-size: 14px;
+    color: var(--main-text);
+  }
+  time.post-date {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: baseline;
+  }
+  
+  .post-edited {
+    margin-left: 6px;
+    font-style: italic;
+    font-size: 85%;
+  }
+  
+  .post-author {
+    color: var(--main-button);
+    color: var(--white);
+    /* padding: 1px 11px 3px; */
+    border-radius: 100px;
+    font-weight: 700;
+  }
+  
+
+
+
+  .section.user-account {
+    align-content: flex-start;
+    width: calc(100% - 600px);
+    justify-content: flex-start;
+    box-sizing: border-box;
+    left: 600px;
+    background: var(--dark);
+    position: absolute;
+    transition: linear .5s;
+  }
+  
+  .sidebar {
+    background-color: var(--overlay-black-less);
+    padding: 30px;
+    width: 300px;
+    height: 100%;
+    position: fixed;
+    left: 300px;
+    box-sizing: border-box;
+    transition: linear .25s;
+    z-index: 9;
+  }
+  .sidebar.start-animation {
+    left: 0;
+  }
+  .section.user-account.start-animation {
+    left: -500px;
+  }
+  
+  .sidebar .title h1 {
+    font-size: 27px;
+    text-align: left;
+    color: var(--white);
+  }
+  
+  ul.menu-sidebar {
+    list-style: none;
+    padding: 0;
+    margin-top: 5px;
+  }
+  
+  ul.menu-sidebar li {
+    padding: 10px 0;
+    color: #fff;
+  }
+  
+  ul.menu-sidebar li a {
+    color: rgb(255 255 255 / 80%);
+  }
+  
+  .go-back {
+      display: flex;
+      align-content: center;
+      flex-direction: row;
+      margin-bottom: 10px;
+      cursor: pointer;
+    }
+    
+    .section.user-account .container,
+    .update.update-password {
+      background-color: transparent;
+      padding: 30px;
+      max-width: none;
+      width: 100%;
+      border-radius: 0;
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+    }
+    
+    .section.user-account .container.user-account {
+      padding-bottom: 0px;
+    }
+    .container.update.update-password {
+      padding-top: 0px;
+    }
+    
+    .section.user-account .container h2,
+    .section.user-account .container input {
+      text-align: left;
+    }
+    
+    .section.user-account h2 {
+      margin-bottom: 0;
+      margin-top: 0;
+    }
+    
+    .buttons {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    
+    button.button--update-info__profile {
+      max-width: 108px;
+    }
+    
+    button.button--update-info__password {
+      max-width: 145px;
+      margin-left: 0;
+    }
+    
+    button.button--update-info__save-info,
+    button.button--update-info__save-password {
+      width: calc(50% - 10px);
+    }
+    
+    button.button--update-info__cancel-info,
+    button.button--update-info__cancel-password,
+    button.button--create-post_cancel,
+    button.button--edit-post_cancel {
+      width: calc(50% - 10px);
+      background: var(--white);
+      border: solid 2px var(--main-button);
+      color: var(--main-button);
+    }
+    
+    button[disabled] {
+      opacity: .6;
+      background: transparent;
+      color: var(--main-button);
+    }
+    
+    .update {
+      max-width: 380px;
+    }
+    
+    .section.user-account .password input {
+      width: 100%;
+    }
+    
+    .update form {
+      max-width: 280px;
+    }
+    
+    .update > p {
+      margin-top: 0;
+    }
+  
+    a.user-theme {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      line-height: 1;
+    }
+    
+    .user-theme .material-symbols-outlined {
+      font-size: 32px;
+    }
+    
+    html[data-theme="dark"] .theme.material-symbols-outlined {
+      color: #70bd7a;
+    }
+    
+    .post-author{
+      position: relative;
+      cursor: pointer;
+    }
+  
+    .post-author[title]:hover::after {
+      content: attr(title);
+      position: absolute;
+      top: -115%;
+      left: -5px;
+      width: max-content;
+      font-size: 14px;
+      background: #202528;
+      padding: 5px 10px;
+      border-radius: 5px;
+      transition: linear .2s;
+    }
+    
+    .total-likes-post {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: center;
+      padding: 5px 0 2px;
+    }
+    
+    .posts .users-liked-post .post-author {
+      position: relative;
+      margin-right: -10px;
+      margin-bottom: 0;
+    }
+    
+    .users-liked-post:first-child {
+      margin-left: 10px;
+    }
+    
+    .posts .users-liked-post .post-author .avatar {
+      width: 24px;
+      height: 24px;
+      box-shadow: -2px 1px 2px 0px rgba(0,0,0,0.3);
+    }
+    
+    .posts .users-liked-post .post-author .letter {
+      font-size: 10px;
+      bottom: 0px;
+    }
+    
+    .section.user-account .delete-account {
+      margin-left: 30px;
+    }
+  
+    button.button--create-post {
+        width: 120px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      
+      button.button--create-post i {
+        margin-left: 4px;
+        width: 20px;
+        height: 20px;
+        line-height: 1;
+        display: flex;
+        align-items: center;
+      }
+      
+      button.button--edit-post {
+        width: 120px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      
+      button.button--edit-post i {
+        margin-left: 4px;
+        width: 20px;
+        height: 20px;
+        line-height: 1;
+        display: flex;
+        align-items: center;
+      }
+      
+
+    .delete-account button {
+    background: var(--red);
+    border: solid 2px var(--red);
+    width: fit-content;
+    padding: 7px 10px 8px;
+    font-size: 14px;
+    border-radius: 10px;
+    transition: linear .2s;
+    cursor: pointer;
+  
+  }

@@ -1,45 +1,48 @@
+import env from "react-dotenv"
 
 export default function retrieveUserLocation(callback) {
-
-
-
+  let userLocation
     const options = {
-        enableHighAccuracy: true,
-        timeout: 5000,
-        maximumAge: 0,
-      }
-      
-      function success(pos) {
-          const apiKey = 'AIzaSyB1Pe23z5fgC1w4quW-0WkK0ghyhSPZd-E'
-        const coordinates = pos.coords
-        const longitude = coordinates.longitude
-        const latitude = coordinates.latitude
-        
-        return `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${apiKey} meters.`
-      }
-      alert(success())
-      
-      function error(error) {
-        console.warn(`ERROR(${error.code}): ${error.message}`)
-      }
-      
-      navigator.geolocation.getCurrentPosition(success, error, options)
-    
-    
-
-    const xhr = new XMLHttpRequest
-
-    xhr.onload = () => {
-        const { content } = JSON.parse(xhr.response)
-
-        callback( null, content)
+      enableHighAccuracy: true,
+      timeout: 5000,
+      maximumAge: 0
     }
-
-    xhr.onerror = () => {
-        callback(new Error('Connection error'))
+    
+    function success(pos) {
+      const apiKey = import.meta.env.VITE_GOOGLE_GEOCODING_API_KEY
+      const coordinates = pos.coords
+      const longitude = coordinates.longitude
+      const latitude = coordinates.latitude
+      userLocation = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${apiKey}`
     }
+    
+    function error(error) {
+      console.warn(`ERROR(${error.code}): ${error.message}`)
+    }
+    
+    // navigator.geolocation.getCurrentPosition(success, error, options)
+    navigator.geolocation.getCurrentPosition(success, error)
+  
 
-    xhr.open(GET, )
+  const xhr = new XMLHttpRequest
+
+  xhr.onload = () => {
+    const content = JSON.parse(xhr.response)
+    const userCity = content.results[0].address_components[2].long_name
+    console.log(userCity)
+
+    callback( null, userCity)
+  }
+
+  xhr.onerror = () => {
+      callback(new Error('Connection error'))
+  }
+  // xhr.open('GET', userLocation)
+  // xhr.send()
+  setTimeout(() => {
+    xhr.open('GET', userLocation)
+    xhr.send()
+  }, 8005)
 
 }
 

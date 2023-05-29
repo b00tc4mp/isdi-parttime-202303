@@ -3,15 +3,18 @@ import UserImage from "./UserImage"
 import { userLikedPost, savePostToFavorites } from "../logic/posts/postsData"
 import './Post.css'
 import retrieveUser from "../logic/users/retrieveUser"
-import { useEffect, useState } from "react"
-import { findUserById } from "../data"
-
-export default function Post({ post, post: { image, title, text, comments, likes, id, date, author, lastModify }, onToggleLikePost, onToggleSavePost, onEditPostButton, user }) {
+import { useEffect, useState, useCallback } from "react"
+import ContextualModalMenu from "./ContextualMenu"
+import { deletePost } from "../logic/posts/deletePost"
+export default function Post({ post, post: { image, title, text, comments, likes, id, date, author, lastModify, location }, onToggleLikePost, onToggleSavePost, onEditPostButton, user, onHideMenuOptions }) {
 
     const userId = context.userId
 
     const [userData, setUserData] = useState()
-    const [userSavePost, setUserSavePost] = useState()
+    const [modal, setModal] = useState()
+
+    const forceUpdate = useCallback(() => setModal({}), []);
+
 
     const postStyle = {
         background: `linear-gradient(180deg, rgba(0,0,0,.2) 0%, rgba(0,0,0,0) 10%, rgba(0,0,0,0) 50%, rgba(0,0,0,.6) 100%), url(${image}) center / cover`
@@ -28,10 +31,20 @@ export default function Post({ post, post: { image, title, text, comments, likes
                 }
                 setUserData(user)
             })
+
         } catch (error) {
             alert(error.message)
         }
     }, [])
+    // useEffect(() => {
+    //     try {
+    //         alert('hola')
+    //     } catch (error) {
+    //         alert(error.message)
+    //     }
+    // }, [modal])
+
+
 
     const postDate = date
 
@@ -77,17 +90,8 @@ export default function Post({ post, post: { image, title, text, comments, likes
             alert(error.message)
         }
     }
-    function checkUserPostSavedPosts() {
-        // const findPost = user.find(user => user.likedPosts === id)
-        // if(findPost)
-        //     setUserSavePost(false)
 
-        // if(!findPost)
-        //     setUserSavePost(true)
-
-    }
     function handleToggleSave(event) {
-        // checkUserPostSavedPosts()
         try {
             savePostToFavorites(post, userId, user, error => {
                 if(error) {
@@ -102,18 +106,59 @@ export default function Post({ post, post: { image, title, text, comments, likes
         }
     }
 
-
     function handleEditPostButton(id) {
         onEditPostButton(id)
     }
+    function handleDeletePostButton(id) {
+        try {
+            deletePost(userId, id, error => {
+                if(error)
+                    alert(error.message)
+            })
+            debugger
+            if(deletePost) {
+                alert('post deleted')
+                setModal('close')
+            }
+        } catch(error) {
+
+        }
+    }
+
+
+    function handleShowMenuOptions() {
+        setModal('open')
+    }
+
+    const handleHideMenuOptions = () => {
+        debugger
+        setModal('close')
+        forceUpdate()
+        console.log(modal)
+        // onHideMenuOptions()
+    }
 
     return user && <>
-
-        {/* <p>{user.likedPosts}</p>   ESTO NO */}
         <article className={id} style={postStyle}>
             <div className="post-author">
                 <UserImage userId={author.id} />
-                {userId === author.id ? <button className={`edit ${id}`} onClick={() => handleEditPostButton(id)}>edit <span className="material-symbols-outlined pencil edit-post">edit</span></button> : ''}
+                {userId === author.id ? <button className={`options`} onClick={handleShowMenuOptions}><span className="material-symbols-outlined pencil edit-post">more_vert</span>
+                
+                {modal === 'open' && 
+                <ContextualModalMenu 
+                    items={[
+                        {text: 'Edit post', onClick: () => handleEditPostButton(id)},
+                        {text: 'Delete post', onClick: () => handleDeletePostButton(id)},
+                    ]}
+                    onOutterClick={handleHideMenuOptions}
+                />
+                }
+                
+                {/* <ul>
+                    <li className={`edit ${id}`} onClick={() => handleEditPostButton(id)}>edit <span className="material-symbols-outlined pencil edit-post">edit</span></li>
+                </ul> */}
+                </button> : ''}
+                {location && <span className="location">{location}</span>}
             </div>
             <img className="space-image" />
             <div className="title-and-interactions">
