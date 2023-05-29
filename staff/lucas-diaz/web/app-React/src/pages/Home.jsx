@@ -119,17 +119,11 @@ export default function Home({ onLogOutClick }) {
                 lastPostsUpdate={lastPostUpdate}
                 view={view}
             />}
-
-
             {view === "userPosts" && <Posts
                 onEditPostButtonClick={openEditPostModal}
                 lastPostsUpdate={lastPostUpdate}
                 view={view}
             />}
-
-
-
-
             {view === "avatar" && <UpdateAvatar
                 onUpdatedAvatar={handleUpdatedAvatar}
                 onCancelClick={handleCancelUpdatedAvatar}

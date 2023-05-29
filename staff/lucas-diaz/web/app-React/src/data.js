@@ -1,6 +1,6 @@
 import { users } from "../../app-React.2/src/data"
 
-const DELAY = 10
+const DELAY = 400
 
 export const loadUsers = callback => setTimeout(() => {
     callback("usersJson" in localStorage ? JSON.parse(localStorage.usersJson) : [])

@@ -25,7 +25,6 @@ export default function Posts({ onEditPostButtonClick, lastPostsUpdate, view }) 
     const checkPostType = () => {
         console.log(view);
         switch (view) {
-
             case "posts":
                 retrievePosts(context.userId, (error, _posts) => {
                     if (error) {
@@ -65,8 +64,6 @@ export default function Posts({ onEditPostButtonClick, lastPostsUpdate, view }) 
                     setUser(user);
                 })
                 break;
-
-
 
             case "userPosts":
                 retrievePosts(context.userId, (error, retrievedPosts) => {
@@ -148,7 +145,6 @@ export default function Posts({ onEditPostButtonClick, lastPostsUpdate, view }) 
             handleRefreshPosts();
         }
     }, [lastPostsUpdate])
-
 
     return <section className="home-posts-content">
         {posts.map((post, index) => <Post

@@ -14,7 +14,7 @@ export default function retrieveSavedPosts(userId, posts, callback) {
 
     if (foundUser.savedPosts.length > 0) {
         const savedPosts = posts.filter((post) => foundUser.savedPosts.includes(post.id));
-        console.log(savedPosts)
+
         callback(null,savedPosts);
     } else {
         callback(null, []);

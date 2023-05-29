@@ -58,16 +58,16 @@ export default function Post(props) {
     }
 
     function handleHidePostClick() {
-        try{
+        try {
             // add logic 
             hideAPost(context.userId, post, error => {
-                if (error){
+                if (error) {
                     alert(error.message)
                     return
                 }
                 props.onHidenPostClick();
             })
-        }catch(error){
+        } catch (error) {
             alert(error.message)
         }
     }
@@ -75,12 +75,15 @@ export default function Post(props) {
     console.log("Post -> render")
 
     return <article>
-        <img className="home-post-content-article-avatar" src={post.author.avatar} />
-        <p className="home-post-content-article-userName">{post.userName}</p>
+        <div className="home-post-content-article-box">
+            <img className="home-post-content-article-avatar" src={post.author.avatar} />
+            <p className="home-post-content-article-userName">{post.userName}</p>
+        </div>
+
         {post.author.id === context.userId ? <span className="material-symbols-rounded lockimg" onClick={handleHidePostClick}>
-            {post.visibility === "public" ?"lock_open_right" :  "lock"}
+            {post.visibility === "public" ? "lock_open_right" : "lock"}
         </span> : null}
-        
+
         {post.author.id === context.userId ? <span className="material-symbols-rounded bin" onClick={handleDeleteClick}>
             delete
         </span> : null}
