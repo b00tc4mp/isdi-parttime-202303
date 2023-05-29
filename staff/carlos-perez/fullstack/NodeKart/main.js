@@ -63,7 +63,10 @@ const interval = setInterval(() => {
 
         const fs = require('fs');
 
-        fs.appendFile('/Users/carlos/workspace/isdi-parttime-202303/staff/carlos-perez/fullstack/NodeKart/results.txt', result, err => {
+        //Mac: /Users/carlos/workspace/isdi-parttime-202303/staff/carlos-perez/fullstack/NodeKart/results.txt
+        //Linux: /home/carlos/workspace/isdi-parttime-202303/staff/carlos-perez/fullstack/NodeKart/results.txt
+
+        fs.appendFile('/home/carlos/workspace/isdi-parttime-202303/staff/carlos-perez/fullstack/NodeKart/results.txt', result, err => {
             if (err) {
                 console.error(err);
             }
