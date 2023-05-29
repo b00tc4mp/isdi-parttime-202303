@@ -52,23 +52,11 @@ let interval = setInterval(() => {
     thief.time = finalTime  
   }
 
-  // if(taxi.pos >= 100) {
-  //   console.log('The race is finished. \nThe winner is the Taxist!!')
-  //   clearInterval(interval)
-  // }
-  // else if(police.pos >= 100) {
-  //   console.log('The race is finished. \nThe winner is the police!!')
-  //   clearInterval(interval)
-  // }
-  // else if(thief.pos >= 100) {
-  //   console.log('The race is finished. \nThe winner is the thief!!')
-  //   clearInterval(interval)
-  // }
-
   if(taxi.pos >= 100 && police.pos >= 100 && thief.pos >= 100) {
     const results = [taxi.status(), police.status(), thief.status()]
-    
-    fs.writeFile(fileRoute, results.join('\n'), (error) => {
+    let oldResults = ''
+
+    fs.readFile('results.txt', 'utf8', (error, data) => {
       if(error) {
         alert(error.message)
         console.log(error.stack)
@@ -76,7 +64,19 @@ let interval = setInterval(() => {
         return
       }
 
-      clearInterval(interval)
+      oldResults =  results.join('\n') + '\n\n' +(!data ? '' : data + '\n\n')
+      
+      fs.writeFile(fileRoute, oldResults, (error) => {
+        if(error) {
+          alert(error.message)
+          console.log(error.stack)
+          
+          return
+        }
+    
+        clearInterval(interval)
+      })
     })
+
   }
 }, LAPSE)
