@@ -1,0 +1,164 @@
+/* resets */
+html, body {
+  min-height: 100vh;
+  max-height: fit-content;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+/* styles */
+
+:root {
+  --basecolor: black;
+  --basebgcolor: rgb(255, 255, 255);
+  --bgheaderfooter: #e3e3e3;
+  --bgpost: #e3e3e3;
+}
+
+:root.dark {
+  --basecolor: rgb(182, 182, 0);
+  --basebgcolor: rgb(177, 115, 0);
+  --bgheaderfooter: #003b77;
+}
+
+.page {
+  background-color: var(--basebgcolor);
+  min-height: 100vh;
+  max-height: fit-content;
+  padding-bottom: 60px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.title {
+  color: var(--basecolor);
+  font-size: 50px;
+  margin: 20px 0;
+  cursor: pointer;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  min-width: 60vw;
+  gap: 1rem;
+}
+
+.input, .button {
+  padding: .5rem .6rem;
+  border-radius: .75rem;
+  background-color: var(--basecolor);
+  box-shadow: 0 0 0 20px rgb(202, 202, 202) inset;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:hover {
+  box-shadow: 0 0 0 20px rgb(179, 179, 179) inset;
+}
+
+.user-post{
+  background: var(--bgpost);
+}
+
+.home-footer {
+  position: fixed;
+  bottom: 0;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--bgheaderfooter);
+  height: 60px;
+}
+
+@media (min-width: 630px) {
+  main div{
+    display: flex;
+    flex-direction: row;
+  }
+}
+
+.name-avatar-profile {
+  cursor: pointer;
+  user-select: none;
+}
+  
+html, body {
+  height: 100vh;
+}
+
+.add-comment_form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  position: absolute;
+  bottom: 0;
+}
+
+.add-comment_form button {
+  width: 50%;
+  border-radius: 5px;
+}
+
+.add-post, .edit-post {
+  width: 100vw;
+  height: 100vmax;
+  background-color: rgba(0, 0, 0, 0.545);
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 30;
+}
+
+.add-post-form, .edit-post-form {
+  background: white;
+  padding: 20px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  position: fixed;
+  bottom: 150px;
+}
+
+.post-url {
+  width: 250px;
+  border: 2px solid black;
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 0 0 0 20px yellow inset;
+}
+
+.post-text {
+  width: 250px;
+  border: 2px solid black;
+  height: 100px;
+  box-shadow: 0 0 0 60px yellow inset;
+  border-radius: 10px;
+  padding: 10px;
+  overflow: hidden;
+}
+
+/* @media (min-width: 630px) {
+  .open-menu {
+    margin: 0 0 0 90px;
+  }
+} */
+
+.fixed-scroll {
+  overflow: hidden;
+}
