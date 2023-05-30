@@ -1,0 +1,9 @@
+.main-tittle {
+    display: flex;
+    flex-direction: column;
+}
+
+.joke__container {
+    color: rgb(207, 0, 97);
+    text-align: center;
+}
