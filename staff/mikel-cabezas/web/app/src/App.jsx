@@ -13,6 +13,7 @@ export default function App( {UpdateUserInfo, handleSavelUpdateProfile} ) {
     
     const handleGoToRegister = () => setView('register')
     const handleGoToLogin = () => {
+      debugger
       setView('login')
     }
     const handleGoToHome = () => setView('home')

@@ -1,8 +1,8 @@
 import { context } from "../ui"
-import UserImage from "./UserImage"
-import { userLikedPost, savePostToFavorites } from "../logic/posts/postsData"
+import { toggleLikePost } from "../logic/posts/toggleLikePost"
+import { toggleSavePost } from "../logic/posts/toggleSavePost"
 import './Post.css'
-import { useEffect, useState, useCallback } from "react"
+import { useEffect, useState } from "react"
 import ContextualModalMenu from "./ContextualMenu"
 import { deletePost } from "../logic/posts/deletePost"
 import retrieveUser from "../logic/users/retrieveUser"
@@ -67,7 +67,7 @@ export default function Post({ post, post: { image, title, text, comments, likes
 
     function handleToggleLike(event) {
         try {
-            userLikedPost(userId, post, error => {
+            toggleLikePost(userId, post, error => {
                 if (error) {
                     alert(error.message)
 
@@ -83,7 +83,7 @@ export default function Post({ post, post: { image, title, text, comments, likes
 
     function handleToggleSave(event) {
         try {
-            savePostToFavorites(userId, post.id, error => {
+            toggleSavePost(userId, post.id, error => {
                 if(error) {
                     alert(error.message)
 

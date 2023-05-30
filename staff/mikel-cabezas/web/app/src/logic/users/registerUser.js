@@ -1,5 +1,7 @@
 import { validateEmail, validatePassword, validateCallback } from "../helpers/validators.js"
 import { saveUser } from "../../data.js"
+import { findUserByEmail } from "../../data.js"
+import { loadUsers } from "../../data.js"
 
 export default function registerUser(name, email, password, callback) {
     validateCallback(callback)
@@ -14,7 +16,6 @@ export default function registerUser(name, email, password, callback) {
 
         let id
         loadUsers(users => {
-
             var checkEmail = users.find(user => user.email === email)
             if(checkEmail) {
                 throw new Error('Email already registered')
@@ -22,16 +23,14 @@ export default function registerUser(name, email, password, callback) {
             if(checkEmail !== email) {
                 name = name.trim()
                 const user = {
-                    id: 'user-' + parseInt(_users.length + 1),
+                    id: 'user-' + parseInt(users.length + 1),
                     name: name,
                     email: email,
                     password: password,
                     favPosts: []
                 }
                 users.push(user)
-                saveUser(users, callback)
-                console.log(users)
-                return user.name
+                saveUser(user, () => callback(null))
             }
         })
     }) 

@@ -22,11 +22,8 @@ export default function Register({onLoginClick, onUserRegistered}) {
                     return
                 }
 
-                if(checkNewUserIsRegister) {
-                    // document.querySelector('.message').classList.add('success')
-                    event.target.reset()
-                    onUserRegistered()
-                }
+                event.target.reset()
+                onUserRegistered()
             })        
 
    
