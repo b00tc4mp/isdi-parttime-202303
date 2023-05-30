@@ -9,7 +9,7 @@ import deletePost from '../logic/deletePost'
 import togglePrivatizePost from '../logic/privatizePost'
 import Context from '../Context'
 
-export default function Post ({ post, onEditPost, onLiked, onSaved, onDeletePost, onPrivatizePost }) {
+export default function Post ({ post, onEditPost, onLiked, onSaved, onDeletePost, onPrivatizePost, onSellPost, onBuyPost }) {
   const { alert, freeze, unfreeze } = useContext(Context)
 
   const [privateIcon, setPrivateIcon] = useState(post.visibility === 'public' ? 'lock_open' : 'lock')
@@ -96,6 +96,14 @@ export default function Post ({ post, onEditPost, onLiked, onSaved, onDeletePost
     }
   }
 
+  const handleSellPost = () => {
+    onSellPost(post.id)
+  }
+
+  const handleBuyPost = () => {
+    onBuyPost(post.id)
+  }
+
   return (
     <article data-id={post.id}>
       <div className='user-container-post'>
@@ -122,7 +130,7 @@ export default function Post ({ post, onEditPost, onLiked, onSaved, onDeletePost
       <p className='post-text'>{post.text}</p>
       {
         post.author.id === context.userId &&
-          <div className='edit-delete-container-post'>
+          <div className='utils-container-post'>
             <button className='button reverse-color icon-button edit-post-button' onClick={handleEditPost}>
               <span className='material-symbols-outlined edit'>
                 stylus
@@ -133,8 +141,19 @@ export default function Post ({ post, onEditPost, onLiked, onSaved, onDeletePost
                 delete
               </span>
             </button>
+            <button className='button reverse-color sell-post-button' onClick={handleSellPost}>
+              SELL {`${post.price && post.price > 0 ? post.price + '€' : ''}`}
+            </button>
           </div>
       }
+
+      {
+        post.author.id !== context.userId && post.price !== 0 &&
+          <div className='utils-container-post'>
+            <button className='button reverse-color buy-post-button' onClick={handleBuyPost}>BUY {`${post.price + '€'}`}
+            </button>
+          </div>
+        }
     </article>
   )
 }

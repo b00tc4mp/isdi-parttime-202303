@@ -131,7 +131,7 @@ h2 {
 .icon-button {
   display: flex;
   align-items: center;
-  padding: 0.2rem 0.4rem;
+  padding: 0.2rem 0.3rem;
 }
 
 .material-symbols-outlined, .material-symbols-outlined.favs {
@@ -155,7 +155,7 @@ h2 {
   margin-left: auto;
 }
 
-.material-symbols-outlined.edit, .material-symbols-outlined.delete, .material-symbols-outlined.theme {
+.material-symbols-outlined.edit, .material-symbols-outlined.delete, .material-symbols-outlined.theme, .material-symbols-outlined.sell {
   font-variation-settings:
   'FILL' 1,
   'wght' 200,

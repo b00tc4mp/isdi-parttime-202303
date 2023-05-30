@@ -22,7 +22,7 @@ article {
     border-radius: .4rem;
   }
   
-  .edit-delete-container-post {
+  .utils-container-post {
     display: flex;
     align-self: end;
     gap: .3rem;
@@ -48,6 +48,10 @@ article {
     gap: .3rem;
     font-size: .9rem;
   }
+
+  /* .price {
+    font-size: .9rem;
+  } */
 
   @media (min-width: 768px) {
     .post-image {

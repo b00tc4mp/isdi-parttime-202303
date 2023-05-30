@@ -6,6 +6,8 @@ import { DEFAULT_AVATAR_URL } from '../constants'
 import Posts from '../components/Posts'
 import AddPostModal from '../components/modals/AddPostModal'
 import EditPostModal from '../components/modals/EditPostModal'
+import SellPostModal from '../components/modals/SellPostModal'
+import BuyPostModal from '../components/modals/BuyPostModal'
 import Profile from '../components/Profile'
 import Context from '../Context'
 
@@ -40,7 +42,21 @@ export default function Home ({ onLogOut }) {
     openModal()
   }
 
-  const handleCloseAddOrEditPost = () => {
+  const handleOpenSellPost = (postId) => {
+    setModal('sell-post')
+    setPostId(postId)
+
+    openModal()
+  }
+
+  const handleOpenBuyPost = (postId) => {
+    setModal('buy-post')
+    setPostId(postId)
+
+    openModal()
+  }
+
+  const handleCloseModal = () => {
     setModal(null)
 
     hideModal()
@@ -84,6 +100,8 @@ export default function Home ({ onLogOut }) {
   const handlePostUpdated = () => {
     setModal(null)
     setLastPostsUpdate(Date.now())
+
+    hideModal()
   }
 
   const handleRefreshUser = () => {
@@ -166,6 +184,8 @@ export default function Home ({ onLogOut }) {
           <Posts
             currentUser={user}
             onEditPost={handleOpenEditPost}
+            onSellPost={handleOpenSellPost}
+            onBuyPost={handleOpenBuyPost}
             lastPostsUpdate={lastPostsUpdate}
           />
         )}
@@ -182,6 +202,8 @@ export default function Home ({ onLogOut }) {
             currentUser={user}
             mySavedPosts
             onEditPost={handleOpenEditPost}
+            onSellPost={handleOpenSellPost}
+            onBuyPost={handleOpenBuyPost}
             lastPostsUpdate={lastPostsUpdate}
           />
         )}
@@ -189,14 +211,30 @@ export default function Home ({ onLogOut }) {
         {modal === 'add-post' && (
           <AddPostModal
             onPostCreated={handlePostUpdated}
-            onCancel={handleCloseAddOrEditPost}
+            onCancel={handleCloseModal}
           />
         )}
 
         {modal === 'edit-post' && (
           <EditPostModal
             onPostEdited={handlePostUpdated}
-            onCancel={handleCloseAddOrEditPost}
+            onCancel={handleCloseModal}
+            postId={postId}
+          />
+        )}
+
+        {modal === 'sell-post' && (
+          <SellPostModal
+            onPostForSale={handlePostUpdated}
+            onCancel={handleCloseModal}
+            postId={postId}
+          />
+        )}
+
+        {modal === 'buy-post' && (
+          <BuyPostModal
+            onPostBought={handlePostUpdated}
+            onCancel={handleCloseModal}
             postId={postId}
           />
         )}
