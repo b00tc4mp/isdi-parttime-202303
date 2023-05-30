@@ -70,7 +70,7 @@ export default function Login({ onRegisterClick, onUserLoggedIn }) {
         <Container tag="div" className="login page">
             <h1 className="title">Login</h1>
 
-            { quote && <p><q>{quote}</q></p>}
+            { quote && <p><q>{quote}</q></p> }
 
             <form className="form" action="" onSubmit={handleLogin}>
                 <input className="input" type="email" name="email" placeholder="usuario@dominio.com" /><br/>
