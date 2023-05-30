@@ -16,9 +16,5 @@ export default function updateUserAvatar(userId, avatar, callback) {
         user.avatar = avatar
 
         saveUser(user, () => callback(null))
-
-
     })
-
-
 }

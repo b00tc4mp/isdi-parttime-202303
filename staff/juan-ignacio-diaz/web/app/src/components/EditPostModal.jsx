@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from 'react'
 
 import { context } from '../ui'
-import Context from '../context'
+import Context from '../Context'
 
 import Container from '../library/Container'
 
@@ -9,7 +9,7 @@ import updatePost from '../logic/updatePost'
 import retrievePost from '../logic/retrievePost'
 
 export default function EditPost({ onCancel, onEditedPost, postId}) {
-    const { alert , freeze, unfreeze } = useContext(Context)
+    const { alert, freeze, unfreeze } = useContext(Context)
     const [post, setPost] = useState(null)
 
     useEffect(() => {

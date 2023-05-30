@@ -11,44 +11,35 @@ import updateUserPassword from "../logic/updateUserPassword"
 import './Profile.css'
 
 export default function Profile({ onEditedProfile, user }){
-    const { alert } = useContext(Context)
+    const { alert, freeze, unfreeze } = useContext(Context)
 
     const handleSwitchMode = () => {
-
         let mode
 
-        if (user.mode ) {
-    console.log(user.mode)
-            if (user.mode === 'dark') {
-                mode = 'light'
-                document.querySelector(':root').classList.remove('dark')
-            }
-            else {
-                mode = 'dark'
-                document.querySelector(':root').classList.add('dark')
-            }
-    console.log(user.mode)  
+        if (user.mode) {
+            if (user.mode === 'dark') mode = 'light'
+            else mode = 'dark'
         }          
-        else {
-            mode = 'dark'
-            document.querySelector(':root').classList.add('dark')
-        }
+        else mode = 'dark'
 
         try{
+            freeze()
             updateUserMode(context.userId, mode, error => {
+                unfreeze()
                 if (error) {
                     alert(error.message)
 
                     return
                 }
+
                 alert("mode updated")
+
                 onEditedProfile()
             })
         }
         catch(error) {
             alert(error.message)
         }
-        document.querySelector(':root').classList.toggle('dark')
     }
 
     const handleEditAvatar = (event) => {
@@ -57,12 +48,15 @@ export default function Profile({ onEditedProfile, user }){
         const url = event.target.url.value
 
         try{
+            freeze()
             updateUserAvatar (context.userId, url, error => {
+                unfreeze()
                 if (error) {
                     alert(error.message)
 
                     return
                 }
+                
                 alert("avatar updated")
                 event.target.reset()
                 onEditedProfile()
@@ -85,7 +79,9 @@ export default function Profile({ onEditedProfile, user }){
         const newPasswordConfirm = event.target.newPasswordConfirm.value
 
         try {
+            freeze()
             updateUserPassword(context.userId, password, newPassword, newPasswordConfirm, error => {
+                unfreeze()
                 if (error) {
                     alert(error.message)
 

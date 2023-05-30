@@ -22,7 +22,9 @@ export default function createPost(userId, image, text, callback) {
                     image,
                     text,
                     date: new Date,
-                    likes: []
+                    likes: [],
+                    lock: false,
+                    price: 0
                 })
 
                 savePosts(posts, () => callback(null))

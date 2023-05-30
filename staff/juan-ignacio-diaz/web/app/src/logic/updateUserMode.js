@@ -14,6 +14,6 @@ export default function updateUserMode(userId, mode, callback) {
 
         user.mode = mode
 
-        saveUser(user, () => callback)
+        saveUser(user, () => callback(null))
     })
 }

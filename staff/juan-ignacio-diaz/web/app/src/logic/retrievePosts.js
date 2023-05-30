@@ -15,9 +15,9 @@ export default function retriewePosts(userId, callback){
 
         loadUsers(users => {
             loadPosts(posts => {
-                posts.filter(post => !post.lock || (post.lock && post.author === userId))
+                const tmPosts = posts.filter(post => !post.lock || (post.lock && post.author === userId))
 
-                posts.forEach(post => {
+                tmPosts.forEach(post => {
                     post.fav = user.favs.includes(post.id)
     
                     const author = users.find(user => user.id === post.author)
@@ -28,7 +28,7 @@ export default function retriewePosts(userId, callback){
                         avatar: author.avatar
                     }
                 })
-                callback(null, posts.toReversed())
+                callback(null, tmPosts.toReversed())
 
             })
         })

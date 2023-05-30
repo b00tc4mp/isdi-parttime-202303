@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react'
 
 import { context } from '../ui'
-import Context from '../context'
+import Context from '../Context'
 
 import Container from '../library/Container'
 

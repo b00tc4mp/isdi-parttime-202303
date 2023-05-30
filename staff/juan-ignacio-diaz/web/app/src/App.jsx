@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { context } from './ui'
-import Context from './context'
+import Context from './Context'
 
 //import inLogger from './inLogger';
 
@@ -57,5 +57,5 @@ export default function App() {
       </Context.Provider>
 
 }
-
+//const App = () => {
 //export default inLogger(App);

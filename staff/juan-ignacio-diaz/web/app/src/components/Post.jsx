@@ -1,7 +1,7 @@
 import { useContext } from 'react'
 
 import { context } from '../ui'
-import Context from '../context'
+import Context from '../Context'
 
 export const DEFAULT_AVATAR_URL = "https://img.icons8.com/color/512/avatar.png"
 
@@ -12,7 +12,7 @@ import toggleLockPost from '../logic/toggleLockPost'
 
 import './Post.css'
 
-export default function Post ({ post: { id, author, image, text, date, likes, dateLastModified, fav, lock}, onModifyPost, onEditPost}) {
+export default function Post ({ post: { id, author, image, text, date, likes, dateLastModified, fav, lock, price}, onModifyPost, onEditPost}) {
     const { alert, freeze, unfreeze } = useContext(Context)
 
     const handleLikePost = () => {
@@ -115,7 +115,7 @@ export default function Post ({ post: { id, author, image, text, date, likes, da
                     {context.userId === author.id ? <button onClick={handleEditPost}>🖍</button> : ''} 
                     {context.userId === author.id ? <button onClick={handleDeletePost}>🗑</button> : ''}   
                     {context.userId === author.id ? <button onClick={handleLockPost}>{lock ? '🔒' : '🔓'}</button> : ''}   
-                    {context.userId === author.id ? <button onClick={handlePricePost}>0</button> : ''} 
+                    {/* {context.userId === author.id ? <button onClick={handlePricePost}>{price +'€'}</button> : {price != 0 ? <button onClick={handleBuyPost}>{price+'€'}</button> : ''}}  */}
                 </div>
             </div>
             <div className = "post-info">

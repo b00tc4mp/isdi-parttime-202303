@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from 'react'
 
 import { context } from '../ui'
-import Context from '../context'
+import Context from '../Context'
 
 export const DEFAULT_AVATAR_URL = "https://img.icons8.com/color/512/avatar.png"
 
@@ -15,7 +15,7 @@ import retrieveUser from '../logic/retrieveUser';
 import './Home.css'
 
 export default function Home({ onLogout }) {
-    const { alert } = useContext(Context)
+    const { alert, freeze, unfreeze } = useContext(Context)
 
     const [user, setUser] = useState()
     const [view, setView] = useState('posts')
@@ -24,9 +24,19 @@ export default function Home({ onLogout }) {
     const [typePosts, setTypePosts] = useState('all')
     const [lastPostsUpdate, setLastPostsUpdate] = useState(null)
 
+    function changeMode (mode){
+        if (mode) {
+            if (mode === 'dark') document.querySelector(':root').classList.add('dark')
+            else document.querySelector(':root').classList.remove('dark')
+        }
+        else document.querySelector(':root').classList.remove('dark')
+    }
+
     useEffect(() => {
-        try{
+        try{     
+            freeze()     
             retrieveUser(context.userId, (error, user) => {
+                unfreeze()
                 if (error) {
                     alert(error.message)
 
@@ -34,10 +44,7 @@ export default function Home({ onLogout }) {
                 }
                 setUser(user)
 
-                if (user.mode)
-                    if (user.mode === 'dark') document.querySelector(':root').classList.add('dark')
-                    else document.querySelector(':root').classList.remove('dark')
-                else document.querySelector(':root').classList.remove('dark')
+                changeMode(user.mode)
             }) 
         } 
         catch (error) {
@@ -58,13 +65,17 @@ export default function Home({ onLogout }) {
 
     const handledEditedProfile =() => {
         try{
+            freeze()
             retrieveUser(context.userId, (error, user) => {
+                unfreeze()
                 if (error) {
                     alert(error.message)
     
                     return
                 }
                 setUser(user)
+
+                changeMode(user.mode)
             })
         } 
         catch (error) {
