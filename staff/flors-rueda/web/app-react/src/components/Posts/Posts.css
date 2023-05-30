@@ -1,0 +1,172 @@
+.home-page__main--posts-list,
+.home-page__user-profile--favorites--post-list,
+.home-page__user-profile--posts--post-list {
+    display: flex;
+    flex-direction: column;
+    margin-top: 0;
+    gap: 1.5rem;
+    padding: 0 1rem;
+}
+
+.post-card, .post-card__profile, .post-card__user {
+    min-width: fit-content;
+    width: 90%;
+    padding: 0.05rem 0.5rem 0.25rem;
+    border: 0.05rem solid var(--color-surface-200);
+    border-radius: 3rem 0.3rem 0.3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    align-self: center;
+    height: fit-content;
+    box-shadow: var(--color-surface-200) 0 .5rem 1.5rem;
+}
+
+.post-card__profile {
+    border-radius: 0.3rem 0.3rem;
+    width: 90%;
+    padding: 0.05rem 0.5rem 0.25rem;
+}
+
+.post-card__user {
+    border-radius: 0.3rem 0.3rem;
+    width: 95%;
+    padding: 0.05rem 0.5rem 0.25rem;
+}
+
+.post-card__header {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    align-items: center;
+    width: 95%;
+}
+
+.post-card__header--author-data {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 0.3em;
+    margin-right: auto;
+}
+
+.post-card__header--author-avatar {
+    border-radius: 50%;
+    overflow: hidden;
+    height: 2.25rem;
+    width: 2.25rem;
+    background-image: url('../../../public/tile.png');
+    background-repeat: repeat;
+}
+
+.post-card__header--author-username {
+    font-weight: 100;
+    color: var(--color-secondary-200);
+}
+
+.post-card__header--author-name {
+    color: var(--color-terciary-200);
+}
+
+.post-card__header--to-edit-post {
+    align-self: flex-start;
+    height: 1.5rem;
+    width: 1.5rem;
+    fill: var(--color-primary-100);
+    cursor: pointer;
+}
+
+.post-card__body--image-container {
+    display: flex;
+    align-self: center;
+    align-items: center;
+}
+
+.post-card__body--image-container--image {
+    padding: 0.5rem 0;
+    overflow: hidden;
+    height: 20rem;
+    width: 20rem;
+    border-radius: 5%;
+}
+
+.post-card__body--text {
+    text-align: justify;
+    max-width: 90%;
+    padding-left: 0.95em;
+    white-space: pre-wrap;
+    overflow: hidden;
+    justify-content: start;
+}
+
+.post-card__body--like {
+    padding: .75rem 0 0 .75rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.post-card__body--like-button, .post__footer--favorite-button {
+    height: 1.5rem;
+    width: 1.5rem;
+    fill: var(--color-primary-300);
+    cursor: pointer;
+}
+
+.post-card__body--like-button {
+    fill: var(--color-terciary-300);
+}
+
+.post__footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0.5rem 0.75rem 0.15rem;
+    align-items: end;
+    width: 90%;
+}
+
+
+.post__footer--date {
+    color: var(--color-primary-100);
+    font-size: 0.85em;
+    font-weight: 500;
+    font-style: italic;
+}
+
+.post-favorite, .post-like {
+    display: flex;
+    flex-direction: row;
+}
+
+.post__footer--date b {
+  font-size: 1.15em;
+  padding-top: 0.25em;
+  padding-left: 0.15em;
+  color: var(--color-secondary-100);
+  margin-block-end: 0;
+}
+
+.home-page__main--no-posts-message {
+    font-size: 1.45em;
+    color: var(--color-terciary-100);
+    text-align: center;
+    padding: 0.05rem 1.5rem
+}
+
+@media (min-width: 768px) {
+    .post-card {
+        width: 25%;
+    }
+
+}
+
+@media (min-width: 420px) {
+    .post-card {
+        width: 40%;
+    }
+
+}

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles/style.css" />
+    <link rel="shortcut icon" href="./assets/favicon.ico" type="image/x-icon">
+    <script type="module" src="./src/main.js" defer></script>
+    <title>App</title>
+</head>
+<body>
+
+    <div class="off">
+        <section class="post-modal off">
+            <div class="post-modal__content">
+                <div class="post-modal__header">
+                    <button class="post-modal__cancel">X</button>
+                    <h2 class="post-modal__title">Post</h2>
+                </div>
+                <div class="post-modal__body">
+                    <img class="post-modal__selected-image"
+                        src="https://us.123rf.com/450wm/mathier/mathier1905/mathier190500002/134557216-no-thumbnail-image-placeholder-for-forums-blogs-and-websites.jpg" />
+                    <form class="post-modal__form">
+                        <div class="input__file" tabindex="0">
+                            <button class="input__file-delete off">x</button>
+                            <svg class="post-modal__set-img" xmlns="http://www.w3.org/2000/svg" height="2rem"
+                                viewBox="0 96 960 960" width="2rem" fill="var(--color-primary-100)">
+                                <path />
+                            </svg>
+                            <input class="post-modal__form-input--file" type="file" name="image"
+                                accept=".jpg, .jpeg, .png, .webp" />
+                        </div>
+                        <textarea class="post-modal__form-input--textarea" name="post-text" type="text" maxlength="180"
+                            placeholder="max 180 chars"></textarea>
+                        <button type="submit" class="post-modal__form--submit">send</button>
+                        <button type="button" class="post-modal__form--delete off">delete</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+        <section class="post-delete-modal off">
+            <div class="post-delete-modal__content">
+                <div class="post-delete-modal__header">
+                    <h2 class="post-delete-modal__title">Wait!</h2>
+                </div>
+                <div class="post-delete-modal__body">
+                    <p>Are you sure you want to delete this post? Once is done, it's done. There's no going back!</p>
+                    <form class="post-delete-modal__form">
+                        <button type="button" class="post-delete-modal__delete">YES, delete it</button>
+                        <button type="button" class="post-delete-modal__cancel">NO, keep it posted</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+        <section class="home-page__user-profile off">
+            <h1 class="home-page__user-profile--title">Your profile</h1>
+            <article class="user-profile__card">
+                <div class="profile-card__data">
+                    <p class="profile-card__name">Name: <span class="profile-card__name--text"></span></p>
+                    <p class="profile-card__username">Username: <span class="profile-card__username--text"></span></p>
+                    <time class="profile-card__since">Since: <span class="profile-card__since--text"></span></time>
+                </div>
+                <img class="profile-card__avatar"
+                    src="https://www.slotcharter.net/wp-content/uploads/2020/02/no-avatar.png" />
+            </article>
+            <div class="home-page__user-profile--buttons off">
+                <button class="home-page__user-profile--to-edit-profile">edit profile</button>
+                <button class="home-page__user-profile--to-change-password">change password</button>
+                <button class="home-page__user-profile--to-favorites">my favorites</button>
+                <button class="home-page__user-profile--to-delete-account">delete account</button>
+            </div>
+        </section>
+        <section class="profile-forms off">
+            <h2 class="profile-forms__title"></h2>
+            <section class="profile-forms__edit-profile off">
+                <form class="profile-forms__edit-profile--form" method="get">
+                    <input class="profile-forms__edit-mail--form-input--mail" name="mail" type="email" placeholder=""
+                    required />
+                    <input class="profile-forms__edit-profile--form-input--username" name="username" type="text"
+                        placeholder="" />
+                    <input class="profile-forms__edit-profile--form-input--name" name="name" type="text"
+                        placeholder="" />
+                    <div class="input__file" tabindex="0">
+                        <button class="input__file-delete off">x</button>
+                        <svg class="profile-forms__edit-profile__set-img" xmlns="http://www.w3.org/2000/svg"
+                            height="2rem" viewBox="0 96 960 960" width="2rem" fill="var(--color-primary-100)">
+                            <path />
+                        </svg>
+                        <input class="profile-forms__edit-profile--form-input--file" type="file" name="image"
+                            accept=".jpg, .jpeg, .png, .webp" />
+                    </div>
+                    Confirm changes?
+                    <input class="profile-forms__edit-profile--form-input--password" name="password" type="password"
+                        placeholder="your password" required />
+                    <button class="profile-forms__edit-profile--form-submit" type="submit">save</button>
+                </form>
+            </section>
+            <div class="profile-forms__change-password off">
+                <form class="profile-forms__change-password--form" method="get">
+                    <input class="profile-forms__change-password--form-input--new-password" name="new-password"
+                        type="password" placeholder="new password" required />
+                    <input class="profile-forms__change-password--form-input--repeat-password"
+                        name="repeat-new-password" type="password" placeholder="confirm your new password" required />
+                    Confirm changes?
+                    <input class="profile-forms__change-password--form-input--password" name="password" type="password"
+                        placeholder="old password" required />
+                    <button class="profile-forms__change-password--form-submit" type="submit">save</button>
+                </form>
+            </div>
+            <div class="profile-forms__delete-account off">
+                <div class="profile-forms__delete-account--alert">If you delete your account you'll loose everything:
+                    username,
+                    posts, likes, comments and friends...</div>
+                <form class="profile-forms__delete-account--form" method="get">
+                    <p>Are you sure?</p>
+                    <input class="profile-forms__delete-account--form-input--password" type="password"
+                        placeholder="your password" required />
+                    <input class="profile-forms__delete-account--form-input--repeat-password" type="password"
+                        placeholder="confirm your password" required />
+                    <button class="profile-forms__delete-account--form-submit" type="submit">yes, delete
+                        account</button>
+                </form>
+            </div>
+        </section>
+        <section class="home-page__user-profile--posts off">
+            <h2>Posts</h2>
+            <div class="home-page__user-profile--posts--post-list"></div>
+        </section>
+        <section class="home-page__user-profile--favorites off">
+            <h2>Favorites</h2>
+            <div class="home-page__user-profile--favorites--post-list"></div>
+        </section>
+    </section>
+
+    </div>
+        
+    <div class="blur off"></div>
+    <div class="extra-blur off"></div>
+</body>
