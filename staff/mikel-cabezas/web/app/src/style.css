@@ -322,3 +322,10 @@ html[data-theme="dark"] input:focus {
   transition: linear .2s;
 } */
 /* END DARK THEME */
+
+
+ul.contextual-menu.contextual-menu--container {
+  background: red;
+  z-index: 12;
+  position: relative;
+}

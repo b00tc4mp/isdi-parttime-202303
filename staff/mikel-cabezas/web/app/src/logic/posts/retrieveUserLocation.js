@@ -1,4 +1,4 @@
-import env from "react-dotenv"
+// import env from "react-dotenv"
 
 export default function retrieveUserLocation(callback) {
   let userLocation
@@ -9,11 +9,13 @@ export default function retrieveUserLocation(callback) {
     }
     
     function success(pos) {
-      const apiKey = import.meta.env.VITE_GOOGLE_GEOCODING_API_KEY
+      // const apiKey = import.meta.env.VITE_GEOCODING_API_KEY
+      // const apiKey = process.env.VITE_GOOGLE_GEOCODING_API_KEY
       const coordinates = pos.coords
       const longitude = coordinates.longitude
       const latitude = coordinates.latitude
-      userLocation = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${apiKey}`
+      // userLocation = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${apiKey}`
+      userLocation = `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=ca`
       console.log(userLocation)
     }
     
@@ -29,7 +31,7 @@ export default function retrieveUserLocation(callback) {
 
   xhr.onload = () => {
     const content = JSON.parse(xhr.response)
-    const userCity = content.results[0].address_components[2].long_name
+    const userCity = content.city
     console.log(userCity)
 
     callback( null, userCity)
@@ -43,7 +45,7 @@ export default function retrieveUserLocation(callback) {
   setTimeout(() => {
     xhr.open('GET', userLocation)
     xhr.send()
-  }, 8005)
+  }, 1000)
 
 }
 

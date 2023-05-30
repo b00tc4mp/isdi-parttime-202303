@@ -1,8 +1,8 @@
 import { findPostbyId, findUserById } from "../../data"
-import { validateId } from "../helpers/validators"
+import { validateUserId } from "../helpers/validators"
 
 export default function retrievePostByPostId (userId, postId, callback){
-    validateId(userId)
+    validateUserId(userId)
 
     findUserById(userId, foundUser => {
         if (!foundUser) {

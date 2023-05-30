@@ -1,30 +1,47 @@
-import { saveUser, savePost, findUserById } from '../../data.js'
-import { validateId, validatePost } from '../helpers/validators.js'
+import { saveUser, savePost, findUserById, findPostbyId } from '../../data.js'
+import { validateUserId, validatePostId, validateCallback } from '../helpers/validators.js'
 import retrievePostByPostId from './retrievePostByPostId.js'
 import retrieveUser from '../users/retrieveUser.js'
 
 
-export function savePostToFavorites(article, userId, user, callback) {
-    validateId(userId)
+export function savePostToFavorites(userId, postId, callback) {
+    validateUserId(userId)
+    validatePostId(postId)
+    validateCallback(callback)
     
-
-    findUserById
     findUserById(userId, user => {
-        const indexFavPost = user.likedPosts.findIndex(post => post === article.id)
-        const findFavPost = user.likedPosts.find(post => post === article.id)
-        if(findFavPost) {
-            user.likedPosts.splice(indexFavPost, 1)
-        } else {
-            user.likedPosts.push(article.id)
+        if(!user) {
+            callback(new Error(`User with id ${userId} not found`))
+            
+            return
         }
-        saveUser(user, () => callback(null))
+
+        findPostbyId(postId, post => {
+            if(!post) {
+                callback(new Error(`Post with id ${postId} not found`))
+                
+                return
+            }
+            const indexFavPost = user.favPosts.indexOf(postId)
+
+            if(indexFavPost < 0) {
+                user.favPosts.push(postId)
+            } else {
+                user.favPosts.splice(indexFavPost, 1)
+            }
+            saveUser(user, () => callback(null))
+
+        })
+        
     })
+
+
 
 }
 
 export function userLikedPost(userId, article, callback) {
-    validateId(userId)
-    validatePost(article.id)
+    validateUserId(userId)
+    validatePostId(article.id)
 
     retrievePostByPostId(userId, article.id, (error, post) => {
         const indexLikedPost = post.likes.findIndex(user => user === userId)

@@ -5,9 +5,7 @@ import { useState, useEffect } from 'react'
 
 
 export default function AddPostModal({ onCancel, onCreateNewPost }) {
-
     const [userLocation, setUserLocation] = useState(null)
-
 
     let newImage
     function handleCancelAddPost(event) {

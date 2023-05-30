@@ -1,17 +1,9 @@
 import retrieveUser from "../logic/users/retrieveUser"
-import { findUserById } from "../data"
 import { useEffect, useState } from "react"
-import { context } from "../ui"
 
 
 export default function UserImage({ userId }) {
-    
     const [user, setUser] = useState()
-
-
-    // const user = retrieveUser(userId, user => {
-    //     callback(user.id)
-    // })
 
     useEffect(() => {
         try {
@@ -30,7 +22,6 @@ export default function UserImage({ userId }) {
     }, [])
 
     function returnLetters() {
-
         const separateUserName = user.name.split(' ')
 
         if (!user.image && separateUserName.length === 1) {
@@ -40,16 +31,14 @@ export default function UserImage({ userId }) {
             return separateUserName[0][0] + separateUserName[1][0]
         }
     }
-
     
     if(user) {
         return <>
             <div className="avatar">
-                <div className="letter">{ returnLetters ? returnLetters() : '' }</div>
-                <img className={user.image ? 'image-profile' : 'hidden image-profile'} src={user.image ? user.image : ''} alt="" />
+                {!user.image && <div className="letter">{returnLetters()}</div>}
+                {user.image && <img className="image-profile" src={user.image} alt="" />}
             </div>
             <div className="user-name">{user.name}</div>
-    
         </>
         }
 }

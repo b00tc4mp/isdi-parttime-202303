@@ -1,17 +1,17 @@
 import { loadPosts, loadUsers, savePosts } from '../../data.js'
-import { validateId } from '../helpers/validators.js';
+import { validateUserId } from '../helpers/validators.js';
 
 export function deletePost(userId, postId, callback) {
 
     loadUsers(users => {
         users.forEach(user => {
-            const likedPostIndex = user.likedPosts.findIndex(liked => liked === postId)
-            user.likedPosts.splice([likedPostIndex], 1)
+            const likedPostIndex = user.favPosts.findIndex(liked => liked === postId)
+            user.favPosts.splice([likedPostIndex], 1)
         })
         loadPosts(_posts => {
             const currentPost = postId.slice(5) - 1
         
-            validateId(userId)
+            validateUserId(userId)
             _posts.splice([currentPost], 1)
             savePosts(_posts, () => callback(null))
         })

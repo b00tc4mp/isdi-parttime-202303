@@ -1,9 +1,10 @@
-import { validateEmail, validatePassword } from "../helpers/validators.js"
+import { validateEmail, validatePassword, validateCallback } from "../helpers/validators.js"
 import { saveUser } from "../../data.js"
 
 export default function registerUser(name, email, password, callback) {
-
-
+    validateCallback(callback)
+    validateEmail(email)
+    validatePassword(password)
     findUserByEmail(email, foundUser => {
         if(foundUser) {
             callback( new Error('user already exists'))
@@ -13,8 +14,7 @@ export default function registerUser(name, email, password, callback) {
 
         let id
         loadUsers(users => {
-            validateEmail(email)
-            validatePassword(password)
+
             var checkEmail = users.find(user => user.email === email)
             if(checkEmail) {
                 throw new Error('Email already registered')
@@ -26,7 +26,7 @@ export default function registerUser(name, email, password, callback) {
                     name: name,
                     email: email,
                     password: password,
-                    likedPosts: []
+                    favPosts: []
                 }
                 users.push(user)
                 saveUser(users, callback)

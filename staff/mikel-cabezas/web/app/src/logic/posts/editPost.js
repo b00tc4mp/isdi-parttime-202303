@@ -1,6 +1,6 @@
 import { loadPosts, savePost } from '../../data.js'
 import { context } from "../../ui.js";
-import { validateId, validateText } from '../helpers/validators.js';
+import { validateUserId, validateText } from '../helpers/validators.js';
 
 export function editPost(userId, postId, title, text, image, callback) {
 
@@ -10,7 +10,7 @@ export function editPost(userId, postId, title, text, image, callback) {
         const currentPost = postId.slice(5) - 1
         // const id = context.userId
     
-        validateId(userId)
+        validateUserId(userId)
         validateText(title)
         validateText(text)
     

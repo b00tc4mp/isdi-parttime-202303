@@ -2,19 +2,17 @@ import { context } from "../ui"
 import UserImage from "./UserImage"
 import { userLikedPost, savePostToFavorites } from "../logic/posts/postsData"
 import './Post.css'
-import retrieveUser from "../logic/users/retrieveUser"
 import { useEffect, useState, useCallback } from "react"
 import ContextualModalMenu from "./ContextualMenu"
 import { deletePost } from "../logic/posts/deletePost"
-export default function Post({ post, post: { image, title, text, comments, likes, id, date, author, lastModify, location }, onToggleLikePost, onToggleSavePost, onEditPostButton, user, onHideMenuOptions }) {
+import retrieveUser from "../logic/users/retrieveUser"
+
+export default function Post({ post, post: { image, title, text, comments, likes, id, date, author, lastModify, location }, onToggleLikePost, onToggleSavePost, onEditPostButton, onHideMenuOptions, user }) {
 
     const userId = context.userId
 
-    const [userData, setUserData] = useState()
+    const [userData, setUserData] = useState(user)
     const [modal, setModal] = useState()
-
-    const forceUpdate = useCallback(() => setModal({}), []);
-
 
     const postStyle = {
         background: `linear-gradient(180deg, rgba(0,0,0,.2) 0%, rgba(0,0,0,0) 10%, rgba(0,0,0,0) 50%, rgba(0,0,0,.6) 100%), url(${image}) center / cover`
@@ -22,29 +20,11 @@ export default function Post({ post, post: { image, title, text, comments, likes
 
     useEffect(() => {
         try {
-            retrieveUser(userId, (error, user) => {
-
-                if (error) {
-                    alert(error.message)
-
-                    return
-                }
-                setUserData(user)
-            })
-
+            updateUserLikes()
         } catch (error) {
             alert(error.message)
         }
     }, [])
-    // useEffect(() => {
-    //     try {
-    //         alert('hola')
-    //     } catch (error) {
-    //         alert(error.message)
-    //     }
-    // }, [modal])
-
-
 
     const postDate = date
 
@@ -73,7 +53,17 @@ export default function Post({ post, post: { image, title, text, comments, likes
     if (likes.length > 1) {
         countLikes = `${likes.length} likes`
     }
+    function updateUserLikes() {
+        retrieveUser(userId, (error, user) => {
 
+            if (error) {
+                alert(error.message)
+
+                return
+            }
+            setUserData(user)
+        })
+    }
 
     function handleToggleLike(event) {
         try {
@@ -93,14 +83,15 @@ export default function Post({ post, post: { image, title, text, comments, likes
 
     function handleToggleSave(event) {
         try {
-            savePostToFavorites(post, userId, user, error => {
+            savePostToFavorites(userId, post.id, error => {
                 if(error) {
                     alert(error.message)
 
                     return
                 }
+                updateUserLikes()
+                onToggleSavePost()
             })
-            onToggleSavePost()
         } catch(error) {
             alert(error.message)
         }
@@ -115,7 +106,6 @@ export default function Post({ post, post: { image, title, text, comments, likes
                 if(error)
                     alert(error.message)
             })
-            debugger
             if(deletePost) {
                 alert('post deleted')
                 setModal('close')
@@ -133,15 +123,30 @@ export default function Post({ post, post: { image, title, text, comments, likes
     const handleHideMenuOptions = () => {
         debugger
         setModal('close')
-        forceUpdate()
         console.log(modal)
         // onHideMenuOptions()
     }
+    function returnLetters() {
+        const separateUserName = user.name.split(' ')
 
-    return user && <>
+        if (!user.image && separateUserName.length === 1) {
+            return separateUserName[0][0] + separateUserName[0][1]
+        }
+        if (!user.image && separateUserName.length > 1) {
+            return separateUserName[0][0] + separateUserName[1][0]
+        }
+    }
+
+    return  <>
         <article className={id} style={postStyle}>
             <div className="post-author">
-                <UserImage userId={author.id} />
+                <div className="avatar">
+                    {!user.image && <div className="letter">{returnLetters()}</div>}
+                    {user.image && <img className="image-profile" src={user.image} alt="" />}
+                </div>
+                <div className="user-name">{user.name}</div>
+                {location && <span className="location">{location}</span>}
+
                 {userId === author.id ? <button className={`options`} onClick={handleShowMenuOptions}><span className="material-symbols-outlined pencil edit-post">more_vert</span>
                 
                 {modal === 'open' && 
@@ -158,14 +163,13 @@ export default function Post({ post, post: { image, title, text, comments, likes
                     <li className={`edit ${id}`} onClick={() => handleEditPostButton(id)}>edit <span className="material-symbols-outlined pencil edit-post">edit</span></li>
                 </ul> */}
                 </button> : ''}
-                {location && <span className="location">{location}</span>}
             </div>
             <img className="space-image" />
             <div className="title-and-interactions">
                 <div className={`material-symbols-outlined like ${isLikedPost === userId ? ' filled' : ''}`}
                     onClick={handleToggleLike}>favorite</div>
                 <div className="material-symbols-outlined comment">maps_ugc</div>
-                <div className={user.likedPosts.find(post => post === id) === id ? 'material-symbols-outlined save filled' : 'material-symbols-outlined save'} onClick={handleToggleSave}>bookmark</div>
+                <div className={userData.favPosts.includes(id) ? 'material-symbols-outlined save filled' : 'material-symbols-outlined save'} onClick={handleToggleSave}>bookmark</div>
             </div>
             <h3 className="title">{title}</h3>
             <p className="excerpt">{text}</p>

@@ -15,7 +15,13 @@ export default function UpdateUserPassword() {
             const newPassword = event.target.parentElement.parentElement.elements['new-password']
             const repeatPassword = event.target.parentElement.parentElement.elements['repeat-password']
             const buttons = event.target.parentElement.parentElement.elements['.buttons']
-            currentPassword && newPassword  && repeatPassword && updateUserPassword(userId, currentPassword, newPassword, repeatPassword)
+            if (currentPassword && newPassword  && repeatPassword) {
+                updateUserPassword(userId, currentPassword, newPassword, repeatPassword, error => {
+                    if (error) {
+                        alert(error.message)
+                    }
+                })
+            }
             setDisabled(true)
             setTimeout(() => {
                 currentPassword.disabled = true

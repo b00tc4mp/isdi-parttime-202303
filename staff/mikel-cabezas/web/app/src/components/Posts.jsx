@@ -4,12 +4,40 @@ import retrievePosts from "../logic/posts/retrievePosts"
 import { context } from "../ui"
 import './Posts.css'
 import { RotatingLines } from 'react-loader-spinner'
+import retrieveUser from "../logic/users/retrieveUser"
 
 
-export default function Posts({ onEditPost, onAddPostClick, lastPostsUpdate, onToggleLikePostClick, onToggleSavePostClick, user, onHideMenuOptions }) {
+export default function Posts({ onEditPost, onAddPostClick, lastPostsUpdate, onToggleLikePostClick, onToggleSavePostClick, onHideMenuOptions }) {
     const userId = context.userId
     const [posts, setPosts] = useState()
-    useEffect(() => handleRefreshPosts(), [])
+    const [user, setUser] = useState()
+
+
+    useEffect(() => {
+        console.log('Refresh Posts -> render in useEffect')
+        retrievePosts(userId, (error, posts) => {
+            if (error) {
+                alert(error.message)
+                return
+            }
+            setPosts(posts)
+        })
+        retrieveUser(userId, (error, user) => {
+            if(error) {
+                alert(error.message)
+    
+                return
+            }
+            setUser(user)
+        })
+    }, [])
+
+    useEffect(() => {
+        console.log('Refresh Posts -> render in useEffect')
+        if (lastPostsUpdate) {
+            handleRefreshPosts()
+        }
+    }, [lastPostsUpdate])
 
     function handleRefreshPosts() {
         try {
@@ -25,6 +53,8 @@ export default function Posts({ onEditPost, onAddPostClick, lastPostsUpdate, onT
         }
     }
 
+
+
     function handleToggleLikePost() {
         try {
             handleRefreshPosts()
@@ -34,7 +64,8 @@ export default function Posts({ onEditPost, onAddPostClick, lastPostsUpdate, onT
     }
     function handleToggleSavePost() {
         try {
-            handleRefreshPosts()
+            setUser(user)
+            setPosts(posts)
         } catch (error) {
             console.log(error)
         }
@@ -52,12 +83,7 @@ export default function Posts({ onEditPost, onAddPostClick, lastPostsUpdate, onT
         handleRefreshPosts()
     }
 
-    useEffect(() => {
-        console.log('Refresh Posts -> render in useEffect')
-        if (lastPostsUpdate) {
-            handleRefreshPosts()
-        }
-    }, [lastPostsUpdate])
+  
 
     if (posts) {
         return <>

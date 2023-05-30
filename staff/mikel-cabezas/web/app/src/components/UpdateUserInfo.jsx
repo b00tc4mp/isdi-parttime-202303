@@ -1,47 +1,47 @@
 import { context } from "../ui"
-import { findUserById } from "../data"
 import updateUserName from "../logic/users/updateUserName"
 import updateUserEmail from "../logic/users/updateUserEmail"
 import uploadImage from "../logic/users/updateUserImage"
 import { useState } from "react"
+import retrieveUser from "../logic/users/retrieveUser"
 
-export default function UpdateUserInfo( {savelUpdateProfile, setSavelUpdateProfile} ) {
-
+export default function UpdateUserInfo( {} ) {
     const [user, setUser] = useState()
     const userId = context.userId
-    findUserById(userId, (error, user) => {
+
+    retrieveUser(userId, (error, user) => {
         if(!user) {
             callback(new Error ('user not found'))
-
+    
             return
         }
         if (error) {
             alert(error.message)
-
+    
             return
         }
         const _user = {
             name: user.name, 
+            email: user.email,
             image: user.image
         }     
         setTimeout(() => {
-            setUser(user)
+            setUser(_user)
         }, 1000);
-    })
-    
+    }) 
+
     let newImage
     let letters
     if(user) {
         const separateUserName = user['name'].split(' ')
     
-        if (!context.image && separateUserName.length === 1) {
+        if (!user.image && separateUserName.length === 1) {
             letters = separateUserName[0][0] + separateUserName[0][1]
-        } else if (!context.image && separateUserName.length > 1) {
+        } else if (!user.image && separateUserName.length > 1) {
             letters = separateUserName[0][0] + separateUserName[1][0]
         }
 
     }
-
 
     const [disabled, setDisabled] = useState(true)
 
@@ -84,9 +84,7 @@ export default function UpdateUserInfo( {savelUpdateProfile, setSavelUpdateProfi
             if (image.src) 
                 user.image !== image && uploadImage(userId, image, error => { error ? alert(error.message) : '' })
 
-
             setDisabled(true)
-            // setSavelUpdateProfile()
         } catch(error) {
             console.log(error.stack)
         }
@@ -114,8 +112,8 @@ export default function UpdateUserInfo( {savelUpdateProfile, setSavelUpdateProfi
                     <label htmlFor="">Your email</label>
                     <input type="email" defaultValue={user.email} name="email" disabled={disabled} />
                     <div className="avatar">
-                        <div className="letter">{letters}</div>
-                        <img className={!context.image || context.image === 'undefined' && separateUserName.length === 1 ? 'image-profile hidden' : 'image-profile'} src={user.image} alt="" />
+                        {!user.image && <div className="letter">{letters}</div>}
+                        {user.image && <img className="image-profile" src={user.image} alt="" />}
                     </div>
                     <label htmlFor="">Update image profile</label>
                     <input type="file" name="file" id="" accept=".jpg, .jpeg, .png, .webp" onClick={handleConvertImageToBase64}  />

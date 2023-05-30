@@ -1,8 +1,9 @@
 import { findUserById } from "../../data"
-import { validateId } from "../helpers/validators"
+import { validateCallback, validateUserId } from "../helpers/validators"
 
 export default function retrieveUser (userId, callback) {
-    validateId(userId)
+    validateUserId(userId)
+    validateCallback(callback)
 
     findUserById(userId, user => {
         if(!user) {
@@ -12,8 +13,9 @@ export default function retrieveUser (userId, callback) {
         }
         const _user = {
             name: user.name, 
+            email: user.email, 
             image: user.image,
-            likedPosts: user.likedPosts
+            favPosts: user.favPosts
         }        
         callback(null, _user)
     })

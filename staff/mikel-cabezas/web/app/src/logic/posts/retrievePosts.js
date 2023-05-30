@@ -1,9 +1,9 @@
 import {loadPosts, loadUsers, findUserById } from '../../data.js'
-import { validateId } from "../helpers/validators.js";
+import { validateUserId } from "../helpers/validators.js";
 
 // export function retrievePosts(userId, callback) {
 
-//     validateId(userId)
+//     validateUserId(userId)
     
 //     findUserById(userId, (error, user) => {
 //         if(!user) {
@@ -19,7 +19,7 @@ import { validateId } from "../helpers/validators.js";
 
 
 export default function retrievePosts(userId, callback) {
-    validateId(userId);
+    validateUserId(userId);
 
     loadUsers(users => {
         const found = users.find(user => user.id === userId)

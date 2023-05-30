@@ -1,10 +1,13 @@
-import { validateEmail } from "../helpers/validators.js"
+import { validateCallback, validateEmail, validateUserId } from "../helpers/validators.js"
 import { findUserById, saveUser } from "../../data.js"
 
 export default function updateUserEmail(userId, newEmail) {
+    validateEmail(newEmail)
+    validateUserId(userId)
+    validateCallback(callback)
+
     const user = findUserById(userId)
 
-    validateEmail(newEmail)
     const currentUserEmail = findUserById(userId, user => {
         if(!user) {
             callback(new Error ('user not found'))

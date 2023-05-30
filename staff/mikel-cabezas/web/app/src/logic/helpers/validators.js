@@ -34,8 +34,9 @@ export function validatePassword(password) {
     if(!password.trim().length > 8) throw new Error('Password must be higher than 8 characters')
 }
 
-export function validateNewPassword(password, newPassword, repeatPassword, user) {
-    if(password.trim() !== user.password) 
+export function validateNewPassword(user, currentPassword, newPassword, repeatPassword) {
+    debugger
+    if(currentPassword.trim() !== user.password) 
         throw new Error('Not your current password')
     
     if(user.password === newPassword) {
@@ -46,24 +47,22 @@ export function validateNewPassword(password, newPassword, repeatPassword, user)
     if(newPassword !== repeatPassword) 
         throw new Error('New password does not match')
         
-    if(!password.trim().length) 
+    if(!currentPassword.trim().length) 
         throw new Error('Password is empty')
 
-    if(!password.trim().length > 8) 
+    if(!currentPassword.trim().length > 8) 
         throw new Error('Password must be higher than 8 characters')
 }
 
-export function validateId(userId) {
+export function validateUserId(userId) {
     if(typeof userId !== 'string') throw new Error('User is not a string')
     if(!userId) throw new Error('User is empty')
 }
-export function validatePost(postId) {
+export function validatePostId(postId) {
     if(typeof postId !== 'string') throw new Error('Post ID is not a string')
-    if(!postId) throw new Error('Invalid post ID')
+    if(!postId) throw new Error('Post ID is empty')
 }
-export function validateLikePostIconTarget(postId) {
-    if(!postId) throw new Error('Invalid selector')
-}
-export function validateTotalPostLikesTarget(postId) {
-    if(!postId) throw new Error('Invalid selector')
+
+export function validateCallback(callback) {
+    if(typeof callback !== 'function') throw new Error('Callback is not a function')
 }

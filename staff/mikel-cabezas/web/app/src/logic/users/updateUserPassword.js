@@ -1,18 +1,20 @@
-import { validateNewPassword } from '../helpers/validators.js'
+import { validateCallback, validateNewPassword, validateUserId } from '../helpers/validators.js'
 import { findUserById, saveUser } from "../../data.js"
 
-export function updateUserPassword(userId, currentPassword, newPassword, repeatPassword) {
+export function updateUserPassword(userId, currentPassword, newPassword, repeatPassword, callback) {
 
-    findUserById(userId, (error, user) => {
-        if(error) {
+    validateUserId(userId)
+    validateCallback(callback)
+    findUserById(userId, user => {
+        debugger
+        if(!user) {
             callback(new Error ('user not found'))
+            validateNewPassword(user, currentPassword.value, newPassword.value, repeatPassword.value)
             
             return
         }
-        validateNewPassword(currentPassword.value, newPassword.value, repeatPassword.value, user)
         user.password = newPassword.value
         saveUser(user, () => callback(null))
     })
-
-    return true
+    // return true
 }
