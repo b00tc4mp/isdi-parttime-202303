@@ -8,7 +8,6 @@ import { deletePost } from "../logic/posts/deletePost"
 import retrieveUser from "../logic/users/retrieveUser"
 
 export default function Post({ post, post: { image, title, text, comments, likes, id, date, author, lastModify, location }, onToggleLikePost, onToggleSavePost, onEditPostButton, onHideMenuOptions, user }) {
-
     const userId = context.userId
 
     const [userData, setUserData] = useState(user)
@@ -27,10 +26,7 @@ export default function Post({ post, post: { image, title, text, comments, likes
     }, [])
 
     const postDate = date
-
     const now = new Date()
-    const isLikedPost = post.likes.find(user => user === userId)
-
     const difference = now - postDate
     let newDate
 
@@ -43,16 +39,8 @@ export default function Post({ post, post: { image, title, text, comments, likes
     if (difference < 60000)
         newDate = `less than ${Math.ceil(difference / (1000 * 3600 / 60))} minute`
 
-    let countLikes
+    const countLikes = `${likes.length} ${likes.length > 1 ? `likes` : 'like'}`
 
-
-
-    if (likes.length === 1) {
-        countLikes = `${likes.length} like`
-    }
-    if (likes.length > 1) {
-        countLikes = `${likes.length} likes`
-    }
     function updateUserLikes() {
         retrieveUser(userId, (error, user) => {
 
@@ -111,7 +99,7 @@ export default function Post({ post, post: { image, title, text, comments, likes
                 setModal('close')
             }
         } catch(error) {
-
+            alert(error.message)
         }
     }
 
@@ -166,7 +154,7 @@ export default function Post({ post, post: { image, title, text, comments, likes
             </div>
             <img className="space-image" />
             <div className="title-and-interactions">
-                <div className={`material-symbols-outlined like ${isLikedPost === userId ? ' filled' : ''}`}
+                <div className={`material-symbols-outlined like ${likes.includes(userId) ? ' filled' : ''}`}
                     onClick={handleToggleLike}>favorite</div>
                 <div className="material-symbols-outlined comment">maps_ugc</div>
                 <div className={userData.favPosts.includes(id) ? 'material-symbols-outlined save filled' : 'material-symbols-outlined save'} onClick={handleToggleSave}>bookmark</div>
@@ -174,7 +162,6 @@ export default function Post({ post, post: { image, title, text, comments, likes
             <h3 className="title">{title}</h3>
             <p className="excerpt">{text}</p>
             <div className="post-likes">{likes.length < 1 ? '' : countLikes}</div>
-            {/* <div className="post-likes-array">{likes}</div> */}
             <div className="comments-count">{comments.length} comments</div>
             <time className="post-date">{newDate} {lastModify ? <span className="post-edited">Edited</span> : ''}</time>
         </article>
