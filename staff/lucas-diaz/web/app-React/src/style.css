@@ -154,6 +154,12 @@ label {
     display: flex;
     gap: .5rem;
 }
+.weather-message{
+    color: white;
+    font-size: .7rem;
+    padding-top: 5rem;
+    text-align: center;
+}
 
 /*! HOME --> HOME-HEADER + HOME-MENÚ*/
 .home {
