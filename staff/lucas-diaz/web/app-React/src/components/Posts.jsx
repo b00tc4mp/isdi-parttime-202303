@@ -2,14 +2,16 @@ import retrievePosts from "../logic/retrievePosts.js"
 import Post from "./Post.jsx";
 import { context } from "../ui.js";
 import retrieveUser from "../logic/retrieveUser.js";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import retrieveSavedPosts from "../logic/retrieveSavedPosts.js";
 import retrieveUserPosts from "../logic/retrieveUserPosts.js";
+import Context from "../Context.js";
 
 
 export default function Posts({ onEditPostButtonClick, lastPostsUpdate, view }) {
     console.log("Posts -> render")
 
+    const {freeze, unFreeze} = useContext(Context)
     const [posts, setPosts] = useState([])
     const [user, setUser] = useState()
     const [isInitialRun, setIsInitialRun] = useState(true)
@@ -23,7 +25,7 @@ export default function Posts({ onEditPostButtonClick, lastPostsUpdate, view }) 
     }, []);
 
     const checkPostType = () => {
-        console.log(view);
+        freeze()
         switch (view) {
             case "posts":
                 retrievePosts(context.userId, (error, _posts) => {
@@ -34,12 +36,14 @@ export default function Posts({ onEditPostButtonClick, lastPostsUpdate, view }) 
                     setPosts(_posts)
                 })
                 retrieveUser(context.userId, (error, user) => {
+                    unFreeze()
                     if (error) {
                         alert(error)
                         return;
                     }
                     setUser(user);
                 })
+
                 break;
 
             case "savedPosts":
@@ -57,6 +61,7 @@ export default function Posts({ onEditPostButtonClick, lastPostsUpdate, view }) 
                     })
                 });
                 retrieveUser(context.userId, (error, user) => {
+                    unFreeze()
                     if (error) {
                         alert(error)
                         return;
@@ -80,6 +85,7 @@ export default function Posts({ onEditPostButtonClick, lastPostsUpdate, view }) 
                     })
                 });
                 retrieveUser(context.userId, (error, user) => {
+                    unFreeze()
                     if (error) {
                         alert(error)
                         return;
@@ -90,6 +96,7 @@ export default function Posts({ onEditPostButtonClick, lastPostsUpdate, view }) 
             default:
                 break;
         }
+
     }
 
     const handleDeletePost = () => {

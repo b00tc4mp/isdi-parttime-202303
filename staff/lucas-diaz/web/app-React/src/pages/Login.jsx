@@ -1,7 +1,7 @@
 import { context } from "../ui.js";
 import authenticateUser from "../logic/authenticateUser.js"
 import { useState, useEffect } from "react";
-import retrieveLanzaroteWeather from "../logic/retrieveLanzaroteWeather.js";
+import retrieveLanzaroteWeather from "../logic/retrieveLanzaroteWeather.js"
 
 export default function Login(props) {
     const [errorMessage, setErrorMessage] = useState("");

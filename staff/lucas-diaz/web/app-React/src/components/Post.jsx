@@ -11,14 +11,16 @@ export default function Post(props) {
     //destructuring de props, para no hacer todo el tiempo props.post.userName
     const { post, user } = props
 
-    const {alert} = useContext(Context)
+    const {alert, freeze, unFreeze} = useContext(Context)
     function openEditPostModal() {
         props.onEditPostButton(props.post.id);
     }
 
     function handleHeartClick() {
         try {
+            freeze()
             likeAPost(context.userId, post, error => {
+                unFreeze()
                 if (error) {
                     alert(error.message)
                     return
@@ -47,8 +49,10 @@ export default function Post(props) {
     }
 
     function handleSavePostClick() {
+        freeze()
         try {
             savePostInUser(context.userId, post, (error) => {
+                unFreeze()
                 if (error) {
                     alert(error.message)
                     return
@@ -61,9 +65,10 @@ export default function Post(props) {
     }
 
     function handleHidePostClick() {
+        freeze()
         try {
-            // add logic 
             hideAPost(context.userId, post, error => {
+                unFreeze()
                 if (error) {
                     alert(error.message)
                     return

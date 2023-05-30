@@ -7,6 +7,8 @@ import UpdateAvatar from "../components/UpdateAvatar";
 import UpdatePassword from "../components/UpdatePassword";
 import UpdatePost from "../components/UpdatePost";
 
+
+
 export default function Home({ onLogOutClick }) {
     const [view, setView] = useState("posts");
     const [modal, setModal] = useState(null);
@@ -109,6 +111,7 @@ export default function Home({ onLogOutClick }) {
         </header>
 
         <main className={`container ${modal === "addPost" || view === null || modal === "updatePost" ? "fade" : ""} ${view === "avatar" || view === "posts" || view === "password" || modal === null ? "" : "fade"}`}>
+
             {view === "posts" && <Posts
                 onEditPostButtonClick={openEditPostModal}
                 lastPostsUpdate={lastPostUpdate}
