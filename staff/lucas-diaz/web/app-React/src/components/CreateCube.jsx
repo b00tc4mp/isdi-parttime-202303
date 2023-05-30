@@ -21,7 +21,7 @@ export default function CreateCube() {
             renderer.setClearAlpha(0) // we use it in order to ser a transparency 
 
             // Add geometry
-            const geometry = new THREE.IcosahedronGeometry(1,2); // para cubo  THREE.BoxGeometry( 1, 1, 1 , 3 ,3 ,3 ); 
+            const geometry = new THREE.IcosahedronGeometry(1,2); // 4 cube  THREE.BoxGeometry( 1, 1, 1 , 3 ,3 ,3 ); 
             const material = new THREE.MeshBasicMaterial({ color: "green", wireframe: true});
             cube = new THREE.Mesh(geometry, material);
 
