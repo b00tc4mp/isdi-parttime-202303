@@ -1,12 +1,14 @@
 import { loadPosts, loadUsers } from '../data/data';
 import { findUserById } from '../data/data-managers';
-import { validateUserID } from '../data/validators-users';
+import { validateCallback } from '../data/validators';
 
 /**
 
  */
 export const retrieveFavoritePosts = (userId, callback) => {
-  //validateUserID(userId);
+  validateId(userId);
+  validateCallback(callback);
+  
   findUserById(userId, user => {
     if (!user) {
       callback(new Error(`user with id ${userId} not found`));

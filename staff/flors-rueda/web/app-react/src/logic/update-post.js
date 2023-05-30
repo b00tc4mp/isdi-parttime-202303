@@ -1,7 +1,6 @@
-import { validatePostImage, validatePostText, validatePostExists, validatePostAuthor } from '../data/validators-posts';
-import { validateUserID } from '../data/validators-users';
 import { findPostById, findUserById} from '../data/data-managers';
 import { savePost } from '../data/data';
+import { validateCallback, validateId, validateImage, validatePostText } from '../data/validators';
 
 /**
  * Edits the post text and image
@@ -13,10 +12,11 @@ import { savePost } from '../data/data';
  * 
  */
 export const updatePost = (newText, newPostImg, postId, userId, callback) => {
-  //validatePostExists(id);
-  //validateUserID(userId);
-  //validatePostText(newText);
-  //validatePostImage(newPostImg);
+  validateId(postId);
+  validateId(userId);
+  validatePostText(newText);
+  validateImage(newPostImg);
+  validateCallback(callback);
   
   findUserById(userId, user => {
     if (!user) {
@@ -35,8 +35,8 @@ export const updatePost = (newText, newPostImg, postId, userId, callback) => {
             return;
         }
 
-        if(newText) post.text = newText;
-        if(newPostImg) post.image= newPostImg;
+        post.text = newText;
+        post.image= newPostImg;
         (post.edited).push(new Date)
         savePost(post, () => callback(null))
     })

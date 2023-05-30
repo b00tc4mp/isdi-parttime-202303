@@ -1,4 +1,4 @@
-import { validateUsername, validateUserPassword} from '../data/validators-users';
+import { validateUsername, validatePassword, validateCallback} from '../data/validators';
 import { findUserByUsername } from '../data/data-managers';
 
 /**
@@ -11,10 +11,11 @@ import { findUserByUsername } from '../data/data-managers';
  */
 export const authenticateUser = (user, password, callback) => {
   const username = '@' + user.toLowerCase();
-  
-  //validateUsername(username);
-  //validatePassword(password);
-  //validateCallback(callback);
+
+  validateUsername(username)
+  validatePassword(password)
+  validateCallback(callback);
+
   findUserByUsername(username, user => {
     if (!user || user.password !== password) {
         callback(new Error('authentication failed'))

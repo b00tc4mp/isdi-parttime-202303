@@ -1,6 +1,5 @@
-import { validatePostExists } from '../data/validators-posts';
-import { validateUserID } from '../data/validators-users';
 import { findPostById, findUserById } from '../data/data-managers';
+import { validateCallback, validateId } from '../data/validators';
 
 /**
  * Retrieve's all the post data
@@ -11,9 +10,9 @@ import { findPostById, findUserById } from '../data/data-managers';
  * @returns a post object = { id: string, author: string, text: string, image: string, date: date, edited: array of dates, likes: array of strings}
  */
 export const retrievePost = (userId, postId, callback) => {
-    //validatePostExists(postId);
-    //validateUserID(userId);
-
+    validateId(userId);
+    validateId(postId);
+    validateCallback(callback);
 
     findUserById(userId, user => {
         if (!user) {

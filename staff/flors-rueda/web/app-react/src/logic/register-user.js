@@ -1,8 +1,8 @@
 import { generateUUID } from './helpers/generateUUID';
 import { findUserByMail, findUserByUsername } from '../data/data-managers';
-import { validateMail, validateNewPassword, validateNewUsername } from '../data/validators-users';
 import { loadUsers, saveUsers } from '../data/data';
 import { getPokemonSprite } from './helpers/getPokemonSprite';
+import { validateCallback, validateMail, validateRepeatPassword, validateUsername } from '../data/validators';
 
 /**
  * Creates a user by mail, username and password. Adds the rest of the info.
@@ -14,9 +14,11 @@ import { getPokemonSprite } from './helpers/getPokemonSprite';
  * 
  */
 export const registerUser = (mail, username, password, repeatPassword, callback) => {
-  //validateMail(mail);
-  //validateNewUsername(`@${username.toLowerCase()}`);
-  //validateNewPassword(password, repeatPassword);
+  validateMail(mail);
+  validateUsername(`@${username.toLowerCase()}`);
+  validateRepeatPassword(password, repeatPassword);
+  validateCallback(callback);
+
   findUserByMail(mail, foundUser => {
     if (foundUser) {
       callback(new Error('User already exists'));
@@ -38,7 +40,7 @@ export const registerUser = (mail, username, password, repeatPassword, callback)
         loadUsers(users => {
           const user = {
             id: generateUUID(),
-            username: '@' + username.toLowerCase(),
+            username: `@${username.toLowerCase()}`,
             name: username,
             mail: mail,
             avatar: avatar,

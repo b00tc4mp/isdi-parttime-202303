@@ -1,11 +1,13 @@
 import { saveUser } from '../data/data';
 import { findUserById } from '../data/data-managers';
-import { validateNewPassword, validatePasswordChange, validateUserID } from '../data/validators-users';
+import { validateCallback, validateId, validatePassword } from '../data/validators';
 
 export const updatePassword = (userId, oldPassword, repeatPassword, newPassword, callback) => {
-    validateNewPassword(newPassword, repeatPassword);
-    //validateUserID(userId);
-    //validatePasswordChange(userId, newPassword);
+    validateId(userId);
+    validatePassword(oldPassword);
+    validatePassword(repeatPassword);
+    validatePassword(newPassword);
+    validateCallback(callback);
 
     findUserById(userId, user => {
         if (!user) {

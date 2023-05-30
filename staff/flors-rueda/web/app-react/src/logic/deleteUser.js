@@ -1,10 +1,12 @@
 import { loadPosts, loadUsers, savePosts, saveUsers } from '../data/data';
 import { findUserById } from '../data/data-managers';
-import { validateUserID, validateUserPassword } from '../data/validators-users'
+import { validateCallback, validateId, validatePassword } from '../data/validators';
+
 
 export const deleteUser = (userId, password, callback) => {
-  //validateUserID(userId);
-  //validateUserPassword(userId, password);
+  validateId(userId);
+  validatePassword(password);
+  validateCallback(callback);
 
   findUserById(userId, user => {
     if (!user || user.password !== password) {

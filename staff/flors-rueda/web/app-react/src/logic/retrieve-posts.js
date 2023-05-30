@@ -1,6 +1,6 @@
 import { loadPosts, loadUsers } from '../data/data';
 import { findUserById } from '../data/data-managers';
-import { validateUserID } from '../data/validators-users';
+import { validateCallback, validateId } from '../data/validators';
 
 /**
  * Retrieve's all the post data
@@ -10,8 +10,11 @@ import { validateUserID } from '../data/validators-users';
  * 
  * @returns a post object = { id: string, author: string, text: string, image: string, date: date, edited: array of dates, likes: array of strings}
  */
+
 export const retrievePosts = (userId, callback) => {
-  //validateUserID(userId);
+  validateId(userId);
+  validateCallback(callback);
+  
   findUserById(userId, user => {
     if (!user) {
       callback(new Error(`user with id ${userId} not found`));

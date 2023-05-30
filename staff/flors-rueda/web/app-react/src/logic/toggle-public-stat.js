@@ -1,11 +1,12 @@
 import { savePost } from '../data/data';
 import { findPostById, findUserById } from '../data/data-managers';
-import { validatePostExists } from '../data/validators-posts';
-import { validateUserID } from '../data/validators-users';
+import { validateCallback, validateId } from '../data/validators';
 
 export const togglePublicStat = (postId, userId, callback) => {
-  //validateUserID(userId);
-  //validatePostExists(postId);
+  validateId(postId);
+  validateId(userId);
+  validateCallback(callback);
+
   findUserById(userId, user => {
     if (!user) {
         callback(new Error(`user with id ${userId} not found`));

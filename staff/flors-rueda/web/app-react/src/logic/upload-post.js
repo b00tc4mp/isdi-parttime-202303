@@ -1,9 +1,7 @@
 import { loadPosts, savePosts } from '../data/data';
 import { findUserById } from '../data/data-managers';
 import { generateUUID } from './helpers/generateUUID';
-import { validatePostImage, validatePostText } from '../data/validators-posts';
-import { validateUserID } from '../data/validators-users';
-
+import { validateCallback, validateId, validateImage, validatePostText } from '../data/validators';
 
 /**
  * Creates a post by it's image and text.
@@ -14,10 +12,12 @@ import { validateUserID } from '../data/validators-users';
  * 
  */
 export const uploadPost = (postImg, postText, authorId, callback) => {
-  //validateUserID(authorID);
-  //validatePostImage(postImg);
-  //validatePostText(postText);
-
+  validateId(postId);
+  validateId(userId);
+  validatePostText(newText);
+  validateImage(newPostImg);
+  validateCallback(callback);
+  
   findUserById(authorId, user => {
     if (!user) {
         callback(new Error(`user with id ${authorId} not found`));

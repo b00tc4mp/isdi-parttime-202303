@@ -1,11 +1,13 @@
 import { findPostById, findUserById } from '../data/data-managers';
 import { saveUser } from '../data/data';
-import { validatePostExists } from '../data/validators-posts';
-import { validateUserID } from '../data/validators-users';
+import { validateCallback, validateId } from '../data/validators';
+
 
 export const toggleFav = (postId, userId, callback) => {
-  //validateUserID(userId);
-  //validatePostExists(postId);
+  validateId(userId);
+  validateId(postId);
+  validateCallback(callback);
+
   findUserById(userId, user => {
     if (!user) {
         callback(new Error(`user with id ${userId} not found`));

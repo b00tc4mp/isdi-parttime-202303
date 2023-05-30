@@ -1,10 +1,12 @@
 import { saveUser } from '../data/data';
 import { findUserById } from '../data/data-managers';
-import { validateMail, validateUserID } from '../data/validators-users';
+import { validateCallback, validateId, validateName } from '../data/validators';
 
 export const updateName = (name, userId, callback) => {
-    //validateUserID(userId);
-    //validateMail(mail);
+    validateName(name);
+    validateId(userId);
+    validateCallback(callback);
+    
     findUserById(userId, user => {
         if (!user) {
             callback(new Error('user not found'));

@@ -1,13 +1,16 @@
 import { loadPosts } from '../data/data';
 import { findUserById } from '../data/data-managers';
+import { validateCallback, validateId } from '../data/validators';
 
-import { validateUserID } from '../data/validators-users';
 
 /**
 TODO: add documentation to all logic functions
  */
 export const retrieveUserPosts = (userId, userAuth, callback) => {
-  //validateUserID(userId);
+  validateId(userId);
+  validateId(userAuth);
+  validateCallback(callback);
+
   findUserById(userId, user => {
     if (!user) {
       callback(new Error(`user with id ${userId} not found`));
@@ -22,7 +25,7 @@ export const retrieveUserPosts = (userId, userAuth, callback) => {
             if(post.author === user.id) _posts.push(post);
           }
         })
-        callback(null, _posts)
+        callback(null, _posts);
     })
   })
 }
