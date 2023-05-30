@@ -36,6 +36,7 @@ const createPost = (userId, postImage, postText, callback) => {
         text: postText,
         date: new Date(),
         likes: [],
+        // visibility: 'public',
       };
 
       posts.push(post);

@@ -1,15 +1,8 @@
-import { savePost } from '../data';
 import postBelongingUser from './helpers/postBelongingUser';
-import {
-  validateCallback,
-  validateId,
-  validateNumber,
-} from './helpers/validators';
 
-const sellPost = (userId, postId, price, callback) => {
+const removePostFromSale = (userId, postId, callback) => {
   validateId(userId, 'user id');
   validateId(postId, 'post id');
-  validateNumber(price, 'price');
   validateCallback(callback);
 
   postBelongingUser(userId, postId, (error, postFound) => {
@@ -19,10 +12,10 @@ const sellPost = (userId, postId, price, callback) => {
       return;
     }
 
-    postFound.price = price;
+    delete postFound.price;
 
     savePost(postFound, () => callback(null));
   });
 };
 
-export default sellPost;
+export default removePostFromSale;

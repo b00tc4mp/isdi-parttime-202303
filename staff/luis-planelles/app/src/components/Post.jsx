@@ -7,7 +7,7 @@ import toggleLikePost from "../logic/toggleLikePost";
 import { context } from "../ui";
 import './Post.css';
 
-const Post = ({ post: { id, author, image, likes, price, text, date},
+const Post = ({ post: { id, author, image, likes, favourite, price, text, date},
                 onEdit, 
                 onLike,
                 onFavourite,
@@ -23,16 +23,16 @@ const Post = ({ post: { id, author, image, likes, price, text, date},
           retrieveUser(context.userId, (error, user) => {
               if (error) {
                   alert(error.message)
-
+                  
                   return
-              }
-
-              setUser(user)
-          })
-      } catch (error) {
-          alert(error.message)
+                }
+                
+                setUser(user)
+              })
+            } catch (error) {
+                alert(error.message)
       }
-  }, [user])
+  }, [])
 
   const handleEditPost = () => onEdit(id),
   
@@ -107,7 +107,7 @@ const Post = ({ post: { id, author, image, likes, price, text, date},
         alert(error.message)
     }
   };
-  
+
   return (
     <article className='posts-users'>
         <div className='post-header'>
@@ -136,19 +136,17 @@ const Post = ({ post: { id, author, image, likes, price, text, date},
         </div>
         <img className='post-image' src={image} />
         <div className='post-image-footer'>
-            <button className='button-like' onClick={handleLikePost}>
-              {user && likes.includes(user.name) ? (
-                <i className='fa fa-heart'></i>
-              ) : (
-                <i className='far fa-heart'></i>
-              )}
-            </button>
+          <button className='button-like' onClick={handleLikePost}>
+            {user && likes.includes(user.name) 
+              ?  <i className='fa fa-heart'></i>
+              :  <i className='far fa-heart'></i>
+            }
+          </button>
           <button className='button-favourites' onClick={handleFavouritePost}>
-          {user && user.favourites.includes(id) ? (
-                <i className='fas fa-bookmark'></i> 
-              ) : (
-                <i className='far fa-bookmark'></i>
-              )}
+            {favourite  
+              ? <i className='fas fa-bookmark'></i> 
+              : <i className='far fa-bookmark'></i>
+            }
           </button>
         </div>
         <div className='post-likes-info'>

@@ -15,7 +15,6 @@ const retrieveUser = (userId, callback) => {
     const retrievedUser = {
       name: foundUser.info.name,
       avatar: foundUser.info.avatar,
-      favourites: foundUser.info.favourites,
     };
 
     callback(null, retrievedUser);

@@ -21,6 +21,7 @@ const Home = ({onLoggedOut}) => {
     [user, setUser] = useState(null);
     
   useEffect(() => {
+    
     try{
     retrieveUser(context.userId, (error, retrievedUser) => {
       if(error) {
@@ -34,12 +35,36 @@ const Home = ({onLoggedOut}) => {
         alert(error.message)
       }
     }, [])
+
+  const handleAvatarUpdated = () => {
+      try {
+          retrieveUser(context.userId, (error, user) => {
+            if (error) {
+              alert(error.message)
+              
+              return
+              }
+              
+              setUser(user)
+            })
+          } catch (error) {
+            alert(error.message)
+    }
+  },
   
-  const hadleLogOutButton = () =>  {
+  hadleLogOutButton = () =>  {
     delete context.userId
     onLoggedOut()
   },
-    
+
+  handleOpenUserPosts = () => setView('user-posts'),
+  handleGoToPosts = () => setView('posts'),
+  
+  handleOpenEditProfile = () => setModal('edit-profile'),
+  handleOpenAddPost = () => setModal('add-post'),
+  
+  handleCloseModal = () => setModal(null),
+
   handleGoToProfile = (event, postId) => {
     event.preventDefault() 
 
@@ -47,12 +72,6 @@ const Home = ({onLoggedOut}) => {
     setView('profile')
     setPostId(postId)
   },
-  
-  handleOpenEditProfile = () => setModal('edit-profile'),
-  
-  handleGoToPosts = () => setView('posts'),
-  
-  handleOpenAddPost = () => setModal('add-post'),
   
   handleOpenEditPost = postId => {
     setModal('edit-post')
@@ -68,79 +87,57 @@ const Home = ({onLoggedOut}) => {
     setModal(null)
     setView('favourites')
   },
-
-  handleCloseModals = () => setModal(null),
   
   handlePostUpdated = () => {
     setModal(null)
     setLastUpdate(Date.now()) 
-  },
-
-  handleProfileUpdated = () => setModal(null),
-  
-  handleOpenUserPosts = () => setView('user-posts'),
-
-  handleAvatarUpdated = () => {
-    try {
-        retrieveUser(context.userId, (error, user) => {
-            if (error) {
-              alert(error.message)
-
-                return
-            }
-
-            setUser(user)
-        })
-    } catch (error) {
-        alert(error.message)
-    }
   };
   
   return <div className='home page container'>
           <header className='home-header'>
             <i className='fas fa-home' onClick={handleGoToPosts}/>
+            {user && (
             <nav className="home-header-nav">
-            {user && <>
-                <img className="home-header-avatar" src={user.avatar} alt="" />
-                <a href="" onClick={handleGoToProfile}>{user.name}</a>
-            </>}
+              <img className="home-header-avatar" src={user.avatar}/>
+              <a href="" onClick={handleGoToProfile}>{user.name}</a>
             </nav>
+            )}
             <button className='home-header-logout' onClick={hadleLogOutButton}>logout</button>
           </header>
   
           <main>
             {view === 'posts' && (
               <Posts
-              onEditPost={handleOpenEditPost}
-              onSellPost={handleOpenSellPost}
-              lastPostUpdate={lastUpdate}
+                onEditPost={handleOpenEditPost}
+                onSellPost={handleOpenSellPost}
+                lastPostUpdate={lastUpdate}
               />
             )}
             {modal === 'add-post' && (
               <AddPostModal 
-                onCancel={handleCloseModals} 
+                onCancel={handleCloseModal} 
                 onPostCreate={handlePostUpdated}
               />
             )}
             {modal === 'edit-post' && (
               <EditPostModal
-                onCancel={handleCloseModals}
+                onCancel={handleCloseModal}
                 onPostUpdated={handlePostUpdated}
                 postId={postId} 
               />
             )}
             {modal === 'sale-post' && (
               <OnSalePostModal
-                onCancel={handleCloseModals}
+                onCancel={handleCloseModal}
                 onPostUpdated={handlePostUpdated}
                 postId={postId} 
               />
             )}
             {view === 'profile' && (
               <Profile 
-              onOpenEditProfile={handleOpenEditProfile} 
-              onOpenFavourites={handleOpenFavourites}
-              onProfileImageClick={handleOpenUserPosts}
+                onOpenEditProfile={handleOpenEditProfile} 
+                onOpenFavourites={handleOpenFavourites}
+                onProfileImageClick={handleOpenUserPosts}
               />
             )}
             {view === 'favourites' && (
@@ -148,18 +145,17 @@ const Home = ({onLoggedOut}) => {
             )}
             {view === 'user-posts' && (
               <PostsUser 
-              onEditPost={handleOpenEditPost}
-              lastPostUpdate={lastUpdate}
+                onEditPost={handleOpenEditPost}
+                lastPostUpdate={lastUpdate}
               />
             )}
             {modal === 'edit-profile' && (
               <ProfileUpdateModal
-              onCancel={handleCloseModals}
-              onProfileUpdated={handleProfileUpdated}
-              onUserAvatarUpdated={handleAvatarUpdated}
+                onCancel={handleCloseModal}
+                onProfileUpdated={handleCloseModal}
+                onUserAvatarUpdated={handleAvatarUpdated}
               />
             )}
-
           </main>
   
           <footer className='home-footer'>

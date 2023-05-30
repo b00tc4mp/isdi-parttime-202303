@@ -17,6 +17,7 @@ const Posts = ({onEditPost, onSellPost, lastPostUpdate}) => {
 
                     return
                 }
+
                 setPosts(posts)
             })
             

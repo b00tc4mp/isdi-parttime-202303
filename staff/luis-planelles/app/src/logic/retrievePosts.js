@@ -16,6 +16,8 @@ const retrievePosts = (userId, callback) => {
     loadPosts((posts) => {
       loadUsers((users) => {
         posts.forEach((post) => {
+          post.favourite = foundUser.info.favourites.includes(post.id);
+
           const userAuthor = users.find((user) => user.id === post.author);
 
           post.author = {

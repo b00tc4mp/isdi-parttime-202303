@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
+import removePostFromSale from '../logic/removePostFromSale';
 import retrievePost from '../logic/retrievePost';
-import { removePostFromSale, setPostPrice } from '../logic/sellPost';
+import sellPost from '../logic/sellPost';
 import { context } from '../ui';
 
 const OnSalePostModal = ({ postId, onCancel, onPostUpdated }) => {
@@ -36,7 +37,7 @@ const OnSalePostModal = ({ postId, onCancel, onPostUpdated }) => {
 
   handleSaleUpdatePost = () => {
     try {
-      setPostPrice(context.userId, postId, price, (error) => {
+      sellPost(context.userId, postId, price, (error) => {
         if (error) {
           alert(error.message)
         }

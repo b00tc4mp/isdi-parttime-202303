@@ -1,11 +1,6 @@
 import { findPostById, findUserById } from './data-managers';
-import { validateCallback, validateId } from './validators';
 
 const postBelongingUser = (userId, postId, callback) => {
-  validateId(userId, 'user id');
-  validateId(postId, 'post id');
-  validateCallback(callback);
-
   findUserById(userId, (foundUser) => {
     if (!foundUser) {
       callback(new Error(`User with id ${userId} not exist`));
