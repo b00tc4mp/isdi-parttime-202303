@@ -13,7 +13,7 @@ export default function CreateCube() {
             scene.background = new THREE.Color(0x000000);
 
             // Add camera
-            camera = new THREE.PerspectiveCamera(80, window.innerWidth / window.innerHeight);
+            camera = new THREE.PerspectiveCamera(110, window.innerWidth / window.innerHeight);
 
             // Renderer
             renderer = new THREE.WebGLRenderer({ canvas: canvasRef.current });
@@ -53,5 +53,11 @@ export default function CreateCube() {
         };
     }, []);
 
-    return <canvas ref={canvasRef} className='cubeCanvas'></canvas>;
+    return<div className='loader'>
+    <p className='loader-text'>Loading...</p>
+    <canvas ref={canvasRef} className='cubeCanvas'>
+    </canvas>
+    
+    </div>
+        
 }

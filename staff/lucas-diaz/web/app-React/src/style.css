@@ -575,16 +575,27 @@ label {
     cursor: pointer;
 }
 
-
-.cubeCanvas {
+.loader {
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    z-index: 2;
-    opacity: .8;
-    pointer-events: auto; /*bloquea eventos de click por debjao del zindex*/
+}
 
+.cubeCanvas {
+    position: relative;
+    z-index: 1;
+    opacity: .72;
+}
+
+.loader-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    color: white;
+    font-size: 20px;
 }
 
 
@@ -703,21 +714,3 @@ label {
         transform: rotateZ(360deg);
     }
 }
-
-
-
-/* control (no soltar)--> k (ojito, uno a uno)--> u  */
-/* asdasdasdk */
-/*
-cot
-
-
-verde header --> #1f3c3c
-
-
-cosita de navegador 
-
-control + shift + c ---> item selector in chrome 
-shift arriba -- va de 10 en 10 
-control + shift + m --> switchea entre mobile y desktop pero tenemos que darle un click al dom , al HTML. 
-*/
