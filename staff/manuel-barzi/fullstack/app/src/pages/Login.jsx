@@ -76,6 +76,6 @@ export default function Login({ onRegisterClick, onUserLoggedIn }) {
             <Button type="submit">Login</Button>
         </Form>
 
-        <p>Go to <a href="" onClick={handleRegisterClick}>Register</a></p>
+        <p className="pepito">Go to <a href="" onClick={handleRegisterClick}>Register</a></p>
     </Container >
 }
