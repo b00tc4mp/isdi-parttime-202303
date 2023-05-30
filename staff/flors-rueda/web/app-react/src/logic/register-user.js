@@ -11,6 +11,7 @@ import { validateCallback, validateMail, validateRepeatPassword, validateUsernam
  * @param {string} username The new user's username
  * @param {string} password The new user's password
  * @param {string} repeatPassword The confirmation password
+ * @param {function} callback Function that controls the errors
  * 
  */
 export const registerUser = (mail, username, password, repeatPassword, callback) => {

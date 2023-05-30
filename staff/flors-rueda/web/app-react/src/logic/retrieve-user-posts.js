@@ -4,8 +4,14 @@ import { validateCallback, validateId } from '../data/validators';
 
 
 /**
-TODO: add documentation to all logic functions
- */
+ * Retrieve's all the posts published by an specific user by its id.
+ * 
+ * @param {string} userId The user id
+ * @param {string} userAuth The user logged id
+ * @param {function} callback Function that controls the errors
+ * 
+ * @returns an array of posts object
+*/
 export const retrieveUserPosts = (userId, userAuth, callback) => {
   validateId(userId);
   validateId(userAuth);

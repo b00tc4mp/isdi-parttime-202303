@@ -1,6 +1,14 @@
 import { findUserById } from '../data/data-managers';
-import { validateCallback } from '../data/validators';
+import { validateCallback, validateId } from '../data/validators';
 
+/**
+ * Retrieve's the data of an user by its id
+ * 
+ * @param {string} userId The user id
+ * @param {function} callback Function that controls the errors
+ * 
+ * @returns a user object
+*/
 export const retrieveUser = (userId, callback) => {
   validateId(userId);
   validateCallback(callback);

@@ -6,8 +6,9 @@ import { validateCallback, validateId } from '../data/validators';
  * 
  * @param {string} userId The user logged id
  * @param {string} postId The id of the post to edit
+ * @param {function} callback Function that controls the errors
  * 
- * @returns a post object = { id: string, author: string, text: string, image: string, date: date, edited: array of dates, likes: array of strings}
+ * @returns a post object
  */
 export const retrievePost = (userId, postId, callback) => {
     validateId(userId);

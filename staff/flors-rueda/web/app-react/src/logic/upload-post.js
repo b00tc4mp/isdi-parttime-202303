@@ -1,21 +1,21 @@
 import { loadPosts, savePosts } from '../data/data';
 import { findUserById } from '../data/data-managers';
 import { generateUUID } from './helpers/generateUUID';
-import { validateCallback, validateId, validateImage, validatePostText } from '../data/validators';
+import { validateCallback, validateId, validatePostText } from '../data/validators';
 
 /**
  * Creates a post by it's image and text.
  * 
  * @param {string} postImg The base64 string of the post image
  * @param {string} postText The post text
- * @param {string} authorID The user logged id
+ * @param {string} authorId The user logged id
+ * @param {function} callback Function that controls the errors
  * 
  */
 export const uploadPost = (postImg, postText, authorId, callback) => {
   validateId(postId);
   validateId(userId);
   validatePostText(newText);
-  validateImage(newPostImg);
   validateCallback(callback);
   
   findUserById(authorId, user => {

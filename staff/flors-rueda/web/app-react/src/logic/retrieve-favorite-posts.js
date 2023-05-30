@@ -1,10 +1,15 @@
 import { loadPosts, loadUsers } from '../data/data';
 import { findUserById } from '../data/data-managers';
-import { validateCallback } from '../data/validators';
+import { validateCallback, validateId } from '../data/validators';
 
 /**
-
- */
+ * Retrieve's the favorite posts and its data of an user
+ * 
+ * @param {string} userId The user id
+ * @param {function} callback Function that controls the errors
+ * 
+ * @returns an array of posts object
+*/
 export const retrieveFavoritePosts = (userId, callback) => {
   validateId(userId);
   validateCallback(callback);

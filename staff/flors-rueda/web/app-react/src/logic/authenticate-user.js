@@ -6,6 +6,7 @@ import { findUserByUsername } from '../data/data-managers';
  * 
  * @param {string} user The user's username
  * @param {string} password The user's password
+ * @param {function} callback Function that controls the errors
  * 
  * @returns {string} The user's id
  */

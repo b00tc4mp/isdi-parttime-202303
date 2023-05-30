@@ -2,11 +2,21 @@ import { saveUser } from '../data/data';
 import { findUserById } from '../data/data-managers';
 import { validateCallback, validateId, validatePassword } from '../data/validators';
 
-export const updatePassword = (userId, oldPassword, repeatPassword, newPassword, callback) => {
+/**
+ * Updates an user password
+ * 
+ * @param {string} userId The user's id
+ * @param {string} oldPassword The user's old password
+ * @param {string} newPassword The user's new password
+ * @param {string} repeatPassword The user's new password confirmation
+ * @param {function} callback Function that controls the errors
+ * 
+ */
+export const updatePassword = (userId, oldPassword, newPassword, repeatPassword, callback) => {
     validateId(userId);
     validatePassword(oldPassword);
-    validatePassword(repeatPassword);
     validatePassword(newPassword);
+    validatePassword(repeatPassword);
     validateCallback(callback);
 
     findUserById(userId, user => {

@@ -2,7 +2,14 @@ import { findPostById, findUserById } from '../data/data-managers';
 import { saveUser } from '../data/data';
 import { validateCallback, validateId } from '../data/validators';
 
-
+/**
+ * Toggles a post into the favs of a user by their ids
+ * 
+ * @param {string} postId The post id
+ * @param {string} userId The user id
+ * @param {function} callback Function that controls the errors
+ * 
+*/
 export const toggleFav = (postId, userId, callback) => {
   validateId(userId);
   validateId(postId);

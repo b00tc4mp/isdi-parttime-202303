@@ -2,8 +2,14 @@ import { savePost } from '../data/data';
 import { findPostById, findUserById } from '../data/data-managers';
 import { validateCallback, validateId } from '../data/validators';
 
-
-
+/**
+ * Toggles a user into the likes of a post by their ids
+ * 
+ * @param {string} postId The post id
+ * @param {string} userId The user id
+ * @param {function} callback Function that controls the errors
+ * 
+*/
 export const toggleLike = (postId, userId, callback) => {
   validateId(postId);
   validateId(userId);

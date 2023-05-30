@@ -2,7 +2,14 @@ import { loadPosts, loadUsers, savePosts, saveUsers } from '../data/data';
 import { findUserById } from '../data/data-managers';
 import { validateCallback, validateId, validatePassword } from '../data/validators';
 
-
+/**
+ * Deletes a user by user id and password
+ * 
+ * @param {string} userId The user's id
+ * @param {string} password The user's password
+ * @param {function} callback Function that controls the errors
+ * 
+ */
 export const deleteUser = (userId, password, callback) => {
   validateId(userId);
   validatePassword(password);

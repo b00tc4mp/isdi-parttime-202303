@@ -2,6 +2,14 @@ import { loadPosts, savePosts } from '../data/data';
 import { findPostById, findUserById } from '../data/data-managers';
 import { validateId, validateCallback } from '../data/validators';
 
+/**
+ * Deletes a post by its id.
+ * 
+ * @param {string} userId The logged user's id
+ * @param {string} postId The post id
+ * @param {function} callback Function that controls the errors
+ * 
+ */
 export const deletePost = (userId, postId, callback) => {   
     validateId(userId);
     validateId(postId);
