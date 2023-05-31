@@ -13,12 +13,12 @@ export const validatePassword = (password, explanation = 'password')=>{
   if (typeof password!=='string') throw new Error(`The ${explanation} is not a string.`)
 }
 
-export const validateUrl = (newAvatarUrl, explanation = 'url')=>{
-  if (!newAvatarUrl.trim().length) throw new Error(`The ${explanation} field is empty.`);
-  if (typeof newAvatarUrl !=='string') throw new Error(`The ${explanation} is not a string.`)
+export const validateUrl = (newUrl, explanation = 'url')=>{
+  if (!newUrl.trim().length) throw new Error(`The ${explanation} field is empty.`);
+  if (typeof newUrl !=='string') throw new Error(`The ${explanation} is not a string.`)
 
   const correctUrl = /(jpe?g|png|webp)/;
-  if (!correctUrl.test(newAvatarUrl)) throw new Error(`The url entered does not includes a .jpg/.jpg/.webp/.png extension.`)
+  if (!correctUrl.test(newUrl)) throw new Error(`The url entered does not includes a .jpg/.jpg/.webp/.png extension.`)
 }
 
 export const validateId = (userId, explanation = 'id')=>{

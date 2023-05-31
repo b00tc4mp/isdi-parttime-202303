@@ -7,7 +7,7 @@ import './components-styles/Post.css'
 import Context from "../Context"
 import ContextualMenu from "./ContextualMenuModal"
 
-export default function Post({post, handleRefreshPosts, handleOpenEditPost, handleOpenDeletePost, handleToggleVisibility, handleToggleOnSalePost, handleOpenBuyPost}) {
+export default function Post({post, handleRefreshPosts, handleOpenEditPost, handleOpenDeletePost, handleToggleVisibility, handleToggleOnSalePost, handleOpenBuyPost }) {
   
   const [modal, setModal] = useState('post')
   const [contextualMenu, setContextualMenu] = useState('close')

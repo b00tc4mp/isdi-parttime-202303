@@ -9,7 +9,7 @@ import Context from "../Context";
 import { useContext } from "react";
 
 
-export default function Posts({ lastPostsUpdate, view, handleOpenBuyPost, handleOpenEditPost, handleOpenDeletePost, handleToggleVisibility, handleToggleOnSalePost}) {
+export default function Posts({ lastPostsUpdate, view, handleOpenBuyPost, handleOpenEditPost, handleOpenDeletePost, handleToggleVisibility, handleToggleOnSalePost }) {
   const { alert, freeze, unfreeze } = useContext(Context)
 
   const [posts, setPosts] = useState(null)

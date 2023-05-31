@@ -93,18 +93,22 @@ export default function Comments({ onCloseCommentModal, handleRefreshPosts, post
       </div>
       
       {addComment ? 
-      <div className="add-comment container">
-        <form className="add-comment_form" onSubmit={handleCreateComment}>
-        <h2>Add comment</h2>
-          <textarea className="comment-text" cols="30" rows="10" name="commentText" autoFocus></textarea>
-          <div className="add-comment_form_buttons">
-            <button>Add</button>
-            <button type="button" onClick={toggleAddComment}>Cancel</button>
-          </div>
-        </form>
-      </div>
-      :
-      <button className="add-comment_button" onClick={toggleAddComment}>Add comment</button>}
+        <div className="add-comment container" onClick={(event) => {
+          if(event.target === document.querySelector('.add-comment'))
+            toggleAddComment()
+        }}>
+          <form className="add-comment_form" onSubmit={handleCreateComment}>
+          <h2>Add comment</h2>
+            <textarea className="comment-text" cols="30" rows="10" name="commentText" autoFocus></textarea>
+            <div className="add-comment_form_buttons">
+              <button>Add</button>
+              <button type="button" onClick={toggleAddComment}>Cancel</button>
+            </div>
+          </form>
+        </div>
+        :
+        <button className="add-comment_button" onClick={toggleAddComment}>Add comment</button>
+      }
     </section>
   </>
 }
