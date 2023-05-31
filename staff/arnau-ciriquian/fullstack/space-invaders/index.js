@@ -7,7 +7,12 @@ const rl = readline.createInterface({
 
 rl.input.on('keypress', (key, data) => {
     if (data.ctrl && data.name === 'c') {
-        process.exit();
+        //process.exit();
+        readWriteJson(`End Game`)
+
+        setTimeout(() => {
+            process.exit()
+        }, 10)
     } else if (data.name === 'd') {
         player.moveRight()
     } else if (data.name === 's') {
@@ -17,14 +22,14 @@ rl.input.on('keypress', (key, data) => {
     }
 })
 
-/*class Missile {
+class Missile {
     constructor(icon, launchPosition) {
         this.icon = icon
 
         this.hPos = launchPosition
-        this.vPos = 5
+        this.vPos = 0
     }
-}*/
+}
 
 const launchedMissiles = [null, null, null, null, null]
 
@@ -47,7 +52,8 @@ class SpaceShip {
     }
 
     shoot() {
-        launchedMissiles.splice(0, 1, `${this.pos.toString()}`)
+        const missile = new Missile('♠️', this.pos)
+        launchedMissiles.splice(0, 1, [missile.hPos, missile.vPos])
     }
 
     render() {
@@ -85,41 +91,92 @@ class Invaders {
     }
 }
 
+const moveMissiles = (missiles) => {
+    missiles.forEach(missile => {
+        if (missile) missile[1] += 1
+    });
+}
+
+const renderRow = (row, missiles) => {
+    if (missiles[row]) {
+        console.log(emptySpace.repeat(0 + missiles[row][0]),'♠️', emptySpace.repeat(19 - missiles[row][0]))
+    } else {
+        console.log(emptySpace.repeat(20))
+    }   
+}
+
 const player = new SpaceShip('🚀')
 const enemiesFirstRow = new Invaders('👽')
 let timer = 0
 const LAPSE = 250
 const emptySpace = '    '
 
-//let test = ''
-
 const fs = require('fs')
+const readWriteJson = (newInputData) => {
+    fs.readFile('myjsonfile.json', 'utf8', function(err, data) {
+        if (err) {
+            console.log(err)
+        } else {
+            
+            const results = (data ? JSON.parse(data) : [])
+            const newData = newInputData
+            results.push(newData)
+            const json = JSON.stringify(results)
+
+            fs.writeFile('myjsonfile.json', json, 'utf8', function(err) {
+                if (err) {
+                    console.log(err)
+                } else {
+                    console.log("Data added and written to the file.")
+                }
+            })
+            
+        }
+    })
+}
+
+readWriteJson(`New Game`)
 
 const interval = setInterval(() => {
     console.clear()
+
+    readWriteJson(`player pos: ${player.pos.toString()} - missiles fired: ${launchedMissiles.toString()}`)
+
+    renderRow(4, launchedMissiles)
+    renderRow(3, launchedMissiles)
+    renderRow(2, launchedMissiles)
+    renderRow(1, launchedMissiles)
+    renderRow(0, launchedMissiles)
+    player.render()
+
+
     launchedMissiles.splice(0, 0, null)
     launchedMissiles.pop()
 
     enemiesFirstRow.move()
 
-    console.log(emptySpace.repeat(20))
-    enemiesFirstRow.render()
-    console.log(emptySpace.repeat(20))
-    console.log(emptySpace.repeat(20))
-    console.log(emptySpace.repeat(20))
-    player.render()
+    /*console.log(emptySpace.repeat(20))
+    enemiesFirstRow.render()*/
+    
 
     timer += LAPSE
 
     const time = timer / 1000
     console.log(`${time.toFixed(2)} s`)
 
-    fs.appendFile('C:/Users/Arnau/workspace/isdi-parttime-202303/staff/arnau-ciriquian/fullstack/space-invaders/result.txt', `player pos: ${player.pos.toString()} - shot missiles: ${launchedMissiles.toString()}\n`, err => {
-        if (err) {
-            console.error(err)
-        }
-    })
+    moveMissiles(launchedMissiles)
 
     if (timer >= 10000)
         clearInterval(interval)
 }, LAPSE)
+
+
+/*
+
+
+const renderRow = (row, missiles) => {
+    if (missiles[
+
+}
+
+*/
