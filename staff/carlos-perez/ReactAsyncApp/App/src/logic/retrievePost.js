@@ -1,15 +1,22 @@
-import { users } from '../data'
-import { findPostById } from './helpers/data-manager'
+import { findPostById, findUserById } from '../data'
 
-export default function retrievePosts(userId, postId) {
+export default function retrievePosts(userId, postId, callback) {
    
-    const found = users.some(user => user.id === userId)
+    findUserById(userId, user => {
+        if (!user) {
+            callback(new Error(`user with id ${userId} not found`))
 
-    if (!found) throw new Error(`user with id ${userId} not found`)
+            return
+        }
 
-    const post = findPostById(postId)
+        findPostById(postId, post => {
+            if (!post) {
+                callback(new Error(`post with id ${postId} not found`))
 
-    if (!post) throw new Error(`post with id ${postId} not found`)
+                return
+            }
 
-    return post
+            callback(null, post)
+        })
+    })
 }

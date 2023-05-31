@@ -17,13 +17,21 @@ export default function AddPostModal({ onCancel, onPostCreated }) {
         const text = event.target.text.value
 
         try {
-            createPost(context.userId, image, text)
+            createPost(context.userId, image, text, error => {
+                if (error) {
+                    alert(error.message)
 
-            onPostCreated()
+                    return
+                }
+
+                onPostCreated()
+            })
         } catch(error) {
             alert(error.message)
         }
     }
+
+    console.debug('AddPostModal -> render')
 
     return <section className="modal">
         <form onSubmit={handleCreatePost}>

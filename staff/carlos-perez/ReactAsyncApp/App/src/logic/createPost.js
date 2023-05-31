@@ -1,21 +1,34 @@
-import {users, posts} from "../data.js"
-import {userExistById} from "./helpers/data-manager.js"
+import { loadPosts, savePosts, findUserById } from '../data'
 
-export function createPost(userId, image, text) {
+export function createPost(userId, image, text, callback) {
 
-    const user = users[userExistById(userId)];
+    findUserById(userId, user => {
+        if (!user) {
+            callback(new Error(`user with id ${userId} not found`))
 
-    if (user===-1) throw new Error(`user with id ${userId} not found`);
+            return
+        }
 
-    const id = userId+'-'+Date.now();
-    
-    const post = {
-        id,
-        author: userId,
-        image,
-        text,
-        date: new Date
-    }
+        let id = 'post-1'
 
-    posts.push(post);
+        loadPosts(posts => {
+            const lastPost = posts[posts.length - 1]
+
+            if (lastPost)
+                id = 'post-' + (parseInt(lastPost.id.slice(5)) + 1)
+
+            const post = {
+                id,
+                author: userId,
+                image,
+                text,
+                date: new Date,
+                likes: []
+            }
+
+            posts.push(post)
+
+            savePosts(posts, () => callback(null))
+        })
+    })
 }

@@ -1,44 +1,53 @@
 import {retrievePosts} from '../logic/retrievePosts'
 import Post from './Post'
 import { useState, useEffect } from 'react'
+import { context } from '../ui'
 
-export default function Posts({ onEditPost, lastPostsUpdate }) {
-    let _posts
+export default function Posts({ onEditPost, lastPostsUpdate, user }) {
+    const [posts, setPosts] = useState()
 
-    try {
-        _posts = retrievePosts()
-    } catch (error) {
-        alert(error.message)
-    }
-
-    const [posts, setPosts] = useState(_posts)
+    useEffect(() => handleRefreshPosts(), [])
 
     const handleRefreshPosts = () => {
         try {
-            const posts = retrievePosts()
+            retrievePosts(context.userId, (error, posts) => {
+                if (error) {
+                    alert(error.message)
 
-            setPosts(posts)
+                    return
+                }
+
+                setPosts(posts)
+            })
         } catch (error) {
             alert(error.message)
         }
     }
 
     useEffect(() => {
-        console.log('Posts -> "componentDidMount" with hooks')
+        console.debug('Posts -> "componentDidMount" with hooks')
 
-        return () => console.log('Posts -> "componentWillUnmount" with hooks')
+        return () => console.debug('Posts -> "componentWillUnmount" with hooks')
     }, [])
 
     useEffect(() => {
-        console.log('Posts -> "componentWillReceiveProps" with hooks')
-        
+        console.debug('Posts -> "componentWillReceiveProps" with hooks')
+
         if (lastPostsUpdate)
             handleRefreshPosts()
     }, [lastPostsUpdate])
 
-    console.log('Posts -> render')
+    console.debug('Posts -> render')
 
     return <section>
-        {posts.map(post => <Post key={post.id} post={post} onEditPost={onEditPost} onToggledLikePost={handleRefreshPosts} onPostDeleted={handleRefreshPosts} />)}
+        {posts && posts.map(post => <Post
+            key={post.id}
+            post={post}
+            onEditPost={onEditPost}
+            onToggledLikePost={handleRefreshPosts}
+            onPostDeleted={handleRefreshPosts}
+            onToggledSavePost={handleRefreshPosts}
+            user={user}
+        />)}
     </section>
 }

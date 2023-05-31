@@ -1,9 +1,13 @@
 import { context } from '../main'
 import toggleLikePost from '../logic/toggleLikePost'
 import deletePost from '../logic/deletePost'
+import toggleFavPost from '../logic/toggleFavPost'
+import { useContext } from 'react'
+import Context from '../Context'
 
-export default function Post({ post: { id, image, text, date, likes, author }, onEditPost, onToggledLikePost, onPostDeleted }) {
+export default function Post({ post: { id, image, text, date, likes, author, fav }, onEditPost, onToggledLikePost, onPostDeleted, onToggledSavePost }) {
     console.log('Post -> render')
+    const { alert } = useContext(Context)
 
     const handleEditPost = () => onEditPost(id)
 
@@ -19,13 +23,37 @@ export default function Post({ post: { id, image, text, date, likes, author }, o
 
     const handleDeletePost = () => {
         try {
-            deletePost(context.userId, id)
+            deletePost(context.userId, id, error => {
+                if (error) {
+                    alert(error.message)
 
-            onPostDeleted()
-        } catch(error) {
+                    return
+                }
+
+                onPostDeleted()
+            })
+        } catch (error) {
             alert(error.message)
         }
     }
+
+    const handleToggleSavePost = () => {
+        try {
+            toggleFavPost(context.userId, id, error => {
+                if (error) {
+                    alert(error.message)
+
+                    return
+                }
+
+                onToggledSavePost()
+            })
+        } catch (error) {
+            alert(error.message)
+        }
+    }
+
+    console.debug('Post -> render')
 
     return <article>
         <img src={image} width="200px" />
@@ -35,6 +63,7 @@ export default function Post({ post: { id, image, text, date, likes, author }, o
         <button onClick={handleToggleLikePost}>{likes && likes.includes(context.userId) ? '❤️' : '🤍'} ({likes ? likes.length : 0})</button>
         {author === context.userId && <button onClick={handleEditPost}>📝</button>}
         {author === context.userId && <button onClick={handleDeletePost}>🗑</button>}
+        <button onClick={handleToggleSavePost}>{fav ? '⭐️' : '✩'}</button>
         </div>
     </article>
 }

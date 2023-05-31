@@ -1,15 +1,19 @@
-import { findUserById } from './helpers/data-manager'
+import { findUserById } from '../data.js'
 
-export default function retrieveUser(userId) {
+export default function retrieveUser(userId, callback) {
     
-    let user = findUserById(userId)
+    findUserById(userId, user => {
+        if (!user) {
+            callback(new Error('user not found'))
 
-    if (!user)
-        throw new Error('user not found')
-
-    user = {
-        name: user.name
-    }
-
-    return user
+            return
+        }
+    
+        const _user = {
+            name: user.name,
+            avatar: user.avatar
+        }
+    
+        callback(null, _user)
+    })
 }

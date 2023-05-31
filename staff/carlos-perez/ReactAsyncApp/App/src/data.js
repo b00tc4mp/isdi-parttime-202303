@@ -1,111 +1,66 @@
-import { userExistById } from "./logic/helpers/data-manager"
+console.debug('load data')
 
-export const users = () => 'usersJson' in localStorage ? JSON.parse(localStorage.usersJson) : []
+const DELAY = 1000
 
-/*
-users.push({
-    id: 'user-1',
-    name: 'Wendy Darling',
-    email: 'wendy@darling.com',
-    password: '123123123'
-})
+export const loadUsers = callback =>
+    setTimeout(() => callback('usersJson' in localStorage ? JSON.parse(localStorage.usersJson) : []), DELAY)
 
-users.push({
-    id: 'user-2',
-    name: 'Peter Pan',
-    email: 'peter@pan.com',
-    password: '123123123'
-})
+export const saveUsers = (users, callback) =>
+    setTimeout(() => {
+        localStorage.usersJson = JSON.stringify(users)
 
-users.push({
-    id: 'user-3',
-    name: 'Pepito Grillo',
-    email: 'pepito@grillo.com',
-    password: '123123123'
-})*/
+        callback()
+    }, DELAY)
 
-export function saveUsers(users) {
-    localStorage.usersJson = JSON.stringify(users)
-}
+export const saveUser = (user, callback) =>
+    loadUsers(users => {
+        const index = users.findIndex(_user => _user.id === user.id)
 
-export function saveUser(user) {
-    const _users = users()
+        if (index < 0)
+            users.push(user)
+        else
+            users.splice(index, 1, user)
 
-    const index = _users.findIndex(_user => _user.id === user.id)
+        saveUsers(users, callback)
+    })
 
-    if (index < 0)
-        _users.push(user)
-    else
-        _users.splice(index, 1, user)
+export const findUserByEmail = (email, callback) =>
+    loadUsers(users => {
+        const user = users.find(user => user.email === email)
 
-    saveUsers(_users)
-}
+        callback(user)
+    })
 
-export const posts = []
+export const findUserById = (userId, callback) =>
+    loadUsers(users => callback(users.find(user => user.id === userId)))
 
-function createPost(userId, image, text) {
+export const loadPosts = callback =>
+    setTimeout(() => {
+        const posts = 'postsJson' in localStorage ? JSON.parse(localStorage.postsJson) : []
 
-    const user = users[userExistById(userId)];
+        posts.forEach(post => post.date = new Date(post.date))
 
-    if (user===-1) throw new Error(`user with id ${userId} not found`);
+        callback(posts)
+    }, DELAY)
 
-    const id = userId+'-'+Date.now();
-    
-    const post = {
-        id,
-        author: userId,
-        image,
-        text,
-        date: new Date
-    }
+export const savePosts = (posts, callback) =>
+    setTimeout(() => {
+        localStorage.postsJson = JSON.stringify(posts)
 
-    posts.push(post);
-}
+        callback()
+    }, DELAY)
 
+export const savePost = (post, callback) =>
+    loadPosts(posts => {
+        const index = posts.findIndex(_post => _post.id === post.id)
 
-/*posts.push({
-    id: 'post-1',
-    author: 'user-1',
-    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/SNice.svg/1200px-SNice.svg.png',
-    text: 'Smile!',
-    date: new Date()
-})*/
+        if (index < 0)
+            posts.push(post)
+        else
+            posts.splice(index, 1, post)
 
-createPost('user-1','https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/SNice.svg/1200px-SNice.svg.png','Smile!');
+        savePosts(posts, callback)
+    })
 
-/*posts.push({
-    id: 'post-2',
-    author: 'user-2',
-    image: 'https://img.icons8.com/color/512/avatar.png',
-    text: 'I ♥️ Avatars!',
-    date: new Date()
-})*/
-
-createPost('user-2','https://img.icons8.com/color/512/avatar.png','I ♥️ Avatars!');
-
-/*posts.push({
-    id: 'post-3',
-    author: 'user-3',
-    image: 'https://img.icons8.com/color/512/avatar.png',
-    text: 'I ♥️ Avatars too!',
-    date: new Date()
-})*/
-
-createPost('user-3','https://img.icons8.com/color/512/avatar.png','I ♥️ Avatars too!');
-
-export function savePosts(posts) {
-    localStorage.postsJson = JSON.stringify(posts)
-}
-
-export function savePost(post) {
-    const _posts = posts
-
-    const index = _posts.findIndex(_post => _post.id === post.id)
-
-    if (index < 0)
-        _posts.push(post)
-    else
-        _posts.splice(index, 1, post)
-
-    savePosts(_posts)
-}
+export const findPostById = (postId, callback) => 
+    loadPosts(posts => callback(posts.find(post => post.id === postId)))

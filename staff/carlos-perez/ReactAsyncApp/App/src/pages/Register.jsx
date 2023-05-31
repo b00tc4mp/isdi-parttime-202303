@@ -1,29 +1,36 @@
-import {addUser} from "../logic/registerUser.js"
+import registerUser from '../logic/registerUser.js'
 
-export default function Register({ onLoginClick }) {
+export default function Register({ onLoginClick, onUserRegistered }) {
     function handleLoginClick(event) {
         event.preventDefault()
 
         onLoginClick()
     }
 
-    function handleRegisterClick(event){
+    const handleRegister = function (event) {
         event.preventDefault()
 
-        const name = event.target.name.value;
-        const email= event.target.email.value;
-        const password = event.target.password.value;
+        const name = event.target.name.value
+        const email = event.target.email.value
+        const password = event.target.password.value
 
-        try{
-            addUser(name, email, password);
-            alert('Usuario registrado correctamente');
+        try {
+            registerUser(name, email, password, error => {
+                if (error) {
+                    alert(error.message)
+
+                    return
+                }
+
+                onUserRegistered()
+            })
+        } catch (error) {
+            alert(error.message)
         }
-        catch(error){
-            alert(error.message);
-        }
-
-
     }
+
+    console.debug('Register -> render');
+
     return <div>
         <header className="header">
             <h1>App</h1>
@@ -31,7 +38,7 @@ export default function Register({ onLoginClick }) {
         <div className="registro contenedor">
             <h3 className="centrar-texto">Registro</h3>
 
-            <form className="formulario" onSubmit={handleRegisterClick}>
+            <form className="formulario" onSubmit={handleRegister}>
                 <div className="campo">
                     <label className="campo__label" for="nombre">Nombre</label>
                     <input className="campo__field register-input" type="text" placeholder="Tu Nombre" id="name" required/>

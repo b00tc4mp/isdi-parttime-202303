@@ -1,31 +1,44 @@
-import { findUserById } from '../logic/helpers/data-manager.js'
 import {authenticateUser} from '../logic/authenticateUser.js'
 import {context} from '../main.js'
+import { useContext } from 'react'
+import Context from '../Context.js'
+import { findUserById } from '../logic/helpers/data-manager.js'
 
 export default function Login({ onRegisterClick, onAuthClick }) {
+    const { alert } = useContext(Context)
+
     const handleRegisterClick = event => {
         event.preventDefault()
 
         onRegisterClick()
     }
 
-    const  handleAuthClick = event =>{
-        event.preventDefault();
-        //login
-        const email = event.target.email.value;
-        const password = event.target.password.value;
-    
+    const handleAuthClick = event => {
+        event.preventDefault()
+
+        const email = event.target.email.value
+        const password = event.target.password.value
+
         try {
-            const activeUser=authenticateUser(email, password);
-            context.userId=activeUser;
-            const user= findUserById(activeUser);
-            context.userName=user.name;
-            onAuthClick();
-        }
-        catch (error) {
-           alert(error.message);
+            authenticateUser(email, password, (error, userId) => {
+                if (error) {
+                    alert(error.message, 'error')
+
+                    return
+                }
+
+                context.userId = userId
+                const user= findUserById(activeUser);
+                context.userName=user.name;
+                onAuthClick();
+            })
+
+        } catch (error) {
+            alert(error.message, 'warn')
         }
     }
+
+    console.debug('Login -> render')
 
     return <div>
         <header className="header">

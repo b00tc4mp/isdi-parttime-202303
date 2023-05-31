@@ -1,23 +1,34 @@
-import { findUserById, findPostById } from './helpers/data-manager'
-import { savePosts, posts } from '../data'
+import { savePosts, loadPosts, findUserById, findPostById } from '../data.js'
 
 export default function deletePost(userId, postId) {
 
-    const user = findUserById(userId)
+    findUserById(userId, user => {
+        if (!user) {
+            callback(new Error(`user with id ${userId} not found`))
 
-    if (!user) throw new Error(`user with id ${userId} not found`)
+            return
+        }
 
-    const post = findPostById(postId)
+        findPostById(postId, post => {
+            if (!post) {
+                callback(new Error(`post with id ${postId} not found`))
 
-    if (!post) throw new Error(`post with id ${postId} not found`)
+                return
+            }
 
-    if (post.author !== userId) throw new Error(`post with id ${postId} does not belong to user with id ${userId}`)
+            if (post.author !== userId) {
+                callback(new Error(`post with id ${postId} does not belong to user with id ${userId}`))
 
-    const _posts = posts
+                return
+            }
 
-    const index = _posts.findIndex(post => post.id === postId)
-
-    _posts.splice(index, 1)
-
-    savePosts(_posts)
+            loadPosts(posts => {
+                const index = posts.findIndex(post => post.id === postId)
+    
+                posts.splice(index, 1)
+    
+                savePosts(posts, () => callback(null))
+            })
+        })
+    })
 }
