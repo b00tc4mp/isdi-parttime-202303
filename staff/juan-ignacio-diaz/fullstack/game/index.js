@@ -1,4 +1,4 @@
-const STEP = 5, LAPSE = 200, FINISH = 100
+const STEP = 5, LAPSE = 200, FINISH = 20
 
 class Car {
     constructor(icon, name) {
@@ -15,7 +15,6 @@ class Car {
     }
 
     status() {
-        //console.log(`${this.icon}, driver = ${this.driver}, pos = ${this.pos}, time = ${this.time}`)
         return `${this.icon}, driver = ${this.driver}, pos = ${this.pos}, time = ${this.time}`
     }
 
@@ -30,85 +29,67 @@ class Car {
 
 let pos = 0, time = 0
 
-const car1 = new Car('🚗', 'Verstapen')
-const car2 = new Car('🚗', 'Alonso')
-const car3 = new Car('🚗', 'Sainz')
+const cars = []
+cars.push(new Car('🚗', 'Verstapen'))
+cars.push(new Car('🚗', 'Alonso'))
+cars.push(new Car('🚗', 'Sainz'))
+cars.push(new Car('🚗', 'Rusell'))
+
 
 const interval = setInterval(() => {
     console.clear()
     time += LAPSE
 
-    if (car1.distance < FINISH) {
-        car1.render() 
-        car1.move()
-    }
-    else {
-        if (car1.pos === 0 ) {
-            car1.pos = pos++
-            car1.time = time
+    cars.forEach(car => {
+        if (car.distance < FINISH) {
+            car.render() 
+            car.move()
         }
-        car1.renderFinish() 
-    }
+        else {
+            if (car.pos === 0 ) {
+                car.pos = pos++
+                car.time = time
+            }
+            car.renderFinish() 
+        }
+    })
 
-    if (car2.distance < FINISH) {
-        car2.render()
-        car2.move()
-    }
-    else {
-        if (car2.pos === 0 ) {
-            car2.pos = pos++
-            car2.time = time
-        }
-        car2.renderFinish() 
-    }
-    
-    if (car3.distance < FINISH) {
-        car3.render()
-        car3.move()
-    }
-    else {
-        if (car3.pos === 0 ) {
-            car3.pos = pos++
-            car3.time = time
-        }
-        car3.renderFinish() 
-    }
-
-    if (car1.pos != 0 && car2.pos != 0 && car3.pos != 0) {
+    if (!cars.some(car => car.pos === 0)){
         clearInterval(interval)
 
         var today = new Date();
-
-        const cars = []
-        cars.push(car1)
-        cars.push(car2)
-        cars.push(car3)
 
         cars.sort(function(a, b) {
             return a.pos - b.pos;
         })
 
-        const result = 'Race ' + today.toLocaleString('es-ES') + '\n'+ cars[0].status() + '\n' + cars[1].status() + '\n' + cars[2].status() + '\n'
-        console.log(result)
+        const race = 'Race ' + today.toLocaleString('es-ES')
+        const result = cars.reduce((resultCars, car) => resultCars + car.status() + '\n', race+'\n')
+            
+        console.log(result)    
 
-        // const result = 'Race\n'+ car1.status() + '\n' + car2.status() + '\n' + car3.status() + '\n'
-        // console.log(result)        
+        const saveResult = cars.map(car => car.status())
+        const saveRace = JSON.stringify([{ race: race, result: saveResult }])
 
         const fs = require('fs');
 
         fs.readFile('./result.txt', 'utf8', (err, resultPrevious) => {
             if (err) {
-                console.error(err);
+                console.error('readFile error' + err);
             }
 
             console.log(resultPrevious)
+            console.log(resultPrevious ? JSON.parse(resultPrevious) : '')
+
+            fs.wr('./result.txt', saveRace, err => {
+                if (err) {
+                    console.error('appenfile error' + err);
+                }
+            });
+
         });
 
-        fs.appendFile('./result.txt', result, err => {
-            if (err) {
-                console.error(err);
-            }
-        });
+
     }   
 }, LAPSE)
 
