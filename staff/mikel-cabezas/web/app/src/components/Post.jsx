@@ -2,16 +2,18 @@ import { context } from "../ui"
 import { toggleLikePost } from "../logic/posts/toggleLikePost"
 import { toggleSavePost } from "../logic/posts/toggleSavePost"
 import './Post.css'
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import ContextualModalMenu from "./ContextualMenu"
 import { deletePost } from "../logic/posts/deletePost"
 import retrieveUser from "../logic/users/retrieveUser"
+import Context from "../Context"
 
 export default function Post({ post, post: { image, title, text, comments, likes, id, date, author, lastModify, location }, onToggleLikePost, onToggleSavePost, onEditPostButton, onHideMenuOptions, user }) {
     const userId = context.userId
 
     const [userData, setUserData] = useState(user)
     const [modal, setModal] = useState()
+    const {freeze, unfreeze} = useContext(Context)
 
     const postStyle = {
         background: `linear-gradient(180deg, rgba(0,0,0,.2) 0%, rgba(0,0,0,0) 10%, rgba(0,0,0,0) 50%, rgba(0,0,0,.6) 100%), url(${image}) center / cover`
@@ -55,7 +57,9 @@ export default function Post({ post, post: { image, title, text, comments, likes
 
     function handleToggleLike(event) {
         try {
+            freeze()
             toggleLikePost(userId, post, error => {
+                unfreeze()
                 if (error) {
                     alert(error.message)
 
@@ -71,7 +75,9 @@ export default function Post({ post, post: { image, title, text, comments, likes
 
     function handleToggleSave(event) {
         try {
+            freeze()
             toggleSavePost(userId, post.id, error => {
+                unfreeze()
                 if(error) {
                     alert(error.message)
 
