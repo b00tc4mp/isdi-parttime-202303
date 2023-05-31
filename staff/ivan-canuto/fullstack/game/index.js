@@ -3,7 +3,7 @@ const fs = require('fs')
 
 const fileRoute  = 'results.txt'
 
-const STEP = 5, LAPSE = 200
+const STEP = 5, LAPSE = 100
 
 class CarRace {
   constructor(name) {
@@ -21,8 +21,9 @@ class CarRace {
   }
 
   status() {
-    console.log(`${this.name} = post = ${this.pos}, time = ${this.time}`)
-    return `${this.name} = post = ${this.pos}, time = ${this.time}`
+    const result = `${this.name} = post = ${this.pos}, time = ${this.time}`
+    console.log(result)
+    return result
   }
 }
 
@@ -53,8 +54,7 @@ let interval = setInterval(() => {
   }
 
   if(taxi.pos >= 100 && police.pos >= 100 && thief.pos >= 100) {
-    const results = [taxi.status(), police.status(), thief.status()]
-    let oldResults = ''
+    const newResults = [taxi.status(), police.status(), thief.status()]
 
     fs.readFile('results.txt', 'utf8', (error, data) => {
       if(error) {
@@ -63,10 +63,14 @@ let interval = setInterval(() => {
         
         return
       }
-
-      oldResults =  results.join('\n') + '\n\n' +(!data ? '' : data + '\n\n')
       
-      fs.writeFile(fileRoute, oldResults, (error) => {
+      // let oldResults;
+      // data ? oldResults = '\n\n' + data.toString() : oldResults = ''
+
+      const allResults =  newResults.join('\n') + (data ? '\n\n' + data : '')
+      const bufferResults = Buffer.from(allResults)
+      
+      fs.writeFile(fileRoute, bufferResults, (error) => {
         if(error) {
           alert(error.message)
           console.log(error.stack)
