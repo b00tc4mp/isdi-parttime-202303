@@ -66,16 +66,20 @@ export default function Login({ onRegisterClick, onUserLoggedIn }) {
     console.debug('Login -> render')
 
     return <Container tag="main">        
-        <h1 className="text-3xl text-[var(--primary)]">Login</h1>
+        <h1 className="text-[var(--primary)]">Login</h1>
 
         {quote && <p><q>{quote}</q></p>}
 
-        <Form onSubmit={handleLogin}>
+        <Form /*className="content-hidden"*/ onSubmit={handleLogin}>
             <Input type="email" name="email" placeholder="email" />
             <Input type="password" name="password" placeholder="password" />
             <Button type="submit">Login</Button>
         </Form>
 
-        <p className="pepito">Go to <a href="" onClick={handleRegisterClick}>Register</a></p>
+        <p>Go to <a href="" onClick={handleRegisterClick}>Register</a></p>
+
+        <p className="helloworld helloworld--fluo bg-[orange]">
+            Hello, World!
+        </p>
     </Container >
 }

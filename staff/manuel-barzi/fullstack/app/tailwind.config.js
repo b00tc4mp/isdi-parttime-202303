@@ -1,22 +1,13 @@
 /** @type {import('tailwindcss').Config} */
-const plugin = require('tailwindcss/plugin')
+
+import helloworldPlugin from './tailwind.helloworld.plugin'
+import helloworldPlugin1 from './tailwind.helloworld.plugin.1'
 
 export default {
   content: ["./index.html", "./src/**/*.jsx"],
   theme: {
     extend: {}
   },
-  plugins: [
-    plugin(function ({ addBase, config }) {
-      addBase({
-        '.pepito': {
-          fontSize: config('theme.fontSize.4xl'),
-          backgroundColor: 'red',
-          color: 'white',
-          padding: '1rem'
-        }
-      })
-    })
-  ]
+  plugins: [helloworldPlugin, helloworldPlugin1]
 }
 
