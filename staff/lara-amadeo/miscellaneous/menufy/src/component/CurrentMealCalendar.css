@@ -1,0 +1,10 @@
+.table-container-home{
+    width: 100%;
+    height: calc(100% - 200px);
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    border: 1px solid #DCDCDC;
+    border-radius: 12px;
+    box-sizing: border-box;
+}

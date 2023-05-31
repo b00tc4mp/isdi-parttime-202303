@@ -1,0 +1,156 @@
+.table-container{
+    width: 100%;
+    height: calc(100% - 320px);
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    border: 1px solid #DCDCDC;
+    border-radius: 12px;
+    box-sizing: border-box;
+}
+
+.titles-row{
+    width: 100%;
+    height: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.title-label{
+    font-size: 12px;
+    font-weight: 600;
+    color: #484848;
+    margin: 0px;
+    text-align: center;
+}
+.title-label:first-child{
+    width: 20%;
+}
+
+.title-label:last-child{
+    width: 40%;
+}
+
+.weekly-container{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    
+}
+
+.days-container{
+    width: 20%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 12px;
+    background-color:#fafafa ;
+    box-sizing: border-box;
+    border: 2px solid white;
+}
+
+.day-container{
+    width: 100%;
+    height: 14.28%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px inset #dcdcdc;
+    box-sizing: border-box;
+}
+
+.day-container:last-child{
+    border-bottom: none;
+
+}
+
+.meals-container{
+    width: 40%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 12px;
+    background-color: #F7F1FF;
+    box-sizing: border-box;
+    border: 2px solid white;
+}
+
+.meals-container:last-child{
+    background-color: #E7F8E0;
+}
+
+.meal-container{
+    width: 100%;
+    height: 14.28%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid #dcdcdc;
+    box-sizing: border-box;
+    padding: 4px 16px;
+}
+
+.meal-container:last-child{
+    border-bottom: none;
+}
+
+.day-label{
+    font-size: 16px;
+    font-weight: 600;
+    color: #484848;
+    margin: 0px;
+    text-align: center;
+}
+
+.meal-label{
+    font-size: 12px;
+    font-weight: 600;
+    color: #484848;
+    margin: 0px;
+    text-align: center;
+}
+
+
+.link-n-icon{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+}
+.icon-link{
+    color: #B66D2A;
+}
+
+.meme-img{
+    width: 70%;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+.no-meals-container{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 32px;
+    padding: 32px;
+    box-sizing: border-box;
+}
+
+.meme-label{
+    text-align: center;
+}
+
+.no-meals-container-label{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
