@@ -8,16 +8,19 @@ import Context from '../Context'
 
 export default function Post({ post: { id, image, location, title, text, date, likes, author, fav }, onEditPost, onToggledLikePost, onPostDeleted, onToggledSavePost}) {
     
-    const { alert } = useContext(Context)
+    const { alert , freeze, unfreeze } = useContext(Context)
 
     const handleEditPost = () => onEditPost(id)
 
     const handleToggleLikePost = () => {
         try {
+            freeze()
             toggleLikePost(context.userId, id, error => {
+                unfreeze()
                 if(error){
                     alert(error.message)
                     return
+                   
                 }
                 onToggledLikePost()
             })
@@ -29,7 +32,9 @@ export default function Post({ post: { id, image, location, title, text, date, l
 
     const handleDeletePost = () => {
         try {
+            freeze()
             deletePost(context.userId, id, error => {
+                unfreeze()
                 if(error){
                     alert(error.message)
                     return
@@ -45,7 +50,9 @@ export default function Post({ post: { id, image, location, title, text, date, l
 
     const handleToggleSavePost = () => {
         try {
+            freeze()
             toggleFavPost(context.userId, id, error => {
+                unfreeze()
                 if(error){
                     alert(error.message)
                     return

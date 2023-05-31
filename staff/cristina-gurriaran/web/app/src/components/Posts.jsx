@@ -5,15 +5,16 @@ import { useState, useEffect, useContext } from 'react'
 import Context from '../Context'
 
 export default function Posts({ onEditPost , lastPostsUpdate, user }) {
-    const { alert } = useContext(Context)
-
+    const { alert , freeze, unfreeze} = useContext(Context)
     const [posts, setPosts] = useState()
 
     useEffect(() => handleRefreshPosts(), [])
     
     const handleRefreshPosts = () => {
         try {
+            freeze()
             retrievePosts(context.userId, (error, posts) => {
+                unfreeze()
                 if(error){
                     alert(error.message)
                     return

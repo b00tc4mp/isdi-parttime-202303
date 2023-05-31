@@ -2,16 +2,33 @@ import updateUserAvatar from "../logic/updateUserAvatar"
 import updateUserPassword from "../logic/updateUserPassword"
 import { context } from "../ui"
 import './Profile.css'
-import { useContext } from "react"
 import Context from '../Context'
 import FavPosts from "./FavPosts"
-import { useState } from "react"
+import retrieveUser from "../logic/retrieveUser"
+import { useContext, useState, useEffect} from "react"
 
 
 export default function Profile({ onUserAvatarUpdated, onUpdatedUserPassword }) {
     const { alert } = useContext(Context)
 
     const [view, setView] = useState('favPosts')
+    const [user, setUser] = useState()
+
+    useEffect(() => {
+        try {
+            retrieveUser(context.userId, (error, user) => {
+                if(error){
+                    alert(error.message)
+                    return
+                }
+
+                setUser(user)
+            })
+
+        } catch (error) {
+            alert(error.message)
+        }
+    }, [])
 
     const handleUpdateAvatar = event => {
         event.preventDefault()
@@ -26,10 +43,13 @@ export default function Profile({ onUserAvatarUpdated, onUpdatedUserPassword }) 
                 }
                 onUserAvatarUpdated()
             })
+            
 
         } catch (error) {
             alert(error.message)
         }
+        
+        
     }
 
     function handleUpdatePassword(event){
@@ -61,9 +81,11 @@ export default function Profile({ onUserAvatarUpdated, onUpdatedUserPassword }) 
     console.log('Profile -> render')
 
     return <div className='profile-page'>
+        {user && <>
         <section className="user-account">
             <div className="user-data-container">
-                <h1>Hello!</h1>
+                <img className="profile-avatar" src={user.avatar} alt="" />
+                <h1>{user.name}</h1>
             </div>
             <div className="edit-profile-container">
                 <h1 className= 'title'>Update-avatar</h1>
@@ -80,11 +102,12 @@ export default function Profile({ onUserAvatarUpdated, onUpdatedUserPassword }) 
                     <button className='button update' type='submit'>Update</button>
                 </form>
             </div>
-            <button onClick={handleSwitchMode} className='switchMode-button'>Switch Mode</button>
+            <button onClick={handleSwitchMode} className='switchMode-button'>Switch Mode</button>   
         </section>
 
     <section className="user-favs">        
         {view === 'favPosts' && <FavPosts />}
     </section>
+    </>}
 </div>
 }

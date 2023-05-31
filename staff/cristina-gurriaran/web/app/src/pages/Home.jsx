@@ -102,6 +102,7 @@ export default function Home({onLoggedOut}) {
     console.log('Home -> render')
 
         return <div className="home page">
+
             <header className="home-header">
                 <div className='home-logo-container'>
                 <img className='home logo' src={LOGO_URL} onClick={handleGoToPosts}></img>
@@ -117,9 +118,8 @@ export default function Home({onLoggedOut}) {
                 </nav>
                
                 <button onClick={handleLogout} className='home-button'>Logout</button>
-            
             </header>
-
+            
             <main className='main-container'>
                 {view === 'posts' && <Posts onEditPost={handleOpenEditPostModal} lastPostsUpdate={lastPostsUpdate} />}
                 {view === 'profile' && <Profile 

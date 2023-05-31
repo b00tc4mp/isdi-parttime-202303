@@ -6,15 +6,17 @@ import Context from '../Context'
 
 
 export default function FavPosts(){
-    const { alert } = useContext(Context)
+    const { alert , freeze, unfreeze} = useContext(Context)
     const [favPosts, setFavPosts] = useState()
 
     useEffect(() => renderFavPosts(), [])
 
     const renderFavPosts = () => {
+        freeze()
 
         try{ 
             retrieveFavPosts(context.userId, (error, posts) => {
+                unfreeze()
                 if(error){
                     alert(error.message)
                     return

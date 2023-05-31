@@ -29,6 +29,7 @@ export default function EditpostModal({ onCancel , onPostUpdated, postId }) {
     
         try{
             updatePost(context.userId, postId, image, location, title, text, (error, post) => {
+                
                 if(error){
                     alert(error.message)
                     return
