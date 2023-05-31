@@ -1,11 +1,33 @@
 import authenticateUser from '../logic/authenticateUser.js'
 import {context} from '../main.js'
-import { useContext } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import Context from '../Context.js'
-import retrieveUser from '../logic/retrieveUser.js'
+import retrieveRandomMotivationalQuote from '../logic/retrieveRandomMotivationalQuote'
 
 export default function Login({ onRegisterClick, onAuthClick }) {
-    const { alert } = useContext(Context)
+    const { alert, freeze, unfreeze } = useContext(Context)
+    const [quote, setQuote] = useState(null)
+
+    useEffect(() => {
+        try {
+            //freeze()
+
+            retrieveRandomMotivationalQuote((error, quote) => {
+                //unfreeze()
+
+                if (error) {
+                    alert(error.message)
+
+                    return
+                }
+
+                setQuote(quote)
+            })
+        } catch (error) {
+            alert(error.message)
+        }
+    }, [])
+
 
     const handleRegisterClick = event => {
         event.preventDefault()
@@ -28,8 +50,6 @@ export default function Login({ onRegisterClick, onAuthClick }) {
                 }
 
                 context.userId = userId
-                const user= retrieveUser(userId, (error, user));
-                context.userName=user.name;
                 onAuthClick();
             })
 
@@ -46,6 +66,8 @@ export default function Login({ onRegisterClick, onAuthClick }) {
         </header>
         <div className="login contenedor">
             <h3 className="centrar-texto">Acceso</h3>
+
+            {quote && <p><q>{quote}</q></p>}
 
             <form className="formulario-login" onSubmit={handleAuthClick}>
                 <div className="campo">
