@@ -1,33 +1,25 @@
-import { users } from "../data.js";
-import {userExistById} from "./helpers/data-manager.js"
+import {context} from '../main.js'
+import retrieveUser from './retrieveUser.js';
+import { useState, useEffect } from 'react';
 
-export function retrieveName(activeUser){
-    let userPosition = userExistById(activeUser.id);
-    if (userPosition === -1) {
-        throw new Error("El usuario no existe");
-     }
 
-     return users[userPosition].name;
-}
 
-export function retrieveMail(activeUser){
-    let userPosition = userExistById(activeUser.id);
-    if (userPosition === -1) {
-        throw new Error("El usuario no existe");
-     }
+export default function getInitials(){
+    const [user, setUser] = useState()
+useEffect(() => {
+    try {
+        retrieveUser(context.userId, (error, user) => {
+            if (error) {
+                alert(error.message)
 
-     return users[userPosition].email;
-}
+                return
+            }
 
-export function retrieveMailById(userId){
-    let userPosition = userExistById(userId);
-    if (userPosition === -1) {
-        throw new Error("El usuario no existe");
-     }
-
-     return users[userPosition].email;
-}
-
-export function getInitials(name) {
-    return name.split(" ").map((n) => n[0]).join("");
+            setUser(user)
+            return user.name.split(" ").map((n) => n[0]).join("");
+        })
+    } catch (error) {
+        alert(error.message)
+    }
+}, [])
 }

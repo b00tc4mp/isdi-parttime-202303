@@ -1,17 +1,20 @@
-import { findUserByEmail } from "./helpers/data-manager.js"
+import { findUserByEmail } from '../data'
 
-export function authenticateUser(email, password) {
+export default function authenticateUser(email, password, callback) {
+   
+    findUserByEmail(email, user => {
+        if (!user) {
+            callback(new Error('user not found'))
 
-    const user = findUserByEmail(email)
+            return
+        }
+    
+        if (user.password !== password) {
+            callback(new Error('wrong password'))
 
-    if (!user){
-        callback(new Error('user not found'))
-        return
-    }
-
-    if (user.password !== password){
-        callback(new Error('wrong password'))
-        return
-    }
-    callback(null, user.id)
+            return
+        }
+    
+        callback(null, user.id)
+    })
 }

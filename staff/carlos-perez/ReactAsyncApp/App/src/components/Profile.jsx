@@ -1,11 +1,12 @@
 import { context } from '../main.js'
-import { retrieveMailById } from '../logic/retrieveUserInfo'
+import retrieveUser from '../logic/retrieveUser.js'
 
 export default function Profile() {
     console.log('Profile -> render')
 
     const name = context.userName;
-    const email = retrieveMailById(context.userId);
+    const _user=retrieveUser(context.userId)
+    const email = _user.email;
 
     return <div className="profile-view">
         <button className="boton boton--primario button-close-profile">Cerrar</button>

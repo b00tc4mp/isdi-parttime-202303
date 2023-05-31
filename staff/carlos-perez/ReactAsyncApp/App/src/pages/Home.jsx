@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import Profile from '../components/Profile'
 import AddPostModal from '../components/AddPostModal'
 import EditPostModal from '../components/EditPostModal'
-import { getInitials } from '../logic/retrieveUserInfo.js'
+import getInitials from '../logic/retrieveUserInfo.js'
 import retrieveUser from '../logic/retrieveUser'
 import { context } from '../main.js'
 
@@ -61,7 +61,7 @@ export default function Home({ onLoggedOut }) {
         onLoggedOut()
     }
 
-    const initials = getInitials(user.name);
+    const initials = getInitials();
 
 
     return <div className="home contenedor">

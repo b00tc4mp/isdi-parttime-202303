@@ -1,8 +1,8 @@
-import {authenticateUser} from '../logic/authenticateUser.js'
+import authenticateUser from '../logic/authenticateUser.js'
 import {context} from '../main.js'
 import { useContext } from 'react'
 import Context from '../Context.js'
-import { findUserById } from '../logic/helpers/data-manager.js'
+import retrieveUser from '../logic/retrieveUser.js'
 
 export default function Login({ onRegisterClick, onAuthClick }) {
     const { alert } = useContext(Context)
@@ -28,7 +28,7 @@ export default function Login({ onRegisterClick, onAuthClick }) {
                 }
 
                 context.userId = userId
-                const user= findUserById(activeUser);
+                const user= retrieveUser(userId, (error, user));
                 context.userName=user.name;
                 onAuthClick();
             })

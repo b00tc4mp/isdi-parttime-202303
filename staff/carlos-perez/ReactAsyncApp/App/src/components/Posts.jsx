@@ -1,7 +1,7 @@
-import {retrievePosts} from '../logic/retrievePosts'
+import retrievePosts from '../logic/retrievePosts'
 import Post from './Post'
 import { useState, useEffect } from 'react'
-import { context } from '../ui'
+import { context } from '../main.js'
 
 export default function Posts({ onEditPost, lastPostsUpdate, user }) {
     const [posts, setPosts] = useState()
