@@ -22,12 +22,15 @@ export default function registerUser(name, email, password) {
     if (lastUser)
         id = 'user-' + (parseInt(lastUser.id.slice(5)) + 1)
 
+
     const user = {
         id,
         name,
         email,
-        password
+        password,
+        avatar: "https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png"
     }
+
 
     _users.push(user)
 
