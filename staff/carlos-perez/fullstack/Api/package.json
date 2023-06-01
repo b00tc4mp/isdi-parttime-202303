@@ -3,5 +3,9 @@
     "shelljs": "^0.8.5",
     "xhr": "^2.6.0",
     "xhr2": "^0.2.1"
+  },
+  "devDependencies": {
+    "chai": "^4.3.7",
+    "mocha": "^10.2.0"
   }
 }
