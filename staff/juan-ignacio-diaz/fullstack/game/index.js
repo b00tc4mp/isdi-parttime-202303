@@ -69,7 +69,7 @@ const interval = setInterval(() => {
         console.log(result)    
 
         const saveResult = cars.map(car => car.status())
-        const saveRace = JSON.stringify([{ race: race, result: saveResult }])
+        const saveRace = { race: race, result: saveResult }
 
         const fs = require('fs');
 
@@ -78,10 +78,20 @@ const interval = setInterval(() => {
                 console.error('readFile error' + err);
             }
 
-            console.log(resultPrevious)
-            console.log(resultPrevious ? JSON.parse(resultPrevious) : '')
+            const tmpResultPrevious = []
+            if (resultPrevious) {
+                console.log(resultPrevious ? JSON.parse(resultPrevious) : '')
 
-            fs.wr('./result.txt', saveRace, err => {
+                tmpResultPrevious = resultPrevious ? JSON.parse(resultPrevious) : ''
+                console.log(tmpResultPrevious)
+            //tmpResultPrevious.push(saveRace)
+                console.log(tmpResultPrevious)
+            }
+            else {
+                tmpResultPrevious.push(saveRace)
+            }
+
+            fs.writeFile('./result.txt', tmpResultPrevious, err => {
                 if (err) {
                     console.error('appenfile error' + err);
                 }
