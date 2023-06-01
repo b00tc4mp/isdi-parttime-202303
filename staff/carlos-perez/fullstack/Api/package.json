@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "shelljs": "^0.8.5",
     "xhr": "^2.6.0",
     "xhr2": "^0.2.1"
   }

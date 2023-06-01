@@ -1,4 +1,5 @@
 const { readFile } = require('fs')
+const versionDetection = require('../helpers/versionDetection')
 
 module.exports = function retrievePost(userId, callback){
     readFile('../data/users.json', 'utf8', (error, filedUsers) => {
@@ -26,7 +27,18 @@ module.exports = function retrievePost(userId, callback){
             }
             const posts = JSON.parse(filedPosts)
 
+            const version=parseInt(versionDetection());
+
+            if(version >=20){
             callback(null, posts.toReversed()); //Sólo funciona con Node v20 en adelante
+            }
+            else{
+                const reversedPosts=[];
+                for(let i=posts.length-1; i>=0; i--){
+                    reversedPosts.push(posts[i]);
+                }
+                callback(null, reversedPosts);
+            }
         })
         
     })
