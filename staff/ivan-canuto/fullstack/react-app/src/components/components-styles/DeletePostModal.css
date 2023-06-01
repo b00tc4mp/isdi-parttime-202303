@@ -1,0 +1,26 @@
+.delete-post_modal {
+  height: 200px;
+  width: 300px;
+  padding: 20px;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  text-align: center;
+}
+
+.delete-post_buttons {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.delete-post_buttons button {
+  padding: 7px 15px;
+  font-size: 15px;
+}
+
+.delete-post_button {
+  color: red;
+}
