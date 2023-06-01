@@ -1,0 +1,18 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--grey-100);
+    margin-bottom: 32px;
+}
+
+.heading-M-bold{
+    color: var(--grey-700);
+    font-family: "Inter";
+    font-size: 32px;
+    font-weight: 500;
+    height: fit-content;
+    margin: 0;
+}
+
