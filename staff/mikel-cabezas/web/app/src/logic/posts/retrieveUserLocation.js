@@ -17,6 +17,7 @@ export default function retrieveUserLocation(callback) {
       // userLocation = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${apiKey}`
       userLocation = `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=ca`
       console.log(userLocation)
+      console.dir(userLocation)
     }
     
     function error(error) {

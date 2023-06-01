@@ -1,10 +1,11 @@
 import { createPost } from '../logic/posts/createPost.js'
 import { context } from '../ui.js'
 import retrieveUserLocation from "../logic/posts/retrieveUserLocation"
-import { useState, useEffect } from 'react'
-
+import { useState, useEffect, useContext } from 'react'
+import Context from '../Context.js'
 
 export default function AddPostModal({ onCancel, onCreateNewPost }) {
+    const {freeze, unfreeze, alert} = useContext(Context)
     const [userLocation, setUserLocation] = useState(null)
 
     let newImage

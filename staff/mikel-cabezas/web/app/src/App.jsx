@@ -6,12 +6,14 @@ import Header from './components/Header.jsx'
 import { context } from "./ui.js"
 import Loader from "./library/Loader.jsx"
 import Context from "./Context.js"
+import { Alert } from "./components/Alert.jsx"
 export default function App( {UpdateUserInfo, handleSavelUpdateProfile} ) {
   // use ref em lugar de query selector
   localStorage.theme === 'dark' ? document.querySelector(':root').classList.add('dark') : ''
   
     const [view, setView] = useState( context.userId ? 'home' : 'login' )
     const [loader, setLoader] = useState(false)
+    const [feedback, setFeedback] = useState(false)
     
     const handleGoToRegister = () => setView('register')
     const handleGoToLogin = () => {
@@ -21,14 +23,17 @@ export default function App( {UpdateUserInfo, handleSavelUpdateProfile} ) {
     const handleGoToHome = () => setView('home')
     const freeze = () => setLoader(true)
     const unfreeze = () => setLoader(false)
+    const handleAcceptAlert = () => setFeedback(false)
   
     console.log('App -> render')
   
-    return <Context.Provider value={{freeze, unfreeze}}>
+    return <Context.Provider value={{alert: setFeedback, freeze, unfreeze}}>
 
       {view === 'login' && <><Header handleSavelUpdateProfile /> <Login onRegisterClick={handleGoToRegister} onUserLoggedIn={handleGoToHome} /> </>}
       {view === 'register' && <><Header handleSavelUpdateProfile /> <Login onRegisterClick={handleGoToRegister} onUserLoggedIn={handleGoToHome} /> </>}
       {view === 'home' && <><Home onLogoutClick={handleGoToLogin} /></>}
+
+      {feedback && <Alert message={feedback} onAccept={handleAcceptAlert} />}
       {loader && <Loader />}
 
     </Context.Provider>

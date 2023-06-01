@@ -9,11 +9,12 @@ import retrieveUser from "../logic/users/retrieveUser"
 import Context from "../Context"
 
 export default function Post({ post, post: { image, title, text, comments, likes, id, date, author, lastModify, location }, onToggleLikePost, onToggleSavePost, onEditPostButton, onHideMenuOptions, user }) {
+
     const userId = context.userId
 
     const [userData, setUserData] = useState(user)
-    const [modal, setModal] = useState()
-    const {freeze, unfreeze} = useContext(Context)
+    const [modalMenu, setModalMenu] = useState('close')
+    const {freeze, unfreeze, alert} = useContext(Context)
 
     const postStyle = {
         background: `linear-gradient(180deg, rgba(0,0,0,.2) 0%, rgba(0,0,0,0) 10%, rgba(0,0,0,0) 50%, rgba(0,0,0,.6) 100%), url(${image}) center / cover`
@@ -110,16 +111,30 @@ export default function Post({ post, post: { image, title, text, comments, likes
     }
 
 
-    function handleShowMenuOptions() {
-        setModal('open')
+    function handleShowMenuOptions(event) {
+        event.stopPropagation()
+        event.preventDefault()
+        try {
+            if(event.target.className !== 'overlay contextual-menu--modal') {
+                setModalMenu('open')
+            } else {
+                setModalMenu('close')
+            }
+        } catch(error) {
+            alert(error.message)
+        }
     }
 
-    const handleHideMenuOptions = () => {
-        debugger
-        setModal('close')
-        console.log(modal)
-        // onHideMenuOptions()
-    }
+    // const handleHideMenuOptions = () => {
+    //     try {
+    //         setModalMenu('close')
+    //     } catch(error) {
+    //         alert(error.message)
+    //     }
+    //     return console.log(modalMenu)
+
+    //     // onHideMenuOptions()
+    // }
     function returnLetters() {
         const separateUserName = user.name.split(' ')
 
@@ -130,7 +145,7 @@ export default function Post({ post, post: { image, title, text, comments, likes
             return separateUserName[0][0] + separateUserName[1][0]
         }
     }
-
+    console.log(modalMenu)
     return  <>
         <article className={id} style={postStyle}>
             <div className="post-author">
@@ -141,9 +156,9 @@ export default function Post({ post, post: { image, title, text, comments, likes
                 <div className="user-name">{user.name}</div>
                 {location && <span className="location">{location}</span>}
 
-                {userId === author.id ? <button className={`options`} onClick={handleShowMenuOptions}><span className="material-symbols-outlined pencil edit-post">more_vert</span>
+                {userId === author.id ? <div className={`options`} onClick={handleShowMenuOptions}><span className="material-symbols-outlined pencil edit-post">more_vert</span>
                 
-                {modal === 'open' && 
+                {modalMenu === 'open' && 
                 <ContextualModalMenu 
                     items={[
                         {text: 'Edit post', onClick: () => handleEditPostButton(id)},
@@ -151,12 +166,12 @@ export default function Post({ post, post: { image, title, text, comments, likes
                     ]}
                     onOutterClick={handleHideMenuOptions}
                 />
-                }
+                } </div> : ''}
                 
                 {/* <ul>
                     <li className={`edit ${id}`} onClick={() => handleEditPostButton(id)}>edit <span className="material-symbols-outlined pencil edit-post">edit</span></li>
                 </ul> */}
-                </button> : ''}
+                
             </div>
             <img className="space-image" />
             <div className="title-and-interactions">
