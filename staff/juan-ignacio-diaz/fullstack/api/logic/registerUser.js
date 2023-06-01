@@ -1,4 +1,4 @@
-import { validateName, validateEmail, validatePassword, validateCallback } from "./helpers/validators"
+const { validateName, validateEmail, validatePassword, validateCallback } = require('./helpers/validators')
 
 const { readFile, writeFile } = require('fs')
 
