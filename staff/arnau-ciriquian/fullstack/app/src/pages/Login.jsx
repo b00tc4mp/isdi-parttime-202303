@@ -8,7 +8,7 @@ export default function Login({ onRegisterClick, onUserLoggedIn }) {
     const [joke, setJoke] = useState(null)
 
     useEffect(() => {
-        try{
+        try {
             retrieveRandomJoke((error, joke) => {
                 if (error) {
                     alert(error.message)
@@ -18,7 +18,7 @@ export default function Login({ onRegisterClick, onUserLoggedIn }) {
 
                 setJoke(joke)
             })
-        } catch(error) {
+        } catch (error) {
             alert(error.message)
         }
     }, [])
@@ -37,7 +37,7 @@ export default function Login({ onRegisterClick, onUserLoggedIn }) {
 
         try {
             authenticateUser(email, password, (error, userId) => {
-                if(error) {
+                if (error) {
                     alert(error.message)
 
                     return
@@ -46,7 +46,7 @@ export default function Login({ onRegisterClick, onUserLoggedIn }) {
                 context.userId = userId
                 onUserLoggedIn()
             })
-        }catch (error) {
+        } catch (error) {
             alert(error.message)
         }
     }
@@ -69,7 +69,7 @@ export default function Login({ onRegisterClick, onUserLoggedIn }) {
                     </div>
                 </div>
                 <button className="form__button" type="submit">Login</button>
-            </form>    
+            </form>
             <p className="text">Go to <a className="login__anchor--register" href="" onClick={handleRegisterClick}>Register</a></p>
             <div className="joke__container">
                 {joke && <p><q>{joke}</q></p>}

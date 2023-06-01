@@ -113,7 +113,7 @@ const emptySpace = '    '
 
 const fs = require('fs')
 const readWriteJson = (newInputData) => {
-    fs.readFile('myjsonfile.json', 'utf8', function(err, data) {
+    fs.readFile('myjsonfile.json', 'utf8', (err, data) => {
         if (err) {
             console.log(err)
         } else {
