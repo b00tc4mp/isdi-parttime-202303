@@ -1,8 +1,5 @@
-//import { validateEmail, validatePassword, validateCallback } from './helpers/validators'
-import { validators } from 'com'
+import { validateEmail, validatePassword, validateCallback } from './helpers/validators'
 import { findUserByEmail } from '../data'
-
-const { validateEmail, validatePassword, validateCallback } = validators
 
 /**
  * Authenticates a user by email and password
@@ -23,13 +20,13 @@ export default function authenticateUser(email, password, callback) {
 
             return
         }
-
+    
         if (user.password !== password) {
             callback(new Error('wrong password'))
 
             return
         }
-
+    
         callback(null, user.id)
     })
 }
