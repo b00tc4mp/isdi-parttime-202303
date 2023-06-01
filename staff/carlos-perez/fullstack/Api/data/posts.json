@@ -24,14 +24,17 @@
         "author": "user-2",
         "image": "https://img.icons8.com/color/512/avatar.png",
         "text": "I ♥️ Avatars too!",
-        "date": "2023-05-26T10:51:31.599Z"
+        "date": "2023-05-26T10:51:31.599Z",
+        "likes": [
+            "user-1"
+        ]
     },
     {
         "id": "user-1-1685621737814",
         "author": "user-1",
         "image": "https://cdn.geekwire.com/wp-content/uploads/2011/04/clippy.jpg",
-        "text": "Parece que estás intentando crear un Post",
-        "date": 1685621737814,
+        "text": "Parece que estás intentando modificar un Post",
+        "date": "2023-06-01T14:26:03.477Z",
         "likes": []
     }
 ]
