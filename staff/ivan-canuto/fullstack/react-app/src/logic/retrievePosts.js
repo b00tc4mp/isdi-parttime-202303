@@ -24,9 +24,7 @@ export function retrievePosts(userId, callBack) {
 
     loadUsers(users => {
       loadPosts(posts => {
-        
         posts.forEach(post => {
-
           const _user = users.find(user => user.id === post.author)
             
           if(_user) {
@@ -37,7 +35,6 @@ export function retrievePosts(userId, callBack) {
               favs: _user.favs
             }
           }
-          // console.debug(post);
         })
 
         callBack(null, posts.toReversed())

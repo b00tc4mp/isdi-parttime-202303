@@ -23,9 +23,9 @@ export function retrieveSavedPosts(userId, callBack) {
 
     loadUsers(users => {
       loadPosts(posts => {
+        const savedPosts = posts.filter(post => user.favs.includes(post.id))
       
-        posts.forEach(post => {
-          
+        savedPosts.forEach(post => {
           const _user = users.find(user => user.id === post.author)
           
           if(_user) {
@@ -37,7 +37,6 @@ export function retrieveSavedPosts(userId, callBack) {
             }
           }
         })
-        const savedPosts = posts.filter(post => user.favs.includes(post.id))
 
         callBack(null, savedPosts.toReversed())
       })

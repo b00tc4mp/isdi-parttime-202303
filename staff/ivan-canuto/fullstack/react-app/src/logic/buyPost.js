@@ -7,12 +7,21 @@ export default function buyPost(postId, callBack) {
   validateCallback(callBack)
 
   findPostById(postId, post => {
-    if(!post)
+    if(!post) {
       callBack(new Error('This post does not exist.'))
-    else if(!post.onSale)
+
+      return
+    }
+    else if(!post.onSale) {
       callBack(new Error('This post is not on sale.'))
-    else if(post.onSale === 'Sold')
+
+      return
+    }
+    else if(post.onSale === 'Sold') {
       callBack(new Error('This post is already sold.'))
+
+      return
+    }
       
     post.onSale = 'Sold'
     

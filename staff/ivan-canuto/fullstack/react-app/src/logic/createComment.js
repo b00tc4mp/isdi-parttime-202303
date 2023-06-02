@@ -1,40 +1,41 @@
-import { findUserById, savePost } from "../data"
-import { context } from "../ui"
-import { v4 as uuidv4 } from 'uuid';
+import { findUserById, findPostById, savePost } from "../data"
 import { validateText, validateCallback } from "./helpers/validators";
 
 /**
  * Creates a comment in post
  * 
  * @param {string} commentText The comment text entered by user
- * @param {object} post The post's object form database
+ * @param {object} userId The user's id
+ * @param {object} postId The post's id
  * @param {function} callBack A function to catch errors and display them to the user.
  */
 
-export default function createComment(commentText, post, callBack) {
+export default function createComment(commentText, userId, postId, callBack) {
 
   validateText(commentText)
   validateCallback(callBack)
 
-  findUserById(context.userId, (user) => {
+  findUserById(userId, (user) => {
 
     if(!user) {
       callBack(new Error('User not found.'))
   
       return
     }
-      
-        const _post = post
-      
-        if(!_post.comments) _post.comments = []
-      
-        _post.comments.push({
+
+    let id = 'comment-1'
+    const lastComment = post.comments[post.comments.length - 1]
+    if (lastComment) id = 'comment-' + (parseInt(lastComment.id.slice(8)) + 1)
+
+    findPostById(postId, (post) => {      
+      post.comments.push({
           author: user.name,
           authorId: user.id,
           text: commentText,
-          id: uuidv4()
+          id
         })
-        savePost(_post, () => callBack(null))
-    
+
+      savePost(post, () => callBack(null))
+    })
   })
 }

@@ -5,6 +5,7 @@ import Comment from "./Comment"
 import './components-styles/Comments.css'
 import Context from "../Context"
 import { useContext } from "react"
+import { context } from "../ui"
 
 
 export default function Comments({ onCloseCommentModal, handleRefreshPosts, post }) {
@@ -28,7 +29,7 @@ export default function Comments({ onCloseCommentModal, handleRefreshPosts, post
     try {
       freeze()
 
-      createComment(commentText, post, (error) => {
+      createComment(commentText, context.userId, post.id, (error) => {
         unfreeze()
         
         if(error) {
@@ -52,7 +53,7 @@ export default function Comments({ onCloseCommentModal, handleRefreshPosts, post
     try{
       freeze()
 
-      deleteComment(post, commentId, (error) => {
+      deleteComment(post.id, commentId, (error) => {
         unfreeze()
 
         if (error) {

@@ -40,7 +40,8 @@ export const createPost = (userId, imageUrl, postText, callBack) => {
         date: date.toLocaleDateString(),
         likes: [],
         visible: true,
-        onSale: null
+        onSale: null,
+        comments: []
       }
     
       savePost(post, () => callBack(null))

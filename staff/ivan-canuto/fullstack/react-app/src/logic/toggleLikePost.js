@@ -21,9 +21,9 @@ export default function toggleLikePost(userId, postId, callBack) {
     }
     
     findPostById(postId, (post) => {
-      
       if(!post) {
         callBack(new Error('Post not found.'))
+        
         return
       }
       
