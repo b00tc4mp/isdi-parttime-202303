@@ -60,8 +60,7 @@ export function savePosts (posts, callback) {
 
 export function savePost (post, callback) {
     loadPosts(_posts => {
-        
-        const index = _posts.findIndex(_post  => _post .id === post.id)
+        const index = _posts.findIndex(_posts => _posts.id === post.id)
         if(index < 0)
             _posts.push(post)
         else
