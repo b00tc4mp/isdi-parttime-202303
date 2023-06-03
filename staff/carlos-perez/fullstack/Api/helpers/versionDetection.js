@@ -1,17 +1,10 @@
-module.exports = function versionDetection(callback){
+module.exports = function versionDetection(){
 
 const shell = require('shelljs')
 
 let version;
 
-try{
-   version = shell.exec("node --version", {async: false}).stdout;
-}
-catch(e)
-{
-    callback(e.message)
-    return
-}
+version = shell.exec("node --version", {async: false}).stdout;
 
 const ver=version.split('.');
 
