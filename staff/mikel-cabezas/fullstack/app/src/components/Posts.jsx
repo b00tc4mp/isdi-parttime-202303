@@ -1,6 +1,7 @@
 import { useEffect, useState, useContext } from "react"
 import Post from "./Post"
 import retrievePosts from "../logic/posts/retrievePosts"
+import retrieveLikedPosts from "../logic/posts/retrieveLikedPosts"
 import { context } from "../ui"
 import './Posts.css'
 import { RotatingLines } from 'react-loader-spinner'
@@ -11,21 +12,33 @@ import Context from "../Context"
 export default function Posts({ onEditPost, onAddPostClick, lastPostsUpdate, onToggleLikePostClick, onToggleSavePostClick, onHideMenuOptions, visibility }) {
     const userId = context.userId
     const [posts, setPosts] = useState()
-    const [postFilter, setPostFilter] = useState()
+    const [postsFilter, setPostsFilter] = useState('all')
     const [user, setUser] = useState()
     const {freeze, unfreeze} = useContext(Context)
 
     useEffect(() => {
         console.log('Refresh Posts -> render in useEffect')
         freeze()
-        retrievePosts(userId, (error, posts) => {
-            unfreeze()
-            if (error) {
-                alert(error.message)
-                return
-            }
-            setPosts(posts)
-        })
+        if(postsFilter === 'all') {
+            retrievePosts(userId, (error, posts) => {
+                unfreeze()
+                if (error) {
+                    alert(error.message)
+                    return
+                }
+                setPosts(posts)
+            })
+        }
+        if(postsFilter === 'liked') {
+            retrieveLikedPosts(userId, (error, posts) => {
+                unfreeze()
+                if (error) {
+                    alert(error.message)
+                    return
+                }
+                setPosts(posts)
+            })
+        }
         retrieveUser(userId, (error, user) => {
             if(error) {
                 alert(error.message)
