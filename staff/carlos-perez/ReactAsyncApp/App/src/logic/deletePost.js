@@ -1,6 +1,6 @@
 import { savePosts, loadPosts, findUserById, findPostById } from '../data.js'
 
-export default function deletePost(userId, postId) {
+export default function deletePost(userId, postId, callback) {
 
     findUserById(userId, user => {
         if (!user) {

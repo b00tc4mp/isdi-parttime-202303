@@ -1,22 +1,35 @@
 import { context } from '../main.js'
 import retrieveUser from '../logic/retrieveUser.js'
+import { useState, useEffect } from 'react'
 
 export default function Profile() {
     console.log('Profile -> render')
 
-    const name = context.userName;
-    const _user=retrieveUser(context.userId)
-    const email = _user.email;
+    const [user, setUser] = useState()
+
+    useEffect(() => {
+        try {
+            retrieveUser(context.userId, (error, user) => {
+                if (error) {
+                    alert(error.message)
+
+                    return
+                }
+
+                setUser(user)
+            })
+        } catch (error) {
+            alert(error.message)
+        }
+    }, [])
+
+    const name = user ? user.name : '';
 
     return <div className="profile-view">
         <button className="boton boton--primario button-close-profile">Cerrar</button>
         <div className="campo-viewonly">
             <label className="campo__label" for="profile-name">Nombre</label>
             <p className="profile-name" id="profile-name">{name}</p>
-        </div>
-        <div className="campo-viewonly">
-            <label className="campo__label" for="profile-email">Correo</label>
-            <p className="profile-email" id="profile-email">{email}</p>
         </div>
 
         <div className="mail-change">
