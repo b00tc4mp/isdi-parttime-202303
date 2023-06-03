@@ -1,0 +1,26 @@
+.grid-container {
+    position: relative;
+    width: 18.75rem;
+    height: 18.75rem;
+    border: 0.05rem solid silver;
+    margin: auto;
+    margin-top: 1rem;
+}
+
+.counter {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.grid-cell {
+    position: absolute;
+    width: 6.25rem;
+    height: 6.25rem;
+    border: 0.05rem solid silver;
+    background-color: PowderBlue;
+}
+
+
+.clean {
+    background-color: ghostwhite;
+}
