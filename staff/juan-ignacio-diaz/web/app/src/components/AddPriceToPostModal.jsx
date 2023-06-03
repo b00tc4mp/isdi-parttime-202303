@@ -5,10 +5,10 @@ import Context from '../Context'
 
 import Container from '../library/Container'
 
-import updatePost from '../logic/updatePost'
+import updatePriceToPost from '../logic/updatePriceToPost'
 import retrievePost from '../logic/retrievePost'
 
-export default function EditPost({ onCancel, onEditedPost, postId}) {
+export default function AddPriceToPostModal({ onCancel, onAddedPriceToPost, postId}) {
     const { alert, freeze, unfreeze } = useContext(Context)
     const [post, setPost] = useState(null)
 
@@ -36,21 +36,20 @@ export default function EditPost({ onCancel, onEditedPost, postId}) {
         onCancel()
     }
 
-    function handleEditPost(event) {
+    function handleAddPriceToPost(event) {
         event.preventDefault()
 
-        const image = event.target.image.value
-        const text = event.target.text.value
+        const price = event.target.price.valueAsNumber
 
         try {
-            updatePost (context.userId, postId, image, text, error => {
+            updatePriceToPost (context.userId, postId, price, error => {
                 if (error) {
                     alert(error.message)
 
                     return
                 }         
 
-                onEditedPost()
+                onAddedPriceToPost()
             })
         } catch(error) {
             alert(error.message)
@@ -59,17 +58,18 @@ export default function EditPost({ onCancel, onEditedPost, postId}) {
 
     return <>
         {post && <Container tag="section" className="modal">
-            <Container tag="form" onSubmit={handleEditPost}>
+            <Container tag="form" onSubmit={handleAddPriceToPost}>
             {post && <>
                     <img src={post.image} className="post-image"/>
-                    <input className="input" type="url" name="image" placeholder="image url"defaultValue={post.image}/>
-                    <textarea className="input" name="text" cols="30" rows="10" placeholder="text" defaultValue={post.text}></textarea>
+                    <textarea className="input" name="text" cols="30" rows="10" placeholder="text" defaultValue={post.text} readOnly></textarea>
+                    <input className="input" type="number" min="0" name="price" placeholder="price" defaultValue={post.price}/>
                     <button className="button" type="submit">Update</button>
                     </> 
-                || <>
-                    <input className="input" type="url" name="image" disabled placeholder="Loading..."/>
-                    <textarea className="input" name="text" cols="30" rows="10" disabled placeholder="Loading..."></textarea>
-                </>}                        
+                || <>                 
+                    <textarea className="input" name="text" cols="30" rows="10" disabled placeholder="Loading..." readOnly></textarea>
+                    <input className="input" type="text" name="price" disabled placeholder="Loading..."/>
+                </>}             
+                
                 <button className="button cancel" type="button" onClick={handleCancel}>Cancel</button>
             </Container>
         </Container>}

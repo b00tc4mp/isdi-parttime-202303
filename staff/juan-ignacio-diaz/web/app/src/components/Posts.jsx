@@ -7,8 +7,9 @@ import Post from './Post.jsx'
 import retrievePosts from '../logic/retrievePosts'
 import retrieveUserPosts from '../logic/retrieveUserPosts'
 import retrieveSavePosts from '../logic/retrieveSavePosts'
+import retrieveOnSalePosts from '../logic/retrieveOnSalePosts'
 
-export default function Posts({ onEditedPost, typePosts, lastPostsUpdate }) {
+export default function Posts({ onEditedPost, onAddedPriceToPost , typePosts, lastPostsUpdate }) {
     const { alert, freeze, unfreeze } = useContext(Context)
     const [posts, setPosts] = useState()
 
@@ -52,6 +53,17 @@ export default function Posts({ onEditedPost, typePosts, lastPostsUpdate }) {
 
                     setPosts(posts)
                 })
+            else if (typePosts === 'onSale') 
+                retrieveOnSalePosts(context.userId, (error, posts) => {
+                    unfreeze()
+                    if (error) {
+                        alert(error.message)
+
+                        return
+                    }
+
+                    setPosts(posts)
+                })                
         }
         catch (error) {
             alert(error.message)
@@ -74,6 +86,7 @@ export default function Posts({ onEditedPost, typePosts, lastPostsUpdate }) {
                     post={post} 
                     onModifyPost={handleRefreshPosts}
                     onEditPost={onEditedPost}
+                    onAddPriceToPost={onAddedPriceToPost}
                 />)
             }
         </section>

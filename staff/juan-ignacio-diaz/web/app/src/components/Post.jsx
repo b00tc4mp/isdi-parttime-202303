@@ -9,10 +9,11 @@ import toggleLikePost from '../logic/toggleLikePost'
 import toggleSavePost from '../logic/toggleSavePost'
 import deletePost from '../logic/deletePost'
 import toggleLockPost from '../logic/toggleLockPost'
+import updateBuyPost from '../logic/updateBuyPost'
 
 import './Post.css'
 
-export default function Post ({ post: { id, author, image, text, date, likes, dateLastModified, fav, lock, price}, onModifyPost, onEditPost}) {
+export default function Post ({ post: { id, author, image, text, date, likes, dateLastModified, fav, lock, price}, onModifyPost, onEditPost, onAddPriceToPost}) {
     const { alert, freeze, unfreeze } = useContext(Context)
 
     const handleLikePost = () => {
@@ -94,7 +95,26 @@ export default function Post ({ post: { id, author, image, text, date, likes, da
         }
     }
 
-    const handlePricePost = () => onEditPost(id)
+    const handleBuyPost = () => {
+        try{
+            freeze()
+            updateBuyPost(context.userId, id, error => {
+                unfreeze()
+                if (error){
+                    alert(error.message)
+
+                    return
+                }
+
+                onModifyPost()
+            })
+        }
+        catch(error){
+            alert(error.message)
+        }
+    }
+
+    const handlePricePost = () => onAddPriceToPost(id)
 
     return <>
         <article className="post-article post-text">
@@ -115,7 +135,8 @@ export default function Post ({ post: { id, author, image, text, date, likes, da
                     {context.userId === author.id ? <button onClick={handleEditPost}>🖍</button> : ''} 
                     {context.userId === author.id ? <button onClick={handleDeletePost}>🗑</button> : ''}   
                     {context.userId === author.id ? <button onClick={handleLockPost}>{lock ? '🔒' : '🔓'}</button> : ''}   
-                    {/* {context.userId === author.id ? <button onClick={handlePricePost}>{price +'€'}</button> : {price != 0 ? <button onClick={handleBuyPost}>{price+'€'}</button> : ''}}  */}
+                    {context.userId === author.id ? <button onClick={handlePricePost}>{price +'€'}</button> : ''}      
+                    {context.userId !== author.id && price !== 0 ? <button onClick={handleBuyPost}>{price+'€'}</button> : ''}
                 </div>
             </div>
             <div className = "post-info">

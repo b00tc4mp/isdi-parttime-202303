@@ -8,6 +8,7 @@ export const DEFAULT_AVATAR_URL = "https://img.icons8.com/color/512/avatar.png"
 import Profile from '../components/Profile'
 import Posts from '../components/Posts'
 import EditPostModal from '../components/EditPostModal'
+import AddPriceToPostModal from '../components/AddPriceToPostModal';
 import AddPostModal from '../components/AddPostModal';
 
 import retrieveUser from '../logic/retrieveUser';
@@ -89,6 +90,11 @@ export default function Home({ onLogout }) {
         setModal('edit-post')
     }
 
+    const handleOpenAddPriceToPost = (id) => {
+        setPostId(id)
+        setModal('addPrice-post')
+    }
+
     const handleOpenAddPost = () => setModal('add-post')
     
     const handleCloseModalPost = () => {
@@ -123,6 +129,7 @@ export default function Home({ onLogout }) {
                 {view === 'posts' && <Posts 
                     onModifyedPost={handleGoToPosts}
                     onEditedPost={handleOpenEditPost}
+                    onAddedPriceToPost={handleOpenAddPriceToPost}
                     typePosts={typePosts}
                     lastPostsUpdate={lastPostsUpdate}
                 />}
@@ -138,6 +145,12 @@ export default function Home({ onLogout }) {
                     postId={postId}
                 />}
 
+                {modal === 'addPrice-post' && <AddPriceToPostModal 
+                    onCancel={handleCloseModalPost}
+                    onAddedPriceToPost={handleCloseModalPost}
+                    postId={postId}
+                />}                
+
                 {modal === 'add-post' && <AddPostModal 
                     onCancel={handleCloseModalPost}
                     onCreatedPost={handleCloseModalPost}
@@ -152,6 +165,7 @@ export default function Home({ onLogout }) {
                         <option value="all" >All</option>
                         <option value="user" >User</option>
                         <option value="save">Save</option>
+                        <option value="onSale">On sale</option>
                     </select>
                 </section>
             </footer>
