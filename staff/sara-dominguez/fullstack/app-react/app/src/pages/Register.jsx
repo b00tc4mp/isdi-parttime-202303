@@ -1,13 +1,14 @@
 import { registerUser } from "../logic/registerUser.js"
 import { useContext } from 'react'
 import Context from '../components/Context.js'
-import Container from "../library/Container.jsx"
+// import Container from "../library/Container.jsx"
+import { Container, Form, Input, Button} from "../library"
 
 export default function Register({ onLoginClick, onUserRegistered }) {
     console.debug('Register->render')
-    
+
     const { alert } = useContext(Context)
-    
+
     function handleLoginClick(event) {
         event.preventDefault()
 
@@ -25,7 +26,7 @@ export default function Register({ onLoginClick, onUserRegistered }) {
         try {
             registerUser(name, email, password, error => {
                 if (error) {
-                    alert.error(error.message)
+                    alert(error.message)
 
                     return
                 }
@@ -39,14 +40,14 @@ export default function Register({ onLoginClick, onUserRegistered }) {
     }
 
     return <Container tag="main">
-        <h1>Register</h1>
-        <form className="register-form" onSubmit={handleRegister}>
-            <input className="register-input" type='text' name='name' placeholder='name' />
-            <input className="register-input" type='text' name='email' placeholder='email' />
-            <input className="register-input" type='text' name='password' placeholder='password' />
-            <button className="register-button" type="submit">Register</button>
-        </form>
-        <p className="register-text-goToLogin"><a href="" onClick={handleLoginClick}> Go to login</a></p>
+            <h1 className="text-yellow-600">Register</h1>
+            <Form onSubmit={handleRegister}>
+                <Input type='text' name='name' placeholder='Name' />
+                <Input  type='email' name='email' placeholder='Email' />
+                <Input type='password' name='password' placeholder='Password' />
+                <Button type="submit">Register</Button>
+            </Form>
+            <p className="register-text-goToLogin"><a href="" onClick={handleLoginClick}> Go to login</a></p>
     </Container>
 
 }

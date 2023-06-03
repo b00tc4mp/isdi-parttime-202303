@@ -1,16 +1,9 @@
 /* resets */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-html, body {
-  height: 100%;
-}
 
-body{
-  width: 100%;
-  background-color: rgb(2, 58, 72);
-  padding: 0;
-  margin: 0;
-  color: white
-}
 .home {
   padding-top: 4rem;
   padding-bottom: 4rem;
@@ -18,11 +11,12 @@ body{
 }
 
 /*library*/
-
-:root {
-  --basewhitecolor: white; 
-  --baseblack: black;   
-  --basebluecolor: rgb(2, 58, 72);
+@layer base {
+  :root {
+    --basewhitecolor: white; 
+    --baseblack: black;   
+    --basebluecolor: rgb(2, 58, 72);
+  }
 }
 
 
@@ -41,36 +35,34 @@ body{
   background-color: var(--basebluecolor)
 }
 
-.login-form, .register-form {
+/* .login-form, .register-form {
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
-  /* box-shadow: .3rem .3rem 0.3rem teal; */
-  
-  
-}
+  box-shadow: .3rem .3rem 0.3rem teal; 
+} */
 
 
-input {
- width: 200px;
- height: 25px;
- border-radius: 10%;
- background-color: transparent;
- box-shadow: .3rem .3rem 0.3rem teal;
- 
-}
+/* input {
+ /* width: 200px;
+ height: 25px; */
+ /* border-radius: 0.35rem; */
+ /* background-color: transparent;
+ box-shadow: .1rem .1rem 0.1rem teal; */
+/*  
+}  */
 
 
-
+/* 
 button {
 width: 75px;
 margin: 0.25rem;
-height: 30px;
-border-radius: 10%;
-background-color: transparent;
-box-shadow: .3rem .3rem 0.3rem teal;
-color: var(--basewhitecolor)
-}
+/* height: 30px; */
+/* border-radius: 0.35rem;
+background-color: transparent; */
+/* box-shadow: .1rem .1rem 0.1rem teal; */
+/* color: var(--baseblue) */
+/* } */ 
 
 .register-text-goToLogin, .login-text-goToRegister {
   font-size: .75rem;
@@ -79,14 +71,6 @@ color: var(--basewhitecolor)
   flex-direction: row;
   background-color: transparent;
   width: 95px;
-}
-a {
-  width: 4.5rem;
-  text-decoration: none;
-  color: var(--basewhitecolor);
-  font-size: 0.75rem;
-  font-weight: bold;
-  
 }
 
 .home-header, .home-footer  {

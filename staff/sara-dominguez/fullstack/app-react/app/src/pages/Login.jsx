@@ -3,7 +3,8 @@ import { authenticateUser } from '../logic/authenticateUser.js'
 import { useContext, useEffect, useState } from 'react'
 import Context from '../components/Context.js'
 import retrieveRandomMotivationalQuote from '../logic/retrieveRandomMotivationalQuote.js'
-import Container from '../library/Container.jsx'
+// import Container from '../library/Container.jsx'
+import { Container, Form, Input, Button } from '../library'
 
 export default function Login({ onRegisterClick, onUserLoggedIn }) {
     console.debug('Login->render')
@@ -60,13 +61,14 @@ export default function Login({ onRegisterClick, onUserLoggedIn }) {
     }
 
     return <Container tag="main">
-        <h1>Login</h1>
+        <h1>My App nº 11</h1>
+        <h1 className="text-yellow-600">Login</h1>
         {quote && <p>{quote.author}, <q>{quote.content}</q></p>}
-        <form className="login-form" onSubmit={handleLogin}>
-            <input className="login-input" type='text' name='email' placeholder='email' />
-            <input className="login-input" type='text' name='password' placeholder='password' />
-            <button className="login-button" type="submit">Enter</  button>
-        </form>
+        <Form onSubmit={handleLogin}>
+            <Input type='email' name='email' placeholder='Email' />
+            <Input  type='password' name='password' placeholder='Password' />
+            <Button type="submit">Login</  Button>
+        </Form>
         <p className="login-text-goToRegister"> <a href="" onClick={handleRegisterClick}> Go to register</a></p>
     </Container>
 }
