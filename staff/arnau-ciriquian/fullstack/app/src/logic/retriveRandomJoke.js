@@ -1,4 +1,8 @@
+import { validateCallback } from "../../../com/validators";
+
 export default function retrieveRandomJoke (callback) {
+    validateCallback(callback)
+    
     const xhr = new XMLHttpRequest
 
     xhr.onload = () => {

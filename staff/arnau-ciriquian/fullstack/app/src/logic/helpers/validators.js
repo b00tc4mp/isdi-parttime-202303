@@ -1,7 +1,7 @@
-export function validateEmail(email) {
-    if (typeof email !== 'string') throw new Error('email is not a string')
-    if (!email.length) throw new Error('email is empty')
-    if (!email.match(/\S+@\S+\.\S+/)) throw new Error('email is not a valid adress')
+export function validateEmail(email, explain = 'email') {
+    if (typeof email !== 'string') throw new Error(`${explain} is not a string`)
+    if (!email.length) throw new Error(`${explain} is empty`)
+    if (!email.match(/\S+@\S+\.\S+/)) throw new Error(`${explain} is not a valid adress`)
 }
 
 export function validateNewPassword(password, explain = 'password') {

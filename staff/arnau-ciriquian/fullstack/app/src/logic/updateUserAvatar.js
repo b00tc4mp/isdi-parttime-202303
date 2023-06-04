@@ -1,4 +1,4 @@
-import { validateUrl, validateId, validateCallback } from "./helpers/validators"
+import { validateUrl, validateId, validateCallback } from "../../../com/validators"
 import { saveUser, findUserById } from "../data"
 
 export function updateUserAvatar(userId, avatar, callback) {

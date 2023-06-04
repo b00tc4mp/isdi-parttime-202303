@@ -1,5 +1,5 @@
-import { findUserById, loadPosts, loadUsers, saveUser } from "../data";
-import { validateId, validateCallback } from "./helpers/validators";
+import { findUserById, loadPosts, loadUsers, saveUser } from "../data"
+import { validateId, validateCallback } from "../../../com/validators"
 
 export default function retrievePosts(userId, callback) {
     validateId(userId, 'user id')

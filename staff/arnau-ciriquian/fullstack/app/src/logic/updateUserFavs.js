@@ -1,6 +1,5 @@
 import { findUserById, loadPosts, saveUser } from "../data"
-import { validateCallback, validateId } from "./helpers/validators"
-
+import { validateCallback, validateId } from "../../../com/validators"
 export default function updateUserFavs(userId, callback) {
     validateId(userId)
     validateCallback(callback)

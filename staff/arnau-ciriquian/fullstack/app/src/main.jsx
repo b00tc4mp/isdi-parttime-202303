@@ -12,9 +12,8 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 /*  TODO Web/App - objectiu de la app: xarxa social:
         - ig d'acudits
                 - MUST
-                - test a traves de mocha 20230601 2005
                 - compo container 20230524 1945
-                - pasar tota la logica de presentacio que requereix dades a la api
+                - pasar tota la logica de presentacio que requereix dades a la api (Users fet, falta Posts)
                 - loader amb un spinner mentre carrega cada pagina 20230524 2040
                 - canviar console.log a console.debug per fer un logger (visualitzar al navegador amb el nivells de console "verbose")
                 - editar ReadMe a modo stories de que vol el client 20230510 2118
@@ -22,6 +21,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
                 - canviar alerts -> Context i context provider 20230522 2110 (posarli animacio? settimeout?)
 
                 - OPTIONAL
+                - test a traves de mocha 20230601 2005
                 - posar un display a lhora de publicar post? per posar o no fotos optativament i al pintar el post un estil {post.image && <img..../>}
                 - setTimeOut animacions? algun modal? el dels errors?
                 - passar el hide i el delete dins de edit (menys botons a la vista als posts)

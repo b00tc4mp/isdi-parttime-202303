@@ -1,4 +1,4 @@
-import { validateCallback, validateId } from "./helpers/validators"
+import { validateCallback, validateId } from "../../../com/validators"
 import { findUserById } from "../data"
 
 export function getLoggedUser(userId, callback) {
@@ -16,6 +16,7 @@ export function getLoggedUser(userId, callback) {
             name: user.name,
         }
 
+        //en ppi no fa falta passar-ho per if ja, esta predeterminat amb el DEFAULTAVATAR
         if (user.avatar) {
             _user.avatar = user.avatar
         }

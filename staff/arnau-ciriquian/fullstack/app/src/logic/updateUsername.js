@@ -1,5 +1,5 @@
 import { saveUser, findUserById } from "../data"
-import { validateName, validateId, validateCallback, validatePassword } from "./helpers/validators"
+import { validateName, validateId, validateCallback, validatePassword } from "../../../com/validators"
 
 export function updateUsername(userId, oldUsername, newUsername, password, callback) {
     validateId(userId)

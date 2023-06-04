@@ -1,5 +1,5 @@
-import { findUserById, loadPosts, loadUsers, savePosts, saveUsers } from "../data";
-import { validateCallback, validateId } from "./helpers/validators";
+import { findUserById, loadPosts, loadUsers, savePosts, saveUsers } from "../data"
+import { validateCallback, validateId } from "../../../com/validators"
 
 export default function deleteAccount(userId, callback) {
     validateId(userId)

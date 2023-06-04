@@ -1,5 +1,5 @@
-import { findPostById, findUserById, savePost } from "../data";
-import { validateCallback, validateId } from "./helpers/validators";
+import { findPostById, findUserById, savePost } from "../data"
+import { validateCallback, validateId } from "../../../com/validators"
 
 export default function toggleHidePost(userId, postId, callback) {
     validateId(userId, 'user id')
