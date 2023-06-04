@@ -1,5 +1,6 @@
 import fs from "fs"
 import { validateCallback, validateEmail, validateName, validatePassword } from "../../com/validators.js"
+// importar el default avatar: punLogo
 
 export default function registerUser(name, email, password, callback) {
     validateName(name)
@@ -36,13 +37,14 @@ export default function registerUser(name, email, password, callback) {
             name,
             email,
             password,
+            //avatar: DEFAULTAVATAR
             avatar: null,
             favs: []
         }
 
         users.push(user)
 
-        json = JSON. stringify(users)
+        json = JSON.stringify(users)
 
         fs.writeFile('../data/users.json', json, 'utf-8', error => {
             if (error) {
