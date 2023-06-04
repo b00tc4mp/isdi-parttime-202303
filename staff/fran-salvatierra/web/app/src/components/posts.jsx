@@ -1,5 +1,5 @@
 import retrievePosts from '../logic/retrievePosts'
-import Post from './Post'
+import Post from './post'
 import { context } from '../ui'
 import { useState, useEffect } from 'react'
 
@@ -40,7 +40,9 @@ export default function Posts({ onEditPost, lastPostsUpdate }) {
 
     console.log('Posts -> render')
 
+    
+
     return <section>
-        {posts.map(post => <Post key={post.id} post={post} onEditPost={onEditPost} onToggledLikePost={handleRefreshPosts} onPostDeleted={handleRefreshPosts} />)}
+        {posts.map(post => <Post key={post.id} post={post} onEditPost={onEditPost} onToggledLikePost={handleRefreshPosts} onToggledSavePost={handleRefreshPosts} onPostDeleted={handleRefreshPosts} />)}
     </section>
 }

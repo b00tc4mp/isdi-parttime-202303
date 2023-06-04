@@ -31,7 +31,9 @@ export default function registerUser(name, email, password) {
         id,
         name: name,
         email: email,
-        password: password
+        password: password,
+        avatar: 'https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2F3.bp.blogspot.com%2F-1exKI3suWF8%2FVRLNC-2f60I%2FAAAAAAABFJE%2FZMNDohDORh0%2Fs00%2Fminnewanka-paisajes-naturales.jpg&f=1&nofb=1&ipt=dfd15c79b7f8d0e53021de9cdaba2659a4b4322307300f5732046cbb586ad386&ipo=images',
+        favs: [],
     })
 
     saveUsers(_users)
