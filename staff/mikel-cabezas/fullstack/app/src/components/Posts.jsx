@@ -117,7 +117,8 @@ export default function Posts({ onEditPost, onAddPostClick, lastPostsUpdate, onT
 
                     </div>}
                 {posts.length > 0 && posts.map(post => {
-                    if(post.visibility === 'public') {
+
+                    if(post.visibility === 'private' && post.author.id === userId || post.visibility === 'public') {
                         return <Post
                             key={post.id}
                             post={post}

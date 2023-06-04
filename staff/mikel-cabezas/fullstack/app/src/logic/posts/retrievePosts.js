@@ -1,23 +1,6 @@
 import {loadPosts, loadUsers, findUserById } from '../../data.js'
 import { validateUserId } from "../helpers/validators.js";
 
-// export function retrievePosts(userId, callback) {
-
-//     validateUserId(userId)
-    
-//     findUserById(userId, (error, user) => {
-//         if(!user) {
-//             callback(new Error(`user id with ${userId} not found`))
-
-//             return 
-//         }
-//         loadPosts( posts => {
-//             callback(null, posts.toReversed())
-//         })
-//     })
-// }
-
-
 export default function retrievePosts(userId, callback) {
     validateUserId(userId);
 
