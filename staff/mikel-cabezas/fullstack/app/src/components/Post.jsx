@@ -55,7 +55,6 @@ export default function Post({ post, post: { image, title, text, comments, likes
             setUserData(user)
         })
     }
-
     function handleToggleLike(event) {
         try {
             freeze()
@@ -109,7 +108,6 @@ export default function Post({ post, post: { image, title, text, comments, likes
             alert(error.message)
         }
     }
-
 
     function handleShowMenuOptions(event) {
         event.stopPropagation()
