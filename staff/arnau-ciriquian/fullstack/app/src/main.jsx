@@ -12,6 +12,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 /*  TODO Web/App - objectiu de la app: xarxa social:
         - ig d'acudits
                 - MUST
+                - test a traves de mocha 20230601 2005
                 - compo container 20230524 1945
                 - pasar tota la logica de presentacio que requereix dades a la api
                 - loader amb un spinner mentre carrega cada pagina 20230524 2040

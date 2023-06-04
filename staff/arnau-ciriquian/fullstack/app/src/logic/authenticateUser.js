@@ -1,4 +1,5 @@
-import { validateEmail, validatePassword, validateCallback } from "./helpers/validators"
+//import { validateEmail, validatePassword, validateCallback } from "./helpers/validators"
+import { validateEmail, validatePassword, validateCallback } from "../../../com/validators"
 import { findUserByEmail } from "../data"
 
 export function authenticateUser(email, password, callback) {
