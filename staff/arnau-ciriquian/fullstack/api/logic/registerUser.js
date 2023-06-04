@@ -1,9 +1,13 @@
-const { readFile, writeFile } = require('fs')
+import fs from "fs"
+import { validateCallback, validateEmail, validateName, validatePassword } from "../../com/validators.js"
 
-module.exports = function registerUser(name, email, password, callback) {
-    //validators
+export default function registerUser(name, email, password, callback) {
+    validateName(name)
+    validateEmail(email)
+    validatePassword(password)
+    validateCallback(callback)
 
-    readFile('./data/users.json', 'utf-8', (error, json) => {
+    fs.readFile('../data/users.json', 'utf-8', (error, json) => {
         if (error) {
             callback(error)
 
@@ -40,7 +44,7 @@ module.exports = function registerUser(name, email, password, callback) {
 
         json = JSON. stringify(users)
 
-        writeFile('./data/users.json', json, 'utf-8', error => {
+        fs.writeFile('../data/users.json', json, 'utf-8', error => {
             if (error) {
                 callback(error)
 

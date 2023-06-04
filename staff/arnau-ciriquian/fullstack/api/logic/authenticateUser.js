@@ -1,9 +1,12 @@
-const { readFile } = require('fs')
+import fs from "fs"
+import { validateCallback, validateEmail, validatePassword } from "../../com/validators.js"
 
-module.exports = function authenticateUser(email, password, callback) {
-    //validators
+export default function authenticateUser(email, password, callback) {
+    validateEmail(email)
+    validatePassword(password)
+    validateCallback(callback)
 
-    readFile('./data/users.json', 'utf-8', (error, json) => {
+    fs.readFile('../data/users.json', 'utf-8', (error, json) => {
         if (error) {
             callback(error)
 

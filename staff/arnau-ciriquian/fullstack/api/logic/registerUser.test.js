@@ -1,6 +1,6 @@
-const registerUser = require('./registerUser')
+import registerUser from "./registerUser.js"
 
-registerUser('Tinker', 'tinkero@bell.com', '123123123', error => {
+registerUser('Ona', 'ona@ciriquian.com', 'Ona1', error => {
     if (error) {
         console.error(error)
 

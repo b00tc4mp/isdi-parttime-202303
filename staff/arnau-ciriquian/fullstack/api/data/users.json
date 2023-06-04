@@ -1,10 +1,1 @@
-[
-    {
-        "id": "user-1",
-        "name": "Tinker",
-        "email": "tinkero@bell.com",
-        "password": "123123123",
-        "avatar": null,
-        "favs": []
-    }
-]
+[{"id":"user-1","name":"Tinker","email":"pepito@grillo1.com","password":"123123123","avatar":null,"favs":[]},{"id":"user-2","name":"Tinker","email":"tinkero@bell.com","password":"123123123","avatar":null,"favs":[]},{"id":"user-3","name":"Ona","email":"ona@ciriquian.com","password":"Ona1","avatar":null,"favs":[]}]
