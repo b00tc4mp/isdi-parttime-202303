@@ -116,7 +116,6 @@ export default function Post({ post, onLikeButtonClick, onSaveButtonClick, onEdi
 
         </div>
         <div className="header-post-actions">
-            {/* {(context.userId !== post.author.id && post.price > 0) && <button className="button-XS primary-button" onClick={null}>Buy post</button>} */}
             {(context.userId !== post.author.id && post.price > 0) && <a className="link" onClick={handleOpenBuyPost}>Buy post</a>}
             {context.userId === post.author.id && <button className="secondary-button icon-button" onClick={handleOpenModal}><div className="icon-s-container"><span className="material-symbols-rounded icon-s pointer">more_vert</span></div></button>}
         </div>

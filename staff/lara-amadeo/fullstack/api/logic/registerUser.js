@@ -1,6 +1,13 @@
 const { readFile, writeFile } = require('fs')
+const { validateText, validateEmail, validatePassword, validateCallback } = require('./helpers/validators')
 
 module.exports = function registerUser(username, email, password, callback){
+
+    validateText(username)
+    validateEmail(email)
+    validatePassword(password)
+    validateCallback(callback)
+
 
     readFile('./data/users.json', 'utf8', (error, json) => {
         if(error){
@@ -30,19 +37,19 @@ module.exports = function registerUser(username, email, password, callback){
             email,
             password,
             avatar: null,
-            likedPosts:[]
+            likedPosts:[],
+            savedPosts:[]
         }
 
         users.push(user)
 
-        const _json = JSON.stringify(users)
+        json = JSON.stringify(users)
 
-        writeFile('.data/users.json', _json, 'utf8', error => {
+        writeFile('./data/users.json', json, 'utf8', error => {
             if(error){
                 callback(error)
                 return
             }
-            console.log('user registered!')
 
             callback(null)
         })

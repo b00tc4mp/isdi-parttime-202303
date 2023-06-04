@@ -1,222 +1,168 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-
-:root{
-    --solid-blue: #021950;
-    --intense-blue: #032882;
-    --accent-purple:#833ee5;
-    --accent-purple-hover: #641BCA;
-
-    --violet-800: #929AC4;
-    --violet-700: #AFB5D4;
-    --violet-600: #929AC4;
-    --violet-500: #D1D4E6;
-    --violet-400: #DEE0ED;
-    --violet-300: #e8eaf4;
-    --violet-200: #F4F5F9;
-    --violet-100:#F8F9FB;
-
-    --grey-700:#3B4257 ;
-    --grey-600:#4A536D ;
-    --grey-500:#545F7D ;
-    --grey-400:#657195 ;
-    --grey-300:#8F98B3 ;
-    --grey-200:#AAB1C5 ;
-    --grey-100:#D4D8E2 ;
-    --white:#FFFFFF ;
-
-    --red-400: #F44336;
-    --red-200: #F6655A;
-    --red-300: #FB5548;
-    --red-100: #FDECEA;
-
-    --green-400: #4CAF50;
-}
-
-#root{
-    margin: 0px;
-    position: relative;
-    display: flex;
-    min-height: 100vh;
-}
-
-body{
-    margin: 0px;
-}
-
-/* Containers ans transversal */
-.centered-containers{
-    background-color: #FFFFFF;
-    width: fit-content;
-    height: fit-content;
-    min-width: 310px;
-    max-width:358px;
-    padding:24px;
-    border-radius: 24px;
-    box-shadow:0px 4px 10px rgba(59, 66, 87, 0.15)  ;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-.centered-form{
-    display: flex;
-    flex-direction: column;
-    width: fit-content;
-    min-width: 270px;
-}
-
-.modal-overlay{
-    position: fixed;
-    top: 0px;
-    background-color:rgb(84, 95, 125, 0.2);
-    width: 100%;
-    height: 100vh;
-    z-index: 50;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.modal-solid-overlay{
-    position: fixed;
-    top: 0px;
-    background-color: var(--grey-100);
-    width: 100%;
-    height: 100vh;
-    z-index: 70;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.pointer{
-    cursor: pointer;
-}
-
-/*Text styles*/
-.body-text{
-    color: var(--grey-700);
-    font-family: "Inter";
-    font-size: 16px;
-    font-weight: 400;
-    height: fit-content;
-    margin: 0;
-}
-
-.body-text-bold{
-    color: var(--grey-700);
-    font-family: "Inter";
-    font-size: 16px;
-    font-weight: 600;
-    height: fit-content;
-    margin: 0;
-}
-
-.small-text{
-    color: var(--grey-700);
-    font-family: "Inter";
-    font-size: 14px;
-    font-weight: 400;
-    height: fit-content;
-    margin: 0;
-}
-
-.small-text-bold{
-    color: var(--grey-700);
-    font-family: "Inter";
-    font-size: 14px;
-    font-weight: 500;
-    height: fit-content;
-    margin: 0;
-}
-
-.tiny-text{
-    color: var(--grey-500);
-    font-family: "Inter";
-    font-size: 12px;
-    font-weight: 400;
-    height: fit-content;
-    margin: 0;
-}
-
-.tiny-text-bold{
-    color: var(--grey-500);
-    font-family: "Inter";
-    font-size: 12px;
-    font-weight: 500;
-    height: fit-content;
-    margin: 0;
-}
-
-
-.title{
-    color: #3B4257;
-    font-family: "Inter";
-    font-size: 24px;
-    font-weight: 600;
-    height: fit-content;
-    margin-bottom: 16px;
-}
-
-.subtitle {
-    color: #3B4257;
-    font-family: "Inter";
-    font-size: 16px;
-    font-weight: 600;
-    height: fit-content;
-    margin-bottom: 40px;
-    margin-top: 0;
-}
-
-.text-field{
-    background-color: none;
-    border: 1px solid #C7C8CC;
-    border-radius: 12px;
-    height: 40px;
-    margin-bottom: 24px;
-    padding-left: 12px;
-}
-.text-field:last-child{
-    margin-bottom: 0px;
-}
-
-.text-area{
-    appearance: none;
-    resize: none;
-    background-color: none;
-    border: 1px solid #C7C8CC;
-    border-radius: 12px;
-    height: 45px;
-    margin-bottom: 24px;
-    padding: 12px;
-    text-align: start;
-}
-form p:last-child {
-    margin-bottom: 0
+@layer components {
+    .centered-containers{
+        @apply flex bg-white min-w-[310px] max-w-[358px] p-[24px] rounded-[24px] flex-col justify-center items-center shadow-md
     }
+
+    .centered-form{
+        @apply flex flex-col min-w-[270px] 
+    }
+
+    .modal-overlay{
+        @apply fixed top-0 bg-[--grey-overlay] w-full h-screen z-50 flex items-center justify-center
+    }
+
+    .modal-solid-verlay{
+        @apply fixed top-0 bg-[--grey-100] w-full h-screen z-70 flex items-center justify-center
+    }
+
+    .pointer {
+        @apply cursor-pointer
+    }
+
+    .body-text {
+        @apply text-[--grey-700] text-base font-normal m-0 h-fit
+    }
+    .body-text-bold {
+        @apply text-[--grey-700] text-base font-semibold m-0 h-fit
+    }
+
+    .small-text {
+        @apply text-[--grey-700] text-sm font-normal m-0 h-fit
+    }
+    .small-text-bold {
+        @apply text-[--grey-700] text-sm font-semibold m-0 h-fit
+    }
+
+    .tiny-text {
+        @apply text-[--grey-500] text-xs font-normal m-0 h-fit
+    }
+
+    .tiny-text-bold {
+        @apply text-[--grey-500] text-xs font-semibold m-0 h-fit
+    }
+
+    .title {
+        @apply text-[--grey-700] text-2xl font-semibold mb-0
+    }
+
+    .subtitle {
+        @apply text-[--grey-700] text-base font-semibold mb-40
+    }
+
+    .text-field { 
+        @apply bg-none h-[40px] mb-[24px] p-[12px] rounded-[12px] border border-[--grey-100] last:mb-0
+    }
+
+    .text-field-label { 
+        @apply text-[--grey-700] text-base font-normal m-[6px] ml-0
+    }
+
+    .text-field-description { 
+        @apply text-[--grey-500] text-sm font-light m-0 mb-[8px]
+    }
+
+    .text-area {
+        @apply resize-none appearance-none bg-none rounded h-[45px] mb-[24px] p-[12px] rounded-[12px] border border-[--grey-100] last:mb-0 text-center
+    }
+
+    .icon-critical {
+       @apply text-[--red-400]!
+    }
+
+    .icon-s-container{
+        @apply w-[24px] h-[24px] flex justify-center items-center
+    }
+
+    .icon-m-container {
+        @apply w-[28px] h-[28px] flex justify-center items-center
+    }
+
+    .avatar-icon-m-container {
+        @apply w-[32px] h-[32px] bg-[--violet-200] rounded-lg flex items-center justify-center
+    }
+
+    .icon-button {
+        @apply rounded-lg p-[4px]
+    }
+
+    .icon-button-S {
+        @apply rounded-lg w-[32px] h-[32px] flex justify-center items-center
+    }
+
+    .button-S {
+        @apply font-semibold text-base py-[12px] px-[16px] rounded-xl cursor-pointer transition
+    }
+
+    .primary-button {
+        @apply bg-[--solid-blue] text-[--white] border-none hover:bg-[--intense-blue]
+    }
+
+    .secondary-button {
+        @apply text-[--solid-blue] border border-[--violet-700] hover:bg-[--violet-300]
+    }
+
+    .critical-button {
+        @apply bg-[--red-100] border-none text-[--red-400] hover:bg-[#FCDBD8]
+    }
+
+    .button-bar {
+        @apply flex  justify-between mt-[40px]
+    }
+
+    .link {
+        @apply text-[--accent-purple] bg-none border-none font-semibold text-base no-underline cursor-pointer hover:text-[--accent-purple-hover]
+    }
+
+    .image-preview-container {
+        @apply flex w-full h-0 pb-[100%] relative
+    }
+
+    .image-preview {
+        @apply w-full h-full object-cover absolute
+    }
+}
+
+@layer base {
+    :root {
+        --solid-blue: #021950;
+        --intense-blue: #032882;
+        --accent-purple:#833ee5;
+        --accent-purple-hover: #641BCA;
     
-.text-field-label{
-    color: var(--grey-700);
-    font-family: "Inter";
-    font-size: 16px;
-    font-weight: 400;
-    margin: 6px;
-    margin-left: 0px;
+        --violet-800: #929AC4;
+        --violet-700: #AFB5D4;
+        --violet-600: #929AC4;
+        --violet-500: #D1D4E6;
+        --violet-400: #DEE0ED;
+        --violet-300: #e8eaf4;
+        --violet-200: #F4F5F9;
+        --violet-100:#F8F9FB;
+    
+        --grey-700:#3B4257 ;
+        --grey-600:#4A536D ;
+        --grey-500:#545F7D ;
+        --grey-400:#657195 ;
+        --grey-300:#8F98B3 ;
+        --grey-200:#AAB1C5 ;
+        --grey-100:#C7C8CC ;
+        --white:#FFFFFF ;
+    
+        --red-400: #F44336;
+        --red-200: #F6655A;
+        --red-300: #FB5548;
+        --red-100: #FDECEA;
+    
+        --green-400: #4CAF50;
+        --grey-overlay: rgb(84, 95, 125, 0.2)
+    }
 }
 
-.text-field-description{
-    color: var(--grey-500);
-    font-family: 'Inter';
-    font-size: 14px;
-    font-weight: 300;
-    margin-left: 0px;
-    margin-top: 0px;
-    margin-bottom: 8px;
-}
-/* end Text styles*/
-
-/*Icons*/
-.material-symbols-rounded.icon-xs{
+/*ICONS*/
+/* .material-symbols-rounded.icon-xs{
     font-size: 16px;
     color: var(--grey-700);
     display: flex;
@@ -241,126 +187,13 @@ form p:last-child {
     align-items: center;
     justify-content: center;
 }
-.icon-critical{
-    color: var(--red-400) !important
-}
 
-.icon-s-container{
-    width: 24px;
-    height: 24px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.icon-xs-container{
-    width: 20px;
-    height: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.icon-m-container{
-    width: 28px;
-    height: 28px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.avatar-icon-m-container{
-    width: 32px;
-    height: 32px;
-    background-color: var(--violet-300);
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
 
 .material-symbols-rounded.icon-s.topbar{
     color: var(--intense-blue)
 }
-/* end Icons*/
-
-/* Buttons */
-.button-XS{
-    font-family: "Inter";
-    font-weight: 600;
-    font-size: 14px;
-    padding: 8px 16px 8px 16px;
-    border-radius: 12px;
-    cursor: pointer;
-    transition: 0.3s;
-    display: flex;
-    gap: 4px;
-    align-items: center;
-}
-
-.button-S{
-    font-family: "Inter";
-    font-weight: 600;
-    font-size: 16px;
-    padding: 12px 16px 12px 16px;
-    border-radius: 12px;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.icon-button{
-    border-radius: 8px;
-    padding: 4px;
-}
-
-.icon-button-S{
-    border-radius: 8px;
-    width: 32px;
-    height: 32px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.primary-button{
-    background-color:var(--solid-blue) ;
-    color: #FFFFFF;
-    border: none; 
-}
-
-.primary-button:hover {
-    background-color: var(--intense-blue);
-}
-
-.secondary-button{
-    color: var(--solid-blue);
-    border: 1px solid var(--violet-700);
-}
-
-.critical-button{
-    background-color: var(--red-100);
-    border: 0px
-}
-
-.button-S.critical-button{
-    color: var(--red-400)
-}
-
-.critical-button:hover{
-    background-color: #FCDBD8;
-}
-
-.secondary-button:hover {
-    background-color: var(--violet-400);
-}
-
-.button-bar{
-    display: flex;
-    flex-direction:row;
-    justify-content: space-between;
-    margin-top: 40px;
-}
-
+/* BUTTONS*/
+/* 
 .radio-button{
     appearance: none;
     border-radius: 50%;
@@ -374,43 +207,12 @@ form p:last-child {
     background-color: var(--violet-600);
     border: 3px solid var(--violet-300);
 }
-
-/* end Buttons */
-
-/* Links */
-.link{
-    color: var(--accent-purple);
-    background: none;
-    border: none;
-    font-family: "Inter";
-    font-weight: 600;
-    font-size: 16px;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-.link:hover {
-color: var(--accent-purple-hover);
-}
+ */
 
 
-/* images-previews */
+/* IMAGE-PREV */
 
-.image-preview-container{
-    display: flex;
-    width: 100%;
-    height: 0;
-    padding-bottom: 100%;
-    position: relative;
-}
-
-.image-preview{
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    position: absolute;
-}
-
+/* 
 .update-avatar-image-preview-container{
     display: flex;
     width: 100%;
@@ -440,5 +242,4 @@ color: var(--accent-purple-hover);
     object-fit: cover;
     position: absolute;
 }
-/* end - images-previews */
-
+ */ 

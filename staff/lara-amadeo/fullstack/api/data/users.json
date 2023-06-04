@@ -1,1 +1,42 @@
-[]
+[
+    {
+        "id": "user-1",
+        "username": "PepitoG",
+        "email": "pepito@grillo.com",
+        "password": "Manzana12!",
+        "avatar": null,
+        "likedPosts": [],
+        "savedPosts": [
+            "post-2"
+        ]
+    },
+    {
+        "id": "user-2",
+        "username": "Wendy",
+        "email": "wendy@darling.com",
+        "password": "Manzana12!",
+        "avatar": null,
+        "likedPosts": [],
+        "savedPosts": []
+    },
+    {
+        "id": "user-3",
+        "username": "CocoD",
+        "email": "coco@drilo.com",
+        "password": "Manzana12!",
+        "avatar": null,
+        "likedPosts": [
+            "post-1"
+        ],
+        "savedPosts": []
+    },
+    {
+        "id": "user-4",
+        "username": "CocoC",
+        "email": "coco@chanel.com",
+        "password": "Manzana12!",
+        "avatar": null,
+        "likedPosts": [],
+        "savedPosts": []
+    }
+]

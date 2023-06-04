@@ -41,7 +41,7 @@
 
 .sidebar-mobile-upper-part{
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
 }
 .secondary-button.icon-button.mobile-sidebar{
     padding: 4px;

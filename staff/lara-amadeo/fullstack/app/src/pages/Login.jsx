@@ -43,7 +43,7 @@ export default function Login({ onSignUpLink, onLoginButton }) {
 
     return <div className="login">
         <div className="centered-containers">
-
+ 
             <h1 className="title">Welcome back!</h1>
 
             <form className="centered-form" onSubmit={handleLogin}>
