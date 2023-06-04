@@ -7,6 +7,15 @@ article.single.post {
     margin: 30px;
   }
 
+article.private {
+    opacity: .85;
+    transition: linear .2s;
+  }
+
+article.private:hover {
+    opacity: 1;
+  }
+
   .post-image-container {
     width: 65%;
     padding: 5px;

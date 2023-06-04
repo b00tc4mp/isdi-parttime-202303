@@ -15,9 +15,8 @@ export default function Post({ post, post: { image, title, text, comments, likes
     const [userData, setUserData] = useState(user)
     const [modalMenu, setModalMenu] = useState('close')
     const {freeze, unfreeze, alert} = useContext(Context)
-
     const postStyle = {
-        background: `linear-gradient(180deg, rgba(0,0,0,.2) 0%, rgba(0,0,0,0) 10%, rgba(0,0,0,0) 50%, rgba(0,0,0,.6) 100%), url(${image}) center / cover`
+        background: `linear-gradient(180deg, rgba(0,0,0,.2) 0%, rgba(0,0,0,0) 10%, rgba(0,0,0,0) 50%, rgba(0,0,0,.6) 100%), url(${image}) center / cover`        
     }
 
     useEffect(() => {
@@ -129,7 +128,7 @@ export default function Post({ post, post: { image, title, text, comments, likes
         } catch(error) {
             alert(error.message)
         }
-        return console.log(modalMenu)
+        return 
 
         // onHideMenuOptions()
     }
@@ -143,9 +142,9 @@ export default function Post({ post, post: { image, title, text, comments, likes
             return separateUserName[0][0] + separateUserName[1][0]
         }
     }
-    console.log(modalMenu)
+
     return  <>
-        <article className={id} style={postStyle}>
+        <article className={`${id} ${visibility !== 'public' ? visibility : visibility}`} style={postStyle}>
             <div className="post-author">
                 <div className="avatar">
                     {!user.image && <div className="letter">{returnLetters()}</div>}

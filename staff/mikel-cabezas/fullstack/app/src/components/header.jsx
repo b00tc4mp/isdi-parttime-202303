@@ -1,11 +1,12 @@
 
 import { useEffect, useState } from "react"
 import { context } from "../ui.js"
-import UserImage from "./UserImage"
+import UserImage from "./UserImage.jsx"
 import './Header.css'
 import UpdateUserInfo from "./UpdateUserInfo.jsx"
 
-export default function Header( {onUserProfile, onHomeClick, onLoggedOut, selected, onSetThemeClick} ) {
+export default function Header( {onUserProfile, onHomeClick, onLoggedOut, selected, onSetThemeClick, onLikedPostsClick,
+    onSavedPostsClick} ) {
     const [current, setCurrent] = useState(null)
     const [loggedIn, setloggedIn] = useState(false)
     const [savelUpdateProfile, setSavelUpdateProfile] = useState(null)
@@ -15,6 +16,20 @@ export default function Header( {onUserProfile, onHomeClick, onLoggedOut, select
     const handleHome = () => {
         try {
             onHomeClick()
+        } catch (error) {
+            console.log(error.message)
+        }
+    }
+    const handleLikedPosts = () => {
+        try {
+            onLikedPostsClick()
+        } catch (error) {
+            alert(error.message)
+        }
+    }
+    const handleSavedPosts = () => {
+        try {
+            onSavedPostsClick()
         } catch (error) {
             console.log(error.message)
         }
@@ -58,6 +73,8 @@ export default function Header( {onUserProfile, onHomeClick, onLoggedOut, select
                     <nav className="menu">
                         <ul>
                             <li className="homepage" onClick={handleHome}>Homepage</li>
+                            <li className="homepage" onClick={handleLikedPosts}>My liked posts</li>
+                            <li className="homepage" onClick={handleSavedPosts}>My favorite posts</li>
                             <li className="user-account">
                                 <UserImage userId={userId}/>
                             </li>
