@@ -8,13 +8,15 @@ import { context } from "../ui"
 import './Home.css'
 import retrieveUser from "../logic/users/retrieveUser"
 
-export default function Home( {onLogoutClick, onUserProfile, onSetThemeClick} ) {
+export default function Home( {onLogoutClick, onUserProfile, onSetThemeClick, onShowAllPosts, onShowLikedPosts, onShowSavedPosts} ) {
         const [view, setView] = useState('posts')
         const [modal, setModal] = useState(null)
         const [theme, setTheme] = useState('')
         const [postId, setPostId] = useState(null)
         const [lastPostsUpdate, setLastPostsUpdate] = useState(null)
+        const [postsFilter, setPostsFilter] = useState()
         const userId = context.userId
+
 
 
 
@@ -49,8 +51,17 @@ export default function Home( {onLogoutClick, onUserProfile, onSetThemeClick} ) 
                 setView('')
                 onLogoutClick()
             }
-            
-            const handleQuitUser = () => setModal('null')
+             
+            function handleShowAllPosts() { 
+                onShowAllPosts()
+            }
+            function handleShowLikedPosts() { 
+                debugger
+                setPostsFilter('liked')
+            }
+            function handleShowSavedPosts() { 
+                setPostsFilter('saved')
+            }
         
             const handleGoToUserProfile = () => {
                 setModal('user-profile')
@@ -90,12 +101,13 @@ export default function Home( {onLogoutClick, onUserProfile, onSetThemeClick} ) 
                 
             }
 
-  
+
+
         return <>
-            <Header onUserProfile={handleGoToUserProfile} onLoggedOut={handleLogOut} onHomeClick={handleQuitUser} selected={modal}  />
+            <Header onUserProfile={handleGoToUserProfile} onLoggedOut={handleLogOut} onLikedPostsClick={handleShowLikedPosts} onSavedPostsClick={handleShowSavedPosts} onHomeClick={handleShowAllPosts} selected={modal}  />
             <main>
                 <section className="section home">               
-                    {view === 'posts' && <Posts onAddPostClick={handleAddPost}  onEditPost={(id) => handleEditPost(id)} lastPostsUpdate={lastPostsUpdate} onToggleLikePostClick={onToggleLikePostClick} onToggleSavePostClick={onToggleSavePostClick}  onHideMenuOptions={handleHideMenuOptions} /> }
+                    {view === 'posts' && <Posts onShowAllPosts={onShowAllPosts} onAddPostClick={handleAddPost}  onEditPost={(id) => handleEditPost(id)} lastPostsUpdate={lastPostsUpdate} postsFilter={postsFilter} onToggleSavePostClick={onToggleSavePostClick}  onHideMenuOptions={handleHideMenuOptions} /> }
                     {modal === 'user-profile' && <Profile goBackClick={handleGoBackClick} selected={modal} onUserProfile={onUserProfile} onThemeSet={theme} themeState={setTheme} onSetThemeClick={handleSetThemeClick} />}
                 </section>
                 {modal === 'add-post' && <AddPostModal onCancel={handleModalOff} onCreateNewPost={handlePostCreated} />}

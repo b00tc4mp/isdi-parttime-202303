@@ -1,7 +1,7 @@
 import {loadPosts, loadUsers, findUserById } from '../../data.js'
 import { validateUserId } from "../helpers/validators.js";
 
-export default function retrieveLikedPosts(userId, callback) {
+export default function retrieveSavedPosts(userId, callback) {
     validateUserId(userId);
 
     loadUsers(users => {
@@ -13,9 +13,16 @@ export default function retrieveLikedPosts(userId, callback) {
         }
 
         loadPosts((posts) => {
-            const _posts = posts.filter(post => post.likes.includes(userId))
+            const favPosts = []
 
-            _posts.forEach(post => {
+            posts.forEach(post => {
+                users.filter(user => {
+                    const _favPosts = user.favPosts.includes(post.id)
+                    if(_favPosts) {
+                        favPosts.push(post)
+                    }
+                })
+
                 const _user = users.find(user => user.id === post.author)
                 post.author = {
                     id: _user.id,
@@ -23,8 +30,7 @@ export default function retrieveLikedPosts(userId, callback) {
                     avatar: _user.avatar
                 }
             })
-
-            callback(null, _posts.toReversed());
+            callback(null, favPosts.toReversed());
         })
     })
 }

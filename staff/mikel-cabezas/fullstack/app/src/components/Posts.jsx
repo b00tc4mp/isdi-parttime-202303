@@ -2,6 +2,7 @@ import { useEffect, useState, useContext } from "react"
 import Post from "./Post"
 import retrievePosts from "../logic/posts/retrievePosts"
 import retrieveLikedPosts from "../logic/posts/retrieveLikedPosts"
+import retrieveSavedPosts from "../logic/posts/retrieveSavedPosts"
 import { context } from "../ui"
 import './Posts.css'
 import { RotatingLines } from 'react-loader-spinner'
@@ -9,21 +10,21 @@ import retrieveUser from "../logic/users/retrieveUser"
 import Context from "../Context"
 
 
-export default function Posts({ onEditPost, onAddPostClick, lastPostsUpdate, onToggleLikePostClick, onToggleSavePostClick, onHideMenuOptions, visibility }) {
+export default function Posts({ onEditPost, onAddPostClick, lastPostsUpdate, postsFilter, onToggleLikePostClick, onToggleSavePostClick, onHideMenuOptions, visibility, onShowAllPosts }) {
     const userId = context.userId
     const [posts, setPosts] = useState()
-    const [postsFilter, setPostsFilter] = useState('all')
+    // const [postsFilter, setPostsFilter] = useState('all')
     const [user, setUser] = useState()
     const {freeze, unfreeze} = useContext(Context)
-
     useEffect(() => {
         console.log('Refresh Posts -> render in useEffect')
         freeze()
-        if(postsFilter === 'all') {
+        if(!postsFilter) { 
             retrievePosts(userId, (error, posts) => {
                 unfreeze()
                 if (error) {
                     alert(error.message)
+
                     return
                 }
                 setPosts(posts)
@@ -34,6 +35,18 @@ export default function Posts({ onEditPost, onAddPostClick, lastPostsUpdate, onT
                 unfreeze()
                 if (error) {
                     alert(error.message)
+
+                    return
+                }
+                setPosts(posts)
+            })
+        }
+        if(postsFilter === 'saved') {
+            retrieveSavedPosts(userId, (error, posts) => {
+                unfreeze()
+                if (error) {
+                    alert(error.message)
+
                     return
                 }
                 setPosts(posts)
@@ -48,6 +61,9 @@ export default function Posts({ onEditPost, onAddPostClick, lastPostsUpdate, onT
             setUser(user)
         })
     }, [])
+    function onShowAllPosts() {
+        alert('function')
+    }
 
     useEffect(() => {
         console.log('Refresh Posts -> render in useEffect')
@@ -56,14 +72,55 @@ export default function Posts({ onEditPost, onAddPostClick, lastPostsUpdate, onT
         }
     }, [lastPostsUpdate])
 
+    useEffect(() => {
+        console.log('Refresh Posts -> render in useEffect')
+        debugger
+        handleRefreshPosts()
+
+    }, [postsFilter])
+
     function handleRefreshPosts() {
         try {
-            retrievePosts(userId, (error, posts) => {
-                if (error) {
+            if(!postsFilter) { 
+                retrievePosts(userId, (error, posts) => {
+                    unfreeze()
+                    if (error) {
+                        alert(error.message)
+    
+                        return
+                    }
+                    setPosts(posts)
+                })
+            }
+            if(postsFilter === 'liked') {
+                retrieveLikedPosts(userId, (error, posts) => {
+                    unfreeze()
+                    if (error) {
+                        alert(error.message)
+    
+                        return
+                    }
+                    setPosts(posts)
+                })
+            }
+            if(postsFilter === 'saved') {
+                retrieveSavedPosts(userId, (error, posts) => {
+                    unfreeze()
+                    if (error) {
+                        alert(error.message)
+    
+                        return
+                    }
+                    setPosts(posts)
+                })
+            }
+            retrieveUser(userId, (error, user) => {
+                if(error) {
                     alert(error.message)
+        
                     return
                 }
-                setPosts(posts)
+                setUser(user)
             })
         } catch (error) {
             console.log(error)
@@ -100,7 +157,7 @@ export default function Posts({ onEditPost, onAddPostClick, lastPostsUpdate, onT
         handleRefreshPosts()
     }
 
-  
+  console.log(postsFilter)
 
     if (posts) {
         return <>
