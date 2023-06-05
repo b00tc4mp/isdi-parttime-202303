@@ -1,16 +1,12 @@
 import { context } from '../ui'
 import authenticateUser from '../logic/authenticateUser'
-import { useContext, useEffect, useState } from 'react'
-import Context from '../Context'
+import { useEffect, useState } from 'react'
 import retrieveRandomMotivationalQuote from '../logic/retrieveRandomMotivationalQuote'
-// import Container from '../library/Container'
-// import Form from '../library/Form'
-// import Input from '../library/Input'
-// import Button from '../library/Button'
 import { Container, Form, Input, Button } from '../library'
+import { useAppContext } from '../hooks'
 
 export default function Login({ onRegisterClick, onUserLoggedIn }) {
-    const { alert, freeze, unfreeze } = useContext(Context)
+    const { alert, freeze, unfreeze } = useAppContext()
     const [quote, setQuote] = useState(null)
 
     useEffect(() => {
@@ -65,7 +61,7 @@ export default function Login({ onRegisterClick, onUserLoggedIn }) {
 
     console.debug('Login -> render')
 
-    return <Container tag="main">        
+    return <Container tag="main">
         <h1 className="text-[var(--primary)]">Login</h1>
 
         {quote && <p><q>{quote}</q></p>}

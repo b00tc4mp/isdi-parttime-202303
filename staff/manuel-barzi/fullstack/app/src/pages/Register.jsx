@@ -1,7 +1,10 @@
 import registerUser from '../logic/registerUser'
 import { Container, Form, Input, Button } from '../library'
+import { useAppContext } from '../hooks'
 
 export default function Register({ onLoginClick, onUserRegistered }) {
+    const { alert } = useAppContext()
+
     const handleLoginClick = event => {
         event.preventDefault()
 
