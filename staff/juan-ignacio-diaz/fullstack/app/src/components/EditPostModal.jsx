@@ -3,7 +3,7 @@ import { useState, useEffect, useContext } from 'react'
 import { context } from '../ui'
 import Context from '../Context'
 
-import Container from '../library/Container'
+import { Container, Form, Input, Button } from '../library'
 
 import updatePost from '../logic/updatePost'
 import retrievePost from '../logic/retrievePost'
@@ -59,19 +59,19 @@ export default function EditPost({ onCancel, onEditedPost, postId}) {
 
     return <>
         {post && <Container tag="section" className="modal">
-            <Container tag="form" onSubmit={handleEditPost}>
+            <Form onSubmit={handleEditPost}>
             {post && <>
                     <img src={post.image} className="post-image"/>
-                    <input className="input" type="url" name="image" placeholder="image url"defaultValue={post.image}/>
+                    <Input className="input" type="url" name="image" placeholder="image url"defaultValue={post.image}/>
                     <textarea className="input" name="text" cols="30" rows="10" placeholder="text" defaultValue={post.text}></textarea>
-                    <button className="button" type="submit">Update</button>
+                    <Button type="submit">Update</Button>
                     </> 
                 || <>
-                    <input className="input" type="url" name="image" disabled placeholder="Loading..."/>
+                    <Input className="input" type="url" name="image" disabled placeholder="Loading..."/>
                     <textarea className="input" name="text" cols="30" rows="10" disabled placeholder="Loading..."></textarea>
                 </>}                        
-                <button className="button cancel" type="button" onClick={handleCancel}>Cancel</button>
-            </Container>
+                <Button className="cancel" type="button" onClick={handleCancel}>Cancel</Button>
+            </Form>
         </Container>}
     </>        
     

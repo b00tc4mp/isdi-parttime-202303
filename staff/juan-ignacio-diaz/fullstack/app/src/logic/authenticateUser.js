@@ -1,4 +1,3 @@
-//import { validateEmail, validatePassword, validateCallback } from './helpers/validators'
 import { validators } from 'com'
 const { validateEmail, validatePassword, validateCallback } = validators
 

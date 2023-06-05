@@ -1,4 +1,4 @@
-import Container from '../library/Container'
+import { Container, Button } from '../library'
 
 import './AlertModal.css'
 
@@ -13,7 +13,7 @@ export default function AlertModal ({ onAccept, message }) {
         <Container tag="div" className = "modal">
             <Container tag="div" className = "msAlert">
                 <p>{message}</p>
-                <button className = "button" name = "accept" onClick={handleAccepAlert}>Accept</button>
+                <Button className = "button" name = "accept" onClick={handleAccepAlert}>Accept</Button>
             </Container>
         </Container>
     </>

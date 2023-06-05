@@ -43,8 +43,7 @@ function validateText(text, explain = 'text') {
 }
 
 function validateNumber(number, explain = 'number') {
-    if (typeof text !== 'number') throw new Error(`${explain} is not a number`)
-    if (!text.trim().length) throw new Error(`${explain} is empty`)
+    if (typeof number !== 'number') throw new Error(`${explain} is not a number`)
 }
 
 function validateCallback(callback) {

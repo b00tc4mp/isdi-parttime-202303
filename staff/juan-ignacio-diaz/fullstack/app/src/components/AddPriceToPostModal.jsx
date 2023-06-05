@@ -3,7 +3,7 @@ import { useState, useEffect, useContext } from 'react'
 import { context } from '../ui'
 import Context from '../Context'
 
-import Container from '../library/Container'
+import { Container, Form, Input, Button } from '../library'
 
 import updatePriceToPost from '../logic/updatePriceToPost'
 import retrievePost from '../logic/retrievePost'
@@ -58,20 +58,20 @@ export default function AddPriceToPostModal({ onCancel, onAddedPriceToPost, post
 
     return <>
         {post && <Container tag="section" className="modal">
-            <Container tag="form" onSubmit={handleAddPriceToPost}>
+            <Form onSubmit={handleAddPriceToPost}>
             {post && <>
                     <img src={post.image} className="post-image"/>
                     <textarea className="input" name="text" cols="30" rows="10" placeholder="text" defaultValue={post.text} readOnly></textarea>
-                    <input className="input" type="number" min="0" name="price" placeholder="price" defaultValue={post.price}/>
-                    <button className="button" type="submit">Update</button>
+                    <Input type="number" min="0" name="price" placeholder="price" defaultValue={post.price}/>
+                    <Button type="submit">Update</Button>
                     </> 
                 || <>                 
                     <textarea className="input" name="text" cols="30" rows="10" disabled placeholder="Loading..." readOnly></textarea>
-                    <input className="input" type="text" name="price" disabled placeholder="Loading..."/>
+                    <Input type="text" name="price" disabled placeholder="Loading..."/>
                 </>}             
                 
-                <button className="button cancel" type="button" onClick={handleCancel}>Cancel</button>
-            </Container>
+                <Button className="cancel" type="button" onClick={handleCancel}>Cancel</Button>
+            </Form>
         </Container>}
     </>        
     

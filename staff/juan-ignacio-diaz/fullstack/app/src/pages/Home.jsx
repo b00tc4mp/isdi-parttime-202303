@@ -165,8 +165,8 @@ export default function Home({ onLogout }) {
                     <label className="name" htmlFor="typePosts">Choose a type posts:</label>
                     <select id="typePosts" onChange={handleTypePost}>
                         <option value="all" >All</option>
-                        <option value="user" >User</option>
-                        <option value="save">Save</option>
+                        <option value="user" >My Post</option>
+                        <option value="save">Saved</option>
                         <option value="onSale">On sale</option>
                     </select>
                 </Container>

@@ -1,6 +1,7 @@
-import { loadUsers, saveUsers, loadPosts, savePosts} from "../data"
-import { validateId, validateCallback } from "./helpers/validators"
+import { validators } from 'com'
+const { validateId, validateCallback } = validators
 
+import { loadUsers, saveUsers, loadPosts, savePosts} from "../data"
 
 export default function deletePost(userId, postId, callback){
     validateId(userId, 'user id')

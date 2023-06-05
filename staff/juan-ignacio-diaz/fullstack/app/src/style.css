@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+
+@layer base {
+  :root {
+    --primary: rgb(57, 162, 34);
+    --secondary: rgb(12, 91, 91);
+  }
+}
+
 html , body {
   height: 100%;
 }

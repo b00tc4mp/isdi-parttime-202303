@@ -3,7 +3,7 @@ import { useContext } from 'react'
 import { context } from '../ui' 
 import Context from '../Context'
 
-import Container from '../library/Container'
+import { Container, Form, Input, Button } from '../library'
 
 import createPost from '../logic/createPost'
 
@@ -39,12 +39,12 @@ export default function AddPostModal({ onCancel, onCreatedPost }) {
 
     return <>
         <Container tag="section" className="modal">
-            <Container tag="form" onSubmit={handleCreatePost}>
-                <input className="input" type="url" name="image" placeholder="image url"/>
+            <Form onSubmit={handleCreatePost}>
+                <Input type="url" name="image" placeholder="image url"/>
                 <textarea className="input" name="text" cols="30" rows="10" placeholder="text"></textarea>
-                <button className="button" type="submit">Create</button>
-                <button className="button cancel" type="button" onClick={handleCancel}>Cancel</button>
-            </Container>
+                <Button type="submit">Create</Button>
+                <Button className="cancel" type="button" onClick={handleCancel}>Cancel</Button>
+            </Form>
         </Container>
     </>
 }
