@@ -18,8 +18,13 @@ class Runner {
         console.log(' '.repeat(this.position), this.icon)
     }
 
+    // status() {
+    //     return(`${this.icon} : position = ${this.position}, time = ${this.finalTime} \n`)
+    // }
+
     status() {
-        return(`${this.icon} : position = ${this.position}, time = ${this.finalTime} \n`)
+        let result
+        return result = {icon: this.icon, position: this.position, finalTime: this.finalTime}
     }
 }
 
@@ -29,7 +34,7 @@ const rabbit = new Runner('🐰')
 const cat = new Runner('🐱')
 const startTime = Date.now()
 
-let result = ''
+// let ranking = {result:[]}
 
 const interval = setInterval(() => {
     console.clear()
@@ -59,17 +64,34 @@ const interval = setInterval(() => {
         rabbit.finalTime = rabbit.time - startTime
         cat.finalTime = cat.time - startTime
 
-        result += fox.status()
-        result += rabbit.status()
-        result += cat.status()
+        // result += fox.status()
+        // result += rabbit.status()
+        // result += cat.status()
+        // const fs = require('fs')
+
+        // fs.writeFile('/Users/cristinagurriaran/workspace/isdi-parttime-202303/staff/cristina-gurriaran/fullstack/game/results.txt', result, err => {
+        //     if (err) {
+        //         console.error(err);
+        //     }
+        // })
+
+        let foxResult = fox.status()
+        let rabbitResult = rabbit.status()
+        let CatResult = cat.status()
+
+        let ranking = {foxResult, rabbitResult, CatResult}
+
         const fs = require('fs')
 
-        fs.writeFile('/Users/cristinagurriaran/workspace/isdi-parttime-202303/staff/cristina-gurriaran/fullstack/game/results.txt', result, err => {
+        fs.writeFile("ranking.json", JSON.stringify(ranking), err => {
             if (err) {
                 console.error(err);
             }
         })
     }
+
 }, LAPSE)
+
+
 
 
