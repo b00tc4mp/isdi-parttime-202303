@@ -1,5 +1,7 @@
-import { validateId, validateCallback } from './helpers/validators'
+import { validators } from 'com'
 import { savePosts, loadPosts, findUserById, findPostById } from '../data'
+
+const { validateId, validateCallback } = validators
 
 export default function deletePost(userId, postId, callback) {
     validateId(userId, 'user id')
@@ -28,9 +30,9 @@ export default function deletePost(userId, postId, callback) {
 
             loadPosts(posts => {
                 const index = posts.findIndex(post => post.id === postId)
-    
+
                 posts.splice(index, 1)
-    
+
                 savePosts(posts, () => callback(null))
             })
         })

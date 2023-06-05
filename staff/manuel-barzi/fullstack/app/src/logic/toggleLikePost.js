@@ -1,5 +1,7 @@
-import { validateId, validateCallback } from './helpers/validators'
+import { validators } from 'com'
 import { savePost, findUserById, findPostById } from '../data'
+
+const { validateId, validateCallback } = validators
 
 export default function toggleLikePost(userId, postId, callback) {
     validateId(userId, 'user id')

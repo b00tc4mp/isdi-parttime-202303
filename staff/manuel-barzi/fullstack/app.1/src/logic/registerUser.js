@@ -1,4 +1,4 @@
-import { validateName, validateEmail, validatePassword, validateCallback } from './helpers/validators'
+import { validateName, validateEmail, validatePassword, validateCallback } from 'com'
 import { saveUsers, findUserByEmail, loadUsers } from '../data'
 
 export default function registerUser(name, email, password, callback) {

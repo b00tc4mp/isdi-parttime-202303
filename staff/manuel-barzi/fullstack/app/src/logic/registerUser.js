@@ -1,5 +1,7 @@
-import { validateName, validateEmail, validatePassword, validateCallback } from './helpers/validators'
+import { validators } from 'com'
 import { saveUsers, findUserByEmail, loadUsers } from '../data'
+
+const { validateName, validateEmail, validatePassword, validateCallback } = validators
 
 export default function registerUser(name, email, password, callback) {
     validateName(name)

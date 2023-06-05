@@ -1,4 +1,4 @@
-import { validateId, validateCallback } from './helpers/validators'
+import { validateId, validateCallback } from 'com'
 import { findUserById } from '../data'
 
 export default function retrieveUser(userId, callback) {
@@ -11,12 +11,12 @@ export default function retrieveUser(userId, callback) {
 
             return
         }
-    
+
         const _user = {
             name: user.name,
             avatar: user.avatar
         }
-    
+
         callback(null, _user)
     })
 }

@@ -1,5 +1,7 @@
-import { validateId, validateUrl, validateText, validateCallback } from './helpers/validators'
+import { validators } from 'com'
 import { savePost, findUserById, findPostById } from '../data'
+
+const { validateId, validateUrl, validateText, validateCallback } = validators
 
 export default function updatePost(userId, postId, image, text, callback) {
     validateId(userId, 'user id')

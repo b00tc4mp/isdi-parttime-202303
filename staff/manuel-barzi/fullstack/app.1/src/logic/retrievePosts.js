@@ -1,4 +1,4 @@
-import { validateId, validateCallback } from './helpers/validators'
+import { validateId, validateCallback } from 'com'
 import { findUserById, loadPosts, loadUsers } from '../data'
 
 export default function retrievePosts(userId, callback) {

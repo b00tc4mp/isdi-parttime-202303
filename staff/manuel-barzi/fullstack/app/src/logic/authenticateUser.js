@@ -1,4 +1,4 @@
-//import { validateEmail, validatePassword, validateCallback } from './helpers/validators'
+//import { validateEmail, validatePassword, validateCallback } from 'com'
 import { validators } from 'com'
 import { findUserByEmail } from '../data'
 

@@ -1,4 +1,4 @@
-import { validateId, validateCallback } from './helpers/validators'
+import { validateId, validateCallback } from 'com'
 import { saveUser, findUserById, findPostById } from '../data'
 
 export default function toggleFavPost(userId, postId, callback) {
