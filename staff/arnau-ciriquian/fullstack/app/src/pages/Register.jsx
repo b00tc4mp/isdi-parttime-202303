@@ -1,4 +1,5 @@
 import { registerUser } from "../logic/registerUser"
+import { Form, ButtonForm } from "../library"
 
 export default function Register({ onLoginClick, onUserRegistered }) {
     const handleLoginClick = event => {
@@ -38,7 +39,7 @@ export default function Register({ onLoginClick, onUserRegistered }) {
         </header>
         <div className="page">
             <h1 className="text">Register</h1>
-            <form className="register__form" onSubmit={handleResgiter}>
+            <Form onSubmit={handleResgiter}>
                 <div className="inputs__box">
                     <input className="form__input" type="text" name="name" placeholder="username" />
                     <input className="form__input" type="email" name="email" placeholder="email" />
@@ -52,8 +53,8 @@ export default function Register({ onLoginClick, onUserRegistered }) {
                         <i className="register-confirm-eye fa-solid fa-eye"></i>
                     </div>
                 </div>
-                <button className="form__button" type="submit">Register</button>
-            </form>
+                <ButtonForm type="submit">Register</ButtonForm>
+            </Form>
 
             <p className="text">Go to <a className="register__anchor--login" href="" onClick={handleLoginClick}> Login</a></p>
         </div>

@@ -3,6 +3,7 @@ import { context } from "../ui"
 import { useEffect, useState } from "react"
 import retrieveRandomJoke from "../logic/retriveRandomJoke"
 import "./login.css"
+import { Form, ButtonForm } from "../library"
 
 export default function Login({ onRegisterClick, onUserLoggedIn }) {
     const [joke, setJoke] = useState(null)
@@ -60,7 +61,7 @@ export default function Login({ onRegisterClick, onUserLoggedIn }) {
         </header>
         <div className="page">
             <h1 className="text">Login</h1>
-            <form className="login__form" onSubmit={handleLogin}>
+            <Form /*className="login__form"*/ onSubmit={handleLogin}>
                 <div className="inputs__box">
                     <input className="form__input" type="email" name="email" placeholder="email" />
                     <div className="password-container">
@@ -68,8 +69,8 @@ export default function Login({ onRegisterClick, onUserLoggedIn }) {
                         <i className="login-eye fa-solid fa-eye"></i>
                     </div>
                 </div>
-                <button className="form__button" type="submit">Login</button>
-            </form>
+                <ButtonForm type="submit">Login</ButtonForm>
+            </Form>
             <p className="text">Go to <a className="login__anchor--register" href="" onClick={handleRegisterClick}>Register</a></p>
             <div className="joke__container">
                 {joke && <p><q>{joke}</q></p>}

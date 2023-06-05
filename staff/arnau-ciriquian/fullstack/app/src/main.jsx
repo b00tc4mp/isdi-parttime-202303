@@ -13,7 +13,6 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         - ig d'acudits
                 - MUST
                 - compo container 20230524 1945
-                - pasar tota la logica de presentacio que requereix dades a la api (Users fet, falta Posts)
                 - loader amb un spinner mentre carrega cada pagina 20230524 2040
                 - canviar console.log a console.debug per fer un logger (visualitzar al navegador amb el nivells de console "verbose")
                 - editar ReadMe a modo stories de que vol el client 20230510 2118
