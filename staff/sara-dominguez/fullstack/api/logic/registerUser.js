@@ -1,7 +1,11 @@
-const { readFile, writeFile } = require('fs') //common js (antigua escuela)
+const { readFile, writeFile } = require('fs') //common js (antigua escuela, file systems -> fs)
+const { validators: { validateName, validateEmail, validatePassword, validateCallback } } = require('com')
 
 module.exports = function registerUser(name, email, password, callback) {
-    //TODO validators
+    validateName(name)
+    validateEmail(email)
+    validatePassword(password)
+    validateCallback(callback)
 
     readFile('./data/users.json', 'utf8', (error, json) => {
         if (error) {
@@ -37,7 +41,8 @@ module.exports = function registerUser(name, email, password, callback) {
 
         users.push(user)
 
-        json = JSON.stringify(users)
+        //añadimos dos parámetros para que se guarde formateado
+        json = JSON.stringify(users, null, 4)
 
 
         writeFile('./data/users.json', json, 'utf8', error => {
