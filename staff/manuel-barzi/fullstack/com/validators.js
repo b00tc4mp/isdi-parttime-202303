@@ -4,7 +4,7 @@
  * @param {string} email An email
  */
 function validateEmail(email) {
-    if (typeof email !== 'string') throw new Error('email is not an string')
+    if (typeof email !== 'string') throw new Error('email is not a string')
     if (!email.trim().length) throw new Error('email is empty')
     // TODO validate email format with regex pattern
 }
