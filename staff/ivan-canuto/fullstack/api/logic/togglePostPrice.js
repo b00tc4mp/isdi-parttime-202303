@@ -1,7 +1,11 @@
 const { readFile, writeFile } = require('fs')
+const { validators: { validateId, validateText, validateCallback } } = require('com')
+
 
 function setPostPrice(postId, postPrice, callBack) {
-  // validateId(postId, 'post id')
+  validateId(postId, 'post id')
+  validateText(postPrice)
+  validateCallback(callBack)
 
   readFile('./data/posts.json', 'utf8', (error, postsJSON) => {
     if(error) {

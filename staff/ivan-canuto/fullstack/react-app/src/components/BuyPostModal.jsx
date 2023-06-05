@@ -7,6 +7,7 @@ import { useContext } from "react"
 import './components-styles/BuyPostModal.css'
 import ModalContainer from "../library/ModalContainer"
 import ModalWindow from "../library/ModalWindow"
+import Button from "../library/Button";
 
 export default function BuyPost({ onBoughtPost, onCancel }) {
   const { alert, freeze, unfreeze } = useContext(Context)
@@ -58,8 +59,8 @@ export default function BuyPost({ onBoughtPost, onCancel }) {
       {post && <>
           <h2>{`Do you want to buy this post for ${post.onSale}€?`}</h2>
           <div className="buy-post_form_buttons">
-            <button className="buy-post-button" onClick={handleBuyPost}>Buy</button>
-            <button type="button" className="cancel-buy-post-button" onClick={onCancel}>Cancel</button>
+            <Button className="buy-post-button" onClick={handleBuyPost}>Buy</Button>
+            <Button type="button" className="cancel-buy-post-button" onClick={onCancel}>Cancel</Button>
           </div>
         </>
       }

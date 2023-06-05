@@ -1,7 +1,10 @@
 const { readFile, writeFile } = require('fs')
+const { validators: { validateId, validateCallback } } = require('com')
 
 module.exports = function toggleLikePost(userId, postId, callBack) {
-
+  validateId(userId, 'user id')
+  validateId(postId, 'post id')
+  validateCallback(callBack)
 
   readFile('./data/users.json', 'utf8', (error, usersJSON) => {
     if(error) {

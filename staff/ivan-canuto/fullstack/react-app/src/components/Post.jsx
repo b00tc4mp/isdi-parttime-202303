@@ -6,6 +6,7 @@ import Comments from "./Comments"
 import './components-styles/Post.css'
 import Context from "../Context"
 import ContextualMenu from "./ContextualMenuModal"
+import Button from "../library/Button";
 
 export default function Post({post, handleRefreshPosts, handleOpenEditPost, handleOpenDeletePost, handleToggleVisibility, handleToggleOnSalePost, handleOpenBuyPost }) {
   
@@ -116,7 +117,7 @@ export default function Post({post, handleRefreshPosts, handleOpenEditPost, hand
             </>}
             
             {(author.id !== context.userId && onSale) &&
-              <button className="sell-post-button" title="Post on sale" onClick={() => {
+              <Button className="sell-post-button" title="Post on sale" onClick={() => {
                 if(onSale !== 'Sold') {
                   context.postId = id
                   handleOpenBuyPost( )
@@ -125,7 +126,7 @@ export default function Post({post, handleRefreshPosts, handleOpenEditPost, hand
               <span className="material-symbols-outlined">local_mall</span>
               {onSale !== 'Sold' && `${onSale}€`}
               {onSale === 'Sold' && `Post sold`}
-            </button>}
+            </Button>}
           </div>
         </section>
         

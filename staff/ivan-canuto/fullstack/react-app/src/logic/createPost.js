@@ -12,7 +12,6 @@ import { savePost, findUserById, loadPosts } from '../data'
  */
 
 export const createPost = (userId, imageUrl, postText, callBack) => {
-
   validateId(userId, 'user id')
   validateUrl(imageUrl)
   validateText(postText)

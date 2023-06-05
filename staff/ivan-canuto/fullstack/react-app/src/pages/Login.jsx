@@ -4,6 +4,10 @@ import './pages-styles/Login.css'
 import Context from "../Context"
 import { useContext, useEffect, useState } from "react"
 import retrireveRandomMotivationalQuote from "../logic/retrieveRandomMotivationalQuote"
+import Form from "../library/Form"
+import Input from "../library/Input"
+import Button from "../library/Button"
+import Container from "../library/Container"
 
 export default function Login ({ onRegisterClick, onLoggedInUser }) {
   const { alert, freeze, unfreeze } = useContext(Context)
@@ -68,17 +72,17 @@ export default function Login ({ onRegisterClick, onLoggedInUser }) {
 
   console.log('login -> render');
 
-  return <div className="login page container">
+  return <Container>
   <h1 className="title">Login</h1>
 
   {quote && <p><q className="login-quote">{quote}</q></p>}
 
-  <form className="login-form form" onSubmit={handleLogin}>
-      <input className="input" type="email" name="email" placeholder="email" />
-      <input className="input" type="password" name="password" placeholder="password" />
-      <button className="button" type="submit">Login</button>
-  </form>
+  <Form onSubmit={handleLogin}>
+      <Input type="email" name="email" placeholder="email" />
+      <Input type="password" name="password" placeholder="password" />
+      <Button type="submit">Login</Button>
+  </Form>
 
   <p>Go to <a href="" onClick={handleRegisterClick}>Register</a></p>
-</div>
+</Container>
 }

@@ -1,3 +1,4 @@
+import ModalContainer from '../library/ModalContainer'
 import './components-styles/Alert.css'
 
 export default function Alert({ message, level, onAccept }) {
@@ -13,10 +14,10 @@ export default function Alert({ message, level, onAccept }) {
   
   console.debug('Alert -> render')
 
-  return <div className='alert-container'>
+  return <ModalContainer className='z-500'>
     <div className="alert-modal">
       <p className="alert-message" style={{background: color}}>{message}</p>
       <button className="accept-alert-button" onClick={onAccept}>Accept</button>
     </div>
-  </div>
+  </ModalContainer>
 }

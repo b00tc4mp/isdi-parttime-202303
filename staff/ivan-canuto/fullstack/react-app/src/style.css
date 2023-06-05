@@ -63,19 +63,15 @@ body::-webkit-scrollbar {
   gap: 1rem;
 }
 
-.input, .button {
+/* .input, .button {
   padding: .5rem .6rem;
   border-radius: .75rem;
   background-color: var(--basecolor);
   box-shadow: 0 0 0 20px var(--inputcolor) inset;
-}
+} */
 
 button {
   cursor: pointer;
-}
-
-button:hover {
-  box-shadow: 0 0 0 20px rgb(179, 179, 179) inset;
 }
 
 .user-post{

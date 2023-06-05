@@ -5,6 +5,7 @@ import { useContext } from "react"
 import './components-styles/DeletePostModal.css'
 import ModalContainer from "../library/ModalContainer"
 import ModalWindow from "../library/ModalWindow"
+import Button from "../library/Button";
 
 export default function DeletePost({ onDeletedPost, onCancel }) {
   const { alert, freeze, unfreeze } = useContext(Context)
@@ -39,8 +40,8 @@ export default function DeletePost({ onDeletedPost, onCancel }) {
       <ModalWindow className="delete-post_modal">
         <h2>Do you want to delete this post?</h2>
         <div className="delete-post_buttons">
-          <button className="delete-post_button" onClick={handleDeletePost}>Delete</button>
-          <button onClick={onCancel}>Cancel</button>
+          <Button className="delete-post_button" onClick={handleDeletePost}>Delete</Button>
+          <Button onClick={onCancel}>Cancel</Button>
         </div>
       </ModalWindow>
     </ModalContainer>

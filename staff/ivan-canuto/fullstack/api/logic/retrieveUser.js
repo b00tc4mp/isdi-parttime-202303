@@ -1,7 +1,9 @@
 const { readFile } = require('fs')
+const { validators: { validateId, validateCallback } } = require('com')
 
 module.exports = function retrieveUser(userId, callBack) {
-
+  validateId(userId, 'user id')
+  validateCallback(callBack)
 
   readFile('./data/users.json', 'utf8', (error, json) => {
     if(error) {

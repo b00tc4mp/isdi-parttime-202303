@@ -6,7 +6,8 @@ import './components-styles/Comments.css'
 import Context from "../Context"
 import { useContext } from "react"
 import { context } from "../ui"
-
+import Button from "../library/Button";
+import Textarea from "../library/Textarea";
 
 export default function Comments({ onCloseCommentModal, handleRefreshPosts, post }) {
   const { alert, freeze, unfreeze } = useContext(Context)
@@ -79,7 +80,7 @@ export default function Comments({ onCloseCommentModal, handleRefreshPosts, post
           <img className="post-user-avatar" src={post.author.avatar} alt="post-user-avatar" />
           <p className="post-user-name">{post.author.name}</p>
         </div>
-        <button className="return-to-post_button" onClick={handleCloseCommentModal}>Return</button>
+        <Button className="return-to-post_button" onClick={handleCloseCommentModal}>Return</Button>
       </div>
 
       <h2>Post comments</h2>
@@ -100,15 +101,15 @@ export default function Comments({ onCloseCommentModal, handleRefreshPosts, post
         }}>
           <form className="add-comment_form" onSubmit={handleCreateComment}>
           <h2>Add comment</h2>
-            <textarea className="comment-text" cols="30" rows="10" name="commentText" autoFocus></textarea>
+            <Textarea className="comment-text" cols="30" rows="10" name="commentText" autoFocus></Textarea>
             <div className="add-comment_form_buttons">
-              <button>Add</button>
-              <button type="button" onClick={toggleAddComment}>Cancel</button>
+              <Button>Add</Button>
+              <Button type="button" onClick={toggleAddComment}>Cancel</Button>
             </div>
           </form>
         </div>
         :
-        <button className="add-comment_button" onClick={toggleAddComment}>Add comment</button>
+        <Button className="add-comment_button" onClick={toggleAddComment}>Add comment</Button>
       }
     </section>
   </>

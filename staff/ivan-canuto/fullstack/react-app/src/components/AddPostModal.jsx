@@ -2,9 +2,13 @@ import { createPost } from "../logic/createPost";
 import { context } from "../ui";
 import Context from "../Context";
 import { useContext } from "react";
-import Container from "../library/Container";
 import { useState } from "react";
 import { ImageCompressor } from 'image-compressor'
+import Form from "../library/Form";
+import ModalContainer from "../library/ModalContainer";
+import Input from "../library/Input";
+import Button from "../library/Button";
+import Textarea from "../library/Textarea";
 
 export default function AddPost({ onCancel, onCreatedPost }) {
   const { alert, freeze, unfreeze } = useContext(Context)
@@ -88,37 +92,24 @@ export default function AddPost({ onCancel, onCreatedPost }) {
       reader.onerror = () => console.log(reader.error)
       reader.readAsDataURL(file)
     }
-    
-    // if(!file) return
-    // else if(file) {
-    //   const compressor = new ImageCompressor
-    //   const compressedImage = await compressor.compress(file, {quality: 0.8})
-
-    //   const reader = new FileReader()
-      
-    //   reader.onload = () => {
-    //     console.log(reader.result)
-    //     setSelectedImage(reader.result)
-    //   }
-    //   reader.onerror = () => console.log(reader.error)
-    //   reader.readAsDataURL(compressedImage)
-    // }
   }
 
   console.log('AddPost -> render');
 
-  return <Container tag='section' className="add-post" onClick={(event) => {
-    if(event.target === document.querySelector('.Container'))
+  return <ModalContainer tag='section'onClick={(event) => {
+    if(event.target === document.querySelector('.ModalContainer'))
       onCancel()
   }}>
-  <form className="add-post_form" onSubmit={handleCreatePost}>
+  <Form className="bg-white p-4 rounded-lg" onSubmit={handleCreatePost}>
       <h2>Add post</h2>
-      <input className="post-url" type="url" name="postImage" placeholder="URL Image" autoComplete="off" autoFocus onChange={handleOnChangeEvent}/>
-      <input className="image-selector" name="selectedImage" type="file" accept="image/*" onChange={handleSelectImage}/>
+      <Input type="url" name="postImage" placeholder="URL Image" autoComplete="off" autoFocus onChange={handleOnChangeEvent}/>
+      <Input name="selectedImage" type="file" accept="image/*" onChange={handleSelectImage}/>
       {image ? <canvas className="canvas" src={image}/> : ''}
-      <textarea className="post-text" name="postText" placeholder="Post text" cols="30" rows="10"></textarea>
-      <button className="button">Create post</button>
-      <button className="cancel-button button" type="button" onClick={handleCloseClick}>Canel</button>
-  </form>
-</Container>
+      <Textarea name="postText" placeholder="Post text" cols="30" rows="10"></Textarea>
+      <div className="w-full justify-center gap-4">
+        <Button classNamButtone="button">Create post</Button>
+        <Button type="button" onClick={handleCloseClick}>Canel</Button>
+      </div>
+  </Form>
+</ModalContainer>
 }

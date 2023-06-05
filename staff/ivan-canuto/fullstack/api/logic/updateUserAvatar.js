@@ -1,7 +1,11 @@
 const { readFile, writeFile } = require('fs')
+const { validators: { validateId, validatePassword, validateText, validateCallback } } = require('com')
 
 module.exports = function updateUserAvatar(userId, newAvatarUrl, password, callBack) {
-
+  validateId(userId, 'user id')
+  validateText(newAvatarUrl)
+  validatePassword(password)
+  validateCallback(callBack)
 
   readFile('./data/users.json', 'utf8', (error, json) => {
     if(error) {
@@ -15,13 +19,13 @@ module.exports = function updateUserAvatar(userId, newAvatarUrl, password, callB
     const user = users.find(_user => _user.id === userId)
 
     if(!user) {
-      callBack(new Error('User doses not exist.'))
+      callBack(new Error('User does not exist.'))
 
       return
     }
     
     if(newAvatarUrl === user.avatar) {
-      callBack('New avatar is the same as the old one.')
+      callBack(new Error('New avatar is the same as the old one.'))
       
       return
     }

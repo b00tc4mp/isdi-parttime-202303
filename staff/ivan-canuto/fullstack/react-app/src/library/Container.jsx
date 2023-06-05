@@ -1,9 +1,7 @@
-import './Container.css'
-
-export default function Container({ children, className, type, ...props }) {
+export default function Container({ children, tag: Tag = "div", className, type, ...props }) {
   return <>
-  <section className={`Container ${className} ${type ? `Container--${type}` : ''}`} {...props}>
+  <Tag className={`Container w-screen h-screen flex flex-col justify-center items-center ${type ? `Container--${type}` : ''}`} {...props}>
     {children}
-  </section>
+  </Tag>
   </>
 }

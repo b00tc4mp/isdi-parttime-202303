@@ -4,14 +4,16 @@ import updateUserAvatar from "../logic/updateUserAvatar"
 import './components-styles/ProfileModal.css'
 import Context from "../Context"
 import { useContext } from "react"
-import Container from "../library/Container"
+import ModalContainer from "../library/ModalContainer"
+import Input from "../library/Input"
+import Button from "../library/Button"
+import Form from "../library/Form"
 
-
-export default function Profile(props) {
+export default function Profile({ onCancel, onUpdatedAvatar}) {
   const { alert, freeze, unfreeze } = useContext(Context)
 
   const closeProfile = () => {
-    props.onCloseModal()
+    onCancel()
   }
 
   const handleChangeAvatar = (event) => {
@@ -36,6 +38,7 @@ export default function Profile(props) {
       })
 
     } catch (error) {
+      unfreeze()
       alert(error.message, 'error')
       console.debug(error.stack);
     }
@@ -64,30 +67,34 @@ export default function Profile(props) {
       })
 
     } catch (error) {
+      unfreeze()
       alert(error.message, 'error')
       console.debug(error.stack);
     }
   }
   
-  return <Container tag='section'>
-  <form className="change-avatar change-form" onSubmit={handleChangeAvatar}>
+  return <ModalContainer tag='section' onClick={(event) => {
+    if(event.target === document.querySelector('.ModalContainer'))
+      onCancel()
+    }}>
+    <Form className="change-avatar change-form" onSubmit={handleChangeAvatar}>
         <h2>Update avatar</h2>
         <div>
-            <input className="input" type="url" name="avatarUrl" placeholder="avatar url"/>
-            <input className="input" type="password" name="password" placeholder="password"/>
-            <button className="button">Update</button>
+            <Input type="url" name="avatarUrl" placeholder="avatar url"/>
+            <Input type="password" name="password" placeholder="password"/>
+            <Button>Update</Button>
         </div>
-    </form>
-    <form className="change-password change-form" onSubmit={handleChangePassword}>
+    </Form>
+    <Form className="change-password change-form" onSubmit={handleChangePassword}>
         <h2>Update password</h2>
         <div>
-            <input className="input" type="password" name="password" placeholder="password"/>
-            <input className="input" type="password" name="newPassword" placeholder="new password"/>
-            <input className="input" type="password" name="newPasswordConfirm" placeholder="new password confirmation"/>
-            <button className="button">Update</button>
+            <Input type="password" name="password" placeholder="password"/>
+            <Input type="password" name="newPassword" placeholder="new password"/>
+            <Input type="password" name="newPasswordConfirm" placeholder="new password confirmation"/>
+            <Button>Update</Button>
         </div>
-    </form>
-    <button className="close-changeform-button" onClick={closeProfile}>Close</button>
-</Container>
+    </Form>
+    <Button className="bg-red-400 hover:bg-red-500" onClick={closeProfile}>Close</Button>
+</ModalContainer>
   
 }

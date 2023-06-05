@@ -1,7 +1,12 @@
 const { readFile, writeFile } = require('fs')
+const { validators: { validateId, validatePassword, validateCallback } } = require('com')
 
 module.exports = function updateUserAvatar(userId, password, newPassword, newPasswordConfirm, callBack) {
-
+  validateId(userId, 'user id')
+  validatePassword(password)
+  validatePassword(newPassword, 'new password')
+  validatePassword(newPasswordConfirm, 'new password confirm')
+  validateCallback(callBack)
 
   readFile('./data/users.json', 'utf8', (error, json) => {
     if(error) {
@@ -28,6 +33,8 @@ module.exports = function updateUserAvatar(userId, password, newPassword, newPas
 
     if(user.password === newPassword) {
       callBack(new Error('The new password is the same as the old one.'))
+
+      return
     }
 
     if(newPassword.length < 6) {

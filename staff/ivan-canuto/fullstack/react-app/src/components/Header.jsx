@@ -1,7 +1,7 @@
 import { getTheme, setTheme } from "../ui"
 import './components-styles/Header.css'
 import { useState } from "react"
-
+import Button from "../library/Button";
 
 export default function Header({ handleToggleMenu, handleReturnToHome, handleOpenProfile, handleReturnToLogin, user }) {
 
@@ -26,8 +26,8 @@ export default function Header({ handleToggleMenu, handleReturnToHome, handleOpe
             <a>{user.name}</a>
         </div>
       </>}
-      <span className="material-symbols-outlined dark-mode" onClick={switchAppTheme}>{theme === 'light' ? 'light_mode' : 'dark_mode'}</span>
-      <button className="logout-button" onClick={handleReturnToLogin}>Logout</button>
+      <span className="material-symbols-outlined dark-mode hover:bg-gray-400 p-2 rounded-full" onClick={switchAppTheme}>{theme === 'light' ? 'light_mode' : 'dark_mode'}</span>
+      <Button className="logout-button" onClick={handleReturnToLogin}>Logout</Button>
     </div>
   </header>
   </>

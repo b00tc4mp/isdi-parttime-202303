@@ -1,8 +1,11 @@
 const { readFile, writeFile } = require('fs')
+const { validators: { validateName, validateEmail, validatePassword, validateCallback } } = require('com')
 
 module.exports = function registerUser(name, email, password, passwordConfirm, callBack) {
-
-  //TODO Implement validations
+  validateName(name)
+  validateEmail(email)
+  validatePassword(password)
+  validateCallback(callBack)
 
   readFile('./data/users.json', 'utf8', (error, json) => {
     if(error) {
@@ -24,10 +27,16 @@ module.exports = function registerUser(name, email, password, passwordConfirm, c
     let id = 'user-1'
 
     const lastUser = users[users.length-1]
-    if(lastUser) id = `user-${parseInt(lastUser.id.splice(5)) + 1}`
+    if(lastUser) id = `user-${parseInt(lastUser.id.slice(5)) + 1}`
     
-    if(password.length < 6) callBack(new Error('The password is too short.'))
-    if(password !== passwordConfirm) callBack(new Error('The passwords do not match.'))
+    if(password.length < 6) {
+      callBack(new Error('The password is too short.'))
+      return
+    }
+    if(password !== passwordConfirm) {
+      callBack(new Error('The passwords do not match.'))
+      return
+    }
 
     user = {
       id,

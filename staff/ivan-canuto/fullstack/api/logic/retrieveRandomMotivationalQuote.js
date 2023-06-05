@@ -1,7 +1,8 @@
 const http = require('http')
+const { validators: { validateCallback } } = require('com')
 
 module.exports = function retrieveRandomMotivationalQuote(callBack) {
-  
+  validateCallback(callBack)
 
   fetch('https://api.quotable.io/random')
     .then(response => {

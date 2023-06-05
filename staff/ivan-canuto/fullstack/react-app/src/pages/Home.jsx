@@ -14,6 +14,7 @@ import VisibilityPost from "../components/VisibilityPostModal"
 import ToggleOnSalePost from "../components/ToggleOnSalePostModal"
 import DeletePost from "../components/DeletePostModal"
 import BuyPost from "../components/BuyPostModal"
+import Button from "../library/Button"
 
 
 export default function Home(props) {
@@ -231,9 +232,9 @@ export default function Home(props) {
       </main>
 
       <footer className="home-footer">
-        <button className="add-post-button" onClick={handleOpenAddPost}>
+        <Button className="add-post-button" onClick={handleOpenAddPost}>
           Add post
-        </button>
+        </Button>
       </footer>
     </div>
   )

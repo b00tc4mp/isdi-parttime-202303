@@ -7,6 +7,7 @@ import toggleVisibilityPost from "../logic/toggleVisibilityPost"
 import Context from "../Context"
 import { useContext } from "react"
 import ModalWindow from "../library/ModalWindow"
+import Button from "../library/Button";
 
 export default function VisibilityPost({ onChangedVisibility, onCancel }) {
   const { alert, freeze, unfreeze } = useContext(Context)
@@ -55,8 +56,8 @@ export default function VisibilityPost({ onChangedVisibility, onCancel }) {
     <ModalWindow>
       <h2>{`Do you want to set the post ${visible ? 'private' : 'public'} ?`}</h2>
       <div className="toggle-visibility_buttons">
-        <button onClick={handleToggleVisibility}>Yes</button>
-        <button onClick={onCancel}>Cancel</button>
+        <Button onClick={handleToggleVisibility}>Yes</Button>
+        <Button onClick={onCancel}>Cancel</Button>
       </div>
     </ModalWindow>
   </ModalContainer>

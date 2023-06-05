@@ -2,7 +2,9 @@ import { registerUser } from "../logic/registerUser"
 import './pages-styles/Register.css'
 import Context from "../Context"
 import { useContext } from "react"
-
+import Form from "../library/Form";
+import Input from "../library/Input";
+import Button from "../library/Button";
 
 export default function Register ({ onLoginClick, onRegisterUser }) {
   const { alert, freeze, unfreeze } = useContext(Context)
@@ -45,12 +47,12 @@ export default function Register ({ onLoginClick, onRegisterUser }) {
     <div className="register page container">
       <h1 className="title">Register</h1>
 
-      <form className="register-form form" onSubmit={handleRegisterIn}>
-          <input className="input" type="text" name="name" placeholder="name" />
-          <input className="input" type="email" name="email" placeholder="email" />
-          <input className="input" type="password" name="password" placeholder="password" />
-          <button className="button" type="submit">Register</button>
-      </form>
+      <Form className="register-form form" onSubmit={handleRegisterIn}>
+          <Input className="input" type="text" name="name" placeholder="name" />
+          <Input className="input" type="email" name="email" placeholder="email" />
+          <Input className="input" type="password" name="password" placeholder="password" />
+          <Button className="button" type="submit">Register</Button>
+      </Form>
 
       <p>Go to <a href="" onClick={handleOnLogin}>Login</a></p>
     </div>

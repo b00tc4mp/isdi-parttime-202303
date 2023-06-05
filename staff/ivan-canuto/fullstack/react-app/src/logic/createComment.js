@@ -11,7 +11,6 @@ import { validateText, validateCallback } from "./helpers/validators";
  */
 
 export default function createComment(commentText, userId, postId, callBack) {
-
   validateText(commentText)
   validateCallback(callBack)
 

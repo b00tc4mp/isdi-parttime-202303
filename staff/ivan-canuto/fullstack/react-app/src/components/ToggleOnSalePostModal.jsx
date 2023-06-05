@@ -6,7 +6,9 @@ import Context from "../Context"
 import ModalContainer from "../library/ModalContainer"
 import ModalWindow from "../library/ModalWindow"
 import retrievePost from "../logic/retrievePost"
-
+import Form from "../library/Form";
+import Input from "../library/Input";
+import Button from "../library/Button";
 
 export default function ToggleOnSalePost({ onToggledOnSalePost, onCancel }) {
   const { alert, freeze, unfreeze } = useContext(Context)
@@ -82,21 +84,21 @@ export default function ToggleOnSalePost({ onToggledOnSalePost, onCancel }) {
             Do you want to sell this post?
             Please, set a sell price.
           </h2>
-          <form className="set-post-price_form" onSubmit={handleSetPostPrice}>
-            <input type="number" name="pricePost" min={1} max={10000} defaultValue={1}/>
+          <Form className="set-post-price_form" onSubmit={handleSetPostPrice}>
+            <Input type="number" name="pricePost" min={1} max={10000} defaultValue={1}/>
             <div className="set-post-price_buttons">
-              <button>Set price</button>
-              <button type="button" onClick={onCancel}>Cancel</button>
+              <Button>Set price</Button>
+              <Button type="button" onClick={onCancel}>Cancel</Button>
             </div>
-          </form>
+          </Form>
         </ModalWindow>
       }
       {(onSale && onSale !== 'Sold') && 
         <ModalWindow>
           <h2>Do you want to remove this item from the sale?</h2>
           <div className="unset-post-price_buttons">
-            <button onClick={handleUnsetPostPrice}>Yes</button>
-            <button onClick={onCancel}>Cancel</button>
+            <Button onClick={handleUnsetPostPrice}>Yes</Button>
+            <Button onClick={onCancel}>Cancel</Button>
           </div>
         </ModalWindow>
       }

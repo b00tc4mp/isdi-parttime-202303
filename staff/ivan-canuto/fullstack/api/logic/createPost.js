@@ -1,7 +1,12 @@
 const { readFile, writeFile } = require('fs')
+const { validators: { validateCallback, validateText, validateUrl, validateId } } = require('com')
+
 
 module.exports = function createPost( userId, imageUrl, postText, callBack) {
-
+  validateId(userId, 'user id')
+  validateUrl(imageUrl)
+  validateText(postText)
+  validateCallback(callBack)
 
   readFile('./data/users.json', 'utf8', (error, usersJSON) => {
     if(error) {

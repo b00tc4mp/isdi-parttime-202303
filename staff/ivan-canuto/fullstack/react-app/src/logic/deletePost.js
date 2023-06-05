@@ -10,7 +10,6 @@ import { validateCallback, validateId } from "./helpers/validators";
  */
 
 export default function deletePost(postId, userId, callBack) {
-
   validateId(userId, 'user id')
   validateId(postId, 'post id')
   validateCallback(callBack)

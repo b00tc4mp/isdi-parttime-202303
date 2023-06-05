@@ -1,6 +1,10 @@
 const { readFile, writeFile } = require('fs')
+const { validators: { validateId, validateCallback } } = require('com')
 
 module.exports = function toggleVisibilityPost(postId, callBack) {
+  validateId(postId, 'post id')
+  validateCallback(callBack)
+
   readFile('./data/posts.json', 'utf8', (error, postsJSON) => {
     if(error) {
       callBack(error)
