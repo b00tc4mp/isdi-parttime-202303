@@ -3,6 +3,8 @@ import { useState, useEffect, useContext } from 'react'
 import { context } from '../ui'
 import Context from '../Context'
 
+import { Container, Button } from '../library'
+
 export const DEFAULT_AVATAR_URL = "https://img.icons8.com/color/512/avatar.png"
 
 import Profile from '../components/Profile'
@@ -122,10 +124,10 @@ export default function Home({ onLogout }) {
                         <a className = "name" href="" onClick={handleGoToProfile}>{user.name}</a>
                     </>}
                 </nav>
-                <button className = "button" name = "logout" onClick={handleLogout}>Logout</button>   
+                <Button name = "logout" onClick={handleLogout}>Logout</Button>   
             </header>
 
-            <main>
+            <Container tag="main">
                 {view === 'posts' && <Posts 
                     onModifyedPost={handleGoToPosts}
                     onEditedPost={handleOpenEditPost}
@@ -155,11 +157,11 @@ export default function Home({ onLogout }) {
                     onCancel={handleCloseModalPost}
                     onCreatedPost={handleCloseModalPost}
                 />}
-            </main>
+            </Container>
 
             <footer className="home-footer">
-                <button className="add-post-button" onClick={handleOpenAddPost}>+</button>
-                <section>
+                <Button className="add-post-button" onClick={handleOpenAddPost}>+</Button>
+                <Container tag="section">
                     <label className="name" htmlFor="typePosts">Choose a type posts:</label>
                     <select id="typePosts" onChange={handleTypePost}>
                         <option value="all" >All</option>
@@ -167,7 +169,7 @@ export default function Home({ onLogout }) {
                         <option value="save">Save</option>
                         <option value="onSale">On sale</option>
                     </select>
-                </section>
+                </Container>
             </footer>
         </div>
     </>

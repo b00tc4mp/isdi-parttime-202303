@@ -3,7 +3,7 @@ import { useContext, useEffect, useState } from 'react'
 import { context } from '../ui'
 import Context from '../Context'
 
-import Container from '../library/Container'
+import { Container, Form, Input, Button } from '../library'
 
 import authenticateUser from '../logic/authenticateUser'
 
@@ -72,11 +72,11 @@ export default function Login({ onRegisterClick, onUserLoggedIn }) {
 
             { quote && <p><q>{quote}</q></p> }
 
-            <form className="form" action="" onSubmit={handleLogin}>
-                <input className="input" type="email" name="email" placeholder="usuario@dominio.com" /><br/>
-                <input className="input" type="password" size="10" name="password" placeholder="password" /><br/>
-                <button className = "button" type="submit">Login</button>
-            </form>
+            <Form onSubmit={handleLogin}>
+                <Input type="email" name="email" placeholder="usuario@dominio.com" /><br/>
+                <Input type="password" size="10" name="password" placeholder="password" /><br/>
+                <Button className = "button" type="submit">Login</Button>
+            </Form>
             <p>Go to <a href="" onClick={handleRegisterClick}>Register</a></p>
         </Container>
     </>

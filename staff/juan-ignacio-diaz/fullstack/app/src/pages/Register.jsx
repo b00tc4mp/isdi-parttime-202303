@@ -2,6 +2,8 @@ import { useContext } from 'react'
 
 import Context from '../Context'
 
+import { Container, Form, Input, Button } from '../library'
+
 import registerUser from "../logic/registerUser"
 
 export default function Register({ onLoginClick, onRegistered}) {
@@ -56,17 +58,17 @@ export default function Register({ onLoginClick, onRegistered}) {
 
     return <>
         <Container tag="div" className="register page">
-            <h1 className="title">Register</h1>
+            <h1 className="text-[var(--primary)]">Register</h1>
 
-            <form className="form" action="" onSubmit={handleRegister}>
+            <Form onSubmit={handleRegister}>
                 <label className="title" htmlFor="nameRegister">Name: </label>
-                <input className="input" type="text" name="name" placeholder="name" />
+                <Input type="text" name="name" placeholder="name" />
                 <label className="title" htmlFor="emailRegister">E-mail: </label>
-                <input className="input" type="email" name="email" placeholder="usuario@dominio.com" />
+                <Input type="email" name="email" placeholder="usuario@dominio.com" />
                 <label className="title" htmlFor="passwordRegister">Password: </label>
-                <input className="input" type="password" name="password" placeholder="password" /><br/>
-                <button className = "button" type="submit">Register</button>
-            </form>
+                <Input type="password" name="password" placeholder="password" /><br/>
+                <Button type="submit">Register</Button>
+            </Form>
             <p>Go to <a href="" onClick={handleLoginClick}>Login</a></p>
         </Container>
     </>

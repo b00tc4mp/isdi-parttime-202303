@@ -1,4 +1,7 @@
-import { validateEmail, validatePassword, validateCallback } from './helpers/validators'
+//import { validateEmail, validatePassword, validateCallback } from './helpers/validators'
+import { validators } from 'com'
+const { validateEmail, validatePassword, validateCallback } = validators
+
 import { findUserByEmail } from '../data'
 
 export default function authenticateUser(email, password, callback) {
@@ -15,5 +18,4 @@ export default function authenticateUser(email, password, callback) {
 
         callback(null, user.id)
     })
-
 }

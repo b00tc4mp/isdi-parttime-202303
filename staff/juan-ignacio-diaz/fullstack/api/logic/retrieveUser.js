@@ -1,6 +1,6 @@
-import { validateId } from './helpers/validators'
-
 const { readFile } = require('fs')
+
+const { validators: { validateId } } = require('com')
 
 module.exports = function retrieveUser(userId, callback) {
     validateId(userId)
