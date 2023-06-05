@@ -74,7 +74,7 @@ export default function Posts({ onEditPost, onAddPostClick, lastPostsUpdate, pos
 
     useEffect(() => {
         console.log('Refresh Posts -> render in useEffect')
-        debugger
+
         handleRefreshPosts()
 
     }, [postsFilter])
