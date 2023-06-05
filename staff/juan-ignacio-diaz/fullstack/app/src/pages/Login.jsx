@@ -29,6 +29,7 @@ export default function Login({ onRegisterClick, onUserLoggedIn }) {
                 setQuote(quote)
             })   
         } catch(error) {
+            unfreeze()
             alert(error.message)
         }
     }, [])
@@ -60,6 +61,7 @@ export default function Login({ onRegisterClick, onUserLoggedIn }) {
             })
         }
         catch (error){
+            unfreeze()
             alert(error.message)
         }   
     }

@@ -66,6 +66,7 @@ export default function Posts({ onEditedPost, onAddedPriceToPost , typePosts, la
                 })                
         }
         catch (error) {
+            unfreeze()
             alert(error.message)
         }   
     }

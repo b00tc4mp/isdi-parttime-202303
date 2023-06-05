@@ -38,6 +38,7 @@ export default function Profile({ onEditedProfile, user }){
             })
         }
         catch(error) {
+            unfreeze()
             alert(error.message)
         }
     }
@@ -63,6 +64,7 @@ export default function Profile({ onEditedProfile, user }){
             })
         }
         catch(error) {
+            unfreeze()
             alert(error.message)
         }
     }
@@ -93,6 +95,7 @@ export default function Profile({ onEditedProfile, user }){
             })
         }
         catch (error) {
+            unfreeze()
             alert(error.message)
 
             if (error.cause === "password") {

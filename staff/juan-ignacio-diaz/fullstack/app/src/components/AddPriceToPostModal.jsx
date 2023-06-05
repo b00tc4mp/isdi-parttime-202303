@@ -26,6 +26,7 @@ export default function AddPriceToPostModal({ onCancel, onAddedPriceToPost, post
                 setPost(post)
             })
         } catch (error) {
+            unfreeze()
             alert(error.message)
         }
     }, [postId])
@@ -52,6 +53,7 @@ export default function AddPriceToPostModal({ onCancel, onAddedPriceToPost, post
                 onAddedPriceToPost()
             })
         } catch(error) {
+            unfreeze()
             alert(error.message)
         }
     }

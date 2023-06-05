@@ -32,6 +32,7 @@ export default function Post ({ post: { id, author, image, text, date, likes, da
             })  
         }
         catch(error){
+            unfreeze()
             alert(error.message)
         }
     }
@@ -51,6 +52,7 @@ export default function Post ({ post: { id, author, image, text, date, likes, da
             })
         }
         catch(error){
+            unfreeze()
             alert(error.message)
         }
     }
@@ -72,6 +74,7 @@ export default function Post ({ post: { id, author, image, text, date, likes, da
             })
         }
         catch(error){
+            unfreeze()
             alert(error.message)
         }
     }
@@ -91,6 +94,7 @@ export default function Post ({ post: { id, author, image, text, date, likes, da
             })
         }
         catch(error){
+            unfreeze()
             alert(error.message)
         }
     }
@@ -110,6 +114,7 @@ export default function Post ({ post: { id, author, image, text, date, likes, da
             })
         }
         catch(error){
+            unfreeze()
             alert(error.message)
         }
     }
