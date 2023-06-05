@@ -1,6 +1,7 @@
 import Form from './Form'
 import Input from './Input'
 import Button from './Button'
+import TextArea from './TextArea'
 import Container from './Container'
 import Loader from './Loader'
 
@@ -9,5 +10,6 @@ export {
     Loader,
     Form,
     Input,
-    Button
+    Button,
+    TextArea
 }

@@ -2,7 +2,7 @@ import createPost from '../logic/createPost.js'
 import { context }  from '../ui.js'
 import { useContext } from 'react'
 import Context from '../components/Context.js'
-import Container from '../library/Container.jsx'
+import {Container, Input, Button, TextArea} from '../library'
 
 export default function AddPostModal ({onCancel, onPostCreated}){
     console.debug('AddPostModal -> render')
@@ -41,10 +41,10 @@ export default function AddPostModal ({onCancel, onPostCreated}){
 
     return <Container tag="section" className="add-post">
         <Container tag="form" className="add-post-form" onSubmit={handleCreatePost}>
-            <input className="input" type="url" name="imageUrl" placeholder="image url" />
-            <textarea className="input" name="text" cols="30" rows="10" placeholder="text"></textarea>
-            <button className="button" type="submit">Create</button>
-            <button className="button cancel" type="button" onClick={handleCancel}>Cancel</button> 
+            <Input type="url" name="imageUrl" placeholder="image url" />
+            <TextArea name="text" cols="30" rows="10" placeholder="text"></TextArea>
+            <Button className="button" type="submit">Create</Button>
+            <Button className="button cancel" type="button" onClick={handleCancel}>Cancel</Button> 
         </Container>
     </Container>
 }  

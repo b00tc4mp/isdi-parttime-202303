@@ -7,7 +7,7 @@ import EditPostModal from '../components/EditPostModal.jsx'
 import retrieveUser from '../logic/retrieveUser'
 import { useContext } from 'react'
 import Context from '../components/Context.js'
-import Container from '../library/Container.jsx'
+import { Container, Button }  from '../library'
 
 
 export default function Home({ onLoggedOut }) {
@@ -87,7 +87,7 @@ export default function Home({ onLoggedOut }) {
     return <div className="home">
         <header className="home-header">
             
-            <h3 className="home-header-title" onClick={handleGoToPosts}>HOME</h3>
+            <h3  className="text-yellow-600 text-2xl" onClick={handleGoToPosts}>HOME</h3>
             <div className="home-menu" >
                 {user && <>
                 {<img className="home-header-avatar" src={user.avatar} alt="" />}
@@ -123,7 +123,7 @@ export default function Home({ onLoggedOut }) {
         </Container>
 
         <footer className="home-footer">
-            <button className="add-post-button" onClick={handleOpenAddPostModal}>+</button>
+            <Button className="add-post-button" onClick={handleOpenAddPostModal}>+</Button>
 
         </footer>
     </div>

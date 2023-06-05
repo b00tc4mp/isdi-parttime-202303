@@ -4,7 +4,7 @@ import retrievePost from '../logic/retrievePost.js'
 import { useState, useEffect } from 'react'
 import { useContext } from 'react'
 import Context from '../components/Context.js'
-import Container from '../library/Container.jsx'
+import {Container, Input, Button, TextArea} from '../library'
 
 export default function EditPostModal({ onCancel, onPostUpdated, postId}) {
     const { alert } = useContext(Context)
@@ -60,11 +60,11 @@ export default function EditPostModal({ onCancel, onPostUpdated, postId}) {
     return <>
     {post && <Container tag ="section" className="edit-post">
     <Container tag="form" className="edit-post-form container" onSubmit={handleUpdatePost}>
-                <input className="input" type="hidden" name="postId" />
-                <input className="input" type="url" name="imageUrl" placeholder="image url" defaultValue={post.image} />
-                <textarea className="input" name="text" cols="30" rows="10" placeholder="text" defaultValue={post.text}></ textarea>
-                <button className="button" type="submit">UpdatePost</ button>
-                <button className="button cancel" type="button" onClick={handleCancel}>Cancel</button>
+                <Input type="hidden" name="postId" />
+                <Input type="url" name="imageUrl" placeholder="image url" defaultValue={post.image} />
+                <TextArea name="text" cols="30" rows="10" placeholder="text" defaultValue={post.text}></ TextArea>
+                <Button type="submit">UpdatePost</ Button>
+                <Button className="button cancel" type="button" onClick={handleCancel}>Cancel</Button>
             </Container>
         </Container>}
         </>
