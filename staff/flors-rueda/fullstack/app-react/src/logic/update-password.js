@@ -1,6 +1,10 @@
 import { saveUser } from '../data/data';
 import { findUserById } from '../data/data-managers';
-import { validateCallback, validateId, validatePassword } from '../data/validators';
+import { validators } from 'com';
+
+const { validateCallback, validateId, validatePassword } = validators;
+
+
 
 /**
  * Updates an user password

@@ -1,28 +1,29 @@
 import { saveUser } from '../data/data';
 import { findUserById } from '../data/data-managers';
-import { validateCallback, validateId, validateName } from '../data/validators';
+import { validators } from 'com';
+
+const { validateId, validateMail, validateCallback } = validators;
 
 /**
- * Updates an user display name
+ * Updates an user mail
  * 
- * @param {string} name The new name
+ * @param {string} mail The new mail
  * @param {string} userId The user's id
  * @param {function} callback Function that controls the errors
  * 
  */
-export const updateName = (name, userId, callback) => {
-    validateName(name);
-    validateId(userId);
+export const updateMail = (mail, userId, callback) => {
+    validateMail(mail);
+    validateId(userId)
     validateCallback(callback);
-    
+  
     findUserById(userId, user => {
         if (!user) {
             callback(new Error('user not found'));
             return;
         }
 
-        user.name = name;
-
+        user.mail = mail;
         saveUser(user, () => callback(null));
     })
 };

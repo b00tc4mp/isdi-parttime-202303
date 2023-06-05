@@ -1,5 +1,7 @@
-import { validateUsername, validatePassword, validateCallback} from '../data/validators';
+import { validators } from 'com';
 import { findUserByUsername } from '../data/data-managers';
+
+const { validateUsername, validatePassword, validateCallback} = validators;
 
 /**
  * Authenticates a user by username and password

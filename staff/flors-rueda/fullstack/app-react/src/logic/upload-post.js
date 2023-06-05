@@ -1,7 +1,9 @@
 import { loadPosts, savePosts } from '../data/data';
 import { findUserById } from '../data/data-managers';
 import { generateUUID } from './helpers/generateUUID';
-import { validateCallback, validateId, validatePostText } from '../data/validators';
+import { validators } from 'com';
+
+const { validateCallback, validateId, validatePostText } = validators;
 
 /**
  * Creates a post by it's image and text.

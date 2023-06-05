@@ -1,7 +1,8 @@
 import { loadPosts } from '../data/data';
 import { findUserById } from '../data/data-managers';
-import { validateCallback, validateId } from '../data/validators';
+import { validators } from 'com';
 
+const { validateCallback, validateId } = validators;
 
 /**
  * Retrieve's all the posts published by an specific user by its id.

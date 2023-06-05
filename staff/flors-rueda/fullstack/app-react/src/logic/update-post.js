@@ -1,6 +1,8 @@
 import { findPostById, findUserById} from '../data/data-managers';
 import { savePost } from '../data/data';
-import { validateCallback, validateId, validatePostText } from '../data/validators';
+import { validators } from 'com';
+
+const { validateCallback, validateId, validatePostText } = validators;
 
 /**
  * Edits the post text and image

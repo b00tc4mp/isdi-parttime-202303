@@ -1,6 +1,9 @@
 import { loadPosts, loadUsers } from '../data/data';
 import { findUserById } from '../data/data-managers';
-import { validateCallback, validateId } from '../data/validators';
+import { validators } from 'com';
+
+const { validateCallback, validateId } = validators;
+
 
 /**
  * Retrieve's the favorite posts and its data of an user

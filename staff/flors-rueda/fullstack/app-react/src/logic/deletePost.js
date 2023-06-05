@@ -1,6 +1,8 @@
 import { loadPosts, savePosts } from '../data/data';
+import { validators } from 'com';
 import { findPostById, findUserById } from '../data/data-managers';
-import { validateId, validateCallback } from '../data/validators';
+
+const { validateId, validateCallback } = validators;
 
 /**
  * Deletes a post by its id.

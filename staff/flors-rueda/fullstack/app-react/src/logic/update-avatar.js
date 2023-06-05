@@ -1,6 +1,9 @@
 import { saveUser } from '../data/data';
 import { findUserById } from '../data/data-managers';
-import { validateCallback, validateId } from '../data/validators';
+import { validators } from 'com';
+
+const { validateCallback, validateId } = validators;
+
 
 /**
  * Update the avatar

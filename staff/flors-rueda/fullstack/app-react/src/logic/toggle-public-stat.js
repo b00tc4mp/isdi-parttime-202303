@@ -1,16 +1,18 @@
 import { savePost } from '../data/data';
 import { findPostById, findUserById } from '../data/data-managers';
-import { validateCallback, validateId } from '../data/validators';
+import { validators } from 'com';
+
+const { validateCallback, validateId } = validators;
 
 /**
- * Toggles a user into the likes of a post by their ids
+ * Toggles the public stat of a post by its id
  * 
  * @param {string} postId The post id
  * @param {string} userId The user id
  * @param {function} callback Function that controls the errors
  * 
 */
-export const toggleLike = (postId, userId, callback) => {
+export const togglePublicStat = (postId, userId, callback) => {
   validateId(postId);
   validateId(userId);
   validateCallback(callback);
@@ -26,9 +28,7 @@ export const toggleLike = (postId, userId, callback) => {
             callback(new Error(`post with id ${postId} not found`));
             return;
         }
-
-        const index = post.likes.indexOf(userId);
-        index < 0 ? post.likes.push(userId) : post.likes.splice(index, 1);
+        post.isPublic = !post.isPublic
 
         savePost(post, () => callback(null));
     })

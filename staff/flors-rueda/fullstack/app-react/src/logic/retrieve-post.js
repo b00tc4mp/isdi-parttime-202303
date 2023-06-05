@@ -1,5 +1,8 @@
 import { findPostById, findUserById } from '../data/data-managers';
-import { validateCallback, validateId } from '../data/validators';
+import { validators } from 'com';
+
+const { validateCallback, validateId } = validators;
+
 
 /**
  * Retrieve's all the post data

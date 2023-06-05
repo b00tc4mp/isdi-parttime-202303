@@ -1,6 +1,8 @@
 import { loadPosts, loadUsers, savePosts, saveUsers } from '../data/data';
 import { findUserById } from '../data/data-managers';
-import { validateCallback, validateId, validatePassword } from '../data/validators';
+import { validators } from 'com';
+
+const { validateCallback, validateId, validatePassword } = validators;
 
 /**
  * Deletes a user by user id and password

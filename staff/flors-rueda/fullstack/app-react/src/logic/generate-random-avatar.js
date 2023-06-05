@@ -1,6 +1,8 @@
-import { findUserById } from "../data/data-managers";
-import { validateCallback, validateId } from "../data/validators";
-import { getPokemonSprite } from "./helpers/getPokemonSprite";
+import { findUserById } from '../data/data-managers';
+import { getPokemonSprite } from './helpers/getPokemonSprite';
+import { validators } from 'com';
+
+const { validateCallback, validateId } = validators;
 
 /**
  * Generates a new random avatar

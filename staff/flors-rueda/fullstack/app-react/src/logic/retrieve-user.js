@@ -1,5 +1,7 @@
 import { findUserById } from '../data/data-managers';
-import { validateCallback, validateId } from '../data/validators';
+import { validators } from 'com';
+
+const { validateCallback, validateId } = validators;
 
 /**
  * Retrieve's the data of an user by its id

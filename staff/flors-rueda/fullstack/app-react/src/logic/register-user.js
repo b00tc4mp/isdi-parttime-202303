@@ -2,7 +2,9 @@ import { generateUUID } from './helpers/generateUUID';
 import { findUserByMail, findUserByUsername } from '../data/data-managers';
 import { loadUsers, saveUsers } from '../data/data';
 import { getPokemonSprite } from './helpers/getPokemonSprite';
-import { validateCallback, validateMail, validateRepeatPassword, validateUsername } from '../data/validators';
+import { validators } from 'com';
+
+const { validateCallback, validateMail, validateRepeatPassword, validateUsername } = validators;
 
 /**
  * Creates a user by mail, username and password. Adds the rest of the info.
