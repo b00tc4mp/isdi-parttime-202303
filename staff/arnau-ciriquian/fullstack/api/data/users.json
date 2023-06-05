@@ -21,6 +21,8 @@
         "email": "onilla@ciriquian.com",
         "password": "Onilla1",
         "avatar": null,
-        "favs": []
+        "favs": [
+            "post-1"
+        ]
     }
 ]
