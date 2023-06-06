@@ -8,110 +8,109 @@ import { context } from "../ui"
 import './Home.css'
 import retrieveUser from "../logic/users/retrieveUser"
 
-export default function Home( {onLogoutClick, onUserProfile, onSetThemeClick, onShowAllPosts, onShowLikedPosts, onShowSavedPosts} ) {
-        const [view, setView] = useState('posts')
-        const [modal, setModal] = useState(null)
-        const [theme, setTheme] = useState('')
-        const [postId, setPostId] = useState(null)
-        const [lastPostsUpdate, setLastPostsUpdate] = useState(null)
-        const [postsFilter, setPostsFilter] = useState()
-        const userId = context.userId
+export default function Home({ onLogoutClick, onUserProfile, onSetThemeClick, onShowAllPosts, onShowLikedPosts, onShowSavedPosts }) {
+    const [view, setView] = useState('posts')
+    const [modal, setModal] = useState(null)
+    const [theme, setTheme] = useState('')
+    const [postId, setPostId] = useState(null)
+    const [lastPostsUpdate, setLastPostsUpdate] = useState(null)
+    const [postsFilter, setPostsFilter] = useState()
+    const userId = context.userId
 
 
 
 
-            const handleAddPost = () => setModal('add-post')
-            const handleModalOff = () => setModal(null)
+    const handleAddPost = () => setModal('add-post')
+    const handleModalOff = () => setModal(null)
 
-            const handlePostCreated = () => {
-                setModal(null)
-                setLastPostsUpdate(Date.now())
-            }
+    const handlePostCreated = () => {
+        setModal(null)
+        setLastPostsUpdate(Date.now())
+    }
 
-            const handlePostUpdated = () => {
-                setModal(null)
-                setLastPostsUpdate(Date.now())
-            }
+    const handlePostUpdated = () => {
+        setModal(null)
+        setLastPostsUpdate(Date.now())
+    }
 
-            const onToggleLikePostClick = () => {
-                setLastPostsUpdate(Date.now())
-            }
+    const onToggleLikePostClick = () => {
+        setLastPostsUpdate(Date.now())
+    }
 
-            const onToggleSavePostClick = () => {
-                setLastPostsUpdate(Date.now())
-            }
+    const onToggleSavePostClick = () => {
+        setLastPostsUpdate(Date.now())
+    }
 
-            // const handleToggleLikesSaves = () => forceUpdate()
-            const handleEditPost = (id) => {
-                setModal('edit-post')
-                setPostId(id)
-            }
+    // const handleToggleLikesSaves = () => forceUpdate()
+    const handleEditPost = (id) => {
+        setModal('edit-post')
+        setPostId(id)
+    }
 
-            const handleLogOut = () => {
-                setView('')
-                onLogoutClick()
-            }
-             
-            function handleShowAllPosts() { 
-                onShowAllPosts()
-            }
-            function handleShowLikedPosts() { 
-                debugger
-                setPostsFilter('liked')
-            }
-            function handleShowSavedPosts() { 
-                setPostsFilter('saved')
-            }
-        
-            const handleGoToUserProfile = () => {
-                setModal('user-profile')
+    const handleLogOut = () => {
+        setView('')
+        onLogoutClick()
+    }
 
-                if(onSetThemeClick === 'light') {
-                alert('light')
-            }
-                if(onSetThemeClick === 'dark') {
-                    alert('dark')
-                }
+    function handleShowAllPosts() {
+        setPostsFilter('')
+    }
+    function handleShowLikedPosts() {
+        setPostsFilter('liked')
+    }
+    function handleShowSavedPosts() {
+        setPostsFilter('saved')
+    }
 
-                onUserProfile()
-   
-            }
-            const handleGoBackClick = (event) => {
+    const handleGoToUserProfile = () => {
+        setModal('user-profile')
 
-                event.target.parentElement.classList.add('start-animation')
-                event.target.parentElement.parentElement.querySelector('.user-account').classList.add('start-animation')
-                setTimeout(() => {
-                    setModal(null)
-                }, 1000
-                )
-            }
-            const handleSetThemeClick = (event) => {
-                setModal('user-profile')
-                if(localStorage.theme !== 'dark') {
-                    setTheme('dark')
-                    localStorage.theme = 'dark'
-                } else if(localStorage.theme === 'dark') {
-                    setTheme('light')
-                    localStorage.theme = 'light'
-                }
-            }
-            const handleHideMenuOptions = () => {
-                alert('posts')
-                setView('posts')
-                
-            }
+        if (onSetThemeClick === 'light') {
+            alert('light')
+        }
+        if (onSetThemeClick === 'dark') {
+            alert('dark')
+        }
 
+        onUserProfile()
+
+    }
+    const handleGoBackClick = (event) => {
+
+        event.target.parentElement.classList.add('start-animation')
+        event.target.parentElement.parentElement.querySelector('.user-account').classList.add('start-animation')
+        setTimeout(() => {
+            setModal(null)
+        }, 1000
+        )
+    }
+    const handleSetThemeClick = (event) => {
+        setModal('user-profile')
+        if (localStorage.theme !== 'dark') {
+            setTheme('dark')
+            localStorage.theme = 'dark'
+        } else if (localStorage.theme === 'dark') {
+            setTheme('light')
+            localStorage.theme = 'light'
+        }
+    }
+    const handleHideMenuOptions = () => {
+        alert('posts')
+        setView('posts')
+
+    }
 
 
-        return <>
-            <Header onUserProfile={handleGoToUserProfile} onLoggedOut={handleLogOut} onLikedPostsClick={handleShowLikedPosts} onSavedPostsClick={handleShowSavedPosts} onHomeClick={handleShowAllPosts} selected={modal}  />
-            <main>
-                <section className="section home">               
-                    {view === 'posts' && <Posts onShowAllPosts={onShowAllPosts} onAddPostClick={handleAddPost}  onEditPost={(id) => handleEditPost(id)} lastPostsUpdate={lastPostsUpdate} postsFilter={postsFilter} onToggleSavePostClick={onToggleSavePostClick}  onHideMenuOptions={handleHideMenuOptions} /> }
-                    {modal === 'user-profile' && <Profile goBackClick={handleGoBackClick} selected={modal} onUserProfile={onUserProfile} onThemeSet={theme} themeState={setTheme} onSetThemeClick={handleSetThemeClick} />}
-                </section>
-                {modal === 'add-post' && <AddPostModal onCancel={handleModalOff} onCreateNewPost={handlePostCreated} />}
-                {modal === 'edit-post' && <EditPostModal postId={postId} onPostUpdated={handlePostUpdated} onCancel={handleModalOff}/>}
-            </main>
-        </>
+
+    return <>
+        <Header onUserProfile={handleGoToUserProfile} onLoggedOut={handleLogOut} onLikedPostsClick={handleShowLikedPosts} onSavedPostsClick={handleShowSavedPosts} onHomeClick={handleShowAllPosts} selected={modal} />
+        <main>
+            <section className="section home">
+                {view === 'posts' && <Posts onShowAllPosts={onShowAllPosts} onAddPostClick={handleAddPost} onEditPost={(id) => handleEditPost(id)} lastPostsUpdate={lastPostsUpdate} postsFilter={postsFilter} onToggleSavePostClick={onToggleSavePostClick} onHideMenuOptions={handleHideMenuOptions} />}
+                {modal === 'user-profile' && <Profile goBackClick={handleGoBackClick} selected={modal} onUserProfile={onUserProfile} onThemeSet={theme} themeState={setTheme} onSetThemeClick={handleSetThemeClick} />}
+            </section>
+            {modal === 'add-post' && <AddPostModal onCancel={handleModalOff} onCreateNewPost={handlePostCreated} />}
+            {modal === 'edit-post' && <EditPostModal postId={postId} onPostUpdated={handlePostUpdated} onCancel={handleModalOff} />}
+        </main>
+    </>
 }
