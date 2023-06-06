@@ -48,7 +48,17 @@ module.exports = function updatePost (userId, postId, image, location, title, te
             post.text = text
             post.date = new Date
 
+            posts.push(post)
 
+            json = JSON.stringify(posts, null, 4)
+
+            writeFile('./data/posts.json', json, 'utf8', error => {
+                if(error){
+                    callback(error)
+                    return
+                }
+                callback(null)
+            })
         })
     })    
 }

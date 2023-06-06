@@ -14,7 +14,7 @@ describe('retrieveUser', () => {
         email = `e-${Math.random()}@mail.com`
         password = `password-${Math.random()}`
         avatar =  null
-        favs = []
+        favs = null
 
     })
 
@@ -28,18 +28,11 @@ describe('retrieveUser', () => {
             retrieveUser(id, (error, user) => {
                 expect(error).to.be.null
                 
-                readFile('./data/users.json', 'utf8', error => {
-                    expect(error).to.be.null
+                expect(user.name).to.equal(name)
+                expect(user.avatar).to.be.null
+                expect(user.avatar).to.be.null
 
-                    const users = JSON.parse(json)
-                    const user = users.find(user => user.id === id)
-
-                    expect(user).to.exist
-                    expect(id).to.equal(user.id)
-
-                    done()
-
-                })
+                done()                
             })
         })
     })
