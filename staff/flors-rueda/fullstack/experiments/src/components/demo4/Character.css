@@ -2,23 +2,7 @@
   position: absolute;
   width: 2rem;
   height: 2rem;
-  cursor: pointer;
+  cursor: grab;
   transition: transform 0.2s;
-}
-
-.character.red {
   background-color: tomato;
-}
-
-.character.blue {
-  background-color: steelblue;
-}
-
-.character.green {
-  background-color: forestgreen;
-}
-
-.character.dragging {
-  transform: scale(1.25);
-  cursor: grabbing;
 }
