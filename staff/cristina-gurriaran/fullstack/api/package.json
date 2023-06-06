@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha logic/*.spec.js",
+    "test": "mocha logic/**/*.spec.js",
     "test-inspect": "mocha --inspect-brk logic/*.spec.js"
   },
   "keywords": [],
@@ -17,4 +17,4 @@
   "dependencies": {
     "com": "file:../com"
   }
-}
+}   

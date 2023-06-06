@@ -4,7 +4,7 @@ const { validators: { validateEmail, validatePassword, validateCallback } } = re
 module.exports = function authenticateUser(email, password, callback) {
     validateEmail(email)
     validatePassword(password)
-    validateCallback(callBack)
+    validateCallback(callback)
 
     readFile('./data/users.json', 'utf8', (error, json) => {
         if(error) {
@@ -12,8 +12,7 @@ module.exports = function authenticateUser(email, password, callback) {
 
             return
         }
-        debugger
-
+        
         const users = JSON.parse(json)
         const user = users.find(user => user.email === email)
 
