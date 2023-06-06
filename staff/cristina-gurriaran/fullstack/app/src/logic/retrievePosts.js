@@ -1,5 +1,7 @@
-import { validateId, validateCallback } from './helpers/validators'
+import { validators } from 'com'
 import { findUserById, loadPosts, loadUsers } from '../data'
+const { validateId, validateCallback } = validators
+
 
 export default function retrievePosts(userId, callback) {
     validateId(userId, 'user id')

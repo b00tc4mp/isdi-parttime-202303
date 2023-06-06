@@ -1,5 +1,6 @@
-import {validateId, validateUrl, validateText, validateCallback} from './helpers/validators.js'
+import { validators } from 'com'
 import {findUserById, loadPosts, savePosts} from '../data.js'
+const { validateId, validateUrl, validateText, validateCallback } = validators
 
 export default function createPost(userId, image, location, title, text, callback) {
     validateId(userId, 'user id')
@@ -12,11 +13,6 @@ export default function createPost(userId, image, location, title, text, callbac
             callback(new Error(`user with id ${userId} not found`))
             return
         } 
-
-        if (!user){
-            callback(new Error(`user with id ${userId} not found`))
-            return
-        }
 
         let id = 'post-1'
 

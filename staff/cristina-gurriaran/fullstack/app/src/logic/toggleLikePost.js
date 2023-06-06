@@ -1,6 +1,8 @@
-import {validateId, validateCallback} from './helpers/validators.js'
+import { validators } from 'com'
 import {findUserById, findPostById} from '../data.js'
 import {savePost} from '../data.js'
+const { validateId, validateCallback } = validators
+
 
 
 

@@ -1,7 +1,7 @@
 console.log('load data')
 export const DEFAULT_AVATAR_URL = 'https://cdn-icons-png.flaticon.com/512/4925/4925754.png'
 export const LOGO_URL = 'https://accidentallywesanderson.com/wp-content/themes/awa/assets/images/awa-logo-collapsed.svg'
-const DELAY = 20
+const DELAY = 200
 
 export const loadUsers = callback => setTimeout(() => {
     callback('usersJson' in localStorage ? JSON.parse(localStorage.usersJson) : [])

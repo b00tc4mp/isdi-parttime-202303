@@ -1,6 +1,8 @@
-import {validateId, validateUrl, validateText, validateCallback} from './helpers/validators.js'
+import { validators } from 'com'
 import {findUserById, findPostById} from '../data.js'
 import {savePost} from '../data.js'
+const { validateId, validateUrl, validateText, validateCallback } = validators
+
 
 
 export default function updatePost(userId, postId, image, location, title, text, callback) {
@@ -19,7 +21,7 @@ export default function updatePost(userId, postId, image, location, title, text,
         findPostById(postId, post => {
 
             if (!post){
-                callback(new Error(`user with id ${postId} not found`))
+                callback(new Error(`post with id ${postId} not found`))
                 return
             } 
 
