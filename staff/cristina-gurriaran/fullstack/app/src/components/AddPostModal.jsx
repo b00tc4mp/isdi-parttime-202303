@@ -1,13 +1,12 @@
 import { context } from '../ui' 
 import createPost from '../logic/createPost'
 import './Modals.css'
-import { useContext } from 'react'
-import Context from '../Context'
+import { useAppContext } from '../hooks'
 
 
 export default function AddPostModal({ onCancel, onPostCreated }) {
 
-    const { alert } = useContext(Context)
+    const { alert } = useAppContext()
 
     function handleCancel(event) {
         event.preventDefault()

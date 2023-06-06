@@ -1,12 +1,12 @@
 import retrieveFavPosts from "../logic/retrieveFavPosts";
 import FavPost from "./FavPost"
 import { context } from "../ui";
-import { useState, useEffect, useContext } from "react";
-import Context from '../Context'
+import { useState, useEffect } from "react";
+import { useAppContext } from '../hooks'
 
 
 export default function FavPosts(){
-    const { alert , freeze, unfreeze} = useContext(Context)
+    const { alert, freeze, unfreeze } = useAppContext()
     const [favPosts, setFavPosts] = useState()
 
     useEffect(() => renderFavPosts(), [])

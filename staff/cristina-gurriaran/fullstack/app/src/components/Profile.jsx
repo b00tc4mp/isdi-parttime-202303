@@ -2,14 +2,14 @@ import updateUserAvatar from "../logic/updateUserAvatar"
 import updateUserPassword from "../logic/updateUserPassword"
 import { context } from "../ui"
 import './Profile.css'
-import Context from '../Context'
 import FavPosts from "./FavPosts"
 import retrieveUser from "../logic/retrieveUser"
-import { useContext, useState, useEffect} from "react"
+import { useState, useEffect} from "react"
+import { useAppContext } from '../hooks'
 
 
 export default function Profile({ onUserAvatarUpdated, onUpdatedUserPassword }) {
-    const { alert } = useContext(Context)
+    const { alert } = useAppContext()
 
     const [view, setView] = useState('favPosts')
     const [user, setUser] = useState()

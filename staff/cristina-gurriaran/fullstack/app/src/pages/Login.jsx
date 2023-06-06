@@ -1,12 +1,11 @@
-import { context } from '../ui.js'
-import authenticateUser from '../logic/authenticateUser.js'
-import { useContext } from 'react'
-import Context from '../Context'
+import { context } from '../ui'
+import authenticateUser from '../logic/authenticateUser'
+import { useAppContext }from '../hooks'
 
 
 export default function Login({ onRegisterClick , onUserLoggedIn }) {
     
-    const { alert } = useContext(Context)
+    const { alert } = useAppContext()
 
     function handleRegisterClick(event) {
         event.preventDefault()

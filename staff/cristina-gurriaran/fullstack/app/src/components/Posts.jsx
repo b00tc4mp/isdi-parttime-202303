@@ -1,11 +1,11 @@
 import retrievePosts from '../logic/retrievePosts'
 import Post from './Post'
 import { context } from '../ui'
-import { useState, useEffect, useContext } from 'react'
-import Context from '../Context'
+import { useState, useEffect } from 'react'
+import { useAppContext } from '../hooks'
 
 export default function Posts({ onEditPost , lastPostsUpdate, user }) {
-    const { alert , freeze, unfreeze} = useContext(Context)
+    const { alert, freeze, unfreeze } = useAppContext()
     const [posts, setPosts] = useState()
 
     useEffect(() => handleRefreshPosts(), [])

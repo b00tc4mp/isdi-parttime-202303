@@ -1,11 +1,11 @@
 import { context } from '../ui'
 import './Post.css'
-import { useContext } from 'react'
-import Context from '../Context'
+import { useAppContext } from '../hooks'
+
 
 export default function FavPost({ post: { id, image, location, title, text, date, likes, author, fav }, onEditPost, onToggledLikePost, onPostDeleted, onToggledSavePost}) {
     
-    const { alert } = useContext(Context)
+    const { alert } = useAppContext()
 
     console.log('Post -> render')
      

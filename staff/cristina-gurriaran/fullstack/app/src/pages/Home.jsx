@@ -7,11 +7,11 @@ import { context } from '../ui'
 import retrieveUser from '../logic/retrieveUser'
 import './Home.css'
 import { LOGO_URL } from "../data.js"
-import { useContext } from 'react'
-import Context from '../Context'
+import { useAppContext } from '../hooks'
+
 
 export default function Home({onLoggedOut}) {
-    const { alert } = useContext(Context)
+    const { alert } = useAppContext()
 
     
     const [view, setView] = useState('posts')
