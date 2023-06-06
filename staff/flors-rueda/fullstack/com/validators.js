@@ -7,6 +7,7 @@ const validateMail = (mail) => {
 
 const validatePassword = (password) => {
   if (typeof password !== 'string') throw new Error('password is not a string', { cause: 'password' });
+  if (!password.trim().length) throw new Error('password is empty', { cause: 'password' });
 }
 
 const validateRepeatPassword = (password, repeatPassword) => {
@@ -24,7 +25,7 @@ const validateUsername = (username) => {
   if (typeof username !== 'string') throw new Error('username is not a string', { cause: 'username' });
   if (!username.trim().length) throw new Error('username is empty', { cause: 'username' });
   const regexRule = /^@[a-z0-9]*$/;
-  if (!regexRule.test(username)) throw new Error('username format is not correct', { cause: 'username' });
+  if (!regexRule.test(`@${username.toLowerCase()}`)) throw new Error('username format is not correct', { cause: 'username' });
 };
 
 const validateImage = (url) => {
