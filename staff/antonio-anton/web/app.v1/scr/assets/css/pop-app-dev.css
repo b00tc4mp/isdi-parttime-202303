@@ -40,6 +40,9 @@ figure, header, nav, section, article, aside, footer, figcaption {
   border: 0;
   outline: 0;
 }
+.off {
+  display: none !important;
+}
 
 /* clear fix */
 .grid:after {
@@ -279,6 +282,12 @@ body {
   color: #fff !important;
 }
 
+div .error{
+  color: #D8000C;
+  background-color: #FFBABA;
+  border-radius: 25px;
+  padding: 10px ;
+}
 
 /* 
 ---------------------------------------------
