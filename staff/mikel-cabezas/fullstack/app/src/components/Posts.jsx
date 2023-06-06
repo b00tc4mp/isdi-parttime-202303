@@ -15,11 +15,11 @@ export default function Posts({ onEditPost, onAddPostClick, lastPostsUpdate, pos
     const [posts, setPosts] = useState()
     // const [postsFilter, setPostsFilter] = useState('all')
     const [user, setUser] = useState()
-    const {freeze, unfreeze} = useContext(Context)
+    const { freeze, unfreeze } = useContext(Context)
     useEffect(() => {
         console.log('Refresh Posts -> render in useEffect')
         freeze()
-        if(!postsFilter) { 
+        if (!postsFilter) {
             retrievePosts(userId, (error, posts) => {
                 unfreeze()
                 if (error) {
@@ -30,7 +30,7 @@ export default function Posts({ onEditPost, onAddPostClick, lastPostsUpdate, pos
                 setPosts(posts)
             })
         }
-        if(postsFilter === 'liked') {
+        if (postsFilter === 'liked') {
             retrieveLikedPosts(userId, (error, posts) => {
                 unfreeze()
                 if (error) {
@@ -41,7 +41,7 @@ export default function Posts({ onEditPost, onAddPostClick, lastPostsUpdate, pos
                 setPosts(posts)
             })
         }
-        if(postsFilter === 'saved') {
+        if (postsFilter === 'saved') {
             retrieveSavedPosts(userId, (error, posts) => {
                 unfreeze()
                 if (error) {
@@ -53,9 +53,9 @@ export default function Posts({ onEditPost, onAddPostClick, lastPostsUpdate, pos
             })
         }
         retrieveUser(userId, (error, user) => {
-            if(error) {
+            if (error) {
                 alert(error.message)
-    
+
                 return
             }
             setUser(user)
@@ -81,43 +81,43 @@ export default function Posts({ onEditPost, onAddPostClick, lastPostsUpdate, pos
 
     function handleRefreshPosts() {
         try {
-            if(!postsFilter) { 
+            if (!postsFilter) {
                 retrievePosts(userId, (error, posts) => {
                     unfreeze()
                     if (error) {
                         alert(error.message)
-    
+
                         return
                     }
                     setPosts(posts)
                 })
             }
-            if(postsFilter === 'liked') {
+            if (postsFilter === 'liked') {
                 retrieveLikedPosts(userId, (error, posts) => {
                     unfreeze()
                     if (error) {
                         alert(error.message)
-    
+
                         return
                     }
                     setPosts(posts)
                 })
             }
-            if(postsFilter === 'saved') {
+            if (postsFilter === 'saved') {
                 retrieveSavedPosts(userId, (error, posts) => {
                     unfreeze()
                     if (error) {
                         alert(error.message)
-    
+
                         return
                     }
                     setPosts(posts)
                 })
             }
             retrieveUser(userId, (error, user) => {
-                if(error) {
+                if (error) {
                     alert(error.message)
-        
+
                     return
                 }
                 setUser(user)
@@ -157,7 +157,7 @@ export default function Posts({ onEditPost, onAddPostClick, lastPostsUpdate, pos
         handleRefreshPosts()
     }
 
-  console.log(postsFilter)
+    console.log(postsFilter)
 
     if (posts) {
         return <>
@@ -175,21 +175,21 @@ export default function Posts({ onEditPost, onAddPostClick, lastPostsUpdate, pos
                     </div>}
                 {posts.length > 0 && posts.map(post => {
 
-                    if(post.visibility === 'private' && post.author.id === userId || post.visibility === 'public') {
+                    if (post.visibility === 'private' && post.author.id === userId || post.visibility === 'public') {
                         return <Post
                             key={post.id}
                             post={post}
                             user={user}
                             onToggleLikePost={handleToggleLikePost}
                             onToggleSavePost={handleToggleSavePost}
-                            onEditPostButton={(id) => handleEditPost(id)} 
+                            onEditPostButton={(id) => handleEditPost(id)}
                             onHideMenuOptions={handleHideMenuOptions}
                         />
                     }
                 })}
             </div>
         </>
-    } 
+    }
 
 
 }

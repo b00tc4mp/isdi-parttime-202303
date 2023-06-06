@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /* ___ GENERAL ______ */
 
 :root {
@@ -15,6 +19,7 @@
   --dark: #262c30;
   --red: #c1574c;
 }
+
 :root.dark {
   --main-background: #1a1d20;
   --container-bg: #262c30;
@@ -23,6 +28,7 @@
   --main-text: #e0dcda;
 
 }
+
 /* html[data-theme="dark"] .container {
   background-color: var(--dark);
 } */
@@ -41,16 +47,21 @@ body {
   margin: 0;
   width: 100%;
 }
-main {
+
+/* main {
   width: calc(100% - 300px);
   margin-left: 300px;
-}
+} */
+
 .main-content {
   min-height: 100vh;
 }
-section.login, section.register {
-  min-height: 100vh;
+
+section.login,
+section.register {
+  /* min-height: 100vh; */
 }
+
 body.block-scroll {
   overflow: hidden;
 }
@@ -59,13 +70,14 @@ form label {
   color: var(--main-text);
 }
 
-.hidden, .off {
+.hidden,
+.off {
   display: none !important;
 }
 
 .section {
   width: 100%;
-  height: 100%;
+  /* height: 100%; */
   /* overflow: hidden; */
   display: flex;
   flex-direction: column;
@@ -93,7 +105,7 @@ button.button--update-info__password,
 button.button--update-info__save-info,
 button.button--update-info__save-password,
 button.button--update-info__cancel-info,
-button.button--update-info__cancel-password, 
+button.button--update-info__cancel-password,
 button.button--create-post_cancel,
 button.button--create-post_save,
 button.button--edit-post,
@@ -119,6 +131,7 @@ input[type="file"] {
   margin: 10px 0 20px 5px;
   color: var(--white);
 }
+
 /* ______ END GENERAL ___ */
 
 
@@ -126,7 +139,12 @@ input[type="file"] {
 
 /* ___ FONTS ______ */
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: 'soleto', sans-serif;
   text-align: center;
   color: var(--main-headings);
@@ -138,10 +156,12 @@ h1 {
   font-weight: 100;
   margin-bottom: 10px;
 }
+
 a {
   color: var(--main-button);
   text-decoration: none;
 }
+
 /* ______ END FONTS ___ */
 
 
@@ -191,12 +211,14 @@ input:not([name="file"]) {
 input::placeholder {
   color: var(--main-background);
 }
+
 input:focus {
   border: solid 2px #28bed8;
   box-shadow: 0 0 3px #28bed87e;
   outline: none;
   transition: linear .2s;
 }
+
 button.submit {
   background: var(--main-button);
   color: #fff;
@@ -210,18 +232,21 @@ button.submit {
   cursor: pointer;
 }
 
-.container .login, .container .register {
+.container .login,
+.container .register {
   font-size: 12px
 }
 
-.register-link p, .login-link p {
+.register-link p {
   margin: 0;
-  color: var(--dark);
+  /* color: var(--dark); */
 }
 
-.register-link, .login-link {
+.register-link,
+.login-link {
   margin-top: 25px;
 }
+
 input:disabled {
   background-color: var(--container-bg);
   opacity: .7;
@@ -234,7 +259,7 @@ input:disabled {
   position: relative;
 }
 
-.password > i.uil {
+.password>i.uil {
   margin: 5px 0 12px;
   position: absolute;
   right: 10px;

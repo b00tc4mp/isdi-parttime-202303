@@ -5,8 +5,8 @@ import UserImage from "./UserImage.jsx"
 import './Header.css'
 import UpdateUserInfo from "./UpdateUserInfo.jsx"
 
-export default function Header( {onUserProfile, onHomeClick, onLoggedOut, selected, onSetThemeClick, onLikedPostsClick,
-    onSavedPostsClick} ) {
+export default function Header({ onUserProfile, onHomeClick, onLoggedOut, selected, onSetThemeClick, onLikedPostsClick,
+    onSavedPostsClick }) {
     const [current, setCurrent] = useState(null)
     const [loggedIn, setloggedIn] = useState(false)
     const [savelUpdateProfile, setSavelUpdateProfile] = useState(null)
@@ -52,16 +52,16 @@ export default function Header( {onUserProfile, onHomeClick, onLoggedOut, select
     }
     const renderUser = () => {
         try {
-            if(userId) {
+            if (userId) {
                 setloggedIn(true)
-              }
+            }
 
         } catch (error) {
             console.log(error.message)
         }
     }
 
-    
+
 
     if (loggedIn) {
         return <>
@@ -73,13 +73,13 @@ export default function Header( {onUserProfile, onHomeClick, onLoggedOut, select
                     <nav className="menu">
                         <ul>
                             <li className="homepage" onClick={handleHome}>Homepage</li>
-                            <li className="homepage" onClick={handleLikedPosts}>My liked posts</li>
-                            <li className="homepage" onClick={handleSavedPosts}>My favorite posts</li>
+                            <li className="homepage" onClick={handleLikedPosts}><span className="material-symbols-outlined like">favorite</span>My liked posts</li>
+                            <li className="homepage" onClick={handleSavedPosts}><span className="material-symbols-outlined save">bookmark</span>My favorite posts</li>
                             <li className="user-account">
-                                <UserImage userId={userId}/>
+                                <UserImage userId={userId} />
                             </li>
                             <li><span className="material-symbols-outlined">web_stories</span>
-                            Feed</li>
+                                Feed</li>
                             <li className={`user-settings ${selected === 'user-profile' ? 'current' : ''}`} onClick={handleUserProfile}><span className="material-symbols-outlined filled">settings</span>
                                 User settings</li>
                             <li className="logout" onClick={handleLogout}><span className="material-symbols-outlined"> logout </span>Logout</li>
