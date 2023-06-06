@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useAppContext } from '../hooks';
 import buyPost from "../logic/buyPost";
 import deletePost from "../logic/deletePost";
 import retrieveUser from "../logic/retrieveUser";
@@ -8,14 +9,15 @@ import { context } from "../ui";
 import './Post.css';
 
 const Post = ({ post: { id, author, image, likes, favourite, price, text, date},
-                onEdit, 
-                onLike,
-                onFavourite,
-                onDelete,
-                onSell,
-                onBuy
-              }) => {
+  onEdit, 
+  onLike,
+  onFavourite,
+  onDelete,
+  onSell,
+  onBuy
+}) => {
   
+  const { alert } = useAppContext()
   const [user, setUser] = useState()
 
   useEffect(() => {

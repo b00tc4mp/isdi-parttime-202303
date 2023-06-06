@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react"
-import { retrieveFavourites } from "../logic/retrieveFavourites"
-import { context } from "../ui"
-
+import { useEffect, useState } from "react";
+import { useAppContext } from '../hooks';
+import { retrieveFavourites } from "../logic/retrieveFavourites";
+import { context } from "../ui";
 
 const Favourites = () => {
-
+  const { alert } = useAppContext()
+  
   const [ postFavourites, setPostFavourites] = useState(null)
 
   useEffect(() => {

@@ -1,0 +1,22 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.cjs",
+  "scripts": {
+    "test": "mocha logic/*.spec.cjs",
+    "test-inspect": "mocha --inspect-brk logic/*.spec.cjs",
+    "test-coverage": "nyc --reporter=html --reporter=text mocha logic/*.spec.cjs"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "chai": "^4.3.7",
+    "mocha": "^10.2.0",
+    "nyc": "^15.1.0"
+  },
+  "dependencies": {
+    "com": "file:../com"
+  }
+}

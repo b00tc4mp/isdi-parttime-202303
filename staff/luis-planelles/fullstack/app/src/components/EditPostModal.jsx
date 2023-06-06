@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react"
-import retrievePost from "../logic/retrievePost"
-import updatePost from "../logic/updatePost"
-import { context } from "../ui"
-
+import { useEffect, useState } from "react";
+import { useAppContext } from '../hooks';
+import retrievePost from "../logic/retrievePost";
+import updatePost from "../logic/updatePost";
+import { context } from "../ui";
 
 const EditPostModal = ({postId, onCancel, onPostUpdated}) => {
+  const { alert } = useAppContext()
   
   const [postEdit, setPostEdit] = useState(null)
 

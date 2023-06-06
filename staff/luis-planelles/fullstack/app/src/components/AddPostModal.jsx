@@ -1,7 +1,9 @@
+import { useAppContext } from '../hooks';
 import createPost from '../logic/createPost';
 import { context } from '../ui';
 
 const AddPostModal = ({ onCancel, onPostCreate }) => {
+  const { alert } = useAppContext()
 
   const handleCancelAddPost = (event) => {
     event.preventDefault()

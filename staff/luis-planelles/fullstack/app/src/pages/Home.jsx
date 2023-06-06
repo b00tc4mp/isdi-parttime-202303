@@ -7,13 +7,14 @@ import PostsUser from '../components/PostUser'
 import Posts from '../components/Posts'
 import Profile from '../components/Profile'
 import ProfileUpdateModal from '../components/ProfileUpdateModal'
+import { useAppContext } from '../hooks'
 import retrieveUser from '../logic/retrieveUser'
 import { context } from '../ui'
 import './Home.css'
 
-
 const Home = ({onLoggedOut}) => {
-
+  const { alert } = useAppContext()
+  
   const [view, setView] = useState('posts'),
     [modal, setModal] = useState(null),
     [postId, setPostId] = useState(null),

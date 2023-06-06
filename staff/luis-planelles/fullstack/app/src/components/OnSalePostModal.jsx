@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
+import { useAppContext } from '../hooks';
 import removePostFromSale from '../logic/removePostFromSale';
 import retrievePost from '../logic/retrievePost';
 import sellPost from '../logic/sellPost';
 import { context } from '../ui';
 
 const OnSalePostModal = ({ postId, onCancel, onPostUpdated }) => {
+  const { alert } = useAppContext()
 
   const [price, setPrice] = useState('');
   

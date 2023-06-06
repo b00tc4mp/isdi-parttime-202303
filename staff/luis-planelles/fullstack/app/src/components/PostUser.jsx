@@ -1,9 +1,11 @@
-import { useEffect, useState } from "react"
-import retrievePostsUser from "../logic/retrievePostsUser"
-import { context } from "../ui"
-import Post from "./Post"
+import { useEffect, useState } from "react";
+import { useAppContext } from '../hooks';
+import retrievePostsUser from "../logic/retrievePostsUser";
+import { context } from "../ui";
+import Post from "./Post";
 
 const PostsUser = ({onEditPost, lastPostUpdate}) => {
+  const { alert } = useAppContext()
 
   const [userPosts, setUserPosts] = useState(null);
 

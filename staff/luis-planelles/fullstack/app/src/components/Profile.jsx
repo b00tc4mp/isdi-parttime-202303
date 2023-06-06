@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useAppContext } from '../hooks';
 import retrievePostsUser from "../logic/retrievePostsUser";
 import retrieveUser from "../logic/retrieveUser";
 import { context } from "../ui";
@@ -6,7 +7,8 @@ import './Profile.css';
 
 
 const Profile = ({onOpenEditProfile, onOpenFavourites, onProfileImageClick}) => {
-
+  const { alert } = useAppContext()
+  
   const [postsUser, setPostsUser] = useState(null),
     [profileUser, setProfileUser] = useState(null)
     

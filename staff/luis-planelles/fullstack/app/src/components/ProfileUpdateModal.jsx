@@ -1,8 +1,10 @@
+import { useAppContext } from '../hooks';
 import updateUserAvatar from '../logic/updateUserAvatar';
 import updateUserPassword from '../logic/updateUserPassword';
 import { context } from '../ui';
 
 const ProfileUpdateModal = ({onUserAvatarUpdated}) => {
+  const { alert } = useAppContext()
 
   const handleUpdateAvatar = (event) => {
     event.preventDefault()
