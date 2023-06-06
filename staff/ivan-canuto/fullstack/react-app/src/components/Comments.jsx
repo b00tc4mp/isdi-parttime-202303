@@ -3,14 +3,14 @@ import { useState } from "react"
 import deleteComment from "../logic/deleteComment"
 import Comment from "./Comment"
 import './components-styles/Comments.css'
-import Context from "../Context"
-import { useContext } from "react"
 import { context } from "../ui"
 import Button from "../library/Button";
-import Textarea from "../library/Textarea";
+import Form from "../library/Form";
+import ModalContainer from "../library/ModalContainer"
+import { useAppContext } from "../hooks"
 
 export default function Comments({ onCloseCommentModal, handleRefreshPosts, post }) {
-  const { alert, freeze, unfreeze } = useContext(Context)
+  const { alert, freeze, unfreeze } = useAppContext()
 
   const [addComment, setAddComment] = useState(false)
 
@@ -39,13 +39,13 @@ export default function Comments({ onCloseCommentModal, handleRefreshPosts, post
 
           return
         }
-        
         toggleAddComment()
+        handleRefreshPosts()
       })
 
     } catch(error) {
-
-      alert(error)
+      unfreeze()
+      alert(error.message, 'error')
       console.debug(error.stack);
     }
   }
@@ -68,6 +68,7 @@ export default function Comments({ onCloseCommentModal, handleRefreshPosts, post
       })
 
     } catch (error) {
+      unfreeze()
       alert(error.message, 'error')
       console.debug(error.stack)
     }
@@ -95,19 +96,19 @@ export default function Comments({ onCloseCommentModal, handleRefreshPosts, post
       </div>
       
       {addComment ? 
-        <div className="add-comment container" onClick={(event) => {
-          if(event.target === document.querySelector('.add-comment'))
+        <ModalContainer onClick={(event) => {
+          if(event.target === document.querySelector('.ModalContainer'))
             toggleAddComment()
         }}>
-          <form className="add-comment_form" onSubmit={handleCreateComment}>
+          <Form className='bg-white h-72' onSubmit={handleCreateComment}>
           <h2>Add comment</h2>
-            <Textarea className="comment-text" cols="30" rows="10" name="commentText" autoFocus></Textarea>
+            <textarea className="textarea" cols="30" rows="10" name="commentText" autoFocus></textarea>
             <div className="add-comment_form_buttons">
               <Button>Add</Button>
               <Button type="button" onClick={toggleAddComment}>Cancel</Button>
             </div>
-          </form>
-        </div>
+          </Form>
+        </ModalContainer>
         :
         <Button className="add-comment_button" onClick={toggleAddComment}>Add comment</Button>
       }

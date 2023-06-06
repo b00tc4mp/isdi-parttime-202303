@@ -2,15 +2,14 @@ import { context } from "../ui"
 import updateUserPassword from "../logic/updateUserPassword"
 import updateUserAvatar from "../logic/updateUserAvatar"
 import './components-styles/ProfileModal.css'
-import Context from "../Context"
-import { useContext } from "react"
 import ModalContainer from "../library/ModalContainer"
 import Input from "../library/Input"
 import Button from "../library/Button"
 import Form from "../library/Form"
+import { useAppContext } from "../hooks"
 
 export default function Profile({ onCancel, onUpdatedAvatar}) {
-  const { alert, freeze, unfreeze } = useContext(Context)
+  const { alert, freeze, unfreeze } = useAppContext()
 
   const closeProfile = () => {
     onCancel()
@@ -30,11 +29,13 @@ export default function Profile({ onCancel, onUpdatedAvatar}) {
 
         if(error) {
           alert(error.message, 'error')
-          console.debug(error.stack);
+          console.debug(error.stack)
           return
         }
         
+        alert('Avatar changed successfully.')
         onUpdatedAvatar()
+        closeProfile()
       })
 
     } catch (error) {
@@ -60,9 +61,11 @@ export default function Profile({ onCancel, onUpdatedAvatar}) {
         if(error) {
           alert(error.message, 'error')
           console.debug(error.stack);
+
           return
         }
         
+        alert('Password changed successfully.')
         closeProfile()
       })
 
@@ -73,28 +76,28 @@ export default function Profile({ onCancel, onUpdatedAvatar}) {
     }
   }
   
-  return <ModalContainer tag='section' onClick={(event) => {
+  return <ModalContainer className='gap-3' tag='section' onClick={(event) => {
     if(event.target === document.querySelector('.ModalContainer'))
       onCancel()
     }}>
-    <Form className="change-avatar change-form" onSubmit={handleChangeAvatar}>
+    <Form className='bg-white w-80 sm:w-96' onSubmit={handleChangeAvatar}>
         <h2>Update avatar</h2>
-        <div>
+        <div className="flex flex-col gap-2 py-5">
             <Input type="url" name="avatarUrl" placeholder="avatar url"/>
             <Input type="password" name="password" placeholder="password"/>
             <Button>Update</Button>
         </div>
     </Form>
-    <Form className="change-password change-form" onSubmit={handleChangePassword}>
+    <Form className='bg-white w-80 sm:w-96' onSubmit={handleChangePassword}>
         <h2>Update password</h2>
-        <div>
+        <div className="flex flex-col gap-2 py-5">
             <Input type="password" name="password" placeholder="password"/>
             <Input type="password" name="newPassword" placeholder="new password"/>
             <Input type="password" name="newPasswordConfirm" placeholder="new password confirmation"/>
             <Button>Update</Button>
         </div>
     </Form>
-    <Button className="bg-red-400 hover:bg-red-500" onClick={closeProfile}>Close</Button>
+    <Button className="bg-red-400 hover:bg-red-500 w-28" onClick={closeProfile}>Close</Button>
 </ModalContainer>
   
 }

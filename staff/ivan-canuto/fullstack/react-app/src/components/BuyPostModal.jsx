@@ -2,15 +2,14 @@ import { findPostById } from "../data"
 import { context } from "../ui"
 import buyPost from "../logic/buyPost"
 import { useEffect, useState } from "react"
-import Context from "../Context"
-import { useContext } from "react"
 import './components-styles/BuyPostModal.css'
 import ModalContainer from "../library/ModalContainer"
 import ModalWindow from "../library/ModalWindow"
 import Button from "../library/Button";
+import { useAppContext } from "../hooks"
 
 export default function BuyPost({ onBoughtPost, onCancel }) {
-  const { alert, freeze, unfreeze } = useContext(Context)
+  const { alert, freeze, unfreeze } = useAppContext()
 
   const [post, setPost] = useState()
 

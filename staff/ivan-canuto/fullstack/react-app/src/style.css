@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+  .textarea {
+    @apply w-full h-40 border-2 border-gray-200 p-2 rounded-lg
+  }
+}
+
 /* resets */
 html, body {
   min-height: 100vh;
@@ -62,13 +68,6 @@ body::-webkit-scrollbar {
   min-width: 60vw;
   gap: 1rem;
 }
-
-/* .input, .button {
-  padding: .5rem .6rem;
-  border-radius: .75rem;
-  background-color: var(--basecolor);
-  box-shadow: 0 0 0 20px var(--inputcolor) inset;
-} */
 
 button {
   cursor: pointer;

@@ -25,7 +25,6 @@ export const createPost = (userId, imageUrl, postText, callBack) => {
     }
     
     loadPosts((posts) => {
-
       let id = 'post-1'
       const lastPost = posts[posts.length - 1]
       if (lastPost) id = 'post-' + (parseInt(lastPost.id.slice(5)) + 1)

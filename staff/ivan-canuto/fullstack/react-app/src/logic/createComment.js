@@ -15,18 +15,17 @@ export default function createComment(commentText, userId, postId, callBack) {
   validateCallback(callBack)
 
   findUserById(userId, (user) => {
-
     if(!user) {
       callBack(new Error('User not found.'))
   
       return
     }
-
-    let id = 'comment-1'
-    const lastComment = post.comments[post.comments.length - 1]
-    if (lastComment) id = 'comment-' + (parseInt(lastComment.id.slice(8)) + 1)
-
-    findPostById(postId, (post) => {      
+    
+    findPostById(postId, (post) => {  
+      let id = 'comment-1'
+      const lastComment = post.comments[post.comments.length - 1]
+      if (lastComment) id = 'comment-' + (parseInt(lastComment.id.slice(8)) + 1)
+      
       post.comments.push({
           author: user.name,
           authorId: user.id,

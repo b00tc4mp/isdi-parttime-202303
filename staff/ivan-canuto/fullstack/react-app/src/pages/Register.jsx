@@ -5,6 +5,7 @@ import { useContext } from "react"
 import Form from "../library/Form";
 import Input from "../library/Input";
 import Button from "../library/Button";
+import Container from "../library/Container";
 
 export default function Register ({ onLoginClick, onRegisterUser }) {
   const { alert, freeze, unfreeze } = useContext(Context)
@@ -38,23 +39,24 @@ export default function Register ({ onLoginClick, onRegisterUser }) {
       })
 
     } catch (error) {
+      unfreeze()
       alert(error.message, 'error')
       console.debug(error.stack);
     }
   }
 
   return <>
-    <div className="register page container">
+    <Container>
       <h1 className="title">Register</h1>
 
       <Form className="register-form form" onSubmit={handleRegisterIn}>
-          <Input className="input" type="text" name="name" placeholder="name" />
-          <Input className="input" type="email" name="email" placeholder="email" />
-          <Input className="input" type="password" name="password" placeholder="password" />
-          <Button className="button" type="submit">Register</Button>
+          <Input type="text" name="name" placeholder="name" />
+          <Input type="email" name="email" placeholder="email" />
+          <Input type="password" name="password" placeholder="password" />
+          <Button type="submit">Register</Button>
       </Form>
 
       <p>Go to <a href="" onClick={handleOnLogin}>Login</a></p>
-    </div>
+    </Container>
   </>
 }

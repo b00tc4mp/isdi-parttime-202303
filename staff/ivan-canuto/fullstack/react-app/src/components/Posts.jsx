@@ -5,11 +5,10 @@ import { useState, useEffect } from "react";
 import { retrieveSavedPosts } from "../logic/retrieveSavedPosts";
 import { retrieveUserPosts } from "../logic/retrieveUserPosts";
 import './components-styles/Posts.css'
-import Context from "../Context";
-import { useContext } from "react";
+import { useAppContext } from "../hooks"
 
 export default function Posts({ lastPostsUpdate, view, handleOpenBuyPost, handleOpenEditPost, handleOpenDeletePost, handleToggleVisibility, handleToggleOnSalePost }) {
-  const { alert, freeze, unfreeze } = useContext(Context)
+  const { alert, freeze, unfreeze } = useAppContext()
 
   const [posts, setPosts] = useState(null)
 
@@ -65,6 +64,7 @@ export default function Posts({ lastPostsUpdate, view, handleOpenBuyPost, handle
       }
 
     } catch(error) {
+      unfreeze()
       alert(error.message, 'error')
       console.debug(error.stack);
     }

@@ -2,16 +2,14 @@ import { context } from "../ui"
 import { updatePost } from "../logic/updatePost"
 import retrievePost from "../logic/retrievePost"
 import { useEffect, useState } from "react"
-import Context from "../Context"
-import { useContext } from "react"
 import ModalContainer from "../library/ModalContainer"
-import ModalWindow from "../library/ModalWindow"
 import Button from "../library/Button";
 import Input from "../library/Input";
-import Textarea from "../library/Textarea";
+import Form from "../library/Form"
+import { useAppContext } from "../hooks"
 
 export default function EditPost({ onCancel, onUpdatedPost }) {
-  const { alert, freeze, unfreeze } = useContext(Context)
+  const { alert, freeze, unfreeze } = useAppContext()
 
   const [post, setPost] = useState()
 
@@ -68,25 +66,25 @@ export default function EditPost({ onCancel, onUpdatedPost }) {
   console.debug('EditPost -> render');
 
   return <>
-    <ModalContainer tag='section' className="edit-post" onClick={(event) => {
+    <ModalContainer tag='section' onClick={(event) => {
       if(event.target === document.querySelector('.ModalContainer'))
         onCancel()
     }}>
-      <ModalWindow tag='form' className="edit-post_form" onSubmit={handleEditButton}>
+      <Form className='bg-white w-96' onSubmit={handleEditButton}>
         <h2 className="edit-form_text">Edit post</h2>
         {post && <>
-          <Input className="post-url" type="url" name="postImage" placeholder="URL Image" defaultValue={post.image}/>
-          <img className="post-image" src={post.image}/>
-          <Textarea className="post-text" name="postText" placeholder="Post text" cols="30" rows="10" defaultValue={post.text} autoFocus></Textarea>
+          <Input className='' type="url" name="postImage" placeholder="URL Image" defaultValue={post.image}/>
+          <img src={post.image}/>
+          <textarea className="textarea" name="postText" placeholder="Post text" cols="30" rows="10" defaultValue={post.text}></textarea>
           </> || <>
-          <Input className="post-url" type="url" name="postImage" placeholder="Loading..." disabled/>
-          <Textarea className="post-text" name="postText" placeholder="Loading..." cols="30" rows="10" autoFocus disabled></Textarea>
+          <Input type="url" name="postImage" placeholder="Loading..." disabled/>
+          <textarea className="textarea" name="postText" placeholder="Loading..." cols="30" rows="10" disabled></textarea>
         </>}
-        <div className="edit-post-form_buttons">
-          <Button className="button">Edit post</Button>
-          <Button className="cancel-button button" type="button" onClick={onCancel}>Canel</Button>
+        <div className="w-full justify-center gap-4">
+          <Button>Edit post</Button>
+          <Button type="button" onClick={onCancel}>Canel</Button>
         </div>
-      </ModalWindow>
+      </Form>
     </ModalContainer>
   </>
 }

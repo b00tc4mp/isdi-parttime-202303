@@ -4,13 +4,11 @@ import { context } from "../ui"
 import './components-styles/VisibilityPostModal.css'
 import ModalContainer from "../library/ModalContainer"
 import toggleVisibilityPost from "../logic/toggleVisibilityPost"
-import Context from "../Context"
-import { useContext } from "react"
 import ModalWindow from "../library/ModalWindow"
 import Button from "../library/Button";
 
 export default function VisibilityPost({ onChangedVisibility, onCancel }) {
-  const { alert, freeze, unfreeze } = useContext(Context)
+  const { alert, freeze, unfreeze } = useAppContext()
   const [visible, setVisible] = useState()
 
   useEffect(() => {
@@ -54,10 +52,10 @@ export default function VisibilityPost({ onChangedVisibility, onCancel }) {
       onCancel()
   }}>
     <ModalWindow>
-      <h2>{`Do you want to set the post ${visible ? 'private' : 'public'} ?`}</h2>
-      <div className="toggle-visibility_buttons">
-        <Button onClick={handleToggleVisibility}>Yes</Button>
-        <Button onClick={onCancel}>Cancel</Button>
+      <h2 className="text-xl">{`Do you want to set the post ${visible ? 'private' : 'public'} ?`}</h2>
+      <div className="flex justify-around w-full">
+        <Button className='text-lg px-5' onClick={handleToggleVisibility}>Yes</Button>
+        <Button className='text-lg px-5' onClick={onCancel}>Cancel</Button>
       </div>
     </ModalWindow>
   </ModalContainer>

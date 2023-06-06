@@ -43,6 +43,7 @@ export default function Home(props) {
         
       })
     } catch (error) {
+      unfreeze()
       alert(error.message, 'error')
       console.debug(error.stack)
     }
@@ -120,8 +121,10 @@ export default function Home(props) {
         }
 
         setUser(user)
+        setLastPostsUpdate(Date.now())
       })
     } catch (error) {
+      unfreeze()
       alert(error.message, 'error')
       console.debug(error.stack)
     }

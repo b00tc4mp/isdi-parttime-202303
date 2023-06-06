@@ -43,6 +43,7 @@ export default function Login ({ onRegisterClick, onLoggedInUser }) {
       })
       
     } catch (error) {
+      unfreeze()
       alert(error.message, 'error')
       console.debug(error.stack)
     }
@@ -65,6 +66,7 @@ export default function Login ({ onRegisterClick, onLoggedInUser }) {
         setQuote(newQuote)
       })
     } catch (error) {
+      unfreeze()
       alert(error.message, 'error')
       console.log(error.stack)
     }

@@ -3,7 +3,8 @@ import './components-styles/Alert.css'
 
 export default function Alert({ message, level, onAccept }) {
   
-  console[level](message)
+  // console[level](message)
+  console.debug(message)
 
   let color = 'blue'
   

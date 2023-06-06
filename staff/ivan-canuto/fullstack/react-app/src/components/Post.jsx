@@ -1,19 +1,19 @@
-import { useContext, useState } from "react"
+import { useState } from "react"
 import { context } from "../ui"
 import toggleLikePost from "../logic/toggleLikePost"
 import toggleSavePost from "../logic/toggleSavePost"
 import Comments from "./Comments"
 import './components-styles/Post.css'
-import Context from "../Context"
 import ContextualMenu from "./ContextualMenuModal"
 import Button from "../library/Button";
+import { useAppContext } from "../hooks"
 
 export default function Post({post, handleRefreshPosts, handleOpenEditPost, handleOpenDeletePost, handleToggleVisibility, handleToggleOnSalePost, handleOpenBuyPost }) {
   
   const [modal, setModal] = useState('post')
   const [contextualMenu, setContextualMenu] = useState('close')
   
-  const { alert, freeze, unfreeze } = useContext(Context)
+  const { alert, freeze, unfreeze } = useAppContext()
   const { image, id, likes, date, text, author, visible, onSale } = post
 
   const handleCloseCommentModal = () => {
@@ -80,6 +80,7 @@ export default function Post({post, handleRefreshPosts, handleOpenEditPost, hand
     context.postId = id
     document.body.classList.toggle('fixed-scroll')
     setContextualMenu(contextualMenu === 'close' ? 'open' : 'close')
+    handleRefreshPosts()
   }
 
   console.debug('Post -> render')
@@ -122,11 +123,11 @@ export default function Post({post, handleRefreshPosts, handleOpenEditPost, hand
                   context.postId = id
                   handleOpenBuyPost( )
                 }
-              }}>
-              <span className="material-symbols-outlined">local_mall</span>
-              {onSale !== 'Sold' && `${onSale}€`}
-              {onSale === 'Sold' && `Post sold`}
-            </Button>}
+                }}>
+                <span className="material-symbols-outlined">local_mall</span>
+                {onSale !== 'Sold' && `${onSale}€`}
+                {onSale === 'Sold' && `Post sold`}
+              </Button>}
           </div>
         </section>
         

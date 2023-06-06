@@ -1,17 +1,17 @@
-import { useContext, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { context } from "../ui"
 import './components-styles/ToggleOnSalePostModal.css'
 import { setPostPrice , unsetPostPrice } from "../logic/togglePostPrice"
-import Context from "../Context"
 import ModalContainer from "../library/ModalContainer"
 import ModalWindow from "../library/ModalWindow"
 import retrievePost from "../logic/retrievePost"
 import Form from "../library/Form";
 import Input from "../library/Input";
 import Button from "../library/Button";
+import { useAppContext } from "../hooks"
 
 export default function ToggleOnSalePost({ onToggledOnSalePost, onCancel }) {
-  const { alert, freeze, unfreeze } = useContext(Context)
+  const { alert, freeze, unfreeze } = useAppContext()
 
   const [onSale, setOnSale] = useState()
 
