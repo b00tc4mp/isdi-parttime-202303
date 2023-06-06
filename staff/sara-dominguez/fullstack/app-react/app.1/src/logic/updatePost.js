@@ -7,10 +7,7 @@
 // - save posts
 
 import { savePost, findUserById, findPostById } from "../data.js";
-// import { validateId, validatePostId, validatePostUrl, validateText, validateCallback } from "./helpers/validators.js";
-import { validators } from 'com'
-
-const { validateId, validatePostId, validatePostUrl, validateText, validateCallback } = validators
+import { validateId, validatePostId, validatePostUrl, validateText, validateCallback } from "./helpers/validators.js";
 
 export function updatePost(userId, postId, imageUrl, text, callback) {
     validateId(userId)

@@ -1,8 +1,6 @@
 import { savePosts, loadPosts, saveUsers, loadUsers } from "../data.js";
 import { findUserById, findPostById } from "../data.js";
-// import { validateId, validatePostId, validateCallback } from "./helpers/validators.js";
-import { validators } from 'com'
-const { validateId, validatePostId, validateCallback} = validators
+import { validateId, validatePostId, validateCallback } from "./helpers/validators.js";
 
 export default function deletePost(userId, postId, callback) {
     validateId(userId)

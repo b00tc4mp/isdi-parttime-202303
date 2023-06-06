@@ -1,8 +1,5 @@
-// import { validateEmail, validatePassword, validateCallback } from "./helpers/validators.js"
+import { validateEmail, validatePassword, validateCallback } from "./helpers/validators.js"
 import { findUserByEmail } from "../data.js"
-import{ validators } from 'com'
-
-const { validateEmail, validatePassword, validateCallback } = validators
 
 /**
  * Authenticate a user by email and password

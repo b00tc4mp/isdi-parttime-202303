@@ -1,10 +1,7 @@
 console.debug('load registerUser')
 
-// import { validateName, validateEmail, validatePassword, validateCallback } from "./helpers/validators.js"
+import { validateName, validateEmail, validatePassword, validateCallback } from "./helpers/validators.js"
 import { loadUsers, saveUsers, findUserByEmail } from "../data.js"
-import { validators } from 'com'
-
-const { validateName, validateEmail, validatePassword, validateCallback } = validators
 
 export function registerUser(name, email, password, callback) {
   validateName(name)

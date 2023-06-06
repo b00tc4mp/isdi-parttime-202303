@@ -1,8 +1,5 @@
 import { savePost, findUserById, findPostById } from "../data.js";
-// import { validateCallback, validateId, validatePostId} from "./helpers/validators.js";
-import { validators } from 'com'
-
-const { validateCallback, validateId, validatePostId } = validators
+import { validateCallback, validateId, validatePostId} from "./helpers/validators.js";
 
 export default function toggleLikePost(userId, postId, callback) {
     validateId(userId)

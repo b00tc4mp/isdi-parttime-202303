@@ -1,10 +1,7 @@
 console.debug('validated-user-newPasssword')
 
-// import { validateId, validatePassword, validateUserNewPassword, validateUserConfirmNewPassword, validateCallback } from "./helpers/validators.js"
+import { validateId, validatePassword, validateUserNewPassword, validateUserConfirmNewPassword, validateCallback } from "./helpers/validators.js"
 import { saveUser, findUserById } from "../data.js"
-import {validators } from 'com'
-
-const {validateId, validatePassword, validateUserNewPassword, validateUserConfirmNewPassword, validateCallback} = validators
 
 export function validatedNewPassword(userId, password, userNewPassword, userConfirmNewPassword, callback) {
     validateId(userId)

@@ -1,11 +1,8 @@
 console.debug('load create-post')
 
-// import { validateId, validateUserAvatar, validateText, validateCallback } from "./helpers/validators.js"
-import { validators } from 'com'
+import { validateId, validateUserAvatar, validateText, validateCallback } from "./helpers/validators.js"
 import {findUserById} from "../data.js"
 import { loadPosts, savePosts } from "../data.js"
-
-const { validateId, validateUserAvatar, validateText, validateCallback } = validators
 
 export default function createPost(userId, image, text, callback) {
     validateId(userId, 'user id')

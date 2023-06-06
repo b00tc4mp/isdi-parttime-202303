@@ -87,7 +87,7 @@ export default function Home({ onLoggedOut }) {
     return <div className="home">
         <header className="home-header">
             
-            <h3  className="text-yellow-600 text-2xl cursor-pointer" onClick={handleGoToPosts}>HOME</h3>
+            <h3  className="text-yellow-600 text-2xl" onClick={handleGoToPosts}>HOME</h3>
             <div className="home-menu" >
                 {user && <>
                 {<img className="home-header-avatar" src={user.avatar} alt="" />}

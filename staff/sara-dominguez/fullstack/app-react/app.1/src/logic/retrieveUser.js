@@ -1,10 +1,7 @@
 console.debug('load retrieve-user')
 
-// import { validateId, validateCallback } from "./helpers/validators.js"
+import { validateId, validateCallback } from "./helpers/validators.js"
 import { findUserById } from "../data.js"
-import { validators } from 'com'
-
-const { validateId, validateCallback } = validators
 
 export default function retrieveUser(userId, callback) {
     validateId(userId)
