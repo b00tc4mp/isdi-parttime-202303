@@ -1,7 +1,7 @@
 const { readFile, writeFile } = require('fs')
 const { validators: { validateName, validateEmail, validatePassword, validateCallback } } = require('com')
 
-module.exports = (name, email, password, callback) => {
+module.exports = function registerUser(name, email, password, callback) {
     validateName(name)
     validateEmail(email)
     validatePassword(password)
