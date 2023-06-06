@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&display=swap');
 
 * {
@@ -8,35 +12,38 @@
     outline: none;
 }
 
-:root {
-    --f-montserrat: "montserrat", sans-serif;
-    --op-50: /50%;
-    --op-80: /80%;
-    --c-back-val: 162 5% 20%;
-    --c-base-val: 162 5% 6%;
-    --c-gray-val: 162 10% 40%;
-    --c-lime-val: 162 100% 45%;
-    --c-gray_light-val: 162 10% 70%;
-    --c-lime: hsl(var(--c-lime-val));
-    --c-lime_dark: hsl(var(--c-lime_dark-val));
-    --c-base: hsl(var(--c-base-val));
-    --c-back: hsl(var(--c-back-val));
-    --c-gray: hsl(var(--c-gray-val));
-    --c-gray_light: hsl(var(--c-gray_light-val));
-    --c-back-80: hsl(var(--c-back-val) var(--op-80));
-    --c-base--80: hsl(var(--c-base-val) var(--op-80));
-    --c-base--50: hsl(var(--c-base-val) var(--op-50));
-    --c-gray_light--50: hsl(var(--c-gray_light-val) var(--op-50));
-    --c-gray_light--80: hsl(var(--c-gray_light-val) var(--op-80));
-    --c-lime_dark-val:162 100% 35%;
-    --c-red: hsl(340, 100%, 60%);
-    --c-blue_dark: hsl(243, 100%, 22%);
-    --c-white: hsl(45, 6%, 86%);
-    --c-bg-gr: linear-gradient(315deg, var(--c-lime) 0%, var(--c-blue_dark) 100%);
-    --c-btn-gr: linear-gradient(315deg, var(--c-blue_dark) 0%, var(--c-red) 100%);
+@layer {
+
+    :root {
+        --f-montserrat: "montserrat", sans-serif;
+        --op-50: /50%;
+        --op-80: /80%;
+        --c-back-val: 162 5% 20%;
+        --c-base-val: 162 5% 6%;
+        --c-gray-val: 162 10% 40%;
+        --c-lime-val: 162 100% 45%;
+        --c-gray_light-val: 162 10% 70%;
+        --c-lime: hsl(var(--c-lime-val));
+        --c-lime_dark: hsl(var(--c-lime_dark-val));
+        --c-base: hsl(var(--c-base-val));
+        --c-back: hsl(var(--c-back-val));
+        --c-gray: hsl(var(--c-gray-val));
+        --c-gray_light: hsl(var(--c-gray_light-val));
+        --c-back-80: hsl(var(--c-back-val) var(--op-80));
+        --c-base--80: hsl(var(--c-base-val) var(--op-80));
+        --c-base--50: hsl(var(--c-base-val) var(--op-50));
+        --c-gray_light--50: hsl(var(--c-gray_light-val) var(--op-50));
+        --c-gray_light--80: hsl(var(--c-gray_light-val) var(--op-80));
+        --c-lime_dark-val: 162 100% 35%;
+        --c-red: hsl(340, 100%, 60%);
+        --c-blue_dark: hsl(243, 100%, 22%);
+        --c-white: hsl(45, 6%, 86%);
+        --c-bg-gr: linear-gradient(315deg, var(--c-lime) 0%, var(--c-blue_dark) 100%);
+        --c-btn-gr: linear-gradient(315deg, var(--c-blue_dark) 0%, var(--c-red) 100%);
+    }
 }
 
- :root.dark-theme body {
+:root.dark-theme body {
     background-color: var(--c-base);
 }
 
@@ -239,8 +246,8 @@ input[type="url"] {
 }
 
 textarea:focus,
-input:focus, input:focus::placeholder
- {
+input:focus,
+input:focus::placeholder {
     box-shadow: none;
     border: none;
     background-color: var(--c-gray);
@@ -272,7 +279,7 @@ button {
 }
 
 
-:root.dark-theme .button{
+:root.dark-theme .button {
     box-shadow: 2px 2px 2px var(--c-base);
 }
 
@@ -281,7 +288,8 @@ button {
     background-size: 500%;
     box-shadow: 5px 5px 5px var(--c-base--50);
 }
-:root.dark-theme .button:hover{
+
+:root.dark-theme .button:hover {
     box-shadow: 5px 5px 5px var(--c-base);
 
 }
@@ -289,8 +297,8 @@ button {
 
 
 .button:active {
-     background-image: unset;
-     color: var(--c-blue_dark);
+    background-image: unset;
+    color: var(--c-blue_dark);
     background-color: var(--c-lime);
     text-shadow: none;
     box-shadow: none;
@@ -330,11 +338,12 @@ button {
     background-color: var(--c-base--80);
     padding: 2rem;
 }
+
 .add-post-modal,
 .edit-post-modal {
     z-index: 1;
     backdrop-filter: blur(10px);
--webkit-backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 }
 
 .add-post-modal form,
@@ -381,7 +390,7 @@ button.menu-open:active {
     color: var(--c-back);
 }
 
-@media screen and (max-width: 600px)  {
+@media screen and (max-width: 600px) {
     button.menu-open {
         height: 50px;
         padding: 0 1rem;
@@ -402,7 +411,7 @@ button.menu-open:active {
         max-width: 100%;
     }
 
-    .post-buttons-wrapper{
+    .post-buttons-wrapper {
         padding: 1rem 0 0 0;
     }
 
@@ -450,8 +459,9 @@ button.menu-open:active {
         margin: 1rem 0 0 0;
         padding: 0 0;
     }
+
     .home-post-image {
-        max-width:calc(100% - 2rem); 
+        max-width: calc(100% - 2rem);
     }
 }
 
@@ -466,8 +476,9 @@ button.menu-open:active {
         opacity: 1;
     }
 
-    
+
 }
+
 @keyframes fade-out {
     0% {
         margin-bottom: 0px;
@@ -479,6 +490,5 @@ button.menu-open:active {
         opacity: 0;
     }
 
-    
-}
 
+}

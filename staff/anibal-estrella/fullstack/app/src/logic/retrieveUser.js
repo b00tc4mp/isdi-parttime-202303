@@ -1,5 +1,6 @@
-import { validateId, validateCallback } from "./helpers/validators.js"
-import { findUserById } from "../data.js"
+import { validators } from 'com'
+import { findUserById } from '../data'
+const { validateId, validateCallback } = validators
 
 export default function retrieveUser(userId, callback) {
     validateId(userId, 'user id')
@@ -9,11 +10,11 @@ export default function retrieveUser(userId, callback) {
     findUserById(userId, user => {
         if (!user) {
             callback(new Error('user not found'))
-            
+
             return
         }
-// envío solo iinformacion del usuario, lo que lo identifica y caracteriza, nada de sus acciones (favs, likes, etc)
-         const _user = {
+        // envío solo iinformacion del usuario, lo que lo identifica y caracteriza, nada de sus acciones (favs, likes, etc)
+        const _user = {
             name: user.name,
             avatar: user.avatar,
         }

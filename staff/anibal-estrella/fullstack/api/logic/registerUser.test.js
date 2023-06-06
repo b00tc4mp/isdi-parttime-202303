@@ -1,9 +1,14 @@
-const { readfile, writeFile } = require('fs')
+const registerUser = require('./registerUser')
 
-// function registerUser(user) {
-//     console.log('Hello World!')
-//     }
-const currentDate = new Date();
-console.log('Current date:', currentDate);
+// registerUser('Eli Carné', "Eli@gmail.com", '123123123', error => {
+registerUser('enki estrella', "enki@gmail.com", '123123123', error => {
+    if (error) {
+        console.log(error)
+            
+            return
+    }
 
-console.log('Hello, ' + name + '!');    
+console.log('User registered 👍')
+})
+
+// to run the test run "node logic/registerUser.js"

@@ -8,7 +8,7 @@ import Home from "./pages/Home.jsx"
 import Alert from "./components/Alert"
 import Context from "./Context"
 
-import Loader from "./library/Loader"
+import { Loader } from "./library"
 
 export default function App() {
     const [view, setView] = useState(context.userId ? 'home' : 'login')

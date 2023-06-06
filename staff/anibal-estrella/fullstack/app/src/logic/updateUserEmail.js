@@ -1,4 +1,6 @@
-import { validateEmail, validateCallback } from "./helpers/validators.js"
+import { validators } from 'com'
+const { validateEmail, validateCallback } = validators
+
 import { saveUser, findUserById } from "../data.js"
 
 export default function updateUserEmail(userId, newEmail, confirmEmail, callback) {

@@ -1,4 +1,6 @@
-import { validateId, validatePassword, validateCallback } from "./helpers/validators.js"
+import { validators } from 'com'
+const { validateId, validatePassword, validateCallback } = validators
+
 import { findUserById, saveUser } from "../data.js"
 
 export default function updateUserPassword(userId, password, newPassword, newPasswordConfirm, callback) {
@@ -25,7 +27,7 @@ export default function updateUserPassword(userId, password, newPassword, newPas
         }
 
         user.password = newPassword
-    
+
         saveUser(user, () => callback(null))
     })
 }

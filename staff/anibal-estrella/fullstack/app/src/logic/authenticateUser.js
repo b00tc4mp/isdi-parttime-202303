@@ -1,5 +1,7 @@
-import { validateEmail, validatePassword, validateCallback } from "./helpers/validators.js"
-import { findUserByEmail } from "../data.js"
+import { validators } from 'com'
+import { findUserByEmail } from '../data'
+
+const { validateEmail, validatePassword, validateCallback } = validators
 
 /* 
 *
@@ -9,23 +11,23 @@ import { findUserByEmail } from "../data.js"
 *
 */
 export function authenticateUser(email, password, callback) {
-  validateEmail(email)
-  validatePassword(password, 'new password')
-  validateCallback(callback, 'callback function')
+    validateEmail(email)
+    validatePassword(password, 'new password')
+    validateCallback(callback, 'callback function')
 
-  findUserByEmail(email, user => {
-    if (!user) {
-      callback(new Error('User does not exist in the database'))
+    findUserByEmail(email, user => {
+        if (!user) {
+            callback(new Error('User does not exist in the database'))
 
-      return
-    }
+            return
+        }
 
-    if (user.password !== password) {
-      callback(new Error('Wrong password'))
+        if (user.password !== password) {
+            callback(new Error('Wrong password'))
 
-      return
-    }
+            return
+        }
 
-    callback(null, user.id)
-  })
+        callback(null, user.id)
+    })
 }

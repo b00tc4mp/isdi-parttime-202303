@@ -1,7 +1,7 @@
-import registerUser from '../logic/registerUser'
-import Panel from '../library/Panel'
 import { useContext } from "react"
 import Context from "../Context.jsx"
+import registerUser from '../logic/registerUser'
+import { Panel } from '../library'
 
 export default function Register({ onUserRegistered, onLoginClick }) {
     const { alert, freeze, unfreeze } = useContext(Context)
@@ -33,7 +33,7 @@ export default function Register({ onUserRegistered, onLoginClick }) {
                 }
 
                 onUserRegistered()
-            unfreeze()
+                unfreeze()
             })
 
         } catch (error) {

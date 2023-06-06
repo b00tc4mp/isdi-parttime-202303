@@ -1,7 +1,8 @@
 // import { findUserById, findPostById, savePosts, loadPosts } from "../data.js";
-import { findUserById, findPostById, savePosts, loadPosts, loadUsers, saveUsers } from "../data.js";
-import { validateId, validateCallback } from "./helpers/validators"
+import { validators } from 'com'
+const { validateId, validateCallback } = validators
 
+import { findUserById, findPostById, savePosts, loadPosts, loadUsers, saveUsers } from "../data.js";
 
 export default function deletePost(userId, postId, callback) {
     validateId(userId, 'user ID')
@@ -39,19 +40,21 @@ export default function deletePost(userId, postId, callback) {
 
             })
 
-            loadUsers(users => {users.forEach((user) => {
-                const index = user.favs.indexOf(postId);
+            loadUsers(users => {
+                users.forEach((user) => {
+                    const index = user.favs.indexOf(postId);
 
-                if (index !== -1) {
-                    user.favs.splice(index, 1);
-                    saveUsers(users, () => callback(null))
-                }
-            })}
+                    if (index !== -1) {
+                        user.favs.splice(index, 1);
+                        saveUsers(users, () => callback(null))
+                    }
+                })
+            }
             )
-    
 
+
+        })
     })
-})
 
 
 }
