@@ -1,16 +1,17 @@
 import { loadPosts, findUserById, loadUsers } from "../data"
-import { validateCallback, validateId } from "./helpers/validators"
+import { validators } from 'com'
+
+const { validateId, validateCallback } = validators
 
 /**
- * Retrieves the posts form database
+ * Retrieves the posts form database.
  * 
- * @param {string} userId The user's id
- * @param {function} callBack A function to catch errors and display them to the user., and returns the posts array required
+ * @param {string} userId The user's id.
+ * @param {function} callBack A function to catch errors and display them to the user., and returns the posts array required.
  * 
 */
 
 export function retrievePosts(userId, callBack) {
-
   validateId(userId, 'user id')
   validateCallback(callBack)
 

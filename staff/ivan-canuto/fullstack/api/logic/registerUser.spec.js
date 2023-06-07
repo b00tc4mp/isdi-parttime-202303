@@ -3,15 +3,18 @@ const { readFile, writeFile } = require('fs')
 const registerUser = require('./registerUser')
 
 describe('registerUser', () => {
-  beforeEach(done => writeFile('./data/users.json', '[]', 'utf8', error => done(error)))
+  let name, email, password
 
-  it('Should succeed on new user', done => {
-    const name = `name-${Math.random()}`
-    const email = `email-${Math.random()}`
-    const password = `password-${Math.random()}`
-    const passwordConfirm = password
+  beforeEach(done =>{
+    name = `name-${Math.random()}`
+    email = `email-${Math.random()}`
+    password = `password-${Math.random()}`
 
-    registerUser(name, email, password, passwordConfirm, (error) => {
+    writeFile('./data/users.json', '[]', 'utf8', error => done(error))
+  })
+
+  it('Succeeds on new user', done => {
+    registerUser(name, email, password, (error) => {
       expect(error).to.be.null
       
       readFile('./data/users.json', 'utf8', (error, usersJSON) => {
@@ -33,19 +36,18 @@ describe('registerUser', () => {
     })
   })
 
-  it('Should show an error of existing user', done => {
+  it('Fails on existing user', done => {
     const name = `name-${Math.random()}`
     const email = `email-${Math.random()}`
     const password = `password-${Math.random()}`
-    const passwordConfirm = password
 
-    const user = [{name, email, password, passwordConfirm}]
+    const user = [{name, email, password}]
     const userToJSON = JSON.stringify(user)
 
     writeFile('./data/users.json', userToJSON, 'utf8', error => {
       expect(error).to.be.null
       
-      registerUser(name, email, password, passwordConfirm, error => {
+      registerUser(name, email, password, error => {
         expect(error).to.be.instanceOf(Error)
         expect(error.message).to.equal(`User with email ${email} already exists.`)
 
@@ -54,13 +56,12 @@ describe('registerUser', () => {
     })
   })
 
-  it('Should show error on password too short.', done => {
+  it('Should fail on non-existing user but password too short.', done => {
     const name = `name-${Math.random()}`
     const email = `email-${Math.random()}`
     const password = `12345`
-    const passwordConfirm = password
 
-    registerUser(name, email, password, passwordConfirm, error => {
+    registerUser(name, email, password, error => {
       expect(error).to.be.instanceOf(Error)
       expect(error.message).to.equal(`The password is too short.`)
 
@@ -68,18 +69,34 @@ describe('registerUser', () => {
     })
   })
 
-  it('Should show error on passwords do not match.', done => {
-    const name = `name-${Math.random()}`
-    const email = `email-${Math.random()}`
-    const password = `1234567`
-    const passwordConfirm = `2345678`
+  it('fails on empty name', () => expect(() => registerUser('', email, password, () => { })).to.throw(Error, 'Name field is empty.'))
 
-    registerUser(name, email, password, passwordConfirm, error => {
-      expect(error).to.be.instanceOf(Error)
-      expect(error.message).to.equal(`The passwords do not match.`)
+  it('fails on a non-string name', () => {
+    expect(() => registerUser(true, email, password, () => { })).to.throw(Error, 'Name is not a string.')
+    expect(() => registerUser([], email, password, () => { })).to.throw(Error, 'Name is not a string.')
+    expect(() => registerUser({}, email, () => { })).to.throw(Error, 'Name is not a string.')
+    expect(() => registerUser(undefined, email, password, () => { })).to.throw(Error, 'Name is not a string.')
+    expect(() => registerUser(1, email, password, () => { })).to.throw(Error, 'Name is not a string.')
+  })
 
-      done()
-    })
+  it('fails on empty email', () => expect(() => registerUser(name,'', password, () => { })).to.throw(Error, 'The email field is empty.'))
+
+  it('fails on a non-string email', () => {
+    expect(() => registerUser(name ,true, password, () => { })).to.throw(Error, 'The email is not a string.')
+    expect(() => registerUser(name ,[], password, () => { })).to.throw(Error, 'The email is not a string.')
+    expect(() => registerUser(name ,{}, password, () => { })).to.throw(Error, 'The email is not a string.')
+    expect(() => registerUser(name ,undefined, password, () => { })).to.throw(Error, 'The email is not a string.')
+    expect(() => registerUser(name, 1, password, () => { })).to.throw(Error, 'The email is not a string.')
+  })
+
+  it('fails on empty password', () => expect(() => registerUser(name, email, '', () => { })).to.throw(Error, 'The password field is empty.'))
+
+  it('fails on a non-string password', () => {
+    expect(() => registerUser(name, email, true, () => { })).to.throw(Error, 'The password is not a string.')
+    expect(() => registerUser(name, email, [], () => { })).to.throw(Error, 'The password is not a string.')
+    expect(() => registerUser(name, email, {}, () => { })).to.throw(Error, 'The password is not a string.')
+    expect(() => registerUser(name, email, undefined, () => { })).to.throw(Error, 'The password is not a string.')
+    expect(() => registerUser(name, email, 1, () => { })).to.throw(Error, 'The password is not a string.')
   })
 
   after(done => writeFile('./data/users.json', '[]', 'utf8', error => done(error)))

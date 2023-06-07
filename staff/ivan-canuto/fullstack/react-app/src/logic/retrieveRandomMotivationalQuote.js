@@ -1,4 +1,12 @@
-import { validateCallback } from './helpers/validators'
+import { validators } from 'com'
+
+const { validateCallback } = validators
+
+/**
+ * Retrieves a random motivational quote to show it in login page.
+ * 
+ * @param {function} callBack A function to catch errors and display them to the user.
+ */
 
 export default function retrireveRandomMotivationalQuote(callBack) {
   validateCallback(callBack)

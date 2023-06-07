@@ -18,8 +18,13 @@ export default function ToggleOnSalePost({ onToggledOnSalePost, onCancel }) {
   useEffect(() => {
     freeze()
 
-    retrievePost(context.userId, context.postId, post => {
+    retrievePost(context.userId, context.postId, (error, post) => {
       unfreeze()
+      
+      if(error) {
+        alert(error.message, 'error')
+        console.debug(error.stack)
+      }
 
       setOnSale(post.onSale)
     })
@@ -80,11 +85,11 @@ export default function ToggleOnSalePost({ onToggledOnSalePost, onCancel }) {
     }}>
       {!onSale &&
         <ModalWindow>
-          <h2>
+          <h2 className="text-2xl text-center">
             Do you want to sell this post?
             Please, set a sell price.
           </h2>
-          <Form className="set-post-price_form" onSubmit={handleSetPostPrice}>
+          <Form className="w-72 h-40 py-3 px-12 border-2 border-gray-300" onSubmit={handleSetPostPrice}>
             <Input type="number" name="pricePost" min={1} max={10000} defaultValue={1}/>
             <div className="set-post-price_buttons">
               <Button>Set price</Button>

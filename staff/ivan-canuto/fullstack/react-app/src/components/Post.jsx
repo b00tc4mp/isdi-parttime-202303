@@ -80,7 +80,7 @@ export default function Post({post, handleRefreshPosts, handleOpenEditPost, hand
     context.postId = id
     document.body.classList.toggle('fixed-scroll')
     setContextualMenu(contextualMenu === 'close' ? 'open' : 'close')
-    handleRefreshPosts()
+    // handleRefreshPosts()
   }
 
   console.debug('Post -> render')

@@ -1,17 +1,18 @@
 import { saveUser, findUserById } from '../data'
-import { validateUrl, validatePassword, validateId, validateCallback } from './helpers/validators'
+import { validators } from 'com'
+
+const { validateId, validateUrl, validatePassword, validateCallback } = validators
 
 /**
- * Upadtes the user avatar
+ * Upadtes the user avatar.
  * 
- * @param {*} userId 
- * @param {*} newAvatarUrl 
- * @param {*} password 
+ * @param {string} userId The user's id.
+ * @param {string} newAvatarUrl The new avatar url.
+ * @param {string} password The users's password.
  * @param {function} callBack A function to catch errors and display them to the user.
  */
 
 export default function updateUserAvatar(userId, newAvatarUrl, password, callBack) {
-  
   validateId(userId, 'user id')
   validateUrl(newAvatarUrl)
   validatePassword(password)

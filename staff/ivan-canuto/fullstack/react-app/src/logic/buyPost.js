@@ -1,6 +1,14 @@
 import { findPostById, savePost } from "../data"
-import { validateCallback, validateId } from "./helpers/validators"
+import { validators } from 'com'
 
+const { validateId, validateCallback } = validators
+
+/**
+ * Buys the post if other user wants to.
+ * 
+ * @param {string} postId The post's id.
+ * @param {function} callBack A function to catch errors and display them to the user.
+ */
 
 export default function buyPost(postId, callBack) {
   validateId(postId)

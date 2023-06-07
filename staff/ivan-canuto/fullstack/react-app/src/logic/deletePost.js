@@ -1,11 +1,13 @@
 import { findUserById, loadPosts, savePosts, saveUser } from "../data";
-import { validateCallback, validateId } from "./helpers/validators";
+import { validators } from 'com'
+
+const { validateId, validateCallback } = validators
 
 /**
- * Deletes a user's post
+ * Deletes a user's post.
  * 
- * @param {object} post The post's object from database
- * @param {string} userId The user's id
+ * @param {object} post The post's object from database.
+ * @param {string} userId The user's id.
  * @param {function} callBack A function to catch errors and display them to the user.
  */
 

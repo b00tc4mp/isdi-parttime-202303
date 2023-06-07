@@ -56,10 +56,10 @@ export default function BuyPost({ onBoughtPost, onCancel }) {
     }}>
       <ModalWindow tag="form" onSubmit={handleBuyPost}>
       {post && <>
-          <h2>{`Do you want to buy this post for ${post.onSale}€?`}</h2>
-          <div className="buy-post_form_buttons">
-            <Button className="buy-post-button" onClick={handleBuyPost}>Buy</Button>
-            <Button type="button" className="cancel-buy-post-button" onClick={onCancel}>Cancel</Button>
+          <h2 className="text-2xl text-center">{`Do you want to buy this post for ${post.onSale}€?`}</h2>
+          <div className="w-full flex justify-evenly">
+            <Button className='px-5' onClick={handleBuyPost}>Buy</Button>
+            <Button className='px-5' type="button" onClick={onCancel}>Cancel</Button>
           </div>
         </>
       }

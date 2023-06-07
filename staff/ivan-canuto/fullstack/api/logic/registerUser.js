@@ -1,7 +1,7 @@
 const { readFile, writeFile } = require('fs')
 const { validators: { validateName, validateEmail, validatePassword, validateCallback } } = require('com')
 
-module.exports = function registerUser(name, email, password, passwordConfirm, callBack) {
+module.exports = function registerUser(name, email, password, callBack) {
   validateName(name)
   validateEmail(email)
   validatePassword(password)
@@ -31,10 +31,6 @@ module.exports = function registerUser(name, email, password, passwordConfirm, c
     
     if(password.length < 6) {
       callBack(new Error('The password is too short.'))
-      return
-    }
-    if(password !== passwordConfirm) {
-      callBack(new Error('The passwords do not match.'))
       return
     }
 

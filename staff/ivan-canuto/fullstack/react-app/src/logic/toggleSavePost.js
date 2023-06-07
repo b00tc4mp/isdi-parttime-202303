@@ -1,21 +1,21 @@
 import { saveUser, findUserById, findPostById } from '../data'
-import { validateCallback, validateId } from './helpers/validators';
+import { validators } from 'com'
+
+const { validateId, validateCallback } = validators
 
 /**
- * Saves the favorite posts from user
+ * Saves the favorite posts from user.
  * 
- * @param {string} userId The user's id
- * @param {object} postId The post's id
+ * @param {string} userId The user's id.
+ * @param {object} postId The post's id.
  * @param {function} callBack A function to catch errors and display them to the user.
  */
 
 export default function toggleSavePost(userId, postId, callBack) {
-
   validateId(userId, 'user id')
   validateId(postId, 'post id')
   validateCallback(callBack)
 
-  
   findUserById(userId, (user) => {
     if (!user) {
       callBack(new Error(`User with ${userId} not found.`))

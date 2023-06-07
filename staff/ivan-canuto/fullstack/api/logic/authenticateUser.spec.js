@@ -4,17 +4,24 @@ const authenticateUser = require('./authenticateUser')
 const registerUser = require('./registerUser')
 
 describe('authenticateUser', () => {
-  const id = 'user-1'
-  const name = `name-${Math.random()}`
-  const email = `email-${Math.random()}`
-  const password = `password-${Math.random()}`
+  let id, name, email, password
   
-  const user = [{id, name, email, password}]
-  const userToJSON = JSON.stringify(user)
+  beforeEach(done => {
+    id = 'user-1'
+    name = `name-${Math.random()}`
+    email = `email-${Math.random()}`
+    password = `password-${Math.random()}`
 
-  beforeEach(done => writeFile('./data/users.json', userToJSON, 'utf8', error => done(error)))
+    writeFile('./data/users.json', '[]', 'utf8', error => done(error))
+  })
 
-  it('shoud succed on existing user', done => {
+  it('succeeds on existing user', done => {
+    const users = [{id, name, email, password}]
+    const userToJSON = JSON.stringify(users)
+    
+    writeFile('./data/users.json',  userToJSON, 'utf8', (error) => {
+      expect(error).to.be.null
+      
       authenticateUser(email, password, (error, userId) => {
         expect(error).to.be.null
         
@@ -25,13 +32,16 @@ describe('authenticateUser', () => {
           
           expect(userId).to.be.a('string')
           expect(userId).to.equal(user.id)
-
+          
           done()
         })
       })
     })
+  })
 
-  it('should fail on user does not exist', done => {
+
+
+  it('fails on non-existing user', done => {
     const newEmail = `email-${Math.random()}`
 
     authenticateUser(newEmail, password, (error, userId) => {
@@ -42,14 +52,63 @@ describe('authenticateUser', () => {
     })
   })
   
-  it('should fail on wrong password', done => {
-    const newPassword = `password-${Math.random()}`
-    authenticateUser(email, newPassword, (error, userId) => {
-      expect(error).to.be.instanceOf(Error)
-      expect(error.message).to.equal('Incorrect password.')
+  it('fails on existing user but wrong password', done => {
+    const users = [{id, name, email, password}]
+    const userToJSON = JSON.stringify(users)
 
-      done()
+    writeFile('./data/users.json', userToJSON, 'utf8', (error) => {
+      const newPassword = `password-${Math.random()}`
+  
+      authenticateUser(email, newPassword, (error, userId) => {
+        expect(error).to.be.instanceOf(Error)
+        expect(error.message).to.equal('Incorrect password.')
+  
+        done()
+      })
     })
+    
+  })
+
+  it('fails on empty email', () => expect(() => authenticateUser('', password, () => { })).to.throw(Error, 'The email field is empty.'))
+
+  it('fails on a non-string email', () => {
+    const users = [{id, name, email, password}]
+    const userToJSON = JSON.stringify(users)
+
+    writeFile('./data/users.json', userToJSON, 'utf8', (error) => {
+      expect(() => authenticateUser(true, password, () => { })).to.throw(Error, 'The email is not a string.')
+      expect(() => authenticateUser([], password, () => { })).to.throw(Error, 'The email is not a string.')
+      expect(() => authenticateUser({}, password, () => { })).to.throw(Error, 'The email is not a string.')
+      expect(() => authenticateUser(undefined, password, () => { })).to.throw(Error, 'The email is not a string.')
+      expect(() => authenticateUser(1, password, () => { })).to.throw(Error, 'The email is not a string.')
+    })  
+  })
+
+  it('fails on empty password', () => {
+    const users = [{id, name, email, password}]
+    const userToJSON = JSON.stringify(users)
+
+    writeFile('./data/users.json', userToJSON, 'utf8', (error) => {
+      expect(() => authenticateUser(email, '', () => { })).to.throw(Error, 'The password field is empty.')
+    })
+  })
+
+  it('fails on a non-string password', () => {
+    const users = [{id, name, email, password}]
+    const userToJSON = JSON.stringify(users)
+
+    writeFile('./data/users.json', userToJSON, 'utf8', (error) => {
+      expect(() => authenticateUser(email, true, () => { })).to.throw(Error, 'The password is not a string.')
+      expect(() => authenticateUser(email, [], () => { })).to.throw(Error, 'The password is not a string.')
+      expect(() => authenticateUser(email, {}, () => { })).to.throw(Error, 'The password is not a string.')
+      expect(() => authenticateUser(email, undefined, () => { })).to.throw(Error, 'The password is not a string.')
+      expect(() => authenticateUser(email, 1, () => { })).to.throw(Error, 'The password is not a string.')
+    })
+  })
+
+  it('Fails on callBack is not a function', done => {
+    expect(() => authenticateUser(email, password, 'Not a function')).to.throw(Error, 'CallBack is not a function')
+    done()
   })
 
   after(done => writeFile('./data/users.json', '[]', 'utf8', error => done(error)))

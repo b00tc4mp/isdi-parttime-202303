@@ -1,12 +1,14 @@
-import { validateCallback, validateId } from "./helpers/validators"
 import { savePost, findPostById } from "../data"
+import { validators } from 'com'
+
+const { validateId, validateCallback } = validators
 
 /**
- * Deletes a user's comment
+ * Deletes a user's comment.
  * 
- * @param {string} postId The post's id
- * @param {string} commentId The comment's id
- * @param {function} callBack A functio, to catch the errors and shows them to the user
+ * @param {string} postId The post's id.
+ * @param {string} commentId The comment's id.
+ * @param {function} callBack A functio, to catch the errors and shows them to the user.
  */
 
 export default function deleteComment(postId, commentId, callBack) {

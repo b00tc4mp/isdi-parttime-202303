@@ -6,6 +6,7 @@ import ModalContainer from "../library/ModalContainer"
 import toggleVisibilityPost from "../logic/toggleVisibilityPost"
 import ModalWindow from "../library/ModalWindow"
 import Button from "../library/Button";
+import { useAppContext } from "../hooks"
 
 export default function VisibilityPost({ onChangedVisibility, onCancel }) {
   const { alert, freeze, unfreeze } = useAppContext()
@@ -19,7 +20,6 @@ export default function VisibilityPost({ onChangedVisibility, onCancel }) {
 
       setVisible(post.visible)
     })
-
   }, [])
 
   const handleToggleVisibility = () => {

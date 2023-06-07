@@ -1,16 +1,17 @@
 import { findUserById } from "../data";
-import { validateCallback, validateId } from "./helpers/validators";
+import { validators } from 'com'
+
+const { validateId, validateCallback } = validators
 
 /**
- * Retrieves the name, avatar, and favorite posts of the user
+ * Retrieves the name, avatar, and favorite posts of the user.
  * 
- * @param {string} userId The user's id
- * @param {function} callBack A function to catch errors and display them to the user., and returns the user information required
+ * @param {string} userId The user's id.
+ * @param {function} callBack A function to catch errors and display them to the user., and returns the user information required.
  * 
  */
 
 export default function retrieveUser(userId, callBack) {
-
   validateId(userId, 'user id')
   validateCallback(callBack)
 

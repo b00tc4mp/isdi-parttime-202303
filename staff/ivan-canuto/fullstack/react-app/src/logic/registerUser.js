@@ -1,17 +1,18 @@
-import { validateName, validateEmail, validatePassword, validateCallback } from './helpers/validators'
 import { loadUsers, saveUsers, findUserByEmail } from '../data'
+import { validators } from 'com'
+
+const { validateName, validateEmail, validatePassword, validateCallback } = validators
 
 /**
- * Registers a new user with a name, an email, and a password
+ * Registers a new user with a name, an email, and a password.
  * 
- * @param {string} name The user's name
- * @param {string} email The user's email
- * @param {string} password The user's password
+ * @param {string} name The user's name.
+ * @param {string} email The user's email.
+ * @param {string} password The user's password.
  * @param {function} callBack A function to catch errors and display them to the user.
  */
 
 export function registerUser(name, email, password, callBack) {
-
   validateName(name)
   validateEmail(email)
   validateCallback(callBack)

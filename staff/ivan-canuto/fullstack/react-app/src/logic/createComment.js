@@ -1,12 +1,14 @@
 import { findUserById, findPostById, savePost } from "../data"
-import { validateText, validateCallback } from "./helpers/validators";
+import { validators } from 'com'
+
+const { validateText, validateCallback } = validators
 
 /**
- * Creates a comment in post
+ * Creates a comment in post.
  * 
- * @param {string} commentText The comment text entered by user
- * @param {object} userId The user's id
- * @param {object} postId The post's id
+ * @param {string} commentText The comment text entered by user.
+ * @param {object} userId The user's id.
+ * @param {object} postId The post's id.
  * @param {function} callBack A function to catch errors and display them to the user.
  */
 

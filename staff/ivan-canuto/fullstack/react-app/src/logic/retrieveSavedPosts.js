@@ -1,16 +1,17 @@
 import { findUserById, loadPosts, loadUsers } from "../data"
-import { validateCallback, validateId } from "./helpers/validators"
+import { validators } from 'com'
+
+const { validateId, validateCallback } = validators
 
 /**
- * Retrieves the saved posts form database
+ * Retrieves the saved posts form database.
  * 
- * @param {string} userId The user's id
- * @param {function} callBack A function to catch errors and display them to the user., and returns the array of saved post by the user
+ * @param {string} userId The user's id.
+ * @param {function} callBack A function to catch errors and display them to the user., and returns the array of saved post by the user.
  * 
 */
 
 export function retrieveSavedPosts(userId, callBack) {
-
   validateId(userId, 'user id')
   validateCallback(callBack)
   findUserById(userId, (user) => {

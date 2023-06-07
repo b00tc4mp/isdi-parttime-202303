@@ -1,16 +1,17 @@
 import { savePost, findUserById, findPostById } from "../data"
-import { validateCallback, validateId } from "./helpers/validators"
+import { validators } from 'com'
+
+const { validateId, validateCallback } = validators
 
 /**
- * Toggles the user likes in posts
+ * Toggles the user likes in posts.
  * 
- * @param {string} userId The user id
- * @param {object} postId The post id
+ * @param {string} userId The user id.
+ * @param {object} postId The post id.
  * @param {function} callBack A function to catch errors and display them to the user.
  */
 
 export default function toggleLikePost(userId, postId, callBack) {
-  
   validateId(userId, 'user id')
   validateCallback(callBack)
   

@@ -94,6 +94,7 @@ export default function Home(props) {
   const handleOpenEditPost = () => {
     document.body.classList.toggle("fixed-scroll")
     setModal("editPost")
+    setLastPostsUpdate(Date.now())
   }
 
   const handleLastPostsUpdate = () => {
@@ -133,6 +134,7 @@ export default function Home(props) {
   const handleToggleOnSalePost = () => {
     document.body.classList.toggle("fixed-scroll")
     setModal("toggleOnSale")
+    setLastPostsUpdate(Date.now())
   }
 
   const handleOpenBuyPost = () => {
@@ -144,11 +146,13 @@ export default function Home(props) {
   const handleOpenDeletePost = () => {
     document.body.classList.toggle("fixed-scroll")
     setModal("deletePost")
+    setLastPostsUpdate(Date.now())
   }
   
   const handleToggleVisibility = () => {
     document.body.classList.toggle("fixed-scroll")
     setModal("toggleVisibility")
+    setLastPostsUpdate(Date.now())
   }
 
   console.debug("Home -> render")

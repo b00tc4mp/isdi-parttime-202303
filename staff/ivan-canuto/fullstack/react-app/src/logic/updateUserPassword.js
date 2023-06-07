@@ -1,17 +1,20 @@
 import { saveUser, findUserById } from '../data'
-import { validateCallback, validateId, validatePassword } from './helpers/validators'
+import { validators } from 'com'
+
+const { validateId, validatePassword, validateCallback } = validators
+
 
 /**
+ * Updates the user password.
  * 
- * @param {string} userId The user id
- * @param {string} password The user password
- * @param {string} newPassword The new user password
- * @param {string} newPasswordConfirm The new user password confirmation
+ * @param {string} userId The user id.
+ * @param {string} password The user password.
+ * @param {string} newPassword The new user password.
+ * @param {string} newPasswordConfirm The new user password confirmation.
  * @param {function} callBack A function to catch errors and display them to the user.
  */
 
 export default function updateUserPassword(userId, password, newPassword, newPasswordConfirm, callBack) {
-
   validateId(userId, 'user id')
   validatePassword(password)
   validatePassword(newPassword, 'new password')

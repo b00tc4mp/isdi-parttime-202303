@@ -69,8 +69,6 @@ export default function AddPost({ onCancel, onCreatedPost }) {
       const reader = new FileReader()
       
       reader.onload = () => {
-          console.log(reader.result)
-
           const imageCompressor = new ImageCompressor
       
           const compressorSettings = {
@@ -82,7 +80,6 @@ export default function AddPost({ onCancel, onCreatedPost }) {
         }
       
           imageCompressor.run(reader.result, compressorSettings, (compressedSrc) => {
-            console.log(compressedSrc);
             setSelectedImage(compressedSrc)
           })
         }

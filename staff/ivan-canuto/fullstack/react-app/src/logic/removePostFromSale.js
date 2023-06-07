@@ -1,9 +1,9 @@
 import { findPostById, savePost } from "../data"
 
 /**
- * Remove post from sale state
+ * Remove post from sale state.
  * 
- * @param {string} postId The post's id
+ * @param {string} postId The post's id.
  * @param {function} callBack A function to catch errors and display them to the user.
  */
 
