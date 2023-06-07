@@ -1,4 +1,6 @@
+
 /** @type {import('tailwindcss').Config} */
+import tailwindBaseStylesPlugin from './tailwind.baseStyles.plugin'
 export default {
   content: [
     "./index.html",
@@ -7,22 +9,22 @@ export default {
   theme: {
     extend: {
       colors: {
-        'main-background': '#859895',
-        'container-bg': '#e0dcda',
-        'main-button': '#705D55',
-        'main-headings': '#262c30',
-        'main-text': '#262c30',
-        'main-link': '#705D55',
-        'overlay-black': '#00000021',
-        'overlay-black-plus': '#111214',
-        'overlay-black-less': '#1f2024',
-        'overlay-black-solid': '#18191c',
-        'light': '#e0dcda',
-        'dark': '#262c30',
-        'red': '#c1574c',
+        'main-background': 'var(--main-background)',
+        'container-bg': 'var(--container-bg)',
+        'main-button': 'var(--main-button)',
+        'main-headings': 'var(--main-headings)',
+        'main-text': 'var(--main-text)',
+        'main-link': 'var(--main-link)',
+        'overlay-black': 'var(--overlay-black)',
+        'overlay-black-plus': 'var(--overlay-black-plus)',
+        'overlay-black-less': 'var(--overlay-black-less)',
+        'overlay-black-solid': 'var(--overlay-black-solid)',
+        'light': 'var(--light)',
+        'dark': 'var(--dark)',
+        'red': 'var(--red)',
       },
     },
   },
-  plugins: [],
+  plugins: [tailwindBaseStylesPlugin],
 }
 

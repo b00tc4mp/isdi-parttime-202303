@@ -4,31 +4,36 @@
 
 /* ___ GENERAL ______ */
 
-:root {
-  --main-background: #859895;
-  --container-bg: #e0dcda;
-  --main-button: #705D55;
-  --main-headings: #262c30;
-  --main-text: #262c30;
-  --main-link: #705D55;
-  --overlay-black: #00000021;
-  --overlay-black-plus: #111214;
-  --overlay-black-less: #1f2024;
-  --overlay-black-solid: #18191c;
-  --white: #e0dcda;
-  --dark: #262c30;
-  --red: #c1574c;
+@layer base {
+  :root {
+    --main-background: #859895;
+    --container-bg: #e0dcda;
+    --main-button: #705D55;
+    --main-headings: #262c30;
+    --main-text: #262c30;
+    --main-link: #705D55;
+    --overlay-black: #00000021;
+    --overlay-black-plus: #111214;
+    --overlay-black-less: #1f2024;
+    --overlay-black-solid: #18191c;
+    --white: #e0dcda;
+    --dark: #262c30;
+    --red: #c1574c;
+  }
+  :root.dark {
+    --main-background: #1a1d20;
+    --container-bg: #262c30;
+    --main-button: #705D55;
+    --main-headings: #e0dcda;
+    --main-text: #e0dcda;
+  }
 }
 
-:root.dark {
-  --main-background: #1a1d20;
-  --container-bg: #262c30;
-  --main-button: #705D55;
-  --main-headings: #e0dcda;
-  --main-text: #e0dcda;
-
+@layer components {
+  input {
+    @apply bg-container-bg text-main-text m-1.5 mb-3 px-2 py-2.5 min-w-[220px] border-solid border-2 border-main-button rounded-lg text-center ease-linear duration-200
+  }
 }
-
 /* html[data-theme="dark"] .container {
   background-color: var(--dark);
 } */
@@ -191,7 +196,7 @@ form {
 
 
 
-input:not([name="file"]) {
+/* input:not([name="file"]) {
   background-color: var(--container-bg);
   color: var(--main-text);
   margin: 5px 5px 10px;
@@ -201,7 +206,7 @@ input:not([name="file"]) {
   border-radius: 10px;
   text-align: center;
   transition: linear .2s;
-}
+} */
 
 .overlay input[type="file"] {
   margin: 10px 0 20px 5px;
