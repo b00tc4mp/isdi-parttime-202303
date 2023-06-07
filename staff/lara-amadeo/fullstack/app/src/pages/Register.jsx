@@ -35,7 +35,7 @@ export default function Register({ onLogInLink, onSignUpButton }) {
 
     }
 
-    return <div className="registration">
+    return <div className="bg-[--violet-200] w-full flex justify-center items-center">
     <div className="centered-containers">
         <h1 className="title">Welcome stranger!</h1>
         
@@ -56,8 +56,8 @@ export default function Register({ onLogInLink, onSignUpButton }) {
             <button className="button-S primary-button" type="submit">Sign up</button>
         </form>
         
-        <div className="already-account-container">
-            <p className="already-account">Already have an account? <a href="" className="link" onClick = {handleLogInClick}>Log in</a></p>           
+        <div className="flex flex-row mt-[24px]">
+            <p className="body-text">Already have an account? <a href="" className="link" onClick = {handleLogInClick}>Log in</a></p>           
         </div>
     </div>
 </div>

@@ -41,7 +41,7 @@ export default function Login({ onSignUpLink, onLoginButton }) {
         }
     }
 
-    return <div className="login">
+    return <div className="bg-[--violet-200] w-full flex justify-center items-center">
         <div className="centered-containers">
  
             <h1 className="title">Welcome back!</h1>
@@ -55,8 +55,8 @@ export default function Login({ onSignUpLink, onLoginButton }) {
 
                 <button className="button-S primary-button" type="submit">Log in</button>
 
-                <div className="create-account">
-                    <p className="body-text">New to <strong>Helio</strong>?</p><a href="" className="link sign-in" onClick={handleRegisterClick}>Sign in</a>
+                <div className="flex flex-row mt-[24px]">
+                    <p className="body-text">New to <strong>Helio</strong>?</p><a href="" className="link ml-[8px]" onClick={handleRegisterClick}>Sign in</a>
                 </div>
             </form>
         </div>

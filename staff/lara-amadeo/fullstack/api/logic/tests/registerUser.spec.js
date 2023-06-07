@@ -1,6 +1,6 @@
 const { expect } = require("chai")
 const { readFile, writeFile } = require("fs")
-const registerUser = require("./registerUser")
+const registerUser = require("../registerUser")
 
 describe('registerUser', () => {
 
@@ -12,8 +12,8 @@ describe('registerUser', () => {
 
     it('should register a user succesfully', done => {
         const username = `username-${Math.floor(Math.random())}`
-        const email = `email-${Math.floor(Math.random())}`
-        const password = `password-${Math.floor(Math.random())}`
+        const email = `${Math.floor(Math.random())}@email.com`
+        const password = `password-${Math.random()}!`
 
         registerUser(username, email, password, error => {
             expect(error).to.be.null
@@ -40,10 +40,10 @@ describe('registerUser', () => {
 
     it('shoud fail on existing user', done => {
         const username = `username-${Math.floor(Math.random())}`
-        const email = `email-${Math.floor(Math.random())}`
+        const email = `${Math.floor(Math.random())}@email.com`
         const password = `password-${Math.floor(Math.random())}`
 
-        const users = [{username, email, password}]
+        const users = [{ username, email, password }]
         const json = JSON.stringify(users)
 
         writeFile('./data/users.json', json, 'utf-8', error => {
@@ -58,9 +58,9 @@ describe('registerUser', () => {
         })
     })
 
-    // after(done => {
-    //     writeFile("./data/users.json", "[]", "utf-8", error => {
-    //         done(error)
-    //     })
-    // })
+    after(done => {
+        writeFile("./data/users.json", "[]", "utf-8", error => {
+            done(error)
+        })
+    })
 })

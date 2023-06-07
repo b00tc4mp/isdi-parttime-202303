@@ -1,18 +1,18 @@
 const { readFile, writeFile } = require("fs")
-const { validateText } = require('./helpers/validators')
+const { validators: { validateText } } = require('com')
 
-module.exports = function updateAvatar(userId, url, callback){
+module.exports = function updateAvatar(userId, url, callback) {
 
     validateText(userId)
-    
-    if(!url) {
+
+    if (!url) {
         callback(new Error('Image not uploaded correctly'))
 
         return
     }
 
     readFile("./data/users.json", "utf-8", (error, json) => {
-        if(error){
+        if (error) {
             callback(error)
 
             return
@@ -27,7 +27,7 @@ module.exports = function updateAvatar(userId, url, callback){
         json = JSON.stringify(users)
 
         writeFile("./data/users.json", json, (error) => {
-            if(error){
+            if (error) {
                 callback(error)
             }
 

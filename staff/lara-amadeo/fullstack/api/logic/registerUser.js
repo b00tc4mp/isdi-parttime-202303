@@ -1,7 +1,7 @@
 const { readFile, writeFile } = require('fs')
-const { validateText, validateEmail, validatePassword, validateCallback } = require('./helpers/validators')
+const { validators: { validateText, validateEmail, validatePassword, validateCallback } } = require('com')
 
-module.exports = function registerUser(username, email, password, callback){
+module.exports = function registerUser(username, email, password, callback) {
 
     validateText(username)
     validateEmail(email)
@@ -10,7 +10,7 @@ module.exports = function registerUser(username, email, password, callback){
 
 
     readFile('./data/users.json', 'utf8', (error, json) => {
-        if(error){
+        if (error) {
             callback(error)
             return
         }
@@ -19,7 +19,7 @@ module.exports = function registerUser(username, email, password, callback){
 
         let user = users.find(user => user.email === email)
 
-        if(user){
+        if (user) {
             callback(new Error(`User with email ${email} already exists`))
 
             return
@@ -27,7 +27,7 @@ module.exports = function registerUser(username, email, password, callback){
 
         let id = 'user-1'
         const lastUser = users[users.length - 1]
-    
+
         if (lastUser)
             id = `user-${(Number(lastUser.id.slice(5)) + 1)}`
 
@@ -37,8 +37,8 @@ module.exports = function registerUser(username, email, password, callback){
             email,
             password,
             avatar: null,
-            likedPosts:[],
-            savedPosts:[]
+            likedPosts: [],
+            savedPosts: []
         }
 
         users.push(user)
@@ -46,7 +46,7 @@ module.exports = function registerUser(username, email, password, callback){
         json = JSON.stringify(users)
 
         writeFile('./data/users.json', json, 'utf8', error => {
-            if(error){
+            if (error) {
                 callback(error)
                 return
             }

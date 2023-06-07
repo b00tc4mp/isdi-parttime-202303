@@ -10,8 +10,8 @@ export default function Header({onPrimaryButton, onSecondaryButton, title, prima
         onSecondaryButton()
     }
 
-    return  <div className="header">
-    <p className="heading-M-bold">{title}</p>
+    return  <div className="flex justify-between w-full pb-[16px] border-b border-[--grey-100] mb-[32px]">
+    <p className="text-[--grey-700] text-3xl font-medium h-fit m-0">{title}</p>
     {primaryButtonText && <button className="button-S primary-button" onClick={handlePrimaryButton}>{primaryButtonText}</button>}
     {secondaryButtonText && <button className="button-S secondary-button" onClick={handleSecondaryButton}>{secondaryButtonText}</button>}
     </div>

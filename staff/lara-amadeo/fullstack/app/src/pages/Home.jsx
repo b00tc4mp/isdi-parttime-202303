@@ -117,19 +117,19 @@ export default function Home({ onLogOutLink }) {
         setModal(null)
     }
 
-    return <div className="homepage">
+    return <div className="m-0 w-full relative">
         {<TopbarMenu
         lastUserRenderUpdate={lastUserRenderUpdate}
         onSettingsButton={handleGoToSettings}
         onProfileAvatarButton={handleGoToProfile}
         onBurguerButton={handleOpenSidebar}/>}
-        <div className="content-container">
+        <div className="m-0 w-full flex flex-row items-center relative">
             {mobileSidebar === 'open' && <SidebarMobile onCloseSidebarButton={handleCloseSidebar} onHomeMobileSidebarRow={handleGoToHome} sidebarToggle={mobileSidebar}/>}
-        <div className="left-container">
+        <div className="h-screen w-[230px] flex items-end fixed top-0 max-md:hidden">
            {<SidebarMenu lastUserRenderUpdate={lastUserRenderUpdate} onSettingsRow={handleGoToSettings} onHomeRow={handleGoToHome} onProfileComponent={handleGoToProfile} />}
         </div>
-        <div className="main-container">
-                <div className="middle-section">
+        <div className="w-[calc(100%-230px)] max-md:w-full flex flex-row m-0 relative left-[230px] max-md:left-0">
+                <div className="w-[60%] max-xl:w-full border-r border-[--grey-100] max-lg:border-0">
                     {view === 'posts' &&
                     <Posts
                     onCreateButton={openPostCreationModal}
@@ -143,7 +143,7 @@ export default function Home({ onLogOutLink }) {
                     {view === 'settings' && <Settings onSidebarUpdates={updateSidebarRender} onLogOutLink={handleLogOut}/>}
                     {view === 'profile' && <Profile />}
                 </div>
-                <div className="right-section"></div>
+                <div className="min-w-[300px] h-screen max-lg:hidden"></div>
         </div>
             
             {modal === 'createPost' && <CreatePostModal

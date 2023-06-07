@@ -1,21 +1,21 @@
 const { readFile, writeFile } = require("fs")
-const { validateEmail, validateCallback } = require('./helpers/validators')
+const { validators: { validateEmail, validateCallback } } = require('com')
 
 
-module.exports = function updateEmail(userId, email, newEmail, callback){
+module.exports = function updateEmail(userId, email, newEmail, callback) {
     validateEmail(email)
     validateEmail(newEmail)
     validateCallback(callback)
 
     //move this error to FE
-    if (email === newEmail){
+    if (email === newEmail) {
         callback(new Error('New email cannot be the same as current email'))
-        
+
         return
     }
 
     readFile("./data/users.json", (error, json) => {
-        if(error){
+        if (error) {
             callback(error)
 
             return
@@ -30,7 +30,7 @@ module.exports = function updateEmail(userId, email, newEmail, callback){
         json = JSON.stringify(users)
 
         writeFile("./data/users.json", json, error => {
-            if(error){
+            if (error) {
                 callback(error)
 
                 return
@@ -39,7 +39,4 @@ module.exports = function updateEmail(userId, email, newEmail, callback){
             callback(null)
         })
     })
-
-
-    
 }

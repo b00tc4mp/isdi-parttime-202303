@@ -1,37 +1,48 @@
 const { expect } = require('chai')
-const updateEmail = require('./updateEmail')
-const randomNumFromInterval = require('./helpers/randoms')
-const { readFile } = require('fs')
+const updateEmail = require('../updateEmail')
+const { writeFile } = require("fs")
+
 
 describe('updateEmail', () => {
-    let num
-    let user
+
+    let id, email, password
     beforeEach(done => {
-        readFile('./data/users.json', (error, json) => {
-            if(error) done(error)
+        id = `id-${Math.random()}`
+        email = `${Math.floor(Math.random())}@email.com`
+        password = `password-${Math.floor(Math.random())}`
 
-            const users = JSON.parse(json)
-
-            num = randomNumFromInterval(1,5)
-            user = users.find(user => user.id === `user-${num}`)
-            done()
-        })
+        writeFile('./data/users.json', '[]', 'utf-8', error => done(error))
     })
+
 
     it('should change the user email for the given one', done => {
         const newEmail = `${Math.random()}@email.com`
-        updateEmail(user.id, user.email, newEmail, error => {
+        const users = [{ id, email, password }]
+        const json = JSON.stringify(users)
+
+        writeFile('./data/users.json', json, 'utf8', error => {
             expect(error).to.be.null
 
-            readFile('./data/users.json', 'utf-8', (error, json) => {
+            updateEmail(id, email, newEmail, error => {
                 expect(error).to.be.null
+                expect(email).to.not.equal(newEmail)
 
-                const users = JSON.parse(json)
+                done()
+            })
+        })
+    })
 
-                const foundUser = users.find(_user => _user.id === user.id)
+    it('should fail with current and new email is the same', done => {
+        const newEmail = `${Math.random()}@email.com`
+        const users = [{ id, newEmail, password }]
+        const json = JSON.stringify(users)
 
-                expect(foundUser).to.exist
-                expect(foundUser.email).to.equal(newEmail)
+        writeFile('./data/users.json', json, 'utf8', error => {
+            expect(error).to.be.null
+
+            updateEmail(id, newEmail, newEmail, error => {
+                expect(error).to.be.instanceOf(Error)
+                expect(error.message).to.equal('New email cannot be the same as current email')
 
                 done()
             })

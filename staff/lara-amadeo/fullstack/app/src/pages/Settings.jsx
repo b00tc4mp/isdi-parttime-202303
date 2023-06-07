@@ -33,9 +33,9 @@ export default function Settings({ onSidebarUpdates, onLogOutLink }){
     }
 
 
-    return <div className='settings'>
+    return <div className="w-full h-screen flex flex-col items-start mt-[40px] px-[40px] border-box">
         {<Header title={'Settings'}/>}
-    <div className="centered-content-container">
+    <div className="w-full h-screen flex justify-center">
         {view === 'menu' && <SettingsMenu onEmailRowClick={handleGoToUpdateEmail} onPasswordRowClick={handleGoToUpdatePassword} onAvatarRowClick={handleGoToUpdateAvatar} onLogOutButton={handleLogOut} />}
         {view === 'email' && <UpdateEmail onSaveUpdateEmailClick={returnToSettingsMenu} onCancelUpdateEmailClick={returnToSettingsMenu}/>} 
         {view === 'password' && <UpdatePassword onSaveUpdatePasswordClick={returnToSettingsMenu} onCancelUpdatePasswordClick={returnToSettingsMenu}/>}

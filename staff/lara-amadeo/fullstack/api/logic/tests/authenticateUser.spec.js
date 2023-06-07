@@ -1,69 +1,76 @@
 const { expect } = require('chai')
-const { readFile } = require('fs')
-const authenticateUser = require('./authenticateUser')
+const { writeFile } = require('fs')
+const authenticateUser = require('../authenticateUser')
 
 describe('authenticateUser', () => {
 
-    it('should log in the user succesfully', done => {
+    let id, email, password
+    beforeEach(done => {
+        id = `id-${Math.random()}`
+        email = `email-${Math.random()}`
+        password = `password-${Math.random()}`
 
-        authenticateUser('pepito@grillo.com', 'Manzana12!', (error, userId) => {
-            expect(error).to.be.null
-
-            readFile('./data/users.json', (error, json) => {
-                done(error)
-
-                const users = JSON.parse(json)
-    
-                const user = users.find(user => user.email === 'pepito@grillo.com')
-    
-                expect(user.email).to.equal('pepito@grillo.com')
-                expect(user.password).to.equal('Manzana12!')
-                expect(userId).to.equal(user.id)
-            })
-
-        })
+        writeFile('./data/users.json', '[]', 'utf-8', error => done(error))
     })
 
-    it('should fail on wrong email', done => {
+    it('should log in the user succesfully', done => {
+        const users = [{ id, email, password }]
+        const json = JSON.stringify(users)
 
-        authenticateUser('pepito@gillo.com', 'Manzana12!', (error, userId) => {
-            expect(error).to.be.instanceOf(Error)
-            expect(error.message).to.equal(`User with email ${'pepito@gillo.com'} not found`)
+        writeFile('./data/users.json', json, 'utf-8', error => {
+            expect(error).to.be.null
+            authenticateUser(email, password, (error, userId) => {
+                expect(error).to.be.null
+                expect(userId).to.equal(id)
 
-            readFile('./data/users.json', (error, json) => {
-                done(error)
-
-                const users = JSON.parse(json)
-    
-                const user = users.includes(user => user.email === 'pepito@gillo.com')
-    
-                expect(user).to.be.false
-                expect(userId).to.be.undefined
+                done()
             })
-
         })
 
+    })
+
+
+    it('should fail on wrong email', done => {
+        authenticateUser(email + 'wrong', password, (error, userId) => {
+            expect(error).to.be.instanceOf(Error)
+            expect(error.message).to.equal(`User with email ${email + 'wrong'} not found`)
+            expect(userId).to.be.undefined
+
+            done()
+        })
     })
 
     it('should fail on wrong password', done => {
+        const users = [{ id, email, password }]
+        const json = JSON.stringify(users)
 
-        authenticateUser('pepito@grillo.com', 'Manzna12!', (error, userId) => {
-            expect(error).to.be.instanceOf(Error)
-            expect(error.message).to.equal('Email or password incorrect')
+        writeFile('./data/users.json', json, 'utf-8', error => {
+            expect(error).to.be.null
 
-            readFile('./data/users.json', (error, json) => {
-                done(error)
-
-                const users = JSON.parse(json)
-    
-                const user = users.includes(user => user.email === 'pepito@gillo.com')
-    
-                expect(user).to.be.false
-
+            authenticateUser(email, password + 'wrong', (error, userId) => {
+                expect(error).to.be.instanceOf(Error)
+                expect(error.message).to.equal(`Email or password incorrect`)
                 expect(userId).to.be.undefined
+
+                done()
             })
-
         })
+    })
 
+    it('should fail on non-existing user', done => {
+        authenticateUser(email, password + 'wrong', (error, userId) => {
+            expect(error).to.be.instanceOf(Error)
+            expect(error.message).to.equal(`User with email ${email} not found`)
+            expect(userId).to.be.undefined
+
+            done()
+        })
+    })
+
+    after(done => {
+        writeFile("./data/users.json", "[]", "utf-8", error => {
+            done(error)
+        })
     })
 })
+

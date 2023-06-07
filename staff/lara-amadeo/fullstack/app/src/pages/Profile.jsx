@@ -21,7 +21,7 @@ export default function Profile() {
     }
 
 
-    return <div className="profile">
+    return <div className="w-full h-screen flex flex-col mt-[10px] px-[40px] box-border max-md:mt-[74px] max-md:px-[16px]">
         {<Header title={'Profile'} secondaryButtonText={'Edit'} />}
         {<ProfileInformation />}
         {<ProfileTabs state={view} onPostsTabClick={handleShowProfilePosts} onSavedTabClick={handleShowProfileSaved}/>}

@@ -3,19 +3,19 @@
 @tailwind utilities;
 
 @layer components {
-    .centered-containers{
+    .centered-containers {
         @apply flex bg-white min-w-[310px] max-w-[358px] p-[24px] rounded-[24px] flex-col justify-center items-center shadow-md
     }
 
-    .centered-form{
-        @apply flex flex-col min-w-[270px] 
+    .centered-form {
+        @apply flex flex-col min-w-[270px]
     }
 
-    .modal-overlay{
+    .modal-overlay {
         @apply fixed top-0 bg-[--grey-overlay] w-full h-screen z-50 flex items-center justify-center
     }
 
-    .modal-solid-verlay{
+    .modal-solid-verlay {
         @apply fixed top-0 bg-[--grey-100] w-full h-screen z-70 flex items-center justify-center
     }
 
@@ -26,6 +26,7 @@
     .body-text {
         @apply text-[--grey-700] text-base font-normal m-0 h-fit
     }
+
     .body-text-bold {
         @apply text-[--grey-700] text-base font-semibold m-0 h-fit
     }
@@ -33,6 +34,7 @@
     .small-text {
         @apply text-[--grey-700] text-sm font-normal m-0 h-fit
     }
+
     .small-text-bold {
         @apply text-[--grey-700] text-sm font-semibold m-0 h-fit
     }
@@ -53,27 +55,27 @@
         @apply text-[--grey-700] text-base font-semibold mb-40
     }
 
-    .text-field { 
-        @apply bg-none h-[40px] mb-[24px] p-[12px] rounded-[12px] border border-[--grey-100] last:mb-0
+    .text-field {
+        @apply bg-none h-[40px] mb-[24px] p-[12px] rounded-[12px] border border-[--grey-100] last: mb-0
     }
 
-    .text-field-label { 
+    .text-field-label {
         @apply text-[--grey-700] text-base font-normal m-[6px] ml-0
     }
 
-    .text-field-description { 
+    .text-field-description {
         @apply text-[--grey-500] text-sm font-light m-0 mb-[8px]
     }
 
     .text-area {
-        @apply resize-none appearance-none bg-none rounded h-[45px] mb-[24px] p-[12px] rounded-[12px] border border-[--grey-100] last:mb-0 text-center
+        @apply resize-none appearance-none bg-none rounded h-[45px] mb-[24px] p-[12px] rounded-[12px] border border-[--grey-100] last: mb-0 text-center
     }
 
     .icon-critical {
-       @apply text-[--red-400]!
+        @apply text-[--red-400] !
     }
 
-    .icon-s-container{
+    .icon-s-container {
         @apply w-[24px] h-[24px] flex justify-center items-center
     }
 
@@ -98,23 +100,23 @@
     }
 
     .primary-button {
-        @apply bg-[--solid-blue] text-[--white] border-none hover:bg-[--intense-blue]
+        @apply bg-[--solid-blue] text-[--white] border-none hover: bg-[--intense-blue]
     }
 
     .secondary-button {
-        @apply text-[--solid-blue] border border-[--violet-700] hover:bg-[--violet-300]
+        @apply text-[--solid-blue] border border-[--violet-700] hover: bg-[--violet-300]
     }
 
     .critical-button {
-        @apply bg-[--red-100] border-none text-[--red-400] hover:bg-[#FCDBD8]
+        @apply bg-[--red-100] border-none text-[--red-400] hover: bg-[#FCDBD8]
     }
 
     .button-bar {
-        @apply flex  justify-between mt-[40px]
+        @apply flex justify-between mt-[40px]
     }
 
     .link {
-        @apply text-[--accent-purple] bg-none border-none font-semibold text-base no-underline cursor-pointer hover:text-[--accent-purple-hover]
+        @apply text-[--accent-purple] bg-none border-none font-semibold text-base no-underline cursor-pointer hover: text-[--accent-purple-hover]
     }
 
     .image-preview-container {
@@ -130,32 +132,32 @@
     :root {
         --solid-blue: #021950;
         --intense-blue: #032882;
-        --accent-purple:#833ee5;
+        --accent-purple: #833ee5;
         --accent-purple-hover: #641BCA;
-    
+
         --violet-800: #929AC4;
         --violet-700: #AFB5D4;
         --violet-600: #929AC4;
         --violet-500: #D1D4E6;
         --violet-400: #DEE0ED;
         --violet-300: #e8eaf4;
-        --violet-200: #F4F5F9;
-        --violet-100:#F8F9FB;
-    
-        --grey-700:#3B4257 ;
-        --grey-600:#4A536D ;
-        --grey-500:#545F7D ;
-        --grey-400:#657195 ;
-        --grey-300:#8F98B3 ;
-        --grey-200:#AAB1C5 ;
-        --grey-100:#C7C8CC ;
-        --white:#FFFFFF ;
-    
+        --violet-200: #F8FAFB;
+        --violet-100: #F8F9FB;
+
+        --grey-700: #3B4257;
+        --grey-600: #4A536D;
+        --grey-500: #545F7D;
+        --grey-400: #657195;
+        --grey-300: #8F98B3;
+        --grey-200: #AAB1C5;
+        --grey-100: #C7C8CC;
+        --white: #FFFFFF;
+
         --red-400: #F44336;
         --red-200: #F6655A;
         --red-300: #FB5548;
         --red-100: #FDECEA;
-    
+
         --green-400: #4CAF50;
         --grey-overlay: rgb(84, 95, 125, 0.2)
     }
@@ -242,4 +244,4 @@
     object-fit: cover;
     position: absolute;
 }
- */ 
+ */
