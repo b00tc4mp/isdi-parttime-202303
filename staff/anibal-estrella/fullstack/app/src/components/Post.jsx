@@ -4,7 +4,7 @@ import toggleFavPost from '../logic/toggleFavPost'
 import formatTimeSince from "../logic/formatTimeSince"
 //CONTEXT/ALERTS/00// import to use context for dizxzplaying Alerts
 import { useContext } from "react"
-import Context from "../Context"
+import { useAppContext } from "../hooks"
 
 import Panel from '../library/Panel'
 
@@ -19,7 +19,7 @@ import './Post.css'
 
 export default function Post({ post: { author, id, image, text, date, likes, fav }, onEditPost, onToggledLikePost, onToggledFavPost }) {
     //CONTEXT/ALERTS/02// Use the context to return the object alert tha's define in the parent object App.jsx
-    const { alert, freeze, unfreeze } = useContext(Context)
+    const { alert, freeze, unfreeze } = useAppContext()
 
     date = formatTimeSince(date)
 

@@ -6,7 +6,7 @@ import retrievePost from "../logic/retrievePost.js"
 import deletePost from "../logic/deletePost.js"
 
 import { useContext } from "react"
-import Context from "../Context"
+import { useAppContext } from "../hooks"
 
 import Panel from '../library/Panel'
 
@@ -17,28 +17,29 @@ import { CheckIcon } from '@heroicons/react/24/solid'
 import { EyeIcon } from '@heroicons/react/24/solid'
 
 export default function EditPostModal({ onCancel, onPostEdited, postId, onDeletedPost }) {
-    const { alert } = useContext(Context)
+    const { alert, freeze, unfreeze } = useAppContext()
     const [post, setPost] = useState(null)
     const [previewImage, setPreviewImage] = useState(null)
 
 
     useEffect(() => {
         try {
+            freeze()
             retrievePost(context.userId, postId, (error, post) => {
                 if (error) {
                     alert(error.message)
-    
+
                     return
                 }
                 //save loaded post
                 setPost(post)
                 setPreviewImage(post.image);
             })
-            
+
         } catch (error) {
             alert(error.message)
         }
-        
+        unfreeze()
     }, [postId])
 
     function handleCancel(event) {
@@ -54,12 +55,15 @@ export default function EditPostModal({ onCancel, onPostEdited, postId, onDelete
         const text = event.target.text.value
 
         try {
+            freeze()
             updatePost(context.userId, postId, image, text, (error) => {
+                unfreeze()
                 if (error) {
                     alert(error.message)
-    
+
                     return
                 }
+
                 onPostEdited()
             })
 
@@ -94,14 +98,14 @@ export default function EditPostModal({ onCancel, onPostEdited, postId, onDelete
     };
 
     const imageInputRef = useRef();
-    
+
     const handleImagePreview = (event) => {
         event.preventDefault()
         setPreviewImage(imageInputRef.current.value);
     }
-    
+
     console.debug('// EditPostModal -> RENDER')
-    
+
     return <>
         {post && <section className="edit-post-modal">
 
@@ -109,10 +113,10 @@ export default function EditPostModal({ onCancel, onPostEdited, postId, onDelete
 
             <Panel tag="form" className="edit-post-modal-form" onSubmit={handleEditPost}>
                 <label htmlFor="edit-post-image " className='border-top-gradient'>Image:</label>
-                 <img src={previewImage} className="edit-post-th grayscale-img" alt="Preview" />
+                <img src={previewImage} className="edit-post-th grayscale-img" alt="Preview" />
                 <div className='modal-actions-container'>
                     <input className='input-preview' type="url" name="image" placeholder="Paste image URL in here."
-                    defaultValue={previewImage} ref={imageInputRef}/>
+                        defaultValue={previewImage} ref={imageInputRef} />
                     <button className="preview-image-button icon post-button" onClick={handleImagePreview}>Preview<EyeIcon className="eye icon" /></button>
                 </div>
 

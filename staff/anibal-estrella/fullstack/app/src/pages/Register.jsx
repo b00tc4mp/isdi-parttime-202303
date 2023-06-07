@@ -1,10 +1,10 @@
 import { useContext } from "react"
-import Context from "../Context.jsx"
 import registerUser from '../logic/registerUser'
 import { Panel } from '../library'
+import { useAppContext } from '../hooks'
 
 export default function Register({ onUserRegistered, onLoginClick }) {
-    const { alert, freeze, unfreeze } = useContext(Context)
+    const { alert, freeze, unfreeze } = useAppContext()
 
     function handleLoginClick(event) {
         event.preventDefault()
@@ -25,6 +25,7 @@ export default function Register({ onUserRegistered, onLoginClick }) {
             freeze()
             //handle asynchronous errors with a CALLBACK
             registerUser(name, email, password, repeatPassword, error => {
+                unfreeze()
 
                 if (error) {
                     alert(error.message)
@@ -33,7 +34,6 @@ export default function Register({ onUserRegistered, onLoginClick }) {
                 }
 
                 onUserRegistered()
-                unfreeze()
             })
 
         } catch (error) {

@@ -5,11 +5,11 @@ const { validators: { validateName, validateEmail, validatePassword, validateCal
 
 
 // create function with the parameters it receives
-module.exports = (name, email, password, callback) => {
-    validateEmail(email)
-    validateName(name)
-    validatePassword(password)
-    validateCallback(callback)
+module.exports = function registerUser(name, email, password, callback) {
+validateEmail(email)
+validateName(name)
+validatePassword(password)
+validateCallback(callback)
 
     //read the users.json, the format of the fils and the error callback
     readFile('./data/users.json', 'utf8', (error, json) => {
