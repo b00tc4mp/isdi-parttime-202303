@@ -1,0 +1,28 @@
+[
+    {
+        "id": "user-1",
+        "name": "Tinker",
+        "email": "pepito@grillo1.com",
+        "password": "123123123",
+        "avatar": null,
+        "favs": []
+    },
+    {
+        "id": "user-2",
+        "name": "Tinker",
+        "email": "tinkero@bell.com",
+        "password": "123123123",
+        "avatar": "https://static.wikia.nocookie.net/criticalrole/images/c/cd/VexTLOVM.png/revision/latest?cb=20220204041409",
+        "favs": []
+    },
+    {
+        "id": "user-3",
+        "name": "Onilla",
+        "email": "onilla@ciriquian.com",
+        "password": "Onilla1",
+        "avatar": null,
+        "favs": [
+            "post-1"
+        ]
+    }
+]
