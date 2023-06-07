@@ -1,6 +1,4 @@
-//import { validateEmail, validatePassword, validateCallback } from 'com'
 import { validators } from 'com'
-import { findUserByEmail } from '../data'
 
 const { validateEmail, validatePassword, validateCallback } = validators
 
@@ -12,24 +10,41 @@ const { validateEmail, validatePassword, validateCallback } = validators
  * 
  * @returns {string} The user's id
  */
-export default function authenticateUser(email, password, callback) {
+export default (email, password, callback) => {
     validateEmail(email)
     validatePassword(password)
     validateCallback(callback)
 
-    findUserByEmail(email, user => {
-        if (!user) {
-            callback(new Error('user not found'))
+    const xhr = new XMLHttpRequest
+
+    xhr.onload = () => {
+        const { status } = xhr
+
+        if (status !== 200) {
+            const { response: json } = xhr
+            const { error } = JSON.parse(json)
+
+            callback(new Error(error))
 
             return
         }
 
-        if (user.password !== password) {
-            callback(new Error('wrong password'))
+        const { response: json } = xhr
+        const { userId } = JSON.parse(json)
 
-            return
-        }
+        callback(null, userId)
+    }
 
-        callback(null, user.id)
-    })
+    xhr.onerror = () => {
+        callback(new Error('connection error'))
+    }
+
+    xhr.open('POST', `${import.meta.env.VITE_API_URL}/users/auth`)
+
+    xhr.setRequestHeader('Content-Type', 'application/json')
+
+    const user = { email, password }
+    const json = JSON.stringify(user)
+
+    xhr.send(json)
 }

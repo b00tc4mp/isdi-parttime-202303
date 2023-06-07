@@ -5,7 +5,7 @@ const { validateCallback } = validators
 export default function retrieveRandomMotivantionalQuote(callback) {
     validateCallback(callback)
 
-    var xhr = new XMLHttpRequest
+    const xhr = new XMLHttpRequest
 
     xhr.onload = () => {
         const { content } = JSON.parse(xhr.response)

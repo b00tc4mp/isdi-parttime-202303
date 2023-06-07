@@ -10,14 +10,14 @@ describe('registerUser', () => {
         email = `e-${Math.random()}@mail.com`
         password = `password-${Math.random()}`
 
-        writeFile('./data/users.json', '[]', 'utf8', error => done(error))
+        writeFile(`${process.env.DB_PATH}/users.json`, '[]', error => done(error))
     })
 
     it('succeeds on new user', done => {
         registerUser(name, email, password, error => {
             expect(error).to.be.null
 
-            readFile('./data/users.json', 'utf8', (error, json) => {
+            readFile(`${process.env.DB_PATH}/users.json`, (error, json) => {
                 expect(error).to.be.null
 
                 const users = JSON.parse(json)
@@ -47,13 +47,13 @@ describe('registerUser', () => {
         const users = [{ id: id2, name: name2, email: email2, password: password2 }]
         const json = JSON.stringify(users)
 
-        writeFile('./data/users.json', json, 'utf8', error => {
+        writeFile(`${process.env.DB_PATH}/users.json`, json, error => {
             expect(error).to.be.null
 
             registerUser(name, email, password, error => {
                 expect(error).to.be.null
 
-                readFile('./data/users.json', 'utf8', (error, json) => {
+                readFile(`${process.env.DB_PATH}/users.json`, (error, json) => {
                     expect(error).to.be.null
 
                     const users = JSON.parse(json)
@@ -78,7 +78,7 @@ describe('registerUser', () => {
         const users = [{ name, email, password }]
         const json = JSON.stringify(users)
 
-        writeFile('./data/users.json', json, 'utf8', error => {
+        writeFile(`${process.env.DB_PATH}/users.json`, json, error => {
             expect(error).to.be.null
 
             registerUser(name, email, password, error => {
@@ -123,5 +123,5 @@ describe('registerUser', () => {
 
     // TODO add more unhappies
 
-    after(done => writeFile('./data/users.json', '[]', 'utf8', error => done(error)))
+    after(done => writeFile(`${process.env.DB_PATH}/users.json`, '[]', error => done(error)))
 })

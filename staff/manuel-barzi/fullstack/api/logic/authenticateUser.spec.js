@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 const { expect } = require('chai')
 const authenticateUser = require('./authenticateUser')
 const { writeFile } = require('fs')
@@ -10,14 +12,14 @@ describe('authenticateUser', () => {
         email = `e-${Math.random()}@mail.com`
         password = `password-${Math.random()}`
 
-        writeFile('./data/users.json', '[]', 'utf8', error => done(error))
+        writeFile(`${process.env.DB_PATH}/users.json`, '[]', error => done(error))
     })
 
     it('succeeds on existing user', done => {
         const users = [{ id, email, password }]
         const json = JSON.stringify(users)
 
-        writeFile('./data/users.json', json, 'utf8', error => {
+        writeFile(`${process.env.DB_PATH}/users.json`, json, error => {
             expect(error).to.be.null
 
             authenticateUser(email, password, (error, userId) => {
@@ -46,7 +48,7 @@ describe('authenticateUser', () => {
         const users = [{ id, email, password }]
         const json = JSON.stringify(users)
 
-        writeFile('./data/users.json', json, 'utf8', error => {
+        writeFile(`${process.env.DB_PATH}/users.json`, json, error => {
             expect(error).to.be.null
 
             authenticateUser(email, password + '-wrong', (error, userId) => {
@@ -69,5 +71,5 @@ describe('authenticateUser', () => {
 
     // TODO add more unhappies
 
-    after(done => writeFile('./data/users.json', '[]', 'utf8', error => done(error)))
+    after(done => writeFile(`${process.env.DB_PATH}/users.json`, '[]', error => done(error)))
 })
