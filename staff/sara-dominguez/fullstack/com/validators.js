@@ -2,10 +2,10 @@ console.debug('load validators')
 
 function validateName(name) {
 
-    if (typeof name !== 'string') throw new Error('Name is not a string');
-    if (!name.trim().length) throw new Error('Name is empty')
-    if (name.trim().length < 3) throw new Error('Name minimun 3 characters')
-    if (name.trim().length > 15) throw new Error('Name maximun 15 characters')
+    if (typeof name !== 'string') throw new Error('name is not a string');
+    if (!name.trim().length) throw new Error('name is empty')
+    if (name.trim().length < 3) throw new Error('name minimun 3 characters')
+    if (name.trim().length > 15) throw new Error('name maximun 15 characters')
 
     // TODO regex pattern 
 }
@@ -13,9 +13,9 @@ function validateName(name) {
 function validateEmail(email) {
     const emailRegex = /^[\w-.]+@[\w-]+(\.[a-zA-Z]{2,4}){1,2}$/
 
-    if (typeof email !== 'string') throw new Error('Email is not a string')
-    if (!email.trim().length) throw new Error('Email is empty')
-    if (!emailRegex.test(email)) throw new Error('Invalid email')
+    if (typeof email !== 'string') throw new Error('email is not a string')
+    if (!email.trim().length) throw new Error('email is empty')
+    if (!emailRegex.test(email)) throw new Error('invalid email')
 }
 
 function validatePassword(password) {

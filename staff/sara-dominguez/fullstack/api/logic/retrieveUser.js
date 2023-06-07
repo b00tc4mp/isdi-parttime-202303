@@ -1,20 +1,30 @@
+const { readFile } = require('fs')  
 
+const { validators: {validateId, validateCallback}} = require('com')
 
 module.exports = function retrieveUser(userId, callback){
-    //TODO validators
+    validateId(userId)
+    validateCallback(callback)
 
-    findUserById(userId, error,  user => {
+    readFile('./data/users.json', 'utf8', (error, json) => {
+        if (error) {
+            callback(error)
+
+            return
+        }
+        
+        const users = JSON.parse(json)
+        const user = users.find(user => user.id ===userId)
+
         if(!user) {
-            callback(new Error('user not found'))
+            callback(new Error(`user with id ${userId} not found`))
 
             return
         }
 
-        const user = {
-            name: user.name,
-            avatar: user.avatar
-        }
-
         callback(null, user)
     })
+   
+
+   
 }

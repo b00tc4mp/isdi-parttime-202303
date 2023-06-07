@@ -18,7 +18,7 @@ module.exports = function registerUser(name, email, password, callback) {
         let user = users.find(user => user.email === email)
 
         if (user) {
-            callback(new Error(`user with email ${email} alreade exist`))
+            callback(new Error(`user with email ${email} already exist`))
 
             return
         }
