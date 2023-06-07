@@ -13,14 +13,14 @@ describe('retrieveUser', () => {
     avatar = `avatar-${Math.random()}`
     favs = '[]'
     
-    writeFile('./data/users.json', '[]', 'utf8', error => done(error))
+    writeFile('./data/users.json', '[]', error => done(error))
   })
 
   it('Succeds on existing user and correct id', done => {
     const users = [{ id, name, email, password, avatar, favs }]
     const json = JSON.stringify(users)
 
-    writeFile('./data/users.json', json, 'utf8', (error) => {
+    writeFile('./data/users.json', json, (error) => {
       retrieveUser('user-1', (error, user) => {
         expect(error).to.be.null
 
@@ -37,7 +37,7 @@ describe('retrieveUser', () => {
     const users = [{ id, name, email, password, avatar: null, favs }]
     const json = JSON.stringify(users)
 
-    writeFile('./data/users.json', json, 'utf8', (error) => {
+    writeFile('./data/users.json', json, (error) => {
       retrieveUser('user-1', (error, user) => {
         expect(error).to.be.null
 
@@ -56,7 +56,7 @@ describe('retrieveUser', () => {
 
     const wrongId = id + 'wrong'
 
-    writeFile('./data/users.json', json, 'utf8', (error) => {
+    writeFile('./data/users.json', json, (error) => {
       retrieveUser(wrongId, (error, user) => {
         expect(error).to.be.instanceOf(Error)
         expect(error.message).to.equal('User does not exist.')
@@ -84,5 +84,5 @@ describe('retrieveUser', () => {
     done()
   })
   
-  after(done => writeFile('./data/users.json', '[]', 'utf8', error => done(error)))
+  after(done => writeFile('./data/users.json', '[]', error => done(error)))
 })

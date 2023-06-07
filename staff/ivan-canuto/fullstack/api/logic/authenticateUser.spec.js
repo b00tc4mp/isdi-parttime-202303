@@ -12,20 +12,20 @@ describe('authenticateUser', () => {
     email = `email-${Math.random()}`
     password = `password-${Math.random()}`
 
-    writeFile('./data/users.json', '[]', 'utf8', error => done(error))
+    writeFile('./data/users.json', '[]', error => done(error))
   })
 
   it('succeeds on existing user', done => {
     const users = [{id, name, email, password}]
     const userToJSON = JSON.stringify(users)
     
-    writeFile('./data/users.json',  userToJSON, 'utf8', (error) => {
+    writeFile('./data/users.json',  userToJSON, (error) => {
       expect(error).to.be.null
       
       authenticateUser(email, password, (error, userId) => {
         expect(error).to.be.null
         
-        readFile('./data/users.json', 'utf8', (error, usersJSON) => {
+        readFile('./data/users.json', (error, usersJSON) => {
           expect(error).to.be.null
           const users = JSON.parse(usersJSON)
           const user = users.find(user => user.id === userId)
@@ -56,7 +56,7 @@ describe('authenticateUser', () => {
     const users = [{id, name, email, password}]
     const userToJSON = JSON.stringify(users)
 
-    writeFile('./data/users.json', userToJSON, 'utf8', (error) => {
+    writeFile('./data/users.json', userToJSON, (error) => {
       const newPassword = `password-${Math.random()}`
   
       authenticateUser(email, newPassword, (error, userId) => {
@@ -75,7 +75,7 @@ describe('authenticateUser', () => {
     const users = [{id, name, email, password}]
     const userToJSON = JSON.stringify(users)
 
-    writeFile('./data/users.json', userToJSON, 'utf8', (error) => {
+    writeFile('./data/users.json', userToJSON, (error) => {
       expect(() => authenticateUser(true, password, () => { })).to.throw(Error, 'The email is not a string.')
       expect(() => authenticateUser([], password, () => { })).to.throw(Error, 'The email is not a string.')
       expect(() => authenticateUser({}, password, () => { })).to.throw(Error, 'The email is not a string.')
@@ -88,7 +88,7 @@ describe('authenticateUser', () => {
     const users = [{id, name, email, password}]
     const userToJSON = JSON.stringify(users)
 
-    writeFile('./data/users.json', userToJSON, 'utf8', (error) => {
+    writeFile('./data/users.json', userToJSON, (error) => {
       expect(() => authenticateUser(email, '', () => { })).to.throw(Error, 'The password field is empty.')
     })
   })
@@ -97,7 +97,7 @@ describe('authenticateUser', () => {
     const users = [{id, name, email, password}]
     const userToJSON = JSON.stringify(users)
 
-    writeFile('./data/users.json', userToJSON, 'utf8', (error) => {
+    writeFile('./data/users.json', userToJSON, (error) => {
       expect(() => authenticateUser(email, true, () => { })).to.throw(Error, 'The password is not a string.')
       expect(() => authenticateUser(email, [], () => { })).to.throw(Error, 'The password is not a string.')
       expect(() => authenticateUser(email, {}, () => { })).to.throw(Error, 'The password is not a string.')
@@ -111,5 +111,5 @@ describe('authenticateUser', () => {
     done()
   })
 
-  after(done => writeFile('./data/users.json', '[]', 'utf8', error => done(error)))
+  after(done => writeFile('./data/users.json', '[]', error => done(error)))
 })

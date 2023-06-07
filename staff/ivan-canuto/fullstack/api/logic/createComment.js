@@ -5,7 +5,7 @@ module.exports = function createComment(commentText, userId, postId, callBack) {
   validateText(commentText)
   validateCallback(callBack)
 
-  readFile('./data/users.json', 'utf8', (error, usersJSON) => {
+  readFile('./data/users.json', (error, usersJSON) => {
     if(error) {
       callBack(error)
 
@@ -16,7 +16,7 @@ module.exports = function createComment(commentText, userId, postId, callBack) {
 
     const user = users.find(_user => _user.id === userId)
 
-    readFile('./data/posts.json', 'utf8', (error, postsJSON) => {
+    readFile('./data/posts.json', (error, postsJSON) => {
       if(error) {
         callBack(error)
   
@@ -50,7 +50,7 @@ module.exports = function createComment(commentText, userId, postId, callBack) {
 
       const postToJSON = JSON.stringify(posts)
 
-      writeFile('./data/posts.json', postToJSON, 'utf8', (error) => {
+      writeFile('./data/posts.json', postToJSON, (error) => {
         if(error) {
           callBack(error)
 

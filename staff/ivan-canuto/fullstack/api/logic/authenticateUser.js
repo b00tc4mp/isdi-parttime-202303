@@ -6,7 +6,7 @@ module.exports = (email, password, callBack) => {
   validatePassword(password)
   validateCallback(callBack)
 
-  readFile('./data/users.json', 'utf8', (error, json) => {
+  readFile('./data/users.json', (error, json) => {
     if(error) {
       callBack(error)
 

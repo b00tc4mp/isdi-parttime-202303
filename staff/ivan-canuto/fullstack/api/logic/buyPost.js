@@ -5,7 +5,7 @@ module.exports = function buyPost(postId, callBack) {
   validateId(postId)
   validateCallback(callBack)
 
-  readFile('./data/posts.json', 'utf8', (error, postsJSON) => {
+  readFile('./data/posts.json', (error, postsJSON) => {
     if(error) {
       callBack(error)
 
@@ -40,7 +40,7 @@ module.exports = function buyPost(postId, callBack) {
 
     const postsToJSON = JSON.stringify(posts)
 
-    writeFile('./data/posts.json', posts, 'utf8', (error) => {
+    writeFile('./data/posts.json', posts, (error) => {
       if(error) {
         callBack(error)
   

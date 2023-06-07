@@ -10,13 +10,13 @@ describe('updateUserPassword', () => {
   const user = [{id, email, password}]
   const userToJSON = JSON.stringify(user)
 
-  beforeEach(done => writeFile('./data/users.json', userToJSON, 'utf8', error => done(error)))
+  beforeEach(done => writeFile('./data/users.json', userToJSON, error => done(error)))
 
   it('Should change the user password successfully', done => {
     updateUserPassword('user-1', '123123123', '345345345', '345345345', error => {
       expect(error).to.be.null
       
-      readFile('./data/users.json', 'utf8', (error, usersJSON) => {
+      readFile('./data/users.json', (error, usersJSON) => {
         expect(error).to.be.null
 
         const users = JSON.parse(usersJSON)
@@ -74,5 +74,5 @@ describe('updateUserPassword', () => {
     })
   })
 
-  after(done => writeFile('./data/users.json', '[]', 'utf8', error => done(error)))
+  after(done => writeFile('./data/users.json', '[]', error => done(error)))
 })

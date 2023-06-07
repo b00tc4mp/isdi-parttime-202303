@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node .",
+    "inspect": "node --inspect-brk .",
     "test": "mocha logic/*.spec.js",
     "test-inspect": "mocha --inspect-brk logic/*.spec.js",
     "test-coverage": "nyc --reporter=lcov --reporter=text-summary mocha logic/*.spec.js"
@@ -17,6 +19,8 @@
   },
   "dependencies": {
     "com": "file:../com",
+    "dotenv": "^16.1.4",
+    "express": "^4.18.2",
     "nyc": "^15.1.0"
   }
 }

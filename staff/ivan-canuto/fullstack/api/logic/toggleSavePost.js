@@ -6,7 +6,7 @@ module.exports = function toggleSavePost(userId, postId, callBack) {
   validateId(postId, 'post id')
   validateCallback(callBack)
 
-  readFile('./data/users.json', 'utf8', (error, usersJSON) => {
+  readFile('./data/users.json', (error, usersJSON) => {
     if(error) {
       callBack(error)
 
@@ -39,7 +39,7 @@ module.exports = function toggleSavePost(userId, postId, callBack) {
     users.splice(usersIndex, 1, user)
     const usersToJSON = JSON.stringify(users)
 
-    writeFile('./data/users.json', usersToJSON, 'utf8', (error) => {
+    writeFile('./data/users.json', usersToJSON, (error) => {
       if(error) {
         callBack(error)
 

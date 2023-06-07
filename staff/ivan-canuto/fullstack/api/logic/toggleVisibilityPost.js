@@ -5,7 +5,7 @@ module.exports = function toggleVisibilityPost(postId, callBack) {
   validateId(postId, 'post id')
   validateCallback(callBack)
 
-  readFile('./data/posts.json', 'utf8', (error, postsJSON) => {
+  readFile('./data/posts.json', (error, postsJSON) => {
     if(error) {
       callBack(error)
 
@@ -28,7 +28,7 @@ module.exports = function toggleVisibilityPost(postId, callBack) {
     posts.splice(postIndex, 1, post)
     const postsToJSON = JSON.stringify(posts)
 
-    writeFile('./data/posts.json', postsToJSON, 'utf8', (error) => {
+    writeFile('./data/posts.json', postsToJSON, (error) => {
       if(error) {
         callBack(error)
 

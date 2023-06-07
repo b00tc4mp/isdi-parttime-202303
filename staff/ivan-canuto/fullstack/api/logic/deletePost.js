@@ -6,7 +6,7 @@ module.exports = function deletePost(postId, userId, callBack) {
   validateId(postId, 'post id')
   validateCallback(callBack)
 
-  readFile('./data/users.json', 'utf8', (error, usersJSON) => {
+  readFile('./data/users.json', (error, usersJSON) => {
     if(error) {
       callBack(error)
 
@@ -28,7 +28,7 @@ module.exports = function deletePost(postId, userId, callBack) {
       users.favs.splice(favPostIndex, 1)
       const usersToJSON = JSON.stringify(users)
 
-      writeFile('./data/users.json', usersToJSON, 'utf8', (error) => {
+      writeFile('./data/users.json', usersToJSON, (error) => {
         if(error) {
           callBack(error)
 
@@ -38,7 +38,7 @@ module.exports = function deletePost(postId, userId, callBack) {
     }
     else if(favPostIndex === -1) {
       const usersToJSON = JSON.stringify(users)
-      writeFile('./data/users.json', usersToJSON, 'utf8', (error) => {
+      writeFile('./data/users.json', usersToJSON, (error) => {
         if(error) {
           callBack(error)
 
@@ -47,7 +47,7 @@ module.exports = function deletePost(postId, userId, callBack) {
       })
     }
 
-    readFile('./data/posts.json', 'utf8', (error, postsJSON) => {
+    readFile('./data/posts.json', (error, postsJSON) => {
       if(error) {
         callBack(error)
 
@@ -67,7 +67,7 @@ module.exports = function deletePost(postId, userId, callBack) {
 
       const postsToJSON = JSON.stringify(posts)
 
-      writeFile('./data/users.json', postsToJSON, 'utf8', (error) => {
+      writeFile('./data/users.json', postsToJSON, (error) => {
         if(error) {
           callBack(error)
 

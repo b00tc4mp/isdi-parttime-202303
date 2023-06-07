@@ -8,7 +8,7 @@ module.exports = function updatePost(userId, postId, imageUrl, postText, callBac
   validateText(postText)
   validateCallback(callBack)
 
-  readFile('./data/users.json', 'utf8', (error, usersJSON) => {
+  readFile('./data/users.json', (error, usersJSON) => {
     if(error) {
       callBack(error)
 
@@ -24,7 +24,7 @@ module.exports = function updatePost(userId, postId, imageUrl, postText, callBac
       return
     }
     
-    readFile('./data/posts.json', 'utf8', (error, postsJSON) => {
+    readFile('./data/posts.json', (error, postsJSON) => {
       if(error) {
         callBack(error)
   
@@ -54,7 +54,7 @@ module.exports = function updatePost(userId, postId, imageUrl, postText, callBac
       posts.splice(postIndex, 1, post)
       const postsToJSON = JSON.stringify(posts)
 
-      writeFile('./data/posts.json', postsToJSON, 'utf8', (error) => {
+      writeFile('./data/posts.json', postsToJSON, (error) => {
         if(error) {
           callBack(error)
 

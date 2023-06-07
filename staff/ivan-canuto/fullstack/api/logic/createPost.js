@@ -8,7 +8,7 @@ module.exports = function createPost( userId, imageUrl, postText, callBack) {
   validateText(postText)
   validateCallback(callBack)
 
-  readFile('./data/users.json', 'utf8', (error, usersJSON) => {
+  readFile('./data/users.json', (error, usersJSON) => {
     if(error) {
       callBack(error)
       
@@ -19,7 +19,7 @@ module.exports = function createPost( userId, imageUrl, postText, callBack) {
 
     const user = users.find(_user => _user.id === userId)
 
-    readFile('./data/posts.json', 'utf8', (error, postsJSON) => {
+    readFile('./data/posts.json', (error, postsJSON) => {
       if(error) {
         callBack(error)
         
@@ -50,7 +50,7 @@ module.exports = function createPost( userId, imageUrl, postText, callBack) {
 
       const newPostsJSON = JSON.stringify(posts)
 
-      writeFile('./data/posts.json', newPostsJSON, 'utf8', (error) => {
+      writeFile('./data/posts.json', newPostsJSON, (error) => {
         if(error) {
           callBack(error)
 

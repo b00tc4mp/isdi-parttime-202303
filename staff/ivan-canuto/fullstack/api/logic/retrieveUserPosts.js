@@ -5,7 +5,7 @@ module.exports = function retrieveUserPosts(userId, callBack) {
   validateId(userId, 'user id')
   validateCallback(callBack)
 
-  readFile('./data/users.json', 'utf8', (error, usersJSON) => {
+  readFile('./data/users.json', (error, usersJSON) => {
     if(error) {
       callBack(error)
 
@@ -21,7 +21,7 @@ module.exports = function retrieveUserPosts(userId, callBack) {
       return
     }
 
-    readFile('./data/posts.json', 'utf8', (error, postsJSON) => {
+    readFile('./data/posts.json', (error, postsJSON) => {
       if(error) {
         callBack(error)
   

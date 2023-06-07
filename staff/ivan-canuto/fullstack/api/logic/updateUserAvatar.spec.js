@@ -11,13 +11,13 @@ describe('updateUserAvatar', () => {
   const user = [{id, name, avatar, password}]
   const userToJSON = JSON.stringify(user)
 
-  beforeEach(done => writeFile('./data/users.json', userToJSON, 'utf8', error => done(error)))
+  beforeEach(done => writeFile('./data/users.json', userToJSON, error => done(error)))
 
   it("Should update the user's avatar succesfully", done => {
     updateUserAvatar('user-1', 'new-user-avatar', '123123123', error => {
       expect(error).to.be.null
       
-      readFile('./data/users.json', 'utf8', (error, usersJSON) => {
+      readFile('./data/users.json', (error, usersJSON) => {
         expect(error).to.be.null
 
         const users = JSON.parse(usersJSON)
@@ -57,5 +57,5 @@ describe('updateUserAvatar', () => {
     done()
   })
 
-  after(done => writeFile('./data/users.json', '[]', 'utf8', error => done(error)))
+  after(done => writeFile('./data/users.json', '[]', error => done(error)))
 })

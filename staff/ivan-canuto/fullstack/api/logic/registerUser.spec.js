@@ -10,14 +10,14 @@ describe('registerUser', () => {
     email = `email-${Math.random()}`
     password = `password-${Math.random()}`
 
-    writeFile('./data/users.json', '[]', 'utf8', error => done(error))
+    writeFile('./data/users.json', '[]', error => done(error))
   })
 
   it('Succeeds on new user', done => {
     registerUser(name, email, password, (error) => {
       expect(error).to.be.null
       
-      readFile('./data/users.json', 'utf8', (error, usersJSON) => {
+      readFile('./data/users.json', (error, usersJSON) => {
         expect(error).to.be.null
         
         const users = JSON.parse(usersJSON)
@@ -44,7 +44,7 @@ describe('registerUser', () => {
     const user = [{name, email, password}]
     const userToJSON = JSON.stringify(user)
 
-    writeFile('./data/users.json', userToJSON, 'utf8', error => {
+    writeFile('./data/users.json', userToJSON, error => {
       expect(error).to.be.null
       
       registerUser(name, email, password, error => {
@@ -99,5 +99,5 @@ describe('registerUser', () => {
     expect(() => registerUser(name, email, 1, () => { })).to.throw(Error, 'The password is not a string.')
   })
 
-  after(done => writeFile('./data/users.json', '[]', 'utf8', error => done(error)))
+  after(done => writeFile('./data/users.json', '[]', error => done(error)))
 })

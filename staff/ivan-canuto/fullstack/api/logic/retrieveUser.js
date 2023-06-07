@@ -5,7 +5,7 @@ module.exports = (userId, callBack) => {
   validateId(userId, 'user id')
   validateCallback(callBack)
 
-  readFile('./data/users.json', 'utf8', (error, json) => {
+  readFile('./data/users.json', (error, json) => {
     if(error) {
       callBack(error)
 

@@ -7,7 +7,7 @@ module.exports = (name, email, password, callBack) => {
   validatePassword(password)
   validateCallback(callBack)
 
-  readFile('./data/users.json', 'utf8', (error, json) => {
+  readFile('./data/users.json', (error, json) => {
     if(error) {
       callBack(error)
 
@@ -47,7 +47,7 @@ module.exports = (name, email, password, callBack) => {
     
     const usersJSON = JSON.stringify(users)
 
-    writeFile('./data/users.json', usersJSON, 'utf8', (error) => {
+    writeFile('./data/users.json', usersJSON, (error) => {
       if(error) {
         callBack(error)
 
