@@ -1,1 +1,18 @@
-[]
+[
+    {
+        "id": "user-1",
+        "name": "Anibal Estrella",
+        "email": "anibal@gmail.com",
+        "password": "123123123",
+        "avatar": null,
+        "favs": []
+    },
+    {
+        "id": "user-2",
+        "name": "Anibal Estrella",
+        "email": "anibales@gmail.com",
+        "password": "123123123",
+        "avatar": null,
+        "favs": []
+    }
+]
