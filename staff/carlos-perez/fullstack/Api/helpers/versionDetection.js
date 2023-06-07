@@ -1,6 +1,6 @@
-module.exports = function versionDetection(){
-
 const shell = require('shelljs')
+
+module.exports = function versionDetection(){
 
 const version=shell.exec("node --version", {async: false}).stdout;
 
