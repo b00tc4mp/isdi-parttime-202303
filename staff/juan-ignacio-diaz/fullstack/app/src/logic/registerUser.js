@@ -1,33 +1,39 @@
 import { validators } from 'com'
 const { validateName, validateEmail, validatePassword, validateCallback } = validators
 
-import { loadUsers, saveUsers, findUserByEmail, newUserId } from "../data"
-
 export default function registerUser (name, email, password, callback) {
     validateName(name)
     validateEmail(email)
     validatePassword(password)
     validateCallback(callback)
  
-    findUserByEmail(email, user => {
-        if (user) {
-            callback(new Error('user already exists'))
+    const xhr = new XMLHttpRequest
+
+    xhr.onload = () => {
+        const { status } = xhr
+
+        if (status !== 201) {
+            const { response: json } = xhr
+            const { error } = JSON.parse(json)
+
+            callback(new Error(error))
 
             return
         }
 
-        loadUsers(users =>{   
-            newUserId(id =>{
-                users.push({
-                    id: id,
-                    name: name,
-                    email: email,
-                    password: password,
-                    favs: []
-                })
+        callback(null)
+    }
 
-                saveUsers(users, () => callback(null))
-            })       
-        })
-     })
+    xhr.onerror = () => {
+        callback(new Error('connection error'))
+    }
+
+    xhr.open('POST', `${import.meta.env.VITE_API_URL}/users`)
+
+    xhr.setRequestHeader('Content-Type', 'application/json')
+
+    const user = { name, email, password }
+    const json = JSON.stringify(user)
+
+    xhr.send(json)
 }

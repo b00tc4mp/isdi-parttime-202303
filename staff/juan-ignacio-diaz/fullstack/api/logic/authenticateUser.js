@@ -1,6 +1,6 @@
 const { readFile } = require('fs')
 
-const { validateEmail, validatePassword, validateCallback } = require('./helpers/validators')
+const { validators: { validateEmail, validatePassword, validateCallback } } = require('com')
 
 module.exports = function authenticateUser(email, password, callback) {
     validateEmail(email)

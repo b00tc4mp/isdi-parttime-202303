@@ -1,11 +1,8 @@
 const { readFile, writeFile } = require('fs')
-const { validators: { validateId, validatePassword, validateCallback } } = require('com')
+const { validators: { validateId, validateCallback } } = require('com')
 
-module.exports = function updateUserPassword(userId, password, newPassword, newPasswordConfirm, callback) {
+module.exports = function updateUserMode(userId, mode, callback) {
     validateId(userId, 'user id')
-    validatePassword(password)
-    validatePassword(newPassword, 'new password')
-    validatePassword(newPasswordConfirm, 'new password confirm')
     validateCallback(callback)
 
     readFile(`${process.env.DB_PATH}/users.json`, (error, json) => {
@@ -25,13 +22,7 @@ module.exports = function updateUserPassword(userId, password, newPassword, newP
             return
         }
 
-        if (user.password !== password) {
-            callback(new Error('Error the pasword is invalid', {cause: "password"}))
-
-            return
-        }
-
-        user.password = newPassword
+        user.mode = mode
 
         const json2 = JSON.stringify(users)
 

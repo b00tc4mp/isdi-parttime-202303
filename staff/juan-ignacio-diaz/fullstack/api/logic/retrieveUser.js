@@ -26,7 +26,8 @@ module.exports = function retrieveUser(userId, callback) {
             id: user.id,
             name: user.name,
             avatar: user.avatar,
-            favs: user.favs
+            favs: user.favs,
+            mode: user.mode
         }
 
         callback(null, user)

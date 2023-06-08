@@ -9,7 +9,7 @@ export default defineConfig({
   },
   build: {
     commonjsOptions: {
-      include: [/com/],
+      include: [/com/, /node_modules/],
     },
   },
 })

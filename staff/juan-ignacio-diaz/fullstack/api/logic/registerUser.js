@@ -1,6 +1,6 @@
 const { readFile, writeFile } = require('fs')
 
-const { validateName, validateEmail, validatePassword, validateCallback } = require('./helpers/validators')
+const { validators: { validateName, validateEmail, validatePassword, validateCallback } } = require('com')
 
 module.exports = function registerUser(name, email, password, callback) {
     validateName(name)
@@ -38,7 +38,8 @@ module.exports = function registerUser(name, email, password, callback) {
             email,
             password,
             avatar: null,
-            favs: []
+            favs: [],
+            mode: ''
         }
 
         users.push(user)
