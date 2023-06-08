@@ -93,6 +93,7 @@ describe('registerUser', () => {
         })
     })
 
+    //errores procesos síncronos
     it('fails on empty name', () =>
         expect(() => registerUser('', email, password, () => { })).to.throw(Error, 'name is empty')
     )

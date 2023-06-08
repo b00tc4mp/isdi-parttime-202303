@@ -9,7 +9,7 @@ describe('authenticateUser', () => {
     beforeEach(done => {
         id = `id-${Math.round(Math.random() * 100)}`
         email = `e-${Math.random()}@mail.com`
-        password = `Pass-${Math.round(Math.random())}`
+        password = `Pass-${Math.round(Math.random()) * 10}`
 
         writeFile('./data/users.json', '[]', 'utf8', error => done(error))
     })
@@ -61,10 +61,13 @@ describe('authenticateUser', () => {
         })
     })
 
-    it('fails on emty email', () =>
-        expect(() => authenticateUser('', password, () => { }).to.throw(Error, 'email is empty')))
+    it('fails on empty email', () =>
+        expect(() => authenticateUser('', password, () => { })).to.throw(Error, 'email is empty')
+    )
 
     it('fails on empty password', () =>
-        expect(() => authenticateUser(email, '', () => { }).to.throw(Error, 'password is empty')))
+        expect(() => authenticateUser(email, '', () => { })).to.throw(Error, 'password is empty')
+    )
 
+    after(done => writeFile('./data/users.json', '[]', "utf8", error => done(error)))
 })

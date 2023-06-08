@@ -24,14 +24,14 @@ function validatePassword(password) {
     const hasLower = /[a-z]/.test(password)
     const specialChar = /[-_+/#&]/.test(password)
 
-    if (!hasDigit) throw new Error('Password must have at least one digit')
+    if (!password.trim().length) throw new Error('password is empty')
+    if (!hasDigit) throw new Error('password must have at least one digit')
     if (!hasUpper) throw new Error('Password must have at least one uppercase')
-    if (!hasLower) throw new Error('Password must have at least one lowercase')
-    if (!specialChar) throw new Error('Password must have at least one special character')
-    if (typeof password !== 'string') throw new Error('Password is not a string')
-    if (!password.trim().length) throw new Error('Password is empty')
-    if (password.trim().length < 6) throw new Error('Password minimun 6 characters')
-    if (password.trim().length > 12) throw new Error('Password maximum 12 characters')
+    if (!hasLower) throw new Error('password must have at least one lowercase')
+    if (!specialChar) throw new Error('password must have at least one special character')
+    if (typeof password !== 'string') throw new Error('password is not a string')
+    if (password.trim().length < 6) throw new Error('password minimun 6 characters')
+    if (password.trim().length > 12) throw new Error('password maximum 12 characters')
 }
 function validateUserNewPassword(userNewPassword) {
     const hasDigit = /\d/.test(userNewPassword)

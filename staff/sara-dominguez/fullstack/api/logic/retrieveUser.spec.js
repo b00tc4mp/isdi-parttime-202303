@@ -33,7 +33,15 @@ describe('retrieveUser', () => {
             })
         })
     })
-    
- //TODO : succeeds on existing user with no avatar and correct id, fails on existin user and incorrect id
+    it('fails on non-existing user and correct id', done => {
+        retrieveUser(id, (error, user) => {
+            expect(error).to.be.instanceof(Error)
+            expect(error.message).to.equal(`user with id ${id} not found`)
+
+            done()
+        })
+    })
+
+    //TODO : succeeds on existing user with no avatar and correct id, fails on existin user and incorrect id
     after(done => writeFile('./data/users.json', '[]', 'utf8', error => done(error)))
 })
