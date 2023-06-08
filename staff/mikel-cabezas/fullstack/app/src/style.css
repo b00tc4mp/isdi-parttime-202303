@@ -30,21 +30,42 @@
 }
 
 @layer components {
+  main {
+    @apply pl-72
+  }
   input {
     @apply bg-container-bg text-main-text m-1.5 mb-3 px-2 py-2.5 min-w-[220px] border-solid border-2 border-main-button rounded-lg text-center ease-linear duration-200
+  }
+  button {
+    @apply bg-main-button text-white p-2.5 w-auto rounded-xl border-2 border-main-button mx-auto mt-0 mb-5 cursor-pointer ease-linear duration-200
   }
   .menu > ul > li {
     @apply flex p-2.5 cursor-pointer self-start leading-relaxed rounded-2xl w-full 
   }
   .menu li span.material-symbols-outlined {
     @apply mr-1.5 ml-1.5 
-    /* margin-right: 6px;
-    margin-left: 5px;
-    line-height: 1.2; */
   }
   
 
 }
+
+
+button.button--edit-post {
+  width: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+button.button--edit-post i {
+  margin-left: 4px;
+  width: 20px;
+  height: 20px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+}
+
 /* html[data-theme="dark"] .container {
   background-color: var(--dark);
 } */
@@ -102,18 +123,7 @@ form label {
   justify-content: center;
 }
 
-button {
-  background: var(--main-button);
-  color: #fff;
-  padding: 8px 10px;
-  border-radius: 10px;
-  border: solid 2px var(--main-button);
-  margin: auto;
-  margin-top: 0px;
-  cursor: pointer;
-  margin-bottom: 20px;
-  transition: linear .2s;
-}
+
 
 
 button.button--update-info__profile,

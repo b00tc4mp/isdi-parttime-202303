@@ -72,7 +72,7 @@ export default function Header({ onUserProfile, onHomeClick, onLoggedOut, select
                     </div>
                     <nav className="menu pr-5 h-full mt-4">
                         <ul className="flex flex-col list-none m-0 pl-0 h-full">
-                            <li className="homepage" onClick={handleHome}>Homepage</li>
+                            <li className="homepage" onClick={handleHome}><span class="material-symbols-outlined"> home</span>Homepage</li>
                             <li className="homepage" onClick={handleLikedPosts}><span className="material-symbols-outlined like">favorite</span>My liked posts</li>
                             <li className="homepage" onClick={handleSavedPosts}><span className="material-symbols-outlined save">bookmark</span>My favorite posts</li>
                             <li className="user-account">
@@ -90,12 +90,12 @@ export default function Header({ onUserProfile, onHomeClick, onLoggedOut, select
         </>
     } else {
         return <>
-            <header onLoad={renderUser}>
-                <div className="header-wrapper">
-                    <div className="logo">
-                        <img src="/logo.svg" alt="Ikea Hacks" />
+            <header onLoad={renderUser} className="fixed t-0 w-full bg-dark z10">
+            <div className="header-wrapper flex flex-col bg-overlay-black-solid px-5 py-7 w-72 h-full fixed left-0 box-border">
+            <div className="logo flex pl-0 cursor-pointer pl-2.5">
+                        <img src="/logo.svg" alt="Ikea Hacks" className="w-36" />
                     </div>
-                    <nav className="menu">
+                    <nav className="menu pr-5 h-full mt-4">
                         <ul>
                             <li className="submenu-element register">Register</li>
                             <li className="submenu-element login">Login</li>
