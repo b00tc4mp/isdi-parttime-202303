@@ -1,6 +1,7 @@
 const { expect } = require('chai');
-const authenticateUser = require('./authenticateUser.cjs');
 const { writeFile } = require('fs');
+
+const authenticateUser = require('./authenticateUser.js');
 
 describe('authenticateUser', () => {
   let id, email, password;
@@ -10,14 +11,14 @@ describe('authenticateUser', () => {
     email = `e-${Math.random()}@mail.com`;
     password = `P@ssword-${Math.random()}`;
 
-    writeFile('./data/users.json', '[]', 'utf8', (error) => done(error));
+    writeFile('./data/users.json', '[]', (error) => done(error));
   });
 
   it('succeeds on existing user', (done) => {
     const users = [{ id, email, password }];
     const json = JSON.stringify(users);
 
-    writeFile('./data/users.json', json, 'utf8', (error) => {
+    writeFile('./data/users.json', json, (error) => {
       expect(error).to.be.null;
 
       authenticateUser(email, password, (error, userId) => {
@@ -30,19 +31,15 @@ describe('authenticateUser', () => {
   });
 
   it('fails on non-existing user', (done) => {
-    const users = [{ id: 'id', email: 'email', password: '@nY1test' }];
+    const users = [{ id, email, password }];
     const json = JSON.stringify(users);
 
-    writeFile('./data/users.json', json, 'utf8', (error) => {
-      expect(error).to.be.null;
+    authenticateUser(email, password, (error, userId) => {
+      expect(error).to.be.instanceOf(Error);
+      expect(error.message).to.equal(`user with email ${email} not found`);
+      expect(userId).to.be.undefined;
 
-      authenticateUser(email, password, (error, userId) => {
-        expect(error).to.be.instanceOf(Error);
-        expect(error.message).to.equal(`user with email ${email} not found`);
-        expect(userId).to.be.undefined;
-
-        done();
-      });
+      done();
     });
   });
 
@@ -50,7 +47,7 @@ describe('authenticateUser', () => {
     const users = [{ id, email, password }];
     const json = JSON.stringify(users);
 
-    writeFile('./data/users.json', json, 'utf8', (error) => {
+    writeFile('./data/users.json', json, (error) => {
       expect(error).to.be.null;
 
       authenticateUser(email, password + '-wrong', (error, userId) => {
@@ -75,9 +72,5 @@ describe('authenticateUser', () => {
       'password is empty'
     ));
 
-  // TODO add more unhappies
-
-  after((done) =>
-    writeFile('./data/users.json', '[]', 'utf8', (error) => done(error))
-  );
+  after((done) => writeFile('./data/users.json', '[]', (error) => done(error)));
 });

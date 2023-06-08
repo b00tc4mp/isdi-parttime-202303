@@ -1,1 +1,10 @@
-[]
+[
+  {
+    "id": "user-1",
+    "name": "PepaGrillo",
+    "email": "pepa@grillo.com",
+    "password": "T3st@@@@",
+    "avatar": null,
+    "favourites": []
+  }
+]

@@ -19,15 +19,17 @@ const validateEmail = (email) => {
 };
 
 const validatePassword = (password, type = 'password') => {
+  const isLongEnough = password.length >= 8;
   const hasDigit = /\d/;
   const hasLowercase = /[a-z]/;
   const hasUppercase = /[A-Z]/;
   const hasSpecialChar = /[!@#$%^&*()_+~`=[\]{}|:;"'<,>.?/]/;
   const noWhitespace = /^\S+$/;
-  const isLongEnough = password.length >= 8;
 
-  if (!password.length) throw new Error(`${type} is empty`);
   if (typeof password !== 'string') throw new Error(`${type} is not a string`);
+  if (!password.length) throw new Error(`${type} is empty`);
+  if (!isLongEnough)
+    throw new Error(`${type} not be at least 8 characters long`);
   if (!hasDigit.test(password))
     throw new Error(`${type} not contains one digit`);
   if (!hasLowercase.test(password))
@@ -38,25 +40,8 @@ const validatePassword = (password, type = 'password') => {
     throw new Error(`${type} not contains one special character`);
   if (!noWhitespace.test(password))
     throw new Error(`${type} contains any whitespace characters`);
-  if (!isLongEnough)
-    throw new Error(`${type} not be at least 8 characters long`);
 
   return password;
-};
-
-const updatePasswordValidation = (
-  dataBasePassword,
-  password,
-  newPassword,
-  newPasswordConfirm
-) => {
-  if (password !== dataBasePassword)
-    throw new Error("original password doesn't match");
-  if (newPassword !== newPasswordConfirm)
-    throw new Error("new password doesn't match with password confirm");
-  if (newPassword === password) throw new Error('new password is equal to old');
-
-  return newPassword;
 };
 
 const validateUrl = (url, explain = 'url') => {
@@ -92,6 +77,5 @@ module.exports = {
   validateEmail,
   validateName,
   validatePassword,
-  updatePasswordValidation,
   validateCallback,
 };

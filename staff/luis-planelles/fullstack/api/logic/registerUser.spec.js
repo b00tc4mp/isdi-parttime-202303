@@ -1,6 +1,7 @@
 const { expect } = require('chai');
 const { readFile, writeFile } = require('fs');
-const registerUser = require('./registerUser.cjs');
+
+const registerUser = require('./registerUser.js');
 
 describe('registerUser', () => {
   let name, email, password;
@@ -53,6 +54,24 @@ describe('registerUser', () => {
       });
     });
   });
+
+  it('fails on empty name', () =>
+    expect(() => registerUser('', email, password, () => {})).to.throw(
+      Error,
+      'name is empty'
+    ));
+
+  it('fails on empty password', () =>
+    expect(() => registerUser(name, email, '', () => {})).to.throw(
+      Error,
+      'password is empty'
+    ));
+
+  it('fails on empty email', () =>
+    expect(() => registerUser(name, '', password, () => {})).to.throw(
+      Error,
+      'email is empty'
+    ));
 
   after((done) =>
     writeFile('./data/users.json', '[]', 'utf-8', (error) => done(error))

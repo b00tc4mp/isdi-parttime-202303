@@ -48,7 +48,7 @@ const registerUser = (name, email, password, callback) => {
 
     users.push(user);
 
-    json = JSON.stringify(users, null, 4);
+    json = JSON.stringify(users, null, 2);
 
     writeFile('./data/users.json', json, (error) => {
       if (error) {
