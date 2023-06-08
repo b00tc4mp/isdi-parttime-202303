@@ -164,7 +164,7 @@ export default function Posts({ onEditPost, onAddPostClick, lastPostsUpdate, pos
             <div className="top">
                 <h1>Home</h1>
                 <h2 className="welcome-user"></h2>
-                <button className="button--create-post" onClick={handleAddPost}>Create post <i className="material-symbols-outlined">add</i></button>
+                <button className="button--create-post flex items-center justify-center text-sm" onClick={handleAddPost}>Create post <span className="material-symbols-outlined ml-1 w-5 items-center">add</span></button>
             </div>
             <div className="posts">
                 {posts.length === 0 &&

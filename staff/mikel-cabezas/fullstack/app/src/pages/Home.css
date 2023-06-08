@@ -319,37 +319,7 @@
       margin-left: 30px;
     }
   
-    button.button--create-post {
-        width: 120px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-      
-      button.button--create-post i {
-        margin-left: 4px;
-        width: 20px;
-        height: 20px;
-        line-height: 1;
-        display: flex;
-        align-items: center;
-      }
-      
-      button.button--edit-post {
-        width: 120px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-      
-      button.button--edit-post i {
-        margin-left: 4px;
-        width: 20px;
-        height: 20px;
-        line-height: 1;
-        display: flex;
-        align-items: center;
-      }
+
       
 
     .delete-account button {
