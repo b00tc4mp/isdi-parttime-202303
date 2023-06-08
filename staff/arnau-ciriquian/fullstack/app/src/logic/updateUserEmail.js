@@ -1,4 +1,6 @@
-import { validateCallback, validateId } from "../../../com/validators"
+import { validators } from 'com'
+const { validateCallback, validateId } = validators
+
 import { saveUser, findUserByEmail, findUserById } from "../data"
 
 export function updateUserEmail(userId, email, newEmail, newEmailConfirmation, password, callback) {

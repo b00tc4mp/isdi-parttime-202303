@@ -1,4 +1,4 @@
-import updateUserFavs from "./updateUserFavs.js"
+const updateUserFavs = require("./updateUserFavs.js")
 
 updateUserFavs('user-3', error => {
     if (error) {

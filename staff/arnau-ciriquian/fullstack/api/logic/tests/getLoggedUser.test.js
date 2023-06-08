@@ -1,4 +1,4 @@
-import getLoggedUser from "./getLoggedUser.js"
+const getLoggedUser = require("./getLoggedUser.js")
 
 getLoggedUser('user-2', (error, user) => {
     if (error) {

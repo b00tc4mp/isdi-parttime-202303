@@ -1,14 +1,14 @@
-import fs from "fs"
-import { validateCallback, validateEmail, validateName, validatePassword } from "../../com/validators.js"
-// importar el default avatar: punLogo
+const { readFile, writeFile } = require('fs')
+const { validators: { validateCallback, validateEmail, validateName, validatePassword } } = require('com')
+// const { validators:ar el default avatar: punLogo
 
-export default function registerUser(name, email, password, callback) {
+module.exports = function registerUser(name, email, password, callback) {
     validateName(name)
     validateEmail(email)
     validatePassword(password)
     validateCallback(callback)
 
-    fs.readFile('../data/users.json', 'utf-8', (error, json) => {
+    readFile('./data/users.json', 'utf-8', (error, json) => {
         if (error) {
             callback(error)
 
@@ -27,12 +27,12 @@ export default function registerUser(name, email, password, callback) {
 
         let id = 'user-1'
 
-        const lastUser = users[users.length -1]
+        const lastUser = users[users.length - 1]
 
         if (lastUser)
             id = `user-${parseInt(lastUser.id.slice(5)) + 1}`
-        
-        user = { 
+
+        user = {
             id,
             name,
             email,
@@ -46,7 +46,7 @@ export default function registerUser(name, email, password, callback) {
 
         json = JSON.stringify(users)
 
-        fs.writeFile('../data/users.json', json, 'utf-8', error => {
+        writeFile('./data/users.json', json, 'utf-8', error => {
             if (error) {
                 callback(error)
 

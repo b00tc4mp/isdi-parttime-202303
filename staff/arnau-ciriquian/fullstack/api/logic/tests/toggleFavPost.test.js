@@ -1,4 +1,4 @@
-import toggleFavPost from "./toggleFavPost.js"
+const toggleFavPost = require("./toggleFavPost.js")
 
 toggleFavPost('user-3', 'post-2', error => {
     if (error) {

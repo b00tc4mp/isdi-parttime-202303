@@ -1,12 +1,12 @@
-import fs from "fs"
-import { validateCallback, validateId } from "../../com/validators.js"
+const { readFile, writeFile } = require('fs')
+const { validators: { validateCallback, validateId } } = require('com')
 
-export default function toggleFavPost(userId, postId, callback) {
+module.exports = function toggleFavPost(userId, postId, callback) {
     validateId(userId, 'user id')
     validateId(postId, 'post id')
     validateCallback(callback)
 
-    fs.readFile('../data/users.json', 'utf-8', (error, json) => {
+    readFile('./data/users.json', 'utf-8', (error, json) => {
         if (error) {
             callback(error)
 
@@ -23,10 +23,10 @@ export default function toggleFavPost(userId, postId, callback) {
             return
         }
 
-        fs.readFile('../data/posts.json', 'utf-8', (error, json) => {
+        readFile('./data/posts.json', 'utf-8', (error, json) => {
             if (error) {
                 callback(error)
-    
+
                 return
             }
 
@@ -54,7 +54,7 @@ export default function toggleFavPost(userId, postId, callback) {
 
             json = JSON.stringify(posts)
 
-            fs.writeFile('../data/posts.json', json, 'utf-8', error => {
+            writeFile('./data/posts.json', json, 'utf-8', error => {
                 if (error) {
                     callback(error)
 

@@ -1,11 +1,11 @@
-import fs from "fs"
-import { validateCallback, validateId } from "../../com/validators.js"
+const { readFile, writeFile } = require('fs')
+const { validators: { validateCallback, validateId } } = require('com')
 
-export default function updatePost(userId, callback) {
+module.exports = function updatePost(userId, callback) {
     validateId(userId, 'user id')
     validateCallback(callback)
 
-    fs.readFile('../data/posts.json', 'utf-8', (error, json) => {
+    readFile('./data/posts.json', 'utf-8', (error, json) => {
         if (error) {
             callback(error)
 
@@ -13,8 +13,8 @@ export default function updatePost(userId, callback) {
         }
 
         const posts = JSON.parse(json)
-    
-        fs.readFile('../data/users.json', 'utf-8', (error, json) => {
+
+        readFile('./data/users.json', 'utf-8', (error, json) => {
             if (error) {
                 callback(error)
 
@@ -34,7 +34,7 @@ export default function updatePost(userId, callback) {
             const favorites = []
 
             user.favs.forEach(postId => {
-                if(posts.findIndex(post => post.id === postId) !== -1) {
+                if (posts.findIndex(post => post.id === postId) !== -1) {
                     favorites.push(postId)
                 }
             })
@@ -43,7 +43,7 @@ export default function updatePost(userId, callback) {
 
             json = JSON.stringify(users)
 
-            fs.writeFile('../data/users.json', json, 'utf-8', error => {
+            writeFile('./data/users.json', json, 'utf-8', error => {
                 if (error) {
                     callback(error)
 

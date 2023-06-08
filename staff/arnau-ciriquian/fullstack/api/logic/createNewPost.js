@@ -1,13 +1,13 @@
-import fs from "fs"
-import { validateCallback, validateId, validateUrl, validateText } from "../../com/validators.js"
+const { readFile, writeFile } = require('fs')
+const { validators: { validateId, validateUrl, validateText, validateCallback } } = require('com')
 
-export default function createNewPost(userId, image, text, callback) {
+module.exports = function createNewPost(userId, image, text, callback) {
     validateId(userId)
     validateUrl(image)
     validateText(text)
     validateCallback(callback)
 
-    fs.readFile('../data/users.json', 'utf-8', (error, json) => {
+    readFile('./data/users.json', 'utf-8', (error, json) => {
         if (error) {
             callback(error)
 
@@ -24,13 +24,13 @@ export default function createNewPost(userId, image, text, callback) {
             return
         }
 
-        fs.readFile('../data/posts.json', 'utf-8', (error, json) => {
+        readFile('./data/posts.json', 'utf-8', (error, json) => {
             if (error) {
                 callback(error)
-    
+
                 return
             }
-    
+
             const posts = JSON.parse(json)
 
             let id = 'post-1'
@@ -54,7 +54,7 @@ export default function createNewPost(userId, image, text, callback) {
 
             json = JSON.stringify(posts)
 
-            fs.writeFile('../data/posts.json', json, 'utf-8', error => {
+            writeFile('./data/posts.json', json, 'utf-8', error => {
                 if (error) {
                     callback(error)
 

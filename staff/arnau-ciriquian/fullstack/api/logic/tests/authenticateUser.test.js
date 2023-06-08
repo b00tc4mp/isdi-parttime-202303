@@ -1,4 +1,4 @@
-import authenticateUser from "./authenticateUser.js"
+const authenticateUser = require("../authenticateUser")
 
 authenticateUser('tinkero@bell.com', '123123123', (error, userId) => {
     if (error) {

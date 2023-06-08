@@ -1,14 +1,14 @@
-import fs from "fs"
-import { validateCallback, validateId, validateEmail } from "../../com/validators.js"
+const { readFile, writeFile } = require('fs')
+const { validators: { validateCallback, validateId, validateEmail } } = require('com')
 
-export default function updateUserEmail(userId, email, newEmail, newEmailConfirmation, password, callback) {
+module.exports = function updateUserEmail(userId, email, newEmail, newEmailConfirmation, password, callback) {
     validateId(userId, 'user id')
     validateCallback(callback)
     validateEmail(newEmail, 'new email')
     //new validator?
     if (newEmail !== newEmailConfirmation) throw new Error('new email confirmation is different than new email')
 
-    fs.readFile('../data/users.json', 'utf-8', (error, json) => {
+    readFile('./data/users.json', 'utf-8', (error, json) => {
         if (error) {
             callback(error)
 
@@ -49,7 +49,7 @@ export default function updateUserEmail(userId, email, newEmail, newEmailConfirm
 
         json = JSON.stringify(users)
 
-        fs.writeFile('../data/users.json', json, 'utf-8', error => {
+        writeFile('./data/users.json', json, 'utf-8', error => {
             if (error) {
                 callback(error)
 

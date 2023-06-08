@@ -1,5 +1,7 @@
+import { validators } from 'com'
+const { validateName, validateId, validateCallback, validatePassword } = validators
+
 import { saveUser, findUserById } from "../data"
-import { validateName, validateId, validateCallback, validatePassword } from "../../../com/validators"
 
 export function updateUsername(userId, oldUsername, newUsername, password, callback) {
     validateId(userId)

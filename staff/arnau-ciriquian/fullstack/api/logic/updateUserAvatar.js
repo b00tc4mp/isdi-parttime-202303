@@ -1,12 +1,12 @@
-import fs from "fs"
-import { validateCallback, validateUrl, validateId } from "../../com/validators.js"
+const { readFile, writeFile } = require('fs')
+const { validators: { validateCallback, validateUrl, validateId } } = require('com')
 
-export default function updateUserAvatar(userId, avatar, callback) {
+module.exports = function updateUserAvatar(userId, avatar, callback) {
     validateId(userId)
     validateUrl(avatar, 'avatar url')
     validateCallback(callback)
 
-    fs.readFile('../data/users.json', 'utf-8', (error, json) => {
+    readFile('./data/users.json', 'utf-8', (error, json) => {
         if (error) {
             callback(error)
 
@@ -27,7 +27,7 @@ export default function updateUserAvatar(userId, avatar, callback) {
 
         json = JSON.stringify(users)
 
-        fs.writeFile('../data/users.json', json, 'utf-8', error => {
+        writeFile('./data/users.json', json, 'utf-8', error => {
             if (error) {
                 callback(error)
 

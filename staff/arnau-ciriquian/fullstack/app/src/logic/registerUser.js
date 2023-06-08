@@ -1,4 +1,6 @@
-import { validateEmail, validateName, validateNewPassword, validatePasswordConfirm, validateCallback } from "../../../com/validators"
+import { validators } from 'com'
+const { validateEmail, validateName, validateNewPassword, validatePasswordConfirm, validateCallback } = validators
+
 import { loadUsers, saveUsers, findUserByEmail } from "../data"
 import PunAvatar from "../../images/PunIntendedLike.png"
 export const DEFAULT_AVATAR_URL = PunAvatar

@@ -1,7 +1,7 @@
-import fs from "fs"
-import { validateNewPassword, validatePasswordConfirm, validateId, validateCallback } from "../../com/validators.js"
+const { readFile, writeFile } = require('fs')
+const { validators: { validateNewPassword, validatePasswordConfirm, validateId, validateCallback } } = require('com')
 
-export default function updateUserPassword(userId, password, newPassword, newPasswordConfirmation, callback) {
+module.exports = function updateUserPassword(userId, password, newPassword, newPasswordConfirmation, callback) {
     validateId(userId)
     validateNewPassword(newPassword, 'new password')
     validatePasswordConfirm(newPassword, newPasswordConfirmation, 'new password confirmation', 'new password')
@@ -9,7 +9,7 @@ export default function updateUserPassword(userId, password, newPassword, newPas
 
     if (newPassword === password) throw new Error('new password is the same as old password')
 
-    fs.readFile('../data/users.json', 'utf-8', (error, json) => {
+    readFile('./data/users.json', 'utf-8', (error, json) => {
         if (error) {
             callback(error)
 
@@ -36,7 +36,7 @@ export default function updateUserPassword(userId, password, newPassword, newPas
 
         json = JSON.stringify(users)
 
-        fs.writeFile('../data/users.json', json, 'utf-8', error => {
+        writeFile('./data/users.json', json, 'utf-8', error => {
             if (error) {
                 callback(error)
 

@@ -1,14 +1,14 @@
-import fs from "fs"
-import { validateCallback, validateId, validateText, validateUrl } from "../../com/validators.js"
+const { readFile, writeFile } = require('fs')
+const { validators: { validateCallback, validateId, validateText, validateUrl } } = require('com')
 
-export function updatePost(userId, postId, image, text, callback) {
+module.exports = function updatePost(userId, postId, image, text, callback) {
     validateId(userId, 'user id')
     validateId(postId, 'post id')
     validateUrl(image, 'image url')
     validateText(text, 'post text')
     validateCallback(callback)
 
-    fs.readFile('../data/users.json', 'utf-8', (error, json) => {
+    readFile('./data/users.json', 'utf-8', (error, json) => {
         if (error) {
             callback(error)
 
@@ -25,10 +25,10 @@ export function updatePost(userId, postId, image, text, callback) {
             return
         }
 
-        fs.readFile('../data/posts.json', 'utf-8', (error, json) => {
+        readFile('./data/posts.json', 'utf-8', (error, json) => {
             if (error) {
                 callback(error)
-    
+
                 return
             }
 
@@ -54,7 +54,7 @@ export function updatePost(userId, postId, image, text, callback) {
 
             json = JSON.stringify(posts)
 
-            fs.writeFile('../data/posts.json', json, 'utf-8', error => {
+            writeFile('./data/posts.json', json, 'utf-8', error => {
                 if (error) {
                     callback(error)
 

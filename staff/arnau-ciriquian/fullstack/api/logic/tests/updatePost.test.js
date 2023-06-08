@@ -1,4 +1,4 @@
-import { updatePost } from "./updatePost.js"
+const updatePost = require("./updatePost.js")
 
 updatePost('user-1', 'post-3', 'new image', 'new hello world', error => {
     if (error) {

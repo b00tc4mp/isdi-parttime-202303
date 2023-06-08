@@ -1,11 +1,11 @@
-import fs from "fs"
-import { validateCallback, validateId } from "../../com/validators.js"
+const { readFile } = require('fs')
+const { validators: { validateCallback, validateId } } = require('com')
 
-export default function getLoggedUser(userId, callback) {
+module.exports = function getLoggedUser(userId, callback) {
     validateId(userId)
     validateCallback(callback)
 
-    fs.readFile('../data/users.json', 'utf-8', (error, json) => {
+    readFile('./data/users.json', 'utf-8', (error, json) => {
         if (error) {
             callback(error)
 
@@ -26,7 +26,7 @@ export default function getLoggedUser(userId, callback) {
             name: user.name
         }
 
-        // si importo el DEFAULTAVATAR JA NO FARA FALTA
+        // si const { validators:o el DEFAULTAVATAR JA NO FARA FALTA
         if (user.avatar) {
             _user.avatar = user.avatar
         }

@@ -1,7 +1,7 @@
-import fs from "fs"
-import { validateCallback, validateId, validateName, validatePassword } from "../../com/validators.js"
+const { readFile, writeFile } = require('fs')
+const { validators: { validateCallback, validateId, validateName, validatePassword } } = require('com')
 
-export default function updateUsername(userId, oldUsername, newUsername, password, callback) {
+module.exports = function updateUsername(userId, oldUsername, newUsername, password, callback) {
     validateId(userId)
     validateName(oldUsername, 'old username')
     validateName(newUsername, 'new username')
@@ -14,7 +14,7 @@ export default function updateUsername(userId, oldUsername, newUsername, passwor
         return
     }
 
-    fs.readFile('../data/users.json', 'utf-8', (error, json) => {
+    readFile('./data/users.json', 'utf-8', (error, json) => {
         if (error) {
             callback(error)
 
@@ -41,7 +41,7 @@ export default function updateUsername(userId, oldUsername, newUsername, passwor
 
         json = JSON.stringify(users)
 
-        fs.writeFile('../data/users.json', json, 'utf-8', error => {
+        writeFile('./data/users.json', json, 'utf-8', error => {
             if (error) {
                 callback(error)
 

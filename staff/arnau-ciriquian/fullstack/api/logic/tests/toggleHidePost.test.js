@@ -1,4 +1,4 @@
-import toggleHidePost from "./toggleHidePost.js"
+const toggleHidePost = require("./toggleHidePost.js")
 
 toggleHidePost('user-1', 'post-3', error => {
     if (error) {

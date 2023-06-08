@@ -1,4 +1,4 @@
-import deleteAccount from "./deleteAccount.js"
+const deleteAccount = require("./deleteAccount.js")
 
 deleteAccount('user-2', error => {
     if (error) {

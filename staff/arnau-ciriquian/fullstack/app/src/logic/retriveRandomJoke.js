@@ -1,4 +1,6 @@
-import { validateCallback } from "../../../com/validators";
+import { validators } from 'com'
+const { validateCallback } = validators
+
 
 export default function retrieveRandomJoke (callback) {
     validateCallback(callback)

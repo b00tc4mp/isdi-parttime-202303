@@ -1,4 +1,4 @@
-import deletePost from "./deletePost.js"
+const deletePost = require("./deletePost.js")
 
 deletePost('user-1', 'post-3', error => {
     if (error) {

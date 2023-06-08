@@ -1,4 +1,4 @@
-import retrivePost from "./retrivePost.js"
+const retrivePost = require("./retrivePost.js")
 
 retrivePost('user-3', 'post-2', (error, post) => {
     if (error) {

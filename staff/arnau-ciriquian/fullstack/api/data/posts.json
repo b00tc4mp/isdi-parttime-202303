@@ -9,12 +9,14 @@
         "hidden": false
     },
     {
-        "id": "post-2",
-        "author": "user-3",
+        "id": "post-3",
+        "author": "user-1",
         "image": "new image",
         "text": "new hello world",
-        "date": "05/06/2023, 12:43:16",
-        "likes": [],
-        "hidden": false
+        "date": "07/06/2023, 14:51:10",
+        "likes": [
+            "user-4"
+        ],
+        "hidden": true
     }
 ]

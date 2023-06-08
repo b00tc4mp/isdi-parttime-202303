@@ -1,4 +1,4 @@
-import toggleLikePost from "./toggleLikePost.js"
+const toggleLikePost = require("./toggleLikePost.js")
 
 toggleLikePost('user-4', 'post-3', error => {
     if (error) {

@@ -1,5 +1,7 @@
+import { validators } from 'com'
+const { validateCallback, validateId } = validators
+
 import { findUserById, loadPosts, loadUsers, savePosts, saveUsers } from "../data"
-import { validateCallback, validateId } from "../../../com/validators"
 
 export default function deleteAccount(userId, callback) {
     validateId(userId)

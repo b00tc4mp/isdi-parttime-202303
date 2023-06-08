@@ -1,4 +1,4 @@
-import registerUser from "./registerUser.js"
+const registerUser = require("./registerUser.js")
 
 registerUser('Ona', 'ona@ciriquian.com', 'Ona1', error => {
     if (error) {

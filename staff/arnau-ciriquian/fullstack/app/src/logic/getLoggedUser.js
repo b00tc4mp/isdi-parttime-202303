@@ -1,4 +1,6 @@
-import { validateCallback, validateId } from "../../../com/validators"
+import { validators } from 'com'
+const { validateCallback, validateId } = validators
+
 import { findUserById } from "../data"
 
 export function getLoggedUser(userId, callback) {

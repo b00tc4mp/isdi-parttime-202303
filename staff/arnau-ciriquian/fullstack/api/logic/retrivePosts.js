@@ -1,11 +1,11 @@
-import fs from "fs"
-import { validateCallback, validateId } from "../../com/validators.js"
+const { readFile } = require('fs')
+const { validators: { validateCallback, validateId } } = require('com')
 
-export default function deletePost(userId, callback) {
+module.exports = function deletePost(userId, callback) {
     validateId(userId, 'user id')
     validateCallback(callback)
 
-    fs.readFile('../data/users.json', 'utf-8', (error, json) => {
+    readFile('./data/users.json', 'utf-8', (error, json) => {
         if (error) {
             callback(error)
 
@@ -22,10 +22,10 @@ export default function deletePost(userId, callback) {
             return
         }
 
-        fs.readFile('../data/posts.json', 'utf-8', (error, json) => {
+        readFile('./data/posts.json', 'utf-8', (error, json) => {
             if (error) {
                 callback(error)
-    
+
                 return
             }
 
