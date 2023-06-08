@@ -33,6 +33,17 @@
   input {
     @apply bg-container-bg text-main-text m-1.5 mb-3 px-2 py-2.5 min-w-[220px] border-solid border-2 border-main-button rounded-lg text-center ease-linear duration-200
   }
+  .menu > ul > li {
+    @apply flex p-2.5 cursor-pointer self-start leading-relaxed rounded-2xl w-full 
+  }
+  .menu li span.material-symbols-outlined {
+    @apply mr-1.5 ml-1.5 
+    /* margin-right: 6px;
+    margin-left: 5px;
+    line-height: 1.2; */
+  }
+  
+
 }
 /* html[data-theme="dark"] .container {
   background-color: var(--dark);
