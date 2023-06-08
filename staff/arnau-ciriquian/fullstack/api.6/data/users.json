@@ -1,0 +1,52 @@
+[
+    {
+        "id": "user-1",
+        "name": "Tinker",
+        "email": "pepito@grillo1.com",
+        "password": "123123123",
+        "avatar": null,
+        "favs": []
+    },
+    {
+        "id": "user-2",
+        "name": "Tinker",
+        "email": "tinkero@bell.com",
+        "password": "123123123",
+        "avatar": "new avatar",
+        "favs": []
+    },
+    {
+        "id": "user-3",
+        "name": "Onilla",
+        "email": "oni@ciriquian.com",
+        "password": "Onilla1",
+        "avatar": null,
+        "favs": [
+            "post-1"
+        ]
+    },
+    {
+        "id": "user-4",
+        "name": "Onilla",
+        "email": "ona@ciriquian.com",
+        "password": "Onilla1",
+        "avatar": null,
+        "favs": []
+    },
+    {
+        "id": "user-5",
+        "name": "Anna",
+        "email": "anna@renau.com",
+        "password": "Anna1",
+        "avatar": null,
+        "favs": []
+    },
+    {
+        "id": "user-6",
+        "name": "Anna",
+        "email": "anneta@renau.com",
+        "password": "Anna1",
+        "avatar": null,
+        "favs": []
+    }
+]
