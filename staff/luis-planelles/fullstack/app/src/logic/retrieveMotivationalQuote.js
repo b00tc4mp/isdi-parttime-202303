@@ -1,4 +1,10 @@
+import { validators } from 'com';
+
+const { validateCallback } = validators;
+
 const retrieveRandomMotivantionalQuote = (callback) => {
+  validateCallback(callback);
+
   var xhr = new XMLHttpRequest();
 
   xhr.onload = () => {

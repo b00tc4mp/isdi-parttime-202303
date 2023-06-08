@@ -1,6 +1,7 @@
+import { useEffect, useState } from 'react';
 import { useAppContext } from '../hooks';
 import authenticateUser from '../logic/authenticateUser.js';
-import retrieveRandomMotivationalQuote from '../logic/retrieveRandomMotivationalQuote';
+import retrieveMotivationalQuote from '../logic/retrieveMotivationalQuote';
 import { context } from '../ui.js';
 
 const Login = ({onRegisterClick, onUserLoggedIn}) => {
@@ -12,7 +13,7 @@ const Login = ({onRegisterClick, onUserLoggedIn}) => {
       try {
           freeze()
 
-          retrieveRandomMotivationalQuote((error, quote) => {
+          retrieveMotivationalQuote((error, quote) => {
               unfreeze()
 
               if (error) {

@@ -1,6 +1,3 @@
-import { loadUsers, saveUsers } from '../data.js';
-import { findUserByEmail } from './helpers/data-managers.js';
-import DEFAULT_AVATAR_URL from './helpers/global-variables.js';
 import {
   validateCallback,
   validateEmail,
@@ -14,38 +11,35 @@ const registerUser = (name, email, password, callback) => {
   validatePassword(password);
   validateCallback(callback);
 
-  findUserByEmail(email, (foundUser) => {
-    if (foundUser) {
-      callback(new Error('user already exists'));
+  const xhr = new XMLHttpRequest();
+
+  xhr.onload = () => {
+    const { status } = xhr;
+
+    if (status !== 201) {
+      const { response: json } = xhr;
+      const { error } = JSON.parse(json);
+
+      callback(new Error(error));
 
       return;
     }
 
-    let id = 'user-1';
+    callback(null);
+  };
 
-    loadUsers((users) => {
-      const lastUser = users[users.length - 1];
+  xhr.onerror = () => {
+    callback(new Error('connection error'));
+  };
 
-      if (lastUser) {
-        id = 'user-' + (parseInt(lastUser.id.slice(5)) + 1);
-      }
+  xhr.open('POST', `./data/users`);
 
-      const newUser = {
-        id,
-        email,
-        info: {
-          name,
-          password,
-          avatar: DEFAULT_AVATAR_URL,
-          favourites: [],
-        },
-      };
+  xhr.setRequestHeader('Content-Type', 'application/json');
 
-      users.push(newUser);
+  const user = { name, email, password };
+  const json = JSON.stringify(user);
 
-      saveUsers(users, () => callback(null));
-    });
-  });
+  xhr.send(json);
 };
 
 export default registerUser;

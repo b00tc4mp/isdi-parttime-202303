@@ -23,17 +23,18 @@ const Home = ({onLoggedOut}) => {
     
   useEffect(() => {
     
-    try{
-    retrieveUser(context.userId, (error, retrievedUser) => {
-      if(error) {
-        alert(error.message)
+    try {
+      retrieveUser(context.userId, (error, retrievedUser) => {
+        if(error) {
+          alert(error.message)
         
-        return 
-      }
-      setUser(retrievedUser)
+          return 
+        }
+
+        setUser(retrievedUser)
     })
-      } catch (error){
-        alert(error.message)
+    } catch (error){
+      alert(error.message)
       }
     }, [])
 
