@@ -8,3 +8,5 @@ const ver=version.split('.');
 
 return ver[0].substring(1);
 }
+
+//Use process.version
