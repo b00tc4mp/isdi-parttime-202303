@@ -2,11 +2,10 @@ import { context } from '../ui'
 import toggleLikePost from '../logic/toggleLikePost'
 import deletePost from '../logic/deletePost'
 import toggleFavPost from '../logic/toggleFavPost'
-import { useContext } from 'react'
-import Context from '../Context'
+import { useAppContext } from '../hooks'
 
 export default function Post({ post: { id, image, text, date, likes, author, fav }, onEditPost, onToggledLikePost, onPostDeleted, onToggledSavePost }) {
-    const { alert, freeze, unfreeze } = useContext(Context)
+    const { alert, freeze, unfreeze } = useAppContext()
 
     const handleEditPost = () => onEditPost(id)
 

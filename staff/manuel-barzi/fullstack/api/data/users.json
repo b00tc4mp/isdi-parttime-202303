@@ -1,18 +1,1 @@
-[
-    {
-        "id": "user-1",
-        "name": "Peter Pan",
-        "email": "peter@pan.com",
-        "password": "123123123",
-        "avatar": null,
-        "favs": []
-    },
-    {
-        "id": "user-2",
-        "name": "Pepe Grillo",
-        "email": "pepe@grillo.com",
-        "password": "123123123",
-        "avatar": null,
-        "favs": []
-    }
-]
+[]

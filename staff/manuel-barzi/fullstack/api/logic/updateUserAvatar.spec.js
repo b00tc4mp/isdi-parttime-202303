@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 const { expect } = require('chai')
 const updateUserAvatar = require('./updateUserAvatar')
 const { writeFile, readFile } = require('fs')
