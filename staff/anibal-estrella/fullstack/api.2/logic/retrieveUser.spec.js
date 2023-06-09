@@ -18,7 +18,7 @@ describe('retrieveUser', () => {
         })
     })
 
-    it('succeds on existing user and corrrect id', done => {
+    it('SUCCEEDS on existing user and corrrect id', done => {
         const users = [{ id, name, email, password, avatar }]
         const json = JSON.stringify(users)
 
@@ -58,7 +58,7 @@ describe('retrieveUser', () => {
         })
     })
 
-    it('fails on existing user and corrrect id', done => {
+    it('FAILS on existing user and corrrect id', done => {
         const users = [{ id, name, email, password, avatar }]
         const json = JSON.stringify(users)
 

@@ -3,11 +3,11 @@
  * @param {string} email an email
  */
 
-function validateEmail(email) {
+function validateEmail(email, explain = "email") {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (typeof email !== 'string') throw new Error('email must be a string')
-    if (!email.trim().length) throw new Error('email is blank')
-    if (!emailRegex.test(email)) throw new Error(`${email} is not an email`)
+    if (typeof email !== 'string') throw new Error(`${explain} must be a string`)
+    if (!email.trim().length) throw new Error(`${explain} is blank`)
+    if (!emailRegex.test(email)) throw new Error(`${explain} is not an email`)
 
 }
 
@@ -25,9 +25,9 @@ function validatePassword(password, explain = "password") {
  * calidates a name
  * @param {string} name the name
  */
-function validateName(name) {
-    if (typeof name !== 'string') throw new Error('name must be a string')
-    if (!name.trim().length) throw new Error('name is blank')
+function validateName(name, explain = "name") {
+    if (typeof name !== 'string') throw new Error(`${explain} must be a string`)
+    if (!name.trim().length) throw new Error(`${explain} is blank`)
 }
 
 /**
@@ -36,19 +36,19 @@ function validateName(name) {
  * @param {string} explain alternative edescription in case of error
  */
 function validateUrl(url, explain = 'URL') {
-    if (typeof url !== 'string') throw new Error('URL must be a string')
-    if (!url.trim().length) throw new Error(`The URL field ${url} is empty`)
+    if (typeof url !== 'string') throw new Error(`${explain} must be a string`)
+    if (!url.trim().length) throw new Error(`${explain} is empty`)
 }
 
 function validateId(id, explain = 'id') {
-    if (typeof id !== 'string') throw new Error(`id is ${typeof id} and must be a string`)
-    if (!id.trim().length) throw new Error(`${id} is empty`)
+    if (typeof id !== 'string') throw new Error(`${explain} is ${typeof id} and must be a string`)
+    if (!id.trim().length) throw new Error(`${explain} is empty`)
 }
 
-function validateText(text) {
-    if (text.length < 1) throw new Error('text must be longer than one character')
-    if (typeof text !== 'string') throw new Error('text must be a string')
-    if (!text.trim().length) throw new Error('text is blank')
+function validateText(text, explain = 'text') {
+    if (text.length < 1) throw new Error(`${explain} must be longer than one character'`)
+    if (typeof text !== 'string') throw new Error(`${explain} must be a string`)
+    if (!text.trim().length) throw new Error(`${explain} is blank`)
 }
 
 function validateCallback(callback, explain = "callback") {

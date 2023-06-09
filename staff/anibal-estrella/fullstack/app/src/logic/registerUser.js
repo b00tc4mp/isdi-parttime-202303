@@ -1,5 +1,4 @@
 import { validators } from 'com'
-import { saveUsers, findUserByEmail, loadUsers } from '../data'
 
 const { validateName, validateEmail, validatePassword, validateCallback } = validators
 
@@ -10,41 +9,41 @@ export default function registerUser(name, email, password, repeatPasword, callb
     validatePassword(repeatPasword, 'password')
     validateCallback(callback, 'callback function')
 
-    if (password !== repeatPasword) {
-        callback(new Error(`OOPS!\n passwords don't match`))
+    //the connector that allows us to connect with the server
+    const xhr = new XMLHttpRequest
 
-        return
-    }
+    //this is the response from the server tha will cue as a callback
+    xhr.onload = () => {
+        // test the status code (201?)
 
-    findUserByEmail(email, foundUser => {
-        if (foundUser) {
-            callback(new Error(`OOPS!\n A user with the email: ${email} already exists in the database`))
+        const { status } = xhr
+        //if the respoinse isn't 201 ther's an error
+        if (status !== 201) {
+            //parse the response status in xhr
+            const { response: json } = xhr
+            //grab the error prpoerty from tghe object
+            const { error } = JSON.parse(json)
+
+            callback(new Error(error))
 
             return
         }
+        callback(null)
+    }
 
-        let id = 'user-1'
-
-        loadUsers(users => {
-            const lastUser = users[users.length - 1]
-
-            if (lastUser)
-                id = 'user-' + (parseInt(lastUser.id.slice(5)) + 1)
-
-            const user = {
-                id,
-                name,
-                email,
-                password,
-                favs: [],
-                avatar: '../../assets/avatar-default.svg'
-            }
-
-            users.push(user)
-            // This CALLBACK calls this parent Function's parameter CALLBACK sending a NULL to tell the CALLBACKthere's no erroers to be sent (Happy Path)
-            saveUsers(users, () => callback(null))
-        })
-
-    })
+    // the function to check if there's a connection error
+    xhr.onerror = () => {
+        callback(new Error('Connection Error!'))
+    }
+    // oppen the connection and send the data
+    xhr.open('POST', `${import.meta.env.VITE_API_URL}/users/auth`)
+    // tell the server the content type to send (json)
+    xhr.setRequestHeader('Content-Type', 'application/json')
+    //create the user object
+    const user = { name, email, password }
+    //create the JSON as a string
+    const json = JSON.stringify(user)
+    //send the data as a json
+    xhr.send(json)
 
 }

@@ -12,7 +12,7 @@ module.exports = (name, email, password, callback) => {
     validateCallback(callback)
 
     //read the users.json, the format of the fils and the error callback
-    readFile(`${process.env.DB_PATH}/users.json`, 'utf8', (error, json) => {
+    readFile('./data/users.json', 'utf8', (error, json) => {
         if (error) {
             callback(error)
             return
@@ -55,7 +55,7 @@ module.exports = (name, email, password, callback) => {
         // with a 4 identation prettify
         json = JSON.stringify(users, null, 4)
         // async 2nd call to the samefile users.json and we send the error to the callback if thers an error in the saving file process
-        writeFile(`${process.env.DB_PATH}/users.json`, json, 'utf8', error => {
+        writeFile('./data/users.json', json, 'utf8', error => {
             if (error) {
                 callback(error)
                 return

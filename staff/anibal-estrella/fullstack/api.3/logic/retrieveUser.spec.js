@@ -1,4 +1,3 @@
-require('dotenv').config()
 const { expect } = require('chai')
 const { writeFile } = require('fs')
 const retrieveUser = require('./retrieveUser')
@@ -14,14 +13,14 @@ describe('retrieveUser', () => {
         password = `password-${Math.random()}`
         avatar = `avatar-${Math.random()}`
 
-        writeFile(`${process.env.DB_PATH}/users.json`, '[]', 'utf-8', error => done(error))
+        writeFile('./data/users.json', '[]', 'utf-8', error => done(error))
     })
 
     it('SUCCEEDS on existing user and corrrect id', done => {
         const users = [{ id, name, email, password, avatar }]
         const json = JSON.stringify(users)
 
-        writeFile(`${process.env.DB_PATH}/users.json`, json, 'utf8', error => {
+        writeFile('./data/users.json', json, 'utf8', error => {
             expect(error).to.be.null
 
             retrieveUser(id, (error, user) => {
@@ -40,7 +39,7 @@ describe('retrieveUser', () => {
         const users = [{ id, name, email, password, avatar: null }]
         const json = JSON.stringify(users)
 
-        writeFile(`${process.env.DB_PATH}/users.json`, json, 'utf-8', error => {
+        writeFile('./data/users.json', json, 'utf-8', error => {
             expect(error).to.be.null
 
             retrieveUser(id, (error, user) => {
@@ -60,7 +59,7 @@ describe('retrieveUser', () => {
         const users = [{ id, name, email, password, avatar }]
         const json = JSON.stringify(users)
 
-        writeFile(`${process.env.DB_PATH}/users.json`, json, error => {
+        writeFile('./data/users.json', json, error => {
             expect(error).to.be.null
 
             const wrongId = id + '-wrong'
@@ -75,5 +74,5 @@ describe('retrieveUser', () => {
         })
     })
 
-    afterEach(done => writeFile(`${process.env.DB_PATH}/users.json`, '[]', 'utf8', error => done(error)))
+    afterEach(done => writeFile('./data/users.json', '[]', 'utf8', error => done(error)))
 })

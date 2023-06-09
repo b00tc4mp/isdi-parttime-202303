@@ -1,26 +1,35 @@
 import { validators } from 'com'
-import { findUserById } from '../data'
 const { validateId, validateCallback } = validators
 
-export default function retrieveUser(userId, callback) {
+export default function (userId, callback) => {
     validateId(userId, 'user id')
     validateCallback(callback, 'callback function')
 
 
-    findUserById(userId, user => {
-        if (!user) {
-            callback(new Error('user not found'))
+    const xhr = new XMLHttpRequest
+
+    xhr.onload = () => {
+        const { status } = xhr
+        if (status !== 200) {
+            const { response: json } = xhr
+            const { error } = JSON.parse(json)
+
+            callback(new Error(error))
 
             return
         }
-        // envío solo iinformacion del usuario, lo que lo identifica y caracteriza, nada de sus acciones (favs, likes, etc)
-        const _user = {
-            name: user.name,
-            avatar: user.avatar,
-        }
 
-        callback(null, _user)
+        const { response: json } = xhr
+        const user = JSON.parse(json)
+        callback(null, user)
+    }
 
-    })
+    xhr.onerror = () => {
+        callback(new Error('Connection Error!'))
+    }
+    xhr.open('GET', `${import.meta.env.VITE_API_URL}/users/auth${userId}`)
+
+    xhr.send()
+
 
 }

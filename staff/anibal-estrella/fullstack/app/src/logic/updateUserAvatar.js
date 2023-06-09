@@ -1,23 +1,43 @@
 import { validators } from 'com'
 const { validateId, validateUrl, validateCallback } = validators
 
-import { findUserById, saveUser } from "../data.js"
 
-export default function updateUserAvatar(userId, url, callback) {
+export default (userId, url, callback) => {
     validateId(userId, 'user id')
     validateUrl(url, 'avatar url')
     validateCallback(callback, 'callback function')
 
-    findUserById(userId, user => {
-        if (!user) {
-            callback(new Error('user not found'))
+
+    const xhr = new XMLHttpRequest
+
+
+    xhr.onload = () => {
+        const { status } = xhr
+
+        if (status !== 204 {
+            const { response: json } = xhr
+            const { error } = JSON.parse(json)
+
+            callback(new Error(error))
 
             return
         }
+        callback(null)
+    }
 
-        user.avatar = url
 
-        saveUser(user, () => callback(null))
-    })
+    xhr.onerror = () => {
+        callback(new Error('Connection Error!'))
+    }
+
+    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/users/${userId}`)
+
+    xhr.setRequestHeader('Content-Type', 'application/json')
+    //send only the avatar of the user as a data
+    const data = { avatar }
+
+    const json = JSON.stringify(data)
+
+    xhr.send(json)
 
 }

@@ -1,5 +1,3 @@
-require('dotenv').config()
-
 const { expect } = require('chai')
 const { readFile, writeFile } = require('fs')
 const registerUser = require('./registerUser')
@@ -12,7 +10,7 @@ describe('registerUser', () => {
         email = `email-${Math.random()}@mail.com`
         password = `password-${Math.random()}`
         // in an async process I will tell the functionm the file is ready with the done() callback and pass an error if any (like an error in the file path write)
-        writeFile(`${process.env.DB_PATH}/users.json`, '[]', 'utf8', error => done(error))
+        writeFile('./data/users.json', '[]', 'utf8', error => done(error))
     })
     //after done start the async test
 
@@ -20,7 +18,7 @@ describe('registerUser', () => {
         registerUser(name, email, password, error => {
             expect(error).to.be.null
 
-            readFile(`${process.env.DB_PATH}/users.json`, 'utf-8', (error, json) => {
+            readFile('./data/users.json', 'utf-8', (error, json) => {
                 expect(error).to.be.null
 
                 const users = JSON.parse(json)
@@ -47,7 +45,7 @@ describe('registerUser', () => {
         const users = [{ name, email, password }]
         const json = JSON.stringify(users)
 
-        writeFile(`${process.env.DB_PATH}/users.json`, json, 'utf-8', error => {
+        writeFile('./data/users.json', json, 'utf-8', error => {
             expect(error).to.be.null
 
             //whiite to save in DB
@@ -70,14 +68,14 @@ describe('registerUser', () => {
         const users = [{ id: id2, name: name2, email: email2, password: password2 }]
         const json = JSON.stringify(users)
 
-        writeFile(`${process.env.DB_PATH}/users.json`, json, 'utf-8', error => {
+        writeFile('./data/users.json', json, 'utf-8', error => {
             expect(error).to.be.null
 
             //whiite to save in DB
             registerUser(name, email, password, error => {
                 expect(error).to.be.null
 
-                readFile(`${process.env.DB_PATH}/users.json`, 'utf-8', (error, json) => {
+                readFile('./data/users.json', 'utf-8', (error, json) => {
                     expect(error).to.be.null
 
                     const users = JSON.parse(json)
@@ -144,7 +142,7 @@ describe('registerUser', () => {
 
 
     // clean test start with an empty DB in an async process "done" callback
-    afterEach(done => writeFile(`${process.env.DB_PATH}/users.json`, '[]', 'utf8', error => done(error)))
+    afterEach(done => writeFile('./data/users.json', '[]', 'utf8', error => done(error)))
 
 })
 // to run the test run "node logic/registerUser.js"

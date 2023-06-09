@@ -1,24 +1,33 @@
-require('dotenv').config()
-
+//en https los sockets van encriptados
+//las peticiones al navegador siempre son GET
+//cuando enviamos formularios son POST
 const express = require('express')
-
-const { registerUser, retrieveUser, authenticateUser, updateUserPassword, updateUserAvatar } = require('./logic')
+//we call the logic to send the data
+const { registerUser, retrieveUser, authenticateUser } = require('./logic')
+const updateUserAvatar = require('./logic/updateUserAvatar')
 
 const api = express()
 
 api.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*')
-    res.setHeader('Access-Control-Allow-Headers', '*')
-    res.setHeader('Access-Control-Allow-Methods', '*')
 
     next()
 })
 
+//api.get we receibe messages from tyhe browser
+//(req, res) req = the petition as an object from the browser, res = is an object you send to the browser as a response
+api.get('/', (req, res) => {
+    res.send('Hello, World!')
+})
+
+api.get('/helloworld', (req, res) => res.json({ hello: 'world' }))
+
+// controlers or middlewares
 api.post('/users', (req, res) => {
     let json = ''
 
     req.on('data', chunk => json += chunk)
-
+    // the req.on callback executes as soon all the chinks are received
     req.on('end', () => {
 
         try {
@@ -53,7 +62,7 @@ api.post('/users/auth', (req, res) => {
 
                     return
                 }
-
+                // is a 200 error by default
                 res.json({ userId })
             })
         } catch (error) {
@@ -62,11 +71,11 @@ api.post('/users/auth', (req, res) => {
     })
 })
 
-
+//receives data as a parameter userId params
 api.get('/users/:userId', (req, res) => {
     try {
-
-
+        // const userId = req.params.userId
+        // destructured:
         const { userId } = req.params
 
         retrieveUser(userId, (error, user) => {
@@ -75,11 +84,11 @@ api.get('/users/:userId', (req, res) => {
 
                 return
             }
-
+            // convert the user object to JSON
             res.json(user)
         })
     } catch (error) {
-
+        // catch the synchronous error if so
         res.status(400).json({ error: error.message })
     }
 })
@@ -88,7 +97,7 @@ api.patch('/users/:userId', (req, res) => {
     let json = ''
 
     req.on('data', chunk => json += chunk)
-
+    // the req.on callback executes as soon all the chinks are received
     req.on('end', () => {
         try {
             const { userId } = req.params
@@ -110,29 +119,5 @@ api.patch('/users/:userId', (req, res) => {
     })
 })
 
-api.patch('/users/password/:userId', (req, res) => {
-    let json = ''
-
-    req.on('data', chunk => json += chunk)
-
-    req.on('end', () => {
-        try {
-            const { userId, password, previousPassword, newPassword, newPasswordConfirm } = JSON.parse(json)
-
-            updateUserPassword(userId, password, previousPassword, newPassword, newPasswordConfirm, error => {
-                if (error) {
-                    res.status(400).json({ error: error.message })
-
-                    return
-                }
-                res.status(204).send()
-            })
-
-        } catch (error) {
-            res.status(400).json({ error: error.message })
-        }
-    })
-
-})
-
-api.listen(process.env.PORT, () => console.log(`server running in port ${process.env.PORT}`))
+//now we open a port
+api.listen(4000)

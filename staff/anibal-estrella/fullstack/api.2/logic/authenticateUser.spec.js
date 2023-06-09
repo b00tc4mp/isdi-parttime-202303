@@ -15,7 +15,7 @@ describe('authenticateUser', () => {
         writeFile('./data/users.json', '[]', 'utf8', error => done(error))
     })
 
-    it('Succeds when user is in db', done => {
+    it('SUCCEEDS when user is in db', done => {
 
         const users = [{ id, email, password }]
         const json = JSON.stringify(users)
@@ -34,7 +34,7 @@ describe('authenticateUser', () => {
 
     })
 
-    it('Fails when user is in db but wrong password', done => {
+    it('FAILS when user is in db but wrong password', done => {
 
         const users = [{ id, email, password }]
         const json = JSON.stringify(users)
@@ -54,7 +54,7 @@ describe('authenticateUser', () => {
 
     })
 
-    it('Fails on non-exixting user', done => {
+    it('FAILS on non-exixting user', done => {
 
         const users = [{ id, email, password }]
         const json = JSON.stringify(users)

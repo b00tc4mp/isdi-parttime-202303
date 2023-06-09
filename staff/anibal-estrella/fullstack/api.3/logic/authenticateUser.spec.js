@@ -1,7 +1,5 @@
-require('dotenv').config()
-
 const { expect } = require('chai')
-const { writeFile } = require('fs')
+const { readFile, writeFile } = require('fs')
 const authenticateUser = require('./authenticateUser')
 
 
@@ -14,7 +12,7 @@ describe('authenticateUser', () => {
         email = `email-${Math.random()}@mail.com`
         password = `password-${Math.random()}`
 
-        writeFile(`${process.env.DB_PATH}/users.json`, '[]', error => done(error))
+        writeFile('./data/users.json', '[]', error => done(error))
     })
 
     it('SUCCEEDS when user is in db', done => {
@@ -22,7 +20,7 @@ describe('authenticateUser', () => {
         const users = [{ id, email, password }]
         const json = JSON.stringify(users)
 
-        writeFile(`${process.env.DB_PATH}/users.json`, json, 'utf-8', error => {
+        writeFile('./data/users.json', json, 'utf-8', error => {
             expect(error).to.be.null
 
             authenticateUser(email, password, (error, userId) => {
@@ -41,7 +39,7 @@ describe('authenticateUser', () => {
         const users = [{ id, email, password }]
         const json = JSON.stringify(users)
 
-        writeFile(`${process.env.DB_PATH}/users.json`, json, 'utf-8', error => {
+        writeFile('./data/users.json', json, 'utf-8', error => {
             expect(error).to.be.null
 
             authenticateUser(email, password + '-wrong', (error, userId) => {
@@ -89,5 +87,5 @@ describe('authenticateUser', () => {
         expect(() => authenticateUser(email, [], () => { })).to.throw(Error, `password must be a string`)
     })
 
-    afterEach(done => writeFile(`${process.env.DB_PATH}/users.json`, '[]', 'utf8', error => done(error)))
+    afterEach(done => writeFile('./data/users.json', '[]', 'utf8', error => done(error)))
 })
