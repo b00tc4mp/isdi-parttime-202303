@@ -15,19 +15,31 @@ export default function retrieveUser(userId, callBack) {
   validateId(userId, 'user id')
   validateCallback(callBack)
 
-  findUserById(userId, (user) => {
-    if(!user) {
-      callBack(new Error('User not found.'))
+  const xhr = new XMLHttpRequest
+
+  xhr.onload = () => {
+    const { status } = xhr
+
+    if(status !== 201) {
+      const { response: json } = xhr
+      const { error } = JSON.parse(json)
+
+      callBack(new Error(error))
 
       return
     }
-    
-     const _user = {
-      name: user.name,
-      avatar: user.avatar,
-      favs: user.favs
-    }
 
-    callBack(null, _user)
-  })
+    const { response: json } = xhr
+    const user = JSON.parse(json)
+
+    callBack(null, user)
+  }
+
+  xhr.onerror = () => {
+    callBack(new Error('Connection error.'))
+  }
+
+  xhr.open('GET', `${import.meta.env.VITE_API_URL}/users/${userId}`)
+
+  xhr.send()
 }

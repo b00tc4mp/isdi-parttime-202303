@@ -22,31 +22,33 @@ export function registerUser(name, email, password, callBack) {
   validatePassword(password)
   if (password.length < 6) throw new Error('The password is too short.')
 
-  findUserByEmail(email, (user) => {
-    if (user) {
-      callBack(new Error('User already exists.'))
-    
+  const xhr = new XMLHttpRequest
+
+  xhr.onload = () => {
+    const { status } = xhr
+
+    if(status !== 200) {
+      const { response: json } = xhr
+      const { error } = JSON.parse(json)
+      
+      callBack(new Error(error))
+
       return
     }
 
-    let id = 'user-1'
+    callBack(null)
+  }
 
-    loadUsers(users => {
+  xhr.onerror = () => {
+    callBack(new Error('Connection error.'))
+  }
+  
+  xhr.open('POST', `${import.meta.env.VITE_API_URL}/users`)
 
-      let lastUser = users[users.length - 1]
-      if(lastUser) id = 'user-' + (parseInt(lastUser.id.slice(5)) + 1)
-  
-      users.push({
-          id,
-          name,
-          email,
-          password,
-          avatar: 'https://img.freepik.com/iconos-gratis/icono-perfil-usuario_318-33925.jpg',
-          favs: []
-      })
-  
-      saveUsers(users, () => callBack(null))
-    })
-  })
-  
+  xhr.setRequestHeader('Content-Type', 'application/json')
+
+  const user = { name, email, password }
+  const json = JSON.stringify(user)
+
+  xhr.send(json)
 }

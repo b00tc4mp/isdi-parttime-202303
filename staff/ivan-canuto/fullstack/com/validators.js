@@ -1,34 +1,34 @@
 function validateName(name) {
-  if (!name.trim().length) throw new Error('Name field is empty.');
   if (typeof name !== 'string') throw new Error('Name is not a string.')
+  if (!name.trim().length) throw new Error('Name field is empty.')
 }
 
 function validateEmail(email, explanation = 'email') {
-  if (!email.trim().length) throw new Error(`The ${explanation} field is empty.`, {cause: 'hola'});
   if (typeof email!=='string') throw new Error(`The ${explanation} is not a string.`)
+  if (!email.trim().length) throw new Error(`The ${explanation} field is empty.`, {cause: 'hola'})
 }
 
 function validatePassword(password, explanation = 'password') {
-  if (!password.trim().length) throw new Error(`The ${explanation} field is empty.`);
   if (typeof password!=='string') throw new Error(`The ${explanation} is not a string.`)
+  if (!password.trim().length) throw new Error(`The ${explanation} field is empty.`)
 }
 
 function validateUrl(newUrl, explanation = 'url') {
-  if (!newUrl.trim().length) throw new Error(`The ${explanation} field is empty.`);
   if (typeof newUrl !=='string') throw new Error(`The ${explanation} is not a string.`)
+  if (!newUrl.trim().length) throw new Error(`The ${explanation} field is empty.`)
 
-  const correctUrl = /(jpe?g|png|webp)/;
+  const correctUrl = /(jpe?g|png|webp)/
   if (!correctUrl.test(newUrl)) throw new Error(`The url entered does not includes a .jpg/.jpg/.webp/.png extension.`)
 }
 
 function validateId(userId, explanation = 'id') {
-  if (!userId.trim().length) throw new Error(`The ${explanation} is empty.`);
   if (typeof userId !=='string') throw new Error(`The ${explanation} is not a string.`)
+  if (!userId.trim().length) throw new Error(`The ${explanation} field is empty.`)
 }
 
 function validateText(text, explanation = 'text') {
-  if (!text.trim().length) throw new Error(`The ${explanation} field is empty.`);
   if (typeof text !=='string') throw new Error(`The ${explanation} is not a string.`)
+  if (!text.trim().length) throw new Error(`The ${explanation} field is empty.`)
 }
 
 function validateCallback(callBack, explanation = 'CallBack')   {

@@ -2,6 +2,8 @@ const { expect } = require('chai')
 const { writeFile } = require('fs')
 const retrieveUser = require('./retrieveUser')
 
+require('dotenv').config()
+
 describe('retrieveUser', () => {
   let id, name, email, password, avatar, favs
   
@@ -13,14 +15,14 @@ describe('retrieveUser', () => {
     avatar = `avatar-${Math.random()}`
     favs = '[]'
     
-    writeFile('./data/users.json', '[]', error => done(error))
+    writeFile(`${process.env.DB_PATH}/users.json`, '[]', error => done(error))
   })
 
   it('Succeds on existing user and correct id', done => {
     const users = [{ id, name, email, password, avatar, favs }]
     const json = JSON.stringify(users)
 
-    writeFile('./data/users.json', json, (error) => {
+    writeFile(`${process.env.DB_PATH}/users.json`, json, (error) => {
       retrieveUser('user-1', (error, user) => {
         expect(error).to.be.null
 
@@ -37,7 +39,7 @@ describe('retrieveUser', () => {
     const users = [{ id, name, email, password, avatar: null, favs }]
     const json = JSON.stringify(users)
 
-    writeFile('./data/users.json', json, (error) => {
+    writeFile(`${process.env.DB_PATH}/users.json`, json, (error) => {
       retrieveUser('user-1', (error, user) => {
         expect(error).to.be.null
 
@@ -56,7 +58,7 @@ describe('retrieveUser', () => {
 
     const wrongId = id + 'wrong'
 
-    writeFile('./data/users.json', json, (error) => {
+    writeFile(`${process.env.DB_PATH}/users.json`, json, (error) => {
       retrieveUser(wrongId, (error, user) => {
         expect(error).to.be.instanceOf(Error)
         expect(error.message).to.equal('User does not exist.')
@@ -79,10 +81,36 @@ describe('retrieveUser', () => {
     })
   })
 
+  it('Fails on empty userr id field', () => {
+    const users = [{ id, name, email, password, avatar, favs }]
+    const json = JSON.stringify(users)
+
+    writeFile(`${process.env.DB_PATH}/users.json`, json, error => {
+      expect(error).to.be.null
+
+      expect(() => retrieveUser('', () => {})).to.throw(Error, 'The user id field is empty.')
+    })
+  })
+
+  it('Fails on a non-string password', () => {
+    const users = [{ id, name, email, password, avatar, favs }]
+    const json = JSON.stringify(users)
+
+    writeFile(`${process.env.DB_PATH}/users.json`, json, error => {
+      expect(error).to.be.null
+      
+      expect(() => retrieveUser(true, () => {})).to.throw(Error, 'The user id is not a string.')
+      expect(() => retrieveUser([], () => {})).to.throw(Error, 'The user id is not a string.')
+      expect(() => retrieveUser({}, () => {})).to.throw(Error, 'The user id is not a string.')
+      expect(() => retrieveUser(undefined, () => {})).to.throw(Error, 'The user id is not a string.')
+      expect(() => retrieveUser(1, () => {})).to.throw(Error, 'The user id is not a string.')
+    })
+  })
+
   it('Fails on callBack is not a function', done => {
     expect(() => retrieveUser('user-1', 'Not a function')).to.throw(Error, 'CallBack is not a function')
     done()
   })
   
-  after(done => writeFile('./data/users.json', '[]', error => done(error)))
+  after(done => writeFile(`${process.env.DB_PATH}/users.json`, '[]', error => done(error)))
 })

@@ -6,7 +6,7 @@ module.exports = function deletePost(postId, userId, callBack) {
   validateId(postId, 'post id')
   validateCallback(callBack)
 
-  readFile('./data/users.json', (error, usersJSON) => {
+  readFile(`${process.env.DB_PATH}/users.json`, (error, usersJSON) => {
     if(error) {
       callBack(error)
 
@@ -28,7 +28,7 @@ module.exports = function deletePost(postId, userId, callBack) {
       users.favs.splice(favPostIndex, 1)
       const usersToJSON = JSON.stringify(users)
 
-      writeFile('./data/users.json', usersToJSON, (error) => {
+      writeFile(`${process.env.DB_PATH}/users.json`, usersToJSON, (error) => {
         if(error) {
           callBack(error)
 
@@ -38,7 +38,7 @@ module.exports = function deletePost(postId, userId, callBack) {
     }
     else if(favPostIndex === -1) {
       const usersToJSON = JSON.stringify(users)
-      writeFile('./data/users.json', usersToJSON, (error) => {
+      writeFile(`${process.env.DB_PATH}/users.json`, usersToJSON, (error) => {
         if(error) {
           callBack(error)
 
@@ -67,7 +67,7 @@ module.exports = function deletePost(postId, userId, callBack) {
 
       const postsToJSON = JSON.stringify(posts)
 
-      writeFile('./data/users.json', postsToJSON, (error) => {
+      writeFile(`${process.env.DB_PATH}/users.json`, postsToJSON, (error) => {
         if(error) {
           callBack(error)
 

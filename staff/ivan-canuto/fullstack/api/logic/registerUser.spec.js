@@ -2,6 +2,8 @@ const { expect } = require('chai')
 const { readFile, writeFile } = require('fs')
 const registerUser = require('./registerUser')
 
+require('dotenv').config()
+
 describe('registerUser', () => {
   let name, email, password
 
@@ -10,14 +12,14 @@ describe('registerUser', () => {
     email = `email-${Math.random()}`
     password = `password-${Math.random()}`
 
-    writeFile('./data/users.json', '[]', error => done(error))
+    writeFile(`${process.env.DB_PATH}/users.json`, '[]', error => done(error))
   })
 
   it('Succeeds on new user', done => {
     registerUser(name, email, password, (error) => {
       expect(error).to.be.null
       
-      readFile('./data/users.json', (error, usersJSON) => {
+      readFile(`${process.env.DB_PATH}/users.json`, (error, usersJSON) => {
         expect(error).to.be.null
         
         const users = JSON.parse(usersJSON)
@@ -44,7 +46,7 @@ describe('registerUser', () => {
     const user = [{name, email, password}]
     const userToJSON = JSON.stringify(user)
 
-    writeFile('./data/users.json', userToJSON, error => {
+    writeFile(`${process.env.DB_PATH}/users.json`, userToJSON, error => {
       expect(error).to.be.null
       
       registerUser(name, email, password, error => {
@@ -99,5 +101,5 @@ describe('registerUser', () => {
     expect(() => registerUser(name, email, 1, () => { })).to.throw(Error, 'The password is not a string.')
   })
 
-  after(done => writeFile('./data/users.json', '[]', error => done(error)))
+  after(done => writeFile(`${process.env.DB_PATH}/users.json`, '[]', error => done(error)))
 })

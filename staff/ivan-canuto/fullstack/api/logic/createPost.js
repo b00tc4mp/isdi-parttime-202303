@@ -1,6 +1,6 @@
 const { readFile, writeFile } = require('fs')
 const { validators: { validateCallback, validateText, validateUrl, validateId } } = require('com')
-
+require('dotenv').config()
 
 module.exports = function createPost( userId, imageUrl, postText, callBack) {
   validateId(userId, 'user id')
@@ -8,7 +8,7 @@ module.exports = function createPost( userId, imageUrl, postText, callBack) {
   validateText(postText)
   validateCallback(callBack)
 
-  readFile('./data/users.json', (error, usersJSON) => {
+  readFile(`${process.env.DB_PATH}/users.json`, (error, usersJSON) => {
     if(error) {
       callBack(error)
       

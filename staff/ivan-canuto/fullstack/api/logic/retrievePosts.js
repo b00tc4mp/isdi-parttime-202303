@@ -5,7 +5,7 @@ module.exports = function retrievePosts(userId, callBack) {
   validateId(userId, 'user id')
   validateCallback(callBack)
 
-  readFile('./data/users.json', (error, usersJSON) => {
+  readFile(`${process.env.DB_PATH}/users.json`, (error, usersJSON) => {
     if(error) {
       callBack(error)
 

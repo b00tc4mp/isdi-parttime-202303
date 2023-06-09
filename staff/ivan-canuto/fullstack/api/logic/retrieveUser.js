@@ -1,11 +1,12 @@
 const { readFile } = require('fs')
 const { validators: { validateId, validateCallback } } = require('com')
+require('dotenv').config()
 
 module.exports = (userId, callBack) => {
   validateId(userId, 'user id')
   validateCallback(callBack)
 
-  readFile('./data/users.json', (error, json) => {
+  readFile(`${process.env.DB_PATH}/users.json`, (error, json) => {
     if(error) {
       callBack(error)
 

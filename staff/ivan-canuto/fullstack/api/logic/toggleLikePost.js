@@ -6,7 +6,7 @@ module.exports = function toggleLikePost(userId, postId, callBack) {
   validateId(postId, 'post id')
   validateCallback(callBack)
 
-  readFile('./data/users.json', (error, usersJSON) => {
+  readFile(`${process.env.DB_PATH}/users.json`, (error, usersJSON) => {
     if(error) {
       callBack(error)
 

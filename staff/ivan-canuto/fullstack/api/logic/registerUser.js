@@ -1,5 +1,6 @@
 const { readFile, writeFile } = require('fs')
 const { validators: { validateName, validateEmail, validatePassword, validateCallback } } = require('com')
+require('dotenv').config()
 
 module.exports = (name, email, password, callBack) => {
   validateName(name)
@@ -7,7 +8,7 @@ module.exports = (name, email, password, callBack) => {
   validatePassword(password)
   validateCallback(callBack)
 
-  readFile('./data/users.json', (error, json) => {
+  readFile(`${process.env.DB_PATH}/users.json`, (error, json) => {
     if(error) {
       callBack(error)
 
@@ -47,7 +48,7 @@ module.exports = (name, email, password, callBack) => {
     
     const usersJSON = JSON.stringify(users)
 
-    writeFile('./data/users.json', usersJSON, (error) => {
+    writeFile(`${process.env.DB_PATH}/users.json`, usersJSON, (error) => {
       if(error) {
         callBack(error)
 

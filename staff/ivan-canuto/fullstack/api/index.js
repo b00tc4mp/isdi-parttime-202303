@@ -1,6 +1,8 @@
 const express = require('express')
 const { registerUser, authenticateUser, retrieveUser, updateUserAvatar } = require('./logic')
 
+require('dotenv').config()
+
 const api = express()
 
 api.get('/', (req, res) => res.send('Hello, world!'))
@@ -10,7 +12,7 @@ api.get('/helloworld', (req, res) => res.json({ hello: 'world'}))
 api.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*')
   res.setHeader('Access-Control-Allow-Headers', '*')
-  res.setHeader('Access-Control-Allow-Methdos', '*')
+  res.setHeader('Access-Control-Allow-Methods', '*')
 
   next()
 })
@@ -93,9 +95,9 @@ api.patch('/users/:userId', (req, res) => {
     
     try {
       const { userId } = req.params
-      const { avatar, password } = JSON.parse(json)
+      const { newAvatarUrl, password } = JSON.parse(json)
 
-      updateUserAvatar(userId, avatar, password, error => {
+      updateUserAvatar(userId, newAvatarUrl, password, error => {
         if(error) {
           res.status(400).json({ error: error.message })
           
@@ -111,4 +113,4 @@ api.patch('/users/:userId', (req, res) => {
   })
 })
 
-api.listen(4000)
+api.listen(process.env.PORT, () => console.log(`Server running in port ${process.env.PORT}`))

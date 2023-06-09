@@ -1,13 +1,14 @@
 const { readFile, writeFile } = require('fs')
-const { validators: { validateId, validatePassword, validateText, validateCallback } } = require('com')
+const { validators: { validateId, validatePassword, validateUrl, validateCallback } } = require('com')
+require('dotenv').config()
 
 module.exports = (userId, newAvatarUrl, password, callBack) => {
   validateId(userId, 'user id')
-  validateText(newAvatarUrl)
+  validateUrl(newAvatarUrl, 'new avatar url')
   validatePassword(password)
   validateCallback(callBack)
 
-  readFile('./data/users.json', (error, json) => {
+  readFile(`${process.env.DB_PATH}/users.json`, (error, json) => {
     if(error) {
       callBack(error)
 
@@ -24,7 +25,7 @@ module.exports = (userId, newAvatarUrl, password, callBack) => {
       return
     }
     
-    if(newAvatarUrl === user.avatar) {
+    if(newAvatarUrl === user.currentAvatar) {
       callBack(new Error('New avatar is the same as the old one.'))
       
       return
@@ -36,14 +37,14 @@ module.exports = (userId, newAvatarUrl, password, callBack) => {
       return
     }
 
-    user.avatar = newAvatarUrl
+    user.currentAvatar = newAvatarUrl
     const indexUser = users.findIndex(_user => _user.id === userId)
 
     users.splice(indexUser, 1, user)
 
     const usersJSON = JSON.stringify(users)
 
-    writeFile('./data/users.json', usersJSON, (error) => {
+    writeFile(`${process.env.DB_PATH}/users.json`, usersJSON, (error) => {
       if(error) {
         callBack(error)
 

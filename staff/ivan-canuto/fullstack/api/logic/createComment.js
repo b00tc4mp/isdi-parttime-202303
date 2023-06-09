@@ -5,7 +5,7 @@ module.exports = function createComment(commentText, userId, postId, callBack) {
   validateText(commentText)
   validateCallback(callBack)
 
-  readFile('./data/users.json', (error, usersJSON) => {
+  readFile(`${process.env.DB_PATH}/users.json`, (error, usersJSON) => {
     if(error) {
       callBack(error)
 

@@ -18,27 +18,34 @@ export default function updateUserAvatar(userId, newAvatarUrl, password, callBac
   validatePassword(password)
   validateCallback(callBack)
   
-  findUserById(userId, (user) => {
-    if (!user) {
-      callBack(new Error('User not found'))
+  const xhr = new XMLHttpRequest
+
+  xhr.onload = () => {
+    const { status } = xhr
+
+    if(status !== 204) {
+      const { response: json } = xhr
+      const { error } = JSON.parse(json)
+
+      callBack(new Error(error))
 
       return
     }
+    
+    callBack(null)
+  }
 
-    if (newAvatarUrl === user.avatar) {
-      callBack(new Error('New avatar cannot be the same as the old avatar.'))
-      
-      return
-    }
+  xhr.onerror = () => {
+    callBack(new Error('Connection error.'))
+  }
 
-    if (password !== user.password) {
-      callBack(new Error('The password is incorrect'))
+  xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/users/${userId}`)
 
-      return
-    }
+  xhr.setRequestHeader('Content-Type', 'application/json')
 
-    user.avatar = newAvatarUrl
-    saveUser(user, () => callBack(null))
-  })
+  const user = { newAvatarUrl, password }
+  const json = JSON.stringify(user)
+
+  xhr.send(json)
 }
   

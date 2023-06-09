@@ -8,7 +8,7 @@ module.exports = function updatePost(userId, postId, imageUrl, postText, callBac
   validateText(postText)
   validateCallback(callBack)
 
-  readFile('./data/users.json', (error, usersJSON) => {
+  readFile(`${process.env.DB_PATH}/users.json`, (error, usersJSON) => {
     if(error) {
       callBack(error)
 

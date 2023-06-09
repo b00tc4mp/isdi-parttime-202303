@@ -1,5 +1,6 @@
 const { readFile, writeFile } = require('fs')
 const { validators: { validateId, validatePassword, validateCallback } } = require('com')
+require('dotenv').config()
 
 module.exports = (userId, password, newPassword, newPasswordConfirm, callBack) => {
   validateId(userId, 'user id')
@@ -8,7 +9,13 @@ module.exports = (userId, password, newPassword, newPasswordConfirm, callBack) =
   validatePassword(newPasswordConfirm, 'new password confirm')
   validateCallback(callBack)
 
-  readFile('./data/users.json', (error, json) => {
+  if(newPassword.length < 6)
+    throw new Error('The new password is too short.')
+
+  if(newPassword !== newPasswordConfirm)
+    throw new Error('The new passwords do not match.')
+
+  readFile(`${process.env.DB_PATH}/users.json`, (error, json) => {
     if(error) {
       callBack(error)
 
@@ -37,18 +44,6 @@ module.exports = (userId, password, newPassword, newPasswordConfirm, callBack) =
       return
     }
 
-    if(newPassword.length < 6) {
-      callBack(new Error('The new password is too short.'))
-
-      return
-    }
-
-    if(newPassword !== newPasswordConfirm) {
-      callBack(new Error('The new passwords do not match.'))
-
-      return
-    }
-
     user.password = newPassword
 
     const indexUser = users.findIndex(_user => _user.id === userId)
@@ -57,7 +52,7 @@ module.exports = (userId, password, newPassword, newPasswordConfirm, callBack) =
 
     const usersJSON = JSON.stringify(users)
 
-    writeFile('./data/users.json', usersJSON, (error) => {
+    writeFile(`${process.env.DB_PATH}/users.json`, usersJSON, (error) => {
       if(error) {
         callBack(error)
 

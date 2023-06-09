@@ -1,4 +1,3 @@
-import { findUserByEmail } from '../data'
 import { validators } from 'com'
 
 const { validateEmail, validatePassword, validateCallback } = validators
@@ -16,20 +15,36 @@ export default function authenticateUser(email, password, callBack) {
   validatePassword(password)
   validateCallback(callBack)
 
-  findUserByEmail(email, (user) => {
+  const xhr = new XMLHttpRequest()
 
-    if(!user){
-      callBack(new Error('User not found.'))
+  xhr.onload = () => {
+    const { status } = xhr
+    
+    if(status !== 200) {
+      const { response: json } = xhr
+      const { error } = JSON.parse(json)
+
+      callBack(new Error(error))
 
       return
     }
     
-    if(user.password !== password) {
-      callBack(new Error('Password is incorrect.'))
+    const { response: json } = xhr
+    const { userId } = JSON.parse(json)
 
-      return
-    }
+    callBack(null, userId)
+  }
 
-    callBack(null, user.id)
-  })
+  xhr.onerror = () => {
+    callBack(new Error('Connection error.'))
+  }
+
+  xhr.open('POST', `${import.meta.env.VITE_API_URL}/users/auth`)
+  
+  xhr.setRequestHeader('Content-Type', 'application/json')
+
+  const user = { email, password }
+  const json = JSON.stringify(user)
+
+  xhr.send(json)
 }
