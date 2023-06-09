@@ -7,7 +7,7 @@ const retrieveUser = (userId, callback) => {
   validateId(userId, 'userId');
   validateCallback(callback);
 
-  readFile('./data/users.json', 'utf-8', (error, json) => {
+  readFile(`${process.env.DB_PATH}/users.json`, 'utf-8', (error, json) => {
     if (error) {
       callback(error);
 

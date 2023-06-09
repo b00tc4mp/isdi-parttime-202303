@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const { expect } = require('chai');
 const { writeFile, readFile } = require('fs');
 
@@ -16,7 +18,9 @@ describe('updateUserPassword', () => {
     const users = [{ id, name, email, password, avatar }];
     const json = JSON.stringify(users);
 
-    writeFile('./data/users.json', json, (error) => done(error));
+    writeFile(`${process.env.DB_PATH}/users.json`, json, (error) =>
+      done(error)
+    );
   });
 
   it('should succeed on valid password update', (done) => {
@@ -170,6 +174,8 @@ describe('updateUserPassword', () => {
   });
 
   after((done) =>
-    writeFile('./data/users.json', '[]', 'utf-8', (error) => done(error))
+    writeFile(`${process.env.DB_PATH}/users.json`, '[]', 'utf-8', (error) =>
+      done(error)
+    )
   );
 });

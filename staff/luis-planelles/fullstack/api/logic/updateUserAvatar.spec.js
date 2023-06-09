@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const { expect } = require('chai');
 const { writeFile, readFile } = require('fs');
 
@@ -13,14 +15,16 @@ describe('updateUserAvatar', () => {
     password = `password-${Math.random()}`;
     avatar = `avatar-${Math.random()}`;
 
-    writeFile('./data/users.json', '[]', (error) => done(error));
+    writeFile(`${process.env.DB_PATH}/users.json`, '[]', (error) =>
+      done(error)
+    );
   });
 
   it('succeeds on existing user and correct new avatar', (done) => {
     const users = [{ id, name, email, password, avatar }];
     const json = JSON.stringify(users);
 
-    writeFile('./data/users.json', json, (error) => {
+    writeFile(`${process.env.DB_PATH}/users.json`, json, (error) => {
       expect(error).to.be.null;
 
       const newAvatar = avatar + '-new';
@@ -60,7 +64,7 @@ describe('updateUserAvatar', () => {
     const users = [{ id, name, email, password, avatar }];
     const json = JSON.stringify(users);
 
-    writeFile('./data/users.json', json, (error) => {
+    writeFile(`${process.env.DB_PATH}/users.json`, json, (error) => {
       expect(error).to.be.null;
 
       const wrongId = id + '-wrong';
@@ -88,6 +92,8 @@ describe('updateUserAvatar', () => {
     ));
 
   after((done) =>
-    writeFile('./data/users.json', '[]', 'utf-8', (error) => done(error))
+    writeFile(`${process.env.DB_PATH}/users.json`, '[]', 'utf-8', (error) =>
+      done(error)
+    )
   );
 });

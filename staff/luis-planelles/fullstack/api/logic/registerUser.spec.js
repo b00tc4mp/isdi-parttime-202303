@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const { expect } = require('chai');
 const { readFile, writeFile } = require('fs');
 
@@ -11,14 +13,16 @@ describe('registerUser', () => {
     email = `e-${Math.random()}@mail.com`;
     password = `P@ssword-${Math.random()}`;
 
-    writeFile('./data/users.json', '[]', 'utf-8', (error) => done(error));
+    writeFile(`${process.env.DB_PATH}/users.json`, '[]', 'utf-8', (error) =>
+      done(error)
+    );
   });
 
   it('should succed on new user registered', (done) => {
     registerUser(name, email, password, (error) => {
       expect(error).to.be.null;
 
-      readFile('./data/users.json', 'utf-8', (error, json) => {
+      readFile(`${process.env.DB_PATH}/users.json`, 'utf-8', (error, json) => {
         expect(error).to.be.null;
 
         const users = JSON.parse(json),
@@ -41,7 +45,7 @@ describe('registerUser', () => {
     const users = [{ name, email, password }];
     const json = JSON.stringify(users);
 
-    writeFile('./data/users.json', json, 'utf-8', (error) => {
+    writeFile(`${process.env.DB_PATH}/users.json`, json, 'utf-8', (error) => {
       expect(error).to.be.null;
 
       registerUser(name, email, password, (error) => {
@@ -74,6 +78,8 @@ describe('registerUser', () => {
     ));
 
   after((done) =>
-    writeFile('./data/users.json', '[]', 'utf-8', (error) => done(error))
+    writeFile(`${process.env.DB_PATH}/users.json`, '[]', 'utf-8', (error) =>
+      done(error)
+    )
   );
 });

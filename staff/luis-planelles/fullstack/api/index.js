@@ -1,10 +1,20 @@
-const express = require('express');
+require('dotenv').config();
 
 const { registerUser, authenticateUser } = require('./logic');
 
+const express = require('express');
+
 const api = express();
 
-// check conextion
+api.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Headers', '*');
+  res.setHeader('Access-Control-Allow-Methods', '*');
+
+  next();
+});
+
+// check connection
 api.get('/', (req, res) => {
   res.send('Hello, World!');
 });
@@ -61,7 +71,7 @@ api.post('/users/auth', (req, res) => {
   });
 });
 
-// userId route
+// get userId route
 api.get('/users/:userId', (req, res) => {
   try {
     const { userId } = req.params;
@@ -80,6 +90,7 @@ api.get('/users/:userId', (req, res) => {
   }
 });
 
+// updateUser route
 api.patch('/users/:userId', (req, res) => {
   let json = '';
 
@@ -105,4 +116,6 @@ api.patch('/users/:userId', (req, res) => {
   });
 });
 
-api.listen(4000);
+api.listen(process.env.PORT, () =>
+  console.log(`server running in port ${process.env.PORT}`)
+);

@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const { expect } = require('chai');
 const { writeFile } = require('fs');
 
@@ -13,14 +15,16 @@ describe('retrieveUser', () => {
     password = `password-${Math.random()}`;
     avatar = `avatar-${Math.random()}`;
 
-    writeFile('./data/users.json', '[]', (error) => done(error));
+    writeFile(`${process.env.DB_PATH}/users.json`, '[]', (error) =>
+      done(error)
+    );
   });
 
   it('succeeds on existing user and correct id', (done) => {
     const users = [{ id, name, email, password, avatar }];
     const json = JSON.stringify(users);
 
-    writeFile('./data/users.json', json, (error) => {
+    writeFile(`${process.env.DB_PATH}/users.json`, json, (error) => {
       expect(error).to.be.null;
 
       retrieveUser(id, (error, user) => {
@@ -39,7 +43,7 @@ describe('retrieveUser', () => {
     const users = [{ id, name, email, password, avatar: null }];
     const json = JSON.stringify(users);
 
-    writeFile('./data/users.json', json, (error) => {
+    writeFile(`${process.env.DB_PATH}/users.json`, json, (error) => {
       expect(error).to.be.null;
 
       retrieveUser(id, (error, user) => {
@@ -58,7 +62,7 @@ describe('retrieveUser', () => {
     const users = [{ id, name, email, password, avatar }];
     const json = JSON.stringify(users);
 
-    writeFile('./data/users.json', json, (error) => {
+    writeFile(`${process.env.DB_PATH}/users.json`, json, (error) => {
       expect(error).to.be.null;
 
       const wrongId = id + '-wrong';
@@ -80,5 +84,7 @@ describe('retrieveUser', () => {
       'userId is empty'
     ));
 
-  after((done) => writeFile('./data/users.json', '[]', (error) => done(error)));
+  after((done) =>
+    writeFile(`${process.env.DB_PATH}/users.json`, '[]', (error) => done(error))
+  );
 });

@@ -14,7 +14,7 @@ const registerUser = (name, email, password, callback) => {
   validatePassword(password);
   validateCallback(callback);
 
-  readFile('./data/users.json', 'utf-8', (error, json) => {
+  readFile(`${process.env.DB_PATH}/users.json`, (error, json) => {
     if (error) {
       callback(error);
 
@@ -50,7 +50,7 @@ const registerUser = (name, email, password, callback) => {
 
     json = JSON.stringify(users, null, 2);
 
-    writeFile('./data/users.json', json, (error) => {
+    writeFile(`${process.env.DB_PATH}/users.json`, json, (error) => {
       if (error) {
         callback(error);
 

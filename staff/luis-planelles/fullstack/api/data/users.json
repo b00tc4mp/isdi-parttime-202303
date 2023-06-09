@@ -6,5 +6,13 @@
     "password": "T3st@@@@",
     "avatar": null,
     "favourites": []
+  },
+  {
+    "id": "user-2",
+    "name": "JhonDoe",
+    "email": "jhon@doe.com",
+    "password": "Tes7@@@@",
+    "avatar": null,
+    "favourites": []
   }
 ]
