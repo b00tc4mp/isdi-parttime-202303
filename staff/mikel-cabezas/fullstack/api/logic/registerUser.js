@@ -25,6 +25,7 @@ module.exports = function registerUser(name, email, password, callback) {
             name: name,
             email: email,
             password: password,
+            avatar: null,
             favPosts: []
         }
 

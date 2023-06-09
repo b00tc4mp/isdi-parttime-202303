@@ -20,6 +20,7 @@
     --dark: #262c30;
     --red: #c1574c;
   }
+
   :root.dark {
     --main-background: #1a1d20;
     --container-bg: #262c30;
@@ -31,21 +32,25 @@
 
 @layer components {
   main {
-    @apply pl-72
+    @apply md:pl-72 
   }
+
   input {
     @apply bg-container-bg text-main-text m-1.5 mb-3 px-2 py-2.5 min-w-[220px] border-solid border-2 border-main-button rounded-lg text-center ease-linear duration-200
   }
+
   button {
     @apply bg-main-button text-white p-2.5 w-auto rounded-xl border-2 border-main-button mx-auto mt-0 mb-5 cursor-pointer ease-linear duration-200
   }
-  .menu > ul > li {
-    @apply flex p-2.5 cursor-pointer self-start leading-relaxed rounded-2xl w-full 
+
+  .menu>ul>li {
+    @apply flex p-2.5 cursor-pointer self-start leading-relaxed rounded-2xl w-full
   }
+
   .menu li span.material-symbols-outlined {
-    @apply mr-1.5 ml-1.5 
+    @apply mr-1.5 ml-1.5
   }
-  
+
 
 }
 
@@ -107,7 +112,7 @@ form label {
   color: var(--main-text);
 }
 
-.hidden,
+/* .hidden, */
 .off {
   display: none !important;
 }

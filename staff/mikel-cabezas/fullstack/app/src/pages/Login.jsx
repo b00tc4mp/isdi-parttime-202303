@@ -34,7 +34,7 @@ export default function Login({ onRegisterClick, onUserLoggedIn }) {
         }
     }
 
-    return <Container tag="main" className={'w-full pl-72 flex justify-center h-screen items-center'}>
+    return <Container tag="main" className={'w-full md:pl-72 flex justify-center h-screen items-center'}>
         <section className="section login p-7 max-w-xs rounded-3xl flex flex-col text-center bg-container-bg dark:bg-dark h-min" id="login">
             <h1>Login</h1>
             <form className="login-form" onSubmit={handleLogin}>
