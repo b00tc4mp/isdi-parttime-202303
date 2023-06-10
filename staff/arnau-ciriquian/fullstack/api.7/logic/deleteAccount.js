@@ -1,9 +1,8 @@
 const { readFile, writeFile } = require('fs')
-const { validators: { validateCallback, validateUrl, validateId } } = require('com')
+const { validators: { validateCallback, validateId } } = require('com')
 
-module.exports = (userId, avatar, callback) => {
+module.exports = function deleteAccount(userId, callback) {
     validateId(userId)
-    validateUrl(avatar, 'avatar url')
     validateCallback(callback)
 
     readFile('./data/users.json', 'utf-8', (error, json) => {
@@ -15,15 +14,18 @@ module.exports = (userId, avatar, callback) => {
 
         const users = JSON.parse(json)
 
-        const user = users.find(user => user.id === userId)
+        const index = users.findIndex(user => user.id === userId)
 
-        if (!user) {
+        if (index === -1) {
             callback(new Error(`user with id ${userId} not found`))
 
             return
         }
 
-        user.avatar = avatar
+        if (index !== -1) {
+            console.log(index)
+            users.splice(index, 1)
+        }
 
         json = JSON.stringify(users)
 
