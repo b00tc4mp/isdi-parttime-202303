@@ -3,7 +3,7 @@ const { readFile, writeFile } = require('fs')
 module.exports = function registerUser(name, email, password, callback) {
     // TODO validate inputs
 
-    readFile('../data/users.json', 'utf8', (error, json) => {
+    readFile('./data/users.json', 'utf8', (error, json) => {
         if (error) {
             callback(error)
 
@@ -41,7 +41,7 @@ module.exports = function registerUser(name, email, password, callback) {
         json = JSON.stringify(users)
 
 
-        writeFile('../data/users.json', json, 'utf8', error => {
+        writeFile('./data/users.json', json, 'utf8', error => {
             if (error) {
                 callback(error)
 
