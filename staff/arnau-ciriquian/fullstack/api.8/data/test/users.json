@@ -27,10 +27,10 @@
     },
     {
         "id": "user-4",
-        "name": "Tsunami",
-        "email": "tsunami@ciriquian.com",
-        "password": "Ona2",
-        "avatar": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSd_lRxaqAdPwPD-xnrs_bJgE4tnWOdwKW7sA&usqp=CAU",
+        "name": "Onilla",
+        "email": "ona@ciriquian.com",
+        "password": "Onilla1",
+        "avatar": null,
         "favs": []
     },
     {
@@ -86,14 +86,6 @@
         "name": "Arnau",
         "email": "arnau@ciriquian.com",
         "password": "Arnau1",
-        "avatar": null,
-        "favs": []
-    },
-    {
-        "id": "user-12",
-        "name": "hello world",
-        "email": "hello@world.com",
-        "password": "Hello1",
         "avatar": null,
         "favs": []
     }
