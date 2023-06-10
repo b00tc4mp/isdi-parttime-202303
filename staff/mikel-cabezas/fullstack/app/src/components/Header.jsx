@@ -80,7 +80,7 @@ export default function Header({ onUserProfile, onHomeClick, onLoggedOut, select
                             </li>
                             <li><span className="material-symbols-outlined">web_stories</span>
                                 Feed</li>
-                            <li className={`user-settings ${selected === 'user-profile' ? 'current' : ''}`} onClick={handleUserProfile}><span className="material-symbols-outlined filled">settings</span>
+                            <li className={`user-settings ${selected === 'user-profile' ? 'current' : ''} mt-auto`} onClick={handleUserProfile}><span className="material-symbols-outlined filled">settings</span>
                                 User settings</li>
                             <li className="logout" onClick={handleLogout}><span className="material-symbols-outlined"> logout </span>Logout</li>
                         </ul>

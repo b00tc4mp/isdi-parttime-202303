@@ -14,7 +14,7 @@ export default function UserImage({ userId }) {
 
                     return
                 }
-                    setUser(user)
+                setUser(user)
             })
         } catch (error) {
             alert(error.message)
@@ -31,14 +31,14 @@ export default function UserImage({ userId }) {
             return separateUserName[0][0] + separateUserName[1][0]
         }
     }
-    
-    if(user) {
+
+    if (user) {
         return <>
-            <div className="avatar">
-                {!user.image && <div className="letter">{returnLetters()}</div>}
-                {user.image && <img className="image-profile" src={user.image} alt="" />}
+            <div className="avatar w-[30px] h-[30px] rounded-full bg-main-button flex self-center mx-1.5 relative justify-center items-center">
+                {!user.image && <div className="letter font-bold -tracking-wider relative text-sm uppercase ">{returnLetters()}</div>}
+                {user.image && <img className="image-profile bg-white w-7.5 h-7.5 rounded-full " src={user.image} alt="" />}
             </div>
-            <div className="user-name">{user.name}</div>
+            <div className="user-name self-center leading-none">{user.name}</div>
         </>
-        }
+    }
 }
