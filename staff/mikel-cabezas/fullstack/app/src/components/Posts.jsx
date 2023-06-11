@@ -7,7 +7,7 @@ import { context } from "../ui"
 import './Posts.css'
 import { RotatingLines } from 'react-loader-spinner'
 import retrieveUser from "../logic/users/retrieveUser"
-import Context from "../Context"
+import Context from "../AppContext"
 
 
 export default function Posts({ onEditPost, onAddPostClick, lastPostsUpdate, postsFilter, onToggleLikePostClick, onToggleSavePostClick, onHideMenuOptions, visibility, onShowAllPosts }) {
@@ -157,7 +157,6 @@ export default function Posts({ onEditPost, onAddPostClick, lastPostsUpdate, pos
         handleRefreshPosts()
     }
 
-    console.log(postsFilter)
 
     if (posts) {
         return <>

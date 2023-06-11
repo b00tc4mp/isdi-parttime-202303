@@ -1,6 +1,8 @@
 import { findUserById, saveUser } from "../../data.js"
 import { context } from '../../ui.js'
-import { validateCallback, validateImage, validateUserId } from "../helpers/validators.js"
+import { validators } from "com"
+
+const { validateCallback, validateImage, validateUserId } = validators
 
 export default function uploadImage(userId, image, callback) {
 
@@ -8,9 +10,9 @@ export default function uploadImage(userId, image, callback) {
     validateUserId(userId)
     validateCallback(callback)
     const user = findUserById(userId, (error, user) => {
-        if(!user) {
-            callback(new Error ('user not found'))
-    
+        if (!user) {
+            callback(new Error('user not found'))
+
             return
         }
         user.image = image.src

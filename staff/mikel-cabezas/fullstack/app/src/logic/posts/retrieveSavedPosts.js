@@ -1,6 +1,7 @@
-import {loadPosts, loadUsers, findUserById } from '../../data.js'
-import { validateUserId } from "../helpers/validators.js";
+import { loadPosts, loadUsers, findUserById } from '../../data.js'
+import { validators } from "com";
 
+const { validateUserId } = validators
 export default function retrieveSavedPosts(userId, callback) {
     validateUserId(userId);
 
@@ -18,7 +19,7 @@ export default function retrieveSavedPosts(userId, callback) {
             posts.forEach(post => {
                 users.filter(user => {
                     const _favPosts = user.favPosts.includes(post.id)
-                    if(_favPosts) {
+                    if (_favPosts) {
                         favPosts.push(post)
                     }
                 })
