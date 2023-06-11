@@ -6,7 +6,7 @@ import { useContext, useEffect, useState } from "react"
 import ContextualModalMenu from "./ContextualMenu"
 import { deletePost } from "../logic/posts/deletePost"
 import retrieveUser from "../logic/users/retrieveUser"
-import Context from "../Context"
+import AppContext from "../AppContext"
 
 export default function Post({ post, post: { image, title, text, comments, likes, id, date, author, lastModify, location, visibility }, onToggleLikePost, onToggleSavePost, onEditPostButton, onHideMenuOptions, user }) {
 
@@ -14,9 +14,9 @@ export default function Post({ post, post: { image, title, text, comments, likes
 
     const [userData, setUserData] = useState(user)
     const [modalMenu, setModalMenu] = useState('close')
-    const {freeze, unfreeze, alert} = useContext(Context)
+    const { freeze, unfreeze, alert } = useContext(AppContext)
     const postStyle = {
-        background: `linear-gradient(180deg, rgba(0,0,0,.2) 0%, rgba(0,0,0,0) 10%, rgba(0,0,0,0) 50%, rgba(0,0,0,.6) 100%), url(${image}) center / cover`        
+        background: `linear-gradient(180deg, rgba(0,0,0,.2) 0%, rgba(0,0,0,0) 10%, rgba(0,0,0,0) 50%, rgba(0,0,0,.6) 100%), url(${image}) center / cover`
     }
 
     useEffect(() => {
@@ -77,7 +77,7 @@ export default function Post({ post, post: { image, title, text, comments, likes
             freeze()
             toggleSavePost(userId, post.id, error => {
                 unfreeze()
-                if(error) {
+                if (error) {
                     alert(error.message)
 
                     return
@@ -85,7 +85,7 @@ export default function Post({ post, post: { image, title, text, comments, likes
                 updateUserLikes()
                 onToggleSavePost()
             })
-        } catch(error) {
+        } catch (error) {
             alert(error.message)
         }
     }
@@ -96,14 +96,14 @@ export default function Post({ post, post: { image, title, text, comments, likes
     function handleDeletePostButton(id) {
         try {
             deletePost(userId, id, error => {
-                if(error)
+                if (error)
                     alert(error.message)
             })
-            if(deletePost) {
+            if (deletePost) {
                 alert('post deleted')
                 setModal('close')
             }
-        } catch(error) {
+        } catch (error) {
             alert(error.message)
         }
     }
@@ -112,12 +112,12 @@ export default function Post({ post, post: { image, title, text, comments, likes
         event.stopPropagation()
         event.preventDefault()
         try {
-            if(event.target.className !== 'overlay contextual-menu--modal') {
+            if (event.target.className !== 'overlay contextual-menu--modal') {
                 setModalMenu('open')
             } else {
                 setModalMenu('close')
             }
-        } catch(error) {
+        } catch (error) {
             alert(error.message)
         }
     }
@@ -125,10 +125,10 @@ export default function Post({ post, post: { image, title, text, comments, likes
     const handleHideMenuOptions = () => {
         try {
             setModalMenu('close')
-        } catch(error) {
+        } catch (error) {
             alert(error.message)
         }
-        return 
+        return
 
         // onHideMenuOptions()
     }
@@ -143,7 +143,7 @@ export default function Post({ post, post: { image, title, text, comments, likes
         }
     }
 
-    return  <>
+    return <>
         <article className={`${id} ${visibility !== 'public' ? visibility : visibility}`} style={postStyle}>
             <div className="post-author">
                 <div className="avatar">
@@ -154,21 +154,21 @@ export default function Post({ post, post: { image, title, text, comments, likes
                 {location && <span className="location">{location}</span>}
 
                 {userId === author.id ? <div className={`options`} onClick={handleShowMenuOptions}><span className="material-symbols-outlined pencil edit-post">more_vert</span>
-                
-                {modalMenu === 'open' && 
-                <ContextualModalMenu 
-                    items={[
-                        {text: 'Edit post', onClick: () => handleEditPostButton(id)},
-                        {text: 'Delete post', onClick: () => handleDeletePostButton(id)},
-                    ]}
-                    onOutterClick={handleHideMenuOptions}
-                />
-                } </div> : ''}
-                
+
+                    {modalMenu === 'open' &&
+                        <ContextualModalMenu
+                            items={[
+                                { text: 'Edit post', onClick: () => handleEditPostButton(id) },
+                                { text: 'Delete post', onClick: () => handleDeletePostButton(id) },
+                            ]}
+                            onOutterClick={handleHideMenuOptions}
+                        />
+                    } </div> : ''}
+
                 {/* <ul>
                     <li className={`edit ${id}`} onClick={() => handleEditPostButton(id)}>edit <span className="material-symbols-outlined pencil edit-post">edit</span></li>
                 </ul> */}
-                
+
             </div>
             <img className="space-image" />
             <div className="title-and-interactions">

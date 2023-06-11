@@ -1,10 +1,12 @@
 import { context } from "../ui.js"
 import authenticateUser from '../logic/users/authenticateUsers.js'
 import Container from '../library/Container.jsx'
+import { useAppContext } from "../hooks"
 // import { pushUserDataToHeader } from "../components/helpers/push-user-to-header.js"
 
 export default function Login({ onRegisterClick, onUserLoggedIn }) {
     console.log('Home -> login')
+    const { alert, freeze, unfreeze } = useAppContext()
 
     function handleRegisterClick(event) {
         event.preventDefault()
@@ -18,7 +20,9 @@ export default function Login({ onRegisterClick, onUserLoggedIn }) {
         let userId
 
         try {
+            debugger
             authenticateUser(email, password, (error, userId) => {
+                freeze()
                 if (error) {
                     alert(error.message)
 
@@ -28,6 +32,7 @@ export default function Login({ onRegisterClick, onUserLoggedIn }) {
                 context.userId = userId
 
                 onUserLoggedIn()
+                unfreeze()
             })
         } catch (error) {
             console.log(error)

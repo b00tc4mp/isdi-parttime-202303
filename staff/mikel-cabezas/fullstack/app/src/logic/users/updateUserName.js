@@ -1,5 +1,7 @@
 import { findUserById, saveUser } from "../../data.js"
-import { validateCallback, validateName, validateUserId } from "../helpers/validators.js"
+import { validators } from "com"
+
+const { validateCallback, validateName, validateUserId } = validators
 
 export default function updateUserName(userId, newName, callback) {
     validateUserId(userId)
@@ -7,12 +9,12 @@ export default function updateUserName(userId, newName, callback) {
     validateCallback(callback)
 
     const user = findUserById(userId, (error, user) => {
-        if(!user) {
-            callback(new Error ('user not found'))
+        if (!user) {
+            callback(new Error('user not found'))
 
             return
         }
         user.name = newName
-            saveUser(user, () => callback(null))
+        saveUser(user, () => callback(null))
     })
 }

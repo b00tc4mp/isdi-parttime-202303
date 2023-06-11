@@ -1,6 +1,8 @@
 import { savePost } from '../../data.js'
-import { validateUserId, validatePostId, validateCallback } from '../helpers/validators.js'
+import { validators } from 'com'
 import retrievePostByPostId from './retrievePostByPostId.js'
+
+const { validateUserId, validatePostId, validateCallback } = validators
 
 export function toggleLikePost(userId, article, callback) {
     validateUserId(userId)
@@ -9,7 +11,7 @@ export function toggleLikePost(userId, article, callback) {
 
     retrievePostByPostId(userId, article.id, (error, post) => {
         const indexLikedPost = post.likes.indexOf(userId)
-        if(indexLikedPost < 0) {
+        if (indexLikedPost < 0) {
             post.likes.push(userId)
         } else {
             post.likes.splice(indexLikedPost, 1)
