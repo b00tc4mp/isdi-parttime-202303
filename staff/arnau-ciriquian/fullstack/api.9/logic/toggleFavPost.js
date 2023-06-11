@@ -1,7 +1,7 @@
 const { readFile, writeFile } = require('fs')
 const { validators: { validateCallback, validateId } } = require('com')
 
-module.exports = function toggleHidePost(userId, postId, callback) {
+module.exports = function toggleFavPost(userId, postId, callback) {
     validateId(userId, 'user id')
     validateId(postId, 'post id')
     validateCallback(callback)
@@ -40,21 +40,17 @@ module.exports = function toggleHidePost(userId, postId, callback) {
                 return
             }
 
-            if (post.author !== userId) {
-                callback(new Error(`post with id ${postId} does not belong to user with id ${userId}`))
+            const index = user.favs.indexOf(postId)
 
-                return
+            if (index < 0)
+                user.favs.push(postId)
+            else {
+                user.favs.splice(index, 1)
             }
 
-            if (post.hidden === false) {
-                post.hidden = true
-            } else {
-                post.hidden = false
-            }
+            json = JSON.stringify(users)
 
-            json = JSON.stringify(posts)
-
-            writeFile('./data/posts.json', json, 'utf-8', error => {
+            writeFile('./data/users.json', json, 'utf-8', error => {
                 if (error) {
                     callback(error)
 

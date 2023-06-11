@@ -1,7 +1,7 @@
 const { readFile, writeFile } = require('fs')
 const { validators: { validateCallback, validateId } } = require('com')
 
-module.exports = function toggleHidePost(userId, postId, callback) {
+module.exports = function deletePost(userId, postId, callback) {
     validateId(userId, 'user id')
     validateId(postId, 'post id')
     validateCallback(callback)
@@ -35,7 +35,7 @@ module.exports = function toggleHidePost(userId, postId, callback) {
             const post = posts.find(post => post.id === postId)
 
             if (!post) {
-                callback(new Error(`post with id ${postId} not found`))
+                callback(new Error('post not found'))
 
                 return
             }
@@ -46,11 +46,9 @@ module.exports = function toggleHidePost(userId, postId, callback) {
                 return
             }
 
-            if (post.hidden === false) {
-                post.hidden = true
-            } else {
-                post.hidden = false
-            }
+            const index = posts.findIndex(post => post.id === postId)
+
+            posts.splice(index, 1)
 
             json = JSON.stringify(posts)
 

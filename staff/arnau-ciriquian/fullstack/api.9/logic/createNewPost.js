@@ -1,9 +1,10 @@
 const { readFile, writeFile } = require('fs')
-const { validators: { validateCallback, validateId } } = require('com')
+const { validators: { validateId, validateUrl, validateText, validateCallback } } = require('com')
 
-module.exports = function toggleHidePost(userId, postId, callback) {
-    validateId(userId, 'user id')
-    validateId(postId, 'post id')
+module.exports = function createNewPost(userId, image, text, callback) {
+    validateId(userId)
+    validateUrl(image)
+    validateText(text)
     validateCallback(callback)
 
     readFile('./data/users.json', 'utf-8', (error, json) => {
@@ -32,25 +33,24 @@ module.exports = function toggleHidePost(userId, postId, callback) {
 
             const posts = JSON.parse(json)
 
-            const post = posts.find(post => post.id === postId)
+            let id = 'post-1'
 
-            if (!post) {
-                callback(new Error(`post with id ${postId} not found`))
+            const lastPost = posts[posts.length - 1]
 
-                return
+            if (lastPost)
+                id = 'post-' + (parseInt(lastPost.id.slice(5)) + 1)
+
+            const post = {
+                id,
+                author: userId,
+                image,
+                text,
+                date: (new Date).toLocaleString('en-UK'),
+                likes: [],
+                hidden: false
             }
 
-            if (post.author !== userId) {
-                callback(new Error(`post with id ${postId} does not belong to user with id ${userId}`))
-
-                return
-            }
-
-            if (post.hidden === false) {
-                post.hidden = true
-            } else {
-                post.hidden = false
-            }
+            posts.push(post)
 
             json = JSON.stringify(posts)
 

@@ -1,9 +1,11 @@
 const { readFile, writeFile } = require('fs')
-const { validators: { validateCallback, validateId } } = require('com')
+const { validators: { validateCallback, validateId, validateText, validateUrl } } = require('com')
 
-module.exports = function toggleHidePost(userId, postId, callback) {
+module.exports = function updatePost(userId, postId, image, text, callback) {
     validateId(userId, 'user id')
     validateId(postId, 'post id')
+    validateUrl(image, 'image url')
+    validateText(text, 'post text')
     validateCallback(callback)
 
     readFile('./data/users.json', 'utf-8', (error, json) => {
@@ -46,11 +48,9 @@ module.exports = function toggleHidePost(userId, postId, callback) {
                 return
             }
 
-            if (post.hidden === false) {
-                post.hidden = true
-            } else {
-                post.hidden = false
-            }
+            post.image = image
+            post.text = text
+            post.date = (new Date).toLocaleString('en-UK')
 
             json = JSON.stringify(posts)
 
