@@ -1,6 +1,12 @@
 const { readFile, writeFile } = require('fs')
+const { validators: { validateId, validateEmail, validateCallback } } = require('com');
 
 module.exports = function updateUserEmail(userId, email, newEmail, newEmailConfirm, callback) {
+    validateId(userId)
+    validateEmail(email)
+    validateEmail(newEmail)
+    validateEmail(newEmailConfirm)
+    validateCallback(callback)
 
     if (newEmail === email)
     {
@@ -13,7 +19,7 @@ module.exports = function updateUserEmail(userId, email, newEmail, newEmailConfi
         return
     } 
 
-    readFile('../data/users.json', 'utf8', (error, json) => {
+    readFile('./data/users.json', 'utf8', (error, json) => {
         if (error) {
             callback(error)
 
@@ -34,7 +40,7 @@ module.exports = function updateUserEmail(userId, email, newEmail, newEmailConfi
         json = JSON.stringify(users)
 
 
-        writeFile('../data/users.json', json, 'utf8', error => {
+        writeFile('./data/users.json', json, 'utf8', error => {
             if (error) {
                 callback(error)
 
