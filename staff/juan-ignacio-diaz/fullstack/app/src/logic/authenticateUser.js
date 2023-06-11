@@ -13,7 +13,7 @@ export default function authenticateUser(email, password, callback) {
 
         if (status !== 200) {
             const { response: json } = xhr
-            const { error } = JSON.parse(josn)
+            const { error } = JSON.parse(json)
 
             callback(new Error(error))
 
@@ -30,7 +30,7 @@ export default function authenticateUser(email, password, callback) {
         callback(new Error('connection error'))
     }
 
-    xhr.open('POST', `{import.meta.env.VITE_API_URL}/user/auth`)
+    xhr.open('POST', `${import.meta.env.VITE_API_URL}/users/auth`)
 
     xhr.setRequestHeader('Content-Type', 'application/json')
 

@@ -1,8 +1,10 @@
-const { readFile, writeFile } = require('fs')
+const { readFile } = require('fs')
+
 const { validators: { validateId, validateCallback } } = require('com')
 
-module.exports = function updateUserMode(userId, mode, callback) {
+module.exports = function retrievePost(userId, postId, callback){
     validateId(userId, 'user id')
+    validateId(postId, 'post id')
     validateCallback(callback)
 
     readFile(`${process.env.DB_PATH}/users.json`, (error, json) => {
@@ -22,18 +24,24 @@ module.exports = function updateUserMode(userId, mode, callback) {
             return
         }
 
-        user.mode = mode
-
-        json = JSON.stringify(users)
-
-        writeFile(`${process.env.DB_PATH}/users.json`, json, error => {
+        readFile(`${process.env.DB_PATH}/posts.json`, (error, json) => {
             if (error) {
                 callback(error)
 
                 return
             }
 
-            callback(null)
+            const posts = JSON.parse(json)
+
+            const post = posts.find(post => post.id === postId)
+
+            if (!post) {
+                callback(new Error(`post with id ${postId} not found`))
+    
+                return
+            }
+
+            callback(null, post)
         })
     })
 }

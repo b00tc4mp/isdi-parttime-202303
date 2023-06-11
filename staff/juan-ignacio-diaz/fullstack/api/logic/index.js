@@ -1,8 +1,20 @@
 module.exports = {
-    registerUser: require('./registerUser'),
     authenticateUser: require('./authenticateUser'),
-    retrieveUser: require('./retrieveUser'),
+    createPost: require('./createPost'),
+    deletePost: require('./deletePost'),
+    registerUser: require('./registerUser'),
+    retrieveOnSalePosts: require('./retrieveOnSalePosts'), 
+    retrievePost: require('./retrievePost'),
+    retrievePosts: require('./retrievePosts'),
+    retrieveUser: require('./retrieveUser'),    retrieveSavePosts: require('./retrieveSavePosts'),
+    retrieveUsersPosts: require('./retrieveUsersPosts'),
+    toggleLockPost: require('./toggleLockPost'),
+    toggleLikePost: require('./toggleLikePost'),
+    toggleSavePost: require('./toggleSavePost'),
+    updateBuyPost: require('./updateBuyPost'),
+    updatePost: require('./updatePost'),
+    updatePricePost: require('./updatePricePost'),
     updateUserAvatar: require('./updateUserAvatar'),
-    updateUserPassword: require('./updateUserPassword'),
-    updateUserMode: require('./updateUserMode')
+    updateUserMode: require('./updateUserMode'),
+    updateUserPassword: require('./updateUserPassword')
 }

@@ -1,37 +1,36 @@
 import { validators } from 'com'
 const { validateId, validateCallback } = validators
 
-import { savePost, findUserById, findPostById } from '../data'
-
 export default function toggleLikePost(userId, postId, callback) {
     validateId(userId, 'user id')
     validateId(postId, 'post id')
     validateCallback(callback)
     
-    findUserById(userId, user => {
-        if (!user) {
-            callback(new Error("Error to user"))
+    const xhr = new XMLHttpRequest
+
+    xhr.onload = () => {
+        const { status } = xhr
+
+        if (status !== 204) {
+            const { response: json } = xhr
+            const { error } = JSON.parse(json)
+
+            callback(new Error(error))
 
             return
         }
 
-        findPostById(postId, post =>{
-            if (!post) {
-                callback(new Error(`post with id ${postId} not found`))
-        
-                return
-            }
-        
-            const index = post.likes.indexOf(userId)
-        
-            if (index < 0)
-                post.likes.push(userId)
-            else 
-                post.likes.splice(index, 1)
-            
-            savePost(post, () => callback(null))
-        })
-    })
+        callback(null)
+    }
 
- 
+    xhr.onerror = () => {
+        callback(new Error('connection error'))
+    }
+
+    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/posts/toggle/like/${userId}`)
+
+    const post = { postId }
+    const json = JSON.stringify(post)
+
+    xhr.send(json)
 }

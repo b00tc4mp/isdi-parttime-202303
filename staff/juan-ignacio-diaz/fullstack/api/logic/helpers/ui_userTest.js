@@ -7,5 +7,6 @@ module.exports = function RandomUser () {
         email: `e-${Math.random()}@email.com`,
         password: `password-${Math.random()}`,
         avatar: `avatar-${Math.random()}.gif`,
-        favs: [`post-${Math.random()}`]}
+        favs: [`post-${Math.random()}`],
+        mode: `mode-${Math.random()}`}
 }

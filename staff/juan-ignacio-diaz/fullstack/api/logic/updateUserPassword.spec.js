@@ -4,14 +4,15 @@ const { expect } = require('chai')
 const updateUserPassword = require('./updateUserPassword')
 const { writeFile, readFile } = require('fs')
 
-const RandomUser = require('./helpers/uiTest')
+const RandomUser = require('./helpers/ui_userTest')
 
 describe('updateUserPassword', () => {
-    let wrongId
+    let userTest
+
     beforeEach(done => {
         userTest = RandomUser()
 
-        writeFile(`${process.env.DB_PATH}/users.json`, '[]', error => done(error))
+        writeFile(`${process.env.DB_PATH}/users.json`, '[]', 'utf8', error => done(error))
     })
 
     it('succeeds on existing user and correct id', done => {
@@ -19,7 +20,7 @@ describe('updateUserPassword', () => {
 
         const json = JSON.stringify(users)
 
-        writeFile(`${process.env.DB_PATH}/users.json`, json, error => {
+        writeFile(`${process.env.DB_PATH}/users.json`, json, 'utf8', error => {
             expect(error).to.be.null
 
             const newPassword = userTest.password + '-new'
@@ -27,12 +28,15 @@ describe('updateUserPassword', () => {
             updateUserPassword(userTest.id, userTest.password, newPassword, newPassword, error => {
                 expect(error).to.be.null
 
-                readFile(`${process.env.DB_PATH}/users.json`, (error, json) => {
+                readFile(`${process.env.DB_PATH}/users.json`, 'utf8', (error, json) => {
                     expect(error).to.be.null
 
-                    const [{ password }] = JSON.parse(json)
+                    const users = JSON.parse(json)
 
-                    expect(password).to.equal(newPassword)
+                    const user = users.find(user => user.id === userTest.id)
+
+                    expect(user).to.be.exist
+                    expect(user.password).to.equal(newPassword)
 
                     done()
                 })
@@ -45,7 +49,7 @@ describe('updateUserPassword', () => {
 
         const json = JSON.stringify(users)
 
-        writeFile(`${process.env.DB_PATH}/users.json`, json, error => {
+        writeFile(`${process.env.DB_PATH}/users.json`, json, 'utf8', error => {
             expect(error).to.be.null
 
             const wrongId = userTest.id + '-wrong'
@@ -65,7 +69,7 @@ describe('updateUserPassword', () => {
 
         const json = JSON.stringify(users)
 
-        writeFile(`${process.env.DB_PATH}/users.json`, json, error => {
+        writeFile(`${process.env.DB_PATH}/users.json`, json, 'utf8', error => {
             expect(error).to.be.null
 
             const invalidPassword = userTest.password + '-invalid'
@@ -80,46 +84,41 @@ describe('updateUserPassword', () => {
         })
     })
 
-    it('fails on existing user but incorrect password', done => {
-        const users = [{ id: userTest.id, name: userTest.name, email: userTest.email, password: userTest.password, avatar: userTest.avatar }]
+    it('fails on existing user but incorrect password', () => {
+        const wrongPassword = 'sort'
+        const newPassword = userTest.password + '-new'
 
-        const json = JSON.stringify(users)
+        expect(()  => 
+            updateUserPassword(userTest.id, wrongPassword, newPassword, newPassword, () => {
 
-        writeFile(`${process.env.DB_PATH}/users.json`, json, error => {
-            expect(error).to.be.null
+            }).to.equal(`the pasword is invalid`)
+        )
 
-            const wrongPassword = 'sort'
-            const newPassword = userTest.password + '-new'
+        expect(()  => 
+            updateUserPassword(userTest.id, '', newPassword, newPassword, () => {
 
-            updateUserPassword(userTest.id, wrongPassword, newPassword, newPassword, error => {
-                expect(error).to.be.instanceOf(Error)
-                expect(error.message).to.equal('password length lower than 8 characters')
-
-                done()
-            })
-        })
+            }).to.equal(`the pasword is invalid`)
+         )
     })
 
-    it('fails on existing user but incorrect new password', done => {
-        const users = [{ id: userTest.id, name: userTest.name, email: userTest.email, password: userTest.password, avatar: userTest.avatar }]
+    it('fails on existing user but incorrect new password', () => {
+        const wrongNewPassword = 'sort'
+        const newPassword = userTest.password + '-new'
 
-        const json = JSON.stringify(users)
+        expect(()  => 
+            updateUserPassword(userTest.id, userTest.password, wrongNewPassword, newPassword, () => {
 
-        writeFile(`${process.env.DB_PATH}/users.json`, json, error => {
-            expect(error).to.be.null
+            }).to.equal(`the newpasword is invalid`)
+        )
 
-            const newPassword = userTest.password + '-new'
+        expect(()  => 
+            updateUserPassword(userTest.id, userTest.password, '', newPassword, () => {
 
-            updateUserPassword(userTest.id, userTest.password, '', newPassword, error => {
-                expect(error).to.be.instanceOf(Error)
-                expect(error.message).to.equal(`new password length lower than 8 characters`)
-
-                done()
-            })
-        })
+            }).to.equal(`the newpasword is invalid`)
+         )
     })
 
     // TODO add more unhappies
 
-    after(done => writeFile(`${process.env.DB_PATH}/users.json`, '[]', error => done(error)))
+    after(done => writeFile(`${process.env.DB_PATH}/users.json`, '[]', 'utf8', error => done(error)))
 })

@@ -5,7 +5,7 @@ const { readFile, writeFile } = require('fs')
 
 const registerUser = require('./registerUser')
 
-const RandomUser = require('./helpers/uiTest')
+const RandomUser = require('./helpers/ui_userTest')
 
 describe('registerUser' , () =>{
     let userTest

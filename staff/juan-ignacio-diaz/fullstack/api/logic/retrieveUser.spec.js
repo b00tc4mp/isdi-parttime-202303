@@ -5,7 +5,7 @@ const { writeFile, readFile } = require('fs')
 
 const retrieveUser = require('./retrieveUser')
 
-const RandomUser = require('./helpers/uiTest')
+const RandomUser = require('./helpers/ui_userTest')
 
 describe('retrieveUser', () => {
     let userTest
@@ -69,7 +69,6 @@ describe('retrieveUser', () => {
             retrieveUser(wrongId, (error, user) => {
                 expect(error).to.be.instanceOf(Error)
                 expect(error.message).to.equal(`user with id ${wrongId} not found`)
-
                 expect(user).to.be.undefined
 
                 done()
@@ -78,12 +77,19 @@ describe('retrieveUser', () => {
     })
 
     it('fails on empty userId', () =>
-        expect(() => retrieveUser('', () => { })).to.throw(Error, 'id is empty')
+        expect(() => retrieveUser('', () => {})).to.throw(Error, 'id is empty')
     )
 
-    it('fails on userId not exist', () => {
-        const userIdNoExist = userTest.userId+'NoExit'
-        expect(() => retrieveUser(userIdNoExist, () => { })).to.throw(Error, `user with id ${userIdNoExist} not found`)
+    it('fails on userId not exist', done => {
+        const userIdNoExist = userTest.id+'NoExist'
+
+        retrieveUser(userIdNoExist, (error, user) => {
+            expect(error).to.be.instanceOf(Error)
+            expect(error.message).to.equal(`user with id ${userIdNoExist} not found`)
+            expect(user).to.be.undefined
+
+            done()
+        })
     })
 
     after(done => writeFile(`${process.env.DB_PATH}/users.json`, '[]', 'utf8', error => done(error)))

@@ -1,47 +1,38 @@
 import { validators } from 'com'
 const { validateId, validateCallback } = validators
 
-import { loadUsers, saveUsers, loadPosts, savePosts} from "../data"
-
 export default function deletePost(userId, postId, callback){
     validateId(userId, 'user id')
     validateId(postId, 'post id')
     validateCallback(callback)
 
-    loadUsers(users => {
+    const xhr = new XMLHttpRequest
 
-        const  user = users.find(user => user.id === userId)
-        if (!user) {
-            callback(new Error(`user with id ${userId} not found`))
+    xhr.onload = () => {
+        const { status } = xhr
+
+        if (status !== 204) {
+            const { response: json } = xhr
+            const { error } = JSON.parse(json)
+
+            callback(new Error(error))
 
             return
         }
-    
-        loadPosts(posts => {
-            const index = posts.findIndex(post => post.id === postId)
-    
-            if (index < 0) {
-                callback(new Error(`post with id ${postId} not found`))
 
-                return
-            }
+        callback(null)
+    }
 
-            if (user.id !== posts[index].author){
-                callback(new Error(`Post doesn't belong to this user`))
+    xhr.onerror = () => {
+        callback(new Error('connection error'))
+    }
 
-                return
-            }  
+    xhr.open('DELETE', `${import.meta.env.VITE_API_URL}/posts/${userId}`)
 
-            posts.splice(index, 1)
+    xhr.setRequestHeader('Content-Type', 'application/json')
 
-            users.forEach(user => { 
-                if (user.favs.includes(postId)) 
-                    user.favs.splice(user.favs.findIndex(favs => favs===postId), 1)
-            })
-        
-            savePosts(posts, () =>
-                saveUsers(users, () => callback(null))
-            )
-        })
-    })
+    const post = { postId }
+    const json = JSON.stringify(post)
+
+    xhr.send(json)
 }

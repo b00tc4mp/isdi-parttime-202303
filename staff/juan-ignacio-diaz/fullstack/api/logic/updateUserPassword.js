@@ -8,6 +8,10 @@ module.exports = function updateUserPassword(userId, password, newPassword, newP
     validatePassword(newPasswordConfirm, 'new password confirm')
     validateCallback(callback)
 
+    if (newPassword === password) throw new Error("the new password is equal to the old password", {cause: "newPassword"})
+
+    if (newPassword !== newPasswordConfirm) throw new Error("the confirm password is different than then new password", {cause: "newPasswordConfirm"})
+
     readFile(`${process.env.DB_PATH}/users.json`, (error, json) => {
         if (error) {
             callback(error)

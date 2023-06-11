@@ -5,7 +5,7 @@ const { writeFile } = require('fs')
 
 const authenticateUser = require('./authenticateUser')
 
-const RandomUser = require('./helpers/uiTest')
+const RandomUser = require('./helpers/ui_userTest')
 
 describe('authenticateUser', () => {
     let userTest

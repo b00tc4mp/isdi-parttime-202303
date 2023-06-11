@@ -1,8 +1,6 @@
 import { validators } from 'com'
 const { validateId, validatePassword, validateCallback } = validators
 
-import { saveUser, findUserById } from '../data'
-
 export default function updateUserPassword(userId, password, newPassword, newPasswordConfirm, callback) {
     validateId(userId)
     validatePassword(password)
@@ -14,21 +12,31 @@ export default function updateUserPassword(userId, password, newPassword, newPas
 
     if (newPassword !== newPasswordConfirm) throw new Error("the confirm password is different than then new password", {cause: "newPasswordConfirm"})
 
-    findUserById(userId, user => {
-        if (!user) {
-            callback(new Error('user not found'))
+    const xhr = new XMLHttpRequest
+
+    xhr.onload = () => {
+        const { status } = xhr
+
+        if (status !== 204) {
+            const { response: json } = xhr
+            const { error } = JSON.parse(json)
+
+            callback(new Error(error))
 
             return
         }
 
-        if (user.password !== password) {
-            callback(new Error("Error the pasword is invalid", {cause: "password"}))
+        callback(null)
+    }
 
-            return
-        }
+    xhr.onerror = () => {
+        callback(new Error('connection error'))
+    }
 
-        user.password = newPassword
+    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/users/update/password/${userId}`)
 
-        saveUser(user, () => callback(null))
-    })
+    const user = { password, newPassword, newPasswordConfirm }
+    const json = JSON.stringify(user)
+
+    xhr.send(json)
 }

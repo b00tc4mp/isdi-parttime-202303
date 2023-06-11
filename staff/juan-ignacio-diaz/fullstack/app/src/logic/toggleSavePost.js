@@ -1,37 +1,36 @@
 import { validators } from 'com'
 const { validateId, validateCallback } = validators
 
-import { saveUser, findUserById, findPostById } from "../data"
-
 export default function toggleSavePost(userId, postId, callback) {
     validateId(userId, 'user id')
     validateId(postId, 'post id')
     validateCallback(callback)
     
-    findUserById(userId, user => {
-        if (!user) {
-            callback(new Error("Error to user"))
+    const xhr = new XMLHttpRequest
+
+    xhr.onload = () => {
+        const { status } = xhr
+
+        if (status !== 204) {
+            const { response: json } = xhr
+            const { error } = JSON.parse(json)
+
+            callback(new Error(error))
 
             return
         }
-        
-        findPostById(postId, post =>{
-            if (!post) {
-                callback(new Error(`post with id ${postId} not found`))
-            
-                return
-            }
 
-            const index = user.favs.indexOf(postId)
+        callback(null)
+    }
 
-            if (index < 0)
-                user.favs.push(postId)
-            else {
-                user.favs.splice(index, 1)
-            } 
-     
-            saveUser(user, () => callback(null))
-        })
-    })
+    xhr.onerror = () => {
+        callback(new Error('connection error'))
+    }
 
+    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/users/toggle/savePost/${userId}`)
+
+    const user = { postId }
+    const json = JSON.stringify(user)
+
+    xhr.send(json)
 }

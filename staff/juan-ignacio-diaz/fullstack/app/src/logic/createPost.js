@@ -1,36 +1,39 @@
 import { validators } from 'com'
 const { validateId, validateUrl, validateText, validateCallback } = validators
 
-import { loadPosts, savePosts, findUserById, newPostId } from '../data'
-
-export default function createPost(userId, image, text, callback) {
+export default function deletePost(userId, image, text, callback) {
     validateId(userId, 'user id')
     validateUrl(image, 'image url')
-    validateText(text)
+    validateText(text, 'text')
     validateCallback(callback)
 
-    findUserById(userId, user => {
-        if (!user) {
-            callback(new Error(`user with id ${userId} not found`))
-            
+    const xhr = new XMLHttpRequest
+
+    xhr.onload = () => {
+        const { status } = xhr
+
+        if (status !== 201) {
+            const { response: json } = xhr
+            const { error } = JSON.parse(json)
+
+            callback(new Error(error))
+
             return
         }
 
-        loadPosts(posts => {
-            newPostId(id => {
-                posts.push({
-                    id: id,
-                    author: userId,
-                    image,
-                    text,
-                    date: new Date,
-                    likes: [],
-                    lock: false,
-                    price: 0
-                })
+        callback(null)
+    }
 
-                savePosts(posts, () => callback(null))
-            })
-        })
-    })
+    xhr.onerror = () => {
+        callback(new Error('connection error'))
+    }
+
+    xhr.open('POST', `${import.meta.env.VITE_API_URL}/posts/${userId}`)
+
+    xhr.setRequestHeader('Content-Type', 'application/json')
+
+    const post = { image, text }
+    const json = JSON.stringify(post)
+
+    xhr.send(json)
 }

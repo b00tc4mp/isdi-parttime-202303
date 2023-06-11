@@ -1,37 +1,35 @@
 import { validators } from 'com'
 const { validateId, validateCallback } = validators
 
-import { loadUsers, findUserById, loadPosts } from "../data"
-
 export default function retrieveOnSalePosts(userId, callback){
     validateId(userId, 'user id')
     validateCallback(callback)
-    
-    findUserById(userId, user => {
-        if(!user) {
-            callback(new Error(`user with id ${userId} not found`))
+
+    const xhr = new XMLHttpRequest
+
+    xhr.onload = () => {
+        const { status } = xhr
+
+        if (status !== 200) {
+            const { response: json } = xhr
+            const { error } = JSON.parse(json)
+
+            callback(new Error(error))
 
             return
         }
 
-        loadUsers(users => {
-            loadPosts(posts => {
-                const tmPosts = posts.filter(post => post.price !== 0 && (!post.lock || (post.lock && post.author === userId)))
+        const { response: json } = xhr
+        const posts = JSON.parse(json)
 
-                tmPosts.forEach(post => {
-                    post.fav = user.favs.includes(post.id)
-    
-                    const author = users.find(user => user.id === post.author)
-    
-                    post.author = {
-                        id: author.id,
-                        name: author.name,
-                        avatar: author.avatar
-                    }
-                })
-                callback(null, tmPosts.toReversed())
+        callback(null, posts)
+    }
 
-            })
-        })
-    })
+    xhr.onerror = () => {
+        callback(new Error('connection error'))
+    }
+
+    xhr.open('GET', `${import.meta.env.VITE_API_URL}/posts/retrieve/onSalePosts/${userId}`)
+
+    xhr.send()    
 }
