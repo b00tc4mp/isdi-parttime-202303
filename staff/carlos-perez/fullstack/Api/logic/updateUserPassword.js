@@ -1,6 +1,12 @@
 const { readFile, writeFile } = require('fs')
+const { validators: { validateId, validatePassword, validateCallback } } = require('com')
 
 module.exports = function updateUserPassword(userId, password, newPassword, newPasswordConfirm, callback) {
+    validateId(userId)
+    validatePassword(password)
+    validatePassword(newPassword)
+    validatePassword(newPasswordConfirm)
+    validateCallback(callback)
 
     if (newPassword === password) {
         callback(new Error('La nueva contraseña es igual que la anterior. Debe cambiarla.'));
@@ -12,7 +18,7 @@ module.exports = function updateUserPassword(userId, password, newPassword, newP
         return
     }
 
-    readFile('../data/users.json', 'utf8', (error, json) => {
+    readFile('./data/users.json', 'utf8', (error, json) => {
         if (error) {
             callback(error)
 
@@ -33,7 +39,7 @@ module.exports = function updateUserPassword(userId, password, newPassword, newP
         json = JSON.stringify(users)
 
 
-        writeFile('../data/users.json', json, 'utf8', error => {
+        writeFile('./data/users.json', json, 'utf8', error => {
             if (error) {
                 callback(error)
 
