@@ -27,7 +27,7 @@ export default function Posts({ lastPostsUpdate, view, handleOpenBuyPost, handle
             return
           }
           console.debug('Postsss -> render')
-
+          console.log(_posts)
           setPosts(_posts)
         })
       }

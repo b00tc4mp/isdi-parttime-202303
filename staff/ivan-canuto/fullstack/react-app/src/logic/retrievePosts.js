@@ -1,4 +1,3 @@
-import { loadPosts, findUserById, loadUsers } from "../data"
 import { validators } from 'com'
 
 const { validateId, validateCallback } = validators
@@ -15,32 +14,32 @@ export function retrievePosts(userId, callBack) {
   validateId(userId, 'user id')
   validateCallback(callBack)
 
-  findUserById(userId, (user) => {
+  const xhr = new XMLHttpRequest
 
-    if (!user) {
-      callBack(new Error(`User with ${userId} not found.`))
+  xhr.onload = () => {
+    const { status } = xhr
+
+    if(status !== 200) {
+      const { response: json } = xhr
+      const { error } = JSON.parse(json)
+      
+      callBack(new Error(error))
 
       return
     }
 
-    loadUsers(users => {
-      loadPosts(posts => {
-        posts.forEach(post => {
-          const _user = users.find(user => user.id === post.author)
-            
-          if(_user) {
-            post.author = {
-              id: _user.id,
-              name: _user.name,
-              avatar: _user.avatar,
-              favs: _user.favs
-            }
-          }
-        })
+    const { response: json } = xhr
+    const { posts } = JSON.parse(json)
 
-        callBack(null, posts.toReversed())
-      })
-    })
-    
-  })
+    callBack(null, posts)
+  }
+
+  xhr.onerror = () => {
+    console.log(xhr);
+    callBack(new Error('Connection error.'))
+  }
+
+  xhr.open('GET', `${import.meta.env.VITE_API_URL}/posts/retrievePosts/${userId}`)
+
+  xhr.send()
 }

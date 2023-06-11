@@ -21,14 +21,13 @@ module.exports = function retrievePosts(userId, callBack) {
       return
     }
 
-    readFile('./data/posts.json', (error, postsJSON) => {
+    readFile(`${process.env.DB_PATH}/posts.json`, (error, postsJSON) => {
       if(error) {
         callBack(error)
 
         return
       }
-
-      const posts = JSON.stringify(postsJSON)
+      const posts = JSON.parse(postsJSON)
 
       posts.forEach(post => {
 
@@ -41,19 +40,9 @@ module.exports = function retrievePosts(userId, callBack) {
           favs: _user.favs
         }
       })
-
-      const version=parseInt(versionDetection());
-
-      if(version >=20){
-        callBack(null, posts.toReversed()); //Sólo funciona con Node v20 en adelante
-      }
-      else{
-        const reversedPosts=[];
-        for(let i=posts.length-1; i>=0; i--){
-            reversedPosts.push(posts[i]);
-        }
-        callBack(null, reversedPosts);
-      }
+      
+      callBack(null, posts.reverse());
+      
     })
   })
 }

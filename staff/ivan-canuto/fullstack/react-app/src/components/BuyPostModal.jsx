@@ -1,4 +1,3 @@
-import { findPostById } from "../data"
 import { context } from "../ui"
 import buyPost from "../logic/buyPost"
 import { useEffect, useState } from "react"
@@ -7,6 +6,7 @@ import ModalContainer from "../library/ModalContainer"
 import ModalWindow from "../library/ModalWindow"
 import Button from "../library/Button";
 import { useAppContext } from "../hooks"
+import retrievePost from "../logic/retrievePost"
 
 export default function BuyPost({ onBoughtPost, onCancel }) {
   const { alert, freeze, unfreeze } = useAppContext()
@@ -15,9 +15,16 @@ export default function BuyPost({ onBoughtPost, onCancel }) {
 
   useEffect(() => {
     freeze()
-
-    findPostById(context.postId, (post) => {
+    
+    retrievePost(context.userId, context.postId, (error, post) => {
       unfreeze()
+      
+      if(error) {
+        alert(error.message, 'error')
+        console.debug(error.stack)
+
+        return
+      }
       
       setPost(post)
     })
@@ -35,6 +42,7 @@ export default function BuyPost({ onBoughtPost, onCancel }) {
         if (error) {
           alert(error.message, 'error')
           console.debug(error.stack)
+
           return
         }
   

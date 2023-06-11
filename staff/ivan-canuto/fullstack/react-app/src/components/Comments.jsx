@@ -29,7 +29,7 @@ export default function Comments({ onCloseCommentModal, handleRefreshPosts, post
 
     try {
       freeze()
-
+      
       createComment(commentText, context.userId, post.id, (error) => {
         unfreeze()
         

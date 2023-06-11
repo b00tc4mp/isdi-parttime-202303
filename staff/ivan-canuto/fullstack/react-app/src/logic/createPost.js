@@ -19,32 +19,33 @@ export const createPost = (userId, imageUrl, postText, callBack) => {
   validateText(postText)
   validateCallback(callBack)
   
-  findUserById(userId, (user) => {
-    if (!user) {
-      callBack(new Error('User not found.'))
+  const xhr = new XMLHttpRequest
+
+  xhr.onload = () => {
+    const { status } = xhr
+
+    if(status !== 200) {
+      const { response: json } = xhr
+      const { error } = JSON.parse(json)
+
+      callBack(new Error(error))
 
       return
     }
-    
-    loadPosts((posts) => {
-      let id = 'post-1'
-      const lastPost = posts[posts.length - 1]
-      if (lastPost) id = 'post-' + (parseInt(lastPost.id.slice(5)) + 1)
-    
-      let date = new Date()
-      const post = {
-        id,
-        author: user.id,
-        image: imageUrl,
-        text: postText,
-        date: date.toLocaleDateString(),
-        likes: [],
-        visible: true,
-        onSale: null,
-        comments: []
-      }
-    
-      savePost(post, () => callBack(null))
-    })
-  })
+
+    callBack(null)
+  }
+  
+  xhr.onerror = () => {
+    callBack(new Error('Connection error.'))
+  }
+  
+  xhr.open('POST', `${import.meta.env.VITE_API_URL}/posts/createPost/${userId}`)
+  
+  xhr.setRequestHeader('Content-Type', 'application/json')
+
+  const post = { imageUrl, postText }
+  const json = JSON.stringify(post)
+
+  xhr.send(json)
 }

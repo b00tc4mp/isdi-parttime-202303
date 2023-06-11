@@ -57,13 +57,18 @@ export default function AddPost({ onCancel, onCreatedPost }) {
   }
 
   const handleOnChangeEvent = (event) => {
-    setImage(event.target.value)
+    if(event.target.value)
+      setImage(event.target.value)
   }
 
   const handleSelectImage = async (event) => {
     const file = event.target.files[0]
 
-    if(!file) return
+    if(!file) {
+      setImage()
+
+      return
+    }
     else {
       
       const reader = new FileReader()
@@ -81,6 +86,7 @@ export default function AddPost({ onCancel, onCreatedPost }) {
       
           imageCompressor.run(reader.result, compressorSettings, (compressedSrc) => {
             setSelectedImage(compressedSrc)
+            setImage(compressedSrc)
           })
         }
 
@@ -99,7 +105,7 @@ export default function AddPost({ onCancel, onCreatedPost }) {
         <h2>Add post</h2>
         <Input type="url" name="postImage" placeholder="URL Image" autoComplete="off" autoFocus onChange={handleOnChangeEvent}/>
         <Input name="selectedImage" type="file" accept="image/*" onChange={handleSelectImage}/>
-        {image ? <canvas className="canvas" src={image}/> : ''}
+        {image ? <img className="max-h-60" src={image}/> : ''}
         <textarea className="textarea" name="postText" placeholder="Post text" cols="30" rows="10"></textarea>
         <div className="w-full justify-center gap-4">
           <Button className='m-2'>Create post</Button>

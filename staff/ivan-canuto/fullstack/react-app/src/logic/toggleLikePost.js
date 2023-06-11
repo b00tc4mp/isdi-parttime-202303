@@ -13,70 +13,31 @@ const { validateId, validateCallback } = validators
 
 export default function toggleLikePost(userId, postId, callBack) {
   validateId(userId, 'user id')
+  validateId(postId, 'post id')
   validateCallback(callBack)
   
-  findUserById(userId, (_user) => {
-    if (!_user) {
-      callBack(new Error(`User not found.`))
+  const xhr = new XMLHttpRequest
+
+  xhr.onload = () => {
+    const { status } = xhr
+
+    if(status !== 200) {
+      const { response: json } = xhr
+      const { error } = JSON.parse(json)
+
+      callBack(new Error(error))
+
       return
     }
-    
-    findPostById(postId, (post) => {
-      if(!post) {
-        callBack(new Error('Post not found.'))
-        
-        return
-      }
-      
-      const userPost = Array.from(document.querySelectorAll('.user-post')).find(_post => _post.id === post.id)
-      if(!userPost) callBack(new Error('Post not found'))
 
-      const likesPost = userPost.querySelector('.likes-post')
-      const likedPost = post.likes.some(id => id === userId)
-      const likeIcon = userPost.querySelector('.heart-icon')
-    
-      if (!likedPost) {
-        likeIcon.querySelector('span').classList.add('liked', 'filled')
-        likesPost.textContent = (parseInt(likesPost.textContent[0]) + 1) + ' likes'
-        post.likes.push(userId)
+    callBack(null)
+  }
 
-      } else {
-        likeIcon.querySelector('span').classList.remove('liked', 'filled')
-        likesPost.textContent = (parseInt(likesPost.textContent[0]) - 1) + ' likes'
-        let indexUserId = post.likes.indexOf(userId)
-        post.likes.splice(indexUserId, 1)
-      }
-    
-      savePost(post, () => callBack(null))
-    })
-  })
+  xhr.onerror = () => {
+    callBack(new Error('Connection error.'))
+  }
+
+  xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/posts/toggleLikePost/${userId}/${postId}`)
+
+  xhr.send()
 }
-
-
-// export const likePost = (userId, postId, post)=>{
-//   let likesUser = likedPostsId.find(userLikes => userLikes[0] === userId)
-//   if (likesUser === undefined) {
-//     likedPostsId.push([userId])
-//     likesUser = [userId]
-//   }
-
-//   let index;
-//   for (let i = 0; i < likedPostsId.length; i++) {
-//     if(likedPostsId[i][0] === userId) index = i
-//   }
-
-//   const icon = post.querySelector('.icon-svg')
-//   const likesPost= post.querySelector('.likes-post')
-//   if (!icon.classList.contains('red-bg')) {
-//     icon.classList.add('red-bg')
-//     likesPost.textContent = (parseInt(likesPost.textContent[0]) + 1) + ' likes'
-//     likedPostsId[index].push(postId)
-//   } else {
-//     icon.classList.remove('red-bg')
-//     likesPost.textContent = (parseInt(likesPost.textContent[0]) - 1) + ' likes'
-//     const indexPostId = likedPostsId[index].indexOf(postId)
-//     likedPostsId[index].splice(indexPostId, 1)
-//   }
-//   saveLikedPost()
-//   savePosts()
-// }

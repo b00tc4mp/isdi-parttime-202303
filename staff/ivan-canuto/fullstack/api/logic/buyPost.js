@@ -5,7 +5,7 @@ module.exports = function buyPost(postId, callBack) {
   validateId(postId)
   validateCallback(callBack)
 
-  readFile('./data/posts.json', (error, postsJSON) => {
+  readFile(`${process.env.DB_PATH}/posts.json`, (error, postsJSON) => {
     if(error) {
       callBack(error)
 
@@ -34,13 +34,13 @@ module.exports = function buyPost(postId, callBack) {
     
     const postIndex = posts.indexOf(post)
     
-    posts.onSale = 'Sold'
+    post.onSale = 'Sold'
 
     posts.splice(postIndex, 1, post)
 
     const postsToJSON = JSON.stringify(posts)
 
-    writeFile('./data/posts.json', posts, (error) => {
+    writeFile(`${process.env.DB_PATH}/posts.json`, postsToJSON, (error) => {
       if(error) {
         callBack(error)
   

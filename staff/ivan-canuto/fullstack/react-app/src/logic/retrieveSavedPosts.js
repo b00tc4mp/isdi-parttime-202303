@@ -1,4 +1,3 @@
-import { findUserById, loadPosts, loadUsers } from "../data"
 import { validators } from 'com'
 
 const { validateId, validateCallback } = validators
@@ -14,33 +13,32 @@ const { validateId, validateCallback } = validators
 export function retrieveSavedPosts(userId, callBack) {
   validateId(userId, 'user id')
   validateCallback(callBack)
-  findUserById(userId, (user) => {
+  
+  const xhr = new XMLHttpRequest
 
-    if (!user) {
-      alert('User not found.')
+  xhr.onload = () => {
+    const { status } = xhr
+
+    if(status !== 200) {
+      const { response: json } = xhr
+      const { error } = JSON.parse(json)
+
+      callBack(new Error(error))
 
       return
     }
 
-    loadUsers(users => {
-      loadPosts(posts => {
-        const savedPosts = posts.filter(post => user.favs.includes(post.id))
-      
-        savedPosts.forEach(post => {
-          const _user = users.find(user => user.id === post.author)
-          
-          if(_user) {
-            post.author = {
-            id: _user.id,
-            name: _user.name,
-            avatar: _user.avatar,
-            favs: _user.favs
-            }
-          }
-        })
+    const { response: json } = xhr
+    const { savedPosts } = JSON.parse(json)
 
-        callBack(null, savedPosts.toReversed())
-      })
-    })
-  })
+    callBack(null, savedPosts)
+  }
+
+  xhr.onerror = () => {
+    callBack(new Errorr('Connection error.'))
+  }
+
+  xhr.open('GET', `${import.meta.env.VITE_API_URL}/posts/retrieveSavedPosts/${userId}`)
+
+  xhr.send()
 }

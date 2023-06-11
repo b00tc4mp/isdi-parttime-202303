@@ -14,25 +14,28 @@ export default function buyPost(postId, callBack) {
   validateId(postId)
   validateCallback(callBack)
 
-  findPostById(postId, post => {
-    if(!post) {
-      callBack(new Error('This post does not exist.'))
+  const xhr = new XMLHttpRequest
+
+  xhr.onload = () => {
+    const { status } = xhr
+
+    if(status !== 200) {
+      const { response } = xhr
+      const { error } = JSON.parse(response)
+
+      callBack(new Error(error))
 
       return
     }
-    else if(!post.onSale) {
-      callBack(new Error('This post is not on sale.'))
-
-      return
-    }
-    else if(post.onSale === 'Sold') {
-      callBack(new Error('This post is already sold.'))
-
-      return
-    }
-      
-    post.onSale = 'Sold'
     
-    savePost(post, () => callBack(null))
-  })
+    callBack(null)
+  }
+
+  xhr.onerror = () => {
+    callBack(new Error('Connection error.'))
+  }
+
+  xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/posts/buyPost/${postId}`)
+
+  xhr.send()
 }

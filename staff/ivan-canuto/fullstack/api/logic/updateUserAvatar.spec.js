@@ -5,16 +5,16 @@ const updateUserAvatar = require('./updateUserAvatar')
 require('dotenv').config()
 
 describe('updateUserAvatar', () => {
-  let id, name, currentAvatar, password, newAvatar
+  let id, name, avatar, password, newAvatar
 
   beforeEach(done => {
     id = 'user-1'
     name = `name-${Math.random()}`
-    currentAvatar = `data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwgHBgkIBwgKCgkLDRYPDQwMDRsUFRAWIB0iIiAdH2Q==.jpeg`
+    avatar = `data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwgHBgkIBwgKCgkLDRYPDQwMDRsUFRAWIB0iIiAdH2Q==.jpeg`
     password = `password-${Math.random()}`
     newAvatar = `data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwgHBgkIBwgKC.jpg`
 
-    const user = [{id, name, currentAvatar, password}]
+    const user = [{id, name, avatar, password}]
     const userToJSON = JSON.stringify(user)
 
     writeFile(`${process.env.DB_PATH}/users.json`, userToJSON, error => done(error))
@@ -31,7 +31,7 @@ describe('updateUserAvatar', () => {
         const user = users.find(user => user.id === 'user-1')
 
         expect(user).to.exist
-        expect(user.currentAvatar).to.equal(newAvatar)
+        expect(user.avatar).to.equal(newAvatar)
         
         done()
       })
@@ -48,7 +48,7 @@ describe('updateUserAvatar', () => {
   })
   
   it("Should fail on new avatar is the same as the old one", done => {
-    updateUserAvatar(id, currentAvatar, password, error => {
+    updateUserAvatar(id, avatar, password, error => {
       expect(error).to.be.instanceOf(Error)
       expect(error.message).to.equal('New avatar is the same as the old one.')
       

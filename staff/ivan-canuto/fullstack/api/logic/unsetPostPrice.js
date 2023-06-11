@@ -1,10 +1,10 @@
-const { readFile, writeFile } = require('fs')
 const { validators: { validateId, validateCallback } } = require('com')
+const { readFile, writeFile } = require('fs')
 
-module.exports = function removePostFromSale(postId, callBack) {
-  validateId(postId, 'post idi')
+module.exports = function unsetPostPrice(postId, callBack) {
+  validateId(postId, 'post Id')
   validateCallback(callBack)
-  
+
   readFile(`${process.env.DB_PATH}/posts.json`, (error, postsJSON) => {
     if(error) {
       callBack(error)
@@ -13,26 +13,19 @@ module.exports = function removePostFromSale(postId, callBack) {
     }
 
     const posts = JSON.parse(postsJSON)
-    const post = posts.find(_post => _post.id === postId)
+    const post = posts.find(post => post.id === postId)
 
     if(!post) {
-      callBack(new Error('Post not found.'))
+      callBack(new Error('Sorry, the post does not exist.'))
 
       return
     }
-
-    if(!post.onSale || post.onSale === 'Sold') {
-      callBack(new Error('Sorry, there must be an error.'))
-
-      return
-    }
-    
-    const postIndex = posts.indexOf(post)
 
     post.onSale = null
 
-    posts.splice(postIndex, 1, post)
+    const postIndex = posts.findIndex(post => post.id === postId)
 
+    posts.splice(postIndex, 1, post)
     const postsToJSON = JSON.stringify(posts)
 
     writeFile(`${process.env.DB_PATH}/posts.json`, postsToJSON, (error) => {

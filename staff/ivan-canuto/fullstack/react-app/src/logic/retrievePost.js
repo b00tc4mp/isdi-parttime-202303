@@ -1,4 +1,3 @@
-import { retrievePosts } from "./retrievePosts"
 import { validators } from 'com'
 
 const { validateId, validateCallback } = validators
@@ -17,15 +16,31 @@ export default function retrievePost(userId ,postId, callBack) {
   validateId(postId, 'post id')
   validateCallback(callBack)
 
-  retrievePosts(userId, (error, _posts) => {
-    if (error) {
-      callBack(error)
+  const xhr = new XMLHttpRequest
+
+  xhr.onload = () => {
+    const { status } = xhr
+
+    if(status !== 200) {
+      const { response: json } = xhr
+      const { error } = JSON.parse(json)
+
+      callBack(new Error(error))
 
       return
     }
 
-    const post = _posts.find(post => post.id === postId)
-  
+    const { response: json } = xhr
+    const { post } = JSON.parse(json)
+
     callBack(null, post)
-  })
+  }
+
+  xhr.onerror = () => {
+    callBack(new Error('Connection error.'))
+  }
+
+  xhr.open('GET', `${import.meta.env.VITE_API_URL}/posts/retrievePost/${userId}/${postId}`)
+
+  xhr.send()
 }

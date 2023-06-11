@@ -16,28 +16,28 @@ export default function toggleSavePost(userId, postId, callBack) {
   validateId(postId, 'post id')
   validateCallback(callBack)
 
-  findUserById(userId, (user) => {
-    if (!user) {
-      callBack(new Error(`User with ${userId} not found.`))
-      
+  const xhr = new XMLHttpRequest
+
+  xhr.onload = () => {
+    const { status } = xhr
+
+    if(status !== 200) {
+      const { response: json } = xhr
+      const { error } = JSON.parse(json)
+
+      callBack(new Error(error))
+
       return
     }
-    
-    findPostById(postId, (post) => {
-      
-      const userPost = Array.from(document.querySelectorAll('.user-post')).find(_post => _post.id === post.id)
-      const favIcon = userPost.querySelector('.favorite-icon')
-      
-      if(!user.favs.includes(post.id)) {
-        favIcon.querySelector('span').classList.add('saved', 'filled')
-        user.favs.push(post.id)
-      } else {
-        favIcon.querySelector('span').classList.remove('saved', 'filled')
-        const indexIcon = user.favs.indexOf(post.id)
-        user.favs.splice(indexIcon, 1)
-      }
-      
-      saveUser(user, () => callBack(null))
-    })  
-  })
+
+    callBack(null)
+  }
+
+  xhr.onerror = () => {
+    callBack(new Error('Connection error.'))
+  }
+
+  xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/posts/toggleSavePost/${userId}/${postId}`)
+
+  xhr.send()
 }

@@ -4,7 +4,7 @@ const { validators: { validateCallback, validateText } } = require('com')
 module.exports = function createComment(commentText, userId, postId, callBack) {
   validateText(commentText)
   validateCallback(callBack)
-
+  
   readFile(`${process.env.DB_PATH}/users.json`, (error, usersJSON) => {
     if(error) {
       callBack(error)
@@ -50,9 +50,9 @@ module.exports = function createComment(commentText, userId, postId, callBack) {
 
       const postToJSON = JSON.stringify(posts)
 
-      writeFile('./data/posts.json', postToJSON, (error) => {
+      writeFile(`${process.env.DB_PATH}/posts.json`, postToJSON, (error) => {
         if(error) {
-          callBack(error)
+          callBack(new Error(error))
 
           return
         }

@@ -139,7 +139,6 @@ export default function Home(props) {
 
   const handleOpenBuyPost = () => {
     document.body.classList.toggle("fixed-scroll")
-    console.log('hola');
     setModal("buyPost")
   }
   

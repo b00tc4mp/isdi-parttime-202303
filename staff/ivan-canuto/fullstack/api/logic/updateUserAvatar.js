@@ -25,7 +25,7 @@ module.exports = (userId, newAvatarUrl, password, callBack) => {
       return
     }
     
-    if(newAvatarUrl === user.currentAvatar) {
+    if(newAvatarUrl === user.avatar) {
       callBack(new Error('New avatar is the same as the old one.'))
       
       return
@@ -37,7 +37,7 @@ module.exports = (userId, newAvatarUrl, password, callBack) => {
       return
     }
 
-    user.currentAvatar = newAvatarUrl
+    user.avatar = newAvatarUrl
     const indexUser = users.findIndex(_user => _user.id === userId)
 
     users.splice(indexUser, 1, user)

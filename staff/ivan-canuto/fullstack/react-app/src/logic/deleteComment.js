@@ -12,15 +12,32 @@ const { validateId, validateCallback } = validators
  */
 
 export default function deleteComment(postId, commentId, callBack) {
+  validateId(postId, 'post id')
   validateId(commentId, 'comment id')
   validateCallback(callBack)
 
-  findPostById(postId, (post) => {
-    const _post = post
-    const comments = _post.comments
-    const commentIndex = comments.findIndex(comment => comment.id === commentId)
+  const xhr = new XMLHttpRequest
 
-    comments.splice(commentIndex, 1)
-    savePost(_post, () => callBack(null))
-  })
+  xhr.onload = () => {
+    const { status } = xhr
+
+    if(status !== 200) {
+      const { response: json } = xhr
+      const { error } = JSON.parse(json)
+
+      callBack(new Error(error))
+
+      return
+    }
+
+    callBack(null)
+  }
+
+  xhr.onerror = () => {
+    callBack(new Error('Connection error.'))
+  }
+
+  xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/posts/deleteComment/${postId}/${commentId}`)
+
+  xhr.send()
 }

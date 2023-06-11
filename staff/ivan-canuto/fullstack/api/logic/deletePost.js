@@ -12,9 +12,8 @@ module.exports = function deletePost(postId, userId, callBack) {
 
       return
     }
-
     const users = JSON.parse(usersJSON)
-    const user = users.find(_user => _user.id === userId)
+    const user = users.find(user => user.id === userId)
 
     if(!user) {
       callBack('User not found.')
@@ -47,7 +46,7 @@ module.exports = function deletePost(postId, userId, callBack) {
       })
     }
 
-    readFile('./data/posts.json', (error, postsJSON) => {
+    readFile(`${process.env.DB_PATH}/posts.json`, (error, postsJSON) => {
       if(error) {
         callBack(error)
 
@@ -67,7 +66,7 @@ module.exports = function deletePost(postId, userId, callBack) {
 
       const postsToJSON = JSON.stringify(posts)
 
-      writeFile(`${process.env.DB_PATH}/users.json`, postsToJSON, (error) => {
+      writeFile(`${process.env.DB_PATH}/posts.json`, postsToJSON, (error) => {
         if(error) {
           callBack(error)
 

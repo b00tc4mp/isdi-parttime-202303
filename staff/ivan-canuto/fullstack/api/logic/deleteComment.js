@@ -5,7 +5,7 @@ module.exports = function deleteComment(postId, commentId, callBack) {
   validateId(commentId, 'comment id')
   validateCallback(callBack)
   
-  readFile('./data/posts.json', (error, postsJSON) => {
+  readFile(`${process.env.DB_PATH}/posts.json`, (error, postsJSON) => {
     if(error) {
       callBack(error)
 
@@ -37,7 +37,7 @@ module.exports = function deleteComment(postId, commentId, callBack) {
 
     const postToJSON = JSON.stringify(posts)
 
-    writeFile('./data/posts.json', postToJSON, (error) => {
+    writeFile(`${process.env.DB_PATH}/posts.json`, postToJSON, (error) => {
       if(error) {
         callBack(error)
 

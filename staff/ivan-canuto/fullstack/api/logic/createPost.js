@@ -19,7 +19,7 @@ module.exports = function createPost( userId, imageUrl, postText, callBack) {
 
     const user = users.find(_user => _user.id === userId)
 
-    readFile('./data/posts.json', (error, postsJSON) => {
+    readFile(`${process.env.DB_PATH}/posts.json`, (error, postsJSON) => {
       if(error) {
         callBack(error)
         
@@ -50,7 +50,7 @@ module.exports = function createPost( userId, imageUrl, postText, callBack) {
 
       const newPostsJSON = JSON.stringify(posts)
 
-      writeFile('./data/posts.json', newPostsJSON, (error) => {
+      writeFile(`${process.env.DB_PATH}/posts.json`, newPostsJSON, (error) => {
         if(error) {
           callBack(error)
 

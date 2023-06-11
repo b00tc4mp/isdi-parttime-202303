@@ -21,35 +21,32 @@ export default function updateUserPassword(userId, password, newPassword, newPas
   validatePassword(newPasswordConfirm, 'new password confirmation')
   validateCallback(callBack)
 
-  findUserById(userId, (user) => {
-    if (password !== user.password) {
-    callBack(new Error('The password is incorrect.'))
-    
-    return
-    }
-    if (newPassword.length < 6) {
-      callBack(new Error('New password is too short.'))
+  const xhr = new XMLHttpRequest
 
-      return
-    }
-    if (newPassword === password) {
-      callBack(new Error('New password cannot be the same as the old password.'))
+  xhr.onload = () => {
+    const { status } = xhr
 
-      return
-    }
-    if (newPassword !== newPasswordConfirm) {
-      callBack(new Error('New passwords do not match.'))
+    if(status !== 200) {
+      const { response: json } = xhr
+      const { error } = JSON.parse(json)
+
+      callBack(new Error(error))
 
       return
     }
 
-    if (!user) {
-      callBack(new Error('User not found'))
-      
-      return
-    }
-    
-    user.password = newPassword
-    saveUser(user, () => callBack(null))
-  })
+    callBack(null)
+  }
+
+  xhr.onerror = () => {
+    callBack(new Error('Connection error.'))
+  }
+
+  xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/users/updateUserPassword/${userId}`)
+
+  xhr.setRequestHeader('Content-Type', 'application/json')
+
+  const json = JSON.stringify({ password, newPassword, newPasswordConfirm })
+
+  xhr.send(json)
 }

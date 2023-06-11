@@ -20,33 +20,31 @@ export const updatePost = (userId, postId, imageUrl, postText, callBack)=>{
   validateText(postText)
   validateCallback(callBack)
   
-  findUserById(userId, (user) => {
-    if (!user) {
-      callBack(new Error(`User not found.`))
-      
+  const xhr = new XMLHttpRequest
+
+  xhr.onload = () => {
+    const { status } = xhr
+
+    if(status !== 200) {
+      const { response: json } = xhr.DONE
+      const { error } = JSON.parse(json)
+
+      callBack(new Error (error))
+
       return
     }
 
-    loadPosts(posts => {
+    callBack(null)
+  }
 
-      let post = posts.find(post => post.id === postId)
+  xhr.onerror = () => {
+    callBack(new Error('Connection error.'))
+  }
 
-      if (!post) {
-        callBack(new Error(`Post with id ${postId} not found`))
+  xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/posts/updatePost/${userId}/${postId}`)
 
-        return
-      }
-    
-      if (post.author !== userId) {
-        callBack(new Error('There must be an error, this user is not the owner of the post.'))
+  const post = { imageUrl, postText }
+  const json = JSON.stringify(post)
 
-        return
-      }
-    
-      post.text = postText
-      post.image = imageUrl
-    
-      savePost(post, () => callBack(null))
-    })
-  })
+  xhr.send(json)
 }

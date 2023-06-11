@@ -29,7 +29,7 @@ export default function Profile({ onCancel, onUpdatedAvatar}) {
 
         if(error) {
           alert(error.message, 'error')
-          console.debug(error.stack)
+
           return
         }
         

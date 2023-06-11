@@ -16,26 +16,32 @@ export default function createComment(commentText, userId, postId, callBack) {
   validateText(commentText)
   validateCallback(callBack)
 
-  findUserById(userId, (user) => {
-    if(!user) {
-      callBack(new Error('User not found.'))
+  const xhr = new XMLHttpRequest
   
+  xhr.onload = () => {
+    const { status } = xhr
+
+    if(status !== 200) {
+      const { response: json } = xhr
+      const { error } = JSON.parse(json)
+
+      callBack(new Error(error))
+
       return
     }
-    
-    findPostById(postId, (post) => {  
-      let id = 'comment-1'
-      const lastComment = post.comments[post.comments.length - 1]
-      if (lastComment) id = 'comment-' + (parseInt(lastComment.id.slice(8)) + 1)
-      
-      post.comments.push({
-          author: user.name,
-          authorId: user.id,
-          text: commentText,
-          id
-        })
 
-      savePost(post, () => callBack(null))
-    })
-  })
+    callBack(null)
+  }
+
+  xhr.onerror = () => {
+    callBack(new Error('Connection error'))
+  }
+
+  xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/posts/createComment/${userId}/${postId}`)
+
+  xhr.setRequestHeader('Content-Type', 'application/json')
+
+  const json = JSON.stringify({ commentText })
+  
+  xhr.send(json)
 }

@@ -1,18 +1,8 @@
-import { findUserById, loadPosts, savePosts, saveUser } from "../data";
 import { validators } from 'com'
 
 const { validateId, validateCallback } = validators
 
-/**
- * Deletes a user's post.
- * 
- * @param {object} post The post's object from database.
- * @param {string} userId The user's id.
- * @param {function} callBack A function to catch errors and display them to the user.
- */
-
-export default function deletePost(postId, userId, callBack) {
-  validateId(userId, 'user id')
+export default function unsetPostPrice(postId, callBack) {
   validateId(postId, 'post id')
   validateCallback(callBack)
 
@@ -37,7 +27,7 @@ export default function deletePost(postId, userId, callBack) {
     callBack(new Error('Connection error.'))
   }
 
-  xhr.open('DELETE', `${import.meta.env.VITE_API_URL}/posts/deletePost/${postId}/${userId}`)
+  xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/posts/unsetPostPrice/${postId}`)
 
   xhr.send()
 }

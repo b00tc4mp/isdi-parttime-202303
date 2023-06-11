@@ -80,7 +80,6 @@ export default function Post({post, handleRefreshPosts, handleOpenEditPost, hand
     context.postId = id
     document.body.classList.toggle('fixed-scroll')
     setContextualMenu(contextualMenu === 'close' ? 'open' : 'close')
-    // handleRefreshPosts()
   }
 
   console.debug('Post -> render')
@@ -102,32 +101,37 @@ export default function Post({post, handleRefreshPosts, handleOpenEditPost, hand
         <section className="above-image">
           <div>
             <img className="post-user-avatar" src={author.avatar} alt="post-user-avatar" />
-            <p className="post-user-name">{author.name}</p>
+            <p className="post-user-name text-base">{author.name}</p>
           </div>
           
           <div>
             {(author.id === context.userId) && <>
               <p>{visible ? 'Public' : 'Private'}</p>
-              <div>
-                {(onSale && onSale !== 'Sold') && <>
+              {(onSale && onSale !== 'Sold') && <>
+                <div> 
                   <span className="material-symbols-outlined">local_mall</span>
                   <p>{`${onSale}€`}</p>
-                </>}
-              </div>
+                </div>
+              </>}
+              {(onSale && onSale === 'Sold') && <>
+                <div>
+                  <span className="material-symbols-outlined">local_mall</span>
+                  <p>{`Sold`}</p>
+                </div>
+              </>}
               <span className="material-symbols-outlined contextual-menu_icon" onClick={toggleContextualMenu}>more_vert</span>
             </>}
             
             {(author.id !== context.userId && onSale) &&
-              <Button className="sell-post-button" title="Post on sale" onClick={() => {
+              <div className="sell-post-button" title="Post on sale" onClick={() => {
                 if(onSale !== 'Sold') {
                   context.postId = id
-                  handleOpenBuyPost( )
+                  handleOpenBuyPost()
                 }
                 }}>
-                <span className="material-symbols-outlined">local_mall</span>
-                {onSale !== 'Sold' && `${onSale}€`}
-                {onSale === 'Sold' && `Post sold`}
-              </Button>}
+                {onSale !== 'Sold' && <Button><span className="material-symbols-outlined">local_mall</span>{`${onSale}€`}</Button>}
+                {onSale === 'Sold' && <p className="text-base flex"><span className="material-symbols-outlined">local_mall</span>Sold</p>}
+              </div>}
           </div>
         </section>
         

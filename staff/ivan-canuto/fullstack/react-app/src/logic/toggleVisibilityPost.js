@@ -14,17 +14,28 @@ export default function toggleVisibilityPost(postId, callBack) {
   validateId(postId)
   validateCallback(callBack)
 
-  findPostById(postId, post => {
-      if (!post) {
-        alert('Post not found.')
-        console.log('Post not found.');
+  const xhr = new XMLHttpRequest
 
-        return
-      }
+  xhr.onload = () => {
+    const { status } = xhr
+    
+    if(status !== 200) {
+      const { response: json } = xhr
+      const { error } = JSON.parse(json)
 
-      post.visible = !post.visible
+      callBack(new Error(error))
 
-      savePost(post, () => callBack(null))
-      callBack(null, post.visible)
-  })
+      return
+    }
+
+    callBack(null)
+  }
+
+  xhr.onerror = () => {
+    callBack(new Error('Connection error.'))
+  }
+
+  xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/posts/toggleVisibilityPost/${postId}`)
+
+  xhr.send()
 }
