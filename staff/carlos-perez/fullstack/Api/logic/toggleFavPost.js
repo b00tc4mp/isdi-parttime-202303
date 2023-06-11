@@ -1,8 +1,12 @@
 const { readFile, writeFile } = require('fs')
 const retrieveUser = require('./retrieveUser')
 const retrievePost = require('./retrievePost')
+const { validators: { validateId, validateCallback } } = require('com')
+
 
 module.exports = function toggleFavPost(userId, postId, callback) {
+    validateId(userId)
+    validateCallback(callback)
 
     retrieveUser(userId, (error, currentUser) => {
         if (error) {
@@ -18,7 +22,7 @@ module.exports = function toggleFavPost(userId, postId, callback) {
                 return
             }
 
-            readFile('../data/users.json', 'utf8', (error, filedUsers) => {
+            readFile('./data/users.json', 'utf8', (error, filedUsers) => {
                 if (error) {
                     callback(error)
 
@@ -38,7 +42,7 @@ module.exports = function toggleFavPost(userId, postId, callback) {
 
                 const usersToFile = JSON.stringify(users);
 
-                writeFile('../data/users.json', usersToFile, 'utf8', error => {
+                writeFile('./data/users.json', usersToFile, 'utf8', error => {
                     if (error) {
                         callback(error)
 

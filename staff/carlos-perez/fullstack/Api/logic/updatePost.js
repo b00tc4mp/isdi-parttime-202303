@@ -1,19 +1,23 @@
 const { readFile, writeFile } = require('fs')
 const retrieveUser = require('./retrieveUser')
 const retrievePost = require('./retrievePost')
+const { validators: { validateId, validateText, validateCallback } } = require('com')
 
 module.exports = function updatePost(userId, postId, image, text, callback) {
+    validateId(userId)
+    validateText(text)
+    validateCallback(callback)
 
     retrieveUser(userId, (error, user) => {
         if (error) {
-            console.error(error)
+            callback(error)
 
             return
         }
 
         retrievePost(user.id, postId, (error, postToUpdate) => {
             if (error) {
-                console.error(error)
+                callback(error)
 
                 return
             }
@@ -24,7 +28,7 @@ module.exports = function updatePost(userId, postId, image, text, callback) {
             }
 
 
-            readFile('../data/posts.json', 'utf8', (error, filedPosts) => {
+            readFile('./data/posts.json', 'utf8', (error, filedPosts) => {
                 if (error) {
                     callback(error)
 
@@ -40,7 +44,7 @@ module.exports = function updatePost(userId, postId, image, text, callback) {
                 posts.splice(index, 0, postToUpdate)
                 const postToFile = JSON.stringify(posts);
 
-                writeFile('../data/posts.json', postToFile, 'utf8', error => {
+                writeFile('./data/posts.json', postToFile, 'utf8', error => {
                     if (error) {
                         callback(error)
 

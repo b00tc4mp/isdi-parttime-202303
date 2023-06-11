@@ -1,8 +1,11 @@
 const { readFile, writeFile } = require('fs')
 const retrieveUser = require('./retrieveUser')
 const retrievePost = require('./retrievePost')
+const { validators: { validateId, validateCallback } } = require('com')
 
 module.exports = function deletePost(userId, postId, callback) {
+    validateId(userId)
+    validateCallback(callback)
 
     retrieveUser(userId, (error, user) => {
         if (error) {
@@ -19,7 +22,7 @@ module.exports = function deletePost(userId, postId, callback) {
                     return
                 }
 
-                readFile('../data/posts.json', 'utf8', (error, filedPosts) => {
+                readFile('./data/posts.json', 'utf8', (error, filedPosts) => {
                     if (error) {
                         callback(error)
 
@@ -31,7 +34,7 @@ module.exports = function deletePost(userId, postId, callback) {
                     posts.splice(index, 1);
                     const postToFile = JSON.stringify(posts);
 
-                    writeFile('../data/posts.json', postToFile, 'utf8', error => {
+                    writeFile('./data/posts.json', postToFile, 'utf8', error => {
                         if (error) {
                             callback(error)
 

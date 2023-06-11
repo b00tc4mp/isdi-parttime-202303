@@ -1,8 +1,12 @@
 const { readFile } = require('fs')
 const versionDetection = require('../helpers/versionDetection')
+const { validators: { validateId, validateCallback } } = require('com')
+
 
 module.exports = function retrievePost(userId, callback){
-    readFile('../data/users.json', 'utf8', (error, filedUsers) => {
+    validateId(userId)
+    validateCallback(callback)
+    readFile('./data/users.json', 'utf8', (error, filedUsers) => {
         if (error) {
             callback(error)
 
@@ -19,7 +23,7 @@ module.exports = function retrievePost(userId, callback){
             return
         }
 
-        readFile('../data/posts.json', 'utf8', (error, filedPosts) => {
+        readFile('./data/posts.json', 'utf8', (error, filedPosts) => {
             if (error) {
                 callback(error)
     
