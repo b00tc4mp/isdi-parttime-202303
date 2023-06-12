@@ -3,7 +3,7 @@ import updateUserAvatar from '../logic/updateUserAvatar';
 import updateUserPassword from '../logic/updateUserPassword';
 import { context } from '../ui';
 
-const ProfileUpdateModal = ({onUserAvatarUpdated}) => {
+const ProfileUpdateModal = ({onUserAvatarUpdated, onUserPasswordUpdated}) => {
   const { alert } = useAppContext()
 
   const handleUpdateAvatar = (event) => {
@@ -36,19 +36,25 @@ const ProfileUpdateModal = ({onUserAvatarUpdated}) => {
     newPasswordConfirm = event.target.newPasswordConfirm.value;
 
     try {
-        updateUserPassword(
-            context.userId, 
-            password, 
-            newPassword, 
-            newPasswordConfirm
-        )
+      updateUserPassword(
+          context.userId, 
+          password, 
+          newPassword, 
+          newPasswordConfirm, (error) => {
+            if (error) {
+              alert(error.message)
 
-        alert('password updated')
+              return
+            }
+            
+          onUserPasswordUpdated()
+          alert('password updated')
+          })
 
-    }catch (error){
-        alert(error.message)
-    }
-  };
+      }catch (error){
+          alert(error.message)
+      }
+    };
 
   return <div className="profile-update-options">
   <h4>Update avatar</h4>

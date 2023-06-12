@@ -11,14 +11,14 @@ const EditPostModal = ({postId, onCancel, onPostUpdated}) => {
 
   useEffect(() => {
     try {
-      retrievePost(context.userId, postId, (error, post) => {
+      retrievePost(context.userId, postId, (error, retrievedPost) => {
         if (error) {
             alert(error.message)
 
             return
         } 
 
-        setPostEdit(post)
+        setPostEdit(retrievedPost)
       }) 
     } catch(error){
         alert(error.message)

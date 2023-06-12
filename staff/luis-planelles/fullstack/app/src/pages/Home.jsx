@@ -38,16 +38,17 @@ const Home = ({onLoggedOut}) => {
       }
     }, [])
 
-  const handleAvatarUpdated = () => {
+  const handleProfileUpdated = () => {
       try {
-          retrieveUser(context.userId, (error, user) => {
+          retrieveUser(context.userId, (error, updatedUser) => {
             if (error) {
               alert(error.message)
               
               return
               }
               
-              setUser(user)
+              setUser(updatedUser)
+              setModal(null)
             })
           } catch (error) {
             alert(error.message)
@@ -155,7 +156,8 @@ const Home = ({onLoggedOut}) => {
               <ProfileUpdateModal
                 onCancel={handleCloseModal}
                 onProfileUpdated={handleCloseModal}
-                onUserAvatarUpdated={handleAvatarUpdated}
+                onUserAvatarUpdated={handleProfileUpdated}
+                onUserPasswordUpdated={handleProfileUpdated}
               />
             )}
           </main>
