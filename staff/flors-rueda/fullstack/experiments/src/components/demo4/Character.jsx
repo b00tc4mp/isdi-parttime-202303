@@ -2,7 +2,7 @@ import React from 'react';
 import useDraggable from './useDraggable';
 import './Character.css';
 
-const Character = ({ startingPosition, containerRef, grid, setGrid, isDraggingEnabled }) => {
+const Character = ({ containerRef, grid, setGrid, isDraggingEnabled }) => {
   const { draggableRef, position } = useDraggable(containerRef, grid, setGrid, isDraggingEnabled);
 
   return (

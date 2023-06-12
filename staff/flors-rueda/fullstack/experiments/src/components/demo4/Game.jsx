@@ -3,6 +3,8 @@ import Character from './Character';
 import './Game.css';
 
 const Game = () => {
+
+  //TODO change "direction" of the position
   const containerRef = useRef(null);
   const [grid, setGrid] = useState([
     { isClean: true, position: { x: 0, y: 0 }, density: 0 },
@@ -58,7 +60,6 @@ const Game = () => {
           ></div>
         ))}
         <Character
-          startingPosition={{ x: 0, y: 0 }}
           containerRef={containerRef}
           grid={grid}
           setGrid={setGrid}
