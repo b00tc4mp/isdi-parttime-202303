@@ -1,27 +1,43 @@
-import { saveUser } from '../data.js';
-import { findUserById } from './helpers/data-managers.js';
-import {
-  validateCallback,
-  validateId,
-  validateUrl,
-} from './helpers/validators.js';
+import { validators } from 'com';
+const { validateId, validateUrl, validateCallback } = validators;
 
 const updateUserAvatar = (userId, avatar, callback) => {
-  validateUrl(avatar, 'avatar url');
   validateId(userId, 'user id');
+  validateUrl(avatar, 'avatar url');
   validateCallback(callback);
 
-  findUserById(userId, (foundUser) => {
-    if (!foundUser) {
-      callback(new Error('user not exist'));
+  const xhr = new XMLHttpRequest();
+
+  xhr.onload = () => {
+    const { status } = xhr;
+
+    if (status !== 204) {
+      const { response: json } = xhr,
+        { error } = JSON.parse(json);
+
+      callback(new Error(error));
 
       return;
     }
 
-    foundUser.info.avatar = avatar;
+    callback(null);
+  };
 
-    saveUser(foundUser, () => callback(null));
-  });
+  xhr.onerror = () => {
+    callback(new Error('Connection error'));
+  };
+
+  xhr.open(
+    'PATCH',
+    `${import.meta.env.VITE_API_URL}/users/updateAvatar/${userId}`
+  );
+
+  xhr.setRequestHeader('Content-Type', 'application/json');
+
+  const data = { avatar: url },
+    json = JSON.stringify(data);
+
+  xhr.send(json);
 };
 
 export default updateUserAvatar;
