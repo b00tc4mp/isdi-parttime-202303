@@ -1,11 +1,11 @@
 import { validators } from 'com'
-const { validateCallback, validateId, validateText, validateUrl } = validators
+const { validateNewPassword, validatePassword, validatePasswordConfirm, validateId, validateCallback } = validators
 
-export function updatePost(userId, postId, image, text, callback) {
-    validateId(userId, 'user id')
-    validateId(postId, 'post id')
-    validateUrl(image, 'image url')
-    validateText(text, 'post text')
+export function updateUserPassword(userId, password, newPassword, newPasswordConfirmation, callback) {
+    validateId(userId)
+    validatePassword(password)
+    validateNewPassword(newPassword, 'new password')
+    validatePasswordConfirm(newPassword, newPasswordConfirmation, 'new password confirmation', 'new password')
     validateCallback(callback)
 
     const xhr = new XMLHttpRequest
@@ -29,11 +29,11 @@ export function updatePost(userId, postId, image, text, callback) {
         callback(new Error('connection error'))
     }
 
-    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/posts/${userId}/${postId}`)
+    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/users/${userId}`)
 
     xhr.setRequestHeader('Content-Type', 'application/json')
 
-    const data = { image, text }
+    const data = { password, newPassword, newPasswordConfirmation }
     const json = JSON.stringify(data)
 
     xhr.send(json)

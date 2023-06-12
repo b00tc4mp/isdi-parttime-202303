@@ -1,13 +1,10 @@
 import { validators } from 'com'
-const { validateCallback, validateId, validateText, validateUrl } = validators
+const { validateCallback, validateId } = validators
 
-export function updatePost(userId, postId, image, text, callback) {
+export function updateUserEmail(userId, email, newEmail, newEmailConfirmation, password, callback) {
     validateId(userId, 'user id')
-    validateId(postId, 'post id')
-    validateUrl(image, 'image url')
-    validateText(text, 'post text')
     validateCallback(callback)
-
+    
     const xhr = new XMLHttpRequest
 
     xhr.onload = () => {
@@ -29,11 +26,11 @@ export function updatePost(userId, postId, image, text, callback) {
         callback(new Error('connection error'))
     }
 
-    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/posts/${userId}/${postId}`)
+    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/users/${userId}`)
 
     xhr.setRequestHeader('Content-Type', 'application/json')
 
-    const data = { image, text }
+    const data = { email, newEmail, newEmailConfirmation, password }
     const json = JSON.stringify(data)
 
     xhr.send(json)

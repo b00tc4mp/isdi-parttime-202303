@@ -1,9 +1,8 @@
 import { validators } from 'com'
-const { validateId, validateCallback } = validators
+const { validateCallback, validateId } = validators
 
-export default function toggleLikePost(userId, postId, callback) {
+export function getLoggedUser(userId, callback) {
     validateId(userId, 'user id')
-    validateId(postId, 'post id')
     validateCallback(callback)
 
     const xhr = new XMLHttpRequest
@@ -11,7 +10,7 @@ export default function toggleLikePost(userId, postId, callback) {
     xhr.onload = () => {
         const { status } = xhr
 
-        if (status !== 204) {
+        if (status !== 200) {
             const { response: json } = xhr
             const { error } = JSON.parse(json)
 
@@ -20,16 +19,17 @@ export default function toggleLikePost(userId, postId, callback) {
             return
         }
 
-        callback(null)
+        const { response: json } = xhr
+        const user = JSON.parse(json)
+
+        callback(null, user)
     }
 
     xhr.onerror = () => {
         callback(new Error('connection error'))
     }
 
-    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/posts/${userId}/${postId}/like`)
-
-    xhr.setRequestHeader('Content-Type', 'application/json')
+    xhr.open('GET', `${import.meta.env.VITE_API_URL}/users/${userId}`)
 
     xhr.send()
 }
