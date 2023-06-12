@@ -1,32 +1,34 @@
-const { readFile } = require( 'fs' )
+module.exports = function () { }
 
-module.exports = function retrieveUser(userId, callback) {
-    // TODO Validate inputs
+// const { readFile } = require('fs')
 
-    readFile('./data/users.json', 'utf8', (error, json) => {
-        if(error) {
-            callback(error)
+// module.exports = function retrieveUser(userId, callback) {
+//     // TODO Validate inputs
 
-            return
-        }
+//     readFile('./data/users.json', 'utf8', (error, json) => {
+//         if (error) {
+//             callback(error)
 
-        const users = JSON.parse(json)
+//             return
+//         }
 
-        const user = users.find(user => user.id === userId)
+//         const users = JSON.parse(json)
 
-        if(!user) {
-            callback(new Error(`user with id ${userId} not found`))
+//         const user = users.find(user => user.id === userId)
 
-            return
-        }
+//         if (!user) {
+//             callback(new Error(`user with id ${userId} not found`))
 
-        const _user = {
-            name: user.name, 
-            email: user.email, 
-            image: user.image,
-            favPosts: user.favPosts
-        }        
-        callback(null, _user)
-    })
+//             return
+//         }
 
-}
+//         const _user = {
+//             name: user.name,
+//             email: user.email,
+//             image: user.image,
+//             favPosts: user.favPosts
+//         }
+//         callback(null, _user)
+//     })
+
+// }
