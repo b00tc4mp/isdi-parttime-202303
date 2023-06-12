@@ -24,8 +24,6 @@ const validateName = (name) => {
 const validateUsername = (username) => {
   if (typeof username !== 'string') throw new Error('username is not a string', { cause: 'username' });
   if (!username.trim().length) throw new Error('username is empty', { cause: 'username' });
-  const regexRule = /^@[a-z0-9]*$/;
-  if (!regexRule.test(`@${username.toLowerCase()}`)) throw new Error('username format is not correct', { cause: 'username' });
 };
 
 const validateImage = (url) => {
@@ -48,7 +46,7 @@ const validatePostText = (text) => {
 
 
 const validateCallback = (callback) => {
-  if (typeof callback !== 'function') throw new Error(`callbak is not a function`);
+  if (typeof callback !== 'function') throw new Error(`callback is not a function`);
 }
 
 

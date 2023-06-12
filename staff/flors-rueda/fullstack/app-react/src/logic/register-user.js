@@ -16,9 +16,11 @@ const { validateCallback, validateMail, validateRepeatPassword, validateUsername
  * @param {function} callback Function that controls the errors
  * 
  */
+
+//TODO check username formats
 export const registerUser = (mail, username, password, repeatPassword, callback) => {
   validateMail(mail);
-  validateUsername(`@${username.toLowerCase()}`);
+  validateUsername(username);
   validateRepeatPassword(password, repeatPassword);
   validateCallback(callback);
 
@@ -53,10 +55,11 @@ export const registerUser = (mail, username, password, repeatPassword, callback)
           };
 
           users.push(user);
-        saveUsers(users, () => callback(null))
-      }
-      )
+          saveUsers(users, () => callback(null))
+        }
+        )
+      })
     })
   })
-})}
+}
 

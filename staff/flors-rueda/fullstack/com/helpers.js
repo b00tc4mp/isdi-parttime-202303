@@ -1,3 +1,5 @@
+var XMLHttpRequest = require('xhr2');
+
 const getPokemonSprite = (callback) => {
     const xhr = new XMLHttpRequest();
     xhr.open('GET', 'https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0');

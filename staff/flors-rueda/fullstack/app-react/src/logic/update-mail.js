@@ -14,9 +14,9 @@ const { validateId, validateMail, validateCallback } = validators;
  */
 export const updateMail = (mail, userId, callback) => {
     validateMail(mail);
-    validateId(userId)
+    validateId(userId);
     validateCallback(callback);
-  
+
     findUserById(userId, user => {
         if (!user) {
             callback(new Error('user not found'));

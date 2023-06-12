@@ -1,7 +1,7 @@
 import { validators } from 'com';
 import { findUserByUsername } from '../data/data-managers';
 
-const { validateUsername, validatePassword, validateCallback} = validators;
+const { validateUsername, validatePassword, validateCallback } = validators;
 
 /**
  * Authenticates a user by username and password
@@ -13,17 +13,19 @@ const { validateUsername, validatePassword, validateCallback} = validators;
  * @returns {string} The user's id
  */
 export const authenticateUser = (user, password, callback) => {
-  const username = '@' + user.toLowerCase();
-
-  validateUsername(username)
-  validatePassword(password)
+  validateUsername(user);
+  validatePassword(password);
   validateCallback(callback);
+
+  const username = `@${user.toLowerCase()}`;
+
+
 
   findUserByUsername(username, user => {
     if (!user || user.password !== password) {
-        callback(new Error('authentication failed'))
-        return
+      callback(new Error('authentication failed'))
+      return
     }
     callback(null, user.id)
-    })
+  })
 };
