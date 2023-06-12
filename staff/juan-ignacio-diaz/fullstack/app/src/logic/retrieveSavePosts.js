@@ -1,8 +1,6 @@
 import { validators } from 'com'
 const { validateId, validateCallback } = validators
 
-import { findUserById, loadPosts } from "../data"
-
 export default function retrieseSavePosts(userId, callback){
     validateId(userId, 'user id')
     validateCallback(callback)
@@ -31,7 +29,7 @@ export default function retrieseSavePosts(userId, callback){
         callback(new Error('connection error'))
     }
 
-    xhr.open('GET', `${import.meta.env.VITE_API_URL}/posts/retrieve/savePosts/${userId}`)
+    xhr.open('GET', `${import.meta.env.VITE_API_URL}/users/${userId}/posts/retrieve/savePosts`)
 
     xhr.send()
 }

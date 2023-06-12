@@ -27,10 +27,7 @@ export default function toggleSavePost(userId, postId, callback) {
         callback(new Error('connection error'))
     }
 
-    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/users/toggle/savePost/${userId}`)
+    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/users/${userId}/posts/${postId}/toggle/savePost`)
 
-    const user = { postId }
-    const json = JSON.stringify(user)
-
-    xhr.send(json)
+    xhr.send()
 }

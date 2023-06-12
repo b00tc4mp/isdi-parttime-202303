@@ -27,10 +27,7 @@ export default function toggleLikePost(userId, postId, callback) {
         callback(new Error('connection error'))
     }
 
-    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/posts/toggle/like/${userId}`)
+    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/users/${userId}/posts/${postId}/toggle/like`)
 
-    const post = { postId }
-    const json = JSON.stringify(post)
-
-    xhr.send(json)
+    xhr.send()
 }

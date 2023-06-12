@@ -27,10 +27,7 @@ export default function toggleLockPost(userId, postId, callback){
         callback(new Error('connection error'))
     }
 
-    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/posts/toggle/lock/${userId}`)
+    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/users/${userId}/posts/${postId}/toggle/lock/${userId}`)
 
-    const post = { postId }
-    const json = JSON.stringify(post)
-
-    xhr.send(json)
+    xhr.send()
 }

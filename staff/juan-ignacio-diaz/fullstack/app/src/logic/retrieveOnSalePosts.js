@@ -29,7 +29,7 @@ export default function retrieveOnSalePosts(userId, callback){
         callback(new Error('connection error'))
     }
 
-    xhr.open('GET', `${import.meta.env.VITE_API_URL}/posts/retrieve/onSalePosts/${userId}`)
+    xhr.open('GET', `${import.meta.env.VITE_API_URL}/users/${userId}/posts/retrieve/onSalePosts`)
 
     xhr.send()    
 }

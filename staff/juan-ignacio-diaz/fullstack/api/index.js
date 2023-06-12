@@ -104,7 +104,7 @@ api.get('/users/:userId', (req, res) => {
     }
 })
 
-api.patch('/users/update/password/:userId', (req, res) => {
+api.patch('/users/:userId/update/password', (req, res) => {
     let json = ''
 
     req.on('data', chunk => json += chunk)
@@ -131,7 +131,7 @@ api.patch('/users/update/password/:userId', (req, res) => {
     })
 })
 
-api.patch('/users/update/avatar/:userId', (req, res) => {
+api.patch('/users/:userId/update/avatar', (req, res) => {
     let json = ''
 
     req.on('data', chunk => json += chunk)
@@ -158,7 +158,7 @@ api.patch('/users/update/avatar/:userId', (req, res) => {
     })
 })
 
-api.patch('/users/update/mode/:userId', (req, res) => {
+api.patch('/users/:userId/update/mode', (req, res) => {
     let json = ''
 
     req.on('data', chunk => json += chunk)
@@ -185,34 +185,32 @@ api.patch('/users/update/mode/:userId', (req, res) => {
     })
 })
 
-api.patch('/users/toggle/savePost/:userId', (req, res) => {
+api.patch('/users/:userId/posts/:postId/toggle/savePost', (req, res) => {
     let json = ''
 
     req.on('data', chunk => json += chunk)
 
     req.on('end', () => {
         try {
-            const { userId } = req.params
-            const { postId } = JSON.parse(json)
+            const { userId, postId } = req.params
 
-            if(postId) {
-                toggleSavePost(userId, postId, error => {
-                    if (error) {
-                        res.status(400).json({ error: error.message })
+            toggleSavePost(userId, postId, error => {
+                if (error) {
+                    res.status(400).json({ error: error.message })
 
-                        return
-                    }
+                    return
+                }
 
-                    res.status(204).send()
-                })
-            }
+                res.status(204).send()
+            })
+
         } catch (error) {
             res.status(400).json({ error: error.message })
         }
     })
 })
 
-api.post('/posts/:userId', (req, res) => {
+api.post('/users/:userId/posts', (req, res) => {
     let json = ''
 
     req.on('data', chunk => json += chunk)
@@ -237,15 +235,14 @@ api.post('/posts/:userId', (req, res) => {
     })
 })
 
-api.delete('/posts/:userId', (req, res) => {
+api.delete('/users/:userId/posts/:postId', (req, res) => {
     let json = ''
 
     req.on('data', chunk => json += chunk)
 
     req.on('end', () => {
         try {
-            const { userId } = req.params
-            const { postId } = JSON.parse(json)
+            const { userId, postId } = req.params
 
             if(postId) {
                 deletePost(userId, postId, error => {
@@ -264,15 +261,14 @@ api.delete('/posts/:userId', (req, res) => {
     })
 })
 
-api.get('/posts/retrieve/post/:userId', (req, res) => {
+api.get('/users/:userId/posts/:postId/retrieve/post', (req, res) => {
     let json = ''
 
     req.on('data', chunk => json += chunk)
 
     req.on('end', () => {
         try {
-            const { userId } = req.params
-            const { postId } = JSON.parse(json)
+            const { userId, postId } = req.params
 
             if(postId) {
                 retrievePost(userId, postId, (error, post) => {
@@ -291,7 +287,7 @@ api.get('/posts/retrieve/post/:userId', (req, res) => {
     })
 })
 
-api.get('/posts/retrieve/onSalePosts/:userId', (req, res) => {
+api.get('Users/:userId/posts/retrieve/onSalePosts', (req, res) => {
     let json = ''
 
     req.on('data', chunk => json += chunk)
@@ -315,7 +311,7 @@ api.get('/posts/retrieve/onSalePosts/:userId', (req, res) => {
     })
 })
 
-api.get('/posts/retrieve/posts/:userId', (req, res) => {
+api.get('/users/:userId/posts/retrieve/posts', (req, res) => {
     let json = ''
 
     req.on('data', chunk => json += chunk)
@@ -340,7 +336,7 @@ api.get('/posts/retrieve/posts/:userId', (req, res) => {
     })
 })
 
-api.get('/posts/retrieve/savePosts/:userId', (req, res) => {
+api.get('/users/:userId/posts/retrieve/savePosts', (req, res) => {
     let json = ''
 
     req.on('data', chunk => json += chunk)
@@ -364,7 +360,7 @@ api.get('/posts/retrieve/savePosts/:userId', (req, res) => {
     })
 })
 
-api.get('/posts/retrieve/userPosts/:userId', (req, res) => {
+api.get('/users/:userId/posts/retrieve/userPosts', (req, res) => {
     let json = ''
 
     req.on('data', chunk => json += chunk)
@@ -388,115 +384,104 @@ api.get('/posts/retrieve/userPosts/:userId', (req, res) => {
     })
 })
 
-api.patch('/posts/toggle/like/:userId', (req, res) => {
+api.patch('/users/:userId/posts/:postId/toggle/like', (req, res) => {
     let json = ''
 
     req.on('data', chunk => json += chunk)
 
     req.on('end', () => {
         try {
-            const { userId } = req.params
-            const { postId } = JSON.parse(json)
+            const { userId, postId } = req.params
 
-            if(postId) {
-                toggleLikePost(userId, postId, error => {
-                    if (error) {
-                        res.status(400).json({ error: error.message })
+            toggleLikePost(userId, postId, error => {
+                if (error) {
+                    res.status(400).json({ error: error.message })
 
-                        return
-                    }
+                    return
+                }
 
-                    res.status(204).send()
-                })
-            }
+                res.status(204).send()
+            })
         } catch (error) {
             res.status(400).json({ error: error.message })
         }
     })
 })
 
-api.patch('/posts/toggle/lock/:userId', (req, res) => {
+api.patch('/users/:userId/posts/:postId/toggle/lock', (req, res) => {
     let json = ''
 
     req.on('data', chunk => json += chunk)
 
     req.on('end', () => {
         try {
-            const { userId } = req.params
-            const { postId } = JSON.parse(json)
+            const { userId, postId } = req.params
 
-            if(postId) {
-                toggleLockPost(userId, postId, error => {
-                    if (error) {
-                        res.status(400).json({ error: error.message })
+            toggleLockPost(userId, postId, error => {
+                if (error) {
+                    res.status(400).json({ error: error.message })
 
-                        return
-                    }
+                    return
+                }
 
-                    res.status(204).send()
-                })
-            }
+                res.status(204).send()
+            })
         } catch (error) {
             res.status(400).json({ error: error.message })
         }
     })
 })
 
-api.patch('/posts/update/post/:userId', (req, res) => {
+api.patch('/users/:userId/posts/:postId/update/post', (req, res) => {
     let json = ''
 
     req.on('data', chunk => json += chunk)
 
     req.on('end', () => {
         try {
-            const { userId } = req.params
-            const { postId, image, text } = JSON.parse(json)
+            const { userId, postId } = req.params
+            const { image, text } = JSON.parse(json)
 
-            if(postId) {
-                updatePost(userId, postId, image, text,  error => {
-                    if (error) {
-                        res.status(400).json({ error: error.message })
+            updatePost(userId, postId, image, text,  error => {
+                if (error) {
+                    res.status(400).json({ error: error.message })
 
-                        return
-                    }
+                    return
+                }
 
-                    res.status(204).send()
-                })
-            }
+                res.status(204).send()
+            })
         } catch (error) {
             res.status(400).json({ error: error.message })
         }
     })
 })
 
-api.patch('/posts/update/buy/:userId', (req, res) => {
+api.patch('/users/:userId/posts/:postId/update/buy', (req, res) => {
     let json = ''
 
     req.on('data', chunk => json += chunk)
 
     req.on('end', () => {
         try {
-            const { userId } = req.params
-            const { postId } = JSON.parse(json)
+            const { userId, postId } = req.params
 
-            if(postId) {
-                updateBuyPost(userId, postId, error => {
-                    if (error) {
-                        res.status(400).json({ error: error.message })
+            updateBuyPost(userId, postId, error => {
+                if (error) {
+                    res.status(400).json({ error: error.message })
 
-                        return
-                    }
+                    return
+                }
 
-                    res.status(204).send()
-                })
-            }
+                res.status(204).send()
+            })
         } catch (error) {
             res.status(400).json({ error: error.message })
         }
     })
 })
 
-api.patch('/posts/update/price/:userId', (req, res) => {
+api.patch('/users/:userId/posts/:postId/update/price', (req, res) => {
     let json = ''
 
     req.on('data', chunk => json += chunk)
@@ -504,19 +489,17 @@ api.patch('/posts/update/price/:userId', (req, res) => {
     req.on('end', () => {
         try {
             const { userId } = req.params
-            const { postId, price } = JSON.parse(json)
+            const { price } = JSON.parse(json)
 
-            if(postId) {
-                updatePricePost(userId, postId, price, error => {
-                    if (error) {
-                        res.status(400).json({ error: error.message })
+            updatePriceToPost(userId, postId, price, error => {
+                if (error) {
+                    res.status(400).json({ error: error.message })
 
-                        return
-                    }
+                    return
+                }
 
-                    res.status(204).send()
-                })
-            }
+                res.status(204).send()
+            })
         } catch (error) {
             res.status(400).json({ error: error.message })
         }

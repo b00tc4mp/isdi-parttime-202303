@@ -28,9 +28,11 @@ export default function updatePricePost(userId, postId, price, callback) {
         callback(new Error('connection error'))
     }
 
-    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/posts/update/price/${userId}`)
+    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/users/${userId}/posts/${postId}/update/price`)
 
-    const post = { postId, price }
+    xhr.setRequestHeader('Content-Type', 'application/json')
+    
+    const post = { price }
     const json = JSON.stringify(post)
 
     xhr.send(json)

@@ -7,14 +7,14 @@
   
   .post-menssage {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     width: 97%;
     height: 100%;
     background-color: var(--basecolor);
     border-radius: 12px;
     justify-content: left;
     align-items: center;
-    gap: 4rem;
+    gap: 1rem;
   }
   
   .post-Author {
@@ -59,8 +59,9 @@
   }
   
   .post-image {
-    width: 4rem;
-    border-radius: 1rem;
+    margin-top: 0.5rem;
+    width: 98%;
+    border-radius: 12px;
   }
   
   .post-text {

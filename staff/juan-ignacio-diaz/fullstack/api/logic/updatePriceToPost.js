@@ -2,7 +2,7 @@ const { readFile, writeFile } = require('fs')
 
 const { validators: { validateId, validateNumber, validateCallback } } = require('com')
 
-module.exports = function updatePricePost(userId, postId, price, callback) {
+module.exports = function updatePriceToPost(userId, postId, price, callback) {
     validateId(userId)
     validateId(postId)
     validateCallback(callback)

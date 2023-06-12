@@ -27,8 +27,10 @@ export default function updateUserAvatar(userId, avatar, callback) {
         callback(new Error('connection error'))
     }
 
-    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/users/update/avatar/${userId}`)
+    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/users/${userId}/update/avatar`)
 
+    xhr.setRequestHeader('Content-Type', 'application/json')
+    
     const user = { avatar }
     const json = JSON.stringify(user)
 
