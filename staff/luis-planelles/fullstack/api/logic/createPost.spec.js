@@ -1,0 +1,136 @@
+require('dotenv').config();
+
+const { expect } = require('chai');
+const { writeFile, readFile } = require('fs');
+const createPost = require('./createPost.js');
+const sinon = require('sinon');
+
+describe('createPost', () => {
+  let fakeDate, userId, imagePost, textPost, date;
+
+  before(() => {
+    date = new Date();
+    fakeDate = sinon.useFakeTimers(date.getTime());
+  });
+
+  beforeEach((done) => {
+    userId = `id-${Math.random()}`;
+    imagePost = `url${Math.random()}`;
+    textPost = `text${Math.random()}`;
+
+    writeFile(`${process.env.DB_PATH}/posts.json`, '[]', (error) =>
+      done(error)
+    );
+  });
+
+  it('should be created if user exists and data is correct', (done) => {
+    const users = [{ id: userId }];
+    const usersJson = JSON.stringify(users);
+
+    writeFile(`${process.env.DB_PATH}/users.json`, usersJson, (error) => {
+      expect(error).to.be.null;
+
+      createPost(userId, imagePost, textPost, (error) => {
+        expect(error).to.be.null;
+
+        readFile(`${process.env.DB_PATH}/posts.json`, (error, json) => {
+          expect(error).to.be.null;
+
+          const posts = JSON.parse(json);
+          const post = posts[posts.length - 1];
+
+          expect(post).to.exist;
+          expect(post.id).to.equal('post-1');
+          expect(post.author).to.equal(userId);
+          expect(post.image).to.equal(imagePost);
+          expect(post.text).to.equal(textPost);
+          expect(post.date).to.equal(date.toISOString());
+          expect(post.likes).to.deep.equal([]);
+          expect(posts.length).to.equal(1);
+
+          done();
+        });
+      });
+    });
+  });
+
+  it('should be created with an incremented ID if there are existing posts', (done) => {
+    const users = [{ id: userId }];
+    const usersJson = JSON.stringify(users);
+
+    writeFile(`${process.env.DB_PATH}/users.json`, usersJson, (error) => {
+      expect(error).to.be.null;
+
+      const dataPosts = [{ id: 'post-1' }, { id: 'post-4' }];
+      const dataPostsJson = JSON.stringify(dataPosts);
+
+      writeFile(`${process.env.DB_PATH}/posts.json`, dataPostsJson, (error) => {
+        expect(error).to.be.null;
+
+        createPost(userId, imagePost, textPost, (error) => {
+          expect(error).to.be.null;
+
+          readFile(`${process.env.DB_PATH}/posts.json`, (error, json) => {
+            expect(error).to.be.null;
+
+            const posts = JSON.parse(json);
+            const post = posts[posts.length - 1];
+
+            expect(post).to.exist;
+            expect(post.id).to.equal('post-5');
+
+            expect(posts.length).to.equal(dataPosts.length + 1);
+
+            done();
+          });
+        });
+      });
+    });
+  });
+
+  it('should throw an error if user does not exist', (done) => {
+    const unmatchId = 'anyid';
+
+    createPost(unmatchId, imagePost, textPost, (error) => {
+      expect(error).to.exist;
+      expect(error.message).to.equal('user with id anyid doesnt exists');
+
+      done();
+    });
+  });
+
+  it('fails on empty id', () =>
+    expect(() => createPost('', imagePost, textPost, () => {})).to.throw(
+      Error,
+      'user id is empty'
+    ));
+
+  it('fails on empty image', () => {
+    expect(() => createPost(userId, '', textPost, () => {})).to.throw(
+      Error,
+      'image is empty'
+    );
+  });
+
+  it('fails on empty text', () => {
+    expect(() => createPost(userId, imagePost, '', () => {})).to.throw(
+      Error,
+      'text is empty'
+    );
+  });
+
+  it('fails on empty callback', () => {
+    expect(() => createPost(userId, imagePost, textPost)).to.throw(
+      Error,
+      'callback is not a function'
+    );
+  });
+
+  after((done) => {
+    fakeDate.restore();
+
+    writeFile(`${process.env.DB_PATH}/posts.json`, '[]', 'utf-8', (error) =>
+      done(error)
+    );
+  });
+});
