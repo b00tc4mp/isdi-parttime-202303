@@ -4,7 +4,6 @@ const { expect } = require('chai')
 const { writeFile, readFile } = require('fs')
 const updateUserPassword = require('./updateUserPassword')
 
-
 describe('updateUserPassword', () => {
     let id, name, email, password, avatar
 
@@ -60,7 +59,7 @@ describe('updateUserPassword', () => {
         })
     })
 
-    it('FAILS when new password equals current password', done => {
+    it('FAILS when new password equals vurrent password', done => {
         newPassword = password
         newPasswordConfirm = newPassword
 

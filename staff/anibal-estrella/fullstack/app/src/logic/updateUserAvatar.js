@@ -1,10 +1,9 @@
 import { validators } from 'com'
 const { validateId, validateUrl, validateCallback } = validators
 
-
-export default (userId, url, callback) => {
+export default (userId, avatar, callback) => {
     validateId(userId, 'user id')
-    validateUrl(url, 'avatar url')
+    validateUrl(avatar, 'avatar url')
     validateCallback(callback, 'callback function')
 
 
@@ -14,7 +13,7 @@ export default (userId, url, callback) => {
     xhr.onload = () => {
         const { status } = xhr
 
-        if (status !== 204 {
+        if (status !== 204) {
             const { response: json } = xhr
             const { error } = JSON.parse(json)
 

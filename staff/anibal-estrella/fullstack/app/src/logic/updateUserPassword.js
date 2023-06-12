@@ -1,11 +1,21 @@
 import { validators } from 'com'
 const { validateId, validatePassword, validateCallback } = validators
 
-import { findUserById, saveUser } from "../data.js"
+import { findUserById, saveUser } from "../data"
+
+/**
+ * Updates user's password in database
+ *
+ * @param {string} userId The user's ID
+ * @param {string} password The user's current password
+ * @param {string} newPassword The user's new password
+ * @param {string} newPasswordConfirm The user's new password
+ */
 
 export default function updateUserPassword(userId, password, newPassword, newPasswordConfirm, callback) {
     validateId(userId, 'user id')
-    validatePassword(password, 'new password')
+    validatePassword(password, 'password')
+
     if (newPassword === password) throw new Error('your new password match the old password, please try another')
 
     validatePassword(newPassword, 'new password confirmation')
@@ -21,7 +31,7 @@ export default function updateUserPassword(userId, password, newPassword, newPas
         }
 
         if (password !== user.password) {
-            callback(new Error('wrong password'))
+            callback(new Error('wrong password', { cause: 'userError' }))
 
             return
         }

@@ -65,6 +65,8 @@ api.post('/users/auth', (req, res) => {
 
 api.get('/users/:userId', (req, res) => {
     try {
+
+
         const { userId } = req.params
 
         retrieveUser(userId, (error, user) => {
@@ -77,6 +79,7 @@ api.get('/users/:userId', (req, res) => {
             res.json(user)
         })
     } catch (error) {
+
         res.status(400).json({ error: error.message })
     }
 })

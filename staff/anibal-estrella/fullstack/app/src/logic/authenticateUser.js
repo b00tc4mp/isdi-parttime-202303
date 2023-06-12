@@ -10,14 +10,15 @@ const { validateEmail, validatePassword, validateCallback } = validators
 *
 */
 export function authenticateUser(email, password, callback) {
-    validateEmail(email)
-    validatePassword(password, 'new password')
+    validateEmail(email, 'email')
+    validatePassword(password)
     validateCallback(callback, 'callback function')
 
     const xhr = new XMLHttpRequest
 
     xhr.onload = () => {
         const { status } = xhr
+
         //checkl what  the API responds 
         if (status !== 200) {
             const { response: json } = xhr
@@ -30,6 +31,7 @@ export function authenticateUser(email, password, callback) {
 
         const { response: json } = xhr
         const { userId } = JSON.parse(json)
+
         callback(null, userId)
     }
 

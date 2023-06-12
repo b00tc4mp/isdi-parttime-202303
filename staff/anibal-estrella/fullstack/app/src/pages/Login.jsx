@@ -26,11 +26,10 @@ export default function Login({ onRegisterClick, onUserLoggedIn }) {
         const password = event.target.password.value
 
         try {
-            freeze()
+
             authenticateUser(email, password, (error, userId) => {
-                unfreeze()
                 if (error) {
-                    alert(error.message)
+                    alert(error.message, 'error')
 
                     return
                 }
@@ -41,7 +40,7 @@ export default function Login({ onRegisterClick, onUserLoggedIn }) {
             })
 
         } catch (error) {
-            alert(error.message)
+            alert(error.message, 'warn')
         }
     }
 
@@ -54,7 +53,7 @@ export default function Login({ onRegisterClick, onUserLoggedIn }) {
                 <label htmlFor="username">E-mail:</label>
                 <input type="text" className="email" name="email" placeholder="Enter your e-mail" />
                 <label htmlFor="lastname">Password:</label>
-                <input type="password" className="password" name="password" placeholder="Enter your password" />
+                <input type="password" className="password" name="password" autoComplete="current-password" placeholder="Enter your password" />
                 <button className="button-submit button" type="submit">Login</button>
             </form>
             {/* // 1 // we created a property to grab the onclick event and call a function  */}

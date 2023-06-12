@@ -18,7 +18,7 @@ function validateEmail(email, explain = "email") {
  */
 function validatePassword(password, explain = "password") {
     if (typeof password !== 'string') throw new Error(`${explain} must be a string`)
-    if (password.trim().length < 8) throw new Error(`${explain} password must be more than 8 characters long`)
+    if (password.trim().length < 8) throw new Error(`The ${explain} must be more than 8 characters long`)
 }
 
 /**
@@ -56,11 +56,11 @@ function validateCallback(callback, explain = "callback") {
 }
 
 module.exports = {
-    validateCallback,
-    validateEmail,
-    validateId,
-    validateName,
     validatePassword,
+    validateEmail,
+    validateName,
+    validateUrl,
+    validateId,
     validateText,
-    validateUrl
+    validateCallback
 }

@@ -6,9 +6,9 @@ module.exports = (userId, callback) => {
     validateId(userId, 'user Id')
     validateCallback(callback)
 
-    readFile(`${process.env.DB_PATH}/users.json`, (error, json) => {
+    readFile(`${process.env.DB_PATH}/users.json`, 'utf8', (error, json) => {
         if (error) {
-            callback(error)
+            callbackify(error)
 
             return
         }
@@ -22,7 +22,7 @@ module.exports = (userId, callback) => {
 
             return
         }
-        // extract properties from user object and declare variables with same values
+
         const { name, email, avatar } = user
         const user2 = { name, email, avatar }
 

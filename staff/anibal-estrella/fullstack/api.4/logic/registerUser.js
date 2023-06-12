@@ -20,10 +20,10 @@ module.exports = (name, email, password, callback) => {
         //convert the JSON as an object in MEMORY
         const users = JSON.parse(json)
 
-        // look in the array if a user already has that email registered and send the error
+        // look in the array if a user already has that emailñ registered and send the error
         let user = users.find(user => user.email === email)
 
-        /// if there's an error send the error
+        /// if ther's an error send the error
         if (user) {
             callback(new Error(`user with email ${email} already exists`))
             // and we finish the process
