@@ -1,18 +1,1 @@
-[
-  {
-    "id": "user-1",
-    "name": "PepaGrillo",
-    "email": "pepa@grillo.com",
-    "password": "T3st@@@@",
-    "avatar": null,
-    "favourites": []
-  },
-  {
-    "id": "user-2",
-    "name": "JhonDoe",
-    "email": "jhon@doe.com",
-    "password": "Tes7@@@@",
-    "avatar": null,
-    "favourites": []
-  }
-]
+[{"id":"id-72","name":"name-0.26009588452748766","email":"e-0.8943605499691083@mail.com","password":"NewPassword456!","avatar":"avatar-0.7724273193330689"}]

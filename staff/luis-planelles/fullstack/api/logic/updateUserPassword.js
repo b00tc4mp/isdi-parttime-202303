@@ -13,6 +13,8 @@ const updateUserPassword = (
   validateId(userId, 'user id');
   validatePassword(password);
   validatePassword(newPassword, 'new password');
+  validatePassword(newPasswordConfirm, 'new password confirm');
+  validateCallback(callback);
 
   if (newPassword === password)
     throw new Error('new password equals old password');

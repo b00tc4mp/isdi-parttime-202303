@@ -1,9 +1,8 @@
 require('dotenv').config();
 
-const { expect } = require('chai');
-const { readFile, writeFile } = require('fs');
-
-const registerUser = require('./registerUser.js');
+const { expect } = require('chai'),
+  { readFile, writeFile } = require('fs'),
+  registerUser = require('./registerUser.js');
 
 describe('registerUser', () => {
   let name, email, password;
@@ -42,8 +41,8 @@ describe('registerUser', () => {
   });
 
   it('should fail on existing user', (done) => {
-    const users = [{ name, email, password }];
-    const json = JSON.stringify(users);
+    const users = [{ name, email, password }],
+      json = JSON.stringify(users);
 
     writeFile(`${process.env.DB_PATH}/users.json`, json, 'utf-8', (error) => {
       expect(error).to.be.null;

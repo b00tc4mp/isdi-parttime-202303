@@ -21,8 +21,8 @@ describe('retrieveUser', () => {
   });
 
   it('succeeds on existing user and correct id', (done) => {
-    const users = [{ id, name, email, password, avatar }];
-    const json = JSON.stringify(users);
+    const users = [{ id, name, email, password, avatar }],
+      json = JSON.stringify(users);
 
     writeFile(`${process.env.DB_PATH}/users.json`, json, (error) => {
       expect(error).to.be.null;
@@ -40,8 +40,8 @@ describe('retrieveUser', () => {
   });
 
   it('succeeds on existing user with no avatar and correct id', (done) => {
-    const users = [{ id, name, email, password, avatar: null }];
-    const json = JSON.stringify(users);
+    const users = [{ id, name, email, password, avatar: null }],
+      json = JSON.stringify(users);
 
     writeFile(`${process.env.DB_PATH}/users.json`, json, (error) => {
       expect(error).to.be.null;
@@ -59,8 +59,8 @@ describe('retrieveUser', () => {
   });
 
   it('fails on existing user and incorrect id', (done) => {
-    const users = [{ id, name, email, password, avatar }];
-    const json = JSON.stringify(users);
+    const users = [{ id, name, email, password, avatar }],
+      json = JSON.stringify(users);
 
     writeFile(`${process.env.DB_PATH}/users.json`, json, (error) => {
       expect(error).to.be.null;

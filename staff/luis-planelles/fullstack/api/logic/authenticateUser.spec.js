@@ -1,9 +1,8 @@
 require('dotenv').config();
 
-const { expect } = require('chai');
-const { writeFile } = require('fs');
-
-const authenticateUser = require('./authenticateUser.js');
+const { expect } = require('chai'),
+  { writeFile } = require('fs'),
+  authenticateUser = require('./authenticateUser.js');
 
 describe('authenticateUser', () => {
   let id, email, password;
@@ -19,8 +18,8 @@ describe('authenticateUser', () => {
   });
 
   it('succeeds on existing user', (done) => {
-    const users = [{ id, email, password }];
-    const json = JSON.stringify(users);
+    const users = [{ id, email, password }],
+      json = JSON.stringify(users);
 
     writeFile(`${process.env.DB_PATH}/users.json`, json, (error) => {
       expect(error).to.be.null;
@@ -35,9 +34,6 @@ describe('authenticateUser', () => {
   });
 
   it('fails on non-existing user', (done) => {
-    const users = [{ id, email, password }];
-    const json = JSON.stringify(users);
-
     authenticateUser(email, password, (error, userId) => {
       expect(error).to.be.instanceOf(Error);
       expect(error.message).to.equal(`user with email ${email} not found`);
@@ -48,8 +44,8 @@ describe('authenticateUser', () => {
   });
 
   it('fails on existing user but wrong passord', (done) => {
-    const users = [{ id, email, password }];
-    const json = JSON.stringify(users);
+    const users = [{ id, email, password }],
+      json = JSON.stringify(users);
 
     writeFile(`${process.env.DB_PATH}/users.json`, json, (error) => {
       expect(error).to.be.null;

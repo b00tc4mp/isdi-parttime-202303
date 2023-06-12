@@ -1,10 +1,13 @@
 require('dotenv').config();
 
-const { registerUser, authenticateUser } = require('./logic');
-
-const express = require('express');
-
-const api = express();
+const {
+    registerUser,
+    authenticateUser,
+    updateUserAvatar,
+    updateUserPassword,
+  } = require('./logic'),
+  express = require('express'),
+  api = express();
 
 api.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -90,16 +93,16 @@ api.get('/users/:userId', (req, res) => {
   }
 });
 
-// updateUser route
-api.patch('/users/:userId', (req, res) => {
+// updateUserAvatar route
+api.patch('/users/updateAvatar/:userId', (req, res) => {
   let json = '';
 
   req.on('data', (chunk) => (json += chunk));
 
   req.on('end', () => {
     try {
-      const { userId } = req.params;
-      const { avatar } = JSON.parse(json);
+      const { userId } = req.params,
+        { avatar } = JSON.parse(json);
 
       updateUserAvatar(userId, avatar, (error) => {
         if (error) {
@@ -110,6 +113,38 @@ api.patch('/users/:userId', (req, res) => {
 
         res.status(204).send();
       });
+    } catch (error) {
+      res.status(400).json({ error: error.message });
+    }
+  });
+});
+
+// updateUserAvatar route
+api.patch('/users/updatePassword/:userId', (req, res) => {
+  let json = '';
+
+  req.on('data', (chunk) => (json += chunk));
+
+  req.on('end', () => {
+    try {
+      const { userId } = req.params,
+        { password, newPassword, newPasswordConfirm } = JSON.parse(json);
+
+      updateUserPassword(
+        userId,
+        password,
+        newPassword,
+        newPasswordConfirm,
+        (error) => {
+          if (error) {
+            res.status(400).json({ error: error.message });
+
+            return;
+          }
+
+          res.status(204).send();
+        }
+      );
     } catch (error) {
       res.status(400).json({ error: error.message });
     }

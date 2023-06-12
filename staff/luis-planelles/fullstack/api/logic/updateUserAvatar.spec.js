@@ -21,8 +21,8 @@ describe('updateUserAvatar', () => {
   });
 
   it('succeeds on existing user and correct new avatar', (done) => {
-    const users = [{ id, name, email, password, avatar }];
-    const json = JSON.stringify(users);
+    const users = [{ id, name, email, password, avatar }],
+      json = JSON.stringify(users);
 
     writeFile(`${process.env.DB_PATH}/users.json`, json, (error) => {
       expect(error).to.be.null;
@@ -46,9 +46,6 @@ describe('updateUserAvatar', () => {
   });
 
   it('fails on non-existing user', (done) => {
-    const users = [{ id, name, email, password, avatar }];
-    const json = JSON.stringify(users);
-
     const newAvatar = avatar + '-new';
 
     updateUserAvatar(id, newAvatar, (error, user) => {
@@ -61,14 +58,14 @@ describe('updateUserAvatar', () => {
   });
 
   it('fails on existing user and incorrect id', (done) => {
-    const users = [{ id, name, email, password, avatar }];
-    const json = JSON.stringify(users);
+    const users = [{ id, name, email, password, avatar }],
+      json = JSON.stringify(users);
 
     writeFile(`${process.env.DB_PATH}/users.json`, json, (error) => {
       expect(error).to.be.null;
 
-      const wrongId = id + '-wrong';
-      const newAvatar = avatar + '-new';
+      const wrongId = id + '-wrong',
+        newAvatar = avatar + '-new';
 
       updateUserAvatar(wrongId, newAvatar, (error) => {
         expect(error).to.be.instanceOf(Error);
