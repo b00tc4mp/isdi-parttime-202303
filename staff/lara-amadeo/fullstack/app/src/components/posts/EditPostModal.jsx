@@ -1,7 +1,7 @@
 import { context } from "../../ui"
 import updatePost from "../../logic/updatePost"
 import retrievePost from "../../logic/retrievePost"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useContext } from "react"
 import Context from "../../Context"
 
@@ -10,18 +10,21 @@ export default function EditPostModal({ postId, onCancelEditPost, onConfirmEditP
     const [post, setPost] = useState()
     const { generateToast } = useContext(Context)
 
-    try{
-        retrievePost(context.userId, postId, (error, post) => {
-            if(error){
-                generateToast(error.message,'error')
-                return
-            }
-            setPost(post)
-        })
-    } catch(error){
-        generateToast(error.message,'error')
-        console.log(error.stack)
-    }
+    useEffect(() => {
+        try{
+            retrievePost(context.userId, postId, (error, post) => {
+                if(error){
+                    generateToast(error.message,'error')
+    
+                    return
+                }
+                setPost(post)
+            })
+        } catch(error){
+            generateToast(error.message,'error')
+            console.log(error.stack)
+        }
+    }, [])
     
     function onCancel(event){
         event.preventDefault()

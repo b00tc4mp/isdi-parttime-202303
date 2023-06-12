@@ -29,7 +29,8 @@ export default function Posts({ onCreateButton, onEditPostButtonClick, onDeleteP
                     return
                 }
                 unfreeze()
-                setPosts(posts.filter(post => !(post.author.id !== context.userId && post.visibility === 'private')))
+                const _posts = posts.filter(post => !(post.author.id !== context.userId && post.visibility === 'private'))
+                setPosts(_posts.toReversed())
             })
         } catch(error){
             unfreeze
@@ -63,14 +64,13 @@ export default function Posts({ onCreateButton, onEditPostButtonClick, onDeleteP
 
 
     useEffect(() => {
-        console.log('Posts -> componenteWillReceiveProps')
         if(lastPostUpdate) handleRefreshPosts()
     }, [lastPostUpdate])
 
 
-    return <div className="feed">
+    return <div className="w-auto flex flex-col items-center mt-[40px] px-[40px] max-md:px-[16px] max-md:mt-[84px]">
             {<Header title={'Home'} primaryButtonText={'Create'} onPrimaryButton={handleCreatePost} />}
-            <div className="posts">
+            <div className="max-w-[440px] h-fit flex flex-col items-start gap-[40px]">
                 {posts && posts.map(post =>
                     <Post
                     key={post.id}

@@ -1,12 +1,12 @@
 const { readFile, writeFile } = require('fs')
 
-module.exports = function toggleLikePost(userId, postId, callback){
+module.exports = function toggleLikePost(userId, postId, callback) {
     let users
     let user
     let posts
     let post
-    readFile('./data/users.json', (error, usersJson) => {
-        if(error){
+    readFile(`${process.env.DB_PATH}/users.json`, (error, usersJson) => {
+        if (error) {
             callback(error)
 
             return
@@ -16,36 +16,36 @@ module.exports = function toggleLikePost(userId, postId, callback){
 
         user = users.find(user => user.id === userId)
 
-        if(!user){
+        if (!user) {
             callback(`User with id ${userId} not found`)
 
             return
         }
 
         readFile('./data/posts.json', (error, postsJson) => {
-            if(error){
+            if (error) {
                 callback(error)
-    
+
                 return
             }
-    
+
             posts = JSON.parse(postsJson)
-    
+
             post = posts.find(post => post.id === postId)
 
-            if(!post){
+            if (!post) {
                 callback(`Post with id ${postId} not found`)
-    
+
                 return
             }
 
-            if(post.visibility === 'private'){
+            if (post.visibility === 'private') {
                 post.visibility = 'public'
-                
+
                 postsJson = JSON.stringify(posts)
 
                 writeFile('./data/posts.json', postsJson, error => {
-                    if(error){
+                    if (error) {
                         callback(error)
                         return
                     }
@@ -54,11 +54,11 @@ module.exports = function toggleLikePost(userId, postId, callback){
                 })
             } else {
                 post.visibility = 'private'
-                
+
                 postsJson = JSON.stringify(posts)
-                
+
                 writeFile('./data/posts.json', postsJson, error => {
-                    if(error){
+                    if (error) {
                         callback(error)
                         return
                     }

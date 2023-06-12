@@ -8,27 +8,40 @@ import { saveUserInStorage, findUserbyId } from "../data"
  * @param {string} confirmNewPassword confirmation of new password
  */
 
-export const updatePassword = (userId, currentPassword, newPassword, confirmNewPassword, callback) => {
+export const updatePassword = (userId, password, newPassword, confirmNewPassword, callback) => {
 
-    if (currentPassword === newPassword)
+    if (password === newPassword)
         throw new Error('Current password cannot be the same as new password')
 
     if (newPassword !== confirmNewPassword)
         throw new Error('New passwords do not match')
 
-    findUserbyId(userId, user => {
-        if (!user){
-            callback(new Error('User not found'))
+    const xhr = new XMLHttpRequest
+
+    xhr.onload = () => {
+        const {status} = xhr
+        if(status !== 204){
+            const json = xhr.response
+            const { error } = JSON.parse(json)
+
+            callback(new Error(error))
+
             return
         }
 
-        if (currentPassword !== user.password){
-            callback(new Error('Invalid current password'))
-            return
-        }
-        
-        user.password = newPassword
+        callback(null)
+    }
 
-        saveUserInStorage(user, () => callback(null))
-    }) 
+    xhr.onerror = () => {
+        callback(new Error('Connection error'))
+    }
+
+    xhr.open('PATCH', `http://localhost:4000/users/password/${userId}`)
+
+    xhr.setRequestHeader('Content-type', 'application/json')
+
+    const data = { userId, password, newPassword }
+    const json = JSON.stringify(data)
+
+    xhr.send(json)
  }

@@ -1,4 +1,3 @@
-import { findPostById, findUserbyId } from "../data"
 
 /**
  * Returns a post searched by id
@@ -9,18 +8,30 @@ import { findPostById, findUserbyId } from "../data"
 
 export default function retrievePost(userId, postId, callback){
 
-    findUserbyId(userId, user => {
-        if(!user){
-            callback(new Error('User not found'))
+    const xhr = new XMLHttpRequest
+
+    xhr.onload = () => {
+        const { status } = xhr
+        if(status !== 200){
+            const json = xhr.response
+            const { error } = JSON.parse(json)
+
+            callback(new Error(error))
             return
         }
 
-        findPostById(postId, post => {
-            if(!post){
-                callback(new Error('Post not found'))
-                return
-            }
-            callback(null, post)
-        })
-    })
+        const json = xhr.response
+        const { post } = JSON.parse(json)
+        callback(null, post)
+    }
+
+    xhr.onerror = () => {
+        callback(new Error('Connection error'))
+    }
+
+    xhr.open('GET', `http://localhost:4000/posts/post/${postId}/user/${userId}`)
+
+    xhr.setRequestHeader('Content-Type', 'application/json')
+
+    xhr.send()
 }

@@ -8,30 +8,32 @@ import { findUserbyId, loadPosts, loadUsers } from '../data'
 
 export default function retrievePosts(userId, callback) {
 
-    findUserbyId(userId, user => {
-        if(!userId){
-            callback(new Error ('User not found'))
+    const xhr = new XMLHttpRequest
+
+    xhr.onload = () => {
+        const { status } = xhr
+        if(status !== 200){
+            const json = xhr.response
+            const { error } = JSON.parse(json)
+
+            callback(new Error(error))
             return
         }
 
-        loadPosts(posts => {
-            loadUsers(users => {
+        const json = xhr.response
+        const { posts } = JSON.parse(json)
+        callback(null, posts)
+    }
 
-                posts.forEach(post => {
-                    post.favs = user.savedPosts.includes(post.id)
+    xhr.onerror = () => {
+        callback(new Error('Connection error'))
+    }
 
-                    const _user = users.find(user => user.id === post.author)
+    xhr.open('GET', `http://localhost:4000/posts/${userId}`)
 
-                    post.author = {
-                        id: _user.id,
-                        username: _user.username,
-                        avatar: _user.avatar
-                    }
-                })
-                const _posts = posts.toReversed()
-    
-                callback(null, _posts)
-            })
-        })
-    })
+    xhr.setRequestHeader('Content-Type', 'application/json')
+
+    const json = JSON.stringify(userId)
+
+    xhr.send(json)
 }

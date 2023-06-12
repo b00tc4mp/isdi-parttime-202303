@@ -22,7 +22,7 @@ export default function UpdatePassword({ onSaveUpdatePasswordClick, onCancelUpda
                     return
                 }
                 unfreeze()
-                generateToast('Password updated!', successToast)
+                generateToast('Password updated!', 'success')
     
                 onSaveUpdatePasswordClick()
             })

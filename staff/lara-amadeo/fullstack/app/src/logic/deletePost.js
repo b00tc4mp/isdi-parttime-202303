@@ -7,37 +7,33 @@ import { savePostsInStorage, saveUsersInStorage, loadUsers, findUserbyId, loadPo
  */
 
 export default function deletePost(userId, postId, callback){
-    findUserbyId(userId, user => {
-        if(!user){
-            callback(new Error('User not found'))
+    
+    const xhr = new XMLHttpRequest
 
+    xhr.onload = () => {
+        const { status } = xhr
+        if(status !== 204){
+            const json = xhr.response
+            const { error } = JSON.parse(json)
+
+            callback(new Error(error))
             return
         }
 
-        loadPosts(posts => {
+        callback(null)
+    }
 
-            const postIndex = posts.findIndex(post => post.id === postId)
-            posts.splice(postIndex, 1)
-        
-            savePostsInStorage(posts, () => {
+    xhr.onerror = () => {
+        callback(new Error('Connection error'))
+    }
 
-                loadUsers(users => {
-                    const _users = users
-                    _users.forEach(user => {
-                        user.likedPosts.includes(postId) &&
-                        user.likedPosts.splice(user.likedPosts.findIndex(elem => elem === postId), 1) 
-                    })
-                
-                    _users.forEach(user => {
-                        user.savedPosts.includes(postId) &&
-                        user.savedPosts.splice(user.savedPosts.findIndex(elem => elem === postId), 1) 
-                    })
-                
-                    saveUsersInStorage(_users, () => callback(null))
-                })
-            })
-        
-        })
-    })
+    xhr.open('DELETE', `http://localhost:4000/posts/delete`)
+
+    xhr.setRequestHeader('Content-Type', 'application/json')
+
+    const data = { userId, postId }
+    const json = JSON.stringify(data)
+
+    xhr.send(json)
 
 }

@@ -7,13 +7,6 @@ module.exports = function updateEmail(userId, email, newEmail, callback) {
     validateEmail(newEmail)
     validateCallback(callback)
 
-    //move this error to FE
-    if (email === newEmail) {
-        callback(new Error('New email cannot be the same as current email'))
-
-        return
-    }
-
     readFile("./data/users.json", (error, json) => {
         if (error) {
             callback(error)
@@ -24,6 +17,12 @@ module.exports = function updateEmail(userId, email, newEmail, callback) {
         const users = JSON.parse(json)
 
         const user = users.find(user => user.id === userId)
+
+        if(user.email !== email){
+            callback(new Error('Current email incorrect'))
+
+            return
+        }
 
         user.email = newEmail
 

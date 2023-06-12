@@ -17,7 +17,7 @@ export default function DeletionPostModal({ postId, onConfirmDeletePost, onCance
                 }
                 onConfirmDeletePost()
         
-                generateToast(error.message,'success')
+                generateToast('Post deleted!','success')
             })
         } catch(error) {
             generateToast(error.message,'error')

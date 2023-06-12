@@ -9,34 +9,34 @@ import { findUserbyId, loadPosts, savePostInStorage, findPostById } from "../dat
 
 export default function updatePost(userId ,postId, image, text, callback) {
 
-    findUserbyId(userId, user => {
-        if(!user){
-            callback(new Error('User not found'))
+    const xhr = new XMLHttpRequest
+
+    xhr.onload = () => {
+        const {status} = xhr
+        if(status !== 204){
+            const json = xhr.response
+            const { error } = JSON.parse(json)
+
+            callback(new Error(error))
+
             return
         }
 
-        findPostById(postId, post => {
-            if(!post){
-                callback(new Error('Post not found'))
-                return
-            }
+        callback(null)
+    }
 
-            if(post.author !== userId){
-                callback(new Error(`Post with id ${post.id} does not belong to user with id ${user.id}`))
-                return
-            }
+    xhr.onerror = () => {
+        callback(new Error('Connection error'))
+    }
 
-            loadPosts(posts => {
+    xhr.open('PATCH', `http://localhost:4000/posts/${postId}/users/${userId}`)
 
-                const post = posts.find(post => post.id === postId)
-            
-                post.image = image ? image : post.image
-                post.text = text
-            
-                savePostInStorage(post, () => callback(null))
-            })
-        })
-    })
+    xhr.setRequestHeader('Content-type', 'application/json')
+
+    const data = { image, text }
+    const json = JSON.stringify(data)
+
+    xhr.send(json)
 
     
 }

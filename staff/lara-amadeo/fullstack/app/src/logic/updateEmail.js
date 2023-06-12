@@ -8,29 +8,41 @@ import { context } from "../ui"
  * @param {string} confirmNewEmail confirmation of new email
  */
 
-export default function updateEmail (currentEmail, newEmail, confirmNewEmail, callback) {
+export default function updateEmail(userId, email, newEmail, confirmNewEmail, callback) {
 
-    if (currentEmail === newEmail)
+    if (email === newEmail)
         throw new Error('New email cannot be the same as current email')
 
     if (newEmail !== confirmNewEmail)
         throw new Error('New emails do not match')
-    
-    findUserbyId(context.userId, user => {
 
-        if (!user){
-            callback(new Error('User not found'))
+    const xhr = new XMLHttpRequest
+    
+    xhr.onload = () => {
+        const { status } = xhr
+        if(status !== 204){
+            const json = xhr.response
+            const { error } = JSON.parse(json)
+
+            callback(new Error(error))
+
             return
         }
 
-        if (currentEmail !== user.email){
-            callback(new Error('Invalid current email'))
-            return
-        }
-    
-        user.email = newEmail
-    
-        saveUserInStorage(user, () => callback(null))
-    })
+        callback(null)
+    }
 
+    xhr.onerror = () => {
+        callback(new Error('Connection error'))
+    }
+
+    xhr.open('PATCH', `http://localhost:4000/users/email/${userId}`)
+
+    xhr.setRequestHeader('Content-type', 'application/json')
+
+    const data = { userId, email, newEmail }
+    const json = JSON.stringify(data)
+
+    xhr.send(json)
 }
+

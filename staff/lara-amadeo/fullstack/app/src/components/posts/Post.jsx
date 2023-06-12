@@ -1,7 +1,7 @@
 import formatPostDate from '../../logic/formatPostDate'
 import { context } from "../../ui"
-import  likeAndUnlike from '../../logic/likeAndUnlikePost'
-import saveAndUnsavePost from '../../logic/saveAndUnsavePost'
+import  toggleLikePost from '../../logic/toggleLikePost'
+import toggleSavePost from '../../logic/toggleSavePost'
 import './Post.css'
 import { useState } from 'react'
 import ContextualModalBox from '../ContextualModalBox'
@@ -17,7 +17,7 @@ export default function Post({ post, onLikeButtonClick, onSaveButtonClick, onEdi
     function handleLikedPost(){
         // freeze()
         try{
-            likeAndUnlike(post.id, context.userId, error => {
+            toggleLikePost(post.id, context.userId, error => {
                 // unfreeze()
                 if(error){
                     generateToast(error.message,'error')
@@ -37,7 +37,7 @@ export default function Post({ post, onLikeButtonClick, onSaveButtonClick, onEdi
     function handleSavedPost(){
         // freeze()
         try{
-            saveAndUnsavePost(post.id, context.userId, error => {
+            toggleSavePost(post.id, context.userId, error => {
                 // unfreeze()
                 if(error){
                     generateToast(error.message,'error')
@@ -86,7 +86,7 @@ export default function Post({ post, onLikeButtonClick, onSaveButtonClick, onEdi
     }
 
 
-    return <div className="post">
+    return <div className="w-full relative flex flex-col gap-[8px]">
        {modal === 'open' && <ContextualModalBox
 
             options={[
@@ -97,45 +97,43 @@ export default function Post({ post, onLikeButtonClick, onSaveButtonClick, onEdi
             ]}
             onAnywhereClick={handleCloseModal}
         />}
-        {console.log('Post -> render')}
-    <div className="header-post">
-        <div className="post-user-data">
+    <div className="flex justify-between w-[100%]">
+        <div className="w-auto flex items-center justify-start gap-[16px] relative">
 
             {post && <>
-            <img className="post-avatar" src={post.author.avatar}/>
-            <div className="post-user-data-info">
-
-                <div className='post-username-n-visibility'>
-                <p className="post-user-data-info-username small-text-bold">{post.author.username}</p>
+            <img className="w-[32px] h-[32px] rounded-lg object-cover" src={post.author.avatar}/>
+            <div>
+                <div className="flex gap-[4px] items-center">
+                <p className="small-text-bold">{post.author.username}</p>
                 {post.author.id === context.userId && <span className="material-symbols-rounded icon-xs ">{post.visibility === 'private' ? 'lock' : 'language'}</span>}
                 </div>
-                
-                <p className="post-user-data-info-time tiny-text">{formatPostDate(post.date)}</p>
+                {/* <p className="post-user-data-info-time tiny-text">{formatPostDate(post.date)}</p> */}
+                <p className="tiny-text">{(post.date)}</p>
             </div>
             </>}
 
         </div>
-        <div className="header-post-actions">
+        <div className="flex gap-[8px] items-center">
             {(context.userId !== post.author.id && post.price > 0) && <a className="link" onClick={handleOpenBuyPost}>Buy post</a>}
             {context.userId === post.author.id && <button className="secondary-button icon-button" onClick={handleOpenModal}><div className="icon-s-container"><span className="material-symbols-rounded icon-s pointer">more_vert</span></div></button>}
         </div>
     </div>
 
-    <div className="post-image-div">
-        <img className="post-image" src={post.image}/>
+    <div className="w-full relative aspect-square">
+        <img className="w-full aspect-square object-cover" src={post.image}/>
     </div>
 
-    <div className="post-caption">
+    <div className="w-full h-auto flex justify-between items-center">
 
         <p className="post-caption-text small-text">{post.text}</p>
 
-        {<div className="post-action-icons">
+        {<div className="flex gap-[8px]">
             <div className="icon-s-container" onClick={handleSavedPost}>
-                <span className={`save-icon material-symbols-rounded icon-s pointer ${post.favs ? 'save-icon-filled' : ''}`} >bookmark</span>
+                <span className={`material-symbols-rounded icon-s pointer text-[22px] ${post.favs ? 'save-icon-filled' : ''}`} >bookmark</span>
             </div>
 
             <div className="icon-s-container" onClick={handleLikedPost}>
-                <span className={`like-icon material-symbols-rounded icon-s pointer ${post.likes && post.likes.includes(context.userId)? 'like-icon-filled' : ''}`} >favorite</span>
+                <span className={`material-symbols-rounded icon-s pointer ${post.likes && post.likes.includes(context.userId)? 'like-icon-filled' : ''}`} >favorite</span>
             </div>
         </div>}
     </div>

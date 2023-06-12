@@ -1,16 +1,30 @@
-import { findUserbyId, loadPosts } from "../data";
 
 export default function retrieveSavedPosts(userId, callback){
 
-    findUserbyId(userId, user => {
-        if(!user){
-            callback(new Error('User not found'))
+   const xhr = new XMLHttpRequest
+
+    xhr.onload = () => {
+        const { status } = xhr
+        if(status !== 200){
+            const json = xhr.response
+            const { error } = JSON.parse(json)
+
+            callback(new Error(error))
+
+            return
         }
 
-        loadPosts(posts => {
-            const _posts = posts.filter(post => user.savedPosts.includes(post.id))
+        const json = xhr.response
+        const { posts } = JSON.parse(json)
+        callback(null, posts)
+    }
 
-            callback(null, _posts)
-        })
-    })
+    xhr.onerror = () => {
+        callback(new Error('Connection error'))
+    }
+
+    xhr.open('GET', `http://localhost:4000/posts/saved/${userId}`)
+
+    xhr.send()
+
 }

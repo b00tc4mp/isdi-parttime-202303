@@ -1,25 +1,25 @@
-.post{
+/* .post{
     width: 100%;
     position: relative;
     display: flex;
     flex-direction: column;
     gap:8px
-}
+} */
 
-.header-post{
+/* .header-post{
     display: flex;
     justify-content: space-between;
     width: 100%;
-}
+} */
 
-.header-post-actions{
+/* .header-post-actions{
     display: flex;
     flex-direction: row;
     gap: 8px;
     align-items: center;
-}
+} */
 
-.post-user-data{
+/* .post-user-data{
     width: auto;
     display: flex;
     flex-direction: row;
@@ -27,50 +27,48 @@
     justify-content: flex-start;
     gap: 16px;
     position: relative;
-}
+} */
 
-.post-username-n-visibility{
+/* .post-username-n-visibility{
     display: flex;
-    gap: 4px
-}
-.post-avatar{
+    gap: 4px;
+    align-items: center;
+} */
+/* .post-avatar{
   width: 32px; 
   height: 32px;
   border-radius: 8px;
   object-fit: cover;
-}
+} */
 
-.post-image-div{
+/* .post-image-div{
     width: 100%;
     aspect-ratio: 1 / 1;
     position: relative;
-}
+} */
 
-.post-image{
+/* .post-image{
     width: 100%;
     aspect-ratio: 1 / 1;
     object-fit: cover;
-}
+} */
 
-.post-action-icons{
+/* .post-action-icons{
     display: flex;
     gap: 8px;
-}
+} */
 
-.sell-button{
-    color:var(--white) !important
-}
 
-.post-caption{
+/* .post-caption{
     width: 100%;
     height: auto;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-}
+} */
 
-.material-symbols-rounded.icon-s.pointer.like-icon-filled{
+.like-icon-filled{
     font-variation-settings:
     'FILL' 1,
     'wght' 500,

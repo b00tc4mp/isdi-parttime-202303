@@ -1,8 +1,8 @@
 const { readFile } = require('fs')
 
-module.exports = function retrieveUser(userId, callback){
-    readFile('./data/users.json', 'utf-8', (error, json) => {
-        if(error){
+module.exports = function retrieveUser(userId, callback) {
+    readFile(`${process.env.DB_PATH}/users.json`, 'utf-8', (error, json) => {
+        if (error) {
             callback(error)
 
             return
@@ -12,7 +12,7 @@ module.exports = function retrieveUser(userId, callback){
 
         const foundUser = users.find(user => user.id === userId)
 
-        if(!foundUser){
+        if (!foundUser) {
             callback(new Error(`User with id ${userId} not found`))
             return
         }

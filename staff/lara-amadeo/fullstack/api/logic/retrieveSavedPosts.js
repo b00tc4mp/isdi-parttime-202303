@@ -1,6 +1,7 @@
 const { readFile } = require('fs')
 
-module.exports = function retrievePosts(userId, callback) {
+module.exports = function retrieveSavedPosts(userId, callback){
+
     readFile(`${process.env.DB_PATH}/users.json`, 'utf-8', (error, json) => {
         if (error) {
             callback(error)
@@ -17,7 +18,7 @@ module.exports = function retrievePosts(userId, callback) {
             return
         }
 
-        readFile('./data/posts.json', (error, json) => {
+        readFile(`${process.env.DB_PATH}/posts.json`, (error, json) => {
             if (error) {
                 callback(error)
 
@@ -25,20 +26,10 @@ module.exports = function retrievePosts(userId, callback) {
             }
 
             const posts = JSON.parse(json)
-            
-            posts.forEach(post => {
-                post.favs = user.savedPosts.includes(post.id)
 
-                const _user = users.find(user => user.id === post.author)
+            const _posts = posts.filter(post => user.savedPosts.includes(post.id))
 
-                post.author = {
-                    id: _user.id,
-                    username: _user.username,
-                    avatar: _user.avatar
-                }
-            })
-
-            callback(null, posts)
+            callback(null, _posts)
         })
     })
 }

@@ -52,11 +52,11 @@
     }
 
     .subtitle {
-        @apply text-[--grey-700] text-base font-semibold mb-40
+        @apply text-[--grey-700] text-base font-semibold mb-[24px]
     }
 
     .text-field {
-        @apply bg-none h-[40px] mb-[24px] p-[12px] rounded-[12px] border border-[--grey-100] last: mb-0
+        @apply bg-none h-[40px] mb-[24px] p-[12px] rounded-[12px] border border-[--grey-100] last:mb-0
     }
 
     .text-field-label {
@@ -68,7 +68,7 @@
     }
 
     .text-area {
-        @apply resize-none appearance-none bg-none rounded h-[45px] mb-[24px] p-[12px] rounded-[12px] border border-[--grey-100] last: mb-0 text-center
+        @apply resize-none appearance-none bg-none rounded h-[45px] mb-[24px] p-[12px] rounded-[12px] border border-[--grey-100] last:mb-0 text-center
     }
 
     .icon-critical {
@@ -90,6 +90,17 @@
     .icon-button {
         @apply rounded-lg p-[4px]
     }
+    .icon-xs {
+        @apply text-base text-[--grey-700] flex items-center justify-center
+    }
+
+    .icon-s {
+        @apply text-xl text-[--grey-700] flex items-center justify-center
+    }
+
+    .icon-m {
+        @apply text-2xl text-[--grey-700] flex items-center justify-center
+    }
 
     .icon-button-S {
         @apply rounded-lg w-[32px] h-[32px] flex justify-center items-center
@@ -100,15 +111,15 @@
     }
 
     .primary-button {
-        @apply bg-[--solid-blue] text-[--white] border-none hover: bg-[--intense-blue]
+        @apply bg-[--solid-blue] text-[--white] border-none hover:bg-[--intense-blue]
     }
 
     .secondary-button {
-        @apply text-[--solid-blue] border border-[--violet-700] hover: bg-[--violet-300]
+        @apply text-[--solid-blue] bg-[--violet-200] border border-[--violet-700] hover:bg-[--violet-300]
     }
 
     .critical-button {
-        @apply bg-[--red-100] border-none text-[--red-400] hover: bg-[#FCDBD8]
+        @apply bg-[--red-100] border-none text-[--red-400] hover:bg-[#FCDBD8]
     }
 
     .button-bar {
@@ -116,7 +127,7 @@
     }
 
     .link {
-        @apply text-[--accent-purple] bg-none border-none font-semibold text-base no-underline cursor-pointer hover: text-[--accent-purple-hover]
+        @apply text-[--accent-purple] bg-none border-none font-semibold text-base no-underline cursor-pointer hover:text-[--accent-purple-hover]
     }
 
     .image-preview-container {
@@ -141,7 +152,7 @@
         --violet-500: #D1D4E6;
         --violet-400: #DEE0ED;
         --violet-300: #e8eaf4;
-        --violet-200: #F8FAFB;
+        --violet-200: #F2F5F7;
         --violet-100: #F8F9FB;
 
         --grey-700: #3B4257;
@@ -164,13 +175,7 @@
 }
 
 /*ICONS*/
-/* .material-symbols-rounded.icon-xs{
-    font-size: 16px;
-    color: var(--grey-700);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+/* 
 
 .material-symbols-rounded.icon-s{
     display: flex;

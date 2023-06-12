@@ -20,7 +20,7 @@ module.exports = function updatePassword(userId, password, newPassword, callback
             return
         }
 
-        if (password !== user.password) {
+        if (user.password !== password) {
             callback(new Error(`Invalid current password`))
 
             return

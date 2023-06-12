@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 const { expect } = require('chai')
 const updateEmail = require('../updateEmail')
 const { writeFile } = require("fs")
@@ -11,7 +13,7 @@ describe('updateEmail', () => {
         email = `${Math.floor(Math.random())}@email.com`
         password = `password-${Math.floor(Math.random())}`
 
-        writeFile('./data/users.json', '[]', 'utf-8', error => done(error))
+        writeFile(`${process.env.DB_PATH}/users.json`, '[]', 'utf-8', error => done(error))
     })
 
 
@@ -20,7 +22,7 @@ describe('updateEmail', () => {
         const users = [{ id, email, password }]
         const json = JSON.stringify(users)
 
-        writeFile('./data/users.json', json, 'utf8', error => {
+        writeFile(`${process.env.DB_PATH}/users.json`, json, 'utf8', error => {
             expect(error).to.be.null
 
             updateEmail(id, email, newEmail, error => {
@@ -37,7 +39,7 @@ describe('updateEmail', () => {
         const users = [{ id, newEmail, password }]
         const json = JSON.stringify(users)
 
-        writeFile('./data/users.json', json, 'utf8', error => {
+        writeFile(`${process.env.DB_PATH}/users.json`, json, 'utf8', error => {
             expect(error).to.be.null
 
             updateEmail(id, newEmail, newEmail, error => {

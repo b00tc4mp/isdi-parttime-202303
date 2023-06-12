@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 const { expect } = require("chai")
 const { readFile, writeFile } = require("fs")
 const registerUser = require("../registerUser")
@@ -46,7 +48,7 @@ describe('registerUser', () => {
         const users = [{ username, email, password }]
         const json = JSON.stringify(users)
 
-        writeFile('./data/users.json', json, 'utf-8', error => {
+        writeFile(`${process.env.DB_PATH}/users.json`, json, 'utf-8', error => {
             expect(error).to.be.null
 
             registerUser(username, email, password, error => {

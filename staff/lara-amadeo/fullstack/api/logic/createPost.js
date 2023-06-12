@@ -1,9 +1,9 @@
 const { readFile, writeFile } = require('fs')
 
-module.exports =  function createPost(userId, image, text, callback){
+module.exports = function createPost(userId, image, text, callback) {
 
-    readFile('./data/users.json', 'utf-8', (error, json) => {
-        if(error){
+    readFile(`${process.env.DB_PATH}/users.json`, 'utf-8', (error, json) => {
+        if (error) {
             callback(error)
 
             return
@@ -13,22 +13,22 @@ module.exports =  function createPost(userId, image, text, callback){
 
         const user = users.find(user => user.id === userId)
 
-        if(!user){
+        if (!user) {
             callback(new Error(`User with id ${userId} not found`))
             return
         }
 
         readFile('./data/posts.json', 'utf-8', (error, data) => {
-            if(error){
+            if (error) {
                 callback(error)
-    
+
                 return
             }
-    
+
             const posts = JSON.parse(data)
 
             let newPost
-            if(posts.length === 0) {
+            if (posts.length === 0) {
                 newPost = {
                     id: 'post-1',
                     author: userId,
@@ -41,8 +41,8 @@ module.exports =  function createPost(userId, image, text, callback){
                 }
             } else {
                 const lastPostId = posts[posts.length - 1].id
-                const newPostId =`post-${Number((lastPostId).slice(5)) + 1}`
-            
+                const newPostId = `post-${Number((lastPostId).slice(5)) + 1}`
+
                 newPost = {
                     id: newPostId,
                     author: userId,
@@ -59,8 +59,8 @@ module.exports =  function createPost(userId, image, text, callback){
 
             data = JSON.stringify(posts)
 
-            writeFile('./data/posts.json',data, error => {
-                if(error){
+            writeFile('./data/posts.json', data, error => {
+                if (error) {
                     callback(error)
                     return
                 }

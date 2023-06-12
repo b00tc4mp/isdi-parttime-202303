@@ -17,6 +17,8 @@ export default function VisibilityModal({ postId, onConfirmChangeVisiblity, onCa
                 if(error){
                     generateToast(error.message,'error')
                     console.log(error.stack)
+
+                    return
                 }
                 setPost(post)
                 setVisibility(post.visibility)
@@ -25,7 +27,7 @@ export default function VisibilityModal({ postId, onConfirmChangeVisiblity, onCa
             generateToast(error.message,'error')
             console.log(error.stack)
         }
-    })
+    }, [])
 
 
     const handleChangeVisibility = (event) => {

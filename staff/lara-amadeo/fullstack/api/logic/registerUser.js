@@ -1,6 +1,7 @@
 const { readFile, writeFile } = require('fs')
 const { validators: { validateText, validateEmail, validatePassword, validateCallback } } = require('com')
 
+
 module.exports = function registerUser(username, email, password, callback) {
 
     validateText(username)
@@ -9,7 +10,7 @@ module.exports = function registerUser(username, email, password, callback) {
     validateCallback(callback)
 
 
-    readFile('./data/users.json', 'utf8', (error, json) => {
+    readFile(`${process.env.DB_PATH}/users.json`, 'utf8', (error, json) => {
         if (error) {
             callback(error)
             return
@@ -45,7 +46,7 @@ module.exports = function registerUser(username, email, password, callback) {
 
         json = JSON.stringify(users)
 
-        writeFile('./data/users.json', json, 'utf8', error => {
+        writeFile(`${process.env.DB_PATH}/users.json`, json, 'utf8', error => {
             if (error) {
                 callback(error)
                 return

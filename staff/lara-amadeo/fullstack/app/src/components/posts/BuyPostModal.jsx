@@ -1,28 +1,29 @@
 import './BuyPostModal.css'
-import { useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
 import { context } from '../../ui'
 import retrievePost from '../../logic/retrievePost'
 import formatPostDate from '../../logic/formatPostDate'
-import { useContext } from "react"
 import Context from '../../Context'
 export default function BuyPostModal({ postId, onCancelBuyPost }){
 
     const [post, setPost] = useState()
     const { generateToast } = useContext(Context)
 
-    try{
-        retrievePost(context.userId, postId, (error, post) => {
-            if(error){
-                generateToast(error.message,'error')
-                console.log(error.stack)
-                return
-            }
-            setPost(post)
-        })
-    } catch(error){
-        generateToast(error.message,'error')
-        console.log(error.stack)
-    }
+    useEffect(() => {
+        try{
+            retrievePost(context.userId, postId, (error, post) => {
+                if(error){
+                    generateToast(error.message,'error')
+                    console.log(error.stack)
+                    return
+                }
+                setPost(post)
+            })
+        } catch(error){
+            generateToast(error.message,'error')
+            console.log(error.stack)
+        }
+    }, [])
 
     const onCancel = () => {
         onCancelBuyPost()
@@ -36,7 +37,7 @@ export default function BuyPostModal({ postId, onCancelBuyPost }){
             {post && <>
 
             <div className='buy-post-data-n-image'>
-                <div className="image-preview-container-buy-post">
+                <div className="w-[80px] h-[80px] relative flex">
                 <img className="image-preview"  name="image" src={post.image}/>
                 </div>
 
