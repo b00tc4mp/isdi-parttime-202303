@@ -88,6 +88,12 @@ describe('updateUserAvatar', () => {
       'avatar image is empty'
     ));
 
+  it('fails on empty callback', () =>
+    expect(() => updateUserAvatar(id, avatar)).to.throw(
+      Error,
+      'callback is not a function'
+    ));
+
   after((done) =>
     writeFile(`${process.env.DB_PATH}/users.json`, '[]', 'utf-8', (error) =>
       done(error)

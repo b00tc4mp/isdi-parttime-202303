@@ -155,6 +155,15 @@ describe('updateUserPassword', () => {
     ).to.throw(Error, 'new password confirm is empty');
   });
 
+  it('fails on empty callback', () => {
+    const newPassword = 'NewPassword456!',
+      newPasswordConfirm = 'NewPassword456!';
+
+    expect(() =>
+      updateUserPassword(id, password, newPassword, newPasswordConfirm)
+    ).to.throw(Error, 'callback is not a function');
+  });
+
   it('should fail on non-string password', () => {
     const password = 12345678;
 

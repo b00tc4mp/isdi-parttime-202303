@@ -84,6 +84,12 @@ describe('retrieveUser', () => {
       'userId is empty'
     ));
 
+  it('fails on empty callback', () =>
+    expect(() => retrieveUser(id)).to.throw(
+      Error,
+      'callback is not a function'
+    ));
+
   after((done) =>
     writeFile(`${process.env.DB_PATH}/users.json`, '[]', (error) => done(error))
   );

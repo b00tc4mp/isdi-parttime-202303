@@ -72,6 +72,12 @@ describe('authenticateUser', () => {
       'password is empty'
     ));
 
+  it('fails on empty callback', () =>
+    expect(() => authenticateUser(email, password)).to.throw(
+      Error,
+      'callback is not a function'
+    ));
+
   after((done) =>
     writeFile(`${process.env.DB_PATH}/users.json`, '[]', (error) => done(error))
   );

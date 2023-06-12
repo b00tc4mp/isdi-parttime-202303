@@ -64,16 +64,22 @@ describe('registerUser', () => {
       'name is empty'
     ));
 
+  it('fails on empty email', () =>
+    expect(() => registerUser(name, '', password, () => {})).to.throw(
+      Error,
+      'email is empty'
+    ));
+
   it('fails on empty password', () =>
     expect(() => registerUser(name, email, '', () => {})).to.throw(
       Error,
       'password is empty'
     ));
 
-  it('fails on empty email', () =>
-    expect(() => registerUser(name, '', password, () => {})).to.throw(
+  it('fails on empty callback', () =>
+    expect(() => registerUser(name, email, password)).to.throw(
       Error,
-      'email is empty'
+      'callback is not a function'
     ));
 
   after((done) =>
