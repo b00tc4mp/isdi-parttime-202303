@@ -1,6 +1,6 @@
 const { expect } = require('chai');
 const { writeFile, rea } = require('fs');
-const authenticateUser = require('../authenticateUser');
+const authenticateUser = require('./authenticateUser');
 
 describe('authenticateUser', () => {
     beforeEach(done => {
@@ -55,10 +55,6 @@ describe('authenticateUser', () => {
         });
     });
 
-    it('should fail on invalid username format', () =>
-        expect(() => authenticateUser('%&$', 'TestPassword123', () => { })).to.throw(Error, 'username format is not correct')
-    )
-
     it('should fail on invalid username type', () =>
         expect(() => authenticateUser(654, 'TestPassword123', () => { })).to.throw(Error, 'username is not a string')
     )
@@ -76,7 +72,7 @@ describe('authenticateUser', () => {
     )
 
     it('should fail on invalid callback', () =>
-        expect(() => authenticateUser('testuser', 'TestPassword123', '() => { }')).to.throw(Error, 'callbak is not a function')
+        expect(() => authenticateUser('testuser', 'TestPassword123', '() => { }')).to.throw(Error, 'callback is not a function')
     )
 
     after(done => writeFile('./data/users.json', '[]', 'utf8', error => done(error)))

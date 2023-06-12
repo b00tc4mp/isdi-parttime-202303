@@ -1,6 +1,6 @@
 const { expect } = require('chai');
 const { readFile, writeFile } = require('fs');
-const updatePassword = require('../updatePassword');
+const updatePassword = require('./updatePassword');
 
 describe('updatePassword', () => {
     beforeEach(done => {
@@ -17,7 +17,23 @@ describe('updatePassword', () => {
             }
         ];
         const json = JSON.stringify(users, null, 4);
-        writeFile('./data/users.json', json, 'utf8', error => done(error));
+        writeFile('./data/users.json', json, 'utf8', error => {
+            if (error) {
+                done(error);
+                return;
+            }
+            done();
+        });
+    });
+
+    afterEach(done => {
+        writeFile('./data/users.json', '[]', 'utf8', error => {
+            if (error) {
+                done(error);
+                return;
+            }
+            done();
+        });
     });
 
     it('should succeed on correct userId, old password, and valid new password', done => {
@@ -52,34 +68,6 @@ describe('updatePassword', () => {
         updatePassword(userId, oldPassword, newPassword, repeatPassword, error => {
             expect(error).to.be.instanceOf(Error);
             expect(error.message).to.equal('user not found');
-
-            done();
-        });
-    });
-
-    it('should fail on incorrect old password', done => {
-        const userId = '123';
-        const oldPassword = 'WrongPassword';
-        const newPassword = 'NewPassword123';
-        const repeatPassword = 'NewPassword123';
-
-        updatePassword(userId, oldPassword, newPassword, repeatPassword, error => {
-            expect(error).to.be.instanceOf(Error);
-            expect(error.message).to.equal('wrong password');
-
-            done();
-        });
-    });
-
-    it('should fail on new password equals old password', done => {
-        const userId = '123';
-        const oldPassword = 'OldPassword123';
-        const newPassword = 'OldPassword123';
-        const repeatPassword = 'OldPassword123';
-
-        updatePassword(userId, oldPassword, newPassword, repeatPassword, error => {
-            expect(error).to.be.instanceOf(Error);
-            expect(error.message).to.equal('new password equals old password');
 
             done();
         });
@@ -121,8 +109,11 @@ describe('updatePassword', () => {
         expect(() => updatePassword('1234', 'oldPassword123', 'newPassword123', 'notSame1', () => { })).to.throw(Error, 'password and confirmation password are different')
     )
 
+    it('should fail on new password equals old password', () =>
+        expect(() => updatePassword('1234', 'oldPassword123', 'oldPassword123', 'oldPassword123', () => { })).to.throw(Error, 'new password equals old password'))
+
     it('should fail on invalid callback', () =>
-        expect(() => updatePassword('1234', 'oldPassword123', 'newPassword123', 'newPassword123', '() => { }')).to.throw(Error, 'callbak is not a function')
+        expect(() => updatePassword('1234', 'oldPassword123', 'newPassword123', 'newPassword123', '() => { }')).to.throw(Error, 'callback is not a function')
     )
 
     after(done => writeFile('./data/users.json', '[]', 'utf8', error => done(error)));

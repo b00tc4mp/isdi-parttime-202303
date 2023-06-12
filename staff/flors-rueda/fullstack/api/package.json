@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha logic/tests/*.test.js",
-    "test-inspect": "mocha --inspect-brk logic/tests/*.test.js",
-    "test-coverage": "nyc --reporter=html --reporter=text mocha logic/tests/*.test.js"
+    "test": "mocha logic/*.test.js",
+    "test-inspect": "mocha --inspect-brk logic/*.test.js",
+    "test-coverage": "nyc --reporter=html --reporter=text mocha logic/*.test.js"
   },
   "keywords": [],
   "author": "",

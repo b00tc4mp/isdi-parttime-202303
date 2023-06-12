@@ -1,8 +1,8 @@
 const { expect } = require('chai');
 const { readFile, writeFile } = require('fs');
-const updateAvatar = require('../updateAvatar');
+const updateMail = require('./updateMail');
 
-describe('updateAvatar', () => {
+describe('updateMail', () => {
     beforeEach(done => {
         const users = [
             {
@@ -20,31 +20,30 @@ describe('updateAvatar', () => {
         writeFile('./data/users.json', json, 'utf8', error => done(error));
     });
 
-    it('should update the avatar successfully', done => {
-        const newSrc = 'avatarUrl';
+    it('should update the mail successfully', done => {
+        const newMail = 'newmail@example.com';
         const userId = '123';
 
-        updateAvatar(newSrc, userId, error => {
+        updateMail(newMail, userId, error => {
             expect(error).to.be.null;
 
             readFile('./data/users.json', 'utf8', (error, json) => {
                 expect(error).to.be.null;
 
                 const users = JSON.parse(json);
-
                 const user = users.find(user => user.id === userId);
 
-                expect(user.avatar).to.equal(newSrc);
+                expect(user.mail).to.equal(newMail);
                 done();
             });
         });
     });
 
     it('should fail if user is not found', done => {
-        const newSrc = 'avatarUrl';
+        const newMail = 'newmail@example.com';
         const userId = '456';
 
-        updateAvatar(newSrc, userId, error => {
+        updateMail(newMail, userId, error => {
             expect(error).to.be.instanceOf(Error);
             expect(error.message).to.equal('user not found');
 
@@ -52,16 +51,28 @@ describe('updateAvatar', () => {
         });
     });
 
+    it('should fail on invalid mail format', () =>
+        expect(() => updateMail('notamail', '1234', () => { })).to.throw(Error, 'mail format is not valid')
+    )
+
+    it('should fail on empty mail', () =>
+        expect(() => updateMail('  ', '1234', () => { })).to.throw(Error, 'mail is empty')
+    )
+
+    it('should fail on invalid mail type', () =>
+        expect(() => updateMail(1234, '1234', () => { })).to.throw(Error, 'mail is not an string')
+    )
+
     it('should fail on invalid id type', () =>
-        expect(() => updateAvatar('avatarUrl', 1234, () => { })).to.throw(Error, 'id is not a string')
+        expect(() => updateMail('mail@example.com', 1234, () => { })).to.throw(Error, 'id is not a string')
     )
 
     it('should fail on empty id', () =>
-        expect(() => updateAvatar('avatarUrl', ' ', () => { })).to.throw(Error, 'id is empty')
+        expect(() => updateMail('mail@example.com', ' ', () => { })).to.throw(Error, 'id is empty')
     )
 
     it('should fail on invalid callback', () =>
-        expect(() => updateAvatar('avatarUrl', '1234', '() => { }')).to.throw(Error, 'callbak is not a function')
+        expect(() => updateMail('mail@example.com', '1234', '() => { }')).to.throw(Error, 'callback is not a function')
     )
 
     after(done => writeFile('./data/users.json', '[]', 'utf8', error => done(error)));

@@ -1,8 +1,8 @@
 const { expect } = require('chai');
 const { readFile, writeFile } = require('fs');
-const updateName = require('../updateName');
+const updateAvatar = require('./updateAvatar');
 
-describe('updateName', () => {
+describe('updateAvatar', () => {
     beforeEach(done => {
         const users = [
             {
@@ -20,30 +20,31 @@ describe('updateName', () => {
         writeFile('./data/users.json', json, 'utf8', error => done(error));
     });
 
-    it('should update the name successfully', done => {
-        const newName = 'newName';
+    it('should update the avatar successfully', done => {
+        const newSrc = 'avatarUrl';
         const userId = '123';
 
-        updateName(newName, userId, error => {
+        updateAvatar(newSrc, userId, error => {
             expect(error).to.be.null;
 
             readFile('./data/users.json', 'utf8', (error, json) => {
                 expect(error).to.be.null;
 
                 const users = JSON.parse(json);
+
                 const user = users.find(user => user.id === userId);
 
-                expect(user.name).to.equal(newName);
+                expect(user.avatar).to.equal(newSrc);
                 done();
             });
         });
     });
 
     it('should fail if user is not found', done => {
-        const newName = 'newName';
-        const userId = '345';
+        const newSrc = 'avatarUrl';
+        const userId = '456';
 
-        updateName(newName, userId, error => {
+        updateAvatar(newSrc, userId, error => {
             expect(error).to.be.instanceOf(Error);
             expect(error.message).to.equal('user not found');
 
@@ -51,24 +52,16 @@ describe('updateName', () => {
         });
     });
 
-    it('should fail on empty name', () =>
-        expect(() => updateName('  ', '1234', () => { })).to.throw(Error, 'name is empty')
-    )
-
-    it('should fail on invalid name type', () =>
-        expect(() => updateName(1234, '1234', () => { })).to.throw(Error, 'name is not a string')
-    )
-
     it('should fail on invalid id type', () =>
-        expect(() => updateName('name.com', 1234, () => { })).to.throw(Error, 'id is not a string')
+        expect(() => updateAvatar('avatarUrl', 1234, () => { })).to.throw(Error, 'id is not a string')
     )
 
     it('should fail on empty id', () =>
-        expect(() => updateName('name', ' ', () => { })).to.throw(Error, 'id is empty')
+        expect(() => updateAvatar('avatarUrl', ' ', () => { })).to.throw(Error, 'id is empty')
     )
 
     it('should fail on invalid callback', () =>
-        expect(() => updateName('mail@example.com', '1234', '() => { }')).to.throw(Error, 'callbak is not a function')
+        expect(() => updateAvatar('avatarUrl', '1234', '() => { }')).to.throw(Error, 'callback is not a function')
     )
 
     after(done => writeFile('./data/users.json', '[]', 'utf8', error => done(error)));

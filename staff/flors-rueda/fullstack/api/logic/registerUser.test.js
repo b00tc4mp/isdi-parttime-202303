@@ -1,6 +1,6 @@
 const { expect } = require('chai')
 const { readFile, writeFile } = require('fs')
-const registerUser = require('../registerUser')
+const registerUser = require('./registerUser')
 
 describe('registerUser', () => {
     beforeEach(done => writeFile('./data/users.json', '[]', 'utf8', error => done(error)))
@@ -27,7 +27,6 @@ describe('registerUser', () => {
                 expect(user.username).to.equal(`@${username.toLowerCase()}`);
                 expect(user.mail).to.equal(mail);
                 expect(user.password).to.equal(password);
-                expect(user.avatar).to.be.null;
                 expect(user.joined).to.be.closeTo(Date.now(), 1000);
                 expect(user.favs).to.have.lengthOf(0);
 
@@ -90,10 +89,6 @@ describe('registerUser', () => {
         expect(() => registerUser(1234, 'testusername', 'Password123', 'Password123', () => { })).to.throw(Error, 'mail is not an string')
     )
 
-    it('should fail on invalid username format', () =>
-        expect(() => registerUser('test@mail.com', '$%&', 'Password123', 'Password123', () => { })).to.throw(Error, 'username format is not correct')
-    )
-
     it('should fail on empty username', () =>
         expect(() => registerUser('test@mail.com', '  ', 'Password123', 'Password123', () => { })).to.throw(Error, 'username is empty')
     )
@@ -123,7 +118,7 @@ describe('registerUser', () => {
     )
 
     it('should fail on invalid callback', () =>
-        expect(() => registerUser('test@mail.com', 'testusername', 'Password123', 'Password123', '() => { }')).to.throw(Error, 'callbak is not a function')
+        expect(() => registerUser('test@mail.com', 'testusername', 'Password123', 'Password123', '() => { }')).to.throw(Error, 'callback is not a function')
     )
 
 

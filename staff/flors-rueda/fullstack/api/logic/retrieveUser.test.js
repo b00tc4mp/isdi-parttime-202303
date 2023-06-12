@@ -1,6 +1,6 @@
 const { expect } = require('chai')
 const { readFile, writeFile } = require('fs')
-const retrieveUser = require('../retrieveUser')
+const retrieveUser = require('./retrieveUser')
 
 describe('retrieveUser', () => {
     beforeEach(done => {
@@ -54,7 +54,7 @@ describe('retrieveUser', () => {
     )
 
     it('should fail on invalid callback', () =>
-        expect(() => retrieveUser('1234', '() => { }')).to.throw(Error, 'callbak is not a function')
+        expect(() => retrieveUser('1234', '() => { }')).to.throw(Error, 'callback is not a function')
     )
 
     after(done => writeFile('./data/users.json', '[]', 'utf8', error => done(error)));

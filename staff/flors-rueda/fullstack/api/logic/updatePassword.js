@@ -1,5 +1,4 @@
-const { validators: { validateCallback, validateId, validatePassword } } = require('com');
-const { validateRepeatPassword } = require('com/validators');
+const { validators: { validateCallback, validateId, validatePassword, validateRepeatPassword } } = require('com');
 const { readFile, writeFile } = require('fs')
 
 module.exports = function updatePassword(userId, oldPassword, newPassword, repeatPassword, callback) {
@@ -7,6 +6,7 @@ module.exports = function updatePassword(userId, oldPassword, newPassword, repea
     validatePassword(oldPassword);
     validateRepeatPassword(newPassword, repeatPassword);
     validateCallback(callback);
+    if (newPassword === oldPassword) throw new Error('new password equals old password');
 
     readFile('./data/users.json', 'utf-8', (error, json) => {
         if (error) {
@@ -25,11 +25,6 @@ module.exports = function updatePassword(userId, oldPassword, newPassword, repea
 
         if (oldPassword !== user.password) {
             callback(new Error('wrong password'));
-            return;
-        }
-
-        if (newPassword === user.password) {
-            callback(new Error('new password equals old password'));
             return;
         }
 

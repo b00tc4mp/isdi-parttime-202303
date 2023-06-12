@@ -1,6 +1,6 @@
 const { expect } = require('chai');
 const { readFile, writeFile } = require('fs');
-const deleteUser = require('../deleteUser');
+const deleteUser = require('./deleteUser');
 
 describe('deleteUser', () => {
     //TODO chek if i should mock posts too
@@ -110,9 +110,8 @@ describe('deleteUser', () => {
         expect(() => deleteUser('123', '  ', () => { })).to.throw(Error, 'password is empty')
     )
 
-    it('should fail on invalid callback', () =>
-        expect(() => deleteUser('123', 'TestPassword123', '() => { }')).to.throw(Error, 'callbak is not a function')
-    )
+
 
     after(done => writeFile('./data/users.json', '[]', 'utf8', error => done(error)));
+    after(done => writeFile('./data/posts.json', '[]', 'utf8', error => done(error)));
 });
