@@ -48,10 +48,11 @@ module.exports = function toggleLikePost(userId, postId, callback) {
                         return
                     }
                     console.log("Like actualizado");
+                    
                 })
             })
         })
     }
     )
-
+callback(null)
 }

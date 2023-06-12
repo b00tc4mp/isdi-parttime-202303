@@ -4,19 +4,15 @@ const toggleLikePost = require('./toggleLikePost')
 
 
 describe('toggleLikePost', () => {
-    let userId, postId, image, location, title, text, likes
+    let userId, postId, image, text, likes
 
     beforeEach(done => {
-        writeFile('./data/users.json', '[]', 'utf8', error => done(error))
-       
         userId = `userId-${Math.random()}`
         postId = `postIdd-${Math.random()}`
         image = `image-${Math.random()}`
-        location = `location-${Math.random()}@mail.com`
-        title = `title-${Math.random()}`
         text = `text-${Math.random()}`
         likes =[]
-
+        writeFile('./data/users.json', '[]', 'utf8', error => done(error))
     })
 
     it('succeeds toggled like post', done => {
@@ -26,7 +22,7 @@ describe('toggleLikePost', () => {
         writeFile('./data/users.json', json, 'utf8', error => {
             expect(error).to.be.null
             
-            const post = [{id: postId, author: userId, image: image, location: location, title: title, text: text, likes: [userId]}]
+            const post = [{id: postId, author: userId, image: image, text: text, likes: [userId]}]
             const json = JSON.stringify(post)
 
             writeFile('./data/posts.json', json, 'utf8', error => {

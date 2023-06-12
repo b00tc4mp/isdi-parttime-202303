@@ -3,21 +3,19 @@ const { writeFile , readFile} = require ('fs')
 const toggleFavPost = require('./toggleFavPost')
 
 
-describe('toggleLFavPost', () => {
+describe('toggleFavPost', () => {
     let userId, postId, image, text, likes
 
     beforeEach(done => {
-        writeFile('./data/users.json', '[]', 'utf8', error => done(error))
-       
         userId = `userId-${Math.random()}`
         postId = `postIdd-${Math.random()}`
         image = `image-${Math.random()}`
         text = `text-${Math.random()}`
         likes =[]
-
+        writeFile('./data/users.json', '[]', 'utf8', error => done(error))
     })
 
-    it('succeeds toggled fav post', done => {
+    it('succeeds toggling fav post', done => {
         const user = [{id: userId, favs:[postId]}]
         const json = JSON.stringify(user)
 
@@ -26,6 +24,7 @@ describe('toggleLFavPost', () => {
             
             const post = [{id: postId, author: userId, image: image, text: text, likes:likes}]
             const json = JSON.stringify(post)
+            done()
 
             writeFile('./data/posts.json', json, 'utf8', error => {
                 expect(error).to.be.null
