@@ -2,56 +2,57 @@ require('dotenv').config()
 
 const { expect } = require('chai')
 const authenticateUser = require('./authenticateUser')
-const { writeFile } = require('fs')
+const { cleanUp, populate, generate } = require('./helpers/tests')
 
 describe('authenticateUser', () => {
-    let id, email, password
+    let user
 
     beforeEach(done => {
-        id = `id-${Math.random()}`
-        email = `e-${Math.random()}@mail.com`
-        password = `password-${Math.random()}`
+        user = generate.user()
 
-        writeFile(`${process.env.DB_PATH}/users.json`, '[]', error => done(error))
+        cleanUp(done)
     })
 
     it('succeeds on existing user', done => {
-        const users = [{ id, email, password }]
-        const json = JSON.stringify(users)
+        const users = [user]
 
-        writeFile(`${process.env.DB_PATH}/users.json`, json, error => {
-            expect(error).to.be.null
+        populate(users, [], error => {
+            if (error) {
+                done(error)
 
-            authenticateUser(email, password, (error, userId) => {
+                return
+            }
+
+            authenticateUser(user.email, user.password, (error, userId) => {
                 expect(error).to.be.null
-                expect(userId).to.equal(id)
+                expect(userId).to.equal(user.id)
 
                 done()
             })
         })
     })
 
-    it('fails on non-existing user', done => {
-        const users = [{ id, email, password }]
-        const json = JSON.stringify(users)
-
-        authenticateUser(email, password, (error, userId) => {
+    it('fails on non-existing user', done =>
+        authenticateUser(user.email, user.password, (error, userId) => {
             expect(error).to.be.instanceOf(Error)
-            expect(error.message).to.equal(`user with email ${email} not found`)
+            expect(error.message).to.equal(`user with email ${user.email} not found`)
             expect(userId).to.be.undefined
 
             done()
         })
-    })
+    )
 
     it('fails on existing user but wrong passord', done => {
-        const users = [{ id, email, password }]
-        const json = JSON.stringify(users)
+        const users = [user]
 
-        writeFile(`${process.env.DB_PATH}/users.json`, json, error => {
-            expect(error).to.be.null
+        populate(users, [], error => {
+            if (error) {
+                done(error)
 
-            authenticateUser(email, password + '-wrong', (error, userId) => {
+                return
+            }
+
+            authenticateUser(user.email, user.password + '-wrong', (error, userId) => {
                 expect(error).to.be.instanceOf(Error)
                 expect(error.message).to.equal('wrong credentials')
                 expect(userId).to.be.undefined
@@ -61,15 +62,41 @@ describe('authenticateUser', () => {
         })
     })
 
+    it('fails on existing user but wrong email', done => {
+        const users = [user]
+
+        populate(users, [], error => {
+            if (error) {
+                done(error)
+
+                return
+            }
+
+            user.email += '-wrong'
+
+            authenticateUser(user.email, user.password, (error, userId) => {
+                expect(error).to.be.instanceOf(Error)
+                expect(error.message).to.equal(`user with email ${user.email} not found`)
+                expect(userId).to.be.undefined
+
+                done()
+            })
+        })
+    })
+
     it('fails on empty email', () =>
-        expect(() => authenticateUser('', password, () => { })).to.throw(Error, 'email is empty')
+        expect(() => authenticateUser('', user.password, () => { })).to.throw(Error, 'email is empty')
     )
 
     it('fails on empty password', () =>
-        expect(() => authenticateUser(email, '', () => { })).to.throw(Error, 'password length lower than 8 characters')
+        expect(() => authenticateUser(user.email, '', () => { })).to.throw(Error, 'password length lower than 8 characters')
     )
 
-    // TODO add more unhappies
+    it('fails on non-callback', () =>
+        expect(() => authenticateUser(user.email, user.password)).to.throw(Error, 'callback is not a function')
+    )
 
-    after(done => writeFile(`${process.env.DB_PATH}/users.json`, '[]', error => done(error)))
+    // TODO add more unhappiesx
+
+    after(cleanUp)
 })
