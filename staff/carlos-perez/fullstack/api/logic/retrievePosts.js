@@ -3,7 +3,7 @@ const versionDetection = require('../helpers/versionDetection')
 const { validators: { validateId, validateCallback } } = require('com')
 
 
-module.exports = function retrievePost(userId, callback){
+module.exports = function retrievePosts(userId, callback){
     validateId(userId)
     validateCallback(callback)
     readFile('./data/users.json', 'utf8', (error, filedUsers) => {
