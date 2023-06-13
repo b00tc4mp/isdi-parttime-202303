@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useAppContext } from '../hooks';
-import authenticateUser from '../logic/authenticateUser.js';
+import authenticateUser from '../logic/authenticateUser';
 import retrieveMotivationalQuote from '../logic/retrieveMotivationalQuote';
-import { context } from '../ui.js';
+import { context } from '../ui';
 
 const Login = ({onRegisterClick, onUserLoggedIn}) => {
   

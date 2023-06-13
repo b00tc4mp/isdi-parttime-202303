@@ -1,1 +1,18 @@
-[{"id":"id-85","name":"name-0.7423444588835428","email":"e-0.8940023793268426@mail.com","password":"NewPassword456!","avatar":"avatar-0.744821102623171"}]
+[
+  {
+    "id": "user-1",
+    "name": "JohnDoe",
+    "email": "john@doe.com",
+    "password": "T3st@@@@",
+    "avatar": null,
+    "favourites": []
+  },
+  {
+    "id": "user-2",
+    "name": "JohnDoe2",
+    "email": "john@doe2.com",
+    "password": "T3st@@@@",
+    "avatar": null,
+    "favourites": []
+  }
+]

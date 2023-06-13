@@ -6,17 +6,12 @@ const createPost = require('./createPost.js');
 const sinon = require('sinon');
 
 describe('createPost', () => {
-  let fakeDate, userId, imagePost, textPost, date;
-
-  before(() => {
-    date = new Date();
-    fakeDate = sinon.useFakeTimers(date.getTime());
-  });
+  let userId, postImage, postText;
 
   beforeEach((done) => {
     userId = `id-${Math.random()}`;
-    imagePost = `url${Math.random()}`;
-    textPost = `text${Math.random()}`;
+    postImage = `url${Math.random()}`;
+    postText = `text${Math.random()}`;
 
     writeFile(`${process.env.DB_PATH}/posts.json`, '[]', (error) =>
       done(error)
@@ -24,13 +19,16 @@ describe('createPost', () => {
   });
 
   it('should be created if user exists and data is correct', (done) => {
+    const date = new Date();
+    const fakeDate = sinon.useFakeTimers(date.getTime());
+
     const users = [{ id: userId }];
     const usersJson = JSON.stringify(users);
 
     writeFile(`${process.env.DB_PATH}/users.json`, usersJson, (error) => {
       expect(error).to.be.null;
 
-      createPost(userId, imagePost, textPost, (error) => {
+      createPost(userId, postImage, postText, (error) => {
         expect(error).to.be.null;
 
         readFile(`${process.env.DB_PATH}/posts.json`, (error, json) => {
@@ -42,11 +40,13 @@ describe('createPost', () => {
           expect(post).to.exist;
           expect(post.id).to.equal('post-1');
           expect(post.author).to.equal(userId);
-          expect(post.image).to.equal(imagePost);
-          expect(post.text).to.equal(textPost);
+          expect(post.image).to.equal(postImage);
+          expect(post.text).to.equal(postText);
           expect(post.date).to.equal(date.toISOString());
           expect(post.likes).to.deep.equal([]);
           expect(posts.length).to.equal(1);
+
+          fakeDate.restore();
 
           done();
         });
@@ -54,7 +54,7 @@ describe('createPost', () => {
     });
   });
 
-  it('should be created with an incremented ID if there are existing posts', (done) => {
+  it('should succeed if there are existing posts', (done) => {
     const users = [{ id: userId }];
     const usersJson = JSON.stringify(users);
 
@@ -67,7 +67,7 @@ describe('createPost', () => {
       writeFile(`${process.env.DB_PATH}/posts.json`, dataPostsJson, (error) => {
         expect(error).to.be.null;
 
-        createPost(userId, imagePost, textPost, (error) => {
+        createPost(userId, postImage, postText, (error) => {
           expect(error).to.be.null;
 
           readFile(`${process.env.DB_PATH}/posts.json`, (error, json) => {
@@ -91,7 +91,7 @@ describe('createPost', () => {
   it('should throw an error if user does not exist', (done) => {
     const unmatchId = 'anyid';
 
-    createPost(unmatchId, imagePost, textPost, (error) => {
+    createPost(unmatchId, postImage, postText, (error) => {
       expect(error).to.exist;
       expect(error.message).to.equal('user with id anyid doesnt exists');
 
@@ -100,35 +100,33 @@ describe('createPost', () => {
   });
 
   it('fails on empty id', () =>
-    expect(() => createPost('', imagePost, textPost, () => {})).to.throw(
+    expect(() => createPost('', postImage, postText, () => {})).to.throw(
       Error,
       'user id is empty'
     ));
 
   it('fails on empty image', () => {
-    expect(() => createPost(userId, '', textPost, () => {})).to.throw(
+    expect(() => createPost(userId, '', postText, () => {})).to.throw(
       Error,
       'image is empty'
     );
   });
 
   it('fails on empty text', () => {
-    expect(() => createPost(userId, imagePost, '', () => {})).to.throw(
+    expect(() => createPost(userId, postImage, '', () => {})).to.throw(
       Error,
       'text is empty'
     );
   });
 
   it('fails on empty callback', () => {
-    expect(() => createPost(userId, imagePost, textPost)).to.throw(
+    expect(() => createPost(userId, postImage, postText)).to.throw(
       Error,
       'callback is not a function'
     );
   });
 
   after((done) => {
-    fakeDate.restore();
-
     writeFile(`${process.env.DB_PATH}/posts.json`, '[]', 'utf-8', (error) =>
       done(error)
     );

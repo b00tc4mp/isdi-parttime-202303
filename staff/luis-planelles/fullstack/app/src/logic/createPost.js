@@ -1,49 +1,42 @@
-import { loadPosts, savePosts } from '../data.js';
-import { findUserById } from './helpers/data-managers.js';
-import {
-  validateCallback,
-  validateId,
-  validateText,
-  validateUrl,
-} from './helpers/validators.js';
+import { validators } from 'com';
+const { validateId, validateUrl, validateText, validateCallback } = validators;
 
-const createPost = (userId, postImage, postText, callback) => {
-  validateUrl(postImage, 'image url');
-  validateText(postText, 'text');
+const createPost = (userId, image, text, callback) => {
   validateId(userId, 'user id');
+  validateUrl(image, 'image');
+  validateText(text, 'text');
   validateCallback(callback);
 
-  findUserById(userId, (foundUser) => {
-    if (!foundUser) {
-      callback(new Error('User not exist'));
+  const xhr = new XMLHttpRequest();
+
+  xhr.onload = () => {
+    const { status } = xhr;
+
+    if (status !== 201) {
+      const { response: json } = xhr,
+        { error } = JSON.parse(json);
+
+      callback(new Error(error));
 
       return;
     }
 
-    let postId = 'post-1';
+    callback(null);
+  };
 
-    loadPosts((posts) => {
-      const lastPost = posts[posts.length - 1];
+  xhr.onerror = () => {
+    callback(new Error('connection error'));
+  };
 
-      if (lastPost) {
-        postId = 'post-' + (parseInt(lastPost.id.slice(5)) + 1);
-      }
+  xhr.open('POST', `${import.meta.env.VITE_API_URL}/users/${userId}/posts`);
 
-      const post = {
-        id: postId,
-        author: userId,
-        image: postImage,
-        text: postText,
-        date: new Date(),
-        likes: [],
-        // visibility: 'public',
-      };
+  xhr.setRequestHeader('Content-Type', 'application/json');
 
-      posts.push(post);
+  const post = { image, text },
+    json = JSON.stringify(post);
 
-      savePosts(posts, () => callback(null));
-    });
-  });
+  console.log(json);
+  xhr.send(json);
 };
 
 export default createPost;

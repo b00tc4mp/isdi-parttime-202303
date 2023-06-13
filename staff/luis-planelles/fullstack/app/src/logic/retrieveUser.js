@@ -1,24 +1,38 @@
-import { findUserById } from './helpers/data-managers.js';
-import { validateCallback, validateId } from './helpers/validators.js';
+import { validators } from 'com';
+
+const { validateId, validateCallback } = validators;
 
 const retrieveUser = (userId, callback) => {
   validateId(userId, 'user id');
   validateCallback(callback);
 
-  findUserById(userId, (foundUser) => {
-    if (!foundUser) {
-      callback(new Error('user not exist'));
+  const xhr = new XMLHttpRequest();
+
+  xhr.onload = () => {
+    const { status } = xhr;
+
+    if (status !== 200) {
+      const { response: json } = xhr;
+      const { error } = JSON.parse(json);
+
+      callback(new Error(error));
 
       return;
     }
 
-    const retrievedUser = {
-      name: foundUser.info.name,
-      avatar: foundUser.info.avatar,
-    };
+    const { response: json } = xhr;
+    const user = JSON.parse(json);
 
-    callback(null, retrievedUser);
-  });
+    callback(null, user);
+  };
+
+  xhr.onerror = () => {
+    callback(new Error('connection error'));
+  };
+
+  xhr.open('GET', `${import.meta.env.VITE_API_URL}/users/${userId}`);
+
+  xhr.send();
 };
 
 export default retrieveUser;

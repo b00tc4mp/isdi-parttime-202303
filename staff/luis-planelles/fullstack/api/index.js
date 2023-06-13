@@ -1,155 +1,36 @@
 require('dotenv').config();
 
 const {
-    registerUser,
-    authenticateUser,
-    updateUserAvatar,
-    updateUserPassword,
-  } = require('./logic'),
-  express = require('express'),
-  api = express();
+  helloApiMid,
+  registerUserMid,
+  authenticateUserMid,
+  retrieveUserMid,
+  updateUserAvatarMid,
+  updateUserPasswordMid,
+  createPostMid,
+} = require('./middlewares');
 
-api.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Headers', '*');
-  res.setHeader('Access-Control-Allow-Methods', '*');
+const { cors, jsonBodyParser } = require('./utils');
 
-  next();
-});
+const express = require('express');
+const api = express();
 
-// check connection
-api.get('/', (req, res) => {
-  res.send('Hello, World!');
-});
+api.use(cors);
 
-api.get('/helloworld', (req, res) => res.json({ hello: 'world' }));
+// api routes
+api.get('/', helloApiMid);
 
-// registerUser route
-api.post('/users', (req, res) => {
-  let json = '';
+api.post('/users', jsonBodyParser, registerUserMid);
 
-  req.on('data', (chunk) => (json += chunk));
+api.post('/users/auth', jsonBodyParser, authenticateUserMid);
 
-  req.on('end', () => {
-    const { name, email, password } = JSON.parse(json);
+api.get('/users/', retrieveUserMid);
 
-    try {
-      registerUser(name, email, password, (error) => {
-        if (error) {
-          res.status(400).json({ error: error.message });
+api.patch('/users/updateAvatar/', jsonBodyParser, updateUserAvatarMid);
 
-          return;
-        }
+api.patch('/users/updatePassword/', jsonBodyParser, updateUserPasswordMid);
 
-        res.status(201).send();
-      });
-    } catch (error) {
-      res.status(400).json({ error: error.message });
-    }
-  });
-});
-
-// atenthicateUser route
-api.post('/users/auth', (req, res) => {
-  let json = '';
-
-  req.on('data', (chunk) => (json += chunk));
-
-  req.on('end', () => {
-    try {
-      const { email, password } = JSON.parse(json);
-
-      authenticateUser(email, password, (error, userId) => {
-        if (error) {
-          res.status(400).json({ error: error.message });
-
-          return;
-        }
-
-        res.json({ userId });
-      });
-    } catch (error) {
-      res.status(400).json({ error: error.message });
-    }
-  });
-});
-
-// get userId route
-api.get('/users/:userId', (req, res) => {
-  try {
-    const { userId } = req.params;
-
-    retrieveUser(userId, (error, user) => {
-      if (error) {
-        res.status(400).json({ error: error.message });
-
-        return;
-      }
-
-      res.json(user);
-    });
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-});
-
-// updateUserAvatar route
-api.patch('/users/updateAvatar/:userId', (req, res) => {
-  let json = '';
-
-  req.on('data', (chunk) => (json += chunk));
-
-  req.on('end', () => {
-    try {
-      const { userId } = req.params,
-        { avatar } = JSON.parse(json);
-
-      updateUserAvatar(userId, avatar, (error) => {
-        if (error) {
-          res.status(400).json({ error: error.message });
-
-          return;
-        }
-
-        res.status(204).send();
-      });
-    } catch (error) {
-      res.status(400).json({ error: error.message });
-    }
-  });
-});
-
-// updateUserAvatar route
-api.patch('/users/updatePassword/:userId', (req, res) => {
-  let json = '';
-
-  req.on('data', (chunk) => (json += chunk));
-
-  req.on('end', () => {
-    try {
-      const { userId } = req.params,
-        { password, newPassword, newPasswordConfirm } = JSON.parse(json);
-
-      updateUserPassword(
-        userId,
-        password,
-        newPassword,
-        newPasswordConfirm,
-        (error) => {
-          if (error) {
-            res.status(400).json({ error: error.message });
-
-            return;
-          }
-
-          res.status(204).send();
-        }
-      );
-    } catch (error) {
-      res.status(400).json({ error: error.message });
-    }
-  });
-});
+api.post('/users/posts', jsonBodyParser, createPostMid);
 
 api.listen(process.env.PORT, () =>
   console.log(`server running in port ${process.env.PORT}`)
