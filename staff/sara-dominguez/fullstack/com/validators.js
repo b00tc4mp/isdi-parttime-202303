@@ -31,7 +31,7 @@ function validatePassword(password) {
     if (!specialChar) throw new Error('password must have at least one special character')
     if (typeof password !== 'string') throw new Error('password is not a string')
     if (password.trim().length < 6) throw new Error('password minimun 6 characters')
-    if (password.trim().length > 12) throw new Error('password maximum 12 characters')
+    if (password.trim().length > 15) throw new Error('password maximum 15 characters')
 }
 function validateUserNewPassword(userNewPassword) {
     const hasDigit = /\d/.test(userNewPassword)
