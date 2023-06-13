@@ -1,8 +1,8 @@
 const { readFile, writeFile } = require('fs')
 const { validators: { validateId, validateUrl, validateCallback } } = require('com')
 
+
 module.exports = (userId, avatar, callback) => {
-    debugger
     validateId(userId, 'user Id')
     validateUrl(avatar, 'avatar')
     validateCallback(callback, 'callback')

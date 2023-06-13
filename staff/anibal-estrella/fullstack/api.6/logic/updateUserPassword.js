@@ -7,7 +7,7 @@ module.exports = (userId, password, newPassword, newPasswordConfirm, callback) =
     validatePassword(password, 'password')
     validatePassword(newPassword, 'new Password')
     validatePassword(newPasswordConfirm, 'new Password Confirm')
-    validateCallback(callback)
+    validateCallback(callback, 'callback')
 
     if (previousPassword === newPassword) throw new Error(
         `New password must be different as previous password`

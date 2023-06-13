@@ -1,16 +1,8 @@
 [
     {
         "id": "user-1",
-        "name": "eddies",
-        "email": "pj@gmail.com",
-        "password": "123123123",
-        "avatar": "https://img.apmcdn.org/58d7a6eba0099ce12a846efb1d1eb7e9c3f273bc/square/f6edda-20180611-eddie-vedder-cubs.jpg",
-        "favs": []
-    },
-    {
-        "id": "user-2",
-        "name": "test",
-        "email": "test@gmail.com",
+        "name": "Eki Estrella",
+        "email": "enki@gmail.com",
         "password": "123123123",
         "avatar": null,
         "favs": []
