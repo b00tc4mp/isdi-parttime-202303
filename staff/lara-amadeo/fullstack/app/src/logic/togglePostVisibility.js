@@ -22,9 +22,10 @@ export default function togglePostVisibility(userId, postId, callback){
         callback(new Error('Connection error'))
     }
 
-    xhr.open('PATCH', `http://localhost:4000/posts/visibility/${postId}/users/${userId}`)
+    xhr.open('PATCH', `http://localhost:4000/posts/visibility/${postId}`)
 
     xhr.setRequestHeader('Content-Type', 'application/json')
+    xhr.setRequestHeader('authorization', `Bearer ${userId}`)
 
     xhr.send()
 }

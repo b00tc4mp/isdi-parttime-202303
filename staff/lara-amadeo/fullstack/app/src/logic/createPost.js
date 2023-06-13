@@ -27,11 +27,13 @@ export default function createPost(userId, image, text, callback) {
         callback(new Error('Connection error'))
     }
 
-    xhr.open('POST', `http://localhost:4000/posts/create/${userId}`)
+    xhr.open('POST', `http://localhost:4000/posts/new`)
 
     xhr.setRequestHeader('Content-Type', 'application/json')
+    xhr.setRequestHeader('authorization', `Bearer ${userId}`)
 
-    const data = { userId, image, text }
+
+    const data = { image, text }
     const json = JSON.stringify(data)
 
     xhr.send(json)

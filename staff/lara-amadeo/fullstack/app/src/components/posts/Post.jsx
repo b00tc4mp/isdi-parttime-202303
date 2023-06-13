@@ -107,8 +107,7 @@ export default function Post({ post, onLikeButtonClick, onSaveButtonClick, onEdi
                 <p className="small-text-bold">{post.author.username}</p>
                 {post.author.id === context.userId && <span className="material-symbols-rounded icon-xs ">{post.visibility === 'private' ? 'lock' : 'language'}</span>}
                 </div>
-                {/* <p className="post-user-data-info-time tiny-text">{formatPostDate(post.date)}</p> */}
-                <p className="tiny-text">{(post.date)}</p>
+                <p className="tiny-text">{formatPostDate(new Date(post.date))}</p>
             </div>
             </>}
 

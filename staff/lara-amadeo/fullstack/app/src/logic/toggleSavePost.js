@@ -25,9 +25,10 @@ export default function toggleSavePost(postId, userId, callback){
         callback(new Error(error))
     }
 
-    xhr.open('PATCH', `http://localhost:4000/posts/save/${postId}/users/${userId}`)
+    xhr.open('PATCH', `http://localhost:4000/posts/save/${postId}`)
 
     xhr.setRequestHeader('Content-Type', 'application/json')
+    xhr.setRequestHeader('authorization', `Bearer ${userId}`)
 
     xhr.send()
 }

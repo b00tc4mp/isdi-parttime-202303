@@ -29,9 +29,10 @@ export default function updatePost(userId ,postId, image, text, callback) {
         callback(new Error('Connection error'))
     }
 
-    xhr.open('PATCH', `http://localhost:4000/posts/${postId}/users/${userId}`)
+    xhr.open('PATCH', `http://localhost:4000/posts/update/${postId}`)
 
     xhr.setRequestHeader('Content-type', 'application/json')
+    xhr.setRequestHeader('authorization', `Bearer ${userId}`)
 
     const data = { image, text }
     const json = JSON.stringify(data)

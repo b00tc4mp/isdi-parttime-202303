@@ -36,11 +36,13 @@ export default function updateEmail(userId, email, newEmail, confirmNewEmail, ca
         callback(new Error('Connection error'))
     }
 
-    xhr.open('PATCH', `http://localhost:4000/users/email/${userId}`)
+    xhr.open('PATCH', `http://localhost:4000/users/email`)
 
     xhr.setRequestHeader('Content-type', 'application/json')
+    xhr.setRequestHeader('authorization', `Bearer ${userId}`)
 
-    const data = { userId, email, newEmail }
+
+    const data = { email, newEmail }
     const json = JSON.stringify(data)
 
     xhr.send(json)

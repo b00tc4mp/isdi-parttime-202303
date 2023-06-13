@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "watch": "node --watch .",
     "start": "node .",
     "inspect": "node --inspect-brk .",
     "test": "mocha logic/tests/*.spec.js",

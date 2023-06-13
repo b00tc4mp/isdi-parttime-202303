@@ -36,6 +36,7 @@ export function updateAvatar(userId, url, callback){
     xhr.open('PATCH', `http://localhost:4000/users/avatar/${userId}`)
 
     xhr.setRequestHeader('Content-type', 'application/json')
+    xhr.setRequestHeader('authorization', `Bearer ${userId}`)
 
     const data = {userId, avatar: url}
     const json = JSON.stringify(data)

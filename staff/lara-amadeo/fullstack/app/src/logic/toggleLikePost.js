@@ -1,5 +1,3 @@
-import { savePostInStorage, saveUserInStorage, findUserbyId } from "../data"
-import retrievePost from "./retrievePost"
 
 
 /**
@@ -15,6 +13,8 @@ export default function toggleLikePost (postId, userId, callback) {
     xhr.onload = () => {
         const { status } = xhr
         if(status !== 201){
+            const json = xhr.response
+            const { error } = JSON.parse(json)
             callback(new Error(error))
 
             return
@@ -27,9 +27,10 @@ export default function toggleLikePost (postId, userId, callback) {
         callback(new Error(error))
     }
 
-    xhr.open('PATCH', `http://localhost:4000/posts/like/${postId}/users/${userId}`)
+    xhr.open('PATCH', `http://localhost:4000/posts/like/${postId}`)
 
     xhr.setRequestHeader('Content-Type', 'application/json')
+    xhr.setRequestHeader('authorization', `Bearer ${userId}`)
 
     xhr.send()
         

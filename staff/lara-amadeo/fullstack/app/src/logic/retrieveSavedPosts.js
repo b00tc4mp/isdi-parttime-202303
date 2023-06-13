@@ -23,7 +23,8 @@ export default function retrieveSavedPosts(userId, callback){
         callback(new Error('Connection error'))
     }
 
-    xhr.open('GET', `http://localhost:4000/posts/saved/${userId}`)
+    xhr.open('GET', `http://localhost:4000/posts/saved`)
+    xhr.setRequestHeader('authorization', `Bearer ${userId}`)
 
     xhr.send()
 

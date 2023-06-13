@@ -29,11 +29,10 @@ export default function retrievePosts(userId, callback) {
         callback(new Error('Connection error'))
     }
 
-    xhr.open('GET', `http://localhost:4000/posts/${userId}`)
+    xhr.open('GET', `http://localhost:4000/posts`)
 
     xhr.setRequestHeader('Content-Type', 'application/json')
+    xhr.setRequestHeader('authorization', `Bearer ${userId}`)
 
-    const json = JSON.stringify(userId)
-
-    xhr.send(json)
+    xhr.send()
 }

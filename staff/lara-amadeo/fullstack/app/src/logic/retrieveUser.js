@@ -22,11 +22,10 @@ export default function retrieveUser(userId, callback) {
         callback(new Error('Connection error'))
     }
 
-    xhr.open('GET', `http://localhost:4000/users/${userId}`)
+    xhr.open('GET', `http://localhost:4000/users`)
 
     xhr.setRequestHeader('Content-type', 'application/json')
+    xhr.setRequestHeader('authorization', `Bearer ${userId}`)
 
-    const json = JSON.stringify(userId)
-
-    xhr.send(json)
+    xhr.send()
 }

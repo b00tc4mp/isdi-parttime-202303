@@ -1,0 +1,1 @@
+module.exports = function helloApiMid(req, res){res.send(`Hello, I'm a working api!`)}

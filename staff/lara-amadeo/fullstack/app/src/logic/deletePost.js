@@ -27,13 +27,11 @@ export default function deletePost(userId, postId, callback){
         callback(new Error('Connection error'))
     }
 
-    xhr.open('DELETE', `http://localhost:4000/posts/delete`)
+    xhr.open('DELETE', `http://localhost:4000/posts/delete/${postId}`)
 
     xhr.setRequestHeader('Content-Type', 'application/json')
+    xhr.setRequestHeader('authorization', `Bearer ${userId}`)
 
-    const data = { userId, postId }
-    const json = JSON.stringify(data)
-
-    xhr.send(json)
+    xhr.send()
 
 }

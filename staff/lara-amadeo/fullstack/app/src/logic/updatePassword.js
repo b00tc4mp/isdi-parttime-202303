@@ -36,11 +36,13 @@ export const updatePassword = (userId, password, newPassword, confirmNewPassword
         callback(new Error('Connection error'))
     }
 
-    xhr.open('PATCH', `http://localhost:4000/users/password/${userId}`)
+    xhr.open('PATCH', `http://localhost:4000/users/password`)
 
     xhr.setRequestHeader('Content-type', 'application/json')
+    xhr.setRequestHeader('authorization', `Bearer ${userId}`)
 
-    const data = { userId, password, newPassword }
+
+    const data = { password, newPassword }
     const json = JSON.stringify(data)
 
     xhr.send(json)
