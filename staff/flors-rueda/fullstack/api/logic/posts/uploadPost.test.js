@@ -1,9 +1,9 @@
 require('dotenv').config();
 const { expect } = require('chai');
 const { writeFile, readFile } = require('fs');
-const deletePost = require('./deletePost');
+const uploadPost = require('./uploadPost');
 
-describe('deletePost', () => {
+describe('uploadPost', () => {
     beforeEach(done => {
         const users = [
             {
@@ -22,7 +22,7 @@ describe('deletePost', () => {
                 id: '456',
                 title: 'Test Post',
                 content: 'This is a test post',
-                author: '123',
+                author: '789',
                 createdAt: Date.now()
             }
         ];
@@ -37,11 +37,12 @@ describe('deletePost', () => {
         });
     });
 
-    it('should delete a post when given valid user ID and post ID', done => {
+    it('should upload a new post successfully', done => {
+        const postImg = 'testimage.jpg';
+        const postText = 'This is a test post';
         const userAuth = '123';
-        const postId = '456';
 
-        deletePost(userAuth, postId, error => {
+        uploadPost(postImg, postText, userAuth, error => {
             expect(error).to.be.null;
 
             readFile('./data/posts.json', 'utf8', (error, json) => {
@@ -51,55 +52,47 @@ describe('deletePost', () => {
                 }
 
                 const posts = JSON.parse(json);
-                const deletedPost = posts.find(post => post.id === postId);
-                expect(deletedPost).to.be.undefined;
+                const uploadedPost = posts.find(post => post.author === userAuth && post.text === postText);
+
+                expect(uploadedPost).to.exist;
+                expect(uploadedPost.image).to.equal(postImg);
 
                 done();
             });
         });
     });
 
-    it('should fail when given invalid user id', done => {
+    it('should fail when given an invalid user ID', done => {
+        const postImg = 'testimage.jpg';
+        const postText = 'This is a test post';
         const userAuth = '999';
-        const postId = '456';
 
-        deletePost(userAuth, postId, error => {
+        uploadPost(postImg, postText, userAuth, error => {
             expect(error).to.be.instanceOf(Error);
-            expect(error.message).to.equal('authentication failed');
+            expect(error.message).to.equal(`user with id ${userAuth} not found`);
             done();
         });
     });
 
-    it('should fail when given invalid post id', done => {
-        const userAuth = '123';
-        const postId = '999';
+    it('should fail on invalid post text type', () =>
+        expect(() => uploadPost('testimage.jpg', 1234, '123', () => { })).to.throw(Error, 'postText is not a string')
+    );
 
-        deletePost(userAuth, postId, error => {
-            expect(error).to.be.instanceOf(Error);
-            expect(error.message).to.equal('post authentication failed');
-            done();
-        });
-    });
+    it('should fail on empty post text', () =>
+        expect(() => uploadPost('testimage.jpg', '  ', '123', () => { })).to.throw(Error, 'postText is empty')
+    );
 
-    it('should fail on invalid user id type', () =>
-        expect(() => deletePost(1234, 'TestId123', () => { })).to.throw(Error, 'id is not a string')
-    )
+    it('should fail on invalid user authentication type', () =>
+        expect(() => uploadPost('testimage.jpg', 'This is a test post', 1234, () => { })).to.throw(Error, 'userAuth is not a string')
+    );
 
-    it('should fail on empty user id', () =>
-        expect(() => deletePost('  ', 'TestId123', () => { })).to.throw(Error, 'id is empty')
-    )
-
-    it('should fail on invalid post id type', () =>
-        expect(() => deletePost('TestId123', 1234, () => { })).to.throw(Error, 'id is not a string')
-    )
-
-    it('should fail on empty post id', () =>
-        expect(() => deletePost('TestId123', '  ', () => { })).to.throw(Error, 'id is empty')
-    )
+    it('should fail on empty user authentication', () =>
+        expect(() => uploadPost('testimage.jpg', 'This is a test post', '  ', () => { })).to.throw(Error, 'userAuth is empty')
+    );
 
     it('should fail on invalid callback', () =>
-        expect(() => deletePost('TestId123', 'TestId123', '() => { }')).to.throw(Error, 'callback is not a function')
-    )
+        expect(() => uploadPost('testimage.jpg', 'This is a test post', '123', '() => { }')).to.throw(Error, 'callback is not a function')
+    );
 
     after(done => {
         writeFile('./data/users.json', '[]', 'utf8', error => {

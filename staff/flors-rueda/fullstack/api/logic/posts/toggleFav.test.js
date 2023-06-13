@@ -1,3 +1,4 @@
+require('dotenv').config();
 const { expect } = require('chai');
 const { writeFile, readFile } = require('fs');
 const toggleFav = require('./toggleFav');

@@ -1,3 +1,4 @@
+require('dotenv').config();
 const { expect } = require('chai');
 const { writeFile, rea } = require('fs');
 const authenticateUser = require('./authenticateUser');

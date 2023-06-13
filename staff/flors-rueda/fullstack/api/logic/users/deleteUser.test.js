@@ -1,3 +1,4 @@
+require('dotenv').config();
 const { expect } = require('chai');
 const { readFile, writeFile } = require('fs');
 const deleteUser = require('./deleteUser');

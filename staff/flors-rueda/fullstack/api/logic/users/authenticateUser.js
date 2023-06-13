@@ -1,4 +1,4 @@
-const { readFile, writeFile } = require('fs')
+const { readFile } = require('fs')
 const { validators: { validateCallback, validatePassword, validateUsername } } = require('com');
 
 module.exports = function authenticateUser(username, password, callback) {
@@ -12,9 +12,9 @@ module.exports = function authenticateUser(username, password, callback) {
             return;
         }
 
-        const users = JSON.parse(json)
+        const users = JSON.parse(json);
 
-        const user = users.find(user => user.username === `@${username.toLowerCase()}`)
+        const user = users.find(user => user.username === `@${username.toLowerCase()}`);
 
         if (!user) {
             callback(new Error(`user with username ${username} not found`));

@@ -1,5 +1,6 @@
+require('dotenv').config();
 const { expect } = require('chai');
-const { readFile, writeFile } = require('fs');
+const { writeFile } = require('fs');
 const retrievePosts = require('./retrievePosts');
 
 describe('retrievePosts', () => {
