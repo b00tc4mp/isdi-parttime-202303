@@ -7,7 +7,7 @@ describe('retrievePosts', () => {
     let userId, postId, image, location, title, text, likes
 
     beforeEach(done => {
-        writeFile('./data/users.json', '[]', 'utf8', error => done(error))
+        
        
         userId = `userId-${Math.random()}`
         postId = `postIdd-${Math.random()}`
@@ -17,6 +17,7 @@ describe('retrievePosts', () => {
         text = `text-${Math.random()}`
         likes =[]
 
+        writeFile('./data/users.json', '[]', 'utf8', error => done(error))
     })
 
     it('succeeds on retrieving post', done => {
