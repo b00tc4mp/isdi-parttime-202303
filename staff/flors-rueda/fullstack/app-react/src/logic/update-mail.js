@@ -12,18 +12,38 @@ const { validateId, validateMail, validateCallback } = validators;
  * @param {function} callback Function that controls the errors
  * 
  */
-export const updateMail = (mail, userId, callback) => {
+export default (mail, userId, callback) => {
     validateMail(mail);
     validateId(userId);
     validateCallback(callback);
 
-    findUserById(userId, user => {
-        if (!user) {
-            callback(new Error('user not found'));
+    const xhr = new XMLHttpRequest;
+
+    xhr.onload = () => {
+        const { status } = xhr;
+
+        if (status !== 204) {
+            const { response: json } = xhr;
+            const { error } = JSON.parse(json);
+
+            callback(new Error(error));
+
             return;
         }
 
-        user.mail = mail;
-        saveUser(user, () => callback(null));
-    })
+        callback(null);
+    }
+
+    xhr.onerror = () => {
+        callback(new Error('connection error'));
+    }
+
+    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/users/${userId}/mail`);
+
+    xhr.setRequestHeader('Content-Type', 'application/json');
+
+    const data = { mail };
+    const json = JSON.stringify(data);
+
+    xhr.send(json);
 };

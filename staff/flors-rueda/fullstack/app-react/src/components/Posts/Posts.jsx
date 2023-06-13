@@ -1,10 +1,10 @@
 import Post from './Post';
-import { retrievePosts } from '../../logic/retrieve-posts';
+import retrievePosts from '../../logic/retrieve-posts';
 import { context } from '../../ui';
 import { useState, useEffect, useContext } from 'react';
-import { retrieveFavoritePosts } from '../../logic/retrieve-favorite-posts';
+import retrieveFavoritePosts from '../../logic/retrieve-favorite-posts';
 import './Posts.css';
-import { retrieveUserPosts } from '../../logic/retrieve-user-posts';
+import retrieveUserPosts from '../../logic/retrieve-user-posts';
 import inLogger from '../../inLogger';
 import Context from '../../Context';
 import Loader from '../loader/Loader';

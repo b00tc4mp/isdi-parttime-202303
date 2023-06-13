@@ -1,11 +1,11 @@
 import { context } from '../../ui';
-import { updateMail } from '../../logic/update-mail';
+import updateMail from '../../logic/update-mail';
 import './Form.css';
 import inLogger from '../../inLogger';
 import Context from '../../Context';
 import { useContext } from 'react';
 
-const MailForm = ({ onSaveClick, user}) => {
+const MailForm = ({ onSaveClick, user }) => {
   const { alert } = useContext(Context);
 
   const handleSave = (event) => {
@@ -13,7 +13,7 @@ const MailForm = ({ onSaveClick, user}) => {
     try {
       const mail = event.target.mail.value;
       updateMail(mail, context.userAuth, error => {
-        if(error){
+        if (error) {
           alert(`update mail ${error.message}`, 'danger');
           return;
         }

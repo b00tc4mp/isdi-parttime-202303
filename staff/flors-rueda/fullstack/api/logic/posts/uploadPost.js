@@ -6,6 +6,8 @@ module.exports = function uploadPost(postImg, postText, authorId, callback) {
     validatePostText(postText);
     validateCallback(callback);
 
+    //TODO add missing tests and dotenv!
+
     readFile('./data/posts.json', 'utf8', (error, json) => {
         if (error) {
             callback(error);

@@ -12,20 +12,42 @@ const { validateUsername, validatePassword, validateCallback } = validators;
  * 
  * @returns {string} The user's id
  */
-export const authenticateUser = (user, password, callback) => {
-  validateUsername(user);
+export default (username, password, callback) => {
+  validateUsername(username);
   validatePassword(password);
   validateCallback(callback);
 
-  const username = `@${user.toLowerCase()}`;
+  const xhr = new XMLHttpRequest;
 
+  xhr.onload = () => {
+    const { status } = xhr;
 
+    if (status !== 200) {
+      const { response: json } = xhr;
+      const { error } = JSON.parse(json);
 
-  findUserByUsername(username, user => {
-    if (!user || user.password !== password) {
-      callback(new Error('authentication failed'))
-      return
+      callback(new Error(error));
+
+      return;
     }
-    callback(null, user.id)
-  })
-};
+
+    const { response: json } = xhr;
+    const { userId } = JSON.parse(json);
+
+    callback(null, userId);
+  }
+
+  xhr.onerror = () => {
+    callback(new Error('connection error'));
+  }
+
+  xhr.open('POST', `${import.meta.env.VITE_API_URL}/users/auth`);
+
+  xhr.setRequestHeader('Content-Type', 'application/json');
+
+  const user = { username, password };
+  const json = JSON.stringify(user);
+
+  xhr.send(json);
+}
+

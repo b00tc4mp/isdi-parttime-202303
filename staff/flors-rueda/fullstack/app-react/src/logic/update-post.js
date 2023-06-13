@@ -1,4 +1,4 @@
-import { findPostById, findUserById} from '../data/data-managers';
+import { findPostById, findUserById } from '../data/data-managers';
 import { savePost } from '../data/data';
 import { validators } from 'com';
 
@@ -14,33 +14,39 @@ const { validateCallback, validateId, validatePostText } = validators;
  * @param {function} callback Function that controls the errors
  * 
  */
-export const updatePost = (newText, newPostImg, postId, userId, callback) => {
-  validateId(postId);
-  validateId(userId);
-  validatePostText(newText);
-  validateCallback(callback);
-  
-  findUserById(userId, user => {
-    if (!user) {
-        callback(new Error(`user with id ${userId} not found`));
-        return;
+export default (newText, newPostImg, postId, userId, callback) => {
+    validateId(postId);
+    validateId(userId);
+    validatePostText(newText);
+    validateCallback(callback);
+
+    const xhr = new XMLHttpRequest;
+
+    xhr.onload = () => {
+        const { status } = xhr;
+
+        if (status !== 204) {
+            const { response: json } = xhr;
+            const { error } = JSON.parse(json);
+
+            callback(new Error(error));
+
+            return;
+        }
+
+        callback(null);
     }
 
-    findPostById(postId, post => {
-        if (!post) {
-            callback(new Error(`post with id ${postId} not found`));
-            return;
-        }
+    xhr.onerror = () => {
+        callback(new Error('connection error'));
+    }
 
-        if (post.author !== userId) {
-            callback(new Error(`post with id ${postId} does not belong to user with id ${userId}`));
-            return;
-        }
+    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/posts/${postId}`);
 
-        post.text = newText;
-        post.image= newPostImg;
-        (post.edited).push(new Date)
-        savePost(post, () => callback(null))
-    })
-})
+    xhr.setRequestHeader('Content-Type', 'application/json');
+
+    const data = { newText, newPostImg, userId };
+    const json = JSON.stringify(data);
+
+    xhr.send(json);
 }

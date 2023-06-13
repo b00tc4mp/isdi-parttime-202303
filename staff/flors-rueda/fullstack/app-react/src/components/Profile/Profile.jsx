@@ -3,7 +3,7 @@ import './Profile.css'
 import Posts from '../posts/Posts';
 import { useState, useEffect, useContext } from 'react';
 import Settings from '../settings/Settings';
-import { retrieveUser } from '../../logic/retrieve-user';
+import retrieveUser from '../../logic/retrieve-user';
 import inLogger from '../../inLogger';
 import Context from '../../Context';
 import { context } from '../../ui';
@@ -20,7 +20,7 @@ const Profile = ({ userId, onEditPost, onDeleteAccount }) => {
   const handleToggleSettings = () => {
     setView((prevView) => (prevView === 'posts' ? 'settings' : 'posts'));
   }
-  
+
   useEffect(() => {
     try {
       retrieveUser(userId, (error, user) => {
@@ -45,9 +45,9 @@ const Profile = ({ userId, onEditPost, onDeleteAccount }) => {
   try {
     return (
       <section className={userId === context.userAuth ? "user-profile-logged" : "user-profile"}>
-        <ProfileCard userId={userId} onSettingsClick={handleToggleSettings} selectedAvatar={selectedAvatar} isSettingsOn={view === 'settings'} user={user}/>
+        <ProfileCard userId={userId} onSettingsClick={handleToggleSettings} selectedAvatar={selectedAvatar} isSettingsOn={view === 'settings'} user={user} />
         {view === 'posts' && <Posts type={userId} userId={userId} onEditPost={onEditPost} />}
-        {view === 'settings' && <Settings selectedAvatar={selectedAvatar} onAvatarChange={setSelectedAvatar} onDeleteAccount={onDeleteAccount} user={user}/>}
+        {view === 'settings' && <Settings selectedAvatar={selectedAvatar} onAvatarChange={setSelectedAvatar} onDeleteAccount={onDeleteAccount} user={user} />}
       </section>
     );
   } catch (error) {

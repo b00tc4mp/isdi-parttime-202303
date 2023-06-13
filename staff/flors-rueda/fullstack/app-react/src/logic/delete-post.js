@@ -12,7 +12,7 @@ const { validateId, validateCallback } = validators;
  * @param {function} callback Function that controls the errors
  * 
  */
-export const deletePost = (userId, postId, callback) => {   
+export default (userId, postId, callback) => {
     validateId(userId);
     validateId(postId);
     validateCallback(callback);

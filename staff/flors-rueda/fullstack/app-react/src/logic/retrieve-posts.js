@@ -12,38 +12,40 @@ const { validateCallback, validateId } = validators;
  * 
  * @returns an array of posts object
 */
-export const retrievePosts = (userId, callback) => {
+export default (userId, callback) => {
   validateId(userId);
   validateCallback(callback);
-  
-  findUserById(userId, user => {
-    if (!user) {
-      callback(new Error(`user with id ${userId} not found`));
+
+  const xhr = new XMLHttpRequest;
+
+  xhr.onload = () => {
+    const { status } = xhr;
+
+    if (status !== 200) {
+      const { response: json } = xhr;
+      const { error } = JSON.parse(json);
+
+      callback(new Error(error));
+
       return;
     }
-    loadPosts(posts => {
-      loadUsers(users => {
-        posts.sort((recent, past) => Number(new Date(past.date)) - Number(new Date(recent.date)));
-        let _posts = [];
-        posts.forEach(post => {
-          if(post.isPublic || userId === post.author) {
-            post.isFav = user.favs.includes(post.id);
 
-            const _user = users.find(user => user.id === post.author);
-  
-            post.author = {
-              id: _user.id,
-              name: _user.name,
-              username: _user.username,
-              avatar: _user.avatar
-            }
-          _posts.push(post)
-          }
+    const { response: json } = xhr;
+    const user = JSON.parse(json);
 
-        })
+    callback(null, user);
+  }
 
-        callback(null, _posts);
-      })
-    })
-  })
+  xhr.onerror = () => {
+    callback(new Error('connection error'));
+  }
+
+  xhr.open('GET', `${import.meta.env.VITE_API_URL}/posts`);
+
+  xhr.setRequestHeader('Content-Type', 'application/json');
+
+  const data = { userId };
+  const json = JSON.stringify(data);
+
+  xhr.send(json);
 }

@@ -1,20 +1,20 @@
-import { loadPosts, loadUsers } from '../data/data';
+import { loadPosts, loadUsers, savePosts, saveUsers } from '../data/data';
 import { findUserById } from '../data/data-managers';
 import { validators } from 'com';
 
-const { validateCallback, validateId } = validators;
-
+const { validateCallback, validateId, validatePassword } = validators;
 
 /**
- * Retrieve's the favorite posts and its data of an user
+ * Deletes a user by user id and password
  * 
- * @param {string} userId The user id
+ * @param {string} userId The user's id
+ * @param {string} password The user's password
  * @param {function} callback Function that controls the errors
  * 
- * @returns an array of posts object
-*/
-export default (userId, callback) => {
+ */
+export default (userId, password, callback) => {
   validateId(userId);
+  validatePassword(password);
   validateCallback(callback);
 
   const xhr = new XMLHttpRequest;
@@ -22,7 +22,7 @@ export default (userId, callback) => {
   xhr.onload = () => {
     const { status } = xhr;
 
-    if (status !== 200) {
+    if (status !== 201) {
       const { response: json } = xhr;
       const { error } = JSON.parse(json);
 
@@ -31,19 +31,19 @@ export default (userId, callback) => {
       return;
     }
 
-    const { response: json } = xhr;
-    const user = JSON.parse(json);
-
-    callback(null, user);
+    callback(null);
   }
 
   xhr.onerror = () => {
     callback(new Error('connection error'));
   }
 
-  xhr.open('GET', `${import.meta.env.VITE_API_URL}/posts/favs/${userId}`);
+  xhr.open('DELETE', `${import.meta.env.VITE_API_URL}/users/${userId}`);
 
   xhr.setRequestHeader('Content-Type', 'application/json');
+
+  const user = { password };
+  const json = JSON.stringify(user);
 
   xhr.send(json);
 }

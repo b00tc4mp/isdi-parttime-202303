@@ -18,48 +18,43 @@ const { validateCallback, validateMail, validateRepeatPassword, validateUsername
  */
 
 //TODO check username formats
-export const registerUser = (mail, username, password, repeatPassword, callback) => {
+export default (mail, username, password, repeatPassword, callback) => {
   validateMail(mail);
-  validateUsername(username);
+  //validateUsername(username);
   validateRepeatPassword(password, repeatPassword);
   validateCallback(callback);
 
-  findUserByMail(mail, foundUser => {
-    if (foundUser) {
-      callback(new Error('User already exists'));
+  const xhr = new XMLHttpRequest;
+
+  xhr.onload = () => {
+    const { status } = xhr;
+
+    if (status !== 201) {
+      const { response: json } = xhr;
+      const { error } = JSON.parse(json);
+
+      callback(new Error(error));
+
       return;
     }
 
-    findUserByUsername(`@${username.toLowerCase()}`, foundUser => {
-      if (foundUser) {
-        callback(new Error('User already exists'));
-        return;
-      }
+    callback(null);
+  }
 
-      getPokemonSprite((error, avatar) => {
-        if (error) {
-          callback(new Error(error));
-          return;
-        }
+  xhr.onerror = () => {
+    callback(new Error('connection error'));
+  }
 
-        loadUsers(users => {
-          const user = {
-            id: generateUUID(),
-            username: `@${username.toLowerCase()}`,
-            name: username,
-            mail: mail,
-            avatar: avatar,
-            password: password,
-            joined: new Date(Date.now()),
-            favs: [],
-          };
+  xhr.open('POST', `${import.meta.env.VITE_API_URL}/users`);
 
-          users.push(user);
-          saveUsers(users, () => callback(null))
-        }
-        )
-      })
-    })
-  })
+  xhr.setRequestHeader('Content-Type', 'application/json');
+
+  const user = { mail, username, password, repeatPassword };
+  const json = JSON.stringify(user);
+
+  xhr.send(json);
 }
+
+
+
 

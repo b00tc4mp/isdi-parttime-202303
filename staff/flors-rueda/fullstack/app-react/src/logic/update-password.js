@@ -16,30 +16,40 @@ const { validateCallback, validateId, validatePassword } = validators;
  * @param {function} callback Function that controls the errors
  * 
  */
-export const updatePassword = (userId, oldPassword, newPassword, repeatPassword, callback) => {
+export default (userId, oldPassword, newPassword, repeatPassword, callback) => {
     validateId(userId);
     validatePassword(oldPassword);
     validatePassword(newPassword);
     validatePassword(repeatPassword);
     validateCallback(callback);
 
-    findUserById(userId, user => {
-        if (!user) {
-            callback(new Error('user not found'));
+    const xhr = new XMLHttpRequest;
+
+    xhr.onload = () => {
+        const { status } = xhr;
+
+        if (status !== 204) {
+            const { response: json } = xhr;
+            const { error } = JSON.parse(json);
+
+            callback(new Error(error));
+
             return;
         }
 
-        if (oldPassword !== user.password) {
-            callback(new Error('wrong password'));
-            return;
-        }
+        callback(null);
+    }
 
-        if (newPassword === user.password) {
-            callback(new Error('new password equals old password'));
-            return;
-        }
+    xhr.onerror = () => {
+        callback(new Error('connection error'));
+    }
 
-        user.password = newPassword;
-        saveUser(user, () => callback(null));
-    })
+    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/users/${userId}/name`);
+
+    xhr.setRequestHeader('Content-Type', 'application/json');
+
+    const data = { oldPassword, newPassword, repeatPassword };
+    const json = JSON.stringify(data);
+
+    xhr.send(json);
 }

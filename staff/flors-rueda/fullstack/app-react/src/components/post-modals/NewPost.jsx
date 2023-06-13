@@ -1,6 +1,6 @@
 import { svg } from '../../../public/svg-paths';
 import { context } from '../../ui';
-import { uploadPost } from '../../logic/upload-post';
+import uploadPost from '../../logic/upload-post';
 import { useState, useContext } from 'react';
 import './PostModals.css';
 import inLogger from '../../inLogger';
@@ -16,19 +16,19 @@ const NewPostModal = ({ onCancel, onPostCreated }) => {
   };
 
   const handleImageChange = (event) => {
-    try{
+    try {
       const file = event.target.files[0];
       if (file) {
-          const reader = new FileReader();
-          reader.onload = () => {
-              setSelectedImage({
-                  file: file,
-                  base64: reader.result,
-              });
-          };
-          reader.readAsDataURL(file);
+        const reader = new FileReader();
+        reader.onload = () => {
+          setSelectedImage({
+            file: file,
+            base64: reader.result,
+          });
+        };
+        reader.readAsDataURL(file);
       } else {
-          setSelectedImage(null);
+        setSelectedImage(null);
       }
     } catch {
       alert(`new post error: ${error.message}`, 'danger');
@@ -47,7 +47,7 @@ const NewPostModal = ({ onCancel, onPostCreated }) => {
 
     try {
       uploadPost(image, text, context.userAuth, error => {
-        if(error){
+        if (error) {
           alert(`new post error: ${error.message}`, 'danger')
           return;
         }
@@ -73,7 +73,7 @@ const NewPostModal = ({ onCancel, onPostCreated }) => {
             className="post-modal__selected-image" src="https://us.123rf.com/450wm/mathier/mathier1905/mathier190500002/134557216-no-thumbnail-image-placeholder-for-forums-blogs-and-websites.jpg" alt="Selected Image"
           />
         }
-          <form className="post-modal__form" onSubmit={handleCreatePost}>
+        <form className="post-modal__form" onSubmit={handleCreatePost}>
           <div className="input__file" tabIndex="0">
             {/*TODO: clean code, put styles in css */}
             <svg className="post-modal__set-img" xmlns="http://www.w3.org/2000/svg" height="2rem"

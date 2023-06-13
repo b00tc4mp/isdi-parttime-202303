@@ -11,24 +11,35 @@ const { validateCallback, validateId } = validators;
  * 
  * @returns a user object
 */
-export const retrieveUser = (userId, callback) => {
-  validateId(userId);
+export default (userId, callback) => {
+  validateId(userId, 'user id');
   validateCallback(callback);
 
-  findUserById(userId, user => {
-    if (!user) {
-        callback(new Error('user not found'));
-        return;
+  const xhr = new XMLHttpRequest;
+
+  xhr.onload = () => {
+    const { status } = xhr;
+
+    if (status !== 200) {
+      const { response: json } = xhr;
+      const { error } = JSON.parse(json);
+
+      callback(new Error(error));
+
+      return;
     }
 
-    const _user = {
-      username: user.username,
-      name: user.name,
-      mail: user.mail,
-      avatar: user.avatar,
-      joined: user.joined,
-    }
+    const { response: json } = xhr;
+    const user = JSON.parse(json);
 
-    callback(null, _user)
-  })
-};
+    callback(null, user);
+  }
+
+  xhr.onerror = () => {
+    callback(new Error('connection error'));
+  }
+
+  xhr.open('GET', `${import.meta.env.VITE_API_URL}/users/${userId}`);
+
+  xhr.send();
+}

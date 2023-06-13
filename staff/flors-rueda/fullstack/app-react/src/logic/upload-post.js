@@ -14,29 +14,38 @@ const { validateCallback, validateId, validatePostText } = validators;
  * @param {function} callback Function that controls the errors
  * 
  */
-export const uploadPost = (postImg, postText, authorId, callback) => {
-  validateId(authorId);
-  validatePostText(postText);
-  validateCallback(callback);
-  
-  findUserById(authorId, user => {
-    if (!user) {
-        callback(new Error(`user with id ${authorId} not found`));
-        return;
+export default (postImg, postText, authorId, callback) => {
+    validateId(authorId);
+    validatePostText(postText);
+    validateCallback(callback);
+
+    const xhr = new XMLHttpRequest;
+
+    xhr.onload = () => {
+        const { status } = xhr;
+
+        if (status !== 201) {
+            const { response: json } = xhr;
+            const { error } = JSON.parse(json);
+
+            callback(new Error(error));
+
+            return;
+        }
+
+        callback(null);
     }
 
-    loadPosts(posts => {
-        const post = {};
-        post.id = generateUUID();
-        post.author = authorId;
-        post.text = postText;
-        post.image = postImg;
-        post.date =  new Date(Date.now());
-        post.likes = new Array;
-        post.edited = new Array;
-        post.isPublic = true
-        posts.push(post)
-        savePosts(posts, () => callback(null))
-    })
-})
+    xhr.onerror = () => {
+        callback(new Error('connection error'));
+    }
+
+    xhr.open('POST', `${import.meta.env.VITE_API_URL}/posts`);
+
+    xhr.setRequestHeader('Content-Type', 'application/json');
+
+    const user = { postImg, postText, authorId };
+    const json = JSON.stringify(user);
+
+    xhr.send(json);
 }

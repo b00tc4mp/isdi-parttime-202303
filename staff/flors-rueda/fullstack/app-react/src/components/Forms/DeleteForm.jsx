@@ -1,9 +1,11 @@
 import { context } from '../../ui';
-import { deleteUser } from '../../logic/deleteUser';
+import deleteUser from '../../logic/delete-user';
 import './Form.css';
 import inLogger from '../../inLogger';
 import Context from '../../Context';
 import { useContext } from 'react';
+
+//TODO find why delete gives bad request
 
 const DeleteForm = ({ onDeleteClick }) => {
   const { alert } = useContext(Context);
@@ -13,7 +15,7 @@ const DeleteForm = ({ onDeleteClick }) => {
     try {
       const password = event.target.password.value;
       deleteUser(context.userAuth, password, error => {
-        if(error){
+        if (error) {
           alert(`delete user error: ${error.message}`, 'danger');
           return;
         }
@@ -28,7 +30,7 @@ const DeleteForm = ({ onDeleteClick }) => {
   return <article className="settings-form">
     <div className="delete-info"><b>!!</b> if you delete your account all your posts, favs and likes will be gonne forever...</div>
     <form onSubmit={handleDelete}>
-    <input className="settings-form--input" name="password" type="password" placeholder="confirm with your password" required />
+      <input className="settings-form--input" name="password" type="password" placeholder="confirm with your password" required />
       <div className="settings-form--save">
         <button className="danger" type="submit">delete</button>
       </div>

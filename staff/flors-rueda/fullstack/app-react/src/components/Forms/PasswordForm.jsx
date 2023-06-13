@@ -1,5 +1,5 @@
 import { context } from '../../ui';
-import { updatePassword } from '../../logic/update-password';
+import updatePassword from '../../logic/update-password';
 import './Form.css';
 import inLogger from '../../inLogger';
 import Context from '../../Context';
@@ -15,7 +15,7 @@ const PasswordForm = ({ onSaveClick }) => {
       const repeatPassword = event.target.repeatPassword.value;
       const oldPassword = event.target.oldPassword.value;
       updatePassword(context.userAuth, oldPassword, repeatPassword, newPassword, error => {
-        if(error){
+        if (error) {
           alert(`update password error: ${error.message}`, 'danger');
           return;
         }
@@ -25,14 +25,14 @@ const PasswordForm = ({ onSaveClick }) => {
       alert(`update password error: ${error.message}`, 'danger');
     }
   }
-  
-    return <article className="settings-form">
+
+  return <article className="settings-form">
     <form onSubmit={handleSave}>
-          <input className="settings-form--input" name="password" type="password" placeholder="your new password" required />
-          <input className="settings-form--input" name="repeatPassword" type="password" placeholder="repeat your new password" required />
-          <input className="settings-form--input" name="oldPassword" type="password" placeholder="your old password" required />
+      <input className="settings-form--input" name="password" type="password" placeholder="your new password" required />
+      <input className="settings-form--input" name="repeatPassword" type="password" placeholder="repeat your new password" required />
+      <input className="settings-form--input" name="oldPassword" type="password" placeholder="your old password" required />
       <div className="settings-form--save">
-      <button type="submit" className="success">save</button>
+        <button type="submit" className="success">save</button>
       </div>
     </form>
   </article>
