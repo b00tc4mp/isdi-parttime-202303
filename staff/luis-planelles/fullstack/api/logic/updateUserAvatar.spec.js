@@ -32,7 +32,7 @@ describe('updateUserAvatar', () => {
       updateUserAvatar(id, newAvatar, (error) => {
         expect(error).to.be.null;
 
-        readFile(`./data/users.json`, (error, json) => {
+        readFile(`${process.env.DB_PATH}/users.json`, (error, json) => {
           expect(error).to.be.null;
 
           const [{ avatar }] = JSON.parse(json);

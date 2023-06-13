@@ -29,7 +29,7 @@ const updateUserAvatar = (userId, newAvatar, callback) => {
 
     const updatedJson = JSON.stringify(users);
 
-    writeFile(`./data/users.json`, updatedJson, (error) => {
+    writeFile(`${process.env.DB_PATH}/users.json`, updatedJson, (error) => {
       if (error) {
         callback(error);
 
