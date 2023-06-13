@@ -2,11 +2,12 @@ const { readFile, writeFile } = require('fs')
 const { validators: { validateId, validatePassword, validateCallback } } = require('com')
 
 
-module.exports = (userId, password, newPassword, newPasswordConfirm, callback) => {
+module.exports = (userId, password, newPassword, newPasswordConfirm, previousPassword, callback) => {
     validateId(userId, 'user Id')
     validatePassword(password, 'password')
     validatePassword(newPassword, 'new Password')
     validatePassword(newPasswordConfirm, 'new Password Confirm')
+    validatePassword(previousPassword, 'previous Password Confirm')
     validateCallback(callback)
 
     if (previousPassword === newPassword) throw new Error(

@@ -3,8 +3,8 @@
         "id": "user-1",
         "name": "Eki Estrella",
         "email": "enki@gmail.com",
-        "password": "123123123",
-        "avatar": null,
+        "password": "234234234",
+        "avatar": "https://www.sideshow.com/cdn-cgi/image/height=200,quality=90,f=auto/https://www.sideshow.com/storage/product-images/907383/astro-boy-version-15_astro-boy_square_sm.jpg",
         "favs": []
     }
 ]

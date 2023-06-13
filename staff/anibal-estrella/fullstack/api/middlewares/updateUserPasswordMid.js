@@ -9,7 +9,7 @@ module.exports = (req, res) => {
         try {
             const { userId, password, previousPassword, newPassword, newPasswordConfirm } = JSON.parse(json)
 
-            updateUserPassword(userId, password, previousPassword, newPassword, newPasswordConfirm, error => {
+            updateUserPassword(userId, password, newPassword, newPasswordConfirm, previousPassword, error => {
                 if (error) {
                     res.status(400).json({ error: error.message })
 

@@ -14,6 +14,7 @@ module.exports = (req, res, next) => {
     req.on('end', () => {
         try {
             req.body = JSON.parse(json)
+
             next()
         } catch (error) {
             res.status(400).json({ error: error.message })

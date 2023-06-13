@@ -25,9 +25,9 @@ api.post('/users/auth', jsonBodyParser, authenticateUserMid)
 
 api.get('/users', retrieveUserMid)
 
-api.patch('/users/:userId', jsonBodyParser, updateUserAvatarMid)
+api.patch('/users', jsonBodyParser, updateUserAvatarMid)
 
-api.patch('/users/:userId/password', updateUserPasswordMid)
+api.patch('/users/password', updateUserPasswordMid)
 
 api.post('/posts', jsonBodyParser, createPostMid)
 
