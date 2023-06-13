@@ -16,13 +16,13 @@ const Post = ({ post, author, onEditPost, onToggledPublicStat, onToggledLike, on
     const handleToggleLikePost = () => {
         try {
             toggleLike(post.id, context.userAuth, error => {
-                if(error){
+                if (error) {
                     alert(`post like error: ${error.message}`, 'danger');
                     return;
                 }
                 onToggledLike();
             });
-            
+
         } catch (error) {
             alert(`post like error: ${error.message}`, 'danger');
         }
@@ -31,7 +31,7 @@ const Post = ({ post, author, onEditPost, onToggledPublicStat, onToggledLike, on
     const handleToggleFavPost = () => {
         try {
             toggleFav(post.id, context.userAuth, error => {
-                if(error){
+                if (error) {
                     alert(`post fav error: ${error.message}`, 'danger');
                     return;
                 }
@@ -45,7 +45,7 @@ const Post = ({ post, author, onEditPost, onToggledPublicStat, onToggledLike, on
     const handleToggledPublicStat = () => {
         try {
             togglePublicStat(post.id, context.userAuth, error => {
-                if(error){
+                if (error) {
                     alert(`post public stat error: ${error.message}`, 'danger');
                     return;
                 }
@@ -56,7 +56,7 @@ const Post = ({ post, author, onEditPost, onToggledPublicStat, onToggledLike, on
         }
     }
 
-    let timeDifference = new Date() - post.date;
+    let timeDifference = new Date() - new Date(post.date);
     const hours = Math.floor(timeDifference / 3600000);
     let time;
 
@@ -66,10 +66,10 @@ const Post = ({ post, author, onEditPost, onToggledPublicStat, onToggledLike, on
         if (hours === 0 && minutes > 0) time = <time className="post__footer--date">{minutes} minutes ago</time>
         if (minutes === 0) time = <time className="post__footer--date">just now</time>
     } else {
-        time = <time className="post__footer--date">{post.date.toLocaleDateString("en-GB")}</time>
+        time = <time className="post__footer--date">{new Date(post.date).toLocaleDateString("en-GB")}</time>
     }
 
-    return <article className={!isProfileView ? "post-card" : userId===context.userAuth ? "post-card__profile" : "post-card__user"}>
+    return <article className={!isProfileView ? "post-card" : userId === context.userAuth ? "post-card__profile" : "post-card__user"}>
         <div className="post-card__header">
             {!isProfileView && (
                 <div className="post-card__header--author-data" onClick={handleToAuthorProfile}>
@@ -78,8 +78,8 @@ const Post = ({ post, author, onEditPost, onToggledPublicStat, onToggledLike, on
                     <p className="post-card__header--author-username">{author.username}</p>
                 </div>
             )}
-            {(post.author === context.userAuth || author.id === context.userAuth)  && (<svg className="post-card__header--to-edit-post" onClick={handleToggledPublicStat} xmlns="http://www.w3.org/2000/svg" viewBox="0 96 960 960"><path d={post.isPublic ? svg.lockOpen : svg.lock} /></svg>)}
-            {(post.author === context.userAuth || author.id === context.userAuth)  && (<svg className="post-card__header--to-edit-post" onClick={handleEditPost} xmlns="http://www.w3.org/2000/svg" viewBox="0 96 960 960"><path d={svg.edit} /></svg>)}</div>
+            {(post.author === context.userAuth || author.id === context.userAuth) && (<svg className="post-card__header--to-edit-post" onClick={handleToggledPublicStat} xmlns="http://www.w3.org/2000/svg" viewBox="0 96 960 960"><path d={post.isPublic ? svg.lockOpen : svg.lock} /></svg>)}
+            {(post.author === context.userAuth || author.id === context.userAuth) && (<svg className="post-card__header--to-edit-post" onClick={handleEditPost} xmlns="http://www.w3.org/2000/svg" viewBox="0 96 960 960"><path d={svg.edit} /></svg>)}</div>
         <div className="post-card__body--image-container">
             <img className="post-card__body--image-container--image" src={post.image} />
         </div>

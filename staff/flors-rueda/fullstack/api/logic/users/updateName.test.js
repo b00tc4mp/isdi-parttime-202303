@@ -22,16 +22,16 @@ describe('updateName', () => {
 
     it('should update the name successfully', done => {
         const newName = 'newName';
-        const userId = '123';
+        const userAuth = '123';
 
-        updateName(newName, userId, error => {
+        updateName(newName, userAuth, error => {
             expect(error).to.be.null;
 
             readFile('./data/users.json', 'utf8', (error, json) => {
                 expect(error).to.be.null;
 
                 const users = JSON.parse(json);
-                const user = users.find(user => user.id === userId);
+                const user = users.find(user => user.id === userAuth);
 
                 expect(user.name).to.equal(newName);
                 done();
@@ -41,9 +41,9 @@ describe('updateName', () => {
 
     it('should fail if user is not found', done => {
         const newName = 'newName';
-        const userId = '345';
+        const userAuth = '345';
 
-        updateName(newName, userId, error => {
+        updateName(newName, userAuth, error => {
             expect(error).to.be.instanceOf(Error);
             expect(error.message).to.equal('user not found');
 

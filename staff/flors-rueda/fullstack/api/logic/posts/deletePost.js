@@ -1,8 +1,8 @@
 const { readFile, writeFile } = require('fs');
 const { validators: { validateCallback, validateId } } = require('com');
 
-module.exports = function deletePost(userId, postId, callback) {
-    validateId(userId);
+module.exports = function deletePost(userAuth, postId, callback) {
+    validateId(userAuth);
     validateId(postId);
     validateCallback(callback);
 
@@ -14,7 +14,7 @@ module.exports = function deletePost(userId, postId, callback) {
 
         const users = JSON.parse(usersJson);
 
-        const user = users.find(user => user.id === userId);
+        const user = users.find(user => user.id === userAuth);
 
         if (!user) {
             callback(new Error('authentication failed'));
@@ -30,7 +30,7 @@ module.exports = function deletePost(userId, postId, callback) {
             const posts = JSON.parse(postsJson);
             const postIndex = posts.findIndex(post => post.id === postId);
 
-            if (postIndex === -1 || posts[postIndex].author !== userId) {
+            if (postIndex === -1 || posts[postIndex].author !== userAuth) {
                 callback(new Error('post authentication failed'));
                 return;
             }

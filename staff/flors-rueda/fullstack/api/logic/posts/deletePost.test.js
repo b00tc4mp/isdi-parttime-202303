@@ -37,10 +37,10 @@ describe('deletePost', () => {
     });
 
     it('should delete a post when given valid user ID and post ID', done => {
-        const userId = '123';
+        const userAuth = '123';
         const postId = '456';
 
-        deletePost(userId, postId, error => {
+        deletePost(userAuth, postId, error => {
             expect(error).to.be.null;
 
             readFile('./data/posts.json', 'utf8', (error, json) => {
@@ -59,10 +59,10 @@ describe('deletePost', () => {
     });
 
     it('should fail when given invalid user id', done => {
-        const userId = '999';
+        const userAuth = '999';
         const postId = '456';
 
-        deletePost(userId, postId, error => {
+        deletePost(userAuth, postId, error => {
             expect(error).to.be.instanceOf(Error);
             expect(error.message).to.equal('authentication failed');
             done();
@@ -70,10 +70,10 @@ describe('deletePost', () => {
     });
 
     it('should fail when given invalid post id', done => {
-        const userId = '123';
+        const userAuth = '123';
         const postId = '999';
 
-        deletePost(userId, postId, error => {
+        deletePost(userAuth, postId, error => {
             expect(error).to.be.instanceOf(Error);
             expect(error.message).to.equal('post authentication failed');
             done();

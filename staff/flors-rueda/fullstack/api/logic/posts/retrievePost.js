@@ -1,8 +1,8 @@
 const { readFile } = require('fs');
 const { validators: { validateCallback, validateId } } = require('com');
 
-module.exports = function retrievePost(userId, postId, callback) {
-    validateId(userId);
+module.exports = function retrievePost(userAuth, postId, callback) {
+    validateId(userAuth);
     validateId(postId);
     validateCallback(callback);
 
@@ -14,10 +14,10 @@ module.exports = function retrievePost(userId, postId, callback) {
 
         const users = JSON.parse(usersJson);
 
-        const user = users.find(user => user.id === userId);
+        const user = users.find(user => user.id === userAuth);
 
         if (!user) {
-            callback(new Error(`user with id ${userId} not found`));
+            callback(new Error(`user with id ${userAuth} not found`));
             return;
         }
 

@@ -10,13 +10,13 @@ const { validateCallback, validateId, validatePostText } = validators;
  * @param {string} newText The post text
  * @param {string} newPostImg The base64 string of the post image
  * @param {string} postId The id of the post to edit
- * @param {string} userId The user logged id
+ * @param {string} userAuth The user logged id
  * @param {function} callback Function that controls the errors
  * 
  */
-export default (newText, newPostImg, postId, userId, callback) => {
+export default (newText, newPostImg, postId, userAuth, callback) => {
     validateId(postId);
-    validateId(userId);
+    validateId(userAuth);
     validatePostText(newText);
     validateCallback(callback);
 
@@ -44,8 +44,9 @@ export default (newText, newPostImg, postId, userId, callback) => {
     xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/posts/${postId}`);
 
     xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.setRequestHeader('Authorization', `Bearer ${userAuth}`);
 
-    const data = { newText, newPostImg, userId };
+    const data = { newText, newPostImg };
     const json = JSON.stringify(data);
 
     xhr.send(json);

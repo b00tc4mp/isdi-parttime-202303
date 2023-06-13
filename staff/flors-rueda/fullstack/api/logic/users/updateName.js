@@ -1,9 +1,9 @@
 const { validators: { validateId, validateName, validateCallback } } = require('com')
 const { readFile, writeFile } = require('fs')
 
-module.exports = function updateName(name, userId, callback) {
+module.exports = function updateName(name, userAuth, callback) {
     validateName(name);
-    validateId(userId);
+    validateId(userAuth);
     validateCallback(callback);
 
     readFile('./data/users.json', 'utf-8', (error, json) => {
@@ -14,7 +14,7 @@ module.exports = function updateName(name, userId, callback) {
 
         const users = JSON.parse(json)
 
-        let user = users.find(user => user.id === userId);
+        let user = users.find(user => user.id === userAuth);
 
         if (!user) {
             callback(new Error('user not found'));

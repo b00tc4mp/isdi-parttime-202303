@@ -1,299 +1,50 @@
 require('dotenv').config();
 
 const express = require('express');
-const { registerUser, authenticateUser, retrieveUser, deleteUser, updateAvatar, updateName, updateMail, updatePassword, uploadPost, updatePost, retrievePost, retrievePosts, retrieveUserPosts, retrieveFavoritePosts } = require('./logic');
+
+const { registerUserMid, authenticateUserMid, retrieveUserMid, deleteUserMid, updateAvatarMid, updateNameMid, updateMailMid, updatePasswordMid, retrievePostsMid, retrievePostMid, updatePostMid, retrieveUserPostsMid, retrieveFavoritePostsMid, uploadPostMid, deletePostMid, toggleLikeMid, toggleFavMid, togglePublicStatMid } = require('./middlewares');
+
+const { cors, jsonBodyParser } = require('./utils');
 
 const api = express();
 
-api.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Headers', '*');
-    res.setHeader('Access-Control-Allow-Methods', '*');
-    next();
-})
+api.use(cors);
 
-api.post('/users', (req, res) => {
-    let json = '';
+api.post('/users', jsonBodyParser, registerUserMid);
 
-    req.on('data', chunk => json += chunk);
+api.post('/users/auth', jsonBodyParser, authenticateUserMid);
 
-    req.on('end', () => {
-        const { mail, username, password, repeatPassword } = JSON.parse(json);
+api.get('/users/:userId', retrieveUserMid);
 
-        try {
-            registerUser(mail, username, password, repeatPassword, error => {
-                if (error) {
-                    res.status(400).json({ error: error.message });
-                    return;
-                }
+api.delete('/users', jsonBodyParser, deleteUserMid);
 
-                res.status(201).send();
-            })
-        } catch (error) {
-            res.status(400).json({ error: error.message });
-        }
-    })
-})
+api.patch('/users/avatar', jsonBodyParser, updateAvatarMid);
 
-//TODO change userId to auth header
+api.patch('/users/name', jsonBodyParser, updateNameMid);
 
-api.post('/users/auth', (req, res) => {
-    let json = '';
+api.patch('/users/mail', jsonBodyParser, updateMailMid);
 
-    req.on('data', chunk => json += chunk);
+api.patch('/users/password', jsonBodyParser, updatePasswordMid);
 
-    req.on('end', () => {
-        try {
-            const { username, password } = JSON.parse(json);
+api.post('/posts', jsonBodyParser, uploadPostMid);
 
-            authenticateUser(username, password, (error, userId) => {
-                if (error) {
-                    res.status(400).json({ error: error.message });
-                    return;
-                }
+api.get('/posts', retrievePostsMid);
 
-                res.json({ userId });
-            })
-        } catch (error) {
-            res.status(400).json({ error: error.message });
-        }
-    })
-})
+api.get('/posts/favs', retrieveFavoritePostsMid);
 
-api.get('/users/:userId', (req, res) => {
-    try {
-        const { userId } = req.params;
+api.get('/posts/user/:userId', retrieveUserPostsMid);
 
-        retrieveUser(userId, (error, user) => {
-            if (error) {
-                res.status(400).json({ error: error.message });
-                return;
-            }
+api.get('/posts/:postId', retrievePostMid);
 
-            res.json(user);
-        })
-    } catch (error) {
-        res.status(400).json({ error: error.message });
-    }
-})
+api.delete('/posts/:postId', deletePostMid)
 
-api.delete('/users/:userId', (req, res) => {
-    let json = '';
+api.patch('/posts/:postId', jsonBodyParser, updatePostMid);
 
-    req.on('data', chunk => json += chunk);
+api.patch('/posts/:postId/likes', toggleLikeMid);
 
-    try {
-        const { userId } = req.params;
-        const { password } = JSON.parse(json);
+api.patch('/posts/:postId/favs', toggleFavMid);
 
-        deleteUser(userId, password, (error, user) => {
-            if (error) {
-                res.status(400).json({ error: error.message });
-                return;
-            }
+api.patch('/posts/:postId/public', togglePublicStatMid);
 
-            res.sendStatus(204);
-        })
-
-    } catch (error) {
-        res.status(400).json({ error: error.message });
-    }
-
-});
-
-api.patch('/users/:userId/avatar', (req, res) => {
-    let json = ''
-
-    req.on('data', chunk => json += chunk);
-
-    req.on('end', () => {
-        try {
-            const { userId } = req.params;
-            const { newSrc } = JSON.parse(json);
-
-            updateAvatar(newSrc, userId, error => {
-                if (error) {
-                    res.status(400).json({ error: error.message });
-                    return;
-                }
-
-                res.status(204).send();
-            })
-        } catch (error) {
-            res.status(400).json({ error: error.message });
-        }
-    })
-})
-
-api.patch('/users/:userId/name', (req, res) => {
-    let json = '';
-
-    req.on('data', chunk => json += chunk);
-
-    req.on('end', () => {
-        try {
-            const { userId } = req.params;
-            const { name } = JSON.parse(json);
-
-            updateName(name, userId, error => {
-                if (error) {
-                    res.status(400).json({ error: error.message });
-                    return;
-                }
-
-                res.status(204).send();
-            })
-        } catch (error) {
-            res.status(400).json({ error: error.message });
-        }
-    })
-})
-
-api.patch('/users/:userId/mail', (req, res) => {
-    let json = '';
-
-    req.on('data', chunk => json += chunk);
-
-    req.on('end', () => {
-        try {
-            const { userId } = req.params;
-            const { mail } = JSON.parse(json);
-
-            updateMail(mail, userId, error => {
-                if (error) {
-                    res.status(400).json({ error: error.message });
-                    return;
-                }
-
-                res.status(204).send();
-            })
-        } catch (error) {
-            res.status(400).json({ error: error.message });
-        }
-    })
-})
-
-api.patch('/users/:userId/password', (req, res) => {
-    let json = '';
-
-    req.on('data', chunk => json += chunk);
-
-    req.on('end', () => {
-        try {
-            const { userId } = req.params;
-            const { oldPassword, newPassword, repeatPassword } = JSON.parse(json);
-
-            updatePassword(userId, oldPassword, newPassword, repeatPassword, error => {
-                if (error) {
-                    res.status(400).json({ error: error.message });
-                    return;
-                }
-
-                res.status(204).send();
-            })
-        } catch (error) {
-            res.status(400).json({ error: error.message });
-        }
-    })
-})
-
-api.post('/posts', (req, res) => {
-    let json = '';
-
-    req.on('data', chunk => json += chunk);
-
-    req.on('end', () => {
-        const { postImg, postText, authorId } = JSON.parse(json);
-
-        try {
-            uploadPost(postImg, postText, authorId, error => {
-                if (error) {
-                    res.status(400).json({ error: error.message });
-                    return;
-                }
-
-                res.status(201).send();
-            })
-        } catch (error) {
-            res.status(400).json({ error: error.message });
-        }
-    })
-})
-
-api.patch('/posts/:postId', (req, res) => {
-    let json = '';
-
-    req.on('data', chunk => json += chunk);
-
-    req.on('end', () => {
-        try {
-            const { postId } = req.params;
-            const { newText, newPostImg, userId } = JSON.parse(json);
-
-            updatePost(newText, newPostImg, postId, userId, error => {
-                if (error) {
-                    res.status(400).json({ error: error.message });
-                    return;
-                }
-
-                res.status(204).send();
-            })
-        } catch (error) {
-            res.status(400).json({ error: error.message });
-        }
-    })
-})
-
-api.get('/posts/:postId', (req, res) => {
-    try {
-        const { postId } = req.params;
-        const { userId } = JSON.parse(json);
-
-        retrievePost(userId, postId, (error, post) => {
-            if (error) {
-                res.status(400).json({ error: error.message });
-                return;
-            }
-
-            res.json(post);
-        })
-    } catch (error) {
-        res.status(400).json({ error: error.message });
-    }
-})
-
-api.get('/posts', (req, res) => {
-    try {
-        const { userId } = JSON.parse(json);
-
-        retrievePosts(userId, (error, posts) => {
-            if (error) {
-                res.status(400).json({ error: error.message });
-                return;
-            }
-
-            res.json(posts);
-        })
-    } catch (error) {
-        res.status(400).json({ error: error.message });
-    }
-})
-
-api.get('/posts/favs/:userId', (req, res) => {
-    try {
-        const { userId } = req.params;
-
-        retrieveFavoritePosts(userId, (error, posts) => {
-            if (error) {
-                res.status(400).json({ error: error.message });
-                return;
-            }
-
-            res.json(posts);
-        })
-    } catch (error) {
-        res.status(400).json({ error: error.message });
-    }
-})
 
 api.listen(process.env.PORT, () => console.log(`server running in port ${process.env.PORT}`));

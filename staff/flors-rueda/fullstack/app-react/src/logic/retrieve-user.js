@@ -1,4 +1,3 @@
-import { findUserById } from '../data/data-managers';
 import { validators } from 'com';
 
 const { validateCallback, validateId } = validators;
@@ -12,7 +11,7 @@ const { validateCallback, validateId } = validators;
  * @returns a user object
 */
 export default (userId, callback) => {
-  validateId(userId, 'user id');
+  validateId(userId);
   validateCallback(callback);
 
   const xhr = new XMLHttpRequest;
@@ -39,7 +38,7 @@ export default (userId, callback) => {
     callback(new Error('connection error'));
   }
 
-  xhr.open('GET', `${import.meta.env.VITE_API_URL}/users/${userId}`);
+  xhr.open('GET', `${import.meta.env.VITE_API_URL}/users/${userId}`)
 
   xhr.send();
 }

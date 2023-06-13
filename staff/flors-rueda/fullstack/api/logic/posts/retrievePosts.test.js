@@ -38,9 +38,9 @@ describe('retrievePosts', () => {
     });
 
     it('should retrieve and filter posts for a valid user ID', done => {
-        const userId = '123';
+        const userAuth = '123';
 
-        retrievePosts(userId, (error, posts) => {
+        retrievePosts(userAuth, (error, posts) => {
             expect(error).to.be.null;
             expect(posts).to.be.an('array');
             expect(posts).to.have.lengthOf(1);
@@ -65,11 +65,11 @@ describe('retrievePosts', () => {
 
 
     it('should return an error when given an invalid user id', done => {
-        const userId = '999';
+        const userAuth = '999';
 
-        retrievePosts(userId, (error, posts) => {
+        retrievePosts(userAuth, (error, posts) => {
             expect(error).to.be.instanceOf(Error);
-            expect(error.message).to.equal(`user with id ${userId} not found`);
+            expect(error.message).to.equal(`user with id ${userAuth} not found`);
             expect(posts).to.be.undefined;
             done();
         });

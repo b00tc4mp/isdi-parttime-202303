@@ -1,9 +1,9 @@
 const { readFile, writeFile } = require('fs');
 const { validators: { validateCallback, validateId } } = require('com');
 
-module.exports = function toggleLike(postId, userId, callback) {
+module.exports = function toggleLike(postId, userAuth, callback) {
     validateId(postId);
-    validateId(userId);
+    validateId(userAuth);
     validateCallback(callback);
 
     readFile('./data/posts.json', 'utf8', (error, json) => {
@@ -22,10 +22,10 @@ module.exports = function toggleLike(postId, userId, callback) {
 
             const users = JSON.parse(usersJson);
 
-            const user = users.find(user => user.id === userId);
+            const user = users.find(user => user.id === userAuth);
 
             if (!user) {
-                callback(new Error(`user with id ${userId} not found`));
+                callback(new Error(`user with id ${userAuth} not found`));
                 return;
             }
 
@@ -36,8 +36,8 @@ module.exports = function toggleLike(postId, userId, callback) {
                 return;
             }
 
-            const index = post.likes.indexOf(userId);
-            index < 0 ? post.likes.push(userId) : post.likes.splice(index, 1);
+            const index = post.likes.indexOf(userAuth);
+            index < 0 ? post.likes.push(userAuth) : post.likes.splice(index, 1);
 
             const postsJson = JSON.stringify(posts, null, 4);
 

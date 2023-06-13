@@ -1,8 +1,8 @@
 const { validators: { validateCallback, validateId, validatePassword, validateRepeatPassword } } = require('com');
 const { readFile, writeFile } = require('fs')
 
-module.exports = function updatePassword(userId, oldPassword, newPassword, repeatPassword, callback) {
-    validateId(userId);
+module.exports = function updatePassword(userAuth, oldPassword, newPassword, repeatPassword, callback) {
+    validateId(userAuth);
     validatePassword(oldPassword);
     validateRepeatPassword(newPassword, repeatPassword);
     validateCallback(callback);
@@ -16,7 +16,7 @@ module.exports = function updatePassword(userId, oldPassword, newPassword, repea
 
         const users = JSON.parse(json)
 
-        let user = users.find(user => user.id === userId);
+        let user = users.find(user => user.id === userAuth);
 
         if (!user) {
             callback(new Error('user not found'));

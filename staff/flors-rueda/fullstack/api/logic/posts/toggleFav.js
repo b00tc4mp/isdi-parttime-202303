@@ -1,8 +1,8 @@
 const { readFile, writeFile } = require('fs');
 const { validators: { validateCallback, validateId } } = require('com');
 
-module.exports = function toggleFav(postId, userId, callback) {
-    validateId(userId);
+module.exports = function toggleFav(postId, userAuth, callback) {
+    validateId(userAuth);
     validateId(postId);
     validateCallback(callback);
 
@@ -22,10 +22,10 @@ module.exports = function toggleFav(postId, userId, callback) {
 
             const posts = JSON.parse(postsJson);
 
-            const user = users.find(user => user.id === userId);
+            const user = users.find(user => user.id === userAuth);
 
             if (!user) {
-                callback(new Error(`user with id ${userId} not found`));
+                callback(new Error(`user with id ${userAuth} not found`));
                 return;
             }
 

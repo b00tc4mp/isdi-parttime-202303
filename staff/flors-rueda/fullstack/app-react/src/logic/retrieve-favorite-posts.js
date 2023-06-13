@@ -8,42 +8,42 @@ const { validateCallback, validateId } = validators;
 /**
  * Retrieve's the favorite posts and its data of an user
  * 
- * @param {string} userId The user id
+ * @param {string} userAuth The user id
  * @param {function} callback Function that controls the errors
  * 
  * @returns an array of posts object
 */
-export default (userId, callback) => {
-  validateId(userId);
+export default (userAuth, callback) => {
+  validateId(userAuth);
   validateCallback(callback);
 
   const xhr = new XMLHttpRequest;
 
   xhr.onload = () => {
-    const { status } = xhr;
+    const { status } = xhr
 
     if (status !== 200) {
-      const { response: json } = xhr;
-      const { error } = JSON.parse(json);
+      const { response: json } = xhr
+      const { error } = JSON.parse(json)
 
-      callback(new Error(error));
+      callback(new Error(error))
 
-      return;
+      return
     }
 
-    const { response: json } = xhr;
-    const user = JSON.parse(json);
+    const { response: json } = xhr
+    const posts = JSON.parse(json)
 
-    callback(null, user);
+    callback(null, posts)
   }
 
   xhr.onerror = () => {
-    callback(new Error('connection error'));
+    callback(new Error('Connection error'))
   }
 
-  xhr.open('GET', `${import.meta.env.VITE_API_URL}/posts/favs/${userId}`);
+  xhr.open('GET', `${import.meta.env.VITE_API_URL}/posts/favs`)
 
-  xhr.setRequestHeader('Content-Type', 'application/json');
+  xhr.setRequestHeader('Authorization', `Bearer ${userAuth}`)
 
-  xhr.send(json);
+  xhr.send()
 }

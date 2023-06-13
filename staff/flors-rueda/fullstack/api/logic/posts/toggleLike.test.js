@@ -39,9 +39,9 @@ describe('toggleLike', () => {
 
     it('should add the user ID to the post\'s likes when it is not already liked', done => {
         const postId = '456';
-        const userId = '123';
+        const userAuth = '123';
 
-        toggleLike(postId, userId, error => {
+        toggleLike(postId, userAuth, error => {
             expect(error).to.be.null;
 
             readFile('./data/posts.json', 'utf8', (error, json) => {
@@ -52,7 +52,7 @@ describe('toggleLike', () => {
 
                 const posts = JSON.parse(json);
                 const post = posts.find(post => post.id === postId);
-                expect(post.likes).to.include(userId);
+                expect(post.likes).to.include(userAuth);
 
                 done();
             });
@@ -61,7 +61,7 @@ describe('toggleLike', () => {
 
     it('should remove the user ID from the post\'s likes when it is already liked', done => {
         const postId = '456';
-        const userId = '123';
+        const userAuth = '123';
 
         const posts = [
             {
@@ -70,7 +70,7 @@ describe('toggleLike', () => {
                 content: 'This is a test post',
                 author: '789',
                 createdAt: Date.now(),
-                likes: [userId]
+                likes: [userAuth]
             }
         ];
         const postsJson = JSON.stringify(posts, null, 4);
@@ -80,7 +80,7 @@ describe('toggleLike', () => {
                 return;
             }
 
-            toggleLike(postId, userId, error => {
+            toggleLike(postId, userAuth, error => {
                 expect(error).to.be.null;
 
                 readFile('./data/posts.json', 'utf8', (error, json) => {
@@ -91,7 +91,7 @@ describe('toggleLike', () => {
 
                     const posts = JSON.parse(json);
                     const post = posts.find(post => post.id === postId);
-                    expect(post.likes).to.not.include(userId);
+                    expect(post.likes).to.not.include(userAuth);
 
                     done();
                 });
@@ -101,9 +101,9 @@ describe('toggleLike', () => {
 
     it('should fail when given an invalid post ID', done => {
         const postId = '999';
-        const userId = '123';
+        const userAuth = '123';
 
-        toggleLike(postId, userId, error => {
+        toggleLike(postId, userAuth, error => {
             expect(error).to.be.instanceOf(Error);
             expect(error.message).to.equal(`post with id ${postId} not found`);
             done();
@@ -112,11 +112,11 @@ describe('toggleLike', () => {
 
     it('should fail when given an invalid user ID', done => {
         const postId = '456';
-        const userId = '999';
+        const userAuth = '999';
 
-        toggleLike(postId, userId, error => {
+        toggleLike(postId, userAuth, error => {
             expect(error).to.be.instanceOf(Error);
-            expect(error.message).to.equal(`user with id ${userId} not found`);
+            expect(error.message).to.equal(`user with id ${userAuth} not found`);
             done();
         });
     });

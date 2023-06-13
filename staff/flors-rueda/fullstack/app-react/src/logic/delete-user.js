@@ -7,13 +7,13 @@ const { validateCallback, validateId, validatePassword } = validators;
 /**
  * Deletes a user by user id and password
  * 
- * @param {string} userId The user's id
+ * @param {string} userAuth The user's id
  * @param {string} password The user's password
  * @param {function} callback Function that controls the errors
  * 
  */
-export default (userId, password, callback) => {
-  validateId(userId);
+export default (userAuth, password, callback) => {
+  validateId(userAuth);
   validatePassword(password);
   validateCallback(callback);
 
@@ -38,9 +38,10 @@ export default (userId, password, callback) => {
     callback(new Error('connection error'));
   }
 
-  xhr.open('DELETE', `${import.meta.env.VITE_API_URL}/users/${userId}`);
+  xhr.open('DELETE', `${import.meta.env.VITE_API_URL}/users`);
 
   xhr.setRequestHeader('Content-Type', 'application/json');
+  xhr.setRequestHeader('Authorization', `Bearer ${userAuth}`);
 
   const user = { password };
   const json = JSON.stringify(user);

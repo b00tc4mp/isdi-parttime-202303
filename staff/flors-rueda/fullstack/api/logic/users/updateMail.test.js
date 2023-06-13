@@ -22,16 +22,16 @@ describe('updateMail', () => {
 
     it('should update the mail successfully', done => {
         const newMail = 'newmail@example.com';
-        const userId = '123';
+        const userAuth = '123';
 
-        updateMail(newMail, userId, error => {
+        updateMail(newMail, userAuth, error => {
             expect(error).to.be.null;
 
             readFile('./data/users.json', 'utf8', (error, json) => {
                 expect(error).to.be.null;
 
                 const users = JSON.parse(json);
-                const user = users.find(user => user.id === userId);
+                const user = users.find(user => user.id === userAuth);
 
                 expect(user.mail).to.equal(newMail);
                 done();
@@ -41,9 +41,9 @@ describe('updateMail', () => {
 
     it('should fail if user is not found', done => {
         const newMail = 'newmail@example.com';
-        const userId = '456';
+        const userAuth = '456';
 
-        updateMail(newMail, userId, error => {
+        updateMail(newMail, userAuth, error => {
             expect(error).to.be.instanceOf(Error);
             expect(error.message).to.equal('user not found');
 

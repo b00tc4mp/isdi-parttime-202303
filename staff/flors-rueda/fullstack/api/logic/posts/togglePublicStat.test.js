@@ -39,9 +39,9 @@ describe('togglePublicStat', () => {
 
     it('should toggle the "isPublic" property of the post', done => {
         const postId = '456';
-        const userId = '123';
+        const userAuth = '123';
 
-        togglePublicStat(postId, userId, error => {
+        togglePublicStat(postId, userAuth, error => {
             expect(error).to.be.null;
 
             readFile('./data/posts.json', 'utf8', (error, json) => {
@@ -61,9 +61,9 @@ describe('togglePublicStat', () => {
 
     it('should fail when given an invalid post ID', done => {
         const postId = '999';
-        const userId = '123';
+        const userAuth = '123';
 
-        togglePublicStat(postId, userId, error => {
+        togglePublicStat(postId, userAuth, error => {
             expect(error).to.be.instanceOf(Error);
             expect(error.message).to.equal(`post with id ${postId} not found`);
             done();
@@ -72,11 +72,11 @@ describe('togglePublicStat', () => {
 
     it('should fail when given an invalid user ID', done => {
         const postId = '456';
-        const userId = '999';
+        const userAuth = '999';
 
-        togglePublicStat(postId, userId, error => {
+        togglePublicStat(postId, userAuth, error => {
             expect(error).to.be.instanceOf(Error);
-            expect(error.message).to.equal(`user with id ${userId} not found`);
+            expect(error.message).to.equal(`user with id ${userAuth} not found`);
             done();
         });
     });

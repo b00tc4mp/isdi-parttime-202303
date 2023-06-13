@@ -1,9 +1,9 @@
 const { readFile, writeFile } = require('fs');
 const { validators: { validateCallback, validateId, validatePostText } } = require('com');
 
-module.exports = function updatePost(newText, newPostImg, postId, userId, callback) {
+module.exports = function updatePost(newText, newPostImg, postId, userAuth, callback) {
     validateId(postId);
-    validateId(userId);
+    validateId(userAuth);
     validatePostText(newText);
     validateCallback(callback);
 
@@ -23,10 +23,10 @@ module.exports = function updatePost(newText, newPostImg, postId, userId, callba
 
             const users = JSON.parse(usersJson);
 
-            const user = users.find(user => user.id === userId);
+            const user = users.find(user => user.id === userAuth);
 
             if (!user) {
-                callback(new Error(`user with id ${userId} not found`));
+                callback(new Error(`user with id ${userAuth} not found`));
                 return;
             }
 
@@ -37,8 +37,8 @@ module.exports = function updatePost(newText, newPostImg, postId, userId, callba
                 return;
             }
 
-            if (post.author !== userId) {
-                callback(new Error(`post with id ${postId} does not belong to user with id ${userId}`));
+            if (post.author !== userAuth) {
+                callback(new Error(`post with id ${postId} does not belong to user with id ${userAuth}`));
                 return;
             }
 

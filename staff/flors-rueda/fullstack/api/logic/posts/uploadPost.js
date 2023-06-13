@@ -1,8 +1,8 @@
 const { readFile, writeFile } = require('fs');
 const { validators: { validateCallback, validateId, validatePostText }, helpers: { generateUUID } } = require('com');
 
-module.exports = function uploadPost(postImg, postText, authorId, callback) {
-    validateId(authorId);
+module.exports = function uploadPost(postImg, postText, userAuth, callback) {
+    validateId(userAuth);
     validatePostText(postText);
     validateCallback(callback);
 
@@ -24,16 +24,16 @@ module.exports = function uploadPost(postImg, postText, authorId, callback) {
 
             const users = JSON.parse(usersJson);
 
-            const user = users.find(user => user.id === authorId);
+            const user = users.find(user => user.id === userAuth);
 
             if (!user) {
-                callback(new Error(`user with id ${authorId} not found`));
+                callback(new Error(`user with id ${userAuth} not found`));
                 return;
             }
 
             const post = {
                 id: generateUUID(),
-                author: authorId,
+                author: userAuth,
                 text: postText,
                 image: postImg,
                 date: new Date(Date.now()),

@@ -36,20 +36,20 @@ describe('updatePassword', () => {
         });
     });
 
-    it('should succeed on correct userId, old password, and valid new password', done => {
-        const userId = '123';
+    it('should succeed on correct userAuth, old password, and valid new password', done => {
+        const userAuth = '123';
         const oldPassword = 'OldPassword123';
         const newPassword = 'NewPassword123';
         const repeatPassword = 'NewPassword123';
 
-        updatePassword(userId, oldPassword, newPassword, repeatPassword, error => {
+        updatePassword(userAuth, oldPassword, newPassword, repeatPassword, error => {
             expect(error).to.be.null;
 
             readFile('./data/users.json', 'utf8', (error, json) => {
                 expect(error).to.be.null;
 
                 const users = JSON.parse(json);
-                const user = users.find(user => user.id === userId);
+                const user = users.find(user => user.id === userAuth);
 
                 expect(user).to.exist;
                 expect(user.password).to.equal(newPassword);
@@ -59,13 +59,13 @@ describe('updatePassword', () => {
         });
     });
 
-    it('should fail on non-existing userId', done => {
-        const userId = '456';
+    it('should fail on non-existing userAuth', done => {
+        const userAuth = '456';
         const oldPassword = 'OldPassword123';
         const newPassword = 'NewPassword123';
         const repeatPassword = 'NewPassword123';
 
-        updatePassword(userId, oldPassword, newPassword, repeatPassword, error => {
+        updatePassword(userAuth, oldPassword, newPassword, repeatPassword, error => {
             expect(error).to.be.instanceOf(Error);
             expect(error.message).to.equal('user not found');
 

@@ -9,12 +9,12 @@ const { validateCallback, validateId } = validators;
  * Update the avatar
  * 
  * @param {string} newSrc The new image url or base64 string
- * @param {string} userId The user id
+ * @param {string} userAuth The user id
  * @param {function} callback Function that controls the errors
  * 
 */
-export default (newSrc, userId, callback) => {
-    validateId(userId);
+export default (newSrc, userAuth, callback) => {
+    validateId(userAuth);
     validateCallback(callback);
 
     const xhr = new XMLHttpRequest;
@@ -38,9 +38,10 @@ export default (newSrc, userId, callback) => {
         callback(new Error('connection error'));
     }
 
-    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/users/${userId}/avatar`);
+    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/users/avatar`);
 
     xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.setRequestHeader('Authorization', `Bearer ${userAuth}`);
 
     const data = { newSrc };
     const json = JSON.stringify(data);

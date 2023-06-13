@@ -56,9 +56,9 @@ describe('retrieveFavoritePosts', () => {
     });
 
     it('should retrieve favorite posts for a valid user ID', done => {
-        const userId = '123';
+        const userAuth = '123';
 
-        retrieveFavoritePosts(userId, (error, posts) => {
+        retrieveFavoritePosts(userAuth, (error, posts) => {
             expect(error).to.be.null;
             expect(posts).to.be.an('array');
             expect(posts.length).to.equal(1);
@@ -80,11 +80,11 @@ describe('retrieveFavoritePosts', () => {
     });
 
     it('should return an error for an invalid user ID', done => {
-        const userId = '999'; // Invalid user ID
+        const userAuth = '999'; // Invalid user ID
 
-        retrieveFavoritePosts(userId, (error, posts) => {
+        retrieveFavoritePosts(userAuth, (error, posts) => {
             expect(error).to.be.instanceOf(Error);
-            expect(error.message).to.equal(`user with id ${userId} not found`);
+            expect(error.message).to.equal(`user with id ${userAuth} not found`);
             expect(posts).to.be.undefined;
 
             done();

@@ -22,9 +22,9 @@ describe('updateAvatar', () => {
 
     it('should update the avatar successfully', done => {
         const newSrc = 'avatarUrl';
-        const userId = '123';
+        const userAuth = '123';
 
-        updateAvatar(newSrc, userId, error => {
+        updateAvatar(newSrc, userAuth, error => {
             expect(error).to.be.null;
 
             readFile('./data/users.json', 'utf8', (error, json) => {
@@ -32,7 +32,7 @@ describe('updateAvatar', () => {
 
                 const users = JSON.parse(json);
 
-                const user = users.find(user => user.id === userId);
+                const user = users.find(user => user.id === userAuth);
 
                 expect(user.avatar).to.equal(newSrc);
                 done();
@@ -42,9 +42,9 @@ describe('updateAvatar', () => {
 
     it('should fail if user is not found', done => {
         const newSrc = 'avatarUrl';
-        const userId = '456';
+        const userAuth = '456';
 
-        updateAvatar(newSrc, userId, error => {
+        updateAvatar(newSrc, userAuth, error => {
             expect(error).to.be.instanceOf(Error);
             expect(error.message).to.equal('user not found');
 

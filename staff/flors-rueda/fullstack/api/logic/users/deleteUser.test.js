@@ -22,17 +22,17 @@ describe('deleteUser', () => {
     });
 
     it('should succeed on delete user and update posts', done => {
-        const userId = '123';
+        const userAuth = '123';
         const password = 'UserPassword';
 
         const users = [
-            { id: userId, password, username: 'user1' },
+            { id: userAuth, password, username: 'user1' },
             { id: '456', password: 'Password456', username: 'user2' }
         ];
 
         const posts = [
-            { id: 'post1', author: userId, likes: [userId, '789'] },
-            { id: 'post2', author: '456', likes: ['789', userId] },
+            { id: 'post1', author: userAuth, likes: [userAuth, '789'] },
+            { id: 'post2', author: '456', likes: ['789', userAuth] },
             { id: 'post3', author: '789', likes: ['111', '222'] }
         ];
 
@@ -42,7 +42,7 @@ describe('deleteUser', () => {
             writeFile('./data/posts.json', JSON.stringify(posts), 'utf8', error => {
                 expect(error).to.be.null;
 
-                deleteUser(userId, password, error => {
+                deleteUser(userAuth, password, error => {
                     expect(error).to.be.null;
 
                     readFile('./data/users.json', 'utf8', (error, json) => {
@@ -55,11 +55,11 @@ describe('deleteUser', () => {
                             expect(error).to.be.null;
                             const remainingPosts = JSON.parse(json);
 
-                            expect(remainingPosts[0].likes).to.not.include(userId);
-                            expect(remainingPosts[1].likes).to.not.include(userId);
+                            expect(remainingPosts[0].likes).to.not.include(userAuth);
+                            expect(remainingPosts[1].likes).to.not.include(userAuth);
 
                             expect(remainingPosts).to.have.lengthOf(2);
-                            expect(remainingPosts[0].author).to.not.equal(userId);
+                            expect(remainingPosts[0].author).to.not.equal(userAuth);
 
                             done();
                         });
@@ -70,11 +70,11 @@ describe('deleteUser', () => {
     });
 
 
-    it('should fail on non-existing userId', done => {
-        const userId = '456';
+    it('should fail on non-existing userAuth', done => {
+        const userAuth = '456';
         const password = 'Password123';
 
-        deleteUser(userId, password, error => {
+        deleteUser(userAuth, password, error => {
             expect(error).to.be.instanceOf(Error);
             expect(error.message).to.equal('authentication failed');
 
@@ -83,10 +83,10 @@ describe('deleteUser', () => {
     });
 
     it('should fail on incorrect password', done => {
-        const userId = '123';
+        const userAuth = '123';
         const password = 'WrongPassword';
 
-        deleteUser(userId, password, error => {
+        deleteUser(userAuth, password, error => {
             expect(error).to.be.instanceOf(Error);
             expect(error.message).to.equal('authentication failed');
 

@@ -47,10 +47,10 @@ describe('retrievePost', () => {
     });
 
     it('should retrieve a post when given valid user ID and post ID', done => {
-        const userId = '123';
+        const userAuth = '123';
         const postId = '456';
 
-        retrievePost(userId, postId, (error, post) => {
+        retrievePost(userAuth, postId, (error, post) => {
             expect(error).to.be.null;
             expect(post).to.deep.equal({
                 id: '456',
@@ -64,21 +64,21 @@ describe('retrievePost', () => {
     });
 
     it('should fail when given invalid user ID', done => {
-        const userId = '999'; // Invalid user ID
+        const userAuth = '999'; // Invalid user ID
         const postId = '456';
 
-        retrievePost(userId, postId, error => {
+        retrievePost(userAuth, postId, error => {
             expect(error).to.be.instanceOf(Error);
-            expect(error.message).to.equal(`user with id ${userId} not found`);
+            expect(error.message).to.equal(`user with id ${userAuth} not found`);
             done();
         });
     });
 
     it('should fail when given invalid post ID', done => {
-        const userId = '123';
+        const userAuth = '123';
         const postId = '999'; // Invalid post ID
 
-        retrievePost(userId, postId, error => {
+        retrievePost(userAuth, postId, error => {
             expect(error).to.be.instanceOf(Error);
             expect(error.message).to.equal(`post with id ${postId} not found`);
             done();

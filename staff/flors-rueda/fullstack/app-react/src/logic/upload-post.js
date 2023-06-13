@@ -1,6 +1,3 @@
-import { loadPosts, savePosts } from '../data/data';
-import { findUserById } from '../data/data-managers';
-import { generateUUID } from './helpers/generateUUID';
 import { validators } from 'com';
 
 const { validateCallback, validateId, validatePostText } = validators;
@@ -10,12 +7,12 @@ const { validateCallback, validateId, validatePostText } = validators;
  * 
  * @param {string} postImg The base64 string of the post image
  * @param {string} postText The post text
- * @param {string} authorId The user logged id
+ * @param {string} userAuth The user logged id
  * @param {function} callback Function that controls the errors
  * 
  */
-export default (postImg, postText, authorId, callback) => {
-    validateId(authorId);
+export default (postImg, postText, userAuth, callback) => {
+    validateId(userAuth);
     validatePostText(postText);
     validateCallback(callback);
 
@@ -43,8 +40,9 @@ export default (postImg, postText, authorId, callback) => {
     xhr.open('POST', `${import.meta.env.VITE_API_URL}/posts`);
 
     xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.setRequestHeader('Authorization', `Bearer ${userAuth}`);
 
-    const user = { postImg, postText, authorId };
+    const user = { postImg, postText };
     const json = JSON.stringify(user);
 
     xhr.send(json);

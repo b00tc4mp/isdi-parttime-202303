@@ -9,15 +9,15 @@ const { validateCallback, validateId, validatePassword } = validators;
 /**
  * Updates an user password
  * 
- * @param {string} userId The user's id
+ * @param {string} userAuth The user's id
  * @param {string} oldPassword The user's old password
  * @param {string} newPassword The user's new password
  * @param {string} repeatPassword The user's new password confirmation
  * @param {function} callback Function that controls the errors
  * 
  */
-export default (userId, oldPassword, newPassword, repeatPassword, callback) => {
-    validateId(userId);
+export default (userAuth, oldPassword, newPassword, repeatPassword, callback) => {
+    validateId(userAuth);
     validatePassword(oldPassword);
     validatePassword(newPassword);
     validatePassword(repeatPassword);
@@ -26,30 +26,31 @@ export default (userId, oldPassword, newPassword, repeatPassword, callback) => {
     const xhr = new XMLHttpRequest;
 
     xhr.onload = () => {
-        const { status } = xhr;
+        const { status } = xhr
 
         if (status !== 204) {
-            const { response: json } = xhr;
-            const { error } = JSON.parse(json);
+            const { response: json } = xhr
+            const { error } = JSON.parse(json)
 
-            callback(new Error(error));
+            callback(new Error(error))
 
-            return;
+            return
         }
 
-        callback(null);
+        callback(null)
     }
 
     xhr.onerror = () => {
-        callback(new Error('connection error'));
+        callback(new Error('Connection error'))
     }
 
-    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/users/${userId}/name`);
+    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/users/password`)
 
-    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.setRequestHeader('Content-Type', 'application/json')
+    xhr.setRequestHeader('Authorization', `Bearer ${userAuth}`)
 
-    const data = { oldPassword, newPassword, repeatPassword };
-    const json = JSON.stringify(data);
+    const data = { oldPassword, newPassword, repeatPassword }
+    const json = JSON.stringify(data)
 
-    xhr.send(json);
+    xhr.send(json)
 }

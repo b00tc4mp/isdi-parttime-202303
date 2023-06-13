@@ -1,39 +1,45 @@
-import { loadPosts, savePosts } from '../data/data';
 import { validators } from 'com';
-import { findPostById, findUserById } from '../data/data-managers';
 
 const { validateId, validateCallback } = validators;
 
 /**
  * Deletes a post by its id.
  * 
- * @param {string} userId The logged user's id
+ * @param {string} userAuth The logged user's id
  * @param {string} postId The post id
  * @param {function} callback Function that controls the errors
  * 
  */
-export default (userId, postId, callback) => {
-    validateId(userId);
+export default (userAuth, postId, callback) => {
+    validateId(userAuth);
     validateId(postId);
     validateCallback(callback);
 
-    findUserById(userId, user => {
-        if (!user) {
-            callback(new Error('authentication failed'));
-            return;
+    const xhr = new XMLHttpRequest()
+
+    xhr.onload = () => {
+        const { status } = xhr
+
+        if (status !== 200) {
+            const { response: json } = xhr
+            const { error } = JSON.parse(json)
+
+            callback(new Error(error))
+
+            return
         }
-        findPostById(postId, post => {
-            if (!post || post.author !== userId) {
-                callback(new Error('post authentication failed'));
-                return;
-            }
-            loadPosts(posts => {
-                const index = posts.findIndex(post => post.id === postId)
 
-                posts.splice(index, 1)
+        callback(null)
+    }
 
-                savePosts(posts, () => callback(null))
-            })
-        })
-    })
+    xhr.onerror = () => {
+        callback(new Error('Connection error'))
+    }
+
+    xhr.open('DELETE', `${import.meta.env.VITE_API_URL}/posts/${postId}`)
+
+    xhr.setRequestHeader('Authorization', `Bearer ${userAuth}`)
+
+    xhr.send()
+
 }

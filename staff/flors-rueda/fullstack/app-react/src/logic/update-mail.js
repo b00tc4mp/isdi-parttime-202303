@@ -8,13 +8,13 @@ const { validateId, validateMail, validateCallback } = validators;
  * Updates an user mail
  * 
  * @param {string} mail The new mail
- * @param {string} userId The user's id
+ * @param {string} userAuth The user's id
  * @param {function} callback Function that controls the errors
  * 
  */
-export default (mail, userId, callback) => {
+export default (mail, userAuth, callback) => {
     validateMail(mail);
-    validateId(userId);
+    validateId(userAuth);
     validateCallback(callback);
 
     const xhr = new XMLHttpRequest;
@@ -38,9 +38,10 @@ export default (mail, userId, callback) => {
         callback(new Error('connection error'));
     }
 
-    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/users/${userId}/mail`);
+    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/users/mail`);
 
     xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.setRequestHeader('Authorization', `Bearer ${userAuth}`);
 
     const data = { mail };
     const json = JSON.stringify(data);

@@ -40,7 +40,7 @@ const AvatarForm = ({ onAvatarChange, onSaveClick, user }) => {
           setAvatarToSave(randomAvatar)
         })
       } catch (error) {
-        alert(`random avatar error: ${error}`, 'danger');
+        alert(`random avatar error: ${error.message}`, 'danger');
       }
     }
   };

@@ -38,9 +38,9 @@ describe('toggleFav', () => {
 
     it('should add the post ID to the user\'s favorites when it is not already favorited', done => {
         const postId = '456';
-        const userId = '123';
+        const userAuth = '123';
 
-        toggleFav(postId, userId, error => {
+        toggleFav(postId, userAuth, error => {
             expect(error).to.be.null;
 
             readFile('./data/users.json', 'utf8', (error, json) => {
@@ -50,7 +50,7 @@ describe('toggleFav', () => {
                 }
 
                 const users = JSON.parse(json);
-                const user = users.find(user => user.id === userId);
+                const user = users.find(user => user.id === userAuth);
                 expect(user.favs).to.include(postId);
 
                 done();
@@ -60,7 +60,7 @@ describe('toggleFav', () => {
 
     it('should remove the post ID from the user\'s favorites when it is already favorited', done => {
         const postId = '456';
-        const userId = '123';
+        const userAuth = '123';
 
         const users = [
             {
@@ -81,7 +81,7 @@ describe('toggleFav', () => {
                 return;
             }
 
-            toggleFav(postId, userId, error => {
+            toggleFav(postId, userAuth, error => {
                 expect(error).to.be.null;
 
                 readFile('./data/users.json', 'utf8', (error, json) => {
@@ -91,7 +91,7 @@ describe('toggleFav', () => {
                     }
 
                     const users = JSON.parse(json);
-                    const user = users.find(user => user.id === userId);
+                    const user = users.find(user => user.id === userAuth);
                     expect(user.favs).to.not.include(postId);
 
                     done();
@@ -102,9 +102,9 @@ describe('toggleFav', () => {
 
     it('should fail when given an invalid post ID', done => {
         const postId = '999';
-        const userId = '123';
+        const userAuth = '123';
 
-        toggleFav(postId, userId, error => {
+        toggleFav(postId, userAuth, error => {
             expect(error).to.be.instanceOf(Error);
             expect(error.message).to.equal(`post with id ${postId} not found`);
             done();
@@ -113,11 +113,11 @@ describe('toggleFav', () => {
 
     it('should fail when given an invalid user ID', done => {
         const postId = '456';
-        const userId = '999';
+        const userAuth = '999';
 
-        toggleFav(postId, userId, error => {
+        toggleFav(postId, userAuth, error => {
             expect(error).to.be.instanceOf(Error);
-            expect(error.message).to.equal(`user with id ${userId} not found`);
+            expect(error.message).to.equal(`user with id ${userAuth} not found`);
             done();
         });
     });

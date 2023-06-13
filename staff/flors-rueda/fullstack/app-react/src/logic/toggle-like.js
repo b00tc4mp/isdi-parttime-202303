@@ -8,31 +8,40 @@ const { validateCallback, validateId } = validators;
  * Toggles a user into the likes of a post by their ids
  * 
  * @param {string} postId The post id
- * @param {string} userId The user id
+ * @param {string} userAuth The user id
  * @param {function} callback Function that controls the errors
  * 
 */
-export const toggleLike = (postId, userId, callback) => {
-  validateId(postId);
-  validateId(userId);
-  validateCallback(callback);
+export const toggleLike = (postId, userAuth, callback) => {
+    validateId(postId);
+    validateId(userAuth);
+    validateCallback(callback);
 
-  findUserById(userId, user => {
-    if (!user) {
-        callback(new Error(`user with id ${userId} not found`));
-        return;
-    }
+    const xhr = new XMLHttpRequest();
 
-    findPostById(postId, post => {
-        if (!post) {
-            callback(new Error(`post with id ${postId} not found`));
+    xhr.onload = () => {
+        const { status } = xhr;
+
+        if (status !== 204) {
+            const { response: json } = xhr;
+            const { error } = JSON.parse(json);
+
+            callback(new Error(error));
+
             return;
         }
 
-        const index = post.likes.indexOf(userId);
-        index < 0 ? post.likes.push(userId) : post.likes.splice(index, 1);
+        callback(null);
+    }
 
-        savePost(post, () => callback(null));
-    })
-})
+    xhr.onerror = () => {
+        callback(new Error('Connection error'));
+    }
+
+    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/posts/${postId}/likes`);
+
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.setRequestHeader('Authorization', `Bearer ${userAuth}`);
+
+    xhr.send();
 }
