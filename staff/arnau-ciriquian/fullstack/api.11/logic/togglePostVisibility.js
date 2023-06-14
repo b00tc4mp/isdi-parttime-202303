@@ -1,12 +1,12 @@
 const { readFile, writeFile } = require('fs')
 const { validators: { validateCallback, validateId } } = require('com')
 
-module.exports = function toggleFavPost(userId, postId, callback) {
+module.exports = function togglePostVisibility(userId, postId, callback) {
     validateId(userId, 'user id')
     validateId(postId, 'post id')
     validateCallback(callback)
 
-    readFile('./data/users.json', 'utf-8', (error, json) => {
+    readFile(`${process.env.DB_PATH}/users.json`, 'utf-8', (error, json) => {
         if (error) {
             callback(error)
 
@@ -23,7 +23,7 @@ module.exports = function toggleFavPost(userId, postId, callback) {
             return
         }
 
-        readFile('./data/posts.json', 'utf-8', (error, json) => {
+        readFile(`${process.env.DB_PATH}/posts.json`, 'utf-8', (error, json) => {
             if (error) {
                 callback(error)
 
@@ -40,17 +40,21 @@ module.exports = function toggleFavPost(userId, postId, callback) {
                 return
             }
 
-            const index = user.favs.indexOf(postId)
+            if (post.author !== userId) {
+                callback(new Error(`post with id ${postId} does not belong to user with id ${userId}`))
 
-            if (index < 0)
-                user.favs.push(postId)
-            else {
-                user.favs.splice(index, 1)
+                return
             }
 
-            json = JSON.stringify(users)
+            if (post.hidden === false) {
+                post.hidden = true
+            } else {
+                post.hidden = false
+            }
 
-            writeFile('./data/users.json', json, 'utf-8', error => {
+            json = JSON.stringify(posts)
+
+            writeFile(`${process.env.DB_PATH}/posts.json`, json, 'utf-8', error => {
                 if (error) {
                     callback(error)
 

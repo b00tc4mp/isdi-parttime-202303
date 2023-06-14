@@ -1,12 +1,12 @@
 const { readFile, writeFile } = require('fs')
 const { validators: { validateCallback, validateId } } = require('com')
 
-module.exports = function toggleLikePost(userId, postId, callback) {
+module.exports = function deletePost(userId, postId, callback) {
     validateId(userId, 'user id')
     validateId(postId, 'post id')
     validateCallback(callback)
 
-    readFile('./data/users.json', 'utf-8', (error, json) => {
+    readFile(`${process.env.DB_PATH}/users.json`, 'utf-8', (error, json) => {
         if (error) {
             callback(error)
 
@@ -23,7 +23,7 @@ module.exports = function toggleLikePost(userId, postId, callback) {
             return
         }
 
-        readFile('./data/posts.json', 'utf-8', (error, json) => {
+        readFile(`${process.env.DB_PATH}/posts.json`, 'utf-8', (error, json) => {
             if (error) {
                 callback(error)
 
@@ -35,22 +35,24 @@ module.exports = function toggleLikePost(userId, postId, callback) {
             const post = posts.find(post => post.id === postId)
 
             if (!post) {
-                callback(new Error(`post with id ${postId} not found`))
+                callback(new Error('post not found'))
 
                 return
             }
 
-            const index = post.likes.indexOf(userId)
+            if (post.author !== userId) {
+                callback(new Error(`post with id ${postId} does not belong to user with id ${userId}`))
 
-            if (index < 0)
-                post.likes.push(userId)
-            else {
-                post.likes.splice(index, 1)
+                return
             }
+
+            const index = posts.findIndex(post => post.id === postId)
+
+            posts.splice(index, 1)
 
             json = JSON.stringify(posts)
 
-            writeFile('./data/posts.json', json, 'utf-8', error => {
+            writeFile(`${process.env.DB_PATH}/posts.json`, json, 'utf-8', error => {
                 if (error) {
                     callback(error)
 
