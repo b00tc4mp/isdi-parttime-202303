@@ -29,7 +29,9 @@ export default function retrieseSavePosts(userId, callback){
         callback(new Error('connection error'))
     }
 
-    xhr.open('GET', `${import.meta.env.VITE_API_URL}/users/${userId}/posts/retrieve/savePosts`)
+    xhr.open('GET', `${import.meta.env.VITE_API_URL}/posts/retrieveSavePosts`)
+
+    xhr.setRequestHeader('Authorization', `Bearer ${userId}`)
 
     xhr.send()
 }

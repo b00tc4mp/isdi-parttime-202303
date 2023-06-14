@@ -119,7 +119,7 @@ export default function Post ({ post: { id, author, image, text, date, likes, da
         }
     }
 
-    const handlePricePost = () => onAddPriceToPost(id)
+    const handlePriceToPost = () => onAddPriceToPost(id)
 
     return <>
         <article className="post-article post-text">
@@ -140,7 +140,7 @@ export default function Post ({ post: { id, author, image, text, date, likes, da
                     {context.userId === author.id ? <button onClick={handleEditPost}>🖍</button> : ''} 
                     {context.userId === author.id ? <button onClick={handleDeletePost}>🗑</button> : ''}   
                     {context.userId === author.id ? <button onClick={handleLockPost}>{lock ? '🔒' : '🔓'}</button> : ''}   
-                    {context.userId === author.id ? <button onClick={handlePricePost}>{price +'€'}</button> : ''}      
+                    {context.userId === author.id ? <button onClick={handlePriceToPost}>{price +'€'}</button> : ''}      
                     {context.userId !== author.id && price !== 0 ? <button onClick={handleBuyPost}>{price+'€'}</button> : ''}
                 </div>
             </div>

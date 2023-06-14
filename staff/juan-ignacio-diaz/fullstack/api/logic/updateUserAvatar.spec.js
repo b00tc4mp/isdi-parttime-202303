@@ -4,23 +4,19 @@ const { expect } = require('chai')
 const updateUserAvatar = require('./updateUserAvatar')
 const { writeFile, readFile } = require('fs')
 
-const RandomUser = require('./helpers/ui_userTest')
+const { generateUser, cleanUp, populate } = require('./helpers/tests')
 
 describe('updateUserAvatar', () => {
     let userTest
 
     beforeEach(done => {
-        userTest = RandomUser()
+        userTest = generateUser()
 
-        writeFile(`${process.env.DB_PATH}/users.json`, '[]', error => done(error))
+        cleanUp(done)
     })
 
     it('succeeds on existing user and correct id', done => {
-        const users = [{ id: userTest.id, name: userTest.name, email: userTest.email, password: userTest.password, avatar: userTest.avatar }]
-
-        const json = JSON.stringify(users)
-
-        writeFile(`${process.env.DB_PATH}/users.json`, json, 'utf8', error => {
+        populate([userTest], [], error => {
             expect(error).to.be.null
 
             const newAvatar = userTest.avatar + '-new'
@@ -42,11 +38,7 @@ describe('updateUserAvatar', () => {
     })
 
     it('fails on existing user but incorrect id', done => {
-        const users = [{ id: userTest.id, name: userTest.name, email: userTest.email, password: userTest.password, avatar: userTest.avatar }]
-
-        const json = JSON.stringify(users)
-
-        writeFile(`${process.env.DB_PATH}/users.json`, json, 'utf8', error => {
+        populate([userTest], [], error => {
             expect(error).to.be.null
 
             const wrongId = userTest.id + '-wrong'
@@ -64,5 +56,5 @@ describe('updateUserAvatar', () => {
 
     // TODO add more unhappies
 
-    after(done => writeFile(`${process.env.DB_PATH}/users.json`, '[]', error => done(error)))
+    after(cleanUp)
 })

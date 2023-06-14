@@ -5,23 +5,19 @@ const { writeFile, readFile } = require('fs')
 
 const retrieveUser = require('./retrieveUser')
 
-const RandomUser = require('./helpers/ui_userTest')
+const { generateUser, cleanUp, populate} = require('./helpers/tests')
 
 describe('retrieveUser', () => {
     let userTest
 
     beforeEach(done => {
-        userTest = RandomUser()
+        userTest = generateUser()
 
-        writeFile(`${process.env.DB_PATH}/users.json`, '[]', 'utf8', error => done(error))
+        cleanUp(done)
     })
 
     it('succeeds on existing user and correct id', done => {
-        const users = [{ id: userTest.id, name: userTest.name, email: userTest.email, password: userTest.password, avatar: userTest.avatar }]
-
-        const json = JSON.stringify(users)
-
-        writeFile(`${process.env.DB_PATH}/users.json`, json, 'utf8', error => {
+        populate([userTest], [], error => {
             expect(error).to.be.null
 
             retrieveUser(userTest.id, (error, user) => {
@@ -37,11 +33,7 @@ describe('retrieveUser', () => {
     })
 
     it('succeeds on existing user with no avatar and correct id', done => {
-        const users = [{ id: userTest.id, name: userTest.name, email: userTest.email, password: userTest.password, avatar: null }]
-
-        const json = JSON.stringify(users)
-
-        writeFile(`${process.env.DB_PATH}/users.json`, json, 'utf8', error => {
+        populate([userTest], [],  error => {
             expect(error).to.be.null
 
             retrieveUser(userTest.id, (error, user) => {
@@ -57,11 +49,7 @@ describe('retrieveUser', () => {
     })
 
     it('fails on existing user and incorrect id', done => {
-        const users = [{ id: userTest.id, name: userTest.name, email: userTest.email, password: userTest.password, avatar: userTest.avatar }]
-
-        const json = JSON.stringify(users)
-
-        writeFile(`${process.env.DB_PATH}/users.json`, json, 'utf8', error => {
+        populate([userTest], [], error => {
             expect(error).to.be.null
 
             const wrongId = userTest.id + '-wrong'
@@ -92,5 +80,5 @@ describe('retrieveUser', () => {
         })
     })
 
-    after(done => writeFile(`${process.env.DB_PATH}/users.json`, '[]', 'utf8', error => done(error)))
+    after(cleanUp)
 })

@@ -5,22 +5,19 @@ const { writeFile } = require('fs')
 
 const authenticateUser = require('./authenticateUser')
 
-const RandomUser = require('./helpers/ui_userTest')
+const { generateUser, cleanUp, populate } = require('./helpers/tests')
 
 describe('authenticateUser', () => {
     let userTest
 
     beforeEach(done => {
-        userTest = RandomUser()
+        userTest = generateUser()
 
-        writeFile(`${process.env.DB_PATH}/users.json`, '[]', 'utf8', error => done(error))
+        cleanUp(done)
     })
 
     it('succeeds on existing user', done => {
-        const users = [{ id: userTest.id, email: userTest.email, password: userTest.password }]
-        const json = JSON.stringify(users)
-
-        writeFile(`${process.env.DB_PATH}/users.json`, json, 'utf8', error => {
+        populate([userTest], [], error => {
             expect(error).to.be.null
 
             authenticateUser(userTest.email, userTest.password, (error, userId) => {
@@ -33,9 +30,6 @@ describe('authenticateUser', () => {
     })
 
     it('fails on non-existing user', done => {
-        const users = [{ id: userTest.id, email: userTest.email, password: userTest.password }]
-        const json = JSON.stringify(users)
-
         authenticateUser(userTest.email, userTest.password, (error, userId) => {
             expect(error).to.be.instanceOf(Error)
             expect(error.message).to.equal(`user with email ${userTest.email} not found`)
@@ -46,10 +40,7 @@ describe('authenticateUser', () => {
     })
 
     it('fails on existing user but wrong passord', done => {
-        const users = [{ id: userTest.id, email: userTest.email, password: userTest.password }]
-        const json = JSON.stringify(users)
-
-        writeFile(`${process.env.DB_PATH}/users.json`, json, 'utf8', error => {
+        populate([userTest], [], error => {
             expect(error).to.be.null
 
             authenticateUser(userTest.email, userTest.password + '-wrong', (error, userId) => {
@@ -78,5 +69,5 @@ describe('authenticateUser', () => {
         expect(() => authenticateUser(userTest.email, 123, () => { })).to.throw(Error, 'password is not a string')
     )
 
-    after(done => writeFile(`${process.env.DB_PATH}/users.json`, '[]', 'utf8', error => done(error)))
+    after(cleanUp)
 })

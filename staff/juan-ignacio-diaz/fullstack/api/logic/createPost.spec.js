@@ -5,29 +5,19 @@ const { readFile, writeFile } = require('fs')
 
 const createPost = require('./createPost')
 
-const RandomUser = require('./helpers/ui_userTest')
-const RandomPost = require('./helpers/ui_postTest')
+const { generateUser, cleanUp, populate } = require('./helpers/tests')
 
 describe('createPost' , () =>{
-    let userTest
+    let userTest, postTest, countId
 
     beforeEach(done => {
-        userTest = RandomUser()
-        postTest = RandomPost(userTest.id)
-
-        writeFile(`${process.env.DB_PATH}/users.json`, '[]', 'utf8', error => {
-            writeFile(`${process.env.DB_PATH}/posts.json`, '[]', 'utf8', error => done(error))
-        })
-        
+        userTest = generateUser()
+         
+        cleanUp(done)
     })
 
     it('succeeds on new post', done => {
-        const users = [{ id: userTest.id, name: userTest.name, email: userTest.email, password: userTest.password }]
-
-        const json = JSON.stringify(users)
-
-        writeFile(`${process.env.DB_PATH}/users.json`, json, 'utf8', error => {
-
+        populate([userTest], [], error => {
             createPost(userTest.id, postTest.image, postTest.text, error => {
                 expect(error).to.be.null
                 
@@ -55,10 +45,7 @@ describe('createPost' , () =>{
 
 
     it('fails on existing user', done => {
-        const users = [{ id: userTest.id, name: userTest.name, email: userTest.email, password: userTest.password }]
-        const json = JSON.stringify(users)
-
-        writeFile(`${process.env.DB_PATH}/users.json`, json, 'utf8', error => {
+        populate([userTest], [], error => {
             expect(error).to.be.null
 
             const userIdInvalid = userTest.id + '-invalid'
@@ -79,7 +66,6 @@ describe('createPost' , () =>{
         expect(() => createPost(userTest.id, postTest.image, '', () => { })).to.throw(Error, 'text is empty')
     )
 
-    after(done => writeFile(`${process.env.DB_PATH}/users.json`, '[]', 'utf8', error =>  
-        writeFile(`${process.env.DB_PATH}/posts.json`, '[]', 'utf8', error => done(error))
-    ))
+    after(cleanUp)
+
 })

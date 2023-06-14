@@ -5,15 +5,15 @@ const { readFile, writeFile } = require('fs')
 
 const registerUser = require('./registerUser')
 
-const RandomUser = require('./helpers/ui_userTest')
+const { generateUser, cleanUp, populate } = require('./helpers/tests')
 
 describe('registerUser' , () =>{
     let userTest
 
     beforeEach(done => {
-        userTest = RandomUser()
+        userTest = generateUser()
 
-        writeFile(`${process.env.DB_PATH}/users.json`, '[]', 'utf8', error => done(error))
+        cleanUp(done)
     })
 
     it('succeeds on new user', done => {
@@ -41,12 +41,9 @@ describe('registerUser' , () =>{
     })
 
     it('succeeds on other existing user', done => {
-        const userTest2 = RandomUser()
+        const userTest2 = generateUser()
 
-        const users = [{ id: userTest2.id, name: userTest2.name, email: userTest2.email, password: userTest2.password }]
-        const json = JSON.stringify(users)
-
-        writeFile(`${process.env.DB_PATH}/users.json`, json, 'utf8', error => {
+        populate([userTest2], [], error => {
             expect(error).to.be.null
 
             registerUser(userTest.name, userTest.email, userTest.password, error => {
@@ -74,10 +71,7 @@ describe('registerUser' , () =>{
     })
 
     it('fails on existing user', done => {
-        const users = [{ name: userTest.name, email: userTest.email, password: userTest.password }]
-        const json = JSON.stringify(users)
-
-        writeFile(`${process.env.DB_PATH}/users.json`, json, 'utf8', error => {
+        populate([userTest], [], error => {
             expect(error).to.be.null
 
             registerUser(userTest.name, userTest.email, userTest.password, error => {
@@ -114,5 +108,5 @@ describe('registerUser' , () =>{
     })
 
 
-    after(done => writeFile(`${process.env.DB_PATH}/users.json`, '[]', 'utf8', error => done(error)))
+    after(cleanUp)
 })

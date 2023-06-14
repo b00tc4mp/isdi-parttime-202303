@@ -1,6 +1,6 @@
 const { readFile, writeFile } = require('fs')
 
-const { validators: { validateId, validateNumber, validateCallback } } = require('com')
+const { validators: { validateId, validateUrl, validateText, validateCallback } } = require('com')
 
 module.exports = function updatePost(userId, postId, image, text, callback) {
     validateId(userId)

@@ -29,7 +29,9 @@ export default function updateBuyPost(userId, postId, callback) {
         callback(new Error('connection error'))
     }
 
-    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/users/${userId}/posts/${postId}/update/buy`)
+    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/posts/${postId}/updateBuy`)
 
+    xhr.setRequestHeader('Authorization', `Bearer ${userId}`)
+    
     xhr.send()
 }

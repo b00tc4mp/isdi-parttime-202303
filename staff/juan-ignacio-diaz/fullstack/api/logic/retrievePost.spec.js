@@ -5,49 +5,37 @@ const { readFile, writeFile } = require('fs')
 
 const retrievePost = require('./retrievePost')
 
-const RandomUser = require('./helpers/ui_userTest')
-const RandomPost = require('./helpers/ui_postTest')
+const { generateUser, generatePost, cleanUp, populate } = require('./helpers/tests')
 
 describe('createPost' , () =>{
-    let userTest
+    let userTest, postTest, countId
 
     beforeEach(done => {
-        userTest = RandomUser()
-        postTest = RandomPost(userTest.id)
+        userTest = generateUser()
 
-        writeFile(`${process.env.DB_PATH}/users.json`, '[]', 'utf8', error => {
-            writeFile(`${process.env.DB_PATH}/posts.json`, '[]', 'utf8', error => done(error))
-        })
-        
+        const tmpPostTest = generatePost(userTest.id)
+        countId = tmpPostTest.countId
+        postTest = tmpPostTest.post 
+         
+        cleanUp(done)
     })
 
     it('succeeds on retrieve post', done => {
-        const users = [{ id: userTest.id, name: userTest.name, email: userTest.email, password: userTest.password }]
+        populate([userTest], [postTest], error => {
 
-        const posts = [{ id: postTest.id, author: postTest.author, image: postTest.image, text: postTest.text, date: postTest.date, dateLastModified: postTest.dateLastModified, likes: postTest.likes, lock: postTest.lock, price: postTest.price }]
+            retrievePost(userTest.id, postTest.id, (error, post) => {
+                expect(error).to.be.null
 
-        const json = JSON.stringify(users) 
+                expect(post).to.exist
+                expect(post.id).to.be.a('string')
+                expect(post.image).to.equal(postTest.image)
+                expect(post.text).to.equal(postTest.text)
+                expect(new Date(post.date)).to.be.a('date')
+                expect(post.likes).to.have.lengthOf(1)
+                expect(post.lock).to.equal(false)
+                expect(post.price).to.equal(0)
 
-        writeFile(`${process.env.DB_PATH}/users.json`, json, 'utf8', error => {
-
-            const json = JSON.stringify(posts)
-
-            writeFile(`${process.env.DB_PATH}/posts.json`, json, 'utf8', error => {
-
-                retrievePost(userTest.id, postTest.id, (error, post) => {
-                    expect(error).to.be.null
-
-                    expect(post).to.exist
-                    expect(post.id).to.be.a('string')
-                    expect(post.image).to.equal(postTest.image)
-                    expect(post.text).to.equal(postTest.text)
-                    expect(new Date(post.date)).to.be.a('date')
-                    expect(post.likes).to.have.lengthOf(1)
-                    expect(post.lock).to.equal(false)
-                    expect(post.price).to.equal(0)
-
-                    done()
-                })
+                done()
             })
         })
     })
@@ -78,7 +66,5 @@ describe('createPost' , () =>{
     //     expect(() => createPost(userTest.id, postTest.image, '', () => { })).to.throw(Error, 'text is empty')
     // )
 
-    after(done => writeFile(`${process.env.DB_PATH}/users.json`, '[]', 'utf8', error =>  
-        writeFile(`${process.env.DB_PATH}/posts.json`, '[]', 'utf8', error => done(error))
-    ))
+    after(cleanUp)
 })

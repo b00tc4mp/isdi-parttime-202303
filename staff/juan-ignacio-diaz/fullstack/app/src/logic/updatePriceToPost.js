@@ -1,7 +1,7 @@
 import { validators } from 'com'
-const { validateId, validateCallback } = validators
+const { validateId, validateNumber, validateCallback } = validators
 
-export default function updatePricePost(userId, postId, price, callback) {
+export default function updatePriceToPost(userId, postId, price, callback) {
     validateId(userId)
     validateId(postId)
     validateNumber(price)
@@ -28,10 +28,11 @@ export default function updatePricePost(userId, postId, price, callback) {
         callback(new Error('connection error'))
     }
 
-    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/users/${userId}/posts/${postId}/update/price`)
+    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/posts/${postId}/updatePriceToPost`)
 
     xhr.setRequestHeader('Content-Type', 'application/json')
-    
+    xhr.setRequestHeader('Authorization', `Bearer ${userId}`)
+       
     const post = { price }
     const json = JSON.stringify(post)
 

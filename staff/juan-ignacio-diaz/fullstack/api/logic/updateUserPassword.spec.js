@@ -4,23 +4,19 @@ const { expect } = require('chai')
 const updateUserPassword = require('./updateUserPassword')
 const { writeFile, readFile } = require('fs')
 
-const RandomUser = require('./helpers/ui_userTest')
+const { generateUser, cleanUp, populate } = require('./helpers/tests')
 
 describe('updateUserPassword', () => {
     let userTest
 
     beforeEach(done => {
-        userTest = RandomUser()
+        userTest = generateUser()
 
-        writeFile(`${process.env.DB_PATH}/users.json`, '[]', 'utf8', error => done(error))
+        cleanUp(done)
     })
 
     it('succeeds on existing user and correct id', done => {
-        const users = [{ id: userTest.id, name: userTest.name, email: userTest.email, password: userTest.password, avatar: userTest.avatar }]
-
-        const json = JSON.stringify(users)
-
-        writeFile(`${process.env.DB_PATH}/users.json`, json, 'utf8', error => {
+        populate([userTest], [], error => {
             expect(error).to.be.null
 
             const newPassword = userTest.password + '-new'
@@ -45,11 +41,7 @@ describe('updateUserPassword', () => {
     })
 
     it('fails on existing user but incorrect id', done => {
-        const users = [{ id: userTest.id, name: userTest.name, email: userTest.email, password: userTest.password, avatar: userTest.avatar }]
-
-        const json = JSON.stringify(users)
-
-        writeFile(`${process.env.DB_PATH}/users.json`, json, 'utf8', error => {
+        populate([userTest], [], error => {
             expect(error).to.be.null
 
             const wrongId = userTest.id + '-wrong'
@@ -65,11 +57,7 @@ describe('updateUserPassword', () => {
     })
 
     it('fails on existing user but invalid password', done => {
-        const users = [{ id: userTest.id, name: userTest.name, email: userTest.email, password: userTest.password, avatar: userTest.avatar }]
-
-        const json = JSON.stringify(users)
-
-        writeFile(`${process.env.DB_PATH}/users.json`, json, 'utf8', error => {
+        populate([userTest], [], error => {
             expect(error).to.be.null
 
             const invalidPassword = userTest.password + '-invalid'
@@ -120,5 +108,5 @@ describe('updateUserPassword', () => {
 
     // TODO add more unhappies
 
-    after(done => writeFile(`${process.env.DB_PATH}/users.json`, '[]', 'utf8', error => done(error)))
+    after(cleanUp)
 })

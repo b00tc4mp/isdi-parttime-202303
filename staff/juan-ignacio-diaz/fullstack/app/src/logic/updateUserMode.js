@@ -26,10 +26,11 @@ export default function updateUserMode(userId, mode, callback) {
         callback(new Error('connection error'))
     }
 
-    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/users/${userId}/update/mode`)
+    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/users/updateMode`)
 
     xhr.setRequestHeader('Content-Type', 'application/json')
-    
+    xhr.setRequestHeader('Authorization', `Bearer ${userId}`)
+       
     const user = { mode }
     const json = JSON.stringify(user)
 

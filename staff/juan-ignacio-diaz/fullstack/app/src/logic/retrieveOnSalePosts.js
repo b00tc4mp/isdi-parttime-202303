@@ -29,7 +29,9 @@ export default function retrieveOnSalePosts(userId, callback){
         callback(new Error('connection error'))
     }
 
-    xhr.open('GET', `${import.meta.env.VITE_API_URL}/users/${userId}/posts/retrieve/onSalePosts`)
+    xhr.open('GET', `${import.meta.env.VITE_API_URL}/posts/retrieveOnSalePosts`)
+
+    xhr.setRequestHeader('Authorization', `Bearer ${userId}`)
 
     xhr.send()    
 }
