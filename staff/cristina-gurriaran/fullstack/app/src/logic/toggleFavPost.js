@@ -8,28 +8,34 @@ export default function toggleFavPost(userId, postId, callback) {
     validateId(postId, 'post id')
     validateCallback(callback)
 
-    findUserById(userId, user => {
-        if (!user) {
-            callback(new Error(`user with id ${userId} not found`))
+    const xhr = new XMLHttpRequest
 
+    xhr.onload = () => {
+        const { status } = xhr
+
+        if (status !== 204) {
+            const { response: json } = xhr
+            const { error } = JSON.parse(json)
+
+            callback(new Error(error))
             return
         }
 
-        findPostById(postId, post => {
-            if (!post) {
-                callback(new Error(`post with id ${postId} not found`))
+        callback(null)
+    }
 
-                return
-            }
+    xhr.onerror = () => {
+        callback(new Error('connection error'))
+    }
 
-            const index = user.favs.indexOf(postId)
+    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/posts/${postId}/fav`)
 
-            if (index < 0)
-                user.favs.push(postId)
-            else
-                user.favs.splice(index, 1)
 
-            saveUser(user, () => callback(null))
-        })
-    })
+    xhr.setRequestHeader('Content-Type', 'application/json')
+    xhr.setRequestHeader('Authorization', `Bearer ${userId}`)
+
+    const post = { postId }
+    const json = JSON.stringify(post)
+
+    xhr.send(json)
 }

@@ -1,1 +1,45 @@
-[]
+[
+    {
+        "id": "post-1",
+        "author": "user-1",
+        "image": "https://b2581825.smushcdn.com/2581825/wp-content/uploads/2020/04/23595073_1689113034433739_1346042720501628928_n-800x800.jpg?lossy=1&strip=1&webp=1",
+        "location": "PRAGUE, CZECH REPUBLIC",
+        "title": "Hotel Opera",
+        "text": "A hot-pink confection of Bohemian Neo-Renaissance style",
+        "date": "2023-06-14T18:25:37.425Z",
+        "likes": [
+            "user-1"
+        ]
+    },
+    {
+        "id": "post-2",
+        "author": "user-1",
+        "image": "https://b2581825.smushcdn.com/2581825/wp-content/uploads/2022/07/294554016_185299867253649_1417697834781966114_n-800x800.jpg?lossy=1&strip=1&webp=1",
+        "location": "LUGO, SPAIN",
+        "title": "The Círculo de las Artes",
+        "text": "The only city in the world to be completely surrounded by intact Roman walls.",
+        "date": "2023-06-14T18:27:22.510Z",
+        "likes": []
+    },
+    {
+        "id": "post-3",
+        "author": "user-1",
+        "image": "https://b2581825.smushcdn.com/2581825/wp-content/uploads/2020/04/iceland-lighthouse-yellow-800x800.jpg?lossy=1&strip=1&webp=1",
+        "location": "HUSAVIK, ICELAND",
+        "title": "Húsavik Light",
+        "text": "This semicircular-cylindrical light house guards a fishing village in Iceland.",
+        "date": "2023-06-14T18:28:03.021Z",
+        "likes": [
+            "user-1"
+        ]
+    },
+    {
+        "id": "post-4",
+        "author": "user-1",
+        "image": "https://b2581825.smushcdn.com/2581825/wp-content/uploads/2021/02/hotel-belvedere-800x800.jpg?lossy=1&strip=1&webp=1",
+        "location": "FURKA PASS, SWITZERLAND",
+        "title": "Hotel Belvédère",
+        "text": "In its heyday, guest rooms overlooked icy stretches of the Rhône Glacier",
+        "date": "2023-06-14T18:28:37.867Z"
+    }
+]

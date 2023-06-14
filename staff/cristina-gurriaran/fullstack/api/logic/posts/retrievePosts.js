@@ -1,13 +1,12 @@
-const { readFile , writeFile} = require('fs')
+require('dotenv').config()
+const { readFile } = require('fs')
 const { validators: { validateId, validateCallback } } = require('com')
 
 module.exports = function retrievePosts(userId, callback){
     validateId (userId, 'user id')
     validateCallback(callback)
 
-    let posts
-
-    readFile('./data/users.json', 'utf8', (error, json) => {
+    readFile(`${process.env.DB_PATH}/users.json`, 'utf8', (error, json) => {
         if(error){
             callback(error)
             return
@@ -21,13 +20,13 @@ module.exports = function retrievePosts(userId, callback){
             return
         }
 
-        readFile('./data/posts.json', 'utf8', (error, json) => {
+        readFile(`${process.env.DB_PATH}/posts.json`, 'utf8', (error, json) => {
             if(error){
                 callback(error)
                 return
             }
 
-            posts = JSON.parse(json)
+            const posts = JSON.parse(json)
             posts.forEach(post => {
                 post.fav = user.favs.includes(post.id)
             
@@ -40,7 +39,7 @@ module.exports = function retrievePosts(userId, callback){
                 }
             })
             
-            callback(null, posts) 
+            callback(null, posts.reverse()) 
         })
     })
 }

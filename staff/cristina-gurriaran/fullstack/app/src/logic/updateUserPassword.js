@@ -1,5 +1,4 @@
 import { validators } from 'com'
-import { findUserById, saveUser } from "../data.js"
 const { validateId, validatePassword, validateCallback } = validators
 
 
@@ -7,26 +6,39 @@ export default function updateUserPassword(userId, password,newPassword,newPassw
     validateId(userId, 'user id')
     validatePassword(password)
     validatePassword(newPassword, 'new password')
-    if(newPassword === password) throw new Error ('new password equals old password ')
     validatePassword(newPasswordConfirm, 'new password confirm')
-    if(newPassword !== newPasswordConfirm) throw new Error ('password confirmation mismatch')
-    validateCallback(callback)
 
-    findUserById(userId, user => {
 
-        if (!user){
-            callback(new Error ('User not found'))
+    const xhr = new XMLHttpRequest
+
+    xhr.onload = () => {
+        const { status } = xhr
+
+        if(status !== 204) {
+            const { response : json } = xhr
+            const { error } = JSON.parse(json)
+
+            callback(new Error(error))
             return
         }
 
-        if(password !== user.password){ 
-            callback(new Error ('wrong password'))
-            return
-        }
-        
-        user.password = newPassword
+        callback(null)
+    }
 
-        saveUser(user, () => callback(null))
-    })
+    xhr.onerror = () => {
+        callback(new Error ('connection error'))
+    }
+
+    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/users/password`)
+
+
+    xhr.setRequestHeader('Content-Type', 'application/json')
+    xhr.setRequestHeader('Authorization', `Bearer ${userId}`)
+    
+    const data = { password, newPassword, newPasswordConfirm }
+    const json = JSON.stringify(data)
+
+    xhr.send(json)
+
 }
 

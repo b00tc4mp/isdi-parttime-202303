@@ -8,18 +8,36 @@ export default function authenticateUser(email,password, callback) {
     validatePassword(password)
     validateCallback(callback)
 
-    findUserByEmail(email, user => {
+    const xhr = new XMLHttpRequest
 
-        if (!user) {
-            callback (Error ("user not found"))
+    xhr.onload = () => {
+        const { status } = xhr
+
+        if(status !== 200){
+            const {response: json} = xhr
+            const { error } = JSON.parse(json)
+
+            callback(new Error(error))
             return
         }
 
-        if (user.password !== password) {
-            callback(Error ("wrong password"))
-            return
-        }
+        const { response: json } = xhr
+        const { userId } = JSON.parse(json)
 
-        callback(null, user.id)
-    })
+        callback(null, userId)
+    }
+
+    xhr.onerror = () => {
+        callback(new Error ('connection error'))
+    }
+
+    xhr.open('POST', `${import.meta.env.VITE_API_URL}/users/auth`)
+
+    xhr.setRequestHeader('Content-Type', 'application/json')
+
+    const user = { email, password }
+    const json = JSON.stringify(user)
+
+    xhr.send(json)
+
 }

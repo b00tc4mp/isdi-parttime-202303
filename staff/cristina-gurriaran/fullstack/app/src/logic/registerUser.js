@@ -1,5 +1,5 @@
 import { validators } from 'com'
-import {saveUsers, findUserByEmail, loadUsers} from '../data.js'
+
 const { validateName, validateEmail, validatePassword, validateCallback } = validators
 
 export function registerUser(name, email, password, callback) {
@@ -8,31 +8,33 @@ export function registerUser(name, email, password, callback) {
     validatePassword(password)
     validateCallback(callback)
 
-    findUserByEmail(email, foundUser => {
+    const xhr = new XMLHttpRequest
 
-        if(foundUser) {
-            callback(new Error ('user already exists'))
+    xhr.onload = () => {
+        const { status } = xhr
+
+        if (status !== 201) {
+            const { response: json } = xhr
+            const { error } = JSON.parse(json)
+
+            callback(new Error(error))
+
             return
         }
 
-        let id = 'user-1'
+        callback(null)
+    }
 
-        loadUsers(users => {
-            const lastUser = users[users.length-1]
+    xhr.onerror = () => {
+        callback(new Error('connection error'))
+    }
 
-            if (lastUser)
-                id = 'user-' + (parseInt(lastUser.id.slice(5)) + 1)
+    xhr.open('POST', `${import.meta.env.VITE_API_URL}/users`)
 
-            const user = {
-                id, 
-                name, 
-                email, 
-                password,
-                favs:[]
-            }
+    xhr.setRequestHeader('Content-Type', 'application/json')
 
-            users.push(user)
-            saveUsers(users, () => callback(null))
-        })
-    })
+    const user = { name, email, password }
+    const json = JSON.stringify(user)
+
+    xhr.send(json)
 }

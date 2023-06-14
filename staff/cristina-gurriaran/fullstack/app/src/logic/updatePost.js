@@ -1,8 +1,5 @@
 import { validators } from 'com'
-import {findUserById, findPostById} from '../data.js'
-import {savePost} from '../data.js'
 const { validateId, validateUrl, validateText, validateCallback } = validators
-
 
 
 export default function updatePost(userId, postId, image, location, title, text, callback) {
@@ -12,34 +9,37 @@ export default function updatePost(userId, postId, image, location, title, text,
     validateText(text)
     validateCallback(callback)
 
-   findUserById(userId, user => {
-        if (!user){
-            callback(new Error(`user with id ${userId} not found`))
+    const xhr = new XMLHttpRequest
+
+    xhr.onload = () => {
+        const { status } = xhr
+
+        if (status !== 204) {
+            const { response: json } = xhr
+            const { error } = JSON.parse(json)
+
+            callback(new Error(error))
             return
         }
 
-        findPostById(postId, post => {
+        callback(null)
+    }
 
-            if (!post){
-                callback(new Error(`post with id ${postId} not found`))
-                return
-            } 
+    xhr.onerror = () => {
+        callback(new Error('connection error'))
+    }
 
-            if (post.author !== userId){
-                callback(new Error (`post with id ${postId} does not belong to user with id ${userId}`))
-                return
-            }  
-        
-            post.image = image
-            post.location = location
-            post.title = title
-            post.text = text
-            post.date = new Date
-        
-            savePost(post, () => callback(null))
 
-        })
-   })
+    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/posts`)
+
+    xhr.setRequestHeader('Content-Type', 'application/json')
+    xhr.setRequestHeader('Authorization', `Bearer ${userId}`)
+
+    const post = { postId , image, location, title, text }
+    const json = JSON.stringify(post)
+
+    xhr.send(json)
+
 }
 
 

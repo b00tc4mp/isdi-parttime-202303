@@ -1,1 +1,13 @@
-[]
+[
+    {
+        "id": "user-1",
+        "name": "Margot",
+        "email": "margot@awa.com",
+        "password": "123123123",
+        "avatar": "https://i0.wp.com/img.culturacolectiva.com/content/2015/05/margot.jpg?w=840&ssl=1",
+        "favs": [
+            "post-1",
+            "post-4"
+        ]
+    }
+]

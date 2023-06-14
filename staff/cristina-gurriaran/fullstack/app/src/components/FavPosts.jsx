@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { useAppContext } from '../hooks'
 
 
-export default function FavPosts(){
+export default function FavPosts(user){
     const { alert, freeze, unfreeze } = useAppContext()
     const [favPosts, setFavPosts] = useState()
 
@@ -29,11 +29,11 @@ export default function FavPosts(){
         }
     }
 
-    return <section>
-    {favPosts && favPosts.map(post => <FavPost 
+    return  <section>
+    {favPosts && favPosts.map((post) => <FavPost 
         key={post.id} 
         post={post} 
-
+        user={user} 
     />)}
     </section> 
 }

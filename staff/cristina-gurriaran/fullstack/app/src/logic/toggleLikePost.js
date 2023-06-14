@@ -1,8 +1,5 @@
 import { validators } from 'com'
-import {findUserById, findPostById} from '../data.js'
-import {savePost} from '../data.js'
 const { validateId, validateCallback } = validators
-
 
 
 
@@ -12,36 +9,37 @@ export default function toggleLikePost(userId, postId, callback) {
     validateId(postId, 'post id')
     validateCallback(callback)
 
+    const xhr = new XMLHttpRequest
 
-    findUserById(userId, user => {
-        if (!user){
-            callback(new Error(`user with id ${userId} not found`))
+    xhr.onload = () => {
+        const { status } = xhr
+
+        if (status !== 204) {
+            const { response: json } = xhr
+            const { error } = JSON.parse(json)
+
+            callback(new Error(error))
             return
-        } 
+        }
 
-        findPostById(postId, post => {
-            if (!post){
-                callback(new Error(`user with id ${postId} not found`))
-                return
-            } 
+        callback(null)
+    }
 
-            if (!post.likes) {
-                post.likes = [userId]
+    xhr.onerror = () => {
+        callback(new Error('connection error'))
+    }
 
-            } else {
-                const index = post.likes.indexOf(userId)
+    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/posts/${postId}/like`)
 
-                if (index < 0) 
-                    post.likes.push(userId)
 
-                else
-                    post.likes.splice(index, 1)
+    xhr.setRequestHeader('Content-Type', 'application/json')
+    xhr.setRequestHeader('Authorization', `Bearer ${userId}`)
 
-                    if (!post.likes.length) delete post.likes
-                    
-            }
+    const post = { postId }
+    const json = JSON.stringify(post)
 
-            savePost(post, () => callback(null))
-        })
-    })
+    xhr.send(json)
+
+
+
 }

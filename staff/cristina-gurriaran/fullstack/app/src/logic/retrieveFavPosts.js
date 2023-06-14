@@ -1,31 +1,39 @@
 import { validators } from 'com'
-import { findUserById, loadPosts } from '../data'
 const { validateId, validateCallback } = validators
-
-
-
 
 export default function retrieveFavPosts(userId, callback) {
     validateId(userId, 'user id')
     validateCallback(callback)
 
+    const xhr = new XMLHttpRequest
 
-    findUserById(userId, user => {
-        if (!user) {
-            callback(new Error(`user with id ${userId} not found`))
+    xhr.onload = () => {
+        const { status } = xhr
+
+        if (status !== 200) {
+            const { response: json } = xhr
+            const { error } = JSON.parse(json)
+
+            callback(new Error(error))
+
             return
         }
 
-        loadPosts(posts => {
-            const _posts = posts.filter(post => user.favs.includes(post.id))
-            callback(null, _posts)
-            
-        })
+        const { response: json } = xhr
+        const posts  = JSON.parse(json)
 
-     
-    })
+        callback(null, posts)
+    }
+
+    xhr.onerror = () => {
+        callback(new Error('connection error'))
+    }
+
+    xhr.open('GET', `${import.meta.env.VITE_API_URL}/users/fav`)
+
+    xhr.setRequestHeader('Authorization', `Bearer ${userId}`)
+
+    xhr.send()
 }
-
-
 
 

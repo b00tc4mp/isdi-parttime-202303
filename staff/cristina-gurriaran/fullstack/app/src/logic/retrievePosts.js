@@ -7,29 +7,33 @@ export default function retrievePosts(userId, callback) {
     validateId(userId, 'user id')
     validateCallback(callback)
 
-    findUserById(userId, user => {
-        if (!user) {
-            callback(new Error(`user with id ${userId} not found`))
+    const xhr = new XMLHttpRequest
+
+    xhr.onload = () => {
+        const { status } = xhr
+
+        if (status !== 200) {
+            const { response: json } = xhr
+            const { error } = JSON.parse(json)
+
+            callback(new Error(error))
 
             return
         }
 
-        loadPosts(posts => {
-            loadUsers(users => {
-                posts.forEach(post => {
-                    post.fav = user.favs.includes(post.id)
+        const { response: json } = xhr
+        const posts = JSON.parse(json)
 
-                    const _user = users.find(user => user.id === post.author)
+        callback(null, posts)
+    }
 
-                    post.author = {
-                        id: _user.id,
-                        name: _user.name,
-                        avatar: _user.avatar
-                    }
-                })
+    xhr.onerror = () => {
+        callback(new Error('connection error'))
+    }
 
-                callback(null, posts.toReversed())
-            })
-        })
-    })
+    xhr.open('GET', `${import.meta.env.VITE_API_URL}/posts`)
+
+    xhr.setRequestHeader('Authorization', `Bearer ${userId}`)
+
+    xhr.send()
 }
