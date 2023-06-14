@@ -10,18 +10,17 @@ describe('retrieveUser', () => {
         name = `name-${Math.random()}`
         email = `e-${Math.random()}@gmail.com`
         password = `password-${Math.random()}`
-        avatar = `https://picsum.photos/200`
+        image = `https://picsum.photos/200`
 
-        writeFile('./data/users.json', '[]', 'utf8', error => done(error))
+        writeFile('./data/users.json', '[]', error => done(error))
     })
 
     it('success on existing user and correct id', done => {
         const users = [{ id, name, email, password, avatar }]
         const json = JSON.stringify(users)
 
-        writeFile('./data/users.json', json, 'utf8', error => {
+        writeFile('./data/users.json', json, error => {
             expect(error).to.be.null
-            debugger
             retrieveUser(id, (error, user) => {
                 expect(error).to.be.null
 
@@ -38,13 +37,11 @@ describe('retrieveUser', () => {
         const users = [{ id, email, password }]
         const json = JSON.stringify(users)
 
-        writeFile('./data/users.json', json, 'utf8', error => {
+        writeFile('./data/users.json', json, error => {
             const wrongId = `${id}-wrong`
 
-            debugger
             retrieveUser(wrongId, (error, user) => {
                 expect(error).to.be.instanceOf(Error)
-                debugger
                 expect(error.message).to.equal(`User with id ${wrongId} not found`)
 
                 expect(user).to.be.undefined
@@ -55,6 +52,6 @@ describe('retrieveUser', () => {
     })
 
 
-    after(done => writeFile('./data/users.json', '[]', 'utf8', error => done(error)))
+    after(done => writeFile('./data/users.json', '[]', error => done(error)))
 
 })

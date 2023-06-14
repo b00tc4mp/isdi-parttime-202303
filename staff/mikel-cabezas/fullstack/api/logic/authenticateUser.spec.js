@@ -10,16 +10,15 @@ describe('authenticateUser', () => {
         email = `e-${Math.random()}@gmail.com`
         password = `password-${Math.random()}`
 
-        writeFile('./data/users.json', '[]', 'utf8', error => done(error))
+        writeFile('./data/users.json', '[]', error => done(error))
     })
 
     it('should authenticate a user in database', done => {
         const users = [{ id, email, password }]
         const json = JSON.stringify(users)
 
-        writeFile('./data/users.json', json, 'utf8', error => {
+        writeFile('./data/users.json', json, error => {
             authenticateUser(email, password, (error, userId) => {
-                debugger
                 expect(error).to.be.null
                 expect(id).to.equal(userId)
 
@@ -29,7 +28,6 @@ describe('authenticateUser', () => {
     })
 
     it('fails on non-existing user', done => {
-        debugger
         const users = [{ id, email, password }]
         const json = JSON.stringify(users)
 
@@ -41,6 +39,6 @@ describe('authenticateUser', () => {
             done()
         })
     })
-    after(done => writeFile('./data/users.json', '[]', 'utf8', error => done(error)))
+    after(done => writeFile('./data/users.json', '[]', error => done(error)))
 
 })

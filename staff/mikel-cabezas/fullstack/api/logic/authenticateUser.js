@@ -3,7 +3,7 @@ const { readFile } = require('fs')
 module.exports = function authenticateUser(email, password, callback) {
     // TODO Validate inputs
 
-    readFile('./data/users.json', 'utf8', (error, json) => {
+    readFile('./data/users.json', (error, json) => {
         if (error) {
             callback(error)
 

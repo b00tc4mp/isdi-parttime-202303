@@ -8,20 +8,17 @@ describe('registerUser', () => {
     let name, email, password
 
     beforeEach(done => {
-        debugger
-
         name = `name-${Math.random()}`
         email = `e-${Math.random()}@gmail.com`
         password = `password-${Math.random()}`
 
-        writeFile('./data/users.json', '[]', 'utf8', error => done(error))
+        writeFile('./data/users.json', '[]', error => done(error))
     })
     it('should succeed on register user', done => {
-        debugger
         registerUser(name, email, password, error => {
             expect(error).to.be.null
 
-            readFile('./data/users.json', 'utf8', (error, json) => {
+            readFile('./data/users.json', (error, json) => {
                 expect(error).to.be.null
 
                 const users = JSON.parse(json)
@@ -32,7 +29,7 @@ describe('registerUser', () => {
                 expect(user.name).to.equal(name)
                 expect(user.email).to.equal(email)
                 expect(user.password).to.equal(password)
-                expect(user.avatar).to.be.null
+                expect(user.image).to.be.null
                 expect(user.favPosts).to.have.lengthOf(0)
 
                 done()
@@ -48,7 +45,7 @@ describe('registerUser', () => {
 
         const json = JSON.stringify(user)
 
-        writeFile('./data/users.json', json, 'utf8', error => {
+        writeFile('./data/users.json', json, error => {
             expect(error).to.be.null
             registerUser(name, email, password, error => {
                 expect(error).to.be.instanceOf(Error)
@@ -87,5 +84,5 @@ describe('registerUser', () => {
         expect(() => registerUser(name, [], password, () => { })).to.Throw(Error, `Email is not a string`)
     })
 
-    after(done => writeFile('./data/users.json', '[]', 'utf8', error => done(error)))
+    after(done => writeFile('./data/users.json', '[]', error => done(error)))
 })
