@@ -5,7 +5,7 @@ module.exports = (userId, avatar, callback) => {
     validateUserId(userId)
     validateCallback(callback)
 
-    readFile('./data/users.json', (error, json) => {
+    readFile('./data/users.json', 'utf8', (error, json) => {
         if (error) {
             callback(error)
 
@@ -24,22 +24,20 @@ module.exports = (userId, avatar, callback) => {
         user.image = avatar
         const json2 = JSON.stringify(users)
 
-        console.log('json2', json2)
 
-        writeFile('./data/user.json', json2, error => {
+
+        writeFile('./data/users.json', json2, 'utf8', error => {
             if (error) {
                 callback(error)
 
                 return
             }
-
             callback(null)
         })
-        const { name, email, image } = user
+        // const { name, email, image } = user
 
-        const user2 = { name, email, image }
+        // const user2 = { name, email, image }
 
-        callback(null, user2)
 
 
     })
