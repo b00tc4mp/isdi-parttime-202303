@@ -43,8 +43,9 @@ api.post('/users/auth', (req, res) => {
 })
 api.get('/users/:userId', (req, res) => {
     // TODO call retrieveUser and return user in json
+    debugger
     try {
-        const { userId } = req.params.userId
+        const { userId } = req.params
 
         retrieveUser(userId, (error, userId) => {
             if (error) {
@@ -53,7 +54,7 @@ api.get('/users/:userId', (req, res) => {
                 return
             }
 
-            res.json(user)
+            res.json(userId)
         })
     } catch (error) {
         res.status(400).json({ error: error.message })
