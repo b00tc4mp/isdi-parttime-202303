@@ -3,7 +3,12 @@
 export default {
   content: ["./index.html", "./src/**/*.jsx"],
   theme: {
-    extend: {}
+    extend: {
+      container: {
+        center: true,
+        padding: '2rem',
+      },
+    }
   },
 }
 
