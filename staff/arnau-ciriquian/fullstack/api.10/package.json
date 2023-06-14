@@ -1,0 +1,22 @@
+{
+    "name": "api",
+    "private": true,
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "start": "node .",
+        "watch": "node --watch .",
+        "inspect": "node --inspect-brk .",
+        "test": "mocha logic/tests/*.spec.js"
+    },
+    "dependencies": {
+        "com": "file:../com",
+        "dotenv": "^16.1.4",
+        "express": "^4.18.2"
+    },
+    "devDependencies": {
+        "chai": "^4.3.7",
+        "mocha": "^10.2.0"
+    }
+}
