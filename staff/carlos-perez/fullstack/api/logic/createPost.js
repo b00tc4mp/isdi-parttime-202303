@@ -17,7 +17,7 @@ module.exports = function createPost(userId, image, text, callback) {
 
         if (user) {
 
-            readFile('./data/posts.json', 'utf8', (error, filedPosts) => {
+            readFile(`${process.env.DB_PATH}/posts.json`, 'utf8', (error, filedPosts) => {
                 if (error) {
                     callback(new Error('This file gives me problems'))
 
@@ -36,7 +36,7 @@ module.exports = function createPost(userId, image, text, callback) {
 
                 const postToFile = JSON.stringify(posts);
 
-                writeFile('./data/posts.json', postToFile, 'utf8', error => {
+                writeFile(`${process.env.DB_PATH}/posts.json`, postToFile, 'utf8', error => {
                     if (error) {
                         callback(new Error('I cannot write in this file'))
 
@@ -57,7 +57,7 @@ module.exports = function createPost(userId, image, text, callback) {
 function retrieveUser(userId, callback){
     validateId(userId)
     validateCallback(callback)
-    readFile('./data/users.json', 'utf8', (error, json) => {
+    readFile(`${process.env.DB_PATH}/users.json`, 'utf8', (error, json) => {
         if (error) {
             callback(error)
 

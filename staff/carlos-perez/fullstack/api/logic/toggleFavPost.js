@@ -20,7 +20,7 @@ module.exports = function toggleFavPost(userId, postId, callback) {
                 return
             }
 
-            readFile('./data/users.json', 'utf8', (error, filedUsers) => {
+            readFile(`${process.env.DB_PATH}/users.json`, 'utf8', (error, filedUsers) => {
                 if (error) {
                     callback(error)
 
@@ -40,7 +40,7 @@ module.exports = function toggleFavPost(userId, postId, callback) {
 
                 const usersToFile = JSON.stringify(users);
 
-                writeFile('./data/users.json', usersToFile, 'utf8', error => {
+                writeFile(`${process.env.DB_PATH}/users.json`, usersToFile, 'utf8', error => {
                     if (error) {
                         callback(error)
 
@@ -58,7 +58,7 @@ module.exports = function toggleFavPost(userId, postId, callback) {
 function retrieveUser(userId, callback){
     validateId(userId)
     validateCallback(callback)
-    readFile('./data/users.json', 'utf8', (error, json) => {
+    readFile(`${process.env.DB_PATH}/users.json`, 'utf8', (error, json) => {
         if (error) {
             callback(error)
 
@@ -88,7 +88,7 @@ function retrieveUser(userId, callback){
 function retrievePost(userId, postId, callback){
     validateId(userId)
     validateCallback(callback)
-    readFile('./data/users.json', 'utf8', (error, filedUsers) => {
+    readFile(`${process.env.DB_PATH}/users.json`, 'utf8', (error, filedUsers) => {
         if (error) {
             callback(error)
 
@@ -105,7 +105,7 @@ function retrievePost(userId, postId, callback){
             return
         }
 
-        readFile('./data/posts.json', 'utf8', (error, filedPosts) => {
+        readFile(`${process.env.DB_PATH}/posts.json`, 'utf8', (error, filedPosts) => {
             if (error) {
                 callback(error)
     

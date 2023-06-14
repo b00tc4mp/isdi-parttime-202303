@@ -19,7 +19,7 @@ module.exports = function updateUserEmail(userId, email, newEmail, newEmailConfi
         return
     } 
 
-    readFile('./data/users.json', 'utf8', (error, json) => {
+    readFile(`${process.env.DB_PATH}/users.json`, 'utf8', (error, json) => {
         if (error) {
             callback(error)
 
@@ -40,7 +40,7 @@ module.exports = function updateUserEmail(userId, email, newEmail, newEmailConfi
         json = JSON.stringify(users)
 
 
-        writeFile('./data/users.json', json, 'utf8', error => {
+        writeFile(`${process.env.DB_PATH}/users.json`, json, 'utf8', error => {
             if (error) {
                 callback(error)
 
