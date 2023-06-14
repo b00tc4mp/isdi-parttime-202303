@@ -1,1 +1,26 @@
-[{"id":"user-1","name":"Frida","email":"frida@frida.es","password":"Aa-1234","avatar":"hola mundo","favs":[]},{"id":"user-2","name":"rufus","email":"rufus@email.es","password":"Aa-1234","avatar":"hola mundo","favs":[]}]
+[
+    {
+        "id": "user-1",
+        "name": "rufus",
+        "email": "rufus@mail.es",
+        "password": "Aa-1234",
+        "avatar": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcGR7Euzf5AtOJ9ZPZtpPkUCfBJGh1N54mZg&usqp=CAU",
+        "favs": []
+    },
+    {
+        "id": "user-2",
+        "name": "rufus1",
+        "email": "rufus1@mail.es",
+        "password": "Aa-1234",
+        "avatar": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcGR7Euzf5AtOJ9ZPZtpPkUCfBJGh1N54mZg&usqp=CAU",
+        "favs": []
+    },
+    {
+        "id": "user-3",
+        "name": "rufus1",
+        "email": "rufus1@email.es",
+        "password": "Aa-1234",
+        "avatar": null,
+        "favs": []
+    }
+]

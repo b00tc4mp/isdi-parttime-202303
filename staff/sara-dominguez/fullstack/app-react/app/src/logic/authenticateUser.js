@@ -1,5 +1,5 @@
 // import { validateEmail, validatePassword, validateCallback } from "./helpers/validators.js"
-import { findUserByEmail } from "../data.js"
+// import { findUserByEmail } from "../data.js"
 import{ validators } from 'com'
 
 const { validateEmail, validatePassword, validateCallback } = validators
@@ -18,22 +18,58 @@ export function authenticateUser (email, password, callback) {
     validatePassword(password)
     validateCallback(callback)
  
+const xhr = new XMLHttpRequest
 
-    findUserByEmail(email, foundUser =>{
-        if(!foundUser) {
-           callback(new Error ('User not found'))
 
-            return
-        }
-    
-        if (foundUser.password !== password) {
-            callback(new Error ('Wrong password'))
+xhr.onload = () => {
+  const { status } = xhr
 
-            return
-        }
-        
-        callback(null, foundUser.id)
-        // este null es de que no ha habido errores, se indica primero)
-    })
+  if (status !== 200) {
+    const { response: json } = xhr
+    const { error } = JSON.parse(json)
+
+    callback(new Error(error))
+
+    return
+  }
+
+  const { response: json } = xhr
+  const { userId } = JSON.parse(json)
+
+  callback(null, userId)
 }
+
+xhr.onerror = () => {
+  callback(new Error('conection error'))
+}
+
+xhr.open('POST', 'http://localhost:4000/users/auth')
+
+xhr.setRequestHeader('Content-Type', 'application/json')
+
+//enviamos los datos del usuario y lo convertimos a json
+const user = { email, password }
+const json = JSON.stringify(user)
+
+xhr.send(json)
+
+
+}
+    // findUserByEmail(email, foundUser =>{
+    //     if(!foundUser) {
+    //        callback(new Error ('User not found'))
+
+    //         return
+    //     }
+    
+    //     if (foundUser.password !== password) {
+    //         callback(new Error ('Wrong password'))
+
+    //         return
+    //     }
+        
+    //     callback(null, foundUser.id)
+//         // este null es de que no ha habido errores, se indica primero)
+//     })
+// }
 

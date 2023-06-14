@@ -3,10 +3,19 @@ const { registerUser, authenticateUser, retrieveUser, updateUserAvatar } = requi
 
 const api = express()
 
+//le decimos al servidor que acepte cualquier puerto de cualquier navegador--cabecera
+api.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*')
+    res.setHeader('Access-Control-Allow-Headers', '*')
+    res.setHeader('Access-Control-Allow-Methods', '*')
+    next()
+})
+
 //definimos la api
 api.get('/', (req, res) => {
     res.send('Hello World!')
 })
+
 
 api.get('/helloworld', (req, res) => res.json({ hello: 'world' }))
 
