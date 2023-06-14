@@ -1,61 +1,60 @@
 require('dotenv').config()
 
 const express = require('express')
-const { extractUserId } = require('./helpers')
 const { cors, jsonBodyParser } = require('./utils')
-const { helloApiMid, registerUserMid, authenticateUserMid, retrieveUserMid, updateAvatarMid, updateEmailMid, updatePasswordMid, createPostMid, retrievePostsMid, retrievePostMid, retrieveSavedPostsMid, updatePostMid, deletePostMid, toggleLikePostMid, toggleSavePostMid, togglePostVisibilityMid } = require('./middlewares')
+const { helloApiHandler, registerUserHandler, authenticateUserHandler, retrieveUserHandler, updateAvatarHandler, updateEmailHandler, updatePasswordHandler, createPostHandler, retrievePostsHandler, retrievePostHandler, retrieveSavedPostsHandler, updatePostHandler, deletePostHandler, toggleLikePostHandler, toggleSavePostHandler, togglePostVisibilityHandler } = require('./handlers')
 
 const api = express()
 
 api.use(cors)
 
-api.get('/', helloApiMid)
+api.get('/', helloApiHandler)
 
 //register user
-api.post('/users', jsonBodyParser, registerUserMid)
+api.post('/users', jsonBodyParser, registerUserHandler)
 
 //authenticate user
-api.post('/users/auth', jsonBodyParser, authenticateUserMid)
+api.post('/users/auth', jsonBodyParser, authenticateUserHandler)
 
 //retrieve user
-api.get('/users', retrieveUserMid)
+api.get('/users', retrieveUserHandler)
 
 //update avatar
-api.patch('/users/avatar',jsonBodyParser, updateAvatarMid)
+api.patch('/users/avatar',jsonBodyParser, updateAvatarHandler)
 
 
 //update email
-api.patch('/users/email', jsonBodyParser, updateEmailMid)
+api.patch('/users/email', jsonBodyParser, updateEmailHandler)
 
 //update password
-api.patch('/users/password',jsonBodyParser, updatePasswordMid)
+api.patch('/users/password',jsonBodyParser, updatePasswordHandler)
 
 //create post
-api.post('/posts/new', createPostMid)
+api.post('/posts/new', jsonBodyParser ,createPostHandler)
 
 
 //retrievePosts
-api.get('/posts', retrievePostsMid)
+api.get('/posts', retrievePostsHandler)
 
 //retrieve post
-api.get('/posts/post/:postId', retrievePostMid)
+api.get('/posts/post/:postId', retrievePostHandler)
 
 //retrieve saved posts
-api.get('/posts/saved', retrieveSavedPostsMid)
+api.get('/posts/saved', retrieveSavedPostsHandler)
 
 //update post
-api.patch('/posts/update/:postId', jsonBodyParser, updatePostMid)
+api.patch('/posts/update/:postId', jsonBodyParser, updatePostHandler)
 
 //delete post
-api.delete('/posts/delete/:postId', deletePostMid)
+api.delete('/posts/delete/:postId', deletePostHandler)
 
 //toggle like post
-api.patch('/posts/like/:postId', toggleLikePostMid)
+api.patch('/posts/like/:postId', toggleLikePostHandler)
 
 //toggle save post
-api.patch('/posts/save/:postId', toggleSavePostMid)
+api.patch('/posts/save/:postId', toggleSavePostHandler)
 
 //toggle post visibility
-api.patch('/posts/visibility/:postId', togglePostVisibilityMid)
+api.patch('/posts/visibility/:postId', togglePostVisibilityHandler)
 
 api.listen(4000)

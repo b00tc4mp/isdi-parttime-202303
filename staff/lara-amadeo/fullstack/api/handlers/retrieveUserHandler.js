@@ -1,20 +1,18 @@
+const { retrieveUser } = require('../logic')
 const { extractUserId } = require('../helpers')
-const {  updateAvatar } = require('../logic')
 
-module.exports = function updateAvatarMid(req, res) {
+module.exports = function retrieveUserHandler(req, res) {
     try {
-        const userId = extractUserId(req) 
+        const userId = extractUserId(req)
 
-        const { avatar } = req.body
-
-        updateAvatar(userId, avatar, error => {
+        retrieveUser(userId, (error, user) => {
             if (error) {
                 res.status(400).json({ error: error.message })
 
                 return
             }
 
-            res.status(204).send()
+            res.status(200).json({ user })
         })
     } catch (error) {
         res.status(400).json({ error: error.message })

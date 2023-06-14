@@ -32,7 +32,6 @@ export default function createPost(userId, image, text, callback) {
     xhr.setRequestHeader('Content-Type', 'application/json')
     xhr.setRequestHeader('authorization', `Bearer ${userId}`)
 
-
     const data = { image, text }
     const json = JSON.stringify(data)
 

@@ -5,7 +5,6 @@ module.exports = (req, res) => {
     
     try {
             const userId = extractUserId(req)
-
             const { image, text } = req.body
 
             createPost(userId, image, text, error => {

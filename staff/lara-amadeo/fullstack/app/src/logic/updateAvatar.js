@@ -33,7 +33,7 @@ export function updateAvatar(userId, url, callback){
         callback(new Error('Connection error'))
     }
 
-    xhr.open('PATCH', `http://localhost:4000/users/avatar/${userId}`)
+    xhr.open('PATCH', `http://localhost:4000/users/avatar`)
 
     xhr.setRequestHeader('Content-type', 'application/json')
     xhr.setRequestHeader('authorization', `Bearer ${userId}`)

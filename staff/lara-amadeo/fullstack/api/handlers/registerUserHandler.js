@@ -1,6 +1,6 @@
 const { registerUser } = require('../logic')
 
-module.exports = function registerUserMid(req, res) {
+module.exports = function registerUserHandler(req, res) {
 
         const user = req.body
         console.log(user)

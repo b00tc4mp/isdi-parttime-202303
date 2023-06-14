@@ -1,9 +1,8 @@
 const {  authenticateUser } = require('../logic')
 
-module.exports = function authenticateUserMid(req, res) {
-        const { email, password} = req.body
-
-        try {
+module.exports = function authenticateUserHandler(req, res) {
+    try {
+            const { email, password} = req.body
             authenticateUser(email, password, (error, userId) => {
                 if (error) {
                     res.status(400).json({ error: error.message })
