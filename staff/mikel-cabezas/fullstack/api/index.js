@@ -1,5 +1,5 @@
 const express = require('express')
-const { registerUser } = require('./logic')
+const { registerUser, retrieveUser } = require('./logic')
 
 const api = express()
 
@@ -43,6 +43,22 @@ api.post('/users/auth', (req, res) => {
 })
 api.get('/users/:userId', (req, res) => {
     // TODO call retrieveUser and return user in json
+    try {
+        const { userId } = req.params.userId
+
+        retrieveUser(userId, (error, userId) => {
+            if (error) {
+                res.status(400).json({ error: error.message })
+
+                return
+            }
+
+            res.json(user)
+        })
+    } catch (error) {
+        res.status(400).json({ error: error.message })
+
+    }
 })
 
 api.listen(4000)
