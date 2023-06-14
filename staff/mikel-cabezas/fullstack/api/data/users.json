@@ -1,1 +1,10 @@
-[]
+[
+    {
+        "id": "user-1",
+        "name": "Mikel C",
+        "email": "mikelcabezas@gmail.com3",
+        "password": "123123123",
+        "avatar": null,
+        "favPosts": []
+    }
+]
