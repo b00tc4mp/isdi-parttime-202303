@@ -5,11 +5,11 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   optimizeDeps: {
-    include: ['com'],
+    include: ['com']
   },
   build: {
     commonjsOptions: {
-      include: [/com/, /node_modules/],
-    },
-  },
+      include: [/com/, /node_modules/]
+    }
+  }
 })

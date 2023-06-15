@@ -5,6 +5,7 @@ const { extractUserId } = require('../helpers')
 module.exports = (req, res) => {
     try {
         const userId = extractUserId(req)
+        const { postId } = req.params
         const { price } = req.body
 
         updatePriceToPost(userId, postId, price, error => {

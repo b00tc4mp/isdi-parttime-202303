@@ -68,6 +68,6 @@ api.patch('/posts/:postId/updatePost', jsonBodyParser, updatePostHandler)
 
 api.patch('/posts/:postId/updateBuy', updateBuyPostHandler)
 
-api.patch('/posts/:postId/updatePriceToPost', updatePriceToPostHandler)
+api.patch('/posts/:postId/updatePriceToPost', jsonBodyParser, updatePriceToPostHandler)
 
 api.listen(process.env.PORT, () => console.log(`server running in port ${process.env.PORT}`))
