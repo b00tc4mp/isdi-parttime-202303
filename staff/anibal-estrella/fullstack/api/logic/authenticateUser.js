@@ -25,9 +25,9 @@ module.exports = (email, password, callback) => {
 
         if (user.password !== password) {
             callback(new Error('Wrong password 😢'))
+
             return
         }
         callback(null, user.id)
     })
-
 }

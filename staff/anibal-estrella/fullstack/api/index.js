@@ -4,31 +4,31 @@ const express = require('express')
 
 const { cors, jsonBodyParser } = require('./utils')
 const {
-    helloApiMid,
-    registerUserMid,
-    authenticateUserMid,
-    retrieveUserMid,
-    updateUserAvatarMid,
-    updateUserPasswordMid,
-    createPostMid
+    helloApiHandlers,
+    registerUserHandlers,
+    authenticateUserHandlers,
+    retrieveUserHandlers,
+    updateUserAvatarHandlers,
+    updateUserPasswordHandlers,
+    createPostHandlers
 } = require('./middlewares')
 
 const api = express()
 
 api.use(cors)
 
-api.get('/', helloApiMid)
+api.get('/', helloApiHandlers)
 
-api.post('/users', jsonBodyParser, registerUserMid)
+api.post('/users', jsonBodyParser, registerUserHandlers)
 
-api.post('/users/auth', jsonBodyParser, authenticateUserMid)
+api.post('/users/auth', jsonBodyParser, authenticateUserHandlers)
 
-api.get('/users', retrieveUserMid)
+api.get('/users', retrieveUserHandlers)
 
-api.patch('/users', jsonBodyParser, updateUserAvatarMid)
+api.patch('/users', jsonBodyParser, updateUserAvatarHandlers)
 
-api.patch('/users/password', updateUserPasswordMid)
+api.patch('/users/password', updateUserPasswordHandlers)
 
-api.post('/posts', jsonBodyParser, createPostMid)
+api.post('/posts', jsonBodyParser, createPostHandlers)
 
 api.listen(process.env.PORT, () => console.log(`server running in port ${process.env.PORT}`))

@@ -1,50 +1,59 @@
 require('dotenv').config()
 
 const { expect } = require('chai')
-const { writeFile } = require('fs')
 const authenticateUser = require('./authenticateUser')
+const { cleanUp, populate, generate } = require('./helpers/tests')
 
 
 describe('authenticateUser', () => {
-    let id, name, email, password
+    let user
 
     beforeEach(done => {
-        id = `id-${Math.random()}`
-        name = `name-${Math.random()}`
-        email = `email-${Math.random()}@mail.com`
-        password = `password-${Math.random()}`
+        user = generate.user()
 
-        writeFile(`${process.env.DB_PATH}/users.json`, '[]', error => done(error))
+        cleanUp(done)
     })
 
     it('SUCCEEDS when user is in db', done => {
+        const users = [user]
 
-        const users = [{ id, email, password }]
-        const json = JSON.stringify(users)
+        populate(users, [], error => {
+            if (error) {
+                done(error)
 
-        writeFile(`${process.env.DB_PATH}/users.json`, json, 'utf-8', error => {
-            expect(error).to.be.null
+                return
+            }
 
-            authenticateUser(email, password, (error, userId) => {
+            authenticateUser(user.email, user.password, (error, userId) => {
                 expect(error).to.be.null
-                expect(userId).to.equal(id)
+                expect(userId).to.equal(user.id)
 
                 done()
             })
-
         })
-
     })
 
+    it('FAILS on non-exixting user', done =>
+        authenticateUser(user.email, user.password, (error, userId) => {
+            expect(error).to.be.instanceOf(Error)
+            expect(error.message).to.equal(`User with email ${user.email} not found! 👎`)
+            expect(userId).to.be.undefined
+
+            done()
+        })
+    )
+
     it('FAILS when user is in db but wrong password', done => {
+        const users = [user]
 
-        const users = [{ id, email, password }]
-        const json = JSON.stringify(users)
+        populate(users, [], error => {
+            if (error) {
+                done(error)
 
-        writeFile(`${process.env.DB_PATH}/users.json`, json, 'utf-8', error => {
-            expect(error).to.be.null
+                return
+            }
 
-            authenticateUser(email, password + '-wrong', (error, userId) => {
+            authenticateUser(user.email, user.password + '-wrong', (error, userId) => {
                 expect(error).to.be.instanceOf(Error)
                 expect(error.message).to.equal('Wrong password 😢')
                 expect(userId).to.be.undefined
@@ -56,38 +65,53 @@ describe('authenticateUser', () => {
 
     })
 
-    it('FAILS on non-exixting user', done => {
 
-        const users = [{ id, email, password }]
-        const json = JSON.stringify(users)
-        //we dont write the user on the DB so user is missing
+    it('FAILS when user is in db but wrong email', done => {
+        const users = [user]
 
-        authenticateUser(email, password, (error, userId) => {
-            expect(error).to.be.instanceOf(Error)
-            expect(error.message).to.equal(`User with email ${email} not found! 👎`)
-            expect(userId).to.be.undefined
+        populate(users, [], error => {
+            if (error) {
+                done(error)
 
-            done()
+                return
+            }
+
+            user.email += '-wrong'
+
+            authenticateUser(user.email, user.password, (error, userId) => {
+                expect(error).to.be.instanceOf(Error)
+                expect(error.message).to.equal(`User with email ${user.email} not found! 👎`)
+                expect(userId).to.be.undefined
+
+                done()
+            })
+
         })
-    })
 
-    it('FAILS on empty email', () => {
-        expect(() => authenticateUser('', password, () => { })).to.throw(Error, `email is blank`)
-    })
-
-    it('FAILS on empty password', () => {
-        expect(() => authenticateUser(email, '', () => { })).to.throw(Error, 'password must be more than 8 characters long')
     })
 
     it('FAILS on non-string password', () => {
-        expect(() => authenticateUser(email, undefined, () => { })).to.throw(Error, `password must be a string`)
-        expect(() => authenticateUser(email, 1, () => { })).to.throw(Error, `password must be a string`)
-        expect(() => authenticateUser(email, null, () => { })).to.throw(Error, `password must be a string`)
-        expect(() => authenticateUser(email, true, () => { })).to.throw(Error, `password must be a string`)
-        expect(() => authenticateUser(email, false, () => { })).to.throw(Error, `password must be a string`)
-        expect(() => authenticateUser(email, {}, () => { })).to.throw(Error, `password must be a string`)
-        expect(() => authenticateUser(email, [], () => { })).to.throw(Error, `password must be a string`)
+        expect(() => authenticateUser(user.email, undefined, () => { })).to.throw(Error, `password must be a string`)
+        expect(() => authenticateUser(user.email, 1, () => { })).to.throw(Error, `password must be a string`)
+        expect(() => authenticateUser(user.email, null, () => { })).to.throw(Error, `password must be a string`)
+        expect(() => authenticateUser(user.email, true, () => { })).to.throw(Error, `password must be a string`)
+        expect(() => authenticateUser(user.email, false, () => { })).to.throw(Error, `password must be a string`)
+        expect(() => authenticateUser(user.email, {}, () => { })).to.throw(Error, `password must be a string`)
+        expect(() => authenticateUser(user.email, [], () => { })).to.throw(Error, `password must be a string`)
     })
 
-    afterEach(done => writeFile(`${process.env.DB_PATH}/users.json`, '[]', 'utf8', error => done(error)))
+    it('FAILS on empty email', () => {
+        expect(() => authenticateUser('', user.password, () => { })).to.throw(Error, `email is blank`)
+    })
+
+    it('FAILS on empty password', () => {
+        expect(() => authenticateUser(user.email, '', () => { })).to.throw(Error, 'password must be more than 8 characters long')
+    })
+
+
+    it('FAILS on non callback', () => {
+        expect(() => authenticateUser(user.email, user.password)).to.throw(Error, 'callback must be a function')
+    })
+
+    after(cleanUp)
 })
