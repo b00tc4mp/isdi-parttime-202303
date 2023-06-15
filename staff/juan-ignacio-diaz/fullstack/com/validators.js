@@ -51,12 +51,12 @@ function validateCallback(callback) {
 }
 
 module.exports = {
+    validateId,
     validateEmail,
     validateName,
     validatePassword,
     validateText,
     validateUrl,
     validateNumber,
-    validateId,
     validateCallback
 }
