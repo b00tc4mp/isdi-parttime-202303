@@ -1,7 +1,7 @@
 const { retrieveUser } = require('../logic');
 const { extractUserId } = require('../helpers');
 
-const retrieveUserMid = (req, res) => {
+const retrieveUserHandler = (req, res) => {
   try {
     const userId = extractUserId(req);
 
@@ -19,4 +19,4 @@ const retrieveUserMid = (req, res) => {
   }
 };
 
-module.exports = retrieveUserMid;
+module.exports = retrieveUserHandler;

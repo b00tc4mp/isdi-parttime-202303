@@ -12,7 +12,7 @@ const Register = ({onLoginClick, onUserRegistered}) => {
     onLoginClick()
   },
 
-  handleRegister = (event) => {
+  Handleregister = (event) => {
     event.preventDefault()
 
     const name = event.target.name.value,
@@ -39,7 +39,7 @@ const Register = ({onLoginClick, onUserRegistered}) => {
   return <Container tag="main">
   <h1 className="title">Register</h1>
 
-  <Form onSubmit={handleRegister}>
+  <Form onSubmit={Handleregister}>
       <Input type="text" name="name" placeholder="name" />
       <Input type="email" name="email" placeholder="email" />
       <Input type="password" name="password" placeholder="password" />

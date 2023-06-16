@@ -1,24 +1,24 @@
-const { updateUserAvatar } = require('../logic');
+const { createPost } = require('../logic');
 const { extractUserId } = require('../helpers');
 
-const updateUserAvatarMid = (req, res) => {
+const createPostHandler = (req, res) => {
   try {
     const userId = extractUserId(req);
 
-    const { avatar } = req.body;
+    const { image, text } = req.body;
 
-    updateUserAvatar(userId, avatar, (error) => {
+    createPost(userId, image, text, (error) => {
       if (error) {
         res.status(400).json({ error: error.message });
 
         return;
       }
 
-      res.status(204).send();
+      res.status(201).send();
     });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
 };
 
-module.exports = updateUserAvatarMid;
+module.exports = createPostHandler;

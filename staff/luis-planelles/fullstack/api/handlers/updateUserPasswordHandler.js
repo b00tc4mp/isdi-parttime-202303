@@ -1,7 +1,7 @@
 const { updateUserPassword } = require('../logic');
 const { extractUserId } = require('../helpers');
 
-const updateUserPasswordMid = (req, res) => {
+const updateUserPasswordHandler = (req, res) => {
   try {
     const userId = extractUserId(req);
 
@@ -27,4 +27,4 @@ const updateUserPasswordMid = (req, res) => {
   }
 };
 
-module.exports = updateUserPasswordMid;
+module.exports = updateUserPasswordHandler;

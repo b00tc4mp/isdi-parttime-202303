@@ -9,9 +9,9 @@ const Posts = ({onEditPost, onSellPost, lastPostUpdate}) => {
     const { alert, freeze, unfreeze } = useAppContext(),
         [posts, setPosts] = useState();
 
-    useEffect(() => handleRefreshPost(), [])
+    useEffect(() => HandlerefreshPost(), [])
 
-    const handleRefreshPost = () => {
+    const HandlerefreshPost = () => {
         try {
             freeze()
 
@@ -33,7 +33,7 @@ const Posts = ({onEditPost, onSellPost, lastPostUpdate}) => {
     };
         
     useEffect(() =>{
-        if(lastPostUpdate) handleRefreshPost()
+        if(lastPostUpdate) HandlerefreshPost()
     }, [lastPostUpdate]);
 
     return <section className='container'>            
@@ -43,10 +43,10 @@ const Posts = ({onEditPost, onSellPost, lastPostUpdate}) => {
             post={post} 
             onEdit={onEditPost}
             onSell={onSellPost}
-            onLike={handleRefreshPost}
-            onFavourite={handleRefreshPost}
-            onDelete={handleRefreshPost}
-            onBuy={handleRefreshPost}
+            onLike={HandlerefreshPost}
+            onFavourite={HandlerefreshPost}
+            onDelete={HandlerefreshPost}
+            onBuy={HandlerefreshPost}
         />)}
     </section>
 }

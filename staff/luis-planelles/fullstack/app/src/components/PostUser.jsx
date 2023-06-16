@@ -25,7 +25,7 @@ const PostsUser = ({onEditPost, lastPostUpdate}) => {
     }
   }, [])
 
-const handleRefreshPost = () => {
+const HandlerefreshPost = () => {
   try{    
     retrievePostsUser(context.userId, (error, postsUser) => {
       if (error) {
@@ -42,7 +42,7 @@ const handleRefreshPost = () => {
 };
 
 useEffect(() =>{
-    if(lastPostUpdate) handleRefreshPost()
+    if(lastPostUpdate) HandlerefreshPost()
 }, [lastPostUpdate]);
 
 return <section className='container'>            
@@ -50,9 +50,9 @@ return <section className='container'>
     <Post 
         key={post.id} 
         onEdit={onEditPost}
-        onLike={handleRefreshPost}
-        onFavourite={handleRefreshPost}
-        onDelete={handleRefreshPost}
+        onLike={HandlerefreshPost}
+        onFavourite={HandlerefreshPost}
+        onDelete={HandlerefreshPost}
         post={post} 
         />)
     }

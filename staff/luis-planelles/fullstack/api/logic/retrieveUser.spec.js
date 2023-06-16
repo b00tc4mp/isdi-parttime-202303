@@ -81,7 +81,7 @@ describe('retrieveUser', () => {
   it('fails on empty id', () =>
     expect(() => retrieveUser('', () => {})).to.throw(
       Error,
-      'userId is empty'
+      'user id is empty'
     ));
 
   it('fails on empty callback', () =>

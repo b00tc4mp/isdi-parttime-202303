@@ -28,7 +28,7 @@ const Login = ({onRegisterClick, onUserLoggedIn}) => {
       }
   }, [])
 
-  const handleRegisterClick = (event) => { 
+  const HandleregisterClick = (event) => { 
     event.preventDefault();
 
     onRegisterClick();
@@ -71,7 +71,7 @@ const Login = ({onRegisterClick, onUserLoggedIn}) => {
         <button className="button"type="submit"> Login </button>
       </form>
       
-      <p><a href="" onClick={handleRegisterClick}> Register </a> </p>
+      <p><a href="" onClick={HandleregisterClick}> Register </a> </p>
     </div>
   );
 }

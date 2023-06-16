@@ -1,6 +1,6 @@
 const { authenticateUser } = require('../logic');
 
-const authenticateUserMid = (req, res) => {
+const authenticateUserHandler = (req, res) => {
   try {
     const { email, password } = req.body;
 
@@ -18,4 +18,4 @@ const authenticateUserMid = (req, res) => {
   }
 };
 
-module.exports = authenticateUserMid;
+module.exports = authenticateUserHandler;

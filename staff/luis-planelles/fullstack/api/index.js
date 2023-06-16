@@ -1,14 +1,14 @@
 require('dotenv').config();
 
 const {
-  helloApiMid,
-  registerUserMid,
-  authenticateUserMid,
-  retrieveUserMid,
-  updateUserAvatarMid,
-  updateUserPasswordMid,
-  createPostMid,
-} = require('./middlewares');
+  helloApiHandler,
+  registerUserHandler,
+  authenticateUserHandler,
+  retrieveUserHandler,
+  updateUserAvatarHandler,
+  updateUserPasswordHandler,
+  createPostHandler,
+} = require('./handlers');
 
 const { cors, jsonBodyParser } = require('./utils');
 
@@ -18,19 +18,19 @@ const api = express();
 api.use(cors);
 
 // api routes
-api.get('/', helloApiMid);
+api.get('/', helloApiHandler);
 
-api.post('/users', jsonBodyParser, registerUserMid);
+api.post('/users', jsonBodyParser, registerUserHandler);
 
-api.post('/users/auth', jsonBodyParser, authenticateUserMid);
+api.post('/users/auth', jsonBodyParser, authenticateUserHandler);
 
-api.get('/users/', retrieveUserMid);
+api.get('/users/', retrieveUserHandler);
 
-api.patch('/users/updateAvatar/', jsonBodyParser, updateUserAvatarMid);
+api.patch('/users/updateAvatar/', jsonBodyParser, updateUserAvatarHandler);
 
-api.patch('/users/updatePassword/', jsonBodyParser, updateUserPasswordMid);
+api.patch('/users/updatePassword/', jsonBodyParser, updateUserPasswordHandler);
 
-api.post('/users/posts', jsonBodyParser, createPostMid);
+api.post('/users/posts', jsonBodyParser, createPostHandler);
 
 api.listen(process.env.PORT, () =>
   console.log(`server running in port ${process.env.PORT}`)

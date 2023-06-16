@@ -52,7 +52,7 @@ const OnSalePostModal = ({ postId, onCancel, onPostUpdated }) => {
     }
   },
 
-  handleRemoveSale = () => {
+  HandleremoveSale = () => {
     try {
       removePostFromSale(context.userId, postId, (error) => {
         if (error) {
@@ -78,7 +78,7 @@ const OnSalePostModal = ({ postId, onCancel, onPostUpdated }) => {
         <button className='button set-price' onClick={handleSaleUpdatePost}>
           set price
         </button>
-        <button className='button remove-sale' onClick={handleRemoveSale} type='button'>
+        <button className='button remove-sale' onClick={HandleremoveSale} type='button'>
           remove sale
         </button>
         <button className='button cancel' onClick={handleCancelSalePost} type='button'>

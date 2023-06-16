@@ -4,7 +4,7 @@ const {
 } = require('com');
 
 const retrieveUser = (userId, callback) => {
-  validateId(userId, 'userId');
+  validateId(userId, 'user id');
   validateCallback(callback);
 
   readFile(`${process.env.DB_PATH}/users.json`, 'utf-8', (error, json) => {

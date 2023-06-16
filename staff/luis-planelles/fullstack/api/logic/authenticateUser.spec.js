@@ -2,31 +2,27 @@ require('dotenv').config();
 
 const { expect } = require('chai'),
   { writeFile } = require('fs'),
-  authenticateUser = require('./authenticateUser.js');
+  authenticateUser = require('./authenticateUser.js'),
+  { cleanUp, generate } = require('./helpers/test');
 
 describe('authenticateUser', () => {
-  let id, email, password;
+  let user;
 
   beforeEach((done) => {
-    id = `id-${Math.random()}`;
-    email = `e-${Math.random()}@mail.com`;
-    password = `P@ssword-${Math.random()}`;
+    user = generate.user();
 
-    writeFile(`${process.env.DB_PATH}/users.json`, '[]', (error) =>
-      done(error)
-    );
+    cleanUp(done);
   });
 
   it('succeeds on existing user', (done) => {
-    const users = [{ id, email, password }],
-      json = JSON.stringify(users);
+    const userJson = JSON.stringify([user]);
 
-    writeFile(`${process.env.DB_PATH}/users.json`, json, (error) => {
+    writeFile(`${process.env.DB_PATH}/users.json`, userJson, (error) => {
       expect(error).to.be.null;
 
-      authenticateUser(email, password, (error, userId) => {
+      authenticateUser(user.email, user.password, (error, userId) => {
         expect(error).to.be.null;
-        expect(userId).to.equal(id);
+        expect(userId).to.equal(user.id);
 
         done();
       });
@@ -34,23 +30,24 @@ describe('authenticateUser', () => {
   });
 
   it('fails on non-existing user', (done) => {
-    authenticateUser(email, password, (error, userId) => {
+    authenticateUser(user.email, user.password, (error, userId) => {
       expect(error).to.be.instanceOf(Error);
-      expect(error.message).to.equal(`user with email ${email} not found`);
+      expect(error.message).to.equal(`user with email ${user.email} not found`);
       expect(userId).to.be.undefined;
 
       done();
     });
   });
 
-  it('fails on existing user but wrong passord', (done) => {
-    const users = [{ id, email, password }],
-      json = JSON.stringify(users);
+  it('fails on existing user but wrong password', (done) => {
+    const userJson = JSON.stringify([user]);
 
-    writeFile(`${process.env.DB_PATH}/users.json`, json, (error) => {
+    writeFile(`${process.env.DB_PATH}/users.json`, userJson, (error) => {
       expect(error).to.be.null;
 
-      authenticateUser(email, password + '-wrong', (error, userId) => {
+      password = user.password + '-wrong';
+
+      authenticateUser(user.email, password, (error, userId) => {
         expect(error).to.be.instanceOf(Error);
         expect(error.message).to.equal('wrong credentials');
         expect(userId).to.be.undefined;
@@ -60,25 +57,46 @@ describe('authenticateUser', () => {
     });
   });
 
-  it('fails on empty email', () =>
-    expect(() => authenticateUser('', password, () => {})).to.throw(
+  it('fails on existing user but wrong email', (done) => {
+    const userJson = JSON.stringify([user]);
+
+    writeFile(`${process.env.DB_PATH}/users.json`, userJson, (error) => {
+      expect(error).to.be.null;
+
+      user.email = `wrong${user.email}`;
+
+      authenticateUser(user.email, user.password, (error, userId) => {
+        expect(error).to.be.instanceOf(Error);
+        expect(error.message).to.equal(
+          `user with email ${user.email} not found`
+        );
+        expect(userId).to.be.undefined;
+
+        done();
+      });
+    });
+  });
+
+  it('fails on empty email', () => {
+    expect(() => authenticateUser('', user.password, () => {})).to.throw(
       Error,
       'email is empty'
-    ));
+    );
+  });
 
-  it('fails on empty password', () =>
-    expect(() => authenticateUser(email, '', () => {})).to.throw(
+  it('fails on empty password', () => {
+    expect(() => authenticateUser(user.email, '', () => {})).to.throw(
       Error,
       'password is empty'
-    ));
+    );
+  });
 
-  it('fails on empty callback', () =>
-    expect(() => authenticateUser(email, password)).to.throw(
+  it('fails on empty callback', () => {
+    expect(() => authenticateUser(user.email, user.password)).to.throw(
       Error,
       'callback is not a function'
-    ));
+    );
+  });
 
-  after((done) =>
-    writeFile(`${process.env.DB_PATH}/users.json`, '[]', (error) => done(error))
-  );
+  after(cleanUp);
 });
