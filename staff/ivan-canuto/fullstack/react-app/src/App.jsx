@@ -36,10 +36,10 @@ export default function App() {
   const unfreeze = () => setLoader(false)
 
   return <Context.Provider value={{alert, freeze, unfreeze}}>
-  {loader && <Loader/>}
-  {view === 'login' && <Login onRegisterClick={handleGoToRegister} onLoggedInUser={handleGoToHome}/>}
-  {view === 'register' && <Register onLoginClick={handleGoToLogin} onRegisterUser={handleGoToLogin}/>}
-  {view === 'home' && <Home onLoggedOut={handleGoToLogin}/>}
-  {feedback && <Alert message={feedback.message} level={feedback.level} onAccept={handleOnAcceptClick}/>}
+    {loader && <Loader/>}
+    {view === 'login' && <Login onRegisterClick={handleGoToRegister} onLoggedInUser={handleGoToHome}/>}
+    {view === 'register' && <Register onLoginClick={handleGoToLogin} onRegisterUser={handleGoToLogin}/>}
+    {view === 'home' && <Home onLoggedOut={handleGoToLogin}/>}
+    {feedback && <Alert message={feedback.message} level={feedback.level} onAccept={handleOnAcceptClick}/>}
   </Context.Provider>
 }

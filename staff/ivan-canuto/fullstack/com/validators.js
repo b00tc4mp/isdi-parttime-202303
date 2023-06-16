@@ -21,9 +21,9 @@ function validateUrl(newUrl, explanation = 'url') {
   if (!correctUrl.test(newUrl)) throw new Error(`The url entered does not includes a .jpg/.jpg/.webp/.png extension.`)
 }
 
-function validateId(userId, explanation = 'id') {
-  if (typeof userId !=='string') throw new Error(`The ${explanation} is not a string.`)
-  if (!userId.trim().length) throw new Error(`The ${explanation} field is empty.`)
+function validateId(id, explanation = 'id') {
+  if (typeof id !=='string') throw new Error(`The ${explanation} is not a string.`)
+  if (!id.trim().length) throw new Error(`The ${explanation} field is empty.`)
 }
 
 function validateText(text, explanation = 'text') {

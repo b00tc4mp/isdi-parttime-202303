@@ -35,7 +35,7 @@ export default function buyPost(postId, callBack) {
     callBack(new Error('Connection error.'))
   }
 
-  xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/posts/buyPost/${postId}`)
+  xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/posts/${postId}/buy`)
 
   xhr.send()
 }

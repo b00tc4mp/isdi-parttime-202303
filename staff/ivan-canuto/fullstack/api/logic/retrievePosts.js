@@ -1,7 +1,7 @@
 const { readFile } = require('fs')
 const { validators: { validateId, validateCallback } } = require('com')
 
-module.exports = function retrievePosts(userId, callBack) {
+module.exports = (userId, callBack) => {
   validateId(userId, 'user id')
   validateCallback(callBack)
 

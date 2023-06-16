@@ -1,7 +1,7 @@
 const { readFile, writeFile } = require('fs')
 const { validators: { validateCallback, validateId } } = require('com')
 
-module.exports = function deleteComment(postId, commentId, callBack) {
+module.exports = (postId, commentId, callBack) => {
   validateId(commentId, 'comment id')
   validateCallback(callBack)
   

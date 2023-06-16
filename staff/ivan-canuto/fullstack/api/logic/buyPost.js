@@ -1,8 +1,8 @@
 const { readFile, writeFile } = require('fs')
 const { validators: { validateCallback, validateId } } = require('com')
 
-module.exports = function buyPost(postId, callBack) {
-  validateId(postId)
+module.exports = (postId, callBack) => {
+  validateId(postId, 'post id')
   validateCallback(callBack)
 
   readFile(`${process.env.DB_PATH}/posts.json`, (error, postsJSON) => {
@@ -17,7 +17,7 @@ module.exports = function buyPost(postId, callBack) {
     const post = posts.find(_post => _post.id === postId)
 
     if(!post) {
-      callBack(new Error('This post does not exist.'))
+      callBack(new Error(`Post with id ${postId} not found.`))
 
       return
     }

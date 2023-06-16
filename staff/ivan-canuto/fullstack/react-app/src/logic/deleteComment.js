@@ -37,7 +37,7 @@ export default function deleteComment(postId, commentId, callBack) {
     callBack(new Error('Connection error.'))
   }
 
-  xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/posts/deleteComment/${postId}/${commentId}`)
+  xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/posts/${postId}/comments/${commentId}/delete`)
 
   xhr.send()
 }

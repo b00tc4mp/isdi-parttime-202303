@@ -40,9 +40,10 @@ export const createPost = (userId, imageUrl, postText, callBack) => {
     callBack(new Error('Connection error.'))
   }
   
-  xhr.open('POST', `${import.meta.env.VITE_API_URL}/posts/createPost/${userId}`)
+  xhr.open('POST', `${import.meta.env.VITE_API_URL}/users/newPost`)
   
   xhr.setRequestHeader('Content-Type', 'application/json')
+  xhr.setRequestHeader('Authorization', `Bearer ${userId}`)
 
   const post = { imageUrl, postText }
   const json = JSON.stringify(post)

@@ -42,9 +42,10 @@ export default function updateUserPassword(userId, password, newPassword, newPas
     callBack(new Error('Connection error.'))
   }
 
-  xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/users/updateUserPassword/${userId}`)
+  xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/users/newPassword`)
 
   xhr.setRequestHeader('Content-Type', 'application/json')
+  xhr.setRequestHeader('Authorization', `Bearer ${userId}`)
 
   const json = JSON.stringify({ password, newPassword, newPasswordConfirm })
 

@@ -1,8 +1,11 @@
 const { readFile, writeFile } = require('fs')
 const { validators: { validateCallback, validateText } } = require('com')
+const { validateId } = require('com/validators')
 
-module.exports = function createComment(commentText, userId, postId, callBack) {
-  validateText(commentText)
+module.exports = (commentText, userId, postId, callBack) => {
+  validateId(postId, 'post id')
+  validateId(userId, 'user id')
+  validateText(commentText, 'comment text')
   validateCallback(callBack)
   
   readFile(`${process.env.DB_PATH}/users.json`, (error, usersJSON) => {
@@ -13,10 +16,15 @@ module.exports = function createComment(commentText, userId, postId, callBack) {
     }
 
     const users = JSON.parse(usersJSON)
+    const user = users.find(user => user.id === userId)
 
-    const user = users.find(_user => _user.id === userId)
+    if(!user) {
+      callBack(new Error(`User with id ${userId} not found.`))
 
-    readFile('./data/posts.json', (error, postsJSON) => {
+      return
+    }
+
+    readFile(`${process.env.DB_PATH}/posts.json`, (error, postsJSON) => {
       if(error) {
         callBack(error)
   
@@ -25,10 +33,10 @@ module.exports = function createComment(commentText, userId, postId, callBack) {
 
       const posts = JSON.parse(postsJSON)
 
-      const post = posts.find(_post => _post.id === postId)
+      const post = posts.find(post => post.id === postId)
 
       if(!post) {
-        callBack(new Error('Post not found.'))
+        callBack(new Error(`Post with id ${postId} not found.`))
 
         return
       }

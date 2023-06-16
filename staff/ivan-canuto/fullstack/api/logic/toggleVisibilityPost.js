@@ -1,7 +1,7 @@
 const { readFile, writeFile } = require('fs')
 const { validators: { validateId, validateCallback } } = require('com')
 
-module.exports = function toggleVisibilityPost(postId, callBack) {
+module.exports = (postId, callBack) => {
   validateId(postId, 'post id')
   validateCallback(callBack)
 

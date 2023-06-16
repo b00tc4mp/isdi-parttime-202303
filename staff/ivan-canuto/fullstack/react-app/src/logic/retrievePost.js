@@ -29,7 +29,7 @@ export default function retrievePost(userId ,postId, callBack) {
 
       return
     }
-
+    
     const { response: json } = xhr
     const { post } = JSON.parse(json)
 
@@ -40,7 +40,9 @@ export default function retrievePost(userId ,postId, callBack) {
     callBack(new Error('Connection error.'))
   }
 
-  xhr.open('GET', `${import.meta.env.VITE_API_URL}/posts/retrievePost/${userId}/${postId}`)
+  xhr.open('GET', `${import.meta.env.VITE_API_URL}/users/posts/${postId}/post`)
+
+  xhr.setRequestHeader('Authorization', `Bearer ${userId}`)
 
   xhr.send()
 }

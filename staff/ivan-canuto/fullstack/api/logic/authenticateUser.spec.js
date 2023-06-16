@@ -1,8 +1,8 @@
+require('dotenv').config()
+
 const { expect } = require('chai')
 const { readFile, writeFile } = require('fs')
 const authenticateUser = require('./authenticateUser')
-
-require('dotenv').config()
 
 describe('authenticateUser', () => {
   let id, name, email, password
@@ -20,7 +20,7 @@ describe('authenticateUser', () => {
     const users = [{id, name, email, password}]
     const userToJSON = JSON.stringify(users)
     
-    writeFile(`${process.env.DB_PATH}/users.json`,  userToJSON, (error) => {
+    writeFile(`${process.env.DB_PATH}/users.json`,  userToJSON, error => {
       expect(error).to.be.null
       
       authenticateUser(email, password, (error, userId) => {
@@ -58,6 +58,8 @@ describe('authenticateUser', () => {
     const userToJSON = JSON.stringify(users)
 
     writeFile(`${process.env.DB_PATH}/users.json`, userToJSON, (error) => {
+      expect(error).to.be.null
+      
       const newPassword = `password-${Math.random()}`
   
       authenticateUser(email, newPassword, (error, userId) => {
@@ -77,6 +79,8 @@ describe('authenticateUser', () => {
     const userToJSON = JSON.stringify(users)
 
     writeFile(`${process.env.DB_PATH}/users.json`, userToJSON, (error) => {
+      expect(error).to.be.null
+
       expect(() => authenticateUser(true, password, () => { })).to.throw(Error, 'The email is not a string.')
       expect(() => authenticateUser([], password, () => { })).to.throw(Error, 'The email is not a string.')
       expect(() => authenticateUser({}, password, () => { })).to.throw(Error, 'The email is not a string.')
@@ -90,6 +94,8 @@ describe('authenticateUser', () => {
     const userToJSON = JSON.stringify(users)
 
     writeFile(`${process.env.DB_PATH}/users.json`, userToJSON, (error) => {
+      expect(error).to.be.null
+
       expect(() => authenticateUser(email, '', () => { })).to.throw(Error, 'The password field is empty.')
     })
   })
@@ -99,6 +105,8 @@ describe('authenticateUser', () => {
     const userToJSON = JSON.stringify(users)
 
     writeFile(`${process.env.DB_PATH}/users.json`, userToJSON, (error) => {
+      expect(error).to.be.null
+
       expect(() => authenticateUser(email, true, () => { })).to.throw(Error, 'The password is not a string.')
       expect(() => authenticateUser(email, [], () => { })).to.throw(Error, 'The password is not a string.')
       expect(() => authenticateUser(email, {}, () => { })).to.throw(Error, 'The password is not a string.')

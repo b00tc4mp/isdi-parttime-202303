@@ -1,4 +1,3 @@
-import { loadUsers, saveUsers, findUserByEmail } from '../data'
 import { validators } from 'com'
 
 const { validateName, validateEmail, validatePassword, validateCallback } = validators
@@ -27,7 +26,7 @@ export function registerUser(name, email, password, callBack) {
   xhr.onload = () => {
     const { status } = xhr
 
-    if(status !== 200) {
+    if(status !== 201) {
       const { response: json } = xhr
       const { error } = JSON.parse(json)
       

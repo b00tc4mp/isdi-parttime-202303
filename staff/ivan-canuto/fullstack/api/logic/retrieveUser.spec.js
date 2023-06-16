@@ -1,8 +1,8 @@
+require('dotenv').config()
+
 const { expect } = require('chai')
 const { writeFile } = require('fs')
 const retrieveUser = require('./retrieveUser')
-
-require('dotenv').config()
 
 describe('retrieveUser', () => {
   let id, name, email, password, avatar, favs

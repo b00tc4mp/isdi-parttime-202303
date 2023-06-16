@@ -27,7 +27,7 @@ export default function unsetPostPrice(postId, callBack) {
     callBack(new Error('Connection error.'))
   }
 
-  xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/posts/unsetPostPrice/${postId}`)
+  xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/posts/${postId}/notOnSalePost`)
 
   xhr.send()
 }

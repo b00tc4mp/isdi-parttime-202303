@@ -1,6 +1,7 @@
+require('dotenv').config()
+
 const { readFile, writeFile } = require('fs')
 const { validators: { validateId, validatePassword, validateCallback } } = require('com')
-require('dotenv').config()
 
 module.exports = (userId, password, newPassword, newPasswordConfirm, callBack) => {
   validateId(userId, 'user id')

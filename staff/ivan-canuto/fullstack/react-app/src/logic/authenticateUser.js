@@ -45,6 +45,6 @@ export default function authenticateUser(email, password, callBack) {
 
   const user = { email, password }
   const json = JSON.stringify(user)
-
+  
   xhr.send(json)
 }

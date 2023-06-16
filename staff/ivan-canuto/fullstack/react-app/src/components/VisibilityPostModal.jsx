@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react"
-import { findPostById } from "../data"
 import { context } from "../ui"
 import './components-styles/VisibilityPostModal.css'
 import ModalContainer from "../library/ModalContainer"
@@ -7,6 +6,7 @@ import toggleVisibilityPost from "../logic/toggleVisibilityPost"
 import ModalWindow from "../library/ModalWindow"
 import Button from "../library/Button";
 import { useAppContext } from "../hooks"
+import retrievePost from "../logic/retrievePost"
 
 export default function VisibilityPost({ onChangedVisibility, onCancel }) {
   const { alert, freeze, unfreeze } = useAppContext()
@@ -15,18 +15,30 @@ export default function VisibilityPost({ onChangedVisibility, onCancel }) {
   useEffect(() => {
     freeze()
 
-    findPostById(context.postId, post => {
-      unfreeze()
-
-      setVisible(post.visible)
-    })
+    try {
+      retrievePost(context.userId, context.postId, (error, post) => {
+        unfreeze()
+  
+        if (error) {
+          alert(error.message, 'error')
+          console.log(error.stack)
+          
+          return
+        }
+        
+        setVisible(post.visible)
+      })
+    } catch (error) {
+      alert(error.message, 'error')
+      console.debug(error.stack)
+    }
   }, [])
 
   const handleToggleVisibility = () => {
     try {
       freeze()
       
-      toggleVisibilityPost(context.postId, (error, newVisibleState) => {
+      toggleVisibilityPost(context.postId, error => {
         unfreeze()
 
         if (error) {
@@ -35,7 +47,7 @@ export default function VisibilityPost({ onChangedVisibility, onCancel }) {
           
           return
         }
-        setVisible(newVisibleState)
+        setVisible(!visible)
         onChangedVisibility()
       })
       

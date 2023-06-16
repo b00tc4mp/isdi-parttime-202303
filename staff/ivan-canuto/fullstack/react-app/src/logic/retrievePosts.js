@@ -35,11 +35,12 @@ export function retrievePosts(userId, callBack) {
   }
 
   xhr.onerror = () => {
-    console.log(xhr);
     callBack(new Error('Connection error.'))
   }
 
-  xhr.open('GET', `${import.meta.env.VITE_API_URL}/posts/retrievePosts/${userId}`)
+  xhr.open('GET', `${import.meta.env.VITE_API_URL}/users/posts`)
 
+  xhr.setRequestHeader('Authorization', `Bearer ${userId}`)
+  
   xhr.send()
 }

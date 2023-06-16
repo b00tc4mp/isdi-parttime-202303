@@ -1,8 +1,8 @@
+require('dotenv').config()
+
 const { expect } = require('chai')
 const { readFile, writeFile } = require('fs')
 const registerUser = require('./registerUser')
-
-require('dotenv').config()
 
 describe('registerUser', () => {
   let name, email, password

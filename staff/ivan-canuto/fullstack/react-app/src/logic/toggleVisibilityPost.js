@@ -35,7 +35,7 @@ export default function toggleVisibilityPost(postId, callBack) {
     callBack(new Error('Connection error.'))
   }
 
-  xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/posts/toggleVisibilityPost/${postId}`)
+  xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/posts/${postId}/togglePostVisibility`)
 
   xhr.send()
 }

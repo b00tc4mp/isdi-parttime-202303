@@ -41,7 +41,10 @@ export const updatePost = (userId, postId, imageUrl, postText, callBack)=>{
     callBack(new Error('Connection error.'))
   }
 
-  xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/posts/updatePost/${userId}/${postId}`)
+  xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/users/posts/${postId}/updatePost`)
+
+  xhr.setRequestHeader('Content-Type', `application/json`)
+  xhr.setRequestHeader('Authorization', `Bearer ${userId}`)
 
   const post = { imageUrl, postText }
   const json = JSON.stringify(post)

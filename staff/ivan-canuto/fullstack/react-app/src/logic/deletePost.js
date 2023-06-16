@@ -1,4 +1,3 @@
-import { findUserById, loadPosts, savePosts, saveUser } from "../data";
 import { validators } from 'com'
 
 const { validateId, validateCallback } = validators
@@ -37,7 +36,9 @@ export default function deletePost(postId, userId, callBack) {
     callBack(new Error('Connection error.'))
   }
 
-  xhr.open('DELETE', `${import.meta.env.VITE_API_URL}/posts/deletePost/${postId}/${userId}`)
+  xhr.open('DELETE', `${import.meta.env.VITE_API_URL}/posts/${postId}/delete`)
 
+  xhr.setRequestHeader('Authorization', `Bearer ${userId}`)
+  
   xhr.send()
 }

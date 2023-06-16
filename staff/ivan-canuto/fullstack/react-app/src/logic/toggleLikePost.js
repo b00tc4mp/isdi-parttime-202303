@@ -37,7 +37,9 @@ export default function toggleLikePost(userId, postId, callBack) {
     callBack(new Error('Connection error.'))
   }
 
-  xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/posts/toggleLikePost/${userId}/${postId}`)
+  xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/users/posts/${postId}/toggleLike`)
+
+  xhr.setRequestHeader('Authorization', `Bearer ${userId}`)
 
   xhr.send()
 }

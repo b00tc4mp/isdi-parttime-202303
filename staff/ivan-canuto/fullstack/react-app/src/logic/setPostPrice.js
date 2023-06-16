@@ -28,7 +28,7 @@ export default function setPostPrice(postId, postPrice, callBack) {
     callBack(new Error('Connection error.'))
   }
 
-  xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/posts/setPostPrice/${postId}`)
+  xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/posts/${postId}/postPrice`)
 
   xhr.setRequestHeader('Content-Type', 'application/json')
 

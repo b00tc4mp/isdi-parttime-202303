@@ -1,7 +1,7 @@
 const { validators: { validateId, validateText, validateCallback } } = require('com')
 const { readFile, writeFile } = require('fs')
 
-module.exports = function setPostPrice(postId, postPrice, callBack) {
+module.exports = (postId, postPrice, callBack) => {
   validateId(postId, 'post id')
   validateText(postPrice)
   validateCallback(callBack)
