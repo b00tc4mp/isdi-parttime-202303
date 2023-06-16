@@ -18,7 +18,6 @@ export default function Post({ post, post: { image, title, text, comments, likes
     const postStyle = {
         background: `linear-gradient(180deg, rgba(0,0,0,.2) 0%, rgba(0,0,0,0) 10%, rgba(0,0,0,0) 50%, rgba(0,0,0,.6) 100%), url(${image}) center / cover`
     }
-
     useEffect(() => {
         try {
             updateUserLikes()

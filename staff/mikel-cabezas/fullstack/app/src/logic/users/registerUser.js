@@ -8,31 +8,34 @@ export default function registerUser(name, email, password, callback) {
     validateCallback(callback)
     validateEmail(email)
     validatePassword(password)
-    findUserByEmail(email, foundUser => {
-        if (foundUser) {
-            callback(new Error('user already exists'))
+
+    const xhr = new XMLHttpRequest
+
+    xhr.onload = () => {
+        const { status } = xhr
+
+        if (status !== 201) {
+            const { response: json } = xhr
+            const { error } = JSON.parse(json)
+
+            callback(new Error(error))
 
             return
         }
 
-        let id
-        loadUsers(users => {
-            var checkEmail = users.find(user => user.email === email)
-            if (checkEmail) {
-                throw new Error('Email already registered')
-            }
-            if (checkEmail !== email) {
-                name = name.trim()
-                const user = {
-                    id: 'user-' + parseInt(users.length + 1),
-                    name: name,
-                    email: email,
-                    password: password,
-                    favPosts: []
-                }
-                users.push(user)
-                saveUser(user, () => callback(null))
-            }
-        })
-    })
+        callback(null)
+    }
+
+    xhr.onerror = () => {
+        callback(new Error('connection error'))
+    }
+
+    xhr.open('POST', 'http://localhost:4000/users')
+
+    xhr.setRequestHeader('Content-Type', 'application/json')
+
+    const user = { name, email, password }
+    const json = JSON.stringify(user)
+
+    xhr.send(json)
 }
