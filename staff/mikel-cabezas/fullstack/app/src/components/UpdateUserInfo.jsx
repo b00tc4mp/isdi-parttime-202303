@@ -5,36 +5,36 @@ import uploadImage from "../logic/users/updateUserImage"
 import { useState } from "react"
 import retrieveUser from "../logic/users/retrieveUser"
 
-export default function UpdateUserInfo( {} ) {
+export default function UpdateUserInfo({ }) {
     const [user, setUser] = useState()
     const userId = context.userId
 
     retrieveUser(userId, (error, user) => {
-        if(!user) {
-            callback(new Error ('user not found'))
-    
+        if (!user) {
+            callback(new Error('user not found'))
+
             return
         }
         if (error) {
             alert(error.message)
-    
+
             return
         }
         const _user = {
-            name: user.name, 
+            name: user.name,
             email: user.email,
             image: user.image
-        }     
+        }
         setTimeout(() => {
             setUser(_user)
         }, 1000);
-    }) 
+    })
 
     let newImage
     let letters
-    if(user) {
+    if (user) {
         const separateUserName = user['name'].split(' ')
-    
+
         if (!user.image && separateUserName.length === 1) {
             letters = separateUserName[0][0] + separateUserName[0][1]
         } else if (!user.image && separateUserName.length > 1) {
@@ -58,17 +58,16 @@ export default function UpdateUserInfo( {} ) {
                 imagePostPreview.src = base64
                 imageTarget.src = base64
             }
-             image.readAsDataURL(file)
-             return file
+            image.readAsDataURL(file)
+            return file
         }
-        imagePostPreview.classList.remove('hidden')
     }
 
-    function handleUpdateProfile(event) {        
+    function handleUpdateProfile(event) {
         event.preventDefault()
         try {
             setDisabled(false)
-        } catch(error) {
+        } catch (error) {
             console.log(error.message)
         }
     }
@@ -81,11 +80,11 @@ export default function UpdateUserInfo( {} ) {
             const image = event.target.parentElement.parentElement.elements['file']
             user.name !== name.value && updateUserName(userId, name.value)
             user.email !== email.value && updateUserEmail(userId, email.value)
-            if (image.src) 
+            if (image.src)
                 user.image !== image && uploadImage(userId, image, error => { error ? alert(error.message) : '' })
 
             setDisabled(true)
-        } catch(error) {
+        } catch (error) {
             console.log(error.stack)
         }
     }
@@ -94,36 +93,37 @@ export default function UpdateUserInfo( {} ) {
         event.preventDefault()
         try {
             setDisabled(true)
-        } catch(error) {
+        } catch (error) {
             console.log(error.stack)
         }
     }
 
-    if(user) {
-        return <> 
-        <div className="container user-account">
-            <div className="update update-info" id="update-profile">
-                <h2>Update profile</h2>
-                <p>Press de pencil icon for edit your name or your email</p>
-                <button className="button--update-info__profile" onClick={handleUpdateProfile} >Edit profile <i className="uil uil-pen"></i></button>
-                <form className="data user-info">
-                    <label htmlFor="">Your name</label>
-                    <input type="text" defaultValue={user.name} name="name" disabled={disabled} />
-                    <label htmlFor="">Your email</label>
-                    <input type="email" defaultValue={user.email} name="email" disabled={disabled} />
-                    <div className="avatar">
-                        {!user.image && <div className="letter">{letters}</div>}
-                        {user.image && <img className="image-profile" src={user.image} alt="" />}
-                    </div>
-                    <label htmlFor="">Update image profile</label>
-                    <input type="file" name="file" id="" accept=".jpg, .jpeg, .png, .webp" onClick={handleConvertImageToBase64}  />
-                    <div className={`buttons ${!disabled ? '' : 'off'}`} >
-                        <button className="button--update-info__cancel-info" type="cancel" onClick={handleCancelUpdateProfile}>Cancel</button>
-                        <button className="button--update-info__save-info" onClick={handleSavelUpdateProfile}>Save</button>
-                    </div>
-                </form>
+    if (user) {
+        return <>
+            <div className="container user-account">
+                <div className="update update-info" id="update-profile">
+                    <h2>Update profile</h2>
+                    <p>Press de pencil icon for edit your name or your email</p>
+                    <button className="button--update-info__profile" onClick={handleUpdateProfile} >Edit profile <i className="uil uil-pen"></i></button>
+                    <form className="data user-info">
+                        <label htmlFor="">Your name</label>
+                        <input type="text" defaultValue={user.name} name="name" disabled={disabled} />
+                        <label htmlFor="">Your email</label>
+                        <input type="email" defaultValue={user.email} name="email" disabled={disabled} />
+                        <div className="avatar">
+                            {!user?.image && <div className="letter">{letters}</div>}
+                            {/* {user.image && <img className="image-profile" src={user.image} alt="" />} */}
+                            {<img className="image-profile" src={user.image} alt="" />}
+                        </div>
+                        <label htmlFor="">Update image profile</label>
+                        <input type="file" name="file" id="" accept=".jpg, .jpeg, .png, .webp" onClick={handleConvertImageToBase64} />
+                        <div className={`buttons ${!disabled ? '' : 'off'}`} >
+                            <button className="button--update-info__cancel-info" type="cancel" onClick={handleCancelUpdateProfile}>Cancel</button>
+                            <button className="button--update-info__save-info" onClick={handleSavelUpdateProfile}>Save</button>
+                        </div>
+                    </form>
+                </div>
             </div>
-        </div>
-    </>
+        </>
     }
 }

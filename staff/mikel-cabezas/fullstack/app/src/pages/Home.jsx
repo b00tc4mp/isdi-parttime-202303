@@ -101,7 +101,6 @@ export default function Home({ onLogoutClick, onUserProfile, onSetThemeClick, on
     }
 
 
-
     return <>
         <Header onUserProfile={handleGoToUserProfile} onLoggedOut={handleLogOut} onLikedPostsClick={handleShowLikedPosts} onSavedPostsClick={handleShowSavedPosts} onHomeClick={handleShowAllPosts} selected={modal} />
         <main>

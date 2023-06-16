@@ -1,12 +1,9 @@
 const { readFile } = require('fs')
-const { validators: { validateEmail, validatePassword, validateCallback } } = require('com')
 
 module.exports = function authenticateUser(email, password, callback) {
-    validateEmail(email)
-    validatePassword(password)
-    validateCallback(callback)
+    // TODO Validate inputs
 
-    readFile('./data/users.json', (error, json) => {
+    readFile('./data/users.json', 'utf8', (error, json) => {
         if (error) {
             callback(error)
 
@@ -14,6 +11,7 @@ module.exports = function authenticateUser(email, password, callback) {
         }
 
         const users = JSON.parse(json)
+
         const user = users.find(user => user.email === email)
 
         if (!user) {

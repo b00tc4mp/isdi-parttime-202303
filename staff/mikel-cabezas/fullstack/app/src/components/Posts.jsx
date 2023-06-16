@@ -5,17 +5,15 @@ import retrieveLikedPosts from "../logic/posts/retrieveLikedPosts"
 import retrieveSavedPosts from "../logic/posts/retrieveSavedPosts"
 import { context } from "../ui"
 import './Posts.css'
-import { RotatingLines } from 'react-loader-spinner'
 import retrieveUser from "../logic/users/retrieveUser"
 import Context from "../AppContext"
-
 
 export default function Posts({ onEditPost, onAddPostClick, lastPostsUpdate, postsFilter, onToggleLikePostClick, onToggleSavePostClick, onHideMenuOptions, visibility, onShowAllPosts }) {
     const userId = context.userId
     const [posts, setPosts] = useState()
     // const [postsFilter, setPostsFilter] = useState('all')
     const [user, setUser] = useState()
-    const { freeze, unfreeze } = useContext(Context)
+    const { alert, freeze, unfreeze } = useContext(Context)
     useEffect(() => {
         console.log('Refresh Posts -> render in useEffect')
         freeze()

@@ -35,7 +35,7 @@ export default function App({ UpdateUserInfo, handleSavelUpdateProfile }) {
     <Provider value={{ alert: setFeedback, freeze, unfreeze }}>
 
       {view === 'login' && <><Header handleSavelUpdateProfile /> <Login onRegisterClick={handleGoToRegister} onUserLoggedIn={handleGoToHome} /> </>}
-      {view === 'register' && <><Header handleSavelUpdateProfile /> <Login onRegisterClick={handleGoToRegister} onUserLoggedIn={handleGoToHome} /> </>}
+      {view === 'register' && <><Header handleSavelUpdateProfile /> <Register onLoginClick={handleGoToLogin} onUserRegistered={handleGoToLogin} /> </>}
       {view === 'home' && <><Home onLogoutClick={handleGoToLogin} /></>}
 
       {feedback && <Alert message={feedback} onAccept={handleAcceptAlert} />}
@@ -44,15 +44,4 @@ export default function App({ UpdateUserInfo, handleSavelUpdateProfile }) {
     </Provider>
 
   </>
-
-
-
-  switch (view) {
-    case 'login':
-      return [<Header handleSavelUpdateProfile />, <Login onRegisterClick={handleGoToRegister} onUserLoggedIn={handleGoToHome} />]
-    case 'register':
-      return [<Header handleSavelUpdateProfile onLoggedOut={handleGoToLogin} />, <Register onLoginClick={handleGoToLogin} onUserRegistered={handleGoToLogin} />]
-    case 'home':
-      return [<Home onLogoutClick={handleGoToLogin} />]
-  }
 }

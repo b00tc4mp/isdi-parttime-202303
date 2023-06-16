@@ -6,7 +6,7 @@ const { validateCallback, validateImage, validateUserId } = validators
 
 export default function uploadImage(userId, image, callback) {
 
-    validateImage(image)
+    // validateImage(image)
     validateUserId(userId)
     validateCallback(callback)
     const user = findUserById(userId, (error, user) => {

@@ -7,19 +7,34 @@ export default function retrieveUser(userId, callback) {
     validateUserId(userId)
     validateCallback(callback)
 
-    findUserById(userId, user => {
-        if (!user) {
-            callback(new Error('user not found'))
+    const xhr = new XMLHttpRequest
+    xhr.onload = () => {
+        const { status } = xhr
+
+        if (status !== 200) {
+            const { response: json } = xhr
+            const { error } = JSON.parse(json)
+
+            callback(new Error(error))
 
             return
         }
-        const _user = {
-            name: user.name,
-            email: user.email,
-            image: user.image,
-            favPosts: user.favPosts
-        }
-        callback(null, _user)
-    })
+
+        const { response: json } = xhr
+        const user = JSON.parse(json)
+        // const { name, email, image, favPosts } = JSON.parse(json)
+        callback(null, user)
+    }
+
+    xhr.onerror = () => {
+        callback(new Error('connection error'))
+    }
+
+    xhr.open('GET', `http://localhost:4000/users/${userId}`)
+
+
+    xhr.send()
+
+
 
 }
