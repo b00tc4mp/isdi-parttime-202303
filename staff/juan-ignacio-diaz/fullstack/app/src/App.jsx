@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { context } from './ui'
-import Context from './Context'
+import AppContext from './AppContext'
 
 //import inLogger from './inLogger';
 
@@ -8,6 +8,7 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import Home from './pages/Home'
 
+const { Provider } = AppContext
 import AlertModal from './components/AlertModal'
 import Loader from './library/Loader'
 
@@ -32,7 +33,7 @@ export default function App() {
 
     console.log('App -> render')
 
-    return <Context.Provider value={{ alert, freeze, unfreeze }}>
+    return <Provider value={{ alert, freeze, unfreeze }}>
         {view === 'login' && <Login 
           onRegisterClick={handleGotoRegister} 
           onUserLoggedIn={handleGoToHome}
@@ -54,7 +55,7 @@ export default function App() {
           />
         }
         {loader && <Loader />}
-      </Context.Provider>
+      </Provider>
 
 }
 //const App = () => {

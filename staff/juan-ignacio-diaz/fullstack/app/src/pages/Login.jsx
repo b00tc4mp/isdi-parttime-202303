@@ -1,7 +1,7 @@
-import { useContext, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { context } from '../ui'
-import Context from '../Context'
+import { useAppContext } from '../hooks'
 
 import { Container, Form, Input, Button } from '../library'
 
@@ -10,7 +10,7 @@ import authenticateUser from '../logic/authenticateUser'
 import retrieveRandomMotivationalQuote from '../logic/retrieveRandomMotivationalQuote'
 
 export default function Login({ onRegisterClick, onUserLoggedIn }) {
-    const { alert, freeze, unfreeze } = useContext(Context)
+    const { alert, freeze, unfreeze } = useAppContext()
     const [quote, setQuote] = useState(null)
     
     useEffect(() => {

@@ -5,11 +5,13 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "dev-reset": "vite --force node_modules/.vite",
     "build": "vite build",
     "lint": "eslint src --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
   "dependencies": {
+    "@rollup/plugin-commonjs": "^25.0.1",
     "com": "file:../com",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"

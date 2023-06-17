@@ -1,13 +1,11 @@
-import { useContext } from 'react'
-
-import Context from '../Context'
+import { useAppContext } from '../hooks'
 
 import { Container, Form, Input, Button } from '../library'
 
 import registerUser from "../logic/registerUser"
 
 export default function Register({ onLoginClick, onRegistered}) {
-    const { alert } = useContext(Context)
+    const { alert } = useAppContext()
 
     function handleLoginClick(event) {
         event.preventDefault()

@@ -1,7 +1,5 @@
-import { useContext } from 'react'
-
 import { context } from '../ui'
-import Context from '../Context'
+import { useAppContext } from '../hooks'
 
 export const DEFAULT_AVATAR_URL = "https://img.icons8.com/color/512/avatar.png"
 
@@ -14,7 +12,7 @@ import updateBuyPost from '../logic/updateBuyPost'
 import './Post.css'
 
 export default function Post ({ post: { id, author, image, text, date, likes, dateLastModified, fav, lock, price}, onModifyPost, onEditPost, onAddPriceToPost}) {
-    const { alert, freeze, unfreeze } = useContext(Context)
+    const { alert, freeze, unfreeze } = useAppContext()
 
     const handleLikePost = () => {
         try {

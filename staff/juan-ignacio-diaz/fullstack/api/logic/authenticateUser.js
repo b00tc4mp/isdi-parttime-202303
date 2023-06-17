@@ -39,6 +39,9 @@ module.exports = function authenticateUser(email, password, callback) {
             return
         }
 
+
+ //setTimeout(() => {
         callback(null, user.id)
+  //}, 5000)
     })
 }

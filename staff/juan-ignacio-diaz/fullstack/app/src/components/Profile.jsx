@@ -1,7 +1,5 @@
-import { useContext } from 'react'
-
 import { context } from '../ui' 
-import Context from '../Context'
+import { useAppContext } from '../hooks'
 import Container from '../library/Container'
 
 import updateUserMode from "../logic/updateUserMode"
@@ -11,7 +9,7 @@ import updateUserPassword from "../logic/updateUserPassword"
 import './Profile.css'
 
 export default function Profile({ onEditedProfile, user }){
-    const { alert, freeze, unfreeze } = useContext(Context)
+    const { alert, freeze, unfreeze } = useAppContext()
 
     const handleSwitchMode = () => {
         let mode

@@ -1,7 +1,7 @@
-import { useState, useEffect, useContext } from 'react'
+import { useState, useEffect } from 'react'
 
 import { context } from '../ui'
-import Context from '../Context'
+import { useAppContext } from '../hooks'
 
 import { Container, Button } from '../library'
 
@@ -18,7 +18,7 @@ import retrieveUser from '../logic/retrieveUser';
 import './Home.css'
 
 export default function Home({ onLogout }) {
-    const { alert, freeze, unfreeze } = useContext(Context)
+    const { alert, freeze, unfreeze } = useAppContext()
 
     const [user, setUser] = useState()
     const [view, setView] = useState('posts')

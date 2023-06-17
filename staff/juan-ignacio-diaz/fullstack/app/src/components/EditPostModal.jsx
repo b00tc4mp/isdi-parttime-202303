@@ -1,7 +1,7 @@
-import { useState, useEffect, useContext } from 'react'
+import { useState, useEffect } from 'react'
 
 import { context } from '../ui'
-import Context from '../Context'
+import { useAppContext } from '../hooks'
 
 import { Container, Form, Input, Button } from '../library'
 
@@ -9,7 +9,7 @@ import updatePost from '../logic/updatePost'
 import retrievePost from '../logic/retrievePost'
 
 export default function EditPost({ onCancel, onEditedPost, postId}) {
-    const { alert, freeze, unfreeze } = useContext(Context)
+    const { alert, freeze, unfreeze } = useAppContext()
     const [post, setPost] = useState(null)
 
     useEffect(() => {
