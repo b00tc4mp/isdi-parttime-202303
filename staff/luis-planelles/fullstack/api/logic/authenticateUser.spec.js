@@ -77,6 +77,24 @@ describe('authenticateUser', () => {
     });
   });
 
+  it('fails if cannot read data', (done) => {
+    const wrongData = JSON.stringify([{ wrong: 'data' }]);
+
+    writeFile(`${process.env.DB_PATH}/users.json`, wrongData, (error) => {
+      expect(error).to.be.null;
+
+      authenticateUser(user.email, user.password, (error, userId) => {
+        expect(error).to.be.instanceOf(Error);
+        expect(error.message).to.equal(
+          `user with email ${user.email} not found`
+        );
+        expect(userId).to.be.undefined;
+
+        done();
+      });
+    });
+  });
+
   it('fails on empty email', () => {
     expect(() => authenticateUser('', user.password, () => {})).to.throw(
       Error,

@@ -3,7 +3,7 @@ const {
   validators: { validateId, validateCallback },
 } = require('com');
 
-module.exports = (userId, callback) => {
+const retrievePost = (userId, callback) => {
   validateId(userId, 'user id');
   validateCallback(callback);
 
@@ -39,3 +39,5 @@ module.exports = (userId, callback) => {
     });
   });
 };
+
+module.exports = retrievePost;

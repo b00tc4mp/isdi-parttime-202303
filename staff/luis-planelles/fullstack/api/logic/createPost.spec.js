@@ -19,8 +19,8 @@ describe('createPost', () => {
   });
 
   it('should be created if user exists and data is correct', (done) => {
-    const date = new Date();
-    const fakeDate = sinon.useFakeTimers(date.getTime());
+    const date = new Date(),
+      fakeDate = sinon.useFakeTimers(date.getTime());
 
     const users = [{ id: userId }];
     const usersJson = JSON.stringify(users);
@@ -93,9 +93,24 @@ describe('createPost', () => {
 
     createPost(unmatchId, postImage, postText, (error) => {
       expect(error).to.exist;
-      expect(error.message).to.equal('user with id anyid doesnt exists');
+      expect(error.message).to.equal(`user with id ${unmatchId} doesnt exists`);
 
       done();
+    });
+  });
+
+  it('fails if cannot read users data', (done) => {
+    const wrongData = JSON.stringify([{ wrong: 'data' }]);
+
+    writeFile(`${process.env.DB_PATH}/users.json`, wrongData, (error) => {
+      expect(error).to.be.null;
+
+      createPost(userId, postImage, postText, (error) => {
+        expect(error).to.be.instanceOf(Error);
+        expect(error.message).to.equal(`user with id ${userId} doesnt exists`);
+
+        done();
+      });
     });
   });
 
