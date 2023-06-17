@@ -3,7 +3,7 @@ import { validators } from "com"
 
 const { validateCallback, validateUserId } = validators
 
-export default function retrieveUser(userId, callback) {
+export default (userId, callback) => {
     validateUserId(userId)
     validateCallback(callback)
 
@@ -32,9 +32,6 @@ export default function retrieveUser(userId, callback) {
 
     xhr.open('GET', `http://localhost:4000/users/${userId}`)
 
-
     xhr.send()
-
-
 
 }

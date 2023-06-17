@@ -2,32 +2,37 @@ import { validators } from "com"
 import { findUserById, saveUser } from "../../data.js"
 
 const { validateCallback, validateEmail, validateUserId } = validators
-export default function updateUserEmail(userId, newEmail) {
-    validateEmail(newEmail)
+export default (userId, email, callback) => {
+    validateEmail(email)
     validateUserId(userId)
     validateCallback(callback)
 
-    const user = findUserById(userId)
+    const xhr = new XMLHttpRequest
+    xhr.onload = () => {
+        const { status } = xhr
 
-    const currentUserEmail = findUserById(userId, user => {
-        if (!user) {
-            callback(new Error('user not found'))
+        if (status !== 204) {
+            const { response: json } = xhr
+            const { error } = JSON.parse(json)
+
+            callback(new Error(error))
 
             return
         }
-        const _user = {
-            name: user.name,
-            image: user.image
-        }
 
-        return _user
-    })
+        callback(null)
+    }
 
-    if (user.email !== currentUserEmail.email && user.email === newEmail) {
-        throw new Error('Email already registered')
+    xhr.onerror = () => {
+        callback(new Error('connection error'))
     }
-    if (user.email === currentUserEmail.email && user.email !== newEmail) {
-        user.email = newEmail
-        saveUser(user)
-    }
+
+    xhr.open('PATCH', `http://localhost:4000/users/email/${userId}`)
+
+    xhr.setRequestHeader('Content-Type', 'application/json')
+
+    const userData = { email }
+    const json = JSON.stringify(userData)
+
+    xhr.send(json)
 }

@@ -4,7 +4,7 @@ import { findUserByEmail } from "../../data.js"
 import { loadUsers } from "../../data.js"
 
 const { validateEmail, validatePassword, validateCallback } = validators
-export default function registerUser(name, email, password, callback) {
+export default (name, email, password, callback) => {
     validateCallback(callback)
     validateEmail(email)
     validatePassword(password)

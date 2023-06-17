@@ -78,8 +78,16 @@ export default function UpdateUserInfo({ }) {
             const name = event.target.parentElement.parentElement.elements['name']
             const email = event.target.parentElement.parentElement.elements['email']
             const image = event.target.parentElement.parentElement.elements['file']
-            user.name !== name.value && updateUserName(userId, name.value)
-            user.email !== email.value && updateUserEmail(userId, email.value)
+            user.name !== name.value && updateUserName(userId, name.value, error => {
+                if (error) {
+                    alert(error.message)
+                }
+            })
+            user.email !== email.value && updateUserEmail(userId, email.value, error => {
+                if (error) {
+                    alert(error.message)
+                }
+            })
             if (image.src)
                 user.image !== image && uploadImage(userId, image, error => { error ? alert(error.message) : '' })
 
@@ -112,7 +120,7 @@ export default function UpdateUserInfo({ }) {
                         <input type="email" defaultValue={user.email} name="email" disabled={disabled} />
                         <div className="avatar">
                             {!user?.image && <div className="letter">{letters}</div>}
-                            {/* {user.image && <img className="image-profile" src={user.image} alt="" />} */}
+                            {user.image && <img className="image-profile" src={user.image} alt="" />}
                             {<img className="image-profile" src={user.image} alt="" />}
                         </div>
                         <label htmlFor="">Update image profile</label>
