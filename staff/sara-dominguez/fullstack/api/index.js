@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 const express = require('express')
 const { registerUser, authenticateUser, retrieveUser, updateUserAvatar } = require('./logic/')
 
@@ -122,9 +124,7 @@ api.post('/users', (req, res) => {
                 res.status(400).json({ error: error.message })
             }
         })
-
     })
-
 })
 
-api.listen(4000)
+api.listen(process.env.PORT, () => console.log(`server running in port ${process.env.PORT}`))

@@ -3,7 +3,7 @@ const { readFile, writeFile } = require('fs')
 const registerUser = require('./registerUser')
 
 describe('registerUser', () => {
-    beforeEach(done => writeFile('./data/users.json', '[]', 'utf8', error => done(error)))
+    beforeEach(done => writeFile(`${process.env.DB_PATH}/users.json`, '[]', 'utf8', error => done(error)))
 
     it('should succeed on new user', done => {
         const name = `name-${Math.random()}`
@@ -13,7 +13,7 @@ describe('registerUser', () => {
         registerUser(name, email, password, error => {
             expect(error).to.be.null
 
-            readFile('./data/users.json', 'utf8', (error, json) => {
+            readFile(`${process.env.DB_PATH}/users.json`, 'utf8', (error, json) => {
                 expect(error).to.be.null
 
                 const users = JSON.parse(json)
@@ -41,7 +41,7 @@ describe('registerUser', () => {
         const users = [{ name, email, password }]
         const json = JSON.stringify(users)
 
-        writeFile('./data/users.json', json, 'utf8', error => {
+        writeFile(`${process.env.DB_PATH}/users.json`, json, 'utf8', error => {
             expect(error).to.be.null
 
             registerUser(name, email, password, error => {
@@ -53,5 +53,5 @@ describe('registerUser', () => {
         })
     })
 
-    after(done => writeFile('./data/users.json', '[]', 'utf8', error => done(error)))
+    after(done => writeFile(`${process.env.DB_PATH}/users.json`, '[]', 'utf8', error => done(error)))
 })

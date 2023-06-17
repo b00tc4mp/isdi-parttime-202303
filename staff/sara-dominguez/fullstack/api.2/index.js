@@ -127,4 +127,4 @@ api.post('/users', (req, res) => {
 
 })
 
-api.listen(4000)
+api.listen(process.env.PORT)

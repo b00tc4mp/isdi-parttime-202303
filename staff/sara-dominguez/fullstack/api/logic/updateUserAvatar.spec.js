@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 const { expect } = require('chai')
 const { readFile, writeFile } = require('fs')
 const updateUserAvatar = require('./updateUserAvatar')
@@ -12,14 +14,14 @@ describe('updateUserAvatar', () => {
             password = `password-${Math.round(Math.random() * 100)}`,
             avatar = `avatar-${Math.random()}`
 
-        writeFile('./data/users.json', '[]', 'utf8', error => done(error))
+        writeFile(`${process.env.DB_PATH}/users.json`, '[]', 'utf8', error => done(error))
     })
 
     it('succeeds on existing user and correct id', done => {
         const users = [{ id, name, email, password, avatar }]
         const json = JSON.stringify(users)
 
-        writeFile('./data/users.json', json, 'utf8', error => {
+        writeFile(`${process.env.DB_PATH}/users.json`, json, 'utf8', error => {
             expect(error).to.be.null
 
             const newAvatar = avatar + '-new'
@@ -27,7 +29,7 @@ describe('updateUserAvatar', () => {
             updateUserAvatar(id, newAvatar, (error) => {
                 expect(error).to.be.null
 
-                readFile('./data/users.json', 'utf8', (error, json) => {
+                readFile(`${process.env.DB_PATH}/users.json`, 'utf8', (error, json) => {
                     expect(error).to.be.null
 
                     // const user= JSON.parse(json) --> solo hay un usuario por tanto se puede seguir destructurando
@@ -49,7 +51,7 @@ describe('updateUserAvatar', () => {
         const users = [{ id, name, email, password, avatar }]
         const json = JSON.stringify(users)
 
-        writeFile('./data/users.json', json, 'utf8', error => {
+        writeFile(`${process.env.DB_PATH}/users.json`, json, 'utf8', error => {
             expect(error).to.be.null
 
             const wrongId = id + '-wrong'
@@ -64,5 +66,5 @@ describe('updateUserAvatar', () => {
         })
     })
 
-    after(done => writeFile('./data/users.json', '[]', 'utf8', error => done(error)))
+    after(done => writeFile(`${process.env.DB_PATH}/users.json`, '[]', 'utf8', error => done(error)))
 })

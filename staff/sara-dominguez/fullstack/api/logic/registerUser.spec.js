@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 const { expect } = require('chai')
 const { readFile, writeFile } = require('fs')
 const registerUser = require('./registerUser')
@@ -11,7 +13,7 @@ describe('registerUser', () => {
         email = `Em${Math.round(Math.random() * 100)}@gmail.com`
         password = `Passw#${Math.round(Math.random() * 100)}`
 
-        writeFile('./data/users.json', '[]', 'utf8', error => done(error))
+        writeFile(`${process.env.DB_PATH}/users.json`, '[]', 'utf8', error => done(error))
     })
 
     it('should succeed on new user', done => {
@@ -19,7 +21,7 @@ describe('registerUser', () => {
         registerUser(name, email, password, error => {
             expect(error).to.be.null
 
-            readFile('./data/users.json', 'utf8', (error, json) => {
+            readFile(`${process.env.DB_PATH}/users.json`, 'utf8', (error, json) => {
                 expect(error).to.be.null
 
                 const users = JSON.parse(json)
@@ -50,13 +52,13 @@ describe('registerUser', () => {
         const users = [{ id: id2, name: name2, email: email2, password: password2 }]
         const json = JSON.stringify(users)
 
-        writeFile('./data/users.json', json, 'utf8', error => {
+        writeFile(`${process.env.DB_PATH}/users.json`, json, 'utf8', error => {
             expect(error).to.be.null
 
             registerUser(name, email, password, error => {
                 expect(error).to.be.null
 
-                readFile('./data/users.json', 'utf8', (error, json) => {
+                readFile(`${process.env.DB_PATH}/users.json`, 'utf8', (error, json) => {
                     expect(error).to.be.null
 
                     const users = JSON.parse(json)
@@ -80,7 +82,7 @@ describe('registerUser', () => {
         const users = [{ name, email, password }]
         const json = JSON.stringify(users)
 
-        writeFile('./data/users.json', json, 'utf8', error => {
+        writeFile(`${process.env.DB_PATH}/users.json`, json, 'utf8', error => {
             expect(error).to.be.null
 
 
@@ -123,7 +125,7 @@ describe('registerUser', () => {
     })
     //TODO other validators situations
 
-    after(done => writeFile('./data/users.json', '[]', 'utf8', error => done(error)))
+    after(done => writeFile(`${process.env.DB_PATH}/users.json`, '[]', 'utf8', error => done(error)))
 
 })
 

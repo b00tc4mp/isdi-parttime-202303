@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 const { expect } = require('chai')
 const { writeFile } = require('fs')
 const retrieveUser = require('./retrieveUser')
@@ -12,14 +14,14 @@ describe('retrieveUser', () => {
             password = `password-${Math.round(Math.random() * 100)}`,
             avatar = `avatar-${Math.random()}`
 
-        writeFile('./data/users.json', '[]', 'utf8', error => done(error))
+        writeFile(`${process.env.DB_PATH}/users.json`, '[]', 'utf8', error => done(error))
     })
 
     it('succeeds on existing user and correct id', done => {
         const users = [{ id, name, email, password, avatar }]
         const json = JSON.stringify(users)
 
-        writeFile('./data/users.json', json, 'utf8', error => {
+        writeFile(`${process.env.DB_PATH}/users.json`, json, 'utf8', error => {
             expect(error).to.be.null
 
             retrieveUser(id, (error, user) => {
@@ -43,5 +45,5 @@ describe('retrieveUser', () => {
     })
 
     //TODO : succeeds on existing user with no avatar and correct id, fails on existin user and incorrect id
-    after(done => writeFile('./data/users.json', '[]', 'utf8', error => done(error)))
+    after(done => writeFile(`${process.env.DB_PATH}/users.json`, '[]', 'utf8', error => done(error)))
 })
