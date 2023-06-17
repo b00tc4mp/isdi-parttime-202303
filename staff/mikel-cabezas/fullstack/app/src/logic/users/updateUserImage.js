@@ -31,7 +31,7 @@ export default (userId, image, callback) => {
         callback(new Error('connection error'))
     }
 
-    xhr.open('PATCH', `http://localhost:4000/users/image/${userId}`)
+    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/users/image/${userId}`)
 
     xhr.setRequestHeader('Content-Type', 'application/json')
 

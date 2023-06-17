@@ -1,0 +1,50 @@
+[
+    {
+        "id": "post-1",
+        "author": "user-1",
+        "image": "https://www.elmueble.com/medio/2020/03/22/cocina-duktig_6d35a5a9.jpg",
+        "title": "Test Insomnia",
+        "text": "bla bla bla bal",
+        "date": "2023-06-17T20:45:30.564Z",
+        "comments": [],
+        "likes": [],
+        "visibility": "public",
+        "location": ""
+    },
+    {
+        "id": "post-2",
+        "author": "user-1",
+        "image": "https://www.elmueble.com/medio/2020/03/22/cocina-duktig_6d35a5a9.jpg",
+        "title": "Test Insomnia",
+        "text": "bla bla bla bal",
+        "date": "2023-06-17T21:10:37.965Z",
+        "comments": [],
+        "likes": [],
+        "visibility": "public",
+        "location": ""
+    },
+    {
+        "id": "post-3",
+        "author": "user-1",
+        "image": "https://www.elmueble.com/medio/2020/03/22/cocina-duktig_6d35a5a9.jpg",
+        "title": "Test Insomnia",
+        "text": "bla bla bla bal",
+        "date": "2023-06-17T21:38:03.719Z",
+        "comments": [],
+        "likes": [],
+        "visibility": "public",
+        "location": ""
+    },
+    {
+        "id": "post-4",
+        "author": "user-1",
+        "image": "https://www.test.jpg",
+        "title": "Test Insomnia",
+        "text": "bla bla bla bal",
+        "date": "2023-06-17T23:25:43.665Z",
+        "comments": [],
+        "likes": [],
+        "visibility": "public",
+        "location": ""
+    }
+]
