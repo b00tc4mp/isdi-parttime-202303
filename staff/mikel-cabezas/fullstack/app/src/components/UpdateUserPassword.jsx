@@ -8,15 +8,15 @@ export default function UpdateUserPassword() {
     const [disabled, setDisabled] = useState(true)
 
 
-    function handleUpdatePassword (event) {
+    function handleUpdatePassword(event) {
         event.preventDefault()
         try {
             const currentPassword = event.target.parentElement.parentElement.elements['password']
             const newPassword = event.target.parentElement.parentElement.elements['new-password']
             const repeatPassword = event.target.parentElement.parentElement.elements['repeat-password']
             const buttons = event.target.parentElement.parentElement.elements['.buttons']
-            if (currentPassword && newPassword  && repeatPassword) {
-                updateUserPassword(userId, currentPassword, newPassword, repeatPassword, error => {
+            if (currentPassword && newPassword && repeatPassword) {
+                updateUserPassword(userId, currentPassword.value, newPassword.value, repeatPassword.value, error => {
                     if (error) {
                         alert(error.message)
                     }
@@ -28,17 +28,17 @@ export default function UpdateUserPassword() {
                 newPassword.disabled = true
                 repeatPassword.disabled = true
                 updateUserPassword && event.target.parentElement.parentElement.reset()
-            }, 100); 
-        } catch(error) {
+            }, 100);
+        } catch (error) {
             console.log(error.stack)
         }
     }
- 
+
     function handleUpdatePasswordClick(event) {
         event.preventDefault()
         try {
             setDisabled(false)
-        } catch(error) {
+        } catch (error) {
             console.log(error.message)
         }
     }
@@ -46,16 +46,16 @@ export default function UpdateUserPassword() {
         event.preventDefault()
         try {
             setDisabled(true)
-        } catch(error) {
+        } catch (error) {
             console.log(error.message)
         }
     }
 
-    return <> 
+    return <>
         <div className="container update update-password" id="update-password">
             <h2>Update password</h2>
-            <p>Press de pencil icon for edit your password.<br/>
-            You cannot set the same password</p>
+            <p>Press de pencil icon for edit your password.<br />
+                You cannot set the same password</p>
             <button className="button--update-info__password" onClick={handleUpdatePasswordClick}>Update password <i className="uil uil-pen"></i></button>
             <form className="data user-password">
                 <label htmlFor="">Current password</label>

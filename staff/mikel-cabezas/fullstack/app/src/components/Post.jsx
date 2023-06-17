@@ -174,7 +174,7 @@ export default function Post({ post, post: { image, title, text, comments, likes
                 <div className={`material-symbols-outlined like ${likes.includes(userId) ? ' filled' : ''}`}
                     onClick={handleToggleLike}>favorite</div>
                 <div className="material-symbols-outlined comment">maps_ugc</div>
-                <div className={userData.favPosts.includes(id) ? 'material-symbols-outlined save filled' : 'material-symbols-outlined save'} onClick={handleToggleSave}>bookmark</div>
+                <div className={userData?.favPosts.includes(id) ? 'material-symbols-outlined save filled' : 'material-symbols-outlined save'} onClick={handleToggleSave}>bookmark</div>
             </div>
             <h3 className="title">{title}</h3>
             <p className="excerpt">{text}</p>

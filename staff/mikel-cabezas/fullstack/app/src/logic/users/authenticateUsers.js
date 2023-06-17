@@ -2,7 +2,7 @@ import { validators } from 'com'
 const { validateEmail, validatePassword, validateCallback } = validators
 
 // console.log(validators)
-export default function authenticateUser(email, password, callback) {
+export default (email, password, callback) => {
     validateEmail(email)
     validatePassword(password)
     validateCallback(callback)

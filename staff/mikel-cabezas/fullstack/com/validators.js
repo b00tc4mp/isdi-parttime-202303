@@ -34,16 +34,7 @@ function validatePassword(password) {
     if (!password.trim().length > 8) throw new Error('Password must be higher than 8 characters')
 }
 
-function validateNewPassword(user, currentPassword, newPassword, repeatPassword) {
-    debugger
-    if (currentPassword.trim() !== user.password)
-        throw new Error('Not your current password')
-
-    if (user.password === newPassword) {
-        userAccount.querySelector('p.message').classList.add('error')
-        throw new Error('You need to set a new password')
-    }
-
+function validateNewPassword(currentPassword, newPassword, repeatPassword) {
     if (newPassword !== repeatPassword)
         throw new Error('New password does not match')
 

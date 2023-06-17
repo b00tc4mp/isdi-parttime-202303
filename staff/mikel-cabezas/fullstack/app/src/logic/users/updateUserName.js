@@ -3,18 +3,35 @@ import { validators } from "com"
 
 const { validateCallback, validateName, validateUserId } = validators
 
-export default function updateUserName(userId, newName, callback) {
+export default (userId, name, callback) => {
     validateUserId(userId)
-    validateName(newName)
+    validateName(name)
     validateCallback(callback)
+    const xhr = new XMLHttpRequest
+    xhr.onload = () => {
+        const { status } = xhr
 
-    const user = findUserById(userId, (error, user) => {
-        if (!user) {
-            callback(new Error('user not found'))
+        if (status !== 204) {
+            const { response: json } = xhr
+            const { error } = JSON.parse(json)
+
+            callback(new Error(error))
 
             return
         }
-        user.name = newName
-        saveUser(user, () => callback(null))
-    })
+
+        callback(null)
+    }
+
+    xhr.onerror = () => {
+        callback(new Error('connection error'))
+    }
+
+    xhr.open('PATCH', `http://localhost:4000/users/username/${userId}`)
+    xhr.setRequestHeader('Content-Type', 'application/json')
+
+    const userData = { name }
+    const json = JSON.stringify(userData)
+
+    xhr.send(json)
 }

@@ -4,24 +4,39 @@ import { validators } from "com"
 
 const { validateCallback, validateImage, validateUserId } = validators
 
-export default function uploadImage(userId, image, callback) {
+// export default function uploadImage(userId, image, callback) {
+export default (userId, image, callback) => {
 
     // validateImage(image)
     validateUserId(userId)
     validateCallback(callback)
-    const user = findUserById(userId, (error, user) => {
-        if (!user) {
-            callback(new Error('user not found'))
+
+    const xhr = new XMLHttpRequest
+    xhr.onload = () => {
+        const { status } = xhr
+
+        if (status !== 204) {
+            const { response: json } = xhr
+            const { error } = JSON.parse(json)
+
+            callback(new Error(error))
 
             return
         }
-        user.image = image.src
-        context.image = image.src
 
-        saveUser(user, () => callback(null))
-    })
+        callback(null)
+    }
+
+    xhr.onerror = () => {
+        callback(new Error('connection error'))
+    }
+
+    xhr.open('PATCH', `http://localhost:4000/users/image/${userId}`)
+
+    xhr.setRequestHeader('Content-Type', 'application/json')
+
+    const userData = { image }
+    const json = JSON.stringify(userData)
+
+    xhr.send(json)
 }
-
-// TODO 
-// forceUpdate Header
-// forceUpdate User View

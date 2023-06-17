@@ -1,14 +1,14 @@
 const express = require('express')
-const { registerUser, retrieveUser, authenticateUser, updateUserImage, updateUserName, updateUserEmail, updateUserPassword } = require('./logic/users')
+const { registerUser, retrieveUser, authenticateUser } = require('./logic')
+const updateUserImage = require('./logic/updateUserImage')
 
 const api = express()
 
-api.get('/helloworld', (req, res) => res.json({ hello: 'world' }))
+// api.get('/helloworld', (req, res) => res.json({ hello: 'world' }))
 
 api.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*')
     res.setHeader('Access-Control-Allow-Headers', '*')
-    res.setHeader('Access-Control-Allow-Methods', '*')
 
     next()
 })
@@ -36,6 +36,7 @@ api.post('/users', (req, res) => {
         }
     })
 })
+
 
 api.get('/users/:userId', (req, res) => {
     // TODO call retrieveUser and return user in json
@@ -80,7 +81,7 @@ api.post('/users/auth', (req, res) => {
     })
 })
 
-api.patch('/users/image/:userId', (req, res) => {
+api.patch('/users/:userId', (req, res) => {
     let json = ''
 
     req.on('data', chunk => json += chunk)
@@ -92,81 +93,6 @@ api.patch('/users/image/:userId', (req, res) => {
             const { image } = JSON.parse(json)
 
             updateUserImage(userId, image, error => {
-                if (error) {
-                    res.status(400).json({ error: error.message })
-
-                    return
-                }
-
-                res.status(204).send()
-            })
-        } catch (error) {
-            res.status(400).json({ error: error.message })
-        }
-    })
-})
-api.patch('/users/username/:userId', (req, res) => {
-    let json = ''
-
-    req.on('data', chunk => json += chunk)
-
-    req.on('end', () => {
-        debugger
-        try {
-            const { userId } = req.params
-            const { name } = JSON.parse(json)
-
-            updateUserName(userId, name, error => {
-                if (error) {
-                    res.status(400).json({ error: error.message })
-
-                    return
-                }
-
-                res.status(204).send()
-            })
-        } catch (error) {
-            res.status(400).json({ error: error.message })
-        }
-    })
-})
-api.patch('/users/email/:userId', (req, res) => {
-    let json = ''
-
-    req.on('data', chunk => json += chunk)
-
-    req.on('end', () => {
-
-        try {
-            const { userId } = req.params
-            const { email } = JSON.parse(json)
-
-            updateUserEmail(userId, email, error => {
-                if (error) {
-                    res.status(400).json({ error: error.message })
-
-                    return
-                }
-
-                res.status(204).send()
-            })
-        } catch (error) {
-            res.status(400).json({ error: error.message })
-        }
-    })
-})
-api.patch('/users/password/:userId', (req, res) => {
-    let json = ''
-
-    req.on('data', chunk => json += chunk)
-
-    req.on('end', () => {
-
-        try {
-            const { userId } = req.params
-            const { password, newPassword, repeatPassword } = JSON.parse(json)
-
-            updateUserPassword(userId, password, newPassword, repeatPassword, error => {
                 if (error) {
                     res.status(400).json({ error: error.message })
 

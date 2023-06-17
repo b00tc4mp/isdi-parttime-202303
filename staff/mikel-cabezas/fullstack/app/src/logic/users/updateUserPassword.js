@@ -1,21 +1,41 @@
 import { validators } from 'com'
-import { findUserById, saveUser } from "../../data.js"
-
-const { validateCallback, validateNewPassword, validateUserId } = validators
-export function updateUserPassword(userId, currentPassword, newPassword, repeatPassword, callback) {
-
+const { validateCallback, validatePassword, validateNewPassword, validateUserId } = validators
+export function updateUserPassword(userId, password, newPassword, repeatPassword, callback) {
+    debugger
     validateUserId(userId)
+    validatePassword(password)
+    validatePassword(newPassword)
+    validatePassword(repeatPassword)
+    validateNewPassword(password, newPassword, repeatPassword)
     validateCallback(callback)
-    findUserById(userId, user => {
-        debugger
-        if (!user) {
-            callback(new Error('user not found'))
-            validateNewPassword(user, currentPassword.value, newPassword.value, repeatPassword.value)
+
+    const xhr = new XMLHttpRequest
+    xhr.onload = () => {
+        const { status } = xhr
+
+        if (status !== 204) {
+            const { response: json } = xhr
+            const { error } = JSON.parse(json)
+
+            callback(new Error(error))
 
             return
         }
-        user.password = newPassword.value
-        saveUser(user, () => callback(null))
-    })
-    // return true
+
+        callback(null)
+    }
+
+    xhr.onerror = () => {
+        callback(new Error('connection error'))
+    }
+
+    xhr.open('PATCH', `http://localhost:4000/users/password/${userId}`)
+
+    xhr.setRequestHeader('Content-Type', 'application/json')
+
+    const userData = { password, newPassword, repeatPassword }
+
+    const json = JSON.stringify(userData)
+
+    xhr.send(json)
 }
