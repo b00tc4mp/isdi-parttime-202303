@@ -106,32 +106,30 @@ export default function UpdateUserInfo({ }) {
         }
     }
 
-    if (user) {
-        return <>
-            <div className="container user-account">
-                <div className="update update-info" id="update-profile">
-                    <h2>Update profile</h2>
-                    <p>Press de pencil icon for edit your name or your email</p>
-                    <button className="button--update-info__profile" onClick={handleUpdateProfile} >Edit profile <i className="uil uil-pen"></i></button>
-                    <form className="data user-info">
-                        <label htmlFor="">Your name</label>
-                        <input type="text" defaultValue={user.name} name="name" disabled={disabled} />
-                        <label htmlFor="">Your email</label>
-                        <input type="email" defaultValue={user.email} name="email" disabled={disabled} />
-                        <div className="avatar">
-                            {!user?.image && <div className="letter">{letters}</div>}
-                            {user.image && <img className="image-profile" src={user.image} alt="" />}
-                            {<img className="image-profile" src={user.image} alt="" />}
-                        </div>
-                        <label htmlFor="">Update image profile</label>
-                        <input type="file" name="file" id="" accept=".jpg, .jpeg, .png, .webp" onClick={handleConvertImageToBase64} />
-                        <div className={`buttons ${!disabled ? '' : 'off'}`} >
-                            <button className="button--update-info__cancel-info" type="cancel" onClick={handleCancelUpdateProfile}>Cancel</button>
-                            <button className="button--update-info__save-info" onClick={handleSavelUpdateProfile}>Save</button>
-                        </div>
-                    </form>
-                </div>
+    return <>
+        <div className="container user-account">
+            <div className="update update-info" id="update-profile">
+                <h2>Update profile</h2>
+                <p>Press de pencil icon for edit your name or your email</p>
+                <button className="button--update-info__profile" onClick={handleUpdateProfile} >Edit profile <i className="uil uil-pen"></i></button>
+                <form className="data user-info">
+                    <label htmlFor="">Your name</label>
+                    <input type="text" defaultValue={user?.name} name="name" disabled={disabled} />
+                    <label htmlFor="">Your email</label>
+                    <input type="email" defaultValue={user?.email} name="email" disabled={disabled} />
+                    <div className="avatar">
+                        {!user?.image && <div className="letter">{letters}</div>}
+                        {user?.image && <img className="image-profile" src={user?.image} alt="" />}
+                        {<img className="image-profile" src={user?.image} alt="" />}
+                    </div>
+                    <label htmlFor="">Update image profile</label>
+                    <input type="file" name="file" id="" accept=".jpg, .jpeg, .png, .webp" onClick={handleConvertImageToBase64} />
+                    <div className={`buttons ${!disabled ? '' : 'off'}`} >
+                        <button className="button--update-info__cancel-info" type="cancel" onClick={handleCancelUpdateProfile}>Cancel</button>
+                        <button className="button--update-info__save-info" onClick={handleSavelUpdateProfile}>Save</button>
+                    </div>
+                </form>
             </div>
-        </>
-    }
+        </div>
+    </>
 }
