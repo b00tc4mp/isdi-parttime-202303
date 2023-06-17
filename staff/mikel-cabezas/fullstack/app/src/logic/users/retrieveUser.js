@@ -30,7 +30,8 @@ export default (userId, callback) => {
         callback(new Error('connection error'))
     }
 
-    xhr.open('GET', `http://localhost:4000/users/${userId}`)
+    xhr.open('GET', `${import.meta.env.VITE_API_URL}/users`)
+
 
     xhr.send()
 

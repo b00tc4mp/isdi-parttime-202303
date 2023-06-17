@@ -38,5 +38,13 @@
         "password": "123123123",
         "image": null,
         "favPosts": []
+    },
+    {
+        "id": "user-6",
+        "name": "Norah D",
+        "email": "noradc21324321@gmail.com",
+        "password": "123123123",
+        "image": null,
+        "favPosts": []
     }
 ]

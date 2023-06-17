@@ -30,7 +30,8 @@ export default (name, email, password, callback) => {
         callback(new Error('connection error'))
     }
 
-    xhr.open('POST', 'http://localhost:4000/users')
+    xhr.open('POST', `${import.meta.env.VITE_API_URL}/users`)
+
 
     xhr.setRequestHeader('Content-Type', 'application/json')
 

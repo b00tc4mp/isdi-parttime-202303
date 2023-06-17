@@ -29,7 +29,8 @@ export function updateUserPassword(userId, password, newPassword, repeatPassword
         callback(new Error('connection error'))
     }
 
-    xhr.open('PATCH', `http://localhost:4000/users/password/${userId}`)
+    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/users/password/${userId}`)
+
 
     xhr.setRequestHeader('Content-Type', 'application/json')
 

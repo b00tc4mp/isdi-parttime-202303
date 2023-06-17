@@ -27,7 +27,8 @@ export default (userId, name, callback) => {
         callback(new Error('connection error'))
     }
 
-    xhr.open('PATCH', `http://localhost:4000/users/username/${userId}`)
+    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/users/username/${userId}`)
+
     xhr.setRequestHeader('Content-Type', 'application/json')
 
     const userData = { name }
