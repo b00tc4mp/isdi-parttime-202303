@@ -10,5 +10,7 @@ module.exports = {
     createPostController: require('./posts/createPostController'),
     editPostController: require('./posts/editPostController'),
     deletePostController: require('./posts/deletePostController'),
-    retrievePostsController: require('./posts/retrievePostsController')
+    retrievePostsController: require('./posts/retrievePostsController'),
+    retrieveLikedPostsController: require('./posts/retrieveLikedPostsController'),
+    retrieveSavedPostsController: require('./posts/retrieveSavedPostsController')
 }

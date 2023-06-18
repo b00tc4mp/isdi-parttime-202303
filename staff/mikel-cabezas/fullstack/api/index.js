@@ -2,7 +2,7 @@ require('dotenv').config()
 
 const express = require('express')
 const { jsonBodyParser, cors } = require('./utils')
-const { helloApiController, registerUserController, retrieveUserController, authenticateUserController, updateUserImageController, updateUserNameController, updateUserEmailController, updateUserPasswordController, createPostController, editPostController, deletePostController, retrievePostsController } = require('./controllers')
+const { helloApiController, registerUserController, retrieveUserController, authenticateUserController, updateUserImageController, updateUserNameController, updateUserEmailController, updateUserPasswordController, createPostController, editPostController, deletePostController, retrievePostsController, retrieveLikedPostsController, retrieveSavedPostsController } = require('./controllers')
 
 const api = express()
 
@@ -22,6 +22,7 @@ api.post('/posts', jsonBodyParser, createPostController)
 api.patch('/posts', jsonBodyParser, editPostController)
 api.delete('/posts', jsonBodyParser, deletePostController)
 api.get('/posts', retrievePostsController)
-
+api.get('/posts/liked', retrieveLikedPostsController)
+api.get('/posts/saved', retrieveSavedPostsController)
 
 api.listen(`${process.env.PORT}`, () => console.log(`server running in port ${process.env.PORT}`))

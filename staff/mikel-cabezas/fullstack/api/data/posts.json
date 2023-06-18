@@ -7,7 +7,9 @@
         "text": "bla bla bla bal",
         "date": "2023-06-17T20:45:30.564Z",
         "comments": [],
-        "likes": [],
+        "likes": [
+            "user-1"
+        ],
         "visibility": "public",
         "location": ""
     },
