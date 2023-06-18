@@ -1,11 +1,12 @@
 const { readFile, writeFile } = require('fs')
 const { validators: { validateCallback, validateText, validateUrl, validateId } } = require('com')
 require('dotenv').config()
+const sinon = require('sinon')
 
-module.exports = ( userId, imageUrl, postText, callBack) => {
+module.exports = (userId, imageUrl, postText, callBack) => {
   validateId(userId, 'user id')
-  validateUrl(imageUrl)
-  validateText(postText)
+  validateUrl(imageUrl, 'image url')
+  validateText(postText, 'post text')
   validateCallback(callBack)
 
   readFile(`${process.env.DB_PATH}/users.json`, (error, usersJSON) => {
@@ -16,8 +17,13 @@ module.exports = ( userId, imageUrl, postText, callBack) => {
     }
 
     const users = JSON.parse(usersJSON)
-
     const user = users.find(_user => _user.id === userId)
+
+    if(!user) {
+      callBack(new Error('User not found.'))
+
+      return
+    }
 
     readFile(`${process.env.DB_PATH}/posts.json`, (error, postsJSON) => {
       if(error) {
@@ -27,7 +33,6 @@ module.exports = ( userId, imageUrl, postText, callBack) => {
       }
 
       const posts = JSON.parse(postsJSON)
-      
       let id = 'post-1'
       const lastPost = posts[posts.length - 1]
       if (lastPost) id = 'post-' + (parseInt(lastPost.id.slice(5)) + 1)

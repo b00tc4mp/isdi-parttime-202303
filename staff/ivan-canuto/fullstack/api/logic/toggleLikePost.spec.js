@@ -19,6 +19,4 @@ describe('', () => {
   
     writeFile(`${process.env.DB_PATH}/users.json`, userToJSON, error => done(error))
   })
-
-  
 })

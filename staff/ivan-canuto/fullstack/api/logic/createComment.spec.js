@@ -190,8 +190,9 @@ describe('createComment', () => {
     const postToJSON = JSON.stringify(post)
 
     writeFile(`${process.env.DB_PATH}/posts.json`, postToJSON, error => {
+      expect(error).to.be.null
+      
       expect(() => createComment(commentText, userId, postId, 'Not a function')).to.throw(Error, 'CallBack is not a function')
-      done()
     })
   })
 })
