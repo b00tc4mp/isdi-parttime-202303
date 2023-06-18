@@ -1,12 +1,12 @@
 require('dotenv').config()
 const { readFile, writeFile } = require('fs')
-const { validators: { validateUserId, validateText, validatePassword, validateCallback } } = require('com')
-module.exports = (userId, image, title, text, location, callback) => {
+const { validators: { validateUserId, validateText, validatePostId, validateCallback } } = require('com')
+module.exports = (userId, postId, title, text, image, visibility, callback) => {
     validateUserId(userId)
+    validatePostId(postId)
     validateText(title)
     validateText(text)
     validateCallback(callback)
-
 
     readFile(`${process.env.DB_PATH}/posts.json`, (error, json) => {
         if (error) {
@@ -16,24 +16,23 @@ module.exports = (userId, image, title, text, location, callback) => {
         }
         const posts = JSON.parse(json)
 
-        const lastPostPosition = posts.length - 1
-        const lastPost = parseInt(posts[lastPostPosition].id.slice(5))
-
-
-        const post = {
-            id: `post-${lastPost + 1}`,
-            author: userId,
+        const post = posts.find(post => post.id === postId)
+        const postIndex = posts.findIndex(post => post.id === postId)
+        posts[postIndex] = {
+            id: post.id,
+            author: post.userId,
             image: image,
             title: title,
             text: text,
-            date: new Date(),
-            comments: [],
-            likes: [],
-            visibility: 'public',
-            location: ''
+            date: new Date(post.date),
+            lastModify: new Date(),
+            comments: post.comments,
+            likes: post.likes,
+            visibility: visibility,
+            location: post.location
         }
 
-        posts.push(post)
+        // posts.push(editedPost)
 
         json = JSON.stringify(posts, null, 4)
 
