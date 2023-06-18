@@ -1,4 +1,3 @@
-import { findUserById } from "../../data"
 import { validators } from "com"
 
 const { validateCallback, validateUserId } = validators
@@ -6,7 +5,7 @@ const { validateCallback, validateUserId } = validators
 export default (userId, callback) => {
     validateUserId(userId)
     validateCallback(callback)
-
+    debugger
     const xhr = new XMLHttpRequest
     xhr.onload = () => {
         const { status } = xhr
@@ -22,6 +21,7 @@ export default (userId, callback) => {
 
         const { response: json } = xhr
         const user = JSON.parse(json)
+        console.log(user)
         // const { name, email, image, favPosts } = JSON.parse(json)
         callback(null, user)
     }
@@ -29,9 +29,11 @@ export default (userId, callback) => {
     xhr.onerror = () => {
         callback(new Error('connection error'))
     }
-
     xhr.open('GET', `${import.meta.env.VITE_API_URL}/users`)
+    xhr.setRequestHeader('Authorization', `Bearer ${userId}`)
 
+    // xhr.setRequestHeader('content-type', 'application/json')
+    // console.log(xhr.status)
 
     xhr.send()
 

@@ -1,7 +1,5 @@
 module.exports = (req, res, next) => {
-
     const { 'content-type': contentType } = req.headers
-    debugger
     if (contentType !== 'application/json') {
         res.status(400).json({ error: 'no application/json header found' })
     }
