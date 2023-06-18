@@ -14,13 +14,20 @@ module.exports = (userId, postId, title, text, image, visibility, callback) => {
 
             return
         }
+        let visibilityStatus
+        if (visibility) {
+            visibilityStatus = 'public'
+        } else {
+            visibilityStatus = 'private'
+        }
+
         const posts = JSON.parse(json)
 
         const post = posts.find(post => post.id === postId)
         const postIndex = posts.findIndex(post => post.id === postId)
         posts[postIndex] = {
             id: post.id,
-            author: post.userId,
+            author: userId,
             image: image,
             title: title,
             text: text,
@@ -28,7 +35,7 @@ module.exports = (userId, postId, title, text, image, visibility, callback) => {
             lastModify: new Date(),
             comments: post.comments,
             likes: post.likes,
-            visibility: visibility,
+            visibility: visibilityStatus,
             location: post.location
         }
 

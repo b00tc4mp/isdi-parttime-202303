@@ -5,8 +5,10 @@
         "email": "mikelcabezas@gmail.com",
         "password": "123123123",
         "favPosts": [
+            "post-4",
+            "post-3",
             "post-1",
-            "post-4"
+            "post-5"
         ],
         "image": null
     },
@@ -24,7 +26,9 @@
         "email": "norad@gmail.com",
         "password": "123123123",
         "image": null,
-        "favPosts": []
+        "favPosts": [
+            "post-1"
+        ]
     },
     {
         "id": "user-4",

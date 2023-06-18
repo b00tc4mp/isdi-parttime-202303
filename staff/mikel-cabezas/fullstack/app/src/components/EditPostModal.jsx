@@ -13,15 +13,15 @@ export function EditPostModal({ postId, onCancel, onPostUpdated }) {
             retrievePostByPostId(userId, postId, (error, post) => {
                 if (error) {
                     alert(error.message)
-                    
+
                     return
                 }
                 setPost(post)
             })
-        } catch(error) {
+        } catch (error) {
             alert(error.message)
-        } 
-    },[post])
+        }
+    }, [post])
 
     function handleCancelEditPost(event) {
         event.preventDefault()
@@ -38,8 +38,8 @@ export function EditPostModal({ postId, onCancel, onPostUpdated }) {
         debugger
         const visibility = event.target.parentElement.parentElement.elements.visibility.checked
         try {
-            editPost(userId, postId, title, text, image, visibility,  error => {
-                if(error) {
+            editPost(userId, postId, title, text, image, visibility, error => {
+                if (error) {
                     alert(error.message)
 
                     return
@@ -55,9 +55,9 @@ export function EditPostModal({ postId, onCancel, onPostUpdated }) {
     return <div className="overlay edit-post">
         <form className="edit-post">
             <input type="hidden" />
-            
+
             <label htmlFor="checkbox" className="visibility">Visibility {post.visibility === 'public' && <input type="checkbox" className="visibility" name="visibility" defaultChecked id="" />}
-            {post.visibility === 'private' && <input type="checkbox" className="visibility" name="visibility" id="" />} </label>
+                {post.visibility === 'private' && <input type="checkbox" className="visibility" name="visibility" id="" />} </label>
 
             {/* <label htmlFor="checkbox" className="visibility">Visibility <input type="checkbox" className="visibility" name="visibility" defaultChecked={post.visibility === 'public' ? 'true' : 'false'} id="" /></label> */}
             <label htmlFor="text">Edit title</label>

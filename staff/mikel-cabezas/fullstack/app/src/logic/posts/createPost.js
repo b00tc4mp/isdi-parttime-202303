@@ -8,24 +8,31 @@ export function createPost(userId, image, title, text, location, callback) {
     validateText(title)
     validateText(text)
 
-    loadPosts(_posts => {
-        const currentPost = parseInt(_posts.length + 1)
-        const post = {
-            id: 'post-' + currentPost,
-            author: userId,
-            image: image,
-            title: title,
-            text: text,
-            date: new Date(),
-            comments: [],
-            likes: [],
-            visibility: 'public',
-            location: ''
+    const xhr = new XMLHttpRequest
+    xhr.onload = () => {
+        const { status } = xhr
+
+        if (status !== 201) {
+            const { response: json } = xhr
+            const { error } = JSON.parse(json)
+
+            callback(new Error(error))
+
+            return
         }
-        if (location) {
-            post.location = location
-        }
-        _posts.push(post)
-        savePosts(_posts, () => callback(null))
-    })
+        const { response: json } = xhr
+        debugger
+        callback(null)
+    }
+    xhr.onerror = () => {
+        callback(new Error('connection error'))
+    }
+    xhr.open('POST', `${import.meta.env.VITE_API_URL}/posts`)
+    xhr.setRequestHeader('Content-Type', 'application/json')
+    xhr.setRequestHeader('Authorization', `Bearer ${userId}`)
+
+    const post = { title, text, image, location }
+    const json = JSON.stringify(post)
+
+    xhr.send(json)
 }

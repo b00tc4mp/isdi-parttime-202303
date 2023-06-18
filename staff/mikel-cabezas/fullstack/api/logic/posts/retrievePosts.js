@@ -27,15 +27,13 @@ module.exports = (userId, callback) => {
             }
             const posts = JSON.parse(json)
 
-            console.log(posts)
-
             posts.forEach(post => {
                 const user = users.find(user => user.id === post.author)
 
                 post.author = {
                     id: user.id,
                     name: user.name,
-                    avatar: user.avatar
+                    image: user.image
                 }
             })
 

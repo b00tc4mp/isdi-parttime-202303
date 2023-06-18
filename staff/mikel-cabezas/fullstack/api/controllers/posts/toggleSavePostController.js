@@ -1,4 +1,4 @@
-const { toggleLikePost } = require('../../logic/posts')
+const { toggleSavePost } = require('../../logic/posts')
 const { extractUserId } = require('../../helpers')
 
 
@@ -9,7 +9,7 @@ module.exports = (req, res) => {
 
         const { postId } = req.params
 
-        toggleLikePost(userId, postId, (error) => {
+        toggleSavePost(userId, postId, (error) => {
             if (error) {
                 res.status(400).json({ error: error.message })
 
