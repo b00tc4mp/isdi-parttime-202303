@@ -12,5 +12,8 @@ module.exports = {
     deletePostController: require('./posts/deletePostController'),
     retrievePostsController: require('./posts/retrievePostsController'),
     retrieveLikedPostsController: require('./posts/retrieveLikedPostsController'),
-    retrieveSavedPostsController: require('./posts/retrieveSavedPostsController')
+    retrieveSavedPostsController: require('./posts/retrieveSavedPostsController'),
+    retrievePostByPostIdController: require('./posts/retrievePostByPostIdController'),
+    toggleLikePostController: require('./posts/toggleLikePostController'),
+    toggleSavePostController: require('./posts/toggleSavePostController')
 }

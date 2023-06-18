@@ -3,10 +3,9 @@ const { extractUserId } = require('../../helpers')
 
 
 module.exports = (req, res) => {
-
     try {
         const userId = extractUserId(req)
-
+        debugger
         const { id, author, image, title, text, date, comments, likes, visibility, location } = req.body
 
         createPost(userId, image, title, text, location, error => {

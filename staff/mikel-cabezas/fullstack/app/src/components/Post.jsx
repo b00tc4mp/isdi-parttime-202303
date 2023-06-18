@@ -56,7 +56,7 @@ export default function Post({ post, post: { image, title, text, comments, likes
     function handleToggleLike(event) {
         try {
             freeze()
-            toggleLikePost(userId, post, error => {
+            toggleLikePost(userId, post.id, error => {
                 unfreeze()
                 if (error) {
                     alert(error.message)

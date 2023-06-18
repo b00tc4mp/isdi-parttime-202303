@@ -1,31 +1,33 @@
-import { loadPosts, loadUsers, findUserById } from '../../data.js'
 import { validators } from "com";
-
 const { validateUserId } = validators
-export default function retrievePosts(userId, callback) {
+
+export default (userId, callback) => {
     validateUserId(userId);
 
-    loadUsers(users => {
-        const found = users.find(user => user.id === userId)
+    const xhr = new XMLHttpRequest
+    xhr.onload = () => {
+        const { status } = xhr
 
-        if (!found) {
-            callback(`new Error(there is no user with this current ${userId} id)`);
+        if (status !== 200) {
+            const { response: json } = xhr
+            const { error } = JSON.parse(json)
+
+            callback(new Error(error))
+
             return
         }
 
-        loadPosts((posts) => {
-            posts.forEach(post => {
-                // para c/post vamos a buscar su user propio
-                const _user = users.find(user => user.id === post.author)
-                //en esta propiedad, le agregamos un objeto con 3 datos mas, includio el avatar, la id y el nombre. 
-                post.author = {
-                    id: _user.id,
-                    name: _user.name,
-                    avatar: _user.avatar
-                }
-            })
+        const { response: json } = xhr
+        const posts = JSON.parse(json)
 
-            callback(null, posts.toReversed());
-        })
-    })
+        callback(null, posts)
+    }
+    xhr.onerror = () => {
+        callback(new Error('connection error'))
+    }
+    xhr.open('GET', `${import.meta.env.VITE_API_URL}/posts`)
+    xhr.setRequestHeader('Authorization', `Bearer ${userId}`)
+
+    xhr.send()
+
 }

@@ -16,48 +16,55 @@ export default function Posts({ onEditPost, onAddPostClick, lastPostsUpdate, pos
     const { alert, freeze, unfreeze } = useContext(Context)
     useEffect(() => {
         console.log('Refresh Posts -> render in useEffect')
-        freeze()
-        if (!postsFilter) {
-            retrievePosts(userId, (error, posts) => {
-                unfreeze()
-                if (error) {
-                    alert(error.message)
+        try {
+            freeze()
+            if (!postsFilter) {
+                retrievePosts(userId, (error, posts) => {
+                    unfreeze()
+                    if (error) {
+                        alert(error.message)
 
-                    return
-                }
-                setPosts(posts)
-            })
-        }
-        if (postsFilter === 'liked') {
-            retrieveLikedPosts(userId, (error, posts) => {
-                unfreeze()
-                if (error) {
-                    alert(error.message)
-
-                    return
-                }
-                setPosts(posts)
-            })
-        }
-        if (postsFilter === 'saved') {
-            retrieveSavedPosts(userId, (error, posts) => {
-                unfreeze()
-                if (error) {
-                    alert(error.message)
-
-                    return
-                }
-                setPosts(posts)
-            })
-        }
-        retrieveUser(userId, (error, user) => {
-            if (error) {
-                alert(error.message)
-
-                return
+                        return
+                    }
+                    setPosts(posts)
+                })
             }
-            setUser(user)
-        })
+
+            if (postsFilter === 'liked') {
+                retrieveLikedPosts(userId, (error, posts) => {
+                    unfreeze()
+                    if (error) {
+                        s
+                        alert(error.message)
+
+                        return
+                    }
+                    setPosts(posts)
+                })
+            }
+            if (postsFilter === 'saved') {
+                retrieveSavedPosts(userId, (error, posts) => {
+                    unfreeze()
+                    if (error) {
+                        alert(error.message)
+
+                        return
+                    }
+                    setPosts(posts)
+                })
+            }
+            retrieveUser(userId, (error, user) => {
+                if (error) {
+                    alert(error.message)
+
+                    return
+                }
+                setUser(user)
+            })
+        } catch (error) {
+            alert(error.message)
+        }
+
     }, [])
     function onShowAllPosts() {
         alert('function')

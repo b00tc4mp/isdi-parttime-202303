@@ -1,6 +1,4 @@
-import { saveUser, findUserById, findPostbyId } from '../../data.js'
 import { validators } from 'com'
-
 const { validateUserId, validatePostId, validateCallback } = validators
 
 export function toggleSavePost(userId, postId, callback) {
@@ -8,29 +6,32 @@ export function toggleSavePost(userId, postId, callback) {
     validatePostId(postId)
     validateCallback(callback)
 
-    findUserById(userId, user => {
-        if (!user) {
-            callback(new Error(`User with id ${userId} not found`))
+    const xhr = new XMLHttpRequest
+    xhr.onload = () => {
+        const { status } = xhr
+
+        if (status !== 204) {
+            const { response: json } = xhr
+            const { error } = JSON.parse(json)
+
+            callback(new Error(error))
 
             return
         }
+        callback(null)
+    }
+    xhr.onerror = () => {
+        callback(new Error('connection error'))
+    }
+    xhr.open("PATCH", `${import.meta.env.VITE_API_URL}/posts/${postId}/saves`)
+    xhr.setRequestHeader('Content-Type', 'application/json')
+    xhr.setRequestHeader('Authorization', `Bearer ${userId}`)
 
-        findPostbyId(postId, post => {
-            if (!post) {
-                callback(new Error(`Post with id ${postId} not found`))
 
-                return
-            }
-            const indexFavPost = user.favPosts.indexOf(postId)
+    const post = { postId }
+    const json = JSON.stringify(post)
 
-            if (indexFavPost < 0) {
-                user.favPosts.push(postId)
-            } else {
-                user.favPosts.splice(indexFavPost, 1)
-            }
-            saveUser(user, () => callback(null))
+    xhr.send(json)
 
-        })
 
-    })
 }

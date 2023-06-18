@@ -1,8 +1,9 @@
 require('dotenv').config()
 const { readFile } = require('fs')
-const { validators: { validateUserId, validateCallback } } = require('com')
-module.exports = (userId, callback) => {
+const { validators: { validateUserId, validatePostId, validateCallback } } = require('com')
+module.exports = (userId, postId, callback) => {
     validateUserId(userId)
+    validatePostId(postId)
     validateCallback(callback)
     readFile(`${process.env.DB_PATH}/users.json`, (error, json) => {
         if (error) {
@@ -26,24 +27,11 @@ module.exports = (userId, callback) => {
                 return
             }
             const posts = JSON.parse(json)
-            const favPosts = []
+            const post = posts.find(post => post.id === postId)
 
-            posts.forEach(post => {
-                users.filter(user => {
-                    const postsFound = user.favPosts.includes(post.id)
-                    if (postsFound) {
-                        favPosts.push(post)
-                    }
-                })
 
-                post.author = {
-                    id: user.id,
-                    name: user.name,
-                    image: user.image
-                }
-            })
 
-            callback(null, favPosts.reverse());
+            callback(null, post);
         })
     })
 }

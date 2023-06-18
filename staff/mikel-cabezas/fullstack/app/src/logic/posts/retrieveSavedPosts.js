@@ -5,33 +5,28 @@ const { validateUserId } = validators
 export default function retrieveSavedPosts(userId, callback) {
     validateUserId(userId);
 
-    loadUsers(users => {
-        const found = users.find(user => user.id === userId)
+    const xhr = new XMLHttpRequest
+    xhr.onload = () => {
+        const { status } = xhr
+        if (status !== 200) {
+            const { response: json } = xhr
+            const { error } = JSON.parse(json)
 
-        if (!found) {
-            callback(`new Error(there is no user with this current ${userId} id)`);
+            callback(new Error(error))
+
             return
         }
+        const { response: json } = xhr
+        const posts = JSON.parse(json)
 
-        loadPosts((posts) => {
-            const favPosts = []
+        callback(null, posts)
 
-            posts.forEach(post => {
-                users.filter(user => {
-                    const _favPosts = user.favPosts.includes(post.id)
-                    if (_favPosts) {
-                        favPosts.push(post)
-                    }
-                })
+    }
+    xhr.onerror = () => {
+        callback(new Error('connection error'))
+    }
+    xhr.open("PATCH", `${import.meta.env.VITE_API_URL}/posts/saved`)
+    xhr.setRequestHeader('Authorization', `Bearer ${userId}`)
 
-                const _user = users.find(user => user.id === post.author)
-                post.author = {
-                    id: _user.id,
-                    name: _user.name,
-                    avatar: _user.avatar
-                }
-            })
-            callback(null, favPosts.toReversed());
-        })
-    })
+    xhr.send()
 }

@@ -6,7 +6,7 @@ module.exports = (req, res) => {
     try {
         const userId = extractUserId(req)
 
-        const { postId } = req.body
+        const { postId } = req.params
 
         deletePost(userId, postId, error => {
             if (error) {

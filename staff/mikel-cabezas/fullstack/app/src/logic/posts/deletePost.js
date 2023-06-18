@@ -5,20 +5,26 @@ const { validateUserId } = validators
 
 export function deletePost(userId, postId, callback) {
 
-    loadUsers(users => {
-        users.forEach(user => {
-            const likedPostIndex = user.favPosts.findIndex(liked => liked === postId)
-            user.favPosts.splice([likedPostIndex], 1)
-        })
-        loadPosts(_posts => {
-            const currentPost = postId.slice(5) - 1
+    const xhr = new XMLHttpRequest
+    xhr.onload = () => {
+        const { status } = xhr
 
-            validateUserId(userId)
-            _posts.splice([currentPost], 1)
-            savePosts(_posts, () => callback(null))
-        })
-    })
+        if (status !== 204) {
+            const { response: json } = xhr
+            const { error } = JSON.parse(json)
 
-    return postId
+            callback(new Error(error))
 
+            return
+        }
+
+        callback(null, posts)
+    }
+    xhr.onerror = () => {
+        callback(new Error('connection error'))
+    }
+    xhr.open('DELETE', `${import.meta.env.VITE_API_URL}/posts/${postId}`)
+    xhr.setRequestHeader('Authorization', `Bearer ${userId}`)
+
+    xhr.send()
 }
