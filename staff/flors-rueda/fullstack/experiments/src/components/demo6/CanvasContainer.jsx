@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 
-const CanvasContainer = ({ floor, onSolved }) => {
+const CanvasContainer = ({ floor, onSolved, onGameWon }) => {
     const canvasContainerRef = useRef(null);
 
     useEffect(() => {
@@ -166,6 +166,9 @@ const CanvasContainer = ({ floor, onSolved }) => {
 
                     for (const obj of bombObjects) {
                         if (checkCollision(ballPosition, obj)) {
+                            scene.remove(obj);
+                            const index = bombObjects.indexOf(obj);
+                            bombObjects.splice(index, 1);
                             console.log('boom');
                             return;
                         }
@@ -173,6 +176,9 @@ const CanvasContainer = ({ floor, onSolved }) => {
 
                     for (const obj of lifeObjects) {
                         if (checkCollision(ballPosition, obj)) {
+                            scene.remove(obj);
+                            const index = lifeObjects.indexOf(obj);
+                            lifeObjects.splice(index, 1);
                             console.log('life ++');
                             return;
                         }
@@ -186,6 +192,8 @@ const CanvasContainer = ({ floor, onSolved }) => {
 
                     if (stonks && checkCollision(ballPosition, stonks)) {
                         console.log('stonks');
+                        onGameWon();
+                        scene.remove(ball);
                         return;
                     }
                 }
