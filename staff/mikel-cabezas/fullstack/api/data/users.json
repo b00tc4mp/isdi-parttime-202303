@@ -4,7 +4,10 @@
         "name": "Mikel Cabezas",
         "email": "mikelcabezas@gmail.com",
         "password": "123123123",
-        "favPosts": [],
+        "favPosts": [
+            "post-1",
+            "post-4"
+        ],
         "image": null
     },
     {
