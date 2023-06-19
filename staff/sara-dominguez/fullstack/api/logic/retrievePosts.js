@@ -1,8 +1,8 @@
 const { readFile } = require('fs')
-
 const { validators: { validateId, validateCallback } } = require('com')
 
-module.exports = function retrieveUser(userId, callback) {
+
+module.exports = (userId, callback) => {
     validateId(userId)
     validateCallback(callback)
 
@@ -22,14 +22,17 @@ module.exports = function retrieveUser(userId, callback) {
             return
         }
 
-        const { name, email, avatar } = user
+        readFile(`${process.env.DB_PATH}/posts.json`, (error, json) => {
+            if (error) {
+                callback(error)
 
-        const user2 = { name, email, avatar }
+                return
+            }
 
+            const posts = JSON.parse(json)
+            posts.forEach(post => post.date = new Date(post.date))
 
-        callback(null, user2)
+            callback(null, posts.reverse())
+        })
     })
-
-
-
 }

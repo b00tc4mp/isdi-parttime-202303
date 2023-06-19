@@ -33,25 +33,14 @@ export function updateUserAvatar(userId, newAvatar, callback) {
         callback(new Error('conection error'))
     }
 
-    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/users/${userId}`)
+    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/users`)
 
     xhr.setRequestHeader('Content-Type', 'application/json')
+    xhr.setRequestHeader('authorization', `Bearer ${userId}`)
 
-    //enviamos los datos del usuario y lo convertimos a json
-    const data = { newAvatar }
+
+    const data = { avatar: newAvatar }
     const json = JSON.stringify(data)
 
     xhr.send(json)
-
-
-    //    findUserById(userId, user => {
-    //        if(!user) {
-    //            callback(new Error ('User not found'))
-
-    //            return
-    //     } 
-    //        user.avatar = newAvatar
-    //        saveUser(user, () => callback(null))
-    //    })
 }
-

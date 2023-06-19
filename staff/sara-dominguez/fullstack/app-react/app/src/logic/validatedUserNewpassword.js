@@ -1,10 +1,7 @@
-console.debug('validated-user-newPasssword')
 
-// import { validateId, validatePassword, validateUserNewPassword, validateUserConfirmNewPassword, validateCallback } from "./helpers/validators.js"
-import { saveUser, findUserById } from "../data.js"
-import {validators } from 'com'
+import { validators } from 'com'
 
-const {validateId, validatePassword, validateUserNewPassword, validateUserConfirmNewPassword, validateCallback} = validators
+const { validateId, validatePassword, validateUserNewPassword, validateUserConfirmNewPassword, validateCallback } = validators
 
 export function validatedNewPassword(userId, password, userNewPassword, userConfirmNewPassword, callback) {
     validateId(userId)
@@ -13,29 +10,33 @@ export function validatedNewPassword(userId, password, userNewPassword, userConf
     validateUserConfirmNewPassword(userConfirmNewPassword)
     validateCallback(callback)
 
-    let user = findUserById(userId, user => {
-        if (!user) {
-            new Error('User not found')
+    const xhr = new XMLHttpRequest
+
+    xhr.onload = () => {
+        const { status } = xhr
+
+        if (status !== 204) {
+            const { response: json } = xhr
+            const { error } = JSON.parse(json)
+
+            callback(new Error(error))
 
             return
         }
-        if (userNewPassword !== userConfirmNewPassword) {
-            callback(new Error('New password and confirmed password do not match'))
+        callback(null)
+    }
 
-            return
-        }
-        if (user.password !== password) {
-            callback(new Error('wrong  actual password'))
+    xhr.onerror = () => {
+        callback(new Error('connection error'))
+    }
 
-            return
-        }
-        if (password === userNewPassword) {
-            callback(new Error('You have to change the password'))
+    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/users`)
 
-            return
-        }
+    xhr.setRequestHeader('Content-Type', 'application/json')
+    xhr.setRequestHeader('authorization', `Bearer ${userId}`)
 
-        user.password = userNewPassword
-        saveUser(user, () => callback(null))
-    })
+    const data = { password: userNewPassword }
+    const json = JSON.stringify(data)
+
+    xhr.send(json)
 }

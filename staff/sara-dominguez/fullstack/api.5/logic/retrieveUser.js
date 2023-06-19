@@ -2,11 +2,11 @@ const { readFile } = require('fs')
 
 const { validators: { validateId, validateCallback } } = require('com')
 
-module.exports = function retrieveUser(userId, callback) {
-    validateId(userId)
+module.exports = function retrieveUser(id, callback) {
+    validateId(id)
     validateCallback(callback)
 
-    readFile(`${process.env.DB_PATH}/users.json`, (error, json) => {
+    readFile(`${process.env.DB_PATH}/users.json`, 'utf8', (error, json) => {
         if (error) {
             callback(error)
 
@@ -14,10 +14,10 @@ module.exports = function retrieveUser(userId, callback) {
         }
 
         const users = JSON.parse(json)
-        const user = users.find(user => user.id === userId)
+        const user = users.find(user => user.id === id)
 
         if (!user) {
-            callback(new Error(`user with id ${userId} not found`))
+            callback(new Error(`user with id ${id} not found`))
 
             return
         }
