@@ -4,31 +4,40 @@ const express = require('express')
 
 const { cors, jsonBodyParser } = require('./utils')
 const {
-    helloApiHandlers,
-    registerUserHandlers,
-    authenticateUserHandlers,
-    retrieveUserHandlers,
-    updateUserAvatarHandlers,
-    updateUserPasswordHandlers,
-    createPostHandlers
-} = require('./middlewares')
+    helloApiHandler,
+    registerUserHandler,
+    authenticateUserHandler,
+    updateUserAvatarHandler,
+    updateUserPasswordHandler,
+    retrieveUserHandler,
+    createPostHandler,
+    retrievePostHandler,
+    retrievePostsHandler,
+    deletePostHandler
+} = require('./handlers')
 
 const api = express()
 
 api.use(cors)
 
-api.get('/', helloApiHandlers)
+api.get('/', helloApiHandler)
 
-api.post('/users', jsonBodyParser, registerUserHandlers)
+api.post('/users', jsonBodyParser, registerUserHandler)
 
-api.post('/users/auth', jsonBodyParser, authenticateUserHandlers)
+api.post('/users/auth', jsonBodyParser, authenticateUserHandler)
 
-api.get('/users', retrieveUserHandlers)
+api.get('/users', retrieveUserHandler)
 
-api.patch('/users', jsonBodyParser, updateUserAvatarHandlers)
+api.get('/posts', retrievePostsHandler)
 
-api.patch('/users/password', updateUserPasswordHandlers)
+api.get('/posts/:postId', retrievePostHandler)
 
-api.post('/posts', jsonBodyParser, createPostHandlers)
+api.patch('/users', jsonBodyParser, updateUserAvatarHandler)
+
+api.patch('/users/password', updateUserPasswordHandler)
+
+api.post('/posts', jsonBodyParser, createPostHandler)
+
+api.delete('/posts/:postId', deletePostHandler)
 
 api.listen(process.env.PORT, () => console.log(`server running in port ${process.env.PORT}`))

@@ -1,11 +1,12 @@
-const updateUserPasswordHandlers = require('./updateUserPasswordHandlers');
-
 module.exports = {
-    helloApiHandlers: require('./helloApiHandlers'),
-    registerUserHandlers: require('./registerUserHandlers'),
-    authenticateUserHandlers: require('./authenticateUserHandlers'),
-    retrieveUserHandlers: require('./retrieveUserHandlers'),
-    updateUserAvatarHandlers: require('./updateUserAvatarHandlers'),
-    updateUserPasswordHandlers: require('./updateUserPasswordHandlers'),
-    createPostHandlers: require('./createPostHandlers')
+    helloApiHandler: require('./helloApiHandler'),
+    registerUserHandler: require('./registerUserHandler'),
+    authenticateUserHandler: require('./authenticateUserHandler'),
+    retrieveUserHandler: require('./retrieveUserHandler'),
+    updateUserAvatarHandler: require('./updateUserAvatarHandler'),
+    updateUserPasswordHandler: require('./updateUserPasswordHandler'),
+    createPostHandler: require('./createPostHandler'),
+    retrievePostHandler: require('./retrievePostHandler'),
+    retrievePostsHandler: require('./retrievePostsHandler'),
+    deletePostHandler: require('./deletePostHandler')
 }

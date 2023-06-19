@@ -4,7 +4,6 @@ const { expect } = require('chai')
 const { readFile } = require('fs')
 const registerUser = require('./registerUser')
 const { cleanUp, populate, generate } = require('./helpers/tests')
-const { error } = require('console')
 
 describe('registerUser', () => {
     let user

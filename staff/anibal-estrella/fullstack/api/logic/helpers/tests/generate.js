@@ -3,7 +3,8 @@ module.exports = {
         id: `user-${Math.random()}`,
         name: `name-${Math.random()}`,
         email: `email-${Math.random()}`,
-        password: `password-${Math.random()}`
+        password: `password-${Math.random()}`,
+        avatar: `avatar-${Math.random()}`
     }),
 
     post: userId => ({

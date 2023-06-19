@@ -1,6 +1,6 @@
+require('dotenv').config()
 const { readFile, writeFile } = require('fs')
 const { validators: { validateId, validatePassword, validateCallback } } = require('com')
-
 
 module.exports = (userId, password, newPassword, newPasswordConfirm, previousPassword, callback) => {
     validateId(userId, 'user Id')
@@ -15,7 +15,7 @@ module.exports = (userId, password, newPassword, newPasswordConfirm, previousPas
     )
     if (newPassword !== newPasswordConfirm) throw new Error(`New passwords don't match.`)
 
-    readFile(`${process.env.DB_PATH}/users.json`, 'utf8', (error, json) => {
+    readFile(`${process.env.DB_PATH}/users.json`, (error, json) => {
         if (error) {
             callback(error)
 

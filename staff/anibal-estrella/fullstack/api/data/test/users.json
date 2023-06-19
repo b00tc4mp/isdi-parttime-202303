@@ -1,8 +1,10 @@
 [
     {
-        "id": "user-0.7216750859145828",
-        "name": "name-0.8341613620283994",
-        "email": "email-0.8836222360860981",
-        "password": "password-0.7727135356656039"
+        "id": "user-1",
+        "name": "Eki Estrella",
+        "email": "updateUserEmail@example.com",
+        "password": "234234234",
+        "avatar": "https://www.sideshow.com/cdn-cgi/image/height=200,quality=90,f=auto/https://www.sideshow.com/storage/product-images/907383/astro-boy-version-15_astro-boy_square_sm.jpg",
+        "favs": []
     }
 ]

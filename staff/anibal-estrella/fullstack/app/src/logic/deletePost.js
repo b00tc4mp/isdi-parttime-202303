@@ -1,60 +1,34 @@
-// import { findUserById, findPostById, savePosts, loadPosts } from "../data.js";
 import { validators } from 'com'
 const { validateId, validateCallback } = validators
-
-import { findUserById, findPostById, savePosts, loadPosts, loadUsers, saveUsers } from "../data.js";
 
 export default function deletePost(userId, postId, callback) {
     validateId(userId, 'user ID')
     validateId(postId, 'post ID')
     validateCallback(callback, 'callback function')
 
+    const xhr = new XMLHttpRequest()
 
+    xhr.onload = () => {
+        const { status } = xhr
+        if (status !== 204) {
+            const { response: json } = xhr
+            const { error } = JSON.parse(json)
 
-    findUserById(userId, user => {
-        if (!user) {
-            callback(new Error('User not found'))
+            callback(new Error(error))
 
             return
         }
+        callback(null)
+    }
 
-        findPostById(postId, post => {
-
-            if (!post) {
-                callback(new Error('Post ' + postId + ' not found'))
-                return
-            }
-
-            if (post.author !== userId) {
-                callback(new Error('Post with id ' + postId + ' not found does not belongs to user ' + userId))
-
-                return
-            }
-
-            loadPosts(posts => {
-                const index = posts.findIndex(post => post.id === postId)
-
-                posts.splice(index, 1)
-
-                savePosts(posts, () => callback(null))
-
-            })
-
-            loadUsers(users => {
-                users.forEach((user) => {
-                    const index = user.favs.indexOf(postId);
-
-                    if (index !== -1) {
-                        user.favs.splice(index, 1);
-                        saveUsers(users, () => callback(null))
-                    }
-                })
-            }
-            )
+    xhr.onerror = () => {
+        callback(new Error('Connection error'))
+    }
 
 
-        })
-    })
+    xhr.open('DELETE', `${import.meta.env.VITE_API_URL}/posts/${postId}`)
 
+    xhr.setRequestHeader('Authorization', `Bearer ${userId}`)
 
+    xhr.send()
 }

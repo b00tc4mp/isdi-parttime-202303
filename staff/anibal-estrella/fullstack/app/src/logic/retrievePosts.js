@@ -1,5 +1,3 @@
-import { findUserById, loadPosts, loadUsers } from "../data.js"
-
 import { validators } from 'com'
 const { validateCallback, validateId } = validators
 
@@ -7,32 +5,33 @@ export default function retrievePosts(userId, callback) {
     validateId(userId, 'user id')
     validateCallback(callback, 'callback')
 
-    findUserById(userId, user => {
-        if (!user) {
-            callback(new Error(`User ${userId} not found`))
+    const xhr = new XMLHttpRequest
+
+    xhr.onload = () => {
+        const { status } = xhr
+
+        if (status !== 200) {
+            const { response: json } = xhr
+            const { error } = JSON.parse(json)
+
+            callback(new Error(error))
 
             return
         }
+        const { response: json } = xhr
+        const user = JSON.parse(json)
+        callback(null, user)
+    }
 
-        // antes de enviar los posts, agregamos una propiedad si el user tiene un fav para enviar mas informacion a la capa de presentaccion sin manipular la BDD
-        loadPosts(posts => {
-            loadUsers(users => {
-                posts.forEach(post => {
+    xhr.onerror = () => {
+        callback(new Error('Connection Error!'))
+    }
 
-                    post.fav = user.favs.includes(post.id)
 
-                    const _user = users.find(user => user.id === post.author)
 
-                    post.author = {
-                        id: _user.id,
-                        name: _user.name,
-                        avatar: _user.avatar
-                    }
-                })
-                callback(null, posts.toReversed())
-            })
+    xhr.open('GET', `${import.meta.env.VITE_API_URL}/posts`)
+    xhr.setRequestHeader('Authorization', `Bearer ${userId}`)
 
-        })
-    })
 
+    xhr.send()
 }

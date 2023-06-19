@@ -3,6 +3,7 @@ require('dotenv').config()
 const { expect } = require('chai')
 const { writeFile, readFile } = require('fs')
 const updateUserPassword = require('./updateUserPassword')
+const { cleanUp, populate, generate } = require('./helpers/tests')
 
 
 describe('updateUserPassword', () => {

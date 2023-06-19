@@ -1,30 +1,44 @@
-import { findPostById, findUserById } from "../data.js"
-
 import { validators } from 'com'
 const { validateId, validateCallback } = validators
 
+/**
+ * 
+ * @param {*} userId 
+ * @param {*} postId 
+ * @param {*} callback 
+ */
 
 export default function retrievePost(userId, postId, callback) {
     validateId(userId, 'user id')
     validateId(postId, 'post id')
     validateCallback(callback, 'callback function')
 
-    findUserById(userId, user => {
-        if (!user) {
-            callback(new Error(`User ${userId} not found`))
+
+
+    xhr.onload = () => {
+        const { status } = xhr
+
+        if (status !== 200) {
+            const { response: json } = xhr
+            const { error } = JSON.parse(json)
+
+            callback(new Error(error))
 
             return
         }
 
-        findPostById(postId, post => {
-            if (!post) {
-                callback(new Error(`Post ${postId} not found`))
+        const { response: json } = xhr
+        const post = JSON.parse(json)
+        callback(null, post)
+    }
 
-                return
-            }
+    xhr.onerror = () => {
+        callback(new Error('Connection Error!'))
+    }
 
-            callback(null, post)
+    xhr.open('GET', `${import.meta.env.VITE_API_URL}/posts/${postId}`)
+    xhr.setRequestHeader('Authorization', `Bearer ${userId}`)
 
-        })
-    })
+    xhr.send()
+
 }

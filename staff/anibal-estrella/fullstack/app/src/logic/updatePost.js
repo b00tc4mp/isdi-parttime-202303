@@ -1,8 +1,13 @@
 import { validators } from 'com'
 const { validateId, validateUrl, validateText, validateCallback } = validators
 
-
-import { findUserById, findPostById, savePost } from '../data.js'
+/**
+ * Updates 
+ * @param {*} userId 
+ * @param {*} postId 
+ * @param {*} image 
+ * @param {*} text 
+ * */
 
 export function updatePost(userId, postId, image, text, callback) {
     validateUrl(image, 'image url')
@@ -11,30 +16,19 @@ export function updatePost(userId, postId, image, text, callback) {
     validateId(postId, 'post id')
     validateCallback(callback, 'callback function')
 
-    findUserById(userId, user => {
-        if (!user) {
-            callback(new Error(`User ${userId} not found`))
+    const xhr = new XMLHttpRequest()
+
+    xhr.onload = () => {
+        const { status } = xhr
+        if (status !== 204) {
+            const { response: json } = xhr
+            const { error } = JSON.parse(json)
+
+            callback(new Error(error))
 
             return
         }
-    })
+        callback(null)json
 
-    findPostById(postId, post => {
-        if (!post) {
-            callback(new Error(`Post ${postId} not found`))
-
-            return
-        }
-        if (post.author !== userId) {
-            callback(new Error(`post with id ${postId} does not belong to user with id ${userId}`))
-
-            return
-        }
-
-        post.image = image
-        post.text = text
-        post.date = new Date
-
-        savePost(post, () => callback(null))
-    })
-}
+        xhr.send(json)
+    }

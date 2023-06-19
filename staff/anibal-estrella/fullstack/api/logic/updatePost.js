@@ -3,16 +3,17 @@ const { readFile, writeFile } = require('fs') //commonJS
 const { validators: { validateText, validateUrl, validateId, validateCallback } } = require('com')
 
 /**
- * Creates a new post and updates the posts DB
+ * Updates post and updates the post in DB
  * @param {*} userId the user's ID
  * @param {*} text  the Post's text
  * @param {*} image the Post's image
  */
 
-module.exports = (userId, text, image, callback) => {
+module.exports = (userId, postId, image, text, callback) => {
     validateId(userId, 'user id')
-    validateText(text, 'Post text')
+    validateId(postId, 'post id')
     validateUrl(image, 'Image URL')
+    validateText(text, 'Post text')
     validateCallback(callback)
 
     readFile(`${process.env.DB_PATH}/users.json`, (error, json) => {
@@ -36,24 +37,11 @@ module.exports = (userId, text, image, callback) => {
 
 
             const posts = JSON.parse(json)
+            const post = posts.find(post => post.id === postId)
 
-            const lastPost = posts[posts.length - 1]
-
-            let id = 'post-1'
-
-            if (lastPost)
-                id = 'post-' + (parseInt(lastPost.id.slice(5)) + 1)
-
-            const post = {
-                id,
-                author: userId,
-                image,
-                text,
-                date: new Date,
-                likes: []
-            }
-
-            posts.push(post)
+            post.image = image
+            post.text = text
+            post.date = new Date
 
             json = JSON.stringify(posts, null, 4)
 

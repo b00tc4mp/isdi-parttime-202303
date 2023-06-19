@@ -1,17 +1,18 @@
 [
     {
-        "id": "post-0.4716188159537573",
-        "image": "image-0.7942771270053235",
-        "text": "text-0.27861916494009953",
-        "date": "2023-06-15T14:05:48.051Z",
+        "id": "post-3",
+        "author": "user-1",
+        "image": "Anibal Estrella Duis lobortis massa imperdiet quam. Suspendisse pulvinar, augue ac venenatis condimentum, sem libero volutpat nibh, nec pellentesque velit pede quis nunc. Suspendisse faucibus, nunc et pellentesque egestas, lacus ante convallis tellus, vitae iaculis lacus elit id tortor. Ut leo. Phasellus leo dolor, tempus non, auctor et, hendrerit quis, nisi.",
+        "text": "https://picsum.photos/1500?random=2",
+        "date": "2023-06-19T09:36:38.907Z",
         "likes": []
     },
     {
-        "id": "post-1",
-        "author": "user-0.7216750859145828",
-        "image": "image-0.7942771270053235",
-        "text": "text-0.27861916494009953",
-        "date": "2023-06-15T14:05:48.055Z",
+        "id": "post-4",
+        "author": "user-1",
+        "image": "new post text",
+        "text": "new_https://picsum.photos/1500?random=1",
+        "date": "2023-06-19T12:33:37.331Z",
         "likes": []
     }
 ]
