@@ -63,7 +63,7 @@ describe('updateUserEmail', () => {
     })
 
     it('FAILS when new email equals current email', done => {
-        newEmail = email
+        newEmail = user.email
         newEmailConfirm = newEmail
 
         updateUserEmail(id, email, newEmail, newEmailConfirm, error => {

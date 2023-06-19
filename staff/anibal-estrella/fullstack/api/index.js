@@ -9,6 +9,7 @@ const {
     authenticateUserHandler,
     updateUserAvatarHandler,
     updateUserPasswordHandler,
+    updateUserEmailHandler,
     retrieveUserHandler,
     createPostHandler,
     retrievePostHandler,
@@ -32,9 +33,11 @@ api.get('/posts', retrievePostsHandler)
 
 api.get('/posts/:postId', retrievePostHandler)
 
-api.patch('/users', jsonBodyParser, updateUserAvatarHandler)
+api.patch('/users/avatar', jsonBodyParser, updateUserAvatarHandler)
 
-api.patch('/users/password', updateUserPasswordHandler)
+api.patch('/users/password', jsonBodyParser, updateUserPasswordHandler)
+
+api.patch('/users/email', jsonBodyParser, updateUserEmailHandler)
 
 api.post('/posts', jsonBodyParser, createPostHandler)
 

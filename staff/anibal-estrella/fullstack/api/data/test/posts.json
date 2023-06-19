@@ -6,13 +6,5 @@
         "text": "https://picsum.photos/1500?random=2",
         "date": "2023-06-19T09:36:38.907Z",
         "likes": []
-    },
-    {
-        "id": "post-4",
-        "author": "user-1",
-        "image": "new post text",
-        "text": "new_https://picsum.photos/1500?random=1",
-        "date": "2023-06-19T12:33:37.331Z",
-        "likes": []
     }
 ]

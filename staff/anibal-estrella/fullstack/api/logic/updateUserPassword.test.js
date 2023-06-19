@@ -1,11 +1,13 @@
-const createPost = require('../createPost')
+const updateUserPassword = require('./updateUserPassword')
 
-createPost('user-1', 'post-1', (error, post) => {
+const newPassword = 'new-123123123'
+
+updateUserPassword('user-1', '123123123', newPassword, newPassword, error => {
     if (error) {
         console.log(error);
 
         return
     }
 
-    console.log(post);
+    console.log('password updated!')
 })

@@ -2,15 +2,14 @@ require('dotenv').config()
 const { readFile, writeFile } = require('fs')
 const { validators: { validateId, validatePassword, validateCallback } } = require('com')
 
-module.exports = (userId, password, newPassword, newPasswordConfirm, previousPassword, callback) => {
+module.exports = (userId, password, newPassword, newPasswordConfirm, callback) => {
     validateId(userId, 'user Id')
     validatePassword(password, 'password')
     validatePassword(newPassword, 'new Password')
     validatePassword(newPasswordConfirm, 'new Password Confirm')
-    validatePassword(previousPassword, 'previous Password Confirm')
     validateCallback(callback)
 
-    if (previousPassword === newPassword) throw new Error(
+    if (password === newPassword) throw new Error(
         `New password must be different as previous password`
     )
     if (newPassword !== newPasswordConfirm) throw new Error(`New passwords don't match.`)
@@ -32,7 +31,7 @@ module.exports = (userId, password, newPassword, newPasswordConfirm, previousPas
             return
         }
 
-        if (user.password !== previousPassword) {
+        if (user.password !== password) {
             callback(new Error(`Password is incorrect! 👎`))
 
             return

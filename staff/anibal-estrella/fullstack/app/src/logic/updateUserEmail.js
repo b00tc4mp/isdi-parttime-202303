@@ -4,25 +4,41 @@ const { validateEmail, validateCallback } = validators
 import { saveUser, findUserById } from "../data.js"
 
 export default function updateUserEmail(userId, newEmail, confirmEmail, callback) {
-    validateEmail(newEmail)
-    validateEmail(confirmEmail)
+    validateId(userId, 'user id')
+    validateEmail(newEmail, 'new email')
+    validateEmail(confirmEmail, 'confirm email')
     validateCallback(callback, 'callback function')
 
-    findUserById(userId, user => {
-        if (!user) {
-            callback(new Error('user not found'))
+    const xhr = new XMLHttpRequest
+
+
+    xhr.onload = () => {
+        const { status } = xhr
+
+        if (status !== 204) {
+            const { response: json } = xhr
+            const { error } = JSON.parse(json)
+
+            callback(new Error(error))
 
             return
         }
+        callback(null)
+    }
 
-        if (confirmEmail !== newEmail) {
-            callback(new Error('your new emails don\'t match the confirmation'))
 
-            return
-        }
+    xhr.onerror = () => {
+        callback(new Error('Connection Error!'))
+    }
 
-        user.email = newEmail
+    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/users/email`)
 
-        saveUser(user, () => callback(null))
-    })
+    xhr.setRequestHeader('Content-Type', 'application/json')
+    xhr.setRequestHeader('Authorization', `Bearer ${userId}`)
+
+    const user = { password, newPassword, newPasswordConfirm }
+    const json = JSON.stringify(user)
+
+    xhr.send(json)
+
 }

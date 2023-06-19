@@ -8,5 +8,6 @@ module.exports = {
     createPostHandler: require('./createPostHandler'),
     retrievePostHandler: require('./retrievePostHandler'),
     retrievePostsHandler: require('./retrievePostsHandler'),
-    deletePostHandler: require('./deletePostHandler')
+    deletePostHandler: require('./deletePostHandler'),
+    updateUserEmailHandler: require('./updateUserEmailHandler')
 }

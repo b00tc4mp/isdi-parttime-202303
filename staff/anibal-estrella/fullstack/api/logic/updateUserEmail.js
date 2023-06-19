@@ -37,7 +37,7 @@ module.exports = (userId, newEmail, newEmailConfirm, callback) => {
         )
 
         if (user.email !== previousEmail) {
-            callback(new Error(`Email is incorrect! 👎`))
+            callback(new Error(`your new email don\'t match the confirmation 👎`))
 
             return
         }

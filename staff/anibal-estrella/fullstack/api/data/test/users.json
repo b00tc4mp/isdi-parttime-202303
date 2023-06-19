@@ -1,10 +1,18 @@
 [
     {
         "id": "user-1",
-        "name": "Eki Estrella",
-        "email": "updateUserEmail@example.com",
-        "password": "234234234",
+        "name": "Enki Estrella",
+        "email": "email@email.com",
+        "password": "new-123123123",
         "avatar": "https://www.sideshow.com/cdn-cgi/image/height=200,quality=90,f=auto/https://www.sideshow.com/storage/product-images/907383/astro-boy-version-15_astro-boy_square_sm.jpg",
+        "favs": []
+    },
+    {
+        "id": "user-2",
+        "name": "Enki Estrella",
+        "email": "enki@gmail.com",
+        "password": "123123123",
+        "avatar": null,
         "favs": []
     }
 ]
