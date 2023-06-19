@@ -1,7 +1,6 @@
 const { readFile, writeFile } = require('fs')
 const { validators: { validateCallback, validateText, validateUrl, validateId } } = require('com')
 require('dotenv').config()
-const sinon = require('sinon')
 
 module.exports = (userId, imageUrl, postText, callBack) => {
   validateId(userId, 'user id')

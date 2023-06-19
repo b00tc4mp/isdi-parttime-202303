@@ -3,8 +3,7 @@ require('dotenv').config()
 const { expect } = require('chai')
 const { readFile, writeFile } = require('fs')
 const createPost = require('./createPost')
-const { cleanUp, generate, populate } = require('./helpers')
-const sinon = require('sinon')
+const { cleanUp, generate, populate } = require('./helpers-test')
 
 describe('createPost', () => {
   let user, post
@@ -120,7 +119,7 @@ describe('createPost', () => {
   })
 
   it("Fails on user's id field is empty", () => {
-    writeFile(`${process.env.DB_PATH}/users.json`, JSON.stringify(user), error => {
+    writeFile(`${process.env.DB_PATH}/users.json`, JSON.stringify([user]), error => {
       expect(error).to.be.null
 
       expect(() => createPost('', post.image, post.text, () => {})).to.throw('The user id field is empty.')
@@ -129,7 +128,7 @@ describe('createPost', () => {
   
   it("Fails on user's id is not a string", () => {
 
-    writeFile(`${process.env.DB_PATH}/users.json`, JSON.stringify(user), error => {
+    writeFile(`${process.env.DB_PATH}/users.json`, JSON.stringify([user]), error => {
       expect(error).to.be.null
 
       expect(() => createPost(true, post.image, post.text, () => {})).to.throw('The user id is not a string.')
@@ -141,7 +140,7 @@ describe('createPost', () => {
   })
   
   it("Fails on image url field is empty", () => {
-    writeFile(`${process.env.DB_PATH}/users.json`, JSON.stringify(user), error => {
+    writeFile(`${process.env.DB_PATH}/users.json`, JSON.stringify([user]), error => {
       expect(error).to.be.null
 
       expect(() => createPost(user.id, '', post.text, () => {})).to.throw('The image url field is empty.')
@@ -150,7 +149,7 @@ describe('createPost', () => {
   
   it("Fails on image url is not a string", () => {
 
-    writeFile(`${process.env.DB_PATH}/users.json`, JSON.stringify(user), error => {
+    writeFile(`${process.env.DB_PATH}/users.json`, JSON.stringify([user]), error => {
       expect(error).to.be.null
 
       expect(() => createPost(user.id, true, post.text, () => {})).to.throw('The image url is not a string.')
@@ -162,7 +161,7 @@ describe('createPost', () => {
   })
   
   it("Fails on post text field is empty", () => {
-    writeFile(`${process.env.DB_PATH}/users.json`, JSON.stringify(user), error => {
+    writeFile(`${process.env.DB_PATH}/users.json`, JSON.stringify([user]), error => {
       expect(error).to.be.null
 
       expect(() => createPost(user.id, post.image, '', () => {})).to.throw('The post text field is empty.')
@@ -170,7 +169,7 @@ describe('createPost', () => {
   })
   
   it("Fails on post text is not a string", () => {
-    writeFile(`${process.env.DB_PATH}/users.json`, JSON.stringify(user), error => {
+    writeFile(`${process.env.DB_PATH}/users.json`, JSON.stringify([user]), error => {
       expect(error).to.be.null
       
       expect(() => createPost(user.id, post.image, true, () => {})).to.throw('The post text is not a string.')
@@ -182,7 +181,7 @@ describe('createPost', () => {
   })
   
   it('Fails on callBack is not a function', () => {
-    writeFile(`${process.env.DB_PATH}/users.json`, JSON.stringify(user), error => {
+    writeFile(`${process.env.DB_PATH}/users.json`, JSON.stringify([user]), error => {
       expect(error).to.be.null
 
       expect(() => createPost(user.id, post.image, 'Not a function')).to.throw(Error, 'CallBack is not a function')

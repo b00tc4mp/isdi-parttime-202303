@@ -2,6 +2,7 @@ const { readFile, writeFile } = require('fs')
 const { validators: { validateCallback, validateId } } = require('com')
 
 module.exports = (postId, commentId, callBack) => {
+  validateId(postId, 'post id')
   validateId(commentId, 'comment id')
   validateCallback(callBack)
   
@@ -24,7 +25,7 @@ module.exports = (postId, commentId, callBack) => {
     const comments = post.comments
     const commentIndex = comments.findIndex(_comment => _comment.id === commentId)
 
-    if(!commentIndex === -1) {
+    if(commentIndex === -1) {
       callBack(new Error('Comment not found.'))
 
       return

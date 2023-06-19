@@ -1,10 +1,3 @@
-const sinon = require('sinon')
-
-const clock = sinon.useFakeTimers({
-    now: new Date('2023-06-18').getTime(),
-    shouldAdvanceTime: false
-})
-
 module.exports = {
     user: () => ({
         id: `user-${Math.random()}`,
