@@ -27,39 +27,18 @@ server.get('/', (req, res) => {
         </html>`)
 })
 
-//
-let chosenRace = 'all'
-let chosenClass = 'sorcerer'
-//
-
 //server.get('/files', (req, res) => {
 server.get('/files', (req, res) => {
     readdir('files', (error, files) => {
         if (error) {
-            res.status(500).send(`<h1>${error}</h1>`);
-            return;
+            res.status(500).send(`<h1>${error}</h1>`)
+            return
         }
 
-        let chosenRace = 'all'; // Initialize chosenRace variable
-        let chosenClass = 'all'; // Initialize chosenClass variable
+        let chosenRace = "all"
+        let chosenClass = "all"
 
-        if (req.query.race) {
-            chosenRace = req.query.race;
-        }
-
-        if (req.query.class) {
-            chosenClass = req.query.class;
-        }
-
-        let fileListHTML = files.map(file => {
-                if (chosenClass === 'all' || 
-                    chosenClass === file.split('-')[2]) {
-                    if (chosenRace === 'all' || 
-                        chosenRace === file.split('-')[1]) {
-                        return `<li><a href="/files/${file}"><img src="/files/${file}" width="200" height="270" ></a></li>`;
-                    }
-                }
-            }).join('');
+        let fileListHTML = files.map(file => {return `<li><a href="/files/${file}"><img src="/files/${file}" width="200" height="270" ></a></li>`}).join('')
 
         res.send(`<!DOCTYPE html>
             <html lang="en">
@@ -95,29 +74,29 @@ server.get('/files', (req, res) => {
                     </select>
                 <ul type="none" id="files-list">${fileListHTML}</ul>
                 <script>
-                    const selectedRace = document.getElementById("race-select");
-                    const selectedClass = document.getElementById("class-select");
-                    const filesList = document.getElementById("files-list");
+                    const selectedRace = document.getElementById("race-select")
+                    const selectedClass = document.getElementById("class-select")
+                    const filesList = document.getElementById("files-list")
 
-                    const files = ${JSON.stringify(files)};
+                    const files = ${JSON.stringify(files)}
 
                     selectedRace.addEventListener("change", () => {
-                        chosenRace = selectedRace.value;
-                        chosenClass = selectedClass.value;
-                        updateFilesList();
+                        chosenRace = selectedRace.value
+                        chosenClass = selectedClass.value
+                        updateFilesList()
                     });
 
                     selectedClass.addEventListener("change", () => {
-                        chosenClass = selectedClass.value;
-                        chosenRace = selectedRace.value;
-                        updateFilesList();
+                        chosenClass = selectedClass.value
+                        chosenRace = selectedRace.value
+                        updateFilesList()
                     });
 
                     function updateFilesList() {
-                        filesList.innerHTML = "";
+                        filesList.innerHTML = ""
                         files.map(file => {
                                 if (chosenClass === 'all' || chosenClass === file.split('-')[2] ) { if ( chosenRace === 'all' || chosenRace === file.split('-')[1] ) {
-                                        filesList.innerHTML += '<li><a href="/files/' + file + '"><img src="/files/' + file + '" width="200" height="270" ></a></li>';
+                                        filesList.innerHTML += '<li><a href="/files/' + file + '"><img src="/files/' + file + '" width="200" height="270" ></a></li>'
                                     }
                                 }
                             })
