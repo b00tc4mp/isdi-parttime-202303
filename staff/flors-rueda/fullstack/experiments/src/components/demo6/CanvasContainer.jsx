@@ -1,29 +1,29 @@
 import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
+import { createScene } from './createScene';
+import { createFloor } from './createFloor';
 
 const CanvasContainer = ({ floor, onSolved, onGameWon }) => {
     const canvasContainerRef = useRef(null);
 
     useEffect(() => {
+        const scene = createScene();
+        const gridSize = floor.length;
+        const cellSize = 1.5;
+
+        const { cubeObjects, bombObjects, lifeObjects, ball, hole, stonks } = createFloor(floor, scene, cellSize);
+
         let isDragging = false;
         const defaultRotationSpeed = 0.01;
-        const draggingRotationSpeed = 0.03;
+        const draggingRotationSpeed = 0.07;
         let rotationSpeed = defaultRotationSpeed;
 
-        let lastMouseX = 0;
-        let lastMouseY = 0;
+        let lastClientX = 0;
+        let lastClientY = 0;
 
-        const textureLoader = new THREE.TextureLoader();
 
-        const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
         camera.position.z = 5;
-
-        const bgTexture = textureLoader.load('assets/demo6/floor.png');
-        scene.background = bgTexture;
-
-        const ambient = new THREE.HemisphereLight(0xffffff, 0xbbbbff, 0.3);
-        scene.add(ambient);
 
         const renderer = new THREE.WebGLRenderer({ antialias: true });
         renderer.setSize(window.innerWidth, window.innerHeight);
@@ -43,65 +43,6 @@ const CanvasContainer = ({ floor, onSolved, onGameWon }) => {
         window.addEventListener('resize', updateRendererSize);
         updateRendererSize()
 
-        const textureBall = textureLoader.load('assets/demo6/ball.png');
-        const textureWall = textureLoader.load('assets/demo6/wall.png');
-        const textureDirt = textureLoader.load('assets/demo6/dirt.png');
-
-        const ballRadius = 0.25;
-        const ballGeometry = new THREE.SphereGeometry(ballRadius, 8, 8);
-        const ballMaterial = new THREE.MeshBasicMaterial({ map: textureBall });
-
-        const cubeSize = 1.5;
-        const cubeGeometry = new THREE.BoxGeometry(cubeSize, cubeSize, cubeSize);
-        const wallMaterial = new THREE.MeshBasicMaterial({ map: textureWall });
-        const dirtMaterial = new THREE.MeshBasicMaterial({ map: textureDirt });
-
-        const gridSize = floor.length;
-        const cellSize = cubeSize;
-
-        const cubeObjects = [];
-        const bombObjects = [];
-        const lifeObjects = [];
-
-        let ball, cube, hole, stonks;
-
-        for (let row = 0; row < gridSize; row++) {
-            for (let col = 0; col < gridSize; col++) {
-                const value = floor[row][col];
-
-                const xPos = (col - (gridSize - 1) / 2) * cellSize;
-                const yPos = ((gridSize - 1) / 2 - row) * cellSize;
-
-                if (value === 'wall') {
-                    cube = new THREE.Mesh(cubeGeometry, wallMaterial);
-                    cube.position.set(xPos, yPos, 0);
-                    scene.add(cube);
-                    cubeObjects.push(cube);
-                } else if (value === 'dirt') {
-                    cube = new THREE.Mesh(cubeGeometry, dirtMaterial);
-                    cube.position.set(xPos, yPos, 0);
-                    scene.add(cube);
-                    cubeObjects.push(cube);
-                } else if (value === 'start') {
-                    ball = new THREE.Mesh(ballGeometry, ballMaterial);
-                    ball.position.set(xPos, yPos, 0);
-                    scene.add(ball);
-                } else if (value === 'bomb' || value === 'life' || value === 'stonks' || value === 'hole') {
-                    const planeGeometry = new THREE.PlaneGeometry(cellSize / 1.75, cellSize / 1.75);
-                    const planeMaterial = new THREE.MeshBasicMaterial({
-                        map: textureLoader.load(`assets/demo6/${value}.png`),
-                        transparent: true,
-                    });
-                    const plane = new THREE.Mesh(planeGeometry, planeMaterial);
-                    plane.position.set(xPos, yPos, 0);
-                    scene.add(plane);
-                    if (value === 'bomb') bombObjects.push(plane);
-                    if (value === 'life') lifeObjects.push(plane);
-                    if (value === 'stonks') stonks = plane;
-                    if (value === 'hole') hole = plane;
-                }
-            }
-        }
 
         const checkCollision = (ballPosition, obj) => {
             const ballRadius = ball.geometry.parameters.radius;
@@ -113,27 +54,27 @@ const CanvasContainer = ({ floor, onSolved, onGameWon }) => {
             return distance <= ballRadius + objSize / 2;
         };
 
-        const onMouseDown = (event) => {
+        const onMoveStart = () => {
             isDragging = true;
             rotationSpeed = draggingRotationSpeed;
         };
 
-        const onMouseUp = (event) => {
+        const onMoveEnd = () => {
             isDragging = false;
             rotationSpeed = defaultRotationSpeed;
         };
 
-        const onMouseMove = (event) => {
+        const onMove = (event) => {
             if (isDragging) {
-                const mouseX = event.clientX;
-                const mouseY = event.clientY;
+                const clientX = event.type === 'touchmove' ? event.touches[0].clientX : event.clientX;
+                const clientY = event.type === 'touchmove' ? event.touches[0].clientY : event.clientY;
 
-                const mouseDeltaX = mouseX - lastMouseX;
-                const mouseDeltaY = mouseY - lastMouseY;
+                const clientDeltaX = clientX - lastClientX;
+                const clientDeltaY = clientY - lastClientY;
 
                 const vector = new THREE.Vector3(
-                    (mouseX / window.innerWidth) * 2 - 1,
-                    -(mouseY / window.innerHeight) * 2 + 1,
+                    (clientX / window.innerWidth) * 2 - 1,
+                    -(clientY / window.innerHeight) * 2 + 1,
                     0.5
                 );
                 vector.unproject(camera);
@@ -146,12 +87,7 @@ const CanvasContainer = ({ floor, onSolved, onGameWon }) => {
                 const minGridY = -(gridSize) / 2 * cellSize;
                 const maxGridY = (gridSize) / 2 * cellSize;
 
-                if (
-                    ballPosition.x >= minGridX &&
-                    ballPosition.x <= maxGridX &&
-                    ballPosition.y >= minGridY &&
-                    ballPosition.y <= maxGridY
-                ) {
+                if (ballPosition.x >= minGridX && ballPosition.x <= maxGridX && ballPosition.y >= minGridY && ballPosition.y <= maxGridY) {
                     let canMoveBall = true;
                     for (const obj of cubeObjects) {
                         if (checkCollision(ballPosition, obj)) {
@@ -198,47 +134,20 @@ const CanvasContainer = ({ floor, onSolved, onGameWon }) => {
                     }
                 }
 
-                ball.rotation.x += rotationSpeed * mouseDeltaY;
-                ball.rotation.y += rotationSpeed * mouseDeltaX;
+                ball.rotation.x += rotationSpeed * clientDeltaY;
+                ball.rotation.y += rotationSpeed * clientDeltaX;
 
-                lastMouseX = mouseX;
-                lastMouseY = mouseY;
+                lastClientX = clientX;
+                lastClientY = clientY;
             }
         };
 
-        const onTouchStart = (event) => {
-            const touch = event.touches[0];
-            lastMouseX = touch.clientX;
-            lastMouseY = touch.clientY;
-            onMouseDown();
-        };
-
-        const onTouchEnd = () => {
-            onMouseUp();
-        };
-
-        const onTouchMove = (event) => {
-            const touch = event.touches[0];
-            const mouseX = touch.clientX;
-            const mouseY = touch.clientY;
-            const mouseDeltaX = mouseX - lastMouseX;
-            const mouseDeltaY = mouseY - lastMouseY;
-            onMouseMove({
-                clientX: mouseX,
-                clientY: mouseY,
-                movementX: mouseDeltaX,
-                movementY: mouseDeltaY,
-            });
-            lastMouseX = mouseX;
-            lastMouseY = mouseY;
-        };
-
-        document.addEventListener('mousedown', onMouseDown);
-        document.addEventListener('mouseup', onMouseUp);
-        document.addEventListener('mousemove', onMouseMove);
-        document.addEventListener('touchstart', onTouchStart);
-        document.addEventListener('touchend', onTouchEnd);
-        document.addEventListener('touchmove', onTouchMove);
+        document.addEventListener('mousedown', onMoveStart);
+        document.addEventListener('mouseup', onMoveEnd);
+        document.addEventListener('mousemove', onMove);
+        document.addEventListener('touchstart', onMoveStart);
+        document.addEventListener('touchend', onMoveEnd);
+        document.addEventListener('touchmove', onMove);
 
         const animate = () => {
             renderer.render(scene, camera);
@@ -248,12 +157,12 @@ const CanvasContainer = ({ floor, onSolved, onGameWon }) => {
         animate();
 
         return () => {
-            document.removeEventListener('mousedown', onMouseDown);
-            document.removeEventListener('mouseup', onMouseUp);
-            document.removeEventListener('mousemove', onMouseMove);
-            document.removeEventListener('touchstart', onTouchStart);
-            document.removeEventListener('touchend', onTouchEnd);
-            document.removeEventListener('touchmove', onTouchMove);
+            document.removeEventListener('mousedown', onMoveStart);
+            document.removeEventListener('mouseup', onMoveEnd);
+            document.removeEventListener('mousemove', onMove);
+            document.removeEventListener('touchstart', onMoveStart);
+            document.removeEventListener('touchend', onMoveEnd);
+            document.removeEventListener('touchmove', onMove);
             window.removeEventListener('resize', updateRendererSize);
             renderer.dispose();
         };

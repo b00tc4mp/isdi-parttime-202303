@@ -18,8 +18,14 @@ export const level1 = [
     ['wall', 'wall', 'wall', 'wall', 'wall']],
 
     [['wall', 'wall', 'wall', 'wall', 'wall'],
-    ['wall', '', '', 'stonks', 'wall'],
+    ['wall', 'hole', 'bomb', 'bomb', 'wall'],
+    ['wall', 'bomb', 'bomb', 'bomb', 'wall'],
+    ['wall', 'start', 'bomb', 'bomb', 'wall'],
+    ['wall', 'wall', 'wall', 'wall', 'wall']],
+
+    [['wall', 'wall', 'wall', 'wall', 'wall'],
+    ['wall', 'start', '', 'stonks', 'wall'],
     ['wall', '', '', '', 'wall'],
-    ['wall', 'start', '', '', 'wall'],
+    ['wall', '', '', '', 'wall'],
     ['wall', 'wall', 'wall', 'wall', 'wall']],
 ];
