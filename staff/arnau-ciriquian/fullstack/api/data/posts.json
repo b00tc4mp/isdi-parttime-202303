@@ -1,1 +1,13 @@
-[{"id":"post-4","author":"user-4","image":"https://picsum.photos/600/400","text":"asdasdas","date":"12/06/2023, 16:42:50","likes":["user-4"],"hidden":false}]
+[
+    {
+        "id": "post-4",
+        "author": "user-4",
+        "image": "https://picsum.photos/600/400",
+        "text": "asdasdas",
+        "date": "12/06/2023, 16:42:50",
+        "likes": [
+            "user-4"
+        ],
+        "hidden": false
+    }
+]
