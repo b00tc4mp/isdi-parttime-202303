@@ -6,7 +6,7 @@ const createPost = require('./createPost.js');
 const sinon = require('sinon');
 
 describe('createPost', () => {
-  let userId, postImage, postText;
+  let userId, postImage, postText, date;
 
   beforeEach((done) => {
     userId = `id-${Math.random()}`;
@@ -19,8 +19,8 @@ describe('createPost', () => {
   });
 
   it('should be created if user exists and data is correct', (done) => {
-    const date = new Date(),
-      fakeDate = sinon.useFakeTimers(date.getTime());
+    const date = new Date();
+    const fakeDate = sinon.useFakeTimers(date.getTime());
 
     const users = [{ id: userId }];
     const usersJson = JSON.stringify(users);
@@ -34,8 +34,8 @@ describe('createPost', () => {
         readFile(`${process.env.DB_PATH}/posts.json`, (error, json) => {
           expect(error).to.be.null;
 
-          const posts = JSON.parse(json);
-          const post = posts[posts.length - 1];
+          const posts = JSON.parse(json),
+            post = posts[posts.length - 1];
 
           expect(post).to.exist;
           expect(post.id).to.equal('post-1');
@@ -44,6 +44,7 @@ describe('createPost', () => {
           expect(post.text).to.equal(postText);
           expect(post.date).to.equal(date.toISOString());
           expect(post.likes).to.deep.equal([]);
+          expect(post.favourites).to.deep.equal([]);
           expect(posts.length).to.equal(1);
 
           fakeDate.restore();
@@ -55,14 +56,14 @@ describe('createPost', () => {
   });
 
   it('should succeed if there are existing posts', (done) => {
-    const users = [{ id: userId }];
-    const usersJson = JSON.stringify(users);
+    const users = [{ id: userId }],
+      usersJson = JSON.stringify(users);
 
     writeFile(`${process.env.DB_PATH}/users.json`, usersJson, (error) => {
       expect(error).to.be.null;
 
-      const dataPosts = [{ id: 'post-1' }, { id: 'post-4' }];
-      const dataPostsJson = JSON.stringify(dataPosts);
+      const dataPosts = [{ id: 'post-1' }, { id: 'post-4' }],
+        dataPostsJson = JSON.stringify(dataPosts);
 
       writeFile(`${process.env.DB_PATH}/posts.json`, dataPostsJson, (error) => {
         expect(error).to.be.null;
@@ -73,8 +74,8 @@ describe('createPost', () => {
           readFile(`${process.env.DB_PATH}/posts.json`, (error, json) => {
             expect(error).to.be.null;
 
-            const posts = JSON.parse(json);
-            const post = posts[posts.length - 1];
+            const posts = JSON.parse(json),
+              post = posts[posts.length - 1];
 
             expect(post).to.exist;
             expect(post.id).to.equal('post-5');

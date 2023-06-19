@@ -27,7 +27,7 @@ const deletePost = (userId, postId, callback) => {
   validateId(postId, 'post id');
   validateCallback(callback);
 
-  postBelongingUser(userId, 'tomate', (error) => {
+  postBelongingUser(userId, postId, (error) => {
     if (error) {
       callback(error.message);
     }

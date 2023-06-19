@@ -53,4 +53,4 @@ const savePost = (post, callback) =>
     savePosts(posts, callback);
   });
 
-export { loadUsers, saveUser, saveUsers, loadPosts, savePost, savePosts };
+export { loadPosts, loadUsers, savePost, savePosts, saveUser, saveUsers };

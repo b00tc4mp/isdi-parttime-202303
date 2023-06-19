@@ -34,15 +34,15 @@ const retrievePost = (userId, postId, callback) => {
 
       const posts = JSON.parse(json);
 
-      const foundpost = posts.find((post) => post.id === postId);
+      const foundPost = posts.find((post) => post.id === postId);
 
-      if (!foundpost) {
+      if (!foundPost) {
         callback(new Error(`post with id ${postId} not exists`));
 
         return;
       }
 
-      callback(null, foundpost);
+      callback(null, foundPost);
     });
   });
 };

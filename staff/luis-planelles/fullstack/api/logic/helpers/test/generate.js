@@ -13,5 +13,6 @@ module.exports = {
     text: `text-${Math.random()}`,
     date: new Date(),
     likes: [],
+    favourites: [],
   }),
 };

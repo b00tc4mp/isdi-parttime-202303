@@ -39,21 +39,6 @@ describe('retrievePosts', () => {
       });
     });
 
-    it('fail on non existing user', (done) => {
-      const user = users[0];
-
-      cleanUp(() => {});
-
-      retrievePosts(user.id, (error, retrievedPosts) => {
-        expect(error).to.be.instanceOf(Error);
-        expect(error.message).to.equal(`user with id ${user.id} not found`);
-
-        expect(retrievedPosts).to.be.undefined;
-
-        done();
-      });
-    });
-
     it('fail on not match id and existing user', (done) => {
       const user = users[0];
 
@@ -104,6 +89,30 @@ describe('retrievePosts', () => {
         expect(error).to.be.null;
 
         expect(retrievedPosts).to.deep.equal([]);
+
+        done();
+      });
+    });
+  });
+
+  describe('on non existing users but posts', () => {
+    const posts = new Array(5);
+    const user = generate.user();
+
+    beforeEach((done) => {
+      for (let i = 0; i < posts.length; i++) {
+        posts[i] = generate.post(user.id);
+      }
+
+      populate([], posts, done);
+    });
+
+    it('fail on non existing user', (done) => {
+      retrievePosts(user.id, (error, retrievedPosts) => {
+        expect(error).to.be.instanceOf(Error);
+        expect(error.message).to.equal(`user with id ${user.id} not found`);
+
+        expect(retrievedPosts).to.be.undefined;
 
         done();
       });

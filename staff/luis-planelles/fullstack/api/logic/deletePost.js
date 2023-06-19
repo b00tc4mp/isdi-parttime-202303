@@ -53,18 +53,19 @@ const deletePost = (userId, postId, callback) => {
 
       const postIndex = posts.findIndex((post) => post.id === postId);
 
-      posts.splice(postIndex, 1);
+      if (postIndex !== -1) {
+        posts.splice(postIndex, 1);
+        json = JSON.stringify(posts);
 
-      json = JSON.stringify(posts);
+        writeFile(`${process.env.DB_PATH}/posts.json`, json, (error) => {
+          if (error) {
+            callback(error);
 
-      writeFile(`${process.env.DB_PATH}/posts.json`, json, (error) => {
-        if (error) {
-          callback(error);
-
-          return;
-        }
-        callback(null);
-      });
+            return;
+          }
+        });
+      }
+      callback(null);
     });
   });
 };

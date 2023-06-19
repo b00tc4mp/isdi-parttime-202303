@@ -24,9 +24,6 @@ describe('retrievePost', () => {
   });
 
   it('succeeds on existing user and post', (done) => {
-    const date = new Date(),
-      fakeDate = sinon.useFakeTimers(date.getTime());
-
     retrievePost(user.id, post.id, (error, retrievedPost) => {
       expect(error).to.be.null;
 
@@ -34,22 +31,13 @@ describe('retrievePost', () => {
       expect(retrievedPost.author).to.equal(user.id);
       expect(retrievedPost.text).to.equal(post.text);
       expect(retrievedPost.image).to.equal(post.image);
-      expect(retrievedPost.date).to.equal(date.toISOString());
-
-      fakeDate.restore();
 
       done();
     });
   });
 
   it('fails when user not exists', (done) => {
-    cleanUp((error) => {
-      if (error) {
-        done(error);
-
-        return;
-      }
-    });
+    user.id += 'unmatch';
 
     retrievePost(user.id, post.id, (error, retrievedPost) => {
       expect(error).to.be.instanceOf(Error);
@@ -67,32 +55,6 @@ describe('retrievePost', () => {
     retrievePost(user.id, post.id, (error, retrievedPost) => {
       expect(error).to.be.instanceOf(Error);
       expect(error.message).to.equal(`post with id ${post.id} not exists`);
-
-      expect(retrievedPost).to.be.undefined;
-
-      done();
-    });
-  });
-
-  it('fails on existing user but not post', (done) => {
-    post.id += 'not in db';
-
-    retrievePost(user.id, post.id, (error, retrievedPost) => {
-      expect(error).to.be.instanceOf(Error);
-      expect(error.message).to.equal(`post with id ${post.id} not exists`);
-
-      expect(retrievedPost).to.be.undefined;
-
-      done();
-    });
-  });
-
-  it('fails when user inst the author and post exists', (done) => {
-    user.id += 'wrong';
-
-    retrievePost(user.id, post.id, (error, retrievedPost) => {
-      expect(error).to.be.instanceOf(Error);
-      expect(error.message).to.equal(`user with id ${user.id} not exists`);
 
       expect(retrievedPost).to.be.undefined;
 

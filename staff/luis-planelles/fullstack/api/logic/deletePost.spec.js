@@ -3,7 +3,7 @@ require('dotenv').config();
 const { expect } = require('chai');
 const deletePost = require('./deletePost');
 const { cleanUp, populate, generate } = require('./helpers/test');
-const { readFile, writeFile } = require('fs');
+const { readFile } = require('fs');
 
 describe('deletePost', () => {
   let user, post, image, text;

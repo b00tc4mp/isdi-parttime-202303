@@ -27,8 +27,8 @@ describe('updatePost', () => {
   });
 
   it('succeeds on existing user and post, and correct data', (done) => {
-    const date = new Date(),
-      fakeDate = sinon.useFakeTimers(date.getTime());
+    const date = new Date();
+    const fakeDate = sinon.useFakeTimers(date.getTime());
 
     updatePost(user.id, post.id, image, text, (error, updatedPost) => {
       expect(error).to.be.null;

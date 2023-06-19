@@ -1,12 +1,11 @@
 const { readFile, writeFile } = require('fs');
 const {
-  validators: { validateId, validateUrl, validateText, validateCallback },
+  validators: { validateId, validateCallback },
 } = require('com');
 
-const createPost = (userId, image, text, callback) => {
+const toggleFavouritePost = (userId, postId, callback) => {
   validateId(userId, ' user id');
-  validateUrl(image, 'image');
-  validateText(text, 'text');
+  validateId(postId, ' post id');
   validateCallback(callback);
 
   readFile(`${process.env.DB_PATH}/users.json`, (error, json) => {
@@ -18,10 +17,10 @@ const createPost = (userId, image, text, callback) => {
 
     const users = JSON.parse(json);
 
-    let user = users.find((user) => user.id === userId);
+    const foundUser = users.find((user) => user.id === userId);
 
-    if (!user) {
-      callback(new Error(`user with id ${userId} doesnt exists`));
+    if (!foundUser) {
+      callback(new Error(`user with id ${userId} not exists`));
 
       return;
     }
@@ -35,23 +34,20 @@ const createPost = (userId, image, text, callback) => {
 
       const posts = JSON.parse(json);
 
-      let id = 'post-1';
+      const foundPost = posts.find((post) => post.id === postId);
 
-      const lastPost = posts[posts.length - 1];
+      if (!foundPost) {
+        callback(new Error(`post with id ${postId} not exists`));
 
-      if (lastPost) id = `post-${parseInt(lastPost.id.slice(5)) + 1}`;
+        return;
+      }
 
-      newPost = {
-        id,
-        author: userId,
-        image,
-        text,
-        date: new Date(),
-        likes: [],
-        favourites: [],
-      };
+      const index = foundPost.favourites.indexOf(foundUser.id);
 
-      posts.push(newPost);
+      if (index < 0) foundPost.favourites.push(foundUser.id);
+      else foundPost.favourites.splice(index, 1);
+
+      posts.push(foundPost);
 
       json = JSON.stringify(posts, null, 2);
 
@@ -68,4 +64,4 @@ const createPost = (userId, image, text, callback) => {
   });
 };
 
-module.exports = createPost;
+module.exports = toggleFavouritePost;
