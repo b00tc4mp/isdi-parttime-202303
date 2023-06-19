@@ -1,66 +1,46 @@
 const express = require('express')
 const { createWriteStream, readdir, createReadStream } = require('fs')
 const busboy = require('busboy')
-const { authenticateUser, retrieveUser } = require('./logic')
+const { authenticateUser } = require('./logic')
 
 const server = express()
 
+const context = {}
+
 server.get('/', (req, res) => {
-    let userId
-
-    const cookie = req.get('cookie') // userId=user-1
-
-    if (cookie) {
-        const parts = cookie.split('=')
-
-        userId = parts[1]
-    }
-
-    if (userId)
-        retrieveUser(userId, (error, user) => {
+    if (context.userId)
+        readdir('files', (error, files) => {
             if (error) {
                 res.status(500).send(`<h1>${error}</h1>`)
 
                 return
             }
 
-            readdir('files', (error, files) => {
-                if (error) {
-                    res.status(500).send(`<h1>${error}</h1>`)
+            res.send(`<!DOCTYPE html>
+        <html lang="en">
 
-                    return
-                }
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>File Server</title>
+        </head>
 
-                res.send(`<!DOCTYPE html>
-            <html lang="en">
-    
-            <head>
-                <meta charset="UTF-8">
-                <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>File Server</title>
-            </head>
-    
-            <body>
-                <h1>File Server</h1>
-    
-                <p>Welcome, ${user.name}!</p>
+        <body>
+            <h1>File Server</h1>
 
-                <form method="POST" action="/logout">
-                    <button>Logout</button>
-                </form>
-    
-                <form method="POST" action="/" enctype="multipart/form-data">
-                    <input type="file" name="file">
-                    <button>Upload</button>
-                </form>
-    
-                <ul>
-                    ${files.map(file => `<li><a href="/files/${file}">${file}</a></li>`).join('')}
-                </ul>
-            </body>
-    
-            </html>`)
-            })
+            <p>Welcome!</p>
+
+            <form method="POST" action="/" enctype="multipart/form-data">
+                <input type="file" name="file">
+                <button>Upload</button>
+            </form>
+
+            <ul>
+                ${files.map(file => `<li><a href="/files/${file}">${file}</a></li>`).join('')}
+            </ul>
+        </body>
+
+        </html>`)
         })
     else
         res.send(`<!DOCTYPE html>
@@ -94,9 +74,8 @@ server.post('/auth', (req, res) => {
 
     req.on('end', () => {
         // EX email=pepe%40grillo.com&password=123123123
-        const parts = content.split('&')
-        const email = parts[0].split('=')[1].replace('%40', '@')
-        const password = parts[1].split('=')[1]
+        const email = content.split('&')[0].split('=')[1].replace('%40', '@')
+        const password = content.split('&')[1].split('=')[1]
 
         try {
             authenticateUser(email, password, (error, userId) => {
@@ -106,7 +85,7 @@ server.post('/auth', (req, res) => {
                     return
                 }
 
-                res.setHeader('set-cookie', `userId=${userId}`)
+                context.userId = userId
 
                 res.redirect('/')
             })
@@ -114,13 +93,6 @@ server.post('/auth', (req, res) => {
             res.status(400).send(`<h1>${error}</h1>`)
         }
     })
-})
-
-server.post('/logout', (req, res) => {
-    //res.setHeader('set-cookie', `userId=; Expires=Wed, 21 Oct 2015 07:28:00 GMT`)
-    res.setHeader('set-cookie', `userId=; Max-Age=0`)
-
-    res.redirect('/')
 })
 
 server.get('/files/:filename', (req, res) => {

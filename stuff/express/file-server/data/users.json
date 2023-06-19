@@ -1,1 +1,18 @@
-[{"id":"user-1","name":"Pepe Grillo","email":"pepe@grillo.com","password":"123123123","avatar":"https://www.tvstoreonline.com/cdn/shop/articles/tweet-this-21-facts-you-never-knew-about-looney-tune-s-tweety-bird-tvstoreonline.jpg?v=1661283786","favs":[]}]
+[
+    {
+        "id": "user-1",
+        "name": "Pepe Grillo",
+        "email": "pepe@grillo.com",
+        "password": "123123123",
+        "avatar": "https://www.tvstoreonline.com/cdn/shop/articles/tweet-this-21-facts-you-never-knew-about-looney-tune-s-tweety-bird-tvstoreonline.jpg?v=1661283786",
+        "favs": []
+    },
+    {
+        "id": "user-2",
+        "name": "Pepa Grillo",
+        "email": "pepa@grillo.com",
+        "password": "123123123",
+        "avatar": "https://www.tvstoreonline.com/cdn/shop/articles/tweet-this-21-facts-you-never-knew-about-looney-tune-s-tweety-bird-tvstoreonline.jpg?v=1661283786",
+        "favs": []
+    }
+]
