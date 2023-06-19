@@ -12,9 +12,6 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 /*  TODO Web/App - objectiu de la app: xarxa social:
         - ig d'acudits
 
-                - Index api, explicar que sha de passar com a param i que com a data.
-                - Index api, separar en diff arxius? how?
-
                 - MUST
                 - compo container 20230524 1945
                 - loader amb un spinner mentre carrega cada pagina 20230524 2040
@@ -23,13 +20,10 @@ ReactDOM.createRoot(document.getElementById('root')).render(
                 - Compra/Venta de posts entre usuaris
                 - canviar alerts -> Context i context provider 20230522 2110 (posarli animacio? settimeout?)
                 - quan es borra un user esborrar tots els seus posts!
-                - mirar classe 20230614 2000 copypaste/streaming node!
 
                 - OPTIONAL
                 - custom hooks 20230605 2030
                 - documentar api -> README 20230607 2100 + SWAGER UI
-                - test a traves de mocha 20230601 2005 i 20230605 2045 // chai 20230606 2005
-                - test-coverage nyc 20230605 2125
                 - posar un display a lhora de publicar post? per posar o no fotos optativament i al pintar el post un estil {post.image && <img..../>}
                 - setTimeOut animacions? algun modal? el dels errors?
                 - passar el hide i el delete dins de edit (menys botons a la vista als posts)
