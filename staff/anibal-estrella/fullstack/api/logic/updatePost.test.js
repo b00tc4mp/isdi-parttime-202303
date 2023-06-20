@@ -9,8 +9,8 @@ readFile(`${process.env.DB_PATH}/posts.json`, (error, json) => {
 
     const posts = JSON.parse(json)
     const post = posts[posts.length - 1]
-    const image = 'new_https://picsum.photos/1500?random=1'
-    const text = 'new post text'
+    const image = 'NEW-https://picsum.photos/1500?random=1'
+    const text = 'NEW-post text'
 
     updatePost('user-1', post.id, text, image, error => {
         if (error) {

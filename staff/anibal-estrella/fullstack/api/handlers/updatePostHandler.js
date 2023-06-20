@@ -1,19 +1,23 @@
-const { retrievePost } = require('../logic')
+const { updatePost } = require('../logic')
 const { extractUserId } = require('../helpers')
+debugger
 module.exports = (req, res) => {
     try {
         const userId = extractUserId(req)
-        const { postId } = req.params
 
-        retrievePost(userId, postId, (error, post) => {
+        const { postId } = req.params
+        const { image, text } = req.body
+
+        updatePost(userId, postId, image, text, (error) => {
             if (error) {
                 res.status(400).json({ error: error.message })
 
                 return
             }
 
-            res.json(post)
+            res.status(204).send()
         })
+
     } catch (error) {
         res.status(400).json({ error: error.message })
     }

@@ -3,11 +3,12 @@ module.exports = {
     registerUserHandler: require('./registerUserHandler'),
     authenticateUserHandler: require('./authenticateUserHandler'),
     retrieveUserHandler: require('./retrieveUserHandler'),
-    updateUserAvatarHandler: require('./updateUserAvatarHandler'),
-    updateUserPasswordHandler: require('./updateUserPasswordHandler'),
     createPostHandler: require('./createPostHandler'),
     retrievePostHandler: require('./retrievePostHandler'),
     retrievePostsHandler: require('./retrievePostsHandler'),
+    updateUserPasswordHandler: require('./updateUserPasswordHandler'),
+    updateUserAvatarHandler: require('./updateUserAvatarHandler'),
+    updateUserEmailHandler: require('./updateUserEmailHandler'),
     deletePostHandler: require('./deletePostHandler'),
-    updateUserEmailHandler: require('./updateUserEmailHandler')
+    updatePostHandler: require('./updatePostHandler')
 }

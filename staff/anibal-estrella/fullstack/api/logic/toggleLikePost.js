@@ -1,27 +1,24 @@
 require('dotenv').config()
 const { readFile, writeFile } = require('fs') //commonJS
-const { validators: { validateText, validateUrl, validateId, validateCallback } } = require('com')
+const { validators: { validateId, validateCallback } } = require('com')
 
 /**
- * Updates post and updates the post in DB
- * @param {*} userId the user's ID
- * @param {*} text  the Post's text
- * @param {*} image the Post's image
+ * 
+ * @param {*} userId 
+ * @param {*} postId 
+ * @param {*} callback 
  */
 
-debugger
 module.exports = (userId, postId, image, text, callback) => {
     validateId(userId, 'user id')
     validateId(postId, 'post id')
-    validateUrl(image, 'Image URL')
-    validateText(text, 'Post text')
     validateCallback(callback)
 
     readFile(`${process.env.DB_PATH}/users.json`, (error, json) => {
         if (error) {
             callback(error)
-            return
 
+            return
         }
 
         const users = JSON.parse(json)
@@ -36,7 +33,6 @@ module.exports = (userId, postId, image, text, callback) => {
         readFile(`${process.env.DB_PATH}/posts.json`, (error, json) => {
             if (error) return callback(error)
 
-
             const posts = JSON.parse(json)
             const post = posts.find(post => post.id === postId)
 
@@ -46,9 +42,14 @@ module.exports = (userId, postId, image, text, callback) => {
                 return
             }
 
-            post.image = image
-            post.text = text
-            post.date = new Date
+            const index = post.likes.indexOf(userId)
+
+            json = JSON.stringify(posts, null, 4)
+
+            if (index < 0)
+                post.likes = userId
+            else
+                post.likes.splice(index, 1)
 
             json = JSON.stringify(posts, null, 4)
 
@@ -61,4 +62,3 @@ module.exports = (userId, postId, image, text, callback) => {
 
     })
 }
-

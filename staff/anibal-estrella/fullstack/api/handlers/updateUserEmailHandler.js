@@ -5,10 +5,10 @@ module.exports = (req, res) => {
     try {
         const userId = extractUserId(req)
 
-        const { email, newEmail, newEmailConfirm } = req.body
+        const { newEmail, newEmailConfirm } = req.body
 
 
-        updateUserEmail(userId, email, newEmail, newEmailConfirm, error => {
+        updateUserEmail(userId, newEmail, newEmailConfirm, error => {
             if (error) {
                 res.status(400).json({ error: error.message })
 

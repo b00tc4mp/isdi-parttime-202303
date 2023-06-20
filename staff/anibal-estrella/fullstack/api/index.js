@@ -14,7 +14,9 @@ const {
     createPostHandler,
     retrievePostHandler,
     retrievePostsHandler,
-    deletePostHandler
+    deletePostHandler,
+    updatePostHandler,
+    toggleLikeHandler
 } = require('./handlers')
 
 const api = express()
@@ -38,9 +40,13 @@ api.patch('/users/avatar', jsonBodyParser, updateUserAvatarHandler)
 api.patch('/users/password', jsonBodyParser, updateUserPasswordHandler)
 
 api.patch('/users/email', jsonBodyParser, updateUserEmailHandler)
+api.patch('/users/like', jsonBodyParser, toggleLikeHandler)
+
 
 api.post('/posts', jsonBodyParser, createPostHandler)
 
 api.delete('/posts/:postId', deletePostHandler)
+
+api.patch('/posts/post/:postId', jsonBodyParser, updatePostHandler)
 
 api.listen(process.env.PORT, () => console.log(`server running in port ${process.env.PORT}`))

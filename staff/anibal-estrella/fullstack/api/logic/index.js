@@ -10,5 +10,6 @@ module.exports = {
     createPost: require('./createPost'),
     deletePost: require('./deletePost'),
     updatePost: require('./updatePost'),
-    updateUserEmail: require('./updateUserEmail')
+    updateUserEmail: require('./updateUserEmail'),
+    toggleLikePost: require('./toggleLikePost')
 }
