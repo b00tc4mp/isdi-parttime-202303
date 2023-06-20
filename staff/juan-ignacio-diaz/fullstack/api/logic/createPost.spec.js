@@ -25,9 +25,9 @@ describe('createPost' , () =>{
                 readFile(`${process.env.DB_PATH}/posts.json`, 'utf8', (error, json) => {
                     expect(error).to.be.null
 
-                    const posts =JSON.parse(json)
+                    const posts = JSON.parse(json)
 
-                    const post =posts[0]
+                    const post = posts[0]
 
                     expect(post).to.exist
                     expect(post.id).to.be.a('string')
@@ -37,12 +37,38 @@ describe('createPost' , () =>{
                     expect(post.likes).to.have.lengthOf(0)
                     expect(post.lock).to.equal(false)
                     expect(post.price).to.equal(0)
+                    expect(posts.length).to.equal(1);
+                    expect(posts.length).to.equal(1);
 
                     done()
                 })
             })
         })
     })
+
+    it('succeeds if there are existing posts', (done) => {
+        populate([userTest], [postTest], error => {
+    
+    
+            createPost(userTest.id, postTest.image, postTest.text, (error) => {
+                expect(error).to.be.null;
+
+                readFile(`${process.env.DB_PATH}/posts.json`, (error, json) => {
+                expect(error).to.be.null;
+
+                const posts = JSON.parse(json)
+
+                const post = posts[posts.length - 1]
+
+                expect(post).to.exist
+                expect(posts.length).to.equal(2)
+
+                done()
+                })
+            })
+        })
+      })
+    
 
     it('fails on existing user', done => {
         populate([userTest], [], error => {
