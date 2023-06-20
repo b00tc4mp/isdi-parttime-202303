@@ -4,6 +4,8 @@ module.exports = {
     name: `name-${Math.random()}`,
     email: `e-${Math.random()}@mail.com`,
     password: `P@ssword-${Math.random()}`,
+    avatar: null,
+    favourites: [],
   }),
 
   post: (userId) => ({

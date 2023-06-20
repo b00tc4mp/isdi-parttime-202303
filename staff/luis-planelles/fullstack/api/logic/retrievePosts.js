@@ -3,7 +3,7 @@ const {
   validators: { validateId, validateCallback },
 } = require('com');
 
-const retrievePost = (userId, callback) => {
+const retrievePosts = (userId, callback) => {
   validateId(userId, 'user id');
   validateCallback(callback);
 
@@ -33,11 +33,22 @@ const retrievePost = (userId, callback) => {
 
       const posts = JSON.parse(json);
 
-      posts.forEach((post) => (post.date = new Date(post.date)));
+      posts.forEach((post) => {
+        const userAuthor = users.find((user) => user.id === post.author);
+
+        post.favourites = user.favourites.includes(post.id);
+        post.date = new Date(post.date);
+
+        post.author = {
+          id: userAuthor.id,
+          name: userAuthor.name,
+          avatar: userAuthor.avatar,
+        };
+      });
 
       callback(null, posts.reverse());
     });
   });
 };
 
-module.exports = retrievePost;
+module.exports = retrievePosts;

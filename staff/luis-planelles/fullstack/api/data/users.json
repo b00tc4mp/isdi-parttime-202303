@@ -1,18 +1,1 @@
-[
-  {
-    "id": "user-1",
-    "name": "JohnDoe",
-    "email": "john@doe.com",
-    "password": "T3st@@@@",
-    "avatar": null,
-    "favourites": []
-  },
-  {
-    "id": "user-2",
-    "name": "JohnDoe2",
-    "email": "john@doe2.com",
-    "password": "T3st@@@@",
-    "avatar": null,
-    "favourites": []
-  }
-]
+[]

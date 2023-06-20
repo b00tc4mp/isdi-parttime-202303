@@ -20,7 +20,7 @@ describe('deletePost', () => {
       post = generate.post(user.id);
 
       diffAuthor = `user2-${Math.random()}`;
-      otherPost = generate.post(diffAuthor);
+      otherPost = generate.post(diffAuthor.id);
 
       image = `url${Math.random()}`;
       text = `text${Math.random()}`;

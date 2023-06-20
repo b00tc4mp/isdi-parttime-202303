@@ -1,5 +1,6 @@
 require('dotenv').config();
 
+const { readFile } = require('fs');
 const { expect } = require('chai');
 const retrievePosts = require('./retrievePosts');
 const { cleanUp, populate, generate } = require('./helpers/test');
@@ -17,8 +18,8 @@ describe('retrievePosts', () => {
 
         users[i] = user;
 
-        for (let j = 0; j < 5; j++) {
-          const post = generate.post(user.id);
+        for (let j = 0; j < 2; j++) {
+          const post = generate.post(user.id, user.name, null);
 
           posts.push(post);
         }
@@ -29,6 +30,19 @@ describe('retrievePosts', () => {
 
     it('succeeds', (done) => {
       const user = users[0];
+
+      posts.forEach((post) => {
+        const userAuthor = users.find((user) => user.id === post.author);
+
+        post.favourites = user.favourites.includes(post.id);
+        post.date = new Date(post.date);
+
+        post.author = {
+          id: userAuthor.id,
+          name: userAuthor.name,
+          avatar: userAuthor.avatar,
+        };
+      });
 
       retrievePosts(user.id, (error, retrievedPosts) => {
         expect(error).to.be.null;

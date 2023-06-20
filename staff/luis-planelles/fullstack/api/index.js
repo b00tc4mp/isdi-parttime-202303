@@ -1,13 +1,18 @@
 require('dotenv').config();
 
 const {
-  helloApiHandler,
-  registerUserHandler,
   authenticateUserHandler,
+  createPostHandler,
+  deletePostHandler,
+  registerUserHandler,
   retrieveUserHandler,
+  retrievePostsHandler,
+  retrievePostHandler,
   updateUserAvatarHandler,
   updateUserPasswordHandler,
-  createPostHandler,
+  updatePostHandler,
+  toggleFavouritePostHandler,
+  toggleLikePostHandler,
 } = require('./handlers');
 
 const { cors, jsonBodyParser } = require('./utils');
@@ -18,7 +23,7 @@ const api = express();
 api.use(cors);
 
 // api routes
-api.get('/', helloApiHandler);
+api.get('/', (req, res) => res.send('Hello, API!'));
 
 api.post('/users', jsonBodyParser, registerUserHandler);
 
@@ -32,6 +37,20 @@ api.patch('/users/updatePassword/', jsonBodyParser, updateUserPasswordHandler);
 
 api.post('/users/posts', jsonBodyParser, createPostHandler);
 
+api.patch('/users/favourite/:postId', toggleFavouritePostHandler);
+
+api.patch('/posts/like/:postId', toggleLikePostHandler);
+
+api.patch('/users/updatePost/:postId', jsonBodyParser, updatePostHandler);
+
+api.get('/posts', retrievePostsHandler);
+
+api.get('/posts/:postId', retrievePostHandler);
+
+api.delete('/posts/deletePost/:postId', deletePostHandler);
+
 api.listen(process.env.PORT, () =>
   console.log(`server running in port ${process.env.PORT}`)
 );
+
+module.exports = api;

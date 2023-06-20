@@ -6,12 +6,11 @@ const { writeFile } = require('fs');
 const retrieveUser = require('./retrieveUser.js');
 
 describe('retrieveUser', () => {
-  let id, name, email, password, avatar;
+  let id, name, password, avatar;
 
   beforeEach((done) => {
     id = `id-${Math.round(Math.random() * 100 + 1)}`;
     name = `name-${Math.random()}`;
-    email = `e-${Math.random()}@mail.com`;
     password = `password-${Math.random()}`;
     avatar = `avatar-${Math.random()}`;
 
@@ -21,7 +20,7 @@ describe('retrieveUser', () => {
   });
 
   it('succeeds on existing user and correct id', (done) => {
-    const users = [{ id, name, email, password, avatar }],
+    const users = [{ id, name, password, avatar }],
       json = JSON.stringify(users);
 
     writeFile(`${process.env.DB_PATH}/users.json`, json, (error) => {
@@ -31,7 +30,6 @@ describe('retrieveUser', () => {
         expect(error).to.be.null;
 
         expect(user.name).to.equal(name);
-        expect(user.email).to.equal(email);
         expect(user.avatar).to.equal(avatar);
 
         done();
@@ -40,7 +38,7 @@ describe('retrieveUser', () => {
   });
 
   it('succeeds on existing user with no avatar and correct id', (done) => {
-    const users = [{ id, name, email, password, avatar: null }],
+    const users = [{ id, name, password, avatar: null }],
       json = JSON.stringify(users);
 
     writeFile(`${process.env.DB_PATH}/users.json`, json, (error) => {
@@ -50,7 +48,6 @@ describe('retrieveUser', () => {
         expect(error).to.be.null;
 
         expect(user.name).to.equal(name);
-        expect(user.email).to.equal(email);
         expect(user.avatar).to.be.null;
 
         done();
@@ -59,7 +56,7 @@ describe('retrieveUser', () => {
   });
 
   it('fails on existing user and incorrect id', (done) => {
-    const users = [{ id, name, email, password, avatar }],
+    const users = [{ id, name, password, avatar }],
       json = JSON.stringify(users);
 
     writeFile(`${process.env.DB_PATH}/users.json`, json, (error) => {

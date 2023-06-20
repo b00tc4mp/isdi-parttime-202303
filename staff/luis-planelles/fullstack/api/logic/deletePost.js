@@ -15,8 +15,8 @@ const deletePost = (userId, postId, callback) => {
       return;
     }
 
-    const users = JSON.parse(json);
-    const user = users.find((user) => user.id === userId);
+    const users = JSON.parse(json),
+      user = users.find((user) => user.id === userId);
 
     if (!user) {
       callback(new Error(`user with id ${userId} not exists`));
@@ -31,9 +31,8 @@ const deletePost = (userId, postId, callback) => {
         return;
       }
 
-      const posts = JSON.parse(json);
-
-      const foundPost = posts.find((post) => post.id === postId);
+      const posts = JSON.parse(json),
+        foundPost = posts.find((post) => post.id === postId);
 
       if (!foundPost) {
         callback(new Error(`post with id ${postId} not exists`));
