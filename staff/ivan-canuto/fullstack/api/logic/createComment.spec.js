@@ -118,7 +118,7 @@ describe('createComment', () => {
 
     writeFile(`${process.env.DB_PATH}/posts.json`, postToJSON, error => {
       expect(error).to.be.null
-      expect(() => createComment('', userId, postId, () => {})).to.throw('The comment text field is empty.')
+      expect(() => createComment('', userId, postId, () => {})).to.throw(Error, 'The comment text field is empty.')
     })
   })
   
@@ -128,11 +128,11 @@ describe('createComment', () => {
 
     writeFile(`${process.env.DB_PATH}/posts.json`, postToJSON, error => {
       expect(error).to.be.null
-      expect(() => createComment(true, userId, postId, () => {})).to.throw('The comment text is not a string.')
-      expect(() => createComment([], userId, postId, () => {})).to.throw('The comment text is not a string.')
-      expect(() => createComment({}, userId, postId, () => {})).to.throw('The comment text is not a string.')
-      expect(() => createComment(1, userId, postId, () => {})).to.throw('The comment text is not a string.')
-      expect(() => createComment(undefined, userId, postId, () => {})).to.throw('The comment text is not a string.')
+      expect(() => createComment(true, userId, postId, () => {})).to.throw(Error, 'The comment text is not a string.')
+      expect(() => createComment([], userId, postId, () => {})).to.throw(Error, 'The comment text is not a string.')
+      expect(() => createComment({}, userId, postId, () => {})).to.throw(Error, 'The comment text is not a string.')
+      expect(() => createComment(1, userId, postId, () => {})).to.throw(Error, 'The comment text is not a string.')
+      expect(() => createComment(undefined, userId, postId, () => {})).to.throw(Error, 'The comment text is not a string.')
     })
   })
   
@@ -142,7 +142,7 @@ describe('createComment', () => {
 
     writeFile(`${process.env.DB_PATH}/posts.json`, postToJSON, error => {
       expect(error).to.be.null
-      expect(() => createComment(commentText, '', postId, () => {})).to.throw('The user id field is empty.')
+      expect(() => createComment(commentText, '', postId, () => {})).to.throw(Error, 'The user id field is empty.')
     })
   })
   
@@ -152,11 +152,11 @@ describe('createComment', () => {
 
     writeFile(`${process.env.DB_PATH}/posts.json`, postToJSON, error => {
       expect(error).to.be.null
-      expect(() => createComment(commentText, true, postId, () => {})).to.throw('The user id is not a string.')
-      expect(() => createComment(commentText, [], postId, () => {})).to.throw('The user id is not a string.')
-      expect(() => createComment(commentText, {}, postId, () => {})).to.throw('The user id is not a string.')
-      expect(() => createComment(commentText, 1, postId, () => {})).to.throw('The user id is not a string.')
-      expect(() => createComment(commentText, undefined, postId, () => {})).to.throw('The user id is not a string.')
+      expect(() => createComment(commentText, true, postId, () => {})).to.throw(Error, 'The user id is not a string.')
+      expect(() => createComment(commentText, [], postId, () => {})).to.throw(Error, 'The user id is not a string.')
+      expect(() => createComment(commentText, {}, postId, () => {})).to.throw(Error, 'The user id is not a string.')
+      expect(() => createComment(commentText, 1, postId, () => {})).to.throw(Error, 'The user id is not a string.')
+      expect(() => createComment(commentText, undefined, postId, () => {})).to.throw(Error, 'The user id is not a string.')
     })
   })
   
@@ -166,7 +166,7 @@ describe('createComment', () => {
 
     writeFile(`${process.env.DB_PATH}/posts.json`, postToJSON, error => {
       expect(error).to.be.null
-      expect(() => createComment(commentText, userId, '', () => {})).to.throw('The post id field is empty.')
+      expect(() => createComment(commentText, userId, '', () => {})).to.throw(Error, 'The post id field is empty.')
       
     })
   })
@@ -177,11 +177,11 @@ describe('createComment', () => {
 
     writeFile(`${process.env.DB_PATH}/posts.json`, postToJSON, error => {
       expect(error).to.be.null
-      expect(() => createComment(commentText, userId, true, () => {})).to.throw('The post id is not a string.')
-      expect(() => createComment(commentText, userId, [], () => {})).to.throw('The post id is not a string.')
-      expect(() => createComment(commentText, userId, {}, () => {})).to.throw('The post id is not a string.')
-      expect(() => createComment(commentText, userId, 1, () => {})).to.throw('The post id is not a string.')
-      expect(() => createComment(commentText, userId, undefined, () => {})).to.throw('The post id is not a string.')      
+      expect(() => createComment(commentText, userId, true, () => {})).to.throw(Error, 'The post id is not a string.')
+      expect(() => createComment(commentText, userId, [], () => {})).to.throw(Error, 'The post id is not a string.')
+      expect(() => createComment(commentText, userId, {}, () => {})).to.throw(Error, 'The post id is not a string.')
+      expect(() => createComment(commentText, userId, 1, () => {})).to.throw(Error, 'The post id is not a string.')
+      expect(() => createComment(commentText, userId, undefined, () => {})).to.throw(Error, 'The post id is not a string.')      
     })
   })
 

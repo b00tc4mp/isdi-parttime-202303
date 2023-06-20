@@ -5,12 +5,12 @@ const { readFile, writeFile } = require('fs')
 const deleteComment = require('./deleteComment')
 const { populate, generate, cleanUp } = require('./helpers-test')
 
-describe('', () => {
+describe('deleteComment', () => {
   let user, post, comment
 
   beforeEach(done => {
     user = generate.user()
-    post = generate.post()
+    post = generate.post(user.id)
 
     comment = {
       author: user.name,
@@ -99,7 +99,7 @@ describe('', () => {
     writeFile(`${process.env.DB_PATH}/posts.json`, JSON.stringify([post]), error => {
       expect(error).to.be.null
 
-      expect(() => deleteComment('', comment.id, () => {})).to.throw('The post id field is empty.')
+      expect(() => deleteComment('', comment.id, () => {})).to.throw(Error, 'The post id field is empty.')
     })
   })
   
@@ -107,11 +107,11 @@ describe('', () => {
     writeFile(`${process.env.DB_PATH}/posts.json`, JSON.stringify([post]), error => {
       expect(error).to.be.null
 
-      expect(() => deleteComment(true, comment.id, () => {})).to.throw('The post id is not a string.')
-      expect(() => deleteComment([], comment.id, () => {})).to.throw('The post id is not a string.')
-      expect(() => deleteComment({}, comment.id, () => {})).to.throw('The post id is not a string.')
-      expect(() => deleteComment(1, comment.id, () => {})).to.throw('The post id is not a string.')
-      expect(() => deleteComment(undefined, comment.id, () => {})).to.throw('The post id is not a string.')
+      expect(() => deleteComment(true, comment.id, () => {})).to.throw(Error, 'The post id is not a string.')
+      expect(() => deleteComment([], comment.id, () => {})).to.throw(Error, 'The post id is not a string.')
+      expect(() => deleteComment({}, comment.id, () => {})).to.throw(Error, 'The post id is not a string.')
+      expect(() => deleteComment(1, comment.id, () => {})).to.throw(Error, 'The post id is not a string.')
+      expect(() => deleteComment(undefined, comment.id, () => {})).to.throw(Error, 'The post id is not a string.')
     })
   })
   
@@ -119,7 +119,7 @@ describe('', () => {
     writeFile(`${process.env.DB_PATH}/posts.json`, JSON.stringify([post]), error => {
       expect(error).to.be.null
 
-      expect(() => deleteComment(post.id, '', () => {})).to.throw('The comment id field is empty.')
+      expect(() => deleteComment(post.id, '', () => {})).to.throw(Error, 'The comment id field is empty.')
     })
   })
   
@@ -127,11 +127,11 @@ describe('', () => {
     writeFile(`${process.env.DB_PATH}/posts.json`, JSON.stringify([post]), error => {
       expect(error).to.be.null
 
-      expect(() => deleteComment(post.id, true, () => {})).to.throw('The comment id is not a string.')
-      expect(() => deleteComment(post.id, [], () => {})).to.throw('The comment id is not a string.')
-      expect(() => deleteComment(post.id, {}, () => {})).to.throw('The comment id is not a string.')
-      expect(() => deleteComment(post.id, 1, () => {})).to.throw('The comment id is not a string.')
-      expect(() => deleteComment(post.id, undefined, () => {})).to.throw('The comment id is not a string.')
+      expect(() => deleteComment(post.id, true, () => {})).to.throw(Error, 'The comment id is not a string.')
+      expect(() => deleteComment(post.id, [], () => {})).to.throw(Error, 'The comment id is not a string.')
+      expect(() => deleteComment(post.id, {}, () => {})).to.throw(Error, 'The comment id is not a string.')
+      expect(() => deleteComment(post.id, 1, () => {})).to.throw(Error, 'The comment id is not a string.')
+      expect(() => deleteComment(post.id, undefined, () => {})).to.throw(Error, 'The comment id is not a string.')
     })
   })
 

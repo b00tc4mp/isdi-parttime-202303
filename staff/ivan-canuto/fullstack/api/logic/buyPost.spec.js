@@ -4,7 +4,7 @@ const { expect } = require('chai')
 const { readFile, writeFile } = require('fs')
 const buyPost = require('./buyPost')
 
-describe('', () => {
+describe('buyPost', () => {
   let id, onSale
 
   beforeEach(done => {

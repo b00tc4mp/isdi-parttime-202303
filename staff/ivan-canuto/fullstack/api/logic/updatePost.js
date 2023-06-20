@@ -24,7 +24,7 @@ module.exports = (userId, postId, imageUrl, postText, callBack) => {
       return
     }
     
-    readFile('./data/posts.json', (error, postsJSON) => {
+    readFile(`${process.env.DB_PATH}/posts.json`, (error, postsJSON) => {
       if(error) {
         callBack(error)
   
@@ -54,7 +54,7 @@ module.exports = (userId, postId, imageUrl, postText, callBack) => {
       posts.splice(postIndex, 1, post)
       const postsToJSON = JSON.stringify(posts)
 
-      writeFile('./data/posts.json', postsToJSON, (error) => {
+      writeFile(`${process.env.DB_PATH}/post.json`, postsToJSON, (error) => {
         if(error) {
           callBack(error)
 

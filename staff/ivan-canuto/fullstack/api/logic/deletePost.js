@@ -16,36 +16,11 @@ module.exports = (postId, userId, callBack) => {
     const user = users.find(user => user.id === userId)
 
     if(!user) {
-      callBack('User not found.')
+      callBack(new Error('User not found.'))
       
       return
     }
-
-    const favPostIndex = user.favs.indexOf(postId)
     
-    if(favPostIndex !== -1) {
-      users.favs.splice(favPostIndex, 1)
-      const usersToJSON = JSON.stringify(users)
-
-      writeFile(`${process.env.DB_PATH}/users.json`, usersToJSON, (error) => {
-        if(error) {
-          callBack(error)
-
-          return
-        }
-      })
-    }
-    else if(favPostIndex === -1) {
-      const usersToJSON = JSON.stringify(users)
-      writeFile(`${process.env.DB_PATH}/users.json`, usersToJSON, (error) => {
-        if(error) {
-          callBack(error)
-
-          return
-        }
-      })
-    }
-
     readFile(`${process.env.DB_PATH}/posts.json`, (error, postsJSON) => {
       if(error) {
         callBack(error)
@@ -57,9 +32,34 @@ module.exports = (postId, userId, callBack) => {
       const postIndex = posts.findIndex(_post => _post.id === postId)
 
       if(postIndex === -1) {
-        callBack(new Error('Post not found'))
+        callBack(new Error('Post not found.'))
 
         return
+      }
+        
+      const favPostIndex = user.favs.indexOf(postId)
+      
+      if(favPostIndex !== -1) {
+        users.favs.splice(favPostIndex, 1)
+        const usersToJSON = JSON.stringify(users)
+
+        writeFile(`${process.env.DB_PATH}/users.json`, usersToJSON, (error) => {
+          if(error) {
+            callBack(error)
+
+            return
+          }
+        })
+      }
+      else if(favPostIndex === -1) {
+        const usersToJSON = JSON.stringify(users)
+        writeFile(`${process.env.DB_PATH}/users.json`, usersToJSON, (error) => {
+          if(error) {
+            callBack(error)
+
+            return
+          }
+        })
       }
 
       posts.splice(postIndex, 1)

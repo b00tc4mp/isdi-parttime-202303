@@ -2,7 +2,7 @@ require('dotenv').config()
 
 const express = require('express')
 const { cors, jsonBodyParser } = require('./utils')
-const { updateUserAvatarHandler, buyPostHandler, createCommentHandler, createPostHandler, deleteCommentHandler, deletePostHandler, retrievePostHandler, registerUserHandler, authenticateUserHandler, retrieveUserHandler, retrievePostsHandler, retrieveSavedPostsHandler, retrieveUserPostsHandler, toggleLikePostHandler, setPostPriceHandler, unsetPostPriceHandler, toggleSavePostHandler, toggleVisibilityPostHandler, updatePostHandler, updateUserPasswordHandler, helloWorldHandler } = require('./middlewares')
+const { updateUserAvatarHandler, buyPostHandler, createCommentHandler, createPostHandler, deleteCommentHandler, deletePostHandler, retrievePostHandler, registerUserHandler, authenticateUserHandler, retrieveUserHandler, retrievePostsHandler, retrieveSavedPostsHandler, retrieveUserPostsHandler, toggleLikePostHandler, setPostPriceHandler, unsetPostPriceHandler, toggleSavePostHandler, toggleVisibilityPostHandler, updatePostHandler, updateUserPasswordHandler, helloWorldHandler } = require('./handlers')
 
 const api = express()
 

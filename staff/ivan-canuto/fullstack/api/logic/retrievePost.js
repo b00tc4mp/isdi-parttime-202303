@@ -30,8 +30,13 @@ module.exports = (userId ,postId, callBack) => {
         return
       }
       const posts = JSON.parse(postsJSON)
-
       const post = posts.find(post => post.id === postId)
+
+      if(!post) {
+        callBack(new Error('Post not found.'))
+
+        return
+      }
 
       const author = users.find(user => user.id === post.author)
         
@@ -42,8 +47,7 @@ module.exports = (userId ,postId, callBack) => {
         favs: author.favs,
       }
       
-      callBack(null, post);
-      debugger
+      callBack(null, post)
     })
   })
 }

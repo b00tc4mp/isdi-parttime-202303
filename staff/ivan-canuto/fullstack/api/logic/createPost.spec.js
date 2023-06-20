@@ -10,7 +10,7 @@ describe('createPost', () => {
 
   beforeEach(done => {
     user = generate.user()
-    post = generate.post()
+    post = generate.post(user.id)
   
     cleanUp(done)
   })
@@ -122,7 +122,7 @@ describe('createPost', () => {
     writeFile(`${process.env.DB_PATH}/users.json`, JSON.stringify([user]), error => {
       expect(error).to.be.null
 
-      expect(() => createPost('', post.image, post.text, () => {})).to.throw('The user id field is empty.')
+      expect(() => createPost('', post.image, post.text, () => {})).to.throw(Error, 'The user id field is empty.')
     })
   })
   
@@ -131,11 +131,11 @@ describe('createPost', () => {
     writeFile(`${process.env.DB_PATH}/users.json`, JSON.stringify([user]), error => {
       expect(error).to.be.null
 
-      expect(() => createPost(true, post.image, post.text, () => {})).to.throw('The user id is not a string.')
-      expect(() => createPost([], post.image, post.text, () => {})).to.throw('The user id is not a string.')
-      expect(() => createPost({}, post.image, post.text, () => {})).to.throw('The user id is not a string.')
-      expect(() => createPost(1, post.image, post.text, () => {})).to.throw('The user id is not a string.')
-      expect(() => createPost(undefined, post.image, post.text, () => {})).to.throw('The user id is not a string.')
+      expect(() => createPost(true, post.image, post.text, () => {})).to.throw(Error, 'The user id is not a string.')
+      expect(() => createPost([], post.image, post.text, () => {})).to.throw(Error, 'The user id is not a string.')
+      expect(() => createPost({}, post.image, post.text, () => {})).to.throw(Error, 'The user id is not a string.')
+      expect(() => createPost(1, post.image, post.text, () => {})).to.throw(Error, 'The user id is not a string.')
+      expect(() => createPost(undefined, post.image, post.text, () => {})).to.throw(Error, 'The user id is not a string.')
     })
   })
   
@@ -143,7 +143,7 @@ describe('createPost', () => {
     writeFile(`${process.env.DB_PATH}/users.json`, JSON.stringify([user]), error => {
       expect(error).to.be.null
 
-      expect(() => createPost(user.id, '', post.text, () => {})).to.throw('The image url field is empty.')
+      expect(() => createPost(user.id, '', post.text, () => {})).to.throw(Error, 'The image url field is empty.')
     })
   })
   
@@ -152,11 +152,11 @@ describe('createPost', () => {
     writeFile(`${process.env.DB_PATH}/users.json`, JSON.stringify([user]), error => {
       expect(error).to.be.null
 
-      expect(() => createPost(user.id, true, post.text, () => {})).to.throw('The image url is not a string.')
-      expect(() => createPost(user.id, [], post.text, () => {})).to.throw('The image url is not a string.')
-      expect(() => createPost(user.id, {}, post.text, () => {})).to.throw('The image url is not a string.')
-      expect(() => createPost(user.id, 1, post.text, () => {})).to.throw('The image url is not a string.')
-      expect(() => createPost(user.id, undefined, post.text, () => {})).to.throw('The image url is not a string.')
+      expect(() => createPost(user.id, true, post.text, () => {})).to.throw(Error, 'The image url is not a string.')
+      expect(() => createPost(user.id, [], post.text, () => {})).to.throw(Error, 'The image url is not a string.')
+      expect(() => createPost(user.id, {}, post.text, () => {})).to.throw(Error, 'The image url is not a string.')
+      expect(() => createPost(user.id, 1, post.text, () => {})).to.throw(Error, 'The image url is not a string.')
+      expect(() => createPost(user.id, undefined, post.text, () => {})).to.throw(Error, 'The image url is not a string.')
     })
   })
   
@@ -164,7 +164,7 @@ describe('createPost', () => {
     writeFile(`${process.env.DB_PATH}/users.json`, JSON.stringify([user]), error => {
       expect(error).to.be.null
 
-      expect(() => createPost(user.id, post.image, '', () => {})).to.throw('The post text field is empty.')
+      expect(() => createPost(user.id, post.image, '', () => {})).to.throw(Error, 'The post text field is empty.')
     })
   })
   
@@ -172,11 +172,11 @@ describe('createPost', () => {
     writeFile(`${process.env.DB_PATH}/users.json`, JSON.stringify([user]), error => {
       expect(error).to.be.null
       
-      expect(() => createPost(user.id, post.image, true, () => {})).to.throw('The post text is not a string.')
-      expect(() => createPost(user.id, post.image, [], () => {})).to.throw('The post text is not a string.')
-      expect(() => createPost(user.id, post.image, {}, () => {})).to.throw('The post text is not a string.')
-      expect(() => createPost(user.id, post.image, 1, () => {})).to.throw('The post text is not a string.')
-      expect(() => createPost(user.id, post.image, undefined, () => {})).to.throw('The post text is not a string.')
+      expect(() => createPost(user.id, post.image, true, () => {})).to.throw(Error, 'The post text is not a string.')
+      expect(() => createPost(user.id, post.image, [], () => {})).to.throw(Error, 'The post text is not a string.')
+      expect(() => createPost(user.id, post.image, {}, () => {})).to.throw(Error, 'The post text is not a string.')
+      expect(() => createPost(user.id, post.image, 1, () => {})).to.throw(Error, 'The post text is not a string.')
+      expect(() => createPost(user.id, post.image, undefined, () => {})).to.throw(Error, 'The post text is not a string.')
     })
   })
   
