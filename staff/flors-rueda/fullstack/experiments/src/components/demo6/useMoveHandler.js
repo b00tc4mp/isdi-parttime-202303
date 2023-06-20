@@ -3,7 +3,7 @@ import * as THREE from 'three';
 import { createFloor } from './createFloor';
 import { checkCollisions } from './checkCollisions';
 
-const useMoveHandler = (floor, scene, camera, onSolved, onGameWon) => {
+const useMoveHandler = (floor, scene, camera, onSolved, onGameWon, onBomb, onLife) => {
     const gridSize = floor.length;
     const cellSize = 1.5;
 
@@ -53,7 +53,7 @@ const useMoveHandler = (floor, scene, camera, onSolved, onGameWon) => {
                 const maxGridY = (gridSize) / 2 * cellSize;
 
                 if (ballPosition.x >= minGridX && ballPosition.x <= maxGridX && ballPosition.y >= minGridY && ballPosition.y <= maxGridY) {
-                    checkCollisions(ball, ballPosition, scene, floorObjects, onSolved, onGameWon);
+                    checkCollisions(ball, ballPosition, scene, floorObjects, onSolved, onGameWon, onBomb, onLife);
                 }
 
                 ball.rotation.x += rotationSpeed * clientDeltaY;

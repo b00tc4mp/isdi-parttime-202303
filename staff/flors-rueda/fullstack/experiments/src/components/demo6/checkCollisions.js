@@ -15,7 +15,7 @@ const checkPosition = (ballPosition, ball, obj) => {
     return checkCollision(ballPosition, ball, obj) && ballAboveObj;
 };
 
-export const checkCollisions = (ball, ballPosition, scene, floorObjects, onSolved, onGameWon) => {
+export const checkCollisions = (ball, ballPosition, scene, floorObjects, onSolved, onGameWon, onBomb, onLife) => {
     let canMoveBall = true;
     const { cubeObjects, bombObjects, lifeObjects, hole, stonks } = floorObjects
 
@@ -35,7 +35,7 @@ export const checkCollisions = (ball, ballPosition, scene, floorObjects, onSolve
             scene.remove(obj);
             const index = bombObjects.indexOf(obj);
             bombObjects.splice(index, 1);
-            console.log('boom');
+            onBomb();
             return;
         }
     }
@@ -45,7 +45,7 @@ export const checkCollisions = (ball, ballPosition, scene, floorObjects, onSolve
             scene.remove(obj);
             const index = lifeObjects.indexOf(obj);
             lifeObjects.splice(index, 1);
-            console.log('life ++');
+            onLife();
             return;
         }
     }
@@ -67,7 +67,6 @@ export const checkCollisions = (ball, ballPosition, scene, floorObjects, onSolve
     }
 
     if (stonks && checkCollision(ballPosition, ball, stonks)) {
-        console.log('stonks');
         onGameWon();
         scene.remove(ball);
         return;

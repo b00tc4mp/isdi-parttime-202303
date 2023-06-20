@@ -1,7 +1,7 @@
 export const level1 = [
     [['wall', 'wall', 'wall', 'wall', 'wall'],
-    ['wall', 'start', '', '', 'wall'],
-    ['wall', '', '', '', 'wall'],
+    ['wall', 'start', 'life', 'life', 'wall'],
+    ['wall', '', 'life', 'life', 'wall'],
     ['wall', '', '', 'hole', 'wall'],
     ['wall', 'wall', 'wall', 'wall', 'wall']],
 

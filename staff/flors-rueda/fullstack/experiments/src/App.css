@@ -7,9 +7,24 @@
     height: 400px;
 }
 
+.game-interface {
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem
+}
+
 .canvas-container {
     width: 100%;
     max-width: 640px;
     height: 80vh;
     margin: 0 auto;
+}
+
+.health-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.5rem
 }

@@ -3,14 +3,14 @@ import * as THREE from 'three';
 import { createScene } from './createScene';
 import useMoveHandler from './useMoveHandler';
 
-const CanvasContainer = ({ floor, onSolved, onGameWon }) => {
+const CanvasContainer = ({ floor, onSolved, onGameWon, onBomb, onLife }) => {
     const canvasContainerRef = useRef(null);
 
     const scene = createScene();
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     camera.position.z = 5;
 
-    useMoveHandler(floor, scene, camera, onSolved, onGameWon);
+    useMoveHandler(floor, scene, camera, onSolved, onGameWon, onBomb, onLife);
 
     useEffect(() => {
         const renderer = new THREE.WebGLRenderer({ antialias: true });
