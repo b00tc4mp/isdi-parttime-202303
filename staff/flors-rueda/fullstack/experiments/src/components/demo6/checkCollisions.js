@@ -8,6 +8,13 @@ const checkCollision = (ballPosition, ball, obj) => {
     return distance <= ballRadius + objSize / 2;
 };
 
+const checkPosition = (ballPosition, ball, obj) => {
+    const objPosition = obj.position;
+    const ballAboveObj = ballPosition.y > objPosition.y;
+
+    return checkCollision(ballPosition, ball, obj) && ballAboveObj;
+};
+
 export const checkCollisions = (ball, ballPosition, scene, floorObjects, onSolved, onGameWon) => {
     let canMoveBall = true;
     const { cubeObjects, bombObjects, lifeObjects, hole, stonks } = floorObjects
@@ -17,9 +24,10 @@ export const checkCollisions = (ball, ballPosition, scene, floorObjects, onSolve
             canMoveBall = false;
             return;
         }
-        if (canMoveBall) {
-            ball.position.copy(ballPosition);
-        }
+    }
+
+    if (canMoveBall) {
+        ball.position.copy(ballPosition);
     }
 
     for (const obj of bombObjects) {
@@ -42,10 +50,20 @@ export const checkCollisions = (ball, ballPosition, scene, floorObjects, onSolve
         }
     }
 
-    if (hole && checkCollision(ballPosition, ball, hole)) {
-        console.log('level complete');
-        onSolved();
-        return;
+    if (hole && checkPosition(ballPosition, ball, hole)) {
+        const timerThreshold = 500;
+        const scaleFactor = 0.8;
+
+        setTimeout(() => {
+            const interval = setInterval(() => {
+                ball.scale.multiplyScalar(scaleFactor);
+                if (ball.scale.x < 0.01) {
+                    clearInterval(interval);
+                    onSolved();
+                    return;
+                }
+            }, 75);
+        }, timerThreshold);
     }
 
     if (stonks && checkCollision(ballPosition, ball, stonks)) {

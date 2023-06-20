@@ -4,13 +4,13 @@ import { ballGeometry, ballMaterial, cubeGeometry, wallMaterial, dirtMaterial } 
 export const createFloor = (floor, scene, cellSize) => {
     const gridSize = floor.length;
 
-    const textureLoader = new THREE.TextureLoader();
-
     const cubeObjects = [];
     const bombObjects = [];
     const lifeObjects = [];
 
     let ball, hole, stonks;
+
+    const textureLoader = new THREE.TextureLoader();
 
     for (let row = 0; row < gridSize; row++) {
         for (let col = 0; col < gridSize; col++) {

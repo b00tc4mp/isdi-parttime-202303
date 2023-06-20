@@ -1,5 +1,7 @@
 const { authenticateUser } = require('../logic')
 
+//TODO change name to handlers
+
 module.exports = (req, res) => {
     try {
         const { username, password } = req.body;
