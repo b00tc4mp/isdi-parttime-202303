@@ -11,7 +11,7 @@ describe('registerUser' , () =>{
     let userTest
 
     beforeEach(done => {
-        userTest = generateUser()
+        userTest = generateUser().user
 
         cleanUp(done)
     })
@@ -41,7 +41,7 @@ describe('registerUser' , () =>{
     })
 
     it('succeeds on other existing user', done => {
-        const userTest2 = generateUser()
+        const { countId, user: userTest2 }  = generateUser()
 
         populate([userTest2], [], error => {
             expect(error).to.be.null
@@ -57,7 +57,7 @@ describe('registerUser' , () =>{
                     const user = users.find(user => user.email === userTest.email)
 
                     expect(user).to.exist
-                    expect(user.id).to.equal(`user-${userTest2.countId + 1}`)
+                    expect(user.id).to.equal(`user-${countId + 1}`)
                     expect(user.name).to.equal(userTest.name)
                     expect(user.email).to.equal(userTest.email)
                     expect(user.password).to.equal(userTest.password)

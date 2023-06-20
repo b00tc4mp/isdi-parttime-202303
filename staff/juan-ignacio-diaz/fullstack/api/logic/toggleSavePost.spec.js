@@ -1,12 +1,13 @@
 require('dotenv').config()
 
 const { expect } = require('chai')
+const { readFile } = require('fs')
 
-const retrievePost = require('./retrievePost')
+const toggleSavePost = require('./toggleSavePost')
 
 const { generateUser, generatePost, cleanUp, populate } = require('./helpers/tests')
 
-describe('retrievePost' , () =>{
+describe('toggleSavePost' , () =>{
     let usersTest = []
     let postsTest = []
 
@@ -22,6 +23,8 @@ describe('retrievePost' , () =>{
 
         postsTest.push(generatePost(usersTest[1].id, postsTest).post)
         postsTest.push(generatePost(usersTest[1].id, postsTest).post)
+
+        usersTest[1].favs.push(postsTest[2].id)
          
         cleanUp(error => {
             if(error) {
@@ -34,23 +37,47 @@ describe('retrievePost' , () =>{
         })
     })
 
-    it('succeeds on retrieve post', done => {
+    it('succeeds on update save post', done => {
         const userTest = usersTest[0]
-        const postTest = postsTest[1]
+        const postTest = postsTest[2]
 
-        retrievePost(userTest.id, postTest.id, (error, post) => {
+        toggleSavePost(userTest.id, postTest.id, error => {
             expect(error).to.be.null
 
-            expect(post).to.exist
-            expect(post.id).to.be.a('string')
-            expect(post.image).to.equal(postTest.image)
-            expect(post.text).to.equal(postTest.text)
-            expect(post.date).to.be.a('date')
-            expect(post.likes).to.have.lengthOf(0)
-            expect(post.lock).to.equal(false)
-            expect(post.price).to.equal(0)
+            readFile(`${process.env.DB_PATH}/users.json`, (error, json) => {
+                expect(error).to.be.null;
+        
+                const users = JSON.parse(json);
+        
+                const user = users.find(user => user.id === userTest.id)
 
-            done()
+                expect(user).to.exist
+                expect(user.favs[0]).to.equal(postTest.id)
+
+                done();
+            })
+        })
+    })
+
+    it('succeeds on update unsave post', done => {
+        const userTest = usersTest[1]
+        const postTest = postsTest[2]
+
+        toggleSavePost(userTest.id, postTest.id, error => {
+            expect(error).to.be.null
+
+            readFile(`${process.env.DB_PATH}/users.json`, (error, json) => {
+                expect(error).to.be.null;
+        
+                const users = JSON.parse(json);
+        
+                const user = users.find(user => user.id === userTest.id)
+
+                expect(user).to.exist
+                expect(user.favs.length).to.equal(0);
+
+                done();
+            })
         })
     })
 
@@ -58,9 +85,10 @@ describe('retrievePost' , () =>{
     it('fails when user not exists', done => {
         const userTest = usersTest[0]
         const postTest = postsTest[1]
+
         const userTestNoExistsId = userTest.id+'NoExists'
- 
-        retrievePost(userTestNoExistsId, postTest.id, error => {
+    
+        toggleSavePost(userTestNoExistsId, postTest.id, error => {
             expect(error).to.be.instanceOf(Error);
         
             expect(error.message).to.equal(`user with id ${userTestNoExistsId} not found`)
@@ -72,34 +100,22 @@ describe('retrievePost' , () =>{
     it('fails when post not exists', done => {
         const userTest = usersTest[0]
         const postTest = postsTest[1]
+
         const postTestNoExistsId = postTest.id+'NoExists'
     
-        retrievePost(userTest.id, postTestNoExistsId, error => {
+        toggleSavePost(userTest.id, postTestNoExistsId, error => {
             expect(error).to.be.instanceOf(Error);
 
             expect(error.message).to.equal(`post with id ${postTestNoExistsId} not found`)
 
             done()
-        })  
-    })
-
-    it('fails when post doesn\'t belong to this user', done => {
-        const postTest = postsTest[0]
-        const otherUserTest = usersTest[1]
-    
-        retrievePost(otherUserTest.id, postTest.id, error => {
-            expect(error).to.be.instanceOf(Error);
-
-            expect(error.message).to.equal(`Post doesn\'t belong to this user`)
-
-            done()         
-        })
+        }) 
     })
 
     it('fails on empty user id', () => {
         const postTest = postsTest[1]
 
-        expect(() => retrievePost('', postTest.id, () => {})).to.throw(
+        expect(() => toggleSavePost('', postTest.id, () => {})).to.throw(
             Error,
             'user id is empty')
     })
@@ -107,7 +123,7 @@ describe('retrievePost' , () =>{
     it('fails on empty post id', () => {
         const userTest = usersTest[0]
 
-        expect(() => retrievePost(userTest.id, '', () => {})).to.throw(
+        expect(() => toggleSavePost(userTest.id, '', () => {})).to.throw(
             Error,
             'post id is empty')
     })

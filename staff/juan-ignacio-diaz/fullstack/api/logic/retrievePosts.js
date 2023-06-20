@@ -36,6 +36,8 @@ module.exports = function retrieveOnSalePosts(userId, callback){
 
             tmPosts.forEach(post => {
                 post.fav = user.favs.includes(post.id)
+                post.date = new Date(post.date);
+                post.dateLastModified = new Date(post.dateLastModified);
 
                 const author = users.find(user => user.id === post.author)
 

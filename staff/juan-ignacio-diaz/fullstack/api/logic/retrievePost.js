@@ -32,14 +32,23 @@ module.exports = function retrievePost(userId, postId, callback){
             }
 
             const posts = JSON.parse(json)
-
-            const post = posts.find(post => post.id === postId)
+            
+            const post = posts.find(post => post.id === postId) 
 
             if (!post) {
                 callback(new Error(`post with id ${postId} not found`))
     
                 return
             }
+
+            if (user.id !== post.author){
+                callback(new Error(`Post doesn't belong to this user`))
+
+                return
+            } 
+
+            post.date = new Date(post.date);
+            post.dateLastModified = new Date(post.dateLastModified);
 
             callback(null, post)
         })

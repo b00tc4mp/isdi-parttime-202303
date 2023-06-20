@@ -3,8 +3,8 @@ const { readFile, writeFile } = require('fs')
 const { validators: { validateId, validateNumber, validateCallback } } = require('com')
 
 module.exports = function updatePriceToPost(userId, postId, price, callback) {
-    validateId(userId)
-    validateId(postId)
+    validateId(userId, 'user id')
+    validateId(postId, 'post id')
     validateCallback(callback)
     validateNumber(price)
 
@@ -41,7 +41,13 @@ module.exports = function updatePriceToPost(userId, postId, price, callback) {
     
                 return
             }
-        
+            
+            if (user.id !== post.author){
+                callback(new Error(`Post doesn't belong to this user`))
+
+                return
+            } 
+            
             post.price = price
 
             json = JSON.stringify(posts)                

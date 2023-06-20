@@ -1,17 +1,18 @@
 require('dotenv').config()
 
 const { expect } = require('chai')
-const { readFile, writeFile } = require('fs')
+const { readFile } = require('fs')
 
 const createPost = require('./createPost')
 
-const { generateUser, cleanUp, populate } = require('./helpers/tests')
+const { generateUser, generatePost, cleanUp, populate } = require('./helpers/tests')
 
 describe('createPost' , () =>{
-    let userTest, postTest, countId
+    let userTest, postTest
 
     beforeEach(done => {
-        userTest = generateUser()
+        userTest = generateUser().user
+        postTest = generatePost(userTest.id).post
          
         cleanUp(done)
     })
@@ -42,7 +43,6 @@ describe('createPost' , () =>{
             })
         })
     })
-
 
     it('fails on existing user', done => {
         populate([userTest], [], error => {

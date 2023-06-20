@@ -10,7 +10,7 @@ describe('updateUserPassword', () => {
     let userTest
 
     beforeEach(done => {
-        userTest = generateUser()
+        userTest = generateUser().user
 
         cleanUp(done)
     })

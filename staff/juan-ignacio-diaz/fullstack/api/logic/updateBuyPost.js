@@ -3,8 +3,8 @@ const { readFile, writeFile } = require('fs')
 const { validators: { validateId, validateCallback } } = require('com')
 
 module.exports = function updateBuyPost(userId, postId, callback) {
-    validateId(userId)
-    validateId(postId)
+    validateId(userId, 'user id')
+    validateId(postId, 'post id')
     validateCallback(callback)
 
     readFile(`${process.env.DB_PATH}/users.json`, (error, json) => {

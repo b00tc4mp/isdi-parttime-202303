@@ -3,8 +3,8 @@ const { readFile, writeFile } = require('fs')
 const { validators: { validateId, validateUrl, validateText, validateCallback } } = require('com')
 
 module.exports = function updatePost(userId, postId, image, text, callback) {
-    validateId(userId)
-    validateId(postId)
+    validateId(userId, 'user id')
+    validateId(postId, 'post id')
     validateCallback(callback)
     if(image !== '') validateUrl(image)
     if(text !== '') validateText(text)
@@ -42,7 +42,13 @@ module.exports = function updatePost(userId, postId, image, text, callback) {
     
                 return
             }
-        
+
+            if (user.id !== post.author){
+                callback(new Error(`Post doesn't belong to this user`))
+
+                return
+            }  
+
             if(image !== '') post.image = image
             if(text !== '') post.text = text
             post.dateLastModified = new Date

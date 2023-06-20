@@ -1,12 +1,13 @@
 require('dotenv').config()
 
 const { expect } = require('chai')
+const { readFile } = require('fs')
 
-const retrievePost = require('./retrievePost')
+const updatePriceToPost = require('./updatePriceToPost')
 
 const { generateUser, generatePost, cleanUp, populate } = require('./helpers/tests')
 
-describe('retrievePost' , () =>{
+describe('updatePriceToPost' , () =>{
     let usersTest = []
     let postsTest = []
 
@@ -34,23 +35,29 @@ describe('retrievePost' , () =>{
         })
     })
 
-    it('succeeds on retrieve post', done => {
+    it('succeeds on update post', done => {
         const userTest = usersTest[0]
         const postTest = postsTest[1]
 
-        retrievePost(userTest.id, postTest.id, (error, post) => {
+        const price = 100
+
+        updatePriceToPost(userTest.id, postTest.id, price, error => {
             expect(error).to.be.null
 
-            expect(post).to.exist
-            expect(post.id).to.be.a('string')
-            expect(post.image).to.equal(postTest.image)
-            expect(post.text).to.equal(postTest.text)
-            expect(post.date).to.be.a('date')
-            expect(post.likes).to.have.lengthOf(0)
-            expect(post.lock).to.equal(false)
-            expect(post.price).to.equal(0)
+            readFile(`${process.env.DB_PATH}/posts.json`, (error, json) => {
+                expect(error).to.be.null;
+        
+                const posts = JSON.parse(json);
+        
+                expect(posts.length).to.equal(4);
+        
+                const post = posts.find(post => post.id === postTest.id)
 
-            done()
+                expect(post).to.exist
+                expect(post.price).to.equal(price)
+
+                done();
+            })
         })
     })
 
@@ -58,36 +65,42 @@ describe('retrievePost' , () =>{
     it('fails when user not exists', done => {
         const userTest = usersTest[0]
         const postTest = postsTest[1]
+
+        const price = 100
         const userTestNoExistsId = userTest.id+'NoExists'
- 
-        retrievePost(userTestNoExistsId, postTest.id, error => {
+    
+        updatePriceToPost(userTestNoExistsId, postTest.id, price, error => {
             expect(error).to.be.instanceOf(Error);
         
             expect(error.message).to.equal(`user with id ${userTestNoExistsId} not found`)
 
             done()
-        })  
+        }) 
     })
     
     it('fails when post not exists', done => {
         const userTest = usersTest[0]
         const postTest = postsTest[1]
+
+        const price = 100
         const postTestNoExistsId = postTest.id+'NoExists'
     
-        retrievePost(userTest.id, postTestNoExistsId, error => {
+        updatePriceToPost(userTest.id, postTestNoExistsId, price, error => {
             expect(error).to.be.instanceOf(Error);
 
             expect(error.message).to.equal(`post with id ${postTestNoExistsId} not found`)
 
             done()
-        })  
+        }) 
     })
 
     it('fails when post doesn\'t belong to this user', done => {
         const postTest = postsTest[0]
         const otherUserTest = usersTest[1]
+
+        const price = 100
     
-        retrievePost(otherUserTest.id, postTest.id, error => {
+        updatePriceToPost(otherUserTest.id, postTest.id,  price, error => {
             expect(error).to.be.instanceOf(Error);
 
             expect(error.message).to.equal(`Post doesn\'t belong to this user`)
@@ -99,7 +112,9 @@ describe('retrievePost' , () =>{
     it('fails on empty user id', () => {
         const postTest = postsTest[1]
 
-        expect(() => retrievePost('', postTest.id, () => {})).to.throw(
+        const price = 100
+
+        expect(() => updatePriceToPost('', postTest.id, price, () => {})).to.throw(
             Error,
             'user id is empty')
     })
@@ -107,9 +122,22 @@ describe('retrievePost' , () =>{
     it('fails on empty post id', () => {
         const userTest = usersTest[0]
 
-        expect(() => retrievePost(userTest.id, '', () => {})).to.throw(
+        const price = 100
+
+        expect(() => updatePriceToPost(userTest.id, '', price, () => {})).to.throw(
             Error,
             'post id is empty')
+    })
+
+    it('fails on invalid post price', () => {
+        const userTest = usersTest[0]
+        const postTest = postsTest[1]
+
+        const price = 'NoPrice'
+
+        expect(() => updatePriceToPost(userTest.id, postTest.id, price, () => {})).to.throw(
+            Error,
+            `number is not a number`)
     })
 
     after(cleanUp)

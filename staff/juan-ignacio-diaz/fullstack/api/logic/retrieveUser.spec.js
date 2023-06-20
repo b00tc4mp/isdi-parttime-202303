@@ -11,7 +11,7 @@ describe('retrieveUser', () => {
     let userTest
 
     beforeEach(done => {
-        userTest = generateUser()
+        userTest = generateUser().user
 
         cleanUp(done)
     })
@@ -33,6 +33,8 @@ describe('retrieveUser', () => {
     })
 
     it('succeeds on existing user with no avatar and correct id', done => {
+        userTest.avatar = null
+
         populate([userTest], [],  error => {
             expect(error).to.be.null
 

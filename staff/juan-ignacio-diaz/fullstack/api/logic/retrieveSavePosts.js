@@ -36,12 +36,17 @@ module.exports = function retrieveSavePosts(userId, callback){
 
             tmPosts.forEach(post => {
                 post.fav = user.favs.includes(post.id)
-    
-                post.author = {
-                    id: user.id,
-                    name: user.name,
-                    avatar: user.avatar
-                }
+                post.date = new Date(post.date);
+                post.dateLastModified = new Date(post.dateLastModified);
+
+                const author = users.find(user => user.id === post.author)
+
+                if (author)
+                    post.author = {
+                        id: author.id,
+                        name: author.name,
+                        avatar: author.avatar
+                    }
             })
 
             //callback(null, tmPosts.toReversed())

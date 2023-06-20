@@ -1,12 +1,13 @@
 require('dotenv').config()
 
 const { expect } = require('chai')
+const { readFile } = require('fs')
 
-const retrievePost = require('./retrievePost')
+const toggleLockPost = require('./toggleLockPost')
 
 const { generateUser, generatePost, cleanUp, populate } = require('./helpers/tests')
 
-describe('retrievePost' , () =>{
+describe('toggleLockPost' , () =>{
     let usersTest = []
     let postsTest = []
 
@@ -22,6 +23,8 @@ describe('retrievePost' , () =>{
 
         postsTest.push(generatePost(usersTest[1].id, postsTest).post)
         postsTest.push(generatePost(usersTest[1].id, postsTest).post)
+
+        postsTest[3].lock = true
          
         cleanUp(error => {
             if(error) {
@@ -33,40 +36,62 @@ describe('retrievePost' , () =>{
             populate(usersTest, postsTest, done)
         })
     })
-
-    it('succeeds on retrieve post', done => {
+debugger
+    it('succeeds on update lock post', done => {
         const userTest = usersTest[0]
         const postTest = postsTest[1]
 
-        retrievePost(userTest.id, postTest.id, (error, post) => {
+        toggleLockPost(userTest.id, postTest.id, error => {
             expect(error).to.be.null
 
-            expect(post).to.exist
-            expect(post.id).to.be.a('string')
-            expect(post.image).to.equal(postTest.image)
-            expect(post.text).to.equal(postTest.text)
-            expect(post.date).to.be.a('date')
-            expect(post.likes).to.have.lengthOf(0)
-            expect(post.lock).to.equal(false)
-            expect(post.price).to.equal(0)
+            readFile(`${process.env.DB_PATH}/posts.json`, (error, json) => {
+                expect(error).to.be.null;
+        
+                const posts = JSON.parse(json);
+        
+                const post = posts.find(post => post.id === postTest.id)
 
-            done()
+                expect(post).to.exist
+                expect(post.lock).to.be.true
+
+                done();
+            })
         })
     })
 
+    it('succeeds on update unlock post', done => {
+        const userTest = usersTest[1]
+        const postTest = postsTest[3]
+
+        toggleLockPost(userTest.id, postTest.id, error => {
+            expect(error).to.be.null
+
+            readFile(`${process.env.DB_PATH}/posts.json`, (error, json) => {
+                expect(error).to.be.null;
+        
+                const posts = JSON.parse(json);
+        
+                const post = posts.find(post => post.id === postTest.id)
+
+                expect(post).to.exist
+                expect(post.lock).to.be.false
+
+                done();
+            })
+        })
+    })
 
     it('fails when user not exists', done => {
-        const userTest = usersTest[0]
         const postTest = postsTest[1]
-        const userTestNoExistsId = userTest.id+'NoExists'
- 
-        retrievePost(userTestNoExistsId, postTest.id, error => {
+        const userTestNoExistsId = usersTest[0].id+'NoExists'
+        
+        toggleLockPost(userTestNoExistsId, postTest.id, error => {
             expect(error).to.be.instanceOf(Error);
         
             expect(error.message).to.equal(`user with id ${userTestNoExistsId} not found`)
 
             done()
-        })  
+        })        
     })
     
     it('fails when post not exists', done => {
@@ -74,20 +99,20 @@ describe('retrievePost' , () =>{
         const postTest = postsTest[1]
         const postTestNoExistsId = postTest.id+'NoExists'
     
-        retrievePost(userTest.id, postTestNoExistsId, error => {
+        toggleLockPost(userTest.id, postTestNoExistsId, error => {
             expect(error).to.be.instanceOf(Error);
 
             expect(error.message).to.equal(`post with id ${postTestNoExistsId} not found`)
 
             done()
-        })  
+        })               
     })
 
     it('fails when post doesn\'t belong to this user', done => {
         const postTest = postsTest[0]
         const otherUserTest = usersTest[1]
     
-        retrievePost(otherUserTest.id, postTest.id, error => {
+        toggleLockPost(otherUserTest.id, postTest.id, error => {
             expect(error).to.be.instanceOf(Error);
 
             expect(error.message).to.equal(`Post doesn\'t belong to this user`)
@@ -95,11 +120,11 @@ describe('retrievePost' , () =>{
             done()         
         })
     })
-
+    
     it('fails on empty user id', () => {
         const postTest = postsTest[1]
 
-        expect(() => retrievePost('', postTest.id, () => {})).to.throw(
+        expect(() => toggleLockPost('', postTest.id, () => {})).to.throw(
             Error,
             'user id is empty')
     })
@@ -107,7 +132,7 @@ describe('retrievePost' , () =>{
     it('fails on empty post id', () => {
         const userTest = usersTest[0]
 
-        expect(() => retrievePost(userTest.id, '', () => {})).to.throw(
+        expect(() => toggleLockPost(userTest.id, '', () => {})).to.throw(
             Error,
             'post id is empty')
     })

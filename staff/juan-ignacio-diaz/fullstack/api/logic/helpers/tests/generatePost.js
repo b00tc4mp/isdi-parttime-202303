@@ -1,6 +1,10 @@
-module.exports = function RandomPost (userId) {
-    const countId = Math.round(Math.random() * 100 + 1)
+module.exports = function generatePost (userId, posts) {
+    let countId = Math.round(Math.random() * 100 + 1)
     
+    if(posts)
+        while (posts.some(tmpPost => tmpPost.id === `post-${countId}`))
+            countId = Math.round(Math.random() * 100 + 1)
+
     return {
         countId,
         post:{
@@ -10,7 +14,7 @@ module.exports = function RandomPost (userId) {
             text: `text-${Math.random()}`,
             date: new Date,
             dateLastModified: new Date,
-            likes: [`likes-${Math.random()}`],
+            likes: [],
             lock: false,
             price: 0
         }

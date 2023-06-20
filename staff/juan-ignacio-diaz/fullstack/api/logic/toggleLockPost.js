@@ -41,6 +41,12 @@ module.exports = function toggeLockPost(userId, postId, callback){
                 return
             }
 
+            if (user.id !== post.author){
+                callback(new Error(`Post doesn't belong to this user`))
+
+                return
+            } 
+
             post.lock = post.lock? false : true
 
             json = JSON.stringify(posts)                

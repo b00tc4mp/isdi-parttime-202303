@@ -10,7 +10,7 @@ describe('updateUserAvatar', () => {
     let userTest
 
     beforeEach(done => {
-        userTest = generateUser()
+        userTest = generateUser().user
 
         cleanUp(done)
     })
