@@ -167,4 +167,6 @@ describe('toggleLikePost', () => {
       expect(() => toggleLikePost(user.id, post.id, 'Not a function')).to.throw(Error, 'CallBack is not a function')
     })
   })
+
+  after(cleanUp)
 })

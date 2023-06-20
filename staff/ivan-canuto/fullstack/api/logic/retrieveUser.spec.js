@@ -3,6 +3,7 @@ require('dotenv').config()
 const { expect } = require('chai')
 const { writeFile } = require('fs')
 const retrieveUser = require('./retrieveUser')
+const { populate, generate, cleanUp } = require('./helpers-test')
 
 describe('retrieveUser', () => {
   let id, name, email, password, avatar, favs
@@ -112,5 +113,5 @@ describe('retrieveUser', () => {
     done()
   })
   
-  after(done => writeFile(`${process.env.DB_PATH}/users.json`, '[]', error => done(error)))
+  after(cleanUp)
 })

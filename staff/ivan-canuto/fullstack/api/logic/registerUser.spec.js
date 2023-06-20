@@ -3,6 +3,7 @@ require('dotenv').config()
 const { expect } = require('chai')
 const { readFile, writeFile } = require('fs')
 const registerUser = require('./registerUser')
+const { populate, generate, cleanUp } = require('./helpers-test')
 
 describe('registerUser', () => {
   let name, email, password
@@ -101,5 +102,5 @@ describe('registerUser', () => {
     expect(() => registerUser(name, email, 1, () => { })).to.throw(Error, 'The password is not a string.')
   })
 
-  after(done => writeFile(`${process.env.DB_PATH}/users.json`, '[]', error => done(error)))
+  after(cleanUp)
 })

@@ -3,6 +3,7 @@ require('dotenv').config()
 const { expect } = require('chai')
 const { readFile, writeFile } = require('fs')
 const createComment = require('./createComment')
+const { cleanUp, generate, populate } = require('./helpers-test')
 
 describe('createComment', () => {
   let commentText
@@ -185,7 +186,7 @@ describe('createComment', () => {
     })
   })
 
-  it('Fails on callBack is not a function', done => {
+  it('Fails on callBack is not a function', () => {
     const post = [{id: postId, comments: []}]
     const postToJSON = JSON.stringify(post)
 
@@ -195,4 +196,6 @@ describe('createComment', () => {
       expect(() => createComment(commentText, userId, postId, 'Not a function')).to.throw(Error, 'CallBack is not a function')
     })
   })
+
+  after(cleanUp)
 })

@@ -104,4 +104,6 @@ describe('retrievePosts', () => {
       expect(() => retrievePosts(post.id, user.id, 'Not a function')).to.throw(Error, 'CallBack is not a function')
     })
   })
+
+  after(cleanUp)
 })

@@ -8,6 +8,6 @@ module. exports = callBack => {
             return
         }
         
-        writeFile(`${process.env.DB_PATH}/users.json`, '[]', error => callBack(error))
+        writeFile(`${process.env.DB_PATH}/posts.json`, '[]', error => callBack(error))
     })
 }

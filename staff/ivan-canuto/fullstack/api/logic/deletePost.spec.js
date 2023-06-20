@@ -143,4 +143,6 @@ describe('deletePost', () => {
       expect(() => deletePost(post.id, user.id, 'Not a function')).to.throw(Error, 'CallBack is not a function')
     })
   })
+
+  after(cleanUp)
 })

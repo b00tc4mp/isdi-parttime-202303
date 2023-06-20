@@ -145,4 +145,6 @@ describe('toggleSavePost', () => {
       expect(() => toggleSavePost(user.id, post.id, 'Not a function')).to.throw(Error, 'CallBack is not a function')
     })
   })
+
+  after(cleanUp)
 })

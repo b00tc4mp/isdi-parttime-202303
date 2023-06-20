@@ -44,7 +44,7 @@ describe('setPostPrice', () => {
     })
   })
 
-  it('Fails on user not found', done => {
+  it('Fails on post not found', done => {
     const users = [user]
     const posts = [post]
     
@@ -110,7 +110,9 @@ describe('setPostPrice', () => {
     writeFile(`${process.env.DB_PATH}/users.json`, JSON.stringify([user]), error => {
       expect(error).to.be.null
 
-      expect(() => setPostPrice(post.id, 'Not a function')).to.throw(Error, 'CallBack is not a function')
+      expect(() => setPostPrice(post.id, '999', 'Not a function')).to.throw(Error, 'CallBack is not a function')
     })
   })
+
+  after(cleanUp)
 })

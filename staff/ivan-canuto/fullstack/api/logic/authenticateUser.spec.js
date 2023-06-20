@@ -3,6 +3,7 @@ require('dotenv').config()
 const { expect } = require('chai')
 const { readFile, writeFile } = require('fs')
 const authenticateUser = require('./authenticateUser')
+const { cleanUp, generate, populate } = require('./helpers-test')
 
 describe('authenticateUser', () => {
   let id, name, email, password
@@ -120,5 +121,5 @@ describe('authenticateUser', () => {
     done()
   })
 
-  after(done => writeFile(`${process.env.DB_PATH}/users.json`, '[]', error => done(error)))
+  after(cleanUp)
 })

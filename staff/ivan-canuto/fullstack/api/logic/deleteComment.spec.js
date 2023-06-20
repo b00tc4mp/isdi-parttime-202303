@@ -142,4 +142,6 @@ describe('deleteComment', () => {
       expect(() => deleteComment(post.id, comment.id, 'Not a function')).to.throw(Error, 'CallBack is not a function')
     })
   })
+
+  after(cleanUp)
 })

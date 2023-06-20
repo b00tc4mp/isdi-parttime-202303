@@ -3,6 +3,7 @@ require('dotenv').config()
 const { expect } = require('chai')
 const { readFile, writeFile } = require('fs')
 const buyPost = require('./buyPost')
+const { cleanUp, generate, populate } = require('./helpers-test')
 
 describe('buyPost', () => {
   let id, onSale
@@ -88,6 +89,17 @@ describe('buyPost', () => {
     })
   })
 
+  it(`Fails on post's id is empty`, () => {
+    const post = [{id, onSale: 'Sold'}]
+    const postToJSON = JSON.stringify(post)
+
+    writeFile(`${process.env.DB_PATH}/posts.json`, postToJSON, error => {
+      expect(error).to.be.null
+
+      expect(() => buyPost('', () => { })).to.throw(Error, 'The post id field is empty.')
+    })
+  })
+
   it(`Fails on post's id is not a string`, () => {
     const post = [{id, onSale: 'Sold'}]
     const postToJSON = JSON.stringify(post)
@@ -103,17 +115,6 @@ describe('buyPost', () => {
     })
   })
 
-  it(`Fails on post's id is empty`, () => {
-    const post = [{id, onSale: 'Sold'}]
-    const postToJSON = JSON.stringify(post)
-
-    writeFile(`${process.env.DB_PATH}/posts.json`, postToJSON, error => {
-      expect(error).to.be.null
-
-      expect(() => buyPost('', () => { })).to.throw(Error, 'The post id field is empty.')
-    })
-  })
-
   it('Fails on callBack is not a function', done => {
     const post = [{id, onSale: 'Sold'}]
     const postToJSON = JSON.stringify(post)
@@ -123,4 +124,6 @@ describe('buyPost', () => {
       done()
     })
   })
+
+  after(cleanUp)
 })

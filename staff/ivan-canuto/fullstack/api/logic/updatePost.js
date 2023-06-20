@@ -4,8 +4,8 @@ const { validators: { validateId, validateUrl, validateText, validateCallback } 
 module.exports = (userId, postId, imageUrl, postText, callBack) => {
   validateId(userId, 'user id')
   validateId(postId, 'post id')
-  validateUrl(imageUrl)
-  validateText(postText)
+  validateUrl(imageUrl,'image url')
+  validateText(postText, 'post text')
   validateCallback(callBack)
 
   readFile(`${process.env.DB_PATH}/users.json`, (error, usersJSON) => {
@@ -35,7 +35,7 @@ module.exports = (userId, postId, imageUrl, postText, callBack) => {
       const post = posts.find(post => post.id === postId)
 
       if (!post) {
-        callBack(new Error(`Post with id ${postId} not found`))
+        callBack(new Error(`Post with id ${postId} not found.`))
 
         return
       }
@@ -54,7 +54,7 @@ module.exports = (userId, postId, imageUrl, postText, callBack) => {
       posts.splice(postIndex, 1, post)
       const postsToJSON = JSON.stringify(posts)
 
-      writeFile(`${process.env.DB_PATH}/post.json`, postsToJSON, (error) => {
+      writeFile(`${process.env.DB_PATH}/posts.json`, postsToJSON, (error) => {
         if(error) {
           callBack(error)
 

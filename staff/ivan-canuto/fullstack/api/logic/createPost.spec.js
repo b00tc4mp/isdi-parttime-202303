@@ -187,4 +187,6 @@ describe('createPost', () => {
       expect(() => createPost(user.id, post.image, 'Not a function')).to.throw(Error, 'CallBack is not a function')
     })
   })
+
+  after(cleanUp)
 })
