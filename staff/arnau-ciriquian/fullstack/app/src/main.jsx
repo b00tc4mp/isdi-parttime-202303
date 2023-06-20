@@ -22,6 +22,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
                 - quan es borra un user esborrar tots els seus posts!
 
                 - OPTIONAL
+                - session cookies 20230619 2100
                 - custom hooks 20230605 2030
                 - documentar api -> README 20230607 2100 + SWAGER UI
                 - posar un display a lhora de publicar post? per posar o no fotos optativament i al pintar el post un estil {post.image && <img..../>}
