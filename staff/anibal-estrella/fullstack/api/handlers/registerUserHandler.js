@@ -3,9 +3,9 @@ const { registerUser } = require('../logic')
 
 module.exports = (req, res) => {
     try {
-        const { name, email, password } = req.body
+        const { name, email, password, repeatPassword } = req.body
 
-        registerUser(name, email, password, error => {
+        registerUser(name, email, password, repeatPassword, error => {
             if (error) {
                 res.status(400).json({ error: error.message })
 

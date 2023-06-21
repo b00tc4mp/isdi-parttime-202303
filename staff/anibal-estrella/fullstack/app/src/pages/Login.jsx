@@ -44,7 +44,7 @@ export default function Login({ onRegisterClick, onUserLoggedIn }) {
         }
     }
 
-    console.debug('// Login -> RENDER \npj@gmail.com');
+    console.debug('// Login -> RENDER \nEddie\npj@gmail.com\n123123123');
 
     return <div className="login center-container">
         <Panel tag="section">

@@ -2,15 +2,15 @@ import { validators } from 'com'
 
 const { validateName, validateEmail, validatePassword, validateCallback } = validators
 
-export default function registerUser(name, email, password, repeatPasword, callback) {
+export default function registerUser(name, email, password, repeatPassword, callback) {
     validateName(name, 'name')
     validateEmail(email, 'password')
     validatePassword(password, 'password')
-    validatePassword(repeatPasword, 'password')
+    validatePassword(repeatPassword, 'repeat password')
     validateCallback(callback, 'callback function')
 
     //the connector that allows us to connect with the server
-    const xhr = new XMLHttpRequest
+    const xhr = new XMLHttpRequest()
 
     //this is the response from the server tha will cue as a callback
     //this is an eventlistener onload event
@@ -41,9 +41,9 @@ export default function registerUser(name, email, password, repeatPasword, callb
     //     callback(new Error('Connection Error!'))
     // }
 
-    xhr.addEventListener('load', () => {
-        callback(new Error('Connection Error!'))
-    })
+    xhr.onerror = () => {
+        callback(new Error('connection error'))
+    }
 
 
     // oppen the connection and send the data
@@ -53,7 +53,7 @@ export default function registerUser(name, email, password, repeatPasword, callb
     xhr.setRequestHeader('Content-Type', 'application/json')
 
     //create the user object
-    const user = { name, email, password }
+    const user = { name, email, password, repeatPassword }
 
     //convert the JSON as a string
     const json = JSON.stringify(user)

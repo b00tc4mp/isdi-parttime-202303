@@ -39,6 +39,8 @@ export default function Register({ onUserRegistered, onLoginClick }) {
         } catch (error) {
             alert(error.message)
         }
+        unfreeze()
+
     }
 
     console.debug('// Register -> RENDER');

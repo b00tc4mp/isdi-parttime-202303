@@ -5,16 +5,23 @@ const { validators: { validateName, validateEmail, validatePassword, validateCal
 
 
 // create function with the parameters it receives
-module.exports = (name, email, password, callback) => {
+module.exports = (name, email, password, repeatPassword, callback) => {
     validateEmail(email)
     validateName(name)
     validatePassword(password)
+    validatePassword(repeatPassword)
     validateCallback(callback)
 
     //read the users.json, the format of the fils and the error callback
     readFile(`${process.env.DB_PATH}/users.json`, 'utf8', (error, json) => {
         if (error) {
             callback(error)
+            return
+        }
+
+        if (repeatPassword !== password) {
+            callback(new Error(`Password repeat don't match`))
+            // and we finish the process
             return
         }
         //convert the JSON as an object in MEMORY

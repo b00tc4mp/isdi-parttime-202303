@@ -31,9 +31,9 @@
     {
         "id": "post-4",
         "author": "user-1",
-        "image": "Anibal Estrella Duis lobortis massa imperdiet quam. Suspendisse pulvinar, augue ac venenatis condimentum, sem libero volutpat nibh, nec pellentesque velit pede quis nunc. Suspendisse faucibus, nunc et pellentesque egestas, lacus ante convallis tellus, vitae iaculis lacus elit id tortor. Ut leo. Phasellus leo dolor, tempus non, auctor et, hendrerit quis, nisi.",
-        "text": "https://picsum.photos/1500?random=2",
-        "date": "2023-06-20T10:29:55.468Z",
+        "image": "NEW-post text",
+        "text": "NEW-https://picsum.photos/1500?random=1",
+        "date": "2023-06-21T12:30:19.487Z",
         "likes": [
             "user-1",
             "user-2"

@@ -15,7 +15,7 @@ export function updatePost(userId, postId, image, text, callback) {
     validateId(userId, 'user id')
     validateId(postId, 'post id')
     validateCallback(callback, 'callback function')
-)
+
     const xhr = new XMLHttpRequest()
 
     xhr.onload = () => {

@@ -31,6 +31,8 @@ api.post('/users/auth', jsonBodyParser, authenticateUserHandler)
 
 api.get('/users/user', retrieveUserHandler)
 
+api.get('/posts', retrievePostsHandler)
+
 api.get('/posts/:postId', retrievePostHandler)
 
 api.get('/users/posts/likes/', retrieveLikedPostsHandler)
