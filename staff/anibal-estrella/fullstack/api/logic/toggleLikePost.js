@@ -9,7 +9,7 @@ const { validators: { validateId, validateCallback } } = require('com')
  * @param {*} callback 
  */
 
-module.exports = (userId, postId, image, text, callback) => {
+module.exports = (userId, postId, callback) => {
     validateId(userId, 'user id')
     validateId(postId, 'post id')
     validateCallback(callback)
@@ -47,7 +47,8 @@ module.exports = (userId, postId, image, text, callback) => {
             json = JSON.stringify(posts, null, 4)
 
             if (index < 0)
-                post.likes = userId
+                post.likes.push(userId);
+
             else
                 post.likes.splice(index, 1)
 

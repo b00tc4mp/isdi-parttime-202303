@@ -1,5 +1,6 @@
 const { readFile } = require('fs')
 const { validators: { validateId, validateCallback } } = require('com')
+require('dotenv').config()
 
 
 module.exports = (userId, postId, callback) => {

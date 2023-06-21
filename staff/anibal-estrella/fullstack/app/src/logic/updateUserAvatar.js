@@ -30,8 +30,8 @@ export default (userId, avatar, callback) => {
     }
 
     xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/users/${userId}`)
-
     xhr.setRequestHeader('Content-Type', 'application/json')
+
     //send only the avatar of the user as a data
     const data = { avatar }
 

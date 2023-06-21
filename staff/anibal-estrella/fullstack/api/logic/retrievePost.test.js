@@ -1,6 +1,6 @@
-const createPost = require('../createPost')
+const retrievePost = require('./retrievePost')
 
-createPost('user-1', 'post-1', (error, post) => {
+retrievePost('user-1', 'post-1', (error, post) => {
     if (error) {
         console.log(error);
 

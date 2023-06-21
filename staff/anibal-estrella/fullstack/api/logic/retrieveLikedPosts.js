@@ -1,5 +1,4 @@
 require('dotenv').config()
-
 const { readFile } = require('fs')
 const { validators: { validateId, validateCallback } } = require('com')
 
@@ -34,9 +33,23 @@ module.exports = (userId, callback) => {
 
             const posts = JSON.parse(json)
 
-            posts.forEach(post => post.date = new Date(post.date))
+            posts.forEach(post => {
+                post.likes = post.likes.includes(user.id)
 
-            callback(null, posts.reverse())
+                const _user = users.find(user => user.id === post.author)
+
+                //save the user data of the liked posts
+                post.author = {
+                    id: _user.id,
+                    name: _user.name,
+                    avatar: _user.avatar
+                }
+
+            })
+            //toReversed  not working in Node yet
+            console.log(posts[1].likes)
+            callback(null, posts.filter(post => post.likes === true).reverse())
+
         })
     })
 }

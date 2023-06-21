@@ -1,3 +1,4 @@
+require('dotenv').config()
 const { readFile } = require('fs')
 const { validators: { validateId, validateCallback } } = require('com')
 

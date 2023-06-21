@@ -14,5 +14,13 @@
         "password": "123123123",
         "avatar": null,
         "favs": []
+    },
+    {
+        "id": "user-3",
+        "name": "Anibal Estrella",
+        "email": "anibal@gmail.com",
+        "password": "123123123",
+        "avatar": null,
+        "favs": []
     }
 ]

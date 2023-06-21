@@ -16,32 +16,32 @@ const {
     retrievePostsHandler,
     deletePostHandler,
     updatePostHandler,
-    toggleLikeHandler
+    toggleLikePostHandler,
+    retrieveLikedPostsHandler
 } = require('./handlers')
 
 const api = express()
 
 api.use(cors)
-
 api.get('/', helloApiHandler)
 
 api.post('/users', jsonBodyParser, registerUserHandler)
 
 api.post('/users/auth', jsonBodyParser, authenticateUserHandler)
 
-api.get('/users', retrieveUserHandler)
-
-api.get('/posts', retrievePostsHandler)
+api.get('/users/user', retrieveUserHandler)
 
 api.get('/posts/:postId', retrievePostHandler)
+
+api.get('/users/posts/likes/', retrieveLikedPostsHandler)
 
 api.patch('/users/avatar', jsonBodyParser, updateUserAvatarHandler)
 
 api.patch('/users/password', jsonBodyParser, updateUserPasswordHandler)
 
 api.patch('/users/email', jsonBodyParser, updateUserEmailHandler)
-api.patch('/users/like', jsonBodyParser, toggleLikeHandler)
 
+api.patch('/posts/:postId/likes', toggleLikePostHandler)
 
 api.post('/posts', jsonBodyParser, createPostHandler)
 

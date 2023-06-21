@@ -7,33 +7,32 @@ export default function retrieveLikedPosts(userId, callback) {
     validateId(userId, 'user id')
     validateCallback(callback, 'callback function')
 
-    findUserById(userId, user => {
-        if (!user) {
-            callback(new Error(`User ${userId} not found`))
+    const xhr = new XMLHttpRequest
+
+    xhr.onload = () => {
+        const { status } = xhr
+
+        if (status !== 200) {
+            const { response: json } = xhr
+            const { error } = JSON.parse(json)
+
+            callback(new Error(error))
 
             return
         }
+        const { response: json } = xhr
+        const user = JSON.parse(json)
+        callback(null, user)
+    }
 
-        loadPosts(posts => {
-            loadUsers(users => {
-                posts.forEach(post => {
+    xhr.onerror = () => {
+        callback(new Error('Connection Error!'))
+    }
 
-                    post.likes = post.likes.includes(user.id)
+    xhr.open('GET', `${import.meta.env.VITE_API_URL}/users/posts/likes/`)
+    xhr.setRequestHeader('Authorization', `Bearer ${userId}`)
 
-                    const _user = users.find(user => user.id === post.author)
-
-                    post.author = {
-                        id: _user.id,
-                        name: _user.name,
-                        avatar: _user.avatar
-                    }
-                })
-                callback(null, posts.filter(post => post.likes.includes(user.id)).toReversed())
-            })
-
-        })
-    })
-
+    xhr.send()
 }
 
 

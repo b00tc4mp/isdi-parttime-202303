@@ -10,5 +10,7 @@ module.exports = {
     updateUserAvatarHandler: require('./updateUserAvatarHandler'),
     updateUserEmailHandler: require('./updateUserEmailHandler'),
     deletePostHandler: require('./deletePostHandler'),
-    updatePostHandler: require('./updatePostHandler')
+    updatePostHandler: require('./updatePostHandler'),
+    toggleLikePostHandler: require('./toggleLikePostsHandler'),
+    retrieveLikedPostsHandler: require('./retrieveLikedPostsHandler')
 }
