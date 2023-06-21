@@ -16,18 +16,18 @@ export default function Header({ handleToggleMenu, handleReturnToHome, handleOpe
   const theme = getTheme()
 
   return <>
-  <header className="header">
-    <div>
-      <span className="material-symbols-outlined menu-icon" onClick={handleToggleMenu}>menu</span>
-      <h1 className="title" onClick={handleReturnToHome}>Home</h1>
+  <header className="fixed h-32 bg-gray-800 top-0 w-full z-50">
+    <div className="h-full flex justify-evenly items-center">
+      <span className="material-symbols-outlined cursor-pointer text-4xl" onClick={handleToggleMenu}>menu</span>
+      <h1 className="text-4xl cursor-pointer" onClick={handleReturnToHome}>Home</h1>
       {user && <>
-        <div className="name-avatar-profile" onClick={handleOpenProfile}>  
-            <img className="avatar-image" src={user.avatar} alt="avatar image" />
+        <div className="cursor-pointer" onClick={handleOpenProfile}>  
+            <img className="h-10 rounded-full" src={user.avatar} alt="avatar image" />
             <a>{user.name}</a>
         </div>
       </>}
       <span className="material-symbols-outlined dark-mode hover:bg-gray-400 p-2 rounded-full" onClick={switchAppTheme}>{theme === 'light' ? 'light_mode' : 'dark_mode'}</span>
-      <Button className="logout-button" onClick={handleReturnToLogin}>Logout</Button>
+      <Button onClick={handleReturnToLogin}>Logout</Button>
     </div>
   </header>
   </>

@@ -37,7 +37,7 @@ export default function DeletePost({ onDeletedPost, onCancel }) {
         onCancel()
     }}>
       <ModalWindow>
-        <h2 className="text-2xl">Do you want to delete this post?</h2>
+        <h2 className="text-2xl text-black">Do you want to delete this post?</h2>
         <div className="flex justify-around w-full">
           <Button className='text-lg px-5' onClick={handleDeletePost}>Delete</Button>
           <Button className='text-lg px-5' onClick={onCancel}>Cancel</Button>

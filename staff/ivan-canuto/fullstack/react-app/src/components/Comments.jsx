@@ -75,42 +75,45 @@ export default function Comments({ onCloseCommentModal, handleRefreshPosts, post
   }
 
   return <>
-    <section className="comment-section">
-      <div className="above-comments">
+    <section className="flex flex-col items-center h-80">
+      <div className="flex justify-between w-full">
         <div>
-          <img className="post-user-avatar" src={post.author.avatar} alt="post-user-avatar" />
-          <p className="post-user-name">{post.author.name}</p>
+          <img className="h-6 rounded-full" src={post.author.avatar} alt="post-user-avatar" />
+          <p className=" mx-2">{post.author.name}</p>
         </div>
-        <Button className="return-to-post_button" onClick={handleCloseCommentModal}>Return</Button>
+        <Button className="h-8" onClick={handleCloseCommentModal}>Return</Button>
       </div>
 
-      <h2>Post comments</h2>
+      <h2 className="mt-2 mb-4 font-bold text-lg">Post comments</h2>
 
-      <div className="comments">
-        {post.comments && post.comments.map(comment => <Comment
-          key={comment.id}
-          comment={comment}
-          post={post}
-          handleDeleteComment={handleDeleteComment}/>
-        )}
+      <div className="flex flex-col justify-between h-full">
+        <div className="flex flex-col overflow-hidden">
+          {post.comments && post.comments.map(comment => <Comment
+            key={comment.id}
+            comment={comment}
+            post={post}
+            handleDeleteComment={handleDeleteComment}/>
+          )}
+        </div>
+        <div className="w-full flex justify-center">
+          <Button className="" onClick={toggleAddComment}>Add comment</Button>
+        </div>
       </div>
       
-      {addComment ? 
+      {addComment &&
         <ModalContainer onClick={(event) => {
           if(event.target === document.querySelector('.ModalContainer'))
             toggleAddComment()
         }}>
-          <Form className='bg-white h-72' onSubmit={handleCreateComment}>
-          <h2>Add comment</h2>
-            <textarea className="textarea" cols="30" rows="10" name="commentText" autoFocus></textarea>
-            <div className="add-comment_form_buttons">
-              <Button>Add</Button>
+          <Form className='bg-white h-72 py-4' onSubmit={handleCreateComment}>
+          <h2 className="text-lg">Add comment</h2>
+            <textarea className="border-2 border-gray-200 rounded-md p-2" cols="30" rows="10" name="commentText" autoFocus></textarea>
+            <div className="w-full flex justify-evenly">
+              <Button className="w-14">Add</Button>
               <Button type="button" onClick={toggleAddComment}>Cancel</Button>
             </div>
           </Form>
         </ModalContainer>
-        :
-        <Button className="add-comment_button" onClick={toggleAddComment}>Add comment</Button>
       }
     </section>
   </>

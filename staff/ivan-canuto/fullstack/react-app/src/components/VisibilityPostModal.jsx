@@ -64,8 +64,8 @@ export default function VisibilityPost({ onChangedVisibility, onCancel }) {
       onCancel()
   }}>
     <ModalWindow>
-      <h2 className="text-xl">{`Do you want to set the post ${visible ? 'private' : 'public'} ?`}</h2>
-      <div className="flex justify-around w-full">
+      <h2 className="text-xl text-black">{`Do you want to set the post ${visible ? 'private' : 'public'} ?`}</h2>
+      <div className="flex justify-evenly w-full">
         <Button className='text-lg px-5' onClick={handleToggleVisibility}>Yes</Button>
         <Button className='text-lg px-5' onClick={onCancel}>Cancel</Button>
       </div>

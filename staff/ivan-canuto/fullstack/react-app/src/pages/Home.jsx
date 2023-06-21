@@ -157,7 +157,7 @@ export default function Home(props) {
   console.debug("Home -> render")
 
   return (
-    <div className="home page">
+    <section className="bg-gray-400 h-full min-h-screen pt-20">
       <div className="loader"></div>
       <Header
         user={user}
@@ -242,6 +242,6 @@ export default function Home(props) {
           Add post
         </Button>
       </footer>
-    </div>
+    </section>
   )
 }

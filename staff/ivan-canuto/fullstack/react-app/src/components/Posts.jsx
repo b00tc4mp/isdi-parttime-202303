@@ -86,7 +86,7 @@ export default function Posts({ lastPostsUpdate, view, handleOpenBuyPost, handle
       
   }, [lastPostsUpdate])
 
-  return <section className="posts-list">
+  return <section className="py-20 flex flex-col items-center gap-6">
     {posts && posts.map(post => ((post.author.id !== context.userId) && !post.visible) ? '' : <Post
       key={post.id}
       post={post}

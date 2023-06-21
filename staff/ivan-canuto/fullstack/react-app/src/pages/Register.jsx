@@ -47,16 +47,16 @@ export default function Register ({ onLoginClick, onRegisterUser }) {
 
   return <>
     <Container>
-      <h1 className="title">Register</h1>
+      <h1 className="text-black text-6xl my-4">Register</h1>
 
-      <Form className="register-form form" onSubmit={handleRegisterIn}>
+      <Form className="" onSubmit={handleRegisterIn}>
           <Input type="text" name="name" placeholder="name" />
           <Input type="email" name="email" placeholder="email" />
           <Input type="password" name="password" placeholder="password" />
           <Button type="submit">Register</Button>
       </Form>
 
-      <p>Go to <a href="" onClick={handleOnLogin}>Login</a></p>
+      <p className="text-black">Go to <a className="bg-gray-200 hover:bg-gray-300 px-1 rounded cursor-pointer" onClick={handleOnLogin}>Login</a></p>
     </Container>
   </>
 }

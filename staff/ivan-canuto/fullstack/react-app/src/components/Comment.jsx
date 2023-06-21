@@ -4,10 +4,10 @@ import './components-styles/Comment.css'
 
 export default function Comment({ comment, post, handleDeleteComment }) {
 
-  return <div className="comment">
-    <div>
-      <span className="comment-author">{comment.author}</span>: {comment.text}
+  return <div className="mx-2 flex justify-between">
+    <div className="max-w-full overflow-auto">
+      {comment.author}: {comment.text}
     </div>
-    {comment.authorId === context.userId && <span className="material-symbols-outlined delete-comment_icon" onClick={() => handleDeleteComment(post, comment.id)}>delete</span>}
+    {comment.authorId === context.userId && <span className="material-symbols-outlined cursor-pointer" onClick={() => handleDeleteComment(post, comment.id)}>delete</span>}
   </div>
 }

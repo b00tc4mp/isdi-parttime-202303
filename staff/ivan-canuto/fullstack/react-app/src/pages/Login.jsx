@@ -75,16 +75,16 @@ export default function Login ({ onRegisterClick, onLoggedInUser }) {
   console.log('login -> render');
 
   return <Container>
-  <h1 className="title">Login</h1>
+  <h1 className="text-black text-6xl m-4">Login</h1>
 
-  {quote && <p><q className="login-quote">{quote}</q></p>}
+  {quote && <p className="w-1/2 text-center m-2 text-lg"><q className="text-black">{quote}</q></p>}
 
   <Form onSubmit={handleLogin}>
       <Input type="email" name="email" placeholder="email" />
-      <Input type="password" name="password" placeholder="password" />
+      <Input className="text-black" type="password" name="password" placeholder="password" />
       <Button type="submit">Login</Button>
   </Form>
 
-  <p>Go to <a href="" onClick={handleRegisterClick}>Register</a></p>
+  <p className="text-black">Go to <a className="bg-gray-200 hover:bg-gray-300 rounded cursor-pointer" onClick={handleRegisterClick}>Register</a></p>
 </Container>
 }

@@ -86,7 +86,7 @@ export default function ToggleOnSalePost({ onToggledOnSalePost, onCancel }) {
     }}>
       {!onSale &&
         <ModalWindow>
-          <h2 className="text-2xl text-center">
+          <h2 className="text-2xl text-center text-black">
             Do you want to sell this post?
             Please, set a sell price.
           </h2>
@@ -101,9 +101,9 @@ export default function ToggleOnSalePost({ onToggledOnSalePost, onCancel }) {
       }
       {(onSale && onSale !== 'Sold') && 
         <ModalWindow>
-          <h2>Do you want to remove this item from the sale?</h2>
-          <div className="unset-post-price_buttons">
-            <Button onClick={handleUnsetPostPrice}>Yes</Button>
+          <h2 className="text-black text-2xl text-center">Do you want to remove this item from the sale?</h2>
+          <div className="gap-8">
+            <Button className="px-4" onClick={handleUnsetPostPrice}>Yes</Button>
             <Button onClick={onCancel}>Cancel</Button>
           </div>
         </ModalWindow>

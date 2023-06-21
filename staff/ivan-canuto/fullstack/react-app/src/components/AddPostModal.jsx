@@ -102,11 +102,11 @@ export default function AddPost({ onCancel, onCreatedPost }) {
       onCancel()
     }}>
     <Form className='bg-white' onSubmit={handleCreatePost}>
-        <h2>Add post</h2>
+        <h2 className="text-black text-lg">Add post</h2>
         <Input type="url" name="postImage" placeholder="URL Image" autoComplete="off" autoFocus onChange={handleOnChangeEvent}/>
         <Input name="selectedImage" type="file" accept="image/*" onChange={handleSelectImage}/>
         {image ? <img className="max-h-60" src={image}/> : ''}
-        <textarea className="textarea" name="postText" placeholder="Post text" cols="30" rows="10"></textarea>
+        <textarea className="w-full p-2 border-2 text-black border-gray-200 rounded-lg h-40" name="postText" placeholder="Post text" cols="30" rows="10"></textarea>
         <div className="w-full justify-center gap-4">
           <Button className='m-2'>Create post</Button>
           <Button className='m-2' type="button" onClick={handleCloseClick}>Canel</Button>
