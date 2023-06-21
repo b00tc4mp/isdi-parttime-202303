@@ -1,7 +1,6 @@
 import { context } from "../ui"
 import buyPost from "../logic/buyPost"
 import { useEffect, useState } from "react"
-import './components-styles/BuyPostModal.css'
 import ModalContainer from "../library/ModalContainer"
 import ModalWindow from "../library/ModalWindow"
 import Button from "../library/Button";

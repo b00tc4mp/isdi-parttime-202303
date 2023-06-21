@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react"
 import { context } from "../ui"
-import './components-styles/ToggleOnSalePostModal.css'
 import setPostPrice from "../logic/setPostPrice"
 import unsetPostPrice from "../logic/unsetPostPrice"
 import ModalContainer from "../library/ModalContainer"

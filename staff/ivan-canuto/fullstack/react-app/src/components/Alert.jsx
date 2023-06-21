@@ -1,5 +1,4 @@
 import ModalContainer from '../library/ModalContainer'
-import './components-styles/Alert.css'
 
 export default function Alert({ message, level, onAccept }) {
   

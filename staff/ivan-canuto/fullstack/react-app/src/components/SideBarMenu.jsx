@@ -1,5 +1,3 @@
-import './components-styles/SideBarMenu.css'
-
 export default function SideBarMenu({ onHomePage, showOwnPosts, showSavedPosts, openedMenu }) {
   const showHomePage = () => onHomePage()
 

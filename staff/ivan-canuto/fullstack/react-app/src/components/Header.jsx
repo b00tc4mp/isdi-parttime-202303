@@ -1,5 +1,4 @@
 import { getTheme, setTheme } from "../ui"
-import './components-styles/Header.css'
 import { useState } from "react"
 import Button from "../library/Button";
 
@@ -16,7 +15,7 @@ export default function Header({ handleToggleMenu, handleReturnToHome, handleOpe
   const theme = getTheme()
 
   return <>
-  <header className="fixed h-32 bg-gray-800 top-0 w-full z-50">
+  <header className="fixed h-32 bg-header top-0 w-full z-50">
     <div className="h-full flex justify-evenly items-center">
       <span className="material-symbols-outlined cursor-pointer text-4xl" onClick={handleToggleMenu}>menu</span>
       <h1 className="text-4xl cursor-pointer" onClick={handleReturnToHome}>Home</h1>
@@ -26,7 +25,7 @@ export default function Header({ handleToggleMenu, handleReturnToHome, handleOpe
             <a>{user.name}</a>
         </div>
       </>}
-      <span className="material-symbols-outlined dark-mode hover:bg-gray-400 p-2 rounded-full" onClick={switchAppTheme}>{theme === 'light' ? 'light_mode' : 'dark_mode'}</span>
+      <span className="material-symbols-outlined dark-mode hover:bg-gray-400 p-2 rounded-full cursor-pointer" onClick={switchAppTheme}>{theme === 'light' ? 'light_mode' : 'dark_mode'}</span>
       <Button onClick={handleReturnToLogin}>Logout</Button>
     </div>
   </header>

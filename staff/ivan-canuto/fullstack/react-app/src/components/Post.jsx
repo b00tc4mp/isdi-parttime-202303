@@ -3,7 +3,6 @@ import { context } from "../ui"
 import toggleLikePost from "../logic/toggleLikePost"
 import toggleSavePost from "../logic/toggleSavePost"
 import Comments from "./Comments"
-import './components-styles/Post.css'
 import ContextualMenu from "./ContextualMenuModal"
 import Button from "../library/Button";
 import { useAppContext } from "../hooks"
@@ -85,7 +84,7 @@ export default function Post({post, handleRefreshPosts, handleOpenEditPost, hand
   console.debug('Post -> render')
 
     return <>
-    <article className="bg-white h-96 w-96 text-black rounded-md pt-2 flex flex-col items-center" id={id} onScroll={handlePostScroll}>
+    <article className="bg-white h-96 w-96 text-black rounded-md p-2 flex flex-col items-center" id={id} onScroll={handlePostScroll}>
 
       {contextualMenu === 'open' &&  <ContextualMenu
         options={[
@@ -104,62 +103,62 @@ export default function Post({post, handleRefreshPosts, handleOpenEditPost, hand
             <p className="px-1">{author.name}</p>
           </div>
           
-          <div>
+          <div className="flex items-center">
             {(author.id === context.userId) && <>
               <p>{visible ? 'Public' : 'Private'}</p>
               {(onSale && onSale !== 'Sold') && <>
-                <div> 
+                <div className="bg-gray-300 p-1 rounded mx-2 flex"> 
                   <span className="material-symbols-outlined">local_mall</span>
                   <p>{`${onSale}€`}</p>
                 </div>
               </>}
               {(onSale && onSale === 'Sold') && <>
-                <div>
+                <div className="bg-gray-300 p-1 rounded mx-1">
                   <span className="material-symbols-outlined">local_mall</span>
                   <p>{`Sold`}</p>
                 </div>
               </>}
-              <span className="material-symbols-outlined" onClick={toggleContextualMenu}>more_vert</span>
+              <span className="material-symbols-outlined hover:bg-gray-300 cursor-pointer" onClick={toggleContextualMenu}>more_vert</span>
             </>}
             
             {(author.id !== context.userId && onSale) &&
-              <div className="" title="Post on sale" onClick={() => {
+              <div className="h-8 bg-gray-300 rounded mx-1" title="Post on sale" onClick={() => {
                 if(onSale !== 'Sold') {
                   context.postId = id
                   handleOpenBuyPost()
                 }
                 }}>
-                {onSale !== 'Sold' && <Button><span className="material-symbols-outlined">local_mall</span>{`${onSale}€`}</Button>}
-                {onSale === 'Sold' && <p className="text-base flex"><span className="material-symbols-outlined">local_mall</span>Sold</p>}
+                {onSale !== 'Sold' && <Button><span className="material-symbols-outlined p-1">local_mall</span>{`${onSale}€`}</Button>}
+                {onSale === 'Sold' && <p className="text-base flex p-1"><span className="material-symbols-outlined">local_mall</span>Sold</p>}
               </div>}
           </div>
         </section>
         
-        <section className="">
-          <img className="" src={image}/>
+        <section>
+          <img className="w-80 mt-2" src={image}/>
         </section>
 
-        <section className="">
+        <section className="pt-2 pl-4 pb-0 w-full flex justify-start">
           <i className="" onClick={handleToggleFav}>
-              {(!author.favs.includes(id))? <span className="material-symbols-outlined">bookmark</span> : <span className="material-symbols-outlined saved filled">bookmark</span>}
+              {(!author.favs.includes(id))? <span className="material-symbols-outlined cursor-pointer">bookmark</span> : <span className="material-symbols-outlined cursor-pointer saved filled">bookmark</span>}
           </i>
 
           <i>
-            <span className="material-symbols-outlined" onClick={() => {
+            <span className="material-symbols-outlined cursor-pointer" onClick={() => {
               context.postId = id
               setModal('comments')
             }}>mode_comment</span>
           </i>
           
           <i className="" onClick={handleToggleLike}>
-            {(!likes || !likes.includes(context.userId))? <span className="material-symbols-outlined">favorite</span> : <span className="material-symbols-outlined filled liked">favorite</span>}
+            {(!likes || !likes.includes(context.userId))? <span className="material-symbols-outlined cursor-pointer">favorite</span> : <span className="material-symbols-outlined cursor-pointer filled liked">favorite</span>}
           </i>
 
-          <p className="">{likes ? likes.length + ' likes' : '0 likes'}</p>
-          <p className="">{date}</p>
+          <p>{likes ? likes.length + ' likes' : '0 likes'}</p>
+          <p className="ml-2">{date}</p>
         </section>
 
-        <section className="">{text}</section>
+        <section className="w-full px-4">{text}</section>
       </>}
       
       {modal === 'comments' && <Comments

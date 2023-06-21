@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react"
 import { context } from "../ui"
-import './components-styles/VisibilityPostModal.css'
 import ModalContainer from "../library/ModalContainer"
 import toggleVisibilityPost from "../logic/toggleVisibilityPost"
 import ModalWindow from "../library/ModalWindow"
@@ -67,7 +66,7 @@ export default function VisibilityPost({ onChangedVisibility, onCancel }) {
       <h2 className="text-xl text-black">{`Do you want to set the post ${visible ? 'private' : 'public'} ?`}</h2>
       <div className="flex justify-evenly w-full">
         <Button className='text-lg px-5' onClick={handleToggleVisibility}>Yes</Button>
-        <Button className='text-lg px-5' onClick={onCancel}>Cancel</Button>
+        <Button className='text-lg' onClick={onCancel}>Cancel</Button>
       </div>
     </ModalWindow>
   </ModalContainer>

@@ -1,7 +1,6 @@
 import { context } from "../ui"
 import updateUserPassword from "../logic/updateUserPassword"
 import updateUserAvatar from "../logic/updateUserAvatar"
-import './components-styles/ProfileModal.css'
 import ModalContainer from "../library/ModalContainer"
 import Input from "../library/Input"
 import Button from "../library/Button"

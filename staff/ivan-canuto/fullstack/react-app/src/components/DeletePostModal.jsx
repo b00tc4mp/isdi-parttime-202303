@@ -1,6 +1,5 @@
 import deletePost from "../logic/deletePost"
 import { context } from "../ui"
-import './components-styles/DeletePostModal.css'
 import ModalContainer from "../library/ModalContainer"
 import ModalWindow from "../library/ModalWindow"
 import Button from "../library/Button";

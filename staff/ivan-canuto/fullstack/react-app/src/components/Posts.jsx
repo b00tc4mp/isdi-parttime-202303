@@ -4,7 +4,6 @@ import { context } from "../ui";
 import { useState, useEffect } from "react";
 import { retrieveSavedPosts } from "../logic/retrieveSavedPosts";
 import { retrieveUserPosts } from "../logic/retrieveUserPosts";
-import './components-styles/Posts.css'
 import { useAppContext } from "../hooks"
 
 export default function Posts({ lastPostsUpdate, view, handleOpenBuyPost, handleOpenEditPost, handleOpenDeletePost, handleToggleVisibility, handleToggleOnSalePost }) {

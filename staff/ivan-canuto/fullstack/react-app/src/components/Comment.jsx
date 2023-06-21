@@ -1,5 +1,4 @@
 import { context } from "../ui"
-import './components-styles/Comment.css'
 
 
 export default function Comment({ comment, post, handleDeleteComment }) {

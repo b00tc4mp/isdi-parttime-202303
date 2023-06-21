@@ -2,7 +2,6 @@ import createComment from "../logic/createComment"
 import { useState } from "react"
 import deleteComment from "../logic/deleteComment"
 import Comment from "./Comment"
-import './components-styles/Comments.css'
 import { context } from "../ui"
 import Button from "../library/Button";
 import Form from "../library/Form";

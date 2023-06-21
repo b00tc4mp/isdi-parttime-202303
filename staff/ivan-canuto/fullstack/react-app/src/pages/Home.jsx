@@ -157,7 +157,7 @@ export default function Home(props) {
   console.debug("Home -> render")
 
   return (
-    <section className="bg-gray-400 h-full min-h-screen pt-20">
+    <section className="bg-home h-full min-h-screen pt-20">
       <div className="loader"></div>
       <Header
         user={user}
@@ -237,8 +237,8 @@ export default function Home(props) {
         )}
       </main>
 
-      <footer className="home-footer">
-        <Button className="add-post-button" onClick={handleOpenAddPost}>
+      <footer className="h-20 w-screen fixed bottom-0 flex justify-center items-center bg-footer">
+        <Button onClick={handleOpenAddPost}>
           Add post
         </Button>
       </footer>
