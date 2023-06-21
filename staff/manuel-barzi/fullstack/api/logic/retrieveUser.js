@@ -1,31 +1,28 @@
-const { readFile } = require('fs')
-const { validators: { validateId, validateCallback } } = require('com')
+const { validators: { validateId } } = require('com')
+const context = require('./context')
+const { ObjectId } = require('mongodb')
 
-module.exports = (userId, callback) => {
+module.exports = userId => {
     validateId(userId, 'user id')
-    validateCallback(callback)
 
-    readFile(`${process.env.DB_PATH}/users.json`, (error, json) => {
-        if (error) {
-            callback(error)
+    const { users } = context
 
-            return
-        }
+    return users.findOne({ _id: new ObjectId(userId) })
+        .then(user => {
+            if (!user) throw new Error('user not found')
 
-        const users = JSON.parse(json)
+            // sanitize
 
-        const user = users.find(user => user.id === userId)
+            // const { name, email } = user
 
-        if (!user) {
-            callback(new Error(`user with id ${userId} not found`))
+            // return {
+            //     name,
+            //     email
+            // }
 
-            return
-        }
+            delete user._id
+            delete user.password
 
-        const { name, email, avatar } = user
-
-        const user2 = { name, email, avatar }
-
-        callback(null, user2)
-    })
+            return user
+        })
 }
