@@ -42,16 +42,14 @@ const toggleFavouritePost = (userId, postId, callback) => {
         return;
       }
 
-      const index = foundPost.favourites.indexOf(foundUser.id);
+      const index = foundUser.favourites.indexOf(postId);
 
-      if (index < 0) foundPost.favourites.push(foundUser.id);
-      else foundPost.favourites.splice(index, 1);
+      if (index < 0) foundUser.favourites.push(postId);
+      else foundUser.favourites.splice(index, 1);
 
-      posts.push(foundPost);
+      json = JSON.stringify(users);
 
-      json = JSON.stringify(posts, null, 2);
-
-      writeFile(`${process.env.DB_PATH}/posts.json`, json, (error) => {
+      writeFile(`${process.env.DB_PATH}/users.json`, json, (error) => {
         if (error) {
           callback(error);
 

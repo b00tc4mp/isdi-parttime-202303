@@ -4,6 +4,7 @@ const { expect } = require('chai');
 const toggleLikePost = require('./toggleLikePost');
 const { cleanUp, populate, generate } = require('./helpers/test');
 const { readFile } = require('fs');
+const { likedPost } = require('./helpers/test/generate');
 
 describe('toggleLikePost', () => {
   beforeEach(cleanUp);
@@ -14,10 +15,7 @@ describe('toggleLikePost', () => {
     user = generate.user();
     post = generate.post(user.id);
 
-    likedPost = generate.post(user.id);
-    likedPost.likes = [user.id];
-
-    populate([user], [post, likedPost], done);
+    populate([user], [post], done);
   });
 
   it('succeeds on existing user and no liked post', (done) => {
@@ -39,6 +37,13 @@ describe('toggleLikePost', () => {
   });
 
   it('succeeds on existing user and liked post', (done) => {
+    const likedPost = generate.post(user.id);
+    likedPost.likes = [user.id];
+
+    populate([user], [likedPost], (error) => {
+      expect(error).to.be.null;
+    });
+
     toggleLikePost(user.id, likedPost.id, (error) => {
       expect(error).to.be.null;
 
@@ -48,7 +53,7 @@ describe('toggleLikePost', () => {
         const postsData = JSON.parse(json),
           { likes } = postsData[0];
 
-        expect(postsData[0].likes).to.deep.equal([]);
+        expect(likes).to.deep.equal([]);
         expect(likes.length).to.equal(0);
 
         done();

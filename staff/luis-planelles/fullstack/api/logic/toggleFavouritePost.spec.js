@@ -14,23 +14,20 @@ describe('toggleFavouritePost', () => {
     user = generate.user();
     post = generate.post(user.id);
 
-    favouritedPost = generate.post(user.id);
-    favouritedPost.favourite = [user.id];
-
-    populate([user], [post, favouritedPost], done);
+    populate([user], [post], done);
   });
 
   it('succeeds on existing user and no favourite post', (done) => {
     toggleFavouritePost(user.id, post.id, (error) => {
       expect(error).to.be.null;
 
-      readFile(`${process.env.DB_PATH}/posts.json`, (error, json) => {
+      readFile(`${process.env.DB_PATH}/users.json`, (error, json) => {
         expect(error).to.be.null;
 
-        const postsData = JSON.parse(json),
-          { favourites } = postsData[0];
+        const usersData = JSON.parse(json),
+          { favourites } = usersData[0];
 
-        expect(favourites).to.deep.equal([user.id]);
+        expect(favourites).to.deep.equal([post.id]);
         expect(favourites.length).to.equal(1);
 
         done();
@@ -39,16 +36,23 @@ describe('toggleFavouritePost', () => {
   });
 
   it('succeeds on existing user and favourite post', (done) => {
-    toggleFavouritePost(user.id, favouritedPost.id, (error) => {
+    const favouriteUser = generate.user();
+    favouriteUser.favourites = [post.id];
+
+    populate([favouriteUser], [post], (error) => {
+      expect(error).to.be.null;
+    });
+
+    toggleFavouritePost(favouriteUser.id, post.id, (error) => {
       expect(error).to.be.null;
 
-      readFile(`${process.env.DB_PATH}/posts.json`, (error, json) => {
+      readFile(`${process.env.DB_PATH}/users.json`, (error, json) => {
         expect(error).to.be.null;
 
-        const postsData = JSON.parse(json),
-          { favourites } = postsData[0];
+        const userData = JSON.parse(json),
+          { favourites } = userData[0];
 
-        expect(postsData[0].favourites).to.deep.equal([]);
+        expect(favourites).to.deep.equal([]);
         expect(favourites.length).to.equal(0);
 
         done();

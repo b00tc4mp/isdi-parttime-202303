@@ -25,6 +25,7 @@ const retrieveUser = (userId, callback) => {
     }
 
     const retrievedUser = {
+      id: userId,
       name: foundUser.name,
       avatar: foundUser.avatar,
     };

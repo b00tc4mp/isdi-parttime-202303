@@ -48,12 +48,11 @@ const createPost = (userId, image, text, callback) => {
         text,
         date: new Date(),
         likes: [],
-        favourites: [],
       };
 
       posts.push(newPost);
 
-      json = JSON.stringify(posts, null, 2);
+      json = JSON.stringify(posts);
 
       writeFile(`${process.env.DB_PATH}/posts.json`, json, (error) => {
         if (error) {

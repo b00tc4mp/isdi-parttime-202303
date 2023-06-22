@@ -44,7 +44,6 @@ describe('createPost', () => {
           expect(post.text).to.equal(postText);
           expect(post.date).to.equal(date.toISOString());
           expect(post.likes).to.deep.equal([]);
-          expect(post.favourites).to.deep.equal([]);
           expect(posts.length).to.equal(1);
 
           fakeDate.restore();

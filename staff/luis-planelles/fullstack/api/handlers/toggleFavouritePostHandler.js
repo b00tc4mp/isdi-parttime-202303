@@ -1,4 +1,4 @@
-const { toggleFavouritePostHandler } = require('../logic');
+const { toggleFavouritePost } = require('../logic');
 const { extractUserId } = require('../helpers');
 
 const toggleFavouritePostHandler = (req, res) => {

@@ -5,7 +5,9 @@ const retrievePostsHandler = (req, res) => {
   try {
     const userId = extractUserId(req);
 
-    retrievePost(userId, (error, post) => {
+    const { postId } = req.params;
+
+    retrievePost(userId, postId, (error, post) => {
       if (error) {
         res.status(400).json({ error: error.message });
 

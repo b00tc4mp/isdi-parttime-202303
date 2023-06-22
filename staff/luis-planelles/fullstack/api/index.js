@@ -18,6 +18,7 @@ const {
 const { cors, jsonBodyParser } = require('./utils');
 
 const express = require('express');
+
 const api = express();
 
 api.use(cors);
@@ -26,31 +27,21 @@ api.use(cors);
 api.get('/', (req, res) => res.send('Hello, API!'));
 
 api.post('/users', jsonBodyParser, registerUserHandler);
-
 api.post('/users/auth', jsonBodyParser, authenticateUserHandler);
-
 api.get('/users/', retrieveUserHandler);
-
 api.patch('/users/updateAvatar/', jsonBodyParser, updateUserAvatarHandler);
-
 api.patch('/users/updatePassword/', jsonBodyParser, updateUserPasswordHandler);
+api.post('/users/post', jsonBodyParser, createPostHandler);
 
-api.post('/users/posts', jsonBodyParser, createPostHandler);
-
-api.patch('/users/favourite/:postId', toggleFavouritePostHandler);
-
+api.patch('/posts/favourite/:postId', toggleFavouritePostHandler);
 api.patch('/posts/like/:postId', toggleLikePostHandler);
-
-api.patch('/users/updatePost/:postId', jsonBodyParser, updatePostHandler);
-
+api.patch('/posts/updatePost/:postId', jsonBodyParser, updatePostHandler);
 api.get('/posts', retrievePostsHandler);
-
 api.get('/posts/:postId', retrievePostHandler);
-
 api.delete('/posts/deletePost/:postId', deletePostHandler);
 
-api.listen(process.env.PORT, () =>
+const server = api.listen(process.env.PORT, () =>
   console.log(`server running in port ${process.env.PORT}`)
 );
 
-module.exports = api;
+module.exports = { api, server };

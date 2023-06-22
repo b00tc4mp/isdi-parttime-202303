@@ -42,14 +42,12 @@ const toggleLikePost = (userId, postId, callback) => {
         return;
       }
 
-      const index = foundPost.likes.indexOf(foundUser.id);
+      const index = foundPost.likes.indexOf(userId);
 
-      if (index < 0) foundPost.likes.push(foundUser.id);
+      if (index < 0) foundPost.likes.push(userId);
       else foundPost.likes.splice(index, 1);
 
-      posts.push(foundPost);
-
-      json = JSON.stringify(posts, null, 2);
+      json = JSON.stringify(posts);
 
       writeFile(`${process.env.DB_PATH}/posts.json`, json, (error) => {
         if (error) {
