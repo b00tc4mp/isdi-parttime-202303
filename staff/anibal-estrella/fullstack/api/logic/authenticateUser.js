@@ -1,33 +1,22 @@
-const { readFile } = require('fs')
-const { validators: { validateEmail, validatePassword, validateCallback } } = require('com')
+const context = require('./context')
+const { validators: { validateEmail, validatePassword } } = require('com')
 
-module.exports = (email, password, callback) => {
+module.exports = (email, password,) => {
     validateEmail(email)
     validatePassword(password)
-    validateCallback(callback)
 
-    readFile(`${process.env.DB_PATH}/users.json`, 'utf8', (error, json) => {
-        if (error) {
-            callbackify(error)
+    const { users } = context
 
-            return
-        }
+    return users.findOne({ email })
+        .then(user => {
+            if (!user) throw new Error('user not found')
 
-        const users = JSON.parse(json)
+            if (user.password !== password) throw new Error('password mismatch')
 
-        const user = users.find(user => user.email === email)
-
-        if (!user) {
-            callback(new Error(`User with email ${email} not found! 👎`))
-
-            return
-        }
-
-        if (user.password !== password) {
-            callback(new Error('Wrong password 😢'))
-
-            return
-        }
-        callback(null, user.id)
-    })
+            //only return the hash of the _id
+            // "_id": {
+            // "$oid": "6494082b7b80b0e1d774bb87"
+            //   },
+            return user._id.toString()
+        })
 }

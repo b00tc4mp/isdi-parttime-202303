@@ -29,7 +29,9 @@ export default (userId, avatar, callback) => {
         callback(new Error('Connection Error!'))
     }
 
-    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/users/${userId}`)
+    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/users/avatar/`)
+    xhr.setRequestHeader('Authorization', `Bearer ${userId}`)
+
     xhr.setRequestHeader('Content-Type', 'application/json')
 
     //send only the avatar of the user as a data

@@ -1,10 +1,10 @@
 const { writeFile } = require('fs')
+const context = require('../../context')
 
-module.exports = callback => writeFile(`${process.env.DB_PATH}/users.json`, '[]', error => {
-    if (error) {
-        done(error)
+module.exports = () => w{
+    const { users, posts } = context
 
-        return
-    }
-    writeFile(`${process.env.DB_PATH}/users.json`, '[]', error => callback(error))
-})
+    return Promise.all(
+        //TO DO
+    )
+}

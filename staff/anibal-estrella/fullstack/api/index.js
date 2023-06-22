@@ -1,6 +1,8 @@
 require('dotenv').config()
 
 const express = require('express')
+//1. link your context db
+const context = require('./logic/context')
 
 const { cors, jsonBodyParser } = require('./utils')
 const {
@@ -20,35 +22,53 @@ const {
     retrieveLikedPostsHandler
 } = require('./handlers')
 
-const api = express()
+const { MongoClient } = require('mongodb')
 
-api.use(cors)
-api.get('/', helloApiHandler)
+const client = new MongoClient(process.env.MONGODB_URL)
 
-api.post('/users', jsonBodyParser, registerUserHandler)
+client.connect()
+    .then(connection => {
+        const db = connection.db()
 
-api.post('/users/auth', jsonBodyParser, authenticateUserHandler)
+        //2. save the db in ur context file ('./logic/context')
+        context.users = db.collection('users')
+        context.posts = db.collection('posts')
 
-api.get('/users/user', retrieveUserHandler)
+        const api = express()
 
-api.get('/posts', retrievePostsHandler)
+        api.use(cors)
 
-api.get('/posts/:postId', retrievePostHandler)
+        api.get('/', helloApiHandler)
 
-api.get('/users/posts/likes/', retrieveLikedPostsHandler)
+        api.post('/users', jsonBodyParser, registerUserHandler)
 
-api.patch('/users/avatar', jsonBodyParser, updateUserAvatarHandler)
+        api.post('/users/auth', jsonBodyParser, authenticateUserHandler)
 
-api.patch('/users/password', jsonBodyParser, updateUserPasswordHandler)
+        api.get('/users/user', retrieveUserHandler)
 
-api.patch('/users/email', jsonBodyParser, updateUserEmailHandler)
+        api.post('/posts', jsonBodyParser, createPostHandler)
 
-api.patch('/posts/:postId/likes', toggleLikePostHandler)
+        api.get('/posts', retrievePostsHandler)
 
-api.post('/posts', jsonBodyParser, createPostHandler)
+        api.get('/posts/:postId', retrievePostHandler)
 
-api.delete('/posts/:postId', deletePostHandler)
+        api.get('/users/posts/likes/', retrieveLikedPostsHandler)
 
-api.patch('/posts/post/:postId', jsonBodyParser, updatePostHandler)
+        api.patch('/users/avatar', jsonBodyParser, updateUserAvatarHandler)
 
-api.listen(process.env.PORT, () => console.log(`server running in port ${process.env.PORT}`))
+        api.patch('/users/password', jsonBodyParser, updateUserPasswordHandler)
+
+        api.patch('/users/email', jsonBodyParser, updateUserEmailHandler)
+
+        api.patch('/posts/:postId/likes', toggleLikePostHandler)
+
+
+        api.delete('/posts/:postId', deletePostHandler)
+
+        api.patch('/posts/post/:postId', jsonBodyParser, updatePostHandler)
+
+        api.listen(process.env.PORT, () => console.log(`server running in port ${process.env.PORT}`))
+
+    })
+
+    .catch(error => console.error)

@@ -17,7 +17,7 @@ import { BookmarkIcon as BookmarkIconLine } from '@heroicons/react/24/outline'
 
 import './Post.css'
 
-export default function Post({ post: { author, id, image, text, date, likes, fav }, onEditPost, onToggledLikePost, onToggledFavPost }) {
+export default function Post({ post: { author, id, text, image, date, likes, fav }, onEditPost, onToggledLikePost, onToggledFavPost }) {
     //CONTEXT/ALERTS/02// Use the context to return the object alert tha's define in the parent object App.jsx
     const { alert, freeze, unfreeze } = useAppContext()
 
@@ -86,7 +86,6 @@ export default function Post({ post: { author, id, image, text, date, likes, fav
                 <div className="post-buttons-wrapper">
 
                     <button onClick={handleToggleFavPost} className="post-button fav-button icon">Fav
-                        // consultamos si FAV enviado es true o False
                         {fav ? <BookmarkIcon className="favIcon icon" /> : < BookmarkIconLine className="favIcon icon" />}
                     </button>
 
