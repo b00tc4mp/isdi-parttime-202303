@@ -40,9 +40,21 @@ function googl(query, callback) {
 
         xhr.send()
     } else
-        return fetch(`https://www.google.com/search?q=${query}`)
-            .then(response => response.text())
-            .then(html => extractResultsFromGoogleHtml(html))
+        return new Promise((resolve, reject) => {
+            var xhr = new XMLHttpRequest
+
+            xhr.onload = () => {
+                var results = extractResultsFromGoogleHtml(xhr.response)
+
+                resolve(results)
+            }
+
+            xhr.onerror = () => reject(new Error('connection error'))
+
+            xhr.open('GET', `https://www.google.com/search?q=${query}`)
+
+            xhr.send()
+        })
 }
 
 function renderResults(results) {
@@ -77,7 +89,6 @@ googl('barcelona', (error, results) => {
 })
 
 googl('barcelona')
-    // .then(results => renderResults(results))
     .then(renderResults)
     .catch(console.error)
 
