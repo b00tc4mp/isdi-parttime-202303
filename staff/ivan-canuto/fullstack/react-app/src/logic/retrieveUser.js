@@ -20,7 +20,7 @@ export default function retrieveUser(userId, callBack) {
   xhr.onload = () => {
     const { status } = xhr
 
-    if(status !== 201) {
+    if(status !== 200) {
       const { response: json } = xhr
       const { error } = JSON.parse(json)
 

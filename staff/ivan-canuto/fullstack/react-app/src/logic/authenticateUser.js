@@ -30,7 +30,7 @@ export default function authenticateUser(email, password, callBack) {
     }
     
     const { response: json } = xhr
-    const { userId } = JSON.parse(json)
+    const userId = JSON.parse(json)
 
     callBack(null, userId)
   }
