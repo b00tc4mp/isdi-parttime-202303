@@ -1,12 +1,15 @@
-const { writeFile } = require('fs')
+const context = require('../../context')
 
-module.exports = callback =>
-    writeFile(`${process.env.DB_PATH}/users.json`, '[]', error => {
-        if (error) {
-            callback(error)
+module.exports = () => {
+    const { users, posts } = context
 
-            return
-        }
+    // in series
+    // return users.deleteMany()
+    //     .then(() => posts.deleteMany())
 
-        writeFile(`${process.env.DB_PATH}/posts.json`, '[]', error => callback(error))
-    })
+    // in parallel (faster)
+    return Promise.all([
+        users.deleteMany(),
+        posts.deleteMany()
+    ])
+}

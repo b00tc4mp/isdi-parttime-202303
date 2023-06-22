@@ -8,5 +8,11 @@ module.exports = (name, email, password) => {
 
     const { users } = context
 
-    return users.insertOne({ name, email, password })
+    return users.insertOne({ name, email, password, avatar: null, favs: [] })
+        .catch(error => {
+            if (error.message.includes('E11000'))
+                throw new Error(`user with email ${email} already exists`)
+
+            throw error
+        })
 }
