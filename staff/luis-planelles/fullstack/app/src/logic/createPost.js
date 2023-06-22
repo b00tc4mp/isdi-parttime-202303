@@ -28,14 +28,14 @@ const createPost = (userId, image, text, callback) => {
     callback(new Error('connection error'));
   };
 
-  xhr.open('POST', `${import.meta.env.VITE_API_URL}/users/${userId}/posts`);
+  xhr.open('POST', `${import.meta.env.VITE_API_URL}/users/post`);
 
   xhr.setRequestHeader('Content-Type', 'application/json');
+  xhr.setRequestHeader('Authorization', `Bearer ${userId}`);
 
   const post = { image, text },
     json = JSON.stringify(post);
 
-  console.log(json);
   xhr.send(json);
 };
 

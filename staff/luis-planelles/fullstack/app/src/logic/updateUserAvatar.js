@@ -27,12 +27,10 @@ const updateUserAvatar = (userId, avatar, callback) => {
     callback(new Error('Connection error'));
   };
 
-  xhr.open(
-    'PATCH',
-    `${import.meta.env.VITE_API_URL}/users/updateAvatar/${userId}`
-  );
+  xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/users/updateAvatar/`);
 
   xhr.setRequestHeader('Content-Type', 'application/json');
+  xhr.setRequestHeader('Authorization', `Bearer ${userId}`);
 
   const data = { avatar: url },
     json = JSON.stringify(data);

@@ -1,5 +1,3 @@
-import { savePost } from '../data';
-import { findPostById, findUserById } from './helpers/data-managers';
 import {
   validateCallback,
   validateId,
@@ -7,44 +5,46 @@ import {
   validateUrl,
 } from './helpers/validators';
 
-const updatePost = (userId, postId, postImage, postText, callback) => {
+const updatePost = (userId, postId, image, text, callback) => {
   validateId(userId, 'user id');
   validateId(postId, 'post id');
-  validateUrl(postImage, 'image url');
-  validateText(postText);
+  validateUrl(image, 'image url');
+  validateText(text);
   validateCallback(callback);
 
-  findUserById(userId, (foundUser) => {
-    if (!foundUser) {
-      callback(new Error(`user with id ${userId} not exist`));
+  const xhr = XMLHttpRequest();
+
+  const { status } = xhr;
+
+  xhr.onload = () => {
+    if (status !== 204) {
+      const { response: json } = xhr,
+        { error } = JSON.parse(json);
+
+      callback(new Error(error));
 
       return;
     }
 
-    findPostById(postId, (foundPost) => {
-      if (!foundPost) {
-        callback(new Error(`post with id ${postId} not exist`));
+    callback(null);
+  };
 
-        return;
-      }
+  xhr.onerror = () => {
+    callback(new Error('connection error'));
+  };
 
-      if (foundPost.author !== userId) {
-        callback(
-          new Error(
-            `post with id ${postId} does not belong to user with id ${userId}`
-          )
-        );
+  xhr.open(
+    'PATCH',
+    `${import.meta.env.VITE_API_URL}/posts/updatePost/${postId}`
+  );
 
-        return;
-      }
+  xhr.setRequestHeader('Content-Type', 'application/json');
+  xhr.setRequestHeader('Authorization', `Bearer ${userId}`);
 
-      foundPost.image = postImage;
-      foundPost.text = postText;
-      foundPost.date = new Date();
+  const data = { image, text },
+    json = JSON.stringify(data);
 
-      savePost(foundPost, () => callback(null));
-    });
-  });
+  xhr.send(json);
 };
 
 export default updatePost;

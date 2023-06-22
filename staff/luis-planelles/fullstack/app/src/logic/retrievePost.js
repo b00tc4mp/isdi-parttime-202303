@@ -1,28 +1,41 @@
-import { findPostById, findUserById } from './helpers/data-managers.js';
-import { validateCallback, validateId } from './helpers/validators.js';
+import { validators } from 'com';
+
+const { validateId, validateCallback } = validators;
 
 const retrievePost = (userId, postId, callback) => {
   validateId(userId, 'user id');
   validateId(postId, 'post id');
   validateCallback(callback);
 
-  findUserById(userId, (user) => {
-    if (!user) {
-      callback(new Error(`user with id ${userId} not exist`));
+  const xhr = new XMLHttpRequest();
+
+  xhr.onload = () => {
+    const { status } = xhr;
+
+    if (status !== 200) {
+      const { response: json } = xhr;
+      const { error } = JSON.parse(json);
+
+      callback(new Error(error));
 
       return;
     }
 
-    findPostById(postId, (post) => {
-      if (!post) {
-        callback(new Error(`post with id ${postId} not exist`));
+    const { response: json } = xhr;
+    const post = JSON.parse(json);
 
-        return;
-      }
+    callback(null, post);
+  };
 
-      callback(null, post);
-    });
-  });
+  xhr.onerror = () => {
+    callback(new Error('Connection error'));
+  };
+
+  xhr.open('GET', `${import.meta.env.VITE_API_URL}/posts/${postId}`);
+
+  xhr.setRequestHeader('Authorization', `Bearer ${userId}`);
+
+  xhr.send();
 };
 
 export default retrievePost;

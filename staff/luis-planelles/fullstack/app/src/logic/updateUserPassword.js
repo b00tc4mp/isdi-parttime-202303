@@ -34,12 +34,10 @@ const updateUserPassword = (
     callback(new Error('connection error'));
   };
 
-  xhr.open(
-    'PATCH',
-    `${import.meta.env.VITE_API_URL}/users/updatePassword/${userId}`
-  );
+  xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/users/updatePassword/`);
 
   xhr.setRequestHeader('Content-Type', 'application/json');
+  xhr.setRequestHeader('Authorization', `Bearer ${userId}`);
 
   const data = {
       password: password,

@@ -8,7 +8,7 @@ import toggleLikePost from "../logic/toggleLikePost";
 import { context } from "../ui";
 import './Post.css';
 
-const Post = ({ post: { id, author, image, likes, favourite, price, text, date},
+const Post = ({ post: { id, author, image, likes, favourites, price, text, date},
   onEdit, 
   onLike,
   onFavourite,
@@ -60,7 +60,7 @@ const Post = ({ post: { id, author, image, likes, favourite, price, text, date},
   handleLikePost = () => {
 
     try{
-      toggleLikePost(id, context.userId, (error) => {
+      toggleLikePost(context.userId, id, (error) => {
         if (error) {
           alert(error.message)
         
@@ -77,7 +77,7 @@ const Post = ({ post: { id, author, image, likes, favourite, price, text, date},
 
   handleFavouritePost = () => {
     try{
-      toggleFavouritePost(id, context.userId, (error) => {
+      toggleFavouritePost(context.userId, id, (error) => {
         if (error) {
           alert(error.message)
         
@@ -139,13 +139,13 @@ const Post = ({ post: { id, author, image, likes, favourite, price, text, date},
         <img className='post-image' src={image} />
         <div className='post-image-footer'>
           <button className='button-like' onClick={handleLikePost}>
-            {user && likes.includes(user.name) 
+            {user && likes.includes(user.id) 
               ?  <i className='fa fa-heart'></i>
               :  <i className='far fa-heart'></i>
             }
           </button>
           <button className='button-favourites' onClick={handleFavouritePost}>
-            {favourite  
+            {favourites 
               ? <i className='fas fa-bookmark'></i> 
               : <i className='far fa-bookmark'></i>
             }

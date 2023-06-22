@@ -1,48 +1,41 @@
-import { loadPosts, loadUsers, savePosts, saveUsers } from '../data';
-import postBelongingUser from './helpers/postBelongingUser';
-import { validateCallback, validateId } from './helpers/validators';
-
-const deleteFavoritesUsers = (postId, callback) => {
-  validateId(postId, 'post id');
-  validateCallback(callback);
-
-  loadUsers((users) => {
-    for (const user of users) {
-      if (user.info.favourites) {
-        const favouritePostIndex = user.info.favourites.findIndex(
-          (post) => post === postId
-        );
-
-        if (favouritePostIndex !== -1) {
-          user.info.favourites.splice(favouritePostIndex, 1);
-        }
-      }
-    }
-    saveUsers(users, () => callback(null));
-  });
-};
+import { validators } from 'com';
+const { validateId, validateCallback } = validators;
 
 const deletePost = (userId, postId, callback) => {
   validateId(userId, 'user id');
   validateId(postId, 'post id');
   validateCallback(callback);
 
-  postBelongingUser(userId, postId, (error) => {
-    if (error) {
-      callback(error.message);
+  const xhr = new XMLHttpRequest();
+
+  xhr.onload = () => {
+    const { status } = xhr;
+
+    if (status !== 204) {
+      const { response: json } = xhr,
+        { error } = JSON.parse(json);
+
+      callback(new Error(error));
+
+      return;
     }
-    return;
-  });
 
-  loadPosts((posts) => {
-    const postIndex = posts.findIndex((post) => post.id === postId);
+    callback(null);
+  };
 
-    posts.splice(postIndex, 1);
+  xhr.onerror = () => {
+    callback(new Error('connection error'));
+  };
 
-    savePosts(posts, () => callback(null));
-  });
+  xhr.open('DELETE', `${import.meta.env.VITE_API_URL}/posts/${postId}`);
 
-  deleteFavoritesUsers(postId, () => callback(null));
+  xhr.setRequestHeader('Content-Type', 'application/json');
+  xhr.setRequestHeader('Authorization', `Bearer ${userId}`);
+
+  const post = { postId },
+    json = JSON.stringify(post);
+
+  xhr.send(json);
 };
 
 export default deletePost;
