@@ -1,4 +1,5 @@
-const { readFile, writeFile } = require('fs');
+const { users } = require('./context');
+
 const {
   validators: {
     validateName,
@@ -14,52 +15,52 @@ const registerUser = (name, email, password, callback) => {
   validatePassword(password);
   validateCallback(callback);
 
-  readFile(`${process.env.DB_PATH}/users.json`, (error, json) => {
-    if (error) {
-      callback(error);
+  // readFile(`${process.env.DB_PATH}/users.json`, (error, json) => {
+  //   if (error) {
+  //     callback(error);
 
-      return;
-    }
+  //     return;
+  //   }
 
-    const users = JSON.parse(json);
+  //   const users = JSON.parse(json);
 
-    let user = users.find((user) => user.email === email);
+  //   let user = users.find((user) => user.email === email);
 
-    if (user) {
-      callback(new Error(`user with email ${email} already exists`));
+  //   if (user) {
+  //     callback(new Error(`user with email ${email} already exists`));
 
-      return;
-    }
+  //     return;
+  //   }
 
-    let id = 'user-1';
+  //   let id = 'user-1';
 
-    const lastUser = users[users.length - 1];
+  //   const lastUser = users[users.length - 1];
 
-    if (lastUser) id = `user-${parseInt(lastUser.id.slice(5)) + 1}`;
+  //   if (lastUser) id = `user-${parseInt(lastUser.id.slice(5)) + 1}`;
 
-    user = {
-      id,
-      name,
-      email,
-      password,
-      avatar: null,
-      favourites: [],
-    };
+  //   user = {
+  //     id,
+  //     name,
+  //     email,
+  //     password,
+  //     avatar: null,
+  //     favourites: [],
+  //   };
 
-    users.push(user);
+  //   users.push(user);
 
-    json = JSON.stringify(users, null, 2);
+  //   json = JSON.stringify(users, null, 2);
 
-    writeFile(`${process.env.DB_PATH}/users.json`, json, (error) => {
-      if (error) {
-        callback(error);
+  //   writeFile(`${process.env.DB_PATH}/users.json`, json, (error) => {
+  //     if (error) {
+  //       callback(error);
 
-        return;
-      }
+  //       return;
+  //     }
 
-      callback(null);
-    });
-  });
+  //     callback(null);
+  //   });
+  // });
 };
 
 module.exports = registerUser;
