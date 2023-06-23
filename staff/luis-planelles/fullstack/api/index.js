@@ -14,21 +14,22 @@ const {
   toggleFavouritePostHandler,
   toggleLikePostHandler,
 } = require('./handlers');
-const { MongoClient } = require('mongodb');
 const express = require('express');
 const { cors, jsonBodyParser } = require('./utils');
-const api = express();
+const { MongoClient } = require('mongodb');
 const context = require('./logic/context');
-
-let server;
 
 const client = new MongoClient(process.env.MONGODB_URL);
 
 client
   .connect()
   .then((connection) => {
-    context.users = connection.db().collection('users');
-    context.posts = connection.db().collection('posts');
+    const db = connection.db();
+
+    context.users = db.collection('users');
+    context.posts = db.collection('posts');
+
+    let api = express();
 
     api.use(cors);
 
@@ -53,10 +54,8 @@ client
     api.get('/posts/:postId', retrievePostHandler);
     api.delete('/posts/deletePost/:postId', deletePostHandler);
 
-    server = api.listen(process.env.PORT, () =>
+    api.listen(process.env.PORT, () =>
       console.log(`server running in port ${process.env.PORT}`)
     );
   })
   .catch(console.error);
-
-module.exports = { api, server };
