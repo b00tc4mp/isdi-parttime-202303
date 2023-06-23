@@ -6,5 +6,5 @@ xhr.onload = () => {
   console.log(data.hello);
 };
 
-xhr.open('GET', 'http://localhost:4000/helloworld');
+xhr.open('GET', 'http://localhost:4321/helloworld');
 xhr.send();

@@ -21,7 +21,7 @@ const authenticateUser = (email, password, callback) => {
     }
 
     const { response: json } = xhr,
-      { userId } = JSON.parse(json);
+      userId = JSON.parse(json);
 
     callback(null, userId);
   };
