@@ -3,7 +3,6 @@ const { extractUserId } = require('../../helpers')
 
 
 module.exports = (req, res) => {
-
     try {
         const userId = extractUserId(req)
 
