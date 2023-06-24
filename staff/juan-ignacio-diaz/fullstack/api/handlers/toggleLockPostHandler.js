@@ -7,16 +7,11 @@ module.exports = (req, res) => {
         const userId = extractUserId(req)
         const { postId } = req.params
 
-        toggleLockPost(userId, postId, error => {
-            if (error) {
-                res.status(400).json({ error: error.message })
-
-                return
-            }
-
-            res.status(204).send()
-        })
-    } catch (error) {
+        toggleLockPost(userId, postId)
+            .then(res.status(204).send())
+            .catch(error => res.status(400).json({ error: error.message }))
+    }
+     catch (error) {
         res.status(400).json({ error: error.message })
     }
 }

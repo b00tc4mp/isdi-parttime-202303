@@ -1,80 +1,38 @@
-const { readFile, writeFile } = require('fs')
+const { validators: { validateId } } = require('com')
 
-const { validators: { validateId, validateCallback } } = require('com')
+const { ObjectId } = require('mongodb')
 
-module.exports =  function deletePost(userId, postId, callback) {
+module.exports =  (userId, postId) => {
     validateId(userId, 'user id')
     validateId(postId, 'post id')
-    validateCallback(callback)
 
-    readFile(`${process.env.DB_PATH}/users.json`, (error, json) => {
-        if (error) {
-            callback(error)
+    const { users , posts } = context
 
-            return
-        }
+    const promises = []
 
-        const users = JSON.parse(json)
+    promises.push(users.findOne({ _id: new ObjectId(userId) }))
+    promises.push(posts.findOne({ _id: new ObjectId(postId) }))
 
-        const user = users.find(user => user.id === userId)
+    return Promise.all(promises)
+        .then(([user, post]) => {
+            if (!user) throw new Error('user not found')
 
-        if (!user) {
-            callback(new Error(`user with id ${userId} not found`))
+            if (!post) throw new Error('user not found')
 
-            return
-        }
+            if (user.id !== post.author)
+                throw new Error(`Post doesn't belong to this user`)
 
-        readFile(`${process.env.DB_PATH}/posts.json`, (error, json) => {
-            if (error) {
-                callback(error)
+            const promisesUpdate = []
 
-                return
-            }
-
-            const posts = JSON.parse(json)
-
-            const index = posts.findIndex(post => post.id === postId)
-
-            if (index < 0) {
-                callback(new Error(`post with id ${postId} not found`))
-
-                return
-            }
-
-            if (user.id !== posts[index].author){
-                callback(new Error(`Post doesn't belong to this user`))
-
-                return
-            }  
-
-            posts.splice(index, 1)
-
-            users.forEach(user => { 
-                if (user.favs.includes(postId)) 
+            promisesUpdate.push(posts.deleteOne({ _id: new ObjectId(postId)}))
+                
+            promisesUpdate.push(users.find({favs: postId})
+                .then(user => {
                     user.favs.splice(user.favs.findIndex(favs => favs === postId), 1)
-            })
-
-            json = JSON.stringify(posts)
-
-            writeFile(`${process.env.DB_PATH}/posts.json`, json, 'utf8', error => {
-                if (error) {
-                    callback(error)
-
-                    return
-                }
-
-                json = JSON.stringify(users)
-
-                writeFile(`${process.env.DB_PATH}/users.json`, json, 'utf8', error => {
-                    if (error) {
-                        callback(error)
-    
-                        return
-                    }
-    
-                    callback(null)
-                })
-            })
+                }))
+           
+            return Promise.all(promisesUpdate)
         })
-    })
+                
+
 }

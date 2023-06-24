@@ -1,52 +1,24 @@
-const { readFile, writeFile } = require('fs')
-const { validators: { validateId, validatePassword, validateCallback } } = require('com')
+const { validators: { validateId, validatePassword } } = require('com')
 
-module.exports = function updateUserPassword(userId, password, newPassword, newPasswordConfirm, callback) {
+module.exports = (userId, password, newPassword, newPasswordConfirm) => {
     validateId(userId, 'user id')
     validatePassword(password)
     validatePassword(newPassword, 'new password')
     validatePassword(newPasswordConfirm, 'new password confirm')
-    validateCallback(callback)
 
     if (newPassword === password) throw new Error("the new password is equal to the old password", {cause: "newPassword"})
 
     if (newPassword !== newPasswordConfirm) throw new Error("the confirm password is different than then new password", {cause: "newPasswordConfirm"})
 
-    readFile(`${process.env.DB_PATH}/users.json`, (error, json) => {
-        if (error) {
-            callback(error)
+    const { users } = context
 
-            return
-        }
+    return users.findOne({ _id: new ObjectId(userId) })
+        .then(user => {
+            if (!user) throw new Error('user not found')
 
-        const users = JSON.parse(json)
+            if (user.password !== password)  throw new Error('Error the pasword is invalid', {cause: "password"})
 
-        const user = users.find(user => user.id === userId)
+            return users.updateOne({ _id: new ObjectId(userId) }, { $set: { password: newPassword }})
 
-        if (!user) {
-            callback(new Error(`user with id ${userId} not found`))
-
-            return
-        }
-
-        if (user.password !== password) {
-            callback(new Error('Error the pasword is invalid', {cause: "password"}))
-
-            return
-        }
-
-        user.password = newPassword
-
-        const json2 = JSON.stringify(users)
-
-        writeFile(`${process.env.DB_PATH}/users.json`, json2, error => {
-            if (error) {
-                callback(error)
-
-                return
-            }
-
-            callback(null)
         })
-    })
 }

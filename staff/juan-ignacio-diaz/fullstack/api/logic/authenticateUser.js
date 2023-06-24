@@ -1,7 +1,6 @@
-const { readFile } = require('fs')
+const { validators: { validateEmail, validatePassword } } = require('com')
 
-const { validators: { validateEmail, validatePassword, validateCallback } } = require('com')
-
+const context = require('./context')
 /**
  * Authenticates a user by email and password
  * 
@@ -11,37 +10,18 @@ const { validators: { validateEmail, validatePassword, validateCallback } } = re
  * @returns {string} The user's id
  */
 
-module.exports = function authenticateUser(email, password, callback) {
+module.exports = (email, password) => {
     validateEmail(email)
     validatePassword(password)
-    validateCallback(callback)
 
-    readFile(`${process.env.DB_PATH}/users.json`, 'utf8', (error, json) => {
-        if (error) {
-            callback(error)
+    const { users } = context
 
-            return
-        }
+    return users.findOne({ email })
+        .then(user => {
+            if (!user) throw new Error('user not found')
 
-        const users = JSON.parse(json)
+            if (user.password !== password) throw new Error('wrong credentials')
 
-        const user = users.find(user => user.email === email)
-
-        if (!user) {
-            callback(new Error(`user with email ${email} not found`))
-
-            return
-        }
-
-        if (user.password !== password) {
-            callback(new Error('wrong credentials'))
-
-            return
-        }
-
-
- //setTimeout(() => {
-        callback(null, user.id)
-  //}, 5000)
-    })
+            return user._id.toString()
+        })
 }

@@ -1,66 +1,29 @@
-const { readFile, writeFile } = require('fs')
+const { validators: { validateId, validateNumber } } = require('com')
 
-const { validators: { validateId, validateNumber, validateCallback } } = require('com')
+const { ObjectId } = require('mongodb')
 
-module.exports = function updatePriceToPost(userId, postId, price, callback) {
+module.exports = (userId, postId, price) => {
     validateId(userId, 'user id')
     validateId(postId, 'post id')
-    validateCallback(callback)
     validateNumber(price)
 
-    readFile(`${process.env.DB_PATH}/users.json`, (error, json) => {
-        if (error) {
-            callback(error)
+    const { users , posts } = context
 
-            return
-        }
+    const promises = []
 
-        const users = JSON.parse(json)
+    promises.push(users.findOne({ _id: new ObjectId(userId) }))
 
-        const user = users.find(user => user.id === userId)
+    promises.push(posts.findOne({ _id: new ObjectId(postId)}))
 
-        if (!user) {
-            callback(new Error(`user with id ${userId} not found`))
+    return Promise.all(promises)
+        .then(([user, post]) => {
+            if (!user) throw new Error('user not found')
 
-            return
-        }
+            if (!post) throw new Error('user not found')
 
-        readFile(`${process.env.DB_PATH}/posts.json`, (error, json) => {
-            if (error) {
-                callback(error)
+            if (user.id !== post.author)
+                throw new Error(`Post doesn't belong to this user`)
 
-                return
-            }
-
-            const posts = JSON.parse(json)
-
-            const post = posts.find(post => post.id === postId)
-
-            if (!post) {
-                callback(new Error(`post with id ${postId} not found`))
-    
-                return
-            }
-            
-            if (user.id !== post.author){
-                callback(new Error(`Post doesn't belong to this user`))
-
-                return
-            } 
-            
-            post.price = price
-
-            json = JSON.stringify(posts)                
-
-            writeFile(`${process.env.DB_PATH}/posts.json`, json, error => {
-                if (error) {
-                    callback(error)
-    
-                    return
-                }
-    
-                callback(null)
-            })
-        })
-    })
+            return posts.updateOne({ _id: new ObjectId(postId) }, { $set: { price: price }}) 
+        })          
 }

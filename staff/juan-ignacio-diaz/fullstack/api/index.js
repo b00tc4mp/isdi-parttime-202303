@@ -23,51 +23,71 @@ const { createPostHandler,
 
 const { cors, jsonBodyParser } = require('./utils')
 const express = require('express')
-const api = express()
 
-api.use(cors)
+const context = require('./logic/context')
+const mongodb = require('mongodb')
 
-api.get('/', (req, res) => {
-    //debugger
-    res.send('Hello, World!')
-})
+const { MongoClient } = mongodb
 
-api.post('/users', jsonBodyParser, registerUserHandler)
+const client = new MongoClient(process.env.MONGODB_URL)
 
-api.post('/users/auth', jsonBodyParser, authenticateUserHandler)
+client.connect()
+    .then(connection => {
+        const db = connection.db()
 
-api.get('/users', retrieveUserHandler)
+        context.users = db.collection('users')
+        context.posts = db.collection('posts')
 
-api.patch('/users/updatePassword', jsonBodyParser , updateUserPasswordHandler)
+        const api = express()
 
-api.patch('/users/updateAvatar', jsonBodyParser , updateUserAvatarHandler)
+        api.use(cors)
 
-api.patch('/users/updateMode', jsonBodyParser, updateUserModeHandler)
+        api.get('/', (req, res) => {
+            //debugger
+            res.send('Hello, World!')
+        })
 
-api.patch('/users/posts/:postId/toggleSavePost', toggleSavePostHandler)
+        api.post('/users', jsonBodyParser, registerUserHandler)
 
-api.post('/posts', jsonBodyParser, createPostHandler)
+        api.post('/users/auth', jsonBodyParser, authenticateUserHandler)
 
-api.delete('/posts/:postId', deletePostHandler)
+        api.get('/users', retrieveUserHandler)
 
-api.get('/posts/:postId/retrievePost', retrievePostHandler)
+        api.patch('/users/updatePassword', jsonBodyParser , updateUserPasswordHandler)
 
-api.get('/posts/retrieveOnSalePosts', retrieveOnSalePostsHandler)
+        api.patch('/users/updateAvatar', jsonBodyParser , updateUserAvatarHandler)
 
-api.get('/posts/retrievePosts', retrievePostsHandler)
+        api.patch('/users/updateMode', jsonBodyParser, updateUserModeHandler)
 
-api.get('/posts/retrieveSavePosts', retrieveSavePostsHandler)
+        api.patch('/users/posts/:postId/toggleSavePost', toggleSavePostHandler)
 
-api.get('/posts/retrieveUserPosts', retrieveUsersPostsHandler)
+        api.post('/posts', jsonBodyParser, createPostHandler)
 
-api.patch('/posts/:postId/toggleLike', toggleLikePostHandler)
+        api.delete('/posts/:postId', deletePostHandler)
 
-api.patch('/posts/:postId/toggleLock', toggleLockPostHandler)
+        api.get('/posts/:postId/retrievePost', retrievePostHandler)
 
-api.patch('/posts/:postId/updatePost', jsonBodyParser, updatePostHandler)
+        api.get('/posts/retrieveOnSalePosts', retrieveOnSalePostsHandler)
 
-api.patch('/posts/:postId/updateBuy', updateBuyPostHandler)
+        api.get('/posts/retrievePosts', retrievePostsHandler)
 
-api.patch('/posts/:postId/updatePriceToPost', jsonBodyParser, updatePriceToPostHandler)
+        api.get('/posts/retrieveSavePosts', retrieveSavePostsHandler)
 
-api.listen(process.env.PORT, () => console.log(`server running in port ${process.env.PORT}`))
+        api.get('/posts/retrieveUserPosts', retrieveUsersPostsHandler)
+
+        api.patch('/posts/:postId/toggleLike', toggleLikePostHandler)
+
+        api.patch('/posts/:postId/toggleLock', toggleLockPostHandler)
+
+        api.patch('/posts/:postId/updatePost', jsonBodyParser, updatePostHandler)
+
+        api.patch('/posts/:postId/updateBuy', updateBuyPostHandler)
+
+        api.patch('/posts/:postId/updatePriceToPost', jsonBodyParser, updatePriceToPostHandler)
+
+        api.listen(process.env.PORT, () => console.log(`server running in port ${process.env.PORT}`))
+    })
+    .catch(error => {
+        console.error(error)
+    })
+    //.finally(() => client.close())

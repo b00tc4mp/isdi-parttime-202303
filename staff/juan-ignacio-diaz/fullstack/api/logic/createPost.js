@@ -1,48 +1,20 @@
-const { readFile, writeFile } = require('fs')
+const { validators: { validateId, validateUrl, validateText } } = require('com')
 
-const { validators: { validateId, validateUrl, validateText, validateCallback } } = require('com')
+const { ObjectId } = require('mongodb')
+const context = require('./context')
 
-module.exports =  function createPost(userId, image, text, callback) {
+module.exports = (userId, image, text, callback) => {
     validateId(userId, 'user id')
     validateUrl(image, 'image url')
     validateText(text, 'text')
-    validateCallback(callback)
 
-    readFile(`${process.env.DB_PATH}/users.json`, (error, json) => {
-        if (error) {
-            callback(error)
+    const { users , posts } = context
 
-            return
-        }
+    return users.findOne({ _id: new ObjectId(userId) })
+    .then(user => {
+        if (!user) throw new Error('user not found')
 
-        const users = JSON.parse(json)
-
-        const user = users.find(user => user.id === userId)
-
-        if (!user) {
-            callback(new Error(`user with id ${userId} not found`))
-
-            return
-        }
-
-        readFile(`${process.env.DB_PATH}/posts.json`, (error, json) => {
-            if (error) {
-                callback(error)
-    
-                return
-            }
-    
-            const posts = JSON.parse(json)
-
-            let id = 'post-1'
-
-            const lastPost = posts[posts.length - 1]
-
-            if (lastPost)
-                id = `post-${parseInt(lastPost.id.slice(5)) + 1}`
-
-            posts.push({
-                id: id,
+        return posts.insertOne({
                 author: userId,
                 image,
                 text,
@@ -52,20 +24,5 @@ module.exports =  function createPost(userId, image, text, callback) {
                 lock: false,
                 price: 0
             })
-
-            json = JSON.stringify(posts)
-
-            writeFile(`${process.env.DB_PATH}/posts.json`, json, 'utf8', error => {
-                if (error) {
-                    callback(error)
-
-                    return
-                }
-
-                callback(null)
-            })
-        })
     })
-
-
 }

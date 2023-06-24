@@ -8,17 +8,12 @@ module.exports = (req, res) => {
         const { mode } = req.body
 
         if(mode) {
-            updateUserMode(userId, mode, error => {
-                if (error) {
-                    res.status(400).json({ error: error.message })
-
-                    return
-                }
-
-                res.status(204).send()
-            })
+            updateUserMode(userId, mode)
+                .then(res.status(204).send())
+                .catch(error => res.status(400).json({ error: error.message }))
         }
-    } catch (error) {
+    } 
+    catch (error) {
         res.status(400).json({ error: error.message })
     }
 }
