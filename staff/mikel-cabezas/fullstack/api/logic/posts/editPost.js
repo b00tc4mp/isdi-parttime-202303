@@ -1,57 +1,39 @@
-require('dotenv').config()
-const { readFile, writeFile } = require('fs')
-const { validators: { validateUserId, validateText, validatePostId, validateCallback } } = require('com')
-module.exports = (userId, postId, title, text, image, visibility, callback) => {
+const { ObjectId } = require('mongodb')
+const context = require('../context')
+const { validators: { validateUserId, validateText, validatePostId } } = require('com')
+module.exports = (userId, postId, title, text, image, visibility) => {
     validateUserId(userId)
     validatePostId(postId)
     validateText(title)
     validateText(text)
-    validateCallback(callback)
 
-    readFile(`${process.env.DB_PATH}/posts.json`, (error, json) => {
-        if (error) {
-            callback(error)
+    const { posts } = context
+    const _post = { _id: new ObjectId(postId) }
+    let visibilityStatus
+    if (visibility) {
+        visibilityStatus = 'public'
+    } else {
+        visibilityStatus = 'private'
+    }
 
-            return
-        }
-        let visibilityStatus
-        if (visibility) {
-            visibilityStatus = 'public'
-        } else {
-            visibilityStatus = 'private'
-        }
+    return posts.findOne(_post)
+        .then(post => {
+            if (!post) throw new Error('post not found')
 
-        const posts = JSON.parse(json)
-
-        const post = posts.find(post => post.id === postId)
-        const postIndex = posts.findIndex(post => post.id === postId)
-        posts[postIndex] = {
-            id: post.id,
-            author: userId,
-            image: image,
-            title: title,
-            text: text,
-            date: new Date(post.date),
-            lastModify: new Date(),
-            comments: post.comments,
-            likes: post.likes,
-            visibility: visibilityStatus,
-            location: post.location
-        }
-
-        // posts.push(editedPost)
-
-        json = JSON.stringify(posts, null, 4)
-
-        writeFile(`${process.env.DB_PATH}/posts.json`, json, error => {
-            if (error) {
-                callback(error)
-
-                return
-            }
-
-            callback(null)
-
+            return posts.updateOne(_post, {
+                $set: {
+                    image: image,
+                    title: title,
+                    text: text,
+                    date: new Date(post.date),
+                    lastModify: new Date(),
+                    comments: post.comments,
+                    likes: post.likes,
+                    visibility: visibilityStatus,
+                    location: post.location
+                }
+            })
         })
-    })
+
 }
+

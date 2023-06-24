@@ -1,50 +1,47 @@
-require('dotenv').config()
-const { readFile } = require('fs')
-const { validators: { validateUserId, validateCallback } } = require('com')
-module.exports = (userId, callback) => {
+const context = require('../context')
+const { ObjectId } = require('mongodb')
+const { validators: { validateUserId } } = require('com')
+module.exports = userId => {
     validateUserId(userId)
-    validateCallback(callback)
-    readFile(`${process.env.DB_PATH}/users.json`, (error, json) => {
-        if (error) {
-            callback(error)
 
-            return
-        }
-        const users = JSON.parse(json)
-        const user = users.find(user => user.id === userId)
+    const { users, posts } = context
+    const _user = { _id: new ObjectId(userId) }
 
-        if (!user) {
-            callback(new Error(`User with id ${userId} not found`))
+    return users.findOne(_user)
 
-            return
-        }
+        .then(user => {
+            if (!user) new Error(`User with id ${userId} not found`)
 
-        readFile(`${process.env.DB_PATH}/posts.json`, (error, json) => {
-            if (error) {
-                callback(error)
+            return users.find().toArray()
+                .then(users => {
+                    return posts.find().toArray()
+                        .then(posts => {
+                            const favPosts = []
 
-                return
-            }
-            debugger
-            const posts = JSON.parse(json)
-            const favPosts = []
+                            posts.forEach(post => {
+                                debugger
+                                const user = users.find(_user => _user._id.toString() === userId)
+                                const postsFound = user.favs?.includes(post._id.toString())
+                                if (postsFound) {
+                                    post.favs = user.favs.includes(post._id.toString())
+                                    post.date = new Date(post.date)
 
-            posts.forEach(post => {
-                users.filter(user => {
-                    const postsFound = user.favPosts.includes(post.id)
-                    if (postsFound) {
-                        favPosts.push(post)
-                    }
+                                    const postAuthor = users.find(user => user._id.toString() === post.author.toString())
+
+                                    post.author = {
+                                        id: postAuthor._id.toString(),
+                                        name: postAuthor.name,
+                                        image: postAuthor.image
+                                    }
+                                    favPosts.push(post)
+                                }
+
+                            })
+                            return favPosts
+                        })
                 })
-
-                post.author = {
-                    id: user.id,
-                    name: user.name,
-                    image: user.image
-                }
-            })
-
-            callback(null, favPosts.reverse());
         })
-    })
 }
+
+// add saved posts to db
+// db.users.updateOne({ _id: new ObjectId("64948003bf12f13f6b1cb852") }, { $set: { favs: ["649727c3250633946b2b02e5"] }     })

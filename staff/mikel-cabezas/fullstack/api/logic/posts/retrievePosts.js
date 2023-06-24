@@ -1,43 +1,35 @@
-require('dotenv').config()
-const { readFile } = require('fs')
-const { validators: { validateUserId, validateCallback } } = require('com')
-module.exports = (userId, callback) => {
+const context = require('../context')
+const { ObjectId } = require('mongodb')
+const { validators: { validateUserId } } = require('com')
+module.exports = userId => {
     validateUserId(userId)
-    validateCallback(callback)
-    readFile(`${process.env.DB_PATH}/users.json`, (error, json) => {
-        if (error) {
-            callback(error)
 
-            return
-        }
-        const users = JSON.parse(json)
-        const user = users.find(user => user.id === userId)
+    const { users, posts } = context
+    const _user = { _id: new ObjectId(userId) }
 
-        if (!user) {
-            callback(new Error(`User with id ${userId} not found`))
+    return users.findOne(_user)
+        .then(user => {
+            if (!user) new Error(`User with id ${userId} not found`)
 
-            return
-        }
+            return users.find().toArray()
+                .then(users => {
+                    return posts.find().toArray()
+                        .then(posts => {
 
-        readFile(`${process.env.DB_PATH}/posts.json`, (error, json) => {
-            if (error) {
-                callback(error)
+                            posts.forEach(post => {
+                                post.favs = user.savedPosts?.includes(post._id.toString())
+                                post.date = new Date(post.date)
 
-                return
-            }
-            const posts = JSON.parse(json)
+                                const postAuthor = users.find(user => user._id.toString() === post.author.toString())
 
-            posts.forEach(post => {
-                const user = users.find(user => user.id === post.author)
-
-                post.author = {
-                    id: user.id,
-                    name: user.name,
-                    image: user.image
-                }
-            })
-
-            callback(null, posts.reverse());
+                                post.author = {
+                                    id: postAuthor._id.toString(),
+                                    name: postAuthor.name,
+                                    image: postAuthor.image
+                                }
+                            })
+                            return posts
+                        })
+                })
         })
-    })
 }

@@ -1,39 +1,17 @@
-require('dotenv').config()
-const { readFile, writeFile } = require('fs')
-const { validators: { validateUserId, validateEmail, validateCallback } } = require('com')
+const { ObjectId } = require('mongodb')
+const context = require('../context')
+const { validators: { validateUserId, validateEmail } } = require('com')
 
-module.exports = (userId, newEmail, callback) => {
+module.exports = (userId, newEmail) => {
     validateUserId(userId)
     validateEmail(newEmail)
-    validateCallback(callback)
 
-    readFile(`${process.env.DB_PATH}/users.json`, 'utf8', (error, json) => {
-        if (error) {
-            callback(error)
+    const { users } = context
+    const _user = { _id: new ObjectId(userId) }
 
-            return
-        }
-
-        const users = JSON.parse(json)
-        const user = users.find(user => user.id === userId)
-
-        if (!user) {
-            callback(new Error(`User with id ${userId} not found`))
-
-            return
-        }
-        user.email = newEmail
-        const json2 = JSON.stringify(users, null, 4)
-
-        writeFile(`${process.env.DB_PATH}/users.json`, json2, 'utf8', error => {
-            if (error) {
-                callback(error)
-
-                return
-            }
-            callback(null)
+    return users.findOne(_user)
+        .then(user => {
+            if (!user) throw new Error('user not found')
+            return users.updateOne(_user, { $set: { email: newEmail } })
         })
-    })
-
-
 }

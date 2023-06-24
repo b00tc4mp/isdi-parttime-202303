@@ -1,36 +1,22 @@
 require('dotenv').config()
+const context = require('../context')
+const { validators: { validateEmail, validatePassword } } = require('com')
 
-const { readFile } = require('fs')
-const { validators: { validateEmail, validatePassword, validateCallback } } = require('com')
-
-module.exports = function authenticateUser(email, password, callback) {
+module.exports = function authenticateUser(email, password) {
     validateEmail(email)
     validatePassword(password)
-    validateCallback(callback)
 
-    readFile(`${process.env.DB_PATH}/users.json`, (error, json) => {
-        if (error) {
-            callback(error)
+    const { users } = context
 
-            return
-        }
+    return users.findOne({ email })
+        .then(user => {
+            if (!user) throw new Error('user not found')
 
-        const users = JSON.parse(json)
-        const user = users.find(user => user.email === email)
+            if (user.password !== password) throw new Error('wrong credentials')
 
-        if (!user) {
-            callback(new Error(`user with email ${email} not found`))
+            return user._id.toString()
+        })
 
-            return
-        }
 
-        if (user.password !== password) {
-            callback(new Error('Incorrect user or password'))
-
-            return
-        }
-
-        callback(null, user.id)
-    })
 
 }
