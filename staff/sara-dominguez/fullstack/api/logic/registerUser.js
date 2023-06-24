@@ -1,60 +1,67 @@
-const { readFile, writeFile } = require('fs') //common js (antigua escuela, file systems -> fs)
-const { validators: { validateName, validateEmail, validatePassword, validateCallback } } = require('com')
+const context = require('./context')
+const { validators: { validateName, validateEmail, validatePassword } } = require('com')
 
-module.exports = function registerUser(name, email, password, callback) {
+module.exports = function registerUser(name, email, password) {
     validateName(name)
     validateEmail(email)
     validatePassword(password)
-    validateCallback(callback)
 
-    readFile(`${process.env.DB_PATH}/users.json`, 'utf8', (error, json) => {
-        if (error) {
-            callback(error)
+    const { users } = context
 
-            return
-        }
-        const users = JSON.parse(json)
-
-        let user = users.find(user => user.email === email)
-
-        if (user) {
-            callback(new Error(`user with email ${email} already exist`))
-
-            return
-        }
-        let id = 'user-1'
-
-        const lastUser = users[users.length - 1]
-
-        if (lastUser)
-            id = `user-${parseInt(lastUser.id.slice(5)) + 1}`
+    //AHORA CON PROMESAS
+    return users.insertOne({ name, email, password })
 
 
-        user = ({
-            id,
-            name,
-            email,
-            password,
-            avatar: null,
-            favs: []
-        })
 
-        users.push(user)
+    // ANTES CON CALLBACKS
+    // readFile(`${process.env.DB_PATH}/users.json`, 'utf8', (error, json) => {
+    //     if (error) {
+    //         callback(error)
 
-        //añadimos dos parámetros para que se guarde formateado
-        json = JSON.stringify(users, null, 4)
+    //         return
+    //     } 
+    //     const users = JSON.parse(json) 
+
+    //     let user = users.find(user => user.email === email)
+
+    //     if (user) {
+    //         callback(new Error(`user with email ${email} already exist`))
+
+    //         return
+    //     }
+    //     let id = 'user-1'
+
+    //     const lastUser = users[users.length - 1]
+
+    //     if (lastUser)
+    //         id = `user-${parseInt(lastUser.id.slice(5)) + 1}`
 
 
-        writeFile(`${process.env.DB_PATH}/users.json`, json, 'utf8', error => {
-            if (error) {
-                callback(error)
+    //     user = ({
+    //         id,
+    //         name,
+    //         email,
+    //         password,
+    //         avatar: null,
+    //         favs: []
+    //     })
 
-                return
-            }
+    //     users.push(user)
 
-            callback(null)
+    //     //añadimos dos parámetros para que se guarde formateado
+    //     json = JSON.stringify(users, null, 4)
 
-        })
-    })
+
+    //     writeFile(`${process.env.DB_PATH}/users.json`, json, 'utf8', error => {
+    //         if (error) {
+    //             callback(error)
+
+    //             return
+    //         }
+
+    //         callback(null)
+
+    //     })
+    // })
 
 }

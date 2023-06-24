@@ -1,34 +1,46 @@
-const { readFile } = require('fs')
-const { validators: { validateEmail, validatePassword, validateCallback } } = require('com')
+const context = require('./context')
+const { validators: { validateEmail, validatePassword } } = require('com')
 
-module.exports = function authenticateUser(email, password, callback) {
+module.exports = function authenticateUser(email, password) {
     validateEmail(email)
     validatePassword(password)
-    validateCallback(callback)
 
-    readFile(`${process.env.DB_PATH}/users.json`, (error, json) => {
-        if (error) {
-            callback(error)
+    const { users } = context
 
-            return
-        }
+    return users.findOne({ email })
+        .then(user => {
+            if (!user) throw new Error('user not found')
 
-        const users = JSON.parse(json)
+            if (user.password !== password) throw new Error('error credentials')
 
-        const user = users.find(user => user.email === email)
+            return user._id.toString()//lo convierto a string para evitar poner a la vista datos internos de mongo
+        })
 
-        if (!user) {
-            callback(new Error(`user with email ${email} not found`))
 
-            return
-        }
+    // Antes con callbacks
+    // readFile(`${process.env.DB_PATH}/users.json`, (error, json) => {
+    //     if (error) {
+    //         callback(error)
 
-        if (user.password !== password) {
-            callback(new Error('wrong credentials'))
+    //         return
+    //     }
 
-            return
-        }
+    //     const users = JSON.parse(json)
 
-        callback(null, user.id)
-    })
+    //     const user = users.find(user => user.email === email)
+
+    //     if (!user) {
+    //         callback(new Error(`user with email ${email} not found`))
+
+    //         return
+    //     }
+
+    //     if (user.password !== password) {
+    //         callback(new Error('wrong credentials'))
+
+    //         return
+    //     }
+
+    //     callback(null, user.id)
+    // })
 }
