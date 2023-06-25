@@ -8,6 +8,7 @@ export function EditPostModal({ postId, onCancel, onPostUpdated }) {
 
     const [post, setPost] = useState({})
 
+    let newImage
     useEffect(() => {
         try {
             retrievePostByPostId(userId, postId, (error, post) => {
@@ -31,11 +32,11 @@ export function EditPostModal({ postId, onCancel, onPostUpdated }) {
 
     }
     function handleUpdateEditPost(event) {
+        debugger
         event.preventDefault()
         const title = event.target.parentElement.parentElement.elements['title'].value
         const text = event.target.parentElement.parentElement.elements['text'].value
         const image = event.target.parentElement.parentElement.children['post-image'].src
-        debugger
         const visibility = event.target.parentElement.parentElement.elements.visibility.checked
         try {
             editPost(userId, postId, title, text, image, visibility, error => {
@@ -52,6 +53,25 @@ export function EditPostModal({ postId, onCancel, onPostUpdated }) {
 
     }
 
+    function handleConvertImageToBase64() {
+        const file = document.querySelector('.edit-post input[type="file"]')
+        const imagePostPreview = document.querySelector('.edit-post .post-image')
+        const imageTarget = document.querySelector('.edit-post input[type="file"]')
+        const printImage = file.onchange = function (event) {
+            debugger
+            const file = event.target.files[0]
+            const image = new FileReader()
+            image.onload = () => {
+                const base64 = image.result
+                newImage = base64
+                imagePostPreview.src = base64
+                imageTarget.src = base64
+            }
+            image.readAsDataURL(file)
+            return file
+        }
+    }
+
     return <div className="overlay edit-post">
         <form className="edit-post">
             <input type="hidden" />
@@ -64,7 +84,7 @@ export function EditPostModal({ postId, onCancel, onPostUpdated }) {
             <input type="text" className="title" name="title" defaultValue={post.title} />
             <img className="post-image" name="post-image" src={post.image} alt="" />
             <label htmlFor="file">Edit your image</label>
-            <input type="file" name="file" id="" accept=".jpg, .jpeg, .png, .webp" />
+            <input className="new-image" type="file" name="file" id="" accept=".jpg, .jpeg, .png, .webp" onClick={handleConvertImageToBase64} />
             <label htmlFor="textarea">Edit your process</label>
             <textarea id="" cols="30" rows="5" name="text" defaultValue={post.text}></textarea>
             <div className="buttons">

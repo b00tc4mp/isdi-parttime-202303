@@ -5,7 +5,7 @@ const { validators: { validateUserId, validatePostId } } = require('com')
 module.exports = (userId, postId) => {
     validateUserId(userId)
     validatePostId(postId)
-    const { users, posts } = context
+    const { posts } = context
 
     return posts.deleteMany({ _id: new ObjectId(postId) })
 

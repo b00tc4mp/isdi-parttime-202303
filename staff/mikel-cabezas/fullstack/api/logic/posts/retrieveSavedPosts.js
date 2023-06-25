@@ -8,7 +8,6 @@ module.exports = userId => {
     const _user = { _id: new ObjectId(userId) }
 
     return users.findOne(_user)
-
         .then(user => {
             if (!user) new Error(`User with id ${userId} not found`)
 
@@ -19,7 +18,6 @@ module.exports = userId => {
                             const favPosts = []
 
                             posts.forEach(post => {
-                                debugger
                                 const user = users.find(_user => _user._id.toString() === userId)
                                 const postsFound = user.favs?.includes(post._id.toString())
                                 if (postsFound) {
@@ -35,7 +33,6 @@ module.exports = userId => {
                                     }
                                     favPosts.push(post)
                                 }
-
                             })
                             return favPosts
                         })

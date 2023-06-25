@@ -15,7 +15,6 @@ module.exports = userId => {
                 .then(users => {
                     return posts.find().toArray()
                         .then(posts => {
-
                             posts.forEach(post => {
                                 post.favs = user.savedPosts?.includes(post._id.toString())
                                 post.date = new Date(post.date)

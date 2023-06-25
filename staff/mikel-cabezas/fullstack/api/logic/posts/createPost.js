@@ -6,11 +6,8 @@ module.exports = (userId, image, title, text, location) => {
     validateText(title)
     validateText(text)
 
-    const { users, posts } = context
-    const _user = { _id: new ObjectId(userId) }
+    const { posts } = context
 
-    // const lastPostPosition = posts.countDocuments()
-    // console.log(lastPostPosition)
     return posts.insertOne({
         author: userId,
         image: image,
@@ -22,5 +19,4 @@ module.exports = (userId, image, title, text, location) => {
         visibility: 'public',
         location: ''
     })
-
 }

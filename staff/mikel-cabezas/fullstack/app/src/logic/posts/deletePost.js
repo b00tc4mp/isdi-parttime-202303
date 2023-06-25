@@ -1,9 +1,11 @@
-import { loadPosts, loadUsers, savePosts } from '../../data.js'
 import { validators } from 'com';
 
-const { validateUserId } = validators
+const { validateUserId, validatePostId } = validators
 
 export function deletePost(userId, postId, callback) {
+
+    validateUserId(userId)
+    validatePostId(postId)
 
     const xhr = new XMLHttpRequest
     xhr.onload = () => {
@@ -18,7 +20,7 @@ export function deletePost(userId, postId, callback) {
             return
         }
 
-        callback(null, posts)
+        callback(null)
     }
     xhr.onerror = () => {
         callback(new Error('connection error'))

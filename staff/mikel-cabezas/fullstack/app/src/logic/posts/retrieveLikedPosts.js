@@ -9,7 +9,6 @@ export default function retrieveLikedPosts(userId, callback) {
     const xhr = new XMLHttpRequest
     xhr.onload = () => {
         const { status } = xhr
-        debugger
         if (status !== 200) {
             const { response: json } = xhr
             const { error } = JSON.parse(json)
@@ -27,7 +26,7 @@ export default function retrieveLikedPosts(userId, callback) {
     xhr.onerror = () => {
         callback(new Error('connection error'))
     }
-    xhr.open("PATCH", `${import.meta.env.VITE_API_URL}/posts/liked`)
+    xhr.open("GET", `${import.meta.env.VITE_API_URL}/posts/liked`)
     xhr.setRequestHeader('Authorization', `Bearer ${userId}`)
 
 

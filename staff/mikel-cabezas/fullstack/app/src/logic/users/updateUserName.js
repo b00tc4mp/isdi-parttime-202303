@@ -7,6 +7,7 @@ export default (userId, name, callback) => {
     validateUserId(userId)
     validateName(name)
     validateCallback(callback)
+    debugger
     const xhr = new XMLHttpRequest
     xhr.onload = () => {
         const { status } = xhr
@@ -27,9 +28,9 @@ export default (userId, name, callback) => {
         callback(new Error('connection error'))
     }
 
-    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/users/username/${userId}`)
-
+    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/users/username`)
     xhr.setRequestHeader('Content-Type', 'application/json')
+    xhr.setRequestHeader('Authorization', `Bearer ${userId}`)
 
     const userData = { name }
     const json = JSON.stringify(userData)

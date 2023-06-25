@@ -31,11 +31,12 @@ export default (userId, image, callback) => {
         callback(new Error('connection error'))
     }
 
-    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/users/image/${userId}`)
-
+    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/users/image`)
     xhr.setRequestHeader('Content-Type', 'application/json')
-
-    const userData = { image }
+    xhr.setRequestHeader('Authorization', `Bearer ${userId}`)
+    const newImage = image.src
+    const userData = { newImage }
+    debugger
     const json = JSON.stringify(userData)
 
     xhr.send(json)

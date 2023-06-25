@@ -29,10 +29,9 @@ export function updateUserPassword(userId, password, newPassword, repeatPassword
         callback(new Error('connection error'))
     }
 
-    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/users/password/${userId}`)
-
-
+    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/users/password`)
     xhr.setRequestHeader('Content-Type', 'application/json')
+    xhr.setRequestHeader('Authorization', `Bearer ${userId}`)
 
     const userData = { password, newPassword, repeatPassword }
 

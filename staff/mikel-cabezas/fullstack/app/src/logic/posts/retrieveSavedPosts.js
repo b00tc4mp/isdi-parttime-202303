@@ -25,7 +25,7 @@ export default function retrieveSavedPosts(userId, callback) {
     xhr.onerror = () => {
         callback(new Error('connection error'))
     }
-    xhr.open("PATCH", `${import.meta.env.VITE_API_URL}/posts/saved`)
+    xhr.open("GET", `${import.meta.env.VITE_API_URL}/posts/saved`)
     xhr.setRequestHeader('Authorization', `Bearer ${userId}`)
 
     xhr.send()

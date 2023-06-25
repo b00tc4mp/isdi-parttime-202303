@@ -10,7 +10,7 @@ export function editPost(userId, postId, title, text, image, visibility, callbac
     const xhr = new XMLHttpRequest
     xhr.onload = () => {
         const { status } = xhr
-        debugger
+
         if (status !== 204) {
             const { response: json } = xhr
             const { error } = JSON.parse(json)
