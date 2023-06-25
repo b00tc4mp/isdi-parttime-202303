@@ -1,0 +1,8 @@
+classe unica per cada invader
+classe unica per cada missil
+
+pusheshar els missils a l'array de missils i same same amb els ivnaders
+
+explosio i fum a l'impacte
+
+guardar dades en format JSON

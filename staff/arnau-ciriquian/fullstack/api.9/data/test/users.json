@@ -1,0 +1,92 @@
+[
+    {
+        "id": "user-1",
+        "name": "Tinker",
+        "email": "pepito@grillo1.com",
+        "password": "123123123",
+        "avatar": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSd_lRxaqAdPwPD-xnrs_bJgE4tnWOdwKW7sA&usqp=CAU",
+        "favs": []
+    },
+    {
+        "id": "user-2",
+        "name": "Tinker",
+        "email": "tinkero@bell.com",
+        "password": "123123123",
+        "avatar": "new avatar",
+        "favs": []
+    },
+    {
+        "id": "user-3",
+        "name": "Onilla",
+        "email": "oni@ciriquian.com",
+        "password": "Onilla1",
+        "avatar": null,
+        "favs": [
+            "post-1"
+        ]
+    },
+    {
+        "id": "user-4",
+        "name": "Onilla",
+        "email": "ona@ciriquian.com",
+        "password": "Onilla1",
+        "avatar": null,
+        "favs": []
+    },
+    {
+        "id": "user-5",
+        "name": "Anneta100",
+        "email": "anneta100@renau.com",
+        "password": "Anneta100",
+        "avatar": "hola mundo",
+        "favs": []
+    },
+    {
+        "id": "user-6",
+        "name": "Anna",
+        "email": "anneta@renau.com",
+        "password": "Anna1",
+        "avatar": "hola mundo",
+        "favs": []
+    },
+    {
+        "id": "user-7",
+        "name": "Anna Onilla",
+        "email": "onilla@renau.com",
+        "password": "Anna1",
+        "avatar": null,
+        "favs": []
+    },
+    {
+        "id": "user-8",
+        "name": "ArnauCiri",
+        "email": "arnauet@ciriquian.com",
+        "password": "Arnau1",
+        "avatar": null,
+        "favs": []
+    },
+    {
+        "id": "user-9",
+        "name": "ArnauCiri",
+        "email": "arnef@ciriquian.com",
+        "password": "Arnau1",
+        "avatar": null,
+        "favs": []
+    },
+    {
+        "id": "user-10",
+        "name": "go rila",
+        "email": "go@rila.com",
+        "password": "Gori1",
+        "avatar": null,
+        "favs": []
+    },
+    {
+        "id": "user-11",
+        "name": "Arnau",
+        "email": "arnau@ciriquian.com",
+        "password": "Arnau1",
+        "avatar": null,
+        "favs": []
+    }
+]

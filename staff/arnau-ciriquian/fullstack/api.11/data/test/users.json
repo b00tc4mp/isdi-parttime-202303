@@ -1,0 +1,34 @@
+[
+    {
+        "id": "user-1",
+        "name": "Ona",
+        "email": "ona@ciriquian.com",
+        "password": "Ona1",
+        "avatar": null,
+        "favs": []
+    },
+    {
+        "id": "user-2",
+        "name": "Arnau",
+        "email": "arnau@ciriquian.com",
+        "password": "Arnau1",
+        "avatar": null,
+        "favs": []
+    },
+    {
+        "id": "user-3",
+        "name": "Arnau",
+        "email": "arnau1@ciriquian.com",
+        "password": "Arnau1",
+        "avatar": null,
+        "favs": []
+    },
+    {
+        "id": "user-4",
+        "name": "Arnau",
+        "email": "arnau12@ciriquian.com",
+        "password": "Arnau1",
+        "avatar": null,
+        "favs": []
+    }
+]

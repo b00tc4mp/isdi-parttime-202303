@@ -1,0 +1,5 @@
+classe unica per cada invader
+
+pusheshar cada invader a l'array de invaders de cada row
+
+explosio i fum a l'impacte

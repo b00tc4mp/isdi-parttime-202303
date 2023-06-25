@@ -1,0 +1,213 @@
+enemies pos: 2 - enemies direction: 1
+enemies pos: 3 - enemies direction: 1
+enemies pos: 4 - enemies direction: 1
+enemies pos: 5 - enemies direction: 1
+enemies pos: 6 - enemies direction: 1
+enemies pos: 7 - enemies direction: 1
+enemies pos: 8 - enemies direction: 1
+enemies pos: 9 - enemies direction: 1
+enemies pos: 10 - enemies direction: 1
+enemies pos: 11 - enemies direction: 1
+enemies pos: 12 - enemies direction: 1
+enemies pos: 13 - enemies direction: 1
+enemies pos: 2 - enemies direction: 1
+enemies pos: 3 - enemies direction: 1
+enemies pos: 4 - enemies direction: 1
+enemies pos: 5 - enemies direction: 1
+enemies pos: 6 - enemies direction: 1
+enemies pos: 7 - enemies direction: 1
+enemies pos: 8 - enemies direction: 1
+enemies pos: 9 - enemies direction: 1
+enemies pos: 10 - enemies direction: 1
+enemies pos: 11 - enemies direction: 1
+enemies pos: 12 - enemies direction: 1
+enemies pos: 13 - enemies direction: 1
+enemies pos: 3 - enemies direction: 1
+enemies pos: 4 - enemies direction: 1
+enemies pos: 5 - enemies direction: 1
+enemies pos: 6 - enemies direction: 1
+enemies pos: 7 - enemies direction: 1
+enemies pos: 8 - enemies direction: 1
+enemies pos: 9 - enemies direction: 1
+enemies pos: 10 - enemies direction: 1
+enemies pos: 11 - enemies direction: 1
+enemies pos: 12 - enemies direction: 1
+enemies pos: 13 - enemies direction: 1
+enemies pos: 3 - enemies direction: 1
+enemies pos: 4 - enemies direction: 1
+enemies pos: 5 - enemies direction: 1
+enemies pos: 6 - enemies direction: 1
+enemies pos: 7 - enemies direction: 1
+enemies pos: 8 - enemies direction: 1
+enemies pos: 9 - enemies direction: 1
+enemies pos: 10 - enemies direction: 1
+enemies pos: 11 - enemies direction: 1
+enemies pos: 12 - enemies direction: 1
+enemies pos: 13 - enemies direction: 1
+enemies pos: 3 - enemies direction: 1 - back space: 10
+enemies pos: 4 - enemies direction: 1 - back space: 9
+enemies pos: 5 - enemies direction: 1 - back space: 8
+enemies pos: 6 - enemies direction: 1 - back space: 7
+enemies pos: 7 - enemies direction: 1 - back space: 6
+enemies pos: 8 - enemies direction: 1 - back space: 5
+enemies pos: 9 - enemies direction: 1 - back space: 4
+enemies pos: 10 - enemies direction: 1 - back space: 3
+enemies pos: 11 - enemies direction: 1 - back space: 2
+enemies pos: 12 - enemies direction: 1 - back space: 1
+enemies pos: 13 - enemies direction: 1 - back space: 0
+enemies pos: 3 - enemies direction: 1 - back space: 10
+enemies pos: 4 - enemies direction: 1 - back space: 9
+enemies pos: 5 - enemies direction: 1 - back space: 8
+enemies pos: 6 - enemies direction: 1 - back space: 7
+enemies pos: 7 - enemies direction: 1 - back space: 6
+enemies pos: 8 - enemies direction: 1 - back space: 5
+enemies pos: 9 - enemies direction: 1 - back space: 4
+enemies pos: 10 - enemies direction: 1 - back space: 3
+enemies pos: 11 - enemies direction: 1 - back space: 2
+enemies pos: 12 - enemies direction: 1 - back space: 1
+enemies pos: 13 - enemies direction: 1 - back space: 0
+enemies pos: 14 - enemies direction: 1 - back space: -1
+enemies pos: 3 - enemies direction: 1 - back space: 10 - 
+enemies pos: 4 - enemies direction: 1 - back space: 9 - 
+enemies pos: 5 - enemies direction: 1 - back space: 8 - 
+enemies pos: 6 - enemies direction: 1 - back space: 7 - 
+enemies pos: 7 - enemies direction: 1 - back space: 6 - 
+enemies pos: 8 - enemies direction: 1 - back space: 5 - 
+enemies pos: 9 - enemies direction: 1 - back space: 4 - 
+enemies pos: 10 - enemies direction: 1 - back space: 3 - 
+enemies pos: 11 - enemies direction: 1 - back space: 2 - 
+enemies pos: 12 - enemies direction: 1 - back space: 1 - 
+enemies pos: 13 - enemies direction: 1 - back space: 0 - 
+enemies pos: 14 - enemies direction: 1 - back space: -1 - 
+enemies pos: 3 - enemies direction: 1 - back space: 10 - 
+enemies pos: 4 - enemies direction: 1 - back space: 9 - 
+enemies pos: 5 - enemies direction: 1 - back space: 8 - 
+enemies pos: 6 - enemies direction: 1 - back space: 7 - 
+enemies pos: 7 - enemies direction: 1 - back space: 6 - 
+enemies pos: 8 - enemies direction: 1 - back space: 5 - 
+enemies pos: 9 - enemies direction: 1 - back space: 4 - 
+enemies pos: 10 - enemies direction: 1 - back space: 3 - 
+enemies pos: 11 - enemies direction: 1 - back space: 2 - 
+enemies pos: 12 - enemies direction: 1 - back space: 1 - 
+enemies pos: 13 - enemies direction: 1 - back space: 0 - 
+enemies pos: 14 - enemies direction: 1 - back space: -1 - 
+enemies pos: 3 - enemies direction: 1 - back space: 10 - 
+enemies pos: 4 - enemies direction: 1 - back space: 9 - 
+enemies pos: 3 - enemies direction: -1 - back space: 10 - go left!
+enemies pos: 2 - enemies direction: -1 - back space: 11 - go left!
+enemies pos: 1 - enemies direction: -1 - back space: 12 - go left!
+enemies pos: 2 - enemies direction: 1 - back space: 11 - go left!
+enemies pos: 3 - enemies direction: 1 - back space: 10 - go left!
+enemies pos: 4 - enemies direction: 1 - back space: 9 - go left!
+enemies pos: 3 - enemies direction: -1 - back space: 10 - go left!
+enemies pos: 2 - enemies direction: -1 - back space: 11 - go left!
+enemies pos: 1 - enemies direction: -1 - back space: 12 - go left!
+enemies pos: 2 - enemies direction: 1 - back space: 11 - go left!
+enemies pos: 3 - enemies direction: 1 - back space: 10 - go left!
+enemies pos: 4 - enemies direction: 1 - back space: 9 - go left!
+enemies pos: 3 - enemies direction: -1 - back space: 10 - go left!
+enemies pos: 2 - enemies direction: -1 - back space: 11 - go left!
+enemies pos: 1 - enemies direction: -1 - back space: 12 - go left!
+enemies pos: 2 - enemies direction: 1 - back space: 11 - go left!
+enemies pos: 3 - enemies direction: 1 - back space: 10 - go left!
+enemies pos: 4 - enemies direction: 1 - back space: 9 - go left!
+enemies pos: 3 - enemies direction: -1 - back space: 10 - go left!
+enemies pos: 2 - enemies direction: -1 - back space: 11 - go left!
+enemies pos: 1 - enemies direction: -1 - back space: 12 - go left!
+enemies pos: 2 - enemies direction: 1 - back space: 11 - go left!
+enemies pos: 3 - enemies direction: 1 - back space: 10 - go left!
+enemies pos: 4 - enemies direction: 1 - back space: 9 - go left!
+enemies pos: 3 - enemies direction: -1 - back space: 10 - go left!
+enemies pos: 2 - enemies direction: -1 - back space: 11 - go left!
+enemies pos: 1 - enemies direction: -1 - back space: 12 - go left!
+enemies pos: 2 - enemies direction: 1 - back space: 11 - go left!
+enemies pos: 3 - enemies direction: 1 - back space: 10 - go left!
+enemies pos: 4 - enemies direction: 1 - back space: 9 - go left!
+enemies pos: 3 - enemies direction: -1 - back space: 10 - go left!
+enemies pos: 2 - enemies direction: -1 - back space: 11 - go left!
+enemies pos: 1 - enemies direction: -1 - back space: 12 - go left!
+enemies pos: 2 - enemies direction: 1 - back space: 11 - go left!
+enemies pos: 3 - enemies direction: 1 - back space: 10 - go left!
+enemies pos: 4 - enemies direction: 1 - back space: 9 - go left!
+enemies pos: 3 - enemies direction: -1 - back space: 10 - go left!
+enemies pos: 2 - enemies direction: -1 - back space: 11 - go left!
+enemies pos: 3 - enemies direction: 1 - back space: 10 - 
+enemies pos: 4 - enemies direction: 1 - back space: 9 - 
+enemies pos: 5 - enemies direction: 1 - back space: 8 - 
+enemies pos: 6 - enemies direction: 1 - back space: 7 - 
+enemies pos: 7 - enemies direction: 1 - back space: 6 - 
+enemies pos: 8 - enemies direction: 1 - back space: 5 - 
+enemies pos: 9 - enemies direction: 1 - back space: 4 - 
+enemies pos: 10 - enemies direction: 1 - back space: 3 - 
+enemies pos: 11 - enemies direction: 1 - back space: 2 - 
+enemies pos: 12 - enemies direction: 1 - back space: 1 - 
+enemies pos: 11 - enemies direction: -1 - back space: 2 - 
+enemies pos: 10 - enemies direction: -1 - back space: 3 - 
+enemies pos: 9 - enemies direction: -1 - back space: 4 - 
+enemies pos: 8 - enemies direction: -1 - back space: 5 - 
+enemies pos: 7 - enemies direction: -1 - back space: 6 - 
+enemies pos: 6 - enemies direction: -1 - back space: 7 - 
+enemies pos: 5 - enemies direction: -1 - back space: 8 - 
+enemies pos: 4 - enemies direction: -1 - back space: 9 - 
+enemies pos: 3 - enemies direction: -1 - back space: 10 - 
+enemies pos: 2 - enemies direction: -1 - back space: 11 - 
+enemies pos: 1 - enemies direction: -1 - back space: 12 - 
+enemies pos: 2 - enemies direction: 1 - back space: 11 - 
+enemies pos: 3 - enemies direction: 1 - back space: 10 - 
+enemies pos: 4 - enemies direction: 1 - back space: 9 - 
+enemies pos: 5 - enemies direction: 1 - back space: 8 - 
+enemies pos: 6 - enemies direction: 1 - back space: 7 - 
+enemies pos: 7 - enemies direction: 1 - back space: 6 - 
+enemies pos: 8 - enemies direction: 1 - back space: 5 - 
+enemies pos: 9 - enemies direction: 1 - back space: 4 - 
+enemies pos: 10 - enemies direction: 1 - back space: 3 - 
+enemies pos: 11 - enemies direction: 1 - back space: 2 - 
+enemies pos: 12 - enemies direction: 1 - back space: 1 - 
+enemies pos: 11 - enemies direction: -1 - back space: 2 - 
+enemies pos: 10 - enemies direction: -1 - back space: 3 - 
+enemies pos: 9 - enemies direction: -1 - back space: 4 - 
+enemies pos: 8 - enemies direction: -1 - back space: 5 - 
+enemies pos: 7 - enemies direction: -1 - back space: 6 - 
+enemies pos: 6 - enemies direction: -1 - back space: 7 - 
+enemies pos: 5 - enemies direction: -1 - back space: 8 - 
+enemies pos: 4 - enemies direction: -1 - back space: 9 - 
+enemies pos: 3 - enemies direction: 1 - back space: 10 - 
+enemies pos: 4 - enemies direction: 1 - back space: 9 - 
+enemies pos: 5 - enemies direction: 1 - back space: 8 - 
+enemies pos: 6 - enemies direction: 1 - back space: 7 - 
+enemies pos: 7 - enemies direction: 1 - back space: 6 - 
+enemies pos: 8 - enemies direction: 1 - back space: 5 - 
+enemies pos: 9 - enemies direction: 1 - back space: 4 - 
+enemies pos: 10 - enemies direction: 1 - back space: 3 - 
+enemies pos: 11 - enemies direction: 1 - back space: 2 - 
+enemies pos: 12 - enemies direction: 1 - back space: 1 - 
+enemies pos: 11 - enemies direction: -1 - back space: 2 - 
+enemies pos: 10 - enemies direction: -1 - back space: 3 - 
+enemies pos: 9 - enemies direction: -1 - back space: 4 - 
+enemies pos: 8 - enemies direction: -1 - back space: 5 - 
+enemies pos: 7 - enemies direction: -1 - back space: 6 - 
+enemies pos: 6 - enemies direction: -1 - back space: 7 - 
+enemies pos: 5 - enemies direction: -1 - back space: 8 - 
+enemies pos: 4 - enemies direction: -1 - back space: 9 - 
+enemies pos: 3 - enemies direction: -1 - back space: 10 - 
+enemies pos: 2 - enemies direction: -1 - back space: 11 - 
+enemies pos: 1 - enemies direction: -1 - back space: 12 - 
+enemies pos: 2 - enemies direction: 1 - back space: 11 - 
+enemies pos: 3 - enemies direction: 1 - back space: 10 - 
+enemies pos: 4 - enemies direction: 1 - back space: 9 - 
+enemies pos: 5 - enemies direction: 1 - back space: 8 - 
+enemies pos: 6 - enemies direction: 1 - back space: 7 - 
+enemies pos: 7 - enemies direction: 1 - back space: 6 - 
+enemies pos: 8 - enemies direction: 1 - back space: 5 - 
+enemies pos: 9 - enemies direction: 1 - back space: 4 - 
+enemies pos: 10 - enemies direction: 1 - back space: 3 - 
+enemies pos: 11 - enemies direction: 1 - back space: 2 - 
+enemies pos: 12 - enemies direction: 1 - back space: 1 - 
+enemies pos: 11 - enemies direction: -1 - back space: 2 - 
+enemies pos: 10 - enemies direction: -1 - back space: 3 - 
+enemies pos: 9 - enemies direction: -1 - back space: 4 - 
+enemies pos: 8 - enemies direction: -1 - back space: 5 - 
+enemies pos: 7 - enemies direction: -1 - back space: 6 - 
+enemies pos: 6 - enemies direction: -1 - back space: 7 - 
+enemies pos: 5 - enemies direction: -1 - back space: 8 - 
+enemies pos: 4 - enemies direction: -1 - back space: 9 - 
