@@ -21,7 +21,7 @@ module.exports = (userId, postId, price) => {
 
             if (!post) throw new Error('user not found')
 
-            if (user.id !== post.author)
+            if (user.id.toString() !== post.author)
                 throw new Error(`Post doesn't belong to this user`)
 
             return posts.updateOne({ _id: new ObjectId(postId) }, { $set: { price: price }}) 

@@ -1,56 +1,45 @@
-const { readFile } = require('fs')
-
 const { validators: { validateId, validateCallback } } = require('com')
 
-module.exports = function retrieveUsersPosts(userId, callback){
+const { ObjectId } = require('mongodb')
+const context = require('./context')
+
+module.exports = (userId) => {
     validateId(userId, 'user id')
-    validateCallback(callback)
 
-    readFile(`${process.env.DB_PATH}/users.json`, (error, json) => {
-        if (error) {
-            callback(error)
+    const { users, posts } = context
 
-            return
-        }
+    return users.findOne({ _id: new ObjectId(userId) })
+        .then(user => {
+            if (!user) throw new Error('user not found')
 
-        const users = JSON.parse(json)
+            const promises = []
 
-        const user = users.find(user => user.id === userId)
+            promises.push(posts.find({}).toArray())         
+            promises.push(users.find({}).toArray())
 
-        if (!user) {
-            callback(new Error(`user with id ${userId} not found`))
+            return Promise.all(promises)
+                .then(([tmpPosts, tmpUsers]) => {
+                    if (tmpPosts) {
 
-            return
-        }
+                        tmpPosts = tmpPosts.filter(post => post.author === userId)
 
-        readFile(`${process.env.DB_PATH}/posts.json`, (error, json) => {
-            if (error) {
-                callback(error)
-
-                return
-            }
-
-            const posts = JSON.parse(json)
-
-            const tmPosts = posts.filter(post => post.author === userId)
-
-            tmPosts.forEach(post => {
-                post.fav = user.favs.includes(post.id)
-                post.date = new Date(post.date);
-                post.dateLastModified = new Date(post.dateLastModified);
-    
-                const author = users.find(user => user.id === post.author)
-
-                if (author)
-                    post.author = {
-                        id: author.id,
-                        name: author.name,
-                        avatar: author.avatar
-                    }
+                        tmpPosts.forEach(post => {
+                            post.id = post._id.toString()
+                            post.fav = user.favs.includes(post._id.toString())
+                            post.date = new Date(post.date)
+                            post.dateLastModified = new Date(post.dateLastModified)
+            
+                            const author = tmpUsers.find(user => user._id.toString() === post.author)
+          
+                            if (author)
+                                post.author = {
+                                    id: author._id,
+                                    name: author.name,
+                                    avatar: author.avatar
+                                }                                   
+                        }) 
+                        return tmpPosts
+                    }                   
             })
-    
-            //callback(null, posts.toReversed())
-            callback(null, tmPosts)
         })
-    })
 }

@@ -1,6 +1,7 @@
 const { validators: { validateId, validateCallback } } = require('com')
 
 const { ObjectId } = require('mongodb')
+const context = require('./context')
 
 module.exports = (userId, postId) => {
     validateId(userId, 'user id')
@@ -30,7 +31,7 @@ module.exports = (userId, postId) => {
             } 
 
             return users.updateOne({ _id: new ObjectId(userId) } ,
-                 { $set: { favs: favs }}) 
+                { $set: { favs: favs }}) 
         }) 
 }
 

@@ -10,8 +10,7 @@ module.exports = (req, res) => {
         if(avatar) {
             updateUserAvatar(userId, avatar)
                 .then(res.status(204).send())
-                .catch(error =>
-                    res.status(400).json({ error: error.message }))
+                .catch(error => res.status(400).json({ error: error.message }))
         }
     } 
     catch (error) {

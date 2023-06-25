@@ -12,27 +12,34 @@ module.exports = (userId) => {
         .then(user => {
             if (!user) throw new Error('user not found')
 
-            return posts.find({ lock: false}).toArray() //, {lock: true , author: userId})
-                .then(tmpPosts => {
+            const promises = []
+
+            promises.push(posts.find({}).toArray()) //, {lock: true , author: userId})
+            promises.push(users.find({}).toArray())
+
+            return Promise.all(promises)
+                .then(([tmpPosts, tmpUsers]) => {
                     if (tmpPosts) {
+
+                        tmpPosts = tmpPosts.filter(post => !post.lock || (post.lock && post.author === userId))
+
                         tmpPosts.forEach(post => {
-                           //post.fav = user.favs.includes(post.id)
+                            post.id = post._id.toString()
+                            post.fav = user.favs.includes(post._id.toString())
                             post.date = new Date(post.date)
                             post.dateLastModified = new Date(post.dateLastModified)
             
-                            return users.findOne({ id: new ObjectId(post.author) })
-                                .then(author => {            
-                                    if (author)
-                                        post.author = {
-                                            id: author.id,
-                                            name: author.name,
-                                            avatar: author.avatar
-                                        }   
-                                    })
-                        })  
-                    }
-
-                    return tmpPosts
-                })
+                            const author = tmpUsers.find(user => user._id.toString() === post.author)
+          
+                            if (author)
+                                post.author = {
+                                    id: author._id,
+                                    name: author.name,
+                                    avatar: author.avatar
+                                }                                   
+                        }) 
+                        return tmpPosts
+                    }                   
+            })
         })
 }

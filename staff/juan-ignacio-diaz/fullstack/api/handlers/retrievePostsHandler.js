@@ -9,7 +9,8 @@ module.exports = (req, res) => {
         retrievePosts(userId)
             .then(posts => res.json(posts))
             .catch(error => res.status(400).json({ error: error.message }))
-    } catch (error) {
+    } 
+    catch (error) {
         res.status(400).json({ error: error.message })
     }
 }

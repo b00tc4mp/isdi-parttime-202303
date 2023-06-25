@@ -6,16 +6,11 @@ module.exports = (req, res) => {
     try {
         const userId = extractUserId(req)
 
-        retrieveOnSalePosts(userId, (error, posts) => {
-            if (error) {
-                res.status(400).json({ error: error.message })
-
-                return
-            }
-
-            res.json(posts)
-        })
-    } catch (error) {
+        retrieveOnSalePosts(userId)
+        .then(posts => res.json(posts))
+        .catch(error => res.status(400).json({ error: error.message }))
+    } 
+    catch (error) {
         res.status(400).json({ error: error.message })
     }
 }

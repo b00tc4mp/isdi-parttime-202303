@@ -7,7 +7,8 @@ module.exports = (req, res) => {
         authenticateUser(email, password)
             .then(userId => res.json({ userId }))
             .catch(error => res.status(400).json({ error: error.message }))
-    } catch (error) {
+    } 
+    catch (error) {
         res.status(400).json({ error: error.message })
     }
 }

@@ -1,6 +1,7 @@
 const { validators: { validateId, validateUrl, validateText } } = require('com')
 
 const { ObjectId } = require('mongodb')
+const context = require('./context')
 
 module.exports = (userId, postId, image, text) => {
     validateId(userId, 'user id')

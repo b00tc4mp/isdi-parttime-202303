@@ -1,6 +1,7 @@
 const { validators: { validateId } } = require('com')
 
 const { ObjectId } = require('mongodb')
+const context = require('./context')
 
 module.exports = (userId, postId) => {
     validateId(userId, 'user id')
@@ -19,13 +20,13 @@ module.exports = (userId, postId) => {
 
             if (!post) throw new Error('user not found')
 
-            if (user.id !== post.author)
+            if (user._id.toString() !== post.author)
                 throw new Error(`Post doesn't belong to this user`)
 
             const lock = post.lock? false : true
 
-            return posts.updateOne({ _id: new ObjectId(postId) } ,
-                 { $set: { lock: lock }}) 
+            return posts.updateOne({ _id: new ObjectId(postId) }, 
+            { $set: { lock: lock } }) 
         })
 }
 
