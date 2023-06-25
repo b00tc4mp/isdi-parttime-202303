@@ -20,9 +20,9 @@ export default function retrievePosts(userId, callback) {
         }
 
         const { response: json } = xhr
-        const post = JSON.parse(json)
+        const posts = JSON.parse(json)
 
-        callback(null, post)
+        callback(null, posts)
     }
 
     xhr.onerror = () => {

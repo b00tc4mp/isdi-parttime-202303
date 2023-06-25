@@ -5,10 +5,11 @@ import { deletePost } from "../logic/deletePost"
 import toggleFavPost from "../logic/toggleFavPost"
 import toggleHidePost from "../logic/toggleHidePost"
 
-export default function Post({ post: { image, text, date, likes, author, id, fav, hidden }, onLikePostClick, onEditClick, onDeletePostClick, onFavPostClick, onHidePostClick }) {
+export default function Post({ post: { image, text, date, likes, author, _id, fav, visibility }, onLikePostClick, onEditClick, onDeletePostClick, onFavPostClick, onHidePostClick }) {
     const handleLikePostClick = () => {
         try {
-            toggleLikePost(context.userId, id, error => {
+            toggleLikePost(context.userId, _id, error => {
+                
                 if (error) {
                     alert(error.message)
 
@@ -23,7 +24,7 @@ export default function Post({ post: { image, text, date, likes, author, id, fav
 
     const handleFavPostClick = () => {
         try {
-            toggleFavPost(id, context.userId, error => {
+            toggleFavPost(_id, context.userId, error => {
                 if (error) {
                     alert(error.message)
 
@@ -38,7 +39,7 @@ export default function Post({ post: { image, text, date, likes, author, id, fav
 
     const handleHidePost = () => {
         try {
-            toggleHidePost(context.userId, id, error => {
+            toggleHidePost(context.userId, _id, error => {
                 if (error) {
                     alert(error.message)
 
@@ -51,14 +52,14 @@ export default function Post({ post: { image, text, date, likes, author, id, fav
         }
     }
 
-    const handleOpenEditModal = () => onEditClick(id)
+    const handleOpenEditModal = () => onEditClick(_id)
 
     const handleDeletePost = () => {
         const confirmation = confirm('Are you sure that you want to delete this post? This action cannot be undone!')
 
         if (confirmation) {
             try {
-                deletePost(context.userId, id, error => {
+                deletePost(context.userId, _id, error => {
                     if (error) {
                         alert(error.message)
 
@@ -74,12 +75,12 @@ export default function Post({ post: { image, text, date, likes, author, id, fav
 
     console.log('Post -> Render')
 
-    if (hidden && context.userId === author.id) {
+    if (!visibility && context.userId === author) {
         return <article className="inputs__box--feed">
         <div className="post__info--user">
             <div className="post__user">
                 <img className="post__avatar" src={author.avatar} />
-                <p className="post__name">{author.name}</p>
+                <p className="post__name">{author}</p>
             </div>
             <div className="post__favorite">
                 <img className="favorite--icon" src={fav ? "../../images/bookmark_filled.png" : "../../images/bookmark_empty.png"} onClick={handleFavPostClick} />
@@ -96,24 +97,24 @@ export default function Post({ post: { image, text, date, likes, author, id, fav
                 <p>{likes ? likes.length : 0}</p>
             </div>
             <div className="post__edit">
-                {author.id === context.userId && <img className="edit--icon" src="../../images/edit.png" onClick={handleOpenEditModal} />}
+                {author === context.userId && <img className="edit--icon" src="../../images/edit.png" onClick={handleOpenEditModal} />}
             </div>
             <div className="post__hide">
-                {(author.id === context.userId && hidden === false && <img className="hide--icon" src="../../images/eye.png" onClick={handleHidePost} />) || (author.id === context.userId && hidden === true && <img className="hide--icon" src="../../images/eye_slashed.png" onClick={handleHidePost} />)}
+                {(author === context.userId && visibility === true && <img className="hide--icon" src="../../images/eye.png" onClick={handleHidePost} />) || (author === context.userId && visibility === false && <img className="hide--icon" src="../../images/eye_slashed.png" onClick={handleHidePost} />)}
             </div>
             <div className="post__delete">
-                {author.id === context.userId && <img className="delete--icon" src="../../images/delete.png" onClick={handleDeletePost} />}
+                {author === context.userId && <img className="delete--icon" src="../../images/delete.png" onClick={handleDeletePost} />}
             </div>
         </div>
     </article>
     }
     
-    if (!hidden) {
+    if (visibility) {
         return <article className="inputs__box--feed">
         <div className="post__info--user">
             <div className="post__user">
                 <img className="post__avatar" src={author.avatar} />
-                <p className="post__name">{author.name}</p>
+                <p className="post__name">{author}</p>
             </div>
             <div className="post__favorite">
                 <img className="favorite--icon" src={fav ? "../../images/bookmark_filled.png" : "../../images/bookmark_empty.png"} onClick={handleFavPostClick} />
@@ -130,13 +131,13 @@ export default function Post({ post: { image, text, date, likes, author, id, fav
                 <p>{likes ? likes.length : 0}</p>
             </div>
             <div className="post__edit">
-                {author.id === context.userId && <img className="edit--icon" src="../../images/edit.png" onClick={handleOpenEditModal} />}
+                {author === context.userId && <img className="edit--icon" src="../../images/edit.png" onClick={handleOpenEditModal} />}
             </div>
             <div className="post__hide">
-                {(author.id === context.userId && hidden === false && <img className="hide--icon" src="../../images/eye.png" onClick={handleHidePost} />) || (author.id === context.userId && hidden === true && <img className="hide--icon" src="../../images/eye_slashed.png" onClick={handleHidePost} />)}
+                {(author === context.userId && visibility === true && <img className="hide--icon" src="../../images/eye.png" onClick={handleHidePost} />) || (author === context.userId && visibility === false && <img className="hide--icon" src="../../images/eye_slashed.png" onClick={handleHidePost} />)}
             </div>
             <div className="post__delete">
-                {author.id === context.userId && <img className="delete--icon" src="../../images/delete.png" onClick={handleDeletePost} />}
+                {author === context.userId && <img className="delete--icon" src="../../images/delete.png" onClick={handleDeletePost} />}
             </div>
         </div>
     </article>

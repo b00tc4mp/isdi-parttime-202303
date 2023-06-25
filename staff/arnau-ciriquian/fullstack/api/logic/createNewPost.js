@@ -9,5 +9,5 @@ module.exports = (userId, image, text) => {
 
     const { posts } = context
     
-    return posts.insertOne({ author: new ObjectId(userId), image, text, likes: [], date: (new Date).toLocaleString('en-UK'), visibility: true })
+    return posts.insertOne({ author: new ObjectId(userId), image, text, likes: [], date: (new Date).toLocaleString('en-UK'), visibility: true, fav: false })
 }

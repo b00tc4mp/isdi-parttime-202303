@@ -21,7 +21,8 @@ export function authenticateUser(email, password, callback) {
         }
 
         const { response: json } = xhr
-        const { userId } = JSON.parse(json)
+        //const { userId } = JSON.parse(json)
+        const userId = JSON.parse(json)
 
         callback(null, userId)
     }

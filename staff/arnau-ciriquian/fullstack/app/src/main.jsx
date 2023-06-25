@@ -20,6 +20,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
                 - Compra/Venta de posts entre usuaris
                 - canviar alerts -> Context i context provider 20230522 2110 (posarli animacio? settimeout?)
                 - quan es borra un user esborrar tots els seus posts!
+                - check dels canvis a mongo a la app!
 
                 - OPTIONAL
                 - session cookies 20230619 2100

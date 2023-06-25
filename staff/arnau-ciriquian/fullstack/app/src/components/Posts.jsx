@@ -3,7 +3,6 @@ import retrievePosts from "../logic/retrievePosts"
 import Post from "./Post"
 import { useState, useEffect } from "react"
 import './Posts.css'
-import updateUserFavs from "../logic/updateUserFavs"
 
 export default function Posts({ onEditClicked, lastPostsUpdate }) {
     const[posts, setPosts] = useState()
@@ -43,6 +42,6 @@ export default function Posts({ onEditClicked, lastPostsUpdate }) {
     console.log('Posts -> render')
     
     return <section className="home__post--feed">
-        {posts && posts.map(post => <Post key={post.id} post={post} onLikePostClick={handleRefreshPosts} onEditClick={onEditClicked} onDeletePostClick={handleRefreshPosts} onFavPostClick={handleRefreshPosts} onHidePostClick={handleRefreshPosts}/>)}
+        {posts && posts.map(post => <Post key={post._id} post={post} onLikePostClick={handleRefreshPosts} onEditClick={onEditClicked} onDeletePostClick={handleRefreshPosts} onFavPostClick={handleRefreshPosts} onHidePostClick={handleRefreshPosts}/>)}
     </section>
 }
