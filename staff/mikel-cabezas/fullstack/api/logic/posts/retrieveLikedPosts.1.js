@@ -27,24 +27,19 @@ module.exports = (userId, callback) => {
             }
             debugger
             const posts = JSON.parse(json)
-            const favPosts = []
+            const filterPosts = posts.filter(post => post.likes.includes(userId))
 
-            posts.forEach(post => {
-                users.filter(user => {
-                    const postsFound = user.favPosts.includes(post.id)
-                    if (postsFound) {
-                        favPosts.push(post)
-                    }
-                })
+            filterPosts.forEach(post => {
+                const user = users.find(user => user.id === post.author)
 
                 post.author = {
                     id: user.id,
                     name: user.name,
-                    image: user.image
+                    avatar: user.avatar
                 }
             })
 
-            callback(null, favPosts.reverse());
+            callback(null, filterPosts.reverse());
         })
     })
 }
