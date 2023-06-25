@@ -7,24 +7,44 @@ import ContextualModalMenu from "./ContextualMenu"
 import { deletePost } from "../logic/posts/deletePost"
 import retrieveUser from "../logic/users/retrieveUser"
 import AppContext from "../AppContext"
+import { IKImage, IKContext, IKUpload } from 'imagekitio-react';
+// const urlEndpoint = 'https://ik.imagekit.io/mklhds'
+const publicKey = 'public_KXJOz0g5Xp6gAlhANXjoCNjKLPs=';
+const authenticationEndpoint = 'http://localhost:6541/auth';
 
 export default function Post({ post, post: { image, title, text, comments, likes, _id, date, author, lastModify, location, visibility }, onToggleLikePost, onToggleSavePost, onEditPostButton, onHideMenuOptions, user }) {
-
     const userId = context.userId
 
     const [userData, setUserData] = useState(user)
     const [modalMenu, setModalMenu] = useState('close')
     const { freeze, unfreeze, alert } = useContext(AppContext)
-    const postStyle = {
-        background: `linear-gradient(180deg, rgba(0,0,0,.2) 0%, rgba(0,0,0,0) 10%, rgba(0,0,0,0) 50%, rgba(0,0,0,.6) 100%), url(${image}) center / cover`
-    }
+    const [imageRendered, setImageRendered] = useState(null)
+
+
+    const onError = err => {
+        console.log("Error", err);
+    };
+
+    const onSuccess = res => {
+        console.log("Success", res);
+    };
+
+
+
     useEffect(() => {
         try {
+
             updateUserLikes()
         } catch (error) {
             alert(error.message)
         }
     }, [])
+
+    const postStyle = {
+        // background: `linear-gradient(180deg, rgba(0,0,0,.2) 0%, rgba(0,0,0,0) 10%, rgba(0,0,0,0) 50%, rgba(0,0,0,.6) 100%), url(${image}) center / cover`
+        background: `linear-gradient(180deg, rgba(0,0,0,.2) 0%, rgba(0,0,0,0) 10%, rgba(0,0,0,0) 50%, rgba(0,0,0,.6) 100%), url(https://ik.imagekit.io/mklhds/tr:w-300${image}) center / cover`
+    }
+
 
     const postDate = date
     const now = new Date()
@@ -100,7 +120,7 @@ export default function Post({ post, post: { image, title, text, comments, likes
             })
             if (deletePost) {
                 alert('post deleted')
-                debugger
+
                 setModalMenu('close')
             }
         } catch (error) {
@@ -166,6 +186,7 @@ export default function Post({ post, post: { image, title, text, comments, likes
                     } </div> : ''}
             </div>
             <img className="space-image" />
+
             <div className="title-and-interactions">
                 <div className={`material-symbols-outlined like ${likes.includes(userId) ? ' filled' : ''}`}
                     onClick={handleToggleLike}>favorite</div>

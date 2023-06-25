@@ -14,13 +14,14 @@
     "eject": "react-scripts eject"
   },
   "dependencies": {
+    "@rollup/plugin-commonjs": "25.0.1",
+    "com": "file:../com",
+    "imagekitio-react": "^2.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-loader-spinner": "^5.3.4",
     "react-scripts": "3.4.3",
-    "serve": "^11.3.2",
-    "@rollup/plugin-commonjs": "25.0.1",
-    "com": "file:../com"
+    "serve": "^11.3.2"
   },
   "devDependencies": {
     "@types/react": "^18.0.28",

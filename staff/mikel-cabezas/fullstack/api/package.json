@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "com": "file:../com",
-    "dotenv": "^16.3.0"
+    "dotenv": "^16.3.0",
+    "imagekit": "^4.1.3"
   }
 }

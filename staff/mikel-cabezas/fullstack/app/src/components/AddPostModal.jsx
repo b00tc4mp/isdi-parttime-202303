@@ -3,10 +3,26 @@ import { context } from '../ui.js'
 import retrieveUserLocation from "../logic/posts/retrieveUserLocation"
 import { useState, useEffect, useContext } from 'react'
 import Context from '../AppContext.js'
+import { IKImage, IKContext, IKUpload } from 'imagekitio-react';
+const urlEndpoint = 'https://ik.imagekit.io/mklhds/demo-imagekit'
+const publicKey = 'public_KXJOz0g5Xp6gAlhANXjoCNjKLPs=';
+const authenticationEndpoint = 'http://localhost:6541/auth';
+
+let postImage
 
 export default function AddPostModal({ onCancel, onCreateNewPost }) {
     const { freeze, unfreeze, alert } = useContext(Context)
     const [userLocation, setUserLocation] = useState(null)
+
+    const onError = err => {
+        console.log("Error", err);
+    };
+
+    const onSuccess = res => {
+        // console.log("Success", res);
+        // postImage = res.url
+        postImage = res.filePath
+    };
 
     let newImage
     function handleCancelAddPost(event) {
@@ -47,7 +63,7 @@ export default function AddPostModal({ onCancel, onCreateNewPost }) {
         const text = document.querySelector('.create-post textarea').value
 
         try {
-            createPost(userId, newImage, title, text, userLocation, error => {
+            createPost(userId, postImage, title, text, userLocation, error => {
                 if (error) {
                     alert(error.message)
 
@@ -63,24 +79,6 @@ export default function AddPostModal({ onCancel, onCreateNewPost }) {
 
     }
 
-    function handleConvertImageToBase64() {
-        const file = document.querySelector('.create-post input[type="file"]')
-        const imagePostPreview = document.querySelector('.create-post .post-image')
-        const imageTarget = document.querySelector('.create-post input[type="file"]')
-        const printImage = file.onchange = function (event) {
-            const file = event.target.files[0]
-            const image = new FileReader()
-            image.onload = () => {
-                const base64 = image.result
-                newImage = base64
-                imagePostPreview.src = base64
-                imageTarget.src = base64
-            }
-            image.readAsDataURL(file)
-            imagePostPreview.src = imageTarget.src
-            return file
-        }
-    }
 
     return <div className="overlay create-post">
         <form className="create-post" >
@@ -88,7 +86,19 @@ export default function AddPostModal({ onCancel, onCreateNewPost }) {
             <input type="text" className="title" />
             <img className="post-image" src="" alt="" />
             <label htmlFor="file">Upload your image</label>
-            <input type="file" name="file" id="" accept=".jpg, .jpeg, .png, .webp" onClick={handleConvertImageToBase64} />
+            <IKContext
+                publicKey={publicKey}
+                urlEndpoint={urlEndpoint}
+                authenticationEndpoint={authenticationEndpoint}
+            >
+                <IKUpload
+                    fileName="post-image-id_"
+                    onError={onError}
+                    onSuccess={onSuccess}
+                />
+            </IKContext>
+
+            {/* <input type="file" name="file" id="" accept=".jpg, .jpeg, .png, .webp" onClick={handleConvertImageToBase64} /> */}
             <label htmlFor="textarea">Write your process</label>
             <textarea name="" id="" cols="30" rows="5"></textarea>
             <div className="buttons">

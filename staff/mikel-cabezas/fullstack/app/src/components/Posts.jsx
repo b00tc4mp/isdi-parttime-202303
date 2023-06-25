@@ -26,6 +26,7 @@ export default function Posts({ onEditPost, onAddPostClick, lastPostsUpdate, pos
 
                         return
                     }
+                    posts
                     setPosts(posts)
                 })
             }
