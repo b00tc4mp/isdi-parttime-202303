@@ -20,7 +20,9 @@ export default (userId, callback) => {
         const { response: json } = xhr
         const posts = JSON.parse(json)
 
-        callback(null, posts)
+        const reversedPosts = posts.toReversed()
+
+        callback(null, reversedPosts)
     }
     xhr.onerror = () => {
         callback(new Error('connection error'))
