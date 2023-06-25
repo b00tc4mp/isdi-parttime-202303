@@ -27,9 +27,9 @@ export default (userId, email, callback) => {
         callback(new Error('connection error'))
     }
 
-    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/users/email/${userId}`)
-
+    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/users/email`)
     xhr.setRequestHeader('Content-Type', 'application/json')
+    xhr.setRequestHeader('Authorization', `Bearer ${userId}`)
 
     const userData = { email }
     const json = JSON.stringify(userData)

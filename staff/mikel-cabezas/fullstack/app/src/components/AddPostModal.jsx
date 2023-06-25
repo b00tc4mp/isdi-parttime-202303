@@ -77,6 +77,7 @@ export default function AddPostModal({ onCancel, onCreateNewPost }) {
                 imageTarget.src = base64
             }
             image.readAsDataURL(file)
+            imagePostPreview.src = imageTarget.src
             return file
         }
     }

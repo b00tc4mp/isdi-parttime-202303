@@ -19,7 +19,6 @@ module.exports = (userId, postId, title, text, image, visibility) => {
     return posts.findOne(_post)
         .then(post => {
             if (!post) throw new Error('post not found')
-
             return posts.updateOne(_post, {
                 $set: {
                     image: image,
@@ -34,6 +33,5 @@ module.exports = (userId, postId, title, text, image, visibility) => {
                 }
             })
         })
-
 }
 

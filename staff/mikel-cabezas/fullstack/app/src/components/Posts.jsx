@@ -181,7 +181,7 @@ export default function Posts({ onEditPost, onAddPostClick, lastPostsUpdate, pos
 
                     if (post.visibility === 'private' && post.author.id === userId || post.visibility === 'public') {
                         return <Post
-                            key={post.id}
+                            key={post._id}
                             post={post}
                             user={user}
                             onToggleLikePost={handleToggleLikePost}

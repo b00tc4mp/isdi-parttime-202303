@@ -8,7 +8,6 @@ module.exports = (req, res) => {
         const userId = extractUserId(req)
         const { title, text, image, visibility } = req.body
         const { postId } = req.params
-        debugger
 
         editPost(userId, postId, title, text, image, visibility)
             .then(() => res.status(204).send())

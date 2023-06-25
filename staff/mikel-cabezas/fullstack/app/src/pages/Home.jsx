@@ -15,10 +15,6 @@ export default function Home({ onLogoutClick, onUserProfile, onSetThemeClick, on
     const [postId, setPostId] = useState(null)
     const [lastPostsUpdate, setLastPostsUpdate] = useState(null)
     const [postsFilter, setPostsFilter] = useState()
-    const userId = context.userId
-
-
-
 
     const handleAddPost = () => setModal('add-post')
     const handleModalOff = () => setModal(null)

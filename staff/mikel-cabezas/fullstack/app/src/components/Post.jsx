@@ -8,7 +8,7 @@ import { deletePost } from "../logic/posts/deletePost"
 import retrieveUser from "../logic/users/retrieveUser"
 import AppContext from "../AppContext"
 
-export default function Post({ post, post: { image, title, text, comments, likes, id, date, author, lastModify, location, visibility }, onToggleLikePost, onToggleSavePost, onEditPostButton, onHideMenuOptions, user }) {
+export default function Post({ post, post: { image, title, text, comments, likes, _id, date, author, lastModify, location, visibility }, onToggleLikePost, onToggleSavePost, onEditPostButton, onHideMenuOptions, user }) {
 
     const userId = context.userId
 
@@ -56,7 +56,7 @@ export default function Post({ post, post: { image, title, text, comments, likes
     function handleToggleLike(event) {
         try {
             freeze()
-            toggleLikePost(userId, post.id, error => {
+            toggleLikePost(userId, post._id, error => {
                 unfreeze()
                 if (error) {
                     alert(error.message)
@@ -74,7 +74,7 @@ export default function Post({ post, post: { image, title, text, comments, likes
     function handleToggleSave(event) {
         try {
             freeze()
-            toggleSavePost(userId, post.id, error => {
+            toggleSavePost(userId, post._id, error => {
                 unfreeze()
                 if (error) {
                     alert(error.message)
@@ -89,18 +89,19 @@ export default function Post({ post, post: { image, title, text, comments, likes
         }
     }
 
-    function handleEditPostButton(id) {
-        onEditPostButton(id)
+    function handleEditPostButton(_id) {
+        onEditPostButton(_id)
     }
-    function handleDeletePostButton(id) {
+    function handleDeletePostButton(_id) {
         try {
-            deletePost(userId, id, error => {
+            deletePost(userId, _id, error => {
                 if (error)
                     alert(error.message)
             })
             if (deletePost) {
                 alert('post deleted')
-                setModal('close')
+                debugger
+                setModalMenu('close')
             }
         } catch (error) {
             alert(error.message)
@@ -143,11 +144,11 @@ export default function Post({ post, post: { image, title, text, comments, likes
     }
 
     return <>
-        <article className={`${id} ${visibility !== 'public' ? visibility : visibility}`} style={postStyle}>
+        <article className={`${_id} ${visibility !== 'public' ? visibility : visibility}`} style={postStyle}>
             <div className="post-author">
                 <div className="avatar">
                     {!user.image && <div className="letter">{returnLetters()}</div>}
-                    {user.image && <img className="image-profile" src={user.image} alt="" />}
+                    {user.image && <img className="image-profile w-6 mr-1 rounded-full" src={user.image} alt="" />}
                 </div>
                 <div className="user-name">{user.name}</div>
                 {location && <span className="location">{location}</span>}
@@ -157,24 +158,19 @@ export default function Post({ post, post: { image, title, text, comments, likes
                     {modalMenu === 'open' &&
                         <ContextualModalMenu
                             items={[
-                                { text: 'Edit post', onClick: () => handleEditPostButton(id) },
-                                { text: 'Delete post', onClick: () => handleDeletePostButton(id) },
+                                { text: 'Edit post', onClick: () => handleEditPostButton(_id) },
+                                { text: 'Delete post', onClick: () => handleDeletePostButton(_id) },
                             ]}
                             onOutterClick={handleHideMenuOptions}
                         />
                     } </div> : ''}
-
-                {/* <ul>
-                    <li className={`edit ${id}`} onClick={() => handleEditPostButton(id)}>edit <span className="material-symbols-outlined pencil edit-post">edit</span></li>
-                </ul> */}
-
             </div>
             <img className="space-image" />
             <div className="title-and-interactions">
                 <div className={`material-symbols-outlined like ${likes.includes(userId) ? ' filled' : ''}`}
                     onClick={handleToggleLike}>favorite</div>
                 <div className="material-symbols-outlined comment">maps_ugc</div>
-                <div className={userData?.favPosts.includes(id) ? 'material-symbols-outlined save filled' : 'material-symbols-outlined save'} onClick={handleToggleSave}>bookmark</div>
+                <div className={userData?.favs?.includes(_id) ? 'material-symbols-outlined save filled' : 'material-symbols-outlined save'} onClick={handleToggleSave}>bookmark</div>
             </div>
             <h3 className="title">{title}</h3>
             <p className="excerpt">{text}</p>

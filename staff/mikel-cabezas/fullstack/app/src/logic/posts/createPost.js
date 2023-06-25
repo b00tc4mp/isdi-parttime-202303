@@ -21,7 +21,6 @@ export function createPost(userId, image, title, text, location, callback) {
             return
         }
         const { response: json } = xhr
-        debugger
         callback(null)
     }
     xhr.onerror = () => {

@@ -2,33 +2,39 @@ import { context } from "../ui"
 import updateUserName from "../logic/users/updateUserName"
 import updateUserEmail from "../logic/users/updateUserEmail"
 import uploadImage from "../logic/users/updateUserImage"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import retrieveUser from "../logic/users/retrieveUser"
+import { useContext } from "react"
+import AppContext from "../AppContext"
 
 export default function UpdateUserInfo({ }) {
+    const { freeze, unfreeze, alert } = useContext(AppContext)
+
     const [user, setUser] = useState()
     const userId = context.userId
 
-    retrieveUser(userId, (error, user) => {
-        if (!user) {
-            callback(new Error('user not found'))
+    useEffect(() => {
+        retrieveUser(userId, (error, user) => {
+            if (!user) {
+                alert('user not found')
 
-            return
-        }
-        if (error) {
-            alert(error.message)
+                return
+            }
+            if (error) {
+                alert(error.message)
 
-            return
-        }
-        const _user = {
-            name: user.name,
-            email: user.email,
-            image: user.image
-        }
-        setTimeout(() => {
+                return
+            }
+            const _user = {
+                name: user.name,
+                email: user.email,
+                image: user.image
+            }
             setUser(_user)
-        }, 1000);
-    })
+
+        })
+    }, [])
+
 
     let newImage
     let letters
@@ -119,8 +125,8 @@ export default function UpdateUserInfo({ }) {
                     <input type="email" defaultValue={user?.email} name="email" disabled={disabled} />
                     <div className="avatar">
                         {!user?.image && <div className="letter">{letters}</div>}
-                        {user?.image && <img className="image-profile" src={user?.image} alt="" />}
-                        {<img className="image-profile" src={user?.image} alt="" />}
+                        {user?.image && <img className="image-profile w-8 rounded-full" src={user?.image} alt="" />}
+                        {/* {<img className="image-profile" src={user?.image} alt="" />} */}
                     </div>
                     <label htmlFor="">Update image profile</label>
                     <input type="file" name="file" id="" accept=".jpg, .jpeg, .png, .webp" onClick={handleConvertImageToBase64} />

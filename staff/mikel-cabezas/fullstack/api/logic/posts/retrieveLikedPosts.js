@@ -8,7 +8,6 @@ module.exports = userId => {
     const _user = { _id: new ObjectId(userId) }
 
     return users.findOne(_user)
-
         .then(user => {
             if (!user) new Error(`User with id ${userId} not found`)
 
@@ -22,7 +21,6 @@ module.exports = userId => {
                                 const user = users.find(_user => _user._id.toString() === userId)
                                 const postsFound = post.likes?.includes(user._id.toString())
                                 if (postsFound) {
-                                    // post.likes = user.favs.includes(post._id.toString())
                                     post.date = new Date(post.date)
 
                                     const postAuthor = users.find(user => user._id.toString() === post.author.toString())

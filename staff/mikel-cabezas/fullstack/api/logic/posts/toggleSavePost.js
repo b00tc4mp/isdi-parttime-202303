@@ -1,40 +1,31 @@
-require('dotenv').config()
-const { readFile, writeFile } = require('fs')
-const { validators: { validateUserId, validatePostId, validateCallback } } = require('com')
-module.exports = (userId, postId, callback) => {
+const context = require('../context')
+const { ObjectId } = require('mongodb')
+const { validators: { validateUserId, validatePostId } } = require('com')
+module.exports = (userId, postId) => {
     validateUserId(userId)
     validatePostId(postId)
-    validateCallback(callback)
-    readFile(`${process.env.DB_PATH}/users.json`, (error, json) => {
 
-        if (error) {
-            callback(error)
+    const { users } = context
+    const _user = { _id: new ObjectId(userId) }
 
-            return
-        }
-        const users = JSON.parse(json)
-        const user = users.find(user => user.id === userId)
-
-        const indexFavPost = user.favPosts.indexOf(postId)
-
-        if (indexFavPost < 0) {
-            user.favPosts.push(postId)
-        } else {
-            user.favPosts.splice(indexFavPost, 1)
-        }
-
-        json = JSON.stringify(users, null, 4)
-
-        writeFile(`${process.env.DB_PATH}/users.json`, json, error => {
-            if (error) {
-                callback(error)
-
-                return
+    return users.findOne(_user)
+        .then(user => {
+            if (!user) throw new Error('post not found')
+            const indexFavPost = user.favs?.indexOf(postId)
+            if (indexFavPost < 0) {
+                user.favs.push(postId)
+                return users.updateOne(_user, {
+                    $set: {
+                        favs: user.favs
+                    }
+                })
+            } else {
+                user.favs.splice(indexFavPost, 1)
+                return users.updateOne(_user, {
+                    $set: {
+                        favs: user.favs
+                    }
+                })
             }
-
-            callback(null)
-
         })
-
-    })
 }

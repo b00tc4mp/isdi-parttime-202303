@@ -1,37 +1,22 @@
-require('dotenv').config()
-const { readFile } = require('fs')
-const { validators: { validateUserId, validatePostId, validateCallback } } = require('com')
-module.exports = (userId, postId, callback) => {
+const context = require('../context')
+const { ObjectId } = require('mongodb')
+const { validators: { validateUserId, validatePostId } } = require('com')
+module.exports = (userId, postId) => {
     validateUserId(userId)
     validatePostId(postId)
-    validateCallback(callback)
-    readFile(`${process.env.DB_PATH}/users.json`, (error, json) => {
-        if (error) {
-            callback(error)
 
-            return
-        }
-        const users = JSON.parse(json)
-        const user = users.find(user => user.id === userId)
+    const { users, posts } = context
+    const _user = { _id: new ObjectId(userId) }
 
-        if (!user) {
-            callback(new Error(`User with id ${userId} not found`))
-
-            return
-        }
-
-        readFile(`${process.env.DB_PATH}/posts.json`, (error, json) => {
-            if (error) {
-                callback(error)
-
-                return
-            }
-            const posts = JSON.parse(json)
-            const post = posts.find(post => post.id === postId)
-
-
-
-            callback(null, post);
+    return users.findOne(_user)
+        .then(user => {
+            if (!user) new Error(`User with id ${userId} not found`)
+            return users.find().toArray()
+                .then(users => {
+                    return posts.find().toArray()
+                        .then(posts => {
+                            return posts.find(post => post._id.toString() === postId)
+                        })
+                })
         })
-    })
 }
