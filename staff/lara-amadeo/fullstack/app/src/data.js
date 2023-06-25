@@ -59,7 +59,7 @@ export const loadPosts = callback => {
 export function savePostInStorage(post, callback){
     loadPosts( posts => {
 
-        const index = posts.findIndex(_post => _post.id === post.id)
+        const index = posts.findIndex(_post => _post._id === post._id)
     
         if(index < 0){
             posts.push(post)
@@ -80,4 +80,4 @@ export const savePostsInStorage = (posts, callback) => {
 }
 
 export const findPostById = (postId, callback) => 
-    loadPosts(posts => callback(posts.find(post => post.id === postId)))
+    loadPosts(posts => callback(posts.find(post => post._id === postId)))

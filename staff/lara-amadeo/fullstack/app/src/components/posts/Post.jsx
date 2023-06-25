@@ -7,7 +7,6 @@ import { useState } from 'react'
 import ContextualModalBox from '../ContextualModalBox'
 import { useContext } from 'react'
 import Context from '../../Context'
-import Spinner from '../library/Spinner'
 
 export default function Post({ post, onLikeButtonClick, onSaveButtonClick, onEditPostButton, onDeletePostButton, onVisibilityButton, onSellPostButton, onBuyPostButton }){
 
@@ -17,7 +16,7 @@ export default function Post({ post, onLikeButtonClick, onSaveButtonClick, onEdi
     function handleLikedPost(){
         // freeze()
         try{
-            toggleLikePost(post.id, context.userId, error => {
+            toggleLikePost(post._id, context.userId, error => {
                 // unfreeze()
                 if(error){
                     generateToast(error.message,'error')
@@ -37,7 +36,7 @@ export default function Post({ post, onLikeButtonClick, onSaveButtonClick, onEdi
     function handleSavedPost(){
         // freeze()
         try{
-            toggleSavePost(post.id, context.userId, error => {
+            toggleSavePost(post._id, context.userId, error => {
                 // unfreeze()
                 if(error){
                     generateToast(error.message,'error')
@@ -53,12 +52,12 @@ export default function Post({ post, onLikeButtonClick, onSaveButtonClick, onEdi
     }
 
     function handleOpenEditPostModal(){
-        onEditPostButton(post.id) 
+        onEditPostButton(post._id) 
         setModal('close')
     }
 
     function handleOpenDeletionModal(){
-        onDeletePostButton(post.id)
+        onDeletePostButton(post._id)
         setModal('close')
     }
 
@@ -67,7 +66,7 @@ export default function Post({ post, onLikeButtonClick, onSaveButtonClick, onEdi
     }
 
     function handleVisibility(){
-        onVisibilityButton(post.id)
+        onVisibilityButton(post._id)
         setModal('close')
     }
 
@@ -76,12 +75,12 @@ export default function Post({ post, onLikeButtonClick, onSaveButtonClick, onEdi
     }
 
     function handleOpenSellPost(){
-        onSellPostButton(post.id)
+        onSellPostButton(post._id)
         setModal('close')
     }
 
     function handleOpenBuyPost(){
-        onBuyPostButton(post.id)
+        onBuyPostButton(post._id)
         setModal('close')
     }
 

@@ -7,15 +7,9 @@ module.exports = function updateAvatarHandler(req, res) {
 
         const { avatar } = req.body
 
-        updateAvatar(userId, avatar, error => {
-            if (error) {
-                res.status(400).json({ error: error.message })
-
-                return
-            }
-
-            res.status(204).send()
-        })
+        updateAvatar(userId, avatar)
+            .then(() => res.status(204).send())
+            .catch(error => res.status(400).json({ error: error.message }))    
     } catch (error) {
         res.status(400).json({ error: error.message })
     }

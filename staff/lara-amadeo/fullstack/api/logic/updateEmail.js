@@ -1,41 +1,19 @@
-const { readFile, writeFile } = require("fs")
 const { validators: { validateEmail, validateCallback } } = require('com')
+const context = require('./context')
+const { ObjectId } = require('mongodb')
 
 
-module.exports = function updateEmail(userId, email, newEmail, callback) {
+module.exports = function updateEmail(userId, email, newEmail) {
     validateEmail(email)
     validateEmail(newEmail)
-    validateCallback(callback)
 
-    readFile("./data/users.json", (error, json) => {
-        if (error) {
-            callback(error)
+    const { users } = context
 
-            return
-        }
-
-        const users = JSON.parse(json)
-
-        const user = users.find(user => user.id === userId)
-
-        if(user.email !== email){
-            callback(new Error('Current email incorrect'))
-
-            return
-        }
-
-        user.email = newEmail
-
-        json = JSON.stringify(users)
-
-        writeFile("./data/users.json", json, error => {
-            if (error) {
-                callback(error)
-
-                return
-            }
-
-            callback(null)
+    return users.findOne({ _id: new ObjectId(userId)})
+        .then(user => {
+            if(user.email !== email) throw new Error('Current email incorrect')
+            
+            return users.updateOne({ _id: new ObjectId(userId)}, {$set:{email: newEmail}})
         })
-    })
+
 }

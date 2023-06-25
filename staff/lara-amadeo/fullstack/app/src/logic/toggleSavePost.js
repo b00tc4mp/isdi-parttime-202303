@@ -13,6 +13,8 @@ export default function toggleSavePost(postId, userId, callback){
     xhr.onload = () => {
         const { status } = xhr
         if(status !== 201){
+            const { response: json } = xhr
+            const { error } = JSON.parse(json)
             callback(new Error(error))
 
             return

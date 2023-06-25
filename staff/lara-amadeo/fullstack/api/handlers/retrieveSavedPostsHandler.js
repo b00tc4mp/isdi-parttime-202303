@@ -5,15 +5,9 @@ module.exports = (req, res) => {
     try {
         const userId = extractUserId(req)
 
-        retrieveSavedPosts(userId, (error, posts) => {
-            if (error) {
-                res.status(400).json({ error: error.message })
-
-                return
-            }
-
-            res.status(200).json({ posts })
-        })
+        retrieveSavedPosts(userId)
+            .then(posts => res.status(200).json({ posts }))
+            .catch(error => res.status(400).json({ error: error.message }))
     } catch (error) {
         res.status(400).json({ error: error.message })
     }

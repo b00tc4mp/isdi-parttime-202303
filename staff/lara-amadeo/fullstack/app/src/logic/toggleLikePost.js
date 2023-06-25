@@ -24,7 +24,7 @@ export default function toggleLikePost (postId, userId, callback) {
     }
 
     xhr.onerror = () => {
-        callback(new Error(error))
+        callback(new Error('Connection error'))
     }
 
     xhr.open('PATCH', `http://localhost:4000/posts/like/${postId}`)

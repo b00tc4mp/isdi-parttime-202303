@@ -1,91 +1,29 @@
-const { readFile, writeFile } = require('fs')
+const { ObjectId } = require('mongodb')
+const context = require('./context')
 
-module.exports = function toggleSavePost(userId, postId, callback) {
+module.exports = function toggleSavePost(userId, postId) {
+    console.log(postId)
+    const { users, posts } = context
 
-    let users
-    let user
-    let posts
-    let post
-    readFile(`${process.env.DB_PATH}/users.json`, (error, usersJson) => {
-        if (error) {
-            callback(error)
+    return users.findOne({_id: new ObjectId(userId)})
+        .then(user => {
+            if (!user) throw new Error(`User with id ${userId} not found`)
 
-            return
-        }
+            return posts.findOne({_id: new ObjectId(postId)})
+            .then(post => {
+                if (!post) throw new Error(`Post with id ${postId} not found`)
 
-        users = JSON.parse(usersJson)
-
-        user = users.find(user => user.id === userId)
-
-        if (!user) {
-            callback(`User with id ${userId} not found`)
-
-            return
-        }
-
-        readFile('./data/posts.json', (error, postsJson) => {
-            if (error) {
-                callback(error)
-
-                return
-            }
-
-            posts = JSON.parse(postsJson)
-
-            post = posts.find(post => post.id === postId)
-
-            if (!post) {
-                callback(`Post with id ${postId} not found`)
-
-                return
-            }
-
-            if (!user.savedPosts.includes(post.id)) {
-                user.savedPosts.push(post.id)
-
-                usersJson = JSON.stringify(users)
-
-                writeFile(`${process.env.DB_PATH}/users.json`, usersJson, error => {
-                    if (error) {
-                        callback(error)
-                        return
-                    }
-
-                    postsJson = JSON.stringify(posts)
-
-                    writeFile('./data/posts.json', postsJson, error => {
-                        if (error) {
-                            callback(error)
-                            return
-                        }
-
-                        callback(null)
-                    })
+                if (!user.savedPosts.includes(post._id.toString())){
+                    user.savedPosts.push(post._id.toString())
+                }
+                else {
+                    const index = user.savedPosts.findIndex(elem => elem === post._id.toString())
+                    user.savedPosts.splice(index, 1)
+                }
+                return users.updateOne({ _id: new ObjectId(userId)}, {$set: {savedPosts: user.savedPosts}})
+                .then(() => {
+                    user
                 })
-            } else {
-                const index = user.savedPosts.findIndex(elem => elem === post.id)
-                user.savedPosts.splice(index, 1)
-
-                usersJson = JSON.stringify(users)
-
-                writeFile(`${process.env.DB_PATH}/users.json`, usersJson, error => {
-                    if (error) {
-                        callback(error)
-                        return
-                    }
-
-                    postsJson = JSON.stringify(posts)
-
-                    writeFile('./data/posts.json', postsJson, error => {
-                        if (error) {
-                            callback(error)
-                            return
-                        }
-
-                        callback(null)
-                    })
-                })
-            }
+            })
         })
-    })
 }

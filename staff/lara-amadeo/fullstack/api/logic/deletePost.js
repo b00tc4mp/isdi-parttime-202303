@@ -1,63 +1,13 @@
-const { readFile, writeFile } = require('fs')
+const { ObjectId } = require('mongodb')
+const context = require('./context')
 
-module.exports = function deletePost(userId, postId, callback) {
+module.exports = function deletePost(userId, postId) {
+    const { users, posts } = context
 
-    let users
-    readFile(`${process.env.DB_PATH}/users.json`, 'utf-8', (error, usersJson) => {
-        if (error) {
-            callback(error)
-            return
-        }
+    return users.findOne({_id: new ObjectId(userId)})
+        .then(user => {
+            if (!user) throw new Error(`User with id ${userId} not found`)
 
-        users = JSON.parse(usersJson)
-
-        const user = users.find(user => user.id === userId)
-
-        if (!user) {
-            callback(`User with id ${userId} not found`)
-
-            return
-        }
-
-        readFile('./data/posts.json', 'utf-8', (error, postsJson) => {
-            if (error) {
-                callback(error)
-                return
-            }
-
-            const posts = JSON.parse(postsJson)
-            const postIndex = posts.findIndex(post => post.id === postId)
-            posts.splice(postIndex, 1)
-
-            users.forEach(user => {
-                user.likedPosts.includes(postId) &&
-                    user.likedPosts.splice(user.likedPosts.findIndex(elem => elem === postId), 1)
-            })
-
-            users.forEach(user => {
-                user.savedPosts.includes(postId) &&
-                    user.savedPosts.splice(user.savedPosts.findIndex(elem => elem === postId), 1)
-            })
-
-            usersJson = JSON.stringify(users)
-
-            writeFile(`${process.env.DB_PATH}/users.json`, usersJson, error => {
-                if (error) {
-                    callback(error)
-                    return
-                }
-
-                postsJson = JSON.stringify(posts)
-
-                writeFile('./data/posts.json', postsJson, error => {
-                    if (error) {
-                        callback(error)
-                        return
-                    }
-
-                    callback(null)
-                })
-            })
+            return posts.deleteOne({_id: new ObjectId(postId)})
         })
-    })
 }

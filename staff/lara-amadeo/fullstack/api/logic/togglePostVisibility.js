@@ -1,71 +1,21 @@
-const { readFile, writeFile } = require('fs')
+const { ObjectId } = require('mongodb')
+const context = require('./context')
 
-module.exports = function toggleLikePost(userId, postId, callback) {
-    let users
-    let user
-    let posts
-    let post
-    readFile(`${process.env.DB_PATH}/users.json`, (error, usersJson) => {
-        if (error) {
-            callback(error)
+module.exports = function toggleLikePost(userId, postId) {
+    const { users, posts } = context
 
-            return
-        }
+    return users.findOne({ _id: new ObjectId(userId) })
+        .then(user => {
+            if (!user) throw new Error(`User with id ${userId} not found`)
 
-        users = JSON.parse(usersJson)
+            return posts.findOne({ _id: new ObjectId(postId) })
+                .then(post => {
+                    if (!post) throw new Error(`Post with id ${postId} not found`)
 
-        user = users.find(user => user.id === userId)
+                    if (post.visibility === 'private') post.visibility = 'public'
+                    else post.visibility = 'private'
 
-        if (!user) {
-            callback(`User with id ${userId} not found`)
-
-            return
-        }
-
-        readFile('./data/posts.json', (error, postsJson) => {
-            if (error) {
-                callback(error)
-
-                return
-            }
-
-            posts = JSON.parse(postsJson)
-
-            post = posts.find(post => post.id === postId)
-
-            if (!post) {
-                callback(`Post with id ${postId} not found`)
-
-                return
-            }
-
-            if (post.visibility === 'private') {
-                post.visibility = 'public'
-
-                postsJson = JSON.stringify(posts)
-
-                writeFile('./data/posts.json', postsJson, error => {
-                    if (error) {
-                        callback(error)
-                        return
-                    }
-
-                    callback(null)
+                    posts.updateOne({ _id: new ObjectId(postId) }, { $set: { visibility: post.visibility } })
                 })
-            } else {
-                post.visibility = 'private'
-
-                postsJson = JSON.stringify(posts)
-
-                writeFile('./data/posts.json', postsJson, error => {
-                    if (error) {
-                        callback(error)
-                        return
-                    }
-
-                    callback(null)
-                })
-            }
         })
-    })
 }

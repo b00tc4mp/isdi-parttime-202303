@@ -73,7 +73,7 @@ export default function Posts({ onCreateButton, onEditPostButtonClick, onDeleteP
             <div className="max-w-[440px] h-fit flex flex-col items-start gap-[40px]">
                 {posts && posts.map(post =>
                     <Post
-                    key={post.id}
+                    key={post._id}
                     post={post}
                     onLikeButtonClick={handleRefreshPosts}
                     onSaveButtonClick={handleRefreshPosts}

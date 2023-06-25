@@ -1,35 +1,17 @@
-const { readFile } = require('fs')
+const { ObjectId } = require('mongodb')
+const context = require('./context')
 
-module.exports = function retrieveSavedPosts(userId, callback){
+module.exports = function retrieveSavedPosts(userId){
 
-    readFile(`${process.env.DB_PATH}/users.json`, 'utf-8', (error, json) => {
-        if (error) {
-            callback(error)
+        const { users, posts } = context
 
-            return
-        }
+        return users.findOne({_id: new ObjectId(userId)})
+        .then(user => {
+            if (!user) throw new Error(`User with id ${userId} not found`)
 
-        const users = JSON.parse(json)
-
-        const user = users.find(user => user.id === userId)
-
-        if (!user) {
-            callback(new Error(`User with id ${userId} not found`))
-            return
-        }
-
-        readFile(`${process.env.DB_PATH}/posts.json`, (error, json) => {
-            if (error) {
-                callback(error)
-
-                return
-            }
-
-            const posts = JSON.parse(json)
-
-            const _posts = posts.filter(post => user.savedPosts.includes(post.id))
-
-            callback(null, _posts)
+            return posts.find().toArray()
+            .then(_posts => {
+                return _posts.filter(post => user.savedPosts.includes(post._id.toString()))
+            })
         })
-    })
 }

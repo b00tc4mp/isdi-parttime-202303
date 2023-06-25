@@ -14,5 +14,6 @@ module.exports = {
     deletePostHandler: require('./deletePostHandler'),
     toggleLikePostHandler: require('./toggleLikePostHandler'),
     toggleSavePostHandler: require('./toggleSavePostHandler'),
-    togglePostVisibilityHandler: require('./togglePostVisibilityHandler')
+    togglePostVisibilityHandler: require('./togglePostVisibilityHandler'),
+    sellpostHandler: require('./sellPostHandler')
 }

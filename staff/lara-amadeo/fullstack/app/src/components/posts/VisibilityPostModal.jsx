@@ -33,7 +33,7 @@ export default function VisibilityModal({ postId, onConfirmChangeVisiblity, onCa
     const handleChangeVisibility = (event) => {
         event.preventDefault()
         try{
-            togglePostVisibility(context.userId, post.id, error => {
+            togglePostVisibility(context.userId, post._id, error => {
                 if(error){
                     generateToast(error.message,'error')
                     console.log(error.stack)

@@ -1,49 +1,26 @@
-const { readFile, writeFile } = require("fs")
-const { validators: { validatePassword, validateCallback } } = require('com')
+const { validators: { validatePassword } } = require('com')
+const context = require('./context')
+const { ObjectId } = require('mongodb')
 
-module.exports = function updatePassword(userId, password, newPassword, callback) {
+module.exports = function updatePassword(userId, password, newPassword) {
     validatePassword(newPassword)
-    validateCallback(callback)
 
-    readFile("./data/users.json", "utf-8", (error, json) => {
-        if (error) {
-            callback(error)
-            return
-        }
+    const { users } = context
 
-        const users = JSON.parse(json)
-
-        const user = users.find(user => user.id === userId)
-
-        if (!user) {
-            callback(new Error(`User with id ${userId} not found`))
-            return
-        }
-
-        if (user.password !== password) {
-            callback(new Error(`Invalid current password`))
-
-            return
-        }
-
-        if (password === newPassword) {
-            callback(new Error(`New password cannot be the same as current password`))
-
-            return
-        }
-
-        user.password = newPassword
-
-        json = JSON.stringify(users)
-
-        writeFile("./data/users.json", json, error => {
-            if (error) {
-                callback(error)
-
-                return
+    return users.findOne({ _id: new ObjectId(userId) })
+        .then(user => {
+            if (!user) {
+                throw new Error(`User with id ${userId} not found`)
+            }
+    
+            if (user.password !== password) {
+                throw new Error(`Invalid current password`)
+            }
+    
+            if (password === newPassword) {
+                throw new Error(`New password cannot be the same as current password`)
             }
 
-            callback(null)
+            return users.updateOne({ _id: new ObjectId(userId)}, {$set: {password: newPassword}})
         })
-    })
-}
+    }

@@ -1,37 +1,19 @@
-const { readFile, writeFile } = require("fs")
 const { validators: { validateText } } = require('com')
-
-module.exports = function updateAvatar(userId, url, callback) {
+const context = require('./context')
+const { ObjectId } = require('mongodb')
+module.exports = function updateAvatar(userId, url) {
 
     validateText(userId)
 
     if (!url) {
-        callback(new Error('Image not uploaded correctly'))
-
-        return
+         throw new Error('Image not uploaded correctly')
     }
 
-    readFile("./data/users.json", "utf-8", (error, json) => {
-        if (error) {
-            callback(error)
+    const { users } = context
 
-            return
-        }
+    return users.findOne({_id: new ObjectId(userId)})
+        .then(user => {
 
-        const users = JSON.parse(json)
-
-        const user = users.find(user => user.id === userId)
-
-        user.avatar = url
-
-        json = JSON.stringify(users)
-
-        writeFile("./data/users.json", json, (error) => {
-            if (error) {
-                callback(error)
-            }
-
-            callback(null)
+            return users.updateOne({_id: new ObjectId(userId)}, {$set:{avatar: url}})
         })
-    })
 }

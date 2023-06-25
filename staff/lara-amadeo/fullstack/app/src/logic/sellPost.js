@@ -1,42 +1,50 @@
-import { findPostById, findUserbyId, savePostInStorage } from "../data";
 
-export default function sellPost(userId, postId, actualPrice, newPrice, callback){
-    
-    findUserbyId(userId, user => {
+export default function sellPost(userId, postId, actualPrice, newPrice, callback) {
 
-        if(!user){
-            callback(new Error('User not found'))
+    if (actualPrice === newPrice) {
+        callback(new Error('Price should be different to previous one'))
+
+        return
+    }
+
+    if (newPrice < 0) {
+        callback(new Error('Price must be higher than 0'))
+
+        return
+    }
+
+    if (newPrice > 1000) {
+        callback(new Error('Price must be lower than 1000'))
+
+        return
+    }
+
+    const xhr = new XMLHttpRequest
+
+    xhr.onload = () => {
+        const { status } = xhr
+        if (status !== 201) {
+            const json = xhr.response
+            const { error } = JSON.parse(json)
+            callback(new Error(error))
 
             return
         }
 
-        findPostById(postId, post => {
-            if(!post){
-                callback(new Error('Post not found'))
+        callback(null)
+    }
 
-                return
-            }
+    xhr.onerror = () => {
+        callback(new Error('Connection error'))
+    }
 
-            if(actualPrice === newPrice){
-                callback(new Error('Price should be different to previous one'))
+    xhr.open('PATCH', `http://localhost:4000/posts/price/${postId}`)
 
-                return
-            }
+    xhr.setRequestHeader('Content-Type', 'application/json')
+    xhr.setRequestHeader('authorization', `Bearer ${userId}`)
 
-            if(newPrice < 0){
-                callback(new Error('Price must be higher than 0'))
+    const price = { newPrice }
+    const json = JSON.stringify(price)
+    xhr.send(json)
 
-                return
-            }
-
-            if(newPrice > 1000){
-                callback(new Error('Price must be lower than 1000'))
-
-                return
-            }
-
-            post.price = newPrice
-            savePostInStorage(post, () => callback(null))
-        })
-    })
 }

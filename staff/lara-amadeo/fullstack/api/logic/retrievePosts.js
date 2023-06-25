@@ -1,44 +1,32 @@
-const { readFile } = require('fs')
+const { ObjectId } = require('mongodb')
+const context = require('./context')
 
-module.exports = function retrievePosts(userId, callback) {
-    readFile(`${process.env.DB_PATH}/users.json`, 'utf-8', (error, json) => {
-        if (error) {
-            callback(error)
+module.exports = function retrievePosts(userId) {
 
-            return
-        }
+    const { users, posts } = context
 
-        const users = JSON.parse(json)
+    return users.findOne({ _id: new ObjectId(userId) })
+        .then(user => {
+            if (!user) throw new Error(`User with id ${userId} not found`)
 
-        const user = users.find(user => user.id === userId)
+            return users.find().toArray()
+                .then(users => {
+                    return posts.find().toArray()
+                        .then(posts => {
+                            posts.forEach(post => {
+                                post.favs = user.savedPosts.includes(post._id.toString())
+                                post.date = new Date(post.date)
 
-        if (!user) {
-            callback(new Error(`User with id ${userId} not found`))
-            return
-        }
-
-        readFile('./data/posts.json', (error, json) => {
-            if (error) {
-                callback(error)
-
-                return
-            }
-
-            const posts = JSON.parse(json)
-            
-            posts.forEach(post => {
-                post.favs = user.savedPosts.includes(post.id)
-
-                const _user = users.find(user => user.id === post.author)
-
-                post.author = {
-                    id: _user.id,
-                    username: _user.username,
-                    avatar: _user.avatar
-                }
-            })
-
-            callback(null, posts)
+                                const _user = users.find(user => user._id.toString() === post.author.toString())
+                                
+                                post.author = {
+                                    id: _user._id.toString(),
+                                    username: _user.username,
+                                    avatar: _user.avatar
+                                }
+                            })
+                            return posts
+                        })
+                })
         })
-    })
 }

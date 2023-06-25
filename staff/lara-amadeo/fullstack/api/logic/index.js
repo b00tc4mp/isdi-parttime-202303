@@ -1,3 +1,4 @@
+
 module.exports = {
     registerUser: require('./registerUser'),
     authenticateUser: require('./authenticateUser'),
@@ -13,6 +14,6 @@ module.exports = {
     deletePost: require('./deletePost'),
     toggleLikePost: require('./toggleLikePost'),
     toggleSavePost: require('./toggleSavePost'),
-    togglePostVisibility: require('./togglePostVisibility')
-
+    togglePostVisibility: require('./togglePostVisibility'),
+    sellPost: require('./sellPost')
 }

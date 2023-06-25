@@ -1,60 +1,21 @@
-const { readFile, writeFile } = require('fs')
+const { ObjectId } = require('mongodb')
+const context = require('./context')
 
-module.exports = function updatePost(userId, postId, image, text, callback) {
+module.exports = function updatePost(userId, postId, image, text) {
 
-    let posts
-    let post
-    readFile(`${process.env.DB_PATH}/users.json`, (error, json) => {
-        if (error) {
-            callback(error)
+    const { users, posts } = context
 
-            return
-        }
+    return users.findOne({ _id: new ObjectId(userId) })
+        .then(user => {
+            if (!user) throw new Error(`User with id ${userId} not found`)
 
-        const users = JSON.parse(json)
-
-        const user = users.find(user => user.id === userId)
-
-        if (!user) {
-            callback(new Error(`User with id ${userId} not found`))
-            return
-        }
-
-        readFile('./data/posts.json', (error, json) => {
-            if (error) {
-                callback(error)
-
-                return
-            }
-
-            posts = JSON.parse(json)
-
-            post = posts.find(post => post.id === postId)
-
-            if(!post){
-                callback(new Error('Post not found'))
-                return
-            }
-
-            if(post.author !== userId){
-                callback(new Error(`Post with id ${post.id} does not belong to user with id ${user.id}`))
-                return
-            }
-
-            post.image = image ? image : post.image
-            post.text = text
-
-            json = JSON.stringify(posts)
-
-            writeFile('./data/posts.json', json, error => {
-                if (error) {
-                    callback(error)
-
-                    return
-                }
-
-                callback(null)
-            })
+            return posts.findOne({ _id: new ObjectId(postId) })
         })
-    })
+        .then(post => {
+            if (!post) throw new Error('Post not found')
+
+            if (post.author.toString() !== userId) throw new Error(`Post with id ${post.id} does not belong to user with id ${post.author}`)
+
+            return posts.updateOne({ _id: new ObjectId(postId) }, { $set: { image: image, text: text } })
+        })
 }

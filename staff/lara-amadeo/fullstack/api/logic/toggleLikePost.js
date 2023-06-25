@@ -1,96 +1,34 @@
-const { readFile, writeFile } = require('fs')
+const { ObjectId } = require('mongodb')
+const context = require('./context')
 
 module.exports = function toggleLikePost(userId, postId, callback) {
 
-    let users
-    let user
-    let posts
-    let post
-    readFile(`${process.env.DB_PATH}/users.json`, (error, usersJson) => {
-        if (error) {
-            callback(error)
 
-            return
-        }
+    const { users, posts } = context
 
-        users = JSON.parse(usersJson)
+    return users.findOne({ _id: new ObjectId(userId) })
+        .then(user => {
+            if (!user) throw new Error(`User with id ${userId} not found`)
 
-        user = users.find(user => user.id === userId)
+            return posts.findOne({ _id: new ObjectId(postId) })
+                .then(post => {
+                    if (!post) throw new Error(`Post with id ${postId} not found`)
 
-        if (!user) {
-            callback(`User with id ${userId} not found`)
+                    if (!user.likedPosts.includes(postId)) {
+                        post.likes.push(userId)
+                        user.likedPosts.push(postId)
+                    } else {
+                        const indexPostInUser = user.likedPosts.findIndex(elem => elem === postId)
+                        user.likedPosts.splice(indexPostInUser, 1)
 
-            return
-        }
-
-        readFile('./data/posts.json', (error, postsJson) => {
-            if (error) {
-                callback(error)
-
-                return
-            }
-
-            posts = JSON.parse(postsJson)
-
-            post = posts.find(post => post.id === postId)
-
-            if (!post) {
-                callback(`Post with id ${postId} not found`)
-
-                return
-            }
-
-
-            if (!user.likedPosts.includes(post.id)) {
-                post.likes.push(userId)
-                user.likedPosts.push(post.id)
-
-                usersJson = JSON.stringify(users)
-
-                writeFile(`${process.env.DB_PATH}/users.json`, usersJson, error => {
-                    if (error) {
-                        callback(error)
-                        return
+                        const indexUserInPost = post.likes.findIndex(elem => elem === userId)
+                        post.likes.splice(indexUserInPost, 1)
                     }
 
-                    postsJson = JSON.stringify(posts)
-
-                    writeFile('./data/posts.json', postsJson, error => {
-                        if (error) {
-                            callback(error)
-                            return
-                        }
-
-                        callback(null)
+                    return users.updateOne({_id: new ObjectId(userId)}, {$set:{likedPosts: user.likedPosts}})
+                    .then(() => {
+                        return posts.updateOne({_id: new ObjectId(postId)}, {$set:{likes: post.likes}})
                     })
                 })
-            } else {
-                const indexPostInUser = user.likedPosts.findIndex(elem => elem === post.id)
-                user.likedPosts.splice(indexPostInUser, 1)
-
-                const indexUserInPost = post.likes.findIndex(elem => elem.id === userId)
-                post.likes.splice(indexUserInPost, 1)
-
-                usersJson = JSON.stringify(users)
-
-                writeFile(`${process.env.DB_PATH}/users.json`, usersJson, error => {
-                    if (error) {
-                        callback(error)
-                        return
-                    }
-
-                    postsJson = JSON.stringify(posts)
-
-                    writeFile('./data/posts.json', postsJson, error => {
-                        if (error) {
-                            callback(error)
-                            return
-                        }
-
-                        callback(null)
-                    })
-                })
-            }
         })
-    })
 }
