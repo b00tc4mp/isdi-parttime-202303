@@ -1,10 +1,15 @@
-const { writeFile } = require('fs')
 const context = require('../../context')
 
-module.exports = () => w{
+module.exports = () => {
     const { users, posts } = context
 
-    return Promise.all(
-        //TO DO
-    )
+    // in series
+    // return users.deleteMany()
+    //     .then(() => posts.deleteMany())
+
+    // in parallel (faster)
+    return Promise.all([
+        users.deleteMany(),
+        posts.deleteMany()
+    ])
 }
