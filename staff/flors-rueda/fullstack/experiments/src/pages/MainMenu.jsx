@@ -1,7 +1,7 @@
 import MenuButton from '../components/MenuButton';
 import ExperimentsSvg from '/assets/experiments.svg';
 
-const MainMenu = ({ onDemo1, onDemo2, onDemo3, onDemo4, onDemo5, onDemo6 }) => {
+const MainMenu = ({ onDemo1, onDemo2, onDemo3, onDemo4, onDemo5, onDemo6, onDemo7 }) => {
 
     return (
         <main className="flex flex-col h-full w-full gap-6 mt-10">
@@ -17,6 +17,7 @@ const MainMenu = ({ onDemo1, onDemo2, onDemo3, onDemo4, onDemo5, onDemo6 }) => {
                 <MenuButton buttonText={'grid game V1 demo'} onButtonClick={onDemo4} />
                 <MenuButton buttonText={'threeJS cube demo 1'} onButtonClick={onDemo5} />
                 <MenuButton buttonText={'threeJS ball game demo'} onButtonClick={onDemo6} />
+                <MenuButton buttonText={'edit level demo'} onButtonClick={onDemo7} />
             </div>
         </main>
     )

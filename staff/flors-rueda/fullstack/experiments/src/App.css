@@ -7,17 +7,26 @@
     height: 400px;
 }
 
+.game {
+    height: 90vh;
+    width: 100vw;
+    background-image: url('assets/demo6/wall_tile.png');
+    background-repeat: repeat;
+    transform-origin: center;
+}
+
 .game-interface {
     height: 80vh;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1rem
+    gap: 1rem;
+
 }
 
 .canvas-container {
     width: 100%;
-    max-width: 640px;
+    max-width: 530px;
     height: 80vh;
     margin: 0 auto;
 }
@@ -26,5 +35,6 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    gap: 0.5rem
+    gap: 0.5rem;
+    color: darkred
 }

@@ -2,22 +2,27 @@ import { useState, useEffect } from 'react';
 import CanvasContainer from '../../components/demo6/CanvasContainer';
 import { level1 } from '../../components/demo6/levels';
 import GameOverModal from '../../components/demo6/GameOverModal';
+import { Player } from '@lottiefiles/react-lottie-player';
 
 //TODO fix bug after loosing
 
-const Demo6 = () => {
+const Demo6 = ({ level }) => {
   const [key, setKey] = useState(1);
-  const [floor, setFloor] = useState(level1[0]);
+  const [floor, setFloor] = useState(level ? level[0] : level1[0]);
   const [health, setHealth] = useState(5);
   const [isGameOver, setIsGameOver] = useState(0); // 0 = playing, -1 = lost, 1 = won
+  const [animation, setAnimation] = useState(null);
+  const [isAnimationVisible, setAnimationVisible] = useState(false);
 
   const handleOnSolved = () => {
     setKey(key + 1);
-    setFloor(level1[key]);
+    setFloor(level ? level[key] : level1[key]);
   };
 
   const handleOnBomb = () => {
     setHealth((prevHealth) => {
+      setAnimation('bomb');
+      setAnimationVisible(true);
       const newHealth = prevHealth - 1;
       if (newHealth === 0) setIsGameOver(-1);
       return newHealth;
@@ -27,12 +32,15 @@ const Demo6 = () => {
   const handleOnLife = () => {
     setHealth((prevHealth) => {
       const newHealth = prevHealth + 1;
+      setAnimation('life');
+      setAnimationVisible(true);
       return newHealth > 7 ? 7 : newHealth;
     });
   };
 
   const handleOnGameWon = () => {
-    setIsGameOver(1);
+    setAnimation('won');
+    setAnimationVisible(true);
   };
 
   useEffect(() => {
@@ -53,12 +61,45 @@ const Demo6 = () => {
     ));
   };
 
+  useEffect(() => {
+    if (isAnimationVisible) {
+      const animationDuration = animation === 'life' ? 1500 : 1000;
+      const timeout = setTimeout(() => {
+        setAnimationVisible(false);
+        if (animation === 'won') setIsGameOver(1)
+      }, animationDuration);
+
+      return () => clearTimeout(timeout);
+    }
+  }, [isAnimationVisible, animation]);
+
   return (
-    <>
+    <div className="game">
+      {isAnimationVisible && (
+        <Player
+          autoplay
+          loop={false}
+          src={
+            animation === 'bomb' ? 'https://assets5.lottiefiles.com/packages/lf20_eTfeoS.json' :
+              animation === 'life' ? 'https://assets7.lottiefiles.com/packages/lf20_cnqc27rl.json' :
+                'https://assets10.lottiefiles.com/packages/lf20_lPOuBVlqdu.json'
+          }
+          className="bottom-0 fixed inset-0"
+          style={animation === 'won' ? {
+            width: '100%',
+            opacity: 1,
+          } : {
+            margin: '30rem 0 0',
+            width: '100%',
+            opacity: 0.75,
+          }}
+
+        />
+      )}
       {isGameOver !== 0 && (
         <>
           <GameOverModal isGameWon={isGameOver > 0 ? true : false} />
-          <div className="fixed top-0 inset-0 bg-black opacity-50"></div>
+          <div className="top-0 inset-0 bg-black opacity-50"></div>
         </>
       )}
       <div className="game-interface">
@@ -68,7 +109,7 @@ const Demo6 = () => {
           {renderNonHealth()}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

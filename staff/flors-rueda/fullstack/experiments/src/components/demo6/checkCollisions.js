@@ -51,7 +51,7 @@ export const checkCollisions = (ball, ballPosition, scene, floorObjects, onSolve
     }
 
     if (hole && checkPosition(ballPosition, ball, hole)) {
-        const timerThreshold = 500;
+        const timerThreshold = 1000;
         const scaleFactor = 0.8;
 
         setTimeout(() => {
@@ -62,7 +62,7 @@ export const checkCollisions = (ball, ballPosition, scene, floorObjects, onSolve
                     onSolved();
                     return;
                 }
-            }, 75);
+            }, 100);
         }, timerThreshold);
     }
 

@@ -15,15 +15,4 @@ const GameOverModal = ({ isGameWon }) => {
     )
 }
 
-export default GameOverModal
-
-/*
-hearts
-https://assets7.lottiefiles.com/packages/lf20_cnqc27rl.json
-
-boom
-https://assets10.lottiefiles.com/private_files/lf30_9eUC58.json
-
-confeti
-https://assets10.lottiefiles.com/packages/lf20_lPOuBVlqdu.json
-*/
+export default GameOverModal;
