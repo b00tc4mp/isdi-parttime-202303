@@ -6,7 +6,7 @@ module.exports = (req, res) => {
         const userId = extractUserId(req)
 
         retrievePosts(userId)
-            .then(() => res.status(200).send())
+            .then(posts => res.json({ posts }))
             .catch(error => res.status(400).json({ error: error.message }))
     } catch (error) {
         res.status(400).json({ error: error.message })

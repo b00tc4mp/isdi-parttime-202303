@@ -1,10 +1,11 @@
+require('dotenv').config()
 const context = require('./context')
-const { validateId } = require('com')
+// const { validateId } = require('com')
 const { ObjectId } = require('mongodb')
 
 module.exports = function retrievePost(userId, postId,) {
-    validateId(userId)
-    validateId(postId)
+    // validateId(userId)
+    // validateId(postId)
 
     const { users, posts } = context
 

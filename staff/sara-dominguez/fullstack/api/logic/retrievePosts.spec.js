@@ -1,13 +1,13 @@
 require('dotenv').config()
 const { expect } = require('chai')
-const retrievePost = require('./retrievePost')
+const retrievePosts = require('./retrievePosts')
 const { cleanUp, populate, generate } = require('./helpers/tests')
 const { MongoClient } = require('mongodb')
 const context = require('./context')
 const ObjectId = require('mongodb')
 
 
-describe('retrievePost', () => {
+describe('retrievePosts', () => {
     let client
 
     before(() => {
@@ -49,7 +49,7 @@ describe('retrievePost', () => {
 
 
                         .then(() =>
-                            retrievePost(user.id, post.id))
+                            retrievePosts(user._id))
 
                         .then(() => context.users.findOne({ _id: new ObjectId(user.id) }))
                         .then(user => {

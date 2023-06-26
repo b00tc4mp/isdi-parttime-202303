@@ -17,12 +17,12 @@ module.exports = (userId) => {
                     return posts.find().toArray()
                         .then(posts => {
                             posts.forEach(post => {
-                                post.likes = user.favs.includes(post.id)
+                                post.likes = user.favs.includes(post._id.toString())
 
-                                const _user = users.find(user => user.id === post.author)
+                                const _user = users.find(user => user._id.toString() === post.author.toString())
 
                                 post.author = {
-                                    id: _user.id,
+                                    id: _user._id.toString(),
                                     name: _user.name,
                                     avatar: _user.avatar
                                 }
