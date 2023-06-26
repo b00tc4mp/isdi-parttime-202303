@@ -2,7 +2,7 @@ require('dotenv').config();
 
 const express = require('express');
 
-const { registerUserMid, authenticateUserMid, retrieveUserMid, deleteUserMid, updateAvatarMid, updateNameMid, updateMailMid, updatePasswordMid, retrievePostsMid, retrievePostMid, updatePostMid, retrieveUserPostsMid, retrieveFavoritePostsMid, uploadPostMid, deletePostMid, toggleLikeMid, toggleFavMid, togglePublicStatMid } = require('./middlewares');
+const { registerUserHandler, authenticateUserHandler, retrieveUserHandler, deleteUserHandler, updateAvatarHandler, updateNameHandler, updateMailHandler, updatePasswordHandler, retrievePostsHandler, retrievePostHandler, updatePostHandler, retrieveUserPostsHandler, retrieveFavoritePostsHandler, uploadPostHandler, deletePostHandler, toggleLikeHandler, toggleFavHandler, togglePublicStatHandler } = require('./handlers');
 
 const { cors, jsonBodyParser } = require('./utils');
 
@@ -10,41 +10,41 @@ const api = express();
 
 api.use(cors);
 
-api.post('/users', jsonBodyParser, registerUserMid);
+api.post('/users', jsonBodyParser, registerUserHandler);
 
-api.post('/users/auth', jsonBodyParser, authenticateUserMid);
+api.post('/users/auth', jsonBodyParser, authenticateUserHandler);
 
-api.get('/users/:userId', retrieveUserMid);
+api.get('/users/:userId', retrieveUserHandler);
 
-api.delete('/users', jsonBodyParser, deleteUserMid);
+api.delete('/users', jsonBodyParser, deleteUserHandler);
 
-api.patch('/users/avatar', jsonBodyParser, updateAvatarMid);
+api.patch('/users/avatar', jsonBodyParser, updateAvatarHandler);
 
-api.patch('/users/name', jsonBodyParser, updateNameMid);
+api.patch('/users/name', jsonBodyParser, updateNameHandler);
 
-api.patch('/users/mail', jsonBodyParser, updateMailMid);
+api.patch('/users/mail', jsonBodyParser, updateMailHandler);
 
-api.patch('/users/password', jsonBodyParser, updatePasswordMid);
+api.patch('/users/password', jsonBodyParser, updatePasswordHandler);
 
-api.post('/posts', jsonBodyParser, uploadPostMid);
+api.post('/posts', jsonBodyParser, uploadPostHandler);
 
-api.get('/posts', retrievePostsMid);
+api.get('/posts', retrievePostsHandler);
 
-api.get('/posts/favs', retrieveFavoritePostsMid);
+api.get('/posts/favs', retrieveFavoritePostsHandler);
 
-api.get('/posts/user/:userId', retrieveUserPostsMid);
+api.get('/posts/user/:userId', retrieveUserPostsHandler);
 
-api.get('/posts/:postId', retrievePostMid);
+api.get('/posts/:postId', retrievePostHandler);
 
-api.delete('/posts/:postId', deletePostMid)
+api.delete('/posts/:postId', deletePostHandler)
 
-api.patch('/posts/:postId', jsonBodyParser, updatePostMid);
+api.patch('/posts/:postId', jsonBodyParser, updatePostHandler);
 
-api.patch('/posts/:postId/likes', toggleLikeMid);
+api.patch('/posts/:postId/likes', toggleLikeHandler);
 
-api.patch('/posts/:postId/favs', toggleFavMid);
+api.patch('/posts/:postId/favs', toggleFavHandler);
 
-api.patch('/posts/:postId/public', togglePublicStatMid);
+api.patch('/posts/:postId/public', togglePublicStatHandler);
 
 
 api.listen(process.env.PORT, () => console.log(`server running in port ${process.env.PORT}`));
