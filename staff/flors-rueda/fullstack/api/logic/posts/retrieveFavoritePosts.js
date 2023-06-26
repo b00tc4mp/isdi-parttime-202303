@@ -1,56 +1,39 @@
-const { readFile } = require('fs');
-const { validators: { validateCallback, validateId } } = require('com');
+const { validators: { validateId } } = require('com');
+const context = require('../context');
+const { ObjectId } = require('mongodb');
 
-module.exports = function retrieveFavoritePosts(userAuth, callback) {
+module.exports = function retrieveFavoritePosts(userAuth) {
     validateId(userAuth);
-    validateCallback(callback);
 
-    readFile('./data/users.json', 'utf8', (error, usersJson) => {
-        if (error) {
-            callback(error);
-            return;
-        }
+    const { users } = context;
+    const { posts } = context;
 
-        const users = JSON.parse(usersJson);
+    return users.findOne({ _id: new ObjectId(userAuth) }).then((user) => {
+        if (!user) throw new Error(`user with id ${userAuth} not found`);
 
-        const user = users.find(user => user.id === userAuth);
+        return posts
+            .find({ _id: { $in: user.favs } }) // Retrieve only favorite posts
+            .sort({ date: -1 }) // Sort by date in descending order (recent first)
+            .toArray()
+            .then((favoritePosts) => {
+                favoritePosts = favoritePosts.map((post) => {
+                    post.isFav = true;
+                    const author = users.findOne({ _id: new ObjectId(post.author) });
+                    return Promise.all([post, author]);
+                });
 
-        if (!user) {
-            callback(new Error(`user with id ${userAuth} not found`));
-            return;
-        }
-
-        readFile('./data/posts.json', 'utf8', (error, postsJson) => {
-            if (error) {
-                callback(error);
-                return;
-            }
-
-            const posts = JSON.parse(postsJson);
-            const _posts = [];
-
-            posts.sort((recent, past) => Number(new Date(past.date)) - Number(new Date(recent.date)));
-
-            posts.forEach(post => {
-                if (user.favs.includes(post.id)) {
-                    if (post.isPublic || userAuth === post.author) {
-                        post.isFav = user.favs.includes(post.id);
-
-                        const _user = users.find(user => user.id === post.author);
-
-                        post.author = {
-                            id: _user.id,
-                            name: _user.name,
-                            username: _user.username,
-                            avatar: _user.avatar
-                        };
-
-                        _posts.push(post);
+                return Promise.all(favoritePosts);
+            })
+            .then((postsWithAuthors) => {
+                return postsWithAuthors.map(([post, author]) => ({
+                    ...post,
+                    author: {
+                        id: author._id.toString(),
+                        name: author.name,
+                        username: author.username,
+                        avatar: author.avatar
                     }
-                }
+                }));
             });
-
-            callback(null, _posts);
-        });
     });
 };

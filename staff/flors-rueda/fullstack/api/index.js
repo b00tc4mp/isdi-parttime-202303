@@ -2,49 +2,66 @@ require('dotenv').config();
 
 const express = require('express');
 
-const { registerUserHandler, authenticateUserHandler, retrieveUserHandler, deleteUserHandler, updateAvatarHandler, updateNameHandler, updateMailHandler, updatePasswordHandler, retrievePostsHandler, retrievePostHandler, updatePostHandler, retrieveUserPostsHandler, retrieveFavoritePostsHandler, uploadPostHandler, deletePostHandler, toggleLikeHandler, toggleFavHandler, togglePublicStatHandler } = require('./handlers');
-
 const { cors, jsonBodyParser } = require('./utils');
 
-const api = express();
+const { registerUserHandler, authenticateUserHandler, retrieveUserHandler, deleteUserHandler, updateAvatarHandler, updateNameHandler, updateMailHandler, updatePasswordHandler, retrievePostsHandler, retrievePostHandler, updatePostHandler, retrieveUserPostsHandler, retrieveFavoritePostsHandler, uploadPostHandler, deletePostHandler, toggleLikeHandler, toggleFavHandler, togglePublicStatHandler } = require('./handlers');
 
-api.use(cors);
+const { MongoClient } = require('mongodb')
+const context = require('./logic/context')
 
-api.post('/users', jsonBodyParser, registerUserHandler);
+const client = new MongoClient(process.env.MONGODB_URL)
 
-api.post('/users/auth', jsonBodyParser, authenticateUserHandler);
+client.connect()
+    .then(connection => {
+        const db = connection.db()
 
-api.get('/users/:userId', retrieveUserHandler);
+        context.users = db.collection('users')
+        context.posts = db.collection('posts')
 
-api.delete('/users', jsonBodyParser, deleteUserHandler);
+        const api = express()
 
-api.patch('/users/avatar', jsonBodyParser, updateAvatarHandler);
+        api.use(cors)
 
-api.patch('/users/name', jsonBodyParser, updateNameHandler);
+        api.post('/users', jsonBodyParser, registerUserHandler);
 
-api.patch('/users/mail', jsonBodyParser, updateMailHandler);
+        api.post('/users/auth', jsonBodyParser, authenticateUserHandler);
 
-api.patch('/users/password', jsonBodyParser, updatePasswordHandler);
+        api.get('/users/:userId', retrieveUserHandler);
 
-api.post('/posts', jsonBodyParser, uploadPostHandler);
+        api.delete('/users', jsonBodyParser, deleteUserHandler);
 
-api.get('/posts', retrievePostsHandler);
+        api.patch('/users/avatar', jsonBodyParser, updateAvatarHandler);
 
-api.get('/posts/favs', retrieveFavoritePostsHandler);
+        api.patch('/users/name', jsonBodyParser, updateNameHandler);
 
-api.get('/posts/user/:userId', retrieveUserPostsHandler);
+        api.patch('/users/mail', jsonBodyParser, updateMailHandler);
 
-api.get('/posts/:postId', retrievePostHandler);
+        api.patch('/users/password', jsonBodyParser, updatePasswordHandler);
 
-api.delete('/posts/:postId', deletePostHandler)
+        api.post('/posts', jsonBodyParser, uploadPostHandler);
 
-api.patch('/posts/:postId', jsonBodyParser, updatePostHandler);
+        api.get('/posts', retrievePostsHandler);
 
-api.patch('/posts/:postId/likes', toggleLikeHandler);
+        api.get('/posts/favs', retrieveFavoritePostsHandler);
 
-api.patch('/posts/:postId/favs', toggleFavHandler);
+        api.get('/posts/user/:userId', retrieveUserPostsHandler);
 
-api.patch('/posts/:postId/public', togglePublicStatHandler);
+        api.get('/posts/:postId', retrievePostHandler);
+
+        api.delete('/posts/:postId', deletePostHandler)
+
+        api.patch('/posts/:postId', jsonBodyParser, updatePostHandler);
+
+        api.patch('/posts/:postId/likes', toggleLikeHandler);
+
+        api.patch('/posts/:postId/favs', toggleFavHandler);
+
+        api.patch('/posts/:postId/public', togglePublicStatHandler);
 
 
-api.listen(process.env.PORT, () => console.log(`server running in port ${process.env.PORT}`));
+        api.listen(process.env.PORT, () => console.log(`server running in port ${process.env.PORT}`));
+
+    })
+    .catch((error) => {
+        console.log(error)
+    })

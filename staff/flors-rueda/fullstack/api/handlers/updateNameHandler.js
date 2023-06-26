@@ -6,14 +6,10 @@ module.exports = (req, res) => {
         const { name } = req.body;
         const userAuth = extractUserId(req);
 
-        updateName(name, userAuth, error => {
-            if (error) {
-                res.status(400).json({ error: error.message });
-                return;
-            }
+        updateName(name, userAuth)
+            .then(() => res.status(201).send())
+            .catch((error) => res.status(400).json({ error: error.message }));
 
-            res.status(204).send();
-        })
     } catch (error) {
         res.status(400).json({ error: error.message });
     }

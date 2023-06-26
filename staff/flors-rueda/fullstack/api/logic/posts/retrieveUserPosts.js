@@ -1,55 +1,31 @@
-const { readFile } = require('fs');
-const { validators: { validateCallback, validateId } } = require('com');
+const { validators: { validateId } } = require('com');
 
-module.exports = function retrieveUserPosts(userId, userAuth, callback) {
+const context = require('../context');
+const { ObjectId } = require('mongodb');
+
+module.exports = function retrieveUserPosts(userId, userAuth) {
     validateId(userId);
     validateId(userAuth);
-    validateCallback(callback);
 
-    readFile('./data/posts.json', 'utf8', (error, postsJson) => {
-        if (error) {
-            callback(error);
-            return;
-        }
+    const { users } = context;
+    const { posts } = context;
 
-        const posts = JSON.parse(postsJson);
+    return users.findOne({ _id: new ObjectId(userId) }).then((user) => {
+        if (!user) throw new Error(`user with id ${userId} not found`);
 
-        readFile('./data/users.json', 'utf8', (error, usersJson) => {
-            if (error) {
-                callback(error);
-                return;
-            }
+        return users.findOne({ _id: new ObjectId(userId) }).then((_userAuth) => {
+            if (!_userAuth) throw new Error(`user with id ${userAuth} not found`);
 
-            const users = JSON.parse(usersJson);
+            return posts.find({ $or: [{ isPublic: true }, { author: userId }] })
+                .sort({ date: -1 })
+                .toArray()
+                .then((filteredPosts) => {
+                    filteredPosts.forEach((post) => {
+                        post.isFav = user.favs.includes(post._id.toString());
+                    });
 
-            const user = users.find(user => user.id === userId);
-
-            if (!user) {
-                const error = new Error(`user with id ${userId} not found`);
-                callback(error);
-                return;
-            }
-
-            const _userAuth = users.find(user => user.id === userAuth);
-
-            if (!_userAuth) {
-                const error = new Error(`user with id ${userAuth} not found`);
-                callback(error);
-                return;
-            }
-
-            let filteredPosts = [];
-            posts.sort((recent, past) => Number(new Date(past.date)) - Number(new Date(recent.date)));
-            posts.forEach(post => {
-                if (post.isPublic || userId === post.author) {
-                    post.isFav = user.favs.includes(post.id);
-                    if (post.author === user.id) {
-                        filteredPosts.push(post);
-                    }
-                }
-            });
-
-            callback(null, filteredPosts);
+                    return filteredPosts;
+                });
         });
     });
 };

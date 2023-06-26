@@ -1,54 +1,36 @@
-const { readFile } = require('fs');
-const { validators: { validateCallback, validateId } } = require('com');
+const { validators: { validateId } } = require('com');
+const context = require('../context');
+const { ObjectId } = require('mongodb');
 
-module.exports = function retrievePosts(userAuth, callback) {
+module.exports = function retrievePosts(userAuth) {
     validateId(userAuth);
-    validateCallback(callback);
 
-    readFile('./data/posts.json', 'utf8', (error, postsJson) => {
-        if (error) {
-            callback(error);
-            return;
-        }
+    const { users } = context;
+    const { posts } = context;
 
-        const posts = JSON.parse(postsJson);
+    return users.findOne({ _id: new ObjectId(userAuth) }).then((user) => {
+        if (!user) throw new Error(`user with id ${userAuth} not found`);
 
-        readFile('./data/users.json', 'utf8', (error, usersJson) => {
-            if (error) {
-                callback(error);
-                return;
-            }
-
-            const users = JSON.parse(usersJson);
-
-            const user = users.find(user => user.id === userAuth);
-
-            if (!user) {
-                callback(new Error(`user with id ${userAuth} not found`));
-                return;
-            }
-
-            posts.sort((recent, past) => Number(new Date(past.date)) - Number(new Date(recent.date)));
-
+        return posts.find({}).sort({ date: -1 }).toArray().then((sortedPosts) => {
             let filteredPosts = [];
-            posts.forEach(post => {
+            sortedPosts.forEach((post) => {
                 if (post.isPublic || userAuth === post.author) {
-                    post.isFav = user.favs.includes(post.id);
+                    post.isFav = user.favs.includes(post._id.toString());
 
-                    const author = users.find(_user => _user.id === post.author);
+                    const author = users.find((_user) => _user._id.toString() === post.author);
 
                     post.author = {
-                        id: author.id,
+                        id: author._id.toString(),
                         name: author.name,
                         username: author.username,
-                        avatar: author.avatar
+                        avatar: author.avatar,
                     };
 
                     filteredPosts.push(post);
                 }
             });
 
-            callback(null, filteredPosts);
+            return filteredPosts;
         });
     });
 };

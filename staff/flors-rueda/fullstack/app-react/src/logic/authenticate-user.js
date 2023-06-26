@@ -31,10 +31,10 @@ export default (username, password, callback) => {
       return;
     }
 
-    const { response: json } = xhr;
-    const { userId } = JSON.parse(json);
+    const { response: userId } = xhr;
+    const userAuth = userId.replace(/"/g, '')
 
-    callback(null, userId);
+    callback(null, userAuth);
   }
 
   xhr.onerror = () => {

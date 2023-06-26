@@ -4,19 +4,13 @@ const { extractUserId } = require('../helpers')
 module.exports = (req, res) => {
 
     try {
-        const userAuth = extractUserId(req)
+        const userAuth = extractUserId(req);
 
-        const { postId } = req.params
+        const { postId } = req.params;
 
-        retrievePost(userAuth, postId, (error, post) => {
-            if (error) {
-                res.status(400).json({ error: error.message })
-
-                return
-            }
-
-            res.json(post)
-        })
+        retrievePost(userAuth, postId)
+            .then((userId) => res.json(userId))
+            .catch((error) => res.status(400).json({ error: error.message }));
 
     } catch (error) {
         res.status(400).json({ error: error.message })

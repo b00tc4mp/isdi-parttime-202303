@@ -1,59 +1,27 @@
-const { readFile, writeFile } = require('fs');
-const { validators: { validateCallback, validateId, validatePostText }, helpers: { generateUUID } } = require('com');
+const { validators: { validateId, validatePostText }, helpers: { generateUUID } } = require('com');
 
-module.exports = function uploadPost(postImg, postText, userAuth, callback) {
+const context = require('../context');
+const { ObjectId } = require('mongodb');
+
+module.exports = function uploadPost(postImg, postText, userAuth) {
     validateId(userAuth);
     validatePostText(postText);
-    validateCallback(callback);
 
-    //TODO add missing tests and dotenv!
+    const { users } = context;
+    const { posts } = context;
 
-    readFile('./data/posts.json', 'utf8', (error, json) => {
-        if (error) {
-            callback(error);
-            return;
-        }
+    return users.findOne({ _id: new ObjectId(userAuth) }).then((user) => {
+        if (!user) throw new Error(`user with id ${userAuth} not found`);
 
-        const posts = JSON.parse(json);
-
-        readFile('./data/users.json', 'utf8', (error, usersJson) => {
-            if (error) {
-                callback(error);
-                return;
-            }
-
-            const users = JSON.parse(usersJson);
-
-            const user = users.find(user => user.id === userAuth);
-
-            if (!user) {
-                callback(new Error(`user with id ${userAuth} not found`));
-                return;
-            }
-
-            const post = {
-                id: generateUUID(),
-                author: userAuth,
-                text: postText,
-                image: postImg,
-                date: new Date(Date.now()),
-                likes: [],
-                edited: [],
-                isPublic: true
-            };
-
-            posts.push(post);
-
-            const postsJson = JSON.stringify(posts, null, 4);
-
-            writeFile('./data/posts.json', postsJson, 'utf8', error => {
-                if (error) {
-                    callback(error);
-                    return;
-                }
-
-                callback(null);
-            });
-        });
+        return posts.insertOne({
+            id: generateUUID(),
+            author: userAuth,
+            text: postText,
+            image: postImg,
+            date: new Date(Date.now()),
+            likes: [],
+            edited: [],
+            isPublic: true
+        })
     });
-};
+}

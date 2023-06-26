@@ -6,14 +6,10 @@ module.exports = (req, res) => {
         const { newSrc } = req.body;
         const userAuth = extractUserId(req);
 
-        updateAvatar(newSrc, userAuth, error => {
-            if (error) {
-                res.status(400).json({ error: error.message });
-                return;
-            }
+        updateAvatar(newSrc, userAuth)
+            .then(() => res.status(201).send())
+            .catch((error) => res.status(400).json({ error: error.message }));
 
-            res.status(204).send();
-        })
     } catch (error) {
         res.status(400).json({ error: error.message });
     }

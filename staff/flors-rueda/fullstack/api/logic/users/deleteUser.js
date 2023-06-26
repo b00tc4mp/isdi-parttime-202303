@@ -1,32 +1,25 @@
-const { readFile, writeFile } = require('fs')
-const { validators: { validateCallback, validateId, validatePassword } } = require('com');
+const { validators: { validateId, validatePassword } } = require('com');
+
+const context = require('../context');
+const { ObjectId } = require('mongodb');
+
+//TODO use find one and delete method!
 
 module.exports = function deleteUser(userAuth, password, callback) {
     validateId(userAuth);
     validatePassword(password);
-    validateCallback(callback);
 
-    readFile('./data/users.json', 'utf8', (error, usersJson) => {
+    module.exports = function deleteUser(userAuth, password) {
         if (error) {
             callback(error);
             return;
         }
 
-        const users = JSON.parse(usersJson);
+        const { users } = context;
+        const { posts } = context;
 
-        readFile('./data/posts.json', 'utf8', (error, postsJson) => {
-            if (error) {
-                callback(error);
-                return;
-            }
-            const posts = JSON.parse(postsJson);
-
-            const user = users.find(user => user.id === userAuth);
-
-            if (!user || user.password !== password) {
-                callback(new Error('authentication failed'));
-                return;
-            }
+        return users.findOne({ _id: new ObjectId(userAuth) }).then((user) => {
+            if (!user || user.password !== password) throw new Error('authentication failed');
 
             for (let i = 0; i < posts.length; i++) {
                 const post = posts[i];
@@ -43,24 +36,9 @@ module.exports = function deleteUser(userAuth, password, callback) {
             const userIndex = users.findIndex(user => user.id === userAuth);
             users.splice(userIndex, 1);
 
-            const usersSaveJson = JSON.stringify(users, null, 4);
-            const postsSaveJson = JSON.stringify(posts, null, 4);
 
-            writeFile('./data/users.json', usersSaveJson, 'utf8', error => {
-                if (error) {
-                    callback(error);
-                    return;
-                }
 
-                writeFile('./data/posts.json', postsSaveJson, 'utf8', error => {
-                    if (error) {
-                        callback(error);
-                        return;
-                    }
-
-                    callback(null);
-                });
-            });
         });
-    });
+
+    }
 };

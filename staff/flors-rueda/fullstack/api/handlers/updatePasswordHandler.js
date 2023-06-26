@@ -6,15 +6,9 @@ module.exports = (req, res) => {
         const { oldPassword, newPassword, repeatPassword } = req.body;
         const userAuth = extractUserId(req);
 
-        updatePassword(userAuth, oldPassword, newPassword, repeatPassword, (error) => {
-            if (error) {
-                res.status(400).json({ error: error.message })
-
-                return
-            }
-
-            res.status(204).send()
-        })
+        updatePassword(userAuth, oldPassword, newPassword, repeatPassword)
+            .then(() => res.status(201).send())
+            .catch((error) => res.status(400).json({ error: error.message }));
 
     } catch (error) {
         res.status(400).json({ error: error.message })

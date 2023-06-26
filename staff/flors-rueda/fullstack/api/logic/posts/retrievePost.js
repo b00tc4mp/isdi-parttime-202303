@@ -1,44 +1,24 @@
-const { readFile } = require('fs');
-const { validators: { validateCallback, validateId } } = require('com');
+const { validators: { validateId } } = require('com');
 
-module.exports = function retrievePost(userAuth, postId, callback) {
+const context = require('../context');
+const { ObjectId } = require('mongodb');
+
+module.exports = function retrievePost(userAuth, postId) {
     validateId(userAuth);
     validateId(postId);
-    validateCallback(callback);
 
-    readFile('./data/users.json', 'utf8', (error, usersJson) => {
-        if (error) {
-            callback(error);
-            return;
-        }
+    const { users } = context;
+    const { posts } = context;
 
-        const users = JSON.parse(usersJson);
+    return users.findOne({ _id: new ObjectId(userAuth) }).then((user) => {
+        if (!user) throw new Error(`user with id ${userAuth} not found`);
 
-        const user = users.find(user => user.id === userAuth);
-
-        if (!user) {
-            callback(new Error(`user with id ${userAuth} not found`));
-            return;
-        }
-
-        readFile('./data/posts.json', 'utf8', (error, postsJson) => {
-            if (error) {
-                callback(error);
-                return;
-            }
-
-            const posts = JSON.parse(postsJson);
-
-            const post = posts.find(post => post.id === postId);
-
-            if (!post) {
-                callback(new Error(`post with id ${postId} not found`));
-                return;
-            }
+        return posts.findOne({ _id: new ObjectId(postId) }).then((post) => {
+            if (!post) throw new Error(`post with id ${postId} not found`)
 
             post.date = new Date(post.date);
 
-            callback(null, post);
+
         });
     });
 };

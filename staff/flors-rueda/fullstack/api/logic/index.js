@@ -7,9 +7,9 @@ module.exports = {
     updateMail: require('./users/updateMail'),
     updateName: require('./users/updateName'),
     updatePassword: require('./users/updatePassword'),
-    uploadPost: require('./posts/uploadPost'),//
-    updatePost: require('./posts/updatePost'),//
-    retrievePost: require('./posts/retrievePost'),//
+    uploadPost: require('./posts/uploadPost'),
+    updatePost: require('./posts/updatePost'),
+    retrievePost: require('./posts/retrievePost'),
     retrievePosts: require('./posts/retrievePosts'),
     retrieveFavoritePosts: require('./posts/retrieveFavoritePosts'),
     retrieveUserPosts: require('./posts/retrieveUserPosts'),

@@ -6,14 +6,9 @@ module.exports = (req, res) => {
         const { password } = req.body;
         const userAuth = extractUserId(req);
 
-        deleteUser(userAuth, password, (error, user) => {
-            if (error) {
-                res.status(400).json({ error: error.message });
-                return;
-            }
-
-            res.status(201).send();
-        })
+        deleteUser(userAuth, password)
+            .then(() => res.status(201).send())
+            .catch((error) => res.status(400).json({ error: error.message }));
     } catch (error) {
         res.status(400).json({ error: error.message });
     }

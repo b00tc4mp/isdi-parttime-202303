@@ -1,31 +1,20 @@
-const { readFile } = require('fs')
-const { validators: { validateCallback, validatePassword, validateUsername } } = require('com');
+const { validators: { validatePassword, validateUsername } } = require('com');
 
-module.exports = function authenticateUser(username, password, callback) {
-    validateUsername(username);
+const context = require('../context');
+
+module.exports = function authenticateUser(userName, password) {
+    validateUsername(userName);
     validatePassword(password);
-    validateCallback(callback);
 
-    readFile('./data/users.json', 'utf8', (error, json) => {
-        if (error) {
-            callback(error);
-            return;
-        }
+    const username = `@${userName.toLowerCase()}`;
 
-        const users = JSON.parse(json);
+    const { users } = context;
 
-        const user = users.find(user => user.username === `@${username.toLowerCase()}`);
+    return users.findOne({ username }).then((user) => {
+        if (!user) throw new Error(`user with username ${username} not found`);
 
-        if (!user) {
-            callback(new Error(`user with username ${username} not found`));
-            return;
-        }
+        if (user.password !== password) throw new Error('wrong credentials');
 
-        if (user.password !== password) {
-            callback(new Error('wrong credentials'));
-            return;
-        }
-
-        callback(null, user.id);
+        return user._id.toString();
     })
 }

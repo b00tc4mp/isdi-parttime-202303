@@ -1,36 +1,15 @@
-const { validators: { validateId, validateName, validateCallback } } = require('com')
-const { readFile, writeFile } = require('fs')
+const { validators: { validateId, validateName } } = require('com')
 
-module.exports = function updateName(name, userAuth, callback) {
+const context = require('../context');
+const { ObjectId } = require('mongodb');
+
+module.exports = function updateName(name, userAuth) {
     validateName(name);
     validateId(userAuth);
-    validateCallback(callback);
 
-    readFile('./data/users.json', 'utf-8', (error, json) => {
-        if (error) {
-            callback(error);
-            return;
-        }
+    const { users } = context;
 
-        const users = JSON.parse(json)
-
-        let user = users.find(user => user.id === userAuth);
-
-        if (!user) {
-            callback(new Error('user not found'));
-            return;
-        }
-
-        user.name = name;
-
-        json = JSON.stringify(users)
-
-        writeFile('./data/users.json', json, 'utf-8', error => {
-            if (error) {
-                callback(error);
-                return;
-            }
-            callback(null)
-        })
+    return users.findOneAndUpdate({ _id: new ObjectId(userAuth) }, { $set: { name: name } }).then((user) => {
+        if (!user) throw new Error('user not found');
     })
 }

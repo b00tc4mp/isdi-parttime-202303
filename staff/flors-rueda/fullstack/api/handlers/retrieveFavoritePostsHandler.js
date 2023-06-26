@@ -5,14 +5,10 @@ module.exports = (req, res) => {
     try {
         const userAuth = extractUserId(req);
 
-        retrieveFavoritePosts(userAuth, (error, posts) => {
-            if (error) {
-                res.status(400).json({ error: error.message });
-                return;
-            }
+        retrieveFavoritePosts(userAuth)
+            .then((posts) => res.json(posts))
+            .catch((error) => res.status(400).json({ error: error.message }));
 
-            res.json(posts);
-        })
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
