@@ -1,22 +1,21 @@
-const { createPost } = require('../logic')
-const { extractToken } = require('../helpers')
+const { updateUserAvatar } = require('../logic')
+const { extractUserId } = require('../helpers')
 
 module.exports = (req, res) => {
     try {
-        const userId = extractToken(req)
+        const userId = extractUserId(req)
 
-        const { image, text } = req.body
+        const { avatar } = req.body
 
-        createPost(userId, image, text, error => {
+        updateUserAvatar(userId, avatar, error => {
             if (error) {
                 res.status(400).json({ error: error.message })
 
                 return
             }
 
-            res.status(201).send()
+            res.status(204).send()
         })
-
     } catch (error) {
         res.status(400).json({ error: error.message })
     }

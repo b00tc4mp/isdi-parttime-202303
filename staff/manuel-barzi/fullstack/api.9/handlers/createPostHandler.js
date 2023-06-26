@@ -1,9 +1,9 @@
 const { createPost } = require('../logic')
-const { extractToken } = require('../helpers')
+const { extractUserId } = require('../helpers')
 
 module.exports = (req, res) => {
     try {
-        const userId = extractToken(req)
+        const userId = extractUserId(req)
 
         const { image, text } = req.body
 
