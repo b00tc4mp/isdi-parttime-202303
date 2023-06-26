@@ -1,38 +1,18 @@
-const { readFile, writeFile } = require('fs')
-const { validators: { validateId, validateUserAvatar, validateCallback } } = require('com')
+const { validators: { validateId, validateUserAvatar } } = require('com')
+const context = require('./context')
+const { ObjectId } = require('mongodb')
 
-module.exports = function updateUserAvatar(id, newAvatar, callback) {
-    validateId(id)
+module.exports = function updateUserAvatar(userId, newAvatar) {
+    validateId(userId)
     validateUserAvatar(newAvatar)
-    validateCallback(callback)
 
-    readFile(`${process.env.DB_PATH}/users.json`, 'utf8', (error, json) => {
-        if (error) {
-            callback(error)
+    const { users } = context
 
-            return
-        }
+    return users.findOne({ _id: new ObjectId(userId) })
+        .then(user => {
+            if (!user) throw new Error('user not found')
 
-        const users = JSON.parse(json)
-        const user = users.find(user => user.id === id)
+            return users.updateOne({ _id: new ObjectId(userId) }, { $set: { avatar: newAvatar } })
 
-        if (!user) {
-            callback(new Error(`user with id ${id} not found`))
-
-            return
-        }
-        user.avatar = newAvatar
-
-        const json2 = JSON.stringify(users, null, 4)
-
-        writeFile(`${process.env.DB_PATH}/users.json`, json2, 'utf8', error => {
-            if (error) {
-                callback(error)
-
-                return
-            }
-            callback(null)
         })
-
-    })
 }

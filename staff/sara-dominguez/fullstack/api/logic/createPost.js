@@ -1,70 +1,29 @@
-const { readFile, writeFile } = require('fs')
+const context = require('./context')
 const { validators: { validateId, validatePostUrl, validateText, validateCallback } } = require('com')
+const { ObjectId } = require('mongodb')
 
-module.exports = function createPost(userId, image, text, callback) {
+
+module.exports = function createPost(userId, image, text) {
     validateId(userId)
     validatePostUrl(image)
     validateText(text)
-    validateCallback(callback)
 
+    const { users } = context
+    const { posts } = context
 
+    return users.findOne({ _id: new ObjectId(userId) })
+        .then(user => {
+            if (!user) throw new Error('user not found')
 
-    readFile(`${process.env.DB_PATH}/users.json`, 'utf8', (error, json) => {
-        if (error) {
-            callback(error)
-
-            return
-        }
-
-        const users = JSON.parse(json)
-
-        const user = users.find(user => user.id === userId)
-
-        if (!user) {
-            callback(new Error(`user with email ${email} not found`))
-
-            return
-        }
-
-
-
-        readFile(`${process.env.DB_PATH}/posts.json`, 'utf8', (error, json) => {
-            if (error) {
-                callback(error)
-
-                return
-            }
-            const posts = JSON.parse(json)
-
-            const lastPost = posts[posts.length - 1]
-
-            let id = 'post-1'
-
-            if (lastPost)
-                id = 'post-' + (parseInt(lastPosts.id.slice(5)) + 1)
 
             const post = {
-                id,
-                author: userId,
+                author: new ObjectId(user._id),
                 image,
                 text,
-                date: new Date(),
+                date: new Date,
                 likes: []
             }
 
-            posts.push(post)
-
-            json = JSON.stringify(posts, null, 4)
-
-            writeFile(`${process.env.DB_PATH}/posts.json`, json, error => {
-                if (error) {
-                    callback(error)
-
-                    return
-                }
-
-                callback(null)
-            })
+            return posts.insertOne(post)
         })
-    })
 }

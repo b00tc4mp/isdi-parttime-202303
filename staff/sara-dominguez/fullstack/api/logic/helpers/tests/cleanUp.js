@@ -1,12 +1,29 @@
-const { writeFile } = require('fs')
+const context = require('../../context')
 
-module.exports = callback =>
-    writeFile(`${process.env.DB_PATH}/users.json`, '[]', error => {
-        if (error) {
-            callback(error)
+module.exports = () => {
+    const { users, posts } = context
 
-            return
-        }
+    return Promise.all([
+        users.deleteMany(),
+        posts.deleteMany()
+    ])
+}
 
-        writeFile(`${process.env.DB_PATH}/posts.json`, '[]', error => callback(error))
-    })
+//OTRA FORMA, UNA PROMESA DESPUES DE OTRA
+//     users.deleteMany()
+//         .then(() => posts.deleteMany())
+// }
+
+
+
+//CON CALLBACKS
+// module.exports = callback =>
+    // writeFile(`${process.env.DB_PATH}/users.json`, '[]', error => {
+    //     if (error) {
+    //         callback(error)
+
+    //         return
+    //     }
+
+    //     writeFile(`${process.env.DB_PATH}/posts.json`, '[]', error => callback(error))
+    // })

@@ -7,18 +7,10 @@ module.exports = (req, res) => {
 
         const { postId } = req.body
 
-        retrievePost(userId, postId, (error, post) => {
-            if (error) {
-                res.status(404).json({ message: error.message })
-
-                return
-            }
-
-            res.json(post)
-        })
-
+        retrievePost(userId, postId)
+            .then(() => res.status(200).send())
+            .catch(error => res.status(404).json({ message: error.message }))
     } catch (error) {
         res.status(404).json({ message: error.message })
     }
-
 }
