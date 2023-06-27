@@ -17,7 +17,7 @@ module.exports = function createPost(userId, image, text) {
 
 
             const post = {
-                author: new ObjectId(user._id),
+                author: user._id,
                 image,
                 text,
                 date: new Date,
