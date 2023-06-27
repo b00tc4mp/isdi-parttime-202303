@@ -14,7 +14,7 @@ export default function Posts({ onEditPost, lastPostsUpdate, user }) {
         try {
             freeze()
 
-            retrievePosts(context.userId, (error, posts) => {
+            retrievePosts(context.token, (error, posts) => {
                 unfreeze()
 
                 if (error) {

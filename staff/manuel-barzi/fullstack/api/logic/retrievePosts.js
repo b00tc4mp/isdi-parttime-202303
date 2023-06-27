@@ -1,39 +1,34 @@
-const { readFile } = require('fs')
 const { validators: { validateId, validateCallback } } = require('com')
+const context = require('./context')
 
-module.exports = (userId, callback) => {
+module.exports = userId => {
     validateId(userId, 'user id')
-    validateCallback(callback)
 
-    readFile(`${process.env.DB_PATH}/users.json`, (error, json) => {
-        if (error) {
-            callback(error)
+    const { users, posts } = context
 
-            return
-        }
+    return Promise.all([users.find().toArray(), posts.find().toArray()])
+        .then(([users, posts]) => {
+            const user = users.find(user => user._id.toString() === userId)
 
-        const users = JSON.parse(json)
+            if (!user) throw new Error(`user with id ${userId} not found`)
 
-        const user = users.find(user => user.id === userId)
+            posts.forEach(post => {
+                post.id = post._id.toString()
+                delete post._id
 
-        if (!user) {
-            callback(new Error(`user with id ${userId} not found`))
+                const author = users.find(user => user._id.toString() === post.author.toString())
 
-            return
-        }
+                const { _id, name, avatar } = author
 
-        readFile(`${process.env.DB_PATH}/posts.json`, (error, json) => {
-            if (error) {
-                callback(error)
+                post.author = {
+                    id: _id.toString(),
+                    name,
+                    avatar
+                }
 
-                return
-            }
+                post.fav = user.favs.some(fav => fav.toString() === post.id)
+            })
 
-            const posts = JSON.parse(json)
-
-            posts.forEach(post => post.date = new Date(post.date))
-
-            callback(null, posts.reverse())
+            return posts
         })
-    })
 }

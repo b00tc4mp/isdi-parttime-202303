@@ -1,49 +1,20 @@
 require('dotenv').config()
 
-const { expect } = require('chai')
+const { MongoClient } = require('mongodb')
+const context = require('./context')
 const retrievePosts = require('./retrievePosts')
-const { cleanUp, populate, generate } = require('./helpers/tests')
 
+let client = new MongoClient(process.env.MONGODB_URL)
 
-describe('retrievePosts', () => {
-    //beforeEach(done => cleanUp(done))
-    beforeEach(cleanUp)
+client.connect()
+    .then(connection => {
+        const db = connection.db()
 
-    describe('on existing users and posts', () => {
-        const users = new Array(5), posts = []
+        context.users = db.collection('users')
+        context.posts = db.collection('posts')
 
-        beforeEach(done => {
-            for (let i = 0; i < users.length; i++) {
-                const user = generate.user()
-
-                users[i] = user
-
-                for (let j = 0; j < 5; j++) {
-                    const post = generate.post(user.id)
-
-                    posts.push(post)
-                }
-            }
-
-            populate(users, posts, done)
-        })
-
-        it('succeeds', done => {
-            const user = users[0]
-
-            retrievePosts(user.id, (error, posts2) => {
-                expect(error).to.be.null
-
-                //expect(JSON.stringify(posts.reverse())).to.equal(JSON.stringify(posts2))
-                expect(posts2).to.deep.equal(posts.reverse())
-
-                done()
-            })
-        })
-
-        // ...
+        return retrievePosts('6499e23e0e68119cec6f89ba',)
     })
-
-    //after(done => cleanUp(done))
-    after(cleanUp)
-})
+    .then(console.log)
+    .then(() => client.close())
+    .catch(console.error)

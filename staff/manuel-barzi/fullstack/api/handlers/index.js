@@ -4,5 +4,6 @@ module.exports = {
     authenticateUserHandler: require('./authenticateUserHandler'),
     retrieveUserHandler: require('./retrieveUserHandler'),
     updateUserAvatarHandler: require('./updateUserAvatarHandler'),
-    createPostHandler: require('./createPostHandler')
+    createPostHandler: require('./createPostHandler'),
+    retrievePostsHandler: require('./retrievePostsHandler')
 }

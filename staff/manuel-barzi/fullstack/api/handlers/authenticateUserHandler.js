@@ -9,7 +9,7 @@ module.exports = (req, res) => {
             .then(userId => {
                 const payload = { sub: userId }
 
-                const token = jwt.sign(payload, process.env.SECRET, { expiresIn: '10s' })
+                const token = jwt.sign(payload, process.env.SECRET, { expiresIn: '1000s' })
 
                 res.json(token)
             })
