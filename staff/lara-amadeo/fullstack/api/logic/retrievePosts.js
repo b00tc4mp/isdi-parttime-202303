@@ -9,24 +9,21 @@ module.exports = function retrievePosts(userId) {
         .then(user => {
             if (!user) throw new Error(`User with id ${userId} not found`)
 
-            return users.find().toArray()
-                .then(users => {
-                    return posts.find().toArray()
-                        .then(posts => {
-                            posts.forEach(post => {
-                                post.favs = user.savedPosts.includes(post._id.toString())
-                                post.date = new Date(post.date)
+            return Promise.all([users.find().toArray(), posts.find().toArray()])
+                .then(([users, posts]) => {
+                    posts.forEach(post => {
+                        post.favs = user.savedPosts.includes(post._id.toString())
+                        post.date = new Date(post.date)
 
-                                const _user = users.find(user => user._id.toString() === post.author.toString())
-                                
-                                post.author = {
-                                    id: _user._id.toString(),
-                                    username: _user.username,
-                                    avatar: _user.avatar
-                                }
-                            })
-                            return posts
-                        })
+                        const _user = users.find(user => user._id.toString() === post.author.toString())
+
+                        post.author = {
+                            id: _user._id.toString(),
+                            username: _user.username,
+                            avatar: _user.avatar
+                        }
+                    })
+                    return posts
                 })
         })
 }

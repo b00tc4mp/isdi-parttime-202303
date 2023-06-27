@@ -86,8 +86,7 @@ export default function Post({ post, onLikeButtonClick, onSaveButtonClick, onEdi
 
 
     return <div className="w-full relative flex flex-col gap-[8px]">
-       {modal === 'open' && <ContextualModalBox
-
+        {modal === 'open' && <ContextualModalBox
             options={[
                 {text: 'Edit post', onClick: handleOpenEditPostModal},
                 {text: `Make post ${post.visibility === 'private' ? 'public' : 'private'}`, onClick: handleVisibility},
@@ -96,9 +95,9 @@ export default function Post({ post, onLikeButtonClick, onSaveButtonClick, onEdi
             ]}
             onAnywhereClick={handleCloseModal}
         />}
-    <div className="flex justify-between w-[100%]">
-        <div className="w-auto flex items-center justify-start gap-[16px] relative">
 
+    <div className="flex justify-between w-[100%]">
+            <div className="w-auto flex items-center justify-start gap-[16px] relative">
             {post && <>
             <img className="w-[32px] h-[32px] rounded-lg object-cover" src={post.author.avatar}/>
             <div>
@@ -108,8 +107,7 @@ export default function Post({ post, onLikeButtonClick, onSaveButtonClick, onEdi
                 </div>
                 <p className="tiny-text">{formatPostDate(new Date(post.date))}</p>
             </div>
-            </>}
-
+                </>}
         </div>
         <div className="flex gap-[8px] items-center">
             {(context.userId !== post.author.id && post.price > 0) && <a className="link" onClick={handleOpenBuyPost}>Buy post</a>}
@@ -121,15 +119,12 @@ export default function Post({ post, onLikeButtonClick, onSaveButtonClick, onEdi
         <img className="w-full aspect-square object-cover" src={post.image}/>
     </div>
 
-    <div className="w-full h-auto flex justify-between items-center">
-
-        <p className="post-caption-text small-text">{post.text}</p>
-
+        <div className="w-full h-auto flex justify-between items-center">
+            <p className="post-caption-text small-text">{post.text}</p>
         {<div className="flex gap-[8px]">
             <div className="icon-s-container" onClick={handleSavedPost}>
                 <span className={`material-symbols-rounded icon-s pointer text-[22px] ${post.favs ? 'save-icon-filled' : ''}`} >bookmark</span>
-            </div>
-
+                </div>
             <div className="icon-s-container" onClick={handleLikedPost}>
                 <span className={`material-symbols-rounded icon-s pointer ${post.likes && post.likes.includes(context.userId)? 'like-icon-filled' : ''}`} >favorite</span>
             </div>
