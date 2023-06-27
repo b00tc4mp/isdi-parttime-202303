@@ -1,53 +1,30 @@
-const { readFile, writeFile } = require('fs');
 const { validators: { validateCallback, validateId } } = require('com');
 
-module.exports = function togglePublicStat(postId, userAuth, callback) {
+const context = require('../context');
+const { ObjectId } = require('mongodb');
+
+module.exports = function togglePublicStat(postId, userAuth) {
     validateId(postId);
     validateId(userAuth);
-    validateCallback(callback);
 
-    readFile('./data/posts.json', 'utf8', (error, json) => {
-        if (error) {
-            callback(error);
-            return;
-        }
+    const { users } = context;
+    const { posts } = context;
 
-        const posts = JSON.parse(json);
 
-        readFile('./data/users.json', 'utf8', (error, usersJson) => {
-            if (error) {
-                callback(error);
-                return;
-            }
+    return users.findOne({ _id: new ObjectId(userAuth) })
+        .then(user => {
+            if (!user) throw new Error('user not found')
 
-            const users = JSON.parse(usersJson);
+            return posts.findOne({ _id: new ObjectId(postId) })
+                .then(post => {
+                    if (!post) throw new Error('post not found')
 
-            const user = users.find(user => user.id === userAuth);
+                    if (!post.author.equals(new ObjectId(userAuth))) throw new Error(`post with id ${postId} does not belong to user with id ${userAuth}`)
 
-            if (!user) {
-                callback(new Error(`user with id ${userAuth} not found`));
-                return;
-            }
-
-            const post = posts.find(post => post.id === postId);
-
-            if (!post) {
-                callback(new Error(`post with id ${postId} not found`));
-                return;
-            }
-
-            post.isPublic = !post.isPublic;
-
-            const postsJson = JSON.stringify(posts, null, 4);
-
-            writeFile('./data/posts.json', postsJson, 'utf8', error => {
-                if (error) {
-                    callback(error);
-                    return;
-                }
-
-                callback(null);
-            });
-        });
-    });
-};
+                    if (post.isPublic)
+                        return posts.updateOne({ '_id': new ObjectId(postId) }, { $set: { isPublic: false } })
+                    else
+                        return posts.updateOne({ '_id': new ObjectId(postId) }, { $set: { isPublic: true } })
+                })
+        })
+}

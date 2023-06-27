@@ -17,26 +17,29 @@ export default (name, userAuth, callback) => {
     validateId(userAuth);
     validateCallback(callback);
 
-    const xhr = new XMLHttpRequest;
+    const xhr = new XMLHttpRequest();
 
     xhr.onload = () => {
         const { status } = xhr;
 
         if (status !== 204) {
             const { response: json } = xhr;
-            const { error } = JSON.parse(json);
-
-            callback(new Error(error));
-
+            console.log(json); // Add this line to check the response data
+            try {
+                const { error } = JSON.parse(json);
+                callback(new Error(error));
+            } catch (error) {
+                callback(new Error('Invalid JSON response'));
+            }
             return;
         }
 
         callback(null);
-    }
+    };
 
     xhr.onerror = () => {
-        callback(new Error('connection error'));
-    }
+        callback(new Error('Connection error'));
+    };
 
     xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/users/name`);
 
@@ -47,4 +50,4 @@ export default (name, userAuth, callback) => {
     const json = JSON.stringify(data);
 
     xhr.send(json);
-}
+};

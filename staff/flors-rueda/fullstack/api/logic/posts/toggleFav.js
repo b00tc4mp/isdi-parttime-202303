@@ -1,54 +1,31 @@
-const { readFile, writeFile } = require('fs');
-const { validators: { validateCallback, validateId } } = require('com');
+const { validators: { validateId } } = require('com');
 
-module.exports = function toggleFav(postId, userAuth, callback) {
+const context = require('../context');
+const { ObjectId } = require('mongodb');
+
+module.exports = function toggleFav(postId, userAuth) {
     validateId(userAuth);
     validateId(postId);
-    validateCallback(callback);
 
-    readFile('./data/users.json', 'utf8', (error, json) => {
-        if (error) {
-            callback(error);
-            return;
-        }
+    const { users } = context;
+    const { posts } = context;
 
-        const users = JSON.parse(json);
+    return users.findOne({ _id: new ObjectId(userAuth) })
+        .then(user => {
+            if (!user) throw new Error('user not found');
 
-        readFile('./data/posts.json', 'utf8', (error, postsJson) => {
-            if (error) {
-                callback(error);
-                return;
-            }
+            return posts.findOne({ _id: new ObjectId(postId) })
+                .then(post => {
+                    if (!post) throw new Error('post not found');
 
-            const posts = JSON.parse(postsJson);
+                    const favs = user.favs;
 
-            const user = users.find(user => user.id === userAuth);
+                    const index = favs.findIndex((objectId) => objectId.equals(new ObjectId(postId)));
 
-            if (!user) {
-                callback(new Error(`user with id ${userAuth} not found`));
-                return;
-            }
-
-            const post = posts.find(post => post.id === postId);
-
-            if (!post) {
-                callback(new Error(`post with id ${postId} not found`));
-                return;
-            }
-
-            const index = user.favs.indexOf(postId);
-            index < 0 ? user.favs.push(postId) : user.favs.splice(index, 1);
-
-            const usersJson = JSON.stringify(users, null, 4);
-
-            writeFile('./data/users.json', usersJson, 'utf8', error => {
-                if (error) {
-                    callback(error);
-                    return;
-                }
-
-                callback(null);
-            });
-        });
-    });
+                    if (index < 0)
+                        return users.updateOne({ '_id': new ObjectId(userAuth) }, { $push: { 'favs': new ObjectId(postId) } });
+                    else
+                        return users.updateOne({ '_id': new ObjectId(userAuth) }, { $pull: { 'favs': new ObjectId(postId) } });
+                })
+        })
 };

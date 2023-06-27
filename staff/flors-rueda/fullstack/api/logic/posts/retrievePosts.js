@@ -8,29 +8,37 @@ module.exports = function retrievePosts(userAuth) {
     const { users } = context;
     const { posts } = context;
 
-    return users.findOne({ _id: new ObjectId(userAuth) }).then((user) => {
-        if (!user) throw new Error(`user with id ${userAuth} not found`);
+    let _user;
 
-        return posts.find({}).sort({ date: -1 }).toArray().then((sortedPosts) => {
+    return users.findOne({ _id: new ObjectId(userAuth) })
+        .then((user) => {
+            if (!user) throw new Error(`user with id ${userAuth} not found`);
+            _user = user;
+            return posts.find({}).sort({ date: -1 }).toArray();
+        })
+        .then((sortedPosts) => {
             let filteredPosts = [];
-            sortedPosts.forEach((post) => {
+
+            const promises = sortedPosts.map((post) => {
                 if (post.isPublic || userAuth === post.author) {
-                    post.isFav = user.favs.includes(post._id.toString());
+                    post.isFav = _user.favs.includes(post._id.toString().replace(/"/g, ''));
 
-                    const author = users.find((_user) => _user._id.toString() === post.author);
+                    post.id = post._id.toString().replace(/"/g, '');
 
-                    post.author = {
-                        id: author._id.toString(),
-                        name: author.name,
-                        username: author.username,
-                        avatar: author.avatar,
-                    };
+                    return users.findOne({ _id: new ObjectId(post.author) })
+                        .then((author) => {
+                            post.author = {
+                                id: author._id.toString().replace(/"/g, ''),
+                                name: author.name,
+                                username: author.username,
+                                avatar: author.avatar,
+                            };
 
-                    filteredPosts.push(post);
+                            filteredPosts.push(post);
+                        });
                 }
             });
 
-            return filteredPosts;
+            return Promise.all(promises).then(() => filteredPosts);
         });
-    });
 };

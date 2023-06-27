@@ -12,8 +12,8 @@ module.exports = function retrieveFavoritePosts(userAuth) {
         if (!user) throw new Error(`user with id ${userAuth} not found`);
 
         return posts
-            .find({ _id: { $in: user.favs } }) // Retrieve only favorite posts
-            .sort({ date: -1 }) // Sort by date in descending order (recent first)
+            .find({ _id: { $in: user.favs } })
+            .sort({ date: -1 })
             .toArray()
             .then((favoritePosts) => {
                 favoritePosts = favoritePosts.map((post) => {

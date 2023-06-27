@@ -1,54 +1,33 @@
-const { readFile, writeFile } = require('fs');
+
 const { validators: { validateCallback, validateId } } = require('com');
 
-module.exports = function toggleLike(postId, userAuth, callback) {
+const context = require('../context');
+const { ObjectId } = require('mongodb');
+
+module.exports = function toggleLike(postId, userAuth) {
     validateId(postId);
     validateId(userAuth);
-    validateCallback(callback);
 
-    readFile('./data/posts.json', 'utf8', (error, json) => {
-        if (error) {
-            callback(error);
-            return;
-        }
+    const { users } = context;
+    const { posts } = context;
 
-        const posts = JSON.parse(json);
+    return users.findOne({ _id: new ObjectId(userId) })
+        .then(user => {
+            if (!user) throw new Error('user not found')
 
-        readFile('./data/users.json', 'utf8', (error, usersJson) => {
-            if (error) {
-                callback(error);
-                return;
-            }
+            return posts.findOne({ _id: new ObjectId(postId) })
+                .then(post => {
+                    if (!post) throw new Error('post not found')
 
-            const users = JSON.parse(usersJson);
+                    const likes = post.likes
 
-            const user = users.find(user => user.id === userAuth);
+                    const targetObjectId = new ObjectId(userId)
+                    const index = likes.findIndex((objectId) => objectId.equals(targetObjectId))
 
-            if (!user) {
-                callback(new Error(`user with id ${userAuth} not found`));
-                return;
-            }
-
-            const post = posts.find(post => post.id === postId);
-
-            if (!post) {
-                callback(new Error(`post with id ${postId} not found`));
-                return;
-            }
-
-            const index = post.likes.indexOf(userAuth);
-            index < 0 ? post.likes.push(userAuth) : post.likes.splice(index, 1);
-
-            const postsJson = JSON.stringify(posts, null, 4);
-
-            writeFile('./data/posts.json', postsJson, 'utf8', error => {
-                if (error) {
-                    callback(error);
-                    return;
-                }
-
-                callback(null);
-            });
-        });
-    });
-};
+                    if (index < 0)
+                        return posts.updateOne({ '_id': new ObjectId(postId) }, { $push: { 'likes': new ObjectId(userId) } })
+                    else
+                        return posts.updateOne({ '_id': new ObjectId(postId) }, { $pull: { 'likes': new ObjectId(userId) } })
+                })
+        })
+}

@@ -39,7 +39,7 @@ export const toggleFav = (postId, userAuth, callback) => {
     }
 
     xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/posts/${postId}/favs`);
-
+    console.log(`here id ${postId}`)
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.setRequestHeader('Authorization', `Bearer ${userAuth}`);
 
