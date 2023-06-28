@@ -47,7 +47,7 @@ export default function Register({ onLoginClick, onUserRegistered }) {
                     <label className="campo__label" for="email">E-mail</label>
                     <input className="campo__field register-input" type="email" placeholder="Tu E-mail" id="email" required/>
                 </div>
-                <div class="campo">
+                <div className="campo">
                     <label className="campo__label" for="password">Contraseña</label>
                     <input className="campo__field register-input" type="password" placeholder="Tu contraseña" id="password"required/>
                 </div>

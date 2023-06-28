@@ -1,58 +1,18 @@
-const { readFile, writeFile } = require('fs')
-const { validators: { validateName, validateEmail, validatePassword, validateCallback } } = require('com')
+const { validators: { validateName, validateEmail, validatePassword } } = require('com')
+const context = require('./context')
 
-module.exports = function registerUser(name, email, password, callback) {
+module.exports = (name, email, password) => {
     validateName(name)
     validateEmail(email)
     validatePassword(password)
-    validateCallback(callback)
 
-    readFile(`${process.env.DB_PATH}/users.json`, 'utf8', (error, json) => {
-        if (error) {
-            callback(error)
+    const { users } = context
 
-            return
-        }
+    return users.insertOne({ name, email, password, avatar: null, favs: [] })
+        .catch(error => {
+            if (error.message.includes('E11000'))
+                throw new Error(`user with email ${email} already exists`)
 
-        const users = JSON.parse(json)
-
-        let user = users.find(user => user.email === email)
-
-        if (user) {
-            callback(new Error(`user with email ${email} already exists`))
-
-            return
-        }
-
-        let id = 'user-1'
-
-        const lastUser = users[users.length - 1]
-
-        if (lastUser)
-            id = `user-${parseInt(lastUser.id.slice(5)) + 1}`
-
-        user = {
-            id,
-            name,
-            email,
-            password,
-            avatar: null,
-            favs: []
-        }
-
-        users.push(user)
-
-        json = JSON.stringify(users)
-
-
-        writeFile(`${process.env.DB_PATH}/users.json`, json, 'utf8', error => {
-            if (error) {
-                callback(error)
-
-                return
-            }
-
-            callback(null)
+            throw error
         })
-    })
 }
