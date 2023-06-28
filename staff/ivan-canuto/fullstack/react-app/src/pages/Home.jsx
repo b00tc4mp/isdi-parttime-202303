@@ -8,7 +8,7 @@ import retrieveUser from "../logic/retrieveUser"
 import EditPost from "../components/EditPostModal"
 import Header from "../components/Header"
 import "./pages-styles/Home.css"
-import Context from "../Context"
+import Context from "../AppContext"
 import { useContext } from "react"
 import VisibilityPost from "../components/VisibilityPostModal"
 import ToggleOnSalePost from "../components/ToggleOnSalePostModal"
@@ -21,7 +21,7 @@ export default function Home(props) {
   const [view, setView] = useState(context.view || "posts")
   const [modal, setModal] = useState(null)
   const [menu, setMenu] = useState(false)
-  const [openedMenu, setOpenedMenu] = useState(true)
+  const [openedMenu, setOpenedMenu] = useState(false)
   const [lastPostsUpdate, setLastPostsUpdate] = useState(null)
   const [user, setUser] = useState()
   const { alert, freeze, unfreeze } = useContext(Context)
@@ -30,7 +30,7 @@ export default function Home(props) {
     try {
       freeze()
 
-      retrieveUser(context.userId, (error, _user) => {
+      retrieveUser(context.token, (error, _user) => {
         unfreeze()
 
         if (error) {

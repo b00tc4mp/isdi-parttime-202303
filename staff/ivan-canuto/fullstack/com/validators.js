@@ -1,20 +1,20 @@
 function validateName(name) {
-  if (typeof name !== 'string') throw new Error('Name is not a string.')
+  if (typeof name !== 'string') throw new TypeError('Name is not a string.')
   if (!name.trim().length) throw new Error('Name field is empty.')
 }
 
 function validateEmail(email, explanation = 'email') {
-  if (typeof email!=='string') throw new Error(`The ${explanation} is not a string.`)
+  if (typeof email!=='string') throw new TypeError(`The ${explanation} is not a string.`)
   if (!email.trim().length) throw new Error(`The ${explanation} field is empty.`, {cause: 'hola'})
 }
 
 function validatePassword(password, explanation = 'password') {
-  if (typeof password!=='string') throw new Error(`The ${explanation} is not a string.`)
+  if (typeof password!=='string') throw new TypeError(`The ${explanation} is not a string.`)
   if (!password.trim().length) throw new Error(`The ${explanation} field is empty.`)
 }
 
 function validateUrl(newUrl, explanation = 'url') {
-  if (typeof newUrl !=='string') throw new Error(`The ${explanation} is not a string.`)
+  if (typeof newUrl !=='string') throw new TypeError(`The ${explanation} is not a string.`)
   if (!newUrl.trim().length) throw new Error(`The ${explanation} field is empty.`)
 
   const correctUrl = /(jpe?g|png|webp)/
@@ -23,17 +23,22 @@ function validateUrl(newUrl, explanation = 'url') {
 
 function validateId(id, explanation = 'id') {
   // console.log(id)
-  if (typeof id !=='string') throw new Error(`The ${explanation} is not a string.`)
+  if (typeof id !=='string') throw new TypeError(`The ${explanation} is not a string.`)
   if (!id.trim().length) throw new Error(`The ${explanation} field is empty.`)
 }
 
 function validateText(text, explanation = 'text') {
-  if (typeof text !=='string') throw new Error(`The ${explanation} is not a string.`)
+  if (typeof text !=='string') throw new TypeError(`The ${explanation} is not a string.`)
   if (!text.trim().length) throw new Error(`The ${explanation} field is empty.`)
 }
 
-function validateCallback(callBack, explanation = 'CallBack')   {
+function validateCallback(callBack, explanation = 'CallBack') {
   if (typeof callBack !== 'function') throw new Error(`${explanation} is not a function.`)
+}
+
+function validateToken(token, explanation = 'token') {
+  if (typeof token !=='string') throw new TypeError(`The ${explanation} is not a string.`)
+  if(token.split('.').lenght !== 3) throw new Error(`${explanation} is ont valid.`)
 }
 
 module.exports = {
@@ -43,5 +48,6 @@ module.exports = {
   validateUrl,
   validateText,
   validateCallback,
-  validateId
+  validateId,
+  validateToken
 }

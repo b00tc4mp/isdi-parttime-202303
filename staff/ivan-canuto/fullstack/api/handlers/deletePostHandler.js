@@ -1,9 +1,9 @@
-const { extractUserId } = require('../helpers')
+const { extractToken } = require('../helpers')
 const deletePost = require('../logic/deletePost')
 
 module.exports = (req, res) => {
   try {
-    const userId = extractUserId(req)
+    const userId = extractToken(req)
     const { postId } = req.params
 
     deletePost(postId, userId)

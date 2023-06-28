@@ -77,7 +77,7 @@ export default function Posts({ lastPostsUpdate, view, handleOpenBuyPost, handle
 
   useEffect(() => {
     console.debug('Posts -> "ComponentWillRecieveProps" with hooks.');
-    handleRefreshPosts()
+    // handleRefreshPosts()
 
     if(lastPostsUpdate) {
       handleRefreshPosts()

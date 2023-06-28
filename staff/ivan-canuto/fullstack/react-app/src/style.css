@@ -86,3 +86,22 @@ body::-webkit-scrollbar {
 .liked {
   color: red;
 }
+
+.opened-menu {
+  left: 0;
+  animation: slide 0.3s linear forwards;
+}
+
+.closed-menu {
+  animation: slide-back 0.3s linear forwards;
+}
+
+@keyframes slide {
+  0% { left: -300px }
+  100% { left: 0 }
+}
+
+@keyframes slide-back {
+  0% { left: 0 }
+  100% { left: -300px }
+}

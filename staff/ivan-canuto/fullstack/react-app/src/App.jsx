@@ -3,23 +3,28 @@ import Login from "./pages/Login"
 import Register from "./pages/Register"
 import Home from "./pages/Home";
 import { context, getTheme, setTheme } from "./ui";
-import Context from "./Context";
+import AppContext from "./AppContext";
 import Alert from "./components/Alert";
 import Loader from "./library/Loader";
+import { utils } from "com"
+
+const { Provider } = AppContext
+const { isTokenAlive, isTokenValid } = utils
 
 export default function App() {
-  const [view, setView] = useState(null)
+  const { token } = context
+  const [view, setView] = useState(isTokenValid(token) && isTokenAlive(token) ? 'home' : 'login')
   const [feedback, setFeedback] = useState(null)
   const [loader, setLoader] = useState(false)
 
   useEffect(() => setTheme(getTheme()) ,[])
 
-  useEffect(() => {
-    if(context.userId)
-      setView('home')
-    else
-      setView('login')
-  }, [])
+  // useEffect(() => {
+  //   if(context.token)
+  //     setView('home')
+  //   else
+  //     setView('login')
+  // }, [])
 
   const handleGoToRegister = () => setView('register')
   
@@ -35,11 +40,11 @@ export default function App() {
 
   const unfreeze = () => setLoader(false)
 
-  return <Context.Provider value={{alert, freeze, unfreeze}}>
+  return <Provider value={{alert, freeze, unfreeze}}>
     {loader && <Loader/>}
     {view === 'login' && <Login onRegisterClick={handleGoToRegister} onLoggedInUser={handleGoToHome}/>}
     {view === 'register' && <Register onLoginClick={handleGoToLogin} onRegisterUser={handleGoToLogin}/>}
     {view === 'home' && <Home onLoggedOut={handleGoToLogin}/>}
     {feedback && <Alert message={feedback.message} level={feedback.level} onAccept={handleOnAcceptClick}/>}
-  </Context.Provider>
+  </Provider>
 }

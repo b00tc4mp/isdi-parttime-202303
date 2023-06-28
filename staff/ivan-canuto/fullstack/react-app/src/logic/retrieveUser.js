@@ -1,6 +1,6 @@
 import { validators } from 'com'
 
-const { validateId, validateCallback } = validators
+const { validateToken, validateCallback } = validators
 
 /**
  * Retrieves the name, avatar, and favorite posts of the user.
@@ -10,8 +10,8 @@ const { validateId, validateCallback } = validators
  * 
  */
 
-export default function retrieveUser(userId, callBack) {
-  validateId(userId, 'user id')
+export default (token, callBack) => {
+  validateToken(token, 'user id')
   validateCallback(callBack)
 
   const xhr = new XMLHttpRequest
@@ -40,7 +40,7 @@ export default function retrieveUser(userId, callBack) {
 
   xhr.open('GET', `${import.meta.env.VITE_API_URL}/users`)
 
-  xhr.setRequestHeader('Authorization', `Bearer ${userId}`)
+  xhr.setRequestHeader('Authorization', `Bearer ${token}`)
 
   xhr.send()
 }

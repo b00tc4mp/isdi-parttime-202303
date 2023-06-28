@@ -1,7 +1,7 @@
 import authenticateUser from "../logic/authenticateUser"
 import { context } from "../ui"
 import './pages-styles/Login.css'
-import Context from "../Context"
+import Context from "../AppContext"
 import { useContext, useEffect, useState } from "react"
 import retrireveRandomMotivationalQuote from "../logic/retrieveRandomMotivationalQuote"
 import Form from "../library/Form"
@@ -28,7 +28,7 @@ export default function Login ({ onRegisterClick, onLoggedInUser }) {
     try {
       freeze()
 
-      authenticateUser(email, password, (error, userId) => {
+      authenticateUser(email, password, (error, token) => {
         unfreeze()
 
         if(error) {
@@ -37,7 +37,7 @@ export default function Login ({ onRegisterClick, onLoggedInUser }) {
           return
         }
 
-        context.userId = userId
+        context.token = token
         
         onLoggedInUser()
       })

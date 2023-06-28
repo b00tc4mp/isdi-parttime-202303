@@ -1,6 +1,6 @@
 import { registerUser } from "../logic/registerUser"
 import './pages-styles/Register.css'
-import Context from "../Context"
+import Context from "../AppContext"
 import { useContext } from "react"
 import Form from "../library/Form";
 import Input from "../library/Input";
