@@ -1,7 +1,7 @@
 require('dotenv').config()
 const express = require('express')
 const { cors, jsonBodyParser } = require('./utils')
-const { helloApiHandler, registerUserHandler, authenticateUserHandler, retrieveUserHandler, updateUserAvatarHandler, updateUserPasswordHandler, createPostHandler, retrievePostHandler, retrievePostsHandler } = require('./handlers')
+const { helloApiHandler, registerUserHandler, authenticateUserHandler, retrieveUserHandler, updateUserAvatarHandler, updateUserPasswordHandler, createPostHandler, retrievePostHandler, retrievePostsHandler, updatePostHandler, toggleFavPostHandler, toggleLikePostHandler } = require('./handlers')
 const { MongoClient } = require('mongodb')
 const context = require('./logic/context')
 
@@ -32,9 +32,13 @@ client.connect()
         api.get('/users', retrieveUserHandler)
         api.patch('/users', jsonBodyParser, updateUserAvatarHandler)
         api.patch('users', jsonBodyParser, updateUserPasswordHandler)
+        api.patch('users', jsonBodyParser, toggleFavPostHandler)
         api.post('/posts', jsonBodyParser, createPostHandler)
         api.get('/posts', jsonBodyParser, retrievePostHandler)
         api.get('/posts', retrievePostsHandler)
+        api.get('/posts', jsonBodyParser, updatePostHandler)
+        api.patch('posts', jsonBodyParser, toggleLikePostHandler)
+
 
         api.listen(process.env.PORT, () => console.log(`server running in port ${process.env.PORT}`))
     })

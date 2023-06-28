@@ -6,5 +6,9 @@ module.exports = {
     createPost: require('./createPost'),
     retrievePost: require('./retrievePost'),
     retrievePosts: require('./retrievePosts'),
+    updatePost: require('./updatePost'),
+    toggleFavPost: require('./toggleFavPost'),
+    toggleLikePost: require('./toggleLikePost')
+
 
 }

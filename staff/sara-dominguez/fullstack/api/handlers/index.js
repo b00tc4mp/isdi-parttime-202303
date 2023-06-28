@@ -9,4 +9,7 @@ module.exports = {
     createPostHandler: require('./createPostHandler'),
     retrievePostHandler: require('./retrievePostHandler'),
     retrievePostsHandler: require('./retrievePostsHandler'),
+    updatePostHandler: require('./updatePostHandler'),
+    toggleFavPostHandler: require('./toggleFavPostHandler'),
+    toggleLikePostHandler: require('./toggleLikePostHandler')
 }
