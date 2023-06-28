@@ -19,8 +19,10 @@ ReactDOM.createRoot(document.getElementById('root')).render(
                 - editar ReadMe a modo stories de que vol el client 20230510 2118
                 - Compra/Venta de posts entre usuaris
                 - canviar alerts -> Context i context provider 20230522 2110 (posarli animacio? settimeout?)
-                - quan es borra un user esborrar tots els seus posts!
-                - check dels canvis a mongo a la app!
+                - quan es borra un user esborrar tots els seus posts i tots els posts que tenen un like seu!
+                - tokenitzar 20230626 + 20230627 2040
+                - cors i body-parser d'express 20230627 2036
+                - distincio d'errors 20230627 2052
 
                 - OPTIONAL
                 - session cookies 20230619 2100
@@ -32,17 +34,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
                 - comentaris en els posts
                 - tancar ulls de les contrasenyes amb el canvi de pagina. register i login fet, falta canvi nom, password i mail
                 - poder afegir fotos dsd el pc
-                
-        TODO Arrays:
-                - metodes amb callback:
-                - seguir amb splice, rersoldre afegir X i  als months
-
-        TODO Curri:
-                - Fried Green Tomato (Testarossa), poder fer varis objectes?
 
         TODO Misc:
-                - Repasar Bind
-                - acabar video classes
+                - 
 
         PREGUNTES:
                 - 

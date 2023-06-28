@@ -13,6 +13,7 @@ module.exports = userId => {
 
             delete user._id
             delete user.password
+            delete user.favs
 
             return user
         })

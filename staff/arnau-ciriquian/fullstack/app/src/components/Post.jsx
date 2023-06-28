@@ -5,8 +5,12 @@ import { deletePost } from "../logic/deletePost"
 import toggleFavPost from "../logic/toggleFavPost"
 import toggleHidePost from "../logic/toggleHidePost"
 
-export default function Post({ post: { image, text, date, likes, author, _id, fav, visibility }, onLikePostClick, onEditClick, onDeletePostClick, onFavPostClick, onHidePostClick }) {
+export default function Post({ post: { image, text, date, likes, author, _id, favs, visibility }, onLikePostClick, onEditClick, onDeletePostClick, onFavPostClick, onHidePostClick }) {
     const handleLikePostClick = () => {
+
+        console.log(author.username)
+        console.log(author.avatar)
+
         try {
             toggleLikePost(context.userId, _id, error => {
                 
@@ -75,15 +79,15 @@ export default function Post({ post: { image, text, date, likes, author, _id, fa
 
     console.log('Post -> Render')
 
-    if (!visibility && context.userId === author) {
+    if (!visibility && context.userId === author.id) {
         return <article className="inputs__box--feed">
         <div className="post__info--user">
             <div className="post__user">
                 <img className="post__avatar" src={author.avatar} />
-                <p className="post__name">{author}</p>
+                <p className="post__name">{author.username}</p>
             </div>
             <div className="post__favorite">
-                <img className="favorite--icon" src={fav ? "../../images/bookmark_filled.png" : "../../images/bookmark_empty.png"} onClick={handleFavPostClick} />
+                <img className="favorite--icon" src={favs ? "../../images/bookmark_filled.png" : "../../images/bookmark_empty.png"} onClick={handleFavPostClick} />
             </div>
             <div className="post__date">
                 <time className="text">{date}</time>
@@ -97,13 +101,13 @@ export default function Post({ post: { image, text, date, likes, author, _id, fa
                 <p>{likes ? likes.length : 0}</p>
             </div>
             <div className="post__edit">
-                {author === context.userId && <img className="edit--icon" src="../../images/edit.png" onClick={handleOpenEditModal} />}
+                {author.id === context.userId && <img className="edit--icon" src="../../images/edit.png" onClick={handleOpenEditModal} />}
             </div>
             <div className="post__hide">
-                {(author === context.userId && visibility === true && <img className="hide--icon" src="../../images/eye.png" onClick={handleHidePost} />) || (author === context.userId && visibility === false && <img className="hide--icon" src="../../images/eye_slashed.png" onClick={handleHidePost} />)}
+                {(author.id === context.userId && visibility === true && <img className="hide--icon" src="../../images/eye.png" onClick={handleHidePost} />) || (author.id === context.userId && visibility === false && <img className="hide--icon" src="../../images/eye_slashed.png" onClick={handleHidePost} />)}
             </div>
             <div className="post__delete">
-                {author === context.userId && <img className="delete--icon" src="../../images/delete.png" onClick={handleDeletePost} />}
+                {author.id === context.userId && <img className="delete--icon" src="../../images/delete.png" onClick={handleDeletePost} />}
             </div>
         </div>
     </article>
@@ -114,10 +118,10 @@ export default function Post({ post: { image, text, date, likes, author, _id, fa
         <div className="post__info--user">
             <div className="post__user">
                 <img className="post__avatar" src={author.avatar} />
-                <p className="post__name">{author}</p>
+                <p className="post__name">{author.username}</p>
             </div>
             <div className="post__favorite">
-                <img className="favorite--icon" src={fav ? "../../images/bookmark_filled.png" : "../../images/bookmark_empty.png"} onClick={handleFavPostClick} />
+                <img className="favorite--icon" src={favs ? "../../images/bookmark_filled.png" : "../../images/bookmark_empty.png"} onClick={handleFavPostClick} />
             </div>
             <div className="post__date">
                 <time className="text">{date}</time>
@@ -131,13 +135,13 @@ export default function Post({ post: { image, text, date, likes, author, _id, fa
                 <p>{likes ? likes.length : 0}</p>
             </div>
             <div className="post__edit">
-                {author === context.userId && <img className="edit--icon" src="../../images/edit.png" onClick={handleOpenEditModal} />}
+                {author.id === context.userId && <img className="edit--icon" src="../../images/edit.png" onClick={handleOpenEditModal} />}
             </div>
             <div className="post__hide">
-                {(author === context.userId && visibility === true && <img className="hide--icon" src="../../images/eye.png" onClick={handleHidePost} />) || (author === context.userId && visibility === false && <img className="hide--icon" src="../../images/eye_slashed.png" onClick={handleHidePost} />)}
+                {(author.id === context.userId && visibility === true && <img className="hide--icon" src="../../images/eye.png" onClick={handleHidePost} />) || (author.id === context.userId && visibility === false && <img className="hide--icon" src="../../images/eye_slashed.png" onClick={handleHidePost} />)}
             </div>
             <div className="post__delete">
-                {author === context.userId && <img className="delete--icon" src="../../images/delete.png" onClick={handleDeletePost} />}
+                {author.id === context.userId && <img className="delete--icon" src="../../images/delete.png" onClick={handleDeletePost} />}
             </div>
         </div>
     </article>

@@ -9,28 +9,24 @@ module.exports = (userId) => {
 
     return users.findOne({ _id: new ObjectId(userId) })
         .then(user => {
-            if (!user) {
-                throw new Error('User not found')
-            }
+            if (!user) {throw new Error('User not found')}
 
-            const promises = []
-            const userFavs = user.favs.map(fav => fav.toString())
+            return Promise.all([users.find().toArray(), posts.find().toArray()])
+                .then(([users, posts]) => {
+                    posts.forEach(post => {
+                        post.favs = user.favs.includes(post._id.toString())
 
-            return posts.find().toArray()
-                .then(postsArray => {
-                    for (const post of postsArray) {
-                        const isFav = userFavs.includes(post._id.toString())
-                        const promise = isFav ? 
-                            posts.updateOne({ '_id': post._id }, { $set: { fav: true } }) :
-                            posts.updateOne({ '_id': post._id }, { $set: { fav: false } })
+                        const _user = users.find(user => user._id.toString() === post.author.toString())
+
+                        //arreglar nom i favs del post (new fix 20230627 2120) -> comprovar amb insomnia que torna
                         
-                        promises.push(promise)
-                    }
-
-                    return Promise.all(promises)
+                        post.author = {
+                            id: _user._id.toString(),
+                            username: _user.name,
+                            avatar: _user.avatar
+                        }
+                    })
+                    return posts
                 })
-                .then(() => {
-                    return posts.find().toArray()
-                })
-        });
+        })
 }
