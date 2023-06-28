@@ -1,5 +1,7 @@
 const { registerUser } = require('../logic')
 
+const jwt = require('jsonwebtoken')
+
 module.exports = (req, res) => {
     try {
         const { name, email, password, repeatPassword } = req.body

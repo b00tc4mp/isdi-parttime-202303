@@ -1,9 +1,11 @@
 const { updatePost } = require('../logic')
-const { extractUserId } = require('../helpers')
+const { extractToken } = require('../helpers')
 debugger
+const jwt = require('jsonwebtoken')
+
 module.exports = (req, res) => {
     try {
-        const userId = extractUserId(req)
+        const userId = extractToken(req)
 
         const { postId } = req.params
         const { image, text } = req.body

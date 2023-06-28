@@ -1,3 +1,5 @@
+const jwt = require('jsonwebtoken')
+
 module.exports = {
     helloApiHandler: require('./helloApiHandler'),
     registerUserHandler: require('./registerUserHandler'),

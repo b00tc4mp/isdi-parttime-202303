@@ -1,6 +1,6 @@
 // 1. call context.js to load your db in memory
-const context = require('./context')
 const { validators: { validateName, validateEmail, validatePassword } } = require('com')
+const context = require('./context')
 
 // 2. create function with the parameters it receives
 module.exports = (name, email, password, repeatPassword) => {

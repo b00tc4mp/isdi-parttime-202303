@@ -1,9 +1,11 @@
 const { retrievePosts } = require('../logic')
-const { extractUserId } = require('../helpers')
+const { extractToken } = require('../helpers')
+
+const jwt = require('jsonwebtoken')
 
 module.exports = (req, res) => {
     try {
-        const userId = extractUserId(req)
+        const userId = extractToken(req)
 
         retrievePosts(userId, (error, user) => {
             if (error) {
