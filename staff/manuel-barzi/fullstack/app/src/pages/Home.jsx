@@ -17,15 +17,20 @@ export default function Home({ onLoggedOut }) {
 
     useEffect(() => {
         try {
-            retrieveUser(context.token, (error, user) => {
-                if (error) {
-                    alert(error.message)
+            // retrieveUser(context.token, (error, user) => {
+            //     if (error) {
+            //         alert(error.message)
 
-                    return
-                }
+            //         return
+            //     }
 
-                setUser(user)
-            })
+            //     setUser(user)
+            // })
+
+            retrieveUser(context.token)
+                //.then(user => setUser(user))
+                .then(setUser)
+                .catch(error => alert(error.message))
         } catch (error) {
             alert(error.message)
         }

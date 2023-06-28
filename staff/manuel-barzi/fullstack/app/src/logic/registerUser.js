@@ -6,35 +6,49 @@ export default (name, email, password, callback) => {
     validateName(name)
     validateEmail(email)
     validatePassword(password)
-    validateCallback(callback)
 
-    const xhr = new XMLHttpRequest
+    if (callback) {
+        validateCallback(callback)
 
-    xhr.onload = () => {
-        const { status } = xhr
+        const xhr = new XMLHttpRequest
 
-        if (status !== 201) {
-            const { response: json } = xhr
-            const { error } = JSON.parse(json)
+        xhr.onload = () => {
+            const { status } = xhr
 
-            callback(new Error(error))
+            if (status !== 201) {
+                const { response: json } = xhr
+                const { error } = JSON.parse(json)
 
-            return
+                callback(new Error(error))
+
+                return
+            }
+
+            callback(null)
         }
 
-        callback(null)
-    }
+        xhr.onerror = () => {
+            callback(new Error('connection error'))
+        }
 
-    xhr.onerror = () => {
-        callback(new Error('connection error'))
-    }
+        xhr.open('POST', `${import.meta.env.VITE_API_URL}/users`)
 
-    xhr.open('POST', `${import.meta.env.VITE_API_URL}/users`)
+        xhr.setRequestHeader('Content-Type', 'application/json')
 
-    xhr.setRequestHeader('Content-Type', 'application/json')
+        const user = { name, email, password }
+        const json = JSON.stringify(user)
 
-    const user = { name, email, password }
-    const json = JSON.stringify(user)
-
-    xhr.send(json)
+        xhr.send(json)
+    } else
+        return fetch(`${import.meta.env.VITE_API_URL}/users`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ name, email, password })
+        })
+            .then(res => {
+                if (res.status !== 201)
+                    return res.json().then(({ error: message }) => { throw new Error(message) })
+            })
 }

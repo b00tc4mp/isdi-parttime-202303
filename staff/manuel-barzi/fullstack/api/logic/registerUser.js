@@ -1,4 +1,7 @@
-const { validators: { validateName, validateEmail, validatePassword } } = require('com')
+const {
+    validators: { validateName, validateEmail, validatePassword },
+    errors: { DuplicityError }
+} = require('com')
 const context = require('./context')
 
 module.exports = (name, email, password) => {
@@ -11,7 +14,7 @@ module.exports = (name, email, password) => {
     return users.insertOne({ name, email, password, avatar: null, favs: [] })
         .catch(error => {
             if (error.message.includes('E11000'))
-                throw new Error(`user with email ${email} already exists`)
+                throw new DuplicityError(`user with email ${email} already exists`)
 
             throw error
         })

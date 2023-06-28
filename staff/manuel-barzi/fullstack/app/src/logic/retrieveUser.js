@@ -4,35 +4,49 @@ const { validateCallback, validateToken } = validators
 
 export default (token, callback) => {
     validateToken(token)
-    validateCallback(callback)
 
-    const xhr = new XMLHttpRequest
+    if (callback) {
+        validateCallback(callback)
 
-    xhr.onload = () => {
-        const { status } = xhr
+        const xhr = new XMLHttpRequest
 
-        if (status !== 200) {
+        xhr.onload = () => {
+            const { status } = xhr
+
+            if (status !== 200) {
+                const { response: json } = xhr
+                const { error } = JSON.parse(json)
+
+                callback(new Error(error))
+
+                return
+            }
+
             const { response: json } = xhr
-            const { error } = JSON.parse(json)
+            const user = JSON.parse(json)
 
-            callback(new Error(error))
-
-            return
+            callback(null, user)
         }
 
-        const { response: json } = xhr
-        const user = JSON.parse(json)
+        xhr.onerror = () => {
+            callback(new Error('connection error'))
+        }
 
-        callback(null, user)
-    }
+        xhr.open('GET', `${import.meta.env.VITE_API_URL}/users`)
 
-    xhr.onerror = () => {
-        callback(new Error('connection error'))
-    }
+        xhr.setRequestHeader('Authorization', `Bearer ${token}`)
 
-    xhr.open('GET', `${import.meta.env.VITE_API_URL}/users`)
+        xhr.send()
+    } else
+        return fetch(`${import.meta.env.VITE_API_URL}/users`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+            .then(res => {
+                if (res.status !== 200)
+                    return res.json().then(({ error: message }) => { throw new Error(message) })
 
-    xhr.setRequestHeader('Authorization', `Bearer ${token}`)
-
-    xhr.send()
+                return res.json()
+            })
 }
