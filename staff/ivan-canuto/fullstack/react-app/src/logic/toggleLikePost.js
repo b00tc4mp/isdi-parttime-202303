@@ -1,4 +1,3 @@
-import { savePost, findUserById, findPostById } from "../data"
 import { validators } from 'com'
 
 const { validateId, validateCallback } = validators

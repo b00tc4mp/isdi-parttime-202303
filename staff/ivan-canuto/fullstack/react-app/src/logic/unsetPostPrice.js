@@ -3,9 +3,10 @@ import { validators } from 'com'
 const { validateId, validateCallback } = validators
 
 export default function unsetPostPrice(postId, callBack) {
+  console.log(postId)
   validateId(postId, 'post id')
   validateCallback(callBack)
-
+  
   const xhr = new XMLHttpRequest
 
   xhr.onload = () => {

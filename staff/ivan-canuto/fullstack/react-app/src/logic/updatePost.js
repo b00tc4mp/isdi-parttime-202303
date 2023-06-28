@@ -26,7 +26,7 @@ export const updatePost = (userId, postId, imageUrl, postText, callBack)=>{
     const { status } = xhr
 
     if(status !== 200) {
-      const { response: json } = xhr.DONE
+      const { response: json } = xhr
       const { error } = JSON.parse(json)
 
       callBack(new Error (error))

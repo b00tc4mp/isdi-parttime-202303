@@ -29,7 +29,7 @@ export default function Comments({ onCloseCommentModal, handleRefreshPosts, post
     try {
       freeze()
       
-      createComment(commentText, context.userId, post.id, (error) => {
+      createComment(commentText, context.userId, post._id, (error) => {
         unfreeze()
         
         if(error) {
@@ -49,11 +49,11 @@ export default function Comments({ onCloseCommentModal, handleRefreshPosts, post
     }
   }
   
-  const handleDeleteComment = (post, commentId) => {
+  const handleDeleteComment = (commentId) => {
     try{
       freeze()
-
-      deleteComment(post.id, commentId, (error) => {
+      
+      deleteComment(post._id, commentId, (error) => {
         unfreeze()
 
         if (error) {
@@ -74,10 +74,10 @@ export default function Comments({ onCloseCommentModal, handleRefreshPosts, post
   }
 
   return <>
-    <section className="flex flex-col items-center h-80">
+    <section className="flex flex-col items-center w-full h-full p-4">
       <div className="flex justify-between w-full">
-        <div>
-          <img className="h-6 rounded-full" src={post.author.avatar} alt="post-user-avatar" />
+        <div className="flex">
+          <img className="h-6 rounded-full" src={post.author.avatar} alt="post-user-avatar"/>
           <p className=" mx-2">{post.author.name}</p>
         </div>
         <Button className="h-8" onClick={handleCloseCommentModal}>Return</Button>
@@ -85,12 +85,11 @@ export default function Comments({ onCloseCommentModal, handleRefreshPosts, post
 
       <h2 className="mt-2 mb-4 font-bold text-lg">Post comments</h2>
 
-      <div className="flex flex-col justify-between h-full">
+      <div className="flex flex-col justify-between h-full w-full">
         <div className="flex flex-col overflow-hidden">
           {post.comments && post.comments.map(comment => <Comment
             key={comment.id}
             comment={comment}
-            post={post}
             handleDeleteComment={handleDeleteComment}/>
           )}
         </div>

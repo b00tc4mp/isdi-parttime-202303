@@ -7,15 +7,9 @@ module.exports = (req, res) => {
     const { postId } = req.params
     const { commentText } = req.body
 
-    createComment(commentText, userId, postId, error => {
-      if(error) {
-        res.status(400).json({error: error.message})
-        
-        return
-      }
-
-      res.send()
-    })
+    createComment(commentText, userId, postId)
+      .then(() => res.send())
+      .catch(error => res.status(400).json({error: error.message}))
   } catch (error) {
     res.status(400).json({error: error.message})
   }

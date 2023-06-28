@@ -1,51 +1,29 @@
-const { readFile } = require('fs')
-const { validators: { validateId, validateCallback } } = require('com')
+const { validators: { validateId } } = require('com')
+const context = require('./context')
+const { ObjectId } = require('mongodb')
 
-module.exports = function retrieveUserPosts(userId, callBack) {
+module.exports = function retrieveUserPosts(userId) {
   validateId(userId, 'user id')
-  validateCallback(callBack)
 
-  readFile(`${process.env.DB_PATH}/users.json`, (error, usersJSON) => {
-    if(error) {
-      callBack(error)
+  const { users, posts } = context
 
-      return
-    }
+  return Promise.all([users.findOne({ _id: new ObjectId(userId)}), posts.find().toArray()])
+    .then(([user, posts]) => {
+      if(!user) throw new Error('User not found.')
 
-    const users = JSON.parse(usersJSON)
-    const user = users.find(user => user.id === userId)
-
-    if(!user) {
-      callBack(new Error('User not found.'))
-
-      return
-    }
-
-    readFile(`${process.env.DB_PATH}/posts.json`, (error, postsJSON) => {
-      if(error) {
-        callBack(error)
-  
-        return
-      }
-
-      const posts = JSON.parse(postsJSON)
-      const userPosts = posts.filter(post => post.author === userId)
+      let userPosts = posts.filter(post => post.author.equals(user._id))
       
       userPosts.forEach(post => {
-        
-        const _user = users.find(user => user.id === post.author)
-        
-        if(_user) {
-          post.author = {
-          id: _user.id,
-          name: _user.name,
-          avatar: _user.avatar,
-          favs: _user.favs
-          }
+        const user = users.find(_user => _user._id.toString() === post.author.toString())
+
+        post.author = {
+          id: user._id,
+          name: user.name,
+          avatar: user.avatar,
+          favs: user.favs
         }
       })
-
-      callBack(null, userPosts.toReversed())
+      console.log(userPosts)
+      return userPosts.reverse()
     })
-  })
 }

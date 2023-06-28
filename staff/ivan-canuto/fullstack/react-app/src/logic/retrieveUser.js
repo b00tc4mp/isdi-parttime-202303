@@ -1,4 +1,3 @@
-import { findUserById } from "../data";
 import { validators } from 'com'
 
 const { validateId, validateCallback } = validators

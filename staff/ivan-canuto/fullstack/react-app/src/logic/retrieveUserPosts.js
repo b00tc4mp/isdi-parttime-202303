@@ -1,4 +1,3 @@
-import { findUserById, loadPosts, loadUsers } from "../data"
 import { validators } from 'com'
 
 const { validateId, validateCallback } = validators

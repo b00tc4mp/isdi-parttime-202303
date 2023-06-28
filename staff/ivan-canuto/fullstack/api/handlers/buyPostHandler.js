@@ -4,15 +4,9 @@ module.exports = (req, res) => {
   try {
     const { postId } = req.params
 
-    buyPost(postId, error => {
-      if(error) {
-        res.status(400).json({error: error.message})
-
-        return
-      }
-
-      res.send()  
-    })
+    buyPost(postId)
+      .then(() => res.send())
+      .catch(error => res.status(400).json({error: error.message}))
   } catch (error) {
     res.status(400).json({erro: error.message})
   }

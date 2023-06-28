@@ -1,6 +1,5 @@
 module.exports = {
     user: () => ({
-        id: `user-${Math.random()}`,
         name: `name-${Math.random()}`,
         email: `email-${Math.random()}`,
         password: `password-${Math.random()}`,
@@ -9,7 +8,6 @@ module.exports = {
     }),
 
     post: userId => ({
-        id: `post-1`,
         author: userId,
         image: `image-${Math.random()}.jpg`,
         text: `text-${Math.random()}`,

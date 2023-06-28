@@ -6,15 +6,9 @@ module.exports = (req, res) => {
     const userId = extractUserId(req)
     const { postId } = req.params
 
-    retrievePost(userId, postId, (error, post) => {
-      if(error) {
-        res.status(400).json({ error: error.message })
-        
-        return
-      }
-      debugger
-      res.json({ post })
-    })
+    retrievePost(userId, postId)
+      .then(post => res.json({ post }))
+      .catch(error => res.status(400).json({ error: error.message }))
   } catch (error) {
     res.status(400).json({ error: error.message })
   }

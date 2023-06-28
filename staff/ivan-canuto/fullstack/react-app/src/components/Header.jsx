@@ -20,7 +20,7 @@ export default function Header({ handleToggleMenu, handleReturnToHome, handleOpe
       <span className="material-symbols-outlined cursor-pointer text-4xl" onClick={handleToggleMenu}>menu</span>
       <h1 className="text-4xl cursor-pointer" onClick={handleReturnToHome}>Home</h1>
       {user && <>
-        <div className="cursor-pointer" onClick={handleOpenProfile}>  
+        <div className="cursor-pointer flex items-center gap-2" onClick={handleOpenProfile}>  
             <img className="h-10 rounded-full" src={user.avatar} alt="avatar image" />
             <a>{user.name}</a>
         </div>

@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { context } from "../ui"
 import toggleLikePost from "../logic/toggleLikePost"
 import toggleSavePost from "../logic/toggleSavePost"
@@ -6,25 +6,45 @@ import Comments from "./Comments"
 import ContextualMenu from "./ContextualMenuModal"
 import Button from "../library/Button";
 import { useAppContext } from "../hooks"
+import retrieveUser from "../logic/retrieveUser"
 
 export default function Post({post, handleRefreshPosts, handleOpenEditPost, handleOpenDeletePost, handleToggleVisibility, handleToggleOnSalePost, handleOpenBuyPost }) {
   
   const [modal, setModal] = useState('post')
   const [contextualMenu, setContextualMenu] = useState('close')
+  const [user, setUser] = useState()
   
   const { alert, freeze, unfreeze } = useAppContext()
-  const { image, id, likes, date, text, author, visible, onSale } = post
+  const { image, _id, likes, date, text, author, visible, onSale } = post
 
   const handleCloseCommentModal = () => {
     setModal('post')
     handleRefreshPosts()
   }
 
+  const handlreRefreshUser = () => {
+    retrieveUser(context.userId, (error, _user) => {
+      if(error) {
+        alert(error.message)
+        console.debug(error.stack)
+
+        return
+      }
+
+      setUser(_user)
+    })
+  }
+
+  useEffect(() => {
+    handlreRefreshUser()
+  }, [])
+  
+
   const handleToggleLike = () => {
     try {
       freeze()
       
-      toggleLikePost(context.userId, id, (error) => {
+      toggleLikePost(context.userId, _id, (error) => {
         unfreeze()
 
         if (error) {
@@ -47,7 +67,7 @@ export default function Post({post, handleRefreshPosts, handleOpenEditPost, hand
     try {
       freeze()
 
-      toggleSavePost(context.userId, id, (error) => {
+      toggleSavePost(context.userId, _id, (error) => {
         unfreeze()
 
         if (error) {
@@ -58,6 +78,7 @@ export default function Post({post, handleRefreshPosts, handleOpenEditPost, hand
         }
         
         handleRefreshPosts()
+        handlreRefreshUser()
       })
       
     } catch (error) {
@@ -76,7 +97,7 @@ export default function Post({post, handleRefreshPosts, handleOpenEditPost, hand
   }
 
   const toggleContextualMenu = () => {
-    context.postId = id
+    context.postId = _id.toString()
     document.body.classList.toggle('fixed-scroll')
     setContextualMenu(contextualMenu === 'close' ? 'open' : 'close')
   }
@@ -84,7 +105,7 @@ export default function Post({post, handleRefreshPosts, handleOpenEditPost, hand
   console.debug('Post -> render')
 
     return <>
-    <article className="bg-white h-96 w-96 text-black rounded-md p-2 flex flex-col items-center" id={id} onScroll={handlePostScroll}>
+    <article className="bg-gray-100 h-96 w-96 text-black rounded-md p-2 flex flex-col items-center overflow-auto pb-6" id={_id.toString()} onScroll={handlePostScroll}>
 
       {contextualMenu === 'open' &&  <ContextualMenu
         options={[
@@ -113,22 +134,22 @@ export default function Post({post, handleRefreshPosts, handleOpenEditPost, hand
                 </div>
               </>}
               {(onSale && onSale === 'Sold') && <>
-                <div className="bg-gray-300 p-1 rounded mx-1">
+                <div className="bg-gray-300 p-1 rounded mx-1 flex">
                   <span className="material-symbols-outlined">local_mall</span>
                   <p>{`Sold`}</p>
                 </div>
               </>}
-              <span className="material-symbols-outlined hover:bg-gray-300 cursor-pointer" onClick={toggleContextualMenu}>more_vert</span>
+              <span className="material-symbols-outlined hover:bg-gray-300 cursor-pointer font-black ml-2" onClick={toggleContextualMenu}>more_vert</span>
             </>}
             
             {(author.id !== context.userId && onSale) &&
               <div className="h-8 bg-gray-300 rounded mx-1" title="Post on sale" onClick={() => {
                 if(onSale !== 'Sold') {
-                  context.postId = id
+                  context.postId = _id
                   handleOpenBuyPost()
                 }
                 }}>
-                {onSale !== 'Sold' && <Button><span className="material-symbols-outlined p-1">local_mall</span>{`${onSale}€`}</Button>}
+                {onSale !== 'Sold' && <Button><span className="material-symbols-outlined px-1">local_mall</span>{`${onSale}€`}</Button>}
                 {onSale === 'Sold' && <p className="text-base flex p-1"><span className="material-symbols-outlined">local_mall</span>Sold</p>}
               </div>}
           </div>
@@ -140,12 +161,12 @@ export default function Post({post, handleRefreshPosts, handleOpenEditPost, hand
 
         <section className="pt-2 pl-4 pb-0 w-full flex justify-start">
           <i className="" onClick={handleToggleFav}>
-              {(!author.favs.includes(id))? <span className="material-symbols-outlined cursor-pointer">bookmark</span> : <span className="material-symbols-outlined cursor-pointer saved filled">bookmark</span>}
+              {user && (!user.favs.includes(_id))? <span className="material-symbols-outlined cursor-pointer">bookmark</span> : <span className="material-symbols-outlined cursor-pointer filled saved">bookmark</span>}
           </i>
 
           <i>
             <span className="material-symbols-outlined cursor-pointer" onClick={() => {
-              context.postId = id
+              context.postId = _id
               setModal('comments')
             }}>mode_comment</span>
           </i>

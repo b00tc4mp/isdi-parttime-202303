@@ -35,7 +35,7 @@ export default function BuyPost({ onBoughtPost, onCancel }) {
     try {
       freeze()
 
-      buyPost(post.id, (error) => {
+      buyPost(post._id, (error) => {
         unfreeze()
 
         if (error) {

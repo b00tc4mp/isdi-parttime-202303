@@ -59,7 +59,7 @@ export default function ToggleOnSalePost({ onToggledOnSalePost, onCancel }) {
   const handleUnsetPostPrice = () => {
     try {
       freeze()
-      
+      console.log(context.postId)
       unsetPostPrice(context.postId, error => {
         unfreeze()
         
@@ -69,7 +69,7 @@ export default function ToggleOnSalePost({ onToggledOnSalePost, onCancel }) {
           
           return
         }
-        console.log('hola');
+        
         onToggledOnSalePost()
       })
     } catch (error) {
@@ -91,7 +91,7 @@ export default function ToggleOnSalePost({ onToggledOnSalePost, onCancel }) {
           </h2>
           <Form className="w-72 h-40 py-3 px-12 border-2 border-gray-300" onSubmit={handleSetPostPrice}>
             <Input type="number" name="pricePost" min={1} max={10000} defaultValue={1}/>
-            <div className="set-post-price_buttons">
+            <div className="flex gap-4">
               <Button>Set price</Button>
               <Button type="button" onClick={onCancel}>Cancel</Button>
             </div>
@@ -101,7 +101,7 @@ export default function ToggleOnSalePost({ onToggledOnSalePost, onCancel }) {
       {(onSale && onSale !== 'Sold') && 
         <ModalWindow>
           <h2 className="text-black text-2xl text-center">Do you want to remove this item from the sale?</h2>
-          <div className="gap-8">
+          <div className="flex gap-8">
             <Button className="px-4" onClick={handleUnsetPostPrice}>Yes</Button>
             <Button onClick={onCancel}>Cancel</Button>
           </div>

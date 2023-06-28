@@ -5,15 +5,9 @@ module.exports = (req, res) => {
     const { postPrice } = req.body
     const { postId } = req.params
 
-    setPostPrice(postId, postPrice, error => {
-      if(error) {
-        res.status(400).json({ error: error.message })
-
-        return
-      }
-      
-      res.send()
-    })  
+    setPostPrice(postId, postPrice)
+      .then(() => res.send())
+      .catch(error => res.status(400).json({ error: error.message }))
   } catch (error) {
     res.status(400).json({ error: error.message })
   }

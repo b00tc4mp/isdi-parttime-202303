@@ -107,7 +107,7 @@ export default function AddPost({ onCancel, onCreatedPost }) {
         <Input name="selectedImage" type="file" accept="image/*" onChange={handleSelectImage}/>
         {image ? <img className="max-h-60" src={image}/> : ''}
         <textarea className="w-full p-2 border-2 text-black border-gray-200 rounded-lg h-40" name="postText" placeholder="Post text" cols="30" rows="10"></textarea>
-        <div className="w-full justify-center gap-4">
+        <div className="w-full justify-center gap-4 flex">
           <Button className='m-2'>Create post</Button>
           <Button className='m-2' type="button" onClick={handleCloseClick}>Canel</Button>
         </div>

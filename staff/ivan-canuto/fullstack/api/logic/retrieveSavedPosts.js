@@ -1,51 +1,31 @@
-const { readFile } = require('fs')
-const { validators: { validateId, validateCallback } } = require('com')
+const { validators: { validateId } } = require('com')
+const context = require('./context')
+const { ObjectId } = require('mongodb')
 
-module.exports = (userId, callBack) => {
+module.exports = (userId) => {
   validateId(userId, 'user id')
-  validateCallback(callBack)
 
-  readFile(`${process.env.DB_PATH}/users.json`, (error, usersJSON) => {
-    if(error) {
-      callBack(error)
+  const { users, posts } = context
 
-      return
-    }
+  return users.findOne({ _id: new ObjectId(userId) })
+  .then(user => {
+    if(!user) throw new Error('User not found.')
 
-    const users = JSON.parse(usersJSON)
-    const user = users.find(user => user.id === userId)
-
-    if(!user) {
-      callBack(new Error('User not found.'))
-
-      return
-    }
-
-    readFile(`${process.env.DB_PATH}/posts.json`, (error, postsJSON) => {
-      if(error) {
-        callBack(error)
-  
-        return
-      }
-
-      const posts = JSON.parse(postsJSON)
-      const savedPosts = posts.filter(post => user.favs.includes(post.id))
-      
-      savedPosts.forEach(post => {
+    return Promise.all([posts.find().toArray(), users.find().toArray()])
+      .then(([posts, users]) => {
+        let savedPosts = posts.filter(post => user.favs.includes(post._id.toString()))
         
-        const _user = users.find(user => user.id === post.author)
-        
-        if(_user) {
-          post.author = {
-          id: _user.id,
-          name: _user.name,
-          avatar: _user.avatar,
-          favs: _user.favs
-          }
-        }
+            savedPosts.forEach(post => {
+              const user = users.find(_user => _user._id.toString() === post.author.toString())
+
+              post.author = {
+                id: user._id,
+                name: user.name,
+                avatar: user.avatar,
+                favs: user.favs
+              }
+            })
+        return savedPosts.reverse()
       })
-
-      callBack(null, savedPosts.toReversed())
-    })
   })
 }

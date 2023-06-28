@@ -21,7 +21,7 @@ export default function Posts({ lastPostsUpdate, view, handleOpenBuyPost, handle
           
           if (error) {
             alert(error.message, 'error')
-            console.debug(error.stack)
+            console.debug(error)
             
             return
           }
@@ -37,7 +37,7 @@ export default function Posts({ lastPostsUpdate, view, handleOpenBuyPost, handle
           
           if (error) {
             alert(error.message, 'error')
-            console.debug(error.stack)
+            console.debug(error, 'posts-40')
             
             return
           }
@@ -52,7 +52,7 @@ export default function Posts({ lastPostsUpdate, view, handleOpenBuyPost, handle
 
           if (error) {
             alert(error.message, 'error')
-            console.debug(error.stack)
+            console.debug(error)
             
             return
           }
@@ -65,7 +65,7 @@ export default function Posts({ lastPostsUpdate, view, handleOpenBuyPost, handle
     } catch(error) {
       unfreeze()
       alert(error.message, 'error')
-      console.debug(error.stack);
+      console.debug(error);
     }
   } 
   
@@ -85,9 +85,9 @@ export default function Posts({ lastPostsUpdate, view, handleOpenBuyPost, handle
       
   }, [lastPostsUpdate])
 
-  return <section className="py-20 flex flex-col items-center gap-6">
+  return <section className="pt-20 pb-32 flex flex-col items-center gap-6">
     {posts && posts.map(post => ((post.author.id !== context.userId) && !post.visible) ? '' : <Post
-      key={post.id}
+      key={post._id.toString()}
       post={post}
       handleRefreshPosts={handleRefreshPosts}
       handleOpenEditPost={handleOpenEditPost}

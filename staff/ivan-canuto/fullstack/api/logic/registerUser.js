@@ -9,5 +9,8 @@ module.exports = (name, email, password) => {
 
   const { users } = context
 
-  return users.insertOne({ name, email, password })
+  return users.insertOne({ name, email, password, avatar: null, favs: [] })
+  .catch(error => {
+    if(error.message) console.error(error)
+  })
 }

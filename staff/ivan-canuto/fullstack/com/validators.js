@@ -22,6 +22,7 @@ function validateUrl(newUrl, explanation = 'url') {
 }
 
 function validateId(id, explanation = 'id') {
+  // console.log(id)
   if (typeof id !=='string') throw new Error(`The ${explanation} is not a string.`)
   if (!id.trim().length) throw new Error(`The ${explanation} field is empty.`)
 }

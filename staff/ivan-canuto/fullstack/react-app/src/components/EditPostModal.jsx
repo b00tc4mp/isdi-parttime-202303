@@ -70,7 +70,7 @@ export default function EditPost({ onCancel, onUpdatedPost }) {
       if(event.target === document.querySelector('.ModalContainer'))
         onCancel()
     }}>
-      <Form className='bg-white w-96' onSubmit={handleEditButton}>
+      <Form className='bg-white w-96 py-4' onSubmit={handleEditButton}>
         <h2 className="text-black">Edit post</h2>
         {post && <>
           <Input type="url" name="postImage" placeholder="URL Image" defaultValue={post.image}/>
@@ -80,7 +80,7 @@ export default function EditPost({ onCancel, onUpdatedPost }) {
           <Input type="url" name="postImage" placeholder="Loading..." disabled/>
           <textarea className="text-black w-full p-2 h-40 border-gray-200 border-2 rounded-lg" name="postText" placeholder="Loading..." cols="30" rows="10" disabled></textarea>
         </>}
-        <div className="w-full justify-center gap-4">
+        <div className="w-full justify-center gap-4 flex">
           <Button className="px-4">Edit</Button>
           <Button type="button" onClick={onCancel}>Canel</Button>
         </div>
