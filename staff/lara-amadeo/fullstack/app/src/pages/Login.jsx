@@ -5,7 +5,7 @@ import { useContext } from "react"
 import Context from "../Context.js"
 export default function Login({ onSignUpLink, onLoginButton }) {
 
-    
+
     const { generateToast, freeze, unfreeze } = useContext(Context)
 
     function handleRegisterClick(event) {
@@ -22,14 +22,14 @@ export default function Login({ onSignUpLink, onLoginButton }) {
 
         freeze(undefined, 'background')
         try {
-            authenticateUser(email, password, (error, userId) => {
-                
-                if (error){
+            authenticateUser(email, password, (error, token) => {
+
+                if (error) {
                     generateToast(error.message, 'error')
                     unfreeze()
                     return
                 }
-                context.userId = userId 
+                context.token = token
                 onLoginButton()
                 unfreeze()
             })
@@ -43,7 +43,7 @@ export default function Login({ onSignUpLink, onLoginButton }) {
 
     return <div className="bg-[--violet-200] w-full flex justify-center items-center">
         <div className="centered-containers">
- 
+
             <h1 className="title">Welcome back!</h1>
 
             <form className="centered-form" onSubmit={handleLogin}>

@@ -8,11 +8,11 @@ import Toast from './components/Toast.jsx'
 import Spinner from './components/library/Spinner.jsx'
 
 export default function App() {
- 
-  const [view, setView] = useState(context.userId ? 'home' : 'login')
+
+  const [view, setView] = useState(context.token ? 'home' : 'login')
   const [toast, setToast] = useState(null)
   const [loader, setLoader] = useState(null)
-  
+
 
   const handleGoToRegister = () => { setView('register') }
 
@@ -24,15 +24,15 @@ export default function App() {
 
   const handleRemoveToast = () => setToast(null)
 
-  const freeze = ( overlay=undefined, background=undefined ) => setLoader({ overlay, background })
+  const freeze = (overlay = undefined, background = undefined) => setLoader({ overlay, background })
 
   const unfreeze = () => setLoader(null)
 
-  return <Context.Provider value={ { generateToast: handleShowToast, freeze, unfreeze } }>
-  {view === 'login' && <Login onSignUpLink={handleGoToRegister} onLoginButton={handleGoToHome}/>}
-  {view === 'register' && <Register onLogInLink={handleGoToLogin} onSignUpButton={handleGoToLogin}/>}
-  {view === 'home' && <Home onLogOutLink={handleGoToLogin} />}
-  {toast && <Toast message={toast.message} type={toast.type} length={toast.length} endAnimation={handleRemoveToast}/>}
-  {loader && <Spinner overlay={loader.overlay} background={loader.background}/>}
+  return <Context.Provider value={{ generateToast: handleShowToast, freeze, unfreeze }}>
+    {view === 'login' && <Login onSignUpLink={handleGoToRegister} onLoginButton={handleGoToHome} />}
+    {view === 'register' && <Register onLogInLink={handleGoToLogin} onSignUpButton={handleGoToLogin} />}
+    {view === 'home' && <Home onLogOutLink={handleGoToLogin} />}
+    {toast && <Toast message={toast.message} type={toast.type} length={toast.length} endAnimation={handleRemoveToast} />}
+    {loader && <Spinner overlay={loader.overlay} background={loader.background} />}
   </Context.Provider>
 }

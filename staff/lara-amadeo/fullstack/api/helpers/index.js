@@ -1,3 +1,4 @@
 module.exports = {
-    extractUserId: require('./extractUserId')
+    extractToken: require('./extractToken'),
+    retrieveToken: require('./retrieveToken')
 }

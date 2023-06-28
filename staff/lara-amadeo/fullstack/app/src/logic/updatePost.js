@@ -7,13 +7,13 @@ import { findUserbyId, loadPosts, savePostInStorage, findPostById } from "../dat
  * @param {string} text post's caption 
  */
 
-export default function updatePost(userId ,postId, image, text, callback) {
+export default function updatePost(token, postId, image, text, callback) {
 
     const xhr = new XMLHttpRequest
 
     xhr.onload = () => {
-        const {status} = xhr
-        if(status !== 204){
+        const { status } = xhr
+        if (status !== 204) {
             const json = xhr.response
             const { error } = JSON.parse(json)
 
@@ -32,12 +32,12 @@ export default function updatePost(userId ,postId, image, text, callback) {
     xhr.open('PATCH', `http://localhost:4000/posts/update/${postId}`)
 
     xhr.setRequestHeader('Content-type', 'application/json')
-    xhr.setRequestHeader('authorization', `Bearer ${userId}`)
+    xhr.setRequestHeader('authorization', `Bearer ${token}`)
 
     const data = { image, text }
     const json = JSON.stringify(data)
 
     xhr.send(json)
 
-    
+
 }

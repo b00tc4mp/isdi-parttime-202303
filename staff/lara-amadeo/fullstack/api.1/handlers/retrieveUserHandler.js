@@ -1,9 +1,9 @@
 const { retrieveUser } = require('../logic')
-const { extractUserId } = require('../helpers')
+const { extractToken } = require('../helpers')
 
 module.exports = function retrieveUserHandler(req, res) {
     try {
-        const userId = extractUserId(req)
+        const userId = extractToken(req)
 
         retrieveUser(userId, (error, user) => {
             if (error) {

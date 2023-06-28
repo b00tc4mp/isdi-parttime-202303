@@ -2,17 +2,17 @@ import { savePostsInStorage, saveUsersInStorage, loadUsers, findUserbyId, loadPo
 
 /**
  * Deletes a post from the database
- * @param {string} userId user's id
+ * @param {string} token user's id
  * @param {string} postId post's id
  */
 
-export default function deletePost(userId, postId, callback){
-    
+export default function deletePost(token, postId, callback) {
+
     const xhr = new XMLHttpRequest
 
     xhr.onload = () => {
         const { status } = xhr
-        if(status !== 204){
+        if (status !== 204) {
             const json = xhr.response
             const { error } = JSON.parse(json)
 
@@ -30,7 +30,7 @@ export default function deletePost(userId, postId, callback){
     xhr.open('DELETE', `http://localhost:4000/posts/delete/${postId}`)
 
     xhr.setRequestHeader('Content-Type', 'application/json')
-    xhr.setRequestHeader('authorization', `Bearer ${userId}`)
+    xhr.setRequestHeader('authorization', `Bearer ${token}`)
 
     xhr.send()
 

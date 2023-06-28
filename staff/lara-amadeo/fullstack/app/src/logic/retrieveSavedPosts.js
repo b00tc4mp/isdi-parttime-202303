@@ -1,11 +1,11 @@
 
-export default function retrieveSavedPosts(userId, callback){
+export default function retrieveSavedPosts(token, callback) {
 
-   const xhr = new XMLHttpRequest
+    const xhr = new XMLHttpRequest
 
     xhr.onload = () => {
         const { status } = xhr
-        if(status !== 200){
+        if (status !== 200) {
             const json = xhr.response
             const { error } = JSON.parse(json)
 
@@ -24,7 +24,7 @@ export default function retrieveSavedPosts(userId, callback){
     }
 
     xhr.open('GET', `http://localhost:4000/posts/saved`)
-    xhr.setRequestHeader('authorization', `Bearer ${userId}`)
+    xhr.setRequestHeader('authorization', `Bearer ${token}`)
 
     xhr.send()
 

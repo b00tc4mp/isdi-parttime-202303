@@ -1,5 +1,5 @@
 
-export default function sellPost(userId, postId, actualPrice, newPrice, callback) {
+export default function sellPost(token, postId, actualPrice, newPrice, callback) {
 
     if (actualPrice === newPrice) {
         callback(new Error('Price should be different to previous one'))
@@ -41,7 +41,7 @@ export default function sellPost(userId, postId, actualPrice, newPrice, callback
     xhr.open('PATCH', `http://localhost:4000/posts/price/${postId}`)
 
     xhr.setRequestHeader('Content-Type', 'application/json')
-    xhr.setRequestHeader('authorization', `Bearer ${userId}`)
+    xhr.setRequestHeader('authorization', `Bearer ${token}`)
 
     const price = { newPrice }
     const json = JSON.stringify(price)

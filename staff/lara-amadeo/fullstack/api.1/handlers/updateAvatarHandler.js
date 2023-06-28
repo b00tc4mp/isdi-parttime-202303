@@ -1,9 +1,9 @@
-const { extractUserId } = require('../helpers')
-const {  updateAvatar } = require('../logic')
+const { extractToken } = require('../helpers')
+const { updateAvatar } = require('../logic')
 
 module.exports = function updateAvatarHandler(req, res) {
     try {
-        const userId = extractUserId(req) 
+        const userId = extractToken(req)
 
         const { avatar } = req.body
 

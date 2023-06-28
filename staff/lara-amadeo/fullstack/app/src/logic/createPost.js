@@ -1,18 +1,18 @@
 /**
  * Creates a post with the params given
- * @param {string} userId user's id
+ * @param {string} token user's id
  * @param {url} image post's image url
  * @param {string} text post's caption
  * 
  */
 
-export default function createPost(userId, image, text, callback) {
+export default function createPost(token, image, text, callback) {
 
     const xhr = new XMLHttpRequest
 
     xhr.onload = () => {
         const { status } = xhr
-        if(status !== 201){
+        if (status !== 201) {
             const json = xhr.response
             const { error } = JSON.parse(json)
 
@@ -30,7 +30,7 @@ export default function createPost(userId, image, text, callback) {
     xhr.open('POST', `http://localhost:4000/posts/new`)
 
     xhr.setRequestHeader('Content-Type', 'application/json')
-    xhr.setRequestHeader('authorization', `Bearer ${userId}`)
+    xhr.setRequestHeader('authorization', `Bearer ${token}`)
 
     const data = { image, text }
     const json = JSON.stringify(data)

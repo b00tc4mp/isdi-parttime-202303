@@ -3,16 +3,16 @@
 /**
  * Toggles the like or unlike for a post
  * @param {object} post A post object
- * @param {string} userId user's id
+ * @param {string} token user's id
  */
 
-export default function toggleLikePost (postId, userId, callback) {
+export default function toggleLikePost(postId, token, callback) {
 
     const xhr = new XMLHttpRequest
 
     xhr.onload = () => {
         const { status } = xhr
-        if(status !== 201){
+        if (status !== 201) {
             const json = xhr.response
             const { error } = JSON.parse(json)
             callback(new Error(error))
@@ -30,10 +30,10 @@ export default function toggleLikePost (postId, userId, callback) {
     xhr.open('PATCH', `http://localhost:4000/posts/like/${postId}`)
 
     xhr.setRequestHeader('Content-Type', 'application/json')
-    xhr.setRequestHeader('authorization', `Bearer ${userId}`)
+    xhr.setRequestHeader('authorization', `Bearer ${token}`)
 
     xhr.send()
-        
+
 }
 
 

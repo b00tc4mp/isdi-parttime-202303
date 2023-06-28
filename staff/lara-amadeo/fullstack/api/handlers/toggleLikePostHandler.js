@@ -1,16 +1,17 @@
-const { extractUserId } = require('../helpers')
-const {  toggleLikePost } = require('../logic')
+const { retrieveToken } = require('../helpers')
+const { toggleLikePost } = require('../logic')
 
 module.exports = (req, res) => {
-    try{
+    try {
         const { postId } = req.params
-        const userId = extractUserId(req)
+
+        const userId = retrieveToken(req)
 
         toggleLikePost(userId, postId)
             .then(() => res.status(201).send())
             .catch(error => res.status(400).json({ error: error.message }))
-                
-    } catch(error){
+
+    } catch (error) {
         res.status(400).json({ error: error.message })
     }
 }

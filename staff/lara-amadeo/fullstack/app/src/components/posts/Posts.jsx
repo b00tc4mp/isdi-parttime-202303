@@ -7,34 +7,34 @@ import './Posts.css'
 import { useContext } from 'react'
 import Context from '../../Context.js'
 
-export default function Posts({ onCreateButton, onEditPostButtonClick, onDeletePostButtonClick, onVisibilityButton, lastPostUpdate, onSellPostButton, onBuyPostButton }){
+export default function Posts({ onCreateButton, onEditPostButtonClick, onDeletePostButtonClick, onVisibilityButton, lastPostUpdate, onSellPostButton, onBuyPostButton }) {
 
     const [posts, setPosts] = useState()
     const { generateToast, freeze, unfreeze } = useContext(Context)
-    
 
-    
-    useEffect(()=> {
+
+
+    useEffect(() => {
         handleRefreshPosts()
-    },[])
+    }, [])
 
     const handleRefreshPosts = () => {
         freeze('overlay')
         try {
-            retrievePosts(context.userId, (error, posts)=> {
-                if(error){
-                    generateToast(error.message,'error')
+            retrievePosts(context.token, (error, posts) => {
+                if (error) {
+                    generateToast(error.message, 'error')
                     console.log(error.stack)
                     unfreeze()
                     return
                 }
                 unfreeze()
-                const _posts = posts.filter(post => !(post.author.id !== context.userId && post.visibility === 'private'))
+                const _posts = posts.filter(post => !(post.author.id !== context.token && post.visibility === 'private'))
                 setPosts(_posts.toReversed())
             })
-        } catch(error){
+        } catch (error) {
             unfreeze
-            generateToast(error.message,'error')
+            generateToast(error.message, 'error')
         }
     }
 
@@ -45,7 +45,7 @@ export default function Posts({ onCreateButton, onEditPostButtonClick, onDeleteP
     const handleOpenEditModal = (id) => {
         onEditPostButtonClick(id)
     }
-    
+
     const handleOpenDeleteModal = (id) => {
         onDeletePostButtonClick(id)
     }
@@ -64,15 +64,15 @@ export default function Posts({ onCreateButton, onEditPostButtonClick, onDeleteP
 
 
     useEffect(() => {
-        if(lastPostUpdate) handleRefreshPosts()
+        if (lastPostUpdate) handleRefreshPosts()
     }, [lastPostUpdate])
 
 
     return <div className="w-auto flex flex-col items-center mt-[40px] px-[40px] max-md:px-[16px] max-md:mt-[84px]">
-            {<Header title={'Home'} primaryButtonText={'Create'} onPrimaryButton={handleCreatePost} />}
-            <div className="max-w-[440px] h-fit flex flex-col items-start gap-[40px]">
-                {posts && posts.map(post =>
-                    <Post
+        {<Header title={'Home'} primaryButtonText={'Create'} onPrimaryButton={handleCreatePost} />}
+        <div className="max-w-[440px] h-fit flex flex-col items-start gap-[40px]">
+            {posts && posts.map(post =>
+                <Post
                     key={post._id}
                     post={post}
                     onLikeButtonClick={handleRefreshPosts}
@@ -82,8 +82,8 @@ export default function Posts({ onCreateButton, onEditPostButtonClick, onDeleteP
                     onVisibilityButton={handleOpenVisibilityModal}
                     onSellPostButton={handleOpenSellPostModal}
                     onBuyPostButton={handleOpenBuyPostModal}
-                    />)}
-            </div>     
+                />)}
         </div>
-    
+    </div>
+
 }

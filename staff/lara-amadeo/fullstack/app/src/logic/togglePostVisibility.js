@@ -1,12 +1,12 @@
 
 
-export default function togglePostVisibility(userId, postId, callback){
+export default function togglePostVisibility(token, postId, callback) {
 
     const xhr = new XMLHttpRequest
 
     xhr.onload = () => {
         const { status } = xhr
-        if(status !== 201){
+        if (status !== 201) {
             const json = xhr.response
             const { error } = JSON.parse(json)
 
@@ -25,7 +25,7 @@ export default function togglePostVisibility(userId, postId, callback){
     xhr.open('PATCH', `http://localhost:4000/posts/visibility/${postId}`)
 
     xhr.setRequestHeader('Content-Type', 'application/json')
-    xhr.setRequestHeader('authorization', `Bearer ${userId}`)
+    xhr.setRequestHeader('authorization', `Bearer ${token}`)
 
     xhr.send()
 }

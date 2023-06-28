@@ -3,16 +3,16 @@ import { saveUserInStorage, findUserbyId, findPostById } from "../data"
 /**
  * Toggles save or unsave a post
  * @param {object} post a post
- * @param {string} userId user's id
+ * @param {string} token user's id
  */
 //toggle rename -> toggleSavePost
-export default function toggleSavePost(postId, userId, callback){
+export default function toggleSavePost(postId, token, callback) {
 
     const xhr = new XMLHttpRequest
 
     xhr.onload = () => {
         const { status } = xhr
-        if(status !== 201){
+        if (status !== 201) {
             const { response: json } = xhr
             const { error } = JSON.parse(json)
             callback(new Error(error))
@@ -30,7 +30,7 @@ export default function toggleSavePost(postId, userId, callback){
     xhr.open('PATCH', `http://localhost:4000/posts/save/${postId}`)
 
     xhr.setRequestHeader('Content-Type', 'application/json')
-    xhr.setRequestHeader('authorization', `Bearer ${userId}`)
+    xhr.setRequestHeader('authorization', `Bearer ${token}`)
 
     xhr.send()
 }

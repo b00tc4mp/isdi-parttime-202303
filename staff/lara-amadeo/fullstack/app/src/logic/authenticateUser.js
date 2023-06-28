@@ -15,7 +15,7 @@ export const authenticateUser = (email, password, callback) => {
 
     xhr.onload = () => {
         const { status } = xhr
-        if(status !== 200){
+        if (status !== 200) {
             const { response: json } = xhr
             const { error } = JSON.parse(json)
             callback(new Error(error))
@@ -24,21 +24,21 @@ export const authenticateUser = (email, password, callback) => {
         }
 
         const { response: json } = xhr
-        const { userId } = JSON.parse(json)
+        const { token } = JSON.parse(json)
 
-        callback(null, userId)
+        callback(null, token)
     }
-    
-        xhr.onerror = () => {
-            callback(new Error('connection error'))
-        }
 
-        xhr.open('POST', 'http://localhost:4000/users/auth')
-    
-        xhr.setRequestHeader('Content-Type', 'application/json')
-    
-        const credentials = {email, password}
-        const json = JSON.stringify(credentials)
-    
-        xhr.send(json)
+    xhr.onerror = () => {
+        callback(new Error('connection error'))
+    }
+
+    xhr.open('POST', 'http://localhost:4000/users/auth')
+
+    xhr.setRequestHeader('Content-Type', 'application/json')
+
+    const credentials = { email, password }
+    const json = JSON.stringify(credentials)
+
+    xhr.send(json)
 }

@@ -1,10 +1,11 @@
-const { extractUserId } = require('../helpers')
+const { retrieveToken } = require('../helpers')
 const { togglePostVisibility } = require('../logic')
 
 module.exports = (req, res) => {
     try {
         const { postId } = req.params
-        const userId = extractUserId(req)
+
+        const userId = retrieveToken(req)
 
         togglePostVisibility(userId, postId)
             .then(() => res.status(201).send())

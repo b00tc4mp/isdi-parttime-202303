@@ -1,11 +1,13 @@
-const { extractUserId } = require('../helpers')
+const { retrieveToken } = require('../helpers')
 const { sellPost } = require('../logic')
 
 module.exports = (req, res) => {
     try {
         const { postId } = req.params
-        const userId = extractUserId(req)
-        const { newPrice }  = req.body
+
+        const { newPrice } = req.body
+
+        const userId = retrieveToken(req)
 
         sellPost(userId, postId, newPrice)
             .then(() => res.status(201).send())

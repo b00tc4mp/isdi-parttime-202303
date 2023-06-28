@@ -8,7 +8,7 @@ import { context } from "../ui"
  * @param {string} confirmNewEmail confirmation of new email
  */
 
-export default function updateEmail(userId, email, newEmail, confirmNewEmail, callback) {
+export default function updateEmail(token, email, newEmail, confirmNewEmail, callback) {
 
     if (email === newEmail)
         throw new Error('New email cannot be the same as current email')
@@ -17,10 +17,10 @@ export default function updateEmail(userId, email, newEmail, confirmNewEmail, ca
         throw new Error('New emails do not match')
 
     const xhr = new XMLHttpRequest
-    
+
     xhr.onload = () => {
         const { status } = xhr
-        if(status !== 204){
+        if (status !== 204) {
             const json = xhr.response
             const { error } = JSON.parse(json)
 
@@ -39,7 +39,7 @@ export default function updateEmail(userId, email, newEmail, confirmNewEmail, ca
     xhr.open('PATCH', `http://localhost:4000/users/email`)
 
     xhr.setRequestHeader('Content-type', 'application/json')
-    xhr.setRequestHeader('authorization', `Bearer ${userId}`)
+    xhr.setRequestHeader('authorization', `Bearer ${token}`)
 
 
     const data = { email, newEmail }

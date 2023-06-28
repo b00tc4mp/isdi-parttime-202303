@@ -5,19 +5,19 @@ import { saveUserInStorage, findUserbyId } from "../data"
 
 /**
  * Places the new avatar in user database 
- * @param {string} userId user's id
+ * @param {string} token user's id
  * @param {url} url avatar url
  * @returns new avatar url
  */
 
-export function updateAvatar(userId, url, callback){
-    if(!url) throw new Error('Image not uploaded correctly')
+export function updateAvatar(token, url, callback) {
+    if (!url) throw new Error('Image not uploaded correctly')
 
     const xhr = new XMLHttpRequest
 
     xhr.onload = () => {
         const { status } = xhr
-        if(status !== 204) {
+        if (status !== 204) {
             const json = xhr.response
             const { error } = JSON.parse(json)
 
@@ -25,7 +25,7 @@ export function updateAvatar(userId, url, callback){
 
             return
         }
-        
+
         callback(null)
     }
 
@@ -36,9 +36,9 @@ export function updateAvatar(userId, url, callback){
     xhr.open('PATCH', `http://localhost:4000/users/avatar`)
 
     xhr.setRequestHeader('Content-type', 'application/json')
-    xhr.setRequestHeader('authorization', `Bearer ${userId}`)
+    xhr.setRequestHeader('authorization', `Bearer ${token}`)
 
-    const data = {userId, avatar: url}
+    const data = { token, avatar: url }
     const json = JSON.stringify(data)
 
     xhr.send(json)
