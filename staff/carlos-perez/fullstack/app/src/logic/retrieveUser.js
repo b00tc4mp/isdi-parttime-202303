@@ -1,19 +1,31 @@
-import { findUserById } from '../data.js'
-
 export default function retrieveUser(userId, callback) {
-    
-    findUserById(userId, user => {
-        if (!user) {
-            callback(new Error('user not found'))
+    const xhr = new XMLHttpRequest()
 
-            return
-        }
-    
-        const _user = {
-            name: user.name,
-            avatar: user.avatar
-        }
-    
-        callback(null, _user)
-    })
+    xhr.onload = () => {
+      const { status } = xhr
+  
+      if (status !== 200) {
+        const { response: json } = xhr
+        const { error } = JSON.parse(json)
+  
+        callback(new Error(error))
+  
+        return
+      }
+  
+      const { response: json } = xhr
+      const user = JSON.parse(json)
+  
+      callback(null, user)
+    }
+  
+    xhr.onerror = () => {
+      callback(new Error('Connection error'))
+    }
+  
+    xhr.open('GET', `${import.meta.env.VITE_API_URL}/users`)
+  
+    xhr.setRequestHeader('Authorization', `Bearer ${userId}`)
+  
+    xhr.send()
 }

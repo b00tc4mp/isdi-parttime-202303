@@ -1,34 +1,32 @@
-import { loadPosts, savePosts, findUserById } from '../data'
-
 export function createPost(userId, image, text, callback) {
+const xhr = new XMLHttpRequest()
 
-    findUserById(userId, user => {
-        if (!user) {
-            callback(new Error(`user with id ${userId} not found`))
+  xhr.onload = () => {
+    const { status } = xhr
 
-            return
-        }
+    if (status !== 201) {
+      const { response: json } = xhr
+      const { error } = JSON.parse(json)
 
-        let id = 'post-1'
+      callback(new Error(error))
 
-        loadPosts(posts => {
-            const lastPost = posts[posts.length - 1]
+      return
+    }
 
-            if (lastPost)
-                id = 'post-' + (parseInt(lastPost.id.slice(5)) + 1)
+    callback(null)
+  }
 
-            const post = {
-                id,
-                author: userId,
-                image,
-                text,
-                date: new Date,
-                likes: []
-            }
+  xhr.onerror = () => {
+    callback(new Error('Connection error'))
+  }
 
-            posts.push(post)
+  xhr.open('POST', `${import.meta.env.VITE_API_URL}/posts`)
 
-            savePosts(posts, () => callback(null))
-        })
-    })
+  xhr.setRequestHeader('Content-Type', 'application/json')
+  xhr.setRequestHeader('Authorization', `Bearer ${userId}`)
+
+  const post = { image, text }
+  const json = JSON.stringify(post)
+
+  xhr.send(json)
 }

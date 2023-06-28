@@ -1,37 +1,36 @@
-import { users } from "../data.js";
-import {userExistById} from "./helpers/data-manager.js"
-
-
 export function changePassword(oldpass, newpass, passcheck) {
-    let userPosition = userExistById(activeUser.id);
-    if (userPosition === -1) {
-       throw new Error("El usuario no existe");
-    }
-    if(oldpass !== users[userPosition].password){
-        throw new Error("Contraseña antigua incorrecta");
-    }
+    const xhr = new XMLHttpRequest()
 
-    if(newpass !== passcheck)
-    {
-        throw new Error("La nueva contraseña no coincide con su comprobación");
+    xhr.onload = () => {
+      const { status } = xhr
+  
+      if (status !== 204) {
+        const { response: json } = xhr
+        const { error } = JSON.parse(json)
+  
+        callback(new Error(error))
+  
+        return
+      }
+  
+      callback(null)
     }
-
-    users[userPosition].password = newpass;
+  
+    xhr.onerror = () => {
+      callback(new Error('Connection error'))
+    }
+  
+    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/users/password`)
+  
+    xhr.setRequestHeader('Content-Type', 'application/json')
+    xhr.setRequestHeader('Authorization', `Bearer ${userId}`)
+  
+    const data = { oldpass, newpass, passcheck }
+    const json = JSON.stringify(data)
+  
+    xhr.send(json)
 }
 
 export function changeMail(oldmail, newmail, mailcheck) {
-    let userPosition = userExistById(activeUser.id);
-    if (userPosition === -1) {
-       throw new Error("El usuario no existe");
-    }
-   
-    if(oldmail !== users[userPosition].email){
-        throw new Error("Correo antiguo incorrecto");
-    }
-
-    if(newmail !== mailcheck){
-        throw new Error("El nuevo correo no corresponde con su comprobación");
-    }
-
-    users[userPosition].email = newmail;
+    //ToDo
 }

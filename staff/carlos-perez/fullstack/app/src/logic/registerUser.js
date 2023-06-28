@@ -1,33 +1,32 @@
-import { saveUsers, findUserByEmail, loadUsers } from '../data.js'
-
 export default function registerUser(name, email, password, callback) {
     
-    findUserByEmail(email, foundUser => {
-        if (foundUser) {
-            callback(new Error('user already exists'))
+    const xhr = new XMLHttpRequest()
 
-            return
-        }
+  xhr.onload = () => {
+    const { status } = xhr
 
-        let id = 'user-1'
+    if (status !== 201) {
+      const { response: json } = xhr
+      const { error } = JSON.parse(json)
 
-        loadUsers(users => {
-            const lastUser = users[users.length - 1]
+      callback(new Error(error))
 
-            if (lastUser)
-                id = 'user-' + (parseInt(lastUser.id.slice(5)) + 1)
+      return
+    }
 
-            const user = {
-                id,
-                name,
-                email,
-                password,
-                favs: []
-            }
+    callback(null)
+  }
 
-            users.push(user)
+  xhr.onerror = () => {
+    callback(new Error('Connection error'))
+  }
 
-            saveUsers(users, () => callback(null))
-        })
-    })
+  xhr.open('POST', `${import.meta.env.VITE_API_URL}/users`)
+
+  xhr.setRequestHeader('Content-Type', 'application/json')
+
+  const user = { name, email, password }
+  const json = JSON.stringify(user)
+
+  xhr.send(json)
 }

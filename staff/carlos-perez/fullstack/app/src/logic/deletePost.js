@@ -1,34 +1,29 @@
-import { savePosts, loadPosts, findUserById, findPostById } from '../data.js'
-
 export default function deletePost(userId, postId, callback) {
 
-    findUserById(userId, user => {
-        if (!user) {
-            callback(new Error(`user with id ${userId} not found`))
+    const xhr = new XMLHttpRequest()
 
-            return
-        }
+  xhr.onload = () => {
+    const { status } = xhr
 
-        findPostById(postId, post => {
-            if (!post) {
-                callback(new Error(`post with id ${postId} not found`))
+    if (status !== 200) {
+      const { response: json } = xhr
+      const { error } = JSON.parse(json)
 
-                return
-            }
+      callback(new Error(error))
 
-            if (post.author !== userId) {
-                callback(new Error(`post with id ${postId} does not belong to user with id ${userId}`))
+      return
+    }
 
-                return
-            }
+    callback(null)
+  }
 
-            loadPosts(posts => {
-                const index = posts.findIndex(post => post.id === postId)
-    
-                posts.splice(index, 1)
-    
-                savePosts(posts, () => callback(null))
-            })
-        })
-    })
+  xhr.onerror = () => {
+    callback(new Error('Connection error'))
+  }
+
+  xhr.open('DELETE', `${import.meta.env.VITE_API_URL}/posts/${postId}`)
+
+  xhr.setRequestHeader('Authorization', `Bearer ${userId}`)
+
+  xhr.send()
 }

@@ -1,22 +1,32 @@
-import { findPostById, findUserById } from '../data'
-
 export default function retrievePosts(userId, postId, callback) {
    
-    findUserById(userId, user => {
-        if (!user) {
-            callback(new Error(`user with id ${userId} not found`))
+    const xhr = new XMLHttpRequest()
 
-            return
-        }
-
-        findPostById(postId, post => {
-            if (!post) {
-                callback(new Error(`post with id ${postId} not found`))
-
-                return
-            }
-
-            callback(null, post)
-        })
-    })
+    xhr.onload = () => {
+      const { status } = xhr
+  
+      if (status !== 200) {
+        const { response: json } = xhr
+        const { error } = JSON.parse(json)
+  
+        callback(new Error(error))
+  
+        return
+      }
+  
+      const { response: json } = xhr
+      const post = JSON.parse(json)
+  
+      callback(null, post)
+    }
+  
+    xhr.onerror = () => {
+      callback(new Error('Connection error'))
+    }
+  
+    xhr.open('GET', `${import.meta.env.VITE_API_URL}/posts/${postId}`)
+  
+    xhr.setRequestHeader('Authorization', `Bearer ${userId}`)
+  
+    xhr.send()
 }

@@ -1,32 +1,33 @@
-import { savePost,findUserById, findPostById } from '../data'
-
 export default function updatePost(userId, postId, image, text, callback) {
 
-    findUserById(userId, user => {
-        if (!user) {
-            callback(new Error(`user with id ${userId} not found`))
+    const xhr = new XMLHttpRequest()
 
-            return
-        }
-
-        findPostById(postId, post => {
-            if (!post) {
-                callback(new Error(`post with id ${postId} not found`))
-
-                return
-            }
-
-            if (post.author !== userId) {
-                callback(new Error(`post with id ${postId} does not belong to user with id ${userId}`))
-
-                return
-            }
-
-            post.image = image
-            post.text = text
-            post.date = new Date
-
-            savePost(post, () => callback(null))
-        })
-    })
+    xhr.onload = () => {
+      const { status } = xhr
+  
+      if (status !== 204) {
+        const { response: json } = xhr
+        const { error } = JSON.parse(json)
+  
+        callback(new Error(error))
+  
+        return
+      }
+  
+      callback(null)
+    }
+  
+    xhr.onerror = () => {
+      callback(new Error('Connection error'))
+    }
+  
+    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/posts/${postId}`)
+  
+    xhr.setRequestHeader('Content-Type', 'application/json')
+    xhr.setRequestHeader('Authorization', `Bearer ${userId}`)
+  
+    const data = { image, text }
+    const json = JSON.stringify(data)
+  
+    xhr.send(json)
 }

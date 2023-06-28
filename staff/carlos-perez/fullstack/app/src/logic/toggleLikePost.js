@@ -1,29 +1,29 @@
-import { savePost, findPostById, findUserById } from '../data'
-
 export default function toggleLikePost(userId, postId, callback) {
 
-    findUserById(userId, user => {
-        if (!user) {
-            callback(new Error(`user with id ${userId} not found`))
+    const xhr = new XMLHttpRequest()
 
-            return
-        }
-
-        findPostById(postId, post => {
-            if (!post) {
-                callback(new Error(`post with id ${postId} not found`))
-
-                return
-            }
-
-            const index = post.likes.indexOf(userId)
-
-            if (index < 0)
-                post.likes.push(userId)
-            else
-                post.likes.splice(index, 1)
-
-            savePost(post, () => callback(null))
-        })
-    })
+    xhr.onload = () => {
+      const { status } = xhr
+  
+      if (status !== 204) {
+        const { response: json } = xhr
+        const { error } = JSON.parse(json)
+  
+        callback(new Error(error))
+  
+        return
+      }
+  
+      callback(null)
+    }
+  
+    xhr.onerror = () => {
+      callback(new Error('Connection error'))
+    }
+  
+    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/posts/${postId}/likes`)
+  
+    xhr.setRequestHeader('Authorization', `Bearer ${userId}`)
+  
+    xhr.send()
 }
