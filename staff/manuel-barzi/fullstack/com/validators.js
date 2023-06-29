@@ -1,4 +1,5 @@
 const { ContentError } = require('./errors')
+const EMAIL_REGEX = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
 
 /**
  * Validates an email
@@ -7,8 +8,8 @@ const { ContentError } = require('./errors')
  */
 function validateEmail(email) {
     if (typeof email !== 'string') throw new TypeError('email is not a string')
-    if (!email.trim().length) throw new Error('email is empty')
-    // TODO validate email format with regex pattern
+    if (!email.trim().length) throw new ContentError('email is empty')
+    if (!EMAIL_REGEX.test(email)) throw new ContentError('email is no valid')
 }
 
 /**
@@ -19,7 +20,7 @@ function validateEmail(email) {
  */
 function validatePassword(password, explain = 'password') {
     if (typeof password !== 'string') throw new TypeError(`${explain} is not a string`)
-    if (password.trim().length < 8) throw new ContentError(`${explain} length lower than 8 characters`)
+    if (password.trim().length < 8) throw new RangeError(`${explain} length lower than 8 characters`)
 }
 
 function validateName(name) {
