@@ -4,7 +4,6 @@ const { ObjectId } = require('mongodb')
 
 module.exports = userId => {
     validateId(userId, 'user id')
-
     const { users } = context
 
     return users.findOne({ _id: new ObjectId(userId) })
