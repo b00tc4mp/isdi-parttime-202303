@@ -1,18 +1,26 @@
-const { validators: { validateEmail, validatePassword } } = require('com')
+const { validators: { validateEmail, validatePassword, validateCallback } } = require('com')
 const context = require('./context')
 
-module.exports = (email, password) => {
+module.exports = (email, password, callback) => {
     validateEmail(email)
     validatePassword(password)
+    validateCallback(callback)
 
     const { users } = context
 
     return users.findOne({ email })
         .then(user => {
-            if (!user) throw new Error('user not found')
+            if (!user){
+                callback(new Error('user not found'))
+                return
+            }
 
-            if (user.password !== password) throw new Error('wrong credentials')
+            if (user.password !== password)
+            {
+                callback(new Error('wrong credentials'))
+                return
+            }
 
-            return user._id.toString()
+            callback(null, user._id.toString())
         })
 }

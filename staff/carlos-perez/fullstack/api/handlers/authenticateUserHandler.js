@@ -10,7 +10,6 @@ module.exports = (req, res) => {
 
                 return
             }
-
             res.json({ userId })
         })
     } catch (error) {
