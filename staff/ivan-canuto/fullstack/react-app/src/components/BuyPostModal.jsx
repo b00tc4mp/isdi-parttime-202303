@@ -15,7 +15,7 @@ export default function BuyPost({ onBoughtPost, onCancel }) {
   useEffect(() => {
     freeze()
     
-    retrievePost(context.userId, context.postId, (error, post) => {
+    retrievePost(context.token, context.postId, (error, post) => {
       unfreeze()
       
       if(error) {
@@ -24,7 +24,7 @@ export default function BuyPost({ onBoughtPost, onCancel }) {
 
         return
       }
-      
+
       setPost(post)
     })
   }, [])
@@ -35,7 +35,7 @@ export default function BuyPost({ onBoughtPost, onCancel }) {
     try {
       freeze()
 
-      buyPost(post._id, (error) => {
+      buyPost(context.token, post.id, (error) => {
         unfreeze()
 
         if (error) {

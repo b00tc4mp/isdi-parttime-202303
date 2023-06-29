@@ -12,7 +12,7 @@ export default function DeletePost({ onDeletedPost, onCancel }) {
     try {
       freeze()
 
-      deletePost(context.postId, context.userId, error => {
+      deletePost(context.token, context.postId, error => {
         unfreeze()
         
         if (error) {

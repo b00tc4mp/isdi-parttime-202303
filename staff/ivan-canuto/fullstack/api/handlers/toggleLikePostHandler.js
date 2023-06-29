@@ -1,9 +1,9 @@
-const { extractToken } = require('../helpers')
-const toggleLikePost = require('../logic/toggleLikePost')
+const { extractUserId } = require('./helpers')
+const { toggleLikePost } = require('../logic')
 
 module.exports = (req, res) => {
   try {
-    const userId = extractToken(req)
+    const userId = extractUserId(req)
     const { postId } = req.params
     
     toggleLikePost(userId, postId)

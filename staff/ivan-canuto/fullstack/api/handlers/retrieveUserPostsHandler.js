@@ -1,9 +1,9 @@
-const { extractToken } = require('../helpers')
-const retrieveUserPosts = require('../logic/retrieveUserPosts')
+const { extractUserId } = require('./helpers')
+const { retrieveUserPosts } = require('../logic')
 
 module.exports = (req, res) => {
   try {
-    const userId = extractToken(req)
+    const userId = extractUserId(req)
   
     retrieveUserPosts(userId)
       .then(userPosts => res.json({ userPosts }))

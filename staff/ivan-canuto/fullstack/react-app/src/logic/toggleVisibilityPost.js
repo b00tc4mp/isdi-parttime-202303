@@ -1,41 +1,59 @@
-import { savePost, findPostById } from "../data";
 import { validators } from 'com'
 
-const { validateId, validateCallback } = validators
+const { validateToken, validateId, validateCallback } = validators
 
 /**
  * Toggles the visibility of the post in public or private.
  * 
+ * @param {string} token The user's id token.
  * @param {string} postId The post's id.
  * @param {function} callBack A function to catch errors and display them to the user.
  */
 
-export default function toggleVisibilityPost(postId, callBack) {
-  validateId(postId)
-  validateCallback(callBack)
+export default function toggleVisibilityPost(token, postId, callBack) {
+  validateToken(token, 'user id token')
+  validateId(postId,  'post id')
 
-  const xhr = new XMLHttpRequest
+  if(callBack) {
+    validateCallback(callBack)
 
-  xhr.onload = () => {
-    const { status } = xhr
-    
-    if(status !== 200) {
-      const { response: json } = xhr
-      const { error } = JSON.parse(json)
+    const xhr = new XMLHttpRequest
 
-      callBack(new Error(error))
+    xhr.onload = () => {
+      const { status } = xhr
+      
+      if(status !== 200) {
+        const { response: json } = xhr
+        const { error } = JSON.parse(json)
 
-      return
+        callBack(new Error(error))
+
+        return
+      }
+
+      callBack(null)
     }
 
-    callBack(null)
+    xhr.onerror = () => {
+      callBack(new Error('Connection error.'))
+    }
+
+    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/posts/${postId}/togglePostVisibility`)
+
+    xhr.setRequestHeader('Authorization', `Bearer ${token}`)
+
+    xhr.send()
+    
+  } else {
+    return fetch(`${import.meta.env.VITE_API_URL}/posts/${postId}/togglePostVisibility`, {
+      method: 'PATCH',
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    })
+    .then(res => {
+      if(res.status !== 200)
+        res.json().then(({ error: message }) => { throw new Error(message) })
+    })
   }
-
-  xhr.onerror = () => {
-    callBack(new Error('Connection error.'))
-  }
-
-  xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/posts/${postId}/togglePostVisibility`)
-
-  xhr.send()
 }

@@ -1,14 +1,9 @@
-const { extractToken } = require('../helpers')
-const retrieveUser = require('../logic/retrieveUser')
-const jwt = require('jsonwebtoken')
+const { extractUserId } = require('./helpers')
+const { retrieveUser } = require('../logic')
 
 module.exports = (req, res) => {
   try {
-    const token = extractToken(req)
-
-    const payload = jwt.verify(token, process.env.SECRET)
-
-    const { sub: userId } = payload
+    const userId = extractUserId(req)
 
     retrieveUser(userId)
       .then(user => res.json(user))

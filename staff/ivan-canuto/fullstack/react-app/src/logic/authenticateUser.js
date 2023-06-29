@@ -13,38 +13,56 @@ const { validateEmail, validatePassword, validateCallback } = validators
 export default function authenticateUser(email, password, callBack) {
   validateEmail(email)
   validatePassword(password)
-  validateCallback(callBack)
 
-  const xhr = new XMLHttpRequest()
+  if(callBack) {
+    validateCallback(callBack)
 
-  xhr.onload = () => {
-    const { status } = xhr
-    
-    if(status !== 200) {
+    const xhr = new XMLHttpRequest()
+
+    xhr.onload = () => {
+      const { status } = xhr
+      
+      if(status !== 200) {
+        const { response: json } = xhr
+        const { error } = JSON.parse(json)
+
+        callBack(new Error(error))
+
+        return
+      }
+      
       const { response: json } = xhr
-      const { error } = JSON.parse(json)
+      const token = JSON.parse(json)
 
-      callBack(new Error(error))
-
-      return
+      callBack(null, token)
     }
+
+    xhr.onerror = () => {
+      callBack(new Error('Connection error.'))
+    }
+
+    xhr.open('POST', `${import.meta.env.VITE_API_URL}/users/auth`)
     
-    const { response: json } = xhr
-    const token = JSON.parse(json)
+    xhr.setRequestHeader('Content-Type', 'application/json')
 
-    callBack(null, token)
+    const user = { email, password }
+    const json = JSON.stringify(user)
+    
+    xhr.send(json)
+
+  } else {
+    return fetch(`${import.meta.env.VITE_API_URL}/users/auth`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ email, password })
+    })
+    .then(res => {
+      if(res.status !== 200)
+        res.json().then(({ error: message }) => { throw new Error(message) })
+
+      return res.json()
+    })
   }
-
-  xhr.onerror = () => {
-    callBack(new Error('Connection error.'))
-  }
-
-  xhr.open('POST', `${import.meta.env.VITE_API_URL}/users/auth`)
-  
-  xhr.setRequestHeader('Content-Type', 'application/json')
-
-  const user = { email, password }
-  const json = JSON.stringify(user)
-  
-  xhr.send(json)
 }

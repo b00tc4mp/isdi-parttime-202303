@@ -7,23 +7,31 @@ module.exports = function retrieveUserPosts(userId) {
 
   const { users, posts } = context
 
-  return Promise.all([users.findOne({ _id: new ObjectId(userId)}), posts.find().toArray()])
-    .then(([user, posts]) => {
+  return Promise.all([users.find().toArray(), posts.find().toArray()])
+    .then(([users, posts]) => {
+      const user = users.find(_user => _user._id.toString() === userId)
       if(!user) throw new Error('User not found.')
 
       let userPosts = posts.filter(post => post.author.equals(user._id))
       
       userPosts.forEach(post => {
-        const user = users.find(_user => _user._id.toString() === post.author.toString())
+        post.id = post._id.toString()
+        delete post._id
+
+        const author = users.find(_user => _user._id.toString() === post.author.toString())
+
+        const { _id, name, avatar } = author
 
         post.author = {
-          id: user._id,
-          name: user.name,
-          avatar: user.avatar,
-          favs: user.favs
+          id: _id.toString(),
+          name: name,
+          avatar: avatar,
         }
+
+        post.fav = user.favs.some(fav => fav.toString() === post.id)
+        post.liked = post.likes.some(like => like.toString() === userId)
       })
-      console.log(userPosts)
+
       return userPosts.reverse()
     })
 }

@@ -1,44 +1,61 @@
 import { validators } from 'com'
 
-const { validateId, validateCallback } = validators
+const { validateToken, validateCallback } = validators
 
 /**
  * Retrieves the user's posts form database.
  * 
- * @param {string} userId The user's id.
- * @param {function} callBack A function to catch errors and display them to the user., and returns the array of posts made by user.
+ * @param {string} token The user's id token.
+ * @param {function} callBack A function to catch errors and display them to the user, and returns the array of posts made by user.
  * 
 */
 
-export function retrieveUserPosts(userId, callBack) {
-  validateId(userId, 'user id')
-  validateCallback(callBack)
-  
-  const xhr = new XMLHttpRequest
+export function retrieveUserPosts(token, callBack) {
+  validateToken(token, 'user id token')
 
-  xhr.onload = () => {
-    const { status } = xhr
+  if(callBack) {
+    validateCallback(callBack)
+    
+    const xhr = new XMLHttpRequest
 
-    if(status !== 200) {
+    xhr.onload = () => {
+      const { status } = xhr
+
+      if(status !== 200) {
+        const { response: json } = xhr
+        const { error } = JSON.parse(json)
+       
+        callBack(error)
+      }
+
       const { response: json } = xhr
-      const { error } = JSON.parse(json)
-
-      callBack(error)
+      const { userPosts } = JSON.parse(json)
+      
+      callBack(null, userPosts)
     }
 
-    const { response: json } = xhr
-    const { userPosts } = JSON.parse(json)
+    xhr.onerror = () => {
+      callBack(new Error('Connection error.'))
+    }
+
+    xhr.open('GET', `${import.meta.env.VITE_API_URL}/users/userPosts`)
+
+    xhr.setRequestHeader('Authorization', `Bearer ${token}`)
+
+    xhr.send()
     
-    callBack(null, userPosts)
+  } else {
+    return fetch(`${import.meta.env.VITE_API_URL}/users/userPosts`, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    })
+    .then(res => {
+      if(res.status !== 200)
+        res.json().then(({ error: message }) => { throw new Error(message) })
+
+      return res.json()
+    })
   }
-
-  xhr.onerror = () => {
-    callBack(new Error('Connection error.'))
-  }
-
-  xhr.open('GET', `${import.meta.env.VITE_API_URL}/users/userPosts`)
-
-  xhr.setRequestHeader('Authorization', `Bearer ${userId}`)
-
-  xhr.send()
 }

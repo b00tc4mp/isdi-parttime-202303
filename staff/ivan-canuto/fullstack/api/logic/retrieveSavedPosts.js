@@ -7,25 +7,34 @@ module.exports = (userId) => {
 
   const { users, posts } = context
 
-  return users.findOne({ _id: new ObjectId(userId) })
-  .then(user => {
-    if(!user) throw new Error('User not found.')
+  return Promise.all([users.find().toArray(), posts.find().toArray()])
+    .then(([users, posts]) => {
+      const user = users.find(_user => _user._id.toString() === userId)
+      if(!user) throw new Error('User not found.')
 
-    return Promise.all([posts.find().toArray(), users.find().toArray()])
-      .then(([posts, users]) => {
-        let savedPosts = posts.filter(post => user.favs.includes(post._id.toString()))
-        
-            savedPosts.forEach(post => {
-              const user = users.find(_user => _user._id.toString() === post.author.toString())
+      const favsFromUser = user.favs.map(fav => fav.toString())      
 
-              post.author = {
-                id: user._id,
-                name: user.name,
-                avatar: user.avatar,
-                favs: user.favs
-              }
-            })
-        return savedPosts.reverse()
-      })
-  })
-}
+      let savedPosts = posts.filter(post => favsFromUser.includes(post._id.toString()))
+      
+        savedPosts.forEach(post => {
+          post.id = post._id.toString()
+          delete post._id
+
+          const author = users.find(_user => _user._id.toString() === post.author.toString())
+
+          const { _id, name, avatar } = author
+
+          post.author = {
+            id: _id.toString(),
+            name: name,
+            avatar: avatar,
+          }
+
+          post.fav = user.favs.some(fav => fav.toString() === post.id)
+          post.liked = post.likes.some(like => like.toString() === userId)
+
+        })
+
+      return savedPosts.reverse()
+    })
+  }

@@ -1,5 +1,6 @@
 const authenticateUser = require('../logic/authenticateUser')
 const jwt = require('jsonwebtoken')
+require('dotenv').config()
 
 module.exports = (req, res) => {
   try {
@@ -9,7 +10,7 @@ module.exports = (req, res) => {
       .then(userId => {
         const payload = { sub: userId }
 
-        const token = jwt.sign(payload, process.env.SECRET, { expiresIn: '1000s' })
+        const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRATION })
 
         res.json(token)
       })

@@ -18,7 +18,7 @@ export default function ToggleOnSalePost({ onToggledOnSalePost, onCancel }) {
   useEffect(() => {
     freeze()
 
-    retrievePost(context.userId, context.postId, (error, post) => {
+    retrievePost(context.token, context.postId, (error, post) => {
       unfreeze()
       
       if(error) {
@@ -38,7 +38,7 @@ export default function ToggleOnSalePost({ onToggledOnSalePost, onCancel }) {
     try {
       freeze()
       
-      setPostPrice(context.postId, pricePost, error => {
+      setPostPrice(context.token, context.postId, pricePost, error => {
         unfreeze()
         
         if(error) {
@@ -60,7 +60,7 @@ export default function ToggleOnSalePost({ onToggledOnSalePost, onCancel }) {
     try {
       freeze()
       console.log(context.postId)
-      unsetPostPrice(context.postId, error => {
+      unsetPostPrice(context.token, context.postId, error => {
         unfreeze()
         
         if(error) {

@@ -1,3 +1,5 @@
+const { ContentError } = require("./errors")
+
 function validateName(name) {
   if (typeof name !== 'string') throw new TypeError('Name is not a string.')
   if (!name.trim().length) throw new Error('Name field is empty.')
@@ -38,7 +40,7 @@ function validateCallback(callBack, explanation = 'CallBack') {
 
 function validateToken(token, explanation = 'token') {
   if (typeof token !=='string') throw new TypeError(`The ${explanation} is not a string.`)
-  if(token.split('.').lenght !== 3) throw new Error(`${explanation} is ont valid.`)
+  if(token.split('.').length !== 3) throw new ContentError (`${explanation} is not valid.`)
 }
 
 module.exports = {

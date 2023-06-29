@@ -1,44 +1,59 @@
 import { validators } from 'com'
 
-const { validateId, validateCallback } = validators
+const { validateToken, validateId, validateCallback } = validators
 
 /**
  * Deletes a user's post.
  * 
- * @param {object} post The post's object from database.
- * @param {string} userId The user's id.
+ * @param {string} token The user's id token.
+ * @param {object} postId The post's id.
  * @param {function} callBack A function to catch errors and display them to the user.
  */
 
-export default function deletePost(postId, userId, callBack) {
-  validateId(userId, 'user id')
+export default function deletePost(token, postId, callBack) {
+  validateToken(token, 'user id token')
   validateId(postId, 'post id')
-  validateCallback(callBack)
 
-  const xhr = new XMLHttpRequest
+  if(callBack) {
+    validateCallback(callBack)
 
-  xhr.onload = () => {
-    const { status } = xhr
+    const xhr = new XMLHttpRequest
 
-    if(status !== 200) {
-      const { response: json } = xhr
-      const { error } = JSON.parse(json)
+    xhr.onload = () => {
+      const { status } = xhr
 
-      callBack(new Error(error))
+      if(status !== 200) {
+        const { response: json } = xhr
+        const { error } = JSON.parse(json)
 
-      return
+        callBack(new Error(error))
+
+        return
+      }
+
+      callBack(null)
     }
 
-    callBack(null)
+    xhr.onerror = () => {
+      callBack(new Error('Connection error.'))
+    }
+
+    xhr.open('DELETE', `${import.meta.env.VITE_API_URL}/posts/${postId}/delete`)
+
+    xhr.setRequestHeader('Authorization', `Bearer ${token}`)
+    
+    xhr.send()
+    
+  } else {
+    return fetch(`${import.meta.env.VITE_API_URL}/users/auth`, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
+    })
+    .then(res => {
+      if(res.status !== 200)
+        res.json().then(({ error: message }) => { throw new Error(message) })
+    })
   }
-
-  xhr.onerror = () => {
-    callBack(new Error('Connection error.'))
-  }
-
-  xhr.open('DELETE', `${import.meta.env.VITE_API_URL}/posts/${postId}/delete`)
-
-  xhr.setRequestHeader('Authorization', `Bearer ${userId}`)
-  
-  xhr.send()
 }

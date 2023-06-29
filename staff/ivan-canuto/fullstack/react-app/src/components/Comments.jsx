@@ -29,7 +29,7 @@ export default function Comments({ onCloseCommentModal, handleRefreshPosts, post
     try {
       freeze()
       
-      createComment(commentText, context.userId, post._id, (error) => {
+      createComment(context.token, post.id, commentText, (error) => {
         unfreeze()
         
         if(error) {
@@ -53,7 +53,7 @@ export default function Comments({ onCloseCommentModal, handleRefreshPosts, post
     try{
       freeze()
       
-      deleteComment(post._id, commentId, (error) => {
+      deleteComment(context.token, post.id, commentId, (error) => {
         unfreeze()
 
         if (error) {

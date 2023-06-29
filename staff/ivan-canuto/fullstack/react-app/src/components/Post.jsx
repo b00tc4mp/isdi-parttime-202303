@@ -7,6 +7,9 @@ import ContextualMenu from "./ContextualMenuModal"
 import Button from "../library/Button";
 import { useAppContext } from "../hooks"
 import retrieveUser from "../logic/retrieveUser"
+import { utils } from "com"
+
+const { extractSubFromToken } = utils
 
 export default function Post({post, handleRefreshPosts, handleOpenEditPost, handleOpenDeletePost, handleToggleVisibility, handleToggleOnSalePost, handleOpenBuyPost }) {
   
@@ -15,7 +18,7 @@ export default function Post({post, handleRefreshPosts, handleOpenEditPost, hand
   const [user, setUser] = useState()
   
   const { alert, freeze, unfreeze } = useAppContext()
-  const { image, _id, likes, date, text, author, visible, onSale } = post
+  const { image, id, likes, date, text, author, visible, onSale, fav, liked } = post
 
   const handleCloseCommentModal = () => {
     setModal('post')
@@ -23,7 +26,7 @@ export default function Post({post, handleRefreshPosts, handleOpenEditPost, hand
   }
 
   const handlreRefreshUser = () => {
-    retrieveUser(context.userId, (error, _user) => {
+    retrieveUser(context.token, (error, _user) => {
       if(error) {
         alert(error.message)
         console.debug(error.stack)
@@ -44,7 +47,7 @@ export default function Post({post, handleRefreshPosts, handleOpenEditPost, hand
     try {
       freeze()
       
-      toggleLikePost(context.userId, _id, (error) => {
+      toggleLikePost(context.token, id, (error) => {
         unfreeze()
 
         if (error) {
@@ -67,7 +70,7 @@ export default function Post({post, handleRefreshPosts, handleOpenEditPost, hand
     try {
       freeze()
 
-      toggleSavePost(context.userId, _id, (error) => {
+      toggleSavePost(context.token, id, (error) => {
         unfreeze()
 
         if (error) {
@@ -97,7 +100,7 @@ export default function Post({post, handleRefreshPosts, handleOpenEditPost, hand
   }
 
   const toggleContextualMenu = () => {
-    context.postId = _id.toString()
+    context.postId = id.toString()
     document.body.classList.toggle('fixed-scroll')
     setContextualMenu(contextualMenu === 'close' ? 'open' : 'close')
   }
@@ -105,7 +108,7 @@ export default function Post({post, handleRefreshPosts, handleOpenEditPost, hand
   console.debug('Post -> render')
 
     return <>
-    <article className="bg-gray-100 h-96 w-96 text-black rounded-md p-2 flex flex-col items-center overflow-auto pb-6" id={_id.toString()} onScroll={handlePostScroll}>
+    <article className="bg-gray-100 h-96 w-96 text-black rounded-md p-2 flex flex-col items-center overflow-auto pb-6" id={id.toString()} onScroll={handlePostScroll}>
 
       {contextualMenu === 'open' &&  <ContextualMenu
         options={[
@@ -120,12 +123,12 @@ export default function Post({post, handleRefreshPosts, handleOpenEditPost, hand
       {modal === 'post' && <>
         <section className="flex justify-between w-full px-4 py-2">
           <div className="flex items-center">
-            <img className="h-8 rounded" src={author.avatar} alt="post-user-avatar" />
+            <img className="h-8 rounded-full" src={author.avatar} alt="post-user-avatar" />
             <p className="px-1">{author.name}</p>
           </div>
           
           <div className="flex items-center">
-            {(author.id === context.userId) && <>
+            {(author.id === extractSubFromToken(context.token)) && <>
               <p>{visible ? 'Public' : 'Private'}</p>
               {(onSale && onSale !== 'Sold') && <>
                 <div className="bg-gray-300 p-1 rounded mx-2 flex"> 
@@ -142,10 +145,10 @@ export default function Post({post, handleRefreshPosts, handleOpenEditPost, hand
               <span className="material-symbols-outlined hover:bg-gray-300 cursor-pointer font-black ml-2" onClick={toggleContextualMenu}>more_vert</span>
             </>}
             
-            {(author.id !== context.userId && onSale) &&
+            {(author.id !== extractSubFromToken(context.token) && onSale) &&
               <div className="h-8 bg-gray-300 rounded mx-1" title="Post on sale" onClick={() => {
                 if(onSale !== 'Sold') {
-                  context.postId = _id
+                  context.postId = id
                   handleOpenBuyPost()
                 }
                 }}>
@@ -161,18 +164,18 @@ export default function Post({post, handleRefreshPosts, handleOpenEditPost, hand
 
         <section className="pt-2 pl-4 pb-0 w-full flex justify-start">
           <i className="" onClick={handleToggleFav}>
-              {user && (!user.favs.includes(_id))? <span className="material-symbols-outlined cursor-pointer">bookmark</span> : <span className="material-symbols-outlined cursor-pointer filled saved">bookmark</span>}
+              {user && fav ? <span className="material-symbols-outlined cursor-pointer filled saved">bookmark</span> : <span className="material-symbols-outlined cursor-pointer">bookmark</span>}
           </i>
 
           <i>
             <span className="material-symbols-outlined cursor-pointer" onClick={() => {
-              context.postId = _id
+              context.postId = id
               setModal('comments')
             }}>mode_comment</span>
           </i>
           
           <i className="" onClick={handleToggleLike}>
-            {(!likes || !likes.includes(context.userId))? <span className="material-symbols-outlined cursor-pointer">favorite</span> : <span className="material-symbols-outlined cursor-pointer filled liked">favorite</span>}
+            {user && liked ? <span className="material-symbols-outlined cursor-pointer filled liked">favorite</span> : <span className="material-symbols-outlined cursor-pointer">favorite</span>}
           </i>
 
           <p>{likes ? likes.length + ' likes' : '0 likes'}</p>

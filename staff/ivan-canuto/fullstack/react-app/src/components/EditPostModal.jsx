@@ -22,7 +22,7 @@ export default function EditPost({ onCancel, onUpdatedPost }) {
     try {
       freeze()
 
-      updatePost(context.userId, context.postId, imageUrl, text, (error) => {
+      updatePost(context.token, context.postId, imageUrl, text, (error) => {
         unfreeze()
 
         if(error) {
@@ -45,7 +45,7 @@ export default function EditPost({ onCancel, onUpdatedPost }) {
     try {
       freeze()
 
-      retrievePost(context.userId, context.postId, (error, _post) => {
+      retrievePost(context.token, context.postId, (error, _post) => {
         unfreeze()
 
         if(error) {

@@ -1,5 +1,4 @@
 const { validators: { validateId } } = require('com')
-require('dotenv').config()
 const context = require('./context')
 const { ObjectId } = require('mongodb')
 
@@ -14,6 +13,7 @@ module.exports = (userId) => {
 
       delete user._id
       delete user.password
+      delete user.favs
 
       return user
     })

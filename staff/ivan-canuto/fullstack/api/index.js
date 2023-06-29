@@ -3,7 +3,29 @@ require('dotenv').config()
 const express = require('express')
 const cors = require('cors')
 const bodyParser = require('body-parser')
-const { updateUserAvatarHandler, buyPostHandler, createCommentHandler, createPostHandler, deleteCommentHandler, deletePostHandler, retrievePostHandler, registerUserHandler, authenticateUserHandler, retrieveUserHandler, retrievePostsHandler, retrieveSavedPostsHandler, retrieveUserPostsHandler, toggleLikePostHandler, setPostPriceHandler, unsetPostPriceHandler, toggleSavePostHandler, toggleVisibilityPostHandler, updatePostHandler, updateUserPasswordHandler, helloWorldHandler } = require('./handlers')
+const {
+    updateUserAvatarHandler,
+    buyPostHandler,
+    createCommentHandler,
+    createPostHandler,
+    deleteCommentHandler,
+    deletePostHandler,
+    retrievePostHandler,
+    registerUserHandler,
+    authenticateUserHandler,
+    retrieveUserHandler,
+    retrievePostsHandler,
+    retrieveSavedPostsHandler,
+    retrieveUserPostsHandler,
+    toggleLikePostHandler,
+    setPostPriceHandler,
+    unsetPostPriceHandler,
+    toggleSavePostHandler,
+    toggleVisibilityPostHandler,
+    updatePostHandler,
+    updateUserPasswordHandler,
+    helloWorldHandler
+} = require('./handlers')
 const { MongoClient } = require('mongodb')
 const context = require('./logic/context')
 
@@ -30,7 +52,7 @@ client.connect()
 
         api.get('/users', retrieveUserHandler)
 
-        api.patch('/users', jsonBodyParser, updateUserAvatarHandler)
+        api.patch('/users/newAvatar', jsonBodyParser, updateUserAvatarHandler)
 
         api.patch('/posts/:postId/buy', buyPostHandler)
 

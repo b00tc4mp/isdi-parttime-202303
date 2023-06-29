@@ -2,14 +2,17 @@ const { validators: { validateId, validateText } } = require('com')
 const context = require('./context')
 const { ObjectId } = require('mongodb')
 
-module.exports = (postId, postPrice) => {
+module.exports = (userId, postId, postPrice) => {
+  validateId(userId, 'user id')
   validateId(postId, 'post id')
   validateText(postPrice, 'post price')
 
-  const { posts } = context
+  const { users, posts } = context
   
-  return posts.findOne({ _id: new ObjectId(postId) })
-    .then(post => {
+  return Promise.all([users.findOne({ _id: new ObjectId(userId)}), posts.findOne({ _id: new ObjectId(postId) })])
+    .then(([user, post]) => {
+      if(!user) throw new Error('User not found.')
+      
       if(!post) throw new Error('Post not found.')
 
       return posts.updateOne(
@@ -17,38 +20,4 @@ module.exports = (postId, postPrice) => {
         { $set: { onSale: postPrice }}
       )
     })
-
-  // readFile(`${process.env.DB_PATH}/posts.json`, (error, postsJSON) => {
-  //   if(error) {
-  //     callBack(error)
-      
-  //     return
-  //   }
-
-  //   const posts = JSON.parse(postsJSON)
-  //   const post = posts.find(post => post.id === postId)
-
-  //   if(!post) {
-  //     callBack(new Error('Post not found.'))
-
-  //     return
-  //   }
-
-  //   post.onSale = postPrice
-
-  //   const postIndex = posts.findIndex(post => post.id === postId)
-
-  //   posts.splice(postIndex, 1, post)
-  //   const postsToJSON = JSON.stringify(posts)
-
-  //   writeFile(`${process.env.DB_PATH}/posts.json`, postsToJSON, (error) => {
-  //     if(error) {
-  //       callBack(error)
-
-  //       return
-  //     }
-
-  //     callBack(null)
-  //   })
-  // })
 }

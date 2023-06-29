@@ -1,46 +1,61 @@
 import { validators } from 'com'
 
-const { validateId, validateCallback } = validators
+const { validateToken, validateCallback } = validators
 
 /**
  * Retrieves the posts form database.
  * 
- * @param {string} userId The user's id.
- * @param {function} callBack A function to catch errors and display them to the user., and returns the posts array required.
+ * @param {string} token The user's id token.
+ * @param {function} callBack A function to catch errors and display them to the user, and returns the posts array required.
  * 
 */
 
-export function retrievePosts(userId, callBack) {
-  validateId(userId, 'user id')
-  validateCallback(callBack)
+export function retrievePosts(token, callBack) {
+  validateToken(token, 'user id token')
 
-  const xhr = new XMLHttpRequest
+  if(callBack) {
+    validateCallback(callBack)
 
-  xhr.onload = () => {
-    const { status } = xhr
+    const xhr = new XMLHttpRequest
 
-    if(status !== 200) {
+    xhr.onload = () => {
+      const { status } = xhr
+
+      if(status !== 200) {
+        const { response: json } = xhr
+        const { error } = JSON.parse(json)
+        
+        callBack(new Error(error))
+
+        return
+      }
+
       const { response: json } = xhr
-      const { error } = JSON.parse(json)
-      
-      callBack(new Error(error))
+      const { posts } = JSON.parse(json)
 
-      return
+      callBack(null, posts)
     }
 
-    const { response: json } = xhr
-    const { posts } = JSON.parse(json)
+    xhr.onerror = () => {
+      callBack(new Error('Connection error.'))
+    }
 
-    callBack(null, posts)
-  }
+    xhr.open('GET', `${import.meta.env.VITE_API_URL}/users/posts`)
 
-  xhr.onerror = () => {
-    callBack(new Error('Connection error.'))
-  }
-
-  xhr.open('GET', `${import.meta.env.VITE_API_URL}/users/posts`)
-
-  xhr.setRequestHeader('Authorization', `Bearer ${userId}`)
-  
-  xhr.send()
+    xhr.setRequestHeader('Authorization', `Bearer ${token}`)
+    
+    xhr.send()
+    
+  } else {
+    return fetch(`${import.meta.env.VITE_API_URL}/users/auth`, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
+    })
+    .then(res => {
+      if(res.status !== 200)
+        res.json().then(({ error: message }) => { throw new Error(message) })
+    })
+  }  
 }

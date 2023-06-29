@@ -5,18 +5,23 @@ import { useState, useEffect } from "react";
 import { retrieveSavedPosts } from "../logic/retrieveSavedPosts";
 import { retrieveUserPosts } from "../logic/retrieveUserPosts";
 import { useAppContext } from "../hooks"
+import { utils } from "com";
+
+const { extractSubFromToken } = utils
 
 export default function Posts({ lastPostsUpdate, view, handleOpenBuyPost, handleOpenEditPost, handleOpenDeletePost, handleToggleVisibility, handleToggleOnSalePost }) {
   const { alert, freeze, unfreeze } = useAppContext()
 
   const [posts, setPosts] = useState(null)
 
+  useEffect(() => handleRefreshPosts(), [])
+
   const handleRefreshPosts = () => {
     try {
       freeze()
 
       if(view === 'posts') {
-        retrievePosts(context.userId, (error, _posts) => {
+        retrievePosts(context.token, (error, _posts) => {
           unfreeze()
           
           if (error) {
@@ -32,26 +37,27 @@ export default function Posts({ lastPostsUpdate, view, handleOpenBuyPost, handle
       }
       
       else if(view === 'savedPosts') {
-        retrieveSavedPosts(context.userId, (error, _posts) => {
+        retrieveSavedPosts(context.token, (error, _posts) => {
           unfreeze()
           
           if (error) {
-            alert(error.message, 'error')
-            console.debug(error, 'posts-40')
+            alert(error, 'error')
+            console.debug(error)
             
             return
           }
           console.debug('Saved postsss -> render')
+
           setPosts(_posts)
         })
       }
 
       else if(view === 'userPosts') {
-        retrieveUserPosts(context.userId, (error, _posts) => {
+        retrieveUserPosts(context.token, (error, _posts) => {
           unfreeze()
 
           if (error) {
-            alert(error.message, 'error')
+            alert(error, 'error')
             console.debug(error)
             
             return
@@ -64,8 +70,9 @@ export default function Posts({ lastPostsUpdate, view, handleOpenBuyPost, handle
 
     } catch(error) {
       unfreeze()
-      alert(error.message, 'error')
-      console.debug(error);
+
+      alert(error, 'error')
+      console.debug(error)
     }
   } 
   
@@ -86,8 +93,8 @@ export default function Posts({ lastPostsUpdate, view, handleOpenBuyPost, handle
   }, [lastPostsUpdate])
 
   return <section className="pt-20 pb-32 flex flex-col items-center gap-6">
-    {posts && posts.map(post => ((post.author.id !== context.userId) && !post.visible) ? '' : <Post
-      key={post._id.toString()}
+    {posts && posts.map(post => ((post.author.id !== extractSubFromToken(context.token)) && !post.visible) ? '' : <Post
+      key={post.id.toString()}
       post={post}
       handleRefreshPosts={handleRefreshPosts}
       handleOpenEditPost={handleOpenEditPost}

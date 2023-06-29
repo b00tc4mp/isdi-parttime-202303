@@ -2,13 +2,16 @@ const { validators: { validateId } } = require('com')
 const context = require('./context')
 const { ObjectId } = require('mongodb')
 
-module.exports = (postId, callBack) => {
+module.exports = (userId, postId) => {
+  validateId(userId, 'user id')
   validateId(postId, 'post id')
 
-  const { posts } = context
+  const { users, posts } = context
 
-  return posts.findOne({ _id: new ObjectId(postId) })
-    .then(post => {
+  return Promise.all([users.findOne({ _id: new ObjectId(userId) }), posts.findOne({ _id: new ObjectId(postId) })])
+  .then(([user, post]) => {
+      if(!user) throw new Error('User not found.')
+
       if(!post) throw new Error('Post not found.')
 
       if(post.visible)
@@ -22,37 +25,4 @@ module.exports = (postId, callBack) => {
           { $set: { visible: true }}
         )
     })
-
-  // readFile(`${process.env.DB_PATH}/posts.json`, (error, postsJSON) => {
-  //   if(error) {
-  //     callBack(error)
-
-  //     return
-  //   }
-
-  //   const posts = JSON.parse(postsJSON)
-  //   const post = posts.find(post => post.id === postId)
-
-  //   if (!post) {
-  //     callBack(new Error('Post not found.'))
-
-  //     return
-  //   }
-  //   post.visible = !post.visible
-
-  //   const postIndex = posts.findIndex(_post => _post.id === postId)
-
-  //   posts.splice(postIndex, 1, post)
-  //   const postsToJSON = JSON.stringify(posts)
-
-  //   writeFile(`${process.env.DB_PATH}/posts.json`, postsToJSON, (error) => {
-  //     if(error) {
-  //       callBack(error)
-
-  //       return
-  //     }
-
-  //     callBack(null)
-  //   })
-  // })
 }

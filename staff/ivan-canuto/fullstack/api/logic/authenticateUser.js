@@ -1,5 +1,4 @@
 const { validators: { validateEmail, validatePassword, } } = require('com')
-require('dotenv').config()
 const context = require('./context')
 
 module.exports = (email, password) => {

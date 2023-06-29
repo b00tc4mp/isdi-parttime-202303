@@ -14,40 +14,57 @@ const { validateName, validateEmail, validatePassword, validateCallback } = vali
 export function registerUser(name, email, password, callBack) {
   validateName(name)
   validateEmail(email)
-  validateCallback(callBack)
-
-  if (!email.includes('@')) throw new Error("Email doesn't contain a '@'.")
-  if (!email.includes('.')) throw new Error("Email doesn't contain a'.', try to put a dot whithin the domain part.")
   validatePassword(password)
-  if (password.length < 6) throw new Error('The password is too short.')
 
-  const xhr = new XMLHttpRequest
+  if(callBack) {
+    validateCallback(callBack)
 
-  xhr.onload = () => {
-    const { status } = xhr
+    if (!email.includes('@')) throw new Error("Email doesn't contain a '@'.")
+    if (!email.includes('.')) throw new Error("Email doesn't contain a'.', try to put a dot whithin the domain part.")
+    validatePassword(password)
+    if (password.length < 6) throw new Error('The password is too short.')
 
-    if(status !== 201) {
-      const { response: json } = xhr
-      const { error } = JSON.parse(json)
-      
-      callBack(new Error(error))
+    const xhr = new XMLHttpRequest
 
-      return
+    xhr.onload = () => {
+      const { status } = xhr
+
+      if(status !== 201) {
+        const { response: json } = xhr
+        const { error } = JSON.parse(json)
+        
+        callBack(new Error(error))
+
+        return
+      }
+
+      callBack(null)
     }
 
-    callBack(null)
+    xhr.onerror = () => {
+      callBack(new Error('Connection error.'))
+    }
+    
+    xhr.open('POST', `${import.meta.env.VITE_API_URL}/users`)
+
+    xhr.setRequestHeader('Content-Type', 'application/json')
+
+    const user = { name, email, password }
+    const json = JSON.stringify(user)
+
+    xhr.send(json)
+    
+  } else {
+    return fetch(`${import.meta.env.VITE_API_URL}/users`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ name, email, password })
+    })
+    .then(res => {
+      if(res.status !== 200)
+        res.json().then(({ error: message }) => { throw new Error(message) })
+    })
   }
-
-  xhr.onerror = () => {
-    callBack(new Error('Connection error.'))
-  }
-  
-  xhr.open('POST', `${import.meta.env.VITE_API_URL}/users`)
-
-  xhr.setRequestHeader('Content-Type', 'application/json')
-
-  const user = { name, email, password }
-  const json = JSON.stringify(user)
-
-  xhr.send(json)
 }

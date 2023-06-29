@@ -15,7 +15,7 @@ export default function VisibilityPost({ onChangedVisibility, onCancel }) {
     freeze()
 
     try {
-      retrievePost(context.userId, context.postId, (error, post) => {
+      retrievePost(context.token, context.postId, (error, post) => {
         unfreeze()
   
         if (error) {
@@ -37,7 +37,7 @@ export default function VisibilityPost({ onChangedVisibility, onCancel }) {
     try {
       freeze()
       
-      toggleVisibilityPost(context.postId, error => {
+      toggleVisibilityPost(context.token, context.postId, error => {
         unfreeze()
 
         if (error) {

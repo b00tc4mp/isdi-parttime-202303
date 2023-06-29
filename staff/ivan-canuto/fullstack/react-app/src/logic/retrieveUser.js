@@ -5,42 +5,59 @@ const { validateToken, validateCallback } = validators
 /**
  * Retrieves the name, avatar, and favorite posts of the user.
  * 
- * @param {string} userId The user's id.
+ * @param {string} token The user's id token.
  * @param {function} callBack A function to catch errors and display them to the user., and returns the user information required.
  * 
  */
 
 export default (token, callBack) => {
-  validateToken(token, 'user id')
-  validateCallback(callBack)
+  validateToken(token, 'user id token')
 
-  const xhr = new XMLHttpRequest
+  if(callBack) {
+    validateCallback(callBack)
 
-  xhr.onload = () => {
-    const { status } = xhr
+    const xhr = new XMLHttpRequest
 
-    if(status !== 200) {
+    xhr.onload = () => {
+      const { status } = xhr
+
+      if(status !== 200) {
+        const { response: json } = xhr
+        const { error } = JSON.parse(json)
+
+        callBack(new Error(error))
+
+        return
+      }
+
       const { response: json } = xhr
-      const { error } = JSON.parse(json)
+      const user = JSON.parse(json)
 
-      callBack(new Error(error))
-
-      return
+      callBack(null, user)
     }
 
-    const { response: json } = xhr
-    const user = JSON.parse(json)
+    xhr.onerror = () => {
+      callBack(new Error('Connection error.'))
+    }
 
-    callBack(null, user)
+    xhr.open('GET', `${import.meta.env.VITE_API_URL}/users`)
+
+    xhr.setRequestHeader('Authorization', `Bearer ${token}`)
+
+    xhr.send()
+    
+  } else {
+    return fetch(`${import.meta.env.VITE_API_URL}/users`, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    })
+    .then(res => {
+      if(res.status !== 200)
+        res.json().then(({ error: message }) => { throw new Error(message) })
+
+      return res.json()
+    })
   }
-
-  xhr.onerror = () => {
-    callBack(new Error('Connection error.'))
-  }
-
-  xhr.open('GET', `${import.meta.env.VITE_API_URL}/users`)
-
-  xhr.setRequestHeader('Authorization', `Bearer ${token}`)
-
-  xhr.send()
 }

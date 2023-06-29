@@ -9,7 +9,7 @@ import Loader from "./library/Loader";
 import { utils } from "com"
 
 const { Provider } = AppContext
-const { isTokenAlive, isTokenValid } = utils
+const { isTokenValid, isTokenAlive } = utils
 
 export default function App() {
   const { token } = context

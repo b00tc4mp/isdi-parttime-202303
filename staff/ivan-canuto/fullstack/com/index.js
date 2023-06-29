@@ -1,4 +1,5 @@
-const validators = require('./validators.js')
-const utils = require('./utils.js')
-
-module.exports = { validators, utils }
+module.exports = {
+    validators: require('./validators.js'),
+    utils: require('./utils.js'),
+    errors: require('./errors.js')
+}

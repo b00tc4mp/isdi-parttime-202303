@@ -9,21 +9,34 @@ const { validateCallback } = validators
  */
 
 export default function retrireveRandomMotivationalQuote(callBack) {
-  validateCallback(callBack)
+  if(callBack) {
+    validateCallback(callBack)
 
-  const xhr = new XMLHttpRequest
-  
-  xhr.onload = () => {
-    const { content } = JSON.parse(xhr.response)
+    const xhr = new XMLHttpRequest
+    
+    xhr.onload = () => {
+      const { content } = JSON.parse(xhr.response)
 
-    callBack(null, content)
+      callBack(null, content)
+    }
+
+    xhr.onerror = () => {
+      callBack(new Error('connection error'))
+    }
+
+    xhr.open('GET', 'https://api.quotable.io/random')
+    
+    xhr.send()
+
+  } else {
+    return fetch('https://api.quotable.io/random', {
+      method: 'GET'
+    })
+    .then(res => {
+      if(res.status !== 200)
+        res.json().then(({ error: message }) => { throw new Error(message) })
+
+      return res.json()
+    })
   }
-
-  xhr.onerror = () => {
-    callBack(new Error('connection error'))
-  }
-
-  xhr.open('GET', 'https://api.quotable.io/random')
-  
-  xhr.send()
 }

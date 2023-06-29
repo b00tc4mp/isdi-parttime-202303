@@ -9,7 +9,6 @@ module.exports = {
   createPost: require('./createPost'),
   deleteComment: require('./deleteComment'),
   deletePost: require('./deletePost'),
-  removePostFromSale: require('./removePostFromSale'),
   retrievePost: require('./retrievePost'),
   retrievePosts: require('./retrievePosts'),
   retrieveSavedPosts: require('./retrieveSavedPosts'),

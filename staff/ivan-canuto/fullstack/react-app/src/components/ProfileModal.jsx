@@ -23,7 +23,7 @@ export default function Profile({ onCancel, onUpdatedAvatar}) {
     try {
       freeze()
 
-      updateUserAvatar(context.userId, avatarUrl, password, (error) => {
+      updateUserAvatar(context.token, avatarUrl, password, (error) => {
         unfreeze()
 
         if(error) {
@@ -54,7 +54,7 @@ export default function Profile({ onCancel, onUpdatedAvatar}) {
     try {
       freeze()
 
-      updateUserPassword(context.userId, password, newPassword, newPasswordConfirm, (error) => {
+      updateUserPassword(context.token, password, newPassword, newPasswordConfirm, (error) => {
         unfreeze()
 
         if(error) {

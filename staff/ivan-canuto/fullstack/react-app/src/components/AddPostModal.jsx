@@ -35,7 +35,7 @@ export default function AddPost({ onCancel, onCreatedPost }) {
     try {
       freeze()
 
-      createPost(context.userId, image, text, (error) => {
+      createPost(context.token, image, text, (error) => {
         unfreeze()
 
         if (error) {
@@ -77,8 +77,8 @@ export default function AddPost({ onCancel, onCreatedPost }) {
           const imageCompressor = new ImageCompressor
       
           const compressorSettings = {
-            toWidth : 300,
-            toHeight : 300,
+            toWidth : 200,
+            toHeight : 200,
             mimeType : 'image/png',
             mode : 'strict',
             quality : 1
