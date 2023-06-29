@@ -1,13 +1,3 @@
-// TODO steps
-// - input validations
-// - verify user exists in database
-// - verify post exists
-// - verify post belongs to user (post.author === userId)
-// - modify post with new data
-// - save posts
-
-import { savePost, findUserById, findPostById } from "../data.js";
-// import { validateId, validatePostId, validatePostUrl, validateText, validateCallback } from "./helpers/validators.js";
 import { validators } from 'com'
 
 const { validateId, validatePostId, validatePostUrl, validateText, validateCallback } = validators
@@ -19,34 +9,32 @@ export function updatePost(userId, postId, imageUrl, text, callback) {
     validateText(text)
     validateCallback(callback)
 
-    findUserById(userId, user => {
-        if (!user) {
-            callback(new Error('user not found'))
+    const xhr = new XMLHttpRequest
+
+    xhr.onload = () => {
+        const { status } = xhr
+
+        if (status !== 204) {
+            const { response: json } = xhr
+            const { error } = JSON.parse(json)
+
+            callback(new Error(error))
 
             return
         }
+        callback(null)
+    }
+    xhr.onerror = () => {
+        callback(new Error('conection error'))
+    }
 
-        findPostById(postId, post => {
-            if (!post) {
-                callback(new Error('post not found'))
+    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/posts/update/${postId}`)
 
-                return
-            } 
+    xhr.setRequestHeader('Content-Type', 'application/json')
+    xhr.setRequestHeader('authorization', `Bearer ${userId}`)
 
-            if (post.author !== userId) {
-                callback(new Error(`post with id ${postId} does not belong to user with id ${userId}`))
+    const data = { imageUrl, text }
+    const json = JSON.stringify(data)
 
-                return
-            }
-
-            else {
-                post.image = imageUrl;
-                post.text = text;
-                post.date = new Date()
-
-                savePost(post, () => callback(null))
-            }
-
-        })
-    })
+    xhr.send(json)
 }

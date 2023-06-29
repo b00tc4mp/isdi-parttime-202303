@@ -33,9 +33,11 @@ module.exports = function retrievePosts(userId) {
                 post.fav = user.favs.some(fav => fav.toString() === post.id)
 
                 // no hace falta hacer una newDate porque Mongo ya te lo devuelve como date, no es un Json.
+
+
             })
 
-            return posts
+            return posts.reverse()
 
         })
 }

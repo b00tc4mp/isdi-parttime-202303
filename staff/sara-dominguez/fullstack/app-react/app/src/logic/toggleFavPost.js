@@ -1,38 +1,37 @@
-import { saveUser, findUserById, findPostById } from "../data.js";
-// import { validateId, validatePostId, validateCallback } from "./helpers/validators.js";
 import { validators } from 'com'
-
 const { validateId, validatePostId, validateCallback } = validators
+
+
 export default function toggleFavPost(userId, postId, callback) {
     validateId(userId)
     validatePostId(postId)
     validateCallback(callback)
 
-    findUserById(userId, user => {
-        if (!user) {
-            callback(new Error('user not found'))
+    const xhr = new XMLHttpRequest
+
+    xhr.onload = () => {
+        const { status } = xhr
+
+        if (status !== 200) {
+            const { response: json } = xhr
+            const { error } = JSON.parse(json)
+
+            callback(new Error(error))
 
             return
         }
+        callback(null)
 
-        findPostById(postId, post => {
-            if (!post) {
-                callback(new Error('post not found'))
+    }
+    xhr.onerror = () => {
+        callback(new Error('connection error'))
+    }
 
-                return
-            }
+    xhr.open('PACTH', `${import.meta.VITE_API_URL}/users/favs/${postId}`)
 
-            const index = user.favs.indexOf(postId)
-                if (index < 0) {
-                    user.favs.push(postId)
-                } else {
-                    user.favs.splice(index, 1)
+    // xhr.setRequestHeader('Content-Type', 'application/json')
+    xhr.setRequestHeader('authorization', `Bearer ${userId}`)
 
-                    if (!user.favs.length) delete user.fav
-                }
-            
+    xhr.send()
 
-            saveUser(user, () => callback(null))
-        })
-    })
 }

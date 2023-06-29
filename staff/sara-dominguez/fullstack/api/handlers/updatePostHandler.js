@@ -4,7 +4,9 @@ const { extractUserId } = require('../helpers')
 module.exports = (req, res,) => {
     try {
         const userId = extractUserId(req)
-        const { postId, imageUrl, text } = req.body
+        const { postId } = req.params
+
+        const { imageUrl, text } = req.body
 
         updatePost(userId, postId, imageUrl, text)
             .then(() => res.status(204).send())

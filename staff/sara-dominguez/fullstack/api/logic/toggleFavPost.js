@@ -1,6 +1,7 @@
-require('dotenv').config()
 const context = require('./context')
 const { validators: { validateId } } = require('com')
+const { ObjectId } = require('mongodb')
+
 
 module.exports = function toggleFavPost(userId, postId) {
     validateId(userId)
@@ -9,28 +10,22 @@ module.exports = function toggleFavPost(userId, postId) {
 
     const { users, posts } = context
 
-    return Promise.all([users.find().toArray(), posts.find().toArray])
+    return Promise.all([users.findOne({ _id: new ObjectId(userId) }), posts.findOne({ _id: new ObjectId(postId) })])
 
-        .then(([users, posts]) => {
-            const user = users.findOne({ _id: new ObjectId(userId) })
-
+        .then(([user, post]) => {
             if (!user) throw new Error('user not found')
-
-            const post = posts.findOne({ _id: new ObjectId(postId) })
-
             if (!post) throw new Error('user not found')
 
-
-            const index = user.favs.indexOf(postId)
+            const index = user.favs.findIndex(id => id.toString() === postId)
             if (index < 0) {
-                user.favs.push(postId)
-            } else {
-                user.favs.splice(index, 1)
+                return users.updateOne({ _id: new ObjectId(userId) }, { $push: { favs: new ObjectId(postId) } })
 
-                if (!user.favs.length) delete user.fav
+            } else {
+                user.favs.splice(user.favs.findIndex(fav => fav === new ObjectId(postId)), 1)
+
+                return users.updateOne({ _id: new ObjectId(userId) }, { $set: { favs: user.favs } })
             }
 
-            return users.updateOne({ _id: new ObjectId(userId) }, { $set: { favs: user.favs } })
         })
 
 

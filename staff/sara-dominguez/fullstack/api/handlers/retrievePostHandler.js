@@ -5,7 +5,7 @@ module.exports = (req, res) => {
     try {
         const userId = extractUserId(req)
 
-        const { postId } = req.body
+        const { postId } = req.params
 
         retrievePost(userId, postId)
             .then(post => res.json({ post }))

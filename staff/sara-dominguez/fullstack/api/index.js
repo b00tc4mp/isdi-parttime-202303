@@ -27,17 +27,21 @@ client.connect()
 
         //definimos la api
         api.get('/', helloApiHandler)
+        api.get('/users', retrieveUserHandler)
+        api.get('/posts/:postId', retrievePostHandler)
+        api.get('/posts', retrievePostsHandler)
+
         api.post('/users', jsonBodyParser, registerUserHandler)
         api.post('/users/auth', jsonBodyParser, authenticateUserHandler)
-        api.get('/users', retrieveUserHandler)
-        api.patch('/users', jsonBodyParser, updateUserAvatarHandler)
-        api.patch('users', jsonBodyParser, updateUserPasswordHandler)
-        api.patch('users', jsonBodyParser, toggleFavPostHandler)
         api.post('/posts', jsonBodyParser, createPostHandler)
-        api.get('/posts', jsonBodyParser, retrievePostHandler)
-        api.get('/posts', retrievePostsHandler)
-        api.get('/posts', jsonBodyParser, updatePostHandler)
-        api.patch('posts', jsonBodyParser, toggleLikePostHandler)
+
+        api.patch('/users', jsonBodyParser, updateUserAvatarHandler)
+        api.patch('/users/password', jsonBodyParser, updateUserPasswordHandler)
+        api.patch('/users/favs/:postId', toggleFavPostHandler)
+        api.patch('/posts/update/:postId', jsonBodyParser, updatePostHandler)
+        api.patch('/posts/likes/:postId', toggleLikePostHandler)
+
+
 
 
         api.listen(process.env.PORT, () => console.log(`server running in port ${process.env.PORT}`))

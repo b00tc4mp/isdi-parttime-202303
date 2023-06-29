@@ -1,7 +1,3 @@
-console.debug('update-user-avatar')
-
-// import { validateId, validateUserAvatar, validateCallback } from "./helpers/validators.js"
-// import { saveUser, findUserById } from "../data.js"
 import { validators } from 'com'
 
 const { validateId, validateUserAvatar, validateCallback } = validators

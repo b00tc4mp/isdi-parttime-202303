@@ -33,7 +33,7 @@ export default function retrievePosts(userId, callback) {
         callback(new Error('connection error'))
     }
 
-    xhr.open('GET', `${import.meta.env.VITE_API_URL}/posts/`)
+    xhr.open('GET', `${import.meta.env.VITE_API_URL}/posts`)
 
     xhr.setRequestHeader('Content-Type', 'application/json')
     xhr.setRequestHeader('authorization', `Bearer ${userId}`)

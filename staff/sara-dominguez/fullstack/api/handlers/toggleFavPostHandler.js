@@ -4,7 +4,7 @@ const { extractUserId } = require('../helpers')
 module.exports = (req, res,) => {
     try {
         const userId = extractUserId(req)
-        const { postId } = req.body
+        const { postId } = req.params
 
         toggleFavPost(userId, postId)
             .then(() => res.status(204).send())

@@ -30,7 +30,7 @@ export function validatedNewPassword(userId, password, userNewPassword, userConf
         callback(new Error('connection error'))
     }
 
-    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/users`)
+    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/users/password`)
 
     xhr.setRequestHeader('Content-Type', 'application/json')
     xhr.setRequestHeader('authorization', `Bearer ${userId}`)

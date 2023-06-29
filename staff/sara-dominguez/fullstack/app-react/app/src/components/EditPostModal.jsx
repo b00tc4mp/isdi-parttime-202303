@@ -1,6 +1,6 @@
 import { context } from '../ui.js'
 import { updatePost } from '../logic/updatePost'
-import retrievePost from '../logic/retrievePost.js'
+import { retrievePost } from '../logic/retrievePost.js'
 import { useState, useEffect } from 'react'
 import useAppContext from '../hooks/UseAppContext.js'
 import { Container, Input, Button, TextArea } from '../library'

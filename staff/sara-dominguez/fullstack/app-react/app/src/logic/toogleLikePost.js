@@ -1,39 +1,38 @@
-import { savePost, findUserById, findPostById } from "../data.js";
-// import { validateCallback, validateId, validatePostId} from "./helpers/validators.js";
 import { validators } from 'com'
-
-const { validateCallback, validateId, validatePostId } = validators
+const { validateId, validatePostId, validateCallback } = validators
 
 export default function toggleLikePost(userId, postId, callback) {
     validateId(userId)
     validatePostId(postId)
     validateCallback(callback)
 
-    findUserById(userId, user => {
-        if (!user) {
-            callback(new Error('user not found'))
+    const xhr = new XMLHttpRequest
 
-            return
+    xhr.onload = () => {
+        const { status } = xhr
+
+        if (status !== 200) {
+            const { response: json } = xhr
+            const { error } = JSON.parse(json)
+
+            callback(new Error(error))
         }
 
-        findPostById(postId, post => {
-            if (!post) {
-                callback(new Error('post not found'))
+        const { ersponse: json } = xhr
+        const post = JSON.parse(json)
 
-                return
-            }
-            const index = post.likes.indexOf(userId)
+        callback(null, post)
+    }
 
-                if (index < 0) {
-                    post.likes.push(userId)
-                } else {
-                    post.likes.splice(index, 1)
+    xhr.onerror = () => {
+        callback(new Error('connection error'))
+    }
 
-                    // if (!post.likes.length) delete post.likes
-                }
-            
-            
-            savePost(post, () => callback(null))
-        })
-    })
+    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/posts`)
+
+    xhr.setRequestHeader('Content-Type', 'application/json')
+    xhr.setRequestHeader('authorization', `Bearer ${userId}`)
+
+    xhr.send()
+
 }
