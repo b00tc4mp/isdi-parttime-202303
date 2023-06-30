@@ -1,121 +1,30 @@
-const { readFile, writeFile } = require('fs')
-const { validators: { validateId, validateCallback } } = require('com')
+const { validators: { validateId } } = require('com')
 
-module.exports = function deletePost(userId, postId, callback) {
-    validateId(userId)
-    validateCallback(callback)
+const context = require('./context')
+const { ObjectId } = require('mongodb')
 
-    retrieveUser(userId, (error, user) => {
-        if (error) {
-            console.error(error)
+module.exports = function deletePost(userId, postId) {
+    validateId(userId, 'User ID')
+    validateId(postId, 'Post ID')
 
-            return
+    const { users, posts } = context
+
+    return Promise.all([
+        users.findOne({ _id: new ObjectId(userId) }),
+        posts.findOne({ _id: new ObjectId(postId) }),
+    ]).then(([user, post]) => {
+        if (!user) throw new Error('User not found!')
+
+        if (!post) throw new Error('Post not found!')
+
+        if (post.author.toString() !== userId) {
+            throw new Error(`Post with ID ${post._id.toString()} does not belong to user with ID ${userId}`)
         }
 
-        if (user) {
-            retrievePost(userId, postId, (error, postToDelete) => {
-                if (error) {
-                    console.error(error)
+        return users.find().toArray()
+            .then((users) => {users.forEach((user) =>user.saves?.splice((user.saves.findIndex((save) => save === postId), 1)))
 
-                    return
-                }
-
-                readFile(`${process.env.DB_PATH}/posts.json`, 'utf8', (error, filedPosts) => {
-                    if (error) {
-                        callback(error)
-
-                        return
-                    }
-
-                    const posts = JSON.parse(filedPosts);
-                    const index = posts.findIndex(post => post.id === postToDelete.id);
-                    posts.splice(index, 1);
-                    const postToFile = JSON.stringify(posts);
-
-                    writeFile(`${process.env.DB_PATH}/posts.json`, postToFile, 'utf8', error => {
-                        if (error) {
-                            callback(error)
-
-                            return
-                        }
-                        console.log("Post borrado");
-                        callback(null)
-                    })
-                })
+            return posts.deleteOne({ _id: new ObjectId(postId) })
             })
-        }
-    })
-
-}
-
-function retrieveUser(userId, callback){
-    validateId(userId)
-    validateCallback(callback)
-    readFile(`${process.env.DB_PATH}users.json`, 'utf8', (error, json) => {
-        if (error) {
-            callback(error)
-
-            return
-        }
-
-        const users = JSON.parse(json)
-
-        const user = users.find(user => user.id === userId)
-
-        if (!user) {
-            callback(new Error(`user with id ${userId} not found`))
-
-            return
-        }
-
-        const _user={
-            name: user.name,
-            id: user.id
-        }
-
-
-        callback(null, _user)
-    })
-}
-
-function retrievePost(userId, postId, callback){
-    validateId(userId)
-    validateCallback(callback)
-    readFile(`${process.env.DB_PATH}/users.json`, 'utf8', (error, filedUsers) => {
-        if (error) {
-            callback(error)
-
-            return
-        }
-
-        const users = JSON.parse(filedUsers)
-
-        const user = users.find(user => user.id === userId)
-
-        if (!user) {
-            callback(new Error(`user with id ${userId} not found`))
-
-            return
-        }
-
-        readFile(`${process.env.DB_PATH}/posts.json`, 'utf8', (error, filedPosts) => {
-            if (error) {
-                callback(error)
-    
-                return
-            }
-            const posts = JSON.parse(filedPosts)
-
-            const post=posts.find(post=> post.id===postId)
-
-            if(!post){
-                callback(new Error(`Post with id ${postId} not found`))
-
-            return
-            }
-
-            callback(null, post)
-        })
-        
     })
 }
