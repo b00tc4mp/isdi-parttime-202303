@@ -1,85 +1,26 @@
-const { readFile, writeFile } = require('fs')
+const { validators: { validateId, validateUrl, validateText } } = require('com')
+const context = require('./context')
+const { ObjectId } = require('mongodb')
 
-const { validators: { validateId, validateText, validateCallback } } = require('com')
-
-
-module.exports = function createPost(userId, image, text, callback) {
-    validateId(userId)
+module.exports = (userId, image, text)=>{
+    validateId(userId, 'user id')
+    validateUrl(image, 'image url')
     validateText(text)
-    validateCallback(callback)
 
-    retrieveUser(userId, (error, user) => {
-        if (error) {
-            console.error(error)
+    const { users, posts } = context
 
-            return
-        }
+    return users.findOne({ _id: new ObjectId(userId) })
+        .then(user => {
+            if (!user) throw new Error(`user with id ${userId} not found`)
 
-        if (user) {
-
-            readFile(`${process.env.DB_PATH}/posts.json`, 'utf8', (error, filedPosts) => {
-                if (error) {
-                    callback(new Error('This file gives me problems'))
-
-                    return
-                }
-                const posts = JSON.parse(filedPosts);
-                const post = {
-                    id: userId + '-' + Date.now(),
-                    author: userId,
-                    image: image,
-                    text: text,
-                    date: Date.now(),
-                    likes: []
-                }
-                posts.push(post);
-
-                const postToFile = JSON.stringify(posts);
-
-                writeFile(`${process.env.DB_PATH}/posts.json`, postToFile, 'utf8', error => {
-                    if (error) {
-                        callback(new Error('I cannot write in this file'))
-
-                        return
-                    }
-                    console.log("Post guardado");
-                    callback(null)
-                })
+            const post = {
+                author: user._id,
+                image,
+                text,
+                date: new Date,
+                likes: []
             }
 
-            )
-        }
-    })
-
-
-}
-
-function retrieveUser(userId, callback){
-    validateId(userId)
-    validateCallback(callback)
-    readFile(`${process.env.DB_PATH}/users.json`, 'utf8', (error, json) => {
-        if (error) {
-            callback(error)
-
-            return
-        }
-
-        const users = JSON.parse(json)
-
-        const user = users.find(user => user.id === userId)
-
-        if (!user) {
-            callback(new Error(`user with id ${userId} not found`))
-
-            return
-        }
-
-        const _user={
-            name: user.name,
-            id: user.id
-        }
-
-
-        callback(null, _user)
-    })
+            return posts.insertOne(post)
+        })
 }

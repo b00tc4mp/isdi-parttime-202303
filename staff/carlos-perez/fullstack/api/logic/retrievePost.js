@@ -1,44 +1,25 @@
-const { readFile } = require('fs')
-const { validators: { validateId, validateCallback } } = require('com')
-
-module.exports = function retrievePost(userId, postId, callback){
-    validateId(userId)
-    validateCallback(callback)
-    readFile(`${process.env.DB_PATH}/users.json`, 'utf8', (error, filedUsers) => {
-        if (error) {
-            callback(error)
-
-            return
-        }
-
-        const users = JSON.parse(filedUsers)
-
-        const user = users.find(user => user.id === userId)
-
-        if (!user) {
-            callback(new Error(`user with id ${userId} not found`))
-
-            return
-        }
-
-        readFile(`${process.env.DB_PATH}/posts.json`, 'utf8', (error, filedPosts) => {
-            if (error) {
-                callback(error)
-    
-                return
-            }
-            const posts = JSON.parse(filedPosts)
-
-            const post=posts.find(post=> post.id===postId)
-
-            if(!post){
-                callback(new Error(`Post with id ${postId} not found`))
-
-            return
-            }
-
-            callback(null, post)
-        })
-        
+const { validators: { validateId }} = require('com')
+  
+  const context = require('./context')
+  const { ObjectId } = require('mongodb')
+  
+  module.exports = function retrievePost(userId, postId) {
+    validateId(userId, 'User ID')
+    validateId(postId, 'Post ID')
+  
+    const { users, posts } = context
+  
+    return Promise.all([
+      users.findOne({ _id: new ObjectId(userId) }),
+      posts.findOne({ _id: new ObjectId(postId) }),
+    ]).then(([user, post]) => {
+      if (!user) throw new Error('User not found!')
+  
+      if (!post) throw new Error('Post not found!')
+  
+      //const index = post.likes.map((id) => id.toString()).indexOf(userId)
+  
+      console.log(post)
+      return post
     })
-}
+  }

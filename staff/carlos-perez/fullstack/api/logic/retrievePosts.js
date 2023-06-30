@@ -1,49 +1,34 @@
-const { readFile } = require('fs')
-const versionDetection = require('../helpers/versionDetection')
-const { validators: { validateId, validateCallback } } = require('com')
+const { validators: { validateId } } = require('com')
+const context = require('./context')
 
+module.exports = userId => {
+    validateId(userId, 'user id')
 
-module.exports = function retrievePosts(userId, callback){
-    validateId(userId)
-    validateCallback(callback)
-    readFile(`${process.env.DB_PATH}/users.json`, 'utf8', (error, filedUsers) => {
-        if (error) {
-            callback(error)
+    const { users, posts } = context
 
-            return
-        }
+    return Promise.all([users.find().toArray(), posts.find().toArray()])
+        .then(([users, posts]) => {
+            const user = users.find(user => user._id.toString() === userId)
 
-        const users = JSON.parse(filedUsers)
+            if (!user) throw new Error(`user with id ${userId} not found`)
 
-        const user = users.find(user => user.id === userId)
+            posts.forEach(post => {
+                post.id = post._id.toString()
+                delete post._id
 
-        if (!user) {
-            callback(new Error(`user with id ${userId} not found`))
+                const author = users.find(user => user._id.toString() === post.author.toString())
 
-            return
-        }
+                const { _id, name, avatar } = author
 
-        readFile(`${process.env.DB_PATH}/posts.json`, 'utf8', (error, filedPosts) => {
-            if (error) {
-                callback(error)
-    
-                return
-            }
-            const posts = JSON.parse(filedPosts)
-
-            const version=parseInt(versionDetection());
-
-            if(version >=20){
-            callback(null, posts.toReversed()); //Sólo funciona con Node v20 en adelante
-            }
-            else{
-                const reversedPosts=[];
-                for(let i=posts.length-1; i>=0; i--){
-                    reversedPosts.push(posts[i]);
+                post.author = {
+                    id: _id.toString(),
+                    name,
+                    avatar
                 }
-                callback(null, reversedPosts);
-            }
+
+                //post.fav = user.favs.some(fav => fav.toString() === post.id)
+            })
+
+            return posts
         })
-        
-    })
 }
