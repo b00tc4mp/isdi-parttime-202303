@@ -12,22 +12,35 @@ export default function VisibilityPost({ onChangedVisibility, onCancel }) {
   const [visible, setVisible] = useState()
 
   useEffect(() => {
-    freeze()
-
     try {
-      retrievePost(context.token, context.postId, (error, post) => {
-        unfreeze()
+      freeze()
+
+      // retrievePost(context.token, context.postId, (error, post) => {
+      //   unfreeze()
   
-        if (error) {
-          alert(error.message, 'error')
-          console.log(error.stack)
+      //   if (error) {
+      //     alert(error.message, 'error')
+      //     console.log(error.stack)
           
-          return
-        }
+      //     return
+      //   }
         
-        setVisible(post.visible)
-      })
+      //   setVisible(post.visible)
+      // })
+
+      retrievePost(context.token, context.postId)
+        .then(() => {
+          unfreeze()
+          setVisible(post.visible)
+        })
+        .catch(error => {
+          unfreeze()
+          alert(error.message, 'error')
+          console.debug(error.stack)
+        })
+
     } catch (error) {
+      unfreeze()
       alert(error.message, 'error')
       console.debug(error.stack)
     }
@@ -35,26 +48,32 @@ export default function VisibilityPost({ onChangedVisibility, onCancel }) {
 
   const handleToggleVisibility = () => {
     try {
-      freeze()
-      
-      toggleVisibilityPost(context.token, context.postId, error => {
-        unfreeze()
+      // toggleVisibilityPost(context.token, context.postId, error => {
+      //   if (error) {
+      //     alert(error.message, 'error')
+      //     console.log(error.stack)
+          
+      //     return
+      //   }
+      //   setVisible(!visible)
+      //   onChangedVisibility()
+      // })
 
-        if (error) {
+      toggleVisibilityPost(context.token, context.postId)
+        .then(() => {
+          setVisible(!visible)
+          onChangedVisibility()
+        })
+        .catch(error => {
           alert(error.message, 'error')
           console.log(error.stack)
-          
-          return
-        }
-        setVisible(!visible)
-        onChangedVisibility()
-      })
+        })
       
     } catch (error) {
       alert(error.message, 'error')
       console.log(error.stack)
     }
-    }
+  }
   
 
   return <>

@@ -7,7 +7,7 @@ module.exports = (req, res) => {
     const { postId } = req.params
 
     retrievePost(userId, postId)
-      .then(post => res.json({ post }))
+      .then(post => res.json(post))
       .catch(error => res.status(400).json({ error: error.message }))
   } catch (error) {
     res.status(400).json({ error: error.message })

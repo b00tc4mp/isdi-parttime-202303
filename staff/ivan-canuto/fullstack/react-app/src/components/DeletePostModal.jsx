@@ -10,20 +10,23 @@ export default function DeletePost({ onDeletedPost, onCancel }) {
 
   const handleDeletePost = () => {
     try {
-      freeze()
+      // deletePost(context.token, context.postId, error => {
+      //   if (error) {
+      //   alert(error.message, 'error')
+      //   console.log(error.stack)
 
-      deletePost(context.token, context.postId, error => {
-        unfreeze()
-        
-        if (error) {
-        alert(error.message, 'error')
-        console.log(error.stack)
-
-        return
-      }
+      //     return
+      //   }
       
-        onDeletedPost()
-      })
+      //   onDeletedPost()
+      // })
+
+      deletePost(context.token, context.postId)
+        .then(() => onDeletedPost())
+        .catch(error => {
+          alert(error.message, 'error')
+          console.log(error.stack)
+        })
     } catch (error) {
       alert(error.message, 'error')
       console.log(error.stack);

@@ -16,18 +16,37 @@ export default function ToggleOnSalePost({ onToggledOnSalePost, onCancel }) {
   const [onSale, setOnSale] = useState()
 
   useEffect(() => {
-    freeze()
+    try {
+      freeze()
 
-    retrievePost(context.token, context.postId, (error, post) => {
+      // retrievePost(context.token, context.postId, (error, post) => {
+      //   unfreeze()
+        
+      //   if(error) {
+      //     alert(error.message, 'error')
+      //     console.debug(error.stack)
+      //   }
+
+      //   setOnSale(post.onSale)
+      // })
+
+      retrievePost(context.token, context.postId)
+        .then(() => {
+          unfreeze()
+          setOnSale(post.onSale)
+        })
+        .catch(error => {
+          unfreeze()
+          alert(error.message, 'error')
+          console.debug(error.stack)
+        })
+
+    } catch (error) {
       unfreeze()
-      
-      if(error) {
-        alert(error.message, 'error')
-        console.debug(error.stack)
-      }
-
-      setOnSale(post.onSale)
-    })
+      alert(error.message, 'error')
+      console.debug(error.stack)
+    }
+    
   }, [])
 
   const handleSetPostPrice = (event) => {
@@ -36,42 +55,50 @@ export default function ToggleOnSalePost({ onToggledOnSalePost, onCancel }) {
     const pricePost = event.target.pricePost.value
 
     try {
-      freeze()
-      
-      setPostPrice(context.token, context.postId, pricePost, error => {
-        unfreeze()
+      // setPostPrice(context.token, context.postId, pricePost, error => {
+      //   if(error) {
+      //     alert(error.message, 'error')
+      //     console.log(error.stack)
+          
+      //     return
+      //   }
         
-        if(error) {
+      //   onToggledOnSalePost()
+      // })
+
+      setPostPrice(context.token, context.postId, pricePost)
+        .then(() => onToggledOnSalePost())
+        .catch(error => {
           alert(error.message, 'error')
           console.log(error.stack)
-          
-          return
-        }
-        
-        onToggledOnSalePost()
-      })
+        })
+
     } catch (error) {
       alert(error.message, 'error')
-      console.log(error.stack);
+      console.log(error.stack)
     }
   }
 
   const handleUnsetPostPrice = () => {
     try {
-      freeze()
-      console.log(context.postId)
-      unsetPostPrice(context.token, context.postId, error => {
-        unfreeze()
+      // unsetPostPrice(context.token, context.postId, error => {
+      //   if(error) {
+      //     alert(error.message, 'error')
+      //     console.log(error.stack)
+          
+      //     return
+      //   }
         
-        if(error) {
+      //   onToggledOnSalePost()
+      // })
+
+      unsetPostPrice(context.token, context.postId)
+        .then(() => onToggledOnSalePost())
+        .catch(error => {
           alert(error.message, 'error')
           console.log(error.stack)
-          
-          return
-        }
+        })
         
-        onToggledOnSalePost()
-      })
     } catch (error) {
       alert(error.message, 'error')
       console.log(error.stack)

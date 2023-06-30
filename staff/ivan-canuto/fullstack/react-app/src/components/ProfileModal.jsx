@@ -52,26 +52,31 @@ export default function Profile({ onCancel, onUpdatedAvatar}) {
     const newPasswordConfirm = event.target.newPasswordConfirm.value
 
     try {
-      freeze()
+      // updateUserPassword(context.token, password, newPassword, newPasswordConfirm, (error) => {
+      //   if(error) {
+      //     alert(error.message, 'error')
+      //     console.debug(error.stack);
 
-      updateUserPassword(context.token, password, newPassword, newPasswordConfirm, (error) => {
-        unfreeze()
-
-        if(error) {
-          alert(error.message, 'error')
-          console.debug(error.stack);
-
-          return
-        }
+      //     return
+      //   }
         
-        alert('Password changed successfully.')
-        closeProfile()
-      })
+      //   alert('Password changed successfully.')
+      //   closeProfile()
+      // })
+
+      updateUserPassword(context.token, password, newPassword, newPasswordConfirm)
+        .then(() => {
+          alert('Password changed successfully.')
+          closeProfile()
+        })
+        .catch(error => {
+          alert(error.message, 'error')
+          console.debug(error.stack)
+        })
 
     } catch (error) {
-      unfreeze()
       alert(error.message, 'error')
-      console.debug(error.stack);
+      console.debug(error.stack)
     }
   }
   

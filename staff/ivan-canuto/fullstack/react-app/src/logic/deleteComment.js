@@ -50,16 +50,12 @@ export default function deleteComment(token, postId, commentId, callBack) {
     return fetch(`${import.meta.env.VITE_API_URL}/posts/${postId}/comments/${commentId}/delete`, {
       method: 'PATCH',
       headers: {
-        'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`
-      },
-      body: JSON.stringify({ email, password })
+      }
     })
     .then(res => {
       if(res.status !== 200)
-        res.json().then(({ error: message }) => { throw new Error(message) })
-
-      return res.json()
+        return res.json().then(({ error: message }) => { throw new Error(message) })
     })
   }
 }

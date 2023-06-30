@@ -33,20 +33,28 @@ export default function AddPost({ onCancel, onCreatedPost }) {
     if(selectedImage && !imageUrl) image = selectedImage
 
     try {
-      freeze()
+      // createPost(context.token, image, text, (error) => {
+      //   unfreeze()
 
-      createPost(context.token, image, text, (error) => {
-        unfreeze()
+      //   if (error) {
+      //     alert(error.message, 'error')
+      //     console.debug(error.stack)
 
-        if (error) {
-          alert(error.message, 'error')
-          console.debug(error.stack)
-
-          return
-        }
+      //     return
+      //   }
         
+      //   onCreatedPost()
+      //   window.scrollTo({ top: 0, behavior: 'smooth' });
+      // })
+      
+      createPost(context.token, image, text)
+      .then(() => {
         onCreatedPost()
         window.scrollTo({ top: 0, behavior: 'smooth' });
+      })
+      .catch(error => {
+        alert(error.message, 'error')
+        console.debug(error.stack)
       })
 
     } catch (error) {

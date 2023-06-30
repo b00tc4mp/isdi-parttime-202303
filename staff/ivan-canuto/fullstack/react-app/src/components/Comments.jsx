@@ -27,20 +27,26 @@ export default function Comments({ onCloseCommentModal, handleRefreshPosts, post
     const commentText = event.target.commentText.value
 
     try {
-      freeze()
-      
-      createComment(context.token, post.id, commentText, (error) => {
-        unfreeze()
-        
-        if(error) {
+      // createComment(context.token, post.id, commentText, (error) => {
+      //   if(error) {
+      //     alert(error.message, 'error')
+      //     console.debug(error.stack)
+
+      //     return
+      //   }
+      //   toggleAddComment()
+      //   handleRefreshPosts()
+      // })
+
+      createComment(context.token, post.id, commentText)
+        .then(() => {
+          toggleAddComment()
+          handleRefreshPosts()
+        })
+        .catch(error => {
           alert(error.message, 'error')
           console.debug(error.stack)
-
-          return
-        }
-        toggleAddComment()
-        handleRefreshPosts()
-      })
+        })
 
     } catch(error) {
       unfreeze()
@@ -51,20 +57,23 @@ export default function Comments({ onCloseCommentModal, handleRefreshPosts, post
   
   const handleDeleteComment = (commentId) => {
     try{
-      freeze()
-      
-      deleteComment(context.token, post.id, commentId, (error) => {
-        unfreeze()
+      // deleteComment(context.token, post.id, commentId, (error) => {
+      //   if (error) {
+      //     alert(error.message, 'error')
+      //     console.debug(error.stack)
 
-        if (error) {
+      //     return
+      //   }
+        
+      //   handleRefreshPosts()
+      // })
+
+      deleteComment(context.token, post.id, commentId)
+        .then(() => handleRefreshPosts())
+        .catch(error => {
           alert(error.message, 'error')
           console.debug(error.stack)
-
-          return
-        }
-        
-        handleRefreshPosts()
-      })
+        })
 
     } catch (error) {
       unfreeze()

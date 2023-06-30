@@ -28,20 +28,25 @@ export default function Home(props) {
 
   useEffect(() => {
     try {
-      freeze()
+      // retrieveUser(context.token, (error, _user) => {
+      //   unfreeze()
 
-      retrieveUser(context.token, (error, _user) => {
-        unfreeze()
+      //   if (error) {
+      //     alert(error.message, 'error')
+      //     console.debug(error.stack)
+      //     return
+      //   }
 
-        if (error) {
+      //   setUser(_user)
+      // })
+
+      retrieveUser(context.token)
+        .then(setUser)
+        .catch(error => {
           alert(error.message, 'error')
           console.debug(error.stack)
-          return
-        }
+        })
 
-        setUser(_user)
-        
-      })
     } catch (error) {
       unfreeze()
       alert(error.message, 'error')
@@ -110,22 +115,28 @@ export default function Home(props) {
 
   const handleUpdatedAvatar = () => {
     try {
-      freeze()
+      // retrieveUser(context.token, (error, user) => {
+      //   if (error) {
+      //     alert(error.message, 'error')
+      //     console.debug(error.stack)
+      //     return
+      //   }
 
-      retrieveUser(context.token, (error, user) => {
-        unfreeze()
-        
-        if (error) {
+      //   setUser(user)
+      //   setLastPostsUpdate(Date.now())
+      // })
+
+      retrieveUser(context.token)
+        .then(user => {
+          setUser(user)
+          setLastPostsUpdate(Date.now())
+        })
+        .catch(error => {
           alert(error.message, 'error')
           console.debug(error.stack)
-          return
-        }
+        })
 
-        setUser(user)
-        setLastPostsUpdate(Date.now())
-      })
     } catch (error) {
-      unfreeze()
       alert(error.message, 'error')
       console.debug(error.stack)
     }

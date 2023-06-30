@@ -33,20 +33,23 @@ export default function BuyPost({ onBoughtPost, onCancel }) {
     event.preventDefault()
 
     try {
-      freeze()
+      // buyPost(context.token, post.id, (error) => {
+      //   if (error) {
+      //     alert(error.message, 'error')
+      //     console.debug(error.stack)
 
-      buyPost(context.token, post.id, (error) => {
-        unfreeze()
+      //     return
+      //   }
+  
+      //   onBoughtPost()
+      // })
 
-        if (error) {
+      buyPost(context.token, post.id)
+        .then(() => onBoughtPost())
+        .catch(error => {
           alert(error.message, 'error')
           console.debug(error.stack)
-
-          return
-        }
-  
-        onBoughtPost()
-      })
+        })
       
     } catch (error) {
       alert(error.message, 'error')

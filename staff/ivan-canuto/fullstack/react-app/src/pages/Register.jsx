@@ -24,22 +24,24 @@ export default function Register ({ onLoginClick, onRegisterUser }) {
     const password = event.target.password.value
 
     try {
-      freeze()
+      // registerUser(name, email, password, (error)=> {
+      //   if(error) {
+      //     alert(error.message, 'error')
+      //     console.debug(error.stack)
+      //     return
+      //   }
+          
+      //     onRegisterUser()
+      // })
 
-      registerUser(name, email, password, (error)=> {
-        unfreeze()
-
-        if(error) {
+      registerUser(name, email, password)
+        .then(() => onRegisterUser())
+        .catch(error => {
           alert(error.message, 'error')
           console.debug(error.stack)
-          return
-        }
-          
-          onRegisterUser()
-      })
+        })
 
     } catch (error) {
-      unfreeze()
       alert(error.message, 'error')
       console.debug(error.stack);
     }

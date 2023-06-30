@@ -62,7 +62,7 @@ export const updatePost = (token, postId, imageUrl, postText, callBack)=>{
     })
     .then(res => {
       if(res.status !== 200)
-        res.json().then(({ error: message }) => { throw new Error(message) })
+        return res.json().then(({ error: message }) => { throw new Error(message) })
     })
   }
 }

@@ -47,7 +47,7 @@ export function retrievePosts(token, callBack) {
     xhr.send()
     
   } else {
-    return fetch(`${import.meta.env.VITE_API_URL}/users/auth`, {
+    return fetch(`${import.meta.env.VITE_API_URL}/users/posts`, {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${token}`
@@ -55,7 +55,9 @@ export function retrievePosts(token, callBack) {
     })
     .then(res => {
       if(res.status !== 200)
-        res.json().then(({ error: message }) => { throw new Error(message) })
+        return res.json().then(({ error: message }) => { throw new Error(message) })
+
+      return res.json()
     })
   }  
 }

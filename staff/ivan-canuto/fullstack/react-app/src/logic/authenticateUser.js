@@ -60,7 +60,7 @@ export default function authenticateUser(email, password, callBack) {
     })
     .then(res => {
       if(res.status !== 200)
-        res.json().then(({ error: message }) => { throw new Error(message) })
+         return res.json().then(({ error: message }) => { throw new Error(message) })
 
       return res.json()
     })

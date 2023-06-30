@@ -20,20 +20,23 @@ export default function EditPost({ onCancel, onUpdatedPost }) {
     const text = event.target.postText.value
 
     try {
-      freeze()
+      // updatePost(context.token, context.postId, imageUrl, text, (error) => {
+      //   if(error) {
+      //     alert(error.message, 'error')
+      //     console.debug(error.stack)
 
-      updatePost(context.token, context.postId, imageUrl, text, (error) => {
-        unfreeze()
+      //     return
+      //   }
+        
+      //   onUpdatedPost()
+      // })
 
-        if(error) {
+      updatePost(context.token, context.postId, imageUrl, text)
+        .then(() => onUpdatedPost())
+        .catch(error => {
           alert(error.message, 'error')
           console.debug(error.stack)
-
-          return
-        }
-        
-        onUpdatedPost()
-      })
+        })
 
     } catch (error) {
       alert(error.message, 'error')
@@ -45,19 +48,32 @@ export default function EditPost({ onCancel, onUpdatedPost }) {
     try {
       freeze()
 
-      retrievePost(context.token, context.postId, (error, _post) => {
-        unfreeze()
+      // retrievePost(context.token, context.postId, (error, _post) => {
+      //   unfreeze()
 
-        if(error) {
+      //   if(error) {
+      //     alert(error.message, 'error')
+      //     console.debug(error.stack)
+          
+      //     return
+      //   }
+      //   setPost(_post)
+      // })
+
+      retrievePost(context.token, context.postId)
+        .then(_post => {
+          unfreeze()
+          console.log(_post)
+          setPost(_post)
+        })
+        .catch(error => {
+          unfreeze()
           alert(error.message, 'error')
           console.debug(error.stack)
-          
-          return
-        }
-        setPost(_post)
-      })
+        })
       
     } catch (error) {
+      unfreeze()
       alert(error.message, 'error')
       console.log(error.stack);
     }

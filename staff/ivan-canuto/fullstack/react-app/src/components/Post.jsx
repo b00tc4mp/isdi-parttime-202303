@@ -25,40 +25,57 @@ export default function Post({post, handleRefreshPosts, handleOpenEditPost, hand
     handleRefreshPosts()
   }
 
-  const handlreRefreshUser = () => {
-    retrieveUser(context.token, (error, _user) => {
-      if(error) {
-        alert(error.message)
-        console.debug(error.stack)
+  const handleRefreshUser = () => {
+    try {
+      //   retrieveUser(context.token, (error, _user) => {
+      //   if(error) {
+      //     alert(error.message)
+      //     console.debug(error.stack)
 
-        return
-      }
+      //     return
+      //   }
 
-      setUser(_user)
-    })
+      //   setUser(_user)
+      // })
+
+      retrieveUser(context.token)
+        .then(setUser)
+        .catch(error => {
+          alert(error.message)
+          console.debug(error.stack)
+        })
+
+    } catch (error) {
+      alert(error.message)
+      console.debug(error.stack)
+    }
+    
   }
 
   useEffect(() => {
-    handlreRefreshUser()
+    handleRefreshUser()
   }, [])
   
 
   const handleToggleLike = () => {
     try {
-      freeze()
-      
-      toggleLikePost(context.token, id, (error) => {
-        unfreeze()
+      // toggleLikePost(context.token, id, (error) => {
+      //   if (error) {
+      //     alert(error.message)
+      //     console.debug(error.stack)
 
-        if (error) {
+      //     return
+      //   }
+        
+      //   handleRefreshPosts()
+      // })
+
+      toggleLikePost(context.token, id)
+        .then(() => handleRefreshPosts())
+        .catch(error => {
           alert(error.message)
           console.debug(error.stack)
-
-          return
-        }
-        
-        handleRefreshPosts()
-      })
+        })
 
     } catch (error) {
       alert(error.message)
@@ -68,21 +85,27 @@ export default function Post({post, handleRefreshPosts, handleOpenEditPost, hand
 
   const handleToggleFav = () => {
     try {
-      freeze()
+      // toggleSavePost(context.token, id, (error) => {
+      //   if (error) {
+      //     alert(error.message)
+      //     console.debug(error.stack)
 
-      toggleSavePost(context.token, id, (error) => {
-        unfreeze()
+      //     return
+      //   }
+        
+      //   handleRefreshPosts()
+      //   handleRefreshUser()
+      // })
 
-        if (error) {
+      toggleSavePost(context.token, id)
+        .then(() => {
+          handleRefreshPosts()
+          handleRefreshUser()
+        })
+        .catch(error => {
           alert(error.message)
           console.debug(error.stack)
-
-          return
-        }
-        
-        handleRefreshPosts()
-        handlreRefreshUser()
-      })
+        })
       
     } catch (error) {
       alert(error.message)

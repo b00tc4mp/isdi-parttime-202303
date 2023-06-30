@@ -21,51 +21,89 @@ export default function Posts({ lastPostsUpdate, view, handleOpenBuyPost, handle
       freeze()
 
       if(view === 'posts') {
-        retrievePosts(context.token, (error, _posts) => {
-          unfreeze()
+        // retrievePosts(context.token, (error, _posts) => {
+        //   unfreeze()
           
-          if (error) {
-            alert(error.message, 'error')
-            console.debug(error)
+        //   if (error) {
+        //     alert(error.message, 'error')
+        //     console.debug(error)
             
-            return
-          }
-          console.debug('Postsss -> render')
+        //     return
+        //   }
+        //   console.debug('Postsss -> render')
           
-          setPosts(_posts)
-        })
+        //   setPosts(_posts)
+        // })
+
+        retrievePosts(context.token)
+          .then(_posts => {
+            unfreeze()
+            console.debug('Postsss -> render')
+            
+            setPosts(_posts)
+          })
+          .catch(error => {
+            unfreeze()
+
+            alert(error, 'error')
+            console.debug(error)
+          })
       }
       
       else if(view === 'savedPosts') {
-        retrieveSavedPosts(context.token, (error, _posts) => {
-          unfreeze()
+        // retrieveSavedPosts(context.token, (error, _posts) => {
+        //   unfreeze()
           
-          if (error) {
+        //   if (error) {
+        //     alert(error, 'error')
+        //     console.debug(error)
+            
+        //     return
+        //   }
+        //   console.debug('Saved postsss -> render')
+
+        //   setPosts(_posts)
+        // })
+
+        retrieveSavedPosts(context.token)
+          .then(_posts => {
+            console.debug('Saved postsss -> render')
+            setPosts(_posts)
+          })
+          .catch(error => {
+            unfreeze()
+
             alert(error, 'error')
             console.debug(error)
-            
-            return
-          }
-          console.debug('Saved postsss -> render')
-
-          setPosts(_posts)
-        })
+          })
       }
 
       else if(view === 'userPosts') {
-        retrieveUserPosts(context.token, (error, _posts) => {
-          unfreeze()
+        // retrieveUserPosts(context.token, (error, _posts) => {
+        //   unfreeze()
 
-          if (error) {
+        //   if (error) {
+        //     alert(error, 'error')
+        //     console.debug(error)
+            
+        //     return
+        //   }
+        //   console.debug('Own postsss -> render')
+          
+        //   setPosts(_posts)
+        // })
+
+        retrieveSavedPosts(context.token)
+          .then(_posts => {
+            console.debug('Own postsss -> render')
+            setPosts(_posts)
+          })
+          .catch(error => {
+            unfreeze()
+
             alert(error, 'error')
             console.debug(error)
-            
-            return
-          }
-          console.debug('Own postsss -> render')
-          
-          setPosts(_posts)
-        })
+          })
       }
 
     } catch(error) {
@@ -84,7 +122,6 @@ export default function Posts({ lastPostsUpdate, view, handleOpenBuyPost, handle
 
   useEffect(() => {
     console.debug('Posts -> "ComponentWillRecieveProps" with hooks.');
-    // handleRefreshPosts()
 
     if(lastPostsUpdate) {
       handleRefreshPosts()
