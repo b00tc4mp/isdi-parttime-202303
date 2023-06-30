@@ -7,38 +7,23 @@ const { validateEmail, validatePassword } = validators
  * @returns {string} user's id
  */
 
-export const authenticateUser = (email, password, callback) => {
+export const authenticateUser = (email, password) => {
     validateEmail(email)
     validatePassword(password)
 
-    const xhr = new XMLHttpRequest
-
-    xhr.onload = () => {
-        const { status } = xhr
-        if (status !== 200) {
-            const { response: json } = xhr
-            const { error } = JSON.parse(json)
-            callback(new Error(error))
-
-            return
-        }
-
-        const { response: json } = xhr
-        const { token } = JSON.parse(json)
-
-        callback(null, token)
-    }
-
-    xhr.onerror = () => {
-        callback(new Error('connection error'))
-    }
-
-    xhr.open('POST', 'http://localhost:4000/users/auth')
-
-    xhr.setRequestHeader('Content-Type', 'application/json')
-
     const credentials = { email, password }
-    const json = JSON.stringify(credentials)
 
-    xhr.send(json)
+
+    return fetch('http://localhost:4000/users/auth', {
+        method: 'POST',
+        headers: {
+            'Content-type': 'application/json'
+        },
+        body: JSON.stringify(credentials)
+    })
+        .then(res => {
+            if (res.status !== 200) return res.json().then(({ error }) => { throw new Error(error) })
+
+            return res.json()
+        })
 }

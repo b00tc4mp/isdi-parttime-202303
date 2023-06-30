@@ -1,9 +1,7 @@
 const { ObjectId } = require('mongodb')
 const context = require('./context')
 
-module.exports = function toggleLikePost(userId, postId, callback) {
-
-
+module.exports = function toggleLikePost(userId, postId) {
     const { users, posts } = context
 
     return Promise.all([users.findOne({ _id: new ObjectId(userId) }), posts.findOne({ _id: new ObjectId(postId) })])
@@ -12,14 +10,14 @@ module.exports = function toggleLikePost(userId, postId, callback) {
 
             if (!post) throw new Error(`Post with id ${postId} not found`)
 
-            if (!user.likedPosts.includes(postId)) {
-                post.likes.push(userId)
-                user.likedPosts.push(postId)
+            if (!user.likedPosts.some(fav => fav.toString() === postId)) {
+                post.likes.push(new ObjectId(userId))
+                user.likedPosts.push(new ObjectId(postId))
             } else {
-                const indexPostInUser = user.likedPosts.findIndex(elem => elem === postId)
+                const indexPostInUser = user.likedPosts.findIndex(id => id.toString() === postId)
                 user.likedPosts.splice(indexPostInUser, 1)
 
-                const indexUserInPost = post.likes.findIndex(elem => elem === userId)
+                const indexUserInPost = post.likes.findIndex(id => id.toString() === userId)
                 post.likes.splice(indexUserInPost, 1)
             }
 

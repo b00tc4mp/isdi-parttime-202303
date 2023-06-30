@@ -12,7 +12,7 @@ module.exports = function retrievePosts(userId) {
             return Promise.all([users.find().toArray(), posts.find().toArray()])
                 .then(([users, posts]) => {
                     posts.forEach(post => {
-                        post.favs = user.savedPosts.includes(post._id.toString())
+                        post.favs = user.savedPosts.some(id => id.toString() === post._id.toString())
                         post.date = new Date(post.date)
 
                         const _user = users.find(user => user._id.toString() === post.author.toString())

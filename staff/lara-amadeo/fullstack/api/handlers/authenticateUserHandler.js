@@ -8,7 +8,7 @@ module.exports = function authenticateUserHandler(req, res) {
             .then(userId => {
                 const payload = { sub: userId }
 
-                const token = jwt.sign(payload, process.env.SECRET, { expiresIn: '24h' })
+                const token = jwt.sign(payload, process.env.SECRET)
 
                 res.status(200).json(token)
             })

@@ -1,5 +1,5 @@
 import { validators } from 'com'
-const { validateName, validateEmail, validatePassword } = validators
+const { validateEmail, validatePassword } = validators
 
 /**
  * Registers a user in the database
@@ -9,43 +9,26 @@ const { validateName, validateEmail, validatePassword } = validators
  * @param {string} repPassword user's password repetition
  */
 
-export const registerUser = (username, email, password, repPassword, callback) => {
+export const registerUser = (username, email, password, repPassword) => {
 
     validateEmail(email)
     validatePassword(password)
     validatePassword(repPassword, 'new password')
 
-    if(password !== repPassword){
+    if (password !== repPassword) {
         throw new Error('Passwords not matching')
     }
 
-    const xhr = new XMLHttpRequest
-
-    xhr.onload = () => {
-        const { status } = xhr
-
-        if (status !== 201) {
-            const { response: json } = xhr
-            const { error } = JSON.parse(json)
-
-            callback(new Error(error))
-
-            return
-        }
-
-        callback(null)
-    }
-
-    xhr.onerror = () => {
-        callback(new Error('Connection error'))
-    }
-
-    xhr.open('POST', 'http://localhost:4000/users')
-
-    xhr.setRequestHeader('Content-Type', 'application/json')
-
     const user = { username, email, password }
-    const json = JSON.stringify(user)
 
-    xhr.send(json)
+    return fetch('http://localhost:4000/users', {
+        method: 'POST',
+        headers: {
+            'Content-type': 'application/json'
+        },
+        body: JSON.stringify(user)
+    })
+        .then(res => {
+            if (res.status !== 201) return res.json().then(({ error }) => { throw new Error(error) })
+        })
 }

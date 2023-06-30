@@ -22,17 +22,17 @@ export default function Login({ onSignUpLink, onLoginButton }) {
 
         freeze(undefined, 'background')
         try {
-            authenticateUser(email, password, (error, token) => {
-
-                if (error) {
+            authenticateUser(email, password)
+                .then(token => {
+                    context.token = token
+                    onLoginButton()
+                    unfreeze()
+                })
+                .catch(error => {
                     generateToast(error.message, 'error')
                     unfreeze()
                     return
-                }
-                context.token = token
-                onLoginButton()
-                unfreeze()
-            })
+                })
         } catch (error) {
             unfreeze()
             generateToast(error.message, 'error')
