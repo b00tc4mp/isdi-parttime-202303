@@ -20,7 +20,7 @@ export default function toggleFavPost(userId, postId, callback) {
     callback(new Error('Connection error'))
   }
 
-  xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/posts/${postId}/saves`)
+  xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/posts/${postId}/favs`)
 
   xhr.setRequestHeader('Authorization', `Bearer ${userId}`)
 

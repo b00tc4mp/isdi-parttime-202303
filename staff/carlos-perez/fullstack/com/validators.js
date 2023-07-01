@@ -44,6 +44,11 @@ function validateCallback(callback, explain = 'callback') {
     if (typeof callback !== 'function') throw new Error(`${explain} is not a function`)
 }
 
+function validateToken(token, explain = 'token') {
+    if (typeof token !== 'string') throw new TypeError(`${explain} is not a string`)
+    if (token.split('.').length !== 3) throw new ContentError(`${explain} is not valid`)
+}
+
 module.exports = {
     validateEmail,
     validateName,
@@ -51,5 +56,6 @@ module.exports = {
     validateText,
     validateUrl,
     validateCallback,
-    validateId
+    validateId,
+    validateToken
 }
