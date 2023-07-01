@@ -1,16 +1,13 @@
 const { retrieveToken } = require('../helpers')
 const { updateEmail } = require('../logic')
+const { handleErrors } = require('../helpers')
 
-module.exports = (req, res) => {
-    try {
-        const userId = retrieveToken(req)
 
-        const { email, newEmail } = req.body
+module.exports = handleErrors((req, res) => {
+    const userId = retrieveToken(req)
 
-        updateEmail(userId, email, newEmail)
-            .then(() => res.status(204).send())
-            .catch(error => res.status(400).json({ error: error.message }))
-    } catch (error) {
-        res.status(400).json({ error: error.message })
-    }
-}
+    const { email, newEmail } = req.body
+
+    return updateEmail(userId, email, newEmail)
+        .then(() => res.status(204).send())
+})

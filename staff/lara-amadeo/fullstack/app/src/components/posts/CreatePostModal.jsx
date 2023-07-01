@@ -30,17 +30,17 @@ export default function CreatePostModal({ onCreatePostClick, onCancelCreatePostB
         const caption = event.target.caption.value
 
         try {
-            createPost(context.token, image, caption, (error) => {
-                if (error) {
+            createPost(context.token, image, caption)
+                .then(() => {
+                    generateToast('Post created!', 'success')
+
+                    onCreatePostClick()
+                })
+                .catch(error => {
                     generateToast(error.message, 'error')
                     console.log(error.stack)
                     return
-                }
-
-                generateToast('Post created!', 'success')
-
-                onCreatePostClick()
-            })
+                })
         } catch (error) {
             generateToast(error.message, 'error')
         }

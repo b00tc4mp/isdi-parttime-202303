@@ -5,31 +5,16 @@
  * @param {string} token user's id
  */
 //toggle rename -> toggleSavePost
-export default function toggleSavePost(postId, token, callback) {
+export default function toggleSavePost(postId, token) {
 
-    const xhr = new XMLHttpRequest
-
-    xhr.onload = () => {
-        const { status } = xhr
-        if (status !== 201) {
-            const { response: json } = xhr
-            const { error } = JSON.parse(json)
-            callback(new Error(error))
-
-            return
+    return fetch(`http://localhost:4000/posts/save/${postId}`, {
+        method: 'PATCH',
+        headers: {
+            'Content-type': 'application/json',
+            'authorization': `Bearer ${token}`
         }
-
-        callback(null)
-    }
-
-    xhr.onerror = () => {
-        callback(new Error(error))
-    }
-
-    xhr.open('PATCH', `http://localhost:4000/posts/save/${postId}`)
-
-    xhr.setRequestHeader('Content-Type', 'application/json')
-    xhr.setRequestHeader('authorization', `Bearer ${token}`)
-
-    xhr.send()
+    })
+        .then(res => {
+            if (res.status !== 201) return res.json().then(({ error }) => { throw new Error(error) })
+        })
 }

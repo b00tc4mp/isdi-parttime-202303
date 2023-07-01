@@ -1,16 +1,12 @@
 const { retrieveToken } = require('../helpers')
 const { createPost } = require('../logic')
+const { handleErrors } = require('../helpers')
 
-module.exports = (req, res) => {
-    try {
-        const { image, text } = req.body
+module.exports = handleErrors((req, res) => {
+    const { image, text } = req.body
 
-        const userId = retrieveToken(req)
+    const userId = retrieveToken(req)
 
-        createPost(userId, image, text)
-            .then(() => res.status(201).send())
-            .catch(error => res.status(400).json({ error: error.message }))
-    } catch (error) {
-        res.status(400).json({ error: error.message })
-    }
-}
+    return createPost(userId, image, text)
+        .then(() => res.status(201).send())
+})

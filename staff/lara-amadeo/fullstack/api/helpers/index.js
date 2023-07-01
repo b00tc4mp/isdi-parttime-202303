@@ -1,4 +1,5 @@
 module.exports = {
     extractToken: require('./extractToken'),
-    retrieveToken: require('./retrieveToken')
+    retrieveToken: require('./retrieveToken'),
+    handleErrors: require('./handleErrors')
 }

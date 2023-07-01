@@ -12,17 +12,13 @@ export default function EditPostModal({ postId, onCancelEditPost, onConfirmEditP
 
     useEffect(() => {
         try {
-            retrievePost(context.token, postId, (error, post) => {
-                if (error) {
-                    generateToast(error.message, 'error')
-
-                    return
-                }
-                setPost(post)
-            })
+            retrievePost(context.token, postId)
+                .then(({ post }) => {
+                    setPost(post)
+                })
+                .catch(error => { generateToast(error.message, 'error') })
         } catch (error) {
             generateToast(error.message, 'error')
-            console.log(error.stack)
         }
     }, [])
 
@@ -38,15 +34,12 @@ export default function EditPostModal({ postId, onCancelEditPost, onConfirmEditP
 
 
         try {
-            updatePost(context.token, postId, postImgSrc, postCaption, (error) => {
-                if (error) {
-                    generateToast(error.message, 'error')
-                    console.log(error.stack)
-                }
-
-                generateToast('Post updated!', 'success')
-                onConfirmEditPost()
-            })
+            updatePost(context.token, postId, postImgSrc, postCaption)
+                .then(() => {
+                    generateToast('Post updated!', 'success')
+                    onConfirmEditPost()
+                })
+                .catch(error => { generateToast(error.message, 'error') })
         } catch (error) {
             generateToast(error.message, 'error')
             console.log(error.stack)

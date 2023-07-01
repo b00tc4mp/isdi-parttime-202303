@@ -9,16 +9,16 @@ export default function DeletionPostModal({ postId, onConfirmDeletePost, onCance
     function handleDeletionPost(event) {
         event.preventDefault()
         try {
-            deletePost(context.token, postId, (error) => {
-                if (error) {
-                    generateToast(error.message, 'error')
-                    console.log(error.stack)
-                    return
-                }
-                onConfirmDeletePost()
+            deletePost(context.token, postId)
+                .then(() => {
+                    onConfirmDeletePost()
 
-                generateToast('Post deleted!', 'success')
-            })
+                    generateToast('Post deleted!', 'success')
+                })
+                .catch(error => {
+                    generateToast(error.message, 'error')
+                    return
+                })
         } catch (error) {
             generateToast(error.message, 'error')
             console.log(error.stack)

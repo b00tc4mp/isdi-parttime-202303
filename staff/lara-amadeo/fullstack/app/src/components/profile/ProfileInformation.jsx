@@ -5,36 +5,34 @@ import { useEffect, useState } from "react"
 import retrievePosts from "../../logic/retrievePosts"
 import { useContext } from "react"
 import Context from "../../Context"
+import { extractSubFromToken } from "../../logic/helpers/utils"
 export default function ProfileInformation() {
 
     const [user, setUser] = useState()
     const [posts, setPosts] = useState()
-    const { generateToast } = useContext(Context)
+    const { generateToast, freeze, unfreeze } = useContext(Context)
 
     useEffect(() => {
         try {
-            retrieveUser(context.token, (error, user) => {
-                if (error) {
-                    generateToast(error.message, 'error')
-                    console.log(error.stack)
-                    return
-                }
-                setUser(user)
-
-                retrievePosts(context.token, (error, posts) => {
-                    if (error) {
-                        generateToast(error.message, 'error')
-                        console.log(error.stack)
-                        return
-                    }
+            freeze()
+            Promise.all([retrieveUser(context.token), retrievePosts(context.token)])
+                .then(([{ user }, { posts }]) => {
+                    setUser(user)
                     setPosts(posts)
+                    unfreeze()
                 })
-            })
-        } catch (error) {
+                .catch(error => {
+                    generateToast(error.message, 'error')
+                    unfreeze()
+                })
+        }
+        catch (error) {
             generateToast(error.message, 'error')
             console.log(error.stack)
         }
     }, [])
+
+    const userId = extractSubFromToken(context.token)
 
     return <div className="w-full flex gap-[64px] items-start justify-start mb-[80px] max-[480px]:flex-col max-sm:gap-[24px]">
         {user && <img className="w-[160px] h-[160px] rounded-3xl object-cover max-sm:w-[72px] max-sm:h-[72px] max-sm:rounded-xl" src={user.avatar} alt="" />}
@@ -47,7 +45,7 @@ export default function ProfileInformation() {
             <div className="w-full flex justify-between">
                 <div className="flex gap-[4px]">
                     {posts && <>
-                        <p className="body-text-bold">{posts.reduce((num, post) => (post.author.id === context.token ? num + 1 : num), 0)}</p>
+                        <p className="body-text-bold">{posts.reduce((num, post) => (post.author.id === userId ? num + 1 : num), 0)}</p>
                     </>}
                     <p className="body-text">posts</p>
                 </div>

@@ -6,35 +6,19 @@
  * 
  */
 
-export default function createPost(token, image, text, callback) {
-
-    const xhr = new XMLHttpRequest
-
-    xhr.onload = () => {
-        const { status } = xhr
-        if (status !== 201) {
-            const json = xhr.response
-            const { error } = JSON.parse(json)
-
-            callback(new Error(error))
-            return
-        }
-
-        callback(null)
-    }
-
-    xhr.onerror = () => {
-        callback(new Error('Connection error'))
-    }
-
-    xhr.open('POST', `http://localhost:4000/posts/new`)
-
-    xhr.setRequestHeader('Content-Type', 'application/json')
-    xhr.setRequestHeader('authorization', `Bearer ${token}`)
-
+export default function createPost(token, image, text) {
     const data = { image, text }
-    const json = JSON.stringify(data)
 
-    xhr.send(json)
+    return fetch('http://localhost:4000/posts/new', {
+        method: 'POST',
+        headers: {
+            'Content-type': 'application/json',
+            'authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(data)
+    })
+        .then(res => {
+            if (res.status !== 201) res.json().then(({ error }) => { throw new Error(error) })
+        })
 
 }

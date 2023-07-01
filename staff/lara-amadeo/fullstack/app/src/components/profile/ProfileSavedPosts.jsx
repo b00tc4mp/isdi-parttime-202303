@@ -12,14 +12,13 @@ export default function ProfileSavedPosts() {
 
     useEffect(() => {
         try {
-            retrieveSavedPosts(context.token, (error, posts) => {
-                if (error) {
+            retrieveSavedPosts(context.token)
+                .then(({ posts }) => {
+                    setSavedPosts(posts)
+                })
+                .catch(error => {
                     generateToast(error.message, 'error')
-                    console.log(error.stack)
-                    return
-                }
-                setSavedPosts(posts)
-            })
+                })
         } catch (error) {
             generateToast(error.message, 'error')
         }

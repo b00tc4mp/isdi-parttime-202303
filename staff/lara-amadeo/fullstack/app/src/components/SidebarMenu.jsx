@@ -30,14 +30,11 @@ export default function SidebarMenu({ onSettingsRow, onHomeRow, onProfileCompone
 
     function refreshUserRender() {
         try {
-            retrieveUser(context.token, (error, user) => {
-                if (error) {
+            retrieveUser(context.token)
+                .then(({ user }) => setUser(user))
+                .catch(error => {
                     generateToast(error.message, 'error')
-
-                    return
-                }
-                setUser(user)
-            })
+                })
         } catch (error) {
             generateToast(error.message, 'error')
         }

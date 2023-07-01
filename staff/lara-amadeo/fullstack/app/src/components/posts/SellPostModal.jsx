@@ -11,14 +11,12 @@ export default function SellPostModal({ postId, onConfirmSellPost, onCancelSellP
     const { generateToast } = useContext(Context)
 
     try {
-        retrievePost(context.token, postId, (error, post) => {
-            if (error) {
+        retrievePost(context.token, postId)
+            .then(({ post }) => setPost(post))
+            .catch(error => {
                 generateToast(error.message, 'error')
                 console.log(error.stack)
-                return
-            }
-            setPost(post)
-        })
+            })
     } catch (error) {
         generateToast(error.message, 'error')
         console.log(error.stack)
@@ -28,16 +26,12 @@ export default function SellPostModal({ postId, onConfirmSellPost, onCancelSellP
         event.preventDefault()
         const newPrice = event.target.price.value
         try {
-            sellPost(context.token, postId, post.price, newPrice, error => {
-                if (error) {
-                    generateToast(error.message, 'error')
-                    console.log(error.stack)
-
-                    return
-                }
-                generateToast('Post in sale!', 'success')
-                onConfirmSellPost()
-            })
+            sellPost(context.token, postId, post.price, newPrice)
+                .then(() => {
+                    generateToast('Post in sale!', 'success')
+                    onConfirmSellPost()
+                })
+                .catch(error => { generateToast(error.message, 'error') })
         } catch (error) {
             generateToast(error.message, 'error')
             console.log(error.stack)

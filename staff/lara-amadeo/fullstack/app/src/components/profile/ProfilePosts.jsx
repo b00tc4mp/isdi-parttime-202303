@@ -5,22 +5,22 @@ import './ProfilePosts.css'
 import { useEffect, useState } from "react"
 import { useContext } from "react"
 import Context from "../../Context"
+import { extractSubFromToken } from "../../logic/helpers/utils"
 export default function ProfilePosts() {
 
     const [posts, setPosts] = useState()
     const { generateToast } = useContext(Context)
 
+    const userId = extractSubFromToken(context.token)
+
     useEffect(() => {
         try {
-            retrievePosts(context.token, (error, posts) => {
-                if (error) {
-                    generateToast(error.message, 'error')
-                    console.log(error.stack)
-                    return
-                }
-                const userPosts = posts.filter(post => post.author.id === context.token)
-                setPosts(userPosts)
-            })
+            retrievePosts(context.token)
+                .then(({ posts }) => {
+                    const userPosts = posts.filter(post => post.author.id === userId)
+                    setPosts(userPosts)
+                })
+                .catch(error => generateToast(error.message, 'error'))
         } catch (error) {
             generateToast(error.message, 'error')
             console.log(error.stack)

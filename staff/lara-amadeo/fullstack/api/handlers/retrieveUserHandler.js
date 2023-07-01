@@ -1,15 +1,10 @@
 const { retrieveUser } = require('../logic')
 const { retrieveToken } = require('../helpers')
+const { handleErrors } = require('../helpers')
 
+module.exports = handleErrors((req, res) => {
+    const userId = retrieveToken(req)
 
-module.exports = function retrieveUserHandler(req, res) {
-    try {
-        const userId = retrieveToken(req)
-
-        retrieveUser(userId)
-            .then(user => res.status(200).json({ user }))
-            .catch(error => res.status(400).json({ error: error.message }))
-    } catch (error) {
-        res.status(400).json({ error: error.message })
-    }
-}
+    return retrieveUser(userId)
+        .then(user => res.status(200).json({ user }))
+})

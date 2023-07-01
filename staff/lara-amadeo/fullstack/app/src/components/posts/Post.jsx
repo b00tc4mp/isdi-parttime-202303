@@ -15,38 +15,39 @@ export default function Post({ post, onLikeButtonClick, onSaveButtonClick, onEdi
     const { generateToast, freeze, unfreeze } = useContext(Context)
 
     function handleLikedPost() {
-        // freeze()
+        freeze()
         try {
-            toggleLikePost(post._id, context.token, error => {
-                // unfreeze()
-                if (error) {
+            toggleLikePost(post._id, context.token)
+                .then(() => {
+                    onLikeButtonClick()
+                    unfreeze()
+                })
+                .catch(error => {
                     generateToast(error.message, 'error')
                     console.log(error.stack)
                     return
-                }
-                onLikeButtonClick()
-            })
-
+                })
         } catch (error) {
-            // unfreeze()
+            unfreeze()
             generateToast(error.message, 'error')
             console.log(error.stack)
         }
     }
 
     function handleSavedPost() {
-        // freeze()
+        freeze()
         try {
-            toggleSavePost(post._id, context.token, error => {
-                // unfreeze()
-                if (error) {
+            toggleSavePost(post._id, context.token)
+                .then(() => {
+                    unfreeze()
+                    onSaveButtonClick()
+                })
+                .catch(error => {
                     generateToast(error.message, 'error')
                     console.log(error.stack)
-                }
-                onSaveButtonClick()
-            })
+                })
         } catch (error) {
-            // unfreeze()
+            unfreeze()
             generateToast(error.message, 'error')
             console.log(error.stack)
         }

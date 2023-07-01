@@ -19,19 +19,17 @@ export default function UpdateAvatar({ onCancelUpdateAvatarClick, onSaveUpdateAv
         const imageUrl = event.target.avatar.value
         try {
             freeze('overlay')
-            updateAvatar(context.token, imageUrl, (error) => {
-                if (error) {
+            updateAvatar(context.token, imageUrl)
+                .then(() => {
+                    onSaveUpdateAvatarClick()
+                    unfreeze()
+                    generateToast('Avatar updated!', 'success')
+                })
+                .catch(error => {
                     unfreeze()
                     generateToast(error.message, 'error')
                     return
-                }
-                context.userAvatar = imageUrl
-
-                onSaveUpdateAvatarClick()
-                unfreeze()
-                generateToast('Avatar updated!', 'success')
-            })
-
+                })
         } catch (error) {
             unfreeze()
             generateToast(error.message, 'error')

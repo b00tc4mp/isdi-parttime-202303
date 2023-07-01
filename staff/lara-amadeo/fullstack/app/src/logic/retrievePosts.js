@@ -5,33 +5,17 @@
  * @returns {Array} posts in reverse order
  */
 
-export default function retrievePosts(token, callback) {
-
-    const xhr = new XMLHttpRequest
-
-    xhr.onload = () => {
-        const { status } = xhr
-        if (status !== 200) {
-            const json = xhr.response
-            const { error } = JSON.parse(json)
-
-            callback(new Error(error))
-            return
+export default function retrievePosts(token) {
+    return fetch('http://localhost:4000/posts', {
+        method: 'GET',
+        headers: {
+            'Content-type': 'application/json',
+            'Authorization': `Bearer ${token}`
         }
+    })
+        .then(res => {
+            if (res.status !== 200) return res.json().then(({ error }) => { throw new Error(error) })
 
-        const json = xhr.response
-        const { posts } = JSON.parse(json)
-        callback(null, posts)
-    }
-
-    xhr.onerror = () => {
-        callback(new Error('Connection error'))
-    }
-
-    xhr.open('GET', `http://localhost:4000/posts`)
-
-    xhr.setRequestHeader('Content-Type', 'application/json')
-    xhr.setRequestHeader('authorization', `Bearer ${token}`)
-
-    xhr.send()
+            return res.json()
+        })
 }

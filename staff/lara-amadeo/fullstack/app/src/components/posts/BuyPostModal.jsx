@@ -11,17 +11,13 @@ export default function BuyPostModal({ postId, onCancelBuyPost }) {
 
     useEffect(() => {
         try {
-            retrievePost(context.token, postId, (error, post) => {
-                if (error) {
-                    generateToast(error.message, 'error')
-                    console.log(error.stack)
-                    return
-                }
-                setPost(post)
-            })
+            retrievePost(context.token, postId)
+                .then(({ post }) => {
+                    setPost(post)
+                })
+                .catch(error => { generateToast(error.message, 'error') })
         } catch (error) {
             generateToast(error.message, 'error')
-            console.log(error.stack)
         }
     }, [])
 

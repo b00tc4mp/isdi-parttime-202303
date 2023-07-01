@@ -1,29 +1,16 @@
 
-export default function retrieveUser(token, callback) {
-    const xhr = new XMLHttpRequest
-    xhr.onload = () => {
-        const { status } = xhr
-        if (status !== 200) {
-            const json = xhr.response
-            const { error } = JSON.parse(json)
+export default function retrieveUser(token) {
 
-            callback(new Error(error))
+    return fetch('http://localhost:4000/users', {
+        method: 'GET',
+        headers: {
+            'Content-type': 'application/json',
+            'Authorization': `Bearer ${token}`
         }
+    })
+        .then(res => {
+            if (res.status !== 200) return res.json().then(({ error }) => { throw new Error(error) })
 
-        const json = xhr.response
-        const { user } = JSON.parse(json)
-
-        callback(null, user)
-    }
-
-    xhr.onerror = () => {
-        callback(new Error('Connection error'))
-    }
-
-    xhr.open('GET', `http://localhost:4000/users`)
-
-    xhr.setRequestHeader('Content-type', 'application/json')
-    xhr.setRequestHeader('authorization', `Bearer ${token}`)
-
-    xhr.send()
+            return res.json()
+        })
 }

@@ -1,3 +1,4 @@
 const validators = require('./validators')
+const errors = require('./errors')
 
-module.exports = { validators }
+module.exports = { validators, errors }

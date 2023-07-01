@@ -15,17 +15,18 @@ export default function UpdatePassword({ onSaveUpdatePasswordClick, onCancelUpda
 
         try {
             freeze('overlay')
-            updatePassword(context.token, currentPassword, newPassword, confirmNewPassword, (error) => {
-                if (error) {
+            updatePassword(context.token, currentPassword, newPassword, confirmNewPassword)
+                .then(() => {
+                    unfreeze()
+                    generateToast('Password updated!', 'success')
+
+                    onSaveUpdatePasswordClick()
+                })
+                .catch(error => {
                     unfreeze()
                     generateToast(error.message, 'error')
                     return
-                }
-                unfreeze()
-                generateToast('Password updated!', 'success')
-
-                onSaveUpdatePasswordClick()
-            })
+                })
         } catch (error) {
             unfreeze()
             generateToast(error.message, 'error')

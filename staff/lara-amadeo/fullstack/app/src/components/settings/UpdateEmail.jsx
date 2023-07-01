@@ -21,16 +21,17 @@ export default function UpdateEmail({ onCancelUpdateEmailClick, onSaveUpdateEmai
 
         try {
             freeze('overlay')
-            updateEmail(context.token, currentEmail, newEmail, confirmNewEmail, (error) => {
-                if (error) {
+            updateEmail(context.token, currentEmail, newEmail, confirmNewEmail)
+                .then(() => {
+                    unfreeze()
+                    onSaveUpdateEmailClick()
+                    generateToast('Email updated!', 'success')
+                })
+                .catch(error => {
                     unfreeze()
                     generateToast(error.message, 'error')
                     return
-                }
-                unfreeze()
-                onSaveUpdateEmailClick()
-                generateToast('Email updated!', 'success')
-            })
+                })
         } catch (error) {
             unfreeze()
             generateToast(error.message, 'error')

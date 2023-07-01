@@ -1,3 +1,4 @@
+const { errors: { ExistanceError } } = require('com')
 const context = require('./context')
 const { ObjectId } = require('mongodb')
 
@@ -8,12 +9,12 @@ module.exports = function retrieveUser(userId) {
     return users.findOne({ _id: new ObjectId(userId) })
         .then(foundUser => {
             if (!foundUser) {
-                throw new Error(`User with id ${userId} not found`)
+                throw new ExistanceError(`User with id ${userId} not found`)
             }
             const { username, email, avatar } = foundUser
 
             const user = { username, email, avatar }
 
             return user
-    })
+        })
 }

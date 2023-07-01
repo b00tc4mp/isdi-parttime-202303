@@ -22,17 +22,16 @@ export default function Posts({ onCreateButton, onEditPostButtonClick, onDeleteP
     const handleRefreshPosts = () => {
         freeze('overlay')
         try {
-            retrievePosts(context.token, (error, posts) => {
-                if (error) {
-                    generateToast(error.message, 'error')
-                    console.log(error.stack)
+            retrievePosts(context.token)
+                .then(({ posts }) => {
                     unfreeze()
-                    return
-                }
-                unfreeze()
-                const _posts = posts.filter(post => !(post.author.id !== userId && post.visibility === 'private'))
-                setPosts(_posts.toReversed())
-            })
+                    const _posts = posts.filter(post => !(post.author.id !== userId && post.visibility === 'private'))
+                    setPosts(_posts.toReversed())
+                })
+                .catch(error => {
+                    generateToast(error.message, 'error')
+                    unfreeze()
+                })
         } catch (error) {
             unfreeze
             generateToast(error.message, 'error')

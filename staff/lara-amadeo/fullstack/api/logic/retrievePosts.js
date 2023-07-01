@@ -1,5 +1,6 @@
 const { ObjectId } = require('mongodb')
 const context = require('./context')
+const { errors: { ExistanceError } } = require('com')
 
 module.exports = function retrievePosts(userId) {
 
@@ -7,7 +8,7 @@ module.exports = function retrievePosts(userId) {
 
     return users.findOne({ _id: new ObjectId(userId) })
         .then(user => {
-            if (!user) throw new Error(`User with id ${userId} not found`)
+            if (!user) throw new ExistanceError(`User with id ${userId} not found`)
 
             return Promise.all([users.find().toArray(), posts.find().toArray()])
                 .then(([users, posts]) => {

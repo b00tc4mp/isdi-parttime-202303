@@ -26,14 +26,13 @@ export default function TopbarMenu({ onSettingsButton, onProfileAvatarButton, on
 
     const refreshUserRender = () => {
         try {
-            retrieveUser(context.token, (error, user) => {
-                if (error) {
+            retrieveUser(context.token)
+                .then(({ user }) => setUser(user))
+                .catch(error => {
                     generateToast(error.message, 'error')
 
                     return
-                }
-                setUser(user)
-            })
+                })
         } catch (error) {
             generateToast(error.message, 'error')
         }

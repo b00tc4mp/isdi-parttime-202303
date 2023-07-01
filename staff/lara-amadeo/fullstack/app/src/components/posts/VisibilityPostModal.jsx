@@ -13,16 +13,14 @@ export default function VisibilityModal({ postId, onConfirmChangeVisiblity, onCa
 
     useEffect(() => {
         try {
-            retrievePost(context.token, postId, (error, post) => {
-                if (error) {
+            retrievePost(context.token, postId)
+                .then(({ post }) => {
+                    setPost(post)
+                    setVisibility(post.visibility)
+                })
+                .catch(error => {
                     generateToast(error.message, 'error')
-                    console.log(error.stack)
-
-                    return
-                }
-                setPost(post)
-                setVisibility(post.visibility)
-            })
+                })
         } catch (error) {
             generateToast(error.message, 'error')
             console.log(error.stack)
@@ -33,16 +31,16 @@ export default function VisibilityModal({ postId, onConfirmChangeVisiblity, onCa
     const handleChangeVisibility = (event) => {
         event.preventDefault()
         try {
-            togglePostVisibility(context.token, post._id, error => {
-                if (error) {
+            togglePostVisibility(context.token, post._id)
+                .then(() => {
+                    setVisibility(post.visibility)
+                    generateToast(`Visibility changed to ${post.visibility}!`, 'success')
+                    onConfirmChangeVisiblity()
+                })
+                .catch(error => {
                     generateToast(error.message, 'error')
                     console.log(error.stack)
-                }
-                setPost(post)
-                setVisibility(post.visibility)
-                generateToast('Visibility changed!', 'success')
-                onConfirmChangeVisiblity()
-            })
+                })
         } catch (error) {
             generateToast(error.message, 'error')
             console.log(error.stack)

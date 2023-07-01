@@ -11,34 +11,18 @@
 export function updateAvatar(token, url, callback) {
     if (!url) throw new Error('Image not uploaded correctly')
 
-    const xhr = new XMLHttpRequest
+    const data = { avatar: url }
 
-    xhr.onload = () => {
-        const { status } = xhr
-        if (status !== 204) {
-            const json = xhr.response
-            const { error } = JSON.parse(json)
-
-            callback(new Error(error))
-
-            return
-        }
-
-        callback(null)
-    }
-
-    xhr.onerror = () => {
-        callback(new Error('Connection error'))
-    }
-
-    xhr.open('PATCH', `http://localhost:4000/users/avatar`)
-
-    xhr.setRequestHeader('Content-type', 'application/json')
-    xhr.setRequestHeader('authorization', `Bearer ${token}`)
-
-    const data = { token, avatar: url }
-    const json = JSON.stringify(data)
-
-    xhr.send(json)
+    return fetch('http://localhost:4000/users/avatar', {
+        method: 'PATCH',
+        headers: {
+            'Content-type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(data)
+    })
+        .then(res => {
+            if (res !== 204) res.json().then(({ error }) => { throw new Error(error) })
+        })
 
 }
