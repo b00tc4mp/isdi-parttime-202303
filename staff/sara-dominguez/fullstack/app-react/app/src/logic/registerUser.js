@@ -10,67 +10,52 @@ export function registerUser(name, email, password, callback) {
   validateName(name)
   validateEmail(email)
   validatePassword(password)
-  validateCallback(callback)
 
-  const xhr = new XMLHttpRequest
+  if (callback) {
+    validateCallback(callback)
 
-  xhr.onload = () => {
-    const { status } = xhr
+    const xhr = new XMLHttpRequest
 
-    if (status !== 201) {
-      const { response: json } = xhr
-      const { error } = JSON.parse(json)
+    xhr.onload = () => {
+      const { status } = xhr
 
-      callback(new Error(error))
+      if (status !== 201) {
+        const { response: json } = xhr
+        const { error } = JSON.parse(json)
 
-      return
+        callback(new Error(error))
+
+        return
+      }
+
+      callback(null)
     }
 
-    callback(null)
-  }
+    xhr.onerror = () => {
+      callback(new Error('conection error'))
+    }
 
-  xhr.onerror = () => {
-    callback(new Error('conection error'))
-  }
+    xhr.open('POST', `${import.meta.env.VITE_API_URL}/users`)
 
-  xhr.open('POST', `${import.meta.env.VITE_API_URL}/users`)
+    xhr.setRequestHeader('Content-Type', 'application/json')
 
-  xhr.setRequestHeader('Content-Type', 'application/json')
+    //enviamos los datos del usuario y lo convertimos a json
+    const user = { name, email, password }
+    const json = JSON.stringify(user)
 
-  //enviamos los datos del usuario y lo convertimos a json
-  const user = { name, email, password }
-  const json = JSON.stringify(user)
+    xhr.send(json)
 
-  xhr.send(json)
-
-
-  //LOGICA DE BACK--> API
-  // findUserByEmail(email, foundUser => {
-  //   if (foundUser){
-  //     callback(new Error('User already exists'))
-
-  //     return
-  //   }
-
-  //   loadUsers(users => {
-  //     const lastUser = users[users.length - 1]
-
-  //     let id = 'user-1'
-  //     if (lastUser)
-  //       id = 'user-' + (parseInt(lastUser.id.slice(5)) + 1)
-
-  //     const user = ({
-  //       id,
-  //       name,
-  //       email,
-  //       password,
-  //       favs: []
-  //     })
-
-  //     users.push(user)
-  //     saveUsers(users, () => callback(null))
-  //     // un callback llama a otro. El callback de loadUser llama al callback de arriba en registerUser: tb podria ponerse saveUsers(users, callback)
-  //   })
-  // })
-
+  } else
+    return fetch(`${import.meta.env.VITE_API_URL}/users`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ name, email, password })
+    })
+      .then(res => {
+        if (res.status !== 201) {
+          return res.json().then(({ error: message }) => { throw new Error(message) })
+        }
+      })
 }

@@ -25,16 +25,22 @@ export default function Register({ onLoginClick, onUserRegistered }) {
 
         // hay que validar los errores sincronos y los asincronos
         try {
-            registerUser(name, email, password, error => {
-                if (error) {
-                    alert(error.message)
+            //vieja escuela con callbacks
+            //     registerUser(name, email, password, error => {
+            //         if (error) {
+            //             alert(error.message)
+            //             return
+            //         }
+            //         onUserRegistered()
+            //     })
+            // } catch (error) {
+            //     alert(error.message)
+            // }
 
-                    return
-                }
-
-                onUserRegistered()
-            })
-
+            //con fecth, promesas
+            registerUser(name, email, password)
+                .then(() => onUserRegistered())
+                .catch(error => alert(error.message))
         } catch (error) {
             alert(error.message)
         }
