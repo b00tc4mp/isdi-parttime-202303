@@ -50,7 +50,7 @@ api.patch('/posts/:postId', jsonBodyParser, updatePostHandler)
 
 api.patch('/posts/:postId/likes', toggleLikePostHandler)
 
-api.patch('/posts/:postId/saves', toggleFavPostHandler)
+api.patch('/posts/:postId/favs', toggleFavPostHandler)
 
 api.listen(process.env.PORT, () => console.log(`server running in port ${process.env.PORT}`))
 

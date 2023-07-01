@@ -7,15 +7,9 @@ module.exports = (req, res) => {
 
     const { postId } = req.params
 
-    toggleFavPost(userId, postId, (error) => {
-      if (error) {
-        res.status(400).json({ error: error.message })
-
-        return
-      }
-
-      res.status(204).send()
-    })
+    toggleFavPost(userId, postId)
+    .then(() => res.status(204).send())
+      .catch((error) => res.status(400).json({ error: error.message }))
   } catch (error) {
     res.status(400).json({ error: error.message })
   }
