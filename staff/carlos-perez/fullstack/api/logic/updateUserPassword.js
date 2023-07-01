@@ -1,55 +1,27 @@
-const { readFile, writeFile } = require('fs')
-const { validators: { validateId, validatePassword, validateCallback } } = require('com')
-
-module.exports = function updateUserPassword(userId, password, newPassword, newPasswordConfirm, callback) {
-    validateId(userId)
+const {validators: { validateId, validatePassword }} = require('com')
+  
+  const context = require('./context')
+  const { ObjectId } = require('mongodb')
+  
+  module.exports = function updateUserPassword(userId,password,newPassword,newPasswordConfirm) 
+  {
+    validateId(userId, 'User ID')
     validatePassword(password)
-    validatePassword(newPassword)
-    validatePassword(newPasswordConfirm)
-    validateCallback(callback)
-
-    if (newPassword === password) {
-        callback(new Error('La nueva contraseña es igual que la anterior. Debe cambiarla.'));
-        return
-    }
-
-    if (newPassword !== newPasswordConfirm) {
-        callback(new Error('La nueva contraseña y su confirmación no coinciden. Revíselo.'));
-        return
-    }
-
-    readFile(`${process.env.DB_PATH}/users.json`, 'utf8', (error, json) => {
-        if (error) {
-            callback(error)
-
-            return
-        }
-
-        const users = JSON.parse(json);
-
-        const user = users.find(user => user.id === userId)
-
-        if (user.password !== password) {
-            callback(new Error('La contraseña del usuario no coincide. Revísela'));
-            return
-        }
-
-        user.password = newPassword;
-
-        json = JSON.stringify(users)
-
-
-        writeFile(`${process.env.DB_PATH}/users.json`, json, 'utf8', error => {
-            if (error) {
-                callback(error)
-
-                return
-            }
-
-            callback(null);
-        })
-
-        console.log('Contraseña cambiada');
-
+    validatePassword(newPassword, 'New password')
+  
+    if (newPassword !== newPasswordConfirm)
+      throw new Error('The new password does NOT match the confirmation one')
+  
+    if (newPassword === password)
+      throw new Error('Do NOT use your old password as the new one. Change it.')
+  
+    const { users } = context
+  
+    return users.findOne({ _id: new ObjectId(userId) }).then((user) => {
+      if (!user) throw new Error('User not found!')
+  
+      if (user.password !== password) throw new Error('Wrong password!')
+  
+      return users.updateOne({ _id: new ObjectId(userId) },{ $set: { password: newPassword } })
     })
-}
+  }

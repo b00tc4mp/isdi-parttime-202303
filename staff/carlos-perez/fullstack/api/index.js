@@ -2,7 +2,7 @@ require('dotenv').config()
 
 const express = require('express')
 const { cors, jsonBodyParser } = require('./utils')
-const { helloApiHandler, registerUserHandler, authenticateUserHandler, retrieveUserHandler, updateUserPasswordHandler, createPostHandler, retrievePostHandler, retrievePostsHandler, deletePostHandler, updatePostHandler, toggleLikePostHandler, toggleFavPostHandler } = require('./handlers')
+const { helloApiHandler, registerUserHandler, authenticateUserHandler, retrieveUserHandler, updateUserPasswordHandler, updateUserEmailHandler, createPostHandler, retrievePostHandler, retrievePostsHandler, deletePostHandler, updatePostHandler, toggleLikePostHandler, toggleFavPostHandler } = require('./handlers')
 
 const mongodb = require('mongodb')
 
@@ -35,6 +35,8 @@ api.post('/users/auth', jsonBodyParser, authenticateUserHandler)
 api.get('/users', retrieveUserHandler)
 
 api.patch('/users/password', jsonBodyParser, updateUserPasswordHandler)
+
+api.patch('/users/email', jsonBodyParser, updateUserEmailHandler)
 
 api.post('/posts', jsonBodyParser, createPostHandler)
 

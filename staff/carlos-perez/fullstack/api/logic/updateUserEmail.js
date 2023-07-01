@@ -1,56 +1,28 @@
-const { readFile, writeFile } = require('fs')
-const { validators: { validateId, validateEmail, validateCallback } } = require('com');
-
-module.exports = function updateUserEmail(userId, email, newEmail, newEmailConfirm, callback) {
-    validateId(userId)
+const {validators: { validateId, validateEmail }} = require('com')
+  
+  const context = require('./context')
+  const { ObjectId } = require('mongodb')
+  
+  module.exports = function updateUserEmail(userId,email,newEmail,newEmailConfirm) 
+  {
+    validateId(userId, 'User ID')
     validateEmail(email)
-    validateEmail(newEmail)
-    validateEmail(newEmailConfirm)
-    validateCallback(callback)
-
+    validateEmail(newEmail, 'New email')
+    validateEmail(newEmailConfirm, 'New email confirmation')
+  
+    if (newEmail !== newEmailConfirm)
+      throw new Error('The new email does NOT match the confirmation one')
+  
     if (newEmail === email)
-    {
-        callback(new Error('El nuevo correo es igual que la anterior. Debe cambiarlo.'));
-        return
-    } 
-    
-    if (newEmail !== newEmailConfirm){
-        callback(new Error('El nuevo correo y su confirmación no coinciden. Revíselo.'));
-        return
-    } 
-
-    readFile(`${process.env.DB_PATH}/users.json`, 'utf8', (error, json) => {
-        if (error) {
-            callback(error)
-
-            return
-        }
-
-        const users = JSON.parse(json);
-
-        const user = users.find(user => user.id === userId)
-
-        if(user.email!==email){
-            callback(new Error('El correo dado no coincide con el correo asignado al usuario. Revíselo.'));
-        return
-        }
-
-        user.email=newEmail;
-
-        json = JSON.stringify(users)
-
-
-        writeFile(`${process.env.DB_PATH}/users.json`, json, 'utf8', error => {
-            if (error) {
-                callback(error)
-
-                return
-            }
-
-            callback(null);
-        })
-
-        console.log('Correo cambiado');
-
-})
-}
+      throw new Error('Do NOT use your old email as the new one. Change it.')
+  
+    const { users } = context
+  
+    return users.findOne({ _id: new ObjectId(userId) }).then((user) => {
+      if (!user) throw new Error('User not found!')
+  
+      if (user.email !== email) throw new Error('Wrong email')
+  
+      return users.updateOne({ _id: new ObjectId(userId) },{ $set: { email: newEmail } })
+    })
+  }
