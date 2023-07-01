@@ -3,6 +3,7 @@ const { validateId, validateUrl, validateText, validateCallback } = validators
 
 export function createPost(userId, image, text, callback) {
     validateId(userId, 'user id')
+    // validateToken(token)
     validateUrl(image, 'image url')
     validateText(text, 'text')
     validateCallback(callback, 'callback function')
@@ -31,7 +32,7 @@ export function createPost(userId, image, text, callback) {
     xhr.setRequestHeader('Content-Type', 'application/json')
     xhr.setRequestHeader('Authorization', `Bearer ${userId}`)
 
-    const post = { text, image }
+    const post = { image, text }
     const json = JSON.stringify(post)
 
     xhr.send(json)

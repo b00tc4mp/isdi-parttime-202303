@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect, useContext } from 'react';
-import Context from "../Context"
+import Context from "../AppContext"
 
 import { context } from '../ui'
 import retrieveUser from "../logic/retrieveUser"

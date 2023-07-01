@@ -4,7 +4,7 @@ import { useContext } from "react"
 import { context } from "../ui.js"
 import { createPost } from "../logic/createPost.js"
 
-import Context from "../Context"
+import Context from "../AppContext.jsx"
 
 import Panel from '../library/Panel'
 
@@ -19,14 +19,14 @@ export default function AddPostModal({ onCancel, onPostCreated }) {
     const { alert } = useContext(Context)
 
     const emptyImage = "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs"
-    
+
     const imageInputRef = useRef(null);
-    
+
     const [previewImage, setPreviewImage] = useState(emptyImage);
-    
+
     function handleCancel(event) {
         event.preventDefault()
-        
+
         onCancel()
     }
 
@@ -35,29 +35,29 @@ export default function AddPostModal({ onCancel, onPostCreated }) {
 
         const image = event.target.image.value
         const text = event.target.text.value
-        
+
         try {
             createPost(context.userId, image, text, error => {
                 if (error) {
                     alert(error.message)
-                    
+
                     return
                 }
                 onPostCreated()
-            }) 
+            })
 
         } catch (error) {
             alert(error.message)
         }
     }
-    
-    
+
+
     const handleImagePreview = (event) => {
         event.preventDefault()
 
         setPreviewImage(imageInputRef.current.value);
     }
-    
+
     console.debug('// AddPostModal -> RENDER')
 
     return <section className="add-post-modal">

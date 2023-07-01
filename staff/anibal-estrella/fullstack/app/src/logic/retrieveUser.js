@@ -1,8 +1,8 @@
 import { validators } from 'com'
-const { validateId, validateCallback } = validators
+const { validateToken, validateCallback } = validators
 
-export default (userId, callback) => {
-    validateId(userId, 'user id')
+export default (token, callback) => {
+    validateToken(token)
     validateCallback(callback, 'callback function')
 
 
@@ -29,10 +29,7 @@ export default (userId, callback) => {
         callback(new Error('Connection Error!'))
     }
     xhr.open('GET', `${import.meta.env.VITE_API_URL}/users/user/`)
-    xhr.setRequestHeader('Authorization', `Bearer ${userId}`)
-
+    xhr.setRequestHeader('Authorization', `Bearer ${token}`)
 
     xhr.send()
-
-
 }

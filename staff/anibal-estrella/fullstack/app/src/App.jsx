@@ -1,17 +1,19 @@
-import { useState } from "react"
-import { context } from "./ui.js"
+import { useState } from 'react'
+import Login from './pages/Login'
+import Register from './pages/Register'
+import Home from './pages/Home'
+import { context } from './ui'
+import Alert from './components/Alert'
+import AppContext from './AppContext'
+import { Loader } from './library'
+import { utils } from 'com'
 
-import Login from "./pages/Login.jsx"
-import Register from "./pages/Register.jsx"
-import Home from "./pages/Home.jsx"
-//CONTEXT/ALERTS/00// import the context that centyralizes a  
-import Alert from "./components/Alert"
-import Context from "./Context"
-
-import { Loader } from "./library"
+const { Provider } = AppContext
+const { isTokenValid, isTokenAlive } = utils
 
 export default function App() {
-    const [view, setView] = useState(context.userId ? 'home' : 'login')
+    const { token } = context
+    const [view, setView] = useState(isTokenValid(token) && isTokenAlive(token) ? 'home' : 'login')
     //CONTEXT/ALERTS/04// setFeedback is called from the context and will set an Alert message
     const [feedback, setFeedback] = useState(null)
 
@@ -33,7 +35,7 @@ export default function App() {
     console.debug('// App -> RENDER');
 
     //CONTEXT/ALERTS/04// setFeedback is called from the context 
-    return <Context.Provider value={{ alert, freeze, unfreeze }}>
+    return <Provider value={{ alert, freeze, unfreeze }}>
         {/* // as soon as we change the state value of loader we render it */}
         {loader && <Loader />}
 
@@ -43,7 +45,7 @@ export default function App() {
         {feedback && <Alert message={feedback.message} level={feedback.level} onAccept={handleAcceptAlert} />}
         {view === 'login' && <Login onRegisterClick={handleGoToRegister} onUserLoggedIn={handleGoToHome} />}
         {view === 'register' && <Register onLoginClick={handleGoToLogin} onUserRegistered={handleGoToLogin} />}
-    </Context.Provider>
+    </Provider>
 
 }
 

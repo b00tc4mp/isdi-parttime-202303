@@ -15,7 +15,7 @@ export default function Posts({ onEditPost, lastPostsUpdate, onOpenSavedPosts, u
 
     const [_user, setUser] = useState()
 
-    useEffect(() => handleRefreshPosts(), [])
+    // useEffect(() => handleRefreshPosts(), [])
 
     const handleRefreshPosts = (view) => {
 

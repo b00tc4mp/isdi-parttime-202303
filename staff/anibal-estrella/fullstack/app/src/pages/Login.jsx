@@ -1,6 +1,6 @@
 import { context } from "../ui.js"
-import { authenticateUser } from "../logic/authenticateUser.js"
-import { useAppContext } from "../hooks/"
+import authenticateUser from '../logic/authenticateUser'
+import { useAppContext } from "../hooks"
 
 import { Panel } from '../library'
 
@@ -27,14 +27,14 @@ export default function Login({ onRegisterClick, onUserLoggedIn }) {
 
         try {
 
-            authenticateUser(email, password, (error, userId) => {
+            authenticateUser(email, password, (error, token) => {
                 if (error) {
                     alert(error.message, 'error')
 
                     return
                 }
-
-                context.userId = userId
+                //we save token in the context
+                context.token = token
 
                 onUserLoggedIn()
             })

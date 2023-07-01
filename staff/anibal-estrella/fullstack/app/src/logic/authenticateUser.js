@@ -3,13 +3,13 @@ import { validators } from 'com'
 const { validateEmail, validatePassword, validateCallback } = validators
 
 /* 
-*
+* app/logic/authenticateUser.js
 * authenticates a user by email and password
 * @param {String} email The user's email
 * @param {String} password The user's passaword
 *
 */
-export function authenticateUser(email, password, callback) {
+export default (email, password, callback) => {
     validateEmail(email, 'email')
     validatePassword(password)
     validateCallback(callback, 'callback function')
@@ -30,9 +30,9 @@ export function authenticateUser(email, password, callback) {
         }
 
         const { response: json } = xhr
-        const { userId } = JSON.parse(json)
+        const { token } = JSON.parse(json)
 
-        callback(null, userId)
+        callback(null, token)
     }
 
     xhr.onerror = () => {

@@ -4,9 +4,13 @@ const { extractToken } = require('../helpers')
 const jwt = require('jsonwebtoken')
 
 module.exports = (req, res) => {
+
     try {
+        // extract token from the request bearer authorization
         const token = extractToken(req)
+
         const payload = jwt.verify(token, process.env.SECRET)
+
         const { sub: userId } = payload
 
         retrieveUser(userId)

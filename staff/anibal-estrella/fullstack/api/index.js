@@ -1,10 +1,11 @@
 require('dotenv').config()
 
 const express = require('express')
-//1. link your context db
+const cors = require('cors')
+const bodyParser = require('body-parser')
+
 const context = require('./logic/context')
 
-const { cors, jsonBodyParser } = require('./utils')
 const {
     helloApiHandler,
     registerUserHandler,
@@ -36,7 +37,9 @@ client.connect()
 
         const api = express()
 
-        api.use(cors)
+        const jsonBodyParser = bodyParser.json()
+
+        api.use(cors())
 
         api.get('/', helloApiHandler)
 
@@ -61,7 +64,6 @@ client.connect()
         api.patch('/users/email', jsonBodyParser, updateUserEmailHandler)
 
         api.patch('/posts/:postId/likes', toggleLikePostHandler)
-
 
         api.delete('/posts/:postId', deletePostHandler)
 
