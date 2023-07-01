@@ -42,14 +42,14 @@ export default function Login({ onRegisterClick, onAuthClick }) {
         const password = event.target.password.value
 
         try {
-            authenticateUser(email, password, (error, userId) => {
+            authenticateUser(email, password, (error, token) => {
                 if (error) {
                     alert(error.message, 'error')
 
                     return
                 }
 
-                context.userId = userId
+                context.token = token
                 onAuthClick();
             })
 

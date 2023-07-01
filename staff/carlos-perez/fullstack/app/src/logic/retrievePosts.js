@@ -1,6 +1,5 @@
-export default function retrievePosts(userId, callback) {
-
-    const xhr = new XMLHttpRequest()
+export default function retrievePosts(token, callback) {
+    const xhr = new XMLHttpRequest
 
     xhr.onload = () => {
         const { status } = xhr
@@ -21,12 +20,12 @@ export default function retrievePosts(userId, callback) {
     }
 
     xhr.onerror = () => {
-        callback(new Error('Connection error'))
+        callback(new Error('connection error'))
     }
 
     xhr.open('GET', `${import.meta.env.VITE_API_URL}/posts`)
 
-    xhr.setRequestHeader('Authorization', `Bearer ${userId}`)
+    xhr.setRequestHeader('Authorization', `Bearer ${token}`)
 
     xhr.send()
 }
