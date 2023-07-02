@@ -21,6 +21,15 @@ client.connect()
 
         api.use(cors);
 
+        api.use((req, res, next) => {
+            console.log(
+                "Request received: url =", req.url,
+                "|| baseUrl =", req.baseUrl,
+                "|| method =", req.method,
+            );
+            next();
+        });
+
         api.get('/api', helloApiHandler);
 
         api.post('/api/levels', jsonBodyParser, createLevelHandler);
