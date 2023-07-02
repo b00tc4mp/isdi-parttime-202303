@@ -1,4 +1,4 @@
-const retrieveLevel = (callback) => {
+const CheckConnection = (callback) => {
     const xhr = new XMLHttpRequest()
 
     xhr.onload = () => {
@@ -13,10 +13,7 @@ const retrieveLevel = (callback) => {
             return
         }
 
-        const { response: json } = xhr
-        const post = JSON.parse(json)
-
-        callback(null, post)
+        callback(null)
     }
 
     xhr.onerror = () => {
@@ -28,4 +25,4 @@ const retrieveLevel = (callback) => {
     xhr.send()
 }
 
-export default retrieveLevel
+export default CheckConnection

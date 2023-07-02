@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import LevelsList from './pages/LevelsList';
 import Footer from './components/Footer';
 import Navbar from './components/Navbar';
@@ -7,27 +7,53 @@ import CreateLevel from './pages/CreateLevel';
 import Landing from './pages/Landing';
 import inLogger from './inLogger';
 import NoConnectionToast from './components/NoConnectionToast';
+import CheckConnection from './logic/check-connection';
 
 //TODO add landing page, tutorial and about
-//TODO link links to linkedin and github
 
 const App = () => {
   const [view, setView] = useState('');
   const [level, setLevel] = useState(null);
+  const [isApiAvailable, setApiAvailableOn] = useState(true);
 
-  const handleGoToLevelsList = () => setView('levels');
+  const handleGoToLevelsList = () => {
+    handleRefreshApiConnection();
+    setView('levels');
+  };
+
   const handleGoToCreate = () => setView('create');
   const handleGoToLanding = () => setView(null);
 
   const handleGoToTryLevel = (newLevel = level) => {
+    handleRefreshApiConnection();
     setLevel(newLevel);
     setView('game');
   }
 
+  const handleRefreshApiConnection = () => {
+    try {
+      CheckConnection((error) => {
+        if (error) {
+          console.log(`connection error: ${error.message}`);
+          setApiAvailableOn(false);
+        } else {
+          setApiAvailableOn(true);
+        }
+      });
+    } catch (error) {
+      console.log(`connection error: ${error.message}`);
+      setApiAvailableOn(false);
+    }
+  };
+
+  useEffect(() => {
+    handleRefreshApiConnection();
+  }, [view]);
+
   return (
     <>
       <Navbar view={view} onCreateClick={handleGoToCreate} onLevelsListClick={handleGoToLevelsList} onLandingClick={handleGoToLanding} />
-      <NoConnectionToast />
+      {!isApiAvailable && <NoConnectionToast />}
       <div className="pt-5">
         {!view && <Landing />}
         {view === 'levels' && <LevelsList onCreateClick={handleGoToCreate} onLevelClick={handleGoToTryLevel} />}
