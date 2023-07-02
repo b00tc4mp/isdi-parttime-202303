@@ -1,4 +1,4 @@
-FROM node:12-alpine as build
+FROM node:18-alpine as build
 WORKDIR /app
 COPY ./staff/flors-rueda/fullstack/project/app/package*.json ./
 RUN npm install
