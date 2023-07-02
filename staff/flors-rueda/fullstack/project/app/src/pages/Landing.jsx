@@ -1,3 +1,5 @@
+import inLogger from '../inLogger';
+
 const Landing = () => {
     return (
         <div className="flex flex-col w-full justify-center items-center pt-20 gap-5">
@@ -6,4 +8,4 @@ const Landing = () => {
     )
 }
 
-export default Landing;
+export default inLogger(Landing);

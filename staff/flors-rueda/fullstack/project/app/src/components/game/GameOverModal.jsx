@@ -1,3 +1,5 @@
+import inLogger from '../../inLogger';
+
 const GameOverModal = ({ isGameWon, onExitClick }) => {
     return (
         <div className="fixed inset-0 flex pt-5 items-center justify-center z-30">
@@ -20,4 +22,4 @@ const GameOverModal = ({ isGameWon, onExitClick }) => {
     )
 }
 
-export default GameOverModal;
+export default inLogger(GameOverModal);

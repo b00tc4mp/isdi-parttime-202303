@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import LevelCard from '../components/LevelCard';
 import Loader from '../components/Loader';
 import retrieveLevels from '../logic/retrieve-levels';
+import inLogger from '../inLogger';
 
 const LevelsList = ({ onCreateClick, onLevelClick }) => {
     const [isLoading, setIsLoading] = useState(true);
@@ -52,4 +53,4 @@ const LevelsList = ({ onCreateClick, onLevelClick }) => {
     )
 }
 
-export default LevelsList
+export default inLogger(LevelsList)

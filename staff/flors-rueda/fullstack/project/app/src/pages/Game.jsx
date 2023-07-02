@@ -3,6 +3,7 @@ import CanvasContainer from '../components/game/CanvasContainer';
 import { level1 } from '../helpers/levels';
 import GameOverModal from '../components/game/GameOverModal';
 import { Player } from '@lottiefiles/react-lottie-player';
+import inLogger from '../inLogger';
 
 const Game = ({ level, onExitClick, onPlayAgainClick }) => {
   const [key, setKey] = useState(1);
@@ -111,4 +112,4 @@ const Game = ({ level, onExitClick, onPlayAgainClick }) => {
   );
 };
 
-export default Game;
+export default inLogger(Game);

@@ -3,6 +3,7 @@ import { validateFloor, validateLevel } from '../helpers/levelValidators';
 import { configureLevelToRender } from '../helpers/configureLevelToRender';
 import editIcons from '../assets/editIcons/index';
 import createLevel from '../logic/create-level';
+import inLogger from '../inLogger';
 
 //TODO mark selected ratio on load
 //TODO only one ratio list open each time
@@ -153,4 +154,4 @@ const CreateLevel = ({ onTryLevelClick }) => {
     );
 };
 
-export default CreateLevel;
+export default inLogger(CreateLevel);

@@ -1,3 +1,5 @@
+import inLogger from '../inLogger';
+
 const Loader = () => {
     return <div className="fixed inset-0 flex pt-5 items-center justify-center z-30">
         <div role="status">
@@ -10,4 +12,4 @@ const Loader = () => {
     </div>
 }
 
-export default Loader
+export default inLogger(Loader)

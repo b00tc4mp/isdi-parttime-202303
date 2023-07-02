@@ -5,6 +5,8 @@ import Navbar from './components/Navbar';
 import Game from './pages/Game';
 import CreateLevel from './pages/CreateLevel';
 import Landing from './pages/Landing';
+import inLogger from './inLogger';
+import NoConnectionToast from './components/NoConnectionToast';
 
 //TODO add landing page, tutorial and about
 //TODO link links to linkedin and github
@@ -15,6 +17,7 @@ const App = () => {
 
   const handleGoToLevelsList = () => setView('levels');
   const handleGoToCreate = () => setView('create');
+  const handleGoToLanding = () => setView(null);
 
   const handleGoToTryLevel = (newLevel = level) => {
     setLevel(newLevel);
@@ -23,7 +26,8 @@ const App = () => {
 
   return (
     <>
-      <Navbar view={view} onCreateClick={handleGoToCreate} onLevelsListClick={handleGoToLevelsList} />
+      <Navbar view={view} onCreateClick={handleGoToCreate} onLevelsListClick={handleGoToLevelsList} onLandingClick={handleGoToLanding} />
+      <NoConnectionToast />
       <div className="pt-5">
         {!view && <Landing />}
         {view === 'levels' && <LevelsList onCreateClick={handleGoToCreate} onLevelClick={handleGoToTryLevel} />}
@@ -36,7 +40,7 @@ const App = () => {
   )
 }
 
-export default App
+export default inLogger(App)
 
 
 

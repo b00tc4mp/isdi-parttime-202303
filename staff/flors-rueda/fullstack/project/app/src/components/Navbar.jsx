@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useState } from 'react';
 import logo from '../assets/logo.svg';
 
-const Navbar = ({ view, onCreateClick, onLevelsListClick }) => {
+const Navbar = ({ view, onCreateClick, onLevelsListClick, onLandingClick }) => {
     const [isMenuOpen, setMenuOpen] = useState(false);
 
     const handleBurgerClick = () => {
@@ -18,6 +18,12 @@ const Navbar = ({ view, onCreateClick, onLevelsListClick }) => {
         onLevelsListClick();
     };
 
+    const handleLandingClick = (event) => {
+        event.preventDefault();
+        setMenuOpen(false);
+        onLandingClick();
+    };
+
     const handleCreateClick = (event) => {
         event.preventDefault();
         setMenuOpen(false);
@@ -27,7 +33,7 @@ const Navbar = ({ view, onCreateClick, onLevelsListClick }) => {
     return (
         <div className="fixed w-full shadow z-50">
             <nav className="px-4 py-4 flex justify-between items-center bg-light500">
-                <a className="text-3xl font-bold leading-none" href="#">
+                <a className="text-3xl font-bold leading-none" href="" onClick={handleLandingClick}>
                     <img src={logo} className="h-10 w-10" alt="Logo" />
                 </a>
                 <div className="lg:hidden">
@@ -98,7 +104,7 @@ const Navbar = ({ view, onCreateClick, onLevelsListClick }) => {
             <div className={"navbar-menu fixed z-50 " + (isMenuOpen ? "" : "hidden")}>
                 <nav className="fixed top-0 left-0 bottom-0 flex bg-light500 flex-col w-full md:w-8/12 py-6 px-6 bg-light500 border-r overflow-y-auto">
                     <div className="flex justify-between mb-8 opacity-75">
-                        <a className="text-3xl font-bold leading-none" href="#">
+                        <a className="text-3xl font-bold leading-none" href="" onClick={handleLandingClick}>
                             <img src={logo} className="h-10 w-10" alt="Logo" />
                         </a>
                         <button className="navbar-close text-dark100 text-2xl" onClick={handleCloseClick}>
@@ -168,10 +174,10 @@ const Navbar = ({ view, onCreateClick, onLevelsListClick }) => {
                                 Weeh!
                             </a>
                         </div>
-                        <a className="my-4 text-xs flex align-center justify-center text-center text-light100 hover:underline cursor-pointer">
+                        <a href="https://github.com/rucev" target="_blank" rel="noopener noreferrer" className="my-4 text-xs flex align-center justify-center text-center text-light100 hover:underline cursor-pointer">
                             <span>
                                 <i className="bi bi-github pe-1"></i>
-                                rucev
+                                @rucev
                             </span>
                         </a>
                     </div>

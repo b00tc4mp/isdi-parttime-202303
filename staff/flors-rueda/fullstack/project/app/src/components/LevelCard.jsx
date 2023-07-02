@@ -1,5 +1,6 @@
 import { configureLevelToRender } from '../helpers/configureLevelToRender';
 import retrieveLevel from '../logic/retrieve-level';
+import inLogger from '../inLogger';
 
 const LevelCard = ({ levelInfo, onLevelClick }) => {
     const handleOnLevelClick = () => {
@@ -29,4 +30,4 @@ const LevelCard = ({ levelInfo, onLevelClick }) => {
 }
 
 
-export default LevelCard;
+export default inLogger(LevelCard);

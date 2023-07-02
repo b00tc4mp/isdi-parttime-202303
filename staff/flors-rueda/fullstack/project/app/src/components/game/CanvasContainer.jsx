@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import { createScene } from '../../helpers/createScene';
 import useMoveHandler from '../../hooks/useMoveHandler';
+import inLogger from '../../inLogger';
 
 const CanvasContainer = ({ floor, onSolved, onGameWon, onBomb, onLife }) => {
     const canvasContainerRef = useRef(null);
@@ -48,4 +49,4 @@ const CanvasContainer = ({ floor, onSolved, onGameWon, onBomb, onLife }) => {
     return <div className="canvas-container" ref={canvasContainerRef} />;
 };
 
-export default CanvasContainer;
+export default inLogger(CanvasContainer);
