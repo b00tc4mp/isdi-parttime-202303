@@ -1,41 +1,73 @@
 # How to configure and run the app on aws
 
-## 1. Register:
-signin.aws.amazon.com
-2-> budget
-3-> s3
-4-> give getObject permision policy
-5-> create ec2 instance and connect to it
-6-> install docker with yum-> sudo yum install docker
-7-> run mongo-> sudo docker run -d -p 27017:27017 --name=mongo mongo:6.0.3
-8-> create github action to have a pipeline
-9-> register to dockerhub
-10-> create repository github secret: https://github.com/docker/login-action#docker-hub
-11-> configure github action for build and push:
-https://github.com/docker/build-push-action
+## 1. Register
+- enter [here](signin.aws.amazon.com) and follow the steps.
 
-12-> back on EC2-> (sudo docker run -d -p 80:4321 rucev/backend)
+## 2. Control your budget (optional)
 
-** sudo docker ps --> shows docker coontainers running
+- Look for billing on the search bar, then go to cost management/budgets.
 
-13-> connect backend (container) to mongo (container) on EC2 
+- Fix the budget to your economy. Mine is 0 :D
 
---> install docker compose
-https://stackoverflow.com/questions/36685980/why-is-docker-installed-but-not-docker-compose
+## 3. Create EC2 instance and connect to it
 
---> write docker-compose
+- As a recomendation, run t2.micro for free and give permision to http, https and ssh.
+
+## 4. Install docker with yum
+```sh
+$ sudo yum install docker
+```
+
+## 5. Create github action to have a pipeline
+
+- With this, when doing a push I will be creating images of my project to run on my EC2 instance.
+
+### Register to dockerhub
+
+- Access [here](https://hub.docker.com/).
+
+### Create repository github secret
+- As explained [here](https://github.com/docker/login-action#docker-hub).
+
+### Configure github action for build and push
+- As explained [here](https://github.com/docker/build-push-action).
+- *All* my configuration files are:
+    - [flors-rueda-ci-cd.yml](../../../../../.github/workflows/flors-rueda-ci-cd.yml).
+    - [Dockerfile for the backend](../Dockerfile)
+    - [docker-compose.yml](../docker-compose.yml)
+    - [nginx configuration](../nginx/nginx.conf)
+    - [Dockerfile for the front](../nginx/Dockerfile)
+
+- With nginx I connect front and back on the same IP, avoiding cors security errors or browser issues.
+
+### Go back to EC2 to create and connect frontend to backend to mongo (all being containers)
+
+- Install docker-compose following [these](https://stackoverflow.com/questions/36685980/why-is-docker-installed-but-not-docker-compose) if there's any problem.
+
+- Write docker-compose on EC2
+
+```sh
 vim docker-compose.yml
-i
-pegar --> el de mi repo!
+```
+- Press **i** to write, **v** to select and **d** to delete.
 
---> esc :wq
+- With right click paste this [docker-compose.yml](../docker-compose.yml) and press ESC and **:wq**.
 
--->$sudo docker-compose up
+```sh
+$ sudo docker-compose up -d
+```
+```sh
+$ sudo docker ps # shows the containers running
+```
 
-$ curl -v localhost:80/ --> hello api
+```sh
+$ curl -v localhost:80/api # test hello api
+```
+```sh
+$ curl -v -X POST localhost:80/api/levels -H "Content-Type: application/json" -d '{"name": "curlTest", "layout": [["empty", "bomb", "stonks", "empty", "dirt", "bomb", "dirt", "empty", "start"]], "id": "id-ex1"}'  # test post to api
+```
+## Acces the ip to check if the front is running, everything should be fine!
 
---> deamon mode:
-$sudo docker-compose up -d
 
-curl -v -X POST localhost:80/levels -H "Content-Type: application/json" -d '{"name": "curlTest", "layout": [["empty", "bomb", "stonks", "empty", "dirt", "bomb", "dirt", "empty", "start"]], "id": "id-ex1"}'  
 
+![](./img/aws.png)
