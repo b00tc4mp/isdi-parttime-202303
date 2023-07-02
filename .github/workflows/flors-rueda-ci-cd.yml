@@ -21,4 +21,4 @@ jobs:
         with:
           push: true
           tags: rucev/backend:latest
-          file: ./staff/flors-rueda/fullstack/project/
+          file: ./staff/flors-rueda/fullstack/project/Dockerfile
