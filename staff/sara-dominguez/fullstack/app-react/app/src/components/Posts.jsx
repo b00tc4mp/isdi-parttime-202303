@@ -19,12 +19,14 @@ export default function Posts({ onEditPost, lastPostsUpdate }) {
                 unfreeze()
                 if (error) {
                     alert(error.message)
-
                     return
                 }
                 setPosts(posts)
-
             })
+
+            // retrievePosts(context.token, posts)
+            //     .then(posts => setPosts(posts))
+            //     .catch(error => alert(error.message))
 
         } catch (error) {
             alert(error.message)

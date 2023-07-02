@@ -5,34 +5,47 @@ const { validateToken, validatePostId, validateCallback } = validators
 export default function toggleFavPost(token, postId, callback) {
     validateToken(token)
     validatePostId(postId)
-    validateCallback(callback)
 
-    const xhr = new XMLHttpRequest
+    if (callback) {
+        validateCallback(callback)
 
-    xhr.onload = () => {
-        const { status } = xhr
+        const xhr = new XMLHttpRequest
 
-        if (status !== 204) {
-            const { response: json } = xhr
-            const { error } = JSON.parse(json)
+        xhr.onload = () => {
+            const { status } = xhr
 
-            callback(new Error(error))
+            if (status !== 204) {
+                const { response: json } = xhr
+                const { error } = JSON.parse(json)
 
-            return
+                callback(new Error(error))
+
+                return
+            }
+
+            callback(null)
+
+        }
+        xhr.onerror = () => {
+            callback(new Error('connection error'))
         }
 
-        callback(null)
+        xhr.open('PATCH', `${import.meta.VITE_API_URL}/posts/${postId}/favs`)
 
-    }
-    xhr.onerror = () => {
-        callback(new Error('connection error'))
-    }
+        // xhr.setRequestHeader('Content-Type', 'application/json')
+        xhr.setRequestHeader('authorization', `Bearer ${token}`)
 
-    xhr.open('PATCH', `${import.meta.VITE_API_URL}/posts/${postId}/favs`)
+        xhr.send()
 
-    xhr.setRequestHeader('Content-Type', 'application/json')
-    xhr.setRequestHeader('authorization', `Bearer ${token}`)
-
-    xhr.send()
-
+    } else
+        return fetch(`${import.meta.env.VITE_API_URL}/posts/${postId}/favs`, {
+            method: 'PATCH',
+            headers: {
+                authorization: `Bearer ${token}`
+            }
+        })
+            .then(res => {
+                if (res.status !== 204)
+                    return res.json().then(({ error: message }) => { throw new Error(message) })
+            })
 }

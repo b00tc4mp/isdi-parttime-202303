@@ -7,66 +7,54 @@ const { validateToken, validateCallback } = validators
 
 export default function retrievePosts(token, callback) {
     validateToken(token)
-    validateCallback(callback)
 
-    const xhr = new XMLHttpRequest
+    if (callback) {
+        validateCallback(callback)
 
-    xhr.onload = () => {
-        const { status } = xhr
+        const xhr = new XMLHttpRequest
 
-        if (status !== 200) {
+        xhr.onload = () => {
+            const { status } = xhr
+
+            if (status !== 200) {
+                const { response: json } = xhr
+                const { error } = JSON.parse(json)
+
+                callback(new Error(error))
+
+                return
+            }
+
             const { response: json } = xhr
-            const { error } = JSON.parse(json)
+            const posts = JSON.parse(json)
 
-            callback(new Error(error))
-
-            return
+            callback(null, posts)
         }
 
-        const { response: json } = xhr
-        const posts = JSON.parse(json)
+        xhr.onerror = () => {
+            callback(new Error('connection error'))
+        }
 
-        callback(null, posts)
-    }
+        xhr.open('GET', `${import.meta.env.VITE_API_URL}/posts`)
 
-    xhr.onerror = () => {
-        callback(new Error('connection error'))
-    }
+        // xhr.setRequestHeader('Content-Type', 'application/json')
+        xhr.setRequestHeader('authorization', `Bearer ${token}`)
 
-    xhr.open('GET', `${import.meta.env.VITE_API_URL}/posts`)
+        xhr.send()
 
-    xhr.setRequestHeader('Content-Type', 'application/json')
-    xhr.setRequestHeader('authorization', `Bearer ${token}`)
+    } else
+        return fetch(`${import.meta.env.VITE_API_URL}/posts`, {
+            // method: 'GET',
+            headers: {
+                // 'Content-Type': 'application/json',
+                authorization: `Bearer ${token}`
+            }
+        })
+            .then(res => {
+                if (res.status !== 200)
+                    return res.json().then(({ error: message }) => { throw new Error(message) })
 
-    xhr.send()
+                return res.json()
+            })
 }
 
-
-
-    // findUserById(userId, user => {
-    //     if (!user) {
-    //         callback(new Error(`user with id ${userId} not found`))
-
-    //         return
-    //     }
-
-    //     loadPosts(posts => {
-    //         //los datos de forEach no estan modificando la base de datos porque no estoy haciendo un savePosts. Simplemente estoy llevando los datos al vuelo para renderizarlos en la capa de presentacion.
-    //         loadUsers(users => {
-    //             posts.forEach(post => {
-    //                 post.fav = user.favs.includes(post.id)
-
-    //                 const _user = users.find(user => user.id === post.author)
-
-    //                 //populate == se llama llenar, covierto una variable en un array, la muto
-    //                 post.author = {
-    //                     id:  _user.id,
-    //                     name: _user.name,
-    //                     avatar: _user.avatar
-    //                 }
-    //             })
-
-    //             callback(null, posts.toReversed())
-    //         })
-    //     })
-    // })

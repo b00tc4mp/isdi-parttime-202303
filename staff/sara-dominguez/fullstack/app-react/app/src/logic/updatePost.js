@@ -7,34 +7,50 @@ export function updatePost(token, postId, imageUrl, text, callback) {
     validatePostId(postId)
     validatePostUrl(imageUrl)
     validateText(text)
-    validateCallback(callback)
 
-    const xhr = new XMLHttpRequest
+    if (callback) {
+        validateCallback(callback)
 
-    xhr.onload = () => {
-        const { status } = xhr
+        const xhr = new XMLHttpRequest
 
-        if (status !== 204) {
-            const { response: json } = xhr
-            const { error } = JSON.parse(json)
+        xhr.onload = () => {
+            const { status } = xhr
 
-            callback(new Error(error))
+            if (status !== 204) {
+                const { response: json } = xhr
+                const { error } = JSON.parse(json)
 
-            return
+                callback(new Error(error))
+
+                return
+            }
+            callback(null)
         }
-        callback(null)
-    }
-    xhr.onerror = () => {
-        callback(new Error('conection error'))
-    }
+        xhr.onerror = () => {
+            callback(new Error('conection error'))
+        }
 
-    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/posts/${postId}/update`)
+        xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/posts/${postId}/update`)
 
-    xhr.setRequestHeader('Content-Type', 'application/json')
-    xhr.setRequestHeader('authorization', `Bearer ${token}`)
+        xhr.setRequestHeader('Content-Type', 'application/json')
+        xhr.setRequestHeader('authorization', `Bearer ${token}`)
 
-    const data = { imageUrl, text }
-    const json = JSON.stringify(data)
+        const data = { imageUrl, text }
+        const json = JSON.stringify(data)
 
-    xhr.send(json)
+        xhr.send(json)
+
+    } else
+        return fetch(`${import.meta.env.VITE_API_URL}/posts/${postId}/update`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                authorization: `Bearer ${token}`
+            },
+            body: JSON.stringify({ imageUrl, text })
+        })
+            .then(res => {
+                if (res.status !== 204)
+                    return res.json().then(({ error: message }) => { throw new Error(message) })
+            })
 }

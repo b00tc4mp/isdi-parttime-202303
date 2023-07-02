@@ -14,18 +14,24 @@ export default function Profile({ onUserAvatarUpdated }) {
         const avatarUrl = event.target.avatarUrl.value
 
         try {
+            // freeze()
+            // updateUserAvatar(context.token, avatarUrl, error => {
+            //     unfreeze()
+            //     if (error) {
+            //         alert(error.message)
+            //         return
+            //     }
+            //     onUserAvatarUpdated()
+            // })
+
             freeze()
-            updateUserAvatar(context.token, avatarUrl, error => {
-                unfreeze()
-                if (error) {
-                    alert(error.message)
+            updateUserAvatar(context.token, avatarUrl)
 
-                    return
-                }
-                onUserAvatarUpdated()
-            })
-
-
+                .then(() => {
+                    unfreeze(),
+                        onUserAvatarUpdated()
+                })
+                .catch(error => alert(error.message))
         } catch (error) {
             alert(error.message)
         }

@@ -23,15 +23,17 @@ export default function EditPostModal({ onCancel, onPostUpdated, postId }) {
         const text = event.target.text.value
 
         try {
-            updatePost(context.token, postId, image, text, error => {
-                if (error) {
-                    alert(error.message)
+            // updatePost(context.token, postId, image, text, error => {
+            //     if (error) {
+            //         alert(error.message)
+            //         return
+            //     }
+            //     onPostUpdated()
+            // })
 
-                    return
-                }
-                onPostUpdated()
-            })
-
+            updatePost(context.token, postId, image, text)
+                .then(post => onPostUpdated(post))
+                .catch(error => alert(error.message))
         } catch (error) {
             alert(error.message)
         }
@@ -39,15 +41,18 @@ export default function EditPostModal({ onCancel, onPostUpdated, postId }) {
 
     useEffect(() => {
         try {
-            retrievePost(context.token, postId, (error, post) => {
-                if (error) {
-                    alert(error.message)
+            // retrievePost(context.token, postId, (error, post) => {
+            //     if (error) {
+            //         alert(error.message)
+            //         return
+            //     }
+            //     setPost(post)
+            // })
 
-                    return
-                }
-                setPost(post)
-            })
-
+            retrievePost(context.token, postId)
+                .then(post => setPost(post))
+                // .then(setPost())
+                .catch(error => alert(error.message))
         } catch (error) {
             alert(error.message)
         }

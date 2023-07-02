@@ -22,18 +22,20 @@ export default function AddPostModal({ onCancel, onPostCreated }) {
         const text = event.target.text.value
 
         try {
-            freeze()
-            createPost(context.token, image, text, error => {
-                unfreeze()
-                if (error) {
-                    alert(error.message)
+            // freeze()
+            // createPost(context.token, image, text, error => {
+            //     unfreeze()
+            //     if (error) {
+            //         alert(error.message)
+            //         return
+            //     }
+            //     onPostCreated()
+            // })
 
-                    return
-                }
-
-                onPostCreated()
-            })
-
+            createPost(context.token, image, text)
+                // .then(() => unfreeze())
+                .then(() => onPostCreated())
+                .catch(error => alert(error.message))
         } catch (error) {
             alert(error.message)
         }

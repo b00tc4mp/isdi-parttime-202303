@@ -21,15 +21,18 @@ export default function Home({ onLoggedOut }) {
     //solo quiero que lo ejecute una vez, por eso utilizo useEffect. Para que cambie estado a usuario la primera vez.
     useEffect(() => {
         try {
-            retrieveUser(context.token, (error, user) => {
-                if (error) {
-                    alert(error.message)
+            // retrieveUser(context.token, (error, user) => {
+            //     if (error) {
+            //         alert(error.message)
+            //         return
+            //     }
+            //     setUser(user)
+            // })
 
-                    return
-                }
-                setUser(user)
-            })
-
+            retrieveUser(context.token)
+                // .then(user => setUser(user))
+                .then(setUser)
+                .catch(error => alert(error.message))
         } catch (error) {
             alert(error.message)
         }
@@ -66,15 +69,18 @@ export default function Home({ onLoggedOut }) {
 
     const handleRefreshUser = () => {
         try {
-            retrieveUser(context.userId, (error, user) => {
-                if (error) {
-                    alert(error.message)
+            // retrieveUser(context.userId, (error, user) => {
+            //     if (error) {
+            //         alert(error.message)
+            //         return
+            //     }
+            //     setUser(user)
+            // })
 
-                    return
-                }
-                setUser(user)
-            })
-
+            retrieveUser(context.token)
+                // .then(user => setUser(user))
+                .then(setUser)
+                .catch(error => alert(error.message))
         } catch (error) {
             alert(error.message)
         }

@@ -15,20 +15,21 @@ export default function Post({ post: { id, image, text, date, likes, author, fav
 
     const handleToggleLikePost = () => {
         try {
+            // freeze()
+            // toggleLikePost(context.token, id, error => {
+            //     unfreeze()
+            //     if (error) {
+            //         alert(error.message)
+            //         return
+            //     }
+            //     onToggledLikePost()
+            // })
+
             freeze()
-            toggleLikePost(context.token, id, error => {
-                unfreeze()
-
-                if (error) {
-                    alert(error.message)
-
-
-                    return
-                }
-
-                onToggledLikePost()
-            })
-
+            toggleLikePost(context.token, id)
+                // unfreeze()
+                .then((id) => onToggledLikePost(id))
+                .catch(error => alert(error.message))
         } catch (error) {
             alert(error.message)
         }
