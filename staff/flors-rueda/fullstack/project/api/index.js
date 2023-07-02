@@ -21,13 +21,13 @@ client.connect()
 
         api.use(cors);
 
-        api.get('/', helloApiHandler);
+        api.get('/api', helloApiHandler);
 
-        api.post('/levels', jsonBodyParser, createLevelHandler);
+        api.post('/api/levels', jsonBodyParser, createLevelHandler);
 
-        api.get('/levels', retrieveLevelsHandler);
+        api.get('/api/levels', retrieveLevelsHandler);
 
-        api.get('/levels/:levelId', retrieveLevelHandler);
+        api.get('/api/levels/:levelId', retrieveLevelHandler);
 
         api.listen(process.env.PORT, () => console.log(`server running in port ${process.env.PORT}`));
 

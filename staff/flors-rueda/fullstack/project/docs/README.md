@@ -86,3 +86,22 @@ Planned through a kanban visible on this [Trello](https://trello.com/b/uHRmZKBR/
 
 ## Com
 [Click here >>](../com/README.md)
+
+
+# Project AWS Update
+## Frontend
+```sh
+npm build
+```
+Manually copy files to S3.
+
+## Backend
+Github, through github actions, updates the image on push. It's automatic, but could fail. So always check for errors first.
+
+Go to EC2, connect to the machine and run
+```sh
+$ docker-compose down #only if it was already running
+$ docker-compose up -d
+```
+
+

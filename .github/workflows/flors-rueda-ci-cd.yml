@@ -22,3 +22,9 @@ jobs:
           push: true
           tags: rucev/backend:latest
           file: ./staff/flors-rueda/fullstack/project/Dockerfile
+      - name: Build and push
+        uses: docker/build-push-action@v4
+        with:
+          push: true
+          tags: rucev/frontend:latest
+          file: ./staff/flors-rueda/fullstack/project/nginx/Dockerfile
