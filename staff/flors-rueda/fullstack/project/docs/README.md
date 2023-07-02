@@ -47,7 +47,7 @@ File                 | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #
 
 # Planning
 
-I guess i will make a trello for this one day
+Planned through a kanban visible on this [Trello](https://trello.com/b/uHRmZKBR/final-project-ballopolis).
 </br>
 </br>
 
@@ -79,10 +79,10 @@ I guess i will make a trello for this one day
 
 # Project setup
 ## App
-[Click here >>](./app/README.md)
+[Click here >>](../app/README.md)
 
 ## Api
-[Click here >>](./api/README.md)
+[Click here >>](../api/README.md)
 
 ## Com
-[Click here >>](./com/README.md)
+[Click here >>](../com/README.md)
