@@ -9,6 +9,6 @@ RUN npm run build
 
 FROM nginx:stable-alpine
 COPY --from=build /app/dist /bin/www
-COPY nginx/nginx.conf /etc/nginx/conf.d/default.conf
+COPY ./staff/flors-rueda/fullstack/project/nginx/nginx.conf /etc/nginx/conf.d/default.conf
 EXPOSE 80
 CMD [ "nginx", "-g", "daemon off;" ]
