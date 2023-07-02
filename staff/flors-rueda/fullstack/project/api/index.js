@@ -4,22 +4,24 @@ const express = require('express');
 
 const { cors, jsonBodyParser } = require('./utils');
 
-const { retrieveLevelsHandler, retrieveLevelHandler, createLevelHandler } = require('./handlers');
+const { helloApiHandler, retrieveLevelsHandler, retrieveLevelHandler, createLevelHandler } = require('./handlers');
 
-const { MongoClient } = require('mongodb')
-const context = require('./logic/context')
+const { MongoClient } = require('mongodb');
+const context = require('./logic/context');
 
-const client = new MongoClient(process.env.MONGODB_URL)
+const client = new MongoClient(process.env.MONGODB_URL);
 
 client.connect()
     .then(connection => {
-        const db = connection.db()
+        const db = connection.db();
 
-        context.levels = db.collection('levels')
+        context.levels = db.collection('levels');
 
-        const api = express()
+        const api = express();
 
-        api.use(cors)
+        api.use(cors);
+
+        api.get('/', helloApiHandler);
 
         api.post('/levels', jsonBodyParser, createLevelHandler);
 
