@@ -1,7 +1,7 @@
 FROM node:12-alpine as build
 WORKDIR /app
 COPY ./staff/flors-rueda/fullstack/project/app/package*.json ./
-RUN npm install --production
+RUN npm install
 ENV VITE_API_URL=http://15.237.84.130:80/api
 COPY ./staff/flors-rueda/fullstack/project/app/ .
 RUN npm run build
