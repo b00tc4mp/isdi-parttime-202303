@@ -15,8 +15,8 @@ module.exports = function updatePost(userId, postId, imageUrl, text) {
     return Promise.all([users.findOne({ _id: new ObjectId(userId) }), posts.findOne({ _id: new ObjectId(postId) })
     ])
         .then(([user, post]) => {
-            if (!user) throw new Error('User not found!')
-            if (!post) throw new Error('Post not found!')
+            if (!user) throw new TypeError('User not found!')
+            if (!post) throw new TypeError('Post not found!')
 
             if (post.author.toString() !== userId.toString()) throw new Error(`post with id ${postId} does not belong to user with id ${userId}`)
 
@@ -25,37 +25,6 @@ module.exports = function updatePost(userId, postId, imageUrl, text) {
             })
         })
 }
-
-
-
-
-
-
-
-
-    // return Promise.all([users.find().toArray(), posts.find().toArray])
-
-    //     .then(([users, posts]) => {
-    //         const user = users.findOne({ _id: new ObjectId(userId) })
-
-    //         if (!user) throw new Error('user not found')
-
-    //         const post = posts.findOne({ _id: new ObjectId(postId) })
-
-    //         if (!post) throw new Error('post not found')
-
-    //         if (post.author !== userId) throw new Error(`post with id ${postId} does not belong to user with id ${userId}`)
-
-    //         return post.updateOne({ _id: new ObjectId(postId) }, { $set: { image: imageUrl, text: text } })
-
-
-
-
-
-
-
-
-
 
 
 

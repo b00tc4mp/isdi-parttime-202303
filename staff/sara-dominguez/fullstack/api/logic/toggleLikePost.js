@@ -14,8 +14,8 @@ module.exports = function toggleLikePost(userId, postId) {
 
         .then(([user, post]) => {
 
-            if (!user) throw new Error('user not found')
-            if (!post) throw new Error('user not found')
+            if (!user) throw new TypeError('user not found')
+            if (!post) throw new TypeError('user not found')
 
 
             const index = post.likes.findIndex(id => id.toString() === userId)

@@ -12,11 +12,11 @@ module.exports = function retrievePost(userId, postId,) {
 
     return users.findOne({ _id: new ObjectId(userId) })
         .then(user => {
-            if (!user) throw new Error('user not found')
+            if (!user) throw new TypeError('user not found')
 
             return posts.findOne({ _id: new ObjectId(postId) })
                 .then(post => {
-                    if (!post) throw new Error('post not found')
+                    if (!post) throw new TypeError('post not found')
 
                     return post
                 })

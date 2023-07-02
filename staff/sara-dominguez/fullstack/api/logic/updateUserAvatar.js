@@ -10,7 +10,7 @@ module.exports = function updateUserAvatar(userId, newAvatar) {
 
     return users.findOne({ _id: new ObjectId(userId) })
         .then(user => {
-            if (!user) throw new Error('user not found')
+            if (!user) throw new TypeError('user not found')
 
             return users.updateOne({ _id: new ObjectId(userId) }, { $set: { avatar: newAvatar } })
 

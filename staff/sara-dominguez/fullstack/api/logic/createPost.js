@@ -1,5 +1,8 @@
 const context = require('./context')
-const { validators: { validateId, validatePostUrl, validateText, validateCallback } } = require('com')
+const {
+    validators: { validateId, validatePostUrl, validateText, validateCallback },
+    errors: { ExistenceError }
+} = require('com')
 const { ObjectId } = require('mongodb')
 
 
@@ -13,7 +16,7 @@ module.exports = function createPost(userId, image, text) {
 
     return users.findOne({ _id: new ObjectId(userId) })
         .then(user => {
-            if (!user) throw new Error('user not found')
+            if (!user) throw new ExistenceError('user not found')
 
 
             const post = {

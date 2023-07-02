@@ -52,7 +52,7 @@ export default function createPost(token, image, text, callback) {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                authozization: `Bearer ${token}`
+                authorization: `Bearer ${token}`
             },
             body: JSON.stringify({ image, text })
         })
