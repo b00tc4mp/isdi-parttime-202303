@@ -72,7 +72,7 @@ Planned through a kanban visible on this [Trello](https://trello.com/b/uHRmZKBR/
 - [ ] Improve error handling
 - [ ] Improve GameOver modal style
 - [ ] Improve UX of the create level form
-- [ ] Upload the page to AWS
+- [x] Upload the page to AWS
 
 </br>
 </br>
@@ -93,11 +93,11 @@ Planned through a kanban visible on this [Trello](https://trello.com/b/uHRmZKBR/
 
 Github, through github actions, updates the image on push. It's automatic, but could fail. So always check for errors first.
 
-Go to EC2, connect to the machine and run
+Go to EC2, connect to the machine, check the ip and keep it update and run
 ```sh
 $ docker-compose down # only if it was already running
-$ sudo docker system prune -a #to clean local cache
-$ docker-compose up -d # run services on deamon mode
+$ sudo docker system prune -a # to clean local cache
+$ sudo docker-compose up -d # run services on deamon mode
 ```
 
 
