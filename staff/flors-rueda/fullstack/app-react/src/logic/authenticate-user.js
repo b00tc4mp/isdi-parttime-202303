@@ -12,6 +12,8 @@ const { validateUsername, validatePassword, validateCallback } = validators;
  * 
  * @returns {string} The user's id
  */
+
+//TODO change userAuth validations to token!
 export default (username, password, callback) => {
   validateUsername(username);
   validatePassword(password);
@@ -31,10 +33,10 @@ export default (username, password, callback) => {
       return;
     }
 
-    const { response: userId } = xhr;
-    const userAuth = userId.replace(/"/g, '')
+    const { response: json } = xhr;
+    const token = JSON.parse(json)
 
-    callback(null, userAuth);
+    callback(null, token);
   }
 
   xhr.onerror = () => {
