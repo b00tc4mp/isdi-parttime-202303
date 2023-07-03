@@ -1,9 +1,8 @@
 import { context } from "../ui.js"
-import authenticateUser from '../logic/authenticateUser'
 import { useAppContext } from "../hooks"
+import authenticateUser from '../logic/authenticateUser'
 
 import { Panel } from '../library'
-
 
 import "./Login.css"
 
@@ -11,7 +10,7 @@ export default function Login({ onRegisterClick, onUserLoggedIn }) {
     const { alert, freeze, unfreeze } = useAppContext()
 
 
-    // 2 // this function will send the event to its parent 
+    // 2 //send the event to its parent 
     function handleGoToRegisterClick(event) {
         event.preventDefault()
 
@@ -19,25 +18,32 @@ export default function Login({ onRegisterClick, onUserLoggedIn }) {
         onRegisterClick()
     }
 
-    function handleLogin(event) {
+    const handleLogin = event => {
         event.preventDefault()
 
         const email = event.target.email.value
         const password = event.target.password.value
 
         try {
-
             authenticateUser(email, password, (error, token) => {
                 if (error) {
                     alert(error.message, 'error')
 
                     return
                 }
-                //we save token in the context
+
                 context.token = token
 
                 onUserLoggedIn()
             })
+
+            // authenticateUser(email, password)
+            //     .then(token => {
+            //         context.token = token
+
+            //         onUserLoggedIn()
+            //     })
+            //     .catch(error => alert(error.message, 'error'))
 
         } catch (error) {
             alert(error.message, 'warn')

@@ -30,7 +30,7 @@ export default (email, password, callback) => {
         }
 
         const { response: json } = xhr
-        const { token } = JSON.parse(json)
+        const token = JSON.parse(json)
 
         callback(null, token)
     }
