@@ -2,6 +2,7 @@ const { validators: { validateText, validateUrl, validateId } } = require('com')
 require('dotenv').config()
 const context = require('./context')
 const { ObjectId } = require('mongodb')
+const { errors: { ExistenceError } } = require('com')
 
 module.exports = (userId, imageUrl, postText) => {
   validateId(userId, 'user id')
@@ -12,7 +13,7 @@ module.exports = (userId, imageUrl, postText) => {
 
   return users.findOne({ _id: new ObjectId(userId) })
     .then(user => {
-      if(!user) throw new Error(`User with id ${userId} not found.`)
+      if(!user) throw new ExistenceError(`User with id ${userId} not found.`)
 
       let date = new Date
 

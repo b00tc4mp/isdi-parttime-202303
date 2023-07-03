@@ -19,11 +19,6 @@ export function registerUser(name, email, password, callBack) {
   if(callBack) {
     validateCallback(callBack)
 
-    if (!email.includes('@')) throw new Error("Email doesn't contain a '@'.")
-    if (!email.includes('.')) throw new Error("Email doesn't contain a'.', try to put a dot whithin the domain part.")
-    validatePassword(password)
-    if (password.length < 6) throw new Error('The password is too short.')
-
     const xhr = new XMLHttpRequest
 
     xhr.onload = () => {

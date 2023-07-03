@@ -33,8 +33,8 @@ export default function retrievePost(token ,postId, callBack) {
       }
       
       const { response: json } = xhr
-      const { post } = JSON.parse(json)
-
+      const post = JSON.parse(json)
+      
       callBack(null, post)
     }
 

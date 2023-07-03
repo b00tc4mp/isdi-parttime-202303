@@ -51,7 +51,7 @@ export default function setPostPrice(token, postId, postPrice, callBack) {
     
   } else {
     return fetch(`${import.meta.env.VITE_API_URL}/posts/${postId}/postPrice`, {
-      method: 'POST',
+      method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`

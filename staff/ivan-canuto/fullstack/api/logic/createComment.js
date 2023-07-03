@@ -1,4 +1,7 @@
-const { validators: { validateId, validateText } } = require('com')
+const {
+  validators: { validateId, validateText },
+  errors: { ExistenceError }
+} = require('com')
 const context = require('./context')
 const { ObjectId } = require('mongodb')
 
@@ -11,9 +14,9 @@ module.exports = (userId, postId, commentText) => {
 
   return Promise.all([users.findOne({ _id: new ObjectId(userId) }), posts.findOne({ _id: new ObjectId(postId) })])
     .then(([user, post]) => {
-      if(!user) throw new Error('User not found.')
+      if(!user) throw new ExistenceError('User not found.')
 
-      if(!post) throw new Error('Post not found.')
+      if(!post) throw new ExistenceError('Post not found.')
       
       let id = 'comment-1'
       const lastComment = post.comments[post.comments.length - 1]

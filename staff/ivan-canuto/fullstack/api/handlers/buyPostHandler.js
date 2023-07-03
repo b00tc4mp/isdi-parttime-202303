@@ -1,15 +1,10 @@
 const { buyPost } = require('../logic')
-const { extractUserId } = require('./helpers')
+const { extractUserId, handleErrors } = require('./helpers')
 
-module.exports = (req, res) => {
-  try {
-    const userId = extractUserId(req)
-    const { postId } = req.params
+module.exports = handleErrors((req, res) => {
+  const userId = extractUserId(req)
+  const { postId } = req.params
 
-    buyPost(userId, postId)
-      .then(() => res.send())
-      .catch(error => res.status(400).json({error: error.message}))
-  } catch (error) {
-    res.status(400).json({error: error.message})
-  }
-}
+  return buyPost(userId, postId)
+    .then(() => res.send())
+})

@@ -22,8 +22,6 @@ export default function Posts({ lastPostsUpdate, view, handleOpenBuyPost, handle
 
       if(view === 'posts') {
         // retrievePosts(context.token, (error, _posts) => {
-        //   unfreeze()
-          
         //   if (error) {
         //     alert(error.message, 'error')
         //     console.debug(error)
@@ -52,8 +50,6 @@ export default function Posts({ lastPostsUpdate, view, handleOpenBuyPost, handle
       
       else if(view === 'savedPosts') {
         // retrieveSavedPosts(context.token, (error, _posts) => {
-        //   unfreeze()
-          
         //   if (error) {
         //     alert(error, 'error')
         //     console.debug(error)
@@ -67,7 +63,9 @@ export default function Posts({ lastPostsUpdate, view, handleOpenBuyPost, handle
 
         retrieveSavedPosts(context.token)
           .then(_posts => {
+            unfreeze()
             console.debug('Saved postsss -> render')
+
             setPosts(_posts)
           })
           .catch(error => {
@@ -93,9 +91,11 @@ export default function Posts({ lastPostsUpdate, view, handleOpenBuyPost, handle
         //   setPosts(_posts)
         // })
 
-        retrieveSavedPosts(context.token)
+        retrieveUserPosts(context.token)
           .then(_posts => {
+            unfreeze()
             console.debug('Own postsss -> render')
+            
             setPosts(_posts)
           })
           .catch(error => {

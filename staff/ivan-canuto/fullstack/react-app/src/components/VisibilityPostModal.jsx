@@ -29,7 +29,7 @@ export default function VisibilityPost({ onChangedVisibility, onCancel }) {
       // })
 
       retrievePost(context.token, context.postId)
-        .then(() => {
+        .then(post => {
           unfreeze()
           setVisible(post.visible)
         })

@@ -1,4 +1,7 @@
-const { validators: { validateId } } = require('com')
+const {
+  validators: { validateId },
+  errors: { ExistenceError }
+} = require('com')
 const context = require('./context')
 const { ObjectId } = require('mongodb')
 
@@ -9,7 +12,7 @@ module.exports = (userId) => {
 
   return Promise.all([users.findOne({ _id: new ObjectId(userId) }), posts.find().toArray()])
     .then(([user, posts]) => {
-      if(!user) throw new Error('User not found.')
+      if(!user) throw new ExistenceError('User not found.')
 
       const authors = posts.reduce((authors, { author }) => authors.add(author.toString()), new Set)
       

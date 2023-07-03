@@ -45,7 +45,7 @@ export default function deletePost(token, postId, callBack) {
     xhr.send()
     
   } else {
-    return fetch(`${import.meta.env.VITE_API_URL}/users/auth`, {
+    return fetch(`${import.meta.env.VITE_API_URL}/posts/${postId}/delete`, {
       method: 'DELETE',
       headers: {
         'Authorization': `Bearer ${token}`

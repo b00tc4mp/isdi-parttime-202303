@@ -31,7 +31,7 @@ export default function ToggleOnSalePost({ onToggledOnSalePost, onCancel }) {
       // })
 
       retrievePost(context.token, context.postId)
-        .then(() => {
+        .then(post => {
           unfreeze()
           setOnSale(post.onSale)
         })

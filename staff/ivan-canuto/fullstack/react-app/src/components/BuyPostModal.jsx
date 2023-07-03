@@ -24,7 +24,7 @@ export default function BuyPost({ onBoughtPost, onCancel }) {
 
         return
       }
-
+      
       setPost(post)
     })
   }, [])

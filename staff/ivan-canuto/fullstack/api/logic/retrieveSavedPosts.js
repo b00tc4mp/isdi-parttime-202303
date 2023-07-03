@@ -1,6 +1,8 @@
-const { validators: { validateId } } = require('com')
+const {
+  validators: { validateId },
+  errors: { ExistenceError }
+} = require('com')
 const context = require('./context')
-const { ObjectId } = require('mongodb')
 
 module.exports = (userId) => {
   validateId(userId, 'user id')
@@ -10,7 +12,7 @@ module.exports = (userId) => {
   return Promise.all([users.find().toArray(), posts.find().toArray()])
     .then(([users, posts]) => {
       const user = users.find(_user => _user._id.toString() === userId)
-      if(!user) throw new Error('User not found.')
+      if(!user) throw new ExistenceError('User not found.')
 
       const favsFromUser = user.favs.map(fav => fav.toString())      
 
