@@ -2,9 +2,9 @@ require('dotenv').config();
 
 const { expect } = require('chai');
 const toggleLikePost = require('./toggleLikePost');
-const { cleanUp, populate, generate } = require('./helpers/test');
+const { cleanUp, populate, generate } = require('./helpers/tests');
 const { readFile } = require('fs');
-const { likedPost } = require('./helpers/test/generate');
+const { likedPost } = require('./helpers/tests/generate');
 
 describe('toggleLikePost', () => {
   beforeEach(cleanUp);

@@ -2,7 +2,7 @@ require('dotenv').config();
 
 const { expect } = require('chai');
 const updatePost = require('./updatePost');
-const { cleanUp, populate, generate } = require('./helpers/test');
+const { cleanUp, populate, generate } = require('./helpers/tests');
 const sinon = require('sinon');
 
 describe('updatePost', () => {

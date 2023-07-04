@@ -1,149 +1,89 @@
 require('dotenv').config();
 
 const { expect } = require('chai');
-const { writeFile, readFile } = require('fs');
 const createPost = require('./createPost.js');
 const sinon = require('sinon');
+const { cleanUp, populate, generate } = require('./helpers/tests');
+const { MongoClient, ObjectId } = require('mongodb');
+const context = require('./context');
 
 describe('createPost', () => {
-  let userId, postImage, postText, date;
+  let client;
 
-  beforeEach((done) => {
-    userId = `id-${Math.random()}`;
-    postImage = `url${Math.random()}`;
-    postText = `text${Math.random()}`;
+  before(() => {
+    client = new MongoClient(process.env.MONGODB_URL);
 
-    writeFile(`${process.env.DB_PATH}/posts.json`, '[]', (error) =>
-      done(error)
-    );
+    return client.connect().then((connection) => {
+      const db = connection.db();
+
+      context.users = db.collection('users');
+      context.posts = db.collection('posts');
+    });
   });
 
-  it('should be created if user exists and data is correct', (done) => {
+  let user, text, image;
+
+  const anyUserId = new ObjectId().toString();
+
+  beforeEach(() => {
+    user = generate.user();
+
+    image = `image-${Math.random()}`;
+    text = `text-${Math.random()}`;
+
+    return cleanUp();
+  });
+
+  it('should be created if user exists and data is correct', () => {
     const date = new Date();
     const fakeDate = sinon.useFakeTimers(date.getTime());
 
-    const users = [{ id: userId }];
-    const usersJson = JSON.stringify(users);
+    let userIdString;
 
-    writeFile(`${process.env.DB_PATH}/users.json`, usersJson, (error) => {
-      expect(error).to.be.null;
+    return populate([user], [])
+      .then(() => context.users.findOne({ email: user.email }))
+      .then((foundUser) => {
+        userIdString = foundUser._id.toString();
+        return createPost(foundUser._id.toString(), image, text);
+      })
+      .then(() => context.posts.findOne({ author: new ObjectId(userIdString) }))
+      .then((post) => {
+        expect(post).to.exist;
+        expect(post.author.toString()).to.equal(userIdString);
+        expect(post.image).to.equal(image);
+        expect(post.text).to.equal(text);
+        expect(post.date.toISOString()).to.equal(date.toISOString());
+        expect(post.likes).to.deep.equal([]);
 
-      createPost(userId, postImage, postText, (error) => {
-        expect(error).to.be.null;
-
-        readFile(`${process.env.DB_PATH}/posts.json`, (error, json) => {
-          expect(error).to.be.null;
-
-          const posts = JSON.parse(json),
-            post = posts[posts.length - 1];
-
-          expect(post).to.exist;
-          expect(post.id).to.equal('post-1');
-          expect(post.author).to.equal(userId);
-          expect(post.image).to.equal(postImage);
-          expect(post.text).to.equal(postText);
-          expect(post.date).to.equal(date.toISOString());
-          expect(post.likes).to.deep.equal([]);
-          expect(posts.length).to.equal(1);
-
-          fakeDate.restore();
-
-          done();
-        });
+        fakeDate.restore();
       });
-    });
   });
 
-  it('should succeed if there are existing posts', (done) => {
-    const users = [{ id: userId }],
-      usersJson = JSON.stringify(users);
-
-    writeFile(`${process.env.DB_PATH}/users.json`, usersJson, (error) => {
-      expect(error).to.be.null;
-
-      const dataPosts = [{ id: 'post-1' }, { id: 'post-4' }],
-        dataPostsJson = JSON.stringify(dataPosts);
-
-      writeFile(`${process.env.DB_PATH}/posts.json`, dataPostsJson, (error) => {
-        expect(error).to.be.null;
-
-        createPost(userId, postImage, postText, (error) => {
-          expect(error).to.be.null;
-
-          readFile(`${process.env.DB_PATH}/posts.json`, (error, json) => {
-            expect(error).to.be.null;
-
-            const posts = JSON.parse(json),
-              post = posts[posts.length - 1];
-
-            expect(post).to.exist;
-            expect(post.id).to.equal('post-5');
-
-            expect(posts.length).to.equal(dataPosts.length + 1);
-
-            done();
-          });
-        });
-      });
-    });
-  });
-
-  it('should throw an error if user does not exist', (done) => {
-    const unmatchId = 'anyid';
-
-    createPost(unmatchId, postImage, postText, (error) => {
-      expect(error).to.exist;
+  it('should throw an error if user does not exist', () => {
+    createPost(anyUserId, image, text).catch((error) => {
+      expect(error).to.be.instanceOf(Error);
       expect(error.message).to.equal(`user with id ${unmatchId} doesnt exists`);
-
-      done();
-    });
-  });
-
-  it('fails if cannot read users data', (done) => {
-    const wrongData = JSON.stringify([{ wrong: 'data' }]);
-
-    writeFile(`${process.env.DB_PATH}/users.json`, wrongData, (error) => {
-      expect(error).to.be.null;
-
-      createPost(userId, postImage, postText, (error) => {
-        expect(error).to.be.instanceOf(Error);
-        expect(error.message).to.equal(`user with id ${userId} doesnt exists`);
-
-        done();
-      });
     });
   });
 
   it('fails on empty id', () =>
-    expect(() => createPost('', postImage, postText, () => {})).to.throw(
-      Error,
-      'user id is empty'
+    expect(() =>
+      createPost('', image, text).to.throw(Error, 'user id is empty')
     ));
 
   it('fails on empty image', () => {
-    expect(() => createPost(userId, '', postText, () => {})).to.throw(
+    expect(() => createPost(anyUserId, '', text)).to.throw(
       Error,
       'image is empty'
     );
   });
 
   it('fails on empty text', () => {
-    expect(() => createPost(userId, postImage, '', () => {})).to.throw(
+    expect(() => createPost(anyUserId, image, '')).to.throw(
       Error,
       'text is empty'
     );
   });
 
-  it('fails on empty callback', () => {
-    expect(() => createPost(userId, postImage, postText)).to.throw(
-      Error,
-      'callback is not a function'
-    );
-  });
-
-  after((done) => {
-    writeFile(`${process.env.DB_PATH}/posts.json`, '[]', 'utf-8', (error) =>
-      done(error)
-    );
-  });
+  after(() => cleanUp().then(() => client.close()));
 });

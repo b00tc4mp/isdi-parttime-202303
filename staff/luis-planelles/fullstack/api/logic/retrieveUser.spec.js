@@ -1,78 +1,60 @@
 require('dotenv').config();
 
-const { expect } = require('chai');
-const { writeFile } = require('fs');
-
-const retrieveUser = require('./retrieveUser.js');
+const { expect } = require('chai'),
+  retrieveUser = require('./retrieveUser.js'),
+  { MongoClient } = require('mongodb'),
+  { cleanUp, generate, populate } = require('./helpers/tests');
+const context = require('./context.js');
 
 describe('retrieveUser', () => {
-  let id, name, password, avatar;
+  let client;
 
-  beforeEach((done) => {
-    id = `id-${Math.round(Math.random() * 100 + 1)}`;
-    name = `name-${Math.random()}`;
-    password = `password-${Math.random()}`;
-    avatar = `avatar-${Math.random()}`;
+  before(() => {
+    client = new MongoClient(process.env.MONGODB_URL);
 
-    writeFile(`${process.env.DB_PATH}/users.json`, '[]', (error) =>
-      done(error)
-    );
-  });
+    return client.connect().then((connection) => {
+      const db = connection.db();
 
-  it('succeeds on existing user and correct id', (done) => {
-    const users = [{ id, name, password, avatar }],
-      json = JSON.stringify(users);
-
-    writeFile(`${process.env.DB_PATH}/users.json`, json, (error) => {
-      expect(error).to.be.null;
-
-      retrieveUser(id, (error, user) => {
-        expect(error).to.be.null;
-
-        expect(user.name).to.equal(name);
-        expect(user.avatar).to.equal(avatar);
-
-        done();
-      });
+      context.users = db.collection('users');
+      context.posts = db.collection('posts');
     });
   });
 
-  it('succeeds on existing user with no avatar and correct id', (done) => {
-    const users = [{ id, name, password, avatar: null }],
-      json = JSON.stringify(users);
+  let user;
 
-    writeFile(`${process.env.DB_PATH}/users.json`, json, (error) => {
-      expect(error).to.be.null;
+  beforeEach(() => {
+    user = generate.user();
 
-      retrieveUser(id, (error, user) => {
-        expect(error).to.be.null;
-
-        expect(user.name).to.equal(name);
-        expect(user.avatar).to.be.null;
-
-        done();
-      });
-    });
+    return cleanUp();
   });
 
-  it('fails on existing user and incorrect id', (done) => {
-    const users = [{ id, name, password, avatar }],
-      json = JSON.stringify(users);
-
-    writeFile(`${process.env.DB_PATH}/users.json`, json, (error) => {
-      expect(error).to.be.null;
-
-      const wrongId = id + '-wrong';
-
-      retrieveUser(wrongId, (error, user) => {
-        expect(error).to.be.instanceOf(Error);
-        expect(error.message).to.equal(`user with id ${wrongId} not found`);
-
-        expect(user).to.be.undefined;
-
-        done();
+  it('succeeds on existing user and correct id', () => {
+    return populate([user], [])
+      .then(() => context.users.findOne({ email: user.email }))
+      .then((foundUser) => {
+        const userIdString = foundUser._id.toString();
+        return retrieveUser(userIdString);
+      })
+      .then((retrievedUser) => {
+        expect(retrievedUser).to.exist;
+        expect(retrievedUser.name).to.equal(user.name);
+        expect(retrievedUser.email).to.equal(user.email);
+        expect(retrievedUser.avatar).to.be.null;
       });
-    });
+  });
+
+  it('fails on existing user and incorrect id', () => {
+    return populate([user], [])
+      .then(() => context.users.findOne({ email: user.email }))
+      .then((foundUser) => {
+        const userIdString = foundUser._id.toString();
+        const unmatchId = userIdString.replace(userIdString.charAt(0), '0');
+        return retrieveUser(unmatchId);
+      })
+      .catch((error) => {
+        expect(error).to.be.an.instanceOf(Error);
+        expect(error.message).to.equal('user not found');
+      });
   });
 
   it('fails on empty id', () =>
@@ -81,13 +63,5 @@ describe('retrieveUser', () => {
       'user id is empty'
     ));
 
-  it('fails on empty callback', () =>
-    expect(() => retrieveUser(id)).to.throw(
-      Error,
-      'callback is not a function'
-    ));
-
-  after((done) =>
-    writeFile(`${process.env.DB_PATH}/users.json`, '[]', (error) => done(error))
-  );
+  after(() => cleanUp().then(() => client.close()));
 });

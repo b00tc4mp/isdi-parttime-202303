@@ -1,54 +1,42 @@
-const { readFile } = require('fs');
 const {
-  validators: { validateId, validateCallback },
+  validators: { validateId },
 } = require('com');
+const context = require('./context');
 
-const retrievePosts = (userId, callback) => {
+const retrievePosts = (userId) => {
   validateId(userId, 'user id');
-  validateCallback(callback);
 
-  readFile(`${process.env.DB_PATH}/users.json`, (error, json) => {
-    if (error) {
-      callback(error);
+  const { users, posts } = context;
 
-      return;
-    }
+  return Promise.all([users.find().toArray(), posts.find().toArray()]).then(
+    ([users, posts]) => {
+      const user = users.find((user) => user._id.toString() === userId);
 
-    const users = JSON.parse(json);
-
-    const user = users.find((user) => user.id === userId);
-
-    if (!user) {
-      callback(new Error(`user with id ${userId} not found`));
-
-      return;
-    }
-
-    readFile(`${process.env.DB_PATH}/posts.json`, (error, json) => {
-      if (error) {
-        callback(error);
-
-        return;
-      }
-
-      const posts = JSON.parse(json);
+      if (!user) throw new Error(`user with id ${userId} not exists`);
 
       posts.forEach((post) => {
-        const userAuthor = users.find((user) => user.id === post.author);
+        post.id = post._id.toString();
+        delete post._id;
 
-        post.favourites = user.favourites.includes(post.id);
-        post.date = new Date(post.date);
+        const author = users.find(
+          (user) => user._id.toString() === post.author.toString()
+        );
+
+        const { _id, name, avatar } = author;
 
         post.author = {
-          id: userAuthor.id,
-          name: userAuthor.name,
-          avatar: userAuthor.avatar,
+          id: _id.toString(),
+          name,
+          avatar,
         };
+
+        post.favourites = user.favourites.some(
+          (favourites) => favourites.toString() === post.id
+        );
       });
 
-      callback(null, posts.reverse());
-    });
-  });
+      return posts.reverse();
+    }
+  );
 };
-
 module.exports = retrievePosts;

@@ -2,7 +2,7 @@ require('dotenv').config();
 
 const { expect } = require('chai');
 const toggleFavouritePost = require('./toggleFavouritePost');
-const { cleanUp, populate, generate } = require('./helpers/test');
+const { cleanUp, populate, generate } = require('./helpers/tests');
 const { readFile } = require('fs');
 
 describe('toggleFavouritePost', () => {

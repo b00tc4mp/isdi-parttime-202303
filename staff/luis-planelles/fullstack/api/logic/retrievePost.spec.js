@@ -2,83 +2,76 @@ require('dotenv').config();
 
 const { expect } = require('chai');
 const retrievePost = require('./retrievePost');
-const { cleanUp, populate, generate } = require('./helpers/test');
+const { cleanUp, populate, generate } = require('./helpers/tests');
 const sinon = require('sinon');
+const { ObjectId, MongoClient } = require('mongodb');
 
 describe('retrievePost', () => {
-  let user, post;
+  let client;
 
-  beforeEach((done) => {
-    cleanUp((error) => {
-      if (error) {
-        done(error);
+  before(() => {
+    client = new MongoClient(process.env.MONGODB_URL);
 
-        return;
-      }
+    return client.connect().then((connection) => {
+      const db = connection.db();
 
-      user = generate.user();
-      post = generate.post(user.id);
-
-      populate([user], [post], done);
+      context.users = db.collection('users');
+      context.posts = db.collection('posts');
     });
   });
 
-  it('succeeds on existing user and post', (done) => {
-    retrievePost(user.id, post.id, (error, retrievedPost) => {
-      expect(error).to.be.null;
+  let user, post, anyId;
 
-      expect(retrievedPost.id).to.equal(post.id);
-      expect(retrievedPost.author).to.equal(user.id);
-      expect(retrievedPost.text).to.equal(post.text);
-      expect(retrievedPost.image).to.equal(post.image);
+  beforeEach(() => {
+    user = generate.user();
 
-      done();
-    });
+    anyId = new ObjectId().toString();
+
+    return cleanUp();
   });
 
-  it('fails when user not exists', (done) => {
-    user.id += 'unmatch';
+  it('succeeds on existing user and post', () => {
+    return context.users
+      .insertOne(user)
+      .then(() => {
+        post = generate.post(user._id);
 
-    retrievePost(user.id, post.id, (error, retrievedPost) => {
-      expect(error).to.be.instanceOf(Error);
-      expect(error.message).to.equal(`user with id ${user.id} not exists`);
+        cleanUp();
 
-      expect(retrievedPost).to.be.undefined;
-
-      done();
-    });
+        return populate([user], [post]);
+      })
+      .then(() => retrievePost(user._id.toString(), post._id.toString()))
+      .then((retrievedPost) => {
+        expect(retrievedPost.id).to.equal(post.id);
+        expect(retrievedPost.author.toString()).to.equal(user._id.toString());
+        expect(retrievedPost.text).to.equal(post.text);
+        expect(retrievedPost.image).to.equal(post.image);
+      });
   });
 
-  it('fails when post not exists', (done) => {
-    post.id += 'unmatch';
+  it('fails when user not exists', () => {
+    return populate([user], [post])
+      .then(() => retrievePost(anyId, post._id.toString()))
+      .catch((error) => {
+        expect(error).to.be.instanceOf(Error);
+        expect(error.message).to.equal(`user with id ${anyId} not exists`);
+      });
+  });
 
-    retrievePost(user.id, post.id, (error, retrievedPost) => {
-      expect(error).to.be.instanceOf(Error);
-      expect(error.message).to.equal(`post with id ${post.id} not exists`);
-
-      expect(retrievedPost).to.be.undefined;
-
-      done();
-    });
+  it('fails when post not exists', () => {
+    return populate([user], [post])
+      .then(() => retrievePost(user._id.toString(), anyId))
+      .catch((error) => {
+        expect(error).to.be.instanceOf(Error);
+        expect(error.message).to.equal(`post with id ${anyId} not exists`);
+      });
   });
 
   it('fails on empty user id', () =>
-    expect(() => retrievePost('', post.id, () => {})).to.throw(
-      Error,
-      'user id is empty'
-    ));
+    expect(() => retrievePost('', anyId)).to.throw(Error, 'user id is empty'));
 
   it('fails on empty post id', () =>
-    expect(() => retrievePost(user.id, '', () => {})).to.throw(
-      Error,
-      'post id is empty'
-    ));
+    expect(() => retrievePost(anyId, '')).to.throw(Error, 'post id is empty'));
 
-  it('fails on empty callback', () =>
-    expect(() => retrievePost(user.id, post.id)).to.throw(
-      Error,
-      'callback is not a function'
-    ));
-
-  after(cleanUp);
+  after(() => cleanUp().then(() => client.close()));
 });

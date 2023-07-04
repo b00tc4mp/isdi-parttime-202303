@@ -1,98 +1,73 @@
 require('dotenv').config();
 
 const { expect } = require('chai'),
-  { writeFile } = require('fs'),
   authenticateUser = require('./authenticateUser.js'),
-  { cleanUp, generate } = require('./helpers/test');
+  { MongoClient } = require('mongodb'),
+  { cleanUp, generate, populate } = require('./helpers/tests');
 
 describe('authenticateUser', () => {
+  let client;
+
+  before(() => {
+    client = new MongoClient(process.env.MONGODB_URL);
+
+    return client.connect().then((connection) => {
+      const db = connection.db();
+
+      context.users = db.collection('users');
+      context.posts = db.collection('posts');
+    });
+  });
+
   let user;
 
-  beforeEach((done) => {
+  beforeEach(() => {
     user = generate.user();
 
-    cleanUp(done);
+    return cleanUp();
   });
 
-  it('succeeds on existing user', (done) => {
-    const userJson = JSON.stringify([user]);
-
-    writeFile(`${process.env.DB_PATH}/users.json`, userJson, (error) => {
-      expect(error).to.be.null;
-
-      authenticateUser(user.email, user.password, (error, userId) => {
-        expect(error).to.be.null;
-        expect(userId).to.equal(user.id);
-
-        done();
+  it('succeeds on existing user', () => {
+    return populate([user], [])
+      .then(() => authenticateUser(user.email, user.password))
+      .then(() => context.users.findOne({ email: user.email }))
+      .then((foundUser) => {
+        expect(foundUser).to.exist;
+        expect(foundUser.name).to.equal(user.name);
+        expect(foundUser.email).to.equal(user.email);
+        expect(foundUser.password).to.equal(user.password);
+        expect(foundUser.avatar).to.be.null;
+        expect(foundUser.favourites).to.have.lengthOf(0);
       });
-    });
   });
 
-  it('fails on non-existing user', (done) => {
-    authenticateUser(user.email, user.password, (error, userId) => {
+  it('fails on non-existing user', () => {
+    return authenticateUser(user.email, user.password).catch((error) => {
       expect(error).to.be.instanceOf(Error);
-      expect(error.message).to.equal(`user with email ${user.email} not found`);
-      expect(userId).to.be.undefined;
-
-      done();
+      expect(error.message).to.equal(`user not found`);
     });
   });
 
-  it('fails on existing user but wrong password', (done) => {
-    const userJson = JSON.stringify([user]);
+  it('fails on existing user but wrong password', () => {
+    const wrongPassword = user.password + '-wrong';
 
-    writeFile(`${process.env.DB_PATH}/users.json`, userJson, (error) => {
-      expect(error).to.be.null;
-
-      password = user.password + '-wrong';
-
-      authenticateUser(user.email, password, (error, userId) => {
+    return populate([user], [])
+      .then(() => authenticateUser(user.email, wrongPassword))
+      .catch((error) => {
         expect(error).to.be.instanceOf(Error);
-        expect(error.message).to.equal('wrong credentials');
-        expect(userId).to.be.undefined;
-
-        done();
+        expect(error.message).to.equal(`wrong credentials`);
       });
-    });
   });
 
-  it('fails on existing user but wrong email', (done) => {
-    const userJson = JSON.stringify([user]);
+  it('fails on existing user but wrong email', () => {
+    const wrongEmail = `e-wrong${Math.random()}@mail.com`;
 
-    writeFile(`${process.env.DB_PATH}/users.json`, userJson, (error) => {
-      expect(error).to.be.null;
-
-      user.email = `wrong${user.email}`;
-
-      authenticateUser(user.email, user.password, (error, userId) => {
+    return populate([user], [])
+      .then(() => authenticateUser(wrongEmail, user.password))
+      .catch((error) => {
         expect(error).to.be.instanceOf(Error);
-        expect(error.message).to.equal(
-          `user with email ${user.email} not found`
-        );
-        expect(userId).to.be.undefined;
-
-        done();
+        expect(error.message).to.equal(`user not found`);
       });
-    });
-  });
-
-  it('fails if cannot read data', (done) => {
-    const wrongData = JSON.stringify([{ wrong: 'data' }]);
-
-    writeFile(`${process.env.DB_PATH}/users.json`, wrongData, (error) => {
-      expect(error).to.be.null;
-
-      authenticateUser(user.email, user.password, (error, userId) => {
-        expect(error).to.be.instanceOf(Error);
-        expect(error.message).to.equal(
-          `user with email ${user.email} not found`
-        );
-        expect(userId).to.be.undefined;
-
-        done();
-      });
-    });
   });
 
   it('fails on empty email', () => {
@@ -102,19 +77,90 @@ describe('authenticateUser', () => {
     );
   });
 
+  it('fails on non-string email', () => {
+    expect(() => authenticateUser(1, user.password)).to.throw(
+      Error,
+      'email is not a string'
+    );
+    expect(() => authenticateUser(true, user.password)).to.throw(
+      Error,
+      'email is not a string'
+    );
+    expect(() => authenticateUser({}, user.password)).to.throw(
+      Error,
+      'email is not a string'
+    );
+    expect(() => authenticateUser([], user.password)).to.throw(
+      Error,
+      'email is not a string'
+    );
+  });
+
+  it('throws an error for invalid email', () => {
+    expect(() => authenticateUser('user@example', user.password)).to.throw(
+      Error,
+      'invalid email'
+    );
+    expect(() => authenticateUser('user.example.com', user.password)).to.throw(
+      Error,
+      'invalid email'
+    );
+    expect(() => authenticateUser('user@example.', user.password)).to.throw(
+      Error,
+      'invalid email'
+    );
+  });
+
   it('fails on empty password', () => {
-    expect(() => authenticateUser(user.email, '', () => {})).to.throw(
+    expect(() => {
+      authenticateUser(user.email, '');
+    }).to.throw(Error, 'password is empty');
+  });
+
+  it('fails on non-string password', () => {
+    expect(() => authenticateUser(user.email, 1)).to.throw(
       Error,
-      'password is empty'
+      'password is not a string'
+    );
+    expect(() => authenticateUser(user.email, true)).to.throw(
+      Error,
+      'password is not a string'
+    );
+    expect(() => authenticateUser(user.email, {})).to.throw(
+      Error,
+      'password is not a string'
+    );
+    expect(() => authenticateUser(user.email, [])).to.throw(
+      Error,
+      'password is not a string'
     );
   });
 
-  it('fails on empty callback', () => {
-    expect(() => authenticateUser(user.email, user.password)).to.throw(
-      Error,
-      'callback is not a function'
-    );
+  it('throws an error for invalid passwords', () => {
+    expect(() => {
+      authenticateUser(user.email, 'abc');
+    }).to.throw(Error, 'password not be at least 8 characters long');
+
+    expect(() => {
+      authenticateUser(user.email, 'Ab@cdefg');
+    }).to.throw(Error, 'password not contains one digit');
+
+    expect(() => {
+      authenticateUser(user.email, 'ABC1@FGH');
+    }).to.throw(Error, 'password not contains one lowercase letter');
+
+    expect(() => {
+      authenticateUser(user.email, 'a@cdefg1');
+    }).to.throw(Error, 'password not contains one uppercase letter');
+
+    expect(() => {
+      authenticateUser(user.email, 'P1ssword');
+    }).to.throw(Error, 'password not contains one special character');
+
+    expect(() => {
+      authenticateUser(user.email, 'P @ssword1');
+    }).to.throw(Error, 'password contains any whitespace characters');
   });
 
-  after(cleanUp);
+  after(() => cleanUp().then(() => client.close()));
 });

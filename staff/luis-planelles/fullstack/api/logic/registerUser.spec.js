@@ -1,90 +1,200 @@
 require('dotenv').config();
 
-const { expect } = require('chai'),
-  { readFile, writeFile } = require('fs'),
-  registerUser = require('./registerUser.js');
+const { expect } = require('chai');
+const registerUser = require('./registerUser');
+const { cleanUp, populate, generate } = require('./helpers/tests');
+const { MongoClient } = require('mongodb');
+const context = require('./context');
 
 describe('registerUser', () => {
-  let name, email, password;
+  let client;
 
-  beforeEach((done) => {
-    name = `name-${Math.random()}`;
-    email = `e-${Math.random()}@mail.com`;
-    password = `P@ssword-${Math.random()}`;
+  before(() => {
+    client = new MongoClient(process.env.MONGODB_URL);
 
-    writeFile(`${process.env.DB_PATH}/users.json`, '[]', 'utf-8', (error) =>
-      done(error)
-    );
-  });
+    return client.connect().then((connection) => {
+      const db = connection.db();
 
-  it('should succed on new user registered', (done) => {
-    registerUser(name, email, password, (error) => {
-      expect(error).to.be.null;
-
-      readFile(`${process.env.DB_PATH}/users.json`, 'utf-8', (error, json) => {
-        expect(error).to.be.null;
-
-        const users = JSON.parse(json),
-          user = users.find((user) => user.email === email);
-
-        expect(user).to.exist;
-        expect(user.id).to.be.a('string');
-        expect(user.name).to.equal(name);
-        expect(user.email).to.equal(email);
-        expect(user.password).to.equal(password);
-        expect(user.avatar).to.be.null;
-        expect(user.favourites).to.have.lengthOf(0);
-
-        done();
-      });
+      context.users = db.collection('users');
+      context.posts = db.collection('posts');
     });
   });
 
-  it('should fail on existing user', (done) => {
-    const users = [{ name, email, password }],
-      json = JSON.stringify(users);
+  let user;
 
-    writeFile(`${process.env.DB_PATH}/users.json`, json, 'utf-8', (error) => {
-      expect(error).to.be.null;
+  beforeEach(() => {
+    user = generate.user();
 
-      registerUser(name, email, password, (error) => {
+    return cleanUp();
+  });
+
+  it('succeeds on new user', () =>
+    registerUser(user.name, user.email, user.password)
+      .then(() => context.users.findOne({ email: user.email }))
+      .then((foundUser) => {
+        expect(foundUser).to.exist;
+        expect(foundUser.name).to.equal(user.name);
+        expect(foundUser.email).to.equal(user.email);
+        expect(foundUser.password).to.equal(user.password);
+        expect(foundUser.avatar).to.be.null;
+        expect(foundUser.favourites).to.have.lengthOf(0);
+      }));
+
+  it('succeeds on other existing user', () => {
+    const otherUser = generate.user();
+    const users = [otherUser];
+
+    return populate(users, [])
+      .then(() => registerUser(user.name, user.email, user.password))
+      .then(() => context.users.findOne({ email: user.email }))
+      .then((foundUser) => {
+        expect(foundUser).to.exist;
+        expect(foundUser.name).to.equal(user.name);
+        expect(foundUser.email).to.equal(user.email);
+        expect(foundUser.password).to.equal(user.password);
+        expect(foundUser.avatar).to.be.null;
+        expect(foundUser.favourites).to.have.lengthOf(0);
+      });
+  });
+
+  it('fails on existing user', () => {
+    const users = [user];
+
+    return populate(users, [])
+      .then(() => registerUser(user.name, user.email, user.password))
+      .catch((error) => {
         expect(error).to.be.instanceOf(Error);
         expect(error.message).to.equal(
-          `user with email ${email} already exists`
+          `user with email ${user.email} already exists`
         );
-
-        done();
       });
-    });
   });
 
   it('fails on empty name', () =>
-    expect(() => registerUser('', email, password, () => {})).to.throw(
+    expect(() => registerUser('', user.email, user.password)).to.throw(
       Error,
       'name is empty'
     ));
 
-  it('fails on empty email', () =>
-    expect(() => registerUser(name, '', password, () => {})).to.throw(
+  it('fails on non-string name', () => {
+    expect(() => registerUser(undefined, user.email, user.password)).to.throw(
+      Error,
+      'name is not a string'
+    );
+    expect(() => registerUser(1, user.email, user.password)).to.throw(
+      Error,
+      'name is not a string'
+    );
+    expect(() => registerUser(true, user.email, user.password)).to.throw(
+      Error,
+      'name is not a string'
+    );
+    expect(() => registerUser({}, user.email, user.password)).to.throw(
+      Error,
+      'name is not a string'
+    );
+    expect(() => registerUser([], user.email, user.password)).to.throw(
+      Error,
+      'name is not a string'
+    );
+  });
+
+  it('throws an error for empty email', () => {
+    expect(() => registerUser(user.name, '', user.password)).to.throw(
       Error,
       'email is empty'
-    ));
+    );
+  });
+
+  it('throws an error for non-string email', () => {
+    expect(() => registerUser(user.name, undefined, user.password)).to.throw(
+      Error,
+      'email is not a string'
+    );
+    expect(() => registerUser(user.name, 1, user.password)).to.throw(
+      Error,
+      'email is not a string'
+    );
+    expect(() => registerUser(user.name, true, user.password)).to.throw(
+      Error,
+      'email is not a string'
+    );
+    expect(() => registerUser(user.name, {}, user.password)).to.throw(
+      Error,
+      'email is not a string'
+    );
+    expect(() => registerUser(user.name, [], user.password)).to.throw(
+      Error,
+      'email is not a string'
+    );
+  });
+
+  it('throws an error for invalid email', () => {
+    expect(() =>
+      registerUser(user.name, 'user@example', user.password)
+    ).to.throw(Error, 'invalid email');
+    expect(() =>
+      registerUser(user.name, 'user.example.com', user.password)
+    ).to.throw(Error, 'invalid email');
+    expect(() =>
+      registerUser(user.name, 'user@example.', user.password)
+    ).to.throw(Error, 'invalid email');
+  });
 
   it('fails on empty password', () =>
-    expect(() => registerUser(name, email, '', () => {})).to.throw(
+    expect(() => registerUser(user.name, user.email, '')).to.throw(
       Error,
       'password is empty'
     ));
 
-  it('fails on empty callback', () =>
-    expect(() => registerUser(name, email, password)).to.throw(
+  it('throws an error for non-string password', () => {
+    expect(() => registerUser(user.name, user.email, 1)).to.throw(
       Error,
-      'callback is not a function'
-    ));
+      'password is not a string'
+    );
+    expect(() => registerUser(user.name, user.email, true)).to.throw(
+      Error,
+      'password is not a string'
+    );
+    expect(() => registerUser(user.name, user.email, {})).to.throw(
+      Error,
+      'password is not a string'
+    );
+    expect(() => registerUser(user.name, user.email, [])).to.throw(
+      Error,
+      'password is not a string'
+    );
+  });
 
-  after((done) =>
-    writeFile(`${process.env.DB_PATH}/users.json`, '[]', 'utf-8', (error) =>
-      done(error)
-    )
-  );
+  it('throws an error for invalid passwords', () => {
+    expect(() => {
+      registerUser(user.email, user.email, '');
+    }).to.throw(Error, 'password is empty');
+
+    expect(() => {
+      registerUser(user.email, user.email, 'abc');
+    }).to.throw(Error, 'password not be at least 8 characters long');
+
+    expect(() => {
+      registerUser(user.email, user.email, 'Ab@cdefg');
+    }).to.throw(Error, 'password not contains one digit');
+
+    expect(() => {
+      registerUser(user.email, user.email, 'ABC1@FGH');
+    }).to.throw(Error, 'password not contains one lowercase letter');
+
+    expect(() => {
+      registerUser(user.email, user.email, 'a@cdefg1');
+    }).to.throw(Error, 'password not contains one uppercase letter');
+
+    expect(() => {
+      registerUser(user.email, user.email, 'P1ssword');
+    }).to.throw(Error, 'password not contains one special character');
+
+    expect(() => {
+      registerUser(user.email, user.email, 'P @ssword1');
+    }).to.throw(Error, 'password contains any whitespace characters');
+  });
+
+  after(() => cleanUp().then(() => client.close()));
 });
