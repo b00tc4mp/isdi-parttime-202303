@@ -12,7 +12,7 @@ const retrievePostsHandler = (req, res) => {
     const { postId } = req.params;
 
     return retrievePost(userId, postId)
-      .then(() => res.json(post))
+      .then((post) => res.json(post))
       .catch((error) => res.status(400).json({ error: error.message }));
   } catch (error) {
     res.status(400).json({ error: error.message });
