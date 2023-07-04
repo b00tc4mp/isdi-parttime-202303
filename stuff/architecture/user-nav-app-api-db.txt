@@ -1,0 +1,28 @@
+User -> Nav: app.com
+Nav -> App: /
+App -> Nav: index.html
+App -> Nav: style.css
+App -> Nav: main.js
+Nav -> Nav: login <div>
+Nav -> User: [login]
+
+User -> Nav: click /register/
+Nav -> Nav: register <div>
+Nav -> User: [register]
+User -> Nav: input data & credentials, & submit
+Nav -> API: data & credentials
+API -> DB: user?
+DB -> API: null
+API -> DB: save data & credentials
+DB -> API: user
+API -> Nav: ok
+Nav -> Nav: login <div>
+
+
+User -> Nav: input credentials & submit
+Nav -> API: credentials
+API -> DB: user?
+DB -> API: user
+API -> Nav: ok (token)
+Nav -> Nav: home <div>
+Nav -> User: [home]

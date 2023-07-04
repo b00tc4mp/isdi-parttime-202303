@@ -1,0 +1,10 @@
+title Client-Server Architecture
+
+actor User
+User->App:
+
+note right of App: HTTP
+App->API: request
+API->DB: retrieve
+DB->API: return
+API->App: response

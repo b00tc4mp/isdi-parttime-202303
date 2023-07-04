@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        class Component {
+            constructor(template) {
+                const parser = new DOMParser
+
+                this.container = parser.parseFromString(template, 'text/html').body.children[0]
+            }
+        }
+
+        class HelloWorld extends Component {
+            constructor() {
+                super(`<h1>Hello, World!</h1>`)
+            }
+        }
+        
+        const helloWorld = new HelloWorld()
+
+        document.body.append(helloWorld.container)
+    </script>
+</body>
+</html>
