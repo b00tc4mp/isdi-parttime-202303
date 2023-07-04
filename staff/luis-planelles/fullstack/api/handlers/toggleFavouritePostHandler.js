@@ -1,20 +1,19 @@
 const { toggleFavouritePost } = require('../logic');
-const { extractUserId } = require('../helpers');
+const { extractToken } = require('../helpers');
 
 const toggleFavouritePostHandler = (req, res) => {
   try {
-    const userId = extractUserId(req),
-      { postId } = req.params;
+    const token = extractToken(req);
 
-    toggleFavouritePost(userId, postId, (error) => {
-      if (error) {
-        res.status(400).json({ error: error.message });
+    const payload = jwt.verify(token, process.env.SECRET, { expiresIn: '10s' });
 
-        return;
-      }
+    const { sub: userId } = payload;
 
-      res.status(204).send();
-    });
+    const { postId } = req.params;
+
+    return toggleFavouritePost(userId, postId)
+      .then(() => res.status(204).send())
+      .catch((error) => res.status(400).json({ error: error.message }));
   } catch (error) {
     res.status(400).json({ error: error.message });
   }

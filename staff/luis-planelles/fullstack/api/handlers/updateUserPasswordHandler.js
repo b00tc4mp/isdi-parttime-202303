@@ -1,27 +1,19 @@
 const { updateUserPassword } = require('../logic');
-const { extractUserId } = require('../helpers');
+const { extractToken } = require('../helpers');
 
 const updateUserPasswordHandler = (req, res) => {
   try {
-    const userId = extractUserId(req);
+    const token = extractToken(req);
+
+    const payload = jwt.verify(token, process.env.SECRET, { expiresIn: '10s' });
+
+    const { sub: userId } = payload;
 
     const { password, newPassword, newPasswordConfirm } = req.body;
 
-    updateUserPassword(
-      userId,
-      password,
-      newPassword,
-      newPasswordConfirm,
-      (error) => {
-        if (error) {
-          res.status(400).json({ error: error.message });
-
-          return;
-        }
-
-        res.status(204).send();
-      }
-    );
+    updateUserPassword(userId, password, newPassword, newPasswordConfirm)
+      .then(() => res.status(204).send())
+      .catch((error) => res.status(400).json({ error: error.message }));
   } catch (error) {
     res.status(400).json({ error: error.message });
   }

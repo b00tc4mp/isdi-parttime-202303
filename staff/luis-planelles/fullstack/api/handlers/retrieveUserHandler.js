@@ -1,19 +1,18 @@
 const { retrieveUser } = require('../logic');
-const { extractUserId } = require('../helpers');
+const { extractToken } = require('../helpers');
+const jwt = require('jsonwebtoken');
 
 const retrieveUserHandler = (req, res) => {
   try {
-    const userId = extractUserId(req);
+    const token = extractToken(req);
 
-    retrieveUser(userId, (error, user) => {
-      if (error) {
-        res.status(400).json({ error: error.message });
+    const payload = jwt.verify(token, process.env.SECRET, { expiresIn: '10s' });
 
-        return;
-      }
+    const { sub: userId } = payload;
 
-      res.json(user);
-    });
+    return retrieveUser(userId)
+      .then((user) => res.json(user))
+      .catch((error) => res.status(400).json({ error: error.message }));
   } catch (error) {
     res.status(400).json({ error: error.message });
   }

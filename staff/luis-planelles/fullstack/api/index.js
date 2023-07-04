@@ -15,7 +15,8 @@ const {
   toggleLikePostHandler,
 } = require('./handlers');
 const express = require('express');
-const { cors, jsonBodyParser } = require('./utils');
+const cors = require('cors');
+const bodyParser = require('body-parser');
 const { MongoClient } = require('mongodb');
 const context = require('./logic/context');
 
@@ -31,17 +32,19 @@ client
 
     let api = express();
 
-    api.use(cors);
+    const jsonBodyParser = bodyParser.json();
+
+    api.use(cors());
 
     // api routes
     api.get('/', (req, res) => res.send('Hello, API!'));
 
     api.post('/users', jsonBodyParser, registerUserHandler);
     api.post('/users/auth', jsonBodyParser, authenticateUserHandler);
-    api.get('/users/', retrieveUserHandler);
-    api.patch('/users/updateAvatar/', jsonBodyParser, updateUserAvatarHandler);
+    api.get('/users', retrieveUserHandler);
+    api.patch('/users/updateAvatar', jsonBodyParser, updateUserAvatarHandler);
     api.patch(
-      '/users/updatePassword/',
+      '/users/updatePassword',
       jsonBodyParser,
       updateUserPasswordHandler
     );

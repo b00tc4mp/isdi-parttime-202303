@@ -2,23 +2,17 @@ const { deletePost } = require('../logic');
 const { extractUserId } = require('../helpers');
 
 const deletePostHandler = (req, res) => {
-  try {
-    const userId = extractUserId(req);
+  const token = extractToken(req);
 
-    const { postId } = req.params;
+  const payload = jwt.verify(token, process.env.SECRET, { expiresIn: '10s' });
 
-    deletePost(userId, postId, (error) => {
-      if (error) {
-        res.status(400).json({ error: error.message });
+  const { sub: userId } = payload;
 
-        return;
-      }
+  const { postId } = req.params;
 
-      res.status(204).send();
-    });
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
+  deletePost(userId, postId)
+    .then(() => res.status(204).send())
+    .catch((error) => res.status(400).json({ error: error.message }));
 };
 
 module.exports = deletePostHandler;
