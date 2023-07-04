@@ -1,8 +1,8 @@
 const validateName = (name) => {
   const containsSpaces = /\s/g;
 
-  if (!name.length) throw new Error('name is empty');
   if (typeof name !== 'string') throw new Error('name is not a string');
+  if (!name.length) throw new Error('name is empty');
   if (containsSpaces.test(name)) throw new Error('name contains spaces');
 
   return name.trim();
@@ -11,8 +11,8 @@ const validateName = (name) => {
 const validateEmail = (email) => {
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
+  if (typeof email !== 'string') throw new Error('email is not a string');
   if (!email.length) throw new Error('email is empty');
-  if (typeof email !== 'string') throw new Error('email is not an string');
   if (!emailRegex.test(email)) throw new Error('invalid email');
 
   return email;
