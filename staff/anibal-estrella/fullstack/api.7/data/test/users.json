@@ -1,0 +1,26 @@
+[
+    {
+        "id": "user-1",
+        "name": "Enki Estrella",
+        "email": "new_email@mail.com",
+        "password": "123123123",
+        "avatar": "https://www.sideshow.com/cdn-cgi/image/height=200,quality=90,f=auto/https://www.sideshow.com/storage/product-images/907383/astro-boy-version-15_astro-boy_square_sm.jpg",
+        "favs": []
+    },
+    {
+        "id": "user-2",
+        "name": "Enki Estrella",
+        "email": "enki@gmail.com",
+        "password": "123123123",
+        "avatar": null,
+        "favs": []
+    },
+    {
+        "id": "user-3",
+        "name": "Anibal Estrella",
+        "email": "anibal@gmail.com",
+        "password": "123123123",
+        "avatar": null,
+        "favs": []
+    }
+]

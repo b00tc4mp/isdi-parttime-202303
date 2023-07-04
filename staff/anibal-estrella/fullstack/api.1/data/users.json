@@ -1,0 +1,16 @@
+[
+    {
+        "id": "user-1",
+        "name": "Eli Carné",
+        "email": "Eli@gmail.com",
+        "password": "123123123",
+        "favs": []
+    },
+    {
+        "id": "user-2",
+        "name": "enki estrella",
+        "email": "enki@gmail.com",
+        "password": "123123123",
+        "favs": []
+    }
+]

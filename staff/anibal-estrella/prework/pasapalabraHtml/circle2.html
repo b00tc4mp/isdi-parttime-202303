@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      *{
+        padding: 0px;
+        margin: 0px;
+      }
+      .container{
+        height: 50%;
+        background-color: aqua;
+      }
+      .letters-list {
+          margin: auto;
+  width: 50%;
+  position: relative;
+  background-color: blanchedalmond;
+  padding-bottom: 100%;
+
+}
+
+
+.letters-list li {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  width: 3.2rem;
+  height: 3.2rem;
+  margin: 2rem;
+  font-size: 2rem;
+  line-height: 3rem;
+  border: 1px solid whitesmoke;
+  border-radius: 100%;
+  font-weight: 700;
+  color: white;
+  text-align: center;
+  background: var(--blue);
+  aspect-ratio: 1;
+  display: inline-block;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.2);
+}
+
+    </style>
+    <title>Document</title>
+</head>
+<body>
+  <div class="container">
+
+    <ul class="letters-list"></ul>
+
+  </div>
+  </body>
+<script>
+  
+  const circleAlphabet = () =>{
+  const ulLetters = document.querySelector(".letters-list");
+  
+let diameter = ulLetters.offsetWidth;
+let radius = diameter / 2;
+const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  for (let i = 0; i < letters.length; i++) {
+    const letter = letters.charAt(i);
+    const angle = i / letters.length * Math.PI * 2;
+    const x = Math.round(radius + radius * Math.cos(angle));
+    const y = Math.round(radius + radius * Math.sin(angle));
+    const li = document.createElement("li");
+    console.table(Math.round(Math.cos(angle)));
+    li.classList.add(`letter`, `letter-${letters[i]}`, "status-0");
+    li.innerHTML = letters[i];
+    li.style.left = x + "px";
+    li.style.top = y + "px";
+    ulLetters.appendChild(li);
+  }
+  window.addEventListener('resize', function() {
+  
+    diameter = ulLetters.offsetWidth;
+    radius = diameter / 2;
+    for (let i = 0; i < ulLetters.children.length; i++) {
+      const li = ulLetters.children[i];
+      const angle = i / letters.length * Math.PI * 2;
+      const y = -Math.round(radius + radius * Math.cos(angle));
+      const x = Math.round(radius + radius * Math.sin(angle));
+      li.style.left = x + "px";
+      li.style.top = y + "px";
+    }
+  });
+}
+circleAlphabet()
+
+</script>
+</html>

@@ -1,0 +1,137 @@
+<html>
+
+<head>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    #countdown {
+      font-family: 'Lato', sans-serif;
+      font-size: 50px;
+      text-align: center;
+    }
+  </style>
+  <title>Text Input Form</title>
+</head>
+
+<body>
+  <h1 id="headline" class="headline-class">Original <bold>Headline</bold> here</h1>
+
+  <form>
+    <label for="inputText">Enter Texto:</label>
+    <input type="text" id="inputText" name="inputText">
+    <button type="button" onclick="changeHeadline()">Change Headline id</button>
+    <button type="button" onclick="changeHeadlineClass(),changeElementStyle('headline-class','color','red')">Change
+      Headline css</button>
+    <button type="button" onclick="">Change Headline css</button>
+
+    <div id="countdown">
+      <li class="time-left-value"></li>
+    </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+      var but = document.getElementById("but");
+      var video = document.getElementById("vid");
+      var mediaDevices = navigator.mediaDevices;
+      vid.muted = true;
+      but.addEventListener("click", () => {
+      
+        // Accessing the user camera and video.
+        mediaDevices
+        .getUserMedia({
+          video: true,
+          audio: true,
+        })
+        .then((stream) => {
+      
+          // Changing the source of video to current stream.
+          video.srcObject = stream;
+          video.addEventListener("loadedmetadata", () => {
+          video.play();
+          });
+        })
+        .catch(alert);
+      });
+      });
+    </script>
+    <style>
+      div {
+      width: 500px;
+      height: 400px;
+      border: 2px solid black;
+      position: relative;
+      }
+      video {
+      width: 500px;
+      height: 400px;
+      object-fit: cover;
+      }
+    </style>
+    <div>
+      <video id="vid"></video>
+    </div>
+    <br />
+    <button id="but" autoplay>
+      Open WebCam
+    </button>
+    
+
+  </form>
+  <script>
+    let inputText;
+    let caca = "jijiji";
+    console.log(caca);
+
+    const changeHeadline = () => {
+      inputText = document.getElementById("inputText").value;
+      document.getElementById("headline").innerHTML = inputText;
+      console.log(caca);
+    };
+    const changeHeadlineClass = (inputText) => {
+      inputText = document.getElementById("inputText").value;
+      document.querySelector(".headline-class").innerHTML = inputText;
+      console.log(inputText);
+    };
+    const changeElementStyle = (elementClass, property, propertyValue) => {
+      const element = document.querySelector(`.${elementClass}`);
+      element.style[property] = propertyValue;
+    };
+
+
+    /*
+    COUNTDOWN
+    */
+
+
+const timer=()=>{
+
+  // Set the date we're counting down to
+  const countDownDate = new Date().getTime() + 120000;
+  
+  // Update the count down every 1 second
+  
+  const displayCountdown = () => {
+    // Get today's date and time
+    const now = new Date().getTime();
+    // Find the distance between now and the count down date
+    const distance = countDownDate - now;
+    // Time calculations for minutes and seconds
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      // Display the result in the element with id="timer"
+      document.querySelector(".time-left-value").innerText = `${minutes}m ${seconds}s`;
+
+
+      // If the count down is finished, write some text
+      if (distance < 0) {
+        clearInterval(x);
+        document.querySelector(".time-left-value").innerText = "TIME OUT!";
+        alert('time!');
+      }
+    };
+    const x = setInterval(displayCountdown, 1000);
+  }
+    timer()
+    </script>
+    </body>
+    
+    </html>
