@@ -11,7 +11,7 @@ const PostsUser = ({onEditPost, lastPostUpdate}) => {
 
   useEffect(() => {
     try{    
-      retrievePostsUser(context.userId, (error, postsUser) => {
+      retrievePostsUser(context.token, (error, postsUser) => {
         if (error) {
           alert(error.message)
         }
@@ -27,7 +27,7 @@ const PostsUser = ({onEditPost, lastPostUpdate}) => {
 
 const HandlerefreshPost = () => {
   try{    
-    retrievePostsUser(context.userId, (error, postsUser) => {
+    retrievePostsUser(context.token, (error, postsUser) => {
       if (error) {
         alert(error.message)
       }

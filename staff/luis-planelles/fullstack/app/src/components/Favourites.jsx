@@ -10,7 +10,7 @@ const Favourites = () => {
 
   useEffect(() => {
     try {
-      retrieveFavourites(context.userId, (error, userFavourites) => {
+      retrieveFavourites(context.token, (error, userFavourites) => {
         if (error) {
           alert(error.message)
         }

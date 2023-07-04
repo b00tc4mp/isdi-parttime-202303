@@ -41,7 +41,7 @@ const Login = ({onRegisterClick, onUserLoggedIn}) => {
     password = event.target.password.value;
 
     try {
-      authenticateUser(email, password, (error, userId) => {
+      authenticateUser(email, password, (error, token) => {
         
         if (error) {
           alert(error.message)
@@ -49,7 +49,7 @@ const Login = ({onRegisterClick, onUserLoggedIn}) => {
           return 
         } 
 
-        context.userId = userId
+        context.token = token
         
         onUserLoggedIn()
       })

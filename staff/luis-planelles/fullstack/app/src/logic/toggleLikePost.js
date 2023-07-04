@@ -1,9 +1,9 @@
 import { validators } from 'com';
 const { validateId, validateCallback } = validators;
 
-const toggleLikePost = (userId, postId, callback) => {
+const toggleLikePost = (token, postId, callback) => {
+  validateId(token, 'token');
   validateId(postId, 'post id');
-  validateId(userId, 'user id');
   validateCallback(callback);
 
   const xhr = new XMLHttpRequest();
@@ -28,7 +28,7 @@ const toggleLikePost = (userId, postId, callback) => {
 
   xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/posts/like/${postId}`);
 
-  xhr.setRequestHeader('Authorization', `Bearer ${userId}`);
+  xhr.setRequestHeader('Authorization', `Bearer ${token}`);
 
   xhr.send();
 };

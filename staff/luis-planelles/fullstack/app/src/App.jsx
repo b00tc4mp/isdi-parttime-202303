@@ -8,7 +8,7 @@ import Register from './pages/Register'
 import { context } from './ui'
 
 const App = () => {
-    const [view, setView] = useState(context.userId ? 'home' : 'login')
+    const [view, setView] = useState(context.token ? 'home' : 'login')
     const [feedback, setFeedback] = useState(null)
     const [loader, setLoader] = useState(false)
 

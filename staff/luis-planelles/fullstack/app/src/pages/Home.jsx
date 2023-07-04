@@ -24,7 +24,7 @@ const Home = ({onLoggedOut}) => {
   useEffect(() => {
     
     try {
-      retrieveUser(context.userId, (error, retrievedUser) => {
+      retrieveUser(context.token, (error, retrievedUser) => {
         if(error) {
           alert(error.message)
         
@@ -40,7 +40,7 @@ const Home = ({onLoggedOut}) => {
 
   const handleProfileUpdated = () => {
       try {
-          retrieveUser(context.userId, (error, updatedUser) => {
+          retrieveUser(context.token, (error, updatedUser) => {
             if (error) {
               alert(error.message)
               
@@ -56,7 +56,7 @@ const Home = ({onLoggedOut}) => {
   },
   
   hadleLogOutButton = () =>  {
-    delete context.userId
+    delete context.token
     onLoggedOut()
   },
 

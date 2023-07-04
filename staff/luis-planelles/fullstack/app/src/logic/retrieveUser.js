@@ -1,9 +1,9 @@
 import { validators } from 'com';
 
-const { validateId, validateCallback } = validators;
+const { validateToken, validateCallback } = validators;
 
-const retrieveUser = (userId, callback) => {
-  validateId(userId, 'user id');
+const retrieveUser = (token, callback) => {
+  validateToken(token, 'user id');
   validateCallback(callback);
 
   const xhr = new XMLHttpRequest();
@@ -32,7 +32,7 @@ const retrieveUser = (userId, callback) => {
 
   xhr.open('GET', `${import.meta.env.VITE_API_URL}/users`);
 
-  xhr.setRequestHeader('Authorization', `Bearer ${userId}`);
+  xhr.setRequestHeader('Authorization', `Bearer ${token}`);
 
   xhr.send();
 };

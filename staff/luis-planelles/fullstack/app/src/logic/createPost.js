@@ -1,8 +1,9 @@
 import { validators } from 'com';
-const { validateId, validateUrl, validateText, validateCallback } = validators;
+const { validateToken, validateUrl, validateText, validateCallback } =
+  validators;
 
-const createPost = (userId, image, text, callback) => {
-  validateId(userId, 'user id');
+const createPost = (token, image, text, callback) => {
+  validateToken(userId, 'user id');
   validateUrl(image, 'image');
   validateText(text, 'text');
   validateCallback(callback);
@@ -31,7 +32,7 @@ const createPost = (userId, image, text, callback) => {
   xhr.open('POST', `${import.meta.env.VITE_API_URL}/users/post`);
 
   xhr.setRequestHeader('Content-Type', 'application/json');
-  xhr.setRequestHeader('Authorization', `Bearer ${userId}`);
+  xhr.setRequestHeader('Authorization', `Bearer ${token}`);
 
   const post = { image, text },
     json = JSON.stringify(post);

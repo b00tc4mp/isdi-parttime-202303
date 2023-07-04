@@ -21,9 +21,9 @@ const authenticateUser = (email, password, callback) => {
     }
 
     const { response: json } = xhr,
-      userId = JSON.parse(json);
+      token = JSON.parse(json);
 
-    callback(null, userId);
+    callback(null, token);
   };
 
   xhr.onerror = () => {

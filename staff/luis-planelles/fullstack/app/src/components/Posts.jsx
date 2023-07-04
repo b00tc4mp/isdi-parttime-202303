@@ -15,7 +15,7 @@ const Posts = ({onEditPost, onSellPost, lastPostUpdate}) => {
         try {
             freeze()
 
-            retrievePosts(context.userId, (error, posts) => {
+            retrievePosts(context.token, (error, posts) => {
                 unfreeze()
 
                 if (error) {

@@ -18,7 +18,7 @@ const AddPostModal = ({ onCancel, onPostCreate }) => {
       text = event.target.text.value;
 
     try {
-      createPost(context.userId, image, text, (error) => {
+      createPost(context.token, image, text, (error) => {
         if (error) {
           alert(error.message)
 

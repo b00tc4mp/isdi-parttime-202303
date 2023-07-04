@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useAppContext } from '../hooks';
-import buyPost from "../logic/buyPost";
 import deletePost from "../logic/deletePost";
 import retrieveUser from "../logic/retrieveUser";
 import toggleFavouritePost from "../logic/toggleFavouritePost";
@@ -22,7 +21,7 @@ const Post = ({ post: { id, author, image, likes, favourites, price, text, date}
 
   useEffect(() => {
       try {
-          retrieveUser(context.userId, (error, user) => {
+          retrieveUser(context.token, (error, user) => {
               if (error) {
                   alert(error.message)
                   
@@ -38,29 +37,10 @@ const Post = ({ post: { id, author, image, likes, favourites, price, text, date}
 
   const handleEditPost = () => onEdit(id),
   
-  handleSellPost = () => onSell(id),
-
-  handleBuyPost = () => {
-    try{
-      buyPost(context.userId, author.id, id, (error) => {
-        if (error) {
-          alert(error.message)
-        
-          return
-        }
-        
-        onBuy()
-      })
-
-    } catch(error) {
-      alert(error.message)
-    }
-  },
-
   handleLikePost = () => {
 
     try{
-      toggleLikePost(context.userId, id, (error) => {
+      toggleLikePost(context.token, id, (error) => {
         if (error) {
           alert(error.message)
         
@@ -77,7 +57,7 @@ const Post = ({ post: { id, author, image, likes, favourites, price, text, date}
 
   handleFavouritePost = () => {
     try{
-      toggleFavouritePost(context.userId, id, (error) => {
+      toggleFavouritePost(context.token, id, (error) => {
         if (error) {
           alert(error.message)
         
@@ -94,7 +74,7 @@ const Post = ({ post: { id, author, image, likes, favourites, price, text, date}
 
   handleDeletePost = () => {
     try {
-        deletePost(context.userId, id, (error) => {
+        deletePost(context.token, id, (error) => {
           if (error) {
             alert(error.message)
           
@@ -115,7 +95,7 @@ const Post = ({ post: { id, author, image, likes, favourites, price, text, date}
         <div className='post-header'>
             <img className='post-avatar' src={author.avatar} />
             <p className='post-author'>{author.name}</p>
-          {context.userId === author.id && (
+          {user.id === author.id && (
           <>
             <button className='button-delete' onClick={handleDeletePost}>
               <i className='fas fa-trash'></i> 
@@ -123,18 +103,8 @@ const Post = ({ post: { id, author, image, likes, favourites, price, text, date}
             <button className='button-edit' onClick={handleEditPost}>
               <i className='far fa-pen'></i> 
             </button>
-            <button className='button-sale' onClick={handleSellPost}>
-              <i className='far fa-wallet'></i> 
-            {price &&
-              <i className='price-seller'> {price}$</i>}
-            </button>
           </>
         )}
-        {price && context.userId !== author.id &&
-          <button className='button-buy' onClick={handleBuyPost} >
-            <i className='far fa-coin'> {price}$</i> 
-          </button>
-        }
         </div>
         <img className='post-image' src={image} />
         <div className='post-image-footer'>

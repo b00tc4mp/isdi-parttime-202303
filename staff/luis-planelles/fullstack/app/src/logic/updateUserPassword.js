@@ -1,5 +1,5 @@
 import { validators } from 'com';
-const { validateId, validatePassword, validateCallback } = validators;
+const { validateToken, validatePassword, validateCallback } = validators;
 
 const updateUserPassword = (
   userId,
@@ -8,7 +8,7 @@ const updateUserPassword = (
   newPasswordConfirm,
   callback
 ) => {
-  validateId(userId, 'user id');
+  validateToken(token, 'user id');
   validatePassword(password, 'password');
   validatePassword(newPassword, 'new password');
   validatePassword(newPasswordConfirm, 'new password confirm');
@@ -37,7 +37,7 @@ const updateUserPassword = (
   xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/users/updatePassword/`);
 
   xhr.setRequestHeader('Content-Type', 'application/json');
-  xhr.setRequestHeader('Authorization', `Bearer ${userId}`);
+  xhr.setRequestHeader('Authorization', `Bearer ${token}`);
 
   const data = {
       password: password,

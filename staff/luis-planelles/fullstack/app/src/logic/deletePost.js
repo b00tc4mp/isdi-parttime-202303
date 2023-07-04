@@ -1,8 +1,8 @@
 import { validators } from 'com';
-const { validateId, validateCallback } = validators;
+const { validateToken, validateId, validateCallback } = validators;
 
-const deletePost = (userId, postId, callback) => {
-  validateId(userId, 'user id');
+const deletePost = (token, postId, callback) => {
+  validateToken(userId, 'token');
   validateId(postId, 'post id');
   validateCallback(callback);
 
@@ -30,7 +30,7 @@ const deletePost = (userId, postId, callback) => {
   xhr.open('DELETE', `${import.meta.env.VITE_API_URL}/posts/${postId}`);
 
   xhr.setRequestHeader('Content-Type', 'application/json');
-  xhr.setRequestHeader('Authorization', `Bearer ${userId}`);
+  xhr.setRequestHeader('Authorization', `Bearer ${token}`);
 
   const post = { postId },
     json = JSON.stringify(post);

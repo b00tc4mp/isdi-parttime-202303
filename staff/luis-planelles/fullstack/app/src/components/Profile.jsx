@@ -14,7 +14,7 @@ const Profile = ({onOpenEditProfile, onOpenFavourites, onProfileImageClick}) => 
     
     useEffect(() => {
       try {
-        retrieveUser(context.userId, (error, retrievedUser) => {
+        retrieveUser(context.token, (error, retrievedUser) => {
           if (error) {
             alert(error.message);
 
@@ -30,7 +30,7 @@ const Profile = ({onOpenEditProfile, onOpenFavourites, onProfileImageClick}) => 
     
     useEffect(() => {
       try {
-        retrievePostsUser(context.userId, (error, postsUser) => {
+        retrievePostsUser(context.token, (error, postsUser) => {
           if (error) {
             alert(error.message);
           

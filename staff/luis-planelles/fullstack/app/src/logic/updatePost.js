@@ -1,12 +1,15 @@
-import {
+import { validators } from 'com';
+
+const {
   validateCallback,
   validateId,
   validateText,
+  validateToken,
   validateUrl,
-} from './helpers/validators';
+} = validators;
 
-const updatePost = (userId, postId, image, text, callback) => {
-  validateId(userId, 'user id');
+const updatePost = (token, postId, image, text, callback) => {
+  validateToken(token, 'token');
   validateId(postId, 'post id');
   validateUrl(image, 'image url');
   validateText(text);
@@ -39,7 +42,7 @@ const updatePost = (userId, postId, image, text, callback) => {
   );
 
   xhr.setRequestHeader('Content-Type', 'application/json');
-  xhr.setRequestHeader('Authorization', `Bearer ${userId}`);
+  xhr.setRequestHeader('Authorization', `Bearer ${token}`);
 
   const data = { image, text },
     json = JSON.stringify(data);

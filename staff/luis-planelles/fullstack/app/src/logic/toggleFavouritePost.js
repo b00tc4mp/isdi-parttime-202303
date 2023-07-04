@@ -1,9 +1,9 @@
 import { validators } from 'com';
-const { validateId, validateCallback } = validators;
+const { validateToken, validateId, validateCallback } = validators;
 
-const toggleFavouritePost = (userId, postId, callback) => {
-  validateId(postId, 'post id');
-  validateId(userId, 'user id');
+const toggleFavouritePost = (token, postId, callback) => {
+  validateToken(token, 'post id');
+  validateId(postId, 'user id');
   validateCallback(callback);
 
   const xhr = new XMLHttpRequest();
@@ -31,7 +31,7 @@ const toggleFavouritePost = (userId, postId, callback) => {
     `${import.meta.env.VITE_API_URL}/posts/favourite/${postId}`
   );
 
-  xhr.setRequestHeader('Authorization', `Bearer ${userId}`);
+  xhr.setRequestHeader('Authorization', `Bearer ${token}`);
 
   xhr.send();
 };

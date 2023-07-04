@@ -12,7 +12,7 @@ const ProfileUpdateModal = ({onUserAvatarUpdated, onUserPasswordUpdated}) => {
     const avatarUrl = event.target.avatarUrl.value;
 
     try {
-      updateUserAvatar(context.userId, avatarUrl, (error) => {
+      updateUserAvatar(context.token, avatarUrl, (error) => {
         if (error) {
           alert(error.message)
 
@@ -37,7 +37,7 @@ const ProfileUpdateModal = ({onUserAvatarUpdated, onUserPasswordUpdated}) => {
 
     try {
       updateUserPassword(
-          context.userId, 
+          context.token, 
           password, 
           newPassword, 
           newPasswordConfirm, (error) => {
