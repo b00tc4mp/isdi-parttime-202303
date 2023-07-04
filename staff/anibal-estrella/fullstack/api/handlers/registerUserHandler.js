@@ -1,17 +1,10 @@
 const { registerUser } = require('../logic')
+const { handleErrors } = require('./helpers')
 
-const jwt = require('jsonwebtoken')
+module.exports = handleErrors((req, res) => {
+    const { name, email, password } = req.body
 
-module.exports = (req, res) => {
-    try {
-        const { name, email, password, repeatPassword } = req.body
+    return registerUser(name, email, password)
+        .then(() => res.status(201).send())
 
-        registerUser(name, email, password, repeatPassword)
-            // happy path 😄
-            .then(() => res.status(201).send())
-            // unhappy path 😢
-            .catch(error => res.status(400).json({ error: error.message }))
-    } catch (error) {
-        res.status(400).json({ error: error.message })
-    }
-}
+})

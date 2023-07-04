@@ -1,13 +1,15 @@
+const { ContentError } = require('./errors')
+
 /**
  * Validates an email
  * @param {string} email an email
  */
 
 function validateEmail(email, explain = "email") {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const emailRegex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
     if (typeof email !== 'string') throw new TypeError(`${explain} must be a string`)
-    if (!email.trim().length) throw new Error(`${explain} is blank`)
-    if (!emailRegex.test(email)) throw new Error(`${explain} is not an email`)
+    if (!email.trim().length) throw new ContentError(`${explain} is blank`)
+    if (!emailRegex.test(email)) throw new ContentError(`${explain} is not an email`)
 
 }
 
@@ -18,7 +20,7 @@ function validateEmail(email, explain = "email") {
  */
 function validatePassword(password, explain = "password") {
     if (typeof password !== 'string') throw new TypeError(`${explain} must be a string`)
-    if (password.trim().length < 8) throw new Error(`The ${explain} must be more than 8 characters long`)
+    if (password.trim().length < 8) throw new RangeError(`The ${explain} must be more than 8 characters long`)
 }
 
 /**
@@ -27,7 +29,7 @@ function validatePassword(password, explain = "password") {
  */
 function validateName(name, explain = "name") {
     if (typeof name !== 'string') throw new TypeError(`${explain} must be a string`)
-    if (!name.trim().length) throw new Error(`${explain} is blank`)
+    if (!name.trim().length) throw new ContentError(`${explain} is blank`)
 }
 
 /**
@@ -37,18 +39,18 @@ function validateName(name, explain = "name") {
  */
 function validateUrl(url, explain = 'URL') {
     if (typeof url !== 'string') throw new TypeError(`${explain} must be a string`)
-    if (!url.trim().length) throw new Error(`${explain} is empty`)
+    if (!url.trim().length) throw new ContentError(`${explain} is empty`)
 }
 
 function validateId(id, explain = 'id') {
     if (typeof id !== 'string') throw new TypeError(`${explain} is ${typeof id} and must be a string`)
-    if (!id.trim().length) throw new Error(`${explain} is empty`)
+    if (!id.trim().length) throw new ContentError(`${explain} is empty`)
 }
 
 function validateText(text, explain = 'text') {
     if (text.length < 1) throw new Error(`${explain} must be longer than one character'`)
     if (typeof text !== 'string') throw new TypeError(`${explain} must be a string`)
-    if (!text.trim().length) throw new Error(`${explain} is blank`)
+    if (!text.trim().length) throw new ContentError(`${explain} is blank`)
 }
 
 function validateCallback(callback, explain = "callback") {
@@ -56,7 +58,7 @@ function validateCallback(callback, explain = "callback") {
 }
 function validateToken(token, explain = 'token') {
     if (typeof token !== 'string') throw new TypeError(`${explain} is ${typeof id} and must be a string`)
-    if (token.split('.').length != 3) throw new Error(`${explain} is not `)
+    if (token.split('.').length != 3) throw new ContentError(`${explain} is not `)
 }
 
 

@@ -1,6 +1,5 @@
-import { validators } from 'com'
-
-const { validateEmail, validatePassword, validateCallback } = validators
+const { validators: { validateCallback, validateEmail, validatePassword },
+    errors: { DuplicityError, ContentError } } = require('com')
 
 /* 
 * app/logic/authenticateUser.js

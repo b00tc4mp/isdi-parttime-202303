@@ -9,6 +9,11 @@ export default function registerUser(name, email, password, repeatPassword, call
     validatePassword(repeatPassword, 'repeat password')
     validateCallback(callback, 'callback function')
 
+    // WTF?
+    if (password !== repeatPassword) {
+        throw new ContentError("Passwords do not match, please try again");
+    }
+
     //the connector that allows us to connect with the server
     const xhr = new XMLHttpRequest()
 
