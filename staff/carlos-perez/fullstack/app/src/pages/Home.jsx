@@ -17,15 +17,9 @@ export default function Home({ onLoggedOut }) {
 
     useEffect(() => {
         try {
-            retrieveUser(context.userId, (error, user) => {
-                if (error) {
-                    alert(error.message)
-
-                    return
-                }
-
-                setUser(user)
-            })
+            retrieveUser(context.token)
+                .then(setUser)
+                .catch(error => alert(error.message))
         } catch (error) {
             alert(error.message)
         }
@@ -56,7 +50,7 @@ export default function Home({ onLoggedOut }) {
     }
 
     const handleLogout = () => {
-        delete context.userId
+        delete context.token
 
         onLoggedOut()
     }
