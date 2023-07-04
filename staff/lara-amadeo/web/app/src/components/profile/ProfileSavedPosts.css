@@ -1,0 +1,9 @@
+.personal-profile-posts{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    height: fit-content;
+    gap:8px;
+    box-sizing: border-box;
+}
