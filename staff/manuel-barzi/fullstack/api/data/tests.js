@@ -14,7 +14,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/data')
         const user = new User({ name: 'Pepito Grillo\t\n', email: 'pepita@grillo.com', password: '123123123' })
         const post = new Post({ author: user.id, image: 'http://image.com/cool', text: 'cool image' })
 
-        post.author = user.id
+        // post.author = user.id
 
         user.favs.push(post.id)
         post.likes.push(user.id)
