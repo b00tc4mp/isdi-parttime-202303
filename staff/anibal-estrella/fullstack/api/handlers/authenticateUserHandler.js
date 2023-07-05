@@ -1,24 +1,18 @@
 const { authenticateUser } = require('../logic')
 const jwt = require('jsonwebtoken')
+const { handleErrors } = require('./helpers')
 
-module.exports = (req, res) => {
-    debugger
-    try {
-        const { email, password } = req.body
-        //the handle calls this logic
-        authenticateUser(email, password)
-            .then(userId => {
-                // load the token in the payload for that userid 
-                const payload = { sub: userId }
-                // sign it with the secret phrase and returns a hash in a json
-                const token = jwt.sign(payload, process.env.SECRET, { expiresIn: '100s' })
-                // return the token PAYLOAD
-                res.json(token)
-            })
 
-            //this receives the error from the authenticateUser function
-            .catch(error => res.status(400).json({ error: error.message }))
-    } catch (error) {
-        res.status(400).json({ error: error.message })
-    }
-}
+module.exports = handleErrors((req, res) => {
+    const { email, password } = req.body
+
+    return authenticateUser(email, password)
+        .then(userId => {
+
+            const payload = { sub: userId }
+
+            const token = jwt.sign(payload, process.env.SECRET, { expiresIn: '1h' })
+
+            res.json(token)
+        })
+})

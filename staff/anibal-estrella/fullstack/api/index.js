@@ -47,7 +47,7 @@ client.connect()
 
         api.post('/users/auth', jsonBodyParser, authenticateUserHandler)
 
-        api.get('/users/user', retrieveUserHandler)
+        api.get('/users', retrieveUserHandler)
 
         api.post('/posts', jsonBodyParser, createPostHandler)
 

@@ -1,15 +1,15 @@
 import { findUserById, loadPosts, loadUsers } from "../data.js"
 
 import { validators } from 'com'
-const { validateCallback, validateId } = validators
+const { validateCallback, validateToken } = validators
 
-export default function retrievePosts(userId, callback) {
-    validateId(userId, 'user id')
+export default function retrievePosts(token, callback) {
+    validateToken(token, 'user id')
     validateCallback(callback, 'callback function')
 
-    findUserById(userId, user => {
+    findUserById(token, user => {
         if (!user) {
-            callback(new Error(`User ${userId} not found`))
+            callback(new Error(`User ${user} not found`))
 
             return
         }

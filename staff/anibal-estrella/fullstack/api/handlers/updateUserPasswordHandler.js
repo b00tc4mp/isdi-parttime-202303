@@ -1,11 +1,11 @@
 const { updateUserPassword } = require('../logic')
-const { extractToken } = require('../helpers')
+const { extractUserId } = require('./helpers')
 
 const jwt = require('jsonwebtoken')
 
 module.exports = (req, res) => {
     try {
-        const userId = extractToken(req)
+        const userId = extractUserId(req)
 
         const { password, newPassword, newPasswordConfirm } = req.body
 

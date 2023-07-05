@@ -1,11 +1,11 @@
 const { updateUserEmail } = require('../logic')
-const { extractToken } = require('../helpers')
+const { extractUserId } = require('./helpers')
 
 const jwt = require('jsonwebtoken')
 
 module.exports = (req, res) => {
     try {
-        const userId = extractToken(req)
+        const userId = extractUserId(req)
 
         const { newEmail, newEmailConfirm } = req.body
 

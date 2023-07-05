@@ -22,7 +22,7 @@ export default function Posts({ onEditPost, lastPostsUpdate, onOpenSavedPosts, u
         try {
             freeze()
             if (view === 'saved-posts') {
-                retrieveSavedPosts(context.userId, (error, posts) => {
+                retrieveSavedPosts(context.token, (error, posts) => {
                     unfreeze()
 
                     if (error) {
@@ -33,7 +33,7 @@ export default function Posts({ onEditPost, lastPostsUpdate, onOpenSavedPosts, u
                 })
 
             } else
-                retrievePosts(context.userId, (error, posts) => {
+                retrievePosts(context.token, (error, posts) => {
                     unfreeze()
 
                     if (error) {

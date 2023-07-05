@@ -25,7 +25,7 @@ export default function Home({ onLoggedOut }) {
 
     useEffect(() => {
         try {
-            retrieveUser(context.userId, (error, user) => {
+            retrieveUser(context.token, (error, user) => {
                 if (error) {
                     alert(error.message)
 
@@ -68,13 +68,13 @@ export default function Home({ onLoggedOut }) {
         delete context.userId
         onLoggedOut()
     }
-    
+
     const handleAvatarUpdated = () => {
         try {
             retrieveUser(context.userId, (error, user) => {
                 if (error) {
                     alert(error.message)
-                    
+
                     return
                 }
                 setUser(user)
@@ -88,16 +88,16 @@ export default function Home({ onLoggedOut }) {
         setView('posts')
         console.debug('// OPEN => ALL POSTS');
     }
-    
-    
+
+
     const handleOpenSavedPosts = () => {
         setView('saved-posts')
         // console.debug('// OPEN => SAVED POSTS');
     }
-    
-    
+
+
     const toggleTheme = () => {
-        console.debug('// TODO: DARK THEME');  
+        console.debug('// TODO: DARK THEME');
         document.querySelector(':root').classList.toggle('dark-theme')
     }
 
@@ -149,12 +149,12 @@ export default function Home({ onLoggedOut }) {
             </div>
 
             {view === 'posts' && <Posts
-            onOpenShowPosts={handleOpenShowPosts}
+                onOpenShowPosts={handleOpenShowPosts}
                 onEditPost={handleOpenEditPostModal}
-                lastPostsUpdate={lastPostsUpdate} 
+                lastPostsUpdate={lastPostsUpdate}
             /> || view === 'saved-posts' && <Posts onOpenSavedPosts={view} />}
 
-           
+
             {view === 'profile' && <Profile onAvatarUpdated={handleAvatarUpdated} />}
 
             {modal === 'add-post' && <AddPostModal

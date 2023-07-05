@@ -1,25 +1,24 @@
-const { validators: { validateId } } = require('com')
+const { validators: { validateId },
+    errors: { ExistenceError } } = require('com')
 const context = require('./context')
 const { ObjectId } = require('mongodb')
 
+/**
+ *  * Api/retriveUser:
+ * Retrieves a user by id
+ * @param {string} userId 
+ * @returns {Promise<string>} The user ID
+ */
 
 module.exports = userId => {
     validateId(userId, 'user Id')
 
     const { users } = context
-    // bring id striing using ObjectId
+
     return users.findOne({ _id: new ObjectId(userId) })
         .then(user => {
-            if (!user) throw new Error('user not found')
-            //sanitize/clear the unwanted data in the object by crating object:
+            if (!user) throw new ExistenceError('user not found')
 
-            // const {name , email}=user
-            // return {
-            //     name,
-            //     email
-            // }
-
-            //or deleting:
             delete user._id
             delete user.password
             delete user.favs
