@@ -1,16 +1,12 @@
-export default function retrieveRandomMotivantionalQuote(callback) {
-    var xhr = new XMLHttpRequest
-    
-    xhr.onload = () => {
-        const { content } = JSON.parse(xhr.response)
-
-        callback(null, content)
-    }
-
-    xhr.onerror = () => {
-        callback(new Error('connection error'))
-    }
-    
-    xhr.open('GET', 'https://api.quotable.io/random')
-    xhr.send()
+export default () => {
+    return fetch('https://api.quotable.io/random', {
+        method: 'GET'})
+        .then(res => {
+            return res.json()
+                .then(response => {
+                    const { content } = response
+                    return content
+                })
+                .catch(() => {return ''})
+        })
 }

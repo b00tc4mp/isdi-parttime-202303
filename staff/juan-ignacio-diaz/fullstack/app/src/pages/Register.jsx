@@ -25,15 +25,13 @@ export default function Register({ onLoginClick, onRegistered}) {
         const password = event.target.password.value
     
         try {
-            registerUser(name, email, password, error => {
-                if (error) {
-                    alert(error.message)
+            registerUser(name, email, password)
+                .then(() => {
+                    event.target.reset()
 
-                    return
-                }
-            })
-            event.target.reset()
-            onRegistered()
+                    onRegistered()
+                })
+                .catch(error => alert(error.message))
         }
         catch (error) {
             alert(error.message)

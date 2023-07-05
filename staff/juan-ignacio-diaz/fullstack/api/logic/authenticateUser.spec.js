@@ -1,56 +1,60 @@
 require('dotenv').config()
 
 const { expect } = require('chai')
-const { writeFile } = require('fs')
+const { MongoClient } = require('mongodb')
+const context = require('./context')
 
 const authenticateUser = require('./authenticateUser')
 
 const { generateUser, cleanUp, populate } = require('./helpers/tests')
 
 describe('authenticateUser', () => {
+    let client
+
+    before(() => {
+        client = new MongoClient(process.env.MONGODB_URL)
+
+        return client.connect()
+            .then(connection => {
+                const db = connection.db()
+
+                context.users = db.collection('users')
+                context.posts = db.collection('posts')
+            })
+    })
+
     let userTest
 
-    beforeEach(done => {
-        userTest = generateUser().user
+    beforeEach(() => {
+        userTest = generateUser()
 
-        cleanUp(done)
+        return cleanUp()
     })
 
-    it('succeeds on existing user', done => {
-        populate([userTest], [], error => {
-            expect(error).to.be.null
+    it('succeeds on existing user', () => {
+        return populate([userTest], [])
+            .then(() => authenticateUser(userTest.email, userTest.password))
+            .then(userId => expect(userId).to.equal(userTest._id.toString()))
+            .catch(error => expect(error).to.be.null)
+    })
 
-            authenticateUser(userTest.email, userTest.password, (error, userId) => {
-                expect(error).to.be.null
-                expect(userId).to.equal(userTest.id)
-
-                done()
+    it('fails on non-existing user', () => {
+        return authenticateUser(userTest.email, userTest.password)
+            .then(userId => expect(userId).to.be.undefined)
+            .catch(error => {
+                expect(error).to.be.instanceOf(Error)
+                expect(error.message).to.equal(`user not found`)
             })
-        })
     })
 
-    it('fails on non-existing user', done => {
-        authenticateUser(userTest.email, userTest.password, (error, userId) => {
-            expect(error).to.be.instanceOf(Error)
-            expect(error.message).to.equal(`user with email ${userTest.email} not found`)
-            expect(userId).to.be.undefined
-
-            done()
-        })
-    })
-
-    it('fails on existing user but wrong passord', done => {
-        populate([userTest], [], error => {
-            expect(error).to.be.null
-
-            authenticateUser(userTest.email, userTest.password + '-wrong', (error, userId) => {
+    it('fails on existing user but wrong passord', () => {
+        return populate([userTest], [])
+            .then(() => authenticateUser(userTest.email, userTest.password + '-wrong'))
+            .then(userId => expect(userId).to.be.undefined)
+            .catch(error => {
                 expect(error).to.be.instanceOf(Error)
                 expect(error.message).to.equal('wrong credentials')
-                expect(userId).to.be.undefined
-
-                done()
             })
-        })
     })
 
     it('fails on empty email', () =>
@@ -69,5 +73,5 @@ describe('authenticateUser', () => {
         expect(() => authenticateUser(userTest.email, 123, () => { })).to.throw(Error, 'password is not a string')
     )
 
-    after(cleanUp)
+    after(() => cleanUp().then(() => client.close()))
 })

@@ -1,24 +1,22 @@
-const { validators: { validateId } } = require('com')
+const { 
+    validators: { validateId },
+    errors: { ExistenceError } 
+} = require('com')
 
-const { ObjectId } = require('mongodb')
-const context = require('./context')
+const { User } = require('../data/models')
 
 
 module.exports = (userId) => {
-    validateId(userId)
+    validateId(userId, 'user id')
 
-    const { users } = context
-
-    return users.findOne({ _id: new ObjectId(userId) })
+    return User.findById(userId) //.lean() retorna el objeto directo de mongoDB
         .then(user => {
-            if (!user) throw new Error('user not found')
+            if (!user) throw new ExistenceError('user not found')
 
             return {
                 name: user.name,
                 avatar: user.avatar,
-                favs: user.favs,
                 mode: user.mode
             }
-
         })
 }

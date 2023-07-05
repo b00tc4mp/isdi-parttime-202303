@@ -1,38 +1,22 @@
 import { validators } from 'com'
-const { validateId, validateCallback } = validators
+const { validateToken } = validators
 
-export default function updateUserMode(userId, mode, callback) {
-    validateId(userId)
-    validateCallback(callback)
+export default (token, mode) => {
+    validateToken(token)
 
-    const xhr = new XMLHttpRequest
-
-    xhr.onload = () => {
-        const { status } = xhr
-
-        if (status !== 204) {
-            const { response: json } = xhr
-            const { error } = JSON.parse(json)
-
-            callback(new Error(error))
+    return fetch(`${import.meta.env.VITE_API_URL}/users/updateMode`, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify({ mode })
+    })
+        .then(res => {
+            if (res.status !== 204)
+                return res.json().then(({ error: message }) => { throw new Error(message) })
 
             return
-        }
-
-        callback(null)
-    }
-
-    xhr.onerror = () => {
-        callback(new Error('connection error'))
-    }
-
-    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/users/updateMode`)
-
-    xhr.setRequestHeader('Content-Type', 'application/json')
-    xhr.setRequestHeader('Authorization', `Bearer ${userId}`)
-       
-    const user = { mode }
-    const json = JSON.stringify(user)
-
-    xhr.send(json)
+        })   
+        .catch(error => new Error(error)) 
 }

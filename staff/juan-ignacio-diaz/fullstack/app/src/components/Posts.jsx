@@ -20,50 +20,28 @@ export default function Posts({ onEditedPost, onAddedPriceToPost , typePosts, la
         try{
             freeze()
             if (typePosts === 'all')  
-                retrievePosts(context.userId, (error, posts) => {
-                    unfreeze()
-                    if (error) {
-                        alert(error.message)
+                retrievePosts(context.token)
+                    .then(posts => setPosts(posts))
+                    .catch(error => alert(error.message))
+                    .finally(() => unfreeze())
 
-                        return
-                    }
+            else if (typePosts === 'user') 
+                retrieveUserPosts(context.token)
+                    .then(posts => setPosts(posts))
+                    .catch(error => alert(error.message))
+                    .finally(() => unfreeze())
 
-                    setPosts(posts)
-                })
-            else if (typePosts === 'user') {  
-                retrieveUserPosts(context.userId, (error, posts) => {
-                    unfreeze()
-                    if (error) {
-                        alert(error.message)
-
-                        return
-                    }
-
-                    setPosts(posts)
-                })
-            }
             else if (typePosts === 'save') 
-                retrieveSavePosts(context.userId, (error, posts) => {
-                    unfreeze()
-                    if (error) {
-                        alert(error.message)
-
-                        return
-                    }
-
-                    setPosts(posts)
-                })
+                retrieveSavePosts(context.token)
+                    .then(posts => setPosts(posts))
+                    .catch(error => alert(error.message))
+                    .finally(() => unfreeze())
+                    
             else if (typePosts === 'onSale') 
-                retrieveOnSalePosts(context.userId, (error, posts) => {
-                    unfreeze()
-                    if (error) {
-                        alert(error.message)
-
-                        return
-                    }
-
-                    setPosts(posts)
-                })                
+                retrieveOnSalePosts(context.token)
+                    .then(posts => setPosts(posts))
+                    .catch(error => alert(error.message))
+                    .finally(() => unfreeze())           
         }
         catch (error) {
             unfreeze()

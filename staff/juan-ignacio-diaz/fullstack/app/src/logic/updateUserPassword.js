@@ -1,45 +1,29 @@
 import { validators } from 'com'
-const { validateId, validatePassword, validateCallback } = validators
+const { validateToken, validatePassword } = validators
 
-export default function updateUserPassword(userId, password, newPassword, newPasswordConfirm, callback) {
-    validateId(userId)
+export default  (token, password, newPassword, newPasswordConfirm) => {
+    validateToken(token)
     validatePassword(password)
     validatePassword(newPassword, 'new password')
     validatePassword(newPasswordConfirm, 'new password confirm')
-    validateCallback(callback)
 
     if (newPassword === password) throw new Error("the new password is equal to the old password", {cause: "newPassword"})
 
     if (newPassword !== newPasswordConfirm) throw new Error("the confirm password is different than then new password", {cause: "newPasswordConfirm"})
 
-    const xhr = new XMLHttpRequest
-
-    xhr.onload = () => {
-        const { status } = xhr
-
-        if (status !== 204) {
-            const { response: json } = xhr
-            const { error } = JSON.parse(json)
-
-            callback(new Error(error))
+    return fetch(`${import.meta.env.VITE_API_URL}/users/updatePassword`, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify({ password, newPassword, newPasswordConfirm })
+    })
+        .then(res => {
+            if (res.status !== 204)
+                return res.json().then(({ error: message }) => { throw new Error(message) })
 
             return
-        }
-
-        callback(null)
-    }
-
-    xhr.onerror = () => {
-        callback(new Error('connection error'))
-    }
-
-    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/users/updatePassword`)
-
-    xhr.setRequestHeader('Content-Type', 'application/json')
-    xhr.setRequestHeader('Authorization', `Bearer ${userId}`)
-    
-    const user = { password, newPassword, newPasswordConfirm }
-    const json = JSON.stringify(user)
-
-    xhr.send(json)
+        })   
+        .catch(error => new Error(error)) 
 }

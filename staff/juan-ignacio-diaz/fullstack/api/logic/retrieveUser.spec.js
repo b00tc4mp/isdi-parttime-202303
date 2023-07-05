@@ -1,86 +1,91 @@
 require('dotenv').config()
 
 const { expect } = require('chai')
-const { writeFile, readFile } = require('fs')
+const { MongoClient, ObjectId } = require('mongodb')
+const context = require('./context')
 
 const retrieveUser = require('./retrieveUser')
 
 const { generateUser, cleanUp, populate} = require('./helpers/tests')
+const authenticateUser = require('./authenticateUser')
 
 describe('retrieveUser', () => {
-    let userTest
+    let client
 
-    beforeEach(done => {
-        userTest = generateUser().user
+    before(() => {
+        client = new MongoClient(process.env.MONGODB_URL)
 
-        cleanUp(done)
+        return client.connect()
+            .then(connection => {
+                const db = connection.db()
+
+                context.users = db.collection('users')
+                context.posts = db.collection('posts')
+            })
     })
 
-    it('succeeds on existing user and correct id', done => {
-        populate([userTest], [], error => {
-            expect(error).to.be.null
+    let userTest
 
-            retrieveUser(userTest.id, (error, user) => {
-                expect(error).to.be.null
+    beforeEach(() => {
+        userTest = generateUser()
 
+        return cleanUp()
+    })
+debugger
+    it('succeeds on existing user and correct id', () => {
+        return populate([userTest], [])
+            .then(context.users.findOne({}))
+            .then(user => retrieveUser(user._id.toString()))
+            .then(user => {
                 expect(user.name).to.equal(userTest.name)
                 expect(user.email).to.equal(userTest.email)
                 expect(user.avatar).to.equal(userTest.avatar)
-
-                done()
             })
-        })
+            .catch(error => expect(error).to.be.null)
     })
 
-    it('succeeds on existing user with no avatar and correct id', done => {
+    it('succeeds on existing user with no avatar and correct id', () => {
         userTest.avatar = null
 
-        populate([userTest], [],  error => {
-            expect(error).to.be.null
-
-            retrieveUser(userTest.id, (error, user) => {
-                expect(error).to.be.null
-
+        return populate([userTest], [])
+            .then(context.users.findOne({ _id: new ObjectId(userTest._id.toString())}))
+            .then(user => retrieveUser(user._id.toString()))
+            .then(user => {
                 expect(user.name).to.equal(userTest.name)
                 expect(user.email).to.equal(userTest.email)
                 expect(user.avatar).to.be.null
-
-                done()
             })
-        })
+            .catch(error => expect(error).to.be.null)
     })
 
-    it('fails on existing user and incorrect id', done => {
-        populate([userTest], [], error => {
-            expect(error).to.be.null
+    it('fails on existing user and incorrect id', () => {
+        return populate([userTest], [])
+            .then(context.users.findOne({}))
+            .then(user => {
+                const wrongId = user._id.toString() + '-wrong'
 
-            const wrongId = userTest.id + '-wrong'
-
-            retrieveUser(wrongId, (error, user) => {
+                retrieveUser(wrongId)})
+            .catch(error => {
                 expect(error).to.be.instanceOf(Error)
-                expect(error.message).to.equal(`user with id ${wrongId} not found`)
-                expect(user).to.be.undefined
-
-                done()
+                expect(error.message).to.equal('user not found')
+                expect(user).to.be.undefined  
             })
-        })
     })
 
     it('fails on empty userId', () =>
         expect(() => retrieveUser('', () => {})).to.throw(Error, 'id is empty')
     )
 
-    it('fails on userId not exist', done => {
-        const userIdNoExist = userTest.id+'NoExist'
+    it('fails on userId not exist', () => {
+        const userIdNoExist = userTest._id.toString() + 'NoExist'
 
-        retrieveUser(userIdNoExist, (error, user) => {
-            expect(error).to.be.instanceOf(Error)
-            expect(error.message).to.equal(`user with id ${userIdNoExist} not found`)
-            expect(user).to.be.undefined
-
-            done()
-        })
+        return retrieveUser(userIdNoExist)
+            .then(user => expect(user).to.be.undefined)
+            .catch(error => {
+                expect(error).to.be.instanceOf(Error)
+                expect(error.message).to.equal('user not found')
+            })
     })
 
-    after(cleanUp)
+    after(() => cleanUp().then(() => client.close()))
 })

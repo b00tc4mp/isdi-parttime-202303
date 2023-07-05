@@ -3,16 +3,19 @@ const {
     errors: { ExistenceError, AuthError }  
 } = require('com')
 
-const { User, Post } = require('../data/models')
+const { ObjectId } = require('mongodb')
+const context = require('./context')
 
 module.exports = (userId, postId) => {
     validateId(userId, 'user id')
     validateId(postId, 'post id')
 
+    const { users , posts } = context
+
     const promises = []
 
-    promises.push(User.findById(userId))
-    promises.push(Post.findOne(postId))
+    promises.push(users.findOne({ _id: new ObjectId(userId) }))
+    promises.push(posts.findOne({ _id: new ObjectId(postId) }))
 
     return Promise.all(promises)
         .then(([user, post]) => {
@@ -25,8 +28,8 @@ module.exports = (userId, postId) => {
 
             const promisesUpdate = []
 
-            promisesUpdate.push(Post.deleteOne({ _id: new ObjectId(postId)}))              
-            promisesUpdate.push(User.find({favs: postId}))
+            promisesUpdate.push(posts.deleteOne({ _id: new ObjectId(postId)}))              
+            promisesUpdate.push(users.find({favs: postId}))
            
             return Promise.all(promisesUpdate)
                 .then(([_ , tmpUsers]) => {
@@ -37,6 +40,22 @@ module.exports = (userId, postId) => {
                         return users.updateOne({ _id: new ObjectId(user._id) }, { $set: { favs: favs }})
                     })
                 })
+
+                // return User.find({ saves: postId }).then((users) => {
+                //     const usersUpdated = users.map((user) => {
+                //       const index = user.saves.findIndex(
+                //         (save) => save.toString() === postId
+                //       )
+            
+                //       if (index > -1) user.saves.splice(index, 1)
+            
+                //       return user.save()
+                //     })
+            
+                //     return Promise.all([...usersUpdated, Post.deleteOne({ _id: postId })])
+                //   })
+
+
 
         })  
         .then(() => {})      

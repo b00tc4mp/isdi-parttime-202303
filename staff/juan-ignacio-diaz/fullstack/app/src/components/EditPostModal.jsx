@@ -15,16 +15,10 @@ export default function EditPost({ onCancel, onEditedPost, postId}) {
     useEffect(() => {
         try {
             freeze()
-            retrievePost(context.userId, postId, (error, post) => {
-                unfreeze()
-                if (error) {
-                    alert(error.message)
-
-                    return
-                }
-
-                setPost(post)
-            })
+            retrievePost(context.token, postId)
+                .then(post => setPost(post))
+                .catch(error => alert(error.message))
+                .finally(() => unfreeze())
         } catch (error) {
             unfreeze()
             alert(error.message)
@@ -44,15 +38,11 @@ export default function EditPost({ onCancel, onEditedPost, postId}) {
         const text = event.target.text.value
 
         try {
-            updatePost (context.userId, postId, image, text, error => {
-                if (error) {
-                    alert(error.message)
-
-                    return
-                }         
-
-                onEditedPost()
-            })
+            freeze()
+            updatePost (context.token, postId, image, text)
+                .then(onEditedPost())
+                .catch(error => alert(error.message))
+                .finally(() => unfreeze())
         } catch(error) {
             unfreeze()
             alert(error.message)

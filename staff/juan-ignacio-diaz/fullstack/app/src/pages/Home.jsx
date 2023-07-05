@@ -38,17 +38,14 @@ export default function Home({ onLogout }) {
     useEffect(() => {
         try{     
             freeze()     
-            retrieveUser(context.userId, (error, user) => {
-                unfreeze()
-                if (error) {
-                    alert(error.message)
+            retrieveUser(context.token)
+                .then(user => {
+                    setUser(user)
 
-                    return
-                }
-                setUser(user)
-
-                changeMode(user.mode)
-            }) 
+                    changeMode(user.mode)
+                })
+                .catch(error => alert(error.message))
+                .finally(() => unfreeze())
         } 
         catch (error) {
             alert(error.message)
@@ -69,17 +66,14 @@ export default function Home({ onLogout }) {
     const handledEditedProfile =() => {
         try{
             freeze()
-            retrieveUser(context.userId, (error, user) => {
-                unfreeze()
-                if (error) {
-                    alert(error.message)
-    
-                    return
-                }
+            retrieveUser(context.token)
+            .then(user => {
                 setUser(user)
 
                 changeMode(user.mode)
             })
+            .catch(error => alert(error.message))
+            .finally(() => unfreeze())
         } 
         catch (error) {
             alert(error.message)

@@ -1,40 +1,24 @@
 import { validators } from 'com'
-const { validateId, validateNumber, validateCallback } = validators
+const { validateId, validateToken, validateNumber } = validators
 
-export default function updatePriceToPost(userId, postId, price, callback) {
-    validateId(userId)
+export default (token, postId, price) => {
+    validateToken(token) 
     validateId(postId)
     validateNumber(price)
-    validateCallback(callback)
 
-    const xhr = new XMLHttpRequest
-
-    xhr.onload = () => {
-        const { status } = xhr
-
-        if (status !== 204) {
-            const { response: json } = xhr
-            const { error } = JSON.parse(json)
-
-            callback(new Error(error))
+    return fetch(`${import.meta.env.VITE_API_URL}/posts/${postId}/updatePriceToPost`, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify({ price })
+    })
+        .then(res => {
+            if (res.status !== 204)
+                return res.json().then(({ error: message }) => { throw new Error(message) })
 
             return
-        }
-
-        callback(null)
-    }
-
-    xhr.onerror = () => {
-        callback(new Error('connection error'))
-    }
-
-    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/posts/${postId}/updatePriceToPost`)
-
-    xhr.setRequestHeader('Content-Type', 'application/json')
-    xhr.setRequestHeader('Authorization', `Bearer ${userId}`)
-       
-    const post = { price }
-    const json = JSON.stringify(post)
-
-    xhr.send(json)
+        })   
+        .catch(error => new Error(error)) 
 }

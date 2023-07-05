@@ -1,28 +1,28 @@
-const { validators: { validateId, validateUrl, validateText } } = require('com')
+const { 
+    validators: { validateId, validateUrl, validateText },
+    errors: { ExistenceError, AuthError } 
+} = require('com')
 
-const { ObjectId } = require('mongodb')
-const context = require('./context')
+const { User, Post } = require('../data/models')
 
-module.exports = (userId, image, text, callback) => {
+module.exports = (userId, image, text) => {
     validateId(userId, 'user id')
     validateUrl(image, 'image url')
     validateText(text, 'text')
 
-    const { users , posts } = context
+    return User.findById(userId)
+        .then(user => {
+            if (!user) throw new ExistenceError('user not found')
 
-    return users.findOne({ _id: new ObjectId(userId) })
-    .then(user => {
-        if (!user) throw new Error('user not found')
-
-        return posts.insertOne({
-                author: userId,
-                image,
-                text,
-                date: new Date,
-                dateLastModified: '',
-                likes: [],
-                lock: false,
-                price: 0
-            })
-    })
+            return Post.Create({
+                    author: userId,
+                    image,
+                    text,
+                    date: new Date,
+                    dateLastModified: '',
+                    likes: [],
+                    lock: false,
+                    price: 0
+                })
+        })
 }

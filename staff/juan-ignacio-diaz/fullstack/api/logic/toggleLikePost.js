@@ -1,4 +1,7 @@
-const { validators: { validateId } } = require('com')
+const { 
+    validators: { validateId },
+    errors: { ExistenceError }
+} = require('com')
 
 const { ObjectId } = require('mongodb')
 const context = require('./context')
@@ -16,9 +19,9 @@ module.exports = (userId, postId) => {
 
     return Promise.all(promises)
         .then(([user, post]) => {
-            if (!user) throw new Error('user not found')
+            if (!user) throw new ExistenceError('user not found')
 
-            if (!post) throw new Error('user not found')
+            if (!post) throw new ExistenceError('user not found')
 
             const likes = post.likes
 

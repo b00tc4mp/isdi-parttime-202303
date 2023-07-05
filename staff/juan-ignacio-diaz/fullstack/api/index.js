@@ -21,26 +21,20 @@ const { createPostHandler,
     toggleSavePostHandler
     } = require('./handlers')
 
-const { cors, jsonBodyParser } = require('./utils')
 const express = require('express')
+const cors = require('cors')
+const bodyParser = require('body-parser')
 
-const context = require('./logic/context')
-const mongodb = require('mongodb')
+const mongoose = require('mongoose')
 
-const { MongoClient } = mongodb
-
-const client = new MongoClient(process.env.MONGODB_URL)
-
-client.connect()
+mongoose.connect(process.env.MONGODB_URL)
     .then(connection => {
         const db = connection.db()
 
-        context.users = db.collection('users')
-        context.posts = db.collection('posts')
-
         const api = express()
+        const jsonBodyParser = bodyParser.json()
 
-        api.use(cors)
+        api.use(cors())
 
         api.get('/', (req, res) => {
             //debugger
@@ -90,4 +84,3 @@ client.connect()
     .catch(error => {
         console.error(error)
     })
-    //.finally(() => client.close())

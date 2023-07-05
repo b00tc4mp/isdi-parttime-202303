@@ -1,5 +1,4 @@
-module.exports = function retrievePostsTest (user, users, posts) {
-
+module.exports = (user, users, posts) => {
     posts.forEach(post => {
         post.fav = user.favs.includes(post.id)
         post.date = new Date(post.date);

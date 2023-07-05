@@ -15,16 +15,12 @@ export default function AddPriceToPostModal({ onCancel, onAddedPriceToPost, post
     useEffect(() => {
         try {
             freeze()
-            retrievePost(context.userId, postId, (error, post) => {
-                unfreeze()
-                if (error) {
-                    alert(error.message)
-
-                    return
-                }
-
-                setPost(post)
-            })
+            retrievePost(context.token, postId)
+                .then(post => {
+                    setPost(post) 
+                })
+                .catch(error => alert(error.message))
+                .finally(() => unfreeze())           
         } catch (error) {
             unfreeze()
             alert(error.message)
@@ -43,15 +39,13 @@ export default function AddPriceToPostModal({ onCancel, onAddedPriceToPost, post
         const price = event.target.price.valueAsNumber
 
         try {
-            updatePriceToPost (context.userId, postId, price, error => {
-                if (error) {
-                    alert(error.message)
-
-                    return
-                }         
-
-                onAddedPriceToPost()
-            })
+            freeze()
+            updatePriceToPost (context.token, postId, price)
+                .then(() => {
+                    onAddedPriceToPost()
+                })
+                .catch(error => alert(error.message))    
+                .finally(() => unfreeze())      
         } catch(error) {
             unfreeze()
             alert(error.message)

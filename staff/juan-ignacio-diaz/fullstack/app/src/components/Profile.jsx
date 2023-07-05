@@ -22,18 +22,14 @@ export default function Profile({ onEditedProfile, user }){
 
         try{
             freeze()
-            updateUserMode(context.userId, mode, error => {
-                unfreeze()
-                if (error) {
-                    alert(error.message)
+            updateUserMode(context.token, mode)
+                .then(() => {
+                    alert("mode updated")
 
-                    return
-                }
-
-                alert("mode updated")
-
-                onEditedProfile()
-            })
+                    onEditedProfile()
+                })
+                .catch(error => alert(error.message))
+                .finally(() => unfreeze())    
         }
         catch(error) {
             unfreeze()
@@ -48,18 +44,14 @@ export default function Profile({ onEditedProfile, user }){
 
         try{
             freeze()
-            updateUserAvatar (context.userId, url, error => {
-                unfreeze()
-                if (error) {
-                    alert(error.message)
-
-                    return
-                }
-                
-                alert("avatar updated")
-                event.target.reset()
-                onEditedProfile()
-            })
+            updateUserAvatar (context.token, url)
+                .then(() => {
+                    alert("avatar updated")
+                    event.target.reset()
+                    onEditedProfile()
+                })
+                .catch(error => alert(error.message))
+                .finally(() => unfreeze())            
         }
         catch(error) {
             unfreeze()
@@ -80,17 +72,14 @@ export default function Profile({ onEditedProfile, user }){
 
         try {
             freeze()
-            updateUserPassword(context.userId, password, newPassword, newPasswordConfirm, error => {
-                unfreeze()
-                if (error) {
-                    alert(error.message)
-
-                    return
-                }
-                alert("the password is update")
-                event.target.reset()
-                onEditedProfile()
-            })
+            updateUserPassword(context.token, password, newPassword, newPasswordConfirm)
+                .then(() => {
+                    alert("the password is update")
+                    event.target.reset()
+                    onEditedProfile()
+                })
+                .catch(error => alert(error.message))
+                .finally(() => unfreeze())  
         }
         catch (error) {
             unfreeze()

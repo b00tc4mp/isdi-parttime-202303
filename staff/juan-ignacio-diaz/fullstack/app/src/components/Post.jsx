@@ -9,6 +9,10 @@ import deletePost from '../logic/deletePost'
 import toggleLockPost from '../logic/toggleLockPost'
 import updateBuyPost from '../logic/updateBuyPost'
 
+import { utils } from 'com'
+
+const { extractSubFromToken } = utils
+
 import './Post.css'
 
 export default function Post ({ post: { id, author, image, text, date, likes, dateLastModified, fav, lock, price}, onModifyPost, onEditPost, onAddPriceToPost}) {
@@ -17,17 +21,10 @@ export default function Post ({ post: { id, author, image, text, date, likes, da
     const handleLikePost = () => {
         try {
             freeze()
-            toggleLikePost(context.userId, id, error => {
-                unfreeze()
-
-                if (error){
-                    alert(error.message)
-
-                    return
-                }
-
-                onModifyPost()
-            })  
+            toggleLikePost(context.token, id)
+                .then(onModifyPost())
+                .catch(error => alert(error.message))
+                .finally(() => unfreeze())
         }
         catch(error){
             unfreeze()
@@ -38,16 +35,10 @@ export default function Post ({ post: { id, author, image, text, date, likes, da
     const handleSavePost = () => {
          try {
             freeze()
-            toggleSavePost(context.userId, id, error => {
-                unfreeze()
-                if (error){
-                    alert(error.message)
-
-                    return
-                }
-
-                onModifyPost()
-            })
+            toggleSavePost(context.token, id)
+                .then(onModifyPost())
+                .catch(error => alert(error.message))
+                .finally(() => unfreeze())
         }
         catch(error){
             unfreeze()
@@ -60,16 +51,10 @@ export default function Post ({ post: { id, author, image, text, date, likes, da
     const handleDeletePost = () => {
         try{
             freeze()
-            deletePost(context.userId, id, error => {
-                unfreeze()
-                if (error){
-                    alert(error.message)
-
-                    return
-                }
-
-                onModifyPost()
-            })
+            deletePost(context.token, id)
+                .then(onModifyPost())
+                .catch(error => alert(error.message))
+                .finally(() => unfreeze())
         }
         catch(error){
             unfreeze()
@@ -80,16 +65,10 @@ export default function Post ({ post: { id, author, image, text, date, likes, da
     const handleLockPost = () => {
         try{
             freeze()
-            toggleLockPost(context.userId, id, error => {
-                unfreeze()
-                if (error){
-                    alert(error.message)
-
-                    return
-                }
-
-                onModifyPost()
-            })
+            toggleLockPost(context.token, id)
+                .then(onModifyPost())
+                .catch(error => alert(error.message))
+                .finally(() => unfreeze())            
         }
         catch(error){
             unfreeze()
@@ -100,16 +79,10 @@ export default function Post ({ post: { id, author, image, text, date, likes, da
     const handleBuyPost = () => {
         try{
             freeze()
-            updateBuyPost(context.userId, id, error => {
-                unfreeze()
-                if (error){
-                    alert(error.message)
-
-                    return
-                }
-
-                onModifyPost()
-            })
+            updateBuyPost(context.token, id)
+                .then(onModifyPost())
+                .catch(error => alert(error.message))
+                .finally(() => unfreeze())
         }
         catch(error){
             unfreeze()
@@ -118,6 +91,8 @@ export default function Post ({ post: { id, author, image, text, date, likes, da
     }
 
     const handlePriceToPost = () => onAddPriceToPost(id)
+
+    const userId = extractSubFromToken(context.token)
 
     return <>
         <article className="post-article post-text">
@@ -131,15 +106,15 @@ export default function Post ({ post: { id, author, image, text, date, likes, da
             </div>
             <div className = "post-button">
                 <div>
-                    <button className = "button-likes" onClick={handleLikePost}>{likes.includes(context.userId) ? '❤️' : '🤍'} ({likes? likes.length : 0})</button>
+                    <button className = "button-likes" onClick={handleLikePost}>{likes.includes(userId) ? '❤️' : '🤍'} ({likes? likes.length : 0})</button>
                     <button className = "button-save" onClick={handleSavePost}> {fav ? '📌' : '🔘'}</button>
                 </div>
                 <div>
-                    {context.userId === author.id ? <button onClick={handleEditPost}>🖍</button> : ''} 
-                    {context.userId === author.id ? <button onClick={handleDeletePost}>🗑</button> : ''}   
-                    {context.userId === author.id ? <button onClick={handleLockPost}>{lock ? '🔒' : '🔓'}</button> : ''}   
-                    {context.userId === author.id ? <button onClick={handlePriceToPost}>{price +'€'}</button> : ''}      
-                    {context.userId !== author.id && price !== 0 ? <button onClick={handleBuyPost}>{price+'€'}</button> : ''}
+                    {userId === author.id ? <button onClick={handleEditPost}>🖍</button> : ''} 
+                    {userId === author.id ? <button onClick={handleDeletePost}>🗑</button> : ''}   
+                    {userId === author.id ? <button onClick={handleLockPost}>{lock ? '🔒' : '🔓'}</button> : ''}   
+                    {userId === author.id ? <button onClick={handlePriceToPost}>{price +'€'}</button> : ''}      
+                    {userId !== author.id && price !== 0 ? <button onClick={handleBuyPost}>{price+'€'}</button> : ''}
                 </div>
             </div>
             <div className = "post-info">

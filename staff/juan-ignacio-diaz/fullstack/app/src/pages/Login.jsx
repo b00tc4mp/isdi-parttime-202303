@@ -16,18 +16,9 @@ export default function Login({ onRegisterClick, onUserLoggedIn }) {
     useEffect(() => {
         try {
             freeze()
-
-            retrieveRandomMotivationalQuote((error, quote) => {
-                unfreeze()
-
-                if (error) {
-                    alert(error.message)
-            
-                    return
-                }
-            
-                setQuote(quote)
-            })   
+            retrieveRandomMotivationalQuote(() => {})
+                .then(quote => setQuote(quote)) 
+                .finally(() => unfreeze())
         } catch(error) {
             unfreeze()
             alert(error.message)
@@ -48,17 +39,14 @@ export default function Login({ onRegisterClick, onUserLoggedIn }) {
 
         try {
             freeze()
-            authenticateUser(email, password, (error, userId) => {
-                unfreeze()
-                if (error) {
-                    alert(error.message)
+            authenticateUser(email, password)
+                .then(token => {
+                    context.token = token
 
-                    return
-                }
-                context.userId = userId
-
-                onUserLoggedIn() 
-            })
+                    onUserLoggedIn() 
+                })
+                .catch(error => alert(error.message))
+                .finally(() => unfreeze())
         }
         catch (error){
             unfreeze()

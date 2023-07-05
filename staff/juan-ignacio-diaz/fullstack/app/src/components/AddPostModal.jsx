@@ -21,15 +21,9 @@ export default function AddPostModal({ onCancel, onCreatedPost }) {
         const text = event.target.text.value
 
         try {
-            createPost(context.userId, image, text, error => {
-                if (error) {
-                    alert(error.message)
-
-                    return
-                }
-
-                onCreatedPost()
-            })
+            createPost(context.token, image, text)
+                .then(onCreatedPost())
+                .catch(error => alert(error.message))            
         } catch(error) {
             alert(error.message)
         }

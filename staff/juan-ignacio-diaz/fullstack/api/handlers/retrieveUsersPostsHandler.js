@@ -1,16 +1,10 @@
 const { retrieveUsersPosts } = require('../logic')
 
-const { extractUserId } = require('../helpers')
+const { extractUserId, handleErrors } = require('./helpers')
 
-module.exports = (req, res) => {    
-    try {
-        const userId = extractUserId(req)
+module.exports = handleErrors((req, res) => {    
+    const userId = extractUserId(req)
 
-        retrieveUsersPosts(userId)
+    return retrieveUsersPosts(userId)
         .then(posts => res.json(posts))
-        .catch(error => res.status(400).json({ error: error.message }))
-    } 
-    catch (error) {
-        res.status(400).json({ error: error.message })
-    }
-}
+})

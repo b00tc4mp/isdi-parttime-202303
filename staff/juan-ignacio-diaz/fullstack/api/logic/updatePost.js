@@ -1,4 +1,7 @@
-const { validators: { validateId, validateUrl, validateText } } = require('com')
+const { 
+    validators: { validateId, validateUrl, validateText },
+    errors: { ExistenceError, AuthError }
+} = require('com')
 
 const { ObjectId } = require('mongodb')
 const context = require('./context')
@@ -18,12 +21,12 @@ module.exports = (userId, postId, image, text) => {
 
     return Promise.all(promises)
         .then(([user, post]) => {
-            if (!user) throw new Error('user not found')
+            if (!user) throw new ExistenceError('user not found')
 
-            if (!post) throw new Error('user not found')
+            if (!post) throw new ExistenceError('user not found')
 
-            if (user.id !== post.author)
-                throw new Error(`Post doesn't belong to this user`)
+            if (user._id.toString() !== post.author)
+                throw new AuthError(`Post doesn't belong to this user`)
 
             if(image === '') image = post.image
             if(text === '')  text = post.text
