@@ -12,8 +12,6 @@ const Post = ({ post: { id, author, image, likes, favourites, price, text, date}
   onLike,
   onFavourite,
   onDelete,
-  onSell,
-  onBuy
 }) => {
   
   const { alert } = useAppContext()
@@ -95,7 +93,7 @@ const Post = ({ post: { id, author, image, likes, favourites, price, text, date}
         <div className='post-header'>
             <img className='post-avatar' src={author.avatar} />
             <p className='post-author'>{author.name}</p>
-          {user.id === author.id && (
+          {user && user._id == author.id && (
           <>
             <button className='button-delete' onClick={handleDeletePost}>
               <i className='fas fa-trash'></i> 
@@ -109,7 +107,7 @@ const Post = ({ post: { id, author, image, likes, favourites, price, text, date}
         <img className='post-image' src={image} />
         <div className='post-image-footer'>
           <button className='button-like' onClick={handleLikePost}>
-            {user && likes.includes(user.id) 
+            {user && likes.includes(user._id) 
               ?  <i className='fa fa-heart'></i>
               :  <i className='far fa-heart'></i>
             }

@@ -3,7 +3,7 @@ const { validateToken, validateUrl, validateText, validateCallback } =
   validators;
 
 const createPost = (token, image, text, callback) => {
-  validateToken(userId, 'user id');
+  validateToken(token, 'token');
   validateUrl(image, 'image');
   validateText(text, 'text');
   validateCallback(callback);

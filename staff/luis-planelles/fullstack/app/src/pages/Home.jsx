@@ -1,9 +1,6 @@
 import { useEffect, useState } from 'react'
 import AddPostModal from '../components/AddPostModal'
 import EditPostModal from '../components/EditPostModal'
-import Favourites from '../components/Favourites'
-import OnSalePostModal from '../components/OnSalePostModal'
-import PostsUser from '../components/PostUser'
 import Posts from '../components/Posts'
 import Profile from '../components/Profile'
 import ProfileUpdateModal from '../components/ProfileUpdateModal'
@@ -60,7 +57,6 @@ const Home = ({onLoggedOut}) => {
     onLoggedOut()
   },
 
-  handleOpenUserPosts = () => setView('user-posts'),
   handleGoToPosts = () => setView('posts'),
   
   handleOpenEditProfile = () => setModal('edit-profile'),
@@ -81,16 +77,6 @@ const Home = ({onLoggedOut}) => {
     setPostId(postId);
   },
 
-  handleOpenSellPost = postId => {
-    setModal('sale-post'),
-    setPostId(postId);
-  },
-  
-  handleOpenFavourites = () => {
-    setModal(null)
-    setView('favourites')
-  },
-  
   handlePostUpdated = () => {
     setModal(null)
     setLastUpdate(Date.now()) 
@@ -112,7 +98,6 @@ const Home = ({onLoggedOut}) => {
             {view === 'posts' && (
               <Posts
                 onEditPost={handleOpenEditPost}
-                onSellPost={handleOpenSellPost}
                 lastPostUpdate={lastUpdate}
               />
             )}
@@ -129,27 +114,11 @@ const Home = ({onLoggedOut}) => {
                 postId={postId} 
               />
             )}
-            {modal === 'sale-post' && (
-              <OnSalePostModal
-                onCancel={handleCloseModal}
-                onPostUpdated={handlePostUpdated}
-                postId={postId} 
-              />
-            )}
             {view === 'profile' && (
               <Profile 
                 onOpenEditProfile={handleOpenEditProfile} 
                 onOpenFavourites={handleOpenFavourites}
                 onProfileImageClick={handleOpenUserPosts}
-              />
-            )}
-            {view === 'favourites' && (
-              <Favourites/>
-            )}
-            {view === 'user-posts' && (
-              <PostsUser 
-                onEditPost={handleOpenEditPost}
-                lastPostUpdate={lastUpdate}
               />
             )}
             {modal === 'edit-profile' && (

@@ -64,13 +64,14 @@ const validateNumber = (number, explain = 'number') => {
 
 const validateId = (id, explain = 'id') => {
   if (typeof id !== 'string') throw new TypeError(`${explain} is not a string`);
-  if (token.split('.').length !== 3)
-    throw new Error(`${explain} is not a valid`);
+  if (!id.trim().length) throw new Error(`${explain} is empty`);
 };
 
-const validateToken = (id, explain = 'token') => {
-  if (typeof id !== 'string') throw new TypeError(`${explain} is not a string`);
-  if (!id.trim().length) throw new Error(`${explain} is empty`);
+const validateToken = (token, explain = 'token') => {
+  if (typeof token !== 'string')
+    throw new TypeError(`${explain} is not a string`);
+  if (token.split('.').length !== 3)
+    throw new Error(`${explain} is not a valid`);
 };
 
 const validateCallback = (callback, explain = 'callback') => {

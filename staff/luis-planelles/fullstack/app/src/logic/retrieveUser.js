@@ -3,7 +3,7 @@ import { validators } from 'com';
 const { validateToken, validateCallback } = validators;
 
 const retrieveUser = (token, callback) => {
-  validateToken(token, 'user id');
+  validateToken(token, 'token');
   validateCallback(callback);
 
   const xhr = new XMLHttpRequest();

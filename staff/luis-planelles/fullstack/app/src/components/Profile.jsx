@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useAppContext } from '../hooks';
-import retrievePostsUser from "../logic/retrievePostsUser";
 import retrieveUser from "../logic/retrieveUser";
 import { context } from "../ui";
 import './Profile.css';
@@ -9,8 +8,7 @@ import './Profile.css';
 const Profile = ({onOpenEditProfile, onOpenFavourites, onProfileImageClick}) => {
   const { alert } = useAppContext()
   
-  const [postsUser, setPostsUser] = useState(null),
-    [profileUser, setProfileUser] = useState(null)
+  const [profileUser, setProfileUser] = useState(null)
     
     useEffect(() => {
       try {
@@ -27,22 +25,6 @@ const Profile = ({onOpenEditProfile, onOpenFavourites, onProfileImageClick}) => 
         alert(error.message);
       }
     }, []);
-    
-    useEffect(() => {
-      try {
-        retrievePostsUser(context.token, (error, postsUser) => {
-          if (error) {
-            alert(error.message);
-          
-            return;
-          }
-          
-          setPostsUser(postsUser);
-        });
-      } catch (error) {
-        alert(error.message);
-      }
-    }, [profileUser]);
     
       
   const handleUpdateProfileModal = () => onOpenEditProfile(),
@@ -68,16 +50,6 @@ const Profile = ({onOpenEditProfile, onOpenFavourites, onProfileImageClick}) => 
           <button className='profile-favourites-button' onClick={handleProfileFavourites}>
             <i className='far fa-bookmark'></i> 
           </button>
-        </div>
-        <div className="profile-posts">
-          {postsUser && postsUser.map((post) => (
-              <img
-              className="profile-post-image"
-              onClick={handleImageClick}
-              key={post.id}
-              src={post.image}
-              />
-          ))}
         </div>
     </div>
   </div>
