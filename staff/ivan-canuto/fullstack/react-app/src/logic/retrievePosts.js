@@ -40,14 +40,14 @@ export function retrievePosts(token, callBack) {
       callBack(new Error('Connection error.'))
     }
 
-    xhr.open('GET', `${import.meta.env.VITE_API_URL}/users/posts`)
+    xhr.open('GET', `${import.meta.env.VITE_API_URL}/posts`)
 
     xhr.setRequestHeader('Authorization', `Bearer ${token}`)
     
     xhr.send()
     
   } else {
-    return fetch(`${import.meta.env.VITE_API_URL}/users/posts`, {
+    return fetch(`${import.meta.env.VITE_API_URL}/posts`, {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${token}`

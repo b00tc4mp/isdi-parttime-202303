@@ -26,18 +26,10 @@ const {
     updateUserPasswordHandler,
     helloWorldHandler
 } = require('./handlers')
-const { MongoClient } = require('mongodb')
-const context = require('./logic/context')
+const mongoose = require('mongoose')
 
-const client = new MongoClient(process.env.MONGODB_URL)
-
-client.connect()
+mongoose.connect(process.env.MONGODB_URL)
     .then(connection => {
-        const db = connection.db()
-
-        context.users = db.collection('users')
-        context.posts = db.collection('posts')
-
         const api = express()
 
         const jsonBodyParser = bodyParser.json()
@@ -66,7 +58,7 @@ client.connect()
 
         api.get('/users/posts/:postId/post', retrievePostHandler)
 
-        api.get('/users/posts', retrievePostsHandler)
+        api.get('/posts', retrievePostsHandler)
 
         api.get('/users/savedPosts', retrieveSavedPostsHandler)
 

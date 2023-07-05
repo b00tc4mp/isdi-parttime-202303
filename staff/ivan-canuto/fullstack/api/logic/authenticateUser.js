@@ -2,7 +2,7 @@ const {
   validators: { validateEmail, validatePassword, },
   errors: { ExistenceError, AuthError }
 } = require('com')
-const context = require('./context')
+const { User } = require('../data/models')
 
 /**
  * Authenticates a user against his/her credentials
@@ -22,9 +22,7 @@ module.exports = (email, password) => {
   validateEmail(email)
   validatePassword(password)
 
-  const { users } = context
-
-  return users.findOne({ email })
+  return User.findOne({ email })
     .then(user => {
       if(!user) throw new ExistenceError('User not found.')
 

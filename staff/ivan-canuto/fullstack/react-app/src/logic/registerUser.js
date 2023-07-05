@@ -58,7 +58,7 @@ export function registerUser(name, email, password, callBack) {
       body: JSON.stringify({ name, email, password })
     })
     .then(res => {
-      if(res.status !== 200)
+      if(res.status !== 201)
         return res.json().then(({ error: message }) => { throw new Error(message) })
     })
   }

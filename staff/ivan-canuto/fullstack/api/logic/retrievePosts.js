@@ -2,21 +2,19 @@ const {
   validators: { validateId },
   errors: { ExistenceError }
 } = require('com')
-const context = require('./context')
 const { ObjectId } = require('mongodb')
+const { User, Post } = require('../data/models')
 
 module.exports = (userId) => {
   validateId(userId, 'user id')
 
-  const { users, posts } = context
-
-  return Promise.all([users.findOne({ _id: new ObjectId(userId) }), posts.find().toArray()])
+  return Promise.all([User.findById(userId), Post.find()])
     .then(([user, posts]) => {
       if(!user) throw new ExistenceError('User not found.')
 
       const authors = posts.reduce((authors, { author }) => authors.add(author.toString()), new Set)
       
-      return users.find({ _id: { $in: Array.from(authors).map(id => new ObjectId(id))}}).toArray()
+      return User.find({ _id: { $in: Array.from(authors).map(id => new ObjectId(id))}})
         .then(users => {
           posts.forEach(post => {
             post.id = post._id.toString()

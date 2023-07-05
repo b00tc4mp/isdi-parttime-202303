@@ -2,14 +2,12 @@ const {
   validators: { validateId },
   errors: { ExistenceError }
 } = require('com')
-const context = require('./context')
+const { User, Post } = require('mongoose')
 
 module.exports = (userId) => {
   validateId(userId, 'user id')
 
-  const { users, posts } = context
-
-  return Promise.all([users.find().toArray(), posts.find().toArray()])
+  return Promise.all([User.find().toArray(), Post.find().toArray()])
     .then(([users, posts]) => {
       const user = users.find(_user => _user._id.toString() === userId)
       if(!user) throw new ExistenceError('User not found.')

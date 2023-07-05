@@ -3,7 +3,7 @@ const {
   errors: { DuplicityError }
 } = require('com')
 require('dotenv').config()
-const context = require('./context')
+const { User } = require('../data/models')
 
 /**
  * Registers a new user
@@ -24,9 +24,7 @@ module.exports = (name, email, password) => {
   validateEmail(email)
   validatePassword(password)
 
-  const { users } = context
-
-  return users.insertOne({ name, email, password, avatar: null, favs: [] })
+  return User.create({ name, email, password, avatar: null, favs: [] })
   .catch(error => {
     if(error.message.includes('E11000'))
       throw new DuplicityError(`user with email ${email} already exists`)

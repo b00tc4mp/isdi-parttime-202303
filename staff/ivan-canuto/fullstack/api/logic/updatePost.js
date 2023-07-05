@@ -2,8 +2,7 @@ const {
   validators: { validateId, validateUrl, validateText },
   errors: { ExistenceError, InvalidRequestError }
 } = require('com')
-const context = require('./context')
-const { ObjectId } = require('mongodb')
+const { User, Post } = require('../data/models')
 
 module.exports = (userId, postId, imageUrl, postText) => {
   validateId(userId, 'user id')
@@ -11,9 +10,7 @@ module.exports = (userId, postId, imageUrl, postText) => {
   validateUrl(imageUrl,'image url')
   validateText(postText, 'post text')
 
-  const { users, posts } = context
-
-  return Promise.all([users.findOne({ _id: new ObjectId(userId) }), posts.findOne({ _id: new ObjectId(postId) })])
+  return Promise.all([User.findById(userId), Post.findById(postId)])
     .then(([user, post]) => {
       if(!user) throw new ExistenceError('User not found.')
 
@@ -21,8 +18,8 @@ module.exports = (userId, postId, imageUrl, postText) => {
 
       if (post.author.toString() !== userId) throw new InvalidRequestError('This user is not the owner of the post.')
 
-      return posts.updateOne(
-        { _id: new ObjectId(postId) },
+      return Post.updateOne(
+        { _id: postId },
         { $set: { 
           image: imageUrl,
           text: postText

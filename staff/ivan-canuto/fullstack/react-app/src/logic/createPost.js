@@ -17,8 +17,6 @@ export const createPost = (token, imageUrl, postText, callBack) => {
   validateUrl(imageUrl)
   validateText(postText)
 
-  console.log(imageUrl)
-
   if(callBack) {
     validateCallback(callBack)
   

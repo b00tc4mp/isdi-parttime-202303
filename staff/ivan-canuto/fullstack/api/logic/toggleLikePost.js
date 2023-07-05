@@ -2,16 +2,14 @@ const {
   validators: { validateId },
   errors: { ExistenceError }
 } = require('com')
-const context = require('./context')
-const { ObjectId } = require('mongodb')
+const { Schema: { Types: { ObjectId } } } = require('mongoose')
+const { User, Post } = require('../data/models')
 
 module.exports = (userId, postId) => {
   validateId(userId, 'user id')
   validateId(postId, 'post id')
 
-  const { users, posts } = context
-
-  return Promise.all([users.findOne({ _id: new ObjectId(userId) }), posts.findOne({ _id: new ObjectId(postId) })])
+  return Promise.all([User.findById(userId), Post.findById(postId)])
     .then(([user, post]) => {
       if(!user) throw new ExistenceError('User not found.')
 
@@ -20,13 +18,13 @@ module.exports = (userId, postId) => {
       let likesFromPost = post.likes.map(like => like.toString())
 
       if(likesFromPost.includes(userId))
-        return posts.updateOne(
-          { _id: new ObjectId(postId) },
+        return Post.updateOne(
+          { _id: postId },
           { $pull: { likes: new ObjectId(userId) }}
         )
       else
-      return posts.updateOne(
-          { _id: new ObjectId(postId) },
+      return Post.updateOne(
+          { _id: postId },
           { $push: { likes: new ObjectId(userId) }}
         )
     })

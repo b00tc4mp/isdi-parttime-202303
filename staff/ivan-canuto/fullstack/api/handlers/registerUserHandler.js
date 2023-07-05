@@ -1,5 +1,4 @@
 const registerUser = require("../logic/registerUser")
-const { errors : { DuplicityError, ContentError } } = require('com')
 const { handleErrors } = require("./helpers")
 
 module.exports = handleErrors((req, res) => {

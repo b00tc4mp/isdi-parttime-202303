@@ -2,8 +2,8 @@ const {
   validators: { validateId },
   errors:  { ExistenceError, InvalidRequestError }
 } = require('com')
-const context = require('./context')
-const { ObjectId } = require('mongodb')
+const { Schema: { Types: { ObjectId } } } = require('mongoose')
+const { User, Post } = require('../data/models')
 
 /**
  * Buys post by user
@@ -19,9 +19,7 @@ module.exports = (userId, postId) => {
   validateId(userId, 'user id')
   validateId(postId, 'post id')
   
-  const { users, posts } = context
-
-  return Promise.all([users.findOne({ _id: new ObjectId(userId) }), posts.findOne({ _id: new ObjectId(postId) })])
+  return Promise.all([User.findById(userId), Post.findById(postId)])
     .then(([user, post]) => {
       if(!user) throw new ExistenceError(`User with id ${userId} not found.`)
 
@@ -31,7 +29,7 @@ module.exports = (userId, postId) => {
 
       if(post.onSale === 'Sold') throw new InvalidRequestError('This post is already sold.')
 
-      return posts.updateOne(
+      return Post.updateOne(
         { _id: new ObjectId(postId) },
         { $set : { onSale: 'Sold' } }
       )

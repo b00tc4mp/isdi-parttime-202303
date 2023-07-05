@@ -3,17 +3,14 @@ const {
   errors: { ExistenceError }
 } = require('com')
 require('dotenv').config()
-const context = require('./context')
-const { ObjectId } = require('mongodb')
+const { User, Post } = require('../data/models')
 
 module.exports = (userId, newAvatarUrl, password) => {
   validateId(userId, 'user id')
   validateUrl(newAvatarUrl, 'new avatar url')
   validatePassword(password)
 
-  const { users } = context
-
-  return users.findOne({ _id: new ObjectId(userId) })
+  return User.findById(userId)
     .then(user => {
       if(!user) throw new Error('User not found.')
 
@@ -21,8 +18,8 @@ module.exports = (userId, newAvatarUrl, password) => {
       
       if(user.password !== password) throw new ExistenceError('Incorrect password.')
 
-      return users.updateOne(
-        { _id: new ObjectId(userId) },
+      return User.updateOne(
+        { _id: userId },
         { $set: { avatar: newAvatarUrl }}
       )
     })
