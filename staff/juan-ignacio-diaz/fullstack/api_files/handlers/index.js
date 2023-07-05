@@ -1,0 +1,21 @@
+module.exports = {
+    authenticateUserHandler: require('./authenticateUserHandler'),
+    createPostHandler: require('./createPostHandler'),
+    deletePostHandler: require('./deletePostHandler'),
+    registerUserHandler: require('./registerUserHandler'),
+    retrieveOnSalePostsHandler: require('./retrieveOnSalePostsHandler'), 
+    retrievePostHandler: require('./retrievePostHandler'),
+    retrievePostsHandler: require('./retrievePostsHandler'),
+    retrieveUserHandler: require('./retrieveUserHandler'),    
+    retrieveSavePostsHandler: require('./retrieveSavePostsHandler'),
+    retrieveUsersPostsHandler: require('./retrieveUsersPostsHandler'),
+    toggleLockPostHandler: require('./toggleLockPostHandler'),
+    toggleLikePostHandler: require('./toggleLikePostHandler'),
+    toggleSavePostHandler: require('./toggleSavePostHandler'),
+    updateBuyPostHandler: require('./updateBuyPostHandler'),
+    updatePostHandler: require('./updatePostHandler'),
+    updatePriceToPostHandler: require('./updatePriceToPostHandler'),
+    updateUserAvatarHandler: require('./updateUserAvatarHandler'),
+    updateUserModeHandler: require('./updateUserModeHandler'),
+    updateUserPasswordHandler: require('./updateUserPasswordHandler')
+}
