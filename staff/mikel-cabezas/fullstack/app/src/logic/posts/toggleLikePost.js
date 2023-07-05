@@ -5,6 +5,7 @@ import retrievePostByPostId from './retrievePostByPostId.js'
 const { validateUserId, validatePostId, validateCallback } = validators
 
 export function toggleLikePost(userId, postId, callback) {
+    debugger
     validateUserId(userId)
     validatePostId(postId)
     validateCallback(callback)

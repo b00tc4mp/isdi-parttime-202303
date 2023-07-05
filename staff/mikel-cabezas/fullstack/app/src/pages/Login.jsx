@@ -17,26 +17,21 @@ export default function Login({ onRegisterClick, onUserLoggedIn }) {
         event.preventDefault()
         const email = event.target.email.value
         const password = event.target.password.value
-        let userId
 
         try {
-            debugger
-            authenticateUser(email, password, (error, userId) => {
-                freeze()
-                if (error) {
-                    alert(error.message)
+            freeze()
 
-                    return
-                }
+            authenticateUser(email, password)
+                .then(token => {
+                    context.token = token
 
-                context.userId = userId
-
-                onUserLoggedIn()
-                unfreeze()
-            })
+                    onUserLoggedIn()
+                })
+                .catch(error => alert(error.message))
         } catch (error) {
             console.log(error)
         }
+        unfreeze()
     }
 
     return <Container tag="main" className={'w-full md:pl-72 flex justify-center h-screen items-center'}>

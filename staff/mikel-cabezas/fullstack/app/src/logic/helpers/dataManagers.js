@@ -27,7 +27,7 @@ export function getUserImage(userId) {
 }
 
 export function getCurrentUser(id) {
-    const userID = context.userId
+    const userID = context.token
     if (userID !== -1) {
         // return id
         return userID

@@ -7,15 +7,9 @@ export default function UserImage({ userId }) {
 
     useEffect(() => {
         try {
-            retrieveUser(userId, (error, user) => {
-
-                if (error) {
-                    alert(error.message)
-
-                    return
-                }
-                setUser(user)
-            })
+            retrieveUser(userId)
+                .then(user => setUser(user))
+                .catch(error => alert(error.message))
         } catch (error) {
             alert(error.message)
         }

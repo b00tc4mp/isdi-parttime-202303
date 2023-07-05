@@ -11,28 +11,28 @@ export default function UpdateUserInfo({ }) {
     const { freeze, unfreeze, alert } = useContext(AppContext)
 
     const [user, setUser] = useState()
-    const userId = context.userId
+    const userId = context.token
 
     useEffect(() => {
-        retrieveUser(userId, (error, user) => {
-            if (!user) {
-                alert('user not found')
+        try {
+            retrieveUser(userId)
+                .then(() => {
+                    if (!user) {
+                        alert('user not found')
 
-                return
-            }
-            if (error) {
-                alert(error.message)
-
-                return
-            }
-            const _user = {
-                name: user.name,
-                email: user.email,
-                image: user.image
-            }
-            setUser(_user)
-
-        })
+                        return
+                    }
+                    const _user = {
+                        name: user.name,
+                        email: user.email,
+                        image: user.image
+                    }
+                    setUser(_user)
+                })
+                .catch(error => alert(error.message))
+        } catch (error) {
+            alert(error.message)
+        }
     }, [])
 
 
@@ -89,11 +89,10 @@ export default function UpdateUserInfo({ }) {
                     alert(error.message)
                 }
             })
-            user.email !== email.value && updateUserEmail(userId, email.value, error => {
-                if (error) {
-                    alert(error.message)
-                }
-            })
+            user.email !== email.value && updateUserEmail(userId, email.value)
+                .then(() => { })
+                .catch(error => alert(error.message))
+
             if (image.src)
                 user.image !== image && uploadImage(userId, image, error => { error ? alert(error.message) : '' })
 

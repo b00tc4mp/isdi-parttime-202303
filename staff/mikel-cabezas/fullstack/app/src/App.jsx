@@ -6,17 +6,19 @@ import Header from './components/Header.jsx'
 import { context } from "./ui.js"
 import Loader from "./library/Loader.jsx"
 import AppContext from './AppContext'
-
 import { Alert } from "./components/Alert.jsx"
+import { utils } from 'com'
 
 const { Provider } = AppContext
+const { isTokenAlive, isTokenValid } = utils
 
 
 export default function App({ UpdateUserInfo, handleSavelUpdateProfile }) {
   // use ref em lugar de query selector
   localStorage.theme === 'dark' ? document.querySelector(':root').classList.add('dark') : ''
 
-  const [view, setView] = useState(context.userId ? 'home' : 'login')
+  const { token } = context
+  const [view, setView] = useState(isTokenValid(token) && isTokenAlive(token) ? 'home' : 'login')
   const [loader, setLoader] = useState(false)
   const [feedback, setFeedback] = useState(false)
 

@@ -3,32 +3,40 @@ import { context } from '../ui.js'
 import retrieveUserLocation from "../logic/posts/retrieveUserLocation"
 import { useState, useEffect, useContext } from 'react'
 import Context from '../AppContext.js'
-import { IKImage, IKContext, IKUpload } from 'imagekitio-react';
+import { IKImage, IKContext, IKUpload } from 'imagekitio-react'
 const urlEndpoint = 'https://ik.imagekit.io/mklhds/demo-imagekit'
 const publicKey = 'public_KXJOz0g5Xp6gAlhANXjoCNjKLPs=';
-const authenticationEndpoint = 'http://localhost:6541/auth';
-
-let postImage
+const authenticationEndpoint = `${import.meta.env.VITE_API_URL}/auth`
 
 export default function AddPostModal({ onCancel, onCreateNewPost }) {
-    const { freeze, unfreeze, alert } = useContext(Context)
+    const { alert } = useContext(Context)
     const [userLocation, setUserLocation] = useState(null)
+    const [newImage, setNewImage] = useState()
 
-    const onError = err => {
-        console.log("Error", err);
+
+    const onError = (error) => {
+        console.log("Error", error);
+        const length = Number(error.name.split(".").length - 1)
+        const fileExtension = error.name.split(".")[length]
+        alert(`Your file with ${fileExtension} extension are not accepted`)
+        event.target.value = ''
+        document.querySelector('.create-post input[type="file"]').value = ''
     };
 
     const onSuccess = res => {
-        // console.log("Success", res);
-        // postImage = res.url
-        postImage = res.filePath
-    };
-
-    let newImage
-    function handleCancelAddPost(event) {
-        event.preventDefault()
-        onCancel()
+        console.log("Success", res);
+        setNewImage(res.filePath)
+        debugger
     }
+    const onValidateFile = res => {
+        if (res.type === "image/png" && res.size < 5000000 || res.type === "image/jpeg" && res.size < 5000000 || res.type === "image/webp" && res.size < 5000000 || res.type === "image/gif" && res.size < 5000000 || res.type === "image/heic") {
+            return true
+        } else {
+            return false
+        }
+    }
+
+
     function getUserLocation() {
         retrieveUserLocation((error, location) => {
             if (error) {
@@ -41,7 +49,7 @@ export default function AddPostModal({ onCancel, onCreateNewPost }) {
     }
     useEffect(() => {
         try {
-            getUserLocation()
+            // getUserLocation()
         } catch (error) {
             alert(error.message)
         }
@@ -50,51 +58,73 @@ export default function AddPostModal({ onCancel, onCreateNewPost }) {
         try {
             if (userLocation !== null) {
                 alert('userLocation changed')
-                getUserLocation()
+                // getUserLocation()
             }
         } catch (error) {
             alert(error.message)
         }
     }, [userLocation])
-    function handleAddNewPost(event) {
+    useEffect(() => {
+        try {
+            if (userLocation !== null) {
+                alert('userLocation changed')
+                // getUserLocation()
+            }
+        } catch (error) {
+            alert(error.message)
+        }
+    }, [newImage])
+
+
+    const handleAddNewPost = event => {
         event.preventDefault()
-        const userId = context.userId
+        const userId = context.token
         const title = document.querySelector('.create-post input.title').value
         const text = document.querySelector('.create-post textarea').value
-
         try {
-            createPost(userId, postImage, title, text, userLocation, error => {
+            debugger
+            createPost(userId, newImage, title, text, userLocation, error => {
                 if (error) {
                     alert(error.message)
 
                     return
                 }
-
                 onCreateNewPost()
             })
 
         } catch (error) {
             alert(error.message)
         }
-
     }
 
+
+    const handleCancelAddPost = event => {
+        event.preventDefault()
+        onCancel()
+    }
 
     return <div className="overlay create-post">
         <form className="create-post" >
             <label htmlFor="text">Title of your post</label>
             <input type="text" className="title" />
-            <img className="post-image" src="" alt="" />
-            <label htmlFor="file">Upload your image</label>
             <IKContext
                 publicKey={publicKey}
                 urlEndpoint={urlEndpoint}
                 authenticationEndpoint={authenticationEndpoint}
             >
+                <IKImage
+                    path={newImage}
+                    className="post-image w-full"
+                    name="post-image"
+                />
+                <label htmlFor="file">Upload your image</label>
                 <IKUpload
                     fileName="post-image-id_"
+                    // validateFile={file => file.type === "image/png"}
+                    validateFile={onValidateFile}
                     onError={onError}
                     onSuccess={onSuccess}
+                    accept=".jpg, .jpeg, .png, .webp, .heic"
                 />
             </IKContext>
 

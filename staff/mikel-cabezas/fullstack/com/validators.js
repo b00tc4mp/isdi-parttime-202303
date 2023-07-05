@@ -1,5 +1,5 @@
 function validateName(name) {
-    if (typeof name !== 'string') throw new Error('Name is not a string')
+    if (typeof name !== 'string') throw new TypeError('Name is not a string')
     if (!name.trim().length) throw new Error('Name is empty')
 }
 
@@ -20,12 +20,12 @@ function validateImage(inputImage) {
 }
 
 function validateEmail(email) {
-    if (typeof email !== 'string') throw new Error('Email is not a string')
+    if (typeof email !== 'string') throw new TypeError('Email is not a string')
     if (!email.trim().length) throw new Error('Email is empty')
 }
 
 function validateText(text) {
-    if (typeof text !== 'string') throw new Error('Text is not a string')
+    if (typeof text !== 'string') throw new TypeError('Text is not a string')
     if (!text.trim().length) throw new Error('Text is empty')
 }
 
@@ -46,16 +46,23 @@ function validateNewPassword(currentPassword, newPassword, repeatPassword) {
 }
 
 function validateUserId(userId) {
-    if (typeof userId !== 'string') throw new Error('User is not a string')
+    if (typeof userId !== 'string') throw new TypeError('User is not a string')
     if (!userId) throw new Error('User is empty')
 }
 function validatePostId(postId) {
-    if (typeof postId !== 'string') throw new Error('Post ID is not a string')
+    if (typeof postId !== 'string') throw new TypeError('Post ID is not a string')
     if (!postId) throw new Error('Post ID is empty')
 }
 
 function validateCallback(callback) {
-    if (typeof callback !== 'function') throw new Error('Callback is not a function')
+    if (typeof callback !== 'function') throw new TypeError('Callback is not a function')
+}
+
+function validateToken(token, explain = 'token') {
+    if (typeof token !== 'string') throw new TypeError(`${explain} is not a string`)
+    if (token.split('.').length !== 3) throw new Error(`${explain} is not valid`)
+
+
 }
 
 module.exports = {
@@ -67,5 +74,6 @@ module.exports = {
     validateNewPassword,
     validateUserId,
     validatePostId,
-    validateCallback
+    validateCallback,
+    validateToken
 }
