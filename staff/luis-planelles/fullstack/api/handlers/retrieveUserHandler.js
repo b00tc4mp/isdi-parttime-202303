@@ -4,13 +4,15 @@ const jwt = require('jsonwebtoken');
 
 const retrieveUserHandler = (req, res) => {
   try {
-    const token = extractToken(req);
+    const { authorization } = req.headers;
 
-    const payload = jwt.verify(token, process.env.SECRET, { expiresIn: '10s' });
+    const token = authorization.slice(7);
+
+    const payload = jwt.verify(token, process.env.SECRET);
 
     const { sub: userId } = payload;
 
-    return retrieveUser(userId)
+    retrieveUser(userId)
       .then((user) => res.json(user))
       .catch((error) => res.status(400).json({ error: error.message }));
   } catch (error) {

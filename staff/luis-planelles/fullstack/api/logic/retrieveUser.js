@@ -13,7 +13,6 @@ const retrieveUser = (userId) => {
   return users.findOne({ _id: objectId }).then((foundUser) => {
     if (!foundUser) throw new Error('user not found');
 
-    delete foundUser._id;
     delete foundUser.password;
     delete foundUser.favourites;
 

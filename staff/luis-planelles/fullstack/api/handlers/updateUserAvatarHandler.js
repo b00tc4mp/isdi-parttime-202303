@@ -1,11 +1,12 @@
 const { updateUserAvatar } = require('../logic');
 const { extractToken } = require('../helpers');
+const jwt = require('jsonwebtoken');
 
 const updateUserAvatarHandler = (req, res) => {
   try {
     const token = extractToken(req);
 
-    const payload = jwt.verify(token, process.env.SECRET, { expiresIn: '10s' });
+    const payload = jwt.verify(token, process.env.SECRET);
 
     const { sub: userId } = payload;
 
