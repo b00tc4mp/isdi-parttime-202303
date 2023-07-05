@@ -1,4 +1,4 @@
-const context = require('./context')
+// const context = require('./context')  DESAPARECE 
 const {
     validators: { validateName, validateEmail, validatePassword },
     errors: { DuplicityError }
@@ -9,12 +9,21 @@ module.exports = function registerUser(name, email, password) {
     validateEmail(email)
     validatePassword(password)
 
-    const { users } = context
+    const { User } = require('../data/models')
 
-    //
-    return users.insertOne({ name, email, password, avatar: null, favs: [] })
+    return User.create({ name, email, password, avatar: null, favs: [] })
         .catch(error => {
             if (error.message.includes('E11000'))
                 throw new DuplicityError(`user with email ${email} already exists`)
+
+            //LOGICA CON MONGODB
+            // const { users } = context
+
+            // //
+            // return users.insertOne({ name, email, password, avatar: null, favs: [] })
+            //     .catch(error => {
+            //         if (error.message.includes('E11000'))
+            //             throw new DuplicityError(`user with email ${email} already exists`)
+            //     })
         })
 }

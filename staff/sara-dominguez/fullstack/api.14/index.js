@@ -5,24 +5,23 @@ const express = require('express')
 const cors = require('cors')
 const bodyParser = require('body-parser')
 const { helloApiHandler, registerUserHandler, authenticateUserHandler, retrieveUserHandler, updateUserAvatarHandler, updateUserPasswordHandler, createPostHandler, retrievePostHandler, retrievePostsHandler, updatePostHandler, toggleFavPostHandler, toggleLikePostHandler } = require('./handlers')
-// const { MongoClient } = require('mongodb')
-// const context = require('./logic/context')
-const mongoose = require('mongoose')
+const { MongoClient } = require('mongodb')
+const context = require('./logic/context')
 
-// const client = new MongoClient(process.env.MONGODB_URL)
+const client = new MongoClient(process.env.MONGODB_URL)
 
-mongoose.connect(process.env.MONGODB_URL)
-    .then(() => {
-        // const db = connection.db()
+client.connect()
+    .then(connection => {
+        const db = connection.db()
 
-        // // const users = db.collection('users')
-        // // const posts = db.collection('posts')
+        // const users = db.collection('users')
+        // const posts = db.collection('posts')
 
-        // // context.users = users
-        // // context.posts = posts
+        // context.users = users
+        // context.posts = posts
 
-        // context.users = db.collection('users')
-        // context.posts = db.collection('posts')
+        context.users = db.collection('users')
+        context.posts = db.collection('posts')
 
         const api = express()
 

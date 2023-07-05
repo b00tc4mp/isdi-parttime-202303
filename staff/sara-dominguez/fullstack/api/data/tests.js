@@ -1,33 +1,32 @@
-const mongodb = require('mongodb')
+const mongoose = require('mongoose')
 
-// modo "antiguo"
-const { MongoClient, ObjectId } = mongodb
 
-const client = new MongoClient('mongodb://127.0.0.1:27017/data')
+const { User, Post } = require('./models')
 
-//promesas
+mongoose.connect('mongodb://127.0.0.1:27017/data')
+    // .then(() => Promise.all([User.deleteMany(), Post.deleteMany()]))
+    // .then(() => {
+    //     return User.create({ name: 'Usuario M', email: 'usuariom@email.com', password: 'Aa-1234' })
+    // })
+    // .then(user => {
+    //     return Post.create({ author: user.id, image: 'http://image.com/cool', text: 'cool image' })
+    // })
 
-client.connect()
-    .then(connection => {
-        //para añadir usuarios
-        // const users = connection.db().collection('users')
-        // return users.insertOne({ name: 'Wendy Darling', email: 'wendy@darling.com', password: 'Aa-1234' })
+    .then(() => Promise.all([User.deleteMany(), Post.deleteMany()]))
+    .then(() => {
+        const user = new User({ name: 'Usuario Mongoose', email: 'usuariom@email.com', password: 'Aa-1234' })
+        const post = new Post({ author: user.id, image: 'http://image.com/cool', text: 'cool image' })
 
-        //para añadir posts
+        post.author = user.id
 
-        const posts = connection.db().collection('posts')
-        // return posts.insertOne({ author: new ObjectId("6496d6c3830ae66cfe214e2f"), image: "https://jpeg.org/images/aic-home.jpg", text: '😍', date: new Date })
+        user.favs.push(post.id)
+        post.likes.push(user.id)
 
-        //retornar posts y convertirlo en array
-
-        return posts.find().toArray()
-
+        return Promise.all([user.save(), post.save()])
     })
 
-    .then(result => {
-        console.log(result)
-    })
+
     .catch(error => {
         console.log(error)
     })
-    .finally(() => client.close())
+    .finally(() => mongoose.disconnect())
