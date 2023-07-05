@@ -44,9 +44,7 @@ function getImage(postId, callback) {
   xhr.open('GET', `http://localhost:3001/image/${postId}`)
 
   xhr.send()
-
 }
-let image
 function App() {
   const [imageRendered, setImageRendered] = useState(null)
 

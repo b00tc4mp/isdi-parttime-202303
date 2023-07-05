@@ -1,0 +1,55 @@
+.menu li span.material-symbols-outlined {
+  margin-right: 6px;
+  margin-left: 5px;
+  line-height: 1.2;
+}
+
+li.current {
+  background: #e0dcda0a;
+}
+
+.login:hover ul.submenu {
+  display: block;
+}
+
+header li {
+  font-size: 16px;
+  padding: 5px 0px;
+  transition: linear .2s;
+}
+
+body .menu li:hover {
+  background: #ffffff0d;
+}
+
+li.user-account:hover ul.submenu.user-options {
+  display: block;
+}
+
+
+
+
+
+.section.user-account .avatar {
+  border-radius: 100px;
+  /* width: 85px; */
+  /* height: 85px; */
+  display: flex;
+  align-self: flex-start;
+  justify-content: center;
+  align-items: center;
+  margin-right: 5px;
+  margin-top: 35px;
+  transform: scale(2.5);
+  margin-bottom: 26px;
+  left: 25px;
+}
+
+
+
+
+/* img.image-profile {
+  width: 100%;
+  position: absolute;
+  border-radius: 100px;
+} */

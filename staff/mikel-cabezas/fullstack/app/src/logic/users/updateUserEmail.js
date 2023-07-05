@@ -2,10 +2,25 @@ import { validators } from "com"
 import { findUserById, saveUser } from "../../data.js"
 
 const { validateCallback, validateEmail, validateUserId } = validators
-export default (userId, email, callback) => {
+export default (userId, email) => {
     validateEmail(email)
     validateUserId(userId)
-    validateCallback(callback)
+
+    return fetch(`${import.meta.env.VITE_API_URL}/users/email`, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${userId}`
+        },
+        body: JSON.stringify({ email })
+    })
+        .then(res => {
+            if (res.status !== 204)
+                return res.json().then(({ error: message }) => { throw new Error(message) })
+
+            return res.json()
+        })
+
 
     const xhr = new XMLHttpRequest
     xhr.onload = () => {

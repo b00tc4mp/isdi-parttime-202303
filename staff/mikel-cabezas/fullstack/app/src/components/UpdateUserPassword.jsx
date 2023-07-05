@@ -3,7 +3,7 @@ import { updateUserPassword } from "../logic/users/updateUserPassword"
 import { useState } from "react"
 
 export default function UpdateUserPassword() {
-    const userId = context.userId
+    const userId = context.token
 
     const [disabled, setDisabled] = useState(true)
 

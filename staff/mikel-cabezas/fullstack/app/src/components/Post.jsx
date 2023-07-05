@@ -11,15 +11,17 @@ import { IKImage, IKContext, IKUpload } from 'imagekitio-react';
 // const urlEndpoint = 'https://ik.imagekit.io/mklhds'
 const publicKey = 'public_KXJOz0g5Xp6gAlhANXjoCNjKLPs=';
 const authenticationEndpoint = 'http://localhost:6541/auth';
+import { utils } from 'com'
+
+const { extractSubFromToken } = utils
 
 export default function Post({ post, post: { image, title, text, comments, likes, _id, date, author, lastModify, location, visibility }, onToggleLikePost, onToggleSavePost, onEditPostButton, onHideMenuOptions, user }) {
-    const userId = context.userId
+    const userId = extractSubFromToken(context.token)
 
     const [userData, setUserData] = useState(user)
     const [modalMenu, setModalMenu] = useState('close')
     const { freeze, unfreeze, alert } = useContext(AppContext)
     const [imageRendered, setImageRendered] = useState(null)
-
 
     const onError = err => {
         console.log("Error", err);
@@ -29,11 +31,8 @@ export default function Post({ post, post: { image, title, text, comments, likes
         console.log("Success", res);
     };
 
-
-
     useEffect(() => {
         try {
-
             updateUserLikes()
         } catch (error) {
             alert(error.message)
@@ -63,15 +62,9 @@ export default function Post({ post, post: { image, title, text, comments, likes
     const countLikes = `${likes.length} ${likes.length > 1 ? `likes` : 'like'}`
 
     function updateUserLikes() {
-        retrieveUser(userId, (error, user) => {
-
-            if (error) {
-                alert(error.message)
-
-                return
-            }
-            setUserData(user)
-        })
+        retrieveUser(context.token)
+            .then(user => setUserData(user))
+            .catch(error => alert(error.message))
     }
     function handleToggleLike(event) {
         try {
@@ -153,12 +146,12 @@ export default function Post({ post, post: { image, title, text, comments, likes
         // onHideMenuOptions()
     }
     function returnLetters() {
-        const separateUserName = user.name.split(' ')
+        const separateUserName = user?.name.split(' ')
 
-        if (!user.image && separateUserName.length === 1) {
+        if (!user?.image && separateUserName?.length === 1) {
             return separateUserName[0][0] + separateUserName[0][1]
         }
-        if (!user.image && separateUserName.length > 1) {
+        if (!user?.image && separateUserName?.length > 1) {
             return separateUserName[0][0] + separateUserName[1][0]
         }
     }
@@ -167,10 +160,10 @@ export default function Post({ post, post: { image, title, text, comments, likes
         <article className={`${_id} ${visibility !== 'public' ? visibility : visibility}`} style={postStyle}>
             <div className="post-author">
                 <div className="avatar">
-                    {!user.image && <div className="letter">{returnLetters()}</div>}
-                    {user.image && <img className="image-profile w-6 mr-1 rounded-full" src={user.image} alt="" />}
+                    {!user?.image && <div className="letter">{returnLetters()}</div>}
+                    {user?.image && <img className="image-profile w-6 mr-1 rounded-full" src={user?.image} alt="" />}
                 </div>
-                <div className="user-name">{user.name}</div>
+                <div className="user-name">{user?.name}</div>
                 {location && <span className="location">{location}</span>}
 
                 {userId === author.id ? <div className={`options`} onClick={handleShowMenuOptions}><span className="material-symbols-outlined pencil edit-post">more_vert</span>

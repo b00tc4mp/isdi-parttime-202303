@@ -1,36 +1,23 @@
 import { validators } from "com"
 
-const { validateCallback, validateUserId } = validators
+const { validateToken } = validators
 
-export default (userId, callback) => {
-    validateUserId(userId)
-    validateCallback(callback)
+export default (token) => {
+    validateToken(token)
 
-    const xhr = new XMLHttpRequest
-    xhr.onload = () => {
-        const { status } = xhr
-
-        if (status !== 200) {
-            const { response: json } = xhr
-            const { error } = JSON.parse(json)
-
-            callback(new Error(error))
-
-            return
+    return fetch(`${import.meta.env.VITE_API_URL}/users`, {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${token}`
         }
+    })
+        .then((res) => {
 
-        const { response: json } = xhr
-        const user = JSON.parse(json)
-        // const { name, email, image, favPosts } = JSON.parse(json)
-        callback(null, user)
-    }
+            if (res.status !== 200)
+                return res.json().then(({ error: message }) => { throw new Error(message) })
 
-    xhr.onerror = () => {
-        callback(new Error('connection error'))
-    }
-    xhr.open('GET', `${import.meta.env.VITE_API_URL}/users`)
-    xhr.setRequestHeader('Authorization', `Bearer ${userId}`)
+            return res.json()
+        })
 
-    xhr.send()
 
 }

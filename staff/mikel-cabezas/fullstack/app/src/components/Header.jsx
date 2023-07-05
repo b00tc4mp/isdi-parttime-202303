@@ -12,7 +12,7 @@ export default function Header({ onUserProfile, onHomeClick, onLoggedOut, select
     const [savelUpdateProfile, setSavelUpdateProfile] = useState(null)
     const [selectedItem, setselectedItem] = useState(null)
 
-    const userId = context.userId
+    const userId = context.token
     const handleHome = () => {
         try {
             onHomeClick()
@@ -36,7 +36,7 @@ export default function Header({ onUserProfile, onHomeClick, onLoggedOut, select
     }
     const handleLogout = () => {
         try {
-            delete context.userId
+            delete context.token
             onLoggedOut()
         } catch (error) {
             console.log(error.stack)

@@ -9,7 +9,7 @@ import retrieveUser from "../logic/users/retrieveUser"
 import Context from "../AppContext"
 
 export default function Posts({ onEditPost, onAddPostClick, lastPostsUpdate, postsFilter, onToggleLikePostClick, onToggleSavePostClick, onHideMenuOptions, visibility, onShowAllPosts }) {
-    const userId = context.userId
+    const userId = context.token
     const [posts, setPosts] = useState()
     // const [postsFilter, setPostsFilter] = useState('all')
     const [user, setUser] = useState()
@@ -54,14 +54,17 @@ export default function Posts({ onEditPost, onAddPostClick, lastPostsUpdate, pos
                     setPosts(posts)
                 })
             }
-            retrieveUser(userId, (error, user) => {
-                if (error) {
-                    alert(error.message)
+            // retrieveUser(userId, (error, user) => {
+            //     if (error) {
+            //         alert(error.message)
 
-                    return
-                }
-                setUser(user)
-            })
+            //         return
+            //     }
+            //     setUser(user)
+            // })
+            retrieveUser(userId)
+                .then(user => setUser(user))
+                .catch(error => alert(error.message))
         } catch (error) {
             alert(error.message)
         }
@@ -120,6 +123,7 @@ export default function Posts({ onEditPost, onAddPostClick, lastPostsUpdate, pos
                     setPosts(posts)
                 })
             }
+
             retrieveUser(userId, (error, user) => {
                 if (error) {
                     alert(error.message)
@@ -182,7 +186,7 @@ export default function Posts({ onEditPost, onAddPostClick, lastPostsUpdate, pos
 
                     if (post.visibility === 'private' && post.author.id === userId || post.visibility === 'public') {
                         return <Post
-                            key={post._id}
+                            key={post.id}
                             post={post}
                             user={user}
                             onToggleLikePost={handleToggleLikePost}
