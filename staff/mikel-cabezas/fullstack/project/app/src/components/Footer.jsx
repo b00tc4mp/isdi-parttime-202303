@@ -1,12 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 
 import { HOME, NEARBY, SEARCH, LIKES, MORE_OPTIONS } from '../../assets/icons';
 import { View, Image, TouchableHighlight, Alert } from 'react-native';
+import Context from '../AppContext.js'
 import { NativeWindStyleSheet } from "nativewind";
 NativeWindStyleSheet.setOutput({
     default: "native",
 });
+
+
+
+
+
 export default function Footer({ nearbyHandler }) {
+    const { currentView, setCurrentView } = useContext(Context)
     const [activeElement, setActiveElement] = useState()
     const onNearby = () => {
         nearbyHandler()
@@ -20,12 +27,12 @@ export default function Footer({ nearbyHandler }) {
             />
 
             <TouchableHighlight
-                className={`p-[2px] ${activeElement === 'nearby' && 'bg-[#B8F138] rounded-[10px]'}`}
+                className={`p-[2px] ${currentView === 'nearby' && 'bg-[#B8F138] rounded-[10px]'}`}
                 activeOpacity={1.0}
                 underlayColor="#fff"
                 onPress={() => {
                     onNearby()
-                    setActiveElement('nearby')
+                    setCurrentView('nearby')
                 }}>
                 <Image
                     className={`w-8 h-8 m-auto`}

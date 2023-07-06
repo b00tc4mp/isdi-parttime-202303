@@ -1,0 +1,14 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "description": "backend for playground app",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha logic/*.spec.js"
+  },
+  "author": "Mikel Cabezas",
+  "license": "ISC",
+  "devDependencies": {
+    "express": "^4.18.2"
+  }
+}
