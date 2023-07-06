@@ -1,7 +1,8 @@
-import * as React from 'react';
+import React, { useEffect, useState, useContext } from "react";
 
 import { Text, Image, View, ScrollView, TouchableHighlight, Modal } from 'react-native';
 import { CLOSE } from '../../assets/icons';
+import Context from '../AppContext.js'
 
 import { NativeWindStyleSheet } from "nativewind";
 NativeWindStyleSheet.setOutput({
@@ -9,6 +10,7 @@ NativeWindStyleSheet.setOutput({
 });
 
 export default function Nearby({ closeHandle }) {
+    const { currentView, setCurrentView } = useContext(Context)
 
     const onClose = () => {
         closeHandle()
@@ -31,6 +33,7 @@ export default function Nearby({ closeHandle }) {
                         underlayColor="#fff"
                         onPress={() => {
                             onClose()
+                            setCurrentView('home')
                         }}>
                         <Image
                             // className={`w-8 h-8 m-auto`}
