@@ -10,7 +10,8 @@ const {
     retrieveUserHandler,
     updateUserAvatarHandler,
     createPostHandler,
-    retrievePostsHandler
+    retrievePostsHandler,
+    retrievePostHandler
 } = require('./handlers')
 const mongoose = require('mongoose')
 
@@ -35,6 +36,8 @@ mongoose.connect(process.env.MONGODB_URL)
         api.post('/posts', jsonBodyParser, createPostHandler)
 
         api.get('/posts', retrievePostsHandler)
+
+        api.get('/posts/:postId', retrievePostHandler)
 
         api.listen(process.env.PORT, () => console.log(`server running in port ${process.env.PORT}`))
     })

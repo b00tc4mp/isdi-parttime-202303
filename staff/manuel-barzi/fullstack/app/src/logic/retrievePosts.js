@@ -4,7 +4,7 @@ import { findUserById, loadPosts, loadUsers } from '../data'
 const { validateToken, validateCallback } = validators
 
 export default function retrievePosts(token, callback) {
-    validateToken(token, 'user id')
+    validateToken(token)
     validateCallback(callback)
 
     const xhr = new XMLHttpRequest

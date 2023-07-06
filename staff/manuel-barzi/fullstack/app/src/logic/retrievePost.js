@@ -1,28 +1,22 @@
 import { validators } from 'com'
-import { findUserById, findPostById } from '../data'
 
-const { validateId, validateCallback } = validators
+const { validateToken, validateId } = validators
 
-export default function retrievePost(userId, postId, callback) {
-    validateId(userId, 'user id')
+export default function retrievePost(token, postId) {
+    validateToken(token)
     validateId(postId, 'post id')
-    validateCallback(callback)
 
-    findUserById(userId, user => {
-        if (!user) {
-            callback(new Error(`user with id ${userId} not found`))
-
-            return
+    return fetch(`${import.meta.env.VITE_API_URL}/posts/${postId}`, {
+        headers: {
+            Authorization: `Bearer ${token}`
         }
-
-        findPostById(postId, post => {
-            if (!post) {
-                callback(new Error(`post with id ${postId} not found`))
-
-                return
-            }
-
-            callback(null, post)
-        })
     })
+        .then(res => {
+            if (res.status !== 200)
+                return res.json().then(({ error: message }) => {
+                    throw new Error(message)
+                })
+
+            return res.json()
+        })
 }

@@ -4,5 +4,6 @@ module.exports = {
     retrieveUser: require('./retrieveUser'),
     updateUserAvatar: require('./updateUserAvatar'),
     createPost: require('./createPost'),
-    retrievePosts: require('./retrievePosts')
+    retrievePosts: require('./retrievePosts'),
+    retrievePost: require('./retrievePost')
 }

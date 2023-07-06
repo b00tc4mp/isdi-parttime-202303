@@ -36,15 +36,10 @@ export default function EditPostModal({ onCancel, onPostUpdated, postId }) {
 
     useEffect(() => {
         try {
-            retrievePost(context.userId, postId, (error, post) => {
-                if (error) {
-                    alert(error.message)
-
-                    return
-                }
-
-                setPost(post)
-            })
+            retrievePost(context.token, postId)
+                //.then(post => setPost(post))
+                .then(setPost)
+                .catch(error => alert(error.message))
         } catch (error) {
             alert(error.message)
         }
