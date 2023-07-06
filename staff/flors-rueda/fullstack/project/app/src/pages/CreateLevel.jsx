@@ -143,8 +143,8 @@ const CreateLevel = ({ onTryLevelClick }) => {
                 ))}
                 <p className="text-lg pt-5 text-center font-bold text-secondary200">remove/add floors</p>
                 <div className="pt-5 flex flex-row gap-5">
-                    <button className="text-3xl bg-red-500 hover:bg-red-700 text-white font-bold pb-2 px-4 rounded-full" onClick={removeFloor}>-</button>
-                    <button className="text-3xl bg-green-500 hover:bg-green-700 text-white font-bold pb-2 px-3 rounded-full" onClick={addFloor}>+</button>
+                    <button onClick={removeFloor}><i className="text-5xl text-danger200 hover:text-danger100 font-bold bi bi-dash-circle-fill"></i></button>
+                    <button onClick={addFloor}><i className="text-5xl text-success200 hover:text-success100 font-bold bi bi-plus-circle-fill"></i></button>
                 </div>
                 <div className="pt-5 pb-20">
                     <button className="bg-transparent hover:bg-orange-500 text-orange-700 font-semibold hover:text-white py-2 px-4 border border-orange-500 hover:border-transparent rounded" onClick={handleOnTryLevel}>try and post</button>

@@ -73,7 +73,7 @@ const Game = ({ level, onExitClick, onPlayAgainClick }) => {
   }, [isAnimationVisible, animation]);
 
   return (
-    <div className="game">
+    <div className="flex flex-col flex-wrap">
       {isAnimationVisible && (
         <Player
           autoplay
@@ -101,9 +101,9 @@ const Game = ({ level, onExitClick, onPlayAgainClick }) => {
           <div className="top-0 inset-0 bg-black opacity-50"></div>
         </>
       )}
-      <div className="game-interface">
+      <div className="flex flex-col items-center overflow-hidden">
         <CanvasContainer key={key} floor={floor} onSolved={handleOnSolved} onBomb={handleOnBomb} onLife={handleOnLife} onGameWon={handleOnGameWon} isGameOver={isGameOver} />
-        <div className="health-container">
+        <div className="flex flex-row overflow-hidden gap-2 pt-1 text-primary100">
           {renderHealthImages()}
           {renderNonHealth()}
         </div>
