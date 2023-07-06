@@ -38,6 +38,7 @@
   }
 }
 
+
 body {
   background-color: var(--color-light-400);
   overscroll-behavior: contain;
@@ -56,8 +57,10 @@ body {
   overflow: hidden;
 }
 
+
 @media (min-width: 768px) {
   .canvas-container {
     margin: 5rem auto 0;
   }
+
 }

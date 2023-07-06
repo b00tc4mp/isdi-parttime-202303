@@ -1,0 +1,282 @@
+.circle {
+    display: block;
+    z-index: -5;
+    width: 2rem;
+    height: 2rem;
+    background-color: var(--color-secondary-300);
+    box-shadow: inset -2rem -1rem 3rem var(--color-dark-300);
+    background-image: linear-gradient(-45deg, var(--color-light-100) 0%, transparent 100%);
+    border-radius: 50%;
+
+    position: absolute;
+    top: -5rem;
+    left: 50%;
+
+    -webkit-animation: spin 1000ms linear infinite, moveTopToBottom 5s linear infinite;
+    -moz-animation: spin 1000ms linear infinite, moveTopToBottom 5s linear infinite;
+    -ms-animation: spin 1000ms linear infinite, moveTopToBottom 5s linear infinite;
+    animation: spin 1000ms linear infinite, moveTopToBottom 5s linear infinite;
+
+    -webkit-transition: all 1s ease;
+    transition: all 1s ease;
+}
+
+.circle2 {
+    display: block;
+    z-index: -5;
+    width: 2rem;
+    height: 2rem;
+    background-color: var(--color-primary-300);
+    box-shadow: inset -2rem -1rem 3rem var(--color-primary-100);
+    background-image: linear-gradient(-45deg, var(--color-primary-300) 0%, transparent 100%);
+    border-radius: 50%;
+
+    position: absolute;
+    top: -5rem;
+    left: 20%;
+
+    -webkit-animation: spin 1000ms linear infinite, moveTopToBottom 15s linear infinite;
+    -moz-animation: spin 1000ms linear infinite, moveTopToBottom 15s linear infinite;
+    -ms-animation: spin 1000ms linear infinite, moveTopToBottom 15s linear infinite;
+    animation: spin 1000ms linear infinite, moveTopToBottom 15s linear infinite;
+
+    -webkit-transition: all 1s ease;
+    transition: all 1s ease;
+}
+
+.circle3 {
+    display: block;
+    z-index: -5;
+    width: 2rem;
+    height: 2rem;
+    background-color: var(--color-secondary-500);
+    box-shadow: inset -2rem -1rem 3rem var(--color-secondary-400);
+    background-image: linear-gradient(-45deg, var(--color-secondary-600) 0%, transparent 100%);
+    border-radius: 50%;
+
+    position: absolute;
+    top: -5rem;
+    left: 80%;
+
+    -webkit-animation: spin 1000ms linear infinite, moveTopToBottom 7s linear infinite;
+    -moz-animation: spin 1000ms linear infinite, moveTopToBottom 7s linear infinite;
+    -ms-animation: spin 1000ms linear infinite, moveTopToBottom 7s linear infinite;
+    animation: spin 1000ms linear infinite, moveTopToBottom 7s linear infinite;
+
+    -webkit-transition: all 1s ease;
+    transition: all 1s ease;
+}
+
+.circle4 {
+    display: block;
+    z-index: -5;
+    width: 2rem;
+    height: 2rem;
+    background-color: var(--color-primary-400);
+    box-shadow: inset -2rem -1rem 3rem var(--color-primary-500);
+    background-image: linear-gradient(-45deg, var(--color-primary-600) 0%, transparent 100%);
+    border-radius: 50%;
+
+    position: absolute;
+    top: -5rem;
+    left: 70%;
+
+    -webkit-animation: spin 1000ms linear infinite, moveTopToBottom 10s linear infinite;
+    -moz-animation: spin 1000ms linear infinite, moveTopToBottom 10s linear infinite;
+    -ms-animation: spin 1000ms linear infinite, moveTopToBottom 10s linear infinite;
+    animation: spin 1000ms linear infinite, moveTopToBottom 10s linear infinite;
+
+    -webkit-transition: all 1s ease;
+    transition: all 1s ease;
+}
+
+.circle5 {
+    display: block;
+    z-index: -5;
+    width: 1rem;
+    height: 1rem;
+    background-color: var(--color-dark-400);
+    box-shadow: inset -2rem -1rem 3rem var(--color-dark-500);
+    background-image: linear-gradient(-45deg, var(--color-dark-600) 0%, transparent 100%);
+    border-radius: 50%;
+
+    position: absolute;
+    top: -5rem;
+    left: 10%;
+
+    -webkit-animation: spin 1000ms linear infinite, moveTopToBottom 10s linear infinite;
+    -moz-animation: spin 1000ms linear infinite, moveTopToBottom 10s linear infinite;
+    -ms-animation: spin 1000ms linear infinite, moveTopToBottom 10s linear infinite;
+    animation: spin 1000ms linear infinite, moveTopToBottom 10s linear infinite;
+
+    -webkit-transition: all 1s ease;
+    transition: all 1s ease;
+}
+
+.circle6 {
+    display: block;
+    z-index: -5;
+    width: 1rem;
+    height: 1rem;
+    background-color: var(--color-light-100);
+    box-shadow: inset -2rem -1rem 3rem var(--color-light-200);
+    background-image: linear-gradient(-45deg, var(--color-light-300) 0%, transparent 100%);
+    border-radius: 50%;
+
+    position: absolute;
+    top: -5rem;
+    left: 70%;
+
+    -webkit-animation: spin 1000ms linear infinite, moveTopToBottom 15s linear infinite;
+    -moz-animation: spin 1000ms linear infinite, moveTopToBottom 15s linear infinite;
+    -ms-animation: spin 1000ms linear infinite, moveTopToBottom 15s linear infinite;
+    animation: spin 1000ms linear infinite, moveTopToBottom 15s linear infinite;
+
+    -webkit-transition: all 1s ease;
+    transition: all 1s ease;
+}
+
+.circle7 {
+    display: block;
+    z-index: -5;
+    width: 1rem;
+    height: 1rem;
+    background-color: var(--color-dark-100);
+    box-shadow: inset -2rem -1rem 3rem var(--color-dark-200);
+    background-image: linear-gradient(-45deg, var(--color-dark-300) 0%, transparent 100%);
+    border-radius: 50%;
+
+    position: absolute;
+    top: -5rem;
+    left: 92%;
+
+    -webkit-animation: spin 1000ms linear infinite, moveTopToBottom 5s linear infinite;
+    -moz-animation: spin 1000ms linear infinite, moveTopToBottom 5s linear infinite;
+    -ms-animation: spin 1000ms linear infinite, moveTopToBottom 5s linear infinite;
+    animation: spin 1000ms linear infinite, moveTopToBottom 5s linear infinite;
+
+    -webkit-transition: all 1s ease;
+    transition: all 1s ease;
+}
+
+.circle8 {
+    display: block;
+    z-index: -5;
+    width: 1rem;
+    height: 1rem;
+    background-color: var(--color-primary-100);
+    box-shadow: inset -2rem -1rem 3rem var(--color-primary-200);
+    background-image: linear-gradient(-45deg, var(--color-primary-300) 0%, transparent 100%);
+    border-radius: 50%;
+
+    position: absolute;
+    top: -5rem;
+    left: 34%;
+
+    -webkit-animation: spin 1000ms linear infinite, moveTopToBottom 5s linear infinite;
+    -moz-animation: spin 1000ms linear infinite, moveTopToBottom 5s linear infinite;
+    -ms-animation: spin 1000ms linear infinite, moveTopToBottom 5s linear infinite;
+    animation: spin 1000ms linear infinite, moveTopToBottom 5s linear infinite;
+
+    -webkit-transition: all 1s ease;
+    transition: all 1s ease;
+}
+
+@media (min-width: 768px) {
+
+    .circle,
+    .circle2,
+    .circle3,
+    .circle4 {
+        width: 5rem;
+        height: 5rem;
+    }
+
+    .circle5,
+    .circle6,
+    .circle7,
+    .circle8 {
+        width: 3rem;
+        height: 3rem;
+    }
+}
+
+@-ms-keyframes spin {
+    from {
+        -ms-transform: rotate(0deg);
+    }
+
+    to {
+        -ms-transform: rotate(360deg);
+    }
+}
+
+@-moz-keyframes spin {
+    from {
+        -moz-transform: rotate(0deg);
+    }
+
+    to {
+        -moz-transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@-webkit-keyframes spin {
+    from {
+        -webkit-transform: rotate(0deg);
+    }
+
+    to {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@-moz-keyframes moveTopToBottom {
+    0% {
+        top: -5rem;
+    }
+
+    100% {
+        top: 90%;
+    }
+}
+
+@-ms-keyframes moveTopToBottom {
+    0% {
+        top: -5rem;
+    }
+
+    100% {
+        top: 90%;
+    }
+}
+
+@keyframes moveTopToBottom {
+    0% {
+        top: -5rem;
+    }
+
+    100% {
+        top: 90%;
+    }
+}
+
+@-webkit-keyframes moveTopToBottom {
+    0% {
+        top: -5rem;
+    }
+
+    100% {
+        top: 90%;
+    }
+}

@@ -2,7 +2,7 @@ import inLogger from '../inLogger';
 
 const Footer = () => {
     return (
-        <footer className="fixed bottom-0 left-0 bg-dark400 w-full w-h-10 md:h-12 lg:h-14  shadow z-40">
+        <footer className="fixed bottom-0 left-0 bg-dark400 w-full h-10 md:h-12 lg:h-14  shadow z-40">
             <div className="w-full h-full flex justify-between align-center items-center px-4">
                 <ul className="flex flex-wrap items-center text-lg font-medium text-light100">
                     <li>
