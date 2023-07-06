@@ -13,6 +13,7 @@ const Game = ({ level, onExitClick, onPlayAgainClick }) => {
   const [animation, setAnimation] = useState(null);
   const [isAnimationVisible, setAnimationVisible] = useState(false);
 
+
   const handleOnSolved = () => {
     setKey(key + 1);
     setFloor(level ? level[key] : level1[key]);

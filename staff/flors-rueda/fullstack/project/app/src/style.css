@@ -44,13 +44,20 @@ body {
   -webkit-user-select: none;
   -ms-user-select: none;
   user-select: none;
-
+  position: relative;
 }
 
 .canvas-container {
   width: 100%;
   max-width: 530px;
-  height: 80vh;
-  margin: 0 auto;
+  height: 530px;
+  max-height: 85vh;
+  margin: 0;
   overflow: hidden;
+}
+
+@media (min-width: 768px) {
+  .canvas-container {
+    margin: 5rem auto 0;
+  }
 }
