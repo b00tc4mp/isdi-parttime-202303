@@ -1,21 +1,52 @@
 import * as React from 'react';
 
-import { Text, View, ScrollView, Animated } from 'react-native';
+import { Text, Image, View, ScrollView, TouchableHighlight, Modal } from 'react-native';
+import { CLOSE } from '../../assets/icons';
 
 import { NativeWindStyleSheet } from "nativewind";
 NativeWindStyleSheet.setOutput({
     default: "native",
 });
 
+export default function Nearby({ closeHandle }) {
 
-export default function Nearby() {
+    const onClose = () => {
+        closeHandle()
+        // alert('hola')
 
-    return <Animated.View className="absolute w-full justify-center flex bottom-24 content-center">
-        <ScrollView
-            className="w-10/12 h-[40vh] p-5 bg-white rounded-[20px] left-0 m-auto"
-            horizontal="true"
-        >
-            <Text>hola</Text>
-        </ScrollView>
-    </Animated.View>
+    }
+
+    return <>
+        <View className="">
+            <Modal
+                animationType="slide"
+                transparent={true}
+                className="w-full justify-center flex content-center center">
+                <View
+                    className="w-10/12 left-[8.33%] absolute bottom-24 h-auto max-h-max p-5 bg-white rounded-[20px] mx-auto"
+                >
+                    <TouchableHighlight
+                        className=" m-auto absolute right-0 top-0 mr-2 mt-1 z-10"
+                        activeOpacity={1.0}
+                        underlayColor="#fff"
+                        onPress={() => {
+                            onClose()
+                        }}>
+                        <Image
+                            // className={`w-8 h-8 m-auto`}
+                            className={`w-8 h-8 m-auto `}
+                            source={CLOSE}
+                        />
+                    </TouchableHighlight>
+
+
+                    <ScrollView
+                        horizontal="true"
+                    >
+                        <Text className="pt-4">hola</Text>
+                    </ScrollView>
+                </View>
+            </Modal>
+        </View>
+    </>
 }

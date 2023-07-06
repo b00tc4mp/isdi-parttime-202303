@@ -20,20 +20,21 @@ export default function App() {
   const [modal, setModal] = useState()
   const onNearby = () => {
     setModal('nearby')
-    alert('hola')
+    // alert('hola')
   }
-
-
-
+  const onClose = () => {
+    // alert('hola')
+    setModal()
+  }
 
   return (
     <>
       <View className="flex-1 bg-white items-center justify-center">
         <BaseMap />
         <Header />
-        {modal === 'nearby' && <Nearby></Nearby>}
+        {modal === 'nearby' && <Nearby className="z-10" closeHandle={onClose}></Nearby>}
 
-        <Footer nearbyHandler={onNearby} />
+        <Footer className="z-50" nearbyHandler={onNearby} />
         <StatusBar style="auto" />
 
       </View >
