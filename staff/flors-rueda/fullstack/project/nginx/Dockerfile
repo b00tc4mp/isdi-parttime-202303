@@ -7,7 +7,7 @@ RUN ls
 WORKDIR /frontend/app
 COPY ./staff/flors-rueda/fullstack/project/app/package*.json ./
 RUN npm install
-ENV VITE_API_URL=http://15.188.194.105:80/api
+ENV VITE_API_URL=http://13.38.137.130:80/api
 COPY ./staff/flors-rueda/fullstack/project/app/ .
 RUN npm run build
 
