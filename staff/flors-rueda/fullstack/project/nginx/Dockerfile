@@ -1,5 +1,10 @@
 FROM node:18-alpine as build
-WORKDIR /app
+
+WORKDIR /frontend/com
+COPY ./staff/flors-rueda/fullstack/project/com .
+RUN ls
+
+WORKDIR /frontend/app
 COPY ./staff/flors-rueda/fullstack/project/app/package*.json ./
 RUN npm install
 ENV VITE_API_URL=http://15.188.194.105:80/api
