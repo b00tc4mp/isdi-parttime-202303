@@ -1,19 +1,9 @@
 const { registerUser } = require('../logic')
+const { handleErrors } = require('./helpers')
 
-module.exports = (req, res) => {
-    try {
-        const { name, email, password } = req.body
+module.exports = handleErrors((req, res) => {
+    const { name, email, password } = req.body
 
-        registerUser(name, email, password, error => {
-            if (error) {
-                res.status(400).json({ error: error.message })
-
-                return
-            }
-
-            res.status(201).send()
-        })
-    } catch (error) {
-        res.status(400).json({ error: error.message })
-    }
-}
+    return registerUser(name, email, password)
+        .then(() => res.status(201).send())
+})

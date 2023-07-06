@@ -15,7 +15,7 @@ export default function FavPosts(user){
         freeze()
 
         try{ 
-            retrieveFavPosts(context.userId, (error, posts) => {
+            retrieveFavPosts(context.token, (error, posts) => {
                 unfreeze()
                 if(error){
                     alert(error.message)
@@ -31,7 +31,7 @@ export default function FavPosts(user){
 
     return  <section>
     {favPosts && favPosts.map((post) => <FavPost 
-        key={post.id} 
+        key={post._id} 
         post={post} 
         user={user} 
     />)}

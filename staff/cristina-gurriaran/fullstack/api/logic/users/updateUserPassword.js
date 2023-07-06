@@ -1,44 +1,30 @@
-require('dotenv').config()
-const { readFile, writeFile } = require('fs')
-const { validators: { validateId, validatePassword, validateCallback } } = require('com')
+const { 
+    validators: { validateId, validatePassword },
+    errors: { ExistenceError, ContentError, AuthError}
+} = require('com')
+const context = require('../context')
+const { ObjectId } = require('mongodb')
 
-module.exports = function updateUserPassword(userId, password, newPassword, newPasswordConfirm, callback){
+
+module.exports = function updateUserPassword(userId, password, newPassword, newPasswordConfirm){
     validateId(userId, 'user id')
     validatePassword(password)
     validatePassword(newPassword, 'new password')
-    if(newPassword === password) throw new Error ('new password equals old password ')
+    if (newPassword === password) throw new ContentError ('new password equals old password ')
     validatePassword(newPasswordConfirm, 'new password confirm')
-    if(newPassword !== newPasswordConfirm) throw new Error ('password confirmation mismatch')
-    validateCallback(callback)
+    if (newPassword !== newPasswordConfirm) throw new ContentError ('password confirmation mismatch')
 
-    readFile(`${process.env.DB_PATH}/users.json`, 'utf8', (error, json) => {
-        if(error){
-            callback(error)
-            return
-        }
+    const { users } = context
 
-        const users = JSON.parse(json)
-        let user = users.find(user => userId === user.id)
-
-        if (!user){
-            callback(new Error ('User not found'))
-            return
-        }
-
-        if(password !== user.password){ 
-            callback(new Error ('wrong password'))
-            return
-        }
-        
-        user.password = newPassword
-        json = JSON.stringify(users, null, 4)
-
-        writeFile(`${process.env.DB_PATH}/users.json`, json, 'utf8', error => {
-            if(error){
-                callback(error)
-                return
+    return users.findOne({ _id: new ObjectId(userId )})
+        .then(user => {
+            if(!user) {
+                throw new ExistenceError ('User not found') }
+            
+            if(user.password !== password) {
+                throw new AuthError ('wrong password')
             }
-            callback(null)
+
+            return users.updateOne({ _id: new ObjectId(userId)}, {$set: {password : newPassword}})
         })
-    })
 }

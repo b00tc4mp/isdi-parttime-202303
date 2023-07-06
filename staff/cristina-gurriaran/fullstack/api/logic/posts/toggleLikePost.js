@@ -1,65 +1,37 @@
-require('dotenv').config()
-const { readFile, writeFile } = require('fs')
-const { validators: { validateId, validateCallback } } = require('com')
+const { 
+    validators: { validateId },
+    errors: { ExistenceError }
+ } = require('com')
+const { ObjectId } = require('mongodb')
+const context = require('../context')
 
-module.exports = function toggleLikePost(userId, postId, callback){
+module.exports = function toggleLikePost(userId, postId){
     validateId(userId, 'user id')
-    validateId(postId, 'post id')
-    validateCallback(callback)
 
-    readFile(`${process.env.DB_PATH}/users.json`, 'utf8', (error, json) => {
-        if(error){
-            callback(error)
-            return
-        }
+    const { users, posts } = context
 
-        const users = JSON.parse(json)
-        const user = users.find(user => user.id === userId)
+    return Promise.all([users.findOne({ _id: new ObjectId(userId) }), posts.findOne({ _id: new ObjectId(postId) })])
+        .then(([user, post]) => {
+            if (!user) throw new ExistenceError(`User with id ${userId} not found`)
 
-        if (!user) {
-            callback(new Error(`user with id ${userId} not found`))
-            return
-        } 
+            if (!post) throw new ExistenceError(`Post with id ${postId} not found`)
+            
+            const index = post.likes.findIndex((id) => id.toString() === userId)
 
-        readFile(`${process.env.DB_PATH}/posts.json`, 'utf8', (error, json) => {
-            if(error){
-                callback(error)
-                return
-            }
-    
-            const posts = JSON.parse(json)
-            const post = posts.find(post => post.id === postId)
-
-            if (!post){
-                callback(new Error(`user with id ${postId} not found`))
-                return
-            } 
-
-            if (!post.likes) {
-                post.likes = [userId]
+            if (index < 0) {
+                return posts.updateOne(
+                    { _id: new ObjectId(postId) },
+                    { $push: { likes: new ObjectId(userId) } }
+                )
 
             } else {
-                const index = post.likes.indexOf(userId)
-
-                if (index < 0) 
-                    post.likes.push(userId)
-
-                else
-                    post.likes.splice(index, 1)
-
-                    if (!post.likes.length) delete post.likes
-                    
+                post.likes.splice(index, 1)
             }
 
-            const json2 = JSON.stringify(posts, null, 4)
+            return posts.updateOne(
+                { _id: new ObjectId(postId) },
+                { $set: { likes: post.likes } }
+            )
 
-            writeFile(`${process.env.DB_PATH}/posts.json`, json2, 'utf8', error => {
-                if(error){
-                    callback(error)
-                    return
-                }
-                callback(null)
-            })
         })
-    })
 }

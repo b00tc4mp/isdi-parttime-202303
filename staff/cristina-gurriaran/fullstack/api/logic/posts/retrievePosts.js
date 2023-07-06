@@ -1,45 +1,38 @@
-require('dotenv').config()
-const { readFile } = require('fs')
-const { validators: { validateId, validateCallback } } = require('com')
+const { 
+    validators: { validateId },
+    errors: { ExistenceError }
+ } = require('com')
+const context = require('../context')
+const { ObjectId } = require('mongodb')
 
-module.exports = function retrievePosts(userId, callback){
+
+module.exports = function retrievePosts(userId){
     validateId (userId, 'user id')
-    validateCallback(callback)
+    const { users, posts } = context
 
-    readFile(`${process.env.DB_PATH}/users.json`, 'utf8', (error, json) => {
-        if(error){
-            callback(error)
-            return
-        }
+    return users.findOne({ _id: new ObjectId(userId) })
+        .then(user => {
+            if (!user) throw new ExistenceError (`User with id ${userId} not found`)
 
-        const users = JSON.parse(json)
-        const user = users.find(user => user.id === userId)
-        
-        if(!user){
-            callback(error)
-            return
-        }
+            return Promise.all([users.find().toArray(), posts.find().toArray()])
+                .then(([users, posts]) => {
+                    posts.forEach(post => {
+                        post.id = post._id.toString()
+                        delete post._id
 
-        readFile(`${process.env.DB_PATH}/posts.json`, 'utf8', (error, json) => {
-            if(error){
-                callback(error)
-                return
-            }
+                        const _user = users.find(user => user._id.toString() === post.author.toString())
 
-            const posts = JSON.parse(json)
-            posts.forEach(post => {
-                post.fav = user.favs.includes(post.id)
-            
-                const _user = users.find(user => user.id === post.author)
+                        post.author = {
+                            id: _user._id.toString(),
+                            username: _user.username,
+                            avatar: _user.avatar
+                        }
 
-                post.author = {
-                    id: _user.id,
-                    name: _user.name,
-                    avatar: _user.avatar
-                }
-            })
-            
-            callback(null, posts.reverse()) 
+                        post.favs = user.favs.some(id => id.toString() === post.id)
+
+                        post.date = new Date(post.date)
+                    })
+                    return posts.reverse()
+                })
         })
-    })
 }

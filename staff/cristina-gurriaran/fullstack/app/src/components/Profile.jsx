@@ -17,7 +17,7 @@ export default function Profile({ onUserAvatarUpdated, onUpdatedUserPassword }) 
 
     useEffect(() => {
         try {
-            retrieveUser(context.userId, (error, user) => {
+            retrieveUser(context.token, (error, user) => {
                 if(error){
                     alert(error.message)
                     return
@@ -37,7 +37,7 @@ export default function Profile({ onUserAvatarUpdated, onUpdatedUserPassword }) 
         const url = event.target.url.value
 
         try {
-            updateUserAvatar(context.userId, url, error => {
+            updateUserAvatar(context.token, url, error => {
                 if(error){
                     alert(error.message)
                     return
@@ -61,7 +61,7 @@ export default function Profile({ onUserAvatarUpdated, onUpdatedUserPassword }) 
         const newPasswordConfirm = event.target.newPasswordConfirm.value
 
         try {
-            updateUserPassword(context.userId, password, newPassword,newPasswordConfirm, error => {
+            updateUserPassword(context.token, password, newPassword,newPasswordConfirm, error => {
                 if(error){
                     alert(error.message)
                     return

@@ -1,9 +1,9 @@
 import { validators } from 'com'
-const { validateId, validateUrl, validateText, validateCallback } = validators
+const { validateToken, validateId, validateUrl, validateText, validateCallback } = validators
 
 
-export default function updatePost(userId, postId, image, location, title, text, callback) {
-    validateId(userId, 'user id')
+export default function updatePost(token, postId, image, location, title, text, callback) {
+    validateToken(token)
     validateId(postId, 'post id')
     validateUrl(image, 'image url')
     validateText(text)
@@ -30,10 +30,10 @@ export default function updatePost(userId, postId, image, location, title, text,
     }
 
 
-    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/posts`)
+    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/posts/${postId}`)
 
     xhr.setRequestHeader('Content-Type', 'application/json')
-    xhr.setRequestHeader('Authorization', `Bearer ${userId}`)
+    xhr.setRequestHeader('Authorization', `Bearer ${token}`)
 
     const post = { postId , image, location, title, text }
     const json = JSON.stringify(post)

@@ -6,9 +6,14 @@ import { context } from './ui.js'
 import Alert from './components/Alert.jsx'
 import Context from './Context.js'
 import Loader from './library/Loader.jsx'
+import { utils } from 'com'
+
+const { isTokenValid, isTokenAlive } = utils
+
 
 export default function App(){
-    const [view, setView] = useState(context.userId? 'home' : 'login')
+    const { token } = context
+    const [view, setView] = useState(isTokenValid(token) && isTokenAlive(token) ? 'home' : 'login')
 
     const [feedback, setFeedback] = useState(null)
 

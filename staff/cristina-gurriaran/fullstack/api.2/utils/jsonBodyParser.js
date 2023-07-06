@@ -1,5 +1,5 @@
 
-module.exports = function jsonBodyParser(req, res, next) {
+module.exports = function bodyParser(req, res, next) {
     const { 'content-type': contentType } = req.headers
 
     if (contentType !== 'application/json') {

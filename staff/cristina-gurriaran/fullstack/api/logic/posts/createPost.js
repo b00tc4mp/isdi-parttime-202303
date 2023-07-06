@@ -1,63 +1,32 @@
-require('dotenv').config()
-const { readFile, writeFile } = require('fs')
-const { validators: { validateId, validateUrl, validateText, validateCallback } } = require('com')
+const { 
+    validators: { validateId, validateUrl, validateText },
+    errors: { ExistenceError },
+} = require('com')
+
+const context = require('../context')
+const { ObjectId } = require('mongodb')
 
 
-module.exports = function createPost(userId, image, location, title, text, callback){
+
+module.exports = function createPost(userId, image, location, title, text){
     validateId(userId, 'user id')
     validateUrl(image, 'image url')
     validateText(text)
-    validateCallback(callback)
+    const { users, posts } = context
 
-    readFile(`${process.env.DB_PATH}/users.json`, 'utf8', (error, json) => {
-        if(error){
-            callback(error)
-            return
-        }
+    return users.findOne({ _id: new ObjectId(userId) })
+        .then(user => {
+            if (!user) throw new ExistenceError(`user with id ${userId} not found`)
 
-        const users = JSON.parse(json)
-        let user = users.find(user => user.id === userId)
-
-        if (!user) {
-            callback(new Error(`user with id ${userId} not found`))
-            return
-        } 
-
-        readFile(`${process.env.DB_PATH}/posts.json`, 'utf8', (error, json) => {
-            if(error){
-                callback(error)
-                return
-            }
-    
-            const posts = JSON.parse(json)
-            const lastPost = posts[posts.length - 1]
-            let id = 'post-1'
-    
-            if (lastPost)
-                id = `post-${parseInt(lastPost.id.slice(5)) + 1}`
-        
             const post = {
-                id,
-                author: userId,
+                author: user._id,
                 image,
-                location,
-                title,
                 text,
                 date: new Date,
-                likes:[]
+                likes: [],
+                favs: []
             }
-        
-            posts.push(post)
 
-            json = JSON.stringify(posts, null, 4)
-
-            writeFile(`${process.env.DB_PATH}/posts.json`, json, 'utf8', error => {
-                if(error){
-                    callback(error)
-                    return
-                }
-                callback(null)
-            })
+            return posts.insertOne(post)
         })
-    })
 }

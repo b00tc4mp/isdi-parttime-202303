@@ -1,9 +1,9 @@
 import { validators } from 'com'
-const { validateId, validateCallback } = validators
+const { validateToken, validateId, validateCallback } = validators
 
 
-export default function deletePost(userId, postId, callback) {
-    validateId(userId, 'user id')
+export default function deletePost(token, postId, callback) {
+    validateToken(token)
     validateId(postId, 'post id')
     validateCallback(callback)
 
@@ -26,14 +26,11 @@ export default function deletePost(userId, postId, callback) {
         callback(new Error('connection error'))
     }
 
-    xhr.open('DELETE', `${import.meta.env.VITE_API_URL}/posts`)
+    xhr.open('DELETE', `${import.meta.env.VITE_API_URL}/posts/${postId}`)
 
     xhr.setRequestHeader('Content-Type', 'application/json')
-    xhr.setRequestHeader('Authorization', `Bearer ${userId}`)
+    xhr.setRequestHeader('Authorization', `Bearer ${token}`)
 
-    const post = { postId }
-    const json = JSON.stringify(post)
-
-    xhr.send(json)
+    xhr.send()
 
 }

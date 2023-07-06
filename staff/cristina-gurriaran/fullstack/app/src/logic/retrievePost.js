@@ -1,10 +1,10 @@
 import { validators } from 'com'
-const { validateId, validateCallback } = validators
+const { validateToken, validateId, validateCallback } = validators
 
 
-export default function retrievePost(userId, postId, callback) {
-    validateId (userId, 'user id')
-    validateId (postId, 'post id')
+export default function retrievePost(token, postId, callback) {
+    validateToken (token)
+    // validateId (postId, 'post id')
     validateCallback(callback)
 
     const xhr = new XMLHttpRequest
@@ -21,7 +21,7 @@ export default function retrievePost(userId, postId, callback) {
         }
 
         const { response: json } = xhr
-        const { post } = JSON.parse(json)
+        const post  = JSON.parse(json)
 
         callback(null, post)
 
@@ -32,13 +32,8 @@ export default function retrievePost(userId, postId, callback) {
     }
 
     xhr.open('GET', `${import.meta.env.VITE_API_URL}/posts/${postId}`)
-
-    xhr.setRequestHeader('Content-Type', 'application/json')
-    xhr.setRequestHeader('Authorization', `Bearer ${userId}`)  
+    
+    xhr.setRequestHeader('Authorization', `Bearer ${token}`)  
       
-    const post = { postId }
-    const json = JSON.stringify(post)
-
-    xhr.send(json)
-
+    xhr.send()
 }

@@ -4,8 +4,11 @@ import deletePost from '../logic/deletePost'
 import toggleFavPost from '../logic/toggleFavPost'
 import './Post.css'
 import { useAppContext } from '../hooks'
+import { utils } from 'com'
 
-export default function Post({ post: { id, image, location, title, text, date, likes, author, fav }, onEditPost, onToggledLikePost, onPostDeleted, onToggledSavePost}) {
+const { extractSubFromToken } = utils
+
+export default function Post({ post: { id, image, location, title, text, date, likes, author, favs }, onEditPost, onToggledLikePost, onPostDeleted, onToggledSavePost}) {
     
     const { alert, freeze, unfreeze } = useAppContext()
 
@@ -14,7 +17,7 @@ export default function Post({ post: { id, image, location, title, text, date, l
     const handleToggleLikePost = () => {
         try {
             freeze()
-            toggleLikePost(context.userId, id, error => {
+            toggleLikePost(context.token, id, error => {
                 unfreeze()
                 if(error){
                     alert(error.message)
@@ -32,7 +35,7 @@ export default function Post({ post: { id, image, location, title, text, date, l
     const handleDeletePost = () => {
         try {
             freeze()
-            deletePost(context.userId, id, error => {
+            deletePost(context.token, id, error => {
                 unfreeze()
                 if(error){
                     alert(error.message)
@@ -50,7 +53,7 @@ export default function Post({ post: { id, image, location, title, text, date, l
     const handleToggleSavePost = () => {
         try {
             freeze()
-            toggleFavPost(context.userId, id, error => {
+            toggleFavPost(context.token, id, error => {
                 unfreeze()
                 if(error){
                     alert(error.message)
@@ -66,6 +69,9 @@ export default function Post({ post: { id, image, location, title, text, date, l
     }
 
     console.log('Post -> render')
+
+    const userId = extractSubFromToken(context.token)
+
      
     return <article className='post-container'>
       
@@ -84,10 +90,10 @@ export default function Post({ post: { id, image, location, title, text, date, l
                 </div>
 
                 <div className='post-buttons-container'>
-                    {author.id === context.userId && <button className='post-button' onClick={handleEditPost}>📝</button>}
-                    {author.id === context.userId && <button className='post-button' onClick={handleDeletePost}>🗑</button>}
-                    <button className='post-button'onClick={handleToggleLikePost}>{likes && likes.includes(context.userId) ? '❤️' : '🤍'} ({likes ? likes.length : 0})</button>
-                    <button className='post-button'onClick={handleToggleSavePost}>{fav ? '⭐️' : '✩'}</button>
+                    {author.id === userId && <button className='post-button' onClick={handleEditPost}>📝</button>}
+                    {author.id === userId && <button className='post-button' onClick={handleDeletePost}>🗑</button>}
+                    <button className='post-button'onClick={handleToggleLikePost}>{likes && likes.includes(userId) ? '❤️' : '🤍'} ({likes ? likes.length : 0})</button>
+                    <button className='post-button'onClick={handleToggleSavePost}>{favs ? '⭐️' : '✩'}</button>
                 </div>
             </div>
 

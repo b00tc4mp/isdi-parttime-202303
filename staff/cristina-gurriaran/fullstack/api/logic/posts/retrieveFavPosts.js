@@ -1,35 +1,29 @@
-require('dotenv').config()
-const { readFile } = require('fs')
-const { validators: { validateId, validateCallback } } = require('com')
+const { 
+    validators: { validateId },
+    errors: { ExistenceError },
+ } = require('com')
+const context = require('../context')
+const { ObjectId } = require('mongodb')
 
-module.exports = function retrieveFavPosts(userId, callback){
+
+
+module.exports = function retrieveFavPosts(userId){
     validateId (userId, 'user id')
-    validateCallback(callback)
 
-    readFile(`${process.env.DB_PATH}/users.json`, 'utf8', (error, json) => {
-        if(error){
-            callback(error)
-            return
-        }
+    const { users, posts } = context 
 
-        const users = JSON.parse(json)
-        const user = users.find(user => user.id === userId)
-        
-        if(!user){
-            callback(error)
-            return
-        }
+    return Promise.all([users.findOne({ _id: new ObjectId(userId)}), posts.find().toArray()])
+        .then(([user, posts]) => {
+            if (!user) throw new ExistenceError(`user with id ${userId} not found`)
 
-        readFile(`${process.env.DB_PATH}/posts.json`, 'utf8', (error, json) => {
-            if(error){
-                callback(error)
-                return
-            }
+            // posts.forEach(post => {
+            //     post.id = post._id.toString()
+            //     delete post._id
+            // })
 
-            const posts = JSON.parse(json)
-            const _posts = posts.filter(post => user.favs.includes(post.id))
+            const favPosts = posts.filter(post => user.favs.some(id => id.toString() === post._id.toString()))
 
-            callback(null, _posts)
+            return favPosts
         })
-    })
 }
+

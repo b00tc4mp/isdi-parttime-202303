@@ -21,13 +21,13 @@ export default function Login({ onRegisterClick , onUserLoggedIn }) {
         
         try{
             
-            authenticateUser(email, password, (error, userId) => {
+            authenticateUser(email, password, (error, token) => {
                 if(error){
                     alert(error.message)
                     return
                 }
 
-                context.userId = userId
+                context.token = token
                 onUserLoggedIn()
                 
             })

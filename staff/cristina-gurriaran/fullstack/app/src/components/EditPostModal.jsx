@@ -30,8 +30,7 @@ export default function EditpostModal({ onCancel , onPostUpdated, postId }) {
     
     
         try{
-            updatePost(context.userId, postId, image, location, title, text, (error, post) => {
-                
+            updatePost(context.token, postId, image, location, title, text, error => {
                 if(error){
                     alert(error.message)
                     return
@@ -42,12 +41,11 @@ export default function EditpostModal({ onCancel , onPostUpdated, postId }) {
         } catch(error) {
             alert(error.message)
         }
-
     }
 
     useEffect(() => {
         try{
-            retrievePost(context.userId, postId, (error, post) => {
+            retrievePost(context.token, postId, (error, post) => {
                 if(error){
                     alert(error.message)
                     return
@@ -59,11 +57,11 @@ export default function EditpostModal({ onCancel , onPostUpdated, postId }) {
             alert(error.message)
         }
 
-    }, [postId])
+    }, [postId])    
   
     console.log('EditPostModal -> render')
 
-    return <>
+    return( <>
         {post && <Container tag="section" className="modal">
             <Container tag="form" onSubmit={handleUpdatePost}>
                 <input className="input" type="hidden" name="postId"/>
@@ -76,4 +74,5 @@ export default function EditpostModal({ onCancel , onPostUpdated, postId }) {
             </Container>
         </Container>}
     </>
+    )
 }

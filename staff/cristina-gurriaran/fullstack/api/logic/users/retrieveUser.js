@@ -1,32 +1,23 @@
-require('dotenv').config()
-const { readFile } = require('fs')
-const { validators: { validateId, validateCallback } } = require('com')
+const { 
+    validators: { validateId },
+    errors : { ExistenceError}
+ } = require('com')
+const context = require ('../context')
+const { ObjectId } = require('mongodb')
 
-module.exports = function retrieveUser(userId, callback){
+
+module.exports = function retrieveUser(userId){
     validateId (userId, 'user id')
-    validateCallback(callback)
 
-    readFile(`${process.env.DB_PATH}/users.json`, 'utf8', (error, json) => {
-        if(error){
-            callback(error)
-            return
-        }
+    const { users } = context
 
-        const users = JSON.parse(json)
-        let user = users.find(user => user.id === userId)
-        
-        if(!user){
-            callback(error)
-            return
-        }
+    return users.findOne({ _id: new ObjectId(userId) })
+        .then(user => {
+            if (!user) throw new ExistenceError ('user not found')
 
-        user = {
-            name: user.name,
-            avatar: user.avatar,
-            favs: user.favs
-        }
-
-        callback(null, user)
-
-    })
+            delete user._id
+            delete user.password
+  
+            return user           
+        })
 }

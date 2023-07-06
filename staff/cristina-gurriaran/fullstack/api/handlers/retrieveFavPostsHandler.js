@@ -1,19 +1,9 @@
-const { extractUserId } = require('../helpers')
+const { extractUserId, handleErrors } = require('./helpers')
 const { retrieveFavPosts } = require('../logic')
 
-module.exports = (req, res) => {
-    try {
-        const userId = extractUserId(req)
+module.exports = handleErrors((req, res) => {
+    const userId = extractUserId(req)
 
-        retrieveFavPosts(userId, (error, posts) => {
-            if (error) {
-                res.status(400).json({ error: error.message })
-                return
-            }
-            res.json(posts)
-        })
-
-    } catch (error) {
-        res.status(400).json({ error: error.message })
-    }
-}
+    return retrieveFavPosts(userId)
+        .then(posts => res.json(posts))
+})

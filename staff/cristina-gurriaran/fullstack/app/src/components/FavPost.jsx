@@ -3,7 +3,7 @@ import './Post.css'
 import { useAppContext } from '../hooks'
 
 
-export default function FavPost({ post: { id, image, location, title, text, date, likes, author, fav }, onEditPost, onToggledLikePost, onPostDeleted, onToggledSavePost}) {
+export default function FavPost({ post: { _id, image, location, title, text, date, likes, author, favs }, onEditPost, onToggledLikePost, onPostDeleted, onToggledSavePost}) {
     
     const { alert } = useAppContext()
 

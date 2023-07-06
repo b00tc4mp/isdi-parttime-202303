@@ -1,8 +1,8 @@
 import { validators } from 'com'
-const { validateId, validateCallback } = validators
+const { validateToken, validateCallback } = validators
 
-export default function retrieveFavPosts(userId, callback) {
-    validateId(userId, 'user id')
+export default function retrieveFavPosts(token, callback) {
+    validateToken(token)
     validateCallback(callback)
 
     const xhr = new XMLHttpRequest
@@ -31,7 +31,7 @@ export default function retrieveFavPosts(userId, callback) {
 
     xhr.open('GET', `${import.meta.env.VITE_API_URL}/users/fav`)
 
-    xhr.setRequestHeader('Authorization', `Bearer ${userId}`)
+    xhr.setRequestHeader('Authorization', `Bearer ${token}`)
 
     xhr.send()
 }

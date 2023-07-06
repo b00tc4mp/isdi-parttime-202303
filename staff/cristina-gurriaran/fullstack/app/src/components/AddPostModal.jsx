@@ -25,7 +25,7 @@ export default function AddPostModal({ onCancel, onPostCreated }) {
 
         try {
             
-            createPost(context.userId, image, location, title, text, (error, post) => {
+            createPost(context.token, image, location, title, text, (error, post) => {
                 if(error){
                     alert(error.message)
                     return

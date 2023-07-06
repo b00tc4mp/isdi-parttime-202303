@@ -1,7 +1,7 @@
 require('dotenv').config()
 
 const express = require('express')
-const { cors , jsonBodyParser } = require('./utils')
+const { cors , bodyParser } = require('./utils')
 const { helloApiHandler, registerUserHandler, authenticateUserHandler, retrieveUserHandler, updateUserAvatarHandler, updateUserPasswordHandler, retrievePostsHandler, createPostHandler, deletePostHandler, updatePostHandler, retrievePostHandler, retrieveFavPostsHandler, toggleFavPostHandler, toggleLikePostHandler } = require('./handlers')
 
 const api = express()
@@ -10,25 +10,25 @@ api.use(cors)
 
 api.get('/', helloApiHandler)
 
-api.post('/users', jsonBodyParser, registerUserHandler)
+api.post('/users', bodyParser, registerUserHandler)
 
-api.post('/users/auth', jsonBodyParser, authenticateUserHandler)
+api.post('/users/auth', bodyParser, authenticateUserHandler)
 
 api.get('/users', retrieveUserHandler)
 
-api.patch('/users/avatar', jsonBodyParser, updateUserAvatarHandler)
+api.patch('/users/avatar', bodyParser, updateUserAvatarHandler)
 
-api.patch('/users/password', jsonBodyParser, updateUserPasswordHandler)
+api.patch('/users/password', bodyParser, updateUserPasswordHandler)
 
 api.get('/users/fav', retrieveFavPostsHandler)
 
 api.get('/posts', retrievePostsHandler)
 
-api.post('/posts', jsonBodyParser, createPostHandler)
+api.post('/posts', bodyParser, createPostHandler)
 
-api.delete('/posts', jsonBodyParser, deletePostHandler)
+api.delete('/posts', bodyParser, deletePostHandler)
 
-api.patch('/posts', jsonBodyParser, updatePostHandler)
+api.patch('/posts', bodyParser, updatePostHandler)
 
 api.get('/posts/:postId', retrievePostHandler)
 

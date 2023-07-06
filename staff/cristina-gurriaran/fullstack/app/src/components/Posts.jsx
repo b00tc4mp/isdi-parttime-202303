@@ -13,7 +13,7 @@ export default function Posts({ onEditPost , lastPostsUpdate, user }) {
     const handleRefreshPosts = () => {
         try {
             freeze()
-            retrievePosts(context.userId, (error, posts) => {
+            retrievePosts(context.token, (error, posts) => {
                 unfreeze()
                 if(error){
                     alert(error.message)
@@ -28,27 +28,17 @@ export default function Posts({ onEditPost , lastPostsUpdate, user }) {
         }
     }
 
-    useEffect(() => {
-        console.log('Posts -> componentDidMount with hooks')
-
-        return () => console.log('Posts -> componentWillUnmount with hooks')
-    },[])
-
 
     useEffect(() => {
-        console.log('Posts -> componentWillReceiveProps with hooks')
-
         if(lastPostsUpdate)
             handleRefreshPosts()
 
     }, [lastPostsUpdate])
 
 
-    console.log('Posts -> render')
-
     return <section>
-        {posts && posts.map(post => <Post 
-        key={post.id} 
+        {posts && posts.map((post) => <Post 
+        key={post._id} 
         post={post} 
         onEditPost={onEditPost} 
         onToggledLikePost={handleRefreshPosts} 

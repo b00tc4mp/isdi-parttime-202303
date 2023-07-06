@@ -1,9 +1,9 @@
 import { validators } from 'com'
-const { validateId, validatePassword, validateCallback } = validators
+const { validateToken, validatePassword, validateCallback } = validators
 
 
-export default function updateUserPassword(userId, password,newPassword,newPasswordConfirm, callback){
-    validateId(userId, 'user id')
+export default function updateUserPassword(token, password,newPassword,newPasswordConfirm, callback){
+    validateToken(token)
     validatePassword(password)
     validatePassword(newPassword, 'new password')
     validatePassword(newPasswordConfirm, 'new password confirm')
@@ -33,7 +33,7 @@ export default function updateUserPassword(userId, password,newPassword,newPassw
 
 
     xhr.setRequestHeader('Content-Type', 'application/json')
-    xhr.setRequestHeader('Authorization', `Bearer ${userId}`)
+    xhr.setRequestHeader('Authorization', `Bearer ${token}`)
     
     const data = { password, newPassword, newPasswordConfirm }
     const json = JSON.stringify(data)

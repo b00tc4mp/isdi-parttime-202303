@@ -1,8 +1,8 @@
 import { validators } from 'com'
-const { validateId, validateUrl, validateText, validateCallback } = validators
+const { validateToken, validateId, validateUrl, validateText, validateCallback } = validators
 
-export default function createPost(userId, image, location, title, text, callback) {
-    validateId(userId, 'user id')
+export default function createPost(token, image, location, title, text, callback) {
+    validateToken(token)
     validateUrl(image, 'image url')
     validateText(text)
     validateCallback(callback)
@@ -31,7 +31,7 @@ export default function createPost(userId, image, location, title, text, callbac
     xhr.open('POST', `${import.meta.env.VITE_API_URL}/posts`)
 
     xhr.setRequestHeader('Content-Type', 'application/json')
-    xhr.setRequestHeader('Authorization', `Bearer ${userId}`)
+    xhr.setRequestHeader('Authorization', `Bearer ${token}`)
 
     const post = { image, location, title, text }
     const json = JSON.stringify(post)

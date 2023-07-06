@@ -23,7 +23,7 @@ export default function Home({onLoggedOut}) {
     useEffect(() => {
 
         try {
-            retrieveUser(context.userId, (error, user) => {
+            retrieveUser(context.token, (error, user) => {
                 if(error){
                     alert(error.message)
                     return
@@ -40,7 +40,7 @@ export default function Home({onLoggedOut}) {
 
     const handleOpenAddPostModal = () => setModal('add-post')
 
-    const handleOpenEditPostModal = postId => {
+    const handleOpenEditPostModal = (postId) => {
         setModal('edit-post')
         setPostId(postId)
     }
@@ -62,14 +62,14 @@ export default function Home({onLoggedOut}) {
 
    
     const handleLogout = () => {
-        delete context.userId
+        delete context.token
 
         onLoggedOut()
     }
 
     const handleUserAvatarUpdated = () => {
         try {
-            retrieveUser(context.userId, (error, user) => {
+            retrieveUser(context.token, (error, user) => {
                 if(error){
                     alert(error.message)
                     return
@@ -85,7 +85,7 @@ export default function Home({onLoggedOut}) {
 
     const handleUserPasswordUpdated = () => {
         try {
-            retrieveUser(context.userId, (error, user) => {
+            retrieveUser(context.token, (error, user) => {
                 if(error){
                     alert(error.message)
                     return

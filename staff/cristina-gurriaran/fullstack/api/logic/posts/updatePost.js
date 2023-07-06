@@ -1,63 +1,25 @@
-require('dotenv').config()
-const { readFile, writeFile } = require('fs')
-const { validators: { validateId, validateUrl, validateText, validateCallback } } = require('com')
+const { 
+    validators: { validateId, validateUrl, validateText },
+    errors: { ExistenceError, PermitError }
+ } = require('com')
+const context = require('../context')
+const { ObjectId } = require('mongodb')
 
 
-module.exports = function updatePost (userId, postId, image, location, title, text, callback){
+module.exports = function updatePost (userId, postId, image, location, title, text){
     validateId(userId, 'user id')
     validateId(postId, 'post id')
     validateUrl(image, 'image url')
     validateText(text)
-    validateCallback(callback)
 
-    readFile(`${process.env.DB_PATH}/users.json`, 'utf8', (error, json) => {
-        if(error){
-            callback(error)
-            return
-        }
+    const { users , posts } = context
 
-        const users = JSON.parse(json)
-        let user = users.find(user => user.id === userId)
+    return Promise.all([users.findOne({ _id: new ObjectId(userId) }), posts.findOne({ _id: new ObjectId(postId) })])
+        .then(([user, post]) => {
+            if (!user) throw new ExistenceError(`User with id ${userId} not found`)
+            if (!post) throw new ExistenceError(`Post with id ${postId} not found`)
+            if (userId !== post.author.toString()) throw new PermitError(`Post with id ${postId} does not belong to user with id ${userId} `)
 
-        if (!user) {
-            callback(new Error(`user with id ${userId} not found`))
-            return
-        } 
-
-        readFile(`${process.env.DB_PATH}/posts.json`, 'utf8', (error, json) => {
-            if(error){
-                callback(error)
-                return
-            }
-    
-            const posts = JSON.parse(json)
-            let post = posts.find(post => postId === post.id)
-
-            if (!post){
-                callback(new Error(`post with id ${postId} not found`))
-                return
-            } 
-
-            if (post.author !== userId){
-                callback(new Error (`post with id ${postId} does not belong to user with id ${userId}`))
-                return
-            }  
-
-            post.image = image
-            post.location = location
-            post.title = title
-            post.text = text
-            post.date = new Date
-
-            const json2 = JSON.stringify(posts, null, 4)
-
-            writeFile(`${process.env.DB_PATH}/posts.json`, json2, 'utf8', error => {
-                if(error){
-                    callback(error)
-                    return
-                }
-                callback(null)
-            })
+            return posts.updateOne({ _id: new ObjectId(postId) }, { $set: { image: image, location : location, title : title , text : text},  } )
         })
-    })    
 }
