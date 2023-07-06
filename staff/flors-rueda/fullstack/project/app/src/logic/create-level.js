@@ -1,6 +1,11 @@
-import { generateUUID } from './helpers/generateUUID';
+import { validators } from 'com';
+
+const { validateCallback, validateName, validateLayout } = validators;
 
 const createLevel = (name, layout, callback) => {
+    validateCallback(callback);
+    validateName(name);
+    validateLayout(layout);
 
     const xhr = new XMLHttpRequest;
 
@@ -27,8 +32,7 @@ const createLevel = (name, layout, callback) => {
 
     xhr.setRequestHeader('Content-Type', 'application/json');
 
-    const id = generateUUID();
-    const level = { name, layout, id };
+    const level = { name, layout };
     const json = JSON.stringify(level);
 
     xhr.send(json);

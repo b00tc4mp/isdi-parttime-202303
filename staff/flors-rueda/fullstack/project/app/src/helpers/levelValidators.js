@@ -1,6 +1,3 @@
-//TODO create 'generic' validator and move to com
-
-
 export const validateFloor = (floor, setToast, setToastOn) => {
     const startCount = floor.filter((cell) => cell === 'start').length;
     const holeCount = floor.filter((cell) => cell === 'hole').length;

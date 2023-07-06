@@ -46,6 +46,11 @@ describe('retrieveLevels', () => {
         expect(levels[0].id).to.be.a('string');
         expect(levels[0].id).to.equal(level._id.toString());
     });
+
+    it('should retrieve no levels if database is empty', async () => {
+        const levels = await retrieveLevels();
+        expect(levels).to.have.lengthOf(0);
+    });
 });
 
 

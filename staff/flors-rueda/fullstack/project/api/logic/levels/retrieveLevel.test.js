@@ -6,7 +6,7 @@ const { MongoClient } = require('mongodb');
 const { cleanUp, generate } = require('../helpers/tests');
 const retrieveLevel = require('./retrieveLevel');
 
-describe('createLevel', () => {
+describe('retrieveLevel', () => {
     let client;
     let db;
 
@@ -24,15 +24,14 @@ describe('createLevel', () => {
         await cleanUp();
     });
 
-    it('should create a level', async () => {
+    it('should retrieve a level', async () => {
         const name = `level-${Math.random()}`;
         const layout = [
             ['empty', 'bomb', 'hole', 'empty', 'dirt', 'bomb', 'dirt', 'empty', 'start'],
             ['life', 'bomb', 'start', 'life', 'bomb', 'empty', 'bomb', 'dirt', 'stonks'],
         ];
-        const id = `id-${Math.random()}`;
 
-        const level = generate.level(name, layout, id);
+        const level = generate.level(name, layout);
 
         await context.levels.insertOne(level);
 
@@ -40,6 +39,26 @@ describe('createLevel', () => {
 
         expect(retrievedLevel.name).to.equal(name);
         expect(retrievedLevel.layout).to.deep.equal(layout);
-        expect(retrievedLevel.id).to.equal(id);
     });
+
+    it('should fail on no existing id', async () => {
+        const name = `level-${Math.random()}`;
+        const layout = [
+            ['empty', 'bomb', 'hole', 'empty', 'dirt', 'bomb', 'dirt', 'empty', 'start'],
+            ['life', 'bomb', 'start', 'life', 'bomb', 'empty', 'bomb', 'dirt', 'stonks'],
+        ];
+
+        const level = generate.level(name, layout);
+
+        await expect(() => retrieveLevel(level._id.toString()).to.throw(Error, 'level not found'))
+    });
+
+    it('should fail on invalid id type', async () => {
+        await expect(() => retrieveLevel(1234).to.throw(TypeError, 'id is not a string'));
+    })
+
+
+    it('should fail on empty id', async () => {
+        await expect(() => retrieveLevel('   ').to.throw(TypeError, 'id is empty'));
+    })
 });

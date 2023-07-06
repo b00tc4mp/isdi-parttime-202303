@@ -1,7 +1,12 @@
 const context = require('../context');
 const { ObjectId } = require('mongodb');
 
+const {
+    validators: { validateId },
+} = require('com');
+
 module.exports = (id) => {
+    validateId(id);
 
     const { levels } = context
 

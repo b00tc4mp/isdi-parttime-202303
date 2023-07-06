@@ -1,4 +1,11 @@
+import { validators } from 'com';
+
+const { validateCallback, validateId } = validators;
+
 const retrieveLevel = (id, callback) => {
+    validateCallback(callback);
+    validateId(id);
+
     const xhr = new XMLHttpRequest()
 
     xhr.onload = () => {
