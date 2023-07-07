@@ -1,3 +1,4 @@
+import { utils } from 'com'
 import { useState } from 'react'
 import Context from './Context'
 import Alert from './components/Alert'
@@ -7,8 +8,14 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import { context } from './ui'
 
+const {isTokenValid, isTokenAlive} = utils
+
+
 const App = () => {
-    const [view, setView] = useState(context.token ? 'home' : 'login')
+    const [view, setView] = useState(
+        isTokenAlive(context.token) 
+        && isTokenValid(context.token) 
+        ? 'home' : 'login')
     const [feedback, setFeedback] = useState(null)
     const [loader, setLoader] = useState(false)
 
