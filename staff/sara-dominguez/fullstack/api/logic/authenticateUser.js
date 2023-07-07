@@ -1,4 +1,4 @@
-const context = require('./context')
+
 const {
     validators: { validateEmail, validatePassword },
     errors: { ExistenceError, AuthError }
@@ -23,14 +23,14 @@ module.exports = function authenticateUser(email, password) {
     validateEmail(email)
     validatePassword(password)
 
-    const { users } = context
+    const { User } = require('../data/models')
 
-    return users.findOne({ email })
+    return User.findOne({ email })
         .then(user => {
             if (!user) throw new ExistenceError('user not found')
 
             if (user.password !== password) throw new AuthError('error credentials')
 
-            return user._id.toString()
+            return user.id // se puede utilizar sin .toString() porque utilizamos el getter)
         })
 }

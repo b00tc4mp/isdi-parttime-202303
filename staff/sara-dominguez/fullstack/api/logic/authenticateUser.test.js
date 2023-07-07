@@ -1,11 +1,16 @@
+require('dotenv').config()
+
+const mongoose = require('mongoose')
 const authenticateUser = require('./authenticateUser')
 
-authenticateUser('rufus@rufus.es', '123123', (error, userId) => {
-    if (error) {
-        console.error(error)
 
-        return
-    }
+const { User, Post } = require('../data/models')
 
-    console.log(userId)
-})
+// mongoose.connect('mongodb://127.0.0.1:27017/data')
+mongoose.connect(process.env.MONGODB_URL)
+
+    // .then(() => Promise.all([User.deleteMany(), Post.deleteMany()]))
+    .then(() => authenticateUser('usermongoose@email.com', 'Aa-1234'))
+    .then((id) => console.log(id))
+    .catch(error => { console.log(error) })
+    .finally(() => mongoose.disconnect())

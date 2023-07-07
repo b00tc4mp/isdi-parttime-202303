@@ -1,16 +1,12 @@
 require('dotenv').config()
-const context = require('./context')
 const { validators: { validateId } } = require('com')
-const { ObjectId } = require('mongodb')
+const { User, Post } = require('../data/models')
 
 module.exports = function toggleLikePost(userId, postId) {
     validateId(userId)
     validateId(postId)
 
-
-    const { users, posts } = context
-
-    return Promise.all([users.findOne({ _id: new ObjectId(userId) }), posts.findOne({ _id: new ObjectId(postId) })])
+    return Promise.all([User.findById({ _id: userId }), Post.findById({ _id: postId })])
 
         .then(([user, post]) => {
 
@@ -18,14 +14,14 @@ module.exports = function toggleLikePost(userId, postId) {
             if (!post) throw new TypeError('user not found')
 
 
-            const index = post.likes.findIndex(id => id.toString() === userId)
+            const index = post.likes.findIndex(author => post.author.toString() === userId)
             if (index < 0) {
-                return posts.updateOne({ _id: new ObjectId(postId) }, { $push: { likes: new ObjectId(userId) } })
+                return Post.updateOne({ _id: postId }, { $push: { likes: userId } })
 
             } else {
-                post.likes.splice(post.likes.findIndex(like => like === new ObjectId(userId)), 1)
+                post.likes.splice(post.likes.findIndex(likes => post.likes.toString() === user.id), 1)
 
-                return posts.updateOne({ _id: new ObjectId(postId) }, { $set: { likes: post.likes } })
+                return Post.updateOne({ _id: postId }, { $set: { likes: post.likes } })
             }
         })
 }

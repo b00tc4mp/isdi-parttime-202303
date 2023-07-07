@@ -1,24 +1,18 @@
-require('dotenv').config()
-const context = require('./context')
-// const { validateId } = require('com')
-const { ObjectId } = require('mongodb')
 const { validators: { validateId } } = require('com')
+const { User, Post } = require('../data/models')
 
-module.exports = function retrievePost(userId, postId,) {
-    validateId(userId)
-    validateId(postId)
+module.exports = (userId, postId) => {
+    validateId(userId, 'user id')
+    validateId(postId, 'post id')
 
-    const { users, posts } = context
+    return Promise.all([
+        User.findById(userId).lean(),
+        Post.findById(postId, '-_id -__v -likes -date -author').lean()
+    ])
+        .then(([user, post]) => {
+            if (!user) throw new Error(`user with id ${userId} not found`)
+            if (!post) throw new Error(`post with id ${postId} not found`)
 
-    return users.findOne({ _id: new ObjectId(userId) })
-        .then(user => {
-            if (!user) throw new TypeError('user not found')
-
-            return posts.findOne({ _id: new ObjectId(postId) })
-                .then(post => {
-                    if (!post) throw new TypeError('post not found')
-
-                    return post
-                })
+            return post
         })
 }

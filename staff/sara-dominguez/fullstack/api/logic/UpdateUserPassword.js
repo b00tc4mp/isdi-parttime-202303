@@ -1,7 +1,7 @@
 const { validators: { validateId, validatePassword, validateUserConfirmNewPassword, validateCallback } } = require('com')
-const { readFile, writeFile } = require('fs')
+const { User } = require('../data/models')
 
-module.exports = function UpdateUserPassword(
+module.exports = function updateUserPassword(
     userId,
     password,
     userNewPassword,
@@ -21,38 +21,12 @@ module.exports = function UpdateUserPassword(
         throw new Error('New password must be different from the current password')
     }
 
-    readFile(`${proccess.env.DB_PATH}/users.json`, (error, json) => {
-        if (error) {
-            callback(error)
+    return User.findById(userId)
+        .then(user => {
+            user.password = userNewPassword
 
-            return
-        }
-
-        const users = JSON.parse(json)
-        const user = users.find(user => user.id === userId)
-
-        if (!user) {
-            callback(new Error('user not found'))
-
-            return
-        }
-
-        if (password !== user.password) {
-            callback(new Error('Incorrect password'))
-        }
-
-        user.password = userNewPassword
-        json = JSON.stringify(users, null, 4)
-
-        writeFile(`${process.env.DB_PATH}/users.json`, json, (error) => {
-            if (error) {
-                callback(error)
-
-                return
-            }
-
-            callback(null)
-
+            return User.updateOne({ _id: user.id }, { $set: { password: user.password } })
         })
-    })
+
+
 }
