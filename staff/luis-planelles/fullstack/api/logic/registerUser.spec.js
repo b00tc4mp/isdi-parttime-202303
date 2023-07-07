@@ -12,15 +12,12 @@ describe('registerUser', () => {
   before(() => {
     client = new MongoClient(process.env.MONGODB_URL);
 
-    return client
-      .connect()
-      .then((connection) => {
-        const db = connection.db();
+    return client.connect().then((connection) => {
+      const db = connection.db();
 
-        context.users = db.collection('users');
-        context.posts = db.collection('posts');
-      })
-      .then(console.log('open'));
+      context.users = db.collection('users');
+      context.posts = db.collection('posts');
+    });
   });
 
   let user;
@@ -32,7 +29,13 @@ describe('registerUser', () => {
   });
 
   it('succeeds on new user', () => {
-    return registerUser(user.name, user.email, user.password)
+    return context.users
+      .find()
+      .toArray()
+      .then((users) => {
+        expect(users).to.have.length(0);
+      })
+      .then(() => registerUser(user.name, user.email, user.password))
       .then(() => context.users.findOne())
       .then((foundUser) => {
         expect(foundUser).to.exist;
@@ -52,6 +55,10 @@ describe('registerUser', () => {
     const otherUser = generate.user();
 
     return populate([otherUser], [])
+      .then(() => context.users.find().toArray())
+      .then((users) => {
+        expect(users).to.have.length(1);
+      })
       .then(() => registerUser(user.name, user.email, user.password))
       .then(() => context.users.findOne({ email: user.email }))
       .then((foundUser) => {
@@ -70,11 +77,16 @@ describe('registerUser', () => {
 
   it('fails on existing user', () => {
     return populate([user], [])
+      .then(() => context.users.find().toArray())
+      .then((users) => {
+        expect(users).to.have.length(1);
+      })
       .then(() => {
         registerUser(user.name, user.email, user.password);
       })
       .catch((error) => {
         expect(error).to.be.instanceOf(Error);
+        console.log(error);
         expect(error.message).to.equal(
           `user with email ${user.email} already exists`
         );
@@ -211,9 +223,5 @@ describe('registerUser', () => {
     }).to.throw(Error, 'password contains any whitespace characters');
   });
 
-  after(() =>
-    cleanUp()
-      .then(() => client.close())
-      .then(console.log('close'))
-  );
+  after(() => cleanUp().then(() => client.close()));
 });

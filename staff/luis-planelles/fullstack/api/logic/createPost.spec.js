@@ -1,7 +1,7 @@
 require('dotenv').config();
 
 const { expect } = require('chai');
-const createPost = require('./createPost.js');
+const createPost = require('./createPost');
 const sinon = require('sinon');
 const { cleanUp, populate, generate } = require('./helpers/tests');
 const { MongoClient, ObjectId } = require('mongodb');
@@ -13,15 +13,12 @@ describe('createPost', () => {
   before(() => {
     client = new MongoClient(process.env.MONGODB_URL);
 
-    return client
-      .connect()
-      .then((connection) => {
-        const db = connection.db();
+    return client.connect().then((connection) => {
+      const db = connection.db();
 
-        context.users = db.collection('users');
-        context.posts = db.collection('posts');
-      })
-      .then(console.log('open'));
+      context.users = db.collection('users');
+      context.posts = db.collection('posts');
+    });
   });
 
   let user, text, image;
@@ -75,9 +72,5 @@ describe('createPost', () => {
     expect(() => createPost(anyId, image, '')).to.throw(Error, 'text is empty');
   });
 
-  after(() =>
-    cleanUp()
-      .then(() => client.close())
-      .then(console.log('close'))
-  );
+  after(() => cleanUp().then(() => client.close()));
 });

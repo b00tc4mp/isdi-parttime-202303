@@ -12,15 +12,12 @@ describe('toggleLikePost', () => {
   before(() => {
     client = new MongoClient(process.env.MONGODB_URL);
 
-    return client
-      .connect()
-      .then((connection) => {
-        const db = connection.db();
+    return client.connect().then((connection) => {
+      const db = connection.db();
 
-        context.users = db.collection('users');
-        context.posts = db.collection('posts');
-      })
-      .then(console.log('open'));
+      context.users = db.collection('users');
+      context.posts = db.collection('posts');
+    });
   });
 
   const anyId = new ObjectId().toString();
@@ -113,9 +110,5 @@ describe('toggleLikePost', () => {
   //     'post id is empty'
   //   ));
 
-  after(() =>
-    cleanUp()
-      .then(() => client.close())
-      .then(console.log('close'))
-  );
+  after(() => cleanUp().then(() => client.close()));
 });

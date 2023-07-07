@@ -12,15 +12,12 @@ describe('toggleFavouritePost', () => {
   before(() => {
     client = new MongoClient(process.env.MONGODB_URL);
 
-    return client
-      .connect()
-      .then((connection) => {
-        const db = connection.db();
+    return client.connect().then((connection) => {
+      const db = connection.db();
 
-        context.users = db.collection('users');
-        context.posts = db.collection('posts');
-      })
-      .then(console.log('open'));
+      context.users = db.collection('users');
+      context.posts = db.collection('posts');
+    });
   });
 
   const anyId = new ObjectId().toString();
@@ -108,20 +105,17 @@ describe('toggleFavouritePost', () => {
       });
   });
 
-  // it('fails on empty user id', () =>
-  //   expect(() => toggleFavouritePost('', post.id, () => {})).to.throw(
-  //     Error,
-  //     'user id is empty'
-  //   ));
+  it('fails on empty user id', () =>
+    expect(() => toggleFavouritePost('', post.id, () => {})).to.throw(
+      Error,
+      'user id is empty'
+    ));
 
-  // it('fails on empty post id', () =>
-  //   expect(() => toggleFavouritePost(anyId, '', () => {})).to.throw(
-  //     Error,
-  //     'post id is empty'
-  //   ));
+  it('fails on empty post id', () =>
+    expect(() => toggleFavouritePost(anyId, '', () => {})).to.throw(
+      Error,
+      'post id is empty'
+    ));
 
-  after(() => {
-    cleanUp().then(() => client.close());
-    console.log('close');
-  });
+  after(() => cleanUp().then(() => client.close()));
 });

@@ -12,15 +12,12 @@ describe('updateUserPassword', () => {
   before(() => {
     client = new MongoClient(process.env.MONGODB_URL);
 
-    return client
-      .connect()
-      .then((connection) => {
-        const db = connection.db();
+    return client.connect().then((connection) => {
+      const db = connection.db();
 
-        context.users = db.collection('users');
-        context.posts = db.collection('posts');
-      })
-      .then(console.log('open'));
+      context.users = db.collection('users');
+      context.posts = db.collection('posts');
+    });
   });
 
   const anyId = new ObjectId().toString();
@@ -29,9 +26,8 @@ describe('updateUserPassword', () => {
 
   beforeEach(() => {
     user = generate.user();
-    post = generate.post();
 
-    return cleanUp().then(() => populate([user], [post]));
+    return cleanUp().then(() => populate([user], []));
   });
 
   it('should succeed on valid password update', () => {
@@ -189,9 +185,5 @@ describe('updateUserPassword', () => {
     );
   });
 
-  after(() =>
-    cleanUp()
-      .then(() => client.close())
-      .then(console.log('close'))
-  );
+  after(() => cleanUp().then(() => client.close()));
 });

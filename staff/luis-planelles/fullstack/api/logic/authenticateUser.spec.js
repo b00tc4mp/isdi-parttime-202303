@@ -1,10 +1,10 @@
 require('dotenv').config();
 
 const { expect } = require('chai');
-const authenticateUser = require('./authenticateUser.js');
+const authenticateUser = require('./authenticateUser');
 const { MongoClient } = require('mongodb');
 const { cleanUp, generate, populate } = require('./helpers/tests');
-const context = require('./context.js');
+const context = require('./context');
 
 describe('authenticateUser', () => {
   let client;
@@ -12,28 +12,24 @@ describe('authenticateUser', () => {
   before(() => {
     client = new MongoClient(process.env.MONGODB_URL);
 
-    return client
-      .connect()
-      .then((connection) => {
-        const db = connection.db();
+    return client.connect().then((connection) => {
+      const db = connection.db();
 
-        context.users = db.collection('users');
-        context.posts = db.collection('posts');
-      })
-      .then(() => console.log('open'));
+      context.users = db.collection('users');
+      context.posts = db.collection('posts');
+    });
   });
 
   let user;
 
   beforeEach(() => {
     user = generate.user();
-    post = generate.post();
 
     return cleanUp();
   });
 
   it('succeeds on existing user', () => {
-    return populate([user], [post])
+    return populate([user], [])
       .then(() => {
         return authenticateUser(user.email, user.password);
       })
@@ -60,7 +56,7 @@ describe('authenticateUser', () => {
   it('fails on existing user but wrong password', () => {
     const wrongPassword = user.password + '-wrong';
 
-    return populate([user], [post])
+    return populate([user], [])
       .then(() => authenticateUser(user.email, wrongPassword))
       .catch((error) => {
         expect(error).to.be.instanceOf(Error);
@@ -160,8 +156,5 @@ describe('authenticateUser', () => {
     }).to.throw(Error, 'password contains any whitespace characters');
   });
 
-  after(() => {
-    cleanUp().then(() => client.close());
-    console.log('close');
-  });
+  after(() => cleanUp().then(() => client.close()));
 });
