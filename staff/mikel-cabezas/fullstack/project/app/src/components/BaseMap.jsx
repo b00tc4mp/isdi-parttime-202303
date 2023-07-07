@@ -12,7 +12,7 @@ NativeWindStyleSheet.setOutput({
     default: "native",
 });
 
-export default function BaseMap() {
+export default function BaseMap({ onMarkerPressed, id, title, description }) {
     const [origin, setOrigin] = React.useState({
         latitude: 41.2288403,
         longitude: 1.7253999,
@@ -35,10 +35,13 @@ export default function BaseMap() {
         setOrigin(current)
     }
 
-
     const pin = {
         latitude: 41.2275774,
         longitude: 1.7253157,
+    }
+    const markerPressedHandler = (id, title, description) => {
+        onMarkerPressed(id, title, description)
+        //TODO logic for retrieve single post
     }
     return <>
         <MapView
@@ -52,9 +55,13 @@ export default function BaseMap() {
         >
             <Marker
                 coordinate={pin}
-                title={'OK'}
-                description={'test'}
+                id={'1'}
+                title={'Parc les Casernes'}
+                description={'test bla bla bla'}
                 image={PIN}
+                onPress={(id, title, description) => {
+                    markerPressedHandler(id, title, description)
+                }}
             >
                 <Callout
                     tooltip
