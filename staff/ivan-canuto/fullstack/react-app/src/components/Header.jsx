@@ -21,7 +21,7 @@ export default function Header({ handleToggleMenu, handleReturnToHome, handleOpe
       <h1 className="text-4xl cursor-pointer" onClick={handleReturnToHome}>Home</h1>
       {user && <>
         <div className="cursor-pointer flex items-center gap-2" onClick={handleOpenProfile}>  
-            <img className="h-10 rounded-full" src={user.avatar} alt="avatar image" />
+            <img className="h-10 w-10 object-cover rounded-full" src={user.avatar} alt="avatar image" />
             <a>{user.name}</a>
         </div>
       </>}

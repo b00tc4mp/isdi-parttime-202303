@@ -19,6 +19,7 @@ export default function Comments({ onCloseCommentModal, handleRefreshPosts, post
 
   const toggleAddComment = () => {
     setAddComment(!addComment)
+    document.body.classList.toggle('fixed-scroll')
   }
 
   function handleCreateComment(event) {
@@ -49,7 +50,6 @@ export default function Comments({ onCloseCommentModal, handleRefreshPosts, post
         })
 
     } catch(error) {
-      unfreeze()
       alert(error.message, 'error')
       console.debug(error.stack);
     }
@@ -76,7 +76,6 @@ export default function Comments({ onCloseCommentModal, handleRefreshPosts, post
         })
 
     } catch (error) {
-      unfreeze()
       alert(error.message, 'error')
       console.debug(error.stack)
     }

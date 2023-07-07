@@ -2,39 +2,31 @@ const {
   validators: { validateId },
   errors: { ExistenceError }
 } = require('com')
-const { User, Post } = require('mongoose')
+const { User, Post } = require('../data/models')
 
 module.exports = (userId) => {
   validateId(userId, 'user id')
 
-  return Promise.all([User.find().toArray(), Post.find().toArray()])
-    .then(([users, posts]) => {
-      const user = users.find(_user => _user._id.toString() === userId)
+  return User.findById(userId)
+    .then((user) => {
       if(!user) throw new ExistenceError('User not found.')
 
-      const favsFromUser = user.favs.map(fav => fav.toString())      
+      return Post.find({ _id: { $in: user.favs} }).populate('author', '-favs -__v').lean()
+        .then(posts => {
+          posts.forEach(post => {
+            post.id = post._id.toString()
+            delete post._id
 
-      let savedPosts = posts.filter(post => favsFromUser.includes(post._id.toString()))
-      
-        savedPosts.forEach(post => {
-          post.id = post._id.toString()
-          delete post._id
+            post.fav = user.favs.some(fav => fav.toString() === post.id)
+            post.liked = post.likes.some(like => like.toString() === user.id)
 
-          const author = users.find(_user => _user._id.toString() === post.author.toString())
+            if(post.author._id) {
+              post.author.id = post.author._id.toString()
+              delete post.author._id
+            }
+          })
 
-          const { _id, name, avatar } = author
-
-          post.author = {
-            id: _id.toString(),
-            name: name,
-            avatar: avatar,
-          }
-
-          post.fav = user.favs.some(fav => fav.toString() === post.id)
-          post.liked = post.likes.some(like => like.toString() === userId)
-
+          return posts.reverse()
         })
-
-      return savedPosts.reverse()
     })
-  }
+}

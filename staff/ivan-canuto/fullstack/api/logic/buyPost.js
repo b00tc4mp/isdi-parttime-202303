@@ -2,7 +2,8 @@ const {
   validators: { validateId },
   errors:  { ExistenceError, InvalidRequestError }
 } = require('com')
-const { Schema: { Types: { ObjectId } } } = require('mongoose')
+const { mongoose: { Types: { ObjectId } } } = require('mongoose')
+
 const { User, Post } = require('../data/models')
 
 /**
@@ -30,7 +31,7 @@ module.exports = (userId, postId) => {
       if(post.onSale === 'Sold') throw new InvalidRequestError('This post is already sold.')
 
       return Post.updateOne(
-        { _id: new ObjectId(postId) },
+        { _id: postId },
         { $set : { onSale: 'Sold' } }
       )
     })

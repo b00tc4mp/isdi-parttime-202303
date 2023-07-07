@@ -2,7 +2,8 @@ const {
   validators: { validateId },
   errors: { ExistenceError }
 } = require('com')
-const { Schema: { Types: { ObjectId } } } = require('mongoose')
+const { mongoose: { Types: { ObjectId } } } = require('mongoose')
+
 const { User, Post } = require('../data/models')
 
 module.exports = (userId, postId, commentId) => {
@@ -16,7 +17,7 @@ module.exports = (userId, postId, commentId) => {
       if(!post) throw new ExistenceError('Post not found.')
 
       return Post.updateOne(
-        { _id: new ObjectId(postId) },
+        { _id: postId },
         { $pull: { comments: { id: commentId }}}
       )
     })

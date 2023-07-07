@@ -2,7 +2,8 @@ const {
   validators: { validateId, validateText },
   errors: { ExistenceError }
 } = require('com')
-const { Schema: { Types: { ObjectId } } } = require('mongoose')
+const { mongoose: { Types: { ObjectId } } } = require('mongoose')
+
 const { User, Post } = require('../data/models')
 
 module.exports = (userId, postId, commentText) => {
@@ -21,7 +22,7 @@ module.exports = (userId, postId, commentText) => {
       if (lastComment) id = 'comment-' + (parseInt(lastComment.id.slice(8)) + 1)
 
       return Post.updateOne(
-        { _id: postId},
+        { _id: postId },
         { $push: { comments: { id: id, author: user.name, authorId: new ObjectId(userId), text: commentText }}}
       )
     })

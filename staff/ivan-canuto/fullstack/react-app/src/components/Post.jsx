@@ -17,7 +17,7 @@ export default function Post({post, handleRefreshPosts, handleOpenEditPost, hand
   const [contextualMenu, setContextualMenu] = useState('close')
   const [user, setUser] = useState()
   
-  const { alert, freeze, unfreeze } = useAppContext()
+  const { alert } = useAppContext()
   const { image, id, likes, date, text, author, visible, onSale, fav, liked } = post
 
   const handleCloseCommentModal = () => {
@@ -146,13 +146,13 @@ export default function Post({post, handleRefreshPosts, handleOpenEditPost, hand
       {modal === 'post' && <>
         <section className="flex justify-between w-full px-4 py-2">
           <div className="flex items-center">
-            <img className="h-8 rounded-full" src={author.avatar} alt="post-user-avatar" />
+            <img className="h-8 w-8 object-cover rounded-full" src={author.avatar} alt="post-user-avatar" />
             <p className="px-1">{author.name}</p>
           </div>
           
           <div className="flex items-center">
             {(author.id === extractSubFromToken(context.token)) && <>
-              <p>{visible ? 'Public' : 'Private'}</p>
+              <p className="mx-1">{visible ? 'Public' : 'Private'}</p>
               {(onSale && onSale !== 'Sold') && <>
                 <div className="bg-gray-300 p-1 rounded mx-2 flex"> 
                   <span className="material-symbols-outlined">local_mall</span>
@@ -165,7 +165,7 @@ export default function Post({post, handleRefreshPosts, handleOpenEditPost, hand
                   <p>{`Sold`}</p>
                 </div>
               </>}
-              <span className="material-symbols-outlined hover:bg-gray-300 cursor-pointer font-black ml-2" onClick={toggleContextualMenu}>more_vert</span>
+              <span className="material-symbols-outlined hover:bg-gray-300 cursor-pointer font-black" onClick={toggleContextualMenu}>more_vert</span>
             </>}
             
             {(author.id !== extractSubFromToken(context.token) && onSale) &&
@@ -175,7 +175,7 @@ export default function Post({post, handleRefreshPosts, handleOpenEditPost, hand
                   handleOpenBuyPost()
                 }
                 }}>
-                {onSale !== 'Sold' && <Button><span className="material-symbols-outlined px-1">local_mall</span>{`${onSale}€`}</Button>}
+                {onSale !== 'Sold' && <Button><span className="material-symbols-outlined">local_mall</span>{`${onSale}€`}</Button>}
                 {onSale === 'Sold' && <p className="text-base flex p-1"><span className="material-symbols-outlined">local_mall</span>Sold</p>}
               </div>}
           </div>

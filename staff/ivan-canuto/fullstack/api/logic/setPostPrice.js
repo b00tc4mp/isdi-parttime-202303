@@ -16,7 +16,7 @@ module.exports = (userId, postId, postPrice) => {
       
       if(!post) throw new ExistenceError('Post not found.')
 
-      return posts.updateOne(
+      return Post.updateOne(
         { _id: postId },
         { $set: { onSale: postPrice }}
       )

@@ -4,31 +4,24 @@ const { User, Post } = require('../data/models')
 module.exports = function retrieveUserPosts(userId) {
   validateId(userId, 'user id')
 
-  return Promise.all([User.find().toArray(), Post.find().toArray()])
-    .then(([users, posts]) => {
-      const user = users.find(_user => _user._id.toString() === userId)
-      if(!user) throw new Error('User not found.')
+  return Promise.all([User.findById(userId), Post.find({ author: userId }).populate('author', '-favs -__v').lean()])
+  
+    .then(([user, posts]) => {
+      if(!user) throw new ExistenceError('User not found.')
 
-      let userPosts = posts.filter(post => post.author.equals(user._id))
-      
-      userPosts.forEach(post => {
+      posts.forEach(post => {
         post.id = post._id.toString()
         delete post._id
 
-        const author = users.find(_user => _user._id.toString() === post.author.toString())
-
-        const { _id, name, avatar } = author
-
-        post.author = {
-          id: _id.toString(),
-          name: name,
-          avatar: avatar,
-        }
-
         post.fav = user.favs.some(fav => fav.toString() === post.id)
-        post.liked = post.likes.some(like => like.toString() === userId)
+        post.liked = post.likes.some(like => like.toString() === user.id)
+
+        if(post.author._id) {
+          post.author.id = post.author._id.toString()
+          delete post.author._id
+        }
       })
 
-      return userPosts.reverse()
+      return posts.reverse()
     })
 }

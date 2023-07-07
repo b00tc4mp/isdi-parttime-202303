@@ -2,7 +2,8 @@ const {
   validators: { validateId },
   errors: { ExistenceError }
 } = require('com')
-const { Schema: { Types: { ObjectId } } } = require('mongoose')
+const { mongoose: { Types: { ObjectId } } } = require('mongoose')
+
 const { User, Post } = require('../data/models')
 
 module.exports = (userId, postId) => {

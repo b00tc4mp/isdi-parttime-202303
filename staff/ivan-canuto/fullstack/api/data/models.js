@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const { Schema, Schema: { Types: { ObjectId } }, model } = mongoose
+const { Schema, mongoose: { Types: { ObjectId } }, model } = mongoose
 
 const user = new Schema({
   name: {
@@ -45,12 +45,48 @@ const post = new Schema({
   },
   date: {
     type: Date,
-    required: true,
-    default: Date.now
+    required: true
   },
   likes: {
     type: [ObjectId],
     ref: 'User'
+  },
+  visible: {
+    type: Boolean,
+    default: true,
+  },
+  onSale: {
+    type: mongoose.Schema.Types.Mixed,
+    validate: {
+      validator: function(value) {
+        return typeof value === 'string' || value === null;
+      },
+      message: 'The onSale field must be null or a string.'
+    },
+    default: null
+  },
+  comments: {
+    type: [
+        {
+        id: {
+          type: String,
+          required: true
+        },
+        author: {
+          type: String,
+          required: true
+        },
+        authorId: {
+          type: mongoose.Schema.Types.ObjectId,
+          required: true
+        },
+        text: {
+          type: String,
+          required: true
+        }
+      }
+    ],
+    required: true
   }
 })
 

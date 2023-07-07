@@ -2,16 +2,17 @@ const {
   validators: { validateId },
   errors: { ExistenceError }
 } = require('com')
-const { Schema: { Types: { ObjectId } } } = require('mongoose')
+const { mongoose: { Types: { ObjectId } } } = require('mongoose')
+
 const { User, Post } = require('../data/models')
 
 module.exports = (userId, postId) => {
   validateId(userId, 'user id')
   validateId(postId, 'post id')
 
-  return Promise.all([User.find().toArray(), Post.findById(postId)])
+  return Promise.all([User.find(), Post.findById(postId)])
     .then(([users, post]) => {
-      const user = users.find(user => user._id === userId)
+      const user = users.find(user => user.id === userId)
       if(!user) throw new ExistenceError('User not found.')
 
       if(!post) throw new ExistenceError('Post not found.')
@@ -40,7 +41,7 @@ module.exports = (userId, postId) => {
 
       const updatedUsers = modifiedUsers.map(user => user.save())
 
-      return Promise.all([...updatedUsers, Post.deleteOne({ _id: new ObjectId(postId) })])
+      return Promise.all([...updatedUsers, Post.deleteOne({ _id: postId })])
     })
     .then(() => {})
 }

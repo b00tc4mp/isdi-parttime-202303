@@ -7,5 +7,5 @@ module.exports = handleErrors((req, res) => {
   const { imageUrl, postText } = req.body
 
   return createPost(userId, imageUrl, postText)
-    .then(() => res.send())
+    .then(result => res.send())
 })

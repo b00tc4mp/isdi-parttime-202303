@@ -2,7 +2,7 @@ const {
   validators: { validateId },
   errors: { ExistenceError }
 } = require('com')
-const { Schema: { Types: { ObjectId } } } = require('mongoose')
+const { mongoose: { Types: { ObjectId } } } = require('mongoose')
 const { User, Post } = require('../data/models')
 
 module.exports = (userId, postId) => {
@@ -23,9 +23,9 @@ module.exports = (userId, postId) => {
           { $pull: { favs: new ObjectId(postId) }}
         )
       else
-      return User.updateOne(
-        { _id: userId },
-        { $push: { favs: new ObjectId(postId) }}
-      )
+        return User.updateOne(
+          { _id: userId },
+          { $push: { favs: new ObjectId(postId) }}
+        )
     })
 }

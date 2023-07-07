@@ -1,7 +1,7 @@
 module.exports = {
     user: () => ({
         name: `name-${Math.random()}`,
-        email: `email-${Math.random()}`,
+        email: `email@${Math.random()}.com`,
         password: `password-${Math.random()}`,
         avatar: 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwgHBgkIBwgKC',
         favs: []
