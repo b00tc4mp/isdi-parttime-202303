@@ -7,7 +7,7 @@ import toggleLikePost from "../logic/toggleLikePost";
 import { context } from "../ui";
 import './Post.css';
 
-const Post = ({ post: { id, author, image, likes, favourites, price, text, date},
+const Post = ({ post: { id, author, image, likes, favourites, text, date},
   onEdit, 
   onLike,
   onFavourite,

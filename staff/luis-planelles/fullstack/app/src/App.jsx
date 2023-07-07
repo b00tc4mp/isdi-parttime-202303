@@ -13,8 +13,8 @@ const {isTokenValid, isTokenAlive} = utils
 
 const App = () => {
     const [view, setView] = useState(
-        isTokenAlive(context.token) 
-        && isTokenValid(context.token) 
+        isTokenValid(context.token) 
+        && isTokenAlive(context.token) 
         ? 'home' : 'login')
     const [feedback, setFeedback] = useState(null)
     const [loader, setLoader] = useState(false)

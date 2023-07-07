@@ -23,7 +23,7 @@ const EditPostModal = ({postId, onCancel, onPostUpdated}) => {
     } catch(error){
         alert(error.message)
     }
-  }, [postId])
+  }, [postEdit])
     
   const handleCancelEditPost = () => {
     onCancel()

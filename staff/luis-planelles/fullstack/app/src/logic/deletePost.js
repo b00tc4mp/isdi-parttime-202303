@@ -2,7 +2,7 @@ import { validators } from 'com';
 const { validateToken, validateId, validateCallback } = validators;
 
 const deletePost = (token, postId, callback) => {
-  validateToken(userId, 'token');
+  validateToken(token, 'token');
   validateId(postId, 'post id');
   validateCallback(callback);
 
@@ -27,7 +27,7 @@ const deletePost = (token, postId, callback) => {
     callback(new Error('connection error'));
   };
 
-  xhr.open('DELETE', `${import.meta.env.VITE_API_URL}/posts/${postId}`);
+  xhr.open('DELETE', `${import.meta.env.VITE_API_URL}/posts/delete/${postId}`);
 
   xhr.setRequestHeader('Content-Type', 'application/json');
   xhr.setRequestHeader('Authorization', `Bearer ${token}`);
