@@ -12,12 +12,15 @@ describe('registerUser', () => {
   before(() => {
     client = new MongoClient(process.env.MONGODB_URL);
 
-    return client.connect().then((connection) => {
-      const db = connection.db();
+    return client
+      .connect()
+      .then((connection) => {
+        const db = connection.db();
 
-      context.users = db.collection('users');
-      context.posts = db.collection('posts');
-    });
+        context.users = db.collection('users');
+        context.posts = db.collection('posts');
+      })
+      .then(console.log('open'));
   });
 
   let user;
@@ -28,9 +31,9 @@ describe('registerUser', () => {
     return cleanUp();
   });
 
-  it('succeeds on new user', () =>
-    registerUser(user.name, user.email, user.password)
-      .then(() => context.users.findOne({ email: user.email }))
+  it('succeeds on new user', () => {
+    return registerUser(user.name, user.email, user.password)
+      .then(() => context.users.findOne())
       .then((foundUser) => {
         expect(foundUser).to.exist;
         expect(foundUser.name).to.equal(user.name);
@@ -38,13 +41,17 @@ describe('registerUser', () => {
         expect(foundUser.password).to.equal(user.password);
         expect(foundUser.avatar).to.be.null;
         expect(foundUser.favourites).to.have.lengthOf(0);
-      }));
+      })
+      .then(() => context.users.find().toArray())
+      .then((users) => {
+        expect(users).to.have.length(1);
+      });
+  });
 
   it('succeeds on other existing user', () => {
     const otherUser = generate.user();
-    const users = [otherUser];
 
-    return populate(users, [])
+    return populate([otherUser], [])
       .then(() => registerUser(user.name, user.email, user.password))
       .then(() => context.users.findOne({ email: user.email }))
       .then((foundUser) => {
@@ -54,19 +61,27 @@ describe('registerUser', () => {
         expect(foundUser.password).to.equal(user.password);
         expect(foundUser.avatar).to.be.null;
         expect(foundUser.favourites).to.have.lengthOf(0);
+      })
+      .then(() => context.users.find().toArray())
+      .then((users) => {
+        expect(users).to.have.length(2);
       });
   });
 
   it('fails on existing user', () => {
-    const users = [user];
-
-    return populate(users, [])
-      .then(() => registerUser(user.name, user.email, user.password))
+    return populate([user], [])
+      .then(() => {
+        registerUser(user.name, user.email, user.password);
+      })
       .catch((error) => {
         expect(error).to.be.instanceOf(Error);
         expect(error.message).to.equal(
           `user with email ${user.email} already exists`
         );
+      })
+      .then(() => context.users.find().toArray())
+      .then((users) => {
+        expect(users).to.have.length(1);
       });
   });
 
@@ -196,5 +211,9 @@ describe('registerUser', () => {
     }).to.throw(Error, 'password contains any whitespace characters');
   });
 
-  after(() => cleanUp().then(() => client.close()));
+  after(() =>
+    cleanUp()
+      .then(() => client.close())
+      .then(console.log('close'))
+  );
 });

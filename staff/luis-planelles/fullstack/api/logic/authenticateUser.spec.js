@@ -1,9 +1,10 @@
 require('dotenv').config();
 
-const { expect } = require('chai'),
-  authenticateUser = require('./authenticateUser.js'),
-  { MongoClient } = require('mongodb'),
-  { cleanUp, generate, populate } = require('./helpers/tests');
+const { expect } = require('chai');
+const authenticateUser = require('./authenticateUser.js');
+const { MongoClient } = require('mongodb');
+const { cleanUp, generate, populate } = require('./helpers/tests');
+const context = require('./context.js');
 
 describe('authenticateUser', () => {
   let client;
@@ -11,26 +12,32 @@ describe('authenticateUser', () => {
   before(() => {
     client = new MongoClient(process.env.MONGODB_URL);
 
-    return client.connect().then((connection) => {
-      const db = connection.db();
+    return client
+      .connect()
+      .then((connection) => {
+        const db = connection.db();
 
-      context.users = db.collection('users');
-      context.posts = db.collection('posts');
-    });
+        context.users = db.collection('users');
+        context.posts = db.collection('posts');
+      })
+      .then(() => console.log('open'));
   });
 
   let user;
 
   beforeEach(() => {
     user = generate.user();
+    post = generate.post();
 
     return cleanUp();
   });
 
   it('succeeds on existing user', () => {
-    return populate([user], [])
-      .then(() => authenticateUser(user.email, user.password))
-      .then(() => context.users.findOne({ email: user.email }))
+    return populate([user], [post])
+      .then(() => {
+        return authenticateUser(user.email, user.password);
+      })
+      .then(() => context.users.findOne())
       .then((foundUser) => {
         expect(foundUser).to.exist;
         expect(foundUser.name).to.equal(user.name);
@@ -42,31 +49,22 @@ describe('authenticateUser', () => {
   });
 
   it('fails on non-existing user', () => {
-    return authenticateUser(user.email, user.password).catch((error) => {
+    const anyEmail = 'any@email.com';
+
+    return authenticateUser(anyEmail, user.password).catch((error) => {
       expect(error).to.be.instanceOf(Error);
-      expect(error.message).to.equal(`user not found`);
+      expect(error.message).to.equal(`user not exist`);
     });
   });
 
   it('fails on existing user but wrong password', () => {
     const wrongPassword = user.password + '-wrong';
 
-    return populate([user], [])
+    return populate([user], [post])
       .then(() => authenticateUser(user.email, wrongPassword))
       .catch((error) => {
         expect(error).to.be.instanceOf(Error);
         expect(error.message).to.equal(`wrong credentials`);
-      });
-  });
-
-  it('fails on existing user but wrong email', () => {
-    const wrongEmail = `e-wrong${Math.random()}@mail.com`;
-
-    return populate([user], [])
-      .then(() => authenticateUser(wrongEmail, user.password))
-      .catch((error) => {
-        expect(error).to.be.instanceOf(Error);
-        expect(error.message).to.equal(`user not found`);
       });
   });
 
@@ -162,5 +160,8 @@ describe('authenticateUser', () => {
     }).to.throw(Error, 'password contains any whitespace characters');
   });
 
-  after(() => cleanUp().then(() => client.close()));
+  after(() => {
+    cleanUp().then(() => client.close());
+    console.log('close');
+  });
 });

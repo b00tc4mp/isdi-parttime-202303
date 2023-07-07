@@ -1,5 +1,4 @@
 const context = require('./context');
-
 const {
   validators: { validateName, validateEmail, validatePassword },
 } = require('com');

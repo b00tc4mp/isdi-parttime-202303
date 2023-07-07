@@ -1,7 +1,7 @@
+const context = require('./context');
 const {
   validators: { validateId },
 } = require('com');
-const context = require('./context');
 
 const retrievePosts = (userId) => {
   validateId(userId, 'user id');

@@ -1,20 +1,19 @@
-const { readFile, writeFile } = require('fs');
+const context = require('./context');
 const {
-  validators: { validateId, validatePassword, validateCallback },
+  validators: { validateId, validatePassword },
 } = require('com');
+const { ObjectId } = require('mongodb');
 
 const updateUserPassword = (
   userId,
   password,
   newPassword,
-  newPasswordConfirm,
-  callback
+  newPasswordConfirm
 ) => {
   validateId(userId, 'user id');
   validatePassword(password);
   validatePassword(newPassword, 'new password');
   validatePassword(newPasswordConfirm, 'new password confirm');
-  validateCallback(callback);
 
   if (newPassword === password)
     throw new Error('new password equals old password');
@@ -24,45 +23,18 @@ const updateUserPassword = (
   if (newPassword !== newPasswordConfirm)
     throw new Error('password confirmation mismatch');
 
-  validateCallback(callback);
+  return context.users
+    .findOne({ _id: new ObjectId(userId) })
+    .then((foundUser) => {
+      if (!foundUser) throw new Error(`user with id ${userId} not exists`);
 
-  readFile(`${process.env.DB_PATH}/users.json`, 'utf-8', (error, json) => {
-    if (error) {
-      callback(error);
+      if (password !== foundUser.password) throw new Error('wrong password');
 
-      return;
-    }
-
-    const users = JSON.parse(json);
-
-    let foundUser = users.find((user) => user.id === userId);
-
-    if (!foundUser) {
-      callback(new Error(`user with id ${userId} not found`));
-
-      return;
-    }
-
-    if (password !== foundUser.password) {
-      callback(new Error('wrong password'));
-
-      return;
-    }
-
-    foundUser.password = newPassword;
-
-    const updatedJson = JSON.stringify(users);
-
-    writeFile(`${process.env.DB_PATH}/users.json`, updatedJson, (error) => {
-      if (error) {
-        callback(error);
-
-        return;
-      }
-
-      callback(null);
+      return context.users.updateOne(
+        { _id: new ObjectId(userId) },
+        { $set: { password: newPassword } }
+      );
     });
-  });
 };
 
 module.exports = updateUserPassword;

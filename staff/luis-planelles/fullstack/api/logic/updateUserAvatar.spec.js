@@ -1,102 +1,94 @@
 require('dotenv').config();
 
 const { expect } = require('chai');
-const { writeFile, readFile } = require('fs');
-
+const { cleanUp, populate, generate } = require('./helpers/tests');
+const { MongoClient, ObjectId } = require('mongodb');
+const context = require('./context');
 const updateUserAvatar = require('./updateUserAvatar.js');
 
 describe('updateUserAvatar', () => {
-  let id, name, email, password, avatar;
+  let client;
 
-  beforeEach((done) => {
-    id = `id-${Math.round(Math.random() * 100 + 1)}`;
-    name = `name-${Math.random()}`;
-    email = `e-${Math.random()}@mail.com`;
-    password = `password-${Math.random()}`;
-    avatar = `avatar-${Math.random()}`;
+  before(() => {
+    client = new MongoClient(process.env.MONGODB_URL);
 
-    writeFile(`${process.env.DB_PATH}/users.json`, '[]', (error) =>
-      done(error)
-    );
+    return client
+      .connect()
+      .then((connection) => {
+        const db = connection.db();
+
+        context.users = db.collection('users');
+        context.posts = db.collection('posts');
+      })
+      .then(console.log('open'));
   });
 
-  it('succeeds on existing user and correct new avatar', (done) => {
-    const users = [{ id, name, email, password, avatar }],
-      json = JSON.stringify(users);
+  const anyId = new ObjectId().toString();
 
-    writeFile(`${process.env.DB_PATH}/users.json`, json, (error) => {
-      expect(error).to.be.null;
+  let user, newAvatar;
 
-      const newAvatar = avatar + '-new';
+  beforeEach(() => {
+    user = generate.user();
+    post = generate.post();
 
-      updateUserAvatar(id, newAvatar, (error) => {
-        expect(error).to.be.null;
+    newAvatar = `new-avatar-${Math.random()}url.com`;
 
-        readFile(`${process.env.DB_PATH}/users.json`, (error, json) => {
-          expect(error).to.be.null;
+    return cleanUp().then(() => populate([user], [post]));
+  });
 
-          const [{ avatar }] = JSON.parse(json);
-
-          expect(avatar).to.equal(newAvatar);
-
-          done();
-        });
+  it('succeeds on existing user and correct new avatar', () => {
+    return updateUserAvatar(user._id.toString(), newAvatar)
+      .then(() => context.users.findOne())
+      .then((user) => {
+        expect(user.avatar).to.equal(newAvatar);
       });
-    });
   });
 
-  it('fails on non-existing user', (done) => {
-    const newAvatar = avatar + '-new';
-
-    updateUserAvatar(id, newAvatar, (error, user) => {
+  it('fails on non-existing user', () => {
+    return updateUserAvatar(anyId, newAvatar).catch((error) => {
       expect(error).to.be.instanceOf(Error);
-      expect(error.message).to.equal(`user with id ${id} not found`);
-      expect(user).to.be.undefined;
-
-      done();
-    });
-  });
-
-  it('fails on existing user and incorrect id', (done) => {
-    const users = [{ id, name, email, password, avatar }],
-      json = JSON.stringify(users);
-
-    writeFile(`${process.env.DB_PATH}/users.json`, json, (error) => {
-      expect(error).to.be.null;
-
-      const wrongId = id + '-wrong',
-        newAvatar = avatar + '-new';
-
-      updateUserAvatar(wrongId, newAvatar, (error) => {
-        expect(error).to.be.instanceOf(Error);
-        expect(error.message).to.equal(`user with id ${wrongId} not found`);
-
-        done();
-      });
+      expect(error.message).to.equal(`user with id ${anyId} not exists`);
     });
   });
 
   it('fails on empty id', () =>
-    expect(() => updateUserAvatar('', avatar, () => {})).to.throw(
+    expect(() => updateUserAvatar('', newAvatar)).to.throw(
       Error,
       'userId is empty'
     ));
 
   it('fails on empty avatar', () =>
-    expect(() => updateUserAvatar(id, '', () => {})).to.throw(
+    expect(() => updateUserAvatar(anyId, '')).to.throw(
       Error,
-      'avatar image is empty'
+      'avatar is empty'
     ));
 
-  it('fails on empty callback', () =>
-    expect(() => updateUserAvatar(id, avatar)).to.throw(
+  it('throws an error for non-string avatar', () => {
+    expect(() => updateUserAvatar(anyId, undefined)).to.throw(
       Error,
-      'callback is not a function'
-    ));
+      'avatar is not a string'
+    );
+    expect(() => updateUserAvatar(anyId, 1)).to.throw(
+      Error,
+      'avatar is not a string'
+    );
+    expect(() => updateUserAvatar(anyId, true)).to.throw(
+      Error,
+      'avatar is not a string'
+    );
+    expect(() => updateUserAvatar(anyId, {})).to.throw(
+      Error,
+      'avatar is not a string'
+    );
+    expect(() => updateUserAvatar(anyId, [])).to.throw(
+      Error,
+      'avatar is not a string'
+    );
+  });
 
-  after((done) =>
-    writeFile(`${process.env.DB_PATH}/users.json`, '[]', 'utf-8', (error) =>
-      done(error)
-    )
+  after(() =>
+    cleanUp()
+      .then(() => client.close())
+      .then(console.log('close'))
   );
 });

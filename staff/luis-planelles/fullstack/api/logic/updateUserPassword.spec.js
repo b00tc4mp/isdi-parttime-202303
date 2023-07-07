@@ -1,88 +1,84 @@
 require('dotenv').config();
 
 const { expect } = require('chai');
-const { writeFile, readFile } = require('fs');
-
 const updateUserPassword = require('./updateUserPassword.js');
+const { cleanUp, populate, generate } = require('./helpers/tests');
+const { MongoClient, ObjectId } = require('mongodb');
+const context = require('./context');
 
 describe('updateUserPassword', () => {
-  let id, name, email, password, avatar;
+  let client;
 
-  beforeEach((done) => {
-    id = `id-${Math.round(Math.random() * 100 + 1)}`;
-    name = `name-${Math.random()}`;
-    email = `e-${Math.random()}@mail.com`;
-    password = `P@ssword-${Math.random()}`;
-    avatar = `avatar-${Math.random()}`;
+  before(() => {
+    client = new MongoClient(process.env.MONGODB_URL);
 
-    const users = [{ id, name, email, password, avatar }];
-    const json = JSON.stringify(users);
+    return client
+      .connect()
+      .then((connection) => {
+        const db = connection.db();
 
-    writeFile(`${process.env.DB_PATH}/users.json`, json, (error) =>
-      done(error)
-    );
+        context.users = db.collection('users');
+        context.posts = db.collection('posts');
+      })
+      .then(console.log('open'));
   });
 
-  it('should succeed on valid password update', (done) => {
+  const anyId = new ObjectId().toString();
+
+  let user;
+
+  beforeEach(() => {
+    user = generate.user();
+    post = generate.post();
+
+    return cleanUp().then(() => populate([user], [post]));
+  });
+
+  it('should succeed on valid password update', () => {
     const newPassword = 'NewPassword456!',
       newPasswordConfirm = 'NewPassword456!';
 
-    updateUserPassword(
-      id,
-      password,
+    return updateUserPassword(
+      user._id.toString(),
+      user.password,
       newPassword,
-      newPasswordConfirm,
-      (error) => {
-        expect(error).to.be.null;
-
-        readFile(`${process.env.DB_PATH}/users.json`, (error, json) => {
-          expect(error).to.be.null;
-
-          const [{ password }] = JSON.parse(json);
-
-          expect(password).to.equal(newPassword);
-
-          done();
-        });
-      }
-    );
+      newPasswordConfirm
+    )
+      .then(() => context.users.findOne())
+      .then((foundUser) => {
+        expect(foundUser.password).to.equal(newPassword);
+      });
   });
 
-  it('should fail on not existing user', (done) => {
+  it('should fail on not existing user', () => {
     const newPassword = 'NewPassword456!',
-      newPasswordConfirm = 'NewPassword456!',
-      id = 'not in data';
+      newPasswordConfirm = 'NewPassword456!';
 
-    updateUserPassword(
-      id,
-      password,
+    return updateUserPassword(
+      anyId,
+      user.password,
       newPassword,
-      newPasswordConfirm,
-      (error) => {
-        expect(error).to.be.instanceOf(Error);
-        expect(error.message).to.equal('user with id not in data not found');
-
-        done();
-      }
-    );
+      newPasswordConfirm
+    ).catch((error) => {
+      expect(error).to.be.instanceOf(Error);
+      expect(error.message).to.equal(`user with id ${anyId} not exists`);
+    });
   });
 
-  it('should fail on incorrect original password', (done) => {
+  it('should fail on incorrect original password', () => {
     const password = '1nc0rrectP@ssword',
       newPassword = 'NewPassword456!',
       newPasswordConfirm = 'NewPassword456!';
 
-    updateUserPassword(
-      id,
+    return updateUserPassword(
+      user._id.toString(),
       password,
       newPassword,
-      newPasswordConfirm,
-      (error) => {
-        expect(error).to.be.an('Error');
-        expect(error.message).to.equal('wrong password');
-        done();
-      }
-    );
+      newPasswordConfirm
+    ).catch((error) => {
+      expect(error).to.be.instanceOf(Error);
+      expect(error.message).to.equal(`wrong password`);
+    });
   });
 
   it('should fail on mismatched new password and confirm password', () => {
@@ -90,28 +86,16 @@ describe('updateUserPassword', () => {
       newPasswordConfirm = 'MismatchedPassword789!';
 
     expect(() =>
-      updateUserPassword(
-        id,
-        password,
-        newPassword,
-        newPasswordConfirm,
-        () => {}
-      )
+      updateUserPassword(anyId, user.password, newPassword, newPasswordConfirm)
     ).to.throw('password confirmation mismatch');
   });
 
   it('should fail on new password same as old password', () => {
     const newPassword = 'OldPassword123!',
-      newPasswordConfirm = password;
+      newPasswordConfirm = user.password;
 
     expect(() =>
-      updateUserPassword(
-        id,
-        password,
-        newPassword,
-        newPasswordConfirm,
-        () => {}
-      )
+      updateUserPassword(anyId, user.password, newPassword, newPasswordConfirm)
     ).to.throw('password confirmation mismatch');
   });
 
@@ -120,13 +104,7 @@ describe('updateUserPassword', () => {
       newPasswordConfirm = 'NewPassword456!';
 
     expect(() =>
-      updateUserPassword(
-        '',
-        password,
-        newPassword,
-        newPasswordConfirm,
-        () => {}
-      )
+      updateUserPassword('', user.password, newPassword, newPasswordConfirm)
     ).to.throw(Error, 'id is empty');
   });
 
@@ -135,7 +113,7 @@ describe('updateUserPassword', () => {
       newPasswordConfirm = 'NewPassword456!';
 
     expect(() =>
-      updateUserPassword(id, '', newPassword, newPasswordConfirm, () => {})
+      updateUserPassword(anyId, '', newPassword, newPasswordConfirm)
     ).to.throw(Error, 'password is empty');
   });
 
@@ -143,7 +121,7 @@ describe('updateUserPassword', () => {
     const newPasswordConfirm = 'NewPassword456!';
 
     expect(() =>
-      updateUserPassword(id, password, '', newPasswordConfirm, () => {})
+      updateUserPassword(anyId, user.password, '', newPasswordConfirm)
     ).to.throw(Error, 'new password is empty');
   });
 
@@ -151,23 +129,14 @@ describe('updateUserPassword', () => {
     const newPassword = 'NewPassword456!';
 
     expect(() =>
-      updateUserPassword(id, password, newPassword, '', () => {})
+      updateUserPassword(anyId, user.password, newPassword, '')
     ).to.throw(Error, 'new password confirm is empty');
-  });
-
-  it('fails on empty callback', () => {
-    const newPassword = 'NewPassword456!',
-      newPasswordConfirm = 'NewPassword456!';
-
-    expect(() =>
-      updateUserPassword(id, password, newPassword, newPasswordConfirm)
-    ).to.throw(Error, 'callback is not a function');
   });
 
   it('should fail on non-string password', () => {
     const password = 12345678;
 
-    expect(() => updateUserPassword(id, password, '', '', () => {})).to.throw(
+    expect(() => updateUserPassword(anyId, password, '', '')).to.throw(
       'password is not a string'
     );
   });
@@ -175,7 +144,7 @@ describe('updateUserPassword', () => {
   it('should fail on password without a digit', () => {
     const password = 'Password!';
 
-    expect(() => updateUserPassword(id, password, '', '', () => {})).to.throw(
+    expect(() => updateUserPassword(anyId, password, '', '')).to.throw(
       'password not contains one digit'
     );
   });
@@ -183,7 +152,7 @@ describe('updateUserPassword', () => {
   it('should fail on password without a lowercase letter', () => {
     const password = 'PASSWORD123!';
 
-    expect(() => updateUserPassword(id, password, '', '', () => {})).to.throw(
+    expect(() => updateUserPassword(anyId, password, '', '')).to.throw(
       'password not contains one lowercase letter'
     );
   });
@@ -191,7 +160,7 @@ describe('updateUserPassword', () => {
   it('should fail on password without an uppercase letter', () => {
     const password = 'password123!';
 
-    expect(() => updateUserPassword(id, password, '', '', () => {})).to.throw(
+    expect(() => updateUserPassword(anyId, password, '', '')).to.throw(
       'password not contains one uppercase letter'
     );
   });
@@ -199,7 +168,7 @@ describe('updateUserPassword', () => {
   it('should fail on password without a special character', () => {
     const password = 'Password123';
 
-    expect(() => updateUserPassword(id, password, '', '', () => {})).to.throw(
+    expect(() => updateUserPassword(anyId, password, '', '')).to.throw(
       'password not contains one special character'
     );
   });
@@ -207,7 +176,7 @@ describe('updateUserPassword', () => {
   it('should fail on password with whitespace characters', () => {
     const password = 'Password 123!';
 
-    expect(() => updateUserPassword(id, password, '', '', () => {})).to.throw(
+    expect(() => updateUserPassword(anyId, password, '', '')).to.throw(
       'password contains any whitespace characters'
     );
   });
@@ -215,14 +184,14 @@ describe('updateUserPassword', () => {
   it('should fail on password less than 8 characters long', () => {
     const password = '1p@sS6';
 
-    expect(() => updateUserPassword(id, password, '', '', () => {})).to.throw(
+    expect(() => updateUserPassword(anyId, password, '', '')).to.throw(
       'password not be at least 8 characters long'
     );
   });
 
-  after((done) =>
-    writeFile(`${process.env.DB_PATH}/users.json`, '[]', 'utf-8', (error) =>
-      done(error)
-    )
+  after(() =>
+    cleanUp()
+      .then(() => client.close())
+      .then(console.log('close'))
   );
 });

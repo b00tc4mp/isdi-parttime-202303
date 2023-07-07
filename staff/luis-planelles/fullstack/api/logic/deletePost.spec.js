@@ -3,121 +3,93 @@ require('dotenv').config();
 const { expect } = require('chai');
 const deletePost = require('./deletePost');
 const { cleanUp, populate, generate } = require('./helpers/tests');
-const { readFile } = require('fs');
+const { MongoClient, ObjectId } = require('mongodb');
+const context = require('./context');
 
 describe('deletePost', () => {
-  let user, post, image, text;
+  let client;
 
-  beforeEach((done) => {
-    cleanUp((error) => {
-      if (error) {
-        done(error);
+  before(() => {
+    client = new MongoClient(process.env.MONGODB_URL);
 
-        return;
-      }
+    return client
+      .connect()
+      .then((connection) => {
+        const db = connection.db();
 
-      user = generate.user();
-      post = generate.post(user.id);
-
-      diffAuthor = `user2-${Math.random()}`;
-      otherPost = generate.post(diffAuthor.id);
-
-      image = `url${Math.random()}`;
-      text = `text${Math.random()}`;
-
-      populate([user], [post, otherPost], done);
-    });
+        context.users = db.collection('users');
+        context.posts = db.collection('posts');
+      })
+      .then(console.log('open'));
   });
 
-  it('succeeds on existing user and post', (done) => {
-    deletePost(user.id, post.id, (error) => {
-      expect(error).to.be.null;
+  const anyId = new ObjectId().toString();
 
-      readFile(`${process.env.DB_PATH}/posts.json`, (error, json) => {
-        expect(error).to.be.null;
+  let user, post;
 
-        const dataBase = JSON.parse(json);
+  beforeEach(() => {
+    user = generate.user();
+    post = generate.post();
 
-        expect(dataBase.length).to.equal(1);
-
-        done();
-      });
-    });
-  });
-
-  it('fails when user not exists', (done) => {
-    user.id = 'unmatch';
-
-    deletePost(user.id, post.id, (error) => {
-      expect(error).to.be.instanceOf(Error);
-
-      readFile(`${process.env.DB_PATH}/posts.json`, (error, json) => {
-        expect(error).to.be.null;
-
-        const dataBase = JSON.parse(json);
-
-        expect(dataBase.length).to.equal(2);
-
-        done();
-      });
-    });
-  });
-
-  it('fails when post not exists', (done) => {
-    post.id += 'unmatch';
-
-    deletePost(user.id, post.id, (error) => {
-      expect(error).to.be.instanceOf(Error);
-      expect(error.message).to.equal(`post with id ${post.id} not exists`);
-
-      readFile(`${process.env.DB_PATH}/posts.json`, (error, json) => {
-        expect(error).to.be.null;
-
-        const dataBase = JSON.parse(json);
-
-        expect(dataBase.length).to.equal(2);
-
-        done();
-      });
-    });
-  });
-
-  it('fails when user inst author and post exists', (done) => {
-    deletePost(user.id, otherPost.id, (error) => {
-      expect(error).to.be.instanceOf(Error);
-      expect(error.message).to.equal(
-        `post with id ${otherPost.id} not belong to user with id ${user.id}`
+    return cleanUp()
+      .then(() => populate([user], [post]))
+      .then(() =>
+        context.posts.updateOne(
+          { _id: post._id },
+          { $set: { author: user._id } }
+        )
       );
+  });
 
-      readFile(`${process.env.DB_PATH}/posts.json`, (error, json) => {
-        expect(error).to.be.null;
-
-        const dataBase = JSON.parse(json);
-
-        expect(dataBase.length).to.equal(2);
-
-        done();
+  it('succeeds on existing user and post', () => {
+    return deletePost(user._id.toString(), post._id.toString())
+      .then(() => context.posts.findOne())
+      .then((post) => {
+        expect(post).to.null;
       });
+  });
+
+  it('fails when user not exists', () => {
+    return deletePost(anyId, post._id.toString()).catch((error) => {
+      expect(error).to.be.instanceOf(Error);
+      expect(error.message).to.equal(`user with id ${anyId} not exists`);
     });
+  });
+
+  it('fails when post not exists', () => {
+    return deletePost(user._id.toString(), anyId).catch((error) => {
+      expect(error).to.be.instanceOf(Error);
+      expect(error.message).to.equal(`post with id ${anyId} not exists`);
+    });
+  });
+
+  it('fails when user inst author and post exists', () => {
+    return context.posts
+      .updateOne({ _id: post._id }, { $set: { author: anyId } })
+      .then(() => deletePost(user._id.toString(), post._id.toString()))
+      .catch((error) => {
+        expect(error).to.be.instanceOf(Error);
+        expect(error.message).to.equal(
+          `post with id ${post._id.toString()} not belong to user with id ${user._id.toString()}`
+        );
+      });
   });
 
   it('fails on empty user id', () =>
-    expect(() => deletePost('', post.id, () => {})).to.throw(
+    expect(() => deletePost('', post._id.toString(), () => {})).to.throw(
       Error,
       'user id is empty'
     ));
 
   it('fails on empty post id', () =>
-    expect(() => deletePost(user.id, '', () => {})).to.throw(
+    expect(() => deletePost(anyId, '', () => {})).to.throw(
       Error,
       'post id is empty'
     ));
 
-  it('fails on empty callback', () =>
-    expect(() => deletePost(user.id, post.id, image, text)).to.throw(
-      Error,
-      'callback is not a function'
-    ));
-
-  after(cleanUp);
+  after(() =>
+    cleanUp()
+      .then(() => client.close())
+      .then(console.log('close'))
+  );
 });

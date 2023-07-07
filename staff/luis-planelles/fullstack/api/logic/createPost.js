@@ -1,8 +1,8 @@
-const { ObjectId } = require('mongodb');
 const context = require('./context');
 const {
   validators: { validateId, validateUrl, validateText },
 } = require('com');
+const { ObjectId } = require('mongodb');
 
 const createPost = (userId, image, text) => {
   validateId(userId, ' user id');
@@ -14,7 +14,7 @@ const createPost = (userId, image, text) => {
   return users.findOne({ _id: new ObjectId(userId) }).then((user) => {
     if (!user) throw new Error(`user with id ${userId} doesnt exists`);
 
-    posts.insertOne({
+    return posts.insertOne({
       author: user._id,
       image,
       text,

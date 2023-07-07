@@ -1,70 +1,27 @@
-const { readFile, writeFile } = require('fs');
+const context = require('./context');
 const {
-  validators: { validateId, validateCallback },
+  validators: { validateId },
 } = require('com');
+const { ObjectId } = require('mongodb');
 
-const deletePost = (userId, postId, callback) => {
+const deletePost = (userId, postId) => {
   validateId(userId, 'user id');
   validateId(postId, 'post id');
-  validateCallback(callback);
 
-  readFile(`${process.env.DB_PATH}/users.json`, (error, json) => {
-    if (error) {
-      callback(error);
+  const { posts, users } = context;
 
-      return;
-    }
+  return users.findOne({ _id: new ObjectId(userId) }).then((foundUser) => {
+    if (!foundUser) throw new Error(`user with id ${userId} not exists`);
 
-    const users = JSON.parse(json),
-      user = users.find((user) => user.id === userId);
+    return posts.findOne({ _id: new ObjectId(postId) }).then((foundPost) => {
+      if (!foundPost) throw new Error(`post with id ${postId} not exists`);
 
-    if (!user) {
-      callback(new Error(`user with id ${userId} not exists`));
-
-      return;
-    }
-
-    readFile(`${process.env.DB_PATH}/posts.json`, (error, json) => {
-      if (error) {
-        callback(error);
-
-        return;
-      }
-
-      const posts = JSON.parse(json),
-        foundPost = posts.find((post) => post.id === postId);
-
-      if (!foundPost) {
-        callback(new Error(`post with id ${postId} not exists`));
-
-        return;
-      }
-
-      if (foundPost.author !== userId) {
-        callback(
-          new Error(
-            `post with id ${postId} not belong to user with id ${userId}`
-          )
+      if (foundPost.author.toString() !== userId)
+        throw new Error(
+          `post with id ${postId} not belong to user with id ${userId}`
         );
 
-        return;
-      }
-
-      const postIndex = posts.findIndex((post) => post.id === postId);
-
-      if (postIndex !== -1) {
-        posts.splice(postIndex, 1);
-        json = JSON.stringify(posts);
-
-        writeFile(`${process.env.DB_PATH}/posts.json`, json, (error) => {
-          if (error) {
-            callback(error);
-
-            return;
-          }
-        });
-      }
-      callback(null);
+      return posts.deleteOne({ _id: new ObjectId(postId) });
     });
   });
 };

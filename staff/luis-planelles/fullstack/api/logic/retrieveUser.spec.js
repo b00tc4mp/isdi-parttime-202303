@@ -2,9 +2,9 @@ require('dotenv').config();
 
 const { expect } = require('chai'),
   retrieveUser = require('./retrieveUser.js'),
-  { MongoClient } = require('mongodb'),
+  { MongoClient, ObjectId } = require('mongodb'),
   { cleanUp, generate, populate } = require('./helpers/tests');
-const context = require('./context.js');
+const context = require('./context');
 
 describe('retrieveUser', () => {
   let client;
@@ -12,49 +12,42 @@ describe('retrieveUser', () => {
   before(() => {
     client = new MongoClient(process.env.MONGODB_URL);
 
-    return client.connect().then((connection) => {
-      const db = connection.db();
+    return client
+      .connect()
+      .then((connection) => {
+        const db = connection.db();
 
-      context.users = db.collection('users');
-      context.posts = db.collection('posts');
-    });
+        context.users = db.collection('users');
+        context.posts = db.collection('posts');
+      })
+      .then(console.log('open'));
   });
+
+  const anyId = new ObjectId().toString();
 
   let user;
 
   beforeEach(() => {
     user = generate.user();
+    post = generate.post();
 
-    return cleanUp();
+    return cleanUp().then(() => populate([user], [post]));
   });
 
   it('succeeds on existing user and correct id', () => {
-    return populate([user], [])
-      .then(() => context.users.findOne({ email: user.email }))
-      .then((foundUser) => {
-        const userIdString = foundUser._id.toString();
-        return retrieveUser(userIdString);
-      })
-      .then((retrievedUser) => {
-        expect(retrievedUser).to.exist;
-        expect(retrievedUser.name).to.equal(user.name);
-        expect(retrievedUser.email).to.equal(user.email);
-        expect(retrievedUser.avatar).to.be.null;
-      });
+    return retrieveUser(user._id.toString()).then((retrievedUser) => {
+      expect(retrievedUser).to.exist;
+      expect(retrievedUser.name).to.equal(user.name);
+      expect(retrievedUser.email).to.equal(user.email);
+      expect(retrievedUser.avatar).to.be.null;
+    });
   });
 
   it('fails on existing user and incorrect id', () => {
-    return populate([user], [])
-      .then(() => context.users.findOne({ email: user.email }))
-      .then((foundUser) => {
-        const userIdString = foundUser._id.toString();
-        const unmatchId = userIdString.replace(userIdString.charAt(0), '0');
-        return retrieveUser(unmatchId);
-      })
-      .catch((error) => {
-        expect(error).to.be.an.instanceOf(Error);
-        expect(error.message).to.equal('user not found');
-      });
+    return retrieveUser(anyId).catch((error) => {
+      expect(error).to.be.an.instanceOf(Error);
+      expect(error.message).to.equal('user not exists');
+    });
   });
 
   it('fails on empty id', () =>
@@ -63,5 +56,9 @@ describe('retrieveUser', () => {
       'user id is empty'
     ));
 
-  after(() => cleanUp().then(() => client.close()));
+  after(() =>
+    cleanUp()
+      .then(() => client.close())
+      .then(console.log('close'))
+  );
 });

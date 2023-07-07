@@ -1,7 +1,7 @@
+const context = require('./context');
 const {
   validators: { validateEmail, validatePassword },
 } = require('com');
-const context = require('./context');
 
 const authenticateUser = (email, password) => {
   validateEmail(email);
@@ -10,7 +10,7 @@ const authenticateUser = (email, password) => {
   const { users } = context;
 
   return users.findOne({ email }).then((user) => {
-    if (!user) throw new Error('user not found');
+    if (!user) throw new Error('user not exist');
 
     if (user.password !== password) throw new Error('wrong credentials');
 

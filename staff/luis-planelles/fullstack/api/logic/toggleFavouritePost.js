@@ -1,63 +1,33 @@
-const { readFile, writeFile } = require('fs');
+const context = require('./context');
 const {
-  validators: { validateId, validateCallback },
+  validators: { validateId },
 } = require('com');
+const { ObjectId } = require('mongodb');
 
-const toggleFavouritePost = (userId, postId, callback) => {
+const toggleFavouritePost = (userId, postId) => {
   validateId(userId, ' user id');
   validateId(postId, ' post id');
-  validateCallback(callback);
 
-  readFile(`${process.env.DB_PATH}/users.json`, (error, json) => {
-    if (error) {
-      callback(error);
+  const { users, posts } = context;
 
-      return;
-    }
+  return users.findOne({ _id: new ObjectId(userId) }).then((foundUser) => {
+    if (!foundUser) throw new Error(`user with id ${userId} not exists`);
 
-    const users = JSON.parse(json);
-
-    const foundUser = users.find((user) => user.id === userId);
-
-    if (!foundUser) {
-      callback(new Error(`user with id ${userId} not exists`));
-
-      return;
-    }
-
-    readFile(`${process.env.DB_PATH}/posts.json`, (error, json) => {
-      if (error) {
-        callback(error);
-
-        return;
-      }
-
-      const posts = JSON.parse(json);
-
-      const foundPost = posts.find((post) => post.id === postId);
-
-      if (!foundPost) {
-        callback(new Error(`post with id ${postId} not exists`));
-
-        return;
-      }
+    return posts.findOne({ _id: new ObjectId(postId) }).then((foundPost) => {
+      if (!foundPost) throw new Error(`post with id ${postId} not exists`);
 
       const index = foundUser.favourites.indexOf(postId);
 
-      if (index < 0) foundUser.favourites.push(postId);
-      else foundUser.favourites.splice(index, 1);
+      if (index < 0) {
+        foundUser.favourites.push(postId);
+      } else {
+        foundUser.favourites.splice(index, 1);
+      }
 
-      json = JSON.stringify(users);
-
-      writeFile(`${process.env.DB_PATH}/users.json`, json, (error) => {
-        if (error) {
-          callback(error);
-
-          return;
-        }
-
-        callback(null);
-      });
+      return users.updateOne(
+        { _id: new ObjectId(userId) },
+        { $set: { favourites: foundUser.favourites } }
+      );
     });
   });
 };
