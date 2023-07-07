@@ -49,14 +49,14 @@ client
       jsonBodyParser,
       updateUserPasswordHandler
     );
-    api.post('/users/post', jsonBodyParser, createPostHandler);
+    api.post('/users/posts', jsonBodyParser, createPostHandler);
 
     api.patch('/posts/favourite/:postId', toggleFavouritePostHandler);
     api.patch('/posts/like/:postId', toggleLikePostHandler);
-    api.patch('/posts/updatePost/:postId', jsonBodyParser, updatePostHandler);
+    api.patch('/posts/update/:postId', jsonBodyParser, updatePostHandler);
     api.get('/posts', retrievePostsHandler);
     api.get('/posts/:postId', retrievePostHandler);
-    api.delete('/posts/deletePost/:postId', deletePostHandler);
+    api.delete('/posts/delete/:postId', deletePostHandler);
 
     api.listen(process.env.PORT, () =>
       console.log(`server running in port ${process.env.PORT}`)
