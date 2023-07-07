@@ -10,10 +10,9 @@ import inLogger from '../inLogger';
 
 const CreateLevel = ({ onTryLevelClick }) => {
     const [toast, setToast] = useState(null);
-    const [isToastOn, setToastOn] = useState(false)
-    const [level, setLevel] = useState([
-        ['empty', 'stonks', 'hole', 'empty', 'empty', 'empty', 'empty', 'empty', 'start'],
-    ]);
+    const [isToastOn, setToastOn] = useState(false);
+    const [level, setLevel] = useState([['empty', 'stonks', 'hole', 'empty', 'empty', 'empty', 'empty', 'empty', 'start']]);
+    const [openDropdown, setOpenDropdown] = useState(null);
 
     const cellOptions = ['bomb', 'dirt', 'hole', 'stonks', 'start', 'life', 'empty'];
 
@@ -27,6 +26,7 @@ const CreateLevel = ({ onTryLevelClick }) => {
         setLevel(updatedLevel);
         if (dropdown) {
             dropdown.classList.toggle('hidden');
+            setOpenDropdown(null)
         }
     };
 
@@ -54,40 +54,73 @@ const CreateLevel = ({ onTryLevelClick }) => {
         const name = document.getElementById('level-name').value;
         if (validateLevel(level, name, setToast, setToastOn)) {
             try {
-                createLevel(name, level, error => {
+                createLevel(name, level, (error) => {
                     if (error) {
-                        console.log(`create level error: ${error.message}`)
+                        console.log(`create level error: ${error.message}`);
                         return;
                     }
                     onTryLevelClick(configureLevelToRender(level));
                 });
-
             } catch (error) {
                 alert(`create level error: ${error.message}`, 'danger');
             }
         }
-    }
+    };
 
     const handleDropdownToggle = (floorIndex, cellIndex) => {
         const dropdownId = `dropdownDefaultRadio_${floorIndex}_${cellIndex}`;
         const dropdown = document.getElementById(dropdownId);
-        if (dropdown) {
+        const openDropdownId = `dropdownDefaultRadio_${openDropdown}`
+        if (openDropdown && openDropdownId !== dropdownId) {
+            const openedDropdown = document.getElementById(openDropdownId);
+            openedDropdown.classList.toggle('hidden');
             dropdown.classList.toggle('hidden');
+            setOpenDropdown(`${floorIndex}_${cellIndex}`);
+        } else if (openDropdown && openDropdownId === dropdownId) {
+            dropdown.classList.toggle('hidden');
+            setOpenDropdown(null);
+        } else {
+            dropdown.classList.toggle('hidden');
+            setOpenDropdown(`${floorIndex}_${cellIndex}`);
         }
+
+    };
+
+    const renderRadioOptions = (floorIndex, cellIndex) => {
+        const selectedOption = level[floorIndex][cellIndex];
+
+        return cellOptions.map((option, index) => (
+            <li key={index}>
+                <div className="flex items-center">
+                    <input
+                        id={`dropdownDefaultRadio_${floorIndex}_${cellIndex}`}
+                        type="radio"
+                        value={option}
+                        name={`default-radio-${floorIndex}-${cellIndex}`}
+                        className="w-4 h-4"
+                        onChange={(event) => handleOptionChange(floorIndex, cellIndex, option)}
+                        checked={selectedOption === option}
+                    />
+                    <label htmlFor={`dropdownDefaultRadio_${floorIndex}_${cellIndex}`} className="ml-2 text-sm font-medium">
+                        {option}
+                    </label>
+                </div>
+            </li>
+        ));
     };
 
     return (
         <>
             {isToastOn &&
                 <div className="fixed inset-0 flex items-center justify-center z-50">
-                    <div id="toast-warning" className="flex items-center w-full max-w-xs p-4 text-gray-500 bg-white rounded-lg shadow" role="alert">
-                        <div className="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-orange-500 bg-orange-100 rounded-lg">
-                            <i className="bi bi-exclamation-triangle"></i>
+                    <div id="toast-warning" className="flex items-center w-full max-w-xs p-4 text-dark200 bg-light400 mx-2 rounded-lg shadow" role="alert">
+                        <div className="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-dark500 bg-warning200 rounded-lg">
+                            <i className="text-xl bi bi-exclamation-triangle"></i>
                         </div>
                         <div className="ml-3 text-sm font-normal">{toast}</div>
-                        <button type="button" onClick={handleCloseToast} className="ml-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex h-8 w-8" data-dismiss-target="#toast-warning" aria-label="Close">
+                        <button type="button" onClick={handleCloseToast} data-dismiss-target="#toast-warning" aria-label="Close">
                             <span className="sr-only">Close</span>
-                            <svg aria-hidden="true" className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd"></path></svg>
+                            <i className="text-dark300 hover:text-dark400 bi bi-x-circle text-lg"></i>
                         </button>
                     </div>
                 </div>
@@ -112,28 +145,21 @@ const CreateLevel = ({ onTryLevelClick }) => {
                                     <button
                                         id={`dropdownRadioButton_${floorIndex}_${cellIndex}`}
                                         data-dropdown-toggle="dropdownRadioHelper"
-                                        className="text-white bg-light300 hover:bg-light200 focus:ring-4 focus:outline-none focus:ring-light200 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center"
+                                        className="text-primary300 bg-light300 hover:bg-light200 focus:ring-4 focus:outline-none focus:ring-light200 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center"
                                         type="button"
                                         onClick={() => handleDropdownToggle(floorIndex, cellIndex)}
                                     >
                                         <img src={editIcons[cell]} className="w-14 h-14" alt={cell} />
-                                        <i className="bi bi-chevron-down"></i>
+                                        {
+                                            `${floorIndex}_${cellIndex}` === openDropdown ? <i className="bi bi-x-lg"></i> : <i className="bi bi-chevron-down"></i>
+                                        }
                                     </button>
                                     <div
                                         id={`dropdownDefaultRadio_${floorIndex}_${cellIndex}`}
-                                        className="z-50 absolute right-0 left-0 w-46 bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600 hidden"
+                                        className="z-50 absolute right-0 left-0 w-46 bg-light400 divide-y divide-light300 rounded-lg shadow hidden"
                                     >
-                                        <ul className="p-3 space-y-3 text-sm text-gray-700 dark:text-gray-200">
-                                            {cellOptions.map((option, index) => (
-                                                <li key={index}>
-                                                    <div className="flex items-center">
-                                                        <input id={`dropdownDefaultRadio_${floorIndex}_${cellIndex}`} type="radio" value="" name="default-radio" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2" onChange={(event) => handleOptionChange(floorIndex, cellIndex, option)} />
-                                                        <label forhtml={`dropdownDefaultRadio_${floorIndex}_${cellIndex}`} className="ml-2 text-sm font-medium text-gray-900">{option}</label>
-                                                    </div>
-                                                </li>
-
-                                            ))}
-
+                                        <ul className="p-3 space-y-3 text-sm text-secondary200">
+                                            {renderRadioOptions(floorIndex, cellIndex)}
                                         </ul>
                                     </div>
                                 </div>
