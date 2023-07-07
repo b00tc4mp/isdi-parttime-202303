@@ -13,9 +13,11 @@
 
 - As a recomendation, run t2.micro for free and give permision to http, https and ssh.
 
-## 4. Install docker with yum
+## 4. Install docker with yum and run it
 ```sh
 $ sudo yum install docker
+$ sudo systemctl start docker
+$ sudo systemctl enable docker # with this you make sure every time this instance runs it starts docker automatically
 ```
 
 ## 5. Create github action to have a pipeline
@@ -34,7 +36,6 @@ $ sudo yum install docker
 - *All* my configuration files are:
     - [flors-rueda-ci-cd.yml](../../../../../.github/workflows/flors-rueda-ci-cd.yml).
     - [Dockerfile for the backend](../Dockerfile)
-    - [docker-compose.yml](../docker-compose.yml)
     - [nginx configuration](../nginx/nginx.conf)
     - [Dockerfile for the front](../nginx/Dockerfile)
 
