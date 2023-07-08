@@ -1,3 +1,3 @@
 module.exports = {
-  extractUserId: require('./extractUSerId'),
+  extractUserId: require('./extractUserId'),
 };

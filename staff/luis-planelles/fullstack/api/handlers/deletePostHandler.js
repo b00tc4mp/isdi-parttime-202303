@@ -1,5 +1,5 @@
 const { deletePost } = require('../logic');
-const { extractUserId } = require('../helpers');
+const { extractUserId } = require('./helpers');
 
 const deletePostHandler = (req, res) => {
   const userId = extractUserId(req);
