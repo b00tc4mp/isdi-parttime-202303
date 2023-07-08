@@ -13,7 +13,7 @@ export default function ProfileSavedPosts() {
     useEffect(() => {
         try {
             retrieveSavedPosts(context.token)
-                .then(({ posts }) => {
+                .then(posts => {
                     setSavedPosts(posts)
                 })
                 .catch(error => {
@@ -26,7 +26,7 @@ export default function ProfileSavedPosts() {
 
     return <>
         {savedPosts && <div className="flex flex-wrap w-full h-fit gap-[8px] box-border">
-            {savedPosts.map(post => <ProfileSavedPost key={post._id} post={post} />)}
+            {savedPosts.map(post => <ProfileSavedPost key={post.id} post={post} />)}
         </div>}
     </>
 }

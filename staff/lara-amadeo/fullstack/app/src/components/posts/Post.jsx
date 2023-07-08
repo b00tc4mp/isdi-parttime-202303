@@ -17,7 +17,7 @@ export default function Post({ post, onLikeButtonClick, onSaveButtonClick, onEdi
     function handleLikedPost() {
         freeze()
         try {
-            toggleLikePost(post._id, context.token)
+            toggleLikePost(post.id, context.token)
                 .then(() => {
                     onLikeButtonClick()
                     unfreeze()
@@ -37,7 +37,7 @@ export default function Post({ post, onLikeButtonClick, onSaveButtonClick, onEdi
     function handleSavedPost() {
         freeze()
         try {
-            toggleSavePost(post._id, context.token)
+            toggleSavePost(post.id, context.token)
                 .then(() => {
                     unfreeze()
                     onSaveButtonClick()
@@ -54,12 +54,12 @@ export default function Post({ post, onLikeButtonClick, onSaveButtonClick, onEdi
     }
 
     function handleOpenEditPostModal() {
-        onEditPostButton(post._id)
+        onEditPostButton(post.id)
         setModal('close')
     }
 
     function handleOpenDeletionModal() {
-        onDeletePostButton(post._id)
+        onDeletePostButton(post.id)
         setModal('close')
     }
 
@@ -68,7 +68,7 @@ export default function Post({ post, onLikeButtonClick, onSaveButtonClick, onEdi
     }
 
     function handleVisibility() {
-        onVisibilityButton(post._id)
+        onVisibilityButton(post.id)
         setModal('close')
     }
 
@@ -77,12 +77,12 @@ export default function Post({ post, onLikeButtonClick, onSaveButtonClick, onEdi
     }
 
     function handleOpenSellPost() {
-        onSellPostButton(post._id)
+        onSellPostButton(post.id)
         setModal('close')
     }
 
     function handleOpenBuyPost() {
-        onBuyPostButton(post._id)
+        onBuyPostButton(post.id)
         setModal('close')
     }
 

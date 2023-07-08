@@ -1,14 +1,17 @@
-const { ObjectId } = require('mongodb')
-const context = require('./context')
+const { User, Post } = require('../data/models')
 const { errors: { ExistanceError } } = require('com')
 
 module.exports = function retrievePost(userId, postId) {
-    const { users, posts } = context
+    return Promise.all([User.findById(userId).lean(), Post.findById(postId)])
 
-    return users.findOne({ _id: new ObjectId(userId) })
-        .then(user => {
+        .then(([user, post]) => {
             if (!user) throw new ExistanceError(`User with id ${userId} not found`)
+            if (!post) throw new ExistanceError(`Post with id ${postId} not found`)
+            if (post.author.toString() !== userId) throw new ExistanceError(`Post with id ${postId} does not belong to user with id ${userId}`)
 
-            return posts.findOne({ _id: new ObjectId(postId) })
+            post.id = post._id.toString()
+            delete post._id
+
+            return post
         })
 }

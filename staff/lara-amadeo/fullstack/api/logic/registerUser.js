@@ -1,6 +1,5 @@
 const { validators: { validateText, validateEmail, validatePassword }, errors: { DuplicityError } } = require('com')
-const context = require('./context')
-
+const { User } = require('../data/models')
 
 module.exports = function registerUser(username, email, password) {
 
@@ -8,9 +7,7 @@ module.exports = function registerUser(username, email, password) {
     validateEmail(email)
     validatePassword(password)
 
-    const { users } = context
-
-    return users.insertOne({
+    return User.create({
         username,
         email,
         password,

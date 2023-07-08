@@ -53,7 +53,7 @@ export default function EditPostModal({ postId, onCancelEditPost, onConfirmEditP
                 <p className="title">Edit post</p>
 
                 {post && <>
-                    <input className="text-field" type="hidden" name="postId" defaultValue={post._id} />
+                    <input className="text-field" type="hidden" name="postId" defaultValue={post.id} />
                     <input className="text-field" type="text" name="image" defaultValue={post.image} />
 
                     <label htmlFor="caption" className="text-field-label">Post caption</label>

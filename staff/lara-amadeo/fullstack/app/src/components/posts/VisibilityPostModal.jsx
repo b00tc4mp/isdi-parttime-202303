@@ -31,7 +31,7 @@ export default function VisibilityModal({ postId, onConfirmChangeVisiblity, onCa
     const handleChangeVisibility = (event) => {
         event.preventDefault()
         try {
-            togglePostVisibility(context.token, post._id)
+            togglePostVisibility(context.token, post.id)
                 .then(() => {
                     setVisibility(post.visibility)
                     generateToast(`Visibility changed to ${post.visibility}!`, 'success')

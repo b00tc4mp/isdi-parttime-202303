@@ -29,6 +29,6 @@ export default function ProfilePosts() {
 
     return <>
         {posts && <div className="flex flex-wrap w-full h-fit gap-[8px] box-border">
-            {posts.map(post => <ProfilePost key={post._id} post={post} />)}
+            {posts.map(post => <ProfilePost key={post.id} post={post} />)}
         </div>}</>
 }

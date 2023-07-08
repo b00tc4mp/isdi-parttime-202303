@@ -1,17 +1,13 @@
-const { ObjectId } = require('mongodb')
-const context = require('./context')
 const { errors: { ExistanceError } } = require('com')
+const { User, Post } = require('../data/models')
 
 module.exports = function createPost(userId, image, text) {
-
-    const { users, posts } = context
-
-    return users.findOne({ _id: new ObjectId(userId) })
+    return User.findOne({ _id: userId })
         .then(user => {
             if (!user) throw new ExistanceError(`User with id ${userId} not found`)
 
-            return posts.insertOne({
-                author: new ObjectId(userId),
+            return Post.create({
+                author: userId,
                 image,
                 text,
                 date: new Date,

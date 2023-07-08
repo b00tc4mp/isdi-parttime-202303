@@ -1,16 +1,22 @@
-const { ObjectId } = require('mongodb')
-const context = require('./context')
+const { User, Post } = require('../data/models')
 const { errors: { ExistanceError } } = require('com')
 
 module.exports = function retrieveSavedPosts(userId) {
 
-    const { users, posts } = context
-
-    return Promise.all([users.findOne({ _id: new ObjectId(userId) }), posts.find().toArray()])
-        .then(([user, posts]) => {
+    return User.findById(userId)
+        .then(user => {
             if (!user) throw new ExistanceError(`User with id ${userId} not found`)
 
+            return Post.find({ _id: { $in: user.savedPosts } }).lean()
+                .then(posts => {
+                    posts.forEach(post => {
+                        post.id = post._id.toString()
 
-            return posts.filter(post => user.savedPosts.some(id => id.toString() === post._id.toString()))
+                        delete post._id
+
+                    })
+
+                    return posts
+                })
         })
 }
