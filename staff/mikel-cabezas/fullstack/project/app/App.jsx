@@ -7,6 +7,7 @@ import Footer from './src/components/Footer.jsx';
 import Header from './src/components/Header.jsx';
 import BaseMap from './src/components/BaseMap.jsx';
 import Nearby from './src/components/Nearby.jsx';
+import Sidebar from './src/components/Sidebar.jsx';
 import CreatePlayground from './src/components/CreatePlayground.jsx';
 
 import { StatusBar } from 'expo-status-bar';
@@ -24,6 +25,7 @@ export default function App({ }) {
   const [modal, setModal] = useState()
   const [currentView, setCurrentView] = useState()
   const [animation, setAnimation] = useState()
+  const [animationX, setAnimationX] = useState()
   const [currentMarker, setCurrentMarker] = useState({})
 
   const onHome = () => {
@@ -38,12 +40,17 @@ export default function App({ }) {
     // alert('Passed to App')
     setModal('createPlayground')
   }
-  const onClose = () => {
+  const onCloseModal = () => {
     setAnimation('fadeOutDown')
     setTimeout(() => {
       setModal()
       setAnimation()
 
+    }, 300)
+  }
+  const onCloseSidebar = () => {
+    setTimeout(() => {
+      setModal()
     }, 300)
   }
   const markerPressedHandler = props => {
@@ -62,12 +69,13 @@ export default function App({ }) {
   // }
   return (
     <>
-      <Provider value={{ currentView, setCurrentView, currentMarker, setCurrentMarker }}>
+      <Provider value={{ currentView, setCurrentView, currentMarker, setCurrentMarker, modal, setModal }}>
         <View className="flex-1 bg-white items-center justify-center">
+          {modal === 'sidebar' && <Sidebar closeHandle={onCloseSidebar} />}
           <BaseMap className="-z-20" onMarkerPressed={markerPressedHandler} />
           <Header />
-          {modal === 'nearby' && <Animatable.View animation={animation} duration={250} className="w-full absolute bottom-0" ><Nearby className="-z-10" closeHandle={onClose} park={currentMarker}></Nearby></Animatable.View>}
-          {modal === 'createPlayground' && <CreatePlayground className="" closeHandle={onClose}></CreatePlayground>}
+          {modal === 'nearby' && <Animatable.View animation={animation} duration={250} className="w-full absolute bottom-0" ><Nearby className="-z-10" closeHandle={onCloseModal} park={currentMarker}></Nearby></Animatable.View>}
+          {modal === 'createPlayground' && <CreatePlayground className="" closeHandle={onCloseModal}></CreatePlayground>}
 
           <Footer className="" nearbyHandler={onNearby} createPlaygroundHandler={onCreatePlayground} homeHandler={onHome} />
           <StatusBar style="auto" />
