@@ -41,18 +41,11 @@ const Login = ({onRegisterClick, onUserLoggedIn}) => {
     password = event.target.password.value;
 
     try {
-      authenticateUser(email, password, (error, token) => {
-        
-        if (error) {
-          alert(error.message)
-
-          return 
-        } 
-
+      authenticateUser(email, password).then((token)=> {
         context.token = token
         
         onUserLoggedIn()
-      })
+      }).catch((error) => alert(error.message))
 
     }catch (error) {
       alert(error.message)

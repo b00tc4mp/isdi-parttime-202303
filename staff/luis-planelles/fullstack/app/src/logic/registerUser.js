@@ -1,46 +1,24 @@
 import { validators } from 'com';
-const { validateName, validateEmail, validatePassword, validateCallback } =
-  validators;
+const { validateName, validateEmail, validatePassword } = validators;
 
-const registerUser = (name, email, password, callback) => {
+const registerUser = (name, email, password) => {
   validateName(name);
   validateEmail(email);
-  validatePassword(password);
-  validateCallback(callback);
+  validatePassword(password, 'password');
 
-  const xhr = new XMLHttpRequest();
-
-  //xhr.onload = () => {
-  xhr.addEventListener('load', () => {
-    const { status } = xhr;
-
-    if (status !== 201) {
-      const { response: json } = xhr,
-        { error } = JSON.parse(json);
-
-      callback(new Error(error));
-
-      return;
+  return fetch(`${import.meta.env.VITE_API_URL}/users`, {
+    method: 'POST',
+    headers: {
+      'Content-type': 'application/json',
+    },
+    body: JSON.stringify({ name, email, password }),
+  }).then((res) => {
+    if (res.status !== 201) {
+      return res.json().then(({ error: message }) => {
+        throw new Error(message);
+      });
     }
-
-    callback(null);
-    //};
   });
-
-  //xhr.onerror = () => {
-  xhr.addEventListener('error', () => {
-    callback(new Error('connection error'));
-    //};
-  });
-
-  xhr.open('POST', `${import.meta.env.VITE_API_URL}/users/`);
-
-  xhr.setRequestHeader('Content-Type', 'application/json');
-
-  const user = { name, email, password },
-    json = JSON.stringify(user);
-
-  xhr.send(json);
 };
 
 export default registerUser;
