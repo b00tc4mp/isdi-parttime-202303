@@ -2,7 +2,7 @@ import { validators } from 'com';
 const { validateToken, validatePassword, validateCallback } = validators;
 
 const updateUserPassword = (
-  userId,
+  token,
   password,
   newPassword,
   newPasswordConfirm,

@@ -29,7 +29,7 @@ const createPost = (token, image, text, callback) => {
     callback(new Error('connection error'));
   };
 
-  xhr.open('POST', `${import.meta.env.VITE_API_URL}/users/post`);
+  xhr.open('POST', `${import.meta.env.VITE_API_URL}/users/posts`);
 
   xhr.setRequestHeader('Content-Type', 'application/json');
   xhr.setRequestHeader('Authorization', `Bearer ${token}`);

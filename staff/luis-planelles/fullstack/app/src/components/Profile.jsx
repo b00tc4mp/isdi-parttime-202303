@@ -5,7 +5,7 @@ import { context } from "../ui";
 import './Profile.css';
 
 
-const Profile = ({onOpenEditProfile, onOpenFavourites, onProfileImageClick}) => {
+const Profile = ({onOpenEditProfile}) => {
   const { alert } = useAppContext()
   
   const [profileUser, setProfileUser] = useState(null)
@@ -27,14 +27,8 @@ const Profile = ({onOpenEditProfile, onOpenFavourites, onProfileImageClick}) => 
     }, []);
     
       
-  const handleUpdateProfileModal = () => onOpenEditProfile(),
+  const handleUpdateProfileModal = () => onOpenEditProfile()
     
-  handleProfileFavourites = () => onOpenFavourites(),
-
-  handleImageClick = () => {
-  
-    onProfileImageClick();
-  };
     
   return <section className="profile-container">
     <div className="profile">
@@ -47,9 +41,7 @@ const Profile = ({onOpenEditProfile, onOpenFavourites, onProfileImageClick}) => 
           <button className="profile-edit-button" onClick={handleUpdateProfileModal}>
             <i className='far fa-pen'></i>
           </button>
-          <button className='profile-favourites-button' onClick={handleProfileFavourites}>
-            <i className='far fa-bookmark'></i> 
-          </button>
+          
         </div>
     </div>
   </div>

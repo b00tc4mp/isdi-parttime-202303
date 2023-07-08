@@ -117,8 +117,6 @@ const Home = ({onLoggedOut}) => {
             {view === 'profile' && (
               <Profile 
                 onOpenEditProfile={handleOpenEditProfile} 
-                onOpenFavourites={handleOpenFavourites}
-                onProfileImageClick={handleOpenUserPosts}
               />
             )}
             {modal === 'edit-profile' && (

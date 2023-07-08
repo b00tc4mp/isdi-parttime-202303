@@ -1,9 +1,9 @@
 import { validators } from 'com';
 const { validateToken, validateUrl, validateCallback } = validators;
 
-const updateUserAvatar = (token, avatar, callback) => {
+const updateUserAvatar = (token, url, callback) => {
   validateToken(token, 'token');
-  validateUrl(avatar, 'avatar url');
+  validateUrl(url, 'url');
   validateCallback(callback);
 
   const xhr = new XMLHttpRequest();
