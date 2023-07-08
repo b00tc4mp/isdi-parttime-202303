@@ -86,7 +86,7 @@ const post = new Schema({
         }
       }
     ],
-    required: true
+    default: []
   }
 })
 

@@ -3,7 +3,7 @@ module.exports = {
         name: `name-${Math.random()}`,
         email: `email@${Math.random()}.com`,
         password: `password-${Math.random()}`,
-        avatar: 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwgHBgkIBwgKC',
+        avatar: null,
         favs: []
     }),
 
@@ -12,9 +12,5 @@ module.exports = {
         image: `image-${Math.random()}.jpg`,
         text: `text-${Math.random()}`,
         date: new Date().toLocaleDateString(),
-        likes: [],
-        visible: true,
-        onSale: null,
-        comments: []
     })
 }

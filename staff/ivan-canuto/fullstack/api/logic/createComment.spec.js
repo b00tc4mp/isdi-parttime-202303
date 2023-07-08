@@ -1,9 +1,11 @@
 require('dotenv').config()
 
 const { expect } = require('chai')
-const { readFile, writeFile } = require('fs')
 const createComment = require('./createComment')
 const { cleanUp, generate, populate } = require('./helpers-test')
+const mongoose = require('mongosse')
+const { User, Post } = require('../data/models')
+const { errors: { ExistenceError, InvalidRequestError, ContentError } } = require('com')
 
 describe('createComment', () => {
   let commentText
@@ -11,41 +13,42 @@ describe('createComment', () => {
   const userName = 'userName'
   const postId = 'post-1'
 
-  beforeEach(done => {
-    commentText = `text-${Math.random()}`
-    const user = [{id: userId, name: userName}]
-    const json = JSON.stringify(user)
-  
-    writeFile(`${process.env.DB_PATH}/users.json`, json, error => done(error))
+  before(done => {
+    mongoose.connect(process.env.MONGODB_URL)
+      .then(() => done())
+      .catch(done)
   })
 
-  it('Succeeds on creating comment with not previous comment', done => {
-    const post = [{id: postId, comments: []}]
-    const postToJSON = JSON.stringify(post)
+  beforeEach(done => {
+    user = generate.user()
+    name = user.name
+    email = user.email
+    password = user.password
 
-    writeFile(`${process.env.DB_PATH}/posts.json`, postToJSON, error => {
-      expect(error).to.be.null
+    cleanUp()
+      .then(() => populate(user, []))
+      .then(() => User.findOne({ email: email }))
+      .then(_user => {
+        post = generate.post(_user._id)
+        author = post.author
+        image = post.image
+        text = post.text
 
-      createComment(commentText, userId, postId, error => {
-        expect(error).to.be.null
-
-        readFile(`${process.env.DB_PATH}/posts.json`, (error, json) => {
-          expect(error).to.be.null
-
-          const posts = JSON.parse(json)
-          const post = posts.find(post => post.id === postId)
-
-          expect(post).to.exist
-
-          expect(post.comments[0].author).to.equal(userName)
-          expect(post.comments[0].authorId).to.equal(userId)
-          expect(post.comments[0].text).to.equal(commentText)
-          expect(post.comments[0].id).to.equal('comment-1')
-
-          done()
-        })
+        return populate([], post)
+          .then(() => done())
+          .catch(done)
       })
-    })
+  })
+
+  it('Succeeds on creating comment with not previous comment', () => {
+    return User.findOne({ email: email})
+      .then(_user => Post.findOne)  
+    createComment(userId, postId, commentText)
+
+        expect(post.comments[0].author).to.equal(userName)
+        expect(post.comments[0].authorId).to.equal(userId)
+        expect(post.comments[0].text).to.equal(commentText)
+        expect(post.comments[0].id).to.equal('comment-1')
   })
 
   it('Succeeds on creating comment with existing comments', done => {
