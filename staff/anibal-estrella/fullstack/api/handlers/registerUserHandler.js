@@ -6,5 +6,4 @@ module.exports = handleErrors((req, res) => {
 
     return registerUser(name, email, password)
         .then(() => res.status(201).send())
-
 })

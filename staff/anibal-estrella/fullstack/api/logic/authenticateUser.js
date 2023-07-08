@@ -1,8 +1,9 @@
-const context = require('./context')
 const {
     validators: { validateEmail, validatePassword },
     errors: { AuthError, ExistenceError }
 } = require('com')
+
+const { User } = require('../data/models.js')
 
 /**
  * Api/AuthenticateUser:
@@ -24,18 +25,12 @@ module.exports = (email, password,) => {
     validateEmail(email)
     validatePassword(password)
 
-    const { users } = context
-
-    return users.findOne({ email })
+    return User.find({ email })
         .then(user => {
             if (!user) throw new ExistenceError('user not found')
 
             if (user.password !== password) throw new AuthError('wrong credentials')
 
-            //only return the hash of the _id
-            // "_id": {
-            // "$oid": "6494082b7b80b0e1d774bb87"
-            //   },
-            return user._id.toString()
+            return user.id
         })
 }

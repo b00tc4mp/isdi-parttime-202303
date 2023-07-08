@@ -4,7 +4,6 @@ const express = require('express')
 const cors = require('cors')
 const bodyParser = require('body-parser')
 
-const context = require('./logic/context')
 
 const {
     helloApiHandler,
@@ -22,18 +21,10 @@ const {
     toggleLikePostHandler,
     retrieveLikedPostsHandler
 } = require('./handlers')
+const mongoose = require('mongoose')
 
-const { MongoClient } = require('mongodb')
-
-const client = new MongoClient(process.env.MONGODB_URL)
-
-client.connect()
-    .then(connection => {
-        const db = connection.db()
-
-        //2. save the db in ur context file ('./logic/context')
-        context.users = db.collection('users')
-        context.posts = db.collection('posts')
+mongoose.connect(process.env.MONGODB_URL)
+    .then(() => {
 
         const api = express()
 
@@ -69,7 +60,9 @@ client.connect()
 
         api.patch('/posts/post/:postId', jsonBodyParser, updatePostHandler)
 
-        api.listen(process.env.PORT, () => console.log(`server running in port ${process.env.PORT}`))
+        api.listen(process.env.PORT, () => console.log(`//////////////\nSERVER RUNNING\nIN PORT *${process.env.PORT}*\n//////////////`))
+
+
 
     })
 
