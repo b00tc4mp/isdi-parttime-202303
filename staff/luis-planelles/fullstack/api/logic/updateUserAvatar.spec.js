@@ -26,11 +26,10 @@ describe('updateUserAvatar', () => {
 
   beforeEach(() => {
     user = generate.user();
-    post = generate.post();
 
     newAvatar = `new-avatar-${Math.random()}url.com`;
 
-    return cleanUp().then(() => populate([user], [post]));
+    return cleanUp().then(() => populate([user], []));
   });
 
   it('succeeds on existing user and correct new avatar', () => {

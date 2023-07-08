@@ -22,14 +22,12 @@ const retrievePosts = (userId) => {
           (user) => user._id.toString() === post.author.toString()
         );
 
-        if (!author) {
-          throw new Error(`Author not found for post with ID ${post.id}`);
-        }
+        const { _id, name, avatar } = author;
 
         post.author = {
-          id: author._id.toString(),
-          name: author.name,
-          avatar: author.avatar,
+          id: _id.toString(),
+          name,
+          avatar,
         };
 
         post.favourites = user.favourites.some(
