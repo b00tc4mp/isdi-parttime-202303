@@ -15,7 +15,7 @@ const validateEmail = (email) => {
 
   if (typeof email !== 'string') throw new TypeError('email is not a string');
   if (!email.length) throw new ContentError('email is empty');
-  if (!emailRegex.test(email)) throw new Error('invalid email');
+  if (!emailRegex.test(email)) throw new ContentError('invalid email');
 
   return email;
 };
@@ -32,7 +32,7 @@ const validatePassword = (password, type = 'password') => {
     throw new TypeError(`${type} is not a string`);
   if (!password.length) throw new ContentError(`${type} is empty`);
   if (!isLongEnough)
-    throw new ContentError(`${type} not be at least 8 characters long`);
+    throw new RangeError(`${type} not be at least 8 characters long`);
   if (!hasDigit.test(password))
     throw new ContentError(`${type} not contains one digit`);
   if (!hasLowercase.test(password))
