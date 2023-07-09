@@ -1,10 +1,11 @@
+const { ContentError, FormatError } = require('./errors')
 function validateName(name) {
     if (typeof name !== 'string') throw new TypeError('Name is not a string')
-    if (!name.trim().length) throw new Error('Name is empty')
+    if (!name.trim().length) throw new ContentError('Name is empty')
 }
 
 function validateImage(inputImage) {
-    if (!inputImage) throw new Error('Image is empty')
+    if (!inputImage) throw new ContentError('Image is empty')
 
     switch (inputImage.type) {
         case 'image/jpeg':
@@ -13,45 +14,38 @@ function validateImage(inputImage) {
         case 'image/webp':
             return true
     }
-    throw new Error('File is not a valid image')
+    throw new FormatError('File is not a valid image')
 
-    if (inputImage.type !== 'image/jpeg' || inputImage.type !== 'image/gif' || inputImage.type !== 'image/png' || inputImage.type !== 'image/webp')
-        throw new Error('File is not a valid image')
+    // if (inputImage.type !== 'image/jpeg' || inputImage.type !== 'image/gif' || inputImage.type !== 'image/png' || inputImage.type !== 'image/webp')
+    //     throw new FormatError('File is not a valid image')
 }
 
 function validateEmail(email) {
+    const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
+
     if (typeof email !== 'string') throw new TypeError('Email is not a string')
-    if (!email.trim().length) throw new Error('Email is empty')
+    if (!email.trim().length) throw new ContentError('Email is empty')
+    if (!emailRegex.test(email)) throw new FormatError('Invalid email format')
 }
 
 function validateText(text) {
     if (typeof text !== 'string') throw new TypeError('Text is not a string')
-    if (!text.trim().length) throw new Error('Text is empty')
+    if (!text.trim().length) throw new ContentError('Text is empty')
 }
 
 function validatePassword(password) {
-    if (!password.trim().length) throw new Error('Password is empty')
-    if (!password.trim().length > 8) throw new Error('Password must be higher than 8 characters')
-}
-
-function validateNewPassword(currentPassword, newPassword, repeatPassword) {
-    if (newPassword !== repeatPassword)
-        throw new Error('New password does not match')
-
-    if (!currentPassword.trim().length)
-        throw new Error('Password is empty')
-
-    if (!currentPassword.trim().length > 8)
-        throw new Error('Password must be higher than 8 characters')
+    if (!password.trim().length) throw new ContentError('Password is empty')
+    if (!password.trim().length > 8) throw new FormatError('Password must be higher than 8 characters')
 }
 
 function validateUserId(userId) {
     if (typeof userId !== 'string') throw new TypeError('User is not a string')
-    if (!userId) throw new Error('User is empty')
+    if (!userId) throw new ContentError('User is empty')
 }
+
 function validatePostId(postId) {
     if (typeof postId !== 'string') throw new TypeError('Post ID is not a string')
-    if (!postId) throw new Error('Post ID is empty')
+    if (!postId) throw new ContentError('Post ID is empty')
 }
 
 function validateCallback(callback) {
@@ -60,9 +54,7 @@ function validateCallback(callback) {
 
 function validateToken(token, explain = 'token') {
     if (typeof token !== 'string') throw new TypeError(`${explain} is not a string`)
-    if (token.split('.').length !== 3) throw new Error(`${explain} is not valid`)
-
-
+    if (token.split('.').length !== 3) throw new ContentError(`${explain} is not valid`)
 }
 
 module.exports = {
@@ -71,7 +63,6 @@ module.exports = {
     validateEmail,
     validateText,
     validatePassword,
-    validateNewPassword,
     validateUserId,
     validatePostId,
     validateCallback,
