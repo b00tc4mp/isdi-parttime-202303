@@ -20,15 +20,15 @@ const { User } = require('../data/models.js')
  * @throws { ExistenceError} on non-existing user
  * @throws {AuthError} on wrong credentials
  */
-
 module.exports = (email, password,) => {
     validateEmail(email)
     validatePassword(password)
 
-    return User.find({ email })
+    return User.findOne({ email })
         .then(user => {
             if (!user) throw new ExistenceError('user not found')
 
+            debugger
             if (user.password !== password) throw new AuthError('wrong credentials')
 
             return user.id

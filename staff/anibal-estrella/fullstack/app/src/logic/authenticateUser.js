@@ -1,5 +1,6 @@
-const { validators: { validateCallback, validateEmail, validatePassword },
-    errors: { DuplicityError, ContentError } } = require('com')
+import { validators } from 'com'
+
+const { validateEmail, validatePassword, validateCallback } = validators
 
 /* 
 * app/logic/authenticateUser.js
@@ -8,6 +9,7 @@ const { validators: { validateCallback, validateEmail, validatePassword },
 * @param {String} password The user's passaword
 *
 */
+
 export default (email, password, callback) => {
     validateEmail(email, 'email')
     validatePassword(password)

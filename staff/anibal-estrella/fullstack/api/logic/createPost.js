@@ -1,36 +1,32 @@
-require('dotenv').config()
 const {
-    errors: { ExistenceError },
+    errors: { ExistenceError, ContentError },
     validators: { validateText, validateUrl, validateId } } = require('com')
-const context = require('./context')
-const { ObjectId } = require('mongodb')
+
+const { User, Post } = require('../data/models.js')
 
 /**
  * Creates a new post and updates the posts DB
  * @param {string} userId the user's ID
- * @param {string} text  the Post's text
  * @param {string} image the Post's image
+ * @param {string} text  the Post's text
  */
 
-module.exports = (userId, text, image) => {
+module.exports = (userId, image, text) => {
     validateId(userId, 'user id')
-    validateText(text, 'Post text')
     validateUrl(image, 'Image URL')
-    debugger
-    const { users, posts } = context
+    validateText(text, 'Post text')
 
-    return users.findOne({ _id: new ObjectId(userId) })
+    return User.findById(userId)
         .then(user => {
             if (!user) throw new ExistenceError(`user with id ${userId} does not exist`)
 
-            return posts.insertOne({
-                author: user._id,
+            return Post.create({
+                author: userId,
                 image,
-                text,
-                date: new Date,
-                likes: []
+                text
             })
         })
+        .then(() => { })
 }
 
 
