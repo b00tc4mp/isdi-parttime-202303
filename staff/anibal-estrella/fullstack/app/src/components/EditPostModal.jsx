@@ -24,22 +24,17 @@ export default function EditPostModal({ onCancel, onPostEdited, postId, onDelete
 
     useEffect(() => {
         try {
-            freeze()
-            retrievePost(context.userId, postId, (error, post) => {
-                if (error) {
-                    alert(error.message)
+            retrievePost(context.token, postId)
+                // .then(post => setPost(post))
+                .then(setPost)
+                .catch(error => alert(error.message))
 
-                    return
-                }
-                //save loaded post
-                setPost(post)
-                setPreviewImage(post.image);
-            })
+            // setPost(post)
+            setPreviewImage(post.image);
 
         } catch (error) {
             alert(error.message)
         }
-        unfreeze()
     }, [postId])
 
     function handleCancel(event) {
@@ -55,7 +50,6 @@ export default function EditPostModal({ onCancel, onPostEdited, postId, onDelete
         const text = event.target.text.value
 
         try {
-            freeze()
             updatePost(context.userId, postId, image, text, (error) => {
                 unfreeze()
                 if (error) {

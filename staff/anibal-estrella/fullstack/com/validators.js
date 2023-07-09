@@ -42,9 +42,18 @@ function validateUrl(url, explain = 'URL') {
     if (!url.trim().length) throw new ContentError(`${explain} is empty`)
 }
 
+const HEX_DICTIONARY = '0123456789abcdef'
+
 function validateId(id, explain = 'id') {
     if (typeof id !== 'string') throw new TypeError(`${explain} is ${typeof id} and must be a string`)
-    if (!id.trim().length) throw new ContentError(`${explain} is empty`)
+    if (id.trim().length !== 24) throw new ContentError(`${explain} doesn't have 24 characters`)
+    for (let i = 0; i < id.length; i++) {
+        const char = id[i];
+
+        if (!HEX_DICTIONARY.includes(char)) throw new ContentError(`${explain} is not a hexadecimal`)
+
+    }
+
 }
 
 function validateText(text, explain = 'text') {

@@ -1,22 +1,11 @@
 const { retrievePost } = require('../logic')
-const { extractUserId } = require('./helpers')
-const jwt = require('jsonwebtoken')
+const { extractUserId, handleErrors } = require('./helpers')
 
-module.exports = (req, res) => {
-    try {
-        const userId = extractUserId(req)
-        const { postId } = req.params
+module.exports = handleErrors((req, res) => {
 
-        retrievePost(userId, postId, (error, post) => {
-            if (error) {
-                res.status(400).json({ error: error.message })
+    const userId = extractUserId(req)
+    const { postId } = req.params
 
-                return
-            }
-
-            res.json(post)
-        })
-    } catch (error) {
-        res.status(400).json({ error: error.message })
-    }
-}
+    return retrievePost(userId, postId)
+        .then(post => res.json(post))
+})

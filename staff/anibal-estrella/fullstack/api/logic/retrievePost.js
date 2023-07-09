@@ -1,48 +1,24 @@
-const { readFile } = require('fs')
-const { validators: { validateId, validateCallback } } = require('com')
-require('dotenv').config()
+const {
+    validators: { validateId },
+    errors: { ExistenceError }
+} = require('com')
 
+const { User, Post } = require('../data/models')
 
-module.exports = (userId, postId, callback) => {
-    validateId(userId, 'user Id')
+module.exports = (userId, postId) => {
+    validateId(userId, 'user id')
     validateId(postId, 'post id')
-    validateCallback(callback, 'callback function')
 
-    readFile(`${process.env.DB_PATH}/users.json`, (error, json) => {
-        if (error) {
-            callback(error)
+    return Promise.all([
+        User.findById(userId).lean(),
+        //remove post _id... client only asks for text and image to render
+        Post.findById(postId, '-_id -__v -likes -date -author').lean(),
 
-            return
-        }
+    ])
+        .then(([user, post]) => {
+            if (!user) throw new ExistenceError(`user with the id ${userId} not found`)
+            if (!post) throw new ExistenceError(`post with the id ${postId} not found`)
 
-        const users = JSON.parse(json)
-
-        const user = users.find(user => user.id === userId)
-
-        if (!user) {
-            callback(new Error(`User not found in the DB! 👎`))
-
-            return
-        }
-
-        readFile(`${process.env.DB_PATH}/posts.json`, (error, json) => {
-            if (error) {
-                callback(error)
-
-                return
-            }
-
-            const posts = JSON.parse(json)
-
-            let post = posts.find(post => post.id === postId)
-            if (!post) {
-                callback(new Error(`Post not found in DB! 👎`))
-
-                return
-            }
-
-            callback(null, post)
-
+            return post
         })
-    })
 }

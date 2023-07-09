@@ -2,18 +2,16 @@ import { context } from "../ui"
 import toggleLikePost from "../logic/toggleLikePost"
 import toggleFavPost from '../logic/toggleFavPost'
 import formatTimeSince from "../logic/formatTimeSince"
-//CONTEXT/ALERTS/00// import to use context for dizxzplaying Alerts
-import { useContext } from "react"
 import { useAppContext } from "../hooks"
 
 import Panel from '../library/Panel'
 
+import { utils } from 'com'
+const { extractSubFromToken } = utils
+
 //https://heroicons.com/
-import { PencilIcon } from '@heroicons/react/24/solid'
-import { HeartIcon } from '@heroicons/react/24/solid'
-import { HeartIcon as HeartIconLine } from '@heroicons/react/24/outline'
-import { BookmarkIcon } from '@heroicons/react/24/solid'
-import { BookmarkIcon as BookmarkIconLine } from '@heroicons/react/24/outline'
+import { PencilIcon, BookmarkIcon, HeartIcon } from '@heroicons/react/24/solid'
+import { HeartIcon as HeartIconLine, BookmarkIcon as BookmarkIconLine } from '@heroicons/react/24/outline'
 
 import './Post.css'
 
@@ -26,7 +24,6 @@ export default function Post({ post: { author, id, text, image, date, likes, fav
     const handleOpenEditPost = () => onEditPost(id)
 
     const handleToggleLikePost = () => {
-
         try {
             //loader begins
             freeze()
@@ -50,7 +47,6 @@ export default function Post({ post: { author, id, text, image, date, likes, fav
     }
 
     const handleToggleFavPost = () => {
-
         try {
             freeze()
             toggleFavPost(context.userId, id, (error) => {
@@ -69,6 +65,8 @@ export default function Post({ post: { author, id, text, image, date, likes, fav
     }
 
     console.debug('// Post -> RENDER')
+
+    const userId = extractSubFromToken(context.token)
 
     return (
         <Panel tag="article" className="post">
@@ -89,7 +87,7 @@ export default function Post({ post: { author, id, text, image, date, likes, fav
                         {fav ? <BookmarkIcon className="favIcon icon" /> : < BookmarkIconLine className="favIcon icon" />}
                     </button>
 
-                    {author.id === context.userId ? <button className="post-button post-edit-button icon" onClick={handleOpenEditPost} name="edit"> <PencilIcon className="PencilIcon post-edit-button  icon" /> </button> : ''}
+                    {author.id === userId ? <button className="post-button post-edit-button icon" onClick={handleOpenEditPost} name="edit"> <PencilIcon className="PencilIcon post-edit-button  icon" /> </button> : ''}
                     <button onClick={handleToggleLikePost} name="like" className="post-button post-like-button">
                         {likes && likes.includes(context.userId) ? <HeartIcon className="HeartIcon icon" /> : <HeartIconLine className="HeartIconLine icon" />} {likes && likes.length > 0 ? <span>{likes.length}</span> : ''}
                     </button>
