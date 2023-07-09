@@ -1,7 +1,17 @@
 const context = require('./context');
 const {
   validators: { validateEmail, validatePassword },
+  errors: { ExistenceError, AuthError },
 } = require('com');
+
+/**
+ * Authenticates a user by validating their email and password.
+ * @param {string} email - The user's email address.
+ * @param {string} password - The user's password.
+ * @returns {Promise<string>} - A promise that resolves to the user ID as a string.
+ * @throws {ExistenceError} - If the user does not exist.
+ * @throws {AuthError} - If the provided credentials are incorrect.
+ */
 
 const authenticateUser = (email, password) => {
   validateEmail(email);
@@ -10,9 +20,9 @@ const authenticateUser = (email, password) => {
   const { users } = context;
 
   return users.findOne({ email }).then((user) => {
-    if (!user) throw new Error('user not exist');
+    if (!user) throw new ExistenceError('user not exist');
 
-    if (user.password !== password) throw new Error('wrong credentials');
+    if (user.password !== password) throw new AuthError('wrong credentials');
 
     return user._id.toString();
   });

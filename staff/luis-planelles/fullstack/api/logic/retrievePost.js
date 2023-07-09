@@ -1,8 +1,18 @@
+const { ObjectId } = require('mongodb');
+
 const context = require('./context');
 const {
   validators: { validateId },
+  errors: { ExistenceError },
 } = require('com');
-const { ObjectId } = require('mongodb');
+
+/**
+ * Retrieves a post by its ID, belonging to a specific user.
+ * @param {string} userId - The ID of the user who owns the post.
+ * @param {string} postId - The ID of the post to retrieve.
+ * @returns {Promise<object>} - A promise that resolves to the retrieved post object.
+ * @throws {ExistenceError} - If the user with the provided ID or the post with the provided ID does not exist.
+ */
 
 const retrievePost = (userId, postId) => {
   validateId(userId, 'user id');
@@ -11,10 +21,12 @@ const retrievePost = (userId, postId) => {
   const { users, posts } = context;
 
   return users.findOne({ _id: new ObjectId(userId) }).then((foundUser) => {
-    if (!foundUser) throw new Error(`user with id ${userId} not exists`);
+    if (!foundUser)
+      throw new ExistenceError(`user with id ${userId} not exists`);
 
     return posts.findOne({ _id: new ObjectId(postId) }).then((foundPost) => {
-      if (!foundPost) throw new Error(`post with id ${postId} not exists`);
+      if (!foundPost)
+        throw new ExistenceError(`post with id ${postId} not exists`);
 
       return foundPost;
     });
