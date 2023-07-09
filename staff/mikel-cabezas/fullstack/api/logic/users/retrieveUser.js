@@ -1,6 +1,20 @@
-const { validators: { validateUserId } } = require('com')
+const {
+    validators: { validateUserId },
+    errors: { ExistenceError }
+} = require('com')
 const { ObjectId } = require('mongodb')
 const context = require('../context')
+
+/**
+ * 
+ * @param {string} userId user id
+ * @returns {Promise<Object>} returns an object with de user
+ * 
+ * @throws {TypeError} on non-string id (sync)
+ * @throws {ContentError} on empty id (sync)
+ * 
+ * @throws {ExistenceError} on user not found (asyncz)
+ */
 
 module.exports = userId => {
     validateUserId(userId)
@@ -9,7 +23,7 @@ module.exports = userId => {
 
     return users.findOne({ _id: new ObjectId(userId) })
         .then(user => {
-            if (!user) throw new Error('user not found')
+            if (!user) throw new ExistenceError('user not found')
 
             delete user._id
             delete user.password
