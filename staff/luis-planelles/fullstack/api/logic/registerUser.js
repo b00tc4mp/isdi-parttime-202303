@@ -1,6 +1,7 @@
 const context = require('./context');
 const {
   validators: { validateName, validateEmail, validatePassword },
+  errors: { DuplicityError },
 } = require('com');
 
 const registerUser = (name, email, password) => {
@@ -20,7 +21,7 @@ const registerUser = (name, email, password) => {
     })
     .catch((error) => {
       if (error.message.includes('E11000'))
-        throw new Error(`user with email ${email} already exists`);
+        throw new DuplicityError(`user with email ${email} already exists`);
 
       throw error;
     });

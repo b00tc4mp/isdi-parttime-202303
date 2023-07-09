@@ -1,4 +1,8 @@
+const { ContentError } = require('com/errors');
 const { registerUser } = require('../logic');
+const {
+  errors: { DuplicityError },
+} = require('com');
 
 const registerUserHandler = (req, res) => {
   try {
@@ -6,9 +10,20 @@ const registerUserHandler = (req, res) => {
 
     registerUser(name, email, password)
       .then(() => res.status(201).send())
-      .catch((error) => res.status(400).json({ error: error.message }));
+      .catch((error) => {
+        let status = 500;
+
+        if (error instanceof DuplicityError) status = 409;
+
+        res.status(status).json({ error: error.message });
+      });
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    let status = 500;
+
+    if (error instanceof TypeError) status = 400;
+    else if (error instanceof ContentError) status = 406;
+
+    res.status(status).json({ error: error.message });
   }
 };
 
