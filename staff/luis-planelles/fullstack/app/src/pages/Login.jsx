@@ -13,16 +13,12 @@ const Login = ({onRegisterClick, onUserLoggedIn}) => {
       try {
           freeze()
 
-          retrieveMotivationalQuote((error, quote) => {
-              unfreeze()
+          retrieveMotivationalQuote().then((quote) => {
+            unfreeze()
+            
+            setQuote(quote)
 
-              if (error) {
-                  alert(error.message)
-
-                  return
-              }
-              setQuote(quote)
-          })
+          }).catch((error) => alert(error.message))
       } catch (error) {
           alert(error.message)
       }

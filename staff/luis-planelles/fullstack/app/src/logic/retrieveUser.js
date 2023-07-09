@@ -8,6 +8,7 @@ const retrieveUser = (token) => {
   return fetch(`${import.meta.env.VITE_API_URL}/users`, {
     method: 'GET',
     headers: {
+      'Content-type': 'application/json',
       Authorization: `Bearer ${token}`,
     },
   }).then((res) => {

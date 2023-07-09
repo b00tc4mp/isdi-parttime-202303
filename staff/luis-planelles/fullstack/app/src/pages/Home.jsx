@@ -31,16 +31,12 @@ const Home = ({onLoggedOut}) => {
 
   const handleProfileUpdated = () => {
       try {
-          retrieveUser(context.token, (error, updatedUser) => {
-            if (error) {
-              alert(error.message)
-              
-              return
-              }
-              
-              setUser(updatedUser)
-              setModal(null)
-            })
+          retrieveUser(context.token)
+          .then((updatedUser) => {
+            setUser(updatedUser)
+            setModal(null)
+            
+          }).catch(error => alert(error.message))
           } catch (error) {
             alert(error.message)
     }
@@ -110,7 +106,7 @@ const Home = ({onLoggedOut}) => {
             )}
             {view === 'profile' && (
               <Profile 
-                onOpenEditProfile={handleOpenEditProfile} 
+                onOpenEditProfile={handleOpenEditProfile}
               />
             )}
             {modal === 'edit-profile' && (

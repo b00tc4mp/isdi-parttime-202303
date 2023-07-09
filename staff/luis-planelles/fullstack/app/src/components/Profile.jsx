@@ -12,19 +12,14 @@ const Profile = ({onOpenEditProfile}) => {
     
     useEffect(() => {
       try {
-        retrieveUser(context.token, (error, retrievedUser) => {
-          if (error) {
-            alert(error.message);
-
-            return;
-          }
-          
-          setProfileUser(retrievedUser);
-        });  
+        retrieveUser(context.token)
+        .then(retrievedUser => setProfileUser(retrievedUser))
+        .catch(error => alert(error))  
+            
       } catch (error) {
         alert(error.message);
       }
-    }, []);
+    }, [profileUser]);
     
       
   const handleUpdateProfileModal = () => onOpenEditProfile()

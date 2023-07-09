@@ -1,4 +1,5 @@
 import { useAppContext } from '../hooks';
+
 import updateUserAvatar from '../logic/updateUserAvatar';
 import updateUserPassword from '../logic/updateUserPassword';
 import { context } from '../ui';
@@ -6,29 +7,28 @@ import { context } from '../ui';
 const ProfileUpdateModal = ({onUserAvatarUpdated, onUserPasswordUpdated}) => {
   const { alert } = useAppContext()
 
+
   const handleUpdateAvatar = (event) => {
     event.preventDefault()
 
     const avatarUrl = event.target.avatarUrl.value;
 
+
     try {
-      updateUserAvatar(context.token, avatarUrl, (error) => {
-        if (error) {
-          alert(error.message)
+      updateUserAvatar(context.token, avatarUrl)
+      .then(()=> {
+        onUserAvatarUpdated()
 
-          return
-      }
-
-      onUserAvatarUpdated()
-      alert('avatar updated')
-      })
+        alert('avatar updated')
+        
+      }).catch(error => alert(error))
 
     }catch (error){
         alert(error.message)
     }
-  },
+  }
 
-  handleUpdatePassword = (event) => {
+  const handleUpdatePassword = (event) => {
     event.preventDefault()
 
     const password = event.target.password.value,
@@ -40,16 +40,12 @@ const ProfileUpdateModal = ({onUserAvatarUpdated, onUserPasswordUpdated}) => {
           context.token, 
           password, 
           newPassword, 
-          newPasswordConfirm, (error) => {
-            if (error) {
-              alert(error.message)
-
-              return
-            }
-            
+          newPasswordConfirm)
+      .then(()=> {
           onUserPasswordUpdated()
           alert('password updated')
-          })
+            
+      }).catch(error => alert(error))
 
       }catch (error){
           alert(error.message)

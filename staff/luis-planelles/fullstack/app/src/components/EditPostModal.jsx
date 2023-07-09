@@ -11,15 +11,10 @@ const EditPostModal = ({postId, onCancel, onPostUpdated}) => {
 
   useEffect(() => {
     try {
-      retrievePost(context.token, postId, (error, retrievedPost) => {
-        if (error) {
-            alert(error.message)
+      retrievePost(context.token, postId)
+      .then((retrievedPost) => setPostEdit(retrievedPost))
+      .catch(error => alert(error))
 
-            return
-        } 
-
-        setPostEdit(retrievedPost)
-      }) 
     } catch(error){
         alert(error.message)
     }
@@ -36,14 +31,8 @@ const EditPostModal = ({postId, onCancel, onPostUpdated}) => {
       textEditForm = event.target.text.value
 
     try{
-      updatePost(context.token, postId, imageEditForm, textEditForm, (error) => {
-        if (error) {
-          alert(error.message)
-
-          return
-        } 
-        onPostUpdated()
-      }) 
+      updatePost(context.token, postId, imageEditForm, textEditForm)
+      .then(()=> onPostUpdated())
 
     } catch (error){
       alert(error.message)

@@ -9,31 +9,24 @@ const Posts = ({onEditPost, onSellPost, lastPostUpdate}) => {
     const { alert, freeze, unfreeze } = useAppContext(),
         [posts, setPosts] = useState();
 
-    useEffect(() => HandlerefreshPost(), [])
+    useEffect(() => handleRefreshPost(), [])
 
-    const HandlerefreshPost = () => {
+    const handleRefreshPost = () => {
         try {
             freeze()
 
-            retrievePosts(context.token, (error, posts) => {
+            retrievePosts(context.token).then((posts) => {
                 unfreeze()
 
-                if (error) {
-                    alert(error)
-
-                    return
-                }
-
                 setPosts(posts)
-            })
-            
+            }).catch(error => alert(error))
         } catch (error) {
             alert(error.message)
         }
     };
         
     useEffect(() =>{
-        if(lastPostUpdate) HandlerefreshPost()
+        if(lastPostUpdate) handleRefreshPost()
     }, [lastPostUpdate]);
 
     return <section className='container'>            
@@ -43,10 +36,10 @@ const Posts = ({onEditPost, onSellPost, lastPostUpdate}) => {
             post={post} 
             onEdit={onEditPost}
             onSell={onSellPost}
-            onLike={HandlerefreshPost}
-            onFavourite={HandlerefreshPost}
-            onDelete={HandlerefreshPost}
-            onBuy={HandlerefreshPost}
+            onLike={handleRefreshPost}
+            onFavourite={handleRefreshPost}
+            onDelete={handleRefreshPost}
+            onBuy={handleRefreshPost}
         />)}
     </section>
 }

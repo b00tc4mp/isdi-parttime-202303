@@ -1,43 +1,25 @@
 import { validators } from 'com';
-const { validateToken, validateUrl, validateText, validateCallback } =
-  validators;
+const { validateToken, validateUrl, validateText } = validators;
 
-const createPost = (token, image, text, callback) => {
+const createPost = (token, image, text) => {
   validateToken(token, 'token');
   validateUrl(image, 'image');
   validateText(text, 'text');
-  validateCallback(callback);
 
-  const xhr = new XMLHttpRequest();
-
-  xhr.onload = () => {
-    const { status } = xhr;
-
-    if (status !== 201) {
-      const { response: json } = xhr,
-        { error } = JSON.parse(json);
-
-      callback(new Error(error));
-
-      return;
+  return fetch(`${import.meta.env.VITE_API_URL}/users/posts`, {
+    method: 'POST',
+    headers: {
+      'Content-type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ image, text }),
+  }).then((res) => {
+    if (res.status !== 201) {
+      return res.json().then(({ error: message }) => {
+        throw new Error(message);
+      });
     }
-
-    callback(null);
-  };
-
-  xhr.onerror = () => {
-    callback(new Error('connection error'));
-  };
-
-  xhr.open('POST', `${import.meta.env.VITE_API_URL}/users/posts`);
-
-  xhr.setRequestHeader('Content-Type', 'application/json');
-  xhr.setRequestHeader('Authorization', `Bearer ${token}`);
-
-  const post = { image, text },
-    json = JSON.stringify(post);
-
-  xhr.send(json);
+  });
 };
 
 export default createPost;

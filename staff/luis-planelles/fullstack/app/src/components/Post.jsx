@@ -19,15 +19,10 @@ const Post = ({ post: { id, author, image, likes, favourites, text, date},
 
   useEffect(() => {
       try {
-          retrieveUser(context.token, (error, user) => {
-              if (error) {
-                  alert(error.message)
-                  
-                  return
-                }
+          retrieveUser(context.token)
+          .then((user) => setUser(user))
+          .catch(error => alert(error))
                 
-                setUser(user)
-              })
             } catch (error) {
                 alert(error.message)
       }
@@ -38,15 +33,9 @@ const Post = ({ post: { id, author, image, likes, favourites, text, date},
   handleLikePost = () => {
 
     try{
-      toggleLikePost(context.token, id, (error) => {
-        if (error) {
-          alert(error.message)
-        
-          return
-        }
-
-        onLike()
-      })
+      toggleLikePost(context.token, id)
+      .then(()=> onLike())
+      .catch(error => alert(error))
 
     } catch(error) {
       alert(error.message)
@@ -55,15 +44,9 @@ const Post = ({ post: { id, author, image, likes, favourites, text, date},
 
   handleFavouritePost = () => {
     try{
-      toggleFavouritePost(context.token, id, (error) => {
-        if (error) {
-          alert(error.message)
-        
-          return
-        }
-
-        onFavourite()
-      })
+      toggleFavouritePost(context.token, id)
+      .then(()=> onFavourite())
+      .catch(error => alert(error))
 
     } catch(error) {
       alert(error.message)
@@ -72,22 +55,19 @@ const Post = ({ post: { id, author, image, likes, favourites, text, date},
 
   handleDeletePost = () => {
     try {
-        deletePost(context.token, id, (error) => {
-          if (error) {
-            alert(error.message)
-          
-            return
-          }
-          
+        deletePost(context.token, id)
+        .then(()=> {
           onDelete()
+        
+          alert('post deleted')
         })
-        alert('post deleted')
+        .catch(error => alert(error))
+          
 
     } catch (error) {
         alert(error.message)
     }
   };
-
   return (
     <article className='posts-users'>
         <div className='post-header'>

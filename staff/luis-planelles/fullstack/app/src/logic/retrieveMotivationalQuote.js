@@ -1,24 +1,21 @@
-import { validators } from 'com';
+const retrieveRandomMotivantionalQuote = () => {
+  return fetch('https://api.quotable.io/random', {
+    method: 'GET',
+    headers: {
+      'Content-type': 'application/json',
+    },
+  }).then((res) => {
+    if (res.status !== 200) {
+      return res.json().then(({ error: message }) => {
+        throw new Error(message);
+      });
+    }
+    return res.json().then((data) => {
+      const content = data.content;
 
-const { validateCallback } = validators;
-
-const retrieveRandomMotivantionalQuote = (callback) => {
-  validateCallback(callback);
-
-  var xhr = new XMLHttpRequest();
-
-  xhr.onload = () => {
-    const { content } = JSON.parse(xhr.response);
-
-    callback(null, content);
-  };
-
-  xhr.onerror = () => {
-    callback(new Error('connection error'));
-  };
-
-  xhr.open('GET', 'https://api.quotable.io/random');
-  xhr.send();
+      return content;
+    });
+  });
 };
 
 export default retrieveRandomMotivantionalQuote;
