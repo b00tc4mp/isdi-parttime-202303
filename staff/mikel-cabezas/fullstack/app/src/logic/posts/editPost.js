@@ -2,35 +2,23 @@ import { loadPosts, savePost } from '../../data.js'
 import { context } from "../../ui.js";
 import { validators } from 'com';
 
-const { validateUserId, validateText } = validators
+const { validateToken, validateText } = validators
 
-export function editPost(userId, postId, title, text, image, visibility, callback) {
+export function editPost(token, postId, title, text, image, visibility) {
     //TODO hacer losgica para comprobar que el usario que quiere editar el post es el propietario
-
-    const xhr = new XMLHttpRequest
-    xhr.onload = () => {
-        const { status } = xhr
-
-        if (status !== 204) {
-            const { response: json } = xhr
-            const { error } = JSON.parse(json)
-
-            callback(new Error(error))
-
-            return
-        }
-        callback(null)
-    }
-    xhr.onerror = () => {
-        callback(new Error('connection error'))
-    }
-    xhr.open("PATCH", `${import.meta.env.VITE_API_URL}/posts/update/${postId}`)
-    xhr.setRequestHeader('Content-Type', 'application/json')
-    xhr.setRequestHeader('Authorization', `Bearer ${userId}`)
-
-
-    const post = { postId, title, text, image, visibility }
-    const json = JSON.stringify(post)
-
-    xhr.send(json)
+    validateToken(token)
+    validateText(title)
+    validateText(text)
+    return fetch(`${import.meta.env.VITE_API_URL}/posts/update/${postId}`, {
+        method: "PATCH",
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ title, text, image, visibility })
+    })
+        .then(res => {
+            if (res.status !== 204)
+                return res.json().then(({ error: message }) => { throw new Error(message) })
+        })
 }

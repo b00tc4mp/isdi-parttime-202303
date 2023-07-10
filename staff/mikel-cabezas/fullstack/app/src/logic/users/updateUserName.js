@@ -1,13 +1,28 @@
 import { findUserById, saveUser } from "../../data.js"
 import { validators } from "com"
 
-const { validateCallback, validateName, validateUserId } = validators
+const { validateName, validateToken } = validators
 
-export default (userId, name, callback) => {
-    validateUserId(userId)
+export default (token, name) => {
+    validateToken(token)
     validateName(name)
-    validateCallback(callback)
-    debugger
+
+    return fetch(`${import.meta.env.VITE_API_URL}/users/username`, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ name })
+    })
+        .then(res => {
+            if (res.status !== 204)
+                return res.json().then(({ error: message }) => { throw new Error(message) })
+
+            return res.json()
+        })
+
+
     const xhr = new XMLHttpRequest
     xhr.onload = () => {
         const { status } = xhr
@@ -30,7 +45,7 @@ export default (userId, name, callback) => {
 
     xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/users/username`)
     xhr.setRequestHeader('Content-Type', 'application/json')
-    xhr.setRequestHeader('Authorization', `Bearer ${userId}`)
+    xhr.setRequestHeader('Authorization', `Bearer ${token}`)
 
     const userData = { name }
     const json = JSON.stringify(userData)

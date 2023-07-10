@@ -1,6 +1,20 @@
 const context = require('../context')
 const { ObjectId } = require('mongodb')
-const { validators: { validateUserId } } = require('com')
+const {
+    validators: { validateUserId },
+    errors: { ExistenceError }
+} = require('com')
+
+/**
+ * 
+ * @param {string*} userId 
+ * @returns {Promise<Object>} returns a promise object contains de sanatized filtered saved posts 
+   
+ * @throws {TypeError} on non-string userId (sync)
+ * @throws {ContentError} on empty userId (sync)
+ * 
+ * @throws {ExistenceError} on user not found (async)
+ */
 module.exports = userId => {
     validateUserId(userId)
 
@@ -9,7 +23,7 @@ module.exports = userId => {
 
     return users.findOne(_user)
         .then(user => {
-            if (!user) new Error(`User with id ${userId} not found`)
+            if (!user) new ExistenceError(`User with id ${userId} not found`)
 
             return users.find().toArray()
                 .then(users => {

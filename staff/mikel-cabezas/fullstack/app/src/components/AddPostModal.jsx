@@ -14,6 +14,8 @@ export default function AddPostModal({ onCancel, onCreateNewPost }) {
     const [newImage, setNewImage] = useState()
 
 
+
+
     const onError = (error) => {
         console.log("Error", error);
         const length = Number(error.name.split(".").length - 1)
@@ -26,7 +28,6 @@ export default function AddPostModal({ onCancel, onCreateNewPost }) {
     const onSuccess = res => {
         console.log("Success", res);
         setNewImage(res.filePath)
-        debugger
     }
     const onValidateFile = res => {
         if (res.type === "image/png" && res.size < 5000000 || res.type === "image/jpeg" && res.size < 5000000 || res.type === "image/webp" && res.size < 5000000 || res.type === "image/gif" && res.size < 5000000 || res.type === "image/heic") {
@@ -82,28 +83,20 @@ export default function AddPostModal({ onCancel, onCreateNewPost }) {
         const title = document.querySelector('.create-post input.title').value
         const text = document.querySelector('.create-post textarea').value
         try {
-            debugger
-            createPost(userId, newImage, title, text, userLocation, error => {
-                if (error) {
-                    alert(error.message)
-
-                    return
-                }
-                onCreateNewPost()
-            })
-
+            createPost(userId, newImage, title, text, userLocation)
+                .then(() => onCreateNewPost())
+                .catch(error => alert(error.message))
         } catch (error) {
             alert(error.message)
         }
     }
-
 
     const handleCancelAddPost = event => {
         event.preventDefault()
         onCancel()
     }
 
-    return <div className="overlay create-post">
+    return <div className="overlay create-post max-h-[95vh]">
         <form className="create-post" >
             <label htmlFor="text">Title of your post</label>
             <input type="text" className="title" />
@@ -130,10 +123,10 @@ export default function AddPostModal({ onCancel, onCreateNewPost }) {
 
             {/* <input type="file" name="file" id="" accept=".jpg, .jpeg, .png, .webp" onClick={handleConvertImageToBase64} /> */}
             <label htmlFor="textarea">Write your process</label>
-            <textarea name="" id="" cols="30" rows="5"></textarea>
+            <textarea name="" id="" cols="30" rows="5" className='mb-3'></textarea>
             <div className="buttons">
                 <button className="button--create-post_cancel" type="cancel" onClick={handleCancelAddPost}>Cancel</button>
-                <button className="button--create-post_save" type="submit" onClick={handleAddNewPost}>Create post</button>
+                <button className="button--create-post_save" type="submit" onClick={handleAddNewPost} disabled={!newImage && true} >Create post</button>
             </div>
         </form>
     </div>

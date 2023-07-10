@@ -8,10 +8,9 @@ import './Posts.css'
 import retrieveUser from "../logic/users/retrieveUser"
 import Context from "../AppContext"
 
-export default function Posts({ onEditPost, onAddPostClick, lastPostsUpdate, postsFilter, onToggleLikePostClick, onToggleSavePostClick, onHideMenuOptions, visibility, onShowAllPosts }) {
+export default function Posts({ onEditPost, onAddPostClick, lastPostsUpdate, postsFilter, onToggleLikePostClick, onToggleSavePostClick, onHideMenuOptions, visibility, onShowAllPosts, onPostDeleted }) {
     const userId = context.token
     const [posts, setPosts] = useState()
-    // const [postsFilter, setPostsFilter] = useState('all')
     const [user, setUser] = useState()
     const { alert, freeze, unfreeze } = useContext(Context)
     useEffect(() => {
@@ -19,52 +18,48 @@ export default function Posts({ onEditPost, onAddPostClick, lastPostsUpdate, pos
         try {
             freeze()
             if (!postsFilter) {
-                retrievePosts(userId, (error, posts) => {
-                    unfreeze()
-                    if (error) {
+                console.log('   Show all Posts -> render in useEffect onLoad compo')
+                retrievePosts(userId)
+                    .then(posts => {
+                        unfreeze()
+                        setPosts(posts)
+                    })
+                    .catch(error => {
+                        unfreeze()
                         alert(error.message)
-
-                        return
-                    }
-                    posts
-                    setPosts(posts)
-                })
+                    })
             }
 
             if (postsFilter === 'liked') {
-                retrieveLikedPosts(userId, (error, posts) => {
-                    unfreeze()
-                    if (error) {
-                        s
+                console.log('   Show liked Posts -> render in useEffect onLoad compo')
+                retrieveLikedPosts(userId)
+                    .then(posts => {
+                        unfreeze()
+                        setPosts(posts)
+                    })
+                    .catch(error => {
+                        unfreeze()
                         alert(error.message)
-
-                        return
-                    }
-                    setPosts(posts)
-                })
+                    })
             }
             if (postsFilter === 'saved') {
-                retrieveSavedPosts(userId, (error, posts) => {
-                    unfreeze()
-                    if (error) {
+                console.log('   Show saved Posts -> render in useEffect onLoad compo')
+                retrieveSavedPosts(userId)
+                    .then(posts => {
+                        unfreeze()
+                        setPosts(posts)
+                    })
+                    .catch(error => {
+                        unfreeze()
                         alert(error.message)
-
-                        return
-                    }
-                    setPosts(posts)
-                })
+                    })
             }
-            // retrieveUser(userId, (error, user) => {
-            //     if (error) {
-            //         alert(error.message)
-
-            //         return
-            //     }
-            //     setUser(user)
-            // })
             retrieveUser(userId)
                 .then(user => setUser(user))
-                .catch(error => alert(error.message))
+                .catch(error => {
+                    unfreeze()
+                    alert(error.message)
+                })
         } catch (error) {
             alert(error.message)
         }
@@ -75,69 +70,65 @@ export default function Posts({ onEditPost, onAddPostClick, lastPostsUpdate, pos
     }
 
     useEffect(() => {
-        console.log('Refresh Posts -> render in useEffect')
+        console.log('Refresh Posts -> render in useEffect on lastPostsUpdate changed')
         if (lastPostsUpdate) {
             handleRefreshPosts()
         }
     }, [lastPostsUpdate])
 
     useEffect(() => {
-        console.log('Refresh Posts -> render in useEffect')
+        console.log('Refresh Posts -> render in useEffect on postsFilter changed')
 
         handleRefreshPosts()
-
     }, [postsFilter])
 
     function handleRefreshPosts() {
         try {
             if (!postsFilter) {
-                retrievePosts(userId, (error, posts) => {
-                    unfreeze()
-                    if (error) {
+                console.log('   Show all Posts -> render in handleRefreshPosts')
+                retrievePosts(userId)
+                    .then(posts => {
+                        unfreeze()
+                        setPosts(posts)
+                    })
+                    .catch(error => {
+                        unfreeze()
                         alert(error.message)
-
-                        return
-                    }
-                    setPosts(posts)
-                })
+                    })
             }
             if (postsFilter === 'liked') {
-                retrieveLikedPosts(userId, (error, posts) => {
-                    unfreeze()
-                    if (error) {
+                console.log('   Show liked Posts -> render in handleRefreshPosts')
+                retrieveLikedPosts(userId)
+                    .then(posts => {
+                        unfreeze()
+                        setPosts(posts)
+                    })
+                    .catch(error => {
+                        unfreeze()
                         alert(error.message)
-
-                        return
-                    }
-                    setPosts(posts)
-                })
+                    })
             }
             if (postsFilter === 'saved') {
-                retrieveSavedPosts(userId, (error, posts) => {
-                    unfreeze()
-                    if (error) {
+                console.log('   Show saved Posts -> render in handleRefreshPosts')
+                retrieveSavedPosts(userId)
+                    .then(posts => {
+                        unfreeze()
+                        setPosts(posts)
+                    })
+                    .catch(error => {
+                        unfreeze()
                         alert(error.message)
-
-                        return
-                    }
-                    setPosts(posts)
-                })
+                    })
             }
-
-            retrieveUser(userId, (error, user) => {
-                if (error) {
-                    alert(error.message)
-
-                    return
-                }
-                setUser(user)
-            })
+            retrieveUser(userId)
+                .then(user => {
+                    setUser(user)
+                })
+                .catch(error => alert(error.message))
         } catch (error) {
             console.log(error)
         }
     }
-
-
 
     function handleToggleLikePost() {
         try {
@@ -158,6 +149,10 @@ export default function Posts({ onEditPost, onAddPostClick, lastPostsUpdate, pos
     function handleEditPost(id) {
         onEditPost(id)
     }
+    function handlePostDeleted(id) {
+        alert()
+        onPostDeleted(id)
+    }
     function handleAddPost(event) {
         event.preventDefault()
         onAddPostClick()
@@ -167,7 +162,6 @@ export default function Posts({ onEditPost, onAddPostClick, lastPostsUpdate, pos
         handleRefreshPosts()
     }
 
-
     if (posts) {
         return <>
             <div className="top">
@@ -175,15 +169,14 @@ export default function Posts({ onEditPost, onAddPostClick, lastPostsUpdate, pos
                 <h2 className="welcome-user"></h2>
                 <button className="button--create-post flex items-center justify-center text-sm" onClick={handleAddPost}>Create post <span className="material-symbols-outlined ml-1 w-5 items-center">add</span></button>
             </div>
-            <div className="posts">
+            <div className="posts" key={false}>
                 {posts.length === 0 &&
                     <div>
-                        <h2>There is no posts yet.
-                            <br />But you can create a new one!</h2>
-
+                        <h2>There is no {postsFilter && `${postsFilter} `}posts yet.
+                            <br />But you can {postsFilter && `add`} {!postsFilter && `create`} a new one!</h2>
                     </div>}
                 {posts.length > 0 && posts.map(post => {
-
+                    // debugger
                     if (post.visibility === 'private' && post.author.id === userId || post.visibility === 'public') {
                         return <Post
                             key={post.id}
@@ -193,12 +186,11 @@ export default function Posts({ onEditPost, onAddPostClick, lastPostsUpdate, pos
                             onToggleSavePost={handleToggleSavePost}
                             onEditPostButton={(id) => handleEditPost(id)}
                             onHideMenuOptions={handleHideMenuOptions}
+                            onPostDeleted={handlePostDeleted}
                         />
                     }
                 })}
             </div>
         </>
     }
-
-
 }

@@ -34,26 +34,18 @@ export function EditPostModal({ postId, onCancel, onPostUpdated }) {
             return false
         }
     }
-
-
-
-
     // let newImage
     // useEffect(() => {
     //     setNewImage(post.image)
-
     // }, [])
     useEffect(() => {
         try {
-            retrievePostByPostId(userId, postId, (error, post) => {
-                if (error) {
-                    alert(error.message)
-
-                    return
-                }
-                setPost(post)
-                setNewImage(post.image)
-            })
+            retrievePostByPostId(context.token, postId)
+                .then(post => {
+                    setPost(post)
+                    setNewImage(post.image)
+                })
+                .catch(error => alert(error.message))
         } catch (error) {
             alert(error.message)
         }
@@ -65,24 +57,17 @@ export function EditPostModal({ postId, onCancel, onPostUpdated }) {
         onCancel()
     }
     function handleVisibility(event) {
-
     }
     function handleUpdateEditPost(event) {
-        debugger
         event.preventDefault()
         const title = event.target.parentElement.parentElement.elements['title'].value
         const text = event.target.parentElement.parentElement.elements['text'].value
         const image = newImage
         const visibility = event.target.parentElement.parentElement.elements.visibility.checked
         try {
-            editPost(userId, postId, title, text, image, visibility, error => {
-                if (error) {
-                    alert(error.message)
-
-                    return
-                }
-                onPostUpdated()
-            })
+            editPost(context.token, postId, title, text, image, visibility)
+                .then(() => onPostUpdated())
+                .catch(error => alert(error.message))
         } catch (error) {
             alert(error.message)
         }

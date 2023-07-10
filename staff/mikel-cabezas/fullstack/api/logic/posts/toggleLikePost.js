@@ -1,8 +1,23 @@
 const context = require('../context')
 const { ObjectId } = require('mongodb')
-const { validators: { validateUserId, validatePostId } } = require('com')
+const {
+    validators: { validateUserId, validatePostId },
+    errors: { ExistenceError }
+} = require('com')
+
+/**
+ * 
+ * @param {*} userId 
+ * @param {*} postId 
+ * @returns {Promise<Object>} returns a promise object contains de post with likes updated 
+ * 
+ * @throws {TypeError} on non-string userId, postId (sync)
+ * @throws {ContentError} on empty userId, postId (sync)
+ * 
+ * @throws {ExistenceError} on post not found (async)
+ * 
+ */
 module.exports = (userId, postId) => {
-    debugger
     validateUserId(userId)
     validatePostId(postId)
 
@@ -11,7 +26,7 @@ module.exports = (userId, postId) => {
 
     return posts.findOne(_post)
         .then(post => {
-            if (!post) throw new Error('post not found')
+            if (!post) throw new ExistenceError('post not found')
             const indexLikedPost = post.likes?.indexOf(userId)
             if (indexLikedPost < 0) {
                 post.likes.push(userId)

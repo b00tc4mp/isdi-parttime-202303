@@ -16,7 +16,7 @@ export default function UpdateUserInfo({ }) {
     useEffect(() => {
         try {
             retrieveUser(userId)
-                .then(() => {
+                .then(user => {
                     if (!user) {
                         alert('user not found')
 
@@ -84,17 +84,13 @@ export default function UpdateUserInfo({ }) {
             const name = event.target.parentElement.parentElement.elements['name']
             const email = event.target.parentElement.parentElement.elements['email']
             const image = event.target.parentElement.parentElement.elements['file']
-            user.name !== name.value && updateUserName(userId, name.value, error => {
-                if (error) {
-                    alert(error.message)
-                }
-            })
-            user.email !== email.value && updateUserEmail(userId, email.value)
-                .then(() => { })
-                .catch(error => alert(error.message))
+
+            user.name !== name.value && updateUserName(userId, name.value).catch(error => alert(error.message))
+
+            user.email !== email.value && updateUserEmail(userId, email.value).catch(error => alert(error.message))
 
             if (image.src)
-                user.image !== image && uploadImage(userId, image, error => { error ? alert(error.message) : '' })
+                user.image !== image && uploadImage(userId, image).catch(error => alert(error.message))
 
             setDisabled(true)
         } catch (error) {

@@ -1,15 +1,27 @@
-import { findUserById, saveUser } from "../../data.js"
-import { context } from '../../ui.js'
 import { validators } from "com"
 
-const { validateCallback, validateImage, validateUserId } = validators
+const { validateToken } = validators
 
-// export default function uploadImage(userId, image, callback) {
-export default (userId, image, callback) => {
+// export default function uploadImage(token, image, callback) {
+export default (token, image) => {
+    validateToken(token)
 
-    // validateImage(image)
-    validateUserId(userId)
-    validateCallback(callback)
+
+    return fetch(`${import.meta.env.VITE_API_URL}/users/image`, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ image })
+    })
+        .then(res => {
+            if (res.status !== 204)
+                return res.json().then(({ error: message }) => { throw new Error(message) })
+
+            return res.json()
+        })
+
 
     const xhr = new XMLHttpRequest
     xhr.onload = () => {
@@ -33,7 +45,7 @@ export default (userId, image, callback) => {
 
     xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/users/image`)
     xhr.setRequestHeader('Content-Type', 'application/json')
-    xhr.setRequestHeader('Authorization', `Bearer ${userId}`)
+    xhr.setRequestHeader('Authorization', `Bearer ${token}`)
     const newImage = image.src
     const userData = { newImage }
     debugger

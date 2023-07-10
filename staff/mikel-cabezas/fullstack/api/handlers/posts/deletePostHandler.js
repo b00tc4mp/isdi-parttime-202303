@@ -4,7 +4,7 @@ const { extractUserId } = require('../helpers')
 module.exports = (req, res) => {
     try {
         const userId = extractUserId(req)
-
+        debugger
         const { postId } = req.params
 
         deletePost(userId, postId)

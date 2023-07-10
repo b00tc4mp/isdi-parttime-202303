@@ -13,7 +13,7 @@ const context = require('../context')
  * @throws {TypeError} on non-string id (sync)
  * @throws {ContentError} on empty id (sync)
  * 
- * @throws {ExistenceError} on user not found (asyncz)
+ * @throws {ExistenceError} on user not found (async)
  */
 
 module.exports = userId => {
