@@ -59,11 +59,6 @@ const validateText = (text, explain = 'text') => {
   if (!text.trim().length) throw new ContentError(`${explain} is empty`);
 };
 
-const validateNumber = (number, explain = 'number') => {
-  if (typeof number !== 'number' || isNaN(number))
-    throw new TypeError(`${explain} is not a number`);
-};
-
 const validateId = (id, explain = 'id') => {
   if (typeof id !== 'string') throw new TypeError(`${explain} is not a string`);
   if (!id.trim().length) throw new ContentError(`${explain} is empty`);
@@ -74,11 +69,6 @@ const validateToken = (token, explain = 'token') => {
     throw new TypeError(`${explain} is not a string`);
   if (token.split('.').length !== 3)
     throw new Error(`${explain} is not a valid`);
-};
-
-const validateCallback = (callback, explain = 'callback') => {
-  if (typeof callback !== 'function')
-    throw new TypeError(`${explain} is not a function`);
 };
 
 module.exports = {
