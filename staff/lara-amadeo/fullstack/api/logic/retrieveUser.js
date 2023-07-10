@@ -1,5 +1,4 @@
 const { errors: { ExistanceError } } = require('com')
-const { ObjectId } = require('mongodb')
 const { User } = require('../data/models')
 
 module.exports = function retrieveUser(userId) {
