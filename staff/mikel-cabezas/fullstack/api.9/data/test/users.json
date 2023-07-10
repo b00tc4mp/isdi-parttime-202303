@@ -1,0 +1,42 @@
+[
+    {
+        "id": "user-1",
+        "name": "Mikel Cabezas",
+        "email": "mikelcabezas@gmail.com",
+        "password": "123123123",
+        "favPosts": [],
+        "image": null
+    },
+    {
+        "id": "user-2",
+        "name": "Mikel Cabezas",
+        "email": "mikelcabezas@gmail.com3",
+        "password": "123123123",
+        "image": null,
+        "favPosts": []
+    },
+    {
+        "id": "user-3",
+        "name": "Norah D",
+        "email": "norad@gmail.com",
+        "password": "123123123",
+        "image": null,
+        "favPosts": []
+    },
+    {
+        "id": "user-4",
+        "name": "Norah di Stefano",
+        "email": "ndc@gmail.com",
+        "password": "123123123",
+        "image": null,
+        "favPosts": []
+    },
+    {
+        "id": "user-5",
+        "name": "Norah D",
+        "email": "noradc@gmail.com",
+        "password": "123123123",
+        "image": null,
+        "favPosts": []
+    }
+]

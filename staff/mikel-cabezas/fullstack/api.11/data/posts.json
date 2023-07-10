@@ -1,0 +1,69 @@
+[
+    {
+        "id": "post-1",
+        "author": "user-1",
+        "image": "https://craftsyhacks.com/wp-content/uploads/2020/06/2-Neat-and-Tidy-Storage-Solution.jpg",
+        "title": "Test Insomnia",
+        "text": "bla bla bla bal",
+        "date": "2023-06-17T20:45:30.564Z",
+        "comments": [],
+        "likes": [
+            "user-1"
+        ],
+        "visibility": "public",
+        "location": ""
+    },
+    {
+        "id": "post-3",
+        "author": "user-1",
+        "image": "https://images.squarespace-cdn.com/content/v1/5f0dff83eda9503aed1e72bb/1600012017308-N61S6PFZE4FN5DZL59WY/1.jpg",
+        "title": "Test Insomnia",
+        "text": "bla bla bla bal",
+        "date": "2023-06-17T21:38:03.719Z",
+        "comments": [],
+        "likes": [],
+        "visibility": "public",
+        "location": ""
+    },
+    {
+        "id": "post-4",
+        "author": "user-1",
+        "image": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhuGdChdKtz812U6MKtSaxMqTrB5jpEdZ_9Mj7M5o2q8LVapQcfJBy3aJIVyK69gOeg4ljQoWR_m67FR4w-YiZlGyAK4XkE98QGsiNafuAR1-DyEQje_SAVlqjYaCEwkxncs7QoH7QbrUWo24b984rEa-0-MsbPUtBYz1_MH9n5vYcGeacsJtZy8gzK/s1126/trofast%20big%20table-min.jpg",
+        "title": "Test Insomnia",
+        "text": "bla bla bla bal",
+        "date": "2023-06-17T23:25:43.665Z",
+        "comments": [],
+        "likes": [],
+        "visibility": "public",
+        "location": ""
+    },
+    {
+        "id": "post-5",
+        "author": "user-1",
+        "image": "http://www.mommodesign.com/sites/default/files/styles/full_width/public/images/gallery/1577/trofast1.jpg",
+        "title": "Test after delete post-2",
+        "text": "bla bla bla bal",
+        "date": "2023-06-18T12:31:46.705Z",
+        "comments": [],
+        "likes": [
+            "user-1"
+        ],
+        "visibility": "public",
+        "location": ""
+    },
+    {
+        "id": "post-6",
+        "author": "user-1",
+        "image": "http://www.mommodesign.com/sites/default/files/styles/full_width/public/images/gallery/1577/trofast1.jpg",
+        "title": "B back+front connection v999",
+        "text": "adsfagd",
+        "date": "2023-06-18T21:09:32.420Z",
+        "lastModify": "2023-06-18T22:35:12.742Z",
+        "comments": [],
+        "likes": [
+            "user-1"
+        ],
+        "visibility": "public",
+        "location": ""
+    }
+]
