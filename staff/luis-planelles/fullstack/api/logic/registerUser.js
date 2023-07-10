@@ -12,9 +12,9 @@ const {
  * @returns {Promise<object>} - A promise that resolves to the created user object.
  * @throws {DuplicityError} - If a user with the provided email already exists.
  * @throws {Error} - If any other error occurs during the registration process.
- * @throws {TypeError} - on name, text or password wrong type
- * @throws {ContentError} - on name, text or password wrong characters
- * @throws {RangeError} - on password wrong range
+ * @throws {TypeError} - on name, text or password wrong type.
+ * @throws {ContentError} - on name, text or password wrong characters.
+ * @throws {RangeError} - on password wrong range.
  */
 
 const registerUser = (name, email, password) => {
