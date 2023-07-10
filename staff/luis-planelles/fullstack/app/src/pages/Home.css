@@ -1,0 +1,60 @@
+.home {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.home-header {
+  position: sticky;
+  top: 0;
+  background-color: dodgerblue;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 5rem;
+}
+
+.home-main {
+  flex: 1;
+}
+
+.home-footer {
+  position: sticky;
+  bottom: 0;
+  background-color: dodgerblue;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 5rem;
+}
+
+.home-header-logout {
+  background-color: whitesmoke;
+  border: 0;
+  border-radius: 1rem;
+  font-size: 0.9rem;
+  width: 4rem;
+}
+
+.home-header-user {
+  color: whitesmoke;
+}
+
+.fa-home {
+  color: whitesmoke;
+}
+
+.home-header-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.home-header-avatar {
+  width: 2rem;
+  border-radius: 1rem;
+  width: 2rem;
+  height: 2rem;
+}
