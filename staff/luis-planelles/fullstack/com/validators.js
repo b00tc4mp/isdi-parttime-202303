@@ -75,10 +75,8 @@ module.exports = {
   validateId,
   validateToken,
   validateText,
-  validateNumber,
   validateUrl,
   validateEmail,
   validateName,
   validatePassword,
-  validateCallback,
 };
