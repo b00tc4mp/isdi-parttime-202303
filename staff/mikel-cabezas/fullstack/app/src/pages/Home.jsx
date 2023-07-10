@@ -28,6 +28,9 @@ export default function Home({ onLogoutClick, onUserProfile, onSetThemeClick, on
         setLastPostsUpdate(Date.now())
         unfreeze()
     }
+    const onPostDeleted = () => {
+        setLastPostsUpdate(Date.now())
+    }
 
     const handlePostUpdated = () => {
         freeze()
@@ -108,7 +111,7 @@ export default function Home({ onLogoutClick, onUserProfile, onSetThemeClick, on
         <Header onUserProfile={handleGoToUserProfile} onLoggedOut={handleLogOut} onLikedPostsClick={handleShowLikedPosts} onSavedPostsClick={handleShowSavedPosts} onHomeClick={handleShowAllPosts} selected={modal} />
         <main>
             <section className="section home">
-                {view === 'posts' && <Posts onShowAllPosts={onShowAllPosts} onAddPostClick={handleAddPost} onEditPost={(id) => handleEditPost(id)} lastPostsUpdate={lastPostsUpdate} postsFilter={postsFilter} onToggleSavePostClick={onToggleSavePostClick} onHideMenuOptions={handleHideMenuOptions} />}
+                {view === 'posts' && <Posts onPostDeleted={onPostDeleted} onShowAllPosts={onShowAllPosts} onAddPostClick={handleAddPost} onEditPost={(id) => handleEditPost(id)} lastPostsUpdate={lastPostsUpdate} postsFilter={postsFilter} onToggleSavePostClick={onToggleSavePostClick} onHideMenuOptions={handleHideMenuOptions} />}
                 {modal === 'user-profile' && <Profile goBackClick={handleGoBackClick} selected={modal} onUserProfile={onUserProfile} onThemeSet={theme} themeState={setTheme} onSetThemeClick={handleSetThemeClick} />}
             </section>
             {modal === 'add-post' && <AddPostModal onCancel={handleModalOff} onCreateNewPost={handlePostCreated} />}

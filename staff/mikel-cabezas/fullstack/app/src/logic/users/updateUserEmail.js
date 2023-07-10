@@ -1,16 +1,16 @@
 import { validators } from "com"
 import { findUserById, saveUser } from "../../data.js"
 
-const { validateCallback, validateEmail, validateUserId } = validators
-export default (userId, email) => {
+const { validateEmail, validateToken } = validators
+export default (token, email) => {
     validateEmail(email)
-    validateUserId(userId)
+    validateToken(token)
 
     return fetch(`${import.meta.env.VITE_API_URL}/users/email`, {
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${userId}`
+            'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify({ email })
     })

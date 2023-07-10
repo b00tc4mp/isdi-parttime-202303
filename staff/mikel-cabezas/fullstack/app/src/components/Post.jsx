@@ -8,27 +8,30 @@ import { deletePost } from "../logic/posts/deletePost"
 import retrieveUser from "../logic/users/retrieveUser"
 import AppContext from "../AppContext"
 import { IKImage, IKContext, IKUpload } from 'imagekitio-react';
-// const urlEndpoint = 'https://ik.imagekit.io/mklhds'
+const urlEndpoint = 'https://ik.imagekit.io/mklhds'
 const publicKey = 'public_KXJOz0g5Xp6gAlhANXjoCNjKLPs=';
 const authenticationEndpoint = 'http://localhost:6541/auth';
 import { utils } from 'com'
 
 const { extractSubFromToken } = utils
 
-export default function Post({ post, post: { image, title, text, comments, likes, _id, date, author, lastModify, location, visibility }, onToggleLikePost, onToggleSavePost, onEditPostButton, onHideMenuOptions, user }) {
+export default function Post({ post, post: { image, title, text, comments, likes, id, date, author, lastModify, location, visibility }, onToggleLikePost, onToggleSavePost, onEditPostButton, onHideMenuOptions, user, onPostDeleted }) {
+    // const userId = extractSubFromToken(context.token)
     const userId = extractSubFromToken(context.token)
 
     const [userData, setUserData] = useState(user)
-    const [modalMenu, setModalMenu] = useState('close')
+    const [modalMenu, setModalMenu] = useState()
     const { freeze, unfreeze, alert } = useContext(AppContext)
     const [imageRendered, setImageRendered] = useState(null)
 
     const onError = err => {
         console.log("Error", err);
+        setImageRendered(null)
     };
 
     const onSuccess = res => {
         console.log("Success", res);
+        setImageRendered("/post-image-id__Kb1GqqV4nr")
     };
 
     useEffect(() => {
@@ -39,11 +42,11 @@ export default function Post({ post, post: { image, title, text, comments, likes
         }
     }, [])
 
+
     const postStyle = {
         // background: `linear-gradient(180deg, rgba(0,0,0,.2) 0%, rgba(0,0,0,0) 10%, rgba(0,0,0,0) 50%, rgba(0,0,0,.6) 100%), url(${image}) center / cover`
         background: `linear-gradient(180deg, rgba(0,0,0,.2) 0%, rgba(0,0,0,0) 10%, rgba(0,0,0,0) 50%, rgba(0,0,0,.6) 100%), url(https://ik.imagekit.io/mklhds/tr:w-300${image}) center / cover`
     }
-
 
     const postDate = date
     const now = new Date()
@@ -69,16 +72,15 @@ export default function Post({ post, post: { image, title, text, comments, likes
     function handleToggleLike(event) {
         try {
             freeze()
-            toggleLikePost(userId, post._id, error => {
-                unfreeze()
-                if (error) {
+            toggleLikePost(context.token, post.id)
+                .then(() => {
+                    unfreeze()
+                    onToggleLikePost()
+                })
+                .catch(error => {
+                    unfreeze()
                     alert(error.message)
-
-                    return
-                }
-                onToggleLikePost()
-            })
-
+                })
         } catch (error) {
             alert(error.message)
         }
@@ -87,35 +89,38 @@ export default function Post({ post, post: { image, title, text, comments, likes
     function handleToggleSave(event) {
         try {
             freeze()
-            toggleSavePost(userId, post._id, error => {
-                unfreeze()
-                if (error) {
+            toggleSavePost(context.token, post.id)
+                .then(() => {
+                    unfreeze()
+                    updateUserLikes()
+                    onToggleSavePost()
+                })
+                .catch(error => {
+                    unfreeze()
+                    console.log(error)
                     alert(error.message)
-
-                    return
-                }
-                updateUserLikes()
-                onToggleSavePost()
-            })
+                })
         } catch (error) {
             alert(error.message)
         }
     }
 
-    function handleEditPostButton(_id) {
-        onEditPostButton(_id)
+    function handleEditPostButton(id) {
+        onEditPostButton(id)
+        setModalMenu('close')
     }
-    function handleDeletePostButton(_id) {
+    function handleDeletePostButton(postId) {
         try {
-            deletePost(userId, _id, error => {
-                if (error)
-                    alert(error.message)
-            })
-            if (deletePost) {
-                alert('post deleted')
-
-                setModalMenu('close')
-            }
+            setModalMenu('close')
+            deletePost(context.token, postId)
+                .then(context.token, postId)
+                .then(res => console.log('res', res))
+                .then(() => {
+                    onPostDeleted()
+                    alert(`post deleted!`)
+                    setModalMenu('close')
+                })
+                .catch(error => alert(error.message))
         } catch (error) {
             alert(error.message)
         }
@@ -157,7 +162,7 @@ export default function Post({ post, post: { image, title, text, comments, likes
     }
 
     return <>
-        <article className={`${_id} ${visibility !== 'public' ? visibility : visibility}`} style={postStyle}>
+        <article className={`${id} ${visibility !== 'public' ? visibility : visibility}`} style={postStyle} key={id}>
             <div className="post-author">
                 <div className="avatar">
                     {!user?.image && <div className="letter">{returnLetters()}</div>}
@@ -171,10 +176,11 @@ export default function Post({ post, post: { image, title, text, comments, likes
                     {modalMenu === 'open' &&
                         <ContextualModalMenu
                             items={[
-                                { text: 'Edit post', onClick: () => handleEditPostButton(_id) },
-                                { text: 'Delete post', onClick: () => handleDeletePostButton(_id) },
+                                { text: 'Edit post', onClick: () => handleEditPostButton(id) },
+                                { text: 'Delete post', onClick: () => handleDeletePostButton(post.id) },
                             ]}
                             onOutterClick={handleHideMenuOptions}
+                            transparent
                         />
                     } </div> : ''}
             </div>
@@ -184,12 +190,12 @@ export default function Post({ post, post: { image, title, text, comments, likes
                 <div className={`material-symbols-outlined like ${likes.includes(userId) ? ' filled' : ''}`}
                     onClick={handleToggleLike}>favorite</div>
                 <div className="material-symbols-outlined comment">maps_ugc</div>
-                <div className={userData?.favs?.includes(_id) ? 'material-symbols-outlined save filled' : 'material-symbols-outlined save'} onClick={handleToggleSave}>bookmark</div>
+                <div className={userData?.favs?.includes(id) ? 'material-symbols-outlined save filled' : 'material-symbols-outlined save'} onClick={handleToggleSave}>bookmark</div>
             </div>
             <h3 className="title">{title}</h3>
             <p className="excerpt">{text}</p>
             <div className="post-likes">{likes.length < 1 ? '' : countLikes}</div>
-            <div className="comments-count">{comments.length} comments</div>
+            <div className="comments-count">{comments?.length} comments</div>
             <time className="post-date">{newDate} {lastModify ? <span className="post-edited">Edited</span> : ''}</time>
         </article>
     </>

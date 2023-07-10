@@ -1,36 +1,25 @@
-import { validators } from 'com'
+import { validators, utils } from 'com'
+// import { isTokenValid } from 'com/utils'
 
-const { validateUserId, validateText } = validators
+const { isTokenValid } = utils
+const { validateToken, validateText } = validators
 
 export function createPost(token, image, title, text, location, callback) {
-    validateUserId(token)
+    validateToken(token)
     validateText(title)
     validateText(text)
 
-    const xhr = new XMLHttpRequest
-    xhr.onload = () => {
-        const { status } = xhr
-
-        if (status !== 201) {
-            const { response: json } = xhr
-            const { error } = JSON.parse(json)
-
-            callback(new Error(error))
-
-            return
-        }
-        const { response: json } = xhr
-        callback(null)
-    }
-    xhr.onerror = () => {
-        callback(new Error('connection error'))
-    }
-    xhr.open('POST', `${import.meta.env.VITE_API_URL}/posts`)
-    xhr.setRequestHeader('Content-Type', 'application/json')
-    xhr.setRequestHeader('Authorization', `Bearer ${token}`)
-
-    const post = { title, text, image, location }
-    const json = JSON.stringify(post)
-
-    xhr.send(json)
+    return fetch(`${import.meta.env.VITE_API_URL}/posts`, {
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ title, text, image, location })
+    })
+        .then(res => {
+            if (res.status !== 201)
+                return res.json().then(({ error: message }) => { throw new Error(message) })
+            // return res.json()
+        })
 }

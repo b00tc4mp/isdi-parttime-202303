@@ -2,7 +2,8 @@
 
 ## Endpoints
 
-| Action               | method  | path                    | body                                                                 | status  |
+
+|<font color="green"> Action</font>               | method  | path                    | body                                                                 | status  |
 | -------------------- | ------- | ----------------------- | ----------------------------------------------------                 | ------- |
 | Register User        | POST    | /users                  | { "name": "...", "email": "...", "password": "..." }                 | 201     |
 | Authenticate User    | POST    | /users/auth             | { "email": "...", "password": "..." }                                | 200     |
