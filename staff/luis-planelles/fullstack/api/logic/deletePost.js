@@ -13,6 +13,8 @@ const {
  * @returns {Promise<object>} - A promise that resolves to the result of the deletion operation.
  * @throws {ExistenceError} - If the user with the provided ID or the post with the provided ID does not exist.
  * @throws {Error} - If the post does not belong to the user.
+ * @throws {TypeError} - on userId or postId wrong type.
+ * @throws {ContentError} - on userId or postId wrong characters.
  */
 
 const deletePost = (userId, postId) => {

@@ -11,6 +11,8 @@ const {
  * @param {string} userId - The ID of the user to retrieve.
  * @returns {Promise<object>} - A promise that resolves to the retrieved user object.
  * @throws {ExistenceError} - If the user with the provided ID does not exist.
+ * @throws {TypeError} - on userId wrong type.
+ * @throws {ContentError} - on userId wrong characters.
  */
 
 const retrieveUser = (userId) => {

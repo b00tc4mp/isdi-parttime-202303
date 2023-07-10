@@ -12,6 +12,8 @@ const { ObjectId } = require('mongodb');
  * @param {string} text - The text content of the post.
  * @returns {Promise<object>} - A promise that resolves to the created post object.
  * @throws {ExistenceError} - If the user with the provided ID does not exist.
+ * @throws {TypeError} - on userId, text or image wrong type
+ * @throws {ContentError} - on userId, text or image wrong characters
  */
 
 const createPost = (userId, image, text) => {

@@ -16,6 +16,9 @@ const {
  * @throws {ExistenceError} - If the user with the provided ID does not exist.
  * @throws {Error} - If the current password is incorrect, the new password equals the old password,
  *                   or the password confirmation does not match.
+ * @throws {TypeError} - on userId or password wrong type.
+ * @throws {ContentError} - on userId or password wrong characters.
+ * @throws {RangeError} - on password wrong range.
  */
 
 const updateUserPassword = (

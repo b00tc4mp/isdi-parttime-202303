@@ -12,6 +12,8 @@ const {
  * @param {string} postId - The ID of the post to toggle the favorite.
  * @returns {Promise<object>} - A promise that resolves to the result of the update operation.
  * @throws {ExistenceError} - If the user with the provided ID or the post with the provided ID does not exist.
+ * @throws {TypeError} - on userId or postId wrong type.
+ * @throws {ContentError} - on userId or postId wrong characters.
  */
 
 const toggleFavouritePost = (userId, postId) => {

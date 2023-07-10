@@ -12,6 +12,8 @@ const {
  * @param {string} postId - The ID of the post to retrieve.
  * @returns {Promise<object>} - A promise that resolves to the retrieved post object.
  * @throws {ExistenceError} - If the user with the provided ID or the post with the provided ID does not exist.
+ * @throws {TypeError} - on userId or postId wrong type.
+ * @throws {ContentError} - on userId or postId wrong characters.
  */
 
 const retrievePost = (userId, postId) => {

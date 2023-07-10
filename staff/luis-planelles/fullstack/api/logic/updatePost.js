@@ -14,6 +14,8 @@ const { ObjectId } = require('mongodb');
  * @returns {Promise<object>} - A promise that resolves to the result of the update operation.
  * @throws {ExistenceError} - If the user with the provided ID or the post with the provided ID does not exist.
  * @throws {Error} - If the post does not belong to the user.
+ * @throws {TypeError} - on userId, postId, image, or text wrong type.
+ * @throws {ContentError} - on userId, postId, image, or text wrong characters.
  */
 
 const updatePost = (userId, postId, image, text) => {

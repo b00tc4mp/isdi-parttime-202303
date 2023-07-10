@@ -11,6 +11,8 @@ const { ObjectId } = require('mongodb');
  * @param {string} newAvatar - The new avatar URL for the user.
  * @returns {Promise<object>} - A promise that resolves to the result of the update operation.
  * @throws {ExistenceError} - If the user with the provided ID does not exist.
+ * @throws {TypeError} - on userId or url wrong type.
+ * @throws {ContentError} - on userId or url wrong characters.
  */
 
 const updateUserAvatar = (userId, newAvatar) => {

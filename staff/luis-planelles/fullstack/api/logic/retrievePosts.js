@@ -9,6 +9,8 @@ const {
  * @param {string} userId - The ID of the user to filter the posts by.
  * @returns {Promise<Array<object>>} - A promise that resolves to an array of retrieved post objects.
  * @throws {ExistenceError} - If the user with the provided ID does not exist.
+ * @throws {TypeError} - on userId wrong type.
+ * @throws {ContentError} - on userId wrong characters.
  */
 
 const retrievePosts = (userId) => {

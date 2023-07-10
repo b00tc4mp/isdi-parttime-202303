@@ -1,3 +1,4 @@
+const { ContentError } = require('com/errors');
 const context = require('./context');
 const {
   validators: { validateEmail, validatePassword },
@@ -11,6 +12,9 @@ const {
  * @returns {Promise<string>} - A promise that resolves to the user ID as a string.
  * @throws {ExistenceError} - If the user does not exist.
  * @throws {AuthError} - If the provided credentials are incorrect.
+ * @throws {TypeError} - on password or email arent a string
+ * @throws {RangeError} - on password length is lower than 8 characters
+ * @throws {ContentError} - on password or email not content expected characters
  */
 
 const authenticateUser = (email, password) => {
