@@ -4,8 +4,6 @@ import updateUserAvatar from '../logic/updateUserAvatar'
 import Container from '../library/Container'
 
 export default function Profile({ onUserAvatarUpdated }) {
-    console.debug('Profile -> render')
-
     const handleUpdateAvatar = event => {
         event.preventDefault()
 
@@ -18,7 +16,7 @@ export default function Profile({ onUserAvatarUpdated }) {
 
                     return
                 }
-
+                
                 onUserAvatarUpdated()
             })
 
@@ -26,6 +24,8 @@ export default function Profile({ onUserAvatarUpdated }) {
             alert(error.message)
         }
     }
+
+    console.debug('Profile -> render')
 
     return <Container tag="section">
         <h2>Update avatar</h2>

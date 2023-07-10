@@ -7,17 +7,21 @@ import Alert from './components/Alert'
 import AppContext from './AppContext'
 import { Loader } from './library'
 import { utils } from 'com'
-import { Routes, Route, Navigate, useNavigate } from 'react-router-dom'
 
 const { Provider } = AppContext
 const { isTokenValid, isTokenAlive } = utils
 
 export default function App() {
-    console.debug('App -> render')
-
+    const { token } = context
+    const [view, setView] = useState(isTokenValid(token) && isTokenAlive(token) ? 'home' : 'login')
     const [feedback, setFeedback] = useState(null)
     const [loader, setLoader] = useState(false)
-    const navigate = useNavigate()
+
+    const handleGoToRegister = () => setView('register')
+
+    const handleGoToLogin = () => setView('login')
+
+    const handleGoToHome = () => setView('home')
 
     const handleAcceptAlert = () => setFeedback(null)
 
@@ -27,14 +31,12 @@ export default function App() {
 
     const unfreeze = () => setLoader(false)
 
-    return <Provider value={{ alert, freeze, unfreeze, navigate }}>
-        <Routes>
-            {(() => console.log('Routes -> render'))()}
-            <Route path="/login" element={isTokenValid(context.token) && isTokenAlive(context.token) ? <Navigate to="/" /> : <Login />} />
-            <Route path="/register" element={isTokenValid(context.token) && isTokenAlive(context.token) ? <Navigate to="/" /> : <Register />} />
-            <Route path="/" element={isTokenValid(context.token) && isTokenAlive(context.token) ? <Home /> : <Navigate to="/login" />} />
-        </Routes>
+    console.debug('App -> render')
 
+    return <Provider value={{ alert, freeze, unfreeze }}>
+        {view === 'login' && <Login onRegisterClick={handleGoToRegister} onUserLoggedIn={handleGoToHome} />}
+        {view === 'register' && <Register onLoginClick={handleGoToLogin} onUserRegistered={handleGoToLogin} />}
+        {view === 'home' && <Home onLoggedOut={handleGoToLogin} />}
         {feedback && <Alert message={feedback.message} level={feedback.level} onAccept={handleAcceptAlert} />}
         {loader && <Loader />}
     </Provider>

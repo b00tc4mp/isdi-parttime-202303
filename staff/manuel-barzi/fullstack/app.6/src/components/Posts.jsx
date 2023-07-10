@@ -5,8 +5,6 @@ import { useState, useEffect } from 'react'
 import { useAppContext } from '../hooks'
 
 export default function Posts({ onEditPost, lastPostsUpdate, user }) {
-    console.debug('Posts -> render')
-
     const { alert, freeze, unfreeze } = useAppContext()
     const [posts, setPosts] = useState()
 
@@ -33,11 +31,19 @@ export default function Posts({ onEditPost, lastPostsUpdate, user }) {
     }
 
     useEffect(() => {
+        console.debug('Posts -> "componentDidMount" with hooks')
+
+        return () => console.debug('Posts -> "componentWillUnmount" with hooks')
+    }, [])
+
+    useEffect(() => {
         console.debug('Posts -> "componentWillReceiveProps" with hooks')
 
         if (lastPostsUpdate)
             handleRefreshPosts()
     }, [lastPostsUpdate])
+
+    console.debug('Posts -> render')
 
     return <section>
         {posts && posts.map(post => <Post

@@ -1,13 +1,15 @@
 import registerUser from '../logic/registerUser'
 import { Container, Form, Input, Button } from '../library'
 import { useAppContext } from '../hooks'
-import { Link, useNavigate } from 'react-router-dom'
 
-export default function Register({ onUserRegistered }) {
-    console.debug('Register -> render')
+export default function Register({ onLoginClick, onUserRegistered }) {
+    const { alert } = useAppContext()
 
-    const { alert, navigate } = useAppContext()
-    // const navigate = useNavigate()
+    const handleLoginClick = event => {
+        event.preventDefault()
+
+        onLoginClick()
+    }
 
     const handleRegister = function (event) {
         event.preventDefault()
@@ -17,13 +19,25 @@ export default function Register({ onUserRegistered }) {
         const password = event.target.password.value
 
         try {
+            // registerUser(name, email, password, error => {
+            //     if (error) {
+            //         alert(error.message)
+
+            //         return
+            //     }
+
+            //     onUserRegistered()
+            // })
+
             registerUser(name, email, password)
-                .then(() => navigate('/login'))
+                .then(() => onUserRegistered())
                 .catch(error => alert(error.message))
         } catch (error) {
             alert(error.message)
         }
     }
+
+    console.debug('Register -> render')
 
     return <Container tag="main">
         <h1 className="title">Register</h1>
@@ -35,6 +49,6 @@ export default function Register({ onUserRegistered }) {
             <Button type="submit">Register</Button>
         </Form>
 
-        <p>Go to <Link to="/login">Login</Link></p>
+        <p>Go to <a href="" onClick={handleLoginClick}>Login</a></p>
     </Container>
 }

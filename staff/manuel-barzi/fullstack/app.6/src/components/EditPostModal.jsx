@@ -5,8 +5,6 @@ import { useState, useEffect } from 'react'
 import Container from '../library/Container'
 
 export default function EditPostModal({ onCancel, onPostUpdated, postId }) {
-    console.debug('EditPostModal -> render')
-
     const [post, setPost] = useState(null)
 
     function handleCancel(event) {
@@ -46,6 +44,9 @@ export default function EditPostModal({ onCancel, onPostUpdated, postId }) {
             alert(error.message)
         }
     }, [postId])
+
+
+    console.debug('EditPostModal -> render')
 
     return <>
         {post && <Container tag="section" className="modal">

@@ -4,14 +4,10 @@ import { useEffect, useState } from 'react'
 import retrieveRandomMotivationalQuote from '../logic/retrieveRandomMotivationalQuote'
 import { Container, Form, Input, Button } from '../library'
 import { useAppContext } from '../hooks'
-import { Link, useNavigate } from 'react-router-dom'
 
-export default function Login({ onUserLoggedIn }) {
-    console.debug('Login -> render')
-
-    const { alert, freeze, unfreeze, navigate } = useAppContext()
+export default function Login({ onRegisterClick, onUserLoggedIn }) {
+    const { alert, freeze, unfreeze } = useAppContext()
     const [quote, setQuote] = useState(null)
-    // const navigate = useNavigate()
 
     useEffect(() => {
         try {
@@ -33,6 +29,12 @@ export default function Login({ onUserLoggedIn }) {
         }
     }, [])
 
+    const handleRegisterClick = event => {
+        event.preventDefault()
+
+        onRegisterClick()
+    }
+
     const handleLogin = event => {
         event.preventDefault()
 
@@ -40,17 +42,31 @@ export default function Login({ onUserLoggedIn }) {
         const password = event.target.password.value
 
         try {
+            // authenticateUser(email, password, (error, token) => {
+            //     if (error) {
+            //         alert(error.message, 'error')
+
+            //         return
+            //     }
+
+            //     context.token = token
+
+            //     onUserLoggedIn()
+            // })
+
             authenticateUser(email, password)
                 .then(token => {
                     context.token = token
 
-                    navigate('/')
+                    onUserLoggedIn()
                 })
                 .catch(error => alert(error.message, 'error'))
         } catch (error) {
             alert(error.message, 'warn')
         }
     }
+
+    console.debug('Login -> render')
 
     return <Container tag="main">
         <h1 className="text-[var(--primary)]">Login</h1>
@@ -63,7 +79,7 @@ export default function Login({ onUserLoggedIn }) {
             <Button type="submit">Login</Button>
         </Form>
 
-        <p>Go to <Link to="/register">Register</Link></p>
+        <p>Go to <a href="" onClick={handleRegisterClick}>Register</a></p>
 
         <p className="helloworld helloworld--fluo bg-[orange]">
             Hello, World!

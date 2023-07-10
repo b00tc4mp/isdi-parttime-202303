@@ -8,8 +8,6 @@ import { utils } from 'com'
 const { extractSubFromToken } = utils
 
 export default function Post({ post: { id, image, text, date, likes, author, fav }, onEditPost, onToggledLikePost, onPostDeleted, onToggledSavePost }) {
-    console.debug('Post -> render')
-
     const { alert, freeze, unfreeze } = useAppContext()
 
     const handleEditPost = () => onEditPost(id)
@@ -66,6 +64,8 @@ export default function Post({ post: { id, image, text, date, likes, author, fav
             alert(error.message)
         }
     }
+
+    console.debug('Post -> render')
 
     const userId = extractSubFromToken(context.token)
 

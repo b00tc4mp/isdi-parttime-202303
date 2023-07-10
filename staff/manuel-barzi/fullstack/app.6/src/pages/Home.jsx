@@ -7,23 +7,28 @@ import './Home.css'
 import { context } from '../ui'
 import retrieveUser from '../logic/retrieveUser'
 import Container from '../library/Container'
-import { useAppContext } from '../hooks'
-// import { useNavigate } from 'react-router-dom'
 
-export default function Home() {
-    console.debug('Home -> render')
-
+export default function Home({ onLoggedOut }) {
     const [view, setView] = useState('posts')
     const [modal, setModal] = useState(null)
     const [postId, setPostId] = useState(null)
     const [lastPostsUpdate, setLastPostsUpdate] = useState(null)
     const [user, setUser] = useState()
-    const { navigate } = useAppContext()
-    // const navigate = useNavigate()
 
     useEffect(() => {
         try {
-            context.token && retrieveUser(context.token)
+            // retrieveUser(context.token, (error, user) => {
+            //     if (error) {
+            //         alert(error.message)
+
+            //         return
+            //     }
+
+            //     setUser(user)
+            // })
+
+            retrieveUser(context.token)
+                //.then(user => setUser(user))
                 .then(setUser)
                 .catch(error => alert(error.message))
         } catch (error) {
@@ -59,7 +64,7 @@ export default function Home() {
     const handleLogout = () => {
         delete context.token
 
-        navigate('/login')
+        onLoggedOut()
     }
 
     const handleUserAvatarUpdated = () => {
@@ -77,6 +82,8 @@ export default function Home() {
             alert(error.message)
         }
     }
+
+    console.debug('Home -> render')
 
     return <div className="home">
         <header className="home-header">
