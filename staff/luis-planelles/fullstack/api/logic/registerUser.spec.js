@@ -17,6 +17,8 @@ describe('registerUser', () => {
 
       context.users = db.collection('users');
       context.posts = db.collection('posts');
+
+      context.users.createIndex({ email: 1 }, { unique: true });
     });
   });
 
@@ -78,15 +80,10 @@ describe('registerUser', () => {
   it('fails on existing user', () => {
     return populate([user], [])
       .then(() => context.users.find().toArray())
-      .then((users) => {
-        expect(users).to.have.length(1);
-      })
-      .then(() => {
-        registerUser(user.name, user.email, user.password);
-      })
+      .then((users) => expect(users).to.have.length(1))
+      .then(() => registerUser(user.name, user.email, user.password))
       .catch((error) => {
         expect(error).to.be.instanceOf(Error);
-        console.log(error);
         expect(error.message).to.equal(
           `user with email ${user.email} already exists`
         );
