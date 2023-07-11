@@ -1,0 +1,32 @@
+.topbar-container{
+    width: 100%;
+    height: 64px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 16px;
+    padding-right: 16px;
+    box-sizing: border-box;
+    display: none;
+    position: fixed;
+    background-color: #FFFFFF;
+    z-index: 50;
+}
+
+.topbar-right-side{
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+}
+
+.topbar-avatar{
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+@media (max-width: 798px){
+    .topbar-container {display: flex;}
+ }
