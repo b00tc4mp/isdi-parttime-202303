@@ -1,25 +1,18 @@
-const { validators: { validateId }} = require('com')
-  
-  const context = require('./context')
-  const { ObjectId } = require('mongodb')
-  
-  module.exports = function retrievePost(userId, postId) {
-    validateId(userId, 'User ID')
-    validateId(postId, 'Post ID')
-  
-    const { users, posts } = context
-  
+const { validators: { validateId } } = require('com')
+const { User, Post } = require('../data/models')
+
+module.exports = (userId, postId) => {
+    validateId(userId, 'user id')
+    validateId(postId, 'post id')
+
     return Promise.all([
-      users.findOne({ _id: new ObjectId(userId) }),
-      posts.findOne({ _id: new ObjectId(postId) }),
-    ]).then(([user, post]) => {
-      if (!user) throw new Error('User not found!')
-  
-      if (!post) throw new Error('Post not found!')
-  
-      //const index = post.likes.map((id) => id.toString()).indexOf(userId)
-  
-      console.log(post)
-      return post
-    })
-  }
+        User.findById(userId).lean(),
+        Post.findById(postId, '-_id -__v -likes -date -author').lean()
+    ])
+        .then(([user, post]) => {
+            if (!user) throw new Error(`user with id ${userId} not found`)
+            if (!post) throw new Error(`post with id ${postId} not found`)
+
+            return post
+        })
+}

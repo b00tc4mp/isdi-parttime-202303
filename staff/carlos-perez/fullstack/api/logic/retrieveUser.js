@@ -1,14 +1,24 @@
-const { validators: { validateId } } = require('com')
-const context = require('./context')
-const { ObjectId } = require('mongodb')
+const {
+    validators: { validateId },
+    errors: { ExistenceError }
+} = require('com')
+const { User } = require('../data/models')
 
+/**
+ * Retrieves a user by id
+ * 
+ * @param {string} userId ...
+ * @returns {Promise<Object>} ...
+ */
 module.exports = userId => {
     validateId(userId, 'user id')
-    const { users } = context
 
-    return users.findOne({ _id: new ObjectId(userId) })
+    return User.findById(userId).lean()
         .then(user => {
-            if (!user) throw new Error('user not found')
+            if (!user) throw new ExistenceError('user not found')
+
+            // sanitize
+
             delete user._id
             delete user.password
             delete user.favs

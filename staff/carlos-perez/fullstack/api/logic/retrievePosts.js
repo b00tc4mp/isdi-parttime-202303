@@ -1,32 +1,26 @@
 const { validators: { validateId } } = require('com')
-const context = require('./context')
+const { User, Post } = require('../data/models')
 
 module.exports = userId => {
     validateId(userId, 'user id')
 
-    const { users, posts } = context
-
-    return Promise.all([users.find().toArray(), posts.find().toArray()])
-        .then(([users, posts]) => {
-            const user = users.find(user => user._id.toString() === userId)
-
+    return Promise.all([
+        User.findById(userId).lean(),
+        Post.find().sort('-date').populate('author', '-password -favs -__v').lean()
+    ])
+        .then(([user, posts]) => {
             if (!user) throw new Error(`user with id ${userId} not found`)
 
             posts.forEach(post => {
                 post.id = post._id.toString()
                 delete post._id
 
-                const author = users.find(user => user._id.toString() === post.author.toString())
+                post.fav = user.favs.some(fav => fav.toString() === post.id)
 
-                const { _id, name, avatar } = author
-
-                post.author = {
-                    id: _id.toString(),
-                    name,
-                    avatar
+                if (post.author._id) {
+                    post.author.id = post.author._id.toString()
+                    delete post.author._id
                 }
-
-                //post.fav = user.favs.some(fav => fav.toString() === post.id)
             })
 
             return posts
