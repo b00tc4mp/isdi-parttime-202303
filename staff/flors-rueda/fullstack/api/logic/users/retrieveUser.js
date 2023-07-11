@@ -1,18 +1,17 @@
 const { validators: { validateId } } = require('com');
 
-const context = require('../context')
-const { ObjectId } = require('mongodb')
+const { User } = require('../../data/models')
 
 module.exports = function retrieveUser(userId) {
     validateId(userId);
 
-    const { users } = context;
+    return User.findById(userId).then(foundUser => {
+        if (!foundUser) throw new Error('user not found');
 
-    return users.findOne({ _id: new ObjectId(userId) }).then((user) => {
-        if (!user) throw new Error('user not found');
+        const { username, name, mail, avatar } = foundUser;
 
-        const { username, name, mail, avatar, joined } = user;
+        const user = { username, name, mail, avatar }
 
-        return { username, name, mail, avatar, joined };
+        return user;
     })
 }

@@ -23,18 +23,17 @@ const Register = ({ onLoginClick, onUserRegistered }) => {
         const repeatPassword = event.target.password.value;
 
         try {
-            registerUser(mail, username, password, repeatPassword, error => {
-                if (error) {
-                    alert(`register error: ${error.message}`, 'danger');
-                    return;
-                }
+            registerUser(mail, username, password, repeatPassword).then(() => {
                 onUserRegistered();
                 alert(`${username}, your account has been created. You can sign in now!`, 'success');
-                setIsLoading(false)
-            });
+                setIsLoading(false);
+            })
+                .catch(error => {
+                    alert(`register error: ${error.message}`, 'danger');
+                    return;
+                })
         } catch (error) {
             alert(`register error: ${error.message}`, 'danger');
-            setIsLoading(false);
         }
     }
 

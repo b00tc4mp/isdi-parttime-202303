@@ -10,35 +10,20 @@ const { validateCallback, validateId } = validators;
  * 
  * @returns a user object
 */
-export default (userId, callback) => {
+export default (userId) => {
   validateId(userId);
-  validateCallback(callback);
 
-  const xhr = new XMLHttpRequest;
-
-  xhr.onload = () => {
-    const { status } = xhr;
-
-    if (status !== 200) {
-      const { response: json } = xhr;
-      const { error } = JSON.parse(json);
-
-      callback(new Error(error));
-
-      return;
+  return fetch(`${import.meta.env.VITE_API_URL}/users/${userId}`, {
+    method: 'GET',
+    headers: {
+      'Content-type': 'application/json',
+      'Authorization': `Bearer ${token}`
     }
+  })
+    .then(res => {
+      if (res.status !== 200) return res.json().then(({ error }) => { throw new Error(error) })
 
-    const { response: json } = xhr;
-    const user = JSON.parse(json);
-
-    callback(null, user);
-  }
-
-  xhr.onerror = () => {
-    callback(new Error('connection error'));
-  }
-
-  xhr.open('GET', `${import.meta.env.VITE_API_URL}/users/${userId}`)
-
-  xhr.send();
+      return res.json()
+    })
 }
+

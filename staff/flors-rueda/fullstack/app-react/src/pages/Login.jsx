@@ -18,21 +18,24 @@ const Login = ({ onRegisterClick, onUserLoggedIn }) => {
         const username = event.target.username.value;
         const password = event.target.password.value;
         try {
-            authenticateUser(username, password, (error, userId) => {
-                if (error) {
-                    alert(`login error: ${error.message}`, 'danger');
-                    return;
-                }
-                context.userAuth = userId
+            authenticateUser(username, password).then(token => {
+                context.token = token
                 onUserLoggedIn()
             })
+                .catch(error => {
+                    alert(`login error: ${error.message}`, 'danger');
+                    return;
+                })
+            if (error) {
+                alert(`login error: ${error.message}`, 'danger');
+                return;
+            }
         } catch (error) {
             alert(`login error: ${error.message}`, 'danger');
         }
     }
 
     return <section className="login-page" onSubmit={handleLogin}>
-        {/*alert should go in here*/}
         <section className="login-page__login">
             <h1 className="login-page__login__title">Login</h1>
             <form className="login-page__login__form" method="get">

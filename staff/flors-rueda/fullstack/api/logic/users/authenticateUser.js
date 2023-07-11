@@ -1,6 +1,5 @@
 const { validators: { validatePassword, validateUsername } } = require('com');
-
-const context = require('../context');
+const { User } = require('../../data/models');
 
 module.exports = function authenticateUser(userName, password) {
     validateUsername(userName);
@@ -8,13 +7,13 @@ module.exports = function authenticateUser(userName, password) {
 
     const username = `@${userName.toLowerCase()}`;
 
-    const { users } = context;
+    return User.findOne({ username })
+        .then(user => {
+            if (!user) throw new Error(`user with username ${username} not found`)
 
-    return users.findOne({ username }).then((user) => {
-        if (!user) throw new Error(`user with username ${username} not found`);
+            if (user.password !== password) throw new Error('wrong credentials')
 
-        if (user.password !== password) throw new Error('wrong credentials');
-
-        return user._id.toString();
-    })
+            return user.id
+        })
 }
+

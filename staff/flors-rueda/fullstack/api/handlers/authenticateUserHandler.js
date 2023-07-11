@@ -14,7 +14,7 @@ module.exports = (req, res) => {
 
                 const token = jwt.sign(payload, JWT_SECRET, { expiresIn: JWT_EXPIRATION })
 
-                res.json(token)
+                res.status(200).json(token)
             })
             .catch((error) => res.status(400).json({ error: error.message }));
 
