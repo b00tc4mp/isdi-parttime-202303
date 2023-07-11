@@ -1,0 +1,111 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --lightbasecolor: #f8f3e4;
+  --text: #231f20;
+  --pink: #fad0c3;
+  --white: #fff;
+  --red: #ee3020;
+  --burgundy: #63252a;
+
+}
+
+
+body {
+  width: 100vw;
+  height: 100vh;
+    margin: 0;
+    font-family: sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    color: var(--text);
+    overflow-x: hidden;
+    background: var(--lightbasecolor);
+    display: flex;
+    justify-content: center;
+}
+
+/* library */
+
+:root.dark {
+  --lightbasecolor: rgb(26, 25, 25);
+  --darkbasecolor: rgb(104, 103, 101);
+  --color: white;
+  
+}
+
+.title {
+  font-family: sans-serif;
+  font-size: 20px;
+  font-weight: bold;
+  color: var(--text);
+}
+
+
+h2 {
+  font-family: sans-serif;
+  font-size: 18px;
+  font-weight: lighter;
+  color: var(--text);
+}
+
+
+a {
+  color: var(--red);
+  font-weight: bold;
+}
+
+.form { 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-width: 25rem;
+  gap:1.5rem;
+  box-sizing: border-box;
+  padding: 2.5rem ;
+}
+
+.input {
+  padding: 8px 5px;
+  border-radius: .5rem;
+  border: 1px solid var(--white);
+  background-color: var(--white);
+  font-size: 14px;
+  width: 100%;
+  font-family: sans-serif;
+}
+
+
+.button {
+  background-color: var(--red);
+  color: var(--white);
+  cursor: pointer;
+  padding: 1rem 2.5rem;
+  font-weight: bold;
+  font-size: 14px;
+  border-radius: 50px;
+  border: 0.1rem solid var(--red);
+  width: 100%;
+}
+
+.update {
+  border: 0.2rem solid var(--red);
+  color: var(--red);
+  background-color: transparent;
+}
+
+
+/* @media (max-width: 700px) {
+  .title, .profile-link {
+      font-size: 14px;
+  }
+
+  .h2, .input, button {
+      font-size: 12px;
+  }
+  
+} */
+
