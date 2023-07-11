@@ -1,11 +1,11 @@
-const retrieveFavPosts = require('./retrieveFavPosts')
+require('dotenv').config()
 
-retrieveFavPosts('user-1', (error, posts) => {
-    if(error){
-        console.error(error)
-        return
-    }
+const mongoose = require('mongoose')
+const retrieveFavPosts = require('./retrievePosts')
 
-    console.log(posts)
-    console.log('fav posts retreived')
-})
+mongoose.connect(process.env.MONGODB_URL)
+    .then(() => retrieveFavPosts("64ac3076cca3c7f9cdb065b0"))
+    .then(posts => console.log(posts))
+    .catch(console.error)
+    .finally(mongoose.disconnect)
+

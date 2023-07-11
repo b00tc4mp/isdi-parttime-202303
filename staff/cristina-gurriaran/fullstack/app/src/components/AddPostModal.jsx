@@ -7,7 +7,7 @@ import Container from '../library/Container'
 
 export default function AddPostModal({ onCancel, onPostCreated }) {
 
-    const { alert } = useAppContext()
+    const { alert, freeze, unfreeze } = useAppContext()
 
     function handleCancel(event) {
         event.preventDefault()
@@ -25,19 +25,22 @@ export default function AddPostModal({ onCancel, onPostCreated }) {
 
         try {
             
-            createPost(context.token, image, location, title, text, (error, post) => {
-                if(error){
-                    alert(error.message)
-                    return
-                }
-                onPostCreated()
-            })
+            createPost(context.token, image, location, title, text) 
+                .then(() => {
+                    unfreeze()
+                    onPostCreated()
+                })
+                .catch((error) => {
+                    unfreeze()
 
-           
-        } catch(error) {
+                    alert(error.message, )
+                })
+        } catch (error) {
+            unfreeze()
             alert(error.message)
         }
     }
+            
 
     console.log('AddPostModal -> render')
 

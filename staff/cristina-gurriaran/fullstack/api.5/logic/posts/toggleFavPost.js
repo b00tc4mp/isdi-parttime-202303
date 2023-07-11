@@ -1,4 +1,4 @@
-require('dotenv').config()
+require('../../../api.6/node_modules/dotenv/lib/main').config()
 const { readFile, writeFile } = require('fs')
 const { validators: { validateId, validateCallback } } = require('com')
 

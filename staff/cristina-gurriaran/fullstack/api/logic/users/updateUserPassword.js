@@ -2,11 +2,10 @@ const {
     validators: { validateId, validatePassword },
     errors: { ExistenceError, ContentError, AuthError}
 } = require('com')
-const context = require('../context')
-const { ObjectId } = require('mongodb')
+const { User } = require('../../data/models')
 
 
-module.exports = function updateUserPassword(userId, password, newPassword, newPasswordConfirm){
+module.exports = (userId, password, newPassword, newPasswordConfirm) => {
     validateId(userId, 'user id')
     validatePassword(password)
     validatePassword(newPassword, 'new password')
@@ -14,9 +13,7 @@ module.exports = function updateUserPassword(userId, password, newPassword, newP
     validatePassword(newPasswordConfirm, 'new password confirm')
     if (newPassword !== newPasswordConfirm) throw new ContentError ('password confirmation mismatch')
 
-    const { users } = context
-
-    return users.findOne({ _id: new ObjectId(userId )})
+    return User.findById(userId)
         .then(user => {
             if(!user) {
                 throw new ExistenceError ('User not found') }
@@ -25,6 +22,8 @@ module.exports = function updateUserPassword(userId, password, newPassword, newP
                 throw new AuthError ('wrong password')
             }
 
-            return users.updateOne({ _id: new ObjectId(userId)}, {$set: {password : newPassword}})
+            return User.updateOne({ _id: userId }, {$set: {password : newPassword}})
         })
+
+        .then(() => { })
 }

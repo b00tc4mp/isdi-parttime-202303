@@ -15,16 +15,17 @@ export default function FavPosts(user){
         freeze()
 
         try{ 
-            retrieveFavPosts(context.token, (error, posts) => {
-                unfreeze()
-                if(error){
-                    alert(error.message)
-                    return
-                }
-                setFavPosts(posts)    
-            })
-            
+            retrieveFavPosts(context.token)
+                .then((favPosts) => {
+                    unfreeze()
+                    setFavPosts(favPosts)    
+                })
+                .catch((error) => {
+                    unfreeze()
+                    alert(error.message, 'error')
+                })            
         } catch(error) {
+            unfreeze()
             alert(error.message)
         }
     }

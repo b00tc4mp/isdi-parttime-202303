@@ -2,28 +2,34 @@ const {
     validators: { validateId },
     errors: { ExistenceError },
  } = require('com')
-const context = require('../context')
-const { ObjectId } = require('mongodb')
 
+const { User, Post } = require('../../data/models')
 
+module.exports = (userId) => {
+    validateId(userId, 'user id')
 
-module.exports = function retrieveFavPosts(userId){
-    validateId (userId, 'user id')
+    return Promise.all([
+        User.findById(userId).lean(),
+        Post.find().sort('-date').populate('author', '-password -__v').lean()
+    ])
+        .then(([user, posts ]) => {
+            if (!user) throw new ExistenceError(`User with id ${userId} not found`)
 
-    const { users, posts } = context 
+                posts.forEach(post => {
+                post.id = post._id.toString()
+                delete post._id
 
-    return Promise.all([users.findOne({ _id: new ObjectId(userId)}), posts.find().toArray()])
-        .then(([user, posts]) => {
-            if (!user) throw new ExistenceError(`user with id ${userId} not found`)
+                if (post.author._id) {
+                    post.author.id = post.author._id.toString()
+                    delete post.author._id
+                }   
+            })
+            const favPosts = posts.filter(post => user.favs.some(id => id.toString() === post.id))
 
-            // posts.forEach(post => {
-            //     post.id = post._id.toString()
-            //     delete post._id
-            // })
-
-            const favPosts = posts.filter(post => user.favs.some(id => id.toString() === post._id.toString()))
-
-            return favPosts
+            return favPosts     
         })
 }
+
+
+
 

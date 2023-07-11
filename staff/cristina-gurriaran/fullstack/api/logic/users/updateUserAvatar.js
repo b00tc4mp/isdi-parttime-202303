@@ -2,21 +2,21 @@ const {
     validators: { validateId, validateUrl },
     errors : { ExistenceError }
 } = require('com')
-const context = require('../context')
-const { ObjectId } = require('mongodb')
+const { User } = require('../../data/models')
 
-module.exports = function updateUserAvatar(userId, avatar){
+
+module.exports = (userId, avatar) => {
     validateId(userId, 'user id')
-    validateUrl(avatar, 'avatar url')
+    validateUrl(avatar, 'avatar url API')
 
-    const { users } = context
-
-    return users.findOne({ _id: new ObjectId(userId)})
+    return User.findById(userId)
         .then(user => {
             if(!user){
                 throw new ExistenceError ('user not found')
             }
 
-            return users.updateOne({ _id: new ObjectId(userId)}, {$set: { avatar: avatar }})
+            return User.updateOne({ _id: userId }, {$set: { avatar: avatar }})
         })
+        
+        .then(() => { })
 }

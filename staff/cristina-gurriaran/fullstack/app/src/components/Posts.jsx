@@ -11,23 +11,23 @@ export default function Posts({ onEditPost , lastPostsUpdate, user }) {
     useEffect(() => handleRefreshPosts(), [])
     
     const handleRefreshPosts = () => {
+        freeze()
         try {
-            freeze()
-            retrievePosts(context.token, (error, posts) => {
-                unfreeze()
-                if(error){
-                    alert(error.message)
-                    return
-                }
-
-                setPosts(posts)
-            })
+            retrievePosts(context.token)
+                .then((posts) => {
+                    unfreeze()
+                    setPosts(posts)
+                })
+                .catch((error) => {
+                    unfreeze()
+                    alert(error.message, 'error')
+                })
 
         } catch (error) {
-            alert(error.message)
+            unfreeze()
+            alert(error.message, 'warn')
         }
     }
-
 
     useEffect(() => {
         if(lastPostsUpdate)

@@ -1,6 +1,6 @@
 const { validators: { validateId, validateUrl } } = require('com')
 const context = require('../context')
-const { ObjectId } = require('mongodb')
+const { ObjectId } = require('../../../api.6/node_modules/mongodb/mongodb')
 
 module.exports = function updateUserAvatar(userId, avatar){
     validateId(userId, 'user id')

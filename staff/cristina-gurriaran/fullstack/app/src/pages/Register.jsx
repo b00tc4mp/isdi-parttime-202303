@@ -4,7 +4,6 @@ import Container from "../library/Container"
 
 
 export default function Register({ onLoginClick, onUserRegistered }) {
-    
     const { alert } = useAppContext()
 
     function handleLoginClick(event) {
@@ -14,7 +13,6 @@ export default function Register({ onLoginClick, onUserRegistered }) {
     }
 
     function handleRegister(event){
-
         event.preventDefault()
 
         const name = event.target.name.value
@@ -22,15 +20,9 @@ export default function Register({ onLoginClick, onUserRegistered }) {
         const password = event.target.password.value
 
         try {
-            registerUser(name, email, password, error => {
-                if(error){
-                    alert(error.message)
-                    return
-                }
-
-                onUserRegistered()
-            })
-    
+            registerUser(name, email, password)
+                .then(() => onUserRegistered())
+                .catch(error => alert(error.message))
         } catch (error) {
             alert(error.message)
         }

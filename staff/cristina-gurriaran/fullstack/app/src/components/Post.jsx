@@ -8,44 +8,48 @@ import { utils } from 'com'
 
 const { extractSubFromToken } = utils
 
-export default function Post({ post: { id, image, location, title, text, date, likes, author, favs }, onEditPost, onToggledLikePost, onPostDeleted, onToggledSavePost}) {
+export default function Post({ post: { id, image, location, title, text, date, likes, author, fav }, onEditPost, onToggledLikePost, onPostDeleted, onToggledSavePost}) {
     
     const { alert, freeze, unfreeze } = useAppContext()
 
     const handleEditPost = () => onEditPost(id)
 
-    const handleToggleLikePost = () => {
+    const handleDeletePost = () => {
         try {
             freeze()
-            toggleLikePost(context.token, id, error => {
-                unfreeze()
-                if(error){
-                    alert(error.message)
-                    return
-                   
-                }
-                onToggledLikePost()
-            })
+            deletePost(context.token, id)
+                .then(() => {
+                    unfreeze()
+                    onPostDeleted()
+                })
 
-        } catch(error) {
+                .catch((error) => {
+                    unfreeze()
+                    alert(error.message)
+                })
+
+        } catch (error) {
+            unfreeze()
             alert(error.message)
         }
     }
 
-    const handleDeletePost = () => {
+    const handleToggleLikePost = () => {
         try {
             freeze()
-            deletePost(context.token, id, error => {
-                unfreeze()
-                if(error){
+            toggleLikePost(context.token, id)
+                .then(() => {
+                    unfreeze()
+                    onToggledLikePost()
+                })
+
+                .catch((error) => {
+                    unfreeze()
                     alert(error.message)
-                    return
-                }
+                })
 
-                onPostDeleted()
-            })
-
-        } catch(error) {
+        } catch (error) {
+            unfreeze()
             alert(error.message)
         }
     }
@@ -53,17 +57,19 @@ export default function Post({ post: { id, image, location, title, text, date, l
     const handleToggleSavePost = () => {
         try {
             freeze()
-            toggleFavPost(context.token, id, error => {
-                unfreeze()
-                if(error){
-                    alert(error.message)
-                    return
-                }
+            toggleFavPost(context.token, id)
+                .then(() => {
+                    unfreeze()
+                    onToggledSavePost()
+                })
 
-                onToggledSavePost()
-            })
-            
-        } catch(error) {
+                .catch((error) => {
+                    unfreeze()
+                    alert(error.message)
+                })
+
+        } catch (error) {
+            unfreeze()
             alert(error.message)
         }
     }
@@ -93,7 +99,7 @@ export default function Post({ post: { id, image, location, title, text, date, l
                     {author.id === userId && <button className='post-button' onClick={handleEditPost}>📝</button>}
                     {author.id === userId && <button className='post-button' onClick={handleDeletePost}>🗑</button>}
                     <button className='post-button'onClick={handleToggleLikePost}>{likes && likes.includes(userId) ? '❤️' : '🤍'} ({likes ? likes.length : 0})</button>
-                    <button className='post-button'onClick={handleToggleSavePost}>{favs ? '⭐️' : '✩'}</button>
+                    <button className='post-button'onClick={handleToggleSavePost}>{fav ? '⭐️' : '✩'}</button>
                 </div>
             </div>
 

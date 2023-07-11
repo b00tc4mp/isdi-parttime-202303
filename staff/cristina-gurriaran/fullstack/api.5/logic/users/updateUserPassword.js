@@ -1,8 +1,8 @@
-require('dotenv').config()
+require('../../../api.6/node_modules/dotenv/lib/main').config()
 const { readFile, writeFile } = require('fs')
 const { validators: { validateId, validatePassword } } = require('com')
 const context = require('../context')
-const { ObjectId } = require('mongodb')
+const { ObjectId } = require('../../../api.6/node_modules/mongodb/mongodb')
 
 
 module.exports = function updateUserPassword(userId, password, newPassword, newPasswordConfirm){

@@ -1,10 +1,10 @@
+require('dotenv').config()
+
+const mongoose = require('mongoose')
 const retrievePost = require('./retrievePost')
 
-retrievePost('user-1','post-1', (error, post) => {
-    if(error){
-        console.error(error)
-        return
-    }
-
-    console.log(post)
-})
+mongoose.connect(process.env.MONGODB_URL)
+    .then(() => retrievePost("64ac3076cca3c7f9cdb065b0"))
+    .then(posts => console.log(posts))
+    .catch(console.error)
+    .finally(mongoose.disconnect)

@@ -17,15 +17,10 @@ export default function Profile({ onUserAvatarUpdated, onUpdatedUserPassword }) 
 
     useEffect(() => {
         try {
-            retrieveUser(context.token, (error, user) => {
-                if(error){
-                    alert(error.message)
-                    return
-                }
+            retrieveUser(context.token)
 
-                setUser(user)
-            })
-
+                .then(setUser)
+                .catch(error => alert(error.message))
         } catch (error) {
             alert(error.message)
         }
@@ -34,23 +29,20 @@ export default function Profile({ onUserAvatarUpdated, onUpdatedUserPassword }) 
     const handleUpdateAvatar = event => {
         event.preventDefault()
 
-        const url = event.target.url.value
+        const avatar = event.target.url.value
 
         try {
-            updateUserAvatar(context.token, url, error => {
-                if(error){
+            updateUserAvatar(context.token, avatar)
+                .then(() => {
+                    onUserAvatarUpdated()
+                })
+                .catch((error) => {
                     alert(error.message)
-                    return
-                }
-                onUserAvatarUpdated()
-            })
-            
-
+                })
+        
         } catch (error) {
             alert(error.message)
         }
-        
-        
     }
 
     function handleUpdatePassword(event){
@@ -61,19 +53,17 @@ export default function Profile({ onUserAvatarUpdated, onUpdatedUserPassword }) 
         const newPasswordConfirm = event.target.newPasswordConfirm.value
 
         try {
-            updateUserPassword(context.token, password, newPassword,newPasswordConfirm, error => {
-                if(error){
+            updateUserPassword(context.token, password, newPassword,newPasswordConfirm)
+                .then(() => {
+                    onUpdatedUserPassword()
+                })
+                .catch((error) => {
                     alert(error.message)
-                    return
-                }
-
-                alert('Password succesfully updated')
-                onUpdatedUserPassword()
-            })
+                })
 
         } catch (error) {
             alert(error.message)
-        } 
+        }
     }
 
     const handleSwitchMode = () => document.querySelector(':root').classList.toggle('dark')

@@ -21,17 +21,10 @@ export default function Home({onLoggedOut}) {
     const [user, setUser] = useState()
 
     useEffect(() => {
-
         try {
-            retrieveUser(context.token, (error, user) => {
-                if(error){
-                    alert(error.message)
-                    return
-                }
-
-                setUser(user)
-            })
-
+            retrieveUser(context.token)
+                .then(setUser)
+                .catch(error => alert(error.message))
         } catch (error) {
             alert(error.message)
         }
@@ -69,15 +62,9 @@ export default function Home({onLoggedOut}) {
 
     const handleUserAvatarUpdated = () => {
         try {
-            retrieveUser(context.token, (error, user) => {
-                if(error){
-                    alert(error.message)
-                    return
-                }
-
-                setUser(user)
-            })
-
+            retrieveUser(context.token)
+                .then(setUser)
+                .catch(error => alert(error.message))
         } catch (error) {
             alert(error.message)
         }
@@ -85,15 +72,9 @@ export default function Home({onLoggedOut}) {
 
     const handleUserPasswordUpdated = () => {
         try {
-            retrieveUser(context.token, (error, user) => {
-                if(error){
-                    alert(error.message)
-                    return
-                }
-
-                setUser(user)
-            })
-
+            retrieveUser(context.token)
+                .then(setUser)
+                .catch(error => alert(error.message))
         } catch (error) {
             alert(error.message)
         }

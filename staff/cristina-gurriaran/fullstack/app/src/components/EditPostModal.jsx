@@ -10,7 +10,7 @@ import Container from "../library/Container"
 
 export default function EditpostModal({ onCancel , onPostUpdated, postId }) {
 
-    const { alert } = useAppContext()
+    const { alert, freeze, unfreeze } = useAppContext()
 
     const [post, setPost] = useState(null)
 
@@ -30,34 +30,43 @@ export default function EditpostModal({ onCancel , onPostUpdated, postId }) {
     
     
         try{
-            updatePost(context.token, postId, image, location, title, text, error => {
-                if(error){
+            updatePost(context.token, postId, image, location, title, text) 
+                .then(() => {
+                    unfreeze()
+                    onPostUpdated()
+                })
+                .catch((error) => {
+                    unfreeze()
+
                     alert(error.message)
-                    return
-                }
-                onPostUpdated()
-            })
-            
+                })
+    
         } catch(error) {
+            unfreeze()
             alert(error.message)
         }
     }
-
     useEffect(() => {
-        try{
-            retrievePost(context.token, postId, (error, post) => {
-                if(error){
-                    alert(error.message)
-                    return
-                }
-                setPost(post)
-            })
+        try {
+            freeze()
 
-        } catch (error){
+            retrievePost(context.token, postId)
+                .then((post) => {
+                    unfreeze()
+
+                    setPost(post)
+                })
+                .catch((error) => {
+                    unfreeze()
+
+                    alert(error.message)
+                })
+        } catch (error) {
+            unfreeze()
+
             alert(error.message)
         }
-
-    }, [postId])    
+    }, [postId])   
   
     console.log('EditPostModal -> render')
 

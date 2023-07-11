@@ -2,24 +2,22 @@ const {
     validators: { validateId },
     errors: { ExistenceError }
 } = require('com')
-const context = require('../context')
-const { ObjectId } = require('mongodb')
+const { User, Post } = require('../../data/models')
 
-module.exports = function retrievePost(userId, postId) {
+module.exports = (userId, postId) => {
     validateId(userId, 'user id')
     validateId(postId, 'post id')
 
-    const { users, posts } = context
-
     return Promise.all([
-        users.findOne({ _id: new ObjectId(userId)}),
-        posts.findOne({ _id: new ObjectId(postId)})
+        User.findById(userId).lean(),
+        Post.findById(postId, '-_id -__v -likes -date -author').lean()
     ])
-    .then(([user , post]) => {
-        if (!user) throw new ExistenceError(`User with id ${userId} not found`)
-        if (!post) throw new ExistenceError(`Post with id ${postId} not found`)
+        .then(([user, post]) => {
+            if (!user) throw new Error(`user with id ${userId} not found`)
+            if (!post) throw new Error(`post with id ${postId} not found`)
 
-        return post
-    })
-
+            return post
+        })
 }
+
+
