@@ -1,4 +1,4 @@
-// import { context } from '../ui'
+import { context } from '../ui'
 import updatePost from '../logic/updatePost'
 import retrievePost from '../logic/retrievePost'
 import { useState, useEffect } from 'react'
@@ -36,16 +36,16 @@ export default function EditPostModal({ onCancel, onPostUpdated, postId }) {
         }
     }
 
-    // useEffect(() => {
-    //     try {
-    //         retrievePost(context.token, postId)
-    //             //.then(post => setPost(post))
-    //             .then(setPost)
-    //             .catch(error => alert(error.message))
-    //     } catch (error) {
-    //         alert(error.message)
-    //     }
-    // }, [postId])
+    useEffect(() => {
+        try {
+            retrievePost(context.token, postId)
+                //.then(post => setPost(post))
+                .then(setPost)
+                .catch(error => alert(error.message))
+        } catch (error) {
+            alert(error.message)
+        }
+    }, [postId])
 
     return <>
         {post && <Container tag="section" className="modal">

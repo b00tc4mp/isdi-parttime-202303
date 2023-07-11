@@ -4,10 +4,10 @@ import AddPostModal from '../components/AddPostModal'
 import Profile from '../components/Profile'
 import EditPostModal from '../components/EditPostModal'
 import './Home.css'
+import { context } from '../ui'
 import retrieveUser from '../logic/retrieveUser'
 import Container from '../library/Container'
 import { useAppContext } from '../hooks'
-import logoutUser from '../logic/logoutUser'
 
 export default function Home() {
     console.debug('Home -> render')
@@ -17,11 +17,11 @@ export default function Home() {
     const [postId, setPostId] = useState(null)
     const [lastPostsUpdate, setLastPostsUpdate] = useState(null)
     const [user, setUser] = useState()
-    const { alert, navigate } = useAppContext()
+    const { navigate } = useAppContext()
 
     useEffect(() => {
         try {
-            retrieveUser()
+            context.token && retrieveUser(context.token)
                 .then(setUser)
                 .catch(error => alert(error.message))
         } catch (error) {
@@ -55,16 +55,22 @@ export default function Home() {
     }
 
     const handleLogout = () => {
-        logoutUser()
+        delete context.token
 
         navigate('/login')
     }
 
     const handleUserAvatarUpdated = () => {
         try {
-            retrieveUser()
-                .then(setUser)
-                .catch(error => alert(error.message))
+            retrieveUser(context.token, (error, user) => {
+                if (error) {
+                    alert(error.message)
+
+                    return
+                }
+
+                setUser(user)
+            })
         } catch (error) {
             alert(error.message)
         }

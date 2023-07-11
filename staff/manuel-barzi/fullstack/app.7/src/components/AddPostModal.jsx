@@ -1,12 +1,9 @@
+import { context } from '../ui'
 import createPost from '../logic/createPost'
 import Container from '../library/Container'
-import { useAppContext } from '../hooks'
-
 
 export default function AddPostModal({ onCancel, onPostCreated }) {
     console.debug('AddPostModal -> render')
-
-    const { alert } = useAppContext()
 
     function handleCancel(event) {
         event.preventDefault()
@@ -21,9 +18,15 @@ export default function AddPostModal({ onCancel, onPostCreated }) {
         const text = event.target.text.value
 
         try {
-            createPost(image, text)
-                .then(onPostCreated)
-                .catch(error => alert(error.message))
+            createPost(context.token, image, text, error => {
+                if (error) {
+                    alert(error.message)
+
+                    return
+                }
+
+                onPostCreated()
+            })
         } catch (error) {
             alert(error.message)
         }

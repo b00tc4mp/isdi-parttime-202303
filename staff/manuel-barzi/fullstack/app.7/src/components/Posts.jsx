@@ -1,5 +1,6 @@
 import retrievePosts from '../logic/retrievePosts'
 import Post from './Post'
+import { context } from '../ui'
 import { useState, useEffect } from 'react'
 import { useAppContext } from '../hooks'
 
@@ -15,14 +16,19 @@ export default function Posts({ onEditPost, lastPostsUpdate, user }) {
         try {
             freeze()
 
-            retrievePosts()
-                .then(setPosts)
-                .catch(error => alert(error.message))
-                .finally(unfreeze)
+            retrievePosts(context.token, (error, posts) => {
+                unfreeze()
+
+                if (error) {
+                    alert(error.message)
+
+                    return
+                }
+
+                setPosts(posts)
+            })
         } catch (error) {
             alert(error.message)
-
-            unfreeze()
         }
     }
 

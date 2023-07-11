@@ -1,9 +1,11 @@
-// import toggleLikePost from '../logic/toggleLikePost'
+import { context } from '../ui'
+import toggleLikePost from '../logic/toggleLikePost'
 import deletePost from '../logic/deletePost'
 import toggleFavPost from '../logic/toggleFavPost'
 import { useAppContext } from '../hooks'
-import isCurrentUser from '../logic/isCurrentUser'
-import getUserId from '../logic/getUserId'
+import { utils } from 'com'
+
+const { extractSubFromToken } = utils
 
 export default function Post({ post: { id, image, text, date, likes, author, fav }, onEditPost, onToggledLikePost, onPostDeleted, onToggledSavePost }) {
     console.debug('Post -> render')
@@ -16,18 +18,17 @@ export default function Post({ post: { id, image, text, date, likes, author, fav
         try {
             freeze()
 
-            // TODO update
-            // toggleLikePost(context.userId, id, error => {
-            //     unfreeze()
+            toggleLikePost(context.userId, id, error => {
+                unfreeze()
 
-            //     if (error) {
-            //         alert(error.message)
+                if (error) {
+                    alert(error.message)
 
-            //         return
-            //     }
+                    return
+                }
 
-            //     onToggledLikePost()
-            // })
+                onToggledLikePost()
+            })
 
         } catch (error) {
             alert(error.message)
@@ -66,16 +67,16 @@ export default function Post({ post: { id, image, text, date, likes, author, fav
         }
     }
 
-    const isCurrentUserPost = isCurrentUser(author.id)
+    const userId = extractSubFromToken(context.token)
 
     return <article>
         <h2><img src={author.avatar} width="20px" /> {author.name}</h2>
         <img src={image} width="200px" />
         <p>{text}</p>
         <time>{date.toLocaleString()}</time>
-        <button onClick={handleToggleLikePost}>{likes.includes(getUserId()) ? '❤️' : '🤍'} ({likes ? likes.length : 0})</button>
-        {isCurrentUserPost && <button onClick={handleEditPost}>📝</button>}
-        {isCurrentUserPost && <button onClick={handleDeletePost}>🗑</button>}
+        <button onClick={handleToggleLikePost}>{likes.includes(userId) ? '❤️' : '🤍'} ({likes ? likes.length : 0})</button>
+        {author.id === userId && <button onClick={handleEditPost}>📝</button>}
+        {author.id === userId && <button onClick={handleDeletePost}>🗑</button>}
         <button onClick={handleToggleSavePost}>{fav ? '⭐️' : '✩'}</button>
     </article>
 }

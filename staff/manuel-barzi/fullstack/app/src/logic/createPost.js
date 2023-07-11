@@ -1,41 +1,27 @@
 import { validators } from 'com'
+import context from './context'
 
-const { validateToken, validateUrl, validateText, validateCallback } = validators
+const { validateUrl, validateText } = validators
 
-export default function createPost(token, image, text, callback) {
-    validateToken(token)
+export default (image, text) => {
     validateUrl(image, 'image url')
     validateText(text)
-    validateCallback(callback)
 
-    const xhr = new XMLHttpRequest
+    return fetch(`${import.meta.env.VITE_API_URL}/posts`, {
+        method: 'POST',
+        headers: {
+            Authorization: `Bearer ${context.token}`,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ image, text })
+    })
+        .then(res => {
+            if (res.status === 201)
+                return
 
-    xhr.onload = () => {
-        const { status } = xhr
-
-        if (status !== 201) {
-            const { response: json } = xhr
-            const { error } = JSON.parse(json)
-
-            callback(new Error(error))
-
-            return
-        }
-
-        callback(null)
-    }
-
-    xhr.onerror = () => {
-        callback(new Error('connection error'))
-    }
-
-    xhr.open('POST', `${import.meta.env.VITE_API_URL}/posts`)
-
-    xhr.setRequestHeader('Authorization', `Bearer ${token}`)
-    xhr.setRequestHeader('Content-Type', 'application/json')
-
-    const user = { image, text }
-    const json = JSON.stringify(user)
-
-    xhr.send(json)
+            return res.json()
+                .then(body => {
+                    throw new Error(body.error)
+                })
+        })
 }

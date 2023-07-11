@@ -2,13 +2,15 @@ import { useState } from 'react'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import Home from './pages/Home'
+import { context } from './ui'
 import Alert from './components/Alert'
 import AppContext from './AppContext'
 import { Loader } from './library'
+import { utils } from 'com'
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom'
-import isUserLoggedIn from './logic/isUserLoggedIn'
 
 const { Provider } = AppContext
+const { isTokenValid, isTokenAlive } = utils
 
 export default function App() {
     console.debug('App -> render')
@@ -28,9 +30,9 @@ export default function App() {
     return <Provider value={{ alert, freeze, unfreeze, navigate }}>
         <Routes>
             {(() => console.log('Routes -> render'))()}
-            <Route path="/login" element={isUserLoggedIn() ? <Navigate to="/" /> : <Login />} />
-            <Route path="/register" element={isUserLoggedIn() ? <Navigate to="/" /> : <Register />} />
-            <Route path="/" element={isUserLoggedIn() ? <Home /> : <Navigate to="/login" />} />
+            <Route path="/login" element={isTokenValid(context.token) && isTokenAlive(context.token) ? <Navigate to="/" /> : <Login />} />
+            <Route path="/register" element={isTokenValid(context.token) && isTokenAlive(context.token) ? <Navigate to="/" /> : <Register />} />
+            <Route path="/" element={isTokenValid(context.token) && isTokenAlive(context.token) ? <Home /> : <Navigate to="/login" />} />
         </Routes>
 
         {feedback && <Alert message={feedback.message} level={feedback.level} onAccept={handleAcceptAlert} />}

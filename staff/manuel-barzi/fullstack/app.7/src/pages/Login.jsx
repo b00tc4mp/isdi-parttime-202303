@@ -1,4 +1,5 @@
-import loginUser from '../logic/loginUser'
+import { context } from '../ui'
+import authenticateUser from '../logic/authenticateUser'
 import { useEffect, useState } from 'react'
 import retrieveRandomMotivationalQuote from '../logic/retrieveRandomMotivationalQuote'
 import { Container, Form, Input, Button } from '../library'
@@ -38,8 +39,12 @@ export default function Login() {
         const password = event.target.password.value
 
         try {
-            loginUser(email, password)
-                .then(() => navigate('/'))
+            authenticateUser(email, password)
+                .then(token => {
+                    context.token = token
+
+                    navigate('/')
+                })
                 .catch(error => alert(error.message, 'error'))
         } catch (error) {
             alert(error.message, 'warn')

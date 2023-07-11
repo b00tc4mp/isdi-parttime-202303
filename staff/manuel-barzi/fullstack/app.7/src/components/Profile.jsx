@@ -1,6 +1,6 @@
 import './Profile.css'
-// import { context } from '../ui'
-// import updateUserAvatar from '../logic/updateUserAvatar'
+import { context } from '../ui'
+import updateUserAvatar from '../logic/updateUserAvatar'
 import Container from '../library/Container'
 
 export default function Profile({ onUserAvatarUpdated }) {
@@ -11,20 +11,20 @@ export default function Profile({ onUserAvatarUpdated }) {
 
         const url = event.target.url.value
 
-        // try {
-        //     updateUserAvatar(context.userId, url, error => {
-        //         if (error) {
-        //             alert(error.message)
+        try {
+            updateUserAvatar(context.userId, url, error => {
+                if (error) {
+                    alert(error.message)
 
-        //             return
-        //         }
+                    return
+                }
 
-        //         onUserAvatarUpdated()
-        //     })
+                onUserAvatarUpdated()
+            })
 
-        // } catch (error) {
-        //     alert(error.message)
-        // }
+        } catch (error) {
+            alert(error.message)
+        }
     }
 
     return <Container tag="section">
