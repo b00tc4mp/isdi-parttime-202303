@@ -1,13 +1,12 @@
 import { useState, useEffect } from 'react';
 import CanvasContainer from '../components/game/CanvasContainer';
-import { level1 } from '../helpers/levels';
-import GameOverModal from '../components/game/GameOverModal';
+import GameOver from '../components/game/GameOver';
 import { Player } from '@lottiefiles/react-lottie-player';
 import inLogger from '../inLogger';
 
 const Game = ({ level, onExitClick, onPlayAgainClick }) => {
   const [key, setKey] = useState(1);
-  const [floor, setFloor] = useState(level ? level[0] : level1[0]);
+  const [floor, setFloor] = useState(level[0]);
   const [health, setHealth] = useState(5);
   const [isGameOver, setIsGameOver] = useState(0); // 0 = playing, -1 = lost, 1 = won
   const [animation, setAnimation] = useState(null);
@@ -16,7 +15,7 @@ const Game = ({ level, onExitClick, onPlayAgainClick }) => {
 
   const handleOnSolved = () => {
     setKey(key + 1);
-    setFloor(level ? level[key] : level1[key]);
+    setFloor(level[key]);
   };
 
   const handleOnBomb = () => {
@@ -98,7 +97,7 @@ const Game = ({ level, onExitClick, onPlayAgainClick }) => {
       )}
       {isGameOver !== 0 && (
         <>
-          <GameOverModal isGameWon={isGameOver > 0 ? true : false} onExitClick={onExitClick} />
+          <GameOver isGameWon={isGameOver > 0 ? true : false} onExitClick={onExitClick} />
           <div className="top-0 inset-0 bg-black opacity-50"></div>
         </>
       )}

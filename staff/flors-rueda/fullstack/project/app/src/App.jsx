@@ -8,6 +8,7 @@ import Landing from './pages/Landing';
 import inLogger from './inLogger';
 import NoConnectionToast from './components/NoConnectionToast';
 import CheckConnection from './logic/check-connection';
+import Tutorial from './pages/Tutorial';
 
 //TODO add landing page, tutorial and about
 
@@ -17,15 +18,16 @@ const App = () => {
   const [isApiAvailable, setApiAvailableOn] = useState(true);
 
   const handleGoToLevelsList = () => {
-    handleRefreshApiConnection();
+    //handleRefreshApiConnection();
     setView('levels');
   };
 
   const handleGoToCreate = () => setView('create');
+  const handleGoToTutorial = () => setView('tutorial');
   const handleGoToLanding = () => setView(null);
 
   const handleGoToTryLevel = (newLevel = level) => {
-    handleRefreshApiConnection();
+    //handleRefreshApiConnection();
     setLevel(newLevel);
     setView('game');
   }
@@ -46,19 +48,16 @@ const App = () => {
     }
   };
 
-  useEffect(() => {
-    handleRefreshApiConnection();
-  }, [view]);
-
   return (
     <>
-      <Navbar view={view} onCreateClick={handleGoToCreate} onLevelsListClick={handleGoToLevelsList} onLandingClick={handleGoToLanding} />
+      <Navbar view={view} onCreateClick={handleGoToCreate} onLevelsListClick={handleGoToLevelsList} onLandingClick={handleGoToLanding} onTutorialClick={handleGoToTutorial} />
       {!isApiAvailable && <NoConnectionToast />}
       <div className="pt-5">
-        {!view && <Landing />}
+        {!view && <Landing onTutorialClick={handleGoToTutorial} />}
         {view === 'levels' && <LevelsList onCreateClick={handleGoToCreate} onLevelClick={handleGoToTryLevel} />}
         {view === 'game' && <Game level={level} onExitClick={handleGoToLevelsList} />}
         {view === 'create' && <CreateLevel onTryLevelClick={handleGoToTryLevel} />}
+        {view === 'tutorial' && <Tutorial onExitClick={handleGoToLevelsList} />}
       </div>
       <Footer />
     </>

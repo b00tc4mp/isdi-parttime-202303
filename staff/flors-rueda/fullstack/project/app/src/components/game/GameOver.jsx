@@ -1,9 +1,9 @@
 import inLogger from '../../inLogger';
 
-const GameOverModal = ({ isGameWon, onExitClick }) => {
+const GameOver = ({ isGameWon, onExitClick }) => {
     return (
-        <div className="fixed inset-0 flex pt-5 items-center justify-center z-30">
-            <div className="h-4/6 w-full p-4 text-dark300 bg-light300 rounded-lg shadow md:w-8/12 lg:w-6/12" role="alert">
+        <div className="fixed inset-0 flex w-full h-full pt-10 items-center justify-center z-30">
+            <div className="w-full h-full p-4 text-dark300 text-center bg-light400 rounded-lg shadow">
                 <div className="flex items-center flex-col justify-center gap-10 py-20 px-10">
                     {
                         /*TODO add image depending of winning or loosing
@@ -22,4 +22,4 @@ const GameOverModal = ({ isGameWon, onExitClick }) => {
     )
 }
 
-export default inLogger(GameOverModal);
+export default inLogger(GameOver);

@@ -1,19 +1,11 @@
 import ComicCarousel from '../components/ComicCarousel';
 import logo from '../assets/logo-complete.svg';
-import achivements from '../assets/buttonsIcons/achivements.svg';
-import create from '../assets/buttonsIcons/create.svg';
-import customize from '../assets/buttonsIcons/customize.svg';
-import earn from '../assets/buttonsIcons/earn.svg';
-import explore from '../assets/buttonsIcons/explore.svg';
-import friends from '../assets/buttonsIcons/friends.svg';
-import heart from '../assets/buttonsIcons/heart.svg';
-import more from '../assets/buttonsIcons/more.svg';
-import vote from '../assets/buttonsIcons/vote.svg';
+import btnIcons from '../assets/buttonsIcons/index';
 import inLogger from '../inLogger';
 import './Landing.css'
 import { useState } from 'react';
 
-const Landing = () => {
+const Landing = ({ onTutorialClick }) => {
     const [activeIndex, setActiveIndex] = useState(0);
     const images = [
         'https://tecdn.b-cdn.net/img/Photos/Slides/img%20(15).jpg',
@@ -41,43 +33,47 @@ const Landing = () => {
         <>
             <div className="circle"></div> <div className="circle2"></div> <div className="circle3"></div><div className="circle4"></div>
             <div className="circle5"></div> <div className="circle6"></div> <div className="circle7"></div><div className="circle8"></div>
-            <div className="flex flex-col w-full justify-center items-center pt-28 gap-5">
+            <div className="flex flex-col w-full justify-center items-center pt-28 gap-7">
                 <img src={logo} className="w-4/6" alt="Logo" />
-                <div className="flex flex-col gap-5 md:gap-1 md:flex-row w-5/6 justify-center align-center bg-light300 rounded-xl opacity-90">
+                <div className="flex flex-col md:flex-row gap-5 w-full justify-center align-center">
+                    <button className="bg-primary100 self-center md:w-fit max-w-xs w-3/4  px-5 py-2 hover:bg-transparent text-2xl lg:text-4xl text-light500 hover:text-primary100 hover:border hover:border-primary100 font-bold rounded-lg transition duration-200">Join the Riders</button>
+                    <button onClick={onTutorialClick} className="border border-secondary300 bg-transparent self-center md:w-fit max-w-xs w-3/4  px-5 py-2 hover:bg-secondary300 text-2xl lg:text-4xl text-secondary300 hover:text-light500 font-bold rounded-lg transition duration-200">Learn the basics</button>
+                </div>
+                <div className="flex flex-col gap-5 md:gap-1 md:flex-row w-5/6 justify-center align-center bg-light300 rounded-xl mt-5 opacity-90">
                     <div className="flex flex-col w-full justify-center align-center">
-                        <h1 className="text-secondary400 text-xl font-bold text-center pt-2 w-full">JOIN THE MAZE RIDES</h1>
+                        <h1 className="text-secondary400 text-xl font-bold text-center pt-2 w-full">There's a lot to do</h1>
                         <div className="flex self-center flex-col gap-5 justify-center align-center px-4 pt-2 md:py-4">
                             <div className="flex flex-row gap-5">
                                 <button onClick={handleFeature1Click} className={`p-2 rounded ${activeIndex === 0 ? "bg-primary300" : "bg-secondary600 hover:bg-secondary500"}`}>
-                                    <img src={create} className="w-10" alt="create" />
+                                    <img src={btnIcons.create} className="w-10" alt="create" />
                                 </button>
                                 <button onClick={handleFeature2Click} className={`p-2 rounded ${activeIndex === 1 ? "bg-primary300" : "bg-secondary600 hover:bg-secondary500"}`}>
-                                    <img src={explore} className="w-10" alt="explore" />
+                                    <img src={btnIcons.explore} className="w-10" alt="explore" />
                                 </button>
                                 <button onClick={handleFeature3Click} className={`p-2 rounded ${activeIndex === 2 ? "bg-primary300" : "bg-secondary600 hover:bg-secondary500"}`}>
-                                    <img src={earn} className="w-10" alt="earn" />
+                                    <img src={btnIcons.earn} className="w-10" alt="earn" />
                                 </button>
                             </div>
                             <div className="flex flex-row gap-5">
                                 <button onClick={handleFeature4Click} className={`p-2 rounded ${activeIndex === 3 ? "bg-primary300" : "bg-secondary600 hover:bg-secondary500"}`}>
-                                    <img src={vote} className="w-10" alt="vote" />
+                                    <img src={btnIcons.vote} className="w-10" alt="vote" />
                                 </button>
                                 <button onClick={handleFeature5Click} className={`p-2 rounded ${activeIndex === 4 ? "bg-primary300" : "bg-secondary600 hover:bg-secondary500"}`}>
-                                    <img src={heart} className="w-10" alt="save" />
+                                    <img src={btnIcons.heart} className="w-10" alt="save" />
                                 </button>
                                 <button onClick={handleFeature6Click} className={`p-2 rounded ${activeIndex === 5 ? "bg-primary300" : "bg-secondary600 hover:bg-secondary500"}`}>
-                                    <img src={achivements} className="w-10" alt="achivements" />
+                                    <img src={btnIcons.achivements} className="w-10" alt="achivements" />
                                 </button>
                             </div>
                             <div className="flex flex-row gap-5">
                                 <button onClick={handleFeature7Click} className={`p-2 rounded ${activeIndex === 6 ? "bg-primary300" : "bg-secondary600 hover:bg-secondary500"}`}>
-                                    <img src={customize} className="w-10" alt="vote" />
+                                    <img src={btnIcons.customize} className="w-10" alt="vote" />
                                 </button>
                                 <button onClick={handleFeature8Click} className={`p-2 rounded ${activeIndex === 7 ? "bg-primary300" : "bg-secondary600 hover:bg-secondary500"}`}>
-                                    <img src={friends} className="w-10" alt="save" />
+                                    <img src={btnIcons.friends} className="w-10" alt="save" />
                                 </button>
                                 <button onClick={handleFeature9Click} className={`p-2 rounded ${activeIndex === 8 ? "bg-primary300" : "bg-secondary600 hover:bg-secondary500"}`}>
-                                    <img src={more} className="w-10" alt="achivements" />
+                                    <img src={btnIcons.more} className="w-10" alt="achivements" />
                                 </button>
                             </div>
                         </div>

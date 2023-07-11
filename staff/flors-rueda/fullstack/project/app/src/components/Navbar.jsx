@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import logo from '../assets/logo.svg';
 
-const Navbar = ({ view, onCreateClick, onLevelsListClick, onLandingClick }) => {
+const Navbar = ({ view, onCreateClick, onLevelsListClick, onLandingClick, onTutorialClick }) => {
     const [isMenuOpen, setMenuOpen] = useState(false);
 
     const handleBurgerClick = () => {
@@ -10,6 +10,12 @@ const Navbar = ({ view, onCreateClick, onLevelsListClick, onLandingClick }) => {
 
     const handleCloseClick = () => {
         setMenuOpen(false);
+    };
+
+    const handleTutorialClick = (event) => {
+        event.preventDefault();
+        setMenuOpen(false);
+        onTutorialClick();
     };
 
     const handleLevelsListClick = (event) => {
@@ -82,7 +88,16 @@ const Navbar = ({ view, onCreateClick, onLevelsListClick, onLandingClick }) => {
                         </a>
                     </li>
                     <li>
-                        <a className="text-sm text-light100" href="#">
+                        <a
+                            className={
+                                "text-sm " +
+                                (view === "tutorial"
+                                    ? "text-secondary400"
+                                    : "dark400 hover:text-secondary400")
+                            }
+                            href=""
+                            onClick={handleTutorialClick}
+                        >
                             <i className="bi bi-mortarboard-fill pe-1"></i>
                             Tutorial
                         </a>
@@ -152,7 +167,17 @@ const Navbar = ({ view, onCreateClick, onLevelsListClick, onLandingClick }) => {
                                 </a>
                             </li>
                             <li className="mb-1">
-                                <a className="block p-4 text-sm font-semibold text-light100 rounded" href="#">
+                                <a
+                                    className={
+                                        "block p-4 text-sm font-semibold " +
+                                        (view === "tutorial"
+                                            ? "text-secondary400"
+                                            : "dark400 hover:text-secondary400 hover:bg-light400") +
+                                        " rounded"
+                                    }
+                                    href=""
+                                    onClick={handleTutorialClick}
+                                >
                                     <i className="bi bi-mortarboard-fill pe-1"></i>
                                     Tutorial
                                 </a>
