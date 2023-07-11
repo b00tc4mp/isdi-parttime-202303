@@ -29,7 +29,6 @@ module.exports = (userId, postId, image, text) => {
             if (!user) throw new ExistenceError(`user with the id ${userId} not found`)
             if (!post) throw new ExistenceError(`post with the id ${postId} not found`)
 
-
             return Post.updateOne(
                 {
                     image: image,

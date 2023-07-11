@@ -1,26 +1,16 @@
 const toggleLikePost = require('./toggleLikePost')
-
-const { readFile } = require('fs') //commonJS
 require('dotenv').config()
+const mongoose = require('mongoose')
+const { User, Post } = require('../data/models')
 
-readFile(`${process.env.DB_PATH}/users.json`, (error, json) => {
-    const users = JSON.parse(json)
-    const user = users[users.length - 2]
+// const userId = '64abe601911a717b18c2772a'
+const userId = '64abe601911b717b18c2772a'
+const postId = '64abfe453ffc40d9d60de511'
 
-    readFile(`${process.env.DB_PATH}/posts.json`, (error, json) => {
-        if (error) return callback(error)
+mongoose.connect(process.env.MONGODB_URL)
+    .then(() =>
+        toggleLikePost(userId, postId))
+    .then(() => console.log('TOGGLE LIKE 👍'))
+    .catch(console.error)
+    .finally(mongoose.disconnect)
 
-        const posts = JSON.parse(json)
-        const post = posts[posts.length - 1]
-
-        toggleLikePost(user.id, post.id, error => {
-            if (error) {
-                console.error(error)
-                return
-            }
-
-            console.log('toggle like post!')
-        })
-
-    })
-})

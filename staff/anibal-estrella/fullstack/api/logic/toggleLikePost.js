@@ -1,65 +1,39 @@
-require('dotenv').config()
-const { readFile, writeFile } = require('fs') //commonJS
-const { validators: { validateId, validateCallback } } = require('com')
+const {
+    errors: { ExistenceError, ContentError },
+    validators: { validateId } } = require('com')
+
+const { User, Post } = require('../data/models.js')
 
 /**
  * 
- * @param {*} userId 
- * @param {*} postId 
- * @param {*} callback 
+ * @param {*} userId the user's ID
+ * @param {*} postId the post's ID
+ * @param {*} promise 
  */
 
-module.exports = (userId, postId, callback) => {
+module.exports = (userId, postId) => {
     validateId(userId, 'user id')
     validateId(postId, 'post id')
-    validateCallback(callback)
 
-    readFile(`${process.env.DB_PATH}/users.json`, (error, json) => {
-        if (error) {
-            callback(error)
+    return Promise.all([
+        User.findById(userId).lean(),
 
-            return
-        }
+        Post.findById(postId, '-_id -__v -likes').lean(),
+    ])
 
-        const users = JSON.parse(json)
-        const user = users.find(user => user.id === userId)
+        .then(([user, post]) => {
+            if (!user) throw new ExistenceError(`user with the id ${userId} not found`)
+            if (!post) throw new ExistenceError(`post with the id ${postId} not found`)
 
-        if (!user) {
-            callback(new Error(`User with the ID: "${userId}" does not exist. 👎`))
-
-            return
-        }
-
-        readFile(`${process.env.DB_PATH}/posts.json`, (error, json) => {
-            if (error) return callback(error)
-
-            const posts = JSON.parse(json)
-            const post = posts.find(post => post.id === postId)
-
-            if (!post) {
-                callback(new Error(`Post with the ID: "${postId}" does not exist. 👎`))
-
-                return
-            }
-
-            const index = post.likes.indexOf(userId)
-
-            json = JSON.stringify(posts, null, 4)
+            const index = post.likes.findIndex((id) => id.toString() === userId)
 
             if (index < 0)
-                post.likes.push(userId);
-
+                return Post.updateOne(
+                    { _id: postId }, { $push: { likes: userId } })
             else
-                post.likes.splice(index, 1)
+                return Post.updateOne(
+                    { _id: postId }, { $pull: { likes: userId } })
 
-            json = JSON.stringify(posts, null, 4)
-
-            writeFile(`${process.env.DB_PATH}/posts.json`, json, error => {
-                if (error) return callback(error)
-
-                callback(null)
-            })
         })
-
-    })
+        .then(() => { })
 }
