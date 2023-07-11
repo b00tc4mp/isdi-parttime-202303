@@ -7,7 +7,7 @@ const { User } = require('../data/models')
 
 mongoose.connect(process.env.MONGODB_URL)
 
-    .then(() => updateUserAvatar('64a71f96f2a0dffa7b4caa49', 'https://picsum.photos/245/200'
+    .then(() => updateUserAvatar('64a9323d49d1ae2debdf4a2b', 'https://picsum.photos/245/200'
     ))
     .then((user) => {
         if (!user) throw new TypeError('User not found')

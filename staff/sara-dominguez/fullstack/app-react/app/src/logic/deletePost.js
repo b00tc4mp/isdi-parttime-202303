@@ -1,49 +1,50 @@
-import { savePosts, loadPosts, saveUsers, loadUsers } from "../data.js";
-import { findUserById, findPostById } from "../data.js";
-// import { validateId, validatePostId, validateCallback } from "./helpers/validators.js";
 import { validators } from 'com'
 const { validateToken, validatePostId, validateCallback } = validators
 
 export default function deletePost(token, postId, callback) {
     validateToken(token)
     validatePostId(postId)
-    validateCallback(callback)
+
+    if (callback) {
+        validateCallback(callback)
 
 
+        const xhr = new XMLHttpRequest
 
-    findPostById(postId, post => {
-        if (!post) {
-            callback(new Error('postId not found'))
+        xhr.onload = () => {
+            const { status } = xhr
 
-            return
-        }
+            if (status !== 204) {
+                const { response: json } = xhr
+                const { error } = JSON.parse(json)
 
-        if (post.author !== token) {
-            callback(new Error('only author can delete this post'))
-
-            return
-        }
-
-        loadPosts(posts => {
-            const index = posts.findIndex(post => post.id === postId)
-
-            posts.splice(index, 1)
-
-            savePosts(posts, () => callback(null))
-
-        })
-        findUserById(token, user => {
-            if (!user) {
-                callback(new Error('user not found'))
+                callback(error)
 
                 return
             }
-        })
-        loadUsers(users => {
-            users.forEach((user) => user.favs?.splice((user.favs.findIndex((favs) => favs === post.id), 1)))
+        }
 
-            saveUsers(users, () => callback(null))
-        })
+        xhr.onerror = () => {
+            callback(new Error('conection error'))
+        }
 
-    })
+        xhr.open('DELETE', `${import.meta.env.VITE_API_URL}/posts/${postId}/delete`,)
+
+        xhr.setRequestHeader('Authorization', `Bearer ${token}`)
+
+        xhr.send()
+
+    } else
+        return fetch(`${import.meta.env.VITE_API_URL}/posts/${postId}/delete`, {
+            method: 'DELETE',
+            headers: {
+                authorization: `Bearer ${token}`
+            }
+        })
+            .then(res => {
+                if (res.status !== 204)
+                    return res.json().then(({ error: message }) => { throw new Error(message) })
+
+
+            })
 }

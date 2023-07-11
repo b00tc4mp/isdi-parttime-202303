@@ -22,11 +22,19 @@ class AuthError extends Error {
     }
     get name() { return AuthError.name }
 }
+class PropertyError extends Error {
+    constructor(message) {
+        super(message)
+    }
+    get name() { return PropertyError.name }
+}
+
 
 module.exports = {
     DuplicityError,
     ContentError,
     ExistenceError,
-    AuthError
+    AuthError,
+    PropertyError
 
 }

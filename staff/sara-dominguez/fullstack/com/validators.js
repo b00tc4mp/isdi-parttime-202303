@@ -72,28 +72,45 @@ function validateUserConfirmNewPassword(userConfirmNewPassword) {
     if (userConfirmNewPassword.trim().length > 12) throw new RangeError('New confirmed password length upper 12 characters')
 }
 
+const HEX_DICTIONARY = '0123456789abcdef'
+
 function validateId(id, explain = 'id') {
-    if (typeof id !== 'string') throw new TypeError(`${explain} is not a string`);
+    if (typeof id !== 'string') throw new TypeError(`${explain} is not a string`)
+    if (id.trim().length !== 24) throw new ContentError(`${explain} doesn't have 24 characters`)
+
+    for (let i = 0; i < id.length; i++) {
+        const char = id[i]
+
+        if (!HEX_DICTIONARY.includes(char)) throw new ContentError(`${explain} is not hexadecimal`)
+    }
+
 }
 function validatePostId(postId, explain = 'post id') {
-    if (typeof postId !== 'string') throw new TypeError(`${explain} is not a string`);
+    if (typeof postId !== 'string') throw new TypeError(`${explain} is not a string`)
+    if (id.trim().length !== 24) throw new ContentError(`${explain} doesn't have 24 characters`)
+
+    for (let i = 0; i < id.length; i++) {
+        const char = id[i]
+
+        if (!HEX_DICTIONARY.includes(char)) throw new ContentError(`${explain} is not hexadecimal`)
+    }
 }
 function validatePostUrl(imageUrl, explain = 'image url') {
-    if (typeof imageUrl !== 'string') throw new TypeError(`${explain} is not a string`);
+    if (typeof imageUrl !== 'string') throw new TypeError(`${explain} is not a string`)
     if (!imageUrl.trim().length) throw new ContentError(`${explain} is empty`)
 }
 
 function validateText(text, explain = 'text') {
-    if (typeof text !== 'string') throw new TypeError(`${explain} is not a string`);
+    if (typeof text !== 'string') throw new TypeError(`${explain} is not a string`)
     if (!text.trim().length) throw new ContentError(`${explain} is empty`)
 }
 
 function validateCallback(callback, explain = 'callback') {
-    if (typeof callback !== 'function') throw new TypeError(`${explain} is not a function`);
+    if (typeof callback !== 'function') throw new TypeError(`${explain} is not a function`)
 }
 
 function validateToken(token, explain = 'token') {
-    if (typeof token !== 'string') throw new TypeError(`${explain} is not a string`);
+    if (typeof token !== 'string') throw new TypeError(`${explain} is not a string`)
     if (token.split('.').length !== 3) throw new ContentError(`${explain} is not valid`)
 }
 

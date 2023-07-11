@@ -4,7 +4,7 @@ const express = require('express')
 // const { cors, jsonBodyParser } = require('./utils'), eliminamos la carpeta utils
 const cors = require('cors')
 const bodyParser = require('body-parser')
-const { helloApiHandler, registerUserHandler, authenticateUserHandler, retrieveUserHandler, updateUserAvatarHandler, updateUserPasswordHandler, createPostHandler, retrievePostHandler, retrievePostsHandler, updatePostHandler, toggleFavPostHandler, toggleLikePostHandler } = require('./handlers')
+const { helloApiHandler, registerUserHandler, authenticateUserHandler, retrieveUserHandler, updateUserAvatarHandler, updateUserPasswordHandler, createPostHandler, retrievePostHandler, retrievePostsHandler, updatePostHandler, toggleFavPostHandler, toggleLikePostHandler, deletePostHandler } = require('./handlers')
 // const { MongoClient } = require('mongodb')
 // const context = require('./logic/context')
 const mongoose = require('mongoose')
@@ -47,8 +47,7 @@ mongoose.connect(process.env.MONGODB_URL)
         api.patch('/posts/:postId/update', jsonBodyParser, updatePostHandler)
         api.patch('/posts/:postId/likes', toggleLikePostHandler)
 
-
-
+        api.delete('/posts/:postId/delete', deletePostHandler)
 
         api.listen(process.env.PORT, () => console.log(`server running in port ${process.env.PORT}`))
     })

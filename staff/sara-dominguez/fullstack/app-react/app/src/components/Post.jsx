@@ -79,7 +79,7 @@ export default function Post({ post: { id, image, text, date, likes, author, fav
         <h2><img src={author.avatar} width="20px" /> {author.name}</h2>
         <img src={image} width="200px" />
         <p>{text}</p>
-        <time>{date.toLocaleString()}</time>
+        <time>{date}</time>
         <button onClick={handleToggleLikePost}>{likes.includes(userId) ? '❤️' : '🤍'} {likes ? likes.length : 0}</button>
         {author.id === userId && <button onClick={handleEditPost}>📝</button>}
         {author.id === userId && <button onClick={handleDeletePost}>🗑</button>}

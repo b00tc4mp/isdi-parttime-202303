@@ -3,6 +3,7 @@ const { errors: {
     ExistenceError,
     AuthError,
     ContentError,
+    PropertyError,
 } } = require('com')
 
 module.exports = function handleErrors(callback) {
@@ -12,7 +13,7 @@ module.exports = function handleErrors(callback) {
                 .catch(error => {
                     let status = 500
 
-                    if (error instanceof DuplicityError) {
+                    if (error instanceof DuplicityError || error instanceof PropertyError) {
                         status = 409
                     }
                     else if (error instanceof ExistenceError) {

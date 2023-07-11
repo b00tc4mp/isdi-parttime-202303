@@ -8,7 +8,8 @@ module.exports = {
     retrievePosts: require('./retrievePosts'),
     updatePost: require('./updatePost'),
     toggleFavPost: require('./toggleFavPost'),
-    toggleLikePost: require('./toggleLikePost')
+    toggleLikePost: require('./toggleLikePost'),
+    deletePost: require('./deletePost'),
 
 
 }

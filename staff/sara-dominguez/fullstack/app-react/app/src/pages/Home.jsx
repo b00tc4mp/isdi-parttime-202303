@@ -62,7 +62,7 @@ export default function Home({ onLoggedOut }) {
     }
 
     const handleLogOut = () => {
-        delete (context.userId)
+        delete (context.token)
 
         onLoggedOut()
     }

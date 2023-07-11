@@ -1,7 +1,8 @@
 const { validators: { validateId } } = require('com')
 const { User, Post } = require('../data/models')
 
-module.exports = userId => {
+
+module.exports = function retrievePosts(userId) {
     validateId(userId, 'user id')
 
     return Promise.all([
@@ -20,6 +21,7 @@ module.exports = userId => {
                 if (post.author._id) {
                     post.author.id = post.author._id.toString()
                     delete post.author._id
+                    delete post.__v
                 }
             })
 
