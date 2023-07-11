@@ -13,6 +13,8 @@ import { EyeIcon } from '@heroicons/react/24/solid'
 import './Profile.css'
 
 export default function Profile({ onAvatarUpdated }) {
+    console.debug('/// Profile  -> Render')
+
     const { alert, freeze, unfreeze } = useContext(Context)
 
     const [name, setUserName] = useState()
@@ -121,7 +123,6 @@ export default function Profile({ onAvatarUpdated }) {
 
     }
 
-    console.debug('// Profile -> RENDER')
 
     return <div className="home-profile">
         <section className='border-top-gradient'>

@@ -4,6 +4,8 @@ import { Panel } from '../library'
 import { useAppContext } from '../hooks'
 
 export default function Register({ onUserRegistered, onLoginClick }) {
+    console.debug('// Register  -> Render');
+
     const { alert, freeze, unfreeze } = useAppContext()
 
     function handleLoginClick(event) {
@@ -40,10 +42,7 @@ export default function Register({ onUserRegistered, onLoginClick }) {
             alert(error.message)
         }
         unfreeze()
-
     }
-
-    console.debug('// Register -> RENDER');
 
     return <div className="register center-container">
         < Panel tag='section' >

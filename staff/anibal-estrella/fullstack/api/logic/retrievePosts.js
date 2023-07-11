@@ -19,7 +19,7 @@ module.exports = userId => {
                 //add the id converted to string (all _id are objects and should be converted to strings)
                 post.id = post._id.toString()
 
-                //sanityze time
+                //sanityze
                 delete post._id
                 delete post.__v
 

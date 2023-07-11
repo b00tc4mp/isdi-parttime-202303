@@ -5,7 +5,6 @@ import { updatePost } from "../logic/updatePost.js"
 import retrievePost from "../logic/retrievePost.js"
 import deletePost from "../logic/deletePost.js"
 
-import { useContext } from "react"
 import { useAppContext } from "../hooks"
 
 import Panel from '../library/Panel'
@@ -19,18 +18,17 @@ import { EyeIcon } from '@heroicons/react/24/solid'
 export default function EditPostModal({ onCancel, onPostEdited, postId, onDeletedPost }) {
     const { alert, freeze, unfreeze } = useAppContext()
     const [post, setPost] = useState(null)
-    const [previewImage, setPreviewImage] = useState(null)
+    //const [previewImage, setPreviewImage] = useState(null)
 
 
     useEffect(() => {
         try {
             retrievePost(context.token, postId)
-                // .then(post => setPost(post))
                 .then(setPost)
                 .catch(error => alert(error.message))
 
             // setPost(post)
-            setPreviewImage(post.image);
+            // setPreviewImage(post.image);
 
         } catch (error) {
             alert(error.message)
@@ -50,23 +48,24 @@ export default function EditPostModal({ onCancel, onPostEdited, postId, onDelete
         const text = event.target.text.value
 
         try {
-            updatePost(context.userId, postId, image, text, (error) => {
-                unfreeze()
-                if (error) {
-                    alert(error.message)
+            freeze()
 
-                    return
-                }
+            updatePost(context.token, postId, image, text).then(() => {
+                unfreeze()
 
                 onPostEdited()
             })
+                .catch((error) => {
+                    unfreeze()
 
-
+                    alert(error.message, 'error')
+                })
         } catch (error) {
-            alert(error.message)
+            unfreeze()
+
+            alert(error.message, 'warn')
         }
     }
-
 
     const handleDeletePost = (event) => {
         event.preventDefault()
@@ -91,14 +90,14 @@ export default function EditPostModal({ onCancel, onPostEdited, postId, onDelete
 
     };
 
-    const imageInputRef = useRef();
+    // const imageInputRef = useRef();
 
-    const handleImagePreview = (event) => {
-        event.preventDefault()
-        setPreviewImage(imageInputRef.current.value);
-    }
+    // const handleImagePreview = (event) => {
+    //     event.preventDefault()
+    //     setPreviewImage(imageInputRef.current.value);
+    // }
 
-    console.debug('// EditPostModal -> RENDER')
+    console.debug('// EditPostModal  -> Render')
 
     return <>
         {post && <section className="edit-post-modal">
@@ -107,11 +106,16 @@ export default function EditPostModal({ onCancel, onPostEdited, postId, onDelete
 
             <Panel tag="form" className="edit-post-modal-form" onSubmit={handleEditPost}>
                 <label htmlFor="edit-post-image " className='border-top-gradient'>Image:</label>
-                <img src={previewImage} className="edit-post-th grayscale-img" alt="Preview" />
+                <img src={post.image} className="edit-post-th grayscale-img" alt="Preview" />
                 <div className='modal-actions-container'>
                     <input className='input-preview' type="url" name="image" placeholder="Paste image URL in here."
-                        defaultValue={previewImage} ref={imageInputRef} />
-                    <button className="preview-image-button icon post-button" onClick={handleImagePreview}>Preview<EyeIcon className="eye icon" /></button>
+                        defaultValue={post.image} />
+
+                    {/* TODO IMAGE PREVIEW */}
+                    {/* <input className='input-preview' type="url" name="image" placeholder="Paste image URL in here."
+                        defaultValue={previewImage} ref={imageInputRef} /> */}
+                    {/* <button className="preview-image-button icon post-button" onClick={handleImagePreview}>Preview<EyeIcon className="eye icon" /></button> */}
+
                 </div>
 
                 <label htmlFor="edit-post-text ">Text:</label>

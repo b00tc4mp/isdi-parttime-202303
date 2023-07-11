@@ -58,7 +58,7 @@ export default function AddPostModal({ onCancel, onPostCreated }) {
         setPreviewImage(imageInputRef.current.value);
     }
 
-    console.debug('// AddPostModal -> RENDER')
+    console.debug('// AddPostModal  -> Render')
 
     return <section className="add-post-modal">
         <h3 className="modal-post-headline">Shoot your post!</h3>

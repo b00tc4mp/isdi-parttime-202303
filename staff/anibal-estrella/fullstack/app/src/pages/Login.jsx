@@ -7,8 +7,9 @@ import { Panel } from '../library'
 import "./Login.css"
 
 export default function Login({ onRegisterClick, onUserLoggedIn }) {
-    const { alert, freeze, unfreeze } = useAppContext()
+    console.debug('// Login  -> Render \nEddie\npj@gmail.com\n123123123');
 
+    const { alert, freeze, unfreeze } = useAppContext()
 
     // 2 //send the event to its parent 
     function handleGoToRegisterClick(event) {
@@ -50,7 +51,6 @@ export default function Login({ onRegisterClick, onUserLoggedIn }) {
         }
     }
 
-    console.debug('// Login -> RENDER \nEddie\npj@gmail.com\n123123123');
 
     return <div className="login center-container">
         <Panel tag="section">

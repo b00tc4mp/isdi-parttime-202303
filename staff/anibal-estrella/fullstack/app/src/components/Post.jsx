@@ -16,6 +16,8 @@ import { HeartIcon as HeartIconLine, BookmarkIcon as BookmarkIconLine } from '@h
 import './Post.css'
 
 export default function Post({ post: { author, id, text, image, date, likes, fav }, onEditPost, onToggledLikePost, onToggledFavPost }) {
+    console.debug('//// Post  -> Render')
+
     //CONTEXT/ALERTS/02// Use the context to return the object alert tha's define in the parent object App.jsx
     const { alert, freeze, unfreeze } = useAppContext()
 
@@ -64,7 +66,6 @@ export default function Post({ post: { author, id, text, image, date, likes, fav
         }
     }
 
-    console.debug('// Post -> RENDER')
 
     const userId = extractSubFromToken(context.token)
 

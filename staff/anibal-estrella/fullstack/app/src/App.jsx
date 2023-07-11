@@ -32,15 +32,13 @@ export default function App() {
 
     const alert = (message, level = 'info') => setFeedback({ message, level })
 
-    console.debug('// App -> RENDER');
+    console.debug('/ APP  -> Render');
 
     //CONTEXT/ALERTS/04// setFeedback is called from the context 
     return <Provider value={{ alert, freeze, unfreeze }}>
         {/* // as soon as we change the state value of loader we render it */}
         {loader && <Loader />}
-
         {view === 'home' && <Home onLoggedOut={handleGoToLogin} />}
-
         {/* //CONTEXT/ALERTS/END// setFeedback is called with the shared message from the alert error */}
         {feedback && <Alert message={feedback.message} level={feedback.level} onAccept={handleAcceptAlert} />}
         {view === 'login' && <Login onRegisterClick={handleGoToRegister} onUserLoggedIn={handleGoToHome} />}

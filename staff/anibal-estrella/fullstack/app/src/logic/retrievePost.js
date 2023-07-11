@@ -3,14 +3,14 @@ const { validateId, validateToken } = validators
 
 /**
  * 
- * @param {*} userId 
+ * @param {*} token 
  * @param {*} postId 
- * @param {*} callback 
+ * @returns 
  */
 
 export default function retrievePost(token, postId) {
     validateId(postId, 'post id')
-    validateToken(callback, 'callback function')
+    validateToken(token)
 
     return fetch(`${import.meta.env.VITE_API_URL}/posts/${postId}`, {
         headers: {

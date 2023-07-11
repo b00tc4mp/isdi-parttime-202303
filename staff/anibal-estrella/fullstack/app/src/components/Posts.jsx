@@ -9,6 +9,8 @@ import { useAppContext } from "../hooks"
 import Post from "./Post.jsx"
 
 export default function Posts({ onEditPost, lastPostsUpdate, onOpenSavedPosts, user }) {
+    console.debug('/// Posts  -> Render');
+
     const { alert, freeze, unfreeze } = useAppContext()
 
     const [posts, setPosts] = useState()
@@ -44,10 +46,9 @@ export default function Posts({ onEditPost, lastPostsUpdate, onOpenSavedPosts, u
                     setPosts(posts)
                 })
 
-            console.debug('// Posts -> RENDER');
 
 
-            retrieveUser(context.userId, (error, _user) => {
+            retrieveUser(context.token, (error, _user) => {
                 unfreeze()
 
                 if (error) {

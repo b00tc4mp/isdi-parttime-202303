@@ -4,8 +4,9 @@ import './Panel.css'
 // using the className parameter all the rest of the classes added inside the className of the tag will be passed as a string
 // all the rest tags inside the elements will be passed thropu the (...props) parameter
 // we can add modifiers to the class, adding a parameter to change the selector, let's name it " type" and use a contition to inject it.
-export default function Panel ({ children, tag:Tag = "div", className, type,  ...props}) {
-    return <Tag className={`Panel ${className? `${className}` : ''}${type? `Container--${type}` : ''}` } {...props}>
+export default function Panel({ children, tag: Tag = "div", className, type, ...props }) {
+    console.debug(`///// Panel -> render`)
+    return <Tag className={`Panel ${className ? `${className}` : ''}${type ? `Container--${type}` : ''}`} {...props}>
         {children}
     </Tag>
 }

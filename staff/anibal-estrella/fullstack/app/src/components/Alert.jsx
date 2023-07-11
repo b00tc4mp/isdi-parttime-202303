@@ -3,15 +3,15 @@ import Panel from '../library/Panel'
 import "./Alert.css"
 
 export default function alert({ onCancel, message, onAccept }) {
+    console.debug(`//// Alert -> render`)
 
     function handleCancel(event) {
         event.preventDefault()
-        
+
         onCancel()
     }
 
 
-    console.debug(`Alert -> render`)
 
 
     return <section className="alert">
@@ -22,7 +22,7 @@ export default function alert({ onCancel, message, onAccept }) {
             <button className="button" onClick={onAccept}>OK</button>
 
         </Panel>
-        
+
         <div className="overlay-panel-close" onClick={onAccept}></div>
 
     </section>

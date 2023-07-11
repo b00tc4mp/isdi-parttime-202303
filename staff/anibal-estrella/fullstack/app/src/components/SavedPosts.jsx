@@ -7,6 +7,7 @@ import retrieveUser from "../logic/retrieveUser"
 import Post from "./Post.jsx"
 
 export default function Posts({ onEditPost, lastPostsUpdate, user }) {
+    console.debug('/// Saved Posts  -> Render');
 
     const [posts, setPosts] = useState()
     const [_user, setUser] = useState()
@@ -45,12 +46,11 @@ export default function Posts({ onEditPost, lastPostsUpdate, user }) {
 
     )
 
-    console.debug('// Posts -> RENDER');
 
     return <section className="post-list border-top-gradient">
         <h2 className="post-list-headline">All Posts</h2>
 
-        {posts && posts.map(post => <Post 
+        {posts && posts.map(post => <Post
             key={post.id}
             post={post}
             user={user}

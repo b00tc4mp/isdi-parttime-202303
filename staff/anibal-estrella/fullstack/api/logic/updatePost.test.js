@@ -1,24 +1,20 @@
-const updatePost = require('./updatePost')
-
-const { readFile } = require('fs') //commonJS
 require('dotenv').config()
+const updatePost = require('./updatePost')
+const mongoose = require('mongoose')
+const { User, Post } = require('../data/models')
 
+function getRandomNumber() {
+    return Math.floor(Math.random() * 99) + 1;
+}
+const randomNumber = getRandomNumber();
+const userId = '64aa892fae321e180c2c6402'
+const postId = '64ac2546d91820fae3964bae'
+const image = `https://picsum.photos/1500?random=${randomNumber}`
+const text = '/// UPDATED2 /// Mauris sollicitudin fermentum libero. Pellentesque habitant morbi ucibus orci luctus et ultrices posuere cubilia Curae; In ac dui quis mi consectetuer lacinia. Aenean imperdiet.'
 
-readFile(`${process.env.DB_PATH}/posts.json`, (error, json) => {
-    if (error) return callback(error)
-
-    const posts = JSON.parse(json)
-    const post = posts[posts.length - 1]
-    const image = 'NEW-https://picsum.photos/1500?random=1'
-    const text = 'NEW-post text'
-
-    updatePost('user-1', post.id, text, image, error => {
-        if (error) {
-            console.error(error)
-            return
-        }
-
-        console.log('post updated!')
-    })
-
-})
+mongoose.connect(process.env.MONGODB_URL)
+    .then(() =>
+        updatePost(userId, postId, image, text))
+    .then(() => console.log('POST UPDATED 👍'))
+    .catch(console.error)
+    .finally(mongoose.disconnect)

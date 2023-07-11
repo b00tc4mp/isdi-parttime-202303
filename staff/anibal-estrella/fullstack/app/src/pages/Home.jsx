@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { context } from "../ui"
+import { context, hideScroll, showScroll } from "../ui"
 import retrieveUser from "../logic/retrieveUser"
 import randomSalutation from "../logic/randomSalutation"
 
@@ -15,6 +15,7 @@ import { Bars3BottomRightIcon } from '@heroicons/react/24/solid'
 import './Home.css'
 
 export default function Home({ onLoggedOut }) {
+    console.debug('// Home  -> Render')
 
     const [view, setView] = useState('posts')
     const [modal, setModal] = useState(null)
@@ -40,7 +41,10 @@ export default function Home({ onLoggedOut }) {
 
     }, [])
 
-    const closeModal = () => setModal(null)
+    const closeModal = () => {
+        setModal(null)
+        showScroll()
+    }
 
     const handleOpenMenu = event => {
         event.preventDefault()
@@ -60,8 +64,8 @@ export default function Home({ onLoggedOut }) {
     }
 
     const handlePostCreated = () => {
-        setModal(null)
         setLastPostsUpdate(Date.now())
+        closeModal()
     }
 
     const handleLogOut = () => {
@@ -101,7 +105,6 @@ export default function Home({ onLoggedOut }) {
         document.querySelector(':root').classList.toggle('dark-theme')
     }
 
-    console.debug('// Home -> RENDER')
 
     return <div className="home">
         <section>
