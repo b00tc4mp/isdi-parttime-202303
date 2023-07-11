@@ -1,0 +1,18 @@
+[
+    {
+        "id": "user-1",
+        "name": "Pepito Grillo",
+        "email": "pepito@grillo.com",
+        "password": "123123123",
+        "avatar": null,
+        "favs": []
+    },
+    {
+        "id": "user-2",
+        "name": "Campa Nilla",
+        "email": "campa@nilla.com",
+        "password": "123123123",
+        "avatar": null,
+        "favs": []
+    }
+]
