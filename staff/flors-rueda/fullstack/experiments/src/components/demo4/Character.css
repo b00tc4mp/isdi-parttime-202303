@@ -1,0 +1,8 @@
+.character {
+  position: absolute;
+  width: 2rem;
+  height: 2rem;
+  cursor: grab;
+  transition: transform 0.2s;
+  background-color: tomato;
+}

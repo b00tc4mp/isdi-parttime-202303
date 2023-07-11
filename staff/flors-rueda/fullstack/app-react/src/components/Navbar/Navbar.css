@@ -1,0 +1,99 @@
+nav {
+    z-index: 99999;
+}
+
+
+.nav-header__logout,
+.nav-header__to-user-profile,
+.nav-header__to-home,
+.nav-header__to-favs {
+    padding: 0.35rem;
+    border-radius: 50%;
+    width: 2.25rem;
+    height: 2.25rem;
+}
+
+.nav-header__navbar button svg {
+    height: 1.5rem;
+    width: 1.5rem;
+    fill: var(--color-primary-200);
+}
+
+@media (min-width: 768px) {
+    .nav-header__navbar button:hover svg {
+        fill: var(--color-secondary-200)
+    }
+    .nav-header__menu:hover .nav-header__menu-line {
+        background-color: var(--color-secondary-200)
+    }
+}
+
+
+/*
+button {
+	background: none !important;
+	color: inherit !important;
+	border: none !important;
+	padding: 0 !important;
+	font: inherit !important;
+	cursor: pointer !important;
+	outline: inherit !important;
+}
+
+
+.navbar {
+  position: absolute;
+  height: 5rem;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: red;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0 0.5rem;
+  gap: 1rem;
+  border-radius: 0 0 .95rem .95rem;
+  margin-bottom: 2rem;
+}
+
+.navbar__option {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.navbar__user,
+.navbar__user--image {
+  border-radius: 50%;
+  overflow: hidden;
+  height: 3.5rem;
+  width: 3.5rem;
+  z-index: 1;
+  box-sizing: border-box;
+}
+
+.navbar__user.active, .navbar__home.active {
+  height: 3rem;
+  width: 3rem;
+  border: solid 0.05em blue;
+  box-shadow: 0 0 0.35em blue;
+}
+
+.navbar__home {
+  border-radius: 50%;
+  height: 3.5rem;
+  width: 3.5rem;
+  background-color: green;
+  box-sizing: border-box;
+}
+
+.navbar__home--icon {
+  height: 80%;
+  width: 80%;
+}
+
+.navbar span {
+    cursor: none;
+}
+*/

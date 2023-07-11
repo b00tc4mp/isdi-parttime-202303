@@ -1,0 +1,5 @@
+	Race Podium
+
+🚖, pos = 102, time = 7800. 
+🚘, pos = 100, time = 8200. 
+🚔, pos = 100, time = 7400. 

@@ -1,0 +1,57 @@
+.profile-settings,
+.profile-settings__menu {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    justify-content: center;
+    align-items: flex-start;
+    width: 90%;
+    padding: 0 1rem;
+}
+
+button.profile-settings__selection {
+    background: none;
+    color: inherit;
+    border: none;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.profile-settings__selection {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    color: var(--color-terciary-400) !important;
+    font-size: 1.25em !important;
+}
+
+.profile-settings__selection--icon {
+    fill: var(--color-primary-300);
+}
+
+.profile-settings form {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profile-settings__title {
+    font-size: 1.45em;
+    padding-top: 0.5rem;
+    color: var(--color-primary-300)
+}
+
+.profile-settings__separetor {
+    width: 95%;
+    border-bottom: solid 0.001rem var(--color-surface-400);
+}
+
+.settings-form__set-img {
+    height: 2rem;
+    width: 2rem;
+    fill: var(--color-primary-100);
+}

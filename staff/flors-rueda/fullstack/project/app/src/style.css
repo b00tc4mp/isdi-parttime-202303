@@ -1,0 +1,66 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-primary-100: #ff4d00;
+    --color-primary-200: #ff8000;
+    --color-primary-300: #ff8f2f;
+    --color-primary-400: #ff905e;
+    --color-primary-500: #ffa378;
+    --color-primary-600: #ffb97f;
+    --color-secondary-100: #0c0045;
+    --color-secondary-200: #0c1b68;
+    --color-secondary-300: #2238a1;
+    --color-secondary-400: #3049c9;
+    --color-secondary-500: #4d66df;
+    --color-secondary-600: #6e85f7;
+    --color-light-100: #b5b5b5;
+    --color-light-200: #cbcbcb;
+    --color-light-300: #e8e8e8;
+    --color-light-400: #f8f8f8;
+    --color-light-500: #fbfbfb;
+    --color-dark-100: #1a1a1a;
+    --color-dark-200: #222222;
+    --color-dark-300: #2c2c2c;
+    --color-dark-400: #303030;
+    --color-dark-500: #494949;
+    --color-warning-100: #b78a00;
+    --color-warning-200: #ffbf00;
+    --color-warning-300: #ffe2a1;
+    --color-danger-100: #7c0903;
+    --color-danger-200: #e3332a;
+    --color-danger-300: #f46f7a;
+    --color-success-100: #377e3f;
+    --color-success-200: #53b65a;
+    --color-success-300: #ddf8e4;
+  }
+}
+
+
+body {
+  background-color: var(--color-light-400);
+  overscroll-behavior: contain;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  position: relative;
+}
+
+.canvas-container {
+  width: 100%;
+  max-width: 530px;
+  height: 530px;
+  max-height: 85vh;
+  margin: 0;
+  overflow: hidden;
+}
+
+
+@media (min-width: 768px) {
+  .canvas-container {
+    margin: 2rem auto 0;
+  }
+
+}

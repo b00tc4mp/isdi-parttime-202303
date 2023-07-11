@@ -1,0 +1,22 @@
+version: '3'
+services:
+  nginx:
+    restart: always
+    image: rucev/frontend
+    ports:
+      - 80:80
+  node:
+    restart: always
+    image: rucev/backend
+    environment:
+      MONGODB_URL: mongodb://mongo:27017/ballopolis
+    ports:
+      - 4321:4321
+  mongo:
+    image: mongo:6.0.3
+    ports:
+      - 27017:27017
+    volumes:
+      - mongodb:/data/db
+volumes:
+ mongodb:
