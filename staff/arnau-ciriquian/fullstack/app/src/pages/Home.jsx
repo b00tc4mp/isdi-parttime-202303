@@ -21,7 +21,7 @@ export default function Home({ onLoggedOut }) {
 
     useEffect(() => {
         try {
-            getLoggedUser(context.userId, (error, user) => {
+            getLoggedUser(context.token, (error, user) => {
                 if (error) {
                     alert(error.message)
 

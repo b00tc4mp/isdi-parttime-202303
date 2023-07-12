@@ -1,8 +1,8 @@
 import { validators } from 'com'
-const { validateCallback, validateId } = validators
+const { validateCallback, validateToken } = validators
 
-export function getLoggedUser(userId, callback) {
-    validateId(userId, 'user id')
+export function getLoggedUser(token, callback) {
+    validateToken(token)
     validateCallback(callback)
 
     const xhr = new XMLHttpRequest
@@ -32,7 +32,7 @@ export function getLoggedUser(userId, callback) {
     xhr.open('GET', `${import.meta.env.VITE_API_URL}/users`)
 
     xhr.setRequestHeader('Content-Type', 'application/json')
-    xhr.setRequestHeader('Authorization', `Bearer ${userId}`)
+    xhr.setRequestHeader('Authorization', `Bearer ${token}`)
 
     xhr.send()
 }

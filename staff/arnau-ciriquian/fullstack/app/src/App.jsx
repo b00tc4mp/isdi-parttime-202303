@@ -3,9 +3,13 @@ import { context, setTheme, getTheme } from './ui'
 import Login from './pages/Login.jsx'
 import Register from './pages/Register.jsx'
 import Home from './pages/Home.jsx'
+import { utils } from 'com'
+
+const { isTokenAlive, isTokenValid } = utils
 
 export default function App() {
-  const [view, setView] = useState(context.userId ? 'home' : 'login')
+  const { token } = context
+  const [view, setView] = useState(isTokenValid(token) && isTokenAlive(token) ? 'home' : 'login')
 
   useEffect(() => setTheme(getTheme()), [])
 
