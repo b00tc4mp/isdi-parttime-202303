@@ -1,0 +1,11 @@
+taxi = post = 102, time = 4300
+police = post = 103, time = 3800
+thief = post = 100, time = 4300
+
+taxi = post = 102, time = 4100
+police = post = 101, time = 5200
+thief = post = 100, time = 3700
+
+taxi = post = 100, time = 3900
+police = post = 101, time = 4200
+thief = post = 103, time = 3400
