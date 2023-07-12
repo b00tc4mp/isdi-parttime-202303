@@ -2,7 +2,7 @@ import { useAppContext } from '../hooks'
 
 export const DEFAULT_AVATAR_URL = "https://img.icons8.com/color/512/avatar.png"
 
-import { toggleLikePost, toggleSavePost, deletePost, toggleLockPost, updateBuyPost } from '../logic'
+import { isCurrentUser, toggleLikePost, toggleSavePost, deletePost, toggleLockPost, updateBuyPost } from '../logic'
 
 import { utils } from 'com'
 
@@ -89,7 +89,7 @@ export default function Post ({ post: { id, author, image, text, date, likes, da
 
     const handlePriceToPost = () => onAddPriceToPost(id)
 
-    const userId = extractSubFromToken(context.token)
+    const isCurrentUserPost = isCurrentUser(author.id)
 
     return <>
         <article className="post-article post-text">
@@ -107,11 +107,11 @@ export default function Post ({ post: { id, author, image, text, date, likes, da
                     <button className = "button-save" onClick={handleSavePost}> {fav ? '📌' : '🔘'}</button>
                 </div>
                 <div>
-                    {userId === author.id ? <button onClick={handleEditPost}>🖍</button> : ''} 
-                    {userId === author.id ? <button onClick={handleDeletePost}>🗑</button> : ''}   
-                    {userId === author.id ? <button onClick={handleLockPost}>{lock ? '🔒' : '🔓'}</button> : ''}   
-                    {userId === author.id ? <button onClick={handlePriceToPost}>{price +'€'}</button> : ''}      
-                    {userId !== author.id && price !== 0 ? <button onClick={handleBuyPost}>{price+'€'}</button> : ''}
+                    {isCurrentUserPost ? <button onClick={handleEditPost}>🖍</button> : ''} 
+                    {isCurrentUserPost ? <button onClick={handleDeletePost}>🗑</button> : ''}   
+                    {isCurrentUserPost ? <button onClick={handleLockPost}>{lock ? '🔒' : '🔓'}</button> : ''}   
+                    {isCurrentUserPost ? <button onClick={handlePriceToPost}>{price +'€'}</button> : ''}      
+                    {!isCurrentUserPostd && price !== 0 ? <button onClick={handleBuyPost}>{price+'€'}</button> : ''}
                 </div>
             </div>
             <div className = "post-info">
