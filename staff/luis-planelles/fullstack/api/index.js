@@ -15,22 +15,14 @@ const {
   toggleLikePostHandler,
 } = require('./handlers');
 
+const mongoose = require('mongoose');
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const { MongoClient } = require('mongodb');
-const context = require('./logic/context');
 
-const client = new MongoClient(process.env.MONGODB_URL);
-
-client
-  .connect()
-  .then((connection) => {
-    const db = connection.db();
-
-    context.users = db.collection('users');
-    context.posts = db.collection('posts');
-
+mongoose
+  .connect(process.env.MONGODB_URL)
+  .then(() => {
     let api = express();
 
     const jsonBodyParser = bodyParser.json();
