@@ -1,9 +1,8 @@
-const context = require('./context');
 const {
   validators: { validateId, validateUrl, validateText },
   errors: { ExistenceError },
 } = require('com');
-const { ObjectId } = require('mongodb');
+const { User, Post } = require('../data/models');
 
 /**
  * Creates a new post by a user.
@@ -12,8 +11,8 @@ const { ObjectId } = require('mongodb');
  * @param {string} text - The text content of the post.
  * @returns {Promise<object>} - A promise that resolves to the created post object.
  * @throws {ExistenceError} - If the user with the provided ID does not exist.
- * @throws {TypeError} - on userId, text or image wrong type
- * @throws {ContentError} - on userId, text or image wrong characters
+ * @throws {TypeError} - on userId, text or image wrong type.
+ * @throws {ContentError} - on userId, text or image wrong characters.
  */
 
 const createPost = (userId, image, text) => {
@@ -21,12 +20,10 @@ const createPost = (userId, image, text) => {
   validateUrl(image, 'image');
   validateText(text, 'text');
 
-  const { posts, users } = context;
-
-  return users.findOne({ _id: new ObjectId(userId) }).then((user) => {
+  return User.findById(userId).then((user) => {
     if (!user) throw new ExistenceError(`user with id ${userId} doesnt exists`);
 
-    return posts.insertOne({
+    return Post.create({
       author: user._id,
       image,
       text,

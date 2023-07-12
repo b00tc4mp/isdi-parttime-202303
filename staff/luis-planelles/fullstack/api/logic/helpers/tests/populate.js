@@ -1,12 +1,13 @@
-const context = require('../../context');
+const { User, Post } = require('../../../data/models');
 
 module.exports = (_users, _posts) => {
-  const { users, posts } = context;
   const promises = [];
 
-  promises.push(users.insertMany(_users));
+  promises.push(User.insertMany(_users));
 
-  if (_posts.length) promises.push(posts.insertMany(_posts));
+  if (_posts.length) {
+    promises.push(Post.insertMany(_posts));
+  }
 
   return Promise.all(promises);
 };

@@ -1,10 +1,9 @@
-const { ObjectId } = require('mongodb');
-
-const context = require('./context');
 const {
   validators: { validateId, validatePassword },
   errors: { ExistenceError },
 } = require('com');
+
+const { User } = require('../data/models');
 
 /**
  * Updates the password of a user with the provided new password.
@@ -40,19 +39,14 @@ const updateUserPassword = (
   if (newPassword !== newPasswordConfirm)
     throw new Error('password confirmation mismatch');
 
-  return context.users
-    .findOne({ _id: new ObjectId(userId) })
-    .then((foundUser) => {
-      if (!foundUser)
-        throw new ExistenceError(`user with id ${userId} not exists`);
+  return User.findById(userId).then((foundUser) => {
+    if (!foundUser)
+      throw new ExistenceError(`user with id ${userId} not exists`);
 
-      if (password !== foundUser.password) throw new Error('wrong password');
+    if (password !== foundUser.password) throw new Error('wrong password');
 
-      return context.users.updateOne(
-        { _id: new ObjectId(userId) },
-        { $set: { password: newPassword } }
-      );
-    });
+    return User.updateOne({ _id: userId }, { $set: { password: newPassword } });
+  });
 };
 
 module.exports = updateUserPassword;

@@ -1,9 +1,9 @@
-const context = require('./context');
 const {
   validators: { validateId, validateUrl },
   errors: { ExistenceError },
 } = require('com');
-const { ObjectId } = require('mongodb');
+
+const { User } = require('../data/models');
 
 /**
  * Updates the avatar of a user with the provided new avatar URL.
@@ -19,17 +19,12 @@ const updateUserAvatar = (userId, newAvatar) => {
   validateId(userId, 'userId');
   validateUrl(newAvatar, 'avatar');
 
-  return context.users
-    .findOne({ _id: new ObjectId(userId) })
-    .then((foundUser) => {
-      if (!foundUser)
-        throw new ExistenceError(`user with id ${userId} not exists`);
+  return User.findById(userId).then((foundUser) => {
+    if (!foundUser)
+      throw new ExistenceError(`user with id ${userId} not exists`);
 
-      return context.users.updateOne(
-        { _id: new ObjectId(userId) },
-        { $set: { avatar: newAvatar } }
-      );
-    });
+    return User.updateOne({ _id: userId }, { $set: { avatar: newAvatar } });
+  });
 };
 
 module.exports = updateUserAvatar;

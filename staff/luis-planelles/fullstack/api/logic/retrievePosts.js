@@ -1,8 +1,9 @@
-const context = require('./context');
 const {
   validators: { validateId },
   errors: { ExistenceError },
 } = require('com');
+
+const { User, Post } = require('../data/models');
 
 /**
  * Retrieves all posts and their associated details, filtered by a specific user.
@@ -16,37 +17,29 @@ const {
 const retrievePosts = (userId) => {
   validateId(userId, 'user id');
 
-  const { users, posts } = context;
+  return Promise.all([User.find(), Post.find()]).then(([users, posts]) => {
+    const user = users.find((user) => user._id.toString() === userId);
 
-  return Promise.all([users.find().toArray(), posts.find().toArray()]).then(
-    ([users, posts]) => {
-      const user = users.find((user) => user._id.toString() === userId);
+    if (!user) throw new ExistenceError(`user with id ${userId} not exists`);
 
-      if (!user) throw new ExistenceError(`user with id ${userId} not exists`);
+    posts.forEach((post) => {
+      post.id = post.id;
+      delete post._id;
 
-      posts.forEach((post) => {
-        post.id = post._id.toString();
-        delete post._id;
+      const author = users.find((user) => user.id === post.author.toString());
 
-        const author = users.find(
-          (user) => user._id.toString() === post.author.toString()
-        );
+      post.author = {
+        id: author._id.toString(),
+        name: author.name,
+        avatar: author.avatar,
+      };
 
-        const { _id, name, avatar } = author;
+      post.favourites = user.favourites.some(
+        (favourites) => favourites === post.id
+      );
+    });
 
-        post.author = {
-          id: _id.toString(),
-          name,
-          avatar,
-        };
-
-        post.favourites = user.favourites.some(
-          (favourites) => favourites.toString() === post.id
-        );
-      });
-
-      return posts.reverse();
-    }
-  );
+    return posts.reverse();
+  });
 };
 module.exports = retrievePosts;

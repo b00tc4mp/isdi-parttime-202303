@@ -1,24 +1,17 @@
 require('dotenv').config();
 
 const { expect } = require('chai');
-const createPost = require('./createPost');
 const sinon = require('sinon');
+const mongoose = require('mongoose');
+const { ObjectId } = require('mongodb');
+
+const createPost = require('./createPost');
 const { cleanUp, populate, generate } = require('./helpers/tests');
-const { MongoClient, ObjectId } = require('mongodb');
-const context = require('./context');
+const { Post } = require('../data/models');
 
 describe('createPost', () => {
-  let client;
-
   before(() => {
-    client = new MongoClient(process.env.MONGODB_URL);
-
-    return client.connect().then((connection) => {
-      const db = connection.db();
-
-      context.users = db.collection('users');
-      context.posts = db.collection('posts');
-    });
+    mongoose.connect(process.env.MONGODB_URL);
   });
 
   let user, text, image;
@@ -39,7 +32,7 @@ describe('createPost', () => {
     const fakeDate = sinon.useFakeTimers(date.getTime());
 
     return createPost(user._id.toString(), image, text)
-      .then(() => context.posts.findOne())
+      .then(() => Post.findOne())
       .then((foundPost) => {
         expect(foundPost).to.exist;
         expect(foundPost.author.toString()).to.equal(user._id.toString());
@@ -72,5 +65,5 @@ describe('createPost', () => {
     expect(() => createPost(anyId, image, '')).to.throw(Error, 'text is empty');
   });
 
-  after(() => cleanUp().then(() => client.close()));
+  after(() => cleanUp().then(() => mongoose.disconnect()));
 });

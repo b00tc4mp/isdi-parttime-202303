@@ -1,33 +1,25 @@
 require('dotenv').config();
 
 const { expect } = require('chai');
+const { ObjectId } = require('mongodb');
+const mongoose = require('mongoose');
+const sinon = require('sinon');
+
 const retrievePost = require('./retrievePost');
 const { cleanUp, populate, generate } = require('./helpers/tests');
-const { ObjectId, MongoClient } = require('mongodb');
-const sinon = require('sinon');
-const context = require('./context');
 
 describe('retrievePost', () => {
-  let client;
-
   before(() => {
-    client = new MongoClient(process.env.MONGODB_URL);
-
-    return client.connect().then((connection) => {
-      const db = connection.db();
-
-      context.users = db.collection('users');
-      context.posts = db.collection('posts');
-    });
+    mongoose.connect(process.env.MONGODB_URL);
   });
 
-  const anyId = new ObjectId().toString();
+  const anyId = new ObjectId();
 
   let user, post;
 
   beforeEach(() => {
     user = generate.user();
-    post = generate.post();
+    post = generate.post(user._id);
 
     return cleanUp().then(() => populate([user], [post]));
   });
@@ -51,24 +43,36 @@ describe('retrievePost', () => {
   });
 
   it('fails when user not exists', () => {
-    return retrievePost(anyId, post._id.toString()).catch((error) => {
-      expect(error).to.be.instanceOf(Error);
-      expect(error.message).to.equal(`user with id ${anyId} not exists`);
-    });
+    return retrievePost(anyId.toString(), post._id.toString()).catch(
+      (error) => {
+        expect(error).to.be.instanceOf(Error);
+        expect(error.message).to.equal(`user with id ${anyId} not exists`);
+      }
+    );
   });
 
   it('fails when post not exists', () => {
-    return retrievePost(user._id.toString(), anyId).catch((error) => {
-      expect(error).to.be.instanceOf(Error);
-      expect(error.message).to.equal(`post with id ${anyId} not exists`);
-    });
+    return retrievePost(user._id.toString(), anyId.toString()).catch(
+      (error) => {
+        expect(error).to.be.instanceOf(Error);
+        expect(error.message).to.equal(
+          `post with id ${anyId.toString()} not exists`
+        );
+      }
+    );
   });
 
   it('fails on empty user id', () =>
-    expect(() => retrievePost('', anyId)).to.throw(Error, 'user id is empty'));
+    expect(() => retrievePost('', anyId.toString())).to.throw(
+      Error,
+      'user id is empty'
+    ));
 
   it('fails on empty post id', () =>
-    expect(() => retrievePost(anyId, '')).to.throw(Error, 'post id is empty'));
+    expect(() => retrievePost(anyId.toString(), '')).to.throw(
+      Error,
+      'post id is empt'
+    ));
 
-  after(() => cleanUp().then(() => client.close()));
+  after(() => cleanUp().then(() => mongoose.disconnect()));
 });

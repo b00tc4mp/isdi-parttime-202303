@@ -1,23 +1,16 @@
 require('dotenv').config();
 
 const { expect } = require('chai');
-const { cleanUp, populate, generate } = require('./helpers/tests');
-const { MongoClient, ObjectId } = require('mongodb');
-const context = require('./context');
+const { ObjectId } = require('mongodb');
+const mongoose = require('mongoose');
+
 const updateUserAvatar = require('./updateUserAvatar.js');
+const { cleanUp, populate, generate } = require('./helpers/tests');
+const { User } = require('../data/models');
 
 describe('updateUserAvatar', () => {
-  let client;
-
   before(() => {
-    client = new MongoClient(process.env.MONGODB_URL);
-
-    return client.connect().then((connection) => {
-      const db = connection.db();
-
-      context.users = db.collection('users');
-      context.posts = db.collection('posts');
-    });
+    mongoose.connect(process.env.MONGODB_URL);
   });
 
   const anyId = new ObjectId().toString();
@@ -34,7 +27,7 @@ describe('updateUserAvatar', () => {
 
   it('succeeds on existing user and correct new avatar', () => {
     return updateUserAvatar(user._id.toString(), newAvatar)
-      .then(() => context.users.findOne())
+      .then(() => User.findOne())
       .then((user) => {
         expect(user.avatar).to.equal(newAvatar);
       });
@@ -82,5 +75,5 @@ describe('updateUserAvatar', () => {
     );
   });
 
-  after(() => cleanUp().then(() => client.close()));
+  after(() => cleanUp().then(() => mongoose.disconnect()));
 });

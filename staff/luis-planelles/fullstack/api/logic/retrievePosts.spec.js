@@ -1,40 +1,31 @@
 require('dotenv').config();
 
 const { expect } = require('chai');
+const { ObjectId } = require('mongodb');
+const mongoose = require('mongoose');
+
 const retrievePosts = require('./retrievePosts');
 const { cleanUp, populate, generate } = require('./helpers/tests');
-const { ObjectId, MongoClient } = require('mongodb');
-const context = require('./context');
 
 describe('retrievePosts', () => {
-  let client;
-
-  before(() => {
-    client = new MongoClient(process.env.MONGODB_URL);
-
-    return client.connect().then((connection) => {
-      const db = connection.db();
-
-      context.users = db.collection('users');
-      context.posts = db.collection('posts');
-    });
-  });
-
   describe('on existing users and posts', () => {
-    let posts = [],
-      users = [];
+    before(() => {
+      mongoose.connect(process.env.MONGODB_URL);
+    });
 
-    const anyId = new ObjectId().toString();
+    let user,
+      posts = [],
+      users = [];
 
     beforeEach(() => {
       for (let i = 0; i < 3; i++) {
-        const user = generate.user();
-        user._id = new ObjectId();
+        user = generate.user();
 
         users[i] = user;
 
         for (let j = 0; j < 3; j++) {
-          const post = generate.post(user._id.toString());
+          const anyId = new ObjectId();
+          const post = generate.post(user._id);
 
           posts.push(post);
         }
@@ -44,19 +35,18 @@ describe('retrievePosts', () => {
     });
 
     it('succeeds', () => {
-      return context.users
-        .findOne()
-        .then((foundUser) => retrievePosts(foundUser._id.toString()))
-        .then((retrievedPosts) => {
-          expect(retrievedPosts.length).to.equal(9);
-          // expect(retrievedPosts).to.deep.equal(posts.reverse());
-        });
+      return retrievePosts(user._id.toString()).then((retrievedPosts) => {
+        expect(retrievedPosts.length).to.equal(9);
+        // expect(retrievedPosts).to.deep.equal(posts.reverse());
+      });
     });
 
     it('fail on not match id and existing user', () => {
-      return retrievePosts(anyId).catch((error) => {
+      return retrievePosts(anyId.toString()).catch((error) => {
         expect(error).to.be.instanceOf(Error);
-        expect(error.message).to.equal(`user with id ${anyId} not exists`);
+        expect(error.message).to.equal(
+          `user with id ${anyId.toString()} not exists`
+        );
       });
     });
 
@@ -64,30 +54,21 @@ describe('retrievePosts', () => {
       expect(() => retrievePosts('')).to.throw(Error, 'user id is empty'));
 
     describe('on existing users but not posts', () => {
-      let users = [];
+      let user;
 
       beforeEach(() => {
-        for (let i = 0; i < 3; i++) {
-          const user = generate.user();
-          user._id = new ObjectId();
+        user = generate.user();
 
-          users[i] = user;
-        }
-
-        return cleanUp().then(() => populate(users, []));
+        return cleanUp().then(() => populate([user], []));
       });
 
       it('it returns empty array when user havent posts', () => {
-        return context.users
-          .findOne()
-          .then((foundUser) => retrievePosts(foundUser._id.toString()))
-          .then((retrievedPosts) => {
-            expect(retrievedPosts.length).to.equal(0);
-            expect(retrievedPosts).to.deep.equal([]);
-          });
+        return retrievePosts(user._id.toString()).then((retrievedPosts) => {
+          expect(retrievedPosts.length).to.equal(0);
+          expect(retrievedPosts).to.deep.equal([]);
+        });
       });
     });
   });
-
-  after(() => cleanUp().then(() => client.close()));
+  after(() => cleanUp().then(() => mongoose.disconnect()));
 });

@@ -1,10 +1,9 @@
-const { ObjectId } = require('mongodb');
-
-const context = require('./context');
 const {
   validators: { validateId },
   errors: { ExistenceError },
 } = require('com');
+
+const { User } = require('../data/models');
 
 /**
  * Retrieves a user by their ID.
@@ -18,10 +17,7 @@ const {
 const retrieveUser = (userId) => {
   validateId(userId, 'user id');
 
-  const { users } = context,
-    objectId = new ObjectId(userId);
-
-  return users.findOne({ _id: objectId }).then((foundUser) => {
+  return User.findById(userId).then((foundUser) => {
     if (!foundUser) throw new ExistenceError('user not exists');
 
     delete foundUser.password;

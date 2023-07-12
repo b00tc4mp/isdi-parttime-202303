@@ -1,25 +1,15 @@
 require('dotenv').config();
 
 const { expect } = require('chai');
+const mongoose = require('mongoose');
+
 const registerUser = require('./registerUser');
 const { cleanUp, populate, generate } = require('./helpers/tests');
-const { MongoClient } = require('mongodb');
-const context = require('./context');
+const { User } = require('../data/models');
 
 describe('registerUser', () => {
-  let client;
-
   before(() => {
-    client = new MongoClient(process.env.MONGODB_URL);
-
-    return client.connect().then((connection) => {
-      const db = connection.db();
-
-      context.users = db.collection('users');
-      context.posts = db.collection('posts');
-
-      context.users.createIndex({ email: 1 }, { unique: true });
-    });
+    mongoose.connect(process.env.MONGODB_URL);
   });
 
   let user;
@@ -31,14 +21,12 @@ describe('registerUser', () => {
   });
 
   it('succeeds on new user', () => {
-    return context.users
-      .find()
-      .toArray()
+    return User.findOne()
       .then((users) => {
-        expect(users).to.have.length(0);
+        expect(users).to.be.null;
       })
       .then(() => registerUser(user.name, user.email, user.password))
-      .then(() => context.users.findOne())
+      .then(() => User.findOne())
       .then((foundUser) => {
         expect(foundUser).to.exist;
         expect(foundUser.name).to.equal(user.name);
@@ -47,7 +35,7 @@ describe('registerUser', () => {
         expect(foundUser.avatar).to.be.null;
         expect(foundUser.favourites).to.have.lengthOf(0);
       })
-      .then(() => context.users.find().toArray())
+      .then(() => User.find())
       .then((users) => {
         expect(users).to.have.length(1);
       });
@@ -57,12 +45,12 @@ describe('registerUser', () => {
     const otherUser = generate.user();
 
     return populate([otherUser], [])
-      .then(() => context.users.find().toArray())
+      .then(() => User.find())
       .then((users) => {
         expect(users).to.have.length(1);
       })
       .then(() => registerUser(user.name, user.email, user.password))
-      .then(() => context.users.findOne({ email: user.email }))
+      .then(() => User.findOne({ email: user.email }))
       .then((foundUser) => {
         expect(foundUser).to.exist;
         expect(foundUser.name).to.equal(user.name);
@@ -71,7 +59,7 @@ describe('registerUser', () => {
         expect(foundUser.avatar).to.be.null;
         expect(foundUser.favourites).to.have.lengthOf(0);
       })
-      .then(() => context.users.find().toArray())
+      .then(() => User.find())
       .then((users) => {
         expect(users).to.have.length(2);
       });
@@ -79,7 +67,7 @@ describe('registerUser', () => {
 
   it('fails on existing user', () => {
     return populate([user], [])
-      .then(() => context.users.find().toArray())
+      .then(() => User.find())
       .then((users) => expect(users).to.have.length(1))
       .then(() => registerUser(user.name, user.email, user.password))
       .catch((error) => {
@@ -88,7 +76,7 @@ describe('registerUser', () => {
           `user with email ${user.email} already exists`
         );
       })
-      .then(() => context.users.find().toArray())
+      .then(() => User.find())
       .then((users) => {
         expect(users).to.have.length(1);
       });
@@ -220,5 +208,5 @@ describe('registerUser', () => {
     }).to.throw(Error, 'password contains any whitespace characters');
   });
 
-  after(() => cleanUp().then(() => client.close()));
+  after(() => cleanUp().then(() => mongoose.disconnect()));
 });

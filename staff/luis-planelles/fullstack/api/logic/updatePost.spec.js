@@ -1,24 +1,17 @@
 require('dotenv').config();
 
 const { expect } = require('chai');
-const updatePost = require('./updatePost');
-const { cleanUp, populate, generate } = require('./helpers/tests');
-const { MongoClient, ObjectId } = require('mongodb');
-const context = require('./context');
+const { ObjectId } = require('mongodb');
+const mongoose = require('mongoose');
 const sinon = require('sinon');
 
+const updatePost = require('./updatePost');
+const { cleanUp, populate, generate } = require('./helpers/tests');
+const { Post } = require('../data/models');
+
 describe('updatePost', () => {
-  let client;
-
   before(() => {
-    client = new MongoClient(process.env.MONGODB_URL);
-
-    return client.connect().then((connection) => {
-      const db = connection.db();
-
-      context.users = db.collection('users');
-      context.posts = db.collection('posts');
-    });
+    mongoose.connect(process.env.MONGODB_URL);
   });
 
   const anyId = new ObjectId().toString();
@@ -27,19 +20,12 @@ describe('updatePost', () => {
 
   beforeEach(() => {
     user = generate.user();
-    post = generate.post();
+    post = generate.post(user._id);
 
     image = `url${Math.random()}`;
     text = `text${Math.random()}`;
 
-    return cleanUp()
-      .then(() => populate([user], [post]))
-      .then(() =>
-        context.posts.updateOne(
-          { _id: post._id },
-          { $set: { author: user._id } }
-        )
-      );
+    return cleanUp().then(() => populate([user], [post]));
   });
 
   it('succeeds on existing user and post, and correct data', () => {
@@ -47,7 +33,7 @@ describe('updatePost', () => {
     const fakeDate = sinon.useFakeTimers(date.getTime());
 
     return updatePost(user._id.toString(), post._id.toString(), image, text)
-      .then(() => context.posts.findOne({ _id: post._id }))
+      .then(() => Post.findOne())
       .then((updatedPost) => {
         expect(updatedPost._id.toString()).to.equal(post._id.toString());
         expect(updatedPost.author.toString()).to.equal(user._id.toString());
@@ -78,8 +64,7 @@ describe('updatePost', () => {
   });
 
   it('fails when post not belong to user', () => {
-    return context.posts
-      .updateOne({ _id: post._id }, { $set: { author: anyId } })
+    return Post.updateOne({ _id: post._id }, { $set: { author: anyId } })
       .then(() =>
         updatePost(user._id.toString(), post._id.toString(), image, text)
       )
@@ -121,5 +106,5 @@ describe('updatePost', () => {
       'text is empty'
     ));
 
-  after(() => cleanUp().then(() => client.close()));
+  after(() => cleanUp().then(() => mongoose.disconnect()));
 });

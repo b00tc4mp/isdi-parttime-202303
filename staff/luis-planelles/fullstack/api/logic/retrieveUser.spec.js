@@ -1,26 +1,24 @@
 require('dotenv').config();
 
+const {
+  errors: { ContentError },
+} = require('com');
+
+const mongoose = require('mongoose'),
+  { ObjectId } = require('mongodb');
+
 const { expect } = require('chai'),
   retrieveUser = require('./retrieveUser.js'),
-  { MongoClient, ObjectId } = require('mongodb'),
   { cleanUp, generate, populate } = require('./helpers/tests');
-const context = require('./context');
 
 describe('retrieveUser', () => {
   let client;
 
   before(() => {
-    client = new MongoClient(process.env.MONGODB_URL);
-
-    return client.connect().then((connection) => {
-      const db = connection.db();
-
-      context.users = db.collection('users');
-      context.posts = db.collection('posts');
-    });
+    mongoose.connect(process.env.MONGODB_URL);
   });
 
-  const anyId = new ObjectId().toString();
+  const anyId = new ObjectId();
 
   let user;
 
@@ -40,17 +38,15 @@ describe('retrieveUser', () => {
   });
 
   it('fails on existing user and incorrect id', () => {
-    return retrieveUser(anyId).catch((error) => {
+    return retrieveUser(anyId.toString()).catch((error) => {
       expect(error).to.be.an.instanceOf(Error);
       expect(error.message).to.equal('user not exists');
     });
   });
 
-  it('fails on empty id', () =>
-    expect(() => retrieveUser('', () => {})).to.throw(
-      Error,
-      'user id is empty'
-    ));
+  it('fails on empty id', () => {
+    expect(() => retrieveUser('')).to.throw(Error, 'user id is empty');
+  });
 
-  after(() => cleanUp().then(() => client.close()));
+  after(() => cleanUp().then(() => mongoose.disconnect()));
 });

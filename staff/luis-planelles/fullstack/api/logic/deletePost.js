@@ -1,6 +1,5 @@
-const { ObjectId } = require('mongodb');
+const { User, Post } = require('../data/models');
 
-const context = require('./context');
 const {
   validators: { validateId },
   errors: { ExistenceError },
@@ -21,13 +20,11 @@ const deletePost = (userId, postId) => {
   validateId(userId, 'user id');
   validateId(postId, 'post id');
 
-  const { posts, users } = context;
-
-  return users.findOne({ _id: new ObjectId(userId) }).then((foundUser) => {
+  return User.findById(userId).then((foundUser) => {
     if (!foundUser)
       throw new ExistenceError(`user with id ${userId} not exists`);
 
-    return posts.findOne({ _id: new ObjectId(postId) }).then((foundPost) => {
+    return Post.findById(postId).then((foundPost) => {
       if (!foundPost)
         throw new ExistenceError(`post with id ${postId} not exists`);
 
@@ -36,7 +33,7 @@ const deletePost = (userId, postId) => {
           `post with id ${postId} not belong to user with id ${userId}`
         );
 
-      return posts.deleteOne({ _id: new ObjectId(postId) });
+      return Post.deleteOne({ _id: postId });
     });
   });
 };

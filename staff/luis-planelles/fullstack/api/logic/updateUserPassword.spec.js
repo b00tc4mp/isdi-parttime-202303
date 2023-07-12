@@ -1,23 +1,16 @@
 require('dotenv').config();
 
 const { expect } = require('chai');
+const { ObjectId } = require('mongodb');
+const mongoose = require('mongoose');
+
 const updateUserPassword = require('./updateUserPassword.js');
 const { cleanUp, populate, generate } = require('./helpers/tests');
-const { MongoClient, ObjectId } = require('mongodb');
-const context = require('./context');
+const { User } = require('../data/models');
 
 describe('updateUserPassword', () => {
-  let client;
-
   before(() => {
-    client = new MongoClient(process.env.MONGODB_URL);
-
-    return client.connect().then((connection) => {
-      const db = connection.db();
-
-      context.users = db.collection('users');
-      context.posts = db.collection('posts');
-    });
+    mongoose.connect(process.env.MONGODB_URL);
   });
 
   const anyId = new ObjectId().toString();
@@ -40,7 +33,7 @@ describe('updateUserPassword', () => {
       newPassword,
       newPasswordConfirm
     )
-      .then(() => context.users.findOne())
+      .then(() => User.findOne())
       .then((foundUser) => {
         expect(foundUser.password).to.equal(newPassword);
       });
@@ -185,5 +178,5 @@ describe('updateUserPassword', () => {
     );
   });
 
-  after(() => cleanUp().then(() => client.close()));
+  after(() => cleanUp().then(() => mongoose.disconnect()));
 });

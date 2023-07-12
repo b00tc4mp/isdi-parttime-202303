@@ -1,10 +1,9 @@
-const { ObjectId } = require('mongodb');
-
-const context = require('./context');
 const {
   validators: { validateId },
   errors: { ExistenceError },
 } = require('com');
+
+const { User, Post } = require('../data/models');
 
 /**
  * Retrieves a post by its ID, belonging to a specific user.
@@ -20,13 +19,11 @@ const retrievePost = (userId, postId) => {
   validateId(userId, 'user id');
   validateId(postId, 'post id');
 
-  const { users, posts } = context;
-
-  return users.findOne({ _id: new ObjectId(userId) }).then((foundUser) => {
+  return User.findById(userId).then((foundUser) => {
     if (!foundUser)
       throw new ExistenceError(`user with id ${userId} not exists`);
 
-    return posts.findOne({ _id: new ObjectId(postId) }).then((foundPost) => {
+    return Post.findById(postId).then((foundPost) => {
       if (!foundPost)
         throw new ExistenceError(`post with id ${postId} not exists`);
 

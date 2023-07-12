@@ -2,22 +2,14 @@ require('dotenv').config();
 
 const { expect } = require('chai');
 const authenticateUser = require('./authenticateUser');
-const { MongoClient } = require('mongodb');
-const { cleanUp, generate, populate } = require('./helpers/tests');
-const context = require('./context');
+
+const mongoose = require('mongoose');
+const { User } = require('../data/models');
+const { cleanUp, populate, generate } = require('./helpers/tests');
 
 describe('authenticateUser', () => {
-  let client;
-
   before(() => {
-    client = new MongoClient(process.env.MONGODB_URL);
-
-    return client.connect().then((connection) => {
-      const db = connection.db();
-
-      context.users = db.collection('users');
-      context.posts = db.collection('posts');
-    });
+    mongoose.connect(process.env.MONGODB_URL);
   });
 
   let user;
@@ -33,7 +25,7 @@ describe('authenticateUser', () => {
       .then(() => {
         return authenticateUser(user.email, user.password);
       })
-      .then(() => context.users.findOne())
+      .then(() => User.findOne())
       .then((foundUser) => {
         expect(foundUser).to.exist;
         expect(foundUser.name).to.equal(user.name);
@@ -106,9 +98,10 @@ describe('authenticateUser', () => {
   });
 
   it('fails on empty password', () => {
-    expect(() => {
-      authenticateUser(user.email, '');
-    }).to.throw(Error, 'password is empty');
+    expect(() => authenticateUser(user.email, '')).to.throw(
+      Error,
+      'password is empty'
+    );
   });
 
   it('fails on non-string password', () => {
@@ -131,30 +124,36 @@ describe('authenticateUser', () => {
   });
 
   it('throws an error for invalid passwords', () => {
-    expect(() => {
-      authenticateUser(user.email, 'abc');
-    }).to.throw(Error, 'password not be at least 8 characters long');
+    expect(() => authenticateUser(user.email, 'abc')).to.throw(
+      Error,
+      'password not be at least 8 characters long'
+    );
 
-    expect(() => {
-      authenticateUser(user.email, 'Ab@cdefg');
-    }).to.throw(Error, 'password not contains one digit');
+    expect(() => authenticateUser(user.email, 'Ab@cdefg')).to.throw(
+      Error,
+      'password not contains one digit'
+    );
 
-    expect(() => {
-      authenticateUser(user.email, 'ABC1@FGH');
-    }).to.throw(Error, 'password not contains one lowercase letter');
+    expect(() => authenticateUser(user.email, 'ABC1@FGH')).to.throw(
+      Error,
+      'password not contains one lowercase letter'
+    );
 
-    expect(() => {
-      authenticateUser(user.email, 'a@cdefg1');
-    }).to.throw(Error, 'password not contains one uppercase letter');
+    expect(() => authenticateUser(user.email, 'a@cdefg1')).to.throw(
+      Error,
+      'password not contains one uppercase letter'
+    );
 
-    expect(() => {
-      authenticateUser(user.email, 'P1ssword');
-    }).to.throw(Error, 'password not contains one special character');
+    expect(() => authenticateUser(user.email, 'P1ssword')).to.throw(
+      Error,
+      'password not contains one special character'
+    );
 
-    expect(() => {
-      authenticateUser(user.email, 'P @ssword1');
-    }).to.throw(Error, 'password contains any whitespace characters');
+    expect(() => authenticateUser(user.email, 'P @ssword1')).to.throw(
+      Error,
+      'password contains any whitespace characters'
+    );
   });
 
-  after(() => cleanUp().then(() => client.close()));
+  after(() => cleanUp().then(() => mongoose.disconnect()));
 });

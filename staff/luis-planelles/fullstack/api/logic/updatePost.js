@@ -1,9 +1,9 @@
-const context = require('./context');
 const {
   validators: { validateId, validateUrl, validateText },
   errors: { ExistenceError },
 } = require('com');
-const { ObjectId } = require('mongodb');
+
+const { User, Post } = require('../data/models');
 
 /**
  * Updates a post by a user with the provided image and text.
@@ -24,21 +24,19 @@ const updatePost = (userId, postId, image, text) => {
   validateUrl(image, 'image');
   validateText(text, 'text');
 
-  const { users, posts } = context;
-
-  return users.findOne({ _id: new ObjectId(userId) }).then((foundUser) => {
+  return User.findById(userId).then((foundUser) => {
     if (!foundUser)
       throw new ExistenceError(`user with id ${userId} not exists`);
 
-    return posts.findOne({ _id: new ObjectId(postId) }).then((foundPost) => {
+    return Post.findById(postId).then((foundPost) => {
       if (!foundPost)
         throw new ExistenceError(`post with id ${postId} not exists`);
 
       if (foundPost.author.toString() !== userId)
         throw new Error(`post ${postId} not belongs to user with id ${userId}`);
 
-      return posts.updateOne(
-        { _id: new ObjectId(postId) },
+      return Post.updateOne(
+        { _id: postId },
         { $set: { text, image, date: new Date() } }
       );
     });
