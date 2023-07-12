@@ -1,7 +1,6 @@
 import context from "./context"
 
 export default () => {
-    validateToken(token) 
 
     return fetch(`${import.meta.env.VITE_API_URL}/users`, {
         method: 'GET',

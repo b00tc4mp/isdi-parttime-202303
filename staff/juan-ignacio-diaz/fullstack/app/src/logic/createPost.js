@@ -24,4 +24,3 @@ export default (image, text) => {
         })   
         .catch(error => new Error(error)) 
 }
-}
