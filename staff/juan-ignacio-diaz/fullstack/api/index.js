@@ -28,10 +28,9 @@ const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 
 mongoose.connect(process.env.MONGODB_URL)
-    .then(connection => {
-        const db = connection.db()
-
+    .then(() => {
         const api = express()
+        
         const jsonBodyParser = bodyParser.json()
 
         api.use(cors())

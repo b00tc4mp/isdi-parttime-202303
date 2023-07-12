@@ -1,13 +1,8 @@
-import { context } from '../ui'
 import { useAppContext } from '../hooks'
 
 export const DEFAULT_AVATAR_URL = "https://img.icons8.com/color/512/avatar.png"
 
-import toggleLikePost from '../logic/toggleLikePost'
-import toggleSavePost from '../logic/toggleSavePost'
-import deletePost from '../logic/deletePost'
-import toggleLockPost from '../logic/toggleLockPost'
-import updateBuyPost from '../logic/updateBuyPost'
+import { toggleLikePost, toggleSavePost, deletePost, toggleLockPost, updateBuyPost } from '../logic'
 
 import { utils } from 'com'
 
@@ -16,12 +11,14 @@ const { extractSubFromToken } = utils
 import './Post.css'
 
 export default function Post ({ post: { id, author, image, text, date, likes, dateLastModified, fav, lock, price}, onModifyPost, onEditPost, onAddPriceToPost}) {
+    console.log('Post -> render')
+
     const { alert, freeze, unfreeze } = useAppContext()
 
     const handleLikePost = () => {
         try {
             freeze()
-            toggleLikePost(context.token, id)
+            toggleLikePost(id)
                 .then(onModifyPost())
                 .catch(error => alert(error.message))
                 .finally(() => unfreeze())
@@ -35,7 +32,7 @@ export default function Post ({ post: { id, author, image, text, date, likes, da
     const handleSavePost = () => {
          try {
             freeze()
-            toggleSavePost(context.token, id)
+            toggleSavePost(id)
                 .then(onModifyPost())
                 .catch(error => alert(error.message))
                 .finally(() => unfreeze())
@@ -51,7 +48,7 @@ export default function Post ({ post: { id, author, image, text, date, likes, da
     const handleDeletePost = () => {
         try{
             freeze()
-            deletePost(context.token, id)
+            deletePost(id)
                 .then(onModifyPost())
                 .catch(error => alert(error.message))
                 .finally(() => unfreeze())
@@ -65,7 +62,7 @@ export default function Post ({ post: { id, author, image, text, date, likes, da
     const handleLockPost = () => {
         try{
             freeze()
-            toggleLockPost(context.token, id)
+            toggleLockPost(id)
                 .then(onModifyPost())
                 .catch(error => alert(error.message))
                 .finally(() => unfreeze())            
@@ -79,7 +76,7 @@ export default function Post ({ post: { id, author, image, text, date, likes, da
     const handleBuyPost = () => {
         try{
             freeze()
-            updateBuyPost(context.token, id)
+            updateBuyPost(id)
                 .then(onModifyPost())
                 .catch(error => alert(error.message))
                 .finally(() => unfreeze())

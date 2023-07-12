@@ -1,7 +1,9 @@
-import { validators } from 'com'
-const { validateToken, validateUrl } = validators
+import context from "./context"
 
-export default (token, avatar) => {
+import { validators } from 'com'
+const { validateUrl } = validators
+
+export default (avatar) => {
     validateToken(token) 
     validateUrl(avatar, 'avatar url')
  
@@ -9,15 +11,16 @@ export default (token, avatar) => {
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`
+            Authorization: `Bearer ${context.token}`
         },
         body: JSON.stringify({ avatar })
     })
         .then(res => {
-            if (res.status !== 204)
-                return res.json().then(({ error: message }) => { throw new Error(message) })
+            if (res.status === 204)
+                return
 
-            return
+            return res.json()
+                .then(({ error: message }) => { throw new Error(message) })
         })   
         .catch(error => new Error(error)) 
 }

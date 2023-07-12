@@ -3,6 +3,8 @@ const {
     errors: { ExistenceError, InvalidDataError }  
 } = require('com')
 
+const { User } = require('../data/models')
+
 module.exports = (userId, password, newPassword, newPasswordConfirm) => {
     validateId(userId, 'user id')
     validatePassword(password)
@@ -13,15 +15,13 @@ module.exports = (userId, password, newPassword, newPasswordConfirm) => {
 
     if (newPassword !== newPasswordConfirm) throw new InvalidDataError("the confirm password is different than then new password", {cause: "newPasswordConfirm"})
 
-    const { users } = context
-
-    return users.findOne({ _id: new ObjectId(userId) })
+    return User.findById(userId)
         .then(user => {
             if (!user) throw new ExistenceError('user not found')
 
             if (user.password !== password)  throw new InvalidDataError('Error the pasword is invalid', {cause: "password"})
 
-            return users.updateOne({ _id: new ObjectId(userId) }, { $set: { password: newPassword }})
-
+            return User.findByIdAndUpdate(userId, { $set: { password: newPassword }})
+                .then(() => { })  
         })
 }

@@ -3,8 +3,7 @@ const {
     errors: { ExistenceError }
  } = require('com')
 
-const { ObjectId } = require('mongodb')
-const context = require('./context')
+ const { User, Post } = require('../data/models')
 
 module.exports = (userId, postId, callback) => {
     validateId(userId, 'user id')
@@ -14,8 +13,8 @@ module.exports = (userId, postId, callback) => {
 
     const promises = []
 
-    promises.push(users.findOne({ _id: new ObjectId(userId) }))
-    promises.push(posts.findOne({ _id: new ObjectId(postId) }))
+    promises.push(User.findById(userId))
+    promises.push(Post.findById(postId))
 
     return Promise.all(promises)
         .then(([user, post]) => {
@@ -23,8 +22,7 @@ module.exports = (userId, postId, callback) => {
 
             if (!post) throw new ExistenceError('user not found')
 
-            return posts.updateOne({ _id: new ObjectId(postId) } ,
-                 { $set: { author: userId,
-                    price: 0 }}) 
+            return Post.findByIdAndUpdate(postId, { $set: { author: userId, price: 0 }})
+                .then(() => { })  
         }) 
 }

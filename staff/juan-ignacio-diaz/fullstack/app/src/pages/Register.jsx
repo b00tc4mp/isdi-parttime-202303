@@ -1,17 +1,13 @@
 import { useAppContext } from '../hooks'
-
+import { Link } from 'react-router-dom'
 import { Container, Form, Input, Button } from '../library'
 
-import registerUser from "../logic/registerUser"
+import { registerUser } from "../logic"
 
-export default function Register({ onLoginClick, onRegistered}) {
-    const { alert } = useAppContext()
+export default function Register() {
+    console.log('Register -> render')
 
-    function handleLoginClick(event) {
-        event.preventDefault()
-
-        onLoginClick()
-    }
+    const { alert, navigate } = useAppContext()
 
     function handleRegister(event) {
         event.preventDefault()
@@ -28,8 +24,9 @@ export default function Register({ onLoginClick, onRegistered}) {
             registerUser(name, email, password)
                 .then(() => {
                     event.target.reset()
+                    navigate('/login')
 
-                    onRegistered()
+                    return
                 })
                 .catch(error => alert(error.message))
         }
@@ -65,7 +62,7 @@ export default function Register({ onLoginClick, onRegistered}) {
                 <Input type="password" name="password" placeholder="password" /><br/>
                 <Button type="submit">Register</Button>
             </Form>
-            <p>Go to <a href="" onClick={handleLoginClick}>Login</a></p>
+            <p>Go to <Link to="/login">Login</Link></p>
         </Container>
     </>
 }

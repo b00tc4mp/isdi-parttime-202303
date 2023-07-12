@@ -15,8 +15,11 @@ export default (name, email, password) => {
         body: JSON.stringify({ name, email, password })
     })
         .then(res => {
-            if (res.status !== 201)
-                return res.json().then(({ error: message }) => { throw new Error(message) })
+            if (res.status === 201)
+                return
+
+        return res.json()
+            .then(({ error: message }) => { throw new Error(message) })
         })
         .catch(error => new Error(error))
 }

@@ -1,9 +1,8 @@
-import { context } from '../ui' 
 import { useAppContext } from '../hooks'
 
 import { Container, Form, Input, Button } from '../library'
 
-import createPost from '../logic/createPost'
+import { createPost } from '../logic'
 
 export default function AddPostModal({ onCancel, onCreatedPost }) {
     const { alert } = useAppContext()
@@ -21,7 +20,7 @@ export default function AddPostModal({ onCancel, onCreatedPost }) {
         const text = event.target.text.value
 
         try {
-            createPost(context.token, image, text)
+            createPost(image, text)
                 .then(onCreatedPost())
                 .catch(error => alert(error.message))            
         } catch(error) {

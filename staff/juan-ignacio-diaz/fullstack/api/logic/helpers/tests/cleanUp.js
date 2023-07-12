@@ -1,10 +1,9 @@
-const context = require('../../context')
+const { User, Post } = require('../../../data/models')
 
 module.exports = () => {
-    const { users, posts } = context
 
     return Promise.all([
-        users.deleteMany(),
-        posts.deleteMany()
+        User.deleteMany(),
+        Post.deleteMany()
     ])
 }

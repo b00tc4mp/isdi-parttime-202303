@@ -3,19 +3,16 @@ const {
     errors: { ExistenceError } 
 } = require('com')
 
-const { ObjectId } = require('mongodb')
-const context = require('./context')
+const { User, Post } = require('../data/models')
 
-module.exports = (userId, postId) => {
+module.exports  = (userId, postId) => {
     validateId(userId, 'user id')
     validateId(postId, 'post id')
 
-    const { users , posts } = context
-
     const promises = []
 
-    promises.push(users.findOne({ _id: new ObjectId(userId) }))
-    promises.push(posts.findOne({ _id: new ObjectId(postId) }))
+    promises.push(User.findById(userId))
+    promises.push(Post.findById(postId))
 
     return Promise.all(promises)
         .then(([user, post]) => {
@@ -25,17 +22,16 @@ module.exports = (userId, postId) => {
 
             const favs = user.favs
 
-            const index = favs.indexOf(postId)
+            const index = favs.map(fav => fav.toString()).indexOf(postId)
 
             if (index < 0)
-                favs.push(postId)
+                favs.push(post._id)
             else {
                 favs.splice(index, 1)
             } 
 
-            return users.updateOne({ _id: new ObjectId(userId) } ,
-                { $set: { favs: favs }})
-                .then(() => {})
+            return User.findByIdAndUpdate(userId, { $set: { favs: favs }})
+                .then(() => { })   
         }) 
 }
 

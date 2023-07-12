@@ -3,42 +3,42 @@ const {
     errors: { ExistenceError }
 } = require('com')
 
-const { ObjectId } = require('mongodb')
-const context = require('./context')
+const { User, Post } = require('../data/models')
 
 module.exports = (userId) => {
     validateId(userId, 'user id')
 
-    const { users, posts } = context
-
-    return users.findOne({ _id: new ObjectId(userId) })
+    return User.findById(userId)
         .then(user => {
             if (!user) throw new ExistenceError('user not found')
 
-            return posts.find({$and: [{"price":{$ne: 0}}, {$or: [{"lock":false}, {$and: [{"lock":true}, {"author": userId}]} ]}]}).toArray()
+            return Post.find({$and: [{"price":{$ne: 0}}, {$or: [{"lock":false}, {$and: [{"lock":true}, {"author": userId}]} ]}]})
+                .sort('-date')
+                .populate('author', 'name avatar')
+                .populate('likes', 'name avatar').lean()
                 .then(posts => {
-                    const authors = posts.reduce((authors, { author }) => authors.add(author.toString()), new Set)
+                    posts.forEach(post => {                        
+                        post.id = post._id.toString()
+                        delete post._id
 
-                    return users.find({ _id: { $in: Array.from(authors).map(id => new ObjectId(id)) } }).toArray()
-                        .then(users => {
+                        post.fav = user.favs.some(fav => fav.toString() === post.id)
 
-                            posts.forEach(post => {
-                                post.id = post._id.toString()
-                                post.fav = user.favs.some(fav => fav.toString() === post.id)
-                                post.date = new Date(post.date)
-                                post.dateLastModified = new Date(post.dateLastModified)
-                
-                                const author = users.find(user => user._id.toString() === post.author)
-            
-                                if (author)
-                                    post.author = {
-                                        id: author._id,
-                                        name: author.name,
-                                        avatar: author.avatar
-                                    }                                   
-                            }) 
-                            return posts
-                        })                 
+                        if (post.author._id) {
+                            post.author.id = post.author._id.toString()
+                            delete post.author._id
+                        }
+                        
+                        if (post.likes.length>0) {
+                            post.likes.forEach(like =>{
+                                if (like._id) {
+                                    like.id = like._id.toString()
+                                    delete like._id
+                                }
+                            })
+                        } 
+                    })
+
+                    return posts
                 })
     })
 }

@@ -1,6 +1,7 @@
 import { useState } from 'react'
-import { context } from './ui'
 import AppContext from './AppContext'
+import { isUserLoggedIn } from './logic'
+import { Routes, Route, Navigate, useNavigate } from 'react-router-dom'
 
 //import inLogger from './inLogger';
 
@@ -8,20 +9,19 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import Home from './pages/Home'
 
-const { Provider } = AppContext
 import AlertModal from './components/AlertModal'
 import Loader from './library/Loader'
 
+const { Provider } = AppContext
+
+
 export default function App() {
-    const [view, setView] = useState(context.userId? 'home' : 'login')
+    console.log('App -> render')
+
     const [messageAlert, setMessageAlert] = useState(null)
     const [loader, setLoader] = useState(false)
 
-    const handleGotoRegister = () => setView('register')
-
-    const handleGotoLogin = () => setView('login')
-
-    const handleGoToHome = () => setView('home')
+    const navigate = useNavigate()
 
     const alert = (message, level = 'info') => setMessageAlert({ message, level })
 
@@ -31,29 +31,14 @@ export default function App() {
 
     const unfreeze = () => setLoader(false)
 
-    console.log('App -> render')
-
-    return <Provider value={{ alert, freeze, unfreeze }}>
-        {view === 'login' && <Login 
-          onRegisterClick={handleGotoRegister} 
-          onUserLoggedIn={handleGoToHome}
-          /> 
-        }   
-        {view === 'register' && <Register 
-          onLoginClick={handleGotoLogin} 
-          onRegistered={handleGotoLogin}
-          />
-        }
-        {view === 'home' && <Home 
-          onLogout={handleGotoLogin}
-          />
-        }
-        {messageAlert && <AlertModal 
-          onAccept={hanleCloseAlert}
-          message={messageAlert.message}
-          level={messageAlert.level}
-          />
-        }
+    return <Provider value={{ alert, freeze, unfreeze, navigate }}>
+        <Routes>
+            {(() => console.log('Routes -> render'))()}
+            <Route path="/login" element={isUserLoggedIn() ? <Navigate to="/" /> : <Login />} />
+            <Route path="/register" element={isUserLoggedIn() ? <Navigate to="/" /> : <Register />} />
+            <Route path="/" element={isUserLoggedIn() ? <Home /> : <Navigate to="/login" />} />
+        </Routes>
+        {messageAlert && <AlertModal onAccept={hanleCloseAlert} message={messageAlert.message} level={messageAlert.level} />}
         {loader && <Loader />}
       </Provider>
 

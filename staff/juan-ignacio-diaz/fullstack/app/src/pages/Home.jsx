@@ -1,24 +1,21 @@
 import { useState, useEffect } from 'react'
 
-import { context } from '../ui'
 import { useAppContext } from '../hooks'
 
 import { Container, Button } from '../library'
 
-export const DEFAULT_AVATAR_URL = "https://img.icons8.com/color/512/avatar.png"
+import { Profile, Posts, EditPostModal, AddPriceToPostModal, AddPostModal } from '../components'
 
-import Profile from '../components/Profile'
-import Posts from '../components/Posts'
-import EditPostModal from '../components/EditPostModal'
-import AddPriceToPostModal from '../components/AddPriceToPostModal';
-import AddPostModal from '../components/AddPostModal';
-
-import retrieveUser from '../logic/retrieveUser';
+import { logoutUser, retrieveUser } from '../logic'
 
 import './Home.css'
 
-export default function Home({ onLogout }) {
-    const { alert, freeze, unfreeze } = useAppContext()
+export const DEFAULT_AVATAR_URL = "https://img.icons8.com/color/512/avatar.png"
+
+export default function Home() {
+    console.log('Home -> render')
+ 
+    const { alert, freeze, unfreeze, navigate } = useAppContext()
 
     const [user, setUser] = useState()
     const [view, setView] = useState('posts')
@@ -38,7 +35,7 @@ export default function Home({ onLogout }) {
     useEffect(() => {
         try{     
             freeze()     
-            retrieveUser(context.token)
+            retrieveUser()
                 .then(user => {
                     setUser(user)
 
@@ -53,8 +50,9 @@ export default function Home({ onLogout }) {
     }, [])
 
     const handleLogout = () => {
-        delete context.userId
-        onLogout()
+        logoutUser()
+
+        navigate('/login')
     }
 
     const handleGoToProfile = (event) => {
@@ -104,9 +102,7 @@ export default function Home({ onLogout }) {
         setTypePosts(event.target.value)
         setLastPostsUpdate(Date.now())
     }
-
-    console.log('Home -> render')
-        
+       
     return <>
         <div className="home">
             <header className="home-header">

@@ -1,15 +1,14 @@
 import { useState, useEffect } from 'react'
 
-import { context } from '../ui'
 import { useAppContext } from '../hooks'
 
 import Post from './Post.jsx'
-import retrievePosts from '../logic/retrievePosts'
-import retrieveUserPosts from '../logic/retrieveUserPosts'
-import retrieveSavePosts from '../logic/retrieveSavePosts'
-import retrieveOnSalePosts from '../logic/retrieveOnSalePosts'
+
+import { retrievePosts, retrieveUserPosts, retrieveSavePosts, retrieveOnSalePosts } from '../logic'
 
 export default function Posts({ onEditedPost, onAddedPriceToPost , typePosts, lastPostsUpdate }) {
+    console.log('Posts -> render')
+
     const { alert, freeze, unfreeze } = useAppContext()
     const [posts, setPosts] = useState()
 
@@ -20,25 +19,25 @@ export default function Posts({ onEditedPost, onAddedPriceToPost , typePosts, la
         try{
             freeze()
             if (typePosts === 'all')  
-                retrievePosts(context.token)
+                retrievePosts()
                     .then(posts => setPosts(posts))
                     .catch(error => alert(error.message))
                     .finally(() => unfreeze())
 
             else if (typePosts === 'user') 
-                retrieveUserPosts(context.token)
+                retrieveUserPosts()
                     .then(posts => setPosts(posts))
                     .catch(error => alert(error.message))
                     .finally(() => unfreeze())
 
             else if (typePosts === 'save') 
-                retrieveSavePosts(context.token)
+                retrieveSavePosts()
                     .then(posts => setPosts(posts))
                     .catch(error => alert(error.message))
                     .finally(() => unfreeze())
                     
             else if (typePosts === 'onSale') 
-                retrieveOnSalePosts(context.token)
+                retrieveOnSalePosts()
                     .then(posts => setPosts(posts))
                     .catch(error => alert(error.message))
                     .finally(() => unfreeze())           
@@ -51,8 +50,8 @@ export default function Posts({ onEditedPost, onAddedPriceToPost , typePosts, la
 
     useEffect(() => {
         console.log('Posts -> "componentWillReceiveProps" with hooks')
-        console.log(typePosts)
-        console.log(lastPostsUpdate)
+        // console.log(typePosts)
+        // console.log(lastPostsUpdate)
         
         if (lastPostsUpdate)
             handleRefreshPosts()

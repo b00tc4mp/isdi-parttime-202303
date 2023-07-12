@@ -2,12 +2,12 @@ require('dotenv').config()
 
 const { expect } = require('chai')
 const { MongoClient, ObjectId } = require('mongodb')
-const context = require('./context')
+const context = require('../logic/context')
 
-const retrieveUser = require('./retrieveUser')
+const retrieveUser = require('../logic/retrieveUser')
 
-const { generateUser, cleanUp, populate} = require('./helpers/tests')
-const authenticateUser = require('./authenticateUser')
+const { generateUser, cleanUp, populate} = require('../logic/helpers/tests')
+const authenticateUser = require('../logic/authenticateUser')
 
 describe('retrieveUser', () => {
     let client

@@ -1,10 +1,7 @@
-import { context } from '../ui' 
 import { useAppContext } from '../hooks'
 import Container from '../library/Container'
 
-import updateUserMode from "../logic/updateUserMode"
-import updateUserAvatar from "../logic/updateUserAvatar"
-import updateUserPassword from "../logic/updateUserPassword"
+import { updateUserMode, updateUserAvatar, updateUserPassword } from "../logic"
 
 import './Profile.css'
 
@@ -22,7 +19,7 @@ export default function Profile({ onEditedProfile, user }){
 
         try{
             freeze()
-            updateUserMode(context.token, mode)
+            updateUserMode(mode)
                 .then(() => {
                     alert("mode updated")
 
@@ -44,7 +41,7 @@ export default function Profile({ onEditedProfile, user }){
 
         try{
             freeze()
-            updateUserAvatar (context.token, url)
+            updateUserAvatar (url)
                 .then(() => {
                     alert("avatar updated")
                     event.target.reset()
@@ -72,7 +69,7 @@ export default function Profile({ onEditedProfile, user }){
 
         try {
             freeze()
-            updateUserPassword(context.token, password, newPassword, newPasswordConfirm)
+            updateUserPassword(password, newPassword, newPasswordConfirm)
                 .then(() => {
                     alert("the password is update")
                     event.target.reset()

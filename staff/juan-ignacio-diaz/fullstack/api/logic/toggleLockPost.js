@@ -3,19 +3,16 @@ const {
     errors: { ExistenceError, AuthError } 
 } = require('com')
 
-const { ObjectId } = require('mongodb')
-const context = require('./context')
+const { User, Post } = require('../data/models')
 
 module.exports = (userId, postId) => {
     validateId(userId, 'user id')
     validateId(postId, 'post id')
 
-    const { users , posts } = context
-
     const promises = []
 
-    promises.push(users.findOne({ _id: new ObjectId(userId) }))
-    promises.push(posts.findOne({ _id: new ObjectId(postId) }))
+    promises.push(User.findById(userId))
+    promises.push(Post.findById(postId))
 
     return Promise.all(promises)
         .then(([user, post]) => {
@@ -23,13 +20,13 @@ module.exports = (userId, postId) => {
 
             if (!post) throw new ExistenceError('user not found')
 
-            if (user._id.toString() !== post.author)
+            if (user._id.toString() !== post.author.toString())
                 throw new AuthError(`Post doesn't belong to this user`)
 
             const lock = post.lock? false : true
 
-            return posts.updateOne({ _id: new ObjectId(postId) }, 
-            { $set: { lock: lock } }) 
+            return Post.findByIdAndUpdate(postId, { $set: { lock: lock } })
+                .then(() => { })   
         })
 }
 

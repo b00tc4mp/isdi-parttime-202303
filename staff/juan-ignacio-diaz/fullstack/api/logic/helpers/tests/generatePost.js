@@ -8,5 +8,5 @@ module.exports = (userId) => {
             likes: [],
             lock: false,
             price: 0
-    }
+        }
 }

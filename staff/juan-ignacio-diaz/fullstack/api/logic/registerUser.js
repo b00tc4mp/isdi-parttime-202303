@@ -16,11 +16,12 @@ module.exports = (name, email, password) => {
                 avatar: null,
                 favs: [],
                 mode: '' })
-            .catch(error =>{
-                if(error.menssage.include('E11000'))
-                    throw new DuplicityError(`user with email ${email} already exists`)
+        .catch(error =>{
+            if(error.message.includes('E11000'))
+                throw new DuplicityError(`user with email ${email} already exists`)
 
-                throw error
-            })
+            throw error
+        })
+        .then(() => { })
 
 }

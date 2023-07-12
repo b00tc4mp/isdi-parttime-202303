@@ -1,8 +1,9 @@
-import { validators } from 'com'
-const { validateToken, validateUrl, validateText } = validators
+import context from "./context"
 
-export default (token, image, text) => {
-    validateToken(token) 
+import { validators } from 'com'
+const { validateUrl, validateText } = validators
+
+export default (image, text) => {
     validateUrl(image, 'image url')
     validateText(text, 'text')
 
@@ -10,15 +11,17 @@ export default (token, image, text) => {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`
+            Authorization: `Bearer ${context.token}`
         },
         body: JSON.stringify({ image, text })
     })
         .then(res => {
-            if (res.status !== 200)
-                return res.json().then(({ error: message }) => { throw new Error(message) })
-
-            return
+            if (res.status === 201)
+                return res.json()
+            
+            return res.json()
+                .then(({ error: message }) => { throw new Error(message) })
         })   
         .catch(error => new Error(error)) 
+}
 }

@@ -1,16 +1,17 @@
 import { useEffect, useState } from 'react'
 
-import { context } from '../ui'
 import { useAppContext } from '../hooks'
-
+import { Link } from 'react-router-dom'
 import { Container, Form, Input, Button } from '../library'
 
-import authenticateUser from '../logic/authenticateUser'
+import { loginUser } from '../logic'
 
 import retrieveRandomMotivationalQuote from '../logic/retrieveRandomMotivationalQuote'
 
-export default function Login({ onRegisterClick, onUserLoggedIn }) {
-    const { alert, freeze, unfreeze } = useAppContext()
+export default function Login() {
+    console.log('Login -> render')
+    
+    const { alert, freeze, unfreeze, navigate } = useAppContext()
     const [quote, setQuote] = useState(null)
     
     useEffect(() => {
@@ -25,12 +26,6 @@ export default function Login({ onRegisterClick, onUserLoggedIn }) {
         }
     }, [])
 
-    function handleRegisterClick(event) {
-        event.preventDefault()
-
-        onRegisterClick()
-    }
-
     function handleLogin(event) {
         event.preventDefault()
 
@@ -39,12 +34,8 @@ export default function Login({ onRegisterClick, onUserLoggedIn }) {
 
         try {
             freeze()
-            authenticateUser(email, password)
-                .then(token => {
-                    context.token = token
-
-                    onUserLoggedIn() 
-                })
+            loginUser(email, password)
+                .then(token => navigate('/'))
                 .catch(error => alert(error.message))
                 .finally(() => unfreeze())
         }
@@ -53,8 +44,6 @@ export default function Login({ onRegisterClick, onUserLoggedIn }) {
             alert(error.message)
         }   
     }
-
-    console.log('Login -> render')
     
     return <>
         <Container tag="div" className="login page">
@@ -67,7 +56,7 @@ export default function Login({ onRegisterClick, onUserLoggedIn }) {
                 <Input type="password" size="10" name="password" placeholder="password" /><br/>
                 <Button className = "button" type="submit">Login</Button>
             </Form>
-            <p>Go to <a href="" onClick={handleRegisterClick}>Register</a></p>
+            <p>Go to <Link to="/register">Register</Link></p>
         </Container>
     </>
 }

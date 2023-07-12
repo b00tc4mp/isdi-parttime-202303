@@ -2,19 +2,16 @@ const {
     validators: { validateId },
     errors: { ExistenceError, AuthError } } = require('com')
 
-const { ObjectId } = require('mongodb')
-const context = require('./context')
+const { User, Post } = require('../data/models')
 
 module.exports = (userId, postId) => {
     validateId(userId, 'user id')
     validateId(postId, 'post id')
 
-    const { users , posts } = context
-
     const promises = []
 
-    promises.push(users.findOne({ _id: new ObjectId(userId) }))
-    promises.push(posts.findOne({ _id: new ObjectId(postId) }))
+    promises.push(User.findById(userId))
+    promises.push(Post.findById(postId, '-_id author image text price'))
 
     return Promise.all(promises)
         .then(([user, post]) => {
@@ -22,11 +19,10 @@ module.exports = (userId, postId) => {
 
             if (!post) throw new ExistenceError('user not found')
 
-            if (user._id.toString() !== post.author)
+            if (userId !== post.author.toString())
                 throw new AuthError(`Post doesn't belong to this user`)
-
-            post.date = new Date(post.date)
-            post.dateLastModified = new Date(post.dateLastModified)
+            
+            delete post.author  
            
             return post
         })

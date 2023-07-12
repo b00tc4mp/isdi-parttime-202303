@@ -14,7 +14,10 @@ const correctPassword ="Correct password: \n"
 
 function validateId(id, explain = 'id') {
     if (typeof id !== 'string') throw new TypeError(`${explain} is not a string`)
-    if (!id.trim().length) throw new ContentError(`${explain} is empty`)
+    //if (!id.trim().length) throw new ContentError(`${explain} is empty`)
+    if (id.trim().length !== 24) throw new ContentError(`${explain} does not have 24 characters`)
+
+    //TODO validator hexadecima
 }
 
 /**

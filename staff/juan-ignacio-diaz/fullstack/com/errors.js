@@ -14,6 +14,9 @@ class ContentError extends Error {
     get name() { return ContentError.name }
 }
 
+/**
+ * ExistenceError type to error
+ */
 class ExistenceError extends Error {
     constructor(message) {
         super(message)

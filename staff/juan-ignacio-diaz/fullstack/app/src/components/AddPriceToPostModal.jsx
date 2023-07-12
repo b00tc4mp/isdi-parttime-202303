@@ -1,12 +1,10 @@
 import { useState, useEffect } from 'react'
 
-import { context } from '../ui'
 import { useAppContext } from '../hooks'
 
 import { Container, Form, Input, Button } from '../library'
 
-import updatePriceToPost from '../logic/updatePriceToPost'
-import retrievePost from '../logic/retrievePost'
+import { updatePriceToPost, retrievePost } from '../logic'
 
 export default function AddPriceToPostModal({ onCancel, onAddedPriceToPost, postId}) {
     const { alert, freeze, unfreeze } = useAppContext()
@@ -15,7 +13,7 @@ export default function AddPriceToPostModal({ onCancel, onAddedPriceToPost, post
     useEffect(() => {
         try {
             freeze()
-            retrievePost(context.token, postId)
+            retrievePost(postId)
                 .then(post => {
                     setPost(post) 
                 })
@@ -40,7 +38,7 @@ export default function AddPriceToPostModal({ onCancel, onAddedPriceToPost, post
 
         try {
             freeze()
-            updatePriceToPost (context.token, postId, price)
+            updatePriceToPost (postId, price)
                 .then(() => {
                     onAddedPriceToPost()
                 })

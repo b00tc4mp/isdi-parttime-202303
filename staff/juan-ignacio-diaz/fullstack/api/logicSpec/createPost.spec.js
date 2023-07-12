@@ -1,73 +1,65 @@
 require('dotenv').config()
 
 const { expect } = require('chai')
-const { readFile } = require('fs')
+const mongoose = require('mongoose')
+const { User, Post } = require('../data/models')
 
 const createPost = require('./createPost')
 
-const { generateUser, generatePost, cleanUp, populate } = require('./helpers/tests')
+const { generateUser, generatePost, cleanUp, populateUser, populatePost } = require('./helpers/tests')
 
 describe('createPost' , () =>{
+    let db
     let userTest, postTest
 
+    before(() => {
+        mongoose.connect(process.env.MONGODB_URL)
+        .then(() => {
+            db = mongoose.connection
+        })
+    })
+
     beforeEach(done => {
-        userTest = generateUser().user
-        postTest = generatePost(userTest.id).post
+        userTest = generateUser()
          
         cleanUp(done)
     })
 
     it('succeeds on new post', done => {
-        populate([userTest], [], error => {
-            createPost(userTest.id, postTest.image, postTest.text, error => {
-                expect(error).to.be.null
-                
-                readFile(`${process.env.DB_PATH}/posts.json`, 'utf8', (error, json) => {
-                    expect(error).to.be.null
-
-                    const posts = JSON.parse(json)
-
-                    const post = posts[0]
-
-                    expect(post).to.exist
-                    expect(post.id).to.be.a('string')
-                    expect(post.image).to.equal(postTest.image)
-                    expect(post.text).to.equal(postTest.text)
-                    expect(new Date(post.date)).to.be.a('date')
-                    expect(post.likes).to.have.lengthOf(0)
-                    expect(post.lock).to.equal(false)
-                    expect(post.price).to.equal(0)
-                    expect(posts.length).to.equal(1);
-                    expect(posts.length).to.equal(1);
-
-                    done()
-                })
+        return populateUser(userTest)
+            .then(() => createPost(userTest.id, postTest.image, postTest.text))
+            .then(() => Post.findOne({ })
+            .then(post => {
+                expect(post).to.exist
+                expect(post.id).to.be.a('string')
+                expect(post.image).to.equal(postTest.image)
+                expect(post.text).to.equal(postTest.text)
+                expect(new Date(post.date)).to.be.a('date')
+                expect(post.likes).to.have.lengthOf(0)
+                expect(post.lock).to.equal(false)
+                expect(post.price).to.equal(0)
             })
-        })
     })
 
     it('succeeds if there are existing posts', (done) => {
-        populate([userTest], [postTest], error => {
-    
-    
-            createPost(userTest.id, postTest.image, postTest.text, (error) => {
-                expect(error).to.be.null;
+        let postTest, postTest2
+        return populateUser(userTest)
+            .then(user => {
+                postTest = generatePost(user.id)
+                postTest2 = generatePost(user.id)
 
-                readFile(`${process.env.DB_PATH}/posts.json`, (error, json) => {
-                expect(error).to.be.null;
-
-                const posts = JSON.parse(json)
-
-                const post = posts[posts.length - 1]
-
+                populatePost(postTest)
+            })              
+            .then(post => createPost(userTest.id, postTest.image, postTest.text))
+            .then(() => Post.findOne({ })
+            .then(
                 expect(post).to.exist
                 expect(posts.length).to.equal(2)
 
-                done()
-                })
+
             })
         })
-      })
+
     
 
     it('fails on existing user', done => {

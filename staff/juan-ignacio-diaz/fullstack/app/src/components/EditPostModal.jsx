@@ -1,12 +1,10 @@
 import { useState, useEffect } from 'react'
 
-import { context } from '../ui'
 import { useAppContext } from '../hooks'
 
 import { Container, Form, Input, Button } from '../library'
 
-import updatePost from '../logic/updatePost'
-import retrievePost from '../logic/retrievePost'
+import { updatePost, retrievePost } from '../logic'
 
 export default function EditPost({ onCancel, onEditedPost, postId}) {
     const { alert, freeze, unfreeze } = useAppContext()
@@ -15,7 +13,7 @@ export default function EditPost({ onCancel, onEditedPost, postId}) {
     useEffect(() => {
         try {
             freeze()
-            retrievePost(context.token, postId)
+            retrievePost(postId)
                 .then(post => setPost(post))
                 .catch(error => alert(error.message))
                 .finally(() => unfreeze())
@@ -39,7 +37,7 @@ export default function EditPost({ onCancel, onEditedPost, postId}) {
 
         try {
             freeze()
-            updatePost (context.token, postId, image, text)
+            updatePost (postId, image, text)
                 .then(onEditedPost())
                 .catch(error => alert(error.message))
                 .finally(() => unfreeze())

@@ -1,8 +1,9 @@
-import { validators } from 'com'
-const { validateToken, validatePassword } = validators
+import context from "./context"
 
-export default  (token, password, newPassword, newPasswordConfirm) => {
-    validateToken(token)
+import { validators } from 'com'
+const { validateUrl } = validators
+
+export default  (password, newPassword, newPasswordConfirm) => {
     validatePassword(password)
     validatePassword(newPassword, 'new password')
     validatePassword(newPasswordConfirm, 'new password confirm')
@@ -15,15 +16,16 @@ export default  (token, password, newPassword, newPasswordConfirm) => {
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`
+            Authorization: `Bearer ${context.token}`
         },
         body: JSON.stringify({ password, newPassword, newPasswordConfirm })
     })
         .then(res => {
-            if (res.status !== 204)
-                return res.json().then(({ error: message }) => { throw new Error(message) })
-
-            return
+            if (res.status === 204)
+                return
+            
+            return res.json()
+                .then(({ error: message }) => { throw new Error(message) })
         })   
         .catch(error => new Error(error)) 
 }

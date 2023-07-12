@@ -1,6 +1,6 @@
 const { 
     validators: { validateId, validateUrl, validateText },
-    errors: { ExistenceError, AuthError } 
+    errors: { ExistenceError } 
 } = require('com')
 
 const { User, Post } = require('../data/models')
@@ -14,8 +14,8 @@ module.exports = (userId, image, text) => {
         .then(user => {
             if (!user) throw new ExistenceError('user not found')
 
-            return Post.Create({
-                    author: userId,
+            return Post.create({
+                    author: user._id,
                     image,
                     text,
                     date: new Date,
@@ -25,4 +25,5 @@ module.exports = (userId, image, text) => {
                     price: 0
                 })
         })
+        .then(()=> { })
 }

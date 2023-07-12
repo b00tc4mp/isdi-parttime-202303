@@ -1,12 +1,12 @@
+require('dotenv').config()
+
+const mongoose = require('mongoose')
+const { User, Post } = require('../data/models')
+
 const registerUser = require('./registerUser')
 
-// registerUser('user1', ''user1@dom.com', '123123123', error => {
-registerUser('user2', 'user2@dom.com', '123123123', error => {
-    if (error) {
-        console.error(error)
-
-        return
-    }
-
-    console.log('user registered')
-})
+mongoose.connect(process.env.MONGODB_URL)
+    //.then(() => Promise.all([User.deleteMany(), Post.deleteMany()]))
+    .then(() => registerUser('Prueba Uno', 'prueba@uno.com', '123123123'))
+    .catch(error => console.error(error))
+    .finally(() => mongoose.disconnect())

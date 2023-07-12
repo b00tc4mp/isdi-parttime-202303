@@ -12,7 +12,7 @@ export default (token, postId) => {
         }
     })
         .then(res => {
-            if (res.status !== 200)
+            if (res.status !== 201)
                 return res.json().then(({ error: message }) => { throw new Error(message) })
 
             return res.json()
