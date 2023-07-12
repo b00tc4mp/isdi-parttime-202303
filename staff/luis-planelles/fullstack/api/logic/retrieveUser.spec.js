@@ -4,18 +4,16 @@ const {
   errors: { ContentError },
 } = require('com');
 
-const mongoose = require('mongoose'),
-  { ObjectId } = require('mongodb');
+const mongoose = require('mongoose');
+const { ObjectId } = require('mongodb');
 
-const { expect } = require('chai'),
-  retrieveUser = require('./retrieveUser.js'),
-  { cleanUp, generate, populate } = require('./helpers/tests');
+const { expect } = require('chai');
+const retrieveUser = require('./retrieveUser.js');
+const { cleanUp, generate, populate } = require('./helpers/tests');
 
 describe('retrieveUser', () => {
-  let client;
-
   before(() => {
-    mongoose.connect(process.env.MONGODB_URL);
+    return mongoose.connect(process.env.MONGODB_URL);
   });
 
   const anyId = new ObjectId();

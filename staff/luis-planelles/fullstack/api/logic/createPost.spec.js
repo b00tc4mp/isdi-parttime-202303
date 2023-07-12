@@ -11,7 +11,7 @@ const { Post } = require('../data/models');
 
 describe('createPost', () => {
   before(() => {
-    mongoose.connect(process.env.MONGODB_URL);
+    return mongoose.connect(process.env.MONGODB_URL);
   });
 
   let user, text, image;

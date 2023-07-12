@@ -10,8 +10,10 @@ const { cleanUp, populate, generate } = require('./helpers/tests');
 describe('retrievePosts', () => {
   describe('on existing users and posts', () => {
     before(() => {
-      mongoose.connect(process.env.MONGODB_URL);
+      return mongoose.connect(process.env.MONGODB_URL);
     });
+
+    const anyId = new ObjectId().toString();
 
     let user,
       posts = [],
@@ -24,7 +26,6 @@ describe('retrievePosts', () => {
         users[i] = user;
 
         for (let j = 0; j < 3; j++) {
-          const anyId = new ObjectId();
           const post = generate.post(user._id);
 
           posts.push(post);

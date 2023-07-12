@@ -10,7 +10,7 @@ const { cleanUp, populate, generate } = require('./helpers/tests');
 
 describe('retrievePost', () => {
   before(() => {
-    mongoose.connect(process.env.MONGODB_URL);
+    return mongoose.connect(process.env.MONGODB_URL);
   });
 
   const anyId = new ObjectId();

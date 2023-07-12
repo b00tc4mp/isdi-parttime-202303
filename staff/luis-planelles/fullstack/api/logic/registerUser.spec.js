@@ -9,7 +9,7 @@ const { User } = require('../data/models');
 
 describe('registerUser', () => {
   before(() => {
-    mongoose.connect(process.env.MONGODB_URL);
+    return mongoose.connect(process.env.MONGODB_URL);
   });
 
   let user;

@@ -11,7 +11,7 @@ const { Post } = require('../data/models');
 
 describe('updatePost', () => {
   before(() => {
-    mongoose.connect(process.env.MONGODB_URL);
+    return mongoose.connect(process.env.MONGODB_URL);
   });
 
   const anyId = new ObjectId().toString();

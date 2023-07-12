@@ -1,15 +1,15 @@
 require('dotenv').config();
 
 const { expect } = require('chai');
-const authenticateUser = require('./authenticateUser');
-
 const mongoose = require('mongoose');
-const { User } = require('../data/models');
+
+const authenticateUser = require('./authenticateUser');
 const { cleanUp, populate, generate } = require('./helpers/tests');
+const { User } = require('../data/models');
 
 describe('authenticateUser', () => {
   before(() => {
-    mongoose.connect(process.env.MONGODB_URL);
+    return mongoose.connect(process.env.MONGODB_URL);
   });
 
   let user;

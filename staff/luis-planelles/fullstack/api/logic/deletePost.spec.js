@@ -10,7 +10,7 @@ const { Post } = require('../data/models');
 
 describe('deletePost', () => {
   before(() => {
-    mongoose.connect(process.env.MONGODB_URL);
+    return mongoose.connect(process.env.MONGODB_URL);
   });
 
   const anyId = new ObjectId();
