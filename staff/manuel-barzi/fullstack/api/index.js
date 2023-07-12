@@ -11,7 +11,9 @@ const {
     updateUserAvatarHandler,
     createPostHandler,
     retrievePostsHandler,
-    retrievePostHandler
+    retrievePostHandler,
+    addCommentToPostHandler,
+    removeCommentFromPostHandler
 } = require('./handlers')
 const mongoose = require('mongoose')
 
@@ -38,6 +40,10 @@ mongoose.connect(process.env.MONGODB_URL)
         api.get('/posts', retrievePostsHandler)
 
         api.get('/posts/:postId', retrievePostHandler)
+
+        api.post('/posts/:postId/comments', jsonBodyParser, addCommentToPostHandler)
+
+        api.delete('/posts/:postId/comments/:commentId', removeCommentFromPostHandler)
 
         api.listen(process.env.PORT, () => console.log(`server running in port ${process.env.PORT}`))
     })

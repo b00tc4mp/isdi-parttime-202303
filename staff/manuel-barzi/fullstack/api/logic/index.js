@@ -5,5 +5,7 @@ module.exports = {
     updateUserAvatar: require('./updateUserAvatar'),
     createPost: require('./createPost'),
     retrievePosts: require('./retrievePosts'),
-    retrievePost: require('./retrievePost')
+    retrievePost: require('./retrievePost'),
+    addCommentToPost: require('./addCommentToPost'),
+    removeCommentFromPost: require('./removeCommentFromPost')
 }

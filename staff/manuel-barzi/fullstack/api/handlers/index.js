@@ -6,5 +6,7 @@ module.exports = {
     updateUserAvatarHandler: require('./updateUserAvatarHandler'),
     createPostHandler: require('./createPostHandler'),
     retrievePostsHandler: require('./retrievePostsHandler'),
-    retrievePostHandler: require('./retrievePostHandler')
+    retrievePostHandler: require('./retrievePostHandler'),
+    addCommentToPostHandler: require('./addCommentToPostHandler'),
+    removeCommentFromPostHandler: require('./removeCommentFromPostHandler')
 }
