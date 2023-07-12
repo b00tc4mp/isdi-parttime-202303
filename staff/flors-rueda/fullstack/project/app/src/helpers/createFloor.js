@@ -36,7 +36,7 @@ export const createFloor = (floor, scene, cellSize) => {
             } else if (value === 'bomb' || value === 'life' || value === 'stonks' || value === 'hole') {
                 const planeGeometry = new THREE.PlaneGeometry(cellSize / 1.75, cellSize / 1.75);
                 const planeMaterial = new THREE.MeshBasicMaterial({
-                    map: textureLoader.load(`game/${value}.png`),
+                    map: textureLoader.load(`/game/${value}.png`),
                     transparent: true,
                 });
                 const plane = new THREE.Mesh(planeGeometry, planeMaterial);

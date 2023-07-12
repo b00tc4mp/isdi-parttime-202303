@@ -2,20 +2,53 @@ import { useState, useEffect } from 'react';
 import CanvasContainer from '../components/game/CanvasContainer';
 import GameOver from '../components/game/GameOver';
 import { Player } from '@lottiefiles/react-lottie-player';
+import { useParams, useLocation } from 'react-router-dom';
+import Loader from '../components/Loader';
 import inLogger from '../inLogger';
+import { configureLevelToRender } from '../helpers/configureLevelToRender';
+import retrieveLevel from '../logic/retrieve-level';
 
-const Game = ({ level, onExitClick, onPlayAgainClick }) => {
+const Game = ({ level }) => {
+  const [isLoading, setIsLoading] = useState(true);
+  const { id } = useParams();
+  const location = useLocation();
+  const [levelToRender, setLevelToRender] = useState(null);
   const [key, setKey] = useState(1);
-  const [floor, setFloor] = useState(level[0]);
+  const [floor, setFloor] = useState(null);
   const [health, setHealth] = useState(5);
   const [isGameOver, setIsGameOver] = useState(0); // 0 = playing, -1 = lost, 1 = won
   const [animation, setAnimation] = useState(null);
   const [isAnimationVisible, setAnimationVisible] = useState(false);
 
+  useEffect(() => {
+    const getLevel = async () => {
+      if (id !== 'try') {
+        try {
+          const level = await retrieveLevel(id);
+          const configuredLevel = configureLevelToRender(level.layout);
+          setLevelToRender(configuredLevel);
+          setFloor(configuredLevel[0]);
+          setIsLoading(false);
+        } catch (error) {
+          console.log(`retrieve level error: ${error.message}`);
+          setIsLoading(false);
+        }
+      } else {
+        const { level } = location.state;
+        setLevelToRender(level);
+        setFloor(level[0]);
+        setIsLoading(false);
+      }
+    };
+
+    getLevel();
+  }, [id]);
+
+
 
   const handleOnSolved = () => {
     setKey(key + 1);
-    setFloor(level[key]);
+    setFloor(levelToRender[key]);
   };
 
   const handleOnBomb = () => {
@@ -50,7 +83,7 @@ const Game = ({ level, onExitClick, onPlayAgainClick }) => {
 
   const renderHealthImages = () => {
     return Array.from({ length: health }, (_, index) => (
-      <img key={index} src="game/hp.png" className="w-8 h-8" />
+      <img key={index} src="/game/hp.png" className="w-8 h-8" />
     ));
   };
 
@@ -71,6 +104,10 @@ const Game = ({ level, onExitClick, onPlayAgainClick }) => {
       return () => clearTimeout(timeout);
     }
   }, [isAnimationVisible, animation]);
+
+  if (isLoading) {
+    return <Loader />;
+  }
 
   return (
     <div className="flex flex-col flex-wrap">
@@ -97,7 +134,7 @@ const Game = ({ level, onExitClick, onPlayAgainClick }) => {
       )}
       {isGameOver !== 0 && (
         <>
-          <GameOver isGameWon={isGameOver > 0 ? true : false} onExitClick={onExitClick} />
+          <GameOver isGameWon={isGameOver > 0 ? true : false} />
           <div className="top-0 inset-0 bg-black opacity-50"></div>
         </>
       )}

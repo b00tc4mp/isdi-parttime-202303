@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { validateFloor, validateLevel } from '../helpers/levelValidators';
 import { configureLevelToRender } from '../helpers/configureLevelToRender';
+import { useNavigate } from 'react-router-dom';
 import editIcons from '../assets/editIcons/index';
 import createLevel from '../logic/create-level';
 import inLogger from '../inLogger';
@@ -8,11 +9,12 @@ import inLogger from '../inLogger';
 //TODO mark selected ratio on load
 //TODO only one ratio list open each time
 
-const CreateLevel = ({ onTryLevelClick }) => {
+const CreateLevel = () => {
     const [toast, setToast] = useState(null);
     const [isToastOn, setToastOn] = useState(false);
     const [level, setLevel] = useState([['empty', 'stonks', 'hole', 'empty', 'empty', 'empty', 'empty', 'empty', 'start']]);
     const [openDropdown, setOpenDropdown] = useState(null);
+    const navigate = useNavigate();
 
     const cellOptions = ['bomb', 'dirt', 'hole', 'stonks', 'start', 'life', 'empty'];
 
@@ -59,10 +61,11 @@ const CreateLevel = ({ onTryLevelClick }) => {
                         console.log(`create level error: ${error.message}`);
                         return;
                     }
-                    onTryLevelClick(configureLevelToRender(level));
+                    const createdLevel = (configureLevelToRender(level));
+                    navigate('/game/try', { state: { level: createdLevel } })
                 });
             } catch (error) {
-                alert(`create level error: ${error.message}`, 'danger');
+                alert(`create level error: ${error.message}`);
             }
         }
     };

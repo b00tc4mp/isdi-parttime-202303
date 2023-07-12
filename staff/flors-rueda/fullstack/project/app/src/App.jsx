@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import LevelsList from './pages/LevelsList';
 import Footer from './components/Footer';
 import Navbar from './components/Navbar';
@@ -13,24 +14,7 @@ import Tutorial from './pages/Tutorial';
 //TODO add landing page, tutorial and about
 
 const App = () => {
-  const [view, setView] = useState('');
-  const [level, setLevel] = useState(null);
   const [isApiAvailable, setApiAvailableOn] = useState(true);
-
-  const handleGoToLevelsList = () => {
-    //handleRefreshApiConnection();
-    setView('levels');
-  };
-
-  const handleGoToCreate = () => setView('create');
-  const handleGoToTutorial = () => setView('tutorial');
-  const handleGoToLanding = () => setView(null);
-
-  const handleGoToTryLevel = (newLevel = level) => {
-    //handleRefreshApiConnection();
-    setLevel(newLevel);
-    setView('game');
-  }
 
   const handleRefreshApiConnection = () => {
     try {
@@ -50,14 +34,16 @@ const App = () => {
 
   return (
     <>
-      <Navbar view={view} onCreateClick={handleGoToCreate} onLevelsListClick={handleGoToLevelsList} onLandingClick={handleGoToLanding} onTutorialClick={handleGoToTutorial} />
+      <Navbar />
       {!isApiAvailable && <NoConnectionToast />}
       <div className="pt-5">
-        {!view && <Landing onTutorialClick={handleGoToTutorial} />}
-        {view === 'levels' && <LevelsList onCreateClick={handleGoToCreate} onLevelClick={handleGoToTryLevel} />}
-        {view === 'game' && <Game level={level} onExitClick={handleGoToLevelsList} />}
-        {view === 'create' && <CreateLevel onTryLevelClick={handleGoToTryLevel} />}
-        {view === 'tutorial' && <Tutorial onExitClick={handleGoToLevelsList} />}
+        <Routes>
+          <Route path="/" element={<Landing />} />
+          <Route path="/levels" element={<LevelsList />} />
+          <Route path="/game/:id" element={<Game />} />
+          <Route path="/create" element={<CreateLevel />} />
+          <Route path="/tutorial" element={<Tutorial />} />
+        </Routes>
       </div>
       <Footer />
     </>

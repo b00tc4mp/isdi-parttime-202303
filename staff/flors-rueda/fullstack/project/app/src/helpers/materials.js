@@ -5,11 +5,11 @@ const cubeSize = 1.5;
 
 const textureLoader = new THREE.TextureLoader();
 
-const bgTexture = textureLoader.load('game/floor.png');
+const bgTexture = textureLoader.load('/game/floor.png');
 
-const textureBall = textureLoader.load('game/ball.png');
-const textureWall = textureLoader.load('game/wall.png');
-const textureDirt = textureLoader.load('game/dirt.png');
+const textureBall = textureLoader.load('/game/ball.png');
+const textureWall = textureLoader.load('/game/wall.png');
+const textureDirt = textureLoader.load('/game/dirt.png');
 
 const ballGeometry = new THREE.SphereGeometry(ballRadius, 8, 8);
 const ballMaterial = new THREE.MeshBasicMaterial({ map: textureBall });

@@ -4,6 +4,7 @@ import btnIcons from '../assets/buttonsIcons/index';
 import inLogger from '../inLogger';
 import './Landing.css'
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const Landing = ({ onTutorialClick }) => {
     const [activeIndex, setActiveIndex] = useState(0);
@@ -37,7 +38,7 @@ const Landing = ({ onTutorialClick }) => {
                 <img src={logo} className="w-4/6" alt="Logo" />
                 <div className="flex flex-col md:flex-row gap-5 w-full justify-center align-center">
                     <button className="bg-primary100 self-center md:w-fit max-w-xs w-3/4  px-5 py-2 hover:bg-transparent text-2xl lg:text-4xl text-light500 hover:text-primary100 hover:border hover:border-primary100 font-bold rounded-lg transition duration-200">Join the Riders</button>
-                    <button onClick={onTutorialClick} className="border border-secondary300 bg-transparent self-center md:w-fit max-w-xs w-3/4  px-5 py-2 hover:bg-secondary300 text-2xl lg:text-4xl text-secondary300 hover:text-light500 font-bold rounded-lg transition duration-200">Learn the basics</button>
+                    <Link to="/tutorial" className="border border-secondary300 bg-transparent self-center md:w-fit max-w-xs w-3/4 text-center px-5 py-2 hover:bg-secondary300 text-2xl lg:text-4xl text-secondary300 hover:text-light500 font-bold rounded-lg transition duration-200">Learn the basics</Link>
                 </div>
                 <div className="flex flex-col gap-5 md:gap-1 md:flex-row w-5/6 justify-center align-center bg-light300 rounded-xl mt-5 opacity-90">
                     <div className="flex flex-col w-full justify-center align-center">

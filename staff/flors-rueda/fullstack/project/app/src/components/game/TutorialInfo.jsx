@@ -1,6 +1,7 @@
 import inLogger from '../../inLogger';
+import { Link } from 'react-router-dom';
 
-const TutorialInfo = ({ onExitClick, tutorialNumber, onTutorialIsOver }) => {
+const TutorialInfo = ({ onExitClick, tutorialNumber }) => {
     const tutorialTexts = [
         `Let's see how you roll... Move the ball around and get that treasure!`,
         `Some times the levels are longer and you need to go down a hole...`,
@@ -19,8 +20,10 @@ const TutorialInfo = ({ onExitClick, tutorialNumber, onTutorialIsOver }) => {
                     <div className="text-sm font-normal">
                         <span className="mb-1 text-lg font-bold text-secondary200">{tutorialTexts[tutorialNumber]}</span>
                     </div>
-                    <button type="button" onClick={onExitClick} className="text-4xl text-secondary300 hover:text-secondary600">G<i className="bi bi-play-circle"></i></button>
+                    {tutorialNumber > 5 ? <Link type="button" to="/levels" className="text-4xl text-secondary300 hover:text-secondary600">EXPL<i className="bi bi-play-circle">RE MORE LEVELS</i></Link> : <button type="button" onClick={onExitClick} className="text-4xl text-secondary300 hover:text-secondary600">G<i className="bi bi-play-circle"></i></button>
+                    }
                     <div className="flex text-success200 text-3xl items-center flex-row justify-center gap-5 width-full">
+
                         <i className={`bi bi-1-circle${tutorialNumber > 0 ? '-fill' : ''}`}></i>
                         <i className={`bi bi-2-circle${tutorialNumber > 1 ? '-fill' : ''}`}></i>
                         <i className={`bi bi-3-circle${tutorialNumber > 2 ? '-fill' : ''}`}></i>

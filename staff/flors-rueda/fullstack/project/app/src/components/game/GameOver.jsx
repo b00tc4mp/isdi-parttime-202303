@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import inLogger from '../../inLogger';
 
 const GameOver = ({ isGameWon, onExitClick }) => {
@@ -13,7 +14,7 @@ const GameOver = ({ isGameWon, onExitClick }) => {
                         <span className="mb-1 text-lg font-bold text-primary100">{isGameWon ? `Yeei!!` : `Oh, no!!`}</span>
                         <div className="mb-2 text-sm font-normal text-secondary100">{isGameWon ? `Your beach ball found the treasure!` : `Your beach ball died!`}</div>
                     </div>
-                    <button type="button" className="w-10/12 md:w-8/12 lg:w-6/12 text-white bg-danger100 hover:bg-danger200 focus:ring-4 focus:outline-none focus:ring-danger300 font-medium rounded-lg text-sm px-4 py-2 text-center mr-3 md:mr-0" onClick={onExitClick}>exit</button>
+                    <Link type="button" className="w-10/12 md:w-8/12 lg:w-6/12 text-white bg-danger100 hover:bg-danger200 focus:ring-4 focus:outline-none focus:ring-danger300 font-medium rounded-lg text-sm px-4 py-2 text-center mr-3 md:mr-0" to="/levels">exit</Link>
                 </div>
             </div>
 
