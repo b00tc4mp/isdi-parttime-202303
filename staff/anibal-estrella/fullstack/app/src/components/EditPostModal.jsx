@@ -71,21 +71,25 @@ export default function EditPostModal({ onCancel, onPostEdited, postId, onDelete
         event.preventDefault()
 
         try {
+            freeze()
             const answer = confirm('Do you really want to delete this post?')
 
             if (answer) {
-                deletePost(context.userId, postId, error => {
-                    if (error) {
-                        alert(error.message)
-
-                        return
-                    }
+                deletePost(context.token, postId).then(() => {
+                    unfreeze()
 
                     onDeletedPost()
                 })
-            }
+                    .catch((error) => {
+                        unfreeze()
 
+                        alert(error.message, 'error')
+                    })
+            }
         } catch (error) {
+            unfreeze()
+
+            alert(error.message, 'warn')
         }
 
     };

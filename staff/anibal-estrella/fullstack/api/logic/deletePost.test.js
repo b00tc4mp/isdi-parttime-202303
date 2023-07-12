@@ -1,22 +1,14 @@
 const deletePost = require('./deletePost')
-const { readFile } = require('fs') //commonJS
 require('dotenv').config()
+const mongoose = require('mongoose')
+const { User, Post } = require('../data/models')
 
+const userId = '64ae6702260b27bd79285db6'
+const postId = '64ae6aa8f44c0578e27c3ab1'
 
-readFile(`${process.env.DB_PATH}/posts.json`, (error, json) => {
-    if (error) return callback(error)
-
-    const posts = JSON.parse(json)
-    const post = posts[posts.length - 1];
-
-    deletePost('user-1', post.id, error => {
-        if (error) {
-            console.error(error)
-            return
-        }
-
-        console.log('post deleted!')
-    })
-
-})
-
+mongoose.connect(process.env.MONGODB_URL)
+    .then(() =>
+        deletePost(userId, postId))
+    .then(() => console.log('POST DELETED ❌'))
+    .catch(console.error)
+    .finally(mongoose.disconnect)

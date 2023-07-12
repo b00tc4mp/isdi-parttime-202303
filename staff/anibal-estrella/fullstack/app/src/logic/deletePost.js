@@ -1,34 +1,53 @@
 import { validators } from 'com'
-const { validateId, validateCallback } = validators
+const { validateId, validateToken, validateCallback } = validators
 
-export default function deletePost(userId, postId, callback) {
-    validateId(userId, 'user ID')
+export default function deletePost(token, postId, callback) {
+    validateToken(token)
     validateId(postId, 'post ID')
-    validateCallback(callback, 'callback function')
 
-    const xhr = new XMLHttpRequest()
+    if (callback) {
 
-    xhr.onload = () => {
-        const { status } = xhr
-        if (status !== 204) {
-            const { response: json } = xhr
-            const { error } = JSON.parse(json)
+        validateCallback(callback, 'callback function')
 
-            callback(new Error(error))
+        const xhr = new XMLHttpRequest()
 
-            return
+        xhr.onload = () => {
+            const { status } = xhr
+            if (status !== 204) {
+                const { response: json } = xhr
+                const { error } = JSON.parse(json)
+
+                callback(new Error(error))
+
+                return
+            }
+            callback(null)
         }
-        callback(null)
+
+        xhr.onerror = () => {
+            callback(new Error('Connection error'))
+        }
+
+        xhr.open('DELETE', `${import.meta.env.VITE_API_URL}/posts/${postId}`)
+
+        xhr.setRequestHeader('Authorization', `Bearer ${userId}`)
+
+        xhr.send()
     }
 
-    xhr.onerror = () => {
-        callback(new Error('Connection error'))
-    }
-
-
-    xhr.open('DELETE', `${import.meta.env.VITE_API_URL}/posts/${postId}`)
-
-    xhr.setRequestHeader('Authorization', `Bearer ${userId}`)
-
-    xhr.send()
+    return fetch(`${import.meta.env.VITE_API_URL}/posts/post/${postId}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-type': 'application/json',
+            Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ userId, postId }),
+    }).then((res) => {
+        if (res.status !== 200) {
+            //return the json object
+            return res.json().then(({ error: message }) => {
+                throw new Error(message)
+            })
+        }
+    })
 }

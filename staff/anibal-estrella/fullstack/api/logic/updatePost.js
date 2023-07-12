@@ -14,6 +14,7 @@ const { User, Post } = require('../data/models.js')
  */
 
 module.exports = (userId, postId, image, text) => {
+
     validateId(userId, 'user id')
     validateId(postId, 'post id')
     validateUrl(image, 'Image URL')
@@ -22,7 +23,7 @@ module.exports = (userId, postId, image, text) => {
     return Promise.all([
         User.findById(userId).lean(),
         //remove post _id... client only asks for text and image to render
-        Post.findById(postId, '-_id -__v -likes').lean(),
+        Post.findById(postId, '-__v -likes').lean(),
 
     ])
         .then(([user, post]) => {
@@ -30,6 +31,7 @@ module.exports = (userId, postId, image, text) => {
             if (!post) throw new ExistenceError(`post with the id ${postId} not found`)
 
             return Post.updateOne(
+                { _id: postId },
                 {
                     image: image,
                     text: text,

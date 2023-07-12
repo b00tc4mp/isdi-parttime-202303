@@ -1,5 +1,5 @@
 require('dotenv').config()
-
+debugger
 const express = require('express')
 const cors = require('cors')
 const bodyParser = require('body-parser')
@@ -55,7 +55,7 @@ mongoose.connect(process.env.MONGODB_URL)
 
         api.patch('/posts/:postId/likes', toggleLikePostHandler)
 
-        api.delete('/posts/:postId', deletePostHandler)
+        api.delete('/posts/post/:postId', deletePostHandler)
 
         api.patch('/posts/post/:postId', jsonBodyParser, updatePostHandler)
 

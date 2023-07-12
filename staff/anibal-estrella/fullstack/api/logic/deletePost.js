@@ -1,6 +1,7 @@
 require('dotenv').config()
 const { readFile, writeFile } = require('fs') //commonJS
-const { validators: { validateId, validateCallback } } = require('com')
+const { validators: { validateId } } = require('com')
+const { User, Post } = require('../data/models.js')
 
 
 /**
@@ -10,73 +11,21 @@ const { validators: { validateId, validateCallback } } = require('com')
  * @param {string} postId The post's ID
  */
 
-module.exports = (userId, postId, callback) => {
+module.exports = (userId, postId) => {
     validateId(userId, 'user id')
     validateId(postId, 'post id')
-    validateCallback(callback)
 
-    readFile(`${process.env.DB_PATH}/users.json`, (error, json) => {
-        if (error) {
-            callback(error)
-            return
-        }
+    return Promise.all([
+        User.findById(userId).lean(),
+        //remove post _id... client only asks for text and image to render
+        Post.findById(postId, '-__v -likes').lean(),
 
-        const users = JSON.parse(json)
-        const user = users.find(user => user.id === userId)
+    ])
+        .then(([user, post]) => {
+            if (!user) throw new ExistenceError(`user with the id ${userId} not found`)
+            if (!post) throw new ExistenceError(`post with the id ${postId} not found`)
 
-        if (!user) {
-            callback(new Error(`User with id ${userId} does not exists`))
-
-            return
-        }
-
-        readFile(`${process.env.DB_PATH}/posts.json`, (error, json) => {
-            if (error) return callback(error)
-
-            const posts = JSON.parse(json)
-            const post = posts.find(post => post.id === postId)
-
-            if (!post) {
-                callback(new Error(`Post with id ${postId} does not exists`))
-
-                return
-            }
-
-            if (post.author !== userId) {
-                callback(new Error(`Post with id ${postId} does not exists belongs to user ${userId}`))
-
-                return
-            }
-
-            const index = posts.findIndex(post => post.id === postId)
-
-            posts.splice(index, 1)
-
-            json = JSON.stringify(posts, null, 4)
-
-            writeFile(`${process.env.DB_PATH}/posts.json`, json, error => {
-                if (error) return callback(error)
-
-                callback(null)
-            })
-
-            users.forEach((user) => {
-                const index = user.favs.indexOf(postId);
-
-                if (index !== -1) {
-                    user.favs.splice(index, 1);
-                }
-            })
-
-            json = JSON.stringify(users, null, 4)
-
-            writeFile(`${process.env.DB_PATH}/users.json`, json, error => {
-                if (error) return callback(error)
-
-                callback(null)
-            })
+            return Post.deleteOne({ _id: postId })
         })
-
-    })
+        .then(() => { })
 }
-
