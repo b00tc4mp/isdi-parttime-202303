@@ -1,7 +1,6 @@
 module.exports = {
-    level: (name, layout, id) => ({
+    level: (name, layout) => ({
         name: name,
-        id: id,
         layout: layout
     }),
 

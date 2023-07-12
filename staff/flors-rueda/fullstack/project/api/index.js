@@ -1,25 +1,20 @@
 require('dotenv').config();
 
 const express = require('express');
-
-const { cors, jsonBodyParser } = require('./utils');
+const cors = require('cors');
+const bodyParser = require('body-parser');
 
 const { helloApiHandler, retrieveLevelsHandler, retrieveLevelHandler, createLevelHandler } = require('./handlers');
 
-const { MongoClient } = require('mongodb');
-const context = require('./logic/context');
+const mongoose = require('mongoose')
 
-const client = new MongoClient(process.env.MONGODB_URL);
+mongoose.connect(process.env.MONGODB_URL)
+    .then(() => {
+        const api = express()
 
-client.connect()
-    .then(connection => {
-        const db = connection.db();
+        const jsonBodyParser = bodyParser.json()
 
-        context.levels = db.collection('levels');
-
-        const api = express();
-
-        api.use(cors);
+        api.use(cors())
 
         api.use((req, res, next) => {
             console.log(

@@ -1,19 +1,13 @@
-const context = require('../context');
-const { ObjectId } = require('mongodb');
-
 const {
     validators: { validateId },
 } = require('com');
 
+const { Level } = require('../../data/models');
+
 module.exports = (id) => {
     validateId(id);
-
-    const { levels } = context
-
-    return levels.findOne({ _id: new ObjectId(id) })
-        .then(level => {
-            if (!level) throw new Error('level not found')
-
-            return level
-        })
+    return Level.findById(id).then(level => {
+        if (!level) throw new Error('level not found');
+        return level
+    })
 }

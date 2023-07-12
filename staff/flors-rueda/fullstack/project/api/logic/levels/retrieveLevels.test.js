@@ -1,50 +1,48 @@
 require('dotenv').config();
 
-const { expect } = require('chai');
 const retrieveLevels = require('./retrieveLevels');
-const context = require('../context');
-const { MongoClient } = require('mongodb');
-const { cleanUp, generate } = require('../helpers/tests');
+const { expect } = require('chai');
+const { generate, cleanUp } = require('../helpers/tests');
+const { Level } = require('../../data/models');
+
 
 describe('retrieveLevels', () => {
-    let client;
-    let db;
-
-    before(async () => {
-        client = await MongoClient.connect(process.env.MONGODB_URL);
-        db = client.db();
-        context.levels = db.collection('levels');
-    });
-
-    after(async () => {
-        await client.close();
-    });
-
     afterEach(async () => {
         await cleanUp();
     });
 
-    it('should retrieve levels', async () => {
-        const name = `level-${Math.random()}`;
-        const layout = [
+    it('should retrieve all levels', async () => {
+        const name1 = `level-${Math.random()}`;
+        const layout1 = [
             ['empty', 'bomb', 'hole', 'empty', 'dirt', 'bomb', 'dirt', 'empty', 'start'],
             ['life', 'bomb', 'start', 'life', 'bomb', 'empty', 'bomb', 'dirt', 'stonks'],
         ];
-        const id = `id-${Math.random()}`;
 
-        const level = generate.level(name, layout, id);
+        const name2 = `level-${Math.random()}`;
+        const layout2 = [
+            ['start', 'bomb', 'hole', 'empty', 'dirt', 'bomb', 'dirt', 'empty', 'empty'],
+            ['life', 'empty', 'bomb', 'life', 'bomb', 'empty', 'bomb', 'dirt', 'stonks'],
+        ];
 
+        const levelData1 = generate.level(name1, layout1);
+        const levelData2 = generate.level(name2, layout2);
 
-        await context.levels.insertOne(level);
+        await Level.create(levelData1);
+        await Level.create(levelData2);
 
-        const levels = await retrieveLevels();
+        const retrievedLevels = await retrieveLevels();
 
-        expect(levels).to.have.lengthOf(1);
-        expect(levels[0].name).to.equal(name);
-        expect(levels[0]._id).to.be.undefined;
-        expect(levels[0].id).to.exist;
-        expect(levels[0].id).to.be.a('string');
-        expect(levels[0].id).to.equal(level._id.toString());
+        expect(retrievedLevels).to.be.an('array');
+        expect(retrievedLevels).to.have.lengthOf(2);
+
+        const retrievedLevel1 = retrievedLevels.find((level) => level.name === name1);
+        const retrievedLevel2 = retrievedLevels.find((level) => level.name === name2);
+
+        expect(retrievedLevel1).to.exist;
+        expect(retrievedLevel1.name).to.equal(name1);
+
+        expect(retrievedLevel2).to.exist;
+        expect(retrievedLevel2.name).to.equal(name2);
     });
 
     it('should retrieve no levels if database is empty', async () => {

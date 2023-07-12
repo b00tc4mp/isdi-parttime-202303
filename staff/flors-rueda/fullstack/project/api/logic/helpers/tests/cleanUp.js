@@ -1,9 +1,5 @@
-const context = require('../../context')
+const { Level } = require('../../../data/models');
 
-module.exports = () => {
-    const { levels } = context
-
-    return Promise.all([
-        levels.deleteMany()
-    ])
+module.exports = async () => {
+    await Level.deleteMany();
 }

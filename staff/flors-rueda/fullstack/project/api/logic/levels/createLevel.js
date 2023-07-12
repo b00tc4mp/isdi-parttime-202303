@@ -1,4 +1,4 @@
-const context = require('../context');
+const { Level } = require('../../data/models');
 
 const {
     validators: { validateName, validateLayout, validateId },
@@ -8,13 +8,10 @@ module.exports = (name, layout) => {
     validateName(name);
     validateLayout(layout);
 
-    const { levels } = context;
-
-    const level = {
-        name: name,
-        layout: layout,
-    }
-
-    return levels.insertOne(level);
-
+    return Level.create({
+        name,
+        layout,
+    }).catch(error => {
+        throw error
+    })
 }
