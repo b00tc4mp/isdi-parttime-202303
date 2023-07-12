@@ -1,14 +1,16 @@
 import isCurrentUser from './isCurrentUser'
+import isIncludesCurrentUser from './isIncludesCurrentUser'
 import isUserLoggedIn from './isUserLoggedIn'
 import loginUser from './loginUser'
 import logoutUser from './logoutUser'
 import createPost from './createPost'
 import deletePost from './deletePost'
 import registerUser from './registerUser'
-import retrieveOnSalePost from './retrieveOnSalePost'
 import retrievePost from './retrievePost'
-import retrieveSavePost from './retrieveSavePost'
-import retrieveUserPost from './retrieveUserPost'
+import retrieveOnSalePosts from './retrieveOnSalePosts'
+import retrievePosts from './retrievePosts'
+import retrieveSavePosts from './retrieveSavePosts'
+import retrieveUserPosts from './retrieveUserPosts'
 import retrieveUser from './retrieveUser'
 import toggleLikePost from './toggleLikePost'
 import toggleLockPost from './toggleLockPost'
@@ -22,16 +24,18 @@ import updateUserPassword from './updateUserPassword'
 
 export {
     isCurrentUser,
+    isIncludesCurrentUser,
     isUserLoggedIn,
     loginUser,
     logoutUser,
     createPost,
     deletePost,
     registerUser,
-    retrieveOnSalePost,
     retrievePost,
-    retrieveSavePost,
-    retrieveUserPost,
+    retrieveOnSalePosts,
+    retrievePosts,
+    retrieveSavePosts,
+    retrieveUserPosts,
     retrieveUser,
     toggleLikePost,
     toggleLockPost,

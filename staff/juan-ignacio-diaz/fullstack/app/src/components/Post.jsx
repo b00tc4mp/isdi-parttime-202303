@@ -2,7 +2,7 @@ import { useAppContext } from '../hooks'
 
 export const DEFAULT_AVATAR_URL = "https://img.icons8.com/color/512/avatar.png"
 
-import { isCurrentUser, toggleLikePost, toggleSavePost, deletePost, toggleLockPost, updateBuyPost } from '../logic'
+import { isCurrentUser, isIncludesCurrentUser, toggleLikePost, toggleSavePost, deletePost, toggleLockPost, updateBuyPost } from '../logic'
 
 import { utils } from 'com'
 
@@ -103,7 +103,7 @@ export default function Post ({ post: { id, author, image, text, date, likes, da
             </div>
             <div className = "post-button">
                 <div>
-                    <button className = "button-likes" onClick={handleLikePost}>{likes.includes(userId) ? '❤️' : '🤍'} ({likes? likes.length : 0})</button>
+                    <button className = "button-likes" onClick={handleLikePost}>{isIncludesCurrentUser(likes.map((like) => like.id)) ? '❤️' : '🤍'} ({likes? likes.length : 0})</button>
                     <button className = "button-save" onClick={handleSavePost}> {fav ? '📌' : '🔘'}</button>
                 </div>
                 <div>
@@ -111,7 +111,7 @@ export default function Post ({ post: { id, author, image, text, date, likes, da
                     {isCurrentUserPost ? <button onClick={handleDeletePost}>🗑</button> : ''}   
                     {isCurrentUserPost ? <button onClick={handleLockPost}>{lock ? '🔒' : '🔓'}</button> : ''}   
                     {isCurrentUserPost ? <button onClick={handlePriceToPost}>{price +'€'}</button> : ''}      
-                    {!isCurrentUserPostd && price !== 0 ? <button onClick={handleBuyPost}>{price+'€'}</button> : ''}
+                    {!isCurrentUserPost && price !== 0 ? <button onClick={handleBuyPost}>{price+'€'}</button> : ''}
                 </div>
             </div>
             <div className = "post-info">
