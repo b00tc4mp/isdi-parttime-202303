@@ -6,7 +6,9 @@
  * @param {string} text post's caption 
  */
 
-export default function updatePost(token, postId, image, text) {
+import { context } from "./context"
+
+export default function updatePost(postId, image, text) {
 
     const data = { image, text }
 
@@ -15,7 +17,7 @@ export default function updatePost(token, postId, image, text) {
         method: 'PATCH',
         headers: {
             'Content-type': 'application/json',
-            'Authorization': `Bearer ${token}`
+            'Authorization': `Bearer ${context.token}`
         },
         body: JSON.stringify(data)
     })

@@ -7,7 +7,9 @@
  * @param {string} confirmNewPassword confirmation of new password
  */
 
-export const updatePassword = (token, password, newPassword, confirmNewPassword) => {
+import { context } from "./context"
+
+export const updatePassword = (password, newPassword, confirmNewPassword) => {
 
     if (password === newPassword)
         throw new Error('Current password cannot be the same as new password')
@@ -21,7 +23,7 @@ export const updatePassword = (token, password, newPassword, confirmNewPassword)
         method: 'PATCH',
         headers: {
             'Content-type': 'application/json',
-            'Authorization': `Bearer ${token}`
+            'Authorization': `Bearer ${context.token}`
         },
         body: JSON.stringify(data)
     })

@@ -6,13 +6,15 @@
  * @param {string} token user's id
  */
 
+import { context } from "./context";
+
 export default function toggleLikePost(postId, token) {
 
     return fetch(`http://localhost:4000/posts/like/${postId}`, {
         method: 'PATCH',
         headers: {
             'Content-type': 'application/json',
-            'authorization': `Bearer ${token}`
+            'authorization': `Bearer ${context.token}`
         }
     })
         .then(res => {

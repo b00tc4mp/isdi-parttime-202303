@@ -1,6 +1,8 @@
 
 // import { validateBase64ImageFormat } from "./helpers/validators.js"  
 
+import { context } from "./context"
+
 /**
  * Places the new avatar in user database 
  * @param {string} token user's id
@@ -17,7 +19,7 @@ export function updateAvatar(token, url, callback) {
         method: 'PATCH',
         headers: {
             'Content-type': 'application/json',
-            'Authorization': `Bearer ${token}`
+            'Authorization': `Bearer ${context.token}`
         },
         body: JSON.stringify(data)
     })

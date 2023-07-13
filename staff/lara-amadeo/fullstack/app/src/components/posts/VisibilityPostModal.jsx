@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import retrievePost from "../../logic/retrievePost"
-import { context } from "../../ui"
+import { context } from "../../logic/context"
 import togglePostVisibility from "../../logic/togglePostVisibility"
 import { useContext } from "react"
 import Context from "../../Context"
@@ -13,7 +13,7 @@ export default function VisibilityModal({ postId, onConfirmChangeVisiblity, onCa
 
     useEffect(() => {
         try {
-            retrievePost(context.token, postId)
+            retrievePost(postId)
                 .then(({ post }) => {
                     setPost(post)
                     setVisibility(post.visibility)
@@ -31,7 +31,7 @@ export default function VisibilityModal({ postId, onConfirmChangeVisiblity, onCa
     const handleChangeVisibility = (event) => {
         event.preventDefault()
         try {
-            togglePostVisibility(context.token, post.id)
+            togglePostVisibility(post.id)
                 .then(() => {
                     setVisibility(post.visibility)
                     generateToast(`Visibility changed to ${post.visibility}!`, 'success')

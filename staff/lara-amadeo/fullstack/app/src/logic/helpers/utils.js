@@ -1,6 +1,17 @@
 import { validateToken } from './validators'
 
+function extractPayloadFromToken(token) {
+    return JSON.parse(atob(token.split('.')[1]))
+}
+
 export function isTokenAlive(token) {
+    const { iat, exp } = extractPayloadFromToken(token)
+    const now = Date.now() / 1000
+
+    return exp - iat > now - iat
+}
+
+export function isTokenValid(token) {
     try {
         validateToken(token)
 
@@ -15,3 +26,4 @@ export function extractSubFromToken(token) {
 
     return sub
 }
+

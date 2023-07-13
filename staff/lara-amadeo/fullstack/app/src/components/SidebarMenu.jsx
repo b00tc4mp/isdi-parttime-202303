@@ -1,6 +1,5 @@
 import { useEffect } from "react"
 import retrieveUser from "../logic/retrieveUser"
-import { context } from "../ui"
 import './SidebarMenu.css'
 import { useState } from "react"
 import { useContext } from "react"
@@ -30,8 +29,8 @@ export default function SidebarMenu({ onSettingsRow, onHomeRow, onProfileCompone
 
     function refreshUserRender() {
         try {
-            retrieveUser(context.token)
-                .then(({ user }) => setUser(user))
+            retrieveUser()
+                .then(user => { setUser(user) })
                 .catch(error => {
                     generateToast(error.message, 'error')
                 })
@@ -77,15 +76,14 @@ export default function SidebarMenu({ onSettingsRow, onHomeRow, onProfileCompone
         </div>
 
         <div className="flex flex-row gap-[16px items-center justify-between] rounded-xl p-[12px] pointer hover:bg-[--violet-100]" onClick={handleProfileClick}>
-            {user && <>
-                <div className="flex gap-[16px]">
-                    <img className="aspect-square w-[40px] h-[40px] rounded-xl object-cover" src={user.avatar ? user.avatar : 'https://media.istockphoto.com/id/1223671392/vector/default-profile-picture-avatar-photo-placeholder-vector-illustration.jpg?s=612x612&w=0&k=20&c=s0aTdmT5aU6b8ot7VKm11DeID6NctRCpB755rA1BIP0='} alt="" />
-                    <div className="flex flex-col gap-[4px] mr-[40px]">
-                        <p className="body-text-bold w-[100px] text-ellipsis truncate whitespace-nowrap">{user.username ? user.username : 'username'}</p>
-                        <p className="small-text w-[100px] text-ellipsis truncate whitespace-nowrap">{user.email ? user.email : 'email'}</p>
-                    </div>
+            {user && console.log(user.avatar, user.email, user.username)}
+            {user && <div className="flex gap-[16px]">
+                <img className="aspect-square w-[40px] h-[40px] rounded-xl object-cover" src={user.avatar ? user.avatar : 'https://media.istockphoto.com/id/1223671392/vector/default-profile-picture-avatar-photo-placeholder-vector-illustration.jpg?s=612x612&w=0&k=20&c=s0aTdmT5aU6b8ot7VKm11DeID6NctRCpB755rA1BIP0='} alt="" />
+                <div className="flex flex-col gap-[4px] mr-[40px]">
+                    <p className="body-text-bold w-[100px] text-ellipsis truncate whitespace-nowrap">{user.username ? user.username : 'username'}</p>
+                    <p className="small-text w-[100px] text-ellipsis truncate whitespace-nowrap">{user.email ? user.email : 'email'}</p>
                 </div>
-            </>
+            </div>
             }
         </div>
     </div>

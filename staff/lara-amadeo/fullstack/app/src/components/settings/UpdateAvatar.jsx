@@ -1,5 +1,4 @@
 import { updateAvatar } from '../../logic/updateAvatar'
-import { context } from '../../ui'
 import { useContext } from "react"
 import Context from '../../Context'
 
@@ -19,7 +18,7 @@ export default function UpdateAvatar({ onCancelUpdateAvatarClick, onSaveUpdateAv
         const imageUrl = event.target.avatar.value
         try {
             freeze('overlay')
-            updateAvatar(context.token, imageUrl)
+            updateAvatar(imageUrl)
                 .then(() => {
                     onSaveUpdateAvatarClick()
                     unfreeze()

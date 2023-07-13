@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { context } from "../../ui"
+import { context } from "../../logic/context"
 import retrievePost from "../../logic/retrievePost"
 import sellPost from "../../logic/sellPost"
 import { useContext } from "react"
@@ -11,7 +11,7 @@ export default function SellPostModal({ postId, onConfirmSellPost, onCancelSellP
     const { generateToast } = useContext(Context)
 
     try {
-        retrievePost(context.token, postId)
+        retrievePost(postId)
             .then(({ post }) => setPost(post))
             .catch(error => {
                 generateToast(error.message, 'error')
@@ -26,7 +26,7 @@ export default function SellPostModal({ postId, onConfirmSellPost, onCancelSellP
         event.preventDefault()
         const newPrice = event.target.price.value
         try {
-            sellPost(context.token, postId, post.price, newPrice)
+            sellPost(postId, post.price, newPrice)
                 .then(() => {
                     generateToast('Post in sale!', 'success')
                     onConfirmSellPost()

@@ -1,4 +1,3 @@
-import { context } from "../../ui"
 import { updatePassword } from '../../logic/updatePassword'
 import { useContext } from "react"
 import Context from "../../Context"
@@ -15,7 +14,7 @@ export default function UpdatePassword({ onSaveUpdatePasswordClick, onCancelUpda
 
         try {
             freeze('overlay')
-            updatePassword(context.token, currentPassword, newPassword, confirmNewPassword)
+            updatePassword(currentPassword, newPassword, confirmNewPassword)
                 .then(() => {
                     unfreeze()
                     generateToast('Password updated!', 'success')

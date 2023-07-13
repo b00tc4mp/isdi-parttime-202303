@@ -6,7 +6,9 @@
  * @param {string} confirmNewEmail confirmation of new email
  */
 
-export default function updateEmail(token, email, newEmail, confirmNewEmail, callback) {
+import { context } from "./context"
+
+export default function updateEmail(email, newEmail, confirmNewEmail, callback) {
 
     if (email === newEmail)
         throw new Error('New email cannot be the same as current email')
@@ -20,7 +22,7 @@ export default function updateEmail(token, email, newEmail, confirmNewEmail, cal
         method: 'PATCH',
         headers: {
             'Content-type': 'application/json',
-            'Authorization': `Bearer ${token}`
+            'Authorization': `Bearer ${context.token}`
         },
         body: JSON.stringify(data)
     })

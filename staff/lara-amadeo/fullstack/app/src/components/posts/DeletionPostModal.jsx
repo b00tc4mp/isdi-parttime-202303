@@ -1,4 +1,4 @@
-import { context } from "../../ui"
+import { context } from "../../logic/context"
 import deletePost from "../../logic/deletePost"
 import { useContext } from "react"
 import Context from "../../Context"
@@ -9,7 +9,7 @@ export default function DeletionPostModal({ postId, onConfirmDeletePost, onCance
     function handleDeletionPost(event) {
         event.preventDefault()
         try {
-            deletePost(context.token, postId)
+            deletePost(postId)
                 .then(() => {
                     onConfirmDeletePost()
 

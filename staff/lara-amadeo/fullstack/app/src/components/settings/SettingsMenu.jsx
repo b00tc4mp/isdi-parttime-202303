@@ -1,7 +1,13 @@
-import { context } from '../../ui'
+import { context } from '../../logic/context'
 import './SettingsMenu.css'
+import { useContext } from 'react'
+import Context from '../../Context'
+import logoutUser from '../../logic/logoutUser'
 
-export default function SettingsMenu({ onEmailRowClick, onPasswordRowClick, onAvatarRowClick, onLogOutButton }) {
+export default function SettingsMenu({ onEmailRowClick, onPasswordRowClick, onAvatarRowClick }) {
+
+    const { navigate } = useContext(Context)
+
 
     function handleEmailRow() {
         onEmailRowClick()
@@ -16,9 +22,8 @@ export default function SettingsMenu({ onEmailRowClick, onPasswordRowClick, onAv
     }
 
     function handleLogOut() {
-        delete context.token
-
-        onLogOutButton()
+        logoutUser()
+        navigate('/login')
     }
 
     return <div className="max-w-[350px] min-w-[343px] flex flex-col gap-[8px] mt-[16px]">

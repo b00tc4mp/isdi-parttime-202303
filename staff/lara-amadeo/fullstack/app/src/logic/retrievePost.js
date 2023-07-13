@@ -6,13 +6,15 @@
  * @returns {object} the founded post
  */
 
-export default function retrievePost(token, postId) {
+import { context } from "./context";
+
+export default function retrievePost(postId) {
 
     return fetch(`http://localhost:4000/posts/post/${postId}`, {
         method: 'GET',
         headers: {
             'Content-type': 'application/json',
-            'authorization': `Bearer ${token}`
+            'authorization': `Bearer ${context.token}`
         }
     })
         .then(res => {

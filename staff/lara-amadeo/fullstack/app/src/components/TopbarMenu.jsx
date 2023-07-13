@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import retrieveUser from "../logic/retrieveUser"
-import { context } from "../ui"
+import { context } from "../logic/context"
 import './TopbarMenu.css'
 import { useContext } from "react"
 import Context from "../Context"
@@ -26,8 +26,8 @@ export default function TopbarMenu({ onSettingsButton, onProfileAvatarButton, on
 
     const refreshUserRender = () => {
         try {
-            retrieveUser(context.token)
-                .then(({ user }) => setUser(user))
+            retrieveUser()
+                .then(setUser)
                 .catch(error => {
                     generateToast(error.message, 'error')
 

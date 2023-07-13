@@ -5,12 +5,14 @@
  * @param {string} postId post's id
  */
 
-export default function deletePost(token, postId) {
+import { context } from "./context";
+
+export default function deletePost(postId) {
     return fetch(`http://localhost:4000/posts/delete/${postId}`, {
         method: 'DELETE',
         headers: {
             'Content-type': 'application/json',
-            'authorization': `Bearer ${token}`
+            'authorization': `Bearer ${context.token}`
         }
     })
         .then(res => {

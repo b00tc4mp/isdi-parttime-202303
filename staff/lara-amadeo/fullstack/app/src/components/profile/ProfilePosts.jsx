@@ -1,5 +1,5 @@
 import ProfilePost from "./ProfilePost"
-import { context } from "../../ui"
+import { context } from "../../logic/context"
 import retrievePosts from "../../logic/retrievePosts"
 import './ProfilePosts.css'
 import { useEffect, useState } from "react"
@@ -15,7 +15,7 @@ export default function ProfilePosts() {
 
     useEffect(() => {
         try {
-            retrievePosts(context.token)
+            retrievePosts()
                 .then(({ posts }) => {
                     const userPosts = posts.filter(post => post.author.id === userId)
                     setPosts(userPosts)

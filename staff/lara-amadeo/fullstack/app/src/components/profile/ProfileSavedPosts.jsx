@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react"
-import { context } from "../../ui"
 import ProfileSavedPost from "./ProfileSavedPost"
 import './ProfileSavedPosts.css'
 import retrieveSavedPosts from "../../logic/retrieveSavedPosts"
@@ -12,7 +11,7 @@ export default function ProfileSavedPosts() {
 
     useEffect(() => {
         try {
-            retrieveSavedPosts(context.token)
+            retrieveSavedPosts()
                 .then(posts => {
                     setSavedPosts(posts)
                 })

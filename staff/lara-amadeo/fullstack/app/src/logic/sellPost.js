@@ -1,5 +1,6 @@
+import { context } from "./context"
 
-export default function sellPost(token, postId, actualPrice, newPrice, callback) {
+export default function sellPost(postId, actualPrice, newPrice) {
 
     if (actualPrice === newPrice) {
         callback(new Error('Price should be different to previous one'))
@@ -25,7 +26,7 @@ export default function sellPost(token, postId, actualPrice, newPrice, callback)
         method: 'PATCH',
         headers: {
             'Content-type': 'application/json',
-            'authorization': `Bearer ${token}`
+            'authorization': `Bearer ${context.token}`
         },
         body: JSON.stringify(price)
     })

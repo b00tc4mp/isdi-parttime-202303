@@ -1,17 +1,17 @@
-import { context } from "../ui.js"
-import { authenticateUser } from '../logic/authenticateUser.js'
+import { context } from "../logic/context.js"
+import { loginUser } from '../logic/loginUser.js'
 import './Login.css'
 import { useContext } from "react"
 import Context from "../Context.js"
-export default function Login({ onSignUpLink, onLoginButton }) {
+export default function Login() {
 
 
-    const { generateToast, freeze, unfreeze } = useContext(Context)
+    const { generateToast, freeze, unfreeze, navigate } = useContext(Context)
 
     function handleRegisterClick(event) {
         event.preventDefault()
 
-        onSignUpLink()
+        navigate('./register')
     }
 
     function handleLogin(event) {
@@ -22,10 +22,9 @@ export default function Login({ onSignUpLink, onLoginButton }) {
 
         freeze(undefined, 'background')
         try {
-            authenticateUser(email, password)
-                .then(token => {
-                    context.token = token
-                    onLoginButton()
+            loginUser(email, password)
+                .then(() => {
+                    navigate('/')
                     unfreeze()
                 })
                 .catch(error => {

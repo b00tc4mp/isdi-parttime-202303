@@ -1,6 +1,5 @@
 import './BuyPostModal.css'
 import { useEffect, useState, useContext } from 'react'
-import { context } from '../../ui'
 import retrievePost from '../../logic/retrievePost'
 import formatPostDate from '../../logic/formatPostDate'
 import Context from '../../Context'
@@ -11,7 +10,7 @@ export default function BuyPostModal({ postId, onCancelBuyPost }) {
 
     useEffect(() => {
         try {
-            retrievePost(context.token, postId)
+            retrievePost(postId)
                 .then(({ post }) => {
                     setPost(post)
                 })

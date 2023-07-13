@@ -4,6 +4,9 @@
  * @param {object} post a post
  * @param {string} token user's id
  */
+
+import { context } from "./context";
+
 //toggle rename -> toggleSavePost
 export default function toggleSavePost(postId, token) {
 
@@ -11,7 +14,7 @@ export default function toggleSavePost(postId, token) {
         method: 'PATCH',
         headers: {
             'Content-type': 'application/json',
-            'authorization': `Bearer ${token}`
+            'authorization': `Bearer ${context.token}`
         }
     })
         .then(res => {

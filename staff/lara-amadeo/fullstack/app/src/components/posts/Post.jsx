@@ -1,5 +1,5 @@
 import formatPostDate from '../../logic/formatPostDate'
-import { context } from "../../ui"
+import { context } from "../../logic/context"
 import toggleLikePost from '../../logic/toggleLikePost'
 import toggleSavePost from '../../logic/toggleSavePost'
 import './Post.css'
@@ -7,8 +7,8 @@ import { useState } from 'react'
 import ContextualModalBox from '../ContextualModalBox'
 import { useContext } from 'react'
 import Context from '../../Context'
-import { extractSubFromToken } from '../../logic/helpers/utils'
-
+import isCurrentUser from '../../logic/isCurrentUser'
+import getUserId from '../../logic/getUserId'
 export default function Post({ post, onLikeButtonClick, onSaveButtonClick, onEditPostButton, onDeletePostButton, onVisibilityButton, onSellPostButton, onBuyPostButton }) {
 
     const [modal, setModal] = useState('close')
@@ -17,7 +17,7 @@ export default function Post({ post, onLikeButtonClick, onSaveButtonClick, onEdi
     function handleLikedPost() {
         freeze()
         try {
-            toggleLikePost(post.id, context.token)
+            toggleLikePost(post.id)
                 .then(() => {
                     onLikeButtonClick()
                     unfreeze()
@@ -37,7 +37,7 @@ export default function Post({ post, onLikeButtonClick, onSaveButtonClick, onEdi
     function handleSavedPost() {
         freeze()
         try {
-            toggleSavePost(post.id, context.token)
+            toggleSavePost(post.id)
                 .then(() => {
                     unfreeze()
                     onSaveButtonClick()
@@ -86,8 +86,6 @@ export default function Post({ post, onLikeButtonClick, onSaveButtonClick, onEdi
         setModal('close')
     }
 
-    const userId = extractSubFromToken(context.token)
-
     return <div className="w-full relative flex flex-col gap-[8px]">
         {modal === 'open' && <ContextualModalBox
             options={[
@@ -106,15 +104,15 @@ export default function Post({ post, onLikeButtonClick, onSaveButtonClick, onEdi
                     <div>
                         <div className="flex gap-[4px] items-center">
                             <p className="small-text-bold">{post.author.username}</p>
-                            {post.author.id === userId && <span className="material-symbols-rounded icon-xs ">{post.visibility === 'private' ? 'lock' : 'language'}</span>}
+                            {isCurrentUser(post.author.id) && <span className="material-symbols-rounded icon-xs ">{post.visibility === 'private' ? 'lock' : 'language'}</span>}
                         </div>
                         <p className="tiny-text">{formatPostDate(new Date(post.date))}</p>
                     </div>
                 </>}
             </div>
             <div className="flex gap-[8px] items-center">
-                {(userId !== post.author.id && post.price > 0) && <a className="link" onClick={handleOpenBuyPost}>Buy post</a>}
-                {userId === post.author.id && <button className="secondary-button icon-button" onClick={handleOpenModal}><div className="icon-s-container"><span className="material-symbols-rounded icon-s pointer">more_vert</span></div></button>}
+                {(!isCurrentUser(post.author.id) && post.price > 0) && <a className="link" onClick={handleOpenBuyPost}>Buy post</a>}
+                {isCurrentUser(post.author.id) && <button className="secondary-button icon-button" onClick={handleOpenModal}><div className="icon-s-container"><span className="material-symbols-rounded icon-s pointer">more_vert</span></div></button>}
             </div>
         </div>
 
@@ -129,7 +127,7 @@ export default function Post({ post, onLikeButtonClick, onSaveButtonClick, onEdi
                     <span className={`material-symbols-rounded icon-s pointer text-[22px] ${post.favs ? 'save-icon-filled' : ''}`} >bookmark</span>
                 </div>
                 <div className="icon-s-container" onClick={handleLikedPost}>
-                    <span className={`material-symbols-rounded icon-s pointer ${post.likes && post.likes.includes(userId) ? 'like-icon-filled' : ''}`} >favorite</span>
+                    <span className={`material-symbols-rounded icon-s pointer ${post.likes && post.likes.includes(getUserId()) ? 'like-icon-filled' : ''}`} >favorite</span>
                 </div>
             </div>}
         </div>

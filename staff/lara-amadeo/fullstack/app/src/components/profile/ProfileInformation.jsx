@@ -1,5 +1,5 @@
 import retrieveUser from "../../logic/retrieveUser"
-import { context } from "../../ui"
+import { context } from "../../logic/context"
 import './ProfileInformation.css'
 import { useEffect, useState } from "react"
 import retrievePosts from "../../logic/retrievePosts"
@@ -15,7 +15,7 @@ export default function ProfileInformation() {
     useEffect(() => {
         try {
             freeze()
-            Promise.all([retrieveUser(context.token), retrievePosts(context.token)])
+            Promise.all([retrieveUser(), retrievePosts()])
                 .then(([{ user }, { posts }]) => {
                     setUser(user)
                     setPosts(posts)

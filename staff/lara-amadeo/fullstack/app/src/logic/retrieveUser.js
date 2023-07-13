@@ -1,3 +1,4 @@
+import { context } from "./context";
 
 export default function retrieveUser(token) {
 
@@ -5,7 +6,7 @@ export default function retrieveUser(token) {
         method: 'GET',
         headers: {
             'Content-type': 'application/json',
-            'Authorization': `Bearer ${token}`
+            'Authorization': `Bearer ${context.token}`
         }
     })
         .then(res => {

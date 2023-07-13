@@ -1,7 +1,6 @@
 import updateEmail from '../../logic/updateEmail'
 import { useContext } from "react"
 import Context from '../../Context'
-import { context } from '../../ui'
 export default function UpdateEmail({ onCancelUpdateEmailClick, onSaveUpdateEmailClick }) {
 
     const { generateToast, freeze, unfreeze } = useContext(Context)
@@ -21,7 +20,7 @@ export default function UpdateEmail({ onCancelUpdateEmailClick, onSaveUpdateEmai
 
         try {
             freeze('overlay')
-            updateEmail(context.token, currentEmail, newEmail, confirmNewEmail)
+            updateEmail(currentEmail, newEmail, confirmNewEmail)
                 .then(() => {
                     unfreeze()
                     onSaveUpdateEmailClick()

@@ -1,10 +1,11 @@
+import { context } from "./context";
 
-export default function retrieveSavedPosts(token) {
+export default function retrieveSavedPosts() {
     return fetch('http://localhost:4000/posts/saved', {
         method: 'GET',
         headers: {
             'Content-type': 'application/json',
-            'Authorization': `Bearer ${token}`
+            'Authorization': `Bearer ${context.token}`
         }
     })
         .then(res => {

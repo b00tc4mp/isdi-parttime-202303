@@ -1,4 +1,3 @@
-import { context } from "../../ui"
 import createPost from '../../logic/createPost'
 import { useContext } from "react"
 import Context from "../../Context"
@@ -30,7 +29,7 @@ export default function CreatePostModal({ onCreatePostClick, onCancelCreatePostB
         const caption = event.target.caption.value
 
         try {
-            createPost(context.token, image, caption)
+            createPost(image, caption)
                 .then(() => {
                     generateToast('Post created!', 'success')
 

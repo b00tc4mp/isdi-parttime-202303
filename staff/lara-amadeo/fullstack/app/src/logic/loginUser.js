@@ -1,4 +1,5 @@
 import { validators } from 'com'
+import { context } from './context'
 const { validateEmail, validatePassword } = validators
 /**
  * Authenticates a user by email and password
@@ -7,7 +8,7 @@ const { validateEmail, validatePassword } = validators
  * @returns {string} user's id
  */
 
-export const authenticateUser = (email, password) => {
+export const loginUser = (email, password) => {
     validateEmail(email)
     validatePassword(password)
 
@@ -25,5 +26,8 @@ export const authenticateUser = (email, password) => {
             if (res.status !== 200) return res.json().then(({ error }) => { throw new Error(error) })
 
             return res.json()
+        })
+        .then(token => {
+            context.token = token
         })
 }

@@ -1,4 +1,4 @@
-import { context } from "../../ui"
+import { context } from "../../logic/context"
 import updatePost from "../../logic/updatePost"
 import retrievePost from "../../logic/retrievePost"
 import { useEffect, useState } from "react"
@@ -12,7 +12,7 @@ export default function EditPostModal({ postId, onCancelEditPost, onConfirmEditP
 
     useEffect(() => {
         try {
-            retrievePost(context.token, postId)
+            retrievePost(postId)
                 .then(({ post }) => {
                     setPost(post)
                 })
@@ -34,7 +34,7 @@ export default function EditPostModal({ postId, onCancelEditPost, onConfirmEditP
 
 
         try {
-            updatePost(context.token, postId, postImgSrc, postCaption)
+            updatePost(postId, postImgSrc, postCaption)
                 .then(() => {
                     generateToast('Post updated!', 'success')
                     onConfirmEditPost()

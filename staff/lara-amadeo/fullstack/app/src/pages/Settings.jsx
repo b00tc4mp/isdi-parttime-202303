@@ -6,8 +6,9 @@ import { useState } from "react"
 import './Settings.css'
 import Header from "../components/Header.jsx"
 
-export default function Settings({ onSidebarUpdates, onLogOutLink }){
- 
+export default function Settings({ onSidebarUpdates }) {
+
+
     const [view, setView] = useState('menu')
 
     const handleGoToUpdateEmail = () => {
@@ -28,19 +29,16 @@ export default function Settings({ onSidebarUpdates, onLogOutLink }){
         onSidebarUpdates()
     }
 
-    const handleLogOut = () => {
-        onLogOutLink()
-    }
 
 
     return <div className="w-full h-screen flex flex-col items-start mt-[40px] px-[40px] border-box">
-        {<Header title={'Settings'}/>}
-    <div className="w-full h-screen flex justify-center">
-        {view === 'menu' && <SettingsMenu onEmailRowClick={handleGoToUpdateEmail} onPasswordRowClick={handleGoToUpdatePassword} onAvatarRowClick={handleGoToUpdateAvatar} onLogOutButton={handleLogOut} />}
-        {view === 'email' && <UpdateEmail onSaveUpdateEmailClick={returnToSettingsMenu} onCancelUpdateEmailClick={returnToSettingsMenu}/>} 
-        {view === 'password' && <UpdatePassword onSaveUpdatePasswordClick={returnToSettingsMenu} onCancelUpdatePasswordClick={returnToSettingsMenu}/>}
-        {view === 'avatar' && <UpdateAvatar onSaveUpdateAvatarClick={returnToSettingsMenu} onCancelUpdateAvatarClick={returnToSettingsMenu} />}
+        {<Header title={'Settings'} />}
+        <div className="w-full h-screen flex justify-center">
+            {view === 'menu' && <SettingsMenu onEmailRowClick={handleGoToUpdateEmail} onPasswordRowClick={handleGoToUpdatePassword} onAvatarRowClick={handleGoToUpdateAvatar} />}
+            {view === 'email' && <UpdateEmail onSaveUpdateEmailClick={returnToSettingsMenu} onCancelUpdateEmailClick={returnToSettingsMenu} />}
+            {view === 'password' && <UpdatePassword onSaveUpdatePasswordClick={returnToSettingsMenu} onCancelUpdatePasswordClick={returnToSettingsMenu} />}
+            {view === 'avatar' && <UpdateAvatar onSaveUpdateAvatarClick={returnToSettingsMenu} onCancelUpdateAvatarClick={returnToSettingsMenu} />}
+        </div>
     </div>
-    </div>
-    
+
 }

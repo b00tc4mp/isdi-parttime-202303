@@ -1,4 +1,4 @@
-import { context } from '../../ui.js'
+import { context } from '../../logic/context.js'
 import retrievePosts from '../../logic/retrievePosts.js'
 import Post from './Post.jsx'
 import Header from '../Header.jsx'
@@ -22,11 +22,11 @@ export default function Posts({ onCreateButton, onEditPostButtonClick, onDeleteP
     const handleRefreshPosts = () => {
         freeze('overlay')
         try {
-            retrievePosts(context.token)
+            retrievePosts()
                 .then(({ posts }) => {
                     unfreeze()
-                    const _posts = posts.filter(post => !(post.author.id !== userId && post.visibility === 'private'))
-                    setPosts(_posts.toReversed())
+                    // const _posts = posts.filter(post => (post.author.id !== userId))
+                    setPosts(posts)
                 })
                 .catch(error => {
                     generateToast(error.message, 'error')

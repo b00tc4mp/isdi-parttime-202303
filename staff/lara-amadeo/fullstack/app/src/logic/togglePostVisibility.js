@@ -1,11 +1,12 @@
+import { context } from "./context";
 
 
-export default function togglePostVisibility(token, postId, callback) {
+export default function togglePostVisibility(postId) {
     return fetch(`http://localhost:4000/posts/visibility/${postId}`, {
         method: 'PATCH',
         headers: {
             'Content-type': 'application/json',
-            'authorization': `Bearer ${token}`
+            'authorization': `Bearer ${context.token}`
         }
     })
         .then(res => {
