@@ -1,5 +1,5 @@
 require('dotenv').config()
-debugger
+
 const express = require('express')
 const cors = require('cors')
 const bodyParser = require('body-parser')
@@ -18,6 +18,7 @@ const {
     deletePostHandler,
     updatePostHandler,
     toggleLikePostHandler,
+    toggleFavPostHandler,
     retrieveLikedPostsHandler
 } = require('./handlers')
 const mongoose = require('mongoose')
@@ -45,7 +46,7 @@ mongoose.connect(process.env.MONGODB_URL)
 
         api.get('/posts/:postId', retrievePostHandler)
 
-        api.get('/users/posts/likes/', retrieveLikedPostsHandler)
+        api.get('/posts/likes/', retrieveLikedPostsHandler)
 
         api.patch('/users/avatar', jsonBodyParser, updateUserAvatarHandler)
 
@@ -55,7 +56,9 @@ mongoose.connect(process.env.MONGODB_URL)
 
         api.patch('/posts/:postId/likes', toggleLikePostHandler)
 
-        api.delete('/posts/post/:postId', deletePostHandler)
+        api.patch('/users/favs/:postId', toggleFavPostHandler)
+
+        api.delete('/posts/:postId', deletePostHandler)
 
         api.patch('/posts/post/:postId', jsonBodyParser, updatePostHandler)
 

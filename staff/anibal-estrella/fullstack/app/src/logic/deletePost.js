@@ -1,9 +1,19 @@
 import { validators } from 'com'
-const { validateId, validateToken, validateCallback } = validators
+const { validateToken, validateId, validateUrl, validateText, validateCallback } = validators
 
-export default function deletePost(token, postId, callback) {
+/**
+ * Updates 
+ * @param {*} token 
+ * @param {*} postId 
+ * @param {*} image 
+ * @param {*} text 
+ * */
+
+export default (token, postId, image, text, callback) => {
     validateToken(token)
-    validateId(postId, 'post ID')
+    validateId(postId, 'post id')
+    validateUrl(image, 'image url')
+    validateText(text, 'text')
 
     if (callback) {
 
@@ -13,7 +23,8 @@ export default function deletePost(token, postId, callback) {
 
         xhr.onload = () => {
             const { status } = xhr
-            if (status !== 204) {
+
+            if (status !== 201) {
                 const { response: json } = xhr
                 const { error } = JSON.parse(json)
 
@@ -25,29 +36,38 @@ export default function deletePost(token, postId, callback) {
         }
 
         xhr.onerror = () => {
-            callback(new Error('Connection error'))
+            callback(new Error('connection error'))
         }
 
-        xhr.open('DELETE', `${import.meta.env.VITE_API_URL}/posts/${postId}`)
+        xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/posts/post/${postId}`)
 
-        xhr.setRequestHeader('Authorization', `Bearer ${userId}`)
+        xhr.setRequestHeader('Content-Type', 'application/json')
+        xhr.setRequestHeader('Authorization', `Bearer ${token}`)
 
-        xhr.send()
+        const data = { image, text }
+        const json = JSON.stringify(data)
+
+        xhr.send(json)
+
+        return
     }
 
     return fetch(`${import.meta.env.VITE_API_URL}/posts/post/${postId}`, {
-        method: 'DELETE',
+        method: 'PATCH',
         headers: {
             'Content-type': 'application/json',
             Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ userId, postId }),
+        body: JSON.stringify({ image, text }),
     }).then((res) => {
-        if (res.status !== 200) {
+        // 201 from api or 204?
+        if (res.status !== 201) {
             //return the json object
             return res.json().then(({ error: message }) => {
                 throw new Error(message)
             })
         }
     })
+
 }
+

@@ -2,7 +2,7 @@ import { useState, useRef } from 'react';
 import { useContext } from "react"
 
 import { context } from "../ui.js"
-import { createPost } from "../logic/createPost.js"
+import { createPost } from "../logic"
 
 import Context from "../AppContext.jsx"
 

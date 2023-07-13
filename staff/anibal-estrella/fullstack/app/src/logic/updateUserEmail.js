@@ -3,7 +3,7 @@ const { validateEmail, validateCallback } = validators
 
 import { saveUser, findUserById } from "../data.js"
 
-export default function updateUserEmail(userId, newEmail, confirmEmail, callback) {
+export default (userId, newEmail, confirmEmail, callback) => {
     validateId(userId, 'user id')
     validateEmail(newEmail, 'new email')
     validateEmail(confirmEmail, 'confirm email')

@@ -1,5 +1,5 @@
 const {
-    errors: { ExistenceError, ContentError },
+    errors: { ExistenceError },
     validators: { validateId } } = require('com')
 
 const { User, Post } = require('../data/models.js')
@@ -25,16 +25,16 @@ module.exports = (userId, postId) => {
             if (!user) throw new ExistenceError(`user with the id ${userId} not found`)
             if (!post) throw new ExistenceError(`post with the id ${postId} not found`)
 
-            const index = post.likes.findIndex(id => id.toString() === userId)
+            const index = user.favs.findIndex(id => id.toString() === postId)
 
             if (index < 0)
-                return Post.updateOne(
-                    { _id: postId },
-                    { $push: { likes: userId } })
+                return User.updateOne(
+                    { _id: userId },
+                    { $push: { favs: postId } })
 
 
-            return Post.updateOne(
-                { _id: postId }, { $pull: { likes: userId } })
+            return User.updateOne(
+                { _id: userId }, { $pull: { favs: postId } })
 
         })
         .then(() => { })

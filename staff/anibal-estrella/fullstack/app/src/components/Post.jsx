@@ -9,7 +9,7 @@ import Panel from '../library/Panel'
 import { utils } from 'com'
 const { extractSubFromToken } = utils
 
-//https://heroicons.com/
+
 import { PencilIcon, BookmarkIcon, HeartIcon } from '@heroicons/react/24/solid'
 import { HeartIcon as HeartIconLine, BookmarkIcon as BookmarkIconLine } from '@heroicons/react/24/outline'
 
@@ -18,7 +18,7 @@ import './Post.css'
 export default function Post({ post: { author, id, text, image, date, likes, fav }, onEditPost, onToggledLikePost, onToggledFavPost }) {
     console.debug('//// Post  -> Render')
 
-    //CONTEXT/ALERTS/02// Use the context to return the object alert tha's define in the parent object App.jsx
+
     const { alert, freeze, unfreeze } = useAppContext()
 
     date = formatTimeSince(date)
@@ -27,42 +27,36 @@ export default function Post({ post: { author, id, text, image, date, likes, fav
 
     const handleToggleLikePost = () => {
         try {
-            //loader begins
             freeze()
 
-            toggleLikePost(context.userId, id, (error) => {
-                //loader ends
+            toggleLikePost(context.token, id).then(() => {
                 unfreeze()
-                if (error) {
-                    //CONTEXT/ALERTS/01// an alert is called
-                    alert(error.message)
 
-                    return
-                }
                 onToggledLikePost()
-
             })
+                .catch((error) => {
+                    unfreeze()
 
+                    alert(error.message, 'error')
+                })
         } catch (error) {
-            alert(error.message)
+            unfreeze()
+            alert(error.message, 'warn')
         }
     }
 
     const handleToggleFavPost = () => {
         try {
             freeze()
-            toggleFavPost(context.userId, id, (error) => {
+            toggleFavPost(context.token, id).then(() => {
                 unfreeze()
-                if (error) {
-                    alert(error.message)
-
-                    return
-                }
                 onToggledFavPost();
             })
 
         } catch (error) {
-            alert(error.message)
+            unfreeze()
+
+            alert(error.message, 'warn')
         }
     }
 
@@ -90,7 +84,7 @@ export default function Post({ post: { author, id, text, image, date, likes, fav
 
                     {author.id === userId ? <button className="post-button post-edit-button icon" onClick={handleOpenEditPost} name="edit"> <PencilIcon className="PencilIcon post-edit-button  icon" /> </button> : ''}
                     <button onClick={handleToggleLikePost} name="like" className="post-button post-like-button">
-                        {likes && likes.includes(context.userId) ? <HeartIcon className="HeartIcon icon" /> : <HeartIconLine className="HeartIconLine icon" />} {likes && likes.length > 0 ? <span>{likes.length}</span> : ''}
+                        {likes && likes.includes(userId) ? <HeartIcon className="HeartIcon icon" /> : <HeartIconLine className="HeartIconLine icon" />} {likes && likes.length > 0 ? <span>{likes.length}</span> : ''}
                     </button>
                 </div>
             </div>

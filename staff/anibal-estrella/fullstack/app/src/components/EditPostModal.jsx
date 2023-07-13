@@ -1,9 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 
 import { context } from "../ui.js"
-import { updatePost } from "../logic/updatePost.js"
-import retrievePost from "../logic/retrievePost.js"
-import deletePost from "../logic/deletePost.js"
+import { updatePost, retrievePost, deletePost } from "../logic"
 
 import { useAppContext } from "../hooks"
 
@@ -16,6 +14,8 @@ import { CheckIcon } from '@heroicons/react/24/solid'
 import { EyeIcon } from '@heroicons/react/24/solid'
 
 export default function EditPostModal({ onCancel, onPostEdited, postId, onDeletedPost }) {
+    console.debug('// EditPostModal  -> Render')
+
     const { alert, freeze, unfreeze } = useAppContext()
     const [post, setPost] = useState(null)
     //const [previewImage, setPreviewImage] = useState(null)
@@ -98,10 +98,9 @@ export default function EditPostModal({ onCancel, onPostEdited, postId, onDelete
 
     // const handleImagePreview = (event) => {
     //     event.preventDefault()
+
     //     setPreviewImage(imageInputRef.current.value);
     // }
-
-    console.debug('// EditPostModal  -> Render')
 
     return <>
         {post && <section className="edit-post-modal">

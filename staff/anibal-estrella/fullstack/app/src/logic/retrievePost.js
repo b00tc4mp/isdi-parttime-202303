@@ -8,7 +8,7 @@ const { validateId, validateToken } = validators
  * @returns 
  */
 
-export default function retrievePost(token, postId) {
+export default (token, postId) => {
     validateId(postId, 'post id')
     validateToken(token)
 

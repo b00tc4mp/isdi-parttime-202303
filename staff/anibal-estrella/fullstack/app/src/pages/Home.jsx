@@ -69,7 +69,9 @@ export default function Home({ onLoggedOut }) {
     }
 
     const handleLogOut = () => {
-        delete context.userId
+        context.removeItem('token')
+        //same as:
+        //delete context.token 
         onLoggedOut()
     }
 

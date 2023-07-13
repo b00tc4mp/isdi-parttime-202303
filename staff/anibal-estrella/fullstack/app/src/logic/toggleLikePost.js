@@ -1,5 +1,5 @@
 import { validators } from 'com'
-const { validateId, validateCallback } = validators
+const { validateId, validateToken, validateCallback } = validators
 
 import { findUserById, findPostById, savePost } from '../data.js'
 /**
@@ -8,9 +8,9 @@ import { findUserById, findPostById, savePost } from '../data.js'
  * @param {*} postId the id of the post to toggle the like
  * @param {*} callback 
  */
-export default function toggleLikePost(userId, postId, callback) {
+export default function toggleLikePost(token, postId, callback) {
     validateId(postId, 'post id')
-    validateId(userId, 'user id')
+    validateToken(token)
 
     if (callback) {
 
@@ -38,20 +38,19 @@ export default function toggleLikePost(userId, postId, callback) {
         xhr.setRequestHeader('Authorization', `Bearer ${userId}`)
 
         xhr.send()
+        return
     }
 
-    return fetch(`${import.meta.env.VITE_API_URL}/posts/${postId}/likes/`, {
+    return fetch(`${import.meta.env.VITE_API_URL}/posts/${postId}/likes`, {
+        method: 'PATCH',
         headers: {
+
             Authorization: `Bearer ${token}`
         }
+    }).then(res => {
+        if (res.status !== 204)
+            return res.json().then(({ error: message }) => {
+                throw new Error(message)
+            })
     })
-        .then(res => {
-            if (res.status !== 200)
-                return res.json().then(({ error: message }) => {
-                    throw new Error(message)
-                })
-
-            return res.json()
-        })
-
 }

@@ -1,7 +1,9 @@
 require('dotenv').config()
 const { readFile, writeFile } = require('fs') //commonJS
-const { validators: { validateId } } = require('com')
 const { User, Post } = require('../data/models.js')
+const {
+    errors: { ExistenceError },
+    validators: { validateId } } = require('com')
 
 
 /**
@@ -17,8 +19,7 @@ module.exports = (userId, postId) => {
 
     return Promise.all([
         User.findById(userId).lean(),
-        //remove post _id... client only asks for text and image to render
-        Post.findById(postId, '-__v -likes').lean(),
+        Post.findById(postId).lean(),
 
     ])
         .then(([user, post]) => {

@@ -3,7 +3,7 @@ import { findUserById, loadPosts, loadUsers } from "../data.js"
 import { validators } from 'com'
 const { validateCallback, validateToken } = validators
 
-export default function retrievePosts(token, callback) {
+export default (token, callback) => {
     validateToken(token, 'user id')
     validateCallback(callback, 'callback function')
 

@@ -1,53 +1,28 @@
 import { validators } from 'com'
 const { validateId, validateToken, validateCallback } = validators
 
-import { findUserById, findPostById, saveUser } from '../data.js'
-
-
-export default function toggleFavPost(token, postId, callback) {
-    validateToken(token)
+import { findUserById, findPostById, savePost } from '../data.js'
+/**
+ * Toggle the fav/unfav state of a post and stors the userid in the favs porperty array in the post object
+ * @param {*} userId the id of the user that toggles
+ * @param {*} postId the id of the post to toggle the fav
+ */
+export default function togglefavPost(token, postId) {
     validateId(postId, 'post id')
+    validateToken(token)
 
-    if (callback) {
-        validateCallback(callback, 'callback function')
 
-        findUserById(userId, user => {
-            if (!user) {
-                callback(new Error(`User ${userId} not found`))
-                return
-            }
 
-            findPostById(postId, post => {
-                if (!post) {
-                    callback(new Error(`Post ${postId} not found`))
-                    return
-                }
-                const index = user.favs.indexOf(postId)
-
-                if (index < 0)
-                    user.favs.push(postId)
-                else
-                    user.favs.splice(index, 1)
-
-                saveUser(user, () => callback(null))
-            })
-        })
-    }
-
-    return fetch(`${import.meta.env.VITE_API_URL}/posts/${postId}`, {
+    return fetch(`${import.meta.env.VITE_API_URL}/users/favs/${postId}`, {
+        method: 'PATCH',
         headers: {
+
             Authorization: `Bearer ${token}`
         }
+    }).then(res => {
+        if (res.status !== 204)
+            return res.json().then(({ error: message }) => {
+                throw new Error(message)
+            })
     })
-        .then(res => {
-            if (res.status !== 200)
-                return res.json().then(({ error: message }) => {
-                    throw new Error(message)
-                })
-
-            return res.json()
-        })
-
-
 }
-

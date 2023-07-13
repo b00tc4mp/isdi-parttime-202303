@@ -1,7 +1,7 @@
 import { validators } from 'com'
 const { validateToken, validateUrl, validateText, validateCallback } = validators
 
-export function createPost(token, image, text, callback) {
+export default (token, image, text, callback) => {
     validateToken(token, 'tokentoken')
     // validateToken(token)
     validateUrl(image, 'image url')

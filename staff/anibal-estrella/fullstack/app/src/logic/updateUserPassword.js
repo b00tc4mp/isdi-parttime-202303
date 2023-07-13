@@ -12,7 +12,7 @@ import { findUserById, saveUser } from "../data"
  * @param {string} newPasswordConfirm The user's new password
  */
 
-export default function updateUserPassword(userId, password, newPassword, newPasswordConfirm, callback) {
+export default (userId, password, newPassword, newPasswordConfirm, callback) => {
     validateId(userId, 'user id')
     validatePassword(password, 'password')
 

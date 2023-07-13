@@ -1,11 +1,12 @@
 import { useState, useRef, useEffect, useContext } from 'react';
 import Context from "../AppContext"
-
 import { context } from '../ui'
-import retrieveUser from "../logic/retrieveUser"
-import updateUserAvatar from "../logic/updateUserAvatar"
-import updateUserPassword from "../logic/updateUserPassword"
-import updateUserEmail from "../logic/updateUserEmail"
+
+import {
+    updateUserAvatar,
+    updateUserPassword,
+    updateUserEmail
+} from "../logic"
 
 import Panel from "../library/Panel"
 

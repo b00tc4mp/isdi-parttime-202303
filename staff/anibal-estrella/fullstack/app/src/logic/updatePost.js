@@ -9,7 +9,7 @@ const { validateToken, validateId, validateUrl, validateText, validateCallback }
  * @param {*} text 
  * */
 
-export function updatePost(token, postId, image, text, callback) {
+export default function updatePost(token, postId, image, text, callback) {
     validateToken(token)
     validateId(postId, 'post id')
     validateUrl(image, 'image url')

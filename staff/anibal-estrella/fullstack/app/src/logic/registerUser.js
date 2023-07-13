@@ -2,7 +2,7 @@ import { validators } from 'com'
 
 const { validateName, validateEmail, validatePassword, validateCallback } = validators
 
-export default function registerUser(name, email, password, repeatPassword, callback) {
+export default (name, email, password, repeatPassword, callback) => {
     validateName(name, 'name')
     validateEmail(email, 'password')
     validatePassword(password, 'password')

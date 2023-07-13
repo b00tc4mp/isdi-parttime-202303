@@ -1,10 +1,8 @@
-import { useState, useEffect, useContext } from "react"
+import { useState, useEffect } from "react"
 import { context } from "../ui"
-
-import retrievePosts from "../logic/retrievePosts"
-import retrieveSavedPosts from "../logic/retrieveSavedPosts"
-import retrieveUser from "../logic/retrieveUser"
 import { useAppContext } from "../hooks"
+
+import { retrievePosts, retrieveSavedPosts, retrieveUser } from "../logic"
 
 import Post from "./Post.jsx"
 

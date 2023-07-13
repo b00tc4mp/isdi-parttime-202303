@@ -12,5 +12,6 @@ module.exports = {
     updatePost: require('./updatePost'),
     updateUserEmail: require('./updateUserEmail'),
     toggleLikePost: require('./toggleLikePost'),
+    toggleFavPost: require('./toggleFavPost'),
     retrieveLikedPosts: require('./retrieveLikedPosts'),
 }

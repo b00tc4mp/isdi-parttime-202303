@@ -1,6 +1,6 @@
 import { context } from "../ui.js"
 import { useAppContext } from "../hooks"
-import authenticateUser from '../logic/authenticateUser'
+import { authenticateUser } from '../logic'
 
 import { Panel } from '../library'
 
