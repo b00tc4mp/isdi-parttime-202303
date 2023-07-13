@@ -1,6 +1,5 @@
 import { context } from "../ui"
-import toggleLikePost from "../logic/toggleLikePost"
-import toggleFavPost from '../logic/toggleFavPost'
+import { toggleLikePost, toggleFavPost } from '../logic/'
 import formatTimeSince from "../logic/formatTimeSince"
 import { useAppContext } from "../hooks"
 
@@ -15,7 +14,7 @@ import { HeartIcon as HeartIconLine, BookmarkIcon as BookmarkIconLine } from '@h
 
 import './Post.css'
 
-export default function Post({ post: { author, id, text, image, date, likes, fav }, onEditPost, onToggledLikePost, onToggledFavPost }) {
+export default ({ post: { author, id, text, image, date, likes, fav }, onEditPost, onToggledLikePost, onToggledFavPost }) => {
     console.debug('//// Post  -> Render')
 
 

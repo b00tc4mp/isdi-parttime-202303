@@ -1,44 +1,70 @@
 import { validators } from 'com'
-const { validateId, validateUrl, validateCallback } = validators
+const { validateToken, validateUrl, validateCallback } = validators
 
-export default (userId, avatar, callback) => {
-    validateId(userId, 'user id')
-    validateUrl(avatar, 'avatar url')
-    validateCallback(callback, 'callback function')
+/**
+ * Updates User's Avatar Image
+ * @param {*} token 
+ * @param {*} postId 
+ * @param {*} image 
+ * */
 
+export default (token, avatar, callback) => {
+    validateToken(token)
+    validateUrl(avatar, 'avatar image url')
 
-    const xhr = new XMLHttpRequest
+    if (callback) {
+        validateCallback(callback, 'callback function')
 
+        const xhr = new XMLHttpRequest()
 
-    xhr.onload = () => {
-        const { status } = xhr
+        xhr.onload = () => {
+            const { status } = xhr
 
-        if (status !== 204) {
-            const { response: json } = xhr
-            const { error } = JSON.parse(json)
+            if (status !== 201) {
+                const { response: json } = xhr
+                const { error } = JSON.parse(json)
 
-            callback(new Error(error))
+                callback(new Error(error))
 
-            return
+                return
+            }
+            callback(null)
         }
-        callback(null)
+
+        xhr.onerror = () => {
+            callback(new Error('connection error'))
+        }
+
+        xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/users/avatar`)
+
+        xhr.setRequestHeader('Content-Type', 'application/json')
+        xhr.setRequestHeader('Authorization', `Bearer ${token}`)
+
+        const data = { avatar: avatar }
+        const json = JSON.stringify(data)
+
+        xhr.send(json)
+        return
+
     }
 
-
-    xhr.onerror = () => {
-        callback(new Error('Connection Error!'))
-    }
-
-    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/users/avatar/`)
-    xhr.setRequestHeader('Authorization', `Bearer ${userId}`)
-
-    xhr.setRequestHeader('Content-Type', 'application/json')
-
-    //send only the avatar of the user as a data
-    const data = { avatar }
-
-    const json = JSON.stringify(data)
-
-    xhr.send(json)
+    return fetch(`${import.meta.env.VITE_API_URL}/Users/avatar`, {
+        method: 'PATCH',
+        headers: {
+            'Content-type': 'application/json',
+            Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ avatar }),
+    }).then((res) => {
+        if (res.status !== 201) {
+            //return the json object
+            return res.json().then(({ error: message }) => {
+                throw new Error(message)
+                    .then(() => { })
+            })
+        }
+    })
+        .then(() => { })
 
 }
+

@@ -1,39 +1,58 @@
-import { useState, useRef, useEffect, useContext } from 'react';
-import Context from "../AppContext"
 import { context } from '../ui'
+import Context from "../AppContext"
+import { useAppContext } from "../hooks"
+import { useState, useRef, useEffect, useContext } from 'react';
+import { utils } from 'com'
 
 import {
+    retrieveUser,
     updateUserAvatar,
     updateUserPassword,
     updateUserEmail
 } from "../logic"
+
+const { extractSubFromToken } = utils
 
 import Panel from "../library/Panel"
 
 import { EyeIcon } from '@heroicons/react/24/solid'
 import './Profile.css'
 
-export default function Profile({ onAvatarUpdated }) {
+
+export default ({ onAvatarUpdated }) => {
     console.debug('/// Profile  -> Render')
 
-    const { alert, freeze, unfreeze } = useContext(Context)
+    // const { alert, freeze, unfreeze } = useContext(Context)
+    const { alert, freeze, unfreeze } = useAppContext()
+
 
     const [name, setUserName] = useState()
     const [previewImage, setPreviewImage] = useState();
 
     useEffect(() => {
         try {
-            retrieveUser(context.userId, (error, user) => {
+            freeze()
+
+            retrieveUser(context.token, (error, user) => {
                 if (error) {
                     alert(error.message)
-
+                    unfreeze()
                     return
                 }
                 setUserName(user.name)
                 setPreviewImage(user.avatar)
-            })
 
-        } catch (error) {
+            })
+            unfreeze()
+
+            // retrieveUser(context.token).then(() => {
+            //     setUserName(user.name)
+            //     setPreviewImage(user.avatar)
+            // })
+        }
+        catch (error) {
+            unfreeze()
+
             alert(error.message)
         }
         //we send an empty array just to load it for the first time
@@ -46,16 +65,16 @@ export default function Profile({ onAvatarUpdated }) {
 
         try {
             freeze()
-            updateUserAvatar(context.userId, url, error => {
+            updateUserAvatar(context.token, url, error => {
 
                 if (error) {
                     alert(error.message)
-
+                    unfreeze()
                     return
                 }
 
-                unfreeze()
                 onAvatarUpdated()
+                unfreeze()
             })
 
         } catch (error) {
@@ -73,7 +92,7 @@ export default function Profile({ onAvatarUpdated }) {
 
         try {
             unfreeze()
-            updateUserPassword(context.userId, password, newPassword, newPasswordConfirm, error => {
+            updateUserPassword(context.token, password, newPassword, newPasswordConfirm, error => {
                 if (error) {
                     alert(error.message)
 
@@ -99,7 +118,7 @@ export default function Profile({ onAvatarUpdated }) {
         try {
             freeze()
 
-            updateUserEmail(context.userId, emailConfirm, newEmailConfirm, error => {
+            updateUserEmail(context.token, emailConfirm, newEmailConfirm, error => {
                 if (error) {
                     alert(error.message)
 
@@ -135,7 +154,7 @@ export default function Profile({ onAvatarUpdated }) {
                     <form action="" className="change-user-avatar-form " onSubmit={handleUpdateAvatar}>
 
                         <div>
-                            <input type="url" name="url" placeholder="Avatar image URL" accept="image/*" ref={imageInputRef} onPaste={handleImagePreview} />
+                            <input type="url" name="url" placeholder="Avatar image URL" accept="image/*" ref={imageInputRef} />
                             <button className="preview-image-button icon post-button" onClick={handleImagePreview}>Preview<EyeIcon className="eye icon" /></button>
                         </div>
 

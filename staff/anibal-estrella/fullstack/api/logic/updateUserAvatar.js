@@ -1,42 +1,34 @@
-const { readFile, writeFile } = require('fs')
-const { validators: { validateId, validateUrl, validateCallback } } = require('com')
+const {
+    errors: { ExistenceError, ContentError },
+    validators: { validateUrl, validateId } } = require('com')
 
-module.exports = (userId, avatar, callback) => {
+const { User, Post } = require('../data/models.js')
 
-    validateId(userId, 'user Id')
-    validateUrl(avatar, 'avatar')
-    validateCallback(callback, 'callback')
+/**
+ * 
+ * @param {*} userId the user's ID
+ * @param {*} avatar the avatar's image url
+ * @returns 
+ */
 
-    readFile(`${process.env.DB_PATH}/users.json`, 'utf8', (error, json) => {
-        if (error) {
-            callback(error)
+module.exports = (userId, avatar) => {
 
-            return
-        }
+    validateId(userId, 'user id')
+    validateUrl(avatar, 'Image URL')
 
-        const users = JSON.parse(json)
+    return Promise.all([
+        User.findById(userId, 'avatar').lean(),
 
-        const user = users.find(user => user.id === userId)
+    ])
+        .then(([user]) => {
+            if (!user) throw new ExistenceError(`user with the id ${userId} not found`)
 
-        if (!user) {
-            callback(new Error(`User with id ${userId} not found! 👎`))
-
-            return
-        }
-
-        user.avatar = avatar
-        const json2 = JSON.stringify(users, null, 4)
-
-        writeFile(`${process.env.DB_PATH}/users.json`, json2, error => {
-            if (error) {
-                callback(error)
-
-                return
-            }
-            callback(null)
-
+            return User.updateOne(
+                { _id: userId },
+                {
+                    avatar: avatar,
+                })
         })
-
-    })
-
+        .then(() => { })
 }
+

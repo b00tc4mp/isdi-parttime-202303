@@ -1,28 +1,9 @@
 const { updateUserAvatar } = require('../logic')
-const { extractUserId } = require('./helpers')
+const { extractUserId, handleErrors } = require('./helpers')
 
-const jwt = require('jsonwebtoken')
+module.exports = handleErrors((req, res) => {
+    const userId = extractUserId(req)
+    const { avatar } = req.body
 
-module.exports = (req, res) => {
-    try {
-        const token = extractUserId(req)
-        const payload = jwt.verify(token, process.env.SECRET)
-        const { sub: userId } = payload
-
-        const { avatar } = req.body
-
-
-        updateUserAvatar(userId, avatar, error => {
-            if (error) {
-                res.status(400).json({ error: error.message })
-
-                return
-            }
-        })
-
-        res.status(204).send()
-
-    } catch (error) {
-        res.status(400).json({ error: error.message })
-    }
-}
+    return updateUserAvatar(userId, avatar).then(() => res.status(201).send())
+})
