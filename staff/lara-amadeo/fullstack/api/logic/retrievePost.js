@@ -2,7 +2,7 @@ const { User, Post } = require('../data/models')
 const { errors: { ExistanceError } } = require('com')
 
 module.exports = function retrievePost(userId, postId) {
-    return Promise.all([User.findById(userId).lean(), Post.findById(postId)])
+    return Promise.all([User.findById(userId).lean(), Post.findById(postId).lean()])
 
         .then(([user, post]) => {
             if (!user) throw new ExistanceError(`User with id ${userId} not found`)

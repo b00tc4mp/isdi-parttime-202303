@@ -1,0 +1,25 @@
+.avatar-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    object-fit: cover;
+}
+
+.avatar-s {
+    width: 24px;
+    height: 24px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.avatar-m {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+}
+
+.avatar-l {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+}
