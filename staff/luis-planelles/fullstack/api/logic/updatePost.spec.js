@@ -10,7 +10,12 @@ const { cleanUp, populate, generate } = require('./helpers/tests');
 const { Post } = require('../data/models');
 
 describe('updatePost', () => {
+  let date, fakeDate;
+
   before(() => {
+    date = new Date();
+    fakeDate = sinon.useFakeTimers(date.getTime());
+
     return mongoose.connect(process.env.MONGODB_URL);
   });
 
@@ -29,9 +34,6 @@ describe('updatePost', () => {
   });
 
   it('succeeds on existing user and post, and correct data', () => {
-    const date = new Date();
-    const fakeDate = sinon.useFakeTimers(date.getTime());
-
     return updatePost(user._id.toString(), post._id.toString(), image, text)
       .then(() => Post.findOne())
       .then((updatedPost) => {
@@ -106,5 +108,8 @@ describe('updatePost', () => {
       'text is empty'
     ));
 
-  after(() => cleanUp().then(() => mongoose.disconnect()));
+  after(() => {
+    fakeDate.restore();
+    return cleanUp().then(() => mongoose.disconnect());
+  });
 });

@@ -1,16 +1,21 @@
 require('dotenv').config();
 
-const { expect } = require('chai');
 const sinon = require('sinon');
 const mongoose = require('mongoose');
 const { ObjectId } = require('mongodb');
+const { expect } = require('chai');
 
 const createPost = require('./createPost');
 const { cleanUp, populate, generate } = require('./helpers/tests');
 const { Post } = require('../data/models');
 
 describe('createPost', () => {
+  let fakeDate, date;
+
   before(() => {
+    date = new Date();
+    fakeDate = sinon.useFakeTimers(date.getTime());
+
     return mongoose.connect(process.env.MONGODB_URL);
   });
 
@@ -28,9 +33,6 @@ describe('createPost', () => {
   });
 
   it('should be created if user exists and data is correct', () => {
-    const date = new Date();
-    const fakeDate = sinon.useFakeTimers(date.getTime());
-
     return createPost(user._id.toString(), image, text)
       .then(() => Post.findOne())
       .then((foundPost) => {
@@ -40,8 +42,6 @@ describe('createPost', () => {
         expect(foundPost.text).to.equal(text);
         expect(foundPost.date.toISOString()).to.equal(date.toISOString());
         expect(foundPost.likes).to.deep.equal([]);
-
-        fakeDate.restore();
       });
   });
 
@@ -57,13 +57,20 @@ describe('createPost', () => {
       createPost('', image, text).to.throw(Error, 'user id is empty')
     ));
 
-  it('fails on empty image', () => {
-    expect(() => createPost(anyId, '', text)).to.throw(Error, 'image is empty');
-  });
+  it('fails on empty image', () =>
+    expect(() => createPost(anyId, '', text)).to.throw(
+      Error,
+      'image is empty'
+    ));
 
-  it('fails on empty text', () => {
-    expect(() => createPost(anyId, image, '')).to.throw(Error, 'text is empty');
-  });
+  it('fails on empty text', () =>
+    expect(() => createPost(anyId, image, '')).to.throw(
+      Error,
+      'text is empty'
+    ));
 
-  after(() => cleanUp().then(() => mongoose.disconnect()));
+  after(() => {
+    fakeDate.restore();
+    return cleanUp().then(() => mongoose.disconnect());
+  });
 });

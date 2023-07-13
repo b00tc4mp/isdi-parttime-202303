@@ -22,9 +22,7 @@ describe('authenticateUser', () => {
 
   it('succeeds on existing user', () => {
     return populate([user], [])
-      .then(() => {
-        return authenticateUser(user.email, user.password);
-      })
+      .then(() => authenticateUser(user.email, user.password))
       .then(() => User.findOne())
       .then((foundUser) => {
         expect(foundUser).to.exist;
@@ -155,5 +153,5 @@ describe('authenticateUser', () => {
     );
   });
 
-  after(() => cleanUp().then(() => mongoose.disconnect()));
+  after(() => cleanUp().then(mongoose.disconnect));
 });

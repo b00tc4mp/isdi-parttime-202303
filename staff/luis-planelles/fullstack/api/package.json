@@ -16,12 +16,12 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "chai": "^4.3.7",
     "mocha": "^10.2.0",
     "nyc": "^15.1.0",
     "supertest": "^6.3.3"
   },
   "dependencies": {
+    "chai": "^4.3.7",
     "com": "file:../com",
     "cors": "^2.8.5",
     "dotenv": "^16.1.4",

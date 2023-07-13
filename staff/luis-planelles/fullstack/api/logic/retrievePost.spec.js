@@ -9,7 +9,12 @@ const retrievePost = require('./retrievePost');
 const { cleanUp, populate, generate } = require('./helpers/tests');
 
 describe('retrievePost', () => {
+  let date, fakeDate;
+
   before(() => {
+    date = new Date();
+    fakeDate = sinon.useFakeTimers(date.getTime());
+
     return mongoose.connect(process.env.MONGODB_URL);
   });
 
@@ -25,9 +30,6 @@ describe('retrievePost', () => {
   });
 
   it('succeeds on existing user and post', () => {
-    const date = new Date();
-    const fakeDate = sinon.useFakeTimers(date.getTime());
-
     return retrievePost(user._id.toString(), post._id.toString()).then(
       (retrievedPost) => {
         expect(retrievedPost._id.toString()).to.equal(post._id.toString());
@@ -74,5 +76,8 @@ describe('retrievePost', () => {
       'post id is empt'
     ));
 
-  after(() => cleanUp().then(() => mongoose.disconnect()));
+  after(() => {
+    fakeDate.restore();
+    return cleanUp().then(() => mongoose.disconnect());
+  });
 });

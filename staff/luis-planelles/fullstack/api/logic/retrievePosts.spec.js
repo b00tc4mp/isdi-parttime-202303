@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 
 const retrievePosts = require('./retrievePosts');
 const { cleanUp, populate, generate } = require('./helpers/tests');
+const { Post } = require('../data/models');
 
 describe('retrievePosts', () => {
   describe('on existing users and posts', () => {
@@ -36,10 +37,41 @@ describe('retrievePosts', () => {
     });
 
     it('succeeds', () => {
-      return retrievePosts(user._id.toString()).then((retrievedPosts) => {
-        expect(retrievedPosts.length).to.equal(9);
-        // expect(retrievedPosts).to.deep.equal(posts.reverse());
-      });
+      let postsExpect = [];
+
+      return Post.find()
+        .sort('-date')
+        .lean()
+        .then((posts) => {
+          posts.forEach((post) => {
+            post.id = post._id.toString();
+            delete post._id;
+
+            post.favourites = user.favourites.some(
+              (favourites) => favourites.toString() === post.id
+            );
+
+            const author = users.find(
+              (user) => user._id.toString() === post.author._id.toString()
+            );
+
+            const { _id, name, email, avatar } = author;
+
+            post.author = {
+              id: _id.toString(),
+              name,
+              email,
+              avatar,
+            };
+
+            postsExpect.push(post);
+          });
+        })
+        .then(() => retrievePosts(user._id.toString()))
+        .then((retrievedPosts) => {
+          expect(retrievedPosts.length).to.equal(9);
+          expect(retrievedPosts).to.deep.equal(postsExpect);
+        });
     });
 
     it('fail on not match id and existing user', () => {
@@ -71,5 +103,6 @@ describe('retrievePosts', () => {
       });
     });
   });
+
   after(() => cleanUp().then(() => mongoose.disconnect()));
 });

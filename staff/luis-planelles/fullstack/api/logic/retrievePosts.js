@@ -17,29 +17,31 @@ const { User, Post } = require('../data/models');
 const retrievePosts = (userId) => {
   validateId(userId, 'user id');
 
-  return Promise.all([User.find(), Post.find()]).then(([users, posts]) => {
-    const user = users.find((user) => user._id.toString() === userId);
+  return User.findById(userId)
+    .lean()
+    .then((user) => {
+      if (!user) throw new ExistenceError(`user with id ${userId} not exists`);
 
-    if (!user) throw new ExistenceError(`user with id ${userId} not exists`);
+      return Post.find()
+        .sort('-date')
+        .lean()
+        .populate('author', '-password -favourites -__v')
+        .then((posts) => {
+          posts.forEach((post) => {
+            post.id = post._id.toString();
+            delete post._id;
 
-    posts.forEach((post) => {
-      post.id = post.id;
-      delete post._id;
+            post.favourites = user.favourites.some(
+              (favourites) => favourites.toString() === post.id
+            );
 
-      const author = users.find((user) => user.id === post.author.toString());
+            if (post.author._id) post.author.id = post.author._id.toString();
+            delete post.author._id;
+          });
 
-      post.author = {
-        id: author._id.toString(),
-        name: author.name,
-        avatar: author.avatar,
-      };
-
-      post.favourites = user.favourites.some(
-        (favourites) => favourites === post.id
-      );
+          return posts;
+        });
     });
-
-    return posts.reverse();
-  });
 };
+
 module.exports = retrievePosts;
