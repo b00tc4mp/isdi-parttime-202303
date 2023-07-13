@@ -9,18 +9,14 @@ const LevelsList = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [levels, setLevels] = useState(null);
 
-    const handleRefreshLevels = () => {
+    const handleRefreshLevels = async () => {
         try {
-            retrieveLevels((error, levels) => {
-                if (error) {
-                    console.log(`retrieve levels error: ${error.message}`);
-                } else {
-                    setLevels(levels);
-                }
-                setIsLoading(false);
-            });
+            const levels = await retrieveLevels()
+            setLevels(levels);
+            setIsLoading(false);
         } catch (error) {
             console.log(`retrieve levels error: ${error.message}`);
+            setIsLoading(false);
         }
     };
 

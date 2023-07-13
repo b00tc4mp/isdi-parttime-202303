@@ -58,14 +58,14 @@ const CreateLevel = () => {
         const hp = initialHP;
         if (validateLevel(level, name, setToast, setToastOn)) {
             try {
-                createLevel(name, level, hp, (error) => {
-                    if (error) {
-                        console.log(`create level error: ${error.message}`);
-                        return;
-                    }
+                createLevel(name, level, hp).then(() => {
                     const createdLevel = (configureLevelToRender(level));
                     navigate('/game/try', { state: { level: createdLevel, hp: hp } })
-                });
+                }).catch(error => {
+                    console.log(`create level error: ${error.message}`);
+                    return;
+                })
+
             } catch (error) {
                 alert(`create level error: ${error.message}`);
             }
@@ -95,7 +95,7 @@ const CreateLevel = () => {
         const selectedOption = level[floorIndex][cellIndex];
 
         return cellOptions.map((option, index) => (
-            <li key={index}>
+            <li key={`${index}_${floorIndex}_${cellIndex}`}>
                 <div className="flex items-center">
                     <input
                         id={`dropdownDefaultRadio_${floorIndex}_${cellIndex}`}
@@ -133,9 +133,9 @@ const CreateLevel = () => {
             <div className="flex items-center flex-col gap-2 pt-20 pb-5">
                 <div className="flex items-center py-2">
                     <div className="w-1/3">
-                        <label className="block text-secondary300 font-bold md:text-right mb-1 md:mb-0 pr-4" forhtml="level-name">
+                        <span className="block text-secondary300 font-bold md:text-right mb-1 md:mb-0 pr-4">
                             Level name
-                        </label>
+                        </span>
                     </div>
                     <div className="md:w-2/3">
                         <input className="bg-light300 appearance-none border-2 border-light100 rounded w-full py-2 px-4 text-dark400 leading-tight focus:outline-none focus:bg-primary600 focus:border-secondary400" id="level-name" type="text" />

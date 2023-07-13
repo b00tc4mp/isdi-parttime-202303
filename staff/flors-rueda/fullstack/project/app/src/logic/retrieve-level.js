@@ -1,6 +1,6 @@
 import { validators } from 'com';
 
-const { validateCallback, validateId } = validators;
+const { validateId } = validators;
 
 const retrieveLevel = (id) => {
     validateId(id);

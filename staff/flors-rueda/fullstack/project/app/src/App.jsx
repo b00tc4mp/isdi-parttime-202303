@@ -11,21 +11,15 @@ import NoConnectionToast from './components/NoConnectionToast';
 import CheckConnection from './logic/check-connection';
 import Tutorial from './pages/Tutorial';
 
-//TODO add landing page, tutorial and about
+//TODO add about
 
 const App = () => {
   const [isApiAvailable, setApiAvailableOn] = useState(true);
 
-  const handleRefreshApiConnection = () => {
+  const handleRefreshApiConnection = async () => {
     try {
-      CheckConnection((error) => {
-        if (error) {
-          console.log(`connection error: ${error.message}`);
-          setApiAvailableOn(false);
-        } else {
-          setApiAvailableOn(true);
-        }
-      });
+      await CheckConnection();
+      setApiAvailableOn(true);
     } catch (error) {
       console.log(`connection error: ${error.message}`);
       setApiAvailableOn(false);
