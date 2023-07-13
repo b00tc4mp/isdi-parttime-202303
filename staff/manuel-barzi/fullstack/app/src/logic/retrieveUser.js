@@ -12,6 +12,6 @@ export default () =>
 
             return res.json()
                 .then(body => {
-                    throw new Error(body.error)
+                    throw new Error(body.message)
                 })
         })

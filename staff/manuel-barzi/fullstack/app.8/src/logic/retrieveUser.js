@@ -1,7 +1,7 @@
-import context from './context'
+import context from "./context"
 
 export default () =>
-    fetch(`${import.meta.env.VITE_API_URL}/posts`, {
+    fetch(`${import.meta.env.VITE_API_URL}/users`, {
         headers: {
             Authorization: `Bearer ${context.token}`
         }
@@ -12,6 +12,6 @@ export default () =>
 
             return res.json()
                 .then(body => {
-                    throw new Error(body.message)
+                    throw new Error(body.error)
                 })
         })

@@ -1,4 +1,4 @@
-import { validators, errors } from 'com'
+import { validators } from 'com'
 
 const { validateName, validateEmail, validatePassword } = validators
 
@@ -19,8 +19,8 @@ export default (name, email, password) => {
                 return
 
             return res.json()
-                .then(({ type, message }) => {
-                    throw new errors[type](message)
+                .then(body => {
+                    throw new Error(body.error)
                 })
         })
 }

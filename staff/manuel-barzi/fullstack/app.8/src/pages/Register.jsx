@@ -2,12 +2,6 @@ import registerUser from '../logic/registerUser'
 import { Container, Form, Input, Button } from '../library'
 import { useAppContext } from '../hooks'
 import { Link } from 'react-router-dom'
-import { errors } from 'com'
-
-const {
-    ContentError,
-    DuplicityError
-} = errors
 
 export default function Register() {
     console.debug('Register -> render')
@@ -24,17 +18,9 @@ export default function Register() {
         try {
             registerUser(name, email, password)
                 .then(() => navigate('/login'))
-                .catch(error => {
-                    if (error instanceof DuplicityError)
-                        alert(error.message, 'warn')
-                    else alert(error.message, 'error')
-                })
+                .catch(error => alert(error.message))
         } catch (error) {
-            if (error instanceof RangeError)
-                alert(error.message, 'warn')
-            else if (error instanceof ContentError)
-                alert(error.message, 'error')
-            else alert(error.message)
+            alert(error.message)
         }
     }
 

@@ -29,7 +29,7 @@ export default (email, password) => {
 
             return res.json()
                 .then(body => {
-                    throw new Error(body.message)
+                    throw new Error(body.error)
                 })
         })
         .then(token => {
