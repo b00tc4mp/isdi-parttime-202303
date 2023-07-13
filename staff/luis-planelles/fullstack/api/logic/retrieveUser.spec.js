@@ -32,6 +32,8 @@ describe('retrieveUser', () => {
       expect(retrievedUser.name).to.equal(user.name);
       expect(retrievedUser.email).to.equal(user.email);
       expect(retrievedUser.avatar).to.be.null;
+      expect(retrievedUser.password).to.be.undefined;
+      expect(retrievedUser.favourites).to.be.undefined;
     });
   });
 

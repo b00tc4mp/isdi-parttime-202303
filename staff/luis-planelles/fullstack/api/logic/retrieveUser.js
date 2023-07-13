@@ -17,14 +17,16 @@ const { User } = require('../data/models');
 const retrieveUser = (userId) => {
   validateId(userId, 'user id');
 
-  return User.findById(userId).then((foundUser) => {
-    if (!foundUser) throw new ExistenceError('user not exists');
+  return User.findById(userId)
+    .lean()
+    .then((foundUser) => {
+      if (!foundUser) throw new ExistenceError('user not exists');
 
-    delete foundUser.password;
-    delete foundUser.favourites;
+      delete foundUser.password;
+      delete foundUser.favourites;
 
-    return foundUser;
-  });
+      return foundUser;
+    });
 };
 
 module.exports = retrieveUser;
