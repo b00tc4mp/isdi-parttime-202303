@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import LevelsList from './pages/LevelsList';
 import Footer from './components/Footer';
@@ -10,6 +10,7 @@ import inLogger from './inLogger';
 import NoConnectionToast from './components/NoConnectionToast';
 import CheckConnection from './logic/check-connection';
 import Tutorial from './pages/Tutorial';
+import NotFound from './pages/NotFound';
 
 //TODO add about
 
@@ -37,6 +38,7 @@ const App = () => {
           <Route path="/game/:id" element={<Game />} />
           <Route path="/create" element={<CreateLevel />} />
           <Route path="/tutorial" element={<Tutorial />} />
+          <Route path="/*" element={<NotFound />} />
         </Routes>
       </div>
       <Footer />

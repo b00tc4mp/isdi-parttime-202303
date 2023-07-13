@@ -91,7 +91,7 @@ const Navbar = () => {
                     Sign up
                 </a>
             </nav>
-            <div className={"navbar-menu fixed z-50 " + (isMenuOpen ? "" : "hidden")}>
+            <div className={`navbar-menu fixed z-50 ${(isMenuOpen ? '' : 'hidden')}`}>
                 <nav className="fixed top-0 left-0 bottom-0 flex bg-light500 flex-col w-full md:w-8/12 py-6 px-6 bg-light500 border-r overflow-y-auto">
                     <div className="flex justify-between mb-8 opacity-75">
                         <Link className="text-3xl font-bold leading-none" to="/">
