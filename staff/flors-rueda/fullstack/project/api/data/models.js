@@ -11,6 +11,9 @@ const level = new Schema({
         type: [[String]],
         required: true,
     },
+    hp: {
+        type: Number,
+    }
 
 })
 

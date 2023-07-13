@@ -2,7 +2,7 @@ import { validators } from 'com';
 
 const { validateCallback, validateName, validateLayout } = validators;
 
-const createLevel = (name, layout, callback) => {
+const createLevel = (name, layout, hp, callback) => {
     validateCallback(callback);
     validateName(name);
     validateLayout(layout);
@@ -32,7 +32,7 @@ const createLevel = (name, layout, callback) => {
 
     xhr.setRequestHeader('Content-Type', 'application/json');
 
-    const level = { name, layout };
+    const level = { name, layout, hp };
     const json = JSON.stringify(level);
 
     xhr.send(json);

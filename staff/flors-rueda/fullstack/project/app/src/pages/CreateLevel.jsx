@@ -14,6 +14,7 @@ const CreateLevel = () => {
     const [isToastOn, setToastOn] = useState(false);
     const [level, setLevel] = useState([['empty', 'stonks', 'hole', 'empty', 'empty', 'empty', 'empty', 'empty', 'start']]);
     const [openDropdown, setOpenDropdown] = useState(null);
+    const [initialHP, setInitialHP] = useState(1);
     const navigate = useNavigate();
 
     const cellOptions = ['bomb', 'dirt', 'hole', 'stonks', 'start', 'life', 'empty'];
@@ -54,15 +55,16 @@ const CreateLevel = () => {
 
     const handleOnTryLevel = () => {
         const name = document.getElementById('level-name').value;
+        const hp = initialHP;
         if (validateLevel(level, name, setToast, setToastOn)) {
             try {
-                createLevel(name, level, (error) => {
+                createLevel(name, level, hp, (error) => {
                     if (error) {
                         console.log(`create level error: ${error.message}`);
                         return;
                     }
                     const createdLevel = (configureLevelToRender(level));
-                    navigate('/game/try', { state: { level: createdLevel } })
+                    navigate('/game/try', { state: { level: createdLevel, hp: hp } })
                 });
             } catch (error) {
                 alert(`create level error: ${error.message}`);
@@ -139,37 +141,59 @@ const CreateLevel = () => {
                         <input className="bg-light300 appearance-none border-2 border-light100 rounded w-full py-2 px-4 text-dark400 leading-tight focus:outline-none focus:bg-primary600 focus:border-secondary400" id="level-name" type="text" />
                     </div>
                 </div>
-                {level.map((floor, floorIndex) => (
-                    <div className="" key={floorIndex}>
-                        <h5 className="text-xl py-2 text-center font-semibold text-primary100">{`Floor ${-floorIndex}${floorIndex === 99 ? '(max)' : ''}`}</h5>
-                        <div className="grid grid-cols-3 grid-rows-3 gap-4">
-                            {floor.map((cell, cellIndex) => (
-                                <div key={cellIndex} className="relative">
-                                    <button
-                                        id={`dropdownRadioButton_${floorIndex}_${cellIndex}`}
-                                        data-dropdown-toggle="dropdownRadioHelper"
-                                        className="text-primary300 bg-light300 hover:bg-light200 focus:ring-4 focus:outline-none focus:ring-light200 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center"
-                                        type="button"
-                                        onClick={() => handleDropdownToggle(floorIndex, cellIndex)}
-                                    >
-                                        <img src={editIcons[cell]} className="w-14 h-14" alt={cell} />
-                                        {
-                                            `${floorIndex}_${cellIndex}` === openDropdown ? <i className="bi bi-x-lg"></i> : <i className="bi bi-chevron-down"></i>
-                                        }
-                                    </button>
-                                    <div
-                                        id={`dropdownDefaultRadio_${floorIndex}_${cellIndex}`}
-                                        className="z-50 absolute right-0 left-0 w-46 bg-light400 divide-y divide-light300 rounded-lg shadow hidden"
-                                    >
-                                        <ul className="p-3 space-y-3 text-sm text-secondary200">
-                                            {renderRadioOptions(floorIndex, cellIndex)}
-                                        </ul>
+                <div className="flex items-center py-1 gap-5">
+                    <span className="text-secondary500 font-bold md:text-right mb-1 md:mb-0">HP</span>
+                    {[...Array(7)].map((hp, index) => {
+                        index += 1;
+                        return (
+                            <div>
+                                <button
+                                    type="button"
+                                    className="text-primary400 text-xl"
+                                    key={index}
+                                    onClick={() => setInitialHP(index < 1 ? 1 : index)}
+                                >
+                                    <i className={`hover:text-primary600 bi ${index <= initialHP ? 'bi-heart-fill' : 'bi-heart'}`}></i>
+                                </button>
+                            </div>
+
+
+                        );
+                    })}
+                </div>
+                {
+                    level.map((floor, floorIndex) => (
+                        <div key={floorIndex}>
+                            <h5 className="text-xl py-2 text-center font-semibold text-primary100">{`Floor ${-floorIndex}${floorIndex === 99 ? '(max)' : ''}`}</h5>
+                            <div className="grid grid-cols-3 grid-rows-3 gap-4">
+                                {floor.map((cell, cellIndex) => (
+                                    <div key={cellIndex} className="relative">
+                                        <button
+                                            id={`dropdownRadioButton_${floorIndex}_${cellIndex}`}
+                                            data-dropdown-toggle="dropdownRadioHelper"
+                                            className="text-primary300 bg-light300 hover:bg-light200 focus:ring-4 focus:outline-none focus:ring-light200 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center"
+                                            type="button"
+                                            onClick={() => handleDropdownToggle(floorIndex, cellIndex)}
+                                        >
+                                            <img src={editIcons[cell]} className="w-14 h-14" alt={cell} />
+                                            {
+                                                `${floorIndex}_${cellIndex}` === openDropdown ? <i className="bi bi-x-lg"></i> : <i className="bi bi-chevron-down"></i>
+                                            }
+                                        </button>
+                                        <div
+                                            id={`dropdownDefaultRadio_${floorIndex}_${cellIndex}`}
+                                            className="z-50 absolute right-0 left-0 w-46 bg-light400 divide-y divide-light300 rounded-lg shadow hidden"
+                                        >
+                                            <ul className="p-3 space-y-3 text-sm text-secondary200">
+                                                {renderRadioOptions(floorIndex, cellIndex)}
+                                            </ul>
+                                        </div>
                                     </div>
-                                </div>
-                            ))}
+                                ))}
+                            </div>
                         </div>
-                    </div>
-                ))}
+                    ))
+                }
                 <p className="text-lg pt-5 text-center font-bold text-secondary200">remove/add floors</p>
                 <div className="pt-5 flex flex-row gap-5">
                     <button onClick={removeFloor}><i className="text-5xl text-danger200 hover:text-danger100 font-bold bi bi-dash-circle-fill"></i></button>

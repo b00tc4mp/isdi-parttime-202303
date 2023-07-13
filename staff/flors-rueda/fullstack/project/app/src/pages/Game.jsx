@@ -15,7 +15,7 @@ const Game = ({ level }) => {
   const [levelToRender, setLevelToRender] = useState(null);
   const [key, setKey] = useState(1);
   const [floor, setFloor] = useState(null);
-  const [health, setHealth] = useState(5);
+  const [health, setHealth] = useState(null);
   const [isGameOver, setIsGameOver] = useState(0); // 0 = playing, -1 = lost, 1 = won
   const [animation, setAnimation] = useState(null);
   const [isAnimationVisible, setAnimationVisible] = useState(false);
@@ -28,15 +28,17 @@ const Game = ({ level }) => {
           const configuredLevel = configureLevelToRender(level.layout);
           setLevelToRender(configuredLevel);
           setFloor(configuredLevel[0]);
+          setHealth(level.hp ? level.hp : 5);
           setIsLoading(false);
         } catch (error) {
           console.log(`retrieve level error: ${error.message}`);
           setIsLoading(false);
         }
       } else {
-        const { level } = location.state;
+        const { level, hp } = location.state;
         setLevelToRender(level);
         setFloor(level[0]);
+        setHealth(hp ? hp : 5);
         setIsLoading(false);
       }
     };
