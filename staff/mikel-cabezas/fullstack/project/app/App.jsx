@@ -7,6 +7,7 @@ import Footer from './src/components/Footer.jsx';
 import Header from './src/components/Header.jsx';
 import BaseMap from './src/components/BaseMap.jsx';
 import Nearby from './src/components/Nearby.jsx';
+import SinglePlayground from './src/components/SinglePlayground.jsx';
 import Sidebar from './src/components/Sidebar.jsx';
 import CreatePlayground from './src/components/CreatePlayground.jsx';
 
@@ -45,7 +46,6 @@ export default function App({ }) {
     setTimeout(() => {
       setModal()
       setAnimation()
-
     }, 300)
   }
   const onCloseSidebar = () => {
@@ -54,15 +54,9 @@ export default function App({ }) {
     }, 300)
   }
   const markerPressedHandler = props => {
-    const playground = {
-      id: props.target._internalFiberInstanceHandleDEV.memoizedProps.id,
-      title: props.target._internalFiberInstanceHandleDEV.memoizedProps.title,
-      description: props.target._internalFiberInstanceHandleDEV.memoizedProps.description
-    }
-    setCurrentMarker(playground)
-    console.log(currentMarker)
-
-    alert(`title: ${playground.title} \n id: ${playground.id} \n description: ${playground.description}`)
+    const playground = currentMarker
+    setModal('singlePlayground')
+    // alert(`title: ${playground.title} \n id: ${playground.id} \n description: ${playground.description}`)
   }
   // const onSendPlayground = () => {
   // setModal('nearby')
@@ -74,13 +68,14 @@ export default function App({ }) {
           {modal === 'sidebar' && <Sidebar closeHandle={onCloseSidebar} />}
           <BaseMap className="-z-20" onMarkerPressed={markerPressedHandler} />
           <Header />
+          {modal === 'singlePlayground' && <Animatable.View animation={animation} duration={250} className="w-full absolute bottom-0" ><SinglePlayground className="z-[90]" closeHandle={onCloseModal} park={currentMarker}></SinglePlayground></Animatable.View>}
           {modal === 'nearby' && <Animatable.View animation={animation} duration={250} className="w-full absolute bottom-0" ><Nearby className="-z-10" closeHandle={onCloseModal} park={currentMarker}></Nearby></Animatable.View>}
           {modal === 'createPlayground' && <CreatePlayground className="" closeHandle={onCloseModal}></CreatePlayground>}
 
-          <Footer className="" nearbyHandler={onNearby} createPlaygroundHandler={onCreatePlayground} homeHandler={onHome} />
+          {!modal && <Footer className="z-10" nearbyHandler={onNearby} createPlaygroundHandler={onCreatePlayground} homeHandler={onHome} />}
           <StatusBar style="auto" />
         </View >
-      </Provider>
+      </Provider> 
 
 
     </>
