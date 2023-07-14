@@ -30,6 +30,7 @@ const retrievePosts = (userId) => {
           posts.forEach((post) => {
             post.id = post._id.toString();
             delete post._id;
+            delete post.__v;
 
             post.favourites = user.favourites.some(
               (favourites) => favourites.toString() === post.id

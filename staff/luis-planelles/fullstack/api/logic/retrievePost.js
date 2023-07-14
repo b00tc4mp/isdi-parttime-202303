@@ -23,12 +23,14 @@ const retrievePost = (userId, postId) => {
     if (!foundUser)
       throw new ExistenceError(`user with id ${userId} not exists`);
 
-    return Post.findById(postId).then((foundPost) => {
-      if (!foundPost)
-        throw new ExistenceError(`post with id ${postId} not exists`);
+    return Post.findById(postId, '-__v -_id -likes -date -author')
+      .lean()
+      .then((foundPost) => {
+        if (!foundPost)
+          throw new ExistenceError(`post with id ${postId} not exists`);
 
-      return foundPost;
-    });
+        return foundPost;
+      });
   });
 };
 

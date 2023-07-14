@@ -17,13 +17,10 @@ const { User } = require('../data/models');
 const retrieveUser = (userId) => {
   validateId(userId, 'user id');
 
-  return User.findById(userId)
+  return User.findById(userId, '-password -favourites')
     .lean()
     .then((foundUser) => {
       if (!foundUser) throw new ExistenceError('user not exists');
-
-      delete foundUser.password;
-      delete foundUser.favourites;
 
       return foundUser;
     });

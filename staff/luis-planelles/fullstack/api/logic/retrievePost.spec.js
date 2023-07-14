@@ -32,12 +32,13 @@ describe('retrievePost', () => {
   it('succeeds on existing user and post', () => {
     return retrievePost(user._id.toString(), post._id.toString()).then(
       (retrievedPost) => {
-        expect(retrievedPost._id.toString()).to.equal(post._id.toString());
         expect(retrievedPost.text).to.equal(post.text);
-        expect(retrievedPost.date.toISOString()).to.equal(
-          post.date.toISOString()
-        );
         expect(retrievedPost.image).to.equal(post.image);
+        expect(retrievedPost.id).to.be.undefined;
+        expect(retrievedPost.likes).to.be.undefined;
+        expect(retrievedPost.date).to.be.undefined;
+        expect(retrievedPost.author).to.be.undefined;
+        expect(retrievePost.__v).to.be.undefined;
 
         fakeDate.restore();
       }

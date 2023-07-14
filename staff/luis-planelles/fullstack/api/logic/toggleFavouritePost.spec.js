@@ -63,7 +63,7 @@ describe('toggleFavouritePost', () => {
   it('succeeds on existing user and multiple favourite with favorite posts', () => {
     return User.updateOne(
       { _id: user._id },
-      { $set: { favourites: [otherPost._id.toString()] } }
+      { $set: { favourites: [otherPost._id] } }
     )
       .then(() => toggleFavouritePost(user._id.toString(), post._id.toString()))
       .then(() =>
