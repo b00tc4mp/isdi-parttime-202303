@@ -4,6 +4,8 @@ import { context } from "../ui.js"
 import UserImage from "./UserImage.jsx"
 import './Header.css'
 import UpdateUserInfo from "./UpdateUserInfo.jsx"
+import { Link, useNavigate } from "react-router-dom"
+import { useAppContext } from "../hooks"
 
 export default function Header({ onUserProfile, onHomeClick, onLoggedOut, selected, onSetThemeClick, onLikedPostsClick,
     onSavedPostsClick }) {
@@ -11,6 +13,10 @@ export default function Header({ onUserProfile, onHomeClick, onLoggedOut, select
     const [loggedIn, setloggedIn] = useState(false)
     const [savelUpdateProfile, setSavelUpdateProfile] = useState(null)
     const [selectedItem, setselectedItem] = useState(null)
+    const { alert, setIsAuthenticated } = useAppContext()
+
+    const navigate = useNavigate()
+
 
     const userId = context.token
     const handleHome = () => {
@@ -37,7 +43,8 @@ export default function Header({ onUserProfile, onHomeClick, onLoggedOut, select
     const handleLogout = () => {
         try {
             delete context.token
-            onLoggedOut()
+            setIsAuthenticated(false)
+            navigate('/login')
         } catch (error) {
             console.log(error.stack)
         }
@@ -97,8 +104,8 @@ export default function Header({ onUserProfile, onHomeClick, onLoggedOut, select
                     </div>
                     <nav className="hidden md:flex menu pr-5 h-full mt-4">
                         <ul>
-                            <li className="submenu-element register">Register</li>
-                            <li className="submenu-element login">Login</li>
+                            <li className="submenu-element register"><Link to="/register">Register</Link></li>
+                            <li className="submenu-element login"><Link to="/login">Login</Link></li>
                         </ul>
                     </nav>
                 </div>

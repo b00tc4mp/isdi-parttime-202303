@@ -1,6 +1,6 @@
 import { createPost } from '../logic/posts/createPost.js'
 import { context } from '../ui.js'
-import retrieveUserLocation from "../logic/posts/retrieveUserLocation"
+import retrieveUserLocation from "../logic/posts/retrieveUserLocation.js"
 import { useState, useEffect, useContext } from 'react'
 import Context from '../AppContext.js'
 import { IKImage, IKContext, IKUpload } from 'imagekitio-react'
@@ -12,9 +12,6 @@ export default function AddPostModal({ onCancel, onCreateNewPost }) {
     const { alert } = useContext(Context)
     const [userLocation, setUserLocation] = useState(null)
     const [newImage, setNewImage] = useState()
-
-
-
 
     const onError = (error) => {
         console.log("Error", error);
@@ -36,7 +33,6 @@ export default function AddPostModal({ onCancel, onCreateNewPost }) {
             return false
         }
     }
-
 
     function getUserLocation() {
         retrieveUserLocation((error, location) => {
@@ -75,7 +71,6 @@ export default function AddPostModal({ onCancel, onCreateNewPost }) {
             alert(error.message)
         }
     }, [newImage])
-
 
     const handleAddNewPost = event => {
         event.preventDefault()

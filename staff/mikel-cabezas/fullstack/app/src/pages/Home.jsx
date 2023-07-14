@@ -1,6 +1,6 @@
 import { useEffect, useState, useContext } from "react"
 import Posts from "../components/Posts"
-import AddPostModal from "../components/AddPostModal"
+import CreatePostModal from "../components/CreatePostModal"
 import { EditPostModal } from "../components/EditPostModal"
 import Profile from "../components/UserProfilePanel"
 import Header from "../components/Header"
@@ -82,7 +82,6 @@ export default function Home({ onLogoutClick, onUserProfile, onSetThemeClick, on
 
     }
     const handleGoBackClick = (event) => {
-
         event.target.parentElement.classList.add('start-animation')
         event.target.parentElement.parentElement.querySelector('.user-account').classList.add('start-animation')
         setTimeout(() => {
@@ -90,6 +89,7 @@ export default function Home({ onLogoutClick, onUserProfile, onSetThemeClick, on
         }, 1000
         )
     }
+
     const handleSetThemeClick = (event) => {
         setModal('user-profile')
         if (localStorage.theme !== 'dark') {
@@ -103,9 +103,7 @@ export default function Home({ onLogoutClick, onUserProfile, onSetThemeClick, on
     const handleHideMenuOptions = () => {
         alert('posts')
         setView('posts')
-
     }
-
 
     return <>
         <Header onUserProfile={handleGoToUserProfile} onLoggedOut={handleLogOut} onLikedPostsClick={handleShowLikedPosts} onSavedPostsClick={handleShowSavedPosts} onHomeClick={handleShowAllPosts} selected={modal} />
@@ -114,7 +112,7 @@ export default function Home({ onLogoutClick, onUserProfile, onSetThemeClick, on
                 {view === 'posts' && <Posts onPostDeleted={onPostDeleted} onShowAllPosts={onShowAllPosts} onAddPostClick={handleAddPost} onEditPost={(id) => handleEditPost(id)} lastPostsUpdate={lastPostsUpdate} postsFilter={postsFilter} onToggleSavePostClick={onToggleSavePostClick} onHideMenuOptions={handleHideMenuOptions} />}
                 {modal === 'user-profile' && <Profile goBackClick={handleGoBackClick} selected={modal} onUserProfile={onUserProfile} onThemeSet={theme} themeState={setTheme} onSetThemeClick={handleSetThemeClick} />}
             </section>
-            {modal === 'add-post' && <AddPostModal onCancel={handleModalOff} onCreateNewPost={handlePostCreated} />}
+            {modal === 'add-post' && <CreatePostModal onCancel={handleModalOff} onCreateNewPost={handlePostCreated} />}
             {modal === 'edit-post' && <EditPostModal postId={postId} onPostUpdated={handlePostUpdated} onCancel={handleModalOff} />}
         </main>
     </>
