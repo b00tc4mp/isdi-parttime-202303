@@ -7,12 +7,11 @@ import Game from './pages/Game';
 import CreateLevel from './pages/CreateLevel';
 import Landing from './pages/Landing';
 import inLogger from './inLogger';
-import NoConnectionToast from './components/NoConnectionToast';
+import NoConnectionToast from './components/toasts/NoConnectionToast';
 import CheckConnection from './logic/check-connection';
 import Tutorial from './pages/Tutorial';
 import NotFound from './pages/NotFound';
-
-//TODO add about
+import About from './pages/About';
 
 const App = () => {
   const [isApiAvailable, setApiAvailableOn] = useState(true);
@@ -38,6 +37,7 @@ const App = () => {
           <Route path="/game/:id" element={<Game />} />
           <Route path="/create" element={<CreateLevel />} />
           <Route path="/tutorial" element={<Tutorial />} />
+          <Route path="/about" element={<About />} />
           <Route path="/*" element={<NotFound />} />
         </Routes>
       </div>

@@ -30,10 +30,18 @@ const Navbar = () => {
                 </div>
                 <ul className="hidden absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 lg:flex lg:mx-auto lg:flex lg:items-center lg:w-auto lg:space-x-6">
                     <li>
-                        <a className="text-sm text-light100" href="#">
+                        <Link
+                            className={
+                                "text-sm " +
+                                (location.pathname === "/about"
+                                    ? "text-secondary400"
+                                    : "dark400 hover:text-secondary400")
+                            }
+                            to="/about"
+                        >
                             <i className="bi bi-info-square-fill pe-1"></i>
                             About
-                        </a>
+                        </Link>
                     </li>
                     <li>
                         <Link
@@ -104,10 +112,19 @@ const Navbar = () => {
                     <div>
                         <ul>
                             <li className="mb-1">
-                                <a className="block p-4 text-sm font-semibold text-light100 rounded" href="#">
+                                <Link
+                                    className={
+                                        "block p-4 text-sm font-semibold " +
+                                        (location.pathname === "/about"
+                                            ? "text-secondary400"
+                                            : "dark400 hover:text-secondary400 hover:bg-light400") +
+                                        " rounded"
+                                    }
+                                    to="/about"
+                                >
                                     <i className="bi bi-info-square-fill pe-1"></i>
                                     About
-                                </a>
+                                </Link>
                             </li>
                             <li className="mb-1">
                                 <Link
