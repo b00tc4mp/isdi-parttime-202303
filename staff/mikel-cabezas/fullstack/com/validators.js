@@ -37,7 +37,14 @@ function validatePassword(password) {
     if (!password.trim().length) throw new ContentError('Password is empty')
     if (!password.trim().length > 8) throw new FormatError('Password must be higher than 8 characters')
 }
-
+function validateNewPassword(currentPassword, newPassword, repeatPassword) {
+    if (newPassword !== repeatPassword)
+        throw new Error('New password does not match')
+    if (!currentPassword.trim().length)
+        throw new Error('Password is empty')
+    if (!currentPassword.trim().length > 8)
+        throw new Error('Password must be higher than 8 characters')
+}
 function validateUserId(userId) {
     if (typeof userId !== 'string') throw new TypeError('User is not a string')
     if (!userId) throw new ContentError('User is empty')
@@ -63,6 +70,7 @@ module.exports = {
     validateEmail,
     validateText,
     validatePassword,
+    validateNewPassword,
     validateUserId,
     validatePostId,
     validateCallback,

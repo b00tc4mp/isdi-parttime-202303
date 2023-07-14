@@ -6,7 +6,6 @@ export function updateUserPassword(token, password, newPassword, repeatPassword,
     validatePassword(password)
     validatePassword(newPassword)
     validatePassword(repeatPassword)
-    validateNewPassword(password, newPassword, repeatPassword)
 
     return fetch(`${import.meta.env.VITE_API_URL}/users/`, {
         method: 'PATCH',
