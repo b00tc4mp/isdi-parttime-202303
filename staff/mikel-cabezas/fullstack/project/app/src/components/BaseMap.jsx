@@ -5,6 +5,8 @@ import MapView, { Marker, Callout } from 'react-native-maps'
 import { } from 'react-native';
 import * as Location from 'expo-location';
 import { NativeWindStyleSheet } from "nativewind";
+import Playgrounds from './Playgrounds';
+
 // import returnPlaygrounds from '../logic/retrievePlaygrounds'
 // import playgrounds from '../../../api/data/parks.json'
 
@@ -39,12 +41,12 @@ export default function BaseMap({ onMarkerPressed, id, title, description }) {
         latitude: 41.2275774,
         longitude: 1.7253157,
     }
-    const markerPressedHandler = (id, title, description) => {
-        onMarkerPressed(id, title, description)
-        //TODO logic for retrieve single post
+    const onMarkerPressedHandler = (id, title, description) => {
+        onMarkerPressed()
     }
     return <>
         <MapView
+            // userInterfaceStyle={'dark'}
             className="w-full h-[120%] top-0 absolute"
             initialRegion={{
                 latitude: origin.latitude,
@@ -53,22 +55,8 @@ export default function BaseMap({ onMarkerPressed, id, title, description }) {
                 longitudeDelta: 0.0421,
             }}
         >
-            <Marker
-                coordinate={pin}
-                id={'1'}
-                title={'Parc les Casernes'}
-                description={'test bla bla bla'}
-                image={PIN}
-                onPress={(id, title, description) => {
-                    markerPressedHandler(id, title, description)
-                }}
-            >
-                <Callout
-                    tooltip
-                >
+            <Playgrounds onMarkerPressedHandler={onMarkerPressedHandler} />
 
-                </Callout>
-            </Marker>
         </MapView>
         {/* <View className="h-10 absolute bottom-24 w-10/12 flex flex-1">
             <Animated.ScrollView horizontal className="w-11/12 flex flex-1 ">

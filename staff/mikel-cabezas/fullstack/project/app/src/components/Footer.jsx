@@ -27,7 +27,7 @@ export default function Footer({ nearbyHandler, createPlaygroundHandler, homeHan
     }
 
 
-    return <View className="z-50 absolute w-full justify-center flex bottom-8 content-center">
+    return <View className="z-10 absolute w-full justify-center flex bottom-8 content-center">
         <View className="w-10/12 h-12 p-1 bg-white rounded-full left-0 m-auto flex flex-row justify-between px-5">
 
 
