@@ -19,9 +19,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
                 - editar ReadMe a modo stories de que vol el client 20230510 2118
                 - canviar alerts -> Context i context provider 20230522 2110 (posarli animacio? settimeout?)
                 - quan es borra un user esborrar tots els seus posts i tots els posts que tenen un like seu!
-                - distincio d'errors 20230627 2052 -> millorats i propis 20230628 2125 -> aplicr a cada funcio de la logica de la api
                 - com -> extreure userId del token per poder passar el userId a components com el de Post.jsx 20230628 2040
-                - mongoose -> 20230703 2030
                 - documentar cada funcio de la logica de la api -> /**
 
                 - OPTIONAL
