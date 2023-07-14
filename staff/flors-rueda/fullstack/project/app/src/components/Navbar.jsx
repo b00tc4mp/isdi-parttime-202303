@@ -102,7 +102,7 @@ const Navbar = () => {
             <div className={`navbar-menu fixed z-50 ${(isMenuOpen ? '' : 'hidden')}`}>
                 <nav className="fixed top-0 left-0 bottom-0 flex bg-light500 flex-col w-full md:w-8/12 py-6 px-6 bg-light500 border-r overflow-y-auto">
                     <div className="flex justify-between mb-8 opacity-75">
-                        <Link className="text-3xl font-bold leading-none" to="/">
+                        <Link className="text-3xl font-bold leading-none" to="/" onClick={() => setMenuOpen(false)}>
                             <img src={logo} className="h-10 w-10" alt="Logo" />
                         </Link>
                         <button className="navbar-close text-dark100 text-2xl" onClick={handleCloseClick}>
@@ -121,6 +121,7 @@ const Navbar = () => {
                                         " rounded"
                                     }
                                     to="/about"
+                                    onClick={() => setMenuOpen(false)}
                                 >
                                     <i className="bi bi-info-square-fill pe-1"></i>
                                     About
@@ -136,6 +137,7 @@ const Navbar = () => {
                                         " rounded"
                                     }
                                     to="/levels"
+                                    onClick={() => setMenuOpen(false)}
                                 >
                                     <i className="bi bi-collection-play-fill pe-1"></i>
                                     Levels
@@ -151,6 +153,7 @@ const Navbar = () => {
                                         " rounded"
                                     }
                                     to="/create"
+                                    onClick={() => setMenuOpen(false)}
                                 >
                                     <i className="bi bi-grid-3x3-gap-fill pe-1"></i>
                                     Create Level
@@ -166,6 +169,7 @@ const Navbar = () => {
                                         " rounded"
                                     }
                                     to="/tutorial"
+                                    onClick={() => setMenuOpen(false)}
                                 >
                                     <i className="bi bi-mortarboard-fill pe-1"></i>
                                     Tutorial

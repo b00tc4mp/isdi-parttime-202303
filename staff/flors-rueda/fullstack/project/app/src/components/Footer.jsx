@@ -7,12 +7,12 @@ const Footer = () => {
                 <ul className="flex flex-wrap items-center text-lg font-medium text-light100">
                     <li>
                         <a href="https://github.com/rucev" target="_blank" rel="noopener noreferrer">
-                            <i className="bi bi-github pe-3"></i>
+                            <i className="bi bi-github pe-3 hover:text-light300"></i>
                         </a>
                     </li>
                     <li>
                         <a href="https://www.linkedin.com/in/flors-rueda" target="_blank" rel="noopener noreferrer">
-                            <i className="bi bi-linkedin pe-1"></i>
+                            <i className="bi bi-linkedin pe-1 hover:text-light300"></i>
                         </a>
                     </li>
                 </ul>

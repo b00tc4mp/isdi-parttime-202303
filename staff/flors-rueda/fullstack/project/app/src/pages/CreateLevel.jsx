@@ -4,7 +4,7 @@ import { configureLevelToRender } from '../helpers/configureLevelToRender';
 import { useNavigate } from 'react-router-dom';
 import createLevel from '../logic/create-level';
 import inLogger from '../inLogger';
-import ToastCreateLevel from '../components/toasts/ToastCreateLevel';
+import CreateLevelToast from '../components/toasts/CreateLevelToast';
 import LayoutForm from '../components/LayoutForm';
 import CreateRules from '../components/CreateRules';
 
@@ -39,7 +39,7 @@ const CreateLevel = () => {
     return (
         <>
             {isToastOn &&
-                <ToastCreateLevel handleCloseToast={handleCloseToast} message={toast} />
+                <CreateLevelToast handleCloseToast={handleCloseToast} message={toast} />
             }
             <div className="pt-16 md:pt-10">
                 <CreateRules />

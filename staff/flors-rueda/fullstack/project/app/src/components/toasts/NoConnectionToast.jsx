@@ -1,6 +1,6 @@
 import { Player } from '@lottiefiles/react-lottie-player';
 
-import inLogger from '../inLogger';
+import inLogger from '../../inLogger';
 
 const NoConnectionToast = () => {
     return (

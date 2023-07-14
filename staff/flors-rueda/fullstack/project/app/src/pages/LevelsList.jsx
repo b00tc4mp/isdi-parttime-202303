@@ -29,8 +29,8 @@ const LevelsList = () => {
     }
 
     return (
-        <div className="flex flex-col w-full justify-center items-center pt-20 gap-5">
-            <h1 className="text-primary100 text-5xl font-bold text-center pt-5">Ballopolis Maze Riders</h1>
+        <div className="flex flex-col w-full justify-center items-center pt-20 gap-5 px-5">
+            <h1 className="text-primary100 text-3xl font-bold text-center pt-5">Ballopolis Maze Riders</h1>
             <Link className="bg-transparent hover:bg-secondary300  text-secondary300  font-semibold hover:text-white py-2 px-4 border border-secondary300  hover:border-transparent rounded-xl" to="/create">
                 Create your level!
             </Link>
