@@ -12,9 +12,7 @@ const retrieveUser = require('./retrieveUser.js');
 const { cleanUp, generate, populate } = require('./helpers/tests');
 
 describe('retrieveUser', () => {
-  before(() => {
-    return mongoose.connect(process.env.MONGODB_URL);
-  });
+  before(() => mongoose.connect(process.env.MONGODB_URL));
 
   const anyId = new ObjectId();
 

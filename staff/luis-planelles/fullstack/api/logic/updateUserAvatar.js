@@ -16,7 +16,7 @@ const { User } = require('../data/models');
  */
 
 const updateUserAvatar = (userId, newAvatar) => {
-  validateId(userId, 'userId');
+  validateId(userId, 'user id');
   validateUrl(newAvatar, 'avatar');
 
   return User.findById(userId).then((foundUser) => {

@@ -19,9 +19,9 @@ describe('createPost', () => {
     return mongoose.connect(process.env.MONGODB_URL);
   });
 
-  let user, text, image;
-
   const anyId = new ObjectId().toString();
+
+  let user, text, image;
 
   beforeEach(() => {
     user = generate.user();
@@ -56,6 +56,26 @@ describe('createPost', () => {
     expect(() =>
       createPost('', image, text).to.throw(Error, 'user id is empty')
     ));
+
+  it('fails on not hex id', () => {
+    const noHexId = '64b10022eec390c63626893z';
+    expect(() =>
+      createPost(noHexId, image, text).to.throw(
+        Error,
+        'user id is not hexagecimal'
+      )
+    );
+  });
+
+  it('fails on not 24 characters id', () => {
+    const no24Id = '64b10022eec';
+    expect(() =>
+      createPost(no24Id, image, text).to.throw(
+        Error,
+        'user id does not have 24 characters'
+      )
+    );
+  });
 
   it('fails on empty image', () =>
     expect(() => createPost(anyId, '', text)).to.throw(

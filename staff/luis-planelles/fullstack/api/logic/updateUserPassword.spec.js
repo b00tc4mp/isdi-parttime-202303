@@ -9,9 +9,7 @@ const { cleanUp, populate, generate } = require('./helpers/tests');
 const { User } = require('../data/models');
 
 describe('updateUserPassword', () => {
-  before(() => {
-    return mongoose.connect(process.env.MONGODB_URL);
-  });
+  before(() => mongoose.connect(process.env.MONGODB_URL));
 
   const anyId = new ObjectId().toString();
 

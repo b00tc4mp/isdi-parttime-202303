@@ -8,9 +8,7 @@ const { cleanUp, populate, generate } = require('./helpers/tests');
 const { User } = require('../data/models');
 
 describe('authenticateUser', () => {
-  before(() => {
-    return mongoose.connect(process.env.MONGODB_URL);
-  });
+  before(() => mongoose.connect(process.env.MONGODB_URL));
 
   let user;
 

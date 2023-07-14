@@ -10,9 +10,7 @@ const { Post } = require('../data/models');
 
 describe('retrievePosts', () => {
   describe('on existing users and posts', () => {
-    before(() => {
-      return mongoose.connect(process.env.MONGODB_URL);
-    });
+    before(() => mongoose.connect(process.env.MONGODB_URL));
 
     const anyId = new ObjectId().toString();
 

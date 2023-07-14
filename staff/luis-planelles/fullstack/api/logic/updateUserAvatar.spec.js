@@ -9,9 +9,7 @@ const { cleanUp, populate, generate } = require('./helpers/tests');
 const { User } = require('../data/models');
 
 describe('updateUserAvatar', () => {
-  before(() => {
-    return mongoose.connect(process.env.MONGODB_URL);
-  });
+  before(() => mongoose.connect(process.env.MONGODB_URL));
 
   const anyId = new ObjectId().toString();
 
@@ -43,7 +41,7 @@ describe('updateUserAvatar', () => {
   it('fails on empty id', () =>
     expect(() => updateUserAvatar('', newAvatar)).to.throw(
       Error,
-      'userId is empty'
+      'user id is empty'
     ));
 
   it('fails on empty avatar', () =>
