@@ -7,7 +7,7 @@ const { User, Post } = require('../data/models')
 module.exports = (userId) => {
   validateId(userId, 'user id')
 
-  return Promise.all([User.findById(userId), Post.find().populate('author', '-favs -__v').lean()])
+  return Promise.all([User.findById(userId), Post.find().sort('-date').populate('author', '-favs -__v').lean()])
     .then(([user, posts]) => {
       if(!user) throw new ExistenceError('User not found.')
 
@@ -24,6 +24,6 @@ module.exports = (userId) => {
         }
       })
 
-      return posts.reverse()
+      return posts
     })
 }

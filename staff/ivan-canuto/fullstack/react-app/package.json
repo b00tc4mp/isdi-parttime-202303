@@ -16,6 +16,7 @@
     "image-compressor": "^2.0.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-router-dom": "^6.14.1",
     "three": "^0.152.2"
   },
   "devDependencies": {

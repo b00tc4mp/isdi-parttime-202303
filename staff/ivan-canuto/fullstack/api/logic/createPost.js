@@ -1,5 +1,5 @@
-const { validators: { validateText, validateUrl, validateId } } = require('com')
 require('dotenv').config()
+const { validators: { validateText, validateUrl, validateId } } = require('com')
 const { errors: { ExistenceError } } = require('com')
 // const { mongoose: { Types: { ObjectId } } } = require('mongoose')
 
@@ -19,8 +19,7 @@ module.exports = (userId, imageUrl, postText) => {
       return Post.create({
         author: user._id,
         image: imageUrl,
-        text: postText,
-        date: date.toLocaleDateString()
+        text: postText
       })
     })
 }

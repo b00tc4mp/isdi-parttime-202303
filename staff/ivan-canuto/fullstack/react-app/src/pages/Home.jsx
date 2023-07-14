@@ -1,46 +1,22 @@
 import { useEffect, useState } from "react"
-import Profile from "../components/ProfileModal"
-import AddPost from "../components/AddPostModal"
-import Posts from "../components/Posts"
-import SideBarMenu from "../components/SideBarMenu"
-import { context } from "../ui"
 import retrieveUser from "../logic/retrieveUser"
-import EditPost from "../components/EditPostModal"
-import Header from "../components/Header"
-import "./pages-styles/Home.css"
 import Context from "../AppContext"
 import { useContext } from "react"
-import VisibilityPost from "../components/VisibilityPostModal"
-import ToggleOnSalePost from "../components/ToggleOnSalePostModal"
-import DeletePost from "../components/DeletePostModal"
-import BuyPost from "../components/BuyPostModal"
-import Button from "../library/Button"
+import { Button } from "../library"
+import { Profile, AddPost, Posts, SideBarMenu, EditPost, Header, VisibilityPost, ToggleOnSalePost, DeletePost, BuyPost } from '../components'
 
-
-export default function Home(props) {
-  const [view, setView] = useState(context.view || "posts")
+export default function Home() {
+  const [view, setView] = useState("posts")
   const [modal, setModal] = useState(null)
   const [menu, setMenu] = useState(false)
   const [openedMenu, setOpenedMenu] = useState(false)
   const [lastPostsUpdate, setLastPostsUpdate] = useState(null)
   const [user, setUser] = useState()
-  const { alert, freeze, unfreeze } = useContext(Context)
+  const { alert, navigate } = useContext(Context)
 
   useEffect(() => {
     try {
-      // retrieveUser(context.token, (error, _user) => {
-      //   unfreeze()
-
-      //   if (error) {
-      //     alert(error.message, 'error')
-      //     console.debug(error.stack)
-      //     return
-      //   }
-
-      //   setUser(_user)
-      // })
-
-      retrieveUser(context.token)
+      retrieveUser()
         .then(setUser)
         .catch(error => {
           alert(error.message, 'error')
@@ -48,7 +24,6 @@ export default function Home(props) {
         })
 
     } catch (error) {
-      unfreeze()
       alert(error.message, 'error')
       console.debug(error.stack)
     }
@@ -69,9 +44,10 @@ export default function Home(props) {
     setModal("profile")
   }
 
-  const handleReturnToLogin = () => {
-    props.onLoggedOut()
-    delete context.token
+  const handleLogout = () => {
+    logoutUser()
+
+    navigate('/login')
   }
 
   const handleToggleMenu = () => {
@@ -115,17 +91,6 @@ export default function Home(props) {
 
   const handleUpdatedAvatar = () => {
     try {
-      // retrieveUser(context.token, (error, user) => {
-      //   if (error) {
-      //     alert(error.message, 'error')
-      //     console.debug(error.stack)
-      //     return
-      //   }
-
-      //   setUser(user)
-      //   setLastPostsUpdate(Date.now())
-      // })
-
       retrieveUser(context.token)
         .then(user => {
           setUser(user)
@@ -175,7 +140,7 @@ export default function Home(props) {
         handleToggleMenu={handleToggleMenu}
         handleReturnToHome={handleReturnToHome}
         handleOpenProfile={handleOpenProfile}
-        handleReturnToLogin={handleReturnToLogin}
+        handleLogout={handleLogout}
       />
 
       <main>

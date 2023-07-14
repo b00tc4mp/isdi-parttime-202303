@@ -1,20 +1,10 @@
 import { registerUser } from "../logic/registerUser"
-import './pages-styles/Register.css'
-import Context from "../AppContext"
-import { useContext } from "react"
-import Form from "../library/Form";
-import Input from "../library/Input";
-import Button from "../library/Button";
-import Container from "../library/Container";
+import { Container, Form, Input, Button } from "../library"
+import { useAppContext } from "../hooks";
+import { Link } from "react-router-dom"
 
-export default function Register ({ onLoginClick, onRegisterUser }) {
-  const { alert, freeze, unfreeze } = useContext(Context)
-
-  const handleOnLogin = (event) => {
-    event.preventDefault()
-
-    onLoginClick()
-  }
+export default function Register () {
+  const { alert, navigate } = useAppContext()
 
   const handleRegisterIn = (event) => {
     event.preventDefault()
@@ -24,23 +14,12 @@ export default function Register ({ onLoginClick, onRegisterUser }) {
     const password = event.target.password.value
 
     try {
-      // registerUser(name, email, password, (error)=> {
-      //   if(error) {
-      //     alert(error.message, 'error')
-      //     console.debug(error.stack)
-      //     return
-      //   }
-          
-      //     onRegisterUser()
-      // })
-
       registerUser(name, email, password)
-        .then(() => onRegisterUser())
+        .then(() => navigate('/login'))
         .catch(error => {
           alert(error.message, 'error')
           console.debug(error.stack)
         })
-
     } catch (error) {
       alert(error.message, 'error')
       console.debug(error.stack);
@@ -58,7 +37,7 @@ export default function Register ({ onLoginClick, onRegisterUser }) {
           <Button type="submit">Register</Button>
       </Form>
 
-      <p className="text-black">Go to <a className="bg-gray-200 hover:bg-gray-300 px-1 rounded cursor-pointer" onClick={handleOnLogin}>Login</a></p>
+      <p className="text-black">Go to <Link to="/Login" className="bg-gray-200 hover:bg-gray-300 px-1 rounded cursor-pointer">Login</Link></p>
     </Container>
   </>
 }

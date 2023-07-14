@@ -1,5 +1,4 @@
 const mongoose = require('mongoose')
-
 const { Schema, mongoose: { Types: { ObjectId } }, model } = mongoose
 
 const user = new Schema({
@@ -29,6 +28,21 @@ const user = new Schema({
   }
 })
 
+const comment = new Schema({
+  author: {
+    type: String,
+    required: true
+  },
+  authorId: {
+    type: ObjectId,
+    required: true
+  },
+  text: {
+    type: String,
+    required: true
+  }
+})
+
 const post = new Schema({
   author: {
     type: ObjectId,
@@ -45,7 +59,8 @@ const post = new Schema({
   },
   date: {
     type: Date,
-    required: true
+    required: true,
+    default: Date.now
   },
   likes: {
     type: [ObjectId],
@@ -66,34 +81,17 @@ const post = new Schema({
     default: null
   },
   comments: {
-    type: [
-        {
-        id: {
-          type: String,
-          required: true
-        },
-        author: {
-          type: String,
-          required: true
-        },
-        authorId: {
-          type: mongoose.Schema.Types.ObjectId,
-          required: true
-        },
-        text: {
-          type: String,
-          required: true
-        }
-      }
-    ],
+    type: [comment],
     default: []
   }
 })
 
 const User = model('User', user)
 const Post = model('Post', post)
+const Comment = model('Comment', comment)
 
 module.exports = {
   User,
-  Post
+  Post,
+  Comment
 }

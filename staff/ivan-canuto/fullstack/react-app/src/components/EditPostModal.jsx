@@ -1,4 +1,3 @@
-import { context } from "../ui"
 import { updatePost } from "../logic/updatePost"
 import retrievePost from "../logic/retrievePost"
 import { useEffect, useState } from "react"
@@ -7,6 +6,7 @@ import Button from "../library/Button";
 import Input from "../library/Input";
 import Form from "../library/Form"
 import { useAppContext } from "../hooks"
+import { context } from "../ui"
 
 export default function EditPost({ onCancel, onUpdatedPost }) {
   const { alert, freeze, unfreeze } = useAppContext()
@@ -20,18 +20,7 @@ export default function EditPost({ onCancel, onUpdatedPost }) {
     const text = event.target.postText.value
 
     try {
-      // updatePost(context.token, context.postId, imageUrl, text, (error) => {
-      //   if(error) {
-      //     alert(error.message, 'error')
-      //     console.debug(error.stack)
-
-      //     return
-      //   }
-        
-      //   onUpdatedPost()
-      // })
-
-      updatePost(context.token, context.postId, imageUrl, text)
+      updatePost(context.postId, imageUrl, text)
         .then(() => onUpdatedPost())
         .catch(error => {
           alert(error.message, 'error')
@@ -48,32 +37,23 @@ export default function EditPost({ onCancel, onUpdatedPost }) {
     try {
       freeze()
 
-      // retrievePost(context.token, context.postId, (error, _post) => {
-      //   unfreeze()
-
-      //   if(error) {
-      //     alert(error.message, 'error')
-      //     console.debug(error.stack)
-          
-      //     return
-      //   }
-      //   setPost(_post)
-      // })
-
-      retrievePost(context.token, context.postId)
+      retrievePost(context.postId)
         .then(_post => {
           unfreeze()
+          
           console.log(_post)
           setPost(_post)
         })
         .catch(error => {
           unfreeze()
+
           alert(error.message, 'error')
           console.debug(error.stack)
         })
       
     } catch (error) {
       unfreeze()
+
       alert(error.message, 'error')
       console.log(error.stack);
     }

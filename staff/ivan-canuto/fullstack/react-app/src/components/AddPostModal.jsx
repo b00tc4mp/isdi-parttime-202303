@@ -1,5 +1,4 @@
 import { createPost } from "../logic/createPost";
-import { context } from "../ui";
 import { useState } from "react";
 import { ImageCompressor } from 'image-compressor'
 import Form from "../library/Form";
@@ -9,7 +8,7 @@ import Button from "../library/Button";
 import { useAppContext } from "../hooks"
 
 export default function AddPost({ onCancel, onCreatedPost }) {
-  const { alert, freeze, unfreeze } = useAppContext()
+  const { alert } = useAppContext()
   const [image, setImage] = useState()
   const [selectedImage, setSelectedImage] = useState()
 
@@ -32,22 +31,8 @@ export default function AddPost({ onCancel, onCreatedPost }) {
     if(imageUrl && !selectedImage) image = imageUrl
     if(selectedImage && !imageUrl) image = selectedImage
 
-    try {
-      // createPost(context.token, image, text, (error) => {
-      //   unfreeze()
-
-      //   if (error) {
-      //     alert(error.message, 'error')
-      //     console.debug(error.stack)
-
-      //     return
-      //   }
-        
-      //   onCreatedPost()
-      //   window.scrollTo({ top: 0, behavior: 'smooth' });
-      // })
-      
-      createPost(context.token, image, text)
+    try {      
+      createPost(image, text)
       .then(() => {
         onCreatedPost()
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -58,7 +43,6 @@ export default function AddPost({ onCancel, onCreatedPost }) {
       })
 
     } catch (error) {
-      unfreeze()
       alert(error.message, 'error')
       console.debug(error);
     }

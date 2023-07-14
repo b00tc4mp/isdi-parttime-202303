@@ -1,23 +1,13 @@
-import authenticateUser from "../logic/authenticateUser"
-import { context } from "../ui"
-import './pages-styles/Login.css'
-import Context from "../AppContext"
-import { useContext, useEffect, useState } from "react"
+import authenticateUser from "../logic/loginUser"
+import { useEffect, useState } from "react"
 import retrireveRandomMotivationalQuote from "../logic/retrieveRandomMotivationalQuote"
-import Form from "../library/Form"
-import Input from "../library/Input"
-import Button from "../library/Button"
-import Container from "../library/Container"
+import { useAppContext } from "../hooks"
+import { Container, Form, Input, Button } from "../library"
+import { Link } from "react-router-dom"
 
-export default function Login ({ onRegisterClick, onLoggedInUser }) {
-  const { alert, freeze, unfreeze } = useContext(Context)
+export default function Login () {
+  const { alert, freeze, unfreeze, navigate } = useAppContext()
   const [quote, setQuote] = useState()
-
-  const handleRegisterClick = (event) => {
-    event.preventDefault()
-
-    onRegisterClick()
-  }
 
   const handleLogin = (event) => {
     event.preventDefault()
@@ -26,23 +16,8 @@ export default function Login ({ onRegisterClick, onLoggedInUser }) {
     const password = event.target.password.value
 
     try {
-      // authenticateUser(email, password, (error, token) => {
-      //   if(error) {
-      //     alert(error.message, 'error')
-      //     console.debug(error.stack)
-      //     return
-      //   }
-
-      //   context.token = token
-        
-      //   onLoggedInUser()
-      // })
-
       authenticateUser(email, password)
-        .then(token => {
-          context.token = token
-          onLoggedInUser()
-        })
+        .then(() => navigate('/'))
         .catch(error => {
           console.log(error.message)
           alert(error.message, 'error')
@@ -59,20 +34,21 @@ export default function Login ({ onRegisterClick, onLoggedInUser }) {
     try {
       freeze()
 
-      retrireveRandomMotivationalQuote((error, newQuote) => {
+      retrireveRandomMotivationalQuote()
+      .then(quote => {
         unfreeze()
         
-        if(error) {
-          alert(error.message, 'error')
-          console.log(error.stack)
-          
-          return
-        }
+        setQuote(quote.content)
+      })
+      .catch(error => {
+        unfreeze()
         
-        setQuote(newQuote)
+        alert(error.message, 'error')
+        console.log(error.stack)
       })
     } catch (error) {
       unfreeze()
+
       alert(error.message, 'error')
       console.log(error.stack)
     }
@@ -91,6 +67,6 @@ export default function Login ({ onRegisterClick, onLoggedInUser }) {
       <Button type="submit">Login</Button>
   </Form>
 
-  <p className="text-black">Go to <a className="bg-gray-200 hover:bg-gray-300 rounded cursor-pointer" onClick={handleRegisterClick}>Register</a></p>
+  <p className="text-black">Go to <Link to="/register" className="bg-gray-200 hover:bg-gray-300 rounded cursor-pointer" >Register</Link></p>
 </Container>
 }

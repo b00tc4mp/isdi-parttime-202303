@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react"
-import { context } from "../ui"
 import setPostPrice from "../logic/setPostPrice"
 import unsetPostPrice from "../logic/unsetPostPrice"
 import ModalContainer from "../library/ModalContainer"
@@ -19,18 +18,7 @@ export default function ToggleOnSalePost({ onToggledOnSalePost, onCancel }) {
     try {
       freeze()
 
-      // retrievePost(context.token, context.postId, (error, post) => {
-      //   unfreeze()
-        
-      //   if(error) {
-      //     alert(error.message, 'error')
-      //     console.debug(error.stack)
-      //   }
-
-      //   setOnSale(post.onSale)
-      // })
-
-      retrievePost(context.token, context.postId)
+      retrievePost(context.postId)
         .then(post => {
           unfreeze()
           setOnSale(post.onSale)
@@ -55,18 +43,7 @@ export default function ToggleOnSalePost({ onToggledOnSalePost, onCancel }) {
     const pricePost = event.target.pricePost.value
 
     try {
-      // setPostPrice(context.token, context.postId, pricePost, error => {
-      //   if(error) {
-      //     alert(error.message, 'error')
-      //     console.log(error.stack)
-          
-      //     return
-      //   }
-        
-      //   onToggledOnSalePost()
-      // })
-
-      setPostPrice(context.token, context.postId, pricePost)
+      setPostPrice(context.postId, pricePost)
         .then(() => onToggledOnSalePost())
         .catch(error => {
           alert(error.message, 'error')
@@ -81,18 +58,7 @@ export default function ToggleOnSalePost({ onToggledOnSalePost, onCancel }) {
 
   const handleUnsetPostPrice = () => {
     try {
-      // unsetPostPrice(context.token, context.postId, error => {
-      //   if(error) {
-      //     alert(error.message, 'error')
-      //     console.log(error.stack)
-          
-      //     return
-      //   }
-        
-      //   onToggledOnSalePost()
-      // })
-
-      unsetPostPrice(context.token, context.postId)
+      unsetPostPrice(context.postId)
         .then(() => onToggledOnSalePost())
         .catch(error => {
           alert(error.message, 'error')

@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react"
-import { context } from "../ui"
 import ModalContainer from "../library/ModalContainer"
 import toggleVisibilityPost from "../logic/toggleVisibilityPost"
 import ModalWindow from "../library/ModalWindow"
@@ -15,20 +14,7 @@ export default function VisibilityPost({ onChangedVisibility, onCancel }) {
     try {
       freeze()
 
-      // retrievePost(context.token, context.postId, (error, post) => {
-      //   unfreeze()
-  
-      //   if (error) {
-      //     alert(error.message, 'error')
-      //     console.log(error.stack)
-          
-      //     return
-      //   }
-        
-      //   setVisible(post.visible)
-      // })
-
-      retrievePost(context.token, context.postId)
+      retrievePost(context.postId)
         .then(post => {
           unfreeze()
           setVisible(post.visible)
@@ -48,18 +34,7 @@ export default function VisibilityPost({ onChangedVisibility, onCancel }) {
 
   const handleToggleVisibility = () => {
     try {
-      // toggleVisibilityPost(context.token, context.postId, error => {
-      //   if (error) {
-      //     alert(error.message, 'error')
-      //     console.log(error.stack)
-          
-      //     return
-      //   }
-      //   setVisible(!visible)
-      //   onChangedVisibility()
-      // })
-
-      toggleVisibilityPost(context.token, context.postId)
+      toggleVisibilityPost(context.postId)
         .then(() => {
           setVisible(!visible)
           onChangedVisibility()
@@ -75,7 +50,6 @@ export default function VisibilityPost({ onChangedVisibility, onCancel }) {
     }
   }
   
-
   return <>
   <ModalContainer onClick={(event) => {
     if(event.target === document.querySelector('.ModalContainer'))

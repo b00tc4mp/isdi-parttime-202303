@@ -1,4 +1,3 @@
-import { context } from "../ui"
 import updateUserPassword from "../logic/updateUserPassword"
 import updateUserAvatar from "../logic/updateUserAvatar"
 import ModalContainer from "../library/ModalContainer"
@@ -23,24 +22,26 @@ export default function Profile({ onCancel, onUpdatedAvatar}) {
     try {
       freeze()
 
-      updateUserAvatar(context.token, avatarUrl, password, (error) => {
-        unfreeze()
+      updateUserAvatar(avatarUrl, password)
+        .then(() => {
+          unfreeze()
 
-        if(error) {
-          alert(error.message, 'error')
+          alert('Avatar changed successfully.')
+          onUpdatedAvatar()
+          closeProfile()
+        })
+        .catch(error => {
+          unfreeze()
 
-          return
-        }
-        
-        alert('Avatar changed successfully.')
-        onUpdatedAvatar()
-        closeProfile()
-      })
+          alert(error, 'error')
+          console.debug(error.stack)
+        })
 
     } catch (error) {
       unfreeze()
-      alert(error.message, 'error')
-      console.debug(error.stack);
+
+      alert(error, 'error')
+      console.debug(error.stack)
     }
   }
 
@@ -52,19 +53,7 @@ export default function Profile({ onCancel, onUpdatedAvatar}) {
     const newPasswordConfirm = event.target.newPasswordConfirm.value
 
     try {
-      // updateUserPassword(context.token, password, newPassword, newPasswordConfirm, (error) => {
-      //   if(error) {
-      //     alert(error.message, 'error')
-      //     console.debug(error.stack);
-
-      //     return
-      //   }
-        
-      //   alert('Password changed successfully.')
-      //   closeProfile()
-      // })
-
-      updateUserPassword(context.token, password, newPassword, newPasswordConfirm)
+      updateUserPassword(password, newPassword, newPasswordConfirm)
         .then(() => {
           alert('Password changed successfully.')
           closeProfile()

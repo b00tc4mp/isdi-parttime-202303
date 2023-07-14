@@ -1,13 +1,10 @@
-import { retrievePosts } from "../logic/retrievePosts";
+import retrievePosts from "../logic/retrievePosts";
 import Post from "./Post";
-import { context } from "../ui";
 import { useState, useEffect } from "react";
-import { retrieveSavedPosts } from "../logic/retrieveSavedPosts";
-import { retrieveUserPosts } from "../logic/retrieveUserPosts";
+import retrieveSavedPosts from "../logic/retrieveSavedPosts";
+import retrieveUserPosts from "../logic/retrieveUserPosts";
 import { useAppContext } from "../hooks"
-import { utils } from "com";
-
-const { extractSubFromToken } = utils
+import getUserId from "../logic/getUserId"
 
 export default function Posts({ lastPostsUpdate, view, handleOpenBuyPost, handleOpenEditPost, handleOpenDeletePost, handleToggleVisibility, handleToggleOnSalePost }) {
   const { alert, freeze, unfreeze } = useAppContext()
@@ -21,105 +18,54 @@ export default function Posts({ lastPostsUpdate, view, handleOpenBuyPost, handle
       freeze()
 
       if(view === 'posts') {
-        // retrievePosts(context.token, (error, _posts) => {
-        //   if (error) {
-        //     alert(error.message, 'error')
-        //     console.debug(error)
-            
-        //     return
-        //   }
-        //   console.debug('Postsss -> render')
-          
-        //   setPosts(_posts)
-        // })
-
-        retrievePosts(context.token)
+        retrievePosts()
           .then(_posts => {
-            unfreeze()
             console.debug('Postsss -> render')
             
             setPosts(_posts)
           })
           .catch(error => {
-            unfreeze()
-
             alert(error, 'error')
             console.debug(error)
           })
+          .finally(unfreeze)
       }
       
       else if(view === 'savedPosts') {
-        // retrieveSavedPosts(context.token, (error, _posts) => {
-        //   if (error) {
-        //     alert(error, 'error')
-        //     console.debug(error)
-            
-        //     return
-        //   }
-        //   console.debug('Saved postsss -> render')
-
-        //   setPosts(_posts)
-        // })
-
-        retrieveSavedPosts(context.token)
+        retrieveSavedPosts()
           .then(_posts => {
-            unfreeze()
             console.debug('Saved postsss -> render')
 
             setPosts(_posts)
           })
           .catch(error => {
-            unfreeze()
-
             alert(error, 'error')
             console.debug(error)
           })
+          .finally(unfreeze)
       }
 
       else if(view === 'userPosts') {
-        // retrieveUserPosts(context.token, (error, _posts) => {
-        //   unfreeze()
-
-        //   if (error) {
-        //     alert(error, 'error')
-        //     console.debug(error)
-            
-        //     return
-        //   }
-        //   console.debug('Own postsss -> render')
-          
-        //   setPosts(_posts)
-        // })
-
-        retrieveUserPosts(context.token)
+        retrieveUserPosts()
           .then(_posts => {
-            unfreeze()
             console.debug('Own postsss -> render')
             
             setPosts(_posts)
           })
           .catch(error => {
-            unfreeze()
-
             alert(error, 'error')
             console.debug(error)
           })
+          .finally(unfreeze)
       }
-
     } catch(error) {
       unfreeze()
-
+      
       alert(error, 'error')
       console.debug(error)
     }
-  } 
+  }
   
-  useEffect(() => {
-    console.debug('Posts -> "ComponentDidMount" with hooks.');
-
-    return () => console.debug('Posts -> "ComponentWillUnmount" with hooks.');
-  }, [])
-
   useEffect(() => {
     console.debug('Posts -> "ComponentWillRecieveProps" with hooks.');
 
@@ -130,7 +76,7 @@ export default function Posts({ lastPostsUpdate, view, handleOpenBuyPost, handle
   }, [lastPostsUpdate])
 
   return <section className="pt-20 pb-32 flex flex-col items-center gap-6">
-    {posts && posts.map(post => ((post.author.id !== extractSubFromToken(context.token)) && !post.visible) ? '' : <Post
+    {posts && posts.map(post => (post.author.id === getUserId() && !post.visible) ? '' : <Post
       key={post.id.toString()}
       post={post}
       handleRefreshPosts={handleRefreshPosts}

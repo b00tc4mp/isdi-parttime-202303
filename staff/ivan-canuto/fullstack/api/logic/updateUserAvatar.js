@@ -1,9 +1,9 @@
+require('dotenv').config()
 const {
   validators: { validateId, validateUrl, validatePassword },
   errors: { ExistenceError }
 } = require('com')
-require('dotenv').config()
-const { User, Post } = require('../data/models')
+const { User } = require('../data/models')
 
 module.exports = (userId, newAvatarUrl, password) => {
   validateId(userId, 'user id')

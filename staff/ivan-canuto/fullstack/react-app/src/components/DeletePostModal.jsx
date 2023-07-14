@@ -1,32 +1,22 @@
 import deletePost from "../logic/deletePost"
-import { context } from "../ui"
 import ModalContainer from "../library/ModalContainer"
 import ModalWindow from "../library/ModalWindow"
 import Button from "../library/Button";
 import { useAppContext } from "../hooks"
+import { context } from "../ui"
 
 export default function DeletePost({ onDeletedPost, onCancel }) {
-  const { alert, freeze, unfreeze } = useAppContext()
+  const { alert } = useAppContext()
 
   const handleDeletePost = () => {
     try {
-      // deletePost(context.token, context.postId, error => {
-      //   if (error) {
-      //   alert(error.message, 'error')
-      //   console.log(error.stack)
-
-      //     return
-      //   }
-      
-      //   onDeletedPost()
-      // })
-
-      deletePost(context.token, context.postId)
+      deletePost(context.postId)
         .then(() => onDeletedPost())
         .catch(error => {
           alert(error.message, 'error')
           console.log(error.stack)
         })
+
     } catch (error) {
       alert(error.message, 'error')
       console.log(error.stack);

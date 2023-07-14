@@ -1,17 +1,18 @@
 import createComment from "../logic/createComment"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import deleteComment from "../logic/deleteComment"
 import Comment from "./Comment"
-import { context } from "../ui"
-import Button from "../library/Button";
-import Form from "../library/Form";
+import Button from "../library/Button"
+import Form from "../library/Form"
 import ModalContainer from "../library/ModalContainer"
 import { useAppContext } from "../hooks"
+import retrieveUser from "../logic/retrieveUser"
 
 export default function Comments({ onCloseCommentModal, handleRefreshPosts, post }) {
-  const { alert, freeze, unfreeze } = useAppContext()
+  const { alert } = useAppContext()
 
   const [addComment, setAddComment] = useState(false)
+  const [user, setUser] = useState()
 
   const handleCloseCommentModal = () => {
     onCloseCommentModal()
@@ -22,24 +23,28 @@ export default function Comments({ onCloseCommentModal, handleRefreshPosts, post
     document.body.classList.toggle('fixed-scroll')
   }
 
+  useEffect(() => {
+    try {
+      retrieveUser()
+        .then(setUser)
+        .catch(error => {
+          alert(error.message)
+          console.debug(error.stack)
+        })
+
+    } catch (error) {
+      alert(error.message)
+      console.debug(error.stack)
+    }
+  }, [])
+
   function handleCreateComment(event) {
     event.preventDefault()
 
     const commentText = event.target.commentText.value
 
     try {
-      // createComment(context.token, post.id, commentText, (error) => {
-      //   if(error) {
-      //     alert(error.message, 'error')
-      //     console.debug(error.stack)
-
-      //     return
-      //   }
-      //   toggleAddComment()
-      //   handleRefreshPosts()
-      // })
-
-      createComment(context.token, post.id, commentText)
+      createComment(post.id, commentText)
         .then(() => {
           toggleAddComment()
           handleRefreshPosts()
@@ -57,18 +62,7 @@ export default function Comments({ onCloseCommentModal, handleRefreshPosts, post
   
   const handleDeleteComment = (commentId) => {
     try{
-      // deleteComment(context.token, post.id, commentId, (error) => {
-      //   if (error) {
-      //     alert(error.message, 'error')
-      //     console.debug(error.stack)
-
-      //     return
-      //   }
-        
-      //   handleRefreshPosts()
-      // })
-
-      deleteComment(context.token, post.id, commentId)
+      deleteComment(post.id, commentId)
         .then(() => handleRefreshPosts())
         .catch(error => {
           alert(error.message, 'error')
@@ -95,10 +89,12 @@ export default function Comments({ onCloseCommentModal, handleRefreshPosts, post
 
       <div className="flex flex-col justify-between h-full w-full">
         <div className="flex flex-col overflow-hidden">
-          {post.comments && post.comments.map(comment => <Comment
+          {user && post.comments && post.comments.map(comment => <Comment
             key={comment.id}
             comment={comment}
-            handleDeleteComment={handleDeleteComment}/>
+            handleDeleteComment={handleDeleteComment}
+            user={user}
+          />
           )}
         </div>
         <div className="w-full flex justify-center">

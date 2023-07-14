@@ -1,68 +1,29 @@
 import { validators } from 'com'
+import context from './context'
 
-const { validateToken, validateUrl, validateText, validateCallback } = validators
+const { validateUrl, validateText } = validators
 
 /**
- * Creates a post by reciving the user's id, an image provided with an url or selected from the own ones (only one can be used), and a text.
+ * Creates a post by reciving the user's id, and an image provided with an url or selected from the own ones (only one can be used).
  * 
- * @param {string} token The user's id token.
- * @param {string} imageUrl The url of the post's image.
- * @param {image} selectedImage The image selected.
+ * @param {string} image The image of the post.
  * @param {string} postText The description of the post.
- * @param {function} callBack A function to catch errors and display them to the user.
  */
 
-export const createPost = (token, imageUrl, postText, callBack) => {
-  validateToken(token, 'user id token')
+export const createPost = (imageUrl, postText) => {
   validateUrl(imageUrl)
   validateText(postText)
 
-  if(callBack) {
-    validateCallback(callBack)
-  
-    const xhr = new XMLHttpRequest
-
-    xhr.onload = () => {
-      const { status } = xhr
-
-      if(status !== 200) {
-        const { response: json } = xhr
-        console.log(json)
-        const { error } = JSON.parse(json)
-        callBack(new Error(error))
-
-        return
-      }
-
-      callBack(null)
-    }
-    
-    xhr.onerror = () => {
-      callBack(new Error('Connection error.'))
-    }
-    
-    xhr.open('POST', `${import.meta.env.VITE_API_URL}/users/newPost`)
-    
-    xhr.setRequestHeader('Content-Type', 'application/json')
-    xhr.setRequestHeader('Authorization', `Bearer ${token}`)
-
-    const post = { imageUrl, postText }
-    const json = JSON.stringify(post)
-
-    xhr.send(json)
-    
-  } else {
-    return fetch(`${import.meta.env.VITE_API_URL}/users/newPost`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-      },
-      body: JSON.stringify({ imageUrl, postText })
-    })
-    .then(res => {
-      if(res.status !== 200)
-        return res.json().then(({ error: message }) => { throw new Error(message) })
-    })
-  }
+  return fetch(`${import.meta.env.VITE_API_URL}/users/newPost`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${context.token}`
+    },
+    body: JSON.stringify({ imageUrl, postText })
+  })
+  .then(res => {
+    if(res.status !== 200)
+      return res.json().then(({ error: message }) => { throw new Error(message) })
+  })
 }

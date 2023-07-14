@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react"
-import { context } from "../ui"
 import toggleLikePost from "../logic/toggleLikePost"
 import toggleSavePost from "../logic/toggleSavePost"
 import Comments from "./Comments"
@@ -7,9 +6,7 @@ import ContextualMenu from "./ContextualMenuModal"
 import Button from "../library/Button";
 import { useAppContext } from "../hooks"
 import retrieveUser from "../logic/retrieveUser"
-import { utils } from "com"
-
-const { extractSubFromToken } = utils
+import { context } from '../ui'
 
 export default function Post({post, handleRefreshPosts, handleOpenEditPost, handleOpenDeletePost, handleToggleVisibility, handleToggleOnSalePost, handleOpenBuyPost }) {
   
@@ -27,19 +24,10 @@ export default function Post({post, handleRefreshPosts, handleOpenEditPost, hand
 
   const handleRefreshUser = () => {
     try {
-      //   retrieveUser(context.token, (error, _user) => {
-      //   if(error) {
-      //     alert(error.message)
-      //     console.debug(error.stack)
-
-      //     return
-      //   }
-
-      //   setUser(_user)
-      // })
-
-      retrieveUser(context.token)
-        .then(setUser)
+      retrieveUser()
+        .then(user => {
+          setUser(user)}
+        )
         .catch(error => {
           alert(error.message)
           console.debug(error.stack)
@@ -49,28 +37,15 @@ export default function Post({post, handleRefreshPosts, handleOpenEditPost, hand
       alert(error.message)
       console.debug(error.stack)
     }
-    
   }
 
   useEffect(() => {
     handleRefreshUser()
   }, [])
-  
 
   const handleToggleLike = () => {
     try {
-      // toggleLikePost(context.token, id, (error) => {
-      //   if (error) {
-      //     alert(error.message)
-      //     console.debug(error.stack)
-
-      //     return
-      //   }
-        
-      //   handleRefreshPosts()
-      // })
-
-      toggleLikePost(context.token, id)
+      toggleLikePost(id)
         .then(() => handleRefreshPosts())
         .catch(error => {
           alert(error.message)
@@ -85,19 +60,7 @@ export default function Post({post, handleRefreshPosts, handleOpenEditPost, hand
 
   const handleToggleFav = () => {
     try {
-      // toggleSavePost(context.token, id, (error) => {
-      //   if (error) {
-      //     alert(error.message)
-      //     console.debug(error.stack)
-
-      //     return
-      //   }
-        
-      //   handleRefreshPosts()
-      //   handleRefreshUser()
-      // })
-
-      toggleSavePost(context.token, id)
+      toggleSavePost(id)
         .then(() => {
           handleRefreshPosts()
           handleRefreshUser()
@@ -123,14 +86,14 @@ export default function Post({post, handleRefreshPosts, handleOpenEditPost, hand
   }
 
   const toggleContextualMenu = () => {
-    context.postId = id.toString()
+    context.postId = id
     document.body.classList.toggle('fixed-scroll')
     setContextualMenu(contextualMenu === 'close' ? 'open' : 'close')
   }
 
   console.debug('Post -> render')
 
-    return <>
+  return <>
     <article className="bg-gray-100 h-96 w-96 text-black rounded-md p-2 flex flex-col items-center overflow-auto pb-6" id={id.toString()} onScroll={handlePostScroll}>
 
       {contextualMenu === 'open' &&  <ContextualMenu
@@ -151,7 +114,7 @@ export default function Post({post, handleRefreshPosts, handleOpenEditPost, hand
           </div>
           
           <div className="flex items-center">
-            {(author.id === extractSubFromToken(context.token)) && <>
+            {user && (author.id === user.id) && <>
               <p className="mx-1">{visible ? 'Public' : 'Private'}</p>
               {(onSale && onSale !== 'Sold') && <>
                 <div className="bg-gray-300 p-1 rounded mx-2 flex"> 
@@ -168,7 +131,7 @@ export default function Post({post, handleRefreshPosts, handleOpenEditPost, hand
               <span className="material-symbols-outlined hover:bg-gray-300 cursor-pointer font-black" onClick={toggleContextualMenu}>more_vert</span>
             </>}
             
-            {(author.id !== extractSubFromToken(context.token) && onSale) &&
+            {user && (author.id !== user.id && onSale) &&
               <div className="h-8 bg-gray-300 rounded mx-1" title="Post on sale" onClick={() => {
                 if(onSale !== 'Sold') {
                   context.postId = id

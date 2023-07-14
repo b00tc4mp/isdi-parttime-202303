@@ -18,7 +18,7 @@ module.exports = (userId, postId, commentId) => {
 
       return Post.updateOne(
         { _id: postId },
-        { $pull: { comments: { id: commentId }}}
+        { $pull: { comments: { _id: commentId }}}
       )
     })
 }

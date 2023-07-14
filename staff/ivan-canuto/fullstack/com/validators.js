@@ -25,9 +25,17 @@ function validateUrl(newUrl, explanation = 'url') {
   if (!correctUrl.test(newUrl)) throw new ContentError(`The url entered does not includes a .jpg/.jpg/.webp/.png extension.`)
 }
 
+const HEX_DICTIONARY = '0123456789abcdef'
+
 function validateId(id, explanation = 'id') {
   if (typeof id !=='string') throw new TypeError(`The ${explanation} is not a string.`)
-  if (!id.trim().length) throw new ContentError(`The ${explanation} field is empty.`)
+  if (id.trim().length !== 24) throw new ContentError(`The ${explanation} does not have 24 characters.`)
+  
+  for(let i = 0; i < id.length; i++) {
+    const char = id[i]
+    
+    if(!HEX_DICTIONARY.includes(char)) throw new ContentErrorError(`The ${explanation} is not hexadecimal.`)
+  }
 }
 
 function validateText(text, explanation = 'text') {

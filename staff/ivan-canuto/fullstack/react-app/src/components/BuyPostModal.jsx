@@ -1,4 +1,3 @@
-import { context } from "../ui"
 import buyPost from "../logic/buyPost"
 import { useEffect, useState } from "react"
 import ModalContainer from "../library/ModalContainer"
@@ -14,37 +13,33 @@ export default function BuyPost({ onBoughtPost, onCancel }) {
 
   useEffect(() => {
     freeze()
-    
-    retrievePost(context.token, context.postId, (error, post) => {
-      unfreeze()
-      
-      if(error) {
-        alert(error.message, 'error')
-        console.debug(error.stack)
 
-        return
-      }
-      
-      setPost(post)
-    })
+    try {
+      retrievePost(postId)
+        .then(post => {
+          unfreeze()
+          
+          setPost(post)
+        })
+        .catch(error => {
+          unfreeze()
+
+          alert(error.message, 'error')
+          console.debug(error.stack)
+        })      
+    } catch (error) {
+      unfreeze()
+
+      alert(error.message, 'error')
+      console.debug(error.stack)
+    }
   }, [])
 
   const handleBuyPost = (event) => {
     event.preventDefault()
 
     try {
-      // buyPost(context.token, post.id, (error) => {
-      //   if (error) {
-      //     alert(error.message, 'error')
-      //     console.debug(error.stack)
-
-      //     return
-      //   }
-  
-      //   onBoughtPost()
-      // })
-
-      buyPost(context.token, post.id)
+      buyPost(post.id)
         .then(() => onBoughtPost())
         .catch(error => {
           alert(error.message, 'error')
