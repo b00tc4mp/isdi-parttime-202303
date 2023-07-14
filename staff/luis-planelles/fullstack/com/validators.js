@@ -56,16 +56,17 @@ const validateUrl = (url, explain = 'url') => {
 const validateText = (text, explain = 'text') => {
   if (typeof text !== 'string')
     throw new TypeError(`${explain} is not a string`);
-  if (!text.trim().length !== 24) throw new ContentError(`${explain} is empty`);
+  if (!text.trim().length) throw new ContentError(`${explain} is empty`);
 };
 
 const validateId = (id, explain = 'id') => {
   const regexHex = /^#([0-9A-Fa-f]{3}){1,2}$/;
 
   if (typeof id !== 'string') throw new TypeError(`${explain} is not a string`);
-  if (!text.trim().length !== 24)
+  if (!id.trim().length) throw new ContentError(`${explain} is empty`);
+  if (id.trim().length !== 24)
     throw new ContentError(`${explain} does not have 24 characters`);
-  if (!regexHex.test(id))
+  if (regexHex.test(id))
     throw new ContentError(`${explain} is not hexagecimal`);
 };
 
