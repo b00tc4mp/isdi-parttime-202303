@@ -1,26 +1,9 @@
 const { updateUserEmail } = require('../logic')
-const { extractUserId } = require('./helpers')
+const { extractUserId, handleErrors } = require('./helpers')
 
-const jwt = require('jsonwebtoken')
+module.exports = handleErrors((req, res) => {
+    const userId = extractUserId(req)
+    const { Email, newEmail, newEmailConfirm } = req.body
 
-module.exports = (req, res) => {
-    try {
-        const userId = extractUserId(req)
-
-        const { newEmail, newEmailConfirm } = req.body
-
-
-        updateUserEmail(userId, newEmail, newEmailConfirm, error => {
-            if (error) {
-                res.status(400).json({ error: error.message })
-
-                return
-            }
-            res.status(204).send()
-        })
-
-    } catch (error) {
-        res.status(400).json({ error: error.message })
-    }
-
-}
+    return updateUserEmail(userId, newEmail, newEmailConfirm).then(() => res.status(201).send())
+})

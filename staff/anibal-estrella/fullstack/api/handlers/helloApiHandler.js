@@ -1,3 +1,6 @@
-const jwt = require('jsonwebtoken')
+module.exports = (req, res) => {
 
-module.exports = (req, res) => res.send('Hello, API!')
+    res.send(`hello api!`).then(() => res.status(200).send())
+
+    return
+}

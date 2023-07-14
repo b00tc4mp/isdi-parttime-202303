@@ -1,43 +1,74 @@
 import { validators } from 'com'
-const { validateId, validatePassword, validateCallback } = validators
-
-import { findUserById, saveUser } from "../data"
+const { validateToken, validatePassword, validateCallback } = validators
 
 /**
- * Updates user's password in database
- *
- * @param {string} userId The user's ID
- * @param {string} password The user's current password
- * @param {string} newPassword The user's new password
- * @param {string} newPasswordConfirm The user's new password
+ * 
  */
 
-export default (userId, password, newPassword, newPasswordConfirm, callback) => {
-    validateId(userId, 'user id')
+export default (token, password, newPassword, newPasswordConfirm, callback) => {
+    validateToken(token)
     validatePassword(password, 'password')
+    validatePassword(newPassword, 'password')
+    validatePassword(newPasswordConfirm, 'password')
 
-    if (newPassword === password) throw new Error('your new password match the old password, please try another')
+    if (callback) {
+        validateCallback(callback, 'callback function')
 
-    validatePassword(newPassword, 'new password confirmation')
-    if (newPassword !== newPasswordConfirm) throw new Error('your new passwords don\'t match the confirmation')
+        const xhr = new XMLHttpRequest()
 
-    validateCallback(callback, 'callback function')
+        xhr.onload = () => {
+            const { status } = xhr
 
-    findUserById(userId, user => {
-        if (!user) {
-            callback(new Error('user not found'))
+            if (status !== 201) {
+                const { response: json } = xhr
+                const { error } = JSON.parse(json)
 
-            return
+                callback(new Error(error))
+
+                return
+            }
+            callback(null)
         }
 
-        if (password !== user.password) {
-            callback(new Error('wrong password', { cause: 'userError' }))
-
-            return
+        xhr.onerror = () => {
+            callback(new Error('connection error'))
         }
 
-        user.password = newPassword
+        xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/users/password`)
 
-        saveUser(user, () => callback(null))
+        xhr.setRequestHeader('Content-Type', 'application/json')
+        xhr.setRequestHeader('Authorization', `Bearer ${token}`)
+
+        const data = {
+            password: password,
+            newPassword: newPassword,
+            newPasswordConfirm: newPasswordConfirm
+        }
+
+        const json = JSON.stringify(data)
+
+        xhr.send(json)
+        return
+
+    }
+
+    return fetch(`${import.meta.env.VITE_API_URL}/Users/password`, {
+        method: 'PATCH',
+        headers: {
+            'Content-type': 'application/json',
+            Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ password }),
+    }).then((res) => {
+        if (res.status !== 201) {
+            //return the json object
+            return res.json().then(({ error: message }) => {
+                throw new Error(message)
+                    .then(() => { })
+            })
+        }
     })
+        .then(() => { })
+
 }
+

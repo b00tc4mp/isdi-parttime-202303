@@ -19,36 +19,32 @@ import { EyeIcon } from '@heroicons/react/24/solid'
 import './Profile.css'
 
 
-export default ({ onAvatarUpdated }) => {
+export default ({ onAvatarUpdated, user }) => {
     console.debug('/// Profile  -> Render')
 
     // const { alert, freeze, unfreeze } = useContext(Context)
     const { alert, freeze, unfreeze } = useAppContext()
 
-
-    const [name, setUserName] = useState()
     const [previewImage, setPreviewImage] = useState();
 
     useEffect(() => {
         try {
             freeze()
 
-            retrieveUser(context.token, (error, user) => {
-                if (error) {
-                    alert(error.message)
-                    unfreeze()
-                    return
-                }
-                setUserName(user.name)
-                setPreviewImage(user.avatar)
-
-            })
-            unfreeze()
-
-            // retrieveUser(context.token).then(() => {
+            // retrieveUser(context.token, (error, user) => {
+            //     if (error) {
+            //         alert(error.message)
+            //         unfreeze()
+            //         return
+            //     }
             //     setUserName(user.name)
             //     setPreviewImage(user.avatar)
+
             // })
+            retrieveUser(context.token).then(() => {
+                setPreviewImage(user.avatar)
+            })
+            unfreeze()
         }
         catch (error) {
             unfreeze()
@@ -112,13 +108,12 @@ export default ({ onAvatarUpdated }) => {
     const handleChangeUserEmail = event => {
         event.preventDefault()
 
-        const emailConfirm = event.target.newEmail.value
+        const newEmail = event.target.newEmail.value
         const newEmailConfirm = event.target.newEmailConfirm.value
 
         try {
             freeze()
-
-            updateUserEmail(context.token, emailConfirm, newEmailConfirm, error => {
+            updateUserEmail(context.token, newEmail, newEmailConfirm, error => {
                 if (error) {
                     alert(error.message)
 
@@ -146,7 +141,7 @@ export default ({ onAvatarUpdated }) => {
 
     return <div className="home-profile">
         <section className='border-top-gradient'>
-            <h2 className="profile-headline ">{name}'s Profile</h2>
+            <h2 className="profile-headline ">{user.name}'s Profile</h2>
             <Panel tag="section" className="change-user-avatar">
                 <h3 className="change-user-avatar-headline">Change your avatar</h3>
                 <div>
@@ -154,7 +149,7 @@ export default ({ onAvatarUpdated }) => {
                     <form action="" className="change-user-avatar-form " onSubmit={handleUpdateAvatar}>
 
                         <div>
-                            <input type="url" name="url" placeholder="Avatar image URL" accept="image/*" ref={imageInputRef} />
+                            <input type="url" name="url" placeholder="Avatar image URL" accept="image/*" ref={imageInputRef} value={previewImage} />
                             <button className="preview-image-button icon post-button" onClick={handleImagePreview}>Preview<EyeIcon className="eye icon" /></button>
                         </div>
 

@@ -1,55 +1,42 @@
-require('dotenv').config()
-const { readFile } = require('fs')
-const { validators: { validateId, validateCallback } } = require('com')
+const {
+    validators: { validateId },
+    errors: { ExistenceError }
+} = require('com')
 
+const { User, Post } = require('../data/models')
 
-module.exports = (userId, callback) => {
-    validateId(userId, 'user Id')
-    validateCallback(callback)
-
-    readFile(`${process.env.DB_PATH}/users.json`, (error, json) => {
-        if (error) {
-            callback(error)
-
-            return
-        }
-
-        const users = JSON.parse(json)
-
-        const user = users.find(user => user.id === userId)
-
-        if (!user) {
-            callback(new Error(`User with id ${userId} not found! 👎`))
-
-            return
-        }
-
-        readFile(`${process.env.DB_PATH}/posts.json`, (error, json) => {
-            if (error) {
-                callback(error)
-
-                return
-            }
-
-            const posts = JSON.parse(json)
+module.exports = userId => {
+    validateId(userId, 'user id')
+    //one step version
+    return Promise.all([
+        User.findById(userId).lean(),
+        User.find({ "favs": ObjectId(userId) }).sort('-date').populate('author', '-__v -password ').lean()
+    ])
+        .then(([user, posts]) => {
+            if (!user) throw new ExistenceError('user not found')
 
             posts.forEach(post => {
                 post.likes = post.likes.includes(user.id)
 
                 const _user = users.find(user => user.id === post.author)
 
-                //save the user data of the liked posts
-                post.author = {
-                    id: _user.id,
-                    name: _user.name,
-                    avatar: _user.avatar
+
+                //sanityze
+                delete post._id
+                delete post.__v
+
+                //compare the ids now strings
+                post.fav = user.favs.some(fav => fav.toString() === post.id) //true/false if post is fav
+
+                //avoid error if the user reference to the post.author._id object is already deleted
+                debugger
+                if (post.author._id) {
+                    post.author.id = post.author._id.toString()
+                    delete post.author._id
                 }
-
             })
-            //toReversed  not working in Node yet
-            console.log(posts[1].likes)
-            callback(null, posts.filter(post => post.likes === true).reverse())
 
+            return posts
         })
-    })
 }
+

@@ -4,7 +4,6 @@ const { validateCallback, validateToken } = validators
 
 export default (token, callback) => {
     validateToken(token)
-
     if (callback) {
         validateCallback(callback)
 
@@ -37,16 +36,18 @@ export default (token, callback) => {
         xhr.setRequestHeader('Authorization', `Bearer ${token}`)
 
         xhr.send()
-    } else
-        return fetch(`${import.meta.env.VITE_API_URL}/users`, {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        })
-            .then(res => {
-                if (res.status !== 200)
-                    return res.json().then(({ error: message }) => { throw new Error(message) })
+    }
 
-                return res.json()
-            })
+
+    return fetch(`${import.meta.env.VITE_API_URL}/users`, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    })
+        .then(res => {
+            if (res.status !== 200)
+                return res.json().then(({ error: message }) => { throw new Error(message) })
+
+            return res.json()
+        })
 }

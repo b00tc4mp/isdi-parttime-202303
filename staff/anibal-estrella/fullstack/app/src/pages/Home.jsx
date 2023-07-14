@@ -160,7 +160,9 @@ export default function Home({ onLoggedOut }) {
             /> || view === 'saved-posts' && <Posts onOpenSavedPosts={view} />}
 
 
-            {view === 'profile' && <Profile onAvatarUpdated={handleAvatarUpdated} />}
+            {view === 'profile' && <Profile onAvatarUpdated={handleAvatarUpdated}
+                user={user}
+            />}
 
             {modal === 'add-post' && <AddPostModal
                 onCancel={closeModal}

@@ -1,44 +1,72 @@
 import { validators } from 'com'
-const { validateEmail, validateCallback } = validators
+const { validateToken, validateEmail, validateCallback } = validators
 
-import { saveUser, findUserById } from "../data.js"
+/**
+ * 
+ */
 
-export default (userId, newEmail, confirmEmail, callback) => {
-    validateId(userId, 'user id')
-    validateEmail(newEmail, 'new email')
-    validateEmail(confirmEmail, 'confirm email')
-    validateCallback(callback, 'callback function')
+export default (token, newEmail, newEmailConfirm, callback) => {
+    validateToken(token)
+    validateEmail(newEmail, 'Email')
+    validateEmail(newEmailConfirm, 'Email')
 
-    const xhr = new XMLHttpRequest
+    if (callback) {
+        validateCallback(callback, 'callback function')
 
+        const xhr = new XMLHttpRequest()
 
-    xhr.onload = () => {
-        const { status } = xhr
+        xhr.onload = () => {
+            const { status } = xhr
 
-        if (status !== 204) {
-            const { response: json } = xhr
-            const { error } = JSON.parse(json)
+            if (status !== 201) {
+                const { response: json } = xhr
+                const { error } = JSON.parse(json)
 
-            callback(new Error(error))
+                callback(new Error(error))
 
-            return
+                return
+            }
+            callback(null)
         }
-        callback(null)
+
+        xhr.onerror = () => {
+            callback(new Error('connection error'))
+        }
+
+        xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/users/Email`)
+
+        xhr.setRequestHeader('Content-Type', 'application/json')
+        xhr.setRequestHeader('Authorization', `Bearer ${token}`)
+
+        const data = {
+            newEmail: newEmail,
+            newEmailConfirm: newEmailConfirm
+        }
+
+        const json = JSON.stringify(data)
+
+        xhr.send(json)
+        return
+
     }
 
-
-    xhr.onerror = () => {
-        callback(new Error('Connection Error!'))
-    }
-
-    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/users/email`)
-
-    xhr.setRequestHeader('Content-Type', 'application/json')
-    xhr.setRequestHeader('Authorization', `Bearer ${userId}`)
-
-    const user = { password, newPassword, newPasswordConfirm }
-    const json = JSON.stringify(user)
-
-    xhr.send(json)
+    return fetch(`${import.meta.env.VITE_API_URL}/Users/Email`, {
+        method: 'PATCH',
+        headers: {
+            'Content-type': 'application/json',
+            Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ Email }),
+    }).then((res) => {
+        if (res.status !== 201) {
+            //return the json object
+            return res.json().then(({ error: message }) => {
+                throw new Error(message)
+                    .then(() => { })
+            })
+        }
+    })
+        .then(() => { })
 
 }
+
