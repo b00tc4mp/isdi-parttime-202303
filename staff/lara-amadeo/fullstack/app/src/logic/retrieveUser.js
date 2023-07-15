@@ -1,6 +1,6 @@
 import { context } from "./context";
 
-export default function retrieveUser(token) {
+export default function retrieveUser() {
 
     return fetch('http://localhost:4000/users', {
         method: 'GET',

@@ -6,5 +6,5 @@ module.exports = handleErrors((req, res) => {
     const userId = retrieveToken(req)
 
     return retrieveUser(userId)
-        .then(user => res.status(200).json({ user }))
+        .then(user => res.status(200).json(user))
 })
