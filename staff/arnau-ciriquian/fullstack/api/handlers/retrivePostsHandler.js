@@ -5,5 +5,5 @@ module.exports = handleErrors((req, res) => {
         const userId = extractUserId(req)
 
         return retrivePosts(userId)
-            .then(posts => res.json(posts))
-    })
+                .then(posts => res.json(posts))
+})
