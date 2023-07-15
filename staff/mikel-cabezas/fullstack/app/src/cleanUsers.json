@@ -1,1 +1,26 @@
-[{"id":"user-1","name":"Mikel Cabezas","email":"mikelcabezas@gmail.com","password":"123123123","favPosts":["post-13","post-10","post-11","post-14","post-17","post-16","post-19","post-18"],"image":""},{"id":"user-2","name":"Norah di Stefano","email":"mikelcabezas@icloud.com","password":"123123123","favPosts":[]}]
+[
+    {
+        "id": "user-1",
+        "name": "Mikel Cabezas",
+        "email": "mikelcabezas@gmail.com",
+        "password": "123123123",
+        "favPosts": [
+            "post-13",
+            "post-10",
+            "post-11",
+            "post-14",
+            "post-17",
+            "post-16",
+            "post-19",
+            "post-18"
+        ],
+        "image": ""
+    },
+    {
+        "id": "user-2",
+        "name": "Norah di Stefano",
+        "email": "mikelcabezas@icloud.com",
+        "password": "123123123",
+        "favPosts": []
+    }
+]

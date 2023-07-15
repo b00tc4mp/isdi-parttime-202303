@@ -25,12 +25,16 @@ module.exports = (userId, postId) => {
 
     return users.findOne(_user)
         .then(user => {
-            if (!user) new ExistenceError(`User with id ${userId} not found`)
+            if (!user) throw new ExistenceError(`User with id ${userId} not found`)
             return users.find().toArray()
                 .then(users => {
                     return posts.find().toArray()
                         .then(posts => {
-                            return posts.find(post => post._id.toString() === postId)
+                            const post = posts.find(post => post._id.toString() === postId)
+
+                            if (!post) {
+                                throw new ExistenceError(`Post with id ${postId} not found`)
+                            } else if (post) return posts.find(post => post._id.toString() === postId)
                         })
                 })
         })

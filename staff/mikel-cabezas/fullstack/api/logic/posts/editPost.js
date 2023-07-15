@@ -29,16 +29,11 @@ module.exports = (userId, postId, title, text, image, visibility) => {
 
     const { posts } = context
     const _post = { _id: new ObjectId(postId) }
-    let visibilityStatus
-    if (visibility) {
-        visibilityStatus = 'public'
-    } else {
-        visibilityStatus = 'private'
-    }
 
     return posts.findOne(_post)
         .then(post => {
             if (!post) throw new ExistenceError('post not found')
+
             return posts.updateOne(_post, {
                 $set: {
                     image: image,
@@ -48,7 +43,7 @@ module.exports = (userId, postId, title, text, image, visibility) => {
                     lastModify: new Date(),
                     comments: post.comments,
                     likes: post.likes,
-                    visibility: visibilityStatus,
+                    visibility: visibility ? visibility : post.visibility,
                     location: post.location
                 }
             })
