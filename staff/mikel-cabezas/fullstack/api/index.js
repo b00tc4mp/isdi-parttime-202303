@@ -30,7 +30,6 @@ client.connect()
 
         api.use(cors())
 
-        api.post('/', helloApiHandler)
         api.post('/users', jsonBodyParser, registerUserHandler)
         api.get('/users', retrieveUserHandler)
         api.post('/users/auth', jsonBodyParser, authenticateUserHandler)

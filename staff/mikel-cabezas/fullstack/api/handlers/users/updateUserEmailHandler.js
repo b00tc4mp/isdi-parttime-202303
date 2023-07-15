@@ -8,5 +8,4 @@ module.exports = handleErrors((req, res) => {
 
     return updateUserEmail(userId, email)
         .then(() => res.status(204).send())
-
 })

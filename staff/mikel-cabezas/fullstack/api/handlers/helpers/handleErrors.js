@@ -18,7 +18,6 @@ module.exports = function handleErrors(callback) {
 
                     res.status(status).json({ error: error.message })
                 })
-
         } catch (error) {
             let status = 500
 

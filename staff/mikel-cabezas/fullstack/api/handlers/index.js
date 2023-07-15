@@ -1,5 +1,4 @@
 module.exports = {
-    helloApiHandler: require('./users/helloApiHandler'),
     registerUserHandler: require('./users/registerUserHandler'),
     retrieveUserHandler: require('./users/retrieveUserHandler'),
     authenticateUserHandler: require('./users/authenticateUserHandler'),
