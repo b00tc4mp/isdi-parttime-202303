@@ -1,15 +1,12 @@
 require('dotenv').config()
 
+
 const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
-const { helloApiHandler, registerUserHandler, retrieveUserHandler, authenticateUserHandler, updateUserImageHandler, updateUserNameHandler, updateUserEmailHandler, updateUserPasswordHandler, createPostHandler, editPostHandler, deletePostHandler, retrievePostsHandler, retrieveLikedPostsHandler, retrieveSavedPostsHandler, retrievePostByPostIdHandler, toggleLikePostHandler, toggleSavePostHandler } = require('./Handlers')
-const { MongoClient } = require('mongodb')
-const context = require('./logic/context')
+const { registerUserHandler, retrieveUserHandler, authenticateUserHandler, updateUserImageHandler, updateUserNameHandler, updateUserEmailHandler, updateUserPasswordHandler, createPostHandler, editPostHandler, deletePostHandler, retrievePostsHandler, retrieveLikedPostsHandler, retrieveSavedPostsHandler, retrievePostByPostIdHandler, toggleLikePostHandler, toggleSavePostHandler } = require('./Handlers')
 const ImageKit = require('imagekit');
-
-
-const client = new MongoClient(process.env.MONGODB_URL)
+const mongoose = require('mongoose')
 
 const imagekit = new ImageKit({
     urlEndpoint: 'https://ik.imagekit.io/mklhds/',
@@ -17,14 +14,8 @@ const imagekit = new ImageKit({
     privateKey: 'private_PZ61mBGO1+6tP+Wny4KqsZ7XT0Q='
 });
 
-client.connect()
-    .then(connection => {
-        const users = connection.db().collection('users')
-        const posts = connection.db().collection('posts')
-
-        context.users = users
-        context.posts = posts
-
+mongoose.connect(process.env.MONGODB_URL)
+    .then(() => {
         const jsonBodyParser = bodyParser.json()
         const api = express()
 
@@ -54,23 +45,7 @@ client.connect()
             res.send(result);
         });
 
-        // debugger
-        // api.get('/image/:image', (req, res) => {
-        //     debugger
-        //     const { image } = req.params
-        //     console.log(image)
-        //     imagekit.getFileDetails(image, function (error, result) {
-        //         if (error) console.log(error);
-        //         else {
-        //             console.log(result)
-        //             imagePath = result
-        //             res.send(result);
-        //         }
-        //     });
-
-        // });
-
-
         api.listen(`${process.env.PORT}`, () => console.log(`server running in port ${process.env.PORT}`))
     })
+    // .finally(() => mongoose.disconnect())
     .catch(console.error)
