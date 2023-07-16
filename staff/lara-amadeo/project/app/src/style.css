@@ -114,6 +114,13 @@ body {
   margin: 0;
 }
 
+.heading-s {
+  font-family: "Inter";
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0;
+}
+
 
 .title {
   font-family: "Inter";

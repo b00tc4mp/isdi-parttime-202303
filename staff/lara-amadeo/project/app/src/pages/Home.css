@@ -1,0 +1,13 @@
+.list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 40px
+}
+
+.meals-list {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}

@@ -2,5 +2,7 @@
 module.exports = {
     registerUser: require('./registerUser'),
     authenticateUser: require('./authenticateUser'),
-    registerAdditionalInfo: require('./registerAdditionalInfo')
+    registerAdditionalInfo: require('./registerAdditionalInfo'),
+    createMeal: require('./createMeal'),
+    retrieveMeals: require('./retrieveMeals')
 }

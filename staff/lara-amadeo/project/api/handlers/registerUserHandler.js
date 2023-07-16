@@ -10,7 +10,7 @@ module.exports = handleErrors((req, res) => {
         .then(userId => {
             const payload = { sub: userId }
 
-            const token = jwt.sign(payload, process.env.JWT_SECRET)
+            const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRATION })
 
             res.status(201).json(token)
         })
