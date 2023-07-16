@@ -11,9 +11,10 @@ export default function Header({ onUserProfile, onHomeClick, onLoggedOut, select
     onSavedPostsClick }) {
     const [current, setCurrent] = useState(null)
     const [loggedIn, setloggedIn] = useState(false)
-    const [savelUpdateProfile, setSavelUpdateProfile] = useState(null)
-    const [selectedItem, setselectedItem] = useState(null)
     const { alert, setIsAuthenticated } = useAppContext()
+
+    const [userImage, setUserImage] = useState()
+
 
     const navigate = useNavigate()
 
@@ -74,7 +75,7 @@ export default function Header({ onUserProfile, onHomeClick, onLoggedOut, select
         return <>
             <header onLoad={renderUser} className="fixed t-0 w-full bg-dark z10">
                 <div className="header-wrapper flex flex-col bg-overlay-black-solid px-5 py-7 w-full md:w-72 h-full fixed left-0 box-border">
-                    <div className="logo flex pl-0 cursor-pointer pl-2.5">
+                    <div className="logo flex cursor-pointer pl-2.5">
                         <img src="/logo.svg" alt="Ikea Hacks" className="w-36" />
                     </div>
                     <nav className="hidden md:flex menu pr-5 h-full mt-4">

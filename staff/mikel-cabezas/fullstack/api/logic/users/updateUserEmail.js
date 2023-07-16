@@ -1,7 +1,6 @@
-const { ObjectId } = require('mongodb')
-const context = require('../context')
+const { User } = require('../../data/models')
 const {
-    validators: { validateUserId, validateEmail },
+    validators: { validateId, validateEmail },
     errors: { ExistenceError, DuplicityError }
 } = require('com')
 
@@ -21,16 +20,13 @@ const {
 
  */
 module.exports = (userId, newEmail) => {
-    validateUserId(userId)
+    validateId(userId)
     validateEmail(newEmail)
 
-    const { users } = context
-    const _user = { _id: new ObjectId(userId) }
-
-    return users.findOne(_user)
+    return User.findById(userId)
         .then(user => {
             if (!user) throw new ExistenceError('user not found')
-            return users.updateOne(_user, { $set: { email: newEmail } })
+            return user.updateOne({ email: newEmail })
         })
         .catch(error => {
             if (error.message.includes('E11000')) throw new DuplicityError(`This user whith email ${email} already exists`)

@@ -23,7 +23,6 @@ export default function Post({ post, post: { image, title, text, comments, likes
     const [modalMenu, setModalMenu] = useState()
     const { freeze, unfreeze, alert } = useContext(AppContext)
     const [imageRendered, setImageRendered] = useState(null)
-
     const onError = err => {
         console.log("Error", err);
         setImageRendered(null)

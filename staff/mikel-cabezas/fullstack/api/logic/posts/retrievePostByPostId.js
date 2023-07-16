@@ -1,7 +1,6 @@
-const context = require('../context')
-const { ObjectId } = require('mongodb')
+const { User, Post } = require('../../data/models')
 const {
-    validators: { validateUserId, validatePostId },
+    validators: { validateId },
     errors: { ExistenceError }
 } = require('com')
 
@@ -17,25 +16,21 @@ const {
  * @throws {ExistenceError} on user not found (async)
  * */
 module.exports = (userId, postId) => {
-    validateUserId(userId)
-    validatePostId(postId)
+    validateId(userId)
+    validateId(postId)
+    return Promise.all([
+        User.findById(userId).lean(),
+        Post.findById(postId, '-_id -likes -date -__v').lean()
+    ])
+        .then(([user, post]) => {
+            if (!user) new ExistenceError(`User with id ${userId} not found`)
+            if (!post) new ExistenceError(`Post with id ${postId} not found`)
 
-    const { users, posts } = context
-    const _user = { _id: new ObjectId(userId) }
+            if (post.author.toString() !== userId) throw new Error(`Post with id ${postId} does not belong to user with id ${userId}`)
 
-    return users.findOne(_user)
-        .then(user => {
-            if (!user) throw new ExistenceError(`User with id ${userId} not found`)
-            return users.find().toArray()
-                .then(users => {
-                    return posts.find().toArray()
-                        .then(posts => {
-                            const post = posts.find(post => post._id.toString() === postId)
+            delete post.author
 
-                            if (!post) {
-                                throw new ExistenceError(`Post with id ${postId} not found`)
-                            } else if (post) return posts.find(post => post._id.toString() === postId)
-                        })
-                })
+            return post
+
         })
 }

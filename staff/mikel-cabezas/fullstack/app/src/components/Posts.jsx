@@ -7,19 +7,24 @@ import { context } from "../ui"
 import './Posts.css'
 import retrieveUser from "../logic/users/retrieveUser"
 import Context from "../AppContext"
+import { utils } from 'com'
+const { extractSubFromToken } = utils
+
 
 export default function Posts({ onEditPost, onAddPostClick, lastPostsUpdate, postsFilter, onToggleLikePostClick, onToggleSavePostClick, onHideMenuOptions, visibility, onShowAllPosts, onPostDeleted }) {
-    const userId = context.token
+    const token = context.token
+    const userId = extractSubFromToken(token)
     const [posts, setPosts] = useState()
     const [user, setUser] = useState()
     const { alert, freeze, unfreeze } = useContext(Context)
+
     useEffect(() => {
         console.log('Refresh Posts -> render in useEffect')
         try {
             freeze()
             if (!postsFilter) {
                 console.log('   Show all Posts -> render in useEffect onLoad compo')
-                retrievePosts(userId)
+                retrievePosts(token)
                     .then(posts => {
                         unfreeze()
                         setPosts(posts)
@@ -32,7 +37,7 @@ export default function Posts({ onEditPost, onAddPostClick, lastPostsUpdate, pos
 
             if (postsFilter === 'liked') {
                 console.log('   Show liked Posts -> render in useEffect onLoad compo')
-                retrieveLikedPosts(userId)
+                retrieveLikedPosts(token)
                     .then(posts => {
                         unfreeze()
                         setPosts(posts)
@@ -44,7 +49,7 @@ export default function Posts({ onEditPost, onAddPostClick, lastPostsUpdate, pos
             }
             if (postsFilter === 'saved') {
                 console.log('   Show saved Posts -> render in useEffect onLoad compo')
-                retrieveSavedPosts(userId)
+                retrieveSavedPosts(token)
                     .then(posts => {
                         unfreeze()
                         setPosts(posts)
@@ -54,7 +59,7 @@ export default function Posts({ onEditPost, onAddPostClick, lastPostsUpdate, pos
                         alert(error.message)
                     })
             }
-            retrieveUser(userId)
+            retrieveUser(token)
                 .then(user => setUser(user))
                 .catch(error => {
                     unfreeze()
@@ -86,7 +91,7 @@ export default function Posts({ onEditPost, onAddPostClick, lastPostsUpdate, pos
         try {
             if (!postsFilter) {
                 console.log('   Show all Posts -> render in handleRefreshPosts')
-                retrievePosts(userId)
+                retrievePosts(token)
                     .then(posts => {
                         unfreeze()
                         setPosts(posts)
@@ -98,7 +103,7 @@ export default function Posts({ onEditPost, onAddPostClick, lastPostsUpdate, pos
             }
             if (postsFilter === 'liked') {
                 console.log('   Show liked Posts -> render in handleRefreshPosts')
-                retrieveLikedPosts(userId)
+                retrieveLikedPosts(token)
                     .then(posts => {
                         unfreeze()
                         setPosts(posts)
@@ -110,7 +115,7 @@ export default function Posts({ onEditPost, onAddPostClick, lastPostsUpdate, pos
             }
             if (postsFilter === 'saved') {
                 console.log('   Show saved Posts -> render in handleRefreshPosts')
-                retrieveSavedPosts(userId)
+                retrieveSavedPosts(token)
                     .then(posts => {
                         unfreeze()
                         setPosts(posts)
@@ -120,7 +125,7 @@ export default function Posts({ onEditPost, onAddPostClick, lastPostsUpdate, pos
                         alert(error.message)
                     })
             }
-            retrieveUser(userId)
+            retrieveUser(token)
                 .then(user => {
                     setUser(user)
                 })
@@ -176,7 +181,6 @@ export default function Posts({ onEditPost, onAddPostClick, lastPostsUpdate, pos
                             <br />But you can {postsFilter && `add`} {!postsFilter && `create`} a new one!</h2>
                     </div>}
                 {posts.length > 0 && posts.map(post => {
-                    // debugger
                     if (post.visibility === 'private' && post.author.id === userId || post.visibility === 'public') {
                         return <Post
                             key={post.id}

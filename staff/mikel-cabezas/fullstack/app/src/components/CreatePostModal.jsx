@@ -61,16 +61,16 @@ export default function AddPostModal({ onCancel, onCreateNewPost }) {
             alert(error.message)
         }
     }, [userLocation])
-    useEffect(() => {
-        try {
-            if (userLocation !== null) {
-                alert('userLocation changed')
-                // getUserLocation()
-            }
-        } catch (error) {
-            alert(error.message)
-        }
-    }, [newImage])
+    // useEffect(() => {
+    //     try {
+    //         if (userLocation !== null) {
+    //             alert('userLocation changed')
+    //             // getUserLocation()
+    //         }
+    //     } catch (error) {
+    //         alert(error.message)
+    //     }
+    // }, [newImage])
 
     const handleAddNewPost = event => {
         event.preventDefault()
@@ -78,6 +78,7 @@ export default function AddPostModal({ onCancel, onCreateNewPost }) {
         const title = document.querySelector('.create-post input.title').value
         const text = document.querySelector('.create-post textarea').value
         try {
+            debugger
             createPost(userId, newImage, title, text, userLocation)
                 .then(() => onCreateNewPost())
                 .catch(error => alert(error.message))
