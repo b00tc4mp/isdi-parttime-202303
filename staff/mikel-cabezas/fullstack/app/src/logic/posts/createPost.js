@@ -4,7 +4,7 @@ import { validators, utils } from 'com'
 const { isTokenValid } = utils
 const { validateToken, validateText } = validators
 
-export function createPost(token, image, title, text, location, callback) {
+export function createPost(token, image, title, text, location) {
     validateToken(token)
     validateText(title)
     validateText(text)

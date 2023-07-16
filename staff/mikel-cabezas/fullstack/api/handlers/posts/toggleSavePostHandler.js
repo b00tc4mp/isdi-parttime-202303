@@ -5,7 +5,6 @@ module.exports = handleErrors((req, res) => {
     const userId = extractUserId(req)
     const { postId } = req.params
 
-    toggleSavePost(userId, postId)
+    return toggleSavePost(userId, postId)
         .then(() => res.status(204).send())
-
 })

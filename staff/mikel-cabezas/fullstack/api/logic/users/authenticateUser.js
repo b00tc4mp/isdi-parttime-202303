@@ -31,7 +31,4 @@ module.exports = function authenticateUser(email, password) {
 
             return user.id
         })
-
-
-
 }

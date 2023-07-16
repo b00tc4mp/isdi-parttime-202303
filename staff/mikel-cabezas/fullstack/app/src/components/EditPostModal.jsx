@@ -10,7 +10,7 @@ let postImage
 
 
 export function EditPostModal({ postId, onCancel, onPostUpdated }) {
-    const userId = context.token
+    // const userId = context.token
 
     const [post, setPost] = useState({})
     const [newImage, setNewImage] = useState()
@@ -63,7 +63,12 @@ export function EditPostModal({ postId, onCancel, onPostUpdated }) {
         const title = event.target.parentElement.parentElement.elements['title'].value
         const text = event.target.parentElement.parentElement.elements['text'].value
         const image = newImage
-        const visibility = event.target.parentElement.parentElement.elements.visibility.checked
+        let visibility
+        if (event.target.parentElement.parentElement.elements.visibility.checked) {
+            visibility = "public"
+        } else {
+            visibility = "private"
+        }
         try {
             editPost(context.token, postId, title, text, image, visibility)
                 .then(() => onPostUpdated())

@@ -1,7 +1,4 @@
-import { savePost } from '../../data.js'
 import { validators } from 'com'
-import retrievePostByPostId from './retrievePostByPostId.js'
-
 const { validateToken, validatePostId } = validators
 
 export function toggleLikePost(token, postId) {

@@ -22,7 +22,8 @@ const user = new Schema({
         type: String
     },
     favs: {
-        type: [ObjectId]
+        type: [ObjectId],
+        defualt: []
     }
 
 })
@@ -40,6 +41,10 @@ const post = new Schema({
         type: String,
         required: true,
     },
+    title: {
+        type: String,
+        required: true,
+    },
     date: {
         type: Date,
         required: true,
@@ -48,6 +53,10 @@ const post = new Schema({
     likes: {
         type: [ObjectId],
         ref: 'User'
+    },
+    visibility: {
+        type: String,
+        default: 'public'
     }
 })
 

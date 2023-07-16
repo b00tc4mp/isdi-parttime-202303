@@ -4,8 +4,8 @@ const { handleErrors } = require('../helpers')
 
 module.exports = handleErrors((req, res) => {
     const userId = extractUserId(req)
-    const { newImage } = req.body
-
-    return updateUserImage(userId, newImage)
+    const { image } = req.body
+    debugger
+    return updateUserImage(userId, image)
         .then(() => res.status(204).send())
 })

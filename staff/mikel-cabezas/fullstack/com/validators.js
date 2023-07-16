@@ -1,3 +1,5 @@
+const HEX_DICTIONARY = '0123456789abcdef'
+
 const { ContentError, FormatError } = require('./errors')
 function validateName(name) {
     if (typeof name !== 'string') throw new TypeError('Name is not a string')
@@ -45,9 +47,30 @@ function validateNewPassword(currentPassword, newPassword, repeatPassword) {
     if (!currentPassword.trim().length > 8)
         throw new Error('Password must be higher than 8 characters')
 }
+
+function validateId(id, explain = 'id') {
+    if (typeof id !== 'string') throw new TypeError(`${explain} is not a string`)
+    if (id.length !== 24) throw new ContentError(`${explain} id does not have 24 characters`)
+
+    for (let i = 0; i < id.length; i++) {
+        const char = id[i]
+
+        if (!HEX_DICTIONARY.includes(char)) {
+            throw new ContentError(`${explain} id is not exadecimal`)
+        }
+    }
+}
 function validateUserId(userId) {
     if (typeof userId !== 'string') throw new TypeError('User is not a string')
-    if (!userId) throw new ContentError('User is empty')
+    if (userId.length !== 24) throw new ContentError('User id does not have 24 characters')
+
+    for (let i = 0; i < userId.length; i++) {
+        const char = userId[i]
+
+        if (!HEX_DICTIONARY.includes(char)) {
+            throw new ContentError('User id is not exadecimal')
+        }
+    }
 }
 
 function validatePostId(postId) {
@@ -71,6 +94,7 @@ module.exports = {
     validateText,
     validatePassword,
     validateNewPassword,
+    validateId,
     validateUserId,
     validatePostId,
     validateCallback,

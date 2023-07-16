@@ -6,12 +6,39 @@ import { useEffect, useState } from "react"
 import retrieveUser from "../logic/users/retrieveUser"
 import { useContext } from "react"
 import AppContext from "../AppContext"
+import { IKImage, IKContext, IKUpload } from 'imagekitio-react'
+const urlEndpoint = 'https://ik.imagekit.io/mklhds/demo-imagekit'
+const publicKey = 'public_KXJOz0g5Xp6gAlhANXjoCNjKLPs=';
+const authenticationEndpoint = `${import.meta.env.VITE_API_URL}/auth`
 
 export default function UpdateUserInfo({ }) {
     const { freeze, unfreeze, alert } = useContext(AppContext)
 
     const [user, setUser] = useState()
+    const [userImage, setUserImage] = useState()
     const userId = context.token
+
+
+    const onError = (error) => {
+        console.log("Error", error);
+        const length = Number(error.name.split(".").length - 1)
+        const fileExtension = error.name.split(".")[length]
+        alert(`Your file with ${fileExtension} extension are not accepted`)
+        event.target.value = ''
+        document.querySelector('.create-post input[type="file"]').value = ''
+    };
+
+    const onSuccess = res => {
+        console.log("Success", res);
+        setUserImage(res.filePath)
+    }
+    const onValidateFile = res => {
+        if (res.type === "image/png" && res.size < 5000000 || res.type === "image/jpeg" && res.size < 5000000 || res.type === "image/webp" && res.size < 5000000 || res.type === "image/gif" && res.size < 5000000 || res.type === "image/heic") {
+            return true
+        } else {
+            return false
+        }
+    }
 
     useEffect(() => {
         try {
@@ -35,6 +62,10 @@ export default function UpdateUserInfo({ }) {
         }
     }, [])
 
+    useEffect(() => {
+        setUserImage(user?.image)
+    }, [user])
+
 
     let newImage
     let letters
@@ -51,23 +82,6 @@ export default function UpdateUserInfo({ }) {
 
     const [disabled, setDisabled] = useState(true)
 
-    function handleConvertImageToBase64(event) {
-        const file = event.target
-        const imagePostPreview = document.querySelector('.data.user-info .avatar img')
-        const imageTarget = document.querySelector('input[type="file"]')
-        const printImage = file.onchange = function (event) {
-            const file = event.target.files[0]
-            const image = new FileReader()
-            image.onload = () => {
-                const base64 = image.result
-                newImage = base64
-                imagePostPreview.src = base64
-                imageTarget.src = base64
-            }
-            image.readAsDataURL(file)
-            return file
-        }
-    }
 
     function handleUpdateProfile(event) {
         event.preventDefault()
@@ -83,16 +97,26 @@ export default function UpdateUserInfo({ }) {
             setDisabled(true)
             const name = event.target.parentElement.parentElement.elements['name']
             const email = event.target.parentElement.parentElement.elements['email']
-            const image = event.target.parentElement.parentElement.elements['file']
 
             user.name !== name.value && updateUserName(userId, name.value).catch(error => alert(error.message))
 
             user.email !== email.value && updateUserEmail(userId, email.value).catch(error => alert(error.message))
 
-            if (image.src)
-                user.image !== image && uploadImage(userId, image).catch(error => alert(error.message))
+            if (userImage)
+                user.image !== userImage && uploadImage(userId, userImage).catch(error => alert(error.message))
 
             setDisabled(true)
+            let newChanges = []
+            user.name !== name.value && newChanges.push('Name ')
+            user.email !== email.value && newChanges.push('Email ')
+            user.image !== userImage && newChanges.push('Image ')
+            if (newChanges.length > 2) {
+                alert(`Name, Email and Image updated!`)
+            } else if (newChanges.length > 1) {
+                alert(`${newChanges.join(', ')} updated!`)
+            } else {
+                alert(`${newChanges} updated!`)
+            }
         } catch (error) {
             console.log(error.stack)
         }
@@ -120,12 +144,43 @@ export default function UpdateUserInfo({ }) {
                     <input type="email" defaultValue={user?.email} name="email" disabled={disabled} />
                     <div className="avatar">
                         {!user?.image && <div className="letter">{letters}</div>}
-                        {user?.image && <img className="image-profile w-8 rounded-full" src={user?.image} alt="" />}
+                        {user?.image &&
+                            <IKContext
+                                publicKey={publicKey}
+                                urlEndpoint={urlEndpoint}
+                                authenticationEndpoint={authenticationEndpoint}
+                            >
+                                <IKImage
+                                    path={userImage}
+                                    className="image-profile w-8 rounded-full"
+                                    name="post-image"
+                                />
+                            </IKContext>
+
+                        }
                         {/* {<img className="image-profile" src={user?.image} alt="" />} */}
                     </div>
                     <label htmlFor="">Update image profile</label>
-                    <input type="file" name="file" id="" accept=".jpg, .jpeg, .png, .webp" onClick={handleConvertImageToBase64} />
-                    <div className={`buttons ${!disabled ? '' : 'off'}`} >
+                    <IKContext
+                        publicKey={publicKey}
+                        urlEndpoint={urlEndpoint}
+                        authenticationEndpoint={authenticationEndpoint}
+                    >
+                        <IKImage
+                            path={newImage}
+                            className="post-image w-full"
+                            name="post-image"
+                        />
+                        <label htmlFor="file">Upload your image</label>
+                        <IKUpload
+                            fileName="post-image-id_"
+                            // validateFile={file => file.type === "image/png"}
+                            validateFile={onValidateFile}
+                            onError={onError}
+                            onSuccess={onSuccess}
+                            accept=".jpg, .jpeg, .png, .webp, .heic"
+                        />
+                    </IKContext>                    <div className={`buttons ${!disabled ? '' : 'off'}`} >
                         <button className="button--update-info__cancel-info" type="cancel" onClick={handleCancelUpdateProfile}>Cancel</button>
                         <button className="button--update-info__save-info" onClick={handleSavelUpdateProfile}>Save</button>
                     </div>

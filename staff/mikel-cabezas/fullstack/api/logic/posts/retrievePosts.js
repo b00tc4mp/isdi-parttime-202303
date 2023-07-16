@@ -1,7 +1,6 @@
-const context = require('../context')
-const { ObjectId } = require('mongodb')
+const { User, Post } = require('../../data/models')
 const {
-    validators: { validateUserId },
+    validators: { validateId },
     errors: { ExistenceError }
 } = require('com')
 
@@ -16,35 +15,32 @@ const {
  * @throws {ExistenceError} on user not found (async)
  */
 module.exports = userId => {
-    validateUserId(userId)
-
-    const { users, posts } = context
-    const _user = { _id: new ObjectId(userId) }
-
-    return Promise.all([users.find().toArray(), posts.find().toArray()])
-        .then(([users, posts]) => {
-            const user = users.find(user => user._id.toString() === userId)
-
+    validateId(userId)
+    return User.findById(userId).lean()
+        .then(user => {
             if (!user) new ExistenceError(`User with id ${userId} not found`)
 
-            posts.forEach(post => {
-                post.id = post._id.toString()
+            return Post.find().sort('-date').populate('author', '-password -favs -__v').lean()
+                .then(posts => {
+                    posts.forEach(post => {
+                        const postAuthorId = post.author._id?.toString()
 
-                delete post._id
+                        post.id = post._id.toString()
+                        delete post._id
 
-                const author = users.find(user => user._id.toString() === post.author.toString())
+                        post.fav = user.favs?.some(fav => fav.toString() === post.id)
 
-                const { _id, name, avatar } = author
+                        if (postAuthorId === userId) {
+                            post.author.id = post.author._id.toString()
 
-                post.author = {
-                    id: _id.toString(),
-                    name,
-                    avatar
-                }
+                            delete post.author._id
+                        } else {
+                            delete post.author._id
+                        }
+                    })
 
-                post.fav = users.favs?.some(fav => fav.toString() === post === post.id)
-            })
+                    return posts
+                })
 
-            return posts
         })
 }
