@@ -121,6 +121,10 @@ body {
   margin: 0;
 }
 
+.heading-l {
+  font-size: 32px;
+}
+
 
 .title {
   font-family: "Inter";

@@ -1,5 +1,7 @@
+import { useContext } from 'react'
 import { HomeIcon, UserIcon, PlusIcon, MagnifyingGlassIcon, ShoppingBagIcon } from '../icons'
 import './Tabbar.css'
+import Context from '../../Context'
 
 type Props = {
     home?: boolean,
@@ -11,6 +13,13 @@ type Props = {
 
 export default function Tabbar({ home, search, add, cart, profile }: Props): JSX.Element {
 
+    const { loaderOn, LoaderOff, navigate } = useContext(Context)
+
+    const openAddMealModal = () => {
+        navigate('/addMeal')
+    }
+
+
     return <>
         <div className='tabbar-container'>
             <div className='tabbar-item'>
@@ -21,7 +30,7 @@ export default function Tabbar({ home, search, add, cart, profile }: Props): JSX
                 <MagnifyingGlassIcon className='icon-s grey-700' />
                 {search && <div className='tabbar-selected'></div>}
             </div>
-            <div className='tabbar-item'>
+            <div className='tabbar-item' onClick={openAddMealModal}>
                 <PlusIcon className='icon-s grey-700' />
                 {add && <div className='tabbar-selected'></div>}
             </div>

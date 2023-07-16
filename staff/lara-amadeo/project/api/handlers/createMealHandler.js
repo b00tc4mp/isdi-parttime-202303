@@ -5,6 +5,7 @@ const { retrieveToken } = require('../helpers')
 module.exports = handleErrors((req, res) => {
 
     const { images, title, description, categories, ingredients, bestBefore, price } = req.body
+    console.log(categories)
 
     const userId = retrieveToken(req)
 

@@ -15,9 +15,10 @@ import MealCard from "../library/modules/MealCard"
 
 
 export default function Home() {
-    const { loaderOn, LoaderOff } = useContext(Context)
+    const { loaderOn, LoaderOff, navigate } = useContext(Context)
     const [modal, setModal] = useState<boolean>(false)
     const [meals, setMeals] = useState<Array<object>>()
+    const [user, setUser] = useState<object>()
 
     useEffect(() => {
         try {
@@ -38,6 +39,19 @@ export default function Home() {
         setModal(false)
     }
 
+    const onMealCard = (id: string) => {
+        navigate('/meal')
+    }
+
+    type Meal = {
+        images: string[],
+        title: string,
+        description: string,
+        categories: Array<string>,
+        price: string,
+        id: string
+    }
+
     return <>
         {modal && <ModalFullScreen onClose={closeModal} >
             <AdditionalInfo onModalClose={closeModal} />
@@ -51,8 +65,14 @@ export default function Home() {
                 <IconButton icon={<AdjustmentsVerticalIcon className="icon-s grey-700" />} type={'secondary'} />
             </div>
             <div className="meals-list">
-                {meals && meals.map(meal => {
-                    return <MealCard image={meal.images[0]} title={meal.title} description={meal.description} categories={meal.category ? meal.category : []} price={meal.price} />
+                {meals && meals.map((meal: Meal) => {
+                    return <MealCard key={meal.id} meal={{
+                        image: meal.images[0],
+                        title: meal.title,
+                        description: meal.description,
+                        categories: meal.categories ? meal.categories : [],
+                        price: meal.price
+                    }} onclick={() => onMealCard(meal.id)} />
                 })}
             </div>
         </div>

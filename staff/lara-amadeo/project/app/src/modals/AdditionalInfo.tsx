@@ -125,13 +125,12 @@ export default function AdditionalInfo({ onModalClose }: Props) {
                 </form>
 
                 {/* buttonbar */}
-                {/* <ButtonBar firstButton={true} link={true} firstButtonLabel={'Finish'} linkLabel={'Do it later'} onFirstButtonClick={handleAdditionalInfo} onLinkClick={handleSkipInfo} /> */}
                 <ButtonBar firstButton={{
                     label: 'Finish',
-                    onClick: handleAdditionalInfo
+                    onclick: handleAdditionalInfo
                 }} link={{
                     label: 'Do it later',
-                    onClick: handleSkipInfo
+                    onclick: handleSkipInfo
                 }} />
             </div>
         </div>

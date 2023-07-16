@@ -1,3 +1,8 @@
+.link-compo-container {
+    display: flex;
+    gap: 8px;
+}
+
 .link-default {
     color: var(--primary-color);
 }

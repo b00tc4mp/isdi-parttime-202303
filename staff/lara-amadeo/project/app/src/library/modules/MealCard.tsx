@@ -3,16 +3,19 @@ import Container from '../components/Container'
 import './MealCard.css'
 
 type Props = {
-    image: string,
-    title: string,
-    description: string,
-    categories: Array<string>
-    price: string
+    meal: {
+        image: string,
+        title: string,
+        description: string,
+        categories: Array<string>
+        price: string,
+    },
+    onclick: () => void
 }
 
-export default function MealCard({ image, title, description, categories, price }: Props) {
+export default function MealCard({ meal: { image, title, description, categories, price }, onclick }: Props) {
     return <>
-        <Container width={'382px'} height={'fit-content'} type={'shadow'} elevation={'1'}>
+        <Container width={'382px'} height={'fit-content'} type={'shadow'} elevation={'1'} onClick={onclick}>
             <div className='meal-card-container'>
                 {/* left-side */}
                 <img className='meal-card-image' src={`${image}`}></img>

@@ -83,7 +83,7 @@ const meal = new Schema({
         required: true,
         default: Date.now
     },
-    category: {
+    categories: {
         type: [String],
         required: true,
     },

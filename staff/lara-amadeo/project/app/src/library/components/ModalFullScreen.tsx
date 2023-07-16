@@ -12,7 +12,10 @@ type Props = {
 export default function ModalFullScreen({ onClose, onBack, children }: Props): JSX.Element {
     return <>
         <div className='modal-full-screen-container'>
-            <div className='modal-full-screen-content'>{children}</div>
+            <Topbar level='second' secondLevel={{ label: 'Add new product', close: true, onCloseClick: onClose }} />
+            <div className='modal-full-screen-content'>
+                {children}
+            </div>
         </div>
     </>
 }

@@ -10,6 +10,7 @@ import AdditionalInfo from './modals/AdditionalInfo'
 import Home from './pages/Home'
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom'
 import isUserLoggedIn from './logic/isUserLoggedIn'
+import CreateMeal from './modals/CreateMeal'
 
 
 
@@ -37,6 +38,7 @@ function App() {
         <Route path='/login' element={isUserLoggedIn() ? <Navigate to="/" /> : <Login />} />
         <Route path='/register' element={isUserLoggedIn() ? <Navigate to="/" /> : <Register />} />
         <Route path='/additionalInfo' element={<AdditionalInfo onModalClose={closeModal} />} />
+        <Route path='/addMeal' element={<CreateMeal />} />
       </Routes>
       {loader && <Loader />}
     </Context.Provider>
