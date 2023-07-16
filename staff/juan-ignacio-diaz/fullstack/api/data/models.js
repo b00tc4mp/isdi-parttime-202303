@@ -23,6 +23,9 @@ const user = new Schema({
     avatar: {
         type: String
     },
+    mode: {
+        type: String
+    },
     favs: {
         type: [ObjectId],
         ref: 'Post'

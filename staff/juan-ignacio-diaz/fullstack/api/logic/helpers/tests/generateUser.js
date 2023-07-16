@@ -4,7 +4,7 @@ module.exports = () => {
         email: `e-${Math.random()}@email.com`,
         password: `password-${Math.random()}`,
         avatar: `avatar-${Math.random()}.gif`,
-        favs: [],
-        mode: `mode-${Math.random()}`
+        mode: `mode-${Math.random()}`,
+        favs: []
     }
 }

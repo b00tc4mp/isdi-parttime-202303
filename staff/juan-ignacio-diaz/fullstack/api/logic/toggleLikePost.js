@@ -13,7 +13,7 @@ module.exports = (userId, postId) => {
         .then(([user, post]) => {
             if (!user) throw new ExistenceError('user not found')
 
-            if (!post) throw new ExistenceError('user not found')
+            if (!post) throw new ExistenceError('post not found')
 
             const likes = post.likes
 

@@ -3,6 +3,5 @@ module.exports = {
     generatePost: require('./generatePost'),
     generateUser: require('./generateUser'),
     populatePost: require('./populatePost'),
-    populateUser: require('./populateUser'),
-    retrievePostsTest: require('./retrievePostsTest')
+    populateUser: require('./populateUser')
 }

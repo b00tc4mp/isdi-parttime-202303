@@ -8,20 +8,10 @@ const authenticateUser = require('./authenticateUser')
 
 const { generateUser, cleanUp, populateUser } = require('./helpers/tests')
 
-debugger
-// mongoose.connect(process.env.MONGODB_URL)
-//     .then(() => {
-
 describe('authenticateUser', () => {
-    let db
     let userTest
 
-    before(() => {
-        mongoose.connect(process.env.MONGODB_URL)
-            .then(() => {
-                db = mongoose.connection
-            })
-    })
+    before(() => mongoose.connect(process.env.MONGODB_URL))
 
     beforeEach(() => {
         userTest = generateUser()
@@ -56,31 +46,22 @@ describe('authenticateUser', () => {
     })
 
     it('fails on empty email', () =>
-        expect(() => authenticateUser('', userTest.password, () => { })).to.throw(Error, 'email is empty')
+        expect(() => authenticateUser('', userTest.password)).to.throw(Error, 'email is empty')
     )
 
     it('fails on wrong email', () =>
-        expect(() => authenticateUser('aaa', userTest.password, () => { })).to.throw(Error, 'the email is wrong')
+        expect(() => authenticateUser('aaa', userTest.password)).to.throw(Error, 'the email is wrong')
     )
 
     it('fails on empty password', () =>
-        expect(() => authenticateUser(userTest.email, '', () => { })).to.throw(Error, 'password length lower than 8 characters')
+        expect(() => authenticateUser(userTest.email, '')).to.throw(Error, 'password length lower than 8 characters')
     )
 
     it('fails on type password', () =>
-        expect(() => authenticateUser(userTest.email, 123, () => { })).to.throw(Error, 'password is not a string')
+        expect(() => authenticateUser(userTest.email, 123)).to.throw(Error, 'password is not a string')
     )
 
-    after(() => {
-        return cleanUp()
-            .then(() => db.close())
-    })
-
-    // after(async () => {
-    //     await cleanUp()
-    //     return db.close()
-    // })
+    after(() => cleanUp()
+        .then(() => mongoose.disconnect())
+    )
 })
-
-    // })
-    // .finally(() => mongoose.disconnect())

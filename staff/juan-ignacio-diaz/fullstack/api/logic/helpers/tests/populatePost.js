@@ -1,5 +1,9 @@
 const { Post } = require('../../../data/models')
 
+const mongodb = require('mongodb')
+
+const { ObjectId } = mongodb
+
 module.exports = (post) => {
     return Post.create({
         author: new ObjectId(post.author),

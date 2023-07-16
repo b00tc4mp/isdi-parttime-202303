@@ -17,7 +17,7 @@ module.exports = (userId, postId) => {
         .then(([user, post]) => {
             if (!user) throw new ExistenceError('user not found')
 
-            if (!post) throw new ExistenceError('user not found')
+            if (!post) throw new ExistenceError('post not found')
 
             if (userId !== post.author.toString())
                 throw new AuthError(`Post doesn't belong to this user`)

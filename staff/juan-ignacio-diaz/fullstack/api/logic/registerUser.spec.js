@@ -8,17 +8,11 @@ const { User } = require('../data/models')
 const registerUser = require('./registerUser')
 
 const { generateUser, cleanUp, populateUser } = require('./helpers/tests')
-debugger
+
 describe('registerUser' , () =>{
-    let db
     let userTest
 
-    before(() => {
-        mongoose.connect(process.env.MONGODB_URL)
-        .then(() => {
-            db = mongoose.connection
-        })
-    })
+    before(() => mongoose.connect(process.env.MONGODB_URL))
 
     beforeEach(() => {
         userTest = generateUser()
@@ -69,37 +63,30 @@ describe('registerUser' , () =>{
 
 
     it('fails on empty name', () => {
-        expect(() => registerUser('', userTest.email, userTest.password, () => { })).to.throw(Error, 'name is empty')
+        expect(() => registerUser('', userTest.email, userTest.password)).to.throw(Error, 'name is empty')
     })
 
     it('fails on empty email', () =>
-        expect(() => registerUser(userTest.name, '', userTest.password, () => { })).to.throw(Error, 'email is empty')
+        expect(() => registerUser(userTest.name, '', userTest.password)).to.throw(Error, 'email is empty')
     )
 
     it('fails on non-string name', () => {
-        expect(() => registerUser(undefined, userTest.email, userTest.password, () => { })).to.throw(Error, 'name is not a string')
-        expect(() => registerUser(1, userTest.email, userTest.password, () => { })).to.throw(Error, 'name is not a string')
-        expect(() => registerUser(true, userTest.email, userTest.password, () => { })).to.throw(Error, 'name is not a string')
-        expect(() => registerUser({}, userTest.email, userTest.password, () => { })).to.throw(Error, 'name is not a string')
-        expect(() => registerUser([], userTest.email, userTest.password, () => { })).to.throw(Error, 'name is not a string')
+        expect(() => registerUser(undefined, userTest.email, userTest.password).to.throw(Error, 'name is not a string'))
+        expect(() => registerUser(1, userTest.email, userTest.password).to.throw(Error, 'name is not a string'))
+        expect(() => registerUser(true, userTest.email, userTest.password).to.throw(Error, 'name is not a string'))
+        expect(() => registerUser({}, userTest.email, userTest.password).to.throw(Error, 'name is not a string'))
+        expect(() => registerUser([], userTest.email, userTest.password).to.throw(Error, 'name is not a string'))
     })
 
     it('fails on non-string email', () => {
-        expect(() => registerUser(userTest.name, undefined, userTest.password, () => { })).to.throw(Error, 'email is not a string')
-        expect(() => registerUser(userTest.name, 1, userTest.password, () => { })).to.throw(Error, 'email is not a string')
-        expect(() => registerUser(userTest.name, true, userTest.password, () => { })).to.throw(Error, 'email is not a string')
-        expect(() => registerUser(userTest.name, {}, userTest.password, () => { })).to.throw(Error, 'email is not a string')
-        expect(() => registerUser(userTest.name, [], userTest.password, () => { })).to.throw(Error, 'email is not a string')
+        expect(() => registerUser(userTest.name, undefined, userTest.password).to.throw(Error, 'email is not a string'))
+        expect(() => registerUser(userTest.name, 1, userTest.password).to.throw(Error, 'email is not a string'))
+        expect(() => registerUser(userTest.name, true, userTest.password).to.throw(Error, 'email is not a string'))
+        expect(() => registerUser(userTest.name, {}, userTest.password).to.throw(Error, 'email is not a string'))
+        expect(() => registerUser(userTest.name, [], userTest.password).to.throw(Error, 'email is not a string'))
     })
 
-    after(() => {
-        return cleanUp()
-            .then(() => db.close())
-    })
-    // after(async () => {
-    //     await cleanUp()
-    //     return db.close()
-    // })
+    after(() => cleanUp()
+            .then(() => mongoose.disconnect())
+    )
 })
-
-// .finally(() => mongoose.disconnect())
