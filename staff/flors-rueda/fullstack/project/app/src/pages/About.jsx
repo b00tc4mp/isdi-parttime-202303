@@ -48,7 +48,7 @@ const About = () => {
                             Dou you like Ballopolis?
                         </p>
                         <button className="bg-primary200 self-center md:w-fit max-w-xs w-3/4 px-5 py-2 hover:bg-primary600 text-sm lg:text-md text-light500 hover:text-light400 font-bold rounded-lg transition duration-200 hover:decoration-primary100"> <a href="https://www.paypal.com/donate/?hosted_button_id=T6RDWW8UWW5L4" target="_blank" rel="noopener noreferrer" >
-                            Buy me a <span className="line-through decoration-2 font-thin">coffe</span> tea<i className="bi bi-cup-hot-fill pl-2"></i>
+                            Buy me a <span className="line-through decoration-2 font-thin">coffee</span> tea<i className="bi bi-cup-hot-fill pl-2"></i>
                         </a></button>
                     </div>
                     <img src="/me.webp" className="w-64 h-64 md:w-80 md:h-80" alt="share" />

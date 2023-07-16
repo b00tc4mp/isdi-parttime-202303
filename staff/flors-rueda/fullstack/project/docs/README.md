@@ -69,9 +69,9 @@ Level
 
 File                 | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
 ---------------------|---------|----------|---------|---------|-------------------
-*logic / levels*         |   *96.29* |       *50* |     *100* |     *100* | 
-  createLevel.js     |     100 |      100 |     100 |     100 | 
-  retrieveLevel.js   |      90 |       50 |     100 |     100 | 15                
+*logic / levels*         |   *90* |       *50* |   *85.71* |   *94.73* | 
+  createLevel.js     |   85.71 |      100 |      50 |   85.71 | 15
+  retrieveLevel.js   |    87.5 |       50 |     100 |     100 | 10
   retrieveLevels.js  |     100 |      100 |     100 |     100 | 
 </br>
 
@@ -89,19 +89,19 @@ Planned through a kanban visible on this [Trello](https://trello.com/b/uHRmZKBR/
 
 #### Tasks
 
-- [ ] Build landing page
+- [x] Build landing page
 - [x] Build levels list page
 - [x] Build on game page
 - [x] Build create level page
-- [ ] Build about page
-- [ ] Build tutorials for the game
+- [x] Build about page
+- [x] Build tutorials for the game
 - [x] Implement create level functionality
 - [x] Implement retrieve all levels functionality
 - [x] Implement retrieve one level functionality
 - [x] Use TDD to add validators
 - [x] Improve error handling
 - [ ] Improve GameOver modal style
-- [ ] Improve UX of the create level form
+- [x] Improve UX of the create level form
 - [x] Upload the page to AWS
 
 </br>
