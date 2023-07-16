@@ -71,8 +71,12 @@ export default function CreateMeal(): JSX.Element {
         }
     }
 
+    const onCloseModal = () => {
+        navigate('/')
+    }
+
     return <>
-        <ModalFullScreen>
+        <ModalFullScreen onClose={onCloseModal}>
             <div className="page new-meal-container">
 
                 {/*Upper-part*/}

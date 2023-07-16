@@ -4,5 +4,6 @@ module.exports = {
     authenticateUserHandler: require('./authenticateUserHandler'),
     registerAdditionalInfoHandler: require('./registerAdditionalInfoHandler'),
     createMealHandler: require('./createMealHandler'),
-    retrieveMealsHandler: require('./retrieveMealsHandler')
+    retrieveMealsHandler: require('./retrieveMealsHandler'),
+    retrieveUserHandler: require('./retrieveUserHandler')
 }

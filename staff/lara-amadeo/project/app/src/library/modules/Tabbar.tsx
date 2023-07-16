@@ -19,6 +19,10 @@ export default function Tabbar({ home, search, add, cart, profile }: Props): JSX
         navigate('/addMeal')
     }
 
+    const onProfile = () => {
+        navigate('/profile')
+    }
+
 
     return <>
         <div className='tabbar-container'>
@@ -38,7 +42,7 @@ export default function Tabbar({ home, search, add, cart, profile }: Props): JSX
                 <ShoppingBagIcon className='icon-s grey-700' />
                 {cart && <div className='tabbar-selected'></div>}
             </div>
-            <div className='tabbar-item'>
+            <div className='tabbar-item' onClick={onProfile}>
                 <UserIcon className='icon-s grey-700' />
                 {profile && <div className='tabbar-selected'></div>}
             </div>

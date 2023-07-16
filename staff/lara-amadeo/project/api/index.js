@@ -3,7 +3,7 @@ require('dotenv').config()
 const cors = require('cors')
 const bodyParser = require('body-parser')
 const express = require('express')
-const { helloAPIHandler, registerUserHandler, authenticateUserHandler, registerAdditionalInfoHandler, createMealHandler, retrieveMealsHandler } = require('./handlers')
+const { helloAPIHandler, registerUserHandler, authenticateUserHandler, registerAdditionalInfoHandler, createMealHandler, retrieveMealsHandler, retrieveUserHandler } = require('./handlers')
 
 const mongoose = require('mongoose')
 
@@ -25,6 +25,9 @@ mongoose.connect(process.env.MONGODB_URL)
 
         //authenticate user
         api.post('/users/auth', jsonBodyParser, authenticateUserHandler)
+
+        //retrieveUser
+        api.get('/users', retrieveUserHandler)
 
         //createMeal
         api.post('/meals', jsonBodyParser, createMealHandler)

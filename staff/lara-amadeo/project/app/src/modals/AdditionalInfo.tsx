@@ -12,12 +12,8 @@ import TextField from '../library/components/TextField'
 import TimeSelector from '../library/components/TimeSelector'
 import ButtonBar from '../library/modules/ButtonBar'
 
-type Props = {
-    onModalClose?: () => any
-}
-
 //@ts-ignore
-export default function AdditionalInfo({ onModalClose }: Props) {
+export default function AdditionalInfo() {
     const { loaderOn, loaderOff, navigate } = useContext(Context)
     const [availabilityDays, setAvailabilityDays] = useState<string[]>([])
     const formRef = useRef<HTMLFormElement>(null)
@@ -75,7 +71,7 @@ export default function AdditionalInfo({ onModalClose }: Props) {
     }
 
     const onClose = () => {
-        onModalClose?.()
+        navigate('/')
     }
 
     return <>
