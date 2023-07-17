@@ -9,11 +9,23 @@ module.exports = (name, email, password) => {
     validateEmail(email)
     validatePassword(password)
 
-    return User.create({ name, email, password, avatar: null, favs: [] })
-        .catch(error => {
+    // return User.create({ name, email, password, avatar: null, favs: [] })
+    //     .then(() => {})
+    //     .catch(error => {
+    //         if (error.message.includes('E11000'))
+    //             throw new DuplicityError(`user with email ${email} already exists`)
+
+    //         throw error
+    //     })
+
+    return (async () => {
+        try {
+            await User.create({ name, email, password, avatar: null, favs: [] })
+        } catch (error) {
             if (error.message.includes('E11000'))
                 throw new DuplicityError(`user with email ${email} already exists`)
 
             throw error
-        })
+        }
+    })()
 }
