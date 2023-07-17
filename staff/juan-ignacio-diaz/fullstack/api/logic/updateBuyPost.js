@@ -23,6 +23,6 @@ module.exports = (userId, postId, callback) => {
             if (!post) throw new ExistenceError('post not found')
 
             return Post.findByIdAndUpdate(postId, { $set: { author: userId, price: 0 }})
-                .then(() => { })  
         }) 
+        .then(() => { })  
 }

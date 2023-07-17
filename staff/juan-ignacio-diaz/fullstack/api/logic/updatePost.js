@@ -32,6 +32,6 @@ module.exports = (userId, postId, image, text) => {
                  { $set: { image: image,
                     text: text,
                     dateLastModified: new Date }})
-                .then(() => { })  
-        }) 
+        })
+        .then(() => { })  
 }

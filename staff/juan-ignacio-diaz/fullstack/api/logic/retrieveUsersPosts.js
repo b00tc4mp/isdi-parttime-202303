@@ -29,7 +29,7 @@ module.exports = (userId) => {
                             }
                             
                             if (post.likes.length>0) {
-                                post.likes.forEach(like =>{
+                                post.likes.forEach(like => {
                                     if (like._id) {
                                         like.id = like._id.toString()
                                         delete like._id

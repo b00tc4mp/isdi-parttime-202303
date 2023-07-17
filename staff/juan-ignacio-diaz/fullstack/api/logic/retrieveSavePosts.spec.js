@@ -55,18 +55,19 @@ describe('retrieveSavePosts' , () =>{
 
     it('succeeds on retrieve on save posts', () => {
         const userTest = usersTest[1]
+        let post, postTest
 
         return retrieveSavePosts(userTest.id)
             .then(posts => {
                 expect(posts).to.exist
                 expect(posts).to.have.lengthOf(1)
 
-                let post = posts[0]
-                let postTest = postsTest[2]
-                expect(post.id).to.deep.equal(postTest.id)
-                expect(post.image).to.deep.equal(postTest.image)
-                expect(post.text).to.deep.equal(postTest.text)
-                expect(post.author.id).to.deep.equal(postTest.author)
+                post = posts[0]
+                postTest = postsTest[2]
+                expect(post.id).to.equal(postTest.id)
+                expect(post.image).to.equal(postTest.image)
+                expect(post.text).to.equal(postTest.text)
+                expect(post.author.id).to.equal(postTest.author)
                 expect(post.likes).to.have.lengthOf(0)
                 expect(post.lock).to.equal(false)
                 expect(post.price).to.equal(0)   

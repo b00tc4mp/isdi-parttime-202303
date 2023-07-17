@@ -8,7 +8,7 @@ const { User } = require('../data/models')
 const retrieveUsersPosts = require('./retrieveUsersPosts')
 
 const { generateUser, generatePost, cleanUp, populateUser, populatePost } = require('./helpers/tests')
-
+debugger
 describe('retrieveUsersPosts' , () =>{
     let usersTest = []
     let postsTest = []
@@ -53,33 +53,67 @@ describe('retrieveUsersPosts' , () =>{
             })
     })
 
-    it('succeeds on retrieve on sale posts', () => {
+    it('succeeds on retrieve first user posts', () => {
         const userTest = usersTest[0]
+        let post, postTest
 
-        retrieveUsersPosts(userTest.id)
+        return retrieveUsersPosts(userTest.id)
             .then(posts => {
                 expect(posts).to.exist
                 expect(posts).to.have.lengthOf(2)
 
-                let post = posts[0]
-                let postTest = postsTest[0]
+                post = posts[0]
+                postTest = postsTest[0]
                 expect(post.author.id).to.deep.equal(userTest.id)
-                expect(post.id).to.deep.equal(postTest.id)
-                expect(post.image).to.deep.equal(postTest.image)
-                expect(post.text).to.deep.equal(postTest.text)
-                expect(post.author.id).to.deep.equal(postTest.author)
+                expect(post.id).to.equal(postTest.id)
+                expect(post.image).to.equal(postTest.image)
+                expect(post.text).to.equal(postTest.text)
+                expect(post.author.id).to.equal(postTest.author)
                 expect(post.likes).to.have.lengthOf(0)
                 expect(post.lock).to.equal(false)
                 expect(post.price).to.equal(100)
 
                 post = posts[1]
                 postTest = postsTest[1]
-                expect(post.author.id).to.deep.equal(userTest.id)
-                expect(post.id).to.deep.equal(postTest.id)
-                expect(post.image).to.deep.equal(postTest.image)
-                expect(post.text).to.deep.equal(postTest.text)
-                expect(post.author.id).to.deep.equal(postTest.author)
+                expect(post.author.id).to.equal(userTest.id)
+                expect(post.id).to.equal(postTest.id)
+                expect(post.image).to.equal(postTest.image)
+                expect(post.text).to.equal(postTest.text)
+                expect(post.author.id).to.equal(postTest.author)
                 expect(post.likes).to.have.lengthOf(0)
+                expect(post.lock).to.equal(true)
+                expect(post.price).to.equal(0)
+            })
+    })
+
+    it('succeeds on retrieve second user posts', () => {
+        const userTest = usersTest[1]
+        let post, postTest
+
+        return retrieveUsersPosts(userTest.id)
+            .then(posts => {
+                expect(posts).to.exist
+                expect(posts).to.have.lengthOf(2)
+
+                post = posts[0]
+                postTest = postsTest[2]
+                expect(post.author.id).to.equal(userTest.id)
+                expect(post.id).to.equal(postTest.id)
+                expect(post.image).to.equal(postTest.image)
+                expect(post.text).to.equal(postTest.text)
+                expect(post.author.id).to.equal(postTest.author)
+                expect(post.likes).to.have.lengthOf(0)
+                expect(post.lock).to.equal(false)
+                expect(post.price).to.equal(0)
+
+                post = posts[1]
+                postTest = postsTest[3]
+                expect(post.author.id).to.equal(userTest.id)
+                expect(post.id).to.equal(postTest.id)
+                expect(post.image).to.equal(postTest.image)
+                expect(post.text).to.equal(postTest.text)
+                expect(post.author.id).to.equal(postTest.author)
+                expect(post.likes).to.have.lengthOf(2)
                 expect(post.lock).to.equal(false)
                 expect(post.price).to.equal(0)
             })

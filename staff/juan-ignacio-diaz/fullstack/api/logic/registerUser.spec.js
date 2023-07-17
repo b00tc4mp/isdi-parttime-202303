@@ -21,7 +21,7 @@ describe('registerUser' , () =>{
     })
 
     it('succeeds on new user', () => {
-        registerUser(userTest.name, userTest.email, userTest.password)
+        return registerUser(userTest.name, userTest.email, userTest.password)
             .then(() => User.findOne({ email: userTest.email }))
             .then(user => {
                 expect(user).to.exist

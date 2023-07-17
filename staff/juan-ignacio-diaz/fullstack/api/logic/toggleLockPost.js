@@ -25,9 +25,9 @@ module.exports = (userId, postId) => {
 
             const lock = post.lock? false : true
 
-            return Post.findByIdAndUpdate(postId, { $set: { lock: lock } })
-                .then(() => { })   
+            return Post.findByIdAndUpdate(postId, { $set: { lock: lock } }) 
         })
+        .then(() => { })  
 }
 
 

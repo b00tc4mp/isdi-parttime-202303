@@ -8,7 +8,7 @@ const { User } = require('../data/models')
 const retrieveUser = require('./retrieveUser')
 
 const { generateUser, cleanUp, populateUser} = require('./helpers/tests')
-debugger
+
 describe('retrieveUser', () => {
     let userTest
 

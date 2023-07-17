@@ -24,7 +24,7 @@ module.exports = (userId, postId) => {
             else
                 likes.splice(index, 1)
                               
-            return Post.findByIdAndUpdate(postId, { $set: { likes: likes }}) 
-                .then(() => { })  
+            return Post.findByIdAndUpdate(postId, { $set: { likes: likes }})  
        })
+       .then(() => { }) 
 }

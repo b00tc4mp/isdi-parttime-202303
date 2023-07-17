@@ -8,7 +8,7 @@ const { User } = require('../data/models')
 const retrievePosts = require('./retrievePosts')
 
 const { generateUser, generatePost, cleanUp, populateUser, populatePost } = require('./helpers/tests')
-debugger
+
 describe('retrievePosts' , () =>{
     let usersTest = []
     let postsTest = []
@@ -56,28 +56,29 @@ describe('retrievePosts' , () =>{
 
     it('succeeds on retrieve posts', () => {
         const userTest = usersTest[1]
+        let post, postTest
 
         return retrievePosts(userTest.id)
             .then(posts => {
                 expect(posts).to.exist
                 expect(posts).to.have.lengthOf(3)
 
-                let post = posts[0]
-                let postTest = postsTest[0]
-                expect(post.id).to.deep.equal(postTest.id)
-                expect(post.image).to.deep.equal(postTest.image)
-                expect(post.text).to.deep.equal(postTest.text)
-                expect(post.author.id).to.deep.equal(postTest.author)
+                post = posts[0]
+                postTest = postsTest[0]
+                expect(post.id).to.equal(postTest.id)
+                expect(post.image).to.equal(postTest.image)
+                expect(post.text).to.equal(postTest.text)
+                expect(post.author.id).to.equal(postTest.author)
                 expect(post.likes).to.have.lengthOf(0)
                 expect(post.lock).to.equal(false)
                 expect(post.price).to.equal(100)
 
                 post = posts[2]
                 postTest = postsTest[3]
-                expect(post.id).to.deep.equal(postTest.id)
-                expect(post.image).to.deep.equal(postTest.image)
-                expect(post.text).to.deep.equal(postTest.text)
-                expect(post.author.id).to.deep.equal(postTest.author)
+                expect(post.id).to.equal(postTest.id)
+                expect(post.image).to.equal(postTest.image)
+                expect(post.text).to.equal(postTest.text)
+                expect(post.author.id).to.equal(postTest.author)
                 expect(post.likes).to.have.lengthOf(2)
                 expect(post.lock).to.equal(false)
                 expect(post.price).to.equal(0)

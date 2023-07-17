@@ -13,6 +13,6 @@ module.exports = (userId, mode) => {
             if (!user) throw new ExistenceError('user not found')
 
             return User.findByIdAndUpdate(userId, { $set: { mode: mode }})
-                .then(() => { })  
         })
+        .then(() => { })  
 }

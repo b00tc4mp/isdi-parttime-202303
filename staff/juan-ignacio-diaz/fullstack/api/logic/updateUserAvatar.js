@@ -14,6 +14,6 @@ module.exports = (userId, avatar) => {
         if (!user) throw new ExistenceError('user not found')
 
         return User.findByIdAndUpdate(userId, { $set: { avatar: avatar }})
-            .then(() => { })  
     })
+    .then(() => { })  
 }

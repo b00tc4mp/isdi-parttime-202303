@@ -22,6 +22,6 @@ module.exports = (userId, password, newPassword, newPasswordConfirm) => {
             if (user.password !== password)  throw new InvalidDataError('Error the pasword is invalid', {cause: "password"})
 
             return User.findByIdAndUpdate(userId, { $set: { password: newPassword }})
-                .then(() => { })  
         })
+        .then(() => { })  
 }

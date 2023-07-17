@@ -35,6 +35,7 @@ describe('retrieveOnSalePosts' , () =>{
 
                 postsTest[1].lock = true
 
+                postsTest[3].price = 200
                 postsTest[3].likes.push(usersTest[0].id)
                 postsTest[3].likes.push(usersTest[1].id)
 
@@ -55,21 +56,33 @@ describe('retrieveOnSalePosts' , () =>{
 
     it('succeeds on retrieve on sale posts', () => {
         const userTest = usersTest[0]
+        let post, postTest
 
         return retrieveOnSalePosts(userTest.id)
             .then(posts => {
                 expect(posts).to.exist
-                expect(posts).to.have.lengthOf(1)
+                expect(posts).to.have.lengthOf(2)
 
-                let post = posts[0]
-                let postTest = postsTest[0]
-                expect(post.id).to.deep.equal(postTest.id)
-                expect(post.image).to.deep.equal(postTest.image)
-                expect(post.text).to.deep.equal(postTest.text)
-                expect(post.author.id).to.deep.equal(postTest.author)
+                post = posts[0]
+                postTest = postsTest[0]
+                expect(post.id).to.equal(postTest.id)
+                expect(post.image).to.equal(postTest.image)
+                expect(post.text).to.equal(postTest.text)
+                expect(post.author.id).to.equal(postTest.author)
                 expect(post.likes).to.have.lengthOf(0)
                 expect(post.lock).to.equal(false)
                 expect(post.price).to.equal(100)   
+
+                post = posts[1]
+                postTest = postsTest[3]
+                expect(post.id).to.equal(postTest.id)
+                expect(post.image).to.equal(postTest.image)
+                expect(post.text).to.equal(postTest.text)
+                expect(post.author.id).to.equal(postTest.author)
+                expect(post.likes).to.have.lengthOf(2)
+                expect(post.lock).to.equal(false)
+                expect(post.price).to.equal(200)   
+
             })
     })
 

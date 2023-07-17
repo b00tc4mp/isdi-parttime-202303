@@ -30,9 +30,9 @@ module.exports  = (userId, postId) => {
                 favs.splice(index, 1)
             } 
 
-            return User.findByIdAndUpdate(userId, { $set: { favs: favs }})
-                .then(() => { })   
+            return User.findByIdAndUpdate(userId, { $set: { favs: favs }})   
         }) 
+        .then(() => { })
 }
 
 

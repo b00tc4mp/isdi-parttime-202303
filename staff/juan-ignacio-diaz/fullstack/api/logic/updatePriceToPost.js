@@ -25,6 +25,6 @@ module.exports = (userId, postId, price) => {
                 throw new AuthError(`Post doesn't belong to this user`)
 
             return Post.findByIdAndUpdate(postId, { $set: { price: price }})
-                .then(() => { })  
-        })          
+        })
+        .then(() => { })            
 }

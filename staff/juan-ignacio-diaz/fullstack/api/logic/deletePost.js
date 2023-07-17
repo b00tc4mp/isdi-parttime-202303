@@ -29,8 +29,8 @@ module.exports = (userId, postId) => {
                     })
         
                     return Promise.all([...usersUpdated, Post.findByIdAndDelete(postId)])
-                        .then(() => { })   
                 })
-        })  
+        }) 
+        .then(() => { })    
            
 }
