@@ -11,14 +11,15 @@ const {
     updateUserAvatarHandler,
     updateUserPasswordHandler,
     updateUserEmailHandler,
-    retrieveUserHandler,
     createPostHandler,
-    retrievePostHandler,
-    retrievePostsHandler,
     deletePostHandler,
     updatePostHandler,
     toggleLikePostHandler,
     toggleFavPostHandler,
+    retrieveUserHandler,
+    retrievePostHandler,
+    retrievePostsHandler,
+    retrieveFavPostsHandler,
     retrieveLikedPostsHandler
 } = require('./handlers')
 const mongoose = require('mongoose')
@@ -47,6 +48,8 @@ mongoose.connect(process.env.MONGODB_URL)
         api.get('/posts/:postId', retrievePostHandler)
 
         api.get('/posts/likes/', retrieveLikedPostsHandler)
+
+        api.get('/posts/favs/', retrieveFavPostsHandler)
 
         api.patch('/users/avatar', jsonBodyParser, updateUserAvatarHandler)
 

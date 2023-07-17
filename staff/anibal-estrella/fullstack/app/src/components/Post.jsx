@@ -63,31 +63,34 @@ export default ({ post: { author, id, text, image, date, likes, fav }, onEditPos
     const userId = extractSubFromToken(context.token)
 
     return (
-        <Panel tag="article" className="post">
-            <div className="post-info">
-                <img className="user-avatar home-post-avatar" src={author.avatar} />
-                <div>
-                    <h3>{author.name}</h3>
-                    <time>{date.toLocaleString()}</time>
+        <Panel tag="article" className="rounded-lg bg-base shadow-lg  flex flex-row" >
+            <div className="flex flex-col w-full py-4">
+                <div className="flex flex-row flex-grow-1 pl-4 pb-2">
+                    <img className="w-12 h-12 rounded-full aspect-square border-2 border-red " src={author.avatar} />
+                    <div className="px-2">
+                        <h3>{author.name}</h3>
+                        <time className="text-white">{date.toLocaleString()}</time>
+                    </div>
+                </div>
+
+
+                <div className="">
+                    <img className="w-full grayscale hover:grayscale-0 ease-in duration-300 " src={image} alt="" />
+                    <p className="pt-4 px-4">{text}</p>
                 </div>
             </div>
-            <div className="post-wrapper">
 
-                <img className="home-post-image grayscale-img" src={image} alt="" />
+            <div className="bg-back-100 rounded-e-lg w-12 p-2 justify-center">
+                <button onClick={handleToggleLikePost} name="like" className="post-button post-like-button">
+                    {likes && likes.includes(userId) ? <HeartIcon className="HeartIcon icon" /> : <HeartIconLine className="HeartIconLine icon" />} {likes && likes.length > 0 ? <span>{likes.length}</span> : ''}
+                </button>
 
-                <div className="post-buttons-wrapper">
+                <button onClick={handleToggleFavPost} className="text-white pt-4 pb-6 justify-center flex  w-5 flex-col text-[0px]">Fav
+                    {fav ? <BookmarkIcon className="" /> : < BookmarkIconLine className="" />}
+                </button>
 
-                    <button onClick={handleToggleFavPost} className="post-button fav-button icon">Fav
-                        {fav ? <BookmarkIcon className="favIcon icon" /> : < BookmarkIconLine className="favIcon icon" />}
-                    </button>
-
-                    {author.id === userId ? <button className="post-button post-edit-button icon" onClick={handleOpenEditPost} name="edit"> <PencilIcon className="PencilIcon post-edit-button  icon" /> </button> : ''}
-                    <button onClick={handleToggleLikePost} name="like" className="post-button post-like-button">
-                        {likes && likes.includes(userId) ? <HeartIcon className="HeartIcon icon" /> : <HeartIconLine className="HeartIconLine icon" />} {likes && likes.length > 0 ? <span>{likes.length}</span> : ''}
-                    </button>
-                </div>
+                {author.id === userId ? <button className="text-white justify-center flex  w-5 flex-col text-[0px]" onClick={handleOpenEditPost} name="edit"> <PencilIcon /> </button> : ''}
             </div>
-            <p>{text}</p>
         </Panel>
 
     )
