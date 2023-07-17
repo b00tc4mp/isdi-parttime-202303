@@ -1,23 +1,18 @@
 import { context } from "../ui.js"
 import { useAppContext } from "../hooks"
 import { authenticateUser } from '../logic'
+import { Link } from 'react-router-dom'
+
 
 import { Panel } from '../library'
 
 import "./Login.css"
 
-export default function Login({ onRegisterClick, onUserLoggedIn }) {
+export default function Login() {
     console.debug('// Login  -> Render \nEddie\npj@gmail.com\n123123123');
 
-    const { alert, freeze, unfreeze } = useAppContext()
+    const { alert, freeze, unfreeze, navigate } = useAppContext()
 
-    // 2 //send the event to its parent 
-    function handleGoToRegisterClick(event) {
-        event.preventDefault()
-
-        // 3 // ask the parent function for a function (sent through the CALLBACK component's props) when a click event occurs 
-        onRegisterClick()
-    }
 
     const handleLogin = event => {
         event.preventDefault()
@@ -26,7 +21,9 @@ export default function Login({ onRegisterClick, onUserLoggedIn }) {
         const password = event.target.password.value
 
         try {
+            freeze()
             authenticateUser(email, password, (error, token) => {
+                unfreeze()
                 if (error) {
                     alert(error.message, 'error')
 
@@ -35,35 +32,27 @@ export default function Login({ onRegisterClick, onUserLoggedIn }) {
 
                 context.token = token
 
-                onUserLoggedIn()
+                navigate('/')
             })
 
-            // authenticateUser(email, password)
-            //     .then(token => {
-            //         context.token = token
-
-            //         onUserLoggedIn()
-            //     })
-            //     .catch(error => alert(error.message, 'error'))
-
         } catch (error) {
+            unfreeze()
             alert(error.message, 'warn')
         }
     }
 
 
     return <div className="login center-container">
-        <Panel tag="section">
+        <Panel tag="section" className="" >
             <h2>Login</h2>
             <form className="border-top-gradient" onSubmit={handleLogin}>
                 <label htmlFor="username">E-mail:</label>
-                <input type="text" className="email" name="email" placeholder="Enter your e-mail" />
+                <input type="text" className="email" name="email" placeholder="Enter your e-mail" autoComplete="your email" />
                 <label htmlFor="lastname">Password:</label>
-                <input type="password" className="password" name="password" autoComplete="current-password" placeholder="Enter your password" />
+                <input type="password" className="password" name="password" placeholder="Enter your password" autoComplete="enter password" />
                 <button className="button-submit button" type="submit">Login</button>
             </form>
-            {/* // 1 // we created a property to grab the onclick event and call a function  */}
-            <p className="goto-register border-top-gradient ">Not registered? <br />Do it <a href="#" onClick={handleGoToRegisterClick}>here</a>.</p>
+            <p className="goto-register border-top-gradient ">Not registered? <br />Do it <Link to="/register" >here</Link>.</p>
         </ Panel >
     </div>
 }

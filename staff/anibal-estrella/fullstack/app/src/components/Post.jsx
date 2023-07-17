@@ -20,7 +20,8 @@ export default ({ post: { author, id, text, image, date, likes, fav }, onEditPos
 
     const { alert, freeze, unfreeze } = useAppContext()
 
-    date = formatTimeSince(date)
+    // date = formatTimeSince(toISOString(date))
+    date = formatTimeSince(new Date(date))
 
     const handleOpenEditPost = () => onEditPost(id)
 
@@ -63,33 +64,35 @@ export default ({ post: { author, id, text, image, date, likes, fav }, onEditPos
     const userId = extractSubFromToken(context.token)
 
     return (
-        <Panel tag="article" className="rounded-lg bg-base shadow-lg  flex flex-row" >
-            <div className="flex flex-col w-full py-4">
-                <div className="flex flex-row flex-grow-1 pl-4 pb-2">
+        <Panel tag="article" className="flex flex-row bg-gray-300" >
+            <div className="flex flex-col w-full">
+                <div className="flex flex-row flex-grow-1 p-4 pb-0">
                     <img className="w-12 h-12 rounded-full aspect-square border-2 border-red " src={author.avatar} />
-                    <div className="px-2">
-                        <h3>{author.name}</h3>
+                    <div className="pl-2">
+                        <h3 className="font-bold ">{author.name}</h3>
                         <time className="text-white">{date.toLocaleString()}</time>
                     </div>
                 </div>
 
-
                 <div className="">
-                    <img className="w-full grayscale hover:grayscale-0 ease-in duration-300 " src={image} alt="" />
-                    <p className="pt-4 px-4">{text}</p>
+                    <p className="p-4">{text}</p>
+                    <img className="w-full grayscale hover:grayscale-0 ease-in duration-300 rounded-3xl p-4 overflow-hidden
+" src={image} alt="" />
                 </div>
             </div>
 
-            <div className="bg-back-100 rounded-e-lg w-12 p-2 justify-center">
-                <button onClick={handleToggleLikePost} name="like" className="post-button post-like-button">
-                    {likes && likes.includes(userId) ? <HeartIcon className="HeartIcon icon" /> : <HeartIconLine className="HeartIconLine icon" />} {likes && likes.length > 0 ? <span>{likes.length}</span> : ''}
-                </button>
+            <div className="bg-gray-400 rounded-e-lg w-12 p-2 pt-4 ">
+                <div className="flex sticky top-16 flex-col	w-full justify-center">
+                    <button onClick={handleToggleLikePost} name="like" className="text-white pb-4 flex w-6 flex-col ">
+                        {likes && likes.includes(userId) ? <HeartIcon className="" /> : <HeartIconLine className="" />} {likes && likes.length > 0 ? <span className=" w-full text-center text-sm text-gray-200">{likes.length}</span> : ''}
+                    </button>
 
-                <button onClick={handleToggleFavPost} className="text-white pt-4 pb-6 justify-center flex  w-5 flex-col text-[0px]">Fav
-                    {fav ? <BookmarkIcon className="" /> : < BookmarkIconLine className="" />}
-                </button>
+                    <button onClick={handleToggleFavPost} className="text-white pb-6 justify-center flex w-6 flex-col text-[0px]">Fav
+                        {fav ? <BookmarkIcon className="" /> : < BookmarkIconLine className="" />}
+                    </button>
 
-                {author.id === userId ? <button className="text-white justify-center flex  w-5 flex-col text-[0px]" onClick={handleOpenEditPost} name="edit"> <PencilIcon /> </button> : ''}
+                    {author.id === userId ? <button className="text-white justify-center flex  w-6 flex-col text-[0px]" onClick={handleOpenEditPost} name="edit"> <PencilIcon /> </button> : ''}
+                </div>
             </div>
         </Panel>
 

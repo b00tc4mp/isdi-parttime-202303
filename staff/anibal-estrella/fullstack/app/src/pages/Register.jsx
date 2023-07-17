@@ -2,17 +2,12 @@ import { useContext } from "react"
 import { registerUser } from '../logic'
 import { Panel } from '../library'
 import { useAppContext } from '../hooks'
+import { Link } from 'react-router-dom'
 
-export default function Register({ onUserRegistered, onLoginClick }) {
+export default function Register({ onUserRegistered }) {
     console.debug('// Register  -> Render');
 
-    const { alert, freeze, unfreeze } = useAppContext()
-
-    function handleLoginClick(event) {
-        event.preventDefault()
-
-        onLoginClick()
-    }
+    const { alert, freeze, unfreeze, navigate } = useAppContext()
 
     function handleRegister(event) {
         event.preventDefault()
@@ -26,20 +21,16 @@ export default function Register({ onUserRegistered, onLoginClick }) {
         try {
             freeze()
             //handle asynchronous errors with a CALLBACK
-            registerUser(name, email, password, repeatPassword, error => {
-                unfreeze()
+            registerUser(name, email, password, repeatPassword)
+                .then(() => navigate('/login'))
+                .catch(error => alert(error.message))
 
-                if (error) {
-                    alert(error.message)
-
-                    return
-                }
-
-                onUserRegistered()
-            })
+            unfreeze()
 
         } catch (error) {
             alert(error.message)
+            unfreeze()
+
         }
         unfreeze()
     }
@@ -49,18 +40,18 @@ export default function Register({ onUserRegistered, onLoginClick }) {
             <h2>Register</h2>
             <form method="get" className="register-form border-top-gradient" onSubmit={handleRegister}>
                 <label htmlFor="name">Name:</label>
-                <input type="text" className="name" name="name" placeholder="Enter your name" />
+                <input type="text" className="name" name="name" placeholder="Enter your name" autoComplete="enter name" />
                 <label htmlFor="email">E-mail:</label>
-                <input type="text" className="email" name="email" placeholder="Enter your e-mail" />
+                <input type="text" className="email" name="email" placeholder="Enter your e-mail" autoComplete="enter email" />
                 <label htmlFor="password">Password:</label>
-                <input type="password" className="password" name="password" placeholder="Enter your password" />
+                <input type="password" className="password" name="password" placeholder="Enter your password" autoComplete="enter password" />
                 <label htmlFor="password">Repeat password:</label>
-                <input type="password" className="password" name="repeatPassword" placeholder="Repeat your password" />
+                <input type="password" className="password" name="repeatPassword" placeholder="Repeat your password" autoComplete="enter password" />
                 <button className="button button-submit" type="submit" value="register">Register</button>
             </form>
             <p className="goto-login border-top-gradient">
                 Already registered? <br />
-                Login <a href="#" onClick={handleLoginClick}>here</a>.
+                Login <Link to="/login">here</Link>.
             </p>
         </ Panel >
     </div>

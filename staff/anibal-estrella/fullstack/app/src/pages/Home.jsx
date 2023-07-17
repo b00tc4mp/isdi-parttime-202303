@@ -13,6 +13,8 @@ import { PencilSquareIcon } from '@heroicons/react/24/solid'
 import { Bars3BottomRightIcon } from '@heroicons/react/24/solid'
 
 import './Home.css'
+import { useNavigate } from 'react-router-dom'
+import { useAppContext } from '../hooks'
 
 export default function Home({ onLoggedOut }) {
     console.debug('// Home  -> Render')
@@ -23,6 +25,7 @@ export default function Home({ onLoggedOut }) {
     const [postId, setPostId] = useState(null)
     const [lastPostsUpdate, setLastPostsUpdate] = useState(Date.now())
     const [user, setUser] = useState()
+    const { navigate } = useAppContext
 
     useEffect(() => {
         try {

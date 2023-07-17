@@ -15,7 +15,7 @@
 @layer {
 
     :root {
-        --f-montserrat: "montserrat", sans-serif;
+        /* --f-montserrat: "montserrat", sans-serif; */
         --op-50: /50%;
         --op-80: /80%;
         --c-back-val: 162 5% 20%;

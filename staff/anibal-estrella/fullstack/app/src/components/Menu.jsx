@@ -1,9 +1,12 @@
 import { XCircleIcon } from '@heroicons/react/24/solid'
-
+import { useNavigate } from 'react-router-dom'
 import "./Menu.css"
+import { context } from '../ui'
 
 export default function Menu(props) {
     console.debug('/// MENU  -> Render')
+
+    const navigate = useNavigate()
 
     function handleClose(event) {
         event.preventDefault()
@@ -21,8 +24,9 @@ export default function Menu(props) {
     }
 
     function handleLogOut() {
-        props.onLogOut()
+        delete context.token
         props.onCloseMenu()
+        navigate('/login')
     }
 
     function handleShowPosts() {
