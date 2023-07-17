@@ -11,6 +11,8 @@ import UpdateUsername from "../components/UpdateUsername"
 import UpdatePassword from "../components/UpdatePassword"
 import "./Home.css"
 import updateUserFavs from "../logic/updateUserFavs"
+import { Container } from "../library"
+import { useAppContext } from "../hooks"
 
 export default function Home({ onLoggedOut }) {
     const [view, setView] = useState('posts')
@@ -18,6 +20,8 @@ export default function Home({ onLoggedOut }) {
     const [postId, setPostId] = useState(null)
     const [lastPostsUpdate, setLastPostsUpdate] = useState(null)
     const [user, setUser] = useState()
+
+    const { alert } = useAppContext()
 
     useEffect(() => {
         try {
@@ -86,7 +90,7 @@ export default function Home({ onLoggedOut }) {
 
     console.log('Home -> Render')
 
-    return <div className="home">
+    return <Container>
         <header className="home__navigation">
             <nav className="home__navigation--profile">
                 {user && <>
@@ -142,5 +146,5 @@ export default function Home({ onLoggedOut }) {
         <footer>
             <p className="add-post-anchor"><img className="new__post--icon" src="../../images/new_post.png" onClick={handleAddPostModal} /></p>
         </footer>
-    </div>
+    </Container>
 }

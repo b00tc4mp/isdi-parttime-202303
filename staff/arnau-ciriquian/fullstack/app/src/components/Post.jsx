@@ -5,21 +5,20 @@ import { deletePost } from "../logic/deletePost"
 import toggleFavPost from "../logic/toggleFavPost"
 import toggleHidePost from "../logic/toggleHidePost"
 import { utils } from "com"
+import { useAppContext } from "../hooks"
 
 const { extractSubFromToken } = utils
 
 export default function Post({ post: { image, text, date, likes, author, id, fav, visibility }, onLikePostClick, onEditClick, onDeletePostClick, onFavPostClick, onHidePostClick }) {
-    const handleLikePostClick = () => {
-        debugger
-        console.log(author.name)
-        console.log(author.avatar)
+    const { alert } = useAppContext()
 
+    const handleLikePostClick = () => {
         try {
             toggleLikePost(context.token, id)
-            .then(() => {
-                onLikePostClick()
-            })
-            .catch(error => alert(error.message))
+                .then(() => {
+                    onLikePostClick()
+                })
+                .catch(error => alert(error.message))
         } catch (error) {
             alert(error.message)
         }
@@ -28,10 +27,10 @@ export default function Post({ post: { image, text, date, likes, author, id, fav
     const handleFavPostClick = () => {
         try {
             toggleFavPost(context.token, id)
-            .then(() => {
-                onFavPostClick()
-            })
-            .catch(error => alert(error.message))
+                .then(() => {
+                    onFavPostClick()
+                })
+                .catch(error => alert(error.message))
         } catch (error) {
             alert(error.message)
         }
@@ -73,69 +72,69 @@ export default function Post({ post: { image, text, date, likes, author, id, fav
 
     if (!visibility && userId === author.id) {
         return <article className="inputs__box--feed">
-        <div className="post__info--user">
-            <div className="post__user">
-                <img className="post__avatar" src={author.avatar} />
-                <p className="post__name">{author.name}</p>
+            <div className="post__info--user">
+                <div className="post__user">
+                    <img className="post__avatar" src={author.avatar} />
+                    <p className="post__name">{author.name}</p>
+                </div>
+                <div className="post__favorite">
+                    <img className="favorite--icon" src={fav ? "../../images/bookmark_filled.png" : "../../images/bookmark_empty.png"} onClick={handleFavPostClick} />
+                </div>
+                <div className="post__date">
+                    <time className="text">{date}</time>
+                </div>
             </div>
-            <div className="post__favorite">
-                <img className="favorite--icon" src={fav ? "../../images/bookmark_filled.png" : "../../images/bookmark_empty.png"} onClick={handleFavPostClick} />
+            <img className="home__post--image" src={image} />
+            <div className="post--text"><p className="text">{text}</p></div>
+            <div className="home__post--info">
+                <div className="post__like">
+                    <img className="like-button" src={likes && likes.includes(userId) ? './images/heart-filled.png' : './images/heart-empty.png'} onClick={handleLikePostClick} />
+                    <p>{likes ? likes.length : 0}</p>
+                </div>
+                <div className="post__edit">
+                    {author.id === userId && <img className="edit--icon" src="../../images/edit.png" onClick={handleOpenEditModal} />}
+                </div>
+                <div className="post__hide">
+                    {(author.id === userId && visibility === true && <img className="hide--icon" src="../../images/eye.png" onClick={handleHidePost} />) || (author.id === userId && visibility === false && <img className="hide--icon" src="../../images/eye_slashed.png" onClick={handleHidePost} />)}
+                </div>
+                <div className="post__delete">
+                    {author.id === userId && <img className="delete--icon" src="../../images/delete.png" onClick={handleDeletePost} />}
+                </div>
             </div>
-            <div className="post__date">
-                <time className="text">{date}</time>
-            </div>
-        </div>
-        <img className="home__post--image" src={image} />
-        <div className="post--text"><p className="text">{text}</p></div>
-        <div className="home__post--info">
-            <div className="post__like">
-                <img className="like-button" src={likes && likes.includes(userId) ? './images/heart-filled.png' : './images/heart-empty.png'} onClick={handleLikePostClick} />
-                <p>{likes ? likes.length : 0}</p>
-            </div>
-            <div className="post__edit">
-                {author.id === userId && <img className="edit--icon" src="../../images/edit.png" onClick={handleOpenEditModal} />}
-            </div>
-            <div className="post__hide">
-                {(author.id === userId && visibility === true && <img className="hide--icon" src="../../images/eye.png" onClick={handleHidePost} />) || (author.id === userId && visibility === false && <img className="hide--icon" src="../../images/eye_slashed.png" onClick={handleHidePost} />)}
-            </div>
-            <div className="post__delete">
-                {author.id === userId && <img className="delete--icon" src="../../images/delete.png" onClick={handleDeletePost} />}
-            </div>
-        </div>
-    </article>
+        </article>
     }
-    
+
     if (visibility) {
         return <article className="inputs__box--feed">
-        <div className="post__info--user">
-            <div className="post__user">
-                <img className="post__avatar" src={author.avatar} />
-                <p className="post__name">{author.name}</p>
+            <div className="post__info--user">
+                <div className="post__user">
+                    <img className="post__avatar" src={author.avatar} />
+                    <p className="post__name">{author.name}</p>
+                </div>
+                <div className="post__favorite">
+                    <img className="favorite--icon" src={fav ? "../../images/bookmark_filled.png" : "../../images/bookmark_empty.png"} onClick={handleFavPostClick} />
+                </div>
+                <div className="post__date">
+                    <time className="text">{date}</time>
+                </div>
             </div>
-            <div className="post__favorite">
-                <img className="favorite--icon" src={fav ? "../../images/bookmark_filled.png" : "../../images/bookmark_empty.png"} onClick={handleFavPostClick} />
+            <img className="home__post--image" src={image} />
+            <div className="post--text"><p className="text">{text}</p></div>
+            <div className="home__post--info">
+                <div className="post__like">
+                    <img className="like-button" src={likes && likes.includes(userId) ? './images/heart-filled.png' : './images/heart-empty.png'} onClick={handleLikePostClick} />
+                    <p>{likes ? likes.length : 0}</p>
+                </div>
+                <div className="post__edit">
+                    {author.id === userId && <img className="edit--icon" src="../../images/edit.png" onClick={handleOpenEditModal} />}
+                </div>
+                <div className="post__hide">
+                    {(author.id === userId && visibility === true && <img className="hide--icon" src="../../images/eye.png" onClick={handleHidePost} />) || (author.id === userId && visibility === false && <img className="hide--icon" src="../../images/eye_slashed.png" onClick={handleHidePost} />)}
+                </div>
+                <div className="post__delete">
+                    {author.id === userId && <img className="delete--icon" src="../../images/delete.png" onClick={handleDeletePost} />}
+                </div>
             </div>
-            <div className="post__date">
-                <time className="text">{date}</time>
-            </div>
-        </div>
-        <img className="home__post--image" src={image} />
-        <div className="post--text"><p className="text">{text}</p></div>
-        <div className="home__post--info">
-            <div className="post__like">
-                <img className="like-button" src={likes && likes.includes(userId) ? './images/heart-filled.png' : './images/heart-empty.png'} onClick={handleLikePostClick} />
-                <p>{likes ? likes.length : 0}</p>
-            </div>
-            <div className="post__edit">
-                {author.id === userId && <img className="edit--icon" src="../../images/edit.png" onClick={handleOpenEditModal} />}
-            </div>
-            <div className="post__hide">
-                {(author.id === userId && visibility === true && <img className="hide--icon" src="../../images/eye.png" onClick={handleHidePost} />) || (author.id === userId && visibility === false && <img className="hide--icon" src="../../images/eye_slashed.png" onClick={handleHidePost} />)}
-            </div>
-            <div className="post__delete">
-                {author.id === userId && <img className="delete--icon" src="../../images/delete.png" onClick={handleDeletePost} />}
-            </div>
-        </div>
-    </article>
+        </article>
     }
 }

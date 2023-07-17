@@ -82,14 +82,6 @@ main {
   align-items: center;
 }
 
-.home, .register, .login {
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding-top: 10%;
-}
-
 header, footer {
   background-color: var(--pagecolor);
   position: fixed;

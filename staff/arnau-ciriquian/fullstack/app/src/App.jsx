@@ -4,12 +4,17 @@ import Login from './pages/Login.jsx'
 import Register from './pages/Register.jsx'
 import Home from './pages/Home.jsx'
 import { utils } from 'com'
+import Alert from './components/Alert'
+import AppContext from './AppContext'
+
+const { Provider } = AppContext
 
 const { isTokenAlive, isTokenValid } = utils
 
 export default function App() {
   const { token } = context
   const [view, setView] = useState(isTokenValid(token) && isTokenAlive(token) ? 'home' : 'login')
+  const [feedback, setFeedback] = useState(null)
 
   useEffect(() => setTheme(getTheme()), [])
 
@@ -19,16 +24,18 @@ export default function App() {
 
   const handleGoToHome = () => setView('home')
 
+  const handleAcceptAlert = () => setFeedback(null)
+
+  const alert = (message, level = 'info') => setFeedback({ message, level })
+
   console.log('App -> render')
 
-  switch (view) {
-    case 'login':
-      return <Login onRegisterClick={handleGoToRegister} onUserLoggedIn={handleGoToHome} />
-      
-    case 'register':
-      return <Register onLoginClick={handleGoToLogin} onUserRegistered={handleGoToLogin}/>
+  return <Provider value={{ alert }}>
+    {feedback && <Alert message={feedback.message} level={feedback.level} onAccept={handleAcceptAlert} />}
+    
+    {view === 'login' && <Login onRegisterClick={handleGoToRegister} onUserLoggedIn={handleGoToHome} />}
+    {view === 'register' && <Register onLoginClick={handleGoToLogin} onUserRegistered={handleGoToLogin} />}
+    {view === 'home' && <Home onLoggedOut={handleGoToLogin} />}
 
-    case 'home':
-      return <Home onLoggedOut={handleGoToLogin}/>
-  }
+  </Provider>
 }

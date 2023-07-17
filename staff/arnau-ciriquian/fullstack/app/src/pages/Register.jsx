@@ -1,5 +1,5 @@
 import { registerUser } from "../logic/registerUser"
-import { Form, ButtonForm } from "../library"
+import { Form, ButtonForm, Container } from "../library"
 
 export default function Register({ onLoginClick, onUserRegistered }) {
     const handleLoginClick = event => {
@@ -27,7 +27,7 @@ export default function Register({ onLoginClick, onUserRegistered }) {
 
     console.log('Register -> Render')
 
-    return <div className="register">
+    return <Container>
         <header className="main-tittle">
             <img className="main-logo" src="./images/PunIntendedMain.png" />
         </header>
@@ -52,5 +52,5 @@ export default function Register({ onLoginClick, onUserRegistered }) {
 
             <p className="text">Go to <a className="register__anchor--login" href="" onClick={handleLoginClick}> Login</a></p>
         </div>
-    </div>
+    </Container>
 }

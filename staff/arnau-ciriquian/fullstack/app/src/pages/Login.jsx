@@ -2,7 +2,7 @@ import { authenticateUser } from "../logic/authenticateUser"
 import { useEffect, useState } from "react"
 import retrieveRandomJoke from "../logic/retriveRandomJoke"
 import "./login.css"
-import { Form, ButtonForm } from "../library"
+import { Form, ButtonForm, Container } from "../library"
 
 export default function Login({ onRegisterClick, onUserLoggedIn }) {
     const [joke, setJoke] = useState(null)
@@ -46,7 +46,7 @@ export default function Login({ onRegisterClick, onUserLoggedIn }) {
 
     console.log('Login -> Render')
 
-    return <div className="login">
+    return <Container>
         <header className="main-tittle">
             <img className="main-logo" src="../images/PunIntendedMain.png" />
             <h2>Cooking dad jokes since 1991</h2>
@@ -68,5 +68,5 @@ export default function Login({ onRegisterClick, onUserLoggedIn }) {
                 {joke && <p><q>{joke}</q></p>}
             </div>
         </div>
-    </div>
+    </Container>
 }
