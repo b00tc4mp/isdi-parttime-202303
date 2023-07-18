@@ -3,7 +3,7 @@ import inLogger from '../inLogger';
 import { tutorialLevels } from '../components/game/tutorialLevels';
 import TutorialInfo from '../components/game/TutorialInfo';
 import { configureLevelToRender } from '../helpers/configureLevelToRender';
-import TutorialGame from '../components/game/TutorialGame';
+import TutorialGameContainer from '../components/game/TutorialGameContainer';
 
 const Tutorial = () => {
     const [key, setKey] = useState(0);
@@ -30,7 +30,7 @@ const Tutorial = () => {
                 </>
             )}
             {key < 6 &&
-                < TutorialGame
+                < TutorialGameContainer
                     key={key}
                     tutorialLevel={tutorialLevels[key]}
                     onFinishTutorialLevel={handleFinishTutorialLevel}

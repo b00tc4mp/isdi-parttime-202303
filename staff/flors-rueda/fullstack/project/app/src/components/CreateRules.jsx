@@ -20,51 +20,51 @@ const CreateRules = () => {
                 }
                 <span className="self-end">Rules</span>
             </button>
-            <div className={`fixed w-full ${isListOpen ? '' : 'hidden'} mt-0.5 shadow h-full bg-light400 p-5 md:flex md:w-3/6 md:flex-col md:mt-0 lg:w-2/6`}>
+            <div className={`fixed w-full ${isListOpen ? '' : 'hidden'} mt-0.5 shadow h-full bg-light400 p-5 md:flex md:w-3/6 md:flex-col md:mt-0 lg:w-2/6 flex flex-col`}>
                 <span className="hidden md:block pt-5 text-2xl font-bold text-primary100">Rules</span>
                 <h5 className="text-lg font-semibold text-primary300">How should a level look like...</h5>
-                <ul className="pt-2">
-                    <li className="flex flex-col gap-1 pb-1">
-                        <div className="flex gap-2">
-                            <img src={editIcons['start']} className="w-6 h-6 md:w-8 md:h-8" alt={'start'} />
-                            <b className="text-md text-secondary400 self-center">Starting point:</b>
+                <ul className="pt-2 md:w-11/12">
+                    <li className="flex flex-row gap-1 pb-2 align-center">
+                        <img src={editIcons['start']} className="w-8 h-8 md:w-10 md:h-10 self-center" alt={'start'} />
+                        <div className="self-center">
+                            <b className="text-md text-secondary400 self-center ">Starting point:</b>
+                            <b className="text-xs md:text-sm text-dark500 pl-1 self-center">only one for floor.</b>
                         </div>
-                        <b className="text-xs md:text-sm text-dark500">only one for floor.</b>
                     </li>
-                    <li className="flex flex-col gap-1 pb-1">
-                        <div className="flex gap-2">
-                            <img src={editIcons['hole']} className="w-6 h-6 md:w-8 md:h-8" alt={'hole'} />
+                    <li className="flex flex-row gap-1 pb-2 align-center">
+                        <img src={editIcons['hole']} className="w-8 h-8 md:w-10 md:h-10 self-center" alt={'hole'} />
+                        <div className="self-center">
                             <b className="text-md text-secondary400 self-center">Hole:</b>
+                            <b className="text-xs md:text-sm text-dark500 pl-1 self-center">only one for floor, and never on the last one.</b>
                         </div>
-                        <b className="text-xs md:text-sm text-dark500">only one for floor, and never on the last one.</b>
                     </li>
-                    <li className="flex flex-col gap-1 pb-1">
-                        <div className="flex gap-2">
-                            <img src={editIcons['stonks']} className="w-6 h-6 md:w-8 md:h-8" alt={'stonks'} />
+                    <li className="flex flex-row gap-1 pb-2 align-center">
+                        <img src={editIcons['stonks']} className="w-8 h-8 md:w-10 md:h-10  self-center" alt={'treasure'} />
+                        <div className="self-center">
                             <b className="text-md text-secondary400 self-center">Treasure:</b>
+                            <b className="text-xs md:text-sm text-dark500 pl-1 self-center">only on the last floor, marks the end of the level.</b>
                         </div>
-                        <b className="text-xs md:text-sm text-dark500">only on the last floor, marks the end of the level.</b>
                     </li>
-                    <li className="flex flex-col gap-1 pb-1">
-                        <div className="flex gap-2">
-                            <img src={editIcons['life']} className="w-6 h-6 md:w-8 md:h-8" alt={'life'} />
+                    <li className="flex flex-row gap-1 pb-2 align-center">
+                        <img src={editIcons['life']} className="w-8 h-8 md:w-10 md:h-10  self-center" alt={'life'} />
+                        <div className="self-center">
                             <b className="text-md text-secondary400 self-center">Life:</b>
+                            <b className="text-xs md:text-sm text-dark500 pl-1 self-center">increases one hp heart.</b>
                         </div>
-                        <b className="text-xs md:text-sm text-dark500">increases one hp heart.</b>
                     </li>
-                    <li className="flex flex-col gap-1 pb-1">
-                        <div className="flex gap-2">
-                            <img src={editIcons['bomb']} className="w-6 h-6 md:w-8 md:h-8" alt={'bomb'} />
+                    <li className="flex flex-row gap-1 pb-2 align-center">
+                        <img src={editIcons['bomb']} className="w-8 h-8 md:w-10 md:h-10 self-center" alt={'bomb'} />
+                        <div className="self-center">
                             <b className="text-md text-secondary400 self-center">Bomb:</b>
+                            <b className="text-xs md:text-sm text-dark500 pl-1 self-center">takes away one hp heart.</b>
                         </div>
-                        <b className="text-xs md:text-sm text-dark500">takes away one hp heart.</b>
                     </li>
-                    <li className="flex flex-col gap-1 pb-1">
-                        <div className="flex gap-2">
-                            <img src={editIcons['dirt']} className="w-6 h-6 md:w-8 md:h-8" alt={'dirt'} />
+                    <li className="flex flex-row gap-1 pb-2 align-center">
+                        <img src={editIcons['dirt']} className="w-8 h-8 md:w-10 md:h-10" alt={'dirt'} />
+                        <div className="self-center">
                             <b className="text-md text-secondary400 self-center">Dirt:</b>
+                            <b className="text-xs md:text-sm text-dark500 pl-1 self-center">makes passing through a little harder.</b>
                         </div>
-                        <b className="text-xs md:text-sm text-dark500">makes passing through a little harder.</b>
                     </li>
                     <li className="flex align-center pt-1 pb-1">
                         <b className="text-xs md:text-lg text-primary100 text-center">Remember to give the level a name and configure the start hp!</b>

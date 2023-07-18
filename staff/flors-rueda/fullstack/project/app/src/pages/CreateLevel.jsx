@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { validateLevel } from '../helpers/levelValidators';
 import { configureLevelToRender } from '../helpers/configureLevelToRender';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import createLevel from '../logic/create-level';
 import inLogger from '../inLogger';
 import CreateLevelToast from '../components/toasts/CreateLevelToast';
@@ -9,30 +9,21 @@ import LayoutForm from '../components/LayoutForm';
 import CreateRules from '../components/CreateRules';
 
 const CreateLevel = () => {
+    const location = useLocation();
+    const { initialLevel, hpSelected, nameSelected } = location.state ? location.state : {}
     const [toast, setToast] = useState(null);
     const [isToastOn, setToastOn] = useState(false);
-    const [level, setLevel] = useState([['life', 'stonks', 'hole', 'empty', 'bomb', 'empty', 'dirt', 'empty', 'start']]);
-    const [initialHP, setInitialHP] = useState(1);
+    const [level, setLevel] = useState(initialLevel ? initialLevel : [['life', 'stonks', 'hole', 'empty', 'bomb', 'empty', 'dirt', 'empty', 'start']]);
+    const [initialHP, setInitialHP] = useState(hpSelected ? hpSelected : 3);
     const navigate = useNavigate();
 
     const handleCloseToast = () => setToastOn(false);
 
     const handleOnTryLevel = () => {
-        const name = document.getElementById('level-name').value;
+        const selectedName = document.getElementById('level-name').value;
         const hp = initialHP;
-        if (validateLevel(level, name, setToast, setToastOn)) {
-            try {
-                createLevel(name, level, hp).then(() => {
-                    const createdLevel = (configureLevelToRender(level));
-                    navigate('/game/try', { state: { level: createdLevel, hp: hp } })
-                }).catch(error => {
-                    console.log(`create level error: ${error.message}`);
-                    return;
-                })
-
-            } catch (error) {
-                alert(`create level error: ${error.message}`);
-            }
+        if (validateLevel(level, selectedName, setToast, setToastOn)) {
+            navigate('/game/try', { state: { createdLayout: level, hp: hp, levelName: selectedName } })
         }
     };
 
@@ -52,7 +43,7 @@ const CreateLevel = () => {
                                 </span>
                             </div>
                             <div className="md:w-2/3">
-                                <input className="bg-light300 appearance-none border-2 border-light100 rounded w-full py-2 px-4 text-secondary400 leading-tight focus:outline-none focus:bg-light400 focus:border-secondary400" id="level-name" type="text" />
+                                <input className="bg-light300 appearance-none border-2 border-light100 rounded w-full py-2 px-4 text-secondary400 leading-tight focus:outline-none focus:bg-light400 focus:border-secondary400" id="level-name" type="text" defaultValue={nameSelected ? nameSelected : undefined} />
                             </div>
                         </div>
                         <div className="flex items-center py-1 gap-5">
@@ -76,7 +67,7 @@ const CreateLevel = () => {
                         </div>
                         <LayoutForm level={level} setLevel={setLevel} setToast={setToast} setToastOn={setToastOn} />
                         <div className="pt-5 pb-20">
-                            <button className="bg-transparent hover:bg-orange-500 text-orange-700 font-semibold hover:text-white py-2 px-4 border border-orange-500 hover:border-transparent rounded" onClick={handleOnTryLevel}>try and post</button>
+                            <button className="bg-transparent hover:bg-orange-500 text-orange-700 font-semibold hover:text-white py-2 px-4 border border-orange-500 hover:border-transparent rounded" onClick={handleOnTryLevel}>test level</button>
                         </div>
                     </div>
                 </div>

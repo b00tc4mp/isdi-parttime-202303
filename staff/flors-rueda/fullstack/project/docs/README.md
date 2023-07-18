@@ -100,9 +100,27 @@ Planned through a kanban visible on this [Trello](https://trello.com/b/uHRmZKBR/
 - [x] Implement retrieve one level functionality
 - [x] Use TDD to add validators
 - [x] Improve error handling
-- [ ] Improve GameOver modal style
+- [x] Improve GameOver modal style
 - [x] Improve UX of the create level form
 - [x] Upload the page to AWS
+
+### **Access control**
+
+- Me as a user, I want to get the chance to sign up and log in into the web app and with that access more functionalities
+
+#### Tasks
+
+- [ ] Build login page
+- [ ] Build register page
+- [ ] Create tests for register user
+- [ ] Create tests for authenticate user
+- [ ] Implement register user functionality
+- [ ] Implement authenticate user with token
+- [ ] Make levels view only accessible for log in users
+- [ ] Only allow logged in users to post levels
+- [ ] Add a create and test level on tutorial (no posting)
+- [ ] Differenciate navbar for authenticate users
+- [ ] Add logout and delete token
 
 </br>
 </br>

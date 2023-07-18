@@ -2,13 +2,11 @@ import { useState, useEffect } from 'react';
 import CanvasContainer from './CanvasContainer';
 import { Player } from '@lottiefiles/react-lottie-player';
 import inLogger from '../../inLogger';
-import { configureLevelToRender } from '../../helpers/configureLevelToRender';
 
-const TutorialGame = ({ tutorialLevel, onFinishTutorialLevel }) => {
-    const [level, setLevel] = useState(configureLevelToRender(tutorialLevel))
+const GameContainer = ({ level, initialHp, onGameOver }) => {
     const [key, setKey] = useState(1);
     const [floor, setFloor] = useState(level[0]);
-    const [health, setHealth] = useState(5);
+    const [health, setHealth] = useState(initialHp);
     const [isGameOver, setIsGameOver] = useState(0); // 0 = playing, -1 = lost, 1 = won
     const [animation, setAnimation] = useState(null);
     const [isAnimationVisible, setAnimationVisible] = useState(false);
@@ -26,6 +24,7 @@ const TutorialGame = ({ tutorialLevel, onFinishTutorialLevel }) => {
             const newHealth = prevHealth - 1;
             if (newHealth === 0) {
                 setIsGameOver(-1);
+                onGameOver(-1);
             };
             return newHealth;
         });
@@ -48,13 +47,13 @@ const TutorialGame = ({ tutorialLevel, onFinishTutorialLevel }) => {
     useEffect(() => {
         if (health === 0) {
             setIsGameOver(-1);
-            onFinishTutorialLevel();
+            onGameOver(-1);
         }
     }, [health]);
 
     const renderHealthImages = () => {
         return Array.from({ length: health }, (_, index) => (
-            <img key={index} src="game/hp.png" className="w-8 h-8" />
+            <img key={index} src="/game/hp.png" className="w-8 h-8" />
         ));
     };
 
@@ -71,7 +70,7 @@ const TutorialGame = ({ tutorialLevel, onFinishTutorialLevel }) => {
                 setAnimationVisible(false);
                 if (animation === 'won') {
                     setIsGameOver(1);
-                    onFinishTutorialLevel();
+                    onGameOver(1);
                 }
             }, animationDuration);
 
@@ -113,4 +112,4 @@ const TutorialGame = ({ tutorialLevel, onFinishTutorialLevel }) => {
     );
 };
 
-export default inLogger(TutorialGame);
+export default inLogger(GameContainer);
