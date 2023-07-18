@@ -1,4 +1,5 @@
 import { validators } from 'com';
+import context from './context';
 const { validateEmail, validatePassword } = validators;
 
 const authenticateUser = (email, password) => {
@@ -11,14 +12,18 @@ const authenticateUser = (email, password) => {
       'Content-type': 'application/json',
     },
     body: JSON.stringify({ email, password }),
-  }).then((res) => {
-    if (res.status !== 200)
-      return res.json().then(({ error: message }) => {
-        throw new Error(message);
-      });
+  })
+    .then((res) => {
+      if (res.status !== 200)
+        return res.json().then(({ error: message }) => {
+          throw new Error(message);
+        });
 
-    return res.json();
-  });
+      return res.json();
+    })
+    .then((token) => {
+      context.token = token;
+    });
 };
 
 export default authenticateUser;

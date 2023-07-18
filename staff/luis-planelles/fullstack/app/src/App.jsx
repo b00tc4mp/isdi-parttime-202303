@@ -1,29 +1,17 @@
-import { utils } from 'com'
 import { useState } from 'react'
+import { Navigate, Route, Routes, useNavigate } from 'react-router-dom'
 import Context from './Context'
 import Alert from './components/Alert'
 import { Loader } from './library'
+import isUserLoggedIn from './logic/isUserLoggedIn'
 import Home from './pages/Home'
 import Login from './pages/Login'
 import Register from './pages/Register'
-import { context } from './ui'
-
-const {isTokenValid, isTokenAlive} = utils
-
 
 const App = () => {
-    const [view, setView] = useState(
-        isTokenValid(context.token) 
-        && isTokenAlive(context.token) 
-        ? 'home' : 'login')
     const [feedback, setFeedback] = useState(null)
     const [loader, setLoader] = useState(false)
-
-    const handleGoToRegister = () => setView('register')
-
-    const handleGoToLogin = () => setView('login')
-
-    const handleGoToHome = () => setView('home')
+    const navigate = useNavigate()
 
     const handleAcceptAlert = () => setFeedback(null)
 
@@ -33,10 +21,13 @@ const App = () => {
 
     const unfreeze = () => setLoader(false)
 
-    return <Context.Provider value={{ alert, freeze, unfreeze }}>
-        {view === 'login' && <Login onRegisterClick={handleGoToRegister} onUserLoggedIn={handleGoToHome} />}
-        {view === 'register' && <Register onLoginClick={handleGoToLogin} onUserRegistered={handleGoToLogin} />}
-        {view === 'home' && <Home onLoggedOut={handleGoToLogin} />}
+    return <Context.Provider value={{ alert, freeze, unfreeze, navigate}}>
+        <Routes>
+            <Route path="/login" element={isUserLoggedIn() ? <Navigate to="/" /> : <Login />} />
+            <Route path="/register" element={isUserLoggedIn() ? <Navigate to="/" /> : <Register />} />
+            <Route path="/" element={isUserLoggedIn() ? <Home /> : <Navigate to="/login" />} />
+        </Routes>
+        
         {feedback && <Alert message={feedback.message} level={feedback.level} onAccept={handleAcceptAlert} />}
         {loader && <Loader />}
     </Context.Provider>

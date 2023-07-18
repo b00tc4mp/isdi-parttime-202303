@@ -1,16 +1,14 @@
 import { validators } from 'com';
+import context from './context';
+const { validateId } = validators;
 
-const { validateToken, validateId } = validators;
-
-const retrievePost = (token, postId) => {
-  validateToken(token, 'token');
+const retrievePost = (postId) => {
   validateId(postId, 'post id');
 
   return fetch(`${import.meta.env.VITE_API_URL}/posts/${postId}`, {
-    method: 'GET',
     headers: {
       'Content-type': 'application/json',
-      Authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${context.token}`,
     },
   }).then((res) => {
     if (res.status !== 200)

@@ -1,10 +1,9 @@
-import { useEffect, useState } from "react";
 import { useAppContext } from '../hooks';
 import deletePost from "../logic/deletePost";
-import retrieveUser from "../logic/retrieveUser";
+import getUserId from '../logic/getUserId';
+import isCurrentUser from '../logic/isCurrentUser';
 import toggleFavouritePost from "../logic/toggleFavouritePost";
 import toggleLikePost from "../logic/toggleLikePost";
-import { context } from "../ui";
 import './Post.css';
 
 const Post = ({ post: { id, author, image, likes, favourites, text, date},
@@ -15,25 +14,13 @@ const Post = ({ post: { id, author, image, likes, favourites, text, date},
 }) => {
   
   const { alert } = useAppContext()
-  const [user, setUser] = useState()
-
-  useEffect(() => {
-      try {
-          retrieveUser(context.token)
-          .then((user) => setUser(user))
-          .catch(error => alert(error))
-                
-            } catch (error) {
-                alert(error.message)
-      }
-  }, [])
 
   const handleEditPost = () => onEdit(id),
   
   handleLikePost = () => {
 
     try{
-      toggleLikePost(context.token, id)
+      toggleLikePost(id)
       .then(()=> onLike())
       .catch(error => alert(error))
 
@@ -44,7 +31,7 @@ const Post = ({ post: { id, author, image, likes, favourites, text, date},
 
   handleFavouritePost = () => {
     try{
-      toggleFavouritePost(context.token, id)
+      toggleFavouritePost(id)
       .then(()=> onFavourite())
       .catch(error => alert(error))
 
@@ -55,25 +42,27 @@ const Post = ({ post: { id, author, image, likes, favourites, text, date},
 
   handleDeletePost = () => {
     try {
-        deletePost(context.token, id)
+        deletePost(id)
         .then(()=> {
           onDelete()
-        
+          
           alert('post deleted')
         })
         .catch(error => alert(error))
-          
 
     } catch (error) {
         alert(error.message)
     }
   };
+
+  const isCurrentUserPost = isCurrentUser(author.id)
+
   return (
     <article className='posts-users'>
         <div className='post-header'>
             <img className='post-avatar' src={author.avatar} />
             <p className='post-author'>{author.name}</p>
-          {user && user._id == author.id && (
+          {isCurrentUserPost && (
           <>
             <button className='button-delete' onClick={handleDeletePost}>
               <i className='fas fa-trash'></i> 
@@ -87,7 +76,7 @@ const Post = ({ post: { id, author, image, likes, favourites, text, date},
         <img className='post-image' src={image} />
         <div className='post-image-footer'>
           <button className='button-like' onClick={handleLikePost}>
-            {user && likes.includes(user._id) 
+            {likes.includes(getUserId(author.id)) 
               ?  <i className='fa fa-heart'></i>
               :  <i className='far fa-heart'></i>
             }

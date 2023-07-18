@@ -1,15 +1,15 @@
 import { validators } from 'com';
-const { validateToken, validateId } = validators;
+import context from './context';
+const { validateId } = validators;
 
-const deletePost = (token, postId) => {
-  validateToken(token, 'token');
+const deletePost = (postId) => {
   validateId(postId, 'post id');
 
   return fetch(`${import.meta.env.VITE_API_URL}/posts/delete/${postId}`, {
     method: 'DELETE',
     headers: {
       'Content-type': 'application/json',
-      Authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${context.token}`,
     },
   }).then((res) => {
     if (res.status !== 204) {

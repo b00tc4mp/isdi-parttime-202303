@@ -22,6 +22,8 @@ const Posts = ({onEditPost, onSellPost, lastPostUpdate}) => {
             }).catch(error => alert(error))
         } catch (error) {
             alert(error.message)
+
+            unfreeze()
         }
     };
         

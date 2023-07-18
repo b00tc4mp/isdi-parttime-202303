@@ -1,6 +1,5 @@
 const retrieveRandomMotivantionalQuote = () => {
   return fetch('https://api.quotable.io/random', {
-    method: 'GET',
     headers: {
       'Content-type': 'application/json',
     },

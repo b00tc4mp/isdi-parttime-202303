@@ -1,8 +1,8 @@
 import { validators } from 'com';
-const { validateToken, validateUrl, validateText } = validators;
+import context from './context';
+const { validateUrl, validateText } = validators;
 
-const createPost = (token, image, text) => {
-  validateToken(token, 'token');
+const createPost = (image, text) => {
   validateUrl(image, 'image');
   validateText(text, 'text');
 
@@ -10,7 +10,7 @@ const createPost = (token, image, text) => {
     method: 'POST',
     headers: {
       'Content-type': 'application/json',
-      Authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${context.token}`,
     },
     body: JSON.stringify({ image, text }),
   }).then((res) => {

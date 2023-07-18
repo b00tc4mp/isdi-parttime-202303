@@ -1,15 +1,15 @@
 import { validators } from 'com';
-const { validateToken, validateId } = validators;
+import context from './context';
+const { validateId } = validators;
 
-const toggleFavouritePost = (token, postId) => {
-  validateToken(token, 'post id');
+const toggleFavouritePost = (postId) => {
   validateId(postId, 'user id');
 
   return fetch(`${import.meta.env.VITE_API_URL}/posts/favourite/${postId}`, {
     method: 'PATCH',
     headers: {
       'Content-type': 'application/json',
-      Authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${context.token}`,
     },
   }).then((res) => {
     if (res.status !== 204)

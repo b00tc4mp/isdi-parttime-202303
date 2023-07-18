@@ -1,18 +1,13 @@
 
+import { Link } from 'react-router-dom';
 import { useAppContext } from '../hooks';
 import { Button, Container, Form, Input } from '../library';
 import registerUser from '../logic/registerUser.js';
 
-const Register = ({onLoginClick, onUserRegistered}) => {
-  const { alert } = useAppContext()
+const Register = () => {
+  const { alert, navigate } = useAppContext()
   
-  const handleLoginClick = (event) => {
-    event.preventDefault()
-
-    onLoginClick()
-  },
-
-  handleRegister = (event) => {
+  const handleRegister = (event) => {
     event.preventDefault()
 
     const name = event.target.name.value,
@@ -21,7 +16,7 @@ const Register = ({onLoginClick, onUserRegistered}) => {
 
     try {
       registerUser(name, email, password)
-        .then(() => onUserRegistered())
+      .then(() => navigate('/login'))
         .catch(error => alert(error.message))
     } catch (error) {
       alert(error.message)
@@ -38,7 +33,7 @@ const Register = ({onLoginClick, onUserRegistered}) => {
       <Button type="submit">Register</Button>
   </Form>
 
-  <p>Go to <a href="" onClick={handleLoginClick}>Login</a></p>
+  <p><Link to="/login">Login</Link></p>
 </Container>
 }
 

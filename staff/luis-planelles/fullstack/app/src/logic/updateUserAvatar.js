@@ -1,15 +1,15 @@
 import { validators } from 'com';
-const { validateToken, validateUrl } = validators;
+import context from './context';
+const { validateUrl } = validators;
 
-const updateUserAvatar = (token, url) => {
-  validateToken(token, 'token');
+const updateUserAvatar = (url) => {
   validateUrl(url, 'url');
 
   return fetch(`${import.meta.env.VITE_API_URL}/users/updateAvatar`, {
     method: 'PATCH',
     headers: {
       'Content-type': 'application/json',
-      Authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${context.token}`,
     },
     body: JSON.stringify({ avatar: url }),
   }).then((res) => {

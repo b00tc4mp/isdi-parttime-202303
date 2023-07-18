@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useAppContext } from '../hooks';
 import retrieveUser from "../logic/retrieveUser";
-import { context } from "../ui";
 import './Profile.css';
 
 
@@ -12,7 +11,7 @@ const Profile = ({onOpenEditProfile}) => {
     
     useEffect(() => {
       try {
-        retrieveUser(context.token)
+        retrieveUser()
         .then(retrievedUser => setProfileUser(retrievedUser))
         .catch(error => alert(error))  
             

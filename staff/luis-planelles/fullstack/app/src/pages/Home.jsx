@@ -5,12 +5,12 @@ import Posts from '../components/Posts'
 import Profile from '../components/Profile'
 import ProfileUpdateModal from '../components/ProfileUpdateModal'
 import { useAppContext } from '../hooks'
+import logoutUser from '../logic/logoutUser'
 import retrieveUser from '../logic/retrieveUser'
-import { context } from '../ui'
 import './Home.css'
 
-const Home = ({onLoggedOut}) => {
-  const { alert } = useAppContext()
+const Home = () => {
+  const { alert, navigate} = useAppContext()
   
   const [view, setView] = useState('posts'),
     [modal, setModal] = useState(null),
@@ -21,9 +21,10 @@ const Home = ({onLoggedOut}) => {
   useEffect(() => {
     
     try {
-      retrieveUser(context.token)
+      retrieveUser()
       .then(setUser)
       .catch(error => alert(error.message))
+      
     } catch (error){
       alert(error.message)
       }
@@ -31,7 +32,7 @@ const Home = ({onLoggedOut}) => {
 
   const handleProfileUpdated = () => {
       try {
-          retrieveUser(context.token)
+          retrieveUser()
           .then((updatedUser) => {
             setUser(updatedUser)
             setModal(null)
@@ -43,8 +44,9 @@ const Home = ({onLoggedOut}) => {
   },
   
   hadleLogOutButton = () =>  {
-    delete context.token
-    onLoggedOut()
+    logoutUser()
+    
+    navigate('/login')
   },
 
   handleGoToPosts = () => setView('posts'),

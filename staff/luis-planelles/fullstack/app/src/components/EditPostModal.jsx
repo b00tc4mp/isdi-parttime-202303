@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useAppContext } from '../hooks';
 import retrievePost from "../logic/retrievePost";
 import updatePost from "../logic/updatePost";
-import { context } from "../ui";
 
 const EditPostModal = ({postId, onCancel, onPostUpdated}) => {
   const { alert } = useAppContext()
@@ -11,7 +10,7 @@ const EditPostModal = ({postId, onCancel, onPostUpdated}) => {
 
   useEffect(() => {
     try {
-      retrievePost(context.token, postId)
+      retrievePost(postId)
       .then((retrievedPost) => setPostEdit(retrievedPost))
       .catch(error => alert(error))
 
@@ -31,7 +30,7 @@ const EditPostModal = ({postId, onCancel, onPostUpdated}) => {
       textEditForm = event.target.text.value
 
     try{
-      updatePost(context.token, postId, imageEditForm, textEditForm)
+      updatePost(postId, imageEditForm, textEditForm)
       .then(()=> onPostUpdated())
 
     } catch (error){

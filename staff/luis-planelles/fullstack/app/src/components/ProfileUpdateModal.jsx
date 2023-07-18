@@ -2,7 +2,6 @@ import { useAppContext } from '../hooks';
 
 import updateUserAvatar from '../logic/updateUserAvatar';
 import updateUserPassword from '../logic/updateUserPassword';
-import { context } from '../ui';
 
 const ProfileUpdateModal = ({onUserAvatarUpdated, onUserPasswordUpdated}) => {
   const { alert } = useAppContext()
@@ -15,7 +14,7 @@ const ProfileUpdateModal = ({onUserAvatarUpdated, onUserPasswordUpdated}) => {
 
 
     try {
-      updateUserAvatar(context.token, avatarUrl)
+      updateUserAvatar(avatarUrl)
       .then(()=> {
         onUserAvatarUpdated()
 
@@ -37,7 +36,6 @@ const ProfileUpdateModal = ({onUserAvatarUpdated, onUserPasswordUpdated}) => {
 
     try {
       updateUserPassword(
-          context.token, 
           password, 
           newPassword, 
           newPasswordConfirm)

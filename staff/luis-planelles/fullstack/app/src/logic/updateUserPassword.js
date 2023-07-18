@@ -1,13 +1,8 @@
 import { validators } from 'com';
-const { validateToken, validatePassword } = validators;
+import context from './context';
+const { validatePassword } = validators;
 
-const updateUserPassword = (
-  token,
-  password,
-  newPassword,
-  newPasswordConfirm
-) => {
-  validateToken(token, 'user id');
+const updateUserPassword = (password, newPassword, newPasswordConfirm) => {
   validatePassword(password, 'password');
   validatePassword(newPassword, 'new password');
   validatePassword(newPasswordConfirm, 'new password confirm');
@@ -16,7 +11,7 @@ const updateUserPassword = (
     method: 'PATCH',
     headers: {
       'Content-type': 'application/json',
-      Authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${context.token}`,
     },
     body: JSON.stringify({ password, newPassword, newPasswordConfirm }),
   }).then((res) => {

@@ -1,9 +1,8 @@
 import { validators } from 'com';
+import context from './context';
+const { validateId, validateText, validateUrl } = validators;
 
-const { validateId, validateText, validateToken, validateUrl } = validators;
-
-const updatePost = (token, postId, image, text) => {
-  validateToken(token, 'token');
+const updatePost = (postId, image, text) => {
   validateId(postId, 'post id');
   validateUrl(image, 'image url');
   validateText(text);
@@ -12,7 +11,7 @@ const updatePost = (token, postId, image, text) => {
     method: 'PATCH',
     headers: {
       'Content-type': 'application/json',
-      Authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${context.token}`,
     },
     body: JSON.stringify({ image, text }),
   }).then((res) => {

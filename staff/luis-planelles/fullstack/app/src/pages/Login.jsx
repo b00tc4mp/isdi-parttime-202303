@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useAppContext } from '../hooks';
-import authenticateUser from '../logic/authenticateUser';
+import authenticateUser from '../logic/loginUser';
 import retrieveMotivationalQuote from '../logic/retrieveMotivationalQuote';
-import { context } from '../ui';
 
-const Login = ({onRegisterClick, onUserLoggedIn}) => {
+const Login = () => {
   
-  const { alert, freeze, unfreeze } = useAppContext()
+  const { alert, freeze, unfreeze, navigate } = useAppContext()
   const [quote, setQuote] = useState(null)
 
   useEffect(() => {
@@ -24,24 +24,16 @@ const Login = ({onRegisterClick, onUserLoggedIn}) => {
       }
   }, [])
 
-  const HandleregisterClick = (event) => { 
-    event.preventDefault();
-
-    onRegisterClick();
-  },
-
-  handleLogin = (event) => {
+  const handleLogin = (event) => {
     event.preventDefault()
     
     const email = event.target.email.value,
     password = event.target.password.value;
 
     try {
-      authenticateUser(email, password).then((token)=> {
-        context.token = token
-        
-        onUserLoggedIn()
-      }).catch((error) => alert(error.message))
+      authenticateUser(email, password)
+      .then(() => navigate('/'))
+      .catch((error) => alert(error.message))
 
     }catch (error) {
       alert(error.message)
@@ -60,7 +52,7 @@ const Login = ({onRegisterClick, onUserLoggedIn}) => {
         <button className="button"type="submit"> Login </button>
       </form>
       
-      <p><a href="" onClick={HandleregisterClick}> Register </a> </p>
+      <p><Link to="/register">Register</Link></p>
     </div>
   );
 }
