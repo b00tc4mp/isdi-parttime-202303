@@ -23,7 +23,10 @@ const updateUserAvatar = (userId, newAvatar) => {
     if (!foundUser)
       throw new ExistenceError(`user with id ${userId} not exists`);
 
-    return User.updateOne({ _id: userId }, { $set: { avatar: newAvatar } });
+    return User.updateOne(
+      { _id: userId },
+      { $set: { avatar: newAvatar } }
+    ).then(() => {});
   });
 };
 

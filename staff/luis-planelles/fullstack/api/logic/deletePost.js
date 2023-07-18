@@ -33,7 +33,7 @@ const deletePost = (userId, postId) => {
           `post with id ${postId} not belong to user with id ${userId}`
         );
 
-      return Post.deleteOne({ _id: postId });
+      return Post.deleteOne({ _id: postId }).then(() => {});
     });
   });
 };

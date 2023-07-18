@@ -38,7 +38,7 @@ const updatePost = (userId, postId, image, text) => {
       return Post.updateOne(
         { _id: postId },
         { $set: { text, image, date: new Date() } }
-      );
+      ).then(() => {});
     });
   });
 };

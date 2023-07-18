@@ -74,7 +74,7 @@ describe('retrievePost', () => {
   it('fails on empty post id', () =>
     expect(() => retrievePost(anyId.toString(), '')).to.throw(
       Error,
-      'post id is empt'
+      'post id is empty'
     ));
 
   after(() => {

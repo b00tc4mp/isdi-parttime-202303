@@ -38,7 +38,7 @@ const toggleFavouritePost = (userId, postId) => {
       return User.updateOne(
         { _id: userId },
         { $set: { favourites: foundUser.favourites } }
-      );
+      ).then(() => {});
     });
   });
 };

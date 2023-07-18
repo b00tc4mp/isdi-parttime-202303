@@ -45,7 +45,10 @@ const updateUserPassword = (
 
     if (password !== foundUser.password) throw new Error('wrong password');
 
-    return User.updateOne({ _id: userId }, { $set: { password: newPassword } });
+    return User.updateOne(
+      { _id: userId },
+      { $set: { password: newPassword } }
+    ).then(() => {});
   });
 };
 

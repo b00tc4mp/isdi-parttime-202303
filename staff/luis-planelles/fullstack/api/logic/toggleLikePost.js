@@ -37,7 +37,7 @@ const toggleLikePost = (userId, postId) => {
       return Post.updateOne(
         { _id: postId },
         { $set: { likes: foundPost.likes } }
-      );
+      ).then(() => {});
     });
   });
 };
