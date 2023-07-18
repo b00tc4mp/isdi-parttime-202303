@@ -76,8 +76,8 @@ export default function CreateMeal(): JSX.Element {
     }
 
     return <>
-        <ModalFullScreen onClose={onCloseModal}>
-            <div className="page new-meal-container">
+        <ModalFullScreen onClose={onCloseModal} topBarLabel="Add new meal">
+            <div className="page-button-bar">
 
                 {/*Upper-part*/}
                 <div className="new-meal-upper-container">

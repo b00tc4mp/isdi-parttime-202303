@@ -12,6 +12,7 @@ import { Routes, Route, Navigate, useNavigate } from 'react-router-dom'
 import isUserLoggedIn from './logic/isUserLoggedIn'
 import CreateMeal from './modals/CreateMeal'
 import Profile from './pages/Profile'
+import MealDetails from './pages/MealDetails'
 
 
 
@@ -38,9 +39,11 @@ function App() {
         <Route path='/' element={isUserLoggedIn() ? <Home /> : <Navigate to="/login" />} />
         <Route path='/login' element={isUserLoggedIn() ? <Navigate to="/" /> : <Login />} />
         <Route path='/register' element={isUserLoggedIn() ? <Navigate to="/" /> : <Register />} />
-        <Route path='/additionalInfo' element={<AdditionalInfo onModalClose={closeModal} />} />
+        <Route path='/additionalInfo' element={<AdditionalInfo />} />
         <Route path='/addMeal' element={<CreateMeal />} />
         <Route path='/profile' element={<Profile />} />
+        <Route path='/meal/:mealId' element={<MealDetails />} />
+
       </Routes>
       {loader && <Loader />}
     </Context.Provider>

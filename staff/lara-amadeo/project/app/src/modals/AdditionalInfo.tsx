@@ -4,7 +4,6 @@ import { useContext, useState, useRef } from "react"
 import DaySelector from '../library/components/DaySelector'
 import Topbar from '../library/modules/Topbar'
 import { registerAdditionalInfo } from '../logic/registerAdditionalInfo'
-import { context } from '../ui'
 import { handleAdditionalInfoHelper } from '../logic/helpers/utils'
 import Header from '../library/components/Header'
 import TextArea from '../library/components/TextArea'
@@ -39,7 +38,7 @@ export default function AdditionalInfo() {
                 location: string,
                 availability: Array<object>
             }
-            const { description, tags, location, availability } = handleAdditionalInfoHelper(formRef.current, availabilityDays)
+            const { description, tags, location, availability } = handleAdditionalInfoHelper(formRef.current!, availabilityDays)
 
             loaderOn()
 
@@ -75,7 +74,7 @@ export default function AdditionalInfo() {
     }
 
     return <>
-        <div className="page">
+        <div className="page-first-level">
             <div className='additional-container'>
                 <Topbar className={'topbar-modals'} level='second' secondLevel={{
                     label: "Complete profile",
@@ -123,10 +122,10 @@ export default function AdditionalInfo() {
                 {/* buttonbar */}
                 <ButtonBar firstButton={{
                     label: 'Finish',
-                    onclick: handleAdditionalInfo
+                    onClick: handleAdditionalInfo
                 }} link={{
                     label: 'Do it later',
-                    onclick: handleSkipInfo
+                    onClick: handleSkipInfo
                 }} />
             </div>
         </div>

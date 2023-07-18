@@ -3,7 +3,7 @@ require('dotenv').config()
 const cors = require('cors')
 const bodyParser = require('body-parser')
 const express = require('express')
-const { helloAPIHandler, registerUserHandler, authenticateUserHandler, registerAdditionalInfoHandler, createMealHandler, retrieveMealsHandler, retrieveUserHandler } = require('./handlers')
+const { helloAPIHandler, registerUserHandler, authenticateUserHandler, registerAdditionalInfoHandler, createMealHandler, retrieveMealsHandler, retrieveUserHandler, retrieveMealHandler } = require('./handlers')
 
 const mongoose = require('mongoose')
 
@@ -35,6 +35,8 @@ mongoose.connect(process.env.MONGODB_URL)
         //retrieveMeals
         api.get('/meals', retrieveMealsHandler)
 
+        //retrieveMeals
+        api.get('/meal/:mealId', retrieveMealHandler)
 
 
         api.listen(1234, () => console.log('server up'))

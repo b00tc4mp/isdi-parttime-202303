@@ -3,18 +3,18 @@ import Link from '../components/Link'
 import './ButtonBar.css'
 
 type Props = {
-    firstButton?: { label: string, onclick: () => void },
-    secondButton?: { label: string, onclick: () => void },
-    link?: { label: string, onclick: () => void, icon?: JSX.Element }
+    firstButton?: { label: string, onClick: (event: React.SyntheticEvent) => void },
+    secondButton?: { label: string, onClick: (event: React.SyntheticEvent) => void },
+    link?: { label: string, onClick: (event: React.SyntheticEvent) => void, icon?: JSX.Element }
 }
 
 export default function ButtonBar({ firstButton, secondButton, link }: Props): JSX.Element {
 
     return <>
         <div className='buttonbar-container'>
-            {firstButton && <Button type={'primary'} size={'small'} label={firstButton.label} onClick={firstButton.onclick} />}
-            {secondButton && <Button type={'primary'} size={'small'} label={secondButton.label} onClick={secondButton.onclick} />}
-            {link && <Link label={link.label} state={'default'} onClick={link.onclick} icon={link.icon} />}
+            {firstButton && <Button type={'primary'} size={'small'} label={firstButton.label} onClick={firstButton.onClick} />}
+            {secondButton && <Button type={'primary'} size={'small'} label={secondButton.label} onClick={secondButton.onClick} />}
+            {link && <Link label={link.label} state={'default'} onClick={link.onClick} icon={link.icon} />}
         </div>
 
     </>

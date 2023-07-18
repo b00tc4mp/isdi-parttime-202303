@@ -2,7 +2,7 @@ import "./Link.css"
 type Props = {
     label: string,
     state: string,
-    onClick?: () => void,
+    onClick?: (event: React.SyntheticEvent) => void,
     icon?: JSX.Element
 }
 

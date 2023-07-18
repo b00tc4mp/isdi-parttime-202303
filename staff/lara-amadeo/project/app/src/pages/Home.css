@@ -2,7 +2,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 40px
 }
 
 .meals-list {
@@ -11,4 +10,8 @@
     flex-direction: column;
     gap: 8px;
     margin-top: 16px;
+}
+
+.home-navigation-row {
+    margin-bottom: 40px
 }

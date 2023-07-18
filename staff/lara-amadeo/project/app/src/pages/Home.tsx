@@ -13,12 +13,15 @@ import retrieveMeals from "../logic/retrieveMeals"
 import MealCard from "../library/modules/MealCard"
 import retrieveUser from "../logic/retrieveUser"
 
-
+type User = {
+    name: string,
+    availability: Array<object>
+}
 
 export default function Home() {
     const { loaderOn, LoaderOff, navigate } = useContext(Context)
     const [meals, setMeals] = useState<Array<object>>()
-    const [user, setUser] = useState<object>()
+    const [user, setUser] = useState<User>()
 
     useEffect(() => {
         try {
@@ -37,7 +40,7 @@ export default function Home() {
     }
 
     const onMealCard = (id: string) => {
-        navigate('/meal')
+        navigate(`/meal/${id}`)
     }
 
     type Meal = {
@@ -51,9 +54,9 @@ export default function Home() {
 
     return <>
         <Topbar level={'first'} />
-        <div className="page">
+        <div className="page-first-level">
             {user && <Header text={`Welcome, ${user.name}`} />}
-            {user && user.availability.length === 0 && <NavigationRow label={"Complete your profile"} trailingIcon={<ChevronRightIcon className='icon-s primary-color' />} onClick={onCompleteProfile} container="border" />}
+            {user && user.availability.length === 0 && <NavigationRow className="home-navigation-row" label={"Complete your profile"} trailingIcon={<ChevronRightIcon className='icon-s primary-color' />} onClick={onCompleteProfile} container="border" />}
             <div className="list-header">
                 <p className="heading-s grey-700">Meals near you</p>
                 <IconButton icon={<AdjustmentsVerticalIcon className="icon-s grey-700" />} type={'secondary'} />

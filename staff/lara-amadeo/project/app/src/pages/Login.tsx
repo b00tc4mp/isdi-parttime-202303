@@ -51,7 +51,7 @@ export default function Login(): JSX.Element {
     }
 
     return <>
-        <div className="page">
+        <div className="page-no-token">
             <div className='login-container'>
 
                 <div className="login-logo-container"><Logo /></div>

@@ -52,7 +52,7 @@ export default function Register() {
     }
 
     return <>
-        <div className="page">
+        <div className="page-no-token">
             <div className='register-container'>
 
                 <div className="register-logo-container"><Logo /></div>
