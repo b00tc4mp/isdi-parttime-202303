@@ -17,7 +17,7 @@ module.exports = (callBack) => {
                     else if(error instanceof InvalidRequestError || error instanceof ContentError)
                         status = 406
             
-                    res.status(status).json({ error: error.message })
+                    res.status(status).json({ message: error.message, type: error.constructor.name })
                 })
         } catch (error) {
             let status = 500
@@ -25,7 +25,7 @@ module.exports = (callBack) => {
             if(error instanceof TypeError || error instanceof ContentError || error instanceof RangeError)
             status = 406
         
-            res.status(status).json({ error: error.message })
+            res.status(status).json({ message: error.message, type: error.constructor.name })
         }  
     }
 }

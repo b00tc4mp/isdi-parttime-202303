@@ -1,4 +1,5 @@
 import context from "./context"
+import { errors } from 'com'
 
 /**
  * Retrieves the saved posts form database.
@@ -13,7 +14,7 @@ export default function retrieveSavedPosts() {
   })
   .then(res => {
     if(res.status !== 200)
-      return res.json().then(({ error: message }) => { throw new Error(message) })
+      return res.json().then(({ message, type }) => { throw new errors[type](message) })
 
     return res.json()
   })

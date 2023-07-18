@@ -1,4 +1,4 @@
-import { validators } from 'com'
+import { validators, errors } from 'com'
 import context from './context'
 
 const { validateId } = validators
@@ -22,6 +22,6 @@ export default function deleteComment(postId, commentId) {
   })
   .then(res => {
     if(res.status !== 200)
-      return res.json().then(({ error: message }) => { throw new Error(message) })
+      return res.json().then(({ message, type }) => { throw new errors[type](message) })
   })
 }

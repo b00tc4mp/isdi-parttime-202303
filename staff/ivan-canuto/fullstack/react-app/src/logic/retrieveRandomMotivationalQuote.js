@@ -1,3 +1,5 @@
+import { errors } from 'com'
+
 /**
  * Retrieves a random motivational quote to show it in login page.
  */
@@ -8,7 +10,7 @@ export default function retrireveRandomMotivationalQuote() {
   })
   .then(res => {
     if(res.status !== 200)
-      return res.json().then(({ error: message }) => { throw new Error(message) })
+      return res.json().then(({ message, type }) => { throw new errors[type](message) })
 
     return res.json()
   })

@@ -1,4 +1,4 @@
-import { validators } from 'com'
+import { validators, errors } from 'com'
 import context from './context'
 
 const { validateUrl, validateText } = validators
@@ -24,6 +24,6 @@ export const createPost = (imageUrl, postText) => {
   })
   .then(res => {
     if(res.status !== 200)
-      return res.json().then(({ error: message }) => { throw new Error(message) })
+      return res.json().then(({ message, type }) => { throw new errors[type](message) })
   })
 }

@@ -1,5 +1,5 @@
 import context from './context'
-import { validators } from 'com'
+import { validators, errors } from 'com'
 
 const { validateId } = validators
 
@@ -20,6 +20,6 @@ export default function buyPost(postId) {
   })
   .then(res => {
     if(res.status !== 200)
-      return res.json().then(({ error: message }) => { throw new Error(message) })
+      return res.json().then(({ message, type }) => { throw new errors[type](message) })
   })
 }

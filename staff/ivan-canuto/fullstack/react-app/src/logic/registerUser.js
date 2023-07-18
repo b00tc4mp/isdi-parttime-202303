@@ -1,4 +1,4 @@
-import { validators } from 'com'
+import { validators, errors } from 'com'
 
 const { validateName, validateEmail, validatePassword } = validators
 
@@ -25,6 +25,6 @@ export function registerUser(name, email, password) {
   })
   .then(res => {
     if(res.status !== 201)
-      return res.json().then(({ error: message }) => { throw new Error(message) })
+      return res.json().then(({ message, type }) => { throw new errors[type](message) })
   })
 }

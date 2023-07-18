@@ -1,4 +1,4 @@
-import { validators } from 'com'
+import { validators, errors } from 'com'
 import context from './context'
 
 const { validateUrl, validatePassword } = validators
@@ -24,7 +24,7 @@ export default function updateUserAvatar(newAvatarUrl, password) {
   })
   .then(res => {
     if(res.status !== 204)
-      return res.json().then(({ error: message }) => { throw new Error(message) })
+      return res.json().then(({ message, type }) => { throw new errors[type](message) })
   })
 }
   
