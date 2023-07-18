@@ -14,7 +14,7 @@ export default function Register() {
 
     const { alert, navigate } = useAppContext()
 
-    const handleRegister = function (event) {
+    const handleRegister = async function (event) {
         event.preventDefault()
 
         const name = event.target.name.value
@@ -22,18 +22,16 @@ export default function Register() {
         const password = event.target.password.value
 
         try {
-            registerUser(name, email, password)
-                .then(() => navigate('/login'))
-                .catch(error => {
-                    if (error instanceof DuplicityError)
-                        alert(error.message, 'warn')
-                    else alert(error.message, 'error')
-                })
+            await registerUser(name, email, password)
+
+            navigate('/login')
         } catch (error) {
+            if (error instanceof DuplicityError)
+                alert(error.message, 'error')
             if (error instanceof RangeError)
                 alert(error.message, 'warn')
             else if (error instanceof ContentError)
-                alert(error.message, 'error')
+                alert(error.message, 'warn')
             else alert(error.message)
         }
     }

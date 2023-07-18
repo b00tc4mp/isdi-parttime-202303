@@ -53,7 +53,7 @@ export default (email, password) => {
             return
         }
 
-        const { type, message } = await res.json()
+        const { type, message } = await res.jon()
 
         const clazz = errors[type]
 
