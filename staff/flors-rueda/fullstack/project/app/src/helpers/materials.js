@@ -7,7 +7,7 @@ const textureLoader = new THREE.TextureLoader();
 
 const bgTexture = textureLoader.load('/game/floor.png');
 
-const textureBall = textureLoader.load('/game/ball.png');
+const textureBall = textureLoader.load('/game/ball/beach.png');
 const textureWall = textureLoader.load('/game/wall.png');
 const textureDirt = textureLoader.load('/game/dirt.png');
 
