@@ -14,12 +14,11 @@ export default function AddPostModal({ onCancel, onCreateNewPost }) {
     const [newImage, setNewImage] = useState()
 
     const onError = (error) => {
+        debugger
         console.log("Error", error);
-        const length = Number(error.name.split(".").length - 1)
-        const fileExtension = error.name.split(".")[length]
+        const fileExtension = error.type
         alert(`Your file with ${fileExtension} extension are not accepted`)
-        event.target.value = ''
-        document.querySelector('.create-post input[type="file"]').value = ''
+        document.querySelector('.create-post input[type="file"]').value = '' // a manu no le va a gustar esta linea
     };
 
     const onSuccess = res => {
@@ -27,9 +26,13 @@ export default function AddPostModal({ onCancel, onCreateNewPost }) {
         setNewImage(res.filePath)
     }
     const onValidateFile = res => {
+        console.log(res)
+        debugger
         if (res.type === "image/png" && res.size < 5000000 || res.type === "image/jpeg" && res.size < 5000000 || res.type === "image/webp" && res.size < 5000000 || res.type === "image/gif" && res.size < 5000000 || res.type === "image/heic") {
             return true
         } else {
+            // TODO create const with typed error and put as param in onError
+            onError(res)
             return false
         }
     }
@@ -111,9 +114,10 @@ export default function AddPostModal({ onCancel, onCreateNewPost }) {
                     fileName="post-image-id_"
                     // validateFile={file => file.type === "image/png"}
                     validateFile={onValidateFile}
+                    // validateFile={res => res.type === "image/png" && res.size < 5000000 || res.type === "image/jpeg" && res.size < 5000000 || res.type === "image/webp" && res.size < 5000000 || res.type === "image/gif" && res.size < 5000000 || res.type === "image/heic"}
                     onError={onError}
                     onSuccess={onSuccess}
-                    accept=".jpg, .jpeg, .png, .webp, .heic"
+                // accept=".jpg, .jpeg, .png, .webp, .heic"
                 />
             </IKContext>
 
