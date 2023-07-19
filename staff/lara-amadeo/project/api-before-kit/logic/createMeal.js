@@ -7,20 +7,22 @@ module.exports = function createMeal(userId, images, title, description, categor
     validateText(title)
 
     return (async () => {
-        const user = await User.findById(userId)
-
-        if (!user) throw new ExistanceError(`User with id ${userId} not found`)
-
-        await Meal.create({
-            author: userId,
-            images,
-            title,
-            description,
-            categories,
-            ingredients,
-            bestBefore,
-            price
-        })
+        let user
+        try {
+            user = await User.findById(userId)
+            await Meal.create({
+                author: userId,
+                images,
+                title,
+                description,
+                categories,
+                ingredients,
+                bestBefore,
+                price
+            })
+        } catch (error) {
+            if (!user) throw new ExistanceError(`User with id ${userId} not found`)
+        }
     })()
 }
 

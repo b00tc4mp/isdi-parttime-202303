@@ -7,14 +7,6 @@ const { helloAPIHandler, registerUserHandler, authenticateUserHandler, registerA
 
 const mongoose = require('mongoose')
 
-const ImageKit = require('imagekit');
-
-const imagekit = new ImageKit({
-    urlEndpoint: 'https://ik.imagekit.io/6zeyr5rgu/yuperApp/',
-    publicKey: 'public_9DujXADbFrwoOkNd+rUmvTbT/+U=',
-    privateKey: 'private_Ohzt9aum24ztTasqw/eWNiggN+4='
-})
-
 mongoose.connect(process.env.MONGODB_URL)
     .then(() => {
         const api = express()
@@ -22,7 +14,6 @@ mongoose.connect(process.env.MONGODB_URL)
         const jsonBodyParser = bodyParser.json()
 
         api.use(cors())
-
 
         api.get('/helloAPI', helloAPIHandler)
 
@@ -46,11 +37,6 @@ mongoose.connect(process.env.MONGODB_URL)
 
         //retrieveMeals
         api.get('/meal/:mealId', retrieveMealHandler)
-
-        api.get('/IKAuth', (req, res) => {
-            const result = imagekit.getAuthenticationParameters()
-            res.send(result)
-        })
 
 
         api.listen(1234, () => console.log('server up'))

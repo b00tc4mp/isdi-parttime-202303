@@ -4,17 +4,16 @@ import React from "react"
 type EmptyPhotoRef = React.Ref<HTMLImageElement>;
 
 interface EmptyPhotoProps {
-    id: string;
-    src: string;
+    src: string,
+    onClick: () => void
 }
 
-const EmptyPhoto = React.forwardRef<HTMLImageElement, EmptyPhotoProps>((props, ref) => {
+export default function EmptyPhoto({ src, onClick }: EmptyPhotoProps) {
 
     return <>
-        <div className="empty-photo-container" {...props}>
-            <img className="photo-container" id={props.id} ref={ref} src={props.src ? props.src : '../public/empty-photo.svg'}></img>
+        <div className="empty-photo-container" onClick={onClick}>
+            <img className="photo-container" src={src ? src : '../public/empty-photo.svg'}></img>
         </div>
     </>
-})
+}
 
-export default EmptyPhoto

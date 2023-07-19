@@ -1,13 +1,18 @@
 const { errors: { ExistanceError, AuthError } } = require('../../com')
+const { validateEmail, validatePassword } = require('../../com/validators')
 const { User } = require('../data/models')
 
 module.exports = function authenticateUser(email, password) {
-    return User.findOne({ email })
-        .then(user => {
-            if (!user) throw new ExistanceError(`User with email ${email} not found`)
+    validateEmail(email)
+    validatePassword(password)
 
-            if (user.password !== password) throw new AuthError(`Email or password incorrect`)
+    return (async () => {
+        const user = await User.findOne({ email })
 
-            return user.id
-        })
+        if (!user) throw new ExistanceError(`User with email ${email} not found`)
+
+        if (user.password !== password) throw new AuthError(`Email or password incorrect`)
+
+        return user.id
+    })()
 }

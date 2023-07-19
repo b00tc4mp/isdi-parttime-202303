@@ -7,11 +7,13 @@ module.exports = function registerAdditionalInfo(userId, description, tags, loca
     validateText(location)
 
     return (async () => {
-
-        const user = await User.findById(userId)
-        if (!user) throw new ExistanceError(`User with id ${userId} not found`)
-
-        await User.updateOne({ _id: userId }, { description, tags, location, availability })
+        let user
+        try {
+            user = await User.findById(userId)
+            await User.updateOne({ _id: userId }, { description, tags, location, availability })
+        } catch (error) {
+            if (!user) throw new ExistanceError(`User with id ${userId} not found`)
+        }
     })()
 }
 /*

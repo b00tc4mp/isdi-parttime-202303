@@ -1,4 +1,4 @@
-import { HomeIcon, UserIcon, PlusIcon, MagnifyingGlassIcon, ShoppingBagIcon, XMarkIcon, Bars3Icon, ChatBubbleLeftRightIcon, ArrowLeftIcon, ChevronRightIcon, AdjustmentsVerticalIcon, CameraIcon, MinusIcon, HeartIcon } from '@heroicons/react/24/outline'
+import { HomeIcon, UserIcon, PlusIcon, MagnifyingGlassIcon, ShoppingBagIcon, XMarkIcon, Bars3Icon, ChatBubbleLeftRightIcon, ArrowLeftIcon, ChevronRightIcon, AdjustmentsVerticalIcon, CameraIcon, MinusIcon, HeartIcon, TrashIcon } from '@heroicons/react/24/outline'
 
 import { HeartIcon as SolidHeartIcon } from '@heroicons/react/24/solid'
 
@@ -17,6 +17,7 @@ export {
     CameraIcon,
     MinusIcon,
     HeartIcon,
-    SolidHeartIcon
+    SolidHeartIcon,
+    TrashIcon
 
 }

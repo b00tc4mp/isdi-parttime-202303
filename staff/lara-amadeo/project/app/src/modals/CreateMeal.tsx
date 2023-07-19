@@ -2,7 +2,7 @@ import EmptyPhoto from "../library/components/EmptyPhoto"
 import ModalFullScreen from "../library/components/ModalFullScreen"
 import './CreateMeal.css'
 import Link from "../library/components/Link"
-import { CameraIcon } from "../library/icons"
+import { TrashIcon } from "../library/icons"
 import Divider from "../library/components/Divider"
 import TextField from "../library/components/TextField"
 import TextArea from "../library/components/TextArea"
@@ -12,60 +12,62 @@ import ButtonBar from "../library/modules/ButtonBar"
 import createMeal from "../logic/createMeal"
 import Context from "../Context"
 
+import { IKImage, IKContext, IKUpload } from "imagekitio-react"
+
+const urlEndpoint = 'https://ik.imagekit.io/6zeyr5rgu/yuperApp/'
+const publicKey = 'public_9DujXADbFrwoOkNd+rUmvTbT/+U='
+const authenticationEndpoint = 'http://localhost:1234/IKAuth'
+
 export default function CreateMeal(): JSX.Element {
 
     const { loaderOn, loaderOff, navigate } = useContext(Context)
     const [categories, setCategories] = useState<string[]>([])
+    const [mealImages, setMealImages] = useState<string[]>([])
+
+    const inputRefTest = useRef(null)
+    const ikUploadRefTest = useRef(null)
+
     const formRef = useRef<HTMLFormElement>(null)
-    const imgRef = {
-        img0: useRef<HTMLImageElement>(null),
-        img1: useRef<HTMLImageElement>(null),
-        img2: useRef<HTMLImageElement>(null),
-        img3: useRef<HTMLImageElement>(null),
-        img4: useRef<HTMLImageElement>(null),
-    }
+
 
     const onCategoryClick = (category: string) => {
         if (categories && categories.includes(category)) {
             const updatedArray = categories.filter(item => item !== category)
             setCategories(updatedArray)
-
         }
         else setCategories(categories.concat(category))
     }
 
 
     const handleAddMeal = () => {
-        if (imgRef !== null) {
-            const images = [imgRef.img0.current?.src, imgRef.img1.current?.src, imgRef.img2.current?.src, imgRef.img3.current?.src, imgRef.img4.current?.src]
+        if (formRef !== null) {
+            const form = formRef.current as typeof formRef.current & {
+                title: { value: string },
+                description: { value: string },
+                ingredients: { value: string },
+                categories: { value: string },
+                bestBefore: { value: string },
+                price: { value: string }
+            }
 
-            if (formRef !== null) {
-                const form = formRef.current as typeof formRef.current & {
-                    title: { value: string },
-                    description: { value: string },
-                    ingredients: { value: string },
-                    categories: { value: string },
-                    bestBefore: { value: string },
-                    price: { value: string }
-                }
+            if (form !== null) {
+                const title = form.title.value
+                const description = form.description.value
+                const ingredients = form.ingredients.value.split(",").map(item => item.trim())
+                const bestBefore = form.bestBefore.value
+                const price = form.price.value
 
-                if (form !== null) {
-                    const title = form.title.value
-                    const description = form.description.value
-                    const ingredients = form.ingredients.value.split(",").map(item => item.trim())
-                    const bestBefore = form.bestBefore.value
-                    const price = form.price.value
-
-                    try {
-                        loaderOn()
-                        createMeal({ images, title, description, ingredients, bestBefore, price, categories })
-                            .then(() => {
-                                navigate('/')
-                                loaderOff()
-                            })
-                    } catch (error) {
-                        console.log(error)
-                    }
+                try {
+                    loaderOn()
+                    const images = mealImages
+                    console.log(images)
+                    createMeal({ images, title, description, ingredients, bestBefore, price, categories })
+                        .then(() => {
+                            navigate('/')
+                            loaderOff()
+                        })
+                } catch (error) {
+                    console.log(error)
                 }
             }
         }
@@ -74,6 +76,28 @@ export default function CreateMeal(): JSX.Element {
     const onCloseModal = () => {
         navigate('/')
     }
+
+    const onImageUploadError = (error: object) => {
+        console.log(error)
+        alert('There has been an error uploading your file. Please try again.')
+    }
+
+    const onValidateFile = (res) => {
+        if (res.type === 'image/png' && res.size < 500000 || res.type === 'image/jpeg' && res.size < 500000 || res.type === 'image/webp' && res.size < 500000 || res.type === 'image/heic' && res.size < 500000) return true
+
+        else { alert('File format or size not permitted') }
+    }
+
+    const onImageUploadSuccess = (res) => {
+        loaderOff()
+        setMealImages(mealImages.concat(res.url))
+    }
+
+    const onUploadStart = evt => {
+        loaderOn()
+    }
+
+
 
     return <>
         <ModalFullScreen onClose={onCloseModal} topBarLabel="Add new meal">
@@ -84,18 +108,24 @@ export default function CreateMeal(): JSX.Element {
 
                     {/*Images*/}
                     <div className="new-meal-images-row">
-                        <EmptyPhoto ref={imgRef.img0} id="img0" src="https://assets.tmecosys.com/image/upload/t_web767x639/img/recipe/ras/Assets/E24FB5AA-0B36-4FC8-8677-63825E4C9C94/Derivates/E7533C66-4A41-4AF8-927A-8390B1CB4448.jpg" />
-                        <EmptyPhoto ref={imgRef.img1} id="img1" src="https://imag.bonviveur.com/ensalada-de-lechuga-y-tomate-foto-cerca.jpg" />
-                        <EmptyPhoto ref={imgRef.img2} id="img2" src="https://www.cocinacaserayfacil.net/wp-content/uploads/2023/06/Pechugas-de-pollo-en-salsa-agridulce.jpg" />
-                        <EmptyPhoto ref={imgRef.img3} id="img3" src="https://s1.ppllstatics.com/elcorreo/www/multimedia/201906/28/media/cortadas/despensa28-kfAE-U806333285241gG-1248x770@El%20Correo.jpg" />
-                        <EmptyPhoto ref={imgRef.img4} id="img4" src="https://biotrendies.com/wp-content/uploads/2015/07/lechuga.jpg" />
+                        {/* {newImage && <IKContext publicKey={publicKey} urlEndpoint={urlEndpoint} authenticationEndpoint={authenticationEndpoint}>
+                            <IKImage path={newImage} />
+                        </IKContext>} */}
+                        {inputRefTest && <EmptyPhoto src={mealImages.length > 0 ? mealImages[0] : `https://ik.imagekit.io/6zeyr5rgu/add-photo.svg?updatedAt=1689698891805`} onClick={() => inputRefTest.current!.click()} />}
+                        {inputRefTest && <EmptyPhoto src={mealImages.length > 1 ? mealImages[1] : `https://ik.imagekit.io/6zeyr5rgu/add-photo.svg?updatedAt=1689698891805`} onClick={() => inputRefTest.current!.click()} />}
+                        {inputRefTest && <EmptyPhoto src={mealImages.length > 2 ? mealImages[2] : `https://ik.imagekit.io/6zeyr5rgu/add-photo.svg?updatedAt=1689698891805`} onClick={() => inputRefTest.current!.click()} />}
+                        {inputRefTest && <EmptyPhoto src={mealImages.length > 3 ? mealImages[3] : `https://ik.imagekit.io/6zeyr5rgu/add-photo.svg?updatedAt=1689698891805`} onClick={() => inputRefTest.current!.click()} />}
+                        {inputRefTest && <EmptyPhoto src={mealImages.length > 4 ? mealImages[4] : `https://ik.imagekit.io/6zeyr5rgu/add-photo.svg?updatedAt=1689698891805`} onClick={() => inputRefTest.current!.click()} />}
                     </div>
+                    <IKContext publicKey={publicKey} urlEndpoint={urlEndpoint} authenticationEndpoint={authenticationEndpoint}>
+                        <IKUpload style={{ display: 'none' }} inputRef={inputRefTest} ref={ikUploadRefTest} className="ik-upload-button" fileName={'meal_'} accept=".jpg, .jpeg, .png, .heic, .webp" validateFile={onValidateFile} onError={onImageUploadError} onUploadStart={onUploadStart} onSuccess={onImageUploadSuccess} />
+                    </IKContext>
 
                     {/*counter & link*/}
                     <div className="new-meal-actions">
                         <div className="new-meal-link">
                             <p className="small-text grey-700">5/5 photos</p>
-                            <Link label="Add photos" state="default" icon={<CameraIcon className="icon-xs primary-color" />} />
+                            {ikUploadRefTest && <Link label="Remove all" state="critical" icon={<TrashIcon className="icon-xs critical-color" />} onClick={() => ikUploadRefTest.current!.abort()} />}
                         </div>
                         <Divider width="100%" />
                     </div>
@@ -124,10 +154,11 @@ export default function CreateMeal(): JSX.Element {
 
                     <TextField label="Best before" type="default" name="bestBefore" />
                     <TextField label="Price" type="default" name="price" />
+                    <input type="number"></input>
 
                 </form>
             </div>
         </ModalFullScreen>
-        <ButtonBar firstButton={{ label: "Add meal", onclick: handleAddMeal }} />
+        <ButtonBar firstButton={{ label: "Add meal", onClick: handleAddMeal }} />
     </>
 }
