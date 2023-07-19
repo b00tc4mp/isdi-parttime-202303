@@ -1,4 +1,5 @@
-const { ContentError } = require('./errors');
+const { ContentError, FormatError } = require('./errors');
+const { colors, avatars } = require('./assets');
 
 const validateCallback = (callback) => {
     if (typeof callback !== 'function') throw new TypeError(`callback is not a function`);
@@ -53,10 +54,44 @@ const validateLayout = (layout) => {
     }
 };
 
+const validateUsername = (username) => {
+    if (typeof username !== 'string') throw new TypeError('username is not a string');
+    if (!username.trim().length) throw new ContentError('username is empty');
+    const regexRule = /([^A-Za-z0-9])/;
+    if (regexRule.test(username)) throw new FormatError('username format is incorrect');
+}
+
+const validatePassword = (password) => {
+    if (typeof password !== 'string') throw new TypeError('password is not a string');
+    if (password.trim().length < 8) throw new RangeError('password length lower than 8 characters');
+}
+
+const validateAvatar = (avatar) => {
+    if (typeof avatar !== 'string') throw new TypeError('avatar is not a string');
+    if (!avatar.trim().length) throw new ContentError('avatar is empty');
+    if (!avatars.includes(avatar)) throw new ContentError('avatar is not included');
+}
+
+const validateColor = (color) => {
+    if (typeof color !== 'string') throw new TypeError('color is not a string');
+    if (!color.trim().length) throw new ContentError('color is empty');
+    if (!colors.includes(color)) throw new ContentError('color is not included');
+}
+
+const validateRecoveryQuestion = (question) => {
+    if (typeof question !== 'object') throw new TypeError('question is not an object');
+    if (!question.question || !question.answer) throw new ContentError('missing question and/or answer');
+    if (typeof question.question !== 'string' || typeof question.answer !== 'string') throw new TypeError('question and/or answer is not a string')
+}
 
 module.exports = {
     validateName,
     validateCallback,
     validateId,
-    validateLayout
+    validateLayout,
+    validateUsername,
+    validatePassword,
+    validateAvatar,
+    validateColor,
+    validateRecoveryQuestion
 }

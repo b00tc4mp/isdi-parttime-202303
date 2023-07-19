@@ -1,5 +1,6 @@
-const { Level } = require('../../../data/models');
+const { Level, User } = require('../../../data/models');
 
 module.exports = async () => {
     await Level.deleteMany();
+    await User.deleteMany();
 }
