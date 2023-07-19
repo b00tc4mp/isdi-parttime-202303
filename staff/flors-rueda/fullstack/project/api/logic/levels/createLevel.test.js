@@ -8,7 +8,7 @@ const { errors: { ContentError } } = require('com');
 const { Level } = require('../../data/models');
 
 describe('createLevel', () => {
-    before(function (done) {
+    before((done) => {
         mongoose.connect(process.env.MONGODB_URL);
         const db = mongoose.connection;
         db.on('error', console.error.bind(console, 'connection error'));
@@ -19,6 +19,9 @@ describe('createLevel', () => {
 
     afterEach(async () => {
         await cleanUp();
+    })
+
+    after(async () => {
         mongoose.connection.db.dropDatabase(function () {
             mongoose.connection.close(done);
         });

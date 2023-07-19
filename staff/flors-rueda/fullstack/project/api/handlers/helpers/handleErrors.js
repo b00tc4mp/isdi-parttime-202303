@@ -9,20 +9,20 @@ const { errors: {
 module.exports = callback => {
     return (req, res) => {
         try {
-            const promise = callback(req, res)
-                ; (async () => {
-                    try {
-                        await promise
-                    } catch (error) {
-                        let status = 500;
+            const promise = callback(req, res);
+            (async () => {
+                try {
+                    await promise
+                } catch (error) {
+                    let status = 500;
 
-                        if (error instanceof DuplicityError) status = 409;
-                        else if (error instanceof ExistenceError) status = 404;
-                        else if (error instanceof AuthError) status = 401;
+                    if (error instanceof DuplicityError) status = 409;
+                    else if (error instanceof ExistenceError) status = 404;
+                    else if (error instanceof AuthError) status = 401;
 
-                        res.status(status).json({ message: error.message, type: error.constructor.name });
-                    }
-                })()
+                    res.status(status).json({ message: error.message, type: error.constructor.name });
+                }
+            })()
         } catch (error) {
             let status = 500;
 

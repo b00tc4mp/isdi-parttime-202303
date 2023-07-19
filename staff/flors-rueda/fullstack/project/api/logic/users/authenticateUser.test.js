@@ -9,12 +9,15 @@ const {
 } = require('com');
 
 describe('authenticateUser', () => {
-    beforeEach(async function () {
+    before(async () => {
         await mongoose.connect(process.env.MONGODB_URL);
     });
 
-    afterEach(async () => {
+    beforeEach(async () => {
         await cleanUp();
+    })
+
+    after(async () => {
         await mongoose.connection.db.dropDatabase();
         await mongoose.connection.close();
     });

@@ -22,6 +22,5 @@ module.exports = (username, password, color, recoveryQuestions) => {
         joined: Date.now(),
     }).catch(error => {
         if (error.message.includes('E11000')) throw new DuplicityError(`user with username ${username} already exists`);
-        throw new UnknownError(error.message);
     })
 }
