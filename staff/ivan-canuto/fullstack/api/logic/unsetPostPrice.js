@@ -8,15 +8,28 @@ module.exports = (userId, postId) => {
   validateId(postId, 'post id')
   validateId(userId, 'user id')
 
-  return Promise.all([User.findById(userId), Post.findById(postId)])
-  .then(([user, post]) => {
-      if(!user) throw new ExistenceError('User not found.')
-      
-      if(!post) throw new ExistenceError('Post not found.')
+  return (async () => {
+    const user = await User.findById(userId)
+    if(!user) throw new ExistenceError('User not found.')
 
-      return Post.updateOne(
-        { _id: postId },
-        { $set: { onSale: null }}
-      )
-    })
+    const post = await Post.findById(postId)
+    if(!post) throw new ExistenceError('Post not found.')
+
+    await Post.updateOne(
+      { _id: postId },
+      { $set: { onSale: null }}
+    )
+  })()
+
+  // return Promise.all([User.findById(userId), Post.findById(postId)])
+  // .then(([user, post]) => {
+  //     if(!user) throw new ExistenceError('User not found.')
+      
+  //     if(!post) throw new ExistenceError('Post not found.')
+
+  //     return Post.updateOne(
+  //       { _id: postId },
+  //       { $set: { onSale: null }}
+  //     )
+  //   })
 }

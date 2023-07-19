@@ -1,9 +1,7 @@
 import ModalContainer from '../library/ModalContainer'
 
-export default function Alert({ message, level, onAccept }) {
-  
-  // console[level](message)
-  console.debug(message)
+export default function Alert({ message, level, onAccept }) {  
+  console.log(message)
 
   let color = 'blue'
   
@@ -12,7 +10,7 @@ export default function Alert({ message, level, onAccept }) {
   else if (level === 'error')
   color ='red'
   
-  console.debug('Alert -> render')
+  console.log('Alert -> render')
 
   return <ModalContainer className='z-500'>
     <div className="min-w-40 min-h-20 p-4 flex flex-col items-center gap-2 rounded-lg bg-white">

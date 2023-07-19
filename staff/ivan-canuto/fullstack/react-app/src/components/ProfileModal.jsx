@@ -33,15 +33,15 @@ export default function Profile({ onCancel, onUpdatedAvatar}) {
         .catch(error => {
           unfreeze()
 
-          alert(error, 'error')
-          console.debug(error.stack)
+          alert(error.message, 'error')
+          console.log(error.stack)
         })
 
     } catch (error) {
       unfreeze()
 
-      alert(error, 'error')
-      console.debug(error.stack)
+      console.log(error.message)
+      alert(error.message, 'error')
     }
   }
 
@@ -60,12 +60,12 @@ export default function Profile({ onCancel, onUpdatedAvatar}) {
         })
         .catch(error => {
           alert(error.message, 'error')
-          console.debug(error.stack)
+          console.log(error.stack)
         })
 
     } catch (error) {
       alert(error.message, 'error')
-      console.debug(error.stack)
+      console.log(error.stack)
     }
   }
   

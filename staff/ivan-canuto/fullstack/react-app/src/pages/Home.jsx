@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react"
 import retrieveUser from "../logic/retrieveUser"
-import Context from "../AppContext"
-import { useContext } from "react"
+import { useAppContext } from "../hooks"
 import { Button } from "../library"
 import { Profile, AddPost, Posts, SideBarMenu, EditPost, Header, VisibilityPost, ToggleOnSalePost, DeletePost, BuyPost } from '../components'
 import logoutUser from '../logic/logoutUser'
@@ -13,7 +12,7 @@ export default function Home() {
   const [openedMenu, setOpenedMenu] = useState(false)
   const [lastPostsUpdate, setLastPostsUpdate] = useState(null)
   const [user, setUser] = useState()
-  const { alert, navigate } = useContext(Context)
+  const { alert, navigate } = useAppContext()
 
   useEffect(() => {
     try {
@@ -92,7 +91,7 @@ export default function Home() {
 
   const handleUpdatedAvatar = () => {
     try {
-      retrieveUser(context.token)
+      retrieveUser()
         .then(user => {
           setUser(user)
           setLastPostsUpdate(Date.now())

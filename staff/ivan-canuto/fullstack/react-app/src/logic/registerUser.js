@@ -16,15 +16,34 @@ export function registerUser(name, email, password) {
   validateEmail(email)
   validatePassword(password)
 
-  return fetch(`${import.meta.env.VITE_API_URL}/users`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({ name, email, password })
-  })
-  .then(res => {
-    if(res.status !== 201)
-      return res.json().then(({ message, type }) => { throw new errors[type](message) })
-  })
+  return (async () => {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/users`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ name, email, password })
+    })
+    
+    if(res.status === 201)
+      return
+    
+    const { type, message } = await res.json()
+
+    const clazz = errors[type]
+
+    throw new clazz(message)
+  })()
+
+  // return fetch(`${import.meta.env.VITE_API_URL}/users`, {
+  //   method: 'POST',
+  //   headers: {
+  //     'Content-Type': 'application/json'
+  //   },
+  //   body: JSON.stringify({ name, email, password })
+  // })
+  // .then(res => {
+  //   if(res.status !== 201)
+  //     return res.json().then(({ message, type }) => { throw new errors[type](message) })
+  // })
 }

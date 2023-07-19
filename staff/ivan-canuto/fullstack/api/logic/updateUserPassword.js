@@ -16,17 +16,31 @@ module.exports = (userId, password, newPassword, newPasswordConfirm) => {
   if(newPassword !== newPasswordConfirm)
     throw new ContentError('The new passwords do not match.')
 
-  return User.findById(userId)
-    .then(user => {
-      if(!user) throw new ExistenceError('User not found.')
+  return (async () => {
+    const user = await User.findById(userId)
+    if(!user) throw new ExistenceError('User not found.')
 
-      if(user.password !== password) throw new AuthError('Wrong credentials.')
+    if(user.password !== password) throw new AuthError('Wrong credentials.')
   
-      if(user.password === newPassword) throw new ContentError('The new password is the same as the old one.')
+    if(user.password === newPassword) throw new ContentError('The new password is the same as the old one.')
 
-      return User.updateOne(
-        { _id: userId },
-        { $set: { password: newPassword }}
-      )
-    })
+    await User.updateOne(
+      { _id: userId },
+      { $set: { password: newPassword }}
+    )
+  })()
+
+  // return User.findById(userId)
+  //   .then(user => {
+  //     if(!user) throw new ExistenceError('User not found.')
+
+  //     if(user.password !== password) throw new AuthError('Wrong credentials.')
+  
+  //     if(user.password === newPassword) throw new ContentError('The new password is the same as the old one.')
+
+  //     return User.updateOne(
+  //       { _id: userId },
+  //       { $set: { password: newPassword }}
+  //     )
+  //   })
 }

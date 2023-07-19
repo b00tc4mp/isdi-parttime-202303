@@ -6,6 +6,14 @@ module.exports = handleErrors((req, res) => {
   const { postId } = req.params
   const { commentText } = req.body
 
-  return createComment(userId, postId, commentText)
-    .then(() => res.send())  
+  const promise = createComment(userId, postId, commentText)
+
+  return (async () => {
+    await promise
+
+    res.send()
+  })()
+
+  // return createComment(userId, postId, commentText)
+  //   .then(() => res.send())  
 })

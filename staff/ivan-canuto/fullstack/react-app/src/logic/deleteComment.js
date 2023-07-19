@@ -14,14 +14,32 @@ export default function deleteComment(postId, commentId) {
   validateId(postId, 'post id')
   validateId(commentId, 'comment id')
 
-  return fetch(`${import.meta.env.VITE_API_URL}/posts/${postId}/comments/${commentId}/delete`, {
-    method: 'PATCH',
-    headers: {
-      'Authorization': `Bearer ${context.token}`
-    }
-  })
-  .then(res => {
-    if(res.status !== 200)
-      return res.json().then(({ message, type }) => { throw new errors[type](message) })
-  })
+  return (async () => {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/posts/${postId}/comments/${commentId}/delete`, {
+      method: 'PATCH',
+      headers: {
+        'Authorization': `Bearer ${context.token}`
+      }
+    })
+
+    if(res.status === 200)
+      return
+    
+    const { type, message } = await res.json()
+
+    const clazz = errors[type]
+
+    throw new clazz(message)
+  })()
+
+  // return fetch(`${import.meta.env.VITE_API_URL}/posts/${postId}/comments/${commentId}/delete`, {
+  //   method: 'PATCH',
+  //   headers: {
+  //     'Authorization': `Bearer ${context.token}`
+  //   }
+  // })
+  // .then(res => {
+  //   if(res.status !== 200)
+  //     return res.json().then(({ message, type }) => { throw new errors[type](message) })
+  // })
 }

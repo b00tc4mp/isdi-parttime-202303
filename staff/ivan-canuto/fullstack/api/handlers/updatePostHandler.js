@@ -6,6 +6,14 @@ module.exports = handleErrors((req, res) => {
   const { imageUrl, postText } = req.body
   const { postId } = req.params
 
-  return updatePost(userId, postId, imageUrl, postText)
-  .then(() => res.send())
+  const promise = updatePost(userId, postId, imageUrl, postText)
+
+  return (async () => {
+    await promise
+
+    res.send()
+  })()
+
+  // return updatePost(userId, postId, imageUrl, postText)
+  // .then(() => res.send())
 })

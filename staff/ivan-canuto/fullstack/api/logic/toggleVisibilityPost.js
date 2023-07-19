@@ -8,21 +8,40 @@ module.exports = (userId, postId) => {
   validateId(userId, 'user id')
   validateId(postId, 'post id')
 
-  return Promise.all([User.findById({ _id: userId }), Post.findById({ _id: postId })])
-  .then(([user, post]) => {
-      if(!user) throw new ExistenceError('User not found.')
+  return (async () => {
+    const user = await User.findById(userId)
+    if(!user) throw new ExistenceError('User not found.')
 
-      if(!post) throw new ExistenceError('Post not found.')
+    const post = await Post.findById(postId)
+    if(!post) throw new ExistenceError('Post not found.')
 
-      if(post.visible)
-        return Post.updateOne(
-          { _id: postId },
-          { $set: { visible: false }}
-        )
-      else
-        return Post.updateOne(
-          { _id: postId },
-          { $set: { visible: true }}
-        )
-    })
+    if(post.visible)
+      await Post.updateOne(
+        { _id: postId },
+        { $set: { visible: false }}
+      )
+    else
+      await Post.updateOne(
+        { _id: postId },
+        { $set: { visible: true }}
+      )
+  })()
+
+  // return Promise.all([User.findById(userId), Post.findById(postId)])
+  // .then(([user, post]) => {
+  //     if(!user) throw new ExistenceError('User not found.')
+
+  //     if(!post) throw new ExistenceError('Post not found.')
+
+  //     if(post.visible)
+  //       return Post.updateOne(
+  //         { _id: postId },
+  //         { $set: { visible: false }}
+  //       )
+  //     else
+  //       return Post.updateOne(
+  //         { _id: postId },
+  //         { $set: { visible: true }}
+  //       )
+  //   })
 }

@@ -10,20 +10,37 @@ module.exports = (userId, postId, imageUrl, postText) => {
   validateUrl(imageUrl,'image url')
   validateText(postText, 'post text')
 
-  return Promise.all([User.findById(userId), Post.findById(postId)])
-    .then(([user, post]) => {
-      if(!user) throw new ExistenceError('User not found.')
+  return (async () => {
+    const user = await User.findById(userId)
+    if(!user) throw new ExistenceError('User not found.')
 
-      if(!post) throw new ExistenceError('Post not found.')
+    const post = await Post.findById(postId)
+    if(!post) throw new ExistenceError('Post not found.')
+    if (post.author.toString() !== userId) throw new InvalidRequestError('This user is not the owner of the post.')
 
-      if (post.author.toString() !== userId) throw new InvalidRequestError('This user is not the owner of the post.')
+    await Post.updateOne(
+      { _id: postId },
+      { $set: { 
+        image: imageUrl,
+        text: postText
+      }}
+    )
+  })()
 
-      return Post.updateOne(
-        { _id: postId },
-        { $set: { 
-          image: imageUrl,
-          text: postText
-        }}
-      )
-    })
+  // return Promise.all([User.findById(userId), Post.findById(postId)])
+  //   .then(([user, post]) => {
+  //     if(!user) throw new ExistenceError('User not found.')
+
+  //     if(!post) throw new ExistenceError('Post not found.')
+
+  //     if (post.author.toString() !== userId) throw new InvalidRequestError('This user is not the owner of the post.')
+
+  //     return Post.updateOne(
+  //       { _id: postId },
+  //       { $set: { 
+  //         image: imageUrl,
+  //         text: postText
+  //       }}
+  //     )
+  //   })
 }

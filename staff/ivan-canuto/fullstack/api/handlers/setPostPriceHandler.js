@@ -6,6 +6,14 @@ module.exports = handleErrors((req, res) => {
   const { postPrice } = req.body
   const { postId } = req.params
 
-  return setPostPrice(userId, postId, postPrice)
-    .then(() => res.send())
+  const promise = setPostPrice(userId, postId, postPrice)
+
+  return (async () => {
+    await promise
+
+    res.send()
+  })()
+
+  // return setPostPrice(userId, postId, postPrice)
+  //   .then(() => res.send())
 })

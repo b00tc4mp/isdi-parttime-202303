@@ -5,6 +5,14 @@ module.exports = handleErrors((req, res) => {
   const userId = extractUserId(req)
   const { postId } = req.params
 
-  return unsetPostPrice(userId, postId)
-    .then(() => res.send())
+  const promise = unsetPostPrice(userId, postId)
+
+  return (async () => {
+    await promise
+
+    res.send()
+  })()
+
+  // return unsetPostPrice(userId, postId)
+  //   .then(() => res.send())
 })

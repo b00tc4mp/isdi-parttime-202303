@@ -5,6 +5,7 @@ import ModalWindow from "../library/ModalWindow"
 import Button from "../library/Button";
 import { useAppContext } from "../hooks"
 import retrievePost from "../logic/retrievePost"
+import { context } from "../ui"
 
 export default function BuyPost({ onBoughtPost, onCancel }) {
   const { alert, freeze, unfreeze } = useAppContext()
@@ -15,7 +16,7 @@ export default function BuyPost({ onBoughtPost, onCancel }) {
     freeze()
 
     try {
-      retrievePost(postId)
+      retrievePost(context.postId)
         .then(post => {
           unfreeze()
           

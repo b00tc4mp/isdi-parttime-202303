@@ -76,7 +76,7 @@ export default function Posts({ lastPostsUpdate, view, handleOpenBuyPost, handle
   }, [lastPostsUpdate])
 
   return <section className="pt-20 pb-32 flex flex-col items-center gap-6">
-    {posts && posts.map(post => (post.author.id === getUserId() && !post.visible) ? '' : <Post
+    {posts && posts.map(post => (post.author.id !== getUserId() && !post.visible) ? '' : <Post
       key={post.id.toString()}
       post={post}
       handleRefreshPosts={handleRefreshPosts}

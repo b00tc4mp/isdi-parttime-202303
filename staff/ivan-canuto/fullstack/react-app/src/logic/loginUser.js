@@ -14,20 +14,43 @@ export default function authenticateUser(email, password) {
   validateEmail(email)
   validatePassword(password)
 
-  return fetch(`${import.meta.env.VITE_API_URL}/users/auth`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({ email, password })
-  })
-  .then(res => {
-    if(res.status !== 200)
-      return res.json().then(({ message, type }) => { throw new errors[type](message) })
+  return (async () => {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/users/auth`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ email, password })
+    })
+    if(res.status === 200) {
+      const token = await res.json()
 
-    return res.json()
-  })
-  .then(token => {
-    context.token = token
-  })
+      context.token = token
+
+      return
+    }
+      
+    const { type, message } = await res.json()
+
+    const clazz = errors[type]
+
+    throw new clazz(message)
+  })()
+
+  // return fetch(`${import.meta.env.VITE_API_URL}/users/auth`, {
+  //   method: 'POST',
+  //   headers: {
+  //     'Content-Type': 'application/json'
+  //   },
+  //   body: JSON.stringify({ email, password })
+  // })
+  // .then(res => {
+  //   if(res.status !== 200)
+  //     return res.json().then(({ message, type }) => { throw new errors[type](message) })
+
+  //   return res.json()
+  // })
+  // .then(token => {
+  //   context.token = token
+  // })
 }

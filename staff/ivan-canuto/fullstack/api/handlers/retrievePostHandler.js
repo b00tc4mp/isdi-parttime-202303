@@ -5,6 +5,14 @@ module.exports = handleErrors((req, res) => {
   const userId = extractUserId(req)
   const { postId } = req.params
 
-  return retrievePost(userId, postId)
-    .then(post => res.json(post))
+  const promise = retrievePost(userId, postId)
+
+  return (async () => {
+    const post = await promise
+
+    res.send(post)
+  })()
+
+  // return retrievePost(userId, postId)
+  //   .then(post => res.json(post))
 })

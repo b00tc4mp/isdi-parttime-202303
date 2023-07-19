@@ -4,8 +4,12 @@ const { errors: { ExistenceError, DuplicityError, AuthError, ContentError, Inval
 module.exports = (callBack) => {
     return (req, res) => {
         try {
-            callBack(req, res)
-                .catch(error => {
+            const promise = callBack(req, res)
+
+            ; (async () => {
+                try {
+                    await promise
+                } catch (error) {
                     let status = 500
             
                     if(error instanceof DuplicityError)
@@ -18,7 +22,8 @@ module.exports = (callBack) => {
                         status = 406
             
                     res.status(status).json({ message: error.message, type: error.constructor.name })
-                })
+                }
+            })()
         } catch (error) {
             let status = 500
         
