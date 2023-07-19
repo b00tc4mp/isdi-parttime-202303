@@ -64,7 +64,7 @@ const Game = () => {
   }
 
   return (
-    <div className="flex flex-col flex-wrap">
+    <section className="flex flex-col flex-wrap">
       {isGameOver !== 0 && (
         <>
           <GameOver isGameWon={isGameOver > 0 ? true : false} onRetry={handleRetry} isCreatedLevel={'try' === id} layout={layout} hp={health} name={name} />
@@ -72,7 +72,7 @@ const Game = () => {
         </>
       )}
       <GameContainer level={levelToRender} initialHp={health} onGameOver={handleGameOver} />
-    </div>
+    </section>
   );
 };
 

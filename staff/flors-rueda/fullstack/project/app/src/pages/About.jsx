@@ -4,7 +4,7 @@ import share from '../assets/share.svg'
 const About = () => {
 
     return (
-        <div className="flex flex-col w-full justify-center items-center pt-20 pb-20 gap-1 px-5 md:px-10">
+        <section className="flex flex-col w-full justify-center items-center pt-20 pb-20 gap-1 px-5 md:px-10">
             <div className="flex flex-col md:flex-row justify-center items-center pb-2 md:pb-5 gap-1">
                 <h1 className="text-primary100 text-5xl md:text-5xl font-bold text-center">Ballopolis</h1>
                 <h1 className="text-secondary300 text-4xl md:text-4xl font-bold text-center md:self-end md:pl-2">Maze Riders</h1>
@@ -106,7 +106,7 @@ const About = () => {
                 </div>
             </div>
 
-        </div >);
+        </section>);
 };
 
 export default inLogger(About);

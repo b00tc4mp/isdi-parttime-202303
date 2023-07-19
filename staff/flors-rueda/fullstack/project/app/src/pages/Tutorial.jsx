@@ -22,7 +22,7 @@ const Tutorial = () => {
     };
 
     return (
-        <div className="flex flex-col flex-wrap">
+        <section className="flex flex-col flex-wrap">
             {isTutorialInfoOn && (
                 <>
                     <TutorialInfo onExitClick={handleCloseTutorialScreen} tutorialNumber={key} />
@@ -36,7 +36,7 @@ const Tutorial = () => {
                     onFinishTutorialLevel={handleFinishTutorialLevel}
                 />
             }
-        </div>
+        </section>
     );
 };
 

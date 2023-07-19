@@ -1,8 +1,6 @@
 import { useState } from 'react';
 import { validateLevel } from '../helpers/levelValidators';
-import { configureLevelToRender } from '../helpers/configureLevelToRender';
 import { useLocation, useNavigate } from 'react-router-dom';
-import createLevel from '../logic/create-level';
 import inLogger from '../inLogger';
 import CreateLevelToast from '../components/toasts/CreateLevelToast';
 import LayoutForm from '../components/LayoutForm';
@@ -28,7 +26,7 @@ const CreateLevel = () => {
     };
 
     return (
-        <>
+        <section>
             {isToastOn &&
                 <CreateLevelToast handleCloseToast={handleCloseToast} message={toast} />
             }
@@ -57,7 +55,7 @@ const CreateLevel = () => {
                                             className="text-primary400 text-xl"
                                             onClick={() => setInitialHP(index < 1 ? 1 : index)}
                                         >
-                                            <i className={`bi ${index <= initialHP ? 'bi-heart-fill hover:text-primary600' : 'bi-heart hover:text-secondary600'}`}></i>
+                                            <i className={`bi ${index <= initialHP ? 'bi-heart-fill hover:text-primary600' : 'bi-heart hover:text-secondary500'}`}></i>
                                         </button>
                                     </div>
 
@@ -74,17 +72,8 @@ const CreateLevel = () => {
             </div>
 
 
-        </>
+        </section>
     );
 };
 
 export default inLogger(CreateLevel);
-
-
-
-/*
-
-
-
-
-*/

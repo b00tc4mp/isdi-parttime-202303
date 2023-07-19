@@ -15,7 +15,7 @@
     --color-secondary-300: #2238a1;
     --color-secondary-400: #3049c9;
     --color-secondary-500: #4d66df;
-    --color-secondary-600: #6e85f7;
+    --color-secondary-600: #f1f1f9;
     --color-light-100: #b5b5b5;
     --color-light-200: #cbcbcb;
     --color-light-300: #e8e8e8;
@@ -35,6 +35,21 @@
     --color-success-100: #377e3f;
     --color-success-200: #53b65a;
     --color-success-300: #ddf8e4;
+    --color-gray: #6b7280;
+    --color-red: #dc2626;
+    --color-orange: #f97316;
+    --color-ambar: #f59e0b;
+    --color-yellow: #facc15;
+    --color-lime: #a3e635;
+    --color-green: #16a34a;
+    --color-teal: #2dd4bf;
+    --color-cyan: #06b6d4;
+    --color-blue: #0284c7;
+    --color-indigo: #8f99fa;
+    --color-violet: #7137fa;
+    --color-fuchsia: #c026d3;
+    --color-pink: #ec4899;
+    --color-rose: #fb7185;
   }
 }
 

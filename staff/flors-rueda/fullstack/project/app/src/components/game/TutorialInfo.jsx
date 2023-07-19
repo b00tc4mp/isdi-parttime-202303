@@ -20,7 +20,7 @@ const TutorialInfo = ({ onExitClick, tutorialNumber }) => {
                     <div className="text-sm font-normal">
                         <span className="mb-1 text-lg font-bold text-secondary200">{tutorialTexts[tutorialNumber]}</span>
                     </div>
-                    {tutorialNumber > 5 ? <Link type="button" to="/levels" className="text-4xl text-secondary300 hover:text-secondary600">EXPL<i className="bi bi-play-circle">RE MORE LEVELS</i></Link> : <button type="button" onClick={onExitClick} className="text-4xl text-secondary300 hover:text-secondary600">G<i className="bi bi-play-circle"></i></button>
+                    {tutorialNumber > 5 ? <Link type="button" to="/levels" className="text-4xl text-secondary300 hover:text-secondary500">EXPL<i className="bi bi-play-circle">RE MORE LEVELS</i></Link> : <button type="button" onClick={onExitClick} className="text-4xl text-secondary300 hover:text-secondary500">G<i className="bi bi-play-circle"></i></button>
                     }
                     <div className="flex text-success200 text-3xl items-center flex-row justify-center gap-5 width-full">
 

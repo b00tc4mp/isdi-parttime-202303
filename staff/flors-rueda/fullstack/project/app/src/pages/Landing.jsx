@@ -2,7 +2,7 @@ import ComicCarousel from '../components/ComicCarousel';
 import logo from '../assets/logo-complete.svg';
 import btnIcons from '../assets/buttonsIcons/index';
 import inLogger from '../inLogger';
-import './Landing.css'
+import './background.css';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -34,7 +34,7 @@ const Landing = ({ onTutorialClick }) => {
         <>
             <div className="circle"></div> <div className="circle2"></div> <div className="circle3"></div><div className="circle4"></div>
             <div className="circle5"></div> <div className="circle6"></div> <div className="circle7"></div><div className="circle8"></div>
-            <div className="flex flex-col w-full justify-center items-center pt-28 gap-7">
+            <section className="flex flex-col w-full justify-center items-center pt-28 gap-7">
                 <img src={logo} className="w-4/6" alt="Logo" />
                 <div className="flex flex-col md:flex-row gap-5 w-full justify-center align-center">
                     <button className="bg-primary100 self-center md:w-fit max-w-xs w-3/4  px-5 py-2 hover:bg-transparent text-2xl lg:text-4xl text-light500 hover:text-primary100 hover:border hover:border-primary100 font-bold rounded-lg transition duration-200">Join the Riders</button>
@@ -86,7 +86,7 @@ const Landing = ({ onTutorialClick }) => {
 
                 </div>
                 <ComicCarousel />
-            </div>
+            </section>
         </>
 
     )

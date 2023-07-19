@@ -50,7 +50,7 @@ const ComicCarousel = () => {
     return (
         <>
             <div className="flex flex-col w-full bg-dark500 pb-24">
-                <h1 className="text-secondary600 text-lg md:text-2xl lg:text-3xl font-bold text-center pt-6">THE LEGEND OF BALLOPOLIS</h1>
+                <h1 className="text-primary300 text-lg md:text-2xl lg:text-3xl font-bold text-center pt-6">THE LEGEND OF BALLOPOLIS</h1>
                 <div className="flex items-center justify-around pt-6">
                     <button
                         type="button"
