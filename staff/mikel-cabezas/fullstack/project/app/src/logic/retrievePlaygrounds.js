@@ -4,7 +4,7 @@ import { API_URL } from '@env'
 
 export default token => {
     // validateToken(token);
-
+    // alert(API_URL)
     return fetch(`${API_URL}/posts`, {
         method: 'GET',
         headers: {

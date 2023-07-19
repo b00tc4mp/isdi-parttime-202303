@@ -1,4 +1,5 @@
-import { PIN } from '../../assets/icons';
+import { PIN } from '../../assets/icons/';
+// const PIN = require('../../assets/icons/pin.png')
 
 import { useContext, useEffect, useState } from "react"
 import retrieveUser from "../logic/retrieveUser"
@@ -22,7 +23,6 @@ export default function Post({ playground, playground: { title, text, id, image,
     const markerPressedHandler = () => {
         onMarkerPressedHandler()
     }
-
     return <>
         <Marker
             tooltip={false}
