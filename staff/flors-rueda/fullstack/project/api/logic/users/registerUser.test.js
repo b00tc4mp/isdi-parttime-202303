@@ -4,7 +4,6 @@ const { User } = require('../../data/models');
 const mongoose = require('mongoose');
 const { cleanUp } = require('../helpers/tests');
 const {
-    validators: { validateName, validateEmail, validatePassword },
     errors: { DuplicityError, ContentError, FormatError },
     assets: { colors },
 } = require('com');

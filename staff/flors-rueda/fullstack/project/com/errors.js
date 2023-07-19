@@ -23,7 +23,21 @@ class UnknownError extends Error {
     constructor(message) {
         super(message)
     }
-    get name() { return UnexpectedError.name }
+    get name() { return UnknownError.name }
+}
+
+class ExistenceError extends Error {
+    constructor(message) {
+        super(message)
+    }
+    get name() { return ExistenceError.name }
+}
+
+class AuthError extends Error {
+    constructor(message) {
+        super(message)
+    }
+    get name() { return AuthError.name }
 }
 
 
@@ -33,4 +47,6 @@ module.exports = {
     FormatError,
     DuplicityError,
     UnknownError,
+    ExistenceError,
+    AuthError
 }
