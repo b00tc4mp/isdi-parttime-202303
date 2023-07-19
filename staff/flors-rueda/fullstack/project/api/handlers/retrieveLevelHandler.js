@@ -1,16 +1,7 @@
-const { retrieveLevel } = require('../logic')
+const { retrieveLevel } = require('../logic');
+const { handleErrors } = require('./helpers');
 
-module.exports = (req, res) => {
-
-    try {
-
-        const { levelId } = req.params;
-
-        retrieveLevel(levelId)
-            .then((level) => res.json(level))
-            .catch((error) => res.status(400).json({ error: error.message }));
-
-    } catch (error) {
-        res.status(400).json({ error: error.message })
-    }
-}
+module.exports = handleErrors((req, res) => {
+    const { levelId } = req.params;
+    return retrieveLevel(levelId).then((level) => res.json(level))
+})
