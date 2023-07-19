@@ -42,6 +42,7 @@ mongoose.connect(process.env.MONGODB_URL)
 
         api.get('/auth', function (req, res) {
             var result = imagekit.getAuthenticationParameters();
+            debugger
             res.send(result);
         });
 
