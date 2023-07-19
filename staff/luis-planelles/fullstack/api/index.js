@@ -13,6 +13,8 @@ const {
   updatePostHandler,
   toggleFavouritePostHandler,
   toggleLikePostHandler,
+  deleteCommentHandler,
+  addCommentHandler,
 } = require('./handlers');
 
 const mongoose = require('mongoose');
@@ -34,21 +36,28 @@ mongoose
 
     api.post('/users', jsonBodyParser, registerUserHandler);
     api.post('/users/auth', jsonBodyParser, authenticateUserHandler);
+
     api.get('/users', retrieveUserHandler);
+
     api.patch('/users/updateAvatar', jsonBodyParser, updateUserAvatarHandler);
     api.patch(
       '/users/updatePassword',
       jsonBodyParser,
       updateUserPasswordHandler
     );
-    api.post('/users/posts', jsonBodyParser, createPostHandler);
+
+    api.post('/posts', jsonBodyParser, createPostHandler);
+    api.post('/posts/:postId/comments', jsonBodyParser, addCommentHandler);
 
     api.patch('/posts/favourite/:postId', toggleFavouritePostHandler);
     api.patch('/posts/like/:postId', toggleLikePostHandler);
     api.patch('/posts/update/:postId', jsonBodyParser, updatePostHandler);
+
     api.get('/posts', retrievePostsHandler);
     api.get('/posts/:postId', retrievePostHandler);
+
     api.delete('/posts/delete/:postId', deletePostHandler);
+    api.delete('/posts/:postId/comments/:commentId', deleteCommentHandler);
 
     api.listen(process.env.PORT, () =>
       console.log(`server running in port ${process.env.PORT}`)

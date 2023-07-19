@@ -17,7 +17,7 @@ describe('deletePost', () => {
 
   beforeEach(() => {
     user = generate.user();
-    post = generate.post(user._id, anyId);
+    post = generate.post(user._id);
     postNoAuthor = generate.post(anyId);
 
     return cleanUp().then(() => populate([user], [post, postNoAuthor]));

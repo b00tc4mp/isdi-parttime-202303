@@ -11,4 +11,6 @@ module.exports = {
   updatePost: require('./updatePost'),
   updateUserAvatar: require('./updateUserAvatar'),
   updateUserPassword: require('./updateUserPassword'),
+  addComment: require('./addComment'),
+  deleteComment: require('./deleteComment'),
 };

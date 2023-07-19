@@ -11,4 +11,6 @@ module.exports = {
   updateUserAvatarHandler: require('./updateUserAvatarHandler'),
   updateUserPasswordHandler: require('./updateUserPasswordHandler'),
   updatePostHandler: require('./updatePostHandler'),
+  addCommentHandler: require('./addCommentHandler'),
+  deleteCommentHandler: require('./deleteCommentHandler'),
 };

@@ -37,6 +37,25 @@ const user = new Schema({
   },
 });
 
+const comment = new Schema({
+  author: {
+    type: ObjectId,
+    ref: 'User',
+    required: true,
+  },
+  text: {
+    type: String,
+    required: true,
+    trim: true,
+    minLength: 1,
+  },
+  date: {
+    type: Date,
+    required: true,
+    default: Date.now,
+  },
+});
+
 const post = new Schema({
   author: {
     type: ObjectId,
@@ -61,12 +80,17 @@ const post = new Schema({
     ref: 'User',
     default: [],
   },
+  comments: {
+    type: [comment],
+  },
 });
 
 const User = model('User', user);
 const Post = model('Post', post);
+const Comment = model('Comment', comment);
 
 module.exports = {
   User,
   Post,
+  Comment,
 };
