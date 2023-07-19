@@ -6,7 +6,7 @@ const createPost = (image, text) => {
   validateUrl(image, 'image');
   validateText(text, 'text');
 
-  return fetch(`${import.meta.env.VITE_API_URL}/users/posts`, {
+  return fetch(`${import.meta.env.VITE_API_URL}/posts`, {
     method: 'POST',
     headers: {
       'Content-type': 'application/json',
