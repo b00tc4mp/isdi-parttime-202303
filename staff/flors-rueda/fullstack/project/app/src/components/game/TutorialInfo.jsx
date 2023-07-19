@@ -1,7 +1,9 @@
 import inLogger from '../../inLogger';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const TutorialInfo = ({ onExitClick, tutorialNumber }) => {
+    const navigate = useNavigate()
+
     const tutorialTexts = [
         `Let's see how you roll... Move the ball around and get that treasure!`,
         `Some times the levels are longer and you need to go down a hole...`,
@@ -12,6 +14,11 @@ const TutorialInfo = ({ onExitClick, tutorialNumber }) => {
         `You seem quite ready, let's try it all together!`,
         `You are indeed a rider, go and explore more mazes!`
     ]
+
+    const handleToRegister = () => {
+        navigate('/signin', { state: { startingForm: 'register' } });
+    }
+
     return (
         <div className="fixed inset-0 flex w-full h-full pt-10 items-center justify-center z-30">
             <div className="w-full h-full p-4 text-dark300 text-center bg-light400 rounded-lg shadow">
@@ -20,7 +27,13 @@ const TutorialInfo = ({ onExitClick, tutorialNumber }) => {
                     <div className="text-sm font-normal">
                         <span className="mb-1 text-lg font-bold text-secondary200">{tutorialTexts[tutorialNumber]}</span>
                     </div>
-                    {tutorialNumber > 5 ? <Link type="button" to="/levels" className="text-4xl text-secondary300 hover:text-secondary500">EXPL<i className="bi bi-play-circle">RE MORE LEVELS</i></Link> : <button type="button" onClick={onExitClick} className="text-4xl text-secondary300 hover:text-secondary500">G<i className="bi bi-play-circle"></i></button>
+                    {tutorialNumber > 5 ? <>
+                        <Link type="button" to="/levels" className="text-4xl text-secondary300 hover:text-secondary500">EXPL<i className="bi bi-play-circle"></i>RE MORE LEVELS</Link>
+
+                        <button type="button" onClick={handleToRegister} className="text-4xl text-secondary300 hover:text-secondary500">BEC<i className="bi bi-play-circle"></i>ME A RIDER</button>
+                    </>
+
+                        : <button type="button" onClick={onExitClick} className="text-4xl text-secondary300 hover:text-secondary500">G<i className="bi bi-play-circle"></i></button>
                     }
                     <div className="flex text-success200 text-3xl items-center flex-row justify-center gap-5 width-full">
 

@@ -4,10 +4,12 @@ import btnIcons from '../assets/buttonsIcons/index';
 import inLogger from '../inLogger';
 import './background.css';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
-const Landing = ({ onTutorialClick }) => {
+const Landing = () => {
     const [activeIndex, setActiveIndex] = useState(0);
+    const navigate = useNavigate();
+
     const images = [
         'https://tecdn.b-cdn.net/img/Photos/Slides/img%20(15).jpg',
         'https://tecdn.b-cdn.net/img/Photos/Slides/img%20(16).jpg',
@@ -19,6 +21,10 @@ const Landing = ({ onTutorialClick }) => {
         'https://tecdn.b-cdn.net/img/Photos/Slides/img%20(22).jpg',
         'https://tecdn.b-cdn.net/img/Photos/Slides/img%20(23).jpg',
     ];
+
+    const handleToRegister = () => {
+        navigate('/signin', { state: { startingForm: 'register' } });
+    }
 
     const handleFeature1Click = () => setActiveIndex(0);
     const handleFeature2Click = () => setActiveIndex(1);
@@ -37,7 +43,7 @@ const Landing = ({ onTutorialClick }) => {
             <section className="flex flex-col w-full justify-center items-center pt-28 gap-7">
                 <img src={logo} className="w-4/6" alt="Logo" />
                 <div className="flex flex-col md:flex-row gap-5 w-full justify-center align-center">
-                    <button className="bg-primary100 self-center md:w-fit max-w-xs w-3/4  px-5 py-2 hover:bg-transparent text-2xl lg:text-4xl text-light500 hover:text-primary100 hover:border hover:border-primary100 font-bold rounded-lg transition duration-200">Join the Riders</button>
+                    <button onClick={handleToRegister} className="bg-primary100 self-center md:w-fit max-w-xs w-3/4  px-5 py-2 hover:bg-transparent text-2xl lg:text-4xl text-light500 hover:text-primary100 hover:border hover:border-primary100 font-bold rounded-lg transition duration-200">Join the Riders</button>
                     <Link to="/tutorial" className="border border-secondary300 bg-transparent self-center md:w-fit max-w-xs w-3/4 text-center px-5 py-2 hover:bg-secondary300 text-2xl lg:text-4xl text-secondary300 hover:text-light500 font-bold rounded-lg transition duration-200">Learn the basics</Link>
                 </div>
                 <div className="flex flex-col gap-5 md:gap-1 md:flex-row w-5/6 justify-center align-center bg-light300 rounded-xl mt-5 opacity-90">

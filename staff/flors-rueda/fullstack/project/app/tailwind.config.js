@@ -3,6 +3,9 @@
 
 export default {
     content: ["./index.html", "./src/**/*.jsx"],
+    plugins: [
+        require('@tailwindcss/forms'),
+    ],
     theme: {
         extend: {
             colors: {
@@ -37,6 +40,21 @@ export default {
                 success100: 'var(--color-success-100)',
                 success200: 'var(--color-success-200)',
                 success300: 'var(--color-success-300)',
+                gray: 'var(--color-gray)',
+                red: 'var(--color-red)',
+                orange: 'var(--color-orange)',
+                ambar: 'var(--color-ambar)',
+                yellow: 'var(--color-yellow)',
+                lime: 'var(--color-lime)',
+                green: 'var(--color-green)',
+                teal: 'var(--color-teal)',
+                cyan: 'var(--color-cyan)',
+                blue: 'var(--color-blue)',
+                indigo: 'var(--color-indigo)',
+                violet: 'var(--color-violet)',
+                fuchsia: 'var(--color-fuchsia)',
+                pink: 'var(--color-pink)',
+                rose: 'var(--color-rose)'
             },
         }
     },

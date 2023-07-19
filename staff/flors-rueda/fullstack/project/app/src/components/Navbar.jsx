@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import logo from '../assets/logo.svg';
 
 const Navbar = () => {
     const [isMenuOpen, setMenuOpen] = useState(false);
     const location = useLocation();
+    const navigate = useNavigate();
 
     const handleBurgerClick = () => {
         setMenuOpen(!isMenuOpen);
@@ -13,6 +14,16 @@ const Navbar = () => {
     const handleCloseClick = () => {
         setMenuOpen(false);
     };
+
+    const handleToLogin = () => {
+        navigate('/signin', { state: { startingForm: 'login' } });
+        handleCloseClick();
+    }
+
+    const handleToRegister = () => {
+        navigate('/signin', { state: { startingForm: 'register' } });
+        handleCloseClick();
+    }
 
     return (
         <div className="fixed w-full shadow z-50">
@@ -86,18 +97,18 @@ const Navbar = () => {
                         </Link>
                     </li>
                 </ul>
-                <a
+                <button
                     className="hidden lg:inline-block lg:ml-auto lg:mr-3 py-2 px-6 bg-light400 hover:bg-light300 text-sm text-dark400 font-bold  rounded-xl transition duration-200"
-                    href="#"
+                    onClick={handleToLogin}
                 >
                     Log in
-                </a>
-                <a
+                </button>
+                <button
                     className="hidden lg:inline-block py-2 px-6 bg-primary500 hover:bg-primary400 text-sm text-light500 font-bold rounded-xl transition duration-200"
-                    href="#"
+                    onClick={handleToRegister}
                 >
                     Sign up
-                </a>
+                </button>
             </nav>
             <div className={`navbar-menu fixed z-50 ${(isMenuOpen ? '' : 'hidden')}`}>
                 <nav className="fixed top-0 left-0 bottom-0 flex bg-light500 flex-col w-full md:w-8/12 py-6 px-6 bg-light500 border-r overflow-y-auto">
@@ -179,18 +190,18 @@ const Navbar = () => {
                     </div>
                     <div className="mt-auto">
                         <div className="pt-6">
-                            <a
-                                className="block px-4 py-3 mb-3 leading-loose text-xs text-center font-semibold leading-none  bg-light400 hover:bg-light300 text-dark400 rounded-xl"
-                                href=""
+                            <button
+                                className="block px-4 w-full py-3 mb-3 leading-loose text-xs text-center font-semibold leading-none bg-light400 hover:bg-light300 text-dark400 rounded-xl"
+                                onClick={handleToLogin}
                             >
                                 Log in
-                            </a>
-                            <a
-                                className="block px-4 py-3 mb-2 leading-loose text-xs text-center font-semibold bg-primary500 hover:bg-primary400 text-light500 rounded-xl"
-                                href=""
+                            </button>
+                            <button
+                                className="block px-4 py-3 mb-2 leading-loose text-xs text-center font-semibold bg-primary500 hover:bg-primary400 text-light500 rounded-xl w-full"
+                                onClick={handleToRegister}
                             >
                                 Sign up
-                            </a>
+                            </button>
                         </div>
                         <a href="https://github.com/rucev" target="_blank" rel="noopener noreferrer" className="my-4 text-xs flex align-center justify-center text-center text-light100 hover:underline cursor-pointer">
                             <span>

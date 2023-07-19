@@ -12,6 +12,7 @@ import CheckConnection from './logic/check-connection';
 import Tutorial from './pages/Tutorial';
 import NotFound from './pages/NotFound';
 import About from './pages/About';
+import SignIn from './pages/SignIn';
 
 const App = () => {
   const [isApiAvailable, setApiAvailableOn] = useState(true);
@@ -38,6 +39,7 @@ const App = () => {
           <Route path="/create" element={<CreateLevel />} />
           <Route path="/tutorial" element={<Tutorial />} />
           <Route path="/about" element={<About />} />
+          <Route path="/signin" element={<SignIn />} />
           <Route path="/*" element={<NotFound />} />
         </Routes>
       </div>
