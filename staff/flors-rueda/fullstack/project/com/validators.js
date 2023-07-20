@@ -84,6 +84,11 @@ const validateRecoveryQuestion = (question) => {
     if (typeof question.question !== 'string' || typeof question.answer !== 'string') throw new TypeError('question and/or answer is not a string')
 }
 
+const validateToken = (token) => {
+    if (typeof token !== 'string') throw new TypeError(`token is not a string`)
+    if (token.split('.').length !== 3) throw new ContentError(`token is not valid`)
+}
+
 module.exports = {
     validateName,
     validateCallback,
@@ -93,5 +98,6 @@ module.exports = {
     validatePassword,
     validateAvatar,
     validateColor,
-    validateRecoveryQuestion
+    validateRecoveryQuestion,
+    validateToken,
 }
