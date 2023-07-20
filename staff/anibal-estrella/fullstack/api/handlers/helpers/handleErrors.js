@@ -19,7 +19,7 @@ module.exports = callback => {
                     else if (error instanceof AuthError)
                         status = 401
 
-                    res.status(status).json({ error: error.message })
+                    res.status(status).json({ error: error.message, type: error.constructor.name })
                 })
         } catch (error) {
             let status = 500
