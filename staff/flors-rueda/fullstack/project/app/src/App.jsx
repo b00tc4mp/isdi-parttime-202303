@@ -36,7 +36,7 @@ const App = () => {
       <div className="pt-5">
         <Routes>
           <Route path="/" element={isUserLoggedIn() ? <Navigate to="/levels" /> : <Landing />} />
-          <Route path="/levels" element={<LevelsList />} />
+          <Route path="/levels" element={isUserLoggedIn() ? <LevelsList /> : <NotFound />} />
           <Route path="/game/:id" element={<Game />} />
           <Route path="/create" element={<CreateLevel />} />
           <Route path="/tutorial" element={<Tutorial />} />

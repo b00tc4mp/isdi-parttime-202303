@@ -65,7 +65,7 @@ const CreateLevel = () => {
                         </div>
                         <LayoutForm level={level} setLevel={setLevel} setToast={setToast} setToastOn={setToastOn} />
                         <div className="pt-5 pb-20">
-                            <button className="bg-transparent hover:bg-orange-500 text-orange-700 font-semibold hover:text-white py-2 px-4 border border-orange-500 hover:border-transparent rounded" onClick={handleOnTryLevel}>test level</button>
+                            <button className="bg-transparent hover:bg-primary200 text-primary100 font-semibold hover:text-light400 py-2 px-4 border border-primary200 hover:border-transparent rounded" onClick={handleOnTryLevel}>test level</button>
                         </div>
                     </div>
                 </div>

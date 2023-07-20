@@ -1,21 +1,17 @@
 import { Link, useNavigate } from 'react-router-dom';
 import inLogger from '../../inLogger';
 import createLevel from '../../logic/create-level';
+import useHandleErrors from '../hooks/useHandleErrors';
 
 const GameOver = ({ isGameWon, onRetry, isCreatedLevel, layout, hp, name }) => {
     const navigate = useNavigate();
+    const handleErrors = useHandleErrors();
 
     const handlePostLevel = () => {
-        try {
-            createLevel(name, layout, hp).then(() => {
-                navigate('/levels')
-            }).catch(error => {
-                return;
-            })
-
-        } catch (error) {
-            alert(`create level error: ${error.message}`);
-        }
+        handleErrors(async () => {
+            await createLevel(name, layout, hp);
+            navigate('/levels');
+        })
     }
 
     const handleEditLevel = () => {

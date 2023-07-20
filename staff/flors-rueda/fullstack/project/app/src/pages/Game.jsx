@@ -6,6 +6,7 @@ import inLogger from '../inLogger';
 import { configureLevelToRender } from '../helpers/game/configureLevelToRender';
 import retrieveLevel from '../logic/retrieve-level';
 import GameContainer from '../components/game/GameContainer';
+import useHandleErrors from '../hooks/useHandleErrors';
 
 const Game = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -16,10 +17,11 @@ const Game = () => {
   const [levelToRender, setLevelToRender] = useState(null);
   const [health, setHealth] = useState(null);
   const [isGameOver, setIsGameOver] = useState(0); // 0 = playing, -1 = lost, 1 = won
+  const handleErrors = useHandleErrors();
 
-  const getLevel = async () => {
+  const getLevel = () => {
     if (id !== 'try') {
-      try {
+      handleErrors(async () => {
         const level = await retrieveLevel(id);
         setLayout(level.layout)
         const configuredLevel = configureLevelToRender(level.layout);
@@ -27,10 +29,7 @@ const Game = () => {
         setHealth(level.hp ? level.hp : 5);
         setName(level.name)
         setIsLoading(false);
-      } catch (error) {
-        alert(`retrieve level error: ${error.message}`);
-        setIsLoading(false);
-      }
+      })
     } else {
       const { createdLayout, hp, levelName } = location.state;
       const configuredLevel = configureLevelToRender(createdLayout);

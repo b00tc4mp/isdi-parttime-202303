@@ -4,21 +4,20 @@ import Loader from '../components/Loader';
 import retrieveLevels from '../logic/retrieve-levels';
 import inLogger from '../inLogger';
 import { Link } from 'react-router-dom';
+import useHandleErrors from '../hooks/useHandleErrors';
 
 const LevelsList = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [levels, setLevels] = useState(null);
+    const handleErrors = useHandleErrors();
 
-    const handleRefreshLevels = async () => {
-        try {
-            const levels = await retrieveLevels()
+    const handleRefreshLevels = () => {
+        handleErrors(async () => {
+            const levels = await retrieveLevels();
             setLevels(levels);
             setIsLoading(false);
-        } catch (error) {
-            alert(`retrieve levels error: ${error.message}`);
-            setIsLoading(false);
-        }
-    };
+        })
+    }
 
     useEffect(() => {
         handleRefreshLevels();
