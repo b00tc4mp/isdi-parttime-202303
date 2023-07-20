@@ -56,7 +56,6 @@ export default function Home() {
     const handleGoToProfile = event => {
         setView('profile')
         navigate('/profile')
-
     }
 
     const handleOpenAddPostModal = () => setModal('add-post')
@@ -103,16 +102,16 @@ export default function Home() {
 
     return <div className="home">
         <section>
-            <header className="home-header">
-                <div className="header-items-wrapper">
+            <header className="h-5 w-full fixed top-0 left-0 max-w-full">
+                <div className="flex flex-row items-center content-end bg-gradient-to-l to-blue_dark from-lime-100">
                     <h1> <a href="#" className="header-title-link" onClick={handleOpenShowPosts} >
                         Logo
                     </a></h1>
 
-                    <a href="#" className="home-profile-avatar-link" onClick={handleGoToProfile}>
+                    <a href="#" className="aspect-square" onClick={handleGoToProfile}>
 
                         {user && <>
-                            <img className="user-avatar home-header-avatar" src={user.avatar} alt="" />
+                            <img className="w-12 h-12 rounded-full aspect-square border-2 border-red " src={user.avatar} alt="" />
                         </>}
                     </a>
 

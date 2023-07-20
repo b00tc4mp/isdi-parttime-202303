@@ -4,13 +4,13 @@
 
 /* @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&display=swap'); */
 
-* {
+/* * {
     box-sizing: border-box;
 }
 
 *:focus {
     outline: none;
-}
+} */
 
 @layer {
 
@@ -43,47 +43,85 @@
     }
 }
 
-:root.dark-theme body {
-    background-color: var(--c-base);
+
+@layer base {
+
+    h1,
+    h2,
+    h3,
+    a,
+    label {
+        @apply text-white;
+        @apply uppercase;
+    }
+
+    p {
+        @apply text-gray-100;
+        @apply text-sm
+    }
+
+    input,
+    textarea {
+        @apply bg-gray-200;
+        @apply p-2;
+        @apply rounded-xl;
+    }
+
+    textarea:focus,
+    input:focus {
+        @apply bg-gray-400;
+        @apply text-white;
+        @apply outline-none;
+        @apply shadow-none;
+        @apply border-none;
+    }
+
+    form {
+        @apply flex;
+        @apply flex-col;
+
+    }
+
 }
 
-html {
-    height: 100%;
-}
+/* form {
+    display: flex;
+    flex-direction: column; 
+min-width: 200px;
+width: 100%;
+ max-width: 50vw;
+}*/
 
-body {
-    font-family: var(--f-montserrat);
-    background-color: var(--c-gray_light);
-    font-size: 1em;
-    padding: 0;
-    margin: 0;
-    scroll-behavior: smooth;
-    height: 100%;
-}
-
-h1,
-h2,
-h3,
-p,
-a,
-label {
-    color: var(--c-base);
-}
-
-:root.dark-theme h1,
-:root.dark-theme h2,
-:root.dark-theme h3,
-:root.dark-theme p,
-:root.dark-theme a,
-:root.dark-theme label {
+/* textarea:focus,
+input:focus,
+input:focus::placeholder {
+    box-shadow: none;
+    border: none;
+    background-color: var(--c-gray);
     color: var(--c-white);
-}
+} */
 
-a:hover,
-a:hover h1 {
-    color: var(--c-red);
-    text-decoration: none;
-}
+
+/* .home-profile section>section form {
+    max-width: 50vw;
+    min-width: 50px;
+    align-self: center;
+} */
+
+/* textarea,
+input[type="text"],
+input[type="password"],
+input[type="url"] {
+    margin: 1rem 0 0 0;
+    padding: 1rem 2rem;
+    min-width: max-content;
+    height: 3rem;
+    border-radius: 25px;
+    border: none;
+    box-shadow: 0px 0px 5px var(--c-base);
+    background-color: var(--c-gray_light);
+    transition: background-color .5s ease;
+} */
 
 h2 {
     font-size: 1.2rem;
@@ -93,13 +131,7 @@ h3 {
     font-size: 0.9rem;
 }
 
-form {
-    display: flex;
-    flex-direction: column;
-    min-width: 200px;
-    width: 100%;
-    max-width: 50vw;
-}
+
 
 #root {
     height: 100%;
@@ -181,20 +213,16 @@ section {
     padding: 0 0 1rem 0;
 }
 
-.home-profile section>section form {
-    max-width: 50vw;
-    min-width: 50px;
-    align-self: center;
-}
 
-h1,
+
+/* h1,
 h2,
 h3 {
     padding: 0;
     margin: 0;
     text-transform: uppercase;
     letter-spacing: 0.1rem;
-}
+} */
 
 h1 {
     text-align: center;
@@ -223,36 +251,15 @@ form label {
     color: var(--c-base);
 }
 
-textarea,
-input[type="text"],
-input[type="password"],
-input[type="url"] {
-    margin: 1rem 0 0 0;
-    padding: 1rem 2rem;
-    min-width: max-content;
-    height: 3rem;
-    border-radius: 25px;
-    border: none;
-    box-shadow: 0px 0px 5px var(--c-base);
-    background-color: var(--c-gray_light);
-    transition: background-color .5s ease;
-}
 
-:root.dark-theme textarea,
+
+/* :root.dark-theme textarea,
 :root.dark-theme input[type="text"],
 :root.dark-theme input[type="password"],
 :root.dark-theme input[type="url"] {
     background-color: var(--c-gray);
-}
+} */
 
-textarea:focus,
-input:focus,
-input:focus::placeholder {
-    box-shadow: none;
-    border: none;
-    background-color: var(--c-gray);
-    color: var(--c-white);
-}
 
 button {
     border: none;
@@ -313,18 +320,18 @@ button {
 
 
 
-.overlay-panel-close {
+/* .overlay-panel-close {
     position: absolute;
     top: 0;
     left: 0;
     z-index: 0;
     width: 100%;
     height: 100%;
-}
+} */
 
-
+/* 
 .add-post-modal,
-.edit-post-modal,
+.edit-post-modal, */
 .alert {
     display: flex;
     flex-direction: column;
@@ -339,27 +346,27 @@ button {
     padding: 2rem;
 }
 
-.add-post-modal,
+/* .add-post-modal,
 .edit-post-modal {
     z-index: 1;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-}
+} */
 
-.add-post-modal form,
+/* .add-post-modal form,
 .edit-post-modal form {
     padding: 2rem;
     z-index: 2;
-}
+} */
 
 
 
-.add-post-modal textarea,
+/* .add-post-modal textarea,
 .edit-post-modal textarea {
     padding: 1rem;
     height: auto;
     border-radius: 20px;
-}
+} */
 
 .modal-post-headline {
     margin: 0 0 1rem 0;
@@ -390,6 +397,7 @@ button.menu-open:active {
     color: var(--c-back);
 }
 
+/* 
 @media screen and (max-width: 600px) {
     button.menu-open {
         height: 50px;
@@ -488,7 +496,8 @@ button.menu-open:active {
     100% {
         margin-bottom: 100px;
         opacity: 0;
-    }
-
-
+    } 
+    
+    
 }
+*/

@@ -1,12 +1,6 @@
-import './Panel.css'
-
-// pass tag as a parameter to tell what type of element we need, rename it in capitals to be rebndered as a variable not an html element, and if tag parameter is empty the default would be "div"
-// using the className parameter all the rest of the classes added inside the className of the tag will be passed as a string
-// all the rest tags inside the elements will be passed thropu the (...props) parameter
-// we can add modifiers to the class, adding a parameter to change the selector, let's name it " type" and use a contition to inject it.
 export default function PanelBackground({ children, tag: Tag = "div", className, type, ...props }) {
     console.debug(`///// PanelBackground -> render`)
-    return <Tag className={` ${className ? `${className} ` : ''}${type ? `Container--${type}` : ''}`} {...props}>
+    return <Tag className={`fixed top-0 left-0 flex flex-col w-screen h-screen z-10 backdrop-blur-md bg-gray-400/90 p-4 items-center justify-center${className ? `${className} ` : ''}${type ? `Container--${type}` : ''}`} {...props}>
         {children}
     </Tag>
 }

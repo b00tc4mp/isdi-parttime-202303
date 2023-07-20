@@ -3,12 +3,12 @@ import { createPost } from "../logic"
 import { useAppContext } from "../hooks"
 
 import Panel from '../library/Panel'
+import PanelBackground from '../library/PanelBackground'
+
 
 import { ArrowSmallLeftIcon } from '@heroicons/react/24/solid'
 import { CheckIcon } from '@heroicons/react/24/solid'
 import { EyeIcon } from '@heroicons/react/24/solid'
-
-import "./AddPostModal.css"
 
 export default ({ onCancel, onPostCreated }) => {
     console.debug('// AddPostModal  -> Render')
@@ -50,28 +50,30 @@ export default ({ onCancel, onPostCreated }) => {
     }
 
 
-    return <section className="add-post-modal">
+    return <PanelBackground>
         <h3 className="modal-post-headline">Shoot your post!</h3>
+        <Panel className={"p-4 drop-shadow-lg z-30 "}>
+            <form onSubmit={handleCreatePost}>
 
-        <Panel tag="form" className="add-post-modal-form" onSubmit={handleCreatePost}>
+                <label htmlFor="add-post-image" className=" ">Your awesome pic:</label>
 
-            <label htmlFor="add-post-image" className="border-top-gradient">Your awesome pic:</label>
-            <img src={previewImage} className="add-post-th grayscale-img" alt="Preview" />
-            <div className='modal-actions-container'>
-                <input type="url" name="image" className='input-preview' placeholder="Paste image URL in here." ref={imageInputRef} />
-                <button className="preview-image-button icon post-button" onClick={handleImagePreview}>Preview<EyeIcon className="eye icon" /></button>
-            </div>
+                <img src={previewImage} className="grayscale m-2 w-40 bg-gray-400 rounded-xl aspect-square self-center" alt="Preview" />
+                <div className="flex justify-normal items-center mt-1">
+                    <input type="url" name="image" className="" placeholder="Paste image URL in here." ref={imageInputRef} />
+                    <button className="text-[0px] ml-4 text-white transition ease-in-out hover:text-red duration-500" onClick={handleImagePreview}>Preview<EyeIcon className="eye icon" /></button>
+                </div>
 
-            <label htmlFor="add-post-text" className="border-top-gradient">tell us something:</label>
-            <textarea type="text" name="text" cols="25" rows="15" placeholder="Write whatever you want in here."></textarea>
-            <div className="modal-actions-container border-top-gradient">
-                <button className="cancel post-button icon" onClick={handleCancel}>Cancel<ArrowSmallLeftIcon className="cancel icon" /></button>
-                <button className="save post-button icon" type="submit">Save <CheckIcon className="save icon" /> </button>
-            </div>
+                <label htmlFor="add-post-text" className="border-top-gradient">tell us something:</label>
+                <textarea type="text" name="text" rows="5" placeholder="Write whatever you want in here."></textarea>
+                <div className="modal-actions-container border-top-gradient">
+                    <button className="text-[0px] text-white transition ease-in-out hover:text-red duration-500" onClick={handleCancel}>Cancel<ArrowSmallLeftIcon className="cancel icon" /></button>
+                    <button className="text-[0px] text-white transition ease-in-out hover:text-red duration-500" type="submit">Save <CheckIcon className="save icon" /> </button>
+                </div>
 
+            </form>
         </Panel>
 
         <div className="overlay-panel-close" onClick={handleCancel}></div>
-    </section>
+    </PanelBackground>
 
 }

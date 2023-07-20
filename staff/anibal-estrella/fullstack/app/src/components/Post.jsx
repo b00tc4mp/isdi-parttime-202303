@@ -61,13 +61,13 @@ export default ({ post: { author, id, text, image, date, likes, fav }, onEditPos
 
 
             <div className="p-4">
-                <img className="w-full grayscale rounded-xl hover:grayscale-0 ease-in duration-300 " src={image} alt="" />
+                <img className="w-full grayscale rounded-md hover:grayscale-0 ease-in duration-300 " src={image} alt="" />
                 <div className="flex flex-col w-full pt-4">
                     <div className="flex flex-row flex-grow-1 px-4 py-0">
                         <img className="w-12 h-12 rounded-full aspect-square border-2 border-red " src={author.avatar} />
                         <div className="pl-2">
-                            <h3 className="font-bold ">{author.name}</h3>
-                            <time className="text-white">{date.toLocaleString()}</time>
+                            <h3 className="font-bold mb-[-.5rem] ">{author.name}</h3>
+                            <time className="text-white text-xs text-gray-100 ">{date.toLocaleString()}</time>
                         </div>
                     </div>
                     <p className="p-4">{text}</p>
@@ -76,14 +76,14 @@ export default ({ post: { author, id, text, image, date, likes, fav }, onEditPos
 
             <div className="bg-gray-400 rounded-e-lg w-12 p-2 pt-4 ">
                 <div className="flex sticky top-16 flex-col	w-full justify-center">
-                    <button onClick={handleToggleLikePost} name="like" className="text-white pb-4 flex w-6 flex-col ">
+                    <button onClick={handleToggleLikePost} name="like" className=" pb-4 flex w-6 flex-col text-white transition ease-in-out hover:text-red duration-500">
                         {likes && likes.includes(getUserId()) ? <HeartIcon className="" /> : <HeartIconLine className="" />} {likes && likes.length > 0 ? <span className=" w-full text-center text-sm text-gray-200">{likes.length}</span> : ''}
                     </button>
 
-                    <button onClick={handleToggleFavPost} className="text-white pb-6 justify-center flex w-6 flex-col text-[0px]">Fav{fav ? <BookmarkIcon className="" /> : < BookmarkIconLine className="" />}
+                    <button onClick={handleToggleFavPost} className=" pb-6 justify-center flex w-6 flex-col text-[0px] text-white transition ease-in-out hover:text-red duration-500">Fav{fav ? <BookmarkIcon className="" /> : < BookmarkIconLine className="" />}
                     </button>
 
-                    {isCurrentUserPost ? <button className="text-white justify-center flex  w-6 flex-col text-[0px]" onClick={handleOpenEditPost} name="edit"> <PencilIcon /> </button> : ''}
+                    {isCurrentUserPost ? <button className="justify-center flex  w-6 flex-col text-[0px] text-white transition ease-in-out hover:text-red duration-500" onClick={handleOpenEditPost} name="edit"> <PencilIcon /> </button> : ''}
                 </div>
             </div>
         </Panel>

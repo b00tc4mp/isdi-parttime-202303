@@ -1,5 +1,5 @@
 @layer add-post-modal {
-	.add-post-th {
+    /* .add-post-th {
 		border: 1px solid var(--c-white);
         background-color: var(--c-base);
         aspect-ratio: 1 / 1;
@@ -7,50 +7,51 @@
         align-self: center;
         border-radius: 10px;
         margin: 1rem 0 0 0;
-    }
+    } */
 
-	.add-post-modal .preview-image-container {
-		margin: .5rem 0 0 0;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		flex-direction: row;
-	}
-	.add-post-modal button {
-		margin: 0 1rem 0 0;
-	}
+    /* .add-post-modal .preview-image-container {
+        margin: .5rem 0 0 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: row;
+    } */
 
-	.inline-container {
-		padding: 1rem 0;
-	}
-    
-	button.preview-image-button {
-		margin: 0 1rem 0 1rem;
-	}
+    /* .add-post-modal button {
+        margin: 0 1rem 0 0;
+    } */
 
-	.preview-image-container {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-	}
+    /* .inline-container {
+        padding: 1rem 0;
+    } */
+    /* 
+    button.preview-image-button {
+        margin: 0 1rem 0 1rem;
+    } */
+
+    /* .preview-image-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    } */
 
 
-	.add-post-modal .preview-image {
-		margin: 1rem 0;
-	}
+    /* .add-post-modal .preview-image {
+        margin: 1rem 0;
+    } */
 
-	.input-preview {
-		margin: 0 .5rem 0 0 !important;
-		width: 100%;
-	}
+    /* .input-preview {
+        margin: 0 .5rem 0 0 !important;
+        width: 100%;
+    } */
 
-	
-	.add-post-modal textarea {
-		align-self: center;
-		width: 100%;
-	}
-	
-	button.preview-image-button {
-		margin: 0 1rem 0 1rem;
-	}
+    /* 
+    .add-post-modal textarea {
+        align-self: center;
+        width: 100%;
+    } */
+
+    /* button.preview-image-button {
+        margin: 0 1rem 0 1rem;
+    } */
 }
