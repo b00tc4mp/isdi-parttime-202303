@@ -6,9 +6,7 @@ import retrieveUser from "../logic/retrieveUser"
 
 export default function Playgrounds({ onMarkerPressedHandler }) {
 
-    const userId = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDk0ODAwM2JmMTJmMTNmNmIxY2I4NTIiLCJpYXQiOjE2ODk3OTQxMzQsImV4cCI6MTY4OTg4MDUzNH0.oXwKR0_r73ROEREdWiSdzaZZN_iGDHTzsyOVGx7OKNE"
-
-
+    const userId = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDk0ODAwM2JmMTJmMTNmNmIxY2I4NTIiLCJpYXQiOjE2ODk4NDU5MDAsImV4cCI6MjU1Mzc1OTUwMH0.LA5OmV90H4T7U_L0HebSrsPZWUkM8On_MNoM48yYbqs"
     const [playgrounds, setPlaygrounds] = useState()
     const [user, setUser] = useState()
 
