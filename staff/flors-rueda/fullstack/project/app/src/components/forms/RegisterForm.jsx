@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import inLogger from '../inLogger';
+import inLogger from '../../inLogger';
 import { assets } from 'com';
 
-const RegisterForm = ({ onLogin }) => {
+const RegisterForm = ({ onLogin, onRegisterUser, formRef }) => {
     const [isDropdownOn, setIsDropdownOn] = useState(false);
 
     const textColors = { gray: 'text-gray', red: 'text-red', orange: 'text-orange', ambar: 'text-ambar', yellow: 'text-yellow', lime: 'text-lime', green: 'text-green', teal: 'text-teal', cyan: 'text-cyan', blue: 'text-blue', indigo: 'text-indigo', violet: 'text-violet', fuchsia: 'text-fuchsia', pink: 'text-pink', rose: 'text-rose' };
@@ -39,7 +39,7 @@ const RegisterForm = ({ onLogin }) => {
                 <h1 className="text-xl font-bold leading-tight tracking-tight text-primary100 md:text-2xl">
                     Create an account
                 </h1>
-                <form className="space-y-4 md:space-y-6" action="#">
+                <form className="space-y-4 md:space-y-6" action="POST" ref={formRef}>
                     <div>
                         <label htmlFor="username" className="block mb-2 text-sm font-medium text-secondary100">
                             Your username
@@ -68,8 +68,8 @@ const RegisterForm = ({ onLogin }) => {
                         />
                         <input
                             type="password"
-                            name="password"
-                            id="password"
+                            name="repeatPassword"
+                            id="repeatPassword"
                             placeholder="confirm your password"
                             className="bg-light500 border border-light100 text-secondary200 sm:text-sm rounded-lg focus:outline-none focus:ring-secondary300 focus:border-secondary300 block w-full p-2.5"
                             required={true}
@@ -130,8 +130,9 @@ const RegisterForm = ({ onLogin }) => {
                         />
                     </div>
                     <button
-                        type="submit"
+                        type="button"
                         className="w-full text-primary100 bg-light500 hover:bg-light400 focus:ring-4 focus:outline-none focus:ring-primary300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                        onClick={(event) => onRegisterUser(event)}
                     >
                         Create an account
                     </button>

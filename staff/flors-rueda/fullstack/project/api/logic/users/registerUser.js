@@ -9,7 +9,7 @@ module.exports = (username, password, color, recoveryQuestions) => {
     validateUsername(username);
     validatePassword(password);
     validateColor(color);
-    for (question of recoveryQuestions) {
+    for (let question of recoveryQuestions) {
         validateRecoveryQuestion(question);
     }
 

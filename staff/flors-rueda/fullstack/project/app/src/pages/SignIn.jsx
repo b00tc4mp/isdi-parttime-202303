@@ -1,16 +1,22 @@
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import inLogger from '../inLogger';
-import LoginForm from '../components/LoginForm';
+import LoginForm from '../components/forms/LoginForm';
 import logo from '../assets/logo-complete.svg';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import './background.css';
 import ComicCarousel from '../components/ComicCarousel';
-import RegisterForm from '../components/RegisterForm';
+import RegisterForm from '../components/forms/RegisterForm';
+import loginUser from '../logic/login-user';
+import registerUser from '../logic/register-user';
+import useHandleErrors from '../hooks/useHandleErrors';
 
 const SignIn = () => {
     const location = useLocation();
     const { startingForm } = location.state ? location.state : {};
     const [form, setForm] = useState(startingForm ? startingForm : 'login');
+    const formRef = useRef(null);
+    const handleErrors = useHandleErrors();
+    const navigate = useNavigate();
 
     const handleGoToRegister = () => {
         if (form === 'register') {
@@ -28,6 +34,43 @@ const SignIn = () => {
         }
     };
 
+    const handleLogin = (event) => {
+        event.preventDefault();
+        const formElement = formRef.current;
+        const formData = new FormData(formElement);
+
+        const username = formData.get('username');
+        const password = formData.get('password');
+
+        handleErrors(async () => {
+            await loginUser(username, password)
+            navigate('/levels')
+        })
+    }
+
+    const handleRegister = (event) => {
+        event.preventDefault();
+
+        const formElement = formRef.current;
+        const formData = new FormData(formElement);
+
+        const username = formData.get('username');
+        const password = formData.get('password');
+        const repeatPassword = formData.get('repeatPassword');
+        const recoveryQuestions = [
+            {
+                question: formData.get('question'),
+                answer: formData.get('answer'),
+            }
+        ]
+
+        handleErrors(async () => {
+            await registerUser(username, password, repeatPassword, recoveryQuestions);
+            await loginUser(username, password);
+            navigate('/levels');
+        })
+    }
+
     useEffect(() => {
         const { startingForm } = location.state ? location.state : {};
         setForm(startingForm ? startingForm : 'login');
@@ -42,8 +85,8 @@ const SignIn = () => {
                     <Link to="/" className="flex items-center">
                         <img className="h-32" src={logo} alt="logo" />
                     </Link>
-                    {form === 'login' && <LoginForm onRegister={handleGoToRegister} />}
-                    {form === 'register' && <RegisterForm onLogin={handleGoToLogin} />}
+                    {form === 'login' && <LoginForm onRegister={handleGoToRegister} onLoginUser={handleLogin} formRef={formRef} />}
+                    {form === 'register' && <RegisterForm onLogin={handleGoToLogin} onRegisterUser={handleRegister} formRef={formRef} />}
                 </div>
             </section>
             <ComicCarousel />

@@ -13,16 +13,18 @@ import Tutorial from './pages/Tutorial';
 import NotFound from './pages/NotFound';
 import About from './pages/About';
 import SignIn from './pages/SignIn';
+import isUserLoggedIn from './logic/is-user-logged-in';
 
 const App = () => {
   const [isApiAvailable, setApiAvailableOn] = useState(true);
+  const navigate = useNavigate();
 
   const handleRefreshApiConnection = async () => {
     try {
       await CheckConnection();
       setApiAvailableOn(true);
     } catch (error) {
-      console.log(`connection error: ${error.message}`);
+      alert(`connection error: ${error.message}`);
       setApiAvailableOn(false);
     }
   };
@@ -33,13 +35,13 @@ const App = () => {
       {!isApiAvailable && <NoConnectionToast />}
       <div className="pt-5">
         <Routes>
-          <Route path="/" element={<Landing />} />
+          <Route path="/" element={isUserLoggedIn() ? <Navigate to="/levels" /> : <Landing />} />
           <Route path="/levels" element={<LevelsList />} />
           <Route path="/game/:id" element={<Game />} />
           <Route path="/create" element={<CreateLevel />} />
           <Route path="/tutorial" element={<Tutorial />} />
           <Route path="/about" element={<About />} />
-          <Route path="/signin" element={<SignIn />} />
+          <Route path="/signin" element={isUserLoggedIn() ? <Navigate to="/levels" /> : <SignIn />} />
           <Route path="/*" element={<NotFound />} />
         </Routes>
       </div>

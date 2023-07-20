@@ -20,6 +20,7 @@ module.exports = callback => {
                     else if (error instanceof ExistenceError) status = 404;
                     else if (error instanceof AuthError) status = 401;
 
+                    console.log(error);
                     res.status(status).json({ message: error.message, type: error.constructor.name });
                 }
             })()
@@ -30,6 +31,7 @@ module.exports = callback => {
                 status = 406;
             }
 
+            console.log(error);
             res.status(status).json({ message: error.message, type: error.constructor.name });
         }
     }

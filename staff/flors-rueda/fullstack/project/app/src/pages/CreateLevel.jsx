@@ -3,7 +3,7 @@ import { validateLevel } from '../helpers/levelValidators';
 import { useLocation, useNavigate } from 'react-router-dom';
 import inLogger from '../inLogger';
 import CreateLevelToast from '../components/toasts/CreateLevelToast';
-import LayoutForm from '../components/LayoutForm';
+import LayoutForm from '../components/forms/LayoutForm';
 import CreateRules from '../components/CreateRules';
 
 const CreateLevel = () => {

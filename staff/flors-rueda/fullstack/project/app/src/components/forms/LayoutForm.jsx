@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import editIcons from '../assets/editIcons/index';
-import inLogger from '../inLogger';
-import { validateFloor } from '../helpers/levelValidators';
+import editIcons from '../../assets/editIcons/index';
+import inLogger from '../../inLogger';
+import { validateFloor } from '../../helpers/levelValidators';
 
 const LayoutForm = ({ level, setLevel, setToast, setToastOn }) => {
     const [openDropdown, setOpenDropdown] = useState(null);
