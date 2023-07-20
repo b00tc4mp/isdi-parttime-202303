@@ -19,19 +19,19 @@ const retrievePost = (userId, postId) => {
   validateId(userId, 'user id');
   validateId(postId, 'post id');
 
-  return User.findById(userId).then((foundUser) => {
+  return (async () => {
+    const [foundUser, foundPost] = await Promise.all([
+      User.findById(userId),
+      Post.findById(postId, '-__v -_id -likes -date -author').lean(),
+    ]);
+
     if (!foundUser)
       throw new ExistenceError(`user with id ${userId} not exists`);
+    if (!foundPost)
+      throw new ExistenceError(`post with id ${postId} not exists`);
 
-    return Post.findById(postId, '-__v -_id -likes -date -author')
-      .lean()
-      .then((foundPost) => {
-        if (!foundPost)
-          throw new ExistenceError(`post with id ${postId} not exists`);
-
-        return foundPost;
-      });
-  });
+    return foundPost;
+  })();
 };
 
 module.exports = retrievePost;

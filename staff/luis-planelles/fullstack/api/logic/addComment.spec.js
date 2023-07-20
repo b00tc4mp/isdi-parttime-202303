@@ -32,7 +32,7 @@ describe('addComment', () => {
     return cleanUp().then(() => populate([user], [post]));
   });
 
-  it('succeeds on existing user, post and comment', () => {
+  it('succeeds on existing user and post', () => {
     return addComment(user._id.toString(), post._id.toString(), text)
       .then(() => Post.findById(post._id.toString()))
       .then((foundPost) => {

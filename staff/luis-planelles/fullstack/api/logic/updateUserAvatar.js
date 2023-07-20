@@ -19,15 +19,13 @@ const updateUserAvatar = (userId, newAvatar) => {
   validateId(userId, 'user id');
   validateUrl(newAvatar, 'avatar');
 
-  return User.findById(userId).then((foundUser) => {
+  return (async () => {
+    const foundUser = await User.findById(userId);
     if (!foundUser)
       throw new ExistenceError(`user with id ${userId} not exists`);
 
-    return User.updateOne(
-      { _id: userId },
-      { $set: { avatar: newAvatar } }
-    ).then(() => {});
-  });
+    await User.updateOne({ _id: userId }, { $set: { avatar: newAvatar } });
+  })();
 };
 
 module.exports = updateUserAvatar;

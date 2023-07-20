@@ -19,27 +19,26 @@ const toggleLikePost = (userId, postId) => {
   validateId(userId, ' user id');
   validateId(postId, ' post id');
 
-  return User.findById(userId).then((foundUser) => {
+  return (async () => {
+    const [foundUser, foundPost] = await Promise.all([
+      User.findById(userId),
+      Post.findById(postId),
+    ]);
+
     if (!foundUser)
       throw new ExistenceError(`user with id ${userId} not exists`);
+    if (!foundPost)
+      throw new ExistenceError(`post with id ${postId} not exists`);
 
-    return Post.findById(postId).then((foundPost) => {
-      if (!foundPost)
-        throw new ExistenceError(`post with id ${postId} not exists`);
+    const index = foundPost.likes.indexOf(userId);
 
-      const index = foundPost.likes.indexOf(userId);
-
-      if (index < 0) {
-        foundPost.likes.push(userId);
-      } else {
-        foundPost.likes.splice(index, 1);
-      }
-      return Post.updateOne(
-        { _id: postId },
-        { $set: { likes: foundPost.likes } }
-      ).then(() => {});
-    });
-  });
+    if (index < 0) {
+      foundPost.likes.push(userId);
+    } else {
+      foundPost.likes.splice(index, 1);
+    }
+    await Post.updateOne({ _id: postId }, { $set: { likes: foundPost.likes } });
+  })();
 };
 
 module.exports = toggleLikePost;

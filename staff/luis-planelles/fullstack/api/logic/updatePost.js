@@ -24,23 +24,25 @@ const updatePost = (userId, postId, image, text) => {
   validateUrl(image, 'image');
   validateText(text, 'text');
 
-  return User.findById(userId).then((foundUser) => {
+  return (async () => {
+    const [foundUser, foundPost] = await Promise.all([
+      User.findById(userId),
+      Post.findById(postId),
+    ]);
+
     if (!foundUser)
       throw new ExistenceError(`user with id ${userId} not exists`);
+    if (!foundPost)
+      throw new ExistenceError(`post with id ${postId} not exists`);
 
-    return Post.findById(postId).then((foundPost) => {
-      if (!foundPost)
-        throw new ExistenceError(`post with id ${postId} not exists`);
+    if (foundPost.author.toString() !== userId)
+      throw new Error(`post ${postId} not belongs to user with id ${userId}`);
 
-      if (foundPost.author.toString() !== userId)
-        throw new Error(`post ${postId} not belongs to user with id ${userId}`);
-
-      return Post.updateOne(
-        { _id: postId },
-        { $set: { text, image, date: new Date() } }
-      ).then(() => {});
-    });
-  });
+    await Post.updateOne(
+      { _id: postId },
+      { $set: { text, image, date: new Date() } }
+    );
+  })();
 };
 
 module.exports = updatePost;

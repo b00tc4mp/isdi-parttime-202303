@@ -20,13 +20,16 @@ const authenticateUser = (email, password) => {
   validateEmail(email);
   validatePassword(password);
 
-  return User.findOne({ email }).then((user) => {
-    if (!user) throw new ExistenceError('user not exist');
+  return (async () => {
+    const foundUser = await User.findOne({ email });
 
-    if (user.password !== password) throw new AuthError('wrong credentials');
+    if (!foundUser) throw new ExistenceError('user not exist');
 
-    return user.id;
-  });
+    if (foundUser.password !== password)
+      throw new AuthError('wrong credentials');
+
+    return foundUser.id;
+  })();
 };
 
 module.exports = authenticateUser;

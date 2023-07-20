@@ -17,32 +17,31 @@ const { User, Post } = require('../data/models');
 const retrievePosts = (userId) => {
   validateId(userId, 'user id');
 
-  return User.findById(userId)
-    .lean()
-    .then((user) => {
-      if (!user) throw new ExistenceError(`user with id ${userId} not exists`);
+  return (async () => {
+    const foundUser = await User.findById(userId).lean();
+    if (!foundUser)
+      throw new ExistenceError(`user with id ${userId} not exists`);
 
-      return Post.find()
-        .sort('-date')
-        .lean()
-        .populate('author', '-password -favourites -__v')
-        .then((posts) => {
-          posts.forEach((post) => {
-            post.id = post._id.toString();
-            delete post._id;
-            delete post.__v;
+    const foundPosts = await Post.find()
+      .sort('-date')
+      .lean()
+      .populate('author', '-password -favourites -__v');
 
-            post.favourites = user.favourites.some(
-              (favourites) => favourites.toString() === post.id
-            );
+    foundPosts.forEach((post) => {
+      post.id = post._id.toString();
+      delete post._id;
+      delete post.__v;
 
-            if (post.author._id) post.author.id = post.author._id.toString();
-            delete post.author._id;
-          });
+      post.favourites = foundUser.favourites.some(
+        (favourites) => favourites.toString() === post.id
+      );
 
-          return posts;
-        });
+      if (post.author._id) post.author.id = post.author._id.toString();
+      delete post.author._id;
     });
+
+    return foundPosts;
+  })();
 };
 
 module.exports = retrievePosts;

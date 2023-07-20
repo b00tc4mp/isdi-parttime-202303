@@ -39,17 +39,16 @@ const updateUserPassword = (
   if (newPassword !== newPasswordConfirm)
     throw new Error('password confirmation mismatch');
 
-  return User.findById(userId).then((foundUser) => {
+  return (async () => {
+    const foundUser = await User.findById(userId);
+
     if (!foundUser)
       throw new ExistenceError(`user with id ${userId} not exists`);
 
     if (password !== foundUser.password) throw new Error('wrong password');
 
-    return User.updateOne(
-      { _id: userId },
-      { $set: { password: newPassword } }
-    ).then(() => {});
-  });
+    await User.updateOne({ _id: userId }, { $set: { password: newPassword } });
+  })();
 };
 
 module.exports = updateUserPassword;

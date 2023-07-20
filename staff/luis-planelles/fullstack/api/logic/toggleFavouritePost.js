@@ -19,28 +19,30 @@ const toggleFavouritePost = (userId, postId) => {
   validateId(userId, ' user id');
   validateId(postId, ' post id');
 
-  return User.findById(userId).then((foundUser) => {
+  return (async () => {
+    const [foundUser, foundPost] = await Promise.all([
+      User.findById(userId),
+      Post.findById(postId),
+    ]);
+
     if (!foundUser)
       throw new ExistenceError(`user with id ${userId} not exists`);
+    if (!foundPost)
+      throw new ExistenceError(`post with id ${postId} not exists`);
 
-    return Post.findById(postId).then((foundPost) => {
-      if (!foundPost)
-        throw new ExistenceError(`post with id ${postId} not exists`);
+    const index = foundUser.favourites.indexOf(postId);
 
-      const index = foundUser.favourites.indexOf(postId);
+    if (index < 0) {
+      foundUser.favourites.push(postId);
+    } else {
+      foundUser.favourites.splice(index, 1);
+    }
 
-      if (index < 0) {
-        foundUser.favourites.push(postId);
-      } else {
-        foundUser.favourites.splice(index, 1);
-      }
-
-      return User.updateOne(
-        { _id: userId },
-        { $set: { favourites: foundUser.favourites } }
-      ).then(() => {});
-    });
-  });
+    await User.updateOne(
+      { _id: userId },
+      { $set: { favourites: foundUser.favourites } }
+    );
+  })();
 };
 
 module.exports = toggleFavouritePost;

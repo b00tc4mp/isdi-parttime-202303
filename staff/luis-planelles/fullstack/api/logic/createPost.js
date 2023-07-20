@@ -20,16 +20,19 @@ const createPost = (userId, image, text) => {
   validateUrl(image, 'image');
   validateText(text, 'text');
 
-  return User.findById(userId).then((user) => {
-    if (!user) throw new ExistenceError(`user with id ${userId} doesnt exists`);
+  return (async () => {
+    const foundUser = await User.findById(userId);
 
-    return Post.create({
-      author: user._id,
+    if (!foundUser)
+      throw new ExistenceError(`user with id ${userId} doesnt exists`);
+
+    await Post.create({
+      author: foundUser._id,
       image,
       text,
       date: new Date(),
-    }).then(() => {});
-  });
+    });
+  })();
 };
 
 module.exports = createPost;

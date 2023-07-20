@@ -20,22 +20,24 @@ const deletePost = (userId, postId) => {
   validateId(userId, 'user id');
   validateId(postId, 'post id');
 
-  return User.findById(userId).then((foundUser) => {
+  return (async () => {
+    const [foundUser, foundPost] = await Promise.all([
+      User.findById(userId),
+      Post.findById(postId),
+    ]);
+
     if (!foundUser)
       throw new ExistenceError(`user with id ${userId} not exists`);
+    if (!foundPost)
+      throw new ExistenceError(`post with id ${postId} not exists`);
 
-    return Post.findById(postId).then((foundPost) => {
-      if (!foundPost)
-        throw new ExistenceError(`post with id ${postId} not exists`);
+    if (foundPost.author.toString() !== userId)
+      throw new Error(
+        `post with id ${postId} not belong to user with id ${userId}`
+      );
 
-      if (foundPost.author.toString() !== userId)
-        throw new Error(
-          `post with id ${postId} not belong to user with id ${userId}`
-        );
-
-      return Post.deleteOne({ _id: postId }).then(() => {});
-    });
-  });
+    await Post.deleteOne({ _id: postId }).then(() => {});
+  })();
 };
 
 module.exports = deletePost;

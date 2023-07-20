@@ -21,32 +21,37 @@ const deleteComment = (userId, postId, commentId) => {
   validateId(postId, 'post id');
   validateId(commentId, 'comment id');
 
-  return Promise.all([User.findById(userId), Post.findById(postId)])
-    .then(([user, post]) => {
-      if (!user) throw new ExistenceError(`user with id ${userId} not exists`);
-      if (!post) throw new ExistenceError(`post with id ${postId} not exists`);
+  return (async () => {
+    const [foundUser, foundPost] = await Promise.all([
+      User.findById(userId),
+      Post.findById(postId),
+    ]);
 
-      const index = post.comments.findIndex(
-        (comment) => comment.id === commentId
+    if (!foundUser)
+      throw new ExistenceError(`user with id ${userId} not exists`);
+    if (!foundPost)
+      throw new ExistenceError(`post with id ${postId} not exists`);
+
+    const index = foundPost.comments.findIndex(
+      (comment) => comment.id === commentId
+    );
+
+    if (index < 0)
+      throw new Error(
+        `comment with id ${commentId} not exists in post with id ${postId}`
       );
 
-      if (index < 0)
-        throw new Error(
-          `comment with id ${commentId} not exists in post with id ${postId}`
-        );
+    const comment = foundPost.comments[index];
 
-      const comment = post.comments[index];
+    if (comment.author.toString() !== userId)
+      throw new Error(
+        `comment with id ${commentId} does not belong to user with id ${userId}`
+      );
 
-      if (comment.author.toString() !== userId)
-        throw new Error(
-          `comment with id ${commentId} does not belong to user with id ${userId}`
-        );
+    foundPost.comments.splice(index, 1);
 
-      post.comments.splice(index, 1);
-
-      return post.save();
-    })
-    .then(() => {});
+    await foundPost.save();
+  })();
 };
 
 module.exports = deleteComment;

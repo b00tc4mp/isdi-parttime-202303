@@ -20,21 +20,26 @@ const addComment = (userId, postId, text) => {
   validateId(postId, 'post id');
   validateText(text);
 
-  return Promise.all([User.findById(userId), Post.findById(postId)])
-    .then(([user, post]) => {
-      if (!user) throw new ExistenceError(`user with id ${userId} not exists`);
-      if (!post) throw new Error(`post with id ${postId} not exists`);
+  return (async () => {
+    const [foundUser, foundPost] = await Promise.all([
+      User.findById(userId),
+      Post.findById(postId),
+    ]);
 
-      const comment = new Comment({
-        author: userId,
-        text,
-      });
+    if (!foundUser)
+      throw new ExistenceError(`user with id ${userId} not exists`);
+    if (!foundPost)
+      throw new ExistenceError(`post with id ${postId} not exists`);
 
-      post.comments.push(comment);
+    const comment = new Comment({
+      author: userId,
+      text,
+    });
 
-      return post.save();
-    })
-    .then(() => {});
+    foundPost.comments.push(comment);
+
+    await foundPost.save();
+  })();
 };
 
 module.exports = addComment;

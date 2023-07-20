@@ -1,6 +1,6 @@
 const {
   validators: { validateName, validateEmail, validatePassword },
-  errors: { DuplicityError },
+  errors: { DuplicityError, UnknowError },
 } = require('com');
 
 const { User } = require('../data/models');
@@ -23,18 +23,16 @@ const registerUser = (name, email, password) => {
   validateEmail(email);
   validatePassword(password);
 
-  return User.create({
-    name,
-    email,
-    password,
-  })
-    .then(() => {})
-    .catch((error) => {
+  return (async () => {
+    try {
+      await User.create({ name, email, password });
+    } catch (error) {
       if (error.message.includes('E11000'))
         throw new DuplicityError(`user with email ${email} already exists`);
 
-      throw error;
-    });
+      throw new UnknowError(error.message);
+    }
+  })();
 };
 
 module.exports = registerUser;
