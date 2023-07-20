@@ -13,18 +13,16 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         - ig d'acudits
 
                 - MUST
-                - compo container 20230524 1945
                 - loader amb un spinner mentre carrega cada pagina 20230524 2040
                 - canviar console.log a console.debug per fer un logger (visualitzar al navegador amb el nivells de console "verbose")
                 - editar ReadMe a modo stories de que vol el client 20230510 2118
-                - canviar alerts -> Context i context provider 20230522 2110 (posarli animacio? settimeout?)
-                - quan es borra un user esborrar tots els seus posts i tots els posts que tenen un like seu!
-                - com -> extreure userId del token per poder passar el userId a components com el de Post.jsx 20230628 2040
-                - documentar cada funcio de la logica de la api -> /**
+                - quan es borra un user esborrar tots els seus posts i tots els likes que ha fet a altres posts!
+                - react router 20230710 2030 + 20230711 crec
+                - app functions de statless a statefull 20230711 2050
+                - bcrypt -> amagar password 20230719 2120
 
                 - OPTIONAL
                 - session cookies 20230619 2100
-                - custom hooks 20230605 2030
                 - documentar api -> README 20230607 2100 + SWAGER UI
                 - posar un display a lhora de publicar post? per posar o no fotos optativament i al pintar el post un estil {post.image && <img..../>}
                 - setTimeOut animacions? algun modal? el dels errors?
