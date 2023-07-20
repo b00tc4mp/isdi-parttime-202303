@@ -17,16 +17,32 @@ module.exports = (userId, postId) => {
     validateId(userId, 'user id')
     validateId(postId, 'post id')
 
-    return Promise.all([
-        User.findById(userId).lean(),
-        Post.findById(postId).lean(),
-
-    ])
+    return Promise.all([User.findById(userId), Post.findById(postId)])
         .then(([user, post]) => {
-            if (!user) throw new ExistenceError(`user with the id ${userId} not found`)
-            if (!post) throw new ExistenceError(`post with the id ${postId} not found`)
+            if (!user) throw new ExistenceError('User not found! 😥')
 
-            return Post.deleteOne({ _id: postId })
+            if (!post) throw new ExistenceError('Post not found! 😥')
+
+            if (post.author.toString() !== userId) {
+                throw new PropertyError(
+                    `Post with ID ${post._id.toString()} does not belong to user with ID ${userId} 😥`
+                )
+            }
+
+            return User.find({ favs: postId }).then((users) => {
+                const usersUpdated = users.map((user) => {
+                    return User.updateOne(
+                        { _id: user.id },
+                        {
+                            $pullAll: {
+                                favs: [postId],
+                            },
+                        }
+                    )
+                })
+
+                return Promise.all([...usersUpdated, Post.deleteOne({ _id: postId })])
+            })
         })
         .then(() => { })
 }

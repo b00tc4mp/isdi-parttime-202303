@@ -1,7 +1,6 @@
-import { context } from '../ui'
-import Context from "../AppContext"
+import { context } from "../logic"
 import { useAppContext } from "../hooks"
-import { useState, useRef, useEffect, useContext } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { utils } from 'com'
 
 import {
@@ -22,7 +21,6 @@ import './Profile.css'
 export default ({ onAvatarUpdated, user }) => {
     console.debug('/// Profile  -> Render')
 
-    // const { alert, freeze, unfreeze } = useContext(Context)
     const { alert, freeze, unfreeze } = useAppContext()
 
     const [previewImage, setPreviewImage] = useState();
@@ -31,16 +29,6 @@ export default ({ onAvatarUpdated, user }) => {
         try {
             freeze()
 
-            // retrieveUser(context.token, (error, user) => {
-            //     if (error) {
-            //         alert(error.message)
-            //         unfreeze()
-            //         return
-            //     }
-            //     setUserName(user.name)
-            //     setPreviewImage(user.avatar)
-
-            // })
             retrieveUser(context.token).then(() => {
                 setPreviewImage(user.avatar)
             })

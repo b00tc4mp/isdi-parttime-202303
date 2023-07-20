@@ -20,7 +20,9 @@ const {
     retrievePostHandler,
     retrievePostsHandler,
     retrieveFavPostsHandler,
-    retrieveLikedPostsHandler
+    retrieveLikedPostsHandler,
+    addCommentToPostHandler,
+    removeCommentFromPostHandler
 } = require('./handlers')
 const mongoose = require('mongoose')
 
@@ -49,7 +51,7 @@ mongoose.connect(process.env.MONGODB_URL)
 
         api.get('/posts/likes/', retrieveLikedPostsHandler)
 
-        api.get('/posts/favs/', retrieveFavPostsHandler)
+        api.get('/posts/favs', retrieveFavPostsHandler)
 
         api.patch('/users/avatar', jsonBodyParser, updateUserAvatarHandler)
 
@@ -64,6 +66,10 @@ mongoose.connect(process.env.MONGODB_URL)
         api.delete('/posts/:postId', deletePostHandler)
 
         api.patch('/posts/post/:postId', jsonBodyParser, updatePostHandler)
+
+        api.post('/posts/:postId/comments', jsonBodyParser, addCommentToPostHandler)
+
+        api.delete('/posts/:postId/comments/:commentId', removeCommentFromPostHandler)
 
         api.listen(process.env.PORT, () => console.log(`//////////////\nSERVER RUNNING\nIN PORT *${process.env.PORT}*\n//////////////`))
 

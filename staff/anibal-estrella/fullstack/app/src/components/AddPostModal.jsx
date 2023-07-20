@@ -1,10 +1,6 @@
 import { useState, useRef } from 'react';
-import { useContext } from "react"
-
-import { context } from "../ui.js"
 import { createPost } from "../logic"
-
-import Context from "../AppContext.jsx"
+import { useAppContext } from "../hooks"
 
 import Panel from '../library/Panel'
 
@@ -12,11 +8,12 @@ import { ArrowSmallLeftIcon } from '@heroicons/react/24/solid'
 import { CheckIcon } from '@heroicons/react/24/solid'
 import { EyeIcon } from '@heroicons/react/24/solid'
 
-
 import "./AddPostModal.css"
 
-export default function AddPostModal({ onCancel, onPostCreated }) {
-    const { alert } = useContext(Context)
+export default ({ onCancel, onPostCreated }) => {
+    console.debug('// AddPostModal  -> Render')
+
+    const { alert } = useAppContext()
 
     const emptyImage = "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs"
 
@@ -37,15 +34,9 @@ export default function AddPostModal({ onCancel, onPostCreated }) {
         const text = event.target.text.value
 
         try {
-            createPost(context.token, image, text, error => {
-                if (error) {
-                    alert(error.message)
-
-                    return
-                }
-                onPostCreated()
-            })
-
+            createPost(image, text)
+                .then(onPostCreated)
+                .catch(error => alert(error.message))
         } catch (error) {
             alert(error.message)
         }
@@ -58,7 +49,6 @@ export default function AddPostModal({ onCancel, onPostCreated }) {
         setPreviewImage(imageInputRef.current.value);
     }
 
-    console.debug('// AddPostModal  -> Render')
 
     return <section className="add-post-modal">
         <h3 className="modal-post-headline">Shoot your post!</h3>

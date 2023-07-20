@@ -11,7 +11,7 @@ export default function togglefavPost(token, postId) {
     validateId(postId, 'post id')
     validateToken(token)
 
-
+    // api.patch('/users/favs/:postId', toggleFavPostHandler)
 
     return fetch(`${import.meta.env.VITE_API_URL}/users/favs/${postId}`, {
         method: 'PATCH',

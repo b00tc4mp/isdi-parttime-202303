@@ -1,10 +1,9 @@
-import { useContext } from "react"
 import { registerUser } from '../logic'
 import { Panel } from '../library'
 import { useAppContext } from '../hooks'
 import { Link } from 'react-router-dom'
 
-export default function Register({ onUserRegistered }) {
+export default function Register() {
     console.debug('// Register  -> Render');
 
     const { alert, freeze, unfreeze, navigate } = useAppContext()

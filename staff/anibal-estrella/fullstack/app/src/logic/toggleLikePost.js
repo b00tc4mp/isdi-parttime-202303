@@ -40,7 +40,7 @@ export default function toggleLikePost(token, postId, callback) {
         xhr.send()
         return
     }
-
+    debugger
     return fetch(`${import.meta.env.VITE_API_URL}/posts/${postId}/likes`, {
         method: 'PATCH',
         headers: {

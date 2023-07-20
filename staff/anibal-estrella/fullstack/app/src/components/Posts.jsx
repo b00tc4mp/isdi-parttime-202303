@@ -1,63 +1,38 @@
 import { useState, useEffect } from "react"
-import { context } from "../ui"
 import { useAppContext } from "../hooks"
 
-import { retrievePosts, retrieveSavedPosts, retrieveUser } from "../logic"
+import { retrievePosts, retrieveFavPosts, retrieveUser } from "../logic"
 
 import Post from "./Post.jsx"
 
-export default function Posts({ onEditPost, lastPostsUpdate, onOpenSavedPosts, user }) {
+export default ({ onEditPost, lastPostsUpdate, onOpenSavedPosts, user }) => {
     console.debug('/// Posts  -> Render');
 
     const { alert, freeze, unfreeze } = useAppContext()
 
     const [posts, setPosts] = useState()
 
-    const [_user, setUser] = useState()
+    // const [_user, setUser] = useState()
 
     // useEffect(() => handleRefreshPosts(), [])
 
     const handleRefreshPosts = (view) => {
-
         try {
             freeze()
             if (view === 'saved-posts') {
-                retrieveSavedPosts(context.token, (error, posts) => {
-                    unfreeze()
-
-                    if (error) {
-                        alert(error.message)
-                        return
-                    }
-                    setPosts(posts)
-                })
-
-            } else
-                retrievePosts(context.token, (error, posts) => {
-                    unfreeze()
-
-                    if (error) {
-                        alert(error.message)
-
-                        return
-                    }
-                    setPosts(posts)
-                })
-
-
-
-            retrieveUser(context.token, (error, _user) => {
-                unfreeze()
-
-                if (error) {
-                    alert(error.message)
-
-                    return
-                }
-                setUser(_user)
-            })
+                retrieveFavPosts()
+                    .then(setPosts)
+                    .catch(error => alert(error.message))
+                    .finally(unfreeze)
+            } else {
+                retrievePosts()
+                    .then(setPosts)
+                    .catch(error => alert(error.message))
+                    .finally(unfreeze)
+            }
         } catch (error) {
             alert(error.message)
+            unfreeze()
         }
     }
 

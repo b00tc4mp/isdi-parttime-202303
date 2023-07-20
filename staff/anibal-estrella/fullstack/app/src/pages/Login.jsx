@@ -1,8 +1,6 @@
-import { context } from "../ui.js"
 import { useAppContext } from "../hooks"
-import { authenticateUser } from '../logic'
+import { loginUser } from '../logic'
 import { Link } from 'react-router-dom'
-
 
 import { Panel } from '../library'
 
@@ -22,23 +20,14 @@ export default function Login() {
 
         try {
             freeze()
-            authenticateUser(email, password, (error, token) => {
-                unfreeze()
-                if (error) {
-                    alert(error.message, 'error')
-
-                    return
-                }
-
-                context.token = token
-
-                navigate('/')
-            })
-
+            loginUser(email, password)
+                .then(() => navigate('/'))
+                .catch(error => alert(error.message, 'error'))
         } catch (error) {
             unfreeze()
             alert(error.message, 'warn')
         }
+        unfreeze()
     }
 
 

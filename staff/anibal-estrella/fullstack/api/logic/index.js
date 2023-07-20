@@ -12,6 +12,8 @@ module.exports = {
     retrievePost: require('./retrievePost'),
     retrievePosts: require('./retrievePosts'),
     retrieveLikedPosts: require('./retrieveLikedPosts'),
-    retrieveFavPosts: require('retrieveFavPosts'),
-    retrieveUser: require('./retrieveUser')
+    retrieveFavPosts: require('./retrieveFavPosts'),
+    retrieveUser: require('./retrieveUser'),
+    addCommentToPost: require('./addCommentToPost'),
+    removeCommentFromPost: require('./removeCommentFromPost')
 }

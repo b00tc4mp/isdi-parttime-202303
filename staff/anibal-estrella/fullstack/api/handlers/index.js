@@ -15,5 +15,8 @@ module.exports = {
     updatePostHandler: require('./updatePostHandler'),
     toggleLikePostHandler: require('./toggleLikePostsHandler'),
     toggleFavPostHandler: require('./toggleFavPostsHandler'),
-    retrieveLikedPostsHandler: require('./retrieveLikedPostsHandler')
+    retrieveLikedPostsHandler: require('./retrieveLikedPostsHandler'),
+    retrieveFavPostsHandler: require('./retrieveFavPostsHandler'),
+    addCommentToPostHandler: require('./addCommentToPostHandler'),
+    removeCommentFromPostHandler: require('./removeCommentFromPostHandler')
 }

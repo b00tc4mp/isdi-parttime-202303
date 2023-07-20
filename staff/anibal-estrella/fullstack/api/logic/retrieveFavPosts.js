@@ -9,15 +9,15 @@ module.exports = userId => {
     validateId(userId, 'user id')
     //one step version
     return Promise.all([
-        User.findById(userId).lean()
+        User.findById(userId).lean(),
+        Post.find().sort('-date').populate('author', '-__v -password -favs').lean()
     ])
         .then(([user, posts]) => {
             if (!user) throw new ExistenceError('user not found')
 
             posts.forEach(post => {
-                post.likes = post.likes.includes(user.id)
-
-                const _user = users.find(user => user.id === post.author)
+                //add the id converted to string (all _id are objects and should be converted to strings)
+                post.id = post._id.toString()
 
                 //sanityze
                 delete post._id
@@ -37,4 +37,3 @@ module.exports = userId => {
             return posts
         })
 }
-

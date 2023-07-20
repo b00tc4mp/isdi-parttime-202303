@@ -1,6 +1,6 @@
+import { retrieveUser } from "../logic"
 import { useState, useEffect } from 'react'
-import { context, hideScroll, showScroll } from "../ui"
-import retrieveUser from "../logic/retrieveUser"
+import { hideScroll, showScroll } from "../../ui"
 import randomSalutation from "../logic/randomSalutation"
 
 import Posts from "../components/Posts"
@@ -13,10 +13,10 @@ import { PencilSquareIcon } from '@heroicons/react/24/solid'
 import { Bars3BottomRightIcon } from '@heroicons/react/24/solid'
 
 import './Home.css'
-import { useNavigate } from 'react-router-dom'
 import { useAppContext } from '../hooks'
+import { useNavigate } from 'react-router-dom'
 
-export default function Home({ onLoggedOut }) {
+export default function Home() {
     console.debug('// Home  -> Render')
 
     const [view, setView] = useState('posts')
@@ -25,23 +25,16 @@ export default function Home({ onLoggedOut }) {
     const [postId, setPostId] = useState(null)
     const [lastPostsUpdate, setLastPostsUpdate] = useState(Date.now())
     const [user, setUser] = useState()
-    const { navigate } = useAppContext
+    const { alert, navigate } = useAppContext()
 
     useEffect(() => {
         try {
-            retrieveUser(context.token, (error, user) => {
-                if (error) {
-                    alert(error.message)
-
-                    return
-                }
-                setUser(user)
-            })
-
+            retrieveUser()
+                .then(setUser)
+                .catch(error => alert(error.message))
         } catch (error) {
             alert(error.message)
         }
-
     }, [])
 
     const closeModal = () => {
@@ -52,11 +45,19 @@ export default function Home({ onLoggedOut }) {
     const handleOpenMenu = event => {
         event.preventDefault()
         setMenu('menu')
+        hideScroll()
     }
 
-    const handleCloseMenu = () => setMenu(null)
+    const handleCloseMenu = () => {
+        setMenu(null)
+        showScroll()
+    }
 
-    const handleGoToProfile = event => setView('profile')
+    const handleGoToProfile = event => {
+        setView('profile')
+        navigate('/profile')
+
+    }
 
     const handleOpenAddPostModal = () => setModal('add-post')
 
@@ -64,6 +65,7 @@ export default function Home({ onLoggedOut }) {
         setModal('edit-post')
         setPostId(postId)
         setView('posts')
+        hideScroll()
     }
 
     const handlePostCreated = () => {
@@ -71,23 +73,11 @@ export default function Home({ onLoggedOut }) {
         closeModal()
     }
 
-    const handleLogOut = () => {
-        context.removeItem('token')
-        //same as:
-        //delete context.token 
-        onLoggedOut()
-    }
-
     const handleAvatarUpdated = () => {
         try {
-            retrieveUser(context.userId, (error, user) => {
-                if (error) {
-                    alert(error.message)
-
-                    return
-                }
-                setUser(user)
-            })
+            retrieveUser()
+                .then(setUser)
+                .catch(error => alert(error.message))
         } catch (error) {
             alert(error.message)
         }
@@ -133,7 +123,6 @@ export default function Home({ onLoggedOut }) {
                     openProfile={handleGoToProfile}
                     onCloseMenu={handleCloseMenu}
                     createPost={handleOpenAddPostModal}
-                    onLogOut={handleLogOut}
                     onHandleTheme={toggleTheme}
                     onOpenShowPosts={handleOpenShowPosts}
                     onOpenSavedPosts={handleOpenSavedPosts}

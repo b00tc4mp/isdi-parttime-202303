@@ -1,7 +1,8 @@
-import { XCircleIcon } from '@heroicons/react/24/solid'
+import { context, logOutUser } from "../logic"
 import { useNavigate } from 'react-router-dom'
+
+import { XCircleIcon } from '@heroicons/react/24/solid'
 import "./Menu.css"
-import { context } from '../ui'
 
 export default function Menu(props) {
     console.debug('/// MENU  -> Render')
@@ -24,7 +25,7 @@ export default function Menu(props) {
     }
 
     function handleLogOut() {
-        delete context.token
+        logOutUser()
         props.onCloseMenu()
         navigate('/login')
     }
@@ -47,7 +48,6 @@ export default function Menu(props) {
 
     function handleTheme() {
         props.onHandleTheme()
-
     }
 
     return <nav className="home-menu center-container">

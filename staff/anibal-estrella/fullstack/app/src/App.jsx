@@ -4,13 +4,11 @@ import Home from './pages/Home'
 import Alert from './components/Alert'
 import AppContext from './AppContext'
 import { useState } from 'react'
-import { context } from './ui'
 import { Loader } from './library'
-import { utils } from 'com'
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom'
+import isUserLoggedIn from './logic/isUserLoggedIn'
 
 const { Provider } = AppContext
-const { isTokenValid, isTokenAlive } = utils
 
 export default function App() {
     console.debug('/ APP  -> Render');
@@ -30,9 +28,9 @@ export default function App() {
 
         <Routes>
             {(() => console.log('Routes -> Render'))()}
-            <Route path="/login" element={isTokenValid(context.token) && isTokenAlive(context.token) ? <Navigate to="/" /> : <Login />} />
-            <Route path="/register" element={isTokenValid(context.token) && isTokenAlive(context.token) ? <Navigate to="/" /> : <Register />} />
-            <Route path="/" element={isTokenValid(context.token) && isTokenAlive(context.token) ? <Home /> : <Navigate to="/login" />} />
+            <Route path="/login" element={isUserLoggedIn() ? <Navigate to="/" /> : <Login />} />
+            <Route path="/register" element={isUserLoggedIn() ? <Navigate to="/" /> : <Register />} />
+            <Route path="/" element={isUserLoggedIn() ? <Home /> : <Navigate to="/login" />} />
         </Routes>
 
         {feedback && <Alert message={feedback.message} level={feedback.level} onAccept={handleAcceptAlert} />}

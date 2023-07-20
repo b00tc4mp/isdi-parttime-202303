@@ -2,7 +2,7 @@ import { validators } from 'com'
 const { validateId, validateToken } = validators
 
 /**
- * 
+ * Retrieve single post from db
  * @param {*} token 
  * @param {*} postId 
  * @returns 

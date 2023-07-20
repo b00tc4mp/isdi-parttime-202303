@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
 
-import { context } from "../ui.js"
 import { updatePost, retrievePost, deletePost } from "../logic"
 
 import { useAppContext } from "../hooks"
@@ -11,7 +10,7 @@ import "./EditPostModal.css"
 import { ArrowSmallLeftIcon } from '@heroicons/react/24/solid'
 import { TrashIcon } from '@heroicons/react/24/solid'
 import { CheckIcon } from '@heroicons/react/24/solid'
-import { EyeIcon } from '@heroicons/react/24/solid'
+// import { EyeIcon } from '@heroicons/react/24/solid'
 
 export default function EditPostModal({ onCancel, onPostEdited, postId, onDeletedPost }) {
     console.debug('// EditPostModal  -> Render')
@@ -22,16 +21,20 @@ export default function EditPostModal({ onCancel, onPostEdited, postId, onDelete
 
 
     useEffect(() => {
+        freeze()
+
         try {
             retrievePost(context.token, postId)
-                .then(setPost)
+                .then(setPosts)
                 .catch(error => alert(error.message))
+                .finally(unfreeze)
 
             // setPost(post)
             // setPreviewImage(post.image);
 
         } catch (error) {
             alert(error.message)
+            unfreeze()
         }
     }, [postId])
 

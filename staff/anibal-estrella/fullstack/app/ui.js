@@ -5,5 +5,3 @@ export const hideScroll = () => {
 export const showScroll = () => {
     document.body.classList.remove('overflow-hidden')
 }
-
-export const context = sessionStorage

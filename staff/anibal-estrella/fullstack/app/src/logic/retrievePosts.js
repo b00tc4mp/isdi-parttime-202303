@@ -1,34 +1,17 @@
-import { validators } from 'com'
-const { validateCallback, validateToken } = validators
+import context from './context'
 
-export default (token, callback) => {
-    validateToken(token, 'token')
-    validateCallback(callback, 'callback')
-
-    const xhr = new XMLHttpRequest
-
-    xhr.onload = () => {
-        const { status } = xhr
-
-        if (status !== 200) {
-            const { response: json } = xhr
-            const { error } = JSON.parse(json)
-
-            callback(new Error(error))
-
-            return
+export default () =>
+    fetch(`${import.meta.env.VITE_API_URL}/posts`, {
+        headers: {
+            Authorization: `Bearer ${context.token}`
         }
-        const { response: json } = xhr
-        const posts = JSON.parse(json)
-        callback(null, posts)
-    }
+    })
+        .then(res => {
+            if (res.status === 200)
+                return res.json()
 
-    xhr.onerror = () => {
-        callback(new Error('Connection Error!'))
-    }
-
-    xhr.open('GET', `${import.meta.env.VITE_API_URL}/posts`)
-    xhr.setRequestHeader('Authorization', `Bearer ${token}`)
-
-    xhr.send()
-}
+            return res.json()
+                .then(body => {
+                    throw new Error(message)
+                })
+        })
