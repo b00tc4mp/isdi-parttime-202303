@@ -8,17 +8,9 @@ import { NativeWindStyleSheet } from "nativewind";
 NativeWindStyleSheet.setOutput({
     default: "native",
 });
-
-const [animation, setAnimation] = useState('fadeInUp')
-
-
 export default function CreatePlayground({ closeHandle }) {
     const { currentView, setCurrentView } = useContext(Context)
-
-    const onClose = () => {
-        closeHandle()
-        // alert('hola')
-    }
+    const onClose = () => closeHandle()
 
     return <>
         <View className="">
@@ -38,14 +30,11 @@ export default function CreatePlayground({ closeHandle }) {
                             setCurrentView('')
                         }}>
                         <Image
-                            // className={`w-8 h-8 m-auto`}
                             className={`w-8 h-8 m-auto `}
                             source={CLOSE}
                         />
                     </TouchableHighlight>
-                    <ScrollView
-                        horizontal="true"
-                    >
+                    <ScrollView horizontal="true" >
                         <Text className="pt-4 text-lg">New Playground</Text>
                         <Text className="pt-4 text-xs">Playground Name</Text>
                         <TextInput

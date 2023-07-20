@@ -19,9 +19,13 @@ export default function Nearby({ closeHandle, park }) {
     const onClose = () => {
         setAnimation('fadeOutDown')
         closeHandle()
+        // alert('hola')
         setAnimation()
     }
     const playground = currentMarker
+
+    // alert(`title: ${playground.title} \n id: ${playground.id} \n description: ${playground.description}`)
+
 
     return <>
         {park &&
@@ -35,6 +39,7 @@ export default function Nearby({ closeHandle, park }) {
                         setCurrentView('')
                     }}>
                     <Image
+                        // className={`w-8 h-8 m-auto`}
                         className={`w-8 h-8 m-auto `}
                         source={CLOSE}
                     />
@@ -44,8 +49,15 @@ export default function Nearby({ closeHandle, park }) {
                 <ScrollView
                     horizontal={true}
                     showsHorizontalScrollIndicator={false}
+
                 >
                     <View className="flex-row gap-3">
+                        {/* <Image
+                            className="w-36 h-40 object-cover rounded-2xl"
+                            source={{
+                                uri: playground.image,
+                            }}
+                        /> */}
                         {playground.image.length > 0 && playground.image.map(image => {
                             return <Image
                                 className="w-36 h-40 object-cover rounded-2xl"
@@ -55,9 +67,57 @@ export default function Nearby({ closeHandle, park }) {
                                 }}
                             />
                         })}
+                        {/* <Text>{playground.image}</Text> */}
+
                     </View>
                 </ScrollView>
+
             </Animatable.View>
         }
+
+
+
+
+
+
+
+
+        {/* <Modal
+            animationType="slide"
+            transparent={true}
+            className="w-full justify-center flex content-center center h-auto max-h-max"
+            onRequestClose={() => {
+                alert('')
+                setCurrentView('')
+                onClose()
+            }}
+        >
+            <View
+                className="w-10/12 left-[8.33%] absolute bottom-24 h-auto max-h-max p-5 bg-white rounded-[20px] mx-auto"
+            >
+                <TouchableHighlight
+                    className=" m-auto absolute right-0 top-0 mr-2 mt-1 z-10"
+                    activeOpacity={1.0}
+                    underlayColor="#fff"
+                    onPress={() => {
+                        onClose()
+                        setCurrentView('')
+                    }}>
+                    <Image
+                        // className={`w-8 h-8 m-auto`}
+                        className={`w-8 h-8 m-auto `}
+                        source={CLOSE}
+                    />
+                </TouchableHighlight>
+
+
+                <ScrollView
+                    horizontal="true"
+                >
+                    <Text className="pt-4">hola</Text>
+                </ScrollView>
+            </View>
+        </Modal> */}
+
     </>
 }
