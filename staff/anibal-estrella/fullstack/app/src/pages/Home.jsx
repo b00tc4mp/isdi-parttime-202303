@@ -1,4 +1,4 @@
-import { retrieveUser } from "../logic"
+import { retrieveUser, retrieveRandomMotivationalQuote } from "../logic"
 import { useState, useEffect } from 'react'
 import { hideScroll, showScroll } from "../../ui"
 import randomSalutation from "../logic/randomSalutation"
@@ -19,13 +19,36 @@ import { useNavigate } from 'react-router-dom'
 export default function Home() {
     console.debug('// Home  -> Render')
 
+    const { alert, freeze, unfreeze, navigate } = useAppContext()
     const [view, setView] = useState('posts')
     const [modal, setModal] = useState(null)
     const [menu, setMenu] = useState(null)
     const [postId, setPostId] = useState(null)
     const [lastPostsUpdate, setLastPostsUpdate] = useState(Date.now())
     const [user, setUser] = useState()
-    const { alert, navigate } = useAppContext()
+    const [quote, setQuote] = useState(null)
+
+
+
+    useEffect(() => {
+        try {
+            freeze()
+
+            retrieveRandomMotivationalQuote((error, quote) => {
+                unfreeze()
+
+                if (error) {
+                    alert(error.message)
+
+                    return
+                }
+
+                setQuote(quote)
+            })
+        } catch (error) {
+            alert(error.message)
+        }
+    }, [])
 
     useEffect(() => {
         try {
@@ -100,9 +123,9 @@ export default function Home() {
     }
 
 
-    return <div className="home">
+    return <div className=" pt-20 px-2">
         <section>
-            <header className="h-5 w-full fixed top-0 left-0 max-w-full">
+            <header className="h-5 w-full fixed top-0 left-0 max-w-full z-10">
                 <div className="flex flex-row items-center content-end bg-gradient-to-l to-blue_dark from-lime-100">
                     <h1> <a href="#" className="header-title-link" onClick={handleOpenShowPosts} >
                         Logo
@@ -115,7 +138,7 @@ export default function Home() {
                         </>}
                     </a>
 
-                    <button className="button menu-open" onClick={handleOpenMenu}><Bars3BottomRightIcon className='Bars3BottomRightIcon icon' /></button>
+                    <button className="w-10 h-full bg-gradient-to-r from-blue_dark to-red p-2" onClick={handleOpenMenu}><Bars3BottomRightIcon className='Bars3BottomRightIcon text-white' /></button>
                 </div>
 
                 {menu === 'menu' && <Menu
@@ -129,19 +152,27 @@ export default function Home() {
 
             </header>
 
-            <div className="hello-user border-top-gradient">
-                <a href="#" className="home-profile-avatar-link" onClick={handleGoToProfile}>
+            <div id="hello-user" className="flex flex-col mb-4">
+                <div className="flex flex-row">
+                    <div className="flex flex-row">
 
-                    {user && <>
-                        <img className="user-avatar home-profile-avatar" src={user.avatar} alt="" />
-                    </>}
+                        <a href="#" className="w-20 h-20 aspect-square flex-shrink-0 mr-2" onClick={handleGoToProfile}>
+                            {user && <><img className="rounded-full  border-2 border-red transition ease-in-out hover:border-lime-100 duration-500" src={user.avatar} alt="" /> </>}
+                        </a>
+                        <div className="flex flex-col">
 
-                </a>
-                {user && <>
-                    <h2 className="hello-user-headline">
-                        <span className="hello-user-name">Hi {user.name}.</span>
-                        <br />{randomSalutation()}</h2>
-                </>}
+                            {user && <>
+                                <h2 className="hello-user-headline">
+                                    <span className=" text-1xl font-bold">Hi {user.name}.</span>
+                                </h2>
+                            </>}
+                            <h3>
+                                {randomSalutation()}
+                            </h3>
+                            {quote && <p><q>{quote}</q></p>}
+                        </div>
+                    </div>
+                </div>
             </div>
 
             {view === 'posts' && <Posts

@@ -17,7 +17,8 @@ import getUserId from './getUserId'
 import isCurrentUser from './isCurrentUser'
 import logOutUser from './logOutUser'
 import context from './context'
+import retrieveRandomMotivationalQuote from './retrieveRandomMotivationalQuote'
 
 export {
-    retrieveUser, loginUser, createPost, deletePost, registerUser, retrievePosts, retrieveLikedPosts, retrieveFavPosts, retrievePost, toggleFavPost, toggleLikePost, updatePost, updateUserAvatar, updateUserEmail, updateUserPassword, getUserId, isCurrentUser, logOutUser, context
+    retrieveUser, loginUser, createPost, deletePost, registerUser, retrievePosts, retrieveLikedPosts, retrieveFavPosts, retrievePost, toggleFavPost, toggleLikePost, updatePost, updateUserAvatar, updateUserEmail, updateUserPassword, getUserId, isCurrentUser, logOutUser, context, retrieveRandomMotivationalQuote
 }

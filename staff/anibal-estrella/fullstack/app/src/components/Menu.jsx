@@ -49,9 +49,9 @@ export default function Menu(props) {
     function handleTheme() {
         props.onHandleTheme()
     }
-
-    return <nav className="home-menu center-container">
-        <ul>
+    // return <nav className="home-menu center-container bg-gray-400/80 ">
+    return <nav className="flex bg-gray-400/80 block z-40 fixed top-0 left-0 w-full h-full backdrop-blur-lg uppercase font-bold">
+        <ul className="px-4 self-center text-3xl">
             <li className="menu-close">
                 <a href="#" className="close-menu" onClick={handleClose} >Close Menu<XCircleIcon className='XCircleIcon icon' /></a>
             </li>
@@ -63,6 +63,33 @@ export default function Menu(props) {
             <li className="menu-logout" ><a href="#" onClick={handleLogOut}>Logout</a></li>
             <li className='theme'>dark <input type="checkbox" className='toggle-theme' onClick={handleTheme} /> light</li>
         </ul>
-    </nav>
+    </nav >
 
 }
+// .home-menu {
+//     position: fixed;
+//     top: 0;
+//     width: 100%;
+//     height: 100%;
+//     text-align: center;
+//     background-color: var(--c-gray_light--80);
+//     backdrop-filter: blur(10px);
+//     -webkit-backdrop-filter: blur(10px);
+// }
+
+// .home-menu ul li a {
+//     display: block;
+//     font-size: 4rem;
+//     padding: 0.5rem;
+//     font-weight: 700;
+//     text-transform: uppercase;
+//     text-decoration: none;
+//     transition: padding-left 500ms ease;
+// }
+
+// display: flex;
+// justify-content: center;
+// align-items: center;
+// flex-direction: column;
+// margin: auto;
+// height: 100%;

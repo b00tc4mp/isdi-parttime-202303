@@ -57,7 +57,7 @@ export default ({ post: { author, id, text, image, date, likes, fav }, onEditPos
     const isCurrentUserPost = isCurrentUser(author.id)
 
     return (
-        <Panel tag="article" className="flex flex-row bg-gray-300" >
+        <Panel tag="article" className="flex flex-row bg-gray-300 mx-4 mb-4" >
 
 
             <div className="p-4">
