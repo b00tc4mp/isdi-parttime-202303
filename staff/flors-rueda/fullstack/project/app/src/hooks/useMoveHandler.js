@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import * as THREE from 'three';
-import { createFloor } from '../helpers/createFloor';
-import { checkCollisions } from '../helpers/checkCollisions';
+import { createFloor } from '../helpers/game/createFloor';
+import { checkCollisions } from '../helpers/game/checkCollisions';
 
 //TODO improve movement on desktop
 

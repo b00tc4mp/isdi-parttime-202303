@@ -15,7 +15,7 @@ const LevelsList = () => {
             setLevels(levels);
             setIsLoading(false);
         } catch (error) {
-            console.log(`retrieve levels error: ${error.message}`);
+            alert(`retrieve levels error: ${error.message}`);
             setIsLoading(false);
         }
     };

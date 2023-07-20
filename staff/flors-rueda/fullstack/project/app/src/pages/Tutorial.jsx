@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import inLogger from '../inLogger';
 import { tutorialLevels } from '../components/game/tutorialLevels';
 import TutorialInfo from '../components/game/TutorialInfo';
-import { configureLevelToRender } from '../helpers/configureLevelToRender';
 import TutorialGameContainer from '../components/game/TutorialGameContainer';
 
 const Tutorial = () => {

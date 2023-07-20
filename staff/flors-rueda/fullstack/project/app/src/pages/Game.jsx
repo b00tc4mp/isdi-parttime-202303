@@ -3,7 +3,7 @@ import GameOver from '../components/game/GameOver';
 import { useParams, useLocation } from 'react-router-dom';
 import Loader from '../components/Loader';
 import inLogger from '../inLogger';
-import { configureLevelToRender } from '../helpers/configureLevelToRender';
+import { configureLevelToRender } from '../helpers/game/configureLevelToRender';
 import retrieveLevel from '../logic/retrieve-level';
 import GameContainer from '../components/game/GameContainer';
 
@@ -28,7 +28,7 @@ const Game = () => {
         setName(level.name)
         setIsLoading(false);
       } catch (error) {
-        console.log(`retrieve level error: ${error.message}`);
+        alert(`retrieve level error: ${error.message}`);
         setIsLoading(false);
       }
     } else {

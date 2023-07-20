@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
-import { createScene } from '../../helpers/createScene';
+import { createScene } from '../../helpers/game/createScene';
 import useMoveHandler from '../../hooks/useMoveHandler';
 import inLogger from '../../inLogger';
 

@@ -69,10 +69,20 @@ Level
 
 File                 | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
 ---------------------|---------|----------|---------|---------|-------------------
-*logic / levels*         |   *90* |       *50* |   *85.71* |   *94.73* | 
-  createLevel.js     |   85.71 |      100 |      50 |   85.71 | 15
-  retrieveLevel.js   |    87.5 |       50 |     100 |     100 | 10
-  retrieveLevels.js  |     100 |      100 |     100 |     100 | 
+**All files**             |   **92.53** |     **62.5** |   **92.85** |   **93.75** | 
+ *data*                 |     *100* |      *100* |     *100* |     *100* | 
+  models.js           |     100 |      100 |     100 |     100 | 
+ *logic/helpers/tests*  |     *100* |      *100* |     *100* |     *100* | 
+  cleanUp.js          |     100 |      100 |     100 |     100 | 
+  generate.js         |     100 |      100 |     100 |     100 | 
+  index.js            |     100 |      100 |     100 |     100 | 
+ *logic/levels*         |      *90* |       *50* |   *85.71* |   *94.73* | 
+  createLevel.js      |   85.71 |      100 |      50 |   85.71 | 16                
+  retrieveLevel.js    |    87.5 |       50 |     100 |     100 | 10
+  retrieveLevels.js   |     100 |      100 |     100 |     100 | 
+ *logic/users*          |   *90.62* |    *66.66* |     *100* |      *90* | 
+  authenticateUser.js |     100 |      100 |     100 |     100 | 
+  registerUser.js     |   82.35 |        0 |     100 |   82.35 | 29-32
 </br>
 
 # Planning
@@ -114,8 +124,10 @@ Planned through a kanban visible on this [Trello](https://trello.com/b/uHRmZKBR/
 - [ ] Build register page
 - [ ] Create tests for register user
 - [ ] Create tests for authenticate user
+- [ ] Create tests for retrieve user
 - [ ] Implement register user functionality
 - [ ] Implement authenticate user with token
+- [ ] Implement retrieve user
 - [ ] Make levels view only accessible for log in users
 - [ ] Only allow logged in users to post levels
 - [ ] Add a create and test level on tutorial (no posting)

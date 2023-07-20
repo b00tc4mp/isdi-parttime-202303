@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import CanvasContainer from './CanvasContainer';
 import { Player } from '@lottiefiles/react-lottie-player';
 import inLogger from '../../inLogger';
-import { configureLevelToRender } from '../../helpers/configureLevelToRender';
+import { configureLevelToRender } from '../../helpers/game/configureLevelToRender';
 
 const TutorialGameContainer = ({ tutorialLevel, onFinishTutorialLevel }) => {
     const [level, setLevel] = useState(configureLevelToRender(tutorialLevel))
