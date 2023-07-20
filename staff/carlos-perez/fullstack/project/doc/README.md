@@ -34,6 +34,9 @@ This webapp will be the official web for MayBe, an andalusian music band. It wil
 - delete comment
 - toggle comment visibility
 
+- send message
+- subscribe to RSS?
+
 ## Technical description
 
 ### Data model
