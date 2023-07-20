@@ -18,8 +18,7 @@ module.exports = (userId, imageUrl, postText) => {
     await Post.create({
       author: user._id,
       image: imageUrl,
-      text: postText,
-      date: date.toLocaleDateString()
+      text: postText
     })
   })()
 

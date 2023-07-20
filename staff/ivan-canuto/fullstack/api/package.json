@@ -19,6 +19,7 @@
     "mocha": "^10.2.0"
   },
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "com": "file:../com",
     "cors": "^2.8.5",
     "dotenv": "^16.1.4",

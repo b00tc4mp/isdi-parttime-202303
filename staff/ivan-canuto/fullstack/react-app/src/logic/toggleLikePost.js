@@ -9,7 +9,7 @@ const { validateId } = validators
  * @param {object} postId The post id.
  */
 
-export default function toggleLikePost(postId) {
+export default function ªtoggleLikePost(postId) {
   validateId(postId, 'post id')
 
   return (async () => {

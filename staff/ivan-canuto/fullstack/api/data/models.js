@@ -43,6 +43,8 @@ const comment = new Schema({
   }
 })
 
+const date = new Date
+
 const post = new Schema({
   author: {
     type: ObjectId,
@@ -58,9 +60,9 @@ const post = new Schema({
     required: true
   },
   date: {
-    type: Date,
+    type: String,
     required: true,
-    default: Date.now
+    default: date.toLocaleDateString()
   },
   likes: {
     type: [ObjectId],

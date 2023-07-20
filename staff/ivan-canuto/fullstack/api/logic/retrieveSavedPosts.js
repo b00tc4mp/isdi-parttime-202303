@@ -11,7 +11,7 @@ module.exports = (userId) => {
     const user = await User.findById(userId)
     if(!user) throw new ExistenceError('User not found.')
     
-    const posts = await Post.find({ _id: { $in: user.favs} }).sort('-date').populate('author', '-favs -__v').lean()
+    const posts = await Post.find({ _id: { $in: user.favs} }).populate('author', '-favs -__v').lean()
 
     posts.forEach(post => {
       post.id = post._id.toString()
@@ -26,7 +26,7 @@ module.exports = (userId) => {
       }
     })
 
-    return posts
+    return posts.reverse()
   })()
 
   // return User.findById(userId)

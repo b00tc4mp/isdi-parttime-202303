@@ -8,7 +8,7 @@ module.exports = function retrieveUserPosts(userId) {
     const user = await User.findById(userId)
     if(!user) throw new ExistenceError('User not found.')
 
-    const posts = await Post.find({ author: userId }).sort('-date').populate('author', '-favs -__v').lean()
+    const posts = await Post.find({ author: userId }).populate('author', '-favs -__v').lean()
 
     posts.forEach(post => {
       post.id = post._id.toString()
@@ -23,7 +23,7 @@ module.exports = function retrieveUserPosts(userId) {
       }
     })
 
-    return posts
+    return posts.reverse()
   })()
 
   // return Promise.all([User.findById(userId), Post.find({ author: userId }).populate('author', '-favs -__v').lean()])

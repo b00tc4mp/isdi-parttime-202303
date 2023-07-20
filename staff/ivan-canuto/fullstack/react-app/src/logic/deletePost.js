@@ -28,7 +28,7 @@ export default function deletePost(postId) {
     const clazz = errors[type]
 
     throw new clazz(message)
-  })
+  })()
 
   // return fetch(`${import.meta.env.VITE_API_URL}/posts/${postId}/delete`, {
   //   method: 'DELETE',

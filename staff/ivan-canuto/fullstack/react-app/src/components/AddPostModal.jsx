@@ -70,7 +70,7 @@ export default function AddPost({ onCancel, onCreatedPost }) {
       
           const compressorSettings = {
             toWidth : 200,
-            toHeight : 100,
+            toHeight : 200,
             mimeType : 'image/png',
             mode : 'strict',
             quality : 1
