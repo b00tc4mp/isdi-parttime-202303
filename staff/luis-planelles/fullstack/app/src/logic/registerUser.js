@@ -14,8 +14,8 @@ const registerUser = (name, email, password) => {
     body: JSON.stringify({ name, email, password }),
   }).then((res) => {
     if (res.status !== 201) {
-      return res.json().then(({ error: message }) => {
-        throw new Error(message);
+      return res.json().then(({ type, error: message }) => {
+        throw new Error[type](message);
       });
     }
   });

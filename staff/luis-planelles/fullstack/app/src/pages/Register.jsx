@@ -1,8 +1,14 @@
 
+import { errors } from 'com';
 import { Link } from 'react-router-dom';
 import { useAppContext } from '../hooks';
 import { Button, Container, Form, Input } from '../library';
 import registerUser from '../logic/registerUser.js';
+
+const {
+    ContentError,
+    DuplicityError
+} = errors
 
 const Register = () => {
   const { alert, navigate } = useAppContext()
@@ -17,9 +23,21 @@ const Register = () => {
     try {
       registerUser(name, email, password)
       .then(() => navigate('/login'))
-        .catch(error => alert(error.message))
-    } catch (error) {
-      alert(error.message)
+      .catch(error => {
+        if (error instanceof DuplicityError)
+            alert(error.message, 'warn')
+            
+        else alert(error.message, 'error')
+    })
+    } 
+    catch (error) {
+      if (error instanceof RangeError)
+        alert(error.message, 'warn')
+
+      else if (error instanceof ContentError)
+        alert(error.message, 'error')
+      
+      else alert(error.message)
     }
   };    
 

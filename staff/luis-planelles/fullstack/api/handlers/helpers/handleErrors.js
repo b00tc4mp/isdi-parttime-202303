@@ -24,7 +24,9 @@ const handleErrors = (callback) => {
       )
         status = 406;
 
-      res.status(status).json({ error: error.message });
+      res
+        .status(status)
+        .json({ error: error.message, type: error.constructor.name });
     }
   };
 };
