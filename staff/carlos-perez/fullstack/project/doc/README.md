@@ -52,6 +52,7 @@ Update
 - image (string)
 - text (string)
 - comments (array of comments)
+- date (date)
 - visibility (boolean)
 
 Media
@@ -62,6 +63,7 @@ Media
 - link (array of string)
 - text (string)
 - comments (array of comments)
+- date (date)
 - visibility (boolean)
 
 ### Test Coverage
