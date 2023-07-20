@@ -7,6 +7,7 @@ const {
     errors: { AuthError, ContentError, ExistenceError, FormatError },
     assets: { colors },
 } = require('com');
+const bcrypt = require('bcryptjs');
 
 describe('authenticateUser', () => {
     before(async () => {
@@ -31,7 +32,9 @@ describe('authenticateUser', () => {
             { question: `question${Math.random()}`, answer: `answer${Math.random()}` }
         ];
 
-        const user = generate.user(username, password, 'beach', color, recoveryQuestions);
+        const cryptPassword = bcrypt.hashSync(password, 10);
+
+        const user = generate.user(username, cryptPassword, 'beach', color, recoveryQuestions);
 
         await User.create(user);
 

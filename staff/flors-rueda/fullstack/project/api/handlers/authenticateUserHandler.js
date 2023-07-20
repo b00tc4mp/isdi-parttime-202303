@@ -1,15 +1,11 @@
 const { authenticateUser } = require('../logic');
 const { handleErrors } = require('./helpers');
 const jwt = require('jsonwebtoken');
-const bcrypt = require('bcryptjs');
-
 
 module.exports = handleErrors((req, res) => {
     const { username, password } = req.body;
 
-    const cryptPassword = bcrypt.hashSync(password, 8);
-
-    return authenticateUser(username, cryptPassword)
+    return authenticateUser(username, password)
         .then(userId => {
             const payload = { sub: userId };
 

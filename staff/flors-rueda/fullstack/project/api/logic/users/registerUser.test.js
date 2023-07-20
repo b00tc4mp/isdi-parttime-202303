@@ -7,6 +7,7 @@ const {
     errors: { DuplicityError, ContentError, FormatError },
     assets: { colors },
 } = require('com');
+const bcrypt = require('bcryptjs');
 
 describe('registerUser', () => {
     before(async () => {
@@ -36,8 +37,10 @@ describe('registerUser', () => {
 
         const createdUser = await User.findOne({ username });
 
+        const match = await bcrypt.compare(password, createdUser.password);
+
         expect(createdUser.username).to.equal(username);
-        expect(createdUser.password).to.equal(password);
+        expect(match).to.equal(true);
         expect(createdUser.color).to.equal(color);
         expect(createdUser.joined.getTime()).to.be.closeTo(date, 10000);
         expect(createdUser.avatar).to.equal('beach');
