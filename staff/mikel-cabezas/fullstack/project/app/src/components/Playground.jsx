@@ -7,7 +7,7 @@ const urlEndpoint = 'https://ik.imagekit.io/mklhds'
 const publicKey = 'public_KXJOz0g5Xp6gAlhANXjoCNjKLPs=';
 import MapView, { Marker, Callout } from 'react-native-maps'
 import Context from "../AppContext"
-import { Text } from 'react-native';
+import { Text, Image } from 'react-native';
 
 // import { utils } from '../../../com'
 
@@ -26,18 +26,17 @@ export default function Post({ playground, playground: { title, text, id, image,
     return <>
         <Marker
             tooltip={false}
-
-            // coordinate={`latitude: 
-            // ${latitude}, longitude: ${longitude}`}
+            className="w-20 h-10"
             coordinate={{ latitude: latitude, longitude: longitude }}
             title={title}
             description={text}
-            image={PIN}
+            // image={PIN}
             onPress={() => {
                 setCurrentMarker(playground)
                 markerPressedHandler()
             }}
         >
+            <Image source={PIN} className="w-[38px] h-[45px]" />
             <Callout tooltip >
 
             </Callout>

@@ -35,7 +35,6 @@ export default function Nearby({ closeHandle, park }) {
                     activeOpacity={1.0}
                     underlayColor="#fff"
                     onPress={() => {
-
                         onClose()
                         setCurrentView('')
                     }}>

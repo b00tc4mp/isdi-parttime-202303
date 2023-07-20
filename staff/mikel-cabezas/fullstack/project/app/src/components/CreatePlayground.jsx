@@ -9,6 +9,9 @@ NativeWindStyleSheet.setOutput({
     default: "native",
 });
 
+const [animation, setAnimation] = useState('fadeInUp')
+
+
 export default function CreatePlayground({ closeHandle }) {
     const { currentView, setCurrentView } = useContext(Context)
 

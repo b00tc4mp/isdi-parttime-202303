@@ -15,7 +15,8 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": false
+      "supportsTablet": false,
+      "bundleIdentifier": "com.mikelcabezas.playgrounds"
     },
     "android": {
       "adaptiveIcon": {
