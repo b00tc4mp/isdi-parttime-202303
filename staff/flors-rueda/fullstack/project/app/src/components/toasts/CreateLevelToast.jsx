@@ -1,7 +1,7 @@
 const CreateLevelToast = ({ handleCloseToast, message }) => {
     return (
         <div className="fixed inset-0 flex items-center justify-center z-50">
-            <div id="toast-warning" className="flex items-center w-full max-w-xs p-4 text-dark200 bg-light400 mx-2 rounded-lg shadow" role="alert">
+            <div id="toast-warning" className="flex items-center justify-around w-full max-w-xs p-4 text-dark200 bg-light400 mx-2 rounded-lg shadow" role="alert">
                 <div className="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-dark500 bg-warning200 rounded-lg">
                     <i className="text-xl bi bi-exclamation-triangle"></i>
                 </div>

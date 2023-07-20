@@ -1,7 +1,8 @@
 import { Link, useNavigate } from 'react-router-dom';
 import inLogger from '../../inLogger';
 import createLevel from '../../logic/create-level';
-import useHandleErrors from '../hooks/useHandleErrors';
+import useHandleErrors from '../../hooks/useHandleErrors';
+import isUserLoggedIn from '../../logic/is-user-logged-in';
 
 const GameOver = ({ isGameWon, onRetry, isCreatedLevel, layout, hp, name }) => {
     const navigate = useNavigate();
@@ -18,6 +19,10 @@ const GameOver = ({ isGameWon, onRetry, isCreatedLevel, layout, hp, name }) => {
         navigate('/create', { state: { initialLevel: layout, hpSelected: hp, nameSelected: name } })
     }
 
+    const handleGoBack = () => {
+        isUserLoggedIn() ? navigate('/levels') : navigate('/signin', { state: { startingForm: 'register' } })
+    }
+
     return (
         <div className="fixed inset-0 flex w-full h-full pt-10 items-center justify-center z-30">
             <div className="w-full h-full p-4 text-dark300 text-center bg-light400 rounded-lg shadow">
@@ -32,9 +37,15 @@ const GameOver = ({ isGameWon, onRetry, isCreatedLevel, layout, hp, name }) => {
                             <div className="min-w-fit w-4/6 md:w-2/6 lg:w-1/4 flex flex-col justify-center align-center gap-5">
                                 <div className="mb-1 text-lg font-bold text-secondary300">What now?</div>
                                 <button type="button" className="w-full text-secondary100 bg-light300 hover:bg-light200 focus:ring-4 focus:outline-none focus:ring-light300 font-medium rounded-lg text-sm px-4 py-2 text-center" onClick={handleEditLevel}>Edit level</button>
-                                <button type="button" className="w-full text-success100 bg-success300 hover:bg-success200 hover:text-light500  focus:ring-4 focus:outline-none focus:ring-success300 font-medium rounded-lg text-sm px-4 py-2 text-center" onClick={handlePostLevel}>Post level</button>
-                                <Link type="button" className="w-full  text-danger100 bg-danger300 hover:bg-danger200 hover:text-light500 focus:ring-4 focus:outline-none focus:ring-danger300 font-medium rounded-lg text-sm px-4 py-2 text-center " to="/levels">Delete level</Link>
-
+                                {
+                                    isUserLoggedIn() ?
+                                        <>
+                                            <button type="button" className="w-full text-success100 bg-success300 hover:bg-success200 hover:text-light500  focus:ring-4 focus:outline-none focus:ring-success300 font-medium rounded-lg text-sm px-4 py-2 text-center" onClick={handlePostLevel}>Post level</button>
+                                            <button type="button" className="w-full  text-danger100 bg-danger300 hover:bg-danger200 hover:text-light500 focus:ring-4 focus:outline-none focus:ring-danger300 font-medium rounded-lg text-sm px-4 py-2 text-center " onClick={handleGoBack}>Delete level</button>
+                                        </>
+                                        :
+                                        <button type="button" className="w-full text-success100 bg-success300 hover:bg-success200 hover:text-light500  focus:ring-4 focus:outline-none focus:ring-success300 font-medium rounded-lg text-sm px-4 py-2 text-center" onClick={handleGoBack}>Join now!</button>
+                                }
                             </div>
                             :
                             <div className="min-w-fit w-4/6 md:w-2/6 lg:w-1/4 flex flex-col justify-center align-center gap-5">

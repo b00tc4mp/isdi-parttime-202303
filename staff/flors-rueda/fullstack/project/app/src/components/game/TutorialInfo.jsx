@@ -1,5 +1,6 @@
 import inLogger from '../../inLogger';
 import { Link, useNavigate } from 'react-router-dom';
+import isUserLoggedIn from '../../logic/is-user-logged-in';
 
 const TutorialInfo = ({ onExitClick, tutorialNumber }) => {
     const navigate = useNavigate()
@@ -27,13 +28,12 @@ const TutorialInfo = ({ onExitClick, tutorialNumber }) => {
                     <div className="text-sm font-normal">
                         <span className="mb-1 text-lg font-bold text-secondary200">{tutorialTexts[tutorialNumber]}</span>
                     </div>
-                    {tutorialNumber > 5 ? <>
+                    {tutorialNumber > 5 ? isUserLoggedIn() ?
                         <Link type="button" to="/levels" className="text-4xl text-secondary300 hover:text-secondary500">EXPL<i className="bi bi-play-circle"></i>RE MORE LEVELS</Link>
-
+                        :
                         <button type="button" onClick={handleToRegister} className="text-4xl text-secondary300 hover:text-secondary500">BEC<i className="bi bi-play-circle"></i>ME A RIDER</button>
-                    </>
-
-                        : <button type="button" onClick={onExitClick} className="text-4xl text-secondary300 hover:text-secondary500">G<i className="bi bi-play-circle"></i></button>
+                        :
+                        <button type="button" onClick={onExitClick} className="text-4xl text-secondary300 hover:text-secondary500">G<i className="bi bi-play-circle"></i></button>
                     }
                     <div className="flex text-success200 text-3xl items-center flex-row justify-center gap-5 width-full">
 
