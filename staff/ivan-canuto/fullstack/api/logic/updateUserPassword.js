@@ -29,18 +29,4 @@ module.exports = (userId, password, newPassword, newPasswordConfirm) => {
       { $set: { password: newPassword }}
     )
   })()
-
-  // return User.findById(userId)
-  //   .then(user => {
-  //     if(!user) throw new ExistenceError('User not found.')
-
-  //     if(user.password !== password) throw new AuthError('Wrong credentials.')
-  
-  //     if(user.password === newPassword) throw new ContentError('The new password is the same as the old one.')
-
-  //     return User.updateOne(
-  //       { _id: userId },
-  //       { $set: { password: newPassword }}
-  //     )
-  //   })
 }

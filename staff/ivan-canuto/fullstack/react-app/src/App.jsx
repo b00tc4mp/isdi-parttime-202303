@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import Login from "./pages/Login"
-import Register from "./pages/Register"
-import Home from "./pages/Home";
+import Login from "./view/pages/Login"
+import Register from "./view/pages/Register"
+import Home from "./view/pages/Home";
 import { getTheme, setTheme } from "./ui";
 import AppContext from "./AppContext";
-import { Alert } from "./components";
-import Loader from "./library/Loader";
+import { Alert } from "./view/components";
+import Loader from "./view/library/Loader";
 import { Routes, Route, Navigate , useNavigate } from 'react-router-dom'
 import isUserLoggedIn from "./logic/isUserLoggedIn";
 

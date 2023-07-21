@@ -23,16 +23,4 @@ module.exports = (userId, postId, commentText) => {
       { $push: { comments: { author: user.name, authorId: new ObjectId(userId), text: commentText }}}
     )
   })()
-
-  // return Promise.all([User.findById(userId), Post.findById(postId)])
-  //   .then(([user, post]) => {
-  //     if(!user) throw new ExistenceError('User not found.')
-
-  //     if(!post) throw new ExistenceError('Post not found.')
-
-  //     return Post.updateOne(
-  //       { _id: postId },
-  //       { $push: { comments: { author: user.name, authorId: new ObjectId(userId), text: commentText }}}
-  //     )
-  //   })
 }

@@ -26,21 +26,4 @@ module.exports = (userId, postId, imageUrl, postText) => {
       }}
     )
   })()
-
-  // return Promise.all([User.findById(userId), Post.findById(postId)])
-  //   .then(([user, post]) => {
-  //     if(!user) throw new ExistenceError('User not found.')
-
-  //     if(!post) throw new ExistenceError('Post not found.')
-
-  //     if (post.author.toString() !== userId) throw new InvalidRequestError('This user is not the owner of the post.')
-
-  //     return Post.updateOne(
-  //       { _id: postId },
-  //       { $set: { 
-  //         image: imageUrl,
-  //         text: postText
-  //       }}
-  //     )
-  //   })
 }

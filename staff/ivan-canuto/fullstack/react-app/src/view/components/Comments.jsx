@@ -1,12 +1,12 @@
-import createComment from "../logic/createComment"
+import createComment from "../../logic/createComment"
 import { useState, useEffect } from "react"
-import deleteComment from "../logic/deleteComment"
+import deleteComment from "../../logic/deleteComment"
 import Comment from "./Comment"
 import Button from "../library/Button"
 import Form from "../library/Form"
 import ModalContainer from "../library/ModalContainer"
 import { useAppContext } from "../hooks"
-import retrieveUser from "../logic/retrieveUser"
+import retrieveUser from "../../logic/retrieveUser"
 
 export default function Comments({ onCloseCommentModal, handleRefreshPosts, post }) {
   const { alert } = useAppContext()

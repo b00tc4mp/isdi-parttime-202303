@@ -1,10 +1,10 @@
-import retrievePosts from "../logic/retrievePosts";
+import retrievePosts from "../../logic/retrievePosts";
 import Post from "./Post";
 import { useState, useEffect } from "react";
-import retrieveSavedPosts from "../logic/retrieveSavedPosts";
-import retrieveUserPosts from "../logic/retrieveUserPosts";
+import retrieveSavedPosts from "../../logic/retrieveSavedPosts";
+import retrieveUserPosts from "../../logic/retrieveUserPosts";
 import { useAppContext } from "../hooks"
-import getUserId from "../logic/getUserId"
+import getUserId from "../../logic/getUserId"
 
 export default function Posts({ lastPostsUpdate, view, handleOpenBuyPost, handleOpenEditPost, handleOpenDeletePost, handleToggleVisibility, handleToggleOnSalePost }) {
   const { alert, freeze, unfreeze } = useAppContext()

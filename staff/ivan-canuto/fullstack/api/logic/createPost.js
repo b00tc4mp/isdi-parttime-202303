@@ -21,17 +21,4 @@ module.exports = (userId, imageUrl, postText) => {
       text: postText
     })
   })()
-
-  // return User.findById(userId)
-  //   .then(user => {
-  //     if(!user) throw new ExistenceError(`User with id ${userId} not found.`)
-
-  //     const date = new Date
-
-  //     return Post.create({
-  //       author: user._id,
-  //       image: imageUrl,
-  //       text: postText
-  //     })
-  //   })
 }

@@ -1,9 +1,9 @@
-import deletePost from "../logic/deletePost"
+import deletePost from "../../logic/deletePost"
 import ModalContainer from "../library/ModalContainer"
 import ModalWindow from "../library/ModalWindow"
 import Button from "../library/Button";
 import { useAppContext } from "../hooks"
-import { context } from "../ui"
+import { context } from "../../ui"
 
 export default function DeletePost({ onDeletedPost, onCancel }) {
   const { alert } = useAppContext()

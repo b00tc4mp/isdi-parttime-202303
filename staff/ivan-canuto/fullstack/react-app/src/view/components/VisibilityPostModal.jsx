@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react"
 import ModalContainer from "../library/ModalContainer"
-import toggleVisibilityPost from "../logic/toggleVisibilityPost"
+import toggleVisibilityPost from "../../logic/toggleVisibilityPost"
 import ModalWindow from "../library/ModalWindow"
 import Button from "../library/Button";
 import { useAppContext } from "../hooks"
-import retrievePost from "../logic/retrievePost"
-import { context } from "../ui"
+import retrievePost from "../../logic/retrievePost"
+import { context } from "../../ui"
 
 export default function VisibilityPost({ onChangedVisibility, onCancel }) {
   const { alert, freeze, unfreeze } = useAppContext()

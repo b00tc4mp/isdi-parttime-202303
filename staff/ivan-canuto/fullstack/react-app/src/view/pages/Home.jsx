@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react"
-import retrieveUser from "../logic/retrieveUser"
+import retrieveUser from "../../logic/retrieveUser"
 import { useAppContext } from "../hooks"
 import { Button } from "../library"
 import { Profile, AddPost, Posts, SideBarMenu, EditPost, Header, VisibilityPost, ToggleOnSalePost, DeletePost, BuyPost } from '../components'
-import logoutUser from '../logic/logoutUser'
+import logoutUser from '../../logic/logoutUser'
 
 export default function Home() {
   const [view, setView] = useState("posts")

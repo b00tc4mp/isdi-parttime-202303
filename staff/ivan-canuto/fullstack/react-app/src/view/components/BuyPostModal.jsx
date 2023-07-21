@@ -1,11 +1,11 @@
-import buyPost from "../logic/buyPost"
+import buyPost from "../../logic/buyPost"
 import { useEffect, useState } from "react"
 import ModalContainer from "../library/ModalContainer"
 import ModalWindow from "../library/ModalWindow"
 import Button from "../library/Button";
 import { useAppContext } from "../hooks"
-import retrievePost from "../logic/retrievePost"
-import { context } from "../ui"
+import retrievePost from "../../logic/retrievePost"
+import { context } from "../../ui"
 
 export default function BuyPost({ onBoughtPost, onCancel }) {
   const { alert, freeze, unfreeze } = useAppContext()

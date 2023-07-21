@@ -26,22 +26,4 @@ module.exports = (userId, postId) => {
         { $set: { visible: true }}
       )
   })()
-
-  // return Promise.all([User.findById(userId), Post.findById(postId)])
-  // .then(([user, post]) => {
-  //     if(!user) throw new ExistenceError('User not found.')
-
-  //     if(!post) throw new ExistenceError('Post not found.')
-
-  //     if(post.visible)
-  //       return Post.updateOne(
-  //         { _id: postId },
-  //         { $set: { visible: false }}
-  //       )
-  //     else
-  //       return Post.updateOne(
-  //         { _id: postId },
-  //         { $set: { visible: true }}
-  //       )
-  //   })
 }

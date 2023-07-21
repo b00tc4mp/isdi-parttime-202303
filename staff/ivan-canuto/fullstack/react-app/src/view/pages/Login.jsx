@@ -1,13 +1,14 @@
-import authenticateUser from "../logic/loginUser"
+import loginUser from "../../logic/loginUser"
 import { useEffect, useState } from "react"
-import retrireveRandomMotivationalQuote from "../logic/retrieveRandomMotivationalQuote"
-import { useAppContext } from "../hooks"
+import retrireveRandomMotivationalQuote from "../../logic/retrieveRandomMotivationalQuote"
+import { useAppContext, useHandleErrors } from "../hooks"
 import { Container, Form, Input, Button } from "../library"
 import { Link } from "react-router-dom"
 
 export default function Login () {
   const { alert, freeze, unfreeze, navigate } = useAppContext()
   const [quote, setQuote] = useState()
+  const handleErrors = useHandleErrors()
 
   const handleLogin = (event) => {
     event.preventDefault()
@@ -15,19 +16,12 @@ export default function Login () {
     const email = event.target.email.value
     const password = event.target.password.value
 
-    try {
-      authenticateUser(email, password)
-        .then(() => navigate('/'))
-        .catch(error => {
-          console.log(error.message)
-          alert(error.message, 'error')
-          console.debug(error.stack)
-        })
-        
-      } catch (error) {
-      alert(error.message, 'error')
-      console.debug(error.stack)
-    }
+    handleErrors(async () => {
+      await loginUser(email, password)
+
+      navigate('/')
+    })
+      
   }
 
   useEffect(() => {

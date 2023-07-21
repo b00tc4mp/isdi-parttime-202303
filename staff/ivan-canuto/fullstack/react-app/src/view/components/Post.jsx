@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react"
-import toggleLikePost from "../logic/toggleLikePost"
-import toggleSavePost from "../logic/toggleSavePost"
+import toggleLikePost from "../../logic/toggleLikePost"
+import toggleSavePost from "../../logic/toggleSavePost"
 import Comments from "./Comments"
 import ContextualMenu from "./ContextualMenuModal"
 import Button from "../library/Button";
 import { useAppContext } from "../hooks"
-import retrieveUser from "../logic/retrieveUser"
-import { context } from '../ui'
+import retrieveUser from "../../logic/retrieveUser"
+import { context } from '../../ui'
 
 export default function Post({post, handleRefreshPosts, handleOpenEditPost, handleOpenDeletePost, handleToggleVisibility, handleToggleOnSalePost, handleOpenBuyPost }) {
   

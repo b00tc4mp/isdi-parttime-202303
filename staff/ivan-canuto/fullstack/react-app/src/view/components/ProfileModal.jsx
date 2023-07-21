@@ -1,5 +1,5 @@
-import updateUserPassword from "../logic/updateUserPassword"
-import updateUserAvatar from "../logic/updateUserAvatar"
+import updateUserPassword from "../../logic/updateUserPassword"
+import updateUserAvatar from "../../logic/updateUserAvatar"
 import ModalContainer from "../library/ModalContainer"
 import Input from "../library/Input"
 import Button from "../library/Button"

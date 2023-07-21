@@ -3,6 +3,7 @@ const {
   errors: { ExistenceError, AuthError }
 } = require('com')
 const { User } = require('../data/models')
+const bcrypt = require('bcryptjs')
 
 /**
  * Authenticates a user against his/her credentials
@@ -26,17 +27,10 @@ module.exports = (email, password) => {
     const user = await User.findOne({ email })
     if(!user) throw new ExistenceError('User not found.')
 
-    if(password !== user.password) throw new AuthError('Wrong credentials.')
+    const match = bcrypt.compare(password, user.password)
+
+    if(!match) throw new AuthError('Wrong credentials.')
 
     return user._id.toString()
   })()
-
-  // return User.findOne({ email })
-  //   .then(user => {
-  //     if(!user) throw new ExistenceError('User not found.')
-
-  //     if(password !== user.password) throw new AuthError('Wrong credentials.')
-
-  //     return user._id.toString()
-  //   })
 }

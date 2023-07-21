@@ -1,12 +1,12 @@
-import { updatePost } from "../logic/updatePost"
-import retrievePost from "../logic/retrievePost"
+import { updatePost } from "../../logic/updatePost"
+import retrievePost from "../../logic/retrievePost"
 import { useEffect, useState } from "react"
 import ModalContainer from "../library/ModalContainer"
 import Button from "../library/Button";
 import Input from "../library/Input";
 import Form from "../library/Form"
 import { useAppContext } from "../hooks"
-import { context } from "../ui"
+import { context } from "../../ui"
 
 export default function EditPost({ onCancel, onUpdatedPost }) {
   const { alert, freeze, unfreeze } = useAppContext()

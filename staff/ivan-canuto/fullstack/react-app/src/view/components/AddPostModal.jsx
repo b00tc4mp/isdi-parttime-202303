@@ -1,4 +1,4 @@
-import { createPost } from "../logic/createPost";
+import { createPost } from "../../logic/createPost";
 import { useState } from "react";
 import { ImageCompressor } from 'image-compressor'
 import Form from "../library/Form";

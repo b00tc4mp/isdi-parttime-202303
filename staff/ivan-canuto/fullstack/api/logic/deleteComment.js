@@ -22,15 +22,4 @@ module.exports = (userId, postId, commentId) => {
       { $pull: { comments: { _id: commentId }}}
     )
   })()
-
-  // return Promise.all([User.findById(userId), Post.findById(postId)])
-  //   .then(([user, post]) => {
-  //     if(!user) throw new ExistenceError('User not found.')
-  //     if(!post) throw new ExistenceError('Post not found.')
-
-  //     return Post.updateOne(
-  //       { _id: postId },
-  //       { $pull: { comments: { _id: commentId }}}
-  //     )
-  //   })
 }

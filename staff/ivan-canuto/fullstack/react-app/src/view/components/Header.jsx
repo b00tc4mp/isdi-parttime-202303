@@ -1,4 +1,4 @@
-import { getTheme, setTheme } from "../ui"
+import { getTheme, setTheme } from "../../ui"
 import { useState } from "react"
 import Button from "../library/Button";
 

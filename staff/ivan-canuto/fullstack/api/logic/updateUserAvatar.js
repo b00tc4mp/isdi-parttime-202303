@@ -23,18 +23,4 @@ module.exports = (userId, newAvatarUrl, password) => {
       { $set: { avatar: newAvatarUrl }}
     )
   })()
-
-  // return User.findById(userId)
-  //   .then(user => {
-  //     if(!user) throw new Error('User not found.')
-
-  //     if(newAvatarUrl === user.avatar) throw new ExistenceError('New avatar is the same as the old one.')
-      
-  //     if(user.password !== password) throw new ExistenceError('Incorrect password.')
-
-  //     return User.updateOne(
-  //       { _id: userId },
-  //       { $set: { avatar: newAvatarUrl }}
-  //     )
-  //   })
 }

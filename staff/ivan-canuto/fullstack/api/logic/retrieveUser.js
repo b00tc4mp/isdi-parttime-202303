@@ -30,17 +30,4 @@ module.exports = (userId) => {
 
     return user
   })()
-  
-  // return User.findById(userId).lean()
-  //   .then(user => {
-  //     if(!user) throw new ExistenceError('User not found.')
-
-  //     user.id = user._id.toString()
-  //     delete user._id
-
-  //     delete user.password
-  //     delete user.favs
-
-  //     return user
-  //   })
 }

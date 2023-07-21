@@ -29,24 +29,4 @@ module.exports = (userId, postId) => {
         { $push: { favs: new ObjectId(postId) }}
       )
   })()
-
-  // return Promise.all([User.findById(userId), Post.findById(postId)])
-  // .then(([user, post]) => {
-  //     if(!user) throw new ExistenceError('User not found.')
-
-  //     if(!post) throw new ExistenceError('Post not found.')
-
-  //     let favsFromUser = user.favs.map(fav => fav.toString())
-
-  //     if(favsFromUser.includes(postId))
-  //       return User.updateOne(
-  //         { _id: userId },
-  //         { $pull: { favs: new ObjectId(postId) }}
-  //       )
-  //     else
-  //       return User.updateOne(
-  //         { _id: userId },
-  //         { $push: { favs: new ObjectId(postId) }}
-  //       )
-  //   })
 }

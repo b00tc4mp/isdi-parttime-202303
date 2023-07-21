@@ -1,10 +1,12 @@
-import { registerUser } from "../logic/registerUser"
+import { registerUser } from "../../logic/registerUser"
 import { Container, Form, Input, Button } from "../library"
 import { useAppContext } from "../hooks";
 import { Link } from "react-router-dom"
+import { useHandleErrors } from "../hooks";
 
 export default function Register () {
   const { alert, navigate } = useAppContext()
+  const handleErrors = useHandleErrors()
 
   const handleRegisterIn = (event) => {
     event.preventDefault()
@@ -13,17 +15,11 @@ export default function Register () {
     const email = event.target.email.value
     const password = event.target.password.value
 
-    try {
-      registerUser(name, email, password)
-        .then(() => navigate('/login'))
-        .catch(error => {
-          alert(error.message, 'error')
-          console.debug(error.stack)
-        })
-    } catch (error) {
-      alert(error.message, 'error')
-      console.debug(error.stack);
-    }
+    handleErrors(async () => {
+      await registerUser(name, email, password)
+      
+      navigate('/login')
+    })
   }
 
   return <>

@@ -4,6 +4,7 @@ const {
 } = require('com')
 require('dotenv').config()
 const { User } = require('../data/models')
+const bcrypt = require('bcryptjs')
 
 /**
  * Registers a new user
@@ -26,7 +27,9 @@ module.exports = (name, email, password) => {
 
   return (async () => {
     try {
-      await User.create({ name, email, password, avatar: null, favs: [] })
+      const hash = await bcrypt.hash(password, 10)
+      
+      await User.create({ name, email, password: hash, avatar: null, favs: [] })
     } catch (error) {
       if(error.message.includes('E11000'))
         throw new DuplicityError(`User with email ${email} already exists.`)
@@ -34,12 +37,4 @@ module.exports = (name, email, password) => {
       throw error
     }
   })()
-
-  // return User.create({ name, email, password, avatar: null, favs: [] })
-  // .catch(error => {
-  //   if(error.message.includes('E11000'))
-  //     throw new DuplicityError(`User with email ${email} already exists.`)
-
-  //   throw error
-  // })
 }
