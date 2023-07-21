@@ -4,13 +4,10 @@ const CheckConnection = () => {
             if (!response.ok) {
                 throw new Error('Request failed');
             }
-            return response.json();
-        })
-        .then((data) => {
-            return data;
+            return true;
         })
         .catch((error) => {
-            throw error;
+            throw new Error(error.message)
         });
 };
 

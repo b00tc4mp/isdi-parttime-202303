@@ -43,8 +43,8 @@ const SignIn = () => {
         const password = formData.get('password');
 
         handleErrors(async () => {
-            await loginUser(username, password)
-            navigate('/levels')
+            await loginUser(username, password);
+            navigate('/levels');
         })
     }
 

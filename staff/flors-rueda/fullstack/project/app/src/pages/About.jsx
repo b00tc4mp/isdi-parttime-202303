@@ -55,7 +55,7 @@ const About = () => {
                 </div>
             </div>
             <div>
-                <h2 className="text-xl md:text-3xl text-secondary600 font-bold text-center pt-5 md:pt-0 pb-5">Some of my other projects...</h2>
+                <h2 className="text-xl md:text-3xl text-light100 font-bold text-center pt-5 md:pt-0 pb-5">Some of my other projects...</h2>
                 <div className="flex flex-col lg:flex-row justify-center items-center gap-3 pt-1">
                     <div className="w-full lg:w-2/6 p-2 pt-5 h-md bg-light500 border border-light300 rounded-lg shadow flex flex-col text-center">
                         <h3 className="mb-2 text-sm md:text-lg font-bold tracking-tight text-primary200">Aquelarre Character Generator</h3>

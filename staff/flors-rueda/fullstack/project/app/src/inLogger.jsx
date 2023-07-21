@@ -18,7 +18,7 @@ const inLogger = (WrappedComponent) => {
     });
 
     const log = (message, level) => {
-      inLogger.on && console.log(`%c[${componentName}] ${message}`, `font-weight: bold; color: ${level === 'danger' ? 'fireBrick' : level === 'success' ? 'forestGreen' : 'rebeccaPurple'}`);
+      inLogger.on && console.log(`%c[${componentName}] ${message}`, `font-weight: bold; color: fireBrick`);
     };
 
     return <WrappedComponent {...props} log={log} />;

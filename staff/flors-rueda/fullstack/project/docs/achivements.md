@@ -16,9 +16,9 @@
 500
 
 ## beat levels:
-10
-50
-100
+5
+25
+75
 
 ## explode bombs:
 25

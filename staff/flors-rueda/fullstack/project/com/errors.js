@@ -40,6 +40,13 @@ class AuthError extends Error {
     get name() { return AuthError.name }
 }
 
+class RegisterError extends Error {
+    constructor(message) {
+        super(message)
+    }
+    get name() { return RegisterError.name }
+}
+
 
 
 module.exports = {
@@ -48,5 +55,6 @@ module.exports = {
     DuplicityError,
     UnknownError,
     ExistenceError,
-    AuthError
+    AuthError,
+    RegisterError
 }
