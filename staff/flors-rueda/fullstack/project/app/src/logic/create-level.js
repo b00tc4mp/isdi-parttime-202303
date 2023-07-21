@@ -1,4 +1,5 @@
 import { validators } from 'com';
+import context from './context';
 
 const { validateCallback, validateName, validateLayout } = validators;
 
@@ -13,7 +14,8 @@ const createLevel = (name, layout, hp) => {
     return fetch(`${import.meta.env.VITE_API_URL}/levels`, {
         method: 'POST',
         headers: {
-            'Content-type': 'application/json'
+            'Content-type': 'application/json',
+            Authorization: `Bearer ${context.token}`
         },
         body: JSON.stringify(level)
     })

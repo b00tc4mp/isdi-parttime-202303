@@ -1,11 +1,12 @@
 import { validators } from 'com';
 import context from './context';
+
 const { validateId } = validators;
 
-const retrieveLevel = (id) => {
-    validateId(id, 'levelId');
+const retrieveUser = (id) => {
+    validateId(id, 'userId');
 
-    return fetch(`${import.meta.env.VITE_API_URL}/levels/${id}`, {
+    return fetch(`${import.meta.env.VITE_API_URL}/users/${id}`, {
         headers: {
             Authorization: `Bearer ${context.token}`
         }
@@ -24,4 +25,4 @@ const retrieveLevel = (id) => {
         });
 };
 
-export default retrieveLevel;
+export default retrieveUser;

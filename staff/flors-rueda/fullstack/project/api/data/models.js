@@ -1,6 +1,6 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
-const { Schema, model } = mongoose
+const { Schema, Schema: { Types: { ObjectId } }, model } = mongoose;
 
 const level = new Schema({
     name: {
@@ -13,7 +13,23 @@ const level = new Schema({
     },
     hp: {
         type: Number,
-    }
+        required: true
+    },
+
+    author: {
+        type: ObjectId,
+        required: true
+    },
+
+    likes: {
+        type: [ObjectId],
+        required: true
+    },
+
+    date: {
+        type: Date,
+        required: true,
+    },
 
 })
 
@@ -21,6 +37,7 @@ const user = new Schema({
     username: {
         type: String,
         required: true,
+        unique: true,
     },
 
     password: {
@@ -52,6 +69,11 @@ const user = new Schema({
     joined: {
         type: Date,
         required: true,
+    },
+
+    saves: {
+        type: [ObjectId],
+        required: true
     }
 
 })

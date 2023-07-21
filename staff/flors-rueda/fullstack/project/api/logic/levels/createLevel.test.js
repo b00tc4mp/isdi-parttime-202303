@@ -32,13 +32,19 @@ describe('createLevel', () => {
         const layout = [['empty', 'bomb', 'hole', 'empty', 'dirt', 'bomb', 'dirt', 'empty', 'start'],
         ['life', 'bomb', 'start', 'life', 'bomb', 'empty', 'bomb', 'dirt', 'stonks'],
         ];
+        const hp = 1 + Math.floor(Math.random() * 6);
+        const author = new mongoose.Types.ObjectId();
+        const date = Date.now();
 
-        await createLevel(name, layout);
+        await createLevel(name, layout, hp, author);
 
         const createdLevel = await Level.findOne({ name });
 
         expect(createdLevel.name).to.equal(name);
         expect(createdLevel.layout).to.deep.equal(layout);
+        expect(createdLevel.hp).to.equal(hp);
+        expect(createdLevel.likes).be.an('array');
+        expect(createdLevel.date.getTime()).to.be.closeTo(date, 10000);
     });
 
     it('should fail on empty name', async () => {
@@ -46,8 +52,10 @@ describe('createLevel', () => {
         const layout = [['empty', 'bomb', 'hole', 'empty', 'dirt', 'bomb', 'dirt', 'empty', 'start'],
         ['life', 'bomb', 'start', 'life', 'bomb', 'empty', 'bomb', 'dirt', 'stonks'],
         ];
+        const hp = 1 + Math.floor(Math.random() * 6);
+        const author = new mongoose.Types.ObjectId()
 
-        await expect(() => createLevel(name, layout)).to.throw(Error, 'name is empty');
+        await expect(() => createLevel(name, layout, hp)).to.throw(Error, 'name is empty');
     });
 
     it('should fail on invalid name type', async () => {
@@ -55,8 +63,10 @@ describe('createLevel', () => {
         const layout = [['empty', 'bomb', 'hole', 'empty', 'dirt', 'bomb', 'dirt', 'empty', 'start'],
         ['life', 'bomb', 'start', 'life', 'bomb', 'empty', 'bomb', 'dirt', 'stonks'],
         ];
+        const hp = 1 + Math.floor(Math.random() * 6);
+        const author = new mongoose.Types.ObjectId()
 
-        await expect(() => createLevel(name, layout)).to.throw(TypeError, 'name is not a string');
+        await expect(() => createLevel(name, layout, hp)).to.throw(TypeError, 'name is not a string');
     });
 
     it('should fail on invalid layout type', async () => {
@@ -65,23 +75,29 @@ describe('createLevel', () => {
             ['empty', 'bomb', 'hole', 'empty', 'dirt', 'bomb', 'dirt', 'empty', 'start'],
             ['life', 'bomb', 'start', 'life', 'bomb', 'empty', 'bomb', 'dirt', 'stonks'],
         `;
+        const hp = 1 + Math.floor(Math.random() * 6);
+        const author = new mongoose.Types.ObjectId()
 
-        await expect(() => createLevel(name, layout)).to.throw(TypeError, 'layout is not an array');
+        await expect(() => createLevel(name, layout, hp)).to.throw(TypeError, 'layout is not an array');
     });
 
     it('should fail on invalid layout length', async () => {
         const name = `level-${Math.random()}`;
         const layout = [];
+        const hp = 1 + Math.floor(Math.random() * 6);
+        const author = new mongoose.Types.ObjectId()
 
-        await expect(() => createLevel(name, layout)).to.throw(RangeError, 'layout length should be between 1 and 100');
+        await expect(() => createLevel(name, layout, hp)).to.throw(RangeError, 'layout length should be between 1 and 100');
     });
 
     it('should fail on invalid floor type', async () => {
         const name = `level-${Math.random()}`;
         const layout = [`'empty', 'bomb', 'hole', 'empty', 'dirt', 'bomb', 'dirt', 'empty', 'start'`, ['life', 'bomb', 'start', 'life', 'bomb', 'empty', 'bomb', 'dirt', 'stonks'],
         ];
+        const hp = 1 + Math.floor(Math.random() * 6);
+        const author = new mongoose.Types.ObjectId()
 
-        await expect(() => createLevel(name, layout)).to.throw(TypeError, 'floor is not an array');
+        await expect(() => createLevel(name, layout, hp)).to.throw(TypeError, 'floor is not an array');
     });
 
     it('should fail on invalid floor length', async () => {
@@ -89,8 +105,10 @@ describe('createLevel', () => {
         const layout = [['empty', 'bomb', 'hole', 'empty', 'dirt', 'bomb', 'dirt', 'empty', 'start'],
         ['start', 'life', 'bomb', 'empty', 'bomb', 'dirt', 'stonks'],
         ];
+        const hp = 1 + Math.floor(Math.random() * 6);
+        const author = new mongoose.Types.ObjectId()
 
-        await expect(() => createLevel(name, layout)).to.throw(RangeError, 'floor length should be 9');
+        await expect(() => createLevel(name, layout, hp)).to.throw(RangeError, 'floor length should be 9');
     });
 
     it('should fail on invalid floor item type', async () => {
@@ -98,8 +116,10 @@ describe('createLevel', () => {
         const layout = [['empty', 'bomb', 'hole', 'empty', 'dirt', 'bomb', 'dirt', 'empty', 'start'],
         ['bomb', 1, 'start', 'life', 'bomb', 'empty', 'bomb', 'dirt', 'stonks'],
         ];
+        const hp = 1 + Math.floor(Math.random() * 6);
+        const author = new mongoose.Types.ObjectId()
 
-        await expect(() => createLevel(name, layout)).to.throw(TypeError, 'floor item is not a string');
+        await expect(() => createLevel(name, layout, hp)).to.throw(TypeError, 'floor item is not a string');
     });
 
     it('should fail on too many start items', async () => {
@@ -107,8 +127,10 @@ describe('createLevel', () => {
         const layout = [['empty', 'bomb', 'start', 'hole', 'dirt', 'bomb', 'dirt', 'empty', 'start'],
         ['life', 'start', 'start', 'life', 'bomb', 'empty', 'bomb', 'dirt', 'stonks'],
         ];
+        const hp = 1 + Math.floor(Math.random() * 6);
+        const author = new mongoose.Types.ObjectId()
 
-        await expect(() => createLevel(name, layout)).to.throw(ContentError, 'invalid start items');
+        await expect(() => createLevel(name, layout, hp)).to.throw(ContentError, 'invalid start items');
     });
 
     it('should fail on not enough start items', async () => {
@@ -116,8 +138,10 @@ describe('createLevel', () => {
         const layout = [['empty', 'bomb', 'dirt', 'empty', 'dirt', 'bomb', 'dirt', 'empty', 'hole'],
         ['life', 'start', 'dirt', 'life', 'bomb', 'empty', 'bomb', 'dirt', 'stonks'],
         ];
+        const hp = 1 + Math.floor(Math.random() * 6);
+        const author = new mongoose.Types.ObjectId()
 
-        await expect(() => createLevel(name, layout)).to.throw(ContentError, 'invalid start items');
+        await expect(() => createLevel(name, layout, hp)).to.throw(ContentError, 'invalid start items');
     });
 
     it('should fail on not enough hole items', async () => {
@@ -125,8 +149,10 @@ describe('createLevel', () => {
         const layout = [['empty', 'bomb', 'dirt', 'empty', 'dirt', 'bomb', 'dirt', 'start', 'dirt'],
         ['life', 'start', 'dirt', 'life', 'bomb', 'empty', 'bomb', 'dirt', 'stonks'],
         ];
+        const hp = 1 + Math.floor(Math.random() * 6);
+        const author = new mongoose.Types.ObjectId()
 
-        await expect(() => createLevel(name, layout)).to.throw(ContentError, 'invalid hole items');
+        await expect(() => createLevel(name, layout, hp)).to.throw(ContentError, 'invalid hole items');
     });
 
     it('should fail on hole items on last floor', async () => {
@@ -134,8 +160,10 @@ describe('createLevel', () => {
         const layout = [['empty', 'bomb', 'dirt', 'empty', 'hole', 'bomb', 'dirt', 'start', 'dirt'],
         ['life', 'start', 'dirt', 'life', 'bomb', 'empty', 'bomb', 'hole', 'stonks'],
         ];
+        const hp = 1 + Math.floor(Math.random() * 6);
+        const author = new mongoose.Types.ObjectId()
 
-        await expect(() => createLevel(name, layout)).to.throw(ContentError, 'invalid hole items');
+        await expect(() => createLevel(name, layout, hp)).to.throw(ContentError, 'invalid hole items');
     });
 
     it('should fail on hole stonks in incorrect floor', async () => {
@@ -143,8 +171,10 @@ describe('createLevel', () => {
         const layout = [['empty', 'bomb', 'dirt', 'empty', 'hole', 'bomb', 'stonks', 'start', 'dirt'],
         ['life', 'start', 'dirt', 'life', 'bomb', 'empty', 'bomb', 'hole', 'life'],
         ];
+        const hp = 1 + Math.floor(Math.random() * 6);
+        const author = new mongoose.Types.ObjectId()
 
-        await expect(() => createLevel(name, layout)).to.throw(ContentError, 'invalid stonks items');
+        await expect(() => createLevel(name, layout, hp)).to.throw(ContentError, 'invalid stonks items');
     });
 
     it('should fail on too many stonks in last floor', async () => {
@@ -152,8 +182,10 @@ describe('createLevel', () => {
         const layout = [['empty', 'bomb', 'dirt', 'empty', 'hole', 'bomb', 'dirt', 'start', 'dirt'],
         ['life', 'start', 'dirt', 'life', 'stonks', 'empty', 'bomb', 'stonks', 'life'],
         ];
+        const hp = 1 + Math.floor(Math.random() * 6);
+        const author = new mongoose.Types.ObjectId()
 
-        await expect(() => createLevel(name, layout)).to.throw(ContentError, 'invalid stonks items');
+        await expect(() => createLevel(name, layout, hp)).to.throw(ContentError, 'invalid stonks items');
     });
 
 });

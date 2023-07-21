@@ -4,7 +4,7 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 
-const { helloApiHandler, retrieveLevelsHandler, retrieveLevelHandler, createLevelHandler, authenticateUserHandler, registerUserHandler } = require('./handlers');
+const { helloApiHandler, retrieveLevelsHandler, retrieveLevelHandler, createLevelHandler, authenticateUserHandler, registerUserHandler, retrieveUserHandler, retrieveUserLoggedHandler } = require('./handlers');
 
 const mongoose = require('mongoose');
 
@@ -35,7 +35,11 @@ mongoose.connect(process.env.MONGODB_URL)
 
         api.post('/api/users', jsonBodyParser, registerUserHandler);
 
-        api.post('/api/users/auth', jsonBodyParser, authenticateUserHandler)
+        api.post('/api/users/auth', jsonBodyParser, authenticateUserHandler);
+
+        api.get('/api/users/:userId', retrieveUserHandler);
+
+        api.get('/api/users/auth/:userId', retrieveUserLoggedHandler);
 
         api.listen(process.env.PORT, () => console.log(`server running in port ${process.env.PORT}`));
 

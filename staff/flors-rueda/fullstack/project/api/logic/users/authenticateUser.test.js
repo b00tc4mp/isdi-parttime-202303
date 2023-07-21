@@ -31,10 +31,11 @@ describe('authenticateUser', () => {
             { question: `question${Math.random()}`, answer: `answer${Math.random()}` },
             { question: `question${Math.random()}`, answer: `answer${Math.random()}` }
         ];
+        const saves = [];
 
         const cryptPassword = bcrypt.hashSync(password, 10);
 
-        const user = generate.user(username, cryptPassword, 'beach', color, recoveryQuestions);
+        const user = generate.user(username, cryptPassword, 'beach', color, recoveryQuestions, saves);
 
         await User.create(user);
 

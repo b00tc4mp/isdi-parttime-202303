@@ -5,4 +5,6 @@ module.exports = {
     retrieveLevelsHandler: require('./retrieveLevelsHandler'),
     authenticateUserHandler: require('./authenticateUserHandler'),
     registerUserHandler: require('./registerUserHandler'),
+    retrieveUserHandler: require('./retrieveUserHandler'),
+    retrieveUserLoggedHandler: require('./retrieveUserLoggedHandler'),
 }

@@ -1,11 +1,9 @@
-import { validators } from 'com';
 import context from './context';
-const { validateId } = validators;
+import { tokenUtils } from 'com';
+const { extractSubFromToken } = tokenUtils;
 
-const retrieveLevel = (id) => {
-    validateId(id, 'levelId');
-
-    return fetch(`${import.meta.env.VITE_API_URL}/levels/${id}`, {
+const retrieveLoggedUser = () => {
+    return fetch(`${import.meta.env.VITE_API_URL}/users/auth/${extractSubFromToken(context.token)}`, {
         headers: {
             Authorization: `Bearer ${context.token}`
         }
@@ -22,6 +20,6 @@ const retrieveLevel = (id) => {
         .catch((error) => {
             throw error;
         });
-};
+}
 
-export default retrieveLevel;
+export default retrieveLoggedUser

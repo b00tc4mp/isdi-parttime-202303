@@ -1,9 +1,11 @@
-import { validators } from 'com';
-
-const { } = validators;
+import context from './context';
 
 const retrieveLevels = () => {
-  return fetch(`${import.meta.env.VITE_API_URL}/levels`)
+  return fetch(`${import.meta.env.VITE_API_URL}/levels`, {
+    headers: {
+      Authorization: `Bearer ${context.token}`
+    }
+  })
     .then((response) => {
       if (!response.ok) {
         throw new Error('Request failed');

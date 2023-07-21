@@ -4,4 +4,6 @@ module.exports = {
     retrieveLevels: require('./levels/retrieveLevels'),
     registerUser: require('./users/registerUser'),
     authenticateUser: require('./users/authenticateUser'),
+    retrieveUser: require('./users/retrieveUser'),
+    retrieveUserLogged: require('./users/retrieveUserLogged')
 }

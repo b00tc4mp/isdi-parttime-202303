@@ -6,7 +6,7 @@ const { errors: {
     ExistenceError,
 } } = require('com');
 
-module.exports = callback => {
+module.exports = (callback) => {
     return (req, res) => {
         try {
             const promise = callback(req, res);

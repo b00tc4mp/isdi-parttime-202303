@@ -5,9 +5,9 @@ const validateCallback = (callback) => {
     if (typeof callback !== 'function') throw new TypeError(`callback is not a function`);
 }
 
-const validateId = (id) => {
-    if (typeof id !== 'string') throw new TypeError(`id is not a string`);
-    if (!id.trim().length) throw new ContentError(`id is empty`);
+const validateId = (id, explain) => {
+    if (typeof id !== 'string') throw new TypeError(`${explain} is not a string`);
+    if (!id.trim().length) throw new ContentError(`${explain} is empty`);
 }
 
 const validateName = (name) => {

@@ -1,3 +1,4 @@
 module.exports = {
-    handleErrors: require('./handleErrors')
+    handleErrors: require('./handleErrors'),
+    extractUserId: require('./extractUserId'),
 }
