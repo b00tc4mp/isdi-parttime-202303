@@ -34,12 +34,18 @@ export default ({ onCancel, onPostCreated }) => {
         const text = event.target.text.value
 
         try {
+            freeze()
+
             createPost(image, text)
                 .then(onPostCreated)
                 .catch(error => alert(error.message))
+            unfreeze()
+
         } catch (error) {
             alert(error.message)
+
         }
+        unfreeze()
     }
 
 
@@ -51,27 +57,33 @@ export default ({ onCancel, onPostCreated }) => {
 
 
     return <PanelBackground>
-        <h3 className="modal-post-headline">Shoot your post!</h3>
-        <Panel className={"p-4 drop-shadow-lg z-30 "}>
-            <form onSubmit={handleCreatePost}>
+        <section id="edit-post-modal">
 
+            <h3 className="mb-2">Shoot your post!</h3>
+
+            <Panel tag='form' className={"p-4 drop-shadow-lg z-30"} onSubmit={handleCreatePost}>
+                <div className="h-1 bg-gradient-to-l from-blue_dark to-red my-2"></div>
                 <label htmlFor="add-post-image" className=" ">Your awesome pic:</label>
 
                 <img src={previewImage} className="grayscale m-2 w-40 bg-gray-400 rounded-xl aspect-square self-center" alt="Preview" />
                 <div className="flex justify-normal items-center mt-1">
-                    <input type="url" name="image" className="" placeholder="Paste image URL in here." ref={imageInputRef} />
+                    <input type="url" name="image" placeholder="Paste image URL in here." ref={imageInputRef} />
                     <button className="text-[0px] ml-4 text-white transition ease-in-out hover:text-red duration-500" onClick={handleImagePreview}>Preview<EyeIcon className="eye icon" /></button>
                 </div>
+                <div className="h-1 bg-gradient-to-l from-blue_dark to-red my-2"></div>
 
-                <label htmlFor="add-post-text" className="border-top-gradient">tell us something:</label>
+                <label htmlFor="add-post-text" className="">Say something:</label>
                 <textarea type="text" name="text" rows="5" placeholder="Write whatever you want in here."></textarea>
-                <div className="modal-actions-container border-top-gradient">
-                    <button className="text-[0px] text-white transition ease-in-out hover:text-red duration-500" onClick={handleCancel}>Cancel<ArrowSmallLeftIcon className="cancel icon" /></button>
-                    <button className="text-[0px] text-white transition ease-in-out hover:text-red duration-500" type="submit">Save <CheckIcon className="save icon" /> </button>
+
+                <div className="h-1 bg-gradient-to-l from-blue_dark to-red my-2"></div>
+
+                <div className="flex justify-evenly mt-2">
+                    <button className="text-[0px] text-white transition ease-in-out hover:text-red duration-500" onClick={handleCancel}>Cancel<ArrowSmallLeftIcon id="cancel-icon" className='h-6' /></button>
+                    <button className="text-[0px] text-white transition ease-in-out hover:text-red duration-500" type="submit">Save<CheckIcon id="save-icon" className='h-6' /></button>
                 </div>
 
-            </form>
-        </Panel>
+            </Panel>
+        </section>
 
         <div className="overlay-panel-close" onClick={handleCancel}></div>
     </PanelBackground>

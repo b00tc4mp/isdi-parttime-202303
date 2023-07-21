@@ -123,18 +123,18 @@ export default function Home() {
     }
 
 
-    return <div className=" pt-20 px-2">
+    return <div id="home" className="pt-20 px-2">
         <section>
-            <header className="h-5 w-full fixed top-0 left-0 max-w-full z-10">
-                <div className="flex flex-row items-center content-end bg-gradient-to-l to-blue_dark from-lime-100">
-                    <h1> <a href="#" className="header-title-link" onClick={handleOpenShowPosts} >
+            <header className="h-10 w-full fixed top-0 left-0 max-w-full z-10 bg-gradient-to-l to-blue_dark from-lime-100 md:">
+                <div className="flex flex-row items-center content-end">
+                    <h1 className=" "> <a href="#" className="header-title-link" onClick={handleOpenShowPosts} >
                         Logo
                     </a></h1>
 
-                    <a href="#" className="aspect-square" onClick={handleGoToProfile}>
+                    <a href="#" className="aspect-square ml-auto mr-4" onClick={handleGoToProfile}>
 
                         {user && <>
-                            <img className="w-12 h-12 rounded-full aspect-square border-2 border-red " src={user.avatar} alt="" />
+                            <img className=" w-8 h-8 rounded-full aspect-square border-2 border-red" src={user.avatar} alt="" />
                         </>}
                     </a>
 

@@ -49,10 +49,27 @@
     h1,
     h2,
     h3,
-    a,
     label {
         @apply text-white;
         @apply uppercase;
+    }
+
+    label {
+        @apply text-base;
+        @apply mb-2;
+    }
+
+    a {
+        @apply text-white;
+        @apply drop-shadow-sm;
+    }
+
+    a:hover {
+        @apply text-red;
+        @apply drop-shadow-xl;
+        @apply transition-all;
+        @apply duration-300;
+        @apply ease-in-out;
     }
 
     p {
@@ -63,8 +80,10 @@
     input,
     textarea {
         @apply bg-gray-200;
-        @apply p-2;
         @apply rounded-xl;
+        @apply p-2;
+        @apply mb-2;
+
     }
 
     textarea:focus,
@@ -82,7 +101,18 @@
 
     }
 
+    button {
+        @apply border-none;
+        @apply cursor-pointer;
+        @apply self-center;
+        @apply transition-all;
+        @apply ease-in-out;
+        @apply duration-300;
+
+    }
+
 }
+
 
 /* form {
     display: flex;
@@ -194,10 +224,10 @@ h3 {
     font-size: 0.9rem;
 }
 
-.login button,
+/* .login button,
 .register button {
     margin: 2rem 0 0 0;
-}
+} */
 
 
 
@@ -240,12 +270,12 @@ h1 {
     padding-top: .5rem;
 }
 
-form label {
+/* form label {
     font-weight: 500;
     font-size: 0.8rem;
     margin: 1rem 0 0 0;
     text-transform: uppercase;
-}
+} */
 
 ::placeholder {
     color: var(--c-base);
@@ -261,11 +291,6 @@ form label {
 } */
 
 
-button {
-    border: none;
-    cursor: pointer;
-    align-self: center;
-}
 
 .button {
     width: max-content;
