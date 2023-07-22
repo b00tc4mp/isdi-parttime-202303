@@ -1,13 +1,12 @@
 import { validators } from 'com';
 import context from './context';
 
-const { validateCallback, validateName, validateLayout } = validators;
-
-//TODO add validate hp!
+const { validateName, validateLayout, validateHealth } = validators;
 
 const createLevel = (name, layout, hp) => {
     validateName(name);
     validateLayout(layout);
+    validateHealth(hp);
 
     const level = { name, layout, hp };
 

@@ -54,9 +54,15 @@ const validateLayout = (layout) => {
     }
 };
 
+const validateHealth = (hp) => {
+    if (typeof hp !== 'number') throw new TypeError('hp is not a number');
+    if (hp <= 0 || hp > 7) throw new RangeError('invalid hp value');
+}
+
 const validateUsername = (username) => {
     if (typeof username !== 'string') throw new TypeError('username is not a string');
     if (!username.trim().length) throw new ContentError('username is empty');
+    if (username.trim().length > 12) throw new RangeError('username is too long');
     const regexRule = /([^A-Za-z0-9])/;
     if (regexRule.test(username)) throw new FormatError('username format is incorrect');
 }
@@ -94,6 +100,7 @@ module.exports = {
     validateCallback,
     validateId,
     validateLayout,
+    validateHealth,
     validateUsername,
     validatePassword,
     validateAvatar,

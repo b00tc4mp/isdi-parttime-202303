@@ -5,5 +5,6 @@ module.exports = {
     registerUser: require('./users/registerUser'),
     authenticateUser: require('./users/authenticateUser'),
     retrieveUser: require('./users/retrieveUser'),
-    retrieveUserLogged: require('./users/retrieveUserLogged')
+    retrieveUserLogged: require('./users/retrieveUserLogged'),
+    updateColor: require('./users/updateColor'),
 }

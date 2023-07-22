@@ -1,22 +1,23 @@
 import { useState, useEffect } from 'react';
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
-import LevelsList from './pages/LevelsList';
+import LevelsList from './views/LevelsList';
 import Footer from './components/Footer';
 import Navbar from './components/Navbar';
-import Game from './pages/Game';
-import CreateLevel from './pages/CreateLevel';
-import Landing from './pages/Landing';
+import Game from './views/Game';
+import CreateLevel from './views/CreateLevel';
+import Landing from './views/Landing';
 import inLogger from './inLogger';
 import NoConnectionToast from './components/toasts/NoConnectionToast';
 import AlertToast from './components/toasts/AlertToast';
 import CheckConnection from './logic/check-connection';
-import Tutorial from './pages/Tutorial';
-import NotFound from './pages/NotFound';
-import About from './pages/About';
-import SignIn from './pages/SignIn';
+import Tutorial from './views/Tutorial';
+import NotFound from './views/NotFound';
+import About from './views/About';
+import SignIn from './views/SignIn';
 import isUserLoggedIn from './logic/is-user-logged-in';
 import useLockScroll from './hooks/useLockScroll';
 import AppContext from './AppContext';
+import Customize from './views/Customize';
 
 const App = () => {
   const [isApiAvailable, setApiAvailableOn] = useState(true);
@@ -54,6 +55,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={isUserLoggedIn() ? <Navigate to="/levels" /> : <Landing />} />
           <Route path="/levels" element={isUserLoggedIn() ? <LevelsList /> : <NotFound />} />
+          <Route path="/customize" element={isUserLoggedIn() ? <Customize /> : <NotFound />} />
           <Route path="/game/:id" element={<Game />} />
           <Route path="/create" element={<CreateLevel />} />
           <Route path="/tutorial" element={<Tutorial />} />

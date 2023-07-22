@@ -84,6 +84,14 @@ describe('authenticateUser', () => {
         await expect(() => authenticateUser(username, password)).to.throw(TypeError, 'username is not a string');
     });
 
+    it('should fail on username too long', async () => {
+        const username = `UserNameWayTooLong${Math.floor(Math.random() * 999)}`;
+        const password = `Password${Math.random()}`;
+
+        await expect(() => authenticateUser(username, password)).to.throw(RangeError, 'username is too long');
+    });
+
+
     it('should fail on empty username', async () => {
         const username = '';
         const password = `Password${Math.random()}`;

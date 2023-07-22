@@ -7,4 +7,5 @@ module.exports = {
     registerUserHandler: require('./registerUserHandler'),
     retrieveUserHandler: require('./retrieveUserHandler'),
     retrieveUserLoggedHandler: require('./retrieveUserLoggedHandler'),
+    updateColorHandler: require('./updateColorHandler')
 }

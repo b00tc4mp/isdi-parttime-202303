@@ -35,6 +35,7 @@ const LoginForm = ({ onRegister, onLoginUser, formRef }) => {
                             type="text"
                             name="username"
                             id="username"
+                            maxLength={12}
                             className="bg-light500 border border-light100 text-secondary200 sm:text-sm rounded-lg focus:outline-none focus:ring-secondary300 focus:border-secondary300 block w-full p-2.5"
                             placeholder="UserName123"
                             required={true}

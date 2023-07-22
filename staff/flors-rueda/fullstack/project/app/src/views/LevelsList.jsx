@@ -11,7 +11,8 @@ import useHandleErrors from '../hooks/useHandleErrors';
 const LevelsList = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [levels, setLevels] = useState(null);
-    const [username, setUsername] = useState('')
+    const [username, setUsername] = useState('');
+    const [color, setColor] = useState('');
     const handleErrors = useHandleErrors();
 
     const handleRefreshLevels = () => {
@@ -22,16 +23,17 @@ const LevelsList = () => {
         })
     }
 
-    const getUsername = () => {
+    const getUserInfo = () => {
         handleErrors(async () => {
             const user = await retrieveLoggedUser();
-            setUsername(user.username)
+            setUsername(user.username);
+            setColor(user.color);
         })
     }
 
     useEffect(() => {
         handleRefreshLevels();
-        //getUsername();
+        getUserInfo();
     }, []);
 
     if (isLoading) {
@@ -40,7 +42,7 @@ const LevelsList = () => {
 
     return (
         <section className="flex flex-col w-full md:px-0 px-5 justify-center items-center pt-20 gap-5">
-            <h1 className="text-primary100 text-3xl font-bold text-center pt-5">Hello, {username}</h1>
+            <h1 className={`text-${color} text-3xl font-bold text-center pt-5`}> Hello, {username}</h1>
             <Link className="bg-transparent hover:bg-secondary300  text-secondary300  font-semibold hover:text-white py-2 px-4 border border-secondary300  hover:border-transparent rounded-xl" to="/create">
                 Create your level!
             </Link>

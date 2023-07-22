@@ -70,6 +70,18 @@ describe('registerUser', () => {
         }
     });
 
+    it('should fail on username too long', async () => {
+        const username = `UserNameWayTooLong${Math.floor(Math.random() * 999)}`;
+        const password = `Password${Math.random()}`;
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        const recoveryQuestions = [
+            { question: `question${Math.random()}`, answer: `answer${Math.random()}` },
+            { question: `question${Math.random()}`, answer: `answer${Math.random()}` }
+        ];
+
+        await expect(() => registerUser(username, password, color, recoveryQuestions)).to.throw(RangeError, 'username is too long');
+    });
+
     it('should fail on invalid username type', async () => {
         const username = Math.floor(Math.random() * 999);
         const password = `Password${Math.random()}`;
@@ -201,4 +213,6 @@ describe('registerUser', () => {
 
         await expect(() => registerUser(username, password, color, recoveryQuestions)).to.throw(TypeError, 'question and/or answer is not a string');
     });
+
+
 });

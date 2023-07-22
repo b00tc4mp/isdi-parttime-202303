@@ -2,7 +2,7 @@ import { useState } from 'react';
 import inLogger from '../../inLogger';
 import { assets } from 'com';
 
-const RegisterForm = ({ onLogin, onRegisterUser, formRef }) => {
+const RegisterForm = ({ onLogin, onRegisterUser, formRef, setColor }) => {
     const [isDropdownOn, setIsDropdownOn] = useState(false);
 
     const textColors = { gray: 'text-gray', red: 'text-red', orange: 'text-orange', ambar: 'text-ambar', yellow: 'text-yellow', lime: 'text-lime', green: 'text-green', teal: 'text-teal', cyan: 'text-cyan', blue: 'text-blue', indigo: 'text-indigo', violet: 'text-violet', fuchsia: 'text-fuchsia', pink: 'text-pink', rose: 'text-rose' };
@@ -51,6 +51,7 @@ const RegisterForm = ({ onLogin, onRegisterUser, formRef }) => {
                             className="bg-light500 border border-light100 text-secondary200 sm:text-sm rounded-lg focus:outline-none focus:ring-secondary300 focus:border-secondary300 block w-full p-2.5"
                             placeholder="UserName123"
                             required={true}
+                            maxLength={12}
                             onChange={handleUsernameChange}
                         />
                     </div>
@@ -98,6 +99,7 @@ const RegisterForm = ({ onLogin, onRegisterUser, formRef }) => {
                                             name="favoriteColor"
                                             className={`form-radio h-4 w-4 cursor-pointer ${textColors[color]} checked:bg-${bgColors[color]}`}
                                             value={color}
+                                            onChange={() => setColor(color)}
                                         />
                                         <span className={`${textColors[color]} font-semibold pl-2 pb-0.5`}>{color}</span>
                                     </li>

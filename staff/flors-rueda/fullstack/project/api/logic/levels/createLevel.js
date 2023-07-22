@@ -1,14 +1,14 @@
 const { Level } = require('../../data/models');
 
 const {
-    validators: { validateName, validateLayout, validateId },
+    validators: { validateName, validateLayout, validateHealth, validateId },
 } = require('com');
 
 module.exports = (name, layout, hp, author) => {
     validateName(name);
     validateLayout(layout);
-    //TODO validateHp()
-    //TODO validateAuthor()
+    validateHealth(hp)
+    validateId(author, 'authorId')
 
     return Level.create({
         name,

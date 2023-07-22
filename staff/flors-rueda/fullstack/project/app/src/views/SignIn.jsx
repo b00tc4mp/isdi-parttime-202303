@@ -15,6 +15,7 @@ const SignIn = () => {
     const { startingForm } = location.state ? location.state : {};
     const [form, setForm] = useState(startingForm ? startingForm : 'login');
     const formRef = useRef(null);
+    const [color, setColor] = useState('orange')
     const handleErrors = useHandleErrors();
     const navigate = useNavigate();
 
@@ -65,7 +66,7 @@ const SignIn = () => {
         ]
 
         handleErrors(async () => {
-            await registerUser(username, password, repeatPassword, recoveryQuestions);
+            await registerUser(username, password, repeatPassword, recoveryQuestions, color);
             await loginUser(username, password);
             navigate('/levels');
         })
@@ -86,7 +87,7 @@ const SignIn = () => {
                         <img className="h-32" src={logo} alt="logo" />
                     </Link>
                     {form === 'login' && <LoginForm onRegister={handleGoToRegister} onLoginUser={handleLogin} formRef={formRef} />}
-                    {form === 'register' && <RegisterForm onLogin={handleGoToLogin} onRegisterUser={handleRegister} formRef={formRef} />}
+                    {form === 'register' && <RegisterForm onLogin={handleGoToLogin} onRegisterUser={handleRegister} formRef={formRef} setColor={setColor} />}
                 </div>
             </section>
             <ComicCarousel />
