@@ -1,21 +1,19 @@
-import { loginUser } from '../logic/loginUser.js'
+import { loginUser } from '../../logic/loginUser'
 import { useEffect, useState } from 'react'
 // import AppContext from '../components/AppContext.js'
-import retrieveRandomMotivationalQuote from '../logic/retrieveRandomMotivationalQuote.js'
+import retrieveRandomMotivationalQuote from '../../logic/retrieveRandomMotivationalQuote'
 // import Container from '../library/Container.jsx'
 import { Container, Form, Input, Button } from '../library'
-import useAppContext from '../hooks/useAppContext.js'
+import { useAppContext, useHandleErrors } from '../hooks'
 import { Link } from 'react-router-dom'
-import { errors } from "com"
 
-const { ExistenceError, AuthError, ContentError } = errors
 
 export default function Login() {
     console.debug('Login->render')
 
     const { alert, navigate } = useAppContext()
     const [quote, setQuote] = useState(null)
-
+    const handleErrors = useHandleErrors()
 
     useEffect(() => {
         try {
@@ -33,32 +31,17 @@ export default function Login() {
         }
     }, [])
 
-    function handleLogin(event) {
+    const handleLogin = async function (event) {
         event.preventDefault()
 
         const email = event.target.email.value
         const password = event.target.password.value
 
-        try {
-            loginUser(email, password)
-                .then(() => navigate('/'))
-                .catch(error => {
-                    if (error instanceof ExistenceError)
-                        alert(error.message, 'warn')
+        handleErrors(async () => {
+            await loginUser(email, password)
 
-                    if (error instanceof AuthError)
-                        alert(error.message, 'warn')
-                })
-        } catch (error) {
-            if (error instanceof TypeError)
-                alert(error.message, 'error')
-
-            if (error instanceof ContentError)
-                alert(error.message, 'error')
-
-            if (error instanceof RangeError)
-                alert(error.message, 'error')
-        }
+            navigate('/')
+        })
 
     }
 

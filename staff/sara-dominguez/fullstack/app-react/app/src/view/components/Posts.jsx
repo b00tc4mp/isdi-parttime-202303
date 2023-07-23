@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import retrievePosts from '../logic/retrievePosts.js'
+import retrievePosts from '../../logic/retrievePosts.js'
 import Post from './Post.jsx'
 import useAppContext from '../hooks/UseAppContext.js'
 

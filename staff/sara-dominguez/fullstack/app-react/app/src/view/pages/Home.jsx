@@ -3,11 +3,11 @@ import Posts from "../components/Posts.jsx"
 import AddPostModal from '../components/AddPostModal.jsx'
 import Profile from '../components/Profile.jsx'
 import EditPostModal from '../components/EditPostModal.jsx'
-import retrieveUser from '../logic/retrieveUser'
+import retrieveUser from '../../logic/retrieveUser'
 import { Container, Button } from '../library'
 import UseAppContext from '../hooks/useAppContext.js'
-import isLoggedIn from '../logic/isLoggedIn'
-import logoutUser from '../logic/logoutUser'
+import isLoggedIn from '../../logic/isLoggedIn'
+import logoutUser from '../../logic/logoutUser'
 import { errors } from "com"
 
 const { ExistenceError, ContentError } = errors

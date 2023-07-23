@@ -1,4 +1,4 @@
-import createPost from '../logic/createPost.js'
+import createPost from '../../logic/createPost.js'
 // import { useAppContext } from 'react'
 import useAppContext from '../hooks/UseAppContext.js'
 import { Container, Input, Button, TextArea } from '../library'

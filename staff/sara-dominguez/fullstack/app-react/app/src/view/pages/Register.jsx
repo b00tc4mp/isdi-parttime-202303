@@ -1,44 +1,31 @@
-import { registerUser } from "../logic/registerUser.js"
+import { registerUser } from "../../logic/registerUser.js"
 // import { useAppContext } from 'react'
 // import AppContext from '../components/AppContext.js'
 // import Container from "../library/Container.jsx"
 import { Container, Form, Input, Button } from "../library"
-import useAppAppContext from "../hooks/useAppContext.js"
+import { useAppAppContext, useHandleErrors } from "../hooks"
 import { Link } from "react-router-dom"
-import { errors } from "com"
-
-const { DuplicityError, ContentError } = errors
-
 
 
 export default function Register() {
     console.debug('Register->render')
 
-    const { alert, navigate } = useAppAppContext()
+    const { navigate } = useAppAppContext()
+    const handleErrors = useHandleErrors()
 
 
-    function handleRegister(event) {
+    const handleRegister = async function (event) {
         event.preventDefault()
 
         const name = event.target.name.value
         const email = event.target.email.value
         const password = event.target.password.value
 
+        handleErrors(async () => {
+            await registerUser(name, email, password)
 
-        try {
-
-            registerUser(name, email, password)
-                .then(() => navigate('/login'))
-                .catch(error => {
-                    if (error instanceof DuplicityError)
-                        alert(error.message, 'warn')
-                })
-        } catch (error) {
-            if (error instanceof ContentError)
-                alert(error.message, 'errors')
-            if (error instanceof RangeError)
-                alert(error.message, 'errors')
-        }
+            navigate('/login')
+        })
     }
 
     return <Container tag="main">

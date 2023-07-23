@@ -1,11 +1,11 @@
-import toggleLikePost from '../logic/toogleLikePost'
-import deletePost from '../logic/deletePost'
-import toggleFavPost from '../logic/toggleFavPost'
+import toggleLikePost from '../../logic/toogleLikePost'
+import deletePost from '../../logic/deletePost'
+import toggleFavPost from '../../logic/toggleFavPost'
 import useAppContext from '../hooks/UseAppContext'
 import Container from '../library/Container.jsx'
 import { utils } from 'com'
-import isCurrentUser from '../logic/isCurrentUser'
-import getUserId from '../logic/getUserId'
+import isCurrentUser from '../../logic/isCurrentUser'
+import getUserId from '../../logic/getUserId'
 
 const { extractSubFromToken } = utils
 

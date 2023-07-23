@@ -1,4 +1,4 @@
-import { updateUserAvatar } from "../logic/updateUserAvatar"
+import { updateUserAvatar } from "../../logic/updateUserAvatar"
 import useAppContext from "../hooks/UseAppContext"
 import { Container, Form, Input, Button } from '../library'
 
