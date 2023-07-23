@@ -21,12 +21,17 @@ module.exports = function updateUserPassword(
         throw new Error('New password must be different from the current password')
     }
 
-    return User.findById(userId)
-        .then(user => {
-            user.password = userNewPassword
+    // return User.findById(userId)
+    //     .then(user => {
+    //         user.password = userNewPassword
 
-            return User.updateOne({ _id: user.id }, { $set: { password: user.password } })
-        })
+    //         return User.updateOne({ _id: user.id }, { $set: { password: user.password } })
+    //     })
 
+    return (async () => {
+        const user = await User.findById(userId)
+        user.password = userNewPassword
 
+        return User.updateOne({ _id: user.id }, { $set: { password: user.password } })
+    })()
 }

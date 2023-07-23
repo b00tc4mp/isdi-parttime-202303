@@ -3,6 +3,7 @@ const {
     validators: { validateEmail, validatePassword },
     errors: { ExistenceError, AuthError }
 } = require('com')
+const { UnknownError } = require('com/errors')
 
 
 /**
@@ -25,12 +26,26 @@ module.exports = function authenticateUser(email, password) {
 
     const { User } = require('../data/models')
 
-    return User.findOne({ email })
-        .then(user => {
+    // return User.findOne({ email })
+    //     .then(user => {
+    //         if (!user) throw new ExistenceError('user not found')
+
+    //         if (user.password !== password) throw new AuthError('error credentials')
+
+    //         return user.id // se puede utilizar sin .toString() porque utilizamos el getter)
+    //     })
+
+    return (async () => {
+        try {
+            const user = await User.findOne({ email })
+
             if (!user) throw new ExistenceError('user not found')
 
             if (user.password !== password) throw new AuthError('error credentials')
 
-            return user.id // se puede utilizar sin .toString() porque utilizamos el getter)
-        })
+            return user.id
+        } catch (error) {
+            throw new UnknownError(error.message)
+        }
+    })()
 }

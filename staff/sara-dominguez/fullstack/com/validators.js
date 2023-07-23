@@ -85,12 +85,12 @@ function validateId(id, explain = 'id') {
     }
 
 }
-function validatePostId(postId, explain = 'post id') {
+function validatePostId(postId, explain = 'postId') {
     if (typeof postId !== 'string') throw new TypeError(`${explain} is not a string`)
-    if (id.trim().length !== 24) throw new ContentError(`${explain} doesn't have 24 characters`)
+    if (postId.trim().length !== 24) throw new ContentError(`${explain} doesn't have 24 characters`)
 
-    for (let i = 0; i < id.length; i++) {
-        const char = id[i]
+    for (let i = 0; i < postId.length; i++) {
+        const char = postId[i]
 
         if (!HEX_DICTIONARY.includes(char)) throw new ContentError(`${explain} is not hexadecimal`)
     }

@@ -1,0 +1,18 @@
+[
+    {
+        "id": "user-1",
+        "name": "sara",
+        "email": "sara@sara.es",
+        "password": "Aa-1234",
+        "avatar": "https://static.vecteezy.com/system/resources/previews/002/275/847/non_2x/male-avatar-profile-icon-of-smiling-caucasian-man-vector.jpg",
+        "favs": []
+    },
+    {
+        "id": "user-2",
+        "name": "rufus",
+        "email": "rufus@rufus.es",
+        "password": "Aa-1234",
+        "avatar": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJFhu4PvsrKV1RzomfsFTF1YktUhViJZUq9Q&usqp=CAU",
+        "favs": []
+    }
+]

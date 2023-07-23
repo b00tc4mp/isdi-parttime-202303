@@ -1,6 +1,9 @@
 require('dotenv').config()
 const { User, Post } = require('../data/models')
-const { validators: { validateId, validatePostUrl, validateText } } = require('com')
+const {
+    validators: { validateId, validatePostUrl, validateText },
+    errors: { ExistenceError }
+} = require('com')
 
 
 module.exports = function updatePost(userId, postId, imageUrl, text) {
@@ -11,21 +14,37 @@ module.exports = function updatePost(userId, postId, imageUrl, text) {
 
 
 
-    return Promise.all([User.findById({ _id: userId }), Post.findById({ _id: postId })
-    ])
-        .then(([user, post]) => {
-            if (!user) throw new TypeError('User not found!')
-            if (!post) throw new TypeError('Post not found!')
+    // return Promise.all([User.findById({ _id: userId }), Post.findById({ _id: postId })
+    // ])
+    //     .then(([user, post]) => {
+    //         if (!user) throw new TypeError('User not found!')
+    //         if (!post) throw new TypeError('Post not found!')
 
-            if (post.author.toString() !== user.id) throw new Error(`post with id ${postId} does not belong to user with id ${userId}`)
+    //         if (post.author.toString() !== user.id) throw new Error(`post with id ${postId} does not belong to user with id ${userId}`)
 
-            post.image = imageUrl
-            post.text = text
+    //         post.image = imageUrl
+    //         post.text = text
 
-            return Post.updateOne({ _id: postId }, {
-                $set: { image: imageUrl, text: text }
-            })
+    //         return Post.updateOne({ _id: postId }, {
+    //             $set: { image: imageUrl, text: text }
+    //         })
+    //     })
+
+    return (async () => {
+        const [user, post] = await Promise.all([User.findById({ _id: userId }), Post.findById({ _id: postId })])
+
+        if (!user) throw new ExistenceError('User not found!')
+        if (!post) throw new ExistenceError('Post not found!')
+
+        if (post.author.toString() !== user.id) throw new Error(`post with id ${postId} does not belong to user with id ${userId}`)
+
+        post.image = imageUrl
+        post.text = text
+
+        return Post.updateOne({ _id: postId }, {
+            $set: { image: imageUrl, text: text }
         })
+    })()
 }
 
 

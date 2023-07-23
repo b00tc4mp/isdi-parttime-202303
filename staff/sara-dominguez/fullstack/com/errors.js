@@ -28,13 +28,20 @@ class PropertyError extends Error {
     }
     get name() { return PropertyError.name }
 }
-
+class UnknownError extends Error {
+    constructor(message) {
+        super(message)
+    }
+    get name() { return UnknownError.name }
+}
 
 module.exports = {
     DuplicityError,
     ContentError,
     ExistenceError,
     AuthError,
-    PropertyError
+    PropertyError,
+    UnknownError
+
 
 }

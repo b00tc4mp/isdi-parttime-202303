@@ -1,3 +1,4 @@
+
 const { validateToken } = require('./validators')
 
 function extractPayloadFromToken(token) {
@@ -10,7 +11,7 @@ function isTokenAlive(token) {
     const { iat, exp } = extractPayloadFromToken(token)
     const now = Date.now() / 1000
 
-    return exp - iat < now - iat
+    return exp - iat > now - iat
 }
 
 function isTokenValid(token) {

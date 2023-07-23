@@ -9,13 +9,22 @@ module.exports = function updateUserAvatar(userId, newAvatar) {
 
 
 
-    return User.findById(userId)
-        .then(user => {
-            if (!user) throw new TypeError('user not found')
+    // return User.findById(userId)
+    //     .then(user => {
+    //         if (!user) throw new TypeError('user not found')
 
-            user.avatar = newAvatar
+    //         user.avatar = newAvatar
 
-            return User.updateOne({ _id: user.id }, { $set: { avatar: user.avatar } })
+    //         return User.updateOne({ _id: user.id }, { $set: { avatar: user.avatar } })
 
-        })
+    //     })
+
+    return (async () => {
+        const user = await User.findById(userId)
+        if (!user) throw new TypeError('user not found')
+
+        user.avatar = newAvatar
+
+        return User.updateOne({ _id: user.id }, { $set: { avatar: user.avatar } })
+    })()
 }
