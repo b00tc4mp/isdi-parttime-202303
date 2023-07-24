@@ -11,27 +11,19 @@ module.exports = (userId, postId, image, text) => {
     if(image !== '') validateUrl(image)
     if(text !== '') validateText(text)
 
-    const promises = []
+    return (async () => { 
+        const [user, post] = await Promise.all([User.findById(userId), Post.findById(postId)])
 
-    promises.push(User.findById(userId))
-    promises.push(Post.findById(postId))
+        if (!user) throw new ExistenceError('user not found')
 
-    return Promise.all(promises)
-        .then(([user, post]) => {
-            if (!user) throw new ExistenceError('user not found')
+        if (!post) throw new ExistenceError('post not found')
 
-            if (!post) throw new ExistenceError('post not found')
+        if (user._id.toString() !== post.author.toString())
+            throw new AuthError(`Post doesn't belong to this user`)
 
-            if (user._id.toString() !== post.author.toString())
-                throw new AuthError(`Post doesn't belong to this user`)
+        if(image === '') image = post.image
+        if(text === '')  text = post.text
 
-            if(image === '') image = post.image
-            if(text === '')  text = post.text
- 
-            return Post.findByIdAndUpdate(postId,
-                 { $set: { image: image,
-                    text: text,
-                    dateLastModified: new Date }})
-        })
-        .then(() => { })  
+        await Post.findByIdAndUpdate(postId, { $set: { image: image, text: text, dateLastModified: new Date }})
+    })()
 }

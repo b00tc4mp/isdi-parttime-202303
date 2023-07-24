@@ -9,7 +9,7 @@ export default function Register() {
 
     const { alert, navigate } = useAppContext()
 
-    function handleRegister(event) {
+    const handleRegister = async (event) => {
         event.preventDefault()
 
         event.target.name.classList.remove("imput-highlight")
@@ -21,14 +21,10 @@ export default function Register() {
         const password = event.target.password.value
     
         try {
-            registerUser(name, email, password)
-                .then(() => {
-                    event.target.reset()
-                    navigate('/login')
+            await registerUser(name, email, password)
 
-                    return
-                })
-                .catch(error => alert(error.message))
+            event.target.reset()
+            navigate('/login')
         }
         catch (error) {
             alert(error.message)
@@ -46,7 +42,6 @@ export default function Register() {
                 event.target.password.classList.add("imput-highlight")
             }
         }    
-    
     }
 
     return <>

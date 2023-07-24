@@ -8,11 +8,12 @@ const { User } = require('../data/models')
 module.exports = (userId, mode) => {
     validateId(userId, 'user id')
 
-    return User.findById(userId)
-        .then(user => {
-            if (!user) throw new ExistenceError('user not found')
+    return (async () => { 
+        const user = await User.findById(userId)
 
-            return User.findByIdAndUpdate(userId, { $set: { mode: mode }})
-        })
-        .then(() => { })  
+        if (!user) throw new ExistenceError('user not found')
+
+        await User.findByIdAndUpdate(userId, { $set: { mode: mode }})
+    })()
+ 
 }

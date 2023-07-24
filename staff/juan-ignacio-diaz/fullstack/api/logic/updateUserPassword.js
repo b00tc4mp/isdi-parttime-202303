@@ -15,13 +15,13 @@ module.exports = (userId, password, newPassword, newPasswordConfirm) => {
 
     if (newPassword !== newPasswordConfirm) throw new InvalidDataError("the confirm password is different than then new password", {cause: "newPasswordConfirm"})
 
-    return User.findById(userId)
-        .then(user => {
-            if (!user) throw new ExistenceError('user not found')
+    return (async () => { 
+        const user = await User.findById(userId)
 
-            if (user.password !== password)  throw new InvalidDataError('Error the pasword is invalid', {cause: "password"})
+        if (!user) throw new ExistenceError('user not found')
 
-            return User.findByIdAndUpdate(userId, { $set: { password: newPassword }})
-        })
-        .then(() => { })  
+        if (user.password !== password)  throw new InvalidDataError('Error the pasword is invalid', {cause: "password"})
+
+        await User.findByIdAndUpdate(userId, { $set: { password: newPassword }})
+    })()
 }

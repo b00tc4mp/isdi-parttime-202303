@@ -10,21 +10,15 @@ module.exports = (userId, postId, price) => {
     validateId(postId, 'post id')
     validateNumber(price)
 
-    const promises = []
+    return (async () => { 
+        const [user, post] = await Promise.all([User.findById(userId), Post.findById(postId)])
+        if (!user) throw new ExistenceError('user not found')
 
-    promises.push(User.findById(userId))
-    promises.push(Post.findById(postId))
+        if (!post) throw new ExistenceError('post not found')
 
-    return Promise.all(promises)
-        .then(([user, post]) => {
-            if (!user) throw new ExistenceError('user not found')
+        if (user._id.toString() !== post.author.toString())
+            throw new AuthError(`Post doesn't belong to this user`)
 
-            if (!post) throw new ExistenceError('post not found')
-
-            if (user._id.toString() !== post.author.toString())
-                throw new AuthError(`Post doesn't belong to this user`)
-
-            return Post.findByIdAndUpdate(postId, { $set: { price: price }})
-        })
-        .then(() => { })            
+        return Post.findByIdAndUpdate(postId, { $set: { price: price }})
+    })()      
 }

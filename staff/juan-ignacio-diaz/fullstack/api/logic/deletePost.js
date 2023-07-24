@@ -9,28 +9,39 @@ module.exports = (userId, postId) => {
     validateId(userId, 'user id')
     validateId(postId, 'post id')
 
-    return Promise.all([User.findById(userId), Post.findById(postId)])
-        .then(([user, post]) => {
-            if (!user) throw new ExistenceError('user not found')
+    return (async () => {   
+        const [user, post] = await Promise.all([User.findById(userId), Post.findById(postId)])
 
-            if (!post) throw new ExistenceError('post not found')
+        if (!user) throw new ExistenceError('user not found')
 
-            if (user._id.toString() !== post.author.toString())
+        if (!post) throw new ExistenceError('post not found')
+
+        if (user._id.toString() !== post.author.toString())
                 throw new AuthError(`Post doesn't belong to this user`)
 
-            return User.find({ favs: postId })
-                .then((users) => {
-                    const usersUpdated = users.map((user) => {
-                        return User.findByIdAndUpdate(userId,
-                            { $pullAll: { favs: [postId] } })
-
-                            // si no funciona $pullAll
-                            //{ $set: { favs: user.favs.splice(user.favs.findIndex(fav => fav === postId), 1) }})
-                    })
+        const users = await User.find({ favs: postId })
+        const usersUpdated = users.map((user) => {
+            return User.findByIdAndUpdate(userId, { $pullAll: { favs: [postId] } }) 
+        })
         
-                    return Promise.all([...usersUpdated, Post.findByIdAndDelete(postId)])
-                })
-        }) 
-        .then(() => { })    
+        await Promise.all([...usersUpdated, Post.findByIdAndDelete(postId)])
+
+    })()
+ 
            
 }
+
+/*
+    const [user, post] = await Promise.all([User.findById(userId), Post.findById(postId)])
+    if (!user) throw new ExistenceError('user not found')
+    if (!post) throw new ExistenceError('post not found')
+    if (user._id.toString() !== post.author.toString())
+        throw new AuthError(`Post doesn't belong to this user`)
+    const users = await User.find({ favs: postId })
+    const usersUpdated = users.map((user_1) => {
+        return User.findByIdAndUpdate(userId,
+            { $pullAll: { favs: [postId] } })
+
+    })
+    await Promise.all([...usersUpdated, Post.findByIdAndDelete(postId)])   
+*/

@@ -9,10 +9,12 @@ const { User } = require('../data/models')
 module.exports = (userId) => {
     validateId(userId, 'user id')
 
-    return User.findById(userId, 'name avatar mode').lean() //retorna el objeto directo de mongoDB
-        .then(user => {
-            if (!user) throw new ExistenceError('user not found')
+    return (async () => {
+        const user = await User.findById(userId, 'name avatar mode').lean()
+        if (!user) throw new ExistenceError('user not found')
 
-            return user
-        })
+        delete user._id
+
+        return user
+    })()
 }

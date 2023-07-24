@@ -41,10 +41,19 @@ class InvalidDataError extends Error {
     get name() { return InvalidDataError.name }
 }
 
+class UnknownError extends Error {
+    constructor(message) {
+        super(message)
+    }
+
+    get name() { return UnknownError.name }
+}
+
 module.exports = {
     DuplicityError,
     ContentError,
     ExistenceError,
     AuthError,
-    InvalidDataError
+    InvalidDataError,
+    UnknownError
 }

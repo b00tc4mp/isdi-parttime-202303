@@ -50,8 +50,6 @@ export default function Posts({ onEditedPost, onAddedPriceToPost , typePosts, la
 
     useEffect(() => {
         console.log('Posts -> "componentWillReceiveProps" with hooks')
-        // console.log(typePosts)
-        // console.log(lastPostsUpdate)
         
         if (lastPostsUpdate)
             handleRefreshPosts()

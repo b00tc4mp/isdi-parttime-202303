@@ -6,6 +6,11 @@ module.exports = handleErrors((req, res) => {
     const userId = extractUserId(req)
     const { mode } = req.body
 
-    return updateUserMode(userId, mode)
-        .then(res.status(204).send())
+    const promise = updateUserMode(userId, mode)
+
+    return (async () => { 
+        await promise
+        
+        res.status(204).send()
+    })()
 })

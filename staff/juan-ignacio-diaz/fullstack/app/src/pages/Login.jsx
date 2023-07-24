@@ -26,7 +26,7 @@ export default function Login() {
         }
     }, [])
 
-    function handleLogin(event) {
+    const handleLogin = async event => {
         event.preventDefault()
 
         const email = event.target.email.value
@@ -35,14 +35,14 @@ export default function Login() {
         try {
             freeze()
             loginUser(email, password)
-                .then(token => navigate('/'))
-                .catch(error => alert(error.message))
-                .finally(() => unfreeze())
+
+            navigate('/')
+            unfreeze()
         }
         catch (error){
             unfreeze()
             alert(error.message)
-        }   
+        }
     }
     
     return <>

@@ -24,7 +24,7 @@ describe('updateUserPassword', () => {
     it('succeeds on existing user and correct id', () => {
         const newPassword = userTest.password + '-new'
 
-         return updateUserPassword(userTest.id, userTest.password, newPassword, newPassword)
+        return updateUserPassword(userTest.id, userTest.password, newPassword, newPassword)
             .then(() => User.findById(userTest.id))
             .then(user => expect(user.password).to.equal(newPassword))
     })

@@ -24,7 +24,7 @@ export default function Home() {
     const [typePosts, setTypePosts] = useState('all')
     const [lastPostsUpdate, setLastPostsUpdate] = useState(null)
 
-    function changeMode (mode){
+    function changeMode(mode){
         if (mode) {
             if (mode === 'dark') document.querySelector(':root').classList.add('dark')
             else document.querySelector(':root').classList.remove('dark')
@@ -33,20 +33,19 @@ export default function Home() {
     }
 
     useEffect(() => {
-        try{     
-            freeze()     
-            retrieveUser()
-                .then(user => {
-                    setUser(user)
+        ;(async () => {
+            try{     
+                freeze()     
+                const user = await retrieveUser()
 
-                    changeMode(user.mode)
-                })
-                .catch(error => alert(error.message))
-                .finally(() => unfreeze())
-        } 
-        catch (error) {
-            alert(error.message)
-        }
+                setUser(user)
+                changeMode(user.mode)
+                unfreeze()
+            } 
+            catch (error) {
+                alert(error.message)
+            }
+        })()
     }, [])
 
     const handleLogout = () => {
@@ -61,17 +60,15 @@ export default function Home() {
         setView(view === 'posts' ? 'profile' : 'posts')
     }
 
-    const handledEditedProfile =() => {
+    const handledEditedProfile = async () => {
         try{
             freeze()
-            retrieveUser(context.token)
-            .then(user => {
-                setUser(user)
+            const user = retrieveUser()
 
-                changeMode(user.mode)
-            })
-            .catch(error => alert(error.message))
-            .finally(() => unfreeze())
+            setUser(user)
+
+            changeMode(user.mode)
+            unfreeze()
         } 
         catch (error) {
             alert(error.message)

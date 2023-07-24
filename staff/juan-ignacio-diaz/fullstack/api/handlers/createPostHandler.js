@@ -6,6 +6,11 @@ module.exports = handleErrors((req, res) => {
     const userId = extractUserId(req)
     const { image, text } = req.body
 
-    return createPost(userId, image, text)
-        .then(res.status(201).send())
+    const promise = createPost(userId, image, text)
+    
+    return (async () => { 
+        await promise
+        
+        res.status(201).send()
+    })()
 })

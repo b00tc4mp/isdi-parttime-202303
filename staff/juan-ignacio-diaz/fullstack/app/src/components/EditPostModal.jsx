@@ -37,7 +37,7 @@ export default function EditPost({ onCancel, onEditedPost, postId}) {
 
         try {
             freeze()
-            updatePost (postId, image, text)
+            updatePost(postId, image, text)
                 .then(onEditedPost())
                 .catch(error => alert(error.message))
                 .finally(() => unfreeze())

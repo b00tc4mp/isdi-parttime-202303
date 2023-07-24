@@ -1,7 +1,7 @@
 import context from "./context"
 
 import { validators } from 'com'
-const { validateUrl } = validators
+const { validatePassword } = validators
 
 export default  (password, newPassword, newPasswordConfirm) => {
     validatePassword(password)
@@ -12,20 +12,21 @@ export default  (password, newPassword, newPasswordConfirm) => {
 
     if (newPassword !== newPasswordConfirm) throw new Error("the confirm password is different than then new password", {cause: "newPasswordConfirm"})
 
-    return fetch(`${import.meta.env.VITE_API_URL}/users/updatePassword`, {
-        method: 'PATCH',
-        headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${context.token}`
-        },
-        body: JSON.stringify({ password, newPassword, newPasswordConfirm })
-    })
-        .then(res => {
-            if (res.status === 204)
-                return
-            
-            return res.json()
-                .then(({ error: message }) => { throw new Error(message) })
-        })   
-        .catch(error => new Error(error)) 
+    return (async () => {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/users/updatePassword`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${context.token}`
+            },
+            body: JSON.stringify({ password, newPassword, newPasswordConfirm })
+        })
+
+        if (res.status === 204)
+            return
+        
+        const { error: message } = await res.json()
+        
+        throw new Error(message)
+    })()
 }

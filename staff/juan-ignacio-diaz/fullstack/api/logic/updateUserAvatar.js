@@ -9,11 +9,11 @@ module.exports = (userId, avatar) => {
     validateId(userId, 'user id')
     validateUrl(avatar, 'avatar')
 
-    return User.findById(userId)
-    .then(user => {
+    return (async () => { 
+        const user = await User.findById(userId)
+
         if (!user) throw new ExistenceError('user not found')
 
-        return User.findByIdAndUpdate(userId, { $set: { avatar: avatar }})
-    })
-    .then(() => { })  
+        await User.findByIdAndUpdate(userId, { $set: { avatar: avatar }})
+    })()
 }
