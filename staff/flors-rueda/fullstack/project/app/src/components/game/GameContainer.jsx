@@ -3,14 +3,13 @@ import CanvasContainer from './CanvasContainer';
 import { Player } from '@lottiefiles/react-lottie-player';
 import inLogger from '../../inLogger';
 
-const GameContainer = ({ level, initialHp, onGameOver }) => {
+const GameContainer = ({ level, initialHp, onGameOver, avatar }) => {
     const [key, setKey] = useState(1);
     const [floor, setFloor] = useState(level[0]);
     const [health, setHealth] = useState(initialHp);
     const [isGameOver, setIsGameOver] = useState(0); // 0 = playing, -1 = lost, 1 = won
     const [animation, setAnimation] = useState(null);
     const [isAnimationVisible, setAnimationVisible] = useState(false);
-
 
     const handleOnSolved = () => {
         setKey(key + 1);
@@ -102,7 +101,7 @@ const GameContainer = ({ level, initialHp, onGameOver }) => {
                 />
             )}
             <div className="flex flex-col items-center overflow-hidden">
-                <CanvasContainer key={key} floor={floor} onSolved={handleOnSolved} onBomb={handleOnBomb} onLife={handleOnLife} onGameWon={handleOnGameWon} isGameOver={isGameOver} />
+                <CanvasContainer key={key} floor={floor} onSolved={handleOnSolved} onBomb={handleOnBomb} onLife={handleOnLife} onGameWon={handleOnGameWon} isGameOver={isGameOver} avatar={avatar} />
                 <div className="flex flex-row overflow-hidden gap-2 pt-1 text-primary100">
                     {renderHealthImages()}
                     {renderNonHealth()}

@@ -5,6 +5,7 @@ import inLogger from '../inLogger';
 import CreateLevelToast from '../components/toasts/CreateLevelToast';
 import LayoutForm from '../components/forms/LayoutForm';
 import CreateRules from '../components/CreateRules';
+import useLockScroll from '../hooks/useLockScroll';
 
 const CreateLevel = () => {
     const location = useLocation();
@@ -14,8 +15,12 @@ const CreateLevel = () => {
     const [level, setLevel] = useState(initialLevel ? initialLevel : [['life', 'stonks', 'hole', 'empty', 'bomb', 'empty', 'dirt', 'empty', 'start']]);
     const [initialHP, setInitialHP] = useState(hpSelected ? hpSelected : 3);
     const navigate = useNavigate();
+    const { unlockScroll } = useLockScroll();
 
-    const handleCloseToast = () => setToastOn(false);
+    const handleCloseToast = () => {
+        setToastOn(false)
+        unlockScroll()
+    };
 
     const handleOnTryLevel = () => {
         const selectedName = document.getElementById('level-name').value;

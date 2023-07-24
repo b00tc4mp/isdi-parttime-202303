@@ -41,7 +41,7 @@ const Navbar = () => {
     const getUserInfo = () => {
         handleErrors(async () => {
             const user = await retrieveLoggedUser();
-            setUserInfo(user)
+            setUserInfo(user);
         })
     }
 

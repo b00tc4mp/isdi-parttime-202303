@@ -1,7 +1,7 @@
 import * as THREE from 'three';
-import { ballGeometry, ballMaterial, cubeGeometry, wallMaterial, dirtMaterial } from './materials';
+import { ballGeometry, setBallMaterial, cubeGeometry, wallMaterial, dirtMaterial } from './materials';
 
-export const createFloor = (floor, scene, cellSize) => {
+export const createFloor = (floor, scene, cellSize, avatar) => {
     const gridSize = floor.length;
 
     const cubeObjects = [];
@@ -30,7 +30,7 @@ export const createFloor = (floor, scene, cellSize) => {
                 scene.add(cube);
                 cubeObjects.push(cube);
             } else if (value === 'start') {
-                ball = new THREE.Mesh(ballGeometry, ballMaterial);
+                ball = new THREE.Mesh(ballGeometry, setBallMaterial(avatar));
                 ball.position.set(xPos, yPos, 0);
                 scene.add(ball);
             } else if (value === 'bomb' || value === 'life' || value === 'stonks' || value === 'hole') {

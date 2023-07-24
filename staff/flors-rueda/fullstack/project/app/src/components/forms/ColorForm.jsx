@@ -57,7 +57,7 @@ const ColorForm = ({ setColor, onSaveColorChange }) => {
                     className="w-full md:w-1/2 text-primary100 bg-light500 hover:bg-light400 focus:ring-4 focus:outline-none focus:ring-primary300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
                     onClick={(event) => onSaveColorChange(event)}
                 >
-                    Save Color
+                    Save color
                 </button>
             </form>
         </div>

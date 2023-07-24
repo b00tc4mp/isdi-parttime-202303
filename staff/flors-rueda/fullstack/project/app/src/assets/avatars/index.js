@@ -11,4 +11,4 @@ import rainbow from './rainbow.svg';
 import tennis from './tennis.svg';
 import wood from './wood.svg'
 
-export default { basket, beach, blue, candy, dark, disco, lava, leopard, pink, rainbow, tennis, wood };
+export default { basket, beach, blue, pink, rainbow, candy, dark, disco, lava, leopard, tennis, wood };

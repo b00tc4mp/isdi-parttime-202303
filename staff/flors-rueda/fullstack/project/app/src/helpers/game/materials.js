@@ -7,15 +7,20 @@ const textureLoader = new THREE.TextureLoader();
 
 const bgTexture = textureLoader.load('/game/floor.png');
 
-const textureBall = textureLoader.load('/game/ball/beach.png');
+
 const textureWall = textureLoader.load('/game/wall.png');
 const textureDirt = textureLoader.load('/game/dirt.png');
 
 const ballGeometry = new THREE.SphereGeometry(ballRadius, 8, 8);
-const ballMaterial = new THREE.MeshBasicMaterial({ map: textureBall });
+
+const setBallMaterial = (avatar) => {
+    const textureBall = textureLoader.load(`/game/ball/${avatar}.png`);
+    const ballMaterial = new THREE.MeshBasicMaterial({ map: textureBall });
+    return ballMaterial
+}
 
 const cubeGeometry = new THREE.BoxGeometry(cubeSize, cubeSize, cubeSize);
 const wallMaterial = new THREE.MeshBasicMaterial({ map: textureWall });
 const dirtMaterial = new THREE.MeshBasicMaterial({ map: textureDirt });
 
-export { bgTexture, ballGeometry, ballMaterial, cubeGeometry, wallMaterial, dirtMaterial };
+export { bgTexture, ballGeometry, setBallMaterial, cubeGeometry, wallMaterial, dirtMaterial };

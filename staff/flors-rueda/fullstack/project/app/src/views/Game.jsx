@@ -7,12 +7,15 @@ import { configureLevelToRender } from '../helpers/game/configureLevelToRender';
 import retrieveLevel from '../logic/retrieve-level';
 import GameContainer from '../components/game/GameContainer';
 import useHandleErrors from '../hooks/useHandleErrors';
+import isUserLoggedIn from '../logic/is-user-logged-in';
+import retrieveLoggedUser from '../logic/retrieve-logged-user';
 
 const Game = () => {
   const [isLoading, setIsLoading] = useState(true);
   const { id } = useParams();
   const location = useLocation();
-  const [name, setName] = useState(null)
+  const [name, setName] = useState(null);
+  const [avatar, setAvatar] = useState('beach');
   const [layout, setLayout] = useState(null);
   const [levelToRender, setLevelToRender] = useState(null);
   const [health, setHealth] = useState(null);
@@ -27,7 +30,7 @@ const Game = () => {
         const configuredLevel = configureLevelToRender(level.layout);
         setLevelToRender(configuredLevel);
         setHealth(level.hp ? level.hp : 5);
-        setName(level.name)
+        setName(level.name);
         setIsLoading(false);
       })
     } else {
@@ -35,13 +38,19 @@ const Game = () => {
       const configuredLevel = configureLevelToRender(createdLayout);
       setLevelToRender(configuredLevel);
       setLayout(createdLayout);
-      setName(levelName)
+      setName(levelName);
       setHealth(hp ? hp : 5);
       setIsLoading(false);
     }
   };
 
   useEffect(() => {
+    handleErrors(async () => {
+      if (isUserLoggedIn()) {
+        const user = await retrieveLoggedUser();
+        setAvatar(user.avatar)
+      }
+    })
     getLevel();
   }, [id]);
 
@@ -50,7 +59,6 @@ const Game = () => {
     setLevelToRender(null);
     setHealth(null);
     setIsGameOver(0);
-
     getLevel();
   };
 
@@ -70,7 +78,7 @@ const Game = () => {
           <div className="top-0 inset-0 bg-black opacity-50"></div>
         </>
       )}
-      <GameContainer level={levelToRender} initialHp={health} onGameOver={handleGameOver} />
+      <GameContainer level={levelToRender} initialHp={health} onGameOver={handleGameOver} avatar={avatar} />
     </section>
   );
 };

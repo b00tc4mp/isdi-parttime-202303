@@ -1,14 +1,14 @@
 const { expect } = require('chai');
-const updateColor = require('./updateColor');
+const updateAvatar = require('./updateAvatar');
 const { User } = require('../../data/models');
 const mongoose = require('mongoose');
 const { cleanUp, generate } = require('../helpers/tests');
 const {
     errors: { TypeError, ContentError },
-    assets: { colors },
+    assets: { colors, avatars },
 } = require('com');
 
-describe('updateColor', () => {
+describe('updateAvatar', () => {
     before(async () => {
         await mongoose.connect(process.env.MONGODB_URL);
     });
@@ -22,60 +22,62 @@ describe('updateColor', () => {
         await mongoose.connection.close();
     });
 
-    it('should update user color with valid userId', async () => {
+    it('should update user avatar with valid userId', async () => {
         const username = `User${Math.floor(Math.random() * 999)}`;
         const password = `Password${Math.random()}`;
         const color = colors[Math.floor(Math.random() * colors.length)];
+        const avatar = avatars[Math.floor(Math.random() * avatars.length)];
         const recoveryQuestions = [
             { question: `question${Math.random()}`, answer: `answer${Math.random()}` },
             { question: `question${Math.random()}`, answer: `answer${Math.random()}` }
         ];
 
-        const user = generate.user(username, password, 'beach', color, recoveryQuestions, []);
+        const user = generate.user(username, password, avatar, color, recoveryQuestions, []);
 
         const createdUser = await User.create(user);
         const id = createdUser._id.toString();
 
-        const newColor = colors[Math.floor(Math.random() * colors.length)];
+        const newAvatar = avatars[Math.floor(Math.random() * avatars.length)];
 
-        await updateColor(id, newColor);
+        await updateAvatar(id, newAvatar);
 
         const updatedUser = await User.findById(id);
 
         expect(updatedUser).to.be.an('object');
-        expect(updatedUser).to.have.property('color', newColor)
+        expect(updatedUser).to.have.property('avatar', newAvatar)
     });
 
     it('should fail on invalid id type', async () => {
         const invalidId = 1234;
-        const color = colors[Math.floor(Math.random() * colors.length)];
-        await expect(() => updateColor(invalidId, color)).to.throw(TypeError, 'userId is not a string');
+        const avatar = avatars[Math.floor(Math.random() * avatars.length)];
+        await expect(() => updateAvatar(invalidId, avatar)).to.throw(TypeError, 'userId is not a string');
     });
 
     it('should fail on empty id', async () => {
         const emptyId = '   ';
-        const color = colors[Math.floor(Math.random() * colors.length)];
-        await expect(() => updateColor(emptyId, color)).to.throw(TypeError, 'userId is empty');
+        const avatar = avatars[Math.floor(Math.random() * avatars.length)];
+        await expect(() => updateAvatar(emptyId, avatar)).to.throw(TypeError, 'userId is empty');
     });
 
-    it('should fail on invalid color type', async () => {
+    it('should fail on invalid avatar type', async () => {
         const id = (new mongoose.Types.ObjectId()).toString()
-        const color = Math.floor(Math.random() * colors.length);
+        const avatar = Math.floor(Math.random() * avatars.length);
 
-        await expect(() => updateColor(id, color)).to.throw(TypeError, 'color is not a string');
+        await expect(() => updateAvatar(id, avatar)).to.throw(TypeError, 'avatar is not a string');
     });
 
-    it('should fail on empty color', async () => {
+    it('should fail on empty avatar', async () => {
         const id = (new mongoose.Types.ObjectId()).toString()
-        const color = '   ';
+        const avatar = '   ';
 
-        await expect(() => updateColor(id, color)).to.throw(ContentError, 'color is empty');
+        await expect(() => updateAvatar(id, avatar)).to.throw(ContentError, 'avatar is empty');
     });
 
-    it('should fail on not included color', async () => {
+    it('should fail on not included avatar', async () => {
         const id = (new mongoose.Types.ObjectId()).toString()
-        const color = 'black';
+        const avatar = 'black';
 
-        await expect(() => updateColor(id, color)).to.throw(ContentError, 'color is not included');
+        await expect(() => updateAvatar(id, avatar)).to.throw(ContentError, 'avatar is not included');
     });
+
 });

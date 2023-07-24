@@ -3,18 +3,19 @@ import inLogger from '../inLogger';
 import { tutorialLevels } from '../components/game/tutorialLevels';
 import TutorialInfo from '../components/game/TutorialInfo';
 import TutorialGameContainer from '../components/game/TutorialGameContainer';
+import useHandleErrors from '../hooks/useHandleErrors';
+import isUserLoggedIn from '../logic/is-user-logged-in';
+import retrieveLoggedUser from '../logic/retrieve-logged-user';
 
 const Tutorial = () => {
     const [key, setKey] = useState(0);
     const [isTutorialInfoOn, setTutorialInfoOn] = useState(true);
+    const [avatar, setAvatar] = useState('beach');
+    const handleErrors = useHandleErrors();
 
     const handleFinishTutorialLevel = () => {
         setKey(prevKey => prevKey + 1);
     };
-
-    useEffect(() => {
-        setTutorialInfoOn(true);
-    }, [key]);
 
     const handleCloseTutorialScreen = () => {
         setTutorialInfoOn(false);
@@ -33,6 +34,7 @@ const Tutorial = () => {
                     key={key}
                     tutorialLevel={tutorialLevels[key]}
                     onFinishTutorialLevel={handleFinishTutorialLevel}
+                    avatar={avatar}
                 />
             }
         </section>

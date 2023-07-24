@@ -5,11 +5,11 @@ import { checkCollisions } from '../helpers/game/checkCollisions';
 
 //TODO improve movement on desktop
 
-const useMoveHandler = (floor, scene, camera, onSolved, onGameWon, onBomb, onLife) => {
+const useMoveHandler = (floor, scene, camera, onSolved, onGameWon, onBomb, onLife, avatar) => {
     const gridSize = floor.length;
     const cellSize = 1.5;
 
-    const floorObjects = createFloor(floor, scene, cellSize);
+    const floorObjects = createFloor(floor, scene, cellSize, avatar);
     const ball = floorObjects.ball;
 
     let isDragging = false;
