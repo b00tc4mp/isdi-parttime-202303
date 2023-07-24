@@ -27,7 +27,6 @@ module.exports = userId => {
                 post.fav = user.favs.some(fav => fav.toString() === post.id) //true/false if post is fav
 
                 //avoid error if the user reference to the post.author._id object is already deleted
-                debugger
                 if (post.author._id) {
                     post.author.id = post.author._id.toString()
                     delete post.author._id

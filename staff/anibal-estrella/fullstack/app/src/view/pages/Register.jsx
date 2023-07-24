@@ -1,5 +1,5 @@
-import { registerUser } from '../logic'
-import { Panel } from '../library'
+import { registerUser } from '../../logic'
+import { Button, Panel, TopLine } from '../library'
 import { useAppContext } from '../hooks'
 import { Link } from 'react-router-dom'
 
@@ -34,20 +34,30 @@ export default function Register() {
         unfreeze()
     }
 
-    return <div className="register center-container">
-        < Panel tag='section' >
+    return <div className="center-xy">
+        < Panel id="register" tag='section' className="p-4" >
             <h2>Register</h2>
             <form method="get" className="register-form border-top-gradient" onSubmit={handleRegister}>
+                <TopLine></TopLine>
+
                 <label htmlFor="name">Name:</label>
                 <input type="text" className="name" name="name" placeholder="Enter your name" autoComplete="enter name" />
+                <TopLine></TopLine>
+
                 <label htmlFor="email">E-mail:</label>
                 <input type="text" className="email" name="email" placeholder="Enter your e-mail" autoComplete="enter email" />
+                <TopLine></TopLine>
+
                 <label htmlFor="password">Password:</label>
                 <input type="password" className="password" name="password" placeholder="Enter your password" autoComplete="enter password" />
+                <TopLine></TopLine>
+
                 <label htmlFor="password">Repeat password:</label>
                 <input type="password" className="password" name="repeatPassword" placeholder="Repeat your password" autoComplete="enter password" />
-                <button className="button button-submit" type="submit" value="register">Register</button>
+                <Button type="submit" value="register">Register</Button>
             </form>
+            <TopLine></TopLine>
+
             <p className="goto-login border-top-gradient">
                 Already registered? <br />
                 Login <Link to="/login">here</Link>.

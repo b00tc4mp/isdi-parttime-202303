@@ -1,22 +1,21 @@
 import { useState, useEffect, useRef } from 'react';
 
-import { updatePost, retrievePost, deletePost } from "../logic"
+import { updatePost, retrievePost, deletePost } from "../../logic"
 
 import { useAppContext } from "../hooks"
 
-import Panel from '../library/Panel'
+import { Panel, TopLine, ButtonAction } from '../library'
 
-// import "./EditPostModal.css"
 import { ArrowSmallLeftIcon } from '@heroicons/react/24/solid'
 import { TrashIcon } from '@heroicons/react/24/solid'
 import { CheckIcon } from '@heroicons/react/24/solid'
-import PanelBackground from '../library/PanelBackground';
-// import { EyeIcon } from '@heroicons/react/24/solid'
+import PanelBackgroundClose from '../library/PanelBackgroundClose';
+import { EyeIcon } from '@heroicons/react/24/solid'
 
-export default function EditPostModal({ onCancel, onPostEdited, postId, onDeletedPost }) {
+export default function EditPostModal({ onPanelClick, onCancel, onPostEdited, postId, onDeletedPost }) {
     console.debug('// EditPostModal  -> Render')
 
-    const { alert, freeze, unfreeze } = useAppContext()
+    const { alert, freeze, unfreeze, navigate } = useAppContext()
     const [post, setPost] = useState(null)
     //const [previewImage, setPreviewImage] = useState(null)
 
@@ -91,7 +90,9 @@ export default function EditPostModal({ onCancel, onPostEdited, postId, onDelete
         }
 
     };
-
+    const handlePanelClick = (event) => {
+        onPanelClick(event)
+    }
     // const imageInputRef = useRef();
 
     // const handleImagePreview = (event) => {
@@ -100,13 +101,14 @@ export default function EditPostModal({ onCancel, onPostEdited, postId, onDelete
     //     setPreviewImage(imageInputRef.current.value);
     // }
 
-    return <PanelBackground>
-        {post && <section className="edit-post-modal">
 
-            <h3 className="mb-2">Edit your post!</h3>
+    return <PanelBackgroundClose onCancel={handleCancel}>
+        {post && <section id="edit-post-modal" className='center-xy '>
 
-            <Panel tag="form" className="p-4 drop-shadow-lg z-30" onSubmit={handleEditPost}>
-                <div className="h-1 bg-gradient-to-l from-blue_dark to-red"></div>
+            <h2 className="mb-2 text-center ">Edit your post!</h2>
+
+            <Panel id="panel" tag="form" className=" self-center p-4 drop-shadow-lg z-50" onSubmit={handleEditPost} onClick={handlePanelClick}>
+                <TopLine></TopLine>
                 <label htmlFor="edit-post-image " className=''>Image:</label>
                 <img src={post.image} className="grayscale m-2 w-40 bg-gray-400 rounded-xl aspect-square self-center" alt="Preview" />
                 <div className='flex justify-center items-center mt-1'>
@@ -117,14 +119,14 @@ export default function EditPostModal({ onCancel, onPostEdited, postId, onDelete
                         defaultValue={previewImage} ref={imageInputRef} /> */}
                     {/* <button className="preview-image-button icon post-button" onClick={handleImagePreview}>Preview<EyeIcon className="eye icon" /></button> */}
                 </div>
-                <div className="h-1 bg-gradient-to-l from-blue_dark to-red my-2"></div>
+                <TopLine></TopLine>
                 <label htmlFor="edit-post-text ">Text:</label>
                 <textarea type="text" name="text" rows="5" placeholder="Write whatever you want in here." defaultValue={post.text}></textarea>
 
                 <div className="flex justify-evenly mt-2 h-10">
-                    <button className="text-[0px] text-white hover:text-red" onClick={handleDeletePost}>Delete <TrashIcon id="delete-icon" className='h-6' /></button>
-                    <button className="text-[0px] text-white hover:text-red" onClick={handleCancel}>Cancel<ArrowSmallLeftIcon id="cancel-icon" className='h-6' /></button>
-                    <button className="text-[0px] text-white hover:text-red" type="submit">Save <CheckIcon id="save-icon" className='h-6' /> </button>
+                    <ButtonAction className="text-[0px] text-white hover:text-red" onClick={handleDeletePost}>Delete <TrashIcon id="delete-icon" className='h-6' /></ButtonAction>
+                    <ButtonAction onClick={handleCancel}>Cancel<ArrowSmallLeftIcon id="cancel-icon" className='h-6' /></ButtonAction>
+                    <ButtonAction className="text-[0px] text-white hover:text-red" type="submit">Save <CheckIcon id="save-icon" className='h-6' /> </ButtonAction>
                 </div>
 
             </Panel>
@@ -132,7 +134,7 @@ export default function EditPostModal({ onCancel, onPostEdited, postId, onDelete
             <div className="overlay-panel-close" onClick={handleCancel}></div>
 
         </section>}
-    </PanelBackground >
+    </PanelBackgroundClose >
 
 }
 

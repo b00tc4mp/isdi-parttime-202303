@@ -15,10 +15,11 @@ import updateUserEmail from './updateUserEmail'
 import updateUserPassword from './updateUserPassword'
 import getUserId from './getUserId'
 import isCurrentUser from './isCurrentUser'
+import isUserLoggedIn from './isUserLoggedIn'
 import logOutUser from './logOutUser'
 import context from './context'
 import retrieveRandomMotivationalQuote from './retrieveRandomMotivationalQuote'
 
 export {
-    retrieveUser, loginUser, createPost, deletePost, registerUser, retrievePosts, retrieveLikedPosts, retrieveFavPosts, retrievePost, toggleFavPost, toggleLikePost, updatePost, updateUserAvatar, updateUserEmail, updateUserPassword, getUserId, isCurrentUser, logOutUser, context, retrieveRandomMotivationalQuote
+    retrieveUser, loginUser, createPost, deletePost, registerUser, retrievePosts, retrieveLikedPosts, retrieveFavPosts, retrievePost, toggleFavPost, toggleLikePost, updatePost, updateUserAvatar, updateUserEmail, updateUserPassword, getUserId, isCurrentUser, logOutUser, context, retrieveRandomMotivationalQuote, isUserLoggedIn
 }

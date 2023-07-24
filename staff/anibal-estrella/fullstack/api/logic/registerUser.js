@@ -1,5 +1,5 @@
 const { validators: { validateName, validateEmail, validatePassword },
-    errors: { DuplicityError, ContentError } } = require('com')
+    errors: { DuplicityError, ContentError, UnknownError } } = require('com')
 
 const { User } = require('../data/models.js')
 /**
@@ -15,12 +15,12 @@ module.exports = (name, email, password) => {
     validateEmail(email)
     validatePassword(password)
 
-    return User.create({ name, email, password, avatar: null, favs: [] })
+    return User.create({ name, email, password, favs: [] })
         // send error to handler to give it a status
         .catch(error => {
             if (error.message.includes('E11000'))
                 throw new DuplicityError(`user with email ${email} already exists`)
 
-            throw error
+            throw new UnknownError(error.message)
         })
 }

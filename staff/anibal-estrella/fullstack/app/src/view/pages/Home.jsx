@@ -1,22 +1,19 @@
-import { retrieveUser, retrieveRandomMotivationalQuote } from "../logic"
-import { useState, useEffect } from 'react'
-import { hideScroll, showScroll } from "../../ui"
-import randomSalutation from "../logic/randomSalutation"
+import { Posts, AddPostModal, EditPostModal, Profile, Menu } from '../components/'
 
-import Posts from "../components/Posts"
-import AddPostModal from '../components/AddPostModal'
-import EditPostModal from '../components/EditPostModal'
-import Profile from '../components/Profile'
-import Menu from '../components/Menu'
+import { retrieveUser, retrieveRandomMotivationalQuote } from "../../logic"
+import { useState, useEffect } from 'react'
+import { useAppContext } from '../hooks'
+import { hideScroll, showScroll } from "../../../ui"
+import randomSalutation from "../../logic/randomSalutation"
+import { useNavigate, Outlet } from 'react-router-dom'
+
 
 import { PencilSquareIcon } from '@heroicons/react/24/solid'
 import { Bars3BottomRightIcon } from '@heroicons/react/24/solid'
 
 import './Home.css'
-import { useAppContext } from '../hooks'
-import { useNavigate } from 'react-router-dom'
 
-export default function Home() {
+export default function Home({ onPanelClick }) {
     console.debug('// Home  -> Render')
 
     const { alert, freeze, unfreeze, navigate } = useAppContext()
@@ -61,9 +58,13 @@ export default function Home() {
     }, [])
 
     const closeModal = () => {
+        // event.preventDefault()
+        // event.stopPropagation()
         setModal(null)
         showScroll()
     }
+
+
 
     const handleOpenMenu = event => {
         event.preventDefault()
@@ -127,18 +128,18 @@ export default function Home() {
         <section>
             <header className="h-10 w-full fixed top-0 left-0 max-w-full z-10 bg-gradient-to-l to-blue_dark from-lime-100 md:">
                 <div className="flex flex-row items-center content-end">
-                    <h1 className=" "> <a href="#" className="header-title-link" onClick={handleOpenShowPosts} >
+                    <h1 className=" text-lg font-bold"> <a href="#" className="header-title-link" onClick={handleOpenShowPosts} >
                         Logo
                     </a></h1>
 
                     <a href="#" className="aspect-square ml-auto mr-4" onClick={handleGoToProfile}>
 
                         {user && <>
-                            <img className=" w-8 h-8 rounded-full aspect-square border-2 border-red" src={user.avatar} alt="" />
+                            <img className=" w-8 h-8 rounded-full aspect-square border-2 border-red bg-gray-200" src={user.avatar} alt="" />
                         </>}
                     </a>
 
-                    <button className="w-10 h-full bg-gradient-to-r from-blue_dark to-red p-2" onClick={handleOpenMenu}><Bars3BottomRightIcon className='Bars3BottomRightIcon text-white' /></button>
+                    <button className="w-10  h-full bg-gradient-to-r from-blue_dark to-red p-2" onClick={handleOpenMenu}><Bars3BottomRightIcon className='Bars3BottomRightIcon text-white' /></button>
                 </div>
 
                 {menu === 'menu' && <Menu
@@ -148,6 +149,7 @@ export default function Home() {
                     onHandleTheme={toggleTheme}
                     onOpenShowPosts={handleOpenShowPosts}
                     onOpenSavedPosts={handleOpenSavedPosts}
+                    onPanelClick={onPanelClick}
                 />}
 
             </header>
@@ -156,8 +158,8 @@ export default function Home() {
                 <div className="flex flex-row">
                     <div className="flex flex-row">
 
-                        <a href="#" className="w-20 h-20 aspect-square flex-shrink-0 mr-2" onClick={handleGoToProfile}>
-                            {user && <><img className="rounded-full  border-2 border-red transition ease-in-out hover:border-lime-100 duration-500" src={user.avatar} alt="" /> </>}
+                        <a href="#" className="flex-shrink-0 mr-2" onClick={handleGoToProfile}>
+                            {user && <><img className="w-20 h-20 aspect-square rounded-full  border-2 border-red transition ease-in-out hover:border-lime-100 duration-500 bg-gray-200" src={user.avatar} alt="" /> </>}
                         </a>
                         <div className="flex flex-col">
 
@@ -174,6 +176,7 @@ export default function Home() {
                     </div>
                 </div>
             </div>
+            <Outlet />
 
             {view === 'posts' && <Posts
                 onOpenShowPosts={handleOpenShowPosts}
@@ -189,6 +192,8 @@ export default function Home() {
             {modal === 'add-post' && <AddPostModal
                 onCancel={closeModal}
                 onPostCreated={handlePostCreated}
+                onPanelClick={onPanelClick}
+
             />}
 
             {modal === 'edit-post' && <EditPostModal
@@ -196,11 +201,14 @@ export default function Home() {
                 onPostEdited={handlePostCreated}
                 postId={postId}
                 onDeletedPost={handlePostCreated}
+                onPanelClick={onPanelClick}
             />}
 
-            <footer className="home-footer">
-                <div className="footer-items-wrapper">
-                    <button className="button add-post-button icon" onClick={handleOpenAddPostModal}> <PencilSquareIcon className="add icon" />Add Post</button>
+            <footer className="fixed bottom-0 left-0 w-screen  ">
+
+                <div className="flex flex-row items-center justify-center h-8 md:my-4 md:mx-8 md:h-10 md:rounded-full  bg-gradient-to-l to-blue_dark from-lime-100">
+
+                    <button className="flex rounded-lg h-12 w-12 bg-gradient-to-r from-blue_dark to-red text-[0px] text-white hover:text-erd justify-center items-center mb-6 drop-shadow-sm hover:drop-shadow-lg active:drop-shadow-none active:bg-red" onClick={handleOpenAddPostModal}> <PencilSquareIcon className="h-6 w-6 self-center " />Add Post</button>
                 </div>
             </footer>
         </section>

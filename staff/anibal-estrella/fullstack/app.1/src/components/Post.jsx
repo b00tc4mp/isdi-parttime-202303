@@ -50,7 +50,6 @@ export default function Post({ post: { author, id, image, text, date, likes, fav
     }
 
     const handleToggleFavPost = () => {
-
         try {
             freeze()
             toggleFavPost(context.userId, id, (error) => {

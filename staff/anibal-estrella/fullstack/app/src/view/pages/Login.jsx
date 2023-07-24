@@ -1,10 +1,8 @@
 import { useAppContext } from "../hooks"
-import { loginUser } from '../logic'
+import { loginUser } from '../../logic'
 import { Link } from 'react-router-dom'
 
-import { Panel } from '../library'
-
-import "./Login.css"
+import { Button, Panel, TopLine } from '../library'
 
 export default function Login() {
     console.debug('// Login  -> Render \nEddie\npj@gmail.com\n123123123');
@@ -31,17 +29,21 @@ export default function Login() {
     }
 
 
-    return <div className="login center-container">
-        <Panel tag="section" className="" >
+    return <div className="center-xy">
+        <Panel id="login" tag="section" className="p-4" >
             <h2>Login</h2>
-            <form className="border-top-gradient" onSubmit={handleLogin}>
+            <form className="" onSubmit={handleLogin}>
+                <TopLine></TopLine>
                 <label htmlFor="username">E-mail:</label>
                 <input type="text" className="email" name="email" placeholder="Enter your e-mail" autoComplete="your email" />
+                <TopLine></TopLine>
                 <label htmlFor="lastname">Password:</label>
                 <input type="password" className="password" name="password" placeholder="Enter your password" autoComplete="enter password" />
-                <button className="button-submit button" type="submit">Login</button>
+                <Button type="submit">Login</Button>
+
             </form>
-            <p className="goto-register border-top-gradient ">Not registered? <br />Do it <Link to="/register" >here</Link>.</p>
+            <TopLine ></TopLine>
+            <p className="  ">Not registered? <br />Do it <Link to="/register" >here</Link>.</p>
         </ Panel >
     </div>
 }

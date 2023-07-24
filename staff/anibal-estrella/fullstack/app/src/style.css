@@ -12,36 +12,6 @@
     outline: none;
 } */
 
-@layer {
-
-    :root {
-        /* --f-montserrat: "montserrat", sans-serif; */
-        --op-50: /50%;
-        --op-80: /80%;
-        --c-back-val: 162 5% 20%;
-        --c-base-val: 162 5% 6%;
-        --c-gray-val: 162 10% 40%;
-        --c-lime-val: 162 100% 45%;
-        --c-gray_light-val: 162 10% 70%;
-        --c-lime: hsl(var(--c-lime-val));
-        --c-lime_dark: hsl(var(--c-lime_dark-val));
-        --c-base: hsl(var(--c-base-val));
-        --c-back: hsl(var(--c-back-val));
-        --c-gray: hsl(var(--c-gray-val));
-        --c-gray_light: hsl(var(--c-gray_light-val));
-        --c-back-80: hsl(var(--c-back-val) var(--op-80));
-        --c-base--80: hsl(var(--c-base-val) var(--op-80));
-        --c-base--50: hsl(var(--c-base-val) var(--op-50));
-        --c-gray_light--50: hsl(var(--c-gray_light-val) var(--op-50));
-        --c-gray_light--80: hsl(var(--c-gray_light-val) var(--op-80));
-        --c-lime_dark-val: 162 100% 35%;
-        --c-red: hsl(340, 100%, 60%);
-        --c-blue_dark: hsl(243, 100%, 22%);
-        --c-white: hsl(45, 6%, 86%);
-        --c-bg-gr: linear-gradient(315deg, var(--c-lime) 0%, var(--c-blue_dark) 100%);
-        --c-btn-gr: linear-gradient(315deg, var(--c-blue_dark) 0%, var(--c-red) 100%);
-    }
-}
 
 
 @layer base {
@@ -52,6 +22,10 @@
     label {
         @apply text-white;
         @apply uppercase;
+    }
+
+    h2 {
+        @apply font-bold;
     }
 
     label {
@@ -82,7 +56,7 @@
         @apply bg-gray-200;
         @apply rounded-xl;
         @apply p-2;
-        @apply mb-2;
+        @apply mb-6;
 
     }
 
@@ -101,14 +75,14 @@
 
     }
 
-    button {
+    button,
+    button:hover {
         @apply border-none;
         @apply cursor-pointer;
         @apply self-center;
         @apply transition-all;
         @apply ease-in-out;
-        @apply duration-300;
-
+        @apply duration-500;
     }
 
 }
@@ -180,14 +154,13 @@ h3 {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-
 }
 
-.block-scroll {
+/* .block-scroll {
     overflow: hidden;
-}
+} */
 
-.center-container {
+/* .center-container {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -195,34 +168,34 @@ h3 {
     flex-direction: column;
     margin: auto;
     height: 100%;
-}
-
+} */
+/* 
 .inline-container {
     display: flex;
     align-items: center;
     flex-direction: row;
     align-self: center;
     margin: auto;
-}
+} */
 
-.login,
+/* .login,
 .register {
     min-width: fit-content;
     width: 500px;
     max-width: 50vw;
-}
+} */
 
-.login h2,
+/* .login h2,
 .register h2 {
     margin: 1rem 0 2rem 0;
-}
+} */
 
-.goto-login,
+/* .goto-login,
 .goto-register {
     margin: 2rem 0 0 0;
     padding: 1rem 0 0 0;
     font-size: 0.9rem;
-}
+} */
 
 /* .login button,
 .register button {
@@ -254,13 +227,13 @@ h3 {
     letter-spacing: 0.1rem;
 } */
 
-h1 {
+/* h1 {
     text-align: center;
     font-weight: 700;
-}
+} */
 
 
-.border-top-gradient {
+/* .border-top-gradient {
     border-width: 2px;
     border-style: solid;
     border-bottom: 0;
@@ -268,7 +241,7 @@ h1 {
     border-right: 0;
     border-image: var(--c-btn-gr) 2 / 1px 0 0;
     padding-top: .5rem;
-}
+} */
 
 /* form label {
     font-weight: 500;
@@ -292,7 +265,7 @@ h1 {
 
 
 
-.button {
+/* .button {
     width: max-content;
     min-height: 3rem;
     min-width: 7rem;
@@ -308,39 +281,39 @@ h1 {
     box-shadow: 2px 2px 2px var(--c-base--80);
 
     transition: box-shadow 0.2s ease, background-size .2s ease, background-position .5s ease;
-}
+} */
 
 
 :root.dark-theme .button {
     box-shadow: 2px 2px 2px var(--c-base);
 }
 
-.button:hover {
+/* .button:hover {
     background-position: right;
     background-size: 500%;
     box-shadow: 5px 5px 5px var(--c-base--50);
-}
+} */
 
-:root.dark-theme .button:hover {
+/* :root.dark-theme .button:hover {
     box-shadow: 5px 5px 5px var(--c-base);
 
-}
+} */
 
 
 
-.button:active {
+/* .button:active {
     background-image: unset;
     color: var(--c-blue_dark);
     background-color: var(--c-lime);
     text-shadow: none;
     box-shadow: none;
-}
+} */
 
-.button:focus {
+/* .button:focus {
     background-color: var(--c-lime);
     text-shadow: none;
     box-shadow: none;
-}
+} */
 
 
 
@@ -357,19 +330,7 @@ h1 {
 /* 
 .add-post-modal,
 .edit-post-modal, */
-.alert {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: fixed;
-    justify-content: center;
-    top: 0;
-    left: 0;
-    height: 100vh;
-    width: 100vw;
-    background-color: var(--c-base--80);
-    padding: 2rem;
-}
+
 
 /* .add-post-modal,
 .edit-post-modal {

@@ -1,12 +1,10 @@
-import Login from './pages/Login'
-import Register from './pages/Register'
-import Home from './pages/Home'
-import Alert from './components/Alert'
+import { Home, Login, Register, } from './view/pages/'
+import { Alert, Profile } from './view/components/'
+import { Loader } from './view/library'
 import AppContext from './AppContext'
 import { useState } from 'react'
-import { Loader } from './library'
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom'
-import isUserLoggedIn from './logic/isUserLoggedIn'
+import { isUserLoggedIn } from '../src/logic'
 
 const { Provider } = AppContext
 
@@ -24,16 +22,30 @@ export default function App() {
 
     const alert = (message, level = 'info') => setFeedback({ message, level })
 
+    function handlePanelClick(event) {
+        event.stopPropagation();
+    }
+
     return <Provider value={{ alert, freeze, unfreeze, navigate }}>
 
         <Routes>
             {(() => console.log('Routes -> Render'))()}
+            <Route path="/" element={isUserLoggedIn() ? <Home
+                onPanelClick={handlePanelClick}
+            /> : <Navigate to="/login" />}>
+                <Route
+                    path="profile"
+                    element={<Profile />}
+                />
+            </Route>
+
             <Route path="/login" element={isUserLoggedIn() ? <Navigate to="/" /> : <Login />} />
             <Route path="/register" element={isUserLoggedIn() ? <Navigate to="/" /> : <Register />} />
-            <Route path="/" element={isUserLoggedIn() ? <Home /> : <Navigate to="/login" />} />
         </Routes>
 
-        {feedback && <Alert message={feedback.message} level={feedback.level} onAccept={handleAcceptAlert} />}
+        {feedback && <Alert message={feedback.message} level={feedback.level} onAccept={handleAcceptAlert}
+            onPanelClick={handlePanelClick}
+        />}
         {loader && <Loader />}
     </Provider>
 

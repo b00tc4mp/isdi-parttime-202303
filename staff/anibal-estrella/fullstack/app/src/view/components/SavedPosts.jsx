@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react"
-import { context } from "../ui"
 
-import { retrievePosts, retrieveUser } from "../logic"
+import { retrievePosts, retrieveUser } from "../../logic"
 
 import Post from "./Post.jsx"
 

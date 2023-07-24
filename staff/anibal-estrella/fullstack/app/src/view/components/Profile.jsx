@@ -1,18 +1,18 @@
-import { context } from "../logic"
 import { useAppContext } from "../hooks"
 import { useState, useRef, useEffect } from 'react';
 import { utils } from 'com'
+const { extractSubFromToken } = utils
 
 import {
     retrieveUser,
     updateUserAvatar,
     updateUserPassword,
-    updateUserEmail
-} from "../logic"
+    updateUserEmail,
+    context
+} from "../../logic"
 
-const { extractSubFromToken } = utils
 
-import Panel from "../library/Panel"
+import { Panel } from "../library"
 
 import { EyeIcon } from '@heroicons/react/24/solid'
 import './Profile.css'
@@ -27,19 +27,12 @@ export default ({ onAvatarUpdated, user }) => {
 
     useEffect(() => {
         try {
-            freeze()
-
-            retrieveUser(context.token).then(() => {
-                setPreviewImage(user.avatar)
-            })
-            unfreeze()
-        }
-        catch (error) {
-            unfreeze()
-
+            retrieveUser()
+                .then(setPreviewImage)
+                .catch(error => alert(error.message))
+        } catch (error) {
             alert(error.message)
         }
-        //we send an empty array just to load it for the first time
     }, [])
 
     const handleUpdateAvatar = event => {

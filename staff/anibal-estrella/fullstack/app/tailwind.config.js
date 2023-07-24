@@ -1,4 +1,7 @@
 /** @type {import('tailwindcss').Config} */
+import AppPlugin from './tailwind.App.plugin'
+
+
 export default {
     content: [
         "./index.html",
@@ -27,5 +30,5 @@ export default {
             }
         }
     },
-    plugins: [],
+    plugins: [AppPlugin],
 }

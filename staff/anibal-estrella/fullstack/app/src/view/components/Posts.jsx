@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import { useAppContext } from "../hooks"
 
-import { retrievePosts, retrieveFavPosts, retrieveUser } from "../logic"
+import { retrievePosts, retrieveFavPosts, retrieveUser } from "../../logic"
 
 import Post from "./Post.jsx"
 

@@ -12,15 +12,11 @@ const { User } = require('../data/models')
 module.exports = userId => {
     validateId(userId, 'user Id')
 
-    return User.findById(userId).lean()
+    return User.findById(userId, "name, avatar").lean()
         .then(user => {
             if (!user) throw new ExistenceError('user not found')
-            // sanitize
 
             delete user._id
-            delete user.password
-            delete user.favs
-            delete user.__v
 
             return user
         })

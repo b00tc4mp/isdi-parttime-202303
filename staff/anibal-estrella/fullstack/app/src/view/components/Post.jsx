@@ -1,7 +1,7 @@
-import { context, getUserId, isCurrentUser } from "../logic"
-import { toggleLikePost, toggleFavPost } from '../logic'
+import { context, getUserId, isCurrentUser } from "../../logic"
+import { toggleLikePost, toggleFavPost } from '../../logic'
 import { useAppContext } from "../hooks"
-import formatTimeSince from "../logic/formatTimeSince"
+import formatTimeSince from "../../logic/formatTimeSince"
 
 import Panel from '../library/Panel'
 
@@ -42,7 +42,7 @@ export default ({ post: { author, id, text, image, date, likes, fav }, onEditPos
     const handleToggleFavPost = () => {
         try {
             freeze()
-            toggleFavPost(context.token, id).then(() => {
+            toggleFavPost(id).then(() => {
                 unfreeze()
                 onToggledFavPost();
             })
