@@ -4,21 +4,33 @@ blah blah
 
 ## Install
 
-```sh
-$ npm i
-```
+MOCHA
+npm init --yes
+npm i -D mocha chai
+
+NYC INSTAMBUL
+npm i -D nyc
+
+EXPRESS
+npm i express
+
+.ENV
+npm i dotenv
+
+MONGOOSE
+npm i mongoose
+
 
 ## Run
 
-```sh
-$ npm run start
-```
+
+
 
 ### Inspect
 
-```sh
-$ npm run inspect
-```
+MOCHA
+npm run test
+npm run test-inspect
 
 ### Watch
 
