@@ -3,7 +3,7 @@ const {
     validators: { validateEmail, validatePassword },
     errors: { ExistenceError, AuthError }
 } = require('com')
-
+const { User } = require('../data/models')
 
 /**
  * Authenticates a user against his/her credentials
@@ -23,7 +23,6 @@ module.exports = function authenticateUser(email, password) {
     validateEmail(email)
     validatePassword(password)
 
-    const { User } = require('../data/models')
 
     return User.findOne({ email })
         .then(user => {
