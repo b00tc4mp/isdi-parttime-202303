@@ -2,7 +2,7 @@
 
 ## Intro
 
-This webapp is the official web for MayBe, an andalusian music band. It provides all the information that their fans need, including events information (dates, location, etc...), updates, media, contact, and social network integration. It also provides a section to manage all events, updates, media and messages from the contact section, accessible only to band members (or someone who they authorize). Updates will be pushed via RSS too.
+This webapp is the official web for Alex MayBe, an andalusian musician. It provides all the information that their fans need, including events information (dates, location, etc...), updates, media, contact, and social network integration. It also provides a section to manage all events, updates, media and messages from the contact section, accessible only to band members (or someone who they authorize). Updates will be pushed via RSS too.
 
 It uses React, Tailwind CSS, NextJS, MongoDB and Mongoose.
 
