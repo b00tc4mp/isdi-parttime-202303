@@ -4,21 +4,33 @@ The back end is programmed in Node.JS with an API based on EXPRESS and using MON
 
 ## Install
 
-EXPRESS
-npm i express
-
-.ENV
-npm i dotenv
-
-MONGOOSE
-npm i mongoose
-
 MOCHA
 npm init --yes
 npm i -D mocha chai
 
 NYC INSTAMBUL
 npm i -D nyc
+
+EXPRESS
+npm i express
+
+.ENV
+npm i dotenv
+
+com 
+npm i ../com
+
+MONGOOSE
+npm i mongoose
+
+JSON web token
+npm i jsonwebtoken
+
+Cors
+npm i cors
+
+bcryptjs
+npm i bcryptjs
 
 ## Run
 
