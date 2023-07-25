@@ -37,9 +37,10 @@ At the end of the purchase a summary of purchases is generated, indicating the m
 - update product comment
 - update chat comment
 - update product state
-- review list of products
+- review list of products whit filter
+- review list of strores
+- review list of product type
 - generate purchase summary
-
 
 ## Technical description
 
@@ -108,50 +109,66 @@ Lists
 
 ##### Tasks
 
-- DONE build html
-- DONE build basic css
-- DONE implement register functionality
-- DONE implement login functionality
-- DONE implement home welcome functionality
+- TODO build html
+- TODO build basic css
+- TODO implement register functionality
+- TODO implement login functionality
+- TODO implement home welcome functionality
 
-#### Create a post and refresh posts
+#### Create and access a shared shopping list
 
-- Me as a user, I want to create a post with text and image
-- Me as user, I want to see the list of created posts
-
-##### Tasks
-
-- DONE implement plus button at the bottom of home (footer)
-- DONE implement modal window for creating a post (inputs: image, text)
-- DONE implement createPost logic to persist the info (image, text) in database
-- DONE implement retrievePosts logic to get all the posts from database
-- DONE implement a panel for listing posts in home
-
-#### Edit a post and refresh list
-
-- Me as user, I want to have the edit option (as a button) in any post that I created, open the Edit dialog with it, and save the changes in the post
-- Me as user, I want to see the list of posts updated with the changes applied in any of my posts
+- Me as a user, I want to create a shared shopping list, enter name list and request for addition user to shopping list.
+- Me as user, I want to see the list of shared shopping list and accept addition to shopping list. 
 
 ##### Tasks
 
-- DONE add edit button in all the posts that belong to the user that is connected (in the session)
-- DONE implement retrievePost logic to get the information of a post
-- DONE implement the modal window for editing a post (inputs: image, text) showing the current information of the post when opened
-- DONE implement updatePost logic to save the information of a post in db and mechanise in the edit post form submit
-- DONE add a call to refresh the posts list after saving the changes in the edited post
+- TODO implement shared shopping list creation button.
+- TODO implement a list of shared shopping lists to which I can accept to access
+- TODO implement list of shared shopping lists in which I participate to access
+- TODO implement modal window of creation of shared shopping list with assignment of name, date of end and assignment of contacts who can participate
+- TODO implement shared shopping list modal window, will contain access to chat and shared shopping list and access to shared shopping list summary
 
-#### Delete a post and refresh list
-
-- Me as user, I want to have the delete option (as a button) in any post tha I created, open a Delete dialog with it, and proceed to delete the post if accepted (or cancel it otherwise)
-- Me as user, I want to see the list of posts updated with the changes applied in any of my posts
+#### Add comment to chat
+- Me as user, I want to add and view the comments of the users in the list
 
 ##### Tasks
 
-- DONE add delete button in all the posts that belong to the user that is connected (in the session)
-- DONE implement deletePost logic to remove a post from database
-- DONE implement the modal window for asking the user if she/he really wants to delete the post (two buttons: delete, cancel)
-- DONE add a call to refresh the posts list after deleting the post
+- implement add comment
+- implement reviews comments
 
-#### Migrate presentation layer to React
+#### Add product to the shared shopping list and update list
 
-- DONE migrate all pages and components to React
+-I, as a user, want to insert products in the shared shopping list.
+##### Tasks
+
+- TODO implement modal window to insert products with name, quantity, type of product, trade, comment
+
+#### Review shared shopping list
+
+- Me as user, I want to review the products in the shared shopping list. 
+- Me as user, I want to filter by number of likes, product type, merchants, users, products purchased.
+
+##### Tasks
+
+- TODO implement modal window to review products.
+- TODO implement filter selector for review.
+- TODO implement edit and delete buttons.
+
+### Edit a product from the list and update list.
+
+-As a user, I want to be able to edit a product. 
+
+##### Tasks
+
+- TODO implement modal window to edit a product name, quantity, type of product, trade, comment
+- TODO add refresh of the shared shopping list
+
+### Remove a product from the list and refresh list
+
+-As a user, I want to be able to delete a product with a delete control dialog.
+
+##### Tasks
+
+- TODO implement deletion of a product
+- TODO implement modal window to accept the deletion of a product
+- TODO add refreshing of the shared shopping list
