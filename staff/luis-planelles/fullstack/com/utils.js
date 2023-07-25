@@ -6,7 +6,7 @@ function extractPayloadFromToken(token) {
 
 function isTokenAlive(token) {
   const { iat, exp } = extractPayloadFromToken(token);
-  const now = Date.now() / 10000000;
+  const now = Date.now() / 1000;
 
   return exp - iat > now - iat;
 }
