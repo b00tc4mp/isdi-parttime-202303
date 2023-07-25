@@ -40,9 +40,20 @@ class AuthError extends Error {
   }
 }
 
+class UnknowError extends Error {
+  constructor(message) {
+    super(message);
+  }
+
+  get name() {
+    return UnknowError.name;
+  }
+}
+
 module.exports = {
   DuplicityError,
   ContentError,
   ExistenceError,
   AuthError,
+  UnknowError,
 };
