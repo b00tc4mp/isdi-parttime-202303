@@ -1,29 +1,22 @@
 import { useState } from 'react'
-import Login from './pages/Login.jsx'
-import Register from './pages/Register.jsx'
-import Home from './pages/Home.jsx'
-import { context } from './ui.js'
-import Alert from './components/Alert.jsx'
-import Context from './Context.js'
-import Loader from './library/Loader.jsx'
-import { utils } from 'com'
+import Login from './view/pages/Login'
+import Register from './view/pages/Register'
+import Home from './view/pages/Home'
+import Alert from './view/components/Alert'
+import AppContext from './AppContext.js'
+import Loader from './view/library/Loader.jsx'
+import { Routes, Route, Navigate, useNavigate } from 'react-router-dom'
+import isUserLoggedIn from './logic/isUserLoggedIn.js'
 
-const { isTokenValid, isTokenAlive } = utils
+const { Provider } = AppContext
 
 
 export default function App(){
-    const { token } = context
-    const [view, setView] = useState(isTokenValid(token) && isTokenAlive(token) ? 'home' : 'login')
+    console.debug('App -> render')
 
     const [feedback, setFeedback] = useState(null)
-
     const [loader, setLoader] = useState(false)
-
-    const handleGoToRegister = () => setView('register')
-
-    const handleGoToLogin = () => setView('login')
-
-    const handleGoToHome = () => setView('home')
+    const navigate = useNavigate()
 
     const handleAcceptAlert = () => setFeedback(null)
 
@@ -33,16 +26,17 @@ export default function App(){
 
     const unfreeze = () => setLoader(false)
 
+    return <Provider value={{ alert: handleShowAlert, freeze, unfreeze, navigate}}>
+        <Routes>
+        {(() => console.log('Routes -> render'))()}
+        <Route path="/login" element={isUserLoggedIn()? <Navigate to="/" /> : <Login /> } />
+        <Route path="/register" element={isUserLoggedIn() ? <Navigate to="/" /> : <Register />} />
+        <Route path="/" element={isUserLoggedIn() ? <Home /> : <Navigate to="/login" />} />
+        </Routes>
 
-    console.log('App -> render')
-
-    return <Context.Provider value={{ alert: handleShowAlert, freeze, unfreeze}}>
-        {view === 'login' && <Login onRegisterClick={handleGoToRegister} onUserLoggedIn={handleGoToHome} />}
-        {view === 'register' && <Register onLoginClick={handleGoToLogin} onUserRegistered={handleGoToLogin} />}
-        {view === 'home' && <Home onLoggedOut={handleGoToLogin} />}
         {feedback && <Alert message={feedback.message} level={feedback.level} onAccept={handleAcceptAlert} />}
         {loader && <Loader />}
         
-    </Context.Provider>
+    </Provider>
 }
 

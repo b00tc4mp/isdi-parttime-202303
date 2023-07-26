@@ -1,22 +1,28 @@
-import { validators } from 'com'
-const { validateToken, validateUrl, validateText } = validators
+import { validators, errors } from 'com'
+const { validateUrl, validateText } = validators
+import context from './context'
 
-export default function createPost(token, image, location, title, text) {
-    validateToken(token)
+export default function createPost(image, location, title, text) {
     validateUrl(image, 'image url')
     validateText(text)
 
-    return fetch(`${import.meta.env.VITE_API_URL}/posts`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-        },
-        
-        body: JSON.stringify({ image, location, title, text })
-    })
-        .then(res => {
-            if (res.status !== 201)
-                return res.json().then(({ error: message }) => { throw new Error(message) })
+    return (async () => {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/posts`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${context.token}`
+            },
+            body: JSON.stringify({ image, location, title, text })
         })
+
+        if (res.status === 201)
+            return
+
+        const { type, message } = await res.json()
+
+        const clazz = errors[type]
+
+        throw new clazz(message)    
+    })()
 }

@@ -1,20 +1,25 @@
-import { validators } from 'com'
-const { validateToken, validateId } = validators
+import { validators , errors } from 'com'
+const { validateId } = validators
+import context from './context'
 
 
-export default function toggleFavPost(token, postId) {
-    validateToken(token)
+export default (postId) => {
     validateId(postId, 'post id')
 
-    return fetch(`${import.meta.env.VITE_API_URL}/posts/${postId}/fav`, {
-        method: 'PATCH',
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    }).then((res) => {
-        if (res.status !== 201)
-            return res.json().then(({ error: message }) => {
-                throw new Error(message)
-            })
-    })
+    return (async () => {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/posts/${postId}/fav`, {
+            method: 'PATCH',
+            headers: {
+                Authorization: `Bearer ${context.token}`,
+            }
+        })
+        if (res.status === 201)
+            return
+
+        const { type, message } = await res.json()
+
+        const clazz = errors[type]
+
+        throw new clazz(message)  
+    })()
 }

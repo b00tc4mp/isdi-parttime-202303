@@ -9,30 +9,30 @@ module.exports = (userId, postId) => {
     validateId(userId, 'user id')
     validateId(postId, 'post id')
 
+    return (async () => {
+        const user = await User.findById(userId).lean()
 
-    return Promise.all([
-        User.findById(userId).lean(),
-        Post.findById(postId)
-    ])
-        .then(([user, post])=> {
-            if (!user) throw new ExistenceError(`User with id ${userId} not found`)
-            if (!post) throw new ExistenceError(`Post with id ${postId} not found`)
+        if (!user) throw new ExistenceError(`User with id ${userId} not found`)
 
-            const index = user.favs.findIndex((id) => id.toString() === postId)
+        const post = await Post.findById(postId)
 
-                if (index < 0) {
-                     return User.updateOne(
-                        { _id: userId },
-                        { $push: { favs: postId } }
-                    )
+        if (!post) throw new ExistenceError(`Post with id ${postId} not found`)
 
-                } else 
-                    user.favs.splice(index, 1)
-                
-                return User.updateOne(
-                    { _id: userId },
-                    { $set: { favs: user.favs } }
-                )
-        })
+        const index = user.favs.findIndex((id) => id.toString() === postId)
+
+        if (index < 0) {
+            return User.updateOne(
+                { _id: userId },
+                { $push: { favs: postId } }
+            )
+
+        } else
+            user.favs.splice(index, 1)
+
+        return User.updateOne(
+            { _id: userId },
+            { $set: { favs: user.favs } }
+        )
+    })()
 }
 

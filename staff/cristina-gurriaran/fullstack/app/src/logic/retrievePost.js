@@ -1,22 +1,22 @@
-import { validators } from 'com'
-const { validateToken, validateId } = validators
+import { validators , errors } from 'com'
+const { validateId } = validators
+import context from './context'
 
 
-export default function retrievePost(token, postId) {
-    validateToken (token)
+export default (postId) => {
     validateId (postId, 'post id')
 
-    return fetch(`${import.meta.env.VITE_API_URL}/posts/${postId}`, {
-        method: 'GET',
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    }).then((res) => {
-        if (res.status !== 200)
-            return res.json().then(({ error: message }) => {
-                throw new Error(message)
-            })
+    return (async () => {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/posts/${postId}`, {
+            headers: { Authorization: `Bearer ${context.token}` }
+        })
+        if (res.status === 200)
+            return res.json()
 
-        return res.json()
-    })
+        const { type, message } = await res.json()
+
+        const clazz = errors[type]
+
+        throw new clazz(message)  
+    })()
 }

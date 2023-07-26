@@ -2,32 +2,44 @@ const { errors: {
     DuplicityError,
     ContentError,
     AuthError,
-    ExistenceError
+    ExistenceError,
+    PermitError
 } } = require('com')
 
 module.exports = callback => {
     return (req, res) => {
         try {
-            callback(req, res)
-                .catch(error => {
-                    let status = 500
+            const promise = callback(req, res)
 
-                    if (error instanceof DuplicityError)
-                        status = 409
-                    else if (error instanceof ExistenceError)
-                        status = 404
-                    else if (error instanceof AuthError)
-                        status = 401
-
-                    res.status(status).json({ error: error.message })
-                })
+                ; (async () => {
+                    try {
+                        await promise
+                    } catch (error) {
+                        respondError(error, res)
+                    }
+                })()
         } catch (error) {
-            let status = 500
-
-            if (error instanceof TypeError || error instanceof ContentError || error instanceof RangeError)
-                status = 406
-
-            res.status(status).json({ error: error.message })
+            respondError(error, res)
         }
     }
 }
+
+function respondError(error, res) {
+    let status = 500
+
+    if (error instanceof DuplicityError)
+        status = 409
+    else if (error instanceof ExistenceError)
+        status = 404
+    else if (error instanceof AuthError)
+        status = 401
+    else if (error instanceof PermitError)
+        status = 401
+    else if (error instanceof TypeError || error instanceof ContentError || error instanceof RangeError)
+        status = 406
+
+    res.status(status).json({ message: error.message, type: error.constructor.name })
+}
+
+
+

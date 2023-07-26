@@ -13,17 +13,16 @@ module.exports = (userId, password, newPassword, newPasswordConfirm) => {
     validatePassword(newPasswordConfirm, 'new password confirm')
     if (newPassword !== newPasswordConfirm) throw new ContentError ('password confirmation mismatch')
 
-    return User.findById(userId)
-        .then(user => {
-            if(!user) {
-                throw new ExistenceError ('User not found') }
-            
-            if(user.password !== password) {
-                throw new AuthError ('wrong password')
-            }
+    return (async() => {
+        const user = await User.findById(userId)
 
-            return User.updateOne({ _id: userId }, {$set: {password : newPassword}})
-        })
+        if (!user) 
+            throw new ExistenceError('User not found')
+        
+        if (user.password !== password) 
+            throw new AuthError('wrong password')
 
-        .then(() => { })
+        return User.updateOne({ _id: userId }, { $set: { password: newPassword } })
+
+    })()
 }

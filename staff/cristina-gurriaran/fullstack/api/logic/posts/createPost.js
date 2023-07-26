@@ -12,17 +12,17 @@ module.exports = (userId, image, location, title, text) => {
     validateUrl(image, 'image url')
     validateText(text)
 
-    return User.findById(userId)
-        .then(user => {
-            if (!user) throw new ExistenceError(`user with id ${userId} not found`)
+    return (async () => {
+        const user = await User.findById(userId)
 
-            return Post.create({
-                author: user._id,
-                image,
-                location,
-                title,
-                text,
-            })
+        if (!user) throw new ExistenceError(`user with id ${userId} not found`)
+
+        return Post.create({
+            author: userId,
+            image,
+            location,
+            title,
+            text,
         })
-        .then(() => { })
+    })()
 }

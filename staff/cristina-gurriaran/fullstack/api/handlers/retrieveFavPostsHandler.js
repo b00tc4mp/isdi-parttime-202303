@@ -4,6 +4,11 @@ const { retrieveFavPosts } = require('../logic')
 module.exports = handleErrors((req, res) => {
     const userId = extractUserId(req)
 
-    return retrieveFavPosts(userId)
-        .then(posts => res.json(posts))
+    const promise = retrieveFavPosts(userId)
+
+    return (async () => {
+        const posts = await promise
+
+        res.json(posts)
+    })()
 })

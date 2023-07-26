@@ -5,6 +5,11 @@ module.exports = handleErrors((req, res) => {
     const userId = extractUserId(req)
     const { postId } = req.params
 
-    return toggleFavPost(userId, postId)
-        .then(() => res.status(201).send())
+    const promise = toggleFavPost(userId, postId)
+
+    return (async () => {
+        await promise
+
+        res.status(201).send()
+    })()
 })
