@@ -7,14 +7,16 @@ const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 
 //add handlers
-const { registerUserHandler, 
+const { 
+    registerUserHandler, 
     authenticateUserHandler, 
     retrieveUserHandler,
     updateUserPasswordHandler,
     updateUserAvatarHandler,
     updateUserModeHandler,
-
-    } = require('./handlers')
+    addUserContactHandler,
+    deleteUserContactHandler
+} = require('./handlers')
 
 //
 
@@ -46,6 +48,10 @@ mongoose.connect(process.env.MONGODB_URL)
         api.patch('/users/updateAvatar', jsonBodyParser , updateUserAvatarHandler)
 
         api.patch('/users/updateMode', jsonBodyParser, updateUserModeHandler)
+
+        api.patch('/users/contact/:contactId/add', jsonBodyParser, addUserContactHandler)
+
+        api.patch('/users/contact/:contactId/delete', jsonBodyParser, deleteUserContactHandler)
 //
 
         api.listen(process.env.PORT, () => console.log(`server running in port ${process.env.PORT}`))

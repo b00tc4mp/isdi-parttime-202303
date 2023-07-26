@@ -22,7 +22,7 @@ describe('addUserContact', () => {
         return await Promise.all([populateUser(userTest), populateUser(contactTest)])
     })
 
-    it('succeeds on existing user and correct id', async () => {       
+    it('succeeds on existing user and correct id user and id contact', async () => {       
         await addUserContact(userTest.id, contactTest.id)
         
         const user = await User.findById(userTest.id)
@@ -32,6 +32,18 @@ describe('addUserContact', () => {
 
         expect(user.contacts).to.have.lengthOf(1)
         expect(user.contacts[0].toString()).to.equal(contactTest.id)
+    })
+
+    it('fails on existing user and id contact alraady exist', async () => {
+        userTest.contacts.push(contactTest.id)
+        await User.findByIdAndUpdate(userTest.id, { $push: { contacts: contactTest.id }})
+
+        try {
+            return await addUserContact(userTest.id, contactTest.id)
+        } catch (error) {
+            expect(error).to.be.instanceOf(Error)
+            expect(error.message).to.equal('user not found')
+        }
     })
 
     it('fails on existing user and incorrect id', async () => {

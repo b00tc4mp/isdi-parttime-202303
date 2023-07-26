@@ -12,7 +12,6 @@ const { User } = require('../../data/models')
  * @param {oid} contactId The contact's userId
  * 
  * @throws {ExistenceError} On existing userId
- * @throws {InvalidDataError} On invalid password
  */
 module.exports = (userId, contactId) => {
     validateId(userId, 'user id')
