@@ -9,7 +9,7 @@ const { Employee, PayrollMonth } = require('../data/models')
 mongoose.connect(process.env.MONGODB_URL)
 
     // .then(() => Promise.all(Employee.deleteMany()))
-    .then(() => createEmployeeMonthPayroll('64bd87ab06ceac185911ade7', 2023, "July"))
+    .then(() => createEmployeeMonthPayroll('64beb991504fb29df29bc692', 2023, "february"))
     .then((result) => console.log(result))
     .catch(error => { console.log(error) })
     .finally(() => mongoose.disconnect())

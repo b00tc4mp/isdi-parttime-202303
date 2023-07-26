@@ -12,11 +12,6 @@ export default () => {
             if (res.status === 200)
                 return res.json()
 
-        })
-        .then(res => {
-            if (res.status === 200)
-                return res.json()
-
             return res.json()
                 .then(body => {
                     throw new Error(body.message)

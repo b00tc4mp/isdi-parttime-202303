@@ -17,8 +17,16 @@ npm i express
 .ENV
 npm i dotenv
 
+npm i jsonwebtoken
+npm i cors
+
 MONGOOSE
 npm i mongoose
+
+COM
+npm i ../com
+
+
 
 
 ## Run

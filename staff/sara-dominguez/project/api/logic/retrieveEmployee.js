@@ -1,4 +1,4 @@
-//TODO validators
+const { Employee } = require('../data/models')
 
 /**
  * Authenticates a user against his/her credentials
@@ -14,7 +14,7 @@
 //  * @throws {AuthError} On wrong credentials
  */
 
-module.exports = function retrieveUser(employeeId) {
+module.exports = function retrieveEmployee(employeeId) {
     //TODO validators
 
     const { Employee } = require('../data/models')

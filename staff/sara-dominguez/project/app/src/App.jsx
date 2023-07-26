@@ -2,7 +2,7 @@
 import Login from './pages/Login'
 import HomeUser from './pages/HomeUser'
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom'
-import AppContext from './components/AppContext.js'
+import AppContext from './AppContext.js'
 import isLoggedIn from './logic/isLoggedIn.js'
 
 

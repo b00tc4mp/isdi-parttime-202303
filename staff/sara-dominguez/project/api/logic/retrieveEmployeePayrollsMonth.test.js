@@ -1,15 +1,16 @@
 require('dotenv').config()
 
 const mongoose = require('mongoose')
-const retrieveEmployee = require('./retrieveEmployee')
+const retrieveEmployeePayrollsMonth = require('./retrieveEmployeePayrollsMonth')
 
 
-const { Employee } = require('../data/models')
+const { Employee, PayrollMonth } = require('../data/models')
 
 mongoose.connect(process.env.MONGODB_URL)
 
     // .then(() => Promise.all(Employee.deleteMany()))
-    .then(() => retrieveEmployee('64bd96e4231e82fdecedf204'))
+    .then(() => retrieveEmployeePayrollsMonth('64bd96e4231e82fdecedf204', 2023))
     .then((result) => console.log(result))
     .catch(error => { console.log(error) })
     .finally(() => mongoose.disconnect())
+

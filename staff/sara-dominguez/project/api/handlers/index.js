@@ -6,5 +6,9 @@ module.exports = {
     createEmployeeMonthPayrollHandler: require('./createEmployeeMonthPayrollHandler'),
     updateEmployeeAvatarHandler: require('./updateEmployeeAvatarHandler'),
     updateEmployeePasswordHandler: require('./updateEmployeePasswordHandler'),
-    updateEmployeeBankAccountNumberHandler: require('./updateEmployeeBankAccountNumberHandler')
+    updateEmployeeBankAccountNumberHandler: require('./updateEmployeeBankAccountNumberHandler'),
+    retrievePayrollMonthHandler: require('./retrievePayrollMonthHandler'),
+    isEmployeeAccessPermissionsAuthorizedHandler: require('./isEmployeeAccessPermissionsAuthorizedHandler'),
+    // retrieveEmployeesBySalaryLevelHandler: require('./retrieveEmployeesBySalaryLevelHandler'),
+    retrieveEmployeePayrollsMonthHandler: require('./retrieveEmployeePayrollsMonthHandler')
 }

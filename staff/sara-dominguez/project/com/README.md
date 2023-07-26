@@ -1,6 +1,6 @@
 # Com
 
-blah blah
+npm init --yes
 
 ## Modules
 

@@ -1,0 +1,12 @@
+/* resets */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+.home {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+
+}
