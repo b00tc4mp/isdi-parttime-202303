@@ -25,7 +25,7 @@ describe('deleteUserContact', () => {
         return User.findByIdAndUpdate(userTest.id, { $push: { contacts: contactTest.id }})
     })
 
-    it('succeeds on existing user and correct id', async () => {       
+    it('succeeds on existing user and correct id user and id contact', async () => {       
         await deleteUserContact(userTest.id, contactTest.id)
 
         const user = await User.findById(userTest.id)

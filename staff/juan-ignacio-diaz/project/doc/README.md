@@ -21,6 +21,7 @@ At the end of the purchase a summary of purchases is generated, indicating the m
 - update e-mail
 - update password
 - update avatar
+- update mode
 - add contact
 - delete contact
 - create the shopping list
@@ -52,7 +53,8 @@ User
 - email (string)
 - password (string)
 - avatar (string)
-- contact (oid array, refers to user id) 
+- mode (string)
+- contacts (oid array, refers to user id) 
 
 Stores
 - id (oid)
