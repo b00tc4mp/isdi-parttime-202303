@@ -68,6 +68,7 @@ Chat
 - id (oid)
 - text (string)
 - author (oid, refers to user id) 
+- date (date)
 
 Products
 - id (oid)
