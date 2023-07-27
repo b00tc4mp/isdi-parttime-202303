@@ -1,4 +1,4 @@
-import Musicbrainz from '../components/PearlJamInfo'
+import Musicbrainz from '../components/ArtistDetails'
 
 export default function Home({ onPanelClick }) {
     console.debug('// Home  -> Render')

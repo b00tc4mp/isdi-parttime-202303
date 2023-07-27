@@ -1,5 +1,5 @@
-import PearlJamInfo from './PearlJamInfo'
+import artistDetails from './ArtistDetails'
 
 export {
-    PearlJamInfo
+    artistDetails
 }
