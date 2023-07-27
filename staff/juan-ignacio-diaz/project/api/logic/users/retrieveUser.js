@@ -8,15 +8,11 @@ const { User } = require('../../data/models')
 /**
  * Retrieve a user by userId
  * 
- * @param {string} name The user's name
- * @param {string} email The user's email
- * @param {string} password The user's password
- * @param {string} mode The user's mode view
- * @param {string} contacts The user's contacts
+ * @param {string} userId - The ID of the user to retrieve.
  * 
  * @returns {Promise<User: name avatar mode contacts>} The user id
  * 
- * @throws {DuplicityError} On existing email
+ * @throws {ExistenceError} On existing email
  */
 module.exports = (userId) => {
     validateId(userId, 'user id')

@@ -11,10 +11,9 @@ const { User } = require('../../data/models')
  * @param {string} name The user's name
  * @param {string} email The user's email
  * @param {string} password The user's password
- * @param {string} mode The user's mode view
- * @param {string} contacts The user's contacts
  * 
  * @throws {DuplicityError} On existing email
+ * @throws {UnKnowError} On unknown erre
  */
 module.exports = (name, email, password) => {
     validateName(name)

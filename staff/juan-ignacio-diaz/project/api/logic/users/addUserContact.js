@@ -8,8 +8,8 @@ const { User } = require('../../data/models')
 /**
  * Add a user's contact by userId
  * 
- * @param {oid} userId The user's userId
- * @param {oid} userId The user's contactId
+ * @param {string} userId The user's userId
+ * @param {string} userId The user's contactId
  * 
  * @throws {ExistenceError} On existing userId
  * @throws {DuplicityError} On invalid password

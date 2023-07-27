@@ -8,8 +8,8 @@ const { User } = require('../../data/models')
 /**
  * Delete a user's contact by userId
  * 
- * @param {oid} userId The user's userId
- * @param {oid} contactId The contact's userId
+ * @param {string} userId The user's userId
+ * @param {string} contactId The contact's userId
  * 
  * @throws {ExistenceError} On existing userId
  */

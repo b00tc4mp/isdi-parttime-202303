@@ -8,7 +8,7 @@ const { User } = require('../../data/models')
 /**
  * Update a user's password by userId
  * 
- * @param {oid} userId The user's userId
+ * @param {string} userId The user's userId
  * @param {string} password The user's password
  * 
  * @throws {ExistenceError} On existing userId

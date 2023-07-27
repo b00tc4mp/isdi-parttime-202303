@@ -8,7 +8,7 @@ const { User } = require('../../data/models')
 /**
  * Update a user's avatar by userId
  * 
- * @param {oid} userId The user's userId
+ * @param {string} userId The user's userId
  * 
  * @throws {ExistenceError} On existing email
  */
