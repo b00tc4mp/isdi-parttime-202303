@@ -62,6 +62,11 @@ function validateNumber(number, explain = 'number') {
     if (typeof number !== 'number') throw new TypeError(`${explain} is not a number`)
 }
 
+function validateDate(date) {
+    //if (typeof date !== 'object') throw new TypeError(`Date is not valid`)
+    if (!(date instanceof Date)) throw new TypeError(`Date is not valid`)
+}
+
 function validateCallback(callback) {
     if (typeof callback !== 'function') throw new TypeError('Is not a Callback')
 }
@@ -79,6 +84,7 @@ module.exports = {
     validateText,
     validateUrl,
     validateNumber,
+    validateDate,
     validateCallback,
     validateToken
 }

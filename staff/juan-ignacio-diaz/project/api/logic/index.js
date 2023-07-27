@@ -6,5 +6,9 @@ module.exports = {
     updateUserMode: require('./users/updateUserMode'),
     updateUserPassword: require('./users/updateUserPassword'),
     addUserContact: require('./users/addUserContact'),
-    deleteUserContact: require('./users/deleteUserContact')
+    deleteUserContact: require('./users/deleteUserContact'),
+
+    createList: require('./lists/createList'),
+    addUsersToNotifyAcceptList: require('./lists/addUsersToNotifyAcceptList'),
+    reviewListsToNotifyAccept: require('./lists/reviewListsToNotifyAccept')
 }

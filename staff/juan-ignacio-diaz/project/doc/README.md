@@ -94,6 +94,7 @@ Lists
 - users (oid array, refers to user id) 
 - date (date)
 - dateToEnd (date)
+- notifyAcceptList (oid array, refers to user id) 
 - notifyChatUpdate (oid array, refers to user id)
 - chat (type Chat)
 - products (type Products)
