@@ -32,7 +32,7 @@ const user = new Schema({
     }
 })
 
-const stores = new Schema({
+const store = new Schema({
     name: {
         type: String,
         required: true,
@@ -40,7 +40,7 @@ const stores = new Schema({
     }
 })
 
-const productTypes = new Schema({
+const productType = new Schema({
     name: {
         type: String,
         enum: ['drogeria', 'carniceria', 'pescaderia', 'congelados', 'panaderia', 'pasteleria']
@@ -64,7 +64,7 @@ const chat = new Schema({
     }
 })
 
-const products = new Schema({
+const product = new Schema({
     name: {
         type: String,
         required: true,
@@ -111,8 +111,8 @@ const products = new Schema({
         type: [ObjectId],
         ref: 'Stores'
     },
-    type: {
-        type: [productTypes]
+    productType: {
+        type: [productType]
     },
     comment: {
         type: String,
@@ -124,10 +124,11 @@ const products = new Schema({
     }
 })
 
-const lists = new Schema({
+const list = new Schema({
     name: {
         type: String,
         required: true,
+        unique: true,
         trim: true
     },
     author: {
@@ -148,6 +149,10 @@ const lists = new Schema({
         type: Date,
         required: true
     },
+    notifyAcceptList: {
+        type: [ObjectId],
+        ref: 'User'
+    },
     notifyChatUpdate: {
         type: [ObjectId],
         ref: 'User'
@@ -156,22 +161,22 @@ const lists = new Schema({
         type: [chat]
     },
     products:{
-        type: [products]
+        type: [product]
     }
 })
 
 const User = model('User', user)
-const Stores = model('Stores', stores)
-const ProductTypes = model('ProductTypes', productTypes)
+const Store = model('Store', store)
+const ProductType = model('ProductTypes', productType)
 const Chat = model('Chat', chat)
-const Products = model('Products', products)
-const Lists = model('Lists', lists)
+const Product = model('Product', product)
+const List = model('List', list)
 
 module.exports = {
     User,
-    Stores,
-    ProductTypes,
+    Store,
+    ProductType,
     Chat,
-    Products,
-    Lists
+    Product,
+    List
 }
