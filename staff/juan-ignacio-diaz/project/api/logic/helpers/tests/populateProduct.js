@@ -1,4 +1,4 @@
-const { Post } = require('../../../data/models')
+const { Product } = require('../../../data/models')
 
 const mongodb = require('mongodb')
 

@@ -1,7 +1,9 @@
 module.exports = {
     cleanUp: require('./cleanUp'),
-//    generateProduct: require('./generatePost'),
+    generateProduct: require('./generateProduct'),
     generateUser: require('./generateUser'),
-//    populateProduct: require('./populatePost'),
-    populateUser: require('./populateUser')
+    generateList: require('./generateList'),
+    populateProduct: require('./populateProduct'),
+    populateUser: require('./populateUser'),
+    populateList: require('./populateList')
 }
