@@ -4,8 +4,8 @@ const { extractEmployeeId } = require('./helpers')
 
 module.exports = (req, res) => {
     const employeeId = extractEmployeeId(req)
-
-    const { payrollYear, payrollMonth } = req.body
+    debugger
+    const { payrollYear, payrollMonth } = req.params
 
     return retrievePayrollMonth(employeeId, payrollYear, payrollMonth)
         .then(employee => res.json(employee))

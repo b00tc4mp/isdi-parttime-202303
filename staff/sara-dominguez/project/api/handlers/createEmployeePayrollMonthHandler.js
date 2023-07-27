@@ -1,10 +1,10 @@
-const { createEmployeeMonthPayroll } = require('../logic')
+const { createEmployeePayrollMonth } = require('../logic')
 //TODO handle errors
 
 module.exports = (req, res) => {
     const { employeeNumber, payrollMonthYear, payrollMonth } = req.body
 
-    return createEmployeeMonthPayroll(employeeNumber, payrollMonthYear, payrollMonth)
+    return createEmployeePayrollMonth(employeeNumber, payrollMonthYear, payrollMonth)
         .then(() => res.status(201).send())
 
 }

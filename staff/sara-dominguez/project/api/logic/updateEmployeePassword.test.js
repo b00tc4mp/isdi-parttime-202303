@@ -7,6 +7,6 @@ const { Employee } = require('../data/models')
 
 mongoose.connect(process.env.MONGODB_URL)
 
-    .then(() => updateEmployeePassword('64b57ebe2727a4da766febca', '22222', '33333', '33333'))
+    .then(() => updateEmployeePassword('64c1a5c87d6c77d86f00405a', '66666', '11111', '11111'))
     .catch(error => { console.log(error) })
     .finally(() => mongoose.disconnect())

@@ -1,6 +1,6 @@
 module.exports = function calculePayroll(salaryLevel, monthSalary, annualSalary, bonus) {
     let calculatePayrollItems
-
+    // TODO ajuste del valor de bonus (porrateo mensual)
     let totalAmountIncomes = monthSalary + bonus
 
     let ssTax = 5 / 100
@@ -16,7 +16,7 @@ module.exports = function calculePayroll(salaryLevel, monthSalary, annualSalary,
         let irpfDeductions = totalAmountIncomes * irpfTax
         let totalTaxRatio = irpfTax + ssTax
         let totalAmountDeductions = totalAmountIncomes * totalTaxRatio
-        let netSalary = totalAmountIncomes + totalAmountDeductions
+        let netSalary = totalAmountIncomes - totalAmountDeductions
 
         return calculatePayrollItems = {
             salaryLevel,
@@ -38,7 +38,7 @@ module.exports = function calculePayroll(salaryLevel, monthSalary, annualSalary,
         let irpfDeductions = totalAmountIncomes * irpfTax
         let totalTaxRatio = irpfTax + ssTax
         let totalAmountDeductions = totalAmountIncomes * totalTaxRatio
-        let netSalary = totalAmountIncomes + totalAmountDeductions
+        let netSalary = totalAmountIncomes - totalAmountDeductions
 
         return calculatePayrollItems = {
             salaryLevel,
@@ -60,7 +60,7 @@ module.exports = function calculePayroll(salaryLevel, monthSalary, annualSalary,
         let irpfDeductions = totalAmountIncomes * irpfTax
         let totalTaxRatio = irpfTax + ssTax
         let totalAmountDeductions = totalAmountIncomes * totalTaxRatio
-        let netSalary = totalAmountIncomes + totalAmountDeductions
+        let netSalary = totalAmountIncomes - totalAmountDeductions
 
         return calculatePayrollItems = {
             salaryLevel,
@@ -84,7 +84,7 @@ module.exports = function calculePayroll(salaryLevel, monthSalary, annualSalary,
         let irpfDeductions = totalAmountIncomes * irpfTax
         let totalTaxRatio = irpfTax + ssTax
         let totalAmountDeductions = totalAmountIncomes * totalTaxRatio
-        let netSalary = totalAmountIncomes + totalAmountDeductions
+        let netSalary = totalAmountIncomes - totalAmountDeductions
 
         return calculatePayrollItems = {
             salaryLevel,
@@ -105,7 +105,7 @@ module.exports = function calculePayroll(salaryLevel, monthSalary, annualSalary,
         let irpfDeductions = totalAmountIncomes * irpfTax
         let totalTaxRatio = irpfTax + ssTax
         let totalAmountDeductions = totalAmountIncomes * totalTaxRatio
-        let netSalary = totalAmountIncomes + totalAmountDeductions
+        let netSalary = totalAmountIncomes - totalAmountDeductions
 
         return calculatePayrollItems = {
             salaryLevel,
@@ -125,7 +125,7 @@ module.exports = function calculePayroll(salaryLevel, monthSalary, annualSalary,
         let irpfDeductions = totalAmountIncomes * irpfTax
         let totalTaxRatio = irpfTax + ssTax
         let totalAmountDeductions = totalAmountIncomes * totalTaxRatio
-        let netSalary = totalAmountIncomes + totalAmountDeductions
+        let netSalary = totalAmountIncomes - totalAmountDeductions
 
         return calculatePayrollItems = {
             salaryLevel,
@@ -145,7 +145,7 @@ module.exports = function calculePayroll(salaryLevel, monthSalary, annualSalary,
         let irpfDeductions = totalAmountIncomes * irpfTax
         let totalTaxRatio = irpfTax + ssTax
         let totalAmountDeductions = totalAmountIncomes * totalTaxRatio
-        let netSalary = totalAmountIncomes + totalAmountDeductions
+        let netSalary = totalAmountIncomes - totalAmountDeductions
 
         return calculatePayrollItems = {
             salaryLevel,
@@ -165,7 +165,7 @@ module.exports = function calculePayroll(salaryLevel, monthSalary, annualSalary,
         let irpfDeductions = totalAmountIncomes * irpfTax
         let totalTaxRatio = irpfTax + ssTax
         let totalAmountDeductions = totalAmountIncomes * totalTaxRatio
-        let netSalary = totalAmountIncomes + totalAmountDeductions
+        let netSalary = totalAmountIncomes - totalAmountDeductions
 
         return calculatePayrollItems = {
             salaryLevel,
@@ -185,7 +185,7 @@ module.exports = function calculePayroll(salaryLevel, monthSalary, annualSalary,
         let irpfDeductions = totalAmountIncomes * irpfTax
         let totalTaxRatio = irpfTax + ssTax
         let totalAmountDeductions = totalAmountIncomes * totalTaxRatio
-        let netSalary = totalAmountIncomes + totalAmountDeductions
+        let netSalary = totalAmountIncomes - totalAmountDeductions
 
         return calculatePayrollItems = {
             salaryLevel,
@@ -199,14 +199,13 @@ module.exports = function calculePayroll(salaryLevel, monthSalary, annualSalary,
             totalAmountDeductions,
             netSalary
         }
-
 
     } else if (annualAmountAverage > 300000) {
         irpfTax = 47 / 100
         let irpfDeductions = totalAmountIncomes * irpfTax
         let totalTaxRatio = irpfTax + ssTax
         let totalAmountDeductions = totalAmountIncomes * totalTaxRatio
-        let netSalary = totalAmountIncomes + totalAmountDeductions
+        let netSalary = totalAmountIncomes - totalAmountDeductions
 
         return calculatePayrollItems = {
             salaryLevel,
@@ -220,9 +219,7 @@ module.exports = function calculePayroll(salaryLevel, monthSalary, annualSalary,
             totalAmountDeductions,
             netSalary
         }
-
     }
-
     return calculatePayrollItems
 }
 

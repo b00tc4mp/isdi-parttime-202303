@@ -17,6 +17,7 @@ export default function loginUser(employeeNumber, employeePassword) {
         headers: {
             'Content-Type': 'application/json'
         },
+
         body: JSON.stringify({ employeeNumber, employeePassword })
     })
         .then(res => {

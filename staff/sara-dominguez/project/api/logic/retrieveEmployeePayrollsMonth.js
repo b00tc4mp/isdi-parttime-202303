@@ -5,16 +5,19 @@ module.exports = function retrieveEmployeePayrollsMonth(employeeId, payrollYear)
 
     return Promise.all([
         Employee.findById(employeeId).lean(),
-        PayrollMonth.find({ employee: employeeId, payrollYear: payrollYear }).lean()
+        PayrollMonth.find({ employee: employeeId, payrollYear: payrollYear }, '-__v').lean()
+
     ])
-        .then(([employee, employeePayrollMonth]) => {
-
-            if (!employee) throw new Error(`user with id ${employeeId} not found`)
-            if (!employeePayrollMonth) throw new Error(`payroll not found`)
 
 
-            return employeePayrollMonth
+        .then(([employee, employeePayrollsMonth]) => {
+            try {
+                if (!employee) throw new Error(`user with id ${employeeId} not found`)
+                if (!employeePayrollsMonth || employeePayrollsMonth.length === 0) throw new Error(`payrolls not found`)
 
+            } catch (error) {
+                throw new Error(error)
+            }
+            return employeePayrollsMonth
         })
-
 }

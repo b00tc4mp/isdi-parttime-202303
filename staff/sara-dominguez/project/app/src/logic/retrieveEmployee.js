@@ -1,7 +1,7 @@
 import context from './context'
 
 export default () => {
-    return fetch(`${import.meta.env.VITE_API_UEL}/employees`, {
+    return fetch(`${import.meta.env.VITE_API_URL}/employees/retrieve`, {
         headers: {
             authorization: `Bearer ${context.token}`
         }

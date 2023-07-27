@@ -1,16 +1,18 @@
-const { calculatePayroll, checkSalaryScale } = require('./helpers/')
+const { calculatePayroll, checkSalaryScale } = require('./helpers')
 
 const { Employee, PayrollMonth } = require('../data/models')
 
 //TODO validators and HandleError
 
 
-module.exports = function createEmployeeMonthPayroll(employeeId, payrollYear, payrollMonth) {
+module.exports = function createEmployeePayrollMonth(employeeId, payrollYear, payrollMonth) {
     //TODO validators 
 
 
     return Employee.findById(employeeId)
+
         .then(employee => {
+
             if (!employee) throw new Error('employee not found')
 
             salaryLevel = employee.salaryLevel

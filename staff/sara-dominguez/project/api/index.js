@@ -2,7 +2,18 @@ require('dotenv').config()
 const express = require('express')
 const cors = require('cors')
 const bodyParser = require('body-parser')
-const { helloApiHandler, registerEmployeeHandler, authenticateEmployeeHandler, retrieveEmployeeHandler, createEmployeeMonthPayrollHandler, updateEmployeeAvatarHandler, updateEmployeePasswordHandler, updateEmployeeBankAccountNumberHandler, retrievePayrollMonthHandler, retrieveEmployeePayrollsMonthHandler, retrieveEmployeesBySalaryLevelHandler, } = require('./handlers')
+const { helloApiHandler,
+    registerEmployeeHandler,
+    authenticateEmployeeHandler,
+    retrieveEmployeeHandler,
+    createEmployeePayrollMonthHandler,
+    updateEmployeeAvatarHandler,
+    updateEmployeePasswordHandler,
+    updateEmployeeBankAccountNumberHandler,
+    retrievePayrollMonthHandler,
+    retrieveEmployeePayrollsMonthHandler,
+    retrieveEmployeesBySalaryLevelHandler
+} = require('./handlers')
 
 
 const mongoose = require('mongoose')
@@ -18,15 +29,15 @@ mongoose.connect(process.env.MONGODB_URL)
 
         api.get('/', helloApiHandler)
         api.get('/employees/retrieve', retrieveEmployeeHandler)
-        api.get('/employees/accessPermissionsAuthorized', isEmpoyeeAccessPermissionsAuthorizedHandler)
-        api.get('/payrollMonth/retrieveEmployeePayrollMonth', retrievePayrollMonthHandler)
+        // api.get('/employees/accessPermissionsAuthorized', isEmpoyeeAccessPermissionsAuthorizedHandler)
+        api.get('/payrollMonth/retrieveEmployeePayrollMonth/:payrollYear/:payrollMonth', retrievePayrollMonthHandler)
         api.get('/payrollMonth/retrieveEmployeePayrollsMonth', retrieveEmployeePayrollsMonthHandler)
         // api.get('retrieveEmployeesBySalaryLevel', retrieveEmployeesBySalaryLevelHandler)
 
 
         api.post('/employees', jsonBodyParser, registerEmployeeHandler)
         api.post('/employees/auth', jsonBodyParser, authenticateEmployeeHandler)
-        api.post('/payrollMonths', jsonBodyParser, createEmployeeMonthPayrollHandler)
+        api.post('/payrollMonths', jsonBodyParser, createEmployeePayrollMonthHandler)
 
         api.patch('/employees/updateAvatar', jsonBodyParser, updateEmployeeAvatarHandler)
         api.patch('/employees/updatePassword', jsonBodyParser, updateEmployeePasswordHandler)

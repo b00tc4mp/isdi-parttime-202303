@@ -6,7 +6,7 @@ import context from './context'
 export default function updateEmployeeAvatar(newAvatar) {
     // validateEmployeeAvatar(newAvatar)
 
-    return fetch(`${import.meta.env.VITE_API_URL}/employees`, {
+    return fetch(`${import.meta.env.VITE_API_URL}/employees/updateAvatar`, {
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/json',

@@ -1,7 +1,7 @@
 require('dotenv').config()
 
 const mongoose = require('mongoose')
-const createEmployeeMonthPayroll = require('./createEmployeeMonthPayroll')
+const createEmployeePayrollMonth = require('./createEmployeePayrollMonth')
 
 
 const { Employee, PayrollMonth } = require('../data/models')
@@ -9,7 +9,7 @@ const { Employee, PayrollMonth } = require('../data/models')
 mongoose.connect(process.env.MONGODB_URL)
 
     // .then(() => Promise.all(Employee.deleteMany()))
-    .then(() => createEmployeeMonthPayroll('64beb991504fb29df29bc692', 2023, "february"))
+    .then(() => createEmployeePayrollMonth('64c1a5c87d6c77d86f00405a', 2023, "April"))
     .then((result) => console.log(result))
     .catch(error => { console.log(error) })
     .finally(() => mongoose.disconnect())

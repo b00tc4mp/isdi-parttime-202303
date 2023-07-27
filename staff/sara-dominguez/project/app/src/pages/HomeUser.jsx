@@ -60,7 +60,7 @@ export default function Home() {
             <header className="home-header">
                 <h1 className="">b-Elevenzdb</h1>
                 {employee && <>
-                    <img src={employee.avatar} />
+                    <img src={employee.avatar} width="100px" />
                     <h3 className="">Welcome, {employee.name}!</h3>
                     <h5 className="">Go to company profile</h5>
                 </>}
@@ -74,6 +74,9 @@ export default function Home() {
                 {modal === 'PersonalInformation' && < PersonalInformationModal />}
                 {modal === 'PayrollMenu' && < PayrollMenuModal />}
                 {view === 'PayrollMenuUpdateAvatar' && < PersonalInformationModal onEmployeeAvatarUpdated={handleRefreshEmloyee} />}
+                {view === 'PayrollMenuUpdatePassword' && < PersonalInformationModal onEmployeePasswordUpdated={handleRefreshEmloyee} />}
+                {view === 'PayrollMenuUpdateAdress' && < PersonalInformationModal onEmployeeAdressUpdated={handleRefreshEmloyee} />}
+                {view === 'PayrollMenuUpdateBankAccountNumber' && < PersonalInformationModal onEmployeeBankAccountNumberUpdated={handleRefreshEmloyee} />}
 
             </main>
 
