@@ -112,8 +112,7 @@ const products = new Schema({
         ref: 'Stores'
     },
     type: {
-        type: ObjectId,
-        ref: 'ProductTypes'
+        type: [productTypes]
     },
     comment: {
         type: String,

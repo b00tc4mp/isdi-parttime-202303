@@ -32,17 +32,16 @@ npm i cors
 bcryptjs
 npm i bcryptjs
 
-## Run
+### Run
 
 
 ### Inspect
+
+
+#### Watch
 
 MOCHA
 npm run test
 npm run test-inspect
 
-### Watch
-
-```sh
-$ npm run watch
-```
+## Endpoints

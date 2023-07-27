@@ -38,9 +38,9 @@ At the end of the purchase a summary of purchases is generated, indicating the m
 - update product comment
 - update chat comment
 - update product state
-- review list of products whit filter
-- review list of strores
-- review list of product type
+- review products leaked
+- review strores
+- review product type
 - generate purchase summary
 
 ## Technical description
@@ -83,7 +83,7 @@ Products
 - state (number)
 - likes (oid array, refers to user id)
 - stores (oid array, refers to stores id)
-- type (oid, refers to ProductTypes id)
+- productType (String, refers to ProductTypes)
 - comment (String)
 - notifyProductUpdate (oid array, refers to user id)
 
@@ -114,8 +114,8 @@ Lists
 
 - TODO build html
 - TODO build basic css
-- TODO implement register functionality
-- TODO implement login functionality
+- DONE implement register functionality
+- DONE implement login functionality
 - TODO implement home welcome functionality
 
 #### Create and access a shared shopping list
@@ -130,21 +130,26 @@ Lists
 - TODO implement list of shared shopping lists in which I participate to access
 - TODO implement modal window of creation of shared shopping list with assignment of name, date of end and assignment of contacts who can participate
 - TODO implement shared shopping list modal window, will contain access to chat and shared shopping list and access to shared shopping list summary
+- TODO implement login functionality
 
 #### Add comment to chat
+
 - Me as user, I want to add and view the comments of the users in the list
 
 ##### Tasks
 
-- implement add comment
-- implement reviews comments
+- TODO implement add comment
+- TODO implement reviews comments
+- TODO implement login functionality
 
 #### Add product to the shared shopping list and update list
 
 -I, as a user, want to insert products in the shared shopping list.
+
 ##### Tasks
 
-- TODO implement modal window to insert products with name, quantity, type of product, trade, comment
+- TODO implement modal window to insert products with name, quantity, type of product, trade, commen
+- TODO implement login functionality
 
 #### Review shared shopping list
 
@@ -156,6 +161,7 @@ Lists
 - TODO implement modal window to review products.
 - TODO implement filter selector for review.
 - TODO implement edit and delete buttons.
+- TODO implement login functionality
 
 ### Edit a product from the list and update list.
 
@@ -165,6 +171,7 @@ Lists
 
 - TODO implement modal window to edit a product name, quantity, type of product, trade, comment
 - TODO add refresh of the shared shopping list
+- TODO implement login functionality
 
 ### Remove a product from the list and refresh list
 
@@ -175,3 +182,4 @@ Lists
 - TODO implement deletion of a product
 - TODO implement modal window to accept the deletion of a product
 - TODO add refreshing of the shared shopping list
+- TODO implement login functionality
