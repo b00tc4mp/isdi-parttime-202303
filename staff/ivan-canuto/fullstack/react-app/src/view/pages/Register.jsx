@@ -5,7 +5,7 @@ import { Link } from "react-router-dom"
 import { useHandleErrors } from "../hooks";
 
 export default function Register () {
-  const { alert, navigate } = useAppContext()
+  const { navigate } = useAppContext()
   const handleErrors = useHandleErrors()
 
   const handleRegisterIn = (event) => {

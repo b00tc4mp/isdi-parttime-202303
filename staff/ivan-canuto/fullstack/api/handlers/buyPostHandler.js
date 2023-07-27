@@ -13,6 +13,6 @@ module.exports = handleErrors((req, res) => {
     res.send()
   })()
 
-  return buyPost(userId, postId)
-    .then(() => res.send())
+  // return buyPost(userId, postId)
+  //   .then(() => res.send())
 })

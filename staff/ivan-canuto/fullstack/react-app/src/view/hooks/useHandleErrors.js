@@ -1,5 +1,5 @@
 import { useAppContext } from '../hooks'
-import { errors } from 'com'
+import { errors } from '../../../../project/com'
 
 const {
     DuplicityError,

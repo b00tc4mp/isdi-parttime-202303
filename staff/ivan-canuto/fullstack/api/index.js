@@ -29,7 +29,7 @@ const {
 const mongoose = require('mongoose')
 
 mongoose.connect(process.env.MONGODB_URL)
-    .then(connection => {
+    .then(() => {
         const api = express()
 
         const jsonBodyParser = bodyParser.json()

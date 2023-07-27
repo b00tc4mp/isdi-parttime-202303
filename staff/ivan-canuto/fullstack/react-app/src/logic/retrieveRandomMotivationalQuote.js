@@ -1,4 +1,4 @@
-import { errors } from 'com'
+import { errors } from '../../../project/com'
 
 /**
  * Retrieves a random motivational quote to show it in login page.

@@ -17,13 +17,5 @@ module.exports = handleErrors((req, res) => {
 
     res.json(token)
   })()
-
-  // return authenticateUser(email, password)
-  //   .then(userId => {
-  //     const payload = { sub: userId }
-
-  //     const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRATION })
-
-  //     res.json(token)
-  //   })    
 })
+
