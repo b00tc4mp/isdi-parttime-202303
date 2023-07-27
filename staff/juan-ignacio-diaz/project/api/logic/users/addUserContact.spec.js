@@ -33,8 +33,8 @@ describe('addUserContact', () => {
         expect(user.contacts).to.have.lengthOf(1)
         expect(user.contacts[0].toString()).to.equal(contactTest.id)
     })
-
-    it('fails on existing user and id contact alraady exist', async () => {
+    debugger
+    it('fails on existing user and id contact alrady exist', async () => {
         userTest.contacts.push(contactTest.id)
         await User.findByIdAndUpdate(userTest.id, { $push: { contacts: contactTest.id }})
 
@@ -42,7 +42,7 @@ describe('addUserContact', () => {
             return await addUserContact(userTest.id, contactTest.id)
         } catch (error) {
             expect(error).to.be.instanceOf(Error)
-            expect(error.message).to.equal('user not found')
+            expect(error.message).to.equal('the contact already exists')
         }
     })
 
