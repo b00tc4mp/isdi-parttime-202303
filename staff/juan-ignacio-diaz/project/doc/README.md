@@ -61,8 +61,7 @@ Stores
 - name (string)
 
 ProductTypes
-- id (oid)
-- name (string)
+- name (String enum)
 
 Chat
 - id (oid)
@@ -141,6 +140,16 @@ Lists
 
 - TODO implement add comment
 - TODO implement reviews comments
+- TODO implement login functionality
+
+#### Add stores
+
+- Me as user, I want to add and view the stores 
+
+##### Tasks
+
+- TODO implement add store
+- TODO implement reviews stores
 - TODO implement login functionality
 
 #### Add product to the shared shopping list and update list
