@@ -36,7 +36,7 @@ export default function Post({ playground, playground: { title, text, id, image,
                 markerPressedHandler()
             }}
         >
-            <Image source={PIN} className="w-[38px] h-[45px]" />
+            <Image source={PIN} className="w-[38px] h-[45px] object-contain" />
             <Callout tooltip >
 
             </Callout>
