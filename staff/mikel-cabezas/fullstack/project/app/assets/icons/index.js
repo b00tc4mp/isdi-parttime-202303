@@ -10,6 +10,8 @@ export const MORE_OPTIONS = require('./more_options.png');
 export const CLOSE = require('./close.png');
 export const ADD = require('./add.png');
 
+export const ACCESSIBLE = require('./accessible.png');
+
 export const WHITE_HOME = require('./white/home.png');
 export const WHITE_NEARBY = require('./white/nearby.png');
 export const WHITE_SEARCH = require('./white/search.png');
