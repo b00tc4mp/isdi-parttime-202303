@@ -1,14 +1,14 @@
-# Map Playgrounds React Native App
-
-<img src="https://media.giphy.com/media/ildLrpK7sOV9ky6NOf/giphy.gif" width="250"/>
+# Map Playgrounds App
 
 
-## MAIN DESCRIPTION 
+## General description 
 This app allow to login (or register if not signed up) for search playgrounds in a map and collaborate/interact with in.
 
 View the elements of each park, the recommended age of elements and if the place it's shaded or sun exposed.
 
 Comment and rate parks for help other parents and childs.
+
+<img src="https://media.giphy.com/media/ildLrpK7sOV9ky6NOf/giphy.gif" width="250"/>
 
 Create issues in elements of park.
 
@@ -23,37 +23,35 @@ In any playground, you can view the elements that are in the park, and view the 
 ---
 
 
-## FUNCTIONAL DESCRIPTION
+## Functional description
 
-### USE CASES 
-
-#### GENERAL
-
-- Register user
-- Login user
-- Complete user information
+### Use cases 
 - Edit user information
-- Comment playground  
 - Rate playground 
 - Create playground
-- Create issues in elements of playground 
+- Create issue in playground
+- Add comment to issue
+- Explore playgrounds nearby
+- Search playgrounds
 
-#### USE CASES IN NEARBY SEARCH
+
+### User stories
+#### View playgrounds nearby
 - View markers around the user directly in map
 - View directly playgrounds in a modal box with: name, address, elements with ages, its sun exposed or shaded, and image gallery 
 - interact with marker in map for open modal with this playground 
 - interact with playground preview in nodal box for open another modal with this playground 
 
-#### USE CASES IN SINGLE SEARCH
+#### Search form
 - Better display for: name, address, elements with ages, its sun exposed or shaded, and image gallery 
 - Interact making a review or rate  
 - create an issue 
 
-#### USE CASES IN CREATE PLAYGROUND
+#### User stories, IN CREATE PLAYGROUND
 - If you discover a playground not entered in the app, you can create it if in around 10 meters does not have an other park. 
 
----
----
+
+
 ## TECHINAL DESCRIPTION 
 
 ### DATA MODELS 
