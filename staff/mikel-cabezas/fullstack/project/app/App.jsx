@@ -13,14 +13,13 @@ import Sidebar from './src/components/Sidebar.jsx';
 import CreatePlayground from './src/components/CreatePlayground.jsx';
 
 import { StatusBar } from 'expo-status-bar';
-import { Text, View, Image, SafeAreaView, ScrollView } from 'react-native';
+import { Text, View, Image, SafeAreaView, ScrollView, useColorScheme } from 'react-native';
 // import { GOOGLE_MAPS_KEY } from '@env'
-import { NativeWindStyleSheet } from "nativewind";
+
 import AppContext from "./src/AppContext.js";
 const { Provider } = AppContext
-NativeWindStyleSheet.setOutput({
-  default: "native",
-});
+
+
 
 const HideKeyboard = ({ children }) => (
   <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -35,6 +34,7 @@ export default function App({ }) {
   const [animation, setAnimation] = useState()
   const [animationX, setAnimationX] = useState()
   const [currentMarker, setCurrentMarker] = useState({})
+  let colorScheme = useColorScheme();
 
   const onHome = () => {
     setModal('')
@@ -70,7 +70,7 @@ export default function App({ }) {
   // }
   return (
     <>
-      <Provider value={{ currentView, setCurrentView, currentMarker, setCurrentMarker, modal, setModal }}>
+      <Provider value={{ currentView, setCurrentView, currentMarker, setCurrentMarker, modal, setModal, colorScheme }}>
         <HideKeyboard>
           <View className="flex-1 bg-white items-center justify-center">
             {modal === 'sidebar' && <Sidebar closeHandle={onCloseSidebar} />}

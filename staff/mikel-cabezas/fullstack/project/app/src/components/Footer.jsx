@@ -1,6 +1,9 @@
 import React, { useEffect, useState, useContext } from "react";
 
-import { HOME, NEARBY, SEARCH, LIKES, MORE_OPTIONS, ADD } from '../../assets/icons';
+import {
+    HOME, NEARBY, LIKES, MORE_OPTIONS, ADD,
+    WHITE_HOME, WHITE_NEARBY, WHITE_LIKES, WHITE_MORE_OPTIONS, WHITE_ADD
+} from '../../assets/icons';
 import { View, Image, TouchableHighlight, Alert } from 'react-native';
 import Context from '../AppContext.js'
 import { NativeWindStyleSheet } from "nativewind";
@@ -9,7 +12,10 @@ NativeWindStyleSheet.setOutput({
 });
 
 export default function Footer({ nearbyHandler, createPlaygroundHandler, homeHandler }) {
-    const { currentView, setCurrentView } = useContext(Context)
+    const { currentView, setCurrentView, colorScheme } = useContext(Context)
+
+    let isDark
+    if (colorScheme === 'dark') isDark = true
 
     const onHome = () => {
         homeHandler()
@@ -23,7 +29,7 @@ export default function Footer({ nearbyHandler, createPlaygroundHandler, homeHan
 
 
     return <View className="z-10 absolute w-full justify-center flex bottom-8 content-center">
-        <View className="w-10/12 h-12 p-1 bg-white rounded-full left-0 m-auto flex flex-row justify-between px-5">
+        <View className="w-10/12 h-12 p-1 bg-white dark:bg-gray-800 rounded-full left-0 m-auto flex flex-row justify-between px-5">
 
 
             <TouchableHighlight
@@ -36,7 +42,7 @@ export default function Footer({ nearbyHandler, createPlaygroundHandler, homeHan
                 }}>
                 <Image
                     className={`w-8 h-8 m-auto`}
-                    source={HOME}
+                    source={isDark ? WHITE_HOME : HOME}
                 />
             </TouchableHighlight>
 
@@ -50,7 +56,7 @@ export default function Footer({ nearbyHandler, createPlaygroundHandler, homeHan
                 }}>
                 <Image
                     className={`w-8 h-8 m-auto`}
-                    source={NEARBY}
+                    source={isDark ? WHITE_NEARBY : NEARBY}
                 />
             </TouchableHighlight>
 
@@ -64,7 +70,7 @@ export default function Footer({ nearbyHandler, createPlaygroundHandler, homeHan
                 }}>
                 <Image
                     className={`w-8 h-8 m-auto`}
-                    source={LIKES}
+                    source={isDark ? WHITE_LIKES : LIKES}
                 />
             </TouchableHighlight>
 
@@ -93,7 +99,7 @@ export default function Footer({ nearbyHandler, createPlaygroundHandler, homeHan
             >
                 <Image
                     className="w-8 h-8 m-auto"
-                    source={ADD}
+                    source={isDark ? WHITE_ADD : ADD}
                 />
             </TouchableHighlight>
             <TouchableHighlight
@@ -107,7 +113,7 @@ export default function Footer({ nearbyHandler, createPlaygroundHandler, homeHan
             >
                 <Image
                     className="w-8 h-8 m-auto ml-0 "
-                    source={MORE_OPTIONS}
+                    source={isDark ? WHITE_MORE_OPTIONS : MORE_OPTIONS}
                 />
             </TouchableHighlight>
 
