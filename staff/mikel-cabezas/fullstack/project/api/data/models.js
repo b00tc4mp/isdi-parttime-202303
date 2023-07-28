@@ -26,28 +26,101 @@ const user = new Schema({
         default: []
     }
 })
+const comments = new Schema({
+    _id: {
+        type: ObjectId,
+        required: true,
+        unique: true
+    },
+    author: {
+        type: ObjectId,
+        required: true
+    },
+    isUtil: {
+        type: Boolean,
+    },
+    comment: {
+        type: String,
+        required: true,
+        maxLength: 200
+    }
+})
+const location = new Schema({
+    type: {
+        type: String,
+        default: 'Point',
+        required: true
+    },
+    coordinates: {
+        type: Array,
+        length: 2,
+        required: true
+    }
+})
+const element = new Schema({
+    element: {
+        type: String,
+        required: true
+    },
+    minimumAge: {
+        type: Number,
+        required: true
+    }
+})
+const issue = new Schema({
+    _id: {
+        type: ObjectId,
+        required: true,
+        unique: true
+    },
+    author: {
+        type: ObjectId,
+        ref: 'User',
+        required: true
+    },
+    title: {
+        type: String,
+        required: true
+    },
+    description: {
+        type: [String],
+        required: true
+    },
+    isSolved: {
+        type: Boolean,
+        default: false
+    },
+    comments: {
+        type: [comments]
+    }
+})
+
 const playground = new Schema({
     author: {
         type: ObjectId,
         ref: 'User',
         required: true
     },
-    images: {
-        type: [String],
+    title: {
+        type: String,
         required: true,
-        minLength: 1
     },
     description: {
         type: String,
         required: false,
     },
-    title: {
-        type: String,
+    images: {
+        type: [String],
         required: true,
+        minLength: 1
     },
     creationDate: {
         type: Date,
         required: true,
+        default: Date.now
+    },
+    lastModify: {
+        type: Date,
         default: Date.now
     },
     likes: {
@@ -61,96 +134,26 @@ const playground = new Schema({
         required: true
     },
     location: {
-        type: Object,
+        type: location,
         required: true,
         unique: true,
-        properties: {
-            type: {
-                type: String,
-                default: 'Point',
-                required: true
-            },
-            coordinates: {
-                type: Array,
-                length: 2,
-                required: true
-            }
-        }
+
     },
     elements: {
-        type: [Object],
+        type: [element],
         required: true,
-        properties: {
-            type: {
-                type: String,
-                required: true
-            },
-            minimumAge: {
-                type: Number,
-                required: true
-            }
-        }
     },
     sunExposition: {
         type: Array,
         required: false
     },
     issue: {
-        type: Object,
+        type: [issue],
         ref: 'User',
         required: true,
-        properties: {
-            _id: {
-                type: ObjectId,
-                required: true,
-                unique: true
-            },
-            author: {
-                type: ObjectId,
-                ref: 'User',
-                required: true
-            },
-            title: {
-                type: String,
-                required: true
-            },
-            description: {
-                type: [String],
-                required: true
-            },
-            isUtil: {
-                type: Boolean,
-            },
-            isSolved: {
-                type: Boolean,
-                default: false
-            },
-            comments: {
-                type: [Object],
-                default: [],
-                properties: {
-                    _id: {
-                        type: ObjectId,
-                        required: true,
-                        unique: true
-                    },
-                    author: {
-                        type: ObjectId,
-                        required: true
-                    },
-                    isUtil: {
-                        type: Boolean,
-                    },
-                    comment: {
-                        type: String,
-                        required: true,
-                        maxLength: 200
-                    }
-                }
-            }
-        }
     },
 })
+
 
 const User = model('User', user)
 const Playground = model('Playground', playground)
