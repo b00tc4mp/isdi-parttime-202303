@@ -10,5 +10,7 @@ module.exports = {
 
     createList: require('./lists/createList'),
     addUsersToNotifyAcceptList: require('./lists/addUsersToNotifyAcceptList'),
-    reviewListsToNotifyAccept: require('./lists/reviewListsToNotifyAccept')
+    reviewListsToNotifyAccept: require('./lists/reviewListsToNotifyAccept'),
+    acceptListByUser: require('./lists/acceptListByUser'),
+    reviewListsAccectedByUser: require('./lists/reviewListsAccectedByUser')
 }

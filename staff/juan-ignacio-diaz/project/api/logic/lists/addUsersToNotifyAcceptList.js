@@ -1,12 +1,12 @@
 const { 
     validators: { validateId },
-    errors: { ExistenceError, DuplicityError, UnknownError }
+    errors: { ExistenceError, DuplicityError }
 } = require('com')
 
 const { User, List } = require('../../data/models')
 
 /**
- * add users from contact list by userId and contactId
+ * add users from contact to notify list by listId, userId and contactId
  * 
  * @param {string} listId  The Id of the user to creete list.
  * @param {string} userId  The Id of the user to creete list.

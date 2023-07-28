@@ -1,5 +1,5 @@
-const { addUserContact } = require('../logic')
-const { extractUserId, handleErrors } = require('./helpers')
+const { addUserContact } = require('../../logic')
+const { extractUserId, handleErrors } = require('../helpers')
 
 
 module.exports = handleErrors((req, res) => {
@@ -11,6 +11,6 @@ module.exports = handleErrors((req, res) => {
     return (async () => { 
         await promise
         
-        res.status(204).send()
+        res.status(201).send()
     })()
 })

@@ -15,7 +15,14 @@ const {
     updateUserAvatarHandler,
     updateUserModeHandler,
     addUserContactHandler,
-    deleteUserContactHandler
+    deleteUserContactHandler,
+
+    createListHandler,
+    acceptListByUserHandler,
+    addUsersToNotifyAcceptListHandler,
+    reviewListsAccectedByUserHandler,
+    reviewListsToNotifyAcceptHandler
+
 } = require('./handlers')
 
 //
@@ -49,9 +56,20 @@ mongoose.connect(process.env.MONGODB_URL)
 
         api.patch('/users/updateMode', jsonBodyParser, updateUserModeHandler)
 
-        api.patch('/users/contact/:contactId/add', jsonBodyParser, addUserContactHandler)
+        api.post('/users/contact/:contactId/add', jsonBodyParser, addUserContactHandler)
 
-        api.patch('/users/contact/:contactId/delete', jsonBodyParser, deleteUserContactHandler)
+        api.delete('/users/contact/:contactId/delete', jsonBodyParser, deleteUserContactHandler)
+
+
+        api.post('/lists/create', jsonBodyParser, createListHandler)
+
+        api.patch('/lists/:listId/accept', jsonBodyParser, acceptListByUserHandler)
+        
+        api.post('/lists/:listId/contact/:contactId/notify', jsonBodyParser, addUsersToNotifyAcceptListHandler)
+
+        api.get('/lists/accept', jsonBodyParser, reviewListsAccectedByUserHandler)
+        api.get('/lists/notify', jsonBodyParser, reviewListsToNotifyAcceptHandler)
+
 //
 
         api.listen(process.env.PORT, () => console.log(`server running in port ${process.env.PORT}`))

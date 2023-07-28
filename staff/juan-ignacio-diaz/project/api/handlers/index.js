@@ -1,10 +1,15 @@
 module.exports = {
-    authenticateUserHandler: require('./authenticateUserHandler'),
-    registerUserHandler: require('./registerUserHandler'),
-    retrieveUserHandler: require('./retrieveUserHandler'),    
-    updateUserAvatarHandler: require('./updateUserAvatarHandler'),
-    updateUserModeHandler: require('./updateUserModeHandler'),
-    updateUserPasswordHandler: require('./updateUserPasswordHandler'),
-    addUserContactHandler: require('./addUserContactHandler'),
-    deleteUserContactHandler: require('./deleteUserContactHandler')
+    authenticateUserHandler: require('./users/authenticateUserHandler'),
+    registerUserHandler: require('./users/registerUserHandler'),
+    retrieveUserHandler: require('./users/retrieveUserHandler'),    
+    updateUserAvatarHandler: require('./users/updateUserAvatarHandler'),
+    updateUserModeHandler: require('./users/updateUserModeHandler'),
+    updateUserPasswordHandler: require('./users/updateUserPasswordHandler'),
+    addUserContactHandler: require('./users/addUserContactHandler'),
+    deleteUserContactHandler: require('./users/deleteUserContactHandler'),
+    createListHandler: require('./lists/createListHandler'),
+    addUsersToNotifyAcceptListHandler: require('./lists/addUsersToNotifyAcceptListHandler'),
+    reviewListsToNotifyAcceptHandler: require('./lists/reviewListsToNotifyAcceptHandler'),
+    acceptListByUserHandler: require('./lists/acceptListByUserHandler'),
+    reviewListsAccectedByUserHandler: require('./lists/reviewListsAccectedByUserHandler')
 }
