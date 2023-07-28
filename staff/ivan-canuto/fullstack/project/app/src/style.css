@@ -109,14 +109,3 @@ button:focus-visible {
   0% { left: 0 }
   100% { left: -300px }
 }
-
-.opened-menu {
-  left: 0;
-  animation: slide 0.3s linear forwards;
-}
-
-.closed-menu {
-  animation: slide-back 0.3s linear forwards;
-}
-
-@keyframes slide

@@ -10,28 +10,27 @@ export default function Home() {
   const [menu, setMenu] = useState(false)
   const [openedMenu, setOpenedMenu] = useState(false)
   const [lastPostsUpdate, setLastPostsUpdate] = useState(null)
-  const [user, setUser] = useState()
-  const { alert, navigate } = useAppContext()
+  const { navigate } = useAppContext()
 
-  useEffect(() => {
-    try {
-      retrieveUser()
-        .then(setUser)
-        .catch(error => {
-          alert(error.message, 'error')
-          console.debug(error.stack)
-        })
+  // useEffect(() => {
+  //   try {
+  //     retrieveUser()
+  //       .then(setUser)
+  //       .catch(error => {
+  //         alert(error.message, 'error')
+  //         console.debug(error.stack)
+  //       })
 
-    } catch (error) {
-      alert(error.message, 'error')
-      console.debug(error.stack)
-    }
-  }, [])
+  //   } catch (error) {
+  //     alert(error.message, 'error')
+  //     console.debug(error.stack)
+  //   }
+  // }, [])
 
-  const handleReturnToHome = () => {
-    setView("posts")
-    setLastPostsUpdate(Date.now())
-  }
+  // const handleReturnToHome = () => {
+  //   setView("posts")
+  //   setLastPostsUpdate(Date.now())
+  // }
 
   const handleOpenProfile = () => {
     document.body.classList.add("fixed-scroll")
@@ -83,23 +82,23 @@ export default function Home() {
     setModal(null)
   }
 
-  const handleUpdatedAvatar = () => {
-    try {
-      retrieveUser()
-        .then(user => {
-          setUser(user)
-          setLastPostsUpdate(Date.now())
-        })
-        .catch(error => {
-          alert(error.message, 'error')
-          console.debug(error.stack)
-        })
+  // const handleUpdatedAvatar = () => {
+  //   try {
+  //     retrieveUser()
+  //       .then(user => {
+  //         setUser(user)
+  //         setLastPostsUpdate(Date.now())
+  //       })
+  //       .catch(error => {
+  //         alert(error.message, 'error')
+  //         console.debug(error.stack)
+  //       })
 
-    } catch (error) {
-      alert(error.message, 'error')
-      console.debug(error.stack)
-    }
-  }
+  //   } catch (error) {
+  //     alert(error.message, 'error')
+  //     console.debug(error.stack)
+  //   }
+  // }
   
   const handleOpenDeletePost = () => {
     document.body.classList.toggle("fixed-scroll")
@@ -125,9 +124,9 @@ export default function Home() {
       <Button className='absolute top-[105px] right-2 bg-slate-200' onClick={handleOpenChatbotWindow}>Chat wit me</Button>
 
       <Header
-        user={user}
+        // user={user}
         handleToggleMenu={handleToggleMenu}
-        handleReturnToHome={handleReturnToHome}
+        // handleReturnToHome={handleReturnToHome}
         handleOpenProfile={handleOpenProfile}
         handleLogout={handleLogout}
       />
@@ -143,14 +142,14 @@ export default function Home() {
 
         {modal === "profile" && (
           <Profile
-            onUpdatedAvatar={handleUpdatedAvatar}
+            // onUpdatedAvatar={handleUpdatedAvatar}
             onCancel={handleCloseModal}
           />
         )}
 
         {menu && (
           <SideBarMenu
-            showHomePage={handleReturnToHome}
+            // showHomePage={handleReturnToHome}
             showOwnPosts={showOwnPosts}
             showSavedPosts={showSavedPosts}
             openedMenu={openedMenu}

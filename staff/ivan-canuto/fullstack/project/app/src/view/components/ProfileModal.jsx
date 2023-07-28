@@ -65,7 +65,7 @@ export default function Profile({ onCancel, onUpdatedAvatar}) {
     }
   }
   
-  return <ModalContainer className='gap-3 absolute top-0' tag='section' >
+  return <ModalContainer tag='section' >
     <div className="absolute top-36 z-20 flex flex-col items-center gap-6">
       <Form className='bg-transparent wx-44 sm:w-96' onSubmit={handleChangeAvatar}>
           <h2 className="font-bold">Update avatar</h2>

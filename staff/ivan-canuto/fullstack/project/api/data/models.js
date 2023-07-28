@@ -1,6 +1,27 @@
 const mongoose = require('mongoose')
 const { Schema, mongoose: { Types: { ObjectId } }, model } = mongoose
 
+const conversationObject = new Schema ({
+    role: {
+        type: String,
+        required: true
+    },
+    content: {
+        type: String,
+        required: true
+    }
+})
+
+const conversation = new Schema ({
+    author: {
+        type: [ObjectId],
+        ref: 'User'
+    },
+    conversationObjects: {
+        type: [conversationObject]
+    }
+})
+
 const user = new Schema({
     name: {
         type: String,
@@ -24,6 +45,9 @@ const user = new Schema({
     favs: {
         type: [ObjectId],
         ref: 'Post'
+    },
+    conversations: {
+        type: [conversation]
     }
 })
 
@@ -40,6 +64,27 @@ const comment = new Schema({
         type: String,
         required: true
     }
+})
+
+const suggestion = new Schema({
+    author: {
+        type: ObjectId,
+        ref:'User',
+        required: true
+    },
+    post: {
+        type: ObjectId,
+        ref:'Post',
+        required: true
+    },
+    title: {
+        type: String,
+        requried: true
+    },
+    content: {
+        type: String,
+        required: true
+    },
 })
 
 const date = new Date
@@ -79,9 +124,15 @@ const post = new Schema({
 const User = model('User', user)
 const Post = model('Post', post)
 const Comment = model('Comment', comment)
+const Suggestion = model('Suggestion', suggestion)
+const Conversation = model('Conversation', conversation)
+const ConversationObject = model('ConversationObject', conversationObject)
 
 module.exports = {
     User,
     Post,
-    Comment
+    Comment,
+    Suggestion,
+    Conversation,
+    ConversationObject
 }

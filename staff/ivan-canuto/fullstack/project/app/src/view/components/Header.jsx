@@ -1,10 +1,13 @@
 import { getTheme, setTheme } from "../../ui"
-import { useState } from "react"
-import { Button } from "../library";
+import { useState, useEffect } from "react"
+import { useNavigate } from "react-router-dom"
+import { retrieveUser } from "../../logic"
 
-export default function Header({ handleToggleMenu, handleReturnToHome, handleOpenProfile, handleLogout, user }) {
+export default function Header({ handleToggleMenu, handleOpenProfile }) {
+  const navigate = useNavigate()
 
   const [newTheme, setnewTheme] = useState(getTheme())
+  const [user, setUser] = useState(null)
 
   const switchAppTheme = () => {
     const theme = newTheme === 'light' ? 'dark' : 'light'
@@ -13,6 +16,23 @@ export default function Header({ handleToggleMenu, handleReturnToHome, handleOpe
   }
 
   const theme = getTheme()
+
+  const handleReturnToHome = () => navigate('/')
+
+  useEffect(() => {
+    try {
+      retrieveUser()
+        .then(setUser)
+        .catch(error => {
+          alert(error.message, 'error')
+          console.debug(error.stack)
+        })
+
+    } catch (error) {
+      alert(error.message, 'error')
+      console.debug(error.stack)
+    }
+  }, [])
 
   return <>
   <header className="fixed h-24 top-0 w-full z-20 bg-slate-100 ">

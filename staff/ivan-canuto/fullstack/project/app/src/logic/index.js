@@ -20,6 +20,11 @@ import toggleVisibilityPost from './toggleVisibilityPost'
 import updatePost from './updatePost'
 import updateUserAvatar from './updateUserAvatar'
 import updateUserPassword from './updateUserPassword'
+import deleteConversation from './deleteConversation'
+import fetchReply from './fetchReply'
+import renderConversationFromDB from './renderConversationFromDB'
+import renderTypeWriterText from './renderTypeWriterText'
+import restartConversation from './restartConversation'
 
 export {
     context,
@@ -43,5 +48,10 @@ export {
     toggleVisibilityPost,
     updatePost,
     updateUserAvatar,
-    updateUserPassword
+    updateUserPassword,
+    deleteConversation,
+    fetchReply,
+    renderConversationFromDB,
+    renderTypeWriterText,
+    restartConversation
 }

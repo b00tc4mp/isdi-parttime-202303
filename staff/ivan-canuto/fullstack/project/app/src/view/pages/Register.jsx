@@ -27,7 +27,7 @@ export default function Register() {
         <div className='flex justify-center items-center w-11/12'>
             <div className="w-4/5 h-[500px] bg-white rounded-[10px] border border-black flex flex-col items-center justify-center">
                 <Form className="flex flex-col gap-4 w-80 items-center mt-2 mb-4" onSubmit={handleRegisterIn}>
-                    <img className="max-w-[140px] h-[140px] rounded-full absolute top-[1%]" src="src/images/logo-login&register.jpg" />
+                    <img className="max-w-[140px] h-[140px] rounded-full mt-[-140px]" src="src/images/logo-login&register.jpg" />
                     <div className="h-[54px] text-black text-4xl font-normal">Register</div>
                     <Input className="w-full h-12 border-black border-2 rounded-lg p-4" name='name' placeholder="Name" />
                     <Input className="w-full h-12 border-black border-2 rounded-lg p-4" type="email" name='email' placeholder="Email" />

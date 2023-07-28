@@ -34,9 +34,28 @@ Post
 - suggestions (array of contributions from other users)
 
 Comment
-- author
+- id (oid)
+- author (string)
 - auhotr id (oid)
-- text
+- text (string)
+
+Suggestion
+- id (oid)
+- author (oid, refers to the User id)
+- post (oid, refers to the Post id)
+- title (string)
+- content (string)
+
+Conversation
+- id (oid)
+- author (oid, refers to User id)
+- conversationObjects (array of objects containing the information of a conversation between chatbot and user)
+
+ConversationObject
+- id (oid)
+- role (string)
+- content (string)
+
 
 ### Test Coverage
 
