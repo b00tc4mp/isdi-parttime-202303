@@ -33,7 +33,7 @@ describe('addUserContact', () => {
         expect(user.contacts).to.have.lengthOf(1)
         expect(user.contacts[0].toString()).to.equal(contactTest.id)
     })
-    debugger
+    
     it('fails on existing user and id contact alrady exist', async () => {
         userTest.contacts.push(contactTest.id)
         await User.findByIdAndUpdate(userTest.id, { $push: { contacts: contactTest.id }})
