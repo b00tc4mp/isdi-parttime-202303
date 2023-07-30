@@ -16,32 +16,33 @@ At the end of the purchase a summary of purchases is generated, indicating the m
 
 ### Use cases
 
-- add user
-- login
-- update e-mail
-- update password
-- update avatar
-- update mode
-- add contact
-- delete contact
-- create the shopping list
-- close the shopping list
-- request for addition to shopping list
-- accept addition to shopping list
-- add stores
-- add products
-- delete products
-- toggle like product
-- update product stores
-- update product type
-- update product estimated price
-- update product comment
-- update chat comment
-- update product state
-- review products leaked
-- review strores
-- review product type
-- generate purchase summary
+#### User
+
+- Add contact user
+- Delete contact user
+
+#### List
+- Create the shopping list
+- Close the shopping list
+- Request for addition to shopping list
+- Accept addition to shopping list
+- Add stores
+- Update chat comment
+- Generate purchase summary
+
+#### Product
+
+- Add products
+- Delete products
+- Toggle like product
+- Update product stores
+- Update product type
+- Update product estimated price
+- Update product comment
+- Update product state
+- Review products leaked
+- Review strores
+- Review product type
 
 ## Technical description
 
