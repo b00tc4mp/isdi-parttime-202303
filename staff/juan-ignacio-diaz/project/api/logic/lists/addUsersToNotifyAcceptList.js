@@ -8,12 +8,12 @@ const { User, List } = require('../../data/models')
 /**
  * add users from contact to notify list by listId, userId and contactId
  * 
- * @param {string} listId  The Id of the user to creete list.
+ * @param {string} listId  The Id of the list.
  * @param {string} userId  The Id of the user to creete list.
- * @param {string} contactId The Id a contact to the user to creete list.
+ * @param {string} contactId The Id a contact notified list.
  *
- * @throws {ExistenceError} On existing userId
- * @throws {DuplicityError} On existing email
+ * @throws {ExistenceError} On existing userId, listId, contactid
+ * @throws {DuplicityError} On existing contact
  */
 module.exports = (listId, userId, contactId) => {
     validateId(listId, 'list id')

@@ -7,8 +7,8 @@
       "start": "node .",
       "watch": "node --watch .",
       "inspect": "node --inspect-brk .",
-      "test": "mocha logic/lists/*.spec.js", 
-      "test-inspect": "mocha --inspect-brk logic/lists/*.spec.js",
+      "test": "mocha logic/lists/chat/*.spec.js", 
+      "test-inspect": "mocha --inspect-brk logic/lists/chat/*.spec.js",
       "test-coverage": "nyc --reporter=html --reporter=text mocha logic/*.spec.js"
     },
     "keywords": [],

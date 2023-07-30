@@ -8,11 +8,11 @@ const { User, List } = require('../../data/models')
 /**
  * user accept to list by listId and userId
  * 
- * @param {string} listId  The Id of the user to creete list.
- * @param {string} userId  The Id of the user to creete list.
+ * @param {string} listId  The Id of list.
+ * @param {string} userId  The Id of the user notified.
  *
- * @throws {ExistenceError} On existing userId
- * @throws {DuplicityError} On existing email
+ * @throws {ExistenceError} On existing userId, listId
+ * @throws {DuplicityError} On existing userId
  */
 module.exports = (listId, userId) => {
     validateId(listId, 'list id')

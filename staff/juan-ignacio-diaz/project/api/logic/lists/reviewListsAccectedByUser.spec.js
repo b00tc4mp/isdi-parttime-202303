@@ -23,9 +23,9 @@ describe('reviewListsAccectedByUser', () =>{
         await User.findByIdAndUpdate(userTest.id,  { $push: { contacts: [contactTest.id] } }) 
 
         listTest = generateList(userTest.id)
-        listTest.notifyAcceptList.push(contactTest.id)
+        listTest.users.push(contactTest.id)
         listTest2 = generateList(userTest.id)
-        listTest2.notifyAcceptList.push(contactTest.id)
+        listTest2.users.push(contactTest.id)
         await populateList(listTest)
         return await populateList(listTest2)
     })

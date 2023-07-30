@@ -8,7 +8,7 @@ const { User, List } = require('../../data/models')
 /**
  * retriew lists from user have notify to accept by userId
  * 
- * @param {string} userId  The Id of the user to creete list.
+ * @param {string} userId  The Id of the user.
  * 
  * @returns {Promise<Liss: name date>} The list id
  * 

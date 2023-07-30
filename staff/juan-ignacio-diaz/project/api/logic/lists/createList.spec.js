@@ -31,7 +31,8 @@ describe('createList', () =>{
         expect(list.id).to.be.a('string')
         expect(list.dateToEnd).to.deep.equal(listTest.dateToEnd)
         expect(new Date(list.date)).to.be.a('date')
-        expect(list.users).to.have.lengthOf(0)
+        expect(list.users).to.have.lengthOf(1)
+        expect(list.users[0].toString()).to.equal(userTest.id)
         expect(list.notifyAcceptList).to.have.lengthOf(0)
     })
 

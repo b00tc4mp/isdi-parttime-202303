@@ -7,6 +7,8 @@ module.exports = {
     updateUserPasswordHandler: require('./users/updateUserPasswordHandler'),
     addUserContactHandler: require('./users/addUserContactHandler'),
     deleteUserContactHandler: require('./users/deleteUserContactHandler'),
+    searchUser: require('./users/searchUser'),
+
     createListHandler: require('./lists/createListHandler'),
     addUsersToNotifyAcceptListHandler: require('./lists/addUsersToNotifyAcceptListHandler'),
     reviewListsToNotifyAcceptHandler: require('./lists/reviewListsToNotifyAcceptHandler'),

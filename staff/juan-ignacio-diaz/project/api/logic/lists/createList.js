@@ -6,13 +6,13 @@ const {
 const { User, List } = require('../../data/models')
 
 /**
- * Create a list by name, dateEnd 
+ * Create a list and add author in users by name, dateEnd 
  * 
  * @param {string} name The list's name
  * @param {date} dateEnd The list's date end
 
  * 
- * @throws {DuplicityError} On existing email
+ * @throws {DuplicityError} On existing name list
  */
 module.exports = (userId, name, dateToEnd) => {
     validateId(userId, 'user id')
@@ -25,13 +25,14 @@ module.exports = (userId, name, dateToEnd) => {
         if (!user) throw new ExistenceError('user not found')
 
         try {
-            await List.create({ 
+            const list = await List.create({ 
                 name, 
                 author: user._id,
                 users: [], 
                 dateToEnd,
                 notifyAcceptList: []
             })
+            await List.findByIdAndUpdate(list.id,  { $push: { users: [userId] } }) 
         }
         catch (error) {
             if(error.message.includes('E11000'))
