@@ -9,7 +9,7 @@ import context from './context.js'
  * @returns {string} employeeId
  */
 
-export default function loginUser(employeeNumber, employeePassword) {
+export default function loginEmployee(employeeNumber, employeePassword) {
     // TODO validators
 
     return fetch(`${import.meta.env.VITE_API_URL}/employees/auth`, {

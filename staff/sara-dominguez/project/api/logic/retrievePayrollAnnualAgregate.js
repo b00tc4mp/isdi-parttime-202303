@@ -1,6 +1,6 @@
 const { Employee } = require('../data/models')
 
-module.exports = function calculatePayrollAnnualAgregate(employeeId, payrollYear, employeePayrollsMonth) {
+module.exports = function retrievePayrollAnnualAgregate(employeeId, payrollYear, employeePayrollsMonth) {
 
     //TODO VALIDATORS AND ERRORS
 
@@ -23,7 +23,7 @@ module.exports = function calculatePayrollAnnualAgregate(employeeId, payrollYear
 
         .then(() => {
             for (let i = 0; i < employeePayrollsMonth.length; i++) {
-                debugger
+
                 const payrollMonthValue = employeePayrollsMonth[i].payrollMonth
                 const monthSalaryValue = employeePayrollsMonth[i].monthSalary
                 const bonusValue = employeePayrollsMonth[i].bonus
@@ -54,6 +54,7 @@ module.exports = function calculatePayrollAnnualAgregate(employeeId, payrollYear
                 }
 
             }
+
             return employeePayrollAnnualAgregated = {
                 payrollYear,
                 sumPayrollMonth,

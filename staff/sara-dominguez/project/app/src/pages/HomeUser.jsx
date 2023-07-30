@@ -1,19 +1,22 @@
 import { useState, useEffect } from 'react'
 import PersonalInformationModal from '../components/PersonalInformationModal.jsx'
-import PayrollMenuModal from '../components/PayrollMenuModal.jsx'
+import ManagePayrollMenuModal from '../components/ManagePayrollMenuModal.jsx'
+import EmployeeDatabaseMenuModal from '../components/EmployeeDatabaseMenuModal.jsx'
 import retrieveEmployee from '../logic/retrieveEmployee'
 import isLoggedIn from '../logic/isLoggedIn'
+import logoutEmployee from '../logic/logoutEmployee.js'
 import { context } from '../ui'
-
-
-
-
+import useAppContext from '../hooks/useAppContext'
 
 
 export default function Home() {
+    console.log('Home --> render')
+
     const [view, setView] = useState(null)
     const [modal, setModal] = useState(null)
     const [employee, setEmployee] = useState()
+
+    const { navigate } = useAppContext()
 
     useEffect(() => {
         try {
@@ -30,15 +33,19 @@ export default function Home() {
 
     const handleGoToPersonalInformatioMenu = (event) => {
         event.preventDefault()
-
+        // setEmployee(employee)
         setModal('PersonalInformation')
     }
 
 
     const handleGoToPayrollMenu = (event) => {
         event.preventDefault()
+        setModal('ManagePayrollMenu')
+    }
 
-        setModal('PayrollMenu')
+    const handleGoToEmployeeDatabaseMenu = (event) => {
+        event.preventDefault()
+        setModal('EmployeeDatabaseMenu')
     }
 
     const handleRefreshEmloyee = () => {
@@ -52,6 +59,14 @@ export default function Home() {
         }
     }
 
+    const handleCloseModal = () => setModal(null)
+
+
+    const handleLogOut = () => {
+        logoutEmployee()
+
+        navigate('/Login')
+    }
 
 
     return <div>
@@ -68,20 +83,25 @@ export default function Home() {
             </header>
             <main>
                 <p className="personalInformation-menu"><a href="" className="personalInformation" onClick={handleGoToPersonalInformatioMenu}>Personal information</a></p>
-                <p className="payroll-Menu" onClick={handleGoToPayrollMenu}><a href="" className="payrollMenu" >Payroll menu</a></p>
-                <p className="notifications-menu"><a href="" className="notifications" >Notifications</a></p>
+                <p className="manage-payroll-menu" onClick={handleGoToPayrollMenu}><a href="" className="ManagePayrollMenu" >Manage Payroll menu</a></p>
+                <p className="employeeDatabase-menu" onClick={handleGoToEmployeeDatabaseMenu}><a href="" className="employeeDatabaseMenu" >Employee Database Menu</a></p>
 
-                {modal === 'PersonalInformation' && < PersonalInformationModal />}
-                {modal === 'PayrollMenu' && < PayrollMenuModal />}
+                {modal === 'PersonalInformation' && < PersonalInformationModal
+                    onPersonalInformationModalLogout={handleCloseModal}
+                    employee={employee}
+                />}
+                {modal === 'ManagePayrollMenu' && < ManagePayrollMenuModal />}
+                {modal === 'EmployeeDatabaseMenu' && < EmployeeDatabaseMenuModal onEmployeeRegistered={handleCloseModal} />}
                 {view === 'PayrollMenuUpdateAvatar' && < PersonalInformationModal onEmployeeAvatarUpdated={handleRefreshEmloyee} />}
-                {view === 'PayrollMenuUpdatePassword' && < PersonalInformationModal onEmployeePasswordUpdated={handleRefreshEmloyee} />}
-                {view === 'PayrollMenuUpdateAdress' && < PersonalInformationModal onEmployeeAdressUpdated={handleRefreshEmloyee} />}
+                {view === 'PayrollMenuUpdatePassword' && < PersonalInformationModal onEmployeePasswordUpdated={handleCloseModal} />}
+                {view === 'PayrollMenuUpdateAdress' && < PersonalInformationModal onEmployeeAdressUpdated={handleCloseModal} />}
                 {view === 'PayrollMenuUpdateBankAccountNumber' && < PersonalInformationModal onEmployeeBankAccountNumberUpdated={handleRefreshEmloyee} />}
+
 
             </main>
 
             <footer>
-                <h5 className="">Logout</h5>
+                <h5 className="" onClick={handleLogOut}>Logout</h5>
             </footer>
         </div>
 

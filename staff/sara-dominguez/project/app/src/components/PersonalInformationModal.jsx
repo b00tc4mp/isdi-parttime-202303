@@ -1,9 +1,33 @@
+import { useState, useEffect } from 'react'
 import updateEmployeeAvatar from '../logic/updateEmployeeAvatar'
 import updateEmployeePassword from '../logic/updateEmployeePassword'
 import updateEmployeeAdress from '../logic/updateEmployeeAdress'
 import updateEmployeeBankAccountNumber from '../logic/updateEmployeeBankAccountNumber'
+import useAppContext from '../hooks/useAppContext'
+import { utils } from 'com'
+import { context } from '../ui'
+import isCurrentEmployee from '../logic/isCurrentEmployee'
+import retrieveEmployee from '../logic/retrieveEmployee'
 
-export default function PersonalInformationModal({ onEmployeeAvatarUpdated, onEmployeePasswordUpdated, onEmployeeAdressUpdated, onEmployeeBankAccountNumberUpdated }) {
+const { extractSubFromToken } = utils
+
+
+export default function PersonalInformationModal(employee, onEmployeeAvatarUpdated, onEmployeePasswordUpdated, onEmployeeBankAccountNumberUpdated, onEmployeeAdressUpdated, onPersonalInformationModalLogout) {
+    console.log('PersonalInformationModal --> open')
+
+    const { navigate } = useAppContext()
+    // const [employee, setEmployee] = useState()
+
+    // useEffect(() => {
+    //     try {
+
+    //         retrieveEmployee(context.token)
+    //             .then(employee => setEmployee(employee))
+    //             .catch(error => alert(error.message))
+    //     } catch (error) {
+    //         alert(error.message)
+    //     }
+    // }, [])
 
     const handleUpdateAvatar = event => {
         event.preventDefault()
@@ -49,13 +73,16 @@ export default function PersonalInformationModal({ onEmployeeAvatarUpdated, onEm
     const handleUpdateAdress = event => {
         event.preventDefault()
 
-        const street = event.target.street.value
-        const postalCode = event.target.postalCode.value
-        const city = event.target.city.value
-        const country = event.target.country.value
+        const employeeStreet = event.target.employeeStreet.value
+        const employeePostalCode = event.target.employeePostalCode.value
+        const employeeCity = event.target.employeeCity.value
+        const employeeCountry = event.target.employeeCountry.value
 
         try {
-            updateEmployeeAdress(street, postalCode, city, country)
+
+            const employeeNewAdress = `${employeeStreet}` + ' ' + `${employeePostalCode}` + ' ' + `${employeeCity}` + ' ' + `${employeeCountry}`
+
+            updateEmployeeAdress(employeeNewAdress)
 
                 .then(() => {
 
@@ -85,47 +112,63 @@ export default function PersonalInformationModal({ onEmployeeAvatarUpdated, onEm
         }
     }
 
-    return <section className="add-post">
-        <div>
-            <header>
-                <h5>Sara FistName SecondName</h5>
-                <h5>CEO</h5>
-                <h5>Phone:698349859</h5>
-                <h5>Email: sara.firstname@b-elevenzsd.com</h5>
-                <h5>22-07-2023</h5>
-                <h5>Barcelona</h5>
-            </header>
-            <main>
-                <h4>Personal Information</h4>
-                <h5>Update your avatar</h5>
+    function handlePersonalInformationModalLogout(event) {
+        event.preventDefault()
+
+        onPersonalInformationModalLogout()
+    }
+
+
+
+    // const isCurrentEmployee = isCurrentEmployee(id)
+
+
+    return <section className="personalInformation" style={{ backgroundColor: '#FFC0CB', color: '#ffffff' }}>
+
+        {/* TODO problemas con las props */}
+        <header style={{ backgroundColor: '#808080', color: '#ffffff' }}>
+            <h5>name: {employee.name}</h5>
+            <h5>{employee.department}</h5>
+            <h5>{employee.position}</h5>
+            <h5>{employee.professionalPhoneNumber}</h5>
+            <h5>{employee.professionalEmail}</h5>
+            <h5>{employee.centerAttached}</h5>
+
+
+        </header>
+        <main>
+            <h4>Personal Information</h4>
+            <div>
+                <h5>Update your avatar </h5>
                 <form className="personalInformation-avatar-form" onSubmit={handleUpdateAvatar}>
                     <input className="input" type="url" name="url" />
                     <button className="button" type="submit">Update</button>
                 </form>
-                <h5>Update your password</h5>
-                <form className="personalInformation-password-form" onSubmit={handleUpdatePassword}>
-                    <input className="input" type="password" name="employeePassword" placeholder="Password" />
-                    <input className="input" type="password" name="employeeNewPassword" placeholder="New password" />
-                    <input className="input" type="password" name="employeeNewPasswordConfirm" placeholder="New password confirmation" />
-                    <button className="button" type="submit">Update</button>
-                </form>
-                <h5>Update your adress</h5>
-                <form className="personalInformation-adress-form" onSubmit={handleUpdateAdress}>
-                    <input className="input" type="text" name="street" placeholder="Street" />
-                    <input className="input" type="text" name="postalCode" placeholder="Postal code" />
-                    <input className="input" type="text" name="city" placeholder="City " />
-                    <input className="input" type="text" name="country" placeholder="Country" />
-                    <button className="button" type="submit">Update</button>
-                </form>
-                <h5>Update your bank account</h5>
-                <form className="personalInformation-bankAccountNumber-form" name="bankAccountNumber" onSubmit={handleUpdateBankAccountNumber} >
-                    <input className="input" type="text" name="bankAccountNumber" placeholder="Bank Account Number" />
-                    <button className="button" type="submit">Update</button>
-                </form>
-            </main>
-            <footer>
-                <h5 className="">Logout</h5>
-            </footer>
-        </div>
+            </div>
+            <h5>Update your password</h5>
+            <form className="personalInformation-password-form" onSubmit={handleUpdatePassword}>
+                <input className="input" type="password" name="employeePassword" placeholder="Password" />
+                <input className="input" type="password" name="employeeNewPassword" placeholder="New password" />
+                <input className="input" type="password" name="employeeNewPasswordConfirm" placeholder="New password confirmation" />
+                <button className="button" type="submit">Update</button>
+            </form>
+            <h5>Update your adress</h5>
+            <form className="personalInformation-adress-form" onSubmit={handleUpdateAdress} >
+                <input className="input" type="text" name="employeeStreet" placeholder="Street" />
+                <input className="input" type="text" name="employeePostalCode" placeholder="Postal code" />
+                <input className="input" type="text" name="employeeCity" placeholder="City " />
+                <input className="input" type="text" name="employeeCountry" placeholder="Country" />
+                <button className="button" type="submit">Update</button>
+            </form>
+            <h5>Update your bank account</h5>
+            <form className="personalInformation-bankAccountNumber-form" name="bankAccountNumber" onSubmit={handleUpdateBankAccountNumber} >
+                <input className="input" type="text" name="bankAccountNumber" placeholder="Bank Account Number" />
+                <button className="button" type="submit">Update</button>
+            </form>
+        </main>
+        <footer>
+            <h5 className="" onClick={handlePersonalInformationModalLogout}>Logout</h5>
+        </footer>
+
     </section>
 }

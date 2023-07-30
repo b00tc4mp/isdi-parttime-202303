@@ -1,12 +1,12 @@
-const { retrieveEmployeePayrollsMonth } = require('../logic')
+const { retrieveEmployeePayrollsMonthYear } = require('../logic')
 const { extractEmployeeId } = require('./helpers')
 //TODO helper
 
 module.exports = (req, res) => {
     const employeeId = extractEmployeeId(req)
 
-    const { payrollYear } = req.body
+    const { payrollYear } = req.params
 
-    return retrieveEmployeePayrollsMonth(employeeId, payrollYear)
+    return retrieveEmployeePayrollsMonthYear(employeeId, payrollYear)
         .then(employee => res.json(employee))
 }

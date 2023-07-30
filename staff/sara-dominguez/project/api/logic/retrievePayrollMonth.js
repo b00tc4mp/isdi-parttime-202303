@@ -1,7 +1,6 @@
 const { Employee, PayrollMonth } = require('../data/models')
 
-module.exports = (employeeId, payrollYear, payrollMonth) => {
-    const payrollYearIsoDate = new Date(payrollYear)
+module.exports = (employeeId, payrollYearIsoDate, payrollMonth) => {
     // TODO validators and errors
 
     return Promise.all([

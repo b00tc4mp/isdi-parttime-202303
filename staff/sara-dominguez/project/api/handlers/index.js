@@ -6,9 +6,13 @@ module.exports = {
     createEmployeePayrollMonthHandler: require('./createEmployeePayrollMonthHandler'),
     updateEmployeeAvatarHandler: require('./updateEmployeeAvatarHandler'),
     updateEmployeePasswordHandler: require('./updateEmployeePasswordHandler'),
+    updateEmployeeAdressHandler: require('./updateEmployeeAdressHandler'),
     updateEmployeeBankAccountNumberHandler: require('./updateEmployeeBankAccountNumberHandler'),
     retrievePayrollMonthHandler: require('./retrievePayrollMonthHandler'),
     // isEmployeeAccessPermissionsAuthorizedHandler: require('./isEmployeeAccessPermissionsAuthorizedHandler'),
-    // retrieveEmployeesBySalaryLevelHandler: require('./retrieveEmployeesBySalaryLevelHandler'),
-    retrieveEmployeePayrollsMonthHandler: require('./retrieveEmployeePayrollsMonthHandler')
+    retrieveEmployeesBySalaryLevelHandler: require('./retrieveEmployeesBySalaryLevelHandler'),
+    retrieveEmployeePayrollsMonthYearHandler: require('./retrieveEmployeePayrollsMonthYearHandler'),
+    retrievePayrollAnnualAgregateHandler: require('./retrievePayrollAnnualAgregateHandler'),
+
+
 }

@@ -9,9 +9,11 @@ const { helloApiHandler,
     createEmployeePayrollMonthHandler,
     updateEmployeeAvatarHandler,
     updateEmployeePasswordHandler,
+    updateEmployeeAdressHandler,
     updateEmployeeBankAccountNumberHandler,
     retrievePayrollMonthHandler,
-    retrieveEmployeePayrollsMonthHandler,
+    retrieveEmployeePayrollsMonthYearHandler,
+    retrievePayrollAnnualAgregateHandler,
     retrieveEmployeesBySalaryLevelHandler
 } = require('./handlers')
 
@@ -31,8 +33,13 @@ mongoose.connect(process.env.MONGODB_URL)
         api.get('/employees/retrieve', retrieveEmployeeHandler)
         // api.get('/employees/accessPermissionsAuthorized', isEmpoyeeAccessPermissionsAuthorizedHandler)
         api.get('/payrollMonth/retrieveEmployeePayrollMonth/:payrollYear/:payrollMonth', retrievePayrollMonthHandler)
-        api.get('/payrollMonth/retrieveEmployeePayrollsMonth', retrieveEmployeePayrollsMonthHandler)
-        // api.get('retrieveEmployeesBySalaryLevel', retrieveEmployeesBySalaryLevelHandler)
+        api.get('/payrollMonth/retrieveEmployeePayrollsMonthYear/:payrollYear', retrieveEmployeePayrollsMonthYearHandler)
+        api.get('/employees/retrieveEmployeesBySalaryLevel/:salaryLevel', retrieveEmployeesBySalaryLevelHandler)
+
+
+        // TODO preguntar a Manu
+        api.post('/payrollMonth/retrievePayrollAnnualAgregateHandler', jsonBodyParser, retrievePayrollAnnualAgregateHandler)
+
 
 
         api.post('/employees', jsonBodyParser, registerEmployeeHandler)
@@ -41,6 +48,7 @@ mongoose.connect(process.env.MONGODB_URL)
 
         api.patch('/employees/updateAvatar', jsonBodyParser, updateEmployeeAvatarHandler)
         api.patch('/employees/updatePassword', jsonBodyParser, updateEmployeePasswordHandler)
+        api.patch('/employees/updateAdress', jsonBodyParser, updateEmployeeAdressHandler)
         api.patch('/employees/updateBankAccountNumber', jsonBodyParser, updateEmployeeBankAccountNumberHandler)
 
 

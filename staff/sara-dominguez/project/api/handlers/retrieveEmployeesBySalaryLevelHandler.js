@@ -1,10 +1,12 @@
-// const { retrieveEmployeesBySalaryLevel } = require('../logic')
+const { retrieveEmployeesBySalaryLevel } = require('../logic')
+const { extractEmployeeId } = require('./helpers')
+//TODO helper
 
-// //TODO helper
+module.exports = (req, res) => {
+    // const employeeId = extractEmployeeId(req)
 
-// module.exports = (req, res) => {
-//     const salaryLevel = req.body
+    const salaryLevel = req.params
 
-//     return retrieveEmployeesBySalaryLevel(salaryLevel)
-//         .then(employee => res.json(employee))
-// }
+    return retrieveEmployeesBySalaryLevel(salaryLevel)
+        .then((employeeListRetrieved) => res.json(employeeListRetrieved))
+}

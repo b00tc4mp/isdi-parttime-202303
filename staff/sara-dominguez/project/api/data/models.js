@@ -14,8 +14,10 @@ const payrollMonth = new Schema({
         required: true,
     },
     payrollMonth: {
-        type: String,
+        type: Number,
         required: true,
+        min: 1,
+        max: 12
     },
     salaryLevel: {
         type: Number,
@@ -76,12 +78,12 @@ const employee = new Schema({
         required: true,
         trim: true
     },
-    firstName: {
+    firstSurname: {
         type: String,
         required: true,
         trim: true
     },
-    secondName: {
+    secondSurname: {
         type: String,
         trim: true
     },

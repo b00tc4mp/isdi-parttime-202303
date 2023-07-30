@@ -1,5 +1,5 @@
-import UseAppAppContext from './useAppAppContext'
+import useAppContext from './useAppContext'
 
 export {
-    UseAppAppContext
+    useAppContext,
 } 

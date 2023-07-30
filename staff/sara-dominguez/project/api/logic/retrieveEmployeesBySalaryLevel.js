@@ -1,6 +1,6 @@
 const { Employee } = require('../data/models')
 const { BSON } = require('mongodb')
-const { convertParamsToBSON } = require('./helpers')
+
 
 module.exports = function retrieveEmployeesBySalaryLevel(salaryLevel) {
     //TODO validators
@@ -9,16 +9,20 @@ module.exports = function retrieveEmployeesBySalaryLevel(salaryLevel) {
     // Employee.find(employeeId).lean()
     //     .then(employee => {
     //         if (!employee) throw new Error(`employee with id ${employeeId} not found`)
-    //         //TODO EMPLOYEE PERMISSIONS OK (HELPER)
     //     })
 
-    // return convertParamsToBSON(salaryLevel)
+    // .next()
+    //        
+    //TODO EMPLOYEE PERMISSIONS OK 
 
-    Employee.find({ salaryLevel: salaryLevel }, 'avatar name firsName secondName salaryLevel').lean()
-        .then(([employee]) => {
-            if ([employee] === []) throw new Error(`Not found any employee with ${salaryLevel} this salary level`)
+    return Employee.find({ salaryLevel: salaryLevel }, 'avatar name firsName secondSurname salaryLevel').lean()
+        .then((employee) => {
+            if (!employee) throw new Error(`Not found any employee with ${salaryLevel} this salary level`)
 
-            return [employee]
+            const employeeListRetrieved = [employee]
+            console.log(employeeListRetrieved)
+
+            return employeeListRetrieved
         })
 
 

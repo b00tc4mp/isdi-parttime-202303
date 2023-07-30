@@ -2,16 +2,17 @@
 /**
  * Register an employee
  * 
- * @param {string} name The employee name
- * @param {string} firsName  The employee firstName
- * @param {string} secondName  The employee secondName
- * @param {string} birthDate  The employee birthdate
- * @param {string} idCardNumber   The employee id card number
- * @param {string} tssNumber  The employee TGSS number
- * @param {string} adress  The employee personal adress
- * @param {string} personalPhoneNumber  The employee personal phone number
- * @param {string} accounBankNumber  The employee accoun bank number
- * @param {string} employeeNumber  The employee company credential: id number
+ * @param {string} name  employee name
+ * @param {string} firsName   employee firstSurname
+ * @param {string} secondSurname   employee secondSurname
+ * @param {string} birthDate   employee birthdate
+ * @param {string} idCardNumber    employee id card number
+ * @param {string} tssNumber   employee TGSS number
+ * @param {string} adress   employee personal adress
+ * @param {string} personalPhoneNumber   employee personal phone number
+ * @param {string} bankAccountNumber   employee accoun bank number
+ * @param {string} avatar   employee's avatar
+ * @param {string} employeeNumber   employee company credential: id number
  * @param {string} startOfEmploymentData  Data when employee work relationship started
  * @param {string} endOfEmploymentData  Data when employee work relationship ends (opciona). Only for temporary contracts )
  * @param {string} lengthOfEmployment Employuee employment duration
@@ -36,7 +37,7 @@
 
 
 
-module.exports = function registerEmployee(name, firstName, secondName, birthDate, idCardNumber, tssNumber, adress, personalPhoneNumber, bankAccountNumber, employeeNumber, startOfEmploymentData, endOfEmploymentData, lengthOfEmployment, typeOfContract, jobPosition, department, salaryLevel, centerAttached, superiorHierarchicalManager, roll, professionalPhoneNumber, professionalEmail, accessPermissions, employeePassword) {
+module.exports = function registerEmployee(name, firstSurname, secondSurname, birthDate, idCardNumber, tssNumber, adress, personalPhoneNumber, bankAccountNumber, avatar, employeeNumber, startOfEmploymentData, endOfEmploymentData, lengthOfEmployment, typeOfContract, jobPosition, department, salaryLevel, centerAttached, superiorHierarchicalManager, roll, professionalPhoneNumber, professionalEmail, accessPermissions, employeePassword) {
 
     //TODO validators and handlerErrors
 
@@ -45,14 +46,15 @@ module.exports = function registerEmployee(name, firstName, secondName, birthDat
     return Employee.create({
         // personalData: {
         name,
-        firstName,
-        secondName,
+        firstSurname,
+        secondSurname,
         birthDate,
         idCardNumber,
         tssNumber,
         adress,
         personalPhoneNumber,
         bankAccountNumber,
+        avatar,
 
         // professionalData:
         employeeNumber,

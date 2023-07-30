@@ -1,6 +1,6 @@
 const { Employee, PayrollMonth } = require('../data/models')
 
-module.exports = function retrieveEmployeePayrollsMonth(employeeId, payrollYear) {
+module.exports = function retrieveEmployeePayrollsMonthYear(employeeId, payrollYear) {
     // TODO validators and errors
 
     return Promise.all([
