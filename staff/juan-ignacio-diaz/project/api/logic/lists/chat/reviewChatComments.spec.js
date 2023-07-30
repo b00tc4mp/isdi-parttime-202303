@@ -34,7 +34,7 @@ describe('reviewChatComments', () =>{
     })
 
     it('succeeds on retrieve comments', async () => {
-        const comments = await reviewChatComments(userTest.id, listTest.id)
+        const comments = await reviewChatComments(listTest.id, userTest.id)
         expect(comments).to.have.length(2)
         const comment = comments[0]
         expect(comment.text).to.equal(commentTest2.text)
@@ -44,7 +44,7 @@ describe('reviewChatComments', () =>{
         const listTestNoExistsId = '000000000000000000000000'
 
         try {
-            return await reviewChatComments(userTest.id, listTestNoExistsId)
+            return await reviewChatComments(listTestNoExistsId, userTest.id)
         } catch (error) {
             expect(error).to.be.instanceOf(Error)
             expect(error.message).to.equal('list not found')
@@ -55,7 +55,7 @@ describe('reviewChatComments', () =>{
         const userTestNoExistsId = '000000000000000000000000'
 
         try {
-            return await reviewChatComments(userTestNoExistsId, listTest.id)
+            return await reviewChatComments(listTest.id, userTestNoExistsId)
         } catch (error) {
             expect(error).to.be.instanceOf(Error)
             expect(error.message).to.equal('user not found')
@@ -63,13 +63,13 @@ describe('reviewChatComments', () =>{
     })
 
     it('fails on empty listId', () => 
-        expect(() => reviewChatComments(userTest.id, '')).to.throw(Error, 'list id does not have 24 characters')
+        expect(() => reviewChatComments('', userTest.id)).to.throw(Error, 'list id does not have 24 characters')
     )
 
     it('fails on empty userId', () =>
-        expect(() => reviewChatComments('', listTest.id)).to.throw(Error, 'user id does not have 24 characters')
+        expect(() => reviewChatComments(listTest.id, '')).to.throw(Error, 'user id does not have 24 characters')
     )
-    
+
     after(() => 
         cleanUp()
             .then(() => mongoose.disconnect())

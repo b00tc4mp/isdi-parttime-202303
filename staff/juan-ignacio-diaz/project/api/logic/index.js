@@ -14,5 +14,6 @@ module.exports = {
     acceptListByUser: require('./lists/acceptListByUser'),
     reviewListsAccectedByUser: require('./lists/reviewListsAccectedByUser'),
 
-    addCommentToChat: require('./lists/chat/addCommentToChat')
+    addCommentToChat: require('./lists/chat/addCommentToChat'),
+    reviewChatComments: require('./lists/chat/reviewChatComments')
 }

@@ -13,5 +13,8 @@ module.exports = {
     addUsersToNotifyAcceptListHandler: require('./lists/addUsersToNotifyAcceptListHandler'),
     reviewListsToNotifyAcceptHandler: require('./lists/reviewListsToNotifyAcceptHandler'),
     acceptListByUserHandler: require('./lists/acceptListByUserHandler'),
-    reviewListsAccectedByUserHandler: require('./lists/reviewListsAccectedByUserHandler')
+    reviewListsAccectedByUserHandler: require('./lists/reviewListsAccectedByUserHandler'),
+
+    addCommentToChatHandler: require('./lists/chat/addCommentToChat'),
+    reviewChatCommentsHandler: require('./lists/chat/reviewChatCommentsHandler')
 }

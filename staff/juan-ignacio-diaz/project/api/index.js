@@ -21,7 +21,10 @@ const {
     acceptListByUserHandler,
     addUsersToNotifyAcceptListHandler,
     reviewListsAccectedByUserHandler,
-    reviewListsToNotifyAcceptHandler
+    reviewListsToNotifyAcceptHandler,
+
+    addCommentToChatHandler,
+    reviewChatCommentsHandler
 
 } = require('./handlers')
 
@@ -69,6 +72,11 @@ mongoose.connect(process.env.MONGODB_URL)
 
         api.get('/lists/accept', jsonBodyParser, reviewListsAccectedByUserHandler)
         api.get('/lists/notify', jsonBodyParser, reviewListsToNotifyAcceptHandler)
+
+        api.post('/lists/:listId/chat', jsonBodyParser, addCommentToChatHandler)
+
+        api.get('/lists/chat', jsonBodyParser, reviewChatCommentsHandler)
+
 
 //
 

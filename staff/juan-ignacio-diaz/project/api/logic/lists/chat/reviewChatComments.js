@@ -15,7 +15,7 @@ const { User, List } = require('../../../data/models')
  * 
  * @throws {ExistenceError} On existing userId
  */
-module.exports = (userId, listId) => {
+module.exports = (listId, userId) => {
     validateId(userId, 'user id')
     validateId(listId, 'list id')
 
