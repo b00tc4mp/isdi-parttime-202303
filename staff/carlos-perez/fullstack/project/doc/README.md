@@ -2,7 +2,7 @@
 
 ## Intro
 
-This webapp is the official web for Alex MayBe, an andalusian musician. It provides all the information that their fans need, including events information (dates, location, etc...), updates, media, contact, and social network integration. It also provides a section to manage all events, updates, media and messages from the contact section, accessible only to band members (or someone who they authorize). Updates will be pushed via RSS too.
+This webapp is the official web for Alex MayBe, an andalusian musician. It provides all the information that their fans need, including events information (dates, location, etc...), updates, lyrics posts, contact and social network integration. It also provides a section to manage all events, updates, lyrics posts and messages from the contact section, accessible only to him (and/or someone who he authorizes). Updates will be pushed via RSS too.
 
 It uses React, Tailwind CSS, NextJS, MongoDB and Mongoose.
 
@@ -85,8 +85,10 @@ System Data
 ### Test Coverage
 
 
-
+## Design
+Design will be managed with Figma: https://www.figma.com/file/M8POaubUvK4RN7R1Xidmv6/AMW?type=design&node-id=0%3A1&mode=design&t=qOYEB5PC6ZbirbBk-1
 ## Planning
+Planning will be managed with Trello: https://trello.com/invite/b/Sw9wR2tM/ATTIa767f6a0e5966b75f726de8b3eedf89740CE1060/amw
 
 ### Epics & Stories
 
