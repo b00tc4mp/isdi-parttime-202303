@@ -88,9 +88,8 @@ Message
 - date (date)
 - status (unread/read)
 
-System Data
-- last update date (date)
-- social content (array of social network content links)
+Users Data
+- users mail (array of users mail)
 
 ### Test Coverage
 
