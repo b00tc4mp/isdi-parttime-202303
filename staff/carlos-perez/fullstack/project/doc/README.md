@@ -63,6 +63,16 @@ Update
 - date (date)
 - visibility (boolean)
 
+Event
+- id(string)
+- author (oid, refers to Administrator id)
+- title (string)
+- date (date)
+- location (string)
+- text (string)
+- visibility (boolean)
+
+
 Lyric Post
 - id (string)
 - author (oid, refers to Administrator id)
