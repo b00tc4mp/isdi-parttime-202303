@@ -11,6 +11,7 @@ It uses React, Tailwind CSS, NextJS, MongoDB and Mongoose.
 ### Use cases
 
 - add administrator
+- authenticate administrator
 - modify administrator credentials
 - delete administrator
 
@@ -76,9 +77,43 @@ Lyric Post
 
 ### Epics & Stories
 
-#### Access control
+### Back end
 
-- Me as a administrator, I want to access to the administration dashboard
+#### Add Administrator
+
+- Me as an administrator, I want to add another administrator
 
 ##### Tasks
 
+- Set up MongoDB
+- Initiate core API functionality
+- Create Mongoose model
+- Set up Mongoose
+- Create an administrator manually
+- Implement add administrator
+
+#### Authenticate Administrator
+
+- Me as an administrator, I want to add authenticate myself in the system
+
+##### Tasks
+
+- Create tokenizer and encryption
+- Implement authenticate administrator
+- Modify add administrator so it requires authentication
+
+#### Modify Administrator Credentials
+
+- Me ad an administrator, I want to modify my credentials.
+
+##### Task
+
+- Implement modify credentials
+
+#### Delete Administrator
+
+- Me as an administrator, I want to delete an administrator account
+
+##### Task
+
+- Implement delete administrator
