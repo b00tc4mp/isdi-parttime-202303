@@ -5,11 +5,7 @@ import {
     WHITE_MENU, WHITE_MY_LOCATION
 } from '../../assets/icons';
 import { Keyboard, View, Image, TextInput, TouchableHighlight } from 'react-native';
-import { NativeWindStyleSheet } from "nativewind";
 
-NativeWindStyleSheet.setOutput({
-    default: "native",
-});
 
 export default function Header() {
     const { modal, setModal, colorScheme } = useContext(Context)

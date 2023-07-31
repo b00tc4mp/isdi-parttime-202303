@@ -3,7 +3,10 @@ import React, { useEffect, useState } from "react";
 import { Keyboard, TouchableWithoutFeedback } from "react-native";
 import * as Animatable from 'react-native-animatable';
 
+import useFonts from "./src/hooks/useFonts.js";
 // import { Footer, Header } from './src/components';
+import Login from './src/components/Login.jsx';
+import Register from './src/components/Register.jsx';
 import Footer from './src/components/Footer.jsx';
 import Header from './src/components/Header.jsx';
 import BaseMap from './src/components/BaseMap.jsx';
@@ -18,7 +21,7 @@ import { Text, View, Image, SafeAreaView, ScrollView, useColorScheme } from 'rea
 
 import AppContext from "./src/AppContext.js";
 const { Provider } = AppContext
-
+let loggedIn
 
 
 const HideKeyboard = ({ children }) => (
@@ -32,7 +35,7 @@ export default function App({ }) {
   const [modal, setModal] = useState()
   const [currentView, setCurrentView] = useState()
   const [animation, setAnimation] = useState()
-  const [animationX, setAnimationX] = useState()
+
   const [currentMarker, setCurrentMarker] = useState({})
   let colorScheme = useColorScheme();
 
@@ -70,6 +73,7 @@ export default function App({ }) {
   // }
   return (
     <>
+
       <Provider value={{ currentView, setCurrentView, currentMarker, setCurrentMarker, modal, setModal, colorScheme }}>
         <HideKeyboard>
           <View className="flex-1 bg-white items-center justify-center">
@@ -86,11 +90,7 @@ export default function App({ }) {
         </HideKeyboard>
       </Provider>
 
-
     </>
-
-
-
   );
 }
 
