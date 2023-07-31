@@ -13,28 +13,29 @@ It uses React, Tailwind CSS, NextJS, MongoDB and Mongoose.
 - add administrator
 - modify administrator credentials
 - delete administrator
+
 - see events list
 - add event
 - modify event
 - remove event
 - toggle event visibility
+
 - see updates list
 - add update
 - modify update
 - remove update
 - toggle update visibility
-- add photo/album
-- modify photo/album
-- delete photo/album
-- toggle photo/album visibility
+
+- add lyric post
+- modify lyric post
+- delete lyric post
+- toggle lyric post visibility
+
 - see messages list
 - read message
 - toggle message read/unread
 - delete message
-- add comment
-- modify comment
-- delete comment
-- toggle comment visibility
+
 
 - send message
 - subscribe to RSS?
@@ -56,18 +57,14 @@ Update
 - title (string)
 - image (string)
 - text (string)
-- comments (array of comments)
 - date (date)
 - visibility (boolean)
 
-Media
+Lyric Post
 - id (string)
 - author (oid, refers to Administrator id)
-- type (audio/video/photo/album)
-- file path (string)
-- link (array of string)
+- media link (array of string)
 - text (string)
-- comments (array of comments)
 - date (date)
 - visibility (boolean)
 
