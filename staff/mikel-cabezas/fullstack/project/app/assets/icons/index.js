@@ -9,6 +9,12 @@ export const LIKES = require('./likes.png');
 export const MORE_OPTIONS = require('./more_options.png');
 export const CLOSE = require('./close.png');
 export const ADD = require('./add.png');
+export const ISSUES = require('./issues.png');
+export const ACCOUNT = require('./account.png');
+export const LOGOUT = require('./logout.png');
+export const SHARE = require('./share.png');
+export const FEEDBACK = require('./feedback.png');
+export const FUTURE_VERSIONS = require('./future-versions.png');
 
 export const ACCESSIBLE = require('./accessible.png');
 
