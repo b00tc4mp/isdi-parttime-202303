@@ -9,11 +9,14 @@ module.exports = {
     deleteUserContact: require('./users/deleteUserContact'),
 
     createList: require('./lists/createList'),
-    addUsersToNotifyAcceptList: require('./lists/addUsersToNotifyAcceptList'),
-    reviewListsToNotifyAccept: require('./lists/reviewListsToNotifyAccept'),
-    acceptListByUser: require('./lists/acceptListByUser'),
-    reviewListsAccectedByUser: require('./lists/reviewListsAccectedByUser'),
+    addUsersToInvitedList: require('./lists/addUsersToInvitedList'),
+    reviewListsToNotifyAccept: require('./lists/reviewListsInvited'),
+    acceptInvitedList: require('./lists/acceptGuestList'),
+    reviewListsGuest: require('./lists/reviewListsGuest'),
 
-    addCommentToChat: require('./lists/chat/addCommentToChat'),
-    reviewChatComments: require('./lists/chat/reviewChatComments')
+    addMessage: require('./lists/messages/addMessage'),
+    reviewMessages: require('./lists/messages/reviewMessages'),
+
+    addStore: require('./lists/stores/addStore'),
+    reviewStores: require('./lists/stores/reviewStores')
 }

@@ -5,12 +5,12 @@ const { expect } = require('chai')
 const mongoose = require('mongoose')
 const { User, List } = require('../../../data/models')
 
-const reviewChatComments = require('./reviewChatComments')
+const reviewMessages = require('./reviewMessages')
 
-const { generateUser, generateList, generateComment, cleanUp, populateUser, populateList, populateComment } = require('../../helpers/tests')
+const { generateUser, generateList, generateMessage, cleanUp, populateUser, populateList, populateMessage } = require('../../helpers/tests')
 debugger
-describe('reviewChatComments', () =>{
-    let userTest, contactTest, listTest, commentTest, commentTest2
+describe('reviewMessages', () =>{
+    let userTest, contactTest, listTest, messageTest, messageTest2
 
     before(() => mongoose.connect(process.env.MONGODB_URL))
 
@@ -23,28 +23,28 @@ describe('reviewChatComments', () =>{
         await User.findByIdAndUpdate(userTest.id,  { $push: { contacts: [contactTest.id] } }) 
 
         listTest = generateList(userTest.id)
-        commentTest = generateComment(userTest.id)
-        commentTest2 = generateComment(contactTest.id)
+        messageTest = generateMessage(userTest.id)
+        messageTest2 = generateMessage(contactTest.id)
 
         await populateList(listTest)
-        await List.findByIdAndUpdate(listTest.id,  { $push: { users: [contactTest.id] } }) 
+        await List.findByIdAndUpdate(listTest.id,  { $push: { guests: [contactTest.id] } }) 
         
-        await populateComment(listTest.id, commentTest)
-        return await populateComment(listTest.id, commentTest2)
+        await populateMessage(listTest.id, messageTest)
+        return await populateMessage(listTest.id, messageTest2)
     })
 
-    it('succeeds on retrieve comments', async () => {
-        const comments = await reviewChatComments(listTest.id, userTest.id)
-        expect(comments).to.have.length(2)
-        const comment = comments[0]
-        expect(comment.text).to.equal(commentTest2.text)
+    it('succeeds on retrieve messages', async () => {
+        const messages = await reviewMessages(listTest.id, userTest.id)
+        expect(messages).to.have.length(2)
+        const message = messages[0]
+        expect(message.text).to.equal(messageTest2.text)
     })
 
     it('fails on existing list', async () => {
         const listTestNoExistsId = '000000000000000000000000'
 
         try {
-            return await reviewChatComments(listTestNoExistsId, userTest.id)
+            return await reviewMessages(listTestNoExistsId, userTest.id)
         } catch (error) {
             expect(error).to.be.instanceOf(Error)
             expect(error.message).to.equal('list not found')
@@ -55,7 +55,7 @@ describe('reviewChatComments', () =>{
         const userTestNoExistsId = '000000000000000000000000'
 
         try {
-            return await reviewChatComments(listTest.id, userTestNoExistsId)
+            return await reviewMessages(listTest.id, userTestNoExistsId)
         } catch (error) {
             expect(error).to.be.instanceOf(Error)
             expect(error.message).to.equal('user not found')
@@ -63,11 +63,11 @@ describe('reviewChatComments', () =>{
     })
 
     it('fails on empty listId', () => 
-        expect(() => reviewChatComments('', userTest.id)).to.throw(Error, 'list id does not have 24 characters')
+        expect(() => reviewMessages('', userTest.id)).to.throw(Error, 'list id does not have 24 characters')
     )
 
     it('fails on empty userId', () =>
-        expect(() => reviewChatComments(listTest.id, '')).to.throw(Error, 'user id does not have 24 characters')
+        expect(() => reviewMessages(listTest.id, '')).to.throw(Error, 'user id does not have 24 characters')
     )
 
     after(() => 

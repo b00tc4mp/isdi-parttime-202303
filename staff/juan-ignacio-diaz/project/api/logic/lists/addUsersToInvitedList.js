@@ -31,8 +31,8 @@ module.exports = (listId, userId, contactId) => {
 
         if (!(user.contacts.some(contact => contact.toString() === contactId))) throw new ExistenceError('not a user contact')
 
-        if (list.users.some(user => user.toString() === contactId)) throw new DuplicityError('contact already exists')
+        if (list.guests.some(user => user.toString() === contactId)) throw new DuplicityError('contact already exists')
 
-        await List.findByIdAndUpdate(listId, { $push: { notifyAcceptList: [contactId] } }) 
+        await List.findByIdAndUpdate(listId, { $push: { invited: [contactId] } }) 
     })()
 }

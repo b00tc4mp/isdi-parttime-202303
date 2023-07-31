@@ -6,7 +6,7 @@ const {
 const { User, List } = require('../../data/models')
 
 /**
- * user accept to list by listId and userId
+ * user accept invited to list by listId and userId
  * 
  * @param {string} listId  The Id of list.
  * @param {string} userId  The Id of the user notified.
@@ -19,17 +19,17 @@ module.exports = (listId, userId) => {
     validateId(userId, 'user id')
 
     return (async () => {   
-        const [list, user, contact] = await Promise.all([List.findById(listId), User.findById(userId)])
+        const [list, user] = await Promise.all([List.findById(listId), User.findById(userId)])
 
         if (!list) throw new ExistenceError('list not found')
 
         if (!user) throw new ExistenceError('user not found')
 
-        if (!(list.notifyAcceptList.some(user => user.toString() === userId))) throw new ExistenceError('not a user notify')
+        if (!(list.invited.some(user => user.toString() === userId))) throw new ExistenceError('not a user notify')
 
-        if (list.users.some(user => user.toString() === userId)) throw new DuplicityError('user already exists')
+        if (list.guests.some(user => user.toString() === userId)) throw new DuplicityError('user already exists')
 
-        await List.findByIdAndUpdate(listId, { $pullAll: { notifyAcceptList: [userId] }, $push: { users: [userId] } })
+        await List.findByIdAndUpdate(listId, { $pullAll: { invited: [userId] }, $push: { guests: [userId] } })
 
     })()
 }

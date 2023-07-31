@@ -13,7 +13,7 @@ const { User } = require('../../data/models')
  * @param {string} password The user's password
  * 
  * @throws {DuplicityError} On existing email
- * @throws {UnKnowError} On unknown erre
+ * @throws {UnKnowError} On unknown error
  */
 module.exports = (name, email, password) => {
     validateName(name)

@@ -16,22 +16,19 @@ At the end of the purchase a summary of purchases is generated, indicating the m
 
 ### Use cases
 
-#### User
-
+#### All
 - Add contact user
 - Delete contact user
 
-#### List
+#### Owner
 - Create the shopping list
 - Close the shopping list
 - Request for addition to shopping list
 - Accept addition to shopping list
-- Add stores
 - Update chat comment
 - Generate purchase summary
 
-#### Product
-
+#### Owner and guest
 - Add products
 - Delete products
 - Toggle like product
@@ -41,8 +38,46 @@ At the end of the purchase a summary of purchases is generated, indicating the m
 - Update product comment
 - Update product state
 - Review products leaked
-- Review strores
+- Add stores
+- Review stores
 - Review product type
+
+### Users stories
+
+#### Access control
+
+- Me as a user, I want to register my credentials and access with them to the App
+
+#### Create and access a shared shopping list
+
+- Me as a user, I want to create a shared shopping list, enter name list and request for addition user to shopping list.
+- Me as user, I want to see the list of shared shopping list and accept addition to shopping list. 
+
+#### Add comment to chat
+
+- Me as user, I want to add and view the comments of the users in the list
+
+#### Add stores
+
+- Me as user, I want to add and view the stores 
+
+#### Add product to the shared shopping list and update list
+
+- I, as a user, want to insert products in the shared shopping list.
+
+#### Review shared shopping list
+
+- Me as user, I want to review the products in the shared shopping list. 
+- Me as user, I want to filter by number of likes, product type, merchants, users, products purchased.
+
+### Edit a product from the list and update list.
+
+-As a user, I want to be able to edit a product. 
+
+### Remove a product from the list and refresh list
+
+-As a user, I want to be able to delete a product with a delete control dialog.
+
 
 ## Technical description
 
@@ -57,20 +92,17 @@ User
 - mode (string)
 - contacts (oid array, refers to user id) 
 
-Stores
+Store
 - id (oid)
 - name (string)
 
-ProductTypes
-- name (String enum)
-
-Chat
+Message
 - id (oid)
 - text (string)
 - author (oid, refers to user id) 
 - date (date)
 
-Products
+Product
 - id (oid)
 - name (string)
 - howMany (number)
@@ -83,21 +115,22 @@ Products
 - state (number)
 - likes (oid array, refers to user id)
 - stores (oid array, refers to stores id)
-- productType (String, refers to ProductTypes)
+- type (String, enum)
 - comment (String)
-- notifyProductUpdate (oid array, refers to user id)
+- view (oid array, refers to user id)
 
-Lists
+List
 - id (oid)
 - name (string)
-- author (oid, refers to user id) 
-- users (oid array, refers to user id) 
+- owner (oid, refers to user id) 
+- guests (oid array, refers to user id) 
 - date (date)
 - dateToEnd (date)
-- notifyAcceptList (oid array, refers to user id) 
-- notifyChatUpdate (oid array, refers to user id)
-- chat (type Chat)
-- products (type Products)
+- invited (oid array, refers to user id) 
+- viewMessages (oid array, refers to user id)
+- messages (type [Message])
+- stores (type [Store])
+- products (type [Product])
 
 ### Test Coverage
 
@@ -132,6 +165,7 @@ Lists
 - TODO implement modal window of creation of shared shopping list with assignment of name, date of end and assignment of contacts who can participate
 - TODO implement shared shopping list modal window, will contain access to chat and shared shopping list and access to shared shopping list summary
 - TODO implement login functionality
+- TODO (option copy a exist list)
 
 #### Add comment to chat
 

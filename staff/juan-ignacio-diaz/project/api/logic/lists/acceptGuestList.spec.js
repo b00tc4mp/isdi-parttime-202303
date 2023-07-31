@@ -5,11 +5,11 @@ const { expect } = require('chai')
 const mongoose = require('mongoose')
 const { User, List } = require('../../data/models')
 
-const acceptListByUser = require('./acceptListByUser')
+const acceptGuestList = require('./acceptGuestList')
 
 const { generateUser, generateList, cleanUp, populateUser, populateList } = require('../helpers/tests')
 
-describe('acceptListByUser', () =>{
+describe('acceptGuestList', () =>{
     let userTest, contactTest, contactTest2, listTest
 
     before(() => mongoose.connect(process.env.MONGODB_URL))
@@ -24,23 +24,23 @@ describe('acceptListByUser', () =>{
 
         listTest = generateList(userTest.id)
         await populateList(listTest)
-        return await List.findByIdAndUpdate(listTest.id,  { $push: { notifyAcceptList: [contactTest.id] } })
+        return await List.findByIdAndUpdate(listTest.id,  { $push: { invited: [contactTest.id] } })
     })
 
     it('succeeds on accept new list', async () => {
-        await acceptListByUser(listTest.id, contactTest.id)
+        await acceptGuestList(listTest.id, contactTest.id)
         const lists = await List.find({})
         expect(lists).to.have.length(1)
         const list = lists[0]
-        expect(list.notifyAcceptList).to.have.lengthOf(0)
-        expect(list.users).to.have.lengthOf(1)
-        expect(list.users[0].toString()).to.equal(contactTest.id)
+        expect(list.invited).to.have.lengthOf(0)
+        expect(list.guests).to.have.lengthOf(1)
+        expect(list.guests[0].toString()).to.equal(contactTest.id)
     })
 
     it('fails when user is not notify', async () => {
-        await List.findByIdAndUpdate(listTest.id,  { $pullAll: { notifyAcceptList: [contactTest.id] } }) 
+        await List.findByIdAndUpdate(listTest.id,  { $pullAll: { invited: [contactTest.id] } }) 
         try {
-            return await acceptListByUser(listTest.id, contactTest.id)
+            return await acceptGuestList(listTest.id, contactTest.id)
         } catch (error) {
             expect(error).to.be.instanceOf(Error)
             expect(error.message).to.equal('not a user notify')
@@ -48,9 +48,9 @@ describe('acceptListByUser', () =>{
     })
 
     it('fails when user already exist', async () => {
-        await List.findByIdAndUpdate(listTest.id,  { $push: { users: [contactTest.id] } }) 
+        await List.findByIdAndUpdate(listTest.id,  { $push: { guests: [contactTest.id] } }) 
         try {
-            return await acceptListByUser(listTest.id, contactTest.id)
+            return await acceptGuestList(listTest.id, contactTest.id)
         } catch (error) {
             expect(error).to.be.instanceOf(Error)
             expect(error.message).to.equal('user already exists')
@@ -61,7 +61,7 @@ describe('acceptListByUser', () =>{
         const listTestNoExistsId = '000000000000000000000000'
 
         try {
-            return await acceptListByUser(listTestNoExistsId, contactTest.id)
+            return await acceptGuestList(listTestNoExistsId, contactTest.id)
         } catch (error) {
             expect(error).to.be.instanceOf(Error)
             expect(error.message).to.equal('list not found')
@@ -72,7 +72,7 @@ describe('acceptListByUser', () =>{
         const userTestNoExistsId = '000000000000000000000000'
 
         try {
-            return await acceptListByUser(listTest.id, userTestNoExistsId)
+            return await acceptGuestList(listTest.id, userTestNoExistsId)
         } catch (error) {
             expect(error).to.be.instanceOf(Error)
             expect(error.message).to.equal('user not found')
@@ -80,11 +80,11 @@ describe('acceptListByUser', () =>{
     })
 
     it('fails on empty listId', () => 
-        expect(() => acceptListByUser('', contactTest.id)).to.throw(Error, 'list id does not have 24 characters')
+        expect(() => acceptGuestList('', contactTest.id)).to.throw(Error, 'list id does not have 24 characters')
     )
 
     it('fails on empty userId', () =>
-        expect(() => acceptListByUser(listTest.id, '')).to.throw(Error, 'user id does not have 24 characters')
+        expect(() => acceptGuestList(listTest.id, '')).to.throw(Error, 'user id does not have 24 characters')
     )
 
     after(() => 

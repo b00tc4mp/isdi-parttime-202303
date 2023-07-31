@@ -27,12 +27,12 @@ module.exports = (userId, name, dateToEnd) => {
         try {
             const list = await List.create({ 
                 name, 
-                author: user._id,
-                users: [], 
+                owner: user._id,
+                guests: [], 
                 dateToEnd,
-                notifyAcceptList: []
+                invited: []
             })
-            await List.findByIdAndUpdate(list.id,  { $push: { users: [userId] } }) 
+            await List.findByIdAndUpdate(list.id,  { $push: { guests: [userId] } }) 
         }
         catch (error) {
             if(error.message.includes('E11000'))

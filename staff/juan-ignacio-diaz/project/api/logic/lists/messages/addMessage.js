@@ -6,18 +6,18 @@ const {
 const { User, List } = require('../../../data/models')
 
 /**
- * add comment to chat od list by listId, userId and comment
+ * add message to list by listId, userId and text
  * 
  * @param {string} listId  The Id of the list.
- * @param {string} userId  The Id of the user add comment.
- * @param {string} text The text to comment.
+ * @param {string} userId  The Id of the user add message.
+ * @param {string} text The text to message.
  *
  * @throws {ExistenceError} On existing userId and listId
  */
 module.exports = (listId, userId, text) => {
     validateId(listId, 'list id')
     validateId(userId, 'user id')
-    validateText(text, 'comment')
+    validateText(text, 'message')
 
     return (async () => {   
         const [list, user] = await Promise.all([List.findById(listId), User.findById(userId)])
@@ -26,13 +26,13 @@ module.exports = (listId, userId, text) => {
 
         if (!user) throw new ExistenceError('user not found')
 
-        if (!(list.users.some(tmpId => tmpId.toString() === userId))) throw new ExistenceError('invalid user')
+        if (!(list.guests.some(tmpId => tmpId.toString() === userId))) throw new ExistenceError('invalid user')
 
-        const comment  = {
+        const message  = {
             text,
             author: userId
         }
 
-        await List.findByIdAndUpdate(listId, { $push: { chat: [comment] } }) 
+        await List.findByIdAndUpdate(listId, { $push: { messages: [message] } }) 
     })()
 }

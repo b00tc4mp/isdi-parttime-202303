@@ -7,10 +7,10 @@ const { ObjectId } = mongodb
 module.exports = (list) => {
     return List.create({
         name: list.name,
-        author: new ObjectId(list.author),
-        users : list.users,
+        owner: new ObjectId(list.owner),
+        guests : list.guests,
         dateToEnd: list.dateToEnd,
-        notifyAcceptList: list.notifyAcceptList,
+        invited: list.invited,
         notifyChatUpdate: list.notifyChatUpdate
     })
         .then(tmpList => {

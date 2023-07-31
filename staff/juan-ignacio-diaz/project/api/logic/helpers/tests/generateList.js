@@ -1,10 +1,10 @@
 module.exports = (userId) => {
     return {
             name: `name-${Math.random()}`,
-            author: userId,
-            users: [], 
+            owner: userId,
+            guests: [], 
             dateToEnd: new Date(Date.now()),
-            notifyAcceptList: [],
+            invited: [],
             notifyChatUpdate: []
         }
 }

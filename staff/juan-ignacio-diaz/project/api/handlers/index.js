@@ -11,10 +11,13 @@ module.exports = {
 
     createListHandler: require('./lists/createListHandler'),
     addUsersToNotifyAcceptListHandler: require('./lists/addUsersToNotifyAcceptListHandler'),
-    reviewListsToNotifyAcceptHandler: require('./lists/reviewListsToNotifyAcceptHandler'),
+    reviewListsToNotifyAcceptHandler: require('./lists/reviewListsInvitedHandler'),
     acceptListByUserHandler: require('./lists/acceptListByUserHandler'),
-    reviewListsAccectedByUserHandler: require('./lists/reviewListsAccectedByUserHandler'),
+    reviewListsAccectedByUserHandler: require('./lists/reviewListsGuestHandler'),
 
-    addCommentToChatHandler: require('./lists/chat/addCommentToChat'),
-    reviewChatCommentsHandler: require('./lists/chat/reviewChatCommentsHandler')
+    addMessageHandler: require('./lists/messages/addMessage'),
+    reviewMessagesHandler: require('./lists/messages/reviewMessagesHandler'),
+
+    addStoreHandler: require('./lists/messages/addStoreHandler'),
+    reviewStoresHandler: require('./lists/messages/reviewStoresHandler')
 }

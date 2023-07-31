@@ -6,7 +6,7 @@ const {
 const { User, List } = require('../../data/models')
 
 /**
- * retriew lists from user accepted by userId
+ * retriew lists guest by userId
  * 
  * @param {string} userId  The Id of the user to list.
  * 
@@ -22,7 +22,7 @@ module.exports = (userId) => {
 
         if (!user) throw new ExistenceError('user not found')
         
-        const lists = await List.find({ "users": userId }, 'name date')
+        const lists = await List.find({ "guests": userId }, 'name date')
             .sort('-date').lean()
 
         lists.forEach(list => {                        

@@ -23,8 +23,11 @@ const {
     reviewListsAccectedByUserHandler,
     reviewListsToNotifyAcceptHandler,
 
-    addCommentToChatHandler,
-    reviewChatCommentsHandler
+    addMessageHandler,
+    reviewMessagesHandler,
+
+    addStoreHandler,
+    reviewStoresHandler
 
 } = require('./handlers')
 
@@ -73,11 +76,13 @@ mongoose.connect(process.env.MONGODB_URL)
         api.get('/lists/accept', jsonBodyParser, reviewListsAccectedByUserHandler)
         api.get('/lists/notify', jsonBodyParser, reviewListsToNotifyAcceptHandler)
 
-        api.post('/lists/:listId/chat', jsonBodyParser, addCommentToChatHandler)
+        api.post('/lists/:listId/message', jsonBodyParser, addMessageHandler)
 
-        api.get('/lists/chat', jsonBodyParser, reviewChatCommentsHandler)
+        api.get('/lists/message', jsonBodyParser, reviewMessagesHandler)
 
+        api.post('/lists/:listId/store', jsonBodyParser, addStoreHandler)
 
+        api.get('/lists/stores', jsonBodyParser, reviewStoresHandler)
 //
 
         api.listen(process.env.PORT, () => console.log(`server running in port ${process.env.PORT}`))

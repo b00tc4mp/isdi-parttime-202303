@@ -40,14 +40,7 @@ const store = new Schema({
     }
 })
 
-const productType = new Schema({
-    name: {
-        type: String,
-        enum: ['drogeria', 'carniceria', 'pescaderia', 'congelados', 'panaderia', 'pasteleria']
-    }
-})
-
-const chat = new Schema({
+const message = new Schema({
     text: {
         type: String,
         required: true
@@ -95,7 +88,7 @@ const product = new Schema({
         required: true,
         default: Date.now
     },
-    authorOfPurchase: {
+    buyer: {
         type: ObjectId,
         ref: 'User',
         required: true
@@ -111,14 +104,14 @@ const product = new Schema({
         type: [ObjectId],
         ref: 'Stores'
     },
-    productType: {
-        type: [productType]
+    type: {
+        type: String,
+        enum: ['drogeria', 'carniceria', 'pescaderia', 'congelados', 'panaderia', 'pasteleria']
     },
     comment: {
-        type: String,
-        required: true
+        type: String
     },
-    notifyProductUpdate: {
+    view: {
         type: [ObjectId],
         ref: 'User'
     }
@@ -131,12 +124,12 @@ const list = new Schema({
         unique: true,
         trim: true
     },
-    author: {
+    owner: {
         type: ObjectId,
         ref: 'User',
         required: true
     },
-    users: {
+    guests: {
         type: [ObjectId],
         ref: 'User'
     },
@@ -149,16 +142,19 @@ const list = new Schema({
         type: Date,
         required: true
     },
-    notifyAcceptList: {
+    invited: {
         type: [ObjectId],
         ref: 'User'
     },
-    notifyChatUpdate: {
+    viewMessages: {
         type: [ObjectId],
         ref: 'User'
     },
-    chat:{
-        type: [chat]
+    messages:{
+        type: [message]
+    },
+    stores:{
+        type: [store]
     },
     products:{
         type: [product]
@@ -167,16 +163,14 @@ const list = new Schema({
 
 const User = model('User', user)
 const Store = model('Store', store)
-const ProductType = model('ProductTypes', productType)
-const Chat = model('Chat', chat)
+const Message = model('Message', message)
 const Product = model('Product', product)
 const List = model('List', list)
 
 module.exports = {
     User,
     Store,
-    ProductType,
-    Chat,
+    Message,
     Product,
     List
 }

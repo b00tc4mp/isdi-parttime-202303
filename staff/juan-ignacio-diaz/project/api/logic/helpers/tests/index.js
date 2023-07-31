@@ -3,10 +3,12 @@ module.exports = {
     generateProduct: require('./generateProduct'),
     generateUser: require('./generateUser'),
     generateList: require('./generateList'),
-    generateComment: require('./generateComment'),
+    generateMessage: require('./generateMessage'),
+    generateStore: require('./generateStore'),
 
     populateProduct: require('./populateProduct'),
     populateUser: require('./populateUser'),
     populateList: require('./populateList'),
-    populateComment: require('./populateComment')
+    populateMessage: require('./populateMessage'),
+    populateStore: require('./populateStore')
 }

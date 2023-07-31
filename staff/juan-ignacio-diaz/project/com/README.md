@@ -1,6 +1,6 @@
 # Com
 
-blah blah
+
 
 ## Modules
 
