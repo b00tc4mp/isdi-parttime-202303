@@ -2,8 +2,8 @@
 const { validateEmail, validateName, validateNewPassword, validatePasswordConfirm } = validators*/
 
 import { API_URL } from '@env'
-import SwordAvatar from "../../assets/login/slashing-sword.png"
-export const DEFAULT_AVATAR_URL = SwordAvatar
+import faceLogo from "../../assets/generic/logo-face.png"
+export const DEFAULT_AVATAR_URL = faceLogo
 
 export function registerUser(name, email, password, passwordConfirm) {
     /*validateName(name)

@@ -2,9 +2,12 @@
 //import "./login.css"
 //import { Form, ButtonForm, Container } from "../library"
 
-import { Text, View, Image, Button } from "react-native"
+import { Text, View, Image, TouchableOpacity, TextInput } from "react-native"
+import { useState } from "react"
 
-export default function Login({onRegisterClick}) {
+const Login = ({ onRegisterClick }) => {
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
 
     const handleRegisterClick = event => {
         event.preventDefault()
@@ -13,32 +16,35 @@ export default function Login({onRegisterClick}) {
     }
 
     // afegir compos personalitzats com el container, form, button, etc... '../library'
-    return <View style={{
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
-    }}>
-        <Image source={require('../../assets/login/DreamShaper_v6_SCIFI_Fantasy_World_a_small_town_near_an_oasis_1.jpg')} style={{ position: 'absolute', height: '100%', left: -120 }}></Image>
-        <View style={{
-            width: 300,
-            height: 500,
-            backgroundColor: '#f2A337',
-            opacity: 0.7,
-            borderRadius: 20,
-            justifyContent: "space-around",
-            alignItems: 'center',
-            shadowColor: '#171717',
-            shadowOffset: { width: 4, height: 5},
-            shadowOpacity: 0.8
-        }}>
-            <Image source={require('../../assets/login/slashing-sword.png')} style={{ height: 80, width: 80 }} />
-            <Text >Login page</Text>
-            <Button
-                onPress={handleRegisterClick}
-                title="Register here!"
-                color="#841584"
-                accessibilityLabel="Learn more about this purple button"
-            />
+    return <View className="flex justify-center items-center h-screen w-screen">
+        <Image source={require('../../assets/login-register/log-reg-bg.jpg')} className="absolute scale-75 -bottom-40 -right-40" ></Image>
+        <View className="bg-neutral-500 rounded-3xl opacity-70 w-80 h-4/5 absolute shadow-md shadow-black"></View>
+        <View className="rounded-3xl w-80 h-4/5 flex justify-center items-center">
+            <View className="flex justify-center items-center w-80 h-1/3">
+                <Image source={require('../../assets/generic/logo-face.png')} className="h-40 w-40" />
+                <Text className="absolute -bottom-4 text-5xl font-semibold shadow-md shadow-orange-500" >Login</Text>
+            </View>
+            <View className="w-80 h-2/3 flex justify-between p-5 items-center ">
+                <View className="flex justify-around items-center w-80 h-2/4">
+                    <View className="flex justify-around items-center w-80 h-1/2">
+                        <TextInput className="w-60 h-8 bg-white rounded-md shadow-md shadow-black"
+                            placeholder="email" onChangeText={newEmail => (setEmail(newEmail))} />
+                        <TextInput className="w-60 h-8 bg-white rounded-md shadow-md shadow-black"
+                            secureTextEntry={true}
+                            placeholder="password"
+                            onChangeText={newPassword => (setPassword(newPassword))}
+                        />
+                    </View>
+                    <TouchableOpacity className="border-2 border-red-400 bg-orange-400 opacity-80 rounded-xl w-1/3 items-center shadow-md shadow-black">
+                        <Text className=" opacity-100 text-xl">Login!</Text>
+                    </TouchableOpacity>
+                </View>
+                <TouchableOpacity className="w-80 flex items-center" onPress={handleRegisterClick}>
+                    <Text className="text-xl text-white">New? Register here!</Text>
+                </TouchableOpacity>
+            </View>
         </View>
     </View>
 }
+
+export default Login
