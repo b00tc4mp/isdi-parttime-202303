@@ -4,7 +4,7 @@ const {
 } = require('com');
 const { User } = require('../../data/models');
 
-module.exports = function updateColor(userId, color) {
+module.exports = (userId, color) => {
     validateId(userId, 'userId');
     validateColor(color);
 

@@ -4,7 +4,7 @@ const {
 } = require('com');
 const { User } = require('../../data/models');
 
-module.exports = function updateAvatar(userId, avatar) {
+module.exports = (userId, avatar) => {
     validateId(userId, 'userId');
     validateAvatar(avatar);
 

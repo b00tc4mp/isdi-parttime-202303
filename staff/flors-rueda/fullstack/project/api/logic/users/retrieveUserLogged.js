@@ -4,7 +4,7 @@ const {
 } = require('com');
 const { User } = require('../../data/models');
 
-module.exports = userId => {
+module.exports = (userId) => {
     validateId(userId, 'userId');
 
     return (async () => {
