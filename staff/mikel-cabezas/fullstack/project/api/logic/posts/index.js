@@ -2,7 +2,7 @@ module.exports = {
     createPost: require('./createPost'),
     editPost: require('./editPost'),
     deletePost: require('./deletePost'),
-    retrievePosts: require('./retrievePosts'),
+    retrievePlaygrounds: require('./retrievePlaygrounds'),
     retrieveLikedPosts: require('./retrieveLikedPosts'),
     retrieveSavedPosts: require('./retrieveSavedPosts'),
     retrievePostByPostId: require('./retrievePostByPostId'),

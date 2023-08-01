@@ -1,5 +1,4 @@
 module.exports = {
-    helloApiHandler: require('./users/helloApiHandler'),
     registerUserHandler: require('./users/registerUserHandler'),
     retrieveUserHandler: require('./users/retrieveUserHandler'),
     authenticateUserHandler: require('./users/authenticateUserHandler'),
@@ -10,7 +9,7 @@ module.exports = {
     createPostHandler: require('./posts/createPostHandler'),
     editPostHandler: require('./posts/editPostHandler'),
     deletePostHandler: require('./posts/deletePostHandler'),
-    retrievePostsHandler: require('./posts/retrievePostsHandler'),
+    retrievePlaygroundsHandler: require('./posts/retrievePlaygroundsHandler'),
     retrieveLikedPostsHandler: require('./posts/retrieveLikedPostsHandler'),
     retrieveSavedPostsHandler: require('./posts/retrieveSavedPostsHandler'),
     retrievePostByPostIdHandler: require('./posts/retrievePostByPostIdHandler'),

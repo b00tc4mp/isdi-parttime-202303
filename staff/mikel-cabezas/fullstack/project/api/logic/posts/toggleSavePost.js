@@ -1,5 +1,4 @@
-const context = require('../context')
-const { ObjectId } = require('mongodb')
+const { User, Post } = require('../../data/models')
 const {
     validators: { validateUserId, validatePostId },
     errors: { ExistenceError }
@@ -21,27 +20,21 @@ module.exports = (userId, postId) => {
     validateUserId(userId)
     validatePostId(postId)
 
-    const { users } = context
-    const _user = { _id: new ObjectId(userId) }
-
-    return users.findOne(_user)
+    return User.findById(userId)
         .then(user => {
             if (!user) throw new ExistenceError('post not found')
+
             const indexFavPost = user.favs?.indexOf(postId)
-            if (user.favs === undefined) user.favs = []
+
             if (indexFavPost < 0) {
                 user.favs.push(postId)
-                return users.updateOne(_user, {
-                    $set: {
-                        favs: user.favs
-                    }
+                return user.updateOne({
+                    favs: user.favs
                 })
             } else {
                 user.favs.splice(indexFavPost, 1)
-                return users.updateOne(_user, {
-                    $set: {
-                        favs: user.favs
-                    }
+                return user.updateOne({
+                    favs: user.favs
                 })
             }
         })
