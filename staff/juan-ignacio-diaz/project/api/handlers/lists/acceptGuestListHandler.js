@@ -1,12 +1,12 @@
-const { acceptListByUser } = require('../logic')
+const { acceptGuestList } = require('../../logic')
 
-const { extractUserId, handleErrors } = require('./helpers')
+const { extractUserId, handleErrors } = require('../helpers')
 
 module.exports = handleErrors((req, res) => {
     const userId = extractUserId(req)
     const { listId } = req.params
 
-    const promise = acceptListByUser(listId, userId)
+    const promise = acceptGuestList(listId, userId)
 
     return (async () => { 
         await promise

@@ -23,12 +23,12 @@ describe('reviewMessages', () =>{
         await User.findByIdAndUpdate(userTest.id,  { $push: { contacts: [contactTest.id] } }) 
 
         listTest = generateList(userTest.id)
-        messageTest = generateMessage(userTest.id)
-        messageTest2 = generateMessage(contactTest.id)
+        messageTest = generateMessage(userTest.id, [contactTest.id])
+        messageTest2 = generateMessage(contactTest.id, [userTest.id])
 
         await populateList(listTest)
-        await List.findByIdAndUpdate(listTest.id,  { $push: { guests: [contactTest.id] } }) 
-        
+        await List.findByIdAndUpdate(listTest.id,  { $push: { guests: [userTest.id, contactTest.id] } }) 
+
         await populateMessage(listTest.id, messageTest)
         return await populateMessage(listTest.id, messageTest2)
     })
@@ -38,6 +38,7 @@ describe('reviewMessages', () =>{
         expect(messages).to.have.length(2)
         const message = messages[0]
         expect(message.text).to.equal(messageTest2.text)
+        expect(message.reviewed).to.equal(true)
     })
 
     it('fails on existing list', async () => {

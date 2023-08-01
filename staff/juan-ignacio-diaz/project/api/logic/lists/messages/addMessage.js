@@ -30,7 +30,8 @@ module.exports = (listId, userId, text) => {
 
         const message  = {
             text,
-            author: userId
+            author: userId,
+            view: list.guests.filter(tmpUser => tmpUser._id.toString() !== userId)
         }
 
         await List.findByIdAndUpdate(listId, { $push: { messages: [message] } }) 

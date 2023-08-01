@@ -10,8 +10,9 @@ module.exports = {
 
     createList: require('./lists/createList'),
     addUsersToInvitedList: require('./lists/addUsersToInvitedList'),
-    reviewListsToNotifyAccept: require('./lists/reviewListsInvited'),
-    acceptInvitedList: require('./lists/acceptGuestList'),
+    reviewListsInvited: require('./lists/reviewListsInvited'),
+    acceptGuestList: require('./lists/acceptGuestList'),
+    declineGuestList: require('./lists/declineGuestList'),
     reviewListsGuest: require('./lists/reviewListsGuest'),
 
     addMessage: require('./lists/messages/addMessage'),

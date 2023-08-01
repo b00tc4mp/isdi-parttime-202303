@@ -54,6 +54,10 @@ const message = new Schema({
         type: Date,
         required: true,
         default: Date.now
+    },
+    view: {
+        type: [ObjectId],
+        ref: 'User'
     }
 })
 
@@ -67,34 +71,24 @@ const product = new Schema({
         type: Number,
         required: true
     },
-    estimatedPrice: {
-        type: Number
-    },
-    date: {
-        type: Date,
-        required: true,
-        default: Date.now
-    },
     author: {
         type: ObjectId,
         ref: 'User',
         required: true
     },
+    state: {
+        type: Number,
+        enum: ['', 'selected', 'bought']
+    },
     price: {
         type: Number
     },
-    dateOfPurchase: {
+    date: {
         type: Date,
-        required: true,
-        default: Date.now
     },
     buyer: {
         type: ObjectId,
-        ref: 'User',
-        required: true
-    },
-    state: {
-        type: Number
+        ref: 'User'
     },
     likes: {
         type: [ObjectId],
@@ -143,10 +137,6 @@ const list = new Schema({
         required: true
     },
     invited: {
-        type: [ObjectId],
-        ref: 'User'
-    },
-    viewMessages: {
         type: [ObjectId],
         ref: 'User'
     },

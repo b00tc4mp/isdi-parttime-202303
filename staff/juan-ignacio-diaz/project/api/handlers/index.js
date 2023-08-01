@@ -7,17 +7,18 @@ module.exports = {
     updateUserPasswordHandler: require('./users/updateUserPasswordHandler'),
     addUserContactHandler: require('./users/addUserContactHandler'),
     deleteUserContactHandler: require('./users/deleteUserContactHandler'),
-    searchUser: require('./users/searchUser'),
+    searchUserHandler: require('./users/searchUserHandler'),
 
     createListHandler: require('./lists/createListHandler'),
-    addUsersToNotifyAcceptListHandler: require('./lists/addUsersToNotifyAcceptListHandler'),
-    reviewListsToNotifyAcceptHandler: require('./lists/reviewListsInvitedHandler'),
-    acceptListByUserHandler: require('./lists/acceptListByUserHandler'),
-    reviewListsAccectedByUserHandler: require('./lists/reviewListsGuestHandler'),
+    addUsersToInvitedListHandler: require('./lists/addUsersToInvitedListHandler'),
+    reviewListsInvitedHandler: require('./lists/reviewListsInvitedHandler'),
+    acceptGuestListHandler: require('./lists/acceptGuestListHandler'),
+    declineGuestListHandler: require('./lists/declineGuestListHandler'),
+    reviewListsGuestHandler: require('./lists/reviewListsGuestHandler'),
 
-    addMessageHandler: require('./lists/messages/addMessage'),
+    addMessageHandler: require('./lists/messages/addMessageHandler'),
     reviewMessagesHandler: require('./lists/messages/reviewMessagesHandler'),
 
-    addStoreHandler: require('./lists/messages/addStoreHandler'),
-    reviewStoresHandler: require('./lists/messages/reviewStoresHandler')
+    addStoreHandler: require('./lists/stores/addStoreHandler'),
+    reviewStoresHandler: require('./lists/stores/reviewStoresHandler')
 }

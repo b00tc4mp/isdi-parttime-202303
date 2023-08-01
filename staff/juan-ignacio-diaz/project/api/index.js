@@ -18,10 +18,11 @@ const {
     deleteUserContactHandler,
 
     createListHandler,
-    acceptListByUserHandler,
-    addUsersToNotifyAcceptListHandler,
-    reviewListsAccectedByUserHandler,
-    reviewListsToNotifyAcceptHandler,
+    acceptGuestListHandler,
+    declineGuestListHandler,
+    addUsersToInvitedListHandler,
+    reviewListsGuestHandler,
+    reviewListsInvitedHandler,
 
     addMessageHandler,
     reviewMessagesHandler,
@@ -69,12 +70,14 @@ mongoose.connect(process.env.MONGODB_URL)
 
         api.post('/lists/create', jsonBodyParser, createListHandler)
 
-        api.patch('/lists/:listId/accept', jsonBodyParser, acceptListByUserHandler)
-        
-        api.post('/lists/:listId/contact/:contactId/notify', jsonBodyParser, addUsersToNotifyAcceptListHandler)
+        api.patch('/lists/:listId/accept', jsonBodyParser, acceptGuestListHandler)
 
-        api.get('/lists/accept', jsonBodyParser, reviewListsAccectedByUserHandler)
-        api.get('/lists/notify', jsonBodyParser, reviewListsToNotifyAcceptHandler)
+        api.patch('/lists/:listId/decline', jsonBodyParser, declineGuestListHandler)
+        
+        api.post('/lists/:listId/contact/:contactId/notify', jsonBodyParser, addUsersToInvitedListHandler)
+
+        api.get('/lists/accept', jsonBodyParser, reviewListsGuestHandler)
+        api.get('/lists/notify', jsonBodyParser, reviewListsInvitedHandler)
 
         api.post('/lists/:listId/message', jsonBodyParser, addMessageHandler)
 

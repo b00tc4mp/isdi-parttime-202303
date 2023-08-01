@@ -3,14 +3,14 @@ require('dotenv').config()
 const { expect } = require('chai')
 
 const mongoose = require('mongoose')
-const { User, List } = require('../../../data/models')
+const { User, List } = require('../../data/models')
 
-const addMessage = require('./addMessage')
+const declineGuestList = require('./declineGuestList')
 
-const { generateUser, generateList, generateMessage, cleanUp, populateUser, populateList } = require('../../helpers/tests')
+const { generateUser, generateList, cleanUp, populateUser, populateList } = require('../helpers/tests')
 
-describe('addMessage', () =>{
-    let userTest, contactTest, listTest, messageTest
+describe('declineGuestList', () =>{
+    let userTest, contactTest, contactTest2, listTest
 
     before(() => mongoose.connect(process.env.MONGODB_URL))
 
@@ -23,27 +23,34 @@ describe('addMessage', () =>{
         await User.findByIdAndUpdate(userTest.id,  { $push: { contacts: [contactTest.id] } }) 
 
         listTest = generateList(userTest.id)
-        messageTest = generateMessage(userTest.id, [contactTest.id])
-
         await populateList(listTest)
-        return await List.findByIdAndUpdate(listTest.id,  { $push: { guests: [userTest.id, contactTest.id] } }) 
+        return await List.findByIdAndUpdate(listTest.id,  { $push: { invited: [contactTest.id] } })
     })
 
-    it('succeeds on add new message', async () => {
-        await addMessage(listTest.id, contactTest.id, messageTest.text)
+    it('succeeds on decline new list', async () => {
+        await declineGuestList(listTest.id, contactTest.id)
         const lists = await List.find({})
         expect(lists).to.have.length(1)
         const list = lists[0]
-        expect(list.messages).to.have.lengthOf(1)
-        expect(list.messages[0].text).to.equal(messageTest.text)
-        expect(list.messages[0].view[0].toString()).to.equal(userTest.id)
+        expect(list.invited).to.have.lengthOf(0)
+        expect(list.guests).to.have.lengthOf(0)
+    })
+
+    it('fails when user is not notify', async () => {
+        await List.findByIdAndUpdate(listTest.id,  { $pullAll: { invited: [contactTest.id] } }) 
+        try {
+            return await declineGuestList(listTest.id, contactTest.id)
+        } catch (error) {
+            expect(error).to.be.instanceOf(Error)
+            expect(error.message).to.equal('not a user notify')
+        }
     })
 
     it('fails on existing list', async () => {
         const listTestNoExistsId = '000000000000000000000000'
 
         try {
-            return await addMessage(listTestNoExistsId, contactTest.id, messageTest.text)
+            return await declineGuestList(listTestNoExistsId, contactTest.id)
         } catch (error) {
             expect(error).to.be.instanceOf(Error)
             expect(error.message).to.equal('list not found')
@@ -54,7 +61,7 @@ describe('addMessage', () =>{
         const userTestNoExistsId = '000000000000000000000000'
 
         try {
-            return await addMessage(listTest.id, userTestNoExistsId, messageTest.text)
+            return await declineGuestList(listTest.id, userTestNoExistsId)
         } catch (error) {
             expect(error).to.be.instanceOf(Error)
             expect(error.message).to.equal('user not found')
@@ -62,19 +69,16 @@ describe('addMessage', () =>{
     })
 
     it('fails on empty listId', () => 
-        expect(() => addMessage('', contactTest.id, messageTest.text)).to.throw(Error, 'list id does not have 24 characters')
+        expect(() => declineGuestList('', contactTest.id)).to.throw(Error, 'list id does not have 24 characters')
     )
 
     it('fails on empty userId', () =>
-        expect(() => addMessage(listTest.id, '', messageTest.text)).to.throw(Error, 'user id does not have 24 characters')
-    )
-
-    it('fails on empty message text ', () =>
-        expect(() => addMessage(listTest.id, contactTest.id, '')).to.throw(Error, 'message is empty')
+        expect(() => declineGuestList(listTest.id, '')).to.throw(Error, 'user id does not have 24 characters')
     )
 
     after(() => 
         cleanUp()
             .then(() => mongoose.disconnect())
     )
+
 })

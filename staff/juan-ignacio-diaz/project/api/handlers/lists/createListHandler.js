@@ -1,6 +1,6 @@
-const { createList } = require('../logic')
+const { createList } = require('../../logic')
 
-const { extractUserId, handleErrors } = require('./helpers')
+const { extractUserId, handleErrors } = require('../helpers')
 
 module.exports = handleErrors((req, res) => {
     const userId = extractUserId(req)

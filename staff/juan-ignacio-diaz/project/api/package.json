@@ -7,9 +7,9 @@
       "start": "node .",
       "watch": "node --watch .",
       "inspect": "node --inspect-brk .",
-      "test": "mocha logic/lists/messages/*.spec.js", 
-      "test-inspect": "mocha --inspect-brk logic/lists/stores/*.spec.js",
-      "test-coverage": "nyc --reporter=html --reporter=text mocha logic/*.spec.js"
+      "test": "mocha ./logic/users/*.spec.js ./logic/lists/*.spec.js", 
+      "test-inspect": "mocha --inspect-brk logic/lists/**/*.spec.js",
+      "test-coverage": "nyc --reporter=html --reporter=text mocha logic/users/*.spec.js logic/lists/**/*.spec.js"
     },
     "keywords": [],
     "author": "",

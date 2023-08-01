@@ -1,5 +1,6 @@
-const { registerUser } = require('../logic')
-const { handleErrors } = require('./helpers')
+const { registerUser } = require('../../logic')
+
+const { handleErrors } = require('../helpers')
 
 
 module.exports = handleErrors((req, res) => {

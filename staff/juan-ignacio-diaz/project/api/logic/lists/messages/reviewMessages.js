@@ -20,6 +20,7 @@ module.exports = (listId, userId) => {
     validateId(listId, 'list id')
 
     return (async () => { 
+        
         const user = await User.findById(userId)
 
         if (!user) throw new ExistenceError('user not found')
@@ -31,6 +32,8 @@ module.exports = (listId, userId) => {
 
         const { messages } = list
 
+        let reviewed = false
+
         messages.forEach(message => {                        
             message.id = message._id.toString()
             delete message._id
@@ -40,7 +43,14 @@ module.exports = (listId, userId) => {
                 delete message.author._id
             }
 
+            if (message.view.some(tmpUser => tmpUser._id.toString() === userId)) 
+                reviewed = true
+
+            delete message.view
+            message.reviewed = reviewed
         })
+
+        await List.findByIdAndUpdate(listId, { messages: {$pullAll: {view: [userId]} } })
 
         return messages.sort((a,b) =>{
                 if(a.date > b.date) return -1
