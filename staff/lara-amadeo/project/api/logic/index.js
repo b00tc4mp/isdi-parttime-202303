@@ -8,5 +8,6 @@ module.exports = {
     retrieveUser: require('./retrieveUser'),
     retrieveMeal: require('./retrieveMeal'),
     retrieveOwnMeals: require('./retrieveOwnMeals'),
-    updateMeal: require('./updateMeal')
+    updateMeal: require('./updateMeal'),
+    deleteMeal: require('./deleteMeal')
 }

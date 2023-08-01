@@ -7,14 +7,6 @@
     color: var(--grey-700);
 }
 
-.link-default:hover {
-    color: var(--primary-hover);
-}
-
 .link-critical {
     color: var(--critical-color);
-}
-
-.link-critical:hover {
-    color: var(--critical-hover);
 }

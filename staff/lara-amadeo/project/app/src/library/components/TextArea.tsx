@@ -5,10 +5,11 @@ type Props = {
     name: string,
     description?: string,
     disabled?: Boolean,
-    placeholder?: string
+    placeholder?: string,
+    value?: string
 }
 
-export default function TextArea({ label, name, description, disabled, placeholder, ...props }: Props): JSX.Element {
+export default function TextArea({ label, name, description, disabled, placeholder, value, ...props }: Props): JSX.Element {
 
     return <>
         <div className={`text-field-container ${disabled && "disabled"}`} {...props}>
@@ -16,7 +17,7 @@ export default function TextArea({ label, name, description, disabled, placehold
                 <p className='body-text grey-700'>{label}</p>
                 {description && <p className='small-text grey-500'>{description}</p>}
             </div>
-            <textarea name={`${name}`} placeholder={placeholder && placeholder} className="input-field-text-area"></textarea>
+            <textarea name={`${name}`} placeholder={placeholder && placeholder} defaultValue={value} className="input-field-text-area"></textarea>
         </div>
     </>
 }

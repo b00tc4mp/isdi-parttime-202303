@@ -4,6 +4,7 @@ import Context from '../../Context'
 
 const { DuplicityError, ExistanceError, AuthError, ContentError } = errors
 
+//Create a custom hook useHandleError that returns function
 export default (error: object) => {
 
     const { toast } = useContext(Context)

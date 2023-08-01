@@ -14,6 +14,7 @@ import CreateMeal from './modals/CreateMeal'
 import Profile from './pages/Profile'
 import MealDetails from './pages/MealDetails'
 import Toast from './library/components/Toast'
+import EditMeal from './modals/EditMeal'
 
 type ToastProperties = {
   message: string,
@@ -55,7 +56,6 @@ function App() {
         <Route path='/addMeal' element={<CreateMeal />} />
         <Route path='/profile' element={<Profile />} />
         <Route path='/meal/:mealId' element={<MealDetails />} />
-
       </Routes>
       {loader && <Loader />}
       {toast && <Toast message={toast.message} type={toast.type} endAnimation={handleRemoveToast} />}

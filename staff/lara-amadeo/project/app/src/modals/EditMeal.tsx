@@ -1,5 +1,8 @@
+import { useContext, useEffect, useRef, useState } from "react";
+import ModalFullScreen from "../library/components/ModalFullScreen";
+import Context from "../Context";
+import { IKContext, IKUpload } from "imagekitio-react"
 import EmptyPhoto from "../library/components/EmptyPhoto"
-import ModalFullScreen from "../library/components/ModalFullScreen"
 import './CreateMeal.css'
 import Link from "../library/components/Link"
 import { TrashIcon } from "../library/icons"
@@ -7,28 +10,57 @@ import Divider from "../library/components/Divider"
 import TextField from "../library/components/TextField"
 import TextArea from "../library/components/TextArea"
 import CategorySelector from "../library/components/CategorySelector"
-import { useContext, useRef, useState } from "react"
 import ButtonBar from "../library/modules/ButtonBar"
-import createMeal from "../logic/createMeal"
-import Context from "../Context"
-
-import { IKImage, IKContext, IKUpload } from "imagekitio-react"
+import retrieveMeal from "../logic/retrieveMeal";
+import updateMeal from "../logic/updateMeal";
 
 const urlEndpoint = 'https://ik.imagekit.io/6zeyr5rgu/yuperApp/'
 const publicKey = 'public_9DujXADbFrwoOkNd+rUmvTbT/+U='
 const authenticationEndpoint = 'http://localhost:1234/IKAuth'
 
-export default function CreateMeal(): JSX.Element {
+type Meal = {
+    author: { avatar: string, name: string, description: string, id: string },
+    images: Array<string>,
+    title: string,
+    description: string,
+    ingredients: string,
+    bestBefore: string,
+    price: string,
+    categories: Array<string>
+}
 
+type Props = {
+    mealId: string,
+    onUpdateMeal: () => void
+}
+
+//NOT A ROUTE - OPEN AS A COMPONENT
+export default function EditMeal({ mealId, onUpdateMeal }: Props) {
     const { loaderOn, loaderOff, navigate } = useContext(Context)
+    const [meal, setMeal] = useState<Meal>()
     const [categories, setCategories] = useState<string[]>([])
     const [mealImages, setMealImages] = useState<string[]>([])
+
+    const noPhotoPlusButton = "https://ik.imagekit.io/6zeyr5rgu/add-photo.svg?updatedAt=1689698891805"
 
     const inputRefTest = useRef(null)
     const ikUploadRefTest = useRef(null)
 
     const formRef = useRef<HTMLFormElement>(null)
 
+    useEffect(() => {
+        (async () => {
+            try {
+                const meal = await retrieveMeal(mealId)
+                setMeal(meal)
+                setCategories(meal.categories)
+                setMealImages(meal.images)
+
+            } catch (error) {
+                console.log(error)
+            }
+        })()
+    }, [])
 
     const onCategoryClick = (category: string) => {
         if (categories && categories.includes(category)) {
@@ -38,8 +70,7 @@ export default function CreateMeal(): JSX.Element {
         else setCategories(categories.concat(category))
     }
 
-
-    const handleAddMeal = () => {
+    const handleUpdateMeal = () => {
         if (formRef !== null) {
             const form = formRef.current as typeof formRef.current & {
                 title: { value: string },
@@ -61,11 +92,11 @@ export default function CreateMeal(): JSX.Element {
                 loaderOn()
                 try {
                     const images = mealImages
-                    await createMeal({ images, title, description, ingredients, bestBefore, price, categories })
+                    await updateMeal({ mealId, images, title, description, ingredients, bestBefore, price, categories })
 
                     setTimeout(() => {
                         loaderOff()
-                        navigate('/')
+                        onUpdateMeal()
                     }, 1000)
                 } catch (error) {
                     loaderOff()
@@ -75,8 +106,8 @@ export default function CreateMeal(): JSX.Element {
         }
     }
 
-    const onCloseModal = () => {
-        navigate(-1)
+    const onClose = () => {
+        onUpdateMeal()
     }
 
     const onImageUploadError = (error: object) => {
@@ -98,26 +129,25 @@ export default function CreateMeal(): JSX.Element {
         loaderOn()
     }
 
-    //TODO, review issue with imageKit & Typescript https://github.com/imagekit-developer/imagekit-react/issues/121
     return <>
-        <ModalFullScreen onClose={onCloseModal} topBarLabel="Add new meal">
+        <ModalFullScreen onClose={onClose} topBarLabel="Edit meal">
             <div className="page-button-bar">
-
                 {/*Upper-part*/}
                 <div className="new-meal-upper-container">
 
                     {/*Images*/}
                     <div className="new-meal-images-row">
-                        {/*//@ts-ignore*/}
-                        {inputRefTest && <EmptyPhoto src={mealImages.length > 0 ? mealImages[0] : `https://ik.imagekit.io/6zeyr5rgu/add-photo.svg?updatedAt=1689698891805`} onClick={() => inputRefTest.current!.click()} />}
-                        {/*//@ts-ignore*/}
-                        {inputRefTest && <EmptyPhoto src={mealImages.length > 1 ? mealImages[1] : `https://ik.imagekit.io/6zeyr5rgu/add-photo.svg?updatedAt=1689698891805`} onClick={() => inputRefTest.current!.click()} />}
-                        {/*//@ts-ignore*/}
-                        {inputRefTest && <EmptyPhoto src={mealImages.length > 2 ? mealImages[2] : `https://ik.imagekit.io/6zeyr5rgu/add-photo.svg?updatedAt=1689698891805`} onClick={() => inputRefTest.current!.click()} />}
-                        {/*//@ts-ignore*/}
-                        {inputRefTest && <EmptyPhoto src={mealImages.length > 3 ? mealImages[3] : `https://ik.imagekit.io/6zeyr5rgu/add-photo.svg?updatedAt=1689698891805`} onClick={() => inputRefTest.current!.click()} />}
-                        {/*//@ts-ignore*/}
-                        {inputRefTest && <EmptyPhoto src={mealImages.length > 4 ? mealImages[4] : `https://ik.imagekit.io/6zeyr5rgu/add-photo.svg?updatedAt=1689698891805`} onClick={() => inputRefTest.current!.click()} />}
+                        {meal && <>
+                            {/*//@ts-ignore*/}
+                            {inputRefTest && <EmptyPhoto src={mealImages.length > 0 ? mealImages[0] : noPhotoPlusButton} onClick={() => inputRefTest.current!.click()} />}
+                            {/*//@ts-ignore*/}
+                            {inputRefTest && <EmptyPhoto src={mealImages.length > 1 ? mealImages[1] : noPhotoPlusButton} onClick={() => inputRefTest.current!.click()} />}
+                            {/*//@ts-ignore*/}
+                            {inputRefTest && <EmptyPhoto src={mealImages.length > 2 ? mealImages[2] : noPhotoPlusButton} onClick={() => inputRefTest.current!.click()} />}
+                            {/*//@ts-ignore*/}
+                            {inputRefTest && <EmptyPhoto src={mealImages.length > 3 ? mealImages[3] : noPhotoPlusButton} onClick={() => inputRefTest.current!.click()} />}
+                            {/*//@ts-ignore*/}
+                            {inputRefTest && <EmptyPhoto src={mealImages.length > 4 ? mealImages[4] : noPhotoPlusButton} onClick={() => inputRefTest.current!.click()} />}</>}
                     </div>
                     {/*//@ts-ignore*/}
                     <IKContext publicKey={publicKey} urlEndpoint={urlEndpoint} authenticationEndpoint={authenticationEndpoint}>
@@ -128,7 +158,7 @@ export default function CreateMeal(): JSX.Element {
                     {/*counter & link*/}
                     <div className="new-meal-actions">
                         <div className="new-meal-link">
-                            <p className="small-text grey-700">5/5 photos</p>
+                            <p className="small-text grey-700">{`${mealImages.length}/5 photos`}</p>
                             {/*//@ts-ignore*/}
                             {ikUploadRefTest && <Link label="Remove all" state="critical" icon={<TrashIcon className="icon-xs critical-color" />} onClick={() => ikUploadRefTest.current!.abort()} />}
                         </div>
@@ -138,9 +168,12 @@ export default function CreateMeal(): JSX.Element {
 
                 {/*Lower-part*/}
                 <form className="create-meal-form" ref={formRef}>
-                    <TextField label="Title" type="default" name="title" />
-                    <TextArea label="Description" name="description" />
-                    <TextArea label="Ingredients" name="ingredients" />
+                    {meal && <>
+                        <TextField label="Title" type="default" name="title" value={meal.title} />
+                        <TextArea label="Description" name="description" value={meal.description} />
+                        {/* @ts-ignore */}
+                        <TextArea label="Ingredients" name="ingredients" value={meal.ingredients.join(", ")} />
+                    </>}
 
                     {/*categories*/}
                     <div className="create-meal-categories-label-selectors">
@@ -157,13 +190,14 @@ export default function CreateMeal(): JSX.Element {
                         </div>
                     </div>
 
-                    <TextField label="Best before" type="default" name="bestBefore" />
-                    <TextField label="Price" type="default" name="price" />
-                    <input type="number"></input>
+                    {meal && <>
+                        <TextField label="Best before" type="default" name="bestBefore" value={meal.bestBefore} />
+                        <TextField label="Price" type="default" name="price" value={meal.price} />
+                    </>}
 
                 </form>
             </div>
         </ModalFullScreen>
-        <ButtonBar firstButton={{ label: "Add meal", onClick: handleAddMeal }} />
+        <ButtonBar firstButton={{ label: "Update", onClick: handleUpdateMeal }} />
     </>
 }

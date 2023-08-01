@@ -50,7 +50,8 @@ export default function Home() {
     }
 
     const onMealCard = (id: string) => {
-        navigate(`/meal/${id}`)
+        const currentPath = window.location.pathname
+        navigate(`/meal/${id}`, { state: currentPath })
     }
 
     return <>

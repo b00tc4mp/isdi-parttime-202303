@@ -51,7 +51,8 @@ export default function Profile(): JSX.Element {
     }, [])
 
     const onMealCard = (id: string) => {
-        navigate(`/meal/${id}`)
+        const currentPath = window.location.pathname
+        navigate(`/meal/${id}`, { state: currentPath })
     }
 
     const inLoggoutClick = () => {
