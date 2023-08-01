@@ -1,4 +1,6 @@
 // import { validateEmail, validatePassword } from '../../../com/validators'
+import errors from './helpers/errors'
+
 /**
  * Registers a user in the database
  * @param {string} username user's username
@@ -16,6 +18,29 @@ export const registerAdditionalInfo = (description: string, tags: Array<string>,
 
     const info = { description, tags, location, availability }
 
+    return (async () => {
+        const res = await fetch('http://localhost:1234/users/info', {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json',
+                'authorization': `Bearer ${context.token}`
+            },
+            body: JSON.stringify(info)
+        })
+        if (res.status === 204) return
+
+        //@ts-ignore
+        const { message, type } = await res.json()
+
+        //@ts-ignore
+        const clazz = errors[type]
+
+        //@ts-ignore
+        throw new clazz(message)
+    })()
+}
+
+/* Old-promises
     return fetch('http://localhost:1234/users/info', {
         method: 'POST',
         headers: {
@@ -27,4 +52,5 @@ export const registerAdditionalInfo = (description: string, tags: Array<string>,
         .then(res => {
             if (res.status !== 204) return res.json().then(({ error }) => { throw new Error(error) })
         })
-}
+
+*/ 

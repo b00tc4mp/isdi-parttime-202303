@@ -5,15 +5,18 @@ import Context from '../Context'
 import Header from '../library/components/Header'
 import CategoryInteractive from '../library/components/CategoryInteractive'
 import IconButton from '../library/components/IconButton'
-import { MinusIcon, PlusIcon } from '../library/icons'
+import { EllipsisVerticalIcon, MinusIcon, PencilIcon, PencilSquareIcon, PlusIcon, TrashIcon, XMarkIcon } from '../library/icons'
 import DataItem from '../library/components/DataItem'
 import ChefModule from '../library/modules/ChefModule'
 import ButtonBar from '../library/modules/ButtonBar'
 import { useParams } from 'react-router-dom'
 import retrieveMeal from '../logic/retrieveMeal'
+import getUserId from '../logic/getUserId'
+import ContextualModalMenu from '../library/modules/ContextualModalMenu'
+import Link from '../library/components/Link'
 
 type Meal = {
-    author: { avatar: string, name: string, description: string },
+    author: { avatar: string, name: string, description: string, id: string },
     images: Array<string>,
     title: string,
     description: string,
@@ -27,31 +30,43 @@ export default function MealDetails(): JSX.Element {
 
     const { loaderOff, loaderOn, navigate } = useContext(Context)
     const [meal, setMeal] = useState<Meal>()
-    const { mealId } = useParams()
+    const { mealId } = useParams<string>()
+
+    const [openCategory, setOpenCategory] = useState<string>("")
+    const userId = getUserId()
 
     useEffect(() => {
-        try {
-            if (mealId !== undefined) {
-                retrieveMeal(mealId)
-                    .then(meal => setMeal(meal))
-                    .catch((error: string) => {
-                        console.log(error)
-                    })
+        (async () => {
+            try {
+                const meal = await retrieveMeal(mealId!)
+                setMeal(meal)
+            } catch (error) {
+                console.log(error)
             }
-        } catch (error) {
-            console.log(error)
-        }
+
+        })()
     }, [])
 
     const onCloseClick = () => {
-        navigate('/')
+        navigate(-1)
     }
 
     const onNewChatClick = (event: React.SyntheticEvent) => {
 
     }
 
+    const toggleOpenCategory = (category: string) => {
+        setOpenCategory(category !== openCategory ? category : "")
+    }
+
     return <>
+        <ContextualModalMenu>
+            <>
+                <Link label='Edit meal' state='default' icon={<PencilSquareIcon className='icon-xs grey-700' />} />
+                <Link label='Mark as out of stock' state='default' icon={<XMarkIcon className='icon-xs grey-700' />} />
+                <Link label='Delete meal' state='critical' icon={<TrashIcon className='icon-xs critical-color' />} />
+            </>
+        </ContextualModalMenu>
         <ModalFullScreen onClose={onCloseClick} topBarLabel='Meal details'>
             <div className='page-button-bar'>
 
@@ -60,16 +75,26 @@ export default function MealDetails(): JSX.Element {
                     {meal && <img className='meal-detail-img' src={meal.images[0]}></img>}
                     {/* image-info */}
                     <div className='meal-detail-img-info'>
+
                         {/* categories */}
                         <div className='meal-detail-img-info-categ'>
-                            {meal && meal.categories.length > 0 && meal.categories.map((category: string) => <CategoryInteractive category={category} />)}
+                            {meal && meal.categories.length > 0 && meal.categories.map((category: string) => <CategoryInteractive category={category} open={category === openCategory} onClick={() => toggleOpenCategory(category)} />)}
                         </div>
-                        {/* counter */}
+
+                        {/* counter - actionButton */}
                         <div className='meal-detail-img-info-counter'>
-                            <IconButton icon={<MinusIcon className='icon-s grey-700' />} type={'secondary'} />
-                            <p className='heading-l'>1</p>
-                            <IconButton icon={<PlusIcon className='icon-s grey-700' />} type={'secondary'} />
+                            {meal?.author.id !== userId ? <>
+                                <IconButton icon={<MinusIcon className='icon-s grey-700' />} type={'secondary'} />
+                                <p className='heading-l'>1</p>
+                                <IconButton icon={<PlusIcon className='icon-s grey-700' />} type={'secondary'} />
+                            </> :
+                                <>
+                                    <IconButton icon={<EllipsisVerticalIcon className='icon-s grey-700' />} type={'primary'} />
+                                </>}
+
                         </div>
+
+
                     </div>
                 </div>
 
@@ -84,6 +109,6 @@ export default function MealDetails(): JSX.Element {
                 </div>
             </div>
         </ModalFullScreen>
-        <ButtonBar firstButton={{ label: 'New chat', onClick: onNewChatClick }} />
+        {meal?.author.id !== userId && <ButtonBar firstButton={{ label: 'New chat', onClick: onNewChatClick }} />}
     </>
 }

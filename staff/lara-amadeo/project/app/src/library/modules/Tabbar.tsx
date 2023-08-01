@@ -15,7 +15,7 @@ export default function Tabbar({ home, search, add, cart, profile }: Props): JSX
 
     const { loaderOn, LoaderOff, navigate } = useContext(Context)
 
-    const openAddMealModal = () => {
+    const onAddMeal = () => {
         navigate('/addMeal')
     }
 
@@ -23,10 +23,13 @@ export default function Tabbar({ home, search, add, cart, profile }: Props): JSX
         navigate('/profile')
     }
 
+    const onHome = () => {
+        navigate('/')
+    }
 
     return <>
         <div className='tabbar-container'>
-            <div className='tabbar-item'>
+            <div className='tabbar-item' onClick={onHome}>
                 <HomeIcon className='icon-s grey-700' />
                 {home && <div className='tabbar-selected'></div>}
             </div>
@@ -34,7 +37,7 @@ export default function Tabbar({ home, search, add, cart, profile }: Props): JSX
                 <MagnifyingGlassIcon className='icon-s grey-700' />
                 {search && <div className='tabbar-selected'></div>}
             </div>
-            <div className='tabbar-item' onClick={openAddMealModal}>
+            <div className='tabbar-item' onClick={onAddMeal}>
                 <PlusIcon className='icon-s grey-700' />
                 {add && <div className='tabbar-selected'></div>}
             </div>

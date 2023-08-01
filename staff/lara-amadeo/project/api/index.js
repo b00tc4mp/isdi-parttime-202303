@@ -3,7 +3,7 @@ require('dotenv').config()
 const cors = require('cors')
 const bodyParser = require('body-parser')
 const express = require('express')
-const { helloAPIHandler, registerUserHandler, authenticateUserHandler, registerAdditionalInfoHandler, createMealHandler, retrieveMealsHandler, retrieveUserHandler, retrieveMealHandler } = require('./handlers')
+const { helloAPIHandler, registerUserHandler, authenticateUserHandler, registerAdditionalInfoHandler, createMealHandler, retrieveMealsHandler, retrieveUserHandler, retrieveMealHandler, retrieveOwnMealsHandler } = require('./handlers')
 
 const mongoose = require('mongoose')
 
@@ -44,8 +44,11 @@ mongoose.connect(process.env.MONGODB_URL)
         //retrieveMeals
         api.get('/meals', retrieveMealsHandler)
 
-        //retrieveMeals
+        //retrieveMeal
         api.get('/meal/:mealId', retrieveMealHandler)
+
+        //retrieveOwnMeals
+        api.get('/meals/user/', retrieveOwnMealsHandler)
 
         api.get('/IKAuth', (req, res) => {
             const result = imagekit.getAuthenticationParameters()

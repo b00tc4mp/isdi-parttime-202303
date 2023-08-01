@@ -1,4 +1,6 @@
+import CategoryEmoji from "./CategoryEmoji"
 import "./CategorySelector.css"
+
 
 type Props = {
     category: string,
@@ -16,11 +18,12 @@ export default function CategorySelector({ category, selected, onClick }: Props)
                 ${category == "vegan" && `category-selector-vegan ${selected && 'category-selector-vegan-selected'}`}
                 ${category == "alergen" && `category-selector-alergen ${selected && 'category-selector-alergen-selected'}`}`} onClick={onClick}>
 
-            <p className="heading-l">{`
-                ${category === "vegetarian" ? "🥥" : ''}
-                ${category === "gluten" ? "🌾" : ''}
-                ${category === "vegan" ? "🥑" : ''}
-                ${category === "alergen" ? "🥜" : ''}`}</p>
+
+            {category === "vegetarian" && <CategoryEmoji category={"vegetarian"} width="32px" height="32px" />}
+            {category === "gluten" && <CategoryEmoji category={"gluten"} width="32px" height="32" />}
+            {category === "vegan" && <CategoryEmoji category={"vegan"} width="32px" height="32px" />}
+            {category === "alergen" && <CategoryEmoji category={"alergen"} width="32px" height="32px" />}
+
             <p className={`body-text-bold
             ${category == "vegetarian" && "category-selector-label-vegetarian"}
             ${category == "gluten" && "category-selector-label-gluten"}

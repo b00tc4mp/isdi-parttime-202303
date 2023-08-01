@@ -1,5 +1,8 @@
 // import { validateEmail, validatePassword } from '../../../com/validators'
 import { context } from './context'
+import { validateEmail, validatePassword } from './helpers/validators'
+import errors from './helpers/errors'
+
 
 /**
  * Registers a user in the database
@@ -17,11 +20,39 @@ type Params = {
 }
 
 export const registerUser = ({ name, username, email, password }: Params) => {
-
-    // validateEmail(email)
-    // validatePassword(password)
+    validateEmail(email)
+    validatePassword(password)
 
     const user = { name, username, email, password }
+
+    return (async () => {
+        const res = await fetch('http://localhost:1234/users', {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        })
+        if (res.status === 201) {
+            const token = await res.json()
+            context.token = token
+
+            return
+        }
+
+        //@ts-ignore
+        const { message, type } = await res.json()
+
+        //@ts-ignore
+        const clazz = errors[type]
+
+        //@ts-ignore
+        throw new clazz(message)
+    })()
+}
+
+
+/*    const user = { name, username, email, password }
 
     return fetch('http://localhost:1234/users', {
         method: 'POST',
@@ -38,4 +69,4 @@ export const registerUser = ({ name, username, email, password }: Params) => {
         .then(token => {
             context.token = token
         })
-}
+        */

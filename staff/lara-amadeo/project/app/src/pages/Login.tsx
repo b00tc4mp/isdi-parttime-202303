@@ -20,26 +20,21 @@ export default function Login(): JSX.Element {
         }
 
         const email = target.email.value
-        const password = target.password.value
+        const password = target.password.value;
 
-        try {
-            loaderOn()
-
-            setTimeout(() => {
-                loginUser(email, password)
-                    .then(() => {
-                        loaderOff()
-                        navigate('/')
-                    })
-                    .catch((error: string) => {
-                        loaderOff()
-                        console.log(error)
-                    })
-            }, 1000)
-        } catch (error: any) {
-            loaderOff()
-            console.log(error.message)
-        }
+        (async () => {
+            try {
+                loaderOn()
+                await loginUser(email, password)
+                setTimeout(() => {
+                    loaderOff()
+                    navigate('/')
+                }, 1000)
+            } catch (error: any) {
+                loaderOff()
+                console.log(error.message)
+            }
+        })()
     }
 
     const goToRegister = () => {

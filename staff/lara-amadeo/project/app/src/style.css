@@ -156,6 +156,10 @@ body {
   margin: 0;
 }
 
+.italic {
+  font-style: italic;
+}
+
 .grey-700 {
   color: #3b3b3f
 }

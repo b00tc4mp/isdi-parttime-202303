@@ -12,11 +12,11 @@
 }
 
 .category-selector-vegetarian-selected {
-    border: 2px solid #335C77;
+    border: 2px solid #3C6916;
 }
 
 .category-selector-vegan-selected {
-    border: 2px solid #3C6916;
+    border: 2px solid #335C77;
 }
 
 .category-selector-gluten-selected {
@@ -29,11 +29,11 @@
 
 
 .category-selector-vegetarian {
-    background-color: #F2F5F7;
+    background-color: #EFFFE5;
 }
 
 .category-selector-vegan {
-    background-color: #EFFFE5;
+    background-color: #F2F5F7;
 }
 
 .category-selector-gluten {

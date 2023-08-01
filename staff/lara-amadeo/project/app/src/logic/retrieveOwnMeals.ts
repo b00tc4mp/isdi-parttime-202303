@@ -1,8 +1,9 @@
 import { context } from "./context"
 
-export default function retrieveMeal(mealId: string) {
+export default function retrieveOwnMeals() {
+
     return (async () => {
-        const res = await fetch(`http://localhost:1234/meal/${mealId}`, {
+        const res = await fetch('http://localhost:1234/meals/user', {
             method: 'GET',
             headers: {
                 'Content-type': 'application/json',
@@ -10,9 +11,9 @@ export default function retrieveMeal(mealId: string) {
             }
         })
         if (res.status === 200) {
-            const meal = await res.json()
+            const meals = await res.json()
 
-            return meal
+            return meals
         }
 
         //@ts-ignore
@@ -23,7 +24,5 @@ export default function retrieveMeal(mealId: string) {
 
         //@ts-ignore
         throw new clazz(message)
-
     })()
 }
-

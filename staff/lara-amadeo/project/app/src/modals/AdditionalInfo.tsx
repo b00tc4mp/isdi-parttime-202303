@@ -11,7 +11,6 @@ import TextField from '../library/components/TextField'
 import TimeSelector from '../library/components/TimeSelector'
 import ButtonBar from '../library/modules/ButtonBar'
 
-//@ts-ignore
 export default function AdditionalInfo() {
     const { loaderOn, loaderOff, navigate } = useContext(Context)
     const [availabilityDays, setAvailabilityDays] = useState<string[]>([])
@@ -31,26 +30,23 @@ export default function AdditionalInfo() {
     const handleAdditionalInfo = (event: React.SyntheticEvent) => {
         event.preventDefault()
 
-        try {
-            type Params = {
-                description: string,
-                tags: Array<string>,
-                location: string,
-                availability: Array<object>
-            }
-            const { description, tags, location, availability } = handleAdditionalInfoHelper(formRef.current!, availabilityDays)
+        const { description, tags, location, availability } = handleAdditionalInfoHelper(formRef.current!, availabilityDays);
 
+        (async () => {
             loaderOn()
+            try {
+                await registerAdditionalInfo(description, tags, location, availability)
 
-            setTimeout(() => {
-                registerAdditionalInfo(description, tags, location, availability)
-                loaderOff()
-                navigate('/')
-            }, 1000)
+                setTimeout(() => {
+                    loaderOff()
+                    navigate('/')
+                }, 1000)
 
-        } catch (error: any) {
-            console.log(error.stack)
-        }
+            } catch (error: any) {
+                console.log(error)
+            }
+
+        })()
     }
 
 

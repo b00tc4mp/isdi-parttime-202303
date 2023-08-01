@@ -2,13 +2,13 @@ import './Avatar.css'
 
 type Props = {
     image: String,
-    size: String
+    width: String
 }
 
-export default function Avatar({ image, size }: Props): JSX.Element {
+export default function Avatar({ image, width }: Props): JSX.Element {
     return <>
         <div className={`avatar-container `}>
-            <img className={` ${size === 'small' && 'avatar-s'} ${size === 'medium' && 'avatar-m'} ${size === 'large' && 'avatar-l'}`} src={`${image}`}></img>
+            <img className="avatar-img" style={{ width: `${width}`, height: `${width}` }} src={`${image}`}></img>
         </div>
     </>
 }

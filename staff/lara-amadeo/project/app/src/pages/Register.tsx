@@ -24,27 +24,22 @@ export default function Register() {
         const name = target.username.value
         const username = target.username.value
         const email = target.email.value
-        const password = target.password.value
+        const password = target.password.value;
 
-        try {
+        (async () => {
             loaderOn()
+            try {
+                await registerUser({ name, username, email, password })
+                setTimeout(() => {
+                    loaderOff()
+                    navigate('/additionalInfo')
+                }, 1000);
 
-            setTimeout(() => {
-                registerUser({ name, username, email, password })
-                    .then(() => {
-                        loaderOff()
-                        navigate('/additionalInfo')
-                    })
-                    .catch((error: string) => {
-                        loaderOff()
-                        console.log(error)
-                    })
-            }, 1000)
-
-        } catch (error: any) {
-            loaderOff()
-            console.log(error.message)
-        }
+            } catch (error: any) {
+                loaderOff()
+                console.log(error)
+            }
+        })()
     }
 
     const loginHandler = () => {

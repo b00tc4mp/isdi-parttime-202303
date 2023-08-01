@@ -17,7 +17,6 @@ import { IKImage, IKContext, IKUpload } from "imagekitio-react"
 const urlEndpoint = 'https://ik.imagekit.io/6zeyr5rgu/yuperApp/'
 const publicKey = 'public_9DujXADbFrwoOkNd+rUmvTbT/+U='
 const authenticationEndpoint = 'http://localhost:1234/IKAuth'
-
 export default function CreateMeal(): JSX.Element {
 
     const { loaderOn, loaderOff, navigate } = useContext(Context)
@@ -50,55 +49,55 @@ export default function CreateMeal(): JSX.Element {
                 price: { value: string }
             }
 
-            if (form !== null) {
-                const title = form.title.value
-                const description = form.description.value
-                const ingredients = form.ingredients.value.split(",").map(item => item.trim())
-                const bestBefore = form.bestBefore.value
-                const price = form.price.value
 
+            const title = form.title.value
+            const description = form.description.value
+            const ingredients = form.ingredients.value.split(",").map(item => item.trim())
+            const bestBefore = form.bestBefore.value
+            const price = form.price.value;
+
+            (async () => {
+                loaderOn()
                 try {
-                    loaderOn()
                     const images = mealImages
-                    console.log(images)
-                    createMeal({ images, title, description, ingredients, bestBefore, price, categories })
-                        .then(() => {
-                            navigate('/')
-                            loaderOff()
-                        })
+                    await createMeal({ images, title, description, ingredients, bestBefore, price, categories })
+
+                    setTimeout(() => {
+                        loaderOff()
+                        navigate('/')
+                    }, 1000)
                 } catch (error) {
+                    loaderOff()
                     console.log(error)
                 }
-            }
+            })()
         }
     }
 
     const onCloseModal = () => {
-        navigate('/')
+        navigate(-1)
     }
 
     const onImageUploadError = (error: object) => {
-        console.log(error)
         alert('There has been an error uploading your file. Please try again.')
     }
-
+    //@ts-ignore
     const onValidateFile = (res) => {
         if (res.type === 'image/png' && res.size < 500000 || res.type === 'image/jpeg' && res.size < 500000 || res.type === 'image/webp' && res.size < 500000 || res.type === 'image/heic' && res.size < 500000) return true
 
         else { alert('File format or size not permitted') }
     }
-
+    //@ts-ignore
     const onImageUploadSuccess = (res) => {
         loaderOff()
         setMealImages(mealImages.concat(res.url))
     }
-
+    //@ts-ignore
     const onUploadStart = evt => {
         loaderOn()
     }
 
-
-
+    //TODO, review issue with imageKit & Typescript https://github.com/imagekit-developer/imagekit-react/issues/121
     return <>
         <ModalFullScreen onClose={onCloseModal} topBarLabel="Add new meal">
             <div className="page-button-bar">
@@ -111,13 +110,20 @@ export default function CreateMeal(): JSX.Element {
                         {/* {newImage && <IKContext publicKey={publicKey} urlEndpoint={urlEndpoint} authenticationEndpoint={authenticationEndpoint}>
                             <IKImage path={newImage} />
                         </IKContext>} */}
+                        {/*//@ts-ignore*/}
                         {inputRefTest && <EmptyPhoto src={mealImages.length > 0 ? mealImages[0] : `https://ik.imagekit.io/6zeyr5rgu/add-photo.svg?updatedAt=1689698891805`} onClick={() => inputRefTest.current!.click()} />}
+                        {/*//@ts-ignore*/}
                         {inputRefTest && <EmptyPhoto src={mealImages.length > 1 ? mealImages[1] : `https://ik.imagekit.io/6zeyr5rgu/add-photo.svg?updatedAt=1689698891805`} onClick={() => inputRefTest.current!.click()} />}
+                        {/*//@ts-ignore*/}
                         {inputRefTest && <EmptyPhoto src={mealImages.length > 2 ? mealImages[2] : `https://ik.imagekit.io/6zeyr5rgu/add-photo.svg?updatedAt=1689698891805`} onClick={() => inputRefTest.current!.click()} />}
+                        {/*//@ts-ignore*/}
                         {inputRefTest && <EmptyPhoto src={mealImages.length > 3 ? mealImages[3] : `https://ik.imagekit.io/6zeyr5rgu/add-photo.svg?updatedAt=1689698891805`} onClick={() => inputRefTest.current!.click()} />}
+                        {/*//@ts-ignore*/}
                         {inputRefTest && <EmptyPhoto src={mealImages.length > 4 ? mealImages[4] : `https://ik.imagekit.io/6zeyr5rgu/add-photo.svg?updatedAt=1689698891805`} onClick={() => inputRefTest.current!.click()} />}
                     </div>
+                    {/*//@ts-ignore*/}
                     <IKContext publicKey={publicKey} urlEndpoint={urlEndpoint} authenticationEndpoint={authenticationEndpoint}>
+                        {/*//@ts-ignore*/}
                         <IKUpload style={{ display: 'none' }} inputRef={inputRefTest} ref={ikUploadRefTest} className="ik-upload-button" fileName={'meal_'} accept=".jpg, .jpeg, .png, .heic, .webp" validateFile={onValidateFile} onError={onImageUploadError} onUploadStart={onUploadStart} onSuccess={onImageUploadSuccess} />
                     </IKContext>
 
@@ -125,6 +131,7 @@ export default function CreateMeal(): JSX.Element {
                     <div className="new-meal-actions">
                         <div className="new-meal-link">
                             <p className="small-text grey-700">5/5 photos</p>
+                            {/*//@ts-ignore*/}
                             {ikUploadRefTest && <Link label="Remove all" state="critical" icon={<TrashIcon className="icon-xs critical-color" />} onClick={() => ikUploadRefTest.current!.abort()} />}
                         </div>
                         <Divider width="100%" />

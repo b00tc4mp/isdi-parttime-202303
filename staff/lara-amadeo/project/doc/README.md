@@ -10,21 +10,19 @@ In the days we live in, people tend to have less and less time. Yet, there has b
 
 ### Use cases
 
-- **US-001** - Register in Yupper
-- **US-002** - Login successfully
-- **US-003** - See my profile
-- **US-004** - Create a new meal
-- **US-005** - See meal detail
-- **US-006** - See meals of other users
-- **US-007** - See Chef detail page
-- **US-008** - Add meals to my cart
-- **US-009** - Pay meals
-- **US-010** - See ordered meals to me in my profile
-- **US-011** - Set a Chef as favourite
-- **US-012** - See my favourites chefs
-- **US-013** - See reviews in Chef detail page
-- **US-014** - Add a review
-- **US-015** - Search for a meal
+- See my profile
+ - Create a new meal
+ - See meal detail
+ - See meals of other users
+ - See Chef detail page
+ - Add meals to my cart
+ - Pay meals
+ - See ordered meals to me in my profile
+ - Set a Chef as favourite
+ - See my favourites chefs
+ - See reviews in Chef detail page
+ - Add a review
+ - Search for a meal
 
 ## Technical description
 
@@ -40,7 +38,7 @@ Users
 - availability(array of obj)
 - favs (oid array, refers to user id)
 - reviews? (array of obj)
-- meals in cart (array of obj(meal id, status(string(in cart, pending to pick up, delivered, cancelled?))))
+- meals in cart (array of obj(meal id, status(string(in cart, pending to pick up, delivered, cancelled))))
 
 Meals
 - id (string)

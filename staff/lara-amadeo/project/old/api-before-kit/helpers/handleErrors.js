@@ -1,4 +1,4 @@
-const { errors: { DuplicityError, ContentError, ExistanceError, AuthError } } = require('../../com')
+const { errors: { DuplicityError, ContentError, ExistanceError, AuthError } } = require('../../../com')
 
 module.exports = function handleErrors(callback) {
     return (req, res) => {

@@ -18,21 +18,31 @@ type User = {
     availability: Array<object>
 }
 
+type Meal = {
+    images: string[],
+    title: string,
+    description: string,
+    categories: Array<string>,
+    price: string,
+    id: string
+}
+
 export default function Home() {
     const { loaderOn, LoaderOff, navigate } = useContext(Context)
-    const [meals, setMeals] = useState<Array<object>>()
+    const [meals, setMeals] = useState<Array<Meal>>()
     const [user, setUser] = useState<User>()
 
     useEffect(() => {
-        try {
-            Promise.all([retrieveMeals(), retrieveUser()])
-                .then(([meals, user]) => {
-                    setMeals(meals)
-                    setUser(user)
-                })
-        } catch (error) {
-            console.log(error)
-        }
+        (async () => {
+            try {
+                const meals = await retrieveMeals()
+                const user = await retrieveUser()
+                setMeals(meals)
+                setUser(user)
+            } catch (error) {
+                console.log(error)
+            }
+        })()
     }, [])
 
     const onCompleteProfile = () => {
@@ -41,15 +51,6 @@ export default function Home() {
 
     const onMealCard = (id: string) => {
         navigate(`/meal/${id}`)
-    }
-
-    type Meal = {
-        images: string[],
-        title: string,
-        description: string,
-        categories: Array<string>,
-        price: string,
-        id: string
     }
 
     return <>

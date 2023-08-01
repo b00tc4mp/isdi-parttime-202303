@@ -14,7 +14,7 @@ export default function ChefModule({ avatar, name, description, liked }: Props):
     return <>
         <Container width={'100%'} height={'fit-content'} type={'border'}>
             <div className='chef-module-container'>
-                <Avatar image={avatar} size={'large'} />
+                <Avatar image={avatar} width={'40px'} />
                 <div className='chef-module-info'>
                     <p className="body-text-bold grey-700 chef-module-name">{name}</p>
                     <p className="tiny-text grey-300 chef-module-description">{description}</p>
