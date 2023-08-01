@@ -1,19 +1,23 @@
-// import * as React from 'react';
 import React, { useEffect, useState } from "react";
 import { Keyboard, TouchableWithoutFeedback } from "react-native";
 import * as Animatable from 'react-native-animatable';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import BottomTab from "./src/navigation/BottomTab.jsx";
+import MainStack from "./src/navigation/MainStack.jsx";
+
 
 import useFonts from "./src/hooks/useFonts.js";
-// import { Footer, Header } from './src/components';
-import Login from './src/components/Login.jsx';
-import Register from './src/components/Register.jsx';
-import Footer from './src/components/Footer.jsx';
-import Header from './src/components/Header.jsx';
-import BaseMap from './src/components/BaseMap.jsx';
-import Nearby from './src/components/Nearby.jsx';
-import SinglePlayground from './src/components/SinglePlayground.jsx';
-import Sidebar from './src/components/Sidebar.jsx';
-import CreatePlayground from './src/components/CreatePlayground.jsx';
+import Login from './src/components/Login';
+import Register from './src/components/Register';
+import Footer from './src/components/Footer';
+import Header from './src/components/Header';
+import BaseMap from './src/components/BaseMap';
+import Nearby from './src/components/Nearby';
+import SinglePlayground from './src/components/SinglePlayground';
+import Sidebar from './src/components/Sidebar';
+import CreatePlayground from './src/components/CreatePlayground';
+import Home from './src/screens/Home';
 
 import { StatusBar } from 'expo-status-bar';
 import { Text, View, Image, SafeAreaView, ScrollView, useColorScheme } from 'react-native';
@@ -71,11 +75,16 @@ export default function App({ }) {
   // const onSendPlayground = () => {
   // setModal('nearby')
   // }
+
+  const Stack = createNativeStackNavigator()
+
   return (
     <>
-
       <Provider value={{ currentView, setCurrentView, currentMarker, setCurrentMarker, modal, setModal, colorScheme }}>
         <HideKeyboard>
+          {/* <NavigationContainer>
+            <MainStack />
+          </NavigationContainer> */}
           <View className="flex-1 bg-white items-center justify-center">
             {modal === 'sidebar' && <Sidebar closeHandle={onCloseSidebar} />}
             <BaseMap className="-z-20" onMarkerPressed={markerPressedHandler} />

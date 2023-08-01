@@ -5,7 +5,7 @@ import { API_URL } from '@env'
 export default token => {
     // validateToken(token);
     // alert(API_URL)
-    return fetch(`${API_URL}/posts`, {
+    return fetch(`${API_URL}/playgrounds`, {
         method: 'GET',
         headers: {
             'Authorization': `Bearer ${token}`

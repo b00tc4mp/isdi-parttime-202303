@@ -1,3 +1,4 @@
+const { User, Post } = require('../../data/models')
 const context = require('../context')
 const { ObjectId } = require('mongodb')
 const {
@@ -20,34 +21,33 @@ module.exports = userId => {
     const { users, posts } = context
     const _user = { _id: new ObjectId(userId) }
 
-    return users.findOne(_user)
+    return User.findById(userId).lean()
         .then(user => {
             if (!user) new ExistenceError(`User with id ${userId} not found`)
 
-            return users.find().toArray()
-                .then(users => {
-                    return posts.find().toArray()
-                        .then(posts => {
-                            const filterPosts = posts.filter(post => post.likes?.includes(userId))
+            return Post.find()
+                .then(posts => {
+                    // const filterPosts = Post.find({_id: { $in: post.likes}})
+                    const filterPosts = User.find({ _id: { $in: posts.likes } }).populate('author', '-password -favs').lean()
+                    debugger
+                    // post => post.likes?.includes(userId)
+                    filterPosts.forEach(post => {
+                        // const user = users.find(_user => _user._id.toString() === userId)
+                        const postsFound = post.likes?.includes(user._id.toString())
+                        if (postsFound) {
+                            post.date = new Date(post.date)
 
-                            filterPosts.forEach(post => {
-                                const user = users.find(_user => _user._id.toString() === userId)
-                                const postsFound = post.likes?.includes(user._id.toString())
-                                if (postsFound) {
-                                    post.date = new Date(post.date)
+                            // const postAuthor = users.find(user => user._id.toString() === post.author.toString())
 
-                                    const postAuthor = users.find(user => user._id.toString() === post.author.toString())
+                            // post.author = {
+                            //     id: postAuthor._id.toString(),
+                            //     name: postAuthor.name,
+                            //     image: postAuthor.image
+                            // }
+                        }
 
-                                    post.author = {
-                                        id: postAuthor._id.toString(),
-                                        name: postAuthor.name,
-                                        image: postAuthor.image
-                                    }
-                                }
-
-                            })
-                            return filterPosts
-                        })
+                    })
+                    return filterPosts
                 })
         })
 }

@@ -1,4 +1,4 @@
-const { ObjectId } = require('mongodb')
+const { User, Post } = require('../../data/models')
 const context = require('../context')
 const { validators: { validateUserId, validateText, validatePassword, validateCallback } } = require('com')
 
@@ -21,17 +21,13 @@ module.exports = (userId, image, title, text, location) => {
     validateText(title)
     validateText(text)
 
-    const { posts } = context
-
-    return posts.insertOne({
+    return Post.create({
         author: userId,
         image: image,
         title: title,
         text: text,
-        date: new Date(),
         comments: [],
-        likes: [],
-        visibility: 'public',
         location: ''
     })
+        .then(() => { })
 }

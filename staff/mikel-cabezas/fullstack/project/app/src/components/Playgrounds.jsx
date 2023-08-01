@@ -5,7 +5,7 @@ import { View } from "react-native"
 import retrieveUser from "../logic/retrieveUser"
 
 export default function Playgrounds({ onMarkerPressedHandler }) {
-    const userId = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDk0ODAwM2JmMTJmMTNmNmIxY2I4NTIiLCJpYXQiOjE2ODk4NzM1NTksImV4cCI6MjU1Mzc4NzE1OX0.eyIACfSeGUU2PqPxjtMDISYb4agP5F700rCW_8eoulg"
+    const userId = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDk0ODAwM2JmMTJmMTNmNmIxY2I4NTIiLCJpYXQiOjE2OTA5MjcxMjAsImV4cCI6MTc3NzI0MDcyMH0._fnTXb6GDqSip-kJiF_cao2b4WwVqraR_cpqsrco76k"
     const [playgrounds, setPlaygrounds] = useState()
     const [user, setUser] = useState()
 

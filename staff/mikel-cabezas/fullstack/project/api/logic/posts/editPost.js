@@ -1,7 +1,6 @@
-const { ObjectId } = require('mongodb')
-const context = require('../context')
+const { User, Post } = require('../../data/models')
 const {
-    validators: { validateUserId, validateText, validatePostId },
+    validators: { validateId, validateText },
     errors: { ExistenceError }
 } = require('com')
 
@@ -22,35 +21,22 @@ const {
  * @throws {ExistenceError} on post not found (async)
  */
 module.exports = (userId, postId, title, text, image, visibility) => {
-    validateUserId(userId)
-    validatePostId(postId)
+    validateId(userId)
+    validateId(postId)
     validateText(title)
     validateText(text)
 
-    const { posts } = context
-    const _post = { _id: new ObjectId(postId) }
-    let visibilityStatus
-    if (visibility) {
-        visibilityStatus = 'public'
-    } else {
-        visibilityStatus = 'private'
-    }
 
-    return posts.findOne(_post)
+    return Post.findById(postId)
         .then(post => {
             if (!post) throw new ExistenceError('post not found')
-            return posts.updateOne(_post, {
-                $set: {
-                    image: image,
-                    title: title,
-                    text: text,
-                    date: new Date(post.date),
-                    lastModify: new Date(),
-                    comments: post.comments,
-                    likes: post.likes,
-                    visibility: visibilityStatus,
-                    location: post.location
-                }
+
+            return post.updateOne({
+                image: image,
+                title: title,
+                text: text,
+                lastModify: new Date(),
+                visibility: visibility ? visibility : post.visibility,
             })
         })
 }
