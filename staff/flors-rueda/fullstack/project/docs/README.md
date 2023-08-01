@@ -10,15 +10,13 @@ This is a web app build as the final project for the ISDI Coders' online web dev
 Ballopolis is meant to be a social game, where you create levels that are fun and challenging to beat for other players.
 </br>
 </br>
-In doing so, you earn achivements to add to your profile and show off to your friends and other users.
+In doing so, you earn achivements to add to your profile and show off to other users.
 </br>
 </br>
 To create those levels you need to earn Customization Credits by playing other people levels.
 </br>
 </br>
-So YOU play levels to earn points to create levels that other people will play to earn points to create levels that YOU will play!
-</br>
-And that's the loop in which this game lives...
+So you play levels to earn points to create levels that other people will play to earn points to create levels that you will play!
 </br>
 </br>
 
@@ -27,14 +25,18 @@ And that's the loop in which this game lives...
 ## Use cases
 
 - create level
-- edit level
 - play level
 - earn achivements
 - toggle like level
+- follow users
 - see other users achivements
 - see other users created levels
 </br>
 </br>
+
+# UI desgin
+
+- TODO Link to figma or wizardUI or whatever
 
 # Technical description
 
@@ -54,12 +56,31 @@ And that's the loop in which this game lives...
 </br>
 
 
-## Data model
+## Data models
 
-Level
-- id (uuid)
+**Level**
+- id (oid)
 - name (string)
 - layout (matrix of strings)
+- health ppints (number)
+- author (user id)
+- likes (array of id)
+- date (date)
+
+**User**
+- id (oid)
+- username (string)
+- password (string)
+- avatar (string)
+- color (string)
+- recovery questions (array of objects)
+- joined (dates)
+- saves (array of id)
+- follow (array of id)
+
+**Achivements**
+- user (id)
+- progress (array of objects)
 </br>
 </br>
 
@@ -123,24 +144,33 @@ Planned through a kanban visible on this [Trello](https://trello.com/b/uHRmZKBR/
 
 #### Tasks
 
-- [ ] Build login page
-- [ ] Build register page
-- [ ] Create tests for register user
-- [ ] Create tests for authenticate user
-- [ ] Create tests for retrieve user
-- [ ] Implement register user functionality
-- [ ] Implement authenticate user with token
-- [ ] Implement retrieve user
-- [ ] Make levels view only accessible for log in users
-- [ ] Only allow logged in users to post levels
-- [ ] Add a create and test level on tutorial (no posting)
-- [ ] Differenciate navbar for authenticate users
-- [ ] Add logout and delete token
+- [x] Build login page
+- [x] Build register page
+- [ ] Build profile view
+- [ ] Build recover password view
+- [ ] Build settings view
+- [x] Create tests for register user
+- [x] Create tests for authenticate user
+- [x] Create tests for retrieve user
+- [ ] Create tests for update user
+- [x] Implement register user functionality
+- [x] Implement authenticate user with token
+- [x] Implement retrieve user
+- [x] Make levels view only accessible for log in users
+- [x] Only allow logged in users to post levels
+- [x] Add a create and test level on tutorial (no posting)
+- [x] Differenciate navbar for authenticate users
+- [x] Add logout and delete token
 
 </br>
 </br>
 
 # Project setup
+
+## Requirements
+- NodeJs
+- Mongo
+
 ## App
 [Click here >>](../app/README.md)
 

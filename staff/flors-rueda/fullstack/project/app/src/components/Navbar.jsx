@@ -7,6 +7,8 @@ import useHandleErrors from '../hooks/useHandleErrors';
 import retrieveLoggedUser from '../logic/retrieve-logged-user';
 import avatars from '../assets/avatars';
 
+//TODO change button on middle screens
+
 const Navbar = () => {
     const [isMenuOpen, setMenuOpen] = useState(false);
     const [isUserMenuOpen, setUserMenuOpen] = useState(false);
@@ -283,10 +285,10 @@ const Navbar = () => {
                 </div>
             </div>
             <div className={`z-50 w-fit max-w-2/6 fixed right-16 mt-12 text-base list-none bg-light500 divide-y divide-light300 rounded-xl shadow ${(isUserMenuOpen ? '' : 'hidden')}`} >
-                <a className={`px-4 py-5 flex flex-row gap-1 align-center text-sm text-${userInfo.color} cursor-pointer rounded-lg hover:bg-light400`}>
+                <Link className={`px-4 py-5 flex flex-row gap-1 align-center text-sm text-${userInfo.color} cursor-pointer rounded-lg hover:bg-light400`} to={`/profile/you`} onClick={handleCloseBoth}>
                     <i className="bi bi-person-fill"></i>
                     <span className="block text-sm">{userInfo.username}</span>
-                </a>
+                </Link>
                 <ul className="pt-2 flex flex-col gap-5 justify-between" >
                     <li className="w-full text-sm text-dark300 rounded-lg hover:bg-light400 pl-2 px-3 hover:text-secondary500">
                         <Link to="/customize" onClick={handleCloseBoth} className="flex flex-row gap-2 align-center">

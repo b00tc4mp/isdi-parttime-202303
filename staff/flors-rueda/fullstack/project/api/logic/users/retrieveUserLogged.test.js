@@ -8,6 +8,8 @@ const {
     assets: { colors },
 } = require('com');
 
+//TODO add joined to test
+
 describe('retrieveUserLogged', () => {
     before(async () => {
         await mongoose.connect(process.env.MONGODB_URL);

@@ -18,6 +18,7 @@ import isUserLoggedIn from './logic/is-user-logged-in';
 import useLockScroll from './hooks/useLockScroll';
 import AppContext from './AppContext';
 import Customize from './views/Customize';
+import Profile from './views/Profile';
 
 const App = () => {
   const [isApiAvailable, setApiAvailableOn] = useState(true);
@@ -60,6 +61,7 @@ const App = () => {
           <Route path="/create" element={<CreateLevel />} />
           <Route path="/tutorial" element={<Tutorial />} />
           <Route path="/about" element={<About />} />
+          <Route path="/profile/:id" element={<Profile />} />
           <Route path="/signin" element={isUserLoggedIn() ? <Navigate to="/levels" /> : <SignIn />} />
           <Route path="/*" element={<NotFound />} />
         </Routes>

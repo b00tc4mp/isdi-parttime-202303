@@ -10,8 +10,6 @@ const LevelCard = ({ levelInfo }) => {
     const [title, setTitle] = useState('')
     const handleErrors = useHandleErrors();
 
-
-
     const getAuthorData = () => {
         handleErrors(async () => {
             const user = await retrieveUser(levelInfo.author);
@@ -35,7 +33,8 @@ const LevelCard = ({ levelInfo }) => {
         <div className="w-full md:w-5/12 md:max-w-sm p-6 bg-light500 border border-light300 rounded-lg shadow">
             <div className="flex justify-between">
                 <div className="flex items-start flex-col">
-                    <h3 className="mb-2 text-2xl font-semibold truncate text-primary200 max-w-1/2">{title}</h3>
+                    <h3 className="text-2xl font-semibold truncate text-primary200 max-w-1/2">{title}</h3>
+                    <p className={`text-${authorData.color} text-xs`}>{new Date(levelInfo.date).toLocaleDateString("en-GB")}</p>
                     <Link to={`/game/${levelInfo.id}`} className="inline-flex items-center text-secondary300 hover:underline">
                         Play now
                         <i className="bi bi-play-circle text-xl ps-1"></i>
@@ -45,10 +44,16 @@ const LevelCard = ({ levelInfo }) => {
                         {levelInfo.likes.length}
                     </p>
                 </div>
-                <div className="flex items-center flex-col">
-                    <img className={`bg-${authorData.color} w-10 h-10 rounded-full`} src={`${avatars[authorData.avatar]}`} alt="avatar" />
-                    <p className={`text-${authorData.color} text-sm font-semibold`}>{authorData.username}</p>
-                    <p className={`text-${authorData.color} text-xs`}>{new Date(levelInfo.date).toLocaleDateString("en-GB")}</p>
+                <div className="flex items-center flex-col h-full w-1/3 gap-2">
+                    <Link to={`/profile/${levelInfo.author}`} className="flex items-center flex-col text-${authorData.color}">
+                        <img className={`bg-${authorData.color} w-12 h-12 rounded-full`} src={`${avatars[authorData.avatar]}`} alt="avatar" />
+                        <p className={`text-${authorData.color} text-sm font-semibold`}>{authorData.username}</p>
+                    </Link>
+                    <button
+                        className="w-fit py-1 px-2 bg-success200 hover:bg-dark500 text-xs text-light400 font-bold rounded-xl transition duration-200"
+                    >
+                        Follow
+                    </button>
                 </div>
             </div>
         </div>

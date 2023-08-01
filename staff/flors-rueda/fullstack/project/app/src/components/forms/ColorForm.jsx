@@ -2,6 +2,8 @@ import { useState } from 'react';
 import inLogger from '../../inLogger';
 import { assets } from 'com';
 
+//TODO open toaster when saved
+
 const ColorForm = ({ setColor, onSaveColorChange }) => {
     const [isDropdownOn, setIsDropdownOn] = useState(false);
 

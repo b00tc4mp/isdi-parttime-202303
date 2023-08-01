@@ -1,5 +1,20 @@
 # achivements ideas:
 
+[
+    {
+        name: 'playLevels',
+        rank: [10, 50, 100],
+        progress: (user progress number),
+        completed: false
+    }
+    {
+        name: 'tutorial',
+        rank: ['secret'],
+        progress: (0 = not done, 1 = done) (??)
+        completed: true
+    }
+]
+
 ## play levels:
 10
 50
@@ -50,17 +65,15 @@
 5000
 10000
 
-## vote
-1
-5
-10
-
 ## influencer (earn follows)
 5
 10
 15
 
-
+## stalker (follow people)
+5
+10
+15
 
 ## secrets
 change your avatar
@@ -68,5 +81,5 @@ play the tutorial
 own all avatars
 save a level in favorites
 follow a user
-play a legacy level
 create a level with max floors
+have a week old acount

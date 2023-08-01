@@ -7,6 +7,8 @@ import retrieveLoggedUser from '../../logic/retrieve-logged-user';
 import useHandleErrors from '../../hooks/useHandleErrors';
 import updateAvatar from '../../logic/update-avatar';
 
+//TODO open toaster when saved
+
 const AvatarForm = () => {
     const [selectedAvatar, setSelectedAvatar] = useState('');
     const handleErrors = useHandleErrors();
