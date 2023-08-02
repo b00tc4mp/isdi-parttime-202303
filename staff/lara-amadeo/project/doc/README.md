@@ -36,9 +36,9 @@ Users
 - password (string)
 - avatar (string)
 - availability(array of obj)
-- favs (oid array, refers to user id)
+- likedChefs (oid array, refers to user id)
 - reviews? (array of obj)
-- meals in cart (array of obj(meal id, status(string(in cart, pending to pick up, delivered, cancelled))))
+- meals (array of obj(meal id, status(string(in cart, pending to pick up, delivered, cancelled))))
 
 Meals
 - id (string)

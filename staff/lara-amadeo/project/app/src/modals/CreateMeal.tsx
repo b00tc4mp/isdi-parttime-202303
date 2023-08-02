@@ -7,12 +7,14 @@ import Divider from "../library/components/Divider"
 import TextField from "../library/components/TextField"
 import TextArea from "../library/components/TextArea"
 import CategorySelector from "../library/components/CategorySelector"
-import { useContext, useRef, useState } from "react"
+import { useRef, useState } from "react"
 import ButtonBar from "../library/modules/ButtonBar"
 import createMeal from "../logic/createMeal"
-import Context from "../Context"
+import useAppContext from "../logic/hooks/useAppContext"
+
 
 import { IKImage, IKContext, IKUpload } from "imagekitio-react"
+import useHandleError from "../logic/hooks/useHandleError"
 
 const urlEndpoint = 'https://ik.imagekit.io/6zeyr5rgu/yuperApp/'
 const publicKey = 'public_9DujXADbFrwoOkNd+rUmvTbT/+U='
@@ -20,7 +22,9 @@ const authenticationEndpoint = 'http://localhost:1234/IKAuth'
 
 export default function CreateMeal(): JSX.Element {
 
-    const { loaderOn, loaderOff, navigate } = useContext(Context)
+    const { loaderOn, loaderOff, navigate, toast } = useAppContext()
+    const handleErrors = useHandleError()
+
     const [categories, setCategories] = useState<string[]>([])
     const [mealImages, setMealImages] = useState<string[]>([])
 
@@ -66,10 +70,11 @@ export default function CreateMeal(): JSX.Element {
                     setTimeout(() => {
                         loaderOff()
                         navigate('/')
+                        toast('Meal created!', 'success')
                     }, 1000)
-                } catch (error) {
+                } catch (error: any) {
                     loaderOff()
-                    console.log(error)
+                    handleErrors(error)
                 }
             })()
         }

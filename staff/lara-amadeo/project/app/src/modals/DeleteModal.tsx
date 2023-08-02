@@ -2,23 +2,26 @@ import Button from "../library/components/Button"
 import ContextualModalMenu from "../library/modules/ContextualModalMenu"
 import './DeleteModal.css'
 import deleteMeal from "../logic/deleteMeal"
+import useHandleError from "../logic/hooks/useHandleError"
 
 type Props = {
     mealId: string,
     handleClose: () => void,
-    handleGoToProfile: () => void
+    onDelete: () => void
 
 }
 
-export default function DeleteModal({ mealId, handleClose, handleGoToProfile }: Props) {
+export default function DeleteModal({ mealId, handleClose, onDelete }: Props) {
+
+    const handleErrors = useHandleError()
 
     const handleDeleteMeal = () => {
         (async () => {
             try {
                 await deleteMeal(mealId)
-                handleGoToProfile()
-            } catch (error) {
-                console.log(error)
+                onDelete()
+            } catch (error: any) {
+                handleErrors(error)
             }
         })()
     }

@@ -10,15 +10,17 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "com": "file:../com",
     "@heroicons/react": "^2.0.18",
+    "com": "file:../com",
     "imagekitio-react": "^2.0.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.14.1"
+    "react-router-dom": "^6.14.1",
+    "react-slick": "^0.29.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.14",
     "@types/react-dom": "^18.2.6",
+    "@types/react-slick": "^0.23.10",
     "@vitejs/plugin-react": "^4.0.0",
     "eslint": "^8.38.0",
     "eslint-plugin-react": "^7.32.2",

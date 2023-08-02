@@ -1,17 +1,16 @@
-import Context from "../Context"
-import { useContext, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import Topbar from "../library/modules/Topbar"
 import Tabbar from "../library/modules/Tabbar"
 import NavigationRow from "../library/components/NavigationRow"
 import { AdjustmentsVerticalIcon, ChevronRightIcon } from "../library/icons"
-import ModalFullScreen from "../library/components/ModalFullScreen"
-import AdditionalInfo from "../modals/AdditionalInfo"
 import Header from "../library/components/Header"
 import IconButton from "../library/components/IconButton"
 import './Home.css'
 import retrieveMeals from "../logic/retrieveMeals"
 import MealCard from "../library/modules/MealCard"
 import retrieveUser from "../logic/retrieveUser"
+import useAppContext from "../logic/hooks/useAppContext"
+import useHandleError from "../logic/hooks/useHandleError"
 
 type User = {
     name: string,
@@ -28,7 +27,9 @@ type Meal = {
 }
 
 export default function Home() {
-    const { loaderOn, LoaderOff, navigate } = useContext(Context)
+    const { loaderOn, LoaderOff, navigate } = useAppContext()
+    const handleErrors = useHandleError()
+
     const [meals, setMeals] = useState<Array<Meal>>()
     const [user, setUser] = useState<User>()
 
@@ -39,8 +40,8 @@ export default function Home() {
                 const user = await retrieveUser()
                 setMeals(meals)
                 setUser(user)
-            } catch (error) {
-                console.log(error)
+            } catch (error: any) {
+                handleErrors(error)
             }
         })()
     }, [])

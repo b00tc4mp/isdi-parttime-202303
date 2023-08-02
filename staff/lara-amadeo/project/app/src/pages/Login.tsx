@@ -1,15 +1,16 @@
-import Context from "../Context.js"
-import { useContext } from "react"
 import './Login.css'
 import Button from '../library/components/Button.js'
 import Logo from "../library/components/Logo.js"
 import TextField from '../library/components/TextField.js'
 import Link from '../library/components/Link.js'
 import { loginUser } from "../logic/loginUser.js"
+import useAppContext from "../logic/hooks/useAppContext.js"
+import useHandleError from '../logic/hooks/useHandleError'
 
 
 export default function Login(): JSX.Element {
-    const { loaderOn, loaderOff, navigate } = useContext(Context)
+    const { loaderOn, loaderOff, navigate } = useAppContext()
+    const handleErrors = useHandleError()
 
     const onLoginClick = (event: React.SyntheticEvent) => {
         event.preventDefault()
@@ -32,7 +33,7 @@ export default function Login(): JSX.Element {
                 }, 1000)
             } catch (error: any) {
                 loaderOff()
-                console.log(error.message)
+                handleErrors(error)
             }
         })()
     }

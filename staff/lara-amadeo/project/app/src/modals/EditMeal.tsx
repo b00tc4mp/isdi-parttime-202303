@@ -1,6 +1,5 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ModalFullScreen from "../library/components/ModalFullScreen";
-import Context from "../Context";
 import { IKContext, IKUpload } from "imagekitio-react"
 import EmptyPhoto from "../library/components/EmptyPhoto"
 import './CreateMeal.css'
@@ -13,6 +12,9 @@ import CategorySelector from "../library/components/CategorySelector"
 import ButtonBar from "../library/modules/ButtonBar"
 import retrieveMeal from "../logic/retrieveMeal";
 import updateMeal from "../logic/updateMeal";
+import useAppContext from "../logic/hooks/useAppContext";
+import useHandleError from "../logic/hooks/useHandleError";
+
 
 const urlEndpoint = 'https://ik.imagekit.io/6zeyr5rgu/yuperApp/'
 const publicKey = 'public_9DujXADbFrwoOkNd+rUmvTbT/+U='
@@ -31,12 +33,15 @@ type Meal = {
 
 type Props = {
     mealId: string,
-    onUpdateMeal: () => void
+    onUpdateMeal: () => void,
+    onCancelEditMeal: () => void
 }
 
 //NOT A ROUTE - OPEN AS A COMPONENT
-export default function EditMeal({ mealId, onUpdateMeal }: Props) {
-    const { loaderOn, loaderOff, navigate } = useContext(Context)
+export default function EditMeal({ mealId, onUpdateMeal, onCancelEditMeal }: Props) {
+    const { loaderOn, loaderOff, toast } = useAppContext()
+    const handleErrors = useHandleError()
+
     const [meal, setMeal] = useState<Meal>()
     const [categories, setCategories] = useState<string[]>([])
     const [mealImages, setMealImages] = useState<string[]>([])
@@ -56,8 +61,8 @@ export default function EditMeal({ mealId, onUpdateMeal }: Props) {
                 setCategories(meal.categories)
                 setMealImages(meal.images)
 
-            } catch (error) {
-                console.log(error)
+            } catch (error: any) {
+                handleErrors(error)
             }
         })()
     }, [])
@@ -98,16 +103,16 @@ export default function EditMeal({ mealId, onUpdateMeal }: Props) {
                         loaderOff()
                         onUpdateMeal()
                     }, 1000)
-                } catch (error) {
+                } catch (error: any) {
                     loaderOff()
-                    console.log(error)
+                    handleErrors(error)
                 }
             })()
         }
     }
 
     const onClose = () => {
-        onUpdateMeal()
+        onCancelEditMeal()
     }
 
     const onImageUploadError = (error: object) => {

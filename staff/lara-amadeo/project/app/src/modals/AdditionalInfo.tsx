@@ -1,6 +1,5 @@
 import './AdditionalInfo.css'
-import Context from "../Context.js"
-import { useContext, useState, useRef } from "react"
+import { useState, useRef } from "react"
 import DaySelector from '../library/components/DaySelector'
 import Topbar from '../library/modules/Topbar'
 import { registerAdditionalInfo } from '../logic/registerAdditionalInfo'
@@ -10,9 +9,14 @@ import TextArea from '../library/components/TextArea'
 import TextField from '../library/components/TextField'
 import TimeSelector from '../library/components/TimeSelector'
 import ButtonBar from '../library/modules/ButtonBar'
+import { XMarkIcon } from '../library/icons'
+import useAppContext from '../logic/hooks/useAppContext'
+import useHandleError from '../logic/hooks/useHandleError'
 
 export default function AdditionalInfo() {
-    const { loaderOn, loaderOff, navigate } = useContext(Context)
+    const { loaderOn, loaderOff, navigate } = useAppContext()
+    const handleErrors = useHandleError()
+
     const [availabilityDays, setAvailabilityDays] = useState<string[]>([])
     const formRef = useRef<HTMLFormElement>(null)
 
@@ -43,7 +47,7 @@ export default function AdditionalInfo() {
                 }, 1000)
 
             } catch (error: any) {
-                console.log(error)
+                handleErrors(error)
             }
 
         })()
@@ -61,7 +65,7 @@ export default function AdditionalInfo() {
             }, 1000)
 
         } catch (error: any) {
-            console.log(error.message)
+            handleErrors(error)
         }
     }
 
@@ -74,8 +78,8 @@ export default function AdditionalInfo() {
             <div className='additional-container'>
                 <Topbar className={'topbar-modals'} level='second' secondLevel={{
                     label: "Complete profile",
-                    close: true,
-                    onCloseClick: onClose
+                    right: <XMarkIcon className='icon-s grey-700' />,
+                    onRightClick: onClose
                 }} />
                 <Header text={'Profile details'} />
 

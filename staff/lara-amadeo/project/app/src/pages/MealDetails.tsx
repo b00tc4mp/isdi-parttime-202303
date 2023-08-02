@@ -1,10 +1,9 @@
-import { useContext, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import './MealDetails.css'
-import Context from '../Context'
 import Header from '../library/components/Header'
 import CategoryInteractive from '../library/components/CategoryInteractive'
 import IconButton from '../library/components/IconButton'
-import { EllipsisVerticalIcon, MinusIcon, PencilSquareIcon, PlusIcon, TrashIcon, XMarkIcon } from '../library/icons'
+import { ArrowLeftIcon, ArrowRightIcon, EllipsisVerticalIcon, MinusIcon, PencilSquareIcon, PlusIcon, TrashIcon, XMarkIcon } from '../library/icons'
 import DataItem from '../library/components/DataItem'
 import ChefModule from '../library/modules/ChefModule'
 import ButtonBar from '../library/modules/ButtonBar'
@@ -16,6 +15,9 @@ import Link from '../library/components/Link'
 import Topbar from '../library/modules/Topbar'
 import EditMeal from '../modals/EditMeal'
 import DeleteModal from '../modals/DeleteModal'
+import useAppContext from '../logic/hooks/useAppContext'
+import useHandleError from '../logic/hooks/useHandleError'
+
 
 type Meal = {
     author: { avatar: string, name: string, description: string, id: string },
@@ -31,7 +33,9 @@ type Meal = {
 
 export default function MealDetails(): JSX.Element {
 
-    const { loaderOff, loaderOn, navigate } = useContext(Context)
+    const { loaderOff, loaderOn, navigate, toast } = useAppContext()
+    const handleErrors = useHandleError()
+
     const [meal, setMeal] = useState<Meal>()
     const { mealId } = useParams<string>()
 
@@ -45,13 +49,18 @@ export default function MealDetails(): JSX.Element {
     const location = useLocation()
     const from = location.state
 
+    const [current, setCurrent] = useState(0);
+    const [length, setLength] = useState(0)
+
     useEffect(() => {
         (async () => {
             try {
                 const meal = await retrieveMeal(mealId!)
                 setMeal(meal)
-            } catch (error) {
-                console.log(error)
+
+                setLength(meal.images.length)
+            } catch (error: any) {
+                handleErrors(error)
             }
 
         })()
@@ -86,6 +95,11 @@ export default function MealDetails(): JSX.Element {
         setEditModal(false)
     }
 
+    const saveEdit = () => {
+        setEditModal(false)
+        toast('Meal updated!', 'success')
+    }
+
     const openDeleteModal = () => {
         setDeleteModal(true)
         setContextualModal(false)
@@ -96,17 +110,26 @@ export default function MealDetails(): JSX.Element {
         setContextualModal(false)
     }
 
-    const onDeletion = () => {
+    const saveDelete = () => {
         loaderOn()
         setTimeout(() => {
             navigate("/profile")
             loaderOff()
+            toast('Meal deleted!', 'success')
         }, 800);
     }
 
+    const nextSlide = () => {
+        setCurrent(current === length - 1 ? 0 : current + 1);
+    }
+
+    const prevSlide = () => {
+        setCurrent(current === 0 ? length - 1 : current - 1);
+    }
+
     return <>
-        {deleteModal && <DeleteModal mealId={mealId!} handleClose={closeDeleteModal} handleGoToProfile={onDeletion} />}
-        {editModal && <EditMeal mealId={mealId!} onUpdateMeal={closeEditModal} />}
+        {deleteModal && <DeleteModal mealId={mealId!} handleClose={closeDeleteModal} onDelete={saveDelete} />}
+        {editModal && <EditMeal mealId={mealId!} onUpdateMeal={saveEdit} onCancelEditMeal={closeEditModal} />}
         {contextualModal && <>
             <div className='contextualModal-overlay' onClick={closeContextualMenu}></div>
             <ContextualModalMenu >
@@ -117,12 +140,22 @@ export default function MealDetails(): JSX.Element {
                 </>
             </ContextualModalMenu>
         </>}
-        <Topbar level='second' secondLevel={{ label: "Meal detail", back: true, onBackClick: onBackClick }} />
-        <div className='page-first-level' style={{ overflow: contextualModal ? 'hidden' : 'auto' }}>
+        <Topbar level='second' secondLevel={{ label: "Meal detail", left: <ArrowLeftIcon className='icon-s grey-700' />, onLeftClick: onBackClick, right: <EllipsisVerticalIcon className='icon-s grey-700' />, onRightClick: onOptionsClick }} />
+        <div className='page-first-level' style={{ overflow: contextualModal ? 'hidden' : 'auto', paddingBottom: meal?.author.id !== userId ? '90px' : '0px' }}>
 
             {/* upper-part */}
             <div className='meal-detail-upper-part'>
-                {meal && <img className='meal-detail-img' src={meal.images[0]}></img>}
+                {meal && <section className='slider'>
+                    <IconButton type={'primary'} icon={<ArrowLeftIcon className='icon-s grey-700' />} onClick={prevSlide} className={"slider-left-icon"} />
+                    <IconButton type={'primary'} icon={<ArrowRightIcon className='icon-s grey-700' />} onClick={nextSlide} className={"slider-right-icon"} />
+                    {meal.images.map((slide, index) => {
+                        return (
+                            <div className={index === current ? 'slide active' : 'slide'} key={index}>
+                                {index === current && (<img src={slide} alt='travel image' className='meal-detail-img' />)}
+                            </div>
+                        )
+                    })}
+                </section>}
                 {/* image-info */}
                 <div className='meal-detail-img-info'>
 
@@ -137,11 +170,7 @@ export default function MealDetails(): JSX.Element {
                             <IconButton icon={<MinusIcon className='icon-s grey-700' />} type={'secondary'} />
                             <p className='heading-l'>1</p>
                             <IconButton icon={<PlusIcon className='icon-s grey-700' />} type={'secondary'} />
-                        </> :
-                            <>
-                                <IconButton icon={<EllipsisVerticalIcon className='icon-s grey-700' />} type={'primary'} onClick={onOptionsClick} />
-                            </>}
-
+                        </> : ""}
                     </div>
 
 

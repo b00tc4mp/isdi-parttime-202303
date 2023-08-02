@@ -1,15 +1,16 @@
 import './Register.css'
-import Context from "../Context.js"
-import { useContext } from "react"
 import Button from '../library/components/Button'
 import Logo from "../library/components/Logo"
 import TextField from '../library/components/TextField'
 import Link from '../library/components/Link'
 import { registerUser } from '../logic/registerUser'
+import useAppContext from '../logic/hooks/useAppContext'
+import useHandleError from '../logic/hooks/useHandleError'
 
 
 export default function Register() {
-    const { loaderOn, loaderOff, navigate } = useContext(Context)
+    const { loaderOn, loaderOff, navigate } = useAppContext()
+    const handleErrors = useHandleError()
 
     const handleRegister = (event: React.SyntheticEvent) => {
         event.preventDefault()
@@ -37,7 +38,7 @@ export default function Register() {
 
             } catch (error: any) {
                 loaderOff()
-                console.log(error)
+                handleErrors(error)
             }
         })()
     }

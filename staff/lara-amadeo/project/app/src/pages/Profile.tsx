@@ -1,6 +1,5 @@
-import { useContext, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Link from "../library/components/Link";
-import Context from "../Context";
 import logoutUser from "../logic/logoutUser";
 import './Profile.css'
 import Topbar from "../library/modules/Topbar";
@@ -12,6 +11,8 @@ import Tabs from "../library/components/Tabs";
 import retrieveUser from "../logic/retrieveUser";
 import MealCard from "../library/modules/MealCard";
 import retrieveOwnMeals from "../logic/retrieveOwnMeals";
+import useAppContext from "../logic/hooks/useAppContext";
+import useHandleError from "../logic/hooks/useHandleError";
 
 type User = {
     name: string,
@@ -33,7 +34,9 @@ type Meal = {
 
 
 export default function Profile(): JSX.Element {
-    const { loaderOn, loaderOff, navigate } = useContext(Context)
+    const { loaderOn, loaderOff, navigate } = useAppContext()
+    const handleErrors = useHandleError()
+
     const [meals, setMeals] = useState<Array<Meal>>([])
     const [user, setUser] = useState<User>()
 
@@ -44,8 +47,8 @@ export default function Profile(): JSX.Element {
                 const user = await retrieveUser()
                 setMeals(meals)
                 setUser(user)
-            } catch (error) {
-                console.log(error)
+            } catch (error: any) {
+                handleErrors(error)
             }
         })()
     }, [])
