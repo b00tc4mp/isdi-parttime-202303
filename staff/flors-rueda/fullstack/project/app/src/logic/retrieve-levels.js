@@ -1,3 +1,5 @@
+import { tokenUtils } from 'com';
+const { extractSubFromToken } = tokenUtils;
 import context from './context';
 
 const retrieveLevels = () => {
@@ -13,6 +15,9 @@ const retrieveLevels = () => {
       return response.json();
     })
     .then((data) => {
+      for (let level of data) {
+        level.isLevelLiked = (level.likes).includes(extractSubFromToken(context.token))
+      }
       return data;
     })
     .catch((error) => {

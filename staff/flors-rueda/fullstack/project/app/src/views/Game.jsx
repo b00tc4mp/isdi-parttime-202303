@@ -19,6 +19,8 @@ const Game = () => {
   const [layout, setLayout] = useState(null);
   const [levelToRender, setLevelToRender] = useState(null);
   const [health, setHealth] = useState(null);
+  const [likesInfo, setLikesInfo] = useState({});
+  const [levelId, setLevelId] = useState(null)
   const [isGameOver, setIsGameOver] = useState(0); // 0 = playing, -1 = lost, 1 = won
   const handleErrors = useHandleErrors();
 
@@ -26,11 +28,13 @@ const Game = () => {
     if (id !== 'try') {
       handleErrors(async () => {
         const level = await retrieveLevel(id);
+        setLevelId(id)
         setLayout(level.layout)
         const configuredLevel = configureLevelToRender(level.layout);
         setLevelToRender(configuredLevel);
         setHealth(level.hp ? level.hp : 5);
         setName(level.name);
+        setLikesInfo({ likes: level.likes, isLevelLiked: level.isLevelLiked })
         setIsLoading(false);
       })
     } else {
@@ -74,7 +78,7 @@ const Game = () => {
     <section className="flex flex-col flex-wrap">
       {isGameOver !== 0 && (
         <>
-          <GameOver isGameWon={isGameOver > 0 ? true : false} onRetry={handleRetry} isCreatedLevel={'try' === id} layout={layout} hp={health} name={name} />
+          <GameOver isGameWon={isGameOver > 0 ? true : false} onRetry={handleRetry} isCreatedLevel={'try' === id} layout={layout} hp={health} name={name} likesInfo={likesInfo} id={levelId} />
           <div className="top-0 inset-0 bg-black opacity-50"></div>
         </>
       )}

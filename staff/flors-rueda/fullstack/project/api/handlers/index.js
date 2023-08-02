@@ -8,5 +8,6 @@ module.exports = {
     retrieveUserHandler: require('./retrieveUserHandler'),
     retrieveUserLoggedHandler: require('./retrieveUserLoggedHandler'),
     updateColorHandler: require('./updateColorHandler'),
-    updateAvatarHandler: require('./updateAvatarHandler')
+    updateAvatarHandler: require('./updateAvatarHandler'),
+    toggleLikeHandler: require('./toggleLikeHandler')
 }

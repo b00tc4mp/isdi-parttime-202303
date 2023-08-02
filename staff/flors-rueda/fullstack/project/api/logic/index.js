@@ -7,5 +7,6 @@ module.exports = {
     retrieveUser: require('./users/retrieveUser'),
     retrieveUserLogged: require('./users/retrieveUserLogged'),
     updateColor: require('./users/updateColor'),
-    updateAvatar: require('./users/updateAvatar')
+    updateAvatar: require('./users/updateAvatar'),
+    toggleLike: require('./levels/toggleLike'),
 }

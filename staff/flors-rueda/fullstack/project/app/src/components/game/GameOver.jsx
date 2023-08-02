@@ -3,15 +3,27 @@ import inLogger from '../../inLogger';
 import createLevel from '../../logic/create-level';
 import useHandleErrors from '../../hooks/useHandleErrors';
 import isUserLoggedIn from '../../logic/is-user-logged-in';
+import { useState } from 'react';
+import toggleLike from '../../logic/toggle-like';
 
-const GameOver = ({ isGameWon, onRetry, isCreatedLevel, layout, hp, name }) => {
+const GameOver = ({ isGameWon, onRetry, isCreatedLevel, layout, hp, name, likesInfo, id }) => {
     const navigate = useNavigate();
     const handleErrors = useHandleErrors();
+    const [isLiked, setIsLiked] = useState(isCreatedLevel ? null : likesInfo.isLevelLiked);
+    const [likes, setLikes] = useState(isCreatedLevel ? null : likesInfo.likes.length)
 
     const handlePostLevel = () => {
         handleErrors(async () => {
             await createLevel(name, layout, hp);
             navigate('/levels');
+        })
+    }
+
+    const handleLikeClick = () => {
+        handleErrors(async () => {
+            await toggleLike(id);
+            isLiked ? setLikes(likes - 1) : setLikes(likes + 1);
+            setIsLiked(!isLiked);
         })
     }
 
@@ -30,7 +42,7 @@ const GameOver = ({ isGameWon, onRetry, isCreatedLevel, layout, hp, name }) => {
                     <div className="ml-3 text-sm font-normal">
                         <div className="mb-1 text-xl font-bold text-secondary300">{`${name}`}</div>
                         <div className="mb-1 text-lg font-bold text-primary100">{isGameWon ? `Yeei!!` : `Oh, no!!`}</div>
-                        <div className="mb-2 text-sm font-normal text-secondary100">{isGameWon ? `Your beach ball found the treasure!` : `Your beach ball died!`}</div>
+                        <div className="mb-2 text-sm font-normal text-secondary100">{isGameWon ? `You found the treasure!` : `You died!`}</div>
                     </div>
                     {
                         isCreatedLevel ?
@@ -49,6 +61,10 @@ const GameOver = ({ isGameWon, onRetry, isCreatedLevel, layout, hp, name }) => {
                             </div>
                             :
                             <div className="min-w-fit w-4/6 md:w-2/6 lg:w-1/4 flex flex-col justify-center align-center gap-5">
+                                <div className="flex flex-row gap-2 justify-center">
+                                    <button onClick={handleLikeClick}><i className={`hover:text-light100 bi ${isLiked ? 'bi-suit-heart-fill' : 'bi-suit-heart'}`}></i></button>
+                                    {likes}
+                                </div>
                                 <button type="button" className="w-full text-success100 bg-success300 hover:bg-success200 hover:text-light500  focus:ring-4 focus:outline-none focus:ring-success300 font-medium rounded-lg text-sm px-4 py-2 text-center" onClick={onRetry}>Play again</button>
                                 <Link type="button" className="w-full text-secondary100 bg-light300 hover:bg-light200  focus:ring-4 focus:outline-none focus:ring-light300 font-medium rounded-lg text-sm px-4 py-2 text-center " to="/levels">Check other levels</Link>
                             </div>

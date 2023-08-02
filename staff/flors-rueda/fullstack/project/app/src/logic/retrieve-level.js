@@ -1,5 +1,6 @@
-import { validators } from 'com';
+import { validators, tokenUtils } from 'com';
 import context from './context';
+const { extractSubFromToken } = tokenUtils;
 const { validateId } = validators;
 
 const retrieveLevel = (id) => {
@@ -17,6 +18,7 @@ const retrieveLevel = (id) => {
             return response.json();
         })
         .then((data) => {
+            data.isLevelLiked = (data.likes).includes(extractSubFromToken(context.token))
             return data;
         })
         .catch((error) => {

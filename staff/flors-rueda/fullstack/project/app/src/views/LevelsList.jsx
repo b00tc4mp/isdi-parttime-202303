@@ -52,6 +52,7 @@ const LevelsList = () => {
                     <LevelCard
                         key={index}
                         levelInfo={level}
+                        handleRefreshLevels={handleRefreshLevels}
                     />
                 )) : <p className="text-secondary500 text-xl font-bold text-center">seems we don't have any level yet... go ahead and create one!</p> : ''
                 }

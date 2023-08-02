@@ -4,16 +4,27 @@ import inLogger from '../inLogger';
 import { useState, useEffect } from 'react';
 import useHandleErrors from '../hooks/useHandleErrors';
 import avatars from '../assets/avatars/index';
+import toggleLike from '../logic/toggle-like';
 
 const LevelCard = ({ levelInfo }) => {
     const [authorData, setAuthorData] = useState({});
-    const [title, setTitle] = useState('')
+    const [title, setTitle] = useState('');
     const handleErrors = useHandleErrors();
+    const [isLiked, setIsLiked] = useState(levelInfo.isLevelLiked);
+    const [likes, setLikes] = useState(levelInfo.likes.length)
 
     const getAuthorData = () => {
         handleErrors(async () => {
             const user = await retrieveUser(levelInfo.author);
             setAuthorData(user);
+        })
+    }
+
+    const handleLikeClick = () => {
+        handleErrors(async () => {
+            await toggleLike(levelInfo.id);
+            isLiked ? setLikes(likes - 1) : setLikes(likes + 1);
+            setIsLiked(!isLiked);
         })
     }
 
@@ -40,12 +51,12 @@ const LevelCard = ({ levelInfo }) => {
                         <i className="bi bi-play-circle text-xl ps-1"></i>
                     </Link>
                     <p className={`flex flex-row gap-2 text-secondary500 text-sm font-semibold`}>
-                        <button><i className="bi bi-suit-heart"></i></button>
-                        {levelInfo.likes.length}
+                        <button onClick={handleLikeClick}><i className={`hover:text-light100 bi ${isLiked ? 'bi-suit-heart-fill' : 'bi-suit-heart'}`}></i></button>
+                        {likes}
                     </p>
                 </div>
                 <div className="flex items-center flex-col h-full w-1/3 gap-2">
-                    <Link to={`/profile/${levelInfo.author}`} className="flex items-center flex-col text-${authorData.color}">
+                    <Link to={`/profile/${levelInfo.author}`} className="flex items-center flex-col">
                         <img className={`bg-${authorData.color} w-12 h-12 rounded-full`} src={`${avatars[authorData.avatar]}`} alt="avatar" />
                         <p className={`text-${authorData.color} text-sm font-semibold`}>{authorData.username}</p>
                     </Link>

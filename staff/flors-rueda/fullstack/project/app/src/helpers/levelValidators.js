@@ -13,9 +13,9 @@ export const validateFloor = (floor, setToast, setToastOn) => {
         return console.log('to add a new floor you need one hole');
     }
     if (stonksCount > 0) {
-        setToast('the stonks have to be in the last floor');
+        setToast('the treasure have to be in the last floor');
         setToastOn(true)
-        return console.log('the stonks have to be in the last floor');
+        return console.log('the treasure have to be in the last floor');
     }
     return true;
 };
@@ -26,9 +26,9 @@ export const validateLevel = (level, name, setToast, setToastOn) => {
     const holeCount = lastFloor.filter((cell) => cell === 'hole').length;
     const startCount = lastFloor.filter((cell) => cell === 'start').length;
     if (stonksCount !== 1) {
-        setToast('the last floor needs one stonks!');
+        setToast('the last floor needs one treasure!');
         setToastOn(true)
-        return console.log('the last floor needs one stonks!');
+        return console.log('the last floor needs one treasure!');
     }
     if (holeCount > 0) {
         setToast('the last floor shouldn\'t have any hole');
