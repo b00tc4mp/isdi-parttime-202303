@@ -1,7 +1,7 @@
-import React from 'react';
-import { View, Text, TextInput, TouchableOpacity, Alert, Image, StyleSheet } from 'react-native';
-import { registerUser } from '../logic/registerUser.js';
-import { useState } from 'react';
+import React from 'react'
+import { View, Text, TextInput, TouchableOpacity, Alert, Image, StyleSheet } from 'react-native'
+import { registerUser } from '../logic/registerUser.js'
+import { useState } from 'react'
 
 const Register = ({ onLoginClick, onUserRegistered }) => {
   const [name, setName] = useState('')
@@ -11,17 +11,17 @@ const Register = ({ onLoginClick, onUserRegistered }) => {
 
   const handleLoginClick = () => {
     onLoginClick();
-  };
+  }
 
   const handleRegister = () => {
     try {
       registerUser(name, email, password, passwordConfirm)
         .then(() => onUserRegistered())
-        .catch(error => Alert.alert('Error', error.message));
+        .catch(error => Alert.alert('Error', error.message))
     } catch (error) {
-      Alert.alert('Error', error.message);
+      Alert.alert('Error', error.message)
     }
-  };
+  }
 
   return (<View className="flex justify-center items-center h-screen w-screen">
     <Image source={require('../../assets/login-register/log-reg-bg.jpg')} className="absolute scale-75 -bottom-40 -right-40" ></Image>
@@ -68,17 +68,6 @@ const Register = ({ onLoginClick, onUserRegistered }) => {
     </View>
   </View>
   )
-};
+}
 
-const styles = StyleSheet.create({
-
-  formInput: {
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 5,
-    padding: 10,
-    marginBottom: 10,
-  }
-});
-
-export default Register;
+export default Register

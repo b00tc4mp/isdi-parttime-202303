@@ -1,11 +1,10 @@
-//import { authenticateUser } from "../logic/authenticateUser"
-//import "./login.css"
 //import { Form, ButtonForm, Container } from "../library"
 
 import { Text, View, Image, TouchableOpacity, TextInput } from "react-native"
 import { useState } from "react"
+import { authenticateUser } from "../logic/authenticateUser.js"
 
-const Login = ({ onRegisterClick }) => {
+const Login = ({ onRegisterClick, onUserLogedIn, onAdminLogedIn }) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
@@ -13,6 +12,22 @@ const Login = ({ onRegisterClick }) => {
         event.preventDefault()
 
         onRegisterClick()
+    }
+
+    const handleLogin = () => {
+        if (email === process.env.ADMIN && password === process.env.ADMIN_PASS) {
+            onAdminLogedIn()
+        } else {
+            try {
+                authenticateUser(email, password)
+                    .then(() => {
+                        onUserLogedIn()})
+                    .catch(error => {
+                        alert('Error', error.message)})
+            } catch (error) {
+                alert('Error', error)
+            }
+        }
     }
 
     // afegir compos personalitzats com el container, form, button, etc... '../library'
@@ -35,7 +50,7 @@ const Login = ({ onRegisterClick }) => {
                             onChangeText={newPassword => (setPassword(newPassword))}
                         />
                     </View>
-                    <TouchableOpacity className="border-2 border-red-400 bg-orange-400 opacity-80 rounded-xl w-1/3 items-center shadow-md shadow-black">
+                    <TouchableOpacity className="border-2 border-red-400 bg-orange-400 opacity-80 rounded-xl w-1/3 items-center shadow-md shadow-black" onPress={handleLogin}>
                         <Text className=" opacity-100 text-xl">Login!</Text>
                     </TouchableOpacity>
                 </View>
