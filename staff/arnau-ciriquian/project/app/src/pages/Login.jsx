@@ -15,19 +15,20 @@ const Login = ({ onRegisterClick, onUserLogedIn, onAdminLogedIn }) => {
     }
 
     const handleLogin = () => {
-        if (email === process.env.ADMIN && password === process.env.ADMIN_PASS) {
-            onAdminLogedIn()
-        } else {
+        
             try {
                 authenticateUser(email, password)
                     .then(() => {
-                        onUserLogedIn()})
+                        if (email === process.env.ADMIN && password === process.env.ADMIN_PASS) {
+                            onAdminLogedIn()
+                        } else {
+                        onUserLogedIn()}})
                     .catch(error => {
                         alert('Error', error.message)})
             } catch (error) {
                 alert('Error', error)
             }
-        }
+        
     }
 
     // afegir compos personalitzats com el container, form, button, etc... '../library'

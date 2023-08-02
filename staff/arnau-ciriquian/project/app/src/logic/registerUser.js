@@ -9,7 +9,6 @@ export function registerUser(name, email, password, passwordConfirm) {
     validateEmail(email)
     validateNewPassword(password)
     validatePasswordConfirm(password, passwordConfirm)*/
-    console.log(DEFAULT_AVATAR_URL)
 
     return fetch(`${API_URL}/users`, {
         method: 'POST',
