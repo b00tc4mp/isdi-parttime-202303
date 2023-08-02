@@ -84,10 +84,11 @@ export default function PersonalInformationModal({ employee, onEmployeeAvatarUpd
 
             updateEmployeeAdress(employeeNewAdress)
 
-                .then(() => {
+                // .then(() => {
 
-                    onEmployeeAdressUpdated()
-                })
+                //     onEmployeeAdressUpdated()
+                // })
+                .then(onEmployeeAdressUpdated)
                 .catch(error => alert(error.message))
         } catch (error) {
             alert(error.message)

@@ -2,6 +2,20 @@
 const { Employee } = require('../data/models')
 const { validators: { validateId, validateUrl } } = require('com')
 
+/**
+ * Update the avatar of an employee
+ * 
+* @param {string} employeeId  The employee id number
+* @param {string} employeenewAvatar  URL of the new avatar for the employee
+* 
+* @returns {Promise<void>} Ends when employee avatar is updated
+//  * 
+//  * @throws {TypeError} On non-string URL or employeeId
+//  * @throws {ContentError} On empty URL
+//  * @throws {ExistenceError} On non-existing employee
+
+*/
+
 module.exports = function updateEmployeeAvatar(employeeId, newAvatar) {
     validateId(employeeId)
     validateUrl(newAvatar)

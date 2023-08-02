@@ -1,5 +1,6 @@
 //TODO validators and handle Errors
 const { Employee } = require('../data/models')
+const { validators: { validateId } } = require('com')
 
 module.exports = function updateEmployeePassword(employeeId, employeeStreet, employeePostalCode, employeeCity, employeeCountry) {
     validateId(employeeId)
@@ -27,7 +28,8 @@ module.exports = function updateEmployeePassword(employeeId, employeeStreet, emp
             const employeeNewAdress = `${employeeStreet}` + ' ' + `${employeePostalCode}` + ' ' + `${employeeCity}` + ' ' + `${employeeCountry}`
 
             if (employeeNewAdress === employee.adress) throw new Error('new adress equals actual adress')
-            employee.bankAccountNumber = employeeNewBankAccountNumber
+
+            // employee.adress = adress
 
             return Employee.updateOne({ _id: employee.id }, { $set: { adress: employeeNewAdress } })
         } catch (error) {

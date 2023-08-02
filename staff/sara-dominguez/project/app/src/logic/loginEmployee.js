@@ -1,4 +1,9 @@
+import { validators } from 'com'
 import context from './context.js'
+
+const { validateEmployeeNumber, validateEmployeePassword } = validators
+
+//TODO errors 
 
 /**
  * Login employee  by employeeNumber and employeePassword
@@ -7,10 +12,16 @@ import context from './context.js'
  * @param {string} employeePassword employee password
  * 
  * @returns {string} employeeId
+
+* @throws {TypeError} On non-string employeeNumber
+* @throws {ContentError} On empty employeeNumber or does not have 5 characters
+* @throws {ExistenceError} On non-existing employee
+* @throws {AuthError} On wrong credentials
  */
 
 export default function loginEmployee(employeeNumber, employeePassword) {
-    // TODO validators
+    validateEmployeeNumber(employeeNumber)
+    validateEmployeePassword(employeePassword)
 
     return fetch(`${import.meta.env.VITE_API_URL}/employees/auth`, {
         method: 'POST',
@@ -33,4 +44,6 @@ export default function loginEmployee(employeeNumber, employeePassword) {
         .then(token => {
             context.token = token
         })
+
+
 }

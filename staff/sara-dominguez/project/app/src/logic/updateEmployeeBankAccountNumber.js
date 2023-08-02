@@ -1,10 +1,21 @@
-// import { validators } from 'com'
+import { validators } from 'com'
 //TODO errors
 import context from './context'
-// const { validateEmployeeBankAccountNumber} = validators
+const { validateBankAccountNumber } = validators
+
+/**
+ * Update bank account number of an employee
+ * 
+* @param {string} employeeBankAccountNumber  new bank account number for the employee
+* 
+* @returns {Promise<void>} Ends when employee bank account number is updated
+//  * 
+//  * @throws {TypeError} On non-string bankAccountNumber
+//  * @throws {ContentError} On non-24 characters BankAccountNumber
+*/
 
 export default function updateEmployeeBankAccountNumber(employeeNewBankAccountNumber) {
-    //TODO validate(employeeNewBankAccountNumber)
+    validateBankAccountNumber(employeeNewBankAccountNumber)
 
     return fetch(`${import.meta.env.VITE_API_URL}/employees/updateBankAccountNumber`, {
         method: 'PATCH',

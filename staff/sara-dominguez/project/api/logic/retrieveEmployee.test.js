@@ -9,7 +9,7 @@ const { Employee } = require('../data/models')
 mongoose.connect(process.env.MONGODB_URL)
 
     // .then(() => Promise.all(Employee.deleteMany()))
-    .then(() => retrieveEmployee('64c1a5c87d6c77d86f00405a'))
+    .then(() => retrieveEmployee('64c9547104674dc61f90e33b'))
     .then((result) => console.log(result))
     .catch(error => { console.log(error) })
     .finally(() => mongoose.disconnect())

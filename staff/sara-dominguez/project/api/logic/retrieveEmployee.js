@@ -7,17 +7,16 @@ const { UnknownError } = require('com/errors')
 
 
 /**
- * Authenticates a user against his/her credentials
+ * Retrieve a employee against his/her id
  * 
  * @param {string} employeeId  The employee id
  * 
- * @returns {Promise<string>} The employee id 
+ * @returns {Promise<string>} employee  
 //  * 
-//  * @throws {TypeError} On non-string email or password
-//  * @throws {ContentError} On empty email
-//  * @throws {RangeError} On password length lower than 6 characters and upper than 15 characters
-//  * @throws {ExistenceError} On non-existing user
-//  * @throws {AuthError} On wrong credentials
+//  * @throws {TypeError} On non-string employeeId
+//  * @throws {ContentError} On id is empty or  doesn't have 24 characters or not hexadecimal
+//  * @throws {ExistenceError} On non-existing employee
+// 
  */
 
 module.exports = function retrieveEmployee(employeeId) {
@@ -25,7 +24,7 @@ module.exports = function retrieveEmployee(employeeId) {
 
     const { Employee } = require('../data/models')
 
-    // return User.find({ _id: userId })
+    // return Employee.find({ _id: employeeId })
     // aprovechamos .findById() en la lógica que te permite traer el id sin el ObjectId, te lo convierte automáticamente a String
 
     // return Employee.findById(employeeId)

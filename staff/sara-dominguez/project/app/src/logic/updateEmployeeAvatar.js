@@ -1,10 +1,22 @@
-// import { validators } from 'com'
-//TODO validators
+import { validators } from 'com'
 import context from './context'
-// const { validateEmployeeAvatar } = validators
+const { validateEmployeeAvatar } = validators
 
+
+/**
+ * Update the avatar of an employee
+ * 
+* @param {string} employeenewAvatar  URL of the new avatar for the employee
+* 
+* @returns {Promise<void>} Ends when the avatar is updated.
+//  * 
+//  * @throws {TypeError} On non-string URL or employeeId
+//  * @throws {ContentError} On empty URL
+//  * @throws {ExistenceError} On non-existing employee
+
+*/
 export default function updateEmployeeAvatar(newAvatar) {
-    // validateEmployeeAvatar(newAvatar)
+    validateEmployeeAvatar(newAvatar)
 
     return fetch(`${import.meta.env.VITE_API_URL}/employees/updateAvatar`, {
         method: 'PATCH',
