@@ -18,9 +18,9 @@ export default function updateEmployeeAvatar(newAvatar) {
             if (res.status === 204)
                 return
             return res.json()
-                // .then(({ error: message }) => { throw new Error(message) })
-                .then(body => {
-                    throw new Error(body.error)
-                })
+                .then(({ error: message }) => { throw new Error(message) })
+            // .then(body => {
+            //     throw new Error(body.error)
+            // })
         })
 }

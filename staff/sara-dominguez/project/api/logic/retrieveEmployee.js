@@ -1,4 +1,10 @@
 const { Employee } = require('../data/models')
+const {
+    validators: { validateId },
+    // errors: { ExistenceError }
+} = require('com')
+const { UnknownError } = require('com/errors')
+
 
 /**
  * Authenticates a user against his/her credentials
@@ -15,20 +21,34 @@ const { Employee } = require('../data/models')
  */
 
 module.exports = function retrieveEmployee(employeeId) {
-    //TODO validators
+    validateId(employeeId)
 
     const { Employee } = require('../data/models')
 
     // return User.find({ _id: userId })
     // aprovechamos .findById() en la lógica que te permite traer el id sin el ObjectId, te lo convierte automáticamente a String
 
-    return Employee.findById(employeeId)
-        .then(employee => {
-            if (!employee) throw new Error('employee not found')
+    // return Employee.findById(employeeId)
+    //     .then(employee => {
+    //         if (!employee) throw new Error('employee not found')
+    //         delete employee._id
 
-            // 2. sanitaze
-            //TODO sanitaze
+    //         return employee
+    //     })
+
+    return (async () => {
+        try {
+            const employee = await Employee.findById(employeeId).lean()
+
+            if (!employee) throw new ExistenceError('employee not found')
+
+            delete employee._id
+            delete employee.__v
 
             return employee
-        })
+        } catch (error) {
+            // throw new UnknownError(error)
+            throw new Error(error.message)
+        }
+    })()
 }

@@ -1,4 +1,4 @@
-export default function Employee({ employee: { id, name, firstSurname, secondSurname, avatar, salaryLevel } }) {
+export default function Employee({ employee: { name, firstSurname, secondSurname, avatar, salaryLevel } }) {
 
 
     return <div>

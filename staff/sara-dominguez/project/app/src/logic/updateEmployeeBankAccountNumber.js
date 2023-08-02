@@ -1,10 +1,10 @@
 // import { validators } from 'com'
-//TODO validators
+//TODO errors
 import context from './context'
 // const { validateEmployeeBankAccountNumber} = validators
 
-export default function updateEmployePassword(employeeNewBankAccountNumber) {
-    // validateEmployeeBankAccountNumber(employeeNewBankAccountNumber)
+export default function updateEmployeeBankAccountNumber(employeeNewBankAccountNumber) {
+    //TODO validate(employeeNewBankAccountNumber)
 
     return fetch(`${import.meta.env.VITE_API_URL}/employees/updateBankAccountNumber`, {
         method: 'PATCH',
@@ -18,9 +18,9 @@ export default function updateEmployePassword(employeeNewBankAccountNumber) {
             if (res.status === 204)
                 return
             return res.json()
-                // .then(({ error: message }) => { throw new Error(message) })
-                .then(body => {
-                    throw new Error(body.error)
-                })
+                .then(({ error: message }) => { throw new Error(message) })
+            // .then(body => {
+            //     throw new Error(body.error)
+            // })
         })
 }

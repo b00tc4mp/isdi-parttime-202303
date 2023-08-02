@@ -9,7 +9,7 @@ import useAppContext from '../hooks/useAppContext.js'
 
 export default function Login() {
     console.debug('Login->render')
-    const { navigate } = useAppContext()
+    const { alert, navigate } = useAppContext()
 
     function handleLogin(event) {
         event.preventDefault()
@@ -20,11 +20,12 @@ export default function Login() {
         try {
             loginEmployee(employeeNumber, employeePassword)
                 .then(() => navigate('/'))
-                .catch(error => console.log(error.message, 'error'))
+                .catch(error => {
+                    alert(error.message, 'error')
+                })
         } catch (error) {
-            console.log(error.message, 'error')
+            alert(error.message, 'error')
         }
-
 
     }
 

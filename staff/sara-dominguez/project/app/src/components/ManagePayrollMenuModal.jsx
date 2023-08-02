@@ -2,11 +2,13 @@ import retrieveEmployee from "../logic/retrieveEmployee"
 import { context } from '../ui'
 import { useState, useRef } from 'react'
 import Employee from './Employee'
+import Header from "./Header"
 
 
-export default function PayrollMenuModal() {
+export default function ManagePayrollMenuModal({ employee }) {
     console.log("PayrollMenuModal --> open")
 
+    // TODO alert
     const [view, setView] = useState(null)
     // const year = useRef(null)
     // const month = useRef(null)
@@ -33,11 +35,12 @@ export default function PayrollMenuModal() {
             salaryLevelSelected
         )
 
-        //2. retrieveEmployeeBySalaryLevel(salaryLevel)
+        //         .then((salaryLevel) => retrieveEmployeeBySalaryLevel(salaryLevel))
+        //         .catch((error) => { throw new Error(error) })
+        // }
     }
-
     const handleCreateNewPayrollsMonth = () => {
-        //employeeListRetrieved.forEach((employee) =>{
+        //.then()employeeListRetrieved.forEach((employee) =>{
         //     createEmployeePayroll(id, yearSelected, monthSelected)
         // }
     }
@@ -46,20 +49,15 @@ export default function PayrollMenuModal() {
 
 
 
-    return <section className="" style={{ backgroundColor: '#808080', color: '#ffffff' }}>
-        {/* header del modal */}
-        <header style={{ backgroundColor: '#FFA500', color: '#ffffff' }} >
-            <h5>Sara Username</h5>
-            {/* <h5>CEO</h5>
-            <h5>Phone:698349859</h5>
-            <h5>Email: sara.b-elevenz@b-elevenzsb.com</h5>
-            <h5>22-07-2023</h5> */}
-        </header>
+    return <section className="" style={{ backgroundColor: '#108080', color: '#ffffff' }}>
+        {/* TODOheader del modal */}
+        <Header employee={employee}
+        />
 
         <main>
             {/* nombre del menu, a la izquierda */}
             <div >
-                <h4>Payroll Menu</h4>
+                <h4>Manage Payroll Menu</h4>
             </div >
             <h5>Create payrolls Month</h5>
             {/* selector para buscar empleado por nivel salarial y escoger el año y mes de la nomina a crear, arriba centrado */}

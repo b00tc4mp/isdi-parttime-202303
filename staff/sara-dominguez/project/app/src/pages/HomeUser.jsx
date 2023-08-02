@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import PersonalInformationModal from '../components/PersonalInformationModal.jsx'
+import PayrollMenuModal from '../components/PayrollMenuModal.jsx'
 import ManagePayrollMenuModal from '../components/ManagePayrollMenuModal.jsx'
 import EmployeeDatabaseMenuModal from '../components/EmployeeDatabaseMenuModal.jsx'
 import retrieveEmployee from '../logic/retrieveEmployee'
@@ -16,7 +17,7 @@ export default function Home() {
     const [modal, setModal] = useState(null)
     const [employee, setEmployee] = useState()
 
-    const { navigate } = useAppContext()
+    const { alert, navigate } = useAppContext()
 
     useEffect(() => {
         try {
@@ -37,8 +38,13 @@ export default function Home() {
         setModal('PersonalInformation')
     }
 
-
     const handleGoToPayrollMenu = (event) => {
+        event.preventDefault()
+        setModal('PayrollMenu')
+    }
+
+
+    const handleGoToManagePayrollMenu = (event) => {
         event.preventDefault()
         setModal('ManagePayrollMenu')
     }
@@ -50,7 +56,7 @@ export default function Home() {
 
     const handleRefreshEmloyee = () => {
         try {
-            retrieveEmployee(isLoggedIn())
+            retrieveEmployee()
                 .then(employee => setEmployee(employee))
                 .catch(error =>
                     alert(error.message))
@@ -82,16 +88,21 @@ export default function Home() {
 
             </header>
             <main>
-                <p className="personalInformation-menu"><a href="" className="personalInformation" onClick={handleGoToPersonalInformatioMenu}>Personal information</a></p>
-                <p className="manage-payroll-menu" onClick={handleGoToPayrollMenu}><a href="" className="ManagePayrollMenu" >Manage Payroll menu</a></p>
-                <p className="employeeDatabase-menu" onClick={handleGoToEmployeeDatabaseMenu}><a href="" className="employeeDatabaseMenu" >Employee Database Menu</a></p>
+                <p className="personalInformation-menu"><a href="" className="personalInformation" onClick={handleGoToPersonalInformatioMenu}>Personal Information</a></p>
+                <p className="payroll-menu" onClick={handleGoToPayrollMenu}><a href="" className="payrollMenu" >Payroll menu</a></p>
+                <p className="manage-payroll-menu" onClick={handleGoToManagePayrollMenu}><a href="" className="ManagePayrollMenu" >Manage Payroll menu</a></p>
+                <p className="employeeDatabase-menu" onClick={handleGoToEmployeeDatabaseMenu}><a href="" className="employeeDatabaseMenu" >Employee Database menu</a></p>
 
                 {modal === 'PersonalInformation' && < PersonalInformationModal
-                    onPersonalInformationModalLogout={handleCloseModal}
                     employee={employee}
+                    onPersonalInformationModalLogout={handleCloseModal}
+
                 />}
-                {modal === 'ManagePayrollMenu' && < ManagePayrollMenuModal />}
-                {modal === 'EmployeeDatabaseMenu' && < EmployeeDatabaseMenuModal onEmployeeRegistered={handleCloseModal} />}
+                {modal === 'PayrollMenu' && < PayrollMenuModal employee={employee} />}
+                {modal === 'ManagePayrollMenu' && < ManagePayrollMenuModal employee={employee} />}
+                {modal === 'EmployeeDatabaseMenu' && < EmployeeDatabaseMenuModal
+                    employee={employee}
+                    onEmployeeRegistered={handleCloseModal} />}
                 {view === 'PayrollMenuUpdateAvatar' && < PersonalInformationModal onEmployeeAvatarUpdated={handleRefreshEmloyee} />}
                 {view === 'PayrollMenuUpdatePassword' && < PersonalInformationModal onEmployeePasswordUpdated={handleCloseModal} />}
                 {view === 'PayrollMenuUpdateAdress' && < PersonalInformationModal onEmployeeAdressUpdated={handleCloseModal} />}

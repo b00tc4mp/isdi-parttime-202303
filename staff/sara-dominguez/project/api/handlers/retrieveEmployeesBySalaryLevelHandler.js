@@ -5,7 +5,7 @@ const { extractEmployeeId } = require('./helpers')
 module.exports = (req, res) => {
     // const employeeId = extractEmployeeId(req)
 
-    const salaryLevel = req.params
+    const { salaryLevel } = req.params
 
     return retrieveEmployeesBySalaryLevel(salaryLevel)
         .then((employeeListRetrieved) => res.json(employeeListRetrieved))

@@ -17,20 +17,22 @@ Employees to make all the necessary inquiries regarding their personal and compa
 
 ### Use cases
 
-#### General
 
-- Check and edit personal information 
+User
+- Check and edit personal information (#UC001)
 - Check payrollMonth
 - Check annual agregate payrolls
 - Check tax certicate
 
+Admin
 - New employee registration
 - Check and edit employee information
 - Employee access control 
 - Create employee montly payrolls
 
-### Use cases
+### User stories
 
+User
 - The employee will be able to modify their avatar, address, password, and bank account.
 
 - The employee will be able to access any payroll of the current year, selecting the corresponding month - select option).
@@ -39,10 +41,15 @@ Employees to make all the necessary inquiries regarding their personal and compa
 
 - The employee will be able to obtain the tax certificate from the previous year, detailing the total of all income received, deductions, and withholdings applied.
 
+Admin
 - The admin employees will be able to perform the registration of new employees, entering all personal and professional data. They will incorporate relevant information for the company, such as employee portal access control and salary level.
 
 - The admin employee will be able to prepare payrolls for the workers based on their salary level, in a single step, without the need to prepare them employee by employee. Logics will allow the automatic calculation of each corresponding item in each payroll.
 
+
+### UI design 
+
+TODO Link to Figma
 
 ## Technical description
 
@@ -100,6 +107,8 @@ Employees to make all the necessary inquiries regarding their personal and compa
 <!-- ![](https://wac-cdn.atlassian.com/dam/jcr:f29e7890-4a7a-4590-bc8b-c4c775ec301d/CDmicro-600x338-retina2x-A_11-58-7.png?cdnVersion=1077) -->
 
 ## Planning
+
+Trello : (https://trello.com/invite/b/XEVB4Fyi/ATTIc3c549532febf63cb82956e9219d9d7a56E3A663/b-elevenzsd)
 
 ### Epics & Stories
 

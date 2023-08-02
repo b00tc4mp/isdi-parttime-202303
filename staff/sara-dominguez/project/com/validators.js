@@ -51,7 +51,7 @@ function validateUserNewPassword(userNewPassword) {
     if (userNewPassword.trim().length > 12) throw new RangeError('New password length upper 12 characters')
 }
 
-function validateEmployeeAvatar(newAvatar, explain = 'url') {
+function validateUrl(newAvatar, explain = 'url') {
     if (typeof newAvatar !== 'string') throw new TypeError(`${explain} is not a string`);
     if (!newAvatar.trim().length) throw new ContentError(`${explain} is empty`)
 }
@@ -85,20 +85,15 @@ function validateId(id, explain = 'id') {
     }
 
 }
-function validatePostId(postId, explain = 'post id') {
-    if (typeof postId !== 'string') throw new TypeError(`${explain} is not a string`)
-    if (id.trim().length !== 24) throw new ContentError(`${explain} doesn't have 24 characters`)
+// function validateStreet(employeeStreet, employeePostalCode, employeeCity, employeeCountry) {
 
-    for (let i = 0; i < id.length; i++) {
-        const char = id[i]
+//     if (typeof name !== 'string') throw new TypeError('name is not a string');
+//     if (!name.trim().length) throw new ContentError('name is empty')
+//     if (name.trim().length < 3) throw new RangeError('name length lower than 3 characters')
+//     if (name.trim().length > 15) throw new RangeError('name length upper 15 characters')
 
-        if (!HEX_DICTIONARY.includes(char)) throw new ContentError(`${explain} is not hexadecimal`)
-    }
-}
-function validatePostUrl(imageUrl, explain = 'image url') {
-    if (typeof imageUrl !== 'string') throw new TypeError(`${explain} is not a string`)
-    if (!imageUrl.trim().length) throw new ContentError(`${explain} is empty`)
-}
+//     // TODO regex pattern 
+// }
 
 function validateText(text, explain = 'text') {
     if (typeof text !== 'string') throw new TypeError(`${explain} is not a string`)
@@ -120,11 +115,9 @@ module.exports = {
     validateEmail,
     validatePassword,
     validateUserNewPassword,
-    validateEmployeeAvatar,
+    validateUrl,
     validateUserConfirmNewPassword,
     validateId,
-    validatePostId,
-    validatePostUrl,
     validateText,
     validateCallback,
     validateToken,

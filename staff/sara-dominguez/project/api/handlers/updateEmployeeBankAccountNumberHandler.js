@@ -5,8 +5,8 @@ const { extractEmployeeId } = require('./helpers')
 module.exports = (req, res,) => {
     const employeeId = extractEmployeeId(req)
 
-    const { employeeBankAccountNumber, employeeNewBankAccountNumber } = req.body
+    const { employeeNewBankAccountNumber } = req.body
 
-    return updateEmployeeBankAccountNumber(employeeId, employeeBankAccountNumber, employeeNewBankAccountNumber)
+    return updateEmployeeBankAccountNumber(employeeId, employeeNewBankAccountNumber)
         .then(() => res.status(204).send())
 }

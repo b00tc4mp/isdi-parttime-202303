@@ -8,26 +8,27 @@ import { utils } from 'com'
 import { context } from '../ui'
 import isCurrentEmployee from '../logic/isCurrentEmployee'
 import retrieveEmployee from '../logic/retrieveEmployee'
+import Header from './Header.jsx'
 
 const { extractSubFromToken } = utils
 
 
-export default function PersonalInformationModal(employee, onEmployeeAvatarUpdated, onEmployeePasswordUpdated, onEmployeeBankAccountNumberUpdated, onEmployeeAdressUpdated, onPersonalInformationModalLogout) {
+export default function PersonalInformationModal({ employee, onEmployeeAvatarUpdated, onEmployeePasswordUpdated, onEmployeeBankAccountNumberUpdated, onEmployeeAdressUpdated, onPersonalInformationModalLogout }) {
     console.log('PersonalInformationModal --> open')
 
-    const { navigate } = useAppContext()
+    const { alert } = useAppContext()
     // const [employee, setEmployee] = useState()
 
-    // useEffect(() => {
-    //     try {
+    useEffect(() => {
+        try {
 
-    //         retrieveEmployee(context.token)
-    //             .then(employee => setEmployee(employee))
-    //             .catch(error => alert(error.message))
-    //     } catch (error) {
-    //         alert(error.message)
-    //     }
-    // }, [])
+            retrieveEmployee(context.token)
+                // .then(setEmployee)
+                .catch(error => alert(error.message))
+        } catch (error) {
+            alert(error.message)
+        }
+    }, [])
 
     const handleUpdateAvatar = event => {
         event.preventDefault()
@@ -38,10 +39,8 @@ export default function PersonalInformationModal(employee, onEmployeeAvatarUpdat
 
             updateEmployeeAvatar(url)
 
-                .then(() => {
+                .then(onEmployeeAvatarUpdated)
 
-                    onEmployeeAvatarUpdated()
-                })
                 .catch(error => alert(error.message))
         } catch (error) {
             alert(error.message)
@@ -59,10 +58,11 @@ export default function PersonalInformationModal(employee, onEmployeeAvatarUpdat
 
             updateEmployeePassword(employeePassword, employeeNewPassword, employeeNewPasswordConfirm)
 
-                .then(() => {
+                // .then(() => {
 
-                    onEmployeePasswordUpdated()
-                })
+                //     onEmployeePasswordUpdated()
+                // })
+                .then(onEmployeePasswordUpdated)
                 .catch(error => alert(error.message))
         } catch (error) {
             alert(error.message)
@@ -102,10 +102,12 @@ export default function PersonalInformationModal(employee, onEmployeeAvatarUpdat
         try {
             updateEmployeeBankAccountNumber(bankAccountNumber)
 
-                .then(() => {
+                // .then(() => {
 
-                    onEmployeeBankAccountNumberUpdated()
-                })
+                //     onEmployeeBankAccountNumberUpdated()
+                // })
+
+                .then(onEmployeeBankAccountNumberUpdated)
                 .catch(error => alert(error.message))
         } catch (error) {
             alert(error.message)
@@ -120,22 +122,13 @@ export default function PersonalInformationModal(employee, onEmployeeAvatarUpdat
 
 
 
-    // const isCurrentEmployee = isCurrentEmployee(id)
 
 
     return <section className="personalInformation" style={{ backgroundColor: '#FFC0CB', color: '#ffffff' }}>
 
-        {/* TODO problemas con las props */}
-        <header style={{ backgroundColor: '#808080', color: '#ffffff' }}>
-            <h5>name: {employee.name}</h5>
-            <h5>{employee.department}</h5>
-            <h5>{employee.position}</h5>
-            <h5>{employee.professionalPhoneNumber}</h5>
-            <h5>{employee.professionalEmail}</h5>
-            <h5>{employee.centerAttached}</h5>
+        <Header employee={employee}
+        />
 
-
-        </header>
         <main>
             <h4>Personal Information</h4>
             <div>

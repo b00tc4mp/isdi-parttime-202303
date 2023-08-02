@@ -25,10 +25,10 @@ export default function loginEmployee(employeeNumber, employeePassword) {
                 return res.json()
             } else
                 return res.json()
-                    // .then(({ error: message }) => { throw new Error(message) })
-                    .then(body => {
-                        throw new Error(body.error)
-                    })
+                    .then(({ error: message }) => { throw new Error(message) })
+            // .then(body => {
+            //     throw new Error(body.error)
+            // })
         })
         .then(token => {
             context.token = token

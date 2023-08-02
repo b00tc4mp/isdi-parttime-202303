@@ -7,5 +7,6 @@ module.exports = ((req, res,) => {
     const { payrollYear, employeePayrollsMonth } = req.body
 
     return retrievePayrollAnnualAgregate(employeeId, payrollYear, employeePayrollsMonth)
+        .then(console.log)
         .then(() => res.status(204).send())
 })
