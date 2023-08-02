@@ -7,5 +7,7 @@ module.exports = {
     updateUserEmailHandler: require('./updateUserEmailHandler'),
     updateUsernameHandler: require('./updateUsernameHandler'),
     updateUserPasswordHandler: require('./updateUserPasswordHandler'),
-    deleteAccountHandler: require('./deleteAccountHandler')
+    deleteAccountHandler: require('./deleteAccountHandler'),
+    createNewMissionHandler: require('./createNewMissionHandler'),
+    retriveMissionsHandler: require('./retriveMissionsHandler')
 }

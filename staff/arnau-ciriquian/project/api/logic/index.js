@@ -6,5 +6,7 @@ module.exports = {
     updateUserEmail: require('./updateUserEmail'),
     updateUsername: require('./updateUsername'),
     updateUserPassword: require('./updateUserPassword'),
-    deleteAccount: require('./deleteAccount')
+    deleteAccount: require('./deleteAccount'),
+    createNewMission: require('./createNewMission'),
+    retriveMissions: require('./retriveMissions')
 }

@@ -12,7 +12,9 @@ const {
     updateUserEmailHandler, 
     updateUsernameHandler, 
     updateUserPasswordHandler, 
-    deleteAccountHandler
+    deleteAccountHandler,
+    createNewMissionHandler,
+    retriveMissionsHandler
 } = require('./handlers')
 const mongoose = require('mongoose')
 
@@ -43,6 +45,15 @@ mongoose.connect(process.env.MONGODB_URL)
 
         api.delete('/users', deleteAccountHandler)
 
+        // CHARACTERS DATA
+
+
+        // MISSIONS DATA
+        api.post('/missions', jsonBodyParser, createNewMissionHandler)
+
+        api.get('/missions', retriveMissionsHandler)
+
+        // SERVER PORT
         api.listen(process.env.PORT, () => console.log(`server running in port ${process.env.PORT}`))
     })
     .catch(console.error)

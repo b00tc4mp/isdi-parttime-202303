@@ -18,7 +18,8 @@ const { User } = require('../data/models')
  * @throws {AuthError} On wrong credentials
  */
 module.exports = (email, password) => {
-    validateEmail(email)
+    if(email !== process.env.ADMIN)
+        validateEmail(email)
     validatePassword(password)
 
     return User.findOne({ email })

@@ -24,8 +24,13 @@ const user = new Schema ({
     }
 })
 
-/*const post = new Schema({
-    author: {
+/*const character = new Schema({
+    name: {
+        type: String,
+        required: true,
+        trim: true
+    },
+    user: {
         type: ObjectId,
         ref: 'User',
         required: true
@@ -34,29 +39,65 @@ const user = new Schema ({
         type: String,
         required: true
     },
-    text: {
+    created: {
+        type: Date,
+        required: true,
+        default: Date.now
+    },
+    missions: {
+        type: [ObjectId],
+        ref: 'Mission',
+    }
+    zombiesKilled: {
+        type: Number
+    }
+    level: {
+        type: Number,
+        required: true
+    }
+})*/
+
+const mission = new Schema({
+    image: {
         type: String,
         required: true
+    },
+    tittle: {
+        type: String,
+        required: true
+    },
+    info: {
+        type: String,
+        required: true
+    },
+    level: {
+        type: String,
+        required: true
+    },
+    difficulty: {
+        type: String,
+        required: true
+    },
+    visibility: {
+        type: Boolean,
+        default: true,
+        required: true
+    },
+    survivors:{
+        type: [ObjectId],
+        ref: 'Characters'
     },
     date: {
         type: Date,
         required: true,
         default: Date.now
-    },
-    likes: {
-        type: [ObjectId],
-        ref: 'User'
-    },
-    visibility: {
-        type: Boolean,
-        default: true
     }
-})*/
+})
 
 const User = model('User', user)
-//const Post = model('Post', post)
+const Mission = model('Mission', mission)
 
 module.exports = {
     User,
-    //Post
+    Mission
 }
