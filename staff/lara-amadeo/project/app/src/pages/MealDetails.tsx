@@ -91,6 +91,10 @@ export default function MealDetails(): JSX.Element {
         setCounterAdditionButtonLabel(sum.toString())
     }
 
+    const onAddToCart = () => {
+
+    }
+
     const toggleOpenCategory = (category: string) => {
         setOpenCategory(category !== openCategory ? category : "")
     }

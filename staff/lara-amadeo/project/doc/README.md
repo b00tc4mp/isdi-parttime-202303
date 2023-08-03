@@ -38,7 +38,7 @@ Users
 - availability(array of obj)
 - likedChefs (oid array, refers to user id)
 - reviews? (array of obj)
-- meals (array of obj(meal id, status(string(in cart, pending to pick up, delivered, cancelled))))
+- meals (array of obj(meal id, status(string(cart, pending, completed, cancelled)), amount))
 
 Meals
 - id (string)
