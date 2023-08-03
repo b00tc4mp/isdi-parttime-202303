@@ -32,8 +32,18 @@ export default function App() {
     setHome(true)
   }
 
+  const handleLogoutSession = () => {
+    if (admin) {
+      setAdmin(false)
+      setLogin(true)
+    } else if (home) {
+      setHome(false)
+      setLogin(true)
+    }
+  }
+
   if (login) return (<Login onRegisterClick={handleGoToRegister} onUserLogedIn={handleGoToHome} onAdminLogedIn={handleGoToAdminMain}/>)
   if (register) return (<Register onLoginClick={handleGoToLogin} onUserRegistered={handleGoToLogin}/>)
-  if (admin) return (<Admin/>)
+  if (admin) return (<Admin onLogoutSession={handleLogoutSession}/>)
   if (home) return (<Home/>)
 }

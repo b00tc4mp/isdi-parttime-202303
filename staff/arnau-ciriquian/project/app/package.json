@@ -9,6 +9,8 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@react-native-async-storage/async-storage": "1.17.11",
+    "@react-native-picker/picker": "2.4.8",
     "@react-three/fiber": "^8.13.5",
     "com": "file:/../com",
     "dotenv": "^16.3.1",
@@ -22,10 +24,10 @@
     "react": "18.2.0",
     "react-native": "0.71.8",
     "react-native-dotenv": "^3.4.9",
+    "react-native-dropdown-picker": "^5.4.6",
     "react-native-reanimated": "~2.14.4",
     "tailwindcss": "^3.3.2",
-    "three": "^0.154.0",
-    "@react-native-async-storage/async-storage": "1.17.11"
+    "three": "^0.154.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"

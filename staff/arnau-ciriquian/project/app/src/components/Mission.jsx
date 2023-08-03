@@ -3,7 +3,7 @@
 //import { utils } from "com"
 
 //const { extractSubFromToken } = utils
-import { View, Text, Image } from "react-native"
+import { View, Text, Image, TouchableOpacity } from "react-native"
 
 export default function Mission({ mission: { image, tittle, info, level, difficulty, survivor, visibility, date }/*, onEditClick, onDeletePostClick*/ }) {
 
@@ -25,36 +25,48 @@ export default function Mission({ mission: { image, tittle, info, level, difficu
         }
     }*/
 
-    console.log('Mission -> Render')
-
     //const userId = extractSubFromToken(context.token)
 
     if (!visibility) {
-        return <View className="h-24 flex-row items-center m-1">
+        return <View className="h-20 flex-row items-center justify-center ml-5 mr-5 mt-2">
             <View className="absolute bg-red-400 h-full w-full rounded-tl-lg rounded-tr-3xl rounded-bl-3xl rounded-br-lg shadow-md shadow-black opacity-50"></View>
-            <View className="h-16 w-16 m-2">
-                <Image source={require("../../assets/home/k9.png")} className="h-16 w-16"></Image>
+            <View className="h-16 w-16 justify-center items-center">
+                <Image source={require("../../assets/generic/k9.png")} className="h-10 w-10"></Image>
             </View>
-            <View className="justify-center items-center h-16 w-2/4">
-                <Text className=" text-2xl font-semibold">{tittle}</Text>
+            <View className="justify-center items-center h-16 w-3/5">
+                <View className="w-full">
+                    <Text className=" text-xl font-bold">{tittle}</Text>
+                </View>
+                <View className="w-full">
+                    <Text className=" text-lg font-semibold">Level {level} - {difficulty} </Text>
+                </View>
             </View>
-            <View className="justify-center items-center h-16 w-16 m-2">
-                <Text className=" text-2xl font-semibold">Level: {level}</Text>
+            <View className="justify-center items-center h-16 w-16 mr-2">
+                <TouchableOpacity>
+                    <Image source={require('../../assets/generic/settings.png')} className="h-10 w-10"></Image>
+                </TouchableOpacity>
             </View>
         </View>
     }
 
     if (visibility) {
-        return <View className="h-24 flex-row items-center m-1">
+        return <View className="h-20 flex-row items-center justify-center ml-5 mr-5 mt-2">
             <View className="absolute bg-white h-full w-full rounded-tl-lg rounded-tr-3xl rounded-bl-3xl rounded-br-lg shadow-md shadow-black opacity-50"></View>
-            <View className="h-16 w-16 m-2">
-                <Image source={require("../../assets/home/k9.png")} className="h-16 w-16"></Image>
+            <View className="h-16 w-16 justify-center items-center">
+                <Image source={require("../../assets/generic/k9.png")} className="h-10 w-10"></Image>
             </View>
-            <View className="justify-center items-center h-16 w-2/4">
-                <Text className=" text-2xl font-semibold">{tittle}</Text>
+            <View className="justify-center items-center h-16 w-3/5">
+                <View className="w-full">
+                    <Text className=" text-xl font-bold">{tittle}</Text>
+                </View>
+                <View className="w-full">
+                    <Text className=" text-lg font-semibold">Level {level} - {difficulty} </Text>
+                </View>
             </View>
-            <View className="justify-center items-center h-16 w-16 m-2">
-                <Text className=" text-2xl font-semibold">Level: {level}</Text>
+            <View className="justify-center items-center h-16 w-16 mr-2">
+                <TouchableOpacity>
+                    <Image source={require('../../assets/generic/settings.png')} className="h-10 w-10"></Image>
+                </TouchableOpacity>
             </View>
         </View>
     }
