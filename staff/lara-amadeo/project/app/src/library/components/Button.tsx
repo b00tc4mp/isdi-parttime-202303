@@ -5,10 +5,11 @@ type Props = {
     size: String,
     icon?: JSX.Element,
     label: String,
+    hugContent: boolean
     onClick?: (event: React.SyntheticEvent) => void
 }
 
-export default function Button({ type, size, icon, label, onClick, ...props }: Props): JSX.Element {
+export default function Button({ type, size, icon, label, onClick, hugContent }: Props): JSX.Element {
 
     return <>
         <button type="submit" className={`
@@ -17,7 +18,7 @@ export default function Button({ type, size, icon, label, onClick, ...props }: P
             ${size === "medium" && "button-container-medium"}
             ${type === "primary" && "primary"}
             ${type === "secondary" && "secondary"}
-            ${type === "critical" && "critical"}`}{...props} onClick={onClick}>
+            ${type === "critical" && "critical"}`} style={{ width: hugContent ? 'fit-content' : '100%' }} onClick={onClick}>
             {icon && <p className="body-text-bold">i</p>}
             <p className={`body-text-bold ${type === "critical" ? "label-critical" : "label"}`}>{label}</p>
         </button>

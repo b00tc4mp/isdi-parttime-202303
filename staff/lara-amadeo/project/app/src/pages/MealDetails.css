@@ -32,6 +32,14 @@
     align-items: center;
 }
 
+.meal-detail-counter-label {
+    width: 24px;
+    display: flex;
+    justify-content: center;
+    padding-left: 6px;
+    padding-right: 6px;
+}
+
 .meal-detail-lower-part {
     display: flex;
     width: 100%;

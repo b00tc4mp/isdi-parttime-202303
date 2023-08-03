@@ -1,26 +1,26 @@
 import Avatar from '../components/Avatar'
+import Button from '../components/Button'
 import Container from '../components/Container'
+import IconButton from '../components/IconButton'
 import { HeartIcon, SolidHeartIcon } from '../icons'
 import './ChefModule.css'
 
 type Props = {
     avatar: string,
     name: string,
-    description: string,
-    liked: boolean
+    liked: boolean,
+    onSendMessage: (event: React.SyntheticEvent) => void
 }
 
-export default function ChefModule({ avatar, name, description, liked }: Props): JSX.Element {
+export default function ChefModule({ avatar, name, liked, onSendMessage }: Props): JSX.Element {
     return <>
-        <Container width={'100%'} height={'fit-content'} type={'border'}>
-            <div className='chef-module-container'>
-                <Avatar image={avatar} width={'40px'} />
-                <div className='chef-module-info'>
-                    <p className="body-text-bold grey-700 chef-module-name">{name}</p>
-                    <p className="tiny-text grey-300 chef-module-description">{description}</p>
-                </div>
-                {liked ? <SolidHeartIcon className='icon-s red-200' /> : <HeartIcon className='icon-s grey-700' />}
+        <div className='chef-module-container'>
+            <Avatar image={avatar} width={'32px'} />
+            <div className='chef-module-info'>
+                <p className="body-text-bold grey-700 chef-module-name">{name}</p>
             </div>
-        </Container>
+            <Button type={'secondary'} size={'small'} label={'Send message'} hugContent={true} onClick={onSendMessage} />
+            {liked ? <IconButton icon={<SolidHeartIcon className='icon-s red-200' />} type={'secondary'} /> : <IconButton icon={<HeartIcon className='icon-s grey-700' />} type={'secondary'} />}
+        </div>
     </>
 }

@@ -17,6 +17,7 @@ import EditMeal from '../modals/EditMeal'
 import DeleteModal from '../modals/DeleteModal'
 import useAppContext from '../logic/hooks/useAppContext'
 import useHandleError from '../logic/hooks/useHandleError'
+import Divider from '../library/components/Divider'
 
 
 type Meal = {
@@ -49,16 +50,20 @@ export default function MealDetails(): JSX.Element {
     const location = useLocation()
     const from = location.state
 
-    const [current, setCurrent] = useState(0);
-    const [length, setLength] = useState(0)
+    const [currentImage, setCurrentImage] = useState(0)
+    const [imagesLength, setimagesLength] = useState(0)
+
+    const [mealCounter, setMealCounter] = useState(0)
+
+    const [counterAdditionButtonLabel, setCounterAdditionButtonLabel] = useState<string>()
 
     useEffect(() => {
         (async () => {
             try {
                 const meal = await retrieveMeal(mealId!)
                 setMeal(meal)
-
-                setLength(meal.images.length)
+                setCounterAdditionButtonLabel(meal.price)
+                setimagesLength(meal.images.length)
             } catch (error: any) {
                 handleErrors(error)
             }
@@ -70,8 +75,20 @@ export default function MealDetails(): JSX.Element {
         navigate(from)
     }
 
-    const onNewChatClick = (event: React.SyntheticEvent) => {
+    const onSendMessageButton = (event: React.SyntheticEvent) => {
 
+    }
+
+    const increaseCounter = () => {
+        setMealCounter(mealCounter + 1)
+        const sum = Number(meal?.price) * (mealCounter + 1)
+        setCounterAdditionButtonLabel(sum.toString())
+    }
+
+    const decreaseCounter = () => {
+        setMealCounter(mealCounter === 0 ? 0 : mealCounter - 1)
+        const sum = Number(meal?.price) * (mealCounter - 1)
+        setCounterAdditionButtonLabel(sum.toString())
     }
 
     const toggleOpenCategory = (category: string) => {
@@ -120,11 +137,11 @@ export default function MealDetails(): JSX.Element {
     }
 
     const nextSlide = () => {
-        setCurrent(current === length - 1 ? 0 : current + 1);
+        setCurrentImage(currentImage === imagesLength - 1 ? 0 : currentImage + 1);
     }
 
     const prevSlide = () => {
-        setCurrent(current === 0 ? length - 1 : current - 1);
+        setCurrentImage(currentImage === 0 ? imagesLength - 1 : currentImage - 1);
     }
 
     return <>
@@ -141,7 +158,7 @@ export default function MealDetails(): JSX.Element {
             </ContextualModalMenu>
         </>}
         <Topbar level='second' secondLevel={{ label: "Meal detail", left: <ArrowLeftIcon className='icon-s grey-700' />, onLeftClick: onBackClick, right: <EllipsisVerticalIcon className='icon-s grey-700' />, onRightClick: onOptionsClick }} />
-        <div className='page-first-level' style={{ overflow: contextualModal ? 'hidden' : 'auto', paddingBottom: meal?.author.id !== userId ? '90px' : '0px' }}>
+        <div className='page-first-level' style={{ overflow: contextualModal ? 'hidden' : 'auto', paddingBottom: meal?.author.id !== userId ? '100px' : '0px' }}>
 
             {/* upper-part */}
             <div className='meal-detail-upper-part'>
@@ -150,8 +167,8 @@ export default function MealDetails(): JSX.Element {
                     <IconButton type={'primary'} icon={<ArrowRightIcon className='icon-s grey-700' />} onClick={nextSlide} className={"slider-right-icon"} />
                     {meal.images.map((slide, index) => {
                         return (
-                            <div className={index === current ? 'slide active' : 'slide'} key={index}>
-                                {index === current && (<img src={slide} alt='travel image' className='meal-detail-img' />)}
+                            <div className={index === currentImage ? 'slide active' : 'slide'} key={index}>
+                                {index === currentImage && (<img src={slide} alt='travel image' className='meal-detail-img' />)}
                             </div>
                         )
                     })}
@@ -167,9 +184,9 @@ export default function MealDetails(): JSX.Element {
                     {/* counter - actionButton */}
                     <div className='meal-detail-img-info-counter'>
                         {meal?.author.id !== userId ? <>
-                            <IconButton icon={<MinusIcon className='icon-s grey-700' />} type={'secondary'} />
-                            <p className='heading-l'>1</p>
-                            <IconButton icon={<PlusIcon className='icon-s grey-700' />} type={'secondary'} />
+                            <IconButton icon={<MinusIcon className='icon-s grey-700' />} type={'secondary'} onClick={decreaseCounter} />
+                            <p className='heading-l meal-detail-counter-label'>{mealCounter}</p>
+                            <IconButton icon={<PlusIcon className='icon-s grey-700' />} type={'secondary'} onClick={increaseCounter} />
                         </> : ""}
                     </div>
 
@@ -185,9 +202,10 @@ export default function MealDetails(): JSX.Element {
                 {meal && <DataItem label='Ingredients' content={meal.ingredients.join(", ")} />}
                 {meal && <DataItem label='BestBefore' content={`${meal.bestBefore} days`} />}
                 {meal && <DataItem label='Price' content={`${meal.price}€`} />}
-                {meal && <ChefModule avatar={meal.author.avatar} name={meal.author.name} description={meal.author.description} liked={true} />}
+                <Divider width='100%' />
+                {meal && <ChefModule avatar={meal.author.avatar} name={meal.author.name} liked={false} onSendMessage={onSendMessageButton} />}
             </div>
         </div>
-        {meal?.author.id !== userId && <ButtonBar firstButton={{ label: 'New chat', onClick: onNewChatClick }} />}
+        {meal?.author.id !== userId && <ButtonBar firstButton={{ label: mealCounter === 0 ? `Add to cart` : `Add ${mealCounter} to cart - ${counterAdditionButtonLabel}€`, onClick: onAddToCart }} />}
     </>
 }
