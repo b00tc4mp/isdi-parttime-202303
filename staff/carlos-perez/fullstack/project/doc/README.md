@@ -70,6 +70,7 @@ Event
 - date (date)
 - location (string)
 - text (string)
+- links (array of links)
 - visibility (boolean)
 
 
@@ -78,6 +79,7 @@ Lyric Post
 - author (oid, refers to Administrator id)
 - media link (array of string)
 - text (string)
+- song info (string)
 - date (date)
 - visibility (boolean)
 
