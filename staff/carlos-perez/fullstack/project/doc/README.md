@@ -17,18 +17,21 @@ It uses React, Tailwind CSS, NextJS, MongoDB and Mongoose.
 
 - see events list
 - add event
+- preview event
 - modify event
 - remove event
 - toggle event visibility
 
 - see updates list
 - add update
+- preview update
 - modify update
 - remove update
 - toggle update visibility
 
 - see lyrics list
 - add lyric post
+- preview lyric post
 - modify lyric post
 - delete lyric post
 - toggle lyric post visibility
@@ -38,7 +41,9 @@ It uses React, Tailwind CSS, NextJS, MongoDB and Mongoose.
 - toggle message read/unread
 - delete message
 
-
+- see update
+- see event
+- see lyric post
 - create message
 - subscribe to RSS?
 
@@ -103,8 +108,6 @@ Planning will be managed with Trello: https://trello.com/invite/b/Sw9wR2tM/ATTIa
 
 ### Epics & Stories
 
-### Back end
-
 #### Add Administrator
 
 - Me as an administrator, I want to add another administrator
@@ -146,7 +149,7 @@ Planning will be managed with Trello: https://trello.com/invite/b/Sw9wR2tM/ATTIa
 
 #### See Event List
 
-- Me as an administrator, I want to see the event list (Manage event List?)
+- Me as an administrator, I want to see the event list
 - Me as a user, I want to see the event list
 
 ##### Task
@@ -160,6 +163,14 @@ Planning will be managed with Trello: https://trello.com/invite/b/Sw9wR2tM/ATTIa
 ###### Task
 
 - Implement add event
+
+#### Preview Event
+
+- Me as an administrator, I want to see a preview of how a user will see my event
+
+##### Task
+
+- Implement preview event
 
 #### Modify Event
 
@@ -187,7 +198,7 @@ Planning will be managed with Trello: https://trello.com/invite/b/Sw9wR2tM/ATTIa
 
 #### See Updates List
 
-- Me as an administrator, I want to see the updates list (Manage updates List?)
+- Me as an administrator, I want to see the updates list
 - Me as a user, I want to see the updates list
 
 ##### Task
@@ -202,6 +213,15 @@ Planning will be managed with Trello: https://trello.com/invite/b/Sw9wR2tM/ATTIa
 
 - Implement add update
 - Implement RSS functionality
+
+#### Preview Update
+
+- Me as an administrator, I want to see a preview of how a user will see my update
+
+##### Task
+
+- Implement preview update
+
 
 #### Modify Update
 
@@ -230,7 +250,7 @@ Planning will be managed with Trello: https://trello.com/invite/b/Sw9wR2tM/ATTIa
 
 #### See Lyrics List
 
-- Me as an administrator, I want to see the lyrics list (Manage lyrics List?)
+- Me as an administrator, I want to see the lyrics list
 - Me as a user, I want to see the lyrics list
 
 ##### Task
@@ -244,6 +264,15 @@ Planning will be managed with Trello: https://trello.com/invite/b/Sw9wR2tM/ATTIa
 ###### Task
 
 - Implement add lyric post
+
+#### Preview Lyric Post
+
+- Me as an administrator, I want to see a preview of how a user will see my lyric post
+
+##### Task
+
+- Implement preview lyric post
+
 
 #### Modify Lyric Post
 
@@ -318,4 +347,26 @@ Planning will be managed with Trello: https://trello.com/invite/b/Sw9wR2tM/ATTIa
 - Implement suscription to RSS feed
 
 
-### Front end
+#### See Event
+
+- Me as a user, I want to see an event
+
+##### Task
+
+- Implement see event
+
+#### See Update
+
+- Me as a user, I want to see an update
+
+##### Task
+
+- Implement see update
+
+#### See Lyric Post
+
+- Me as a user, I want to see a lyric post
+
+##### Task
+
+- Implement see lyric post
