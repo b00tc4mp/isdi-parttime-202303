@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import retrieveArtistDetails from '../../src/logic/retrieveArtistDetails';
 
-const ArtistDetailsComponent = () => {
+const ArtistDetails = () => {
     const [artistName, setArtistName] = useState('');
     const [artistDetails, setArtistDetails] = useState(null);
 
@@ -34,7 +34,15 @@ const ArtistDetailsComponent = () => {
             {artistDetails && (
                 <div>
                     <h2>Artist Name: {artistDetails.artist.name}</h2>
-                    <p>Artist Bio: {artistDetails.bio}</p>
+                    <h3>From: {artistDetails.artist.area.name}</h3>
+                    <p>Artist Bio: {artistDetails.bio}
+                        <a href={artistDetails.wiki} target="_blank">Wikipedia</a>
+                    </p>
+                    <ul>Albums:
+                        {artistDetails.albumReleases.slice(0, 5).map((album) => (
+                            <li key={album.id}> {album.title}</li>
+                        ))}
+                    </ul>
                     {artistDetails.image && (
                         <img src={artistDetails.image} alt={artistDetails.artist.name} />
                     )}
@@ -47,4 +55,4 @@ const ArtistDetailsComponent = () => {
     );
 };
 
-export default ArtistDetailsComponent;
+export default ArtistDetails;

@@ -1,21 +1,12 @@
 const mongoose = require('mongoose')
 const { Schema, Schema: { Types: { ObjectId } }, model } = mongoose
 
-const paymentMethod = new Schema({
-    type: {
-        String,
-        enum: ['credit-card', 'paypal', 'google-pay', 'crypto']
-    },
-    number: {
-        type: String
-    },
-    expirityDate: {
-        type: Date
-    }
-})
-
 const user = new Schema({
     name: {
+        type: String,
+        required: true
+    },
+    nickName: {
         type: String,
         required: true
     },
@@ -34,7 +25,7 @@ const user = new Schema({
         type: String,
         default: "./assets/avatar-default.svg"
     },
-    favs: {
+    favArtists: {
         type: [ObjectId],
         ref: 'User'
     },
@@ -42,7 +33,7 @@ const user = new Schema({
     paymentMethod: [paymentMethod]
 })
 
-const comment = ({
+const review = ({
     author: {
         // to reference another object from user
         type: ObjectId,
@@ -55,6 +46,9 @@ const comment = ({
         trim: true,
         minLength: 1
     },
+    image: {},
+    audio: {},
+    video: {},
     date: {
         type: Date,
         required: true,
@@ -62,7 +56,7 @@ const comment = ({
     }
 })
 
-const post = new Schema({
+const event = new Schema({
     author: {
         // to reference another object from user
         type: ObjectId,
@@ -91,19 +85,17 @@ const post = new Schema({
         type: [ObjectId],
         ref: 'User'
     },
-    comments: {
-        type: [comment],
+    reviews: {
+        type: [review],
     }
 })
 
 const User = model('User', user)
-const Post = model('Post', post)
-const Comment = model('Comment', comment)
-const PaymentMethod = model('PaymentMethod', paymentMethod)
+const Event = model('Event', event)
+const Review = model('Review', review)
 
 module.exports = {
     User,
-    Post,
-    Comment,
-    PaymentMethod
+    Event,
+    Review
 }

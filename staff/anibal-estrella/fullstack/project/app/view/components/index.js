@@ -1,5 +1,7 @@
-import artistDetails from './ArtistDetails'
+import ArtistDetails from './ArtistDetails'
+import SearchPlace from './SearchPlace'
 
 export {
-    artistDetails
+    SearchPlace,
+    ArtistDetails
 }

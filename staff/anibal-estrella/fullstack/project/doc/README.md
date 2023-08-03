@@ -67,20 +67,36 @@ https://github.com/users/anibalestrella/projects/1
 
 ### Epics & Stories
 #### Access Control
+- Me as a user, I want to register my credentials and access with them to the App
 #### Create an Event and Refresh Events
-- Me as a user, I want to be able to Create an Event and visualize an updated list of events.
-- Me as a user, i want to be able to add an artist's details to the event'd lineup automatically using musicbrainz API.
+- As a user, I want to be able to Create an Event and visualize an updated list of events.
+- As a user, I want to be able to add an artist's details to the event's lineup automatically using musicbrainz API.
+- As a user, I want to be able to add a title to an event.
+- As a user, I want to be able to add a text to an event.
+- As a user, I want to be able to add a date to an event.
+- As a user, I want to be able to add a adress to an event.
 #### Edit an Event and Refresh List
-- Me as a user, i want to be able to
-#### Delete an Event and Refresh List
-- Me as a user, i want to be able to
-#### Create an Event review and refresh list
-- Me as a user, i want to be able to
+- As a user, I want to be able to edit a title to an event.
+- As a user, I want to be able to edit a text to an event.
+- As a user, I want to be able to edit a date to an event.
+- As a user, I want to be able to edit the adress to an event.
+- Delete an Event and Refresh List
+#### Add an Event review and To an exixting event
+- As a user, I want to be able to add a title to an event review.
+- As a user, I want to be able to add a text to an event review.
+- As a user, I want to be able to upload an image/video/image to an event review.
+- As a user, I want to be able to publish the event review.
+- As a user, I want to be able to delete the event review.
+#### Add an Event review and To an exixting event
+- refer to create an event steps then to add a review steps
 #### Toggle fav an event
-- Me as a user, i want to be able to
+- As a user, I want to be able to toggle an event if fav or not.
+- As a user, I want to be able to add an event to my event favorite list.
+- As a user, I want to be able display and see all my favortite events as a list
 #### Toggle fav an artist
-- Me as a user, i want to be able to
-#### Fav an artist
-- Me as a user, i want to be able to
+- As a user, I want to be able to toggle an artist if fav or not.
+- As a user, I want to be able to add an artist to my artist favorite list
+- As a user, I want to be able display abd see all my favorite asrtists as a list
+
 #### Add artists to the user artists fav list suing Spotify API
-- Me as a user, i want to be able to
+- As a user, I want to be able to automatically sync my fav artists using my spotify account's favorite artists
