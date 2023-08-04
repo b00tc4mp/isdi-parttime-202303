@@ -4,7 +4,7 @@ import { Text, Image, View, ScrollView, TouchableOpacity, Modal, TextInput } fro
 import { CLOSE, SUNNY, SHADY, DOUBLE_SWING, ONE_YEAR, SLIDE, TWO_YEAR, THREE_YEAR, ADD } from '../../assets/icons';
 import Context from '../AppContext.js'
 import * as Animatable from 'react-native-animatable';
-import Upload from "./UploadImage";
+import UploadImages from "./UploadImages";
 
 
 import { NativeWindStyleSheet } from "nativewind";
@@ -153,7 +153,7 @@ export default function CreatePlayground({ closeHandle }) {
                         </View>
                     </TouchableOpacity>
                 </View>
-                <Upload></Upload>
+                <UploadImages></UploadImages>
 
             </View>
         </Animatable.View>

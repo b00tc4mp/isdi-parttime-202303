@@ -15,6 +15,9 @@ export const LOGOUT = require('./logout.png');
 export const SHARE = require('./share.png');
 export const FEEDBACK = require('./feedback.png');
 export const FUTURE_VERSIONS = require('./future-versions.png');
+
+export const DELETE = require('./delete.png');
+
 export const SUNNY = require('./sunny.png');
 export const SHADY = require('./shady.png');
 export const DOUBLE_SWING = require('./double-swing.png');

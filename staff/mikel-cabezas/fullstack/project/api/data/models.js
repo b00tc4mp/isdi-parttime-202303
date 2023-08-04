@@ -176,12 +176,45 @@ const playground = new Schema({
         type: [contributor],
     },
 })
-
+const post = new Schema({
+    author: {
+        type: ObjectId,
+        ref: 'User',
+        required: true
+    },
+    image: {
+        type: String,
+        required: true,
+    },
+    text: {
+        type: String,
+        required: true,
+    },
+    title: {
+        type: String,
+        required: true,
+    },
+    date: {
+        type: Date,
+        required: true,
+        default: Date.now
+    },
+    likes: {
+        type: [ObjectId],
+        ref: 'User'
+    },
+    visibility: {
+        type: String,
+        default: 'public'
+    }
+})
 
 const User = model('User', user)
 const Playground = model('Playground', playground)
+const Post = model('Post', post)
 
 module.exports = {
     User,
-    Playground
+    Playground,
+    Post
 }
