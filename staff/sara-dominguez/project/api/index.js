@@ -35,10 +35,10 @@ mongoose.connect(process.env.MONGODB_URL)
         api.get('/payrollMonth/retrieveEmployeePayrollMonth/:payrollYear/:payrollMonth', retrievePayrollMonthHandler)
         api.get('/payrollMonth/retrieveEmployeePayrollsMonthYear/:payrollYear', retrieveEmployeePayrollsMonthYearHandler)
         api.get('/employees/retrieveEmployeesBySalaryLevel/:salaryLevel', retrieveEmployeesBySalaryLevelHandler)
+        api.get('/payrollMonth/retrievePayrollAnnualAgregate/:payrollYear', jsonBodyParser, retrievePayrollAnnualAgregateHandler)
 
 
-        // TODO preguntar a Manu
-        api.post('/payrollMonth/retrievePayrollAnnualAgregateHandler', jsonBodyParser, retrievePayrollAnnualAgregateHandler)
+
 
 
 

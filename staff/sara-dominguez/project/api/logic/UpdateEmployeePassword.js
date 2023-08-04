@@ -23,9 +23,9 @@ const { validators: { validateId, validateEmployeePassword } } = require('com')
 
 module.exports = function updateEmployeePassword(employeeId, employeePassword, employeeNewPassword, employeeConfirmNewPassword) {
     validateId(employeeId)
-    // validateEmployeePassword(employeePassword)
-    // validateEmployeePassword(employeeNewPassword)
-    // validateEmployeePassword(employeeConfirmNewPassword)
+    validateEmployeePassword(employeePassword)
+    validateEmployeePassword(employeeNewPassword)
+    validateEmployeePassword(employeeConfirmNewPassword)
 
 
 

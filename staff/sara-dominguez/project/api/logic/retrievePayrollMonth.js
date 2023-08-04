@@ -12,7 +12,7 @@ module.exports = (employeeId, payrollYearIsoDate, payrollMonth) => {
             if (!employee) throw new Error(`user with id ${employeeId} not found`)
             if (!payrollMonth || payrollMonth.length === 0) throw new Error(`payroll not found`)
 
-            return payrollMonth
+            return payrollMonth[0]
         })
 }
 

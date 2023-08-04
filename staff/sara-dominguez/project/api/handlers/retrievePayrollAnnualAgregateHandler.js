@@ -4,9 +4,9 @@ const { extractEmployeeId } = require('./helpers')
 module.exports = ((req, res,) => {
     const employeeId = extractEmployeeId(req)
 
-    const { payrollYear, employeePayrollsMonth } = req.body
+    const { payrollYear } = req.body
 
-    return retrievePayrollAnnualAgregate(employeeId, payrollYear, employeePayrollsMonth)
+    return retrievePayrollAnnualAgregate(employeeId, payrollYear)
         .then(console.log)
         .then(() => res.status(204).send())
 })

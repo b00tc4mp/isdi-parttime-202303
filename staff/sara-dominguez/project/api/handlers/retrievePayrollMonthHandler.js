@@ -7,8 +7,6 @@ module.exports = (req, res) => {
 
     const { payrollYear, payrollMonth } = req.params
 
-    const payrollYearIsoDate = new Date(payrollYear)
-
-    return retrievePayrollMonth(employeeId, payrollYearIsoDate, payrollMonth)
-        .then(employee => res.json(employee))
+    return retrievePayrollMonth(employeeId, payrollYear, payrollMonth)
+        .then(payrollMonthRetrieved => res.json(payrollMonthRetrieved))
 }

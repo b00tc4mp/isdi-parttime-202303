@@ -27,12 +27,13 @@ export default function Header() {
         fetchEmployee()
     }, [])
 
-    const { name, professionalPhoneNumber, professionalEmail, centerAttached } = employee || {}
+    const { name, firstSurname, secondSurname, professionalPhoneNumber, professionalEmail, centerAttached } = employee || {}
 
     return <header style={{ backgroundColor: '#808080', color: '#ffffff' }}>
-        {name ? (
+        {employee ? (
             <>
-                <h4 className="text-xl font-bold">{name}</h4>
+                <h4 className="text-xl font-bold">{name} {firstSurname} {secondSurname}</h4>
+
                 <h4>{professionalPhoneNumber}</h4>
                 <h4> {professionalEmail}</h4>
                 <h4>{centerAttached}</h4>
@@ -42,5 +43,6 @@ export default function Header() {
         )}
         {/* /*ç<h4>{firstSurname}</h4>
 <h4>{secondSurname}</h4> */}
+
     </header>
 }

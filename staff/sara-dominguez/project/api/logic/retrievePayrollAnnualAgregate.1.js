@@ -1,7 +1,7 @@
 const { Employee } = require('../data/models')
-const { PayrollMonth } = require('../data/models')
 
-module.exports = function retrievePayrollAnnualAgregate(employeeId, payrollYear) {
+module.exports = function retrievePayrollAnnualAgregate(employeeId, payrollYear, employeePayrollsMonth) {
+
     //TODO VALIDATORS AND ERRORS
 
     let sumPayrollMonth = []
@@ -15,23 +15,13 @@ module.exports = function retrievePayrollAnnualAgregate(employeeId, payrollYear)
     let sumTotalAmountDeductions = 0
     let sumNetSalary = 0
 
-    return Promise.all([
-        Employee.findById(employeeId).lean(),
-        PayrollMonth.find({ employee: employeeId, payrollYear: payrollYear }, '-__v').lean()
 
-    ])
-        .then(([employee, employeePayrollsMonth]) => {
-            try {
-                if (!employee) throw new Error(`user with id ${employeeId} not found`)
-                if (!employeePayrollsMonth || employeePayrollsMonth.length === 0) throw new Error(`payrolls not found`)
-
-            } catch (error) {
-                throw new Error(error)
-            }
-            return employeePayrollsMonth
+    return Employee.findById(employeeId)
+        .then(employee => {
+            if (!employee) throw new Error('employee not found')
         })
 
-        .then((employeePayrollsMonth) => {
+        .then(() => {
             for (let i = 0; i < employeePayrollsMonth.length; i++) {
 
                 const payrollMonthValue = employeePayrollsMonth[i].payrollMonth

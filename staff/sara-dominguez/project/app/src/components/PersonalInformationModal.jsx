@@ -163,6 +163,5 @@ export default function PersonalInformationModal({ employee, onEmployeeAvatarUpd
         <footer>
             <h5 className="" onClick={handlePersonalInformationModalLogout}>Logout</h5>
         </footer>
-
     </section>
 }
