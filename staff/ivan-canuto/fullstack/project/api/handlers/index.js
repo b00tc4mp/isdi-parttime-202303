@@ -17,4 +17,8 @@ module.exports = {
   updatePostHandler: require('./updatePostHandler'),
   updateUserAvatarHandler: require('./updateUserAvatarHandler'),
   updateUserPasswordHandler: require('./updateUserPasswordHandler'),
+  storeInputInDBHandler: require('./storeInputInDBHandler'),
+  retrieveConversationsHandler: require('./retrieveConversationsHandler'),
+  askForResponseHandler: require('./askForResponseHandler'),
+  generateConversationHandler: require('./generateConversationHandler'),
 }

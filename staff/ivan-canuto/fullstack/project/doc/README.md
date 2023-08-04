@@ -49,9 +49,9 @@ Suggestion
 Conversation
 - id (oid)
 - author (oid, refers to User id)
-- conversationObjects (array of objects containing the information of a conversation between chatbot and user)
+- messages (array of messages containing the information of a conversation between chatbot and user)
 
-ConversationObject
+Message
 - id (oid)
 - role (string)
 - content (string)

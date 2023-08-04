@@ -8,6 +8,10 @@ import Profile from './ProfileModal'
 import Header from './Header'
 import SideBarMenu from "./SideBarMenu"
 import VisibilityPost from "./VisibilityPostModal"
+import Chatbot from "./Chatbot"
+import SeenLately from "./SeenLately"
+import Suggestions from "./Suggestions"
+import MainPage from "./MainPage"
 
 export {
     Alert,
@@ -19,5 +23,9 @@ export {
     Profile,
     Header,
     SideBarMenu,
-    VisibilityPost
+    VisibilityPost,
+    Chatbot,
+    SeenLately,
+    Suggestions,
+    MainPage
 }

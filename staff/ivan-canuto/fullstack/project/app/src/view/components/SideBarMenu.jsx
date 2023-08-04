@@ -1,7 +1,7 @@
 import { ModalContainer } from "../library"
 import { useNavigate } from "react-router-dom"
 
-export default function SideBarMenu({ showOwnPosts, showSavedPosts, openedMenu, handleToggleMenu }) {
+export default function SideBarMenu({ showOwnPosts, showSavedPosts, openedMenu, handleToggleMenu, page }) {
   const navigate = useNavigate()
 
   const onShowHomePage = () => navigate('/') //Hay que mirar a ver si el uso de useNavigate cuando te devuelve a la home, te renderiza todos los posts o solo los de la página en la que estabas (saved posts, user posts)
@@ -13,6 +13,7 @@ export default function SideBarMenu({ showOwnPosts, showSavedPosts, openedMenu, 
 
   return  <ModalContainer>
       <ul className={`w-44 h-full bg-white fixed top-24 z-30 ${openedMenu ? 'opened-menu' : 'closed-menu'}`}>
+        {page === 'chatbot' ? <p><span class="material-symbols-outlined" onClick={handleReturnToHome}>arrow_back</span>{' Home page'}</p> : ''}
         <li className="text-black text-sm text-center p-4 border-b-[1px] border-gray-400 cursor-pointer hover:bg-gray-300" onClick={onShowHomePage}>Home page</li>
         <li className="text-black text-sm text-center p-4 border-b-[1px] border-gray-400 cursor-pointer hover:bg-gray-300" onClick={onShowOwnPosts}>Own osts</li>
         <li className="text-black text-sm text-center p-4 border-b-[1px] border-gray-400 cursor-pointer hover:bg-gray-300" onClick={onShowSavedPosts}>Saved posts</li>

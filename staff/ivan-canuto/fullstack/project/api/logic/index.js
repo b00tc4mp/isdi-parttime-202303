@@ -16,4 +16,9 @@ module.exports = {
   toggleSavePost: require('./toggleSavePost'),
   toggleVisibilityPost: require('./toggleVisibilityPost'),
   updatePost: require('./updatePost'),
+  storeInputInDB: require('./storeInputInDB'),
+  retrieveConversations: require('./retrieveConversations'),
+  retrieveConversation: require('./retrieveConversation'),
+  askForResponse: require('./askForResponse'),
+  generateConversation: require('./generateConversation'),
 }

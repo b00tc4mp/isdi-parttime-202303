@@ -13,8 +13,6 @@ module.exports = (userId, imageUrl, postText) => {
     const user = await User.findById(userId)
     if(!user) throw new ExistenceError(`User with id ${userId} not found.`)
 
-    const date = new Date
-
     await Post.create({
       author: user._id,
       image: imageUrl,

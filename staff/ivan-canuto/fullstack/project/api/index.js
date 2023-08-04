@@ -21,7 +21,13 @@ const {
     toggleSavePostHandler,
     toggleVisibilityPostHandler,
     updatePostHandler,
-    updateUserPasswordHandler
+    updateUserPasswordHandler,
+    storeInputInDBHandler,
+    createConversationHandler,
+    retrieveConversationsHandler,
+    askForResponseHandler,
+    getConversationTitleHandler,
+    generateConversationHandler
 } = require('./handlers')
 const mongoose = require('mongoose')
 
@@ -68,6 +74,14 @@ mongoose.connect(process.env.MONGODB_URL)
         api.patch('/users/posts/:postId/updatePost', jsonBodyParser, updatePostHandler)
 
         api.patch('/users/newPassword', jsonBodyParser, updateUserPasswordHandler)
+
+        api.patch('/users/conversations/:conversationId/userInput', jsonBodyParser, storeInputInDBHandler)
+
+        api.get('/users/conversations', jsonBodyParser, retrieveConversationsHandler)
+
+        api.post('/users/conversations/:conversationId/askForResponse', jsonBodyParser, askForResponseHandler)
+
+        api.post('/users/generateConversation', jsonBodyParser, generateConversationHandler)
 
         api.listen(process.env.PORT, () => console.log(`Server running in port ${process.env.PORT}`))
     })

@@ -37,6 +37,10 @@ export default function Header({ handleToggleMenu, handleOpenProfile }) {
   return <>
   <header className="fixed h-24 top-0 w-full z-20 bg-slate-100 ">
     <div className="h-full flex justify-between items-center px-4">
+      {/* {page === 'home'
+        ? <span className="material-symbols-outlined mx-2" onClick={handleToggleMenu}>menu</span>
+        : <span class="material-symbols-outlined" onClick={handleReturnToHome}>arrow_back</span>
+      } */}
       <span className="material-symbols-outlined mx-2" onClick={handleToggleMenu}>menu</span>
       <img className="cursor-pointer h-14 rounded-lg" onClick={handleReturnToHome} src="src/images/logo-home.jpg" />
       {user && <img className="h-10 w-10 object-cover rounded-full" src={user.avatar} alt="avatar image"  onClick={handleOpenProfile} />}

@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const { Schema, mongoose: { Types: { ObjectId } }, model } = mongoose
 
-const conversationObject = new Schema ({
+const message = new Schema ({
     role: {
         type: String,
         required: true
@@ -17,10 +17,14 @@ const conversation = new Schema ({
         type: [ObjectId],
         ref: 'User'
     },
-    conversationObjects: {
-        type: [conversationObject]
+    title: {
+        type: String,
+        required: true
+    },
+    messages: {
+        type: [message]
     }
-})
+}, { timestamps: true })
 
 const user = new Schema({
     name: {
@@ -45,9 +49,6 @@ const user = new Schema({
     favs: {
         type: [ObjectId],
         ref: 'Post'
-    },
-    conversations: {
-        type: [conversation]
     }
 })
 
@@ -85,7 +86,7 @@ const suggestion = new Schema({
         type: String,
         required: true
     },
-})
+}, { timestamps: true })
 
 const date = new Date
 
@@ -126,7 +127,7 @@ const Post = model('Post', post)
 const Comment = model('Comment', comment)
 const Suggestion = model('Suggestion', suggestion)
 const Conversation = model('Conversation', conversation)
-const ConversationObject = model('ConversationObject', conversationObject)
+const Message = model('Message', message)
 
 module.exports = {
     User,
@@ -134,5 +135,5 @@ module.exports = {
     Comment,
     Suggestion,
     Conversation,
-    ConversationObject
+    Message
 }

@@ -2,7 +2,7 @@ import { updateUserPassword, updateUserAvatar } from "../../logic"
 import { ModalContainer, Input, Button, Form } from "../library"
 import { useAppContext } from "../hooks"
 
-export default function Profile({ onCancel, onUpdatedAvatar}) {
+export default function Profile({ onCancel, onUpdatedAvatar }) {
   const { alert } = useAppContext()
 
   const closeProfile = () => {

@@ -21,10 +21,15 @@ import updatePost from './updatePost'
 import updateUserAvatar from './updateUserAvatar'
 import updateUserPassword from './updateUserPassword'
 import deleteConversation from './deleteConversation'
-import fetchReply from './fetchReply'
+import askForResponse from './askForResponse'
 import renderConversationFromDB from './renderConversationFromDB'
 import renderTypeWriterText from './renderTypeWriterText'
 import restartConversation from './restartConversation'
+import storeInputInDB from './storeInputInDB'
+import retrieveConversations from './retrieveConversations'
+import retrieveConversation from './retrieveConversation'
+import generateConversation from './generateConversation'
+
 
 export {
     context,
@@ -50,8 +55,12 @@ export {
     updateUserAvatar,
     updateUserPassword,
     deleteConversation,
-    fetchReply,
+    askForResponse,
     renderConversationFromDB,
     renderTypeWriterText,
-    restartConversation
+    restartConversation,
+    storeInputInDB,
+    retrieveConversations,
+    retrieveConversation,
+    generateConversation
 }

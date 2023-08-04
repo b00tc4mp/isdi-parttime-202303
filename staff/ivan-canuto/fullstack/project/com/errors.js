@@ -40,10 +40,29 @@ class UnknownError extends Error {
     get name() { return UnknownError.name }
 }
 
+class TypeError extends Error {
+    constructor(message) {
+        super(message)
+    }
+
+    get name() { return TypeError.name }
+}
+
+class RangeError extends Error {
+    constructor(message) {
+        super(message)
+    }
+
+    get name() { return RangeError.name }
+}
+
+
 module.exports = {
     DuplicityError,
     ContentError,
     ExistenceError,
     AuthError,
-    UnknownError
+    UnknownError,
+    TypeError,
+    RangeError
 }

@@ -21,22 +21,22 @@ module.exports = (userId, postId) => {
 
     const modifiedUsers = []
 
-      users.forEach(user => {
-        if(user.favs.length) {
-          const favsPost = user.favs.map(fav => fav.toString())
+    users.forEach(user => {
+      if(user.favs.length) {
+        const favsPost = user.favs.map(fav => fav.toString())
 
-          if(favsPost.includes(post._id)) {
-            let index = favsPost.findIndex(post._id)
+        if(favsPost.includes(post._id)) {
+          let index = favsPost.findIndex(post._id)
 
-            user.favs.splice(index, 1)
+          user.favs.splice(index, 1)
 
-            modifiedUsers.push(user)
-          }
+          modifiedUsers.push(user)
         }
-      })
+      }
+    })
 
-      const updatedUsers = modifiedUsers.map(user => user.save())
+    const updatedUsers = modifiedUsers.map(user => user.save())
 
-      await Promise.all([...updatedUsers, Post.deleteOne({ _id: postId })])
+    await Promise.all([...updatedUsers, Post.deleteOne({ _id: postId })])
   })()
 }

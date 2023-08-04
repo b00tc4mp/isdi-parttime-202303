@@ -24,5 +24,17 @@ export const context = {
   },
   get postId() {
     return sessionStorage.postId
+  },
+  set conversationId(conversationId) {
+    if(!conversationId) {
+      delete sessionStorage.conversationId
+
+      return
+    }
+
+    sessionStorage.conversationId = conversationId
+  },
+  get conversationId() {
+    return sessionStorage.conversationId
   }
 }
