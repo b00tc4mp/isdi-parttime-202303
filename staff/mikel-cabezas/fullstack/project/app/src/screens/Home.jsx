@@ -1,5 +1,5 @@
 import { View, StatusBar, Text } from 'react-native';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import AppContext from "../AppContext.js";
 const { Provider } = AppContext
 import Context from '../AppContext.js'
@@ -34,6 +34,7 @@ export default function Home({ }) {
             setModal()
             setAnimation()
         }, 300)
+        setModal('')
     }
     const markerPressedHandler = props => {
         const playground = currentMarker
@@ -45,15 +46,17 @@ export default function Home({ }) {
             setModal()
         }, 300)
     }
+    let modalWithFooterDisplay = true
+
     return <>
         <View className="flex-1 bg-white items-center justify-center">
             {modal === 'sidebar' && <Sidebar closeHandle={onCloseSidebar} />}
+            <Footer nearbyHandler={onNearby} createPlaygroundHandler={onCreatePlayground} homeHandler={onHome} />
             <BaseMap className="-z-20" onMarkerPressed={markerPressedHandler} />
             <Header />
             {modal === 'singlePlayground' && <Animatable.View animation={animation} duration={250} className="w-full absolute bottom-0" ><SinglePlayground className="z-[90]" closeHandle={onCloseModal} park={currentMarker}></SinglePlayground></Animatable.View>}
-            {modal === 'nearby' && <Animatable.View animation={animation} duration={250} className="w-full absolute bottom-0" ><Nearby className="-z-10" closeHandle={onCloseModal} park={currentMarker}></Nearby></Animatable.View>}
+            {modal === 'nearby' && <Animatable.View animation={animation} duration={250} className="w-full absolute bottom-0 z-50" ><Nearby closeHandle={onCloseModal} park={currentMarker}></Nearby></Animatable.View>}
             {modal === 'createPlayground' && <CreatePlayground className="" closeHandle={onCloseModal}></CreatePlayground>}
-            {/* {!modal && <Footer className="z-10" nearbyHandler={onNearby} createPlaygroundHandler={onCreatePlayground} homeHandler={onHome} />} */}
             <StatusBar style="auto" />
         </View >
     </>

@@ -5,8 +5,8 @@ import { View, Text, TextInput, Image, TouchableOpacity, Alert } from 'react-nat
 import Context from '../AppContext.js'
 import MapView, { Marker, Callout } from 'react-native-maps'
 
-import BaseMap from "./BaseMap";
-export default function Login({ }) {
+import BaseMap from "../components/BaseMap.jsx";
+export default function Login({ navigation }) {
     const { currentView, setCurrentView, colorScheme } = useContext(Context)
 
     const handleLogin = () => {
@@ -87,7 +87,13 @@ export default function Login({ }) {
                         handleGoToRegister()
                     }}
                 >
-                    <Text className="dark:text-white mt-3 text-xs text-center">Already registered? <Text className="font-bold">Login</Text></Text>
+                    <Text
+                        className="dark:text-white mt-3 text-xs text-center"
+                        onPress={() =>
+                            navigation.navigate('Login')
+                        }>
+                        Already registered?
+                        <Text className="font-bold">Login</Text></Text>
                 </TouchableOpacity>
             </View>
         </View>

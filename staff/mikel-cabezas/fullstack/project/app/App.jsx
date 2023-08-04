@@ -1,23 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Keyboard, TouchableWithoutFeedback } from "react-native";
-import * as Animatable from 'react-native-animatable';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import BottomTab from "./src/navigation/BottomTab.jsx";
 import MainStack from "./src/navigation/MainStack.jsx";
 
-
-import useFonts from "./src/hooks/useFonts.js";
-import Login from './src/components/Login';
-import Register from './src/components/Register';
-import Footer from './src/components/Footer';
-import Header from './src/components/Header';
-import BaseMap from './src/components/BaseMap';
-import Nearby from './src/components/Nearby';
-import SinglePlayground from './src/components/SinglePlayground';
-import Sidebar from './src/components/Sidebar';
-import CreatePlayground from './src/components/CreatePlayground';
-import Home from './src/screens/Home';
 
 import { StatusBar } from 'expo-status-bar';
 import { Text, View, Image, SafeAreaView, ScrollView, useColorScheme } from 'react-native';
@@ -25,7 +11,7 @@ import { Text, View, Image, SafeAreaView, ScrollView, useColorScheme } from 'rea
 
 import AppContext from "./src/AppContext.js";
 const { Provider } = AppContext
-let loggedIn
+
 
 
 const HideKeyboard = ({ children }) => (
@@ -80,12 +66,16 @@ export default function App({ }) {
 
   return (
     <>
-      <Provider value={{ currentView, setCurrentView, currentMarker, setCurrentMarker, modal, setModal, colorScheme }}>
+      <Provider value={{
+        currentView, setCurrentView, currentMarker, setCurrentMarker, modal, setModal, colorScheme, animation,
+        setAnimation
+      }}>
         <HideKeyboard>
-          {/* <NavigationContainer>
+          <NavigationContainer>
             <MainStack />
-          </NavigationContainer> */}
-          <View className="flex-1 bg-white items-center justify-center">
+          </NavigationContainer>
+          {/* <Login /> */}
+          {/* <View className="flex-1 bg-white items-center justify-center">
             {modal === 'sidebar' && <Sidebar closeHandle={onCloseSidebar} />}
             <BaseMap className="-z-20" onMarkerPressed={markerPressedHandler} />
             <Header />
@@ -95,7 +85,7 @@ export default function App({ }) {
 
             {!modal && <Footer className="z-10" nearbyHandler={onNearby} createPlaygroundHandler={onCreatePlayground} homeHandler={onHome} />}
             <StatusBar style="auto" />
-          </View >
+          </View > */}
         </HideKeyboard>
       </Provider>
 

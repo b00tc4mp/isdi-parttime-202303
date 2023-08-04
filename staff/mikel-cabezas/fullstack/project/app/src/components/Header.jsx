@@ -4,7 +4,7 @@ import {
     MENU, MY_LOCATION,
     WHITE_MENU, WHITE_MY_LOCATION
 } from '../../assets/icons';
-import { Keyboard, View, Image, TextInput, TouchableHighlight } from 'react-native';
+import { Keyboard, View, Image, TextInput, TouchableHighlight, Text } from 'react-native';
 
 
 export default function Header() {
@@ -20,7 +20,7 @@ export default function Header() {
 
     return <>
         <View className="absolute w-full justify-center flex top-12 content-center">
-            <View className="w-10/12 bg-white dark:bg-gray-800 rounded-full left-0 m-auto flex flex-row px-4">
+            <View className="w-11/12 bg-white dark:bg-gray-800 rounded-full left-0 m-auto flex flex-row px-4">
                 <TouchableHighlight
                     className={`p-[2px]`}
                     activeOpacity={1.0}

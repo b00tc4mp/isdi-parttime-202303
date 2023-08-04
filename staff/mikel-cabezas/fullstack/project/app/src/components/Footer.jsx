@@ -29,7 +29,7 @@ export default function Footer({ nearbyHandler, createPlaygroundHandler, homeHan
 
 
     return <View className="z-10 absolute w-full justify-center flex bottom-8 content-center">
-        <View className="w-10/12 h-12 p-1 bg-white dark:bg-gray-800 rounded-full left-0 m-auto flex flex-row justify-between px-5">
+        <View className="w-11/12 h-12 p-1 bg-white dark:bg-gray-800 rounded-full left-0 m-auto flex flex-row justify-between px-5">
 
 
             <TouchableHighlight

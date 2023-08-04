@@ -9,9 +9,9 @@ const ImageKit = require('imagekit');
 const mongoose = require('mongoose')
 
 const imagekit = new ImageKit({
-    urlEndpoint: 'https://ik.imagekit.io/mklhds/',
-    publicKey: 'public_KXJOz0g5Xp6gAlhANXjoCNjKLPs=',
-    privateKey: 'private_PZ61mBGO1+6tP+Wny4KqsZ7XT0Q='
+    urlEndpoint: 'https://ik.imagekit.io/mklhds',
+    publicKey: 'public_WJDarwJpqyHIF7wJkO1GDUq2H8I',
+    privateKey: 'private_AxfHXCqlL62sJN7h6kPDrqxbrus='
 });
 
 mongoose.connect(process.env.MONGODB_URL)
@@ -41,8 +41,8 @@ mongoose.connect(process.env.MONGODB_URL)
         api.patch('/posts/:postId/saves', toggleSavePostHandler)
 
         api.get('/auth', function (req, res) {
-            var result = imagekit.getAuthenticationParameters();
             debugger
+            var result = imagekit.getAuthenticationParameters();
             res.send(result);
         });
 
