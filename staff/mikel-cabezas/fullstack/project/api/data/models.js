@@ -26,6 +26,14 @@ const user = new Schema({
         default: []
     }
 })
+const contributor = new Schema({
+    _id: {
+        type: [ObjectId],
+        unique: true,
+        required: true,
+        ref: 'User'
+    }
+})
 const comments = new Schema({
     _id: {
         type: ObjectId,
@@ -123,7 +131,6 @@ const playground = new Schema({
     },
     description: {
         type: String,
-        required: false,
     },
     images: {
         type: [String],
@@ -142,7 +149,6 @@ const playground = new Schema({
     likes: {
         type: [ObjectId],
         ref: 'User',
-        required: false
     },
     visibility: {
         type: String,
@@ -153,7 +159,6 @@ const playground = new Schema({
         type: location,
         required: true,
         unique: true,
-
     },
     elements: {
         type: [element],
@@ -161,12 +166,14 @@ const playground = new Schema({
     },
     sunExposition: {
         type: Array,
-        required: false
     },
     issue: {
         type: [issue],
         ref: 'User',
         required: true,
+    },
+    contributors: {
+        type: [contributor],
     },
 })
 
