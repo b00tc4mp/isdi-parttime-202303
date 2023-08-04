@@ -19,6 +19,10 @@ const Admin = ({ onLogoutSession }) => {
         onLogoutSession()
     }
 
+    const handleCloseNewMissionModal = () => {
+        setModal(null)
+    }
+
     return (
         <View className="flex justify-center items-center h-screen w-screen p-2">
             <Image source={require('../../assets/admin/main-bg-admin.jpg')} className="absolute scale-125 bottom-0" ></Image>
@@ -39,7 +43,7 @@ const Admin = ({ onLogoutSession }) => {
             <View className="h-3/4 w-full pl-2 pr-2 m-5">
                 {!modal && <Missions/>}
                 {modal === 'adminMenu' && <AdminMenu onAdminLogout={handleLogoutAdmin} onNewMission={handleNewMissionModal}/>}
-                {modal === 'newMission' && <NewMission/>}
+                {modal === 'newMission' && <NewMission onMissionCreated={handleCloseNewMissionModal}/>}
             </View>
         </View>
     )

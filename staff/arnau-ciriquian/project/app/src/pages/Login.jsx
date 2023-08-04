@@ -24,9 +24,9 @@ const Login = ({ onRegisterClick, onUserLogedIn, onAdminLogedIn }) => {
                         } else {
                         onUserLogedIn()}})
                     .catch(error => {
-                        alert('Error', error.message)})
+                        alert(error.message)})
             } catch (error) {
-                alert('Error', error)
+                alert(error)
             }
         
     }

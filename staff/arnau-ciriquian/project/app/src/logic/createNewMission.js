@@ -2,6 +2,7 @@
 //const { validateToken, validateUrl, validateText } = validators
 
 import { API_URL } from '@env'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 export function createNewMission(image, tittle, info, level, difficulty, visibility) {
     //validateUrl(image)
