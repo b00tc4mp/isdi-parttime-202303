@@ -18,8 +18,6 @@ const {
 module.exports = userId => {
     validateUserId(userId)
 
-    debugger
-
     return Promise.all([
         User.findById(userId).lean(),
         Post.find().lean(),
