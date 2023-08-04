@@ -4,9 +4,11 @@ const { User, Level } = require('../../data/models');
 const mongoose = require('mongoose');
 const { cleanUp, generate } = require('../helpers/tests');
 const {
-    errors: { TypeError, ContentError },
+    errors: { TypeError, ContentError, ExistenceError },
     assets: { colors },
 } = require('com');
+
+//TODO add non existent level
 
 describe('toggleLike', () => {
     before(async () => {
@@ -60,6 +62,40 @@ describe('toggleLike', () => {
 
         expect((updatedLevelAgain.likes).includes(userId)).to.be.true;
 
+    });
+
+    it('should fail on level not found', async () => {
+        const id = (new mongoose.Types.ObjectId()).toString();
+
+        try {
+            await toggleLike(id, id);
+        } catch (error) {
+            expect(error).to.be.instanceOf(ExistenceError);
+            expect(error.message).to.equal('level not found');
+        }
+    });
+
+    it('should fail on user not found', async () => {
+        const name = `level-${Math.random()}`;
+        const layout = [['empty', 'bomb', 'hole', 'empty', 'dirt', 'bomb', 'dirt', 'empty', 'start'],
+        ['life', 'bomb', 'start', 'life', 'bomb', 'empty', 'bomb', 'dirt', 'stonks'],
+        ];
+        const hp = 1 + Math.floor(Math.random() * 6);
+        const author = new mongoose.Types.ObjectId();
+        const date = Date.now();
+
+        const levelData = generate.level(name, layout, hp, author, [], date);
+        const createdLevel = await Level.create(levelData);
+        const levelId = createdLevel._id.toString();
+
+        const userId = (new mongoose.Types.ObjectId()).toString();
+
+        try {
+            await toggleLike(levelId, userId);
+        } catch (error) {
+            expect(error).to.be.instanceOf(ExistenceError);
+            expect(error.message).to.equal('user not found');
+        }
     });
 
     it('should fail on invalid levelId type', async () => {

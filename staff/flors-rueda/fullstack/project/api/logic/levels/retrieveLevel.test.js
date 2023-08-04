@@ -35,6 +35,17 @@ describe('retrieveLevel', () => {
         expect(createdLevel.date.getTime()).to.be.closeTo(date, 10000);
     });
 
+    it('should fail on level not found', async () => {
+        const id = (new mongoose.Types.ObjectId()).toString();
+
+        try {
+            await retrieveLevel(id);
+        } catch (error) {
+            expect(error).to.be.instanceOf(ExistenceError);
+            expect(error.message).to.equal('level not found');
+        }
+    });
+
     it('should fail on invalid id type', async () => {
         const invalidId = 1234;
 

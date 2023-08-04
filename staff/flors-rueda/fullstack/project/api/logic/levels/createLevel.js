@@ -1,4 +1,5 @@
 const { Level } = require('../../data/models');
+const { errors: { UnknownError } } = require('com');
 
 const {
     validators: { validateName, validateLayout, validateHealth, validateId },
@@ -18,6 +19,6 @@ module.exports = (name, layout, hp, author) => {
         likes: [],
         date: Date.now(),
     }).catch(error => {
-        throw error
+        throw UnknownError(error.message)
     })
 }

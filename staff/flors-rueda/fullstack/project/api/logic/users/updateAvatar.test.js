@@ -4,7 +4,7 @@ const { User } = require('../../data/models');
 const mongoose = require('mongoose');
 const { cleanUp, generate } = require('../helpers/tests');
 const {
-    errors: { TypeError, ContentError },
+    errors: { TypeError, ContentError, ExistenceError },
     assets: { colors, avatars },
 } = require('com');
 
@@ -47,6 +47,18 @@ describe('updateAvatar', () => {
         expect(updatedUser).to.have.property('avatar', newAvatar)
     });
 
+    it('should fail on user not found', async () => {
+        const id = (new mongoose.Types.ObjectId()).toString();
+        const avatar = avatars[Math.floor(Math.random() * avatars.length)];
+
+        try {
+            await updateAvatar(id, avatar);
+        } catch (error) {
+            expect(error).to.be.instanceOf(ExistenceError);
+            expect(error.message).to.equal('user not found');
+        }
+    });
+
     it('should fail on invalid id type', async () => {
         const invalidId = 1234;
         const avatar = avatars[Math.floor(Math.random() * avatars.length)];
@@ -60,21 +72,21 @@ describe('updateAvatar', () => {
     });
 
     it('should fail on invalid avatar type', async () => {
-        const id = (new mongoose.Types.ObjectId()).toString()
+        const id = (new mongoose.Types.ObjectId()).toString();
         const avatar = Math.floor(Math.random() * avatars.length);
 
         await expect(() => updateAvatar(id, avatar)).to.throw(TypeError, 'avatar is not a string');
     });
 
     it('should fail on empty avatar', async () => {
-        const id = (new mongoose.Types.ObjectId()).toString()
+        const id = (new mongoose.Types.ObjectId()).toString();
         const avatar = '   ';
 
         await expect(() => updateAvatar(id, avatar)).to.throw(ContentError, 'avatar is empty');
     });
 
     it('should fail on not included avatar', async () => {
-        const id = (new mongoose.Types.ObjectId()).toString()
+        const id = (new mongoose.Types.ObjectId()).toString();
         const avatar = 'black';
 
         await expect(() => updateAvatar(id, avatar)).to.throw(ContentError, 'avatar is not included');

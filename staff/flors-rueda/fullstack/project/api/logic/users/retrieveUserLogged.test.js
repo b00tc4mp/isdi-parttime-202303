@@ -4,11 +4,9 @@ const { User } = require('../../data/models');
 const mongoose = require('mongoose');
 const { cleanUp, generate } = require('../helpers/tests');
 const {
-    errors: { TypeError },
+    errors: { TypeError, ExistenceError },
     assets: { colors },
 } = require('com');
-
-//TODO add joined to test
 
 describe('retrieveUserLogged', () => {
     before(async () => {
@@ -43,11 +41,19 @@ describe('retrieveUserLogged', () => {
         expect(fetchedUser).to.have.property('username', user.username);
         expect(fetchedUser).to.have.property('color', user.color)
         expect(fetchedUser).to.have.property('avatar', user.avatar);
-        expect(fetchedUser.recoveryQuestions[0].question).to.equal(recoveryQuestions[0].question);
-        expect(fetchedUser.recoveryQuestions[0].answer).to.equal(recoveryQuestions[0].answer);
-        expect(fetchedUser.recoveryQuestions[1].question).to.equal(recoveryQuestions[1].question);
-        expect(fetchedUser.recoveryQuestions[1].answer).to.equal(recoveryQuestions[1].answer);
+        expect(fetchedUser).to.not.have.property('recoveryQuestions');
         expect(fetchedUser).to.not.have.property('_id', createdUser.id);
+        expect(fetchedUser.joined.getTime()).to.be.closeTo(Date.now(), 10000);
+    });
+
+    it('should fail on user not found', async () => {
+        const id = (new mongoose.Types.ObjectId()).toString();
+        try {
+            await retrieveUserLogged(id);
+        } catch (error) {
+            expect(error).to.be.instanceOf(ExistenceError);
+            expect(error.message).to.equal('user not found');
+        }
     });
 
     it('should fail on invalid id type', async () => {

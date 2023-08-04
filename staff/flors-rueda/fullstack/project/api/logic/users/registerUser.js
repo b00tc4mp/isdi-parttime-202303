@@ -15,7 +15,13 @@ module.exports = (username, password, color, recoveryQuestions) => {
 
     return (async () => {
         try {
-            const cryptPassword = await bcrypt.hash(password, 10)
+            const cryptPassword = await bcrypt.hash(password, 10);
+
+            for (let question of recoveryQuestions) {
+                const standarizeAnswer = (question.answer).toLowerCase();
+                const cryptAnswer = await bcrypt.hash(standarizeAnswer, 10);
+                question.answer = cryptAnswer
+            }
 
             await User.create({
                 username,

@@ -4,11 +4,9 @@ const { User } = require('../../data/models');
 const mongoose = require('mongoose');
 const { cleanUp, generate } = require('../helpers/tests');
 const {
-    errors: { TypeError },
+    errors: { TypeError, ExistenceError },
     assets: { colors },
 } = require('com');
-
-//TODO add joined to test
 
 describe('retrieveUser', () => {
     before(async () => {
@@ -44,6 +42,17 @@ describe('retrieveUser', () => {
         expect(fetchedUser).to.have.property('color', user.color)
         expect(fetchedUser).to.have.property('avatar', user.avatar);
         expect(fetchedUser).to.not.have.property('_id', createdUser.id);
+        expect(fetchedUser.joined.getTime()).to.be.closeTo(Date.now(), 10000);
+    });
+
+    it('should fail on user not found', async () => {
+        const id = (new mongoose.Types.ObjectId()).toString();
+        try {
+            await retrieveUser(id);
+        } catch (error) {
+            expect(error).to.be.instanceOf(ExistenceError);
+            expect(error.message).to.equal('user not found');
+        }
     });
 
     it('should fail on invalid id type', async () => {

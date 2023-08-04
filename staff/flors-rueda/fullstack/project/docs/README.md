@@ -1,9 +1,8 @@
 # Ballopolis Maze Riders
 
-
 ![](./img/logo.gif)
 
-# Intro
+## Intro
 This is a web app build as the final project for the ISDI Coders' online web development fullstack bootcamp.
 </br>
 </br>
@@ -20,9 +19,9 @@ So you play levels to earn points to create levels that other people will play t
 </br>
 </br>
 
-# Functional description
+## Functional description
 
-## Use cases
+### Use cases
 
 - create level
 - play level
@@ -34,13 +33,13 @@ So you play levels to earn points to create levels that other people will play t
 </br>
 </br>
 
-# UI desgin
+## UI desgin
 
 - TODO Link to figma or wizardUI or whatever
 
-# Technical description
+## Technical description
 
-## Technologies & Libraries
+### Technologies & Libraries
 
 - React
 - Vite
@@ -56,7 +55,7 @@ So you play levels to earn points to create levels that other people will play t
 </br>
 
 
-## Data models
+### Data models
 
 **Level**
 - id (oid)
@@ -78,121 +77,75 @@ So you play levels to earn points to create levels that other people will play t
 - saves (array of id)
 - follow (array of id)
 
-**Achivements**
+**Achivement**
 - user (id)
 - progress (array of objects)
 </br>
+*progress* 
+- name (string)
+- category (string)
+- rank (array of numbers)
+- progress (number)
+- completed (boolean)
+</br>
 </br>
 
-## Test Coverage
+### Test Coverage
 
 </br>
 
 File                 | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
 ---------------------|---------|----------|---------|---------|-------------------
-All files               |   94.25 |    66.66 |   94.44 |   97.56 | 
+All files               |   98.71 |    93.33 |   96.29 |   98.61 | 
  data                   |     100 |      100 |     100 |     100 | 
   models.js             |     100 |      100 |     100 |     100 | 
- logic/helpers/tests    |     100 |      100 |     100 |     100 |                   
+ logic/helpers/tests    |     100 |      100 |     100 |     100 | 
   cleanUp.js            |     100 |      100 |     100 |     100 | 
   generate.js           |     100 |      100 |     100 |     100 | 
   index.js              |     100 |      100 |     100 |     100 | 
- logic/levels           |      90 |       50 |   85.71 |   94.73 | 
-  createLevel.js        |   85.71 |      100 |      50 |   85.71 | 21                
-  retrieveLevel.js      |    87.5 |       50 |     100 |     100 | 11
+ logic/levels           |    97.5 |       90 |    87.5 |   97.29 | 
+  createLevel.js        |      90 |      100 |      50 |      90 | 22
+  retrieveLevel.js      |     100 |      100 |     100 |     100 | 
   retrieveLevels.js     |     100 |      100 |     100 |     100 | 
- logic/users            |   94.23 |       70 |     100 |   97.91 | 
-  authenticateUser.js   |     100 |      100 |     100 |     100 | 
+  toggleLike.js         |     100 |     87.5 |     100 |     100 | 18
+ logic/users            |      99 |       95 |     100 |   98.91 | 
+  authenticateUser.js   |     100 |      100 |     100 |     100 |                   
+  recoverPassword.js    |     100 |      100 |     100 |     100 | 
   registerUser.js       |   94.11 |       50 |     100 |   94.11 | 33
-  retrieveUser.js       |      90 |       50 |     100 |     100 | 12
-  retrieveUserLogged.js |      90 |       50 |     100 |     100 | 12
+  retrieveUser.js       |     100 |      100 |     100 |     100 |
+  retrieveUserLogged.js |     100 |      100 |     100 |     100 |
+  updateAvatar.js       |     100 |      100 |     100 |     100 |
+  updateColor.js        |     100 |      100 |     100 |     100 |
+  updatePassword.js     |     100 |      100 |     100 |     100 |
 
 </br>
 
-# Planning
+## Planning
 
 Planned through a kanban visible on this [Trello](https://trello.com/b/uHRmZKBR/final-project-ballopolis).
 </br>
 </br>
 
-## Epics & Stories
+### Epics & Stories
 
-### **Demo page**
+#### **Demo page**
 
 - Me as a user, I want to see a basic page where i can try the main functionalities and learn about the app
 
-#### Tasks
-
-- [x] Build landing page
-- [x] Build levels list page
-- [x] Build on game page
-- [x] Build create level page
-- [x] Build about page
-- [x] Build tutorials for the game
-- [x] Implement create level functionality
-- [x] Implement retrieve all levels functionality
-- [x] Implement retrieve one level functionality
-- [x] Use TDD to add validators
-- [x] Improve error handling
-- [x] Improve GameOver modal style
-- [x] Improve UX of the create level form
-- [x] Upload the page to AWS
-
-### **Access control**
+#### **Access control**
 
 - Me as a user, I want to get the chance to sign up and log in into the web app and with that access more functionalities
 
-#### Tasks
+#### **User views**
+- Me as a user, I want to have te option to update privacy settings and customize my profile.
 
-- [x] Build login page
-- [x] Build register page
-- [ ] Build profile view
-- [ ] Build recover password view
-- [ ] Build settings view
-- [x] Create tests for register user
-- [x] Create tests for authenticate user
-- [x] Create tests for retrieve user
-- [ ] Create tests for update user
-- [x] Implement register user functionality
-- [x] Implement authenticate user with token
-- [x] Implement retrieve user
-- [x] Make levels view only accessible for log in users
-- [x] Only allow logged in users to post levels
-- [x] Add a create and test level on tutorial (no posting)
-- [x] Differenciate navbar for authenticate users
-- [x] Add logout and delete token
+#### **Achivement**
+- Me as a user, I want to get little awards that stimulate me to keep playing and interact with other users.
+
+#### **Custom Points**
+- 
 
 </br>
-</br>
 
-# Project setup
-
-## Requirements
-- NodeJs
-- Mongo
-
-## App
-[Click here >>](../app/README.md)
-
-## Api
-[Click here >>](../api/README.md)
-
-## Com
-[Click here >>](../com/README.md)
-
-</br>
-</br>
-
-# Project AWS Update
-
-Github, through github actions, updates the image on push. It's automatic, but could fail. So always check for errors first.
-
-Go to EC2, connect to the machine. Check the ip of the instance and keep it update, then run:
-```sh
-$ docker-compose down # only if it was already running
-$ sudo docker system prune -a # to clean local cache
-$ sudo docker-compose up -d # run services on deamon mode
-```
-
-To know more about how this project was deployed on AWS [click here!](./awsconfig.md)
-
+## Project setup
+This project is configured to run both in local or through EC2 on AWS. To know more [click here](./project-setup.md).

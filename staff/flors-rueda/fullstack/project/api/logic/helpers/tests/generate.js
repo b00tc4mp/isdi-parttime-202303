@@ -16,5 +16,4 @@ module.exports = {
         recoveryQuestions: recoveryQuestions,
         joined: Date.now()
     })
-
-}
+};

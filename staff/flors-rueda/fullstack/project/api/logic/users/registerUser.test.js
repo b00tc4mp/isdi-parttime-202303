@@ -31,6 +31,9 @@ describe('registerUser', () => {
             { question: `question${Math.random()}`, answer: `answer${Math.random()}` },
             { question: `question${Math.random()}`, answer: `answer${Math.random()}` }
         ];
+        const answer1 = (recoveryQuestions[0].answer).toLowerCase();
+        const answer2 = (recoveryQuestions[1].answer).toLowerCase();
+
         const date = Date.now();
 
         await registerUser(username, password, color, recoveryQuestions);
@@ -38,6 +41,8 @@ describe('registerUser', () => {
         const createdUser = await User.findOne({ username });
 
         const match = await bcrypt.compare(password, createdUser.password);
+        const matchAnswer1 = await bcrypt.compare(answer1, (createdUser.recoveryQuestions[0].answer));
+        const matchAnswer2 = await bcrypt.compare(answer2, (createdUser.recoveryQuestions[1].answer));
 
         expect(createdUser.username).to.equal(username);
         expect(match).to.equal(true);
@@ -46,9 +51,9 @@ describe('registerUser', () => {
         expect(createdUser.avatar).to.equal('beach');
         expect(createdUser.saves).be.an('array');
         expect(createdUser.recoveryQuestions[0].question).to.equal(recoveryQuestions[0].question);
-        expect(createdUser.recoveryQuestions[0].answer).to.equal(recoveryQuestions[0].answer);
+        expect(matchAnswer1).to.equal(true);
         expect(createdUser.recoveryQuestions[1].question).to.equal(recoveryQuestions[1].question);
-        expect(createdUser.recoveryQuestions[1].answer).to.equal(recoveryQuestions[1].answer);
+        expect(matchAnswer2).to.equal(true);
     });
 
     it('should fail on user already registered', async () => {

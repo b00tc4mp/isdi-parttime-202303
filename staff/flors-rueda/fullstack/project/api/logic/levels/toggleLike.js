@@ -12,10 +12,10 @@ module.exports = async (levelId, userId) => {
     const user = await User.findById(userId);
     const level = await Level.findById(levelId);
 
-    if (!user || !level) throw new ExistenceError('user / level not found');
+    if (!level) throw new ExistenceError('level not found');
+    if (!user) throw new ExistenceError('user not found');
 
     const likes = level.likes || [];
-    //TODO Add saves users
 
     const index = likes.indexOf(userId);
     if (index !== -1) {

@@ -9,7 +9,7 @@
     }
     {
         name: 'tutorial',
-        rank: ['secret'],
+        rank: [-1],
         progress: (0 = not done, 1 = done) (??)
         completed: true
     }
