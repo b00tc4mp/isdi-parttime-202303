@@ -22,18 +22,17 @@ const retrieveArtistDetails = async (artistName) => {
             const bandResponse = await fetch(artistUrl);
             const bandData = await bandResponse.json();
 
-
             const releasesUrl = `https://musicbrainz.org/ws/2/release-group/?artist=${artistId}&type=album&limit=10&fmt=json`;
             const releasesResponse = await fetch(releasesUrl);
             const releasesData = await releasesResponse.json();
-            var wikiDataUrl
+
+            let wikiDataUrl;
 
             // get wikidata id
             for (let i = 0; i < bandData.relations.length; i++) {
                 const element = bandData.relations[i];
                 if (element.type && element.type === "wikidata") {
-                    // const wikiDataUrl = element.url.resource.split("/").pop()
-                    wikiDataUrl = element.url.resource
+                    wikiDataUrl = element.url.resource;
                 }
             }
 
@@ -44,34 +43,39 @@ const retrieveArtistDetails = async (artistName) => {
                 wikiDataId: wikiDataUrl ? wikiDataUrl.split("/").pop() : null
             };
 
-            const wikipediaLink = await getWikipediaLinkFromWikidataId(artistDetails.wikiDataId)
+            // Get Wikipedia link and search details using async/await
+            try {
+                const wikipediaLinkName = await getWikipediaLinkFromWikidataId(artistDetails.wikiDataId);
 
-            debugger
-            const wikiSearchUrl = `https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts|pageimages&origin=*&exintro&explaintext&generator=search&gsrsearch=intitle:${encodeURIComponent(artistDetails.artist.name)}&gsrlimit=1&redirects=1`;
+                const wikiSearchUrl = `https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts|pageimages&origin=*&exintro&explaintext&generator=search&gsrsearch=intitle:${wikipediaLinkName}&gsrlimit=1&redirects=1`
 
-            const wikiResponse = await fetch(wikiSearchUrl, {
-                method: "GET"
-            });
-            const wikiData = await wikiResponse.json();
+                const wikiResponse = await fetch(wikiSearchUrl, { method: "GET" });
 
-            function getFirst50Words(inputString) {
-                const wordsArray = inputString.trim().split(/\s+/);
-                const first50Words = wordsArray.slice(0, 100).join(" ");
-                return wordsArray.length <= 50 ? inputString : `${first50Words}...`;
+                const wikiData = await wikiResponse.json();
+
+                function getFirst50Words(inputString) {
+                    const wordsArray = inputString.trim().split(/\s+/);
+                    const first50Words = wordsArray.slice(0, 100).join(" ");
+                    return wordsArray.length <= 50 ? inputString : `${first50Words}...`;
+                }
+
+                // Extract relevant information from Wikipedia response
+                const pageId = Object.keys(wikiData.query.pages)[0];
+                const wikiExtract = getFirst50Words(wikiData.query.pages[pageId].extract);
+                const wikiImage = wikiData.query.pages[pageId].thumbnail?.source || null;
+                const wikiArticleUrl = `https://en.wikipedia.org/wiki/${wikipediaLinkName}`;
+
+                // Add Wikipedia data to the artistDetails object
+                artistDetails.bio = wikiExtract;
+                if (wikiImage)
+                    artistDetails.image = cleanWikipediaImageUrl(wikiImage);
+
+                artistDetails.wiki = wikiArticleUrl;
+
+                return artistDetails;
+            } catch (error) {
+                console.error("Error:", error);
             }
-
-            // Extract relevant information from Wikipedia response
-            const pageId = Object.keys(wikiData.query.pages)[0];
-            const wikiExtract = getFirst50Words(wikiData.query.pages[pageId].extract);
-            const wikiImage = wikiData.query.pages[pageId].thumbnail?.source || null;
-            const wikiArticleUrl = `https://en.wikipedia.org/wiki/${encodeURIComponent(artistDetails.artist.name)}`;
-
-            // Add Wikipedia data to the artistDetails object
-            artistDetails.bio = wikiExtract;
-            artistDetails.image = cleanWikipediaImageUrl(wikiImage);
-            artistDetails.wiki = wikiArticleUrl;
-
-            return artistDetails;
         }
         throw new Error(`No artist found as ${artistName}, try again!`);
     } catch (error) {

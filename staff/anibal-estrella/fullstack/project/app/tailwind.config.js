@@ -10,7 +10,7 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                montserrat: ['montserrat', 'sans-serif']
+                'primary': ['Jost', 'Helvetica', 'Arial', 'sans-serif']
             }
         },
         colors: {
@@ -32,3 +32,4 @@ export default {
     },
     plugins: [AppPlugin],
 }
+

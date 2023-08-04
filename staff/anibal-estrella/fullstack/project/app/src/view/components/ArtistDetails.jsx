@@ -1,6 +1,7 @@
 
 import { useEffect, useState } from 'react';
-import retrieveArtistDetails from '../../src/logic/retrieveArtistDetails';
+import retrieveArtistDetails from '../../logic/retrieveArtistDetails';
+import { MagnifyingGlassIcon } from '@heroicons/react/24/solid'
 
 const ArtistDetails = () => {
     const [artistName, setArtistName] = useState('');
@@ -22,14 +23,15 @@ const ArtistDetails = () => {
 
     return (
         <div>
-            <h1>Artist Details</h1>
-            <input
-                type="text"
-                value={artistName}
-                onChange={handleInputChange}
-                placeholder="Enter artist name"
-            />
-            <button onClick={handleRetrieveDetails}>Retrieve Details</button>
+            <div className="flex flex-row w-full">
+                <div className='relative w-full'>
+                    <input type="text" value={artistName} onChange={handleInputChange} placeholder="Enter artist name" className='pl-8' />
+                    <span className='absolute top-5 left-1 h-6 w-6  rounded-full'>
+                        <MagnifyingGlassIcon className='text-gray-500 ' />
+                    </span>
+                </div>
+                <button onClick={handleRetrieveDetails}>Retrieve Details</button>
+            </div>
 
             {artistDetails && (
                 <div>
@@ -46,9 +48,6 @@ const ArtistDetails = () => {
                     {artistDetails.image && (
                         <img src={artistDetails.image} alt={artistDetails.artist.name} />
                     )}
-
-                    {/* Display other artist details from the artistDetails object */}
-                    {/* For example, you can access bandDetails and albumReleases */}
                 </div>
             )}
         </div>

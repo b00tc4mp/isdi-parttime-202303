@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from 'react';
-import retrievePlacesList from '../../src/logic/retrievePlacesList';
+import retrievePlacesList from '../../logic/retrievePlacesList';
 
 const searchPlace = () => {
     const [placeName, setPlaceName] = useState('');
@@ -20,9 +20,10 @@ const searchPlace = () => {
         }
     };
 
+
+
     return (
         <div>
-            <h1>add a place</h1>
             <input
                 type="text"
                 value={placeName}

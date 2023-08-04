@@ -72,8 +72,8 @@ const event = new Schema({
         type: String,
         required: true
     },
-    text: {
-        type: String,
+    lineUp: {
+        type: [String],
         required: true
     },
     date: {
