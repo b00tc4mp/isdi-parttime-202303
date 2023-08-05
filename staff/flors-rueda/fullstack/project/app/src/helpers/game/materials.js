@@ -14,7 +14,7 @@ const textureDirt = textureLoader.load('/game/dirt.png');
 const ballGeometry = new THREE.SphereGeometry(ballRadius, 8, 8);
 
 const setBallMaterial = (avatar) => {
-    const textureBall = textureLoader.load(`/game/ball/${avatar}.png`);
+    const textureBall = textureLoader.load(`/game/ball/${avatar ? avatar : 'beach'}.png`);
     const ballMaterial = new THREE.MeshBasicMaterial({ map: textureBall });
     return ballMaterial
 }

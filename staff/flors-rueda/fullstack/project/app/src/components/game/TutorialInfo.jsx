@@ -6,8 +6,8 @@ const TutorialInfo = ({ onExitClick, tutorialNumber }) => {
     const navigate = useNavigate()
 
     const tutorialTexts = [
-        `Let's see how you roll... Move the ball around and get that treasure!`,
-        `Some times the levels are longer and you need to go down a hole...`,
+        `Let's see how you roll, little beach ball... Move a bit around and get that treasure!`,
+        `Some times those caves are longer and you need to go down a hole...`,
         `Bombs deal damage, go ahead and try.`,
         `Why would you do that? If you loose all your life... you're out!
         That's why health is a good thing to get.`,

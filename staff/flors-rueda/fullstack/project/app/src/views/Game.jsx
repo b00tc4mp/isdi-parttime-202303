@@ -49,12 +49,12 @@ const Game = () => {
   };
 
   useEffect(() => {
-    handleErrors(async () => {
-      if (isUserLoggedIn()) {
+    if (isUserLoggedIn()) {
+      handleErrors(async () => {
         const user = await retrieveLoggedUser();
         setAvatar(user.avatar)
-      }
-    })
+      });
+    };
     getLevel();
   }, [id]);
 
