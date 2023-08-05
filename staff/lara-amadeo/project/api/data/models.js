@@ -2,6 +2,31 @@ const mongoose = require('mongoose')
 
 const { Schema, Schema: { Types: { ObjectId } }, model } = mongoose
 
+const item = new Schema({
+    meal: {
+        type: ObjectId,
+        ref: 'Meal',
+        required: true
+    },
+    quantity: {
+        type: Number,
+        required: true,
+        default: 1
+    }
+})
+
+const order = new Schema({
+    items: {
+        type: [item],
+        required: true
+    },
+    date: {
+        type: Date,
+        required: true,
+        default: Date.now
+    }
+})
+
 const user = new Schema({
     username: {
         type: String,
@@ -48,12 +73,12 @@ const user = new Schema({
         ref: 'User',
         default: []
     },
-    meals: {
-        type: [Object],
-        ref: 'Meal',
-        default: []
-    }
-    ,
+    cart: {
+        type: [item]
+    },
+    order: {
+        type: [order],
+    },
     reviews: {
         type: [Object],
         default: []
@@ -91,9 +116,15 @@ const meal = new Schema({
         type: [String],
         required: true,
     },
+    quantity: {
+        type: String,
+        require: true,
+        default: 0
+    },
     bestBefore: {
         type: String,
         required: true,
+        default: 0
     },
     price: {
         type: String,
@@ -105,7 +136,12 @@ const meal = new Schema({
 const User = model('User', user)
 const Meal = model('Meal', meal)
 
+const Item = model('Item', item)
+const Order = model('Order', order)
+
 module.exports = {
     User,
-    Meal
+    Meal,
+    Item,
+    Order
 }

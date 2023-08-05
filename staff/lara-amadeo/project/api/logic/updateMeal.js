@@ -10,7 +10,6 @@ module.exports = function updateMeal(userId, mealId, images, title, description,
 
         const meal = await Meal.findById(mealId)
         if (!meal) throw new ExistanceError(`Meal with id ${mealId} not found`)
-        debugger
 
         if (meal.author.toString() !== userId) throw new AuthError(`Meal with id ${mealId} and author id ${meal.author}does not belong to user with id ${userId}`)
 

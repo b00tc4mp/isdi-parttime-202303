@@ -3,11 +3,10 @@ const { handleErrors } = require('../helpers')
 const { retrieveToken } = require('../helpers')
 
 module.exports = handleErrors((req, res) => {
-
-    const { images, title, description, categories, ingredients, bestBefore, price } = req.body
+    const { images, title, description, ingredients, categories, bestBefore, quantity, price } = req.body
 
     const userId = retrieveToken(req)
 
-    return createMeal(userId, images, title, description, categories, ingredients, bestBefore, price)
+    return createMeal(userId, images, title, description, ingredients, categories, bestBefore, quantity, price)
         .then(() => res.status(201).json())
 })

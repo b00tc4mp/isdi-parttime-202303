@@ -18,6 +18,7 @@ import DeleteModal from '../modals/DeleteModal'
 import useAppContext from '../logic/hooks/useAppContext'
 import useHandleError from '../logic/hooks/useHandleError'
 import Divider from '../library/components/Divider'
+import addMealToCart from '../logic/addMealToCart'
 
 
 type Meal = {
@@ -28,7 +29,8 @@ type Meal = {
     ingredients: string,
     bestBefore: string,
     price: string,
-    categories: Array<string>
+    categories: Array<string>,
+    id: string
 }
 
 
@@ -38,14 +40,15 @@ export default function MealDetails(): JSX.Element {
     const handleErrors = useHandleError()
 
     const [meal, setMeal] = useState<Meal>()
+
     const { mealId } = useParams<string>()
+    const userId = getUserId()
 
     const [contextualModal, setContextualModal] = useState<boolean>(false)
     const [editModal, setEditModal] = useState<boolean>(false)
     const [deleteModal, setDeleteModal] = useState<boolean>(false)
 
     const [openCategory, setOpenCategory] = useState<string>("")
-    const userId = getUserId()
 
     const location = useLocation()
     const from = location.state
@@ -54,15 +57,14 @@ export default function MealDetails(): JSX.Element {
     const [imagesLength, setimagesLength] = useState(0)
 
     const [mealCounter, setMealCounter] = useState(0)
-
-    const [counterAdditionButtonLabel, setCounterAdditionButtonLabel] = useState<string>()
+    const [counterButtonLabel, setCounterButtonLabel] = useState<string>()
 
     useEffect(() => {
         (async () => {
             try {
                 const meal = await retrieveMeal(mealId!)
                 setMeal(meal)
-                setCounterAdditionButtonLabel(meal.price)
+                setCounterButtonLabel(meal.price)
                 setimagesLength(meal.images.length)
             } catch (error: any) {
                 handleErrors(error)
@@ -82,17 +84,31 @@ export default function MealDetails(): JSX.Element {
     const increaseCounter = () => {
         setMealCounter(mealCounter + 1)
         const sum = Number(meal?.price) * (mealCounter + 1)
-        setCounterAdditionButtonLabel(sum.toString())
+        setCounterButtonLabel(sum.toString())
     }
 
     const decreaseCounter = () => {
         setMealCounter(mealCounter === 0 ? 0 : mealCounter - 1)
         const sum = Number(meal?.price) * (mealCounter - 1)
-        setCounterAdditionButtonLabel(sum.toString())
+        setCounterButtonLabel(sum.toString())
     }
 
     const onAddToCart = () => {
+        (async () => {
+            try {
+                loaderOn()
+                await addMealToCart(meal!.id, mealCounter)
+                setTimeout(() => {
+                    loaderOff()
+                    toast('Meals added to cart!', 'success')
+                    setMealCounter(0)
+                    setCounterButtonLabel(meal?.price)
+                }, 500);
 
+            } catch (error: any) {
+                handleErrors(error)
+            }
+        })()
     }
 
     const toggleOpenCategory = (category: string) => {
@@ -147,6 +163,11 @@ export default function MealDetails(): JSX.Element {
     const prevSlide = () => {
         setCurrentImage(currentImage === 0 ? imagesLength - 1 : currentImage - 1);
     }
+
+    /*function toLocaleES (num){
+    return num.toFixed(2).replace('.', ',')
+}
+*/
 
     return <>
         {deleteModal && <DeleteModal mealId={mealId!} handleClose={closeDeleteModal} onDelete={saveDelete} />}
@@ -210,6 +231,6 @@ export default function MealDetails(): JSX.Element {
                 {meal && <ChefModule avatar={meal.author.avatar} name={meal.author.name} liked={false} onSendMessage={onSendMessageButton} />}
             </div>
         </div>
-        {meal?.author.id !== userId && <ButtonBar firstButton={{ label: mealCounter === 0 ? `Add to cart` : `Add ${mealCounter} to cart - ${counterAdditionButtonLabel}€`, onClick: onAddToCart }} />}
+        {meal?.author.id !== userId && <ButtonBar firstButton={{ label: mealCounter === 0 ? `Add to cart` : `Add ${mealCounter} to cart - ${counterButtonLabel}€`, onClick: onAddToCart }} />}
     </>
 }

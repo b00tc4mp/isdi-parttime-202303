@@ -2,7 +2,7 @@ const { errors: { ExistanceError, AuthError } } = require('../../com')
 const { validateText } = require('../../com/validators')
 const { User, Meal } = require('../data/models')
 
-module.exports = function createMeal(userId, images, title, description, categories, ingredients, bestBefore, price) {
+module.exports = function createMeal(userId, images, title, description, ingredients, categories, bestBefore, quantity, price) {
     validateText(description)
     validateText(title)
 
@@ -16,8 +16,9 @@ module.exports = function createMeal(userId, images, title, description, categor
             images,
             title,
             description,
-            categories,
             ingredients,
+            categories,
+            quantity,
             bestBefore,
             price
         })

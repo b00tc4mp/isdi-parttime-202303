@@ -7,10 +7,12 @@ import Divider from "../library/components/Divider"
 import TextField from "../library/components/TextField"
 import TextArea from "../library/components/TextArea"
 import CategorySelector from "../library/components/CategorySelector"
-import { useRef, useState } from "react"
+import React, { useRef, useState } from "react"
 import ButtonBar from "../library/modules/ButtonBar"
 import createMeal from "../logic/createMeal"
 import useAppContext from "../logic/hooks/useAppContext"
+
+import { NumericFormat } from 'react-number-format'
 
 
 import { IKImage, IKContext, IKUpload } from "imagekitio-react"
@@ -33,6 +35,9 @@ export default function CreateMeal(): JSX.Element {
 
     const formRef = useRef<HTMLFormElement>(null)
 
+    const [price, setPrice] = useState("")
+    const [bestBefore, setBestBefore] = useState("")
+    const [quantity, setQuantity] = useState("")
 
     const onCategoryClick = (category: string) => {
         if (categories && categories.includes(category)) {
@@ -57,15 +62,14 @@ export default function CreateMeal(): JSX.Element {
 
             const title = form.title.value
             const description = form.description.value
-            const ingredients = form.ingredients.value.split(",").map(item => item.trim())
-            const bestBefore = form.bestBefore.value
-            const price = form.price.value;
+            const ingredients = form.ingredients.value.split(",").map(item => item.trim());
+
 
             (async () => {
                 loaderOn()
                 try {
                     const images = mealImages
-                    await createMeal({ images, title, description, ingredients, bestBefore, price, categories })
+                    await createMeal({ images, title, description, ingredients, categories, bestBefore, quantity, price })
 
                     setTimeout(() => {
                         loaderOff()
@@ -74,7 +78,8 @@ export default function CreateMeal(): JSX.Element {
                     }, 1000)
                 } catch (error: any) {
                     loaderOff()
-                    handleErrors(error)
+                    console.log(error)
+                    //handleErrors(error)
                 }
             })()
         }
@@ -101,6 +106,19 @@ export default function CreateMeal(): JSX.Element {
     //@ts-ignore
     const onUploadStart = evt => {
         loaderOn()
+    }
+
+    const handlePriceLength = (e: any) => {
+        const limit = 5
+        setPrice(e.target.value)
+    }
+
+    const handleBestBeforeChange = (e: any) => {
+        setBestBefore(e.target.value)
+    }
+
+    const handleQuantityChange = (e: any) => {
+        setQuantity(e.target.value)
     }
 
     //TODO, review issue with imageKit & Typescript https://github.com/imagekit-developer/imagekit-react/issues/121
@@ -162,9 +180,10 @@ export default function CreateMeal(): JSX.Element {
                         </div>
                     </div>
 
-                    <TextField label="Best before" type="default" name="bestBefore" />
-                    <TextField label="Price" type="default" name="price" />
-                    <input type="number"></input>
+                    <NumericFormat label="Best before" name="bestBefore" value={bestBefore} min={1} customInput={TextField} maxLength={4} onChange={handleBestBeforeChange} />
+                    <NumericFormat label="Stock" name="stock" value={quantity} min={1} customInput={TextField} maxLength={4} onChange={handleQuantityChange} />
+                    <NumericFormat label="Price" name="price" value={price} customInput={TextField} maxLength={4} allowedDecimalSeparators={[',']} decimalScale={2} fixedDecimalScale decimalSeparator="," onChange={handlePriceLength} />
+
 
                 </form>
             </div>

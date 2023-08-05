@@ -7,12 +7,20 @@ type Params = {
     description: string,
     ingredients: Array<string>,
     categories: Array<string>,
-    bestBefore: string,
-    price: string
+    quantity: string | number
+    bestBefore: string | number,
+    price: string | number
 }
 
-export default function createMeal({ images, title, description, ingredients, bestBefore, price, categories }: Params) {
-    const meal = { images, title, description, ingredients, bestBefore, price, categories }
+export default function createMeal({ images, title, description, ingredients, categories, bestBefore, quantity, price }: Params) {
+    bestBefore = Number(bestBefore)
+    quantity = Number(quantity)
+
+    //@ts-ignore
+    price = Number(price.replace(',', '.'))
+
+    const meal = { images, title, description, ingredients, categories, bestBefore, quantity, price }
+
     return (async () => {
         const res = await fetch('http://localhost:1234/meals', {
             method: 'POST',
