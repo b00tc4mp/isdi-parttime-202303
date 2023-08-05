@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import logo from '../assets/logo.svg';
 import isUserLoggedIn from '../logic/is-user-logged-in';
@@ -7,8 +7,6 @@ import useHandleErrors from '../hooks/useHandleErrors';
 import retrieveLoggedUser from '../logic/retrieve-logged-user';
 import avatars from '../assets/avatars';
 
-//TODO change button on middle screens
-
 const Navbar = () => {
     const [isMenuOpen, setMenuOpen] = useState(false);
     const [isUserMenuOpen, setUserMenuOpen] = useState(false);
@@ -16,6 +14,7 @@ const Navbar = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const handleErrors = useHandleErrors();
+    const navbarRef = useRef(null);
 
     const handleBurgerClick = () => {
         setMenuOpen(!isMenuOpen);
@@ -48,6 +47,20 @@ const Navbar = () => {
     }
 
     useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (navbarRef.current && !navbarRef.current.contains(event.target)) {
+                handleCloseBoth();
+            }
+        }
+
+        document.addEventListener('click', handleClickOutside);
+
+        return () => {
+            document.removeEventListener('click', handleClickOutside);
+        };
+    }, []);
+
+    useEffect(() => {
         if (isUserLoggedIn()) getUserInfo()
     }, [location.pathname]);
 
@@ -68,29 +81,69 @@ const Navbar = () => {
     }
 
     return (
-        <>
+        <div ref={navbarRef}>
             <div className="fixed w-full shadow z-40">
-                <nav className="px-4 py-4 flex justify-between items-center bg-light500">
-                    <Link className="text-3xl font-bold leading-none" to="/" onClick={handleCloseBoth}>
-                        <img src={logo} className="h-10 w-10" alt="Logo" />
-                    </Link>
-                    <div className="flex items-center md:order-2">
-                        {isUserLoggedIn() && <>
-                            <button type="button" className="flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-2 focus:ring-light100" onClick={handleUserMenuClick}>
-                                <span className="sr-only">Open user menu</span>
-                                <img className={`bg-${userInfo.color} w-8 h-8 rounded-full`} src={`${avatars[userInfo.avatar]}`} alt="avatar" />
-                            </button>
-                        </>
-
-                        }
-                        <div className="lg:hidden self-end">
+                <nav className="px-1 py-4 flex justify-between items-center bg-light500">
+                    <div className="flex row align-center pl-3">
+                        <Link className="text-3xl font-bold leading-none hidden lg:block" to="/" onClick={handleCloseBoth}>
+                            <img src={logo} className="h-10 w-10" alt="Logo" />
+                        </Link>
+                        <div className="lg:hidden">
                             <button
-                                className="navbar-burger flex items-center text-dark100 px-3"
+                                className="navbar-burger flex items-center text-dark100"
                                 onClick={handleBurgerClick}
                             >
                                 <i className="text-3xl font-bold bi bi-list"></i>
                             </button>
                         </div>
+                    </div>
+                    <div>
+                        {isUserLoggedIn() && <>
+                            <div type="button" className="flex pr-4 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-2 focus:ring-light100" onClick={handleUserMenuClick}>
+                                <span className="sr-only">Open user menu</span>
+                                <img className={`bg-${userInfo.color} w-8 h-8 rounded-full cursor-pointer`} src={`${avatars[userInfo.avatar]}`} alt="avatar" />
+                                <div className={`z-50 w-fit max-w-2/6 fixed right-10 mt-8 text-base list-none bg-light500 divide-y divide-light300 rounded-xl shadow ${(isUserMenuOpen ? '' : 'hidden')}`} >
+                                    <Link className={`px-4 py-5 flex flex-row gap-1 align-center text-sm text-${userInfo.color} cursor-pointer rounded-lg hover:bg-light400`} to={`/profile/you`} onClick={handleCloseBoth}>
+                                        <i className="bi bi-person-fill"></i>
+                                        <span className="block text-sm">{userInfo.username}</span>
+                                    </Link>
+                                    <ul className="pt-2 flex flex-col gap-5 justify-between" >
+                                        <li className="w-full text-sm text-dark300 rounded-lg hover:bg-light400 pl-2 px-3 hover:text-secondary500">
+                                            <Link to="/customize" onClick={handleCloseBoth} className="flex flex-row gap-2 align-center">
+                                                <i className="bi bi-palette"></i>
+                                                <span>Customize</span>
+                                            </Link>
+                                        </li>
+                                        <li className="w-full text-sm text-dark400 hover:text-secondary400 rounded-lg hover:bg-light400 pl-2 px-3">
+                                            <Link to="/" className="flex flex-row gap-2 align-center">
+                                                <i className="bi bi-gear-fill"></i>
+                                                <span>Account</span>
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <button
+                                                className="w-full py-2 px-6 bg-dark100 hover:bg-dark500 text-sm text-light400 font-bold rounded-xl transition duration-200"
+                                                onClick={handleLogout}
+                                            >
+                                                Logout
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+
+
+
+
+
+
+
+
+                        </>
+
+                        }
+
                     </div>
                     <ul className="hidden absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 lg:flex lg:mx-auto lg:flex lg:items-center lg:w-auto lg:space-x-6">
                         {isUserLoggedIn() && <>
@@ -283,36 +336,8 @@ const Navbar = () => {
                         </div>
                     </nav>
                 </div>
-            </div>
-            <div className={`z-50 w-fit max-w-2/6 fixed right-16 mt-12 text-base list-none bg-light500 divide-y divide-light300 rounded-xl shadow ${(isUserMenuOpen ? '' : 'hidden')}`} >
-                <Link className={`px-4 py-5 flex flex-row gap-1 align-center text-sm text-${userInfo.color} cursor-pointer rounded-lg hover:bg-light400`} to={`/profile/you`} onClick={handleCloseBoth}>
-                    <i className="bi bi-person-fill"></i>
-                    <span className="block text-sm">{userInfo.username}</span>
-                </Link>
-                <ul className="pt-2 flex flex-col gap-5 justify-between" >
-                    <li className="w-full text-sm text-dark300 rounded-lg hover:bg-light400 pl-2 px-3 hover:text-secondary500">
-                        <Link to="/customize" onClick={handleCloseBoth} className="flex flex-row gap-2 align-center">
-                            <i className="bi bi-palette"></i>
-                            <span>Customize</span>
-                        </Link>
-                    </li>
-                    <li className="w-full text-sm text-dark400 hover:text-secondary400 rounded-lg hover:bg-light400 pl-2 px-3">
-                        <Link to="/" className="flex flex-row gap-2 align-center">
-                            <i className="bi bi-gear-fill"></i>
-                            <span>Account</span>
-                        </Link>
-                    </li>
-                    <li>
-                        <button
-                            className="w-full py-2 px-6 bg-dark100 hover:bg-dark500 text-sm text-light400 font-bold rounded-xl transition duration-200"
-                            onClick={handleLogout}
-                        >
-                            Logout
-                        </button>
-                    </li>
-                </ul>
-            </div>
-        </>
+            </div >
+        </div >
     );
 };
 

@@ -76,6 +76,7 @@ So you play levels to earn points to create levels that other people will play t
 - joined (dates)
 - saves (array of id)
 - follow (array of id)
+- customization credits (number)
 
 **Achivement**
 - user (id)
@@ -142,7 +143,7 @@ Planned through a kanban visible on this [Trello](https://trello.com/b/uHRmZKBR/
 #### **Achivement**
 - Me as a user, I want to get little awards that stimulate me to keep playing and interact with other users.
 
-#### **Custom Points**
+#### **Customization Credits**
 - 
 
 </br>

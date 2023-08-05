@@ -1,9 +1,6 @@
 import inLogger from '../../inLogger';
-import useLockScroll from '../../hooks/useLockScroll';
 
 const CreateLevelToast = ({ handleCloseToast, message }) => {
-    const { lockScroll } = useLockScroll();
-    lockScroll();
 
     return (
         <div className="fixed inset-0 flex items-center w-full h-full justify-center z-50">

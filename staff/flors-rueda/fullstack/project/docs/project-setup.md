@@ -27,7 +27,7 @@ Github, through github actions, updates the image on push. It's automatic, but c
 Go to EC2, connect to the machine. Check the ip of the instance and keep it update, then run:
 
 ```sh
-$ docker-compose down # only if it was already running
+$ sudo docker-compose down # only if it was already running
 $ sudo docker system prune -a # to clean local cache
 $ sudo docker-compose up -d # run services on deamon mode
 ```
