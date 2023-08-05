@@ -1,3 +1,4 @@
+const { getMonthNameFromMonthNumber } = require('./helpers')
 const { Employee, PayrollMonth } = require('../data/models')
 
 module.exports = (employeeId, payrollYearIsoDate, payrollMonth) => {
@@ -11,6 +12,11 @@ module.exports = (employeeId, payrollYearIsoDate, payrollMonth) => {
 
             if (!employee) throw new Error(`user with id ${employeeId} not found`)
             if (!payrollMonth || payrollMonth.length === 0) throw new Error(`payroll not found`)
+
+
+            const monthNumber = payrollMonth[0].payrollMonth
+
+            payrollMonth[0].monthName = getMonthNameFromMonthNumber(monthNumber)
 
             return payrollMonth[0]
         })

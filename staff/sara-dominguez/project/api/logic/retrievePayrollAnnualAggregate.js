@@ -1,7 +1,8 @@
 const { Employee } = require('../data/models')
+const { PayrollMonth } = require('../data/models')
+const { findLastMonthAggregated, getMonthNameFromMonthNumber } = require('./helpers')
 
-module.exports = function retrievePayrollAnnualAgregate(employeeId, payrollYear, employeePayrollsMonth) {
-
+module.exports = function retrievePayrollAnnualAggregate(employeeId, payrollYear) {
     //TODO VALIDATORS AND ERRORS
 
     let sumPayrollMonth = []
@@ -15,13 +16,25 @@ module.exports = function retrievePayrollAnnualAgregate(employeeId, payrollYear,
     let sumTotalAmountDeductions = 0
     let sumNetSalary = 0
 
+    return Promise.all([
+        Employee.findById(employeeId).lean(),
+        PayrollMonth.find({ employee: employeeId, payrollYear: payrollYear }).lean()
 
-    return Employee.findById(employeeId)
-        .then(employee => {
-            if (!employee) throw new Error('employee not found')
-        })
+    ])
 
-        .then(() => {
+        .then(([employee, employeePayrollsMonth]) => {
+            try {
+                if (!employee) throw new Error(`user with id ${employeeId} not found`)
+                if (!employeePayrollsMonth || employeePayrollsMonth.length === 0) throw new Error(`payrolls not found`)
+
+            } catch (error) {
+                throw new Error(error)
+            }
+            // return employeePayrollsMonth
+            // })
+
+
+            // .then(([employeePayrollsMonth]) => {
             for (let i = 0; i < employeePayrollsMonth.length; i++) {
 
                 const payrollMonthValue = employeePayrollsMonth[i].payrollMonth
@@ -35,7 +48,7 @@ module.exports = function retrievePayrollAnnualAgregate(employeeId, payrollYear,
                 const totalAmountDeductionsValue = employeePayrollsMonth[i].totalAmountDeductions
                 const netSalaryValue = employeePayrollsMonth[i].netSalary
 
-                //TODO helper para que deje como valor el mes mas cercano a la peticion del usuario, asi si un usuario quiere ver el agregado el 10 de junio, se le muestre el agregado hasta mayo
+                //                 //TODO helper para que deje como valor el mes mas cercano a la peticion del usuario, asi si un usuario quiere ver el agregado el 10 de junio, se le muestre el agregado hasta mayo
                 sumPayrollMonth.push(payrollMonthValue)
                 sumMonthSalary += monthSalaryValue
                 sumBonus += bonusValue
@@ -54,11 +67,15 @@ module.exports = function retrievePayrollAnnualAgregate(employeeId, payrollYear,
                 }
 
             }
+            const lastMonthAggregated = findLastMonthAggregated(sumPayrollMonth)
+            const lastMonthAggregatedName = getMonthNameFromMonthNumber(lastMonthAggregated)
 
-            return employeePayrollAnnualAgregated = {
+
+            return payrollAnnualAggregated = {
                 payrollYear,
                 sumPayrollMonth,
                 sumMonthSalary,
+                lastMonthAggregatedName,
                 sumBonus,
                 sumIrpfTax,
                 sumSsTax,

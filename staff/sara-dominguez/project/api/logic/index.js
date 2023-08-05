@@ -11,6 +11,6 @@ module.exports = {
     retrievePayrollMonth: require('./retrievePayrollMonth'),
     retrieveEmployeesBySalaryLevel: require('./retrieveEmployeesBySalaryLevel'),
     retrieveEmployeePayrollsMonthYear: require('./retrieveEmployeePayrollsMonthYear'),
-    retrievePayrollAnnualAgregate: require('./retrievePayrollAnnualAgregate'),
+    retrievePayrollAnnualAggregate: require('./retrievePayrollAnnualAggregate'),
 
 }

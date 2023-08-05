@@ -1,8 +1,9 @@
 import Header from "./Header.jsx"
 import PayrollMonth from "./PayrollMonth"
+import PayrollAnnualAggregate from "./PayrollAnnualAggregate"
 import useAppContext from '../hooks/useAppContext'
 import { useState, useEffect } from 'react'
-import retrievePayrollAnnualAgregate from '../logic/retrievePayrollAnnualAgregate'
+import retrievePayrollAnnualAggregate from '../logic/retrievePayrollAnnualAggregate'
 import retrievePayrollMonth from '../logic/retrievePayrollMonth'
 import { context } from '../ui'
 
@@ -12,7 +13,7 @@ export default function PayrollMenuModal({ employee }) {
     const [view, setView] = useState(null)
     const { alert } = useAppContext()
     const [payrollMonthRetrieved, setPayrollMonthRetrieved] = useState()
-    const [payrollMonthAnnualAgregate, setPayrollAnnualAgregate] = useState()
+    const [payrollAnnualAggregate, setPayrollAnnualAggregate] = useState()
 
 
 
@@ -36,17 +37,18 @@ export default function PayrollMenuModal({ employee }) {
         }
     }
 
-    const handleCheckAnnualAgregate = event => {
+    const handleCheckAnnualAggregate = event => {
         event.preventDefault()
 
         const year = document.getElementById('year')
         const payrollYear = year.value
 
         try {
-            retrievePayrollAnnualAgregate(payrollYear)
-                .then(result => {
-                    setPayrollAnnualAgregate(result)
-                    setView('PayrollAnnualAgregate')
+            retrievePayrollAnnualAggregate(payrollYear)
+                .then(payrollAnnualAggregate => {
+                    console.log(payrollAnnualAggregate)
+                    setPayrollAnnualAggregate(payrollAnnualAggregate)
+                    setView('PayrollAnnualAggregate')
                 })
                 .catch(error => alert(error.message))
         } catch (error) {
@@ -87,14 +89,14 @@ export default function PayrollMenuModal({ employee }) {
                         <option value="12">December</option>
                     </select>
                     <button onClick={handleCheckPayrollMonth}>Check payroll</button>
-                    <h5 onClick={handleCheckAnnualAgregate}>Annual Agregate</h5>
+                    <h5 onClick={handleCheckAnnualAggregate}>Annual Aggregate</h5>
                     <h5>Tax Certificate</h5>
 
                 </div>
             </div>
             {/* //TODO revisar las props que le mando a Payroll.jsx */}
             {view === 'PayrollMonth' && <PayrollMonth employee={employee} payrollMonthRetrieved={payrollMonthRetrieved} />}
-            {view === 'PayrollAnnualAgregate' && <PayrollMonth employee={employee} payrollAnnualAgregate={payrollMonthAnnualAgregate} />}
+            {view === 'PayrollAnnualAggregate' && <PayrollAnnualAggregate employee={employee} payrollAnnualAggregate={payrollAnnualAggregate} />}
 
         </main>
     </section >

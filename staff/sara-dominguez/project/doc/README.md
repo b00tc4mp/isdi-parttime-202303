@@ -6,7 +6,7 @@ b-Elevenzsb is an employee portal.
 
 It will allow the company to channel processes related to the Human Resources department like register new employees, consult or modify their data, as well as make monthly payroll payments for each of them. 
 
-Employees to make all the necessary inquiries regarding their personal and company profile, like enter modifications to certain personal data, check monthly payrolls, as well as access the year-to-date agregated and the previous year's tax certificate.
+Employees to make all the necessary inquiries regarding their personal and company profile, like enter modifications to certain personal data, check monthly payrolls, as well as access the year-to-date Aggregated and the previous year's tax certificate.
 
 
 ![](https://www.canva.com/design/DAFqDLwerac/JDhtOb9wzRGo9rHmVpEX3Q/watch?utm_content=DAFqDLwerac&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink)
@@ -21,7 +21,7 @@ Employees to make all the necessary inquiries regarding their personal and compa
 User
 - Check and edit personal information (#UC001)
 - Check payrollMonth
-- Check annual agregate payrolls
+- Check annual Aggregate payrolls
 - Check tax certicate
 
 Admin
@@ -149,7 +149,7 @@ Trello : (https://trello.com/invite/b/XEVB4Fyi/ATTIc3c549532febf63cb82956e9219d9
 
 
 
-#### Employee: check payrollMonth, PayrollAnnualAgregate, AnnualTaxCertificate
+#### Employee: check payrollMonth, PayrollAnnualAggregate, AnnualTaxCertificate
 
 - Me as an employee (roll: user), want to be able to have the option to view my monthly payrolls, selecting the specific month, as well as the year-to-date summary for the current year and the tax certificate for the previous year.
 
@@ -159,7 +159,7 @@ Trello : (https://trello.com/invite/b/XEVB4Fyi/ATTIc3c549532febf63cb82956e9219d9
 - TODO build basic css
 - TODO implement modal window Modal (PayrollMenuModal.jsx) with three links: one for "Annual Aggregate," the second one to choose the month to view the monthly payroll, and the third one for the tax certificate
 
-- DONE implement retrieveEmployeePayrollsMonthYear and retrievePayrollAnnualAgregate logics to retrieve annual aggregate information, and tests.
+- DONE implement retrieveEmployeePayrollsMonthYear and retrievePayrollAnnualAggregate logics to retrieve annual aggregate information, and tests.
 - DONE implement retrievePayrollMonth logic to to retrieve the information of the payroll chosen by the employee and test.
 - DONE implement retrieveEmployeePayrollsMonthYear logic to retrieve information and obtain the tax certificate for the previous year, and tests.
 - TODOcreate Payroll component where the information of any of the three options chosen by the employee will be displayed

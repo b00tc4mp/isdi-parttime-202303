@@ -5,7 +5,7 @@ export default (payrollYear) => {
     //validatePayrollYear(payrollYear)
 
 
-    return fetch(`${import.meta.env.VITE_API_URL}/payrollMonth/retrievePayrollAnnualAgregate/${payrollYear}`, {
+    return fetch(`${import.meta.env.VITE_API_URL}/payrollMonth/retrievePayrollAnnualAggregate/${payrollYear}`, {
         headers: {
             authorization: `Bearer ${context.token}`
         }

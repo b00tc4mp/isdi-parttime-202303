@@ -12,7 +12,7 @@ module.exports = {
     // isEmployeeAccessPermissionsAuthorizedHandler: require('./isEmployeeAccessPermissionsAuthorizedHandler'),
     retrieveEmployeesBySalaryLevelHandler: require('./retrieveEmployeesBySalaryLevelHandler'),
     retrieveEmployeePayrollsMonthYearHandler: require('./retrieveEmployeePayrollsMonthYearHandler'),
-    retrievePayrollAnnualAgregateHandler: require('./retrievePayrollAnnualAgregateHandler'),
+    retrievePayrollAnnualAggregateHandler: require('./retrievePayrollAnnualAggregateHandler'),
 
 
 }

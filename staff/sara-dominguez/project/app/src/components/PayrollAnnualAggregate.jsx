@@ -3,27 +3,31 @@
 import useAppContext from '../hooks/useAppContext'
 
 
-export default function PayrollMonth({ employee, payrollMonthRetrieved }) {
+
+export default function PayrollMonth({ employee, payrollAnnualAggregate }) {
     console.log('Payrollmonth --> open')
 
     const { alert } = useAppContext()
-    if (employee === undefined || payrollMonthRetrieved === undefined) {
+    if (employee === undefined || payrollAnnualAggregate === undefined) {
         throw new Error("Payroll not available. For inquiries, please contact the Human Resources department")
     }
 
     const { name, firstSurname, secondSurname, idCardNumber, employeeNumber, jobPosition, department, centerAttached, tssNumber, salaryLevel, bankAccountNumber } = employee || {}
 
-    const { payrollYear, payrollMonth, monthName, monthSalary, bonus, irpfTax, ssTax, irpfDeductions, ssDeductions, totalAmountIncomes, totalAmountDeductions, netSalary } = payrollMonthRetrieved || {}
+    const { payrollYear, sumPayrollMonth, lastMonthAggregatedName, sumMonthSalary, sumBonus, sumIrpfTax, sumSsTax, sumIrpfDeductions, sumSsDeductions, sumTotalAmountIncomes, sumTotalAmountDeductions, sumNetSalary } = payrollAnnualAggregate || {}
+
+    // TODO fecha anual de la agregada y ver como aprovechar el helper para indicar hasta que mes incluye 
+    // const monthName = getMonthNameFromMonthNumber(payrollMonth)
 
 
 
     return <article>
-        {employee && payrollMonthRetrieved ? (
+        {employee && payrollAnnualAggregate ? (
             <>
                 <header>
                     <div>
                         <h5>b-Elevenzsd</h5>
-                        <p>Payroll {monthName} {payrollYear}</p>
+                        <p>Annual Payroll Aggregated data up {lastMonthAggregatedName} {payrollYear}</p>
                     </div>
                 </header>
                 <div>
@@ -49,32 +53,32 @@ export default function PayrollMonth({ employee, payrollMonthRetrieved }) {
                     <tbody>
                         <tr>
                             <td>Base</td>
-                            <td>{monthSalary} Eur.</td>
+                            <td>{sumMonthSalary} Eur.</td>
                             <td>0 Eur.</td>
                         </tr>
                         <tr>
                             <td>Bonus</td>
-                            <td>{bonus} Eur.</td>
+                            <td>{sumBonus} Eur.</td>
                             <td>0 Eur.</td>
                         </tr>
                         <tr>
-                            <td>IRPF tax  {(irpfTax) * 100}%</td>
+                            <td>IRPF tax  {(sumIrpfTax) * 100}%</td>
                             <td>0 Eur.</td>
-                            <td>-{irpfDeductions} Eur.</td>
+                            <td>-{sumIrpfDeductions} Eur.</td>
                         </tr>
                         <tr>
-                            <td>SS tax {(ssTax) * 100}% </td>
+                            <td>SS tax {(sumSsTax) * 100}% </td>
                             <td>0 Eur.</td>
-                            <td>-{ssDeductions}Eur.</td>
+                            <td>-{sumSsDeductions}Eur.</td>
                         </tr>
                         <tr>
                             <td>Total Amount </td>
-                            <td>{totalAmountIncomes} Eur.</td>
-                            <td>-{totalAmountDeductions} Eur.</td>
+                            <td>{sumTotalAmountIncomes} Eur.</td>
+                            <td>-{sumTotalAmountDeductions} Eur.</td>
                         </tr>
                         <tr>
                             <td>Net Salary </td>
-                            <td colSpan="2">{netSalary} Eur.</td>
+                            <td colSpan="2">{sumNetSalary} Eur.</td>
                         </tr>
                     </tbody>
                 </table>

@@ -1,4 +1,4 @@
-export default function getMonthNameFromMonthNumber(monthNumber) {
+module.exports = function getMonthNameFromMonthNumber(monthNumber) {
     if (typeof monthNumber !== "number" || monthNumber < 1 || monthNumber > 12) {
         throw new Error("Invalid month value")
     }

@@ -13,7 +13,7 @@ const { helloApiHandler,
     updateEmployeeBankAccountNumberHandler,
     retrievePayrollMonthHandler,
     retrieveEmployeePayrollsMonthYearHandler,
-    retrievePayrollAnnualAgregateHandler,
+    retrievePayrollAnnualAggregateHandler,
     retrieveEmployeesBySalaryLevelHandler
 } = require('./handlers')
 
@@ -35,7 +35,7 @@ mongoose.connect(process.env.MONGODB_URL)
         api.get('/payrollMonth/retrieveEmployeePayrollMonth/:payrollYear/:payrollMonth', retrievePayrollMonthHandler)
         api.get('/payrollMonth/retrieveEmployeePayrollsMonthYear/:payrollYear', retrieveEmployeePayrollsMonthYearHandler)
         api.get('/employees/retrieveEmployeesBySalaryLevel/:salaryLevel', retrieveEmployeesBySalaryLevelHandler)
-        api.get('/payrollMonth/retrievePayrollAnnualAgregate/:payrollYear', jsonBodyParser, retrievePayrollAnnualAgregateHandler)
+        api.get('/payrollMonth/retrievePayrollAnnualAggregate/:payrollYear', retrievePayrollAnnualAggregateHandler)
 
 
 
