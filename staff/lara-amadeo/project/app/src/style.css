@@ -105,6 +105,20 @@ body {
   margin: 0;
 }
 
+.medium-text {
+  font-family: "Inter";
+  font-size: 18px;
+  font-weight: 400;
+  margin: 0;
+}
+
+.medium-text-bold {
+  font-family: "Inter";
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+}
+
 .small-text {
   font-family: "Inter";
   font-size: 14px;

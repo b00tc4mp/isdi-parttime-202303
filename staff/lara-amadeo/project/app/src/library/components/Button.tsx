@@ -5,7 +5,7 @@ type Props = {
     size: String,
     icon?: JSX.Element,
     label: String,
-    hugContent: boolean
+    hugContent?: boolean
     onClick?: (event: React.SyntheticEvent) => void
 }
 

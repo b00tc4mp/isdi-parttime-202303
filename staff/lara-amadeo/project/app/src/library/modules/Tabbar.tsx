@@ -13,7 +13,7 @@ type Props = {
 
 export default function Tabbar({ home, search, add, cart, profile }: Props): JSX.Element {
 
-    const { loaderOn, LoaderOff, navigate } = useContext(Context)
+    const { navigate } = useContext(Context)
 
     const onAddMeal = () => {
         navigate('/addMeal')
@@ -25,6 +25,10 @@ export default function Tabbar({ home, search, add, cart, profile }: Props): JSX
 
     const onHome = () => {
         navigate('/')
+    }
+
+    const onCart = () => {
+        navigate('/cart')
     }
 
     return <>
@@ -42,7 +46,7 @@ export default function Tabbar({ home, search, add, cart, profile }: Props): JSX
                 {add && <div className='tabbar-selected'></div>}
             </div>
             <div className='tabbar-item'>
-                <ShoppingBagIcon className='icon-s grey-700' />
+                <ShoppingBagIcon className='icon-s grey-700' onClick={onCart} />
                 {cart && <div className='tabbar-selected'></div>}
             </div>
             <div className='tabbar-item' onClick={onProfile}>
