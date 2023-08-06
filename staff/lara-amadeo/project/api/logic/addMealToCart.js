@@ -14,7 +14,7 @@ module.exports = function addMealToCart(userId, mealId, quantity) {
         const existingItem = user.cart.find(item => item.meal.toString() === mealId)
 
         if (existingItem) {
-            existingItem.quantity += quantity
+            existingItem.quantity = existingItem.quantity + 1
         } else {
             const mealInUserCart = new Item({
                 meal: mealId,

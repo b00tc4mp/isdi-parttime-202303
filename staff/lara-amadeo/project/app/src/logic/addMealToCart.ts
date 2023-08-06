@@ -1,4 +1,5 @@
 import { context } from "./context"
+import errors from "./helpers/errors"
 
 export default function addMealToCart(mealId: string, quantity: number) {
     (async () => {
@@ -16,10 +17,12 @@ export default function addMealToCart(mealId: string, quantity: number) {
         //@ts-ignore
         const { message, type } = await res.json()
 
-        //@ts-ignore
-        const clazz = errors[type]
+        throw message
 
-        //@ts-ignore
-        throw new clazz(message)
+        // //@ts-ignore
+        // const clazz = errors[type]
+
+        // //@ts-ignore
+        // throw new clazz(message)
     })()
 }

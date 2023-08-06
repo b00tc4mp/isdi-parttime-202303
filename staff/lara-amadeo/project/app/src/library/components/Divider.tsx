@@ -1,11 +1,12 @@
 import "./Divider.css"
 type Props = {
-    width: string
+    width: string,
+    className?: string
 }
 
-export default function Divider({ width }: Props): JSX.Element {
+export default function Divider({ width, className }: Props): JSX.Element {
 
     return <>
-        <div style={{ width: `${width}` }} className="divider-container"></div>
+        <div style={{ width: `${width}` }} className={`divider-container ${className}`}></div>
     </>
 }

@@ -37,7 +37,6 @@ type Props = {
     onCancelEditMeal: () => void
 }
 
-//NOT A ROUTE - OPEN AS A COMPONENT
 export default function EditMeal({ mealId, onUpdateMeal, onCancelEditMeal }: Props) {
     const { loaderOn, loaderOff, toast } = useAppContext()
     const handleErrors = useHandleError()

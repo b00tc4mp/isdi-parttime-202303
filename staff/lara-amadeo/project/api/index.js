@@ -3,7 +3,7 @@ require('dotenv').config()
 const cors = require('cors')
 const bodyParser = require('body-parser')
 const express = require('express')
-const { helloAPIHandler, registerUserHandler, authenticateUserHandler, registerAdditionalInfoHandler, createMealHandler, retrieveMealsHandler, retrieveUserHandler, retrieveMealHandler, retrieveOwnMealsHandler, updateMealHandler, deleteMealHandler, addMealToCartHandler } = require('./handlers')
+const { helloAPIHandler, registerUserHandler, authenticateUserHandler, registerAdditionalInfoHandler, createMealHandler, retrieveMealsHandler, retrieveUserHandler, retrieveMealHandler, retrieveOwnMealsHandler, updateMealHandler, deleteMealHandler, addMealToCartHandler, retrieveCartMealsHandler } = require('./handlers')
 
 const mongoose = require('mongoose')
 
@@ -58,6 +58,9 @@ mongoose.connect(process.env.MONGODB_URL)
 
         //add meal to cart
         api.post('/meals/cart/:mealId', jsonBodyParser, addMealToCartHandler)
+
+        //retrieve meals in cart
+        api.get('/meals/cart/', retrieveCartMealsHandler)
 
 
         api.get('/IKAuth', (req, res) => {
