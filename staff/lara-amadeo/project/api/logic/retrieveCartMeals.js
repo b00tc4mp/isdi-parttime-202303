@@ -8,7 +8,7 @@ module.exports = async function retrieveCartMeals(userId) {
     if (!user) throw new ExistanceError(`User with id ${userId} not found`)
 
     const mealsMap = new Map()
-    debugger
+
     for (const cartItem of user.cart) {
         const meal = await Meal.findById(cartItem.meal).select('-images -description -categories -ingredients -bestBefore -quantity -date -__v').lean()
 
@@ -33,7 +33,7 @@ module.exports = async function retrieveCartMeals(userId) {
         }
 
     }
-    const mealsInCart = Array.from(mealsMap.values());
+    const mealsInCart = Array.from(mealsMap.values())
 
     return mealsInCart
 }

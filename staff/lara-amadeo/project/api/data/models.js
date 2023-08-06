@@ -28,6 +28,31 @@ const order = new Schema({
     serial: {
         type: String,
         required: true
+    },
+    status: {
+        type: String,
+        required: true,
+        default: 'pending'
+    }
+})
+
+const chefOrder = new Schema({
+    meal: {
+        type: ObjectId,
+        required: true,
+    },
+    quantity: {
+        type: Number,
+        required: true,
+    },
+    author: {
+        type: ObjectId,
+        required: true
+    },
+    status: {
+        type: String,
+        required: true,
+        default: 'pending'
     }
 })
 
@@ -86,6 +111,10 @@ const user = new Schema({
     reviews: {
         type: [Object],
         default: []
+    },
+    pendingOrder: {
+        type: [chefOrder],
+        default: []
     }
 })
 
@@ -142,10 +171,12 @@ const Meal = model('Meal', meal)
 
 const Item = model('Item', item)
 const Order = model('Order', order)
+const ChefOrder = model('ChefOrder', chefOrder)
 
 module.exports = {
     User,
     Meal,
     Item,
-    Order
+    Order,
+    ChefOrder
 }

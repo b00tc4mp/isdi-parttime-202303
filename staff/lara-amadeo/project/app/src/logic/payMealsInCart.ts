@@ -15,11 +15,11 @@ export default function payMealsInCart() {
 
         //@ts-ignore
         const { message, type } = await res.json()
+        throw message
+        // //@ts-ignore
+        // const clazz = errors[type]
 
-        //@ts-ignore
-        const clazz = errors[type]
-
-        //@ts-ignore
-        throw new clazz(message)
+        // //@ts-ignore
+        // throw new clazz(message)
     })()
 }

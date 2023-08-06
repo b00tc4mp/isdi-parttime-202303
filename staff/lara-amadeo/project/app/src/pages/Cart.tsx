@@ -12,6 +12,7 @@ import useHandleError from '../logic/hooks/useHandleError'
 import addMealToCart from '../logic/addMealToCart'
 import Payment from '../modals/Payment'
 import removeMealFromCart from '../logic/removeMealFromCart'
+import Header from '../library/components/Header'
 
 type Author = {
     avatar: string
@@ -118,43 +119,51 @@ export default function Cart() {
             <>
                 <Topbar level={'first'} />
                 <div className="page-first-level" >
-                    <Tabs items={[
-                        {
-                            label: "Your order",
-                            selected: true,
-                            onClick: toggleTabView
-                        },
-                        {
-                            label: "To pick up",
-                            selected: false,
-                            onClick: toggleTabView
-                        }]} />
-                    {meals && <div className='cart-items-list'>
-                        {meals.map((meal, index) => {
-                            return <CartItem
-                                author={
-                                    {
-                                        avatar: meal.author.avatar,
-                                        name: meal.author.name,
-                                        username: `@${meal.author.username}`
-                                    }}
-                                items={meal.meals}
-                                length={meals.length}
-                                num={index}
-                                onPlusOne={(id) => handleAddOneMore(id)}
-                                onMinusOne={(id) => handleRemoveOne(id)} />
-                        })
-                        }
-                    </div>}
+                    {meals && meals.length > 0 && <>
+                        <Tabs items={[
+                            {
+                                label: "Your order",
+                                selected: true,
+                                onClick: toggleTabView
+                            },
+                            {
+                                label: "To pick up",
+                                selected: false,
+                                onClick: toggleTabView
+                            }]} />
+                        {meals && <div className='cart-items-list'>
+                            {meals.map((meal, index) => {
+                                return <CartItem
+                                    author={
+                                        {
+                                            avatar: meal.author.avatar,
+                                            name: meal.author.name,
+                                            username: `@${meal.author.username}`
+                                        }}
+                                    items={meal.meals}
+                                    length={meals.length}
+                                    num={index}
+                                    onPlusOne={(id) => handleAddOneMore(id)}
+                                    onMinusOne={(id) => handleRemoveOne(id)} />
+                            })
+                            }
+                        </div>}
+                    </>}
+                    {meals && meals.length === 0 && <>
+                        <Header text={'No meals added yet!'} />
+                        <p className='body-text grey-700' style={{ marginBottom: '16px', marginTop: '8px' }}>Add some meals to your cart to start enjoying Yuper!</p>
+                        <img className='illustration-gif' src='/illustrations/beach-girl.gif'></img>
+                    </>}
                 </div>
-                <ButtonBar firstButton={{ label: "Pay", onClick: handlePay }} className='cart-buttonBar'>
+                {meals && meals.length > 0 && <ButtonBar firstButton={{ label: "Pay", onClick: handlePay }} className='cart-buttonBar'>
                     <div className='cart-buttonBar-data-item'>
                         <DataItem label='Total' content={`${total} €`} />
                         <Divider width='100%' />
                     </div>
-                </ButtonBar>
+                </ButtonBar>}
                 <Tabbar cart={true} />
-            </>}
+            </>
+        }
 
     </>
 }
