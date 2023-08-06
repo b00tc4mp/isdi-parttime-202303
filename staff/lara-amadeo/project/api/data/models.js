@@ -24,6 +24,10 @@ const order = new Schema({
         type: Date,
         required: true,
         default: Date.now
+    },
+    serial: {
+        type: String,
+        required: true
     }
 })
 

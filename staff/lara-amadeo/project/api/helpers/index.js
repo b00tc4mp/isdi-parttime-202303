@@ -1,4 +1,5 @@
 module.exports = {
     retrieveToken: require('./retrieveToken'),
-    handleErrors: require('./handleErrors')
+    handleErrors: require('./handleErrors'),
+    generateSerialNumbers: require('./generateSerialNumbers')
 }
