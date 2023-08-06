@@ -11,6 +11,7 @@ import retrieveCartMeals from '../logic/retrieveCartMeals'
 import useHandleError from '../logic/hooks/useHandleError'
 import addMealToCart from '../logic/addMealToCart'
 import Payment from '../modals/Payment'
+import removeMealFromCart from '../logic/removeMealFromCart'
 
 type Author = {
     avatar: string
@@ -100,6 +101,18 @@ export default function Cart() {
         })()
     }
 
+    const handleRemoveOne = (id: string) => {
+        (async () => {
+            try {
+                await removeMealFromCart(id)
+                //setLastUpdateMeals(Date.now())
+                refreshCartMeals()
+            } catch (error: any) {
+                handleErrors(error)
+            }
+        })()
+    }
+
     return <>
         {paymentModal ? <Payment onClose={() => setPaymentModal(false)} /> :
             <>
@@ -128,7 +141,8 @@ export default function Cart() {
                                 items={meal.meals}
                                 length={meals.length}
                                 num={index}
-                                onPlusOne={(id) => handleAddOneMore(id)} />
+                                onPlusOne={(id) => handleAddOneMore(id)}
+                                onMinusOne={(id) => handleRemoveOne(id)} />
                         })
                         }
                     </div>}
