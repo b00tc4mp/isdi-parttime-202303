@@ -3,11 +3,12 @@ require('dotenv').config()
 const cors = require('cors')
 const bodyParser = require('body-parser')
 const express = require('express')
-const { helloAPIHandler, registerUserHandler, authenticateUserHandler, registerAdditionalInfoHandler, createMealHandler, retrieveMealsHandler, retrieveUserHandler, retrieveMealHandler, retrieveOwnMealsHandler, updateMealHandler, deleteMealHandler, addMealToCartHandler, retrieveCartMealsHandler } = require('./handlers')
+const { helloAPIHandler, registerUserHandler, authenticateUserHandler, registerAdditionalInfoHandler, createMealHandler, retrieveMealsHandler, retrieveUserHandler, retrieveMealHandler, retrieveOwnMealsHandler, updateMealHandler, deleteMealHandler, addMealToCartHandler, retrieveCartMealsHandler, payMealsInCartHandler } = require('./handlers')
 
 const mongoose = require('mongoose')
 
 const ImageKit = require('imagekit');
+
 
 const imagekit = new ImageKit({
     urlEndpoint: 'https://ik.imagekit.io/6zeyr5rgu/yuperApp/',
@@ -61,6 +62,9 @@ mongoose.connect(process.env.MONGODB_URL)
 
         //retrieve meals in cart
         api.get('/meals/cart/', retrieveCartMealsHandler)
+
+        //add meal to cart
+        api.post('/meals/pay', payMealsInCartHandler)
 
 
         api.get('/IKAuth', (req, res) => {

@@ -1,6 +1,6 @@
 const { User, Order } = require('../data/models')
 const { errors: { ExistanceError } } = require('../../com')
-import { generateSerialNumbers } from '../helpers'
+const { generateSerialNumbers } = require('../helpers')
 
 module.exports = function payMealsinCart(userId) {
     return (async () => {
@@ -16,7 +16,7 @@ module.exports = function payMealsinCart(userId) {
         })
 
         user.order.push(payedMeal)
-        user.cart.length = 0
+        user.cart = []
 
         await user.save()
     })()

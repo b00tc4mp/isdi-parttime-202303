@@ -1,4 +1,4 @@
-export default function generateSerialNumber() {
+module.exports = function generateSerialNumber() {
     const chars = '1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
 
     const serialLength = 16

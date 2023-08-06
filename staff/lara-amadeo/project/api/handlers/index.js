@@ -11,5 +11,6 @@ module.exports = {
     updateMealHandler: require('./updateMealHandler'),
     deleteMealHandler: require('./deleteMealHandler'),
     addMealToCartHandler: require('./addMealToCartHandler.js'),
-    retrieveCartMealsHandler: require('./retrieveCartMealsHandler')
+    retrieveCartMealsHandler: require('./retrieveCartMealsHandler'),
+    payMealsInCartHandler: require('./payMealsInCartHandler')
 }
