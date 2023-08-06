@@ -2,14 +2,13 @@
 
 //import { utils } from "com"
 
-//const { extractSubFromToken } = utils
 import { View, Text, Image, TouchableOpacity } from "react-native"
 
-export default function Mission({ mission: { image, tittle, info, level, difficulty, survivor, visibility, date }/*, onEditClick, onDeletePostClick*/ }) {
+export default function Mission({ mission: { id, image, tittle, info, level, difficulty, survivor, visibility, date }, onEditClick, /*onDeletePostClick*/ }) {
 
-    /*const handleOpenEditModal = () => onEditClick(id)
-
-    const handleDeletePost = () => {
+    const handleOpenEditModal = () => onEditClick(id)
+    
+    /*const handleDeletePost = () => {
         const confirmation = confirm('Are you sure that you want to delete this post? This action cannot be undone!')
 
         if (confirmation) {
@@ -24,8 +23,6 @@ export default function Mission({ mission: { image, tittle, info, level, difficu
             }
         }
     }*/
-
-    //const userId = extractSubFromToken(context.token)
 
     if (!visibility) {
         return <View className="h-20 flex-row items-center justify-center ml-5 mr-5 mt-2">
@@ -42,7 +39,7 @@ export default function Mission({ mission: { image, tittle, info, level, difficu
                 </View>
             </View>
             <View className="justify-center items-center h-16 w-16 mr-2">
-                <TouchableOpacity>
+                <TouchableOpacity onPress={handleOpenEditModal}>
                     <Image source={require('../../assets/generic/settings.png')} className="h-10 w-10"></Image>
                 </TouchableOpacity>
             </View>
@@ -64,7 +61,7 @@ export default function Mission({ mission: { image, tittle, info, level, difficu
                 </View>
             </View>
             <View className="justify-center items-center h-16 w-16 mr-2">
-                <TouchableOpacity>
+                <TouchableOpacity onPress={handleOpenEditModal}>
                     <Image source={require('../../assets/generic/settings.png')} className="h-10 w-10"></Image>
                 </TouchableOpacity>
             </View>

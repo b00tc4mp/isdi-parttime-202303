@@ -3,9 +3,11 @@ import Missions from '../components/Missions'
 import AdminMenu from '../components/AdminMenu'
 import { useState } from 'react'
 import NewMission from '../components/NewMission'
+import EditMission from '../components/EditMission'
 
 const Admin = ({ onLogoutSession }) => {
     const [modal, setModal] = useState(null)
+    const [missionId, setMissionId] = useState(null)
 
     const handleAdminModal = () => {
         modal ? setModal(null) : setModal('adminMenu')
@@ -15,11 +17,16 @@ const Admin = ({ onLogoutSession }) => {
         setModal('newMission')
     }
 
+    const handleEditMissionModal = missionId => {
+        setModal('editMission')
+        setMissionId(missionId)
+    }
+
     const handleLogoutAdmin = () => {
         onLogoutSession()
     }
 
-    const handleCloseNewMissionModal = () => {
+    const handleCloseMissionModal = () => {
         setModal(null)
     }
 
@@ -41,9 +48,20 @@ const Admin = ({ onLogoutSession }) => {
                 </View>
             </View>
             <View className="h-3/4 w-full pl-2 pr-2 m-5">
-                {!modal && <Missions/>}
-                {modal === 'adminMenu' && <AdminMenu onAdminLogout={handleLogoutAdmin} onNewMission={handleNewMissionModal}/>}
-                {modal === 'newMission' && <NewMission onMissionCreated={handleCloseNewMissionModal}/>}
+                {!modal && <Missions onEditClicked={handleEditMissionModal} />}
+                {modal === 'adminMenu' && <AdminMenu
+                    onAdminLogout={handleLogoutAdmin}
+                    onNewMission={handleNewMissionModal}
+                />}
+                {modal === 'newMission' && <NewMission
+                    onCancel={handleCloseMissionModal}
+                    onMissionCreated={handleCloseMissionModal}
+                />}
+                {modal === 'editMission' && <EditMission
+                    missionId={missionId}
+                    onCancel={handleCloseMissionModal}
+                    onMissionUpdated={handleCloseMissionModal}
+                />}
             </View>
         </View>
     )

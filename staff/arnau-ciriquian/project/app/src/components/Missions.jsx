@@ -3,7 +3,7 @@ import Mission from "./Mission"
 import { ScrollView, View } from "react-native"
 import { useState, useEffect } from "react"
 
-export default function Missions(/*{ onEditClicked, lastMissionsUpdate }*/) {
+export default function Missions({ onEditClicked, /*lastMissionsUpdate*/ }) {
     const [missions, setMissions] = useState()
 
     useEffect(() => handleRefreshMissions(), [])
@@ -30,7 +30,7 @@ export default function Missions(/*{ onEditClicked, lastMissionsUpdate }*/) {
         {missions && missions.map(mission => <Mission
             key={mission.id}
             mission={mission}
-            //onEditClick={onEditClicked}
+            onEditClick={onEditClicked}
             //onDeletePostClick={handleRefreshMissions}
         />)}
         <View className="h-10"></View>

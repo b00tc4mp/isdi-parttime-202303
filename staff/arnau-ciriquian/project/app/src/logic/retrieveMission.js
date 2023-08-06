@@ -1,10 +1,14 @@
+//import { validators } from 'com'
+//const { validateId, validateToken } = validators
 import { API_URL } from '@env'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
-export default function retrieveMissions() {
+export default function retrievePost(missionId) {
+    //    validateId(missionId, 'post id')
+
     return AsyncStorage.getItem('TOKEN')
         .then(token => {
-            return fetch(`${API_URL}/missions`, {
+            return fetch(`${API_URL}/missions/${missionId}`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
