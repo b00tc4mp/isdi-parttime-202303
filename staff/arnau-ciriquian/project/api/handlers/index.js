@@ -9,5 +9,7 @@ module.exports = {
     updateUserPasswordHandler: require('./updateUserPasswordHandler'),
     deleteAccountHandler: require('./deleteAccountHandler'),
     createNewMissionHandler: require('./createNewMissionHandler'),
-    retriveMissionsHandler: require('./retriveMissionsHandler')
+    retriveMissionsHandler: require('./retriveMissionsHandler'),
+    retriveMissionHandler: require('./retriveMissionHandler'),
+    updateMissionHandler: require('./updateMissionHandler')
 }
