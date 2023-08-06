@@ -1,15 +1,14 @@
 import { context } from "./context"
 import errors from "./helpers/errors"
 
-export default function addMealToCart(mealId: string, quantity: number) {
+export default function payMealsInCart() {
     (async () => {
-        const res = await fetch(`http://localhost:1234/meals/cart/${mealId}`, {
+        const res = await fetch(`http://localhost:1234/meals/pay`, {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json',
                 'authorization': `Bearer ${context.token}`
-            },
-            body: JSON.stringify({ quantity })
+            }
         })
 
         if (res.status === 204) return

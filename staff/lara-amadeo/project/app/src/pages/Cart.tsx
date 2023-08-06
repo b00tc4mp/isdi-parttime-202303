@@ -56,6 +56,7 @@ export default function Cart() {
                 const meals = await retrieveCartMeals()
                 setMeals(meals)
                 calculateTotal(meals)
+                refreshCartMeals()
             } catch (error: any) {
                 handleErrors(error)
             }
@@ -65,7 +66,7 @@ export default function Cart() {
 
     useEffect(() => {
         refreshCartMeals()
-    }, [lastUpdateMeals])
+    }, [])
 
 
     const calculateTotal = (meals: Order[]) => {
@@ -91,7 +92,8 @@ export default function Cart() {
         (async () => {
             try {
                 await addMealToCart(id, foundMeal!.quantity)
-                setLastUpdateMeals(Date.now())
+                //setLastUpdateMeals(Date.now())
+                refreshCartMeals()
             } catch (error: any) {
                 handleErrors(error)
             }

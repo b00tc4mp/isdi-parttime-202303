@@ -9,6 +9,9 @@ import { useEffect, useState } from 'react'
 import TextField from '../library/components/TextField'
 import useHandleError from '../logic/hooks/useHandleError'
 import retrieveCartMeals from '../logic/retrieveCartMeals'
+import payMealsInCart from '../logic/payMealsInCart'
+import PaymentSummary from './PaymentSummary'
+import Header from '../library/components/Header'
 
 type Props = {
     onClose: () => void
@@ -38,6 +41,7 @@ export default function Payment({ onClose }: Props) {
     const [paymentMethod, setPaymentMethod] = useState("")
     const handleErrors = useHandleError()
     const [meals, setMeals] = useState<Order[]>()
+    const [paymentDone, setPaymentDone] = useState(false)
 
     useEffect(() => {
         (async () => {
@@ -51,7 +55,16 @@ export default function Payment({ onClose }: Props) {
     }, [])
 
     const handlePay = () => {
-
+        (async () => {
+            try {
+                await payMealsInCart()
+                setTimeout(() => {
+                    setPaymentDone(true)
+                }, 1000);
+            } catch (error: any) {
+                handleErrors(error)
+            }
+        })()
     }
 
     const toggleRadioSelection = (value: string) => {
@@ -59,79 +72,80 @@ export default function Payment({ onClose }: Props) {
     }
 
     return <>
+        {paymentDone ? <PaymentSummary onClose={onClose} /> : <>
+            <ModalFullScreen onClose={onClose} topBarLabel="Payment">
+                <div className="page-button-bar">
+                    <Header text={'Payment summary'} />
+                    {meals && <>
+                        {/* order-summary */}
+                        <div className='payment-order-summary'>
+                            <div className='payment-item-container'>
 
-        <ModalFullScreen onClose={onClose} topBarLabel="Payment">
-            <div className="page-button-bar">
+                                {/* order-summary-author */}
+                                {meals.map((item, index) => {
+                                    return <>
+                                        <div className='payment-item-author'>
 
-                {meals && <>
-                    {/* order-summary */}
-                    <div className='payment-order-summary'>
-                        <div className='payment-item-container'>
-
-                            {/* order-summary-author */}
-                            {meals.map((item, index) => {
-                                return <>
-                                    <div className='payment-item-author'>
-
-                                        <Avatar image={item.author.avatar} width={'40px'} />
-                                        <div className='payment-item-author-data'>
-                                            <p className='medium-text grey-700'>{item.author.name}</p>
-                                            <p className='small-text grey-400'>{item.author.username}</p>
-                                        </div>
-                                    </div>
-
-                                    {/* order-summary-meal */}
-                                    {item.meals.map((meal) => {
-                                        return <div className='payment-items-container'>
-                                            <div className='payment-item-item-container'>
-                                                <p className='body-text-bold grey-700'>{meal.quantity}</p>
-                                                <p className='body-text grey-700'>{meal.title}</p>
+                                            <Avatar image={item.author.avatar} width={'40px'} />
+                                            <div className='payment-item-author-data'>
+                                                <p className='medium-text grey-700'>{item.author.name}</p>
+                                                <p className='small-text grey-400'>{item.author.username}</p>
                                             </div>
                                         </div>
-                                    })}
-                                    <DataItem label='Pick-up location' content={item.author.location} />
-                                    {meals.length - 1 === index ? '' : <Divider width='100%' />}
-                                </>
-                            })}
+
+                                        {/* order-summary-meal */}
+                                        {item.meals.map((meal) => {
+                                            return <div className='payment-items-container'>
+                                                <div className='payment-item-item-container'>
+                                                    <p className='body-text-bold grey-700'>{meal.quantity}</p>
+                                                    <p className='body-text grey-700'>{meal.title}</p>
+                                                </div>
+                                            </div>
+                                        })}
+                                        <DataItem label='Pick-up location' content={item.author.location} />
+                                        {meals.length - 1 === index ? '' : <Divider width='100%' />}
+                                    </>
+                                })}
+                            </div>
                         </div>
-                    </div>
 
-                    {/* payment-method */}
-                    <div className='payment-payment-method'>
-                        <Divider width='100%' className='payment-divider-section' />
-                        <div className='payment-inside-section-content'>
+                        {/* payment-method */}
+                        <div className='payment-payment-method'>
+                            <Divider width='100%' className='payment-divider-section' />
+                            <div className='payment-inside-section-content'>
 
-                            <p className='body-text grey-400'>Payment method</p>
-                            <RadioButton name='cash' value='cash' onChange={(value) => toggleRadioSelection(value)} checked={paymentMethod === 'cash'} text='Cash' />
-                            <RadioButton name='card' value='card' onChange={(value) => toggleRadioSelection(value)} checked={paymentMethod === 'card'} text='Debit/Credit card' />
+                                <p className='body-text grey-400'>Payment method</p>
+                                <RadioButton name='cash' value='cash' onChange={(value) => toggleRadioSelection(value)} checked={paymentMethod === 'cash'} text='Cash' />
+                                <RadioButton name='card' value='card' onChange={(value) => toggleRadioSelection(value)} checked={paymentMethod === 'card'} text='Debit/Credit card' />
 
-                            {/* card-details-form */}
-                            {paymentMethod === 'card' && <form className='payment-card-details-form'>
-                                <TextField label={`Card holder's name`} name='cardHolder' type='text' />
-                                <TextField label={`Card number`} name='cardNumber' type='text' />
-                                <div className='payment-card-details-security-code'>
-                                    <TextField label={`Expiry date`} name='expiryDate' type='text' />
-                                    <TextField label={`CVV`} name='cvv' type='text' />
-                                </div>
-                            </form>}
+                                {/* card-details-form */}
+                                {paymentMethod === 'card' && <form className='payment-card-details-form'>
+                                    <TextField label={`Card holder's name`} name='cardHolder' type='text' />
+                                    <TextField label={`Card number`} name='cardNumber' type='text' />
+                                    <div className='payment-card-details-security-code'>
+                                        <TextField label={`Expiry date`} name='expiryDate' type='text' />
+                                        <TextField label={`CVV`} name='cvv' type='text' />
+                                    </div>
+                                </form>}
 
+                            </div>
                         </div>
-                    </div>
 
-                    {/* total-calculation */}
-                    <div className='payment-total'>
-                        <Divider width='100%' className='payment-divider-section' />
-                        <div className='payment-inside-section-content'>
-                            <DataItem label='Subtotal' content={'27,70 €'} />
-                            <DataItem label='Buyer protection fee' content={'0,95 €'} />
-                            <Divider width='100%' />
-                            <DataItem label='Total' content={'29,65 €'} />
+                        {/* total-calculation */}
+                        <div className='payment-total'>
+                            <Divider width='100%' className='payment-divider-section' />
+                            <div className='payment-inside-section-content'>
+                                <DataItem label='Subtotal' content={'27,70 €'} />
+                                <DataItem label='Buyer protection fee' content={'0,95 €'} />
+                                <Divider width='100%' />
+                                <DataItem label='Total' content={'29,65 €'} />
+                            </div>
                         </div>
-                    </div>
-                </>}
+                    </>}
 
-            </div>
-        </ModalFullScreen>
-        <ButtonBar firstButton={{ label: "Pay", onClick: handlePay }} />
+                </div>
+            </ModalFullScreen>
+            <ButtonBar firstButton={{ label: "Pay", onClick: handlePay }} />
+        </>}
     </>
 }

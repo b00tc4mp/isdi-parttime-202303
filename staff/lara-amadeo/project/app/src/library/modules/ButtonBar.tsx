@@ -16,7 +16,7 @@ export default function ButtonBar({ firstButton, secondButton, link, className, 
         <div className={`buttonbar-container ${className}`} >
             {children}
             {firstButton && <Button type={'primary'} size={'small'} label={firstButton.label} onClick={firstButton.onClick} />}
-            {secondButton && <Button type={'primary'} size={'small'} label={secondButton.label} onClick={secondButton.onClick} />}
+            {secondButton && <Button type={'secondary'} size={'small'} label={secondButton.label} onClick={secondButton.onClick} />}
             {link && <Link label={link.label} state={'default'} onClick={link.onClick} icon={link.icon} />}
         </div>
 
