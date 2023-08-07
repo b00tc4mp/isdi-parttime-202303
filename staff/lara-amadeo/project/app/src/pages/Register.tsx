@@ -54,10 +54,10 @@ export default function Register() {
                 <div className="register-logo-container"><Logo /></div>
 
                 <form className='register-form' onSubmit={handleRegister}>
-                    <TextField type={'text'} label={'Name'} name={'name'} />
-                    <TextField type={'text'} label={'Username'} name={'username'} />
-                    <TextField type={'text'} label={'Email'} name={'email'} />
-                    <TextField type={'password'} label={'Password'} name={'password'} />
+                    <TextField type={'text'} label={'Name'} name={'name'} maxlength={25} />
+                    <TextField type={'text'} label={'Username'} name={'username'} maxlength={15} />
+                    <TextField type={'text'} label={'Email'} name={'email'} maxlength={40} />
+                    <TextField type={'password'} label={'Password'} name={'password'} maxlength={35} />
 
                     <div className='register-actions'>
                         <div className='link-container'><Button type={'primary'} size={'small'} label={'Register'} /></div>

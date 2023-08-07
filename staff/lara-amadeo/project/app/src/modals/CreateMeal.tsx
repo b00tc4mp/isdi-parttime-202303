@@ -36,8 +36,8 @@ export default function CreateMeal(): JSX.Element {
     const formRef = useRef<HTMLFormElement>(null)
 
     const [price, setPrice] = useState("")
-    const [bestBefore, setBestBefore] = useState("")
-    const [quantity, setQuantity] = useState("")
+    // const [bestBefore, setBestBefore] = useState("")
+    // const [quantity, setQuantity] = useState("")
 
     const onCategoryClick = (category: string) => {
         if (categories && categories.includes(category)) {
@@ -62,7 +62,9 @@ export default function CreateMeal(): JSX.Element {
 
             const title = form.title.value
             const description = form.description.value
-            const ingredients = form.ingredients.value.split(",").map(item => item.trim());
+            const ingredients = form.ingredients.value.split(",").map(item => item.trim())
+            const bestBefore = Number(form.bestBefore.value)
+            const quantity = Number(form.quantity.value);
 
 
             (async () => {
@@ -78,8 +80,7 @@ export default function CreateMeal(): JSX.Element {
                     }, 1000)
                 } catch (error: any) {
                     loaderOff()
-                    console.log(error)
-                    //handleErrors(error)
+                    handleErrors(error)
                 }
             })()
         }
@@ -113,13 +114,13 @@ export default function CreateMeal(): JSX.Element {
         setPrice(e.target.value)
     }
 
-    const handleBestBeforeChange = (e: any) => {
-        setBestBefore(e.target.value)
-    }
+    // const handleBestBeforeChange = (e: any) => {
+    //     setBestBefore(e.target.value)
+    // }
 
-    const handleQuantityChange = (e: any) => {
-        setQuantity(e.target.value)
-    }
+    // const handleQuantityChange = (e: any) => {
+    //     setQuantity(e.target.value)
+    // }
 
     //TODO, review issue with imageKit & Typescript https://github.com/imagekit-developer/imagekit-react/issues/121
     return <>
@@ -180,8 +181,10 @@ export default function CreateMeal(): JSX.Element {
                         </div>
                     </div>
 
-                    <NumericFormat label="Best before" name="bestBefore" value={bestBefore} min={1} customInput={TextField} maxLength={4} onChange={handleBestBeforeChange} />
-                    <NumericFormat label="Stock" name="stock" value={quantity} min={1} customInput={TextField} maxLength={4} onChange={handleQuantityChange} />
+                    <TextField type="number" label="Best before" name="bestBefore" maxlength={4} suffix="days" />
+                    <TextField type="number" label="Stock" name="quantity" maxlength={4} suffix="meals" />
+                    {/* <NumericFormat label="Best before" name="bestBefore" value={bestBefore} min={1} customInput={TextField} maxLength={4} onChange={handleBestBeforeChange} />
+                    <NumericFormat label="Stock" name="stock" value={quantity} min={1} customInput={TextField} maxLength={4} onChange={handleQuantityChange} /> */}
                     <NumericFormat label="Price" name="price" value={price} customInput={TextField} maxLength={4} allowedDecimalSeparators={[',']} decimalScale={2} fixedDecimalScale decimalSeparator="," onChange={handlePriceLength} />
 
 

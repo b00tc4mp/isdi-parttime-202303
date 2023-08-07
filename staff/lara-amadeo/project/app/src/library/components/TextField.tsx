@@ -8,9 +8,10 @@ type Props = {
     disabled?: boolean,
     placeholder?: string,
     value?: string,
-    suffix?: string
+    suffix?: string,
+    maxlength?: number
 }
-export default function TextField({ label, type, name, description, disabled, placeholder, value, suffix, ...props }: Props): JSX.Element {
+export default function TextField({ label, type, name, description, disabled, placeholder, value, suffix, maxlength, ...props }: Props): JSX.Element {
 
     return <>
         <div className={`text-field-container ${disabled && "disabled"}`}{...props}>
@@ -19,7 +20,7 @@ export default function TextField({ label, type, name, description, disabled, pl
                 {description && <p className='small-text grey-500'>{description}</p>}
             </div>
             <p className="small-text grey-500 text-field-suffix">{suffix}</p>
-            <input type={`${type}`} name={`${name}`} placeholder={placeholder && placeholder} defaultValue={value} className="input-field"></input>
+            <input maxLength={maxlength} type={`${type}`} name={`${name}`} placeholder={placeholder && placeholder} defaultValue={value} className="input-field"></input>
         </div>
     </>
 }

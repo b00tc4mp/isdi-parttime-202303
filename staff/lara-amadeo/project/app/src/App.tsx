@@ -53,11 +53,11 @@ function App() {
         <Route path='/' element={isUserLoggedIn() ? <Home /> : <Navigate to="/login" />} />
         <Route path='/login' element={isUserLoggedIn() ? <Navigate to="/" /> : <Login />} />
         <Route path='/register' element={isUserLoggedIn() ? <Navigate to="/" /> : <Register />} />
-        <Route path='/additionalInfo' element={<AdditionalInfo />} />
-        <Route path='/addMeal' element={<CreateMeal />} />
-        <Route path='/profile' element={<Profile />} />
-        <Route path='/meal/:mealId' element={<MealDetails />} />
-        <Route path='/cart' element={<Cart />} />
+        <Route path='/additionalInfo' element={isUserLoggedIn() ? <AdditionalInfo /> : <Navigate to="/login" />} />
+        <Route path='/addMeal' element={isUserLoggedIn() ? <CreateMeal /> : <Navigate to="/login" />} />
+        <Route path='/profile' element={isUserLoggedIn() ? <Profile /> : <Navigate to="/login" />} />
+        <Route path='/meal/:mealId' element={isUserLoggedIn() ? <MealDetails /> : <Navigate to="/login" />} />
+        <Route path='/cart' element={isUserLoggedIn() ? <Cart /> : <Navigate to="/login" />} />
       </Routes>
       {loader && <Loader />}
       {toast && <Toast message={toast.message} type={toast.type} endAnimation={handleRemoveToast} />}

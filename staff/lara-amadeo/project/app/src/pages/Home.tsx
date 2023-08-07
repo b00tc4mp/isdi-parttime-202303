@@ -11,6 +11,7 @@ import MealCard from "../library/modules/MealCard"
 import retrieveUser from "../logic/retrieveUser"
 import useAppContext from "../logic/hooks/useAppContext"
 import useHandleError from "../logic/hooks/useHandleError"
+import EmptyState from "../library/components/EmptyState"
 
 type User = {
     name: string,
@@ -74,6 +75,7 @@ export default function Home() {
                         price: meal.price
                     }} onclick={() => onMealCard(meal.id)} />
                 })}
+                {meals?.length === 0 && <EmptyState src='/illustrations/beach-girl.gif' title='Congrats! You are the first one!' description='You are the first one arriving to Yuper. Do the honors and create your first meal!' />}
             </div>
         </div>
         <Tabbar home={true} />

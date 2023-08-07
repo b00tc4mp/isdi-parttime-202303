@@ -13,6 +13,7 @@ import addMealToCart from '../logic/addMealToCart'
 import Payment from '../modals/Payment'
 import removeMealFromCart from '../logic/removeMealFromCart'
 import Header from '../library/components/Header'
+import EmptyState from '../library/components/EmptyState'
 
 type Author = {
     avatar: string
@@ -37,15 +38,16 @@ type Order = {
 export default function Cart() {
 
     const [meals, setMeals] = useState<Order[]>()
-    const [lastUpdateMeals, setLastUpdateMeals] = useState(Date.now())
     const [total, setTotal] = useState(0)
+    const [tabView, setTabView] = useState(true)
+    const [pendingMeals, setPendingMeals] = useState()
 
     const [paymentModal, setPaymentModal] = useState(false)
 
     const handleErrors = useHandleError()
 
     const toggleTabView = () => {
-
+        setTabView(!tabView)
     }
 
     const handlePay = () => {
@@ -63,7 +65,6 @@ export default function Cart() {
                 handleErrors(error)
             }
         })()
-
     }
 
     useEffect(() => {
@@ -79,7 +80,6 @@ export default function Cart() {
                 total += meal.quantity * meal.price
             })
         })
-
         setTotal(total)
     }
 
@@ -94,7 +94,6 @@ export default function Cart() {
         (async () => {
             try {
                 await addMealToCart(id, foundMeal!.quantity)
-                //setLastUpdateMeals(Date.now())
                 refreshCartMeals()
             } catch (error: any) {
                 handleErrors(error)
@@ -106,7 +105,6 @@ export default function Cart() {
         (async () => {
             try {
                 await removeMealFromCart(id)
-                //setLastUpdateMeals(Date.now())
                 refreshCartMeals()
             } catch (error: any) {
                 handleErrors(error)
@@ -119,48 +117,67 @@ export default function Cart() {
             <>
                 <Topbar level={'first'} />
                 <div className="page-first-level" >
-                    {meals && meals.length > 0 && <>
-                        <Tabs items={[
-                            {
-                                label: "Your order",
-                                selected: true,
-                                onClick: toggleTabView
-                            },
-                            {
-                                label: "To pick up",
-                                selected: false,
-                                onClick: toggleTabView
-                            }]} />
-                        {meals && <div className='cart-items-list'>
-                            {meals.map((meal, index) => {
-                                return <CartItem
-                                    author={
-                                        {
-                                            avatar: meal.author.avatar,
-                                            name: meal.author.name,
-                                            username: `@${meal.author.username}`
-                                        }}
-                                    items={meal.meals}
-                                    length={meals.length}
-                                    num={index}
-                                    onPlusOne={(id) => handleAddOneMore(id)}
-                                    onMinusOne={(id) => handleRemoveOne(id)} />
-                            })
-                            }
-                        </div>}
-                    </>}
-                    {meals && meals.length === 0 && <>
-                        <Header text={'No meals added yet!'} />
-                        <p className='body-text grey-700' style={{ marginBottom: '16px', marginTop: '8px' }}>Add some meals to your cart to start enjoying Yuper!</p>
-                        <img className='illustration-gif' src='/illustrations/beach-girl.gif'></img>
-                    </>}
+                    <Tabs items={[
+                        {
+                            label: "Your order",
+                            selected: tabView,
+                            onClick: toggleTabView
+                        },
+                        {
+                            label: "To pick up",
+                            selected: !tabView,
+                            onClick: toggleTabView
+                        }]} />
+
+                    {/* CART TAB */}
+                    {tabView &&
+                        <>
+                            {meals && meals.length > 0 && <>
+                                {meals && <div className='cart-items-list'>
+                                    {meals.map((meal, index) => {
+                                        return <CartItem
+                                            author={
+                                                {
+                                                    avatar: meal.author.avatar,
+                                                    name: meal.author.name,
+                                                    username: `@${meal.author.username}`
+                                                }}
+                                            items={meal.meals}
+                                            length={meals.length}
+                                            num={index}
+                                            onPlusOne={(id) => handleAddOneMore(id)}
+                                            onMinusOne={(id) => handleRemoveOne(id)} />
+                                    })
+                                    }
+                                </div>}
+                            </>}
+
+                            {/* CART - EMPTY STATE */}
+                            {meals && meals.length === 0 && <>
+                                <div className='cart-empty-state-container'>
+                                    <EmptyState src='/illustrations/beach-girl.gif' title='No meals added yet!' description='dd some meals to your cart to start enjoying Yuper!' />
+                                </div>
+                            </>}
+
+                            {/* CART - BUTTON BAR */}
+                            {meals && meals.length > 0 && <ButtonBar firstButton={{ label: "Pay", onClick: handlePay }} className='cart-buttonBar'>
+                                <div className='cart-buttonBar-data-item'>
+                                    <DataItem label='Total' content={`${total} €`} />
+                                    <Divider width='100%' />
+                                </div>
+                            </ButtonBar>}
+                        </>}
+
+                    {/* PENDING TAB */}
+                    {!tabView &&
+                        <>
+                            <div className='cart-empty-state-container'>
+
+                                <p className='heading-s' style={{ textAlign: 'center' }}>TODO!!!!!</p>
+                                <p className='body-text grey-700' style={{ marginBottom: '16px', marginTop: '8px', textAlign: 'center', width: '90%' }}></p>
+                            </div>
+                        </>}
                 </div>
-                {meals && meals.length > 0 && <ButtonBar firstButton={{ label: "Pay", onClick: handlePay }} className='cart-buttonBar'>
-                    <div className='cart-buttonBar-data-item'>
-                        <DataItem label='Total' content={`${total} €`} />
-                        <Divider width='100%' />
-                    </div>
-                </ButtonBar>}
                 <Tabbar cart={true} />
             </>
         }
