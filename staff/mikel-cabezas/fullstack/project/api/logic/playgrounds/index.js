@@ -1,5 +1,5 @@
 module.exports = {
-    createPost: require('./createPost'),
+    addPlayground: require('./addPlayground'),
     editPost: require('./editPost'),
     deletePost: require('./deletePost'),
     retrievePlaygrounds: require('./retrievePlaygrounds'),

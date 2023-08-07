@@ -1,10 +1,10 @@
-const { toggleLikePost } = require('../../logic/posts')
+const { retrievePostByPostId } = require('../../logic/playgrounds')
 const { extractUserId, handleErrors } = require('../helpers')
 
 module.exports = handleErrors((req, res) => {
     const userId = extractUserId(req)
     const { postId } = req.params
 
-    return toggleLikePost(userId, postId)
-        .then(() => res.status(204).send())
+    return retrievePostByPostId(userId, postId)
+        .then(post => res.status(200).send(post))
 })

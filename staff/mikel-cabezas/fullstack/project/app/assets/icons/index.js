@@ -21,23 +21,29 @@ export const DELETE = require('./delete.png');
 
 export const SUNNY = require('./sunny.png');
 export const SHADY = require('./shady.png');
+
+export const SWING = require('./swing.png');
 export const DOUBLE_SWING = require('./double-swing.png');
 export const SEESAW = require('./seesaw.png');
+export const RIDER = require('./rider.png');
 export const SLIDE = require('./slide.png');
+export const HOUSE = require('./house.png');
+export const CLIMBER = require('./climber.png');
+export const SANDBOX = require('./sandbox.png');
 
 export const ONE_YEAR = require('./1-year.png');
 export const TWO_YEAR = require('./2-years.png');
 export const THREE_YEAR = require('./3-years.png');
 export const FOUR_YEAR = require('./4-years.png');
 export const FIVE_YEAR = require('./5-years.png');
-export const SIXE_YEAR = require('./6-years.png');
+export const SIX_YEAR = require('./6-years.png');
 
 export const ONE_YEAR_ES = require('./1-ano.png');
 export const TWO_YEAR_ES = require('./2-anos.png');
 export const THREE_YEAR_ES = require('./3-anos.png');
 export const FOUR_YEAR_ES = require('./4-anos.png');
 export const FIVE_YEAR_ES = require('./5-anos.png');
-export const SIXE_YEAR_ES = require('./6-anos.png');
+export const SIX_YEAR_ES = require('./6-anos.png');
 
 export const ACCESSIBLE = require('./accessible.png');
 

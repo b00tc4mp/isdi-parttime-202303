@@ -1,10 +1,10 @@
-const { retrievePostByPostId } = require('../../logic/posts')
+const { toggleSavePost } = require('../../logic/playgrounds')
 const { extractUserId, handleErrors } = require('../helpers')
 
 module.exports = handleErrors((req, res) => {
     const userId = extractUserId(req)
     const { postId } = req.params
 
-    return retrievePostByPostId(userId, postId)
-        .then(post => res.status(200).send(post))
+    return toggleSavePost(userId, postId)
+        .then(() => res.status(204).send())
 })

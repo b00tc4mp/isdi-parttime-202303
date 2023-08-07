@@ -27,8 +27,12 @@ export default function Footer({ nearbyHandler, createPlaygroundHandler, homeHan
         createPlaygroundHandler()
     }
 
+    useEffect(() => {
+        console.log('footer status changed')
+    }, [currentView])
 
-    return <View className="z-10 absolute w-full justify-center flex bottom-8 content-center">
+
+    return <View className="z-[1]z absolute w-full justify-center flex bottom-8 content-center">
         <View className="w-11/12 h-12 p-1 bg-white dark:bg-gray-800 rounded-full left-0 m-auto flex flex-row justify-between px-5">
 
 

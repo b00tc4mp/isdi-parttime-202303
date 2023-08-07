@@ -4,21 +4,12 @@ import * as ImagePicker from 'expo-image-picker';
 import { manipulateAsync, FlipType, SaveFormat } from 'expo-image-manipulator';
 import { ADD, DELETE } from '../../../assets/icons/index.js';
 
-import { Asset } from 'expo-asset';
-
 import { firebase } from '../../config/firebase.js'
-import { ref, uploadBytes } from 'firebase/storage'
-
-// import Button from '../components/Button/';
-// import Text from '../components/Text/';
-
-
 
 export default function UploadImages({ closeOnPlaygroundCreated }) {
     const [imagesResized, setImagesResized] = useState([]);
     const [uploading, setUploading] = useState(false);
-
-
+    const [urlImages, setUrlImages] = useState([]);
 
     useEffect(() => {
         console.log('loaded')
@@ -51,31 +42,26 @@ export default function UploadImages({ closeOnPlaygroundCreated }) {
     }
 
     const uploadImages = () => {
-        setUploading(true)
-        const storedImagesUrl = []
-        // const response = await fetch(image.uri)
-        imagesResized.map(async image => {
-            const response = await fetch(image.uri)
-            const blob = await response.blob()
-            const filename = image.uri.substring(image.uri.lastIndexOf('/') + 1)
+        try {
+            const storedImagesUrl = []
+            setUploading(true)
+            imagesResized.map(async image => {
+                const response = await fetch(image.uri)
+                const blob = await response.blob()
+                const filename = image.uri.substring(image.uri.lastIndexOf('/') + 1)
 
-            try {
                 const { ref } = await firebase.storage().ref().child(filename).put(blob)
                 const url = await ref.getDownloadURL()
-                console.log(url)
                 storedImagesUrl.push(url)
-                console.log(storedImagesUrl)
-            } catch (error) {
-                console.log(error)
-            }
-        })
-        setUploading(false)
-
-        alert('All images uploaded!!!')
-
-        setImagesResized([])
-
-        closeOnPlaygroundCreated()
+                setUrlImages(current => [...current, url]);
+                closeOnPlaygroundCreated(urlImages)
+                setUploading(false)
+                setImagesResized([])
+                alert('All images uploaded!!!')
+            })
+        } catch (error) {
+            console.log(error.message)
+        }
     }
 
     const deleteImage = (url) => {
@@ -88,7 +74,7 @@ export default function UploadImages({ closeOnPlaygroundCreated }) {
 
     return (
         <>
-            <View className="flex-row relative mt-2" >
+            <View className="flex-row relative" >
                 <ScrollView horizontal showsHorizontalScrollIndicator={false} className="pr-5">
                     <TouchableOpacity className="flex flex-col relative items-center justify-center w-[31vw] mr-3 h-36 rounded-2xl bg-mainGray last:mr-12" onPress={!imagesResized[0] ? pickImages : () => deleteImage(imagesResized[0])}>
                         {imagesResized[0] && <Image source={imagesResized[0]} className="mb-2 w-full h-36 rounded-2xl object-contain" />}
@@ -121,10 +107,10 @@ export default function UploadImages({ closeOnPlaygroundCreated }) {
             {!uploading ?
                 <TouchableOpacity
                     activeOpacity={0.8}
-                    className={` mb-1 mt-2   pyx-[5px] box-border pr-6 w-full `}
+                    className={`mt-5 box-border pr-6 w-full`}
                     onPress={uploadImages}>
-                    <View className="font-bold px-3 py-0.5 border border-mainLime rounded-full flex-row items-center my-auto py-1.5 bg-mainLime ">
-                        <Text className="font-bold text-center text-sm w-full">Add</Text>
+                    <View className="font-bold px-3 border border-mainLime rounded-full flex-row items-center py-1.5 bg-mainLime ">
+                        <Text className="font-bold text-center text-lg w-full">Add</Text>
 
                     </View>
                 </TouchableOpacity>

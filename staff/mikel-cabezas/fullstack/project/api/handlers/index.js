@@ -6,13 +6,13 @@ module.exports = {
     updateUserEmailHandler: require('./users/updateUserEmailHandler'),
     updateUserImageHandler: require('./users/updateUserImageHandler'),
     updateUserPasswordHandler: require('./users/updateUserPasswordHandler'),
-    createPostHandler: require('./posts/createPostHandler'),
-    editPostHandler: require('./posts/editPostHandler'),
-    deletePostHandler: require('./posts/deletePostHandler'),
-    retrievePlaygroundsHandler: require('./posts/retrievePlaygroundsHandler'),
-    retrieveLikedPostsHandler: require('./posts/retrieveLikedPostsHandler'),
-    retrieveSavedPostsHandler: require('./posts/retrieveSavedPostsHandler'),
-    retrievePostByPostIdHandler: require('./posts/retrievePostByPostIdHandler'),
-    toggleLikePostHandler: require('./posts/toggleLikePostHandler'),
-    toggleSavePostHandler: require('./posts/toggleSavePostHandler')
+    addPlaygroundHandler: require('./playgrounds/addPlaygroundHandler'),
+    editPlaygroundHandler: require('./playgrounds/editPlaygroundHandler'),
+    deletePostHandler: require('./playgrounds/deletePostHandler'),
+    retrievePlaygroundsHandler: require('./playgrounds/retrievePlaygroundsHandler'),
+    retrieveLikedPostsHandler: require('./playgrounds/retrieveLikedPostsHandler'),
+    retrieveSavedPostsHandler: require('./playgrounds/retrieveSavedPostsHandler'),
+    retrievePostByPostIdHandler: require('./playgrounds/retrievePostByPostIdHandler'),
+    toggleLikePostHandler: require('./playgrounds/toggleLikePostHandler'),
+    toggleSavePostHandler: require('./playgrounds/toggleSavePostHandler')
 }
