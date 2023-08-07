@@ -56,7 +56,6 @@ Administrator
 - name (string)
 - email (string)
 - password (string)
-- social networks (array of social network info) 
 
 Update
 - id (string)
@@ -82,6 +81,7 @@ Event
 Lyric Post
 - id (string)
 - author (oid, refers to Administrator id)
+- title (string)
 - media link (array of string)
 - text (string)
 - song info (string)
@@ -91,12 +91,18 @@ Lyric Post
 Message
 - id (string)
 - author (user email)
+- title (string)
 - text (string)
 - date (date)
-- status (unread/read)
+- status (boolean)
 
 Users Data
 - users mail (array of users mail)
+
+Social Networks
+- id (string)
+- name (string)
+- link (string)
 
 ### Test Coverage
 
