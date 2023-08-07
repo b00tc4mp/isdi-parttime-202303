@@ -30,17 +30,17 @@ export default () => {
 
 function showError(error, alert) {
     if (error instanceof DuplicityError)
-        alert(error.message, 'error')
+        alert(error, 'error')
     else if (error instanceof ExistenceError)
-        alert(error.message, 'warn')
+        alert(error, 'warn')
     else if (error instanceof AuthError)
-        alert(error.message, 'error')
+        alert(error, 'error')
     else if (error instanceof TypeError)
-        alert(error.message, 'warn')
+        alert(error, 'warn')
     else if (error instanceof ContentError)
-        alert(error.message, 'warn')
+        alert(error, 'warn')
     else if (error instanceof RangeError)
-        alert(error.message, 'error')
+        alert(error, 'error')
     else
-        alert(error.message, 'error')
+        alert(error, 'error')
 }

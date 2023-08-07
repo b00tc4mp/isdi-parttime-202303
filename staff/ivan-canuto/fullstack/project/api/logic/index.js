@@ -21,4 +21,5 @@ module.exports = {
   retrieveConversation: require('./retrieveConversation'),
   askForResponse: require('./askForResponse'),
   generateConversation: require('./generateConversation'),
+  generateSummary: require('./generateSummary'),
 }

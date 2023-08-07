@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react"
-import { Header, SideBarMenu, Profile } from "."
 import { Container, Button, SpeechBubble, Loader } from "../library"
 import { useHandleErrors } from "../hooks"
-import { askForResponse, retrieveConversation, retrieveConversations, storeInputInDB, generateConversation } from "../../logic"
+import { askForResponse, retrieveConversation, retrieveConversations, storeInputInDB, generateConversation, generateSummary } from "../../logic"
 import { context } from "../../ui"
 import { useNavigate } from "react-router-dom"
 
@@ -18,8 +17,7 @@ export default function Chatbot() {
     const [oldConversation, setOldConversation] = useState(null)
     const [messages, setMessages] = useState([])
     const [valueToRender, setValueToRender] = useState(null)
-
-    console.log('hola')
+    const [summary, setSummary] = useState(null)
 
     useEffect(() => {
         const fetchData = async () => {
@@ -53,20 +51,15 @@ export default function Chatbot() {
         }
     }
 
-    const handleViewInput = () => {
-        // const speechBubbles = Array.from(document.querySelectorAll('.speechBubble'))
-        // const lastSpeechBubbleContainer = speechBubbles[speechBubbles.length - 1]
-        // lastSpeechBubbleContainer.scrollIntoView({ behavior: 'smooth', block: 'end'})  
-        
-        const conversationContainer = document.querySelector('.conversation-container')
-        conversationContainer.scrollTop = conversationContainer.scrollHeight
-    }
-
-    const handleUserInput = async event => {
+    const handleSubmit = async event => {
         event.preventDefault()
 
         handleErrors(async () => {
-            const userInput = event.target.userInput.value
+            const userInput = typeof event.target.userInput !== 'undefined' ? event.target.userInput.value : event.target.value
+
+            // let userInput
+            // if(typeof event.target.userInput.value !== undefined) userInput = event.target.userInput.value
+            // else userInput = event.target.value
 
             if (!userInput) return
 
@@ -105,11 +98,11 @@ export default function Chatbot() {
             const voidMessage = { role: 'assistant', content: ''}
 
             setMessages([...messagesToAsk, voidMessage])
-
-            handleViewInput()
         })
 
-        event.target.userInput.value = ''
+        typeof event.target.userInput !== 'undefined' ? event.target.userInput.value = '' : event.target.value = ''
+        // if(typeof event.target.userInput.value !== undefined) event.target.userInput.value = ''
+        //     else event.target.value = ''
     }
 
     const renderTypeWriterText = () => {
@@ -148,7 +141,20 @@ export default function Chatbot() {
         setMessages([...messages, ...conversation.conversationInputs])
     }
 
+    const handleGenerateSummary = async () => {
+        const summary = await generateSummary(context.conversationId)
+
+        setSummary(summary)
+    }
+
+    const handleKeyDown = event => {
+        if(event.key === 'Enter' && !event.shiftKey) {
+            handleSubmit(event)
+        }
+    }
+
     return <Container className="absolute top-0 left-0 bg-[url(src/images/chatbot-3.1.jpg)] bg-fixed bg-center bg-cover">
+        <button className="fixed right-4 top-24 w-28 z-10 mt-2 bg-yellow-100 leading-tight border border-black" onClick={handleGenerateSummary}>Generate summary</button>
         <section className="conversation-container absolute top-24 w-full bottom-32 overflow-y-scroll">
             <SpeechBubble
                 role={'assistant'}
@@ -162,12 +168,19 @@ export default function Chatbot() {
                     content={message.content}
                 />
             )}
+            {summary && summary.map((summary, index) => 
+                <SpeechBubble
+                    key={index}
+                    role={'sumamry'}
+                    content={summary}
+                />
+            )}
         </section>
 
-        <form className="border-black border-2 flex flex-row p-2 fixed bottom-4 gap-2" onSubmit={handleUserInput}>
-            <textarea className="w-72 p-4 focus:outline-none" name='userInput' placeholder='Send a message' autoFocus />
+        <form className="border-black border-2 flex flex-row p-2 fixed bottom-4 gap-2" onSubmit={handleSubmit}>
+            {/* <textarea className="w-72 p-4 focus:outline-none" name='userInput' placeholder='Send a message' /> */}
+            <textarea className="w-72 p-4 focus:outline-none" name='userInput' placeholder='Send a message' autoFocus onKeyDown={handleKeyDown}/>
             <Button><span className="material-symbols-outlined">send</span></Button>
         </form>
-
     </Container>
 }

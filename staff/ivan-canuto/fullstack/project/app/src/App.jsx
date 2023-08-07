@@ -15,7 +15,7 @@ function App() {
 
   useEffect(() => setTheme(getTheme()) ,[])
 
-  const alert = (message, level = 'info') => setFeedback({message, level})
+  const alert = (error, level = 'info') => setFeedback({error, level})
   
   const handleOnAcceptAlert = () => setFeedback(null)
   
@@ -30,7 +30,7 @@ function App() {
         <Route path='/*' element={isUserLoggedIn() ? <Home/> : <Navigate to='/login'/>}/>
       </Routes>
 
-      {feedback && <Alert message={feedback.message} level={feedback.level} onAccept={handleOnAcceptAlert}/>}
+      {feedback && <Alert error={feedback.error} level={feedback.level} onAccept={handleOnAcceptAlert}/>}
   </Provider>
 }
 

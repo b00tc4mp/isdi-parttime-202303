@@ -21,9 +21,10 @@ module.exports = function askForResponse(userId, conversationId, currentConversa
         const openai = new OpenAIApi(configuration)
 
         const newConversation = [...currentConversation]
+
         const instruction = {
             role: 'system',
-            content: process.env.INSTRUCTION
+            content: process.env.CONVERSATION_INSTRUCTION
         }
 
         newConversation.unshift(instruction)

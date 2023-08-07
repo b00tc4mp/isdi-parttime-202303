@@ -29,6 +29,7 @@ import storeInputInDB from './storeInputInDB'
 import retrieveConversations from './retrieveConversations'
 import retrieveConversation from './retrieveConversation'
 import generateConversation from './generateConversation'
+import generateSummary from './generateSummary'
 
 
 export {
@@ -62,5 +63,6 @@ export {
     storeInputInDB,
     retrieveConversations,
     retrieveConversation,
-    generateConversation
+    generateConversation,
+    generateSummary
 }

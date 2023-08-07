@@ -23,11 +23,10 @@ const {
     updatePostHandler,
     updateUserPasswordHandler,
     storeInputInDBHandler,
-    createConversationHandler,
     retrieveConversationsHandler,
     askForResponseHandler,
-    getConversationTitleHandler,
-    generateConversationHandler
+    generateConversationHandler,
+    generateSummaryHandler
 } = require('./handlers')
 const mongoose = require('mongoose')
 
@@ -82,6 +81,8 @@ mongoose.connect(process.env.MONGODB_URL)
         api.post('/users/conversations/:conversationId/askForResponse', jsonBodyParser, askForResponseHandler)
 
         api.post('/users/generateConversation', jsonBodyParser, generateConversationHandler)
+
+        api.get('/users/conversations/:conversationId/generateSummary', jsonBodyParser, generateSummaryHandler)
 
         api.listen(process.env.PORT, () => console.log(`Server running in port ${process.env.PORT}`))
     })

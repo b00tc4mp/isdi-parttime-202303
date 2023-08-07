@@ -12,7 +12,7 @@ export default function Profile({ onCancel, onUpdatedAvatar}) {
   const closeProfile = () => {
     onCancel()
   }
-
+  
   const handleChangeAvatar = (event) => {
     event.preventDefault()
 

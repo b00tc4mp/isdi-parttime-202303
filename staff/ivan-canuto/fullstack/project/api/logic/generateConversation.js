@@ -3,6 +3,8 @@ require('dotenv').config()
 const { validators: { validateId, validateText }, errors: { ExistenceError } } = require('com')
 const { User, Conversation } = require('../data/models')
 const { Configuration, OpenAIApi } = require('openai')
+const mongoose = require('mongoose')
+const { mongoose: { Types: { ObjectId } } } = mongoose
 
 module.exports = function generateConversation(userId, userInput) {
     validateId(userId, 'user id')
@@ -33,7 +35,7 @@ module.exports = function generateConversation(userId, userInput) {
             title
         })
 
-        const conversation = await Conversation.findOne({}).sort({ createdAt: -1 })
+        const conversation = await Conversation.findOne({ author: new ObjectId(userId)}).sort({ createdAt: -1 })
 
         return conversation.id
     })()

@@ -48,7 +48,7 @@ function fetchReply() {
             const conversationArr = Object.values(snapshot.val())
             conversationArr.unshift(instructionObj)
             const response = await openai.createChatCompletion({
-                    model: 'gpt-3.5-turbo',
+                model: 'gpt-3.5-turbo',
                 messages: conversationArr,
                 presence_penalty: 0,
                 frequency_penalty: 0.3
@@ -76,7 +76,7 @@ function renderTypewriterText(text) {
         }
         i++
         chatbotConversation.scrollTop = chatbotConversation.scrollHeight
-    }, 50)
+    }, 10)
 }
 
 function renderConversationFromDB() {

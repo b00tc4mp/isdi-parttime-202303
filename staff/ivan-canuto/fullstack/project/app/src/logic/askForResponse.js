@@ -1,7 +1,7 @@
 import { validators, errors } from 'com'
 import context from './context'
 
-const { validateId, validateText } = validators
+const { validateId } = validators
 
 /**
  * Creates a comment in post.
@@ -11,6 +11,8 @@ const { validateId, validateText } = validators
  */
 
 export default function askForResponse(conversationId, currentConversation) {
+  validateId(conversationId, 'conversation id')
+
   return (async () => {
     const res = await fetch(`${import.meta.env.VITE_API_URL}/users/conversations/${conversationId}/askForResponse`, {
       method: 'POST',
