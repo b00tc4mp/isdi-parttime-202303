@@ -1,4 +1,4 @@
-const { editPost } = require('../../logic/posts')
+const { editPost } = require('../../logic/playgrounds')
 const { extractUserId, handleErrors } = require('../helpers')
 
 module.exports = handleErrors((req, res) => {

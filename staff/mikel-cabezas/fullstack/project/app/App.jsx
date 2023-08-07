@@ -4,15 +4,12 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import MainStack from "./src/navigation/MainStack.jsx";
 
-
 import { StatusBar } from 'expo-status-bar';
 import { Text, View, Image, SafeAreaView, ScrollView, useColorScheme } from 'react-native';
 // import { GOOGLE_MAPS_KEY } from '@env'
 
 import AppContext from "./src/AppContext.js";
 const { Provider } = AppContext
-
-
 
 const HideKeyboard = ({ children }) => (
   <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -25,6 +22,7 @@ export default function App({ }) {
   const [modal, setModal] = useState()
   const [currentView, setCurrentView] = useState()
   const [animation, setAnimation] = useState()
+  const [TOKEN, setTOKEN] = useState()
 
   const [currentMarker, setCurrentMarker] = useState({})
   let colorScheme = useColorScheme();
@@ -68,7 +66,7 @@ export default function App({ }) {
     <>
       <Provider value={{
         currentView, setCurrentView, currentMarker, setCurrentMarker, modal, setModal, colorScheme, animation,
-        setAnimation
+        setAnimation, TOKEN, setTOKEN
       }}>
         <HideKeyboard>
           <NavigationContainer>

@@ -1,4 +1,4 @@
-const { retrieveLikedPosts } = require('../../logic/posts')
+const { retrieveLikedPosts } = require('../../logic/playgrounds')
 const { extractUserId, handleErrors } = require('../helpers')
 
 module.exports = handleErrors((req, res) => {

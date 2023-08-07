@@ -5,31 +5,31 @@ import MapView, { Marker, Callout } from 'react-native-maps'
 import { Picker } from 'react-native-wheel-pick';
 import { DROPDOWN } from "../../../assets/icons/index.js";
 
-export default function AddElement({ onElementCreated, onCancelAddElement, id }) {
+export default function AddElement({ onElementEdited, onCancelEditElement, element }) {
+    const { currentView, setCurrentView, colorScheme } = useContext(Context)
     const [modal, setModal] = useState()
+    console.log(element)
+    const [id, setId] = useState(element.id);
+    const [selectedType, setSelectedType] = useState(element.type);
+    const [selectedAge, setSelectedAge] = useState(element.age);
+    const [selectedStatus, setSelectedStatus] = useState(element.status);
+    const [selectedAccessibility, setSelectedAccessibility] = useState(element.accessibility);
 
-    const [selectedType, setSelectedType] = useState();
-    const [selectedAge, setSelectedAge] = useState();
-    const [selectedStatus, setSelectedStatus] = useState();
-    const [selectedAccessibility, setSelectedAccessibility] = useState();
-
-    const handleAdd = () => {
+    const handleEdit = () => {
         try {
             if (!selectedType || !selectedAge || !selectedStatus || !selectedAccessibility || selectedType === 'Set element' || selectedAge === 'Set age' || selectedStatus === 'Set status' || selectedAccessibility === 'Set accessibility') {
                 throw new Error('Complete all fields')
             }
-            const element = { id, type: selectedType, age: selectedAge, status: selectedStatus, accessibility: selectedAccessibility }
-            console.log(element)
-            onElementCreated(element)
+            const element = { id: id, type: selectedType, age: selectedAge, status: selectedStatus, accessibility: selectedAccessibility }
+            onElementEdited(element)
         } catch (error) {
             alert(error.message)
             console.log(error.message)
         }
     }
     const handleCancel = () => {
-        onCancelAddElement()
+        onCancelEditElement()
     }
-
     const onElementType = () => {
         setModal('type')
     }
@@ -45,14 +45,13 @@ export default function AddElement({ onElementCreated, onCancelAddElement, id })
     const onCloseModal = () => {
         setModal()
     }
-
     return <>
-        {modal && <View className="flex-1  bg-black60 items-center justify-center absolute w-[100vw] h-full z-[51] bottom-0 ">
+        {modal && <View className="flex-1  bg-black60 items-center justify-center absolute w-[100vw] h-[100vh] z-[51] top-[-12vh] ">
             <TouchableOpacity activeOpacity="0.8" className="absolute bottom-[165px] rounded-lg bg-mainLime right-3.5 z-50">
                 <Text className=" p-1.5 font-bold" onPress={onCloseModal}>OK</Text>
             </TouchableOpacity>
             {modal === 'type' && <Picker
-                className="w-full bg-white h-56 text-bold rounded-[20px] absolute bottom-0 pb-[20px]"
+                className="w-full bg-white h-52 text-bold rounded-[20px] absolute bottom-0 pb-[20px]"
                 textColor="black"
                 selectedValue='Set element'
                 pickerData={['Set element', 'Slide', 'Swing', 'Double Swing', 'Seesaw', 'Rider', 'Sandbox', 'House', 'Climber']}
@@ -115,9 +114,10 @@ export default function AddElement({ onElementCreated, onCancelAddElement, id })
                 <TouchableOpacity
                     activeOpacity={0.8}
                     className="border border-mainLime bg-mainLime rounded-full mt-4 self-center w-full  "
-                    onPress={handleAdd} >
+                    onPress={handleEdit}
+                >
                     <View className="font-bold px-6 py-2 self-center rounded-full" >
-                        <Text className="font-bold text-lg">Add</Text>
+                        <Text className="font-bold text-lg">Edit</Text>
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity

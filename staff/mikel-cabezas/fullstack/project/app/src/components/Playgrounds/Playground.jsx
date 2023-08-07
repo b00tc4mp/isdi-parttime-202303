@@ -23,8 +23,12 @@ export default function Post({ playground, playground: { title, text, id, image,
     return <>
         <Marker
             tooltip={false}
+            // resizeMode="contain"
+            // resizeMethod="resize"
             key={playground._id}
-            className="w-20 h-10"
+            // className="w-20 h-10 object-contain"
+            width={48}
+
             coordinate={{ latitude: latitude, longitude: longitude }}
             title={title}
             description={text}

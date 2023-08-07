@@ -2,6 +2,10 @@ const mongoose = require('mongoose')
 const { Schema, Schema: { Types: { ObjectId } }, model } = mongoose
 
 const user = new Schema({
+    _id: {
+        type: ObjectId,
+        required: true,
+    },
     name: {
         type: String,
         required: true,
@@ -77,19 +81,27 @@ const location = new Schema({
     },
     coordinates: {
         type: Array,
-        length: 2,
+        // length: 2,
         required: true
     }
 })
 const element = new Schema({
-    element: {
+    type: {
         type: String,
         required: true
     },
-    minimumAge: {
-        type: Number,
+    age: {
+        type: String,
         required: true
-    }
+    },
+    status: {
+        type: String,
+        required: true
+    },
+    accessibility: {
+        type: String,
+        required: true
+    },
 })
 const issue = new Schema({
     _id: {
@@ -102,20 +114,23 @@ const issue = new Schema({
         ref: 'User',
         required: true
     },
-    title: {
+    type: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
-    description: {
+    elements: {
         type: [String],
-        required: true
+        required: true,
+        unique: true
     },
     isSolved: {
         type: Boolean,
         default: false
     },
-    comments: {
-        type: [comments]
+    concept: {
+        type: String,
+        unique: true
     }
 })
 
@@ -125,7 +140,7 @@ const playground = new Schema({
         ref: 'User',
         required: true
     },
-    title: {
+    name: {
         type: String,
         required: true,
     },
@@ -137,7 +152,7 @@ const playground = new Schema({
         required: true,
         minLength: 1
     },
-    creationDate: {
+    dateCreated: {
         type: Date,
         required: true,
         default: Date.now
@@ -149,6 +164,7 @@ const playground = new Schema({
     likes: {
         type: [ObjectId],
         ref: 'User',
+        default: []
     },
     visibility: {
         type: String,
@@ -165,12 +181,13 @@ const playground = new Schema({
         required: true,
     },
     sunExposition: {
-        type: Array,
+        type: Object,
     },
-    issue: {
+    issues: {
         type: [issue],
         ref: 'User',
         required: true,
+        default: []
     },
     contributors: {
         type: [contributor],
