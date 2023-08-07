@@ -7,6 +7,7 @@ const LoginForm = ({ onRegister, onRecover, onLoginUser, formRef }) => {
 
     const handleEnterDown = (event) => {
         if (event.key === 'Enter') {
+            event.preventDefault();
             submitRef.current.click();
         }
     };
@@ -44,7 +45,7 @@ const LoginForm = ({ onRegister, onRecover, onLoginUser, formRef }) => {
                 <h1 className="text-xl font-bold leading-tight tracking-tight text-primary100 md:text-2xl">
                     Login
                 </h1>
-                <form className="space-y-4 md:space-y-6" action="POST" ref={formRef}>
+                <form className="space-y-4 md:space-y-6" ref={formRef}>
                     <div>
                         <label htmlFor="username" className="block mb-2 text-sm font-medium text-secondary100">
                             Your username
@@ -73,9 +74,9 @@ const LoginForm = ({ onRegister, onRecover, onLoginUser, formRef }) => {
                             className="bg-light500 border border-light100 text-secondary200 sm:text-sm rounded-lg focus:outline-none focus:ring-secondary300 focus:border-secondary300 block w-full p-2.5"
                             required={true}
                         />
-                        <p className="text-xs text-secondary300">
+                        <p className="text-xs text-secondary300 text-end">
                             <button onClick={onRecover} className="font-medium text-primary200 hover:underline pl-2">
-                                Forgot password!
+                                Forgot your password?
                             </button>
                         </p>
                     </div>

@@ -39,7 +39,7 @@ const RegisterForm = ({ onLogin, onRegisterUser, formRef, setColor }) => {
                 <h1 className="text-xl font-bold leading-tight tracking-tight text-primary100 md:text-2xl">
                     Create an account
                 </h1>
-                <form className="space-y-4 md:space-y-6" action="POST" ref={formRef}>
+                <form className="space-y-4 md:space-y-6" ref={formRef}>
                     <div>
                         <label htmlFor="username" className="block mb-2 text-sm font-medium text-secondary100">
                             Your username

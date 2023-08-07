@@ -9,13 +9,15 @@ import RegisterForm from '../components/forms/RegisterForm';
 import loginUser from '../logic/login-user';
 import registerUser from '../logic/register-user';
 import useHandleErrors from '../hooks/useHandleErrors';
+import RecoverPasswordForm from '../components/forms/RecoverPasswordForm';
 
 const SignIn = () => {
     const location = useLocation();
     const { startingForm } = location.state ? location.state : {};
     const [form, setForm] = useState(startingForm ? startingForm : 'login');
     const formRef = useRef(null);
-    const [color, setColor] = useState('orange')
+    const [color, setColor] = useState('orange');
+    const [isRecoverOn, setRecoverOn] = useState(false);
     const handleErrors = useHandleErrors();
     const navigate = useNavigate();
 
@@ -86,8 +88,9 @@ const SignIn = () => {
                     <Link to="/" className="flex items-center">
                         <img className="h-32" src={logo} alt="logo" />
                     </Link>
-                    {form === 'login' && <LoginForm onRegister={handleGoToRegister} onLoginUser={handleLogin} formRef={formRef} />}
-                    {form === 'register' && <RegisterForm onLogin={handleGoToLogin} onRegisterUser={handleRegister} formRef={formRef} setColor={setColor} />}
+                    {isRecoverOn && <RecoverPasswordForm onExit={() => setRecoverOn(false)} />}
+                    {!isRecoverOn && form === 'login' && <LoginForm onRegister={handleGoToRegister} onLoginUser={handleLogin} formRef={formRef} onRecover={() => setRecoverOn(true)} />}
+                    {!isRecoverOn && form === 'register' && <RegisterForm onLogin={handleGoToLogin} onRegisterUser={handleRegister} formRef={formRef} setColor={setColor} />}
                 </div>
             </section>
             <ComicCarousel />

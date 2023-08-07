@@ -22,7 +22,7 @@ const ColorForm = ({ setColor, onSaveColorChange }) => {
 
     return (
         <div className="w-full bg-secondary600 rounded-lg shadow mt-5 sm:max-w-md">
-            <form className="space-y-6 flex flex-col md:flex-row px-2 pb-5 pt-0 gap-2 align-center justify-center" action="POST">
+            <form className="space-y-6 flex flex-col md:flex-row px-2 pb-5 pt-0 gap-2 align-center justify-center">
                 <div>
                     <button
                         id="dropdownRadioButton"

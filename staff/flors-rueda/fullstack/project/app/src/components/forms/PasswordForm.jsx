@@ -18,7 +18,7 @@ const PasswordForm = ({ onUpdatePassword, formRef }) => {
                 <h1 className="text-xl font-bold leading-tight tracking-tight text-primary100 md:text-2xl">
                     Change your password
                 </h1>
-                <form className="space-y-4 md:space-y-6" action="POST" ref={formRef}>
+                <form className="space-y-4 md:space-y-6" ref={formRef}>
                     <div className="flex flex-col gap-1">
                         <label htmlFor="password" className="block mb-1 text-sm font-medium text-secondary100">
                             New password
@@ -62,7 +62,7 @@ const PasswordForm = ({ onUpdatePassword, formRef }) => {
                     <button
                         type="button"
                         className="w-full text-primary100 bg-light500 hover:bg-light400 focus:ring-4 focus:outline-none focus:ring-primary300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-                        onClick={(event) => onUpdatePassword(event)}
+                        onClick={() => onUpdatePassword()}
                     >
                         Change password
                     </button>

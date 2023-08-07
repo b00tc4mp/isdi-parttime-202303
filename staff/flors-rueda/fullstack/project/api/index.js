@@ -49,9 +49,9 @@ mongoose.connect(process.env.MONGODB_URL)
 
         api.patch('/api/users/recover', jsonBodyParser, recoverPasswordHandler);
 
-        api.get('/api/users/question', jsonBodyParser, retrieveRandomRecoveryQuestionHandler);
+        api.post('/api/users/question', jsonBodyParser, retrieveRandomRecoveryQuestionHandler);
 
-        api.get('/api/users/answer', jsonBodyParser, checkRecoveryAnswerHandler);
+        api.post('/api/users/answer', jsonBodyParser, checkRecoveryAnswerHandler);
 
         api.patch('/api/levels/like/:levelId', toggleLikeHandler);
 
