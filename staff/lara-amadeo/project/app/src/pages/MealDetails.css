@@ -56,7 +56,7 @@
     position: absolute;
     display: flex;
     justify-content: center;
-    align-items: end;
+    align-items: flex-end;
 }
 
 .slider-left-icon {
@@ -73,6 +73,7 @@
     right: 4px;
 }
 
-.slider {
-    position: relative;
+.img-slider-container {
+    max-width: 100%;
+    aspect-ratio: 1/1;
 }

@@ -19,6 +19,7 @@ import useAppContext from '../logic/hooks/useAppContext'
 import useHandleError from '../logic/hooks/useHandleError'
 import Divider from '../library/components/Divider'
 import addMealToCart from '../logic/addMealToCart'
+import { Carousel } from 'flowbite-react'
 
 
 type Meal = {
@@ -26,7 +27,7 @@ type Meal = {
     images: Array<string>,
     title: string,
     description: string,
-    ingredients: string,
+    ingredients: string[],
     bestBefore: string,
     price: string,
     categories: Array<string>,
@@ -58,6 +59,7 @@ export default function MealDetails(): JSX.Element {
 
     const [mealCounter, setMealCounter] = useState(0)
     const [counterButtonLabel, setCounterButtonLabel] = useState<string>()
+    const [mealStock, setMealStock] = useState()
 
     useEffect(() => {
         (async () => {
@@ -66,6 +68,7 @@ export default function MealDetails(): JSX.Element {
                 setMeal(meal)
                 setCounterButtonLabel(meal.price)
                 setimagesLength(meal.images.length)
+                setMealStock(meal.quantity)
             } catch (error: any) {
                 handleErrors(error)
             }
@@ -82,6 +85,11 @@ export default function MealDetails(): JSX.Element {
     }
 
     const increaseCounter = () => {
+        if (mealCounter === Number(mealStock)) {
+            toast('There is not sufficient stock for adding more meals', 'error')
+
+            return
+        }
         setMealCounter(mealCounter + 1)
         const sum = Number(meal?.price) * (mealCounter + 1)
         setCounterButtonLabel(sum.toString())
@@ -183,21 +191,18 @@ export default function MealDetails(): JSX.Element {
             </ContextualModalMenu>
         </>}
         <Topbar level='second' secondLevel={{ label: "Meal detail", left: <ArrowLeftIcon className='icon-s grey-700' />, onLeftClick: onBackClick, right: <EllipsisVerticalIcon className='icon-s grey-700' />, onRightClick: onOptionsClick }} />
-        <div className='page-first-level' style={{ overflow: contextualModal ? 'hidden' : 'auto', paddingBottom: meal?.author.id !== userId ? '100px' : '0px' }}>
+        <div className='page-first-level' style={{ overflow: contextualModal === true ? 'hidden' : 'auto', paddingBottom: meal?.author.id !== userId ? '116px' : '24px' }}>
 
             {/* upper-part */}
             <div className='meal-detail-upper-part'>
-                {meal && <section className='slider'>
-                    <IconButton type={'primary'} icon={<ArrowLeftIcon className='icon-s grey-700' />} onClick={prevSlide} className={"slider-left-icon"} />
-                    <IconButton type={'primary'} icon={<ArrowRightIcon className='icon-s grey-700' />} onClick={nextSlide} className={"slider-right-icon"} />
-                    {meal.images.map((slide, index) => {
-                        return (
-                            <div className={index === currentImage ? 'slide active' : 'slide'} key={index}>
-                                {index === currentImage && (<img src={slide} alt='travel image' className='meal-detail-img' />)}
-                            </div>
-                        )
-                    })}
-                </section>}
+                {/* image-carousel */}
+                {meal &&
+                    <div className='img-slider-container'>
+                        <Carousel slide slideInterval={400000} leftControl={" "} rightControl={" "}>
+                            {meal.images.map(image => <img src={image} className='meal-detail-img' />)}
+                        </Carousel>
+                    </div>}
+
                 {/* image-info */}
                 <div className='meal-detail-img-info'>
 
@@ -215,7 +220,6 @@ export default function MealDetails(): JSX.Element {
                         </> : ""}
                     </div>
 
-
                 </div>
             </div>
 
@@ -223,7 +227,6 @@ export default function MealDetails(): JSX.Element {
             {meal && <Header text={meal.title} />}
             <div className='meal-detail-lower-part'>
                 {meal && <DataItem label='Description' content={meal.description} />}
-                {/* @ts-ignore */}
                 {meal && <DataItem label='Ingredients' content={meal.ingredients.join(", ")} />}
                 {meal && <DataItem label='BestBefore' content={`${meal.bestBefore} days`} />}
                 {meal && <DataItem label='Price' content={`${meal.price}€`} />}

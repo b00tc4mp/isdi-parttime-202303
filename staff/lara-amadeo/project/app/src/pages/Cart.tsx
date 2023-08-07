@@ -14,6 +14,7 @@ import Payment from '../modals/Payment'
 import removeMealFromCart from '../logic/removeMealFromCart'
 import Header from '../library/components/Header'
 import EmptyState from '../library/components/EmptyState'
+import { Carousel, Button } from 'flowbite-react'
 
 type Author = {
     avatar: string
@@ -172,6 +173,19 @@ export default function Cart() {
                     {!tabView &&
                         <>
                             <div className='cart-empty-state-container'>
+                                <Carousel slide>
+                                    {/* {meal.images.map(image => <img src={image} className='meal-detail-img' />)} */}
+                                    <div className="flex h-full items-center justify-center bg-gray-400 dark:bg-gray-700 dark:text-white">
+                                        Slide 1
+                                    </div>
+                                    <div className="flex h-full items-center justify-center bg-gray-400 dark:bg-gray-700 dark:text-white">
+                                        Slide 2
+                                    </div>
+                                    <div className="flex h-full items-center justify-center bg-gray-400 dark:bg-gray-700 dark:text-white">
+                                        Slide 3
+                                    </div>
+                                </Carousel>
+
 
                                 <p className='heading-s' style={{ textAlign: 'center' }}>TODO!!!!!</p>
                                 <p className='body-text grey-700' style={{ marginBottom: '16px', marginTop: '8px', textAlign: 'center', width: '90%' }}></p>
