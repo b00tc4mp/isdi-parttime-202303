@@ -3,9 +3,6 @@ import inLogger from '../../inLogger';
 import useLockScroll from '../../hooks/useLockScroll';
 
 const AlertToast = ({ handleCloseAlert, message, log }) => {
-    const { lockScroll } = useLockScroll();
-    lockScroll();
-
     useEffect(() => {
         log(message);
     }, []);

@@ -25,12 +25,12 @@ const RegisterForm = ({ onLogin, onRegisterUser, formRef, setColor }) => {
     const handleUsernameChange = (event) => {
         const inputValue = event.target.value;
         const alphanumericRegex = /^[a-zA-Z0-9]+$/;
-
         if (!alphanumericRegex.test(inputValue)) {
             event.target.setCustomValidity('Only letters and numbers are allowed.');
         } else {
             event.target.setCustomValidity('');
         }
+        event.target.reportValidity();
     };
 
     return (
@@ -64,6 +64,7 @@ const RegisterForm = ({ onLogin, onRegisterUser, formRef, setColor }) => {
                             name="password"
                             id="password"
                             placeholder="••••••••"
+                            minLength={8}
                             className="bg-light500 border border-light100 text-secondary200 sm:text-sm rounded-lg focus:outline-none focus:ring-secondary300 focus:border-secondary300 block w-full p-2.5"
                             required={true}
                         />
@@ -71,6 +72,7 @@ const RegisterForm = ({ onLogin, onRegisterUser, formRef, setColor }) => {
                             type="password"
                             name="repeatPassword"
                             id="repeatPassword"
+                            minLength={8}
                             placeholder="confirm your password"
                             className="bg-light500 border border-light100 text-secondary200 sm:text-sm rounded-lg focus:outline-none focus:ring-secondary300 focus:border-secondary300 block w-full p-2.5"
                             required={true}
@@ -138,13 +140,13 @@ const RegisterForm = ({ onLogin, onRegisterUser, formRef, setColor }) => {
                     >
                         Create an account
                     </button>
-                    <p className="text-sm text-secondary300">
-                        Already have an account?
-                        <button onClick={onLoginClick} className="font-medium pl-2 text-primary200 hover:underline">
-                            Sign in here
-                        </button>
-                    </p>
                 </form>
+                <p className="text-sm text-secondary300">
+                    Already have an account?
+                    <button onClick={onLoginClick} className="font-medium pl-2 text-primary200 hover:underline">
+                        Sign in here
+                    </button>
+                </p>
             </div>
         </div>
     );

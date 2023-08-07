@@ -9,4 +9,8 @@ module.exports = {
     updateColor: require('./users/updateColor'),
     updateAvatar: require('./users/updateAvatar'),
     toggleLike: require('./levels/toggleLike'),
+    checkRecoveryAnswer: require('./users/checkRecoveryAnswer'),
+    recoverPassword: require('./users/recoverPassword'),
+    retrieveRandomRecoveryQuestion: require('./users/retrieveRandomRecoveryQuestion'),
+    updatePassword: require('./users/updatePassword')
 }

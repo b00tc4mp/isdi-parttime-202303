@@ -4,7 +4,7 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 
-const { helloApiHandler, retrieveLevelsHandler, retrieveLevelHandler, createLevelHandler, authenticateUserHandler, registerUserHandler, retrieveUserHandler, retrieveUserLoggedHandler, updateColorHandler, updateAvatarHandler, toggleLikeHandler } = require('./handlers');
+const { helloApiHandler, retrieveLevelsHandler, retrieveLevelHandler, createLevelHandler, authenticateUserHandler, registerUserHandler, retrieveUserHandler, retrieveUserLoggedHandler, updateColorHandler, updateAvatarHandler, toggleLikeHandler, updatePasswordHandler, recoverPasswordHandler, retrieveRandomRecoveryQuestionHandler, checkRecoveryAnswerHandler } = require('./handlers');
 
 const mongoose = require('mongoose');
 
@@ -44,6 +44,14 @@ mongoose.connect(process.env.MONGODB_URL)
         api.patch('/api/users/color', jsonBodyParser, updateColorHandler);
 
         api.patch('/api/users/avatar', jsonBodyParser, updateAvatarHandler);
+
+        api.patch('/api/users/password', jsonBodyParser, updatePasswordHandler);
+
+        api.patch('/api/users/recover', jsonBodyParser, recoverPasswordHandler);
+
+        api.get('/api/users/question', jsonBodyParser, retrieveRandomRecoveryQuestionHandler);
+
+        api.get('/api/users/answer', jsonBodyParser, checkRecoveryAnswerHandler);
 
         api.patch('/api/levels/like/:levelId', toggleLikeHandler);
 

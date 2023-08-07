@@ -1,17 +1,12 @@
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import inLogger from '../inLogger';
-import logo from '../assets/logo-complete.svg';
-import { useState, useEffect, useRef } from 'react';
+import { useState } from 'react';
 import useHandleErrors from '../hooks/useHandleErrors';
 import ColorForm from '../components/forms/ColorForm';
 import updateColor from '../logic/update-color';
 import AvatarForm from '../components/forms/AvatarForm';
 
 const Customize = () => {
-    const location = useLocation();
-    const { startingForm } = location.state ? location.state : {};
-    const [form, setForm] = useState(startingForm ? startingForm : 'login');
-    const formRef = useRef(null);
     const [color, setColor] = useState('orange')
     const handleErrors = useHandleErrors();
     const navigate = useNavigate();

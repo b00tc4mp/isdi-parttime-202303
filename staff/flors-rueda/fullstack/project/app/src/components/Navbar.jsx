@@ -115,9 +115,9 @@ const Navbar = () => {
                                             </Link>
                                         </li>
                                         <li className="w-full text-sm text-dark400 hover:text-secondary400 rounded-lg hover:bg-light400 pl-2 px-3">
-                                            <Link to="/" className="flex flex-row gap-2 align-center">
+                                            <Link to="/settings" className="flex flex-row gap-2 align-center">
                                                 <i className="bi bi-gear-fill"></i>
-                                                <span>Account</span>
+                                                <span>Settings</span>
                                             </Link>
                                         </li>
                                         <li>

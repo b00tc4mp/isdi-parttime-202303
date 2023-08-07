@@ -9,5 +9,9 @@ module.exports = {
     retrieveUserLoggedHandler: require('./retrieveUserLoggedHandler'),
     updateColorHandler: require('./updateColorHandler'),
     updateAvatarHandler: require('./updateAvatarHandler'),
-    toggleLikeHandler: require('./toggleLikeHandler')
+    toggleLikeHandler: require('./toggleLikeHandler'),
+    checkRecoveryAnswerHandler: require('./checkRecoveryAnswerHandler'),
+    recoverPasswordHandler: require('./recoverPasswordHandler'),
+    retrieveRandomRecoveryQuestionHandler: require('./retrieveRandomRecoveryQuestionHandler'),
+    updatePasswordHandler: require('./updatePasswordHandler')
 }

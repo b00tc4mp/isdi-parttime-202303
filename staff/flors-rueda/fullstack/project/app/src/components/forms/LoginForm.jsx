@@ -1,7 +1,26 @@
+import { useEffect, useRef } from 'react';
 import inLogger from '../../inLogger';
 
 
-const LoginForm = ({ onRegister, onLoginUser, formRef }) => {
+const LoginForm = ({ onRegister, onRecover, onLoginUser, formRef }) => {
+    const submitRef = useRef();
+
+    const handleEnterDown = (event) => {
+        if (event.key === 'Enter') {
+            submitRef.current.click();
+        }
+    };
+
+    useEffect(() => {
+        const parentElement = submitRef.current.parentElement;
+        parentElement.addEventListener('keydown', handleEnterDown);
+
+        return () => {
+            parentElement.removeEventListener('keydown', handleEnterDown);
+        };
+    }, []);
+
+
     const onRegisterClick = (event) => {
         event.preventDefault();
         onRegister();
@@ -16,9 +35,8 @@ const LoginForm = ({ onRegister, onLoginUser, formRef }) => {
         } else {
             event.target.setCustomValidity('');
         }
+        event.target.reportValidity();
     };
-
-
 
     return (
         <div className="w-full bg-secondary600 rounded-lg shadow mt-5 sm:max-w-md">
@@ -48,27 +66,34 @@ const LoginForm = ({ onRegister, onLoginUser, formRef }) => {
                         </label>
                         <input
                             type="password"
+                            minLength={8}
                             name="password"
                             id="password"
                             placeholder="••••••••"
                             className="bg-light500 border border-light100 text-secondary200 sm:text-sm rounded-lg focus:outline-none focus:ring-secondary300 focus:border-secondary300 block w-full p-2.5"
                             required={true}
                         />
+                        <p className="text-xs text-secondary300">
+                            <button onClick={onRecover} className="font-medium text-primary200 hover:underline pl-2">
+                                Forgot password!
+                            </button>
+                        </p>
                     </div>
                     <button
                         type="button"
+                        ref={submitRef}
                         className="w-full text-primary100 bg-light500 hover:bg-light400 focus:ring-4 focus:outline-none focus:ring-primary300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
                         onClick={(event) => onLoginUser(event)}
                     >
                         Sign in
                     </button>
-                    <p className="text-sm text-secondary300">
-                        You are new here?
-                        <button onClick={onRegisterClick} className="font-medium text-primary200 hover:underline pl-2">
-                            Register now!
-                        </button>
-                    </p>
                 </form>
+                <p className="text-sm text-secondary300">
+                    You are new here?
+                    <button onClick={onRegisterClick} className="font-medium text-primary200 hover:underline pl-2">
+                        Register now!
+                    </button>
+                </p>
             </div>
         </div>
     );
