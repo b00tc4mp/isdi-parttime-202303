@@ -2,6 +2,8 @@ const mongoose = require('mongoose')
 
 const {Administrator, Update, Event, LyricPost, Message, UsersData, SocialNetworks} = require('./models')
 
+
+
 mongoose.connect('mongodb://127.0.0.1:27017/amw')
     .then(() => Promise.all([Administrator.deleteMany(), Update.deleteMany(), Event.deleteMany(), LyricPost.deleteMany(), Message.deleteMany(), UsersData.deleteMany(), SocialNetworks.deleteMany()]))
     .then(() => {
