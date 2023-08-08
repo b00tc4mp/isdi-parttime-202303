@@ -16,7 +16,7 @@ export default function MainStack() {
     const { TOKEN, setTOKEN } = useContext(Context)
 
     useEffect(() => {
-        AsyncStorage.getItem('TOKEN')
+        AsyncStorage.getItem('@TOKEN')
             .then(token => {
                 // alert(token)
                 if (token) {

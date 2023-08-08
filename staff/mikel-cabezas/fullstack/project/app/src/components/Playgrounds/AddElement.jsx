@@ -15,11 +15,18 @@ export default function AddElement({ onElementCreated, onCancelAddElement, id })
 
     const handleAdd = () => {
         try {
+<<<<<<< HEAD
+            if (!selectedType || !selectedAge || !selectedStatus || !selectedAccessibility) {
+                throw new Error('Complete all fields')
+            }
+            const element = { id, type: selectedType, age: selectedAge, status: selectedStatus, accessibility: selectedAccessibility }
+=======
             if (!selectedType || !selectedAge || !selectedStatus || !selectedAccessibility || selectedType === 'Set element' || selectedAge === 'Set age' || selectedStatus === 'Set status' || selectedAccessibility === 'Set accessibility') {
                 throw new Error('Complete all fields')
             }
             const element = { id, type: selectedType, age: selectedAge, status: selectedStatus, accessibility: selectedAccessibility }
             console.log(element)
+>>>>>>> finish addPlaygroudn compo, with logics for render each image for ages and elements; create logics for connect to db; create logic in backend for add element; update models
             onElementCreated(element)
         } catch (error) {
             alert(error.message)
@@ -115,7 +122,12 @@ export default function AddElement({ onElementCreated, onCancelAddElement, id })
                 <TouchableOpacity
                     activeOpacity={0.8}
                     className="border border-mainLime bg-mainLime rounded-full mt-4 self-center w-full  "
+<<<<<<< HEAD
+                    onPress={handleAdd}
+                >
+=======
                     onPress={handleAdd} >
+>>>>>>> finish addPlaygroudn compo, with logics for render each image for ages and elements; create logics for connect to db; create logic in backend for add element; update models
                     <View className="font-bold px-6 py-2 self-center rounded-full" >
                         <Text className="font-bold text-lg">Add</Text>
                     </View>
