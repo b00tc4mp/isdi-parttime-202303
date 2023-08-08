@@ -31,6 +31,9 @@ module.exports = (username, password, color, recoveryQuestions) => {
                 avatar: 'beach',
                 joined: Date.now(),
                 saves: [],
+                follows: [],
+                followers: 0,
+                cc: 42,
             })
         } catch (error) {
             if (error.message.includes('E11000'))

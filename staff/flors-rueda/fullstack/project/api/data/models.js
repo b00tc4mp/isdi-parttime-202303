@@ -74,6 +74,21 @@ const user = new Schema({
     saves: {
         type: [ObjectId],
         required: true
+    },
+
+    follows: {
+        type: [ObjectId],
+        required: true
+    },
+
+    followers: {
+        type: Number,
+        required: true
+    },
+
+    cc: {
+        type: Number,
+        required: true
     }
 
 })

@@ -50,6 +50,9 @@ describe('registerUser', () => {
         expect(createdUser.joined.getTime()).to.be.closeTo(date, 10000);
         expect(createdUser.avatar).to.equal('beach');
         expect(createdUser.saves).be.an('array');
+        expect(createdUser.follows).be.an('array');
+        expect(createdUser.followers).to.equal(0);
+        expect(createdUser.cc).to.equal(42);
         expect(createdUser.recoveryQuestions[0].question).to.equal(recoveryQuestions[0].question);
         expect(matchAnswer1).to.equal(true);
         expect(createdUser.recoveryQuestions[1].question).to.equal(recoveryQuestions[1].question);

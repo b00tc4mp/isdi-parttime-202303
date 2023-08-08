@@ -8,8 +8,6 @@ const {
     assets: { colors },
 } = require('com');
 
-//TODO add non existent level
-
 describe('toggleLike', () => {
     before(async () => {
         await mongoose.connect(process.env.MONGODB_URL);
@@ -33,7 +31,7 @@ describe('toggleLike', () => {
             { question: `question${Math.random()}`, answer: `answer${Math.random()}` }
         ];
 
-        const user = generate.user(username, password, 'beach', color, recoveryQuestions, []);
+        const user = generate.user(username, password, 'beach', color, recoveryQuestions, [], [], 4, 1234);
 
         const createdUser = await User.create(user);
 

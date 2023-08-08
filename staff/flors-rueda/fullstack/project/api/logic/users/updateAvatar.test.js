@@ -32,7 +32,7 @@ describe('updateAvatar', () => {
             { question: `question${Math.random()}`, answer: `answer${Math.random()}` }
         ];
 
-        const user = generate.user(username, password, avatar, color, recoveryQuestions, []);
+        const user = generate.user(username, password, avatar, color, recoveryQuestions, [], [], 0, 1);
 
         const createdUser = await User.create(user);
         const id = createdUser._id.toString();

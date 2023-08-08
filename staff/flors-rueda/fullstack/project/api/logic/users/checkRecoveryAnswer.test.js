@@ -32,7 +32,7 @@ describe('checkRecoveryAnswer', () => {
             { question: `question${Math.random()}`, answer: await bcrypt.hash(answer, 10) }
         ];
 
-        const user = generate.user(username, password, 'beach', color, recoveryQuestions, []);
+        const user = generate.user(username, password, 'beach', color, recoveryQuestions, [], [], 10, 1254);
 
         const createdUser = await User.create(user);
         const questionId = (createdUser.recoveryQuestions[0]._id).toString();
@@ -51,7 +51,7 @@ describe('checkRecoveryAnswer', () => {
             { question: `question${Math.random()}`, answer: await bcrypt.hash(answer, 10) }
         ];
 
-        const user = generate.user(username, password, 'beach', color, recoveryQuestions, []);
+        const user = generate.user(username, password, 'beach', color, recoveryQuestions, [], [], 21, 555);
 
         const createdUser = await User.create(user);
         const questionId = (createdUser.recoveryQuestions[0]._id).toString();
@@ -81,7 +81,7 @@ describe('checkRecoveryAnswer', () => {
         const recoveryQuestions = [
             { question: `question${Math.random()}`, answer: `answer${Math.random()}` }
         ];
-        const user = generate.user(username, password, 'beach', color, recoveryQuestions, []);
+        const user = generate.user(username, password, 'beach', color, recoveryQuestions, [], [], 55, 254);
         await User.create(user);
         const questionId = (new mongoose.Types.ObjectId()).toString();
 
