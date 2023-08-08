@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import { ArtistDetails, SearchPlace } from './components'
+import { SearchArtist, SearchPlace } from './components'
 import { Home } from './pages'
 import { PencilIcon, BookmarkIcon, HeartIcon } from '@heroicons/react/24/solid'
-
+import retrieveUserGeolocation from '../logic/retrieveUserGeolocation'
 
 function App() {
     const [selectedNavItem, setSelectedNavItem] = useState('artist');
@@ -14,22 +14,11 @@ function App() {
     const [city, setCity] = useState('');
 
     useEffect(() => {
-        // Function to fetch IP geolocation data
-        const fetchGeolocationData = async () => {
-            try {
-                const response = await fetch('https://ipinfo.io?token=7a1a4123a6698c');
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                const data = await response.json();
-                const { city } = data;
-                setCity(city);
-            } catch (error) {
-                console.error('Error fetching geolocation data:', error);
-            }
-        };
-
-        fetchGeolocationData();
+        async function fetchGeolocation() {
+            const userCity = await retrieveUserGeolocation();
+            setCity(userCity);
+        }
+        fetchGeolocation();
     }, []);
 
     return (
@@ -106,7 +95,7 @@ function App() {
                 <h2>Your City: {city}</h2>
             </div>
             <h1>Search {selectedNavItem === 'artist' ? 'artist' : 'place'}</h1>
-            {selectedNavItem === 'artist' ? <ArtistDetails /> : <SearchPlace />}
+            {selectedNavItem === 'artist' ? <SearchArtist /> : <SearchPlace />}
             <Home />
         </div >
     );

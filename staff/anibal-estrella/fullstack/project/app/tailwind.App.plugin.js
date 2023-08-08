@@ -18,7 +18,7 @@ export default plugin(({ addBase, addComponents, addUtilities, theme }) => {
             textTransform: 'uppercase',
             fontSize: '0.75rem',
         },
-        'button:hover': {
+        'button:hover, a:hover': {
             opacity: '0.75',
         },
         'button:active': {

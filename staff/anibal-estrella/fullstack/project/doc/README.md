@@ -44,7 +44,7 @@ This web application is a community designed for musicians, music events enthusi
 - date: date of the event (string)
 - location: geolocation (???)
 - lineUp: array od artists containing artist Apis ids (API Ids)
-- venue: Venue information for the event (string)(API id?).
+- place: Venue information for the event (string)(API id?).
 
 #### Review
 - id: Unique identifier for the Review (oid).

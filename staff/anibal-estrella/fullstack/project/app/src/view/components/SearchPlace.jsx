@@ -1,6 +1,7 @@
 
 import React, { useEffect, useState } from 'react';
 import retrievePlacesList from '../../logic/retrievePlacesList';
+import { MagnifyingGlassIcon } from '@heroicons/react/24/solid'
 
 const searchPlace = () => {
     const [placeName, setPlaceName] = useState('');
@@ -20,17 +21,32 @@ const searchPlace = () => {
         }
     };
 
+    const handleCreatePlace = () => {
+        console.log('Create new Place');
+    };
+
 
 
     return (
         <div>
-            <input
-                type="text"
-                value={placeName}
-                onChange={handleInputChange}
-                placeholder="Enter place name"
-            />
-            <button onClick={handleRetrieveDetails}>Search for a place</button>
+            <div className="flex flex-row w-full">
+                <div className='relative w-full'>
+
+
+                    <input
+                        className='pl-8'
+                        type="text"
+                        value={placeName}
+                        onChange={handleInputChange}
+                        placeholder="Enter place name" />
+
+                    <span className='absolute top-5 left-1 h-6 w-6  rounded-full'>
+                        <MagnifyingGlassIcon className='text-gray-500 ' />
+                    </span>
+                </div>
+                <button onClick={handleRetrieveDetails}>Search for a place</button>
+            </div>
+            <button onClick={handleCreatePlace}>Create a new place</button>
 
             {placeDetails && (
                 <div>

@@ -3,9 +3,9 @@ import { useEffect, useState } from 'react';
 import retrieveArtistDetails from '../../logic/retrieveArtistDetails';
 import { MagnifyingGlassIcon } from '@heroicons/react/24/solid'
 
-const ArtistDetails = () => {
+const SearchArtist = () => {
     const [artistName, setArtistName] = useState('');
-    const [artistDetails, setArtistDetails] = useState(null);
+    const [SearchArtist, setSearchArtist] = useState(null);
 
     const handleInputChange = (event) => {
         setArtistName(event.target.value);
@@ -14,10 +14,10 @@ const ArtistDetails = () => {
     const handleRetrieveDetails = async () => {
         try {
             const details = await retrieveArtistDetails(artistName);
-            setArtistDetails(details);
+            setSearchArtist(details);
         } catch (error) {
             console.error('Error:', error);
-            setArtistDetails(null);
+            setSearchArtist(null);
         }
     };
 
@@ -33,20 +33,20 @@ const ArtistDetails = () => {
                 <button onClick={handleRetrieveDetails}>Retrieve Details</button>
             </div>
 
-            {artistDetails && (
+            {SearchArtist && (
                 <div>
-                    <h2>Artist Name: {artistDetails.artist.name}</h2>
-                    <h3>From: {artistDetails.artist.area.name}</h3>
-                    <p>Artist Bio: {artistDetails.bio}
-                        <a href={artistDetails.wiki} target="_blank">Wikipedia</a>
+                    <h2>Artist Name: {SearchArtist.name}</h2>
+                    <h3>From: {SearchArtist.from}</h3>
+                    <p>Artist Bio: {SearchArtist.bio}
+                        <a href={SearchArtist.wiki} target="_blank">Wikipedia</a>
                     </p>
                     <ul>Albums:
-                        {artistDetails.albumReleases.slice(0, 5).map((album) => (
+                        {SearchArtist.albums.slice(0, 5).map((album) => (
                             <li key={album.id}> {album.title}</li>
                         ))}
                     </ul>
-                    {artistDetails.image && (
-                        <img src={artistDetails.image} alt={artistDetails.artist.name} />
+                    {SearchArtist.image && (
+                        <img src={SearchArtist.image} alt={SearchArtist.name} />
                     )}
                 </div>
             )}
@@ -54,4 +54,4 @@ const ArtistDetails = () => {
     );
 };
 
-export default ArtistDetails;
+export default SearchArtist;

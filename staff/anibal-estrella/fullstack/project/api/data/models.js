@@ -29,16 +29,31 @@ const user = new Schema({
         type: [ObjectId],
         ref: 'User'
     },
-    //WARNING: when retrieveUser clean this when client call 
-    paymentMethod: [paymentMethod]
+    city: {
+        type: String,
+        required: true,
+    },
+    country: {
+        type: String,
+        required: true,
+    },
+
 })
 
 const review = ({
     author: {
-        // to reference another object from user
         type: ObjectId,
         ref: 'User',
-        required: true
+        required: true,
+    },
+    event: {
+        type: ObjectId,
+        ref: 'Event',
+        required: true,
+    },
+    score: {
+        type: Number,
+        required: true,
     },
     text: {
         type: String,
@@ -46,9 +61,9 @@ const review = ({
         trim: true,
         minLength: 1
     },
-    image: {},
-    audio: {},
-    video: {},
+    image: String,
+    audio: String,
+    video: String,
     date: {
         type: Date,
         required: true,
@@ -70,24 +85,29 @@ const event = new Schema({
     },
     text: {
         type: String,
-        required: true
+        required: true,
+        trim: true,
+        minLength: 1,
     },
     lineUp: {
         type: [String],
         required: true
     },
-    date: {
+    dates: [{
         type: Date,
         required: true,
-        default: Date.now
-    },
+        validate: {
+            validator: function (date) {
+                return date > Date.now();
+            },
+            message: 'Event date must be in the future',
+        }
+    }],
     likes: {
         type: [ObjectId],
         ref: 'User'
     },
-    reviews: {
-        type: [review],
-    }
+
 })
 
 const User = model('User', user)
