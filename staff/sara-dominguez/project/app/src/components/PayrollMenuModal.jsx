@@ -46,7 +46,6 @@ export default function PayrollMenuModal({ employee }) {
         try {
             retrievePayrollAnnualAggregate(payrollYear)
                 .then(payrollAnnualAggregate => {
-                    console.log(payrollAnnualAggregate)
                     setPayrollAnnualAggregate(payrollAnnualAggregate)
                     setView('PayrollAnnualAggregate')
                 })
@@ -57,7 +56,8 @@ export default function PayrollMenuModal({ employee }) {
     }
 
     return <section className="" style={{ backgroundColor: '#803080', color: '#ffffff' }}>
-        <Header employee={employee}
+        {/* <Header employee={employee} */}
+        <Header
         />
 
         <main>
@@ -69,7 +69,7 @@ export default function PayrollMenuModal({ employee }) {
             <div>
                 <label>Year:</label>
                 <select name="" id="year">
-                    <option value="2023-01-01">2023</option>
+                    <option value="2023">2023</option>
                     <option value="2022">2022</option>
                 </select>
                 <div className="selectToCheckPayrolls" >
@@ -95,8 +95,12 @@ export default function PayrollMenuModal({ employee }) {
                 </div>
             </div>
             {/* //TODO revisar las props que le mando a Payroll.jsx */}
-            {view === 'PayrollMonth' && <PayrollMonth employee={employee} payrollMonthRetrieved={payrollMonthRetrieved} />}
-            {view === 'PayrollAnnualAggregate' && <PayrollAnnualAggregate employee={employee} payrollAnnualAggregate={payrollAnnualAggregate} />}
+            {view === 'PayrollMonth' && <PayrollMonth
+                employee={employee}
+                payrollMonthRetrieved={payrollMonthRetrieved} />}
+            {view === 'PayrollAnnualAggregate' && <PayrollAnnualAggregate
+                employee={employee}
+                payrollAnnualAggregate={payrollAnnualAggregate} />}
 
         </main>
     </section >

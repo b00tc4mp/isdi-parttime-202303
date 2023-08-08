@@ -6,6 +6,9 @@ module.exports = ((req, res,) => {
 
     const { payrollYear } = req.params
 
-    return retrievePayrollAnnualAggregate(employeeId, payrollYear)
+    const payrollYearIsoDate = new Date(payrollYear).toISOString()
+
+
+    return retrievePayrollAnnualAggregate(employeeId, payrollYearIsoDate)
         .then(employeePayrollAnnualAggregated => res.json(employeePayrollAnnualAggregated))
 })

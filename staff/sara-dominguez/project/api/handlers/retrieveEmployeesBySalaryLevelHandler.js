@@ -3,10 +3,12 @@ const { extractEmployeeId } = require('./helpers')
 //TODO helper
 
 module.exports = (req, res) => {
-    // const employeeId = extractEmployeeId(req)
+    const employeeId = extractEmployeeId(req)
 
     const { salaryLevel } = req.params
 
-    return retrieveEmployeesBySalaryLevel(salaryLevel)
+    const salaryLevelNumber = parseInt(salaryLevel)
+
+    return retrieveEmployeesBySalaryLevel(employeeId, salaryLevelNumber)
         .then((employeeListRetrieved) => res.json(employeeListRetrieved))
 }

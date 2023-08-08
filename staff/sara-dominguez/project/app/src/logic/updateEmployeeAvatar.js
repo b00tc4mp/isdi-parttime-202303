@@ -1,6 +1,6 @@
 import { validators } from 'com'
 import context from './context'
-const { validateEmployeeAvatar } = validators
+const { validateUrl } = validators
 
 
 /**
@@ -16,7 +16,7 @@ const { validateEmployeeAvatar } = validators
 
 */
 export default function updateEmployeeAvatar(newAvatar) {
-    validateEmployeeAvatar(newAvatar)
+    validateUrl(newAvatar)
 
     return fetch(`${import.meta.env.VITE_API_URL}/employees/updateAvatar`, {
         method: 'PATCH',

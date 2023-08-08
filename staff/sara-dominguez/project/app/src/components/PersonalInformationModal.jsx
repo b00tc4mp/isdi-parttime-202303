@@ -127,7 +127,8 @@ export default function PersonalInformationModal({ employee, onEmployeeAvatarUpd
 
     return <section className="personalInformation" style={{ backgroundColor: '#FFC0CB', color: '#ffffff' }}>
 
-        <Header employee={employee}
+        {/* <Header employee={employee} */}
+        <Header
         />
 
         <main>

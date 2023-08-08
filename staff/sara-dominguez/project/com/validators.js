@@ -96,7 +96,26 @@ function validateToken(token, explain = 'token') {
     if (typeof token !== 'string') throw new TypeError(`${explain} is not a string`)
     if (token.split('.').length !== 3) throw new ContentError(`${explain} is not valid`)
 }
-
+function validateSalaryLevel(salaryLevel, explain = 'salary level') {
+    if (typeof salaryLevel !== 'number') throw new TypeError('salaryLevel is not a number');
+    if (salaryLevel === '') throw new ContentError('salaryLevel is empty')
+    if (!Number.isInteger(salaryLevel) || salaryLevel < 1 || salaryLevel > 5) {
+        throw new RangeError('salaryLevel must be an integer between 1 and 5');
+    }
+}
+function validatePayrollYear(payrollYear, explain = 'date') {
+    if (!payrollYear) {
+        throw new ContentError('payrollYear is required')
+    }
+    if (!(payrollYear instanceof Date) && isNaN(Date.parse(payrollYear))) throw new TypeError('payrollYear is not a date')
+}
+function validatePayrollMonth(payrollMonth, explain = 'payrollMonth') {
+    if (typeof payrollMonth !== 'number') throw new TypeError('payrollMonth is not a number');
+    if (payrollMonth === '') throw new ContentError('payrollMonth is empty')
+    if (!Number.isInteger(payrollMonth) || payrollMonth < 1 || payrollMonth > 12) {
+        throw new RangeError('payrollMonth must be an integer between 1 and 12');
+    }
+}
 
 module.exports = {
     validateName,
@@ -108,5 +127,8 @@ module.exports = {
     validateText,
     validateCallback,
     validateToken,
-    validateBankAccountNumber
+    validateBankAccountNumber,
+    validateSalaryLevel,
+    validatePayrollYear,
+    validatePayrollMonth,
 }

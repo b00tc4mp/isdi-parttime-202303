@@ -7,6 +7,10 @@ module.exports = (req, res) => {
 
     const { payrollYear, payrollMonth } = req.params
 
-    return retrievePayrollMonth(employeeId, payrollYear, payrollMonth)
+    const payrollYearIsoDate = new Date(payrollYear).toISOString()
+
+    const payrollMonthNumber = parseInt(payrollMonth)
+
+    return retrievePayrollMonth(employeeId, payrollYearIsoDate, payrollMonthNumber)
         .then(payrollMonthRetrieved => res.json(payrollMonthRetrieved))
 }

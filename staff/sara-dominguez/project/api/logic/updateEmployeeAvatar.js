@@ -10,10 +10,9 @@ const { validators: { validateId, validateUrl } } = require('com')
 * 
 * @returns {Promise<void>} Ends when employee avatar is updated
 //  * 
-//  * @throws {TypeError} On non-string URL or employeeId
-//  * @throws {ContentError} On empty URL
+//  * @throws {TypeError} On non-string employeeId or URL
+//  * @throws {ContentError} On employeeId doesn't have 24 characters or not hexadecimal or empty URL 
 //  * @throws {ExistenceError} On non-existing employee
-
 */
 
 module.exports = function updateEmployeeAvatar(employeeId, newAvatar) {

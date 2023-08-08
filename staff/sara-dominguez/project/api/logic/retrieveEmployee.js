@@ -11,10 +11,10 @@ const { UnknownError } = require('com/errors')
  * 
  * @param {string} employeeId  The employee id
  * 
- * @returns {Promise<string>} employee  
+ * @returns {Promise} employee  
 //  * 
 //  * @throws {TypeError} On non-string employeeId
-//  * @throws {ContentError} On id is empty or  doesn't have 24 characters or not hexadecimal
+//  * @throws {ContentError} On id doesn't have 24 characters or not hexadecimal
 //  * @throws {ExistenceError} On non-existing employee
 // 
  */
@@ -37,12 +37,11 @@ module.exports = function retrieveEmployee(employeeId) {
 
     return (async () => {
         try {
-            const employee = await Employee.findById(employeeId).lean()
+            const employee = await Employee.findById(employeeId, 'name firstSurname secondSurname avatar centerAttached professionalPhoneNumber professionalEmail ').lean()
 
             if (!employee) throw new ExistenceError('employee not found')
 
             delete employee._id
-            delete employee.__v
 
             return employee
         } catch (error) {

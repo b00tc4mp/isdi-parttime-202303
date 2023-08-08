@@ -3,50 +3,55 @@ import { context } from '../ui'
 import { useState, useRef } from 'react'
 import Employee from './Employee'
 import Header from "./Header"
+import retrieveEmployeesBySalaryLevel from '../logic/retrieveEmployeesBySalaryLevel'
+import createEmployeePayrollMonth from '../logic/createEmployeePayrollMonth'
 
 
 export default function ManagePayrollMenuModal({ employee }) {
     console.log("PayrollMenuModal --> open")
 
     // TODO alert
+    const [employeeList, setEmployeeList] = useState()
     const [view, setView] = useState(null)
-    // const year = useRef(null)
-    // const month = useRef(null)
+
     // const salaryLevel = useRef(null)
 
     // prueba de que renderiza ok 
-    let employeeListRetrieved = [{ id: 2, avatar: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSrQ6RdNYDIeXg3iTWoclyhB9BJ55rPr5emnw&usqp=CAU", name: "Sara", firsName: "d", secondSurname: "b", salaryLevel: 2 }, { id: 1, avatar: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSrQ6RdNYDIeXg3iTWoclyhB9BJ55rPr5emnw&usqp=CAU", name: "Jesus", firsName: "d", secondSurname: "b", salaryLevel: 2 }]
+    // let employeeListRetrieved = []
+    // [{ id: 2, avatar: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSrQ6RdNYDIeXg3iTWoclyhB9BJ55rPr5emnw&usqp=CAU", name: "Sara", firsName: "d", secondSurname: "b", salaryLevel: 2 }, { id: 1, avatar: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSrQ6RdNYDIeXg3iTWoclyhB9BJ55rPr5emnw&usqp=CAU", name: "Jesus", firsName: "d", secondSurname: "b", salaryLevel: 2 }]
 
     // retrieveEmployee(context.token)
 
     const handleGenerateEmployeeList = () => {
-        setView('EmployeeList')
+        setView('EmployeeListRetrieved')
 
-        const year = document.getElementById('year')
-        const yearSelected = year.value
-        const month = document.getElementById('month')
-        const monthSelected = month.value
-        const salaryLevel = document.getElementById('salaryLevel')
-        const salaryLevelSelected = salaryLevel.value
+        // const yearSelected = document.getElementById('year')
+        // const year = yearSelected.value
+        // const monthSelected = document.getElementById('month')
+        // const month = monthSelected.value
+        const salaryLevelSelected = document.getElementById('salaryLevel')
+        const salaryLevel = salaryLevelSelected.value
 
-        console.log(
-            yearSelected,
-            monthSelected,
-            salaryLevelSelected
-        )
 
-        //         .then((salaryLevel) => retrieveEmployeeBySalaryLevel(salaryLevel))
-        //         .catch((error) => { throw new Error(error) })
-        // }
+        return retrieveEmployeesBySalaryLevel(salaryLevel)
+            .then((employeeList) => {
+                console.log(employeeList)
+                setEmployeeList(employeeList)
+
+            })
+            .catch((error) => { throw new Error(error) })
     }
+    // TODO implantar createEmployeePayroll en APP
     const handleCreateNewPayrollsMonth = () => {
-        //.then()employeeListRetrieved.forEach((employee) =>{
-        //     createEmployeePayroll(id, yearSelected, monthSelected)
-        // }
+        const yearSelected = document.getElementById('year')
+        const year = yearSelected.value
+        const monthSelected = document.getElementById('month')
+        const month = parseInt(monthSelected.value)
+
+        employeeList.forEach((employee) => {
+            createEmployeePayrollMonth(employee._id, year, month)
+        })
     }
-
-
-
 
 
     return <section className="" style={{ backgroundColor: '#108080', color: '#ffffff' }}>
@@ -98,20 +103,26 @@ export default function ManagePayrollMenuModal({ employee }) {
 
             {/* div donde se pintan los empleados encontrados por nivel salarial */}
             <div>
-                {view === 'EmployeeList' && employeeListRetrieved && employeeListRetrieved.map((employee) => <Employee
+                {view === 'EmployeeListRetrieved' && employeeList && employeeList.map((employee) => <Employee
                     key={employee.id}
                     employee={employee}
                 />)}
-                <div>
-                    <label>Total Payrolls to create: <h5>{employeeListRetrieved.length}</h5></label>
-                    <label>Total Payrolls ammount: <h5></h5></label>
-                    <h5> XXXX euros</h5>
+                {employee && employeeList ? (
+                    <>
+                        <div>
+                            <label>Total Payrolls to create: <h5>{employeeList.length}</h5></label>
+                            <label>Total Payrolls ammount: <h5></h5></label>
+                            <h5> XXXX euros</h5>
 
-                    <button onClick={handleCreateNewPayrollsMonth}>Confirm create new MONTH payrolls</button>
-                </div>
+                            <button onClick={handleCreateNewPayrollsMonth}>Confirm create new MONTH payrolls</button>
+                        </div>
+                    </>
+                ) : (
+                    <h4></h4>
+                )}
             </div>
 
         </main>
     </section >
-
 }
+

@@ -7,7 +7,7 @@ const { Employee } = require('../data/models')
  * @param {string} employeeNumber  The employee number
  * @param {string} employeePassword  The employee password
  * 
- * @returns {Promise<string>} The employee id number
+ * @returns {Promise} A promise, return employee id number
 //  * 
 //  * @throws {TypeError} On non-string employeeNumber
 //  * @throws {ContentError} On empty employeeNumber or does not have 5 characters

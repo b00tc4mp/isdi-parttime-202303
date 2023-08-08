@@ -27,7 +27,9 @@
  * * @param {string} professionalEmail  The employee professional email.
  * @param {string} accessPermissions  current status of employee's permission, authorized or denied.
  * @param {string} employeePassword  employee password
-// 
+ * 
+ * @returns {Promise} A promise that resolves when employee is registered (Employee created)
+ * 
 //  * @throws {TypeError} On non-string email or password
 //  * @throws {ContentError} On empty email
 //  * @throws {RangeError} On password length lower than 6 characters and upper than 15 characters

@@ -2,7 +2,7 @@ export default function Employee({ employee: { name, firstSurname, secondSurname
 
 
     return <div>
-        <h4> <img src={avatar} width="25px" />{name}{firstSurname}{secondSurname}{salaryLevel}
+        <h4> <img src={avatar} width="25px" /> {name} {firstSurname} {secondSurname} salary Level:{salaryLevel}
         </h4>
     </div>
 }

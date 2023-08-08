@@ -1,9 +1,29 @@
 const { Employee } = require('../data/models')
 const { PayrollMonth } = require('../data/models')
 const { findLastMonthAggregated, getMonthNameFromMonthNumber } = require('./helpers')
+const {
+    validators: { validateId, validatePayrollYear } = require('com'),
+    // errors: { ExistenceError }
+} = require('com')
 
-module.exports = function retrievePayrollAnnualAggregate(employeeId, payrollYear) {
-    //TODO VALIDATORS AND ERRORS
+
+/**
+ * Retrieve payroll annual aggregate
+ * 
+ * @param {string} employeeId  The employee id
+ * @param {number} PayrollYearIsoDate  The ISO Date of the year of the aggregated calculation
+* @returns {Promise}  object with anual aggregate datas for an specific employee and payroll year
+//  * 
+//  * @throws {TypeError} On non-string employeeId or not a date payrollYearIsoDate
+//  * @throws {ContentError} On employeeId is not hexadecimal or doesn't have 24 characters or payrollYearIsoDate is empty 
+//  * @throws {ExistenceError} On non-existing employee
+// 
+ */
+
+module.exports = function retrievePayrollAnnualAggregate(employeeId, payrollYearIsoDate) {
+    validateId(employeeId)
+    validatePayrollYear(payrollYearIsoDate)
+
 
     let sumPayrollMonth = []
     let sumMonthSalary = 0
@@ -18,7 +38,7 @@ module.exports = function retrievePayrollAnnualAggregate(employeeId, payrollYear
 
     return Promise.all([
         Employee.findById(employeeId).lean(),
-        PayrollMonth.find({ employee: employeeId, payrollYear: payrollYear }).lean()
+        PayrollMonth.find({ employee: employeeId, payrollYear: payrollYearIsoDate }).lean()
 
     ])
 
@@ -70,6 +90,7 @@ module.exports = function retrievePayrollAnnualAggregate(employeeId, payrollYear
             const lastMonthAggregated = findLastMonthAggregated(sumPayrollMonth)
             const lastMonthAggregatedName = getMonthNameFromMonthNumber(lastMonthAggregated)
 
+            const payrollYear = new Date(payrollYearIsoDate).getFullYear()
 
             return payrollAnnualAggregated = {
                 payrollYear,
@@ -87,6 +108,7 @@ module.exports = function retrievePayrollAnnualAggregate(employeeId, payrollYear
             }
         })
         .catch((error) => { throw new Error(error) })
+
 }
 
 

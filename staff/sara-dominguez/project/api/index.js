@@ -33,7 +33,7 @@ mongoose.connect(process.env.MONGODB_URL)
         api.get('/employees/retrieve', retrieveEmployeeHandler)
         // api.get('/employees/accessPermissionsAuthorized', isEmpoyeeAccessPermissionsAuthorizedHandler)
         api.get('/payrollMonth/retrieveEmployeePayrollMonth/:payrollYear/:payrollMonth', retrievePayrollMonthHandler)
-        api.get('/payrollMonth/retrieveEmployeePayrollsMonthYear/:payrollYear', retrieveEmployeePayrollsMonthYearHandler)
+        // api.get('/payrollMonth/retrieveEmployeePayrollsMonthYear/:payrollYear', retrieveEmployeePayrollsMonthYearHandler)
         api.get('/employees/retrieveEmployeesBySalaryLevel/:salaryLevel', retrieveEmployeesBySalaryLevelHandler)
         api.get('/payrollMonth/retrievePayrollAnnualAggregate/:payrollYear', retrievePayrollAnnualAggregateHandler)
 

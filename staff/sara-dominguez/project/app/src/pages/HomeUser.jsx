@@ -96,13 +96,18 @@ export default function Home() {
                 {modal === 'PersonalInformation' && < PersonalInformationModal
                     employee={employee}
                     onPersonalInformationModalLogout={handleCloseModal}
-
                 />}
-                {modal === 'PayrollMenu' && < PayrollMenuModal employee={employee} />}
-                {modal === 'ManagePayrollMenu' && < ManagePayrollMenuModal employee={employee} />}
+                {modal === 'PayrollMenu' && < PayrollMenuModal
+                    employee={employee}
+                />}
+                {modal === 'ManagePayrollMenu' && < ManagePayrollMenuModal
+                    employee={employee}
+                />}
                 {modal === 'EmployeeDatabaseMenu' && < EmployeeDatabaseMenuModal
                     employee={employee}
                     onEmployeeRegistered={handleCloseModal} />}
+
+
                 {view === 'PayrollMenuUpdateAvatar' && < PersonalInformationModal onEmployeeAvatarUpdated={handleRefreshEmloyee} />}
                 {view === 'PayrollMenuUpdatePassword' && < PersonalInformationModal onEmployeePasswordUpdated={handleCloseModal} />}
                 {view === 'PayrollMenuUpdateAdress' && < PersonalInformationModal onEmployeeAdressUpdated={handleCloseModal} />}

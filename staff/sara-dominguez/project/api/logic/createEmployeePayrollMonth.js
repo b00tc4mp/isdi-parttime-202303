@@ -12,7 +12,7 @@ module.exports = function createEmployeePayrollMonth(employeeId, payrollYear, pa
     return Employee.findById(employeeId)
 
         .then(employee => {
-
+            debugger
             if (!employee) throw new Error('employee not found')
 
             salaryLevel = employee.salaryLevel
