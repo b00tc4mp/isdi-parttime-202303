@@ -32,14 +32,14 @@ module.exports = (username, password, color, recoveryQuestions) => {
                 joined: Date.now(),
                 saves: [],
                 follows: [],
-                followers: 0,
+                followers: [],
                 cc: 42,
             })
         } catch (error) {
             if (error.message.includes('E11000'))
                 throw new DuplicityError(`user with username ${username} already exists`)
 
-            throw UnknownError(error.message)
+            throw new UnknownError(error.message)
         }
     })();
 }

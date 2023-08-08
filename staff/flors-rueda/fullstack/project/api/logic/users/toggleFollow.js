@@ -16,15 +16,16 @@ module.exports = async (followerId, followedId) => {
     if (!followed) throw new ExistenceError('followedUser not found');
 
     const follows = follower.follows || [];
-    let followers = followed.followers;
+    const followers = followed.followers || [];
 
-    const index = follows.indexOf(followedId);
-    if (index !== -1) {
-        follows.splice(index, 1);
-        followers -= 1;
+    const indexFollowed = follows.indexOf(followedId);
+    const indexFollower = followers.indexOf(followerId)
+    if (indexFollowed !== -1) {
+        follows.splice(indexFollowed, 1);
+        followers.splice(indexFollower, 1);
     } else {
         follows.push(followedId);
-        followers += 1;
+        followers.push(followerId);
     }
 
     await User.updateOne({ _id: followerId }, { follows: follows });

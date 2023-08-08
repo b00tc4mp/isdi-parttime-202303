@@ -82,7 +82,7 @@ const user = new Schema({
     },
 
     followers: {
-        type: Number,
+        type: [ObjectId],
         required: true
     },
 

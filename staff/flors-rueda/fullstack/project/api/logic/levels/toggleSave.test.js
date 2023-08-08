@@ -4,7 +4,7 @@ const { User, Level } = require('../../data/models');
 const mongoose = require('mongoose');
 const { cleanUp, generate } = require('../helpers/tests');
 const {
-    errors: { TypeError, ContentError, ExistenceError },
+    errors: { ContentError, ExistenceError },
     assets: { colors },
 } = require('com');
 
@@ -31,7 +31,7 @@ describe('toggleSave', () => {
             { question: `question${Math.random()}`, answer: `answer${Math.random()}` }
         ];
 
-        const user = generate.user(username, password, 'beach', color, recoveryQuestions, [], [], 4, 1234);
+        const user = generate.user(username, password, 'beach', color, recoveryQuestions, [], [], [], 1234);
 
         const createdUser = await User.create(user);
 

@@ -33,7 +33,7 @@ describe('recoverPassword', () => {
         ];
         const newPassword = `newPassword${Math.random()}`;
 
-        const user = generate.user(username, password, 'beach', color, recoveryQuestions, [], [], 54, 648);
+        const user = generate.user(username, password, 'beach', color, recoveryQuestions, [], [], [], 648);
 
         await User.create(user);
 

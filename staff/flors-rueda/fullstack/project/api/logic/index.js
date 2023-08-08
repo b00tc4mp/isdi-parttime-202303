@@ -12,5 +12,7 @@ module.exports = {
     checkRecoveryAnswer: require('./users/checkRecoveryAnswer'),
     recoverPassword: require('./users/recoverPassword'),
     retrieveRandomRecoveryQuestion: require('./users/retrieveRandomRecoveryQuestion'),
-    updatePassword: require('./users/updatePassword')
+    updatePassword: require('./users/updatePassword'),
+    toggleFollow: require('./users/toggleFollow'),
+    retrieveLevelsByFollowed: require('./levels/retrieveLevelsByFollowed')
 }

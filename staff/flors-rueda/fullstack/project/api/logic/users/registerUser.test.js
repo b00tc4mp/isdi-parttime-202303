@@ -49,9 +49,9 @@ describe('registerUser', () => {
         expect(createdUser.color).to.equal(color);
         expect(createdUser.joined.getTime()).to.be.closeTo(date, 10000);
         expect(createdUser.avatar).to.equal('beach');
-        expect(createdUser.saves).be.an('array');
-        expect(createdUser.follows).be.an('array');
-        expect(createdUser.followers).to.equal(0);
+        expect(createdUser.saves).to.be.an('array');
+        expect(createdUser.follows).to.be.an('array');
+        expect(createdUser.followers).to.be.an('array');
         expect(createdUser.cc).to.equal(42);
         expect(createdUser.recoveryQuestions[0].question).to.equal(recoveryQuestions[0].question);
         expect(matchAnswer1).to.equal(true);

@@ -31,7 +31,7 @@ describe('updateColor', () => {
             { question: `question${Math.random()}`, answer: `answer${Math.random()}` }
         ];
 
-        const user = generate.user(username, password, 'beach', color, recoveryQuestions, [], [], 0, 50);
+        const user = generate.user(username, password, 'beach', color, recoveryQuestions, [], [], [], 50);
 
         const createdUser = await User.create(user);
         const id = createdUser._id.toString();

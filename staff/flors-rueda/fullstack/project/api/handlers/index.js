@@ -13,5 +13,7 @@ module.exports = {
     checkRecoveryAnswerHandler: require('./checkRecoveryAnswerHandler'),
     recoverPasswordHandler: require('./recoverPasswordHandler'),
     retrieveRandomRecoveryQuestionHandler: require('./retrieveRandomRecoveryQuestionHandler'),
-    updatePasswordHandler: require('./updatePasswordHandler')
+    updatePasswordHandler: require('./updatePasswordHandler'),
+    toggleFollowHandler: require('./toggleFollowHandler'),
+    retrieveLevelByFollowedHandler: require('./retrieveLevelByFollowedHandler'),
 }

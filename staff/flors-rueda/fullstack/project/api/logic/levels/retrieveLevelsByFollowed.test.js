@@ -5,7 +5,7 @@ const { expect } = require('chai');
 const { generate, cleanUp } = require('../helpers/tests');
 const { Level, User } = require('../../data/models');
 const mongoose = require('mongoose');
-const { errors: { ContentError, TypeError, ExistenceError },
+const { errors: { ContentError, TypeError },
     assets: { colors },
 } = require('com');
 
@@ -59,7 +59,7 @@ describe('retrieveLevelsByFollowed', () => {
             { question: `question${Math.random()}`, answer: `answer${Math.random()}` },
         ];
 
-        const user = generate.user(username, password, 'beach', color, recoveryQuestions, [], [authorId, authorId2], 4, 1234);
+        const user = generate.user(username, password, 'beach', color, recoveryQuestions, [], [authorId, authorId2], [], 1234);
 
         const createdUser = await User.create(user);
         const userId = (createdUser._id).toString();
@@ -93,7 +93,7 @@ describe('retrieveLevelsByFollowed', () => {
             { question: `question${Math.random()}`, answer: `answer${Math.random()}` },
         ];
 
-        const user = generate.user(username, password, 'beach', color, recoveryQuestions, [], [], 4, 1234);
+        const user = generate.user(username, password, 'beach', color, recoveryQuestions, [], [], [], 1234);
 
         const createdUser = await User.create(user);
         const userId = (createdUser._id).toString();

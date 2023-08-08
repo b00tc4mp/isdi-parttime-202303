@@ -30,7 +30,7 @@ describe('toggleFollow', () => {
             { question: `question${Math.random()}`, answer: `answer${Math.random()}` },
         ];
 
-        const user = generate.user(username, password, 'beach', color, recoveryQuestions, [], [], 5, 2);
+        const user = generate.user(username, password, 'beach', color, recoveryQuestions, [], [], [], 2);
 
         const followedUser = await User.create(user);
         const followedUserId = followedUser._id.toString();
@@ -42,7 +42,7 @@ describe('toggleFollow', () => {
             { question: `question${Math.random()}`, answer: `answer${Math.random()}` },
         ];
 
-        const user2 = generate.user(username2, password2, 'beach', color2, recoveryQuestions2, [], [], 2, 5);
+        const user2 = generate.user(username2, password2, 'beach', color2, recoveryQuestions2, [], [], [], 5);
         const followerUser = await User.create(user2);
         const followerUserId = (followerUser._id).toString();
 
@@ -52,7 +52,7 @@ describe('toggleFollow', () => {
         const updatedFollowerUser = await User.findById(followerUserId);
 
         expect((updatedFollowerUser.follows).includes(followedUserId)).to.be.true;
-        expect((updatedFollowedUser.followers)).to.equal(6);
+        expect((updatedFollowedUser.followers).includes(followerUserId)).to.be.true;
 
         await toggleFollow(followerUserId, followedUserId);
 
@@ -60,7 +60,7 @@ describe('toggleFollow', () => {
         const updatedFollowerUserAgain = await User.findById(followerUserId);
 
         expect((updatedFollowerUserAgain.follows).includes(followedUserId)).to.be.false;
-        expect((updatedFollowedUserAgain.followers)).to.equal(5);
+        expect((updatedFollowerUserAgain.follows).includes(followerUserId)).to.be.false;
 
     });
 
@@ -83,7 +83,7 @@ describe('toggleFollow', () => {
             { question: `question${Math.random()}`, answer: `answer${Math.random()}` },
         ];
 
-        const user = generate.user(username, password, 'beach', color, recoveryQuestions, [], [], 5, 2);
+        const user = generate.user(username, password, 'beach', color, recoveryQuestions, [], [], [], 2);
 
         const followerUser = await User.create(user);
         const followerUserId = followerUser._id.toString();

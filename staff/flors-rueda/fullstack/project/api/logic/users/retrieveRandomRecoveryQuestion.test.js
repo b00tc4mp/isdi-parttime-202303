@@ -32,7 +32,7 @@ describe('retrieveRandomRecoveryQuestion', () => {
             { question: `question${Math.random()}`, answer: await bcrypt.hash(answer, 10) }
         ];
 
-        const user = generate.user(username, password, 'beach', color, recoveryQuestions, [], [], 5, 5);
+        const user = generate.user(username, password, 'beach', color, recoveryQuestions, [], [], [], 5);
 
         const createdUser = await User.create(user);
         const randomRecoveryQuestion = await retrieveRandomRecoveryQuestion(username);
