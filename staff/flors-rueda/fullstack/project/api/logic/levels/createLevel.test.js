@@ -231,7 +231,7 @@ describe('createLevel', () => {
         const hp = 1 + Math.floor(Math.random() * 6);
         const author = '         '
 
-        await expect(() => createLevel(name, layout, hp, author)).to.throw(TypeError, 'authorId is empty');
+        await expect(() => createLevel(name, layout, hp, author)).to.throw(ContentError, 'authorId is empty');
     });
 
 
