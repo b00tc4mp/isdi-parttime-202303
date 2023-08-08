@@ -14,8 +14,9 @@ const message = new Schema ({
 
 const conversation = new Schema ({
     author: {
-        type: [ObjectId],
-        ref: 'User'
+        type: ObjectId,
+        ref: 'User',
+        required: true
     },
     title: {
         type: String,
@@ -100,9 +101,12 @@ const post = new Schema({
         type: String,
         required: true
     },
-    image: {
+    text: {
         type: String,
-        required: true
+        require: true
+    },
+    image: {
+        type: String
     },
     date: {
         type: String,

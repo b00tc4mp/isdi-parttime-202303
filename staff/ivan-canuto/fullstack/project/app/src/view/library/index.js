@@ -4,7 +4,7 @@ import Form from "./Form"
 import Input from "./Input"
 import ModalContainer from "./ModalContainer"
 import ModalWindow from "./ModalWindow"
-import SpeechBubble from "./SpeechBubble"
+import SpeechBubble from "../components/SpeechBubble"
 import Loader from "./Loader"
 
 export {

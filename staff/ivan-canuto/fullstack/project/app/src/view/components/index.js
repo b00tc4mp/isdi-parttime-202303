@@ -1,17 +1,19 @@
 import Alert from './Alert'
 import Comment from './Comment'
 import Comments from './Comments'
-import DeletePost from './DeletePostModal'
+import DeletePost from './DeletePost'
 import Post from './Post'
 import Posts from './Posts'
-import Profile from './ProfileModal'
+import Profile from './Profile'
 import Header from './Header'
 import SideBarMenu from "./SideBarMenu"
-import VisibilityPost from "./VisibilityPostModal"
+import VisibilityPost from "./VisibilityPost"
 import Chatbot from "./Chatbot"
 import SeenLately from "./SeenLately"
 import Suggestions from "./Suggestions"
-import MainPage from "./MainPage"
+import EditPost from "./EditPost"
+import PostModalWindow from "./PostModalWindow"
+import ContextualMenu from "./ContextualMenu"
 
 export {
     Alert,
@@ -27,5 +29,7 @@ export {
     Chatbot,
     SeenLately,
     Suggestions,
-    MainPage
+    EditPost,
+    PostModalWindow,
+    ContextualMenu
 }

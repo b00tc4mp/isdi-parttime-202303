@@ -1,37 +1,31 @@
 import { getTheme, setTheme } from "../../ui"
 import { useState, useEffect } from "react"
-import { useNavigate } from "react-router-dom"
 import { retrieveUser } from "../../logic"
+import { useAppContext, useHandleErrors } from "../hooks"
 
 export default function Header({ handleToggleMenu, handleOpenProfile }) {
-  const navigate = useNavigate()
+  const { navigate } = useAppContext()
+  const handleErrors = useHandleErrors()
 
   const [newTheme, setnewTheme] = useState(getTheme())
   const [user, setUser] = useState(null)
 
-  const switchAppTheme = () => {
-    const theme = newTheme === 'light' ? 'dark' : 'light'
-    setTheme(theme)
-    setnewTheme(theme)
-  }
+  // const switchAppTheme = () => {
+  //   const theme = newTheme === 'light' ? 'dark' : 'light'
+  //   setTheme(theme)
+  //   setnewTheme(theme)
+  // }
 
   const theme = getTheme()
 
   const handleReturnToHome = () => navigate('/')
 
   useEffect(() => {
-    try {
-      retrieveUser()
-        .then(setUser)
-        .catch(error => {
-          alert(error.message, 'error')
-          console.debug(error.stack)
-        })
+    handleErrors(async () => {
+      const user = await retrieveUser()
 
-    } catch (error) {
-      alert(error.message, 'error')
-      console.debug(error.stack)
-    }
+      setUser(user)
+    })
   }, [])
 
   return <>

@@ -7,12 +7,12 @@ module.exports = function retrieveConversations(userId, conversationId) {
 
     return (async () => {
         const user = await User.findById(userId)
-
         if(!user) throw new ExistenceError('User not found.')
 
-        const conversation = await Conversation.findById(conversationId)
-
+        const conversation = await Conversation.findById(conversationId).lean()
         if(!conversation) throw new ExistenceError('Conversation not found.')
+
+        conversation.messages.forEach(message => delete message._id)
 
         return conversation
     })()

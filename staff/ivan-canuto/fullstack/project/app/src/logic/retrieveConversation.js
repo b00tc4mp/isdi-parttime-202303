@@ -1,10 +1,13 @@
 import context from "./context"
+import { errors, validators } from 'com'
 
-export default function retrieveConversations() {
-    validateText(userInput)
+const { validateId } = validators
+
+export default function retrieveConversations(conversationId) {
+    validateId(conversationId, 'conversation id')
 
     return (async () => {
-        const res = await fetch(`${import.meta.env.VITE_API_URL}/users/conversation`, {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/users/conversations/${conversationId}/conversation`, {
             headers: {
                 'Authorization': `Bearer ${context.token}`
             }

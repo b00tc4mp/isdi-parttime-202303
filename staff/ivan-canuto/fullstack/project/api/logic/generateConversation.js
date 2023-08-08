@@ -23,7 +23,7 @@ module.exports = function generateConversation(userId, userInput) {
 
         const response = await openai.createCompletion({
             model: 'text-davinci-003',
-            prompt: `Generate a title for a conversation starting with ${userInput}, around 5 to 7 words of lenght`,
+            prompt: `Generate a short title for a conversation starting with ${userInput}.`,
             max_tokens: 10,
             temperature: 0.2
         })

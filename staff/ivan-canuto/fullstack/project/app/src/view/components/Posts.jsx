@@ -1,10 +1,11 @@
 import Post from "./Post";
 import { useState, useEffect } from "react";
 import { retrievePosts, retrieveSavedPosts, retrieveUserPosts, getUserId } from "../../logic";
-import { useAppContext } from "../hooks"
+import { useAppContext, useHandleErrors } from "../hooks"
 
-export default function Posts({ lastPostsUpdate, view, handleOpenBuyPost, handleOpenEditPost, handleOpenDeletePost, handleToggleVisibility, handleToggleOnSalePost }) {
+export default function Posts({ lastPostsUpdate, view, handleOpenEditPost, handleOpenDeletePost, handleToggleVisibility, openPostModal }) {
   const { alert } = useAppContext()
+  const handleErrors = useHandleErrors()
 
   const [posts, setPosts] = useState(null)
 
@@ -15,45 +16,43 @@ export default function Posts({ lastPostsUpdate, view, handleOpenBuyPost, handle
       // freeze()
 
       if(view === 'posts') {
-        retrievePosts()
-          .then(_posts => {
-            console.debug('Postsss -> render')
+        handleErrors(async () => {
+          console.debug('Postsss -> render')
+
+          const _posts = await retrievePosts()
+
+          setPosts(_posts)
+        })
+
+        // retrievePosts()
+        //   .then(_posts => {
+        //     console.debug('Postsss -> render')
             
-            setPosts(_posts)
-          })
-          .catch(error => {
-            alert(error, 'error')
-            console.debug(error)
-          })
+        //     setPosts(_posts)
+        //   })
+        //   .catch(error => {
+        //     alert(error, 'error')
+        //     console.debug(error)
+        //   })
           // .finally(unfreeze)
       }
-      
       else if(view === 'savedPosts') {
-        retrieveSavedPosts()
-          .then(_posts => {
-            console.debug('Saved postsss -> render')
+        handleErrors(async () => {
+          console.debug('Saved postsss -> render')
 
-            setPosts(_posts)
-          })
-          .catch(error => {
-            alert(error, 'error')
-            console.debug(error)
-          })
-          // .finally(unfreeze)
+          const _posts = await retrieveSavedPosts()
+
+          setPosts(_posts)
+        })
       }
-
       else if(view === 'userPosts') {
-        retrieveUserPosts()
-          .then(_posts => {
-            console.debug('Own postsss -> render')
-            
-            setPosts(_posts)
-          })
-          .catch(error => {
-            alert(error, 'error')
-            console.debug(error)
-          })
-          // .finally(unfreeze)
+        handleErrors(async () => {
+          console.debug('Own postsss -> render')
+          
+          const _posts = await retrieveUserPosts()
+
+          setPosts(_posts)
+        })
       }
     } catch(error) {
       // unfreeze()
@@ -67,12 +66,13 @@ export default function Posts({ lastPostsUpdate, view, handleOpenBuyPost, handle
     console.debug('Posts -> "ComponentWillRecieveProps" with hooks.');
 
     if(lastPostsUpdate) {
+      console.log('Post -> last render');
       handleRefreshPosts()
     }
       
   }, [lastPostsUpdate])
 
-  return <section className="pt-20 pb-32 flex flex-col items-center gap-6">
+  return <section className="pb-12 flex flex-col items-center gap-6 absolute top-40 left-0 w-full">
     {posts && posts.map(post => (post.author.id !== getUserId() && !post.visible) ? '' : <Post
       key={post.id.toString()}
       post={post}
@@ -80,8 +80,7 @@ export default function Posts({ lastPostsUpdate, view, handleOpenBuyPost, handle
       handleOpenEditPost={handleOpenEditPost}
       handleOpenDeletePost={handleOpenDeletePost}
       handleToggleVisibility={handleToggleVisibility}
-      handleToggleOnSalePost={handleToggleOnSalePost}
-      handleOpenBuyPost={handleOpenBuyPost}
+      openPostModal={openPostModal}
     />)}
   </section>
 }

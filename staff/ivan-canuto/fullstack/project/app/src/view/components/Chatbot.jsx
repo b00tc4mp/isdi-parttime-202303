@@ -1,33 +1,37 @@
 import { useEffect, useState } from "react"
 import { Container, Button, SpeechBubble, Loader } from "../library"
-import { useHandleErrors } from "../hooks"
-import { askForResponse, retrieveConversation, retrieveConversations, storeInputInDB, generateConversation, generateSummary } from "../../logic"
+import { useAppContext, useHandleErrors } from "../hooks"
+import { askForResponse, retrieveConversation, storeInputInDB, generateConversation, generateSummary, createPost } from "../../logic"
 import { context } from "../../ui"
-import { useNavigate } from "react-router-dom"
 
-export default function Chatbot() {
+export default function Chatbot({ handleLastPostsUpdate, lastPostsUpdate }) {
     const handleErrors = useHandleErrors()
-    const navigate = useNavigate()
+    const { navigate } = useAppContext()
 
     const [modal, setModal] = useState(null)
     const [menu, setMenu] = useState(false)
     const [openedMenu, setOpenedMenu] = useState(false)
-    const [conversations, setConversations] = useState(null)
-    const [firstInput, setFirstInput] = useState(true)
-    const [oldConversation, setOldConversation] = useState(null)
     const [messages, setMessages] = useState([])
     const [valueToRender, setValueToRender] = useState(null)
     const [summary, setSummary] = useState(null)
 
     useEffect(() => {
-        const fetchData = async () => {
-            const conversations = await retrieveConversations()
+        if(context.conversationId) {
+            const getConversations = () => {
+                handleErrors(async () => {
+                    
+                        const conversation = await retrieveConversation(context.conversationId)
 
-            setConversations(conversations)
+                        setMessages([...conversation.messages])
+                    })
+                }
+                
+            getConversations()
         }
+        else setMessages([])
 
-        fetchData()
-    }, [])
+        console.log('Chatbot -> render')
+    }, [lastPostsUpdate])
 
     const handleOpenProfile = () => {
         document.body.classList.add("fixed-scroll")
@@ -37,18 +41,6 @@ export default function Chatbot() {
     const handleReturnToHome = () => {
         document.body.classList.remove('fixed-scroll')
         navigate('/')
-    }
-
-    const handleToggleMenu = () => {
-        if (!menu) {
-            setMenu(!menu)
-            setOpenedMenu(!openedMenu)
-        } else {
-            setTimeout(() => {
-                setMenu(!menu)
-            }, 400);
-            setOpenedMenu(!openedMenu)
-        }
     }
 
     const handleSubmit = async event => {
@@ -63,11 +55,7 @@ export default function Chatbot() {
 
             if (!userInput) return
 
-            if (firstInput) {
-                context.conversationId = await generateConversation(userInput)
-
-                setFirstInput(false)
-            }
+            if (!context.conversationId) context.conversationId = await generateConversation(userInput)
 
             const newUserInput = {
                 role: 'user',
@@ -92,7 +80,7 @@ export default function Chatbot() {
             messagesToAsk.pop()
             
             const response = await askForResponse(context.conversationId, messagesToAsk)
-
+            
             setValueToRender(response.content)
 
             const voidMessage = { role: 'assistant', content: ''}
@@ -106,7 +94,6 @@ export default function Chatbot() {
     }
 
     const renderTypeWriterText = () => {
-        console.log(valueToRender)
         const text = valueToRender
         const conversationContainer = document.querySelector('.conversation-container')
 
@@ -142,9 +129,11 @@ export default function Chatbot() {
     }
 
     const handleGenerateSummary = async () => {
-        const summary = await generateSummary(context.conversationId)
-
-        setSummary(summary)
+        if(context.conversationId) {
+            const summary = await generateSummary(context.conversationId)
+            
+            setSummary(summary)
+        }
     }
 
     const handleKeyDown = event => {
@@ -153,34 +142,55 @@ export default function Chatbot() {
         }
     }
 
+    const handleDeleteSummary = () => {
+        setSummary(null)
+    }
+
+    const handleGeneratePost = () => {
+        handleErrors(async () => {
+            await createPost(summary, context.conversationId)
+
+            navigate('/')
+        })
+    }
+
     return <Container className="absolute top-0 left-0 bg-[url(src/images/chatbot-3.1.jpg)] bg-fixed bg-center bg-cover">
         <button className="fixed right-4 top-24 w-28 z-10 mt-2 bg-yellow-100 leading-tight border border-black" onClick={handleGenerateSummary}>Generate summary</button>
-        <section className="conversation-container absolute top-24 w-full bottom-32 overflow-y-scroll">
-            <SpeechBubble
+        
+        <section className={`conversation-container absolute top-24 w-full ${!summary ? 'bottom-32' : ''} overflow-y-scroll`}>
+            {/* <SpeechBubble
                 role={'assistant'}
                 content={'Hello! How can I help you?'}
-            />
+            /> */}
+            <section className='w-full flex justify-start'>
+                <p className="p-4 mx-4 my-2 rounded-lg bg-green-300 rounded-tl-none">Hello! How can I help you?</p>
+            </section>
             {messages && messages.map((message, index) => 
-                // {console.log(messages)}
                 <SpeechBubble
                     key={index}
                     role={message.role}
                     content={message.content}
                 />
             )}
-            {summary && summary.map((summary, index) => 
-                <SpeechBubble
-                    key={index}
+            {summary && <div className="flex flex-col items-center gap-2 bg-red-300 rounded-lg pt-4 mx-4 py-2 my-2">
+                <h1>Summary</h1>
+                <SpeechBubble className='py-0 px-0'
                     role={'sumamry'}
                     content={summary}
                 />
-            )}
+                <div className="flex justify-around p-2 gap-2">
+                    <Button className="border border-black leading-tight" onClick={handleGeneratePost}>Create post with this summary</Button>
+                    <Button className="border border-black leading-tight" onClick={handleGenerateSummary}>Generate another summary</Button>
+                    <Button className="border border-black leading-tight" onClick={handleDeleteSummary}>Continue with conversation</Button>
+                </div>
+            </div>
+            }
         </section>
 
-        <form className="border-black border-2 flex flex-row p-2 fixed bottom-4 gap-2" onSubmit={handleSubmit}>
+        {!summary && <form className="border-black border-2 flex flex-row p-2 fixed bottom-4 gap-2" onSubmit={handleSubmit}>
             {/* <textarea className="w-72 p-4 focus:outline-none" name='userInput' placeholder='Send a message' /> */}
             <textarea className="w-72 p-4 focus:outline-none" name='userInput' placeholder='Send a message' autoFocus onKeyDown={handleKeyDown}/>
             <Button><span className="material-symbols-outlined">send</span></Button>
-        </form>
+        </form>}
     </Container>
 }

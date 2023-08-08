@@ -14,7 +14,7 @@ export default function generateSummary(conversationId) {
             }
         })
 
-        if (res.status === 200)
+        if (res.status === 201)
             return res.text()
 
         const { type, message } = await res.json()

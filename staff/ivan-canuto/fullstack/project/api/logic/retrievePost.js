@@ -14,7 +14,7 @@ module.exports = (userId, postId) => {
     const user = await User.findById(userId)
     if(!user) throw new ExistenceError('User not found.')
 
-    const post = await Post.findById(postId, '-__v -likes -date').lean()
+    const post = await Post.findById(postId, '-__v').lean()
     if(!post) throw new ExistenceError('Post not found.')
 
     post.id = post._id.toString()

@@ -3,10 +3,10 @@ const { extractUserId, handleErrors } = require('./helpers')
 
 module.exports = handleErrors((req, res) => {
   const userId = extractUserId(req)
+  const { summary } = req.body
+  const { conversationId } = req.params
 
-  const { imageUrl, postText } = req.body
-
-  const promise = createPost(userId, imageUrl, postText)
+  const promise = createPost(userId, conversationId, summary)
 
   return (async () => {
     await promise

@@ -12,8 +12,6 @@ module.exports = function retrieveConversations(userId) {
         const conversations = await Conversation.find({ author: userId }, '_id title').lean()
 
         conversations.forEach(conv => {
-            delete conv.conversationInputs
-
             conv.id = conv._id.toString()
             delete conv._id
         })

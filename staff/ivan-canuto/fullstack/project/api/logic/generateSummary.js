@@ -1,6 +1,6 @@
 require('dotenv').config()
 
-const { validators: { validateId, validateText }, errors: { ExistenceError } } = require('com')
+const { validators: { validateId }, errors: { ExistenceError } } = require('com')
 const { User, Conversation } = require('../data/models')
 const { Configuration, OpenAIApi } = require('openai')
 
@@ -12,10 +12,12 @@ module.exports = function generateSummary(userId, conversationId) {
         const user = await User.findById(userId)
         if(!user) throw new ExistenceError('User not found.')
         
-        const conversation = Conversation.findById(conversationId).lean()
+        const conversation = await Conversation.findById(conversationId).lean()
         if(!conversation) throw new ExistenceError('Conversation not found.')
         
-        const conversationMessages = [...conversation.conversationMessages]
+        const conversationMessages = [...conversation.messages]
+
+        conversationMessages.forEach(message => delete message._id)
         
         const instruction = {
             role: 'system',
@@ -44,6 +46,6 @@ module.exports = function generateSummary(userId, conversationId) {
             frequency_penalty: 0.3
         })        
 
-        return response.content
+        return response.data.choices[0].message.content
     })()
 }

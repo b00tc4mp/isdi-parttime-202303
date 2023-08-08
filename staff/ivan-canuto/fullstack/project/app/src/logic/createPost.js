@@ -1,7 +1,7 @@
 import { validators, errors } from 'com'
 import context from './context'
 
-const { validateUrl, validateText } = validators
+const { validateText } = validators
 
 /**
  * Creates a post by reciving the user's id, and an image provided with an url or selected from the own ones (only one can be used).
@@ -10,18 +10,17 @@ const { validateUrl, validateText } = validators
  * @param {string} postText The description of the post.
  */
 
-export default function createPost (imageUrl, postText) {
-  validateUrl(imageUrl)
-  validateText(postText)
+export default function createPost (summary, conversationId) {
+  validateText(summary, 'summary text')
 
   return (async () => {
-    const res = await fetch(`${import.meta.env.VITE_API_URL}/users/newPost`, {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/users/conversations/${conversationId}/newPost`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${context.token}`
       },
-      body: JSON.stringify({ imageUrl, postText })
+      body: JSON.stringify({ summary })
     })
 
     if(res.status === 200)

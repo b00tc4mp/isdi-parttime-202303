@@ -23,6 +23,7 @@ const {
     updatePostHandler,
     updateUserPasswordHandler,
     storeInputInDBHandler,
+    retrieveConversationHandler,
     retrieveConversationsHandler,
     askForResponseHandler,
     generateConversationHandler,
@@ -48,7 +49,7 @@ mongoose.connect(process.env.MONGODB_URL)
 
         api.patch('/users/posts/:postId/comment', jsonBodyParser, createCommentHandler)
 
-        api.post('/users/newPost', jsonBodyParser, createPostHandler)
+        api.post('/users/conversations/:conversationId/newPost', jsonBodyParser, createPostHandler)
 
         api.patch('/posts/:postId/comments/:commentId/delete', deleteCommentHandler)
 
@@ -76,6 +77,8 @@ mongoose.connect(process.env.MONGODB_URL)
 
         api.patch('/users/conversations/:conversationId/userInput', jsonBodyParser, storeInputInDBHandler)
 
+        api.get('/users/conversations/:conversationId/conversation', jsonBodyParser, retrieveConversationHandler)
+        
         api.get('/users/conversations', jsonBodyParser, retrieveConversationsHandler)
 
         api.post('/users/conversations/:conversationId/askForResponse', jsonBodyParser, askForResponseHandler)

@@ -1,15 +1,15 @@
 const { extractUserId, handleErrors } = require('./helpers')
-const { generateConversation } = require('../logic')
+const { generateSummary } = require('../logic')
 
 module.exports = handleErrors((req, res) => {
   const userId = extractUserId(req)
   const { conversationId } = req.params
   
-  const promise = generateConversation(userInput, conversationId)
+  const promise = generateSummary(userId, conversationId)
 
   return (async () => {
-    const sumamry = await promise
+    const summary = await promise
     
-    res.status(201).send(sumamry)
+    res.status(201).send(summary)
   })()
 })

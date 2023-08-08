@@ -11,7 +11,7 @@ module.exports = (userId) => {
     const user = await User.findById(userId)
     if(!user) throw new ExistenceError('User not found.')
 
-    const posts = await Post.find().populate('author', '-favs -__v').lean()
+    const posts = await Post.find().populate('author', 'name avatar').lean()
 
     posts.forEach(post => {
       post.id = post._id.toString()

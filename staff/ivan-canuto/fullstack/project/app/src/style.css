@@ -109,3 +109,7 @@ button:focus-visible {
   0% { left: 0 }
   100% { left: -300px }
 }
+
+.fixed-scroll {
+  overflow: hidden;
+}
