@@ -7,7 +7,7 @@
     "start": "node .",
     "watch": "node --watch .",
     "inspect": "node --inspect-brk .",
-    "test": "mocha ./*.spec.js",
+    "test": "mocha ./test/*/*.spec.js",
     "test-inspect": "mocha --inspect-brk ./*.spec.js",
     "test-coverage": "nyc --reporter=html --reporter=text mocha ./*.spec.js"
   },
