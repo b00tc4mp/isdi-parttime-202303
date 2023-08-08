@@ -1,13 +1,9 @@
-import { validators, tokenUtils } from 'com';
+import { tokenUtils } from 'com';
+const { extractSubFromToken } = tokenUtils;
 import context from './context';
 
-const { validateId } = validators;
-const { extractSubFromToken } = tokenUtils;
-
-const retrieveUser = (id) => {
-    validateId(id, 'userId');
-
-    return fetch(`${import.meta.env.VITE_API_URL}/users/${id}`, {
+const retrieveLevelsByFollowed = () => {
+    return fetch(`${import.meta.env.VITE_API_URL}/levels/followed/${extractSubFromToken(context.token)}`, {
         headers: {
             Authorization: `Bearer ${context.token}`
         }
@@ -19,7 +15,9 @@ const retrieveUser = (id) => {
             return response.json();
         })
         .then((data) => {
-            data.isFollowed = (data.followers).includes(extractSubFromToken(context.token));
+            for (let level of data) {
+                level.isLevelLiked = (level.likes).includes(extractSubFromToken(context.token))
+            }
             return data;
         })
         .catch((error) => {
@@ -27,4 +25,4 @@ const retrieveUser = (id) => {
         });
 };
 
-export default retrieveUser;
+export default retrieveLevelsByFollowed

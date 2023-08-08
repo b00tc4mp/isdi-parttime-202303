@@ -131,22 +131,27 @@ const Navbar = () => {
                                     </ul>
                                 </div>
                             </div>
-
-
-
-
-
-
-
-
-
                         </>
-
                         }
 
                     </div>
                     <ul className="hidden absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 lg:flex lg:mx-auto lg:flex lg:items-center lg:w-auto lg:space-x-6">
                         {isUserLoggedIn() && <>
+                            <li>
+                                <Link
+                                    className={
+                                        "text-sm " +
+                                        (location.pathname === "/home"
+                                            ? "text-secondary400"
+                                            : "dark400 hover:text-secondary400")
+                                    }
+                                    to="/home"
+                                    onClick={handleCloseBoth}
+                                >
+                                    <i className="bi bi-house-fill pe-1"></i>
+                                    Home
+                                </Link>
+                            </li>
                             <li>
                                 <Link
                                     className={
@@ -162,7 +167,6 @@ const Navbar = () => {
                                     Levels
                                 </Link>
                             </li>
-
                         </>}
                         <li>
                             <Link
@@ -241,6 +245,22 @@ const Navbar = () => {
                         <div>
                             <ul>
                                 {isUserLoggedIn() && <>
+                                    <li className="mb-1">
+                                        <Link
+                                            className={
+                                                "block p-4 text-sm font-semibold " +
+                                                (location.pathname === "/home"
+                                                    ? "text-secondary400"
+                                                    : "dark400 hover:text-secondary400 hover:bg-light400") +
+                                                " rounded"
+                                            }
+                                            to="/home"
+                                            onClick={handleCloseBoth}
+                                        >
+                                            <i className="bi bi-house-fill pe-1"></i>
+                                            Home
+                                        </Link>
+                                    </li>
                                     <li className="mb-1">
                                         <Link
                                             className={

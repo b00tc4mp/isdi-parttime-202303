@@ -20,6 +20,7 @@ import AppContext from './AppContext';
 import Customize from './views/Customize';
 import Profile from './views/Profile';
 import Settings from './views/Settings';
+import Home from './views/Home';
 
 const App = () => {
   const [isApiAvailable, setApiAvailableOn] = useState(true);
@@ -61,6 +62,7 @@ const App = () => {
           <Route path="/game/:id" element={<Game />} />
           <Route path="/create" element={<CreateLevel />} />
           <Route path="/tutorial" element={<Tutorial />} />
+          <Route path="/home" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/profile/:id" element={<Profile />} />
           <Route path="/settings" element={<Settings />} />

@@ -105,7 +105,7 @@ describe('toggleFollow', () => {
             await toggleFollow(follower, followed);
             throw new Error('Test should have thrown a TypeError');
         } catch (error) {
-            expect(error.message).to.equal('userId is not a string');
+            expect(error.message).to.equal('follower userId is not a string');
         }
     });
 
@@ -117,7 +117,7 @@ describe('toggleFollow', () => {
             throw new Error('Test should have thrown a ContentError');
         } catch (error) {
             expect(error).to.be.instanceOf(ContentError);
-            expect(error.message).to.equal('userId is empty');
+            expect(error.message).to.equal('follower userId is empty');
         }
     });
 
@@ -128,7 +128,7 @@ describe('toggleFollow', () => {
             await toggleFollow(follower, followed);
             throw new Error('Test should have thrown a TypeError');
         } catch (error) {
-            expect(error.message).to.equal('userId is not a string');
+            expect(error.message).to.equal('followed userId is not a string');
         }
     });
 
@@ -140,7 +140,7 @@ describe('toggleFollow', () => {
             throw new Error('Test should have thrown a ContentError');
         } catch (error) {
             expect(error).to.be.instanceOf(ContentError);
-            expect(error.message).to.equal('userId is empty');
+            expect(error.message).to.equal('followed userId is empty');
         }
     });
 

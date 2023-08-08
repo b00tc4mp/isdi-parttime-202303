@@ -3,20 +3,27 @@ import retrieveUser from '../logic/retrieve-user';
 import inLogger from '../inLogger';
 import { useState, useEffect } from 'react';
 import useHandleErrors from '../hooks/useHandleErrors';
+import isCurrentUser from '../logic/is-current-user';
 import avatars from '../assets/avatars/index';
 import toggleLike from '../logic/toggle-like';
+import toggleFollow from '../logic/toggle-follow';
 
 const LevelCard = ({ levelInfo }) => {
     const [authorData, setAuthorData] = useState({});
     const [title, setTitle] = useState('');
     const handleErrors = useHandleErrors();
     const [isLiked, setIsLiked] = useState(levelInfo.isLevelLiked);
-    const [likes, setLikes] = useState(levelInfo.likes.length)
+    const [isFollowed, setIsFollowed] = useState(null);
+    const [likes, setLikes] = useState(levelInfo.likes.length);
+    const [isUserAuthor, setIsUserAuthor] = useState(null)
 
     const getAuthorData = () => {
         handleErrors(async () => {
             const user = await retrieveUser(levelInfo.author);
+            const isUser = await isCurrentUser(levelInfo.author);
+            setIsUserAuthor(isUser);
             setAuthorData(user);
+            setIsFollowed(authorData.isFollowed);
         })
     }
 
@@ -28,6 +35,13 @@ const LevelCard = ({ levelInfo }) => {
         })
     }
 
+    const handleFollowClick = () => {
+        handleErrors(async () => {
+            await toggleFollow(levelInfo.author);
+            setIsFollowed(!isFollowed);
+        })
+    }
+
     const setLevelTitle = (name) => {
         const displayName = name.length > 10 ? `${name.substring(0, 10)}...` : name;
         setTitle(displayName)
@@ -36,9 +50,7 @@ const LevelCard = ({ levelInfo }) => {
     useEffect(() => {
         getAuthorData();
         setLevelTitle(levelInfo.name);
-    }, []);
-
-
+    }, [isFollowed]);
 
     return (
         <div className="w-full md:w-5/12 md:max-w-sm p-6 bg-light500 border border-light300 rounded-lg shadow">
@@ -60,11 +72,14 @@ const LevelCard = ({ levelInfo }) => {
                         <img className={`bg-${authorData.color} w-12 h-12 rounded-full`} src={`${avatars[authorData.avatar]}`} alt="avatar" />
                         <p className={`text-${authorData.color} text-sm font-semibold`}>{authorData.username}</p>
                     </Link>
-                    <button
-                        className="w-fit py-1 px-2 bg-success200 hover:bg-dark500 text-xs text-light400 font-bold rounded-xl transition duration-200"
-                    >
-                        Follow
-                    </button>
+                    {
+                        !isUserAuthor &&
+                        <button
+                            className={`w-fit py-1 px-2 text-xs text-light400 font-bold rounded-xl transition duration-200 ${isFollowed ? 'bg-dark500 hover:bg-danger200' : 'bg-success200 hover:bg-dark500'}`} onClick={handleFollowClick}
+                        >
+                            {isFollowed ? 'Unfollow' : 'Follow'}
+                        </button>
+                    }
                 </div>
             </div>
         </div>

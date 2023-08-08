@@ -57,7 +57,7 @@ mongoose.connect(process.env.MONGODB_URL)
 
         api.patch('/api/users/follow/:userId', toggleFollowHandler);
 
-        api.get('/api/levels/followed', retrieveLevelByFollowedHandler);
+        api.get('/api/levels/followed/:userId', retrieveLevelByFollowedHandler);
 
         api.listen(process.env.PORT, () => console.log(`server running in port ${process.env.PORT}`));
 

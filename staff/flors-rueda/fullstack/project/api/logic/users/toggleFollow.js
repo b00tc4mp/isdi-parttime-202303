@@ -6,8 +6,8 @@ const { User, Level } = require('../../data/models');
 
 
 module.exports = async (followerId, followedId) => {
-    validateId(followerId, 'userId');
-    validateId(followedId, 'userId');
+    validateId(followerId, 'follower userId');
+    validateId(followedId, 'followed userId');
 
     const follower = await User.findById(followerId);
     const followed = await User.findById(followedId);

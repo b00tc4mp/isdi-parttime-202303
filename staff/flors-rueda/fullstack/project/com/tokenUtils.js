@@ -27,5 +27,6 @@ const extractSubFromToken = (token) => {
 module.exports = {
     isTokenAlive,
     isTokenValid,
+    extractPayloadFromToken,
     extractSubFromToken
 }

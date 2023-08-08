@@ -2,10 +2,10 @@ import { validators } from 'com';
 const { validateId } = validators;
 import context from './context';
 
-const toggleLike = (levelId) => {
-    validateId(levelId)
+const toggleFollow = (userId) => {
+    validateId(userId);
 
-    return fetch(`${import.meta.env.VITE_API_URL}/levels/like/${levelId}`, {
+    return fetch(`${import.meta.env.VITE_API_URL}/users/follow/${userId}`, {
         method: 'PATCH',
         headers: {
             'Content-type': 'application/json',
@@ -14,7 +14,7 @@ const toggleLike = (levelId) => {
     })
         .then(res => {
             if (!res.ok) {
-                throw new Error('Failed to update like');
+                throw new Error('Failed to update follow');
             }
             return Promise.resolve();
         })
@@ -23,4 +23,4 @@ const toggleLike = (levelId) => {
         });
 }
 
-export default toggleLike;
+export default toggleFollow;
