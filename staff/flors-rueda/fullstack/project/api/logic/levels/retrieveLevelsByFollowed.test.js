@@ -1,26 +1,27 @@
 require('dotenv').config();
 
-const retrieveLevelsByAuthor = require('./retrieveLevelsByAuthor');
+const retrieveLevelsByFollowed = require('./retrieveLevelsByFollowed');
 const { expect } = require('chai');
 const { generate, cleanUp } = require('../helpers/tests');
-const { Level } = require('../../data/models');
+const { Level, User } = require('../../data/models');
 const mongoose = require('mongoose');
-const { errors: { ContentError, TypeError } } = require('com');
+const { errors: { ContentError, TypeError, ExistenceError },
+    assets: { colors },
+} = require('com');
 
-
-describe('retrieveLevelsByAuthor', () => {
+describe('retrieveLevelsByFollowed', () => {
     afterEach(async () => {
         await cleanUp();
     });
 
-    it('should retrieve all levels by id author', async () => {
+    it('should retrieve all levels by followed authors of user id', async () => {
         const name1 = `level-${Math.random()}`;
         const layout1 = [
             ['empty', 'bomb', 'hole', 'empty', 'dirt', 'bomb', 'dirt', 'empty', 'start'],
             ['life', 'bomb', 'start', 'life', 'bomb', 'empty', 'bomb', 'dirt', 'stonks'],
         ];
         const hp1 = 1 + Math.floor(Math.random() * 6);
-        const author1 = new mongoose.Types.ObjectId()
+        const author1 = new mongoose.Types.ObjectId();
         const date1 = Date.now();
 
         const name2 = `level-${Math.random()}`;
@@ -38,7 +39,7 @@ describe('retrieveLevelsByAuthor', () => {
             ['life', 'bomb', 'start', 'life', 'bomb', 'empty', 'bomb', 'dirt', 'stonks'],
         ];
         const hp3 = 1 + Math.floor(Math.random() * 6);
-        const author3 = author1;
+        const author3 = new mongoose.Types.ObjectId();
         const date3 = Date.now();
 
         const levelData1 = generate.level(name1, layout1, hp1, author1, [], date1);
@@ -49,8 +50,21 @@ describe('retrieveLevelsByAuthor', () => {
         await Level.create(levelData3);
 
         const authorId = author1.toString();
+        const authorId2 = author3.toString();
 
-        const retrievedLevels = await retrieveLevelsByAuthor(authorId);
+        const username = `User${Math.floor(Math.random() * 999)}`;
+        const password = `Password${Math.random()}`;
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        const recoveryQuestions = [
+            { question: `question${Math.random()}`, answer: `answer${Math.random()}` },
+        ];
+
+        const user = generate.user(username, password, 'beach', color, recoveryQuestions, [], [authorId, authorId2], 4, 1234);
+
+        const createdUser = await User.create(user);
+        const userId = (createdUser._id).toString();
+
+        const retrievedLevels = await retrieveLevelsByFollowed(userId);
 
         expect(retrievedLevels).to.be.an('array');
         expect(retrievedLevels).to.have.lengthOf(2);
@@ -66,26 +80,37 @@ describe('retrieveLevelsByAuthor', () => {
 
         expect(retrievedLevel2).to.exist;
         expect(retrievedLevel2.name).to.equal(name3);
-        expect(retrievedLevel2.author).to.equal(authorId);
+        expect(retrievedLevel2.author).to.equal(authorId2);
         expect(retrievedLevel2.likes).to.deep.equal([]);
         expect(retrievedLevel2.date.getTime()).to.be.closeTo(date3, 10000);
     });
 
-    it('should retrieve no levels if database is empty', async () => {
-        const authorId = (new mongoose.Types.ObjectId()).toString();
-        const levels = await retrieveLevelsByAuthor(authorId);
+    it('should retrieve no levels if follows no authors', async () => {
+        const username = `User${Math.floor(Math.random() * 999)}`;
+        const password = `Password${Math.random()}`;
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        const recoveryQuestions = [
+            { question: `question${Math.random()}`, answer: `answer${Math.random()}` },
+        ];
+
+        const user = generate.user(username, password, 'beach', color, recoveryQuestions, [], [], 4, 1234);
+
+        const createdUser = await User.create(user);
+        const userId = (createdUser._id).toString();
+
+        const levels = await retrieveLevelsByFollowed(userId);
         expect(levels).to.have.lengthOf(0);
     });
 
-    it('should fail on invalid author type', async () => {
-        const authorId = 12345;
-        await expect(() => retrieveLevelsByAuthor(authorId)).to.throw(TypeError, 'authorId is not a string');
+    it('should fail on invalid id type', async () => {
+        const userId = 12345;
+        await expect(() => retrieveLevelsByFollowed(userId)).to.throw(TypeError, 'userId is not a string');
     });
 
     it('should fail on empty id', async () => {
-        const authorId = '         '
+        const userId = '         '
 
-        await expect(() => retrieveLevelsByAuthor(authorId)).to.throw(ContentError, 'authorId is empty');
+        await expect(() => retrieveLevelsByFollowed(userId)).to.throw(ContentError, 'userId is empty');
     });
 });
 
