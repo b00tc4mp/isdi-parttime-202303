@@ -1,4 +1,5 @@
 module.exports = {
   registerAdmin: require('./registerAdmin'),
-  authenticateAdmin: require('./authenticateAdmin')
+  authenticateAdmin: require('./authenticateAdmin'),
+  updateAdminEmail: require('./updateAdminEmail')
 }

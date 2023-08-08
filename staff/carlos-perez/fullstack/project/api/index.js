@@ -2,7 +2,7 @@ require('dotenv').config()
 
 const express = require('express')
 const { cors, jsonBodyParser } = require('./utils')
-const { helloApiHandler, authenticateAdminHandler, registerAdminHandler} = require('./handlers')
+const { helloApiHandler, authenticateAdminHandler, registerAdminHandler, updateAdminEmailHandler} = require('./handlers')
 
 const mongoose = require('mongoose')
 
@@ -17,6 +17,8 @@ mongoose.connect(process.env.MONGODB_URL)
     api.post('/admins/auth', jsonBodyParser, authenticateAdminHandler)
 
     api.post('/admins', jsonBodyParser, registerAdminHandler)
+
+    api.patch('/admins/email', jsonBodyParser, updateAdminEmailHandler)
 
     api.listen(process.env.PORT, () => console.log(`server running in port ${process.env.PORT}`))
 
