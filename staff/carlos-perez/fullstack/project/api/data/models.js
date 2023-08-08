@@ -131,9 +131,14 @@ const lyricPost = new Schema({
 
 const message = new Schema ({
     author: {
-        type: ObjectId,
-        ref: 'User',
+        type: String,
         required: true
+    },
+    email: {
+        type: String,
+        required: true,
+        unique: true,
+        trim: true
     },
     title: {
         type: String,
@@ -157,7 +162,7 @@ const message = new Schema ({
 
 const usersData = new Schema ({
     usersMail: {
-        type: [String]
+        type: String
     }
 })
 
