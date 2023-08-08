@@ -12,7 +12,7 @@ module.exports = (name, email, password) => {
 
     return (async () => {
         try {
-            const hash = await bcrypt.hash(password, 10)
+            const hash = await bcrypt.hashSync(password, 10)
 
             await Administrator.create({name, email, password: hash})
         } catch (error) {

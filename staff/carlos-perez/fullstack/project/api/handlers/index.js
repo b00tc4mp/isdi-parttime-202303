@@ -1,3 +1,5 @@
 module.exports = {
-    helloApiHandler: require('./helloApiHandler')
+    helloApiHandler: require('./helloApiHandler'),
+    authenticateAdminHandler: require('./authenticateAdminHandler'),
+    registerAdminHandler: require('./registerAdminHandler')
   }
