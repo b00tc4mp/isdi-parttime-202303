@@ -11,7 +11,7 @@ type Props = {
 export default function RadioButton({ name, value, onChange, checked, text }: Props): JSX.Element {
 
     return <>
-        <div className="radio-button-container">
+        <div className="radio-button-container appareance-none">
             <input
                 className="radio-button"
                 type="radio"

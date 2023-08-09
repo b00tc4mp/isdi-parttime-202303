@@ -14,4 +14,7 @@ module.exports = {
     retrieveCartMeals: require('./retrieveCartMeals'),
     payMealsInCart: require('./payMealsInCart.js'),
     removeMealFromCart: require('./removeMealFromCart'),
+    retrievePendingToPickUp: require('./retrievePendingToPickUp'),
+    incrementMealsInCart: require('./incrementMealsInCart'),
+    retrievePendingToDeliver: require('./retrievePendingToDeliver')
 }

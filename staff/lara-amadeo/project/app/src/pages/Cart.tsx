@@ -6,50 +6,100 @@ import CartItem from '../library/modules/CartItem'
 import ButtonBar from '../library/modules/ButtonBar'
 import DataItem from '../library/components/DataItem'
 import Divider from '../library/components/Divider'
-import { useEffect, useState, useCallback } from 'react'
+import { useEffect, useState } from 'react'
 import retrieveCartMeals from '../logic/retrieveCartMeals'
 import useHandleError from '../logic/hooks/useHandleError'
 import addMealToCart from '../logic/addMealToCart'
 import Payment from '../modals/Payment'
 import removeMealFromCart from '../logic/removeMealFromCart'
-import Header from '../library/components/Header'
 import EmptyState from '../library/components/EmptyState'
-import { Carousel, Button } from 'flowbite-react'
+import PendingOrderCard from '../library/modules/PendingOrderCard'
+import retrievePendingToPickUp from '../logic/retrievePendingToPickUp'
+import incrementMealsInCart from '../logic/incrementMealsinCart'
+import { Timeout } from 'react-number-format/types/types'
+import formatDate from '../logic/formatDate'
+import useAppContext from '../logic/hooks/useAppContext'
 
-type Author = {
-    avatar: string
-    name: string
-    username: string
-    location: string
-}
-
-type Meal = {
-    _id: string
-    author: string
-    title: string
-    price: number
-    quantity: number
-}
 
 type Order = {
     author: Author
     meals: Meal[]
 }
 
+//pending
+
+type Author = {
+    _id: string
+    username: string
+    name: string
+    email: string
+    password: string
+    description: string
+    tags: string[]
+    avatar: string
+    availability: object[]
+    location: string
+    likedChefs: string[]
+    reviews: object[]
+    cart: object[]
+    order: any[]
+    selledMeals: SelledMeal[]
+    __v: number
+}
+
+type Meal = {
+    _id: string
+    author: string
+    images: string[]
+    title: string
+    description: string
+    categories: string[]
+    ingredients: string[]
+    quantity: number
+    bestBefore: string
+    price: number
+    date: string
+    __v: number
+}
+
+type SelledMeal = {
+    meal: string
+    quantity: number
+    author: string
+    buyer: string
+    status: string
+    _id: string
+}
+
+type Item = {
+    author: Author
+    meals: { meal: Meal, quantity: number }[]
+}
+
+type PendingToPickUp = {
+    serial: string
+    date: string
+    items: Item[]
+}
+
+
+
 export default function Cart() {
 
+    const { navigate } = useAppContext()
+
     const [meals, setMeals] = useState<Order[]>()
+    const [lastQuantity, setLastQuantity] = useState()
+
+    const [timeoutId, setTimeoutId] = useState<Timeout>()
+
     const [total, setTotal] = useState(0)
-    const [tabView, setTabView] = useState(true)
-    const [pendingMeals, setPendingMeals] = useState()
+    const [cartView, setCartView] = useState(true)
+    const [pendingMeals, setPendingMeals] = useState<PendingToPickUp[]>()
 
     const [paymentModal, setPaymentModal] = useState(false)
 
     const handleErrors = useHandleError()
-
-    const toggleTabView = () => {
-        setTabView(!tabView)
-    }
 
     const handlePay = () => {
         setPaymentModal(true)
@@ -61,7 +111,11 @@ export default function Cart() {
                 const meals = await retrieveCartMeals()
                 setMeals(meals)
                 calculateTotal(meals)
-                refreshCartMeals()
+
+
+                const pendingMeals = await retrievePendingToPickUp()
+                setPendingMeals(pendingMeals)
+
             } catch (error: any) {
                 handleErrors(error)
             }
@@ -72,6 +126,11 @@ export default function Cart() {
         refreshCartMeals()
     }, [])
 
+    const toggleTabView = () => {
+        setCartView(!cartView)
+        if (cartView === true)
+            refreshCartMeals()
+    }
 
     const calculateTotal = (meals: Order[]) => {
         let total = 0
@@ -84,54 +143,88 @@ export default function Cart() {
         setTotal(total)
     }
 
-
     const handleAddOneMore = (id: string) => {
-        let foundMeal
-        const meal = meals!.some(item => {
-            foundMeal = item.meals.find((elem: any) => elem._id === id)
-            return foundMeal
-        });
+        const foundMeal = findMealById(id, meals!)
+        if (foundMeal) foundMeal.quantity++
 
-        (async () => {
-            try {
-                await addMealToCart(id, foundMeal!.quantity)
-                refreshCartMeals()
-            } catch (error: any) {
-                handleErrors(error)
+        setMeals(meals);
+
+        if (timeoutId) {
+            clearTimeout(timeoutId)
+        }
+
+        const newTimeoutId = setTimeout(() => {
+            (async () => {
+                try {
+                    await incrementMealsInCart(id, foundMeal!.quantity)
+
+                } catch (error: any) {
+                    handleErrors(error)
+                }
+            })()
+
+        }, 500)
+        setTimeoutId(newTimeoutId)
+    }
+
+
+    const findMealById = (id: string, meals: Order[]) => {
+        let foundMeal = null
+
+        meals.forEach((item: any) => {
+            const meal = item.meals.find((meal: any) => meal._id === id)
+            if (meal) {
+                foundMeal = meal
+                return
             }
-        })()
+        })
+
+        return foundMeal
     }
 
     const handleRemoveOne = (id: string) => {
-        (async () => {
-            try {
-                await removeMealFromCart(id)
-                refreshCartMeals()
-            } catch (error: any) {
-                handleErrors(error)
-            }
-        })()
+        const foundMeal = findMealById(id, meals!)
+        if (foundMeal) foundMeal.quantity -= 1
+
+        setMeals(meals);
+
+        if (timeoutId) {
+            clearTimeout(timeoutId)
+        }
+
+        const newTimeoutId = setTimeout(() => {
+
+            (async () => {
+                try {
+                    await removeMealFromCart(id, foundMeal!.quantity)
+                    refreshCartMeals()
+                } catch (error: any) {
+                    handleErrors(error)
+                }
+            })()
+        }, 500)
+        setTimeoutId(newTimeoutId)
     }
 
     return <>
-        {paymentModal ? <Payment onClose={() => setPaymentModal(false)} /> :
+        {paymentModal ? <Payment onPaymentClose={() => setPaymentModal(false)} onPaymentSummaryClose={() => navigate('/')} /> :
             <>
                 <Topbar level={'first'} />
                 <div className="page-first-level" >
                     <Tabs items={[
                         {
                             label: "Your order",
-                            selected: tabView,
+                            selected: cartView,
                             onClick: toggleTabView
                         },
                         {
                             label: "To pick up",
-                            selected: !tabView,
+                            selected: !cartView,
                             onClick: toggleTabView
                         }]} />
 
                     {/* CART TAB */}
-                    {tabView &&
+                    {cartView &&
                         <>
                             {meals && meals.length > 0 && <>
                                 {meals && <div className='cart-items-list'>
@@ -156,42 +249,51 @@ export default function Cart() {
                             {/* CART - EMPTY STATE */}
                             {meals && meals.length === 0 && <>
                                 <div className='cart-empty-state-container'>
-                                    <EmptyState src='/illustrations/beach-girl.gif' title='No meals added yet!' description='dd some meals to your cart to start enjoying Yuper!' />
+                                    <EmptyState src='/illustrations/beach-girl.gif' title='No meals added yet!' description='Add some meals to your cart to start enjoying Yuper!' />
                                 </div>
                             </>}
 
-                            {/* CART - BUTTON BAR */}
-                            {meals && meals.length > 0 && <ButtonBar firstButton={{ label: "Pay", onClick: handlePay }} className='cart-buttonBar'>
-                                <div className='cart-buttonBar-data-item'>
-                                    <DataItem label='Total' content={`${total} €`} />
-                                    <Divider width='100%' />
-                                </div>
-                            </ButtonBar>}
+
                         </>}
 
                     {/* PENDING TAB */}
-                    {!tabView &&
+                    {!cartView &&
                         <>
-                            <div className='cart-empty-state-container'>
-                                <Carousel slide>
-                                    {/* {meal.images.map(image => <img src={image} className='meal-detail-img' />)} */}
-                                    <div className="flex h-full items-center justify-center bg-gray-400 dark:bg-gray-700 dark:text-white">
-                                        Slide 1
-                                    </div>
-                                    <div className="flex h-full items-center justify-center bg-gray-400 dark:bg-gray-700 dark:text-white">
-                                        Slide 2
-                                    </div>
-                                    <div className="flex h-full items-center justify-center bg-gray-400 dark:bg-gray-700 dark:text-white">
-                                        Slide 3
-                                    </div>
-                                </Carousel>
+                            {pendingMeals?.length === 0 && <>
+                                <div className='cart-empty-state-container'>
+                                    <EmptyState src='/illustrations/beach-girl.gif' title='No orders in process!' description='Start paying some meals!!!' />
+                                </div>
+                            </>}
+                            {pendingMeals && <div className='cart-items-list'>
+                                {pendingMeals.map((obj: PendingToPickUp) => {
+                                    let _serial = obj.serial
+                                    let _date = formatDate(new Date(obj.date))
+                                    return obj.items.map((item: Item) => {
+                                        let _quantity: number = 0
+                                        for (const meal of item.meals) {
+                                            _quantity += meal.quantity
+                                        }
 
-
-                                <p className='heading-s' style={{ textAlign: 'center' }}>TODO!!!!!</p>
-                                <p className='body-text grey-700' style={{ marginBottom: '16px', marginTop: '8px', textAlign: 'center', width: '90%' }}></p>
-                            </div>
+                                        return <PendingOrderCard
+                                            image={item.author.avatar}
+                                            chefName={item.author.name}
+                                            chip={{ label: 'pending', status: 'warning' }}
+                                            quantity={_quantity}
+                                            total={22}
+                                            serial={_serial}
+                                            date={_date} />
+                                    })
+                                })}
+                            </div>}
                         </>}
                 </div>
+                {/* CART - BUTTON BAR */}
+                {cartView && meals && meals.length > 0 && <ButtonBar firstButton={{ label: "Pay", onClick: handlePay }} className='cart-buttonBar'>
+                    <div className='cart-buttonBar-data-item'>
+                        <DataItem label='Total' content={`${total} €`} />
+                        <Divider width='100%' />
+                    </div>
+                </ButtonBar>}
                 <Tabbar cart={true} />
             </>
         }

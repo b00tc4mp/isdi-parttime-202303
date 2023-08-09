@@ -1,22 +1,24 @@
 import { context } from "./context"
-import errors from "./helpers/errors"
 
-export default function payMealsInCart() {
-    const nth = "a"
+export default function retrievePendingToPickUp() {
+
     return (async () => {
-        const res = await fetch(`http://localhost:1234/meals/pay`, {
-            method: 'POST',
+        const res = await fetch('http://localhost:1234/meals/cart/pending', {
+            method: 'GET',
             headers: {
                 'Content-type': 'application/json',
                 'authorization': `Bearer ${context.token}`
-            },
-            body: JSON.stringify({ nth })
+            }
         })
+        if (res.status === 200) {
+            const meals = await res.json()
 
-        if (res.status === 204) return
+            return meals
+        }
 
         //@ts-ignore
         const { message, type } = await res.json()
+
         //@ts-ignore
         const clazz = errors[type]
 

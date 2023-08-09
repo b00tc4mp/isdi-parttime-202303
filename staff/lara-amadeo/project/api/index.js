@@ -3,7 +3,7 @@ require('dotenv').config()
 const cors = require('cors')
 const bodyParser = require('body-parser')
 const express = require('express')
-const { helloAPIHandler, registerUserHandler, authenticateUserHandler, registerAdditionalInfoHandler, createMealHandler, retrieveMealsHandler, retrieveUserHandler, retrieveMealHandler, retrieveOwnMealsHandler, updateMealHandler, deleteMealHandler, addMealToCartHandler, retrieveCartMealsHandler, payMealsInCartHandler, removeMealFromCartHandler } = require('./handlers')
+const { helloAPIHandler, registerUserHandler, authenticateUserHandler, registerAdditionalInfoHandler, createMealHandler, retrieveMealsHandler, retrieveUserHandler, retrieveMealHandler, retrieveOwnMealsHandler, updateMealHandler, deleteMealHandler, addMealToCartHandler, retrieveCartMealsHandler, payMealsInCartHandler, removeMealFromCartHandler, retrievePendingToPickUpHandler, incrementMealsInCartHandler, retrievePendingToDeliverHandler } = require('./handlers')
 
 const mongoose = require('mongoose')
 
@@ -60,15 +60,23 @@ mongoose.connect(process.env.MONGODB_URL)
         //add meal to cart
         api.post('/meals/cart/:mealId', jsonBodyParser, addMealToCartHandler)
 
-        //remove meal to cart
-        api.delete('/meals/cart/delete/:mealId', removeMealFromCartHandler)
+        //remove meal from cart
+        api.delete('/meals/cart/delete/:mealId', jsonBodyParser, removeMealFromCartHandler)
 
         //retrieve meals in cart
         api.get('/meals/cart/', retrieveCartMealsHandler)
 
-        //add meal to cart
+        //pay meals in cart
         api.post('/meals/pay', payMealsInCartHandler)
 
+        //increment meal in cart
+        api.post('/meals/cart/increment/:mealId', jsonBodyParser, incrementMealsInCartHandler)
+
+        //retrieve meals pending to pick up
+        api.get('/meals/cart/pending', retrievePendingToPickUpHandler)
+
+        //retrieve meals pending to deliver
+        api.get('/meals/pending/deliver', retrievePendingToDeliverHandler)
 
         api.get('/IKAuth', (req, res) => {
             const result = imagekit.getAuthenticationParameters()

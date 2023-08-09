@@ -22,6 +22,7 @@ module.exports = function addMealToCart(userId, mealId, quantity) {
         } else {
             const mealInUserCart = new Item({
                 meal: mealId,
+                author: meal.author,
                 quantity
             })
             user.cart.push(mealInUserCart)

@@ -12,9 +12,11 @@ import retrieveCartMeals from '../logic/retrieveCartMeals'
 import payMealsInCart from '../logic/payMealsInCart'
 import PaymentSummary from './PaymentSummary'
 import Header from '../library/components/Header'
+import useAppContext from '../logic/hooks/useAppContext'
 
 type Props = {
-    onClose: () => void
+    onPaymentClose: () => void,
+    onPaymentSummaryClose: () => void
 }
 
 type Author = {
@@ -37,17 +39,20 @@ type Order = {
     meals: Meal[]
 }
 
-export default function Payment({ onClose }: Props) {
+export default function Payment({ onPaymentClose, onPaymentSummaryClose }: Props) {
     const [paymentMethod, setPaymentMethod] = useState("")
+    const { loaderOn, loaderOff } = useAppContext()
     const handleErrors = useHandleError()
     const [meals, setMeals] = useState<Order[]>()
     const [paymentDone, setPaymentDone] = useState(false)
+    const [total, setTotal] = useState<number>()
 
     useEffect(() => {
         (async () => {
             try {
                 const meals = await retrieveCartMeals()
                 setMeals(meals)
+                calculateTotal(meals)
             } catch (error: any) {
                 handleErrors(error)
             }
@@ -57,14 +62,28 @@ export default function Payment({ onClose }: Props) {
     const handlePay = () => {
         (async () => {
             try {
+                loaderOn()
                 await payMealsInCart()
                 setTimeout(() => {
+                    loaderOff()
                     setPaymentDone(true)
-                }, 1000);
+                }, 1000)
             } catch (error: any) {
+                loaderOff()
                 handleErrors(error)
             }
         })()
+    }
+
+    const calculateTotal = (meals: Order[]) => {
+        let total = 0
+
+        meals.forEach(author => {
+            author.meals.forEach(meal => {
+                total += meal.quantity * meal.price
+            })
+        })
+        setTotal(total)
     }
 
     const toggleRadioSelection = (value: string) => {
@@ -72,8 +91,8 @@ export default function Payment({ onClose }: Props) {
     }
 
     return <>
-        {paymentDone ? <PaymentSummary onClose={onClose} /> : <>
-            <ModalFullScreen onClose={onClose} topBarLabel="Payment">
+        {paymentDone ? <PaymentSummary onClose={onPaymentSummaryClose} /> : <>
+            <ModalFullScreen onClose={onPaymentClose} topBarLabel="Payment">
                 <div className="page-button-bar">
                     <Header text={'Payment summary'} />
                     {meals && <>
@@ -135,10 +154,12 @@ export default function Payment({ onClose }: Props) {
                         <div className='payment-total'>
                             <Divider width='100%' className='payment-divider-section' />
                             <div className='payment-inside-section-content'>
-                                <DataItem label='Subtotal' content={'27,70 €'} />
-                                <DataItem label='Buyer protection fee' content={'0,95 €'} />
-                                <Divider width='100%' />
-                                <DataItem label='Total' content={'29,65 €'} />
+                                {total && <>
+                                    <DataItem label='Subtotal' content={total.toString()} />
+                                    <DataItem label='Buyer protection fee' content={'0,95 €'} />
+                                    <Divider width='100%' />
+                                    <DataItem label='Total' content={(total + 0.95).toString()} />
+                                </>}
                             </div>
                         </div>
                     </>}

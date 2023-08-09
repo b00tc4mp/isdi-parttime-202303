@@ -1,3 +1,4 @@
+import formatDate from '../../logic/formatDate'
 import Avatar from '../components/Avatar'
 import Divider from '../components/Divider'
 import { MinusIcon, PlusIcon, TrashIcon } from '../icons'
@@ -15,6 +16,8 @@ export default function CartItem({ author, items, length, num, onPlusOne, onMinu
     const handlePlusClick = (id: string) => {
         onPlusOne(id)
     }
+
+
     return <>
         <div className='cart-item-container'>
             <div className='cart-item-author'>

@@ -12,6 +12,11 @@ const item = new Schema({
         type: Number,
         required: true,
         default: 1
+    },
+    author: {
+        type: ObjectId,
+        ref: 'User',
+        required: true
     }
 })
 
@@ -47,12 +52,22 @@ const chefOrder = new Schema({
     },
     author: {
         type: ObjectId,
+        ref: 'User',
+        required: true
+    },
+    buyer: {
+        type: ObjectId,
+        ref: 'User',
         required: true
     },
     status: {
         type: String,
         required: true,
         default: 'pending'
+    },
+    serial: {
+        type: String
+
     }
 })
 
@@ -112,7 +127,7 @@ const user = new Schema({
         type: [Object],
         default: []
     },
-    pendingOrder: {
+    selledMeals: {
         type: [chefOrder],
         default: []
     }

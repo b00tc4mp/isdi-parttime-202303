@@ -108,6 +108,7 @@ export default function MealDetails(): JSX.Element {
                 await addMealToCart(meal!.id, mealCounter)
                 setTimeout(() => {
                     loaderOff()
+                    navigate(from)
                     toast('Meals added to cart!', 'success')
                     setMealCounter(0)
                     setCounterButtonLabel(meal?.price)
@@ -164,18 +165,6 @@ export default function MealDetails(): JSX.Element {
         }, 800);
     }
 
-    const nextSlide = () => {
-        setCurrentImage(currentImage === imagesLength - 1 ? 0 : currentImage + 1);
-    }
-
-    const prevSlide = () => {
-        setCurrentImage(currentImage === 0 ? imagesLength - 1 : currentImage - 1);
-    }
-
-    /*function toLocaleES (num){
-    return num.toFixed(2).replace('.', ',')
-}
-*/
 
     return <>
         {deleteModal && <DeleteModal mealId={mealId!} handleClose={closeDeleteModal} onDelete={saveDelete} />}

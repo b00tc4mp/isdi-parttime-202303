@@ -1,7 +1,7 @@
 const { User, Meal, Item } = require('../data/models')
 const { errors: { ExistanceError } } = require('../../com')
 
-module.exports = function removeMealFromCart(userId, mealId, quantity) {
+module.exports = function addMealToCart(userId, mealId, quantity) {
     return (async () => {
         const user = await User.findById(userId)
 
@@ -13,12 +13,15 @@ module.exports = function removeMealFromCart(userId, mealId, quantity) {
 
         const existingItem = user.cart.find(item => item.meal.toString() === mealId)
 
-        if (existingItem.quantity <= 1) {
-            const index = user.cart.findIndex(item => item.meal.toString() === mealId)
-
-            user.cart.splice(index, 1)
-        } else {
+        if (existingItem) {
             existingItem.quantity = quantity
+        } else {
+            const mealInUserCart = new Item({
+                meal: mealId,
+                author: meal.author,
+                quantity
+            })
+            user.cart.push(mealInUserCart)
         }
         await user.save()
     })()
