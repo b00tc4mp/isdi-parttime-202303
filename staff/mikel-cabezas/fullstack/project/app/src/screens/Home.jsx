@@ -13,15 +13,23 @@ import Footer from '../components/Footer.jsx';
 import BaseMap from '../components/Playgrounds/BaseMap';
 import Nearby from '../components/Playgrounds/Nearby.jsx';
 import SinglePlayground from '../components/Playgrounds/SinglePlayground.jsx';
-import CreatePlayground from '../components/Playgrounds/AddPlayground.jsx';
+import CreatePlayground from '../components/Playgrounds/addPlayground/AddPlayground.jsx';
 
 export default function Home({ }) {
-    const { modal, setModal, colorScheme, animation, setAnimation, currentView, setCurrentView } = useContext(Context)
+    const { modal, setModal, colorScheme, colorPalette, animation, setAnimation, currentView, setCurrentView } = useContext(Context)
     const [currentMarker, setCurrentMarker] = useState({})
     const [newPlaygroundStatus, setNewPlaygroundStatus] = useState(false)
 
     const bottomSheetRef = useRef();
-    const snapPoints = useMemo(() => ['90%', '95%'], []);
+    const snapPoints = useMemo(() => ['75%', '94%'], []);
+    let mainColor
+    if (colorScheme === 'dark') {
+        mainColor = 'rgb(31 41 55)'
+    } else if (colorScheme === 'light') {
+        mainColor = '#ffffff'
+    }
+    // const snapPointsSinglePlayground = useMemo(() => ['70%', '85%'], []);
+
     const handleSheetChanges = useCallback((index) => {
         console.log(newPlaygroundStatus)
         if (newPlaygroundStatus === false && index === -1) {
@@ -31,6 +39,17 @@ export default function Home({ }) {
         }
         console.log('handleSheetChanges', index);
     }, []);
+    const handleSheetChangesSingle = useCallback((index) => {
+        console.log(newPlaygroundStatus)
+        if (index === -1) {
+            bottomSheetRef.current.close()
+            setModal('')
+            setCurrentView('')
+        }
+        console.log('handleSheetChanges', index);
+    }, []);
+
+
 
     const onHome = () => {
         setModal('')
@@ -89,22 +108,25 @@ export default function Home({ }) {
             <BaseMap className="-z-20" onMarkerPressed={markerPressedHandler} />
             <Header />
             <Footer nearbyHandler={onNearby} createPlaygroundHandler={onCreatePlayground} homeHandler={onHome} />
-            {modal === 'singlePlayground' &&
-                <BottomSheet
-                    enablePanDownToClose
-                    ref={bottomSheetRef}
-                    index={0}
-                    snapPoints={snapPoints}
-                    onChange={handleSheetChanges}>
-                    <SinglePlayground className="z-[90]" closeHandle={onCloseModal} playground={currentMarker}></SinglePlayground>
-                </BottomSheet>
+            {modal === 'singlePlayground' && <BottomSheet
+                // style={{ backgroundColor: "transparent" }}
+                backgroundStyle={{
+                    backgroundColor: `${mainColor}`
+                }}
+                enablePanDownToClose
+                ref={bottomSheetRef}
+                index={0}
+                snapPoints={snapPoints}
+                onChange={handleSheetChangesSingle}>
+                <SinglePlayground className="z-[90] h-screen relative " closeHandle={onCloseModal} playground={currentMarker}></SinglePlayground>
+            </BottomSheet>
             }
             {modal === 'nearby' && <Animatable.View animation={animation} duration={250} className="w-full absolute bottom-0 z-50" ><Nearby closeHandle={onCloseModal} playground={currentMarker}></Nearby></Animatable.View>}
             {modal === 'createPlayground' &&
                 <BottomSheet
                     enablePanDownToClose
                     ref={bottomSheetRef}
-                    index={0}
+                    index={1}
                     snapPoints={snapPoints}
                     onChange={handleSheetChanges}>
                     <CreatePlayground closeHandle={onCloseAddPlayground} cancelAddPlayground={confirmCloseModal} />
