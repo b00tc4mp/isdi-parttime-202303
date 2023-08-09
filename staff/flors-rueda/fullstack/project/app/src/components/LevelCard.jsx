@@ -15,7 +15,8 @@ const LevelCard = ({ levelInfo }) => {
     const [isLiked, setIsLiked] = useState(levelInfo.isLevelLiked);
     const [isFollowed, setIsFollowed] = useState(null);
     const [likes, setLikes] = useState(levelInfo.likes.length);
-    const [isUserAuthor, setIsUserAuthor] = useState(null)
+    const [isUserAuthor, setIsUserAuthor] = useState(null);
+    const [isSaved, setIsSaved] = useState(false);
 
     const getAuthorData = () => {
         handleErrors(async () => {
@@ -42,6 +43,10 @@ const LevelCard = ({ levelInfo }) => {
         })
     }
 
+    const handleSaveClick = () => {
+        setIsSaved(!isSaved);
+    }
+
     const setLevelTitle = (name) => {
         const displayName = name.length > 10 ? `${name.substring(0, 10)}...` : name;
         setTitle(displayName)
@@ -56,16 +61,25 @@ const LevelCard = ({ levelInfo }) => {
         <div className="w-full md:w-5/12 md:max-w-sm p-6 bg-light500 border border-light300 rounded-lg shadow">
             <div className="flex justify-between">
                 <div className="flex items-start flex-col">
-                    <h3 className="text-2xl font-semibold truncate text-primary200 max-w-1/2">{title}</h3>
+                    <div className="flex flex-row gap-0.5 text-2xl font-semibold truncate text-primary200 max-w-1/2">
+                        <h3>{title}</h3>
+                    </div>
                     <p className={`text-${authorData.color} text-xs`}>{new Date(levelInfo.date).toLocaleDateString("en-GB")}</p>
                     <Link to={`/game/${levelInfo.id}`} className="inline-flex items-center text-secondary300 hover:underline">
                         Play now
                         <i className="bi bi-play-circle text-xl ps-1"></i>
                     </Link>
-                    <p className={`flex flex-row gap-2 text-secondary500 text-sm font-semibold`}>
-                        <button onClick={handleLikeClick}><i className={`hover:text-light100 bi ${isLiked ? 'bi-suit-heart-fill' : 'bi-suit-heart'}`}></i></button>
-                        {likes}
-                    </p>
+                    <div className={`flex flex-row gap-2 text-secondary500 text-sm font-semibold align-center items-center`}>
+                        <p className={`flex flex-row gap-2 text-secondary500 text-sm font-semibold align-center items-center`}>
+                            <button onClick={handleSaveClick} className={`flex flex-row text-secondary500 text-sm font-semibold ${isSaved ? 'hover:text-danger100' : 'hover:text-success100'} items-center`}>
+                                <i className={`text-lg bi bi-bookmark-star${isSaved ? '-fill' : ''}`}></i>
+                            </button>
+                            <button onClick={handleLikeClick}>
+                                <i className={`hover:text-light100 bi ${isLiked ? 'bi-suit-heart-fill' : 'bi-suit-heart'}`}></i>
+                            </button>
+                            {likes}
+                        </p>
+                    </div>
                 </div>
                 <div className="flex items-center flex-col h-full w-1/3 gap-2">
                     <Link to={`/profile/${levelInfo.author}`} className="flex items-center flex-col">
@@ -82,7 +96,7 @@ const LevelCard = ({ levelInfo }) => {
                     }
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
 

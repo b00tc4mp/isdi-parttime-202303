@@ -14,5 +14,6 @@ module.exports = {
     retrieveRandomRecoveryQuestion: require('./users/retrieveRandomRecoveryQuestion'),
     updatePassword: require('./users/updatePassword'),
     toggleFollow: require('./users/toggleFollow'),
-    retrieveLevelsByFollowed: require('./levels/retrieveLevelsByFollowed')
+    retrieveLevelsByFollowed: require('./levels/retrieveLevelsByFollowed'),
+    retrieveLevelsByAuthor: require('./levels/retrieveLevelsByAuthor')
 }

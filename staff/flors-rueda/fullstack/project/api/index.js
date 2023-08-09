@@ -4,7 +4,7 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 
-const { helloApiHandler, retrieveLevelsHandler, retrieveLevelHandler, createLevelHandler, authenticateUserHandler, registerUserHandler, retrieveUserHandler, retrieveUserLoggedHandler, updateColorHandler, updateAvatarHandler, toggleLikeHandler, updatePasswordHandler, recoverPasswordHandler, retrieveRandomRecoveryQuestionHandler, checkRecoveryAnswerHandler, toggleFollowHandler, retrieveLevelByFollowedHandler } = require('./handlers');
+const { helloApiHandler, retrieveLevelsHandler, retrieveLevelHandler, createLevelHandler, authenticateUserHandler, registerUserHandler, retrieveUserHandler, retrieveUserLoggedHandler, updateColorHandler, updateAvatarHandler, toggleLikeHandler, updatePasswordHandler, recoverPasswordHandler, retrieveRandomRecoveryQuestionHandler, checkRecoveryAnswerHandler, toggleFollowHandler, retrieveLevelsByFollowedHandler, retrieveLevelsByAuthorHandler } = require('./handlers');
 
 const mongoose = require('mongoose');
 
@@ -57,7 +57,9 @@ mongoose.connect(process.env.MONGODB_URL)
 
         api.patch('/api/users/follow/:userId', toggleFollowHandler);
 
-        api.get('/api/levels/followed/:userId', retrieveLevelByFollowedHandler);
+        api.get('/api/levels/followed/:userId', retrieveLevelsByFollowedHandler);
+
+        api.get('/api/levels/user/:authorId', retrieveLevelsByAuthorHandler)
 
         api.listen(process.env.PORT, () => console.log(`server running in port ${process.env.PORT}`));
 

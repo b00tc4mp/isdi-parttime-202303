@@ -26,10 +26,10 @@ const UserCard = ({ userInfo }) => {
             const bool = await isCurrentUser(id);
             setIsProfileCurrentUser(bool)
         })
-    }, []);
+    }, [id]);
 
     return (
-        <div className="w-full md:w-5/12 lg:w-4/12 p-4 border border-light400 bg-light500 rounded-lg shadow flex flex-row gap-2 md:flex-row-reverse justify-around">
+        <div className="w-full p-4 border border-light400 bg-light500 rounded-lg shadow flex flex-row gap-2 md:flex-row-reverse justify-around">
             <div className="flex items-start flex-col">
                 <h3 className={`mb-2 text-2xl text-${userInfo.color} font-semibold self-center`}>{userInfo.username}</h3>
                 <p className="flex flex-col gap-2 text-sm font-semibold">

@@ -16,8 +16,8 @@ const Footer = () => {
                         </a>
                     </li>
                 </ul>
-                <b className="text-light100 text-sm font-medium" >
-                    © 2023 <span >Flors Rueda</span>
+                <b className="text-dark500 text-xs font-small" >
+                    made by <span className="text-light100 text-sm font-medium">Flors Rueda</span>
                 </b>
             </div>
         </footer>
