@@ -1,6 +1,9 @@
 import React, { useEffect, useState, useContext, useRef } from "react";
 
 import { Text, Image, View, ScrollView, TouchableOpacity, Modal, TextInput } from 'react-native';
+
+import * as Location from 'expo-location';
+
 import {
     CLOSE, ADD,
     SUNNY, SHADY,
@@ -9,12 +12,11 @@ import {
     ACCESSIBLE
 } from '../../../assets/icons';
 import Context from '../../AppContext.js'
-import * as Animatable from 'react-native-animatable';
+
 import UploadImages from "./UploadImages";
 import AddElement from './AddElement'
 import EditElement from './EditElement'
-import { firebase } from '../../config/firebase.js'
-import { ref, uploadBytes } from 'firebase/storage'
+
 import addPlayground from '../../logic/playgrounds/addPlayground.js'
 
 export default function CreatePlayground({ closeHandle, cancelAddPlayground }) {
@@ -30,11 +32,23 @@ export default function CreatePlayground({ closeHandle, cancelAddPlayground }) {
     const [colorTogglePartial, setColorTogglePartial] = useState('bg-mainGray')
     const [modal, setModal] = useState([]);
     const [editElement, setEditElement] = useState([]);
-<<<<<<< HEAD
 
-    const colorRef = useRef()
-=======
->>>>>>> finish addPlaygroudn compo, with logics for render each image for ages and elements; create logics for connect to db; create logic in backend for add element; update models
+    const [currentLocation, setCurrentLocation] = useState([])
+    useEffect(() => {
+        (async () => {
+            let { status } = await Location.requestForegroundPermissionsAsync();
+            if (status !== 'granted') {
+                setErrorMsg('Permission to access location was denied');
+                return;
+            }
+
+            let location = await Location.getCurrentPositionAsync({});
+            const current = [location.coords.latitude, location.coords.longitude]
+            setCurrentLocation(current);
+        })();
+    }, []);
+
+
 
     const onClose = () => closeHandle()
 
@@ -82,20 +96,10 @@ export default function CreatePlayground({ closeHandle, cancelAddPlayground }) {
         setModal('')
     }
     const onEditElement = (element) => {
-<<<<<<< HEAD
-
-=======
->>>>>>> finish addPlaygroudn compo, with logics for render each image for ages and elements; create logics for connect to db; create logic in backend for add element; update models
         setPlaygroundElements(currentElements => {
             currentElements[element.id] = element
             return [...currentElements]
         })
-<<<<<<< HEAD
-        setModal('')
-    }
-    const onCancelHandleElement = () => {
-=======
->>>>>>> finish addPlaygroudn compo, with logics for render each image for ages and elements; create logics for connect to db; create logic in backend for add element; update models
         setModal('')
     }
     const onCancelHandleElement = () => {
@@ -107,10 +111,12 @@ export default function CreatePlayground({ closeHandle, cancelAddPlayground }) {
 
     const onCreatePlayground = (storedImagesUrl) => {
         const sunExposition = { shady: playgroundShady, sunny: playgroundSunny, partial: playgroundPartial }
+        debugger
         try {
-            console.log(addPlayground)
-            addPlayground(TOKEN, playgroundName, playgroundDescription, sunExposition, playgroundElements, storedImagesUrl, '41.1985277,1.6663534')
+            // debugger
+            addPlayground(TOKEN, playgroundName, playgroundDescription, sunExposition, playgroundElements, storedImagesUrl, currentLocation)
                 .then((res) => {
+                    debugger
                     console.log(res)
                     onClose()
                 })
@@ -163,10 +169,6 @@ export default function CreatePlayground({ closeHandle, cancelAddPlayground }) {
     return <>
         {modal === 'add-element' && <AddElement onElementCreated={onNewElement} id={playgroundElements.length} onCancelAddElement={onCancelHandleElement} />}
         {modal === 'edit-element' && <EditElement onElementEdited={onEditElement} element={playgroundElements[editElement]} onCancelEditElement={onCancelHandleElement} />}
-<<<<<<< HEAD
-        <Animatable.View animation={animation} duration={200} className="w-full left-0 absolute bottom-0 h-auto max-h-max py-5 bg-white dark:bg-gray-800 rounded-[20px] mx-auto min-h-[300px] z-40" >
-=======
->>>>>>> finish addPlaygroudn compo, with logics for render each image for ages and elements; create logics for connect to db; create logic in backend for add element; update models
 
         <ScrollView className="flex-1">
             <View className=" px-6 w-full pt-5 pb-2.5 bg-white dark:bg-gray-800 rounded-[20px] mx-auto min-hs-[300px] z-40 ">
@@ -223,8 +225,6 @@ export default function CreatePlayground({ closeHandle, cancelAddPlayground }) {
                             <Text className="font-bold text-center text-sm rounded-full">Sunny</Text>
                         </View>
                     </TouchableOpacity>
-<<<<<<< HEAD
-=======
                     <TouchableOpacity
                         activeOpacity={0.8}
                         className={`border border-[#38F1A3] rounded-full mb-1 mt-2 ${colorTogglePartial}`}
@@ -236,45 +236,30 @@ export default function CreatePlayground({ closeHandle, cancelAddPlayground }) {
                             <Text className="font-bold text-center text-sm rounded-full">Partial</Text>
                         </View>
                     </TouchableOpacity>
->>>>>>> finish addPlaygroudn compo, with logics for render each image for ages and elements; create logics for connect to db; create logic in backend for add element; update models
-                </View>
+                </View >
                 <Text className="dark:text-white text-lg mt-3 font-semibold">Elements</Text>
                 <View className="flex-row flex-wrap">
                     {playgroundElements.length !== 0 && playgroundElements.map(element => {
-<<<<<<< HEAD
-                        return <TouchableOpacity
-                            activeOpacity={0.8}
-                            className={`border border-mainLime rounded-full mb-1 mt-2 mr-3 bg-mainGray`}
-                            onPress={() => {
-                                handleEditElement(element.id)
-                            }}>
-                            <View className="font-bold px-3 py-0.5 flex-row items-center">
-                                <Image className="w-5 h-5 mr-2" source={SLIDE} />
-                                <Text className="font-bold text-center text-sm">{element.type}</Text>
-                                <View className="rounded-xl bg-mainLime flex justify-center justify-items-center p-1 ml-2">
-                                    <Image className="h-6 w-6 object-cover" source={THREE_YEAR} />
-
-=======
                         const age = assignElementAge(element.age)
                         const type = assignElementType(element.type)
                         const status = assignElementStatus(element.status)
 
                         return <TouchableOpacity
+                            key={playgroundElements.length}
                             activeOpacity={0.8}
-                            className={`border border-${status} rounded-full mb-1 mt-2 mr-2 bg-mainGray`}
+                            className={`border border-${status}  rounded-full mb-1 mt-2 mr-2 bg-mainGray`}
                             onPress={() => {
                                 console.log('element on edit elem', element)
                                 handleEditElement(element.id)
                             }}>
                             <View className="font-bold px-3 py-0.5 flex-row items-center">
                                 <Image className="w-5 h-5 mr-2 object-contain" source={type} />
-                                <Text className="font-bold text-center text-sm">{element.type}</Text>
-                                {element.accessibility && <View className=" flex justify-center justify-items-center p- ml-2">
+                                <Text className={`font-bold text-center text-sm`}>{element.type}</Text>
+                                {element.accessibility === 'Yes' && <View className=" flex justify-center justify-items-center p- ml-2">
                                     <Image className="h-6 w-6 object-cover" source={ACCESSIBLE} />
                                 </View>}
                                 <View className="rounded-xl bg-mainLime flex justify-center justify-items-center p-1 ml-2">
                                     <Image className="h-6 w-6 object-cover" source={age} />
->>>>>>> finish addPlaygroudn compo, with logics for render each image for ages and elements; create logics for connect to db; create logic in backend for add element; update models
                                 </View>
                             </View>
                         </TouchableOpacity>

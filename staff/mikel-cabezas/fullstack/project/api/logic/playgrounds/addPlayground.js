@@ -1,3 +1,6 @@
+require('dotenv').config()
+
+
 const { Playground } = require('../../data/models')
 const context = require('../context')
 const { validators: { validateUserId, validateText, validatePassword, validateCallback } } = require('com')
@@ -18,27 +21,43 @@ const { validators: { validateUserId, validateText, validatePassword, validateCa
  * @throws {FormatError} wrong format on image (sync)
  */
 
-module.exports = (userId, name, description, sunExposition, elements, images, location) => {
+module.exports = (token, userId, name, description, sunExposition, elements, images, location) => {
     validateUserId(userId)
     validateText(name)
     validateText(description)
     // token, name, description, sunExposition, elements, images, location
-    return Playground.create({
-        author: userId,
-        name: name,
-        description: description,
-        sunExposition: sunExposition,
-        elements: elements,
-        images: images,
-        location: {
-            coordinates: location,
-            // dateCreated: Date.now,
-            visibility: 'public',
-            city: 'meh',
-            street: 'meh',
-            state: 'meh',
-            country: 'meh'
+
+    // let mapsResponse
+
+    return fetch(`https://maps-api.apple.com/v1/reverseGeocode?loc=${location}`, {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${token.accessToken}`,
         },
     })
-        .then(() => { })
+        .then(res => {
+            if (res.status !== 200)
+                return res.json().then(({ error: message }) => { throw new Error(message) })
+            return res.json()
+        })
+        .then(mapsResponse => {
+            return Playground.create({
+                author: userId,
+                name: name,
+                description: description,
+                sunExposition: sunExposition,
+                elements: elements,
+                images: images,
+                location: {
+                    coordinates: location,
+                    // dateCreated: Date.now,
+                    visibility: 'public',
+                    city: mapsResponse.results[0].structuredAddress.locality,
+                    street: mapsResponse.results[0].structuredAddress.fullThoroughfare,
+                    state: mapsResponse.results[0].structuredAddress.administrativeArea,
+                    country: mapsResponse.results[0].country
+                }
+            })
+        })
+    // .then(() => { })
 }

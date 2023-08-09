@@ -122,7 +122,7 @@ const issue = new Schema({
     elements: {
         type: [String],
         required: true,
-        unique: true
+        // unique: true
     },
     isSolved: {
         type: Boolean,
@@ -169,12 +169,10 @@ const playground = new Schema({
     visibility: {
         type: String,
         default: 'public',
-        required: true
     },
     location: {
         type: location,
         required: true,
-        unique: true,
     },
     elements: {
         type: [element],
@@ -183,15 +181,15 @@ const playground = new Schema({
     sunExposition: {
         type: Object,
     },
-    issues: {
-        type: [issue],
-        ref: 'User',
-        required: true,
-        default: []
-    },
-    contributors: {
-        type: [contributor],
-    },
+    // issues: {
+    //     type: [issue],
+    //     ref: 'User',
+    //     required: true,
+    //     default: []
+    // },
+    // contributors: {
+    //     type: [contributor],
+    // },
 })
 const post = new Schema({
     author: {

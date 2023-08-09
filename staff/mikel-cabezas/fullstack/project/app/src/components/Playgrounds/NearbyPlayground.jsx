@@ -6,7 +6,7 @@ import { Text, Image, View } from 'react-native';
 
 // const { extractSubFromToken } = utils
 
-export default function NearbyPlayground({ playground, playground: { title, text, id, image, address, latitude, longitude }, onToggleLikePost, onToggleSavePost, onEditPostButton, onHideMenuOptions, user, onPostDeleted, onMarkerPressedHandler }) {
+export default function NearbyPlayground({ playground, playground: { title, text, id, images, address, location: { coordinates, city, country, street } }, onToggleLikePost, onToggleSavePost, onEditPostButton, onHideMenuOptions, user, onPostDeleted, onMarkerPressedHandler }) {
     // const userId = extractSubFromToken(context.token)
     // const userId = extractSubFromToken(context.token)
 
@@ -27,9 +27,9 @@ export default function NearbyPlayground({ playground, playground: { title, text
                 markerPressedHandler()
             }}
         >
-            <Image source={image} className="rounded-2xl mb-2 w-full h-36 object-contain" />
+            <Image source={images} className="rounded-2xl mb-2 w-full h-36 object-contain" />
             <Text className="font-bold text-sm leading-4 pr-1">{title}</Text>
-            <Text className="line-clamp-3 text-xs pr-1">{address}</Text>
+            <Text className="line-clamp-3 text-xs pr-1">{street}, {city}</Text>
         </View>
 
     </>

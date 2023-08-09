@@ -11,6 +11,7 @@ export default function addPlayground(token, name, description, sunExposition, e
     // validateText(name)
     // validateText(description)
 
+    debugger
     return fetch(`${API_URL}/playgrounds`, {
         method: 'POST',
         headers: {
@@ -18,10 +19,10 @@ export default function addPlayground(token, name, description, sunExposition, e
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({ name, description, sunExposition, elements, images, location })
+    }).then(res => {
+        if (res.status !== 200)
+            return res.json().then(({ error: message }) => { throw new Error(message) })
+        // return res.json()
+        return
     })
-        .then(res => {
-            if (res.status !== 201)
-                return res.json().then(({ error: message }) => { throw new Error(message) })
-            // return res.json()
-        })
 }

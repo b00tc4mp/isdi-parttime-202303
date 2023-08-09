@@ -41,24 +41,31 @@ export default function UploadImages({ closeOnPlaygroundCreated }) {
         }
     }
 
-    const uploadImages = () => {
+    const uploadImages = async () => {
         try {
             const storedImagesUrl = []
             setUploading(true)
-            imagesResized.map(async image => {
+            imagesResized.map(async (image, index) => {
                 const response = await fetch(image.uri)
                 const blob = await response.blob()
                 const filename = image.uri.substring(image.uri.lastIndexOf('/') + 1)
 
                 const { ref } = await firebase.storage().ref().child(filename).put(blob)
                 const url = await ref.getDownloadURL()
+                setUrlImages(current => [...current, url])
                 storedImagesUrl.push(url)
-                setUrlImages(current => [...current, url]);
-                closeOnPlaygroundCreated(urlImages)
                 setUploading(false)
                 setImagesResized([])
-                alert('All images uploaded!!!')
+                console.log(`image ${url} uploaded!!!`)
+                console.log('index', index)
+                console.log('urlImages', urlImages)
+                console.log('imagesResized.length', imagesResized.length)
+                if (index === imagesResized.length - 1) {
+                    console.log('fuck off')
+                    closeOnPlaygroundCreated(storedImagesUrl)
+                }
             })
+            // await closeOnPlaygroundCreated(storedImagesUrl)
         } catch (error) {
             console.log(error.message)
         }
@@ -76,28 +83,28 @@ export default function UploadImages({ closeOnPlaygroundCreated }) {
         <>
             <View className="flex-row relative" >
                 <ScrollView horizontal showsHorizontalScrollIndicator={false} className="pr-5">
-                    <TouchableOpacity className="flex flex-col relative items-center justify-center w-[31vw] mr-3 h-36 rounded-2xl bg-mainGray last:mr-12" onPress={!imagesResized[0] ? pickImages : () => deleteImage(imagesResized[0])}>
-                        {imagesResized[0] && <Image source={imagesResized[0]} className="mb-2 w-full h-36 rounded-2xl object-contain" />}
+                    <TouchableOpacity key={1} className="flex flex-col relative items-center justify-center w-[31vw] mr-3 h-36 rounded-2xl bg-mainGray last:mr-12" onPress={!imagesResized[0] ? pickImages : () => deleteImage(imagesResized[0])}>
+                        {imagesResized[0] && <Image source={imagesResized[0]} className="w-full h-36 rounded-2xl object-contain" />}
                         {imagesResized[0] && <Image className="w-8 h-8 mr-2 absolute left-auto bg-white rounded-lg" source={DELETE} />}
                         {!imagesResized[0] && <Image className="w-10 h-10 mr-2 absolute left-auto" source={ADD} />}
                     </TouchableOpacity>
-                    <TouchableOpacity className="flex flex-col relative items-center justify-center w-[31vw] mr-3 h-36 rounded-2xl bg-mainGray last:mr-12" onPress={!imagesResized[1] ? pickImages : () => deleteImage(imagesResized[1])}>
-                        {imagesResized[1] && <Image source={imagesResized[1]} className="mb-2 w-full h-36 rounded-2xl object-contain" />}
+                    <TouchableOpacity key={2} className="flex flex-col relative items-center justify-center w-[31vw] mr-3 h-36 rounded-2xl bg-mainGray last:mr-12" onPress={!imagesResized[1] ? pickImages : () => deleteImage(imagesResized[1])}>
+                        {imagesResized[1] && <Image source={imagesResized[1]} className="w-full h-36 rounded-2xl object-contain" />}
                         {imagesResized[1] && <Image className="w-8 h-8 mr-2 absolute left-auto bg-white rounded-lg" source={DELETE} />}
                         {!imagesResized[1] && <Image className="w-10 h-10 mr-2 absolute left-auto" source={ADD} />}
                     </TouchableOpacity>
-                    <TouchableOpacity className="flex flex-col relative items-center justify-center w-[31vw] mr-3 h-36 rounded-2xl bg-mainGray last:mr-12" onPress={!imagesResized[2] ? pickImages : () => deleteImage(imagesResized[2])}>
-                        {imagesResized[2] && <Image source={imagesResized[2]} className="mb-2 w-full h-36 rounded-2xl object-contain" />}
+                    <TouchableOpacity key={3} className="flex flex-col relative items-center justify-center w-[31vw] mr-3 h-36 rounded-2xl bg-mainGray last:mr-12" onPress={!imagesResized[2] ? pickImages : () => deleteImage(imagesResized[2])}>
+                        {imagesResized[2] && <Image source={imagesResized[2]} className="w-full h-36 rounded-2xl object-contain" />}
                         {imagesResized[2] && <Image className="w-8 h-8 mr-2 absolute left-auto bg-white rounded-lg" source={DELETE} />}
                         {!imagesResized[2] && <Image className="w-10 h-10 mr-2 absolute left-auto" source={ADD} />}
                     </TouchableOpacity>
-                    <TouchableOpacity className="flex flex-col relative items-center justify-center w-[31vw] mr-3 h-36 rounded-2xl bg-mainGray last:mr-12" onPress={!imagesResized[3] ? pickImages : () => deleteImage(imagesResized[3])}>
-                        {imagesResized[3] && <Image source={imagesResized[3]} className="mb-2 w-full h-36 rounded-2xl object-contain" />}
+                    <TouchableOpacity key={4} className="flex flex-col relative items-center justify-center w-[31vw] mr-3 h-36 rounded-2xl bg-mainGray last:mr-12" onPress={!imagesResized[3] ? pickImages : () => deleteImage(imagesResized[3])}>
+                        {imagesResized[3] && <Image source={imagesResized[3]} className="w-full h-36 rounded-2xl object-contain" />}
                         {imagesResized[3] && <Image className="w-8 h-8 mr-2 absolute left-auto bg-white rounded-lg" source={DELETE} />}
                         {!imagesResized[3] && <Image className="w-10 h-10 mr-2 absolute left-auto" source={ADD} />}
                     </TouchableOpacity>
-                    <TouchableOpacity className="flex flex-col relative items-center justify-center w-[31vw] mr-3 h-36 rounded-2xl bg-mainGray last:mr-12" onPress={!imagesResized[4] ? pickImages : () => deleteImage(imagesResized[4])}>
-                        {imagesResized[4] && <Image source={imagesResized[4]} className="mb-2 w-full h-36 rounded-2xl object-contain" />}
+                    <TouchableOpacity key={5} className="flex flex-col relative items-center justify-center w-[31vw] mr-3 h-36 rounded-2xl bg-mainGray last:mr-12" onPress={!imagesResized[4] ? pickImages : () => deleteImage(imagesResized[4])}>
+                        {imagesResized[4] && <Image source={imagesResized[4]} className="w-full h-36 rounded-2xl object-contain" />}
                         {imagesResized[4] && <Image className="w-8 h-8 mr-2 absolute left-auto bg-white rounded-lg" source={DELETE} />}
                         {!imagesResized[4] && <Image className="w-10 h-10 mr-2 absolute left-auto" source={ADD} />}
                     </TouchableOpacity>
