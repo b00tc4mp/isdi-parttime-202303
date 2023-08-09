@@ -7,12 +7,11 @@ module.exports = (userId) => {
     validateId(userId, 'userId');
 
     return User.findById(userId)
-        .select('follows')
+        .select('saves')
         .then(user => {
-            const followedAuthorIds = user.follows;
-            followedAuthorIds.push(userId);
+            const savedLevels = user.saves;
 
-            return Level.find({ author: { $in: followedAuthorIds } })
+            return Level.find({ _id: { $in: savedLevels } })
                 .select('_id name author likes date')
                 .then(levels => {
                     return levels.map(level => {

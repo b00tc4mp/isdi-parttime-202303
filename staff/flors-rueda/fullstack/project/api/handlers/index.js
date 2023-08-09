@@ -16,5 +16,7 @@ module.exports = {
     updatePasswordHandler: require('./updatePasswordHandler'),
     toggleFollowHandler: require('./toggleFollowHandler'),
     retrieveLevelsByFollowedHandler: require('./retrieveLevelsByFollowedHandler'),
-    retrieveLevelsByAuthorHandler: require('./retrieveLevelsByAuthorHandler')
+    retrieveLevelsByAuthorHandler: require('./retrieveLevelsByAuthorHandler'),
+    retrieveLevelsSavedHandler: require('./retrieveLevelsSavedHandler'),
+    toggleSaveHandler: require('./toggleSaveHandler')
 }
