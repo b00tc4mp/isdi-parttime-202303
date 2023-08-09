@@ -18,9 +18,15 @@ module.exports = (userId, postId, commentText) => {
     const post = await Post.findById(postId)
     if(!post) throw new ExistenceError('Post not found.')
 
-    await Post.updateOne(
-      { _id: postId },
-      { $push: { comments: { author: user.name, authorId: new ObjectId(userId), text: commentText }}}
-    )
+    const newComment = { author: user.name, authorId: new ObjectId(userId), text: commentText }
+
+    post.comments.push(newComment)
+
+    await post.save()
+
+    // await Post.updateOne(
+    //   { _id: postId },
+    //   { $push: { comments: { author: user.name, authorId: new ObjectId(userId), text: commentText }}}
+    // )
   })()
 }

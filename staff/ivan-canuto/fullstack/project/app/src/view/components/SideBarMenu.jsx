@@ -4,11 +4,12 @@ import { useState, useEffect } from "react";
 
 export default function SideBarMenu({
   chatbotOptions,
+  homeOptions,
   page,
   openedMenu,
   lastPostsUpdate,
-  setPage,
   handleToggleMenu,
+  setPage
 }) {
   const navigate = useNavigate();
 
@@ -16,7 +17,6 @@ export default function SideBarMenu({
 
   useEffect(() => {
     setForceUpdate();
-    setPage("Chatbot");
   }, [lastPostsUpdate]);
 
   // const onShowHomePage = () => navigate('/') //Hay que mirar a ver si el uso de useNavigate cuando te devuelve a la home, te renderiza todos los posts o solo los de la página en la que estabas (saved posts, user posts)
@@ -26,10 +26,18 @@ export default function SideBarMenu({
 
   // const onShowSavedPosts = () => showSavedPosts()
 
+  console.log(page);
+
   return (
-    <ModalContainer>
+    <ModalContainer
+      className="absolute top-0 left-0 z-30"
+      onClick={(event) => {
+        if (event.target === document.querySelector(".ModalContainer"))
+          handleToggleMenu();
+      }}
+    >
       <ul
-        className={`w-44 h-full bg-white fixed top-24 z-30 border-t border-black ${
+        className={`w-44 h-full bg-white fixed top-24 z-20 border-t-2 border-white ${
           openedMenu ? "opened-menu" : "closed-menu"
         }`}
       >
@@ -39,7 +47,7 @@ export default function SideBarMenu({
             return (
               <div
                 key={index}
-                className="h-14 bg-gray-100 w-full border border-t-0 border-black flex justify-center overflow-auto items-center"
+                className="h-14 bg-gray-100 w-full border-2 border-t-0 border-white flex justify-center overflow-auto items-center"
                 onClick={() => {
                   option.onClick();
 
@@ -50,7 +58,21 @@ export default function SideBarMenu({
               </div>
             );
           })}
-          {page === 'Posts'}
+        {page === "Home" &&
+          homeOptions &&
+          homeOptions.map((option, index) => {
+            return <div
+              key={index}
+              className="h-14 bg-gray-100 w-full border-2 border-t-0 border-white flex justify-center overflow-auto items-center"
+              onClick={() => {
+                option.onClick();
+
+                handleToggleMenu();
+              }}
+            >
+              <p>{option.text}</p>
+            </div>;
+          })}
       </ul>
     </ModalContainer>
   );

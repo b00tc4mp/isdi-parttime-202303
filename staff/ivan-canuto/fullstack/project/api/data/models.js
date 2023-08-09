@@ -79,6 +79,10 @@ const suggestion = new Schema({
         ref:'Post',
         required: true
     },
+    postAuthor: {
+        type: ObjectId,
+        required: true
+    },
     title: {
         type: String,
         requried: true

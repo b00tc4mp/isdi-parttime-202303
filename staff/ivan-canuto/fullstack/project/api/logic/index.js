@@ -22,4 +22,9 @@ module.exports = {
   askForResponse: require('./askForResponse'),
   generateConversation: require('./generateConversation'),
   generateSummary: require('./generateSummary'),
+  retrieveAllSuggestions: require('./retrieveAllSuggestions'),
+  retrievePostSuggestions: require('./retrievePostSuggestions'),
+  retrieveOwnSuggestions: require('./retrieveOwnSuggestions'),
+  createSuggestion: require('./createSuggestion'),
+  deleteSuggestion: require('./deleteSuggestion'),
 }

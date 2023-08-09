@@ -113,3 +113,19 @@ button:focus-visible {
 .fixed-scroll {
   overflow: hidden;
 }
+
+.filled {
+  font-variation-settings:
+  'FILL' 1,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 48
+}
+
+.saved {
+  color: rgb(255, 208, 0);
+}
+
+.liked {
+  color: red;
+}

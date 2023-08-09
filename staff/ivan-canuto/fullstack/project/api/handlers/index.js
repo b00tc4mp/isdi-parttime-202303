@@ -23,4 +23,9 @@ module.exports = {
   askForResponseHandler: require('./askForResponseHandler'),
   generateConversationHandler: require('./generateConversationHandler'),
   generateSummaryHandler: require('./generateSummaryHandler'),
+  retrievePostSuggestionsHandler: require('./retrievePostSuggestionsHandler'),
+  retrieveAllSuggestionsHandler: require('./retrieveAllSuggestionsHandler'),
+  retrieveOwnSuggestionsHandler: require('./retrieveOwnSuggestionsHandler'),
+  createSuggestionHandler: require('./createSuggestionHandler'),
+  deleteSuggestionHandler: require('./deleteSuggestionHandler'),
 }

@@ -30,6 +30,9 @@ import retrieveConversations from './retrieveConversations'
 import retrieveConversation from './retrieveConversation'
 import generateConversation from './generateConversation'
 import generateSummary from './generateSummary'
+import retrievePostSuggestions from './retrievePostSuggestions'
+import retrieveAllSuggestions from './retrieveAllSuggestions'
+import retrieveOwnSuggestions from './retrieveOwnSuggestions'
 
 
 export {
@@ -64,5 +67,8 @@ export {
     retrieveConversations,
     retrieveConversation,
     generateConversation,
-    generateSummary
+    generateSummary,
+    retrievePostSuggestions,
+    retrieveAllSuggestions,
+    retrieveOwnSuggestions,
 }

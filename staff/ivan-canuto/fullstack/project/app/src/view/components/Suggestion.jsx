@@ -1,4 +1,4 @@
-export default function Comment({ comment, handleDeleteComment, user }) {
+export default function Suggestion({ suggestion, handleDeleteSuggestion }) {
     return <div className=" mx-2 flex justify-between">
       <div className="overflow-auto">
         

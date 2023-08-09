@@ -4,13 +4,10 @@ import { useAppContext, useHandleErrors } from "../hooks"
 import { askForResponse, retrieveConversation, storeInputInDB, generateConversation, generateSummary, createPost } from "../../logic"
 import { context } from "../../ui"
 
-export default function Chatbot({ handleLastPostsUpdate, lastPostsUpdate }) {
+export default function Chatbot({ lastPostsUpdate, setPage }) {
     const handleErrors = useHandleErrors()
     const { navigate } = useAppContext()
 
-    const [modal, setModal] = useState(null)
-    const [menu, setMenu] = useState(false)
-    const [openedMenu, setOpenedMenu] = useState(false)
     const [messages, setMessages] = useState([])
     const [valueToRender, setValueToRender] = useState(null)
     const [summary, setSummary] = useState(null)
@@ -30,18 +27,10 @@ export default function Chatbot({ handleLastPostsUpdate, lastPostsUpdate }) {
         }
         else setMessages([])
 
+        setPage('Chatbot')
+
         console.log('Chatbot -> render')
     }, [lastPostsUpdate])
-
-    const handleOpenProfile = () => {
-        document.body.classList.add("fixed-scroll")
-        setModal("profile")
-    }
-
-    const handleReturnToHome = () => {
-        document.body.classList.remove('fixed-scroll')
-        navigate('/')
-    }
 
     const handleSubmit = async event => {
         event.preventDefault()
@@ -89,8 +78,6 @@ export default function Chatbot({ handleLastPostsUpdate, lastPostsUpdate }) {
         })
 
         typeof event.target.userInput !== 'undefined' ? event.target.userInput.value = '' : event.target.value = ''
-        // if(typeof event.target.userInput.value !== undefined) event.target.userInput.value = ''
-        //     else event.target.value = ''
     }
 
     const renderTypeWriterText = () => {
@@ -122,12 +109,6 @@ export default function Chatbot({ handleLastPostsUpdate, lastPostsUpdate }) {
 
     if(valueToRender) renderTypeWriterText(valueToRender)
 
-    const handleShowOldConversation = async conversationId => {
-        const conversation = await retrieveConversation(conversationId)
-
-        setMessages([...messages, ...conversation.conversationInputs])
-    }
-
     const handleGenerateSummary = async () => {
         if(context.conversationId) {
             const summary = await generateSummary(context.conversationId)
@@ -158,10 +139,6 @@ export default function Chatbot({ handleLastPostsUpdate, lastPostsUpdate }) {
         <button className="fixed right-4 top-24 w-28 z-10 mt-2 bg-yellow-100 leading-tight border border-black" onClick={handleGenerateSummary}>Generate summary</button>
         
         <section className={`conversation-container absolute top-24 w-full ${!summary ? 'bottom-32' : ''} overflow-y-scroll`}>
-            {/* <SpeechBubble
-                role={'assistant'}
-                content={'Hello! How can I help you?'}
-            /> */}
             <section className='w-full flex justify-start'>
                 <p className="p-4 mx-4 my-2 rounded-lg bg-green-300 rounded-tl-none">Hello! How can I help you?</p>
             </section>

@@ -3,7 +3,7 @@ import { useState, useEffect } from "react"
 import { retrieveUser } from "../../logic"
 import { useAppContext, useHandleErrors } from "../hooks"
 
-export default function Header({ handleToggleMenu, handleOpenProfile }) {
+export default function Header({ handleToggleMenu, handleOpenProfile, handleLogout, setPage }) {
   const { navigate } = useAppContext()
   const handleErrors = useHandleErrors()
 
@@ -18,7 +18,11 @@ export default function Header({ handleToggleMenu, handleOpenProfile }) {
 
   const theme = getTheme()
 
-  const handleReturnToHome = () => navigate('/')
+  const handleReturnToHome = () => {
+    setPage('Home')
+    
+    navigate('/')
+  }
 
   useEffect(() => {
     handleErrors(async () => {
