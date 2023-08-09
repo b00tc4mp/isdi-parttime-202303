@@ -2,7 +2,8 @@ require('dotenv').config()
 
 const express = require('express')
 const { cors, jsonBodyParser } = require('./utils')
-const { helloApiHandler, authenticateAdminHandler, registerAdminHandler, updateAdminEmailHandler, updateAdminPasswordHandler, deleteAdminHandler, createUpdateHandler} = require('./handlers')
+const { helloApiHandler, authenticateAdminHandler, registerAdminHandler, updateAdminEmailHandler, updateAdminPasswordHandler, deleteAdminHandler, 
+  createUpdateHandler, modifyUpdateHandler} = require('./handlers')
 
 const mongoose = require('mongoose')
 
@@ -25,6 +26,8 @@ mongoose.connect(process.env.MONGODB_URL)
     api.delete('/admins/delete', jsonBodyParser, deleteAdminHandler)
 
     api.post('/updates', jsonBodyParser, createUpdateHandler)
+
+    api.patch('/updates/:updateId', jsonBodyParser, modifyUpdateHandler)
 
     api.listen(process.env.PORT, () => console.log(`server running in port ${process.env.PORT}`))
 

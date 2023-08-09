@@ -4,5 +4,6 @@ module.exports = {
   updateAdminEmail: require('./administrator/updateAdminEmail'),
   updateAdminPassword: require('./administrator/updateAdminPassword'),
   deleteAdmin: require('./administrator/deleteAdmin'),
-  createUpdate: require('./update/createUpdate')
+  createUpdate: require('./update/createUpdate'),
+  modifyUpdate: require('./update/modifyUpdate')
 }
