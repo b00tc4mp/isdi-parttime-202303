@@ -11,18 +11,18 @@ const {
  * Retrieve payroll annual aggregate
  * 
  * @param {string} employeeId  The employee id
- * @param {number} PayrollYearIsoDate  The ISO Date of the year of the aggregated calculation
+ * @param {number} PayrollYear  The ISO Date of the year of the aggregated calculation
 * @returns {Promise}  object with anual aggregate datas for an specific employee and payroll year
 //  * 
-//  * @throws {TypeError} On non-string employeeId or not a date payrollYearIsoDate
-//  * @throws {ContentError} On employeeId is not hexadecimal or doesn't have 24 characters or payrollYearIsoDate is empty 
+//  * @throws {TypeError} On non-string employeeId or not a date payrollYear
+//  * @throws {ContentError} On employeeId is not hexadecimal or doesn't have 24 characters or payrollYear is empty 
 //  * @throws {ExistenceError} On non-existing employee
 // 
  */
 
-module.exports = function retrievePayrollAnnualAggregate(employeeId, payrollYearIsoDate) {
+module.exports = function retrievePayrollAnnualAggregate(employeeId, payrollYear) {
     validateId(employeeId)
-    validatePayrollYear(payrollYearIsoDate)
+    validatePayrollYear(payrollYear)
 
 
     let sumPayrollMonth = []
@@ -38,7 +38,7 @@ module.exports = function retrievePayrollAnnualAggregate(employeeId, payrollYear
 
     return Promise.all([
         Employee.findById(employeeId).lean(),
-        PayrollMonth.find({ employee: employeeId, payrollYear: payrollYearIsoDate }).lean()
+        PayrollMonth.find({ employee: employeeId, payrollYear: payrollYear }).lean()
 
     ])
 
@@ -90,7 +90,6 @@ module.exports = function retrievePayrollAnnualAggregate(employeeId, payrollYear
             const lastMonthAggregated = findLastMonthAggregated(sumPayrollMonth)
             const lastMonthAggregatedName = getMonthNameFromMonthNumber(lastMonthAggregated)
 
-            const payrollYear = new Date(payrollYearIsoDate).getFullYear()
 
             return payrollAnnualAggregated = {
                 payrollYear,

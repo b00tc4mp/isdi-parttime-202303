@@ -3,7 +3,7 @@ import useAppContext from '../hooks/useAppContext'
 // import { utils } from 'com'
 // import { context } from '../ui'
 import Header from './Header.jsx'
-
+import { Input, Container, Button } from '../library'
 import registerEmployee from '../logic/registerEmployee'
 
 
@@ -94,7 +94,7 @@ export default function EmployeeDatabaseMenuModal({ employee, onEmployeeRegister
 
 
 
-    return <section className="personalInformation" style={{ backgroundColor: '#C0C0FF', color: '#ffffff' }}>
+    return <Container tag="section" className="personalInformation">
         <div>
             <Header employee={employee}
             />
@@ -107,35 +107,35 @@ export default function EmployeeDatabaseMenuModal({ employee, onEmployeeRegister
                 <div>
                     <form className="" onSubmit={handleRegisterEmployee}>
                         {/* <h6>Personal Data</h6> */}
-                        <label>Name: <input className="input" type="text" name="name" /></label>
-                        <label>First surname: <input className="input" type="text" name="firstSurname" /></label>
-                        <label>Second surname: <input className="input" type="text" name="secondSurname" /></label>
-                        {/* <label>Birthdate: <input className="input" type="date" name="birthDate" /></label> */}
-                        <label>Id Card number:<input className="input" type="text" name="idCardNumber" /></label>
-                        <label>TSS number:<input className="input" type="text" name="tssNumber" /></label>
-                        <label>Adress:<input className="input" type="text" name="adress" /></label>
-                        <label>Personal phone number:<input className="input" type="number" name="personalPhoneNumber" /></label>
-                        <label>Bank account number:<input className="input" type="text" name="bankAccountNumber" /></label>
-                        <label>Avatar:<input className="input" type="url" name="avatar" /></label>
+                        <label>Name: <Input className="input w-1/4" type="text" name="name" /></label>
+                        <label>First surname: <Input className="input w-1/4" type="text" name="firstSurname" /></label>
+                        <label>Second surname: <Input className="input w-1/4" type="text" name="secondSurname" /></label>
+                        {/* <label>Birthdate: <input className="input w-1/4" type="date" name="birthDate" /></label> */}
+                        <label>Id Card number:<Input className="input w-1/4" type="text" name="idCardNumber" /></label>
+                        <label>TSS number:<Input className="input w-1/4" type="text" name="tssNumber" /></label>
+                        <label>Adress:<Input className="input w-1/4" type="text" name="adress" /></label>
+                        <label>Personal phone number:<Input className="input w-1/4" type="number" name="personalPhoneNumber" /></label>
+                        <label>Bank account number:<Input className="input w-1/4" type="text" name="bankAccountNumber" /></label>
+                        <label>Avatar:<Input className="input w-1/4" type="url" name="avatar" /></label>
                         <h6>Professional data</h6>
-                        <label>Employee number:<input className="input" type="number" name="employeeNumber" /></label>
+                        <label>Employee number:<Input className="input w-1/4" type="number" name="employeeNumber" /></label>
                         {/* <label>Start of employment data:<input className="input" type="date" name="startOfEmploymentData" /></label>
                         <label>End of employment data:<input className="input" type="date" name="endOfEmploymentData" /></label>
                         <label>Length of employment:<input className="input" type="number" name="lengthOfEmployment" /></label> */}
-                        <label>Type of contract:<input className="input" type="text" name="typeOfContract" /></label>
-                        <label>Job position:<input className="input" type="text" name="jobPosition" /></label>
-                        <label>Department:<input className="input" type="text" name="department" /></label>
-                        <label>Salary level:<input className="input" type="number" name="salaryLevel" /></label>
-                        <label>Center attached:<input className="input" type="text" name="centerAttached" /></label>
+                        <label>Type of contract:<Input className="input w-1/4" type="text" name="typeOfContract" /></label>
+                        <label>Job position:<Input className="input w-1/4" type="text" name="jobPosition" /></label>
+                        <label>Department:<Input className="input w-1/4" type="text" name="department" /></label>
+                        <label>Salary level:<Input className="input w-1/4" type="number" name="salaryLevel" /></label>
+                        <label>Center attached:<Input className="input w-1/4" type="text" name="centerAttached" /></label>
                         {/* <label>Superior hierarchical manager:<input className="input" type="text" name="superiorHierachicalManager" /></label> */}
                         <h6>Permissions Area</h6>
-                        <label>Roll:<input className="input" type="text" name="roll" /></label>
-                        <label>Professional phone number:<input className="input" type="text" name="professionalPhoneNumber" /></label>
-                        <label>Professional email:<input className="input" type="email" name="professionalEmail" /></label>
-                        <label>Access permissions<input className="input" type="text" name="accessPermissions" /></label>
-                        <label>Employee password<input className="input" type="text" name="employeePasssword" /></label>
+                        <label>Roll:<Input className="input w-1/4" type="text" name="roll" /></label>
+                        <label>Professional phone number:<Input className="input w-1/4" type="text" name="professionalPhoneNumber" /></label>
+                        <label>Professional email:<Input className="input w-1/4" type="email" name="professionalEmail" /></label>
+                        <label>Access permissions<Input className="input w-1/4" type="text" name="accessPermissions" /></label>
+                        <label>Employee password<Input className="input w-1/4" type="text" name="employeePasssword" /></label>
 
-                        <button className="button" type="submit" >Register</button>
+                        <Button className="button w-1/6" type="submit" >Register</Button>
                     </form>
                 </div>
 
@@ -144,5 +144,5 @@ export default function EmployeeDatabaseMenuModal({ employee, onEmployeeRegister
                 <h5 className="" >Logout</h5>
             </footer>
         </div>
-    </section >
+    </Container >
 }

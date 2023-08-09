@@ -4,6 +4,7 @@ import Button from './Button'
 import TextArea from './TextArea'
 import Container from './Container'
 import Loader from './Loader'
+import Select from './Select'
 
 export {
     Container,
@@ -11,5 +12,6 @@ export {
     Form,
     Input,
     Button,
-    TextArea
+    TextArea,
+    Select
 }

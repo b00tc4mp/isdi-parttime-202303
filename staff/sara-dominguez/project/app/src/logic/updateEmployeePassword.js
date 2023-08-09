@@ -7,7 +7,10 @@ const { validateEmployeePassword } = validators
 /**
  * Update the password of an employee
  * 
+* @param {string} employeeId  The employee id number
+* @param {string} employeePassword  Actual employee password
 * @param {string} employeenewPassword  New password for employee
+* @param {string} employeeConfirmNewPassword  The confirmation of new password for employee
 * 
 * @returns {Promise<void>} Ends when employee password is updated
 //  * 
@@ -17,8 +20,10 @@ const { validateEmployeePassword } = validators
 */
 
 
-export default function updateEmployePassword(employeeNewPassword) {
+export default function updateEmployePassword(employeePassword, employeeNewPassword, employeeConfirmNewPassword) {
+    validateEmployeePassword(employeePassword)
     validateEmployeePassword(employeeNewPassword)
+    validateEmployeePassword(employeeConfirmNewPassword)
 
     return fetch(`${import.meta.env.VITE_API_URL}/employees/updatePassword`, {
         method: 'PATCH',
@@ -26,7 +31,7 @@ export default function updateEmployePassword(employeeNewPassword) {
             'Content-Type': 'application/json',
             authorization: `Bearer ${context.token}`
         },
-        body: JSON.stringify({ employeePassword: employeeNewPassword })
+        body: JSON.stringify({ employeePassword, employeeNewPassword, employeeConfirmNewPassword })
     })
         .then(res => {
             if (res.status === 204)

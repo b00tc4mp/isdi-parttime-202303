@@ -75,19 +75,18 @@ export default function Home() {
     }
 
 
-    return <div>
+    return <div className="h-screen w-screen  bg-neutral-200">
         <div className="home">
             {/* /* sidebar lateral */}
             <header className="home-header">
-                <h1 className="">b-Elevenzdb</h1>
+                <h1 className="mt-10 text-2xl font-bold leading-9 tracking-tight text-amber-500 drop-shadow-md mb-5 ml-4 ">b-Elevenzdb</h1>
                 {employee && <>
-                    <img src={employee.avatar} width="100px" />
-                    <h3 className="">Welcome, {employee.name}!</h3>
-                    <h5 className="">Go to company profile</h5>
+                    <img src={employee.avatar} className="h-13 w-12 flex-none rounded-full bg-gray-50  ml-12" />
+                    <h3 className="mt-10 text-l font-bold leading-9 tracking-tight text-amber-500 drop-shadow-md mb-4 ml-4">Welcome, {employee.name}!</h3>
                 </>}
 
             </header>
-            <main>
+            <main className="">
                 <p className="personalInformation-menu"><a href="" className="personalInformation" onClick={handleGoToPersonalInformatioMenu}>Personal Information</a></p>
                 <p className="payroll-menu" onClick={handleGoToPayrollMenu}><a href="" className="payrollMenu" >Payroll menu</a></p>
                 <p className="manage-payroll-menu" onClick={handleGoToManagePayrollMenu}><a href="" className="ManagePayrollMenu" >Manage Payroll menu</a></p>
@@ -113,11 +112,9 @@ export default function Home() {
                 {view === 'PayrollMenuUpdateAdress' && < PersonalInformationModal onEmployeeAdressUpdated={handleCloseModal} />}
                 {view === 'PayrollMenuUpdateBankAccountNumber' && < PersonalInformationModal onEmployeeBankAccountNumberUpdated={handleRefreshEmloyee} />}
 
-
             </main>
-
             <footer>
-                <h5 className="" onClick={handleLogOut}>Logout</h5>
+                <h5 className="mt-10 text-l font-bold leading-9 tracking-tight text-amber-500 drop-shadow-md mb-5 ml-4" onClick={handleLogOut}>Logout</h5>
             </footer>
         </div>
 

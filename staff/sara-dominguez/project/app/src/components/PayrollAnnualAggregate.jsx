@@ -1,16 +1,37 @@
 
 // import getMonthNameFromMonthNumber from '../logic/getMonthNameFromValue'
 import useAppContext from '../hooks/useAppContext'
+import { useEffect, useState } from 'react'
+import { utils } from 'com'
+const { extractSubFromToken } = utils
+import context from '../logic/context'
+import retrieveEmployeePayrollData from '../logic/retrieveEmployeePayrollData'
 
 
-
-export default function PayrollMonth({ employee, payrollAnnualAggregate }) {
+export default function PayrollMonth({ payrollAnnualAggregate }) {
     console.log('Payrollmonth --> open')
 
     const { alert } = useAppContext()
-    if (employee === undefined || payrollAnnualAggregate === undefined) {
-        throw new Error("Payroll not available. For inquiries, please contact the Human Resources department")
-    }
+    const [employee, setEmployee] = useState()
+
+    useEffect(() => {
+        async function fetchEmployee() {
+            try {
+                const employeeId = extractSubFromToken(context.token)
+
+                const employee = await retrieveEmployeePayrollData(employeeId)
+
+                if (employee === undefined || payrollAnnualAggregate === undefined) {
+                    throw new Error("Payroll Annual Aggregate not available. For inquiries, please contact the Human Resources department")
+                }
+                setEmployee(employee)
+            } catch (error) {
+                alert(error.message)
+            }
+        }
+        fetchEmployee()
+    }, [])
+
 
     const { name, firstSurname, secondSurname, idCardNumber, employeeNumber, jobPosition, department, centerAttached, tssNumber, salaryLevel, bankAccountNumber } = employee || {}
 

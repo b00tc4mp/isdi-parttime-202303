@@ -10,7 +10,7 @@ const payrollMonth = new Schema({
         requided: true
     },
     payrollYear: {
-        type: Date,
+        type: Number,
         required: true,
     },
     payrollMonth: {

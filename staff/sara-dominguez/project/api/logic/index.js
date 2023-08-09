@@ -2,6 +2,7 @@ module.exports = {
     registerEmployee: require('./registerEmployee'),
     authenticateEmployee: require('./authenticateEmployee'),
     retrieveEmployee: require('./retrieveEmployee'),
+    retrieveEmployeePayrollData: require('./retrieveEmployeePayrollData'),
     createEmployeePayrollMonth: require('./createEmployeePayrollMonth'),
     updateEmployeeAvatar: require('./updateEmployeeAvatar'),
     updateEmployeePassword: require('./updateEmployeePassword'),

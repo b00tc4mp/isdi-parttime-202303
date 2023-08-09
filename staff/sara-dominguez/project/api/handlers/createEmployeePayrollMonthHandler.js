@@ -2,9 +2,12 @@ const { createEmployeePayrollMonth } = require('../logic')
 //TODO handle errors
 
 module.exports = (req, res) => {
-    const { employeeNumber, payrollMonthYear, payrollMonth } = req.body
+    const { employeeNumber, payrollYear, payrollMonth } = req.body
 
-    return createEmployeePayrollMonth(employeeNumber, payrollMonthYear, payrollMonth)
+    const payrollYearNumber = parseInt(payrollYear)
+    const payrollMonthNumber = parseInt(payrollMonth)
+
+    return createEmployeePayrollMonth(employeeNumber, payrollYearNumber, payrollMonthNumber)
         .then(() => res.status(201).send())
 
 }

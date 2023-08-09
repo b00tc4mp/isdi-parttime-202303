@@ -23,7 +23,7 @@ export default function updateEmployeeBankAccountNumber(employeeNewBankAccountNu
             'Content-Type': 'application/json',
             authorization: `Bearer ${context.token}`
         },
-        body: JSON.stringify({ bankAccountNumber: employeeNewBankAccountNumber })
+        body: JSON.stringify({ employeeNewBankAccountNumber })
     })
         .then(res => {
             if (res.status === 204)

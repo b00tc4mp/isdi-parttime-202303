@@ -1,4 +1,6 @@
 import context from './context'
+import { validators } from 'com'
+const { validatePayrollYear, validatePayrollMonth } = validators
 //TODO preguntas a Manu documentar
 /**
  * Retrieve a payrollMonth from API
@@ -11,8 +13,8 @@ import context from './context'
  */
 
 export default (payrollYear, payrollMonth) => {
-    //     //validatePayrollYear(payrollYear)
-    //     //validatePayrollMonth(payrollMonth)
+    validatePayrollYear(payrollYear)
+    validatePayrollMonth(payrollMonth)
 
     //     return fetch(`${import.meta.env.VITE_API_URL}/payrollMonth/retrieveEmployeePayrollMonth/${payrollYear}/${payrollMonth}`, {
     //         headers: {

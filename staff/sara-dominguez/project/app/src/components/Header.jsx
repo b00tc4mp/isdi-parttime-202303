@@ -29,7 +29,8 @@ export default function Header() {
 
     const { name, firstSurname, secondSurname, professionalPhoneNumber, professionalEmail, centerAttached } = employee || {}
 
-    return <header style={{ backgroundColor: '#808080', color: '#ffffff' }}>
+
+    return <header className="bg-amber-500">
         {employee ? (
             <>
                 <h4 className="text-xl font-bold">{name} {firstSurname} {secondSurname}</h4>

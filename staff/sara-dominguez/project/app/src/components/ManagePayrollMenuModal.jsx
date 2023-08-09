@@ -5,6 +5,7 @@ import Employee from './Employee'
 import Header from "./Header"
 import retrieveEmployeesBySalaryLevel from '../logic/retrieveEmployeesBySalaryLevel'
 import createEmployeePayrollMonth from '../logic/createEmployeePayrollMonth'
+import { Input, Container, Button, Select } from '../library'
 
 
 export default function ManagePayrollMenuModal({ employee }) {
@@ -54,7 +55,7 @@ export default function ManagePayrollMenuModal({ employee }) {
     }
 
 
-    return <section className="" style={{ backgroundColor: '#108080', color: '#ffffff' }}>
+    return <Container tag="section">
         {/* TODOheader del modal */}
         <Header employee={employee}
         />
@@ -69,12 +70,12 @@ export default function ManagePayrollMenuModal({ employee }) {
             <div>
                 <div className="selectToCreateNewPayrolls">
                     <label>Year:</label>
-                    <select name="" id="year">
+                    <Select name="" id="year">
                         <option value="2023">2023</option>
                         <option value="2022">2022</option>
-                    </select>
+                    </Select>
                     <label>Month</label>
-                    <select name="" id="month">
+                    <Select name="" id="month">
                         <option value="1">January</option>
                         <option value="2">February</option>
                         <option value="3">March</option>
@@ -87,16 +88,16 @@ export default function ManagePayrollMenuModal({ employee }) {
                         <option value="10">October</option>
                         <option value="11">November</option>
                         <option value="12">December</option>
-                    </select>
+                    </Select>
                     <label>Employees salary level: </label>
-                    <select name="" id="salaryLevel">
+                    <Select name="" id="salaryLevel">
                         <option value="5">Level 5</option>
                         <option value="4">Level 4</option>
                         <option value="3">Level 3</option>
                         <option value="2">Level 2</option>
                         <option value="1">Level 1</option>
-                    </select>
-                    <button onClick={handleGenerateEmployeeList}>Generate Employee List</button>
+                    </Select>
+                    <Button className="w-2/6" onClick={handleGenerateEmployeeList}>Generate Employee List</Button>
                 </div>
 
             </div>
@@ -114,7 +115,7 @@ export default function ManagePayrollMenuModal({ employee }) {
                             <label>Total Payrolls ammount: <h5></h5></label>
                             <h5> XXXX euros</h5>
 
-                            <button onClick={handleCreateNewPayrollsMonth}>Confirm create new MONTH payrolls</button>
+                            <Button className="w-2/5" onClick={handleCreateNewPayrollsMonth}>Confirm create new MONTH payrolls</Button>
                         </div>
                     </>
                 ) : (
@@ -123,6 +124,6 @@ export default function ManagePayrollMenuModal({ employee }) {
             </div>
 
         </main>
-    </section >
+    </Container >
 }
 

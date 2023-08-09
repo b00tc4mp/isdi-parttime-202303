@@ -5,10 +5,10 @@ const { extractEmployeeId } = require('./helpers')
 module.exports = (req, res,) => {
     const employeeId = extractEmployeeId(req)
 
-    const { employeeNewAdress } = req.body
+    const { employeeStreet, employeePostalCode, employeeCity, employeeCountry } = req.body
 
-    // const employeeNewAdress = `${employeeStreet}` + ' ' + `${employeePostalCode}` + ' ' + `${employeeCity}` + ' ' + `${employeeCountry}`
 
-    return updateEmployeeAdress(employeeId, employeeNewAdress)
+
+    return updateEmployeeAdress(employeeId, employeeStreet, employeePostalCode, employeeCity, employeeCountry)
         .then(() => res.status(204).send())
 }

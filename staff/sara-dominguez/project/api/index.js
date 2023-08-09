@@ -6,6 +6,7 @@ const { helloApiHandler,
     registerEmployeeHandler,
     authenticateEmployeeHandler,
     retrieveEmployeeHandler,
+    retrieveEmployeePayrollDataHandler,
     createEmployeePayrollMonthHandler,
     updateEmployeeAvatarHandler,
     updateEmployeePasswordHandler,
@@ -31,6 +32,7 @@ mongoose.connect(process.env.MONGODB_URL)
 
         api.get('/', helloApiHandler)
         api.get('/employees/retrieve', retrieveEmployeeHandler)
+        api.get('/employees/retrieveEmployeePayrollData', retrieveEmployeePayrollDataHandler)
         // api.get('/employees/accessPermissionsAuthorized', isEmpoyeeAccessPermissionsAuthorizedHandler)
         api.get('/payrollMonth/retrieveEmployeePayrollMonth/:payrollYear/:payrollMonth', retrievePayrollMonthHandler)
         // api.get('/payrollMonth/retrieveEmployeePayrollsMonthYear/:payrollYear', retrieveEmployeePayrollsMonthYearHandler)
