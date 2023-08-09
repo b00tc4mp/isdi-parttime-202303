@@ -1,8 +1,8 @@
 module.exports = {
     helloApiHandler: require('./helloApiHandler'),
-    authenticateAdminHandler: require('./authenticateAdminHandler'),
-    registerAdminHandler: require('./registerAdminHandler'),
-    updateAdminEmailHandler: require('./updateAdminEmailHandler'),
-    updateAdminPasswordHandler: require('./updateAdminPasswordHandler'),
-    deleteAdminHandler: require('./deleteAdminHandler')
+    authenticateAdminHandler: require('./administrator/authenticateAdminHandler'),
+    registerAdminHandler: require('./administrator/registerAdminHandler'),
+    updateAdminEmailHandler: require('./administrator/updateAdminEmailHandler'),
+    updateAdminPasswordHandler: require('./administrator/updateAdminPasswordHandler'),
+    deleteAdminHandler: require('./administrator/deleteAdminHandler')
   }

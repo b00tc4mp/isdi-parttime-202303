@@ -2,7 +2,7 @@ const {
     validators: { validateId,validateEmail },
     errors: {ExistenceError, ContentError}
 } = require('com')
-const { Administrator } = require('../data/models')
+const { Administrator } = require('../../data/models')
   
   module.exports = function updateUserEmail(adminId,email,newEmail,newEmailConfirm) 
   {

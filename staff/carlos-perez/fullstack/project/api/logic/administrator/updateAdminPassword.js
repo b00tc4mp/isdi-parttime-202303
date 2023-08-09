@@ -2,7 +2,7 @@ const {
     validators: { validateId, validatePassword },
     errors: { ExistenceError, ContentError, AuthError }
 } = require('com')
-const { Administrator } = require('../data/models')
+const { Administrator } = require('../../data/models')
 const bcrypt = require('bcryptjs')
 
 module.exports = function updateUserEmail(adminId, password, newPassword, newPasswordConfirm) {

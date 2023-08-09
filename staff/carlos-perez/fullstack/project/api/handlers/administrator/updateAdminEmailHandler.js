@@ -1,13 +1,13 @@
-const { updateAdminPassword } = require('../logic')
-const { extractUserId } = require('./helpers')
+const { updateAdminEmail } = require('../../logic')
+const { extractUserId } = require('../helpers')
 
 module.exports = (req, res) => {
   try {
     const userId = extractUserId(req)
 
-    const { password, newPassword, newPasswordConfirm } = req.body
+    const { email, newEmail, newEmailConfirm } = req.body
 
-    updateAdminPassword(userId, password, newPassword, newPasswordConfirm)
+    updateAdminEmail(userId, email, newEmail, newEmailConfirm)
       .then(() => res.status(201).send())
       .catch((error) => res.status(400).json({ error: error.message }))
   } catch (error) {

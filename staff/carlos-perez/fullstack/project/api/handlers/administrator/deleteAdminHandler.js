@@ -1,6 +1,6 @@
-const { deleteAdmin }=require('../logic')
-const { extractUserId } = require('./helpers')
-const { handleErrors } = require('./helpers')
+const { deleteAdmin }=require('../../logic')
+const { extractUserId } = require('../helpers')
+const { handleErrors } = require('../helpers')
 
 module.exports = handleErrors((req, res) => {
     try {
