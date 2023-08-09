@@ -1,0 +1,10 @@
+.pendingToDeliver-meal-info {
+    display: flex;
+    gap: 4px;
+}
+
+.pendingToDeliver-button-area {
+    display: flex;
+    gap: 24px;
+    justify-content: space-between;
+}

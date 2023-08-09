@@ -3,7 +3,7 @@ const { errors: { ExistanceError } } = require('../../com')
 
 module.exports = async function retrievePendingToDeliver(userId) {
 
-    const user = await User.findById({ _id: userId }).populate('selledMeals.meal').lean()
+    const user = await User.findById(userId).populate('selledMeals.meal').populate('selledMeals.buyer').lean()
 
     if (!user) throw new ExistanceError(`User with id ${userId} not found`)
     debugger

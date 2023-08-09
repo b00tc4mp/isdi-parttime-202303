@@ -13,6 +13,8 @@ import MealCard from "../library/modules/MealCard";
 import retrieveOwnMeals from "../logic/retrieveOwnMeals";
 import useAppContext from "../logic/hooks/useAppContext";
 import useHandleError from "../logic/hooks/useHandleError";
+import retrievePendingToDeliver from "../logic/retrievePendingToDeliver";
+import PendingToDeliverCard from '../library/modules/PendingToDeliverCard'
 
 type User = {
     name: string,
@@ -33,6 +35,19 @@ type Meal = {
 }
 
 
+interface MealOrder {
+    meal: Meal[];
+    quantity: number;
+}
+
+interface Order {
+    serial: string;
+    meals: MealOrder[];
+    buyer: string;
+    status: string;
+}
+
+
 export default function Profile(): JSX.Element {
     const { loaderOn, loaderOff, navigate } = useAppContext()
     const handleErrors = useHandleError()
@@ -40,17 +55,30 @@ export default function Profile(): JSX.Element {
     const [meals, setMeals] = useState<Array<Meal>>([])
     const [user, setUser] = useState<User>()
 
-    useEffect(() => {
+    const [tabView, setTabView] = useState('myProducts')
+
+    const [pendingToDeliverMeals, setPendingToDeliverMeals] = useState<Order[]>()
+
+    const refreshMeals = () => {
         (async () => {
             try {
-                const meals = await retrieveOwnMeals()
                 const user = await retrieveUser()
-                setMeals(meals)
                 setUser(user)
+
+                const meals = await retrieveOwnMeals()
+                setMeals(meals)
+
+                const pendingDeliverMeals = await retrievePendingToDeliver()
+                setPendingToDeliverMeals(pendingDeliverMeals)
+
             } catch (error: any) {
                 handleErrors(error)
             }
         })()
+    }
+
+    useEffect(() => {
+        refreshMeals()
     }, [])
 
     const onMealCard = (id: string) => {
@@ -64,11 +92,13 @@ export default function Profile(): JSX.Element {
             logoutUser()
             loaderOff()
             navigate('/login')
-        }, 1000);
+        }, 1000)
     }
 
     const toggleTabView = () => {
-
+        if (tabView === 'myProducts') setTabView('toDeliver')
+        else setTabView('myProducts')
+        refreshMeals()
     }
 
     return <>
@@ -125,18 +155,18 @@ export default function Profile(): JSX.Element {
                 <Tabs items={[
                     {
                         label: "My products",
-                        selected: true,
+                        selected: tabView === 'myProducts',
                         onClick: toggleTabView
                     },
                     {
                         label: "To deliver",
-                        selected: false,
+                        selected: tabView === 'toDeliver',
                         onClick: toggleTabView
                     }
                 ]} />
 
                 <div className="profile-meals-list">
-                    {meals && meals.map((meal: Meal) => {
+                    {tabView === 'myProducts' && meals && meals.map((meal: Meal) => {
                         return <MealCard key={meal.id} meal={{
                             image: meal.images[0],
                             title: meal.title,
@@ -145,6 +175,10 @@ export default function Profile(): JSX.Element {
                             price: meal.price
                         }} onclick={() => onMealCard(meal.id)} />
                     })}
+                    {tabView === 'toDeliver' && pendingToDeliverMeals && pendingToDeliverMeals.map((item: Order) => {
+                        return <PendingToDeliverCard buyer={item.buyer.name} meals={item.meals} />
+                    })
+                    }
                 </div>
             </div>
         </div>

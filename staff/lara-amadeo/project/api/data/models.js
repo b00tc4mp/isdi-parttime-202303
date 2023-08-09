@@ -45,6 +45,7 @@ const chefOrder = new Schema({
     meal: {
         type: ObjectId,
         required: true,
+        ref: 'Meal'
     },
     quantity: {
         type: Number,
