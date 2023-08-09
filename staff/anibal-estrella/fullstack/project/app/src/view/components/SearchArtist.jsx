@@ -1,23 +1,35 @@
-
 import { useEffect, useState } from 'react';
 import retrieveArtistDetails from '../../logic/retrieveArtistDetails';
+import retrieveArtistDetailsFromDiscogs from '../../logic/retrieveArtistDetailsFromDiscogs';
 import { MagnifyingGlassIcon } from '@heroicons/react/24/solid'
 
 const SearchArtist = () => {
     const [artistName, setArtistName] = useState('');
     const [SearchArtist, setSearchArtist] = useState(null);
+    const [error, setError] = useState(null); // Add state for error
 
     const handleInputChange = (event) => {
         setArtistName(event.target.value);
     };
 
+    // const handleRetrieveDetails = async () => {
+    //     try {
+    //         const details = await retrieveArtistDetails(artistName);
+    //         setSearchArtist(details);
+    //     } catch (error) {
+    //         console.error('Error:', error);
+    //         setSearchArtist(null);
+    //     }
+    // };
     const handleRetrieveDetails = async () => {
         try {
-            const details = await retrieveArtistDetails(artistName);
+            const details = await retrieveArtistDetailsFromDiscogs(artistName);
             setSearchArtist(details);
+            setError(null);
         } catch (error) {
             console.error('Error:', error);
             setSearchArtist(null);
+            setError(`${artistName} Artist not found`);
         }
     };
 
@@ -33,16 +45,31 @@ const SearchArtist = () => {
                 <button onClick={handleRetrieveDetails}>Retrieve Details</button>
             </div>
 
-            {SearchArtist && (
+            {error && <p className="text-red-500">{error}</p>}
+
+            {SearchArtist && !error && (
                 <div>
                     <h2>Artist Name: {SearchArtist.name}</h2>
-                    <h3>From: {SearchArtist.from}</h3>
+                    {/* <h3>From: {SearchArtist.from}</h3> */}
                     <p>Artist Bio: {SearchArtist.bio}
-                        <a href={SearchArtist.wiki} target="_blank">Wikipedia</a>
                     </p>
+                    <div>
+                        <h3>{SearchArtist.name}'s links:</h3>
+                        <ul>
+                            {SearchArtist.urls.map((url, index) => {
+                                const urlObject = new URL(url)
+                                const siteName = urlObject.hostname.replace('www.', '')
+                                return (
+                                    <li key={index}>
+                                        <a href={url} target="_blank">{siteName}</a>
+                                    </li>
+                                );
+                            })}
+                        </ul>
+                    </div>
                     <ul>Albums:
-                        {SearchArtist.albums.slice(0, 5).map((album) => (
-                            <li key={album.id}> {album.title}</li>
+                        {SearchArtist.albums.map((album, index) => (
+                            <li key={index}> {album}</li>
                         ))}
                     </ul>
                     {SearchArtist.image && (

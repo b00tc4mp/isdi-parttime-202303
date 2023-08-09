@@ -1,0 +1,10 @@
+const mongoose = require('mongoose')
+const registerUser = require('./registerUser')
+const { User, Post } = require('../data/models')
+
+mongoose.connect('mongodb://127.0.0.1:27017/data')
+    .then(() => Promise.all([User.deleteMany(), Post.deleteMany()]))
+    .then(() => registerUser('Eddie Vedder', 'pj@gmail.com', '123123123'))
+    // .then((user, post) => { })
+    .catch(error => console.error(error))
+    .finally(() => mongoose.disconnect)

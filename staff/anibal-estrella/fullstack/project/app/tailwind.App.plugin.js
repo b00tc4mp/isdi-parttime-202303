@@ -2,9 +2,14 @@ const plugin = require('tailwindcss/plugin')
 
 export default plugin(({ addBase, addComponents, addUtilities, theme }) => {
     addBase({
-        // h1: {
-        //     fontSize: theme('fontSize.4xl')
-        // }
+        'h2': {
+            fontSize: theme('fontSize.2xl')
+        },
+        'p, li': {
+            fontSize: theme('fontSize.lg'),
+            fontWeight: '300',
+            letterSpacing: '0.025em'
+        },
         'button': {
             height: '32px',
             minWidth: 'max-content',
@@ -36,6 +41,9 @@ export default plugin(({ addBase, addComponents, addUtilities, theme }) => {
             margin: '1rem 0',
             cursor: 'text',
         },
+        'p': {
+
+        }
     })
 
     addComponents({
