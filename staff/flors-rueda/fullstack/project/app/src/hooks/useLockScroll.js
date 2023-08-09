@@ -10,8 +10,8 @@ const useLockScroll = () => {
 
   const unlockScroll = useCallback(
     () => {
-      document.body.style.overflow = '';
-      document.body.style.paddingRight = '';
+      document.body.style.overflow = 'auto';
+      document.body.dataset.scrollLock = 'false';
     }, []);
 
   return {

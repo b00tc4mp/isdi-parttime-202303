@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import inLogger from '../../inLogger';
-import useLockScroll from '../../hooks/useLockScroll';
 
 const AlertToast = ({ handleCloseAlert, message, log }) => {
     useEffect(() => {

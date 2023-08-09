@@ -75,18 +75,20 @@ So you play levels to earn points to create levels that other people will play t
 - recovery questions (array of objects)
 - joined (dates)
 - saves (array of id)
-- follow (array of id)
+- follows (array of id)
+- followers (array of id)
 - customization credits (number)
 
-**Achivement**
+**Achivements**
 - user (id)
-- progress (array of objects)
+- progressByAchivement (array of objects)
 </br>
-*progress* 
+*progressByAchivement* 
 - name (string)
+- description (string)
 - category (string)
-- rank (array of numbers)
-- progress (number)
+- ranks (array of numbers)
+- userProgress (number)
 - completed (boolean)
 </br>
 </br>
