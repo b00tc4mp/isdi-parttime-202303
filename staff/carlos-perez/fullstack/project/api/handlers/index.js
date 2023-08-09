@@ -4,5 +4,6 @@ module.exports = {
     registerAdminHandler: require('./administrator/registerAdminHandler'),
     updateAdminEmailHandler: require('./administrator/updateAdminEmailHandler'),
     updateAdminPasswordHandler: require('./administrator/updateAdminPasswordHandler'),
-    deleteAdminHandler: require('./administrator/deleteAdminHandler')
+    deleteAdminHandler: require('./administrator/deleteAdminHandler'),
+    createUpdateHandler: require('./update/createUpdateHandler')
   }
