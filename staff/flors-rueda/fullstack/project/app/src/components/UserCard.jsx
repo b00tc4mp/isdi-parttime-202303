@@ -24,7 +24,7 @@ const UserCard = ({ userInfo }) => {
     useEffect(() => {
         handleErrors(async () => {
             const bool = await isCurrentUser(id);
-            setIsProfileCurrentUser(bool)
+            id === 'you' ? setIsProfileCurrentUser(true) : setIsProfileCurrentUser(bool);
         })
     }, [id]);
 

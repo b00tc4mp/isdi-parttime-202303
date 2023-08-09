@@ -4,6 +4,7 @@ import Loader from '../components/Loader';
 import retrieveLevelsByFollowed from '../logic/retrieve-levels-by-followed';
 import retrieveLoggedUser from '../logic/retrieve-logged-user';
 import inLogger from '../inLogger';
+import retrieveLevelsSaved from '../logic/retrieve-levels-saved';
 import useHandleErrors from '../hooks/useHandleErrors';
 
 const Home = () => {
@@ -12,6 +13,7 @@ const Home = () => {
     const [username, setUsername] = useState('');
     const [color, setColor] = useState('');
     const handleErrors = useHandleErrors();
+    const [saves, setSaves] = useState(null);
 
     const handleRefreshLevels = () => {
         handleErrors(async () => {
@@ -26,6 +28,7 @@ const Home = () => {
             const user = await retrieveLoggedUser();
             setUsername(user.username);
             setColor(user.color);
+            setSaves(user.saves);
         })
     }
 
@@ -48,6 +51,7 @@ const Home = () => {
                         key={index}
                         levelInfo={level}
                         handleRefreshLevels={handleRefreshLevels}
+                        isLevelSaved={saves.includes(level.id)}
                     />
                 )) : <p className="text-secondary500 text-xl font-bold text-center">seems you don't have any level around yet... go ahead and create one, or browse all the levels and follow more people!</p> : ''
                 }

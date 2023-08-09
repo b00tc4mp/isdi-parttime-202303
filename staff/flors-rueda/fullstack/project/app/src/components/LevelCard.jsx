@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import retrieveUser from '../logic/retrieve-user';
 import inLogger from '../inLogger';
 import { useState, useEffect } from 'react';
@@ -7,8 +7,9 @@ import isCurrentUser from '../logic/is-current-user';
 import avatars from '../assets/avatars/index';
 import toggleLike from '../logic/toggle-like';
 import toggleFollow from '../logic/toggle-follow';
+import toggleSave from '../logic/toggle-save';
 
-const LevelCard = ({ levelInfo }) => {
+const LevelCard = ({ levelInfo, isLevelSaved }) => {
     const [authorData, setAuthorData] = useState({});
     const [title, setTitle] = useState('');
     const handleErrors = useHandleErrors();
@@ -16,7 +17,8 @@ const LevelCard = ({ levelInfo }) => {
     const [isFollowed, setIsFollowed] = useState(null);
     const [likes, setLikes] = useState(levelInfo.likes.length);
     const [isUserAuthor, setIsUserAuthor] = useState(null);
-    const [isSaved, setIsSaved] = useState(false);
+    const [isSaved, setIsSaved] = useState(isLevelSaved);
+    const { id } = useParams();
 
     const getAuthorData = () => {
         handleErrors(async () => {
@@ -44,7 +46,10 @@ const LevelCard = ({ levelInfo }) => {
     }
 
     const handleSaveClick = () => {
-        setIsSaved(!isSaved);
+        handleErrors(async () => {
+            await toggleSave(levelInfo.id);
+            setIsSaved(!isSaved);
+        })
     }
 
     const setLevelTitle = (name) => {
@@ -55,7 +60,7 @@ const LevelCard = ({ levelInfo }) => {
     useEffect(() => {
         getAuthorData();
         setLevelTitle(levelInfo.name);
-    }, [isFollowed]);
+    }, [isFollowed, levelInfo, id]);
 
     return (
         <div className="w-full md:w-5/12 md:max-w-sm p-6 bg-light500 border border-light300 rounded-lg shadow">
