@@ -11,7 +11,7 @@ NativeWindStyleSheet.setOutput({
     default: "native",
 });
 
-export default function Nearby({ closeHandle, playground }) {
+export default function Nearby({ closeHandle, playground, onMarkerPressedHandler }) {
     const { currentView, setCurrentView } = useContext(Context)
     // const { currentMarker, setCurrentMarker } = useContext(Context)
     const [animation, setAnimation] = useState('fadeInUp')
@@ -46,7 +46,7 @@ export default function Nearby({ closeHandle, playground }) {
                 </View>
                 <View className="w-auto" >
                 </View>
-                <NearbyPlaygrounds />
+                <NearbyPlaygrounds onMarkerPressedHandler={onMarkerPressedHandler} />
             </Animatable.View>
         }
 

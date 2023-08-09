@@ -11,7 +11,6 @@ export default function addPlayground(token, name, description, sunExposition, e
     // validateText(name)
     // validateText(description)
 
-    debugger
     return fetch(`${API_URL}/playgrounds`, {
         method: 'POST',
         headers: {

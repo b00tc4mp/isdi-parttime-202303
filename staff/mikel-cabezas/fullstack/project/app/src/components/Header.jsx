@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import Context from '../AppContext.js'
 import {
-    MENU, MY_LOCATION,
+    MENU, FILTER,
     WHITE_MENU, WHITE_MY_LOCATION
 } from '../../assets/icons';
 import { Keyboard, View, Image, TextInput, TouchableHighlight, Text } from 'react-native';
@@ -20,7 +20,7 @@ export default function Header() {
 
     return <>
         <View className="absolute w-full justify-center flex top-12 content-center">
-            <View className="w-11/12 bg-white dark:bg-gray-800 rounded-full left-0 m-auto flex flex-row px-4">
+            <View className="w-11/12 bg-white dark:bg-gray-800 rounded-full left-0 m-auto flex flex-row px-4 h-12">
                 <TouchableHighlight
                     className={`p-[2px]`}
                     activeOpacity={1.0}
@@ -44,7 +44,7 @@ export default function Header() {
                 />
                 <Image
                     className="w-7 h-7 m-auto"
-                    source={isDark ? WHITE_MY_LOCATION : MY_LOCATION} />
+                    source={isDark ? FILTER : FILTER} />
             </View>
         </View >
     </>

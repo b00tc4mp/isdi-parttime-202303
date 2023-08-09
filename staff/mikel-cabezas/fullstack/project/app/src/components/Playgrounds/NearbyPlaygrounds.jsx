@@ -43,12 +43,9 @@ export default function NearbyPlaygrounds({ onMarkerPressedHandler }) {
             <ScrollView horizontal showsHorizontalScrollIndicator={false} className="pr-5">
                 {playgrounds && playgrounds.map(playground => {
                     return <View className="w-[28vw] mr-3 last:mr-12" ><NearbyPlayground
-                        key={playground.id}
+                        key={playground._id}
                         playground={playground}
                         user={user}
-                        id
-                        title
-                        description
                         onMarkerPressedHandler={onMarkerPressedHandler}
                     />
                     </View>

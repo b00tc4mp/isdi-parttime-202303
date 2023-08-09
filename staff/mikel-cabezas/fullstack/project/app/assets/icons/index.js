@@ -1,4 +1,5 @@
 export const PIN = require('./pin.png');
+export const FILTER = require('./filter.png');
 
 export const HOME = require('./home.png');
 export const NEARBY = require('./nearby.png');
@@ -16,6 +17,8 @@ export const SHARE = require('./share.png');
 export const FEEDBACK = require('./feedback.png');
 export const FUTURE_VERSIONS = require('./future-versions.png');
 export const DROPDOWN = require('./dropdown.png');
+export const LIKE = require('./heart.png');
+export const LIKE_FILLED = require('./heart-filled.png');
 
 export const DELETE = require('./delete.png');
 
