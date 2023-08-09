@@ -1,4 +1,4 @@
-import { View, StatusBar, Text } from 'react-native';
+import { View, StatusBar, Text, Alert } from 'react-native';
 import { useContext, useEffect, useState, useRef, useMemo, useCallback } from 'react';
 import AppContext from "../AppContext.js";
 const { Provider } = AppContext
@@ -18,13 +18,16 @@ import CreatePlayground from '../components/Playgrounds/AddPlayground.jsx';
 export default function Home({ }) {
     const { modal, setModal, colorScheme, animation, setAnimation, currentView, setCurrentView } = useContext(Context)
     const [currentMarker, setCurrentMarker] = useState({})
+    const [newPlaygroundStatus, setNewPlaygroundStatus] = useState(false)
 
     const bottomSheetRef = useRef();
     const snapPoints = useMemo(() => ['90%', '95%'], []);
     const handleSheetChanges = useCallback((index) => {
-        if (index === -1) {
-            setModal('')
-            setCurrentView('')
+        console.log(newPlaygroundStatus)
+        if (newPlaygroundStatus === false && index === -1) {
+            confirmCloseModal()
+            // setModal('')
+            // setCurrentView('')
         }
         console.log('handleSheetChanges', index);
     }, []);
@@ -46,7 +49,15 @@ export default function Home({ }) {
         }, 300)
         setModal('')
     }
-    const onCancelAddPlayground = () => bottomSheetRef.current.close()
+    const onCloseAddPlayground = () => {
+        setNewPlaygroundStatus(true)
+        bottomSheetRef.current.close()
+        setModal('')
+        setCurrentView('')
+        setTimeout(() => {
+            setNewPlaygroundStatus(false)
+        }, 1000);
+    }
     const markerPressedHandler = props => {
         // const playground = currentMarker
         setModal('singlePlayground')
@@ -56,6 +67,21 @@ export default function Home({ }) {
             setModal()
         }, 300)
     }
+    const confirmCloseModal = () =>
+        Alert.alert('Confirm', 'Do you want to discard changes?', [
+            {
+                text: 'Cancel',
+                onPress: () => bottomSheetRef.current.snapToIndex(1),
+                style: 'cancel',
+            },
+            {
+                text: 'Discard', onPress: () => {
+                    bottomSheetRef.current.close()
+                    setModal('')
+                    setCurrentView('')
+                }
+            },
+        ]);
 
     return <>
         <View className="flex-1 bg-white items-center justify-center">
@@ -63,8 +89,17 @@ export default function Home({ }) {
             <BaseMap className="-z-20" onMarkerPressed={markerPressedHandler} />
             <Header />
             <Footer nearbyHandler={onNearby} createPlaygroundHandler={onCreatePlayground} homeHandler={onHome} />
-            {modal === 'singlePlayground' && <Animatable.View animation={animation} duration={250} className="w-full absolute bottom-0" ><SinglePlayground className="z-[90]" closeHandle={onCloseModal} park={currentMarker}></SinglePlayground></Animatable.View>}
-            {modal === 'nearby' && <Animatable.View animation={animation} duration={250} className="w-full absolute bottom-0 z-50" ><Nearby closeHandle={onCloseModal} park={currentMarker}></Nearby></Animatable.View>}
+            {modal === 'singlePlayground' &&
+                <BottomSheet
+                    enablePanDownToClose
+                    ref={bottomSheetRef}
+                    index={0}
+                    snapPoints={snapPoints}
+                    onChange={handleSheetChanges}>
+                    <SinglePlayground className="z-[90]" closeHandle={onCloseModal} playground={currentMarker}></SinglePlayground>
+                </BottomSheet>
+            }
+            {modal === 'nearby' && <Animatable.View animation={animation} duration={250} className="w-full absolute bottom-0 z-50" ><Nearby closeHandle={onCloseModal} playground={currentMarker}></Nearby></Animatable.View>}
             {modal === 'createPlayground' &&
                 <BottomSheet
                     enablePanDownToClose
@@ -72,7 +107,7 @@ export default function Home({ }) {
                     index={0}
                     snapPoints={snapPoints}
                     onChange={handleSheetChanges}>
-                    <CreatePlayground closeHandle={onCloseModal} cancelAddPlayground={onCancelAddPlayground} />
+                    <CreatePlayground closeHandle={onCloseAddPlayground} cancelAddPlayground={confirmCloseModal} />
                 </BottomSheet>
             }
             <StatusBar style="auto" />

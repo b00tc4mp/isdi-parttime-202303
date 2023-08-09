@@ -8,10 +8,7 @@ import { DROPDOWN } from "../../../assets/icons/index.js";
 export default function AddElement({ onElementEdited, onCancelEditElement, element }) {
     const { currentView, setCurrentView, colorScheme } = useContext(Context)
     const [modal, setModal] = useState()
-<<<<<<< HEAD
-=======
     console.log(element)
->>>>>>> finish addPlaygroudn compo, with logics for render each image for ages and elements; create logics for connect to db; create logic in backend for add element; update models
     const [id, setId] = useState(element.id);
     const [selectedType, setSelectedType] = useState(element.type);
     const [selectedAge, setSelectedAge] = useState(element.age);
@@ -20,11 +17,7 @@ export default function AddElement({ onElementEdited, onCancelEditElement, eleme
 
     const handleEdit = () => {
         try {
-<<<<<<< HEAD
-            if (!selectedType || !selectedAge || !selectedStatus || !selectedAccessibility) {
-=======
             if (!selectedType || !selectedAge || !selectedStatus || !selectedAccessibility || selectedType === 'Set element' || selectedAge === 'Set age' || selectedStatus === 'Set status' || selectedAccessibility === 'Set accessibility') {
->>>>>>> finish addPlaygroudn compo, with logics for render each image for ages and elements; create logics for connect to db; create logic in backend for add element; update models
                 throw new Error('Complete all fields')
             }
             const element = { id: id, type: selectedType, age: selectedAge, status: selectedStatus, accessibility: selectedAccessibility }
@@ -53,11 +46,7 @@ export default function AddElement({ onElementEdited, onCancelEditElement, eleme
         setModal()
     }
     return <>
-<<<<<<< HEAD
-        {modal && <View className="flex-1  bg-black60 items-center justify-center absolute w-[100vw] h-[100vh] z-[51] bottom-0 ">
-=======
         {modal && <View className="flex-1  bg-black60 items-center justify-center absolute w-[100vw] h-[100vh] z-[51] top-[-12vh] ">
->>>>>>> finish addPlaygroudn compo, with logics for render each image for ages and elements; create logics for connect to db; create logic in backend for add element; update models
             <TouchableOpacity activeOpacity="0.8" className="absolute bottom-[165px] rounded-lg bg-mainLime right-3.5 z-50">
                 <Text className=" p-1.5 font-bold" onPress={onCloseModal}>OK</Text>
             </TouchableOpacity>
@@ -65,11 +54,7 @@ export default function AddElement({ onElementEdited, onCancelEditElement, eleme
                 className="w-full bg-white h-52 text-bold rounded-[20px] absolute bottom-0 pb-[20px]"
                 textColor="black"
                 selectedValue='Set element'
-<<<<<<< HEAD
-                pickerData={['Set element', 'Slide', 'Swing', 'Double Swing', 'Seesaw']}
-=======
                 pickerData={['Set element', 'Slide', 'Swing', 'Double Swing', 'Seesaw', 'Rider', 'Sandbox', 'House', 'Climber']}
->>>>>>> finish addPlaygroudn compo, with logics for render each image for ages and elements; create logics for connect to db; create logic in backend for add element; update models
                 onValueChange={label => { setSelectedType(label) }}
             />}
             {modal === 'age' && <Picker

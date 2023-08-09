@@ -1,4 +1,4 @@
-const { User, Post } = require('../../data/models')
+const { User, Playground } = require('../../data/models')
 
 const {
     validators: { validateUserId },
@@ -8,7 +8,7 @@ const {
 /**
  * 
  * @param {string} userId 
- * @returns {Promise<Object>} returns a promise object contains de sanatized posts 
+ * @returns {Promise<Object>} returns a promise object contains de sanatized playgrounds 
   * 
  * @throws {TypeError} on non-string userId (sync)
  * @throws {ContentError} on empty userId (sync)
@@ -20,19 +20,20 @@ module.exports = userId => {
 
     return Promise.all([
         User.findById(userId).lean(),
-        Post.find().lean(),
+        Playground.find().lean(),
     ])
-        .then(([user, post]) => {
+        .then(([user, playground]) => {
 
             if (!user) new ExistenceError(`User with id ${userId} not found`)
 
-            // post.forEach(post => {
-            //     post.id = post._id.toString()
+            // playground.forEach(playground => {
+            //     playground.id = playground._id.toString()
 
-            //     delete post._id
+            //     delete playground._id
 
             // })
+            // console.log(playground)
 
-            return post
+            return playground
         })
 }

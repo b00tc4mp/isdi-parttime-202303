@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext } from "react"
-import retrievePlaygrounds from "../../logic/retrievePlaygrounds"
+import retrievePlaygrounds from "../../logic/playgrounds/retrievePlaygrounds"
 import NearbyPlayground from "./NearbyPlayground"
 import { View, ScrollView } from "react-native"
 import retrieveUser from "../../logic/retrieveUser"
