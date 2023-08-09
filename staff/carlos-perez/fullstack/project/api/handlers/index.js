@@ -6,5 +6,7 @@ module.exports = {
     updateAdminPasswordHandler: require('./administrator/updateAdminPasswordHandler'),
     deleteAdminHandler: require('./administrator/deleteAdminHandler'),
     createUpdateHandler: require('./update/createUpdateHandler'),
-    modifyUpdateHandler: require('./update/modifyUpdateHandler')
+    modifyUpdateHandler: require('./update/modifyUpdateHandler'),
+    deleteUpdateHandler: require('./update/deleteUpdateHandler'),
+    toggleUpdateVisibilityHandler: require('./update/toggleUpdateVisibilityHandler')
   }
