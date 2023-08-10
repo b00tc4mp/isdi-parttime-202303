@@ -10,5 +10,6 @@ module.exports = {
   toggleUpdateVisibility: require('./update/toggleUpdateVisibility'),
   createEvent: require('./event/createEvent'),
   modifyEvent: require('./event/modifyEvent'),
-  deleteEvent: require('./event/deleteEvent')
+  deleteEvent: require('./event/deleteEvent'),
+  toggleEventVisibility: require('./event/toggleEventVisibility')
 }
