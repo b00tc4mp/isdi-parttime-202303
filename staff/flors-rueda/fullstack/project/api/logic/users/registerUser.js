@@ -1,10 +1,10 @@
-const { User, Achivements } = require('../../data/models');
+const { User, Achievements } = require('../../data/models');
 const { errors: { DuplicityError, UnknownError } } = require('com');
 const {
     validators: { validateUsername, validateColor, validatePassword, validateRecoveryQuestion, },
 } = require('com');
 const bcrypt = require('bcryptjs');
-const achivements = require('../../data/achivements')
+const achievements = require('../../data/achievements')
 
 module.exports = (username, password, color, recoveryQuestions) => {
     validateUsername(username);
@@ -37,9 +37,9 @@ module.exports = (username, password, color, recoveryQuestions) => {
                 cc: 42,
             });
 
-            await Achivements.create({
+            await Achievements.create({
                 user: newUser._id,
-                progressByAchivement: achivements,
+                progressByAchievement: achievements,
             })
         } catch (error) {
             if (error.message.includes('E11000'))

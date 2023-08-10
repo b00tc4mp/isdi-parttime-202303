@@ -19,8 +19,8 @@ module.exports = {
         recoveryQuestions: recoveryQuestions,
         joined: Date.now()
     }),
-    achivements: (userId, allAchivements) => ({
+    achievements: (userId, allAchievements) => ({
         user: userId,
-        progressByAchivement: allAchivements,
+        progressByAchievement: allAchievements,
     })
 };

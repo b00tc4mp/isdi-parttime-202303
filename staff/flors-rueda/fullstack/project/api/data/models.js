@@ -96,7 +96,7 @@ const user = new Schema({
 })
 
 
-const achivementProgress = new Schema({
+const achievementProgress = new Schema({
     code: {
         type: String,
     },
@@ -126,18 +126,18 @@ const achivementProgress = new Schema({
     },
 
     completed: {
-        Boolean,
+        type: Boolean,
     },
 })
 
-const achivements = new Schema({
+const achievements = new Schema({
     user: {
         type: ObjectId,
         required: true
     },
 
-    progressByAchivement: {
-        type: [achivementProgress]
+    progressByAchievement: {
+        type: [achievementProgress]
     }
 })
 
@@ -145,10 +145,10 @@ const Level = model('Level', level)
 
 const User = model('User', user)
 
-const Achivements = model('Achivements', achivements)
+const Achievements = model('Achievements', achievements)
 
 module.exports = {
     Level,
     User,
-    Achivements
+    Achievements
 }
