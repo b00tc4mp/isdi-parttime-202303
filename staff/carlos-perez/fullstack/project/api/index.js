@@ -4,7 +4,7 @@ const express = require('express')
 const { cors, jsonBodyParser } = require('./utils')
 const { helloApiHandler, authenticateAdminHandler, registerAdminHandler, updateAdminEmailHandler, updateAdminPasswordHandler, deleteAdminHandler, 
   createUpdateHandler, modifyUpdateHandler, deleteUpdateHandler, toggleUpdateVisibilityHandler,
-createEventHandler} = require('./handlers')
+createEventHandler, modifyEventHandler} = require('./handlers')
 
 const mongoose = require('mongoose')
 
@@ -35,6 +35,8 @@ mongoose.connect(process.env.MONGODB_URL)
     api.patch('/updates/:updateId/visibility', toggleUpdateVisibilityHandler)
 
     api.post('/events', jsonBodyParser, createEventHandler)
+
+    api.patch('/events/:eventId', jsonBodyParser, modifyEventHandler)
 
     api.listen(process.env.PORT, () => console.log(`server running in port ${process.env.PORT}`))
 
