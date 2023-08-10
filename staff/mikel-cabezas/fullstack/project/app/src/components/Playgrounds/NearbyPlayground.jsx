@@ -6,7 +6,7 @@ import { Text, Image, View } from 'react-native';
 
 // const { extractSubFromToken } = utils
 
-export default function NearbyPlayground({ playground, playground: { title, text, id, images, address, location: { coordinates, city, country, street } }, onToggleLikePost, onToggleSavePost, onEditPostButton, onHideMenuOptions, user, onPostDeleted, onMarkerPressedHandler }) {
+export default function NearbyPlayground({ playground, playground: { name, text, id, images, address, location: { coordinates, city, country, street } }, onToggleLikePost, onToggleSavePost, onEditPostButton, onHideMenuOptions, user, onPostDeleted, onMarkerPressedHandler }) {
     // const userId = extractSubFromToken(context.token)
     // const userId = extractSubFromToken(context.token)
 
@@ -19,7 +19,7 @@ export default function NearbyPlayground({ playground, playground: { title, text
     return <>
         <View
             className="flex flex-col relative"
-            title={title}
+            title={name}
             description={text}
             // image={PIN}
             onPress={() => {
@@ -27,9 +27,9 @@ export default function NearbyPlayground({ playground, playground: { title, text
                 markerPressedHandler()
             }}
         >
-            <Image source={images} className="rounded-2xl mb-2 w-full h-36 object-contain" />
-            <Text className="font-bold text-sm leading-4 pr-1">{title}</Text>
-            <Text className="line-clamp-3 text-xs pr-1">{street}, {city}</Text>
+            <Image source={images} className="rounded-2xl w-full h-[168px] object-contain" />
+            <Text className="font-bold text-sm text-[13px] leading-4 mt-2 pr-1">{name}</Text>
+            <Text className="line-clamp-3 text-[11px] pr-1">{street}</Text>
         </View>
 
     </>

@@ -4,7 +4,7 @@ require('dotenv').config()
 const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
-const { registerUserHandler, retrieveUserHandler, authenticateUserHandler, updateUserImageHandler, updateUserNameHandler, updateUserEmailHandler, updateUserPasswordHandler, addPlaygroundHandler, editPostHandler, deletePostHandler, retrievePlaygroundsHandler, retrieveLikedPostsHandler, retrieveSavedPostsHandler, retrievePostByPostIdHandler, toggleLikePostHandler, toggleSavePostHandler } = require('./Handlers')
+const { registerUserHandler, retrieveUserHandler, authenticateUserHandler, updateUserImageHandler, updateUserNameHandler, updateUserEmailHandler, updateUserPasswordHandler, addPlaygroundHandler, retrievePlaygroundsCitiesHandler, retrievePlaygroundsCityHandler, editPostHandler, deletePostHandler, retrievePlaygroundsHandler, retrieveLikedPostsHandler, retrieveSavedPostsHandler, retrievePostByPostIdHandler, toggleLikePostHandler, toggleSavePostHandler } = require('./Handlers')
 const ImageKit = require('imagekit');
 const mongoose = require('mongoose')
 
@@ -30,10 +30,14 @@ mongoose.connect(process.env.MONGODB_URL)
         api.patch('/users/email', jsonBodyParser, updateUserEmailHandler)
         api.patch('/users/password', jsonBodyParser, updateUserPasswordHandler)
 
+        api.get('/playgrounds', retrievePlaygroundsHandler)
+        api.get('/playgrounds/cities/:city', retrievePlaygroundsCitiesHandler)
+        api.get('/playgrounds/city/:coordinates', retrievePlaygroundsCityHandler)
+
         api.post(`/playgrounds`, jsonBodyParser, addPlaygroundHandler)
+
         // api.patch(`/posts/update/:postId`, jsonBodyParser, editPostHandler)
         api.delete(`/posts/:postId`, deletePostHandler)
-        api.get('/playgrounds', retrievePlaygroundsHandler)
         api.get('/posts/liked', retrieveLikedPostsHandler)
         api.get('/posts/saved', retrieveSavedPostsHandler)
         api.get('/posts/:postId', retrievePostByPostIdHandler)

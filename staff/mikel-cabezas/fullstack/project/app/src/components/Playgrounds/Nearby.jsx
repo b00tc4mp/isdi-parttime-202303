@@ -25,29 +25,14 @@ export default function Nearby({ closeHandle, playground, onMarkerPressedHandler
 
     return <>
         {playground &&
-            <Animatable.View animation={animation} duration={200} className="w-11/12 left-[4.165%] absolute bottom-[92px] h-auto max-h-max p-5 pr-0 bg-white rounded-[20px] mx-auto min-h-[300px]" >
+            <View className="w-full h-auto max-h-max pl-5 pr-0 pt-1 rounded-[20px] mx-auto " >
                 <View className="flex-row">
-                    <Text className=" font-bold text-sm">Nearby</Text>
-                    <TouchableHighlight
-                        className=" m-auto relative mr-2 mt-1 z-20 "
-                        activeOpacity={1.0}
-                        underlayColor="#fff"
-                        onPress={() => {
-
-                            onClose()
-                            setCurrentView('')
-                        }}>
-                        <Image
-                            // className={`w-8 h-8 m-auto`}
-                            className={`w-8 h-8 m-auto relative bottom-3`}
-                            source={CLOSE}
-                        />
-                    </TouchableHighlight>
+                    <Text className=" font-bold text-sm mb-2">Nearby</Text>
                 </View>
                 <View className="w-auto" >
                 </View>
                 <NearbyPlaygrounds onMarkerPressedHandler={onMarkerPressedHandler} />
-            </Animatable.View>
+            </View>
         }
 
 

@@ -7,17 +7,44 @@ import {
 import { Keyboard, View, Image, TextInput, TouchableHighlight, Text } from 'react-native';
 
 
-export default function Header() {
-    const { modal, setModal, colorScheme } = useContext(Context)
-    const [text, onChangeText] = React.useState();
+export default function Header({ handleCloseModals }) {
 
-    let isDark
     if (colorScheme === 'dark') isDark = true
+    let isDark
+    let searchTimeOut
+
+    const { modal, setModal, colorScheme } = useContext(Context)
+    const [text, setChangeText] = React.useState();
+    const [searchQuery, setSearchQuery] = React.useState();
+    const [loading, setIsLoading] = React.useState();
+    const [isTyping, setIsTyping] = React.useState([]);
+    const [data, setData] = React.useState([]);
+    const [error, setError] = React.useState([]);
+
+    useEffect(() => {
+        setIsLoading(true)
+    }, []);
 
     const onToggleSidebar = () => {
         setModal('sidebar')
     }
 
+    useEffect(() => {
+        clearTimeout(isTyping)
+        setIsTyping()
+    }, [searchQuery])
+
+    const onSearchPlayground = () => {
+
+    }
+
+    const handleSearch = (query) => {
+        setSearchQuery(query)
+        const isTypingTimeout = setTimeout(() => {
+            console.log(searchQuery)
+        }, 3000);
+        setIsTyping('isTypingTimeout')
+    }
     return <>
         <View className="absolute w-full justify-center flex top-12 content-center">
             <View className="w-11/12 bg-white dark:bg-gray-800 rounded-full left-0 m-auto flex flex-row px-4 h-12">
@@ -33,15 +60,19 @@ export default function Header() {
                         source={isDark ? WHITE_MENU : MENU}
                     />
                 </TouchableHighlight>
-                {/* <Text className="px-8 py-3 flex-1  self-center text-zinc-500" >Search playground in...</Text> */}
-                <TextInput
-                    inputMode="text"
-                    className="px-8 py-3 flex-1 dark:text-white self-center"
-                    onChangeText={onChangeText}
-                    value={text}
-                    placeholder="Search playground in..."
-                    keyboardType="default"
-                />
+                <TouchableHighlight className="flex-1" >
+                    <TextInput
+                        onFocus={onSearchPlayground}
+                        clearButtonMode="always"
+                        inputMode="text"
+                        className="px-8 py-3 flex-1 dark:text-white  text-left"
+                        setChangeText={setChangeText}
+                        onChangeText={(query) => handleSearch(query)}
+                        value={text}
+                        placeholder="Search playground in..."
+                        keyboardType="default"
+                    />
+                </TouchableHighlight>
                 <Image
                     className="w-7 h-7 m-auto"
                     source={isDark ? FILTER : FILTER} />

@@ -10,6 +10,8 @@ module.exports = {
     editPlaygroundHandler: require('./playgrounds/editPlaygroundHandler'),
     deletePostHandler: require('./playgrounds/deletePostHandler'),
     retrievePlaygroundsHandler: require('./playgrounds/retrievePlaygroundsHandler'),
+    retrievePlaygroundsCitiesHandler: require('./playgrounds/retrievePlaygroundsCitiesHandler'),
+    retrievePlaygroundsCityHandler: require('./playgrounds/retrievePlaygroundsCityHandler'),
     retrieveLikedPostsHandler: require('./playgrounds/retrieveLikedPostsHandler'),
     retrieveSavedPostsHandler: require('./playgrounds/retrieveSavedPostsHandler'),
     retrievePostByPostIdHandler: require('./playgrounds/retrievePostByPostIdHandler'),

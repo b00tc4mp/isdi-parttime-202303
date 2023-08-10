@@ -22,6 +22,7 @@ export default function Home({ }) {
 
     const bottomSheetRef = useRef();
     const snapPoints = useMemo(() => ['75%', '94%'], []);
+    const snapPointsSmall = useMemo(() => ['42%', '65%'], []);
     let mainColor
     if (colorScheme === 'dark') {
         mainColor = 'rgb(31 41 55)'
@@ -61,12 +62,9 @@ export default function Home({ }) {
         setModal('createPlayground')
     }
     const onCloseModal = () => {
-        setAnimation('fadeOutDown')
-        setTimeout(() => {
-            setModal()
-            setAnimation()
-        }, 300)
-        setModal('')
+        if (modal === 'createPlayground') {
+            confirmCloseModal()
+        } else if (modal) { bottomSheetRef.current.close() }
     }
     const onCloseAddPlayground = () => {
         setNewPlaygroundStatus(true)
@@ -106,7 +104,7 @@ export default function Home({ }) {
         <View className="flex-1 bg-white items-center justify-center">
             {modal === 'sidebar' && <Sidebar closeHandle={onCloseSidebar} />}
             <BaseMap className="-z-20" onMarkerPressed={markerPressedHandler} />
-            <Header />
+            <Header handleCloseModals={onCloseModal} />
             <Footer nearbyHandler={onNearby} createPlaygroundHandler={onCreatePlayground} homeHandler={onHome} />
             {modal === 'singlePlayground' && <BottomSheet
                 // style={{ backgroundColor: "transparent" }}
@@ -121,7 +119,18 @@ export default function Home({ }) {
                 <SinglePlayground className="z-[90] h-screen relative " closeHandle={onCloseModal} playground={currentMarker}></SinglePlayground>
             </BottomSheet>
             }
-            {modal === 'nearby' && <Animatable.View animation={animation} duration={250} className="w-full absolute bottom-0 z-50" ><Nearby closeHandle={onCloseModal} playground={currentMarker}></Nearby></Animatable.View>}
+            {modal === 'nearby' &&
+                <BottomSheet
+                    // style={{ width: '90%', marginLeft: '5%' }}
+                    enablePanDownToClose
+                    ref={bottomSheetRef}
+                    index={0}
+                    snapPoints={snapPointsSmall}
+                    onChange={handleSheetChangesSingle}>
+                    <Nearby closeHandle={onCloseModal} playground={currentMarker}></Nearby>
+                </BottomSheet>
+
+            }
             {modal === 'createPlayground' &&
                 <BottomSheet
                     enablePanDownToClose
