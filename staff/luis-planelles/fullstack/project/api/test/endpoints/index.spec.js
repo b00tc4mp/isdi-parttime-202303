@@ -37,5 +37,66 @@ describe('API routes', () => {
 
     expect(res.status).to.equal(201);
   });
+
+  it('should return an error response for empty or invalid name', async () => {
+    const emptyName = '';
+
+    let invalidUserJSON = {
+      name: emptyName,
+      email: 'johnDoe@email.com',
+      password: 'Tes7@@@@',
+    };
+
+    const res = await fetch(baseURL + '/users', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(invalidUserJSON),
+    });
+
+    expect(res.status).to.equal(500);
+  });
+
+  it('should return an error response for invalid email format', async () => {
+    const invalidEmail = 'invalid-email';
+
+    let invalidUserJSON = {
+      name: 'JohnDoe',
+      email: invalidEmail,
+      password: 'Tes7@@@@',
+    };
+
+    const res = await fetch(baseURL + '/users', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(invalidUserJSON),
+    });
+
+    expect(res.status).to.equal(500);
+  });
+
+  it('should return an error response for invalid password', async () => {
+    const invalidPassword = 'invalid';
+
+    let invalidUserJSON = {
+      name: 'JohnDoe',
+      email: 'valid@email.com',
+      password: invalidPassword,
+    };
+
+    const res = await fetch(baseURL + '/users', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(invalidUserJSON),
+    });
+
+    expect(res.status).to.equal(500);
+  });
+
   after(() => cleanUp().then(() => mongoose.disconnect()));
 });
