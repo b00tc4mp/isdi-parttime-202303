@@ -10,5 +10,6 @@ module.exports = {
     deleteUpdateHandler: require('./update/deleteUpdateHandler'),
     toggleUpdateVisibilityHandler: require('./update/toggleUpdateVisibilityHandler'),
     createEventHandler: require('./event/createEventHandler'),
-    modifyEventHandler: require('./event/modifyEventHandler')
+    modifyEventHandler: require('./event/modifyEventHandler'),
+    deleteEventHandler: require('./event/deleteEventHandler')
   }

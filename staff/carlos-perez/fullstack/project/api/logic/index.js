@@ -9,5 +9,6 @@ module.exports = {
   deleteUpdate: require('./update/deleteUpdate'),
   toggleUpdateVisibility: require('./update/toggleUpdateVisibility'),
   createEvent: require('./event/createEvent'),
-  modifyEvent: require('./event/modifyEvent')
+  modifyEvent: require('./event/modifyEvent'),
+  deleteEvent: require('./event/deleteEvent')
 }
