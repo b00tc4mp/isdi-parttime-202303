@@ -15,5 +15,6 @@ module.exports = {
   createLyricPost: require('./lyricPost/createLyricPost'),
   modifyLyricPost: require('./lyricPost/modifyLyricPost'),
   deleteLyricPost: require('./lyricPost/deleteLyricPost'),
-  toggleLyricPostVisibility: require('./lyricPost/toggleLyricPostVisibility')
+  toggleLyricPostVisibility: require('./lyricPost/toggleLyricPostVisibility'),
+  createMessage: require('./message/createMessage')
 }
