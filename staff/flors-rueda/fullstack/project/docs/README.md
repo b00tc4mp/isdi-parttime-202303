@@ -62,8 +62,8 @@ So you play levels to earn points to create levels that other people will play t
 - name (string)
 - layout (matrix of strings)
 - health ppints (number)
-- author (user id)
-- likes (array of id)
+- author (user oid)
+- likes (array of oid)
 - date (date)
 
 **User**
@@ -74,21 +74,23 @@ So you play levels to earn points to create levels that other people will play t
 - color (string)
 - recovery questions (array of objects)
 - joined (dates)
-- saves (array of id)
-- follows (array of id)
-- followers (array of id)
+- saves (array of oid)
+- follows (array of oid)
+- followers (array of oid)
 - customization credits (number)
 
 **Achivements**
-- user (id)
+- user (oid)
 - progressByAchivement (array of objects)
 </br>
 *progressByAchivement* 
+- code (string)
 - name (string)
 - description (string)
 - category (string)
 - ranks (array of numbers)
-- userProgress (number)
+- progress (number)
+- isRankReached (boolean)
 - completed (boolean)
 </br>
 </br>
