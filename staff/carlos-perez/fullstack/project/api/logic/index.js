@@ -12,5 +12,6 @@ module.exports = {
   modifyEvent: require('./event/modifyEvent'),
   deleteEvent: require('./event/deleteEvent'),
   toggleEventVisibility: require('./event/toggleEventVisibility'),
-  createLyricPost: require('./lyricPost/createLyricPost')
+  createLyricPost: require('./lyricPost/createLyricPost'),
+  modifyLyricPost: require('./lyricPost/modifyLyricPost')
 }
