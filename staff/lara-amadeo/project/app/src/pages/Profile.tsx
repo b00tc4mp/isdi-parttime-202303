@@ -15,6 +15,7 @@ import useAppContext from "../logic/hooks/useAppContext";
 import useHandleError from "../logic/hooks/useHandleError";
 import retrievePendingToDeliver from "../logic/retrievePendingToDeliver";
 import PendingToDeliverCard from '../library/modules/PendingToDeliverCard'
+import EmptyState from "../library/components/EmptyState";
 
 type User = {
     name: string,
@@ -43,7 +44,7 @@ interface MealOrder {
 interface Order {
     serial: string;
     meals: MealOrder[];
-    buyer: string;
+    buyer: User;
     status: string;
 }
 
@@ -161,7 +162,8 @@ export default function Profile(): JSX.Element {
                     {
                         label: "To deliver",
                         selected: tabView === 'toDeliver',
-                        onClick: toggleTabView
+                        onClick: pendingToDeliverMeals?.length === 0 ? null : toggleTabView,
+                        disable: pendingToDeliverMeals?.length === 0
                     }
                 ]} />
 
@@ -175,6 +177,9 @@ export default function Profile(): JSX.Element {
                             price: meal.price
                         }} onclick={() => onMealCard(meal.id)} />
                     })}
+
+                    {meals && meals.length === 0 && <div className="empty-state-profile"><EmptyState src="./public/illustrations/searching.gif" title="No meals created yet!" description="Add meals to start experiencing Yuper!" width="240px" /> </div>}
+
                     {tabView === 'toDeliver' && pendingToDeliverMeals && pendingToDeliverMeals.map((item: Order) => {
                         return <PendingToDeliverCard buyer={item.buyer.name} meals={item.meals} />
                     })

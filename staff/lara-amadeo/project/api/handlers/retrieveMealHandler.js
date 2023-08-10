@@ -4,10 +4,10 @@ const { handleErrors } = require('../helpers')
 
 
 module.exports = handleErrors((req, res) => {
-    const userId = retrieveToken(req)
+    // const userId = retrieveToken(req)
     const { mealId } = req.params
 
-    return retrieveMeal(userId, mealId)
+    return retrieveMeal(mealId)
         .then(meal => res.status(200).json(meal))
 
 })

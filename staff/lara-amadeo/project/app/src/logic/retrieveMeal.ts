@@ -5,8 +5,7 @@ export default function retrieveMeal(mealId: string) {
         const res = await fetch(`http://localhost:1234/meal/${mealId}`, {
             method: 'GET',
             headers: {
-                'Content-type': 'application/json',
-                'authorization': `Bearer ${context.token}`
+                'Content-type': 'application/json'
             }
         })
         if (res.status === 200) {

@@ -48,3 +48,7 @@
 .profile-tab-label-selected {
     font-weight: 600;
 }
+
+.profile-tab-disabled {
+    opacity: 40%;
+}

@@ -220,7 +220,8 @@ export default function Cart() {
                         {
                             label: "To pick up",
                             selected: !cartView,
-                            onClick: toggleTabView
+                            onClick: pendingMeals?.length === 0 ? null : toggleTabView,
+                            disable: pendingMeals?.length === 0
                         }]} />
 
                     {/* CART TAB */}
@@ -249,7 +250,7 @@ export default function Cart() {
                             {/* CART - EMPTY STATE */}
                             {meals && meals.length === 0 && <>
                                 <div className='cart-empty-state-container'>
-                                    <EmptyState src='/illustrations/beach-girl.gif' title='No meals added yet!' description='Add some meals to your cart to start enjoying Yuper!' />
+                                    <EmptyState src='/illustrations/beach-girl.gif' title='No meals added yet!' description='Add some meals to your cart to start enjoying Yuper!' marginBottom='-32px' />
                                 </div>
                             </>}
 

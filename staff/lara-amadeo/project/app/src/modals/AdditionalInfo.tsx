@@ -1,5 +1,5 @@
 import './AdditionalInfo.css'
-import { useState, useRef } from "react"
+import { useState, useRef, useEffect } from "react"
 import DaySelector from '../library/components/DaySelector'
 import Topbar from '../library/modules/Topbar'
 import { registerAdditionalInfo } from '../logic/registerAdditionalInfo'
@@ -12,6 +12,17 @@ import ButtonBar from '../library/modules/ButtonBar'
 import { XMarkIcon } from '../library/icons'
 import useAppContext from '../logic/hooks/useAppContext'
 import useHandleError from '../logic/hooks/useHandleError'
+import retrieveUser from '../logic/retrieveUser'
+import FeedbackNotification from '../library/components/FeedbackNotification'
+
+type User = {
+    name: string,
+    availability: Array<object>,
+    avatar: string,
+    username: string,
+    description: string,
+    tags: string[],
+}
 
 export default function AdditionalInfo() {
     const { loaderOn, loaderOff, navigate } = useAppContext()
@@ -20,15 +31,26 @@ export default function AdditionalInfo() {
     const [availabilityDays, setAvailabilityDays] = useState<string[]>([])
     const formRef = useRef<HTMLFormElement>(null)
 
+    const [user, setUser] = useState<User>()
+
     const days = ['1', '2', '3', '4', '5', '6', '7']
+
+    useEffect(() => {
+        (async () => {
+            try {
+                const user = await retrieveUser()
+                setUser(user)
+            } catch (error: any) {
+                handleErrors(error)
+            }
+        })
+    }, [])
 
     const onDayClick = (day: string) => {
         if (availabilityDays && availabilityDays.includes(day)) {
             const updatedArray = availabilityDays.filter(item => item !== day)
             setAvailabilityDays(updatedArray)
-
-        }
-        else setAvailabilityDays(availabilityDays.concat(day))
+        } else setAvailabilityDays(availabilityDays.concat(day))
     }
 
     const handleAdditionalInfo = (event: React.SyntheticEvent) => {
@@ -49,7 +71,6 @@ export default function AdditionalInfo() {
             } catch (error: any) {
                 handleErrors(error)
             }
-
         })()
     }
 
@@ -82,6 +103,7 @@ export default function AdditionalInfo() {
                     onRightClick: onClose
                 }} />
                 <Header text={'Profile details'} />
+                <FeedbackNotification title='Complete your profile' content='Please fullfill additional info for creating your meals.' state='warning' style={{ marginBottom: '24px' }} />
 
                 <form className='additional-form' ref={formRef}>
                     <TextArea name={'description'} label={'Description'} placeholder={'Start by writing a bit about yourself, this helps other users to get to know you.'} />

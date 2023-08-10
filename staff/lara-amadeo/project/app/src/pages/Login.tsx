@@ -6,11 +6,15 @@ import Link from '../library/components/Link.js'
 import { loginUser } from "../logic/loginUser.js"
 import useAppContext from "../logic/hooks/useAppContext.js"
 import useHandleError from '../logic/hooks/useHandleError'
+import { useLocation } from 'react-router-dom'
 
 
 export default function Login(): JSX.Element {
     const { loaderOn, loaderOff, navigate } = useAppContext()
     const handleErrors = useHandleError()
+
+    const location = useLocation()
+    const from = location.state
 
     const onLoginClick = (event: React.SyntheticEvent) => {
         event.preventDefault()
@@ -29,7 +33,10 @@ export default function Login(): JSX.Element {
                 await loginUser(email, password)
                 setTimeout(() => {
                     loaderOff()
-                    navigate('/')
+
+                    if (from.includes("/meal/")) {
+                        navigate(from, { state: "/login" })
+                    } else navigate('/')
                 }, 1000)
             } catch (error: any) {
                 loaderOff()

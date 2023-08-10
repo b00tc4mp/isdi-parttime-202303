@@ -26,7 +26,8 @@ module.exports = async function retrieveCartMeals(userId) {
                     avatar: author.avatar,
                     name: author.name,
                     username: author.username,
-                    location: author.location
+                    location: author.location,
+                    availability: author.availability
                 },
                 meals: [meal]
             })

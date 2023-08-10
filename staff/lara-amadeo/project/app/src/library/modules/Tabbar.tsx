@@ -1,22 +1,51 @@
-import { useContext } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { HomeIcon, UserIcon, PlusIcon, MagnifyingGlassIcon, ShoppingBagIcon } from '../icons'
 import './Tabbar.css'
-import Context from '../../Context'
+import useAppContext from '../../logic/hooks/useAppContext'
+import retrieveUser from '../../logic/retrieveUser'
+import useHandleError from '../../logic/hooks/useHandleError'
 
 type Props = {
     home?: boolean,
     search?: boolean,
     add?: boolean,
     cart?: boolean,
-    profile?: boolean
+    profile?: boolean,
+}
+
+type User = {
+    name: string,
+    availability: Array<object>,
+    avatar: string,
+    username: string,
+    description: string,
+    tags: string[],
 }
 
 export default function Tabbar({ home, search, add, cart, profile }: Props): JSX.Element {
 
-    const { navigate } = useContext(Context)
+    const { navigate } = useAppContext()
+    const [user, setUser] = useState<User>()
+    const handleErrors = useHandleError()
+
+    useEffect(() => {
+        (async () => {
+            try {
+                const user = await retrieveUser()
+                setUser(user)
+            } catch (error: any) {
+                handleErrors(error)
+            }
+        })()
+    }, [])
 
     const onAddMeal = () => {
-        navigate('/addMeal')
+        if (user && user.availability.length === 0) {
+            navigate('/additionalInfo')
+        } else {
+            navigate('/addMeal')
+        }
+
     }
 
     const onProfile = () => {

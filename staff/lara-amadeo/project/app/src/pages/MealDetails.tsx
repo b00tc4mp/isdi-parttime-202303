@@ -20,6 +20,7 @@ import useHandleError from '../logic/hooks/useHandleError'
 import Divider from '../library/components/Divider'
 import addMealToCart from '../logic/addMealToCart'
 import { Carousel } from 'flowbite-react'
+import isUserLoggedIn from '../logic/isUserLoggedIn'
 
 
 type Meal = {
@@ -54,12 +55,11 @@ export default function MealDetails(): JSX.Element {
     const location = useLocation()
     const from = location.state
 
-    const [currentImage, setCurrentImage] = useState(0)
-    const [imagesLength, setimagesLength] = useState(0)
-
     const [mealCounter, setMealCounter] = useState(0)
     const [counterButtonLabel, setCounterButtonLabel] = useState<string>()
     const [mealStock, setMealStock] = useState()
+
+    const [userLogged, setUserLogged] = useState<boolean>()
 
     useEffect(() => {
         (async () => {
@@ -67,17 +67,17 @@ export default function MealDetails(): JSX.Element {
                 const meal = await retrieveMeal(mealId!)
                 setMeal(meal)
                 setCounterButtonLabel(meal.price)
-                setimagesLength(meal.images.length)
                 setMealStock(meal.quantity)
+                setUserLogged(isUserLoggedIn())
             } catch (error: any) {
                 handleErrors(error)
             }
-
         })()
     }, [editModal])
 
     const onBackClick = () => {
-        navigate(from)
+        if (from.includes("login")) navigate('/')
+        else navigate(from)
     }
 
     const onSendMessageButton = (event: React.SyntheticEvent) => {
@@ -102,22 +102,27 @@ export default function MealDetails(): JSX.Element {
     }
 
     const onAddToCart = () => {
-        (async () => {
-            try {
-                loaderOn()
-                await addMealToCart(meal!.id, mealCounter)
-                setTimeout(() => {
-                    loaderOff()
-                    navigate(from)
-                    toast('Meals added to cart!', 'success')
-                    setMealCounter(0)
-                    setCounterButtonLabel(meal?.price)
-                }, 500);
+        if (!userLogged) {
+            const currentPath = window.location.pathname
+            navigate('/login', { state: currentPath })
+        } else {
+            (async () => {
+                try {
+                    loaderOn()
+                    await addMealToCart(meal!.id, mealCounter)
+                    setTimeout(() => {
+                        loaderOff()
+                        navigate(from)
+                        toast('Meals added to cart!', 'success')
+                        setMealCounter(0)
+                        setCounterButtonLabel(meal?.price)
+                    }, 500)
 
-            } catch (error: any) {
-                handleErrors(error)
-            }
-        })()
+                } catch (error: any) {
+                    handleErrors(error)
+                }
+            })()
+        }
     }
 
     const toggleOpenCategory = (category: string) => {

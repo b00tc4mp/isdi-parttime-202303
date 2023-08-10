@@ -22,9 +22,12 @@ export function isTokenValid(token: string) {
 }
 
 export function extractSubFromToken(token: string) {
-    const { sub } = JSON.parse(atob(token.split('.')[1]))
+    if (token !== undefined) {
+        const { sub } = JSON.parse(atob(token.split('.')[1]))
 
-    return sub
+        return sub
+    }
+    return
 }
 
 type ReturnValues = {

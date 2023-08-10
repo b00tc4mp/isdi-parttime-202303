@@ -1,11 +1,11 @@
 const { User, Meal } = require('../data/models')
 const { errors: { ExistanceError, AuthError } } = require('../../com')
 
-module.exports = async function retrieveMeals(userId, mealId) {
+module.exports = async function retrieveMeals(mealId) {
 
-    const user = await User.findById(userId)
+    // const user = await User.findById(userId)
 
-    if (!user) throw new ExistanceError(`User with id ${userId} not found`)
+    // if (!user) throw new ExistanceError(`User with id ${userId} not found`)
 
     const meal = await Meal.findById(mealId).populate('author', '-password -likedChefs -__v -email').lean()
 

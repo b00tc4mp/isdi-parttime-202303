@@ -75,7 +75,7 @@ export default function Home() {
                         price: meal.price
                     }} onclick={() => onMealCard(meal.id)} />
                 })}
-                {meals?.length === 0 && <EmptyState src='/illustrations/beach-girl.gif' title='Congrats! You are the first one!' description='You are the first one arriving to Yuper. Do the honors and create your first meal!' />}
+                {meals?.length === 0 && <EmptyState src='/illustrations/first-arriving.gif' title='Congrats! You are the first one!' description='You are the first one arriving to Yuper. Do the honors and create your first meal!' />}
             </div>
         </div>
         <Tabbar home={true} />

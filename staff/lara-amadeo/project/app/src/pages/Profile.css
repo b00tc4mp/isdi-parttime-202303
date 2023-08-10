@@ -41,3 +41,10 @@
     gap: 8px;
     padding-top: 60px;
 }
+
+.empty-state-profile {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

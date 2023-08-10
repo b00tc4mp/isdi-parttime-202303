@@ -1,3 +1,4 @@
+import { ReactElement } from 'react'
 import Button from '../components/Button'
 import Container from '../components/Container'
 import DataItem from '../components/DataItem'
@@ -40,16 +41,19 @@ export default function PendingOrderCard({ buyer, pickUp, meals }: Props) {
         <Container width={'100%'} height={'fit-content'} type={'border'}>
             <>
                 <Container width={'100%'} height={'fit-content'} type={'shadow'} elevation={'1'}>
-                    {meals && meals.map((item) => {
-                        return <>
-                            <div className='pendingToDeliver-meal-info'>
-                                <p className='body-text-bold grey-700'>{item.quantity}</p>
-                                <p className='body-text grey-700'>{item.meal.title}</p>
-                            </div>
-                        </>
-                    })}
+                    {/* @ts-ignore */}
+                    <div className='pendingToDeliver-meal-info-container'>
+                        {meals && meals.map((item) => {
+                            return <>
+                                <div className='pendingToDeliver-meal-info'>
+                                    <p className='body-text-bold grey-700'>{item.quantity}</p>
+                                    <p className='body-text grey-700'>{item.meal.title}</p>
+                                </div>
+                            </>
+                        })}
+                    </div>
                 </Container>
-                <DataItem label='Deliver to' content={buyer} />
+                <DataItem label='For' content={buyer} />
                 {/* <DataItem label='Pick-up time' content={} */}
                 <div className='pendingToDeliver-button-area'>
                     <Button type={'secondary'} size={'extrasmall'} label={'Cancel'} />

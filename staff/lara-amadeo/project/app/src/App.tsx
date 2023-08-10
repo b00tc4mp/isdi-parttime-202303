@@ -56,7 +56,7 @@ function App() {
         <Route path='/additionalInfo' element={isUserLoggedIn() ? <AdditionalInfo /> : <Navigate to="/login" />} />
         <Route path='/addMeal' element={isUserLoggedIn() ? <CreateMeal /> : <Navigate to="/login" />} />
         <Route path='/profile' element={isUserLoggedIn() ? <Profile /> : <Navigate to="/login" />} />
-        <Route path='/meal/:mealId' element={isUserLoggedIn() ? <MealDetails /> : <Navigate to="/login" />} />
+        <Route path='/meal/:mealId' element={<MealDetails />} />
         <Route path='/cart' element={isUserLoggedIn() ? <Cart /> : <Navigate to="/login" />} />
       </Routes>
       {loader && <Loader />}
