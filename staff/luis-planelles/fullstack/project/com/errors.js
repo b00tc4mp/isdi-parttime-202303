@@ -8,6 +8,36 @@ class DuplicityError extends Error {
   }
 }
 
+class ContentError extends Error {
+  constructor(message) {
+    super(message);
+  }
+
+  get name() {
+    return ContentError.name;
+  }
+}
+
+class ExistenceError extends Error {
+  constructor(message) {
+    super(message);
+  }
+
+  get name() {
+    return ExistenceError.name;
+  }
+}
+
+class AuthError extends Error {
+  constructor(message) {
+    super(message);
+  }
+
+  get name() {
+    return AuthError.name;
+  }
+}
+
 class UnknowError extends Error {
   constructor(message) {
     super(message);
@@ -20,5 +50,8 @@ class UnknowError extends Error {
 
 module.exports = {
   DuplicityError,
+  ContentError,
+  ExistenceError,
+  AuthError,
   UnknowError,
 };
