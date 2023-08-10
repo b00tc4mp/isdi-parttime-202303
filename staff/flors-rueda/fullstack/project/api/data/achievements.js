@@ -159,14 +159,4 @@ module.exports = [
         isRankReached: false,
         completed: false,
     },
-    {
-        code: 'S05',
-        name: 'veteran',
-        description: 'have a month old account',
-        category: 'social',
-        ranks: [-1],
-        progress: 0,
-        isRankReached: false,
-        completed: false,
-    },
 ]

@@ -112,7 +112,7 @@ const validateGameData = (gameData) => {
 
 const validateCreateData = (createData) => {
     const { bombs, life, cc, floors } = createData;
-    if (typeof createData !== 'object') throw new TypeError(`game data is not a object`);
+    if (typeof createData !== 'object') throw new TypeError(`create data is not a object`);
     if (typeof bombs !== 'number') throw new TypeError(`bombs is not a number`);
     if (typeof life !== 'number') throw new TypeError(`life is not a number`);
     if (typeof cc !== 'number') throw new TypeError(`cc is not a number`);

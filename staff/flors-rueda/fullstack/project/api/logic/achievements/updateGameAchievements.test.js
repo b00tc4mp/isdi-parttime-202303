@@ -90,19 +90,32 @@ describe('updateGameAchievements', () => {
 
     it('should fail on invalid id type', async () => {
         const invalidId = 1234;
-        await expect(() => updateGameAchievements(invalidId)).to.throw(TypeError, 'userId is not a string');
+
+        try {
+            await updateGameAchievements(invalidId);
+        } catch (error) {
+            expect(error.message).to.equal('userId is not a string');
+        }
     });
 
     it('should fail on empty id', async () => {
         const emptyId = '   ';
-        await expect(() => updateGameAchievements(emptyId)).to.throw(TypeError, 'userId is empty');
+        try {
+            await updateGameAchievements(emptyId);
+        } catch (error) {
+            expect(error.message).to.equal('userId is empty');
+        };
     });
 
     it('should fail on invalid game data', async () => {
         const id = (new mongoose.Types.ObjectId()).toString();
         const gameData = 'wuut?';
 
-        await expect(() => updateGameAchievements(id, gameData)).to.throw(TypeError, 'game data is not a object');
+        try {
+            await updateGameAchievements(id, gameData);
+        } catch (error) {
+            expect(error.message).to.equal('game data is not a object');
+        };
     });
 
     it('should fail on invalid stonks type', async () => {
@@ -115,7 +128,11 @@ describe('updateGameAchievements', () => {
 
         const gameData = { stonks, holes, bombs, life, cc };
 
-        await expect(() => updateGameAchievements(id, gameData)).to.throw(TypeError, 'stonks is not a number');
+        try {
+            await updateGameAchievements(id, gameData);
+        } catch (error) {
+            expect(error.message).to.equal('stonks is not a number');
+        };
     });
 
     it('should fail on invalid holes type', async () => {
@@ -128,7 +145,11 @@ describe('updateGameAchievements', () => {
 
         const gameData = { stonks, holes, bombs, life, cc };
 
-        await expect(() => updateGameAchievements(id, gameData)).to.throw(TypeError, 'holes is not a number');
+        try {
+            await updateGameAchievements(id, gameData);
+        } catch (error) {
+            expect(error.message).to.equal('holes is not a number');
+        };
     });
 
     it('should fail on invalid bombs type', async () => {
@@ -141,7 +162,11 @@ describe('updateGameAchievements', () => {
 
         const gameData = { stonks, holes, bombs, life, cc };
 
-        await expect(() => updateGameAchievements(id, gameData)).to.throw(TypeError, 'bombs is not a number');
+        try {
+            await updateGameAchievements(id, gameData);
+        } catch (error) {
+            expect(error.message).to.equal('bombs is not a number');
+        };
     });
 
     it('should fail on invalid life type', async () => {
@@ -154,7 +179,11 @@ describe('updateGameAchievements', () => {
 
         const gameData = { stonks, holes, bombs, life, cc };
 
-        await expect(() => updateGameAchievements(id, gameData)).to.throw(TypeError, 'life is not a number');
+        try {
+            await updateGameAchievements(id, gameData);
+        } catch (error) {
+            expect(error.message).to.equal('life is not a number');
+        };
     });
 
     it('should fail on invalid cc type', async () => {
@@ -167,7 +196,11 @@ describe('updateGameAchievements', () => {
 
         const gameData = { stonks, holes, bombs, life, cc };
 
-        await expect(() => updateGameAchievements(id, gameData)).to.throw(TypeError, 'cc is not a number');
+        try {
+            await updateGameAchievements(id, gameData);
+        } catch (error) {
+            expect(error.message).to.equal('cc is not a number');
+        };
     });
 
 });

@@ -91,10 +91,6 @@ describe('updateSocialAchievements', () => {
         expect(socialAchievements[3].progress).to.equal(1);
         expect(socialAchievements[3].isRankReached).to.equal(true);
         expect(socialAchievements[3].completed).to.equal(true);
-        expect(socialAchievements[4].code).to.equal('S05');
-        expect(socialAchievements[4].progress).to.equal(0);
-        expect(socialAchievements[4].isRankReached).to.equal(false);
-        expect(socialAchievements[4].completed).to.equal(false);
     });
 
     it('should fail on user not found', async () => {

@@ -4,51 +4,36 @@ const {
 } = require('com');
 const { Achievements } = require('../../data/models');
 
-module.exports = (userId, createData) => {
+module.exports = async (userId, createData) => {
     validateId(userId, 'userId');
     validateCreateData(createData);
 
     const { bombs, life, cc, floors } = createData;
 
-    return (async () => {
-        const userAchievements = await Achievements.findOne({
-            user: userId,
-        });
-        if (!userAchievements) throw new ExistenceError('user not found');
-        const updateAchievements = userAchievements.progressByAchievement.map(achievement => {
-            if (achievement.category === 'create' && !achievement.completed) {
-                switch (achievement.code) {
-                    case ('C01'):
-                        achievement.progress += 1;
-                        if (achievement.progress >= achievement.ranks[0] && !achievement.isRankReached) achievement.isRankReached = true;
-                        if (achievement.progress >= achievement.ranks[2]) achievement.completed = true;
-                        break;
-                    case ('C02'):
-                        achievement.progress += bombs;
-                        if (achievement.progress >= achievement.ranks[0] && !achievement.isRankReached) achievement.isRankReached = true;
-                        if (achievement.progress >= achievement.ranks[2]) achievement.completed = true;
-                        break;
-                    case ('C03'):
-                        achievement.progress += life;
-                        if (achievement.progress >= achievement.ranks[0] && !achievement.isRankReached) achievement.isRankReached = true;
-                        if (achievement.progress >= achievement.ranks[2]) achievement.completed = true;
-                        break;
-                    case ('C04'):
-                        achievement.progress = achievement.progress + cc;
-                        if (achievement.progress >= achievement.ranks[0] && !achievement.isRankReached) achievement.isRankReached = true;
-                        if (achievement.progress >= achievement.ranks[2]) achievement.completed = true;
-                        break;
-                    case ('C05'):
-                        if (floors >= 99) {
-                            achievement.progress += 1;
-                            achievement.isRankReached = true;
-                            achievement.completed = true;
-                        }
-                        break;
-                }
+    const userAchievements = await Achievements.findOne({ user: userId });
+    if (!userAchievements) throw new ExistenceError('user not found');
+
+    const updateAchievements = userAchievements.progressByAchievement.map(achievement => {
+        if (achievement.category === 'create' && !achievement.completed) {
+            const updateValue = {
+                'C01': 1,
+                'C02': bombs,
+                'C03': life,
+                'C04': cc,
+                'C05': floors >= 99 ? 1 : 0
+            }[achievement.code] || 0;
+
+            achievement.progress += updateValue;
+
+            if (achievement.progress >= achievement.ranks[0] && !achievement.isRankReached) {
+                achievement.isRankReached = true;
             }
-            return achievement
-        });
-        await Achievements.updateOne({ user: userId }, { progressByAchievement: updateAchievements });;
-    })();
+            if (achievement.progress >= achievement.ranks[achievement.ranks.lengths - 1]) {
+                achievement.completed = true;
+            }
+        }
+        return achievement;
+    });
+
+    await Achievements.updateOne({ user: userId }, { progressByAchievement: updateAchievements });
 };
