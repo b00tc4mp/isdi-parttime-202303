@@ -4,7 +4,7 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 
-const { helloApiHandler, retrieveLevelsHandler, retrieveLevelHandler, createLevelHandler, authenticateUserHandler, registerUserHandler, retrieveUserHandler, retrieveUserLoggedHandler, updateColorHandler, updateAvatarHandler, toggleLikeHandler, updatePasswordHandler, recoverPasswordHandler, retrieveRandomRecoveryQuestionHandler, checkRecoveryAnswerHandler, toggleFollowHandler, retrieveLevelsByFollowedHandler, retrieveLevelsByAuthorHandler, retrieveLevelsSavedHandler, toggleSaveHandler } = require('./handlers');
+const { helloApiHandler, retrieveLevelsHandler, retrieveLevelHandler, createLevelHandler, authenticateUserHandler, registerUserHandler, retrieveUserHandler, retrieveUserLoggedHandler, updateColorHandler, updateAvatarHandler, toggleLikeHandler, updatePasswordHandler, recoverPasswordHandler, retrieveRandomRecoveryQuestionHandler, checkRecoveryAnswerHandler, toggleFollowHandler, retrieveLevelsByFollowedHandler, retrieveLevelsByAuthorHandler, retrieveLevelsSavedHandler, toggleSaveHandler, retrieveCompleteAchievementsHandler, updateCreateAchievementsHandler, updateGameAchievementsHandler, updateSocialAchievementsHandler, updateTutorialAchievementsHandler } = require('./handlers');
 
 const mongoose = require('mongoose');
 
@@ -63,7 +63,17 @@ mongoose.connect(process.env.MONGODB_URL)
 
         api.get('/api/levels/saved/:userId', retrieveLevelsSavedHandler);
 
-        api.get('/api/levels/user/:authorId', retrieveLevelsByAuthorHandler)
+        api.get('/api/levels/user/:authorId', retrieveLevelsByAuthorHandler);
+
+        api.get('/api/achievements/:userId', retrieveCompleteAchievementsHandler);
+
+        api.patch('/api/achievements/create', jsonBodyParser, updateCreateAchievementsHandler);
+
+        api.patch('/api/achievements/game', jsonBodyParser, updateGameAchievementsHandler);
+
+        api.patch('/api/achievements/social', updateSocialAchievementsHandler);
+
+        api.patch('/api/achievements/tutorial', updateTutorialAchievementsHandler);
 
         api.listen(process.env.PORT, () => console.log(`server running in port ${process.env.PORT}`));
 

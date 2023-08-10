@@ -18,4 +18,9 @@ module.exports = {
     retrieveLevelsByAuthor: require('./levels/retrieveLevelsByAuthor'),
     toggleSave: require('./levels/toggleSave'),
     retrieveLevelsSaved: require('./levels/retrieveLevelsSaved'),
+    retrieveCompleteAchievements: require('./achievements/retrieveCompleteAchievements'),
+    updateCreateAchievements: require('./achievements/updateCreateAchievements'),
+    updateGameAchievements: require('./achievements/updateGameAchievements'),
+    updateSocialAchievements: require('./achievements/updateSocialAchievements'),
+    updateTutorialAchievements: require('./achievements/updateTutorialAchievements')
 }

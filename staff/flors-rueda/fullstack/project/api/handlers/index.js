@@ -18,5 +18,11 @@ module.exports = {
     retrieveLevelsByFollowedHandler: require('./retrieveLevelsByFollowedHandler'),
     retrieveLevelsByAuthorHandler: require('./retrieveLevelsByAuthorHandler'),
     retrieveLevelsSavedHandler: require('./retrieveLevelsSavedHandler'),
-    toggleSaveHandler: require('./toggleSaveHandler')
+    toggleSaveHandler: require('./toggleSaveHandler'),
+    retrieveCompleteAchievementsHandler: require('./retrieveCompleteAchievementsHandler'),
+    updateCreateAchievementsHandler: require('./updateCreateAchievementsHandler'),
+    updateGameAchievementsHandler: require('./updateGameAchievementsHandler'),
+    updateSocialAchievementsHandler: require('./updateSocialAchievementsHandler'),
+    updateTutorialAchievementsHandler: require('./updateTutorialAchievementsHandler'),
+
 }
