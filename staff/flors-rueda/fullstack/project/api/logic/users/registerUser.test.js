@@ -1,6 +1,6 @@
 const { expect } = require('chai');
 const registerUser = require('./registerUser');
-const { User } = require('../../data/models');
+const { User, Achivements } = require('../../data/models');
 const mongoose = require('mongoose');
 const { cleanUp } = require('../helpers/tests');
 const {
@@ -8,6 +8,7 @@ const {
     assets: { colors },
 } = require('com');
 const bcrypt = require('bcryptjs');
+const achivements = require('../../data/achivements')
 
 describe('registerUser', () => {
     before(async () => {
@@ -39,6 +40,7 @@ describe('registerUser', () => {
         await registerUser(username, password, color, recoveryQuestions);
 
         const createdUser = await User.findOne({ username });
+        const createdAchivements = await Achivements.findOne({ user: createdUser._id });
 
         const match = await bcrypt.compare(password, createdUser.password);
         const matchAnswer1 = await bcrypt.compare(answer1, (createdUser.recoveryQuestions[0].answer));
@@ -57,6 +59,7 @@ describe('registerUser', () => {
         expect(matchAnswer1).to.equal(true);
         expect(createdUser.recoveryQuestions[1].question).to.equal(recoveryQuestions[1].question);
         expect(matchAnswer2).to.equal(true);
+        expect(createdAchivements.progressByAchivement).to.be.an('array');
     });
 
     it('should fail on user already registered', async () => {

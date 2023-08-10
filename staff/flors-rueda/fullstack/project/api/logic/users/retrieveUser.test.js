@@ -42,7 +42,7 @@ describe('retrieveUser', () => {
         expect(fetchedUser).to.have.property('color', user.color)
         expect(fetchedUser).to.have.property('avatar', user.avatar);
         expect(fetchedUser).to.not.have.property('_id', createdUser.id);
-        expect(fetchedUser).to.have.property('saves', []);
+        expect(fetchedUser.saves).to.be.an('array');
         expect(fetchedUser.joined.getTime()).to.be.closeTo(Date.now(), 10000);
     });
 

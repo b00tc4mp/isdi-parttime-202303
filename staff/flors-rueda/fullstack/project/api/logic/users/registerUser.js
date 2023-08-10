@@ -1,9 +1,10 @@
-const { User } = require('../../data/models');
+const { User, Achivements } = require('../../data/models');
 const { errors: { DuplicityError, UnknownError } } = require('com');
 const {
     validators: { validateUsername, validateColor, validatePassword, validateRecoveryQuestion, },
 } = require('com');
 const bcrypt = require('bcryptjs');
+const achivements = require('../../data/achivements')
 
 module.exports = (username, password, color, recoveryQuestions) => {
     validateUsername(username);
@@ -23,7 +24,7 @@ module.exports = (username, password, color, recoveryQuestions) => {
                 question.answer = cryptAnswer
             }
 
-            await User.create({
+            const newUser = await User.create({
                 username,
                 password: cryptPassword,
                 color,
@@ -34,6 +35,11 @@ module.exports = (username, password, color, recoveryQuestions) => {
                 follows: [],
                 followers: [],
                 cc: 42,
+            });
+
+            await Achivements.create({
+                user: newUser._id,
+                progressByAchivement: achivements,
             })
         } catch (error) {
             if (error.message.includes('E11000'))

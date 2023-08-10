@@ -18,5 +18,9 @@ module.exports = {
         cc: cc,
         recoveryQuestions: recoveryQuestions,
         joined: Date.now()
+    }),
+    achivements: (userId, allAchivements) => ({
+        user: userId,
+        progressByAchivement: allAchivements,
     })
 };

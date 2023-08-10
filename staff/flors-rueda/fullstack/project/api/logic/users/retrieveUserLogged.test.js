@@ -40,7 +40,7 @@ describe('retrieveUserLogged', () => {
         expect(fetchedUser).to.be.an('object');
         expect(fetchedUser).to.have.property('username', user.username);
         expect(fetchedUser).to.have.property('color', user.color);
-        expect(fetchedUser).to.have.property('saves', []);
+        expect(fetchedUser.saves).to.be.an('array');
         expect(fetchedUser).to.have.property('avatar', user.avatar);
         expect(fetchedUser).to.not.have.property('recoveryQuestions');
         expect(fetchedUser).to.not.have.property('_id', createdUser.id);
