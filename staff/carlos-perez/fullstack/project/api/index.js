@@ -5,7 +5,7 @@ const { cors, jsonBodyParser } = require('./utils')
 const { helloApiHandler, authenticateAdminHandler, registerAdminHandler, updateAdminEmailHandler, updateAdminPasswordHandler, deleteAdminHandler, 
   createUpdateHandler, modifyUpdateHandler, deleteUpdateHandler, toggleUpdateVisibilityHandler,
 createEventHandler, modifyEventHandler, deleteEventHandler, toggleEventVisibilityHandler,
-createLyricPostHandler, modifyLyricPostHandler, deleteLyricPostHandler} = require('./handlers')
+createLyricPostHandler, modifyLyricPostHandler, deleteLyricPostHandler, toggleLyricPostVisibilityHandler} = require('./handlers')
 
 const mongoose = require('mongoose')
 
@@ -48,6 +48,8 @@ mongoose.connect(process.env.MONGODB_URL)
     api.patch('/lyricPosts/:lyricPostId', jsonBodyParser, modifyLyricPostHandler)
 
     api.delete('/lyricPosts/:lyricPostId', deleteLyricPostHandler)
+
+    api.patch('/lyricPosts/:lyricPostId/visibility', toggleLyricPostVisibilityHandler)
 
     api.listen(process.env.PORT, () => console.log(`server running in port ${process.env.PORT}`))
 
