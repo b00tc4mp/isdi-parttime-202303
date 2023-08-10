@@ -19,5 +19,6 @@ module.exports = {
     toggleLyricPostVisibilityHandler: require('./lyricPost/toggleLyricPostVisibilityHandler'),
     createMessageHandler: require('./message/createMessageHandler'),
     readMessageHandler: require('./message/readMessageHandler'),
-    deleteMessageHandler: require('./message/deleteMessageHandler')
+    deleteMessageHandler: require('./message/deleteMessageHandler'),
+    toggleMessageReadHandler: require('./message/toggleMessageReadHandler')
   }
