@@ -20,7 +20,7 @@ module.exports = (userId, postId) => {
     delete post._id
 
     post.author.id = post.author._id
-    delete post._id
+    delete post.author._id
 
     post.fav = user.favs.some(fav => fav.toString() === post.id)
     post.liked = post.likes.some(like => like.toString() === user.id)

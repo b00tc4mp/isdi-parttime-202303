@@ -30,8 +30,8 @@ export default function Login() {
                 <img className="max-w-[140px] h-[140px] mt-[-100px] rounded-full" src="src/images/logo-login&register.jpg" />
                 <Form className="flex flex-col gap-4 w-80 items-center my-5" onSubmit={handleLogin}>
                     <div className="h-[54px] text-black text-4xl font-normal">WELCOME</div>
-                    <Input className="w-4/5 h-12 border-black border-2 rounded-lg p-4" type="email" name="email" placeholder="Email" />
-                    <Input className="w-w-4/5 h-12 border-black border-2 rounded-lg p-4" type="password" name="password" placeholder="Password" />
+                    <Input className="w-2/3 h-12 border-black border-2 rounded-lg p-4" type="email" name="email" placeholder="Email" />
+                    <Input className="w-2/3 h-12 border-black border-2 rounded-lg p-4" type="password" name="password" placeholder="Password" />
                     <Button className="w-2/3 text-xl bg-blue-200">Login</Button>
                 </Form>
                 <div className="flex flex-col gap-1 mt-6 items-center">

@@ -1,14 +1,14 @@
 const {
-  validators: { validateId, validateUrl, validateText },
-  errors: { ExistenceError, InvalidRequestError }
+  validators: { validateId, validateText },
+  errors: { ExistenceError, UnknownError }
 } = require('com')
 const { User, Post } = require('../data/models')
 
-module.exports = (userId, postId, imageUrl, postText) => {
+module.exports = (userId, postId, title, content) => {
   validateId(userId, 'user id')
   validateId(postId, 'post id')
-  validateUrl(imageUrl,'image url')
-  validateText(postText, 'post text')
+  validateText(title, 'post title')
+  validateText(content, 'post title')
 
   return (async () => {
     const user = await User.findById(userId)
@@ -16,13 +16,14 @@ module.exports = (userId, postId, imageUrl, postText) => {
 
     const post = await Post.findById(postId)
     if(!post) throw new ExistenceError('Post not found.')
-    if (post.author.toString() !== userId) throw new InvalidRequestError('This user is not the owner of the post.')
+
+    if (post.author.toString() !== userId) throw new UnknownError('This user is not the owner of the post.')
 
     await Post.updateOne(
       { _id: postId },
       { $set: { 
-        image: imageUrl,
-        text: postText
+        title: title,
+        text: content
       }}
     )
   })()

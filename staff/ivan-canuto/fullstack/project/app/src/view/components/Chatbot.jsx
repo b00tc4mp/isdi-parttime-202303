@@ -14,16 +14,12 @@ export default function Chatbot({ lastPostsUpdate, setPage }) {
 
     useEffect(() => {
         if(context.conversationId) {
-            const getConversations = () => {
-                handleErrors(async () => {
-                    
-                        const conversation = await retrieveConversation(context.conversationId)
-
-                        setMessages([...conversation.messages])
-                    })
-                }
+            handleErrors(async () => {
                 
-            getConversations()
+                const conversation = await retrieveConversation(context.conversationId)
+
+                setMessages([...conversation.messages])
+            })
         }
         else setMessages([])
 
@@ -136,7 +132,7 @@ export default function Chatbot({ lastPostsUpdate, setPage }) {
     }
 
     return <Container className="absolute top-0 left-0 bg-[url(src/images/chatbot-3.1.jpg)] bg-fixed bg-center bg-cover">
-        <button className="fixed right-4 top-24 w-28 z-10 mt-2 bg-yellow-100 leading-tight border border-black" onClick={handleGenerateSummary}>Generate summary</button>
+        <button className="fixed right-2 top-24 w-24 z-10 mt-2 bg-yellow-100 leading-tight border border-black flex justify-center" onClick={handleGenerateSummary}>Generate summary</button>
         
         <section className={`conversation-container absolute top-24 w-full ${!summary ? 'bottom-32' : ''} overflow-y-scroll`}>
             <section className='w-full flex justify-start'>

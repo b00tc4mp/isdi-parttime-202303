@@ -14,22 +14,23 @@ export default function PostModalWindow({
   handleOpenEditPost,
   handleOpenDeletePost,
   handleToggleVisibility,
-  handleCloseModal,
-  handleLastPostsUpdate
+  handleLastPostsUpdate,
+  handleTogglePostModal,
+  lastPostsUpdate
 }) {
   const handleErrors = useHandleErrors();
 
   const [post, setPost] = useState();
   const [user, setUser] = useState();
   const [contextualMenu, setContextualMenu] = useState("close");
-  const [modal, setModal] = useState('post')
+  const [modal, setModal] = useState("post");
 
   useEffect(() => {
     console.log("PostModalWindow -> render");
 
     handleRefreshPost();
     handleRefreshUser();
-  }, []);
+  }, [lastPostsUpdate]);
 
   const handleRefreshUser = () => {
     handleErrors(async () => {
@@ -42,7 +43,7 @@ export default function PostModalWindow({
   const handleRefreshPost = () => {
     handleErrors(async () => {
       const post = await retrievePost(context.postId);
-      console.log(post);
+      
       setPost(post);
     });
   };
@@ -66,46 +67,69 @@ export default function PostModalWindow({
 
   const toggleContextualMenu = () => {
     context.postId = post.id;
-    
+
     setContextualMenu(contextualMenu === "close" ? "open" : "close");
   };
 
   const handleReturn = () => {
-    if(modal !== 'post') setModal('post')
+    if (modal !== "post") setModal("post");
     else {
-      handleCloseModal()
-      handleLastPostsUpdate()
+      handleTogglePostModal();
+      handleLastPostsUpdate();
     }
-  }
+  };
 
-  const handleOpenSuggestions = () => setModal('suggestions')
+  const handleOpenSuggestions = () => setModal("suggestions");
 
   return (
     <ModalContainer
       className="bg-black h-screen bg-opacity-20 fixed z-20 top-0 left-0"
       onClick={(event) => {
-        if (event.target === document.querySelector(".ModalContainer"))
-          handleCloseModal();
+        if (event.target === document.querySelector(".ModalContainer")) {
+          handleTogglePostModal();
+          handleLastPostsUpdate();
+        }
       }}
     >
       {contextualMenu === "open" && (
         <ContextualMenu
           options={[
-            { text: "Edit post", onClick: handleOpenEditPost },
-            { text: "Delete post", onClick: handleOpenDeletePost },
+            {
+              text: "Edit post",
+              onClick: () => {
+                handleOpenEditPost();
+                toggleContextualMenu();
+              },
+            },
             {
               text: `Set post ${post && post.visible ? "private" : "public"}`,
-              onClick: handleToggleVisibility,
+              onClick: () => {
+                handleToggleVisibility();
+                toggleContextualMenu();
+              },
             },
-            { text: 'Suggestions', onClick: handleOpenSuggestions }
+            {
+              text: "Suggestions",
+              onClick: () => {
+                handleOpenSuggestions();
+                toggleContextualMenu();
+              },
+            },
+            {
+              text: "Delete post",
+              onClick: () => {
+                handleOpenDeletePost();
+                toggleContextualMenu();
+              },
+            },
           ]}
           toggleContextualMenu={toggleContextualMenu}
         />
       )}
 
       <section className="w-11/12 h-5/6 bg-white rounded-lg flex flex-col items-center gap-2">
-        
-        {post && <div className="w-full flex justify-between p-2">
+        {post && (
+          <div className="w-full flex justify-between p-2">
             <div className="flex items-center gap-2">
               <span
                 className="material-symbols-outlined w-8"
@@ -121,27 +145,29 @@ export default function PostModalWindow({
               <p className="px-1">{post.author.name}</p>
             </div>
 
-            {modal === 'post' && <div className="flex items-center">
-              {user && post.author.id === user.id && (
-                <>
-                  <p className="mx-1">
-                    {post.visible ? "Public" : "Private"}
-                  </p>
-                  <span
-                    className="material-symbols-outlined hover:bg-gray-300 cursor-pointer font-black rounded-full"
-                    onClick={toggleContextualMenu}
-                  >
-                    more_vert
-                  </span>
-                </>
-              )}
-            </div>}
+            {modal === "post" && (
+              <div className="flex items-center">
+                {user && post.author.id === user.id && (
+                  <>
+                    <p className="mx-1">
+                      {post.visible ? "Public" : "Private"}
+                    </p>
+                    <span
+                      className="material-symbols-outlined hover:bg-gray-300 cursor-pointer font-black rounded-full"
+                      onClick={toggleContextualMenu}
+                    >
+                      more_vert
+                    </span>
+                  </>
+                )}
+              </div>
+            )}
           </div>
-        }
+        )}
 
-        {post && modal === 'post' && (
+        {post && modal === "post" && (
           <>
-            <h1 className="text-2xl">{post.title}</h1>
+            <h1 className="px-2 text-xl text-center">{post.title}</h1>
 
             <p className="px-2 h-2/3 overflow-scroll">{post.text}</p>
 
@@ -164,9 +190,9 @@ export default function PostModalWindow({
                     <span
                       className="material-symbols-outlined cursor-pointer"
                       onClick={() => {
-                        context.postId = post.id
-                        
-                        setModal('comments')
+                        context.postId = post.id;
+
+                        setModal("comments");
                       }}
                     >
                       mode_comment
@@ -195,19 +221,19 @@ export default function PostModalWindow({
           </>
         )}
 
-        {post && modal === 'comments' && 
+        {post && modal === "comments" && (
           <Comments
             handleRefreshPost={handleRefreshPost}
             post={post}
             user={user}
           />
-        }
+        )}
 
-        {post && modal === 'suggestions' && 
-          <Suggestions
-            
-          />
-        }
+        {post && modal === "suggestions" && <Suggestions
+          handleRefreshPost={handleRefreshPost}
+          post={post}
+          user={user}
+        />}
       </section>
     </ModalContainer>
   );

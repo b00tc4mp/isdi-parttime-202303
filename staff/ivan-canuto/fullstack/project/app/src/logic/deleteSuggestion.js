@@ -10,11 +10,12 @@ const { validateId } = validators
  * @param {string} commentId The comment's id.
  */
 
-export default function deleteComment(suggestionId) {
-  validateId(suggestion, 'suggestion id')
+export default function deleteComment(postId, suggestionId) {
+  validateId(postId, 'post id')
+  validateId(suggestionId, 'suggestion id')
 
   return (async () => {
-    const res = await fetch(`${import.meta.env.VITE_API_URL}/suggestions/${suggestionId}/delete`, {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/posts/${postId}/suggestions/${suggestionId}/delete`, {
       method: 'PATCH',
       headers: {
         'Authorization': `Bearer ${context.token}`

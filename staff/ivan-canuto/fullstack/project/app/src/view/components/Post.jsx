@@ -1,7 +1,7 @@
 import { useAppContext, useHandleErrors } from "../hooks"
 import { context } from '../../ui'
 
-export default function Post({post, openPostModal }) {
+export default function Post({post, handleTogglePostModal }) {
   const { alert } = useAppContext()
   
   const { id, text, author, title } = post
@@ -18,7 +18,7 @@ export default function Post({post, openPostModal }) {
   const handleOpenPostModal = () => {
     context.postId = id
     
-    openPostModal()
+    handleTogglePostModal()
   }
 
   console.debug('Post -> render')

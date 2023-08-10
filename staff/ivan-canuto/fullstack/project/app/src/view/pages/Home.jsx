@@ -12,7 +12,7 @@ export default function Home() {
   const handleErrors = useHandleErrors();
   const { navigate } = useAppContext();
 
-  const [modal, setModal] = useState(null);
+  const [modal, setModal] = useState();
   const [menu, setMenu] = useState(false);
   const [openedMenu, setOpenedMenu] = useState(false);
   const [lastPostsUpdate, setLastPostsUpdate] = useState(null);
@@ -20,6 +20,9 @@ export default function Home() {
   const [view, setView] = useState("posts");
   const [conversations, setConversations] = useState(null);
   const [conversationsOptions, setConversationsOptions] = useState();
+  const [postModal, setPostModal] = useState(false)
+
+  console.log(modal)
 
   //   const handleReturnToHome = () => {
   //     setView("posts");
@@ -59,31 +62,22 @@ export default function Home() {
   const handleLastPostsUpdate = () => {
     document.body.classList.remove("fixed-scroll");
     setLastPostsUpdate(Date.now());
+    console.log('hola')
     setModal(null);
   };
 
   const handleCloseModal = () => {
-    document.body.classList.remove("fixed-scroll");
     setModal(null);
-  };
+    console.log('hola')
 
-  const handleOpenEditPost = () => {
-    document.body.classList.toggle("fixed-scroll");
-    setModal("editPost");
     setLastPostsUpdate(Date.now());
   };
 
-  const handleOpenDeletePost = () => {
-    document.body.classList.toggle("fixed-scroll");
-    setModal("deletePost");
-    setLastPostsUpdate(Date.now());
-  };
+  const handleOpenEditPost = () => setModal("editPost")
 
-  const handleToggleVisibility = () => {
-    document.body.classList.toggle("fixed-scroll");
-    setModal("toggleVisibility");
-    setLastPostsUpdate(Date.now());
-  };
+  const handleOpenDeletePost = () => setModal("deletePost")
+
+  const handleToggleVisibility = () => setModal("toggleVisibility")
 
   const handleOpenProfile = () => {
     document.body.classList.add("fixed-scroll");
@@ -122,9 +116,10 @@ export default function Home() {
     navigate("/chatbot");
   };
 
-  const openPostModal = () => {
+  const handleTogglePostModal = () => {
     document.body.classList.toggle("fixed-scroll");
-    setModal("post");
+
+    setPostModal(!postModal);
   };
 
   console.debug("Home -> render");
@@ -154,15 +149,12 @@ export default function Home() {
         <Posts
           lastPostsUpdate={lastPostsUpdate}
           view={view}
-          handleOpenEditPost={handleOpenEditPost}
-          handleOpenDeletePost={handleOpenDeletePost}
-          handleToggleVisibility={handleToggleVisibility}
-          openPostModal={openPostModal}
+          handleTogglePostModal={handleTogglePostModal}
         />
 
         {modal === "editPost" && (
           <EditPost
-            onUpdatedPost={handleLastPostsUpdate}
+            onUpdatedPost={handleCloseModal}
             onCancel={handleCloseModal}
           />
         )}
@@ -188,13 +180,14 @@ export default function Home() {
           />
         )}
 
-        {modal === "post" && (
+        {postModal && (
           <PostModalWindow
             handleOpenDeletePost={handleOpenDeletePost}
             handleOpenEditPost={handleOpenEditPost}
             handleToggleVisibility={handleToggleVisibility}
-            handleCloseModal={handleCloseModal}
             handleLastPostsUpdate={handleLastPostsUpdate}
+            handleTogglePostModal={handleTogglePostModal}
+            lastPostsUpdate={lastPostsUpdate}
           />
         )}
 

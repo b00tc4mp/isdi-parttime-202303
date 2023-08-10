@@ -1,60 +1,39 @@
 import { useEffect, useState } from "react"
 import { ModalContainer, Button, ModalWindow } from "../library"
 import { toggleVisibilityPost, retrievePost } from "../../logic"
-import { useAppContext } from "../hooks"
+import { useAppContext, useHandleErrors } from "../hooks"
 import { context } from "../../ui"
 
 export default function VisibilityPost({ onChangedVisibility, onCancel }) {
   const { alert } = useAppContext()
+  const handleErrors = useHandleErrors()
   const [visible, setVisible] = useState()
 
   useEffect(() => {
-    try {
-      freeze()
+    handleErrors(async () => {
+      const post = await retrievePost(context.postId)
 
-      retrievePost(context.postId)
-        .then(post => {
-          unfreeze()
-          setVisible(post.visible)
-        })
-        .catch(error => {
-          unfreeze()
-          alert(error.message, 'error')
-          console.debug(error.stack)
-        })
-
-    } catch (error) {
-      unfreeze()
-      alert(error.message, 'error')
-      console.debug(error.stack)
-    }
+      setVisible(post.visible)
+    })
   }, [])
 
   const handleToggleVisibility = () => {
-    try {
-      toggleVisibilityPost(context.postId)
-        .then(() => {
-          setVisible(!visible)
-          onChangedVisibility()
-        })
-        .catch(error => {
-          alert(error.message, 'error')
-          console.log(error.stack)
-        })
-      
-    } catch (error) {
-      alert(error.message, 'error')
-      console.log(error.stack)
-    }
+    handleErrors(async () => {
+      await toggleVisibilityPost(context.postId)
+
+      setVisible(!visible)
+      onChangedVisibility()
+    })
   }
   
   return <>
-  <ModalContainer onClick={(event) => {
+  <ModalContainer className='fixed bg-black bg-opacity-20 top-0 left-0 z-30' onClick={(event) => {
     if(event.target === document.querySelector('.ModalContainer'))
       onCancel()
   }}>
-    <ModalWindow>
-      <h2 className="text-xl text-black">{`Do you want to set the post ${visible ? 'private' : 'public'} ?`}</h2>
+    <ModalWindow className='w-11/12 h-96'>
+      <h2 className="text-2xl text-black w-5/6 text-center">{`Do you want to set the post ${visible ? 'private' : 'public'} ?`}</h2>
+      <img src="src/images/public-private.png" alt="public/private-image" />
       <div className="flex justify-evenly w-full">
         <Button className='text-lg px-5' onClick={handleToggleVisibility}>Yes</Button>
         <Button className='text-lg' onClick={onCancel}>Cancel</Button>

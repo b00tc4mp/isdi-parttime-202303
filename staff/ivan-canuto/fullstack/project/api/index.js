@@ -100,7 +100,7 @@ mongoose.connect(process.env.MONGODB_URL)
 
         api.post('/posts/:postId/suggestions/newSuggestion', jsonBodyParser, createSuggestionHandler)
 
-        api.delete('/suggestions/:suggestionId/delete', jsonBodyParser, deleteSuggestionHandler)
+        api.delete('/posts/:postId/suggestions/:suggestionId/delete', jsonBodyParser, deleteSuggestionHandler)
 
         api.listen(process.env.PORT, () => console.log(`Server running in port ${process.env.PORT}`))
     })

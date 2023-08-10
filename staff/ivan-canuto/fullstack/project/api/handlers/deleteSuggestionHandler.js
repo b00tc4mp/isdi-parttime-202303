@@ -3,9 +3,9 @@ const { extractUserId, handleErrors } = require('./helpers')
 
 module.exports = handleErrors((req, res) => {
   const userId = extractUserId(req)
-  const { suggestionId } = req.params
+  const { postId, suggestionId } = req.params
 
-  const promise = deleteSuggestion(userId, suggestionId)
+  const promise = deleteSuggestion(userId, postId, suggestionId)
 
   return (async () => {
     await promise

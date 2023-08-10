@@ -7,6 +7,7 @@ const { mongoose: { Types: { ObjectId } } } = require('mongoose')
 
 module.exports = (userId, postId) => {
   validateId(userId, "user id")
+  validateId(postId, 'post id')
 
   return (async () => {
     const user = await User.findById(userId)
@@ -15,7 +16,7 @@ module.exports = (userId, postId) => {
     const post = await Post.findById(postId)
     if(!post) throw new ExistenceError('Post not found.')
 
-    const suggestions = await Suggestion.find({ post: new ObjectId(postId)}).lean()
+    const suggestions = await Suggestion.find({ post: new ObjectId(postId)}).populate('author', 'name').lean()
 
     suggestions.forEach(suggestion => {
       delete suggestion.post

@@ -1,19 +1,19 @@
 import { validators, errors } from 'com'
 import context from './context'
-const { validateId, validateUrl, validateText } = validators
+const { validateId, validateText } = validators
 
 /**
  * Updates the post with new data.
  * 
  * @param {string} postId The post id.
- * @param {URL} imageUrl the url of the image.
- * @param {string} postText The text of the post.
+ * @param {string} title the title of the post.
+ * @param {string} content The content (summary) of the post.
  */
 
-export default function updatePost(postId, imageUrl, postText) {
+export default function updatePost(postId, title, content) {
   validateId(postId, 'post id')
-  validateUrl(imageUrl)
-  validateText(postText)
+  validateText(title, 'post title')
+  validateText(content, 'post title')
 
   return (async () => {
     const res = await fetch(`${import.meta.env.VITE_API_URL}/users/posts/${postId}/updatePost`, {
@@ -22,7 +22,7 @@ export default function updatePost(postId, imageUrl, postText) {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${context.token}`
       },
-      body: JSON.stringify({ imageUrl, postText })
+      body: JSON.stringify({ title, content })
     })
 
     if(res.status === 200)

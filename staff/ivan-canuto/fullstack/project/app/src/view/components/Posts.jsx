@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { retrievePosts, retrieveSavedPosts, retrieveUserPosts, getUserId } from "../../logic";
 import { useAppContext, useHandleErrors } from "../hooks"
 
-export default function Posts({ lastPostsUpdate, view, handleOpenEditPost, handleOpenDeletePost, handleToggleVisibility, openPostModal }) {
+export default function Posts({ lastPostsUpdate, view, handleOpenEditPost, handleOpenDeletePost, handleToggleVisibility, handleTogglePostModal }) {
   const { alert } = useAppContext()
   const handleErrors = useHandleErrors()
 
@@ -13,8 +13,6 @@ export default function Posts({ lastPostsUpdate, view, handleOpenEditPost, handl
 
   const handleRefreshPosts = () => {
     try {
-      // freeze()
-
       if(view === 'posts') {
         handleErrors(async () => {
           console.debug('Postsss -> render')
@@ -69,7 +67,6 @@ export default function Posts({ lastPostsUpdate, view, handleOpenEditPost, handl
       console.log('Post -> last render');
       handleRefreshPosts()
     }
-      
   }, [lastPostsUpdate])
 
   return <section className="pb-12 flex flex-col items-center gap-6 absolute top-40 left-0 w-full">
@@ -80,7 +77,7 @@ export default function Posts({ lastPostsUpdate, view, handleOpenEditPost, handl
       handleOpenEditPost={handleOpenEditPost}
       handleOpenDeletePost={handleOpenDeletePost}
       handleToggleVisibility={handleToggleVisibility}
-      openPostModal={openPostModal}
+      handleTogglePostModal={handleTogglePostModal}
     />)}
   </section>
 }
