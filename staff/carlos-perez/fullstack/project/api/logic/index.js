@@ -7,5 +7,6 @@ module.exports = {
   createUpdate: require('./update/createUpdate'),
   modifyUpdate: require('./update/modifyUpdate'),
   deleteUpdate: require('./update/deleteUpdate'),
-  toggleUpdateVisibility: require('./update/toggleUpdateVisibility')
+  toggleUpdateVisibility: require('./update/toggleUpdateVisibility'),
+  createEvent: require('./event/createEvent')
 }
