@@ -2,13 +2,19 @@ const jwt = require('jsonwebtoken')
 
 function extractUserId(req) {
     const { authorization } = req.headers
-    const token = authorization.slice(7)
 
-    const payload = jwt.verify(token, process.env.JWT_SECRET)
+    if (authorization !== undefined) {
+        const token = authorization.slice(7)
 
-    const { sub: userId } = payload
+        const payload = jwt.verify(token, process.env.JWT_SECRET)
 
-    return userId
+        const { sub: userId } = payload
+
+        return userId
+    }
+    else{
+        return undefined
+    }
 }
 
 module.exports = extractUserId
