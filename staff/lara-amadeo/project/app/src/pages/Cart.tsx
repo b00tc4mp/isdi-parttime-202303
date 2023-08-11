@@ -80,6 +80,7 @@ type PendingToPickUp = {
     serial: string
     date: string
     status: string
+    total: number
     items: Item[]
 }
 
@@ -114,7 +115,8 @@ export default function Cart() {
                 setMeals(meals)
                 calculateTotal(meals)
 
-                const pendingMeals = await retrievePendingToPickUp()
+                const _pendingMeals = await retrievePendingToPickUp()
+                const pendingMeals = calculatePendingOrderTotal(_pendingMeals).toReversed()
                 setPendingMeals(pendingMeals)
 
             } catch (error: any) {
@@ -220,6 +222,30 @@ export default function Cart() {
         }, 800)
     }
 
+    const calculatePendingOrderTotal = (pendingMeals: any) => {
+        for (let obj of pendingMeals) {
+            let total = 0
+
+            for (let item of obj.items) {
+                let itemTotal = 0
+
+                for (let meal of item.meals) {
+                    const price = parseFloat(meal.meal.price)
+                    const quantity = meal.quantity
+
+                    itemTotal += price * quantity
+                }
+
+                item.total = itemTotal
+                total += itemTotal
+            }
+
+            obj.total = total
+
+        }
+        return pendingMeals
+    }
+
     return <>
         {paymentModal && !paymentDone && <Payment onPaymentClose={() => setPaymentModal(false)} onPayClick={handlePayFromModal} />}
         {!paymentModal && !paymentDone && <>
@@ -279,13 +305,15 @@ export default function Cart() {
                                 <EmptyState src='/illustrations/beach-girl.gif' title='No orders in process!' description='Start paying some meals!!!' />
                             </div>
                         </>}
-                        {pendingMeals && <div className='cart-items-list'>
+                        {pendingMeals && <div className='pending-cart-items-list'>
                             {pendingMeals.map((obj: PendingToPickUp) => {
                                 let _serial = obj.serial
                                 let _date = formatDate(new Date(obj.date))
                                 let _status = obj.status
+                                let _total = obj.total
                                 return obj.items.map((item: Item) => {
                                     let _quantity: number = 0
+
                                     for (const meal of item.meals) {
                                         _quantity += meal.quantity
                                     }
@@ -295,7 +323,7 @@ export default function Cart() {
                                         chefName={item.author.name}
                                         chip={{ label: _status, status: _status === 'pending' ? 'warning' : 'success' }}
                                         quantity={_quantity}
-                                        total={22}
+                                        total={_total}
                                         serial={_serial}
                                         date={_date} />
                                 })
