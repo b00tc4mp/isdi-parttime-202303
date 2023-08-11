@@ -22,12 +22,16 @@ module.exports = function payMealsinCart(userId) {
         for (const cartItem of user.cart) {
             const meal = await Meal.findById(cartItem.meal)
 
+            meal.quantity = meal.quantity - cartItem.quantity
+
             if (mealsMap.has(meal.author)) {
                 mealsMap.get(meal.author).push({ meal: meal._id, quantity: cartItem.quantity, author: meal.author, buyer: buyerUserId, serial })
             } else {
                 mealsMap.set(meal.author, [{ meal: meal._id, quantity: cartItem.quantity, author: meal.author, buyer: buyerUserId, serial }]
                 )
             }
+
+            await meal.save()
         }
 
         const mealsInProcess = Array.from(mealsMap.values())
