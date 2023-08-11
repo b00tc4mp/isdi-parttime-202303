@@ -5,7 +5,7 @@ const { cors, jsonBodyParser } = require('./utils')
 const { helloApiHandler, authenticateAdminHandler, registerAdminHandler, updateAdminEmailHandler, updateAdminPasswordHandler, deleteAdminHandler, 
   createUpdateHandler, modifyUpdateHandler, deleteUpdateHandler, toggleUpdateVisibilityHandler, seeUpdateHandler,
 createEventHandler, modifyEventHandler, deleteEventHandler, toggleEventVisibilityHandler, seeEventHandler,
-createLyricPostHandler, modifyLyricPostHandler, deleteLyricPostHandler, toggleLyricPostVisibilityHandler,
+createLyricPostHandler, modifyLyricPostHandler, deleteLyricPostHandler, toggleLyricPostVisibilityHandler, seeLyricPostHandler,
 createMessageHandler, readMessageHandler, deleteMessageHandler, toggleMessageReadHandler} = require('./handlers')
 
 const mongoose = require('mongoose')
@@ -55,6 +55,8 @@ mongoose.connect(process.env.MONGODB_URL)
     api.delete('/lyricPosts/:lyricPostId', deleteLyricPostHandler)
 
     api.patch('/lyricPosts/:lyricPostId/visibility', toggleLyricPostVisibilityHandler)
+
+    api.get('/lyricPosts/:lyricPostId', seeLyricPostHandler)
 
     api.post('/messages', jsonBodyParser, createMessageHandler)
 

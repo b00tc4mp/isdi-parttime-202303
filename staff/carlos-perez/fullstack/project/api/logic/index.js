@@ -21,5 +21,6 @@ module.exports = {
   deleteMessage: require('./message/deleteMessage'),
   toggleMessageRead: require('./message/toggleMessageRead'),
   seeUpdate: require('./update/seeUpdate'),
-  seeEvent: require('./event/seeEvent')
+  seeEvent: require('./event/seeEvent'),
+  seeLyricPost: require('./lyricPost/seeLyricPost')
 }
