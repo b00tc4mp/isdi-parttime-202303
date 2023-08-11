@@ -12,7 +12,7 @@ module.exports = function addMealToCart(userId, mealId, quantity) {
         if (!meal) throw new ExistanceError(`Meal with id ${mealId} not found`)
 
         const existingItem = user.cart.find(item => item.meal.toString() === mealId)
-
+        debugger
         if (existingItem) {
             if (quantity === undefined) {
                 existingItem.quantity += existingItem.quantity + 1

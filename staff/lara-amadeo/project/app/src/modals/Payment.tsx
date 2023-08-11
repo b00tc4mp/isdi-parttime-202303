@@ -16,7 +16,7 @@ import useAppContext from '../logic/hooks/useAppContext'
 
 type Props = {
     onPaymentClose: () => void,
-    onPaymentSummaryClose: () => void
+    onPayClick: () => void
 }
 
 type Author = {
@@ -39,7 +39,7 @@ type Order = {
     meals: Meal[]
 }
 
-export default function Payment({ onPaymentClose, onPaymentSummaryClose }: Props) {
+export default function Payment({ onPaymentClose, onPayClick }: Props) {
     const [paymentMethod, setPaymentMethod] = useState("")
     const { loaderOn, loaderOff } = useAppContext()
     const handleErrors = useHandleError()
@@ -66,7 +66,7 @@ export default function Payment({ onPaymentClose, onPaymentSummaryClose }: Props
                 await payMealsInCart()
                 setTimeout(() => {
                     loaderOff()
-                    setPaymentDone(true)
+                    onPayClick()
                 }, 1000)
             } catch (error: any) {
                 loaderOff()
@@ -91,7 +91,7 @@ export default function Payment({ onPaymentClose, onPaymentSummaryClose }: Props
     }
 
     return <>
-        {paymentDone ? <PaymentSummary onClose={onPaymentSummaryClose} /> : <>
+        {!paymentDone && <>
             <ModalFullScreen onClose={onPaymentClose} topBarLabel="Payment">
                 <div className="page-button-bar">
                     <Header text={'Payment summary'} />

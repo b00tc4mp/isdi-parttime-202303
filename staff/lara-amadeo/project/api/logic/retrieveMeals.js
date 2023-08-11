@@ -20,7 +20,9 @@ module.exports = async function retrieveMeals(userId) {
         }
     })
 
-    return meals
+    const filteredMeals = meals.filter(meal => meal.author.id !== userId)
+
+    return filteredMeals
 }
 
 /*    return User.findById(userId)

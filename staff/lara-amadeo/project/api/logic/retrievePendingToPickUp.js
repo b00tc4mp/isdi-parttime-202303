@@ -7,8 +7,8 @@ module.exports = async function retrievePendingToPickUp(userId) {
 
     if (!user) throw new ExistanceError(`User with id ${userId} not found`)
 
-    const pendingOrders = user.order.filter(order => order.status === 'pending')
-    const formattedOrders = pendingOrders.map(order => {
+    //const pendingOrders = user.order.filter(order => order.status === 'pending')
+    const formattedOrders = user.order.map(order => {
         const itemsByAuthor = {}
         debugger
         order.items.forEach(item => {
@@ -30,6 +30,7 @@ module.exports = async function retrievePendingToPickUp(userId) {
         return {
             serial: order.serial,
             date: order.date,
+            status: order.status,
             items: Object.values(itemsByAuthor),
         }
     })

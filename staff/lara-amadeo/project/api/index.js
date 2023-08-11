@@ -3,7 +3,7 @@ require('dotenv').config()
 const cors = require('cors')
 const bodyParser = require('body-parser')
 const express = require('express')
-const { helloAPIHandler, registerUserHandler, authenticateUserHandler, registerAdditionalInfoHandler, createMealHandler, retrieveMealsHandler, retrieveUserHandler, retrieveMealHandler, retrieveOwnMealsHandler, updateMealHandler, deleteMealHandler, addMealToCartHandler, retrieveCartMealsHandler, payMealsInCartHandler, removeMealFromCartHandler, retrievePendingToPickUpHandler, incrementMealsInCartHandler, retrievePendingToDeliverHandler } = require('./handlers')
+const { helloAPIHandler, registerUserHandler, authenticateUserHandler, registerAdditionalInfoHandler, createMealHandler, retrieveMealsHandler, retrieveUserHandler, retrieveMealHandler, retrieveOwnMealsHandler, updateMealHandler, deleteMealHandler, addMealToCartHandler, retrieveCartMealsHandler, payMealsInCartHandler, removeMealFromCartHandler, retrievePendingToPickUpHandler, incrementMealsInCartHandler, retrievePendingToDeliverHandler, markAsReadyHandler } = require('./handlers')
 
 const mongoose = require('mongoose')
 
@@ -68,6 +68,10 @@ mongoose.connect(process.env.MONGODB_URL)
 
         //pay meals in cart
         api.post('/meals/pay', payMealsInCartHandler)
+
+
+        //mark meal as ready
+        api.post('/meals/ready', jsonBodyParser, markAsReadyHandler)
 
         //increment meal in cart
         api.post('/meals/cart/increment/:mealId', jsonBodyParser, incrementMealsInCartHandler)

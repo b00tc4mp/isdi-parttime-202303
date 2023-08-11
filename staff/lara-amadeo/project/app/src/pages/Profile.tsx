@@ -36,12 +36,12 @@ type Meal = {
 }
 
 
-interface MealOrder {
+type MealOrder = {
     meal: Meal[];
     quantity: number;
 }
 
-interface Order {
+type Order = {
     serial: string;
     meals: MealOrder[];
     buyer: User;
@@ -53,7 +53,7 @@ export default function Profile(): JSX.Element {
     const { loaderOn, loaderOff, navigate } = useAppContext()
     const handleErrors = useHandleError()
 
-    const [meals, setMeals] = useState<Array<Meal>>([])
+    const [meals, setMeals] = useState<Array<Meal> | null>(null)
     const [user, setUser] = useState<User>()
 
     const [tabView, setTabView] = useState('myProducts')

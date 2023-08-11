@@ -13,14 +13,15 @@ export default function payMealsInCart() {
             body: JSON.stringify({ nth })
         })
 
-        if (res.status === 204) return
+        if (res.status === 201) return
 
         //@ts-ignore
         const { message, type } = await res.json()
-        //@ts-ignore
-        const clazz = errors[type]
+        throw message
+        // //@ts-ignore
+        // const clazz = errors[type]
 
-        //@ts-ignore
-        throw new clazz(message)
+        // //@ts-ignore
+        // throw new clazz(message)
     })()
 }
