@@ -55,7 +55,7 @@ const SearchArtist = () => {
                             <img className='w-full object-cover aspect-square grayscale rounded-lg' src={SearchArtist.image} alt={SearchArtist.name} />
                         </div>
                     )}
-                    <h2>Artist Name: {SearchArtist.name}</h2>
+                    <h2 className=' font-light text-5xl '>{SearchArtist.name}</h2>
                     {/* <h3>From: {SearchArtist.from}</h3> */}
 
                     {SearchArtist.bio && (
@@ -64,30 +64,33 @@ const SearchArtist = () => {
                             <p>{SearchArtist.bio}</p>
                         </div>
                     )}
-                    {SearchArtist.urls && (
+                    <div className="flex gap-6">
                         <div>
-                            <h3>{SearchArtist.name}'s links:</h3>
+                            <h2>Albums:</h2>
                             <ul>
-                                {SearchArtist.urls.map((url, index) => {
-                                    const urlObject = new URL(url)
-                                    const siteName = urlObject.hostname.replace('www.', '')
-                                    return (
-                                        <li key={index}>
-                                            <a href={url} target="_blank">{siteName}</a>
-                                        </li>
-                                    );
-                                })}
+                                {SearchArtist.albums.slice(0, 5).map((album, index) => (
+                                    <li key={index}> {album}</li>
+                                ))}
+                                {SearchArtist.albums.length > 5 && <li><a href={SearchArtist.discogsUrl} target="_blank">more ...</a></li>}
                             </ul>
                         </div>
-                    )}
-                    <div>
-                        <h2>Albums:</h2>
-                        <ul>
-                            {SearchArtist.albums.slice(0, 5).map((album, index) => (
-                                <li key={index}> {album}</li>
-                            ))}
-                            {SearchArtist.albums.length > 5 && <li><a href={SearchArtist.discogsUrl} target="_blank">...</a></li>}
-                        </ul>
+
+                        {SearchArtist.urls && (
+                            <div>
+                                <h3>{SearchArtist.name}'s links:</h3>
+                                <ul>
+                                    {SearchArtist.urls.map((url, index) => {
+                                        const urlObject = new URL(url)
+                                        const siteName = urlObject.hostname.replace('www.', '')
+                                        return (
+                                            <li key={index}>
+                                                <a href={url} target="_blank">{siteName}</a>
+                                            </li>
+                                        );
+                                    })}
+                                </ul>
+                            </div>
+                        )}
                     </div>
 
                     <div className='pt-4 pr-2 flex justify-end' >
