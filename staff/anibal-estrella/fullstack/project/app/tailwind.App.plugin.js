@@ -2,8 +2,10 @@ const plugin = require('tailwindcss/plugin')
 
 export default plugin(({ addBase, addComponents, addUtilities, theme }) => {
     addBase({
-        'h2': {
-            fontSize: theme('fontSize.2xl')
+        'h1, h2, h3': {
+            fontSize: theme('fontSize.2xl'),
+            fontWeight: '700',
+            marginTop: '.5rem',
         },
         'p, li': {
             fontSize: theme('fontSize.lg'),

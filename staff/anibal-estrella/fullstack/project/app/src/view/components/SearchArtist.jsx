@@ -21,6 +21,7 @@ const SearchArtist = () => {
     //         setSearchArtist(null);
     //     }
     // };
+
     const handleRetrieveDetails = async () => {
         try {
             const details = await retrieveArtistDetailsFromDiscogs(artistName);
@@ -29,12 +30,12 @@ const SearchArtist = () => {
         } catch (error) {
             console.error('Error:', error);
             setSearchArtist(null);
-            setError(`${artistName} Artist not found`);
+            setError(`Artist "${artistName}" was not found`);
         }
     };
 
     return (
-        <div>
+        <div className='m-2'>
             <div className="flex flex-row w-full">
                 <div className='relative w-full'>
                     <input type="text" value={artistName} onChange={handleInputChange} placeholder="Enter artist name" className='pl-8' />
@@ -49,32 +50,49 @@ const SearchArtist = () => {
 
             {SearchArtist && !error && (
                 <div>
+                    {SearchArtist.image && (
+                        <div className=''>
+                            <img className='w-full object-cover aspect-square grayscale rounded-lg' src={SearchArtist.image} alt={SearchArtist.name} />
+                        </div>
+                    )}
                     <h2>Artist Name: {SearchArtist.name}</h2>
                     {/* <h3>From: {SearchArtist.from}</h3> */}
-                    <p>Artist Bio: {SearchArtist.bio}
-                    </p>
+
+                    {SearchArtist.bio && (
+                        <div>
+                            <h2>Artist Bio: </h2>
+                            <p>{SearchArtist.bio}</p>
+                        </div>
+                    )}
+                    {SearchArtist.urls && (
+                        <div>
+                            <h3>{SearchArtist.name}'s links:</h3>
+                            <ul>
+                                {SearchArtist.urls.map((url, index) => {
+                                    const urlObject = new URL(url)
+                                    const siteName = urlObject.hostname.replace('www.', '')
+                                    return (
+                                        <li key={index}>
+                                            <a href={url} target="_blank">{siteName}</a>
+                                        </li>
+                                    );
+                                })}
+                            </ul>
+                        </div>
+                    )}
                     <div>
-                        <h3>{SearchArtist.name}'s links:</h3>
+                        <h2>Albums:</h2>
                         <ul>
-                            {SearchArtist.urls.map((url, index) => {
-                                const urlObject = new URL(url)
-                                const siteName = urlObject.hostname.replace('www.', '')
-                                return (
-                                    <li key={index}>
-                                        <a href={url} target="_blank">{siteName}</a>
-                                    </li>
-                                );
-                            })}
+                            {SearchArtist.albums.slice(0, 5).map((album, index) => (
+                                <li key={index}> {album}</li>
+                            ))}
+                            {SearchArtist.albums.length > 5 && <li><a href={SearchArtist.discogsUrl} target="_blank">...</a></li>}
                         </ul>
                     </div>
-                    <ul>Albums:
-                        {SearchArtist.albums.map((album, index) => (
-                            <li key={index}> {album}</li>
-                        ))}
-                    </ul>
-                    {SearchArtist.image && (
-                        <img src={SearchArtist.image} alt={SearchArtist.name} />
-                    )}
+
+                    <div className='pt-4 pr-2 flex justify-end' >
+                        <a className='' href={SearchArtist.discogsUrl} target="_blank">Find more {SearchArtist.name}'s Info at Discogs.com</a>
+                    </div>
                 </div>
             )}
         </div>

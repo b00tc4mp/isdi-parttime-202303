@@ -1,14 +1,14 @@
-const API_KEY = 'FfbiMYCJoGtVeHyIkcTf';
-const API_SECRET_KEY = 'irOkQkOpripNUDKROryTfnHWkvFmTcTc';
-
-const BASE_URL = 'https://api.discogs.com';
+const BASE_URL = import.meta.env.VITE_BASE_URL
+const DISCOGS_API_KEY = import.meta.env.VITE_DISCOGS_API_KEY
+const DISCOGS_API_SECRET_KEY = import.meta.env.VITE_DISCOGS_API_SECRET_KEY
+import replaceIdsWithNamesInArtistBio from './helpers/replaceIdsWithNamesInArtistBio'
 
 async function retrieveArtistDetailsFromDiscogs(artistName) {
     const artistDetails = {};
     debugger
     try {
         // Get Artist ID
-        const artistResponse = await fetch(`${BASE_URL}/database/search?q=${encodeURIComponent(artistName)}&key=${API_KEY}&secret=${API_SECRET_KEY}&type=artist&sort=popularity`);
+        const artistResponse = await fetch(`${BASE_URL}/database/search?q=${encodeURIComponent(artistName)}&key=${DISCOGS_API_KEY}&secret=${DISCOGS_API_SECRET_KEY}&type=artist&sort=popularity`);
         const artistData = await artistResponse.json();
 
         if (artistData.results.length > 0) {
@@ -16,23 +16,28 @@ async function retrieveArtistDetailsFromDiscogs(artistName) {
             const artistId = artist.id;
 
             // Get Artist Profile
-            const artistProfileResponse = await fetch(`${BASE_URL}/artists/${artistId}?key=${API_KEY}&secret=${API_SECRET_KEY}`);
+            const artistProfileResponse = await fetch(`${BASE_URL}/artists/${artistId}?key=${DISCOGS_API_KEY}&secret=${DISCOGS_API_SECRET_KEY}`);
             const artistProfileData = await artistProfileResponse.json();
 
             // Set Artist's Details
-            artistDetails.name = artistProfileData.name;
-            artistDetails.bio = artistProfileData.profile.replace(/\[.*?\]/g, '');
+            artistDetails.discogsId = artistId;
+            artistDetails.discogsUrl = `https://www.discogs.com/artist/${artistId}`;
+            artistDetails.name = artistProfileData.name.replace(/\s*\(\d+\)\s*/, '');
+            // artistDetails.bio = artistProfileData.profile.replace(/\[.*?\]/g, '');
+            artistDetails.bio = await replaceIdsWithNamesInArtistBio(artistProfileData.profile)
             artistDetails.image = artistProfileData.images.find(image => image.type === 'primary')?.resource_url || null
-            artistDetails.urls = artistProfileData.urls.filter(url =>
-                url.includes("facebook") ||
-                url.includes("instagram") ||
-                url.includes("wikipedia") ||
-                url.includes("youtube") ||
-                url === artistProfileData.urls[0]
-            );
+            if (artistProfileData.urls)
+                artistDetails.urls = artistProfileData.urls.filter(url =>
+                    url.includes("facebook") ||
+                    url.includes("instagram") ||
+                    url.includes("wikipedia") ||
+                    url.includes("youtube") ||
+                    url === artistProfileData.urls[0]
+                );
+
 
             // Get Artist's Releases
-            const releasesResponse = await fetch(`${BASE_URL}/artists/${artistId}/releases?key=${API_KEY}&secret=${API_SECRET_KEY}`);
+            const releasesResponse = await fetch(`${BASE_URL}/artists/${artistId}/releases?key=${DISCOGS_API_KEY}&secret=${DISCOGS_API_SECRET_KEY}`);
             const releasesData = await releasesResponse.json();
             const uniqueReleaseNames = new Set();
             const uniqueReleases = releasesData.releases.filter(release => {
@@ -42,7 +47,7 @@ async function retrieveArtistDetailsFromDiscogs(artistName) {
                 }
                 return false;
             });
-            const releases = uniqueReleases.slice(0, 5)
+            const releases = uniqueReleases
 
             // Set First 5 Albums
             artistDetails.albums = releases.map(release => release.title);
@@ -58,6 +63,5 @@ async function retrieveArtistDetailsFromDiscogs(artistName) {
         console.error('Error fetching artist info:', error);
         throw new Error(`'Error fetching artist info:', error`);
     }
-
 }
 export default retrieveArtistDetailsFromDiscogs;
