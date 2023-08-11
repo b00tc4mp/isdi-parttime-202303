@@ -20,5 +20,6 @@ module.exports = {
   readMessage: require('./message/readMessage'),
   deleteMessage: require('./message/deleteMessage'),
   toggleMessageRead: require('./message/toggleMessageRead'),
-  seeUpdate: require('./update/seeUpdate')
+  seeUpdate: require('./update/seeUpdate'),
+  seeEvent: require('./event/seeEvent')
 }

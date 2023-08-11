@@ -21,5 +21,6 @@ module.exports = {
     readMessageHandler: require('./message/readMessageHandler'),
     deleteMessageHandler: require('./message/deleteMessageHandler'),
     toggleMessageReadHandler: require('./message/toggleMessageReadHandler'),
-    seeUpdateHandler: require('./update/seeUpdateHandler')
+    seeUpdateHandler: require('./update/seeUpdateHandler'),
+    seeEventHandler: require('./event/seeEventHandler')
   }
