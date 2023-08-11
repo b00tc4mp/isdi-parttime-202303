@@ -7,18 +7,19 @@ import Context from '../AppContext.js'
 import * as Animatable from 'react-native-animatable';
 import BottomSheet from '@gorhom/bottom-sheet';
 
-import Sidebar from '../components/Sidebar.jsx';
-import Header from '../components/Header.jsx';
+import Sidebar from '../components/Header/Sidebar.jsx';
+import Header from '../components/Header/Header.jsx';
 import Footer from '../components/Footer.jsx';
 import BaseMap from '../components/Playgrounds/BaseMap';
 import Nearby from '../components/Playgrounds/Nearby.jsx';
 import SinglePlayground from '../components/Playgrounds/SinglePlayground.jsx';
 import CreatePlayground from '../components/Playgrounds/addPlayground/AddPlayground.jsx';
 
-export default function Home({ }) {
+export default function Home({ onSendViewPlaygroundsFromCity }) {
     const { modal, setModal, colorScheme, colorPalette, animation, setAnimation, currentView, setCurrentView } = useContext(Context)
     const [currentMarker, setCurrentMarker] = useState({})
     const [newPlaygroundStatus, setNewPlaygroundStatus] = useState(false)
+    const [searchResult, setSearchResult] = useState(false)
 
     const bottomSheetRef = useRef();
     const snapPoints = useMemo(() => ['75%', '94%'], []);
@@ -100,11 +101,16 @@ export default function Home({ }) {
             },
         ]);
 
+    const handleViewPlaygroundsFromCity = (results) => {
+        // console.log('the result on HOME', results)
+        setSearchResult(results)
+    }
+
     return <>
         <View className="flex-1 bg-white items-center justify-center">
             {modal === 'sidebar' && <Sidebar closeHandle={onCloseSidebar} />}
-            <BaseMap className="-z-20" onMarkerPressed={markerPressedHandler} />
-            <Header handleCloseModals={onCloseModal} />
+            <BaseMap className="-z-20" onMarkerPressed={markerPressedHandler} searchResult={searchResult} />
+            <Header handleCloseModals={onCloseModal} onHandleViewPlaygroundsFromCity={handleViewPlaygroundsFromCity} />
             <Footer nearbyHandler={onNearby} createPlaygroundHandler={onCreatePlayground} homeHandler={onHome} />
             {modal === 'singlePlayground' && <BottomSheet
                 // style={{ backgroundColor: "transparent" }}

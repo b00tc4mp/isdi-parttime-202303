@@ -1,4 +1,4 @@
-const { User, Playground } = require('../../data/models')
+const { User, Playground } = require('../../../data/models')
 
 const {
     validators: { validateUserId },
@@ -25,13 +25,13 @@ module.exports = (userId, city) => {
                 { 'visibility': 'public' },
                 { 'location.city': { $regex: city, $options: "i" } }
             ]
-        }, '-_id -likes -images -__v -author -description -name   -location._id -location.street -location.type -elements -sunExposition -dateCreated -lastModify -visibility').distinct('location.city').lean(),
-        // }, '').distinct('location.city').lean(),
+            // }).distinct('location.city').lean(),
+        }).distinct('location.city').lean(),
+        // }, '-_id -likes -images -__v -author -description -name   -location._id -location.street -location.type -elements -sunExposition -dateCreated -lastModify -visibility').lean(),
     ])
         .then(([user, cities]) => {
 
             if (!user) new ExistenceError(`User with id ${userId} not found`)
-
             return cities
         })
 }

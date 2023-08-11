@@ -5,7 +5,7 @@ import { API_URL } from '@env'
 export default (token, searchQuery) => {
     // validateToken(token);
     // alert(API_URL)
-    return fetch(`${API_URL}/cities/${searchQuery}`, {
+    return fetch(`${API_URL}/city/${searchQuery}`, {
         method: 'GET',
         headers: {
             'Authorization': `Bearer ${token}`

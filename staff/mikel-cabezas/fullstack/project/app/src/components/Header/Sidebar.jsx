@@ -1,15 +1,15 @@
 import React, { useEffect, useState, useContext } from "react";
 import { Text, View, Image, SafeAreaView, ScrollView, TouchableHighlight } from 'react-native';
-import { MENU, MY_LOCATION, CLOSE, LIKES, ISSUES, ACCOUNT, LOGOUT, SHARE, FEEDBACK, FUTURE_VERSIONS } from '../../assets/icons';
+import { MENU, MY_LOCATION, CLOSE, LIKES, ISSUES, ACCOUNT, LOGOUT, SHARE, FEEDBACK, FUTURE_VERSIONS } from '../../../assets/icons';
 import { NativeWindStyleSheet } from "nativewind";
-import Context from '../AppContext.js'
+import Context from '../../AppContext.js'
 import * as Animatable from 'react-native-animatable';
 
 NativeWindStyleSheet.setOutput({
     default: "native",
 });
 
-export default function Sidebar({ closeHandle }) {
+export function Sidebar({ closeHandle }) {
     const { currentView, setCurrentView } = useContext(Context)
     const [animation, setAnimation] = useState()
 

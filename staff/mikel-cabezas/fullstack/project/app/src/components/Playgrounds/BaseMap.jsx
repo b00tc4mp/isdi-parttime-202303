@@ -9,6 +9,8 @@ import Playgrounds from './Playgrounds';
 import AppContext from "../../AppContext.js";
 const { Provider } = AppContext
 import Context from '../../AppContext'
+import retrievePlaygrounds from "../../logic/playgrounds/retrievePlaygrounds"
+import retrieveUser from "../../logic/retrieveUser"
 
 
 
@@ -19,16 +21,37 @@ NativeWindStyleSheet.setOutput({
     default: "native",
 });
 
-export default function BaseMap({ onMarkerPressed, id, title, description }) {
+export default function BaseMap({ onMarkerPressed, searchResult }) {
     const mapRef = useRef(null);
     const { colorScheme, currentMarker, setCurrentMarker, origin, setOrigin, location, setLocation, loadCurrentLocation, setLoadCurrentLocation } = useContext(Context)
+    const [playgrounds, setPlaygrounds] = useState()
+    const userId = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDk0ODAwM2JmMTJmMTNmNmIxY2I4NTIiLCJpYXQiOjE2OTA5MjcxMjAsImV4cCI6MTc3NzI0MDcyMH0._fnTXb6GDqSip-kJiF_cao2b4WwVqraR_cpqsrco76k"
 
+    const [user, setUser] = useState()
     let isDark
     if (colorScheme === 'dark') isDark = true
 
     const onMarkerPressedHandler = (id, title, description) => {
         onMarkerPressed()
 
+    }
+
+    useEffect(() => {
+        if (searchResult) {
+            setPlaygrounds(searchResult[1])
+            const onCurrentMarkerRegion = {
+                latitude: searchResult[0][0],
+                longitude: searchResult[0][1],
+                latitudeDelta: 0.05,
+                longitudeDelta: 0.05,
+            }
+            mapRef.current.animateToRegion(onCurrentMarkerRegion, 1 * 1000);
+        }
+
+    }, [searchResult]);
+
+    const onSendViewPlaygroundsFromCity = data => {
+        console.log('data on FINAL!!!!', data)
     }
 
     const onCurrentLocation = () => {
@@ -41,6 +64,7 @@ export default function BaseMap({ onMarkerPressed, id, title, description }) {
         mapRef.current.animateToRegion(onCurrentMarkerRegion, 1 * 1000);
     }
 
+
     useEffect(() => {
         if (loadCurrentLocation) {
             const onCurrentMarkerRegion = {
@@ -52,6 +76,28 @@ export default function BaseMap({ onMarkerPressed, id, title, description }) {
             mapRef.current.animateToRegion(onCurrentMarkerRegion, 1 * 1000);
         }
     }, [loadCurrentLocation])
+
+    useEffect(() => {
+        console.log('Refresh Posts -> render in useEffect')
+        try {
+            console.log('   Show all Posts -> render in useEffect onLoad compo')
+            retrievePlaygrounds(userId)
+                .then(playgrounds => {
+                    setPlaygrounds(playgrounds)
+                })
+                .catch(error => {
+                    alert(error.message)
+                })
+            retrieveUser(userId)
+                .then(user => setUser(user))
+                .catch(error => {
+                    alert(error.message)
+                })
+        } catch (error) {
+            alert(error.message)
+        }
+    }, [])
+
 
     useEffect(() => {
         console.log('currentMarker', currentMarker)
@@ -94,7 +140,7 @@ export default function BaseMap({ onMarkerPressed, id, title, description }) {
                 </Callout>
             </Marker>
 
-            <Playgrounds onMarkerPressedHandler={onMarkerPressedHandler} />
+            <Playgrounds user={user} playgrounds={playgrounds} onMarkerPressedHandler={onMarkerPressedHandler} />
 
         </MapView>
 

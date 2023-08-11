@@ -2,10 +2,10 @@
 // const { validateToken } = validators
 import { API_URL } from '@env'
 
-export default (token, searchQuery) => {
+export default (token, city) => {
     // validateToken(token);
     // alert(API_URL)
-    return fetch(`${API_URL}/cities/${searchQuery}`, {
+    return fetch(`${API_URL}/playgrounds/${city}`, {
         method: 'GET',
         headers: {
             'Authorization': `Bearer ${token}`
