@@ -66,7 +66,7 @@ export default function Nearby({ closeHandle }) {
                             onPress={() => { handleShady() }}>
                             <View className="font-bold px-3 py-2 rounded-full flex-row">
                                 <Image className="w-5 h-5 mr-2" source={SUNNY} />
-                                <Text className="font-bold text-center text-sm rounded-full">Sunny</Text>
+                                <Text className="font-bold text-center text-sm rounded-full">{ }</Text>
                             </View>
                         </View>
                         <View
@@ -78,8 +78,8 @@ export default function Nearby({ closeHandle }) {
                             </View>
                         </View>
                     </View>
-                    {playground.elements.length !== 0 ? playgroundElements.map((element, index) => {
-                        return <SingleElement element={element} index={index} handleEditElement={handleEditElement} />
+                    {playground.elements.length !== 0 ? playground.elements.map((element, index) => {
+                        return <SingleElement element={element} key={index} />
                     }) :
                         <View className="flex-row flex-wrap gap-3 mb-4">
                             <Text className="dark:text-white text-lg mt-3 font-semibold w-full">Elements</Text>

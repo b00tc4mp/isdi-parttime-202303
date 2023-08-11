@@ -1,7 +1,7 @@
-const mapkitAccessToken = require('../../logic/helpers/mapkitAccessToken')
+const mapkitAccessToken = require('../../../logic/helpers/mapkitAccessToken')
 
-const { retrievePlaygroundsCity } = require('../../logic/playgrounds')
-const { extractUserId, handleErrors } = require('../helpers')
+const { retrieveCityFromSearch } = require('../../../logic/playgrounds')
+const { extractUserId, handleErrors } = require('../../helpers')
 
 module.exports = handleErrors((req, res) => {
     const userId = extractUserId(req)
@@ -9,7 +9,7 @@ module.exports = handleErrors((req, res) => {
 
     return mapkitAccessToken()
         .then(accessToken => {
-            return retrievePlaygroundsCity(accessToken, userId, city)
+            return retrieveCityFromSearch(accessToken, userId, city)
                 .then(posts => res.status(200).send(posts))
                 .catch(error => error.message)
         })

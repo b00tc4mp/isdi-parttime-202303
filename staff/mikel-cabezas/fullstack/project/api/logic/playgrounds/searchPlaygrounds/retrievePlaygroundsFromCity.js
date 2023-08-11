@@ -1,5 +1,5 @@
 
-const { User, Playground } = require('../../data/models')
+const { User, Playground } = require('../../../data/models')
 
 const {
     validators: { validateUserId },
@@ -26,7 +26,7 @@ module.exports = (token, userId, city) => {
     // let mapsResponse
     debugger
 
-    return fetch(`https://maps-api.apple.com/v1/geocode?q=vilanova&lang=es-ES`, {
+    return fetch(`https://maps-api.apple.com/v1/geocode?q=${city}&lang=es-ES`, {
         method: 'GET',
         headers: {
             'Authorization': `Bearer ${token.accessToken}`,
@@ -41,7 +41,7 @@ module.exports = (token, userId, city) => {
             try {
                 const latitude = mapsResponse.results[0].coordinate.latitude
                 const longitude = mapsResponse.results[0].coordinate.longitude
-
+                const coordinates = [latitude, longitude]
                 return Playground.find(
                     {
                         location:
@@ -49,12 +49,12 @@ module.exports = (token, userId, city) => {
                             $near:
                             {
                                 $geometry: { type: "Point", coordinates: [latitude, longitude] },
-
                                 $maxDistance: 10000
                             }
                         }
                     }
                 )
+                    .then(playgrounds => [coordinates, playgrounds])
 
             } catch (error) {
                 console.log(error.message)

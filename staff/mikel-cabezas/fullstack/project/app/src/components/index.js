@@ -1,10 +1,5 @@
-export const Footer = require('./Footer');
-export const Header = require('./Header');
-export const BaseMap = require('./BaseMap');
-export const CreatePlayground = require('./CreatePlayground');
-export const HideKeyboard = require('./HideKeyboard');
-export const Nearby = require('./Nearby');
-export const Playground = require('./Playground');
-export const Playgrounds = require('./Playgrounds');
-export const Sidebar = require('./Sidebar');
-export const SinglePlayground = require('./SinglePlayground');
+import { default as Footer } from './Footer'
+
+export default {
+    Footer
+}
