@@ -5,7 +5,6 @@ import replaceIdsWithNamesInArtistBio from './helpers/replaceIdsWithNamesInArtis
 
 async function retrieveArtistDetailsFromDiscogs(artistName) {
     const artistDetails = {};
-    debugger
     try {
         // Get Artist ID
         const artistResponse = await fetch(`${BASE_URL}/database/search?q=${encodeURIComponent(artistName)}&key=${DISCOGS_API_KEY}&secret=${DISCOGS_API_SECRET_KEY}&type=artist&sort=popularity`);
@@ -24,6 +23,8 @@ async function retrieveArtistDetailsFromDiscogs(artistName) {
             artistDetails.discogsUrl = `https://www.discogs.com/artist/${artistId}`;
             artistDetails.name = artistProfileData.name.replace(/\s*\(\d+\)\s*/, '');
             // artistDetails.bio = artistProfileData.profile.replace(/\[.*?\]/g, '');
+            debugger
+
             artistDetails.bio = await replaceIdsWithNamesInArtistBio(artistProfileData.profile)
             artistDetails.image = artistProfileData.images.find(image => image.type === 'primary')?.resource_url || null
             if (artistProfileData.urls)

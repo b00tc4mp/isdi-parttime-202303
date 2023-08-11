@@ -60,13 +60,14 @@ const SearchArtist = () => {
 
                     {SearchArtist.bio && (
                         <div>
-                            <h2>Artist Bio: </h2>
-                            <p>{SearchArtist.bio}</p>
+                            <h2>Artist Bio </h2>
+
+                            <p dangerouslySetInnerHTML={{ __html: SearchArtist.bio }} />
                         </div>
                     )}
                     <div className="flex gap-6">
                         <div>
-                            <h2>Albums:</h2>
+                            <h2>Albums</h2>
                             <ul>
                                 {SearchArtist.albums.slice(0, 5).map((album, index) => (
                                     <li key={index}> {album}</li>
@@ -77,7 +78,7 @@ const SearchArtist = () => {
 
                         {SearchArtist.urls && (
                             <div>
-                                <h3>{SearchArtist.name}'s links:</h3>
+                                <h3>Links</h3>
                                 <ul>
                                     {SearchArtist.urls.map((url, index) => {
                                         const urlObject = new URL(url)

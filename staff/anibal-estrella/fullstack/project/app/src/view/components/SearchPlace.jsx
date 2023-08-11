@@ -52,7 +52,7 @@ const searchPlace = () => {
                 <div>
                     <ul>Result:</ul>
 
-                    <table>
+                    <table className=' w-full '>
                         <thead>
                             <tr>
                                 <th>name</th>

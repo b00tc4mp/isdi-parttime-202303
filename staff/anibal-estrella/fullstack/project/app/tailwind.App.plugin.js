@@ -4,8 +4,11 @@ export default plugin(({ addBase, addComponents, addUtilities, theme }) => {
     addBase({
         'h1, h2, h3': {
             fontSize: theme('fontSize.2xl'),
-            fontWeight: '700',
+            fontWeight: '600',
             marginTop: '.5rem',
+        },
+        'strong': {
+            fontWeight: '500',
         },
         'p, li': {
             fontSize: theme('fontSize.lg'),

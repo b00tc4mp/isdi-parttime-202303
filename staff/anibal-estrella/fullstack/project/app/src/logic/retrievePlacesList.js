@@ -1,29 +1,36 @@
 import { cleanWikipediaImageUrl } from './helpers/cleanWikipediaImageUrl';
+
 /**
  * 
  */
-const retrievePlaceDetails = async (placeName) => {
+const retrievePlacesList = async (placeName) => {
     try {
         // Fetch place details from MusicBrainz API
         const userAgent = 'LiveDive/0.0.1 ( zensirdes@gmail.com )'
-        const placeSearchUrl = `https://musicbrainz.org/ws/2/place/?query=${encodeURIComponent(placeName)}&fmt=json`
+        const placeSearchUrl = `https://musicbrainz.org/ws/2/place/?query=${encodeURIComponent(placeName)}&per_page=5&fmt=json`
         const placeResponse = await fetch(placeSearchUrl, {
             headers: {
                 'User-Agent': userAgent,
             },
         });
+        // const placeResponse = await fetch(placeSearchUrl)
         const placeData = await placeResponse.json();
 
         let placesList = []
         if (placeData.places.length > 0) {
             //create array of places
-            for (let i = 0; i < placeData.places.length; i++) {
+            for (let i = 0; i < 5; i++) {
                 const place = placeData.places[i]
                 const placeId = place.id
                 const placeUrl = `https://musicbrainz.org/ws/2/place/${placeId}?inc=url-rels&fmt=json`
-                const placeUrlResponse = await fetch(placeUrl)
+                const placeUrlResponse = await fetch(placeUrl, {
+                    headers: {
+                        'User-Agent': userAgent,
+                    },
+                });
                 const placeUrlData = await placeUrlResponse.json()
-                debugger
+
+
                 const placeSingle = {
                     placeId: placeUrlData.id,
                     name: placeUrlData.name,
@@ -45,5 +52,5 @@ const retrievePlaceDetails = async (placeName) => {
     }
 };
 
-export default retrievePlaceDetails;
+export default retrievePlacesList;
 
