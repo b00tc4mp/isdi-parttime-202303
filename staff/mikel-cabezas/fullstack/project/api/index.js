@@ -4,7 +4,7 @@ require('dotenv').config()
 const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
-const { registerUserHandler, retrieveUserHandler, authenticateUserHandler, updateUserImageHandler, updateUserNameHandler, updateUserEmailHandler, updateUserPasswordHandler, addPlaygroundHandler, retrieveCitiesFromDatabaseHandler, retrieveCityFromSearchHandler, retrievePlaygroundsFromCityHandler, editPostHandler, deletePostHandler, retrievePlaygroundsHandler, retrieveLikedPostsHandler, retrieveSavedPostsHandler, retrievePostByPostIdHandler, toggleLikePostHandler, toggleSavePostHandler } = require('./Handlers')
+const { registerUserHandler, retrieveUserHandler, authenticateUserHandler, updateUserImageHandler, updateUserNameHandler, updateUserEmailHandler, updateUserPasswordHandler, addPlaygroundHandler, retrieveCitiesFromDatabaseHandler, retrieveCityFromSearchHandler, retrievePlaygroundsFromCityHandler, editPostHandler, deletePostHandler, retrievePlaygroundsHandler, retrieveLikedPostsHandler, retrieveSavedPostsHandler, retrievePostByPostIdHandler, toggleLikePostHandler, toggleSavePostHandler } = require('./handlers')
 const ImageKit = require('imagekit');
 const mongoose = require('mongoose')
 
