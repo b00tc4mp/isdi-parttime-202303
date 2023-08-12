@@ -1,6 +1,6 @@
 require('dotenv').config();
 
-const registerUserHandler = require('./handlers/registerUserHandler');
+const { registerUserHandler, authenticateUserHandler } = require('./handlers');
 
 const mongoose = require('mongoose');
 const express = require('express');
@@ -20,6 +20,7 @@ mongoose
     api.get('/', (req, res) => res.send('Hello, Space Monkey.v1!'));
 
     api.post('/users', jsonBodyParser, registerUserHandler);
+    api.post('/users/auth', jsonBodyParser, authenticateUserHandler);
 
     api.listen(process.env.PORT, () =>
       console.log(`server running in port ${process.env.PORT}`)

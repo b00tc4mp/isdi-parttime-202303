@@ -2,100 +2,208 @@ require('dotenv').config();
 
 const { expect } = require('chai');
 const mongoose = require('mongoose');
+const { User } = require('../../data/models');
 
-const cleanUp = require('../helpers/cleanUp');
+const { cleanUp, populate, generate } = require('../helpers');
 
 describe('API routes', () => {
   before(() => mongoose.connect(process.env.MONGODB_URL));
 
   const baseURL = `http://localhost:${process.env.PORT}`;
 
-  beforeEach(() => cleanUp());
+  describe('Hello API', () => {
+    it('should return a successful response for GET /', async () => {
+      const res = await fetch(baseURL + '/');
+      const resBody = await res.text();
 
-  it('should return a successful response for Hello API GET /', async () => {
-    const res = await fetch(baseURL + '/');
-    const resBody = await res.text();
-
-    expect(res.status).to.equal(200);
-    expect(resBody).to.equal('Hello, Space Monkey.v1!');
+      expect(res.status).to.equal(200);
+      expect(resBody).to.equal('Hello, Space Monkey.v1!');
+    });
   });
 
-  it('should return a successful response for register user', async () => {
-    let userJSON = {
-      name: 'JohnDoe',
-      email: 'johnDoe@email.com',
-      password: 'Tes7@@@@',
-    };
+  describe('User Registration', () => {
+    beforeEach(() => cleanUp());
 
-    const res = await fetch(baseURL + '/users', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(userJSON),
+    it('should return a successful response for valid user registration', async () => {
+      let userJSON = {
+        name: 'JohnDoe',
+        email: 'johnDoe@email.com',
+        password: 'Tes7@@@@',
+      };
+
+      const res = await fetch(baseURL + '/users', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userJSON),
+      });
+
+      expect(res.status).to.equal(201);
     });
 
-    expect(res.status).to.equal(201);
+    it('should return an error response for empty or invalid name', async () => {
+      const emptyName = '';
+
+      let invalidUserJSON = {
+        name: emptyName,
+        email: 'johnDoe@email.com',
+        password: 'Tes7@@@@',
+      };
+
+      const res = await fetch(baseURL + '/users', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(invalidUserJSON),
+      });
+
+      expect(res.status).to.equal(406);
+    });
+
+    it('should return an error response for invalid email format', async () => {
+      const invalidEmail = 'invalid-email';
+
+      let invalidUserJSON = {
+        name: 'JohnDoe',
+        email: invalidEmail,
+        password: 'Tes7@@@@',
+      };
+
+      const res = await fetch(baseURL + '/users', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(invalidUserJSON),
+      });
+
+      expect(res.status).to.equal(406);
+    });
+
+    it('should return an error response for invalid password', async () => {
+      const invalidPassword = 'invalid-password';
+
+      let invalidUserJSON = {
+        name: 'JohnDoe',
+        email: 'johnDoe@email.com',
+        password: invalidPassword,
+      };
+
+      const res = await fetch(baseURL + '/users', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(invalidUserJSON),
+      });
+
+      expect(res.status).to.equal(406);
+    });
   });
 
-  it('should return an error response for empty or invalid name', async () => {
-    const emptyName = '';
+  describe('User Login', () => {
+    let user;
 
-    let invalidUserJSON = {
-      name: emptyName,
-      email: 'johnDoe@email.com',
-      password: 'Tes7@@@@',
-    };
+    beforeEach(() => {
+      user = generate.user();
 
-    const res = await fetch(baseURL + '/users', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(invalidUserJSON),
+      return cleanUp().then(() => populate([user]));
     });
 
-    expect(res.status).to.equal(500);
-  });
+    it('should return a successful response for valid user registration', async () => {
+      let userJSON = {
+        email: user.email,
+        password: user.password,
+      };
 
-  it('should return an error response for invalid email format', async () => {
-    const invalidEmail = 'invalid-email';
+      const res = await fetch(baseURL + '/users/auth', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userJSON),
+      });
 
-    let invalidUserJSON = {
-      name: 'JohnDoe',
-      email: invalidEmail,
-      password: 'Tes7@@@@',
-    };
-
-    const res = await fetch(baseURL + '/users', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(invalidUserJSON),
+      expect(res.status).to.equal(200);
     });
 
-    expect(res.status).to.equal(500);
-  });
+    it('should return an error response for invalid email format', async () => {
+      const invalidEmail = 'invalid-email';
 
-  it('should return an error response for invalid password', async () => {
-    const invalidPassword = 'invalid';
+      let invalidUserJSON = {
+        email: invalidEmail,
+        password: user.password,
+      };
 
-    let invalidUserJSON = {
-      name: 'JohnDoe',
-      email: 'valid@email.com',
-      password: invalidPassword,
-    };
+      const res = await fetch(baseURL + '/users/auth', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(invalidUserJSON),
+      });
 
-    const res = await fetch(baseURL + '/users', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(invalidUserJSON),
+      expect(res.status).to.equal(406);
     });
 
-    expect(res.status).to.equal(500);
+    it('should return an error response for non existence email', async () => {
+      const noMatchEmail = 'noMatch@email.com';
+
+      let invalidUserJSON = {
+        email: noMatchEmail,
+        password: user.password,
+      };
+
+      const res = await fetch(baseURL + '/users/auth', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(invalidUserJSON),
+      });
+
+      expect(res.status).to.equal(404);
+    });
+
+    it('should return an error response for invalid password', async () => {
+      const invalidPassword = 'invalid-password';
+
+      let invalidUserJSON = {
+        email: user.email,
+        password: invalidPassword,
+      };
+
+      const res = await fetch(baseURL + '/users/auth', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(invalidUserJSON),
+      });
+
+      expect(res.status).to.equal(406);
+    });
+
+    it('should return an error response for no match password', async () => {
+      const noMatchPassword = 'Nom@tchPassw0rd';
+
+      let invalidUserJSON = {
+        email: user.email,
+        password: noMatchPassword,
+      };
+
+      const res = await fetch(baseURL + '/users/auth', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(invalidUserJSON),
+      });
+
+      expect(res.status).to.equal(401);
+    });
   });
 
   after(() => cleanUp().then(() => mongoose.disconnect()));
