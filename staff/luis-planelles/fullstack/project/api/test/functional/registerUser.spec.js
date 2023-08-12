@@ -8,7 +8,7 @@ const {
   errors: { DuplicityError, UnknowError },
 } = require('com');
 
-const registerUser = require('../../logic/registerUser');
+const { registerUser } = require('../../logic');
 const { cleanUp, generate, populate } = require('../helpers');
 const { User } = require('../../data/models');
 
@@ -65,9 +65,6 @@ describe('registerUser', () => {
     mockCreate.throws(new Error('Simulated UnknowError error'));
 
     return registerUser(user.name, user.email, user.password)
-      .then(() => {
-        throw new Error('Expected an UnknowError to be thrown');
-      })
       .catch((error) => {
         expect(error).to.be.instanceOf(UnknowError);
         expect(error.message).to.include('Simulated UnknowError error');
