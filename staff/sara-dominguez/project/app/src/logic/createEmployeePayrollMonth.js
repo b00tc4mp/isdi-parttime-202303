@@ -15,8 +15,8 @@ export default function createEmployeePayrollMonth(employeeId, payrollYear, payr
         body: JSON.stringify({ employeeId, payrollYear, payrollMonth })
     })
         .then(res => {
-            if (res.status === 200) {
-                return res.json()
+            if (res.status === 201) {
+                return
             } else
                 return res.json()
                     .then(({ error: message }) => { throw new Error(message) })

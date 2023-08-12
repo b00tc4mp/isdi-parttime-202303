@@ -24,6 +24,10 @@ const payrollMonth = new Schema({
         required: true,
         trim: true
     },
+    status: {
+        type: String,
+        trim: true,
+    },
     monthSalary: {
         type: Number,
         required: true,

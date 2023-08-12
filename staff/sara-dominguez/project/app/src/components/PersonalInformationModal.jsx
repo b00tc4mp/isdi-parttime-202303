@@ -17,19 +17,9 @@ const { extractSubFromToken } = utils
 export default function PersonalInformationModal({ employee, onEmployeeAvatarUpdated, onEmployeePasswordUpdated, onEmployeeBankAccountNumberUpdated, onEmployeeAdressUpdated, onPersonalInformationModalLogout }) {
     console.log('PersonalInformationModal --> open')
 
-    const { alert } = useAppContext()
-    // const [employee, setEmployee] = useState()
 
-    useEffect(() => {
-        try {
-            retrieveEmployee(context.token)
-                // .then(setEmployee)
+    const { alert, navigate } = useAppContext()
 
-                .catch(error => alert(error.message))
-        } catch (error) {
-            alert(error.message)
-        }
-    }, [])
 
     const handleUpdateAvatar = event => {
         event.preventDefault()
@@ -40,6 +30,7 @@ export default function PersonalInformationModal({ employee, onEmployeeAvatarUpd
 
             updateEmployeeAvatar(url)
                 .then(onEmployeeAvatarUpdated)
+
 
                 .catch(error => alert(error.message))
         } catch (error) {
@@ -101,6 +92,7 @@ export default function PersonalInformationModal({ employee, onEmployeeAvatarUpd
 
     function handlePersonalInformationModalLogout(event) {
         event.preventDefault()
+
 
         onPersonalInformationModalLogout()
     }

@@ -46,6 +46,7 @@ module.exports = function createEmployeePayrollMonth(employeeId, payrollYear, pa
                 payrollYear,
                 payrollMonth,
                 salaryLevel,
+                status: 'created',
                 monthSalary: monthSalary,
                 bonus,
                 irpfTax,

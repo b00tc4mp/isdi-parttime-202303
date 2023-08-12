@@ -37,7 +37,7 @@ module.exports = function retrieveEmployeePayrollData(employeeId) {
 
     return (async () => {
         try {
-            const employee = await Employee.findById(employeeId, '-adress -personalPhoneNumber -avatar -typeOfContract -roll -professionalPhoneNumber -professionalEmail -accessPermissions -employeePassword -__v').lean()
+            const employee = await Employee.findById(employeeId, '-adress -personalPhoneNumber -typeOfContract -roll -professionalPhoneNumber -professionalEmail -accessPermissions -employeePassword -__v').lean()
 
             if (!employee) throw new ExistenceError('employee not found')
 

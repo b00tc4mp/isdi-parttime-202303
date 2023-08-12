@@ -19,6 +19,7 @@ module.exports = function updateEmployeeAvatar(employeeId, newAvatar) {
     validateId(employeeId)
     validateUrl(newAvatar)
 
+
     //     return Employee.findById(employeeId)
     //         .then(employee => {
     //             if (!employee) throw new Error('employee not found')
@@ -31,6 +32,7 @@ module.exports = function updateEmployeeAvatar(employeeId, newAvatar) {
     return (async () => {
         try {
             const employee = await Employee.findById(employeeId)
+
             if (!employee) throw new Error('employee not found')
 
             employee.avatar = newAvatar

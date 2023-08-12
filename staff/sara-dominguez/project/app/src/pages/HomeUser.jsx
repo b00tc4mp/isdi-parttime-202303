@@ -8,6 +8,7 @@ import isLoggedIn from '../logic/isLoggedIn'
 import logoutEmployee from '../logic/logoutEmployee.js'
 import { context } from '../ui'
 import useAppContext from '../hooks/useAppContext'
+import { Input, Container, Button, Select } from '../library'
 
 
 export default function Home() {
@@ -58,6 +59,7 @@ export default function Home() {
         try {
             retrieveEmployee()
                 .then(employee => setEmployee(employee))
+                .then(setModal(null))
                 .catch(error =>
                     alert(error.message))
         } catch (error) {
@@ -65,7 +67,9 @@ export default function Home() {
         }
     }
 
-    const handleCloseModal = () => setModal(null)
+    const handleCloseModal = () => {
+        setModal(null)
+    }
 
 
     const handleLogOut = () => {
@@ -92,8 +96,13 @@ export default function Home() {
                 <p className="manage-payroll-menu" onClick={handleGoToManagePayrollMenu}><a href="" className="ManagePayrollMenu" >Manage Payroll menu</a></p>
                 <p className="employeeDatabase-menu" onClick={handleGoToEmployeeDatabaseMenu}><a href="" className="employeeDatabaseMenu" >Employee Database menu</a></p>
 
+
                 {modal === 'PersonalInformation' && < PersonalInformationModal
                     employee={employee}
+                    onEmployeeAvatarUpdated={handleRefreshEmloyee}
+                    onEmployeePasswordUpdated={handleCloseModal}
+                    onEmployeeAdressUpdated={handleCloseModal}
+                    onEmployeeBankAccountNumberUpdated={handleCloseModal}
                     onPersonalInformationModalLogout={handleCloseModal}
                 />}
                 {modal === 'PayrollMenu' && < PayrollMenuModal
@@ -106,11 +115,13 @@ export default function Home() {
                     employee={employee}
                     onEmployeeRegistered={handleCloseModal} />}
 
-
-                {view === 'PayrollMenuUpdateAvatar' && < PersonalInformationModal onEmployeeAvatarUpdated={handleRefreshEmloyee} />}
+                {/* 
+                {view === 'PayrollMenuUpdateAvatar' && < PersonalInformationModal onEmployeeAvatarUpdated={handleCloseModal} />}
                 {view === 'PayrollMenuUpdatePassword' && < PersonalInformationModal onEmployeePasswordUpdated={handleCloseModal} />}
                 {view === 'PayrollMenuUpdateAdress' && < PersonalInformationModal onEmployeeAdressUpdated={handleCloseModal} />}
-                {view === 'PayrollMenuUpdateBankAccountNumber' && < PersonalInformationModal onEmployeeBankAccountNumberUpdated={handleRefreshEmloyee} />}
+                {view === 'PayrollMenuUpdateBankAccountNumber' && < PersonalInformationModal onEmployeeBankAccountNumberUpdated={handleRefreshEmloyee} />} */}
+
+                {/* {view === 'PersonalInformationView' && < PersonalInformationModal} */}
 
             </main>
             <footer>

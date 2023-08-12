@@ -8,12 +8,12 @@ import isLoggedIn from './logic/isLoggedIn.js'
 
 
 export default function App() {
-    const [feedback, setFeedback] = useState('null')
+    const [feedback, setFeedback] = useState(null)
     const navigate = useNavigate()
 
+    const handleAcceptAlert = () => setFeedback(null)
     const alert = (message, level = 'info') => setFeedback({ message, level })
 
-    const handleAcceptAlert = () => setFeedback(null)
 
 
     return <AppContext.Provider value={{ alert, navigate }}>

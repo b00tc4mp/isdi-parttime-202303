@@ -27,12 +27,13 @@ export default function updateEmployeeAvatar(newAvatar) {
         body: JSON.stringify({ avatar: newAvatar })
     })
         .then(res => {
-            if (res.status === 204)
-                return
-            return res.json()
-                .then(({ error: message }) => { throw new Error(message) })
+            if (res.status !== 204)
+                // return
+                return res.json()
+                    .then(({ error: message }) => { throw new Error(message) })
             // .then(body => {
             //     throw new Error(body.error)
             // })
+
         })
 }

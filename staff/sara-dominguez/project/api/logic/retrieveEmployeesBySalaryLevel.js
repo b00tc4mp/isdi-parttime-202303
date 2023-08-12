@@ -52,7 +52,6 @@ module.exports = function retrieveEmployeesBySalaryLevel(employeeId, salaryLevel
             const employeeListRetrieved = await Employee.find({ salaryLevel: salaryLevel }, 'avatar name firstSurname secondSurname salaryLevel').lean()
 
             for (i = 0; i < employeeListRetrieved.length; i++) {
-                delete employeeListRetrieved[i]._id
                 delete employeeListRetrieved[i].__v
             }
 
