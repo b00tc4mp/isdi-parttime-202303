@@ -7,12 +7,14 @@ import retrieveLoggedUser from '../logic/retrieve-logged-user';
 import { useEffect, useState } from 'react';
 import UserCard from '../components/UserCard';
 import LevelsCarrousel from '../components/LevelsCarrousel';
+import retrieveCompleteAchievements from '../logic/retrieve-complete-achievements';
 
 const Profile = () => {
     const [isLoading, setIsLoading] = useState(true);
     const handleErrors = useHandleErrors();
     const [user, setUser] = useState(null);
     const [loggedUser, setLoggedUser] = useState();
+    const [achievements, setAchievements] = useState();
     const { id } = useParams();
 
     const getUser = () => {
@@ -20,14 +22,18 @@ const Profile = () => {
             handleErrors(async () => {
                 const user = await retrieveUser(id);
                 const loggedUser = await retrieveLoggedUser();
+                const _achievements = await retrieveCompleteAchievements(user.id);
                 setUser(user);
+                setAchievements(_achievements);
                 setLoggedUser(loggedUser);
                 setIsLoading(false);
             })
         } else {
             handleErrors(async () => {
                 const user = await retrieveLoggedUser();
+                const _achievements = await retrieveCompleteAchievements(user.id);
                 setUser(user);
+                setAchievements(_achievements);
                 setLoggedUser(user);
                 setIsLoading(false);
             })
@@ -43,19 +49,26 @@ const Profile = () => {
     }
 
     return (
-        <section className="py-24 px-5 gap-5 md:gap-2 grid md:grid-cols-3 md:grid-rows-2 grid-cols-1 grid-rows-4">
-            <div className="px-5">
+        <section className="py-24 px-5 gap-5 md:gap-2 grid md:grid-cols-6 md:grid-rows-2 grid-cols-1 grid-rows-4 md:divide-y md:divide-x">
+            <div className="px-5 md:col-span-3 md:pt-5">
                 <UserCard userInfo={user} key={id} />
             </div>
-            <div className="flex flex-col w-full justify-center align-center gap-2 md:col-span-2">
-                <h2 className={`self-center text-2xl font-bold text-${user.color} `}>Achivements</h2>
+            <div className="flex flex-col w-full h-full justify-center align-center gap-2 border-light300 bg-light400 rounded-lg p-1 md:col-span-3 md:col-start-4">
+                <h2 className={`self-center text-2xl font-bold text-${user.color} `}>Trophies</h2>
+                <div className="text-secondary100">
+                    <ul>
+                        {achievements.map((achievement, index) => (
+                            <li key={index}>{achievement.name} - {achievement.rank}</li>
+                        ))}
+                    </ul>
+                </div>
             </div>
-            <div className="flex flex-col w-full justify-center align-center gap-2 md:row-start-2 border-light300 bg-light400 md:shadow rounded-lg p-1">
+            <div className="flex flex-col w-full justify-center align-center gap-2 md:row-start-2 md:col-span-2 border-light300 bg-light400 rounded-lg p-1">
                 <h2 className={`self-center text-2xl font-bold text-${user.color} `}>Levels Created</h2>
                 <LevelsCarrousel key={id} userId={user.id} type={'created'} saves={loggedUser.saves} />
             </div>
-            <div className="flex flex-col w-full justify-center align-center gap-2 md:row-start-2 border-light300 bg-light400 rounded-lg md:shadow p-1 md:col-span-2">
-                <h2 className={`self-center text-2xl font-bold text-${user.color} `}>Levels Saved</h2>
+            <div className="flex flex-col w-full justify-center align-center gap-2 md:row-start-2 md:col-start-3 border-light300 bg-light400 rounded-lg p-1 md:col-span-4">
+                <h2 className={`self-center text-2xl font-bold text-${user.color} `}>Favorite Levels</h2>
                 <LevelsCarrousel key={id} userId={user.id} type={'saved'} saves={loggedUser.saves} />
             </div>
         </section>

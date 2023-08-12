@@ -56,6 +56,7 @@ const LevelsList = () => {
                         levelInfo={level}
                         handleRefreshLevels={handleRefreshLevels}
                         isLevelSaved={saves.includes(level.id)}
+                        onRefreshLevels={handleRefreshLevels}
                     />
                 )) : <p className="text-secondary500 text-xl font-bold text-center">seems we don't have any level yet... go ahead and create one!</p> : ''
                 }

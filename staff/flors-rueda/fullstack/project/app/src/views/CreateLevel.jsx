@@ -23,7 +23,16 @@ const CreateLevel = () => {
         const selectedName = document.getElementById('level-name').value;
         const hp = initialHP;
         if (validateLevel(level, selectedName, setToast, setToastOn)) {
-            navigate('/game/try', { state: { createdLayout: level, hp: hp, levelName: selectedName } })
+            let bombCount = 0;
+            let lifeCount = 0;
+            for (const floor of level) {
+                for (const cell of floor) {
+                    if (cell === 'bomb') bombCount++;
+                    else if (cell === 'life') lifeCount++;
+                }
+            }
+            const data = { bombs: bombCount, life: lifeCount, cc: 0, floors: level.length };
+            navigate('/game/try', { state: { createdLayout: level, hp: hp, levelName: selectedName, data: data } })
         }
     };
 

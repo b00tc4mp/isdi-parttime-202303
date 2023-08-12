@@ -3,7 +3,7 @@ import CanvasContainer from './CanvasContainer';
 import { Player } from '@lottiefiles/react-lottie-player';
 import inLogger from '../../inLogger';
 
-const GameContainer = ({ level, initialHp, onGameOver, avatar }) => {
+const GameContainer = ({ level, initialHp, onGameOver, avatar, setGameData, gameData }) => {
     const [key, setKey] = useState(1);
     const [floor, setFloor] = useState(level[0]);
     const [health, setHealth] = useState(initialHp);
@@ -14,6 +14,10 @@ const GameContainer = ({ level, initialHp, onGameOver, avatar }) => {
     const handleOnSolved = () => {
         setKey(key + 1);
         setFloor(level[key]);
+        setGameData(prevGameData => ({
+            ...prevGameData,
+            holes: key,
+        }));
     };
 
     const handleOnBomb = () => {
@@ -27,6 +31,10 @@ const GameContainer = ({ level, initialHp, onGameOver, avatar }) => {
             };
             return newHealth;
         });
+        setGameData(prevGameData => ({
+            ...prevGameData,
+            bombs: prevGameData.bombs + 1,
+        }));
     };
 
     const handleOnLife = () => {
@@ -41,6 +49,10 @@ const GameContainer = ({ level, initialHp, onGameOver, avatar }) => {
     const handleOnGameWon = () => {
         setAnimation('won');
         setAnimationVisible(true);
+        setGameData(prevGameData => ({
+            ...prevGameData,
+            life: health,
+        }));
     };
 
     useEffect(() => {

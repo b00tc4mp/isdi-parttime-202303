@@ -21,12 +21,15 @@ import Customize from './views/Customize';
 import Profile from './views/Profile';
 import Settings from './views/Settings';
 import Home from './views/Home';
+import updateSocialAchievements from './logic/update-social-achievements';
+import useHandleErrors from './hooks/useHandleErrors';
 
 const App = () => {
   const [isApiAvailable, setApiAvailableOn] = useState(true);
   const location = useLocation();
   const [feedback, setFeedback] = useState(null);
   const { unlockScroll } = useLockScroll();
+  const handleErrors = useHandleErrors();
 
   unlockScroll();
 
@@ -47,6 +50,11 @@ const App = () => {
     const currentRoute = location.pathname;
     const isTargetedRoute = ['/levels', '/signin'].includes(currentRoute);
     isTargetedRoute ? handleRefreshApiConnection() : setApiAvailableOn(true);
+    if (isUserLoggedIn()) {
+      handleErrors(async () => {
+        await updateSocialAchievements();
+      })
+    }
   }, [location.pathname]);
 
   return (
@@ -56,7 +64,7 @@ const App = () => {
         {!isApiAvailable && <NoConnectionToast />}
         {feedback && <AlertToast message={feedback.message} handleCloseAlert={handleCloseAlert} />}
         <Routes>
-          <Route path="/" element={isUserLoggedIn() ? <Navigate to="/levels" /> : <Landing />} />
+          <Route path="/" element={isUserLoggedIn() ? <Navigate to="/home" /> : <Landing />} />
           <Route path="/levels" element={isUserLoggedIn() ? <LevelsList /> : <NotFound />} />
           <Route path="/customize" element={isUserLoggedIn() ? <Customize /> : <NotFound />} />
           <Route path="/game/:id" element={<Game />} />

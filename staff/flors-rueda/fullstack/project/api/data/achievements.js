@@ -1,7 +1,7 @@
 module.exports = [
     {
         code: 'G01',
-        name: 'Rider on the making',
+        name: 'rider on the making',
         description: 'play levels',
         category: 'game',
         ranks: [10, 50, 100],

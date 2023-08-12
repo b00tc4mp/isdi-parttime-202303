@@ -22,6 +22,8 @@ const Game = () => {
   const [likesInfo, setLikesInfo] = useState({});
   const [levelId, setLevelId] = useState(null)
   const [isGameOver, setIsGameOver] = useState(0); // 0 = playing, -1 = lost, 1 = won
+  const [gameData, setGameData] = useState({ stonks: 0, holes: 0, bombs: 0, life: 0, })
+  const [createData, setCreateData] = useState(null);
   const handleErrors = useHandleErrors();
 
   const getLevel = () => {
@@ -38,12 +40,13 @@ const Game = () => {
         setIsLoading(false);
       })
     } else {
-      const { createdLayout, hp, levelName } = location.state;
+      const { createdLayout, hp, levelName, data } = location.state;
       const configuredLevel = configureLevelToRender(createdLayout);
       setLevelToRender(configuredLevel);
       setLayout(createdLayout);
       setName(levelName);
       setHealth(hp ? hp : 5);
+      setCreateData(data);
       setIsLoading(false);
     }
   };
@@ -63,11 +66,16 @@ const Game = () => {
     setLevelToRender(null);
     setHealth(null);
     setIsGameOver(0);
+    setGameData({ stonks: 0, holes: 0, bombs: 0, life: 0, })
     getLevel();
   };
 
   const handleGameOver = (state) => {
-    setIsGameOver(state)
+    setIsGameOver(state);
+    setGameData(prevGameData => ({
+      ...prevGameData,
+      stonks: state === 1 ? 1 : 0
+    }));
   }
 
   if (isLoading) {
@@ -78,11 +86,11 @@ const Game = () => {
     <section className="flex flex-col flex-wrap">
       {isGameOver !== 0 && (
         <>
-          <GameOver isGameWon={isGameOver > 0 ? true : false} onRetry={handleRetry} isCreatedLevel={'try' === id} layout={layout} hp={health} name={name} likesInfo={likesInfo} id={levelId} />
+          <GameOver isGameWon={isGameOver > 0 ? true : false} onRetry={handleRetry} isCreatedLevel={'try' === id} layout={layout} hp={health} name={name} likesInfo={likesInfo} id={levelId} gameData={gameData} createData={createData} />
           <div className="top-0 inset-0 bg-black opacity-50"></div>
         </>
       )}
-      <GameContainer level={levelToRender} initialHp={health} onGameOver={handleGameOver} avatar={avatar} />
+      <GameContainer level={levelToRender} initialHp={health} onGameOver={handleGameOver} avatar={avatar} setGameData={setGameData} />
     </section>
   );
 };

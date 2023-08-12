@@ -1,9 +1,12 @@
 import inLogger from '../../inLogger';
 import { Link, useNavigate } from 'react-router-dom';
 import isUserLoggedIn from '../../logic/is-user-logged-in';
+import useHandleErrors from '../../hooks/useHandleErrors';
+import updateTutorialAchievements from '../../logic/update-tutorial-achievements';
 
 const TutorialInfo = ({ onExitClick, tutorialNumber }) => {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const handleErrors = useHandleErrors();
 
     const tutorialTexts = [
         `Let's see how you roll, little beach ball... Move a bit around and get that treasure!`,
@@ -15,6 +18,14 @@ const TutorialInfo = ({ onExitClick, tutorialNumber }) => {
         `You seem quite ready, let's try it all together!`,
         `You are indeed a rider, go and explore more mazes!`
     ]
+
+    if (tutorialNumber === 6) {
+        if (isUserLoggedIn()) {
+            handleErrors(async () => {
+                await updateTutorialAchievements();
+            })
+        }
+    }
 
     const handleToRegister = () => {
         navigate('/signin', { state: { startingForm: 'register' } });
