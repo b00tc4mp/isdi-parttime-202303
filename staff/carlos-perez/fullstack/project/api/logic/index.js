@@ -22,5 +22,6 @@ module.exports = {
   toggleMessageRead: require('./message/toggleMessageRead'),
   seeUpdate: require('./update/seeUpdate'),
   seeEvent: require('./event/seeEvent'),
-  seeLyricPost: require('./lyricPost/seeLyricPost')
+  seeLyricPost: require('./lyricPost/seeLyricPost'),
+  seeEventList: require('./event/seeEventList')
 }
