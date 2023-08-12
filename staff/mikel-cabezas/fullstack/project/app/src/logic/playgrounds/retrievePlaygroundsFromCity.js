@@ -1,11 +1,11 @@
 // import { validators } from "../../../com";
 // const { validateToken } = validators
-import { API_URL } from '@env'
+import { EXPO_PUBLIC_API_URL } from '@env'
 
 export default (token, city) => {
     // validateToken(token);
-    // alert(API_URL)
-    return fetch(`${API_URL}/playgrounds/${city}`, {
+    // alert(EXPO_PUBLIC_API_URL)
+    return fetch(`${EXPO_PUBLIC_API_URL}/playgrounds/${city}`, {
         method: 'GET',
         headers: {
             'Authorization': `Bearer ${token}`
