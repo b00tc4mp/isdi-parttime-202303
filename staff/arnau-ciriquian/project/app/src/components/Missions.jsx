@@ -1,9 +1,10 @@
 import retrieveMissions from "../logic/retrieveMissions.js"
-import Mission from "./Mission"
+import AdminMission from "./AdminMission.jsx"
+import UserMission from "./UserMission.jsx"
 import { ScrollView, View } from "react-native"
 import { useState, useEffect } from "react"
 
-export default function Missions({ onEditClicked, /*lastMissionsUpdate*/ }) {
+export default function Missions({ onEditClicked, admin /*lastMissionsUpdate*/ }) {
     const [missions, setMissions] = useState()
 
     useEffect(() => handleRefreshMissions(), [])
@@ -26,13 +27,24 @@ export default function Missions({ onEditClicked, /*lastMissionsUpdate*/ }) {
 
     }, [lastMissionsUpdate])*/
 
-    return <ScrollView>
-        {missions && missions.map(mission => <Mission
-            key={mission.id}
-            mission={mission}
-            onEditClick={onEditClicked}
-            //onDeletePostClick={handleRefreshMissions}
-        />)}
-        <View className="h-10"></View>
-    </ScrollView>
+    if (admin) {
+        return <ScrollView>
+            {missions && missions.map(mission => <AdminMission
+                key={mission.id}
+                mission={mission}
+                onEditClick={onEditClicked}
+                admin={admin}
+                onDeleteMissionClick={handleRefreshMissions}
+            />)}
+            <View className="h-10"></View>
+        </ScrollView>
+    } else {
+        return <ScrollView>
+            {missions && missions.map(mission => <UserMission
+                key={mission.id}
+                mission={mission}
+            />)}
+            <View className="h-10"></View>
+        </ScrollView>
+    }
 }

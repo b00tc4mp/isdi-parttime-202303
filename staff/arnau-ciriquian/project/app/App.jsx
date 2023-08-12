@@ -2,6 +2,7 @@ import Login from './src/pages/Login'
 import Register from './src/pages/Register'
 import Admin from './src/pages/Admin'
 import Home from './src/pages/Home'
+import CharacterCreator from './src/components/CharacterCreator'
 import { useState } from 'react'
 
 export default function App() {
@@ -11,6 +12,7 @@ export default function App() {
   const [register, setRegister] = useState(false)
   const [home, setHome] = useState(false)
   const [admin, setAdmin] = useState(false)
+  const [newCharacter, setNewCharacter] = useState(false)
 
   const handleGoToRegister = event => {
     setLogin(false)
@@ -42,8 +44,14 @@ export default function App() {
     }
   }
 
+  const handleGoToCharacterCreation = () => {
+    setHome(false)
+    setNewCharacter(true)
+  }
+
   if (login) return (<Login onRegisterClick={handleGoToRegister} onUserLogedIn={handleGoToHome} onAdminLogedIn={handleGoToAdminMain}/>)
   if (register) return (<Register onLoginClick={handleGoToLogin} onUserRegistered={handleGoToLogin}/>)
   if (admin) return (<Admin onLogoutSession={handleLogoutSession}/>)
-  if (home) return (<Home/>)
+  if (home) return (<Home onContinueToNewCharacter={handleGoToCharacterCreation}/>)
+  if (newCharacter) return (<CharacterCreator/>)
 }

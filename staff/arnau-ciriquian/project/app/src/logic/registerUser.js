@@ -2,7 +2,6 @@
 const { validateEmail, validateName, validateNewPassword, validatePasswordConfirm } = validators*/
 
 import { API_URL } from '@env'
-export const DEFAULT_AVATAR_URL = "../../assets/generic/logo-face.png"
 
 export function registerUser(name, email, password, passwordConfirm) {
     /*validateName(name)
@@ -15,7 +14,7 @@ export function registerUser(name, email, password, passwordConfirm) {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ name, email, password, DEFAULT_AVATAR_URL })
+        body: JSON.stringify({ name, email, password })
     })
         .then(res => {
             if (res.status !== 201)

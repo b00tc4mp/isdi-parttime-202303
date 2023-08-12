@@ -71,6 +71,12 @@ export default function EditMission({ missionId, onCancel, onMissionUpdated }) {
             retrieveMission(missionId)
                 .then(mission => {
                     setMission(mission)
+                    setDifficultyValue(mission.difficulty)
+                    setImageValue(mission.image)
+                    setLevelValue(mission.level)
+                    setTittle(mission.tittle)
+                    setInfo(mission.info)
+                    setVisibilityValue(mission.visibility)
                 })
                 .catch(error => alert(error.message))
         } catch (error) {
@@ -94,7 +100,7 @@ export default function EditMission({ missionId, onCancel, onMissionUpdated }) {
                     <Text className="text-white font-semibold text-xl">Mission image:</Text>
                     <DropDownPicker
                         open={imageOpen}
-                        value={imageValue ? imageValue : mission.image}
+                        value={imageValue}
                         items={imageItems}
                         setOpen={setImageOpen}
                         setValue={setImageValue}
@@ -105,7 +111,7 @@ export default function EditMission({ missionId, onCancel, onMissionUpdated }) {
                     <Text className="text-white font-semibold text-xl">Mission level:</Text>
                     <DropDownPicker
                         open={levelOpen}
-                        value={levelValue ? levelValue : mission.level}
+                        value={levelValue}
                         items={levelItems}
                         setOpen={setLevelOpen}
                         setValue={setLevelValue}
@@ -116,7 +122,7 @@ export default function EditMission({ missionId, onCancel, onMissionUpdated }) {
                     <Text className="text-white font-semibold text-xl">Mission difficulty:</Text>
                     <DropDownPicker
                         open={difficultyOpen}
-                        value={difficultyValue ? difficultyValue : mission.difficulty}
+                        value={difficultyValue}
                         items={difficultyItems}
                         setOpen={setDifficultyOpen}
                         setValue={setDifficultyValue}
@@ -135,7 +141,7 @@ export default function EditMission({ missionId, onCancel, onMissionUpdated }) {
                     <Text className="text-white font-semibold text-xl">Mission visibility:</Text>
                     <DropDownPicker
                         open={visibilityOpen}
-                        value={visibilityValue ? visibilityValue : mission.visibility}
+                        value={visibilityValue}
                         items={visibilityItems}
                         setOpen={setVisibilityOpen}
                         setValue={setVisibilityValue}

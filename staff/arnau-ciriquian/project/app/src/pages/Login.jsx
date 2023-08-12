@@ -52,7 +52,7 @@ const Login = ({ onRegisterClick, onUserLogedIn, onAdminLogedIn }) => {
                         />
                     </View>
                     <TouchableOpacity className="border-2 border-red-400 bg-orange-400 opacity-80 rounded-xl w-1/3 items-center shadow-md shadow-black" onPress={handleLogin}>
-                        <Text className=" opacity-100 text-xl">Login!</Text>
+                        <Text className="opacity-100 text-xl">Login!</Text>
                     </TouchableOpacity>
                 </View>
                 <TouchableOpacity className="w-80 flex items-center" onPress={handleRegisterClick}>
