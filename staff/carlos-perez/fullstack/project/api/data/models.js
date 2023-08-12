@@ -162,7 +162,8 @@ const message = new Schema ({
 
 const usersData = new Schema ({
     usersMail: {
-        type: String
+        type: String,
+        required: true
     }
 })
 

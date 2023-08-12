@@ -26,5 +26,7 @@ module.exports = {
   seeEventList: require('./event/seeEventList'),
   seeUpdateList: require('./update/seeUpdateList'),
   seeLyricPostList: require('./lyricPost/seeLyricPostList'),
-  seeMessageList: require('./message/seeMessageList')
+  seeMessageList: require('./message/seeMessageList'),
+  addEmail: require('./usersData/addEmail'),
+  deleteEmail: require('./usersData/deleteEmail')
 }
