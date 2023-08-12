@@ -6,7 +6,7 @@ const { helloApiHandler, authenticateAdminHandler, registerAdminHandler, updateA
   createUpdateHandler, modifyUpdateHandler, deleteUpdateHandler, toggleUpdateVisibilityHandler, seeUpdateHandler, seeUpdateListHandler,
 createEventHandler, modifyEventHandler, deleteEventHandler, toggleEventVisibilityHandler, seeEventHandler, seeEventListHandler,
 createLyricPostHandler, modifyLyricPostHandler, deleteLyricPostHandler, toggleLyricPostVisibilityHandler, seeLyricPostHandler, seeLyricPostListHandler,
-createMessageHandler, readMessageHandler, deleteMessageHandler, toggleMessageReadHandler} = require('./handlers')
+createMessageHandler, readMessageHandler, deleteMessageHandler, toggleMessageReadHandler, seeMessageListHandler} = require('./handlers')
 
 const mongoose = require('mongoose')
 
@@ -71,6 +71,8 @@ mongoose.connect(process.env.MONGODB_URL)
     api.delete('/messages/:messageId', deleteMessageHandler)
 
     api.patch('/messages/:messageId/status', toggleMessageReadHandler)
+
+    api.get('/messages', seeMessageListHandler)
 
     api.listen(process.env.PORT, () => console.log(`server running in port ${process.env.PORT}`))
 

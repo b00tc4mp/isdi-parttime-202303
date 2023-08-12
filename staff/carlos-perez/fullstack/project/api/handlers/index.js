@@ -26,5 +26,6 @@ module.exports = {
     seeLyricPostHandler: require('./lyricPost/seeLyricPostHandler'),
     seeEventListHandler: require('./event/seeEventListHandler'),
     seeUpdateListHandler: require('./update/seeUpdateListHandler'),
-    seeLyricPostListHandler: require('./lyricPost/seeLyricPostListHandler')
+    seeLyricPostListHandler: require('./lyricPost/seeLyricPostListHandler'),
+    seeMessageListHandler: require('./message/seeMessageListHandler')
   }
