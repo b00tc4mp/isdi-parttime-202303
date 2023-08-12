@@ -1,4 +1,4 @@
-import { API_URL } from '@env'
+import { EXPO_PUBLIC_API_URL } from '@env'
 
 // import { validators, utils } from 'com'
 // import { isTokenValid } from 'com/utils'
@@ -11,7 +11,7 @@ export default function addPlayground(token, name, description, sunExposition, e
     // validateText(name)
     // validateText(description)
 
-    return fetch(`${API_URL}/playgrounds`, {
+    return fetch(`${EXPO_PUBLIC_API_URL}/playgrounds`, {
         method: 'POST',
         headers: {
             'Authorization': `Bearer ${token}`,

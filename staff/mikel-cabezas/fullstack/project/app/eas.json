@@ -10,7 +10,16 @@
     "preview": {
       "distribution": "internal"
     },
-    "production": {}
+    "production": {
+      "env": {
+        "EXPO_PUBLIC_API_URL": "https://playgrounds-api.onrender.com"
+      }
+    },
+    "test": {
+      "env": {
+        "EXPO_PUBLIC_API_URL": "https://playgrounds-api.onrender.com"
+      }
+    }
   },
   "submit": {
     "production": {}
