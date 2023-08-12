@@ -11,5 +11,6 @@ module.exports = {
     createNewMissionHandler: require('./createNewMissionHandler'),
     retriveMissionsHandler: require('./retriveMissionsHandler'),
     retriveMissionHandler: require('./retriveMissionHandler'),
-    updateMissionHandler: require('./updateMissionHandler')
+    updateMissionHandler: require('./updateMissionHandler'),
+    deleteMissionHandler: require('./deleteMissionHandler')
 }

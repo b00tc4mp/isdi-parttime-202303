@@ -18,12 +18,15 @@ const {
  * @throws {ContentError} On empty name, email or password
  * @throws {DuplicityError} On existing user
  */
-module.exports = (name, email, password, avatar) => {
+module.exports = (name, email, password) => {
     validateName(name)
     validateEmail(email)
     validatePassword(password)
 
-    return User.create({ name, email, password, avatar })
+    //const character = null
+    const character = '123123123'
+
+    return User.create({ name, email, password, character })
         .catch(error => {
             if (error.message.includes('E11000'))
                 throw new DuplicityError(`user with email ${email} already exists`)

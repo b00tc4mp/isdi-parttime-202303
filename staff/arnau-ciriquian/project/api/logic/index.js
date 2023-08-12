@@ -10,5 +10,6 @@ module.exports = {
     createNewMission: require('./createNewMission'),
     retriveMissions: require('./retriveMissions'),
     retriveMission: require('./retriveMission'),
-    updateMission: require('./updateMission')
+    updateMission: require('./updateMission'),
+    deleteMission: require('./deleteMission')
 }
