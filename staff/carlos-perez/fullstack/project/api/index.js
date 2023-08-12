@@ -3,7 +3,7 @@ require('dotenv').config()
 const express = require('express')
 const { cors, jsonBodyParser } = require('./utils')
 const { helloApiHandler, authenticateAdminHandler, registerAdminHandler, updateAdminEmailHandler, updateAdminPasswordHandler, deleteAdminHandler, 
-  createUpdateHandler, modifyUpdateHandler, deleteUpdateHandler, toggleUpdateVisibilityHandler, seeUpdateHandler,
+  createUpdateHandler, modifyUpdateHandler, deleteUpdateHandler, toggleUpdateVisibilityHandler, seeUpdateHandler, seeUpdateListHandler,
 createEventHandler, modifyEventHandler, deleteEventHandler, toggleEventVisibilityHandler, seeEventHandler, seeEventListHandler,
 createLyricPostHandler, modifyLyricPostHandler, deleteLyricPostHandler, toggleLyricPostVisibilityHandler, seeLyricPostHandler,
 createMessageHandler, readMessageHandler, deleteMessageHandler, toggleMessageReadHandler} = require('./handlers')
@@ -37,6 +37,8 @@ mongoose.connect(process.env.MONGODB_URL)
     api.patch('/updates/:updateId/visibility', toggleUpdateVisibilityHandler)
 
     api.get('/updates/:updateId', seeUpdateHandler)
+
+    api.get('/updates', seeUpdateListHandler)
 
     api.post('/events', jsonBodyParser, createEventHandler)
 
