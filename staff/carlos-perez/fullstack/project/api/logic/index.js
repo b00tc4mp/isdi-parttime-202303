@@ -24,5 +24,6 @@ module.exports = {
   seeEvent: require('./event/seeEvent'),
   seeLyricPost: require('./lyricPost/seeLyricPost'),
   seeEventList: require('./event/seeEventList'),
-  seeUpdateList: require('./update/seeUpdateList')
+  seeUpdateList: require('./update/seeUpdateList'),
+  seeLyricPostList: require('./lyricPost/seeLyricPostList')
 }
