@@ -13,7 +13,7 @@ module.exports = userId => {
 
     if (!user) throw new ExistenceError(`user with id ${userId} not found`)
 
-    const workspots = await Workspot.find().select('-__v')
+        const workspots = await Workspot.find().select('-__v -features.wifi._id -features.plugs._id -features.noise._id -location._id -location.districts._id -location.mapLocation._id').populate('author','name avatar')
 
         workspots.forEach(workspot => {
             workspot.id = workspot._id.toString()
@@ -27,6 +27,7 @@ module.exports = userId => {
 
                 delete workspot.author._id
             }
+
         })
         return workspots
 

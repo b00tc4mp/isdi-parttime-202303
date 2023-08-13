@@ -5,7 +5,7 @@ const createWorkspot = require('./createWorkspot')
 
 (async () => {
     try {
-        await mongoose.connect("mongodb://127.0.0.1:27017/data")
+        await mongoose.connect(process.env.MONGODB_URL)
 
         const userId = "64ac3076cca3c7f9cdb065b0"
         const image = 'https://images.squarespace-cdn.com/content/v1/62f1252f8bfa06437d10ed94/16c11498-0135-43b1-8dd3-7d8bec4585c1/La+Galena+Barcelona?format=2500w'
