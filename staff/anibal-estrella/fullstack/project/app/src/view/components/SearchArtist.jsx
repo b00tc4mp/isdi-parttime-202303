@@ -39,7 +39,7 @@ const SearchArtist = () => {
             <div className="flex flex-row w-full">
                 <div className='relative w-full'>
                     <input type="text" value={artistName} onChange={handleInputChange} placeholder="Enter artist name" className='pl-8' />
-                    <span className='absolute top-5 left-1 h-6 w-6  rounded-full'>
+                    <span className='absolute top-3 left-1 h-6 w-6  rounded-full'>
                         <MagnifyingGlassIcon className='text-gray-500 ' />
                     </span>
                 </div>

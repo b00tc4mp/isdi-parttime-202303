@@ -5,7 +5,7 @@ export default plugin(({ addBase, addComponents, addUtilities, theme }) => {
         'h1, h2, h3': {
             fontSize: theme('fontSize.2xl'),
             fontWeight: '600',
-            marginTop: '.5rem',
+            // marginTop: '.5rem',
         },
         'strong': {
             fontWeight: '500',
@@ -16,17 +16,16 @@ export default plugin(({ addBase, addComponents, addUtilities, theme }) => {
             letterSpacing: '0.025em'
         },
         'button': {
-            height: '32px',
+            // height: '3em',
             minWidth: 'max-content',
-            padding: '0px 12px',
+            padding: '0 1rem',
+            marginLeft: '1rem',
             letterSpacing: '0.06em',
-            backgroundColor: 'white',
             color: 'black',
-            borderRadius: '9999px',
-            padding: '0 2rem',
-            margin: '1rem',
-            textTransform: 'uppercase',
             fontSize: '0.75rem',
+            backgroundColor: 'white',
+            borderRadius: '9999px',
+            textTransform: 'uppercase',
         },
         'button:hover, a:hover': {
             opacity: '0.75',
@@ -36,19 +35,22 @@ export default plugin(({ addBase, addComponents, addUtilities, theme }) => {
         },
         'input': {
             width: '100%',
-            height: '32px',
-            padding: '0px 12px',
+            height: '3rem',
+            padding: '0 1rem',
+            fontSize: '1rem',
             letterSpacing: '0.06em',
             backgroundColor: 'white',
             color: 'black',
             borderRadius: '9999px',
-            padding: '0 1rem',
-            margin: '1rem 0',
+            // margin: '1rem 0',
             cursor: 'text',
         },
         'p': {
 
-        }
+        },
+        backgroundImage: {
+            'logo-background': "url('./assets/LiveDive-Logo-W.svg')",
+        },
     })
 
     addComponents({

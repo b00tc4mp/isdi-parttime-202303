@@ -1,15 +1,14 @@
 import React, { useState } from 'react'
 import { HeartIcon } from '@heroicons/react/24/solid'
 
-
 function Menu({ handleNavItemClick }) {
 
     return (
-        <nav className="flex-no-wrap relative flex w-full items-center justify-between bg-gray-100 py-2 shadow-md shadow-black/5 dark:bg-neutral-600 dark:shadow-black/10 lg:flex-wrap lg:justify-start lg:py-4 rounded-full"  >
-            <div className="flex w-full flex-wrap items-center justify-between px-3">
+        <nav className="flex-no-wrap sticky top-0 z-10 relative flex w-full items-center justify-between p-2"  >
+            <div className=" flex w-full flex-wrap items-center justify-between px-3  dark:bg-neutral-600 dark:shadow-black/10 sm:flex-wrap sm:justify-start  rounded-full  bg-gray-100 py-2 shadow-md shadow-black/5">
                 {/* <!-- Hamburger button for mobile view --> */}
                 <button
-                    className="block border-0 bg-transparent px-2 text-gray-400 hover:no-underline hover:shadow-none focus:no-underline focus:shadow-none focus:outline-none focus:ring-0 dark:text-gray-200 lg:hidden">
+                    className="block border-0 bg-transparent px-2 text-gray-400 hover:no-underline hover:shadow-none focus:no-underline focus:shadow-none focus:outline-none focus:ring-0 dark:text-gray-200 sm:hidden ">
 
                     {/* <!-- Hamburger icon --> */}
                     <span className="[&>svg]:w-7">
@@ -27,25 +26,25 @@ function Menu({ handleNavItemClick }) {
 
                 {/* <!-- Collapsible navigation container --> */}
                 <div
-                    className="!visible hidden flex-grow basis-[100%] items-center lg:!flex lg:basis-auto"
+                    className="!visible hidden flex-grow basis-[100%] items-center sm:!flex sm:basis-auto"
                     id="navbarSupportedContent1"
                     data-te-collapse-item>
                     {/* <!-- Logo --> */}
                     <a
-                        className="mb-4 ml-2 mr-5 mt-3 flex items-center text-neutral-900 hover:text-neutral-900 focus:text-neutral-900 dark:text-gray-200 dark:hover:text-gray-400/40 dark:focus:text-gray-400/40 lg:mb-0 lg:mt-0"
+                        className="mb-4 ml-2 mr-5 mt-3 flex items-center text-neutral-900 hover:text-neutral-900 focus:text-neutral-900 dark:text-gray-200 dark:hover:text-gray-400/40 dark:focus:text-gray-400/40 sm:mb-0 sm:mt-0"
                         href="#">
                         <img src="" alt="" />
                     </a>
                     {/* <!-- Left navigation links --> */}
-                    <h1 className="flex items-center text-gray-500 mr-4 font-extrabold">LiveDive</h1>
-                    <ul className="list-style-none mr-auto flex flex-col pl-0 lg:flex-row">
-                        <li className="mb-4 lg:mb-0 lg:pr-2" data-te-nav-item-ref>
-                            <a className="text-gray-400 transition duration-200 hover:text-red hover:ease-in-out focus:text-red disabled:text-gray-500/30 motion-reduce:transition-none dark:text-gray-200 dark:hover:text-gray-400 dark:focus:text-gray-400 lg:px-2 [&.active]:text-gray-500/90 dark:[&.active]:text-zinc-400" href="#" onClick={() => handleNavItemClick('artist')}>
+                    <h1 className="text-gray-400 flex items-center mr-4 font-extrabold bg-[url('../../../assets/LiveDive-Logo-W.svg')] bg-no-repeat bg-left bg-contain  w-20 h-10  text-center text-[0]  " >LiveDive</h1>
+                    <ul className="list-style-none mr-auto flex flex-col pl-0 sm:flex-row">
+                        <li className="mb-4 sm:mb-0 sm:pr-2" data-te-nav-item-ref>
+                            <a className="text-gray-400 transition duration-200 hover:text-red hover:ease-in-out focus:text-red disabled:text-gray-500/30 motion-reduce:transition-none dark:text-gray-200 dark:hover:text-gray-400 dark:focus:text-gray-400 sm:px-2 [&.active]:text-gray-500/90 dark:[&.active]:text-zinc-400" href="#" onClick={() => handleNavItemClick('artist')}>
                                 search artist
                             </a>
                         </li>
-                        <li className="mb-4 lg:mb-0 lg:pr-2" data-te-nav-item-ref>
-                            <a href="#" onClick={() => handleNavItemClick('place')} className=" text-gray-400 transition duration-200 hover:text-gray-400/40 hover:ease-in-out focus:text-red disabled:text-gray-400/30 motion-reduce:transition-none dark:text-gray-200 dark:hover:text-gray-400 dark:focus:text-gray-400 lg:px-2 [&.active]:text-gray-500/90 dark:[&.active]:text-gray-400/40 text-">
+                        <li className="mb-4 sm:mb-0 sm:pr-2" data-te-nav-item-ref>
+                            <a href="#" onClick={() => handleNavItemClick('place')} className=" text-gray-400 transition duration-200 hover:text-gray-400/40 hover:ease-in-out focus:text-red disabled:text-gray-400/30 motion-reduce:transition-none dark:text-gray-200 dark:hover:text-gray-400 dark:focus:text-gray-400 sm:px-2 [&.active]:text-gray-500/90 dark:[&.active]:text-gray-400/40 text-">
                                 search place
                             </a>
                         </li>
