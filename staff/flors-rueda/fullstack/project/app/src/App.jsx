@@ -24,6 +24,8 @@ import Home from './views/Home';
 import updateSocialAchievements from './logic/update-social-achievements';
 import useHandleErrors from './hooks/useHandleErrors';
 import socketIOClient from 'socket.io-client';
+import getPlayerId from './logic/get-player-id';
+import AchievementToast from './components/toasts/AchievementToast';
 
 const App = () => {
   const [isApiAvailable, setApiAvailableOn] = useState(true);
@@ -31,7 +33,7 @@ const App = () => {
   const [feedback, setFeedback] = useState(null);
   const { unlockScroll } = useLockScroll();
   const handleErrors = useHandleErrors();
-  const [notification, setNotification] = useState('');
+  const [achievement, setAchievement] = useState('');
 
   unlockScroll();
 
@@ -61,10 +63,16 @@ const App = () => {
 
   useEffect(() => {
     const socket = socketIOClient('http://localhost:4321');
-    socket.on('notification', (message) => {
-      setNotification(message);
-      console.log('chaaarchi')
+
+    socket.on('connect', () => {
+      const id = socket.id;
+      socket.emit('sendSocketId', { id });
+
+      socket.on('notification', (message) => {
+        setAchievement(message);
+      });
     });
+
     return () => {
       socket.disconnect();
     };
@@ -74,9 +82,9 @@ const App = () => {
     <AppContext.Provider value={{ alert: handleShowAlert }}>
       <Navbar />
       <div className="pt-5">
+        {achievement && <AchievementToast message={achievement} handleCloseToast={() => setAchievement('')} />}
         {!isApiAvailable && <NoConnectionToast />}
         {feedback && <AlertToast message={feedback.message} handleCloseAlert={handleCloseAlert} />}
-        {notification && <div className="notification">{notification}</div>}
         <Routes>
           <Route path="/" element={isUserLoggedIn() ? <Navigate to="/home" /> : <Landing />} />
           <Route path="/levels" element={isUserLoggedIn() ? <LevelsList /> : <NotFound />} />

@@ -96,6 +96,10 @@ mongoose.connect(process.env.MONGODB_URL)
 
         io.on('connection', (socket) => {
             console.log('a user connected');
+            socket.on('sendSocketId', (data) => {
+                const frontendSocketId = data.id;
+                module.exports.frontendSocketId = frontendSocketId
+            });
         });
 
         server.listen(process.env.PORT, () => console.log(`server running in port ${process.env.PORT}`));

@@ -27,14 +27,16 @@ module.exports = async (userId, gameData) => {
 
             achievement.progress += updateValue;
 
+            //TODO fix ranking of progress
+
             if (achievement.progress >= achievement.ranks[0] && !achievement.isRankReached) {
                 achievement.isRankReached = true;
-                sendNotification(achievement);
+                sendNotification(achievement, userId);
             }
 
             if (achievement.progress >= achievement.ranks[achievement.ranks.length - 1]) {
                 achievement.completed = true;
-                sendNotification(achievement);
+                sendNotification(achievement, userId);
             }
         }
         return achievement;
