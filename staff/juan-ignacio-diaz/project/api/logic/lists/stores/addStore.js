@@ -1,9 +1,9 @@
 const { 
     validators: { validateId, validateName },
-    errors: { ExistenceError, DuplicityError, UnKnowError }
+    errors: { ExistenceError, DuplicityError, UnknowError }
 } = require('com')
 
-const { User, List } = require('../../../data/models')
+const { User, List, Store } = require('../../../data/models')
 
 /**
  * add store to list by listId, userId and name
@@ -30,9 +30,9 @@ module.exports = (listId, userId, name) => {
 
         if (!(list.guests.some(tmpId => tmpId.toString() === userId))) throw new ExistenceError('invalid user')
 
-        const store  = {
+        const store  = new Store({
             name
-        }
+        })
 
         try {
             await List.findByIdAndUpdate(listId, { $push: { stores: [store] } }) 
@@ -41,7 +41,7 @@ module.exports = (listId, userId, name) => {
             if(error.message.includes('E11000'))
                 throw new DuplicityError(`store with name ${name} already exists`)
 
-            throw new UnKnowError(error.message) 
+            throw new UnknowError(error.message) 
         }            
     })()
 }

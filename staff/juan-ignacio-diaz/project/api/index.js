@@ -28,7 +28,9 @@ const {
     reviewMessagesHandler,
 
     addStoreHandler,
-    reviewStoresHandler
+    reviewStoresHandler,
+
+    reviewProductTypesHandler
 
 } = require('./handlers')
 
@@ -74,18 +76,24 @@ mongoose.connect(process.env.MONGODB_URL)
 
         api.patch('/lists/:listId/decline', jsonBodyParser, declineGuestListHandler)
         
-        api.post('/lists/:listId/contact/:contactId/notify', jsonBodyParser, addUsersToInvitedListHandler)
+        api.post('/lists/:listId/contact/:contactId/invited', jsonBodyParser, addUsersToInvitedListHandler)
 
         api.get('/lists/accept', jsonBodyParser, reviewListsGuestHandler)
-        api.get('/lists/notify', jsonBodyParser, reviewListsInvitedHandler)
+
+        api.get('/lists/invited', jsonBodyParser, reviewListsInvitedHandler)
+
 
         api.post('/lists/:listId/message', jsonBodyParser, addMessageHandler)
 
-        api.get('/lists/message', jsonBodyParser, reviewMessagesHandler)
+        api.get('/lists/:listId/message', jsonBodyParser, reviewMessagesHandler)
+
 
         api.post('/lists/:listId/store', jsonBodyParser, addStoreHandler)
 
-        api.get('/lists/stores', jsonBodyParser, reviewStoresHandler)
+        api.get('/lists/:listId/stores', jsonBodyParser, reviewStoresHandler)
+
+
+        api.get('/lists/:listId/productTypes', jsonBodyParser, reviewProductTypesHandler)
 //
 
         api.listen(process.env.PORT, () => console.log(`server running in port ${process.env.PORT}`))

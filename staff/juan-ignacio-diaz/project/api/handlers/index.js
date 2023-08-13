@@ -20,5 +20,7 @@ module.exports = {
     reviewMessagesHandler: require('./lists/messages/reviewMessagesHandler'),
 
     addStoreHandler: require('./lists/stores/addStoreHandler'),
-    reviewStoresHandler: require('./lists/stores/reviewStoresHandler')
+    reviewStoresHandler: require('./lists/stores/reviewStoresHandler'),
+
+    reviewProductTypesHandler: require('./lists/stores/reviewProductTypesHandler')
 }

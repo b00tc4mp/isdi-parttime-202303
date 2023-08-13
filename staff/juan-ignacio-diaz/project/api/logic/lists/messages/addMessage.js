@@ -3,7 +3,7 @@ const {
     errors: { ExistenceError }
 } = require('com')
 
-const { User, List } = require('../../../data/models')
+const { User, List, Message } = require('../../../data/models')
 
 /**
  * add message to list by listId, userId and text
@@ -28,11 +28,11 @@ module.exports = (listId, userId, text) => {
 
         if (!(list.guests.some(tmpId => tmpId.toString() === userId))) throw new ExistenceError('invalid user')
 
-        const message  = {
+        const message  = new Message({
             text,
             author: userId,
             view: list.guests.filter(tmpUser => tmpUser._id.toString() !== userId)
-        }
+        })
 
         await List.findByIdAndUpdate(listId, { $push: { messages: [message] } }) 
     })()

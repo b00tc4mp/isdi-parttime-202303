@@ -8,7 +8,7 @@ const { User, List } = require('../../../data/models')
 const addStore = require('./addStore')
 
 const { generateUser, generateList, generateStore, cleanUp, populateUser, populateList } = require('../../helpers/tests')
-debugger
+
 describe('addStore', () =>{
     let userTest, contactTest, listTest, storeTest
 
@@ -23,7 +23,7 @@ describe('addStore', () =>{
         await User.findByIdAndUpdate(userTest.id,  { $push: { contacts: [contactTest.id] } }) 
 
         listTest = generateList(userTest.id)
-        storeTest = generateStore(userTest.id)
+        storeTest = generateStore()
 
         await populateList(listTest)
         return await List.findByIdAndUpdate(listTest.id,  { $push: { guests: [contactTest.id] } }) 

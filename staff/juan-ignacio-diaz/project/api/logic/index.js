@@ -19,5 +19,9 @@ module.exports = {
     reviewMessages: require('./lists/messages/reviewMessages'),
 
     addStore: require('./lists/stores/addStore'),
-    reviewStores: require('./lists/stores/reviewStores')
+    reviewStores: require('./lists/stores/reviewStores'),
+
+    reviewProductTypes: require('./lists/products/reviewProductTypes'),
+    addProductToList: require('./lists/products/addProductToList'),
+    deleteProductToList: require('./lists/products/deleteProductToList')
 }

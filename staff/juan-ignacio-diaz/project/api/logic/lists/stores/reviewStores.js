@@ -3,7 +3,7 @@ const {
     errors: { ExistenceError }
 } = require('com')
 
-const { User, List } = require('../../../data/models')
+const { User, List, Store } = require('../../../data/models')
 
 /**
  * retriew stores lists by userId
@@ -11,7 +11,7 @@ const { User, List } = require('../../../data/models')
  * @param {string} userId  The Id of the user to list.
  * @param {string} listId  The Id of the list.
  * 
- * @returns {Promise<chat: text date name avatar >} The list id
+ * @returns {Promise<List.stores: name >} The stores id
  * 
  * @throws {ExistenceError} On existing userId
  */
@@ -36,8 +36,8 @@ module.exports = (listId, userId) => {
         })
 
         return stores.sort((a,b) =>{
-                if(a.name > b.name) return -1
-                if(a.name < b.name) return 1
+                if(a.name > b.name) return 1
+                if(a.name < b.name) return -1
                 return 0
             })
     })()

@@ -1,14 +1,15 @@
-const { List } = require('../../../data/models')
+const { List , Store} = require('../../../data/models')
 
 const mongodb = require('mongodb')
 
 const { ObjectId } = mongodb
 
 module.exports = (listId, store) => {
-    return List.findByIdAndUpdate(listId , { $push: { stores: [store] } })
-        .then(tmpStore => {
-            store.id = tmpStore._id.toString()
+    const tmpStore  = new Store({
+        name: store.name
+    })
 
-            return store
-        })
+    store.id = tmpStore._id.toString()
+
+    return List.findByIdAndUpdate(listId , { $push: { stores: [tmpStore] } })
 }

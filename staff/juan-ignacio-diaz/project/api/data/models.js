@@ -77,8 +77,9 @@ const product = new Schema({
         required: true
     },
     state: {
-        type: Number,
-        enum: ['', 'selected', 'bought']
+        type: String,
+        enum: ['', 'selected', 'bought'], 
+        default: ''
     },
     price: {
         type: Number

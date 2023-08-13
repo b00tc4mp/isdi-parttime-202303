@@ -1,5 +1,7 @@
+const { Store } = require('../../../data/models')
+
 module.exports = () => {
     return {
-            name: `name-${Math.random()}`,
+            name: `store-${Math.random()}`,
         }
 }

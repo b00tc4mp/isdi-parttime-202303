@@ -10,7 +10,7 @@ const { User, List } = require('../../data/models')
  * 
  * @param {string} userId  The Id of the user.
  * 
- * @returns {Promise<Liss: name date>} The list id
+ * @returns {Promise<User: name >} The users id
  * 
  * @throws {ExistenceError} On existing userId
  */
