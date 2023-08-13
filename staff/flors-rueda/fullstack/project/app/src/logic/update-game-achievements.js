@@ -16,7 +16,7 @@ const updateGameAchievements = (gameData) => {
     })
         .then(res => {
             if (!res.ok) {
-                throw new Error('Failed to update password');
+                throw new Error('Failed to update game achievements');
             }
             return Promise.resolve();
         })

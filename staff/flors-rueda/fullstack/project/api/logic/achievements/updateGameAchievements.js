@@ -3,6 +3,7 @@ const {
     errors: { ExistenceError }
 } = require('com');
 const { Achievements } = require('../../data/models');
+const sendNotification = require('../helpers/sendNotification');
 
 module.exports = async (userId, gameData) => {
     validateId(userId, 'userId');
@@ -28,9 +29,12 @@ module.exports = async (userId, gameData) => {
 
             if (achievement.progress >= achievement.ranks[0] && !achievement.isRankReached) {
                 achievement.isRankReached = true;
+                sendNotification(achievement);
             }
-            if (achievement.progress >= achievement.ranks[2]) {
+
+            if (achievement.progress >= achievement.ranks[achievement.ranks.length - 1]) {
                 achievement.completed = true;
+                sendNotification(achievement);
             }
         }
         return achievement;

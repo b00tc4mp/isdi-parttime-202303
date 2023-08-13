@@ -15,8 +15,6 @@ const GameOver = ({ isGameWon, onRetry, isCreatedLevel, layout, hp, name, likesI
     const [isLiked, setIsLiked] = useState(isCreatedLevel ? null : likesInfo.isLevelLiked);
     const [likes, setLikes] = useState(isCreatedLevel ? null : likesInfo.likes.length);
 
-    console.log('weeeh', createData)
-
     const handlePostLevel = () => {
         handleErrors(async () => {
             await createLevel(name, layout, hp);

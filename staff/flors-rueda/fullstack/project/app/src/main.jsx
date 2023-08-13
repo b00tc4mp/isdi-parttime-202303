@@ -5,7 +5,7 @@ import App from './App.jsx';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import './style.css';
 import inLogger from './inLogger';
-inLogger.on = true
+inLogger.on = false;
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   //<React.StrictMode>

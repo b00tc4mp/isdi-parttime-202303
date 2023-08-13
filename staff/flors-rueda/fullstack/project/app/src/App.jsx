@@ -23,6 +23,7 @@ import Settings from './views/Settings';
 import Home from './views/Home';
 import updateSocialAchievements from './logic/update-social-achievements';
 import useHandleErrors from './hooks/useHandleErrors';
+import socketIOClient from 'socket.io-client';
 
 const App = () => {
   const [isApiAvailable, setApiAvailableOn] = useState(true);
@@ -30,6 +31,7 @@ const App = () => {
   const [feedback, setFeedback] = useState(null);
   const { unlockScroll } = useLockScroll();
   const handleErrors = useHandleErrors();
+  const [notification, setNotification] = useState('');
 
   unlockScroll();
 
@@ -57,12 +59,24 @@ const App = () => {
     }
   }, [location.pathname]);
 
+  useEffect(() => {
+    const socket = socketIOClient('http://localhost:4321');
+    socket.on('notification', (message) => {
+      setNotification(message);
+      console.log('chaaarchi')
+    });
+    return () => {
+      socket.disconnect();
+    };
+  }, []);
+
   return (
     <AppContext.Provider value={{ alert: handleShowAlert }}>
       <Navbar />
       <div className="pt-5">
         {!isApiAvailable && <NoConnectionToast />}
         {feedback && <AlertToast message={feedback.message} handleCloseAlert={handleCloseAlert} />}
+        {notification && <div className="notification">{notification}</div>}
         <Routes>
           <Route path="/" element={isUserLoggedIn() ? <Navigate to="/home" /> : <Landing />} />
           <Route path="/levels" element={isUserLoggedIn() ? <LevelsList /> : <NotFound />} />

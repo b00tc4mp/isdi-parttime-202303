@@ -3,6 +3,8 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const http = require('http');
+const { Server } = require('socket.io');
 
 const { helloApiHandler, retrieveLevelsHandler, retrieveLevelHandler, createLevelHandler, authenticateUserHandler, registerUserHandler, retrieveUserHandler, retrieveUserLoggedHandler, updateColorHandler, updateAvatarHandler, toggleLikeHandler, updatePasswordHandler, recoverPasswordHandler, retrieveRandomRecoveryQuestionHandler, checkRecoveryAnswerHandler, toggleFollowHandler, retrieveLevelsByFollowedHandler, retrieveLevelsByAuthorHandler, retrieveLevelsSavedHandler, toggleSaveHandler, retrieveCompleteAchievementsHandler, updateCreateAchievementsHandler, updateGameAchievementsHandler, updateSocialAchievementsHandler, updateTutorialAchievementsHandler } = require('./handlers');
 
@@ -10,20 +12,37 @@ const mongoose = require('mongoose');
 
 mongoose.connect(process.env.MONGODB_URL)
     .then(() => {
-        const api = express()
+        const api = express();
+        const server = http.createServer(api);
+        const io = new Server(server, {
+            cors: {
+                origin: 'http://localhost:5173'
+            }
+        });
 
-        const jsonBodyParser = bodyParser.json()
+        module.exports.io = io;
 
-        api.use(cors())
+        const jsonBodyParser = bodyParser.json();
 
-        api.use((req, res, next) => {
+        api.use(cors());
+
+        api.get('/', (req, res) => {
+            res.sendFile(__dirname + '/index.html');
+        });
+
+        api.get('/socket.io/socket.io.js', (req, res) => {
+            res.sendFile(__dirname + '/node_modules/socket.io/client-dist/socket.io.js');
+        });
+
+
+        /*api.use((req, res, next) => {
             console.log(
                 "Request received: url =", req.url,
                 "|| baseUrl =", req.baseUrl,
                 "|| method =", req.method,
             );
             next();
-        });
+        });*/
 
         api.get('/api', helloApiHandler);
 
@@ -75,7 +94,11 @@ mongoose.connect(process.env.MONGODB_URL)
 
         api.patch('/api/achievements/tutorial', updateTutorialAchievementsHandler);
 
-        api.listen(process.env.PORT, () => console.log(`server running in port ${process.env.PORT}`));
+        io.on('connection', (socket) => {
+            console.log('a user connected');
+        });
+
+        server.listen(process.env.PORT, () => console.log(`server running in port ${process.env.PORT}`));
 
     })
     .catch((error) => {
