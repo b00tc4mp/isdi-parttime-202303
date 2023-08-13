@@ -2,7 +2,7 @@
 export default function Alert({ message, level, onAccept }) {
     console.debug('Alert -> render')
 
-    console[level](message)
+    // console[level](message)
 
     let color = 'dodgerblue'
     

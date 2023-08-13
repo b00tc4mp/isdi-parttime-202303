@@ -3,7 +3,7 @@
     width: 800px;
     margin: 2rem;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     box-sizing: border-box;
 }
 
