@@ -27,6 +27,7 @@
     "com": "file:../com",
     "dotenv": "^16.3.0",
     "imagekit": "^4.1.3",
-    "mongoose": "^7.3.4"
+    "mongoose": "^7.3.4",
+    "node-fetch": "^2.6.12"
   }
 }

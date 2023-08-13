@@ -3,17 +3,28 @@ import React, { useEffect, useState, useContext } from "react";
 import { View, Text, TextInput, Image, TouchableOpacity, Alert } from 'react-native';
 import Context from '../AppContext.js'
 import MapView, { Marker, Callout } from 'react-native-maps'
+import registerUser from '../logic/users/registerUser.js'
 
 export default function Login({ navigation }) {
     const { currentView, setCurrentView, colorScheme } = useContext(Context)
+    const [name, setName] = useState()
+    const [email, setEmail] = useState()
+    const [password, setPassword] = useState()
+    const [repeatPassword, setRepeatPassword] = useState()
+    const handleRegister = () => {
 
-    const handleLogin = () => {
-        alert('TODO login')
+        registerUser(name, email, password)
+            .then(token => {
+                alert('New user registered! \n Now you cna login.')
+                navigation.navigate('Login')
+
+            })
+            .catch(error => alert(error.message))
     }
     const handleForgetPassword = () => {
         alert('TODO Forget Password')
     }
-    const handleGoToRegister = () => {
+    const handleGoToLogin = () => {
         alert('TODO Go To Register')
     }
 
@@ -36,6 +47,12 @@ export default function Login({ navigation }) {
                 <Text className="dark:text-white text-2xl text-center font-semibold">Register</Text>
                 <Text className="dark:text-white pt-4 text-xs text-center">Your name</Text>
                 <TextInput
+                    label="Name"
+                    returnKeyType="next"
+                    value={name}
+                    onChangeText={setName}
+                    autoCapitalize="none"
+                    autoCompleteType="email"
                     placeholder="Name"
                     className="dark:text-white border border-mainGray bg-mainGray dark:border-gray-700 dark:bg-gray-700 rounded-full mt-1 mb-0 px-2 py-2 self-center w-full text-center"
                     inputMode="text"
@@ -43,33 +60,45 @@ export default function Login({ navigation }) {
                 />
                 <Text className="dark:text-white pt-4 text-xs text-center">Your email</Text>
                 <TextInput
+                    label="Email"
+                    returnKeyType="next"
+                    value={email}
+                    onChangeText={setEmail}
+                    autoCapitalize="none"
+                    autoCompleteType="email"
                     placeholder="Email"
                     className="dark:text-white border border-mainGray bg-mainGray dark:border-gray-700 dark:bg-gray-700 rounded-full mt-1 mb-0 px-2 py-2 self-center w-full text-center"
                     inputMode="text"
-                    keyboardType="default"
+                    keyboardType="email-address"
                 />
                 <Text className="dark:text-white pt-3 text-xs text-center">Your Password</Text>
                 <TextInput
+                    label="Password"
+                    returnKeyType="done"
+                    value={password}
+                    onChangeText={setPassword}
+                    secureTextEntry
                     placeholder="Password"
                     className="dark:text-white border border-mainGray bg-mainGray dark:border-gray-700 dark:bg-gray-700 rounded-full my-1 px-2 py-2 self-center w-full text-center"
                     inputMode="text"
-                    secureTextEntry={true}
                     keyboardType="default"
                 />
                 <Text className="dark:text-white pt-3 text-xs text-center">Repeat your Password</Text>
                 <TextInput
-                    placeholder="Password"
+                    label="Repeat password"
+                    returnKeyType="done"
+                    value={repeatPassword}
+                    onChangeText={setRepeatPassword}
+                    secureTextEntry
+                    placeholder="Repeat password"
                     className="dark:text-white border border-mainGray bg-mainGray dark:border-gray-700 dark:bg-gray-700 rounded-full my-1 px-2 py-2 self-center w-full text-center"
                     inputMode="text"
-                    secureTextEntry={true}
                     keyboardType="default"
                 />
                 <TouchableOpacity
                     activeOpacity={0.8}
                     className="border border-mainLime bg-mainLime rounded-full mb-1 mt-4 self-center w-auto  text-center"
-                    onPress={() => {
-                        handleLogin()
-                    }}
+                    onPress={handleRegister}
                 >
                     <View
                         className="font-bold text-center  px-6 py-2 self-center rounded-full"
@@ -81,9 +110,7 @@ export default function Login({ navigation }) {
                 <TouchableOpacity
                     className="mb-2 self-center w-full text-center"
                     activeOpacity={0.8}
-                    onPress={() => {
-                        handleGoToRegister()
-                    }}
+                    onPress={handleGoToLogin}
                 >
                     <Text
                         className="dark:text-white mt-3 text-xs text-center"

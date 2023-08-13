@@ -23,7 +23,7 @@ module.exports = function registerUser(name, email, password) {
     validateEmail(email)
     validatePassword(password)
 
-    return User.create({ name, email, password, image: null, favs: [] })
+    return User.create({ name, email, password })
         .catch(error => {
             if (error.message.includes('E11000')) throw new DuplicityError(`This user whith email ${email} already exists`)
             throw error

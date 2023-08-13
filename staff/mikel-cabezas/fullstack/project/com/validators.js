@@ -43,6 +43,11 @@ function validateUserId(userId) {
     if (!userId) throw new ContentError('User is empty')
 }
 
+function validateId(id, explain = 'token') {
+    if (typeof id !== 'string') throw new TypeError(`${explain} is not a string`)
+    if (!id) throw new ContentError(`${explain} is empty`)
+}
+
 function validatePostId(postId) {
     if (typeof postId !== 'string') throw new TypeError('Post ID is not a string')
     if (!postId) throw new ContentError('Post ID is empty')
@@ -63,6 +68,7 @@ module.exports = {
     validateEmail,
     validateText,
     validatePassword,
+    validateId,
     validateUserId,
     validatePostId,
     validateCallback,

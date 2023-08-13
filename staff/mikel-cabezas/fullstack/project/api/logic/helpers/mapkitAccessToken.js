@@ -1,8 +1,6 @@
 require('dotenv').config()
+const fetch = require('node-fetch');
 
-
-const { Playground } = require('../../data/models')
-const context = require('../context')
 const { validators: { validateToken } } = require('com')
 
 /**
@@ -11,14 +9,13 @@ const { validators: { validateToken } } = require('com')
 
  * @returns {Promise<Object>} returns a promise object contains de new post 
  * 
- * @throws {TypeError} on non-string id, image, title and text (sync)
- * @throws {ContentError} on empty id, image, title or text  (sync)
- * @throws {FormatError} wrong format on image (sync)
+ * // @throws {TypeError} on non-string id, image, title and text (sync)
+ * // @throws {ContentError} on empty id, image, title or text  (sync)
+ * // @throws {FormatError} wrong format on image (sync)
  */
 
 module.exports = () => {
     // token, name, description, sunExposition, elements, images, location
-
     const token = process.env.AMK_API_KEY
 
     return fetch(`https://maps-api.apple.com/v1/token`, {

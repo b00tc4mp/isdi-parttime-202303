@@ -18,13 +18,9 @@ const {
 module.exports = userId => {
     validateUserId(userId)
 
-
-    return User.findById(userId).lean()
+    return User.findById(userId, '-password -_id').lean()
         .then(user => {
             if (!user) throw new ExistenceError('user not found')
-
-            delete user._id
-            delete user.password
 
             return user
         })

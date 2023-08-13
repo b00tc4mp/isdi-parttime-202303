@@ -6,9 +6,9 @@ module.exports = {
     addPlayground: require('./addPlayground'),
     editPost: require('./editPost'),
     deletePost: require('./deletePost'),
-    retrieveLikedPosts: require('./retrieveLikedPosts'),
+    retrieveLikedPlaygrounds: require('./retrieveLikedPlaygrounds'),
     retrieveSavedPosts: require('./retrieveSavedPosts'),
-    retrievePostByPostId: require('./retrievePostByPostId'),
-    toggleLikePost: require('./toggleLikePost'),
+    retrievePlaygroundById: require('./retrievePlaygroundById'),
+    toggleLikePlayground: require('./toggleLikePlayground'),
     toggleSavePost: require('./toggleSavePost')
 }

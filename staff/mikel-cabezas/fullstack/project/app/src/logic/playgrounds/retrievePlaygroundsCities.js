@@ -5,7 +5,7 @@ import { EXPO_PUBLIC_API_URL } from '@env'
 export default (token, searchQuery) => {
     // validateToken(token);
     // alert(API_URL)
-    return fetch(`${EXPO_PUBLIC_API_URL}/cities/${searchQuery}`, {
+    return fetch(`${process.env.EXPO_PUBLIC_API_URL}/cities/${searchQuery}`, {
         method: 'GET',
         headers: {
             'Authorization': `Bearer ${token}`

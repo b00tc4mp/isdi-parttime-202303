@@ -5,11 +5,13 @@ import { NativeWindStyleSheet } from "nativewind";
 import Context from '../../AppContext.js'
 import * as Animatable from 'react-native-animatable';
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 NativeWindStyleSheet.setOutput({
     default: "native",
 });
 
-export function Sidebar({ closeHandle }) {
+export default function Sidebar({ navigation, closeHandle, user }) {
     const { currentView, setCurrentView } = useContext(Context)
     const [animation, setAnimation] = useState()
 
@@ -41,8 +43,9 @@ export function Sidebar({ closeHandle }) {
         alert('TODO Go To My Issues')
     }
 
-    const handleGoToLogout = () => {
-        alert('TODO Go To Logout')
+    const handleGoToLogout = async () => {
+        navigation.navigate('Login')
+        AsyncStorage.clear();
     }
 
     const handleGoToShareApp = () => {
@@ -78,7 +81,7 @@ export function Sidebar({ closeHandle }) {
 
                 <View className="w-12/12 flex-row pb-3 pt-2">
                     <Text className="px-1 flex-1 text-lg font-semibold" >
-                        Hi ${'{username}'}!
+                        Hi {user.name}!
                     </Text>
                 </View>
 

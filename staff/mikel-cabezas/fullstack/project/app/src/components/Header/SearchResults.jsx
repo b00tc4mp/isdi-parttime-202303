@@ -36,19 +36,17 @@ export default function SearchResults({ handleCloseModals, data, handleViewPlayg
             })
     }
 
-    return <>
+    return <View>
         {data.length > 0 && data.map((result, index) => {
-            return <>
-                {index >= 0 && <><View className="pt-3 border-mainGray" key={index} />
-                    <TouchableHighlight className="py-3 px-4" onPress={() => simpleSearchRegion(result)}>
-                        <Text> {result}</Text>
-                    </TouchableHighlight>
-                </>}
-
-            </>
+            return <View className="pt-3 border-mainGray" key={index} >
+                <View className="pt-3 border-mainGray" key={`${index}-0`} />
+                <TouchableHighlight key={`${index}-touchable`} className="py-3 px-4" onPress={() => simpleSearchRegion(result)}>
+                    <Text key={`${index}-text`}> {result} {index}</Text>
+                </TouchableHighlight>
+            </View>
         })}
 
-    </>
+    </View>
 }
 
 

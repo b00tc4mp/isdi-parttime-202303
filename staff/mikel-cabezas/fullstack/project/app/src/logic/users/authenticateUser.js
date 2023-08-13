@@ -1,15 +1,14 @@
-// import { validators } from 'com'
-// const { validateEmail, validatePassword } = validators
-import { API_URL } from '@env'
+import { validators } from '../../../com'
+const { validateEmail, validatePassword } = validators
+import { EXPO_PUBLIC_API_URL } from '@env'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 // console.log(validators)
 export default (email, password) => {
-    // validateEmail(email)
-    // validatePassword(password)
-    let isLoggedIn
-    return fetch(`${API_URL}/users/auth`, {
+    validateEmail(email)
+    validatePassword(password)
+    return fetch(`${EXPO_PUBLIC_API_URL}/users/auth`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
