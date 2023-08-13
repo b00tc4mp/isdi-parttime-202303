@@ -2,15 +2,23 @@
 
 ## Intro
 
-Shared shopping list
+### Shared shopping list.
 
-The application allows you to create a shopping list, with several participants. They will be able to discuss the products to buy in the list chat, add and remove products and mark the purchased products adding the purchase price to make the cost sharing at the end of the list.
-In the creation of the list the name, date of completion will be indicated. The creating user will be the administrator and will select the participants from his contact list. A notification will be sent to them, which they will have to accept in order to enter the shopping list.
-The insertion of products allows to indicate the product, quantity, estimated price, type of product and stores where it can be purchased. 
-The purchase of products allows to filter the products of the commerce in which we are buying and to organize them by types. We will mark the products that we add to the cart indicating their price and at the end of the purchase the products in the cart will pass to the status of purchased by the participant. The products that are already in the cart cannot be modified (option to incorporate a photo of the purchase receipt).
-At the end of the purchase a summary of purchases is generated, indicating the money that each participant must contribute to the rest.
+The application allows you to create a shopping list, with several participants. 
 
 ![](https://www.ideasyahorro.com/wp-content/uploads/2021/07/lista-de-la-compra.jpg)
+
+They will be able to discuss the products to buy in the list chat, add and remove products and mark the purchased products adding the purchase price to make the cost sharing at the end of the list.
+
+In the creation of the list the name, date of completion will be indicated. The creating user will be the administrator and will select the participants from his contact list. A notification will be sent to them, which they will have to accept in order to enter the shopping list.
+
+The insertion of products allows to indicate the product, quantity, estimated price, type of product and stores where it can be purchased. 
+
+The purchase of products allows to filter the products of the commerce in which we are buying and to organize them by types. We will mark the products that we add to the cart indicating their price and at the end of the purchase the products in the cart will pass to the status of purchased by the participant. The products that are already in the cart cannot be modified (option to incorporate a photo of the purchase receipt).
+
+At the end of the purchase a summary of purchases is generated, indicating the money that each participant must contribute to the rest.
+
+
 
 ## Functional description
 
@@ -53,7 +61,7 @@ At the end of the purchase a summary of purchases is generated, indicating the m
 - Me as a user, I want to create a shared shopping list, enter name list and request for addition user to shopping list.
 - Me as user, I want to see the list of shared shopping list and accept addition to shopping list. 
 
-#### Add comment to chat
+#### Add messages to list
 
 - Me as user, I want to add and view the comments of the users in the list
 
@@ -138,93 +146,4 @@ List
 
 ## Planning
 
-### Epics & Stories
-
-#### Access control
-
-- Me as a user, I want to register my credentials and access with them to the App
-
-##### Tasks
-
-- TODO build html
-- TODO build basic css
-- DONE implement register functionality
-- DONE implement login functionality
-- TODO implement home welcome functionality
-
-#### Create and access a shared shopping list
-
-- Me as a user, I want to create a shared shopping list, enter name list and request for addition user to shopping list.
-- Me as user, I want to see the list of shared shopping list and accept addition to shopping list. 
-
-##### Tasks
-
-- TODO implement shared shopping list creation button.
-- TODO implement a list of shared shopping lists to which I can accept to access
-- TODO implement list of shared shopping lists in which I participate to access
-- TODO implement modal window of creation of shared shopping list with assignment of name, date of end and assignment of contacts who can participate
-- TODO implement shared shopping list modal window, will contain access to chat and shared shopping list and access to shared shopping list summary
-- TODO implement login functionality
-- TODO (option copy a exist list)
-
-#### Add comment to chat
-
-- Me as user, I want to add and view the comments of the users in the list
-
-##### Tasks
-
-- TODO implement add comment
-- TODO implement reviews comments
-- TODO implement login functionality
-
-#### Add stores
-
-- Me as user, I want to add and view the stores 
-
-##### Tasks
-
-- TODO implement add store
-- TODO implement reviews stores
-- TODO implement login functionality
-
-#### Add product to the shared shopping list and update list
-
--I, as a user, want to insert products in the shared shopping list.
-
-##### Tasks
-
-- TODO implement modal window to insert products with name, quantity, type of product, trade, commen
-- TODO implement login functionality
-
-#### Review shared shopping list
-
-- Me as user, I want to review the products in the shared shopping list. 
-- Me as user, I want to filter by number of likes, product type, merchants, users, products purchased.
-
-##### Tasks
-
-- TODO implement modal window to review products.
-- TODO implement filter selector for review.
-- TODO implement edit and delete buttons.
-- TODO implement login functionality
-
-### Edit a product from the list and update list.
-
--As a user, I want to be able to edit a product. 
-
-##### Tasks
-
-- TODO implement modal window to edit a product name, quantity, type of product, trade, comment
-- TODO add refresh of the shared shopping list
-- TODO implement login functionality
-
-### Remove a product from the list and refresh list
-
--As a user, I want to be able to delete a product with a delete control dialog.
-
-##### Tasks
-
-- TODO implement deletion of a product
-- TODO implement modal window to accept the deletion of a product
-- TODO add refreshing of the shared shopping list
-- TODO implement login functionality
+- https://anfac-my.sharepoint.com/:x:/g/personal/jignacio_ideauto_com/EanO8MAFxHlBoFxM-w-I76UBLwiTtFz-d6333BSjDwONYw?e=dD2O8e

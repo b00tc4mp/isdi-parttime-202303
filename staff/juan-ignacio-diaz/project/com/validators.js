@@ -58,8 +58,10 @@ function validateText(text, explain = 'text') {
     if (!text.trim().length) throw new TypeError(`${explain} is empty`)
 }
 
-function validateNumber(number, explain = 'number') {
+function validateNumber(number, explain = 'number', minimum) {
     if (typeof number !== 'number') throw new TypeError(`${explain} is not a number`)
+    if (minimum)
+        if (number<minimum) throw new TypeError(`${explain} is not valid`)
 }
 
 function validateDate(date) {
@@ -76,6 +78,11 @@ function validateToken(token, explain = 'token') {
     if (token.split('.').length !== 3) throw new ContentError(`${explain} is not valid`)
 }
 
+function validateArray(array, explain = 'array') {
+    if (!Array.isArray(array)) throw new TypeError(`${explain} is not a array`)
+    if (array.length === 0) throw new ContentError(`${explain} is empty`)
+}
+
 module.exports = {
     validateId,
     validateEmail,
@@ -86,5 +93,6 @@ module.exports = {
     validateNumber,
     validateDate,
     validateCallback,
-    validateToken
+    validateToken,
+    validateArray
 }
