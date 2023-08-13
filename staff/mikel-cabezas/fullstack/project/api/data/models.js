@@ -2,10 +2,6 @@ const mongoose = require('mongoose')
 const { Schema, Schema: { Types: { ObjectId } }, model } = mongoose
 
 const user = new Schema({
-    _id: {
-        type: ObjectId,
-        required: true,
-    },
     name: {
         type: String,
         required: true,

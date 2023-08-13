@@ -14,12 +14,15 @@ import BaseMap from '../components/Playgrounds/BaseMap';
 import Nearby from '../components/Playgrounds/Nearby.jsx';
 import SinglePlayground from '../components/Playgrounds/SinglePlayground.jsx';
 import CreatePlayground from '../components/Playgrounds/addPlayground/AddPlayground.jsx';
+import retrieveUser from "../logic/users/retrieveUser"
 
-export default function Home({ onSendViewPlaygroundsFromCity }) {
-    const { modal, setModal, colorScheme, colorPalette, animation, setAnimation, currentView, setCurrentView } = useContext(Context)
+
+export default function Home({ navigation, onSendViewPlaygroundsFromCity }) {
+    const { modal, setModal, colorScheme, TOKEN, animation, setAnimation, currentView, setCurrentView } = useContext(Context)
     const [currentMarker, setCurrentMarker] = useState({})
     const [newPlaygroundStatus, setNewPlaygroundStatus] = useState(false)
     const [searchResult, setSearchResult] = useState(false)
+    const [user, setUser] = useState()
 
     const bottomSheetRef = useRef();
     const snapPoints = useMemo(() => ['75%', '94%'], []);
@@ -51,7 +54,13 @@ export default function Home({ onSendViewPlaygroundsFromCity }) {
         console.log('handleSheetChanges', index);
     }, []);
 
-
+    useEffect(() => {
+        retrieveUser(TOKEN)
+            .then(user => {
+                setUser(user)
+                console.log(user)
+            })
+    }, [])
 
     const onHome = () => {
         setModal('')
@@ -102,15 +111,20 @@ export default function Home({ onSendViewPlaygroundsFromCity }) {
         ]);
 
     const handleViewPlaygroundsFromCity = (results) => {
-        // console.log('the result on HOME', results)
+        console.log('the result on HOME', results)
         setSearchResult(results)
     }
 
+    const handleToggleSidebar = () => {
+        setModal('sidebar')
+    }
+
+
     return <>
         <View className="flex-1 bg-white items-center justify-center">
-            {modal === 'sidebar' && <Sidebar closeHandle={onCloseSidebar} />}
-            <BaseMap className="-z-20" onMarkerPressed={markerPressedHandler} searchResult={searchResult} />
-            <Header handleCloseModals={onCloseModal} onHandleViewPlaygroundsFromCity={handleViewPlaygroundsFromCity} />
+            {modal === 'sidebar' && <Sidebar navigation={navigation} user={user} closeHandle={onCloseSidebar} />}
+            <BaseMap user={user} className="-z-20" onMarkerPressed={markerPressedHandler} searchResult={searchResult} />
+            <Header handleToggleSidebar={handleToggleSidebar} handleCloseModals={onCloseModal} onHandleViewPlaygroundsFromCity={handleViewPlaygroundsFromCity} />
             <Footer nearbyHandler={onNearby} createPlaygroundHandler={onCreatePlayground} homeHandler={onHome} />
             {modal === 'singlePlayground' && <BottomSheet
                 // style={{ backgroundColor: "transparent" }}

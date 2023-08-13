@@ -1,5 +1,6 @@
 
 const { User, Playground } = require('../../../data/models')
+const fetch = require('node-fetch');
 
 const {
     validators: { validateUserId },
@@ -9,7 +10,7 @@ const {
 /**
  * 
  * @param {string} userId 
- * @returns {Promise<Object>} returns a promise object contains de sanatized playgrounds 
+ * @returns {Promise<Object>} returns a promise object contains Z sanatized playgrounds 
   * 
  * @throws {TypeError} on non-string userId (sync)
  * @throws {ContentError} on empty userId (sync)
@@ -20,11 +21,9 @@ const {
 module.exports = (token, userId, city) => {
     validateUserId(userId)
 
-
     // token, name, description, sunExposition, elements, images, location
 
     // let mapsResponse
-    debugger
 
     return fetch(`https://maps-api.apple.com/v1/geocode?q=${city}&lang=es-ES`, {
         method: 'GET',

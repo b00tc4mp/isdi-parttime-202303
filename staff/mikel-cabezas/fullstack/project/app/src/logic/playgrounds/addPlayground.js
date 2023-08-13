@@ -11,7 +11,7 @@ export default function addPlayground(token, name, description, sunExposition, e
     // validateText(name)
     // validateText(description)
 
-    return fetch(`${EXPO_PUBLIC_API_URL}/playgrounds`, {
+    return fetch(`${process.env.EXPO_PUBLIC_API_URL}/playgrounds`, {
         method: 'POST',
         headers: {
             'Authorization': `Bearer ${token}`,

@@ -5,6 +5,8 @@ import * as Animatable from 'react-native-animatable';
 import { SHADY, LIKE, LIKE_FILLED, SUNNY, ADD } from '../../../assets/icons';
 import Context from '../../AppContext.js'
 import SingleElement from './SingleElement'
+import { toggleLikePlayground } from "../../logic/playgrounds/toggleLikePlayground";
+import retrievePlaygroundById from "../../logic/playgrounds/retrievePlaygroundById";
 
 import { NativeWindStyleSheet } from "nativewind";
 NativeWindStyleSheet.setOutput({
@@ -12,37 +14,68 @@ NativeWindStyleSheet.setOutput({
 });
 
 export default function Nearby({ closeHandle }) {
-    const { currentView, setCurrentView, currentMarker, setCurrentMarker } = useContext(Context)
+    const { currentView, setCurrentView, currentMarker, setCurrentMarker, TOKEN } = useContext(Context)
+    const [playground, setPlayground] = useState()
+    const [shady, setShady] = useState('bg-mainGray')
+    const [sunny, setSunny] = useState('bg-mainGray')
+    const [partial, setPartial] = useState('bg-mainGray')
+    const [likes, setLikes] = useState(false)
+    useEffect(() => {
+        retrievePlaygroundById(TOKEN, currentMarker._id)
+            .then(playground => {
+                setPlayground(playground)
+                setLikes(playground.likes)
+                shady ? setShady('bg-mainLime') : setShady('bg-mainGray')
+                sunny ? sunny('bg-mainYellow') : sunny('bg-mainGray')
+                partial ? setPartial('bg-[#38F1A3]') : setPartial('bg-mainGray'
+                )
+            })
+            .catch(error => error.message)
+    }, [])
+    useEffect(() => {
 
-    const onClose = () => {
-        closeHandle()
+    }, [likes])
+    const onLike = async () => {
+        await toggleLikePlayground(TOKEN, playground._id)
+            .then(() => {
+                refreshLikes()
+            })
     }
-    const playground = currentMarker
-    let { shady, sunny, partial } = currentMarker.sunExposition
 
-    shady ? shady = 'bg-mainLime' : shady = 'bg-mainGray'
-    sunny ? sunny = 'bg-mainYellow' : sunny = 'bg-mainGray'
-    partial ? partial = 'bg-[#38F1A3]' : partial = 'bg-mainGray'
+    const refreshLikes = () => {
+        retrievePlaygroundById(TOKEN, currentMarker._id)
+            .then(playground => {
+                setLikes(playground.likes)
+                shady ? setShady('bg-mainLime') : setShady('bg-mainGray')
+                sunny ? sunny('bg-mainYellow') : sunny('bg-mainGray')
+                partial ? setPartial('bg-[#38F1A3]') : setPartial('bg-mainGray'
+                )
+            })
+            .catch(error => error.message)
+    }
 
 
     return <View className="h-full bg-red-500z relative flex-column justify-between items-center bg-[blue]">
-        {currentMarker && <>
+        {playground && <>
             <ScrollView showsVerticalScrollIndicator={false} className="bg-[blue]">
                 <View className="w-full px-5 pb-12 bg-white dark:bg-gray-800  z-40 relative" >
-                    <TouchableHighlight
-                        className=" ml-auto mt-1 z-50"
-                        activeOpacity={1.0}
-                        underlayColor="#fff"
-                        onPress={() => {
-                            onClose()
-                            setCurrentView('')
-                        }}>
-                        <Image
-                            className={`w-6 h-6 m-auto `}
-                            source={LIKE}
-                        />
-                    </TouchableHighlight>
-                    <Text className="dark:text-white pt-1 text-xl font-semibold">{playground.name}</Text>
+                    <View className="ml-auto mt-1 z-50 flex-row items-center">
+                        <Text className="text-center mr-2 text-lg">{likes.length}</Text>
+                        <TouchableHighlight
+                            className=""
+                            activeOpacity={1.0}
+                            underlayColor="#fff"
+                            onPress={() => {
+                                onLike()
+                            }}>
+                            <Image
+                                className={`w-7 h-7 mx-auto `}
+                                source={likes.length > 0 ? LIKE_FILLED : LIKE}
+                            />
+                        </TouchableHighlight>
+
+                    </View>
+                    <Text className="dark:text-white text-xl font-semibold">{playground.name}</Text>
                     <Text className="dark:text-white pt-1 text-sm max-w-[80vw] text-[#20841E] mb-2">{playground.location.street}</Text>
                     <View
                         className={`border border-mainLime bg-mainLime rounded-full mt-1 mb-2`}
@@ -66,7 +99,7 @@ export default function Nearby({ closeHandle }) {
                             onPress={() => { handleShady() }}>
                             <View className="font-bold px-3 py-2 rounded-full flex-row">
                                 <Image className="w-5 h-5 mr-2" source={SUNNY} />
-                                <Text className="font-bold text-center text-sm rounded-full">{ }</Text>
+                                <Text className="font-bold text-center text-sm rounded-full">Sunny</Text>
                             </View>
                         </View>
                         <View
@@ -127,5 +160,5 @@ export default function Nearby({ closeHandle }) {
         <View className="flex-row absolute bottom-0 bg-mainGrays w-full mx-auto justify-center z-50 pb-11">
 
         </View>
-    </View>
+    </View >
 }

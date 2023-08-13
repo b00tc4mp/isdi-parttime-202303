@@ -13,7 +13,7 @@ import retrievePlaygrounds from "../../logic/playgrounds/retrievePlaygrounds.js"
 import retrievePlaygroundsCities from "../../logic/playgrounds/retrievePlaygroundsCities.js";
 
 
-export default function Header({ handleCloseModals, onHandleViewPlaygroundsFromCity }) {
+export default function Header({ navigation, handleCloseModals, onHandleViewPlaygroundsFromCity, handleToggleSidebar }) {
 
     if (colorScheme === 'dark') isDark = true
     let isDark
@@ -34,7 +34,7 @@ export default function Header({ handleCloseModals, onHandleViewPlaygroundsFromC
     }, []);
 
     const onToggleSidebar = () => {
-        setModal('sidebar')
+        handleToggleSidebar()
     }
 
     useEffect(() => {
@@ -94,7 +94,7 @@ export default function Header({ handleCloseModals, onHandleViewPlaygroundsFromC
                     className={`p-[2px]`}
                     activeOpacity={1.0}
                     underlayColor="#fff"
-                    onPress={() => { onToggleSidebar() }}>
+                    onPress={onToggleSidebar}>
                     <Image
                         className="w-8 h-8 m-auto"
                         source={isDark ? WHITE_MENU : MENU}
@@ -121,8 +121,8 @@ export default function Header({ handleCloseModals, onHandleViewPlaygroundsFromC
                     source={isDark ? FILTER : FILTER} />
             </View>
         </View >
-        {data.length > 0 && <Animatable.View animation={animation} duration={250} className="flex w-11/12 bg-white absolute top-12 m-auto  pt-8 pb-3 flex-1 rounded-[22px] text-left z-0">
-            <View className="py-2 border-b-[1px] border-mainGray" />
+        {data.length > 0 && <Animatable.View animation={animation} duration={250} key={-2} className="flex w-11/12 bg-white absolute top-12 m-auto pt-8 pb-3 flex-1 rounded-[22px] text-left z-0">
+            <View className="py-2 border-b-[1px] border-mainGray" key={-1} />
             <SearchResults data={data} handleViewPlaygroundsFromCity={onHandleViewPlaygroundsFromCity} />
         </Animatable.View>
         }

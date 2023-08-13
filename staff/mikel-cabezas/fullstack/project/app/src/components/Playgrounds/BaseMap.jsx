@@ -1,40 +1,24 @@
 import * as React from 'react';
-import { PIN, USER_LOCATION, MY_LOCATION, WHITE_MY_LOCATION } from '../../../assets/icons';
-import { Text, View, Modal, Animated, ScrollView, Image, TouchableOpacity } from 'react-native';
+import { USER_LOCATION, MY_LOCATION, WHITE_MY_LOCATION } from '../../../assets/icons';
+import { Image, TouchableOpacity } from 'react-native';
 import MapView, { Marker, Callout } from 'react-native-maps'
 import { useRef, useContext, useState, useEffect } from 'react';
-import * as Location from 'expo-location';
 import { NativeWindStyleSheet } from "nativewind";
 import Playgrounds from './Playgrounds';
 import AppContext from "../../AppContext.js";
 const { Provider } = AppContext
 import Context from '../../AppContext'
 import retrievePlaygrounds from "../../logic/playgrounds/retrievePlaygrounds"
-import retrieveUser from "../../logic/retrieveUser"
 
-
-
-// import returnPlaygrounds from '../logic/retrievePlaygrounds'
-// import playgrounds from '../../../api/data/parks.json'
-
-NativeWindStyleSheet.setOutput({
-    default: "native",
-});
-
-export default function BaseMap({ onMarkerPressed, searchResult }) {
+export default function BaseMap({ onMarkerPressed, searchResult, user }) {
     const mapRef = useRef(null);
-    const { colorScheme, currentMarker, setCurrentMarker, origin, setOrigin, location, setLocation, loadCurrentLocation, setLoadCurrentLocation } = useContext(Context)
+    const { colorScheme, currentMarker, setCurrentMarker, origin, setOrigin, location, setLocation, loadCurrentLocation, setLoadCurrentLocation, TOKEN } = useContext(Context)
     const [playgrounds, setPlaygrounds] = useState()
-    const userId = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDk0ODAwM2JmMTJmMTNmNmIxY2I4NTIiLCJpYXQiOjE2OTA5MjcxMjAsImV4cCI6MTc3NzI0MDcyMH0._fnTXb6GDqSip-kJiF_cao2b4WwVqraR_cpqsrco76k"
 
-    const [user, setUser] = useState()
     let isDark
     if (colorScheme === 'dark') isDark = true
 
-    const onMarkerPressedHandler = (id, title, description) => {
-        onMarkerPressed()
-
-    }
+    const onMarkerPressedHandler = () => onMarkerPressed()
 
     useEffect(() => {
         if (searchResult) {
@@ -47,11 +31,10 @@ export default function BaseMap({ onMarkerPressed, searchResult }) {
             }
             mapRef.current.animateToRegion(onCurrentMarkerRegion, 1 * 1000);
         }
-
     }, [searchResult]);
 
     const onSendViewPlaygroundsFromCity = data => {
-        console.log('data on FINAL!!!!', data)
+        console.log('data on FINAL COMPO!!!!', data)
     }
 
     const onCurrentLocation = () => {
@@ -63,7 +46,6 @@ export default function BaseMap({ onMarkerPressed, searchResult }) {
         }
         mapRef.current.animateToRegion(onCurrentMarkerRegion, 1 * 1000);
     }
-
 
     useEffect(() => {
         if (loadCurrentLocation) {
@@ -81,15 +63,14 @@ export default function BaseMap({ onMarkerPressed, searchResult }) {
         console.log('Refresh Posts -> render in useEffect')
         try {
             console.log('   Show all Posts -> render in useEffect onLoad compo')
-            retrievePlaygrounds(userId)
+            retrievePlaygrounds(TOKEN)
                 .then(playgrounds => {
                     setPlaygrounds(playgrounds)
                 })
                 .catch(error => {
                     alert(error.message)
                 })
-            retrieveUser(userId)
-                .then(user => setUser(user))
+
                 .catch(error => {
                     alert(error.message)
                 })

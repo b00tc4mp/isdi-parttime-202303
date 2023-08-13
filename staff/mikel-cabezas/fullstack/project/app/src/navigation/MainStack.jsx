@@ -18,7 +18,6 @@ export default function MainStack() {
     useEffect(() => {
         AsyncStorage.getItem('@TOKEN')
             .then(token => {
-                // alert(token)
                 if (token) {
                     setTOKEN(token)
                     setIsLoggedIn(true)
@@ -27,19 +26,37 @@ export default function MainStack() {
     }, [])
 
     return (<>
-        <Stack.Navigator
-            screenOptions={{
-                headerShown: false,
-            }} >
 
-            {isLoggedIn && <Stack.Screen
-                name='Home'
-                component={Home}
-            />}
-            {!isLoggedIn && <><Stack.Screen
-                name='Login'
-                component={Login}
-            />
+
+        {isLoggedIn && <>
+            <Stack.Navigator
+                screenOptions={{
+                    headerShown: false,
+                }}
+                initialRouteName="Home">
+
+                <Stack.Screen
+                    name='Home'
+                    component={Home}
+                />
+                <Stack.Screen
+                    name='Login'
+                    component={Login}
+                />
+            </Stack.Navigator>
+
+        </>
+        }
+        {!isLoggedIn && <>
+
+            <Stack.Navigator
+                screenOptions={{ headerShown: false, }}
+                initialRouteName="Login"
+            >
+                <Stack.Screen
+                    name='Login'
+                    component={Login}
+                />
                 <Stack.Screen
                     name='Register'
                     component={Register}
@@ -47,9 +64,11 @@ export default function MainStack() {
                 <Stack.Screen
                     name='Home'
                     component={Home}
-                /></>}
+                />
+            </Stack.Navigator>
 
-        </Stack.Navigator>
+        </>}
+
     </>
     )
 

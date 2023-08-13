@@ -8,14 +8,14 @@ module.exports = {
     updateUserPasswordHandler: require('./users/updateUserPasswordHandler'),
     addPlaygroundHandler: require('./playgrounds/addPlaygroundHandler'),
     editPlaygroundHandler: require('./playgrounds/editPlaygroundHandler'),
-    deletePostHandler: require('./playgrounds/deletePostHandler'),
+    deletePlaygroundostHandler: require('./playgrounds/deletePostHandler'),
     retrievePlaygroundsHandler: require('./playgrounds/retrievePlaygroundsHandler'),
     retrieveCitiesFromDatabaseHandler: require('./playgrounds/searchPlaygrounds/retrieveCitiesFromDatabaseHandler'),
     retrievePlaygroundsFromCityHandler: require('./playgrounds/searchPlaygrounds/retrievePlaygroundsFromCityHandler'),
     retrieveCityFromSearchHandler: require('./playgrounds/searchPlaygrounds/retrieveCityFromSearchHandler'),
-    retrieveLikedPostsHandler: require('./playgrounds/retrieveLikedPostsHandler'),
+    retrieveLikedPlaygroundsHandler: require('./playgrounds/retrieveLikedPlaygroundsHandler'),
     retrieveSavedPostsHandler: require('./playgrounds/retrieveSavedPostsHandler'),
-    retrievePostByPostIdHandler: require('./playgrounds/retrievePostByPostIdHandler'),
-    toggleLikePostHandler: require('./playgrounds/toggleLikePostHandler'),
+    retrievePlaygroundByIdHandler: require('./playgrounds/retrievePlaygroundByIdHandler'),
+    toggleLikePlaygroundHandler: require('./playgrounds/toggleLikePlaygroundHandler'),
     toggleSavePostHandler: require('./playgrounds/toggleSavePostHandler')
 }

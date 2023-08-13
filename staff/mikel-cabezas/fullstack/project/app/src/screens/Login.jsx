@@ -17,26 +17,17 @@ export default function Login({ navigation }) {
 
     const handleLogin = () => {
         // alert('TODO login')
-        const emailError = alert('TODO email vlaidator')
-        const passwordError = alert('TODO password vlaidator')
+        // const emailError = alert('TODO email validator')
+        // const passwordError = alert('TODO password validator')
         authenticateUser(email, password)
             .then(token => {
                 console.log("TOKEN", token);
-                // const TOKEN = async (token) => {
-                //     try {
-                //         await AsyncStorage.setItem('TOKEN', token)
-                //     } catch (error) {
-                //         console.error(error.message)
-                //         alert(error.message)
-                //     }
-                // }
                 navigation.reset({
                     index: 0,
                     routes: [{ name: 'Home' }],
                 })
-
-
             })
+            .catch(error => alert(error.message))
 
     }
     const handleForgetPassword = () => {

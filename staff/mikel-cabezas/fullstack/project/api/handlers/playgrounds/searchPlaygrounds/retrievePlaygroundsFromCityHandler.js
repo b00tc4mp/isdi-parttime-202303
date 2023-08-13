@@ -7,8 +7,6 @@ module.exports = handleErrors((req, res) => {
     const userId = extractUserId(req)
     const { city } = req.params
 
-
-
     return mapkitAccessToken()
         .then(accessToken => {
             return retrievePlaygroundsFromCity(accessToken, userId, city)
