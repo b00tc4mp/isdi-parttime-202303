@@ -81,8 +81,8 @@ const Navbar = () => {
     }
 
     return (
-        <div ref={navbarRef}>
-            <div className="fixed w-full shadow z-40">
+        <div ref={navbarRef} className="z-50">
+            <div className="fixed w-full shadow z-50">
                 <nav className="px-1 py-4 flex justify-between items-center bg-light500">
                     <div className="flex row align-center pl-3">
                         <Link className="text-3xl font-bold leading-none hidden lg:block" to="/" onClick={handleCloseBoth}>
