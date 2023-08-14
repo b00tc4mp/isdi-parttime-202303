@@ -66,8 +66,10 @@ const App = () => {
       socket.on('connect', () => {
         const id = socket.id;
         socket.emit('sendSocketId', { id });
+        console.log('socket on');
 
         socket.on('notification', (message) => {
+          console.log('socket notification on');
           setAchievementNotifications(prevNotifications => {
             const lastNotification = prevNotifications[prevNotifications.length - 1];
             if (!lastNotification || lastNotification !== message) {

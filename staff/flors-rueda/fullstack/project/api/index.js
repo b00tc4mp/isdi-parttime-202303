@@ -16,7 +16,7 @@ mongoose.connect(process.env.MONGODB_URL)
         const server = http.createServer(api);
         const io = new Server(server, {
             cors: {
-                origin: process.env.APP_URL
+                origin: 'http://15.188.88.166'
             }
         });
 
