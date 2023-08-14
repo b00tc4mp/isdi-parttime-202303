@@ -61,29 +61,27 @@ const App = () => {
   }, [location.pathname]);
 
   useEffect(() => {
-    const socket = socketIOClient('http://15.188.88.166');
-    if (isUserLoggedIn()) {
-      socket.on('connect', () => {
-        const id = socket.id;
-        socket.emit('sendSocketId', { id });
-        console.log('socket on');
+    //const socket = socketIOClient('http://localhost:4321');
+    const socket = socketIOClient('http://ballopolis.rucev.com:4321');
+    socket.on('connect', () => {
+      const id = socket.id;
+      socket.emit('sendSocketId', { id });
+      console.log('socket on');
 
-        socket.on('notification', (message) => {
-          console.log('socket notification on');
-          setAchievementNotifications(prevNotifications => {
-            const lastNotification = prevNotifications[prevNotifications.length - 1];
-            if (!lastNotification || lastNotification !== message) {
-              return [...prevNotifications, message];
-            }
-            return prevNotifications;
-          });
+      socket.on('notification', (message) => {
+        console.log('socket notification on');
+        setAchievementNotifications(prevNotifications => {
+          const lastNotification = prevNotifications[prevNotifications.length - 1];
+          if (!lastNotification || lastNotification !== message) {
+            return [...prevNotifications, message];
+          }
+          return prevNotifications;
         });
       });
-
-      return () => {
-        socket.disconnect();
-      };
-    }
+    });
+    return () => {
+      socket.disconnect();
+    };
   }, []);
 
   return (
