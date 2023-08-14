@@ -49,7 +49,10 @@ const Admin = ({ onLogoutSession }) => {
                 </View>
             </View>
             <View className="h-3/4 w-full pl-2 pr-2 m-5">
-                {!modal && <Missions onEditClicked={handleEditMissionModal} admin={admin}/>}
+                {!modal && <Missions
+                    onEditClicked={handleEditMissionModal}
+                    admin={admin}
+                />}
                 {modal === 'adminMenu' && <AdminMenu
                     onAdminLogout={handleLogoutAdmin}
                     onNewMission={handleNewMissionModal}

@@ -3,7 +3,7 @@
 import { API_URL } from '@env'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
-export default function retrievePost(missionId) {
+export default function retrieveMission(missionId) {
     //    validateId(missionId, 'post id')
 
     return AsyncStorage.getItem('TOKEN')
@@ -14,8 +14,9 @@ export default function retrievePost(missionId) {
                 }
             })
                 .then(res => {
-                    if (res.status === 200)
+                    if (res.status === 200) {
                         return res.json()
+                    }
 
                     return res.json()
                         .then(body => {

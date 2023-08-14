@@ -6,7 +6,7 @@ import CharacterCreator from './src/components/CharacterCreator'
 import { useState } from 'react'
 
 export default function App() {
-// obtenir token del user registrat. https://react-native-async-storage.github.io/async-storage/docs/usage/
+  // obtenir token del user registrat. https://react-native-async-storage.github.io/async-storage/docs/usage/
 
   const [login, setLogin] = useState(true)
   const [register, setRegister] = useState(false)
@@ -49,9 +49,21 @@ export default function App() {
     setNewCharacter(true)
   }
 
-  if (login) return (<Login onRegisterClick={handleGoToRegister} onUserLogedIn={handleGoToHome} onAdminLogedIn={handleGoToAdminMain}/>)
-  if (register) return (<Register onLoginClick={handleGoToLogin} onUserRegistered={handleGoToLogin}/>)
-  if (admin) return (<Admin onLogoutSession={handleLogoutSession}/>)
-  if (home) return (<Home onContinueToNewCharacter={handleGoToCharacterCreation}/>)
-  if (newCharacter) return (<CharacterCreator/>)
+  if (login) return (<Login
+    onRegisterClick={handleGoToRegister}
+    onUserLogedIn={handleGoToHome}
+    onAdminLogedIn={handleGoToAdminMain} /
+  >)
+  if (register) return (<Register
+    onLoginClick={handleGoToLogin}
+    onUserRegistered={handleGoToLogin}
+  />)
+  if (admin) return (<Admin
+    onLogoutSession={handleLogoutSession}
+  />)
+  if (home) return (<Home
+    onContinueToNewCharacter={handleGoToCharacterCreation}
+    onLogoutSession={handleLogoutSession}
+  />)
+  if (newCharacter) return (<CharacterCreator />)
 }
