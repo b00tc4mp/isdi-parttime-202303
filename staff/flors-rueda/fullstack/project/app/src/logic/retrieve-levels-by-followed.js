@@ -3,7 +3,7 @@ const { extractSubFromToken } = tokenUtils;
 import context from './context';
 
 const retrieveLevelsByFollowed = () => {
-    return fetch(`${import.meta.env.VITE_API_URL}/api/levels/followed/${extractSubFromToken(context.token)}`, {
+    return fetch(`${import.meta.env.VITE_API_URL}/levels/followed/${extractSubFromToken(context.token)}`, {
         headers: {
             Authorization: `Bearer ${context.token}`
         }

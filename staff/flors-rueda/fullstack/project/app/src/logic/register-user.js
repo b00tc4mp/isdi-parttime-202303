@@ -13,7 +13,7 @@ const registerUser = (username, password, repeatPassword, recoveryQuestions, col
 
     const user = { username, password, color, recoveryQuestions };
 
-    return fetch(`${import.meta.env.VITE_API_URL}/api/users`, {
+    return fetch(`${import.meta.env.VITE_API_URL}/users`, {
         method: 'POST',
         headers: {
             'Content-type': 'application/json'

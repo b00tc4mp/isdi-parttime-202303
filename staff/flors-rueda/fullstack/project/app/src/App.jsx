@@ -61,7 +61,7 @@ const App = () => {
   }, [location.pathname]);
 
   useEffect(() => {
-    const socket = socketIOClient(import.meta.env.VITE_API_URL);
+    const socket = socketIOClient('http://15.188.88.166');
     if (isUserLoggedIn()) {
       socket.on('connect', () => {
         const id = socket.id;

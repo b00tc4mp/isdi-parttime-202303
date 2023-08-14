@@ -6,7 +6,7 @@ const updateCreateAchievements = (createData) => {
     validateCreateData(createData);
     const data = { createData };
 
-    return fetch(`${import.meta.env.VITE_API_URL}/api/achievements/create`, {
+    return fetch(`${import.meta.env.VITE_API_URL}/achievements/create`, {
         method: 'PATCH',
         headers: {
             'Content-type': 'application/json',

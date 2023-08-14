@@ -6,7 +6,7 @@ import context from './context';
 const retrieveLevelsSaved = (id) => {
     validateId(id, 'userId');
 
-    return fetch(`${import.meta.env.VITE_API_URL}/api/levels/saved/${id}`, {
+    return fetch(`${import.meta.env.VITE_API_URL}/levels/saved/${id}`, {
         headers: {
             Authorization: `Bearer ${context.token}`
         }

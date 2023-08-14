@@ -11,7 +11,7 @@ const updatePassword = (newPassword, repeatNewPassword, oldPassword) => {
     if (oldPassword === newPassword) throw new DuplicityError('new password should be different than the old one');
     const data = { newPassword, oldPassword };
 
-    return fetch(`${import.meta.env.VITE_API_URL}/api/users/password`, {
+    return fetch(`${import.meta.env.VITE_API_URL}/users/password`, {
         method: 'PATCH',
         headers: {
             'Content-type': 'application/json',
