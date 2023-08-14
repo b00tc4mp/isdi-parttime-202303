@@ -1,16 +1,20 @@
 import React, { useState, useEffect } from 'react'
-import { SearchArtist, SearchPlace, Menu } from './components'
+import { SearchArtist, SearchPlace, Menu, MenuLayer } from './components'
 import { Home } from './pages'
 import { PencilIcon, BookmarkIcon, HeartIcon } from '@heroicons/react/24/solid'
 import retrieveUserGeolocation from '../logic/retrieveUserGeolocation'
 
 function App() {
     const [selectedNavItem, setSelectedNavItem] = useState('artist');
+    const [showMenuLayer, setShowMenuLayer] = useState(false);
+
 
     const handleNavItemClick = (navItem) => {
         setSelectedNavItem(navItem);
     };
-
+    const handleBurguerMenuClick = () => {
+        setShowMenuLayer(prevState => !prevState);
+    }
     const [city, setCity] = useState('');
 
     useEffect(() => {
@@ -23,8 +27,9 @@ function App() {
 
     return (
 
-        <div>
-            <Menu />
+        <div className='m-2'>
+            {showMenuLayer && <MenuLayer onClose={handleBurguerMenuClick} handleNavItemClick={handleNavItemClick} />}
+            <Menu handleNavItemClick={handleNavItemClick} onBurguerMenuClick={handleBurguerMenuClick} />
             <div>
                 <h2>Your City: {city}</h2>
             </div>

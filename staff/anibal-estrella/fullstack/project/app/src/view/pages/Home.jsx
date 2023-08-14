@@ -11,7 +11,7 @@ export default function Home({ onPanelClick }) {
         <section>
             <h2>Featured Reviews</h2>
         </section>
-        <section>
+        <section id='Events'>
             <h2>Events in <span>your area</span></h2>
         </section>
     </section>

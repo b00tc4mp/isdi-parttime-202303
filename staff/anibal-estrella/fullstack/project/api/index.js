@@ -17,23 +17,7 @@ var imagekit = new ImageKit({
 
 const {
     helloApiHandler,
-    // registerUserHandler,
-    // authenticateUserHandler,
-    // updateUserAvatarHandler,
-    // updateUserPasswordHandler,
-    // updateUserEmailHandler,
-    // createPostHandler,
-    // deletePostHandler,
-    // updatePostHandler,
-    // toggleLikePostHandler,
-    // toggleFavPostHandler,
-    // retrieveUserHandler,
-    // retrievePostHandler,
-    // retrievePostsHandler,
-    // retrieveFavPostsHandler,
-    // retrieveLikedPostsHandler,
-    // addCommentToPostHandler,
-    // removeCommentFromPostHandler
+    registerUserHandler,
 } = require('./handlers')
 
 
@@ -48,7 +32,7 @@ mongoose.connect(process.env.MONGODB_URL)
 
         api.get('/', helloApiHandler)
 
-        // api.post('/users', jsonBodyParser, registerUserHandler)
+        api.post('/users', jsonBodyParser, registerUserHandler)
 
         // api.post('/users/auth', jsonBodyParser, authenticateUserHandler)
 

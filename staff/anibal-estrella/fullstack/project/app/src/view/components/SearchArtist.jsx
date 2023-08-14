@@ -35,8 +35,8 @@ const SearchArtist = () => {
     };
 
     return (
-        <div className='m-2'>
-            <div className="flex flex-row w-full">
+        <div>
+            <div className="flex flex-row w-full my-2">
                 <div className='relative w-full'>
                     <input type="text" value={artistName} onChange={handleInputChange} placeholder="Enter artist name" className='pl-8' />
                     <span className='absolute top-3 left-1 h-6 w-6  rounded-full'>
@@ -51,7 +51,7 @@ const SearchArtist = () => {
             {SearchArtist && !error && (
                 <div>
                     {SearchArtist.image && (
-                        <div className=''>
+                        <div className='my-2'>
                             <img className='w-full object-cover aspect-square grayscale rounded-lg' src={SearchArtist.image} alt={SearchArtist.name} />
                         </div>
                     )}
