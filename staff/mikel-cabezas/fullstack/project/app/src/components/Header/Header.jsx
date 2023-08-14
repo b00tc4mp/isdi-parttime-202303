@@ -13,7 +13,7 @@ import retrievePlaygrounds from "../../logic/playgrounds/retrievePlaygrounds.js"
 import retrievePlaygroundsCities from "../../logic/playgrounds/retrievePlaygroundsCities.js";
 
 
-export default function Header({ navigation, onHandleViewPlaygroundsFromCity, handleToggleSidebar }) {
+export default function Header({ navigation, onHandleViewPlaygroundsFromCity, handleToggleSidebar, onToggleFilter }) {
 
     if (colorScheme === 'dark') isDark = true
     let isDark
@@ -132,9 +132,16 @@ export default function Header({ navigation, onHandleViewPlaygroundsFromCity, ha
                     </TouchableHighlight>
 
                 </View>
-                <Image
-                    className="w-7 h-7 m-auto"
-                    source={isDark ? FILTER : FILTER} />
+                <TouchableHighlight
+                    className={`p-[2px]`}
+                    activeOpacity={1.0}
+                    underlayColor="#fff"
+                    onPress={onToggleFilter}>
+                    <Image
+                        className="w-7 h-7 m-auto"
+                        source={isDark ? FILTER : FILTER} />
+                </TouchableHighlight>
+
             </View>
         </View >
 

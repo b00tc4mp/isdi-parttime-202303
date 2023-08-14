@@ -85,7 +85,9 @@ export default function BaseMap({ onMarkerPressed, searchResult, user }) {
         console.log('currentMarker.location', currentMarker.location)
         if (currentMarker.location) {
             const onCurrentMarkerRegion = {
-                latitude: currentMarker.location.coordinates[0] - 0.0065,
+                // latitude: currentMarker.location.coordinates[0] - 0.0065,
+                // longitude: currentMarker.location.coordinates[1] - 0.0001,
+                latitude: currentMarker.location.coordinates[0] - (((50 / 2) + 25) / 10000),
                 longitude: currentMarker.location.coordinates[1] - 0.0001,
                 latitudeDelta: 0.01,
                 longitudeDelta: 0.01,
@@ -93,6 +95,9 @@ export default function BaseMap({ onMarkerPressed, searchResult, user }) {
             mapRef.current.animateToRegion(onCurrentMarkerRegion, 1 * 1000);
         }
     }, [currentMarker])
+
+
+
     return <>
         {loadCurrentLocation && <MapView
             // userInterfaceStyle={'dark'}
@@ -100,7 +105,7 @@ export default function BaseMap({ onMarkerPressed, searchResult, user }) {
             showsUserLocation={true}
             // followsUserLocation={true}
 
-            className="w-full h-[120%] top-0 absolute"
+            className="w-full h-[120%] top-[-10%] absolute"
             initialRegion={{
                 // latitude: 43.228833,
                 // longitude: 1.7255048,

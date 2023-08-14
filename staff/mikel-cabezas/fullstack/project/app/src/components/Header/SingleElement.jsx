@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Text, Image, View, TouchableOpacity } from 'react-native';
 
 import {
@@ -7,7 +7,10 @@ import {
     ACCESSIBLE
 } from '../../../assets/icons';
 
-export default function CreatePlayground({ key, element, handleEditElement }) {
+export default function CreatePlayground({ key, element, handleEditElement, mainColor, onElementPressed }) {
+
+    const handleElementPressed = () => onElementPressed(element.type)
+
     const assignElementAge = (age) => {
         let AGE
 
@@ -45,6 +48,12 @@ export default function CreatePlayground({ key, element, handleEditElement }) {
         return STATUS
     }
 
+    useEffect(() => {
+        if (mainColor) {
+
+        }
+    }, []);
+
     const age = assignElementAge(element.age)
     const type = assignElementType(element.type)
     const status = assignElementStatus(element.status)
@@ -54,9 +63,10 @@ export default function CreatePlayground({ key, element, handleEditElement }) {
     }
 
     return <TouchableOpacity
+        onPress={handleElementPressed}
         key={key}
         activeOpacity={0.8}
-        className={`border border-${status}  rounded-full mb-1 mt-2 mr-2 bg-mainGray`}
+        className={`border border-${status} ${`border-${mainColor}`}  rounded-full mb-1 mt-2 mr-2 bg-mainGray`}
     >
         <View className="font-bold px-3 py-0.5 flex-row items-center content-center">
             <Image className="w-5 h-5 mr-2 object-contain" source={type} />
