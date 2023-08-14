@@ -85,15 +85,14 @@ export default function App({ }) {
 
   useEffect(() => {
     (async () => {
-
+      Location.enableNetworkProviderAsync()
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== 'granted') {
         setErrorMsg('Permission to access location was denied')
         return;
       }
-
-      let location = await Location.getCurrentPositionAsync({}).then(res => {
-        console.log(res)
+      await Location.getCurrentPositionAsync({ enableHighAccuracy: true, timeout: 1000 }).then(res => {
+        console.log('res.coords in App.jsx', res.coords)
         setLocation(res.coords);
         setLoadCurrentLocation(true)
       })

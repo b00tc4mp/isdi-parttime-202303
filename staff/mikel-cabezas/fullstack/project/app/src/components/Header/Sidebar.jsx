@@ -25,6 +25,7 @@ export default function Sidebar({ navigation, closeHandle, user }) {
         setTimeout(() => {
             setAnimation()
         }, 300)
+
     }, [])
 
     useEffect(() => {

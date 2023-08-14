@@ -104,8 +104,8 @@ export default function BaseMap({ onMarkerPressed, searchResult, user }) {
             initialRegion={{
                 // latitude: 43.228833,
                 // longitude: 1.7255048,
-                latitude: origin.latitude,
-                longitude: origin.longitude,
+                latitude: location.latitude,
+                longitude: location.longitude,
                 latitudeDelta: 0.0922,
                 longitudeDelta: 0.0421,
             }}
@@ -114,7 +114,7 @@ export default function BaseMap({ onMarkerPressed, searchResult, user }) {
                 tooltip={false}
                 key={-1}
                 width={48}
-                coordinate={origin} >
+                coordinate={location} >
                 <Image source={USER_LOCATION} className="w-[38px] h-[45px] object-contain" />
                 <Callout tooltip >
 

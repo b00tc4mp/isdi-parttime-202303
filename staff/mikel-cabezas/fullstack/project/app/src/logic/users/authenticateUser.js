@@ -8,7 +8,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 export default (email, password) => {
     validateEmail(email)
     validatePassword(password)
-    return fetch(`${EXPO_PUBLIC_API_URL}/users/auth`, {
+    return fetch(`${process.env.EXPO_PUBLIC_API_URL}/users/auth`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -20,8 +20,9 @@ export default (email, password) => {
                 return res.json().then(({ error: message }) => { throw new Error(message) })
 
             return res.json()
-                .then(token => AsyncStorage.setItem('@TOKEN', token))
         })
+        .then(token => AsyncStorage.setItem('@TOKEN', token))
+
 
 
 }
