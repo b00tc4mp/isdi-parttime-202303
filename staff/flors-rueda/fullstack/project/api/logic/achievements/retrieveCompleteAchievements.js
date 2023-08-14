@@ -12,13 +12,13 @@ module.exports = (userId) => {
             user: userId,
         });
         if (!userAchievements) throw new ExistenceError('user not found');
-        const completeAchievements = userAchievements.progressByAchievement.filter(achievement => achievement.isRankReached === true)
+        const completeAchievements = userAchievements.progressByAchievement.filter(achievement => achievement.isRankBronzeReached === true)
             .map(achievement => {
                 let rank;
-                if (achievement.completed) {
+                if (achievement.isRankGoldReached) {
                     rank = 'gold'
                 } else {
-                    rank = achievement.progress < achievement.ranks[1] ? 'bronze' : 'silver'
+                    rank = achievement.isRankSilverReached ? 'silver' : 'bronze'
                 }
                 return {
                     code: achievement.code,

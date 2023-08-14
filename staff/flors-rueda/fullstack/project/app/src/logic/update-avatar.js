@@ -6,7 +6,7 @@ const updateAvatar = (avatar) => {
     validateAvatar(avatar)
     const data = { avatar: avatar }
 
-    return fetch(`${import.meta.env.VITE_API_URL}/users/avatar`, {
+    return fetch(`${import.meta.env.VITE_API_URL}/api/users/avatar`, {
         method: 'PATCH',
         headers: {
             'Content-type': 'application/json',

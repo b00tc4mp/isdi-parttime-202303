@@ -34,7 +34,7 @@ describe('updatePassword', () => {
 
         const cryptPassword = await bcrypt.hash(password, 10);
 
-        const user = generate.user(username, cryptPassword, 'beach', color, recoveryQuestions, [], [], [], 2);
+        const user = generate.user(username, cryptPassword, 'beach', color, recoveryQuestions, [], [], [], 2, ['beach']);
 
         const createdUser = await User.create(user);
         const id = createdUser._id.toString();
@@ -57,7 +57,7 @@ describe('updatePassword', () => {
             { question: `question${Math.random()}`, answer: `answer${Math.random()}` }
         ];
 
-        const user = generate.user(username, 'different_password', 'beach', color, recoveryQuestions, [], [], [], 2);
+        const user = generate.user(username, 'different_password', 'beach', color, recoveryQuestions, [], [], [], 2, ['beach']);
         const newPassword = `newPassword${Math.random()}`;
 
         const createdUser = await User.create(user);

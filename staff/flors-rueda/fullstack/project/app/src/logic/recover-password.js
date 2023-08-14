@@ -10,7 +10,7 @@ const recoverPassword = (username, newPassword, repeatNewPassword) => {
     if (newPassword !== repeatNewPassword) throw new DuplicityError('password and confirmation password are not the same');
     const data = { username, newPassword };
 
-    return fetch(`${import.meta.env.VITE_API_URL}/users/recover`, {
+    return fetch(`${import.meta.env.VITE_API_URL}/api/users/recover`, {
         method: 'PATCH',
         headers: {
             'Content-type': 'application/json',

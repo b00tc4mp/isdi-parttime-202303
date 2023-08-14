@@ -10,7 +10,7 @@ const createLevel = (name, layout, hp) => {
 
     const level = { name, layout, hp };
 
-    return fetch(`${import.meta.env.VITE_API_URL}/levels`, {
+    return fetch(`${import.meta.env.VITE_API_URL}/api/levels`, {
         method: 'POST',
         headers: {
             'Content-type': 'application/json',

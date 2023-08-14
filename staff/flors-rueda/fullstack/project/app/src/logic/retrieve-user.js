@@ -7,7 +7,7 @@ const { extractSubFromToken } = tokenUtils;
 const retrieveUser = (id) => {
     validateId(id, 'userId');
 
-    return fetch(`${import.meta.env.VITE_API_URL}/users/${id}`, {
+    return fetch(`${import.meta.env.VITE_API_URL}/api/users/${id}`, {
         headers: {
             Authorization: `Bearer ${context.token}`
         }

@@ -31,7 +31,7 @@ describe('retrieveUserLogged', () => {
             { question: `question${Math.random()}`, answer: `answer${Math.random()}` }
         ];
 
-        const user = generate.user(username, password, 'beach', color, recoveryQuestions, [], [], [], 5);
+        const user = generate.user(username, password, 'beach', color, recoveryQuestions, [], [], [], 5, ['beach']);
 
         const createdUser = await User.create(user);
 

@@ -5,7 +5,7 @@ import context from './context';
 const toggleLike = (levelId) => {
     validateId(levelId)
 
-    return fetch(`${import.meta.env.VITE_API_URL}/levels/like/${levelId}`, {
+    return fetch(`${import.meta.env.VITE_API_URL}/api/levels/like/${levelId}`, {
         method: 'PATCH',
         headers: {
             'Content-type': 'application/json',

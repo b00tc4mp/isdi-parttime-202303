@@ -3,6 +3,7 @@ const {
     errors: { ExistenceError }
 } = require('com');
 const { Achievements } = require('../../data/models');
+const updateAchievementsProgress = require('../helpers/updateAchievementsProgress');
 
 module.exports = async (userId, createData) => {
     validateId(userId, 'userId');
@@ -13,24 +14,23 @@ module.exports = async (userId, createData) => {
     const userAchievements = await Achievements.findOne({ user: userId });
     if (!userAchievements) throw new ExistenceError('user not found');
 
+    const achievementCodeToUpdateLogic = {
+        'C01': () => 1,
+        'C02': () => bombs,
+        'C03': () => life,
+        'C04': () => cc,
+        'C05': () => floors >= 99 ? 1 : 0
+    };
+
     const updateAchievements = userAchievements.progressByAchievement.map(achievement => {
-        if (achievement.category === 'create' && !achievement.completed) {
-            const updateValue = {
-                'C01': 1,
-                'C02': bombs,
-                'C03': life,
-                'C04': cc,
-                'C05': floors >= 99 ? 1 : 0
-            }[achievement.code] || 0;
-
-            achievement.progress += updateValue;
-
-            if (achievement.progress >= achievement.ranks[0] && !achievement.isRankReached) {
-                achievement.isRankReached = true;
+        if (achievement.category === 'create' && !achievement.isRankGoldReached) {
+            const updateLogic = achievementCodeToUpdateLogic[achievement.code];
+            if (updateLogic) {
+                if (updateLogic) {
+                    return updateAchievementsProgress(achievement, updateLogic);
+                }
             }
-            if (achievement.progress >= achievement.ranks[achievement.ranks.lengths - 1]) {
-                achievement.completed = true;
-            }
+            return achievement;
         }
         return achievement;
     });

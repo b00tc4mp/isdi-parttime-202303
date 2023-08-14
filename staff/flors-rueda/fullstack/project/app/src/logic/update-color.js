@@ -6,7 +6,7 @@ const updateColor = (color) => {
     validateColor(color);
     const data = { color: color };
 
-    return fetch(`${import.meta.env.VITE_API_URL}/users/color`, {
+    return fetch(`${import.meta.env.VITE_API_URL}/api/users/color`, {
         method: 'PATCH',
         headers: {
             'Content-type': 'application/json',

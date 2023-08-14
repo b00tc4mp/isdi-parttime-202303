@@ -4,9 +4,8 @@ import context from './context';
 
 const toggleSave = (levelId) => {
     validateId(levelId);
-    console.log('click')
 
-    return fetch(`${import.meta.env.VITE_API_URL}/levels/save/${levelId}`, {
+    return fetch(`${import.meta.env.VITE_API_URL}/api/levels/save/${levelId}`, {
         method: 'PATCH',
         headers: {
             'Content-type': 'application/json',

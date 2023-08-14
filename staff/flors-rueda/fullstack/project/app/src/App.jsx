@@ -61,15 +61,20 @@ const App = () => {
   }, [location.pathname]);
 
   useEffect(() => {
+    const socket = socketIOClient(import.meta.env.VITE_API_URL);
     if (isUserLoggedIn()) {
-      const socket = socketIOClient('http://localhost:4321');
-
       socket.on('connect', () => {
         const id = socket.id;
         socket.emit('sendSocketId', { id });
 
         socket.on('notification', (message) => {
-          setAchievementNotifications(prevNotifications => [...prevNotifications, message]);
+          setAchievementNotifications(prevNotifications => {
+            const lastNotification = prevNotifications[prevNotifications.length - 1];
+            if (!lastNotification || lastNotification !== message) {
+              return [...prevNotifications, message];
+            }
+            return prevNotifications;
+          });
         });
       });
 

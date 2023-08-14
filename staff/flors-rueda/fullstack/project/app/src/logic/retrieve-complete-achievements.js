@@ -6,7 +6,7 @@ const { validateId } = validators;
 const retrieveCompleteAchievements = (id) => {
     validateId(id, 'userId');
 
-    return fetch(`${import.meta.env.VITE_API_URL}/achievements/${id}`, {
+    return fetch(`${import.meta.env.VITE_API_URL}/api/achievements/${id}`, {
         headers: {
             Authorization: `Bearer ${context.token}`
         }

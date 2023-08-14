@@ -34,6 +34,7 @@ module.exports = (username, password, color, recoveryQuestions) => {
                 saves: [],
                 follows: [],
                 followers: [],
+                unlockAvatars: ['beach'],
                 cc: 42,
             });
 

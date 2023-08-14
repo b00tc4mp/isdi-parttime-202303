@@ -52,6 +52,11 @@ const user = new Schema({
         required: true,
     },
 
+    unlockAvatars: {
+        type: [String],
+        required: true,
+    },
+
     color: {
         type: String,
         required: true,
@@ -121,11 +126,15 @@ const achievementProgress = new Schema({
         type: Number,
     },
 
-    isRankReached: {
+    isRankBronzeReached: {
         type: Boolean,
     },
 
-    completed: {
+    isRankSilverReached: {
+        type: Boolean,
+    },
+
+    isRankGoldReached: {
         type: Boolean,
     },
 })

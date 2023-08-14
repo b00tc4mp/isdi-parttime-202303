@@ -10,7 +10,7 @@ const loginUser = (username, password) => {
     const credentials = { username, password }
 
     return (async () => {
-        const res = await fetch(`${import.meta.env.VITE_API_URL}/users/auth`, {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/users/auth`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

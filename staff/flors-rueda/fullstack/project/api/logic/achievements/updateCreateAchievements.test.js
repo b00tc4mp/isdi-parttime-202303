@@ -48,20 +48,20 @@ describe('updateCreateAchievements', () => {
 
         expect(gameAchievements[0].code).to.equal('C01');
         expect(gameAchievements[0].progress).to.equal(1);
-        expect(gameAchievements[0].isRankReached).to.equal(true);
+        expect(gameAchievements[0].isRankBronzeReached).to.equal(true);
         expect(gameAchievements[1].code).to.equal('C02');
         expect(gameAchievements[1].progress).to.equal(bombs);
-        expect(gameAchievements[1].isRankReached).to.equal(false);
+        expect(gameAchievements[1].isRankBronzeReached).to.equal(false);
         expect(gameAchievements[2].code).to.equal('C03');
         expect(gameAchievements[2].progress).to.equal(life);
-        expect(gameAchievements[2].isRankReached).to.equal(true);
+        expect(gameAchievements[2].isRankBronzeReached).to.equal(true);
         expect(gameAchievements[3].code).to.equal('C04');
         expect(gameAchievements[3].progress).to.equal(cc);
-        expect(gameAchievements[3].isRankReached).to.equal(true);
-        expect(gameAchievements[3].completed).to.equal(false);
+        expect(gameAchievements[3].isRankBronzeReached).to.equal(true);
+        expect(gameAchievements[3].isRankGoldReached).to.equal(false);
         expect(gameAchievements[4].code).to.equal('C05');
         expect(gameAchievements[4].progress).to.equal(1);
-        expect(gameAchievements[4].isRankReached).to.equal(true);
+        expect(gameAchievements[4].isRankBronzeReached).to.equal(true);
     });
 
     it('should fail on user not found', async () => {

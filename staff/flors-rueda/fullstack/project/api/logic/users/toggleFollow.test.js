@@ -30,7 +30,7 @@ describe('toggleFollow', () => {
             { question: `question${Math.random()}`, answer: `answer${Math.random()}` },
         ];
 
-        const user = generate.user(username, password, 'beach', color, recoveryQuestions, [], [], [], 2);
+        const user = generate.user(username, password, 'beach', color, recoveryQuestions, [], [], [], 2, ['beach']);
 
         const followedUser = await User.create(user);
         const followedUserId = followedUser._id.toString();
@@ -42,7 +42,7 @@ describe('toggleFollow', () => {
             { question: `question${Math.random()}`, answer: `answer${Math.random()}` },
         ];
 
-        const user2 = generate.user(username2, password2, 'beach', color2, recoveryQuestions2, [], [], [], 5);
+        const user2 = generate.user(username2, password2, 'beach', color2, recoveryQuestions2, [], [], [], 5, ['beach']);
         const followerUser = await User.create(user2);
         const followerUserId = (followerUser._id).toString();
 
@@ -83,7 +83,7 @@ describe('toggleFollow', () => {
             { question: `question${Math.random()}`, answer: `answer${Math.random()}` },
         ];
 
-        const user = generate.user(username, password, 'beach', color, recoveryQuestions, [], [], [], 2);
+        const user = generate.user(username, password, 'beach', color, recoveryQuestions, [], [], [], 2, ['beach']);
 
         const followerUser = await User.create(user);
         const followerUserId = followerUser._id.toString();

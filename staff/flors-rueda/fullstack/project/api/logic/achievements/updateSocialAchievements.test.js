@@ -23,7 +23,7 @@ describe('updateSocialAchievements', () => {
         await mongoose.connection.close();
     });
 
-    it('should update user game achievements by id with valid userId', async () => {
+    it('should update user social achievements by id with valid userId', async () => {
         const username = `User${Math.floor(Math.random() * 999)}`;
         const password = `Password${Math.random()}`;
         const color = colors[Math.floor(Math.random() * colors.length)];
@@ -34,7 +34,7 @@ describe('updateSocialAchievements', () => {
 
         const mockId = (new mongoose.Types.ObjectId()).toString();
 
-        const user = generate.user(username, password, 'beach', color, recoveryQuestions, [mockId, mockId], [mockId, mockId, mockId, mockId, mockId, mockId, mockId], [mockId, mockId, mockId, mockId, mockId, mockId, mockId], 5);
+        const user = generate.user(username, password, 'beach', color, recoveryQuestions, [mockId, mockId], [mockId, mockId, mockId, mockId, mockId, mockId, mockId], [mockId, mockId, mockId, mockId, mockId, mockId, mockId], 5, ['beach']);
 
         const createdUser = await User.create(user);
 
@@ -62,7 +62,7 @@ describe('updateSocialAchievements', () => {
         const hp2 = 1 + Math.floor(Math.random() * 6);
         const date2 = Date.now();
 
-        const levelData1 = generate.level(name1, layout1, hp1, userId, [mockId, mockId, mockId, mockId, mockId, mockId, mockId, mockId, mockId, mockId, mockId, mockId, mockId, mockId, mockId, mockId, mockId, mockId, mockId, mockId, mockId, mockId, mockId, mockId], date1);
+        const levelData1 = generate.level(name1, layout1, hp1, userId, [userId], date1);
         await Level.create(levelData1);
         const levelData2 = generate.level(name2, layout2, hp2, userId, [mockId, mockId], date2);
         await Level.create(levelData2);
@@ -77,20 +77,20 @@ describe('updateSocialAchievements', () => {
 
         expect(socialAchievements[0].code).to.equal('S01');
         expect(socialAchievements[0].progress).to.equal(7);
-        expect(socialAchievements[0].isRankReached).to.equal(true);
-        expect(socialAchievements[0].completed).to.equal(false);
+        expect(socialAchievements[0].isRankBronzeReached).to.equal(true);
+        expect(socialAchievements[0].isRankGoldReached).to.equal(false);
         expect(socialAchievements[1].code).to.equal('S02');
         expect(socialAchievements[1].progress).to.equal(7);
-        expect(socialAchievements[1].isRankReached).to.equal(true);
-        expect(socialAchievements[1].completed).to.equal(false);
+        expect(socialAchievements[1].isRankBronzeReached).to.equal(true);
+        expect(socialAchievements[1].isRankGoldReached).to.equal(false);
         expect(socialAchievements[2].code).to.equal('S03');
         expect(socialAchievements[2].progress).to.equal(1);
-        expect(socialAchievements[2].isRankReached).to.equal(true);
-        expect(socialAchievements[2].completed).to.equal(true);
+        expect(socialAchievements[2].isRankBronzeReached).to.equal(true);
+        expect(socialAchievements[2].isRankGoldReached).to.equal(false);
         expect(socialAchievements[3].code).to.equal('S04');
         expect(socialAchievements[3].progress).to.equal(1);
-        expect(socialAchievements[3].isRankReached).to.equal(true);
-        expect(socialAchievements[3].completed).to.equal(true);
+        expect(socialAchievements[3].isRankBronzeReached).to.equal(true);
+        expect(socialAchievements[3].isRankGoldReached).to.equal(false);
     });
 
     it('should fail on user not found', async () => {

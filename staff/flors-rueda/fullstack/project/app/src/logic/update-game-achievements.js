@@ -6,7 +6,7 @@ const updateGameAchievements = (gameData) => {
     validateGameData(gameData);
     const data = { gameData };
 
-    return fetch(`${import.meta.env.VITE_API_URL}/achievements/game`, {
+    return fetch(`${import.meta.env.VITE_API_URL}/api/achievements/game`, {
         method: 'PATCH',
         headers: {
             'Content-type': 'application/json',

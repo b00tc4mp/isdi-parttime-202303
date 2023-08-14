@@ -6,7 +6,7 @@ const { validateId } = validators;
 const retrieveLevel = (id) => {
     validateId(id, 'levelId');
 
-    return fetch(`${import.meta.env.VITE_API_URL}/levels/${id}`, {
+    return fetch(`${import.meta.env.VITE_API_URL}/api/levels/${id}`, {
         headers: {
             Authorization: `Bearer ${context.token}`
         }

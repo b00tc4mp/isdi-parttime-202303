@@ -7,7 +7,7 @@ const retrieveRandomRecoveryQuestion = (username) => {
     validateUsername(username);
     const data = { username }
 
-    return fetch(`${import.meta.env.VITE_API_URL}/users/question`, {
+    return fetch(`${import.meta.env.VITE_API_URL}/api/users/question`, {
         method: 'POST',
         headers: {
             'Content-type': 'application/json'

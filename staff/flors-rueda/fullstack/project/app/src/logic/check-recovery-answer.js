@@ -9,7 +9,7 @@ const checkRecoveryAnswer = (username, questionId, answer) => {
 
     const data = { username, questionId, answer }
 
-    return fetch(`${import.meta.env.VITE_API_URL}/users/answer`, {
+    return fetch(`${import.meta.env.VITE_API_URL}/api/users/answer`, {
         method: 'POST',
         headers: {
             'Content-type': 'application/json'

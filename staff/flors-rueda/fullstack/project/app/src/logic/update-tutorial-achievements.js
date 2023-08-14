@@ -1,7 +1,7 @@
 import context from './context';
 
 const updateTutorialAchievements = () => {
-    return fetch(`${import.meta.env.VITE_API_URL}/achievements/tutorial`, {
+    return fetch(`${import.meta.env.VITE_API_URL}/api/achievements/tutorial`, {
         method: 'PATCH',
         headers: {
             'Content-type': 'application/json',

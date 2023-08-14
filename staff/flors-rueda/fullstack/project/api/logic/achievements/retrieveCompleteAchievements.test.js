@@ -25,16 +25,17 @@ describe('retrieveCompleteAchievements', () => {
     it('should get user completed achievements by id with valid userId', async () => {
         const allAchievements = achievements.map(achievement => ({ ...achievement }));
 
-        allAchievements[3].completed = true;
-        allAchievements[3].isRankReached = true;
+        allAchievements[3].isRankGoldReached = true;
+        allAchievements[3].isRankBronzeReached = true;
         allAchievements[3].progress = 561;
-        allAchievements[4].isRankReached = true;
+        allAchievements[4].isRankBronzeReached = true;
         allAchievements[4].progress = 2;
         allAchievements[6].progress = 1;
-        allAchievements[6].completed = true;
-        allAchievements[6].isRankReached = true;
-        allAchievements[14].isRankReached = true;
+        allAchievements[6].isRankGoldReached = true;
+        allAchievements[6].isRankBronzeReached = true;
+        allAchievements[14].isRankBronzeReached = true;
         allAchievements[14].progress = 27;
+        allAchievements[14].isRankSilverReached = true
 
         const userId = new mongoose.Types.ObjectId();
 

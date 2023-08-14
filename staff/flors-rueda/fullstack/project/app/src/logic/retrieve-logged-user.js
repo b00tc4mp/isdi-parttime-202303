@@ -3,7 +3,7 @@ import { tokenUtils } from 'com';
 const { extractSubFromToken } = tokenUtils;
 
 const retrieveLoggedUser = () => {
-    return fetch(`${import.meta.env.VITE_API_URL}/users/auth/${extractSubFromToken(context.token)}`, {
+    return fetch(`${import.meta.env.VITE_API_URL}/api/users/auth/${extractSubFromToken(context.token)}`, {
         headers: {
             Authorization: `Bearer ${context.token}`
         }

@@ -1,8 +1,9 @@
 const {
-    validators: { validateId, validateGameData },
+    validators: { validateId },
     errors: { ExistenceError }
 } = require('com');
 const { Achievements } = require('../../data/models');
+const updateAchievementsProgress = require('../helpers/updateAchievementsProgress');
 
 module.exports = (userId) => {
     validateId(userId, 'userId');
@@ -12,11 +13,20 @@ module.exports = (userId) => {
             user: userId,
         });
         if (!userAchievements) throw new ExistenceError('user not found');
+
+        const achievementCodeToUpdateLogic = {
+            'T01': () => 1,
+        }
+
         const updateAchievements = userAchievements.progressByAchievement.map(achievement => {
-            if (achievement.category === 'tutorial' && !achievement.completed) {
-                achievement.progress += 1;
-                achievement.isRankReached = true;
-                achievement.completed = true;
+            if (achievement.category === 'tutorial' && !achievement.isRankGoldReached) {
+                const updateLogic = achievementCodeToUpdateLogic[achievement.code];
+                if (updateLogic) {
+                    if (updateLogic) {
+                        return updateAchievementsProgress(achievement, updateLogic);
+                    }
+                }
+                return achievement;
             }
             return achievement
         });

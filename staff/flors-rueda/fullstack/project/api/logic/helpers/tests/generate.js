@@ -7,7 +7,7 @@ module.exports = {
         likes: likes,
         date: date,
     }),
-    user: (username, password, avatar, color, recoveryQuestions, saves, follows, followers, cc) => ({
+    user: (username, password, avatar, color, recoveryQuestions, saves, follows, followers, cc, unlockAvatars) => ({
         username: username,
         password: password,
         avatar: avatar,
@@ -15,6 +15,7 @@ module.exports = {
         saves: saves,
         follows: follows,
         followers: followers,
+        unlockAvatars: unlockAvatars,
         cc: cc,
         recoveryQuestions: recoveryQuestions,
         joined: Date.now()

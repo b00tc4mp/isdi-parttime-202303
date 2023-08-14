@@ -6,7 +6,7 @@ const updateCreateAchievements = (createData) => {
     validateCreateData(createData);
     const data = { createData };
 
-    return fetch(`${import.meta.env.VITE_API_URL}/achievements/create`, {
+    return fetch(`${import.meta.env.VITE_API_URL}/api/achievements/create`, {
         method: 'PATCH',
         headers: {
             'Content-type': 'application/json',
@@ -16,7 +16,7 @@ const updateCreateAchievements = (createData) => {
     })
         .then(res => {
             if (!res.ok) {
-                throw new Error('Failed to update password');
+                throw new Error('Failed to update create achievements');
             }
             return Promise.resolve();
         })

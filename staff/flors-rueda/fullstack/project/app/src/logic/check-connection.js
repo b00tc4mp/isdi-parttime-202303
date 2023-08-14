@@ -1,5 +1,5 @@
 const CheckConnection = () => {
-    return fetch(`${import.meta.env.VITE_API_URL}/`)
+    return fetch(`${import.meta.env.VITE_API_URL}/api/`)
         .then((response) => {
             if (!response.ok) {
                 throw new Error('Request failed');

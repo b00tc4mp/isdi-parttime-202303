@@ -5,7 +5,7 @@ import context from './context';
 const toggleFollow = (userId) => {
     validateId(userId);
 
-    return fetch(`${import.meta.env.VITE_API_URL}/users/follow/${userId}`, {
+    return fetch(`${import.meta.env.VITE_API_URL}/api/users/follow/${userId}`, {
         method: 'PATCH',
         headers: {
             'Content-type': 'application/json',

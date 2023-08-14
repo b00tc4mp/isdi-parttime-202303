@@ -4,7 +4,7 @@ const { Achievements } = require('../../data/models');
 const mongoose = require('mongoose');
 const { cleanUp, generate } = require('../helpers/tests');
 const {
-    errors: { TypeError, ExistenceError },
+    errors: { ExistenceError },
 } = require('com');
 const achievements = require('../../data/achievements');
 
@@ -49,24 +49,24 @@ describe('updateGameAchievements', () => {
 
         expect(gameAchievements[0].code).to.equal('G01');
         expect(gameAchievements[0].progress).to.equal(1);
-        expect(gameAchievements[0].isRankReached).to.equal(false);
+        expect(gameAchievements[0].isRankBronzeReached).to.equal(false);
         expect(gameAchievements[1].code).to.equal('G02');
         expect(gameAchievements[1].progress).to.equal(holes);
-        expect(gameAchievements[1].isRankReached).to.equal(false);
+        expect(gameAchievements[1].isRankBronzeReached).to.equal(false);
         expect(gameAchievements[2].code).to.equal('G03');
         expect(gameAchievements[2].progress).to.equal(1);
-        expect(gameAchievements[2].isRankReached).to.equal(false);
+        expect(gameAchievements[2].isRankBronzeReached).to.equal(false);
         expect(gameAchievements[3].code).to.equal('G04');
         expect(gameAchievements[3].progress).to.equal(bombs);
-        expect(gameAchievements[3].isRankReached).to.equal(true);
-        expect(gameAchievements[3].completed).to.equal(true);
+        expect(gameAchievements[3].isRankBronzeReached).to.equal(true);
+        expect(gameAchievements[3].isRankGoldReached).to.equal(true);
         expect(gameAchievements[4].code).to.equal('G05');
         expect(gameAchievements[4].progress).to.equal(1);
-        expect(gameAchievements[4].isRankReached).to.equal(true);
-        expect(gameAchievements[4].completed).to.equal(false);
+        expect(gameAchievements[4].isRankBronzeReached).to.equal(true);
+        expect(gameAchievements[4].isRankGoldReached).to.equal(false);
         expect(gameAchievements[5].code).to.equal('G06');
         expect(gameAchievements[5].progress).to.equal(cc);
-        expect(gameAchievements[5].isRankReached).to.equal(false);
+        expect(gameAchievements[5].isRankBronzeReached).to.equal(false);
         expect(gameAchievements[5]);
     });
 

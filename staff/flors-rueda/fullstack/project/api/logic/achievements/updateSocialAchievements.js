@@ -1,18 +1,22 @@
 const {
     validators: { validateId },
-    errors: { ExistenceError, UnknownError }
+    errors: { ExistenceError }
 } = require('com');
 const { User, Level, Achievements } = require('../../data/models');
+const updateAchievementsProgress = require('../helpers/updateAchievementsProgress');
 
 module.exports = async (userId) => {
     validateId(userId, 'userId');
 
-    const [userAchievements, user, achievementLevels] = await Promise.all([
+    //TODO fix bugs on social achievements
+
+    const [userAchievements, user, likes] = await Promise.all([
         Achievements.findOne({ user: userId }),
         User.findOne({ _id: userId }),
-        Level.find({ author: userId, 'likes.length': { $gte: 15 } }).exec().catch(error => {
-            throw new UnknownError(error.message);
+        Level.find({ likes: userId }).then(likedLevels => {
+            return likedLevels.length;
         })
+
     ]);
 
     if (!userAchievements || !user) {
@@ -22,18 +26,19 @@ module.exports = async (userId) => {
     const achievementCodeToUpdateLogic = {
         'S01': () => user.followers.length,
         'S02': () => user.follows.length,
-        'S03': () => achievementLevels ? 1 : 0,
-        'S04': () => user.saves.length > 0 ? 1 : 0,
+        'S03': () => likes,
+        'S04': () => user.saves.length,
     };
 
     const updateAchievements = userAchievements.progressByAchievement.map(achievement => {
-        if (achievement.category === 'social' && !achievement.completed) {
+        if (achievement.category === 'social' && !achievement.isRankGoldReached) {
             const updateLogic = achievementCodeToUpdateLogic[achievement.code];
             if (updateLogic) {
-                achievement.progress += updateLogic();
-                if (achievement.progress >= achievement.ranks[0] && !achievement.isRankReached) achievement.isRankReached = true;
-                if (achievement.progress >= achievement.ranks[achievement.ranks.length - 1]) achievement.completed = true;
+                if (updateLogic) {
+                    return updateAchievementsProgress(achievement, updateLogic);
+                }
             }
+            return achievement;
         }
         return achievement;
     });

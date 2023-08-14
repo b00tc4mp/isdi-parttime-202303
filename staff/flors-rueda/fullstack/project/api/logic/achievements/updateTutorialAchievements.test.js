@@ -41,8 +41,9 @@ describe('updateTutorialAchievements', () => {
 
         expect(gameAchievements[0].code).to.equal('T01');
         expect(gameAchievements[0].progress).to.equal(1);
-        expect(gameAchievements[0].isRankReached).to.equal(true);
-        expect(gameAchievements[0].completed).to.equal(true);
+        expect(gameAchievements[0].isRankBronzeReached).to.equal(true);
+        expect(gameAchievements[0].isRankSilverReached).to.equal(true);
+        expect(gameAchievements[0].isRankGoldReached).to.equal(true);
 
     });
 

@@ -59,7 +59,7 @@ describe('retrieveLevelsByFollowed', () => {
             { question: `question${Math.random()}`, answer: `answer${Math.random()}` },
         ];
 
-        const user = generate.user(username, password, 'beach', color, recoveryQuestions, [], [authorId, authorId2], [], 1234);
+        const user = generate.user(username, password, 'beach', color, recoveryQuestions, [], [authorId, authorId2], [], 1234, ['beach']);
 
         const createdUser = await User.create(user);
         const userId = (createdUser._id).toString();
@@ -111,7 +111,7 @@ describe('retrieveLevelsByFollowed', () => {
             { question: `question${Math.random()}`, answer: `answer${Math.random()}` },
         ];
 
-        const user = generate.user(username, password, 'beach', color, recoveryQuestions, [], [], [], 1234);
+        const user = generate.user(username, password, 'beach', color, recoveryQuestions, [], [], [], 1234, ['beach']);
 
         const createdUser = await User.create(user);
         const userId = (createdUser._id).toString();
