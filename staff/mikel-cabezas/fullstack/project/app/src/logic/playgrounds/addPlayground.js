@@ -10,8 +10,9 @@ export default function addPlayground(token, name, description, sunExposition, e
     // validateToken(token)
     // validateText(name)
     // validateText(description)
+    console.log(process.env.EXPO_PUBLIC_API_URL)
 
-    return fetch(`${process.env.EXPO_PUBLIC_API_URL}/playgrounds`, {
+    return fetch(`${process.env.EXPO_PUBLIC_API_URL}/addPlayground`, {
         method: 'POST',
         headers: {
             'Authorization': `Bearer ${token}`,
@@ -19,6 +20,7 @@ export default function addPlayground(token, name, description, sunExposition, e
         },
         body: JSON.stringify({ name, description, sunExposition, elements, images, location })
     }).then(res => {
+        debugger
         if (res.status !== 200)
             return res.json().then(({ error: message }) => { throw new Error(message) })
         // return res.json()

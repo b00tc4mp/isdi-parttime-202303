@@ -30,7 +30,7 @@ mongoose.connect(process.env.MONGODB_URL)
         api.get('/city/:coordinates', retrieveCityFromSearchHandler)
         api.get('/playgrounds/:city', retrievePlaygroundsFromCityHandler)
 
-        api.post(`/playgrounds`, jsonBodyParser, addPlaygroundHandler)
+        api.post(`/addPlayground`, jsonBodyParser, addPlaygroundHandler)
 
         // api.patch(`/posts/update/:postId`, jsonBodyParser, editPostHandler)
         // api.delete(`/posts/:postId`, deletePostHandler)

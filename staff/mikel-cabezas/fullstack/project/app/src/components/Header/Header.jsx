@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext, useRef } from "react";
 import { Keyboard, View, Image, TextInput, TouchableHighlight, Text } from 'react-native';
 
 import Context from '../../AppContext.js'
@@ -13,11 +13,13 @@ import retrievePlaygrounds from "../../logic/playgrounds/retrievePlaygrounds.js"
 import retrievePlaygroundsCities from "../../logic/playgrounds/retrievePlaygroundsCities.js";
 
 
-export default function Header({ navigation, handleCloseModals, onHandleViewPlaygroundsFromCity, handleToggleSidebar }) {
+export default function Header({ navigation, onHandleViewPlaygroundsFromCity, handleToggleSidebar }) {
 
     if (colorScheme === 'dark') isDark = true
     let isDark
     let searchTimeOut
+    const clearTextInput = useRef(null);
+
 
     const { modal, setModal, colorScheme, TOKEN } = useContext(Context)
     const [text, setChangeText] = React.useState();
@@ -40,6 +42,8 @@ export default function Header({ navigation, handleCloseModals, onHandleViewPlay
     useEffect(() => {
         clearTimeout(isTyping)
         setIsTyping()
+        setData()
+        setModal('simpleSearch')
     }, [searchQuery])
 
     useEffect(() => {
@@ -49,8 +53,8 @@ export default function Header({ navigation, handleCloseModals, onHandleViewPlay
 
     }
 
-    const onCloseModal = () => {
-        setAnimation('fadeOutDown')
+    const handleCloseModal = () => {
+        setAnimation('fadeOutUp')
         setTimeout(() => {
             setModal()
             setAnimation()
@@ -87,8 +91,19 @@ export default function Header({ navigation, handleCloseModals, onHandleViewPlay
         setTimeoutId(newTimeoutId)
     }
 
+
     return <>
-        <View className="absolute w-full justify-center flex top-12 content-center z-10">
+        {modal === 'simpleSearch' && data?.length > 0 && <View className="flex-1 w-full h-screen justify-center items-center">
+            <TouchableHighlight onPress={handleCloseModal}>
+                <View className="bg-tranparent flex-1 h-screen w-screen" />
+            </TouchableHighlight>
+            <Animatable.View animation={animation} duration={250} key={-2} className="flex w-11/12 bg-white absolute top-12 m-auto pt-8 pb-3 flex-1 rounded-[22px] text-left">
+                <View className="py-2 border-b-[1px] border-mainGray" key={-1} />
+                <SearchResults data={data} handleViewPlaygroundsFromCity={onHandleViewPlaygroundsFromCity} />
+            </Animatable.View>
+        </View>
+        }
+        <View className="absolute w-full justify-center flex top-12 content-center">
             <View className="w-11/12 bg-white dark:bg-gray-800 rounded-full left-0 m-auto flex flex-row px-4 h-12">
                 <TouchableHighlight
                     className={`p-[2px]`}
@@ -112,6 +127,7 @@ export default function Header({ navigation, handleCloseModals, onHandleViewPlay
                             value={text}
                             placeholder="Search playground in..."
                             keyboardType="default"
+                            ref={clearTextInput}
                         />
                     </TouchableHighlight>
 
@@ -121,11 +137,7 @@ export default function Header({ navigation, handleCloseModals, onHandleViewPlay
                     source={isDark ? FILTER : FILTER} />
             </View>
         </View >
-        {data.length > 0 && <Animatable.View animation={animation} duration={250} key={-2} className="flex w-11/12 bg-white absolute top-12 m-auto pt-8 pb-3 flex-1 rounded-[22px] text-left z-0">
-            <View className="py-2 border-b-[1px] border-mainGray" key={-1} />
-            <SearchResults data={data} handleViewPlaygroundsFromCity={onHandleViewPlaygroundsFromCity} />
-        </Animatable.View>
-        }
+
 
     </>
 }

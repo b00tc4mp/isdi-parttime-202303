@@ -58,7 +58,7 @@ export default function Home({ navigation, onSendViewPlaygroundsFromCity }) {
         retrieveUser(TOKEN)
             .then(user => {
                 setUser(user)
-                console.log(user)
+                console.log('user', user)
             })
     }, [])
 

@@ -72,6 +72,7 @@ export default function CreatePlayground({ closeHandle, cancelAddPlayground }) {
         setModal('')
     }
     const handleCancel = () => {
+        // if(playgroundName.length > 0, playgroundDescription.length > 0, playgroundShady.length > 0, playgroundSunny.length > 0, playgroundPartial.length > 0, playgroundElements.length > 0)
         cancelAddPlayground()
     }
 
@@ -103,7 +104,11 @@ export default function CreatePlayground({ closeHandle, cancelAddPlayground }) {
     }
 
     useEffect(() => {
-        console.log(playgroundName, playgroundDescription, playgroundElements, imagesResized)
+        // console.log('playgroundName', playgroundName)
+        // console.log('playgroundDescription', playgroundDescription)
+        // console.log('playgroundElements', playgroundElements)
+        // console.log('imagesResized', imagesResized)
+
         if (!playgroundName || !playgroundDescription || !playgroundElements || imagesResized.length <= 0) {
             setFieldsStatusColor('mainGray')
         } else {

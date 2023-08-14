@@ -1,6 +1,12 @@
 import React, { useEffect, useState, useContext } from "react";
 
-import { Text, Image, View, ScrollView, TouchableHighlight, TouchableOpacity, Modal, Animated } from 'react-native';
+import {
+    TouchableOpacity,
+    TouchableHighlight,
+    TouchableWithoutFeedback,
+} from '@gorhom/bottom-sheet';
+
+import { Text, Image, View, ScrollView, Modal, Animated } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import { SHADY, LIKE, LIKE_FILLED, SUNNY, ADD } from '../../../assets/icons';
 import Context from '../../AppContext.js'
@@ -32,9 +38,10 @@ export default function Nearby({ closeHandle }) {
             })
             .catch(error => error.message)
     }, [])
-    useEffect(() => {
 
+    useEffect(() => {
     }, [likes])
+
     const onLike = async () => {
         await toggleLikePlayground(TOKEN, playground._id)
             .then(() => {
@@ -138,7 +145,7 @@ export default function Nearby({ closeHandle }) {
                         </View>}
 
 
-                    <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} >
+                    <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} pagingEnabled={true} >
                         <View className="flex-row gap-3">
                             {playground.images.length > 0 && playground.images.map((image, index) => {
                                 return <Image
