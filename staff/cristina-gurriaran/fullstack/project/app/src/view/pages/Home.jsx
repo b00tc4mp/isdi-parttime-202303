@@ -1,4 +1,5 @@
 import Workspots from '../components/Workspots'
+import { Container, Form, Input, Button } from '../library'
 import { useEffect, useState } from 'react'
 import Profile from '../components/Profile'
 import retrieveUser from '../../logic/retrieveUser'
@@ -63,7 +64,7 @@ export default function Home() {
 
         <header className="home-header">
             <div className='home-logo-container'>
-                <img className='home logo' src={LOGO_URL} onClick={handleGoToWorkSpots}></img>
+                <img className="w-40 h-40 mt-32 rounded-xl" src={LOGO_URL} onClick={handleGoToWorkSpots}></img>
             </div>
 
             <nav className="home-header-nav">
@@ -75,7 +76,7 @@ export default function Home() {
                 </>}
             </nav>
 
-            <button onClick={handleLogout} className='home-button'>Logout</button>
+            <Button onClick={handleLogout} className='home-button'>Logout</Button>
         </header>
 
         <main className='main-container'>
@@ -89,7 +90,7 @@ export default function Home() {
         </main>
 
         <footer className="home-footer">
-            <button className='add-post-button'>+</button>
+            <Button>+</Button>
         </footer>
     </div>
 

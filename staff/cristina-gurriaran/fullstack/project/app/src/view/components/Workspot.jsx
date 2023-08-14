@@ -1,14 +1,24 @@
-import { useEffect } from 'react';
+import { GoogleMap, Marker, useLoadScript } from "@react-google-maps/api";
+import { useMemo } from "react";
 
 const API_KEY = 'AIzaSyAHtNeBELo0YBI0lmCVbd0lQ9BGTVd_fhQ'
 
-
 export default function Workspot({ workspot : {
     image, name, location, description, type, features, reviews, likes, author}}){
+    
+    const { isLoaded } = useLoadScript({
+        googleMapsApiKey: API_KEY,
+    });
+
+    const center = useMemo(() => ({
+        lat: location.mapLocation.coordinates[0],
+        lng: location.mapLocation.coordinates[1]
+    }), []);
 
     return (
-        <article className="bg-white shadow-lg p-20 rounded-lg">
-            <img src={image} alt={name} className="w-1/2 mb-4 rounded-lg" />
+        <div className="flex justify-center items-center h-full">
+            <article className="flex-col bg-white shadow-lg w-1/2 p-10 rounded-lg">
+            <img src={image} alt={name} className="w-full mb-4 rounded-lg" />
             <div className="flex items-center mb-4">
                 <img className="w-8 h-8 mr-2 rounded-full" src={author.avatar} alt={`${author.name}'s Avatar`} />
                 <h1 className="text-sm font-bold">{author.name}</h1>
@@ -56,13 +66,24 @@ export default function Workspot({ workspot : {
                 {features.projector && <li>Projector</li>}
             </ul>
             <p className="mb-2 font-semibold">Reviews:</p>
-            <ul className="list-disc pl-6">
+            <ul className="list-disc pl-6 mb-10">
                 {reviews.map((review, index) => (
                     <li key={index}>{review}</li>
                 ))}
             </ul>
-            <div id="map" className="w-1/4 h-64 mb-4 rounded-lg"></div>
+            <div className="w-full h-96 rounded-lg">
+            {!isLoaded ? (
+                <h1>Loading...</h1>
+            ) : (
+                <GoogleMap zoom={15} center={center} mapContainerStyle={{ width: "100%", height: "100%" }}>
 
+                <Marker position={{ lat: center.lat, lng: center.lng }} />
+
+                </GoogleMap>
+                )}
+            </div>
         </article>
+        </div>
+
     );
 }

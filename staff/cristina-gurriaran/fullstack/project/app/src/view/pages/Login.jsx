@@ -1,7 +1,8 @@
 import loginUser from '../../logic/loginUser'
-import Container from '../library/Container'
+import { Container, Form, Input, Button } from '../library'
 import { useAppContext , useHandleErrors }from '../hooks'
 import { Link } from 'react-router-dom'
+
 
 
 export default function Login() {
@@ -25,15 +26,15 @@ export default function Login() {
     }
 
     return <Container tag="main">
-        <h1 className='title'> Log in</h1>
+        <h1> Log in</h1>
         
-        <h2> New to myApp?  <Link to="/register"> Sign up </Link></h2>
+        <h2> New to myApp?  <Link to="/register" className="text-blue-500 hover:underline"> Sign up </Link></h2>
 
-        <form className="form" onSubmit={handleLogin}>
-            <input className="input" type="email" name="email" placeholder="Email address*"/>
-            <input className="input" type="password" name="password" placeholder="Password (8+ characters)*"/>
-            <button className= "button" type="submit"> Log in </button>
-        </form>
+        <Form onSubmit={handleLogin}>
+            <Input  type="email" name="email" placeholder="Email address*"/>
+            <Input  type="password" name="password" placeholder="Password (8+ characters)*"/>
+            <Button type="submit"> Log in </Button>
+        </Form>
 
     </Container>
 }

@@ -1,5 +1,5 @@
 import registerUser from '../../logic/registerUser'
-import Container from "../library/Container"
+import { Container, Form, Input, Button } from '../library'
 import { useAppContext , useHandleErrors } from '../hooks'
 import { Link } from 'react-router-dom'
 
@@ -26,15 +26,14 @@ export default function Register() {
     return <Container>
         <h1 className ='title'> Sign up </h1>
 
-        <h2> Already have an account? <Link to="/login"> Log in </Link></h2>
+        <h2> Already have an account? <Link to="/login" className="text-blue-500 hover:underline"> Log in </Link></h2>
 
-        <form className='form' onSubmit={handleRegister}>
-            <input className='input' type='name' name='name' placeholder='Name*'/>
-            <input className='input' type='email' name='email' placeholder='Email address*'/>
-            <input className='input' type='password' name='password' placeholder='Password (8+ characters)*'/>
-            <button className='button' type='submit'> CREATE AN ACCOUNT </button>
-
-        </form>
+        <Form onSubmit={handleRegister}>
+            <Input type='name' name='name' placeholder='Name*'/>
+            <Input type='email' name='email' placeholder='Email address*'/>
+            <Input  type='password' name='password' placeholder='Password (8+ characters)*'/>
+            <Button className='button' type='submit'> CREATE AN ACCOUNT </Button>
+        </Form>
     </Container>
 }
 

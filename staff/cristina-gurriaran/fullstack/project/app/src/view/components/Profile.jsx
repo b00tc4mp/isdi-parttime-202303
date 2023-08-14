@@ -4,8 +4,7 @@ import { context } from '../../ui'
 import retrieveUser from '../../logic/retrieveUser'
 import { useState, useEffect} from "react"
 import { useAppContext , useHandleErrors} from '../hooks'
-import Container from '../library/Container'
-
+import { Container, Form, Input, Button } from '../library'
 
 export default function Profile({ onUserAvatarUpdated, onUpdatedUserPassword }) {
     const { alert } = useAppContext()
@@ -47,34 +46,30 @@ export default function Profile({ onUserAvatarUpdated, onUpdatedUserPassword }) 
         })
     }
 
-    const handleSwitchMode = () => document.querySelector(':root').classList.toggle('dark')
-
-
     console.log('Profile -> render')
 
-    return <Container type="row" className="profile-page">
+    return <Container>
         {user && <>
-        <section className="user-account">
-            <div className="user-data-container">
-                <img className="profile-avatar" src={user.avatar} alt="" />
+        <section>
+            <div>
+                <img className="w-80 h-80 mr-2 rounded-full" src={user.avatar} alt="" />
                 <h1>{user.name}</h1>
             </div>
-            <div className="edit-profile-container">
-                <h1 className= 'title'>Update avatar</h1>
-                <form className='profile-avatar-form'  onSubmit={handleUpdateAvatar}>
-                    <input className='input' type='url' name='url'/>
-                    <button className='button update' type='submit'>Update</button>
-                </form>
+            <div>
+                <h1>Update avatar</h1>
+                    <Form onSubmit={handleUpdateAvatar}>
+                    <Input type='url' name='url'/>
+                    <Button type='submit'>Update</Button>
+                    </Form>
 
-                <h1 className='title'>Update password</h1>
-                <form className='profile-password-form' onSubmit={handleUpdatePassword}>
-                    <input className='input' type='password' name='password' placeholder='Old password*'/>
-                    <input className='input' type='password' name='newPassword' placeholder='New password*'/>
-                    <input className="input" type="password" name='newPasswordConfirm' placeholder='Confirm new password*'/>
-                    <button className='button update' type='submit'>Update</button>
-                </form>
-            </div>
-            <button onClick={handleSwitchMode} className='switchMode-button'>Switch Mode</button>   
+                <h1>Update password</h1>
+                    <Form onSubmit={handleUpdatePassword}>
+                    <Input type='password' name='password' placeholder='Old password*'/>
+                    <Input type='password' name='newPassword' placeholder='New password*'/>
+                    <Input type="password" name='newPasswordConfirm' placeholder='Confirm new password*'/>
+                    <Button type='submit'>Update</Button>
+                    </Form>
+            </div>  
         </section>
 
 
