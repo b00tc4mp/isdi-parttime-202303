@@ -30,7 +30,7 @@ export default function SideBarMenu({
 
   return (
     <ModalContainer
-      className="absolute top-0 left-0 z-30"
+      className="absolute top-0 left-0 z-0"
       onClick={(event) => {
         if (event.target === document.querySelector(".ModalContainer"))
           handleToggleMenu();

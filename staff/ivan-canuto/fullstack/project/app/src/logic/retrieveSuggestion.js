@@ -1,17 +1,13 @@
 import context from "./context"
-import { errors, validators } from 'com'
-
-const { validateId } = validators
+import { errors } from 'com'
 
 /**
  * Retrieves the posts form database. * 
 */
 
-export default function retrievePostSuggestions(postId) {
-  validateId(postId, 'post id')
-
+export default function retrieveSuggestion(suggestionId) {
   return (async () => {
-    const res = await fetch(`${import.meta.env.VITE_API_URL}/posts/${postId}/postSuggestions`, {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/suggestions/${suggestionId}`, {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${context.token}`

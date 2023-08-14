@@ -1,4 +1,3 @@
-require('dotenv').config()
 const { validators: { validateText, validateId } } = require('com')
 const { errors: { ExistenceError } } = require('com')
 
@@ -16,8 +15,6 @@ module.exports = (userId, postId, title, content) => {
 
     const post = await Post.findById(postId)
     if(!post) throw new ExistenceError(`Post not found.`)
-
-    console.log(post, 'esto lo hago para mirar si los ids los devuelve como objectId o como string')
 
     await Suggestion.create({
       author: user._id,

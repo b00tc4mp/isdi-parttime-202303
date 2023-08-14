@@ -16,7 +16,7 @@ export default function deleteComment(postId, suggestionId) {
 
   return (async () => {
     const res = await fetch(`${import.meta.env.VITE_API_URL}/posts/${postId}/suggestions/${suggestionId}/delete`, {
-      method: 'PATCH',
+      method: 'DELETE',
       headers: {
         'Authorization': `Bearer ${context.token}`
       }

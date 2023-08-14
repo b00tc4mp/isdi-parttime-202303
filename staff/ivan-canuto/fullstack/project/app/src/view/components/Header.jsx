@@ -3,7 +3,7 @@ import { useState, useEffect } from "react"
 import { retrieveUser } from "../../logic"
 import { useAppContext, useHandleErrors } from "../hooks"
 
-export default function Header({ handleToggleMenu, handleOpenProfile, handleLogout, setPage }) {
+export default function Header({ handleToggleMenu, handleOpenProfile, setPage }) {
   const { navigate } = useAppContext()
   const handleErrors = useHandleErrors()
 
@@ -43,7 +43,6 @@ export default function Header({ handleToggleMenu, handleOpenProfile, handleLogo
       <img className="cursor-pointer h-14 rounded-lg" onClick={handleReturnToHome} src="src/images/logo-home.jpg" />
       {user && <img className="h-10 w-10 object-cover rounded-full" src={user.avatar} alt="avatar image"  onClick={handleOpenProfile} />}
       {/* <span className="material-symbols-outlined dark-mode hover:bg-gray-400 p-2 rounded-full cursor-pointer" onClick={switchAppTheme}>{theme === 'light' ? 'light_mode' : 'dark_mode'}</span> */}
-      {/* <Button onClick={handleLogout}>Logout</Button> */}
     </div>
   </header>
   </>

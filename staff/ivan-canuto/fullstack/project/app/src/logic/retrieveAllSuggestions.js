@@ -5,7 +5,7 @@ import { errors } from 'com'
  * Retrieves the posts form database. * 
 */
 
-export default function retrievePosts() {
+export default function retrieveAllSuggestions() {
   return (async () => {
     const res = await fetch(`${import.meta.env.VITE_API_URL}/allSuggestions`, {
       method: 'GET',

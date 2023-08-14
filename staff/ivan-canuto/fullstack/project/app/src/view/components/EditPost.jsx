@@ -47,7 +47,7 @@ export default function EditPost({ onUpdatedPost, onCancel }) {
                 </div>
                 <div className="flex justify-evenly w-full">
                     <Button className='bg-slate-100 w-16'>Edit</Button>
-                    <Button className='bg-slate-100' type='button' onClick={onCancel}>Canel</Button>
+                    <Button className='bg-slate-100' type='button' onClick={onCancel}>Cancel</Button>
                 </div>
             </Form>
         </ModalWindow>}

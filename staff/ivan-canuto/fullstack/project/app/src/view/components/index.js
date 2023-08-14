@@ -15,6 +15,9 @@ import EditPost from "./EditPost"
 import PostModalWindow from "./PostModalWindow"
 import ContextualMenu from "./ContextualMenu"
 import Suggestion from "./Suggestion"
+import CreateSuggestion from "./CreateSuggestion"
+import DeleteSuggestion from "./DeleteSuggestion"
+import UpdateSuggestion from "./UpdateSuggestion"
 
 export {
     Alert,
@@ -33,5 +36,8 @@ export {
     EditPost,
     PostModalWindow,
     ContextualMenu,
-    Suggestion
+    Suggestion,
+    CreateSuggestion,
+    DeleteSuggestion,
+    UpdateSuggestion
 }

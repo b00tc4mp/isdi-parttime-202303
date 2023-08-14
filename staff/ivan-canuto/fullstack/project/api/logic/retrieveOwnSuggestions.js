@@ -3,7 +3,7 @@ const {
     errors: { ExistenceError }
   } = require("com")
 const { User, Post, Suggestion } = require("../data/models")
-const { mongoose: { Types: { ObjectId } } } = require('mongoose')
+// const { mongoose: { Types: { ObjectId } } } = require('mongoose')
   
   module.exports = (userId) => {
     validateId(userId, "user id")
@@ -15,7 +15,7 @@ const { mongoose: { Types: { ObjectId } } } = require('mongoose')
       const post = await Post.findById(postId)
       if(!post) throw new ExistenceError('Post not found.')
   
-      const suggestions = await Suggestion.find({ author: new ObjectId(userId) }).lean()
+      const suggestions = await Suggestion.find({ author: userId }).lean()
 
       suggestions.forEach(suggestion => {
         suggestion.id = suggestion._id

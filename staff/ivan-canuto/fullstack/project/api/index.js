@@ -31,8 +31,10 @@ const {
     retrieveAllSuggestionsHandler,
     retrieveOwnSuggestionsHandler,
     retrievePostSuggestionsHandler,
+    retrieveSuggestionHandler,
     createSuggestionHandler,
     deleteSuggestionHandler,
+    updateSuggestionHandler
 } = require('./handlers')
 const mongoose = require('mongoose')
 
@@ -98,9 +100,13 @@ mongoose.connect(process.env.MONGODB_URL)
 
         api.get('/ownSuggestions', jsonBodyParser, retrieveOwnSuggestionsHandler)
 
+        api.get('/suggestions/:suggestionId', jsonBodyParser, retrieveSuggestionHandler)
+        
         api.post('/posts/:postId/suggestions/newSuggestion', jsonBodyParser, createSuggestionHandler)
-
+        
         api.delete('/posts/:postId/suggestions/:suggestionId/delete', jsonBodyParser, deleteSuggestionHandler)
+        
+        api.patch('/suggestions/:suggestionId/editSuggestion', jsonBodyParser, updateSuggestionHandler)
 
         api.listen(process.env.PORT, () => console.log(`Server running in port ${process.env.PORT}`))
     })

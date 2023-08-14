@@ -14,11 +14,13 @@ const conversation = [
     }
 ]
 
-try {
-    askForResponse(userId, conversationId, conversation)
-        .then(response => console.log(response))
-        .catch(error => console.log(error))
-} catch (error) {
-    console.log(error)
+async function main() {
+    await mongoose.connect(process.env.MONGODB_URL)
+
+    const response = await askForResponse(userId, conversationId, conversation)
+
+    console.log(response)
 }
+
+main().catch(console.error)
 

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useAppContext, useHandleErrors } from "../hooks";
 import { Button, Container } from "../library";
 import { Profile, Posts, SideBarMenu, Header, VisibilityPost, EditPost, DeletePost, PostModalWindow, Chatbot, Suggestions, SeenLately } from "../components";
-import { logoutUser, retrievePosts, retrieveUser, retrieveConversations } from "../../logic";
+import { logoutUser, retrieveUser, retrieveConversations } from "../../logic";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { isUserLoggedIn } from "../../logic";
 import Hello from "../components/Hello";
@@ -21,13 +21,6 @@ export default function Home() {
   const [conversations, setConversations] = useState(null);
   const [conversationsOptions, setConversationsOptions] = useState();
   const [postModal, setPostModal] = useState(false)
-
-  console.log(modal)
-
-  //   const handleReturnToHome = () => {
-  //     setView("posts");
-  //     setLastPostsUpdate(Date.now()());
-  //   };
 
   useEffect(() => {
     console.log("Home -> render");
@@ -68,9 +61,9 @@ export default function Home() {
 
   const handleCloseModal = () => {
     setModal(null);
-    console.log('hola')
 
     setLastPostsUpdate(Date.now());
+    document.body.classList.remove("fixed-scroll");
   };
 
   const handleOpenEditPost = () => setModal("editPost")
@@ -82,24 +75,31 @@ export default function Home() {
   const handleOpenProfile = () => {
     document.body.classList.add("fixed-scroll");
     setModal("profile");
+
+    if(menu) handleToggleMenu()
   };
 
   const handleLogout = () => {
     logoutUser();
 
     navigate("/login");
+
+    delete context.postId
+    delete context.conversationId
+    delete context.suggestionId
   };
 
   const handleToggleMenu = () => {
-    if (!menu) {
-      setMenu(!menu);
-      setOpenedMenu(!openedMenu);
-    } else {
-      setTimeout(() => {
+    if(modal !== 'profile')
+      if (!menu) {
         setMenu(!menu);
-      }, 400);
-      setOpenedMenu(!openedMenu);
-    }
+        setOpenedMenu(!openedMenu);
+      } else {
+        setTimeout(() => {
+          setMenu(!menu);
+        }, 400);
+        setOpenedMenu(!openedMenu);
+      }
   };
 
   const handleUpdatedAvatar = () => {
@@ -177,6 +177,7 @@ export default function Home() {
           <Profile
             onUpdatedAvatar={handleUpdatedAvatar}
             onCancel={handleCloseModal}
+            handleLogout={handleLogout}
           />
         )}
 

@@ -36,5 +36,17 @@ export const context = {
   },
   get conversationId() {
     return sessionStorage.conversationId
-  }
+  },
+  set suggestionId(suggestionId) {
+    if(!suggestionId) {
+      delete sessionStorage.suggestionId
+
+      return
+    }
+
+    sessionStorage.suggestionId = suggestionId
+  },
+  get suggestionId() {
+    return sessionStorage.suggestionId
+  },
 }

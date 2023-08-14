@@ -26,6 +26,8 @@ module.exports = {
   retrievePostSuggestionsHandler: require('./retrievePostSuggestionsHandler'),
   retrieveAllSuggestionsHandler: require('./retrieveAllSuggestionsHandler'),
   retrieveOwnSuggestionsHandler: require('./retrieveOwnSuggestionsHandler'),
+  retrieveSuggestionHandler: require('./retrieveSuggestionHandler'),
   createSuggestionHandler: require('./createSuggestionHandler'),
   deleteSuggestionHandler: require('./deleteSuggestionHandler'),
+  updateSuggestionHandler: require('./updateSuggestionHandler'),
 }

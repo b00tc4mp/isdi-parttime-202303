@@ -33,8 +33,10 @@ import generateSummary from './generateSummary'
 import retrievePostSuggestions from './retrievePostSuggestions'
 import retrieveAllSuggestions from './retrieveAllSuggestions'
 import retrieveOwnSuggestions from './retrieveOwnSuggestions'
+import retrieveSuggestion from './retrieveSuggestion'
 import createSuggestion from './createSuggestion'
 import deleteSuggestion from './deleteSuggestion'
+import updateSuggestion from './updateSuggestion'
 
 
 export {
@@ -73,6 +75,8 @@ export {
     retrievePostSuggestions,
     retrieveAllSuggestions,
     retrieveOwnSuggestions,
+    retrieveSuggestion,
     createSuggestion,
-    deleteSuggestion
+    deleteSuggestion,
+    updateSuggestion
 }

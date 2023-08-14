@@ -3,14 +3,14 @@ import context from './context'
 
 const { validateId, validateText } = validators
 
-export default function createSuggestion(postId, title, content) {
-  validateId(postId, 'post id')
+export default function updateSuggestion(suggestionId, title, content) {
+  validateId(suggestionId, 'suggestion id')
   validateText(title, 'suggestion title')
   validateText(content, 'suggestion content')
 
   return (async () => {
-    const res = await fetch(`${import.meta.env.VITE_API_URL}/posts/${postId}/suggestions/newSuggestion`, {
-      method: 'POST',
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/suggestions/${suggestionId}/editSuggestion`, {
+      method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${context.token}`

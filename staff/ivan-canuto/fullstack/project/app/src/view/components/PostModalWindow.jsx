@@ -95,6 +95,13 @@ export default function PostModalWindow({
         <ContextualMenu
           options={[
             {
+              text: "Suggestions",
+              onClick: () => {
+                handleOpenSuggestions();
+                toggleContextualMenu();
+              },
+            },
+            {
               text: "Edit post",
               onClick: () => {
                 handleOpenEditPost();
@@ -105,13 +112,6 @@ export default function PostModalWindow({
               text: `Set post ${post && post.visible ? "private" : "public"}`,
               onClick: () => {
                 handleToggleVisibility();
-                toggleContextualMenu();
-              },
-            },
-            {
-              text: "Suggestions",
-              onClick: () => {
-                handleOpenSuggestions();
                 toggleContextualMenu();
               },
             },
@@ -236,5 +236,5 @@ export default function PostModalWindow({
         />}
       </section>
     </ModalContainer>
-  );
+  )
 }
