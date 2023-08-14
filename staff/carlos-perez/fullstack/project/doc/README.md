@@ -4,7 +4,7 @@
 
 This webapp is the official web for Alex MayBe, an andalusian musician. It provides all the information that their fans need, including events information (dates, location, etc...), updates, lyrics posts, contact and social network integration. It also provides a section to manage all events, updates, lyrics posts and messages from the contact section, accessible only to him (and/or someone who he authorizes). Updates will be pushed via RSS too.
 
-It uses React, Tailwind CSS, NextJS, MongoDB and Mongoose.
+It uses React, Tailwind CSS, HeadlessUI, NextJS, MongoDB and Mongoose. API written in JavaScript, App written in TypeScript.
 
 ## Functional description
 
