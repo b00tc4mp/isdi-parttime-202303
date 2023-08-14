@@ -92,7 +92,7 @@ export default function App({ }) {
         return;
       }
       await Location.getCurrentPositionAsync({ enableHighAccuracy: true, timeout: 1000 }).then(res => {
-        console.log('res.coords in App.jsx', res.coords)
+        // console.log('res.coords in App.jsx', res.coords)
         setLocation(res.coords);
         setLoadCurrentLocation(true)
       })

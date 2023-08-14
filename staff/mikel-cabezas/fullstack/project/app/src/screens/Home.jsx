@@ -9,12 +9,13 @@ import BottomSheet from '@gorhom/bottom-sheet';
 
 import Sidebar from '../components/Header/Sidebar.jsx';
 import Header from '../components/Header/Header.jsx';
+import AdvancedSearch from '../components/Header/AdvancedSearch.jsx';
 import Footer from '../components/Footer.jsx';
-import BaseMap from '../components/Playgrounds/BaseMap';
 import Nearby from '../components/Playgrounds/Nearby.jsx';
 import SinglePlayground from '../components/Playgrounds/SinglePlayground.jsx';
 import CreatePlayground from '../components/Playgrounds/addPlayground/AddPlayground.jsx';
 import retrieveUser from "../logic/users/retrieveUser"
+import { BaseMap } from '../components/Playgrounds';
 
 
 export default function Home({ navigation, onSendViewPlaygroundsFromCity }) {
@@ -35,23 +36,20 @@ export default function Home({ navigation, onSendViewPlaygroundsFromCity }) {
     }
     // const snapPointsSinglePlayground = useMemo(() => ['70%', '85%'], []);
 
-    const handleSheetChanges = useCallback((index) => {
+    const handleSheetChangesCreate = useCallback((index) => {
         console.log(newPlaygroundStatus)
         if (newPlaygroundStatus === false && index === -1) {
             confirmCloseModal()
-            // setModal('')
-            // setCurrentView('')
         }
-        console.log('handleSheetChanges', index);
+        console.log('handleSheetChangesCreate', index);
     }, []);
     const handleSheetChangesSingle = useCallback((index) => {
-        console.log(newPlaygroundStatus)
         if (index === -1) {
             bottomSheetRef.current.close()
             setModal('')
             setCurrentView('')
         }
-        console.log('handleSheetChanges', index);
+        console.log('handleSheetChangesCreate', index);
     }, []);
 
     useEffect(() => {
@@ -118,13 +116,21 @@ export default function Home({ navigation, onSendViewPlaygroundsFromCity }) {
     const handleToggleSidebar = () => {
         setModal('sidebar')
     }
+    const onToggleFilter = () => {
+        if (modal !== 'searchFilter') {
+            setModal('searchFilter')
+        } else {
+            bottomSheetRef.current.close()
+            setModal('')
+        }
+    }
 
 
     return <>
         <View className="flex-1 bg-white items-center justify-center">
             {modal === 'sidebar' && <Sidebar navigation={navigation} user={user} closeHandle={onCloseSidebar} />}
             <BaseMap user={user} className="-z-20" onMarkerPressed={markerPressedHandler} searchResult={searchResult} />
-            <Header handleToggleSidebar={handleToggleSidebar} handleCloseModals={onCloseModal} onHandleViewPlaygroundsFromCity={handleViewPlaygroundsFromCity} />
+            <Header handleToggleSidebar={handleToggleSidebar} onToggleFilter={onToggleFilter} handleCloseModals={onCloseModal} onHandleViewPlaygroundsFromCity={handleViewPlaygroundsFromCity} />
             <Footer nearbyHandler={onNearby} createPlaygroundHandler={onCreatePlayground} homeHandler={onHome} />
             {modal === 'singlePlayground' && <BottomSheet
                 // style={{ backgroundColor: "transparent" }}
@@ -137,6 +143,19 @@ export default function Home({ navigation, onSendViewPlaygroundsFromCity }) {
                 snapPoints={snapPoints}
                 onChange={handleSheetChangesSingle}>
                 <SinglePlayground className="z-[90] h-screen relative " closeHandle={onCloseModal} playground={currentMarker}></SinglePlayground>
+            </BottomSheet>
+            }
+            {modal === 'searchFilter' && <BottomSheet
+                // style={{ backgroundColor: "transparent" }}
+                backgroundStyle={{
+                    backgroundColor: `${mainColor}`
+                }}
+                enablePanDownToClose
+                ref={bottomSheetRef}
+                index={0}
+                snapPoints={snapPoints}
+                onChange={handleSheetChangesSingle}>
+                <AdvancedSearch className="z-[90] h-screen relative " closeHandle={onCloseModal} />
             </BottomSheet>
             }
             {modal === 'nearby' &&
@@ -157,7 +176,7 @@ export default function Home({ navigation, onSendViewPlaygroundsFromCity }) {
                     ref={bottomSheetRef}
                     index={1}
                     snapPoints={snapPoints}
-                    onChange={handleSheetChanges}>
+                    onChange={handleSheetChangesCreate}>
                     <CreatePlayground closeHandle={onCloseAddPlayground} cancelAddPlayground={confirmCloseModal} />
                 </BottomSheet>
             }
