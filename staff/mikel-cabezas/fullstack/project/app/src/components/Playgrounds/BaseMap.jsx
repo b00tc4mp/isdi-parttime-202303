@@ -4,7 +4,7 @@ import { Image, TouchableOpacity } from 'react-native';
 import MapView, { Marker, Callout } from 'react-native-maps'
 import { useRef, useContext, useState, useEffect } from 'react';
 import { NativeWindStyleSheet } from "nativewind";
-import Playgrounds from './Playgrounds';
+import Playgrounds from './Playgrounds.jsx';
 import AppContext from "../../AppContext.js";
 const { Provider } = AppContext
 import Context from '../../AppContext'
@@ -33,9 +33,6 @@ export default function BaseMap({ onMarkerPressed, searchResult, user }) {
         }
     }, [searchResult]);
 
-    const onSendViewPlaygroundsFromCity = data => {
-        console.log('data on FINAL COMPO!!!!', data)
-    }
 
     const onCurrentLocation = () => {
         const onCurrentMarkerRegion = {
@@ -81,8 +78,6 @@ export default function BaseMap({ onMarkerPressed, searchResult, user }) {
 
 
     useEffect(() => {
-        console.log('currentMarker', currentMarker)
-        console.log('currentMarker.location', currentMarker.location)
         if (currentMarker.location) {
             const onCurrentMarkerRegion = {
                 // latitude: currentMarker.location.coordinates[0] - 0.0065,

@@ -3,13 +3,6 @@ import Playground from "./Playground"
 import { View } from "react-native"
 
 export default function Playgrounds({ onMarkerPressedHandler, playgrounds, user }) {
-
-
-
-
-
-
-
     return <>
         {/* <View
             className="playgrounds" key={false}

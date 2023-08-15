@@ -4,15 +4,6 @@ import AppContext from "../AppContext.js";
 const { Provider } = AppContext
 import Context from '../AppContext.js'
 
-import * as Animatable from 'react-native-animatable';
-
-import Sidebar from '../components/Sidebar.jsx';
-import Header from '../components/Header.jsx';
-import Footer from '../components/Footer.jsx';
-import BaseMap from '../components/Playgrounds/BaseMap.jsx';
-import Nearby from '../components/Nearby.jsx';
-import SinglePlayground from '../components/Playgrounds/SinglePlayground.jsx';
-import CreatePlayground from '../components/CreatePlayground.jsx';
 
 
 export default function Home({ }) {

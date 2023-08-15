@@ -4,7 +4,7 @@ require('dotenv').config()
 const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
-const { registerUserHandler, retrieveUserHandler, authenticateUserHandler, updateUserImageHandler, updateUserNameHandler, updateUserEmailHandler, updateUserPasswordHandler, addPlaygroundHandler, retrieveCitiesFromDatabaseHandler, retrieveCityFromSearchHandler, retrievePlaygroundsFromCityHandler, editPostHandler, deletePostHandler, retrievePlaygroundsHandler, retrieveLikedPlaygroundsHandler, retrieveSavedPlaygroundsHandler, retrievePlaygroundByIdHandler, toggleLikePlaygroundHandler, toggleSavePlaygroundHandler } = require('./handlers')
+const { registerUserHandler, retrieveUserHandler, authenticateUserHandler, updateUserImageHandler, updateUserNameHandler, updateUserEmailHandler, updateUserPasswordHandler, addPlaygroundHandler, retrieveCitiesFromDatabaseHandler, retrieveCityFromSearchHandler, retrievePlaygroundsFromCityHandler, editPostHandler, deletePostHandler, retrievePlaygroundsHandler, retrieveLikedPlaygroundsHandler, retrieveSavedPlaygroundsHandler, retrievePlaygroundByIdHandler, toggleLikePlaygroundHandler, toggleSavePlaygroundHandler, validateUserHandler } = require('./handlers')
 const mongoose = require('mongoose')
 
 
@@ -16,7 +16,8 @@ mongoose.connect(process.env.MONGODB_URL)
 
         api.use(cors())
 
-        api.post('/users', jsonBodyParser, registerUserHandler)
+        api.post('/user/register', jsonBodyParser, registerUserHandler)
+        api.get('/user/validate/:uniqueString', validateUserHandler)
         api.get('/users', retrieveUserHandler)
         api.post('/users/auth', jsonBodyParser, authenticateUserHandler)
 
@@ -42,6 +43,7 @@ mongoose.connect(process.env.MONGODB_URL)
 
 
         api.listen(`${process.env.PORT}`, () => console.log(`server running in port ${process.env.PORT}`))
+        api.patch('/playgrounds/:postId/likes', toggleLikePlaygroundHandler)
     })
     // .finally(() => mongoose.disconnect())
     .catch(console.error)

@@ -20,7 +20,6 @@ export default function addPlayground(token, name, description, sunExposition, e
         },
         body: JSON.stringify({ name, description, sunExposition, elements, images, location })
     }).then(res => {
-        debugger
         if (res.status !== 200)
             return res.json().then(({ error: message }) => { throw new Error(message) })
         // return res.json()

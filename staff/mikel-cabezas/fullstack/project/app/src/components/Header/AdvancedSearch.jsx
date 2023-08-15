@@ -12,8 +12,8 @@ import ToggleSwitch from 'toggle-switch-react-native'
 
 import { SHADY, LIKE, LIKE_FILLED, SUNNY, ADD } from '../../../assets/icons';
 import Context from '../../AppContext.js'
-import SingleElement from '../Header/SingleElement'
-import SunExposition from '../Playgrounds/addPlayground/SunExposition'
+import SingleElement from './SingleElement'
+import SunExposition from '../playgrounds/addPlayground/SunExposition'
 import { toggleLikePlayground } from "../../logic/playgrounds/toggleLikePlayground";
 import retrievePlaygroundById from "../../logic/playgrounds/retrievePlaygroundById";
 

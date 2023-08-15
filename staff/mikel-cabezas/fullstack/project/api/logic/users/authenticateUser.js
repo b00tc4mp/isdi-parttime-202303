@@ -29,6 +29,8 @@ module.exports = function authenticateUser(email, password) {
 
             if (user.password !== password) throw new AuthError('wrong credentials')
 
+            if (!user.isValid) throw new AuthError('Verify your account please. Check your email')
+
             return user.id
         })
 }

@@ -3,6 +3,10 @@ module.exports = {
   content: ['./App.{js,jsx,ts,tsx}', './src/**/*.{js,jsx,ts,tsx}'],
   theme: {
     extend: {
+      backgroundImage: {
+        'logoSm': "url('/assets/logo-sm.png')",
+        'logo': "url('/assets/logo.png')",
+      },
       fontFamily: {
         acumin: ["AcuminVariableConcept"],
       },

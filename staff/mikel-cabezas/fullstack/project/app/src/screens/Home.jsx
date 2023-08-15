@@ -7,15 +7,15 @@ import Context from '../AppContext.js'
 import * as Animatable from 'react-native-animatable';
 import BottomSheet from '@gorhom/bottom-sheet';
 
-import Sidebar from '../components/Header/Sidebar.jsx';
-import Header from '../components/Header/Header.jsx';
-import AdvancedSearch from '../components/Header/AdvancedSearch.jsx';
+import Sidebar from '../components/header/Sidebar.jsx';
+import Header from '../components/header/Header.jsx';
+import AdvancedSearch from '../components/header/AdvancedSearch.jsx';
 import Footer from '../components/Footer.jsx';
-import Nearby from '../components/Playgrounds/Nearby.jsx';
-import SinglePlayground from '../components/Playgrounds/SinglePlayground.jsx';
-import CreatePlayground from '../components/Playgrounds/addPlayground/AddPlayground.jsx';
+import Nearby from '../components/playgrounds/Nearby.jsx';
+import SinglePlayground from '../components/playgrounds/SinglePlayground.jsx';
+import CreatePlayground from '../components/playgrounds/addPlayground/AddPlayground.jsx';
 import retrieveUser from "../logic/users/retrieveUser"
-import { BaseMap } from '../components/Playgrounds';
+import { BaseMap } from '../components/playgrounds';
 
 
 export default function Home({ navigation, onSendViewPlaygroundsFromCity }) {
@@ -37,11 +37,9 @@ export default function Home({ navigation, onSendViewPlaygroundsFromCity }) {
     // const snapPointsSinglePlayground = useMemo(() => ['70%', '85%'], []);
 
     const handleSheetChangesCreate = useCallback((index) => {
-        console.log(newPlaygroundStatus)
         if (newPlaygroundStatus === false && index === -1) {
             confirmCloseModal()
         }
-        console.log('handleSheetChangesCreate', index);
     }, []);
     const handleSheetChangesSingle = useCallback((index) => {
         if (index === -1) {
@@ -49,14 +47,12 @@ export default function Home({ navigation, onSendViewPlaygroundsFromCity }) {
             setModal('')
             setCurrentView('')
         }
-        console.log('handleSheetChangesCreate', index);
     }, []);
 
     useEffect(() => {
         retrieveUser(TOKEN)
             .then(user => {
                 setUser(user)
-                console.log('user', user)
             })
     }, [])
 
