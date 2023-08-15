@@ -24,5 +24,9 @@ module.exports = {
     updateGameAchievementsHandler: require('./updateGameAchievementsHandler'),
     updateSocialAchievementsHandler: require('./updateSocialAchievementsHandler'),
     updateTutorialAchievementsHandler: require('./updateTutorialAchievementsHandler'),
+    retrieveCCHandler: require('./retrieveCCHandler'),
+    retrieveUnlockAvatarsHandler: require('./retrieveUnlockAvatarsHandler'),
+    unlockAvatarHandler: require('./unlockAvatarHandler'),
+    updateCCHandler: require('./updateCCHandler')
 
 }

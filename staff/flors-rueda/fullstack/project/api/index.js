@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 const http = require('http');
 const { Server } = require('socket.io');
 
-const { helloApiHandler, retrieveLevelsHandler, retrieveLevelHandler, createLevelHandler, authenticateUserHandler, registerUserHandler, retrieveUserHandler, retrieveUserLoggedHandler, updateColorHandler, updateAvatarHandler, toggleLikeHandler, updatePasswordHandler, recoverPasswordHandler, retrieveRandomRecoveryQuestionHandler, checkRecoveryAnswerHandler, toggleFollowHandler, retrieveLevelsByFollowedHandler, retrieveLevelsByAuthorHandler, retrieveLevelsSavedHandler, toggleSaveHandler, retrieveCompleteAchievementsHandler, updateCreateAchievementsHandler, updateGameAchievementsHandler, updateSocialAchievementsHandler, updateTutorialAchievementsHandler } = require('./handlers');
+const { helloApiHandler, retrieveLevelsHandler, retrieveLevelHandler, createLevelHandler, authenticateUserHandler, registerUserHandler, retrieveUserHandler, retrieveUserLoggedHandler, updateColorHandler, updateAvatarHandler, toggleLikeHandler, updatePasswordHandler, recoverPasswordHandler, retrieveRandomRecoveryQuestionHandler, checkRecoveryAnswerHandler, toggleFollowHandler, retrieveLevelsByFollowedHandler, retrieveLevelsByAuthorHandler, retrieveLevelsSavedHandler, toggleSaveHandler, retrieveCompleteAchievementsHandler, updateCreateAchievementsHandler, updateGameAchievementsHandler, updateSocialAchievementsHandler, updateTutorialAchievementsHandler, retrieveCCHandler, updateCCHandler, retrieveUnlockAvatarsHandler, unlockAvatarHandler } = require('./handlers');
 
 const mongoose = require('mongoose');
 
@@ -94,6 +94,14 @@ mongoose.connect(process.env.MONGODB_URL)
         api.patch('/api/achievements/social', updateSocialAchievementsHandler);
 
         api.patch('/api/achievements/tutorial', updateTutorialAchievementsHandler);
+
+        api.get('/api/users/cc/:userId', retrieveCCHandler);
+
+        api.patch('/api/users/cc', jsonBodyParser, updateCCHandler);
+
+        api.get('/api/users/avatars/:userId', retrieveUnlockAvatarsHandler);
+
+        api.patch('/api/users/avatars', jsonBodyParser, unlockAvatarHandler);
 
         io.on('connection', (socket) => {
             console.log('a user connected');
