@@ -16,7 +16,9 @@ const { helloApiHandler,
     retrieveEmployeePayrollsMonthYearHandler,
     retrievePayrollAnnualAggregateHandler,
     retrieveEmployeesBySalaryLevelHandler,
-    retrievePayrollsMonthToBePaidHandler
+    retrievePayrollsMonthToBePaidHandler,
+    retrieveEmployeePayrollToBePaidHandler,
+    updatePayrollStatusToPaidHandler,
 } = require('./handlers')
 
 
@@ -34,16 +36,11 @@ mongoose.connect(process.env.MONGODB_URL)
         api.get('/', helloApiHandler)
         api.get('/employees/retrieve', retrieveEmployeeHandler)
         api.get('/employees/retrieveEmployeePayrollData', retrieveEmployeePayrollDataHandler)
-        // api.get('/employees/accessPermissionsAuthorized', isEmpoyeeAccessPermissionsAuthorizedHandler)
+        api.get('/employees/retrieveEmployeePayrollToBePaid/:id', retrieveEmployeePayrollToBePaidHandler)
         api.get('/payrollMonth/retrieveEmployeePayrollMonth/:payrollYear/:payrollMonth', retrievePayrollMonthHandler)
         api.get('/payrollMonth/retrievePayrollsMonthToBePaid/:payrollYear/:payrollMonth', retrievePayrollsMonthToBePaidHandler)
         api.get('/employees/retrieveEmployeesBySalaryLevel/:salaryLevel', retrieveEmployeesBySalaryLevelHandler)
         api.get('/payrollMonth/retrievePayrollAnnualAggregate/:payrollYear', retrievePayrollAnnualAggregateHandler)
-
-
-
-
-
 
         api.post('/employees', jsonBodyParser, registerEmployeeHandler)
         api.post('/employees/auth', jsonBodyParser, authenticateEmployeeHandler)
@@ -53,7 +50,7 @@ mongoose.connect(process.env.MONGODB_URL)
         api.patch('/employees/updatePassword', jsonBodyParser, updateEmployeePasswordHandler)
         api.patch('/employees/updateAdress', jsonBodyParser, updateEmployeeAdressHandler)
         api.patch('/employees/updateBankAccountNumber', jsonBodyParser, updateEmployeeBankAccountNumberHandler)
-
+        api.patch('/payrollMonths/updatePayrollStatusToPaid', jsonBodyParser, updatePayrollStatusToPaidHandler)
 
         api.listen(process.env.PORT, () => console.log(`server running in port ${process.env.PORT}`))
     })

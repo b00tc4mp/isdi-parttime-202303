@@ -9,9 +9,7 @@ export default (payrollYear) => {
         headers: {
             authorization: `Bearer ${context.token}`
         }
-
     })
-
         .then(res => {
             if (res.status === 200)
                 return res.json()

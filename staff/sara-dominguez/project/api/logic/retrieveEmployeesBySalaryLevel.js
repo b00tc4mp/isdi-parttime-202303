@@ -24,22 +24,6 @@ const {
 module.exports = function retrieveEmployeesBySalaryLevel(employeeId, salaryLevel) {
     validateId(employeeId)
     validateSalaryLevel(salaryLevel)
-    //TODO EMPLOYEE PERMISSIONS OK 
-
-
-    // return Employee.findById(employeeId).lean()
-    //     .then(employee => {
-    //         if (!employee) throw new Error(`employee with id ${employeeId} not found`)
-
-
-    //         return Employee.find({ salaryLevel: salaryLevel }, 'avatar name firsName secondSurname salaryLevel').lean()
-    //     })
-
-    //     .then((employeeListRetrieved) => {
-    //         if (!employeeListRetrieved || employeeListRetrieved.length === 0) throw new Error(`Not found any employee with ${salaryLevel} this salary level`)
-
-    //         return employeeListRetrieved
-    //     })
 
     return (async () => {
         try {
@@ -64,7 +48,6 @@ module.exports = function retrieveEmployeesBySalaryLevel(employeeId, salaryLevel
             throw new Error(error.message)
         }
     })()
-
 }
 
 

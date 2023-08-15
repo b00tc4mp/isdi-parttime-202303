@@ -10,9 +10,9 @@ import context from './context'
 // 
  */
 
-export default () => {
+export default (id) => {
     return (async () => {
-        const res = await fetch(`${import.meta.env.VITE_API_URL}/employees/retrieve`, {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/employees/retrieveEmployeePayrollToBePaid/${id}`, {
             headers: {
                 authorization: `Bearer ${context.token}`
             }

@@ -3,8 +3,10 @@ import { context } from '../ui'
 import { useState } from 'react'
 import Employee from './Employee'
 import Header from "./Header"
-import PayrollsMonthListToBePaid from "./PayrollsMonthListToBePaid"
+import PayrollsMonthListToBePaid from './PayrollsMonthListToBePaid'
 import retrievePayrollsToBePaid from '../logic/retrievePayrollsMonthToBePaid'
+import calculateTotalAmount from '../logic/calculateTotalAmount.js'
+import updatePayrollStatusToPaid from '../logic/updatePayrollStatusToPaid'
 import { Input, Container, Button, Select } from '../library'
 
 
@@ -18,24 +20,29 @@ export default function ProcessPayrollsMonthPayments({ employee, onPayrollsMonth
     const [view, setView] = useState(null)
     const [selectedYear, setSelectedYear] = useState(2023)
     const [selectedMonth, setSelectedMonth] = useState(1)
+    const [sum, setSum] = useState(0)
 
 
 
-    const handleGeneratePayrollsMonthListToPaid = () => {
+
+
+
+
+    const handleGeneratePayrollsMonthListToPaid = async () => {
         setView('payrollsMonthListRetrievedTopPaid')
-
 
         const payrollYear = parseInt(selectedYear)
         const payrollMonth = parseInt(selectedMonth)
 
         try {
+            const payrollsMonthList = await retrievePayrollsToBePaid(payrollYear, payrollMonth);
+            console.log(payrollsMonthList);
+            setPayrollMonthList(payrollsMonthList);
 
-            return retrievePayrollsToBePaid(payrollYear, payrollMonth)
-                .then((payrollsMonthList) => {
-                    // console.log(payrollsMonthList)
-                    setPayrollMonthList(payrollsMonthList)
-                })
-                .catch((error) => { throw new Error(error) })
+            const totalAmountArray = payrollsMonthList.map(payroll => payroll.netSalary)
+            const sum = calculateTotalAmount(totalAmountArray)
+
+            setSum(sum)
         } catch (error) {
             throw new Error(error.message)
         }
@@ -49,9 +56,8 @@ export default function ProcessPayrollsMonthPayments({ employee, onPayrollsMonth
         try {
             payrollsMonthList.forEach((payrollMonth) => {
                 const { _id } = payrollMonth
-                const payrollMonthId = _id
-                console.log(payrollMonthId)
-                // createEmployeePayrollMonth(payrollMonthId, year, month)
+                updatePayrollStatusToPaid(_id)
+                // payrollMonth.status = "paid"
             })
             console.log('nominas pagadas')
             console.log(payrollYear)
@@ -92,14 +98,17 @@ export default function ProcessPayrollsMonthPayments({ employee, onPayrollsMonth
         </div>
 
         <div>
-            {view === 'payrollsMonthListRetrievedTopPaid' && payrollsMonthList && <PayrollsMonthListToBePaid
-                // key={payrollMonth.id}
-                payrollsMonthList={payrollsMonthList}
-            />}
+            {view === 'payrollsMonthListRetrievedTopPaid' && payrollsMonthList && payrollsMonthList.map((payroll) => <PayrollsMonthListToBePaid
+                key={payroll._id}
+                payroll={payroll}
+            />)}
+
             {payrollsMonthList ? (
                 <>
                     <div>
-                        <label>Total payrolls month to paid <h5>{payrollsMonthList.length}</h5></label>
+                        <label>Total payrolls month to paid: <h5>{payrollsMonthList.length}</h5></label>
+
+                        <label>Total amount payrolls month to paid: <h5>{sum} Eur</h5></label>
 
                         <Button className="w-2/5" onClick={handlePayPayrollsMonth}>Pay payrolls month</Button>
                     </div>

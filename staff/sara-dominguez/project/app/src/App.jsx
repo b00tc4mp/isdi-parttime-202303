@@ -6,15 +6,12 @@ import { Routes, Route, Navigate, useNavigate } from 'react-router-dom'
 import AppContext from './AppContext.js'
 import isLoggedIn from './logic/isLoggedIn.js'
 
-
 export default function App() {
     const [feedback, setFeedback] = useState(null)
     const navigate = useNavigate()
 
     const handleAcceptAlert = () => setFeedback(null)
     const alert = (message, level = 'info') => setFeedback({ message, level })
-
-
 
     return <AppContext.Provider value={{ alert, navigate }}>
         <Routes>
@@ -24,5 +21,4 @@ export default function App() {
         </Routes>
         {feedback && <Alert message={feedback.message} level={feedback.level} onAccept={handleAcceptAlert} />}
     </AppContext.Provider>
-
 }

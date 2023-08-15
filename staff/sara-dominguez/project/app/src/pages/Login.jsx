@@ -26,9 +26,7 @@ export default function Login() {
         } catch (error) {
             alert(error.message, 'error')
         }
-
     }
-
     return <div className="h-screen w-screen flex  items-center justify-center bg-neutral-200"	>
         <div className="h-64 w-96 drop-shadow-md bg-white rounded-xl"	>
             <h1 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-amber-500 drop-shadow-md mb-5">Welcome to b-Elevenzsd!</h1>
@@ -37,7 +35,6 @@ export default function Login() {
                 <input type='password' name='employeePassword' autoComplete='new-password' placeholder='Password' className="block w-9/12 rounded-md border-0 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 drop-shadow-md text-center" />
                 <Button type="submit">Login</Button>
             </form>
-            {/* <p className=""> Forgot your password?<Link to="/ForgotPassword">Remember</Link></p> */}
         </div>
     </div>
 }

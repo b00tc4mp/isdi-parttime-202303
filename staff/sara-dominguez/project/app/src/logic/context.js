@@ -1,4 +1,3 @@
-// export const context = sessionStorage 
 const context = {
     set token(token) {
         if (!token) {

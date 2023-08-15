@@ -39,24 +39,17 @@ module.exports = function retrievePayrollAnnualAggregate(employeeId, payrollYear
     return Promise.all([
         Employee.findById(employeeId).lean(),
         PayrollMonth.find({ employee: employeeId, payrollYear: payrollYear }).lean()
-
     ])
 
         .then(([employee, employeePayrollsMonth]) => {
             try {
                 if (!employee) throw new Error(`user with id ${employeeId} not found`)
                 if (!employeePayrollsMonth || employeePayrollsMonth.length === 0) throw new Error(`payrolls not found`)
-
             } catch (error) {
                 throw new Error(error)
             }
-            // return employeePayrollsMonth
-            // })
 
-
-            // .then(([employeePayrollsMonth]) => {
             for (let i = 0; i < employeePayrollsMonth.length; i++) {
-
                 const payrollMonthValue = employeePayrollsMonth[i].payrollMonth
                 const monthSalaryValue = employeePayrollsMonth[i].monthSalary
                 const bonusValue = employeePayrollsMonth[i].bonus
@@ -68,7 +61,6 @@ module.exports = function retrievePayrollAnnualAggregate(employeeId, payrollYear
                 const totalAmountDeductionsValue = employeePayrollsMonth[i].totalAmountDeductions
                 const netSalaryValue = employeePayrollsMonth[i].netSalary
 
-                //                 //TODO helper para que deje como valor el mes mas cercano a la peticion del usuario, asi si un usuario quiere ver el agregado el 10 de junio, se le muestre el agregado hasta mayo
                 sumPayrollMonth.push(payrollMonthValue)
                 sumMonthSalary += monthSalaryValue
                 sumBonus += bonusValue
@@ -85,11 +77,9 @@ module.exports = function retrievePayrollAnnualAggregate(employeeId, payrollYear
                 if (!sumSsTax) {
                     sumSsTax = ssTaxValue
                 }
-
             }
             const lastMonthAggregated = findLastMonthAggregated(sumPayrollMonth)
             const lastMonthAggregatedName = getMonthNameFromMonthNumber(lastMonthAggregated)
-
 
             return payrollAnnualAggregated = {
                 payrollYear,
@@ -107,7 +97,6 @@ module.exports = function retrievePayrollAnnualAggregate(employeeId, payrollYear
             }
         })
         .catch((error) => { throw new Error(error) })
-
 }
 
 

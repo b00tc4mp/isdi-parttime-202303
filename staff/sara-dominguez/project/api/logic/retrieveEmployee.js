@@ -24,17 +24,6 @@ module.exports = function retrieveEmployee(employeeId) {
 
     const { Employee } = require('../data/models')
 
-    // return Employee.find({ _id: employeeId })
-    // aprovechamos .findById() en la lógica que te permite traer el id sin el ObjectId, te lo convierte automáticamente a String
-
-    // return Employee.findById(employeeId)
-    //     .then(employee => {
-    //         if (!employee) throw new Error('employee not found')
-    //         delete employee._id
-
-    //         return employee
-    //     })
-
     return (async () => {
         try {
             const employee = await Employee.findById(employeeId, 'name firstSurname secondSurname avatar centerAttached professionalPhoneNumber professionalEmail ').lean()

@@ -1,73 +1,41 @@
-import retrieveEmployee from "../logic/retrieveEmployee"
-import retrieveEmployeePayrollData from "../logic/retrieveEmployeePayrollData"
+import retrieveEmployeePayrollToBePaid from "../logic/retrieveEmployeePayrollToBePaid"
 import { useState, useEffect } from 'react'
 
-export default function PayrollsMonthListToBePaid({ payrollsMonthList }) {
+export default function PayrollsMonthListToBePaid({
+    // payrollsMonthList
+    payroll: { _id, payrollYear, monthName, netSalary, employee }
+}) {
     console.log('rendering PayrollsMonthList')
-
-    console.log(payrollsMonthList)
+    // console.log(payrollsMonthList)
     const [employeeRetrieved, setEmployeeRetrieved] = useState(null)
 
 
-    //     payrollsMonthList.map(payroll => {
-    //         const { _id, payrollYear, payrollMonth, netSalary, employee } = payroll;
-    //         const payrollMonthId = _id;
-
-    //         retrieveEmployeePayrollData(employee)
-
-    //             .then((employeeRetrieved) => {
-    //                 setEmployeeRetrieved(employeeRetrieved)
-    //             })
-
-    //         const { name, firstSurname, secondSurname, avatar, salaryLevel } = employeeRetrieved
-
-
-    //         return (
-    //             <h4 key={payrollMonthId}>
-    //                 <img src={avatar} width="25px" /> {name} {firstSurname} {secondSurname} salary Level:{salaryLevel} {payrollYear} {payrollMonth} {netSalary} .Eur  🗑
-    //             </h4>
-    //         )
-    //     })
-
-
     useEffect(() => {
-        // Recupera los datos del empleado solo si hay una nómina en la lista
-        if (payrollsMonthList.length > 0) {
-            retrieveEmployeePayrollData(payrollsMonthList[0].employee)
-                .then((employeeRetrieved) => {
-                    setEmployeeRetrieved(employeeRetrieved);
-                })
-                .catch((error) => {
-                    console.error('Error fetching employee data:', error);
-                });
+        async function fetchEmployee() {
+            try {
+                const employeeRetrieved = await retrieveEmployeePayrollToBePaid(employee)
+                if (employee === undefined) {
+                    throw new Error("employee not found")
+                }
+                setEmployeeRetrieved(employeeRetrieved)
+
+            } catch (error) {
+                throw new Error(error.message)
+            }
         }
-    }, [payrollsMonthList]);
+        fetchEmployee()
+    }, [])
+
+    const { name, firstSurname, secondSurname, avatar, salaryLevel, bankAccountNumber } = employeeRetrieved ?? {}
 
 
     return (
-        <div>
-            {payrollsMonthList.map((payroll) => {
-                const { _id, payrollYear, payrollMonth, netSalary, employee } = payroll;
-                const payrollMonthId = _id;
-
-                retrieveEmployeePayrollData(payrollsMonthList[0].employee)
-                    .then((employeeRetrieved) => {
-                        setEmployeeRetrieved(employeeRetrieved);
-                    })
-                    .catch((error) => {
-                        console.error('Error fetching employee data:', error);
-                    });
-
-
-                const { name, firstSurname, secondSurname, avatar, salaryLevel } = employeeRetrieved;
-
-                return (
-                    <h4 key={payrollMonthId}>
-                        <img src={avatar} width="25px" /> {name} {firstSurname} {secondSurname} salary Level:{salaryLevel} {payrollYear} {payrollMonth} {netSalary} .Eur 🗑
-                    </h4>
-                );
-            })}
-        </div>
+        <h4 key={_id}>
+            <img src={avatar} width="25px" /> {name} {firstSurname} {secondSurname} salary Level:{salaryLevel} {bankAccountNumber} {monthName} {payrollYear}  {netSalary}Eur  🗑
+        </h4>
     )
 }
+
+
+
 

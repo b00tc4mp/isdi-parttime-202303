@@ -52,18 +52,11 @@ function validateId(id, explain = 'id') {
 
         if (!HEX_DICTIONARY.includes(char)) throw new ContentError(`${explain} is not hexadecimal`)
     }
-
 }
+
 function validateBankAccountNumber(bankAccountNumber, explain = 'bankAccountNumber') {
     if (typeof bankAccountNumber !== 'string') throw new TypeError(`${explain} is not a string`)
     if (bankAccountNumber.trim().length !== 24) throw new ContentError(`${explain} doesn't have 24 characters`)
-
-    // for (let i = 0; i < id.length; i++) {
-    //     const char = id[i]
-
-    //     if (!HEX_DICTIONARY.includes(char)) throw new ContentError(`${explain} is not hexadecimal`)
-    // }
-
 }
 // function validateStreet(employeeStreet, employeePostalCode, employeeCity, employeeCountry) {
 
@@ -88,6 +81,7 @@ function validateToken(token, explain = 'token') {
     if (typeof token !== 'string') throw new TypeError(`${explain} is not a string`)
     if (token.split('.').length !== 3) throw new ContentError(`${explain} is not valid`)
 }
+
 function validateSalaryLevel(salaryLevel, explain = 'salary level') {
     if (typeof salaryLevel !== 'number') throw new TypeError(`${explain}  is not a number`);
     if (salaryLevel === '') throw new ContentError(`${explain}  is empty`)
@@ -95,11 +89,13 @@ function validateSalaryLevel(salaryLevel, explain = 'salary level') {
         throw new RangeError(`${explain}  must be an integer between 1 and 5`);
     }
 }
+
 function validatePayrollYear(payrollYear, explain = 'payrollYear') {
     if (typeof payrollYear !== 'number') throw new TypeError(`${explain}  is not a number`);
     if (payrollYear === '') throw new ContentError(`${explain}  is empty`)
     if (!Number.isInteger(payrollYear)) throw new RangeError(`${explain}  must be an integer number`);
 }
+
 function validatePayrollMonth(payrollMonth, explain = 'payrollMonth') {
     if (typeof payrollMonth !== 'number') throw new TypeError(`${explain} is not a number`)
     if (payrollMonth === '') throw new ContentError(`${explain}  is empty`)

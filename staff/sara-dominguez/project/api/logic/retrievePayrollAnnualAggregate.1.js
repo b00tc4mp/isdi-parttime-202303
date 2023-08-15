@@ -35,7 +35,6 @@ module.exports = function retrievePayrollAnnualAggregate(employeeId, payrollYear
                 const totalAmountDeductionsValue = employeePayrollsMonth[i].totalAmountDeductions
                 const netSalaryValue = employeePayrollsMonth[i].netSalary
 
-                //TODO helper para que deje como valor el mes mas cercano a la peticion del usuario, asi si un usuario quiere ver el agregado el 10 de junio, se le muestre el agregado hasta mayo
                 sumPayrollMonth.push(payrollMonthValue)
                 sumMonthSalary += monthSalaryValue
                 sumBonus += bonusValue

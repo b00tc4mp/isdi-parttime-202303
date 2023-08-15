@@ -20,7 +20,6 @@ const {
 // 
  */
 
-
 module.exports = (employeeId, payrollYear, payrollMonth) => {
     validateId(employeeId)
     validatePayrollYear(payrollYear)
@@ -38,18 +37,18 @@ module.exports = (employeeId, payrollYear, payrollMonth) => {
             const payrollsMonthRetrieved = await PayrollMonth.find({ payrollYear: payrollYear, payrollMonth: payrollMonth, status: 'created' }).lean()
 
 
-
             console.log(payrollsMonthRetrieved)
             if (!payrollsMonthRetrieved) {
                 throw new Error('payroll not found')
             }
-
             console.log(payrollsMonthRetrieved)
 
-            // const monthNumber = payrollsMonthRetrieved.payrollMonth;
+            for (let i = 0; i < payrollsMonthRetrieved.length; i++) {
+                const monthNumber = payrollsMonthRetrieved[i].payrollMonth;
 
-            // payrollsMonthRetrieved.monthName = getMonthNameFromMonthNumber(monthNumber);
-
+                payrollsMonthRetrieved[i].monthName = getMonthNameFromMonthNumber(monthNumber)
+            }
+            console.log(payrollsMonthRetrieved)
             return payrollsMonthRetrieved;
         } catch (error) {
             throw new Error(error);

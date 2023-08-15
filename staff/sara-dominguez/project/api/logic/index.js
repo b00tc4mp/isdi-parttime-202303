@@ -3,6 +3,7 @@ module.exports = {
     authenticateEmployee: require('./authenticateEmployee'),
     retrieveEmployee: require('./retrieveEmployee'),
     retrieveEmployeePayrollData: require('./retrieveEmployeePayrollData'),
+    retrieveEmployeePayrollToBePaid: require('./retrieveEmployeePayrollToBePaid'),
     createEmployeePayrollMonth: require('./createEmployeePayrollMonth'),
     updateEmployeeAvatar: require('./updateEmployeeAvatar'),
     updateEmployeePassword: require('./updateEmployeePassword'),
@@ -13,5 +14,6 @@ module.exports = {
     // retrieveEmployeePayrollsMonthYear: require('./retrieveEmployeePayrollsMonthYear'),
     retrievePayrollAnnualAggregate: require('./retrievePayrollAnnualAggregate'),
     retrievePayrollsMonthToBePaid: require('./retrievePayrollsMonthToBePaid'),
+    updatePayrollStatusToPaid: require('./updatePayrollStatusToPaid'),
 
 }

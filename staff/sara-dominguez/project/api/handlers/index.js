@@ -10,11 +10,12 @@ module.exports = {
     updateEmployeeAdressHandler: require('./updateEmployeeAdressHandler'),
     updateEmployeeBankAccountNumberHandler: require('./updateEmployeeBankAccountNumberHandler'),
     retrievePayrollMonthHandler: require('./retrievePayrollMonthHandler'),
-    // isEmployeeAccessPermissionsAuthorizedHandler: require('./isEmployeeAccessPermissionsAuthorizedHandler'),
     retrieveEmployeesBySalaryLevelHandler: require('./retrieveEmployeesBySalaryLevelHandler'),
     // retrieveEmployeePayrollsMonthYearHandler: require('./retrieveEmployeePayrollsMonthYearHandler'),
     retrievePayrollAnnualAggregateHandler: require('./retrievePayrollAnnualAggregateHandler'),
     retrievePayrollsMonthToBePaidHandler: require('./retrievePayrollsMonthToBePaidHandler'),
+    retrieveEmployeePayrollToBePaidHandler: require('./retrieveEmployeePayrollToBePaidHandler'),
+    updatePayrollStatusToPaidHandler: require('./updatePayrollStatusToPaidHandler')
 
 
 }

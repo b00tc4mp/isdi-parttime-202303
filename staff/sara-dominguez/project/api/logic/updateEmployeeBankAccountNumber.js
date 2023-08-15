@@ -19,17 +19,6 @@ module.exports = function updateEmployeeBankAccountNumber(employeeId, employeeNe
     validateId(employeeId)
     validateBankAccountNumber(employeeNewBankAccountNumber)
 
-    // return Employee.findById(employeeId)
-    //     .then(employee => {
-    //         if (!employee) throw new Error('employee not found')
-    //         if (employee.bankAccountNumber === employeeNewBankAccountNumber) throw new Error('new account bank number equals actual account bank number')
-
-
-    //         return Employee.updateOne({ _id: employee.id }, { $set: { bankAccountNumber: employeeNewBankAccountNumber } })
-    //     })
-
-    //     .then(() => { })
-
     return (async () => {
         try {
             const employee = await Employee.findById(employeeId)

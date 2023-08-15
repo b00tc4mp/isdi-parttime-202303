@@ -3,5 +3,4 @@ module.exports = {
     checkSalaryScale: require('./checkSalaryScale'),
     findLastMonthAggregated: require('./findLastMonthAggregated'),
     getMonthNameFromMonthNumber: require('./getMonthNameFromMonthNumber'),
-    // convertParamsToBSON: require('./convertParamsToBSON')
 }

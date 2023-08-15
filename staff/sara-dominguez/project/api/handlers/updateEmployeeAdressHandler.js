@@ -7,8 +7,6 @@ module.exports = (req, res,) => {
 
     const { employeeStreet, employeePostalCode, employeeCity, employeeCountry } = req.body
 
-
-
     return updateEmployeeAdress(employeeId, employeeStreet, employeePostalCode, employeeCity, employeeCountry)
         .then(() => res.status(204).send())
 }

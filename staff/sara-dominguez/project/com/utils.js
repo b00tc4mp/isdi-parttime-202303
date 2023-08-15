@@ -4,8 +4,6 @@ function extractPayloadFromToken(token) {
     return JSON.parse(atob(token.split('.')[1]))
 }
 
-
-
 function isTokenAlive(token) {
     const { iat, exp } = extractPayloadFromToken(token)
     const now = Date.now() / 1000
@@ -28,7 +26,6 @@ function extractSubFromToken(token) {
 
     return sub
 }
-
 
 module.exports = {
     isTokenAlive,

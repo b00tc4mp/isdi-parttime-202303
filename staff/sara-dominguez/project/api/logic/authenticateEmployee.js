@@ -19,17 +19,6 @@ module.exports = function authenticateEmployee(employeeNumber, employeePassword)
     validateEmployeeNumber(employeeNumber)
     validateEmployeePassword(employeePassword)
 
-    // return Employee.findOne({ employeeNumber })
-    //     .then(employee => {
-    //         if (!employee) throw new error('employee not found')
-    //         if (employee.accessPermissions !== "authorized") throw new Error("You don't have permission to continue, please contact HR (Human Resources)")
-    //         if (employee.employeePassword !== employeePassword) throw new Error('error credentials')
-
-
-    //         return employee.id
-    //     })
-
-
     return (async () => {
         try {
             const employee = await Employee.findOne({ employeeNumber })

@@ -31,8 +31,6 @@ export default function Home() {
         }
     }, [])
 
-
-
     const handleGoToPersonalInformatioMenu = (event) => {
         event.preventDefault()
         // setEmployee(employee)
@@ -43,7 +41,6 @@ export default function Home() {
         event.preventDefault()
         setModal('PayrollMenu')
     }
-
 
     const handleGoToManagePayrollMenu = (event) => {
         event.preventDefault()
@@ -71,13 +68,11 @@ export default function Home() {
         setModal(null)
     }
 
-
     const handleLogOut = () => {
         logoutEmployee()
 
         navigate('/Login')
     }
-
 
     return <div className="h-screen w-screen  bg-neutral-200">
         <div className="home">
@@ -88,14 +83,12 @@ export default function Home() {
                     <img src={employee.avatar} className="h-13 w-12 flex-none rounded-full bg-gray-50  ml-12" />
                     <h3 className="mt-10 text-l font-bold leading-9 tracking-tight text-amber-500 drop-shadow-md mb-4 ml-4">Welcome, {employee.name}!</h3>
                 </>}
-
             </header>
             <main className="">
                 <p className="personalInformation-menu"><a href="" className="personalInformation" onClick={handleGoToPersonalInformatioMenu}>Personal Information</a></p>
                 <p className="payroll-menu" onClick={handleGoToPayrollMenu}><a href="" className="payrollMenu" >Payroll menu</a></p>
                 <p className="manage-payroll-menu" onClick={handleGoToManagePayrollMenu}><a href="" className="ManagePayrollMenu" >Manage Payroll menu</a></p>
                 <p className="employeeDatabase-menu" onClick={handleGoToEmployeeDatabaseMenu}><a href="" className="employeeDatabaseMenu" >Employee Database menu</a></p>
-
 
                 {modal === 'PersonalInformation' && < PersonalInformationModal
                     employee={employee}
@@ -114,21 +107,10 @@ export default function Home() {
                 {modal === 'EmployeeDatabaseMenu' && < EmployeeDatabaseMenuModal
                     employee={employee}
                     onEmployeeRegistered={handleCloseModal} />}
-
-                {/* 
-                {view === 'PayrollMenuUpdateAvatar' && < PersonalInformationModal onEmployeeAvatarUpdated={handleCloseModal} />}
-                {view === 'PayrollMenuUpdatePassword' && < PersonalInformationModal onEmployeePasswordUpdated={handleCloseModal} />}
-                {view === 'PayrollMenuUpdateAdress' && < PersonalInformationModal onEmployeeAdressUpdated={handleCloseModal} />}
-                {view === 'PayrollMenuUpdateBankAccountNumber' && < PersonalInformationModal onEmployeeBankAccountNumberUpdated={handleRefreshEmloyee} />} */}
-
-                {/* {view === 'PersonalInformationView' && < PersonalInformationModal} */}
-
             </main>
             <footer>
                 <h5 className="mt-10 text-l font-bold leading-9 tracking-tight text-amber-500 drop-shadow-md mb-5 ml-4" onClick={handleLogOut}>Logout</h5>
             </footer>
         </div>
-
     </div>
-
 }

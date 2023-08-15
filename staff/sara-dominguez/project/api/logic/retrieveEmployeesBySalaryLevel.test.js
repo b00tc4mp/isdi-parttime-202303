@@ -1,9 +1,6 @@
 require('dotenv').config()
-
 const mongoose = require('mongoose')
 const retrieveEmployeesBySalaryLevel = require('./retrieveEmployeesBySalaryLevel')
-
-
 const { Employee } = require('../data/models')
 
 mongoose.connect(process.env.MONGODB_URL)

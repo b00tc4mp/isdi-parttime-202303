@@ -1,9 +1,9 @@
 //TODO  handle Errors
-const { Employee } = require('../data/models')
+const { PayrollMonth, Employee } = require('../data/models')
 const { validators: { validateId, validateUrl } } = require('com')
 
 /**
- * Update the avatar of an employee
+ * Update payroll status to paid 
  * 
 * @param {string} employeeId  The employee id number
 * @param {string} employeenewAvatar  URL of the new avatar for the employee
@@ -15,9 +15,9 @@ const { validators: { validateId, validateUrl } } = require('com')
 //  * @throws {ExistenceError} On non-existing employee
 */
 
-module.exports = function updateEmployeeAvatar(employeeId, newAvatar) {
+module.exports = function updatePayrollStatusToPaid(employeeId, _id) {
     validateId(employeeId)
-    validateUrl(newAvatar)
+    validateId(_id)
 
     return (async () => {
         try {
@@ -25,9 +25,8 @@ module.exports = function updateEmployeeAvatar(employeeId, newAvatar) {
 
             if (!employee) throw new Error('employee not found')
 
-            employee.avatar = newAvatar
 
-            return Employee.updateOne({ _id: employee.id }, { $set: { avatar: employee.avatar } })
+            return PayrollMonth.updateOne({ _id: _id }, { $set: { status: "paid" } })
         } catch (error) {
             throw new Error(error.message)
         }

@@ -1,7 +1,5 @@
 
 module.exports = function checkSalaryScale(salaryLevel) {
-    // let salaryScale
-
     if (salaryLevel === 1) {
         salaryScale = {
             salaryLevel: 1,

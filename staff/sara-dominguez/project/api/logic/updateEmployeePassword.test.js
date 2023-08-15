@@ -1,7 +1,5 @@
 require('dotenv').config()
 const mongoose = require('mongoose')
-
-
 const updateEmployeePassword = require('./updateEmployeePassword')
 const { Employee } = require('../data/models')
 
