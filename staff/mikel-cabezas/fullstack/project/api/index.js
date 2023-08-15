@@ -35,7 +35,7 @@ mongoose.connect(process.env.MONGODB_URL)
 
         // api.patch(`/posts/update/:postId`, jsonBodyParser, editPostHandler)
         // api.delete(`/posts/:postId`, deletePostHandler)
-        api.get('/playgrounds/liked', retrieveLikedPlaygroundsHandler)
+        api.get('/user/likedPlaygrounds', retrieveLikedPlaygroundsHandler)
         // api.get('/playgrounds/saved', retrieveSavedPlaygroundsHandler)
         api.get('/playground/:playgroundId', retrievePlaygroundByIdHandler)
         api.patch('/playgrounds/:postId/likes', toggleLikePlaygroundHandler)

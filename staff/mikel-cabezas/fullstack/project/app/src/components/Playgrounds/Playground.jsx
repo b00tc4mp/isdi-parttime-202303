@@ -1,4 +1,4 @@
-import { PIN } from '../../../assets/icons/';
+import { PIN } from '../../../assets/icons';
 
 import { useContext, useEffect, useState } from "react"
 

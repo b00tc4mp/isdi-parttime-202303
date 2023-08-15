@@ -1,3 +1,5 @@
+const { User, Playground } = require('../../data/models')
+
 const context = require('../context')
 const { ObjectId } = require('mongodb')
 const {
@@ -21,37 +23,44 @@ module.exports = userId => {
     const { users, posts } = context
     const _user = { _id: new ObjectId(userId) }
 
-    return users.findOne(_user)
-        .then(user => {
-            if (!user) new ExistenceError(`User with id ${userId} not found`)
+    Promise.all[
+        User.findOne({ userId }),
+        Playground.find({ _id: { $in: likes } })
+    ].then((users, playgrounds) => {
+        console.log(users)
+        console.log(playgrounds)
+    })
+    // return users.findOne(_user)
+    //     .then(user => {
+    //         if (!user) new ExistenceError(`User with id ${userId} not found`)
 
-            return users.find().toArray()
-                .then(users => {
-                    return posts.find().toArray()
-                        .then(posts => {
-                            const favPosts = []
+    //         return users.find().toArray()
+    //             .then(users => {
+    //                 return posts.find().toArray()
+    //                     .then(posts => {
+    //                         const favPosts = []
 
-                            posts.forEach(post => {
-                                const user = users.find(_user => _user._id.toString() === userId)
-                                const postsFound = user.favs?.includes(post._id.toString())
-                                if (postsFound) {
-                                    post.favs = user.favs.includes(post._id.toString())
-                                    post.date = new Date(post.date)
+    //                         posts.forEach(post => {
+    //                             const user = users.find(_user => _user._id.toString() === userId)
+    //                             const postsFound = user.favs?.includes(post._id.toString())
+    //                             if (postsFound) {
+    //                                 post.favs = user.favs.includes(post._id.toString())
+    //                                 post.date = new Date(post.date)
 
-                                    const postAuthor = users.find(user => user._id.toString() === post.author.toString())
+    //                                 const postAuthor = users.find(user => user._id.toString() === post.author.toString())
 
-                                    post.author = {
-                                        id: postAuthor._id.toString(),
-                                        name: postAuthor.name,
-                                        image: postAuthor.image
-                                    }
-                                    favPosts.push(post)
-                                }
-                            })
-                            return favPosts
-                        })
-                })
-        })
+    //                                 post.author = {
+    //                                     id: postAuthor._id.toString(),
+    //                                     name: postAuthor.name,
+    //                                     image: postAuthor.image
+    //                                 }
+    //                                 favPosts.push(post)
+    //                             }
+    //                         })
+    //                         return favPosts
+    //                     })
+    //             })
+    //     })
 }
 
 // add saved posts to db

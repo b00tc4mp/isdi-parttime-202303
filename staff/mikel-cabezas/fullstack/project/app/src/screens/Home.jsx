@@ -15,7 +15,7 @@ import Nearby from '../components/playgrounds/Nearby.jsx';
 import SinglePlayground from '../components/playgrounds/SinglePlayground.jsx';
 import CreatePlayground from '../components/playgrounds/addPlayground/AddPlayground.jsx';
 import retrieveUser from "../logic/users/retrieveUser"
-import { BaseMap } from '../components/playgrounds';
+import { BaseMap } from '../components/playgrounds/index.js';
 
 
 export default function Home({ navigation, onSendViewPlaygroundsFromCity }) {
