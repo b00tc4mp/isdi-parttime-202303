@@ -4,7 +4,7 @@ const { User } = require('../../data/models');
 const mongoose = require('mongoose');
 const { cleanUp, generate } = require('../helpers/tests');
 const {
-    errors: { TypeError, ExistenceError, ContentError },
+    errors: { TypeError, ExistenceError, ContentError, DuplicityError },
     assets: { colors, avatars },
 } = require('com');
 
@@ -55,6 +55,29 @@ describe('unlockAvatar', () => {
         } catch (error) {
             expect(error).to.be.instanceOf(ExistenceError);
             expect(error.message).to.equal('user not found');
+        }
+    });
+
+    it('should fail on avatar already unlocked', async () => {
+        const username = `User${Math.floor(Math.random() * 999)}`;
+        const password = `Password${Math.random()}`;
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        const recoveryQuestions = [
+            { question: `question${Math.random()}`, answer: `answer${Math.random()}` },
+            { question: `question${Math.random()}`, answer: `answer${Math.random()}` }
+        ];
+
+        const user = generate.user(username, password, 'beach', color, recoveryQuestions, [], [], [], 1, ['basket', 'beach']);
+
+        const createdUser = await User.create(user);
+        const id = createdUser._id.toString();
+        const avatar = 'beach';
+
+        try {
+            await unlockAvatar(id, avatar);
+        } catch (error) {
+            expect(error).to.be.instanceOf(DuplicityError);
+            expect(error.message).to.equal('avatar already unlocked');
         }
     });
 

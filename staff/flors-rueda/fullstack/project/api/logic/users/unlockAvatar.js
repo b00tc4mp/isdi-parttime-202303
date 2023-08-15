@@ -1,6 +1,6 @@
 const {
     validators: { validateId, validateAvatar },
-    errors: { ExistenceError }
+    errors: { ExistenceError, DuplicityError }
 } = require('com');
 const { User } = require('../../data/models');
 
@@ -12,6 +12,7 @@ module.exports = (userId, avatar) => {
         const user = await User.findById(userId);
         if (!user) throw new ExistenceError('user not found');
         const updatedAvatars = user.unlockAvatars
+        if (updatedAvatars.includes(avatar)) throw new DuplicityError('avatar already unlocked')
         updatedAvatars.push(avatar)
         await User.updateOne({ _id: userId }, { unlockAvatars: updatedAvatars });
     })()
