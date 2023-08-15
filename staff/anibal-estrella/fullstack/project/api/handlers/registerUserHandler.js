@@ -3,31 +3,29 @@
 const { registerUser } = require('../logic')
 const jwt = require('jsonwebtoken')
 
-// const { errors: { DuplicityError, ContentError } } = require('com')
+const { errors: { DuplicityError, ContentError } } = require('com')
 
 module.exports = (req, res) => {
+    debugger
     try {
         const { name, nickName, email, password, city } = req.body
-        res.status(200).send({ name, nickName, email, password, city });
+        registerUser(name, nickName, email, password, city)
+            // happy path 😄
+            .then(() => res.status(201).send())
+            // unhappy path 😢
+            .catch(error => {
+                let status = 500
 
-        // registerUser(name, email, password)
-        // happy path 😄
-        // .then(() => res.status(201).send())
-        // unhappy path 😢
-        // .catch(error => {
-        //     let status = 500
+                if (error instanceof DuplicityError)
+                    status = 409
 
-        // if (error instanceof DuplicityError)
-        //     status = 409
-
-        //     res.status(status).json({ error: error.message })
-        // })
-
+                res.status(status).json({ error: error.message })
+            })
     } catch (error) {
         let status = 500
 
-        // if (error instanceof TypeError || error instanceof ContentError || error instanceof RangeError)
-        //     status = 406
+        if (error instanceof TypeError || error instanceof ContentError || error instanceof RangeError)
+            status = 406
 
         res.status(status).json({ error: error.message })
     }

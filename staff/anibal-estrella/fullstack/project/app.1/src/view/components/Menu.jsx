@@ -1,16 +1,15 @@
 import React, { useState } from 'react'
-import { ArrowRightOnRectangleIcon, ArrowLeftOnRectangleIcon } from '@heroicons/react/24/outline'
-import { MenuItem } from '../library'
-import { Link } from 'react-router-dom';
+import { HeartIcon } from '@heroicons/react/24/solid'
+import { ArrowRightOnRectangleIcon, ArrowLeftOnRectangleIcon } from '@heroicons/react/24/solid'
 
 function Menu({ handleNavItemClick, onBurguerMenuClick }) {
 
     return (
         <nav className="flex-no-wrap sticky top-0 z-10 relative flex w-full items-center justify-between pt-2"  >
             <div className=" flex w-full flex-wrap items-center justify-between px-3  dark:bg-neutral-600 dark:shadow-black/10 sm:flex-wrap sm:justify-start  rounded-full  bg-gray-100 py-2 shadow-md shadow-black/5">
-                <Link to='/'>
+                <a href="#">
                     <h1 className="text-gray-400 flex items-center mx-4 font-extrabold bg-[url('../../../assets/LiveDive-Logo-B.svg')] bg-no-repeat bg-left bg-contain  w-10 h-10  text-center text-[0]  " >LiveDive</h1>
-                </Link>
+                </a>
 
                 <div className=" hidden flex-grow  items-center sm:!flex sm:basis-auto"
                     id="navbarSupportedContent1">
@@ -18,26 +17,30 @@ function Menu({ handleNavItemClick, onBurguerMenuClick }) {
                     {/* <!-- Left navigation links --> */}
 
                     <ul className="list-style-none mr-auto flex flex-col pl-0 sm:flex-row">
-                        <MenuItem tag="Link" id="login" className="p-4" to="/test">
-                            menuItem Test
-                        </MenuItem>
-
                         <li className="mb-4 sm:mb-0 sm:pr-2" data-te-nav-item-ref>
-                            <Link className="text-gray-400 transition duration-200 hover:text-red hover:ease-in-out focus:text-red disabled:text-gray-500/30 motion-reduce:transition-none dark:text-gray-200 dark:hover:text-gray-400 dark:focus:text-gray-400 sm:px-2 [&.active]:text-gray-500/90 dark:[&.active]:text-zinc-400" to="/artist">
+                            <a className="text-gray-400 transition duration-200 hover:text-red hover:ease-in-out focus:text-red disabled:text-gray-500/30 motion-reduce:transition-none dark:text-gray-200 dark:hover:text-gray-400 dark:focus:text-gray-400 sm:px-2 [&.active]:text-gray-500/90 dark:[&.active]:text-zinc-400" href="#" onClick={() => handleNavItemClick('artist')}>
                                 search artist
-                            </Link>
+                            </a>
                         </li>
                         <li className="mb-4 sm:mb-0 sm:pr-2" data-te-nav-item-ref>
-                            <Link to='/place' className="text-gray-400 transition duration-200 hover:text-gray-400/40 hover:ease-in-out focus:text-red disabled:text-gray-400/30 motion-reduce:transition-none dark:text-gray-200 dark:hover:text-gray-400 dark:focus:text-gray-400 sm:px-2 [&.active]:text-gray-500/90 dark:[&.active]:text-gray-400/40 text-" >
+                            <a href="#" onClick={() => handleNavItemClick('place')} className=" text-gray-400 transition duration-200 hover:text-gray-400/40 hover:ease-in-out focus:text-red disabled:text-gray-400/30 motion-reduce:transition-none dark:text-gray-200 dark:hover:text-gray-400 dark:focus:text-gray-400 sm:px-2 [&.active]:text-gray-500/90 dark:[&.active]:text-gray-400/40 text-">
                                 search place
-                            </Link>
+                            </a>
                         </li>
                         <li className="mb-4 sm:mb-0 sm:pr-2" data-te-nav-item-ref>
-                            <Link to='/register' className=" text-gray-400 transition duration-200 hover:text-gray-400/40 hover:ease-in-out focus:text-red disabled:text-gray-400/30 motion-reduce:transition-none dark:text-gray-200 dark:hover:text-gray-400 dark:focus:text-gray-400 sm:px-2 [&.active]:text-gray-500/90 dark:[&.active]:text-gray-400/40 text-">
+                            <a href="#" onClick={() => handleNavItemClick('register')} className=" text-gray-400 transition duration-200 hover:text-gray-400/40 hover:ease-in-out focus:text-red disabled:text-gray-400/30 motion-reduce:transition-none dark:text-gray-200 dark:hover:text-gray-400 dark:focus:text-gray-400 sm:px-2 [&.active]:text-gray-500/90 dark:[&.active]:text-gray-400/40 text-">
                                 register
-                            </Link>
+                            </a>
                         </li>
+                        {/* <li>
+                            <a className="mr-4 text-gray-400 transition duration-200 hover:text-red hover:ease-in-out focus:text-red disabled:text-gray-500/30 motion-reduce:transition-none dark:text-gray-200 dark:hover:text-gray-400 dark:focus:text-gray-400 [&.active]:text-gray-500/90 dark:[&.active]:text-gray-400/40"
+                                href="#">
+                                <span className="[&>svg]:w-5">
+                                    <HeartIcon />
+                                </span>
+                            </a>
 
+                        </li>*/}
 
                     </ul>
                 </div>
@@ -76,7 +79,7 @@ function Menu({ handleNavItemClick, onBurguerMenuClick }) {
                 </div>
             </div>
         </nav >
-    )
+    );
 }
 
 export default Menu;

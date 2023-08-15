@@ -1,43 +1,22 @@
 import React, { useState, useEffect } from 'react'
-import { SearchArtist, SearchPlace, Menu, MenuLayer } from './components'
-import { Home } from './pages'
-import { PencilIcon, BookmarkIcon, HeartIcon } from '@heroicons/react/24/solid'
-import retrieveUserGeolocation from '../logic/retrieveUserGeolocation'
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { Menu } from './components';
+import { Home, Profile, Register } from './pages';
+
 
 function App() {
-    const [selectedNavItem, setSelectedNavItem] = useState('artist');
-    const [showMenuLayer, setShowMenuLayer] = useState(false);
 
-
-    const handleNavItemClick = (navItem) => {
-        setSelectedNavItem(navItem);
-    };
-    const handleBurguerMenuClick = () => {
-        setShowMenuLayer(prevState => !prevState);
-    }
-    const [city, setCity] = useState('');
-
-    useEffect(() => {
-        async function fetchGeolocation() {
-            const userCity = await retrieveUserGeolocation();
-            setCity(userCity);
-        }
-        fetchGeolocation();
-    }, []);
 
     return (
-
-        <div className='m-2'>
-            {showMenuLayer && <MenuLayer onClose={handleBurguerMenuClick} handleNavItemClick={handleNavItemClick} />}
-            <Menu handleNavItemClick={handleNavItemClick} onBurguerMenuClick={handleBurguerMenuClick} />
-            <div>
-                <h2>Your City: {city}</h2>
-            </div>
-            <h1>Search {selectedNavItem === 'artist' ? 'artist' : 'place'}</h1>
-            {selectedNavItem === 'artist' ? <SearchArtist /> : <SearchPlace />}
-            <Home />
-        </div >
-    );
+        <Router>
+            <Menu />
+            <Routes>
+                <Route exact path="/" element={<Home />} />
+                <Route path="/profile" element={<Profile />} />
+                <Route path="/register" element={<Register />} />
+            </Routes>
+        </Router>
+    )
 }
 
 export default App;

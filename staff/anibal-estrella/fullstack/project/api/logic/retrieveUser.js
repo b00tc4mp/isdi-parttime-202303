@@ -1,6 +1,6 @@
 const { validators: { validateId },
     errors: { ExistenceError } } = require('com')
-const { User } = require('../data/models')
+const { User } = require('../data-project/models')
 
 /**
  *  * Api/retriveUser:

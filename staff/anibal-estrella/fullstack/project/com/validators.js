@@ -24,12 +24,31 @@ function validatePassword(password, explain = "password") {
 }
 
 /**
- * calidates a name
+ * validates a name
  * @param {string} name the name
  */
 function validateName(name, explain = "name") {
     if (typeof name !== 'string') throw new TypeError(`${explain} must be a string`)
     if (!name.trim().length) throw new ContentError(`${explain} is blank`)
+}
+/**
+ * validates a name
+ * @param {string} nickName the user's nick name
+ */
+function validateNickName(name, explain = "nickName") {
+    if (typeof name !== 'string') throw new TypeError(`${explain} must be a string`);
+    if (!name.trim().length) throw new Error(`${explain} is blank`);
+    const regex = /^[a-zA-Z0-9]+$/;
+    if (!regex.test(name)) throw new Error(`${explain} should be a single word without symbols and can contain numbers`);
+}
+
+/**
+ * validates a city
+ * @param {string} city the city
+ */
+function validateCity(city, explain = "city") {
+    if (typeof city !== 'string') throw new TypeError(`${explain} must be a string`)
+    if (!city.trim().length) throw new ContentError(`${explain} is blank`)
 }
 
 /**
@@ -75,9 +94,11 @@ module.exports = {
     validatePassword,
     validateEmail,
     validateName,
+    validateNickName,
     validateUrl,
     validateId,
     validateText,
     validateCallback,
+    validateCity,
     validateToken
 }

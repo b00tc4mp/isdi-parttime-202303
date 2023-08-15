@@ -3,7 +3,7 @@ const {
     errors: { AuthError, ExistenceError }
 } = require('com')
 
-const { User } = require('../data/models.js')
+const { User } = require('../data-project/models.js')
 
 /**
  * Api/AuthenticateUser:
