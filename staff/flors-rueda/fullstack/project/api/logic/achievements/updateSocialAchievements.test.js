@@ -88,7 +88,7 @@ describe('updateSocialAchievements', () => {
         expect(socialAchievements[2].isRankBronzeReached).to.equal(true);
         expect(socialAchievements[2].isRankGoldReached).to.equal(false);
         expect(socialAchievements[3].code).to.equal('S04');
-        expect(socialAchievements[3].progress).to.equal(1);
+        expect(socialAchievements[3].progress).to.equal(2);
         expect(socialAchievements[3].isRankBronzeReached).to.equal(true);
         expect(socialAchievements[3].isRankGoldReached).to.equal(false);
     });

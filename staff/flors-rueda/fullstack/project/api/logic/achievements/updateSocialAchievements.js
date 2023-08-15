@@ -8,8 +8,6 @@ const updateAchievementsProgress = require('../helpers/updateAchievementsProgres
 module.exports = async (userId) => {
     validateId(userId, 'userId');
 
-    //TODO fix bugs on social achievements
-
     const [userAchievements, user, likes] = await Promise.all([
         Achievements.findOne({ user: userId }),
         User.findOne({ _id: userId }),
@@ -23,20 +21,19 @@ module.exports = async (userId) => {
         throw new ExistenceError('user not found');
     }
 
-    const achievementCodeToUpdateLogic = {
-        'S01': () => user.followers.length,
-        'S02': () => user.follows.length,
-        'S03': () => likes,
-        'S04': () => user.saves.length,
+    const achievementCodeToUpdateValue = {
+        S01: user.followers.length,
+        S02: user.follows.length,
+        S03: likes,
+        S04: user.saves.length,
     };
 
     const updateAchievements = userAchievements.progressByAchievement.map(achievement => {
         if (achievement.category === 'social' && !achievement.isRankGoldReached) {
-            const updateLogic = achievementCodeToUpdateLogic[achievement.code];
-            if (updateLogic) {
-                if (updateLogic) {
-                    return updateAchievementsProgress(achievement, updateLogic);
-                }
+            const updateValue = achievementCodeToUpdateValue[achievement.code];
+            if (updateValue && achievement.progress < updateValue) {
+                achievement.progress = updateValue;
+                return updateAchievementsProgress(achievement);
             }
             return achievement;
         }

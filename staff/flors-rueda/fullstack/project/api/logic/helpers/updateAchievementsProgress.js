@@ -1,7 +1,6 @@
 const sendAchievementNotification = require('./sendAchievementNotification');
 
-module.exports = (achievement, updateLogic) => {
-    achievement.progress += updateLogic();
+module.exports = (achievement) => {
     if (achievement.ranks.length === 1) {
         if (achievement.progress === 1) {
             achievement.isRankBronzeReached = true;

@@ -14,17 +14,16 @@ module.exports = (userId) => {
         });
         if (!userAchievements) throw new ExistenceError('user not found');
 
-        const achievementCodeToUpdateLogic = {
-            'T01': () => 1,
+        const achievementCodeToUpdateValue = {
+            T01: 1,
         }
 
         const updateAchievements = userAchievements.progressByAchievement.map(achievement => {
             if (achievement.category === 'tutorial' && !achievement.isRankGoldReached) {
-                const updateLogic = achievementCodeToUpdateLogic[achievement.code];
-                if (updateLogic) {
-                    if (updateLogic) {
-                        return updateAchievementsProgress(achievement, updateLogic);
-                    }
+                const updateValue = achievementCodeToUpdateValue[achievement.code];
+                if (updateValue) {
+                    achievement.progress += updateValue;
+                    return updateAchievementsProgress(achievement);
                 }
                 return achievement;
             }
