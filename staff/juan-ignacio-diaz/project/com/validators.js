@@ -83,6 +83,10 @@ function validateArray(array, explain = 'array') {
     if (array.length === 0) throw new ContentError(`${explain} is empty`)
 }
 
+function validateObject(object, explain = 'token') {
+    if (typeof object !== 'object') throw new TypeError(`${explain} is a object`)
+}
+
 module.exports = {
     validateId,
     validateEmail,
@@ -94,5 +98,6 @@ module.exports = {
     validateDate,
     validateCallback,
     validateToken,
-    validateArray
+    validateArray,
+    validateObject
 }
