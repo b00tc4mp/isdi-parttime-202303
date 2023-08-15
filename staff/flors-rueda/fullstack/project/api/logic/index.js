@@ -22,5 +22,9 @@ module.exports = {
     updateCreateAchievements: require('./achievements/updateCreateAchievements'),
     updateGameAchievements: require('./achievements/updateGameAchievements'),
     updateSocialAchievements: require('./achievements/updateSocialAchievements'),
-    updateTutorialAchievements: require('./achievements/updateTutorialAchievements')
+    updateTutorialAchievements: require('./achievements/updateTutorialAchievements'),
+    retrieveCC: require('./users/retrieveCC'),
+    retrieveUnlockAvatars: require('./users/retrieveUnlockAvatars'),
+    unlockAvatar: require('./users/unlockAvatar'),
+    updateCC: require('./users/updateCC')
 }

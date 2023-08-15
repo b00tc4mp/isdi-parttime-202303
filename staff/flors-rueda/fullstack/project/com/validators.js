@@ -119,6 +119,10 @@ const validateCreateData = (createData) => {
     if (typeof floors !== 'number') throw new TypeError(`floors is not a number`);
 }
 
+const validateCC = (cc) => {
+    if (typeof cc !== 'number') throw new TypeError(`cc is not a number`);
+}
+
 module.exports = {
     validateName,
     validateCallback,
@@ -133,5 +137,6 @@ module.exports = {
     validateRecoveryAnswer,
     validateToken,
     validateGameData,
-    validateCreateData
+    validateCreateData,
+    validateCC
 }

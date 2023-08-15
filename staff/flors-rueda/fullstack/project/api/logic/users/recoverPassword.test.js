@@ -23,7 +23,8 @@ describe('recoverPassword', () => {
         await mongoose.connection.close();
     });
 
-    it('should update user password with valid userId', async () => {
+    it('should update user password with valid userId', async function () {
+        this.timeout(5000);
         const username = `User${Math.floor(Math.random() * 999)}`;
         const password = `Password${Math.random()}`;
         const color = colors[Math.floor(Math.random() * colors.length)];

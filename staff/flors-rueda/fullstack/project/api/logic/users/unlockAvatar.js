@@ -11,7 +11,8 @@ module.exports = (userId, avatar) => {
     return (async () => {
         const user = await User.findById(userId);
         if (!user) throw new ExistenceError('user not found');
-        if (!user.unlockAvatars.includes(avatar)) throw new ExistenceError('avatar not available');
-        await User.updateOne({ _id: userId }, { avatar: avatar });
+        const updatedAvatars = user.unlockAvatars
+        updatedAvatars.push(avatar)
+        await User.updateOne({ _id: userId }, { unlockAvatars: updatedAvatars });
     })()
 }

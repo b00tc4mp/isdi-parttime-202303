@@ -1,17 +1,17 @@
 const {
-    validators: { validateId, validateAvatar },
+    validators: { validateId, validateCC },
     errors: { ExistenceError }
 } = require('com');
 const { User } = require('../../data/models');
 
-module.exports = (userId, avatar) => {
+module.exports = (userId, cc) => {
     validateId(userId, 'userId');
-    validateAvatar(avatar);
+    validateCC(cc);
 
     return (async () => {
         const user = await User.findById(userId);
         if (!user) throw new ExistenceError('user not found');
-        if (!user.unlockAvatars.includes(avatar)) throw new ExistenceError('avatar not available');
-        await User.updateOne({ _id: userId }, { avatar: avatar });
+        const currentCC = user.cc || 0;
+        await User.updateOne({ _id: userId }, { cc: currentCC + cc });
     })()
 }
