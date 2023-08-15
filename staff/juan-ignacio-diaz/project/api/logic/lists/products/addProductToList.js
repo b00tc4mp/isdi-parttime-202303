@@ -12,7 +12,7 @@ const { User, List, Product } = require('../../../data/models')
  * @param {string} userId  The Id of the user.
  * @param {string} name The text to name.
  * @param {number} howMany The number to howMany.
- * @param {Object stores} stores The array to store
+ * @param {Array string} stores The array to store
  * @param {string} type The text to type
  * @param {string} comment The text to comment
  *
@@ -40,8 +40,8 @@ module.exports = (listId, userId, name, howMany, stores, type, comment) => {
         if (!(list.guests.some(tmpId => tmpId.toString() === userId))) throw new InvalidDataError('invalid user')
 
         stores.forEach(store => {
-            if (!(list.stores.some(tmpId => tmpId.id === store))) throw new InvalidDataError('invalid store')
-        });
+            if (!(list.stores.some(tmpStore => tmpStore.name === store))) throw new InvalidDataError('invalid store')
+        })
 
         const product = new Product({
             name,

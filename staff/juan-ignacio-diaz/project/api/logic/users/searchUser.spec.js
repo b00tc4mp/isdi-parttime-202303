@@ -23,7 +23,8 @@ describe('searchUser', () => {
     })
 
     it('succeeds on found email user', async () => {       
-        const user = await searchUser(userTest.id, userTest2.email)
+        const users = await searchUser(userTest.id, userTest2.email)
+        const user = users[0]
         expect(user.name).to.equal(userTest2.name)
         expect(user.avatar).to.equal(userTest2.avatar)
     })

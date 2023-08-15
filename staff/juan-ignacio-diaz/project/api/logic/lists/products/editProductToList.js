@@ -17,7 +17,7 @@ const { ObjectId } = mongodb
  * @param {string} producId  The Id of the product.
  * @param {string} name The text to name.
  * @param {number} howMany The number to howMany.
- * @param {Object stores} stores The array to store
+ * @param {Array string} stores The array to store
  * @param {string} type The text to type
  * @param {string} comment The text to comment
  *
@@ -46,14 +46,14 @@ module.exports = (listId, userId, producId, name, howMany, stores, type, comment
         if (!(list.guests.some(tmpId => tmpId.toString() === userId))) throw new InvalidDataError('invalid user')
 
         stores.forEach(store => {
-            if (!(list.stores.some(tmpId => tmpId.id === store))) throw new InvalidDataError('invalid store')
-        });
+            if (!(list.stores.some(tmpStore => tmpStore.name === store))) throw new InvalidDataError('invalid store')
+        })
 
         try {
             await List.findByIdAndUpdate({ "_id": listId, "products._id": producId }, 
                 { $set: { products: { name: name, 
                         howMany: howMany, 
-                        stores: stores.map(store => new ObjectId(store)), 
+                        stores: stores, 
                         type: type, 
                         comment: comment, 
                         view: list.guests 

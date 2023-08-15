@@ -9,9 +9,11 @@ module.exports = (listId, product) => {
         name: product.name,
         howMany: product.howMany,
         author: new ObjectId(product.author),
-        stores: product.stores.map(store => new ObjectId(store)),
+        stores: product.stores,
         type: product.type,
-        comment: product.comment
+        comment: product.comment,
+        likes: product.likes,
+        view: product.view
     })
 
     product.id = tmpProduct._id.toString()

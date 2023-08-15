@@ -1,5 +1,5 @@
 const { 
-    validators: { validateId },
+    validators: { validateId, validateText, validateObject },
     errors: { ExistenceError }
 } = require('com')
 
@@ -20,8 +20,8 @@ const { User, List, Product } = require('../../../data/models')
 module.exports = (listId, userId, filter, order) => {
     validateId(userId, 'user id')
     validateId(listId, 'list id')
-    validateText(filter, 'filter')
-    validateText(order, 'order')
+    validateObject(filter, 'filter')
+    if(order !== '') validateText(order, 'order')
 
     return (async () => { 
         const [user, list] = await Promise.all([User.findById(userId), List.findById(listId)])
@@ -32,10 +32,11 @@ module.exports = (listId, userId, filter, order) => {
 
         if (!(list.guests.some(tmpId => tmpId.toString() === userId))) throw new InvalidDataError('invalid user')
 //listamos, filtramos yyy limpiamos
-        const { products } = List.find(filter, 'name howMany state likes stores type comment view')
-            .populate('likes', 'name avatar')
-            .populate('stores', 'name').lean()
+       
+        const tmpList = await List.find(filter, 'products._id products.name products.howMany products.state products.type products.stores products.comment products.view')
+            .populate('products.likes', 'name avatar').lean()
 
+            const products = tmpList[0].products
             products.forEach(product => {                        
                 product.id = product._id.toString()
                 delete product._id
@@ -49,11 +50,6 @@ module.exports = (listId, userId, filter, order) => {
                     })
                 } 
 
-                if (product.stores._id) {
-                    product.stores.id = product.stores._id.toString()
-                    delete product.stores._id
-                }
-
                 if (product.view) {
                     product.untried = product.view.some(user => user._id.toString() === userId)
                     delete product.view
@@ -64,10 +60,17 @@ module.exports = (listId, userId, filter, order) => {
         await List.updateMany(filter, { products: {$pullAll: {view: [userId]} } })
 
  //ordenamos y devolvemos
-        return products.sort((a,b) =>{
-            if(a[orderFiled] > b[orderFiled]) return -1
-            if(a[orderFiled] < b[orderFiled]) return 1
+
+    if(order !== '') {
+        const orderField = order
+
+        products.sort((a,b) =>{
+            if(a[orderField] > b[orderField]) return -1
+            if(a[orderField] < b[orderField]) return 1
             return 0
         })
+    }
+
+    return products
     })()
 }

@@ -8,7 +8,7 @@ const { User, List, Product } = require('../../../data/models')
 const toggleProductToCart = require('./toggleProductToCart')
 
 const { generateUser, generateList, generateStore, generateProduct, cleanUp, populateUser, populateList, populateStore, populateProduct } = require('../../helpers/tests')
-debugger
+
 describe('toggleProductToCart', () =>{
     let userTest, contactTest, listTest, storeTest, productTest, productTest2, type, type2
 

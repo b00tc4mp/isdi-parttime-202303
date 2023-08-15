@@ -20,15 +20,17 @@ module.exports = (userId, email) => {
     validateEmail(email)
 
     return (async () => {
-        const [user, userEmail] = await Promise.all([User.findById(userId), User.findOne({ email: email}, 'name avatar').lean()])
+        const [user, usersEmail] = await Promise.all([User.findById(userId), User.find({ email: email}, 'name avatar').lean()])
 
         if (!user) throw new ExistenceError('user not found')
 
-        if (!userEmail) throw new ExistenceError('email not found')
+        if (!usersEmail) throw new ExistenceError('email not found')
 
-        userEmail.id = userEmail._id.toString()
-        delete userEmail._id
+        usersEmail.forEach(userEmail => {
+            userEmail.id = userEmail._id.toString()
+            delete userEmail._id
+        })
 
-        return userEmail
+        return usersEmail
     })()
 }

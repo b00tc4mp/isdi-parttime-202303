@@ -96,8 +96,7 @@ const product = new Schema({
         ref: 'User'
     },
     stores: {
-        type: [ObjectId],
-        ref: 'Stores'
+        type: [String]
     },
     type: {
         type: String,
