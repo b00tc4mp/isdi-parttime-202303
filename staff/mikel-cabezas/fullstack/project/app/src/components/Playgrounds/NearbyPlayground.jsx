@@ -29,7 +29,7 @@ export default function NearbyPlayground({ playground, playground: { name, text,
         >
             <Image source={images} className="rounded-2xl w-full h-[168px] object-contain" />
             <Text className="font-bold text-sm text-[13px] leading-4 mt-2 pr-1">{name}</Text>
-            <Text className="line-clamp-3 text-[11px] pr-1">{street}</Text>
+            <Text className="text-[11px] pr-1">{street}</Text>
         </View>
 
     </>
