@@ -6,7 +6,7 @@ export default (name, email, password) => {
     validateEmail(email)
     validatePassword(password)
 
-    return fetch(`${process.env.EXPO_PUBLIC_API_URL}/users`, {
+    return fetch(`${process.env.EXPO_PUBLIC_API_URL}/user/register`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

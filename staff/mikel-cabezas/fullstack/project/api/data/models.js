@@ -24,6 +24,15 @@ const user = new Schema({
     favs: {
         type: [ObjectId],
         default: []
+    },
+    isValid: {
+        type: Boolean,
+        required: true,
+        default: false
+    },
+    uniqueString: {
+        type: String,
+        required: true,
     }
 })
 const contributor = new Schema({

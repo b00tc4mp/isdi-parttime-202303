@@ -16,18 +16,23 @@ export default function MainStack() {
     const { TOKEN, setTOKEN } = useContext(Context)
 
     useEffect(() => {
-        AsyncStorage.getItem('@TOKEN')
-            .then(token => {
-                if (token) {
-                    setTOKEN(token)
-                    setIsLoggedIn(true)
-                }
-            })
+        if (TOKEN) {
+            setTOKEN(TOKEN)
+            setIsLoggedIn(true)
+        }
+        (async () => {
+            return AsyncStorage.getItem('@TOKEN')
+                .then(token => {
+                    if (token) {
+                        setTOKEN(token)
+                        setIsLoggedIn(true)
+                    }
+                })
+        })();
+
     }, [])
 
     return (<>
-
-
         {isLoggedIn && <>
             <Stack.Navigator
                 screenOptions={{
@@ -44,7 +49,6 @@ export default function MainStack() {
                     component={Login}
                 />
             </Stack.Navigator>
-
         </>
         }
         {!isLoggedIn && <>

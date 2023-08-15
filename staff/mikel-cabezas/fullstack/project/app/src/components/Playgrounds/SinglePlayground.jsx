@@ -118,35 +118,41 @@ export default function Nearby({ closeHandle }) {
                             </View>
                         </View>
                     </View>
-                    {playground.elements.length !== 0 ? playground.elements.map((element, index) => {
-                        return <SingleElement element={element} key={index} />
-                    }) :
-                        <View className="flex-row flex-wrap gap-3 mb-4">
-                            <Text className="dark:text-white text-lg mt-3 font-semibold w-full">Elements</Text>
-                            <Text className="dark:text-white  mt-3 font-semibold w-full">There is no elements yet...</Text>
-                            <TouchableOpacity
-                                activeOpacity={0.8}
-                                className={`border border-mainLime  rounded-full mb-1 mt-2 mr-2 bg-mainGray`}
-                                onPress={() => { }}>
-                                <View className="font-bold px-3 py-0.5 flex-row items-center">
-                                    <Text className={`font-bold text-center text-sm`}>Add one!</Text>
+                    <View className="flex-row flex-wrap gap-3 mb-4">
+                        <Text className="dark:text-white text-lg mt-3 font-semibold w-full">Elements</Text>
 
-                                    <View className="flex justify-center justify-items-center p-1 ml-2">
-                                        <Image className="h-6 w-6 object-cover" source={ADD} />
+                        {playground.elements.length !== 0 ? playground.elements.map((element, index) => {
+                            return <SingleElement element={element} key={index} />
+                        }) :
+                            <View className="flex-row flex-wrap mb-">
+                                <Text className="dark:text-white font-semibold w-full">There is no elements yet...</Text>
+                                <TouchableOpacity
+                                    activeOpacity={0.8}
+                                    className="border border-mainLime  rounded-full mb-1 mt-2 mr-2 bg-mainGray"
+                                // onPress={() => { }}
+                                >
+                                    <View className="font-bold px-3 py-0.5 flex-row items-center border border-mainLime  rounded-full mb-1 mt-2 mr-2 bg-mainGray">
+                                        <Text className={`font-bold text-center text-sm`}>Add one!</Text>
+
+                                        <View className="flex justify-center justify-items-center p-1 ml-2">
+                                            <Image className="h-6 w-6 object-cover" source={ADD} />
+                                        </View>
                                     </View>
-                                </View>
-                            </TouchableOpacity>
-                        </View>
-
-                    }
+                                </TouchableOpacity>
+                            </View>
+                        }
+                    </View>
                     {playground.description && playground.description !== '-' &&
-                        <View className="flex-row gap-3 mb-4">
-                            <Text className="pt-1 text-xl font-semibold">{playground.description}</Text>
+                        <View className="flex-column mb-4 w-full">
+                            <Text className="dark:text-white text-lg mb-1 font-semibold  w-full">Description</Text>
+                            <Text className="text-lgs font-normal">{playground.description}</Text>
                         </View>}
 
 
+                    <Text className="dark:text-white text-lg mb-2 font-semibold  w-full">Images</Text>
                     <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} pagingEnabled={true} >
                         <View className="flex-row gap-3">
+
                             {playground.images.length > 0 && playground.images.map((image, index) => {
                                 return <Image
                                     className="w-36 h-40 object-cover rounded-2xl"

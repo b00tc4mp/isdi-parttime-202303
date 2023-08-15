@@ -1,5 +1,6 @@
 module.exports = {
     registerUserHandler: require('./users/registerUserHandler'),
+    validateUserHandler: require('./users/validateUserHandler'),
     retrieveUserHandler: require('./users/retrieveUserHandler'),
     authenticateUserHandler: require('./users/authenticateUserHandler'),
     updateUserNameHandler: require('./users/updateUserNameHandler'),

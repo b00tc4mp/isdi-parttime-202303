@@ -30,58 +30,16 @@ export default function App({ }) {
 
   const [loadCurrentLocation, setLoadCurrentLocation] = useState(false)
 
-
-
-
   const [currentMarker, setCurrentMarker] = useState({})
   let colorScheme = useColorScheme();
 
   const [colorPalette, setColorPalette] = useState()
-
-
 
   useEffect(() => {
     if (colorScheme === 'dark') {
       setColorPalette({ mainDark: 'rgb(31 41 55)' })
     }
   }, [])
-
-
-  const onHome = () => {
-    setModal('')
-    // alert('hola')
-  }
-  const onNearby = () => {
-    setModal('nearby')
-    // alert('hola')
-  }
-  const onCreatePlayground = () => {
-    // alert('Passed to App')
-    setModal('createPlayground')
-  }
-  const onCloseModal = () => {
-    setAnimation('fadeOutDown')
-    setTimeout(() => {
-      setModal()
-      setAnimation()
-    }, 300)
-  }
-  const onCloseSidebar = () => {
-    setTimeout(() => {
-      setModal()
-    }, 300)
-  }
-  const markerPressedHandler = props => {
-    const playground = currentMarker
-    setModal('singlePlayground')
-    // alert(`title: ${playground.title} \n id: ${playground.id} \n description: ${playground.description}`)
-  }
-  // const onSendPlayground = () => {
-  // setModal('nearby')
-  // }
-
-  const Stack = createNativeStackNavigator()
-
 
   useEffect(() => {
     (async () => {
@@ -99,11 +57,6 @@ export default function App({ }) {
     })()
   }, [])
 
-
-
-
-
-
   return (
     <>
       <Provider value={{
@@ -114,18 +67,6 @@ export default function App({ }) {
           <NavigationContainer>
             <MainStack />
           </NavigationContainer>
-          {/* <Login /> */}
-          {/* <View className="flex-1 bg-white items-center justify-center">
-            {modal === 'sidebar' && <Sidebar closeHandle={onCloseSidebar} />}
-            <BaseMap className="-z-20" onMarkerPressed={markerPressedHandler} />
-            <Header />
-            {modal === 'singlePlayground' && <Animatable.View animation={animation} duration={250} className="w-full absolute bottom-0" ><SinglePlayground className="z-[90]" closeHandle={onCloseModal} park={currentMarker}></SinglePlayground></Animatable.View>}
-            {modal === 'nearby' && <Animatable.View animation={animation} duration={250} className="w-full absolute bottom-0" ><Nearby className="-z-10" closeHandle={onCloseModal} park={currentMarker}></Nearby></Animatable.View>}
-            {modal === 'createPlayground' && <CreatePlayground className="" closeHandle={onCloseModal}></CreatePlayground>}
-
-            {!modal && <Footer className="z-10" nearbyHandler={onNearby} createPlaygroundHandler={onCreatePlayground} homeHandler={onHome} />}
-            <StatusBar style="auto" />
-          </View > */}
         </HideKeyboard>
       </Provider>
 
