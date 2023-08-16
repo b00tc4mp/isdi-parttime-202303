@@ -121,6 +121,12 @@ const validateCreateData = (createData) => {
 
 const validateCC = (cc) => {
     if (typeof cc !== 'number') throw new TypeError(`cc is not a number`);
+    if (cc < 0) throw new ContentError(`cc value is not correct`);
+}
+
+const validateOperator = (operator) => {
+    if (typeof operator !== 'string') throw new TypeError(`operator is not a string`);
+    if (operator !== '+' && operator !== '-') throw new ContentError(`operator not correct`);
 }
 
 module.exports = {
@@ -138,5 +144,6 @@ module.exports = {
     validateToken,
     validateGameData,
     validateCreateData,
-    validateCC
+    validateCC,
+    validateOperator,
 }

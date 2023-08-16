@@ -44,6 +44,7 @@ describe('retrieveUserLogged', () => {
         expect(fetchedUser).to.have.property('avatar', user.avatar);
         expect(fetchedUser).to.not.have.property('recoveryQuestions');
         expect(fetchedUser).to.not.have.property('_id', createdUser.id);
+        expect(fetchedUser).to.have.property('cc', user.cc);
         expect(fetchedUser.joined.getTime()).to.be.closeTo(Date.now(), 10000);
     });
 

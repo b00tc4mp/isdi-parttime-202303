@@ -4,7 +4,7 @@ const { User } = require('../../data/models');
 const mongoose = require('mongoose');
 const { cleanUp, generate } = require('../helpers/tests');
 const {
-    errors: { TypeError, ExistenceError },
+    errors: { TypeError, ExistenceError, ContentError },
     assets: { colors },
 } = require('com');
 
@@ -36,8 +36,9 @@ describe('updateCC', () => {
         const createdUser = await User.create(user);
         const id = createdUser._id.toString();
         const cc = 25;
+        const operator = '+';
 
-        await updateCC(id, cc);
+        await updateCC(id, cc, operator);
 
         const updatedUser = await User.findById(id);
 
@@ -58,9 +59,10 @@ describe('updateCC', () => {
 
         const createdUser = await User.create(user);
         const id = createdUser._id.toString();
-        const cc = -25;
+        const cc = 25;
+        const operator = '-';
 
-        await updateCC(id, cc);
+        await updateCC(id, cc, operator);
 
         const updatedUser = await User.findById(id);
 
@@ -71,9 +73,10 @@ describe('updateCC', () => {
     it('should fail on user not found', async () => {
         const id = (new mongoose.Types.ObjectId()).toString();
         const cc = 1234;
+        const operator = '+';
 
         try {
-            await updateCC(id, cc);
+            await updateCC(id, cc, operator);
         } catch (error) {
             expect(error).to.be.instanceOf(ExistenceError);
             expect(error.message).to.equal('user not found');
@@ -83,19 +86,49 @@ describe('updateCC', () => {
     it('should fail on invalid id type', async () => {
         const invalidId = 1234;
         const cc = 1234;
-        await expect(() => updateCC(invalidId, cc)).to.throw(TypeError, 'userId is not a string');
+        const operator = '+';
+
+        await expect(() => updateCC(invalidId, cc, operator)).to.throw(TypeError, 'userId is not a string');
     });
 
     it('should fail on empty id', async () => {
         const emptyId = '   ';
         const cc = 1234;
-        await expect(() => updateCC(emptyId, cc)).to.throw(TypeError, 'userId is empty');
+        const operator = '+';
+
+        await expect(() => updateCC(emptyId, cc, operator)).to.throw(TypeError, 'userId is empty');
     });
 
     it('should fail on invalid CC type', async () => {
         const id = (new mongoose.Types.ObjectId()).toString();
         const cc = '1223';
-        await expect(() => updateCC(id, cc)).to.throw(TypeError, 'cc is not a number');
+        const operator = '+';
+
+        await expect(() => updateCC(id, cc, operator)).to.throw(TypeError, 'cc is not a number');
+    });
+
+    it('should fail on negative CC', async () => {
+        const id = (new mongoose.Types.ObjectId()).toString();
+        const cc = -55;
+        const operator = '+';
+
+        await expect(() => updateCC(id, cc, operator)).to.throw(ContentError, 'cc value is not correct');
+    });
+
+    it('should fail on invalid operator type', async () => {
+        const id = (new mongoose.Types.ObjectId()).toString();
+        const cc = 1223;
+        const operator = 1;
+
+        await expect(() => updateCC(id, cc, operator)).to.throw(TypeError, 'operator is not a string');
+    });
+
+    it('should fail on invalid operator', async () => {
+        const id = (new mongoose.Types.ObjectId()).toString();
+        const cc = 55;
+        const operator = 'x';
+
+        await expect(() => updateCC(id, cc, operator)).to.throw(ContentError, 'operator not correct');
     });
 
 });

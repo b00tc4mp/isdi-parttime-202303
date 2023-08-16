@@ -26,7 +26,7 @@ const GameOver = ({ isGameWon, onRetry, isCreatedLevel, layout, hp, name, likesI
 
     const handlePostLevel = () => {
         handleErrors(async () => {
-            await updateCC(-createData.cost)
+            await updateCC(createData.cc, '-')
             await createLevel(name, layout, hp);
             await updateCreateAchievements(createData);
             navigate('/levels');
@@ -52,7 +52,7 @@ const GameOver = ({ isGameWon, onRetry, isCreatedLevel, layout, hp, name, likesI
     const updateAchievements = () => {
         gameData.cc = earnedCC;
         handleErrors(async () => {
-            await updateCC(gameData.cc)
+            await updateCC(gameData.cc, '+')
             await updateGameAchievements(gameData);
         })
     };

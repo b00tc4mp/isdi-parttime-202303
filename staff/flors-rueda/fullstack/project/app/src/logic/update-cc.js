@@ -1,11 +1,12 @@
 import { validators } from 'com';
-const { validateCC } = validators;
+const { validateCC, validateOperator } = validators;
 import context from './context';
 
-const updateCC = (cc) => {
+const updateCC = (cc, operator) => {
     validateCC(cc);
-    //TODO divide between ADD and SPEND
-    const data = { cc }
+    //validateOperator(operator);
+
+    const data = { cc, operator }
 
     return fetch(`${import.meta.env.VITE_API_URL}/users/cc`, {
         method: 'PATCH',

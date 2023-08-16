@@ -54,7 +54,7 @@ describe('registerUser', () => {
         expect(createdUser.follows).to.be.an('array');
         expect(createdUser.followers).to.be.an('array');
         expect(createdUser.unlockAvatars).to.deep.equal(['beach']);
-        expect(createdUser.cc).to.equal(42);
+        expect(createdUser.cc).to.equal(500);
         expect(createdUser.recoveryQuestions[0].question).to.equal(recoveryQuestions[0].question);
         expect(matchAnswer1).to.equal(true);
         expect(createdUser.recoveryQuestions[1].question).to.equal(recoveryQuestions[1].question);
