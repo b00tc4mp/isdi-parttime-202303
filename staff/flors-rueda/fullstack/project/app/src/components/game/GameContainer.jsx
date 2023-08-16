@@ -21,16 +21,14 @@ const GameContainer = ({ level, initialHp, onGameOver, avatar, setGameData, game
     };
 
     const handleOnBomb = () => {
-        setHealth((prevHealth) => {
-            setAnimation('bomb');
-            setAnimationVisible(true);
-            const newHealth = prevHealth - 1;
-            if (newHealth === 0) {
-                setIsGameOver(-1);
-                onGameOver(-1);
-            };
-            return newHealth;
-        });
+        setAnimation('bomb');
+        setAnimationVisible(true);
+        const newHealth = health - 1;
+        setHealth(newHealth);
+        if (newHealth === 0) {
+            setIsGameOver(-1);
+            onGameOver(-1);
+        };
         setGameData(prevGameData => ({
             ...prevGameData,
             bombs: prevGameData.bombs + 1,

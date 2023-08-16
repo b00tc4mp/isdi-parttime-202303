@@ -101,48 +101,48 @@ So you play levels to earn points to create levels that other people will play t
 
 File                 | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
 ---------------------|---------|----------|---------|---------|-------------------
-All files                        |   98.57 |       90 |   98.57 |   98.46 |                   
- data                            |     100 |      100 |     100 |     100 |                   
-  achievements.js                |     100 |      100 |     100 |     100 |                   
-  models.js                      |     100 |      100 |     100 |     100 |                   
- logic/achievements              |   95.69 |    86.95 |     100 |   95.45 |                   
-  ...ieveCompleteAchievements.js |     100 |      100 |     100 |     100 |                   
-  updateCreateAchievements.js    |      95 |       80 |     100 |   94.73 | 32                
-  updateGameAchievements.js      |      95 |       80 |     100 |   94.73 | 33                
-  updateSocialAchievements.js    |   94.73 |    91.66 |     100 |   94.73 | 38                
-  updateTutorialAchievements.js  |   94.73 |     87.5 |     100 |   94.44 | 28                
- logic/helpers                   |     100 |    93.75 |     100 |     100 |                   
-  sendAchievementNotification.js |     100 |      100 |     100 |     100 |                   
-  updateAchievementsProgress.js  |     100 |    93.75 |     100 |     100 | 5                 
- logic/helpers/tests             |     100 |      100 |     100 |     100 |                   
-  cleanUp.js                     |     100 |      100 |     100 |     100 |                   
-  generate.js                    |     100 |      100 |     100 |     100 |                   
-  index.js                       |     100 |      100 |     100 |     100 |                   
- logic/levels                    |   98.79 |    88.88 |      95 |   98.71 |                   
-  createLevel.js                 |      90 |      100 |      50 |      90 | 22                
-  retrieveLevel.js               |     100 |      100 |     100 |     100 |                   
-  retrieveLevels.js              |     100 |      100 |     100 |     100 |                   
-  retrieveLevelsByAuthor.js      |     100 |      100 |     100 |     100 |                   
-  retrieveLevelsByFollowed.js    |     100 |      100 |     100 |     100 |                   
-  retrieveLevelsSaved.js         |     100 |      100 |     100 |     100 |                   
-  toggleLike.js                  |     100 |     87.5 |     100 |     100 | 18                
-  toggleSave.js                  |     100 |     87.5 |     100 |     100 | 18                
- logic/users                     |   99.51 |       92 |     100 |   99.46 |                   
-  authenticateUser.js            |     100 |      100 |     100 |     100 |                   
-  checkRecoveryAnswer.js         |     100 |      100 |     100 |     100 |                   
-  recoverPassword.js             |     100 |      100 |     100 |     100 |                   
-  registerUser.js                |   95.65 |       50 |     100 |   95.65 | 49                
-  retrieveCC.js                  |     100 |      100 |     100 |     100 |                   
-  ...veRandomRecoveryQuestion.js |     100 |      100 |     100 |     100 |                   
-  retrieveUnlockAvatars.js       |     100 |      100 |     100 |     100 |                   
-  retrieveUser.js                |     100 |      100 |     100 |     100 |                   
-  retrieveUserLogged.js          |     100 |      100 |     100 |     100 |                   
-  toggleFollow.js                |     100 |       80 |     100 |     100 | 18-19             
-  unlockAvatar.js                |     100 |      100 |     100 |     100 |                   
-  updateAvatar.js                |     100 |      100 |     100 |     100 |                   
-  updateCC.js                    |     100 |       75 |     100 |     100 | 14                
-  updateColor.js                 |     100 |      100 |     100 |     100 |                   
-  updatePassword.js              |     100 |      100 |     100 |     100 |    
+All files                           |   98.72 |       90 |   98.59 |   98.61 | 
+ data                               |     100 |      100 |     100 |     100 | 
+  achievements.js                   |     100 |      100 |     100 |     100 | 
+  models.js                         |     100 |      100 |     100 |     100 | 
+ logic/achievements                 |    97.1 |    87.83 |     100 |   96.87 | 
+  retrieveCompleteAchievements.js   |     100 |      100 |     100 |     100 | 
+  updateCCAchievements.js           |     100 |       95 |     100 |     100 | 36
+  updateCreateAchievements.js       |      96 |    83.33 |     100 |   95.65 | 35
+  updateGameAchievements.js         |      96 |    83.33 |     100 |   95.65 | 36
+  updateSocialAchievements.js       |   95.83 |    85.71 |     100 |   95.65 | 42
+  updateTutorialAchievements.js     |   95.83 |       80 |     100 |   95.45 | 32
+ logic/helpers                      |     100 |    93.75 |     100 |     100 | 
+  updateAchievementsProgress.js     |     100 |    93.75 |     100 |     100 | 4
+ logic/helpers/tests                |     100 |      100 |     100 |     100 | 
+  cleanUp.js                        |     100 |      100 |     100 |     100 | 
+  generate.js                       |     100 |      100 |     100 |     100 | 
+  index.js                          |     100 |      100 |     100 |     100 | 
+ logic/levels                       |   98.79 |    88.88 |      95 |   98.71 | 
+  createLevel.js                    |      90 |      100 |      50 |      90 | 22
+  retrieveLevel.js                  |     100 |      100 |     100 |     100 | 
+  retrieveLevels.js                 |     100 |      100 |     100 |     100 | 
+  retrieveLevelsByAuthor.js         |     100 |      100 |     100 |     100 | 
+  retrieveLevelsByFollowed.js       |     100 |      100 |     100 |     100 | 
+  retrieveLevelsSaved.js            |     100 |      100 |     100 |     100 | 
+  toggleLike.js                     |     100 |     87.5 |     100 |     100 | 18
+  toggleSave.js                     |     100 |     87.5 |     100 |     100 | 18
+ logic/users                        |   99.52 |     92.3 |     100 |   99.47 |                   
+  authenticateUser.js               |     100 |      100 |     100 |     100 | 
+  checkRecoveryAnswer.js            |     100 |      100 |     100 |     100 | 
+  recoverPassword.js                |     100 |      100 |     100 |     100 | 
+  registerUser.js                   |   95.65 |       50 |     100 |   95.65 | 49
+  retrieveCC.js                     |     100 |      100 |     100 |     100 | 
+  retrieveRandomRecoveryQuestion.js |     100 |      100 |     100 |     100 | 
+  retrieveUnlockAvatars.js          |     100 |      100 |     100 |     100 | 
+  retrieveUser.js                   |     100 |      100 |     100 |     100 | 
+  retrieveUserLogged.js             |     100 |      100 |     100 |     100 | 
+  toggleFollow.js                   |     100 |       80 |     100 |     100 | 18-19
+  unlockAvatar.js                   |     100 |      100 |     100 |     100 | 
+  updateAvatar.js                   |     100 |      100 |     100 |     100 | 
+  updateCC.js                       |     100 |    83.33 |     100 |     100 | 16
+  updateColor.js                    |     100 |      100 |     100 |     100 | 
+  updatePassword.js                 |     100 |      100 |     100 |     100 |  
 
 </br>
 

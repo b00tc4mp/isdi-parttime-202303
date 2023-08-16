@@ -12,6 +12,7 @@ import { getGameCC } from '../../helpers/game/getGameCC';
 import editIcons from '../../assets/editIcons/index';
 import useLockScroll from '../../hooks/useLockScroll';
 import retrieveCC from '../../logic/retrieve-cc';
+import updateCCAchievements from '../../logic/update-cc-achievements';
 
 const GameOver = ({ isGameWon, onRetry, isCreatedLevel, layout, hp, name, likesInfo, id, gameData, createData }) => {
     const navigate = useNavigate();
@@ -19,17 +20,19 @@ const GameOver = ({ isGameWon, onRetry, isCreatedLevel, layout, hp, name, likesI
     const [isLiked, setIsLiked] = useState(isCreatedLevel ? null : likesInfo.isLevelLiked);
     const [likes, setLikes] = useState(isCreatedLevel ? null : likesInfo.likes.length);
     const [remainingCC, setRemainingCC] = useState(null);
-    const earnedCC = isCreatedLevel ? null : getGameCC(gameData);
+    const [wonCC, setWonCC] = useState(null);
     const { unlockScroll } = useLockScroll();
 
     unlockScroll();
 
     const handlePostLevel = () => {
         handleErrors(async () => {
-            await updateCC(createData.cc, '-')
+            await updateCC(createData.cc, '-');
+            await updateCCAchievements(createData.cc, '-');
+            delete createData.cc;
             await createLevel(name, layout, hp);
             await updateCreateAchievements(createData);
-            navigate('/levels');
+            navigate('/home');
         })
     }
 
@@ -50,9 +53,11 @@ const GameOver = ({ isGameWon, onRetry, isCreatedLevel, layout, hp, name, likesI
     }
 
     const updateAchievements = () => {
-        gameData.cc = earnedCC;
         handleErrors(async () => {
-            await updateCC(gameData.cc, '+')
+            const earnedCC = getGameCC(gameData);
+            setWonCC(earnedCC);
+            await updateCC(earnedCC, '+');
+            await updateCCAchievements(earnedCC, '+');
             await updateGameAchievements(gameData);
         })
     };
@@ -153,7 +158,7 @@ const GameOver = ({ isGameWon, onRetry, isCreatedLevel, layout, hp, name, likesI
                                     {likes}
                                 </div>
                                 <div className="text-secondary200 mb-2">
-                                    You won <span className="text-primary200 font-bold">{'  ' + earnedCC}</span> cc
+                                    You won <span className="text-primary200 font-bold">{'  ' + wonCC}</span> cc
                                 </div>
                                 <button type="button" className="w-full text-success100 bg-success300 hover:bg-success200 hover:text-light500  focus:ring-4 focus:outline-none focus:ring-success300 font-medium rounded-lg text-sm px-4 py-2 text-center" onClick={onRetry}>Play again</button>
                                 <Link type="button" className="w-full text-secondary100 bg-light300 hover:bg-light200  focus:ring-4 focus:outline-none focus:ring-light300 font-medium rounded-lg text-sm px-4 py-2 text-center " to="/levels">Check other levels</Link>

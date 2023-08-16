@@ -18,17 +18,23 @@ module.exports = (userId) => {
             T01: 1,
         }
 
+        const achievementsToNotify = [];
+
         const updateAchievements = userAchievements.progressByAchievement.map(achievement => {
             if (achievement.category === 'tutorial' && !achievement.isRankGoldReached) {
                 const updateValue = achievementCodeToUpdateValue[achievement.code];
                 if (updateValue) {
                     achievement.progress += updateValue;
-                    return updateAchievementsProgress(achievement);
+                    const update = updateAchievementsProgress(achievement, achievementsToNotify);
+                    if (update.hasToBePushed) achievementsToNotify.push(update.achievement);
+                    return update.achievement;
                 }
                 return achievement;
             }
             return achievement
         });
         await Achievements.updateOne({ user: userId }, { progressByAchievement: updateAchievements });;
+
+        return achievementsToNotify;
     })();
 };

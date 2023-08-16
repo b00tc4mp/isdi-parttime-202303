@@ -35,11 +35,10 @@ describe('updateGameAchievements', () => {
         const holes = 7;
         const bombs = 527;
         const life = 7;
-        const cc = 125;
 
-        const gameData = { stonks, holes, bombs, life, cc };
+        const gameData = { stonks, holes, bombs, life };
 
-        await updateGameAchievements(userId.toString(), gameData);
+        const achievementsToNotify = await updateGameAchievements(userId.toString(), gameData);
 
         const updatedAchievements = await Achievements.findOne({ user: userId });
 
@@ -64,10 +63,14 @@ describe('updateGameAchievements', () => {
         expect(gameAchievements[4].progress).to.equal(1);
         expect(gameAchievements[4].isRankBronzeReached).to.equal(true);
         expect(gameAchievements[4].isRankGoldReached).to.equal(false);
-        expect(gameAchievements[5].code).to.equal('G06');
-        expect(gameAchievements[5].progress).to.equal(cc);
-        expect(gameAchievements[5].isRankBronzeReached).to.equal(false);
-        expect(gameAchievements[5]);
+        expect(achievementsToNotify[0].code).to.equal('G04');
+        expect(achievementsToNotify[0].progress).to.equal(bombs);
+        expect(achievementsToNotify[0].isRankBronzeReached).to.equal(true);
+        expect(achievementsToNotify[0].isRankGoldReached).to.equal(true);
+        expect(achievementsToNotify[1].code).to.equal('G05');
+        expect(achievementsToNotify[1].progress).to.equal(1);
+        expect(achievementsToNotify[1].isRankBronzeReached).to.equal(true);
+        expect(achievementsToNotify[1].isRankGoldReached).to.equal(false);
     });
 
     it('should fail on user not found', async () => {
@@ -76,9 +79,8 @@ describe('updateGameAchievements', () => {
         const holes = 7;
         const bombs = 527;
         const life = 7;
-        const cc = 125;
 
-        const gameData = { stonks, holes, bombs, life, cc };
+        const gameData = { stonks, holes, bombs, life };
 
         try {
             await updateGameAchievements(id, gameData);
@@ -124,9 +126,8 @@ describe('updateGameAchievements', () => {
         const holes = 7;
         const bombs = 527;
         const life = 7;
-        const cc = 125;
 
-        const gameData = { stonks, holes, bombs, life, cc };
+        const gameData = { stonks, holes, bombs, life };
 
         try {
             await updateGameAchievements(id, gameData);
@@ -141,9 +142,8 @@ describe('updateGameAchievements', () => {
         const holes = '7';
         const bombs = 527;
         const life = 7;
-        const cc = 125;
 
-        const gameData = { stonks, holes, bombs, life, cc };
+        const gameData = { stonks, holes, bombs, life };
 
         try {
             await updateGameAchievements(id, gameData);
@@ -158,9 +158,8 @@ describe('updateGameAchievements', () => {
         const holes = 7;
         const bombs = '527';
         const life = 7;
-        const cc = 125;
 
-        const gameData = { stonks, holes, bombs, life, cc };
+        const gameData = { stonks, holes, bombs, life };
 
         try {
             await updateGameAchievements(id, gameData);
@@ -175,9 +174,8 @@ describe('updateGameAchievements', () => {
         const holes = 7;
         const bombs = 527;
         const life = '7';
-        const cc = 125;
 
-        const gameData = { stonks, holes, bombs, life, cc };
+        const gameData = { stonks, holes, bombs, life };
 
         try {
             await updateGameAchievements(id, gameData);
@@ -185,22 +183,4 @@ describe('updateGameAchievements', () => {
             expect(error.message).to.equal('life is not a number');
         };
     });
-
-    it('should fail on invalid cc type', async () => {
-        const id = (new mongoose.Types.ObjectId()).toString();
-        const stonks = 1;
-        const holes = 7;
-        const bombs = 527;
-        const life = 7;
-        const cc = '125';
-
-        const gameData = { stonks, holes, bombs, life, cc };
-
-        try {
-            await updateGameAchievements(id, gameData);
-        } catch (error) {
-            expect(error.message).to.equal('cc is not a number');
-        };
-    });
-
 });

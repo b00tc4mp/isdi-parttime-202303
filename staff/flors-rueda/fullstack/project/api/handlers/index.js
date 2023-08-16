@@ -27,6 +27,7 @@ module.exports = {
     retrieveCCHandler: require('./retrieveCCHandler'),
     retrieveUnlockAvatarsHandler: require('./retrieveUnlockAvatarsHandler'),
     unlockAvatarHandler: require('./unlockAvatarHandler'),
-    updateCCHandler: require('./updateCCHandler')
+    updateCCHandler: require('./updateCCHandler'),
+    updateCCAchievementsHandler: require('./updateCCAchievementsHandler'),
 
 }

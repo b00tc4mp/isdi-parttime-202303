@@ -1,27 +1,26 @@
-const sendAchievementNotification = require('./sendAchievementNotification');
-
 module.exports = (achievement) => {
+    let hasToBePushed = false;
     if (achievement.ranks.length === 1) {
         if (achievement.progress === 1) {
             achievement.isRankBronzeReached = true;
             achievement.isRankSilverReached = true;
             achievement.isRankGoldReached = true;
-            sendAchievementNotification(achievement, 'gold');
+            hasToBePushed = true;
         }
     } else {
         if (!achievement.isRankBronzeReached && achievement.progress >= achievement.ranks[0]) {
             achievement.isRankBronzeReached = true;
-            sendAchievementNotification(achievement, 'bronze');
+            hasToBePushed = true;
         }
         if (achievement.isRankBronzeReached && achievement.progress >= achievement.ranks[1]) {
             achievement.isRankSilverReached = true;
-            sendAchievementNotification(achievement, 'silver');
+            hasToBePushed = true;
         }
         if (achievement.isRankSilverReached && achievement.progress >= achievement.ranks[2]) {
             achievement.isRankGoldReached = true;
-            sendAchievementNotification(achievement, 'gold');
+            hasToBePushed = true;
         }
     }
 
-    return achievement
+    return { achievement, hasToBePushed }
 }

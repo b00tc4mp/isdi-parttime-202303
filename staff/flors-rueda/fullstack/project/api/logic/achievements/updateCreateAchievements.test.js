@@ -33,10 +33,9 @@ describe('updateCreateAchievements', () => {
 
         const bombs = 7;
         const life = 67;
-        const cc = 5005;
         const floors = 99;
 
-        const createData = { bombs, life, cc, floors };
+        const createData = { bombs, life, floors };
 
         await updateCreateAchievements(userId.toString(), createData);
 
@@ -56,22 +55,18 @@ describe('updateCreateAchievements', () => {
         expect(gameAchievements[2].progress).to.equal(life);
         expect(gameAchievements[2].isRankBronzeReached).to.equal(true);
         expect(gameAchievements[3].code).to.equal('C04');
-        expect(gameAchievements[3].progress).to.equal(cc);
+        expect(gameAchievements[3].progress).to.equal(1);
         expect(gameAchievements[3].isRankBronzeReached).to.equal(true);
-        expect(gameAchievements[3].isRankGoldReached).to.equal(false);
-        expect(gameAchievements[4].code).to.equal('C05');
-        expect(gameAchievements[4].progress).to.equal(1);
-        expect(gameAchievements[4].isRankBronzeReached).to.equal(true);
+        expect(gameAchievements[3].isRankGoldReached).to.equal(true);
     });
 
     it('should fail on user not found', async () => {
         const id = (new mongoose.Types.ObjectId()).toString();
         const bombs = 7;
         const life = 67;
-        const cc = 5005;
         const floors = 99;
 
-        const createData = { bombs, life, cc, floors };
+        const createData = { bombs, life, floors };
 
         try {
             await updateCreateAchievements(id, createData);
@@ -115,10 +110,9 @@ describe('updateCreateAchievements', () => {
         const id = (new mongoose.Types.ObjectId()).toString();
         const bombs = '7';
         const life = 67;
-        const cc = 5005;
         const floors = 99;
 
-        const createData = { bombs, life, cc, floors };
+        const createData = { bombs, life, floors };
 
         try {
             await updateCreateAchievements(id, createData);
@@ -131,10 +125,9 @@ describe('updateCreateAchievements', () => {
         const id = (new mongoose.Types.ObjectId()).toString();
         const bombs = 7;
         const life = '67';
-        const cc = 5005;
         const floors = 99;
 
-        const createData = { bombs, life, cc, floors };
+        const createData = { bombs, life, floors };
 
         try {
             await updateCreateAchievements(id, createData);
@@ -143,30 +136,13 @@ describe('updateCreateAchievements', () => {
         }
     });
 
-    it('should fail on invalid cc type', async () => {
-        const id = (new mongoose.Types.ObjectId()).toString();
-        const bombs = 7;
-        const life = 67;
-        const cc = '5005';
-        const floors = 99;
-
-        const createData = { bombs, life, cc, floors };
-
-        try {
-            await updateCreateAchievements(id, createData);
-        } catch (error) {
-            expect(error.message).to.equal('cc is not a number')
-        };
-    });
-
     it('should fail on invalid floors type', async () => {
         const id = (new mongoose.Types.ObjectId()).toString();
         const bombs = 7;
         const life = 67;
-        const cc = 5005;
         const floors = '99';
 
-        const createData = { bombs, life, cc, floors };
+        const createData = { bombs, life, floors };
 
         try {
             await updateCreateAchievements(id, createData);

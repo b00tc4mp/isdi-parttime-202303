@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 const http = require('http');
 const { Server } = require('socket.io');
 
-const { helloApiHandler, retrieveLevelsHandler, retrieveLevelHandler, createLevelHandler, authenticateUserHandler, registerUserHandler, retrieveUserHandler, retrieveUserLoggedHandler, updateColorHandler, updateAvatarHandler, toggleLikeHandler, updatePasswordHandler, recoverPasswordHandler, retrieveRandomRecoveryQuestionHandler, checkRecoveryAnswerHandler, toggleFollowHandler, retrieveLevelsByFollowedHandler, retrieveLevelsByAuthorHandler, retrieveLevelsSavedHandler, toggleSaveHandler, retrieveCompleteAchievementsHandler, updateCreateAchievementsHandler, updateGameAchievementsHandler, updateSocialAchievementsHandler, updateTutorialAchievementsHandler, retrieveCCHandler, updateCCHandler, retrieveUnlockAvatarsHandler, unlockAvatarHandler } = require('./handlers');
+const { helloApiHandler, retrieveLevelsHandler, retrieveLevelHandler, createLevelHandler, authenticateUserHandler, registerUserHandler, retrieveUserHandler, retrieveUserLoggedHandler, updateColorHandler, updateAvatarHandler, toggleLikeHandler, updatePasswordHandler, recoverPasswordHandler, retrieveRandomRecoveryQuestionHandler, checkRecoveryAnswerHandler, toggleFollowHandler, retrieveLevelsByFollowedHandler, retrieveLevelsByAuthorHandler, retrieveLevelsSavedHandler, toggleSaveHandler, retrieveCompleteAchievementsHandler, updateCreateAchievementsHandler, updateGameAchievementsHandler, updateSocialAchievementsHandler, updateTutorialAchievementsHandler, retrieveCCHandler, updateCCHandler, retrieveUnlockAvatarsHandler, unlockAvatarHandler, updateCCAchievementsHandler } = require('./handlers');
 
 const mongoose = require('mongoose');
 
@@ -16,8 +16,8 @@ mongoose.connect(process.env.MONGODB_URL)
         const server = http.createServer(api);
         const io = new Server(server, {
             cors: {
-                origin: 'http://localhost:5173'
-                //origin: 'http://ballopolis.rucev.com'
+                //origin: 'http://localhost:5173'
+                origin: 'http://13.38.17.11'
             }
         });
 
@@ -39,7 +39,6 @@ mongoose.connect(process.env.MONGODB_URL)
         /*api.use((req, res, next) => {
             console.log(
                 "Request received: url =", req.url,
-                "|| baseUrl =", req.baseUrl,
                 "|| method =", req.method,
             );
             next();
@@ -94,6 +93,8 @@ mongoose.connect(process.env.MONGODB_URL)
         api.patch('/api/achievements/social', updateSocialAchievementsHandler);
 
         api.patch('/api/achievements/tutorial', updateTutorialAchievementsHandler);
+
+        api.patch('/api/achievements/cc', jsonBodyParser, updateCCAchievementsHandler);
 
         api.get('/api/users/cc/:userId', retrieveCCHandler);
 

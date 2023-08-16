@@ -1,14 +1,14 @@
-const { updateGameAchievements } = require('../logic');
+const { updateCCAchievements } = require('../logic');
 const { handleErrors, extractUserId, sendAchievementNotification } = require('./helpers');
 
 module.exports = handleErrors((req, res) => {
     const userId = extractUserId(req);
-    const { gameData } = req.body;
-    return updateGameAchievements(userId, gameData).then((achievementsToSendNotification) => {
+    const { cc, operator } = req.body;
+    return updateCCAchievements(userId, cc, operator).then((achievementsToSendNotification) => {
         achievementsToSendNotification.forEach(achievement => {
             sendAchievementNotification(achievement);
         });
 
         return res.status(201).send();
     });
-});
+})

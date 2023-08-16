@@ -1,30 +1,34 @@
 const {
-    validators: { validateId, validateCreateData },
+    validators: { validateId, validateCC, validateOperator },
     errors: { ExistenceError }
 } = require('com');
-const { Achievements } = require('../../data/models');
+const { Achievements, User } = require('../../data/models');
 const updateAchievementsProgress = require('../helpers/updateAchievementsProgress');
 
-module.exports = async (userId, createData) => {
+module.exports = async (userId, cc, operator) => {
     validateId(userId, 'userId');
-    validateCreateData(createData);
+    validateCC(cc);
+    validateOperator(operator);
 
-    const { bombs, life, floors } = createData;
+    const [userAchievements, user] = await Promise.all([
+        Achievements.findOne({ user: userId }),
+        User.findOne({ _id: userId }),
+    ]);
 
-    const userAchievements = await Achievements.findOne({ user: userId });
-    if (!userAchievements) throw new ExistenceError('user not found');
+    if (!userAchievements || !user) {
+        throw new ExistenceError('user not found');
+    }
 
     const achievementCodeToUpdateValue = {
-        C01: 1,
-        C02: bombs,
-        C03: life,
-        C04: floors >= 99 ? 1 : 0
-    };
+        CC01: operator === '+' ? cc : 0,
+        CC02: operator === '-' ? cc : 0,
+        CC03: operator === '-' && user.cc - cc <= 0 ? 1 : 0,
+    }
 
     const achievementsToNotify = [];
 
     const updateAchievements = userAchievements.progressByAchievement.map(achievement => {
-        if (achievement.category === 'create' && !achievement.isRankGoldReached) {
+        if (achievement.category === 'cc' && !achievement.isRankGoldReached) {
             const updateValue = achievementCodeToUpdateValue[achievement.code];
             if (updateValue) {
                 achievement.progress += updateValue;

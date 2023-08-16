@@ -26,5 +26,6 @@ module.exports = {
     retrieveCC: require('./users/retrieveCC'),
     retrieveUnlockAvatars: require('./users/retrieveUnlockAvatars'),
     unlockAvatar: require('./users/unlockAvatar'),
-    updateCC: require('./users/updateCC')
+    updateCC: require('./users/updateCC'),
+    updateCCAchievements: require('./achievements/updateCCAchievements')
 }

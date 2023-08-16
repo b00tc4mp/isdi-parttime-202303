@@ -9,7 +9,7 @@ module.exports = async (userId, gameData) => {
     validateId(userId, 'userId');
     validateGameData(gameData);
 
-    const { stonks, holes, bombs, life, cc } = gameData;
+    const { stonks, holes, bombs, life } = gameData;
 
     const userAchievements = await Achievements.findOne({ user: userId });
     if (!userAchievements) throw new ExistenceError('user not found');
@@ -20,20 +20,25 @@ module.exports = async (userId, gameData) => {
         G03: stonks,
         G04: bombs,
         G05: life >= 7 ? 1 : 0,
-        G06: cc
     }
 
-    const updateAchievements = userAchievements.progressByAchievement.map(achievement => {
+    const achievementsToNotify = [];
+
+    const achievementsToUpdate = userAchievements.progressByAchievement.map(achievement => {
         if (achievement.category === 'game' && !achievement.isRankGoldReached) {
             const updateValue = achievementCodeToUpdateValue[achievement.code];
             if (updateValue) {
                 achievement.progress += updateValue;
-                return updateAchievementsProgress(achievement);
+                const update = updateAchievementsProgress(achievement, achievementsToNotify);
+                if (update.hasToBePushed) achievementsToNotify.push(update.achievement);
+                return update.achievement;
             }
             return achievement;
         }
         return achievement;
     });
 
-    await Achievements.updateOne({ user: userId }, { progressByAchievement: updateAchievements });
+    await Achievements.updateOne({ user: userId }, { progressByAchievement: achievementsToUpdate });
+
+    return achievementsToNotify;
 };

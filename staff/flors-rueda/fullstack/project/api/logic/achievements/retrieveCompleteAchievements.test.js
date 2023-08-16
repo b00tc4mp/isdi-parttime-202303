@@ -30,12 +30,12 @@ describe('retrieveCompleteAchievements', () => {
         allAchievements[3].progress = 561;
         allAchievements[4].isRankBronzeReached = true;
         allAchievements[4].progress = 2;
-        allAchievements[6].progress = 1;
+        allAchievements[6].progress = 999999;
         allAchievements[6].isRankGoldReached = true;
         allAchievements[6].isRankBronzeReached = true;
-        allAchievements[14].isRankBronzeReached = true;
-        allAchievements[14].progress = 27;
-        allAchievements[14].isRankSilverReached = true
+        allAchievements[15].isRankBronzeReached = true;
+        allAchievements[15].progress = 27;
+        allAchievements[15].isRankSilverReached = true
 
         const userId = new mongoose.Types.ObjectId();
 
@@ -53,8 +53,8 @@ describe('retrieveCompleteAchievements', () => {
         expect(fetchedAchievements[1].code).to.equal('G05');
         expect(fetchedAchievements[1].name).to.equal('kitten');
         expect(fetchedAchievements[1].rank).to.equal('bronze');
-        expect(fetchedAchievements[2].code).to.equal('T01');
-        expect(fetchedAchievements[2].name).to.equal('newbie');
+        expect(fetchedAchievements[2].code).to.equal('CC02');
+        expect(fetchedAchievements[2].name).to.equal('shopalcoholic');
         expect(fetchedAchievements[2].rank).to.equal('gold');
         expect(fetchedAchievements[3].code).to.equal('S03');
         expect(fetchedAchievements[3].name).to.equal('everybody say love');

@@ -101,21 +101,19 @@ const validateToken = (token) => {
 }
 
 const validateGameData = (gameData) => {
-    const { stonks, holes, bombs, life, cc } = gameData;
+    const { stonks, holes, bombs, life } = gameData;
     if (typeof gameData !== 'object') throw new TypeError(`game data is not a object`);
     if (typeof stonks !== 'number') throw new TypeError(`stonks is not a number`);
     if (typeof holes !== 'number') throw new TypeError(`holes is not a number`);
     if (typeof bombs !== 'number') throw new TypeError(`bombs is not a number`);
     if (typeof life !== 'number') throw new TypeError(`life is not a number`);
-    if (typeof cc !== 'number') throw new TypeError(`cc is not a number`);
 }
 
 const validateCreateData = (createData) => {
-    const { bombs, life, cc, floors } = createData;
+    const { bombs, life, floors } = createData;
     if (typeof createData !== 'object') throw new TypeError(`create data is not a object`);
     if (typeof bombs !== 'number') throw new TypeError(`bombs is not a number`);
     if (typeof life !== 'number') throw new TypeError(`life is not a number`);
-    if (typeof cc !== 'number') throw new TypeError(`cc is not a number`);
     if (typeof floors !== 'number') throw new TypeError(`floors is not a number`);
 }
 

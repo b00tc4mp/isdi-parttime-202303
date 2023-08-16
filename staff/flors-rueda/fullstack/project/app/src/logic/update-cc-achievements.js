@@ -2,13 +2,13 @@ import { validators } from 'com';
 const { validateCC, validateOperator } = validators;
 import context from './context';
 
-const updateCC = (cc, operator) => {
+const updateCCAchievements = (cc, operator) => {
     validateCC(cc);
     validateOperator(operator);
 
-    const data = { cc, operator }
+    const data = { cc, operator };
 
-    return fetch(`${import.meta.env.VITE_API_URL}/users/cc`, {
+    return fetch(`${import.meta.env.VITE_API_URL}/achievements/cc`, {
         method: 'PATCH',
         headers: {
             'Content-type': 'application/json',
@@ -18,7 +18,7 @@ const updateCC = (cc, operator) => {
     })
         .then(res => {
             if (!res.ok) {
-                throw new Error('Failed to update cc');
+                throw new Error('Failed to update cc achievements');
             }
             return Promise.resolve();
         })
@@ -27,4 +27,4 @@ const updateCC = (cc, operator) => {
         });
 }
 
-export default updateCC;
+export default updateCCAchievements;
