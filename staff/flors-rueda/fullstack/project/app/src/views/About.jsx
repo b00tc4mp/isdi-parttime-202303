@@ -60,7 +60,7 @@ const About = () => {
                     <div className="w-full lg:w-2/6 p-2 pt-5 h-md bg-light500 border border-light300 rounded-lg shadow flex flex-col text-center">
                         <h3 className="mb-2 text-sm md:text-lg font-bold tracking-tight text-primary200">Aquelarre Character Generator</h3>
                         <p className="text-secondary300 text-xs md:text-sm">
-                            A completely randomize character generator for the role game Aquelarre.
+                            A completely randomize character generator for the role game Aquelarre build with vanilla JS and HTML/CSS.
                         </p>
                         <div className="flex flex-row justify-center align-center pt-2 gap-5">
                             <a href="https://aquelarrepersonaje.surge.sh/" target="_blank" rel="noopener noreferrer" className="hover:text-primary600 text-primary200 text-lg md:text-xl self-start">
@@ -99,10 +99,6 @@ const About = () => {
                             </a>
                         </div>
                     </div>
-
-
-
-
                 </div>
             </div>
 

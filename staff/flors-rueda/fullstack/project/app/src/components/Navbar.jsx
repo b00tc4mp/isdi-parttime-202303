@@ -99,15 +99,24 @@ const Navbar = () => {
                     </div>
                     <div>
                         {isUserLoggedIn() && <>
-                            <div type="button" className="flex pr-4 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-2 focus:ring-light100" onClick={handleUserMenuClick}>
+                            <div type="button" className="flex pr-4 text-sm bg-gray-800 rounded-full min-w-fit md:mr-0 focus:ring-2 focus:ring-light100" onClick={handleUserMenuClick}>
                                 <span className="sr-only">Open user menu</span>
-                                <img className={`bg-${userInfo.color} w-8 h-8 rounded-full cursor-pointer`} src={`${avatars[userInfo.avatar]}`} alt="avatar" />
+                                <div className="flex flex-row cursor-pointer">
+                                    <i className={`bi bi-chevron-compact-${(isUserMenuOpen ? 'up' : 'down')} self-end`}></i>
+                                    <img className={`bg-${userInfo.color} w-8 h-8 rounded-full`} src={`${avatars[userInfo.avatar]}`} alt="avatar" />
+                                </div>
                                 <div className={`z-50 w-fit max-w-2/6 fixed right-10 mt-8 text-base list-none bg-light500 divide-y divide-light300 rounded-xl shadow ${(isUserMenuOpen ? '' : 'hidden')}`} >
-                                    <Link className={`px-4 py-5 flex flex-row gap-1 align-center text-sm text-${userInfo.color} cursor-pointer rounded-lg hover:bg-light400`} to={`/profile/you`} onClick={handleCloseBoth}>
-                                        <i className="bi bi-person-fill"></i>
-                                        <span className="block text-sm">{userInfo.username}</span>
-                                    </Link>
+                                    <div className={`px-4 py-5 flex flex-row gap-1 align-center text-sm text-${userInfo.color} cursor-pointer rounded-lg justify-center`}>
+                                        <i className="text-xl text-primary400 bi bi-piggy-bank"></i>
+                                        <span className="block text-sm self-center">{userInfo.cc}cc</span>
+                                    </div>
                                     <ul className="pt-2 flex flex-col gap-5 justify-between" >
+                                        <li className="w-full text-sm text-dark300 rounded-lg hover:bg-light400 pl-2 px-3 hover:text-secondary500">
+                                            <Link to="/profile/you" onClick={handleCloseBoth} className="flex flex-row gap-2 align-center">
+                                                <i className="bi bi-person-fill"></i>
+                                                <span>{userInfo.username}</span>
+                                            </Link>
+                                        </li>
                                         <li className="w-full text-sm text-dark300 rounded-lg hover:bg-light400 pl-2 px-3 hover:text-secondary500">
                                             <Link to="/customize" onClick={handleCloseBoth} className="flex flex-row gap-2 align-center">
                                                 <i className="bi bi-palette"></i>

@@ -13,7 +13,7 @@ const Home = () => {
     const [username, setUsername] = useState('');
     const [color, setColor] = useState('');
     const handleErrors = useHandleErrors();
-    const [saves, setSaves] = useState(null);
+    const [saves, setSaves] = useState([]);
 
     const handleRefreshLevels = () => {
         handleErrors(async () => {

@@ -2,10 +2,12 @@ import { useState } from 'react';
 import editIcons from '../../assets/editIcons/index';
 import inLogger from '../../inLogger';
 import { validateFloor } from '../../helpers/levelValidators';
+import isUserLoggedIn from '../../logic/is-user-logged-in';
 
-const LayoutForm = ({ level, setLevel, setToast, setToastOn }) => {
+const LayoutForm = ({ level, setLevel, setToast, setToastOn, setCost, cost }) => {
     const [openDropdown, setOpenDropdown] = useState(null);
-    const cellOptions = ['bomb', 'dirt', 'hole', 'stonks', 'start', 'life', 'empty'];
+    const cellOptions = ['bomb', 'dirt', 'life', 'hole', 'empty', 'start', 'stonks'];
+    const prices = { bomb: 10, life: 15, hole: 2, dirt: 5 };
 
     const handleDropdownToggle = (floorIndex, cellIndex) => {
         const dropdownId = `dropdownDefaultRadio_${floorIndex}_${cellIndex}`;
@@ -27,9 +29,13 @@ const LayoutForm = ({ level, setLevel, setToast, setToastOn }) => {
 
     const handleOptionChange = (floorIndex, cellIndex, selectedOption) => {
         const updatedLevel = [...level];
+        const previousOption = level[floorIndex][cellIndex];
         updatedLevel[floorIndex][cellIndex] = selectedOption;
         const dropdownId = `dropdownDefaultRadio_${floorIndex}_${cellIndex}`;
         const dropdown = document.getElementById(dropdownId);
+        const previousCost = prices[previousOption] ? prices[previousOption] : 0;
+        const newCost = prices[selectedOption] ? prices[selectedOption] : 0;
+        setCost(cost - previousCost + newCost);
         setLevel(updatedLevel);
         if (dropdown) {
             dropdown.classList.toggle('hidden');
@@ -62,7 +68,7 @@ const LayoutForm = ({ level, setLevel, setToast, setToastOn }) => {
 
         return cellOptions.map((option, index) => (
             <li key={`${index}_${floorIndex}_${cellIndex}`}>
-                <div className="flex items-center">
+                <div className="flex items-center w-fit">
                     <input
                         id={`dropdownDefaultRadio_${floorIndex}_${cellIndex}`}
                         type="radio"
@@ -72,11 +78,14 @@ const LayoutForm = ({ level, setLevel, setToast, setToastOn }) => {
                         onChange={(event) => handleOptionChange(floorIndex, cellIndex, option)}
                         checked={selectedOption === option}
                     />
-                    <span className="ml-2 text-sm font-medium">
-                        {option === 'stonks' ? 'treasure' : option}
+                    <span className="text-secondary100 ml-2 text-sm font-mediun flex flex-col gap-1 justify-around">
+                        <b>{option === 'stonks' ? 'treasure' : option}</b>
+                        {isUserLoggedIn() &&
+                            <p className="text-primary300 text-xs font-semibold">{prices[option] ? `${prices[option]} cc` : ''}</p>
+                        }
                     </span>
                 </div>
-            </li>
+            </li >
         ));
     };
 
