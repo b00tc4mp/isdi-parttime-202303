@@ -35,7 +35,7 @@ module.exports = (username, password, color, recoveryQuestions) => {
                 follows: [],
                 followers: [],
                 unlockAvatars: ['beach'],
-                cc: 42,
+                cc: 500,
             });
 
             await Achievements.create({

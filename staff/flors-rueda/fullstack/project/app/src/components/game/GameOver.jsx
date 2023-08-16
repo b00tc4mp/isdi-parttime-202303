@@ -5,15 +5,17 @@ import useHandleErrors from '../../hooks/useHandleErrors';
 import isUserLoggedIn from '../../logic/is-user-logged-in';
 import { useEffect, useState } from 'react';
 import toggleLike from '../../logic/toggle-like';
-import getPlayerId from '../../logic/get-player-id';
+import updateCC from '../../logic/update-cc';
 import updateGameAchievements from '../../logic/update-game-achievements'
 import updateCreateAchievements from '../../logic/update-create-achievements';
+import { getGameCC } from '../../helpers/game/getGameCC';
 
 const GameOver = ({ isGameWon, onRetry, isCreatedLevel, layout, hp, name, likesInfo, id, gameData, createData }) => {
     const navigate = useNavigate();
     const handleErrors = useHandleErrors();
     const [isLiked, setIsLiked] = useState(isCreatedLevel ? null : likesInfo.isLevelLiked);
     const [likes, setLikes] = useState(isCreatedLevel ? null : likesInfo.likes.length);
+    const [earnedCC, setEarnedCC] = useState(isCreatedLevel ? null : getGameCC(gameData));
 
     const handlePostLevel = () => {
         handleErrors(async () => {
@@ -40,8 +42,9 @@ const GameOver = ({ isGameWon, onRetry, isCreatedLevel, layout, hp, name, likesI
     }
 
     const updateAchievements = () => {
-        gameData.cc = 0;
+        gameData.cc = earnedCC;
         handleErrors(async () => {
+            await updateCC(gameData.cc)
             await updateGameAchievements(gameData);
         })
     };
@@ -68,7 +71,6 @@ const GameOver = ({ isGameWon, onRetry, isCreatedLevel, layout, hp, name, likesI
                     {
                         isCreatedLevel ?
                             <div className="min-w-fit w-4/6 md:w-2/6 lg:w-1/4 flex flex-col justify-center align-center gap-5">
-                                <div className="mb-1 text-lg font-bold text-secondary300">{name}</div>
                                 <div className="text-secondary100 mb-2">
                                     Bombs: {createData.bombs}, Life: {createData.life}, CC: {createData.cc}, Floors: {createData.floors}
                                 </div>
@@ -90,12 +92,9 @@ const GameOver = ({ isGameWon, onRetry, isCreatedLevel, layout, hp, name, likesI
                                     <button onClick={handleLikeClick}><i className={`hover:text-light100 bi ${isLiked ? 'bi-suit-heart-fill' : 'bi-suit-heart'}`}></i></button>
                                     {likes}
                                 </div>
-                                {/* Render game data */}
-                                <div className="text-secondary100 mb-2">
-                                    Holes: {gameData.holes}, Bombs: {gameData.bombs}, Life: {gameData.life}, CC: {gameData.cc}
+                                <div className="text-secondary200 mb-2">
+                                    You won <span className="text-primary200 font-bold">{'  ' + earnedCC}</span> cc
                                 </div>
-                                {/* Render achievements */}
-
                                 <button type="button" className="w-full text-success100 bg-success300 hover:bg-success200 hover:text-light500  focus:ring-4 focus:outline-none focus:ring-success300 font-medium rounded-lg text-sm px-4 py-2 text-center" onClick={onRetry}>Play again</button>
                                 <Link type="button" className="w-full text-secondary100 bg-light300 hover:bg-light200  focus:ring-4 focus:outline-none focus:ring-light300 font-medium rounded-lg text-sm px-4 py-2 text-center " to="/levels">Check other levels</Link>
                             </div>
