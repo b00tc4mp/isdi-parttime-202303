@@ -15,6 +15,7 @@ module.exports = {
     acceptGuestListHandler: require('./lists/acceptGuestListHandler'),
     declineGuestListHandler: require('./lists/declineGuestListHandler'),
     reviewListsGuestHandler: require('./lists/reviewListsGuestHandler'),
+    copyToNewListHandler: require('./lists/copyToNewListHandler'),
 
     addMessageHandler: require('./lists/messages/addMessageHandler'),
     reviewMessagesHandler: require('./lists/messages/reviewMessagesHandler'),
@@ -22,5 +23,11 @@ module.exports = {
     addStoreHandler: require('./lists/stores/addStoreHandler'),
     reviewStoresHandler: require('./lists/stores/reviewStoresHandler'),
 
-    reviewProductTypesHandler: require('./lists/stores/reviewProductTypesHandler')
+    reviewProductTypesHandler: require('./lists/produsts/reviewProductTypesHandler'),
+    addProductToListHandler: require('./lists/produsts/addProductToListHandler'),
+    deleteProductToListHandler: require('./lists/produsts/deleteProductToListHandler'),
+    editProductToListHandler: require('./lists/produsts/editProductToListHandler'),
+    toggleProductToCartHandler: require('./lists/produsts/toggleProductToCartHandler'),
+    markProductAsPurchasedHandler: require('./lists/produsts/markProductAsPurchasedHandler'),
+    reviewFilteredProductsHandler: require('./lists/produsts/reviewFilteredProductsHandler')
 }

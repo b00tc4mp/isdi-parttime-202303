@@ -34,10 +34,22 @@ module.exports = (listId, userId, producId) => {
 
         const tmpProduct = tmpList.products[0]
         
-        tmpProduct.state = (tmpProduct.state === '' ? 'selected' : '')
-        tmpProduct.view = list.guests 
 
-        
+        if (tmpProduct.state === 'bought') {
+            throw new InvalidDataError('invalid state')
+        }
+        else if (tmpProduct.state === '') {
+            tmpProduct.buyer = userId
+            tmpProduct.state = 'selected'
+        }
+        else {
+            if (tmpProduct.buyer !== userId) throw new InvalidDataError('invalid user')
+
+            tmpProduct.buyer = null
+            tmpProduct.state = '' 
+        }
+        tmpProduct.view = list.guests 
+ 
         await List.findByIdAndUpdate({ "_id": listId, "products._id": producId }, { $set: { products: tmpProduct } })  
     })()
 }

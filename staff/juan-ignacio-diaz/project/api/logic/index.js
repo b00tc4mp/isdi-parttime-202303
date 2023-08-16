@@ -14,6 +14,7 @@ module.exports = {
     acceptGuestList: require('./lists/acceptGuestList'),
     declineGuestList: require('./lists/declineGuestList'),
     reviewListsGuest: require('./lists/reviewListsGuest'),
+    copyToNewList: require('./lists/copyToNewList'),
 
     addMessage: require('./lists/messages/addMessage'),
     reviewMessages: require('./lists/messages/reviewMessages'),
@@ -23,5 +24,9 @@ module.exports = {
 
     reviewProductTypes: require('./lists/products/reviewProductTypes'),
     addProductToList: require('./lists/products/addProductToList'),
-    deleteProductToList: require('./lists/products/deleteProductToList')
+    deleteProductToList: require('./lists/products/deleteProductToList'),
+    editProductToList: require('./lists/products/editProductToList'),
+    toggleProductToCart: require('./lists/products/toggleProductToCart'),
+    markProductAsPurchased: require('./lists/products/markProductAsPurchased'),
+    reviewFilteredProducts: require('./lists/products/reviewFilteredProducts')
 }

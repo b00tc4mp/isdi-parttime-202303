@@ -1,4 +1,4 @@
-const { reviewProductTypes } = require('../../../logic')
+const { reviewFilteredProducts } = require('../../../logic')
 
 const { extractUserId, handleErrors } = require('../../helpers')
 
@@ -7,11 +7,13 @@ module.exports = handleErrors((req, res) => {
     
     const { listId } = req.params
 
-    const promise = reviewProductTypes(listId, userId)
+    const { filer, order } = req.body
+
+    const promise = reviewFilteredProducts(listId, userId, filer, order)
 
     return (async () => { 
-        const types = await promise
+        const products = await promise
         
-        res.json(types)
+        res.json(products)
     })()
 })
