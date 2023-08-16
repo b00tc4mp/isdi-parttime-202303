@@ -8,7 +8,7 @@ import {
   toggleSavePost,
 } from "../../logic";
 import { context } from "../../ui";
-import { ContextualMenu, Comments, Suggestions } from "../components";
+import { ContextualMenu, Comments, SuggestionsModal } from "../components";
 
 export default function PostModalWindow({
   handleOpenEditPost,
@@ -229,7 +229,7 @@ export default function PostModalWindow({
           />
         )}
 
-        {post && modal === "suggestions" && <Suggestions
+        {post && modal === "suggestions" && <SuggestionsModal
           handleRefreshPost={handleRefreshPost}
           post={post}
           user={user}

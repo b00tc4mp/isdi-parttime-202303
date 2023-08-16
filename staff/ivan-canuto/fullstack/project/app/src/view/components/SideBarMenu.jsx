@@ -1,6 +1,7 @@
 import { ModalContainer } from "../library";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { context } from "../../ui";
 
 export default function SideBarMenu({
   chatbotOptions,
@@ -26,28 +27,28 @@ export default function SideBarMenu({
 
   // const onShowSavedPosts = () => showSavedPosts()
 
-  console.log(page);
+  chatbotOptions.push({onClick: () => {}, text: ''})
 
   return (
     <ModalContainer
-      className="absolute top-0 left-0 z-0"
+      className="absolute top-0 left-0 z-20"
       onClick={(event) => {
         if (event.target === document.querySelector(".ModalContainer"))
           handleToggleMenu();
       }}
     >
       <ul
-        className={`w-44 h-full bg-white fixed top-24 z-20 border-t-2 border-white ${
+        className={`w-44 h-full bg-white fixed top-24 bottom-0 z-20 border-t-2 border-white overflow-scroll ${
           openedMenu ? "opened-menu" : "closed-menu"
         }`}
       >
         {page === "Chatbot" &&
-          chatbotOptions &&
-          chatbotOptions.map((option, index) => {
+          chatbotOptions && <>
+          {chatbotOptions.map((option, index) => {
             return (
               <div
                 key={index}
-                className="h-14 bg-gray-100 w-full border-2 border-t-0 border-white flex justify-center overflow-auto items-center"
+                className={`${index === chatbotOptions.length - 1 ? 'h-24 bg-white' : 'h-14 bg-gray-100'} w-full border-2 border-t-0 border-white flex justify-center overflow-auto items-center`}
                 onClick={() => {
                   option.onClick();
 
@@ -57,7 +58,9 @@ export default function SideBarMenu({
                 <p>{option.text}</p>
               </div>
             );
-          })}
+            })}
+          </>
+        }
         {page === "Home" &&
           homeOptions &&
           homeOptions.map((option, index) => {

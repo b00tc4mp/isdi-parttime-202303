@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
 import { useAppContext, useHandleErrors } from "../hooks";
 import { Button, Container } from "../library";
-import { Profile, Posts, SideBarMenu, Header, VisibilityPost, EditPost, DeletePost, PostModalWindow, Chatbot, Suggestions, SeenLately } from "../components";
+import { Profile, Posts, SideBarMenu, Header, VisibilityPost, EditPost, DeletePost, PostModalWindow, Chatbot, SuggestionsPage, SeenLately } from "../components";
 import { logoutUser, retrieveUser, retrieveConversations } from "../../logic";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { isUserLoggedIn } from "../../logic";
-import Hello from "../components/Hello";
 import { context } from "../../ui";
 
 export default function Home() {
@@ -18,7 +17,6 @@ export default function Home() {
   const [lastPostsUpdate, setLastPostsUpdate] = useState(null);
   const [page, setPage] = useState("Home");
   const [view, setView] = useState("posts");
-  const [conversations, setConversations] = useState(null);
   const [conversationsOptions, setConversationsOptions] = useState();
   const [postModal, setPostModal] = useState(false)
 
@@ -32,8 +30,6 @@ export default function Home() {
     console.log("Render conversations");
     handleErrors(async () => {
       const conversations = await retrieveConversations();
-
-      setConversations(conversations);
 
       const newConversationsOptions = conversations.map((conv) => {
         return {
@@ -55,7 +51,7 @@ export default function Home() {
   const handleLastPostsUpdate = () => {
     document.body.classList.remove("fixed-scroll");
     setLastPostsUpdate(Date.now());
-    console.log('hola')
+    
     setModal(null);
   };
 
@@ -73,8 +69,8 @@ export default function Home() {
   const handleToggleVisibility = () => setModal("toggleVisibility")
 
   const handleOpenProfile = () => {
-    document.body.classList.add("fixed-scroll");
-    setModal("profile");
+    navigate('/profile')
+    setModal('profile')
 
     if(menu) handleToggleMenu()
   };
@@ -125,13 +121,14 @@ export default function Home() {
   console.debug("Home -> render");
 
   return (
-    <Container className="bg-home h-full min-h-screen pt-20">
+    <Container className="bg-[url(src/images/chatbot-3.1.jpg)] bg-fixed bg-center bg-cover h-full min-h-screen pt-20">
       <div className="loader"></div>
       {page === "Home" && (
         <Button
           className="fixed top-[105px] right-2 bg-slate-200 z-10"
           onClick={() => {
             handleOpenChatbotWindow();
+
           }}
         >
           Chat wit me
@@ -143,14 +140,15 @@ export default function Home() {
         handleLogout={handleLogout}
         handleToggleMenu={handleToggleMenu}
         setPage={setPage}
-      />
+        handleCloseModal={handleCloseModal}
+        />
 
       <main>
-        <Posts
+        {page === 'Home' && <Posts
           lastPostsUpdate={lastPostsUpdate}
           view={view}
           handleTogglePostModal={handleTogglePostModal}
-        />
+        />}
 
         {modal === "editPost" && (
           <EditPost
@@ -173,13 +171,13 @@ export default function Home() {
           />
         )}
 
-        {modal === "profile" && (
+        {/* {modal === "profile" && (
           <Profile
             onUpdatedAvatar={handleUpdatedAvatar}
             onCancel={handleCloseModal}
             handleLogout={handleLogout}
           />
-        )}
+        )} */}
 
         {postModal && (
           <PostModalWindow
@@ -245,6 +243,14 @@ export default function Home() {
                 },
               },
               {
+                text: "My suggestions",
+                onClick: () => {
+                  setLastPostsUpdate(Date.now());
+
+                  navigate("/suggestions");
+                },
+              },
+              {
                 text: "Chatbot page",
                 onClick: () => {
                   setPage("Chatbot");
@@ -270,12 +276,16 @@ export default function Home() {
         )}
 
         <Routes>
-          <Route path="hello" element={<Hello />}></Route>
+          {/* <Route path="hello" element={<Hello />}></Route> */}
           <Route
             path="chatbot"
             element={
               isUserLoggedIn() ? (
-                <Chatbot lastPostsUpdate={lastPostsUpdate} setPage={setPage} />
+                <Chatbot
+                  lastPostsUpdate={lastPostsUpdate}
+                  setPage={setPage}
+                  handleLastPostsUpdate={handleLastPostsUpdate}
+                />
               ) : (
                 <Navigate to="/login" />
               )
@@ -284,13 +294,24 @@ export default function Home() {
           <Route
             path="suggestions"
             element={
-              isUserLoggedIn() ? <Suggestions /> : <Navigate to="/login" />
+              isUserLoggedIn() ? <SuggestionsPage /> : <Navigate to="/login" />
             }
           />
           <Route
-            path="/seen-lately"
+            path="seen-lately"
             element={
               isUserLoggedIn() ? <SeenLately /> : <Navigate to="/login" />
+            }
+          />
+          <Route
+            path="profile"
+            element={
+              isUserLoggedIn() ? <Profile
+                onUpdatedAvatar={handleUpdatedAvatar}
+                handleLogout={handleLogout}
+                page={page}
+                handleCloseModal={handleCloseModal}
+              /> : <Navigate to="/login" />
             }
           />
         </Routes>

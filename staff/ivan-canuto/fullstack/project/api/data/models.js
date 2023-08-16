@@ -91,6 +91,10 @@ const suggestion = new Schema({
         type: String,
         required: true
     },
+    checked: {
+        type: Boolean,
+        default: false
+    }
 }, { timestamps: true })
 
 const date = new Date

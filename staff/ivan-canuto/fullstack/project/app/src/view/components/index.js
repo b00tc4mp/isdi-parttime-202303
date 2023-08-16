@@ -10,14 +10,15 @@ import SideBarMenu from "./SideBarMenu"
 import VisibilityPost from "./VisibilityPost"
 import Chatbot from "./Chatbot"
 import SeenLately from "./SeenLately"
-import Suggestions from "./Suggestions"
+import SuggestionsModal from "./SuggestionsModal"
+import SuggestionsPage from "./SuggestionsPage"
 import EditPost from "./EditPost"
 import PostModalWindow from "./PostModalWindow"
 import ContextualMenu from "./ContextualMenu"
 import Suggestion from "./Suggestion"
 import CreateSuggestion from "./CreateSuggestion"
 import DeleteSuggestion from "./DeleteSuggestion"
-import UpdateSuggestion from "./UpdateSuggestion"
+import EditSuggestion from "./EditSuggestion"
 
 export {
     Alert,
@@ -32,12 +33,13 @@ export {
     VisibilityPost,
     Chatbot,
     SeenLately,
-    Suggestions,
+    SuggestionsModal,
+    SuggestionsPage,
     EditPost,
     PostModalWindow,
     ContextualMenu,
     Suggestion,
     CreateSuggestion,
     DeleteSuggestion,
-    UpdateSuggestion
+    EditSuggestion
 }

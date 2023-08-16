@@ -9,9 +9,9 @@ export default function CreateSuggestion({ handleCreateSuggestion, handleCloseMo
           handleCloseModal();
       }}
     >
-      <ModalWindow>
+      <ModalWindow className='w-11/12'>
         <Form
-          className="bg-white h-96 p-4 w-5/6"
+          className="h-96 w-full"
           onSubmit={handleCreateSuggestion}
         >
           <h2 className="text-lg">New suggestion</h2>

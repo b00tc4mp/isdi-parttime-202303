@@ -2,11 +2,11 @@ import { retrievePostSuggestions, createSuggestion, deleteSuggestion, retrieveSu
 import { useState, useEffect } from "react"
 import { Button } from "../library"
 import { useAppContext, useHandleErrors } from "../hooks"
-import { Suggestion } from '../components'
+import { Suggestion } from '.'
 import { context } from "../../ui"
-import { CreateSuggestion, DeleteSuggestion, UpdateSuggestion } from '../components'
+import { CreateSuggestion, DeleteSuggestion, EditSuggestion } from '.'
 
-export default function Suggestions({ handleRefreshPost, post, user }) {
+export default function SuggestionsModal({ post, user }) {
   const { alert } = useAppContext()
   const handleErrors = useHandleErrors()
 
@@ -29,7 +29,7 @@ export default function Suggestions({ handleRefreshPost, post, user }) {
   const openCreateSuggestionModal = () => setModal('addSuggestion')
 
   const openEditSuggestionModal = () => {
-    setModal('updateSuggestion')
+    setModal('editSuggestion')
 
     handleErrors(async () => {
       const _suggestion = await retrieveSuggestion(context.suggestionId)
@@ -67,7 +67,7 @@ export default function Suggestions({ handleRefreshPost, post, user }) {
     })
   }
 
-  const handleUpdateSuggestion = event => {
+  const handleEditSuggestion = event => {
     event.preventDefault()
 
     const title = event.target.title.value
@@ -93,10 +93,12 @@ export default function Suggestions({ handleRefreshPost, post, user }) {
             openDeleteSuggestionModal={openDeleteSuggestionModal}
             openEditSuggestionModal={openEditSuggestionModal}
             user={user}
+            post={post}
           />
           )}
         </div>
         <Button className="mt-2" onClick={openCreateSuggestionModal}>Add suggestion</Button>
+        {/* {user.id !== post.author.id && <Button className="mt-2" onClick={openCreateSuggestionModal}>Add suggestion</Button>} */}
       </div>
       
       {modal === 'addSuggestion' && <CreateSuggestion
@@ -104,13 +106,13 @@ export default function Suggestions({ handleRefreshPost, post, user }) {
         handleCloseModal={handleCloseModal}
       />}
 
-      {modal === 'updateSuggestion' && <DeleteSuggestion
+      {modal === 'deleteSuggestion' && <DeleteSuggestion
         handleDeleteSuggestion={handleDeleteSuggestion}
         handleCloseModal={handleCloseModal}
       />}
 
-      {modal === 'deleteSuggestion' && <UpdateSuggestion
-        handleUpdateSuggestion={handleUpdateSuggestion}
+      {modal === 'editSuggestion' && <EditSuggestion
+        handleEditSuggestion={handleEditSuggestion}
         handleCloseModal={handleCloseModal}
         suggestion={suggestion}
       />}

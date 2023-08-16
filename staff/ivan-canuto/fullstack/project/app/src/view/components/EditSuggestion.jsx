@@ -1,14 +1,14 @@
 import { ModalContainer, ModalWindow, Form, Input, Button } from "../library"
 
-export default function UpdateSuggestion({ suggestion, handleCloseModal, handleUpdateSuggestion }) {
+export default function EditSuggestion({ suggestion, handleCloseModal, handleUpdateSuggestion }) {
     return <ModalContainer className='SuggestionModal absolute top-0 bg-black bg-opacity-20' onClick={(event) => {
         if(event.target === document.querySelector('.SuggestionModal')) {
           handleCloseModal()
           setSuggestion(null)
         }
       }}>
-        <ModalWindow>
-          <Form className='form-edit bg-white h-96 w-full' onSubmit={handleUpdateSuggestion}>
+        <ModalWindow className='w-11/12'>
+          <Form className='form-edit h-96 w-full' onSubmit={handleUpdateSuggestion}>
           <h2 className="text-lg">Edit suggestion</h2>
             {suggestion ?
               <>

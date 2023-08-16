@@ -3,7 +3,7 @@ import { useState, useEffect } from "react"
 import { retrieveUser } from "../../logic"
 import { useAppContext, useHandleErrors } from "../hooks"
 
-export default function Header({ handleToggleMenu, handleOpenProfile, setPage }) {
+export default function Header({ handleToggleMenu, handleOpenProfile, setPage, handleCloseModal, handleAddHomeScroll }) {
   const { navigate } = useAppContext()
   const handleErrors = useHandleErrors()
 
@@ -20,6 +20,7 @@ export default function Header({ handleToggleMenu, handleOpenProfile, setPage })
 
   const handleReturnToHome = () => {
     setPage('Home')
+    handleCloseModal()
     
     navigate('/')
   }
@@ -32,8 +33,7 @@ export default function Header({ handleToggleMenu, handleOpenProfile, setPage })
     })
   }, [])
 
-  return <>
-  <header className="fixed h-24 top-0 w-full z-20 bg-slate-100 ">
+  return <header className="fixed h-24 top-0 w-full z-20 bg-slate-100 ">
     <div className="h-full flex justify-between items-center px-4">
       {/* {page === 'home'
         ? <span className="material-symbols-outlined mx-2" onClick={handleToggleMenu}>menu</span>
@@ -45,5 +45,4 @@ export default function Header({ handleToggleMenu, handleOpenProfile, setPage })
       {/* <span className="material-symbols-outlined dark-mode hover:bg-gray-400 p-2 rounded-full cursor-pointer" onClick={switchAppTheme}>{theme === 'light' ? 'light_mode' : 'dark_mode'}</span> */}
     </div>
   </header>
-  </>
 }

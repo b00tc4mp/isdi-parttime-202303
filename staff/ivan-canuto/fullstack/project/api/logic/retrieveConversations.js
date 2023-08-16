@@ -16,6 +16,6 @@ module.exports = function retrieveConversations(userId) {
             delete conv._id
         })
 
-        return conversations
+        return conversations.reverse()
     })()
 }
