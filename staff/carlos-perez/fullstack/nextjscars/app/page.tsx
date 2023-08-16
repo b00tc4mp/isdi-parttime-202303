@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import {Hero, SearchBar, CustomFilter, CarCard} from '@/components'
 import { fetchCars } from '@/utils'
-//2:04:13
+//2:14:03
 export default async function Home() {
   const allCars = await fetchCars();
 
