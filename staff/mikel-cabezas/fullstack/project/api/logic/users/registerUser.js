@@ -1,6 +1,6 @@
 const { User } = require('../../data/models')
 // const randomString = require('../helpers/randomString')
-const sendEmail = require('../helpers/sendEmail')
+const sendRegisterEmail = require('../helpers/sendRegisterEmail')
 
 const {
     validators: { validateName, validateEmail, validatePassword },
@@ -45,7 +45,7 @@ module.exports = function registerUser(name, email, password) {
     console.log(uniqueString)
 
     return User.create({ name, email, password, isValid, uniqueString })
-        .then(() => sendEmail(email, uniqueString))
+        .then(() => sendRegisterEmail(email, uniqueString))
         .catch(error => {
             if (error.message.includes('E11000')) throw new DuplicityError(`This user whith email ${email} already exists`)
             throw error

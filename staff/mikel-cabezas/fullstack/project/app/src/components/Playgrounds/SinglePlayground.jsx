@@ -125,7 +125,7 @@ export default function Nearby({ closeHandle }) {
                             return <SingleElement element={element} key={index} />
                         }) :
                             <View className="flex-row flex-wrap mb-">
-                                <Text className="dark:text-white font-semibold w-full">There is no elements yet...</Text>
+                                <Text className="dark:text-white font-semibold w-full">There are no elements yet...</Text>
                                 <TouchableOpacity
                                     activeOpacity={0.8}
                                     className="border border-mainLime  rounded-full mb-1 mt-2 mr-2 bg-mainGray"

@@ -13,10 +13,9 @@ import LOGO from '../../assets/logo.png'
 
 
 export default function Login({ navigation }) {
-    const { currentView, setCurrentView, colorScheme, TOKEN, setTOKEN } = useContext(Context)
+    const { currentView, setCurrentView, colorScheme, TOKEN, setTOKEN, isLoggedIn, setIsLoggedIn } = useContext(Context)
     const [email, setEmail] = useState()
     const [password, setPassword] = useState()
-
 
 
     const handleLogin = () => {
@@ -29,6 +28,7 @@ export default function Login({ navigation }) {
                     .then(token => {
                         if (token) {
                             setTOKEN(token)
+                            setIsLoggedIn(true)
                         }
                     })
                     .then(() => {
@@ -43,7 +43,7 @@ export default function Login({ navigation }) {
 
     }
     const handleForgetPassword = () => {
-        alert('TODO Forget Password')
+        navigation.navigate('ForgotPassword')
     }
     const handleGoToRegister = () => {
         navigation.navigate('Register')
@@ -105,7 +105,7 @@ export default function Login({ navigation }) {
                             handleForgetPassword()
                         }}
                     >
-                        <Text className=" text-mainRed dark:text-mainYellow pt-4 text-xs text-center">Forget your password?</Text>
+                        <Text className=" text-mainRed dark:text-mainYellow pt-4 text-xs text-center">Forgot your password?</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
                         className="mb-2 self-center w-full text-center"

@@ -21,7 +21,7 @@ module.exports = async (email, uniqueString) => {
                 pass: process.env.PASS,
             },
             tls: {
-                secure: false,
+                secure: true,
                 ignoreTLS: true,
                 rejectUnauthorized: true
             }
@@ -30,28 +30,30 @@ module.exports = async (email, uniqueString) => {
         let mailOptions
         let sender = "Playgrounds Near"
         mailOptions = {
-            from: 'Playgrounds Near, <noreply@Playgrounds.app>',
+            // from: 'Playgrounds Near, <noreply@Playgrounds.app>',
+            from: 'Playgrounds Near, <info@mikelcabezas.com>',
             to: email,
-            subject: 'Email confirmation',
+            subject: 'Reset Password - Playgrounds App',
             html: `<!DOCTYPE html>
-            <html lang="en" style="font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;">
+            <html lang="en" style="height: 100vh; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;">
                 <head>
                     <meta charset="UTF-8">
                     <meta name="viewport" content="width=device-width, initial-scale=1.0">
                     <title>Document</title>
                 </head>
-                <body style="display: flex; justify-content: center; align-items: center; background: #DAECB5 url(https://playgroundsnear.app/assets/bg-login.png); background-size: cover; height: 100vh;">
-                    <div class="container" style="background: #fff;display: flex;flex-direction: column;padding: 30px;border-radius: 25px; text-align: center;max-width: 500px;width: 100%;">
-                        <img src="https://playgroundsnear.app/assets/logo.png" style="margin: auto; width: 250px; height: auto">
-                        Follow this link
-                        <h1 style="text-align:center; font-size: 21px; font-weight: bold">Thanks for register!</h1>
-                        <a href="http://localhost:6543/user/validate/${uniqueString}"> http://localhost:6543/user/validate/${uniqueString}</a>
-                        to verify your account
-                    </div>
-                </body>
+                <body style="display: flex; flex-direction:column; justify-content: center; align-items: center; background: #DAECB5 url(https://playgroundsnear.app/assets/bg-login.png); background-size: cover; min-height: 600px; height: 100vh;">
+                <div class="container" style="background: #fff;display: flex;flex-direction: column;padding: 30px;border-radius: 25px; text-align: center;max-width: 500px;width: 100%;">
+                    <img src="https://playgroundsnear.app/assets/logo.png" style="margin: auto; width: 250px; height: auto">
+                    <h1 style="text-align:center; font-size: 21px; font-weight: bold">Reset password</h1>
+                    Hi! If you cannot request to set your password again, please ignore this email.<br>
+                    For reset your password, please follow this link:
+                    <p><a href="http://localhost:6543/user/recoverPassword/${uniqueString}"> http://localhost:6543/user/recoverPassword/${uniqueString}</a></p>
+                </div>
+            </body>
             </html> `
             // html: `Press <a href="${process.env.API_URL}/validate/${uniqueString}"> here </a> to verify your account`
         }
+        console.log(uniqueString)
 
         transport.sendMail(mailOptions, function (error, response) {
             if (error) {
