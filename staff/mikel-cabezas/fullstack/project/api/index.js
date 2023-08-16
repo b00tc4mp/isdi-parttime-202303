@@ -4,7 +4,8 @@ require('dotenv').config()
 const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
-const { registerUserHandler, retrieveUserHandler, authenticateUserHandler, updateUserImageHandler, updateUserNameHandler, updateUserEmailHandler, updateUserPasswordHandler, addPlaygroundHandler, retrieveCitiesFromDatabaseHandler, retrieveCityFromSearchHandler, retrievePlaygroundsFromCityHandler, editPostHandler, deletePostHandler, retrievePlaygroundsHandler, retrieveLikedPlaygroundsHandler, retrieveSavedPlaygroundsHandler, retrievePlaygroundByIdHandler, toggleLikePlaygroundHandler, toggleSavePlaygroundHandler, validateUserHandler } = require('./handlers')
+const { registerUserHandler, retrieveUserHandler, authenticateUserHandler, forgotPasswordHandler, updateUserImageHandler, updateUserNameHandler, updateUserEmailHandler, updateUserPasswordHandler, validateUserHandler, setNewPasswordHandler, recoverPasswordHandler, searchUserHandler,
+    addPlaygroundHandler, retrieveCitiesFromDatabaseHandler, retrieveCityFromSearchHandler, retrievePlaygroundsFromCityHandler, retrievePlaygroundsHandler, retrieveLikedPlaygroundsHandler, retrievePlaygroundByIdHandler, toggleLikePlaygroundHandler } = require('./handlers')
 const mongoose = require('mongoose')
 
 
@@ -17,7 +18,11 @@ mongoose.connect(process.env.MONGODB_URL)
         api.use(cors())
 
         api.post('/user/register', jsonBodyParser, registerUserHandler)
+        api.get('/user/searchUser', searchUserHandler)
         api.get('/user/validate/:uniqueString', validateUserHandler)
+        api.get('/user/recoverPassword/:token', recoverPasswordHandler)
+        api.patch('/user/setNewPassword/', jsonBodyParser, setNewPasswordHandler)
+        api.post('/user/forgotPassword', jsonBodyParser, forgotPasswordHandler)
         api.get('/users', retrieveUserHandler)
         api.post('/users/auth', jsonBodyParser, authenticateUserHandler)
 

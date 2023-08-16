@@ -3,7 +3,8 @@ import React, { useEffect, useState, useContext } from "react";
 import { View, Text, TextInput, Image, TouchableOpacity, Alert } from 'react-native';
 import Context from '../AppContext.js'
 import * as Linking from 'expo-linking';
-import registerUser from '../logic/users/registerUser.js'
+import { updateNewPassword } from "../logic/users/updateNewPassword.js";
+import searchUser from "../logic/users/searchUser.js";
 
 import BG from '../../assets/bg-login.png'
 import LOGO_SM from '../../assets/logo-sm.png'
@@ -19,32 +20,46 @@ export default function Login({ navigation }) {
 
 
     useEffect(() => {
-        console.log(`Linking`, Linking);
-
         Linking.getInitialURL().then((url) => {
-            console.log(`url`, url);
-            setUrl(url)
-            const index = url.indexOf("=");
-            const token = url.slice(index + 1)
-            console.log(token)
-            setPasswordToken(token)
-        });
+            if (!url) {
+                navigation.navigate('Login')
+            }
 
-        // Linking.parse().then((url) => {
-        //     console.log(`url`, url);
-        // });
+            searchUser(url)
+                .then(() => {
+                    setUrl(url)
+                    const index = url.indexOf("=");
+                    const token = url.slice(index + 1)
+                    setPasswordToken(token)
+                })
+                .catch(error => {
+                    console.log(error.message)
+                    alert('Invalid Token')
+                    // navigation.navigate('Login')
+                    navigation.reset({
+                        index: 0,
+                        routes: [{ name: 'Login' }],
+                    })
+                })
+
+        });
     }, []);
-    const handleRegister = () => {
-        registerUser(name, email, password)
-            .then(token => {
-                alert('New user registered! \n Now you can login.')
+    const handleSetNewPassword = () => {
+        if (password !== repeatPassword) throw new Error('Passwords does not match')
+        console.log(passwordToken)
+        updateNewPassword(passwordToken, password)
+            .then(() => {
+                alert('Password updated! \n Now you can login.')
                 navigation.navigate('Login')
             })
             .catch(error => alert(error.message))
+        try {
+
+        } catch (error) {
+            console.log(error.message)
+        }
     }
-    const handleForgetPassword = () => {
-        alert('TODO Forget Password')
-    }
+
     const handleGoToLogin = () => {
         navigation.navigate('Login')
     }
@@ -55,35 +70,10 @@ export default function Login({ navigation }) {
 
             <View className="flex-1 items-center justify-center w-full">
                 <View className="bg-white dark:bg-gray-800 h-auto px-6 py-7 w-3/4 rounded-3xl">
-                    {/* <Text className="dark:text-white text-2xl text-center font-semibold">{url}</Text> */}
-                    <Text className="dark:text-white text-2xl text-center font-semibold">Register</Text>
-                    <Text className="dark:text-white pt-4 text-xs text-center">Your name</Text>
-                    <TextInput
-                        label="Name"
-                        returnKeyType="next"
-                        value={name}
-                        onChangeText={setName}
-                        autoCapitalize="none"
-                        autoCompleteType="email"
-                        placeholder="Name"
-                        className="dark:text-white border border-mainGray bg-mainGray dark:border-gray-700 dark:bg-gray-700 rounded-full mt-1 mb-0 px-2 py-2 self-center w-full text-center"
-                        inputMode="text"
-                        keyboardType="default"
-                    />
-                    <Text className="dark:text-white pt-4 text-xs text-center">Your email</Text>
-                    <TextInput
-                        label="Email"
-                        returnKeyType="next"
-                        value={email}
-                        onChangeText={setEmail}
-                        autoCapitalize="none"
-                        autoCompleteType="email"
-                        placeholder="Email"
-                        className="dark:text-white border border-mainGray bg-mainGray dark:border-gray-700 dark:bg-gray-700 rounded-full mt-1 mb-0 px-2 py-2 self-center w-full text-center"
-                        inputMode="text"
-                        keyboardType="email-address"
-                    />
-                    <Text className="dark:text-white pt-3 text-xs text-center">Your Password</Text>
+                    {/* <Text className="dark:text-white text-2xl text-center font-semibold">{passwordToken}</Text> */}
+                    <Text className="dark:text-white text-2xl text-center font-semibold">Set new password</Text>
+
+                    <Text className="dark:text-white pt-4 text-xs text-center">New password</Text>
                     <TextInput
                         label="Password"
                         returnKeyType="done"
@@ -95,7 +85,7 @@ export default function Login({ navigation }) {
                         inputMode="text"
                         keyboardType="default"
                     />
-                    <Text className="dark:text-white pt-3 text-xs text-center">Repeat your Password</Text>
+                    <Text className="dark:text-white pt-3 text-xs text-center">Repeat your password</Text>
                     <TextInput
                         label="Repeat password"
                         returnKeyType="done"
@@ -107,15 +97,16 @@ export default function Login({ navigation }) {
                         inputMode="text"
                         keyboardType="default"
                     />
+
                     <TouchableOpacity
                         activeOpacity={0.8}
                         className="border border-mainLime bg-mainLime rounded-full mb-1 mt-4 self-center w-auto  text-center"
-                        onPress={handleRegister}
+                        onPress={handleSetNewPassword}
                     >
                         <View
                             className="font-bold text-center  px-6 py-2 self-center rounded-full"
                         >
-                            <Text className="font-bold text-center text-lg   self-center rounded-full">Create account</Text>
+                            <Text className="font-bold text-center text-lg   self-center rounded-full">Update password</Text>
                         </View>
                     </TouchableOpacity>
 

@@ -1,12 +1,17 @@
 module.exports = {
     registerUserHandler: require('./users/registerUserHandler'),
+    searchUserHandler: require('./users/searchUserHandler'),
     validateUserHandler: require('./users/validateUserHandler'),
+    forgotPasswordHandler: require('./users/forgotPasswordHandler'),
+    recoverPasswordHandler: require('./users/recoverPasswordHandler'),
+    setNewPasswordHandler: require('./users/setNewPasswordHandler'),
     retrieveUserHandler: require('./users/retrieveUserHandler'),
     authenticateUserHandler: require('./users/authenticateUserHandler'),
     updateUserNameHandler: require('./users/updateUserNameHandler'),
     updateUserEmailHandler: require('./users/updateUserEmailHandler'),
     updateUserImageHandler: require('./users/updateUserImageHandler'),
     updateUserPasswordHandler: require('./users/updateUserPasswordHandler'),
+
     addPlaygroundHandler: require('./playgrounds/addPlaygroundHandler'),
     editPlaygroundHandler: require('./playgrounds/editPlaygroundHandler'),
     deletePlaygroundostHandler: require('./playgrounds/deletePostHandler'),

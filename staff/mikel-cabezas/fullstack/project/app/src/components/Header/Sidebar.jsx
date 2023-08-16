@@ -12,7 +12,7 @@ NativeWindStyleSheet.setOutput({
 });
 
 export default function Sidebar({ navigation, closeHandle, user }) {
-    const { currentView, setCurrentView } = useContext(Context)
+    const { currentView, setCurrentView, isLoggedIn, setIsLoggedIn } = useContext(Context)
     const [animation, setAnimation] = useState()
 
     const onClose = () => {
@@ -45,8 +45,11 @@ export default function Sidebar({ navigation, closeHandle, user }) {
     }
 
     const handleGoToLogout = async () => {
-        navigation.navigate('Login')
-        AsyncStorage.clear();
+        setIsLoggedIn(false)
+        setTimeout(() => {
+            navigation.navigate('Login')
+            AsyncStorage.clear();
+        }, 100);
     }
 
     const handleGoToShareApp = () => {

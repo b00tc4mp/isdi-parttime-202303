@@ -4,6 +4,8 @@ import React, { useEffect, useState, useContext } from 'react'
 import Home from '../screens/Home'
 import Login from '../screens/Login'
 import Register from '../screens/Register'
+import ForgotPassword from '../screens/ForgotPassword'
+import SetNewPassword from '../screens/SetNewPassword'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import AppContext from "../AppContext.js";
 const { Provider } = AppContext
@@ -12,8 +14,7 @@ import Context from '../AppContext.js'
 
 const Stack = createNativeStackNavigator()
 export default function MainStack() {
-    const [isLoggedIn, setIsLoggedIn] = useState()
-    const { TOKEN, setTOKEN } = useContext(Context)
+    const { TOKEN, setTOKEN, isLoggedIn, setIsLoggedIn } = useContext(Context)
 
     useEffect(() => {
         if (TOKEN) {
@@ -44,10 +45,10 @@ export default function MainStack() {
                     name='Home'
                     component={Home}
                 />
-                <Stack.Screen
+                {!isLoggedIn && <Stack.Screen
                     name='Login'
                     component={Login}
-                />
+                />}
             </Stack.Navigator>
         </>
         }
@@ -66,9 +67,18 @@ export default function MainStack() {
                     component={Register}
                 />
                 <Stack.Screen
+                    name='ForgotPassword'
+                    component={ForgotPassword}
+                />
+                <Stack.Screen
+                    name='SetNewPassword'
+                    component={SetNewPassword}
+                />
+
+                {isLoggedIn && <Stack.Screen
                     name='Home'
                     component={Home}
-                />
+                />}
             </Stack.Navigator>
 
         </>}
