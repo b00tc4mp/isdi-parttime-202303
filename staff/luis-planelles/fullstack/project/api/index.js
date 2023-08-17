@@ -1,6 +1,10 @@
 require('dotenv').config();
 
-const { registerUserHandler, authenticateUserHandler } = require('./handlers');
+const {
+  registerUserHandler,
+  authenticateUserHandler,
+  createMissionHandler,
+} = require('./handlers');
 
 const mongoose = require('mongoose');
 const express = require('express');
@@ -21,6 +25,7 @@ mongoose
 
     api.post('/users', jsonBodyParser, registerUserHandler);
     api.post('/users/auth', jsonBodyParser, authenticateUserHandler);
+    api.post('/missions', jsonBodyParser, createMissionHandler);
 
     api.listen(process.env.PORT, () =>
       console.log(`server running in port ${process.env.PORT}`)
