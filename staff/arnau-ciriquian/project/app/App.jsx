@@ -4,15 +4,15 @@ import Admin from './src/pages/Admin'
 import Home from './src/pages/Home'
 import CharacterCreator from './src/components/CharacterCreator'
 import { useState } from 'react'
+import Game from './src/pages/Game'
 
 export default function App() {
-  // obtenir token del user registrat. https://react-native-async-storage.github.io/async-storage/docs/usage/
-
   const [login, setLogin] = useState(true)
   const [register, setRegister] = useState(false)
   const [home, setHome] = useState(false)
   const [admin, setAdmin] = useState(false)
   const [newCharacter, setNewCharacter] = useState(false)
+  const [game, setGame] = useState(false)
 
   const handleGoToRegister = event => {
     setLogin(false)
@@ -49,21 +49,38 @@ export default function App() {
     setNewCharacter(true)
   }
 
-  if (login) return (<Login
-    onRegisterClick={handleGoToRegister}
-    onUserLogedIn={handleGoToHome}
-    onAdminLogedIn={handleGoToAdminMain} /
-  >)
-  if (register) return (<Register
-    onLoginClick={handleGoToLogin}
-    onUserRegistered={handleGoToLogin}
-  />)
-  if (admin) return (<Admin
-    onLogoutSession={handleLogoutSession}
-  />)
-  if (home) return (<Home
-    onContinueToNewCharacter={handleGoToCharacterCreation}
-    onLogoutSession={handleLogoutSession}
-  />)
-  if (newCharacter) return (<CharacterCreator />)
+  const handleStartGame = () => {
+    setHome(false)
+    setGame(true)
+  }
+
+  const handleFinishGame = () => {
+    setHome(true)
+    setGame(false)
+  }
+
+  return <>
+    {login && <Login
+      onRegisterClick={handleGoToRegister}
+      onUserLogedIn={handleGoToHome}
+      onAdminLogedIn={handleGoToAdminMain}
+    />}
+    {register && <Register
+      onLoginClick={handleGoToLogin}
+      onUserRegistered={handleGoToLogin}
+    />}
+    {admin && <Admin
+      onLogoutSession={handleLogoutSession}
+    />}
+    {home && <Home
+      onContinueToNewCharacter={handleGoToCharacterCreation}
+      onLogoutSession={handleLogoutSession}
+      onStartGame={handleStartGame}
+    />}
+    {newCharacter && <CharacterCreator
+    />}
+    {game && <Game
+      onFinishGame={handleFinishGame}
+    />}
+  </>
 }

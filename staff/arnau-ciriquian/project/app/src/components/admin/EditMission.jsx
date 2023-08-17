@@ -1,9 +1,11 @@
-import { useState } from 'react'
+import { useEffect, useState } from "react"
+import retrieveMission from "../../logic/retrieveMission.js"
+import updateMission from "../../logic/updateMission.js"
 import { View, Text, TouchableOpacity, TextInput } from 'react-native'
 import DropDownPicker from 'react-native-dropdown-picker'
-import { createNewMission } from '../logic/createNewMission.js'
 
-export default function NewMission({ onMissionCreated, onCancel }) {
+export default function EditMission({ missionId, onCancel, onMissionUpdated }) {
+    const [mission, setMission] = useState(null)
     const [tittle, setTittle] = useState('')
     const [info, setInfo] = useState('')
 
@@ -44,30 +46,53 @@ export default function NewMission({ onMissionCreated, onCancel }) {
         { label: 'Not visible', value: false }
     ])
 
-    const handleCreateNewMission = () => {
+    const handleCancel = event => {
+        event.preventDefault()
+
+        onCancel()
+    }
+
+    const handleUpdateMission = event => {
+        event.preventDefault()
+
         try {
-            createNewMission(imageValue, tittle, info, levelValue, difficultyValue, visibilityValue)
-                .then(() => onMissionCreated())
-                .catch(error => {
-                    alert(error.message)
+            updateMission(missionId, imageValue, tittle, info, levelValue, difficultyValue, visibilityValue)
+                .then(() => {
+                    onMissionUpdated()
                 })
+                .catch(error => alert(error.message))
         } catch (error) {
             alert(error)
         }
     }
 
-    const handleCancelCreate = () => {
-        onCancel()
-    }
+    useEffect(() => {
+        try {
+            retrieveMission(missionId)
+                .then(mission => {
+                    setMission(mission)
+                    setDifficultyValue(mission.difficulty)
+                    setImageValue(mission.image)
+                    setLevelValue(mission.level)
+                    setTittle(mission.tittle)
+                    setInfo(mission.info)
+                    setVisibilityValue(mission.visibility)
+                })
+                .catch(error => alert(error.message))
+        } catch (error) {
+            alert(error)
+        }
+    }, [missionId])
 
-    return (
-        <View className="h-full w-full">
+    return (<>
+        {mission && <View className="h-full w-full">
             <View className="absolute bg-white h-full w-full rounded-tl-lg rounded-tr-3xl rounded-bl-3xl rounded-br-lg shadow-md shadow-black opacity-50"></View>
             <View className="items-center _justify-between m-4 h-5/6">
                 <View className="w-full">
                     <Text className="text-white font-semibold text-xl">Mission tittle:</Text>
                     <TextInput className="w-full h-12 border bg-white rounded-md"
                         placeholder="tittle"
+                        defaultValue={mission.tittle}
                         onChangeText={newTittle => (setTittle(newTittle))}
                     />
                 </View>
@@ -107,6 +132,7 @@ export default function NewMission({ onMissionCreated, onCancel }) {
                 <View className="mt-2 w-full">
                     <Text className="text-white font-semibold text-xl">Mission info:</Text>
                     <TextInput className="w-full h-12 bg-white rounded-md border"
+                        defaultValue={mission.info}
                         placeholder="info"
                         onChangeText={newInfo => (setInfo(newInfo))}
                     />
@@ -125,13 +151,15 @@ export default function NewMission({ onMissionCreated, onCancel }) {
             </View>
             <View className="h-20 w-full absolute bottom-0 items-center flex-row justify-around">
                 <TouchableOpacity className="flex flex-row items-center"
-                onPress={handleCancelCreate}>
+                    onPress={handleCancel}>
                     <Text className="text-2xl font-bold text-red-800">Cancel</Text>
                 </TouchableOpacity>
-                <TouchableOpacity className="flex flex-row items-center" onPress={handleCreateNewMission}>
-                    <Text className="text-2xl font-bold ">Create</Text>
+                <TouchableOpacity className="flex flex-row items-center"
+                    onPress={handleUpdateMission}>
+                    <Text className="text-2xl font-bold ">Update</Text>
                 </TouchableOpacity>
             </View>
-        </View>
+        </View>}
+    </>
     )
 }

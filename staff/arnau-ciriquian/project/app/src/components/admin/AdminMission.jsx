@@ -1,4 +1,4 @@
-import { deleteMission } from "../logic/deleteMission.js"
+import { deleteMission } from "../../logic/deleteMission.js"
 
 //import { utils } from "com"
 
@@ -48,14 +48,14 @@ export default function AdminMission({ mission: { id, image, tittle, info, level
             <View className="justify-center items-center h-10 w-2/4">
                 <View className="absolute bg-orange-300 h-full w-full rounded-tl-lg rounded-tr-3xl rounded-bl-3xl rounded-br-lg shadow-md shadow-black opacity-50"></View>
                 <TouchableOpacity onPress={handleOpenEditModal} className="flex-row justify-between items-center w-full p-5">
-                    <Image source={require('../../assets/generic/settings.png')} className="h-8 w-8"></Image>
+                    <Image source={require('../../../assets/generic/settings.png')} className="h-8 w-8"></Image>
                     <Text className="text-lg font-bold">Update</Text>
                 </TouchableOpacity>
             </View>
             <View className="justify-center items-center h-10 w-2/4">
                 <View className="absolute bg-rose-400 h-full w-full rounded-tl-lg rounded-tr-3xl rounded-bl-3xl rounded-br-lg shadow-md shadow-black opacity-50"></View>
                 <TouchableOpacity onPress={handleDeleteMission} className="flex-row justify-between items-center w-full p-5">
-                    <Image source={require('../../assets/generic/settings.png')} className="h-8 w-8"></Image>
+                    <Image source={require('../../../assets/generic/settings.png')} className="h-8 w-8"></Image>
                     <Text className="text-lg font-bold">Delete</Text>
                 </TouchableOpacity>
             </View>

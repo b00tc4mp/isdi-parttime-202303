@@ -1,9 +1,9 @@
 import { View, Image, TouchableOpacity, Text } from 'react-native'
 import Missions from '../components/Missions'
-import AdminMenu from '../components/AdminMenu'
+import AdminMenu from '../components/admin/AdminMenu'
 import { useState } from 'react'
-import NewMission from '../components/NewMission'
-import EditMission from '../components/EditMission'
+import NewMission from '../components/admin/NewMission'
+import EditMission from '../components/admin/EditMission'
 
 const Admin = ({ onLogoutSession }) => {
     const [modal, setModal] = useState(null)

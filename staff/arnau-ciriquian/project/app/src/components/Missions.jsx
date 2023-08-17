@@ -1,5 +1,5 @@
 import retrieveMissions from "../logic/retrieveMissions.js"
-import AdminMission from "./AdminMission.jsx"
+import AdminMission from "./admin/AdminMission.jsx"
 import UserMission from "./UserMission.jsx"
 import { ScrollView, View } from "react-native"
 import { useState, useEffect } from "react"

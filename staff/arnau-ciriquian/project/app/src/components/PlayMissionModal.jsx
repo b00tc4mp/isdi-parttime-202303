@@ -10,7 +10,6 @@ export default function PlayMissionModal ({missionId, onCancel, onPlay}) {
     }
 
     const handlePlayMission = () => {
-        console.log(mission)
         onPlay()
     }
 
@@ -26,7 +25,7 @@ export default function PlayMissionModal ({missionId, onCancel, onPlay}) {
         }
     }, [missionId])
 
-    return <View className="bg-slate-600">
+    return <View className="bg-slate-600 w-3/4 h-3/4 flex justify-around items-center">
         <Text>Hello world</Text>
         <TouchableOpacity onPress={handleCloseMissionInfo}><Text>CANCEL</Text></TouchableOpacity>
         <TouchableOpacity onPress={handlePlayMission}><Text>PLAY</Text></TouchableOpacity>

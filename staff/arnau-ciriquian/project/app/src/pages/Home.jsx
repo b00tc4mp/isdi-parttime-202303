@@ -9,7 +9,7 @@ import UpdateEmail from '../components/UpdateEmail.jsx'
 import UpdatePassword from '../components/UpdatePassword.jsx'
 import UpdateCharacter from '../components/UpdateCharacter.jsx'
 
-const Home = ({ onContinueToNewCharacter, onLogoutSession }) => {
+const Home = ({ onContinueToNewCharacter, onLogoutSession, onStartGame }) => {
     const [user, setUser] = useState()
     //const [main, setMain] = useState(true)
     const [modal, setModal] = useState(null)
@@ -39,9 +39,6 @@ const Home = ({ onContinueToNewCharacter, onLogoutSession }) => {
         setModal(null)
     }
 
-    const handleStartMission = () => {
-    }
-
     const handleUserMenu = () => {
         (modal && modal === 'userMenu') ? setModal(null) : setModal('userMenu')
     }
@@ -52,6 +49,11 @@ const Home = ({ onContinueToNewCharacter, onLogoutSession }) => {
 
     const handleGoToUpdateModal = modal => {
         setModal(modal)
+    }
+
+    const handleStartNewGame = () => {
+        setModal(null)
+        onStartGame()
     }
 
     return (
@@ -105,7 +107,7 @@ const Home = ({ onContinueToNewCharacter, onLogoutSession }) => {
             {modal === "mission" && <PlayMissionModal
                 missionId={missionId}
                 onCancel={handleCloseMissionInfo}
-                onPlay={handleStartMission}
+                onPlay={handleStartNewGame}
             />}
         </View>
     )
