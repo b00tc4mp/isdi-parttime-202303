@@ -4,6 +4,10 @@ import { getLoggedUser } from '../logic/getLoggedUser.js'
 import Missions from '../components/Missions.jsx'
 import PlayMissionModal from '../components/PlayMissionModal.jsx'
 import UserMenu from '../components/UserMenu.jsx'
+import UpdateUsername from '../components/UpdateUsername.jsx'
+import UpdateEmail from '../components/UpdateEmail.jsx'
+import UpdatePassword from '../components/UpdatePassword.jsx'
+import UpdateCharacter from '../components/UpdateCharacter.jsx'
 
 const Home = ({ onContinueToNewCharacter, onLogoutSession }) => {
     const [user, setUser] = useState()
@@ -39,10 +43,15 @@ const Home = ({ onContinueToNewCharacter, onLogoutSession }) => {
     }
 
     const handleUserMenu = () => {
-        modal ? setModal(null) : setModal('userMenu')    }
+        (modal && modal === 'userMenu') ? setModal(null) : setModal('userMenu')
+    }
 
     const handleLogoutSession = () => {
         onLogoutSession()
+    }
+
+    const handleGoToUpdateModal = modal => {
+        setModal(modal)
     }
 
     return (
@@ -80,8 +89,17 @@ const Home = ({ onContinueToNewCharacter, onLogoutSession }) => {
                     </View>
                 </View>
                 <View className="h-3/4 w-full pl-2 pr-2 m-5">
-                    {!modal && <Missions onMissionClicked={handleGoToMissionInfo} />}
-                    {modal === "userMenu" && <UserMenu onUserLogout={handleLogoutSession} />}
+                    {!modal && <Missions
+                        onMissionClicked={handleGoToMissionInfo}
+                    />}
+                    {modal === "userMenu" && <UserMenu
+                        onUserLogout={handleLogoutSession}
+                        onUpdateModalClick={handleGoToUpdateModal}
+                    />}
+                    {modal === "updateUsername" && <UpdateUsername />}
+                    {modal === "updateEmail" && <UpdateEmail />}
+                    {modal === "updatePassword" && <UpdatePassword />}
+                    {modal === "updateCharacter" && <UpdateCharacter />}
                 </View>
             </View>}
             {modal === "mission" && <PlayMissionModal
