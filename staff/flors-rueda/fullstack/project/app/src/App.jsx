@@ -62,8 +62,8 @@ const App = () => {
   }, [location.pathname]);
 
   useEffect(() => {
-    const socket = socketIOClient('http://localhost:4321');
-    //const socket = socketIOClient('http://localhost:80');
+    //const socket = socketIOClient('http://localhost:4321');
+    const socket = socketIOClient('http://localhost:80');
     socket.on('connect', () => {
       const id = socket.id;
       socket.emit('sendSocketId', { id });
