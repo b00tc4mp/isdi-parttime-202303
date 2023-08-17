@@ -101,6 +101,8 @@ export default function Chatbot({ lastPostsUpdate, setPage, handleLastPostsUpdat
                 lastSpeechBubble.classList.remove('blinking-cursor')
 
                 setValueToRender(null)
+
+                handleLastPostsUpdate()
             }
 
             i++
@@ -111,6 +113,7 @@ export default function Chatbot({ lastPostsUpdate, setPage, handleLastPostsUpdat
     if(valueToRender) renderTypeWriterText(valueToRender)
 
     const handleGenerateSummary = async () => {
+        console.log('generating summary')
         if(context.conversationId) {
             const summary = await generateSummary(context.conversationId)
             
@@ -128,9 +131,11 @@ export default function Chatbot({ lastPostsUpdate, setPage, handleLastPostsUpdat
         setSummary(null)
     }
 
-    const handleGeneratePost = () => {
+    const handleGeneratePost = content => {
+        const postContent = content ? content : summary
+
         handleErrors(async () => {
-            await createPost(summary, context.conversationId)
+            await createPost(postContent, context.conversationId)
 
             navigate('/')
 
@@ -150,6 +155,7 @@ export default function Chatbot({ lastPostsUpdate, setPage, handleLastPostsUpdat
                     key={index}
                     role={message.role}
                     content={message.content}
+                    handleGeneratePost={handleGeneratePost}
                 />
             )}
             {summary && <div className="flex flex-col items-center gap-2 bg-red-300 rounded-lg pt-4 mx-4 pb-2 my-2">

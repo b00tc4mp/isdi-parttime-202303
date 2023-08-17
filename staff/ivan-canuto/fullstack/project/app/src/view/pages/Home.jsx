@@ -33,6 +33,7 @@ export default function Home() {
 
       const newConversationsOptions = conversations.map((conv) => {
         return {
+          id: conv.id,
           text: conv.title,
           onClick: () => {
             setPage("Chatbot");
@@ -80,9 +81,9 @@ export default function Home() {
 
     navigate("/login");
 
-    delete context.postId
-    delete context.conversationId
-    delete context.suggestionId
+    context.postId = null
+    context.conversationId = null
+    context.suggestionId = null
   };
 
   const handleToggleMenu = () => {
@@ -106,8 +107,10 @@ export default function Home() {
     });
   };
 
-  const handleOpenChatbotWindow = async () => {
-    context.conversationId = null;
+  const handleOpenChatbotWindow = () => {
+    setPage("Chatbot");
+
+    delete context.conversationId
 
     navigate("/chatbot");
   };
@@ -126,10 +129,7 @@ export default function Home() {
       {page === "Home" && (
         <Button
           className="fixed top-[105px] right-2 bg-slate-200 z-10"
-          onClick={() => {
-            handleOpenChatbotWindow();
-
-          }}
+          onClick={() => handleOpenChatbotWindow()}
         >
           Chat wit me
         </Button>
@@ -171,14 +171,6 @@ export default function Home() {
           />
         )}
 
-        {/* {modal === "profile" && (
-          <Profile
-            onUpdatedAvatar={handleUpdatedAvatar}
-            onCancel={handleCloseModal}
-            handleLogout={handleLogout}
-          />
-        )} */}
-
         {postModal && (
           <PostModalWindow
             handleOpenDeletePost={handleOpenDeletePost}
@@ -202,7 +194,16 @@ export default function Home() {
                 },
               },
               {
-                text: "+ New conversation",
+                text: "+ New chat",
+                onClick: () => {
+                  context.conversationId = null;
+
+                  setLastPostsUpdate(Date.now());
+                },
+              },
+              {
+                id: 'deleteAllChatsId',
+                text: `Delete all chats`,
                 onClick: () => {
                   context.conversationId = null;
 
@@ -210,6 +211,7 @@ export default function Home() {
                 },
               },
               ...conversationsOptions,
+              {onClick: () => {}, text: ''}
             ]}
             homeOptions={[
               {
@@ -252,11 +254,7 @@ export default function Home() {
               },
               {
                 text: "Chatbot page",
-                onClick: () => {
-                  setPage("Chatbot");
-
-                  navigate("/chatbot");
-                },
+                onClick: () => {handleOpenChatbotWindow()},
               },
               {
                 text: "SeenLately",
@@ -271,7 +269,7 @@ export default function Home() {
             page={page}
             lastPostsUpdate={lastPostsUpdate}
             handleToggleMenu={handleToggleMenu}
-            setPage={setPage}
+            handleLastPostsUpdate={handleLastPostsUpdate}
           />
         )}
 

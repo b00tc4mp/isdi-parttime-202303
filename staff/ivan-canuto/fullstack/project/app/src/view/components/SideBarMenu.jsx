@@ -1,6 +1,7 @@
 import { ModalContainer } from "../library";
-import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { useHandleErrors } from "../hooks";
+import { deleteAllConversations, deleteConversation } from "../../logic";
 import { context } from "../../ui";
 
 export default function SideBarMenu({
@@ -10,24 +11,49 @@ export default function SideBarMenu({
   openedMenu,
   lastPostsUpdate,
   handleToggleMenu,
-  setPage
+  handleLastPostsUpdate
 }) {
-  const navigate = useNavigate();
-
+  const handleErrors = useHandleErrors()
+  
   const [, setForceUpdate] = useState();
+  const [conversationId, setconversationId] = useState()
 
   useEffect(() => {
     setForceUpdate();
+    setconversationId()
   }, [lastPostsUpdate]);
 
-  // const onShowHomePage = () => navigate('/') //Hay que mirar a ver si el uso de useNavigate cuando te devuelve a la home, te renderiza todos los posts o solo los de la página en la que estabas (saved posts, user posts)
-  // const onShowHomePage = () => showHomePage()
+  const handleConfirmDelete = (_conversationId) => setconversationId(_conversationId)
+  
+  const handleDeleteConversation = () => {
+    handleErrors(async () => {
+      await deleteConversation(conversationId)
 
-  // const onShowOwnPosts = () => showOwnPosts()
+      setconversationId(null)
 
-  // const onShowSavedPosts = () => showSavedPosts()
+      if(conversationId === context.conversationId) context.conversationId = null
 
-  chatbotOptions.push({onClick: () => {}, text: ''})
+      handleLastPostsUpdate()
+    })
+  }
+
+  const handleCancelDelete = () => setconversationId(null)
+
+  const handleDeleteAllConversations = () => {
+    handleErrors(async () => {
+      await deleteAllConversations()
+
+      setconversationId(null)
+
+      context.conversationId = null
+
+      handleLastPostsUpdate()
+
+      handleToggleMenu()
+    })
+  }
+
+  // Estas dos funciones de arriba las podría simplificar en una, preguntar si lo debo hacer
 
   return (
     <ModalContainer
@@ -46,17 +72,37 @@ export default function SideBarMenu({
           chatbotOptions && <>
           {chatbotOptions.map((option, index) => {
             return (
-              <div
+              <li
                 key={index}
-                className={`${index === chatbotOptions.length - 1 ? 'h-24 bg-white' : 'h-14 bg-gray-100'} w-full border-2 border-t-0 border-white flex justify-center overflow-auto items-center`}
-                onClick={() => {
-                  option.onClick();
+                className={`conversation-${index} ${index === chatbotOptions.length - 1 ? 'h-24 bg-white' : 'h-16 bg-gray-100'} w-full border-2 border-t-0 border-white flex justify-center overflow-auto items-center`}
+                onClick={event => {
+                  if(event.target.tagName.toLowerCase() !== 'span') {
+                    option.onClick();
 
-                  handleToggleMenu();
+                    handleToggleMenu();
+                  }
                 }}
               >
-                <p>{option.text}</p>
-              </div>
+                <div className="flex items-center justify-between w-full">
+                  {option.text !== 'Delete all chats' ?
+                  <p className="text-center w-full">{option.text}</p>
+                  :
+                  <p className="flex items-center justify-center w-full gap-2" onClick={() => handleConfirmDelete(option.id)}>Delete all chats<span className="material-symbols-outlined">folder_delete</span></p>
+                  }
+                  {option.id !== undefined ?
+                    option.id && conversationId !== option.id ?
+                    option.id !== 'deleteAllChatsId' && <span className="material-symbols-outlined pr-1" onClick={() => handleConfirmDelete(option.id)}>delete</span>
+                    :
+                    <div className="flex flex-col gap-1 overflow-hidden pr-2">
+                      <span className="material-symbols-outlined" onClick={option.id === 'deleteAllChatsId' ? handleDeleteAllConversations : handleDeleteConversation}>check</span>
+                      <span className="material-symbols-outlined" onClick={handleCancelDelete}>close</span>
+                    </div>
+                    :
+                    ''
+                  }
+
+                </div>
+              </li>
             );
             })}
           </>
@@ -64,9 +110,9 @@ export default function SideBarMenu({
         {page === "Home" &&
           homeOptions &&
           homeOptions.map((option, index) => {
-            return <div
+            return <li
               key={index}
-              className="h-14 bg-gray-100 w-full border-2 border-t-0 border-white flex justify-center overflow-auto items-center"
+              className="h-16 bg-gray-100 w-full border-2 border-t-0 border-white flex justify-center overflow-auto items-center"
               onClick={() => {
                 option.onClick();
 
@@ -74,7 +120,7 @@ export default function SideBarMenu({
               }}
             >
               <p>{option.text}</p>
-            </div>;
+            </li>;
           })}
       </ul>
     </ModalContainer>

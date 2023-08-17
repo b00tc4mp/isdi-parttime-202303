@@ -29,4 +29,6 @@ module.exports = {
   createSuggestion: require('./createSuggestion'),
   deleteSuggestion: require('./deleteSuggestion'),
   updateSuggestion: require('./updateSuggestion'),
+  deleteConversation: require('./deleteConversation'),
+  deleteAllConversations: require('./deleteAllConversations'),
 }

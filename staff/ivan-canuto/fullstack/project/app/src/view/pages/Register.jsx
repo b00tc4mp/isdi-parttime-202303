@@ -29,9 +29,9 @@ export default function Register() {
                 <Form className="flex flex-col gap-4 w-80 items-center mt-2 mb-4" onSubmit={handleRegisterIn}>
                     <img className="max-w-[140px] h-[140px] rounded-full mt-[-140px]" src="src/images/logo-login&register.jpg" />
                     <div className="h-[54px] text-black text-4xl font-normal">Register</div>
-                    <Input className="w-full h-12 border-black border-2 rounded-lg p-4" name='name' placeholder="Name" />
-                    <Input className="w-full h-12 border-black border-2 rounded-lg p-4" type="email" name='email' placeholder="Email" />
-                    <Input className="w-full h-12 border-black border-2 rounded-lg p-4" type="password" name='password' placeholder="Password" />
+                    <Input className="w-2/3 h-12 border-black border-2 rounded-lg p-4" name='name' placeholder="Name" />
+                    <Input className="w-2/3 h-12 border-black border-2 rounded-lg p-4" type="email" name='email' placeholder="Email" />
+                    <Input className="w-2/3 h-12 border-black border-2 rounded-lg p-4" type="password" name='password' placeholder="Password" />
                     <Button className="w-2/3 text-xl bg-blue-200">Register</Button>
                 </Form>
                 <div className="flex gap-6 mt-6">

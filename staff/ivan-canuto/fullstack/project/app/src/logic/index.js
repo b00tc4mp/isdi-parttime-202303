@@ -20,7 +20,6 @@ import toggleVisibilityPost from './toggleVisibilityPost'
 import updatePost from './updatePost'
 import updateUserAvatar from './updateUserAvatar'
 import updateUserPassword from './updateUserPassword'
-import deleteConversation from './deleteConversation'
 import askForResponse from './askForResponse'
 import renderConversationFromDB from './renderConversationFromDB'
 import renderTypeWriterText from './renderTypeWriterText'
@@ -37,7 +36,8 @@ import retrieveSuggestion from './retrieveSuggestion'
 import createSuggestion from './createSuggestion'
 import deleteSuggestion from './deleteSuggestion'
 import updateSuggestion from './updateSuggestion'
-
+import deleteConversation from './deleteConversation'
+import deleteAllConversations from './deleteAllConversations'
 
 export {
     context,
@@ -62,7 +62,6 @@ export {
     updatePost,
     updateUserAvatar,
     updateUserPassword,
-    deleteConversation,
     askForResponse,
     renderConversationFromDB,
     renderTypeWriterText,
@@ -78,5 +77,7 @@ export {
     retrieveSuggestion,
     createSuggestion,
     deleteSuggestion,
-    updateSuggestion
+    updateSuggestion,
+    deleteConversation,
+    deleteAllConversations
 }

@@ -30,4 +30,6 @@ module.exports = {
   createSuggestionHandler: require('./createSuggestionHandler'),
   deleteSuggestionHandler: require('./deleteSuggestionHandler'),
   updateSuggestionHandler: require('./updateSuggestionHandler'),
+  deleteConversationHandler: require('./deleteConversationHandler'),
+  deleteAllConversationsHandler: require('./deleteAllConversationsHandler'),
 }
