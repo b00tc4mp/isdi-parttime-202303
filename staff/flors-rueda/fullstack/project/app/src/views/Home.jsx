@@ -53,7 +53,7 @@ const Home = () => {
                         handleRefreshLevels={handleRefreshLevels}
                         isLevelSaved={saves.includes(level.id)}
                     />
-                )) : <p className="text-secondary500 text-xl font-bold text-center">seems you don't have any level around yet... go ahead and create one, or browse all the levels and follow more people!</p> : ''
+                )) : <p className="text-secondary500 text-xl font-bold text-center px-6 md:px-24">seems you don't have any level around yet... go ahead and create one, or browse all the levels and follow more people!</p> : ''
                 }
             </div>
         </section>

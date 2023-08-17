@@ -33,6 +33,7 @@ const App = () => {
   const { unlockScroll } = useLockScroll();
   const handleErrors = useHandleErrors();
   const [achievementNotifications, setAchievementNotifications] = useState([]);
+  const [updateUserInfo, setUpdateUserInfo] = useState(false);
 
   unlockScroll();
 
@@ -61,8 +62,8 @@ const App = () => {
   }, [location.pathname]);
 
   useEffect(() => {
-    //const socket = socketIOClient('http://localhost:4321');
-    const socket = socketIOClient('http://13.38.17.11:80');
+    const socket = socketIOClient('http://localhost:4321');
+    //const socket = socketIOClient('http://localhost:80');
     socket.on('connect', () => {
       const id = socket.id;
       socket.emit('sendSocketId', { id });
@@ -86,7 +87,7 @@ const App = () => {
 
   return (
     <AppContext.Provider value={{ alert: handleShowAlert }}>
-      <Navbar />
+      <Navbar updateUserInfo={updateUserInfo} />
       <div className="pt-5">
         {achievementNotifications.map((notification, index) => (
           <AchievementToast
@@ -104,7 +105,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={isUserLoggedIn() ? <Navigate to="/home" /> : <Landing />} />
           <Route path="/levels" element={isUserLoggedIn() ? <LevelsList /> : <NotFound />} />
-          <Route path="/customize" element={isUserLoggedIn() ? <Customize /> : <NotFound />} />
+          <Route path="/customize" element={isUserLoggedIn() ? <Customize setUpdateUserInfo={setUpdateUserInfo} /> : <NotFound />} />
           <Route path="/game/:id" element={<Game />} />
           <Route path="/create" element={<CreateLevel />} />
           <Route path="/tutorial" element={<Tutorial />} />

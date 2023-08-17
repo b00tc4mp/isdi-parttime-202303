@@ -6,17 +6,16 @@ import ColorForm from '../components/forms/ColorForm';
 import updateColor from '../logic/update-color';
 import AvatarForm from '../components/forms/AvatarForm';
 
-const Customize = () => {
+const Customize = ({ setUpdateUserInfo }) => {
     const [color, setColor] = useState('orange')
     const handleErrors = useHandleErrors();
-    const navigate = useNavigate();
 
     const changeColor = (event) => {
         event.preventDefault();
-
         handleErrors(async () => {
+            setUpdateUserInfo(false);
             await updateColor(color);
-            navigate('/levels');
+            setUpdateUserInfo(true);
         })
     }
 
@@ -26,7 +25,7 @@ const Customize = () => {
                 <h1 className="text-3xl font-bold text-center pt-5 text-secondary300">Customize your profile</h1>
                 <ColorForm setColor={setColor} onSaveColorChange={changeColor} />
                 <h1 className="text-2xl font-bold text-center pt-10 text-secondary300">Chose your maze rider</h1>
-                <AvatarForm />
+                <AvatarForm setUpdateUserInfo={setUpdateUserInfo} />
             </div>
         </section>
     );
