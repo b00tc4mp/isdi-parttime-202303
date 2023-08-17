@@ -80,7 +80,10 @@ export default function CreatePlayground({ closeHandle, cancelAddPlayground }) {
         const sunExposition = { shady: playgroundShady.status, sunny: playgroundSunny.status, partial: playgroundPartial.status }
         try {
             addPlayground(TOKEN, playgroundName, playgroundDescription, sunExposition, playgroundElements, storedImagesUrl, currentLocation)
-                .then(() => onClose())
+                .then(() => {
+                    onClose()
+                    alert('Playground created!')
+                })
                 .catch(error => alert(error.message))
         } catch (error) {
             console.log(error.message)

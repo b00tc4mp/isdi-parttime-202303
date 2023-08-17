@@ -30,7 +30,7 @@ export default function Login({ navigation }) {
         forgotPassword(email)
             .then(token => {
                 alert('Email sent! \n Check your email.')
-                // navigation.navigate('Login')
+                navigation.navigate('Login')
             })
             .catch(error => alert(error.message))
     }

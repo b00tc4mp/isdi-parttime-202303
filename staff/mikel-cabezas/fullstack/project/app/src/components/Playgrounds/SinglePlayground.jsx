@@ -1,31 +1,22 @@
 import React, { useEffect, useState, useContext } from "react";
+import { Text, Image, View, ScrollView, Platform, Linking } from 'react-native';
+import { TouchableOpacity, TouchableHighlight, TouchableWithoutFeedback, } from '@gorhom/bottom-sheet';
 
-import {
-    TouchableOpacity,
-    TouchableHighlight,
-    TouchableWithoutFeedback,
-} from '@gorhom/bottom-sheet';
-
-import { Text, Image, View, ScrollView, Modal, Animated } from 'react-native';
-import * as Animatable from 'react-native-animatable';
 import { SHADY, LIKE, LIKE_FILLED, SUNNY, ADD } from '../../../assets/icons';
 import Context from '../../AppContext.js'
 import SingleElement from './SingleElement'
 import { toggleLikePlayground } from "../../logic/playgrounds/toggleLikePlayground";
 import retrievePlaygroundById from "../../logic/playgrounds/retrievePlaygroundById";
+import createMapLink from 'react-native-open-maps';
 
-import { NativeWindStyleSheet } from "nativewind";
-NativeWindStyleSheet.setOutput({
-    default: "native",
-});
-
-export default function Nearby({ closeHandle }) {
+export default function Nearby({ closeHandle, setSinglePlaygroundImages, onHandleOpenImages }) {
     const { currentView, setCurrentView, currentMarker, setCurrentMarker, TOKEN } = useContext(Context)
     const [playground, setPlayground] = useState()
     const [shady, setShady] = useState('bg-mainGray')
     const [sunny, setSunny] = useState('bg-mainGray')
     const [partial, setPartial] = useState('bg-mainGray')
     const [likes, setLikes] = useState(false)
+
     useEffect(() => {
         retrievePlaygroundById(TOKEN, currentMarker._id)
             .then(playground => {
@@ -61,6 +52,28 @@ export default function Nearby({ closeHandle }) {
             .catch(error => error.message)
     }
 
+    const handleOpenMap = () => {
+        // openMap({ latitude: playground.location.coordinates[0], longitude: playground.location.coordinates[1] })
+        // createMapLink({ start, latitude: playground.location.coordinates[0], longitude: playground.location.coordinates[1], zoom: 20 })
+        const scheme = Platform.select({ ios: 'maps:0,0?q=', android: 'geo:0,0?q=' })
+        const latLng = `${playground.location.coordinates[0]},${playground.location.coordinates[1]}`
+        const label = playground.name
+        const url = Platform.select({
+            ios: `${scheme}?address=${latLng}`,
+            android: `${scheme}${latLng}`
+        });
+        Linking.openURL(url)
+
+
+
+    }
+
+
+
+    const handleOpenImages = () => {
+        setSinglePlaygroundImages(playground.images)
+        onHandleOpenImages()
+    }
 
     return <View className="h-full bg-red-500z relative flex-column justify-between items-center bg-[blue]">
         {playground && <>
@@ -84,11 +97,12 @@ export default function Nearby({ closeHandle }) {
                     </View>
                     <Text className="dark:text-white text-xl font-semibold">{playground.name}</Text>
                     <Text className="dark:text-white pt-1 text-sm max-w-[80vw] text-[#20841E] mb-2">{playground.location.street}</Text>
-                    <View
-                        className={`border border-mainLime bg-mainLime rounded-full mt-1 mb-2`}
-                        onPress={() => { handleShady() }}>
-                        <Text className="font-bold text-center text-sm px-5 py-2 w-full">Go to playground</Text>
-                    </View>
+                    <TouchableHighlight
+                        onPress={handleOpenMap}>
+                        <View className={`border border-mainLime bg-mainLime rounded-full mt-1 mb-2`}>
+                            <Text className="font-bold text-center text-sm px-5 py-2 w-full">Go to playground</Text>
+                        </View>
+                    </TouchableHighlight>
                     <View className="flex-row flex-wrap gap-3 mb-4">
                         <Text className="dark:text-white text-lg mt-3 font-semibold w-full">Sun Exposition</Text>
                         <Text className="dark:text-white  mt-3 font-semibold w-full">There is no info yet... Tap fer edit!</Text>
@@ -148,17 +162,24 @@ export default function Nearby({ closeHandle }) {
                             <Text className="text-lgs font-normal">{playground.description}</Text>
                         </View>}
 
-
                     <Text className="dark:text-white text-lg mb-2 font-semibold  w-full">Images</Text>
                     <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} pagingEnabled={true} >
                         <View className="flex-row gap-3">
 
                             {playground.images.length > 0 && playground.images.map((image, index) => {
-                                return <Image
-                                    className="w-36 h-40 object-cover rounded-2xl"
-                                    key={index}
-                                    source={{ uri: image }}
-                                />
+                                return <TouchableOpacity
+                                    activeOpacity={0.8}
+                                    className="border border-mainLime  rounded-full mb-1 mt-2 mr-2 bg-mainGray"
+                                    onPress={handleOpenImages}
+                                >
+                                    <Image
+                                        className="w-36 h-40 object-cover rounded-2xl"
+                                        key={index}
+                                        source={{ uri: image }}
+                                    />
+                                </TouchableOpacity>
+
+
                             })}
                         </View>
                     </ScrollView>
@@ -173,5 +194,7 @@ export default function Nearby({ closeHandle }) {
         <View className="flex-row absolute bottom-0 bg-mainGrays w-full mx-auto justify-center z-50 pb-11">
 
         </View>
+
+
     </View >
 }

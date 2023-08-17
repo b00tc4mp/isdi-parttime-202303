@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react"
 import Context from "../../AppContext"
-import { Text, Image, View } from 'react-native';
+import { Text, Image, View, TouchableHighlight } from 'react-native';
 
 // import { utils } from '../../../com'
 
@@ -14,24 +14,22 @@ export default function NearbyPlayground({ playground, playground: { name, text,
     const { setCurrentMarker } = useContext(Context)
 
     const markerPressedHandler = () => {
+        setCurrentMarker(playground)
         onMarkerPressedHandler()
     }
     return <>
-        <View
-            className="flex flex-col relative"
-            title={name}
-            description={text}
+        <TouchableHighlight onPress={markerPressedHandler} activeOpacity={0.9} underlayColor="#fff" >
+            <View
+                className="flex flex-col relative"
+                title={name}
+                description={text}
             // image={PIN}
-            onPress={() => {
-                setCurrentMarker(playground)
-                markerPressedHandler()
-            }}
-        >
-            <Image source={images} className="rounded-2xl w-full h-[168px] object-contain" />
-            <Text className="font-bold text-sm text-[13px] leading-4 mt-2 pr-1">{name}</Text>
-            <Text className="text-[11px] pr-1">{street}</Text>
-        </View>
-
+            >
+                <Image source={images} className="rounded-2xl w-full h-[168px] object-contain" />
+                <Text className="font-bold text-sm text-[13px] leading-4 mt-2 pr-1">{name}</Text>
+                <Text className="text-[11px] pr-1">{street}</Text>
+            </View>
+        </TouchableHighlight>
     </>
 }
 

@@ -5,7 +5,8 @@ import MapView, { Marker, Callout } from 'react-native-maps'
 import { useRef, useContext, useState, useEffect } from 'react';
 import { NativeWindStyleSheet } from "nativewind";
 import Playgrounds from './Playgrounds.jsx';
-import AppContext from "../../AppContext.js";
+import AppContext from "../../AppContext.js"
+import Loader from '../../library/Loader';
 const { Provider } = AppContext
 import Context from '../../AppContext'
 import retrievePlaygrounds from "../../logic/playgrounds/retrievePlaygrounds"
@@ -94,6 +95,24 @@ export default function BaseMap({ onMarkerPressed, searchResult, user }) {
 
 
     return <>
+        {!loadCurrentLocation && <>
+            <MapView
+                // userInterfaceStyle={'dark'}
+                ref={mapRef}
+                showsUserLocation={true}
+                // followsUserLocation={true}
+
+                className="w-full h-[120%] top-[-10%] absolute"
+                initialRegion={{
+                    // latitude: 43.228833,
+                    // longitude: 1.7255048,
+                    latitude: 40.2085,
+                    longitude: -3.713,
+                    latitudeDelta: 4,
+                    longitudeDelta: 4,
+                }} />
+            <Loader text="Loading..." details="This may be take a while. Loading current position and playgrounds." />
+        </>}
         {loadCurrentLocation && <MapView
             // userInterfaceStyle={'dark'}
             ref={mapRef}
