@@ -2,31 +2,40 @@ const {
   errors: { DuplicityError, ContentError, AuthError, ExistenceError },
 } = require('com');
 
-const handleErrors = (callback) => (req, res) => {
-  try {
-    callback(req, res).catch((error) => {
-      let status = 500;
+const handleErrors = (callback) => {
+  return (req, res) => {
+    try {
+      const promise = callback(req, res);
 
-      if (error instanceof DuplicityError) status = 409;
-      else if (error instanceof ExistenceError) status = 404;
-      else if (error instanceof AuthError) status = 401;
+      (async () => {
+        try {
+          await promise;
+        } catch (error) {
+          respondError(error, res);
+        }
+      })();
+    } catch (error) {
+      respondError(error, res);
+    }
+  };
+};
 
-      res.status(status).json({ error: error.message });
-    });
-  } catch (error) {
-    let status = 500;
+const respondError = (error, res) => {
+  let status = 500;
 
-    if (
-      error instanceof TypeError ||
-      error instanceof ContentError ||
-      error instanceof RangeError
-    )
-      status = 406;
+  if (error instanceof DuplicityError) status = 409;
+  else if (error instanceof ExistenceError) status = 404;
+  else if (error instanceof AuthError) status = 401;
+  else if (
+    error instanceof TypeError ||
+    error instanceof ContentError ||
+    error instanceof RangeError
+  )
+    status = 406;
 
-    res
-      .status(status)
-      .json({ error: error.message, type: error.constructor.name });
-  }
+  res
+    .status(status)
+    .json({ message: error.message, type: error.constructor.name });
 };
 
 module.exports = handleErrors;
