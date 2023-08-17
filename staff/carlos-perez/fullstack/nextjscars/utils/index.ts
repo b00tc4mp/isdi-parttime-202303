@@ -64,3 +64,8 @@ export const updateSearchParams = (type: string, value: string) => {
 
   return newPathname;
 };
+
+export interface ShowMoreProps {
+  pageNumber: number;
+  isNext: boolean;
+}
