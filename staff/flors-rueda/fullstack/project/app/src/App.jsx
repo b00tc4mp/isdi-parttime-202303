@@ -63,7 +63,7 @@ const App = () => {
 
   useEffect(() => {
     //const socket = socketIOClient('http://localhost:4321');
-    const socket = socketIOClient('http://node:4321');
+    const socket = socketIOClient('http://0.0.0.0:4321');
     socket.on('connect', () => {
       const id = socket.id;
       socket.emit('sendSocketId', { id });
