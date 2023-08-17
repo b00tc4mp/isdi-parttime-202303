@@ -1,11 +1,14 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import inLogger from '../../inLogger';
 import { assets } from 'com';
+import useHandleErrors from '../../hooks/useHandleErrors';
+import retrieveLoggedUser from '../../logic/retrieve-logged-user';
+import updateColor from '../../logic/update-color';
 
-//TODO open toaster when saved
-
-const ColorForm = ({ setColor, onSaveColorChange }) => {
+const ColorForm = ({ setUpdateUserInfo }) => {
     const [isDropdownOn, setIsDropdownOn] = useState(false);
+    const [color, setColor] = useState(null)
+    const handleErrors = useHandleErrors();
 
     const textColors = { gray: 'text-gray', red: 'text-red', orange: 'text-orange', ambar: 'text-ambar', yellow: 'text-yellow', lime: 'text-lime', green: 'text-green', teal: 'text-teal', cyan: 'text-cyan', blue: 'text-blue', indigo: 'text-indigo', violet: 'text-violet', fuchsia: 'text-fuchsia', pink: 'text-pink', rose: 'text-rose' };
 
@@ -19,24 +22,40 @@ const ColorForm = ({ setColor, onSaveColorChange }) => {
         }
     };
 
+    const changeColor = (color) => {
+        handleErrors(async () => {
+            setUpdateUserInfo(false);
+            await updateColor(color);
+            setUpdateUserInfo(true);
+            handleDropdownToggle();
+        })
+    }
+
+    useEffect(() => {
+        handleErrors(async () => {
+            const user = await retrieveLoggedUser();
+            setColor(user.color);
+        })
+    }), []
 
     return (
         <div className="w-full bg-secondary600 rounded-lg shadow mt-5 sm:max-w-md">
-            <form className="space-y-6 flex flex-col md:flex-row px-2 pb-5 pt-0 gap-2 align-center justify-center">
+            <form className="flex flex-row w-full px-2 py-3 gap-2 align-center justify-center items-center">
+                <h3 className="text-2xs font-bold text-secondary300 self-center">Select color</h3>
                 <div>
                     <button
                         id="dropdownRadioButton"
                         data-dropdown-toggle="dropdownRadioHelper"
-                        className="w-full text-sm font-medium text-secondary100 bg-light500 hover:bg-light400 focus:outline-none font-medium rounded-lg text-sm px-4 py-2.5 text-center flex justify-around items-center mt-6 self-center"
+                        className={`self-center w-36 text-sm font-medium bg-light500 hover:bg-light400 focus:outline-none font-medium rounded-lg text-sm px-4 py-2.5 text-center flex justify-between items-center self-center ${color ? textColors[color] : 'text-secondary200'}`}
                         type="button"
                         onClick={handleDropdownToggle}
                     >
-                        Select a new color color{' '}
-                        {isDropdownOn ? <i className="bi bi-x-lg pl-1"></i> : <i className="bi bi-chevron-down pl-1"></i>}
+                        {color}
+                        {isDropdownOn ? <i className="text-secondary100  bi bi-x-lg pl-1"></i> : <i className="text-secondary100 bi bi-chevron-down pl-1"></i>}
                     </button>
                     <div
                         id="dropdownRadio"
-                        className="z-50 absolute w-4/6 md:w-2/6 bg-light400 shadow divide-y divide-light300 rounded-lg hidden"
+                        className="z-30 left-10 md:left-1/2 absolute w-4/6 md:w-2/6 bg-light400 shadow divide-y divide-light300 rounded-lg hidden"
                     >
                         <ul className="p-3 text-sm grid grid-cols-3 grid-rows-5 gap-2">
                             {assets.colors.map((color, index) => (
@@ -46,7 +65,7 @@ const ColorForm = ({ setColor, onSaveColorChange }) => {
                                         name="favoriteColor"
                                         className={`form-radio h-4 w-4 cursor-pointer ${textColors[color]} checked:bg-${bgColors[color]}`}
                                         value={color}
-                                        onChange={() => setColor(color)}
+                                        onChange={() => changeColor(color)}
                                     />
                                     <span className={`${textColors[color]} font-semibold pl-2 pb-0.5`}>{color}</span>
                                 </li>
@@ -54,13 +73,6 @@ const ColorForm = ({ setColor, onSaveColorChange }) => {
                         </ul>
                     </div>
                 </div>
-                <button
-                    type="button"
-                    className="w-full md:w-1/2 text-primary100 bg-light500 hover:bg-light400 focus:ring-4 focus:outline-none focus:ring-primary300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-                    onClick={(event) => onSaveColorChange(event)}
-                >
-                    Save color
-                </button>
             </form>
         </div>
     );
