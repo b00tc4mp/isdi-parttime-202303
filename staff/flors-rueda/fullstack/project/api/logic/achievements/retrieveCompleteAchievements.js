@@ -4,6 +4,14 @@ const {
 } = require('com');
 const { Achievements } = require('../../data/models');
 
+/**
+ * Retrieves completed achievements by user id
+ * 
+ * @param {string} userId The user id
+ * 
+ * @returns {[object]} Complete achievements of the user id
+ */
+
 module.exports = (userId) => {
     validateId(userId, 'userId');
 

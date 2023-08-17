@@ -4,6 +4,14 @@ const {
 } = require('com');
 const { User } = require('../../data/models');
 
+/**
+ * Retrieve's one of the user recovery question
+ * 
+ * @param {string} username The user username
+ * 
+ * @returns {object} A question and it's id
+ */
+
 module.exports = (username) => {
     validateUsername(username);
 

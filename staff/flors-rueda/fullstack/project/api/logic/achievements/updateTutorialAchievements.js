@@ -5,6 +5,14 @@ const {
 const { Achievements } = require('../../data/models');
 const updateAchievementsProgress = require('../helpers/updateAchievementsProgress');
 
+/**
+ * Updates tutorial achievements by user id
+ * 
+ * @param {string} userId The user id
+ * 
+ * @returns {[object]} Achivements that have reach a new rank
+ */
+
 module.exports = (userId) => {
     validateId(userId, 'userId');
 

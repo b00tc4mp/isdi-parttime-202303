@@ -3,6 +3,14 @@ const {
     validators: { validateId },
 } = require('com');
 
+/**
+ * Retrieves all levels created by a user
+ * 
+ * @param {string} authorId The author user id
+ * 
+ * @returns {[object]} Levels with display information
+ */
+
 module.exports = (authorId) => {
     validateId(authorId, 'authorId');
 

@@ -4,6 +4,14 @@ const {
 } = require('com');
 const { User } = require('../../data/models');
 
+/**
+ * Retrieve's all the user unlocked avatars
+ * 
+ * @param {string} userId The user id
+ * 
+ * @returns {[string]} All the unlocked avatars
+ */
+
 module.exports = (userId) => {
     validateId(userId, 'userId');
 

@@ -1,5 +1,11 @@
 const { Level } = require('../../data/models');
 
+/**
+ * Retrieves all the levels
+ * 
+ * @returns {[object]} Levels with display information
+ */
+
 module.exports = () => {
     return Level.find()
         .select('_id name author likes date')

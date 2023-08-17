@@ -4,7 +4,18 @@ const {
     validators: { validateUsername, validateColor, validatePassword, validateRecoveryQuestion, },
 } = require('com');
 const bcrypt = require('bcryptjs');
-const achievements = require('../../data/achievements')
+const achievements = require('../../data/achievements');
+
+/**
+ * Creates a new user
+ * 
+ * @param {string} username The user username
+ * @param {string} password The user password
+ * @param {string} color The user selected color
+ * @param {[object]} recoveryQuestions The user recovery question and it's answer
+ * 
+ * @returns {boolean} Is answer correct
+ */
 
 module.exports = (username, password, color, recoveryQuestions) => {
     validateUsername(username);

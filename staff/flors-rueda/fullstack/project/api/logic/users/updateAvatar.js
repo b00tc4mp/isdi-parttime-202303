@@ -4,6 +4,14 @@ const {
 } = require('com');
 const { User } = require('../../data/models');
 
+/**
+ * Change's a user display avatar
+ * 
+ * @param {string} userId The user id
+ * @param {string} avatar The user new avatar
+ * 
+ */
+
 module.exports = (userId, avatar) => {
     validateId(userId, 'userId');
     validateAvatar(avatar);

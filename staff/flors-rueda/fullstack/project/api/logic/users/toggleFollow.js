@@ -2,8 +2,15 @@ const {
     validators: { validateId },
     errors: { ExistenceError }
 } = require('com');
-const { User, Level } = require('../../data/models');
+const { User } = require('../../data/models');
 
+/**
+ * Toggles a user follow to another user
+ * 
+ * @param {string} followerId The user that hit follow id
+ * @param {string} followedId The user that will be followed id
+ * 
+ */
 
 module.exports = async (followerId, followedId) => {
     validateId(followerId, 'follower userId');

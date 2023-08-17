@@ -4,6 +4,14 @@ const {
 } = require('com');
 const { User } = require('../../data/models');
 
+/**
+ * Retrieve a user available cc
+ * 
+ * @param {string} userId The user id
+ * 
+ * @returns {number} user's available cc
+ */
+
 module.exports = (userId) => {
     validateId(userId, 'userId');
 

@@ -1,3 +1,11 @@
+/**
+ * Updates achievements ranks by it's progress
+ * 
+ * @param {object} achievement The achievement to update
+ * 
+ * @returns {object} Achivements completely updated and boolean that saids if it should send a notification
+ */
+
 module.exports = (achievement) => {
     let hasToBePushed = false;
     if (achievement.ranks.length === 1) {

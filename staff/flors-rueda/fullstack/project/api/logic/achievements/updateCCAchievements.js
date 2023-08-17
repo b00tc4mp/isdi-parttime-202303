@@ -5,6 +5,16 @@ const {
 const { Achievements, User } = require('../../data/models');
 const updateAchievementsProgress = require('../helpers/updateAchievementsProgress');
 
+/**
+ * Updates cc achievements by user id
+ * 
+ * @param {string} userId The user id
+ * @param {string} cc The number of cc to update
+ * @param {string} operator Use + for earning operations and - for spending operations
+ * 
+ * @returns {[object]} Achivements that have reach a new rank
+ */
+
 module.exports = async (userId, cc, operator) => {
     validateId(userId, 'userId');
     validateCC(cc);

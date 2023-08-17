@@ -5,6 +5,15 @@ const {
 const { User } = require('../../data/models');
 const bcrypt = require('bcryptjs');
 
+/**
+ * Updates a user password
+ * 
+ * @param {string} username The user username
+ * @param {string} newPassword The new password
+ * 
+ * @returns {boolean} Is answer correct
+ */
+
 module.exports = (username, newPassword) => {
     validateUsername(username);
     validatePassword(newPassword);

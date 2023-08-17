@@ -5,6 +5,15 @@ const {
 const { Achievements } = require('../../data/models');
 const updateAchievementsProgress = require('../helpers/updateAchievementsProgress');
 
+/**
+ * Updates game achievements by user id
+ * 
+ * @param {string} userId The user id
+ * @param {object} gameData Includes { stonks, holes, bombs, life } of the played last game
+ * 
+ * @returns {[object]} Achivements that have reach a new rank
+ */
+
 module.exports = async (userId, gameData) => {
     validateId(userId, 'userId');
     validateGameData(gameData);

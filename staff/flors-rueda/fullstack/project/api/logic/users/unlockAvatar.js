@@ -4,6 +4,14 @@ const {
 } = require('com');
 const { User } = require('../../data/models');
 
+/**
+ * Updates the unlocked avatar array of a user with a new avatar
+ * 
+ * @param {string} userId The user id
+ * @param {string} avatar The new avatar
+ * 
+ */
+
 module.exports = (userId, avatar) => {
     validateId(userId, 'userId');
     validateAvatar(avatar);

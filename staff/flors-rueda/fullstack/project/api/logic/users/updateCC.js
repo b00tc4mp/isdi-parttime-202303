@@ -5,6 +5,15 @@ const {
 const { User } = require('../../data/models');
 const { validateOperator } = require('com/validators');
 
+/**
+ * Updates cc available by user id
+ * 
+ * @param {string} userId The user id
+ * @param {string} cc The number of cc to update
+ * @param {string} operator Use + for earning operations and - for spending operations
+ * 
+ */
+
 module.exports = (userId, cc, operator) => {
     validateId(userId, 'userId');
     validateCC(cc);

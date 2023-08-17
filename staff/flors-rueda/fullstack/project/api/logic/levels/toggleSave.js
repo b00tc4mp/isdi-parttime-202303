@@ -4,6 +4,13 @@ const {
 } = require('com');
 const { User, Level } = require('../../data/models');
 
+/**
+ * Toggle's user save of a level
+ * 
+ * @param {string} levelId The level id
+ * @param {string} userId The user id
+ * 
+ */
 
 module.exports = async (levelId, userId) => {
     validateId(levelId, 'levelId');

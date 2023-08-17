@@ -4,6 +4,14 @@ const {
 } = require('com');
 const { User } = require('../../data/models');
 
+/**
+ * Change's a user display color
+ * 
+ * @param {string} userId The user id
+ * @param {string} color The user new color
+ * 
+ */
+
 module.exports = (userId, color) => {
     validateId(userId, 'userId');
     validateColor(color);

@@ -5,6 +5,15 @@ const {
 } = require('com');
 const bcrypt = require('bcryptjs');
 
+/**
+ * Verifies the credentials of a user
+ * 
+ * @param {string} username The user username
+ * @param {string} password The user password
+ * 
+ * @returns {string} User id
+ */
+
 module.exports = (username, password) => {
     validateUsername(username);
     validatePassword(password);

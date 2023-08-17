@@ -5,6 +5,14 @@ const {
 const { User, Level, Achievements } = require('../../data/models');
 const updateAchievementsProgress = require('../helpers/updateAchievementsProgress');
 
+/**
+ * Updates social achievements by user id
+ * 
+ * @param {string} userId The user id
+ * 
+ * @returns {[object]} Achivements that have reach a new rank
+ */
+
 module.exports = async (userId) => {
     validateId(userId, 'userId');
 

@@ -5,6 +5,15 @@ const {
 const { User } = require('../../data/models');
 const bcrypt = require('bcryptjs');
 
+/**
+ * Change's a user password
+ * 
+ * @param {string} userId The user id
+ * @param {string} newPassword The user new password
+ * @param {string} oldPassword The user old password
+ * 
+ */
+
 module.exports = (userId, newPassword, oldPassword) => {
     validateId(userId, 'userId');
     validatePassword(newPassword);

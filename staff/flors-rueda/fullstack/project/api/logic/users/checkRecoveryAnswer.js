@@ -5,6 +5,16 @@ const {
 const { User } = require('../../data/models');
 const bcrypt = require('bcryptjs');
 
+/**
+ * Verifies if the recovery answer given is correct
+ * 
+ * @param {string} username The user username
+ * @param {string} questionId The user recovery question id
+ * @param {string} answer The given answer to a question
+ * 
+ * @returns {boolean} Is answer correct
+ */
+
 module.exports = (username, questionId, answer) => {
     validateUsername(username);
     validateId(questionId, 'questionId');

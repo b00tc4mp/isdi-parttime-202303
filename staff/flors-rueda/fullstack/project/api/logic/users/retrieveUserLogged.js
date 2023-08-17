@@ -4,6 +4,14 @@ const {
 } = require('com');
 const { User } = require('../../data/models');
 
+/**
+ * Retrieve's a logged user data
+ * 
+ * @param {string} userId The user id
+ * 
+ * @returns {object} User data
+ */
+
 module.exports = (userId) => {
     validateId(userId, 'userId');
 
