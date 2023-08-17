@@ -17,13 +17,26 @@ const haversineDistance = (lat1, lon1, lat2, lon2) => {
 };
 
 const closerCity = (lat, lon) => {
-    const madridCoords = [40.4168, -3.7038];
-    const barcelonaCoords = [41.3851, 2.1734];
+    const cities = {
+        Madrid: [40.4168, -3.7038],
+        Barcelona: [41.3851, 2.1734],
+        Bilbao: [43.2630, -2.9340],
+        Vigo: [42.2328, -8.7226],
+        Sevilla: [37.3886, -5.9823]
+    };
 
-    const distToMadrid = haversineDistance(lat, lon, ...madridCoords);
-    const distToBarcelona = haversineDistance(lat, lon, ...barcelonaCoords);
+    let closestCity = null;
+    let shortestDistance = Infinity;
 
-    return distToMadrid < distToBarcelona ? "Madrid" : "Barcelona";
+    for (const [city, coords] of Object.entries(cities)) {
+        const distance = haversineDistance(lat, lon, ...coords);
+        if (distance < shortestDistance) {
+            shortestDistance = distance;
+            closestCity = city;
+        }
+    }
+
+    return closestCity;
 };
 
 const retrieveUserGeolocation = async () => {
@@ -38,12 +51,17 @@ const retrieveUserGeolocation = async () => {
         // Parse the 'loc' to get latitude and longitude
         const [lat, lon] = loc.split(',').map(Number);
 
-        // If city is closer to Madrid or Barcelona, overwrite the city value
-        if (city !== "Madrid" && city !== "Barcelona") {
-            return closerCity(lat, lon);
-        }
+        // Prepare result object
+        const result = {
+            closestCity: city,
+            originalLocation: [lat, lon]
+        };
 
-        return city;
+        // If city is not in our list of cities, update the closestCity field
+        if (!['Madrid', 'Barcelona', 'Bilbao', 'Vigo', 'Sevilla'].includes(city)) {
+            result.closestCity = closerCity(lat, lon);
+        }
+        return result;
     } catch (error) {
         console.error('Error fetching geolocation data:', error);
     }

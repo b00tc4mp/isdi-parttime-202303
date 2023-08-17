@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import retrieveArtistDetailsFromDiscogs from '../../logic/retrieveArtistDetailsFromDiscogs';
+import retrieveArtistDetailsFromDiscogs from '../../logic/retrieveArtistDetailsFromDiscogs'
+import { Button } from '../library'
 import { MagnifyingGlassIcon } from '@heroicons/react/24/solid'
 
 const SearchArtist = () => {
@@ -42,7 +43,8 @@ const SearchArtist = () => {
                         <MagnifyingGlassIcon className='text-gray-500 ' />
                     </span>
                 </div>
-                <button onClick={handleRetrieveDetails}>Search Artist</button>
+
+                <Button onClick={handleRetrieveDetails}>Search Artist</Button>
             </div>
 
             {error && <p className="text-red-500">{error}</p>}

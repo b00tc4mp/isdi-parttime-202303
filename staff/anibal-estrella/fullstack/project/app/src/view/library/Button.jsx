@@ -1,6 +1,6 @@
 export default function Button({ children, tag: Tag = "button", className, ...props }) {
     console.debug(`///// Button -> render`)
-    return <Tag className={`my-6 rounded-full w-max px-6 py-3 text-sm tracking-widest uppercase text-white drop-shadow-sm bg-gradient-to-l from-blue_dark to-red hover:drop-shadow-lg hover:bg-gradient-to-r active:drop-shadow-none active:bg-none active:bg-red focus:outline-none  ${className ? `${className} ` : ''}`} {...props}>
+    return <Tag className={` bg-white tracking-tight text-gray-400 text-xs uppercase rounded-full min-w-max h-12  px-4 hover:drop-shadow-lg hover:opacity-75 active:drop-shadow-none active:bg-lime-200 focus:outline-none  ${className ? `${className} ` : ''}`} {...props}>
         {children}
     </Tag>
 }

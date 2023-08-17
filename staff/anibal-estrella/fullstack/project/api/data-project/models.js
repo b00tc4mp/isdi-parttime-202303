@@ -22,6 +22,16 @@ const user = new Schema({
         trim: true,
         minLength: 8
     },
+    location: {
+        type: {
+            type: String,
+            default: "Point"
+        },
+        coordinates: {
+            type: [Number], // array of numbers: [longitude, latitude]
+            required: true
+        }
+    },
     city: {
         type: String,
         required: true,
@@ -105,6 +115,9 @@ const event = new Schema({
     },
 
 })
+
+user.index({ "location": "2dsphere" });
+
 
 const User = model('User', user)
 const Event = model('Event', event)

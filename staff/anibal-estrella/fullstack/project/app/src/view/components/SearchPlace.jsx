@@ -1,6 +1,7 @@
 
 import React, { useEffect, useState } from 'react';
 import retrievePlacesList from '../../logic/retrievePlacesList';
+import { Button } from '../library'
 import { MagnifyingGlassIcon } from '@heroicons/react/24/solid'
 
 const searchPlace = () => {
@@ -41,9 +42,9 @@ const searchPlace = () => {
                         <MagnifyingGlassIcon className='text-gray-500 ' />
                     </span>
                 </div>
-                <button onClick={handleRetrieveDetails}>Search for a place</button>
+                <Button onClick={handleRetrieveDetails}>Search for a place</Button>
             </div>
-            <button onClick={handleCreatePlace}>Create a new place</button>
+            <Button onClick={handleCreatePlace}>Create a new place</Button>
 
             {placeDetails && (
                 <div>
@@ -66,7 +67,7 @@ const searchPlace = () => {
                                         <td>{item.city}</td>
                                         <td>{item.homePage}</td>
                                         <td>
-                                            <button>select</button>
+                                            <Button>select</Button>
                                         </td>
                                     </tr>
                                 </React.Fragment>

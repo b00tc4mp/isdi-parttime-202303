@@ -5,6 +5,8 @@ export default plugin(({ addBase, addComponents, addUtilities, theme }) => {
         'h1, h2, h3': {
             fontSize: theme('fontSize.2xl'),
             fontWeight: '600',
+            textTransform: 'uppercase',
+
             // marginTop: '.5rem',
         },
         'strong': {
@@ -15,24 +17,6 @@ export default plugin(({ addBase, addComponents, addUtilities, theme }) => {
             fontWeight: '300',
             letterSpacing: '0.025em'
         },
-        'button': {
-            // height: '3em',
-            minWidth: 'max-content',
-            padding: '0 1rem',
-            marginLeft: '1rem',
-            letterSpacing: '0.06em',
-            color: 'black',
-            fontSize: '0.75rem',
-            backgroundColor: 'white',
-            borderRadius: '9999px',
-            textTransform: 'uppercase',
-        },
-        'button:hover, a:hover': {
-            opacity: '0.75',
-        },
-        'button:active': {
-            opacity: '1',
-        },
         'input': {
             width: '100%',
             height: '3rem',
@@ -42,7 +26,6 @@ export default plugin(({ addBase, addComponents, addUtilities, theme }) => {
             backgroundColor: 'white',
             color: 'black',
             borderRadius: '9999px',
-            // margin: '1rem 0',
             cursor: 'text',
         },
         'p': {

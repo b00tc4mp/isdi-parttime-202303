@@ -11,9 +11,10 @@ const bcrypt = require('bcryptjs')
  * @param {string} email user's email
  * @param {string} password user's password
  * @param {string} city user's city
+ * @param {string} loc user's city geo data lon lat
  * @returns {Promise}
  */
-module.exports = (name, nickName, email, password, city) => {
+module.exports = (name, nickName, email, password, city, loc) => {
     validateName(name)
     validateNickName(nickName)
     validateEmail(email)
@@ -25,7 +26,15 @@ module.exports = (name, nickName, email, password, city) => {
         try {
             const hash = await bcrypt.hash(password, 10)
 
-            await User.create({ name, nickName: "@" + nickName, email, password: hash, city, avatar: "./assets/avatar-default.svg", favArtists: [] })
+            await User.create({
+                name,
+                nickName: "@" + nickName,
+                email,
+                password: hash,
+                city,
+                location: loc,
+                avatar: "./assets/avatar-default.svg", favArtists: []
+            })
 
         } catch (error) {
             if (error.message.includes('E11000')) {

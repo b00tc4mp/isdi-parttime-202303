@@ -1,29 +1,26 @@
 import React, { useState, useEffect } from 'react'
-import retrieveUserGeolocation from '../../logic/users/retrieveUserGeolocation'
 import { EventCard, SearchArtist, SearchPlace } from '../components'
 
-export default function Home({ onPanelClick }) {
+export default ({ city, geolocation }) => {
+
     console.debug('// Home  -> Render')
-    const [city, setCity] = useState('');
     const [selectedNavItem, setSelectedNavItem] = useState('artist');
     const [showMenuLayer, setShowMenuLayer] = useState(false);
+
 
 
     const handleBurguerMenuClick = () => {
         setShowMenuLayer(prevState => !prevState);
     }
 
-    useEffect(() => {
-        async function fetchGeolocation() {
-            const userCity = await retrieveUserGeolocation();
-            setCity(userCity);
-        }
-        fetchGeolocation();
-    }, []);
+
+
 
     return <>
+
         <div className='m-2'>
-            <h2>Your City: {city}</h2>
+            {city && <h2>Your City: {city} </h2>}
+            {city && <h2>Your geolocaltion: {geolocation[0]},{geolocation[1]} </h2>}
         </div >
 
         <section id="home" className="pt-8 px-2">

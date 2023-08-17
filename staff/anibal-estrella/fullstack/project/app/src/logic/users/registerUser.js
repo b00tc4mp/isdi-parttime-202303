@@ -2,7 +2,7 @@ import { validators } from 'com'
 
 const { validateName, validateEmail, validatePassword, } = validators
 
-export default (name, email, password, repeatPassword) => {
+export default (name, nickName, email, password, repeatPassword, city, geolocation) => {
     if (password !== repeatPassword) {
         throw new Error("Passwords do not match, please try again");
     }
@@ -12,7 +12,7 @@ export default (name, email, password, repeatPassword) => {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ name, email, password })
+        body: JSON.stringify({ name, nickName, email, password, city, geolocation })
     })
         .then(res => {
             if (res.status === 201)

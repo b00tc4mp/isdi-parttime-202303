@@ -1,49 +1,57 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom'
+import retrieveUserGeolocation from '../../logic/users/retrieveUserGeolocation'
 
 import registerUser from '../../logic/users/registerUser';
 import { useAppContext } from '../hooks'
 import { Button } from '../library'
 
-const Login = () => {
+const Login = ({ city, geolocation }) => {
     console.debug('// Login/Register  -> Render');
 
     // const [Register, setRegister] = useState(null);
-    const [error, setError] = useState(null); // Add state for error
+    const [error, setError] = useState(null);
 
     // const { alert, freeze, unfreeze, navigate } = useAppContext()
-    const { navigate } = useAppContext()
 
     function handleRegister(event) {
         event.preventDefault()
 
         const name = event.target.name.value
+        const nickName = event.target.nickName.value
         const email = event.target.email.value
         const password = event.target.password.value
         const repeatPassword = event.target.repeatPassword.value
 
         try {
             // freeze()
-            registerUser(name, email, password, repeatPassword)
+            registerUser(name, nickName, email, password, repeatPassword, city, geolocation)
                 .then(() => navigate('/login'))
                 .catch(error => alert(error.message))
-
+            console.log(geolocation);
             // unfreeze()
         } catch (error) {
             alert(error.message)
-            unfreeze()
+            // unfreeze()
 
         }
         // unfreeze()
     }
 
-    return <div className="center-xy">
+    return <div>
+        <div className='m-2'>
+            {city && <h2>Your City: {city} </h2>}
+            {city && <h2>Your geolocaltion: {geolocation[0]},{geolocation[1]} </h2>}
+        </div >
         < div id="register" tag='section' className="p-4" >
-            <h2>Register</h2>
+            <h2>Register / Login</h2>
             <form method="get" className="register-form border-top-gradient" onSubmit={handleRegister}>
 
                 <label htmlFor="name">Name:</label>
                 <input type="text" className="name" name="name" placeholder="Enter your name" autoComplete="enter name" />
+
+                <label htmlFor="nickName"> Nick name:</label>
+                <input type="text" className="nickName" name="nickName" placeholder="Enter your nickName" autoComplete="enter nickName" />
 
                 <label htmlFor="email">E-mail:</label>
                 <input type="text" className="email" name="email" placeholder="Enter your e-mail" autoComplete="enter email" />
