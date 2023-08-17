@@ -2,7 +2,8 @@ require('dotenv').config();
 
 const { expect } = require('chai');
 const mongoose = require('mongoose');
-const { User } = require('../../data/models');
+
+const { generateToken } = require('../../handlers/helpers');
 
 const { cleanUp, populate, generate } = require('../helpers');
 
@@ -21,7 +22,7 @@ describe('API routes', () => {
     });
   });
 
-  describe('User Registration', () => {
+  describe('User registration', () => {
     beforeEach(() => cleanUp());
 
     it('should return a successful response for valid user registration', async () => {
@@ -103,7 +104,7 @@ describe('API routes', () => {
     });
   });
 
-  describe('User Login', () => {
+  describe('User login', () => {
     let user;
 
     beforeEach(() => {
@@ -203,6 +204,91 @@ describe('API routes', () => {
       });
 
       expect(res.status).to.equal(401);
+    });
+  });
+
+  describe('Create mission', () => {
+    let user, participant, traveler, token;
+
+    let initialDate = new Date();
+
+    let unexploredPlanet = new Date(initialDate);
+    unexploredPlanet.setDate(initialDate.getDate() + 7);
+
+    beforeEach(() => {
+      user = generate.user();
+      participant = generate.participant();
+      traveler = generate.explorer('monkey');
+      token = generateToken(user._id.toString());
+
+      return cleanUp().then(() => populate([user]));
+    });
+
+    it('should return a successful response for valid mission creation', async () => {
+      let missionJSON = {
+        traveler,
+        destination: 'unexplored_planet',
+        startDate: initialDate,
+        endDate: unexploredPlanet,
+        participants: [participant],
+        loserPrice: 'beer',
+      };
+
+      const res = await fetch(baseURL + '/missions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(missionJSON),
+      });
+
+      expect(res.status).to.equal(201);
+    });
+
+    it('should return an error response for missing token', async () => {
+      let missionJSON = {
+        traveler,
+        destination: 'unexplored_planet',
+        startDate: initialDate,
+        endDate: unexploredPlanet,
+        participants: [participant],
+        loserPrice: 'beer',
+      };
+
+      const res = await fetch(baseURL + '/missions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(missionJSON),
+      });
+
+      expect(res.status).to.equal(406);
+    });
+
+    it('should return an error response for invalid token', async () => {
+      let missionJSON = {
+        traveler,
+        destination: 'unexplored_planet',
+        startDate: initialDate,
+        endDate: unexploredPlanet,
+        participants: [participant],
+        loserPrice: 'beer',
+      };
+
+      const invalidToken = 'invalid_token';
+
+      const res = await fetch(baseURL + '/missions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${invalidToken}`,
+        },
+        body: JSON.stringify(missionJSON),
+      });
+
+      expect(res.status).to.equal(500);
     });
   });
 
