@@ -28,6 +28,17 @@ const user = new Schema({
   },
 });
 
+const participant = new Schema({
+  name: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  email: {
+    type: String,
+  },
+});
+
 const explorer = new Schema({
   race: {
     type: String,
@@ -59,6 +70,7 @@ const explorer = new Schema({
 const mission = new Schema({
   traveler: {
     type: [explorer],
+    required: true,
   },
   creator: {
     type: ObjectId,
@@ -87,13 +99,10 @@ const mission = new Schema({
     type: Date,
     required: true,
   },
-  participants: [
-    {
-      type: ObjectId,
-      ref: 'User',
-      required: true,
-    },
-  ],
+  participants: {
+    type: [participant],
+    required: true,
+  },
   loserPrice: {
     type: String,
     required: true,
