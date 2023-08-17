@@ -1,14 +1,8 @@
-// import { validators } from 'com'
+import { validators } from 'com'
 
-// const { validateName, validateEmail, validatePassword, } = validators
+const { validateName, validateEmail, validatePassword, } = validators
 
 export default (name, email, password, repeatPassword) => {
-    // validateName(name, 'name')
-    // validateEmail(email, 'password')
-    // validatePassword(password, 'password')
-    // validatePassword(repeatPassword, 'repeat password')
-
-    // WTF?
     if (password !== repeatPassword) {
         throw new Error("Passwords do not match, please try again");
     }

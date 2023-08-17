@@ -12,10 +12,9 @@ const Profile = () => {
 
             {error && <p className="text-red-500">{error}</p>}
 
-            {Profile && !error && (
-                <h1>Profile user</h1>
+            <h1>Name Profile</h1>
 
-            )}
+
         </div>
     );
 };

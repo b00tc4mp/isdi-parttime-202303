@@ -42,7 +42,7 @@ const SearchArtist = () => {
                         <MagnifyingGlassIcon className='text-gray-500 ' />
                     </span>
                 </div>
-                <button onClick={handleRetrieveDetails}>Retrieve Details</button>
+                <button onClick={handleRetrieveDetails}>Search Artist</button>
             </div>
 
             {error && <p className="text-red-500">{error}</p>}
