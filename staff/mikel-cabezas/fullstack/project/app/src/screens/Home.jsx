@@ -1,12 +1,12 @@
-import { View, StatusBar, Text, Alert } from 'react-native';
+import { View, StatusBar, Text, Alert, Dimensions, Image, StyleSheet, TouchableHighlight } from 'react-native';
 import { useContext, useEffect, useState, useRef, useMemo, useCallback } from 'react';
 import AppContext from "../AppContext.js";
 const { Provider } = AppContext
 import Context from '../AppContext.js'
 
-import * as Animatable from 'react-native-animatable';
 import BottomSheet from '@gorhom/bottom-sheet';
 
+import { WHITE_CLOSE } from '../../assets/icons';
 import Sidebar from '../components/header/Sidebar.jsx';
 import Header from '../components/header/Header.jsx';
 import AdvancedSearch from '../components/header/AdvancedSearch.jsx';
@@ -17,6 +17,7 @@ import CreatePlayground from '../components/playgrounds/addPlayground/AddPlaygro
 import retrieveUser from "../logic/users/retrieveUser"
 import { BaseMap } from '../components/playgrounds/index.js';
 
+import Carousel, { Pagination, PaginationLight } from 'react-native-x-carousel';
 
 export default function Home({ navigation, onSendViewPlaygroundsFromCity }) {
     const { modal, setModal, colorScheme, TOKEN, animation, setAnimation, currentView, setCurrentView } = useContext(Context)
@@ -24,6 +25,8 @@ export default function Home({ navigation, onSendViewPlaygroundsFromCity }) {
     const [newPlaygroundStatus, setNewPlaygroundStatus] = useState(false)
     const [searchResult, setSearchResult] = useState(false)
     const [user, setUser] = useState()
+    const [singlePlaygroundImages, setSinglePlaygroundImages] = useState()
+    const [modalImages, setModalImages] = useState()
 
     const bottomSheetRef = useRef();
     const snapPoints = useMemo(() => ['75%', '94%'], []);
@@ -35,6 +38,8 @@ export default function Home({ navigation, onSendViewPlaygroundsFromCity }) {
         mainColor = '#ffffff'
     }
     // const snapPointsSinglePlayground = useMemo(() => ['70%', '85%'], []);
+
+    const { width } = Dimensions.get('window');
 
     const handleSheetChangesCreate = useCallback((index) => {
         if (newPlaygroundStatus === false && index === -1) {
@@ -69,6 +74,10 @@ export default function Home({ navigation, onSendViewPlaygroundsFromCity }) {
         if (modal === 'createPlayground') {
             confirmCloseModal()
         } else if (modal) { bottomSheetRef.current.close() }
+    }
+    const onCloseImages = () => {
+        setModalImages(false)
+        setSinglePlaygroundImages()
     }
     const onCloseAddPlayground = () => {
         setNewPlaygroundStatus(true)
@@ -120,7 +129,17 @@ export default function Home({ navigation, onSendViewPlaygroundsFromCity }) {
             setModal('')
         }
     }
-
+    const renderItem = data => (
+        <View key={data} >
+            <Image source={{ uri: data }} resizeMode="cover" style={{ width: width * .98, height: width * 0.7 }} />
+        </View>
+    );
+    const onHandleOpenImages = () => {
+        setModalImages(true)
+    }
+    const onMarkerPressedHandler = () => {
+        setModalImages(true)
+    }
 
     return <>
         <View className="flex-1 bg-white items-center justify-center">
@@ -138,9 +157,22 @@ export default function Home({ navigation, onSendViewPlaygroundsFromCity }) {
                 index={0}
                 snapPoints={snapPoints}
                 onChange={handleSheetChangesSingle}>
-                <SinglePlayground className="z-[90] h-screen relative " closeHandle={onCloseModal} playground={currentMarker}></SinglePlayground>
+                <SinglePlayground className="z-[90] h-screen relative " closeHandle={onCloseModal} playground={currentMarker} setSinglePlaygroundImages={setSinglePlaygroundImages} onHandleOpenImages={onHandleOpenImages}></SinglePlayground>
             </BottomSheet>
             }
+            {modalImages && <>
+                <View className={`absolute w-full  h-full left-0 top-0 bg-black80 items-center justify-center`}>
+                    <TouchableHighlight onPress={onCloseImages} className="absolute right-2 top-10 z-50 shadow-md shadow-black ">
+                        <Image source={WHITE_CLOSE} className="w-10 h-10" />
+                    </TouchableHighlight>
+                    <Carousel
+                        pagination={PaginationLight}
+                        renderItem={renderItem}
+                        loop={true}
+                        data={singlePlaygroundImages}
+                    />
+                </View>
+            </>}
             {modal === 'searchFilter' && <BottomSheet
                 // style={{ backgroundColor: "transparent" }}
                 backgroundStyle={{
@@ -162,7 +194,7 @@ export default function Home({ navigation, onSendViewPlaygroundsFromCity }) {
                     index={0}
                     snapPoints={snapPointsSmall}
                     onChange={handleSheetChangesSingle}>
-                    <Nearby closeHandle={onCloseModal} playground={currentMarker}></Nearby>
+                    <Nearby closeHandle={onCloseModal} playground={currentMarker} handleMarkerPressedHandler={markerPressedHandler}></Nearby>
                 </BottomSheet>
 
             }

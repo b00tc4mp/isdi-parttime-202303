@@ -20,6 +20,7 @@ export default function Post({ playground, playground: { title, text, id, image,
 
 
     const markerPressedHandler = () => {
+        setCurrentMarker(playground)
         onMarkerPressedHandler()
     }
     return <>
@@ -35,10 +36,7 @@ export default function Post({ playground, playground: { title, text, id, image,
             title={title}
             description={text}
             // image={PIN}
-            onPress={() => {
-                setCurrentMarker(playground)
-                markerPressedHandler()
-            }}
+            onPress={markerPressedHandler}
         >
             <Image source={PIN} className="w-[38px] h-[45px] object-contain" />
             <Callout tooltip >
