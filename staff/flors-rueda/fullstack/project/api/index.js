@@ -16,8 +16,10 @@ mongoose.connect(process.env.MONGODB_URL)
         const server = http.createServer(api);
         const io = new Server(server, {
             cors: {
-                //origin: 'http://localhost:5173'
-                origin: 'http://15.188.51.248'
+                origin: '*',
+                methods: ["GET", "POST", "PATCH"]
+
+                //origin: 'http://15.188.51.248'
             }
         });
 
