@@ -1,5 +1,5 @@
 # Ballopolis Maze Riders: APP
-bleh bleh
+Fronted of the web app ballopolis.
 
 ## Technologies:
 
@@ -8,6 +8,7 @@ bleh bleh
 - Three JS
 - Tailwind
 - React-Lottie
+- Client Socket.io
 
 ## Setup 
 
@@ -21,4 +22,10 @@ npm i
 
 ```sh
 npm run dev
+```
+
+### Build
+
+```sh
+npm run build
 ```

@@ -30,6 +30,7 @@ So you play levels to earn points to create levels that other people will play t
 - follow users
 - see other users achivements
 - see other users created levels
+- customize your avatar
 </br>
 </br>
 
@@ -50,6 +51,7 @@ So you play levels to earn points to create levels that other people will play t
 - Node
 - Express
 - MongoDB and Mongoose
+- Socket.IO
 - Mocha Chai *for backend testing*
 </br>
 </br>
@@ -71,6 +73,7 @@ So you play levels to earn points to create levels that other people will play t
 - username (string)
 - password (string)
 - avatar (string)
+- unlockAvatars (array of strings)
 - color (string)
 - recovery questions (array of objects)
 - joined (dates)
@@ -90,8 +93,9 @@ So you play levels to earn points to create levels that other people will play t
 - category (string)
 - ranks (array of numbers)
 - progress (number)
-- isRankReached (boolean)
-- completed (boolean)
+- isRankBronzeReached (boolean)
+- isRankSilverReached (boolean)
+- isRankGoldReached (boolean)
 </br>
 </br>
 
@@ -107,42 +111,42 @@ All files                           |   98.72 |       90 |   98.59 |   98.61 |
   models.js                         |     100 |      100 |     100 |     100 | 
  logic/achievements                 |    97.1 |    87.83 |     100 |   96.87 | 
   retrieveCompleteAchievements.js   |     100 |      100 |     100 |     100 | 
-  updateCCAchievements.js           |     100 |       95 |     100 |     100 | 36
-  updateCreateAchievements.js       |      96 |    83.33 |     100 |   95.65 | 35
-  updateGameAchievements.js         |      96 |    83.33 |     100 |   95.65 | 36
-  updateSocialAchievements.js       |   95.83 |    85.71 |     100 |   95.65 | 42
-  updateTutorialAchievements.js     |   95.83 |       80 |     100 |   95.45 | 32
+  updateCCAchievements.js           |     100 |       95 |     100 |     100 | 46
+  updateCreateAchievements.js       |      96 |    83.33 |     100 |   95.65 | 44
+  updateGameAchievements.js         |      96 |    83.33 |     100 |   95.65 | 45
+  updateSocialAchievements.js       |   95.83 |    85.71 |     100 |   95.65 | 50
+  updateTutorialAchievements.js     |   95.83 |       80 |     100 |   95.45 | 40
  logic/helpers                      |     100 |    93.75 |     100 |     100 | 
-  updateAchievementsProgress.js     |     100 |    93.75 |     100 |     100 | 4
+  updateAchievementsProgress.js     |     100 |    93.75 |     100 |     100 | 12
  logic/helpers/tests                |     100 |      100 |     100 |     100 | 
   cleanUp.js                        |     100 |      100 |     100 |     100 | 
-  generate.js                       |     100 |      100 |     100 |     100 | 
+  generate.js                       |     100 |      100 |     100 |     100 |                   
   index.js                          |     100 |      100 |     100 |     100 | 
  logic/levels                       |   98.79 |    88.88 |      95 |   98.71 | 
-  createLevel.js                    |      90 |      100 |      50 |      90 | 22
+  createLevel.js                    |      90 |      100 |      50 |      90 | 32
   retrieveLevel.js                  |     100 |      100 |     100 |     100 | 
   retrieveLevels.js                 |     100 |      100 |     100 |     100 | 
   retrieveLevelsByAuthor.js         |     100 |      100 |     100 |     100 | 
   retrieveLevelsByFollowed.js       |     100 |      100 |     100 |     100 | 
   retrieveLevelsSaved.js            |     100 |      100 |     100 |     100 | 
-  toggleLike.js                     |     100 |     87.5 |     100 |     100 | 18
-  toggleSave.js                     |     100 |     87.5 |     100 |     100 | 18
- logic/users                        |   99.52 |     92.3 |     100 |   99.47 |                   
+  toggleLike.js                     |     100 |     87.5 |     100 |     100 | 25
+  toggleSave.js                     |     100 |     87.5 |     100 |     100 | 25                
+ logic/users                        |   99.52 |     92.3 |     100 |   99.47 | 
   authenticateUser.js               |     100 |      100 |     100 |     100 | 
   checkRecoveryAnswer.js            |     100 |      100 |     100 |     100 | 
-  recoverPassword.js                |     100 |      100 |     100 |     100 | 
-  registerUser.js                   |   95.65 |       50 |     100 |   95.65 | 49
+  recoverPassword.js                |     100 |      100 |     100 |     100 |                   
+  registerUser.js                   |   95.65 |       50 |     100 |   95.65 | 60
   retrieveCC.js                     |     100 |      100 |     100 |     100 | 
   retrieveRandomRecoveryQuestion.js |     100 |      100 |     100 |     100 | 
   retrieveUnlockAvatars.js          |     100 |      100 |     100 |     100 | 
   retrieveUser.js                   |     100 |      100 |     100 |     100 | 
   retrieveUserLogged.js             |     100 |      100 |     100 |     100 | 
-  toggleFollow.js                   |     100 |       80 |     100 |     100 | 18-19
+  toggleFollow.js                   |     100 |       80 |     100 |     100 | 25-26             
   unlockAvatar.js                   |     100 |      100 |     100 |     100 | 
   updateAvatar.js                   |     100 |      100 |     100 |     100 | 
-  updateCC.js                       |     100 |    83.33 |     100 |     100 | 16
+  updateCC.js                       |     100 |    83.33 |     100 |     100 | 25
   updateColor.js                    |     100 |      100 |     100 |     100 | 
-  updatePassword.js                 |     100 |      100 |     100 |     100 |  
+  updatePassword.js                 |     100 |      100 |     100 |     100 |
 
 </br>
 
@@ -169,7 +173,7 @@ Planned through a kanban visible on this [Trello](https://trello.com/b/uHRmZKBR/
 - Me as a user, I want to get little awards that stimulate me to keep playing and interact with other users.
 
 #### **Customization Credits**
-- 
+- Me as auser, I want to earn point when I play that I can spend to create more levels or customize my profile
 
 </br>
 

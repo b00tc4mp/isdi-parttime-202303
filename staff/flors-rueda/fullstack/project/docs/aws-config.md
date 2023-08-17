@@ -35,9 +35,9 @@ $ sudo systemctl enable docker # with this you make sure every time this instanc
 - As explained [here](https://github.com/docker/build-push-action).
 - *All* my configuration files are:
     - [flors-rueda-ci-cd.yml](../../../../../.github/workflows/flors-rueda-ci-cd.yml).
-    - [Dockerfile for the backend](../Dockerfile)
-    - [nginx configuration](../nginx/nginx.conf)
-    - [Dockerfile for the front](../nginx/Dockerfile)
+    - [Dockerfile for the backend](../docker/api/Dockerfile)
+    - [nginx configuration](../docker/nginx/nginx.conf)
+    - [Dockerfile for the front](../docker/nginx/Dockerfile)
 
 - With nginx I connect front and back on the same IP, avoiding cors security errors or browser issues.
 
@@ -52,7 +52,7 @@ vim docker-compose.yml
 ```
 - Press **i** to write, **v** to select and **d** to delete.
 
-- With right click paste this [docker-compose.yml](../docker-compose.yml) and press ESC and **:wq**.
+- With right click paste this [docker-compose.yml](../docker/docker-compose.yml) and press ESC and **:wq**.
 
 ```sh
 $ sudo docker-compose up -d
@@ -68,6 +68,7 @@ $ curl -v localhost:80/api # test hello api
 $ curl -v -X POST localhost:80/api/levels -H "Content-Type: application/json" -d '{"name": "curlTest", "layout": [["empty", "bomb", "stonks", "empty", "dirt", "bomb", "dirt", "empty", "start"]], "id": "id-ex1"}'  # test post to api
 ```
 ## Acces the ip to check if the front is running, everything should be fine!
+
 
 
 
