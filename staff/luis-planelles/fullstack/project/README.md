@@ -38,10 +38,15 @@ Space Pursuit is a Node.js web application that allows users to create private b
 
 #### User
 
-- `username`: User's username (string). Required. Unique.
+- `name`: User's username (string). Required. Unique.
 - `email`: User's email address (string). Required. Unique.
 - `password`: User's password (string). Required.
 - `avatar`: A string representing the avatar or profile picture of the user. Default: null.
+
+#### Participant
+
+- `name`: User's username (string). Required. Unique.
+- `email`: User's email address (string).
 
 #### Mission
 
@@ -52,7 +57,7 @@ Space Pursuit is a Node.js web application that allows users to create private b
 - `lastUpdate`: A Date field representing the date of the last update for the mission. Default: Date.now.
 - `startDate`: A Date field representing the start date of the mission. Required.
 - `endDate`: A Date field representing the end date of the mission. Required.
-- `participants`: An array of Object IDs (ObjectId) referring to the "User" entities participating in the mission.
+- `participants`: An array of "Participant" associated in the mission. Required.
 - `loserPrice`: A string representing the loser's prize for the mission. Required.
 
 #### Explorer
@@ -76,10 +81,10 @@ Task breakdown and progress tracking in [Trello.](https://trello.com/b/CmBbNAni/
 
 ### API Endpoints
 
-- `POST /api/register` - Register a new user
-- `POST /api/login` - Log in a user
-- `POST /api/missions` - Create a new mission
-- `GET /api/missions/:id` - Get a specific mission
+- `POST /users` - Register a new user
+- `POST /users/auth` - Log in a user
+- `POST /missions` - Create a new mission
+- `GET /missions/:id` - Get a specific mission
 
 ### License
 
