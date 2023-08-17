@@ -47,8 +47,65 @@ const validatePassword = (password, type = 'password') => {
   return password;
 };
 
+const validateId = (id, explain = 'id') => {
+  const regexHex = /^#([0-9A-Fa-f]{3}){1,2}$/;
+
+  if (typeof id !== 'string') throw new TypeError(`${explain} is not a string`);
+  if (!id.trim().length) throw new ContentError(`${explain} is empty`);
+  if (id.trim().length !== 24)
+    throw new ContentError(`${explain} does not have 24 characters`);
+  if (regexHex.test(id))
+    throw new ContentError(`${explain} is not hexagecimal`);
+};
+
+const validateText = (text, explain = 'string') => {
+  if (typeof text !== 'string')
+    throw new TypeError(`${explain} is not a string`);
+  if (!text.trim().length) throw new ContentError(`${explain} is empty`);
+};
+
+const validateDateString = (date, explain = 'date') => {
+  const dateObject = new Date(date);
+
+  if (!(dateObject instanceof Date))
+    throw new TypeError(`${explain} is not a Date object`);
+
+  if (isNaN(dateObject.getTime()))
+    throw new ContentError(`${explain} is not a valid Date`);
+
+  return date;
+};
+
+const validateObject = (object, explain = 'object') => {
+  if (typeof object !== 'object' || object === null)
+    throw new TypeError(`${explain} is not an object`);
+
+  return object;
+};
+
+const validateArray = (array, explain = 'array') => {
+  if (!Array.isArray(array)) {
+    throw new TypeError(`${explain} is not an array`);
+  }
+
+  return array;
+};
+
+const validateToken = (token, explain = 'token') => {
+  if (typeof token !== 'string')
+    throw new TypeError(`${explain} is not a string`);
+  if (token.split('.').length !== 3)
+    throw new ContentError(`${explain} is not a valid`);
+};
+
 module.exports = {
   validateName,
   validateEmail,
   validatePassword,
+  validateId,
+  validateText,
+  validateDateString,
+  validateObject,
+  validateArray,
+  validateToken,
 };
