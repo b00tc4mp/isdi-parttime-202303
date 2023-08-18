@@ -1,22 +1,20 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom'
-import retrieveUserGeolocation from '../../logic/users/retrieveUserGeolocation'
+import { useAppContext } from '../hooks'
 
 import registerUser from '../../logic/users/registerUser';
-import { useAppContext } from '../hooks'
 import { Button } from '../library'
 
-const Login = ({ city, geolocation }) => {
+const Login = ({ city, ipGeoLocation }) => {
     console.debug('// Login/Register  -> Render');
 
-    // const [Register, setRegister] = useState(null);
     const [error, setError] = useState(null);
 
     // const { alert, freeze, unfreeze, navigate } = useAppContext()
 
     function handleRegister(event) {
         event.preventDefault()
-
+        debugger
         const name = event.target.name.value
         const nickName = event.target.nickName.value
         const email = event.target.email.value
@@ -25,10 +23,10 @@ const Login = ({ city, geolocation }) => {
 
         try {
             // freeze()
-            registerUser(name, nickName, email, password, repeatPassword, city, geolocation)
+            registerUser(name, nickName, email, password, repeatPassword, city, ipGeoLocation)
                 .then(() => navigate('/login'))
                 .catch(error => alert(error.message))
-            console.log(geolocation);
+            console.log(ipGeoLocation);
             // unfreeze()
         } catch (error) {
             alert(error.message)
@@ -41,10 +39,26 @@ const Login = ({ city, geolocation }) => {
     return <div>
         <div className='m-2'>
             {city && <h2>Your City: {city} </h2>}
-            {city && <h2>Your geolocaltion: {geolocation[0]},{geolocation[1]} </h2>}
+            {city && <h2>Your geolocaltion: {ipGeoLocation[0]},{ipGeoLocation[1]} </h2>}
         </div >
-        < div id="register" tag='section' className="p-4" >
+
+        <div id='login-register' className="p-4">
             <h2>Register / Login</h2>
+            <form action="">
+                <label htmlFor="email">E-mail:</label>
+                <input type="text" className="email" name="email" placeholder="Enter your e-mail" autoComplete="enter email" />
+                <Button type="submit" value="validateEmail">next</Button>
+            </form>
+        </div>
+
+        <div id='login'></div>
+        <form action="">
+            <label htmlFor="password">Password:</label>
+            <input type="password" className="password" name="password" placeholder="Enter your password" autoComplete="enter password" />
+            <Button type="submit" value="loginUser">login</Button>
+        </form>
+
+        <div id="register" tag='section' className="p-4" >
             <form method="get" className="register-form border-top-gradient" onSubmit={handleRegister}>
 
                 <label htmlFor="name">Name:</label>
@@ -52,9 +66,6 @@ const Login = ({ city, geolocation }) => {
 
                 <label htmlFor="nickName"> Nick name:</label>
                 <input type="text" className="nickName" name="nickName" placeholder="Enter your nickName" autoComplete="enter nickName" />
-
-                <label htmlFor="email">E-mail:</label>
-                <input type="text" className="email" name="email" placeholder="Enter your e-mail" autoComplete="enter email" />
 
                 <label htmlFor="password">Password:</label>
                 <input type="password" className="password" name="password" placeholder="Enter your password" autoComplete="enter password" />

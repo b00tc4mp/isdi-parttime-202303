@@ -12,7 +12,7 @@ const { Provider } = AppContext
 function App() {
     // const navigate = useNavigate()
     const [city, setCity] = useState('');
-    const [geolocation, setGeolocation] = useState('');
+    const [ipGeoLocation, setGeolocation] = useState('');
 
 
     useEffect(() => {
@@ -34,8 +34,8 @@ function App() {
         <Routes>
             {(() => console.log("ROUTES = render"))()}
 
-            <Route path="/" element={<Home city={city} geolocation={geolocation} />} />
-            <Route path="/login" element={<Login city={city} geolocation={geolocation} />} />
+            <Route path="/" element={<Home city={city} ipGeoLocation={ipGeoLocation} />} />
+            <Route path="/login" element={<Login city={city} ipGeoLocation={ipGeoLocation} />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/events" element={<Home />} />
             <Route path="/reviews" element={<Home />} />

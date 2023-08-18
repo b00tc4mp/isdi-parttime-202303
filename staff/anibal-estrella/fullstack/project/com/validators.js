@@ -88,6 +88,23 @@ function validateToken(token, explain = 'token') {
     if (typeof token !== 'string') throw new TypeError(`${explain} is ${typeof id} and must be a string`)
     if (token.split('.').length != 3) throw new ContentError(`${explain} is not `)
 }
+function validateIpGeoLocation(ipGeoLocationCoordinates, explain = 'ipGeoLocation') {
+    if (!Array.isArray(ipGeoLocationCoordinates)) throw new TypeError(`${explain} must be an array`);
+
+    if (ipGeoLocationCoordinates.length !== 2) throw new ContentError(`${explain} must contain exactly two values (latitude and longitude)`);
+
+    const [latitude, longitude] = ipGeoLocationCoordinates;
+
+    if (typeof latitude !== 'number' || latitude < -90 || latitude > 90) {
+        throw new ContentError(`${explain} contains an invalid latitude`);
+    }
+
+    if (typeof longitude !== 'number' || longitude < -180 || longitude > 180) {
+        throw new ContentError(`${explain} contains an invalid longitude`);
+    }
+}
+
+
 
 
 module.exports = {
@@ -100,5 +117,6 @@ module.exports = {
     validateText,
     validateCallback,
     validateCity,
-    validateToken
+    validateToken,
+    validateIpGeoLocation
 }

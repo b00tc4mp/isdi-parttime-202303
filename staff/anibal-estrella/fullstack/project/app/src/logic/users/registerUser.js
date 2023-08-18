@@ -1,8 +1,5 @@
-import { validators } from 'com'
-
-const { validateName, validateEmail, validatePassword, } = validators
-
-export default (name, nickName, email, password, repeatPassword, city, geolocation) => {
+export default (name, nickName, email, password, repeatPassword, city, ipGeoLocation) => {
+    debugger
     if (password !== repeatPassword) {
         throw new Error("Passwords do not match, please try again");
     }
@@ -12,7 +9,7 @@ export default (name, nickName, email, password, repeatPassword, city, geolocati
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ name, nickName, email, password, city, geolocation })
+        body: JSON.stringify({ name, nickName, email, password, city, ipGeoLocation })
     })
         .then(res => {
             if (res.status === 201)

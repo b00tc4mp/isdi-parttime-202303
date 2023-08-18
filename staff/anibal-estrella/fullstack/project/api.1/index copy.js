@@ -7,7 +7,7 @@ const bodyParser = require('body-parser')
 const {
     helloApiHandler,
     registerUserHandler,
-    authenticateUserEmailHandler,
+    authenticateUserHandler,
     updateUserAvatarHandler,
     updateUserPasswordHandler,
     updateUserEmailHandler,

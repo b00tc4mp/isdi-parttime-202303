@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { EventCard, SearchArtist, SearchPlace } from '../components'
 
-export default ({ city, geolocation }) => {
+export default ({ city, ipGeoLocation }) => {
 
     console.debug('// Home  -> Render')
     const [selectedNavItem, setSelectedNavItem] = useState('artist');
@@ -20,7 +20,7 @@ export default ({ city, geolocation }) => {
 
         <div className='m-2'>
             {city && <h2>Your City: {city} </h2>}
-            {city && <h2>Your geolocaltion: {geolocation[0]},{geolocation[1]} </h2>}
+            {city && <h2>Your geolocaltion: {ipGeoLocation[0]},{ipGeoLocation[1]} </h2>}
         </div >
 
         <section id="home" className="pt-8 px-2">
