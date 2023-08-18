@@ -23,5 +23,9 @@ module.exports = {
     achievements: (userId, allAchievements) => ({
         user: userId,
         progressByAchievement: allAchievements,
+    }),
+    session: (userId, sessions) => ({
+        user: userId,
+        sessions: sessions,
     })
 };

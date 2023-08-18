@@ -5,7 +5,7 @@ module.exports = handleErrors((req, res) => {
     const userId = extractUserId(req);
     return updateTutorialAchievements(userId).then((achievementsToSendNotification) => {
         achievementsToSendNotification.forEach(achievement => {
-            sendAchievementNotification(achievement);
+            sendAchievementNotification(achievement, userId);
         });
 
         return res.status(201).send();

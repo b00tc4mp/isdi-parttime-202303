@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 const http = require('http');
 const { Server } = require('socket.io');
 
-const { helloApiHandler, retrieveLevelsHandler, retrieveLevelHandler, createLevelHandler, authenticateUserHandler, registerUserHandler, retrieveUserHandler, retrieveUserLoggedHandler, updateColorHandler, updateAvatarHandler, toggleLikeHandler, updatePasswordHandler, recoverPasswordHandler, retrieveRandomRecoveryQuestionHandler, checkRecoveryAnswerHandler, toggleFollowHandler, retrieveLevelsByFollowedHandler, retrieveLevelsByAuthorHandler, retrieveLevelsSavedHandler, toggleSaveHandler, retrieveCompleteAchievementsHandler, updateCreateAchievementsHandler, updateGameAchievementsHandler, updateSocialAchievementsHandler, updateTutorialAchievementsHandler, retrieveCCHandler, updateCCHandler, retrieveUnlockAvatarsHandler, unlockAvatarHandler, updateCCAchievementsHandler } = require('./handlers');
+const { helloApiHandler, retrieveLevelsHandler, retrieveLevelHandler, createLevelHandler, authenticateUserHandler, registerUserHandler, retrieveUserHandler, retrieveUserLoggedHandler, updateColorHandler, updateAvatarHandler, toggleLikeHandler, updatePasswordHandler, recoverPasswordHandler, retrieveRandomRecoveryQuestionHandler, checkRecoveryAnswerHandler, toggleFollowHandler, retrieveLevelsByFollowedHandler, retrieveLevelsByAuthorHandler, retrieveLevelsSavedHandler, toggleSaveHandler, retrieveCompleteAchievementsHandler, updateCreateAchievementsHandler, updateGameAchievementsHandler, updateSocialAchievementsHandler, updateTutorialAchievementsHandler, retrieveCCHandler, updateCCHandler, retrieveUnlockAvatarsHandler, unlockAvatarHandler, updateCCAchievementsHandler, createSessionHandler, cleanSessionHandler } = require('./handlers');
 
 const mongoose = require('mongoose');
 
@@ -18,8 +18,6 @@ mongoose.connect(process.env.MONGODB_URL)
             cors: {
                 origin: '*',
                 methods: ["GET", "POST", "PATCH"]
-
-                //origin: 'http://15.188.51.248'
             }
         });
 
@@ -106,6 +104,10 @@ mongoose.connect(process.env.MONGODB_URL)
 
         api.patch('/api/users/avatars', jsonBodyParser, unlockAvatarHandler);
 
+        api.post('/api/session/:userId/:socketId', createSessionHandler);
+
+        api.patch('/api/session/:userId/:socketId', cleanSessionHandler);
+
         io.on('connection', (socket) => {
             console.log('a user connected');
             socket.on('sendSocketId', (data) => {
@@ -113,6 +115,7 @@ mongoose.connect(process.env.MONGODB_URL)
                 module.exports.frontendSocketId = frontendSocketId
             });
         });
+
 
         server.listen(process.env.PORT, () => console.log(`server running in port ${process.env.PORT}`));
 

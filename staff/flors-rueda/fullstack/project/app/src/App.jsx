@@ -25,6 +25,8 @@ import updateSocialAchievements from './logic/update-social-achievements';
 import useHandleErrors from './hooks/useHandleErrors';
 import socketIOClient from 'socket.io-client';
 import AchievementToast from './components/toasts/AchievementToast';
+import createSession from './logic/create-session';
+import cleanSession from './logic/clean-session';
 
 const App = () => {
   const [isApiAvailable, setApiAvailableOn] = useState(true);
@@ -34,6 +36,7 @@ const App = () => {
   const handleErrors = useHandleErrors();
   const [achievementNotifications, setAchievementNotifications] = useState([]);
   const [updateUserInfo, setUpdateUserInfo] = useState(false);
+  const [connectSocket, setConnectSocket] = useState(false);
 
   unlockScroll();
 
@@ -46,7 +49,6 @@ const App = () => {
       setApiAvailableOn(true);
     } catch (error) {
       setApiAvailableOn(false);
-      console.log(error)
     }
   };
 
@@ -62,28 +64,37 @@ const App = () => {
   }, [location.pathname]);
 
   useEffect(() => {
-    //const socket = socketIOClient('http://localhost:4321');
-    const socket = socketIOClient('http://15.188.51.248:4321');
+    const url = import.meta.env.VITE_API_URL;
+    const parts = url.split(':');
+    const socketUrl = parts.slice(0, 2).join(':').concat(':4321');
+    const socket = socketIOClient(socketUrl);
     socket.on('connect', () => {
-      const id = socket.id;
-      socket.emit('sendSocketId', { id });
-      console.log('socket on');
-
-      socket.on('notification', (message) => {
-        console.log('socket notification on');
-        setAchievementNotifications(prevNotifications => {
-          const lastNotification = prevNotifications[prevNotifications.length - 1];
-          if (!lastNotification || lastNotification !== message) {
-            return [...prevNotifications, message];
-          }
-          return prevNotifications;
-        });
+      const socketId = socket.id
+      socket.emit('sendSocketId', { socketId });
+      console.log('in', socketId)
+      if (isUserLoggedIn()) {
+        handleErrors(async () => {
+          await createSession(socketId);
+        })
+      }
+      socket.on('notification', ({ message, sockets }) => {
+        console.log('socket notification on', sockets, socketId);
+        if (sockets.includes(socketId)) {
+          setAchievementNotifications(prevNotifications => {
+            const lastNotification = prevNotifications[prevNotifications.length - 1];
+            if (!lastNotification || lastNotification !== message) {
+              return [...prevNotifications, message];
+            }
+            return prevNotifications;
+          });
+        }
       });
     });
     return () => {
       socket.disconnect();
+      if (isUserLoggedIn()) cleanSession();
     };
-  }, []);
+  }, [connectSocket]);
 
   return (
     <AppContext.Provider value={{ alert: handleShowAlert }}>
@@ -113,7 +124,7 @@ const App = () => {
           <Route path="/about" element={<About />} />
           <Route path="/profile/:id" element={<Profile />} />
           <Route path="/settings" element={<Settings />} />
-          <Route path="/signin" element={isUserLoggedIn() ? <Navigate to="/levels" /> : <SignIn />} />
+          <Route path="/signin" element={isUserLoggedIn() ? <Navigate to="/levels" /> : <SignIn setConnectSocket={setConnectSocket} />} />
           <Route path="/*" element={<NotFound />} />
         </Routes>
       </div>

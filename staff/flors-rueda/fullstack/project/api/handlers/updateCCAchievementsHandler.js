@@ -6,7 +6,7 @@ module.exports = handleErrors((req, res) => {
     const { cc, operator } = req.body;
     return updateCCAchievements(userId, cc, operator).then((achievementsToSendNotification) => {
         achievementsToSendNotification.forEach(achievement => {
-            sendAchievementNotification(achievement);
+            sendAchievementNotification(achievement, userId);
         });
 
         return res.status(201).send();

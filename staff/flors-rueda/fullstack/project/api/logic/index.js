@@ -27,5 +27,8 @@ module.exports = {
     retrieveUnlockAvatars: require('./users/retrieveUnlockAvatars'),
     unlockAvatar: require('./users/unlockAvatar'),
     updateCC: require('./users/updateCC'),
-    updateCCAchievements: require('./achievements/updateCCAchievements')
+    updateCCAchievements: require('./achievements/updateCCAchievements'),
+    cleanSession: require('./session/cleanSession'),
+    createSession: require('./session/createSession'),
+    retrieveAllUserSessions: require('./session/retrieveAllUserSessions')
 }

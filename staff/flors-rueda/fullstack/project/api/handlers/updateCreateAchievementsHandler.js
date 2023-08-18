@@ -6,7 +6,7 @@ module.exports = handleErrors((req, res) => {
     const { createData } = req.body;
     return updateCreateAchievements(userId, createData).then((achievementsToSendNotification) => {
         achievementsToSendNotification.forEach(achievement => {
-            sendAchievementNotification(achievement);
+            sendAchievementNotification(achievement, userId);
         });
 
         return res.status(201).send();

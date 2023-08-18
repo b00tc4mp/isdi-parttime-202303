@@ -22,7 +22,7 @@ describe('unlockAvatar', () => {
         await mongoose.connection.close();
     });
 
-    it('should add cc with valid userId and positive value', async () => {
+    it('should add the selected new user avatar to unlockAvatars by user id', async () => {
         const username = `User${Math.floor(Math.random() * 999)}`;
         const password = `Password${Math.random()}`;
         const color = colors[Math.floor(Math.random() * colors.length)];

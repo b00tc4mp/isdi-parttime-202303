@@ -3,7 +3,6 @@ import { errors } from 'com'
 
 
 export default () => {
-    const { alert } = useAppContext()
 
     return callback => {
         try {
@@ -22,6 +21,6 @@ export default () => {
     }
 }
 
-function showError(error, alert) {
-    alert(error.message)
+function showError(error) {
+    console.log(error.message)
 }

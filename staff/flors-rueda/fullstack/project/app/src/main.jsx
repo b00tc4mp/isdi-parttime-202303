@@ -10,7 +10,7 @@ inLogger.on = false;
 ReactDOM.createRoot(document.getElementById('root')).render(
   //<React.StrictMode>
   <Router>
-    {(() => console.log(`%c[Router] Rendered`, 'color: silver; font-weight: bold'))()}
+    {(() => console.log(`%c[Router] On`, 'color: silver; font-weight: bold'))()}
     <App />
   </Router>
   //</React.StrictMode>

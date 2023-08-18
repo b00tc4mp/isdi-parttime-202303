@@ -41,7 +41,7 @@ module.exports = (userId) => {
             }
             return achievement
         });
-        await Achievements.updateOne({ user: userId }, { progressByAchievement: updateAchievements });;
+        await Achievements.updateOne({ user: userId }, { progressByAchievement: updateAchievements });
 
         return achievementsToNotify;
     })();

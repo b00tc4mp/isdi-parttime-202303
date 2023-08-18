@@ -11,7 +11,7 @@ import registerUser from '../logic/register-user';
 import useHandleErrors from '../hooks/useHandleErrors';
 import RecoverPasswordForm from '../components/forms/RecoverPasswordForm';
 
-const SignIn = () => {
+const SignIn = ({ setConnectSocket }) => {
     const location = useLocation();
     const { startingForm } = location.state ? location.state : {};
     const [form, setForm] = useState(startingForm ? startingForm : 'login');
@@ -47,6 +47,7 @@ const SignIn = () => {
 
         handleErrors(async () => {
             await loginUser(username, password);
+            setConnectSocket(true);
             navigate('/levels');
         })
     }
@@ -70,6 +71,7 @@ const SignIn = () => {
         handleErrors(async () => {
             await registerUser(username, password, repeatPassword, recoveryQuestions, color);
             await loginUser(username, password);
+            setConnectSocket(true);
             navigate('/levels');
         })
     }

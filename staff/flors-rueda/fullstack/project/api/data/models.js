@@ -150,14 +150,39 @@ const achievements = new Schema({
     }
 })
 
-const Level = model('Level', level)
+const sessionDetails = new Schema({
+    socketId: {
+        type: String,
+        required: true,
+    },
+    date: {
+        type: Date,
+        required: true,
+    }
+})
 
-const User = model('User', user)
+const session = new Schema({
+    user: {
+        type: ObjectId,
+        required: true,
+    },
+    sessions: {
+        type: [sessionDetails],
+        required: true,
+    }
+})
 
-const Achievements = model('Achievements', achievements)
+const Level = model('Level', level);
+
+const User = model('User', user);
+
+const Achievements = model('Achievements', achievements);
+
+const Session = model('Session', session);
 
 module.exports = {
     Level,
     User,
-    Achievements
+    Achievements,
+    Session,
 }

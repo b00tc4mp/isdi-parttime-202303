@@ -29,5 +29,6 @@ module.exports = {
     unlockAvatarHandler: require('./unlockAvatarHandler'),
     updateCCHandler: require('./updateCCHandler'),
     updateCCAchievementsHandler: require('./updateCCAchievementsHandler'),
-
+    createSessionHandler: require('./createSessionHandler'),
+    cleanSessionHandler: require('./cleanSessionHandler')
 }
