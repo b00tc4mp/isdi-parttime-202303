@@ -22,6 +22,27 @@ export default function BaseMap({ onMarkerPressed, searchResult, user }) {
     const onMarkerPressedHandler = () => onMarkerPressed()
 
     useEffect(() => {
+        console.log('Refresh Posts -> render in useEffect')
+        try {
+            console.log('   Show all Posts -> render in useEffect onLoad compo')
+            retrievePlaygrounds(TOKEN)
+                .then(playgrounds => {
+                    setPlaygrounds(playgrounds)
+                })
+                .catch(error => {
+                    alert(error.message)
+                })
+
+                .catch(error => {
+                    alert(error.message)
+                })
+        } catch (error) {
+            alert(error.message)
+        }
+    }, [])
+
+
+    useEffect(() => {
         if (searchResult) {
             setPlaygrounds(searchResult[1])
             const onCurrentMarkerRegion = {
@@ -57,25 +78,7 @@ export default function BaseMap({ onMarkerPressed, searchResult, user }) {
         }
     }, [loadCurrentLocation])
 
-    useEffect(() => {
-        console.log('Refresh Posts -> render in useEffect')
-        try {
-            console.log('   Show all Posts -> render in useEffect onLoad compo')
-            retrievePlaygrounds(TOKEN)
-                .then(playgrounds => {
-                    setPlaygrounds(playgrounds)
-                })
-                .catch(error => {
-                    alert(error.message)
-                })
 
-                .catch(error => {
-                    alert(error.message)
-                })
-        } catch (error) {
-            alert(error.message)
-        }
-    }, [])
 
 
     useEffect(() => {

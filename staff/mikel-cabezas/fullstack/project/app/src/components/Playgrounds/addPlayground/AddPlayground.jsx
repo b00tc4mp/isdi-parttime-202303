@@ -36,11 +36,12 @@ export default function CreatePlayground({ closeHandle, cancelAddPlayground }) {
 
     const [currentLocation, setCurrentLocation] = useState([])
     useEffect(() => {
+
         (async () => {
             let { status } = await Location.requestForegroundPermissionsAsync();
             if (status !== 'granted') {
                 setErrorMsg('Permission to access location was denied');
-                return;
+                return
             }
             let location = await Location.getCurrentPositionAsync({});
             const current = [location.coords.latitude, location.coords.longitude]
@@ -55,6 +56,7 @@ export default function CreatePlayground({ closeHandle, cancelAddPlayground }) {
     }
     const handleEditElement = elementId => {
         setModal('edit-element')
+        console.log('elementId', elementId)
         setEditElement(elementId)
     }
     const onNewElement = (element) => {
@@ -76,15 +78,18 @@ export default function CreatePlayground({ closeHandle, cancelAddPlayground }) {
         cancelAddPlayground()
     }
 
-    const onCreatePlayground = (storedImagesUrl) => {
+    const onCreatePlayground = async (storedImagesUrl) => {
         const sunExposition = { shady: playgroundShady.status, sunny: playgroundSunny.status, partial: playgroundPartial.status }
         try {
-            addPlayground(TOKEN, playgroundName, playgroundDescription, sunExposition, playgroundElements, storedImagesUrl, currentLocation)
+            await addPlayground(TOKEN, playgroundName, playgroundDescription, sunExposition, playgroundElements, storedImagesUrl, currentLocation)
                 .then(() => {
                     onClose()
                     alert('Playground created!')
                 })
-                .catch(error => alert(error.message))
+                .catch(error => {
+                    alert(error.message)
+                    setUploading(false)
+                })
         } catch (error) {
             console.log(error.message)
         }

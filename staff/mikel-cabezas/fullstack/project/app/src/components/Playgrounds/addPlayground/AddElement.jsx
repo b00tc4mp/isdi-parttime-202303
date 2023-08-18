@@ -44,9 +44,11 @@ export default function AddElement({ onElementCreated, onCancelAddElement, id })
 
     return <>
         {modal && <View className="flex-1  bg-black60 items-center justify-center absolute w-[100vw] h-full z-[51] bottom-0 ">
-            <TouchableOpacity activeOpacity="0.8" className="absolute bottom-[165px] rounded-lg bg-mainLime right-3.5 z-50">
-                <Text className=" p-1.5 font-bold" onPress={onCloseModal}>OK</Text>
-            </TouchableOpacity>
+            <View className="w-full absolute bottom-[152px] right-0 z-50 flex-row  justify-end py-5 px-5">
+                <TouchableOpacity activeOpacity="0.8" className=" rounded-lg bg-mainLime ">
+                    <Text className=" p-1.5 font-bold" onPress={onCloseModal}>OK</Text>
+                </TouchableOpacity>
+            </View>
             {modal === 'type' && <Picker
                 className="w-full bg-white h-56 text-bold rounded-[20px] absolute bottom-0 pb-[20px]"
                 textColor="black"
@@ -55,21 +57,21 @@ export default function AddElement({ onElementCreated, onCancelAddElement, id })
                 onValueChange={label => { setSelectedType(label) }}
             />}
             {modal === 'age' && <Picker
-                className="w-full bg-white h-52 text-bold rounded-[20px] absolute bottom-0 pb-[20px]"
+                className="w-full bg-white h-56 text-bold rounded-[20px] absolute bottom-0 pb-[20px]"
                 textColor="black"
                 selectedValue='Set age'
                 pickerData={['Set age', '+1', '+2', '+3', '+4', '+5', '+6']}
                 onValueChange={label => { setSelectedAge(label) }}
             />}
             {modal === 'status' && <Picker
-                className="w-full bg-white h-52 text-bold rounded-[20px] absolute bottom-0 pb-[20px]"
+                className="w-full bg-white h-56 text-bold rounded-[20px] absolute bottom-0 pb-[20px]"
                 textColor="Set status"
                 pickerData={['Set status', 'Good', 'Acceptable', 'Warn', 'Dangerous']}
                 onValueChange={label => { setSelectedStatus(label) }}
             />
             }
             {modal === 'accessibility' && <Picker
-                className="w-full bg-white h-52 text-bold rounded-[20px] absolute bottom-0 pb-[20px]"
+                className="w-full bg-white h-56 text-bold rounded-[20px] absolute bottom-0 pb-[20px]"
                 textColor="Set accessibility"
                 selectedValue={label => { setSelectedAccessibility(label) }}
                 pickerData={['Set accessibility', 'Yes', 'No']}

@@ -9,9 +9,10 @@ module.exports = handleErrors((req, res) => {
 
     return mapkitAccessToken()
         .then(accessToken => {
+            debugger
             return addPlayground(accessToken, userId, name, description, sunExposition, elements, images, location)
                 .then(() => res.status(200).send())
-                .catch(error => error.message)
+            // .catch(error => res.status(409).send(error.message))
         })
 })
 

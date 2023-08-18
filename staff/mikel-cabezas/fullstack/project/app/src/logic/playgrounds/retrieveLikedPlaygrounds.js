@@ -6,7 +6,7 @@ import { EXPO_PUBLIC_API_URL } from '@env'
 export default function retrieveLikedPlaygrounds(token) {
     validateToken(token);
 
-    return fetch(`${process.env.EXPO_PUBLIC_API_URL}/playgrounds/liked`, {
+    return fetch(`${process.env.EXPO_PUBLIC_API_URL}/user/likedPlaygrounds`, {
         method: 'GET',
         headers: {
             'Authorization': `Bearer ${token}`

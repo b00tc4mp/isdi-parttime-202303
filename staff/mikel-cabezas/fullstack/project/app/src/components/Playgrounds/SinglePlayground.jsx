@@ -63,9 +63,6 @@ export default function Nearby({ closeHandle, setSinglePlaygroundImages, onHandl
             android: `${scheme}${latLng}`
         });
         Linking.openURL(url)
-
-
-
     }
 
 
@@ -171,6 +168,7 @@ export default function Nearby({ closeHandle, setSinglePlaygroundImages, onHandl
                                     activeOpacity={0.8}
                                     className="border border-mainLime  rounded-full mb-1 mt-2 mr-2 bg-mainGray"
                                     onPress={handleOpenImages}
+                                    key={index}
                                 >
                                     <Image
                                         className="w-36 h-40 object-cover rounded-2xl"

@@ -5,7 +5,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const { registerUserHandler, retrieveUserHandler, authenticateUserHandler, forgotPasswordHandler, updateUserImageHandler, updateUserNameHandler, updateUserEmailHandler, updateUserPasswordHandler, validateUserHandler, setNewPasswordHandler, recoverPasswordHandler, searchUserHandler,
-    addPlaygroundHandler, retrieveCitiesFromDatabaseHandler, retrieveCityFromSearchHandler, retrievePlaygroundsFromCityHandler, retrievePlaygroundsHandler, retrieveLikedPlaygroundsHandler, retrievePlaygroundByIdHandler, toggleLikePlaygroundHandler } = require('./handlers')
+    checkIfHasPlaygroundsNearHandler, addPlaygroundHandler, retrieveCitiesFromDatabaseHandler, retrieveCityFromSearchHandler, retrievePlaygroundsFromCityHandler, retrievePlaygroundsHandler, retrieveLikedPlaygroundsHandler, retrievePlaygroundByIdHandler, toggleLikePlaygroundHandler } = require('./handlers')
 const mongoose = require('mongoose')
 
 
@@ -32,6 +32,7 @@ mongoose.connect(process.env.MONGODB_URL)
         api.patch('/users/password', jsonBodyParser, updateUserPasswordHandler)
 
         api.get('/playgrounds', retrievePlaygroundsHandler)
+        api.post('/playgrounds/checkNear', jsonBodyParser, checkIfHasPlaygroundsNearHandler)
         api.get('/cities/:city', retrieveCitiesFromDatabaseHandler)
         api.get('/city/:coordinates', retrieveCityFromSearchHandler)
         api.get('/playgrounds/:city', retrievePlaygroundsFromCityHandler)
