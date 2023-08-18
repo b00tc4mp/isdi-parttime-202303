@@ -1,4 +1,3 @@
-import { EXPO_PUBLIC_API_URL } from '@env'
 
 // import { validators, utils } from 'com'
 // import { isTokenValid } from 'com/utils'
@@ -6,22 +5,25 @@ import { EXPO_PUBLIC_API_URL } from '@env'
 // const { isTokenValid } = utils
 // const { validateToken, validateText } = validators
 
-export default function addPlayground(token, name, description, sunExposition, elements, images, location) {
+export default function checkIfHasPlaygroundsNear(token, userLocation) {
     // validateToken(token)
     // validateText(name)
     // validateText(description)
     console.log(process.env.EXPO_PUBLIC_API_URL)
 
-    return fetch(`${process.env.EXPO_PUBLIC_API_URL}/addPlayground`, {
+    return fetch(`${process.env.EXPO_PUBLIC_API_URL}/playgrounds/checkNear`, {
         method: 'POST',
         headers: {
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ name, description, sunExposition, elements, images, location })
+        body: JSON.stringify({ userLocation })
     }).then(res => {
+        debugger
         if (res.status !== 200)
             return res.json().then(({ error: message }) => { throw new Error(message) })
+
         // return res.json()
+        return
     })
 }

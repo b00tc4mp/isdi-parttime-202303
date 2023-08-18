@@ -19,8 +19,6 @@ const HideKeyboard = ({ children }) => (
   </TouchableWithoutFeedback>
 );
 
-
-
 export default function App({ }) {
   const [view, setView] = useState('home')
   const [modal, setModal] = useState()
@@ -41,27 +39,23 @@ export default function App({ }) {
 
   const [colorPalette, setColorPalette] = useState()
 
-
   const linking = {
     prefixes: [prefix],
     config: {
       screens: {
         Login: "Login",
-
         Register: {
           path: 'Register/:token',
           parse: {
             token: (token) => `${token}`
           }
         },
-
         SetNewPassword: {
           path: 'SetNewPassword/:token',
           parse: {
             token: (token) => `${token}`
           }
         }
-
       },
     }
 
@@ -84,6 +78,7 @@ export default function App({ }) {
       await Location.getCurrentPositionAsync({ enableHighAccuracy: true, timeout: 1000 }).then(res => {
         // console.log('res.coords in App.jsx', res.coords)
         setLocation(res.coords);
+        console.log(res.coords)
         setLoadCurrentLocation(true)
       })
     })()

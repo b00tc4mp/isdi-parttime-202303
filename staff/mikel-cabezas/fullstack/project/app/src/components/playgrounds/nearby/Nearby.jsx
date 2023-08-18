@@ -2,8 +2,8 @@ import React, { useEffect, useState, useContext } from "react";
 
 import { Text, Image, View, ScrollView, TouchableHighlight, Modal, Animated } from 'react-native';
 import * as Animatable from 'react-native-animatable';
-import { CLOSE } from '../../../assets/icons';
-import Context from '../../AppContext.js'
+import { CLOSE } from '../../../../assets/icons';
+import Context from '../../../AppContext.js'
 
 import { NativeWindStyleSheet } from "nativewind";
 import NearbyPlaygrounds from "./NearbyPlaygrounds";
@@ -28,7 +28,7 @@ export default function Nearby({ closeHandle, playground, handleMarkerPressedHan
         {playground &&
             <View className="w-full h-auto max-h-max pl-5 pr-0 pt-1 rounded-[20px] mx-auto " >
                 <View className="flex-row">
-                    <Text className=" font-bold text-sm mb-2">Nearby</Text>
+                    <Text className=" font-bold text-lg mb-2">Nearby</Text>
                 </View>
                 <View className="w-auto" >
                 </View>

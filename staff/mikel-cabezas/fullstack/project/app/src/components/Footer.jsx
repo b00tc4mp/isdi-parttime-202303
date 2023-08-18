@@ -11,7 +11,7 @@ NativeWindStyleSheet.setOutput({
     default: "native",
 });
 
-export default function Footer({ nearbyHandler, createPlaygroundHandler, homeHandler }) {
+export default function Footer({ nearbyHandler, likedHandler, createPlaygroundHandler, homeHandler }) {
     const { currentView, setCurrentView, colorScheme } = useContext(Context)
 
     let isDark
@@ -23,6 +23,11 @@ export default function Footer({ nearbyHandler, createPlaygroundHandler, homeHan
     const onNearby = () => {
         nearbyHandler()
     }
+    const onLiked = () => {
+        likedHandler()
+        setCurrentView('liked')
+    }
+
     const onCreatePlayground = () => {
         createPlaygroundHandler()
     }
@@ -68,10 +73,7 @@ export default function Footer({ nearbyHandler, createPlaygroundHandler, homeHan
                 className={`p-[2px] ${currentView === 'liked' && 'bg-[#B8F138] rounded-[10px]'}`}
                 activeOpacity={1.0}
                 underlayColor="#fff"
-                onPress={() => {
-                    onNearby()
-                    setCurrentView('liked')
-                }}>
+                onPress={onLiked}>
                 <Image
                     className={`w-8 h-8 m-auto`}
                     source={isDark ? WHITE_LIKES : LIKES}

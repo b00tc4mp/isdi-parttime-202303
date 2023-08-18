@@ -21,7 +21,9 @@ export default (email, password) => {
 
             return res.json()
         })
-        .then(token => AsyncStorage.setItem('@TOKEN', token))
+        .then(async token => {
+            await AsyncStorage.setItem('@TOKEN', token)
+        })
 
 
 

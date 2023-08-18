@@ -12,6 +12,7 @@ module.exports = {
     updateUserImageHandler: require('./users/updateUserImageHandler'),
     updateUserPasswordHandler: require('./users/updateUserPasswordHandler'),
 
+    checkIfHasPlaygroundsNearHandler: require('./playgrounds/checkIfHasPlaygroundsNearHandler'),
     addPlaygroundHandler: require('./playgrounds/addPlaygroundHandler'),
     editPlaygroundHandler: require('./playgrounds/editPlaygroundHandler'),
     deletePlaygroundostHandler: require('./playgrounds/deletePostHandler'),

@@ -11,7 +11,7 @@ NativeWindStyleSheet.setOutput({
     default: "native",
 });
 
-export default function Sidebar({ navigation, closeHandle, user }) {
+export default function Sidebar({ navigation, closeHandle, user, likedHandler }) {
     const { currentView, setCurrentView, isLoggedIn, setIsLoggedIn } = useContext(Context)
     const [animation, setAnimation] = useState()
 
@@ -36,8 +36,10 @@ export default function Sidebar({ navigation, closeHandle, user }) {
         alert('TODO Go To My account')
     }
 
-    const handleGoToMyFavs = () => {
-        alert('TODO Go To My Favs')
+    const onLiked = () => {
+        setAnimation('fadeOutLeft')
+        setCurrentView('home')
+        likedHandler()
     }
 
     const handleGoToMyIssues = () => {
@@ -112,12 +114,7 @@ export default function Sidebar({ navigation, closeHandle, user }) {
                 <TouchableHighlight
                     activeOpacity={1.0}
                     underlayColor="#fff"
-                    onPress={() => {
-                        setAnimation('fadeInRight')
-                        handleGoToMyFavs()
-                        onClose()
-                        setCurrentView('home')
-                    }}>
+                    onPress={onLiked}>
                     <View className="w-12/12 flex-row py-2">
                         <Image
                             className="w-8 h-8"

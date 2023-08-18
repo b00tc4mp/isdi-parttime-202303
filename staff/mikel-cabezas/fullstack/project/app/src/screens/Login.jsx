@@ -11,6 +11,8 @@ import BG from '../../assets/bg-login.png'
 import LOGO_SM from '../../assets/logo-sm.png'
 import LOGO from '../../assets/logo.png'
 
+import { validateEmail, validatePassword } from "../../com/validators.js";
+
 
 export default function Login({ navigation }) {
     const { currentView, setCurrentView, colorScheme, TOKEN, setTOKEN, isLoggedIn, setIsLoggedIn } = useContext(Context)
@@ -19,9 +21,8 @@ export default function Login({ navigation }) {
 
 
     const handleLogin = () => {
-        // alert('TODO login')
-        // const emailError = alert('TODO email validator')
-        // const passwordError = alert('TODO password validator')
+        validateEmail(email)
+        validatePassword(password)
         authenticateUser(email, password)
             .then(async () => {
                 return AsyncStorage.getItem('@TOKEN')

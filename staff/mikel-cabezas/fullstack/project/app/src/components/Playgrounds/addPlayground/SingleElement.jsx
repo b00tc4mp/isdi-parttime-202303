@@ -58,7 +58,7 @@ export default function CreatePlayground({ key, element, handleEditElement }) {
         activeOpacity={0.8}
         className={`border border-${status}  rounded-full mb-1 mt-2 mr-2 bg-mainGray`}
         onPress={() => handleEditElement(element.id)}>
-        <View className="font-bold px-3 py-0.5 flex-row items-center">
+        <View className="font-bold px-3 py-0.5 flex-row items-center" key={key}>
             <Image className="w-5 h-5 mr-2 object-contain" source={type} />
             <Text className={`font-bold text-center text-sm`}>{element.type}</Text>
             {element.accessibility === 'Yes' && <View className=" flex justify-center justify-items-center p- ml-2">
