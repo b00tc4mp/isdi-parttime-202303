@@ -11,5 +11,8 @@ module.exports = {
     retriveMissions: require('./retriveMissions'),
     retriveMission: require('./retriveMission'),
     updateMission: require('./updateMission'),
-    deleteMission: require('./deleteMission')
+    deleteMission: require('./deleteMission'),
+    updateUsername: require('./updateUsername'),
+    updateUserEmail: require('./updateUserEmail'),
+    updateUserPassword: require('./updateUserPassword')
 }

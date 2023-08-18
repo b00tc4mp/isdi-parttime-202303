@@ -12,5 +12,8 @@ module.exports = {
     retriveMissionsHandler: require('./retriveMissionsHandler'),
     retriveMissionHandler: require('./retriveMissionHandler'),
     updateMissionHandler: require('./updateMissionHandler'),
-    deleteMissionHandler: require('./deleteMissionHandler')
+    deleteMissionHandler: require('./deleteMissionHandler'),
+    updateUsernameHandler: require('./updateUsernameHandler'),
+    updateUserEmailHandler: require('./updateUserEmailHandler'),
+    updateUserPasswordHandler: require('./updateUserPasswordHandler')
 }

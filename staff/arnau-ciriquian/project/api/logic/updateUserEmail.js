@@ -21,11 +21,9 @@ const { User } = require('../data/models')
  * @throws {AuthError} On wrong credentials
  * @throws {DuplicityError} On new email already on database
  */
-module.exports = (userId, email, newEmail, newEmailConfirmation, password) => {
+module.exports = (userId, email, newEmail, password) => {
     validateId(userId, 'user id')
     validateEmail(newEmail, 'new email')
-    //new validator?
-    if (newEmail !== newEmailConfirmation) throw new ContentError('new email confirmation is different than new email')
 
     return User.findById(userId)
         .then(user => {
