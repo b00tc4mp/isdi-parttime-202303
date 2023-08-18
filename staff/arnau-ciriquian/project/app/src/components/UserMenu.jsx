@@ -1,6 +1,6 @@
 import { View, Text, TouchableOpacity, Image } from "react-native"
 
-export default function UserMenu({ onUserLogout, onUpdateModalClick }) {
+export default function UserMenu({ onUserLogout, onUpdateModalClick, user }) {
     const handleUserLogout = () => {
         onUserLogout()
     }
@@ -24,6 +24,9 @@ export default function UserMenu({ onUserLogout, onUpdateModalClick }) {
     return (
         <View className="h-full w-full">
             <View className="absolute bg-white h-full w-full rounded-tl-lg rounded-tr-3xl rounded-bl-3xl rounded-br-lg shadow-md shadow-black opacity-50"></View>
+            <View className="justify-center ml-4 h-20">
+                <Text className="text-2xl font-bold">Hello, {user.name}!</Text>
+            </View>
             <View className="justify-center ml-4 h-20">
                 <TouchableOpacity className="flex flex-row items-center" onPress={handleGoToUpdateUsername}>
                     <Image source={require('../../assets/generic/construction.png')} className="h-10 w-10 mr-5"></Image>
