@@ -43,7 +43,7 @@ module.exports = (listId, userId, producId) => {
             tmpProduct.state = 'selected'
         }
         else {
-            if (tmpProduct.buyer !== userId) throw new InvalidDataError('invalid user')
+            if (tmpProduct.buyer.toString() !== userId) throw new InvalidDataError('invalid user')
 
             tmpProduct.buyer = null
             tmpProduct.state = '' 

@@ -59,7 +59,7 @@ describe('copyToNewList', () =>{
         expect(new Date(list.date)).to.be.a('date')
         expect(list.guests).to.have.lengthOf(1)
         expect(list.guests[0].toString()).to.equal(userTest.id)
-        expect(list.invited).to.have.lengthOf(0)
+        expect(list.invited).to.have.lengthOf(1)
     })
 
     it('fails when list already exist', async () => {
@@ -95,7 +95,7 @@ describe('copyToNewList', () =>{
     })
 
     it('fails on empty listId', () => 
-        expect(() => copyToNewList('', userTest.id, listTest.name, listTest.dateToEnd)).to.throw(Error, 'user id does not have 24 characters')
+        expect(() => copyToNewList('', userTest.id, listTest.name, listTest.dateToEnd)).to.throw(Error, 'list id does not have 24 characters')
     )
 
     it('fails on empty userId', () => 

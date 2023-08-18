@@ -8,7 +8,7 @@ const { User, List, Product } = require('../../../data/models')
 const reviewFilteredProducts = require('./reviewFilteredProducts')
 
 const { generateUser, generateList, generateStore, generateProduct, cleanUp, populateUser, populateList, populateStore, populateProduct } = require('../../helpers/tests')
-debugger
+
 describe('reviewFilteredProducts', () =>{
     let userTest, contactTest, listTest, listTest2, storeTest, type, type2, productTest, productTest2, productTest3
 

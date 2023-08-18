@@ -55,6 +55,24 @@ describe('toggleProductToCart', () =>{
 
     })
 
+
+    it('fails on toggle state deselect and user is not valid', async () => {
+        await toggleProductToCart(listTest.id, contactTest.id, productTest.id)
+        let lists = await List.find({})
+        expect(lists).to.have.length(1)
+        let list = lists[0]
+        expect(list.products).to.have.lengthOf(1)
+        expect(list.products[0].state).to.equal('selected')
+
+        try {
+            return await toggleProductToCart(listTest.id, userTest.id, productTest.id)
+        } catch (error) {
+            expect(error).to.be.instanceOf(Error)
+            expect(error.message).to.equal('invalid user')
+        }
+
+        })
+
     it('fails on existing list', async () => {
         const listTestNoExistsId = '000000000000000000000000'
 

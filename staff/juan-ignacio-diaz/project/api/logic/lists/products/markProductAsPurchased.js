@@ -36,7 +36,7 @@ module.exports = (listId, userId, producId, price) => {
         const tmpProduct = tmpList.products[0]
         
         tmpProduct.price = price
-        tmpProduct.date = new Date.now
+        tmpProduct.date = new Date(Date.now())
         tmpProduct.state = 'bought'
         tmpProduct.view = list.guests
         

@@ -40,16 +40,16 @@ module.exports = (listId, userId, name, dateToEnd) => {
         })
 
         try {
-            const list = await List.create({ 
+            await List.create({ 
                 name, 
                 owner: user._id,
                 guests: [], 
                 dateToEnd,
                 invited: list.guests.filter(user => user._id.toString() !== userId),
                 stores: list.stores,
-                products: products
+                products: products,
+                guests: [userId]
             })
-            await List.findByIdAndUpdate(list.id,  { $push: { guests: [userId] } }) 
         }
         catch (error) {
             if(error.message.includes('E11000'))
