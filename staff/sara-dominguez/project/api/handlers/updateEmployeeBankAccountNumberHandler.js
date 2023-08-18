@@ -1,12 +1,18 @@
 //TODO handleErrors
 const { updateEmployeeBankAccountNumber } = require('../logic')
 const { extractEmployeeId } = require('./helpers')
+const { handleErrors } = require('./helpers')
 
-module.exports = (req, res,) => {
+module.exports = handleErrors((req, res,) => {
     const employeeId = extractEmployeeId(req)
 
     const { employeeNewBankAccountNumber } = req.body
 
-    return updateEmployeeBankAccountNumber(employeeId, employeeNewBankAccountNumber)
-        .then(() => res.status(204).send())
-}
+    const promise = updateEmployeeBankAccountNumber(employeeId, employeeNewBankAccountNumber)
+
+    return (async () => {
+        await promise
+
+        res.status(204).send()
+    })()
+})

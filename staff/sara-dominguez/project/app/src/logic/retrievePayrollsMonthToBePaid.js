@@ -1,15 +1,18 @@
 import context from './context'
-import { validators } from 'com'
+import { validators, errors } from 'com'
 const { validatePayrollYear, validatePayrollMonth } = validators
-//TODO preguntas a Manu documentar
+
 /**
- * Retrieve a payroll month to be paid
- * 
- * 
- * @returns {Promise<string>} employee  
-//  * 
-//  * @throws {TypeError} On non-string 
-// 
+* Retrieve payroll month to be paid
+* 
+* @param {number} payrollYear  The payroll's year to retrieve
+* @param {number} payrollMonth  The payroll's month to retrieve
+*
+* @returns {Promise}  Object with payrolls data for a year and month to process
+*
+* @throws {TypeError} On non-number payrollYear or payrollMonth 
+* @throws {ContentError} On payrollYear or payrlollMonth are empty
+* @throws {RangeError} On non-integer payrollyear or non-integer between 1 and 12 payrollMonth
  */
 
 export default (payrollYear, payrollMonth) => {
@@ -24,11 +27,12 @@ export default (payrollYear, payrollMonth) => {
         })
         if (res.status === 200) {
             return res.json()
-
         } else {
-            const { error: message } = await res.json()
+            const { type, message } = await res.json()
 
-            throw new Error(message)
+            const clazz = errors[type]
+
+            throw new clazz(message)
         }
     })()
 }

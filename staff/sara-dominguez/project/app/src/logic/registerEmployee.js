@@ -1,4 +1,22 @@
-// import context from './context'
+
+import { validators } from 'com'
+const {
+    validateName,
+    validateFirstSurname,
+    validateSecondSurname,
+    validateIdCardNumber,
+    validateTssNumber,
+    validatePersonalPhoneNumber, validateBankAccountNumber,
+    validateUrl,
+    validateEmployeeNumber,
+    validateTypeOfContract,
+    validateJobPosition,
+    validateDepartment,
+    validateCenterAttached,
+    validateRoll,
+    validateProfessionalPhoneNumber, validateAccessPermissions, validateEmployeePassword
+} = validators
+
 
 export default (name,
     firstSurname,
@@ -26,6 +44,25 @@ export default (name,
     accessPermissions,
     employeePassword
 ) => {
+
+    validateName(name)
+    validateFirstSurname(firstSurname)
+    validateSecondSurname(secondSurname)
+    validateIdCardNumber(idCardNumber)
+    validateTssNumber(tssNumber)
+    validatePersonalPhoneNumber(personalPhoneNumber)
+    validateBankAccountNumber(bankAccountNumber)
+    validateUrl(avatar)
+    validateEmployeeNumber(employeeNumber)
+    validateTypeOfContract(typeOfContract)
+    validateJobPosition(jobPosition)
+    validateDepartment(department)
+    validateCenterAttached(centerAttached)
+    validateRoll(roll)
+    validateProfessionalPhoneNumber(professionalPhoneNumber)
+    validateAccessPermissions(accessPermissions)
+    validateEmployeePassword(employeePassword)
+
     return fetch(`${import.meta.env.VITE_API_URL}/employees`, {
         method: 'POST',
         headers: {

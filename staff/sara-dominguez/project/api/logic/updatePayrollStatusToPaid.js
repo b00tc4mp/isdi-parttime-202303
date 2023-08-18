@@ -1,18 +1,21 @@
 //TODO  handle Errors
 const { PayrollMonth, Employee } = require('../data/models')
-const { validators: { validateId, validateUrl } } = require('com')
+const {
+    validators: { validateId, validateUrl },
+    errors: { ExistenceError, }
+} = require('com')
 
 /**
- * Update payroll status to paid 
- * 
-* @param {string} employeeId  The employee id number
-* @param {string} employeenewAvatar  URL of the new avatar for the employee
+* Update payroll status to paid 
 * 
-* @returns {Promise<void>} Ends when employee avatar is updated
-//  * 
-//  * @throws {TypeError} On non-string employeeId or URL
-//  * @throws {ContentError} On employeeId doesn't have 24 characters or not hexadecimal or empty URL 
-//  * @throws {ExistenceError} On non-existing employee
+* @param {string} employeeId  The logged employee id number
+* @param {string} _id  The payrollMonth _id to change
+* 
+* @returns {Promise<void>} Ends when payrollMonth status is updated
+* 
+* @throws {TypeError} On non-string employeeId or _id
+* @throws {ContentError} On employeeId or _id doesn't have 24 characters or not hexadecimal 
+* @throws {ExistenceError} On non-existing employee or payrollMonth
 */
 
 module.exports = function updatePayrollStatusToPaid(employeeId, _id) {
@@ -20,16 +23,16 @@ module.exports = function updatePayrollStatusToPaid(employeeId, _id) {
     validateId(_id)
 
     return (async () => {
-        try {
-            const employee = await Employee.findById(employeeId)
+        const employee = await Employee.findById(employeeId)
 
-            if (!employee) throw new Error('employee not found')
+        if (!employee) throw new ExistenceError('employee not found')
 
+        const payrollMonth = await PayrollMonth.findById(_id)
 
-            return PayrollMonth.updateOne({ _id: _id }, { $set: { status: "paid" } })
-        } catch (error) {
-            throw new Error(error.message)
-        }
+        if (!payrollMonth) throw new ExistenceError('payrollMonth not found')
+
+        payrollMonth.status = "paid"
+
+        return payrollMonth.save()
     })()
-
 }

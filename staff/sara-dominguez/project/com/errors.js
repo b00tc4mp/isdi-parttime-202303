@@ -28,6 +28,12 @@ class PropertyError extends Error {
     }
     get name() { return PropertyError.name }
 }
+class RangeError extends Error {
+    constructor(message) {
+        super(message)
+    }
+    get name() { return RangeError.name }
+}
 
 
 module.exports = {
@@ -35,6 +41,7 @@ module.exports = {
     ContentError,
     ExistenceError,
     AuthError,
-    PropertyError
+    PropertyError,
+    RangeError
 
 }

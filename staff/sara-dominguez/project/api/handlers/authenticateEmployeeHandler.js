@@ -1,18 +1,38 @@
 const { authenticateEmployee } = require('../logic')
 const jwt = require('jsonwebtoken')
-//TODO handle errors
+const { handleErrors } = require('./helpers')
 
-module.exports = (req, res) => {
+// module.exports = handleErrors((req, res) => {
+//     const { employeeNumber, employeePassword } = req.body
+
+//     return authenticateEmployee(employeeNumber, employeePassword)
+//         .then((employeeId => {
+//             const payload = { sub: employeeId }
+
+//             const { JWT_SECRET, JWT_EXPIRATION } = process.env
+
+//             const token = jwt.sign(payload, JWT_SECRET, { expiresIn: JWT_EXPIRATION })
+
+//             res.json(token)
+//         }))
+// })
+
+module.exports = handleErrors((req, res) => {
     const { employeeNumber, employeePassword } = req.body
 
-    return authenticateEmployee(employeeNumber, employeePassword)
-        .then((employeeId => {
-            const payload = { sub: employeeId }
+    const promise = authenticateEmployee(employeeNumber, employeePassword)
 
-            const { JWT_SECRET, JWT_EXPIRATION } = process.env
+    return (async () => {
+        await promise
 
-            const token = jwt.sign(payload, JWT_SECRET, { expiresIn: JWT_EXPIRATION })
+            .then((employeeId => {
+                const payload = { sub: employeeId }
 
-            res.json(token)
-        }))
-}
+                const { JWT_SECRET, JWT_EXPIRATION } = process.env
+
+                const token = jwt.sign(payload, JWT_SECRET, { expiresIn: JWT_EXPIRATION })
+
+                res.json(token)
+            }))
+    })()
+})

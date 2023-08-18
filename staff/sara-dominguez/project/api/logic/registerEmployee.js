@@ -1,32 +1,39 @@
+const {
+    validators: { validateName, validateFirstSurname, validateSecondSurname, validateIdCardNumber, validateTssNumber,
+        validatePersonalPhoneNumber, validateBankAccountNumber, validateUrl, validateEmployeeNumber, validateTypeOfContract, validateJobPosition, validateDepartment, validateCenterAttached, validateRoll, validateProfessionalPhoneNumber, validateAccessPermissions, validateEmployeePassword
+    },
+    errors: { ExistenceError }
+} = require('com')
+const { Employee } = require('../data/models')
 
-// /**
-//  * Register an employee
-//  * 
-//  * @param {string} name  employee name
-//  * @param {string} firsName   employee firstSurname
-//  * @param {string} secondSurname   employee secondSurname
+/**
+ * Register an employee
+ * 
+ * @param {string} name  employee name
+ * @param {string} firsName   employee firstSurname
+ * @param {string} secondSurname   employee secondSurname
 //  * @param {string} birthDate   employee birthdate
-//  * @param {string} idCardNumber    employee id card number
-//  * @param {string} tssNumber   employee TGSS number
-//  * @param {string} adress   employee personal adress
-//  * @param {string} personalPhoneNumber   employee personal phone number
-//  * @param {string} bankAccountNumber   employee accoun bank number
-//  * @param {string} avatar   employee's avatar
-//  * @param {string} employeeNumber   employee company credential: id number
+ * @param {string} idCardNumber    employee id card number
+ * @param {string} tssNumber   employee TGSS number
+ * @param {string} adress   employee personal adress
+ * @param {string} personalPhoneNumber   employee personal phone number
+ * @param {string} bankAccountNumber   employee accoun bank number
+ * @param {string} avatar   employee's avatar
+ * @param {string} employeeNumber   employee company credential: id number
 //  * @param {string} startOfEmploymentData  Data when employee work relationship started
 //  * @param {string} endOfEmploymentData  Data when employee work relationship ends (opciona). Only for temporary contracts )
 //  * @param {string} lengthOfEmployment Employuee employment duration
-//  * @param {string} typeOfContract  employee temporary or permanent contract  
-//  * @param {string} jopPosition  employee position
-//  * @param {string} department  employee department
-//  * @param {string} salaryLevel  employee salary scale from 5 (least) to 1 (highest)
-//  * @param {string} centerAttached  Assigned center of the employee
+ * @param {string} typeOfContract  employee temporary or permanent contract  
+ * @param {string} jopPosition  employee position
+ * @param {string} department  employee department
+ * @param {string} salaryLevel  employee salary scale from 5 (least) to 1 (highest)
+ * @param {string} centerAttached  Assigned center of the employee
 //  * @param {string} superiorHierarchicalManager  Inmediate supervisor of the employee
-//  * @param {string} roll  authorization level of employee's usage profile
-//  * @param {string} professionalPhoneNumber  The employee professional phone number
-//  * * @param {string} professionalEmail  The employee professional email.
-//  * @param {string} accessPermissions  current status of employee's permission, authorized or denied.
-//  * @param {string} employeePassword  employee password
+ * @param {string} roll  authorization level of employee's usage profile
+ * @param {string} professionalPhoneNumber  The employee professional phone number
+ * * @param {string} professionalEmail  The employee professional email.
+ * @param {string} accessPermissions  current status of employee's permission, authorized or denied.
+ * @param {string} employeePassword  employee password
 // // 
 // //  * @throws {TypeError} On non-string email or password
 // //  * @throws {ContentError} On empty email
@@ -34,8 +41,6 @@
 // //  * @throws {ExistenceError} On non-existing user
 // //  * @throws {AuthError} On wrong credentials
 // //  */
-
-
 
 module.exports = function registerEmployee(
     name,
@@ -71,7 +76,24 @@ module.exports = function registerEmployee(
 
     //TODO validators and handlerErrors
 
-    const { Employee } = require('../data/models')
+
+    validateName(name)
+    validateFirstSurname(firstSurname)
+    validateSecondSurname(secondSurname)
+    validateIdCardNumber(idCardNumber)
+    validateTssNumber(tssNumber)
+    validatePersonalPhoneNumber(personalPhoneNumber)
+    validateBankAccountNumber(bankAccountNumber)
+    validateUrl(avatar)
+    validateEmployeeNumber(employeeNumber)
+    validateTypeOfContract(typeOfContract)
+    validateJobPosition(jobPosition)
+    validateDepartment(department)
+    validateCenterAttached(centerAttached)
+    validateRoll(roll)
+    validateProfessionalPhoneNumber(professionalPhoneNumber)
+    validateAccessPermissions(accessPermissions)
+    validateEmployeePassword(employeePassword)
 
     return Employee.create({
         name,

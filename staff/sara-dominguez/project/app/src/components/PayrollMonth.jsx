@@ -44,7 +44,7 @@ export default function PayrollMonth({ payrollMonthRetrieved }) {
             <>
                 <header className="p-4">
                     <div>
-                        <h5 className="text-gray-600">b-Elevenzsd</h5>
+                        <h5 className="text-gray-600">b-ElevenzSd</h5>
                         <p className="text-gray-600">Payroll {monthName} {payrollYear}</p>
                     </div>
                 </header>

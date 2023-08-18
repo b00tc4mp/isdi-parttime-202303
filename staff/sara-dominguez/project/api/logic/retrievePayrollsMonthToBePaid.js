@@ -2,22 +2,22 @@ const { getMonthNameFromMonthNumber } = require('./helpers')
 const { Employee, PayrollMonth } = require('../data/models')
 const {
     validators: { validateId, validatePayrollYear, validatePayrollMonth } = require('com'),
-    // errors: { ExistenceError }
+    errors: { ExistenceError }
 } = require('com')
 
 /**
- * Retrieve payroll month to be paid
- * 
- * @param {string} employeeId  The employee id
- * @param {number} payrollYear  The year of the month to retrieve
- * * @param {number} payrollMonth  The month of the payroll to retrieve
-* @returns {Promise}  object with payrolls data for a year and month to process
-//  * 
-//  * @throws {TypeError} On non-string employeeId or not a date payrollYear or payrollMonth is not a number
-//  * @throws {ContentError} On employeeId is not hexadecimal or doesn't have 24 characters or payrollYear is empty or payrlollMonth is empty
-//  * @throws {RangeError} On payrollMonth is not a integer between 1 and 12 
-//  * @throws {ExistenceError} On non-existing employee
-// 
+* Retrieve payroll month to be paid
+* 
+* @param {string} employeeId  The employee id
+* @param {number} payrollYear  The payroll's year to retrieve
+* @param {number} payrollMonth  The payroll's month to retrieve
+*
+* @returns {Promise}  Object with payrolls data for a year and month to process
+*
+* @throws {TypeError} On non-string employeeId or non-number payrollYear or payrollMonth 
+* @throws {ContentError} On employeeId is not hexadecimal or doesn't have 24 characters or payrollYear or payrlollMonth are empty
+* @throws {RangeError} On non-integer payrollyear or non-integer between 1 and 12 payrollMonth
+* @throws {ExistenceError} On non-existing employee
  */
 
 module.exports = (employeeId, payrollYear, payrollMonth) => {
@@ -25,33 +25,25 @@ module.exports = (employeeId, payrollYear, payrollMonth) => {
     validatePayrollYear(payrollYear)
     validatePayrollMonth(payrollMonth)
 
-
     return (async () => {
-        try {
-            const employee = await Employee.findById(employeeId).lean()
+        const employee = await Employee.findById(employeeId).lean()
 
-            if (!employee) {
-                throw new Error(`user with id ${employeeId} not found`);
-            }
-
-            const payrollsMonthRetrieved = await PayrollMonth.find({ payrollYear: payrollYear, payrollMonth: payrollMonth, status: 'created' }).lean()
-
-
-            console.log(payrollsMonthRetrieved)
-            if (!payrollsMonthRetrieved) {
-                throw new Error('payroll not found')
-            }
-            console.log(payrollsMonthRetrieved)
-
-            for (let i = 0; i < payrollsMonthRetrieved.length; i++) {
-                const monthNumber = payrollsMonthRetrieved[i].payrollMonth;
-
-                payrollsMonthRetrieved[i].monthName = getMonthNameFromMonthNumber(monthNumber)
-            }
-            console.log(payrollsMonthRetrieved)
-            return payrollsMonthRetrieved;
-        } catch (error) {
-            throw new Error(error);
+        if (!employee) {
+            throw new ExistenceError(`user with id ${employeeId} not found`)
         }
+
+        const payrollsMonthRetrieved = await PayrollMonth.find({ payrollYear: payrollYear, payrollMonth: payrollMonth, status: 'created' }).lean()
+
+        if (!payrollsMonthRetrieved || undefined || payrollsMonthRetrieved.length === 0) {
+            throw new ExistenceError('payrolls not found')
+        }
+
+        for (let i = 0; i < payrollsMonthRetrieved.length; i++) {
+            const monthNumber = payrollsMonthRetrieved[i].payrollMonth
+
+            payrollsMonthRetrieved[i].monthName = getMonthNameFromMonthNumber(monthNumber)
+        }
+
+        return payrollsMonthRetrieved
     })()
 }

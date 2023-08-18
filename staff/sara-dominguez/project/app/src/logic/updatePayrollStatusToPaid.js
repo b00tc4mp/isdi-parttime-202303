@@ -1,38 +1,38 @@
-import { validators } from 'com'
+import { validators, errors } from 'com'
 import context from './context'
 const { validateId } = validators
 
-
 /**
- * Update payroll status to paid
- * 
-* @param {string} employeenewAvatar  URL of the new avatar for the employee
+* Update payroll status to paid 
 * 
-* @returns {Promise<void>} Ends when the avatar is updated.
-//  * 
-//  * @throws {TypeError} On non-string URL or employeeId
-//  * @throws {ContentError} On empty URL
-//  * @throws {ExistenceError} On non-existing employee
-
+* @param {string} _id  The payrollMonth _id to change
+* 
+* @returns {Promise<void>} Ends when payrollMonth status is updated
+* 
+* @throws {TypeError} On non-string employeeId or _id
+* @throws {ContentError} On _id doesn't have 24 characters or not hexadecimal 
 */
+
 export default function updatePayrollStatusToPaid(_id) {
     validateId(_id)
 
-    return fetch(`${import.meta.env.VITE_API_URL}/payrollMonths/updatePayrollStatusToPaid`, {
-        method: 'PATCH',
-        headers: {
-            'Content-Type': 'application/json',
-            authorization: `Bearer ${context.token}`
-        },
-        body: JSON.stringify({ _id: _id })
-    })
-        .then(res => {
-            if (res.status !== 204)
-                // return
-                return res.json()
-                    .then(({ error: message }) => { throw new Error(message) })
-            // .then(body => {
-            //     throw new Error(body.error)
-            // })
+    return (async () => {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/payrollMonths/updatePayrollStatusToPaid`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                authorization: `Bearer ${context.token}`
+            },
+            body: JSON.stringify({ _id: _id })
         })
+        if (res.status === 204) {
+            return
+        } else {
+            const { type, message } = await res.json()
+
+            const clazz = errors[type]
+
+            throw new clazz(message)
+        }
+    })()
 }

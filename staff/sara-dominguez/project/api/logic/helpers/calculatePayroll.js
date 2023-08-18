@@ -1,3 +1,13 @@
+/**
+ * Calculate payroll items based on salary level, month salary, annual salary, and bonus.
+ *
+ * @param {number} salaryLevel - The salary level of the employee.
+ * @param {number} monthSalary - The monthly salary of the employee.
+ * @param {number} annualSalary - The annual salary of the employee.
+ * @param {number} bonus - The bonus amount of the employee.
+ * @returns {Object} - An object containing calculated payroll items.
+ */
+
 module.exports = function calculePayroll(salaryLevel, monthSalary, annualSalary, bonus) {
     let calculatePayrollItems
     // TODO ajuste del valor de bonus (porrateo mensual)

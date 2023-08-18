@@ -78,7 +78,7 @@ export default function Home() {
         <div className="home">
             {/* /* sidebar lateral */}
             <header className="home-header">
-                <h1 className="mt-10 text-2xl font-bold leading-9 tracking-tight text-amber-500 drop-shadow-md mb-5 ml-4 ">b-Elevenzdb</h1>
+                <h1 className="mt-10 text-2xl font-bold leading-9 tracking-tight text-amber-500 drop-shadow-md mb-5 ml-4 ">b-ElevenzSd</h1>
                 {employee && <>
                     <img src={employee.avatar} className="h-13 w-12 flex-none rounded-full bg-gray-50  ml-12" />
                     <h3 className="mt-10 text-l font-bold leading-9 tracking-tight text-amber-500 drop-shadow-md mb-4 ml-4">Welcome, {employee.name}!</h3>

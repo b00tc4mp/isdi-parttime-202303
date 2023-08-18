@@ -8,7 +8,7 @@ import retrievePayrollsToBePaid from '../logic/retrievePayrollsMonthToBePaid'
 import calculateTotalAmount from '../logic/calculateTotalAmount.js'
 import updatePayrollStatusToPaid from '../logic/updatePayrollStatusToPaid'
 import { Input, Container, Button, Select } from '../library'
-
+import useAppContext from '../hooks/useAppContext'
 
 
 
@@ -21,9 +21,7 @@ export default function ProcessPayrollsMonthPayments({ employee, onPayrollsMonth
     const [selectedYear, setSelectedYear] = useState(2023)
     const [selectedMonth, setSelectedMonth] = useState(1)
     const [sum, setSum] = useState(0)
-
-
-
+    const { alert } = useAppContext()
 
 
 
@@ -44,7 +42,7 @@ export default function ProcessPayrollsMonthPayments({ employee, onPayrollsMonth
 
             setSum(sum)
         } catch (error) {
-            throw new Error(error.message)
+            alert(error.message)
         }
     }
 

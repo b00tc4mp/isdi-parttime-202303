@@ -35,9 +35,9 @@ export default function Header() {
             <>
                 <h4 className="text-xl font-bold">{name} {firstSurname} {secondSurname}</h4>
 
-                <h4>{professionalPhoneNumber}</h4>
-                <h4> {professionalEmail}</h4>
-                <h4>{centerAttached}</h4>
+                <h4>Mobile Phone:{professionalPhoneNumber}</h4>
+                <h4>Email: {professionalEmail}</h4>
+                <h4>Center Attached: {centerAttached}</h4>
             </>
         ) : (
             <h4>Loading...</h4> // 

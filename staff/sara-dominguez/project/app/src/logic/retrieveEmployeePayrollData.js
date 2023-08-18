@@ -1,14 +1,11 @@
 import context from './context'
-//TODO preguntas a Manu documentar
+import { errors } from 'com'
+
 /**
- * Retrieve a employee from API
- * 
- * 
- * @returns {Promise} employee  
-//  * 
-//  * @throws {TypeError} On non-string 
-// 
- */
+* Retrieve a employee from API
+*
+* @returns {Promise} employee  
+*/
 
 export default () => {
     return (async () => {
@@ -20,9 +17,11 @@ export default () => {
         if (res.status === 200) {
             return res.json()
         } else {
-            const { error: message } = await res.json()
+            const { type, message } = await res.json()
 
-            throw new Error(message)
+            const clazz = errors[type]
+
+            throw new clazz(message)
         }
     })()
 }

@@ -1,16 +1,20 @@
 import context from './context'
-//TODO preguntas a Manu documentar
+import { validators, errors } from 'com'
+const { validateId } = validators
 /**
- * Retrieve a employee from API
- * 
- * 
- * @returns {Promise} employee  
-//  * 
-//  * @throws {TypeError} On non-string 
-// 
- */
+* Retrieve the employee of payrollMonth to be paid 
+*
+* @param {string} id  The employee id
+*
+* @returns {Promise} employee  
+*
+* @throws {TypeError} On non-string id
+* @throws {ContentError} On id doesn't have 24 characters or not hexadecimal
+*/
 
 export default (id) => {
+    validateId(id)
+
     return (async () => {
         const res = await fetch(`${import.meta.env.VITE_API_URL}/employees/retrieveEmployeePayrollToBePaid/${id}`, {
             headers: {
@@ -20,9 +24,11 @@ export default (id) => {
         if (res.status === 200) {
             return res.json()
         } else {
-            const { error: message } = await res.json()
+            const { type, message } = await res.json()
 
-            throw new Error(message)
+            const clazz = errors[type]
+
+            throw new clazz(message)
         }
     })()
 }

@@ -1,3 +1,9 @@
+/**
+ * Check the salary scale for a given salary level and return the corresponding details.
+ *
+ * @param {number} salaryLevel - The salary level for which to check the scale.
+ * @returns {Object} - An object containing the salary scale details.
+ */
 
 module.exports = function checkSalaryScale(salaryLevel) {
     if (salaryLevel === 1) {

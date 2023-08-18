@@ -3,21 +3,21 @@ const { PayrollMonth } = require('../data/models')
 const { findLastMonthAggregated, getMonthNameFromMonthNumber } = require('./helpers')
 const {
     validators: { validateId, validatePayrollYear } = require('com'),
-    // errors: { ExistenceError }
+    errors: { ExistenceError }
 } = require('com')
 
-
 /**
- * Retrieve payroll annual aggregate
- * 
- * @param {string} employeeId  The employee id
- * @param {number} PayrollYear  The ISO Date of the year of the aggregated calculation
-* @returns {Promise}  object with anual aggregate datas for an specific employee and payroll year
-//  * 
-//  * @throws {TypeError} On non-string employeeId or not a date payrollYear
-//  * @throws {ContentError} On employeeId is not hexadecimal or doesn't have 24 characters or payrollYear is empty 
-//  * @throws {ExistenceError} On non-existing employee
-// 
+* Retrieve payroll annual aggregate
+* 
+* @param {string} employeeId  The employee id
+* @param {number} PayrollYear  The year of the aggregated calculation
+*
+* @returns {Promise}  object with anual aggregate datas for an specific employee and year
+*
+* @throws {TypeError} On non-string employeeId or non-number payrollYear
+* @throws {ContentError} On employeeId is not hexadecimal or doesn't have 24 characters or payrollYear is empty 
+* @throws {rangeError} On non -integer number payrollYear
+* @throws {ExistenceError} On non-existing employee
  */
 
 module.exports = function retrievePayrollAnnualAggregate(employeeId, payrollYear) {
@@ -38,16 +38,16 @@ module.exports = function retrievePayrollAnnualAggregate(employeeId, payrollYear
 
     return Promise.all([
         Employee.findById(employeeId).lean(),
-        PayrollMonth.find({ employee: employeeId, payrollYear: payrollYear }).lean()
+        PayrollMonth.find({ employee: employeeId, payrollYear: payrollYear, status: "paid" }).lean()
     ])
 
         .then(([employee, employeePayrollsMonth]) => {
-            try {
-                if (!employee) throw new Error(`user with id ${employeeId} not found`)
-                if (!employeePayrollsMonth || employeePayrollsMonth.length === 0) throw new Error(`payrolls not found`)
-            } catch (error) {
-                throw new Error(error)
-            }
+            // try {
+            if (!employee) throw new ExistenceError(`user with id ${employeeId} not found`)
+            if (!employeePayrollsMonth || employeePayrollsMonth.length === 0) throw new ExistenceError(`payrolls not found`)
+            // } catch (error) {
+            //     throw new Error(error)
+            // }
 
             for (let i = 0; i < employeePayrollsMonth.length; i++) {
                 const payrollMonthValue = employeePayrollsMonth[i].payrollMonth
@@ -96,7 +96,7 @@ module.exports = function retrievePayrollAnnualAggregate(employeeId, payrollYear
                 sumNetSalary
             }
         })
-        .catch((error) => { throw new Error(error) })
+    // .catch((error) => { throw new Error(error) })
 }
 
 

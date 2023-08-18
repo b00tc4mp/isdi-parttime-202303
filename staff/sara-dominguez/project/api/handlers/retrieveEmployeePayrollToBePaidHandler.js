@@ -1,12 +1,16 @@
 const { retrieveEmployeePayrollToBePaid } = require('../logic')
 const { extractEmployeeId } = require('./helpers')
-//TODO helper
+const { handleErrors } = require('./helpers')
 
-module.exports = (req, res) => {
+module.exports = handleErrors((req, res) => {
     const employeeId = extractEmployeeId(req)
 
     const { id } = req.params
 
-    return retrieveEmployeePayrollToBePaid(id, employeeId)
-        .then(employee => res.json(employee))
-}
+    const promise = retrieveEmployeePayrollToBePaid(id, employeeId)
+    return (async () => {
+        await promise
+
+            .then(employee => res.json(employee))
+    })()
+})

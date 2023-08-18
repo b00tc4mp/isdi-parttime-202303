@@ -1,13 +1,19 @@
 const { retrievePayrollAnnualAggregate } = require('../logic')
 const { extractEmployeeId } = require('./helpers')
+const { handleErrors } = require('./helpers')
 
-module.exports = ((req, res,) => {
+module.exports = handleErrors((req, res,) => {
     const employeeId = extractEmployeeId(req)
 
     const { payrollYear } = req.params
 
     const payrollYearNumber = parseInt(payrollYear)
 
-    return retrievePayrollAnnualAggregate(employeeId, payrollYearNumber)
-        .then(employeePayrollAnnualAggregated => res.json(employeePayrollAnnualAggregated))
+    const promise = retrievePayrollAnnualAggregate(employeeId, payrollYearNumber)
+
+    return (async () => {
+        await promise
+
+            .then(employeePayrollAnnualAggregated => res.json(employeePayrollAnnualAggregated))
+    })()
 })
