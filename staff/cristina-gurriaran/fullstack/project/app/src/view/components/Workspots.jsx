@@ -10,10 +10,13 @@ export default function Workspots({ user }){
 
     const [workspots, setWorkspots] = useState()
 
-    handleErrors(async () => {
-        const workspots = await retrieveWorkspots()
-        setWorkspots(workspots)
-    })
+    useEffect(() => {
+        handleErrors(async () => {
+            const workspots = await retrieveWorkspots()
+            setWorkspots(workspots)
+        })
+    }, [])
+
 
     return <div className="flex flex-col gap-10">
         {workspots && workspots.map((workspot) => <Workspot

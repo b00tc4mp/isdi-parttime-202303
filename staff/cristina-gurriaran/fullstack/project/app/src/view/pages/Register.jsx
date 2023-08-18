@@ -32,7 +32,7 @@ export default function Register() {
             <Input type='name' name='name' placeholder='Name*'/>
             <Input type='email' name='email' placeholder='Email address*'/>
             <Input  type='password' name='password' placeholder='Password (8+ characters)*'/>
-            <Button className='button' type='submit'> CREATE AN ACCOUNT </Button>
+            <Button className='button' type='submit'> Create an account </Button>
         </Form>
     </Container>
 }

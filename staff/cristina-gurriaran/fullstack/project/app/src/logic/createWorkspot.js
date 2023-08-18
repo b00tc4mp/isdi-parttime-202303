@@ -2,10 +2,8 @@ import { validators, errors } from 'com'
 const { validateUrl, validateText } = validators
 import context from './context'
 
-export default function createWorkspot(userId, image, name, location, description, type, features, reviews, likes) {
-    validateId(userId, 'user id')
+export default function createWorkspot(image, name, location, description, type, features) {
     validateUrl(image, 'image url')
-    validateText(name, 'name')
     validateText(description, 'description')
 
     return (async () => {
@@ -15,16 +13,19 @@ export default function createWorkspot(userId, image, name, location, descriptio
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${context.token}`
             },
-            body: JSON.stringify({ image, name, location, description, type, features, reviews, likes })
+            body: JSON.stringify({ image, name, location, description, type, features })
         })
 
         if (res.status === 201)
             return
 
-        const { type, message } = await res.json()
+        const { message } = await res.json()
 
-        const clazz = errors[type]
+        // const clazz = errors[type]
 
-        throw new clazz(message)
+        // throw new clazz(message)
+
+        throw new Error
+
     })()
 }

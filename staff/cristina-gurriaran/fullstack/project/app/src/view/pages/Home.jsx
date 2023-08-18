@@ -1,4 +1,5 @@
 import Workspots from '../components/Workspots'
+import AddWorkspotModal from '../components/AddWorkspotModal'
 import { Container, Form, Input, Button } from '../library'
 import { useEffect, useState } from 'react'
 import Profile from '../components/Profile'
@@ -26,7 +27,7 @@ export default function Home() {
         })
     }, [])
 
-
+    const handleOpenAddWorkspotModal = () => setModal('add-workspot')
     const handleCloseModal = () => setModal(null)
 
     const handleGoToProfile = event => {
@@ -36,6 +37,10 @@ export default function Home() {
     }
 
     const handleGoToWorkSpots = () => setView('workspots')
+
+    const handleWorkspotUpdated = () => {
+        setModal(null)        
+    }
 
 
     const handleLogout = () => {
@@ -87,10 +92,16 @@ export default function Home() {
                 onUpdatedUserPassword={handleUserPasswordUpdated}
             />}
 
+            {modal === 'add-workspot' && 
+                <AddWorkspotModal
+                    onCancel={handleCloseModal}
+                    onWorkspotCreated={handleWorkspotUpdated}
+                />}
+
         </main>
 
         <footer className="home-footer">
-            <Button>+</Button>
+            <Button onClick={handleOpenAddWorkspotModal}>+</Button>
         </footer>
     </div>
 
