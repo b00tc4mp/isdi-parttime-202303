@@ -70,15 +70,12 @@ const App = () => {
     const socket = socketIOClient(socketUrl);
     socket.on('connect', () => {
       const socketId = socket.id
-      socket.emit('sendSocketId', { socketId });
-      console.log('in', socketId)
       if (isUserLoggedIn()) {
         handleErrors(async () => {
           await createSession(socketId);
         })
       }
       socket.on('notification', ({ message, sockets }) => {
-        console.log('socket notification on', sockets, socketId);
         if (sockets.includes(socketId)) {
           setAchievementNotifications(prevNotifications => {
             const lastNotification = prevNotifications[prevNotifications.length - 1];

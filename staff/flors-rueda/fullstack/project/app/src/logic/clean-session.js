@@ -1,11 +1,9 @@
 import { validators, tokenUtils } from 'com';
 import context from './context';
 
-const { validateId } = validators;
 const { extractSubFromToken } = tokenUtils;
 
-const cleanSession = (socketId) => {
-    validateId(socketId, 'socketId');
+const cleanSession = () => {
 
     return fetch(`${import.meta.env.VITE_API_URL}/session/${extractSubFromToken(context.token)}`, {
         method: 'PATCH',
