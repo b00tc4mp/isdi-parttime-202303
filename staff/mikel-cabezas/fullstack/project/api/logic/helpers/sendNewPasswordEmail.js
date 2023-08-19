@@ -65,7 +65,7 @@ module.exports = async (email, uniqueString) => {
                         Hi! If you cannot request to set your password again, please ignore this email.
                         <br>
                         For reset your password, please follow this link:
-                            <a href="${process.env.API_URL}/user/recoverPassword/${uniqueString}"> ${process.env.API_URL}/user/recoverPassword/${uniqueString}</a>
+                            <a href="${process.env.API_URL}/user/recoverPassword/${uniqueString}"> ${process.env.API_URL}/user/recoverPassword/token=${uniqueString}</a>
                         </p>
                     </div>
                 </body>
