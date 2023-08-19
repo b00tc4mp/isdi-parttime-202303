@@ -6,7 +6,7 @@ import isUserLoggedIn from '../../logic/is-user-logged-in';
 
 const LayoutForm = ({ level, setLevel, setToast, setToastOn, setCost, cost }) => {
     const [openDropdown, setOpenDropdown] = useState(null);
-    const cellOptions = ['bomb', 'dirt', 'life', 'hole', 'empty', 'start', 'stonks'];
+    const cellOptions = ['bomb', 'empty', 'life', 'stonks', 'dirt', 'start', 'hole'];
     const prices = { bomb: 10, life: 15, hole: 2, dirt: 5 };
 
     const handleDropdownToggle = (floorIndex, cellIndex) => {
@@ -45,7 +45,7 @@ const LayoutForm = ({ level, setLevel, setToast, setToastOn, setCost, cost }) =>
 
     const addFloor = () => {
         const lastFloor = level[level.length - 1];
-        if (level.length < 99 && validateFloor(lastFloor, setToast, setToastOn)) {
+        if (level.length <= 99 && validateFloor(lastFloor, setToast, setToastOn)) {
             const startIndex = lastFloor.indexOf('hole');
             const newFloor = ['empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty'];
             newFloor.splice(startIndex, 1, 'start');
@@ -54,6 +54,15 @@ const LayoutForm = ({ level, setLevel, setToast, setToastOn, setCost, cost }) =>
             setLevel(updatedLevel);
         }
     };
+
+    const duplicateFloor = () => {
+        const lastFloor = level[level.length - 1];
+        if (level.length <= 99 && validateFloor(lastFloor, setToast, setToastOn)) {
+            const updatedLevel = [...level];
+            updatedLevel.push(lastFloor);
+            setLevel(updatedLevel);
+        }
+    }
 
     const removeFloor = () => {
         if (level.length > 1) {
@@ -67,24 +76,22 @@ const LayoutForm = ({ level, setLevel, setToast, setToastOn, setCost, cost }) =>
         const selectedOption = level[floorIndex][cellIndex];
 
         return cellOptions.map((option, index) => (
-            <li key={`${index}_${floorIndex}_${cellIndex}`}>
-                <div className="flex items-center w-fit">
-                    <input
-                        id={`dropdownDefaultRadio_${floorIndex}_${cellIndex}`}
-                        type="radio"
-                        value={option}
-                        name={`default-radio-${floorIndex}-${cellIndex}`}
-                        className="w-4 h-4"
-                        onChange={(event) => handleOptionChange(floorIndex, cellIndex, option)}
-                        checked={selectedOption === option}
-                    />
-                    <span className="text-secondary100 ml-2 text-sm font-mediun flex flex-col gap-1 justify-around">
-                        <b>{option === 'stonks' ? 'treasure' : option}</b>
-                        {isUserLoggedIn() &&
-                            <p className="text-primary300 text-xs font-semibold">{prices[option] ? `${prices[option]} cc` : ''}</p>
-                        }
-                    </span>
-                </div>
+            <li key={`${index}_${floorIndex}_${cellIndex}`} className="flex items-center w-fit">
+                <input
+                    id={`dropdownDefaultRadio_${floorIndex}_${cellIndex}`}
+                    type="radio"
+                    value={option}
+                    name={`default-radio-${floorIndex}-${cellIndex}`}
+                    className="w-4 h-4"
+                    onChange={(event) => handleOptionChange(floorIndex, cellIndex, option)}
+                    checked={selectedOption === option}
+                />
+                <span className="text-secondary100 ml-2 text-sm font-mediun flex flex-col gap-1 justify-around">
+                    <b>{option === 'stonks' ? 'treasure' : option}</b>
+                    {isUserLoggedIn() &&
+                        <p className="text-primary300 text-xs font-semibold">{prices[option] ? `${prices[option]} cc` : ''}</p>
+                    }
+                </span>
             </li >
         ));
     };
@@ -93,8 +100,8 @@ const LayoutForm = ({ level, setLevel, setToast, setToastOn, setCost, cost }) =>
         <>
             {
                 level.map((floor, floorIndex) => (
-                    <div key={floorIndex}>
-                        <h5 className="text-xl py-2 text-center font-semibold text-primary100">{`Floor ${-floorIndex}${floorIndex === 99 ? '(max)' : ''}`}</h5>
+                    <div key={floorIndex} className="flex flex-col">
+                        <h5 className="self-center text-xl py-2 text-center font-semibold text-primary100">{`Floor ${-floorIndex}${floorIndex === 99 ? '(max)' : ''}`}</h5>
                         <div className="grid grid-cols-3 grid-rows-3 gap-4">
                             {floor.map((cell, cellIndex) => (
                                 <div key={`${floorIndex}_${cellIndex}`} className="relative">
@@ -112,22 +119,25 @@ const LayoutForm = ({ level, setLevel, setToast, setToastOn, setCost, cost }) =>
                                     </button>
                                     <div
                                         id={`dropdownDefaultRadio_${floorIndex}_${cellIndex}`}
-                                        className="z-50 absolute right-0 left-0 w-46 bg-light400 divide-y divide-light300 rounded-lg shadow hidden"
+                                        className="z-30 absolute w-48 bg-light400 right-1 rounded-lg shadow hidden"
                                     >
-                                        <ul className="p-3 space-y-3 text-sm text-secondary200">
+                                        <ul className="p-3 space-y-3 text-sm text-secondary200 grid grid-cols-2 grid-rows-4">
                                             {renderRadioOptions(floorIndex, cellIndex)}
+                                            <li></li>
                                         </ul>
                                     </div>
                                 </div>
                             ))}
                         </div>
+                        {level.length <= 99 && <button onClick={duplicateFloor} className="text-sm text-secondary400 hover:text-primary400 shadow p-0.5 rounded-md self-end mt-2">duplicate floor<i className="bi bi-file-earmark-plus pl-1"></i></button>}
+
                     </div>
                 ))
             }
             <p className="text-lg pt-5 text-center font-bold text-secondary200">remove/add floors</p>
             <div className="pt-5 flex flex-row gap-5">
-                <button onClick={removeFloor}><i className="text-5xl text-danger200 hover:text-danger100 font-bold bi bi-dash-circle-fill"></i></button>
-                <button onClick={addFloor}><i className="text-5xl text-success200 hover:text-success100 font-bold bi bi-plus-circle-fill"></i></button>
+                <button onClick={removeFloor}><i className={`text-5xl font-bold bi bi-dash-circle-fill ${level.length === 1 ? 'cursor-default text-light100' : 'text-danger200 hover:text-danger100'}`}></i></button>
+                <button onClick={addFloor}><i className={`text-5xl font-bold bi bi-plus-circle-fill ${level.length > 99 ? 'cursor-default text-light100' : 'text-success200 hover:text-success100'}`}></i></button>
             </div>
         </>
     )
