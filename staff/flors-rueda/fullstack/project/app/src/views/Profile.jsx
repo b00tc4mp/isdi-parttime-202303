@@ -65,11 +65,11 @@ const Profile = () => {
             </div>
             <div className="flex flex-col w-full justify-center align-center gap-2 md:row-start-2 md:col-span-2 border-light300 bg-light400 rounded-lg p-1">
                 <h2 className={`self-center text-2xl font-bold text-${user.color} `}>Levels Created</h2>
-                <LevelsCarrousel key={id} userId={user.id} type={'created'} saves={loggedUser.saves} />
+                <LevelsCarrousel key={id} userId={user.id} type={'created'} userSaves={loggedUser.saves} />
             </div>
             <div className="flex flex-col w-full justify-center align-center gap-2 md:row-start-2 md:col-start-3 border-light300 bg-light400 rounded-lg p-1 md:col-span-4">
                 <h2 className={`self-center text-2xl font-bold text-${user.color} `}>Favorite Levels</h2>
-                <LevelsCarrousel key={id} userId={user.id} type={'saved'} saves={loggedUser.saves} />
+                <LevelsCarrousel key={id} userId={user.id} type={'saved'} userSaves={loggedUser.saves} />
             </div>
         </section>
     );

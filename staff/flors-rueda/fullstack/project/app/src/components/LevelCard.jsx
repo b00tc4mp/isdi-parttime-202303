@@ -8,8 +8,9 @@ import avatars from '../assets/avatars/index';
 import toggleLike from '../logic/toggle-like';
 import toggleFollow from '../logic/toggle-follow';
 import toggleSave from '../logic/toggle-save';
+import retrieveLoggedUser from '../logic/retrieve-logged-user';
 
-const LevelCard = ({ levelInfo, isLevelSaved }) => {
+const LevelCard = ({ levelInfo, isLevelSaved, setSaves }) => {
     const [authorData, setAuthorData] = useState({});
     const [title, setTitle] = useState('');
     const handleErrors = useHandleErrors();
@@ -48,6 +49,8 @@ const LevelCard = ({ levelInfo, isLevelSaved }) => {
     const handleSaveClick = () => {
         handleErrors(async () => {
             await toggleSave(levelInfo.id);
+            const user = await retrieveLoggedUser();
+            setSaves(user.saves);
             setIsSaved(!isSaved);
         })
     }

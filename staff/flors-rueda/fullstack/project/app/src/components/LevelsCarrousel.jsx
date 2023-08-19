@@ -8,10 +8,11 @@ import retrieveLevelsByAuthor from '../logic/retrieve-levels-by-author';
 import { useParams } from 'react-router-dom';
 import retrieveLevelsSaved from '../logic/retrieve-levels-saved';
 
-const LevelsCarrousel = ({ type, userId, saves }) => {
+const LevelsCarrousel = ({ type, userId, userSaves }) => {
     const [activeIndex, setActiveIndex] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
     const [levels, setLevels] = useState(null);
+    const [saves, setSaves] = useState(userSaves);
     const handleErrors = useHandleErrors();
     const { id } = useParams();
 
@@ -30,7 +31,7 @@ const LevelsCarrousel = ({ type, userId, saves }) => {
 
     useEffect(() => {
         handleRefreshLevels();
-    }, [id, userId]);
+    }, [id, userId, saves]);
 
     if (isLoading) {
         return <Loader />
@@ -71,7 +72,7 @@ const LevelsCarrousel = ({ type, userId, saves }) => {
                 type === 'created' ?
                 <BasicLevelCard levelInfo={levels[activeIndex]} isLevelSaved={saves.includes(levels[activeIndex].id)} />
                 :
-                <LevelCard levelInfo={levels[activeIndex]} isLevelSaved={saves.includes(levels[activeIndex].id)} />
+                <LevelCard levelInfo={levels[activeIndex]} isLevelSaved={saves.includes(levels[activeIndex].id)} setSaves={setSaves} />
             }
             {
                 levels.length > 1 &&
