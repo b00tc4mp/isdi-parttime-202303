@@ -4,7 +4,7 @@ const { retrieveOwnSuggestions } = require('../logic')
 module.exports = handleErrors((req, res) => {
   const userId = extractUserId(req)
 
-  const promise = retrieveOwnSuggestions(userIdOwn)
+  const promise = retrieveOwnSuggestions(userId)
 
   return (async () => {
     const suggestions = await promise

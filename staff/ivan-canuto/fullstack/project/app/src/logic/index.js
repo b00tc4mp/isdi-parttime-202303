@@ -38,6 +38,8 @@ import deleteSuggestion from './deleteSuggestion'
 import updateSuggestion from './updateSuggestion'
 import deleteConversation from './deleteConversation'
 import deleteAllConversations from './deleteAllConversations'
+import toggleCheckSuggestion from './toggleCheckSuggestion'
+import toggleHideSuggestion from './toggleHideSuggestion'
 
 export {
     context,
@@ -79,5 +81,7 @@ export {
     deleteSuggestion,
     updateSuggestion,
     deleteConversation,
-    deleteAllConversations
+    deleteAllConversations,
+    toggleCheckSuggestion,
+    toggleHideSuggestion
 }

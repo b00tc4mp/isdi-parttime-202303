@@ -3,10 +3,13 @@ import context from './context'
 
 const { validateId, validateText } = validators
 
-export default function createSuggestion(postId, title, content) {
+export default function createSuggestion(postId, _title, _content) {
   validateId(postId, 'post id')
-  validateText(title, 'suggestion title')
-  validateText(content, 'suggestion content')
+  validateText(_title, 'suggestion title')
+  validateText(_content, 'suggestion content')
+  
+  const title = _title.trim()
+  const content = _content.trim()
 
   return (async () => {
     const res = await fetch(`${import.meta.env.VITE_API_URL}/posts/${postId}/suggestions/newSuggestion`, {

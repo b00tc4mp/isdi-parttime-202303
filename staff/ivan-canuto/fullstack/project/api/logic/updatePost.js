@@ -1,6 +1,6 @@
 const {
   validators: { validateId, validateText },
-  errors: { ExistenceError, UnknownError }
+  errors: { ExistenceError, UnknownError, ContentError }
 } = require('com')
 const { User, Post } = require('../data/models')
 
@@ -9,6 +9,8 @@ module.exports = (userId, postId, title, content) => {
   validateId(postId, 'post id')
   validateText(title, 'post title')
   validateText(content, 'post title')
+
+  if(title.length > 30) throw new ContentError('The title of the suggestion is too long.')
 
   return (async () => {
     const user = await User.findById(userId)

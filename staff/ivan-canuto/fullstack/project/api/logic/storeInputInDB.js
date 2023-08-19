@@ -1,4 +1,4 @@
-const { validators: { validateId }, errors: { ExistenceError } } = require('com')
+const { validators: { validateId, validateText }, errors: { ExistenceError } } = require('com')
 const { User, Conversation } = require('../data/models')
 
 module.exports = function storeInputInDB(userId, conversationId, userInput) {
@@ -7,11 +7,9 @@ module.exports = function storeInputInDB(userId, conversationId, userInput) {
 
     return (async () => {
         const user = await User.findById(userId)
-
         if(!user) throw new ExistenceError('User not found.')
 
         const conversation = await Conversation.findById(conversationId)
-
         if(!conversation) throw new ExistenceError('Conversation not found.')
 
         conversation.messages.push(userInput)

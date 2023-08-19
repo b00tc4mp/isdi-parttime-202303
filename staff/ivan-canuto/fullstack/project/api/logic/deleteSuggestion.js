@@ -18,9 +18,9 @@ const {
       const post = await Post.findById(postId)
       if(!post) throw new ExistenceError('Post not found.')
   
-      const suggestion = await Suggestion.findById(suggestionId)
+      const suggestion = await Suggestion.findById(suggestionId).lean()
       if(!suggestion) throw new ExistenceError('Suggestion not found.')
-  
+
       await Suggestion.deleteOne({ _id: suggestionId })
     })()
   }

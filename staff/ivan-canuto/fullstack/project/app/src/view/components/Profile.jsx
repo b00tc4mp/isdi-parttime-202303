@@ -1,10 +1,21 @@
-import { updateUserPassword, updateUserAvatar } from "../../logic"
+import { updateUserPassword, updateUserAvatar, retrieveUser } from "../../logic"
 import { ModalContainer, Input, Button, Form } from "../library"
 import { useAppContext, useHandleErrors } from "../hooks"
+import { useEffect, useState } from "react"
 
 export default function Profile({ onUpdatedAvatar, handleLogout, page, handleCloseModal }) {
   const { alert, navigate } = useAppContext()
   const handleErrors = useHandleErrors()
+
+  const [user, setUser] = useState()
+
+  useEffect(() => {
+    handleErrors(async () => {
+      const _user = await retrieveUser()
+
+      setUser(_user)
+    })
+  }, [])
 
   const handleCloseProfile = () => {
     navigate(`/${page}`)
@@ -44,7 +55,10 @@ export default function Profile({ onUpdatedAvatar, handleLogout, page, handleClo
   
   return <ModalContainer tag='section' className="w-full h-full absolute top-10 left-0 z-10 bg-slate-100">
     <div className="flex flex-col items-center gap-6">
-      <Button className='w-full bg-white border-2 border-slate-300' onClick={handleLogout}>Log out</Button>
+      <div className="w-48 flex justify-center">
+        {user && <h1 className="text-2xl border-b-2 border-black w-fit font-mono p-1">{user.name}</h1>}
+      </div>
+      <Button className='w-full bg-white border border-slate-300' onClick={handleLogout}>Log out</Button>
       <Form className='bg-transparent wx-44 sm:w-96' onSubmit={handleChangeAvatar}>
           <h2 className="font-bold">Update avatar</h2>
           <div className="flex flex-col gap-2">
@@ -63,7 +77,7 @@ export default function Profile({ onUpdatedAvatar, handleLogout, page, handleClo
           </div>
       </Form>
     </div>
-    <Button className="bg-red-200 absolute top-24 left-4 z-20" onClick={handleCloseProfile}>Close</Button>
+    <Button className="bg-red-200 absolute top-14 left-4 z-20" onClick={handleCloseProfile}>Close</Button>
     {/* <div className="w-full h-full absolute top-0 z-10 bg-slate-100"></div> */}
 </ModalContainer>
 }

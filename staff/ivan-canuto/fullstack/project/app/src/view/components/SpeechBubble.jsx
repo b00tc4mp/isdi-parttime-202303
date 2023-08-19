@@ -6,7 +6,7 @@ export default function SpeechBubble({ role, content, handleGeneratePost, classN
     const handleToggleButton = () => setShowButton(!showButton)
 
     const handleCreatePost = () => handleGeneratePost(content)
-    console.log(content)
+    
     return <div className={`w-full flex ${role === 'assistant' ? 'justify-start' : role === 'user' ? 'justify-end' : 'justify-center'}`}>
         <div className={`speechBubble p-4 mx-4 my-2 rounded-lg ${className ? className : ''} ${role === 'assistant' ? 'bg-green-300 rounded-tl-none' : role === 'user' ? 'bg-blue-300 rounded-tr-none' : 'bg-red-300'}`}>
             <p>{content}</p>

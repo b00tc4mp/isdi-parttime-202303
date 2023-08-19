@@ -16,6 +16,8 @@ export default function SuggestionsModal({ post, user }) {
 
   useEffect(() => {
     handleRefreshSuggestions()
+
+    console.log('Suggestion Modal -> Render')
   }, [])
 
   const handleRefreshSuggestions = () => {
@@ -84,10 +86,10 @@ export default function SuggestionsModal({ post, user }) {
 
   return <>
     <section className="flex flex-col items-center w-full h-full py-4 px-1 pt-0">
-      <div className="flex flex-col justify-evenly items-center h-full w-full">
-        <h2 className="mt-2 mb-4 font-bold text-xl">Suggestions</h2>
-        <div className="flex flex-col overflow-scroll h-96 gap-2">
-          {suggestions && suggestions.map(suggestion => <Suggestion
+      <div className="flex flex-col items-center justify-between h-full w-full gap-2">
+        <h2 className="mb-4 font-bold text-xl">Suggestions</h2>
+        <div className={`flex flex-col overflow-scroll gap-2 w-full min-h-[400px]`}>
+          {suggestions && suggestions.map(suggestion => (!suggestion.hidden || suggestion.author.id === user.id) && <Suggestion
             key={suggestion.id}
             suggestion={suggestion}
             openDeleteSuggestionModal={openDeleteSuggestionModal}
@@ -95,10 +97,10 @@ export default function SuggestionsModal({ post, user }) {
             user={user}
             post={post}
           />
+          
           )}
         </div>
-        <Button className="mt-2" onClick={openCreateSuggestionModal}>Add suggestion</Button>
-        {/* {user.id !== post.author.id && <Button className="mt-2" onClick={openCreateSuggestionModal}>Add suggestion</Button>} */}
+        {user.id !== post.author.id ? <Button className="mb-14 mt-2" onClick={openCreateSuggestionModal}>Add suggestion</Button> : <div className="w-full h-2 mb-16"></div>}
       </div>
       
       {modal === 'addSuggestion' && <CreateSuggestion
@@ -115,6 +117,7 @@ export default function SuggestionsModal({ post, user }) {
         handleEditSuggestion={handleEditSuggestion}
         handleCloseModal={handleCloseModal}
         suggestion={suggestion}
+        setSuggestion={setSuggestion}
       />}
     </section>
   </>

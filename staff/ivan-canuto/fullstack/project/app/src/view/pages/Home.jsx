@@ -19,12 +19,23 @@ export default function Home() {
   const [view, setView] = useState("posts");
   const [conversationsOptions, setConversationsOptions] = useState();
   const [postModal, setPostModal] = useState(false)
+  const [user, setUser] = useState()
 
   useEffect(() => {
     console.log("Home -> render");
 
     renderConversations();
+
+    if(!lastPostsUpdate) handleRefreshUser()
   }, [lastPostsUpdate]);
+
+  const handleRefreshUser = () => {
+    handleErrors(async () => {
+      const user = await retrieveUser();
+
+      setUser(user);
+    });
+  }
 
   const renderConversations = () => {
     console.log("Render conversations");
@@ -99,13 +110,7 @@ export default function Home() {
       }
   };
 
-  const handleUpdatedAvatar = () => {
-    handleErrors(async () => {
-      const user = await retrieveUser();
-
-      setUser(user);
-    });
-  };
+  const handleUpdatedAvatar = () => handleRefreshUser()
 
   const handleOpenChatbotWindow = () => {
     setPage("Chatbot");
@@ -128,7 +133,7 @@ export default function Home() {
       <div className="loader"></div>
       {page === "Home" && (
         <Button
-          className="fixed top-[105px] right-2 bg-slate-200 z-10"
+          className="fixed top-[105px] right-2 bg-slate-100 z-10 border border-gray-200"
           onClick={() => handleOpenChatbotWindow()}
         >
           Chat wit me
@@ -247,7 +252,7 @@ export default function Home() {
               {
                 text: "My suggestions",
                 onClick: () => {
-                  setLastPostsUpdate(Date.now());
+                  setPage('Suggestions')
 
                   navigate("/suggestions");
                 },
@@ -292,7 +297,10 @@ export default function Home() {
           <Route
             path="suggestions"
             element={
-              isUserLoggedIn() ? <SuggestionsPage /> : <Navigate to="/login" />
+              isUserLoggedIn() && page === 'Suggestions' ? <SuggestionsPage
+                user={user}
+                setPage={setPage}
+              /> : <Navigate to="/login" />
             }
           />
           <Route
@@ -309,6 +317,7 @@ export default function Home() {
                 handleLogout={handleLogout}
                 page={page}
                 handleCloseModal={handleCloseModal}
+                user={user}
               /> : <Navigate to="/login" />
             }
           />

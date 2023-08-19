@@ -10,10 +10,13 @@ const { validateId, validateText } = validators
  * @param {string} content The content (summary) of the post.
  */
 
-export default function updatePost(postId, title, content) {
+export default function updatePost(postId, _title, _content) {
   validateId(postId, 'post id')
-  validateText(title, 'post title')
-  validateText(content, 'post title')
+  validateText(_title, 'post title')
+  validateText(_content, 'post title')
+  
+  const title = _title.trim()
+  const content = _content.trim()
 
   return (async () => {
     const res = await fetch(`${import.meta.env.VITE_API_URL}/users/posts/${postId}/updatePost`, {

@@ -94,6 +94,10 @@ const suggestion = new Schema({
     checked: {
         type: Boolean,
         default: false
+    },
+    hidden: {
+        type: Boolean,
+        default: false
     }
 }, { timestamps: true })
 

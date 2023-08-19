@@ -16,7 +16,7 @@ module.exports = (userId, postId) => {
     const post = await Post.findById(postId)
     if(!post) throw new ExistenceError('Post not found.')
 
-    const suggestions = await Suggestion.find({ post: postId }).populate('author', 'name').lean()
+    const suggestions = await Suggestion.find({ post: postId }).populate('author', 'name avatar').lean()
 
     suggestions.forEach(suggestion => {
       delete suggestion.post

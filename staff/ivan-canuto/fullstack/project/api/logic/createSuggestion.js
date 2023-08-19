@@ -1,5 +1,5 @@
 const { validators: { validateText, validateId } } = require('com')
-const { errors: { ExistenceError } } = require('com')
+const { errors: { ExistenceError, ContentError } } = require('com')
 
 const { User, Post, Suggestion } = require('../data/models')
 
@@ -8,6 +8,9 @@ module.exports = (userId, postId, title, content) => {
   validateId(postId, 'post id')
   validateText(title, 'suggestion title')
   validateText(content, 'suggestion text')
+
+  if(title.length > 30) throw new ContentError('The title of the suggestion is too long.')
+  if(content.length < 50) throw new ContentError('The content of the suggestion is too short.')
 
   return (async () => {
     const user = await User.findById(userId)

@@ -65,7 +65,7 @@ export default function Posts({ lastPostsUpdate, view, handleOpenEditPost, handl
 
     if(lastPostsUpdate) {
       console.log('Post -> last render');
-      console.log('se han refrescado los posts');
+
       handleRefreshPosts()
     }
   }, [lastPostsUpdate])

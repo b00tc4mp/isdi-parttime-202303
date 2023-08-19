@@ -10,7 +10,7 @@ import {
 import { context } from "../../ui";
 import { ContextualMenu, Comments, SuggestionsModal } from "../components";
 
-export default function PostModalWindow({
+export default function ªPostModalWindow({
   handleOpenEditPost,
   handleOpenDeletePost,
   handleToggleVisibility,
@@ -80,7 +80,7 @@ export default function PostModalWindow({
   };
 
   const handleOpenSuggestions = () => setModal("suggestions");
-
+  
   return (
     <ModalContainer
       className="bg-black h-screen bg-opacity-20 fixed z-20 top-0 left-0"
@@ -126,8 +126,8 @@ export default function PostModalWindow({
           toggleContextualMenu={toggleContextualMenu}
         />
       )}
-
-      <section className="w-11/12 h-5/6 bg-white rounded-lg flex flex-col items-center gap-2">
+      
+      <section className="w-11/12 h-5/6 bg-white rounded-lg flex flex-col items-center gap-4">
         {post && (
           <div className="w-full flex justify-between p-2">
             <div className="flex items-center gap-2">
@@ -158,6 +158,11 @@ export default function PostModalWindow({
                     >
                       more_vert
                     </span>
+                  </>
+                )}
+                {user && post.author.id !== user.id && (
+                  <>
+                    <p className="px-1 rounded text-sm mr-1 border" onClick={handleOpenSuggestions}>Suggestions</p>
                   </>
                 )}
               </div>

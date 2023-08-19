@@ -10,9 +10,11 @@ const { validateId, validateText } = validators
  * @param {string} commentText The comment text entered by user.
  */
 
-export default function createComment(postId, commentText) {
+export default function createComment(postId, _commentText) {
   validateId(postId, 'post id')
-  validateText(commentText)
+  validateText(_commentText, 'comment text')
+
+  const commentText = _commentText.trim()
 
   return (async () => {
     const res = await fetch(`${import.meta.env.VITE_API_URL}/users/posts/${postId}/comment`, {

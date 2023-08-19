@@ -24,7 +24,7 @@ export default function Post({post, handleTogglePostModal }) {
   console.debug('Post -> render')
 
   return <>
-    <article className="bg-gray-100 h-[450px] w-80 text-black rounded-md p-4 flex flex-col items-center overflow-hidden" id={id.toString()} onScroll={handlePostScroll} onClick={handleOpenPostModal}>
+    <article className="bg-white border h-[450px] w-80 text-black rounded-md p-4 flex flex-col items-center overflow-hidden" id={id.toString()} onScroll={handlePostScroll} onClick={handleOpenPostModal}>
       
         <section className="flex justify-between w-full px-4 py-2 overflow-hidden">
           <div className="flex items-center">

@@ -1,18 +1,16 @@
 import { validators, errors } from "com";
-const { validateId, validateText } = validators
+const { validateId } = validators
 import context from "./context";
 
-export default function storeInputInDB(conversationId, userInput) {
-    validateId(conversationId, 'conversation id')
+export default function storeInputInDB(suggestionId) {
+    validateId(suggestionId, 'suggestion id')
 
     return (async () => {
-        const res = await fetch(`${import.meta.env.VITE_API_URL}/users/conversations/${conversationId}/userInput`, {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/suggestions/${suggestionId}/hidden`, {
           method: 'PATCH',
           headers: {
-            'Content-Type': 'application/json',
             'Authorization': `Bearer ${context.token}`
-          },
-          body: JSON.stringify(userInput)
+          }
         })
     
         if(res.status === 200)

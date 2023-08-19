@@ -11,7 +11,6 @@ export default function Chatbot({ lastPostsUpdate, setPage, handleLastPostsUpdat
     const [messages, setMessages] = useState([])
     const [valueToRender, setValueToRender] = useState(null)
     const [summary, setSummary] = useState(null)
-    const [firstInput, setFirstInput] = useState(true)
 
     useEffect(() => {
         if(context.conversationId) {

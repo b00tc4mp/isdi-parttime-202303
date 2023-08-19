@@ -15,7 +15,6 @@ module.exports = (userId, suggestionId) => {
         const suggestion = await Suggestion.findById(suggestionId).lean()
         if(!suggestion) throw new ExistenceError('Suggestion not found.')
 
-        delete suggestion.post
         delete suggestion.author
         delete suggestion.postAuthor
 
