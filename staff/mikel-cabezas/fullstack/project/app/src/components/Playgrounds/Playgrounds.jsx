@@ -7,7 +7,7 @@ export default function Playgrounds({ onMarkerPressedHandler, playgrounds, user 
         {/* <View
             className="playgrounds" key={false}
         > */}
-        {playgrounds && playgrounds.map(playground => {
+        {playgrounds && playgrounds[0][0].map(playground => {
             return <Playground
                 key={playground._id}
                 playground={playground}

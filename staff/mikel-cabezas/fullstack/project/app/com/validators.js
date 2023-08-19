@@ -1,5 +1,6 @@
 const { ContentError, FormatError } = require('./errors')
 function validateName(name) {
+    if (!name) throw new TypeError('Name is empty')
     if (typeof name !== 'string') throw new TypeError('Name is not a string')
     if (!name.trim().length) throw new ContentError('Name is empty')
 }
@@ -23,8 +24,8 @@ function validateImage(inputImage) {
 function validateEmail(email) {
     const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
 
+    if (!email) throw new ContentError('Email is empty')
     if (typeof email !== 'string') throw new TypeError('Email is not a string')
-    if (!email.trim().length) throw new ContentError('Email is empty')
     if (!emailRegex.test(email)) throw new FormatError('Invalid email format')
 }
 
@@ -34,7 +35,7 @@ function validateText(text) {
 }
 
 function validatePassword(password) {
-    if (!password.trim().length) throw new ContentError('Password is empty')
+    if (!password) throw new ContentError('Password is empty')
     if (!password.trim().length > 8) throw new FormatError('Password must be higher than 8 characters')
 }
 

@@ -29,10 +29,16 @@ export default function Login({ navigation }) {
     const handleRegister = () => {
         forgotPassword(email)
             .then(token => {
-                alert('Email sent! \n Check your email.')
+                Alert.alert('Success', `Email sent!`, [
+                    { text: 'OK', onPress: () => { } },
+                ]);
                 navigation.navigate('Login')
             })
-            .catch(error => alert(error.message))
+            .catch(error => {
+                Alert.alert('Error', `${error.message}`, [
+                    { text: 'OK', onPress: () => { } },
+                ]);
+            })
     }
 
     const handleGoToLogin = () => {

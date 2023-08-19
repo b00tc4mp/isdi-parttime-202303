@@ -5,6 +5,9 @@ import Context from '../AppContext.js'
 import * as Linking from 'expo-linking';
 import registerUser from '../logic/users/registerUser.js'
 
+import { validateEmail, validatePassword, validateName } from "../../com/validators.js";
+
+
 import BG from '../../assets/bg-login.png'
 import LOGO_SM from '../../assets/logo-sm.png'
 import LOGO from '../../assets/logo.png'
@@ -35,12 +38,29 @@ export default function Login({ navigation }) {
         // });
     }, []);
     const handleRegister = () => {
-        registerUser(name, email, password)
-            .then(token => {
-                alert('New user registered! \n Now you can login.')
-                navigation.navigate('Login')
-            })
-            .catch(error => alert(error.message))
+        try {
+            validateName(name)
+            validateEmail(email)
+            validatePassword(password)
+            registerUser(name, email, password)
+                .then(token => {
+                    Alert.alert('Success', `New user registered! \n Check your email for to activate your account.`, [
+                        { text: 'OK', onPress: () => { } },
+                    ]);
+                    navigation.navigate('Login')
+                })
+                .catch(error => {
+                    Alert.alert('Error', `${error.message}`, [
+                        { text: 'OK', onPress: () => { } },
+                    ]);
+                })
+        } catch (error) {
+            Alert.alert('Error', `${error.message}`, [
+                { text: 'OK', onPress: () => { } },
+            ]);
+        }
+
+
     }
     const handleForgetPassword = () => {
         alert('TODO Forget Password')

@@ -38,36 +38,21 @@ module.exports = (token, userId, city) => {
         })
         .then(mapsResponse => {
             try {
-                debugger
-                let longRegion, latRegion, maxDistance
-
                 const latitude = mapsResponse.results[0].coordinate.latitude
                 const longitude = mapsResponse.results[0].coordinate.longitude
-
-                if (mapsResponse.results[0].displayMapRegion.westLongitude > mapsResponse.results[0].displayMapRegion.eastLongitude)
-                    longRegion = mapsResponse.results[0].displayMapRegion.westLongitude - mapsResponse.results[0].displayMapRegion.eastLongitude
-                else
-                    longRegion = mapsResponse.results[0].displayMapRegion.eastLongitude - mapsResponse.results[0].displayMapRegion.westLongitude
-
-                if (mapsResponse.results[0].displayMapRegion.northLatitude > mapsResponse.results[0].displayMapRegion.southLatitude)
-                    latRegion = mapsResponse.results[0].displayMapRegion.northLatitude - mapsResponse.results[0].displayMapRegion.southLatitude
-                else
-                    latRegion = mapsResponse.results[0].displayMapRegion.southLatitude - mapsResponse.results[0].displayMapRegion.northLatitude
-
-                if (longRegion > latRegion) maxDistance = longRegion * 111139
-                else maxDistance = latRegion * 111139
-
                 const coordinates = [latitude, longitude]
-
-                return Playground.find({
-                    location: {
-                        $near: {
-                            $geometry: { type: "Point", coordinates: [latitude, longitude] },
-                            $maxDistance: maxDistance
-                            // $maxDistance: 10000
+                return Playground.find(
+                    {
+                        location:
+                        {
+                            $near:
+                            {
+                                $geometry: { type: "Point", coordinates: [latitude, longitude] },
+                                $maxDistance: 10000
+                            }
                         }
                     }
-                })
+                )
                     .then(playgrounds => [coordinates, playgrounds])
 
             } catch (error) {

@@ -9,7 +9,6 @@ export default function checkIfHasPlaygroundsNear(token, userLocation) {
     // validateToken(token)
     // validateText(name)
     // validateText(description)
-    console.log(process.env.EXPO_PUBLIC_API_URL)
 
     return fetch(`${process.env.EXPO_PUBLIC_API_URL}/playgrounds/checkNear`, {
         method: 'POST',
@@ -23,7 +22,6 @@ export default function checkIfHasPlaygroundsNear(token, userLocation) {
         if (res.status !== 200)
             return res.json().then(({ error: message }) => { throw new Error(message) })
 
-        // return res.json()
         return
     })
 }

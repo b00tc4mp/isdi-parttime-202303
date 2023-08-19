@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { USER_LOCATION, MY_LOCATION, WHITE_MY_LOCATION } from '../../../assets/icons';
-import { Image, TouchableOpacity } from 'react-native';
+import { Image, TouchableOpacity, Alert } from 'react-native';
 import MapView, { Marker, Callout } from 'react-native-maps'
 import { useRef, useContext, useState, useEffect } from 'react';
 import { NativeWindStyleSheet } from "nativewind";
@@ -13,7 +13,7 @@ import retrievePlaygrounds from "../../logic/playgrounds/retrievePlaygrounds"
 
 export default function BaseMap({ onMarkerPressed, searchResult, user }) {
     const mapRef = useRef(null);
-    const { colorScheme, currentMarker, setCurrentMarker, origin, setOrigin, location, setLocation, loadCurrentLocation, setLoadCurrentLocation, TOKEN } = useContext(Context)
+    const { colorScheme, currentMarker, setCurrentMarker, origin, setOrigin, location, setLocation, currentLocation, loadCurrentLocation, setLoadCurrentLocation, TOKEN } = useContext(Context)
     const [playgrounds, setPlaygrounds] = useState()
 
     let isDark
@@ -25,21 +25,39 @@ export default function BaseMap({ onMarkerPressed, searchResult, user }) {
         console.log('Refresh Posts -> render in useEffect')
         try {
             console.log('   Show all Posts -> render in useEffect onLoad compo')
-            retrievePlaygrounds(TOKEN)
-                .then(playgrounds => {
-                    setPlaygrounds(playgrounds)
-                })
-                .catch(error => {
-                    alert(error.message)
-                })
 
-                .catch(error => {
-                    alert(error.message)
-                })
         } catch (error) {
-            alert(error.message)
+            Alert.alert('Error', `${error.message}`, [
+                { text: 'OK', onPress: () => { } },
+            ]);
         }
     }, [])
+    useEffect(() => {
+        console.log('Refresh Posts -> render in useEffect')
+        try {
+            if (loadCurrentLocation)
+                retrievePlaygrounds(TOKEN, location)
+                    .then(playgrounds => {
+                        setPlaygrounds(playgrounds)
+                    })
+                    .catch(error => {
+                        Alert.alert('Error', `${error.message}`, [
+                            { text: 'OK', onPress: () => { } },
+                        ]);
+                    })
+
+                    .catch(error => {
+                        Alert.alert('Error', `${error.message}`, [
+                            { text: 'OK', onPress: () => { } },
+                        ]);
+                    })
+
+        } catch (error) {
+            Alert.alert('Error', `${error.message}`, [
+                { text: 'OK', onPress: () => { } },
+            ]);
+        }
+    }, [loadCurrentLocation])
 
 
     useEffect(() => {
@@ -114,7 +132,7 @@ export default function BaseMap({ onMarkerPressed, searchResult, user }) {
                     latitudeDelta: 4,
                     longitudeDelta: 4,
                 }} />
-            <Loader text="Loading..." details="This may be take a while. Loading current position and playgrounds." />
+            <Loader text="Loading..." details="This may be take a while. Loading current position and playgrounds..." />
         </>}
         {loadCurrentLocation && <MapView
             // userInterfaceStyle={'dark'}
@@ -143,7 +161,7 @@ export default function BaseMap({ onMarkerPressed, searchResult, user }) {
                 </Callout>
             </Marker>
 
-            <Playgrounds user={user} playgrounds={playgrounds} onMarkerPressedHandler={onMarkerPressedHandler} />
+            {playgrounds && <Playgrounds user={user} playgrounds={playgrounds} onMarkerPressedHandler={onMarkerPressedHandler} />}
 
         </MapView>
 

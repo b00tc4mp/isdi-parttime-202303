@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext, useRef } from "react";
 
-import { ActivityIndicator, Text, Image, View, ScrollView, TouchableOpacity, TextInput } from 'react-native';
+import { ActivityIndicator, Text, Image, View, ScrollView, TouchableOpacity, TextInput, Alert } from 'react-native';
 
 import * as Location from 'expo-location';
 
@@ -84,10 +84,14 @@ export default function CreatePlayground({ closeHandle, cancelAddPlayground }) {
             await addPlayground(TOKEN, playgroundName, playgroundDescription, sunExposition, playgroundElements, storedImagesUrl, currentLocation)
                 .then(() => {
                     onClose()
-                    alert('Playground created!')
+                    Alert.alert('Success', `Playground added`, [
+                        { text: 'OK', onPress: () => { } },
+                    ]);
                 })
                 .catch(error => {
-                    alert(error.message)
+                    Alert.alert('Error', `${error.message}`, [
+                        { text: 'OK', onPress: () => { } },
+                    ]);
                     setUploading(false)
                 })
         } catch (error) {

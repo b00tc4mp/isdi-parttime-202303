@@ -1,11 +1,12 @@
 import React, { useEffect, useState, useContext } from "react";
 
-import { View, Text, TextInput, Image, TouchableOpacity, TouchableHighlight } from 'react-native';
+import { View, Text, TextInput, Image, TouchableOpacity, Alert } from 'react-native';
 import Context from '../AppContext.js'
 import MapView, { Marker, Callout } from 'react-native-maps'
 
 import authenticateUser from "../logic/users/authenticateUser.js";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as Linking from 'expo-linking';
 
 import BG from '../../assets/bg-login.png'
 import LOGO_SM from '../../assets/logo-sm.png'
@@ -18,29 +19,55 @@ export default function Login({ navigation }) {
     const { currentView, setCurrentView, colorScheme, TOKEN, setTOKEN, isLoggedIn, setIsLoggedIn } = useContext(Context)
     const [email, setEmail] = useState()
     const [password, setPassword] = useState()
+    const [message, setMessage] = useState()
 
+    useEffect(() => {
+        // Linking.getInitialURL().then((messageURL) => {
+        //     const index = messageURL.indexOf("=");
+        //     console.log(messageURL)
+        //     if (index !== -1) {
+        //         const messageSplitted = messageURL.slice(index + 1).split('-')
+        //         setMessage(messageSplitted.join(' '))
+        //         console.log(message)
+
+        //     }
+        // });
+    }, []);
+    useEffect(() => {
+        if (message) {
+            Alert.alert('Success', `${message}`, [
+                { text: 'OK', onPress: () => { } },
+            ]);
+            setMessage()
+        }
+    }, [message]);
 
     const handleLogin = () => {
-        validateEmail(email)
-        validatePassword(password)
-        authenticateUser(email, password)
-            .then(async () => {
-                return AsyncStorage.getItem('@TOKEN')
-                    .then(token => {
-                        if (token) {
-                            setTOKEN(token)
-                            setIsLoggedIn(true)
-                        }
-                    })
-                    .then(() => {
-                        navigation.reset({
-                            index: 0,
-                            routes: [{ name: 'Home' }],
+        try {
+            validateEmail(email)
+            validatePassword(password)
+            authenticateUser(email, password)
+                .then(async () => {
+                    return AsyncStorage.getItem('@TOKEN')
+                        .then(token => {
+                            if (token) {
+                                setTOKEN(token)
+                                setIsLoggedIn(true)
+                            }
                         })
-                    })
-
-            })
-            .catch(error => alert(error.message))
+                        .then(() => {
+                            navigation.reset({
+                                index: 0,
+                                routes: [{ name: 'Home' }],
+                            })
+                        })
+                })
+                .catch(error => alert(error.message))
+        } catch (error) {
+            Alert.alert('Error', `${error.message}`, [
+                { text: 'OK', onPress: () => { } },
+            ]);
+        }
 
     }
     const handleForgetPassword = () => {
