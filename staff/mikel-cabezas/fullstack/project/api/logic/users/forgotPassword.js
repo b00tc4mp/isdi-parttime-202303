@@ -31,7 +31,6 @@ module.exports = function forgotPassword(email) {
             const payload = { sub: user.uniqueString }
             const { JWT_SECRET, JWT_RECOVER_EMAIL_EXPIRATION } = process.env
             const token = jwt.sign(payload, JWT_SECRET, { expiresIn: JWT_RECOVER_EMAIL_EXPIRATION })
-            console.log(token)
             sendNewPasswordEmail(email, token)
         })
         .catch(error => {

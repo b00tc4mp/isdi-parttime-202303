@@ -21,6 +21,7 @@ import { BaseMap } from '../components/playgrounds/index.js';
 
 import Carousel, { Pagination, PaginationLight } from 'react-native-x-carousel';
 import LikedList from '../components/playgrounds/likedPlaygrounds/LikedList.jsx';
+import UserSettings from '../components/playgrounds/UserSettings.jsx';
 
 export default function Home({ navigation, onSendViewPlaygroundsFromCity }) {
     const { modal, setModal, colorScheme, TOKEN, loadCurrentLocation, setAnimation, currentView, setCurrentView } = useContext(Context)
@@ -254,6 +255,16 @@ export default function Home({ navigation, onSendViewPlaygroundsFromCity }) {
                     snapPoints={snapPoints}
                     onChange={handleSheetChangesCreate}>
                     <CreatePlayground closeHandle={onCloseAddPlayground} cancelAddPlayground={confirmCloseModal} />
+                </BottomSheet>
+            }
+            {
+                <BottomSheet
+                    enablePanDownToClose
+                    ref={bottomSheetRef}
+                    index={0}
+                    snapPoints={snapPoints}
+                    onChange={handleSheetChangesCreate}>
+                    <UserSettings user={user} />
                 </BottomSheet>
             }
             <StatusBar style="auto" />

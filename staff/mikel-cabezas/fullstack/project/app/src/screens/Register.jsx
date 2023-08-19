@@ -115,7 +115,7 @@ export default function Login({ navigation }) {
                         inputMode="text"
                         keyboardType="default"
                     />
-                    <Text className="dark:text-white pt-3 text-xs text-center">Repeat your Password</Text>
+                    <Text className="dark:text-white pt-3 text-xs text-center">Repeat password</Text>
                     <TextInput
                         label="Repeat password"
                         returnKeyType="done"

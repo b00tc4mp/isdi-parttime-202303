@@ -10,8 +10,14 @@
       [
         "expo-image-picker",
         {
-          "photosPermission": "Allow $(PRODUCT_NAME) to access your photo",
-          "cameraPermission": "Allow $(PRODUCT_NAME) to access your camera"
+          "photosPermission": "Allow Playgrounds Near to access your photo",
+          "cameraPermission": "Allow Playgrounds Near to access your camera"
+        }
+      ],
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow Playgrounds Near to access your camera."
         }
       ],
       [

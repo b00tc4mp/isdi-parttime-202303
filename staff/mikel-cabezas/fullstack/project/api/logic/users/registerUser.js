@@ -1,6 +1,7 @@
 const { User } = require('../../data/models')
 // const randomString = require('../helpers/randomString')
 const sendRegisterEmail = require('../helpers/sendRegisterEmail')
+const jwt = require('jsonwebtoken')
 
 const {
     validators: { validateName, validateEmail, validatePassword },
@@ -45,7 +46,12 @@ module.exports = function registerUser(name, email, password) {
     console.log(uniqueString)
 
     return User.create({ name, email, password, isValid, uniqueString })
-        .then(() => sendRegisterEmail(email, uniqueString))
+        .then(() => {
+            const payload = { sub: uniqueString }
+            const { JWT_SECRET, JWT_RECOVER_EMAIL_EXPIRATION } = process.env
+            const token = jwt.sign(payload, JWT_SECRET, { expiresIn: JWT_RECOVER_EMAIL_EXPIRATION })
+            sendRegisterEmail(name, email, token)
+        })
         .catch(error => {
             if (error.message.includes('E11000')) throw new DuplicityError(`This user whith email ${email} already exists`)
             throw error

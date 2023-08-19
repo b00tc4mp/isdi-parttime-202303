@@ -68,7 +68,6 @@ export default function Login({ navigation }) {
                 { text: 'OK', onPress: () => { } },
             ]);
         }
-
     }
     const handleForgetPassword = () => {
         navigation.navigate('ForgotPassword')

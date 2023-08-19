@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useContext, useRef } from "react";
-
 import { ActivityIndicator, Text, Image, View, ScrollView, TouchableOpacity, TextInput, Alert } from 'react-native';
 
 import * as Location from 'expo-location';
@@ -38,6 +37,9 @@ export default function CreatePlayground({ closeHandle, cancelAddPlayground }) {
     useEffect(() => {
 
         (async () => {
+
+
+
             let { status } = await Location.requestForegroundPermissionsAsync();
             if (status !== 'granted') {
                 setErrorMsg('Permission to access location was denied');
@@ -134,7 +136,7 @@ export default function CreatePlayground({ closeHandle, cancelAddPlayground }) {
         {modal === 'edit-element' && <EditElement onElementEdited={onEditElement} element={playgroundElements[editElement]} onCancelEditElement={onCancelHandleElement} />}
 
         <ScrollView className="flex-1">
-            <View className=" px-6 w-full pt-5 pb-2.5 bg-white dark:bg-gray-800 rounded-[20px] mx-auto min-hs-[300px] z-40 ">
+            <View className=" px-6 w-full pt-5 pb-2.5 bg-white dark:bg-gray-800 mx-auto min-hs-[300px] z-40 ">
                 <Text className="dark:text-white text-2xl font-semibold">Add playground</Text>
                 <Text className="dark:text-white text-lg mt-3 font-semibold">Info</Text>
                 <Text className="dark:text-white mt-1 text-xs ">Playground name</Text>
