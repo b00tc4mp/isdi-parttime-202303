@@ -1,7 +1,7 @@
 import { useEffect, useState, useContext } from "react"
 import retrieveLikedPlaygrounds from "../../../logic/playgrounds/retrieveLikedPlaygrounds"
 import LikedPlayground from "./LikedPlayground"
-import { View, ScrollView } from "react-native"
+import { View, ScrollView, Alert } from "react-native"
 import retrieveUser from "../../../logic/users/retrieveUser"
 
 export default function LikedPlaygrounds({ onMarkerPressedHandler }) {
@@ -18,15 +18,21 @@ export default function LikedPlaygrounds({ onMarkerPressedHandler }) {
                     setPlaygrounds(playgrounds)
                 })
                 .catch(error => {
-                    alert(error.message)
+                    Alert.alert('Error', `${error.message}`, [
+                        { text: 'OK', onPress: () => { } },
+                    ]);
                 })
             retrieveUser(userId)
                 .then(user => setUser(user))
                 .catch(error => {
-                    alert(error.message)
+                    Alert.alert('Error', `${error.message}`, [
+                        { text: 'OK', onPress: () => { } },
+                    ]);
                 })
         } catch (error) {
-            alert(error.message)
+            Alert.alert('Error', `${error.message}`, [
+                { text: 'OK', onPress: () => { } },
+            ]);
         }
     }, [])
 

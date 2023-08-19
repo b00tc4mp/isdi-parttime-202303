@@ -20,7 +20,6 @@ const {
 
 module.exports = function searchUser(uniqueString) {
     // TODO validate unique string
-    debugger
     return User.findOne({ uniqueString: uniqueString })
         .then(() => {
             return

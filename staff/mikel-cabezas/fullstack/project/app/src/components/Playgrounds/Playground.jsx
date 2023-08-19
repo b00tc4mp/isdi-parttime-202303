@@ -10,7 +10,7 @@ import { Text, Image } from 'react-native';
 
 // const { extractSubFromToken } = utils
 
-export default function Post({ playground, playground: { title, text, id, image, address, location: { coordinates, city, country, } }, onToggleLikePost, onToggleSavePost, onEditPostButton, onHideMenuOptions, user, onPostDeleted, onMarkerPressedHandler }) {
+export default function Post({ playground, playground: { title, text, id, image, address, location }, onToggleLikePost, onToggleSavePost, onEditPostButton, onHideMenuOptions, user, onPostDeleted, onMarkerPressedHandler }) {
     // const userId = extractSubFromToken(context.token)
     // const userId = extractSubFromToken(context.token)
 
@@ -32,7 +32,7 @@ export default function Post({ playground, playground: { title, text, id, image,
             // className="w-20 h-10 object-contain"
             width={48}
 
-            coordinate={{ latitude: coordinates[0], longitude: coordinates[1] }}
+            coordinate={{ latitude: location.coordinates[0], longitude: location.coordinates[1] }}
             title={title}
             description={text}
             // image={PIN}

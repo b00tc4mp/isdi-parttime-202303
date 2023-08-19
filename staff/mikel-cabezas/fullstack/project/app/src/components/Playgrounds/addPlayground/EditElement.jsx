@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { View, Text, Image, TouchableOpacity } from 'react-native';
+import { View, Text, Image, TouchableOpacity, Alert } from 'react-native';
 import Context from '../../../AppContext.js'
 import { Picker } from 'react-native-wheel-pick';
 import { DROPDOWN } from "../../../../assets/icons/index.js";
@@ -20,7 +20,9 @@ export default function AddElement({ onElementEdited, onCancelEditElement, eleme
             const element = { id: id, type: selectedType, age: selectedAge, status: selectedStatus, accessibility: selectedAccessibility }
             onElementEdited(element)
         } catch (error) {
-            alert(error.message)
+            Alert.alert('Error', `${error.message}`, [
+                { text: 'OK', onPress: () => { } },
+            ]);
             console.log(error.message)
         }
     }

@@ -49,7 +49,11 @@ export default function Sidebar({ navigation, closeHandle, user, likedHandler })
     const handleGoToLogout = async () => {
         setIsLoggedIn(false)
         setTimeout(() => {
-            navigation.navigate('Login')
+            // navigation.navigate('Login')
+            navigation.reset({
+                index: 0,
+                routes: [{ name: 'Login' }],
+            })
             AsyncStorage.clear();
         }, 100);
     }

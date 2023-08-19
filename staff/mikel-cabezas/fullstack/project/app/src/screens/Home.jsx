@@ -1,4 +1,4 @@
-import { View, StatusBar, Text, Alert, Dimensions, Image, StyleSheet, TouchableHighlight, ScrollView } from 'react-native';
+import { View, StatusBar, Text, Alert, Dimensions, Image, TouchableOpacity, TouchableHighlight, ScrollView } from 'react-native';
 import { useContext, useEffect, useState, useRef, useMemo, useCallback } from 'react';
 import AppContext from "../AppContext.js";
 const { Provider } = AppContext
@@ -23,7 +23,7 @@ import Carousel, { Pagination, PaginationLight } from 'react-native-x-carousel';
 import LikedList from '../components/playgrounds/likedPlaygrounds/LikedList.jsx';
 
 export default function Home({ navigation, onSendViewPlaygroundsFromCity }) {
-    const { modal, setModal, colorScheme, TOKEN, animation, setAnimation, currentView, setCurrentView } = useContext(Context)
+    const { modal, setModal, colorScheme, TOKEN, loadCurrentLocation, setAnimation, currentView, setCurrentView } = useContext(Context)
     const [currentMarker, setCurrentMarker] = useState({})
     const [newPlaygroundStatus, setNewPlaygroundStatus] = useState(false)
     const [searchResult, setSearchResult] = useState(false)
@@ -257,7 +257,7 @@ export default function Home({ navigation, onSendViewPlaygroundsFromCity }) {
                 </BottomSheet>
             }
             <StatusBar style="auto" />
-            {welcomeMessageStorage && user && <View className="flex-1 w-full bg-black60 justify-center items-center">
+            {welcomeMessageStorage && user && loadCurrentLocation && <View className="flex-1 w-full h-screen bg-black60 justify-center items-center">
                 <TouchableHighlight onPress={onCloseWelcomeMessage} className="absolute right-2 top-10 z-50 shadow-md shadow-black ">
                     <Image source={WHITE_CLOSE} className="w-10 h-10" />
                 </TouchableHighlight>
@@ -290,6 +290,14 @@ export default function Home({ navigation, onSendViewPlaygroundsFromCity }) {
                         <Text className="mb-2">Ver las imagenes en miniatura, y en grande si las presionas</Text>
                         <Text className="mb-2 text-sm font-semibold">Gracias y espero que la disfrutes 💚</Text>
                     </ScrollView>
+                    <TouchableOpacity
+                        activeOpacity={0.8}
+                        className="border border-mainLime bg-mainLime rounded-full mt-4 self-center w-full  "
+                        onPress={onCloseWelcomeMessage} >
+                        <View className="font-bold px-6 py-2 self-center rounded-full" >
+                            <Text className="font-bold text-lg">OK</Text>
+                        </View>
+                    </TouchableOpacity>
                 </View>
             </View>}
 

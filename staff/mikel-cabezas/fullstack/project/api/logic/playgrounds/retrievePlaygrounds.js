@@ -15,25 +15,27 @@ const {
  * 
  * @throws {ExistenceError} on user not found (async)
  */
-module.exports = userId => {
+module.exports = (userId, location) => {
     validateUserId(userId)
-
-    return Promise.all([
-        User.findById(userId).lean(),
-        Playground.find().lean(),
-    ])
-        .then(([user, playground]) => {
-
-            if (!user) new ExistenceError(`User with id ${userId} not found`)
-
-            // playground.forEach(playground => {
-            //     playground.id = playground._id.toString()
-
-            //     delete playground._id
-
-            // })
-            // console.log(playground)
-
-            return playground
-        })
+    console.log(location)
+    const latitude = location.latitude
+    const longitude = location.longitude
+    const coordinates = [latitude, longitude]
+    try {
+        return Promise.all([
+            Playground.find({
+                location: {
+                    $near: {
+                        $geometry: { type: "Point", coordinates: coordinates },
+                        // $maxDistance: maxDistance
+                        $maxDistance: 10000
+                    }
+                }
+            }).lean()
+        ])
+            // .then(playgrounds => [playgrounds])
+            .then(playgrounds => [playgrounds])
+    } catch (error) {
+        console.log(error.message)
+    }
 }

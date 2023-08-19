@@ -1,17 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { View, Button, Text, Image, ActivityIndicator } from 'react-native';
+import { View, Button, Text, Image, ActivityIndicator, Alert } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { manipulateAsync, FlipType, SaveFormat } from 'expo-image-manipulator';
 
-import { Asset } from 'expo-asset';
 
 import { firebase } from '../../config/firebase.js'
-import { ref, uploadBytes } from 'firebase/storage'
-
-// import Button from '../components/Button/';
-// import Text from '../components/Text/';
-
-
 
 export default function Upload() {
     const [ready, setReady] = useState(false);
@@ -19,11 +12,7 @@ export default function Upload() {
     const [imageResized, setImageResized] = useState(null);
     const [uploading, setUploading] = useState(false);
 
-
-
-
     const pickImage = async () => {
-
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.All,
             allowsEditing: true,
@@ -67,7 +56,9 @@ export default function Upload() {
         }
         setUploading(false)
 
-        alert('image uploaded')
+        Alert.alert('Succeed', `Image uploaded`, [
+            { text: 'OK', onPress: () => { } },
+        ]);
 
         setImage(null)
     }

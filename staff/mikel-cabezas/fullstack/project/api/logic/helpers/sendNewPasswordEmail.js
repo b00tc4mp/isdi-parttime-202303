@@ -82,6 +82,6 @@ module.exports = async (email, uniqueString) => {
         })
     } catch (error) {
         console.log(error.message)
-        console.log('Mail notsent!')
+        console.log('Mail not sent!')
     }
 }

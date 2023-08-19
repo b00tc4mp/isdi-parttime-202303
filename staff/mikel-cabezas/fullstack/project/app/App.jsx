@@ -43,7 +43,13 @@ export default function App({ }) {
     prefixes: [prefix],
     config: {
       screens: {
-        Login: "Login",
+        UserValitionSuccess: "UserValitionSuccess/",
+        Login: {
+          path: 'Login/:message',
+          parse: {
+            message: (message) => `${message}`
+          }
+        },
         Register: {
           path: 'Register/:token',
           parse: {

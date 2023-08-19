@@ -6,5 +6,5 @@ module.exports = handleErrors(async (req, res) => {
 
     validateUser(uniqueString)
 
-    await res.redirect('https://playgroundsnear.app')
+    await res.redirect(`${process.env.SCHEMA}/UserValitionSuccess`)
 })
