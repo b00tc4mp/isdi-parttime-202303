@@ -19,7 +19,7 @@ mongoose.connect(process.env.MONGODB_URL)
 
         api.post('/user/register', jsonBodyParser, registerUserHandler)
         api.get('/user/searchUser', searchUserHandler)
-        api.get('/user/validate/:uniqueString', validateUserHandler)
+        api.get('/user/validate/:token', validateUserHandler)
         api.get('/user/recoverPassword/:token', recoverPasswordHandler)
         api.patch('/user/setNewPassword/', jsonBodyParser, setNewPasswordHandler)
         api.post('/user/forgotPassword', jsonBodyParser, forgotPasswordHandler)

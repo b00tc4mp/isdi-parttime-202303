@@ -3,6 +3,7 @@ import { Keyboard, TouchableWithoutFeedback, SafeAreaView, useColorScheme } from
 import * as Linking from 'expo-linking';
 import { NavigationContainer } from '@react-navigation/native';
 import * as Location from 'expo-location';
+import { ActionSheetProvider } from '@expo/react-native-action-sheet';
 
 import MainStack from "./src/navigation/MainStack.jsx";
 import { StatusBar } from 'expo-status-bar';
@@ -97,9 +98,14 @@ export default function App({ }) {
         setAnimation, TOKEN, setTOKEN, origin, setOrigin, location, setLocation, colorPalette, loadCurrentLocation, setLoadCurrentLocation, isLoggedIn, setIsLoggedIn
       }}>
         <HideKeyboard>
-          <NavigationContainer linking={linking} >
-            <MainStack />
-          </NavigationContainer>
+          <ActionSheetProvider>
+
+
+            <NavigationContainer linking={linking} >
+              <MainStack />
+            </NavigationContainer>
+          </ActionSheetProvider>
+
         </HideKeyboard>
       </Provider>
 

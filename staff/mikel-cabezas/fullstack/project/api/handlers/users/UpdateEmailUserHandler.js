@@ -6,8 +6,8 @@ const { handleErrors, extractUserId } = require('../helpers')
 module.exports = handleErrors(async (req, res) => {
     debugger
     const userId = extractUserId(req)
-    const { newPassword } = req.body
-    setNewPassword(userId, newPassword)
+    const { name, email } = req.body
+    updateUserEmail(userId, name, email)
         .then(() => {
             res.status(204).send()
         })
