@@ -82,6 +82,7 @@ const Home = ({ onContinueToNewCharacter, onLogoutSession, onStartGame }) => {
                 <View className="h-3/4 w-full pl-2 pr-2 m-5">
                     {!modal && <Missions
                         onMissionClicked={handleGoToMissionInfo}
+                        //passar el character com a prop
                     />}
                     {modal === "userMenu" && <UserMenu
                         onUserLogout={handleLogoutSession}

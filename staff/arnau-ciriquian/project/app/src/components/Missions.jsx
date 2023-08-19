@@ -4,7 +4,7 @@ import UserMission from "./UserMission.jsx"
 import { ScrollView, View } from "react-native"
 import { useState, useEffect } from "react"
 
-export default function Missions({ onEditClicked, admin, onMissionClicked /*lastMissionsUpdate*/ }) {
+export default function Missions({ onEditClicked, admin, onMissionClicked, user /*lastMissionsUpdate*/ }) {
     const [missions, setMissions] = useState()
 
     useEffect(() => handleRefreshMissions(), [])
@@ -44,6 +44,7 @@ export default function Missions({ onEditClicked, admin, onMissionClicked /*last
                 key={mission.id}
                 mission={mission}
                 onMissionClicked={onMissionClicked}
+                //passar el character com a prop
             />)}
             <View className="h-10"></View>
         </ScrollView>

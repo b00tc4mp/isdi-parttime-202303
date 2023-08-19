@@ -1,10 +1,14 @@
 import { deleteMission } from "../../logic/deleteMission.js"
+import { useEffect, useState } from "react"
+import manageMissionImages from "../../logic/manageMissionImages.js"
 
 //import { utils } from "com"
 
 import { View, Text, Image, TouchableOpacity, Alert } from "react-native"
 
 export default function AdminMission({ mission: { id, image, tittle, info, level, difficulty, survivor, visibility, date }, onEditClick, onDeleteMissionClick }) {
+    const [missionImage, setMissionImage] = useState(null)
+
     const handleOpenEditModal = () => onEditClick(id)
 
     const handleDeleteMission = () => {
@@ -26,12 +30,17 @@ export default function AdminMission({ mission: { id, image, tittle, info, level
         ])
     }
 
+    useEffect(() => {
+        const imageName = image.slice(21, -4)
+        setMissionImage(manageMissionImages(imageName))
+    }, [])
+
     return <>
         <View className="h-20 flex-row items-center justify-between ml-5 mr-5 mt-2">
             {visibility ? <View className="absolute bg-white h-full w-full rounded-tl-lg rounded-tr-3xl rounded-bl-3xl rounded-br-lg shadow-md shadow-black opacity-50"></View> : <View className="absolute bg-red-400 h-full w-full rounded-tl-lg rounded-tr-3xl rounded-bl-3xl rounded-br-lg shadow-md shadow-black opacity-50"></View>}
             <View className="flex-row w-full h-full items-center">
                 <View className="h-10 w-10 justify-center items-center m-2">
-                    <Image source={{ uri: image }} className="h-10 w-10"></Image>
+                    <Image source={missionImage} className="h-10 w-10"></Image>
                 </View>
                 <View className="justify-center items-center h-16 w-3/4">
                     <View className="w-full items-center">
