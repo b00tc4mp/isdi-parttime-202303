@@ -58,11 +58,12 @@ const LayoutForm = ({ level, setLevel, setToast, setToastOn, setCost, cost }) =>
     const duplicateFloor = () => {
         const lastFloor = level[level.length - 1];
         if (level.length <= 99 && validateFloor(lastFloor, setToast, setToastOn)) {
+            const duplicatedFloor = [...lastFloor];
             const updatedLevel = [...level];
-            updatedLevel.push(lastFloor);
+            updatedLevel.push(duplicatedFloor);
             setLevel(updatedLevel);
         }
-    }
+    };
 
     const removeFloor = () => {
         if (level.length > 1) {
