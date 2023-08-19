@@ -26,8 +26,6 @@ const searchPlace = () => {
         console.log('Create new Place');
     };
 
-
-
     return (
         <div>
             <div className="flex flex-row w-full">
@@ -38,11 +36,11 @@ const searchPlace = () => {
                         value={placeName}
                         onChange={handleInputChange}
                         placeholder="Enter place name" />
-                    <span className='absolute top-5 left-1 h-6 w-6  rounded-full'>
+                    <span className='absolute top-3 left-1 h-6 w-6  rounded-full'>
                         <MagnifyingGlassIcon className='text-gray-500 ' />
                     </span>
+                    <Button onClick={handleRetrieveDetails}>Search for a place</Button>
                 </div>
-                <Button onClick={handleRetrieveDetails}>Search for a place</Button>
             </div>
             <Button onClick={handleCreatePlace}>Create a new place</Button>
 

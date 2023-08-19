@@ -12,15 +12,6 @@ const SearchArtist = () => {
         setArtistName(event.target.value);
     };
 
-    // const handleRetrieveDetails = async () => {
-    //     try {
-    //         const details = await retrieveArtistDetails(artistName);
-    //         setSearchArtist(details);
-    //     } catch (error) {
-    //         console.error('Error:', error);
-    //         setSearchArtist(null);
-    //     }
-    // };
 
     const handleRetrieveDetails = async () => {
         try {
@@ -42,12 +33,12 @@ const SearchArtist = () => {
                     <span className='absolute top-3 left-1 h-6 w-6  rounded-full'>
                         <MagnifyingGlassIcon className='text-gray-500 ' />
                     </span>
+                    <Button onClick={handleRetrieveDetails}>Search Artist</Button>
                 </div>
 
-                <Button onClick={handleRetrieveDetails}>Search Artist</Button>
             </div>
 
-            {error && <p className="text-red-500">{error}</p>}
+            {error && <p className="text-lime-200">{error}</p>}
 
             {SearchArtist && !error && (
                 <div>

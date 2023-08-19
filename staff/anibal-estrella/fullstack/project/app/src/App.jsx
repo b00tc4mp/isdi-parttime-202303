@@ -23,7 +23,6 @@ function App() {
             const originalLocation = geolocationData.originalLocation;
             setCity(closestCity)
             setGeolocation(originalLocation)
-            debugger
         }
         fetchGeolocation();
     }, []);

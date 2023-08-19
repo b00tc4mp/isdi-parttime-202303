@@ -13,8 +13,6 @@ const { User } = require('../data-project/models.js')
  * 
  * @returns {Promise<string>} The user ID
  * Errors:
- * @throws {TypeError} on non-string email
- * @throws {ContentError} on empty email
  * @throws { ExistenceError} on non-existing user
  */
 module.exports = (email) => {
@@ -22,7 +20,7 @@ module.exports = (email) => {
 
     return User.findOne({ email })
         .then(user => {
-            if (!user) throw new ExistenceError('user email not found')
+            if (!user) throw new ExistenceError(`${email} is not registered`)
             return user.id
         })
 }

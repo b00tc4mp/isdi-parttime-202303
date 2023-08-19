@@ -12,10 +12,10 @@ export default function MenuLayer({ onClose, items }) {
                 {/* <a href="#" className="text-[0]" handleItemClick={onClose} >Close Menu<XCircleIcon /></a> */}
                 <MenuItem tag="li" className="absolute top-2 right-2 " handleItemClick={onClose} ><XCircleIcon className='w-8 h-8' /></MenuItem>
 
-                <MenuItem tag={Link} id="login" className="p-4 text-gray-100" to="/login" handleItemClick={onClose} >
+                <MenuItem tag={Link} id="login" className="m-2 text-gray-100" to="/login" handleItemClick={onClose} >
                     login/register/logout
                 </MenuItem>
-                <MenuItem tag={Link} id="profile" className="p-4 text-gray-100" to="/profile" handleItemClick={onClose} >
+                <MenuItem tag={Link} id="profile" className="m-2 text-gray-100" to="/profile" handleItemClick={onClose} >
                     profile
                 </MenuItem>
 
@@ -24,7 +24,7 @@ export default function MenuLayer({ onClose, items }) {
                         key={item.id}
                         tag={Link}
                         id={item.id}
-                        className="p-4 text-gray-100"
+                        className="m-2 text-gray-100"
                         to={item.link}
                         handleItemClick={onClose}
                     >

@@ -17,12 +17,10 @@ export default ({ city, ipGeoLocation }) => {
 
 
     return <>
-
         <div className='m-2'>
-            {city && <h2>Your City: {city} </h2>}
-            {city && <h2>Your geolocaltion: {ipGeoLocation[0]},{ipGeoLocation[1]} </h2>}
+            {city && <p>Your City: {city} </p>}
+            {city && <p>Your geolocaltion: {ipGeoLocation[0]},{ipGeoLocation[1]} </p>}
         </div >
-
         <section id="home" className="pt-8 px-2">
 
             <section id=''>

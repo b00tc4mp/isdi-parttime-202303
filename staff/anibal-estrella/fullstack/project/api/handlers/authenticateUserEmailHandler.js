@@ -7,6 +7,6 @@ module.exports = handleErrors((req, res) => {
 
     return authenticateUserEmail(email)
         .then(userId => {
-            res.status(200).send(`A user with that ${email} is registered.`)
+            res.status(200).json({ email })
         })
 })

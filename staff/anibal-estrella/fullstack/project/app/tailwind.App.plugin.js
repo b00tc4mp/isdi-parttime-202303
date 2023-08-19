@@ -1,19 +1,28 @@
 const plugin = require('tailwindcss/plugin')
 
-export default plugin(({ addBase, addComponents, addUtilities, theme }) => {
+export default plugin(({ addBase, addComponents, addUtilities, theme, config }) => {
     addBase({
         'h1, h2, h3': {
-            fontSize: theme('fontSize.2xl'),
+            fontSize: theme('fontSize.3xl'),
+            letterSpacing: '-0.025em',
             fontWeight: '600',
             textTransform: 'uppercase',
-
-            // marginTop: '.5rem',
+        },
+        'a:focus, input:focus, button:focus': {
+            outline: 'none',
+            boxShadow: 'none',
+            borderWidth: '0',
+        },
+        'a:focus-visible, input:focus-visible, button:focus-visible': {
+            borderColor: config('theme.borderColor.red'),
+            borderWidth: config('theme.borderWidth.2'),
+            borderRadius: config('theme.borderRadius.full'),
         },
         'strong': {
             fontWeight: '500',
         },
-        'p, li': {
-            fontSize: theme('fontSize.lg'),
+        'p, li, label': {
+            fontSize: theme('fontSize.sm'),
             fontWeight: '300',
             letterSpacing: '0.025em'
         },
@@ -28,9 +37,7 @@ export default plugin(({ addBase, addComponents, addUtilities, theme }) => {
             borderRadius: '9999px',
             cursor: 'text',
         },
-        'p': {
 
-        },
         backgroundImage: {
             'logo-background': "url('./assets/LiveDive-Logo-W.svg')",
         },

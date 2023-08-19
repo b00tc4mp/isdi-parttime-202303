@@ -10,7 +10,7 @@ const Profile = () => {
     return (
         <div>
 
-            {error && <p className="text-red-500">{error}</p>}
+            {error && <p className=" bg-lime-200">{error}</p>}
 
             <h1>Name Profile</h1>
 

@@ -1,6 +1,6 @@
 const { authenticateUser } = require('../logic')
-const jwt = require('jsonwebtoken')
 const { handleErrors } = require('./helpers')
+const jwt = require('jsonwebtoken')
 
 module.exports = handleErrors((req, res) => {
     const { email, password } = req.body

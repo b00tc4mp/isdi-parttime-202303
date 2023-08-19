@@ -22,9 +22,6 @@ async function retrieveArtistDetailsFromDiscogs(artistName) {
             artistDetails.discogsId = artistId;
             artistDetails.discogsUrl = `https://www.discogs.com/artist/${artistId}`;
             artistDetails.name = artistProfileData.name.replace(/\s*\(\d+\)\s*/, '');
-            // artistDetails.bio = artistProfileData.profile.replace(/\[.*?\]/g, '');
-            debugger
-
             artistDetails.bio = await replaceIdsWithNamesInArtistBio(artistProfileData.profile)
             artistDetails.image = artistProfileData.images.find(image => image.type === 'primary')?.resource_url || null
             if (artistProfileData.urls)
@@ -56,9 +53,7 @@ async function retrieveArtistDetailsFromDiscogs(artistName) {
             return artistDetails;
 
         } else {
-
             throw new Error(`No artist found as ${artistName}, try again!`);
-
         }
     } catch (error) {
         console.error('Error fetching artist info:', error);
