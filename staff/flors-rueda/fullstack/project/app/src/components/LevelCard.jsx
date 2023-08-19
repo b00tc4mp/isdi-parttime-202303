@@ -65,21 +65,34 @@ const LevelCard = ({ levelInfo, isLevelSaved, setSaves }) => {
         setLevelTitle(levelInfo.name);
     }, [isFollowed, levelInfo, id]);
 
+    let timeDifference = new Date() - new Date(levelInfo.date);
+    const hours = Math.floor(timeDifference / 3600000);
+    let time;
+
+    if (hours <= 24) {
+        const minutes = Math.floor(timeDifference / 60000);
+        if (hours > 0) time = <time>{hours} hours ago</time>
+        if (hours === 0 && minutes > 0) time = <time>{minutes} minutes ago</time>
+        if (minutes === 0) time = <time>just now</time>
+    } else {
+        time = <time>{new Date(levelInfo.date).toLocaleDateString("en-GB")}</time>
+    }
+
     return (
         <div className="w-full md:w-5/12 md:max-w-sm p-6 bg-light500 border border-light300 rounded-lg shadow">
             <div className="flex justify-between">
                 <div className="flex items-start flex-col">
-                    <div className="flex flex-row gap-0.5 text-2xl font-semibold truncate text-primary200 max-w-1/2">
+                    <div className={`flex flex-row gap-0.5 text-2xl font-semibold truncate text-${authorData.color} max-w-1/2`}>
                         <h3>{title}</h3>
                     </div>
-                    <p className={`text-${authorData.color} text-xs`}>{new Date(levelInfo.date).toLocaleDateString("en-GB")}</p>
-                    <Link to={`/game/${levelInfo.id}`} className="inline-flex items-center text-secondary300 hover:underline">
+                    <p className="text-secondary300 text-xs">{time}</p>
+                    <Link to={`/game/${levelInfo.id}`} className="inline-flex items-center text-primary200 hover:underline">
                         Play now
                         <i className="bi bi-play-circle text-xl ps-1"></i>
                     </Link>
                     <div className={`flex flex-row gap-2 text-secondary500 text-sm font-semibold align-center items-center`}>
                         <p className={`flex flex-row gap-2 text-secondary500 text-sm font-semibold align-center items-center`}>
-                            <button onClick={handleSaveClick} className={`flex flex-row text-secondary500 text-sm font-semibold ${isSaved ? 'hover:text-danger100' : 'hover:text-success100'} items-center`}>
+                            <button onClick={handleSaveClick} className={`flex flex-row text-secondary500 text-sm font-semibold ${isSaved ? 'hover:text-light100' : 'hover:text-success100'} items-center`}>
                                 <i className={`text-lg bi bi-bookmark-star${isSaved ? '-fill' : ''}`}></i>
                             </button>
                             <button onClick={handleLikeClick}>
