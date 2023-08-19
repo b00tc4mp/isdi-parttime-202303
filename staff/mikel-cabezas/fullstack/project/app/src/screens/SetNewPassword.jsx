@@ -21,15 +21,17 @@ export default function Login({ navigation }) {
 
     useEffect(() => {
         Linking.getInitialURL().then((url) => {
+
             if (!url) {
                 navigation.navigate('Login')
             }
+            const index = url.indexOf("=");
+            const token = url.slice(index + 1)
 
-            searchUser(url)
+            searchUser(token)
                 .then(() => {
+                    debugger
                     setUrl(url)
-                    const index = url.indexOf("=");
-                    const token = url.slice(index + 1)
                     setPasswordToken(token)
                 })
                 .catch(error => {

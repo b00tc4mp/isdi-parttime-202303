@@ -5,8 +5,8 @@ const { extractUserId } = require('../helpers')
 
 
 module.exports = handleErrors(async (req, res) => {
-    const userId = extractUserId(req)
-    searchUser(userId)
+    const uniqueString = extractUserId(req)
+    searchUser(uniqueString)
         .then(() => {
             res.status(200).send()
         })

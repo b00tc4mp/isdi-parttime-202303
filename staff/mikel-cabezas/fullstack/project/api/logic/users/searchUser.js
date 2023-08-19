@@ -18,7 +18,7 @@ const {
  * 
  */
 
-module.exports = function setNewPassword(uniqueString, newPassword) {
+module.exports = function searchUser(uniqueString) {
     // TODO validate unique string
     debugger
     return User.findOne({ uniqueString: uniqueString })
