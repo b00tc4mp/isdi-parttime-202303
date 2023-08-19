@@ -3,4 +3,4 @@ import AppContext from '../AppContext';
 
 const useAppContext = () => useContext(AppContext);
 
-export default useAppContext
+export default useAppContext;

@@ -13,7 +13,7 @@ import updateCC from '../../logic/update-cc';
 import updateCCAchievements from '../../logic/update-cc-achievements';
 import updateUnlockAvatar from '../../logic/update-unlock-avatar';
 
-const AvatarForm = ({ setUpdateUserInfo }) => {
+const AvatarForm = ({ setUpdateUserInfo, setToast }) => {
     const [selectedAvatar, setSelectedAvatar] = useState('');
     const [unlockAvatars, setUnlockAvatars] = useState([]);
     const [budget, setBudget] = useState(0);
@@ -48,6 +48,7 @@ const AvatarForm = ({ setUpdateUserInfo }) => {
         setUpdateUserInfo(false);
         handleErrors(async () => {
             await updateAvatar(avatar);
+            setToast('new avatar saved');
             setSelectedAvatar(avatar);
             setUpdateUserInfo(true);
         })

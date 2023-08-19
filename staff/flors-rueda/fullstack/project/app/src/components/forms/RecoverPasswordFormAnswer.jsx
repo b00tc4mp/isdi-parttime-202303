@@ -1,5 +1,5 @@
 import inLogger from '../../inLogger';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import checkRecoveryAnswer from '../../logic/check-recovery-answer';
 import useHandleErrors from '../../hooks/useHandleErrors';
 

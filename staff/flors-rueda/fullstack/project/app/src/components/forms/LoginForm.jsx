@@ -1,9 +1,15 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import inLogger from '../../inLogger';
+import { useNavigate } from 'react-router-dom';
+import loginUser from '../../logic/login-user';
 
 
-const LoginForm = ({ onRegister, onRecover, onLoginUser, formRef }) => {
+const LoginForm = ({ onRegister, onRecover, setToast, setConnectSocket }) => {
     const submitRef = useRef();
+    const [isUsernameValid, setUsernameValid] = useState(null);
+    const [isPasswordValid, setPasswordValid] = useState(null);
+    const formRef = useRef(null);
+    const navigate = useNavigate();
 
     const handleEnterDown = (event) => {
         if (event.key === 'Enter') {
@@ -33,11 +39,48 @@ const LoginForm = ({ onRegister, onRecover, onLoginUser, formRef }) => {
 
         if (!alphanumericRegex.test(inputValue)) {
             event.target.setCustomValidity('Only letters and numbers are allowed.');
+            setUsernameValid(false);
+        } else if (inputValue.length >= 12) {
+            event.target.setCustomValidity('Username too long.');
+            setUsernameValid(false);
         } else {
             event.target.setCustomValidity('');
+            setUsernameValid(true);
         }
         event.target.reportValidity();
     };
+
+    const handlePasswordChange = (event) => {
+        const inputValue = event.target.value;
+
+        if (inputValue.length < 8) {
+            event.target.setCustomValidity('Please, enter your password');
+            setPasswordValid(false);
+        } else {
+            event.target.setCustomValidity('');
+            setPasswordValid(true);
+        }
+        event.target.reportValidity();
+    };
+
+    const handleLogin = async (event) => {
+        event.preventDefault();
+        const formElement = formRef.current;
+        const formData = new FormData(formElement);
+
+        const username = formData.get('username');
+        const password = formData.get('password');
+
+        try {
+            await loginUser(username, password);
+            setConnectSocket(true);
+            navigate('/levels');
+        } catch (error) {
+            setToast(error.message);
+            setUsernameValid(false);
+            setPasswordValid(false);
+        }
+    }
 
     return (
         <div className="w-full bg-secondary600 rounded-lg shadow mt-5 sm:max-w-md">
@@ -54,9 +97,9 @@ const LoginForm = ({ onRegister, onRecover, onLoginUser, formRef }) => {
                             type="text"
                             name="username"
                             id="username"
-                            maxLength={12}
-                            className="bg-light500 border border-light100 text-secondary200 sm:text-sm rounded-lg focus:outline-none focus:ring-secondary300 focus:border-secondary300 block w-full p-2.5"
-                            placeholder="UserName123"
+                            maxLength={11}
+                            className={`border text-secondary200 sm:text-sm rounded-lg focus:outline-none focus:ring-secondary300 focus:border-secondary300 block w-full p-2.5 ${isUsernameValid === false ? 'border-danger200 border-2 bg-danger300' : 'border-light100 bg-light500'}`}
+                            placeholder="UserName42"
                             required={true}
                             onChange={handleUsernameChange}
                         />
@@ -71,8 +114,9 @@ const LoginForm = ({ onRegister, onRecover, onLoginUser, formRef }) => {
                             name="password"
                             id="password"
                             placeholder="••••••••"
-                            className="bg-light500 border border-light100 text-secondary200 sm:text-sm rounded-lg focus:outline-none focus:ring-secondary300 focus:border-secondary300 block w-full p-2.5"
+                            className={`border text-secondary200 sm:text-sm rounded-lg focus:outline-none focus:ring-secondary300 focus:border-secondary300 block w-full p-2.5 ${isPasswordValid === false ? 'border-danger200 border-2 bg-danger300' : 'border-light100 bg-light500'}`}
                             required={true}
+                            onChange={handlePasswordChange}
                         />
                         <p className="text-xs text-secondary300 text-end">
                             <button onClick={onRecover} className="font-medium text-primary200 hover:underline pl-2">
@@ -84,7 +128,7 @@ const LoginForm = ({ onRegister, onRecover, onLoginUser, formRef }) => {
                         type="button"
                         ref={submitRef}
                         className="w-full text-primary100 bg-light500 hover:bg-light400 focus:ring-4 focus:outline-none focus:ring-primary300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-                        onClick={(event) => onLoginUser(event)}
+                        onClick={(event) => handleLogin(event)}
                     >
                         Sign in
                     </button>

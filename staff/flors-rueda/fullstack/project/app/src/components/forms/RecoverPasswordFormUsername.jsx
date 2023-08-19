@@ -1,14 +1,13 @@
 import inLogger from '../../inLogger';
 import { useEffect, useRef, useState } from 'react';
 import retrieveRandomRecoveryQuestion from '../../logic/retrieve-random-recovery-question';
-import useHandleErrors from '../../hooks/useHandleErrors';
 
-const RecoverPasswordFormUsername = ({ setRecoveryQuestion, setUsername, setStep, step }) => {
-    const handleErrors = useHandleErrors();
+const RecoverPasswordFormUsername = ({ setRecoveryQuestion, setUsername, setStep, step, setToast }) => {
     const submitRef = useRef();
     const usernameRef = useRef();
+    const [isUsernameValid, setUsernameValid] = useState();
 
-    const handleGetQuestion = (event) => {
+    const handleGetQuestion = async (event) => {
         event.preventDefault();
 
         const formElement = usernameRef.current;
@@ -17,11 +16,15 @@ const RecoverPasswordFormUsername = ({ setRecoveryQuestion, setUsername, setStep
 
         setUsername(username);
 
-        handleErrors(async () => {
+        try {
             const question = await retrieveRandomRecoveryQuestion(username);
             setRecoveryQuestion(question);
             setStep(step + 1);
-        })
+        } catch (error) {
+            setToast(`Are you sure this username exists?`);
+            setUsernameValid(false);
+
+        }
     };
 
     const handleEnterDown = (event) => {
@@ -46,8 +49,10 @@ const RecoverPasswordFormUsername = ({ setRecoveryQuestion, setUsername, setStep
 
         if (!alphanumericRegex.test(inputValue)) {
             event.target.setCustomValidity('Only letters and numbers are allowed.');
+            setUsernameValid(false);
         } else {
             event.target.setCustomValidity('');
+            setUsernameValid(true);
         }
         event.target.reportValidity();
     };
@@ -63,8 +68,8 @@ const RecoverPasswordFormUsername = ({ setRecoveryQuestion, setUsername, setStep
                         type="text"
                         name="username"
                         id="username"
-                        maxLength={12}
-                        className="bg-light500 border border-light100 text-secondary200 sm:text-sm rounded-lg focus:outline-none focus:ring-secondary300 focus:border-secondary300 block w-full p-2.5"
+                        maxLength={11}
+                        className={`border text-secondary200 sm:text-sm rounded-lg focus:outline-none focus:ring-secondary300 focus:border-secondary300 block w-full p-2.5 ${isUsernameValid === false ? 'border-danger200 border-2 bg-danger300' : 'border-light100 bg-light500'}`}
                         placeholder="UserName123"
                         required={true}
                         onChange={handleUsernameChange}

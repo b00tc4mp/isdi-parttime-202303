@@ -7,6 +7,37 @@ const RecoverPasswordFormNewPassword = ({ setStep, step, username }) => {
     const handleErrors = useHandleErrors();
     const submitRef = useRef();
     const formRef = useRef();
+    const [isPasswordValid, setPasswordValid] = useState(null);
+    const [isRepeatPasswordValid, setRepeatPasswordValid] = useState(null);
+
+    const handlePasswordChange = (event) => {
+        const inputValue = event.target.value;
+
+        if (inputValue < 8) {
+            event.target.setCustomValidity('Password is too short to be secure.');
+            setPasswordValid(false);
+        } else {
+            event.target.setCustomValidity('');
+            setPasswordValid(true);
+        }
+        event.target.reportValidity();
+    };
+
+    const handleRepeatPasswordChange = (event) => {
+        const inputValue = event.target.value;
+        const formElement = formRef.current;
+        const formData = new FormData(formElement);
+        const password = formData.get('password');
+
+        if (inputValue !== password) {
+            event.target.setCustomValidity('Password and confirmation password are not the same');
+            setRepeatPasswordValid(false);
+        } else {
+            event.target.setCustomValidity('');
+            setRepeatPasswordValid(true);
+        }
+        event.target.reportValidity();
+    };
 
     const handleRecoverPassword = (event) => {
         event.preventDefault();
@@ -52,8 +83,9 @@ const RecoverPasswordFormNewPassword = ({ setStep, step, username }) => {
                         id="password"
                         placeholder="••••••••"
                         minLength={8}
-                        className="bg-light500 border border-light100 text-secondary200 sm:text-sm rounded-lg focus:outline-none focus:ring-secondary300 focus:border-secondary300 block w-full p-2.5 mb-2"
+                        className={`border text-secondary200 sm:text-sm rounded-lg focus:outline-none focus:ring-secondary300 focus:border-secondary300 block w-full mb-3    p-2.5 ${isPasswordValid === false ? 'border-danger200 border-2 bg-danger300' : 'border-light100 bg-light500'}`}
                         required={true}
+                        onChange={handlePasswordChange}
                     />
                     <input
                         type="password"
@@ -61,8 +93,9 @@ const RecoverPasswordFormNewPassword = ({ setStep, step, username }) => {
                         id="repeatPassword"
                         minLength={8}
                         placeholder="confirm your password"
-                        className="bg-light500 border border-light100 text-secondary200 sm:text-sm rounded-lg focus:outline-none focus:ring-secondary300 focus:border-secondary300 block w-full p-2.5"
+                        className={`border text-secondary200 sm:text-sm rounded-lg focus:outline-none focus:ring-secondary300 focus:border-secondary300 block w-full p-2.5 ${isRepeatPasswordValid === false ? 'border-danger200 border-2 bg-danger300' : 'border-light100 bg-light500'}`}
                         required={true}
+                        onChange={handleRepeatPasswordChange}
                     />
                 </div>
                 <button

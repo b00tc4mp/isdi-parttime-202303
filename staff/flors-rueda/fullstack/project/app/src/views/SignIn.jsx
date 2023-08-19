@@ -2,24 +2,19 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import inLogger from '../inLogger';
 import LoginForm from '../components/forms/LoginForm';
 import logo from '../assets/logo-complete.svg';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import './background.css';
 import ComicCarousel from '../components/ComicCarousel';
 import RegisterForm from '../components/forms/RegisterForm';
-import loginUser from '../logic/login-user';
-import registerUser from '../logic/register-user';
-import useHandleErrors from '../hooks/useHandleErrors';
 import RecoverPasswordForm from '../components/forms/RecoverPasswordForm';
+import AlertToast from '../components/toasts/AlertToast';
 
 const SignIn = ({ setConnectSocket }) => {
     const location = useLocation();
     const { startingForm } = location.state ? location.state : {};
     const [form, setForm] = useState(startingForm ? startingForm : 'login');
-    const formRef = useRef(null);
-    const [color, setColor] = useState('orange');
     const [isRecoverOn, setRecoverOn] = useState(false);
-    const handleErrors = useHandleErrors();
-    const navigate = useNavigate();
+    const [toast, setToast] = useState('');
 
     const handleGoToRegister = () => {
         if (form === 'register') {
@@ -37,45 +32,6 @@ const SignIn = ({ setConnectSocket }) => {
         }
     };
 
-    const handleLogin = (event) => {
-        event.preventDefault();
-        const formElement = formRef.current;
-        const formData = new FormData(formElement);
-
-        const username = formData.get('username');
-        const password = formData.get('password');
-
-        handleErrors(async () => {
-            await loginUser(username, password);
-            setConnectSocket(true);
-            navigate('/levels');
-        })
-    }
-
-    const handleRegister = (event) => {
-        event.preventDefault();
-
-        const formElement = formRef.current;
-        const formData = new FormData(formElement);
-
-        const username = formData.get('username');
-        const password = formData.get('password');
-        const repeatPassword = formData.get('repeatPassword');
-        const recoveryQuestions = [
-            {
-                question: formData.get('question'),
-                answer: formData.get('answer'),
-            }
-        ]
-
-        handleErrors(async () => {
-            await registerUser(username, password, repeatPassword, recoveryQuestions, color);
-            await loginUser(username, password);
-            setConnectSocket(true);
-            navigate('/levels');
-        })
-    }
-
     useEffect(() => {
         const { startingForm } = location.state ? location.state : {};
         setForm(startingForm ? startingForm : 'login');
@@ -83,6 +39,9 @@ const SignIn = ({ setConnectSocket }) => {
 
     return (
         <>
+            {
+                toast && <AlertToast message={toast} handleCloseAlert={() => setToast('')} />
+            }
             <div className="circle"></div> <div className="circle2"></div> <div className="circle3"></div><div className="circle4"></div>
             <div className="circle5"></div> <div className="circle6"></div> <div className="circle7"></div><div className="circle8"></div>
             <section>
@@ -90,9 +49,9 @@ const SignIn = ({ setConnectSocket }) => {
                     <Link to="/" className="flex items-center">
                         <img className="h-32" src={logo} alt="logo" />
                     </Link>
-                    {isRecoverOn && <RecoverPasswordForm onExit={() => setRecoverOn(false)} />}
-                    {!isRecoverOn && form === 'login' && <LoginForm onRegister={handleGoToRegister} onLoginUser={handleLogin} formRef={formRef} onRecover={() => setRecoverOn(true)} />}
-                    {!isRecoverOn && form === 'register' && <RegisterForm onLogin={handleGoToLogin} onRegisterUser={handleRegister} formRef={formRef} setColor={setColor} />}
+                    {isRecoverOn && <RecoverPasswordForm onExit={() => setRecoverOn(false)} setToast={setToast} />}
+                    {!isRecoverOn && form === 'login' && <LoginForm onRegister={handleGoToRegister} setConnectSocket={setConnectSocket} setToast={setToast} onRecover={() => setRecoverOn(true)} />}
+                    {!isRecoverOn && form === 'register' && <RegisterForm onLogin={handleGoToLogin} setConnectSocket={setConnectSocket} setToast={setToast} />}
                 </div>
             </section>
             <ComicCarousel />

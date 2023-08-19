@@ -1,26 +1,25 @@
-import useAppContext from './useAppContext'
-import { errors } from 'com'
-
+import useAppContext from './useAppContext';
 
 export default () => {
+    const { alert } = useAppContext();
 
     return callback => {
         try {
-            const promise = callback()
+            const promise = callback();
 
-                ; (async () => {
-                    try {
-                        await promise
-                    } catch (error) {
-                        showError(error, alert)
-                    }
-                })()
+            ; (async () => {
+                try {
+                    await promise;
+                } catch (error) {
+                    showError(error, alert);
+                }
+            })()
         } catch (error) {
-            showError(error, alert)
+            showError(error, alert);
         }
     }
 }
 
-function showError(error) {
-    console.log(error.message)
+function showError(error, alert) {
+    alert(error.message);
 }

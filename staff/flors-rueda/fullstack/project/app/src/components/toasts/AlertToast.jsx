@@ -1,23 +1,21 @@
 import { useEffect } from 'react';
 import inLogger from '../../inLogger';
 
-const AlertToast = ({ handleCloseAlert, message, log }) => {
+const AlertToast = ({ handleCloseAlert, message }) => {
     useEffect(() => {
-        log(message);
+        console.log(message);
     }, []);
 
     return (
-        <div className="fixed flex items-center w-screen h-screen justify-center z-40">
-            <div className="flex gap-2 items-center px-1 justify-around w-fit max-w-2/6 h-fit text-dark100 bg-light200 border border-danger300 rounded-lg shadow" role="alert">
-                <div className="inline-flex items-center justify-center w-8 h-8 text-dark200">
-                    <i className="text-xl bi bi-exclamation-triangle"></i>
-                </div>
-                <div className="text-sm font-bold pl-1 py-4">{message}</div>
-                <button type="button" onClick={handleCloseAlert} aria-label="Close" className="self-center">
-                    <span className="sr-only">Close</span>
-                    <i className="text-dark300 hover:text-danger100 bi bi-x-circle text-lg"></i>
-                </button>
+        <div className="fixed top-16 h-fit pt-2.5 pb-1 flex flex-row justify-around items-center w-full text-danger200 bg-light400 shadow z-40">
+            <div className="flex flex-row w-full justify-center">
+                <i className="text-xl bi bi-exclamation-diamond text-danger200"></i>
+                <div className="ml-3 text-sm font-bold self-center">{message}</div>
             </div>
+            <button type="button" onClick={handleCloseAlert} aria-label="Close" className="mr-5">
+                <span className="sr-only">Close</span>
+                <i className="text-danger200 hover:text-dark400 bi bi-x-circle text-lg"></i>
+            </button>
         </div>
     )
 }

@@ -5,7 +5,7 @@ import useHandleErrors from '../../hooks/useHandleErrors';
 import retrieveLoggedUser from '../../logic/retrieve-logged-user';
 import updateColor from '../../logic/update-color';
 
-const ColorForm = ({ setUpdateUserInfo }) => {
+const ColorForm = ({ setUpdateUserInfo, setToast }) => {
     const [isDropdownOn, setIsDropdownOn] = useState(false);
     const [color, setColor] = useState(null)
     const handleErrors = useHandleErrors();
@@ -26,6 +26,7 @@ const ColorForm = ({ setUpdateUserInfo }) => {
         handleErrors(async () => {
             setUpdateUserInfo(false);
             await updateColor(color);
+            setToast('new color saved');
             setUpdateUserInfo(true);
             handleDropdownToggle();
         })

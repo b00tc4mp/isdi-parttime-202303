@@ -26,7 +26,6 @@ import useHandleErrors from './hooks/useHandleErrors';
 import socketIOClient from 'socket.io-client';
 import AchievementToast from './components/toasts/AchievementToast';
 import createSession from './logic/create-session';
-import cleanSession from './logic/clean-session';
 
 const App = () => {
   const [isApiAvailable, setApiAvailableOn] = useState(true);
@@ -89,7 +88,6 @@ const App = () => {
     });
     return () => {
       socket.disconnect();
-      if (isUserLoggedIn()) cleanSession();
     };
   }, [connectSocket]);
 
