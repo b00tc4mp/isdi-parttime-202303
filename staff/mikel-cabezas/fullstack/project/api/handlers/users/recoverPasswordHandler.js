@@ -5,7 +5,7 @@ module.exports = handleErrors(async (req, res) => {
     const { token } = req.params
 
     // setNewPassword(token)
-    await res.redirect(`exp://127.0.0.1:19000/--/SetNewPassword/token=${token}`)
+    await res.redirect(`${process.env.SCHEMA}/SetNewPassword/token=${token}`)
 })
 
 
