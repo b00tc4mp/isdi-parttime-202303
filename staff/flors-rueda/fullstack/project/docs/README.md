@@ -115,7 +115,7 @@ So you play levels to earn points to create levels that other people will play t
 
 File                 | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
 ---------------------|---------|----------|---------|---------|-------------------
-All files                           |   98.65 |    90.53 |    97.5 |   98.54 | 
+All files                           |   98.93 |    91.35 |   98.88 |   98.84 | 
  data                               |     100 |      100 |     100 |     100 | 
   achievements.js                   |     100 |      100 |     100 |     100 | 
   models.js                         |     100 |      100 |     100 |     100 | 
@@ -132,20 +132,21 @@ All files                           |   98.65 |    90.53 |    97.5 |   98.54 |
   cleanUp.js                        |     100 |      100 |     100 |     100 | 
   generate.js                       |     100 |      100 |     100 |     100 | 
   index.js                          |     100 |      100 |     100 |     100 | 
- logic/levels                       |   98.93 |    90.47 |      95 |   98.87 | 
-  createLevel.js                    |      90 |      100 |      50 |      90 | 32
+ logic/levels                       |     100 |    94.28 |     100 |     100 | 
+  createLevel.js                    |     100 |      100 |     100 |     100 | 
   retrieveLevel.js                  |     100 |      100 |     100 |     100 | 
-  retrieveLevels.js                 |     100 |      100 |     100 |     100 | 
-  retrieveLevelsByAuthor.js         |     100 |      100 |     100 |     100 |                   
+  retrieveLevels.js                 |     100 |      100 |     100 |     100 |                   
+  retrieveLevelsByAuthor.js         |     100 |      100 |     100 |     100 | 
   retrieveLevelsByFollowed.js       |     100 |      100 |     100 |     100 | 
   retrieveLevelsSaved.js            |     100 |      100 |     100 |     100 | 
+  searchLevels.js                   |     100 |      100 |     100 |     100 | 
   toggleLike.js                     |     100 |     87.5 |     100 |     100 | 25
   toggleSave.js                     |     100 |     87.5 |     100 |     100 | 25
  logic/session                      |   97.22 |      100 |    87.5 |   96.96 | 
   cleanSession.js                   |     100 |      100 |     100 |     100 | 
   createSession.js                  |   93.33 |      100 |   66.66 |   93.33 | 28
   retrieveAllUserSessions.js        |     100 |      100 |     100 |     100 | 
- logic/users                        |   99.52 |     92.3 |     100 |   99.47 | 
+ logic/users                        |   99.54 |    92.59 |     100 |    99.5 | 
   authenticateUser.js               |     100 |      100 |     100 |     100 | 
   checkRecoveryAnswer.js            |     100 |      100 |     100 |     100 | 
   recoverPassword.js                |     100 |      100 |     100 |     100 | 
@@ -155,6 +156,7 @@ All files                           |   98.65 |    90.53 |    97.5 |   98.54 |
   retrieveUnlockAvatars.js          |     100 |      100 |     100 |     100 | 
   retrieveUser.js                   |     100 |      100 |     100 |     100 | 
   retrieveUserLogged.js             |     100 |      100 |     100 |     100 | 
+  searchUsers.js                    |     100 |      100 |     100 |     100 | 
   toggleFollow.js                   |     100 |       80 |     100 |     100 | 25-26
   unlockAvatar.js                   |     100 |      100 |     100 |     100 | 
   updateAvatar.js                   |     100 |      100 |     100 |     100 | 

@@ -1,6 +1,7 @@
 const { Level, User } = require('../../data/models');
 const {
     validators: { validateId },
+    errors: { ExistenceError }
 } = require('com');
 
 /**
@@ -17,6 +18,7 @@ module.exports = (userId) => {
     return User.findById(userId)
         .select('follows')
         .then(user => {
+            if (!user) throw new ExistenceError('user not found');
             const followedAuthorIds = user.follows;
             followedAuthorIds.push(userId);
 

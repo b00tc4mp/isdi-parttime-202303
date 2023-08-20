@@ -18,7 +18,7 @@ const validateId = (id, explain) => {
 /**
  * Validates a level's name
  * 
- * @param {string} name The id
+ * @param {string} name The name
  * 
  * @throws {TypeError} if name is not a string
  * @throws {ContentError} if name is empty

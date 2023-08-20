@@ -1,5 +1,5 @@
-const { Level } = require('../../data/models');
-const { errors: { UnknownError } } = require('com');
+const { Level, User } = require('../../data/models');
+const { errors: { ExistenceError } } = require('com');
 
 const {
     validators: { validateName, validateLayout, validateHealth, validateId },
@@ -21,14 +21,16 @@ module.exports = (name, layout, hp, author) => {
     validateHealth(hp)
     validateId(author, 'authorId')
 
-    return Level.create({
-        name,
-        layout,
-        hp,
-        author,
-        likes: [],
-        date: Date.now(),
-    }).catch(error => {
-        throw UnknownError(error.message)
-    })
+    return (async () => {
+        const user = await User.findById(author);
+        if (!user) throw new ExistenceError('user not found');
+        return Level.create({
+            name,
+            layout,
+            hp,
+            author,
+            likes: [],
+            date: Date.now(),
+        })
+    })()
 }

@@ -17,6 +17,7 @@ module.exports = (userId) => {
     return User.findById(userId)
         .select('saves')
         .then(user => {
+            if (!user) throw new ExistenceError('user not found');
             const savedLevels = user.saves;
 
             return Level.find({ _id: { $in: savedLevels } })

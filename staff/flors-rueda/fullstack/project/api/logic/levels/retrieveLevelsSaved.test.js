@@ -5,7 +5,7 @@ const { expect } = require('chai');
 const { generate, cleanUp } = require('../helpers/tests');
 const { Level, User } = require('../../data/models');
 const mongoose = require('mongoose');
-const { errors: { ContentError, TypeError },
+const { errors: { ContentError, TypeError, ExistenceError },
     assets: { colors },
 } = require('com');
 
@@ -100,6 +100,17 @@ describe('retrieveLevelsSaved', () => {
 
         const levels = await retrieveLevelsSaved(userId);
         expect(levels).to.have.lengthOf(0);
+    });
+
+    it('should fail on user not found', async () => {
+        const id = (new mongoose.Types.ObjectId()).toString();
+
+        try {
+            retrieveLevelsSaved(id);
+        } catch (error) {
+            expect(error).to.be.instanceOf(ExistenceError);
+            expect(error.message).to.equal('user not found');
+        }
     });
 
     it('should fail on invalid id type', async () => {

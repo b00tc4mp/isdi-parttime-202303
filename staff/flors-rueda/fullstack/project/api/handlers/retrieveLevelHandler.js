@@ -3,5 +3,6 @@ const { handleErrors } = require('./helpers');
 
 module.exports = handleErrors((req, res) => {
     const { levelId } = req.params;
-    return retrieveLevel(levelId).then((level) => res.json(level))
+    const userId = extractUserId(req);
+    return retrieveLevel(userId, levelId).then((level) => res.json(level))
 })
