@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        class Component {
+            constructor(template) {
+                const doc = new DOMParser().parseFromString(template, 'text/html')
+
+                this.container = doc.body.children[0]
+            }
+        }
+
+        class HelloWorld extends Component {
+            constructor() {
+                super(`<h1>Hello, World!</h1>`)
+            }
+        }
+
+        class Hello extends Component {
+            constructor(name) {
+                super(`<h1>Hello, ${name}!</h1>`)
+            }
+        }
+
+        class List extends Component {
+            constructor(...elements) {
+                super(`<ul></ul>`)
+
+                elements.forEach(element => {
+                    const item = new Item(element)
+
+                    this.container.append(item.container)
+                })
+            }
+        }
+
+        class Item extends Component {
+            constructor(element) {
+                super(`<li>
+                    <h2><a href="https://google.com/search?q=${element}" target="_blank">${element}</a></h2>
+                    <button>alert</button>
+                </li>`)
+
+                this.container.querySelector('button').onclick = function () {
+                    alert(element)
+                }
+            }
+        }
+
+        const compo = new Component('<h1>hello compo</h1>')
+        const helloWorld = new HelloWorld
+        const helloPepito = new Hello('Pepito')
+        const fruitList = new List('banana', 'orange', 'mango', 'lemon')
+        const carList = new List('ferrari', 'tesla', 'lexus', 'dacia')
+
+        document.body.append(helloWorld.container, helloPepito.container, fruitList.container, carList.container)
+    </script>
+</body>
+
+</html>

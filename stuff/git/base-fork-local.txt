@@ -1,0 +1,9 @@
+Base -> Fork: fork
+Local -> Local: config (origin)
+Local -> Local: branch (feature/prework)
+Local -> Local: add (staging)
+Local -> Local: commit
+Local -> Fork: push
+Fork -> Base: pull request (develop)
+
+Fork -> Local: pull
