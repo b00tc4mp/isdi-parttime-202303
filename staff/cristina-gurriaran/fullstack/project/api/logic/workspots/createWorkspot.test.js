@@ -59,17 +59,19 @@ const createWorkspot = require('./createWorkspot')
                 moderate: false,
                 loud: false,
             },
-            accessibility: true,
-            petFriendly: true,
-            ensuiteKitchen: false,
-            onSiteRestaurant: false,
-            meetingRooms: false,
-            parking: false,
-            bikeRack: false,
-            storage: false,
-            printScanCopy: false,
-            projector: false,
-            windowView: true,
+            otherFeatures: {
+                accessibility: true,
+                petFriendly: true,
+                ensuiteKitchen: false,
+                onSiteRestaurant: false,
+                meetingRooms: false,
+                parking: false,
+                bikeRack: false,
+                storage: false,
+                printScanCopy: false,
+                projector: false,
+                windowView: true,
+            }
         }
         const reviews = ['Great spot!', 'Highly recommended!']
         const likes = ["64ac3076cca3c7f9cdb065b0"]

@@ -76,6 +76,20 @@ const noise = new Schema({
     loud: Boolean,
 })
 
+const otherFeatures = new Schema({
+    accessibility: Boolean,
+    petFriendly: Boolean,
+    ensuiteKitchen: Boolean,
+    onSiteRestaurant: Boolean,
+    meetingRooms: Boolean,
+    parking: Boolean,
+    bikeRack: Boolean,
+    storage: Boolean,
+    printScanCopy: Boolean,
+    projector: Boolean,
+    windowView: Boolean,
+})
+
 const location = new Schema({
     street: {
         type: String,
@@ -138,17 +152,7 @@ const workspot = new Schema({
         wifi: wifi,
         plugs: plugs,
         noise: noise,
-        accessibility: Boolean,
-        petFriendly: Boolean,
-        ensuiteKitchen: Boolean,
-        onSiteRestaurant: Boolean,
-        meetingRooms: Boolean,
-        parking: Boolean,
-        bikeRack: Boolean,
-        storage: Boolean,
-        printScanCopy: Boolean,
-        projector: Boolean,
-        windowView: Boolean,
+        otherFeatures: otherFeatures
     },
     reviews: [String],
     likes: {

@@ -5,6 +5,7 @@ module.exports = {
     updateUserAvatar: require('./users/updateUserAvatar'),
     updateUserPassword: require('./users/updateUserPassword'),
     createWorkspot: require('./workspots/createWorkspot'),
-    retrieveWorkspots : require('./workspots/retrieveWorkspots')
+    retrieveWorkspots : require('./workspots/retrieveWorkspots'),
+    searchWorkspotsByName: require('./workspots/searchWorkspotsByName')
 
 }

@@ -11,6 +11,7 @@ const {
     updateUserPasswordHandler, 
     createWorkspotHandler,
     retrieveWorkspotsHandler,
+    searchWorkspotsByNameHandler
  } = require('./handlers')
 
 const mongoose = require('mongoose')
@@ -37,6 +38,7 @@ mongoose.connect(process.env.MONGODB_URL)
 
         api.get('/workspots', retrieveWorkspotsHandler)
 
+        api.post('/workspots/search', jsonBodyParser, searchWorkspotsByNameHandler)
 
         api.listen(process.env.PORT, () => console.log(`server running in port ${process.env.PORT}`))
     })

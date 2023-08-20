@@ -1,4 +1,5 @@
 import Workspots from '../components/Workspots'
+import SearchedWorkspots from '../components/SearchedWorkspots'
 import AddWorkspotModal from '../components/AddWorkspotModal'
 import { Container, Form, Input, Button } from '../library'
 import { useEffect, useState } from 'react'
@@ -19,6 +20,8 @@ export default function Home() {
     const [postId, setPostId] = useState(null)
  
     const [user, setUser] = useState()
+    const [nameSearched, setNameSearched] = useState('')
+
 
     useEffect(() => {
         handleErrors(async () => {
@@ -63,14 +66,28 @@ export default function Home() {
         })
     }
 
+    const handleSearchWorkspotsByName = event => {
+        event.preventDefault();
+        const newNameSearched = event.target.nameSearched.value;
+        setNameSearched(newNameSearched);
+        setView('workspots-searched-by-name');
+    };
+    
+
+
     console.log('Home -> render')
 
-    return <div className="home page">
+    return <div>
 
         <header className="home-header">
             <div className='home-logo-container'>
-                <img className="w-40 h-40 mt-32 rounded-xl" src={LOGO_URL} onClick={handleGoToWorkSpots}></img>
+                <img className="home-logo-img" src={LOGO_URL} onClick={handleGoToWorkSpots}></img>
             </div>
+
+            <Form onSubmit={handleSearchWorkspotsByName}>
+                <Input type="text" name="nameSearched" placeholder="Search" />
+                <Button type="submit"> Search </Button>
+            </Form>
 
             <nav className="home-header-nav">
                 {user && <>
@@ -79,13 +96,18 @@ export default function Home() {
                         <a href="" onClick={handleGoToProfile}>{user.name}</a>
                     </div>
                 </>}
+
+                <Button onClick={handleLogout} className='home-button'>Logout</Button>
             </nav>
 
-            <Button onClick={handleLogout} className='home-button'>Logout</Button>
         </header>
 
-        <main className='main-container'>
+        <div>
             {view === 'workspots' && <Workspots />}
+            {view === 'workspots-searched-by-name' && <SearchedWorkspots 
+                nameSearched={nameSearched}
+            />}
+
          
             {view === 'profile' && <Profile
                 onUserAvatarUpdated={handleUserAvatarUpdated}
@@ -98,7 +120,7 @@ export default function Home() {
                     onWorkspotCreated={handleWorkspotUpdated}
                 />}
 
-        </main>
+        </div>
 
         <footer className="home-footer">
             <Button onClick={handleOpenAddWorkspotModal}>+</Button>

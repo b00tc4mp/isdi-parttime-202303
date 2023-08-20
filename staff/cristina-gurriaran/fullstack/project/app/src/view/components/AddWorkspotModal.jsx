@@ -2,13 +2,13 @@ import { useState } from 'react';
 import createWorkspot from '../../logic/createWorkspot'
 import { useAppContext, useHandleErrors } from '../hooks'
 import { Container, Form, Input, Button, TextArea, Label } from '../library'
-import { formatDistrictName } from './helpers/dataFormatters'
+import { formatType, formatOtherFeatures, formatDistrict, formatWifi, formatPlugs, formatNoise } from './helpers/dataFormatters'
 
 const initialDistricts = {
     ciutatVella: false,
     gracia: false,
     horta: false,
-    leixample: false,
+    lEixample: false,
     lesCorts: false,
     nouBarris: false,
     santAndreu: false,
@@ -32,7 +32,7 @@ const initialPlugs = {
 };
 
 const initialNoise = {
-    quite: false,
+    quiet: false,
     moderate: false,
     loud: false,
 };
@@ -85,26 +85,26 @@ export default function AddWorkspotModal({ onCancel, onWorkspotCreated }) {
     };
 
     const [plugs, setPlugs] = useState(initialPlugs);
-    const togglePlugs = PlugOption => {
+    const togglePlugs = plugOption => {
         setPlugs(prevPlugs => ({
             ...prevPlugs,
-            [PlugOption]: !prevPlugs[PlugOption],
+            [plugOption]: !prevPlugs[plugOption],
         }));
     };
 
     const [noise, setNoise] = useState(initialNoise);
-    const toggleNoise = NoiseOption => {
+    const toggleNoise = noiseOption => {
         setNoise(prevNoise => ({
             ...prevNoise,
-            [NoiseOption]: !prevNoise[NoiseOption],
+            [noiseOption]: !prevNoise[noiseOption],
         }));
     };
 
     const [type, setType] = useState(initialType);
-    const toggleType = TypeOption => {
+    const toggleType = typeOption => {
         setType(prevType => ({
             ...prevType,
-            [TypeOption]: !prevType[TypeOption],
+            [typeOption]: !prevType[typeOption],
         }));
     };
 
@@ -138,7 +138,7 @@ export default function AddWorkspotModal({ onCancel, onWorkspotCreated }) {
             wifi: wifi,
             plugs: plugs,
             noise : noise,
-            features : otherFeatures
+            otherFeatures: otherFeatures
         }
 
         const image = event.target.image.value
@@ -152,7 +152,8 @@ export default function AddWorkspotModal({ onCancel, onWorkspotCreated }) {
     };
 
     return (
-        <Container tag="section" className="top-20 w-max h-max p-20 rounded-lg bg-black bg-opacity-50 z-10 flex justify-center items-center">
+        <div className="fixed top-1/4 left-1/4 w-1/2 h-1/2 overflow-auto bg-white shadow-lg p-10 rounded-lg">
+        <Container tag="section">
             <Form onSubmit={handleCreateWorkspot}>
                 <Input type="url" name="image" placeholder="Image url" />
                 <TextArea name="name" placeholder="Name" />
@@ -165,7 +166,7 @@ export default function AddWorkspotModal({ onCancel, onWorkspotCreated }) {
                 <TextArea name="longitude" placeholder="Longitude" />
 
 
-                <div className="flex flex-col w-max gap-2">
+                <div className="flex flex-col w-max">
                     District:
                     {Object.keys(districts).map(district => (
                         <label key={district}>
@@ -174,19 +175,19 @@ export default function AddWorkspotModal({ onCancel, onWorkspotCreated }) {
                                 checked={districts[district]}
                                 onChange={() => toggleDistrict(district)}
                             />
-                            {formatDistrictName(district)}
+                            {formatDistrict(district)}
                         </label>
                     ))}
 
                     Type:
-                    {Object.keys(type).map(TypeOption => (
-                        <label key={TypeOption}>
+                    {Object.keys(type).map(typeOption => (
+                        <label key={typeOption}>
                             <input
                                 type="checkbox"
-                                checked={type[TypeOption]}
-                                onChange={() => toggleType(TypeOption)}
+                                checked={type[typeOption]}
+                                onChange={() => toggleType(typeOption)}
                             />
-                            {TypeOption}
+                            {formatType(typeOption)}
                         </label>
                     ))}
 
@@ -198,31 +199,31 @@ export default function AddWorkspotModal({ onCancel, onWorkspotCreated }) {
                                 checked={wifi[wifiOption]}
                                 onChange={() => toggleWifi(wifiOption)}
                             />
-                            {wifiOption}
+                            {formatWifi(wifiOption)}
                         </label>
                     ))}
 
                     Plugs:
-                    {Object.keys(plugs).map(PlugOption => (
-                        <label key={PlugOption}>
+                    {Object.keys(plugs).map(plugOption => (
+                        <label key={plugOption}>
                             <input
                                 type="checkbox"
-                                checked={plugs[PlugOption]}
-                                onChange={() => togglePlugs(PlugOption)}
+                                checked={plugs[plugOption]}
+                                onChange={() => togglePlugs(plugOption)}
                             />
-                            {PlugOption}
+                            {formatPlugs(plugOption)}
                         </label>
                     ))}
 
                     Noise:
-                    {Object.keys(noise).map(NoiseOption => (
-                        <label key={NoiseOption}>
+                    {Object.keys(noise).map(noiseOption => (
+                        <label key={noiseOption}>
                             <input
                                 type="checkbox"
-                                checked={noise[NoiseOption]}
-                                onChange={() => toggleNoise(NoiseOption)}
+                                checked={noise[noiseOption]}
+                                onChange={() => toggleNoise(noiseOption)}
                             />
-                            {NoiseOption}
+                            {formatNoise(noiseOption)}
                         </label>
                     ))}
 
@@ -235,7 +236,7 @@ export default function AddWorkspotModal({ onCancel, onWorkspotCreated }) {
                                 checked={otherFeatures[OtherFeaturesOption]}
                                 onChange={() => toggleOtherFeatures(OtherFeaturesOption)}
                             />
-                            {OtherFeaturesOption}
+                            {formatOtherFeatures(OtherFeaturesOption)}
                         </label>
                     ))}
                 </div>
@@ -244,6 +245,7 @@ export default function AddWorkspotModal({ onCancel, onWorkspotCreated }) {
                 <Button type="button" onClick={handleCancel}>Cancel</Button>
             </Form>
         </Container>
+     </div >
     );
 }
 

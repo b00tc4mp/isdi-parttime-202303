@@ -52,7 +52,7 @@ export default function Profile({ onUserAvatarUpdated, onUpdatedUserPassword }) 
         {user && <>
         <section>
             <div>
-                <img className="w-80 h-80 mr-2 rounded-full" src={user.avatar} alt="" />
+                <img className="w-80 h-80 mr-2 rounded-full mt-40" src={user.avatar} alt="" />
                 <h1>{user.name}</h1>
             </div>
             <div>

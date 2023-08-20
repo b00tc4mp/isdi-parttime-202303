@@ -23,7 +23,7 @@ export default function Register() {
         })
     }
     
-    return <Container>
+    return <Container className="w-max mt-20">
         <h1 className ='title'> Sign up </h1>
 
         <h2> Already have an account? <Link to="/login" className="text-blue-500 hover:underline"> Log in </Link></h2>
