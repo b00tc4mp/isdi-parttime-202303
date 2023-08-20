@@ -1,6 +1,7 @@
-import { View, Text, TouchableOpacity, Image } from "react-native"
+import { View, Text, TouchableOpacity, Image, Alert } from "react-native"
+import deleteAccount from "../logic/deleteAccount.js"
 
-export default function UserMenu({ onUserLogout, onUpdateModalClick, user }) {
+export default function UserMenu({ onUserLogout, onUpdateModalClick, user, onDeleteUserAccount }) {
     const handleUserLogout = () => {
         onUserLogout()
     }
@@ -19,6 +20,25 @@ export default function UserMenu({ onUserLogout, onUpdateModalClick, user }) {
 
     const handleGoToUpdateCharacter = () => {
         onUpdateModalClick('updateCharacter')
+    }
+
+    const handleDeleteAccount = () => {
+        Alert.alert('Delete account?', 'Are you sure that you want to delete your account? This action cannot be undone!', [
+            { text: 'Cancel', style: 'cancel' },
+            {
+                text: 'OK', onPress: () => {
+                    try {
+                        deleteAccount()
+                            .then(() => {
+                                onDeleteUserAccount()
+                            })
+                            .catch(error => alert(error.message))
+                    } catch (error) {
+                        alert(error.message)
+                    }
+                }
+            }
+        ])
     }
 
     return (
@@ -49,6 +69,12 @@ export default function UserMenu({ onUserLogout, onUpdateModalClick, user }) {
                 <TouchableOpacity className="flex flex-row items-center" onPress={handleGoToUpdateCharacter}>
                     <Image source={require('../../assets/generic/construction.png')} className="h-10 w-10 mr-5"></Image>
                     <Text className="text-xl font-bold">Update character</Text>
+                </TouchableOpacity>
+            </View>
+            <View className="justify-center ml-4 h-20">
+                <TouchableOpacity className="flex flex-row items-center" onPress={handleDeleteAccount}>
+                    <Image source={require('../../assets/generic/skull.png')} className="h-10 w-10 mr-5"></Image>
+                    <Text className="text-xl font-bold text-red-800">Delete account</Text>
                 </TouchableOpacity>
             </View>
             <View className="h-20 w-full absolute bottom-0 justify-center items-center">

@@ -87,6 +87,7 @@ const Home = ({ onContinueToNewCharacter, onLogoutSession, onStartGame }) => {
                     {modal === "userMenu" && <UserMenu
                         onUserLogout={handleLogoutSession}
                         onUpdateModalClick={handleGoToUpdateModal}
+                        onDeleteUserAccount={handleLogoutSession}
                         user={user}
                     />}
                     {modal === "updateUsername" && <UpdateUsername closeUsernameModal={handleUserMenu} />}
