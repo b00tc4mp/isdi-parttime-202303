@@ -55,12 +55,12 @@ const LayoutForm = ({ level, setLevel, setToast, setToastOn, setCost, cost }) =>
         }
     };
 
-    const duplicateFloor = () => {
-        const lastFloor = level[level.length - 1];
-        if (level.length <= 99 && validateFloor(lastFloor, setToast, setToastOn)) {
-            const duplicatedFloor = [...lastFloor];
+    const duplicateFloor = (floorIndex) => {
+        const floorToDuplicate = level[floorIndex]
+        if (level.length <= 99 && validateFloor(floorToDuplicate, setToast, setToastOn)) {
+            const newFloor = [...floorToDuplicate];
             const updatedLevel = [...level];
-            updatedLevel.push(duplicatedFloor);
+            updatedLevel.splice(floorIndex, 0, newFloor);
             setLevel(updatedLevel);
         }
     };
@@ -130,8 +130,7 @@ const LayoutForm = ({ level, setLevel, setToast, setToastOn, setCost, cost }) =>
                                 </div>
                             ))}
                         </div>
-                        {level.length <= 99 && <button onClick={duplicateFloor} className="text-sm text-secondary400 hover:text-primary400 shadow p-0.5 rounded-md self-end mt-2">duplicate floor<i className="bi bi-file-earmark-plus pl-1"></i></button>}
-
+                        {level.length <= 99 && <button onClick={() => duplicateFloor(floorIndex)} className="text-sm text-secondary400 hover:text-primary400 shadow p-0.5 rounded-md self-end mt-2">duplicate floor<i className="bi bi-file-earmark-plus pl-1"></i></button>}
                     </div>
                 ))
             }
