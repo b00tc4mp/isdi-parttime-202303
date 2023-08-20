@@ -35,14 +35,16 @@ mongoose.connect(process.env.MONGODB_URL)
             res.sendFile(__dirname + '/node_modules/socket.io/client-dist/socket.io.js');
         });
 
-
-        /*api.use((req, res, next) => {
-            console.log(
-                "Request received: url =", req.url,
-                "|| method =", req.method,
-            );
-            next();
-        });*/
+        /*
+                api.use((req, res, next) => {
+                    if (req.url.includes('levels')) {
+                        console.log(
+                            "Request received: url =", req.url,
+                            "|| method =", req.method,
+                        );
+                    }
+                    next();
+                });*/
 
         api.get('/api', helloApiHandler);
 

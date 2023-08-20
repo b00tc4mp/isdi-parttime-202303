@@ -53,5 +53,4 @@ const UserCard = ({ userInfo }) => {
     )
 }
 
-
 export default inLogger(UserCard);

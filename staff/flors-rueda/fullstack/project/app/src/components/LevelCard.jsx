@@ -6,7 +6,6 @@ import useHandleErrors from '../hooks/useHandleErrors';
 import isCurrentUser from '../logic/is-current-user';
 import avatars from '../assets/avatars/index';
 import toggleLike from '../logic/toggle-like';
-import toggleFollow from '../logic/toggle-follow';
 import toggleSave from '../logic/toggle-save';
 import retrieveLoggedUser from '../logic/retrieve-logged-user';
 
@@ -27,22 +26,15 @@ const LevelCard = ({ levelInfo, isLevelSaved, setSaves }) => {
             const isUser = await isCurrentUser(levelInfo.author);
             setIsUserAuthor(isUser);
             setAuthorData(user);
-            setIsFollowed(authorData.isFollowed);
-        })
-    }
+            setIsFollowed(user.isFollowed);
+        });
+    };
 
     const handleLikeClick = () => {
         handleErrors(async () => {
             await toggleLike(levelInfo.id);
             isLiked ? setLikes(likes - 1) : setLikes(likes + 1);
             setIsLiked(!isLiked);
-        })
-    }
-
-    const handleFollowClick = () => {
-        handleErrors(async () => {
-            await toggleFollow(levelInfo.author);
-            setIsFollowed(!isFollowed);
         })
     }
 
@@ -61,9 +53,16 @@ const LevelCard = ({ levelInfo, isLevelSaved, setSaves }) => {
     }
 
     useEffect(() => {
+        setAuthorData({});
+        setTitle('');
+        setIsLiked(levelInfo.isLevelLiked);
+        setIsFollowed(null);
+        setLikes(levelInfo.likes.length);
+        setIsUserAuthor(null);
+        setIsSaved(isLevelSaved);
         getAuthorData();
         setLevelTitle(levelInfo.name);
-    }, [isFollowed, levelInfo, id]);
+    }, [levelInfo, id]);
 
     let timeDifference = new Date() - new Date(levelInfo.date);
     const hours = Math.floor(timeDifference / 3600000);
@@ -102,19 +101,11 @@ const LevelCard = ({ levelInfo, isLevelSaved, setSaves }) => {
                         </p>
                     </div>
                 </div>
-                <div className="flex items-center flex-col h-full w-1/3 gap-2">
+                <div className="flex items-center flex-col align-center justify-center mt-5 h-full w-1/3 gap-2">
                     <Link to={`/profile/${levelInfo.author}`} className="flex items-center flex-col">
                         <img className={`bg-${authorData.color} w-12 h-12 rounded-full`} src={`${avatars[authorData.avatar]}`} alt="avatar" />
                         <p className={`text-${authorData.color} text-sm font-semibold`}>{authorData.username}</p>
                     </Link>
-                    {
-                        !isUserAuthor &&
-                        <button
-                            className={`w-fit py-1 px-2 text-xs text-light400 font-bold rounded-xl transition duration-200 ${isFollowed ? 'bg-dark500 hover:bg-danger200' : 'bg-success200 hover:bg-dark500'}`} onClick={handleFollowClick}
-                        >
-                            {isFollowed ? 'Unfollow' : 'Follow'}
-                        </button>
-                    }
                 </div>
             </div>
         </div >

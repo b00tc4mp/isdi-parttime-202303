@@ -20,11 +20,11 @@ module.exports = (achievement) => {
             achievement.isRankBronzeReached = true;
             hasToBePushed = true;
         }
-        if (achievement.isRankBronzeReached && achievement.progress >= achievement.ranks[1]) {
+        if (!achievement.isRankSilverReached && achievement.progress >= achievement.ranks[1]) {
             achievement.isRankSilverReached = true;
             hasToBePushed = true;
         }
-        if (achievement.isRankSilverReached && achievement.progress >= achievement.ranks[2]) {
+        if (!achievement.isRankGoldReached && achievement.progress >= achievement.ranks[2]) {
             achievement.isRankGoldReached = true;
             hasToBePushed = true;
         }

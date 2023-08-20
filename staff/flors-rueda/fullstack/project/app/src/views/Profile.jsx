@@ -15,6 +15,7 @@ const Profile = () => {
     const [user, setUser] = useState(null);
     const [loggedUser, setLoggedUser] = useState();
     const [achievements, setAchievements] = useState();
+    const [follows, setFollows] = useState();
     const { id } = useParams();
 
     const getUser = () => {
@@ -26,6 +27,7 @@ const Profile = () => {
                 setUser(user);
                 setAchievements(_achievements);
                 setLoggedUser(loggedUser);
+                setFollows(user.follows);
                 setIsLoading(false);
             })
         } else {
@@ -35,6 +37,7 @@ const Profile = () => {
                 setUser(user);
                 setAchievements(_achievements);
                 setLoggedUser(user);
+                setFollows(user.follows);
                 setIsLoading(false);
             })
         }

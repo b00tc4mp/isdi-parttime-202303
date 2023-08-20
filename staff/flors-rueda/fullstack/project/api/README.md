@@ -44,7 +44,7 @@ npm run start
 |-----------------------------|--------|-----------------------|----------------------------|----------|
 | helloApi              | GET    | /api                  |                          | 200      |
 | createLevel           | POST   | /api/levels           | { "name": "...", "layout": "...", "hp": "...", "author": "..." } | 201      |
-| retrieveLevels        | GET    | /api/levels           |                          | 200      |
+| retrieveLevels        | GET    | /api/levels?sort=[number]&page=[number] |                          | 200      |
 | retrieveLevel         | GET    | /api/levels/:levelId  |                          | 200      |
 | registerUser          | POST   | /api/users            | { "username": "...", "password": "...", "color": "...", "recoveryQuestions": [] } | 201 |
 | authenticateUser      | POST   | /api/users/auth       | { "username": "...", "password": "..." } | 200 or 401 |

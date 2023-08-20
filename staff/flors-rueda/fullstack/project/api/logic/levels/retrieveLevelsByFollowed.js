@@ -22,6 +22,7 @@ module.exports = (userId) => {
 
             return Level.find({ author: { $in: followedAuthorIds } })
                 .select('_id name author likes date')
+                .sort({ date: -1 })
                 .then(levels => {
                     return levels.map(level => {
                         return {
