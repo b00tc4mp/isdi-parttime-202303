@@ -6,8 +6,9 @@ const {
 } = require('com');
 
 /**
- * Creates new level
+ * Modifies a level recovered by it's level id
  * 
+ * @param {string} levelId The level to modify id
  * @param {string} name The name of the new level
  * @param {[array]} layout The layout matrix of the new level
  * @param {number} name The number of the initial health
@@ -15,22 +16,22 @@ const {
  * 
  */
 
-module.exports = (name, layout, hp, author) => {
+module.exports = (levelId, author, layout, name, hp) => {
+    validateId(levelId, 'levelId')
+    validateId(author, 'authorId');
     validateName(name);
     validateLayout(layout);
     validateHealth(hp);
-    validateId(author, 'authorId');
 
     return (async () => {
         const user = await User.findById(author);
         if (!user) throw new ExistenceError('user not found');
-        return Level.create({
-            name,
-            layout,
-            hp,
-            author,
-            likes: [],
-            date: Date.now(),
-        })
+        const level = await Level.findById(levelId);
+        if (!level) throw new ExistenceError('level not found');
+
+        await Level.updateOne(
+            { _id: levelId },
+            { name: name, layout: layout, hp: hp, date: Date.now() }
+        );
     })()
 }

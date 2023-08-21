@@ -237,6 +237,41 @@ describe('retrieveLevels', () => {
         }
     });
 
+    it('should fail on invalid sorting type', async () => {
+        const userId = (new mongoose.Types.ObjectId()).toString();
+        try {
+            retrieveLevels(userId, 'number?', 1);
+        } catch (error) {
+            expect(error.message).to.equal('sort criteria is not a number');
+        }
+    });
+
+    it('should fail on sorting not in range', async () => {
+        const userId = (new mongoose.Types.ObjectId()).toString();
+        try {
+            retrieveLevels(userId, 42, 1);
+        } catch (error) {
+            expect(error.message).to.equal('sort criteria not on range');
+        }
+    });
+
+    it('should fail on invalid page type', async () => {
+        const userId = (new mongoose.Types.ObjectId()).toString();
+        try {
+            retrieveLevels(userId, 1, 'number?');
+        } catch (error) {
+            expect(error.message).to.equal('page is not a number');
+        }
+    });
+
+    it('should fail on page not in range', async () => {
+        const userId = (new mongoose.Types.ObjectId()).toString();
+        try {
+            retrieveLevels(userId, 1, 0);
+        } catch (error) {
+            expect(error.message).to.equal('invalid page value');
+        }
+    });
 });
 
 

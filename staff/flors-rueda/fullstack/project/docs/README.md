@@ -115,7 +115,7 @@ So you play levels to earn points to create levels that other people will play t
 
 File                 | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
 ---------------------|---------|----------|---------|---------|-------------------
-All files                           |   98.93 |    91.35 |   98.88 |   98.84 | 
+All files                           |   99.02 |    91.87 |   98.95 |   98.93 | 
  data                               |     100 |      100 |     100 |     100 | 
   achievements.js                   |     100 |      100 |     100 |     100 | 
   models.js                         |     100 |      100 |     100 |     100 | 
@@ -132,10 +132,12 @@ All files                           |   98.93 |    91.35 |   98.88 |   98.84 |
   cleanUp.js                        |     100 |      100 |     100 |     100 | 
   generate.js                       |     100 |      100 |     100 |     100 | 
   index.js                          |     100 |      100 |     100 |     100 | 
- logic/levels                       |     100 |    94.28 |     100 |     100 | 
+ logic/levels                       |     100 |    95.34 |     100 |     100 |                   
   createLevel.js                    |     100 |      100 |     100 |     100 | 
+  deleteLevel.js                    |     100 |      100 |     100 |     100 | 
+  editLevel.js                      |     100 |      100 |     100 |     100 | 
   retrieveLevel.js                  |     100 |      100 |     100 |     100 | 
-  retrieveLevels.js                 |     100 |      100 |     100 |     100 |                   
+  retrieveLevels.js                 |     100 |      100 |     100 |     100 | 
   retrieveLevelsByAuthor.js         |     100 |      100 |     100 |     100 | 
   retrieveLevelsByFollowed.js       |     100 |      100 |     100 |     100 | 
   retrieveLevelsSaved.js            |     100 |      100 |     100 |     100 | 
@@ -146,22 +148,23 @@ All files                           |   98.93 |    91.35 |   98.88 |   98.84 |
   cleanSession.js                   |     100 |      100 |     100 |     100 | 
   createSession.js                  |   93.33 |      100 |   66.66 |   93.33 | 28
   retrieveAllUserSessions.js        |     100 |      100 |     100 |     100 | 
- logic/users                        |   99.54 |    92.59 |     100 |    99.5 | 
+ logic/users                        |   99.58 |     93.1 |     100 |   99.54 | 
+  addRecoveryQuestion.js            |     100 |      100 |     100 |     100 | 
   authenticateUser.js               |     100 |      100 |     100 |     100 | 
   checkRecoveryAnswer.js            |     100 |      100 |     100 |     100 | 
   recoverPassword.js                |     100 |      100 |     100 |     100 | 
   registerUser.js                   |   95.65 |       50 |     100 |   95.65 | 60
   retrieveCC.js                     |     100 |      100 |     100 |     100 | 
   retrieveRandomRecoveryQuestion.js |     100 |      100 |     100 |     100 | 
-  retrieveUnlockAvatars.js          |     100 |      100 |     100 |     100 | 
-  retrieveUser.js                   |     100 |      100 |     100 |     100 | 
-  retrieveUserLogged.js             |     100 |      100 |     100 |     100 | 
-  searchUsers.js                    |     100 |      100 |     100 |     100 | 
+  retrieveUnlockAvatars.js          |     100 |      100 |     100 |     100 |
+  retrieveUser.js                   |     100 |      100 |     100 |     100 |
+  retrieveUserLogged.js             |     100 |      100 |     100 |     100 |
+  searchUsers.js                    |     100 |      100 |     100 |     100 |
   toggleFollow.js                   |     100 |       80 |     100 |     100 | 25-26
-  unlockAvatar.js                   |     100 |      100 |     100 |     100 | 
-  updateAvatar.js                   |     100 |      100 |     100 |     100 | 
+  unlockAvatar.js                   |     100 |      100 |     100 |     100 |
+  updateAvatar.js                   |     100 |      100 |     100 |     100 |
   updateCC.js                       |     100 |    83.33 |     100 |     100 | 25
-  updateColor.js                    |     100 |      100 |     100 |     100 | 
+  updateColor.js                    |     100 |      100 |     100 |     100 |
   updatePassword.js                 |     100 |      100 |     100 |     100 | 
 
 </br>
@@ -189,7 +192,7 @@ Planned through a kanban visible on this [Trello](https://trello.com/b/uHRmZKBR/
 - Me as a user, I want to get little awards that stimulate me to keep playing and interact with other users.
 
 #### **Customization Credits**
-- Me as auser, I want to earn point when I play that I can spend to create more levels or customize my profile
+- Me as a user, I want to earn points when I play that I can spend to create more levels or customize my profile
 
 </br>
 
