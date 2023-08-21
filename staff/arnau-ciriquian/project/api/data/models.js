@@ -31,6 +31,10 @@ const character = new Schema({
         required: true,
         trim: true
     },
+    avatar:{
+        type: String,
+        required: true
+    },
     created: {
         type: Date,
         required: true,

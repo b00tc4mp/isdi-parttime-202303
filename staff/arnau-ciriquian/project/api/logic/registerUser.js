@@ -23,8 +23,7 @@ module.exports = (name, email, password) => {
     validateEmail(email)
     validatePassword(password)
 
-    //const character = null
-    const character = '123123123'
+    const character = null
 
     return User.create({ name, email, password, character })
         .catch(error => {
