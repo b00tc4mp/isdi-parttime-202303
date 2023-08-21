@@ -4,10 +4,9 @@ import inLogger from '../../inLogger';
 import { validateFloor } from '../../helpers/levelValidators';
 import isUserLoggedIn from '../../logic/is-user-logged-in';
 
-const LayoutForm = ({ level, setLevel, setToast, setToastOn, setCost, cost }) => {
+const LayoutForm = ({ level, setLevel, setToast, setToastOn, setCost, cost, prices }) => {
     const [openDropdown, setOpenDropdown] = useState(null);
     const cellOptions = ['bomb', 'empty', 'life', 'stonks', 'dirt', 'start', 'hole'];
-    const prices = { bomb: 10, life: 15, hole: 2, dirt: 5 };
 
     const handleDropdownToggle = (floorIndex, cellIndex) => {
         const dropdownId = `dropdownDefaultRadio_${floorIndex}_${cellIndex}`;
@@ -62,6 +61,12 @@ const LayoutForm = ({ level, setLevel, setToast, setToastOn, setCost, cost }) =>
             const updatedLevel = [...level];
             updatedLevel.splice(floorIndex, 0, newFloor);
             setLevel(updatedLevel);
+            let floorValue = 0;
+            for (const cell of newFloor) {
+                if (prices[cell]) floorValue += prices[cell];
+            }
+            const newCost = cost + floorValue;
+            setCost(newCost);
         }
     };
 

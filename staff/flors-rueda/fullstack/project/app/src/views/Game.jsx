@@ -12,7 +12,6 @@ import retrieveLoggedUser from '../logic/retrieve-logged-user';
 
 const Game = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const { id } = useParams();
   const location = useLocation();
   const [name, setName] = useState(null);
   const [avatar, setAvatar] = useState('beach');
@@ -25,6 +24,7 @@ const Game = () => {
   const [gameData, setGameData] = useState({ stonks: 0, holes: 0, bombs: 0, life: 0, })
   const [createData, setCreateData] = useState(null);
   const handleErrors = useHandleErrors();
+  const { id } = useParams()
 
   const getLevel = () => {
     if (id !== 'try') {
@@ -40,13 +40,14 @@ const Game = () => {
         setIsLoading(false);
       })
     } else {
-      const { createdLayout, hp, levelName, data } = location.state;
+      const { createdLayout, hp, levelName, data, levelId } = location.state;
       const configuredLevel = configureLevelToRender(createdLayout);
       setLevelToRender(configuredLevel);
       setLayout(createdLayout);
       setName(levelName);
       setHealth(hp ? hp : 5);
       setCreateData(data);
+      setLevelId(levelId);
       setIsLoading(false);
     }
   };
@@ -86,7 +87,7 @@ const Game = () => {
     <section className="flex flex-col flex-wrap">
       {isGameOver !== 0 && (
         <>
-          <GameOver isGameWon={isGameOver > 0 ? true : false} onRetry={handleRetry} isCreatedLevel={'try' === id} layout={layout} hp={health} name={name} likesInfo={likesInfo} id={levelId} gameData={gameData} createData={createData} />
+          <GameOver isGameWon={isGameOver > 0 ? true : false} onRetry={handleRetry} isCreatedLevel={'try' === id} layout={layout} hp={health} name={name} likesInfo={likesInfo} levelId={levelId} id={id} gameData={gameData} createData={createData} />
           <div className="top-0 inset-0 bg-black opacity-50"></div>
         </>
       )}

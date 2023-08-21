@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 const http = require('http');
 const { Server } = require('socket.io');
 
-const { helloApiHandler, retrieveLevelsHandler, retrieveLevelHandler, createLevelHandler, authenticateUserHandler, registerUserHandler, retrieveUserHandler, retrieveUserLoggedHandler, updateColorHandler, updateAvatarHandler, toggleLikeHandler, updatePasswordHandler, recoverPasswordHandler, retrieveRandomRecoveryQuestionHandler, checkRecoveryAnswerHandler, toggleFollowHandler, retrieveLevelsByFollowedHandler, retrieveLevelsByAuthorHandler, retrieveLevelsSavedHandler, toggleSaveHandler, retrieveCompleteAchievementsHandler, updateCreateAchievementsHandler, updateGameAchievementsHandler, updateSocialAchievementsHandler, updateTutorialAchievementsHandler, retrieveCCHandler, updateCCHandler, retrieveUnlockAvatarsHandler, unlockAvatarHandler, updateCCAchievementsHandler, createSessionHandler, cleanSessionHandler, searchLevelsHandler, searchUsersHandler, addRecoveryQuestionHandler } = require('./handlers');
+const { helloApiHandler, retrieveLevelsHandler, retrieveLevelHandler, createLevelHandler, authenticateUserHandler, registerUserHandler, retrieveUserHandler, retrieveUserLoggedHandler, updateColorHandler, updateAvatarHandler, toggleLikeHandler, updatePasswordHandler, recoverPasswordHandler, retrieveRandomRecoveryQuestionHandler, checkRecoveryAnswerHandler, toggleFollowHandler, retrieveLevelsByFollowedHandler, retrieveLevelsByAuthorHandler, retrieveLevelsSavedHandler, toggleSaveHandler, retrieveCompleteAchievementsHandler, updateCreateAchievementsHandler, updateGameAchievementsHandler, updateSocialAchievementsHandler, updateTutorialAchievementsHandler, retrieveCCHandler, updateCCHandler, retrieveUnlockAvatarsHandler, unlockAvatarHandler, updateCCAchievementsHandler, createSessionHandler, cleanSessionHandler, searchLevelsHandler, searchUsersHandler, addRecoveryQuestionHandler, editLevelHandler, deleteLevelHandler } = require('./handlers');
 
 const mongoose = require('mongoose');
 
@@ -17,7 +17,7 @@ mongoose.connect(process.env.MONGODB_URL)
         const io = new Server(server, {
             cors: {
                 origin: '*',
-                methods: ["GET", "POST", "PATCH"]
+                methods: ["GET", "POST", "PATCH", "DELETE"]
             }
         });
 
@@ -104,6 +104,10 @@ mongoose.connect(process.env.MONGODB_URL)
         api.get('/api/users/search/:username', searchUsersHandler);
 
         api.patch('/api/users/questions', jsonBodyParser, addRecoveryQuestionHandler);
+
+        api.patch('/api/levels/:levelId', jsonBodyParser, editLevelHandler);
+
+        api.delete('/api/levels/:levelId', deleteLevelHandler);
 
         io.on('connection', () => { });
 

@@ -1,4 +1,4 @@
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import retrieveUser from '../logic/retrieve-user';
 import inLogger from '../inLogger';
 import { useState, useEffect } from 'react';
@@ -6,8 +6,9 @@ import useHandleErrors from '../hooks/useHandleErrors';
 import toggleLike from '../logic/toggle-like';
 import toggleSave from '../logic/toggle-save';
 import isCurrentUser from '../logic/is-current-user';
+import retrieveLevel from '../logic/retrieve-level';
 
-const BasicLevelCard = ({ levelInfo, isLevelSaved }) => {
+const BasicLevelCard = ({ levelInfo, isLevelSaved, setToast }) => {
     const [authorData, setAuthorData] = useState({});
     const [title, setTitle] = useState('');
     const handleErrors = useHandleErrors();
@@ -16,6 +17,7 @@ const BasicLevelCard = ({ levelInfo, isLevelSaved }) => {
     const [isSaved, setIsSaved] = useState(isLevelSaved);
     const [isAuthorCurrentUser, setAuthorCurrentUser] = useState(null);
     const { id } = useParams();
+    const navigate = useNavigate();
 
     const getAuthorData = () => {
         handleErrors(async () => {
@@ -43,7 +45,15 @@ const BasicLevelCard = ({ levelInfo, isLevelSaved }) => {
 
     const setLevelTitle = (name) => {
         const displayName = name.length > 15 ? `${name.substring(0, 15)}...` : name;
-        setTitle(displayName)
+        setTitle(displayName);
+    }
+
+    const handleEditLevel = () => {
+        handleErrors(async () => {
+            const level = await retrieveLevel(levelInfo.id);
+            console.log('LEVEL', level.id)
+            navigate('/create', { state: { initialLevel: level.layout, hpSelected: level.hp, nameSelected: level.name, levelId: level.id } })
+        })
     }
 
     useEffect(() => {
@@ -78,9 +88,15 @@ const BasicLevelCard = ({ levelInfo, isLevelSaved }) => {
                 <div className={`flex flex-row gap-2 text-secondary500 text-sm font-semibold align-center items-center`}>
                     <p className={`flex flex-row gap-2 text-secondary500 text-sm font-semibold align-center items-center`}>
                         {isAuthorCurrentUser &&
-                            <button className="flex flex-row text-primary200 text-sm font-semibold hover:text-primary400 items-center">
-                                <i className="text-lg bi bi-pencil-square"></i>
-                            </button>
+                            <span className="flex flex-row gap-0.5">
+                                <button onClick={() => setToast(levelInfo.id)} className="flex flex-row text-danger200 text-sm font-semibold hover:text-danger100 items-center">
+                                    <i className="text-lg bi bi-trash3-fill"></i>
+                                </button>
+                                <button onClick={handleEditLevel} className="flex flex-row text-success200 text-sm font-semibold hover:text-success100 items-center pt-0.5">
+                                    <i className="text-lg bi bi-pencil-square"></i>
+                                </button>
+                            </span>
+
                         }
                         <button onClick={handleSaveClick} className={`flex flex-row text-secondary500 text-sm font-semibold ${isSaved ? 'hover:text-light100' : 'hover:text-success100'} items-center`}>
                             <i className={`text-lg bi bi-bookmark-star${isSaved ? '-fill' : ''}`}></i>

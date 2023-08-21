@@ -13,8 +13,9 @@ import editIcons from '../../assets/editIcons/index';
 import useLockScroll from '../../hooks/useLockScroll';
 import retrieveCC from '../../logic/retrieve-cc';
 import updateCCAchievements from '../../logic/update-cc-achievements';
+import editLevel from '../../logic/edit-level'
 
-const GameOver = ({ isGameWon, onRetry, isCreatedLevel, layout, hp, name, likesInfo, id, gameData, createData }) => {
+const GameOver = ({ isGameWon, onRetry, isCreatedLevel, layout, hp, name, id, likesInfo, gameData, createData, levelId }) => {
     const navigate = useNavigate();
     const handleErrors = useHandleErrors();
     const [isLiked, setIsLiked] = useState(isCreatedLevel ? null : likesInfo.isLevelLiked);
@@ -22,16 +23,22 @@ const GameOver = ({ isGameWon, onRetry, isCreatedLevel, layout, hp, name, likesI
     const [remainingCC, setRemainingCC] = useState(null);
     const [wonCC, setWonCC] = useState(null);
     const { unlockScroll } = useLockScroll();
+    console.log(id, levelId)
 
     unlockScroll();
+    console.log(createData);
 
     const handlePostLevel = () => {
         handleErrors(async () => {
             await updateCC(createData.cc, '-');
             await updateCCAchievements(createData.cc, '-');
             delete createData.cc;
-            await createLevel(name, layout, hp);
-            await updateCreateAchievements(createData);
+            if (!levelId) {
+                await createLevel(name, layout, hp);
+                await updateCreateAchievements(createData);
+            } else {
+                await editLevel(levelId, name, layout, hp);
+            }
             navigate('/home');
         })
     }
@@ -45,7 +52,7 @@ const GameOver = ({ isGameWon, onRetry, isCreatedLevel, layout, hp, name, likesI
     }
 
     const handleEditLevel = () => {
-        navigate('/create', { state: { initialLevel: layout, hpSelected: hp, nameSelected: name } })
+        navigate('/create', { state: { initialLevel: layout, hpSelected: hp, nameSelected: name, levelId: levelId } })
     }
 
     const handleGoBack = () => {
@@ -126,16 +133,27 @@ const GameOver = ({ isGameWon, onRetry, isCreatedLevel, layout, hp, name, likesI
                                                 </b>
                                             </p>
                                         </div>
-                                        <p className="flex flex-row text-secondary300 self-center">
-                                            <span className="text-secondary300">Mining Fee</span>
-                                            <b>
-                                                <i className="text-primary100 bi bi-arrow-right-short self-center text-xs"></i>
-                                                50cc
-                                            </b>
-                                        </p>
+                                        {
+                                            levelId ?
+                                                <p className="flex flex-row text-secondary300 self-center">
+                                                    <span className="text-secondary300">Postexcavation Works Fee</span>
+                                                    <b>
+                                                        <i className="text-primary100 bi bi-arrow-right-short self-center text-xs"></i>
+                                                        100cc
+                                                    </b>
+                                                </p>
+                                                :
+                                                <p className="flex flex-row text-secondary300 self-center">
+                                                    <span className="text-secondary300">Mining Fee</span>
+                                                    <b>
+                                                        <i className="text-primary100 bi bi-arrow-right-short self-center text-xs"></i>
+                                                        50cc
+                                                    </b>
+                                                </p>
+                                        }
                                         <p className="border-t-2 border-t-light100 text-xl text-primary200 flex flex-col gap-1">
                                             <span>Total: <b className="text-danger200">{createData.cc}cc</b></span>
-                                            <span><i className="text-xl text-primary400 bi bi-piggy-bank"></i><b className="text-success200">               {remainingCC}cc</b></span>
+                                            <span><i className="text-xl text-primary400 bi bi-piggy-bank"></i><b className="text-success200">{remainingCC}cc</b></span>
                                         </p>
                                     </div>
                                 }
@@ -144,8 +162,12 @@ const GameOver = ({ isGameWon, onRetry, isCreatedLevel, layout, hp, name, likesI
                                 {
                                     isUserLoggedIn() ?
                                         <>
-                                            <button type="button" className="w-full text-success100 bg-success300 hover:bg-success200 hover:text-light500  focus:ring-4 focus:outline-none focus:ring-success300 font-medium rounded-lg text-sm px-4 py-2 text-center" onClick={handlePostLevel}>Post level</button>
-                                            <button type="button" className="w-full  text-danger100 bg-danger300 hover:bg-danger200 hover:text-light500 focus:ring-4 focus:outline-none focus:ring-danger300 font-medium rounded-lg text-sm px-4 py-2 text-center " onClick={handleGoBack}>Delete level</button>
+                                            <button type="button" className="w-full text-success100 bg-success300 hover:bg-success200 hover:text-light500  focus:ring-4 focus:outline-none focus:ring-success300 font-medium rounded-lg text-sm px-4 py-2 text-center" onClick={handlePostLevel}>{levelId ? 'Save changes' : 'Post level'}</button>
+                                            {levelId ?
+                                                <Link to="/profile/you" type="button" className="w-full text-danger100 bg-danger300 hover:bg-danger200 hover:text-light500 focus:ring-4 focus:outline-none focus:ring-danger300 font-medium rounded-lg text-sm px-4 py-2 text-center">Cancel changes</Link>
+                                                :
+                                                <button type="button" className="w-full text-danger100 bg-danger300 hover:bg-danger200 hover:text-light500 focus:ring-4 focus:outline-none focus:ring-danger300 font-medium rounded-lg text-sm px-4 py-2 text-center" onClick={handleGoBack}>Delete level</button>
+                                            }
                                         </>
                                         :
                                         <button type="button" className="w-full text-success100 bg-success300 hover:bg-success200 hover:text-light500  focus:ring-4 focus:outline-none focus:ring-success300 font-medium rounded-lg text-sm px-4 py-2 text-center" onClick={handleGoBack}>Join now!</button>

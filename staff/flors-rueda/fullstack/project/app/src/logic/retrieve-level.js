@@ -18,7 +18,9 @@ const retrieveLevel = (id) => {
             return response.json();
         })
         .then((data) => {
-            data.isLevelLiked = (data.likes).includes(extractSubFromToken(context.token))
+            data.isLevelLiked = (data.likes).includes(extractSubFromToken(context.token));
+            data.id = data._id.toString();
+            delete data._id;
             return data;
         })
         .catch((error) => {

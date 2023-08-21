@@ -43,7 +43,7 @@ npm run start
 | Action                      | Method | Path                  | Body Example               | Status   |
 |-----------------------------|--------|-----------------------|----------------------------|----------|
 | helloApi              | GET    | /api                  |                          | 200      |
-| createLevel           | POST   | /api/levels           | { "name": "...", "layout": "...", "hp": "...", "author": "..." } | 201      |
+| createLevel           | POST   | /api/levels           | { "name": "...", "layout": "...", "hp": "..." } | 201      |
 | retrieveLevels        | GET    | /api/levels?sort=[number]&page=[number] |                          | 200      |
 | retrieveLevel         | GET    | /api/levels/:levelId  |                          | 200      |
 | registerUser          | POST   | /api/users            | { "username": "...", "password": "...", "color": "...", "recoveryQuestions": [] } | 201 |
@@ -79,3 +79,6 @@ npm run start
 | searchLevels         | GET    | /api/levels/search/:name  |                          | 200      |
 | searchUsers         | GET    | /api/users/search/:username  |                          | 200      |
 | addRecoveryQuestion         | PATCH    | /api/users/questions  | { "password": "...", "recoveryQuestions": "..." } | 201      |
+| editLevel         | PATCH    | /api/levels/:levelId  | { "name": "...", "layout": "...", "hp": "..." } | 201      |
+| deleteLevel         | DELETE  | /api/levels/:levelId  |                          | 200      |
+

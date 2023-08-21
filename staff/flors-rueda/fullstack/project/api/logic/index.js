@@ -34,4 +34,6 @@ module.exports = {
     searchUsers: require('./users/searchUsers'),
     searchLevels: require('./levels/searchLevels'),
     addRecoveryQuestion: require('./users/addRecoveryQuestion'),
+    editLevel: require('./levels/editLevel'),
+    deleteLevel: require('./levels/deleteLevel')
 }

@@ -11,21 +11,31 @@ import useHandleErrors from '../hooks/useHandleErrors';
 
 const CreateLevel = () => {
     const location = useLocation();
-    const { initialLevel, hpSelected, nameSelected } = location.state ? location.state : {}
+    const { initialLevel, hpSelected, nameSelected, levelId } = location.state ? location.state : {}
     const [toast, setToast] = useState(null);
     const [isToastOn, setToastOn] = useState(false);
     const [level, setLevel] = useState(initialLevel ? initialLevel : [['life', 'stonks', 'hole', 'empty', 'bomb', 'empty', 'dirt', 'empty', 'start']]);
     const [initialHP, setInitialHP] = useState(hpSelected ? hpSelected : 3);
     const navigate = useNavigate();
-    const [cost, setCost] = useState(72);
+    const [cost, setCost] = useState(82);
     const [budget, setBudget] = useState(0);
     const handleErrors = useHandleErrors();
+    const prices = { bomb: 10, life: 15, hole: 2, dirt: 5 };
+    console.log('form', levelId)
 
     const handleCloseToast = () => {
         setToastOn(false)
     };
 
     useEffect(() => {
+        let newCost = levelId ? 100 : 50;
+        for (const floor of level) {
+            for (const cell of floor) {
+                if (prices[cell]) newCost += prices[cell];
+            }
+        }
+        setCost(newCost)
+
         if (isUserLoggedIn()) {
             handleErrors(async () => {
                 const cc = await retrieveCC();
@@ -54,7 +64,7 @@ const CreateLevel = () => {
                 }
             }
             const data = { bombs: bombCount, life: lifeCount, cc: cost, floors: level.length, dirt: dirtCount };
-            navigate('/game/try', { state: { createdLayout: level, hp: hp, levelName: selectedName, data: data } })
+            navigate('/game/try', { state: { createdLayout: level, hp: hp, levelName: selectedName, data: data, levelId: levelId } })
         }
     };
 
@@ -101,7 +111,7 @@ const CreateLevel = () => {
                                 );
                             })}
                         </div>
-                        <LayoutForm level={level} setLevel={setLevel} setToast={setToast} setToastOn={setToastOn} cost={cost} setCost={setCost} />
+                        <LayoutForm level={level} setLevel={setLevel} setToast={setToast} setToastOn={setToastOn} cost={cost} setCost={setCost} prices={prices} />
                         <div className="pt-5 pb-20">
                             <button className="bg-transparent hover:bg-primary200 text-primary100 font-semibold hover:text-light400 py-2 px-4 border border-primary200 hover:border-transparent rounded" onClick={handleOnTryLevel}>test level</button>
                         </div>
