@@ -1,7 +1,7 @@
 import * as Updates from 'expo-updates';
 
 let Config = {
-    apiUrl: 'https://localhost:6543',
+    apiUrl: 'https://playgrounds-api.onrender.com',
     enableHiddenFeatures: true,
 };
 
