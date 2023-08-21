@@ -23,11 +23,11 @@ module.exports = {
     addStoreHandler: require('./lists/stores/addStoreHandler'),
     reviewStoresHandler: require('./lists/stores/reviewStoresHandler'),
 
-    reviewProductTypesHandler: require('./lists/produsts/reviewProductTypesHandler'),
-    addProductToListHandler: require('./lists/produsts/addProductToListHandler'),
-    deleteProductToListHandler: require('./lists/produsts/deleteProductToListHandler'),
-    editProductToListHandler: require('./lists/produsts/editProductToListHandler'),
-    toggleProductToCartHandler: require('./lists/produsts/toggleProductToCartHandler'),
-    markProductAsPurchasedHandler: require('./lists/produsts/markProductAsPurchasedHandler'),
-    reviewFilteredProductsHandler: require('./lists/produsts/reviewFilteredProductsHandler')
+    reviewProductTypesHandler: require('./lists/products/reviewProductTypesHandler'),
+    addProductToListHandler: require('./lists/products/addProductToListHandler'),
+    deleteProductToListHandler: require('./lists/products/deleteProductToListHandler'),
+    editProductToListHandler: require('./lists/products/editProductToListHandler'),
+    toggleProductToCartHandler: require('./lists/products/toggleProductToCartHandler'),
+    markProductAsPurchasedHandler: require('./lists/products/markProductAsPurchasedHandler'),
+    reviewFilteredProductsHandler: require('./lists/products/reviewFilteredProductsHandler')
 }
