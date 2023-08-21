@@ -53,11 +53,10 @@ async function retrieveArtistDetailsFromDiscogs(artistName) {
             return artistDetails;
 
         } else {
-            throw new Error(`No artist found as ${artistName}, try again!`);
+            throw new Error(`No results found for artist: ${artistName}`);
         }
     } catch (error) {
-        console.error('Error fetching artist info:', error);
-        throw new Error(`'Error fetching artist info:', error`);
+        throw new Error(`Error fetching artist data: ${error.message}`);
     }
 }
 export default retrieveArtistDetailsFromDiscogs;

@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from 'react'
+import { useAppContext } from '../hooks'
+
 import { EventCard, SearchArtist, SearchPlace } from '../components'
 
 export default ({ city, ipGeoLocation }) => {
-
     console.debug('// Home  -> Render')
+
+    const { alert, freeze, unfreeze, navigate } = useAppContext()
+
     const [selectedNavItem, setSelectedNavItem] = useState('artist');
     const [showMenuLayer, setShowMenuLayer] = useState(false);
 

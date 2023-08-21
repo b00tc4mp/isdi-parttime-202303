@@ -1,9 +1,15 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react'
+import { useAppContext } from '../hooks'
+
 import retrieveArtistDetailsFromDiscogs from '../../logic/retrieveArtistDetailsFromDiscogs'
 import { Button } from '../library'
 import { MagnifyingGlassIcon } from '@heroicons/react/24/solid'
 
 const SearchArtist = () => {
+    console.debug('// SearchArtist  -> Render')
+
+    const { alert, freeze, unfreeze, navigate } = useAppContext()
+
     const [artistName, setArtistName] = useState('');
     const [SearchArtist, setSearchArtist] = useState(null);
     const [error, setError] = useState(null); // Add state for error
@@ -15,15 +21,18 @@ const SearchArtist = () => {
 
     const handleRetrieveDetails = async () => {
         try {
+            freeze();
             const details = await retrieveArtistDetailsFromDiscogs(artistName);
             setSearchArtist(details);
             setError(null);
         } catch (error) {
-            console.error('Error:', error);
-            setSearchArtist(null);
+            alert(error.message, 'error');
             setError(`Artist "${artistName}" was not found`);
+            setSearchArtist(null);
+        } finally {
+            unfreeze();
         }
-    };
+    }
 
     return (
         <div>
