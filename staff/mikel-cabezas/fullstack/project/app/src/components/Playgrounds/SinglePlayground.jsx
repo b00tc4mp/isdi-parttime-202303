@@ -78,7 +78,7 @@ export default function Nearby({ closeHandle, setSinglePlaygroundImages, onHandl
                 <View className="w-full px-5 pb-12 bg-white dark:bg-gray-800  z-40 relative" >
                     <View className="ml-auto mt-1 z-50 flex-row items-center">
                         <Text className="text-center mr-2 text-lg">{likes.length}</Text>
-                        <TouchableHighlight
+                        <TouchableOpacity
                             className=""
                             activeOpacity={1.0}
                             underlayColor="#fff"
@@ -89,17 +89,19 @@ export default function Nearby({ closeHandle, setSinglePlaygroundImages, onHandl
                                 className={`w-7 h-7 mx-auto `}
                                 source={likes.length > 0 ? LIKE_FILLED : LIKE}
                             />
-                        </TouchableHighlight>
+                        </TouchableOpacity>
 
                     </View>
                     <Text className="dark:text-white text-xl font-semibold">{playground.name}</Text>
                     <Text className="dark:text-white pt-1 text-sm max-w-[80vw] text-[#20841E] mb-2">{playground.location.street}</Text>
-                    <TouchableHighlight
-                        onPress={handleOpenMap}>
+                    <TouchableOpacity
+                        onPress={handleOpenMap}
+                        activeOpacity={0.8}
+                    >
                         <View className={`border border-mainLime bg-mainLime rounded-full mt-1 mb-2`}>
                             <Text className="font-bold text-center text-sm px-5 py-2 w-full">Go to playground</Text>
                         </View>
-                    </TouchableHighlight>
+                    </TouchableOpacity>
                     <View className="flex-row flex-wrap gap-3 mb-4">
                         <Text className="dark:text-white text-lg mt-3 font-semibold w-full">Sun Exposition</Text>
                         <Text className="dark:text-white  mt-3 font-semibold w-full">There is no info yet... Tap fer edit!</Text>
@@ -172,7 +174,7 @@ export default function Nearby({ closeHandle, setSinglePlaygroundImages, onHandl
                                 >
                                     <Image
                                         className="w-36 h-40 object-cover rounded-2xl"
-                                        key={index}
+                                        key={`image-${index}`}
                                         source={{ uri: image }}
                                     />
                                 </TouchableOpacity>
@@ -181,12 +183,8 @@ export default function Nearby({ closeHandle, setSinglePlaygroundImages, onHandl
                             })}
                         </View>
                     </ScrollView>
-
-
                 </View>
-
             </ScrollView>
-
         </>
         }
         <View className="flex-row absolute bottom-0 bg-mainGrays w-full mx-auto justify-center z-50 pb-11">

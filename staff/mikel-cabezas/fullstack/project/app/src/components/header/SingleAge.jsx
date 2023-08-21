@@ -13,8 +13,8 @@ export default function SingleAge({ key, age, activeAges, onAgePressed }) {
         activeOpacity={0.8}
         className={`border border-mainLime ${bgColor}  rounded-full mb-1 mt-2 mr-2`}
         onPress={() => onAgePressed(age)}>
-        <View className="font-bold px-3 py-0.5 flex-row items-center" key={key}>
-            <Text className={`font-bold text-center text-sm`}>+{age}</Text>
+        <View className="font-bold px-3 py-0.5 flex-row items-center" key={`container-${key}`}>
+            <Text className={`font-bold text-center text-sm`} key={`age-${key}`}>+{age}</Text>
         </View>
     </TouchableOpacity>
 }

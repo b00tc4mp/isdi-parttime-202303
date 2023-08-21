@@ -51,9 +51,12 @@
         "backgroundColor": "#DAECB5"
       },
       "permissions": [
-        "ACCESS_COARSE_LOCATION",
-        "ACCESS_FINE_LOCATION",
-        "ACCESS_BACKGROUND_LOCATION"
+        "android.permission.ACCESS_COARSE_LOCATION",
+        "android.permission.ACCESS_FINE_LOCATION",
+        "android.permission.ACCESS_BACKGROUND_LOCATION",
+        "android.permission.RECORD_AUDIO",
+        "android.permission.CAMERA",
+        "android.permission.FOREGROUND_SERVICE"
       ],
       "package": "com.mikelcabezas.playgrounds"
     },
@@ -66,6 +69,23 @@
       }
     },
     "owner": "mikelcabezas",
-    "scheme": "plygrnd"
+    "scheme": "plygrnd",
+    "runtimeVersion": {
+      "policy": "sdkVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/dac7731f-1ade-4bc2-ab77-0a191afd8cd3"
+    }
+  },
+  "build": {
+    "preview": {
+      "channel": "preview",
+      "distribution": "internal"
+      // ...
+    },
+    "production": {
+      "channel": "production"
+      // ...
+    }
   }
 }
