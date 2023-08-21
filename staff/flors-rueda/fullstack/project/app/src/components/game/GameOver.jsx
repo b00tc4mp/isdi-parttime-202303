@@ -153,7 +153,10 @@ const GameOver = ({ isGameWon, onRetry, isCreatedLevel, layout, hp, name, id, li
                                         }
                                         <p className="border-t-2 border-t-light100 text-xl text-primary200 flex flex-col gap-1">
                                             <span>Total: <b className="text-danger200">{createData.cc}cc</b></span>
-                                            <span><i className="text-xl text-primary400 bi bi-piggy-bank"></i><b className="text-success200">{remainingCC}cc</b></span>
+                                            <span className="text-light100">After your savings will be
+                                                <span><i className="text-xl text-primary400 bi bi-piggy-bank pl-2 pr-0.5"></i>
+                                                </span><b className="text-success200">{remainingCC}cc</b>
+                                            </span>
                                         </p>
                                     </div>
                                 }

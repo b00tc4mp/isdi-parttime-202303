@@ -16,8 +16,8 @@ const Footer = () => {
                         </a>
                     </li>
                 </ul>
-                <b className="text-dark500 text-xs font-small" >
-                    made by <span className="text-light100 text-sm font-medium">Flors Rueda</span>
+                <b className="text-gray text-xs text-sm flex flex-row items-center gap-0.5" >
+                    made with <i className="bi bi-balloon-heart text-xl self-bottom text-primary400"></i> by <span className="text-light100 text-sm self-start pt-0.5">Flors Rueda</span>
                 </b>
             </div>
         </footer>
