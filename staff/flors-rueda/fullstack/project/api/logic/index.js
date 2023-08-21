@@ -30,5 +30,7 @@ module.exports = {
     updateCCAchievements: require('./achievements/updateCCAchievements'),
     cleanSession: require('./session/cleanSession'),
     createSession: require('./session/createSession'),
-    retrieveAllUserSessions: require('./session/retrieveAllUserSessions')
+    retrieveAllUserSessions: require('./session/retrieveAllUserSessions'),
+    searchUsers: require('./users/searchUsers'),
+    searchLevels: require('./levels/searchLevels'),
 }

@@ -1,5 +1,5 @@
 const {
-    validators: { validateUsername, validateId },
+    validators: { validateName, validateId },
 } = require('com');
 const { User } = require('../../data/models');
 
@@ -13,7 +13,7 @@ const { User } = require('../../data/models');
  */
 module.exports = (userId, username) => {
     validateId(userId, 'userId');
-    validateUsername(username);
+    validateName(username);
 
     return (async () => {
         const user = await User.findById(userId);
@@ -23,22 +23,11 @@ module.exports = (userId, username) => {
             {
                 $match: { username: { $regex: username, $options: 'i' } }
             },
-            {
-                $project: {
-                    _id: 1,
-                    username: 1,
-                    joined: 1
-                }
-            },
             { $sort: { joined: -1 } }
         ])
             .then((users) => {
-                return users.map(user => {
-                    return {
-                        id: user._id.toString(),
-                        username: user.username,
-                    };
-                });
+                const foundUsers = users.filter(user => userId !== user._id.toString());
+                return foundUsers;
             });
     })()
 };

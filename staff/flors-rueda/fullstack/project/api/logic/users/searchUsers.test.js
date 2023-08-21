@@ -8,7 +8,7 @@ const searchUsers = require('./searchUsers');
 const { errors: { ContentError, TypeError }, assets: { colors } } = require('com');
 
 
-describe('retrieveUsers', () => {
+describe('searchUsers', () => {
     before(async () => {
         await mongoose.connect(process.env.MONGODB_URL);
     });
@@ -29,6 +29,7 @@ describe('retrieveUsers', () => {
     it('should find all users that contain the given string', async () => {
         const username = `userA${Math.floor(Math.random() * 999)}`;
         const username2 = `userB${Math.floor(Math.random() * 999)}`;
+        const username3 = `userC${Math.floor(Math.random() * 999)}`;
         const password = `Password${Math.random()}`;
         const color = colors[Math.floor(Math.random() * colors.length)];
         const recoveryQuestions = [
@@ -38,19 +39,18 @@ describe('retrieveUsers', () => {
 
         const user = generate.user(username, password, 'beach', color, recoveryQuestions, [], [], [], 5, ['beach']);
         const user2 = generate.user(username2, password, 'beach', color, recoveryQuestions, [], [], [], 5, ['beach']);
+        const user3 = generate.user(username3, password, 'beach', color, recoveryQuestions, [], [], [], 5, ['beach']);
 
         const createdUser = await User.create(user);
         await User.create(user2);
+        await User.create(user3);
 
         const retrievedUsers = await searchUsers(createdUser._id.toString(), 'ser');
 
         expect(retrievedUsers).to.be.an('array');
         expect(retrievedUsers).to.have.lengthOf(2);
-
-        const retrievedUser1 = retrievedUsers.find((user) => user.username === username);
-
-        expect(retrievedUser1).to.exist;
-        expect(retrievedUser1.username).to.equal(username);
+        expect(retrievedUsers[0].username).to.equal(username2);
+        expect(retrievedUsers[1].username).to.equal(username3);
     });
 
     it('should find no levels that contain the given string if there is no such level', async () => {
@@ -90,14 +90,14 @@ describe('retrieveUsers', () => {
         const userId = (new mongoose.Types.ObjectId()).toString();
         const username = 1234
 
-        await expect(() => searchUsers(userId, username)).to.throw(TypeError, 'username is not a string');
+        await expect(() => searchUsers(userId, username)).to.throw(TypeError, 'name is not a string');
     });
 
     it('should fail on empty name', async () => {
         const userId = (new mongoose.Types.ObjectId()).toString();
         const username = ''
 
-        await expect(() => searchUsers(userId, username)).to.throw(ContentError, 'username is empty');
+        await expect(() => searchUsers(userId, username)).to.throw(ContentError, 'name is empty');
     });
 
     it('should fail on invalid id type', async () => {

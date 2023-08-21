@@ -1,5 +1,5 @@
 const { retrieveLevels } = require('../logic');
-const { handleErrors } = require('./helpers');
+const { handleErrors, extractUserId } = require('./helpers');
 
 module.exports = handleErrors((req, res) => {
     const sort = parseInt(req.query.sort) || 0;

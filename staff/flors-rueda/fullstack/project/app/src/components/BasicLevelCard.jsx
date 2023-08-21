@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import useHandleErrors from '../hooks/useHandleErrors';
 import toggleLike from '../logic/toggle-like';
 import toggleSave from '../logic/toggle-save';
+import isCurrentUser from '../logic/is-current-user';
 
 const BasicLevelCard = ({ levelInfo, isLevelSaved }) => {
     const [authorData, setAuthorData] = useState({});
@@ -13,12 +14,15 @@ const BasicLevelCard = ({ levelInfo, isLevelSaved }) => {
     const [isLiked, setIsLiked] = useState(levelInfo.isLevelLiked);
     const [likes, setLikes] = useState(levelInfo.likes.length);
     const [isSaved, setIsSaved] = useState(isLevelSaved);
+    const [isAuthorCurrentUser, setAuthorCurrentUser] = useState(null);
     const { id } = useParams();
 
     const getAuthorData = () => {
         handleErrors(async () => {
             const user = await retrieveUser(levelInfo.author);
             setAuthorData(user);
+            const isUser = isCurrentUser(levelInfo.author);
+            setAuthorCurrentUser(isUser);
         })
     }
 
@@ -73,6 +77,11 @@ const BasicLevelCard = ({ levelInfo, isLevelSaved }) => {
                 </Link>
                 <div className={`flex flex-row gap-2 text-secondary500 text-sm font-semibold align-center items-center`}>
                     <p className={`flex flex-row gap-2 text-secondary500 text-sm font-semibold align-center items-center`}>
+                        {isAuthorCurrentUser &&
+                            <button className="flex flex-row text-primary200 text-sm font-semibold hover:text-primary400 items-center">
+                                <i className="text-lg bi bi-pencil-square"></i>
+                            </button>
+                        }
                         <button onClick={handleSaveClick} className={`flex flex-row text-secondary500 text-sm font-semibold ${isSaved ? 'hover:text-light100' : 'hover:text-success100'} items-center`}>
                             <i className={`text-lg bi bi-bookmark-star${isSaved ? '-fill' : ''}`}></i>
                         </button>

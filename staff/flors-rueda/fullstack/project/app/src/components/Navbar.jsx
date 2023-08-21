@@ -106,7 +106,7 @@ const Navbar = ({ updateUserInfo }) => {
                                     <img className={`bg-${userInfo.color} w-8 h-8 rounded-full`} src={`${avatars[userInfo.avatar]}`} alt="avatar" />
                                 </div>
                                 <div className={`z-50 w-fit max-w-2/6 fixed right-10 mt-8 text-base list-none bg-light500 divide-y divide-light300 rounded-xl shadow ${(isUserMenuOpen ? '' : 'hidden')}`} >
-                                    <div className={`px-4 py-5 flex flex-row gap-1 align-center text-sm text-${userInfo.color} cursor-pointer rounded-lg justify-center`}>
+                                    <div className="px-4 py-5 flex flex-row gap-1 align-center text-sm text-dark300 rounded-lg justify-center">
                                         <i className="text-xl text-primary400 bi bi-piggy-bank"></i>
                                         <span className="block text-sm self-center">{userInfo.cc}cc</span>
                                     </div>
@@ -176,6 +176,21 @@ const Navbar = ({ updateUserInfo }) => {
                                     Levels
                                 </Link>
                             </li>
+                            <li>
+                                <Link
+                                    className={
+                                        "text-sm " +
+                                        (location.pathname === "/search"
+                                            ? "text-secondary400"
+                                            : "dark400 hover:text-secondary400")
+                                    }
+                                    to="/search"
+                                    onClick={handleCloseBoth}
+                                >
+                                    <i className="bi bi-search pe-1"></i>
+                                    Search
+                                </Link>
+                            </li>
                         </>}
                         <li>
                             <Link
@@ -232,7 +247,7 @@ const Navbar = ({ updateUserInfo }) => {
                                 Login
                             </button>
                             <button
-                                className="hidden lg:inline-block py-2 px-6 bg-primary500 hover:bg-primary400 text-sm text-light500 font-bold rounded-xl transition duration-200"
+                                className="hidden lg:inline-block py-2 px-6 bg-primary200 hover:bg-primary400 text-sm text-light500 font-bold rounded-xl transition duration-200"
                                 onClick={handleToRegister}
                             >
                                 Sign up
@@ -284,6 +299,22 @@ const Navbar = ({ updateUserInfo }) => {
                                         >
                                             <i className="bi bi-collection-play-fill pe-1"></i>
                                             Levels
+                                        </Link>
+                                    </li>
+                                    <li className="mb-1">
+                                        <Link
+                                            className={
+                                                "block p-4 text-sm font-semibold " +
+                                                (location.pathname === "/search"
+                                                    ? "text-secondary400"
+                                                    : "dark400 hover:text-secondary400 hover:bg-light400") +
+                                                " rounded"
+                                            }
+                                            to="/search"
+                                            onClick={handleCloseBoth}
+                                        >
+                                            <i className="bi bi-search pe-1"></i>
+                                            Search
                                         </Link>
                                     </li>
                                 </>}
@@ -348,7 +379,7 @@ const Navbar = ({ updateUserInfo }) => {
                                             Login
                                         </button>
                                         <button
-                                            className="block px-4 py-3 mb-2 leading-loose text-xs text-center font-semibold bg-primary500 hover:bg-primary400 text-light500 rounded-xl w-full"
+                                            className="block px-4 py-3 mb-2 leading-loose text-xs text-center font-semibold bg-primary200 hover:bg-primary400 text-light500 rounded-xl w-full"
                                             onClick={handleToRegister}
                                         >
                                             Sign up

@@ -3,19 +3,18 @@ import avatars from '../assets/avatars';
 import inLogger from '../inLogger';
 import useHandleErrors from '../hooks/useHandleErrors';
 import toggleFollow from '../logic/toggle-follow';
-import { useParams } from 'react-router-dom';
-import isCurrentUser from '../logic/is-current-user';
+import { Link, useParams } from 'react-router-dom';
 
 const UserCard = ({ userInfo }) => {
     const [isFollowed, setIsFollowed] = useState(userInfo.isFollowed);
     const [followers, setFollowers] = useState((userInfo.followers).length);
-    const [isProfileCurrentUser, setIsProfileCurrentUser] = useState(null)
+    const [isProfileCurrentUser, setIsProfileCurrentUser] = useState(null);
     const handleErrors = useHandleErrors();
     const { id } = useParams();
 
     const handleFollowClick = () => {
         handleErrors(async () => {
-            await toggleFollow(id);
+            await toggleFollow(userInfo.id);
             isFollowed ? setFollowers(followers - 1) : setFollowers(followers + 1);
             setIsFollowed(!isFollowed);
         })
@@ -23,8 +22,7 @@ const UserCard = ({ userInfo }) => {
 
     useEffect(() => {
         handleErrors(async () => {
-            const bool = await isCurrentUser(id);
-            id === 'you' ? setIsProfileCurrentUser(true) : setIsProfileCurrentUser(bool);
+            id === 'you' ? setIsProfileCurrentUser(true) : setIsProfileCurrentUser(false);
         })
     }, [id]);
 
@@ -46,9 +44,9 @@ const UserCard = ({ userInfo }) => {
                     </span>
                 </p>
             </div>
-            <div className="flex flex-col justify-center align-center h-full py-4 md:py-0">
+            <Link to={`/profile/${userInfo.id}`} className="flex flex-col justify-center align-center h-full py-4 md:py-0">
                 <img className={`bg-${userInfo.color} w-16 w-16 md:w-18 md:h-18 rounded-full self-center`} src={`${avatars[userInfo.avatar]}`} alt="avatar" />
-            </div>
+            </Link>
         </div>
     )
 }

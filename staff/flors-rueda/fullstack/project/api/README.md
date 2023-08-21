@@ -76,3 +76,5 @@ npm run start
 | retrieveUserLogged    | GET    | /api/users/auth/:userId |                        | 200      |
 | createSession   | POST    | /api/session/:userId/:socketId |                        | 201      |
 | cleanSession   | PATCH    | /api/session/:userId |                        | 201      |
+| searchLevels         | GET    | /api/levels/search/:name  |                          | 200      |
+| searchUsers         | GET    | /api/users/search/:username  |                          | 200      |

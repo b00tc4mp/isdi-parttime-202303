@@ -30,5 +30,7 @@ module.exports = {
     updateCCHandler: require('./updateCCHandler'),
     updateCCAchievementsHandler: require('./updateCCAchievementsHandler'),
     createSessionHandler: require('./createSessionHandler'),
-    cleanSessionHandler: require('./cleanSessionHandler')
+    cleanSessionHandler: require('./cleanSessionHandler'),
+    searchLevelsHandler: require('./searchLevelsHandler'),
+    searchUsersHandler: require('./searchUsersHandler')
 }

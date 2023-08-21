@@ -1,5 +1,5 @@
 const { retrieveLevel } = require('../logic');
-const { handleErrors } = require('./helpers');
+const { handleErrors, extractUserId } = require('./helpers');
 
 module.exports = handleErrors((req, res) => {
     const { levelId } = req.params;

@@ -26,6 +26,7 @@ import useHandleErrors from './hooks/useHandleErrors';
 import socketIOClient from 'socket.io-client';
 import AchievementToast from './components/toasts/AchievementToast';
 import createSession from './logic/create-session';
+import Search from './views/Search';
 
 const App = () => {
   const [isApiAvailable, setApiAvailableOn] = useState(true);
@@ -115,10 +116,11 @@ const App = () => {
           <Route path="/game/:id" element={<Game />} />
           <Route path="/create" element={<CreateLevel />} />
           <Route path="/tutorial" element={<Tutorial />} />
-          <Route path="/home" element={<Home />} />
+          <Route path="/home" element={isUserLoggedIn() ? <Home /> : <NotFound />} />
           <Route path="/about" element={<About />} />
-          <Route path="/profile/:id" element={<Profile />} />
-          <Route path="/settings" element={<Settings />} />
+          <Route path="/profile/:id" element={isUserLoggedIn() ? <Profile /> : <NotFound />} />
+          <Route path="/settings" element={isUserLoggedIn() ? <Settings /> : <NotFound />} />
+          <Route path="/search" element={isUserLoggedIn() ? <Search /> : <NotFound />} />
           <Route path="/signin" element={isUserLoggedIn() ? <Navigate to="/levels" /> : <SignIn setConnectSocket={setConnectSocket} />} />
           <Route path="/*" element={<NotFound />} />
         </Routes>
