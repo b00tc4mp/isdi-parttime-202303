@@ -33,4 +33,5 @@ module.exports = {
     retrieveAllUserSessions: require('./session/retrieveAllUserSessions'),
     searchUsers: require('./users/searchUsers'),
     searchLevels: require('./levels/searchLevels'),
+    addRecoveryQuestion: require('./users/addRecoveryQuestion'),
 }

@@ -91,10 +91,8 @@ const RegisterForm = ({ onLogin, setConnectSocket, setToast }) => {
 
         if (inputValue === 0) {
             event.target.setCustomValidity('Please write something that will help you to recover your account.');
-            setPasswordValid(false);
         } else {
             event.target.setCustomValidity('');
-            setPasswordValid(true);
         }
         event.target.reportValidity();
     };

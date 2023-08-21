@@ -78,3 +78,4 @@ npm run start
 | cleanSession   | PATCH    | /api/session/:userId |                        | 201      |
 | searchLevels         | GET    | /api/levels/search/:name  |                          | 200      |
 | searchUsers         | GET    | /api/users/search/:username  |                          | 200      |
+| addRecoveryQuestion         | PATCH    | /api/users/questions  | { "password": "...", "recoveryQuestions": "..." } | 201      |

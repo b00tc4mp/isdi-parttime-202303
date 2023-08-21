@@ -32,5 +32,6 @@ module.exports = {
     createSessionHandler: require('./createSessionHandler'),
     cleanSessionHandler: require('./cleanSessionHandler'),
     searchLevelsHandler: require('./searchLevelsHandler'),
-    searchUsersHandler: require('./searchUsersHandler')
+    searchUsersHandler: require('./searchUsersHandler'),
+    addRecoveryQuestionHandler: require('./addRecoveryQuestionHandler')
 }
