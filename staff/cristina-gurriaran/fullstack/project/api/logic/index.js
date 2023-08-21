@@ -6,6 +6,7 @@ module.exports = {
     updateUserPassword: require('./users/updateUserPassword'),
     createWorkspot: require('./workspots/createWorkspot'),
     retrieveWorkspots : require('./workspots/retrieveWorkspots'),
-    searchWorkspotsByName: require('./workspots/searchWorkspotsByName')
+    getWorkspotsByName: require('./workspots/getWorkspotsByName'),
+    getFilteredWorkspots: require('./workspots/getFilteredWorkspots')
 
 }

@@ -1,10 +1,10 @@
-import searchWorkspotsByName from '../../logic/searchWorkspotsByName'
+import getWorkspotsByName from '../../logic/getWorkspotsByName'
 import Workspot from './Workspot'
 import { useState, useEffect } from 'react'
 import { useAppContext, useHandleErrors } from '../hooks'
 import { Container, Form, Input, Button } from '../library'
 
-export default function WorkspotsSearchedByName({ user, nameSearched }){
+export default ({ user, nameSearched }) => {
     const handleErrors = useHandleErrors()
 
     const [searchedWorkspots, setSearchedWorkspots] = useState()
@@ -12,7 +12,7 @@ export default function WorkspotsSearchedByName({ user, nameSearched }){
 
     useEffect(() => {
         handleErrors(async () => {
-            const searchedWorkspots = await searchWorkspotsByName(nameSearched)
+            const searchedWorkspots = await getWorkspotsByName(nameSearched)
             setSearchedWorkspots(searchedWorkspots)
         })
     }, [])

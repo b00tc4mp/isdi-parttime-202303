@@ -141,7 +141,7 @@ const workspot = new Schema({
         type: String,
         required: true,
     },
-    type: {
+    category: {
         coffeeShop: Boolean,
         restaurant: Boolean,
         coWorking: Boolean,

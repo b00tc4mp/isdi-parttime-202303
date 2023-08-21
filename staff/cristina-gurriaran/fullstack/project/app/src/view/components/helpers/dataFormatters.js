@@ -1,5 +1,5 @@
-export const formatType = (type) => {
-    switch (type) {
+export const formatCategory = (category) => {
+    switch (category) {
         case "coffeeShop": return "Coffee shop"
         case "restaurant": return "Restaurant"
         case "coWorking": return "Coworking"

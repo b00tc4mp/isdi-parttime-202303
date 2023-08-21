@@ -6,6 +6,7 @@ module.exports = {
     updateUserPasswordHandler: require('./updateUserPasswordHandler'),
     createWorkspotHandler: require('./createWorkspotHandler'),
     retrieveWorkspotsHandler: require('./retrieveWorkspotsHandler'),
-    searchWorkspotsByNameHandler: require('./searchWorkspotsByNameHandler')
+    getWorkspotsByNameHandler: require('./getWorkspotsByNameHandler'),
+    getFilteredWorkspots: require('./getFilteredWorkspotsHandler')
 
 }

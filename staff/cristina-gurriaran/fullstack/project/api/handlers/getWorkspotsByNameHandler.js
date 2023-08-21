@@ -1,12 +1,12 @@
 const { extractUserId, handleErrors } = require('./helpers')
-const { searchWorkspotsByName } = require('../logic')
+const { getWorkspotsByName } = require('../logic')
 
 module.exports = handleErrors((req, res) => {
     const userId = extractUserId(req)
     
     const { nameSearched } = req.body
 
-    const promise = searchWorkspotsByName(userId, nameSearched)
+    const promise = getWorkspotsByName(userId, nameSearched)
 
     return (async () => {
         const matchedWorkspots = await promise

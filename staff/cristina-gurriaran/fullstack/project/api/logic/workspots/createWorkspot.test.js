@@ -34,7 +34,7 @@ const createWorkspot = require('./createWorkspot')
             },
         }
         const description = 'Poble Sec hasn’t exactly been booming with great cafes and brunch places, but La Galena has changed that. This adorable cafe has opened on Plaça Sortidor and has taken the neighborhood by storm.'
-        const type = {
+        const category = {
             coffeeShop: true,
             restaurant: false,
             coWorking: false,
@@ -76,7 +76,7 @@ const createWorkspot = require('./createWorkspot')
         const reviews = ['Great spot!', 'Highly recommended!']
         const likes = ["64ac3076cca3c7f9cdb065b0"]
 
-        await createWorkspot(userId, image, name, location, description, type, features, reviews, likes)
+        await createWorkspot(userId, image, name, location, description, category, features, reviews, likes)
 
         console.log('New workspot created')
 

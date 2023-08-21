@@ -1,8 +1,10 @@
 import Workspots from '../components/Workspots'
-import SearchedWorkspots from '../components/SearchedWorkspots'
+import WorkspotsSearchedByName from '../components/WorkspotsSearchedByName'
 import AddWorkspotModal from '../components/AddWorkspotModal'
+import FilterModal from '../components/FiltersModal'
+import FilteredWorkspots from '../components/FilteredWorkspots'
 import { Container, Form, Input, Button } from '../library'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import Profile from '../components/Profile'
 import retrieveUser from '../../logic/retrieveUser'
 import './Home.css'
@@ -20,7 +22,7 @@ export default function Home() {
     const [postId, setPostId] = useState(null)
  
     const [user, setUser] = useState()
-    const [nameSearched, setNameSearched] = useState('')
+    const [nameSearched, setNameSearched] = useState(null)
 
 
     useEffect(() => {
@@ -44,7 +46,6 @@ export default function Home() {
     const handleWorkspotUpdated = () => {
         setModal(null)        
     }
-
 
     const handleLogout = () => {
         logoutUser()
@@ -73,7 +74,24 @@ export default function Home() {
         setView('workspots-searched-by-name');
     };
     
+    const handleOpenFilterModal = () => setModal('filter')
 
+    const [filteredData, setFilteredData] = useState({
+        districts: {},
+        category: {},
+        features: {}
+    })
+
+    const handleFilteredSearch = (districts, category, features) => {
+        setFilteredData({
+            districts: districts,
+            category: category, 
+            features: features
+        })
+        
+        setView('filtered-workspots')
+        setModal(null)
+    }
 
     console.log('Home -> render')
 
@@ -104,11 +122,15 @@ export default function Home() {
 
         <div>
             {view === 'workspots' && <Workspots />}
-            {view === 'workspots-searched-by-name' && <SearchedWorkspots 
+            {view === 'workspots-searched-by-name' && <WorkspotsSearchedByName 
                 nameSearched={nameSearched}
             />}
+            {view === 'filtered-workspots' && <FilteredWorkspots
+                districts={filteredData.districts}
+                category={filteredData.category}
+                features={filteredData.features}    
+            />}
 
-         
             {view === 'profile' && <Profile
                 onUserAvatarUpdated={handleUserAvatarUpdated}
                 onUpdatedUserPassword={handleUserPasswordUpdated}
@@ -120,9 +142,17 @@ export default function Home() {
                     onWorkspotCreated={handleWorkspotUpdated}
                 />}
 
+            {modal === 'filter' &&
+                <FilterModal
+                    onCancel={handleCloseModal}
+                    onFilteredSearch={handleFilteredSearch}
+                />}
+
         </div>
 
         <footer className="home-footer">
+            <Button onClick={handleOpenFilterModal}>Filters</Button>
+
             <Button onClick={handleOpenAddWorkspotModal}>+</Button>
         </footer>
     </div>

@@ -1,8 +1,9 @@
 import { useState } from 'react';
-import createWorkspot from '../../logic/createWorkspot'
 import { useAppContext, useHandleErrors } from '../hooks'
 import { Container, Form, Input, Button, TextArea, Label } from '../library'
 import { formatCategory, formatOtherFeatures, formatDistrict, formatWifi, formatPlugs, formatNoise } from './helpers/dataFormatters'
+import getFilteredWorkspots from '../../logic/getFilteredWorkspots';
+import FilteredWorkspots from './FilteredWorkspots';
 
 const initialDistricts = {
     ciutatVella: false,
@@ -15,6 +16,14 @@ const initialDistricts = {
     santMarti: false,
     santsMontjuic: false,
     sarriaSantGervasi: false,
+};
+
+const initialCategory = {
+    coffeeShop: false,
+    restaurant: false,
+    coWorking: false,
+    library: false,
+    hotelLobby: false,
 };
 
 const initialWifi = {
@@ -37,14 +46,6 @@ const initialNoise = {
     loud: false,
 };
 
-const initialCategory = {
-    coffeeShop: false,
-    restaurant: false,
-    coWorking: false,
-    library: false,
-    hotelLobby: false,
-};
-
 const initialOtherFeatures = {
     accessibility: false,
     petFriendly: false,
@@ -59,7 +60,7 @@ const initialOtherFeatures = {
 };
 
 
-export default function AddWorkspotModal({ onCancel, onWorkspotCreated }) {
+export default function FilterModal({ onCancel, onFilteredSearch }) {
     const { alert } = useAppContext();
     const handleErrors = useHandleErrors();
 
@@ -116,56 +117,23 @@ export default function AddWorkspotModal({ onCancel, onWorkspotCreated }) {
         }));
     };
 
-    const handleCreateWorkspot = event => {
+    const[features, setFeatures] = useState({
+        wifi: wifi,
+        plugs: plugs,
+        noise: noise,
+        otherFeatures: otherFeatures
+    })
+
+    const handleFilteredSearch = event => {
         event.preventDefault();
-
-        const location = {
-            street: event.target.street.value,
-            postalCode: event.target.postalCode.value,
-            city: event.target.city.value,
-            country: event.target.country.value,
-            districts: districts,
-            mapLocation: {
-                location: 'Point',
-                coordinates: [
-                    parseFloat(event.target.latitude.value),
-                    parseFloat(event.target.longitude.value),
-                ],
-            },
-        };
-        
-        const features = {
-            wifi: wifi,
-            plugs: plugs,
-            noise : noise,
-            otherFeatures: otherFeatures
-        }
-
-        const image = event.target.image.value
-        const name = event.target.name.value
-        const description = event.target.description.value
-
-        handleErrors(async () => {
-            await createWorkspot(image, name, location, description, category, features);
-            onWorkspotCreated();
-        });
+        onFilteredSearch(districts, category, features)
     };
 
     return (
-        <div className="fixed top-1/4 left-1/4 w-1/2 h-1/2 overflow-auto bg-white shadow-lg rounded-lg">
-        <Container tag="section">
-            <Form onSubmit={handleCreateWorkspot}>
-                <Input type="url" name="image" placeholder="Image url" />
-                <TextArea name="name" placeholder="Name" />
-                <TextArea name="description" placeholder="Description" />
-                <TextArea name="street" placeholder="Street" />
-                <TextArea name="postalCode" placeholder="Postal code" />
-                <TextArea name="city" placeholder="City" />
-                <TextArea name="country" placeholder="Country" />
-                <TextArea name="latitude" placeholder="Latitude" />
-                <TextArea name="longitude" placeholder="Longitude" />
-
-
+        <div className="fixed top-1/4 w-1/2 h-1/2 overflow-auto bg-white shadow-lg rounded-lg">
+        <Container tag="section" className="m-10">
+            <Form onSubmit={handleFilteredSearch}>
+  
                 <div className="flex flex-col w-max">
                     District:
                     {Object.keys(districts).map(district => (
@@ -241,10 +209,11 @@ export default function AddWorkspotModal({ onCancel, onWorkspotCreated }) {
                     ))}
                 </div>
 
-                <Button type="submit">Create</Button>
+                <Button type="submit">Search</Button>
                 <Button type="button" onClick={handleCancel}>Cancel</Button>
             </Form>
         </Container>
+            
      </div >
     );
 }

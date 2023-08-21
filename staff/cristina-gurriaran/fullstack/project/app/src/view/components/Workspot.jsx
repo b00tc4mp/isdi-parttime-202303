@@ -1,12 +1,12 @@
 import { GoogleMap, Marker, useLoadScript } from "@react-google-maps/api";
 import { useMemo } from "react";
 import { Container, Form, Input, Button, TextArea, Label } from '../library'
-import { formatType, formatOtherFeatures, formatDistrict, formatWifi, formatPlugs, formatNoise } from './helpers/dataFormatters'
+import { formatCategory, formatOtherFeatures, formatDistrict, formatWifi, formatPlugs, formatNoise } from './helpers/dataFormatters'
 
 const API_KEY = 'AIzaSyAHtNeBELo0YBI0lmCVbd0lQ9BGTVd_fhQ'
 
 export default function Workspot({ workspot : {
-    image, name, location, description, type, features, reviews, likes, author}}){
+    image, name, location, description, category, features, reviews, likes, author}}){
     
     const { isLoaded } = useLoadScript({
         googleMapsApiKey: API_KEY,
@@ -34,9 +34,9 @@ export default function Workspot({ workspot : {
                    location.districts[district] && formatDistrict(district))}
             </p>
             <p>
-                Type:
-                    {Object.keys(type).map(typeOption => 
-                        type[typeOption] && formatType(typeOption))}
+                Category:
+                    {Object.keys(category).map(categoryOption => 
+                        category[categoryOption] && formatCategory(categoryOption))}
             </p>
             
             <p className="font-semibold">Features:</p>

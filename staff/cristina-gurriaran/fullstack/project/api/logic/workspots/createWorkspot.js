@@ -5,7 +5,7 @@ const {
 
 const { User, Workspot } = require('../../data/models')
 
-module.exports = (userId, image, name, location, description, type, features) => {
+module.exports = (userId, image, name, location, description, category, features) => {
     validateId(userId, 'user id')
     validateUrl(image, 'image url')
     validateText(name, 'name')
@@ -32,7 +32,7 @@ module.exports = (userId, image, name, location, description, type, features) =>
                 },
             },
             description,
-            type,
+            category,
             features
         })
     })()
