@@ -26,7 +26,29 @@ const {
 module.exports = function forgotPassword(email) {
     validateEmail(email)
 
+    const randomString = () => {
+        const length = 8
+        let randomString = ''
+
+        for (let i = 0; i < length; i++) {
+            const character = Math.floor((Math.random() * 10) + 1)
+
+            randomString += character
+        }
+        return randomString
+    }
+    const uniqueString = randomString()
+
+    console.log(uniqueString)
+
     return User.findOne({ email })
+        .then(user => {
+            if (!user.uniqueString) {
+                return user.updateOne({ uniqueString: uniqueString }).then(user => user)
+            }
+
+            return user
+        })
         .then(user => {
             const payload = { sub: user.uniqueString }
             const { JWT_SECRET, JWT_RECOVER_EMAIL_EXPIRATION } = process.env

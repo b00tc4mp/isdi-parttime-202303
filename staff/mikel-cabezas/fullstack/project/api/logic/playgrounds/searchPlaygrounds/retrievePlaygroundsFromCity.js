@@ -38,7 +38,6 @@ module.exports = (token, userId, city) => {
         })
         .then(mapsResponse => {
             try {
-                debugger
                 let longRegion, latRegion, maxDistance
 
                 const latitude = mapsResponse.results[0].coordinate.latitude
@@ -68,7 +67,7 @@ module.exports = (token, userId, city) => {
                         }
                     }
                 })
-                    .then(playgrounds => [coordinates, playgrounds])
+                    .then(playgrounds => [coordinates, [playgrounds]])
 
             } catch (error) {
                 console.log(error.message)

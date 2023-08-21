@@ -1,9 +1,12 @@
-const { ObjectId } = require('mongodb')
+const { User } = require('../../data/models')
+
+
 const context = require('../context')
 const {
     validators: { validateUserId, validatePassword, validateNewPassword },
     errors: { ExistenceError, ContentError }
 } = require('com')
+const jwt = require('jsonwebtoken')
 
 /**
  * 
@@ -23,13 +26,11 @@ const {
  */
 module.exports = (userId, currentPassword, newPassword, repeatPassword) => {
     validateUserId(userId)
-    validatePassword(currentPassword)
     validatePassword(newPassword)
     validatePassword(repeatPassword)
-    const { users } = context
-    const _user = { _id: new ObjectId(userId) }
 
-    return users.findOne(_user)
+
+    return User.findById(userId)
         .then(user => {
             if (!user) throw new ExistenceError('user not found')
 
@@ -39,6 +40,6 @@ module.exports = (userId, currentPassword, newPassword, repeatPassword) => {
 
             if (newPassword !== repeatPassword) throw new ContentError("New password and new password confirmation does not match")
 
-            return users.updateOne(_user, { $set: { password: newPassword } })
+            return user.updateOne({ password: newPassword })
         })
 }

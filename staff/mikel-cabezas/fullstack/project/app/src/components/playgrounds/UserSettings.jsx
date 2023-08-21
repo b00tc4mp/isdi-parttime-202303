@@ -1,59 +1,108 @@
 import React, { useEffect, useState, useContext } from "react";
 
-import { Text, Image, View, ScrollView, TouchableOpacity, Modal, Animated, TextInput } from 'react-native';
+import { Text, Image, View, ScrollView, TouchableOpacity, Alert, TextInput } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import { CLOSE } from '../../../assets/icons';
 import Context from '../../AppContext.js'
 
-import { validateEmail, validatePassword } from "../../../com/validators.js";
+import retrieveUser from "../../logic/users/retrieveUser";
+import { validateEmail, validatePassword, validateName } from "../../../com/validators.js";
+import { updateUserEmail } from "../../logic/users/updateUserEmail";
+import { updateUserName } from "../../logic/users/updateUserName";
+import { updateUserPassword } from "../../logic/users/updateUserPassword";
+// import { updateUserEmail, updateUserName, updateUserPassword } from "../../logic/";
 
 
-export default function UserSettings({ closeHandle, user, handleMarkerPressedHandler }) {
-    const { currentView, setCurrentView } = useContext(Context)
-    // const { currentMarker, setCurrentMarker } = useContext(Context)
-    const [animation, setAnimation] = useState('fadeInUp')
+export default function UserSettings({ closeHandle, handleMarkerPressedHandler }) {
+    const { currentView, setCurrentView, TOKEN } = useContext(Context)
+    const [user, setUser] = useState()
     const [name, setName] = useState()
     const [email, setEmail] = useState()
-    const [password, setPassword] = useState()
+    const [currentPassword, setCurrentPassword] = useState()
+    const [newPassword, setNewPassword] = useState()
     const [repeatPassword, setRepeatPassword] = useState()
 
+    useEffect(() => {
+        retrieveUser(TOKEN)
+            .then(user => {
+                setUser(user)
+            })
+    }, [])
 
-    const onClose = () => {
-        setAnimation('fadeOutDown')
-        closeHandle()
-        // alert('hola')
-        setAnimation()
-    }
-    const handleSave = () => {
+    useEffect(() => {
+    }, [name, email, currentPassword, newPassword, repeatPassword, user]);
+    const handleSaveUser = () => {
         try {
-            validateEmail(email)
-            validatePassword(password)
-            Alert.alert('TODO', `update user and password available in next commit`, [
-                { text: 'OK thanks...', onPress: () => { } },
-            ]);
-            // authenticateUser(email, password)
-            //     .then(async () => {
-            //         return AsyncStorage.getItem('@TOKEN')
-            //             .then(token => {
-            //                 if (token) {
-            //                     setTOKEN(token)
-            //                     setIsLoggedIn(true)
-            //                 }
-            //             })
-            //             .then(() => {
-            //                 navigation.reset({
-            //                     index: 0,
-            //                     routes: [{ name: 'Home' }],
-            //                 })
-            //             })
-            //     })
-            //     .catch(error => alert(error.message))
+            if (name) {
+                validateName(name)
+                updateUserName(TOKEN, name)
+                    .then(() => {
+                        Alert.alert('Success', `${'Your name was updated!'}`, [
+                            { text: 'OK', onPress: () => { } },
+                        ])
+                        retrieveUser(TOKEN)
+                            .then(user => {
+                                setUser(user)
+                            })
+                        setName()
+                    })
+            }
+            if (email) {
+                validateEmail(email)
+                updateUserEmail(TOKEN, email)
+                    .then(() => {
+                        Alert.alert('Success', `${'Your email was updated!'}`, [
+                            { text: 'OK', onPress: () => { } },
+                        ])
+                        retrieveUser(TOKEN)
+                            .then(user => {
+                                setUser(user)
+                            })
+                        setEmail()
+                    })
+                    .catch(error =>
+                        Alert.alert('Error', `${error.message}`, [
+                            { text: 'OK', onPress: () => { } },
+                        ])
+                    )
+            }
         } catch (error) {
             Alert.alert('Error', `${error.message}`, [
                 { text: 'OK', onPress: () => { } },
             ]);
         }
+    }
+    const handleSavePassword = () => {
+        try {
+            validatePassword(currentPassword)
+            validatePassword(newPassword)
+            validatePassword(repeatPassword)
+            if (currentPassword === newPassword) throw new Error('New password must be different as previous password')
+            if (newPassword !== repeatPassword) throw new Error('New password and new password confirmation does not match')
 
+            updateUserPassword(TOKEN, currentPassword, newPassword, repeatPassword)
+                .then(() => {
+                    Alert.alert('Success', `${'Your password was updated!'}`, [
+                        { text: 'OK', onPress: () => { } },
+                    ])
+                    retrieveUser(TOKEN)
+                        .then(user => {
+                            setUser(user)
+                        })
+                    setCurrentPassword()
+                    setNewPassword()
+                    setRepeatPassword()
+                })
+                .catch(error =>
+                    Alert.alert('Error', `${error.message}`, [
+                        { text: 'OK', onPress: () => { } },
+                    ])
+                )
+        } catch (error) {
+            Alert.alert('Error', `${error.message}`, [
+                { text: 'OK', onPress: () => { } },
+            ]);
+        }
     }
 
     return <>
@@ -96,7 +145,7 @@ export default function UserSettings({ closeHandle, user, handleMarkerPressedHan
                         activeOpacity={0.8}
                         className="border border-mainLime bg-mainLime rounded-full mb-1 mt-4 self-start w-auto  "
                         onPress={() => {
-                            handleSave()
+                            handleSaveUser()
                         }} >
                         <View className="font-bold   px-6 py-1.5 self-start rounded-full" >
                             <Text className="font-bold  text-lg   self-start rounded-full">Update</Text>
@@ -106,12 +155,24 @@ export default function UserSettings({ closeHandle, user, handleMarkerPressedHan
                 </View>
                 <View className="" >
                     <Text className="dark:text-white mt-5 text-lg font-semibold">Edit password</Text>
-                    <Text className="dark:text-white mt-2 text-xs ">Your email</Text>
+                    <Text className="dark:text-white mt-2 text-xs ">Your current password</Text>
                     <TextInput
                         label="Password"
                         returnKeyType="done"
-                        value={password}
-                        onChangeText={setPassword}
+                        value={currentPassword}
+                        onChangeText={setCurrentPassword}
+                        secureTextEntry
+                        placeholder="Password"
+                        className="dark:text-white border border-mainGray bg-mainGray dark:border-gray-700 dark:bg-gray-700 rounded-full my-1 px-3 py-2 self-start w-full"
+                        inputMode="text"
+                        keyboardType="default"
+                    />
+                    <Text className="dark:text-white mt-2 text-xs ">Your password</Text>
+                    <TextInput
+                        label="Password"
+                        returnKeyType="done"
+                        value={newPassword}
+                        onChangeText={setNewPassword}
                         secureTextEntry
                         placeholder="Password"
                         className="dark:text-white border border-mainGray bg-mainGray dark:border-gray-700 dark:bg-gray-700 rounded-full my-1 px-3 py-2 self-start w-full"
@@ -134,7 +195,7 @@ export default function UserSettings({ closeHandle, user, handleMarkerPressedHan
                         activeOpacity={0.8}
                         className="border border-mainLime bg-mainLime rounded-full mb-1 mt-4 self-start w-auto  "
                         onPress={() => {
-                            handleSave()
+                            handleSavePassword()
                         }} >
                         <View className="font-bold   px-6 py-1.5 rounded-full" >
                             <Text className="font-bold  text-lg   self-start rounded-full">Update</Text>
@@ -150,44 +211,6 @@ export default function UserSettings({ closeHandle, user, handleMarkerPressedHan
 
 
 
-
-
-        {/* <Modal
-            animationType="slide"
-            transparent={true}
-            className="w-full justify-center flex content-center center h-auto max-h-max"
-            onRequestClose={() => {
-                alert('')
-                setCurrentView('')
-                onClose()
-            }}
-        >
-            <View
-                className="w-10/12 left-[8.33%] absolute bottom-24 h-auto max-h-max p-5 bg-white rounded-[20px] mx-auto"
-            >
-                <TouchableHighlight
-                    className=" m-auto absolute right-0 top-0 mr-2 mt-1 z-10"
-                    activeOpacity={1.0}
-                    underlayColor="#fff"
-                    onPress={() => {
-                        onClose()
-                        setCurrentView('')
-                    }}>
-                    <Image
-                        // className={`w-8 h-8 m-auto`}
-                        className={`w-8 h-8 m-auto `}
-                        source={CLOSE}
-                    />
-                </TouchableHighlight>
-
-
-                <ScrollView
-                    horizontal="true"
-                >
-                    <Text className="pt-4">hola</Text>
-                </ScrollView>
-            </View>
-        </Modal> */}
 
     </>
 }

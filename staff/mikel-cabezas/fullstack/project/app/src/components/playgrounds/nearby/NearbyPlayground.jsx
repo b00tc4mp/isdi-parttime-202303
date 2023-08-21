@@ -21,6 +21,7 @@ export default function NearbyPlayground({ playground, playground: { name, text,
     const handleOpenMap = () => {
         // openMap({ latitude: playground.location.coordinates[0], longitude: playground.location.coordinates[1] })
         // createMapLink({ start, latitude: playground.location.coordinates[0], longitude: playground.location.coordinates[1], zoom: 20 })
+
         const scheme = Platform.select({ ios: 'maps:0,0?q=', android: 'geo:0,0?q=' })
         const latLng = `${playground.location.coordinates[0]},${playground.location.coordinates[1]}`
         const label = playground.name
@@ -31,11 +32,11 @@ export default function NearbyPlayground({ playground, playground: { name, text,
         Linking.openURL(url)
     }
     return <>
-        <TouchableHighlight onPress={markerPressedHandler} activeOpacity={0.9} underlayColor="#fff">
-            <View className="flex flex-col relative" >
-                <Image source={{ uri: image }} className="rounded-2xl w-full h-[168px] object-contain" />
-                <Text className="font-bold text-sm text-[13px] leading-4 mt-2 pr-1">{name}</Text>
-                <Text className="text-[11px] pr-1">{street}</Text>
+        <TouchableHighlight key={id} onPress={markerPressedHandler} activeOpacity={0.9} underlayColor="#fff">
+            <View className="flex flex-col relative" key={`container-${id}`}>
+                <Image source={{ uri: image }} key={`image-${id}`} className="rounded-2xl w-full h-[168px] object-contain" />
+                <Text key={`name-${id}`} className="font-bold text-sm text-[13px] leading-4 mt-2 pr-1">{name}</Text>
+                <Text key={`street-${id}`} className="text-[11px] pr-1">{street}</Text>
 
             </View>
         </TouchableHighlight>

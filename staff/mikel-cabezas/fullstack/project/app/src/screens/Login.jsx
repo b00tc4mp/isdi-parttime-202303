@@ -86,6 +86,7 @@ export default function Login({ navigation }) {
                 <View className="bg-white dark:bg-gray-800 h-auto px-6 py-7 w-3/4 max-w-[300px] rounded-3xl">
                     {/* <Text className="dark:text-white text-2xl text-center font-semibold">{process.env.EXPO_PUBLIC_API_URL}</Text> */}
 
+                    <Text className="dark:text-white pt-4 text-xs text-center">{process.env.EXPO_PUBLIC_API_URL}</Text>
                     <Text className="dark:text-white text-2xl text-center font-semibold">Login</Text>
                     <Text className="dark:text-white pt-4 text-xs text-center">Your email</Text>
                     <TextInput

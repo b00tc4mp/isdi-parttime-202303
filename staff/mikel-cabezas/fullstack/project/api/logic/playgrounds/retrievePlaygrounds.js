@@ -15,14 +15,14 @@ const {
  * 
  * @throws {ExistenceError} on user not found (async)
  */
-module.exports = (userId, location) => {
+module.exports = async (userId, location) => {
     validateUserId(userId)
     console.log(location)
     const latitude = location.latitude
     const longitude = location.longitude
     const coordinates = [latitude, longitude]
     try {
-        return Promise.all([
+        const playgrounds = Promise.all([
             Playground.find({
                 location: {
                     $near: {
@@ -33,8 +33,10 @@ module.exports = (userId, location) => {
                 }
             }).lean()
         ])
+        console.log('playgrounds', playgrounds)
+        return playgrounds
             // .then(playgrounds => [playgrounds])
-            .then(playgrounds => [playgrounds])
+            .then(playgrounds => playgrounds)
     } catch (error) {
         console.log(error.message)
     }
