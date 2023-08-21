@@ -8,6 +8,7 @@ export function registerUser(name, email, password, passwordConfirm) {
     validateEmail(email)
     validateNewPassword(password)
     validatePasswordConfirm(password, passwordConfirm)*/
+    if (password !== passwordConfirm) throw new Error('Pasword confirmation is different than password')
 
     return fetch(`${API_URL}/users`, {
         method: 'POST',

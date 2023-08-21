@@ -2,7 +2,6 @@ import Login from './src/pages/Login'
 import Register from './src/pages/Register'
 import Admin from './src/pages/Admin'
 import Home from './src/pages/Home'
-import CharacterCreator from './src/components/CharacterCreator'
 import { useState } from 'react'
 import Game from './src/pages/Game'
 
@@ -11,25 +10,24 @@ export default function App() {
   const [register, setRegister] = useState(false)
   const [home, setHome] = useState(false)
   const [admin, setAdmin] = useState(false)
-  const [newCharacter, setNewCharacter] = useState(false)
   const [game, setGame] = useState(false)
 
-  const handleGoToRegister = event => {
+  const handleGoToRegister = () => {
     setLogin(false)
     setRegister(true)
   }
 
-  const handleGoToLogin = event => {
+  const handleGoToLogin = () => {
     setLogin(true)
     setRegister(false)
   }
 
-  const handleGoToAdminMain = event => {
+  const handleGoToAdminMain = () => {
     setLogin(false)
     setAdmin(true)
   }
 
-  const handleGoToHome = event => {
+  const handleGoToHome = () => {
     setLogin(false)
     setHome(true)
   }
@@ -42,11 +40,6 @@ export default function App() {
       setHome(false)
       setLogin(true)
     }
-  }
-
-  const handleGoToCharacterCreation = () => {
-    setHome(false)
-    setNewCharacter(true)
   }
 
   const handleStartGame = () => {
@@ -73,11 +66,8 @@ export default function App() {
       onLogoutSession={handleLogoutSession}
     />}
     {home && <Home
-      onContinueToNewCharacter={handleGoToCharacterCreation}
       onLogoutSession={handleLogoutSession}
       onStartGame={handleStartGame}
-    />}
-    {newCharacter && <CharacterCreator
     />}
     {game && <Game
       onFinishGame={handleFinishGame}
