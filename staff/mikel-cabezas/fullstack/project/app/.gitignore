@@ -12,7 +12,7 @@ web-build/
 
 # sensible data
 .env
-
+ios/
 # macOS
 .DS_Store
 
