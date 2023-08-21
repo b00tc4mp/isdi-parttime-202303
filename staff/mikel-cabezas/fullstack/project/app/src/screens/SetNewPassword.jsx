@@ -3,7 +3,7 @@ import React, { useEffect, useState, useContext } from "react";
 import { View, Text, TextInput, Image, TouchableOpacity, Alert } from 'react-native';
 import Context from '../AppContext.js'
 import * as Linking from 'expo-linking';
-import { updateNewPassword } from "../logic/users/updateNewPassword.js";
+import { recoverPassword } from "../logic/users/recoverPassword.js";
 import searchUser from "../logic/users/searchUser.js";
 
 import BG from '../../assets/bg-login.png'
@@ -49,7 +49,7 @@ export default function Login({ navigation }) {
     const handleSetNewPassword = () => {
         if (password !== repeatPassword) throw new Error('Passwords does not match')
         console.log(passwordToken)
-        updateNewPassword(passwordToken, password)
+        recoverPassword(passwordToken, password)
             .then(() => {
                 alert('Password updated! \n Now you can login.')
                 navigation.navigate('Login')

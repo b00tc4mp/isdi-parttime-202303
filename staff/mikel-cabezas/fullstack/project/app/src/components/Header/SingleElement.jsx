@@ -11,6 +11,10 @@ export default function CreatePlayground({ key, element, handleEditElement, main
 
     const handleElementPressed = () => onElementPressed(element.type)
 
+    let bgColor
+    const active = element.status === true
+    active ? bgColor = 'bg-mainLime' : bgColor = 'bg-mainGray'
+
     const assignElementAge = (age) => {
         let AGE
 
@@ -48,11 +52,6 @@ export default function CreatePlayground({ key, element, handleEditElement, main
         return STATUS
     }
 
-    useEffect(() => {
-        if (mainColor) {
-
-        }
-    }, []);
 
     const age = assignElementAge(element.age)
     const type = assignElementType(element.type)
@@ -62,21 +61,23 @@ export default function CreatePlayground({ key, element, handleEditElement, main
         if (handleEditElement()) handleEditElement(element.id)
     }
 
-    return <TouchableOpacity
-        onPress={handleElementPressed}
-        key={key}
-        activeOpacity={0.8}
-        className={`border border-${status} ${`border-${mainColor}`}  rounded-full mb-1 mt-2 mr-2 bg-mainGray`}
-    >
-        <View className="font-bold px-3 py-0.5 flex-row items-center content-center">
-            <Image className="w-5 h-5 mr-2 object-contain" source={type} />
-            <Text className={`font-bold text-center text-sm align-middle my-1.5`}>{element.type}</Text>
-            {element.accessibility === 'Yes' && <View className=" flex justify-center justify-items-center p- ml-2">
-                <Image className="h-6 w-6 object-cover" source={ACCESSIBLE} />
-            </View>}
-            {element.age && <View className="rounded-xl bg-mainLime flex justify-center justify-items-center p-1 ml-2">
-                <Image className="h-6 w-6 object-cover" source={age} />
-            </View>}
-        </View>
-    </TouchableOpacity>
+    return <>
+        <TouchableOpacity
+            onPress={handleElementPressed}
+            key={key}
+            activeOpacity={0.8}
+            className={`border border-${status} ${`border-${mainColor}`}  rounded-full mb-1 mt-2 mr-2 ${bgColor}`}
+        >
+            <View className="font-bold px-3 py-0.5 flex-row items-center content-center">
+                <Image className="w-5 h-5 mr-2 object-contain" source={type} />
+                <Text className={`font-bold text-center text-sm align-middle my-1.5`}>{element.type}</Text>
+                {element.accessibility === 'Yes' && <View className=" flex justify-center justify-items-center p- ml-2">
+                    <Image className="h-6 w-6 object-cover" source={ACCESSIBLE} />
+                </View>}
+                {element.age && <View className="rounded-xl bg-mainLime flex justify-center justify-items-center p-1 ml-2">
+                    <Image className="h-6 w-6 object-cover" source={age} />
+                </View>}
+            </View>
+        </TouchableOpacity>
+    </>
 }

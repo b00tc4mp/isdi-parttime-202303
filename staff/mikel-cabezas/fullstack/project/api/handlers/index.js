@@ -5,12 +5,14 @@ module.exports = {
     forgotPasswordHandler: require('./users/forgotPasswordHandler'),
     recoverPasswordHandler: require('./users/recoverPasswordHandler'),
     setNewPasswordHandler: require('./users/setNewPasswordHandler'),
+    updateUserPasswordHandler: require('./users/updateUserPasswordHandler'),
     retrieveUserHandler: require('./users/retrieveUserHandler'),
     authenticateUserHandler: require('./users/authenticateUserHandler'),
     updateUserNameHandler: require('./users/updateUserNameHandler'),
+    confirmNewUserEmailHandler: require('./users/confirmNewUserEmailHandler'),
     updateUserEmailHandler: require('./users/updateUserEmailHandler'),
     updateUserImageHandler: require('./users/updateUserImageHandler'),
-    updateUserPasswordHandler: require('./users/updateUserPasswordHandler'),
+
 
     checkIfHasPlaygroundsNearHandler: require('./playgrounds/checkIfHasPlaygroundsNearHandler'),
     addPlaygroundHandler: require('./playgrounds/addPlaygroundHandler'),

@@ -3,9 +3,10 @@ const { extractUserId } = require('../helpers')
 const { handleErrors } = require('../helpers')
 
 module.exports = handleErrors((req, res) => {
-    const userId = extractUserId(req)
-    const { email } = req.body
-
-    return updateUserEmail(userId, email)
-        .then(() => res.status(204).send())
+    const { token, email } = req.params
+    debugger
+    return updateUserEmail(token, email)
+        // .then(() => res.status(204).send())
+        .then(() => res.redirect(`${process.env.SCHEMA}/UserNewEmailSuccess/email-updated`)
+        )
 })

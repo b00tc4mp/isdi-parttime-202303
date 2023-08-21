@@ -118,11 +118,6 @@ export default function CreatePlayground({ closeHandle, cancelAddPlayground }) {
     }
 
     useEffect(() => {
-        // console.log('playgroundName', playgroundName)
-        // console.log('playgroundDescription', playgroundDescription)
-        // console.log('playgroundElements', playgroundElements)
-        // console.log('imagesResized', imagesResized)
-
         if (!playgroundName || !playgroundDescription || !playgroundElements || imagesResized.length <= 0) {
             setFieldsStatusColor('mainGray')
         } else {

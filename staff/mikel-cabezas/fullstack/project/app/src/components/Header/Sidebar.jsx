@@ -11,7 +11,7 @@ NativeWindStyleSheet.setOutput({
     default: "native",
 });
 
-export default function Sidebar({ navigation, closeHandle, user, likedHandler }) {
+export default function Sidebar({ navigation, closeHandle, user, likedHandler, userSettingsHandler }) {
     const { currentView, setCurrentView, isLoggedIn, setIsLoggedIn } = useContext(Context)
     const [animation, setAnimation] = useState()
 
@@ -33,7 +33,9 @@ export default function Sidebar({ navigation, closeHandle, user, likedHandler })
     }, [animation])
 
     const handleGoToMyAccount = () => {
-        alert('TODO Go To My account')
+        setAnimation('fadeOutLeft')
+        setCurrentView('home')
+        userSettingsHandler()
     }
 
     const onLiked = () => {

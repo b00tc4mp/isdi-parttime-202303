@@ -6,6 +6,7 @@ import * as Location from 'expo-location';
 import { ActionSheetProvider } from '@expo/react-native-action-sheet';
 
 import MainStack from "./src/navigation/MainStack.jsx";
+import Loader from "./src/library/Loader.jsx";
 import { StatusBar } from 'expo-status-bar';
 
 import AppContext from "./src/AppContext.js";
@@ -23,6 +24,7 @@ const HideKeyboard = ({ children }) => (
 export default function App({ }) {
   const [view, setView] = useState('home')
   const [modal, setModal] = useState()
+  const [loading, setLoading] = useState()
   const [currentView, setCurrentView] = useState()
   const [animation, setAnimation] = useState()
 
@@ -44,9 +46,16 @@ export default function App({ }) {
     prefixes: [prefix],
     config: {
       screens: {
+        Home: "Home/",
         UserValitionSuccess: "UserValitionSuccess/",
         Login: {
           path: 'Login/:message',
+          parse: {
+            message: (message) => `${message}`
+          }
+        },
+        UserNewEmailSuccess: {
+          path: 'UserNewEmailSuccess/:message',
           parse: {
             message: (message) => `${message}`
           }
@@ -95,11 +104,11 @@ export default function App({ }) {
     <>
       <Provider value={{
         currentView, setCurrentView, currentMarker, setCurrentMarker, modal, setModal, colorScheme, animation,
-        setAnimation, TOKEN, setTOKEN, origin, setOrigin, location, setLocation, colorPalette, loadCurrentLocation, setLoadCurrentLocation, isLoggedIn, setIsLoggedIn
+        setAnimation, TOKEN, setTOKEN, origin, setOrigin, location, setLocation, colorPalette, loadCurrentLocation, setLoadCurrentLocation, isLoggedIn, setIsLoggedIn, setLoading
       }}>
         <HideKeyboard>
-          <ActionSheetProvider>
 
+          <ActionSheetProvider>
 
             <NavigationContainer linking={linking} >
               <MainStack />

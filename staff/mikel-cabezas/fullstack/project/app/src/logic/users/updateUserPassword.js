@@ -1,15 +1,17 @@
 import { validators } from '../../../com'
 const { validatePassword, validateNewPassword, validateToken } = validators
-export function updateNewPassword(token, newPassword) {
+export function updateUserPassword(token, newPassword, repeatPassword) {
     validateToken(token)
     validatePassword(newPassword)
-    return fetch(`${process.env.EXPO_PUBLIC_API_URL}/user/setNewPassword/`, {
+    validatePassword(repeatPassword)
+
+    return fetch(`${process.env.EXPO_PUBLIC_API_URL}/user/password/`, {
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
         },
-        body: JSON.stringify({ newPassword })
+        body: JSON.stringify({ newPassword, repeatPassword })
     })
         .then(res => {
             if (res.status !== 204)

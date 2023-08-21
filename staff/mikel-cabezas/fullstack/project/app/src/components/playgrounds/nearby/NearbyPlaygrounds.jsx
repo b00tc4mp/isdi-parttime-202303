@@ -3,9 +3,11 @@ import retrievePlaygrounds from "../../../logic/playgrounds/retrievePlaygrounds"
 import NearbyPlayground from "./NearbyPlayground"
 import { View, ScrollView, Alert } from "react-native"
 import retrieveUser from "../../../logic/users/retrieveUser"
-
+import AppContext from "../../../AppContext.js";
+const { Provider } = AppContext
+import Context from '../../../AppContext.js'
 export default function NearbyPlaygrounds({ onMarkerPressedHandler }) {
-    const userId = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDk0ODAwM2JmMTJmMTNmNmIxY2I4NTIiLCJpYXQiOjE2OTA5MjcxMjAsImV4cCI6MTc3NzI0MDcyMH0._fnTXb6GDqSip-kJiF_cao2b4WwVqraR_cpqsrco76k"
+    const { TOKEN, location } = useContext(Context)
     const [playgrounds, setPlaygrounds] = useState()
     const [user, setUser] = useState()
 
@@ -13,8 +15,9 @@ export default function NearbyPlaygrounds({ onMarkerPressedHandler }) {
         console.log('Refresh Posts -> render in useEffect')
         try {
             console.log('   Show all Posts -> render in useEffect onLoad compo')
-            retrievePlaygrounds(userId)
+            retrievePlaygrounds(TOKEN, location)
                 .then(playgrounds => {
+                    console.log
                     setPlaygrounds(playgrounds)
                 })
                 .catch(error => {
@@ -22,7 +25,7 @@ export default function NearbyPlaygrounds({ onMarkerPressedHandler }) {
                         { text: 'OK', onPress: () => { } },
                     ]);
                 })
-            retrieveUser(userId)
+            retrieveUser(TOKEN)
                 .then(user => setUser(user))
                 .catch(error => {
                     Alert.alert('Error', `${error.message}`, [
@@ -40,7 +43,7 @@ export default function NearbyPlaygrounds({ onMarkerPressedHandler }) {
     return <>
         <View className=" flex-row relative" >
             <ScrollView horizontal showsHorizontalScrollIndicator={false} className="pr-5">
-                {playgrounds && playgrounds.map(playground => {
+                {playgrounds && playgrounds[0][0].map(playground => {
                     return <View className="w-[36vw] mr-3 last:mr-12 relative h-full" ><NearbyPlayground
                         key={playground._id}
                         playground={playground}

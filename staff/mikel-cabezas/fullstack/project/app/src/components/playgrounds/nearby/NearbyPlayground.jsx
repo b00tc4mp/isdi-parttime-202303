@@ -34,7 +34,7 @@ export default function NearbyPlayground({ playground, playground: { name, text,
         <TouchableHighlight onPress={markerPressedHandler} activeOpacity={0.9} underlayColor="#fff">
             <View className="flex flex-col relative" >
                 <Image source={{ uri: image }} className="rounded-2xl w-full h-[168px] object-contain" />
-                <Text className="font-bold text-sm text-[13px] leading-4 mt-2 pr-1">{name}</Text>
+                <Text className="font-bold text-sm text-[13px] leading-4 mt-2 pr-1">{playground.name}</Text>
                 <Text className="text-[11px] pr-1">{street}</Text>
 
             </View>

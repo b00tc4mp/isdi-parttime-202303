@@ -1,6 +1,6 @@
 const { User } = require('../../data/models')
 // const randomString = require('../helpers/randomString')
-const sendNewPasswordEmail = require('../helpers/sendNewPasswordEmail')
+const sendConfirmNewEmail = require('../helpers/sendConfirmNewEmail')
 const retrieveUser = require('./retrieveUser')
 const jwt = require('jsonwebtoken')
 
@@ -23,39 +23,15 @@ const {
  * 
  */
 
-module.exports = function forgotPassword(email) {
-    validateEmail(email)
+module.exports = function confirmNewEmail(userId, newEmail) {
+    validateEmail(newEmail)
 
-    const randomString = () => {
-        const length = 8
-        let randomString = ''
-
-        for (let i = 0; i < length; i++) {
-            const character = Math.floor((Math.random() * 10) + 1)
-
-            randomString += character
-        }
-        return randomString
-    }
-    const uniqueString = randomString()
-
-    console.log(uniqueString)
-
-    return User.findOne({ email })
-        .then(user => {
-            if (!user.uniqueString) {
-                return user.updateOne({ uniqueString: uniqueString }).then(user => user)
-            }
-
-            return user
-        })
+    return User.findById(userId)
         .then(user => {
             const payload = { sub: user.uniqueString }
             const { JWT_SECRET, JWT_RECOVER_EMAIL_EXPIRATION } = process.env
             const token = jwt.sign(payload, JWT_SECRET, { expiresIn: JWT_RECOVER_EMAIL_EXPIRATION })
-            sendNewPasswordEmail(email, token)
+            sendConfirmNewEmail(user.name, newEmail, token)
         })
-        .catch(error => {
-            throw error
-        })
+        .catch(error => error)
 }

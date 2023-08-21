@@ -3,7 +3,9 @@ import { useContext, useEffect, useState, useRef, useMemo, useCallback } from 'r
 import AppContext from "../AppContext.js";
 const { Provider } = AppContext
 import Context from '../AppContext.js'
-import welcomeMessage from '../logic/welcomeMessage.js'
+import WelcomeMessage from '../library/WelcomeMessage'
+import * as Linking from 'expo-linking';
+
 
 import BottomSheet from '@gorhom/bottom-sheet';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -22,9 +24,10 @@ import { BaseMap } from '../components/playgrounds/index.js';
 import Carousel, { Pagination, PaginationLight } from 'react-native-x-carousel';
 import LikedList from '../components/playgrounds/likedPlaygrounds/LikedList.jsx';
 import UserSettings from '../components/playgrounds/UserSettings.jsx';
+import welcomeMessage from '../logic/welcomeMessage.js';
 
-export default function Home({ navigation, onSendViewPlaygroundsFromCity }) {
-    const { modal, setModal, colorScheme, TOKEN, loadCurrentLocation, setAnimation, currentView, setCurrentView } = useContext(Context)
+export default function Home({ route, navigation, onSendViewPlaygroundsFromCity }) {
+    const { modal, setModal, colorScheme, TOKEN, loadCurrentLocation, setLoading, setCurrentView } = useContext(Context)
     const [currentMarker, setCurrentMarker] = useState({})
     const [newPlaygroundStatus, setNewPlaygroundStatus] = useState(false)
     const [searchResult, setSearchResult] = useState(false)
@@ -33,6 +36,7 @@ export default function Home({ navigation, onSendViewPlaygroundsFromCity }) {
     const [modalImages, setModalImages] = useState()
     const [welcomeMessageStorage, setWelcomeMessageStorage] = useState(false)
 
+    const { params } = route;
     const bottomSheetRef = useRef();
     const snapPoints = useMemo(() => ['75%', '94%'], []);
     const snapPointsSmall = useMemo(() => ['42%', '65%'], []);
@@ -47,6 +51,17 @@ export default function Home({ navigation, onSendViewPlaygroundsFromCity }) {
     const { width } = Dimensions.get('window');
 
     useEffect(() => {
+        console.log('params', params)
+        // navigation.getParam('message', 'default value')
+        const message = JSON.stringify(params)
+
+        if (params?.message === 'Success. New email setted') {
+            Alert.alert('Success', `New email setted`, [
+                { text: 'OK', onPress: () => { } },
+            ]);
+            setModal('userSettings')
+        }
+
         retrieveUser(TOKEN)
             .then(user => {
                 setUser(user)
@@ -65,8 +80,24 @@ export default function Home({ navigation, onSendViewPlaygroundsFromCity }) {
                     })
             })();
         }
+        setLoading(false)
+
 
     }, [])
+
+    useEffect(() => {
+
+        // JSON.stringify(navigation.getParam('otherParam', 'default value'))
+        // navigation
+
+        // if (message) {
+        //     Alert.alert('Success', `${message}`, [
+        //         { text: 'OK', onPress: () => { } },
+        //     ]);
+        //     setMessage()
+        // }
+    }, []);
+
 
     const onCloseWelcomeMessage = () => {
         welcomeMessage()
@@ -125,15 +156,21 @@ export default function Home({ navigation, onSendViewPlaygroundsFromCity }) {
             setModal()
         }, 300)
     }
-    const onOpenLIkedFromSidebar = () => {
-
+    const onOpenLikedFromSidebar = () => {
         setTimeout(() => {
             setModal('')
         }, 300)
         setTimeout(() => {
             setModal('liked')
         }, 305)
-
+    }
+    const onUserSettingsFromSidebar = () => {
+        setTimeout(() => {
+            setModal('')
+        }, 300)
+        setTimeout(() => {
+            setModal('userSettings')
+        }, 305)
     }
     const confirmCloseModal = () =>
         Alert.alert('Confirm', 'Do you want to discard changes?', [
@@ -182,7 +219,7 @@ export default function Home({ navigation, onSendViewPlaygroundsFromCity }) {
     return <>
         <View className="flex-1 bg-white items-center justify-center">
 
-            {modal === 'sidebar' && <Sidebar likedHandler={onOpenLIkedFromSidebar} navigation={navigation} user={user} closeHandle={onCloseSidebar} />}
+            {modal === 'sidebar' && <Sidebar likedHandler={onOpenLikedFromSidebar} navigation={navigation} user={user} closeHandle={onCloseSidebar} userSettingsHandler={onUserSettingsFromSidebar} />}
             <BaseMap user={user} className="-z-20" onMarkerPressed={markerPressedHandler} searchResult={searchResult} />
             <Header handleToggleSidebar={handleToggleSidebar} onToggleFilter={onToggleFilter} handleCloseModals={onCloseModal} onHandleViewPlaygroundsFromCity={handleViewPlaygroundsFromCity} />
             <Footer likedHandler={onLiked} nearbyHandler={onNearby} createPlaygroundHandler={onCreatePlayground} homeHandler={onHome} />
@@ -219,7 +256,7 @@ export default function Home({ navigation, onSendViewPlaygroundsFromCity }) {
                 }}
                 enablePanDownToClose
                 ref={bottomSheetRef}
-                index={0}
+                index={1}
                 snapPoints={snapPoints}
                 onChange={handleSheetChangesSingle}>
                 <AdvancedSearch className="z-[90] h-screen relative " closeHandle={onCloseModal} />
@@ -257,60 +294,18 @@ export default function Home({ navigation, onSendViewPlaygroundsFromCity }) {
                     <CreatePlayground closeHandle={onCloseAddPlayground} cancelAddPlayground={confirmCloseModal} />
                 </BottomSheet>
             }
-            {
+            {modal === 'userSettings' &&
                 <BottomSheet
                     enablePanDownToClose
                     ref={bottomSheetRef}
                     index={0}
                     snapPoints={snapPoints}
-                    onChange={handleSheetChangesCreate}>
+                    onChange={handleSheetChangesSingle}>
                     <UserSettings user={user} />
                 </BottomSheet>
             }
             <StatusBar style="auto" />
-            {welcomeMessageStorage && user && loadCurrentLocation && <View className="flex-1 w-full h-screen bg-black60 justify-center items-center">
-                <TouchableHighlight onPress={onCloseWelcomeMessage} className="absolute right-2 top-10 z-50 shadow-md shadow-black ">
-                    <Image source={WHITE_CLOSE} className="w-10 h-10" />
-                </TouchableHighlight>
-                <View className="w-10/12 max-h-[80vh] p-7 bg-white rounded-2xl">
-                    <ScrollView>
-                        <Text className="text-lg font-semibold">Welcome {user.name}!</Text>
-                        <Text className="mb-2">Primero quiero agradecerte tu apoyo en mi proyecto.</Text>
-                        <Text className="mb-2">En esta pantalla te explicaré que puedes hacer por ahora en la aplicación:</Text>
-                        <Text className="mb-0.5 font-bold">Al entrar a la app:</Text>
-                        <Text className="mb-2">Registrarte y loguearte si es la primera vez que entras<Text className="italic text-sm">(debes confirmar tu cuenta por correo)</Text></Text>
-                        <Text className="mb-2">Ver los parques cercanos nada mas entrar en la app</Text>
-                        <Text className="mb-0.5 font-bold">Desde el menú inferior:</Text>
-                        <Text className="mb-2">Volver a tu ubicación y ver los parques cercanos a 10km</Text>
-                        <Text className="mb-2">Ver los parques cercanos en el icono de "cercanos" en un apartado deslizable</Text>
-                        <Text className="mb-2">Listar tus parques favoritos</Text>
-                        <Text className="mb-2">Crear un parque nuevo (por ahora lo tienes que crear desde el mismo lugar para que coja las coordenadas)</Text>
-                        <Text className="mb-0.5 font-bold">Desde el menú superior:</Text>
-                        <Text className="mb-2">Buscar por ciudad y ver los parques a un radio de 10km</Text>
-                        <Text className="mb-0.5 font-bold">Desde el menu lateral:</Text>
-                        <Text className="mb-2">Listar tus parques favoritos</Text>
-                        <Text className="mb-2">Cerrar sesión</Text>
-                        <Text className="mb-2">Mandarme un mensaje de feedback</Text>
-                        <Text className="mb-0.5 font-bold">Desde el mapa:</Text>
-                        <Text className="mb-2">Abrir pin de un parque </Text>
-                        <Text className="mb-2">Volver a tu posición actual con el boton situado encima del menú inferior</Text>
-                        <Text className="mb-0.5 font-bold">Desde un parque:</Text>
-                        <Text className="mb-2">Ver la información básica: Calle, ciudad.</Text>
-                        <Text className="mb-2">Recibir indicaciones para llegar en tu aplicacion nativa de mapas</Text>
-                        <Text className="mb-2">Ver los detalles de sol, sombra y los elementos de dispone el parque</Text>
-                        <Text className="mb-2">Ver las imagenes en miniatura, y en grande si las presionas</Text>
-                        <Text className="mb-2 text-sm font-semibold">Gracias y espero que la disfrutes 💚</Text>
-                    </ScrollView>
-                    <TouchableOpacity
-                        activeOpacity={0.8}
-                        className="border border-mainLime bg-mainLime rounded-full mt-4 self-center w-full  "
-                        onPress={onCloseWelcomeMessage} >
-                        <View className="font-bold px-6 py-2 self-center rounded-full" >
-                            <Text className="font-bold text-lg">OK</Text>
-                        </View>
-                    </TouchableOpacity>
-                </View>
-            </View>}
+            {welcomeMessageStorage && user && loadCurrentLocation && <WelcomeMessage user={user} handleCloseWelcomeMessage={onCloseWelcomeMessage} />}
 
         </View >
     </>

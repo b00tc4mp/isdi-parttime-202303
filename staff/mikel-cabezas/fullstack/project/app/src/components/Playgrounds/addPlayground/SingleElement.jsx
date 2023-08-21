@@ -7,7 +7,7 @@ import {
     ACCESSIBLE
 } from '../../../../assets/icons';
 
-export default function CreatePlayground({ key, element, handleEditElement }) {
+export default function SingleElement({ key, element, handleEditElement }) {
     const assignElementAge = (age) => {
         let AGE
 

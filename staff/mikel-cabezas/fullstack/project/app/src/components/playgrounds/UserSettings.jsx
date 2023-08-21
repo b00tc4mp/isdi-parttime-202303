@@ -1,59 +1,105 @@
 import React, { useEffect, useState, useContext } from "react";
 
-import { Text, Image, View, ScrollView, TouchableOpacity, Modal, Animated, TextInput } from 'react-native';
+import { Text, Image, View, ScrollView, TouchableOpacity, Alert, TextInput } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import { CLOSE } from '../../../assets/icons';
 import Context from '../../AppContext.js'
 
-import { validateEmail, validatePassword } from "../../../com/validators.js";
+import retrieveUser from "../../logic/users/retrieveUser";
+import { validateEmail, validatePassword, validateName } from "../../../com/validators.js";
+import { updateUserEmail } from "../../logic/users/updateUserEmail";
+import { updateUserName } from "../../logic/users/updateUserName";
+import { updateUserPassword } from "../../logic/users/updateUserPassword";
+// import { updateUserEmail, updateUserName, updateUserPassword } from "../../logic/";
 
 
-export default function UserSettings({ closeHandle, user, handleMarkerPressedHandler }) {
-    const { currentView, setCurrentView } = useContext(Context)
+export default function UserSettings({ closeHandle, handleMarkerPressedHandler }) {
+    const { currentView, setCurrentView, TOKEN } = useContext(Context)
     // const { currentMarker, setCurrentMarker } = useContext(Context)
     const [animation, setAnimation] = useState('fadeInUp')
+    const [user, setUser] = useState()
     const [name, setName] = useState()
     const [email, setEmail] = useState()
     const [password, setPassword] = useState()
     const [repeatPassword, setRepeatPassword] = useState()
 
 
-    const onClose = () => {
-        setAnimation('fadeOutDown')
-        closeHandle()
-        // alert('hola')
-        setAnimation()
-    }
-    const handleSave = () => {
+
+    useEffect(() => {
+        retrieveUser(TOKEN)
+            .then(user => {
+                setUser(user)
+            })
+    }, []);
+    useEffect(() => {
+    }, [name, email, password, user]);
+    const handleSaveUser = () => {
         try {
-            validateEmail(email)
-            validatePassword(password)
-            Alert.alert('TODO', `update user and password available in next commit`, [
-                { text: 'OK thanks...', onPress: () => { } },
-            ]);
-            // authenticateUser(email, password)
-            //     .then(async () => {
-            //         return AsyncStorage.getItem('@TOKEN')
-            //             .then(token => {
-            //                 if (token) {
-            //                     setTOKEN(token)
-            //                     setIsLoggedIn(true)
-            //                 }
-            //             })
-            //             .then(() => {
-            //                 navigation.reset({
-            //                     index: 0,
-            //                     routes: [{ name: 'Home' }],
-            //                 })
-            //             })
-            //     })
-            //     .catch(error => alert(error.message))
+            if (name) {
+                validateName(name)
+                updateUserName(TOKEN, name)
+                    .then(() => {
+                        Alert.alert('Success', `${'Your name was updated!'}`, [
+                            { text: 'OK', onPress: () => { } },
+                        ])
+                        retrieveUser(TOKEN)
+                            .then(user => {
+                                setUser(user)
+                            })
+                        setName()
+                    })
+            }
+            if (email) {
+                validateEmail(email)
+                updateUserEmail(TOKEN, email)
+                    .then(() => {
+                        Alert.alert('Success', `${'Your email was updated!'}`, [
+                            { text: 'OK', onPress: () => { } },
+                        ])
+                        retrieveUser(TOKEN)
+                            .then(user => {
+                                setUser(user)
+                            })
+                        setEmail()
+                    })
+                    .catch(error =>
+                        Alert.alert('Error', `${error.message}`, [
+                            { text: 'OK', onPress: () => { } },
+                        ])
+                    )
+            }
         } catch (error) {
             Alert.alert('Error', `${error.message}`, [
                 { text: 'OK', onPress: () => { } },
             ]);
         }
-
+    }
+    const handleSavePassword = () => {
+        try {
+            validatePassword(password)
+            validatePassword(repeatPassword)
+            updateUserPassword(TOKEN, password, repeatPassword)
+                .then(() => {
+                    Alert.alert('Success', `${'Your password me was updated!'}`, [
+                        { text: 'OK', onPress: () => { } },
+                    ])
+                    retrieveUser(TOKEN)
+                        .then(user => {
+                            setUser(user)
+                        })
+                    setPassword()
+                    setRepeatPassword()
+                })
+                .catch(error =>
+                    Alert.alert('Error', `${error.message}`, [
+                        { text: 'OK', onPress: () => { } },
+                    ])
+                )
+        } catch (error) {
+            Alert.alert('Error', `${error.message}`, [
+                { text: 'OK', onPress: () => { } },
+            ]);
+        }
     }
 
     return <>
@@ -96,7 +142,7 @@ export default function UserSettings({ closeHandle, user, handleMarkerPressedHan
                         activeOpacity={0.8}
                         className="border border-mainLime bg-mainLime rounded-full mb-1 mt-4 self-start w-auto  "
                         onPress={() => {
-                            handleSave()
+                            handleSaveUser()
                         }} >
                         <View className="font-bold   px-6 py-1.5 self-start rounded-full" >
                             <Text className="font-bold  text-lg   self-start rounded-full">Update</Text>
@@ -134,7 +180,7 @@ export default function UserSettings({ closeHandle, user, handleMarkerPressedHan
                         activeOpacity={0.8}
                         className="border border-mainLime bg-mainLime rounded-full mb-1 mt-4 self-start w-auto  "
                         onPress={() => {
-                            handleSave()
+                            handleSavePassword()
                         }} >
                         <View className="font-bold   px-6 py-1.5 rounded-full" >
                             <Text className="font-bold  text-lg   self-start rounded-full">Update</Text>

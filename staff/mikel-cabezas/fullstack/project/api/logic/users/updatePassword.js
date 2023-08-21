@@ -18,14 +18,8 @@ const {
  * 
  */
 
-module.exports = function setNewPassword(uniqueString, newPassword) {
-    validatePassword(newPassword)
+module.exports = function setNewPassword(newPassword) {
     // TODO validate unique string
-    return User.findOne({ uniqueString: uniqueString })
-        .then(user => {
-            return user.updateOne({ password: newPassword })
-        })
-        .catch(error => {
-            throw error
-        })
+
+    return User.updateOne({ password: newPassword })
 }

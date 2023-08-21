@@ -3,7 +3,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import React, { useEffect, useState, useContext } from 'react'
 import Home from '../screens/Home'
 import Login from '../screens/Login'
-import UserValitionSuccess from '../screens/UserValitionSuccess'
+import UserValidationSuccess from '../screens/UserValidationSuccess'
+import UserNewEmailSuccess from '../screens/UserNewEmailSuccess'
 import Register from '../screens/Register'
 import ForgotPassword from '../screens/ForgotPassword'
 import SetNewPassword from '../screens/SetNewPassword'
@@ -45,7 +46,27 @@ export default function MainStack() {
                 <Stack.Screen
                     name='Home'
                     component={Home}
+                    params={message => message}
+                    message={message => message}
+                    listeners={({ navigation, route }) => ({
+                        tabPress: (e) => {
+                            // Prevent default action
+                            e.preventDefault();
+
+                            console.log('route', route)
+                            console.log('navigation', navigation)
+
+                            // Do something with the `navigation` object
+
+                        },
+                    })}
                 />
+                <Stack.Screen
+                    name='UserNewEmailSuccess'
+                    component={UserNewEmailSuccess}
+                // options={{ animation: 'none' }}
+                />
+
                 {!isLoggedIn && <Stack.Screen
                     name='Login'
                     component={Login}
@@ -64,8 +85,8 @@ export default function MainStack() {
                     component={Login}
                 />
                 <Stack.Screen
-                    name='UserValitionSuccess'
-                    component={UserValitionSuccess}
+                    name='UserValidationSuccess'
+                    component={UserValidationSuccess}
                 />
                 <Stack.Screen
                     name='Register'

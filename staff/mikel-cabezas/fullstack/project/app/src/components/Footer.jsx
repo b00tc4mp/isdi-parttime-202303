@@ -33,7 +33,7 @@ export default function Footer({ nearbyHandler, likedHandler, createPlaygroundHa
     }
 
     useEffect(() => {
-        console.log('footer status changed')
+        // console.log('footer status changed')
     }, [currentView])
 
 

@@ -3,10 +3,11 @@ const {
     validators: { validateId, validateEmail },
     errors: { ExistenceError, DuplicityError }
 } = require('com')
+const jwt = require('jsonwebtoken')
 
 /**
  * 
- * @param {string} userId 
+ * @param {string} uniqueString 
  * @param {string} newEmail 
  * 
  * @returns {Promise<Object>} returns a promise object contains de user with the email updated 
@@ -19,17 +20,25 @@ const {
  * @throws {DuplicityError} on already existing user with provided credentials (async)
 
  */
-module.exports = (userId, newEmail) => {
-    validateId(userId)
-    validateEmail(newEmail)
+module.exports = (token, newEmail) => {
+    debugger
+    const tokenIndex = token.indexOf("=");
+    const tokenSliced = token.slice(tokenIndex + 1)
 
-    return User.findById(userId)
+    const emailIndex = newEmail.indexOf("=");
+    const emailSliced = newEmail.slice(emailIndex + 1)
+
+    const payload = jwt.verify(tokenSliced, process.env.JWT_SECRET)
+    const { sub: uniqueString } = payload
+
+    validateId(uniqueString)
+    validateEmail(emailSliced)
+
+    return User.findOne({ uniqueString: uniqueString })
         .then(user => {
-            if (!user) throw new ExistenceError('user not found')
-            return user.updateOne({ email: newEmail })
+            return user.updateOne({ email: emailSliced })
         })
         .catch(error => {
-            if (error.message.includes('E11000')) throw new DuplicityError(`This user whith email ${email} already exists`)
             throw error
         })
 }
