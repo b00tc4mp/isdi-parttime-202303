@@ -72,6 +72,13 @@ const LayoutForm = ({ level, setLevel, setToast, setToastOn, setCost, cost, pric
 
     const removeFloor = () => {
         if (level.length > 1) {
+            const lastFloor = level[level.length - 1];
+            let floorValue = 0;
+            for (const cell of lastFloor) {
+                if (prices[cell]) floorValue += prices[cell];
+            }
+            const newCost = cost - floorValue;
+            setCost(newCost);
             const updatedLevel = [...level];
             updatedLevel.pop();
             setLevel(updatedLevel);
