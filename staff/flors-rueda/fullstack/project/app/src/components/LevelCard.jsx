@@ -8,6 +8,7 @@ import avatars from '../assets/avatars/index';
 import toggleLike from '../logic/toggle-like';
 import toggleSave from '../logic/toggle-save';
 import retrieveLoggedUser from '../logic/retrieve-logged-user';
+import updateSocialAchievements from '../logic/update-social-achievements';
 
 const LevelCard = ({ levelInfo, isLevelSaved, setSaves }) => {
     const [authorData, setAuthorData] = useState({});
@@ -33,6 +34,7 @@ const LevelCard = ({ levelInfo, isLevelSaved, setSaves }) => {
     const handleLikeClick = () => {
         handleErrors(async () => {
             await toggleLike(levelInfo.id);
+            await updateSocialAchievements();
             isLiked ? setLikes(likes - 1) : setLikes(likes + 1);
             setIsLiked(!isLiked);
         })
@@ -41,6 +43,7 @@ const LevelCard = ({ levelInfo, isLevelSaved, setSaves }) => {
     const handleSaveClick = () => {
         handleErrors(async () => {
             await toggleSave(levelInfo.id);
+            await updateSocialAchievements();
             const user = await retrieveLoggedUser();
             setSaves(user.saves);
             setIsSaved(!isSaved);

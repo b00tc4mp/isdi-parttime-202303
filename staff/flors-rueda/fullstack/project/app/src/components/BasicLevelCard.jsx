@@ -7,6 +7,7 @@ import toggleLike from '../logic/toggle-like';
 import toggleSave from '../logic/toggle-save';
 import isCurrentUser from '../logic/is-current-user';
 import retrieveLevel from '../logic/retrieve-level';
+import updateSocialAchievements from '../logic/update-social-achievements';
 
 const BasicLevelCard = ({ levelInfo, isLevelSaved, setToast }) => {
     const [authorData, setAuthorData] = useState({});
@@ -31,6 +32,7 @@ const BasicLevelCard = ({ levelInfo, isLevelSaved, setToast }) => {
     const handleSaveClick = () => {
         handleErrors(async () => {
             await toggleSave(levelInfo.id);
+            await updateSocialAchievements();
             setIsSaved(!isSaved);
         })
     }
@@ -38,6 +40,7 @@ const BasicLevelCard = ({ levelInfo, isLevelSaved, setToast }) => {
     const handleLikeClick = () => {
         handleErrors(async () => {
             await toggleLike(levelInfo.id);
+            await updateSocialAchievements();
             isLiked ? setLikes(likes - 1) : setLikes(likes + 1);
             setIsLiked(!isLiked);
         })
@@ -51,7 +54,6 @@ const BasicLevelCard = ({ levelInfo, isLevelSaved, setToast }) => {
     const handleEditLevel = () => {
         handleErrors(async () => {
             const level = await retrieveLevel(levelInfo.id);
-            console.log('LEVEL', level.id)
             navigate('/create', { state: { initialLevel: level.layout, hpSelected: level.hp, nameSelected: level.name, levelId: level.id } })
         })
     }

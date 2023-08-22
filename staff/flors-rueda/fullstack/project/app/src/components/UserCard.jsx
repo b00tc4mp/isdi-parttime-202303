@@ -4,6 +4,7 @@ import inLogger from '../inLogger';
 import useHandleErrors from '../hooks/useHandleErrors';
 import toggleFollow from '../logic/toggle-follow';
 import { Link, useParams } from 'react-router-dom';
+import updateSocialAchievements from '../logic/update-social-achievements';
 
 const UserCard = ({ userInfo }) => {
     const [isFollowed, setIsFollowed] = useState(userInfo.isFollowed);
@@ -15,6 +16,7 @@ const UserCard = ({ userInfo }) => {
     const handleFollowClick = () => {
         handleErrors(async () => {
             await toggleFollow(userInfo.id);
+            await updateSocialAchievements();
             isFollowed ? setFollowers(followers - 1) : setFollowers(followers + 1);
             setIsFollowed(!isFollowed);
         })

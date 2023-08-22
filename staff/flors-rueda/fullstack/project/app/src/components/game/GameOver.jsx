@@ -14,6 +14,7 @@ import useLockScroll from '../../hooks/useLockScroll';
 import retrieveCC from '../../logic/retrieve-cc';
 import updateCCAchievements from '../../logic/update-cc-achievements';
 import editLevel from '../../logic/edit-level'
+import updateSocialAchievements from '../../logic/update-social-achievements';
 
 const GameOver = ({ isGameWon, onRetry, isCreatedLevel, layout, hp, name, id, likesInfo, gameData, createData, levelId }) => {
     const navigate = useNavigate();
@@ -23,10 +24,7 @@ const GameOver = ({ isGameWon, onRetry, isCreatedLevel, layout, hp, name, id, li
     const [remainingCC, setRemainingCC] = useState(null);
     const [wonCC, setWonCC] = useState(null);
     const { unlockScroll } = useLockScroll();
-    console.log(id, levelId)
-
     unlockScroll();
-    console.log(createData);
 
     const handlePostLevel = () => {
         handleErrors(async () => {
@@ -46,6 +44,7 @@ const GameOver = ({ isGameWon, onRetry, isCreatedLevel, layout, hp, name, id, li
     const handleLikeClick = () => {
         handleErrors(async () => {
             await toggleLike(id);
+            await updateSocialAchievements();
             isLiked ? setLikes(likes - 1) : setLikes(likes + 1);
             setIsLiked(!isLiked);
         })
