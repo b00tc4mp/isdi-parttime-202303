@@ -218,7 +218,7 @@ describe('API routes', () => {
     beforeEach(() => {
       user = generate.user();
       participant = generate.participant();
-      traveler = generate.explorer('monkey');
+      traveler = 'monkey';
       token = generateToken(user._id.toString());
 
       return cleanUp().then(() => populate([user]));
@@ -228,8 +228,6 @@ describe('API routes', () => {
       let missionJSON = {
         traveler,
         destination: 'unexplored_planet',
-        startDate: initialDate,
-        endDate: unexploredPlanet,
         participants: [participant],
         loserPrice: 'beer',
       };
@@ -242,7 +240,6 @@ describe('API routes', () => {
         },
         body: JSON.stringify(missionJSON),
       });
-
       expect(res.status).to.equal(201);
     });
 
@@ -250,8 +247,6 @@ describe('API routes', () => {
       let missionJSON = {
         traveler,
         destination: 'unexplored_planet',
-        startDate: initialDate,
-        endDate: unexploredPlanet,
         participants: [participant],
         loserPrice: 'beer',
       };
@@ -271,8 +266,6 @@ describe('API routes', () => {
       let missionJSON = {
         traveler,
         destination: 'unexplored_planet',
-        startDate: initialDate,
-        endDate: unexploredPlanet,
         participants: [participant],
         loserPrice: 'beer',
       };
