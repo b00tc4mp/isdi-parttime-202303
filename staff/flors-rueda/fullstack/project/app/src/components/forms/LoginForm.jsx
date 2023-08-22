@@ -74,7 +74,7 @@ const LoginForm = ({ onRegister, onRecover, setToast, setConnectSocket }) => {
         try {
             await loginUser(username, password);
             setConnectSocket(true);
-            navigate('/levels');
+            navigate('/home');
         } catch (error) {
             setToast(error.message);
             setUsernameValid(false);

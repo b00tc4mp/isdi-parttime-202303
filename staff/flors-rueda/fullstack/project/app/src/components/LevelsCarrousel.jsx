@@ -53,7 +53,7 @@ const LevelsCarrousel = ({ type, userId, userSaves, setToast, isDeleted, setDele
     };
 
     if (!levels || levels.length === 0) {
-        return <p className="w-full flex align-center items-center justify-center text-dark200 text-xl">No levels to be seen here!</p>;
+        return <i className="w-full flex align-center items-center justify-center text-light100 text-xl">No levels to be seen here!</i>;
     }
 
     return (
@@ -64,7 +64,7 @@ const LevelsCarrousel = ({ type, userId, userSaves, setToast, isDeleted, setDele
                 <button
                     type="button"
                     onClick={goToPreviousSlide}
-                    className={`border-0 bg-none p-0 text-primary100 opacity-${activeIndex === 0 ? '50' : '100 hover:text-primary200'}`}
+                    className={`border-0 bg-none p-0 text-primary100 opacity-${activeIndex === 0 ? '50 cursor-default' : '100 hover:text-primary200'}`}
                 >
                     <i className="text-3xl font-bold bi bi-chevron-left"></i>
                 </button>
@@ -80,7 +80,7 @@ const LevelsCarrousel = ({ type, userId, userSaves, setToast, isDeleted, setDele
                 <button
                     type="button"
                     onClick={goToNextSlide}
-                    className={`border-0 bg-none p-0 text-primary100 opacity-${activeIndex < levels.length - 1 ? '100 hover:text-primary200' : '50'} `}
+                    className={`border-0 bg-none p-0 text-primary100 opacity-${activeIndex < levels.length - 1 ? '100 hover:text-primary200' : '50 cursor-default'} `}
                 >
                     <i className="text-3xl font-bold opacity-100 bi bi-chevron-right"></i>
                 </button>

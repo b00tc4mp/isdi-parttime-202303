@@ -52,7 +52,7 @@ const LevelsList = () => {
     return (<>
         {isLoading && <Loader />}
         {!isLoading && <section className="flex flex-col w-full md:px-0 px-5 justify-center items-center pt-20 gap-5">
-            <h1 className={`text-${color} text-3xl font-bold text-center pt-5`}> Levels library</h1>
+            <h1 className={`text-secondary300 text-3xl font-bold text-center pt-5`}> Levels library</h1>
             <p className="text-primary300 text-xl font-bold text-center">Browse all levels that have been created</p>
             <div className="flex flex-col gap-0.5">
                 <p className="text-secondary200 text-lg font-bold text-center">Sort by</p>

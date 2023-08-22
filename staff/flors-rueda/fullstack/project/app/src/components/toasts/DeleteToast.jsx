@@ -16,12 +16,12 @@ const CreateLevelToast = ({ handleCloseToast, levelId, setDeleted }) => {
     return (
 
         <div className="fixed inset-0 flex items-center w-full h-full justify-center z-30">
-            <div className="flex bg-light500 rounded-lg shadow p-5">
-                <i className="inline-flex items-center justify-center flex-shrink-0 rounded-lg bi bi-trash3-fill text-5xl">
+            <div className="flex bg-light500 rounded-lg shadow p-5 w-full mx-4 justify-center md:w-1/3">
+                <i className="inline-flex items-center justify-center text-danger200 flex-shrink-0 rounded-lg bi bi-trash3 text-5xl">
                 </i>
                 <div className="ml-3 text-sm font-normal">
                     <span className="mb-1 text-sm font-semibold text-danger100">You sure?</span>
-                    <div className="mb-2 text-sm font-normal text-dark400">This action is irreversible.</div>
+                    <div className="mb-2 text-sm font-normal text-dark200">This action is irreversible, and the cc you spent on this level won't be refund.</div>
                     <div className="grid grid-cols-2 gap-2">
                         <div>
                             <button onClick={handleDelete} className="inline-flex justify-center w-full px-2 py-1.5 text-xs font-medium text-center text-dark300 hover:text-light500 bg-danger300 rounded-lg hover:bg-danger100 focus:ring-4 focus:outline-none focus:ring-danger200 focus:ring-danger300">Yeah, delete</button>
