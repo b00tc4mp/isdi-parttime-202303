@@ -1,3 +1,4 @@
+import context from './context'
 import { validators, errors } from 'com'
 const { validateId, validatePayrollYear, validatePayrollMonth } = validators
 
@@ -19,29 +20,11 @@ export default function createEmployeePayrollMonth(employeeId, payrollYear, payr
     validatePayrollYear(payrollYear)
     validatePayrollMonth(payrollMonth)
 
-    // return fetch(`${import.meta.env.VITE_API_URL}/payrollMonths`, {
-    //     method: 'POST',
-    //     headers: {
-    //         'Content-Type': 'application/json'
-    //     },
-
-    //     body: JSON.stringify({ employeeId, payrollYear, payrollMonth })
-    // })
-    //     .then(res => {
-    //         if (res.status === 201) {
-    //             return
-    //         } else
-    //             return res.json()
-    //                 .then(({ error: message }) => { throw new Error(message) })
-    //         // .then(body => {
-    //         //     throw new Error(body.error)
-    //         // })
-    //     })
-
     return (async () => {
         const res = await fetch(`${import.meta.env.VITE_API_URL}/payrollMonths`, {
             method: 'POST',
             headers: {
+                authorization: `Bearer ${context.token}`,
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({ employeeId, payrollYear, payrollMonth })

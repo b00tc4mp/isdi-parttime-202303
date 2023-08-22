@@ -10,7 +10,7 @@ const { helloApiHandler,
     createEmployeePayrollMonthHandler,
     updateEmployeeAvatarHandler,
     updateEmployeePasswordHandler,
-    updateEmployeeAdressHandler,
+    updateEmployeeAddressHandler,
     updateEmployeeBankAccountNumberHandler,
     retrievePayrollMonthHandler,
     retrieveEmployeePayrollsMonthYearHandler,
@@ -48,7 +48,7 @@ mongoose.connect(process.env.MONGODB_URL)
 
         api.patch('/employees/updateAvatar', jsonBodyParser, updateEmployeeAvatarHandler)
         api.patch('/employees/updatePassword', jsonBodyParser, updateEmployeePasswordHandler)
-        api.patch('/employees/updateAdress', jsonBodyParser, updateEmployeeAdressHandler)
+        api.patch('/employees/updateAddress', jsonBodyParser, updateEmployeeAddressHandler)
         api.patch('/employees/updateBankAccountNumber', jsonBodyParser, updateEmployeeBankAccountNumberHandler)
         api.patch('/payrollMonths/updatePayrollStatusToPaid', jsonBodyParser, updatePayrollStatusToPaidHandler)
 

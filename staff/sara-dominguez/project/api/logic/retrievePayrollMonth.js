@@ -31,7 +31,6 @@ module.exports = (employeeId, payrollYear, payrollMonth) => {
             Employee.findById(employeeId).lean(),
             PayrollMonth.find({ employee: employeeId, payrollYear: payrollYear, payrollMonth: payrollMonth, status: "paid" }, '-__v -employee -status').lean()
         ])
-        // delete payrollMonthRetrieved[0]._id
 
         if (!employee) {
             throw new ExistenceError(`user with id ${employeeId} not found`);
@@ -40,6 +39,7 @@ module.exports = (employeeId, payrollYear, payrollMonth) => {
         if (!payrollMonthRetrieved || undefined || payrollMonthRetrieved.length === 0) {
             throw new ExistenceError('payroll not found')
         }
+        delete payrollMonthRetrieved[0]._id
 
         const monthNumber = payrollMonthRetrieved[0].payrollMonth
 

@@ -9,7 +9,6 @@ export default function Header() {
     console.log('rendering Header')
 
     const [employee, setEmployee] = useState()
-
     const { alert } = useAppContext()
 
     useEffect(() => {
@@ -29,21 +28,18 @@ export default function Header() {
 
     const { name, firstSurname, secondSurname, professionalPhoneNumber, professionalEmail, centerAttached } = employee || {}
 
-
-    return <header className="bg-amber-500">
+    return <header className="bg-amber-500 pt-1 pb-1 rounded-t-lg mb-3">
         {employee ? (
             <>
-                <h4 className="text-xl font-bold">{name} {firstSurname} {secondSurname}</h4>
-
-                <h4>Mobile Phone:{professionalPhoneNumber}</h4>
-                <h4>Email: {professionalEmail}</h4>
-                <h4>Center Attached: {centerAttached}</h4>
+                <div className="bg-amber-500 ml-4">
+                    <h4 className="text-ml font-bold">{name} {firstSurname} {secondSurname}</h4>
+                    <h4 className="text-xs font">Email: {professionalEmail}</h4>
+                    <h4 className="text-xs font">Mobile Phone:{professionalPhoneNumber}</h4>
+                    <h4 className="text-xs font">Center Attached: {centerAttached}</h4>
+                </div>
             </>
         ) : (
             <h4>Loading...</h4> // 
         )}
-        {/* /*ç<h4>{firstSurname}</h4>
-<h4>{secondSurname}</h4> */}
-
     </header>
 }

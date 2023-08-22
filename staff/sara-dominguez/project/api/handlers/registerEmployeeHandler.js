@@ -1,7 +1,7 @@
 const { registerEmployee } = require('../logic')
+const { handleErrors } = require('./helpers')
 
-
-module.exports = (req, res) => {
+module.exports = handleErrors((req, res) => {
 
     const {
         name,
@@ -10,7 +10,7 @@ module.exports = (req, res) => {
         // birthDate,
         idCardNumber,
         tssNumber,
-        adress,
+        address,
         personalPhoneNumber,
         bankAccountNumber,
         avatar,
@@ -31,14 +31,14 @@ module.exports = (req, res) => {
         employeePassword
     } = req.body
 
-    return registerEmployee(
+    const promise = registerEmployee(
         name,
         firstSurname,
         secondSurname,
         // birthDate,
         idCardNumber,
         tssNumber,
-        adress,
+        address,
         personalPhoneNumber,
         bankAccountNumber,
         avatar,
@@ -58,5 +58,9 @@ module.exports = (req, res) => {
         accessPermissions,
         employeePassword
     )
-        .then(() => { res.status(201).send() })
-}
+    return (async () => {
+        await promise
+
+        res.status(201).send()
+    })()
+})

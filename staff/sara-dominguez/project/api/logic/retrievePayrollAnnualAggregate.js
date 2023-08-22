@@ -24,7 +24,6 @@ module.exports = function retrievePayrollAnnualAggregate(employeeId, payrollYear
     validateId(employeeId)
     validatePayrollYear(payrollYear)
 
-
     let sumPayrollMonth = []
     let sumMonthSalary = 0
     let sumBonus = 0
@@ -36,67 +35,62 @@ module.exports = function retrievePayrollAnnualAggregate(employeeId, payrollYear
     let sumTotalAmountDeductions = 0
     let sumNetSalary = 0
 
-    return Promise.all([
-        Employee.findById(employeeId).lean(),
-        PayrollMonth.find({ employee: employeeId, payrollYear: payrollYear, status: "paid" }).lean()
-    ])
+    return (async () => {
+        const [employee, employeePayrollsMonth] = await Promise.all([
+            Employee.findById(employeeId).lean(),
+            PayrollMonth.find({ employee: employeeId, payrollYear: payrollYear, status: "paid" }).lean()
+        ])
+        if (!employee) throw new ExistenceError(`user with id ${employeeId} not found`)
 
-        .then(([employee, employeePayrollsMonth]) => {
-            // try {
-            if (!employee) throw new ExistenceError(`user with id ${employeeId} not found`)
-            if (!employeePayrollsMonth || employeePayrollsMonth.length === 0) throw new ExistenceError(`payrolls not found`)
-            // } catch (error) {
-            //     throw new Error(error)
-            // }
+        if (!employeePayrollsMonth || employeePayrollsMonth.length === 0) throw new ExistenceError(`payrolls not found`)
 
-            for (let i = 0; i < employeePayrollsMonth.length; i++) {
-                const payrollMonthValue = employeePayrollsMonth[i].payrollMonth
-                const monthSalaryValue = employeePayrollsMonth[i].monthSalary
-                const bonusValue = employeePayrollsMonth[i].bonus
-                const irpfTaxValue = employeePayrollsMonth[i].irpfTax
-                const ssTaxValue = employeePayrollsMonth[i].ssTax
-                const irpfDeductionsValue = employeePayrollsMonth[i].irpfDeductions
-                const ssDeductionsValue = employeePayrollsMonth[i].ssDeductions
-                const totalAmountIncomesValue = employeePayrollsMonth[i].totalAmountIncomes
-                const totalAmountDeductionsValue = employeePayrollsMonth[i].totalAmountDeductions
-                const netSalaryValue = employeePayrollsMonth[i].netSalary
+        for (let i = 0; i < employeePayrollsMonth.length; i++) {
+            const payrollMonthValue = employeePayrollsMonth[i].payrollMonth
+            const monthSalaryValue = employeePayrollsMonth[i].monthSalary
+            const bonusValue = employeePayrollsMonth[i].bonus
+            const irpfTaxValue = employeePayrollsMonth[i].irpfTax
+            const ssTaxValue = employeePayrollsMonth[i].ssTax
+            const irpfDeductionsValue = employeePayrollsMonth[i].irpfDeductions
+            const ssDeductionsValue = employeePayrollsMonth[i].ssDeductions
+            const totalAmountIncomesValue = employeePayrollsMonth[i].totalAmountIncomes
+            const totalAmountDeductionsValue = employeePayrollsMonth[i].totalAmountDeductions
+            const netSalaryValue = employeePayrollsMonth[i].netSalary
 
-                sumPayrollMonth.push(payrollMonthValue)
-                sumMonthSalary += monthSalaryValue
-                sumBonus += bonusValue
-                sumIrpfDeductions += irpfDeductionsValue
-                sumSsDeductions += ssDeductionsValue
-                sumTotalAmountIncomes += totalAmountIncomesValue
-                sumTotalAmountDeductions += totalAmountDeductionsValue
-                sumNetSalary += netSalaryValue
+            sumPayrollMonth.push(payrollMonthValue)
+            sumMonthSalary += monthSalaryValue
+            sumBonus += bonusValue
+            sumIrpfDeductions += irpfDeductionsValue
+            sumSsDeductions += ssDeductionsValue
+            sumTotalAmountIncomes += totalAmountIncomesValue
+            sumTotalAmountDeductions += totalAmountDeductionsValue
+            sumNetSalary += netSalaryValue
 
 
-                if (!sumIrpfTax) {
-                    sumIrpfTax = irpfTaxValue
-                }
-                if (!sumSsTax) {
-                    sumSsTax = ssTaxValue
-                }
+            if (!sumIrpfTax) {
+                sumIrpfTax = irpfTaxValue
             }
-            const lastMonthAggregated = findLastMonthAggregated(sumPayrollMonth)
-            const lastMonthAggregatedName = getMonthNameFromMonthNumber(lastMonthAggregated)
-
-            return payrollAnnualAggregated = {
-                payrollYear,
-                sumPayrollMonth,
-                sumMonthSalary,
-                lastMonthAggregatedName,
-                sumBonus,
-                sumIrpfTax,
-                sumSsTax,
-                sumIrpfDeductions,
-                sumSsDeductions,
-                sumTotalAmountIncomes,
-                sumTotalAmountDeductions,
-                sumNetSalary
+            if (!sumSsTax) {
+                sumSsTax = ssTaxValue
             }
-        })
-    // .catch((error) => { throw new Error(error) })
+        }
+        const lastMonthAggregated = findLastMonthAggregated(sumPayrollMonth)
+        const lastMonthAggregatedName = getMonthNameFromMonthNumber(lastMonthAggregated)
+
+        return payrollAnnualAggregated = {
+            payrollYear,
+            sumPayrollMonth,
+            sumMonthSalary,
+            lastMonthAggregatedName,
+            sumBonus,
+            sumIrpfTax,
+            sumSsTax,
+            sumIrpfDeductions,
+            sumSsDeductions,
+            sumTotalAmountIncomes,
+            sumTotalAmountDeductions,
+            sumNetSalary
+        }
+    })()
 }
 
 

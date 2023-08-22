@@ -33,7 +33,6 @@ export default function Home() {
 
     const handleGoToPersonalInformatioMenu = (event) => {
         event.preventDefault()
-        // setEmployee(employee)
         setModal('PersonalInformation')
     }
 
@@ -74,42 +73,51 @@ export default function Home() {
         navigate('/Login')
     }
 
-    return <div className="h-screen w-screen  bg-neutral-200">
+    return <div className=" bg-white">
         <div className="home">
             {/* /* sidebar lateral */}
             <header className="home-header">
-                <h1 className="mt-10 text-2xl font-bold leading-9 tracking-tight text-amber-500 drop-shadow-md mb-5 ml-4 ">b-ElevenzSd</h1>
-                {employee && <>
-                    <img src={employee.avatar} className="h-13 w-12 flex-none rounded-full bg-gray-50  ml-12" />
-                    <h3 className="mt-10 text-l font-bold leading-9 tracking-tight text-amber-500 drop-shadow-md mb-4 ml-4">Welcome, {employee.name}!</h3>
-                </>}
+                <h1 className="italic text-2xl font-bold leading-9 tracking-tight text-amber-500 drop-shadow-md  ml-4 mt-2 ">b-ElevenzSd</h1>
             </header>
-            <main className="">
-                <p className="personalInformation-menu"><a href="" className="personalInformation" onClick={handleGoToPersonalInformatioMenu}>Personal Information</a></p>
-                <p className="payroll-menu" onClick={handleGoToPayrollMenu}><a href="" className="payrollMenu" >Payroll menu</a></p>
-                <p className="manage-payroll-menu" onClick={handleGoToManagePayrollMenu}><a href="" className="ManagePayrollMenu" >Manage Payroll menu</a></p>
-                <p className="employeeDatabase-menu" onClick={handleGoToEmployeeDatabaseMenu}><a href="" className="employeeDatabaseMenu" >Employee Database menu</a></p>
+            <main className="flex ml-4">
+                <div className="">
+                    <div className="">
+                        {employee && <>
+                            <img src={employee.avatar} className="h-16 w-15 flex-none rounded-full bg-gray-50  ml-7 mt-24" />
+                            <h3 className="italic mt-10 text-base font-bold leading-9 tracking-tight text-amber-500 drop-shadow-md mb-3  mt-0">Welcome, {employee.name}!</h3>
+                        </>}
+                    </div>
+                    <div className="mt-20 mr-2">
+                        <p className="personalInformation-menu"><a href="" className="personalInformation" onClick={handleGoToPersonalInformatioMenu}>Personal Information</a></p>
+                        <p className="payroll-menu" onClick={handleGoToPayrollMenu}><a href="" className="payrollMenu" >Payroll menu</a></p>
+                        <p className="manage-payroll-menu" onClick={handleGoToManagePayrollMenu}><a href="" className="ManagePayrollMenu" >Manage Payroll menu</a></p>
+                        <p className="employeeDatabase-menu" onClick={handleGoToEmployeeDatabaseMenu}><a href="" className="employeeDatabaseMenu" >Employee Database menu</a></p>
+                    </div>
 
+                </div>
                 {modal === 'PersonalInformation' && < PersonalInformationModal
                     employee={employee}
                     onEmployeeAvatarUpdated={handleRefreshEmloyee}
                     onEmployeePasswordUpdated={handleCloseModal}
-                    onEmployeeAdressUpdated={handleCloseModal}
+                    onEmployeeAddressUpdated={handleCloseModal}
                     onEmployeeBankAccountNumberUpdated={handleCloseModal}
                     onPersonalInformationModalLogout={handleCloseModal}
                 />}
                 {modal === 'PayrollMenu' && < PayrollMenuModal
                     employee={employee}
+                    onPayrollMenuModalLogout={handleCloseModal}
                 />}
                 {modal === 'ManagePayrollMenu' && < ManagePayrollMenuModal
                     employee={employee}
+                    onManagePayrollMenuModalLogout={handleCloseModal}
                 />}
                 {modal === 'EmployeeDatabaseMenu' && < EmployeeDatabaseMenuModal
                     employee={employee}
-                    onEmployeeRegistered={handleCloseModal} />}
+                    onEmployeeRegistered={handleCloseModal}
+                    onEmployeeDatabaseMenuModalLogout={handleCloseModal} />}
             </main>
             <footer>
-                <h5 className="mt-10 text-l font-bold leading-9 tracking-tight text-amber-500 drop-shadow-md mb-5 ml-4" onClick={handleLogOut}>Logout</h5>
+                <h5 className=" text-l font-bold leading-9 tracking-tight text-amber-500 drop-shadow-md mb-10 ml-4" onClick={handleLogOut}>Logout</h5>
             </footer>
         </div>
     </div>

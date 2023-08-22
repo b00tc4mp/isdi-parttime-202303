@@ -65,7 +65,7 @@ TODO Link to Figma
     - birthDate (date)
     - idCardNumber (string)
     - tssNumber (number)
-    - adress (string)
+    - address (string)
     - personalPhoneNumber (number)
     - bankAccountNumber (string)
     - avatar (string)
@@ -129,17 +129,17 @@ Trello : (https://trello.com/invite/b/XEVB4Fyi/ATTIc3c549532febf63cb82956e9219d9
 
 #### Employee: modify avatar, address, password, and bank account
 
-- Me as an employee(roll: user) I want to modify my avatar, adress, password or bank account
+- Me as an employee(roll: user) I want to modify my avatar, address, password or bank account
 
 
 ##### Tasks
 
 - DONE build html
 - TODO build basic css
-- DONE implement modal window (PersonalInformationModal.jsx) for update avatar (inputs: image; button: confirm), adress(inputs: street, postal code, city, country; button: confirm), password (inputs: password, newPassword, confirmNewPassword; button: confirm) and bank account (inputs: bank account, button: confirm)
+- DONE implement modal window (PersonalInformationModal.jsx) for update avatar (inputs: image; button: confirm), address(inputs: street, postal code, city, country; button: confirm), password (inputs: password, newPassword, confirmNewPassword; button: confirm) and bank account (inputs: bank account, button: confirm)
 
 - DONE implement updateEmployeeAvatar logic to persist the info (image) in database, and API test
-- DONE implement updateEmployeeAdress logic to persist the info (employeeAdress) in database, and API test
+- DONE implement updateEmployeeAddress logic to persist the info (employeeaddress) in database, and API test
 - DONE implement updateEmployeePassword logic to persist the info (password) in database, and API test
 - DONE implement updateEmployeeBankAccount logic to persist the info (bankAccount) in database, and API test
 

@@ -20,10 +20,8 @@ const { UnknownError } = require('com/errors')
 module.exports = function retrieveEmployeePayrollData(employeeId) {
     validateId(employeeId)
 
-    const { Employee } = require('../data/models')
-
     return (async () => {
-        const employee = await Employee.findById(employeeId, '-adress -personalPhoneNumber -typeOfContract -roll -professionalPhoneNumber -professionalEmail -accessPermissions -employeePassword -__v').lean()
+        const employee = await Employee.findById(employeeId, '-address -personalPhoneNumber -typeOfContract -roll -professionalPhoneNumber -professionalEmail -accessPermissions -employeePassword -__v').lean()
 
         if (!employee) throw new ExistenceError('employee not found')
 

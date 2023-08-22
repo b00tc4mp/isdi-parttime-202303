@@ -1,5 +1,5 @@
 //TODO handleErrors
-const { updateEmployeeAdress } = require('../logic')
+const { updateEmployeeAddress } = require('../logic')
 const { extractEmployeeId } = require('./helpers')
 const { handleErrors } = require('./helpers')
 
@@ -9,11 +9,11 @@ module.exports = handleErrors((req, res,) => {
 
     const { employeeStreet, employeePostalCode, employeeCity, employeeCountry } = req.body
 
-    const promise = updateEmployeeAdress(employeeId, employeeStreet, employeePostalCode, employeeCity, employeeCountry)
+    const promise = updateEmployeeAddress(employeeId, employeeStreet, employeePostalCode, employeeCity, employeeCountry)
 
     return (async () => {
         await promise
 
             .then(() => res.status(204).send())
-    })
+    })()
 })

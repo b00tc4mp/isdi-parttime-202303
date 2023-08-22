@@ -8,7 +8,7 @@ module.exports = {
     updateEmployeeAvatar: require('./updateEmployeeAvatar'),
     updateEmployeePassword: require('./updateEmployeePassword'),
     updateEmployeeBankAccountNumber: require('./updateEmployeeBankAccountNumber'),
-    updateEmployeeAdress: require('./updateEmployeeAdress'),
+    updateEmployeeAddress: require('./updateEmployeeAddress'),
     retrievePayrollMonth: require('./retrievePayrollMonth'),
     retrieveEmployeesBySalaryLevel: require('./retrieveEmployeesBySalaryLevel'),
     // retrieveEmployeePayrollsMonthYear: require('./retrieveEmployeePayrollsMonthYear'),

@@ -6,7 +6,6 @@ function validateName(name, explain = "name") {
 
     if (!nameRegex.test(name)) throw new ContentError(`Invalid format of ${explain}`)
     if (typeof name !== 'string') throw new TypeError(`${explain} is not a string`)
-    if (!name.trim().length) throw new ContentError(`${explain} is empty`)
     if (name.trim().length < 3) throw new RangeError(`${explain} length lower than 3 characters`)
     if (name.trim().length > 15) throw new RangeError(`${explain} length upper 15 characters`)
 }
@@ -26,7 +25,6 @@ function validateSecondSurname(secondSurname, explain = "secondSurname") {
 
     if (!secondSurnameRegex.test(secondSurname)) throw new ContentError(`Invalid format of ${explain}`)
     if (typeof secondSurname !== 'string') throw new TypeError(`${explain} is not a string`)
-    if (!secondSurname.trim().length) throw new ContentError(`${explain} is empty`)
     if (secondSurname.trim().length < 3) throw new RangeError(`${explain} length lower than 3 characters`)
     if (secondSurname.trim().length > 15) throw new RangeError(`${explain} length upper 15 characters`)
 }
@@ -44,8 +42,13 @@ function validateTssNumber(tssNumber, explain = "tssNumber") {
     if (!tssNumberRegex.test(tssNumber)) throw new ContentError(`Invalid format of ${explain}`)
     if (typeof tssNumber !== 'string') throw new TypeError(`${explain} is not a string`)
 }
-//TODO validate Adress
 
+function validateAddress(address, explain = "address") {
+    const addressRegex = /^[A-Z][a-zA-Z0-9\s]+ (?:street|avenue|plaza|road) \d{1,5}(?: [0-9A-Za-z\s]+)? \d{5} [A-Z][a-zA-Z\s]+ \(?[A-Z][a-zA-Z\s]+\)? [A-Z][a-zA-Z\s]+$/
+
+    if (!addressRegex.test(address)) throw new ContentError(`Invalid format of ${explain}`)
+    if (typeof address !== 'string') throw new TypeError(`${explain} is not a string`)
+}
 
 function validatePersonalPhoneNumber(personalPhoneNumber, explain = "personalPhoneNumber") {
     if (typeof personalPhoneNumber !== 'number') throw new TypeError(`${explain} is not a number`)
@@ -67,7 +70,6 @@ function validateUrl(newAvatar, explain = 'url') {
 
     if (!urlRegex.test(newAvatar)) throw new ContentError(`Invalid format of ${explain}`)
     if (typeof newAvatar !== 'string') throw new TypeError(`${explain} is not a string`);
-    if (!newAvatar.trim().length) throw new ContentError(`${explain} is empty`)
 }
 
 function validateEmployeeNumber(employeeNumber, explain = "employeeNumber") {
@@ -81,25 +83,25 @@ function validateEmployeeNumber(employeeNumber, explain = "employeeNumber") {
 function validateTypeOfContract(typeOfContract, explain = 'typeOfContract') {
     if (typeof typeOfContract !== 'string') throw new TypeError(`${explain} is not a string`);
     if (!typeOfContract.trim().length) throw new ContentError(`${explain} is empty`)
-    if (typeOfContract !== "Temporal" && typeOfContract !== "Permanent") throw new ContentError(`Invalid value of ${explain}`)
+    if (typeOfContract !== "Temporal" && typeOfContract !== "Permanent") throw new ContentError(`Invalid value for ${explain}`)
 }
 function validateJobPosition(jobPosition, explain = 'jobPosition') {
     if (typeof jobPosition !== 'string') throw new TypeError(`${explain} is not a string`);
     if (!jobPosition.trim().length) throw new ContentError(`${explain} is empty`)
-    if (jobPosition !== "Executive" && jobPosition !== "Manager" && jobPosition !== "Developer" && jobPosition !== "Financial Controller" && jobPosition !== "Assistant ") throw new ContentError(`Invalid value of ${explain}`)
+    if (jobPosition !== "Executive" && jobPosition !== "Manager" && jobPosition !== "Developer" && jobPosition !== "Financial Controller" && jobPosition !== "Assistant ") throw new ContentError(`Invalid value for ${explain}`)
 }
 
 function validateDepartment(department, explain = 'department') {
     if (typeof department !== 'string') throw new TypeError(`${explain} is not a string`);
     if (!department.trim().length) throw new ContentError(`${explain} is empty`)
-    if (department !== "Development" && department !== "Design" && department !== "Financial" && department !== "Human Resources") throw new ContentError(`Invalid value of ${explain}`)
+    if (department !== "Development" && department !== "Design" && department !== "Financial" && department !== "Human Resources") throw new ContentError(`Invalid value for ${explain}`)
 }
 
 function validateSalaryLevel(salaryLevel, explain = 'salary level') {
     if (typeof salaryLevel !== 'number') throw new TypeError(`${explain}  is not a number`);
     if (salaryLevel === '') throw new ContentError(`${explain}  is empty`)
     if (!Number.isInteger(salaryLevel) || salaryLevel < 1 || salaryLevel > 5) {
-        throw new RangeError(`${explain}  must be an integer between 1 and 5`);
+        throw new RangeError(`${explain}  is not an integer between 1 and 5`);
     }
 }
 function validateCenterAttached(centerAttached, explain = 'centerAttached') {
@@ -202,6 +204,7 @@ module.exports = {
     validateSecondSurname,
     validateIdCardNumber,
     validateTssNumber,
+    validateAddress,
     validatePersonalPhoneNumber,
     validateBankAccountNumber,
     validateUrl,

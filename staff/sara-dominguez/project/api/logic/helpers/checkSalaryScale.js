@@ -11,7 +11,7 @@ module.exports = function checkSalaryScale(salaryLevel) {
             salaryLevel: 1,
             monthSalary: 10000,
             annualSalary: 120000,
-            bonus: 18000
+            bonus: 1200
         }
     }
     else if (salaryLevel === 2) {
@@ -19,31 +19,31 @@ module.exports = function checkSalaryScale(salaryLevel) {
             salaryLevel: 2,
             monthSalary: 7500,
             annualSalary: 90000,
-            bonus: 12500
+            bonus: 1500
         }
     }
     else if (salaryLevel === 3) {
         salaryScale = {
             salaryLevel: 3,
-            monthSalary: 6000,
+            monthSalary: 5500,
             annualSalary: 72000,
-            bonus: 8500
+            bonus: 1000
         }
     }
     else if (salaryLevel === 4) {
         salaryScale = {
             salaryLevel: 4,
-            monthSalary: 4500,
-            annualSalary: 54000,
-            bonus: 5500
+            monthSalary: 4000,
+            annualSalary: 48000,
+            bonus: 500
         }
     }
     else if (salaryLevel === 5) {
         salaryScale = {
             salaryLevel: 5,
-            monthSalary: 2800,
-            annualSalary: 33600,
-            bonus: 3000
+            monthSalary: 2400,
+            annualSalary: 28800,
+            bonus: 100
         }
     }
     return salaryScale

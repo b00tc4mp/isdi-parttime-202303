@@ -26,7 +26,7 @@ module.exports = function retrieveEmployeePayrollToBePaid(id, employeeId) {
 
         if (!employeeLogged) throw new ExistenceError('employee not found')
 
-        const employee = await Employee.findById(id, '-idCardNumber -tssNumber -jobPosition -department -centerAttached -adress -personalPhoneNumber -typeOfContract -roll -professionalPhoneNumber -professionalEmail -accessPermissions -employeePassword -__v').lean()
+        const employee = await Employee.findById(id, '-idCardNumber -tssNumber -jobPosition -department -centerAttached -address -personalPhoneNumber -typeOfContract -roll -professionalPhoneNumber -professionalEmail -accessPermissions -employeePassword -__v').lean()
 
         delete employee._id
 

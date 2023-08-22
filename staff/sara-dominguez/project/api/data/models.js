@@ -109,7 +109,7 @@ const employee = new Schema({
         trim: true,
         unique: true
     },
-    adress: {
+    address: {
         type: String,
         required: true,
         trim: true
