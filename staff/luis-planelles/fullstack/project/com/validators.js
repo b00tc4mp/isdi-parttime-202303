@@ -1,4 +1,4 @@
-const { ContentError } = require('./errors');
+const { ContentError, ExistenceError } = require('./errors');
 
 const validateName = (name) => {
   const containsSpaces = /\s/g;
@@ -48,47 +48,57 @@ const validatePassword = (password, type = 'password') => {
 };
 
 const validateId = (id, explain = 'id') => {
-  const regexHex = /^#([0-9A-Fa-f]{3}){1,2}$/;
+  const regexHex = /^[0-9a-fA-F]/;
 
   if (typeof id !== 'string') throw new TypeError(`${explain} is not a string`);
   if (!id.trim().length) throw new ContentError(`${explain} is empty`);
   if (id.trim().length !== 24)
     throw new ContentError(`${explain} does not have 24 characters`);
-  if (regexHex.test(id))
+  if (!regexHex.test(id))
     throw new ContentError(`${explain} is not hexagecimal`);
 };
 
-const validateText = (text, explain = 'string') => {
+const validateText = (text, explain = 'text') => {
   if (typeof text !== 'string')
     throw new TypeError(`${explain} is not a string`);
   if (!text.trim().length) throw new ContentError(`${explain} is empty`);
 };
 
-const validateDateString = (date, explain = 'date') => {
-  const dateObject = new Date(date);
+const validateTraveler = (traveler) => {
+  validateText(traveler, 'traveler');
 
-  if (!(dateObject instanceof Date))
-    throw new TypeError(`${explain} is not a Date object`);
+  const travelers = ['monkey', 'robot', 'dog', 'billonaire'];
 
-  if (isNaN(dateObject.getTime()))
-    throw new ContentError(`${explain} is not a valid Date`);
-
-  return date;
+  if (!travelers.includes(traveler)) {
+    throw new ExistenceError(`traveler named ${traveler} doesnt exist`);
+  }
 };
 
-const validateObject = (object, explain = 'object') => {
-  if (typeof object !== 'object' || object === null)
-    throw new TypeError(`${explain} is not an object`);
+const validateDestination = (destination) => {
+  validateText(destination, 'destination');
 
-  return object;
+  const destinations = ['moon', 'mars', 'unexplored_planet'];
+
+  if (!destinations.includes(destination)) {
+    throw new ExistenceError(`destination named ${destination} doesnt exist`);
+  }
 };
 
-const validateArray = (array, explain = 'array') => {
-  if (!Array.isArray(array)) {
-    throw new TypeError(`${explain} is not an array`);
+const validateParticipants = (participants) => {
+  if (!Array.isArray(participants)) {
+    throw new TypeError(`${participants} is not an array`);
+  }
+  if (participants.length === 0) {
+    throw new ContentError(`${participants} is empty`);
   }
 
-  return array;
+  participants.forEach((participant, index) => {
+    if (!participant || typeof participant !== 'object') {
+      throw new TypeError(`${participant} at index ${index} is not an object`);
+    }
+
+    validateText(participant.name, 'participant name');
+  });
 };
 
 const validateToken = (token, explain = 'token') => {
@@ -104,8 +114,8 @@ module.exports = {
   validatePassword,
   validateId,
   validateText,
-  validateDateString,
-  validateObject,
-  validateArray,
+  validateTraveler,
+  validateDestination,
+  validateParticipants,
   validateToken,
 };
