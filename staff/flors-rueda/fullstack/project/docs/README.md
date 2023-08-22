@@ -35,8 +35,7 @@ So you play levels to earn points to create levels that other people will play t
 </br>
 
 ## UI desgin
-
-- TODO Link to figma or wizardUI or whatever
+The initial views were drawn in a whiteboard, digitalized and add to uizard.io to create a prototype you can [see here](https://app.uizard.io/p/8a20cb17/preview).
 
 ## Technical description
 
@@ -63,7 +62,7 @@ So you play levels to earn points to create levels that other people will play t
 - id (oid)
 - name (string)
 - layout (matrix of strings)
-- health ppints (number)
+- health points (number)
 - author (user oid)
 - likes (array of oid)
 - date (date)
