@@ -18,7 +18,8 @@ const {
     retriveMissionHandler,
     updateMissionHandler,
     deleteMissionHandler,
-    createNewCharacterHandler
+    createNewCharacterHandler,
+    getUserCharacterHandler
 } = require('./handlers')
 const mongoose = require('mongoose')
 
@@ -51,6 +52,8 @@ mongoose.connect(process.env.MONGODB_URL)
 
         // CHARACTERS DATA
         api.post('/characters', jsonBodyParser, createNewCharacterHandler)
+
+        api.get('/characters', jsonBodyParser, getUserCharacterHandler)
 
         // MISSIONS DATA
         api.post('/missions', jsonBodyParser, createNewMissionHandler)

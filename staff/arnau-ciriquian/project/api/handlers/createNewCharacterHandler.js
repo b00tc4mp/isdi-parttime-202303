@@ -1,9 +1,11 @@
 const { createNewCharacter } = require('../logic')
-const { handleErrors } = require('./helpers')
+const { extractUserId, handleErrors } = require('./helpers')
 
 module.exports = handleErrors((req, res) => {
-        const { characterName, avatar } = req.body
+    const userId = extractUserId(req)
 
-        return createNewCharacter(characterName, avatar)
-            .then(() => res.status(201).send())
+    const { characterName, avatar } = req.body
+
+    return createNewCharacter(userId, characterName, avatar)
+        .then(() => res.status(201).send())
 })

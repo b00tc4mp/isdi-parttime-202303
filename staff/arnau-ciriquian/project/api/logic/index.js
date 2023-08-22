@@ -15,5 +15,6 @@ module.exports = {
     updateUsername: require('./updateUsername'),
     updateUserEmail: require('./updateUserEmail'),
     updateUserPassword: require('./updateUserPassword'),
-    createNewCharacter: require('./createNewCharacter')
+    createNewCharacter: require('./createNewCharacter'),
+    getUserCharacter:require('./getUserCharacter')
 }

@@ -1,6 +1,7 @@
-const { Character } = require('../data/models')
+const { User, Character } = require('../data/models')
 const {
-    validators: { validateName, validateUrl },
+    validators: { validateId, validateName, validateUrl },
+    errors: { ExistenceError }
 } = require('com')
 
 /**
@@ -14,15 +15,21 @@ const {
  * @throws {TypeError} On non-string name or avatar
  * @throws {ContentError} On empty name or avatar
  */
-module.exports = (characterName, avatar) => {
+module.exports = (userId, characterName, avatar) => {
+    validateId(userId)
     validateName(characterName)
-    validateUrl(avatar)
+    //validateUrl(avatar)
 
     const created = new Date
     const level = 1
 
-    return Character.create({ characterName, avatar, created, level })
-        .catch(error => {
-            throw error
+    return User.findById(userId)
+        .then(user => {
+            if (!user) throw new ExistenceError('user not found')
+            return Character.create({ characterName, avatar, created, level })
+                .then(character => User.updateOne({ '_id': userId }, { character: character._id }))
+                .catch(error => {
+                    throw error
+                })
         })
 }
