@@ -1,6 +1,7 @@
 import { View, Image, Text, TouchableOpacity } from 'react-native'
 import { useState, useEffect } from 'react'
 import { getLoggedUser } from '../logic/getLoggedUser.js'
+import { getUserCharacter } from '../logic/getUserCharacter.js'
 import Missions from '../components/Missions.jsx'
 import PlayMissionModal from '../components/PlayMissionModal.jsx'
 import UserMenu from '../components/UserMenu.jsx'
@@ -12,6 +13,7 @@ import NewCharacter from '../components/NewCharacter.jsx'
 
 const Home = ({ onLogoutSession, onStartGame }) => {
     const [user, setUser] = useState()
+    const [character, setCharacter] = useState()
     const [modal, setModal] = useState(null)
     const [missionId, setMissionId] = useState(null)
 
@@ -19,6 +21,9 @@ const Home = ({ onLogoutSession, onStartGame }) => {
         try {
             getLoggedUser()
                 .then(setUser)
+                .catch(error => alert(error.message))
+            getUserCharacter()
+                .then(setCharacter)
                 .catch(error => alert(error.message))
         } catch (error) {
             alert(error.message)
@@ -67,14 +72,14 @@ const Home = ({ onLogoutSession, onStartGame }) => {
                 <View className="h-20 mr-4 flex-row items-center">
                     <View className="absolute bg-white h-full w-full rounded-tl-lg rounded-tr-3xl rounded-bl-3xl rounded-br-lg shadow-md shadow-black opacity-50"></View>
                     <View className="h-16 w-16 m-2">
-                        <Image source={require('../../assets/home/survivor.jpg')} className="bg-slate-200 h-16 w-16 rounded-tl-lg rounded-tr-3xl rounded-bl-3xl rounded-br-lg"></Image>
+                        <Image source={character?.avatar && character.avatar} className="bg-slate-200 h-16 w-16 rounded-tl-lg rounded-tr-3xl rounded-bl-3xl rounded-br-lg"></Image>
                     </View>
                     <View className="w-2/4 h-20 justify-center items-center">
                         <View className="justify-center items-center h-10 w-2/4">
-                            <Text className=" text-2xl font-semibold">Ellie{/*character.name*/}</Text>
+                            <Text className=" text-2xl font-semibold">{character?.characterName && character.characterName}</Text>
                         </View>
                         <View className="justify-center items-center h-10 w-2/4">
-                            <Text className=" text-lg font-semibold">Level 1{/*character.name*/}</Text>
+                            <Text className=" text-lg font-semibold">Level {character?.level && character.level}</Text>
                         </View>
                     </View>
                     <View className="justify-center items-center h-16 w-16 m-2">
@@ -86,7 +91,7 @@ const Home = ({ onLogoutSession, onStartGame }) => {
                 <View className="h-3/4 w-full pl-2 pr-2 m-5">
                     {!modal && <Missions
                         onMissionClicked={handleGoToMissionInfo}
-                    //passar el character com a prop
+                        character={character}
                     />}
                     {modal === "userMenu" && <UserMenu
                         onUserLogout={handleLogoutSession}

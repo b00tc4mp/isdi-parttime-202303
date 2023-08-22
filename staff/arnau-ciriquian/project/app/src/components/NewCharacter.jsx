@@ -1,6 +1,7 @@
 import { View, Image, Text, TouchableOpacity } from 'react-native'
 import { useState, useEffect } from 'react'
 import CharacterCreator from './CharacterCreator'
+import TutorialInfo from './TutorialInfo'
 
 export default function NewCharacter({ user }) {
     const [modal, setModal] = useState(null)
@@ -11,6 +12,10 @@ export default function NewCharacter({ user }) {
 
     const handleCreateNewCharacter = () => {
         setModal('characterCreator')
+    }
+
+    const handleGoToTutorialInfo = () => {
+        setModal('tutorialInfo')
     }
 
     return (
@@ -28,7 +33,11 @@ export default function NewCharacter({ user }) {
                 </TouchableOpacity>
             </View>}
             {modal === 'characterCreator' && <CharacterCreator
-                user={user} />}
+                user={user}
+                onCharacterCreated={handleGoToTutorialInfo}
+            />}
+            {modal === 'tutorialInfo' && <TutorialInfo
+            />}
         </View>
     )
 }

@@ -1,22 +1,21 @@
-import { useState } from 'react'
-import { View, Text, TouchableOpacity, TextInput, Image } from 'react-native'
-import DropDownPicker from 'react-native-dropdown-picker'
-import { createNewMission } from '../logic/createNewMission.js'
+import { useEffect, useState } from 'react'
+import { View, Text, TouchableOpacity, TextInput, Image, ScrollView } from 'react-native'
+import { survivor1, survivor2, survivor3, survivor4, survivor5 } from '../../assets/characters/characterImages.js'
+import { createNewCharacter } from '../logic/createNewCharacter.js'
 
-export default function CharacterCreator({ user }) {
-    const [tittle, setTittle] = useState('')
+export default function CharacterCreator({ user, onCharacterCreated }) {
+    const [characterName, setCharacterName] = useState('')
+    const [survivorImages, setSurvivorImages] = useState([])
+    const [characterImage, setCharacterImage] = useState(null)
 
-    const [visibilityOpen, setVisibilityOpen] = useState(false);
-    const [visibilityValue, setVisibilityValue] = useState(null);
-    const [visibilityItems, setVisibilityItems] = useState([
-        { label: 'Visible', value: true },
-        { label: 'Not visible', value: false }
-    ])
+    useEffect(() => {
+        setSurvivorImages([survivor1, survivor2, survivor3, survivor4, survivor5])
+    }, [])
 
-    const handleCreateNewMission = () => {
+    const handleCreateNewCharacter = () => {
         try {
-            createNewMission(imageValue, tittle, info, levelValue, difficultyValue, visibilityValue)
-                .then(() => onMissionCreated())
+            createNewCharacter(characterName, characterImage)
+                .then(() => onCharacterCreated())
                 .catch(error => {
                     alert(error.message)
                 })
@@ -25,13 +24,12 @@ export default function CharacterCreator({ user }) {
         }
     }
 
-    const handleCancelCreate = () => {
-        onCancel()
+    const chooseCharacter = image => {
+        setCharacterImage(image)
     }
 
     return (
         <View className="flex justify-around items-center h-screen w-screen p-2">
-            <Image source={require('../../assets/home/main-bg.jpg')} className="absolute scale-125 bottom-0" ></Image>
             <View className="h-20 flex-row items-center justify-center">
                 <View className="absolute bg-white h-full w-full rounded-tl-lg rounded-tr-3xl rounded-bl-3xl rounded-br-lg shadow-md shadow-black opacity-50"></View>
                 <View className="justify-center items-center h-16 w-2/4 mr-10">
@@ -50,24 +48,25 @@ export default function CharacterCreator({ user }) {
                         <Text className="text-white font-semibold text-xl">Character name:</Text>
                         <TextInput className="w-full h-12 border bg-white rounded-md"
                             placeholder="name"
-                            onChangeText={newTittle => (setTittle(newTittle))}
+                            onChangeText={newCharacterName => (setCharacterName(newCharacterName))}
                         />
                     </View>
-                    
-                    <View className="mt-2" style={{ zIndex: visibilityOpen ? 10 : 1 }}>
+
+                    <View className="mt-2 w-full h-3/4">
                         <Text className="text-white font-semibold text-xl">Avatar:</Text>
-                        <DropDownPicker
-                            open={visibilityOpen}
-                            value={visibilityValue}
-                            items={visibilityItems}
-                            setOpen={setVisibilityOpen}
-                            setValue={setVisibilityValue}
-                            setItems={setVisibilityItems}
-                        />
+                        <View className="w-full justify-center items-center h-full">
+                            <ScrollView className="w-full h-full">
+                                <View className="w-full h-full items-center">
+                                    {survivorImages && survivorImages.map(element => <TouchableOpacity onPress={() => chooseCharacter(element)} className="w-60">
+                                        <Image source={element} className={element === characterImage ? "w-60 h-80 mb-2 border-2 border-rose-600" : "w-60 h-80 mb-2"} />
+                                    </TouchableOpacity>)}
+                                </View>
+                            </ScrollView>
+                        </View>
                     </View>
                 </View>
                 <View className="h-20 w-full absolute bottom-0 items-center flex-row justify-around">
-                    <TouchableOpacity className="flex flex-row items-center" onPress={handleCreateNewMission}>
+                    <TouchableOpacity className="flex flex-row items-center" onPress={handleCreateNewCharacter}>
                         <Text className="text-2xl font-bold ">Create</Text>
                     </TouchableOpacity>
                 </View>
