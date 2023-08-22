@@ -4,29 +4,29 @@ import inLogger from '../inLogger';
 const ComicCarousel = () => {
     const [activeIndex, setActiveIndex] = useState(0);
     const images = [
-        'https://tecdn.b-cdn.net/img/Photos/Slides/img%20(1).jpg',
-        'https://tecdn.b-cdn.net/img/Photos/Slides/img%20(2).jpg',
-        'https://tecdn.b-cdn.net/img/Photos/Slides/img%20(3).jpg',
-        'https://tecdn.b-cdn.net/img/Photos/Slides/img%20(4).jpg',
-        'https://tecdn.b-cdn.net/img/Photos/Slides/img%20(5).jpg',
-        'https://tecdn.b-cdn.net/img/Photos/Slides/img%20(6).jpg',
-        'https://tecdn.b-cdn.net/img/Photos/Slides/img%20(7).jpg',
-        'https://tecdn.b-cdn.net/img/Photos/Slides/img%20(8).jpg',
-        'https://tecdn.b-cdn.net/img/Photos/Slides/img%20(9).jpg',
-        'https://tecdn.b-cdn.net/img/Photos/Slides/img%20(10).jpg',
+        './comic/1.webp',
+        './comic/2.webp',
+        './comic/3.webp',
+        './comic/4.webp',
+        './comic/5.webp',
+        './comic/6.webp',
+        './comic/7.webp',
+        './comic/8.webp',
+        './comic/9.webp',
+        './comic/10.webp',
     ];
 
     const text = [
-        `A long time ago, primitive spheres found themselves embroiled in a war against a more advanced race of triangles.`,
+        `A long time ago, primitive spheres found themselves embroiled in a war against a more advanced race of triangles. It was a cruel and unbalenced battle.`,
         `The triangles emerged victorious, forcing the spheres to flee and seek refuge underground through a hidden passage that was impossible for the triangles to enter.`,
-        `Desperate to ensure their safety, the triangles sealed off the passage, leaving the spheres to survive in isolation underground for centuries.`,
+        `Unwilling to take any chances, the triangles sealed off the passage, leaving the spheres to survive in isolation underground for centuries.`,
         `Unbeknownst to the spheres, the triangles eventually turned against each other, engulfed in their own conflicts. Meanwhile, the spheres thrived in their underground realm, oblivious to the troubles unfolding above.`,
         `With the demise of the triangles, the sealed passage started to deteriorate, allowing fragments of the surface world to seep through to the spheres' subterranean abode.`,
         `Filled with curiosity and a longing to be closer to their spherical deities—the sun and the moons—the spheres made the audacious decision to venture back to the surface.`,
         `As the spheres emerged onto the surface, their underground civilization was gradually forgotten, replaced by a new, peaceful, and round world.`,
         `However, the legend of the ancient city of Ballopolis persisted throughout the centuries, and countless individuals sought to reach it in search of its fabled treasures.`,
         `Building precarious passages, these treasure hunters would launch bombs, uncertain if they would explode or not, to gain access to the lower levels of the subterranean maze. They also dropped first aid kits as a precautionary measure.`,
-        `Some adventurers chose to explore this underground mazes, skillfully avoiding bombs, tunneling through layers of dirt, and braving treacherous holes in their relentless pursuit of the elusive treasures of Ballopolis.`,
+        `Some adventurers united and formed the rider's guild. A group for those who chose to explore this underground mazes, avoiding bombs, tunneling through layers of dirt, and braving treacherous holes in their relentless pursuit of the treasures of Ballopolis.`,
     ];
 
     const goToSlide = (index) => {
