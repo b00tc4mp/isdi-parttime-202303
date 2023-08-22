@@ -47,22 +47,27 @@ const explorer = new Schema({
   },
   health: {
     type: Number,
+    default: 100,
     required: true,
   },
   food: {
     type: Number,
+    default: 100,
     required: true,
   },
   water: {
     type: Number,
+    default: 100,
     required: true,
   },
   stress: {
     type: Number,
+    default: 100,
     required: true,
   },
   oxygen: {
     type: Number,
+    default: 100,
     required: true,
   },
 });
