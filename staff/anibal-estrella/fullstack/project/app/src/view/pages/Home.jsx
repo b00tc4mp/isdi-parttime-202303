@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { useAppContext } from '../hooks'
 
-import { EventCard, SearchArtist, SearchPlace } from '../components'
+import { EventCard, SearchArtist, SearchPlace, DraggableSlider } from '../components'
 
 export default ({ city, ipGeoLocation }) => {
     console.debug('// Home  -> Render')
+    const items = Array(10).fill(0).map((_, index) => index + 1);//temporary for the cards slider
 
     const { alert, freeze, unfreeze, navigate } = useAppContext()
 
@@ -36,12 +37,27 @@ export default ({ city, ipGeoLocation }) => {
 
             <section id='events-featured'>
                 <h2>Featured Events</h2>
+                <DraggableSlider>
+                    {items.map(item => (
+                        <div key={item} className="flex-shrink-0  bg-gray-300 text-white p-2 w-60 h-64 rounded">
+                            Item {item}
+                        </div>
+                    ))}
+                </DraggableSlider>
             </section>
             <section>
                 <h2>Featured Reviews</h2>
             </section>
             <section id='Events'>
                 <h2>Events in <span>your area</span></h2>
+                <DraggableSlider>
+                    {items.map(item => (
+                        <div key={item} className=" bg-gray-300 text-white p-2 w-64 h-64 rounded">
+                            Item {item}
+                        </div>
+                    ))}
+                </DraggableSlider>
+
             </section>
         </section>
 

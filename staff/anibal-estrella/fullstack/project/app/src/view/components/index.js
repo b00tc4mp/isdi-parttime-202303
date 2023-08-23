@@ -3,9 +3,9 @@ import SearchPlace from './SearchPlace'
 import EventCard from './EventCard'
 import Menu from './Menu'
 import Alert from './Alert'
-
 import MenuLayer from './MenuLayer'
 import CreateReview from './createReview'
+import DraggableSlider from './DraggableSlider'
 
 export {
     SearchPlace,
@@ -14,5 +14,6 @@ export {
     Menu,
     MenuLayer,
     CreateReview,
-    Alert
+    Alert,
+    DraggableSlider
 }
