@@ -4,7 +4,6 @@ const { extractUserId, handleErrors } = require('../helpers')
 
 module.exports = handleErrors((req, res) => {
     const userId = extractUserId(req)
-
     const { email } = req.body
 
     const promise = searchUser(userId, email)

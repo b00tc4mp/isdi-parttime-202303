@@ -4,7 +4,6 @@ const { extractUserId, handleErrors } = require('../helpers')
 
 module.exports = handleErrors((req, res) => {
     const userId = extractUserId(req)
-
     const { name, dateToEnd } = req.body
 
     const promise = createList(userId, name, new Date(dateToEnd))
