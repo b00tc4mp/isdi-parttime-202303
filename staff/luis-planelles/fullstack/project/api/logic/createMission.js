@@ -36,13 +36,13 @@ const createMission = (
   validateParticipants(participants);
   validateText(loserPrice, 'loser price');
 
-  const initialDate = new Date();
-  const endDate = new Date(initialDate);
+  const startDate = new Date();
+  const endDate = new Date(startDate);
 
-  if (destination === 'moon') endDate.setDate(initialDate.getDate() + 1);
-  if (destination === 'mars') endDate.setDate(initialDate.getDate() + 2);
+  if (destination === 'moon') endDate.setDate(startDate.getDate() + 1);
+  if (destination === 'mars') endDate.setDate(startDate.getDate() + 2);
   if (destination === 'unexplored_planet')
-    endDate.setDate(initialDate.getDate() + 5);
+    endDate.setDate(startDate.getDate() + 5);
 
   return (async () => {
     const _traveler = await Explorer.create({ race: traveler });
@@ -58,7 +58,7 @@ const createMission = (
       destination,
       status: 'in_progress',
       lastUpdate: new Date(),
-      startDate: initialDate,
+      startDate,
       endDate: endDate,
       participants,
       loserPrice,
