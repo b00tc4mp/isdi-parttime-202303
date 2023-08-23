@@ -12,7 +12,7 @@ describe('API routes', () => {
 
   const baseURL = `http://localhost:${process.env.PORT}`;
 
-  describe('Hello API', () => {
+  describe('hello API', () => {
     it('should return a successful response for GET /', async () => {
       const res = await fetch(baseURL + '/');
       const resBody = await res.text();
@@ -104,7 +104,7 @@ describe('API routes', () => {
     });
   });
 
-  describe('User login', () => {
+  describe('user login', () => {
     let user;
 
     beforeEach(() => {
@@ -207,7 +207,7 @@ describe('API routes', () => {
     });
   });
 
-  describe('Create mission', () => {
+  describe('create mission', () => {
     let user, participant, traveler, token;
 
     let initialDate = new Date();
@@ -282,6 +282,32 @@ describe('API routes', () => {
       });
 
       expect(res.status).to.equal(500);
+    });
+  });
+
+  describe('retrieve mission', () => {
+    let user, mission, token;
+
+    beforeEach(() => {
+      const explorer = generate.explorer('monkey');
+      const participant = generate.participant();
+
+      user = generate.user();
+      token = generateToken(user._id.toString());
+      mission = generate.mission(user, explorer, participant);
+
+      return cleanUp().then(() => populate([user], [mission]));
+    });
+
+    it('should return a succesfull response for GET endpoint', async () => {
+      const res = await fetch(baseURL + `/missions/${mission._id.toString()}`, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      expect(res.status).to.equal(200);
     });
   });
 
