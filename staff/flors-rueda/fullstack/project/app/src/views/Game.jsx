@@ -14,7 +14,7 @@ const Game = () => {
   const [isLoading, setIsLoading] = useState(true);
   const location = useLocation();
   const [name, setName] = useState(null);
-  const [avatar, setAvatar] = useState('beach');
+  const [avatar, setAvatar] = useState(null);
   const [layout, setLayout] = useState(null);
   const [levelToRender, setLevelToRender] = useState(null);
   const [health, setHealth] = useState(null);
@@ -56,9 +56,9 @@ const Game = () => {
     if (isUserLoggedIn()) {
       handleErrors(async () => {
         const user = await retrieveLoggedUser();
-        setAvatar(user.avatar)
+        setAvatar(user.avatar);
       });
-    };
+    } else setAvatar(avatar);
     getLevel();
   }, [id]);
 
@@ -91,7 +91,7 @@ const Game = () => {
           <div className="top-0 inset-0 bg-black opacity-50"></div>
         </>
       )}
-      <GameContainer level={levelToRender} initialHp={health} onGameOver={handleGameOver} avatar={avatar} setGameData={setGameData} />
+      {avatar && <GameContainer level={levelToRender} initialHp={health} onGameOver={handleGameOver} avatar={avatar} setGameData={setGameData} />}
     </section>
   );
 };
