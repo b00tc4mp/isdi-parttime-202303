@@ -1,5 +1,5 @@
 const { 
-    validators: { validateId, validateEmail, validateText },
+    validators: { validateId, validateText },
     errors: { ExistenceError } 
 } = require('com')
 
@@ -17,7 +17,6 @@ const { User } = require('../../data/models')
  */
 module.exports = (userId, email) => {
     validateId(userId, 'user id')
-    //validateEmail(email)
     validateText(email, 'email')
 
     return (async () => {
