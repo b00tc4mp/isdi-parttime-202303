@@ -23,23 +23,26 @@ const GameContainer = ({ level, initialHp, onGameOver, avatar, setGameData, game
     const handleOnBomb = () => {
         setAnimation('bomb');
         setAnimationVisible(true);
-        const newHealth = health - 1;
-        setHealth(newHealth);
-        if (newHealth === 0) {
-            setIsGameOver(-1);
-            onGameOver(-1);
-        };
+        setHealth(prevHealth => {
+            const newHealth = prevHealth - 1;
+            if (newHealth === 0) {
+                setIsGameOver(-1);
+                onGameOver(-1);
+            }
+            return newHealth;
+        });
         setGameData(prevGameData => ({
             ...prevGameData,
             bombs: prevGameData.bombs + 1,
         }));
+        console.log(health)
     };
 
     const handleOnLife = () => {
-        setHealth((prevHealth) => {
+        setAnimation('life');
+        setAnimationVisible(true);
+        setHealth(prevHealth => {
             const newHealth = prevHealth + 1;
-            setAnimation('life');
-            setAnimationVisible(true);
             return newHealth > 7 ? 7 : newHealth;
         });
     };
@@ -52,13 +55,6 @@ const GameContainer = ({ level, initialHp, onGameOver, avatar, setGameData, game
             life: health,
         }));
     };
-
-    useEffect(() => {
-        if (health === 0) {
-            setIsGameOver(-1);
-            onGameOver(-1);
-        }
-    }, [health]);
 
     const renderHealthImages = () => {
         return Array.from({ length: health }, (_, index) => (
@@ -73,6 +69,14 @@ const GameContainer = ({ level, initialHp, onGameOver, avatar, setGameData, game
     };
 
     useEffect(() => {
+        if (health === 0) {
+            setIsGameOver(-1);
+            onGameOver(-1);
+        }
+    }, [health]);
+
+
+    useEffect(() => {
         if (isAnimationVisible) {
             const animationDuration = animation === 'life' ? 1500 : 1000;
             const timeout = setTimeout(() => {
@@ -85,7 +89,7 @@ const GameContainer = ({ level, initialHp, onGameOver, avatar, setGameData, game
 
             return () => clearTimeout(timeout);
         }
-    }, [isAnimationVisible, animation]);
+    }, [isAnimationVisible, animation, health]);
 
     return (
         <div className="flex flex-col flex-wrap">
