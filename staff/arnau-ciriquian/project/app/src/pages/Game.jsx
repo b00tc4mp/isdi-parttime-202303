@@ -1,13 +1,16 @@
-import { Camera, CameraType } from 'expo-camera';
-import { useState, useEffect, Suspense } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Camera, CameraType } from 'expo-camera'
+import { useState, useEffect, Suspense } from 'react'
+import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native'
 import { useAnimatedSensor, SensorType } from 'react-native-reanimated'
 import { Canvas } from '@react-three/fiber'
-import Zombie from '../components/zombie';
-import createZombiesArray from '../logic/createZombiesArray';
+import Zombie from '../components/zombie'
+import createZombiesArray from '../logic/createZombiesArray'
+import HealthBar from '../components/HealthBar'
 
-export default function Game({onFinishGame}) {
-  const zombies = createZombiesArray(3)
+export default function Game({ onFinishGame, zombiesToKill }) {
+  //const zombies = createZombiesArray(zombiesToKill)
+  const [zombies] = useState(createZombiesArray(zombiesToKill))
+  const [playerHealth, setPlayerHealth] = useState(50)
 
   // pre finish game test
 
@@ -16,7 +19,7 @@ export default function Game({onFinishGame}) {
   const handleDeadZombies = () => {
     deadZombies += 1
 
-    if (deadZombies === 3) {
+    if (deadZombies === zombiesToKill) {
       console.log('zombies killed')
       onFinishGame()
     }
@@ -26,14 +29,14 @@ export default function Game({onFinishGame}) {
 
   // player life test
 
-  let playerHealth = 50
+  //let playerHealth = 50
 
   const handlePlayersHealth = () => {
-    playerHealth -= 5
-
     if (playerHealth <= 0) {
-      console.log('player killed')
-      onFinishGame()
+      console.log('player killed');
+      onFinishGame();
+    } else {
+      setPlayerHealth(playerHealth - 5); // Update player's health
     }
   }
 
@@ -58,7 +61,28 @@ export default function Game({onFinishGame}) {
     return <View style={styles.container}><Text>Camera permission not granted</Text></View>;
   }
 
-  return (
+  return (<>
+    <View className="absolute z-10 w-full p-2 h-1/6">
+      <View className="h-20 top-10 w-full flex-row items-center ">
+        <View className="absolute bg-white h-full w-full rounded-tl-lg rounded-tr-3xl rounded-bl-3xl rounded-br-lg shadow-md shadow-black opacity-50"></View>
+        <View className="h-16 w-16 m-2">
+          {/* {character && <Image source={characterAvatar} className="bg-slate-200 h-16 w-16 rounded-tl-lg rounded-tr-3xl rounded-bl-3xl rounded-br-lg"></Image>} */}
+        </View>
+        <View className="w-2/4 h-20 justify-center items-center">
+          <View className="justify-center items-center h-10 w-2/4">
+            <Text className=" text-2xl font-semibold">Ellie {/* {character?.characterName} */}</Text>
+          </View>
+          <View className="justify-center items-center h-10 w-full">
+            <HealthBar health={playerHealth} />
+          </View>
+        </View>
+        <View className="justify-center items-center h-16 w-16 m-2">
+          <TouchableOpacity /* onPress={handleUserMenu} */>
+            <Image source={require('../../assets/generic/menu.png')}></Image>
+          </TouchableOpacity>
+        </View>
+      </View>
+    </View>
     <View style={styles.container}>
       <Camera style={styles.camera} type={type}>
       </Camera>
@@ -80,10 +104,9 @@ export default function Game({onFinishGame}) {
         </Canvas>
       </View>
     </View>
-  );
+  </>
+  )
 }
-
-// onClick={(event) => removeZombie(zombies, zombie.id)}
 
 const styles = StyleSheet.create({
   container: {
@@ -114,7 +137,7 @@ const styles = StyleSheet.create({
   },
   canvasContainer: {
     ...StyleSheet.absoluteFillObject,
-    zIndex: 6, // Set a higher zIndex to position the 3D scene above other components
+    zIndex: 6
   },
   canvas: {
     flex: 1,

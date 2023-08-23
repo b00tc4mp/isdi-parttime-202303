@@ -28,7 +28,7 @@ export default function UserMission({ mission: { id, image, tittle, info, level,
     }, [])
 
     if (visibility) {
-        if (character.level >= level) {
+        if (character?.level >= level) {
             return <TouchableOpacity onPress={handleGoToMissionInfo}>
                 <View className="h-20 flex-row items-center justify-between ml-5 mr-5 mt-2">
                     <View className="absolute bg-white h-full w-full rounded-tl-lg rounded-tr-3xl rounded-bl-3xl rounded-br-lg shadow-md shadow-black opacity-50"></View>
@@ -48,7 +48,7 @@ export default function UserMission({ mission: { id, image, tittle, info, level,
                 </View>
             </TouchableOpacity>
         }
-        if (character.level < level) {
+        if (character?.level < level) {
             return <TouchableOpacity onPress={handleAlertMinimumRequirements}>
                 <View className="h-20 flex-row items-center justify-between ml-5 mr-5 mt-2">
                     <View className="absolute bg-red-400 h-full w-full rounded-tl-lg rounded-tr-3xl rounded-bl-3xl rounded-br-lg shadow-md shadow-black opacity-50"></View>

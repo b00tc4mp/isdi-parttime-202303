@@ -1,7 +1,7 @@
 import { API_URL } from '@env'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export function getUserCharacter() {
+export default function getUserCharacter() {
     return AsyncStorage.getItem('TOKEN')
         .then(token => {
             return fetch(`${API_URL}/characters`, {

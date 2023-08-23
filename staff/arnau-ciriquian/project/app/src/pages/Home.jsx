@@ -1,7 +1,7 @@
 import { View, Image, Text, TouchableOpacity } from 'react-native'
 import { useState, useEffect } from 'react'
 import { getLoggedUser } from '../logic/getLoggedUser.js'
-import { getUserCharacter } from '../logic/getUserCharacter.js'
+import getUserCharacter from '../logic/getUserCharacter.js'
 import Missions from '../components/Missions.jsx'
 import PlayMissionModal from '../components/PlayMissionModal.jsx'
 import UserMenu from '../components/UserMenu.jsx'
@@ -14,6 +14,7 @@ import NewCharacter from '../components/NewCharacter.jsx'
 const Home = ({ onLogoutSession, onStartGame }) => {
     const [user, setUser] = useState()
     const [character, setCharacter] = useState()
+    const [characterAvatar, setCharacterAvatar] = useState()
     const [modal, setModal] = useState(null)
     const [missionId, setMissionId] = useState(null)
 
@@ -22,22 +23,30 @@ const Home = ({ onLogoutSession, onStartGame }) => {
             getLoggedUser()
                 .then(setUser)
                 .catch(error => alert(error.message))
-            getUserCharacter()
-                .then(setCharacter)
-                .catch(error => alert(error.message))
         } catch (error) {
             alert(error.message)
         }
     }, [])
 
     useEffect(() => {
-        if (user) { }
+        if(user){
+            if (user.character) {
+                try {
+                    getUserCharacter()
+                        .then(setCharacter)
+                        .catch(error => alert(error.message))
+                } catch (error) {
+                    alert(error.message)
+                }
+            }
+        }
     }, [user])
 
-    /*const handleGoToCreator = () => {
-        console.log('lets create a new character')
-        onContinueToNewCharacter()
-    }*/
+    useEffect(() => {
+        if (character) {
+            setCharacterAvatar(Number(character.avatar))
+        }
+    }, [character])
 
     const handleGoToMissionInfo = missionId => {
         setModal('mission')
@@ -72,14 +81,14 @@ const Home = ({ onLogoutSession, onStartGame }) => {
                 <View className="h-20 mr-4 flex-row items-center">
                     <View className="absolute bg-white h-full w-full rounded-tl-lg rounded-tr-3xl rounded-bl-3xl rounded-br-lg shadow-md shadow-black opacity-50"></View>
                     <View className="h-16 w-16 m-2">
-                        <Image source={character?.avatar && character.avatar} className="bg-slate-200 h-16 w-16 rounded-tl-lg rounded-tr-3xl rounded-bl-3xl rounded-br-lg"></Image>
+                        {character && <Image source={characterAvatar} className="bg-slate-200 h-16 w-16 rounded-tl-lg rounded-tr-3xl rounded-bl-3xl rounded-br-lg"></Image>}
                     </View>
                     <View className="w-2/4 h-20 justify-center items-center">
                         <View className="justify-center items-center h-10 w-2/4">
-                            <Text className=" text-2xl font-semibold">{character?.characterName && character.characterName}</Text>
+                            <Text className=" text-2xl font-semibold">{character?.characterName}</Text>
                         </View>
                         <View className="justify-center items-center h-10 w-2/4">
-                            <Text className=" text-lg font-semibold">Level {character?.level && character.level}</Text>
+                            <Text className=" text-lg font-semibold">Level {character?.level}</Text>
                         </View>
                     </View>
                     <View className="justify-center items-center h-16 w-16 m-2">

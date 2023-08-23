@@ -15,7 +15,9 @@ export default function CharacterCreator({ user, onCharacterCreated }) {
     const handleCreateNewCharacter = () => {
         try {
             createNewCharacter(characterName, characterImage)
-                .then(() => onCharacterCreated())
+                .then(() => {
+                    onCharacterCreated()
+                })
                 .catch(error => {
                     alert(error.message)
                 })

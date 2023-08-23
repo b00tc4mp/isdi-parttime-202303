@@ -71,6 +71,7 @@ export default function App() {
     />}
     {game && <Game
       onFinishGame={handleFinishGame}
+      zombiesToKill={1}
     />}
   </>
 }

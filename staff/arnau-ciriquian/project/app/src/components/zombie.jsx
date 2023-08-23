@@ -3,7 +3,6 @@ import { useFrame } from '@react-three/fiber'
 //import getUserLocation from '../logic/getUserLocation';
 import useZombieLoader from '../logic/useZombieLoader';
 
-
 export default function Zombie(props) {
     const obj = useZombieLoader()
     const mesh = useRef()
