@@ -35,7 +35,6 @@ const GameContainer = ({ level, initialHp, onGameOver, avatar, setGameData, game
             ...prevGameData,
             bombs: prevGameData.bombs + 1,
         }));
-        console.log(health)
     };
 
     const handleOnLife = () => {
@@ -107,7 +106,7 @@ const GameContainer = ({ level, initialHp, onGameOver, avatar, setGameData, game
                         width: '100%',
                         opacity: 1,
                     } : {
-                        margin: '30rem 0 0',
+                        margin: '20rem 0 0',
                         width: '100%',
                         opacity: 0.75,
                     }}

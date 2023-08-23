@@ -67,15 +67,17 @@ body {
   width: 100%;
   max-width: 530px;
   height: 530px;
-  max-height: 85vh;
-  margin: 3.5rem auto 0;
+  max-height: 75vh;
+  margin: 0.5rem auto 0;
   overflow: hidden;
 }
 
 
-@media (min-width: 768px) {
+@media (max-height: 640px) {
   .canvas-container {
     margin: 2rem auto 0;
+    max-width: 500px;
+    height: 500px;
     max-height: 70vh;
   }
 

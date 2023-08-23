@@ -10,7 +10,6 @@ import updateGameAchievements from '../../logic/update-game-achievements'
 import updateCreateAchievements from '../../logic/update-create-achievements';
 import { getGameCC } from '../../helpers/game/getGameCC';
 import editIcons from '../../assets/editIcons/index';
-import useLockScroll from '../../hooks/useLockScroll';
 import retrieveCC from '../../logic/retrieve-cc';
 import updateCCAchievements from '../../logic/update-cc-achievements';
 import editLevel from '../../logic/edit-level'
@@ -23,8 +22,6 @@ const GameOver = ({ isGameWon, onRetry, isCreatedLevel, layout, hp, name, id, li
     const [likes, setLikes] = useState(isCreatedLevel ? null : likesInfo.likes.length);
     const [remainingCC, setRemainingCC] = useState(null);
     const [wonCC, setWonCC] = useState(null);
-    const { unlockScroll } = useLockScroll();
-    unlockScroll();
 
     const handlePostLevel = () => {
         handleErrors(async () => {
@@ -83,8 +80,8 @@ const GameOver = ({ isGameWon, onRetry, isCreatedLevel, layout, hp, name, id, li
 
 
     return (
-        <div className="fixed inset-0 flex w-full h-full pt-1 items-center justify-center z-30">
-            <div className="w-full h-full p-4 text-dark300 text-center bg-light400 rounded-lg shadow">
+        <div className="fixed inset-0 flex items-center justify-center z-30">
+            <div className="w-full h-full p-4 text-dark300 text-center bg-light400 rounded-lg shadow overflow-y-auto">
                 <div className="flex items-center flex-col justify-center gap-3 py-20 px-10">
                     <div className="text-sm font-normal">
                         <div className="mb-1 text-xl font-bold text-secondary300">{`${name}`}</div>

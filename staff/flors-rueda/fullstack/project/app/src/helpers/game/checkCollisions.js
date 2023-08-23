@@ -90,7 +90,7 @@ export const checkCollisions = (ball, ballPosition, scene, floorObjects, onSolve
                     onSolved();
                     return;
                 }
-            }, 100);
+            }, 25);
         }, timerThreshold);
     }
 

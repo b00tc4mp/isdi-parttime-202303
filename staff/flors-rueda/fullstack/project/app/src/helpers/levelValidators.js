@@ -12,18 +12,18 @@ export const validateFloor = (floor, setToast, setToastOn) => {
     const stonksCount = floor.filter((cell) => cell === 'stonks').length;
     if (startCount !== 1) {
         setToast('floor needs a starting point');
-        setToastOn(true)
-        return console.log('floor needs a starting point');
+        setToastOn(true);
+        return;
     }
     if (holeCount !== 1) {
         setToast('to add a new floor you need one hole');
         setToastOn(true)
-        return console.log('to add a new floor you need one hole');
+        return;
     }
     if (stonksCount > 0) {
         setToast('the treasure have to be in the last floor');
         setToastOn(true)
-        return console.log('the treasure have to be in the last floor');
+        return;
     }
     return true;
 };
@@ -45,22 +45,22 @@ export const validateLevel = (level, name, setToast, setToastOn) => {
     if (stonksCount !== 1) {
         setToast('the last floor needs one treasure!');
         setToastOn(true)
-        return console.log('the last floor needs one treasure!');
+        return;
     }
     if (holeCount > 0) {
         setToast('the last floor shouldn\'t have any hole');
         setToastOn(true)
-        return console.log('the last floor shouldn\'t have any hole');
+        return;
     }
     if (startCount !== 1) {
         setToast('floor needs a starting point');
         setToastOn(true)
-        return console.log('floor needs a starting point');
+        return;
     }
     if (!name) {
         setToast('the level needs a name');
         setToastOn(true)
-        return console.log('the level needs a name');
+        return;
     }
     return true;
 };

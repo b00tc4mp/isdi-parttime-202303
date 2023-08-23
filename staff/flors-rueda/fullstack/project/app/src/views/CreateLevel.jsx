@@ -21,7 +21,6 @@ const CreateLevel = () => {
     const [budget, setBudget] = useState(0);
     const handleErrors = useHandleErrors();
     const prices = { bomb: 10, life: 15, hole: 2, dirt: 5 };
-    console.log('form', levelId)
 
     const handleCloseToast = () => {
         setToastOn(false)

@@ -9,6 +9,7 @@ import GameContainer from '../components/game/GameContainer';
 import useHandleErrors from '../hooks/useHandleErrors';
 import isUserLoggedIn from '../logic/is-user-logged-in';
 import retrieveLoggedUser from '../logic/retrieve-logged-user';
+import useLockScroll from '../hooks/useLockScroll';
 
 const Game = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -25,6 +26,8 @@ const Game = () => {
   const [createData, setCreateData] = useState(null);
   const handleErrors = useHandleErrors();
   const { id } = useParams()
+  const { lockScroll, unlockScroll } = useLockScroll();
+  lockScroll();
 
   const getLevel = () => {
     if (id !== 'try') {
@@ -77,6 +80,7 @@ const Game = () => {
       ...prevGameData,
       stonks: state === 1 ? 1 : 0
     }));
+    unlockScroll();
   }
 
   if (isLoading) {
