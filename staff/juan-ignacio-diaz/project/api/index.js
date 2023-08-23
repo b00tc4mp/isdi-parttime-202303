@@ -16,6 +16,7 @@ const {
     updateUserModeHandler,
     addUserContactHandler,
     deleteUserContactHandler,
+    retrieveUserContactsHandler,
 
     createListHandler,
     acceptGuestListHandler,
@@ -58,6 +59,8 @@ mongoose.connect(process.env.MONGODB_URL)
         api.post('/users/auth', jsonBodyParser, authenticateUserHandler)
 
         api.get('/users', retrieveUserHandler)
+
+        api.get('/users/contacts', retrieveUserContactsHandler)
 
         api.patch('/users/updatePassword', jsonBodyParser , updateUserPasswordHandler)
 

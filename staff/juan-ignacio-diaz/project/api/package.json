@@ -7,7 +7,7 @@
       "start": "node .",
       "watch": "node --watch .",
       "inspect": "node --inspect-brk .",
-      "test": "mocha ./logic/users/*.spec.js ./logic/lists/stores/*.spec.js", 
+      "test": "mocha ./logic/users/*.spec.js ./logic/lists/**/*.spec.js", 
       "test-inspect": "mocha --inspect-brk logic/lists/*.spec.js",
       "test-coverage": "nyc --reporter=html --reporter=text mocha logic/users/*.spec.js logic/lists/**/*.spec.js"
     },
