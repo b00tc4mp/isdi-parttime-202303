@@ -19,6 +19,7 @@ import { Timeout } from 'react-number-format/types/types'
 import formatDate from '../logic/formatDate'
 import useAppContext from '../logic/hooks/useAppContext'
 import PaymentSummary from '../modals/PaymentSummary'
+import Header from '../library/components/Header'
 
 
 type Order = {
@@ -305,30 +306,39 @@ export default function Cart() {
                                 <EmptyState src='/illustrations/beach-girl.gif' title='No orders in process!' description='Start paying some meals!!!' />
                             </div>
                         </>}
-                        {pendingMeals && <div className='pending-cart-items-list'>
-                            {pendingMeals.map((obj: PendingToPickUp) => {
-                                let _serial = obj.serial
-                                let _date = formatDate(new Date(obj.date))
-                                let _status = obj.status
-                                let _total = obj.total
-                                return obj.items.map((item: Item) => {
-                                    let _quantity: number = 0
+                        {pendingMeals &&
+                            <>
+                                <div className='pending-cart-instructions'>
+                                    <Header text={'How to pick up meals'} />
+                                    <p className='body-text grey-700' style={{ marginBottom: '16px' }}>Wait until your order has <b>'Ready'</b> status to pick it up.</p>
 
-                                    for (const meal of item.meals) {
-                                        _quantity += meal.quantity
-                                    }
+                                    <p className='body-text grey-700'>When picking it up, <b>click on the order</b> to mark it as completed.</p>
+                                </div>
+                                <div className='pending-cart-items-list'>
+                                    {pendingMeals.map((obj: PendingToPickUp) => {
+                                        let _serial = obj.serial
+                                        let _date = formatDate(new Date(obj.date))
+                                        let _status = obj.status
+                                        let _total = obj.total
+                                        return obj.items.map((item: Item) => {
+                                            let _quantity: number = 0
 
-                                    return <PendingOrderCard
-                                        image={item.author.avatar}
-                                        chefName={item.author.name}
-                                        chip={{ label: _status, status: _status === 'pending' ? 'warning' : 'success' }}
-                                        quantity={_quantity}
-                                        total={_total}
-                                        serial={_serial}
-                                        date={_date} />
-                                })
-                            })}
-                        </div>}
+                                            for (const meal of item.meals) {
+                                                _quantity += meal.quantity
+                                            }
+
+                                            return <PendingOrderCard
+                                                image={item.author.avatar}
+                                                chefName={item.author.name}
+                                                chip={{ label: _status, status: _status === 'pending' ? 'warning' : 'success' }}
+                                                quantity={_quantity}
+                                                total={_total}
+                                                serial={_serial}
+                                                date={_date} />
+                                        })
+                                    })}
+                                </div>
+                            </>}
                     </>}
             </div>
             {/* CART - BUTTON BAR */}

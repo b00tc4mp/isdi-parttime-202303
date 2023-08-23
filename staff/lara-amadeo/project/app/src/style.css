@@ -89,11 +89,13 @@ body {
 .icon-xs {
   width: 20px;
   height: 20px;
+  stroke-width: 2;
 }
 
 .icon-s {
   width: 24px;
   height: 24px;
+  stroke-width: 1.6;
 }
 
 .body-text {

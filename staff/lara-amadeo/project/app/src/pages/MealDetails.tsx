@@ -32,7 +32,8 @@ type Meal = {
     bestBefore: string,
     price: string,
     categories: Array<string>,
-    id: string
+    id: string,
+    quantity: number
 }
 
 
@@ -192,6 +193,13 @@ export default function MealDetails(): JSX.Element {
                 {/* image-carousel */}
                 {meal &&
                     <div className='img-slider-container'>
+                        {meal && meal.quantity < 4 && <div className='meal-detail-left-remaining'>
+                            {meal.quantity > 0 ?
+                                <p className='small-text white'>Hurry up! Only <b>{meal.quantity}</b> left!</p>
+                                :
+                                <p className='small-text white'>No stock left, just sold out!</p>
+                            }
+                        </div>}
                         <Carousel slide slideInterval={400000} leftControl={" "} rightControl={" "}>
                             {meal.images.map(image => <img src={image} className='meal-detail-img' />)}
                         </Carousel>

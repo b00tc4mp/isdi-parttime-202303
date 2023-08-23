@@ -16,6 +16,7 @@ import MealDetails from './pages/MealDetails'
 import Toast from './library/components/Toast'
 import EditMeal from './modals/EditMeal'
 import Cart from './pages/Cart'
+import Search from './pages/Search'
 
 type ToastProperties = {
   message: string,
@@ -58,6 +59,7 @@ function App() {
         <Route path='/profile' element={isUserLoggedIn() ? <Profile /> : <Navigate to="/login" />} />
         <Route path='/meal/:mealId' element={<MealDetails />} />
         <Route path='/cart' element={isUserLoggedIn() ? <Cart /> : <Navigate to="/login" />} />
+        <Route path='/search' element={isUserLoggedIn() ? <Search /> : <Navigate to="/login" />} />
       </Routes>
       {loader && <Loader />}
       {toast && <Toast message={toast.message} type={toast.type} endAnimation={handleRemoveToast} />}

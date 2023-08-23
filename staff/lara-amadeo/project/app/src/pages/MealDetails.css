@@ -76,4 +76,14 @@
 .img-slider-container {
     max-width: 100%;
     aspect-ratio: 1/1;
+    position: relative;
+}
+
+.meal-detail-left-remaining {
+    width: 100%;
+    background-color: var(--yellow-200);
+    height: fit-content;
+    position: absolute;
+    z-index: 20;
+    padding: 8px;
 }

@@ -14,8 +14,10 @@ import retrieveOwnMeals from "../logic/retrieveOwnMeals";
 import useAppContext from "../logic/hooks/useAppContext";
 import useHandleError from "../logic/hooks/useHandleError";
 import retrievePendingToDeliver from "../logic/retrievePendingToDeliver";
-import PendingToDeliverCard from '../library/modules/PendingToDeliverCard'
+import PendingToPackCard from '../library/modules/PendingToPackCard'
 import EmptyState from "../library/components/EmptyState";
+import retrieveWaitingToPickUp from "../logic/retrieveWaitingToPickUp";
+import WaitingToDeliverCard from '../library/modules/WaitingToDeliverCard'
 
 type User = {
     name: string,
@@ -58,7 +60,9 @@ export default function Profile(): JSX.Element {
 
     const [tabView, setTabView] = useState('myProducts')
 
-    const [pendingToDeliverMeals, setPendingToDeliverMeals] = useState<Order[]>()
+    const [pendingToPack, setPendingToPack] = useState<Order[]>()
+
+    const [pendingToDeliver, setPendingToDeliver] = useState<Order[]>()
 
     const refreshMeals = () => {
         (async () => {
@@ -69,8 +73,11 @@ export default function Profile(): JSX.Element {
                 const meals = await retrieveOwnMeals()
                 setMeals(meals)
 
-                const pendingDeliverMeals = await retrievePendingToDeliver()
-                setPendingToDeliverMeals(pendingDeliverMeals)
+                const pendingToPack = await retrievePendingToDeliver()
+                setPendingToPack(pendingToPack)
+
+                const waitingToPickUp = await retrieveWaitingToPickUp()
+                setPendingToDeliver(waitingToPickUp)
 
             } catch (error: any) {
                 handleErrors(error)
@@ -99,6 +106,21 @@ export default function Profile(): JSX.Element {
     const toggleTabView = () => {
         if (tabView === 'myProducts') setTabView('toPack')
         else setTabView('myProducts')
+        refreshMeals()
+    }
+
+    const onMealsTab = () => {
+        setTabView('myProducts')
+        refreshMeals()
+    }
+
+    const onPackTab = () => {
+        setTabView('toPack')
+        refreshMeals()
+    }
+
+    const onDeliverTab = () => {
+        setTabView('toDeliver')
         refreshMeals()
     }
 
@@ -157,19 +179,19 @@ export default function Profile(): JSX.Element {
                     {
                         label: "Meals",
                         selected: tabView === 'myProducts',
-                        onClick: toggleTabView
+                        onClick: onMealsTab
                     },
                     {
                         label: "Pack",
                         selected: tabView === 'toPack',
-                        onClick: pendingToDeliverMeals?.length === 0 ? null : toggleTabView,
-                        disable: pendingToDeliverMeals?.length === 0
+                        onClick: pendingToPack?.length === 0 ? null : onPackTab,
+                        disable: pendingToPack?.length === 0
                     },
                     {
                         label: "Deliver",
-                        selected: false,
-                        onClick: null,
-                        disable: true
+                        selected: tabView === 'toDeliver',
+                        onClick: pendingToDeliver?.length === 0 ? null : onDeliverTab,
+                        disable: pendingToDeliver?.length === 0
                     }
                 ]} />
 
@@ -186,9 +208,15 @@ export default function Profile(): JSX.Element {
 
                     {meals && meals.length === 0 && <div className="empty-state-profile"><EmptyState src="./public/illustrations/searching.gif" title="No meals created yet!" description="Add meals to start experiencing Yuper!" width="240px" /> </div>}
 
+                    {/* PENDING TO PACK */}
+                    {tabView === 'toPack' && pendingToPack && pendingToPack.map((item: Order) => {
+                        return <PendingToPackCard buyer={item.buyer.name} meals={item.meals} serial={item.serial} chipLabel={item.status} chipStatus={item.status === 'pending' ? 'warning' : 'success'} onReadyButton={onDeliverTab} />
+                    })
+                    }
+
                     {/* PENDING TO DELIVER */}
-                    {tabView === 'toPack' && pendingToDeliverMeals && pendingToDeliverMeals.map((item: Order) => {
-                        return <PendingToDeliverCard buyer={item.buyer.name} meals={item.meals} serial={item.serial} chipLabel={item.status} chipStatus={item.status === 'pending' ? 'warning' : 'success'} />
+                    {tabView === 'toDeliver' && pendingToDeliver && pendingToDeliver.map((item: Order) => {
+                        return <WaitingToDeliverCard buyer={item.buyer.name} meals={item.meals} serial={item.serial} chipLabel={item.status} chipStatus={'success'} />
                     })
                     }
                 </div>

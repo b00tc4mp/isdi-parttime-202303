@@ -60,13 +60,17 @@ export default function Tabbar({ home, search, add, cart, profile }: Props): JSX
         navigate('/cart')
     }
 
+    const onSearch = () => {
+        navigate('/search')
+    }
+
     return <>
         <div className='tabbar-container'>
             <div className='tabbar-item' onClick={onHome}>
                 <HomeIcon className='icon-s grey-700' />
                 {home && <div className='tabbar-selected'></div>}
             </div>
-            <div className='tabbar-item'>
+            <div className='tabbar-item' onClick={onSearch}>
                 <MagnifyingGlassIcon className='icon-s grey-700' />
                 {search && <div className='tabbar-selected'></div>}
             </div>

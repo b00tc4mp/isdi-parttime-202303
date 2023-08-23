@@ -12,6 +12,7 @@ import retrieveUser from "../logic/retrieveUser"
 import useAppContext from "../logic/hooks/useAppContext"
 import useHandleError from "../logic/hooks/useHandleError"
 import EmptyState from "../library/components/EmptyState"
+import FakeSearchBar from "../library/components/FakeSearchBar"
 
 type User = {
     name: string,
@@ -59,8 +60,11 @@ export default function Home() {
     return <>
         <Topbar level={'first'} />
         <div className="page-first-level">
-            {user && <Header text={`Welcome, ${user.name}`} />}
+            <Header text={`Welcome to Yupper`} />
+            <FakeSearchBar onBarClick={() => navigate('/search')} />
+
             {user && user.availability.length === 0 && <NavigationRow className="home-navigation-row" label={"Complete your profile"} trailingIcon={<ChevronRightIcon className='icon-s primary-color' />} onClick={onCompleteProfile} container="border" />}
+
             <div className="list-header">
                 <p className="heading-s grey-700">Meals near you</p>
                 <IconButton icon={<AdjustmentsVerticalIcon className="icon-s grey-700" />} type={'secondary'} />
