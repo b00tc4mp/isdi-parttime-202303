@@ -35,21 +35,33 @@ mongoose.connect(process.env.MONGODB_URL)
             res.sendFile(__dirname + '/node_modules/socket.io/client-dist/socket.io.js');
         });
 
+
         api.get('/api', helloApiHandler);
 
-        api.post('/api/levels', jsonBodyParser, createLevelHandler);
-
-        api.get('/api/levels', retrieveLevelsHandler);
-
-        api.get('/api/levels/:levelId', retrieveLevelHandler);
 
         api.post('/api/users', jsonBodyParser, registerUserHandler);
 
         api.post('/api/users/auth', jsonBodyParser, authenticateUserHandler);
 
-        api.get('/api/users/:userId', retrieveUserHandler);
+        api.post('/api/users/question', jsonBodyParser, retrieveRandomRecoveryQuestionHandler);
+
+        api.post('/api/users/answer', jsonBodyParser, checkRecoveryAnswerHandler);
+
+        api.get('/api/users/search/:username', searchUsersHandler);
 
         api.get('/api/users/auth/:userId', retrieveUserLoggedHandler);
+
+        api.get('/api/users/:userId', retrieveUserHandler);
+
+        api.get('/api/users/cc/:userId', retrieveCCHandler);
+
+        api.get('/api/users/avatars/:userId', retrieveUnlockAvatarsHandler);
+
+        api.patch('/api/users/cc', jsonBodyParser, updateCCHandler);
+
+        api.patch('/api/users/avatars', jsonBodyParser, unlockAvatarHandler);
+
+        api.patch('/api/users/questions', jsonBodyParser, addRecoveryQuestionHandler);
 
         api.patch('/api/users/color', jsonBodyParser, updateColorHandler);
 
@@ -59,21 +71,31 @@ mongoose.connect(process.env.MONGODB_URL)
 
         api.patch('/api/users/recover', jsonBodyParser, recoverPasswordHandler);
 
-        api.post('/api/users/question', jsonBodyParser, retrieveRandomRecoveryQuestionHandler);
-
-        api.post('/api/users/answer', jsonBodyParser, checkRecoveryAnswerHandler);
-
-        api.patch('/api/levels/like/:levelId', toggleLikeHandler);
-
-        api.patch('/api/levels/save/:levelId', toggleSaveHandler);
-
         api.patch('/api/users/follow/:userId', toggleFollowHandler);
+
+
+        api.post('/api/levels', jsonBodyParser, createLevelHandler);
+
+        api.get('/api/levels', retrieveLevelsHandler);
+
+        api.get('/api/levels/:levelId', retrieveLevelHandler);
 
         api.get('/api/levels/followed/:userId', retrieveLevelsByFollowedHandler);
 
         api.get('/api/levels/saved/:userId', retrieveLevelsSavedHandler);
 
         api.get('/api/levels/user/:authorId', retrieveLevelsByAuthorHandler);
+
+        api.get('/api/levels/search/:name', searchLevelsHandler);
+
+        api.patch('/api/levels/like/:levelId', toggleLikeHandler);
+
+        api.patch('/api/levels/save/:levelId', toggleSaveHandler);
+
+        api.patch('/api/levels/:levelId', jsonBodyParser, editLevelHandler);
+
+        api.delete('/api/levels/:levelId', deleteLevelHandler);
+
 
         api.get('/api/achievements/:userId', retrieveCompleteAchievementsHandler);
 
@@ -87,27 +109,11 @@ mongoose.connect(process.env.MONGODB_URL)
 
         api.patch('/api/achievements/cc', jsonBodyParser, updateCCAchievementsHandler);
 
-        api.get('/api/users/cc/:userId', retrieveCCHandler);
-
-        api.patch('/api/users/cc', jsonBodyParser, updateCCHandler);
-
-        api.get('/api/users/avatars/:userId', retrieveUnlockAvatarsHandler);
-
-        api.patch('/api/users/avatars', jsonBodyParser, unlockAvatarHandler);
 
         api.post('/api/session/:userId/:socketId', createSessionHandler);
 
         api.patch('/api/session/:userId/:socketId', cleanSessionHandler);
 
-        api.get('/api/levels/search/:name', searchLevelsHandler);
-
-        api.get('/api/users/search/:username', searchUsersHandler);
-
-        api.patch('/api/users/questions', jsonBodyParser, addRecoveryQuestionHandler);
-
-        api.patch('/api/levels/:levelId', jsonBodyParser, editLevelHandler);
-
-        api.delete('/api/levels/:levelId', deleteLevelHandler);
 
         io.on('connection', () => { });
 
