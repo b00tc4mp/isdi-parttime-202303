@@ -6,7 +6,7 @@ type Props = {
     icon?: JSX.Element,
     label: String,
     hugContent?: boolean
-    onClick?: (event: React.SyntheticEvent) => void
+    onClick?: undefined | (() => void)
 }
 
 export default function Button({ type, size, icon, label, onClick, hugContent }: Props): JSX.Element {

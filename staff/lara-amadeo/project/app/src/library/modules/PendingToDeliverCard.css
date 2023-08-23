@@ -14,3 +14,15 @@
     gap: 24px;
     justify-content: space-between;
 }
+
+.pendingToDeliver-chevron-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.pendingToDeliver-pick-n-chip {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

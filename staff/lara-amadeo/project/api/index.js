@@ -3,7 +3,7 @@ require('dotenv').config()
 const cors = require('cors')
 const bodyParser = require('body-parser')
 const express = require('express')
-const { helloAPIHandler, registerUserHandler, authenticateUserHandler, registerAdditionalInfoHandler, createMealHandler, retrieveMealsHandler, retrieveUserHandler, retrieveMealHandler, retrieveOwnMealsHandler, updateMealHandler, deleteMealHandler, addMealToCartHandler, retrieveCartMealsHandler, payMealsInCartHandler, removeMealFromCartHandler, retrievePendingToPickUpHandler, incrementMealsInCartHandler, retrievePendingToDeliverHandler, markAsReadyHandler } = require('./handlers')
+const { helloAPIHandler, registerUserHandler, authenticateUserHandler, registerAdditionalInfoHandler, createMealHandler, retrieveMealsHandler, retrieveUserHandler, retrieveMealHandler, retrieveOwnMealsHandler, updateMealHandler, deleteMealHandler, addMealToCartHandler, retrieveCartMealsHandler, payMealsInCartHandler, removeMealFromCartHandler, retrievePendingToPickUpHandler, incrementMealsInCartHandler, retrievePendingToDeliverHandler, markAsReadyHandler, retrieveWaitingClientToPickUpHandler } = require('./handlers')
 
 const mongoose = require('mongoose')
 
@@ -81,6 +81,10 @@ mongoose.connect(process.env.MONGODB_URL)
 
         //retrieve meals pending to deliver
         api.get('/meals/pending/deliver', retrievePendingToDeliverHandler)
+
+
+        //retrieve meals waiting client to pick up
+        api.get('/meals/waiting/pickUp', retrieveWaitingClientToPickUpHandler)
 
         api.get('/IKAuth', (req, res) => {
             const result = imagekit.getAuthenticationParameters()

@@ -97,7 +97,7 @@ export default function Profile(): JSX.Element {
     }
 
     const toggleTabView = () => {
-        if (tabView === 'myProducts') setTabView('toDeliver')
+        if (tabView === 'myProducts') setTabView('toPack')
         else setTabView('myProducts')
         refreshMeals()
     }
@@ -155,15 +155,21 @@ export default function Profile(): JSX.Element {
             <div className="profile-third-part">
                 <Tabs items={[
                     {
-                        label: "My products",
+                        label: "Meals",
                         selected: tabView === 'myProducts',
                         onClick: toggleTabView
                     },
                     {
-                        label: "To deliver",
-                        selected: tabView === 'toDeliver',
+                        label: "Pack",
+                        selected: tabView === 'toPack',
                         onClick: pendingToDeliverMeals?.length === 0 ? null : toggleTabView,
                         disable: pendingToDeliverMeals?.length === 0
+                    },
+                    {
+                        label: "Deliver",
+                        selected: false,
+                        onClick: null,
+                        disable: true
                     }
                 ]} />
 
@@ -180,8 +186,9 @@ export default function Profile(): JSX.Element {
 
                     {meals && meals.length === 0 && <div className="empty-state-profile"><EmptyState src="./public/illustrations/searching.gif" title="No meals created yet!" description="Add meals to start experiencing Yuper!" width="240px" /> </div>}
 
-                    {tabView === 'toDeliver' && pendingToDeliverMeals && pendingToDeliverMeals.map((item: Order) => {
-                        return <PendingToDeliverCard buyer={item.buyer.name} meals={item.meals} />
+                    {/* PENDING TO DELIVER */}
+                    {tabView === 'toPack' && pendingToDeliverMeals && pendingToDeliverMeals.map((item: Order) => {
+                        return <PendingToDeliverCard buyer={item.buyer.name} meals={item.meals} serial={item.serial} chipLabel={item.status} chipStatus={item.status === 'pending' ? 'warning' : 'success'} />
                     })
                     }
                 </div>

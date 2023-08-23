@@ -1,19 +1,18 @@
 import { context } from "./context"
 import errors from "./helpers/errors"
 
-export default function payMealsInCart() {
-    const nth = "a"
+export default function markAsReady(serial: string) {
     return (async () => {
-        const res = await fetch(`http://localhost:1234/meals/pay`, {
+        const res = await fetch(`http://localhost:1234/meals/ready`, {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json',
                 'authorization': `Bearer ${context.token}`
             },
-            body: JSON.stringify({ nth })
+            body: JSON.stringify({ serial })
         })
 
-        if (res.status === 201) return
+        if (res.status === 204) return
 
         //@ts-ignore
         const { message, type } = await res.json()

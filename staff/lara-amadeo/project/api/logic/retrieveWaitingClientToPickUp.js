@@ -1,7 +1,7 @@
 const { User, Meal } = require('../data/models')
 const { errors: { ExistanceError } } = require('../../com')
 
-module.exports = async function retrievePendingToDeliver(userId) {
+module.exports = async function retrieveWaitingClientToPickUp(userId) {
 
     const user = await User.findOne({ _id: userId }).populate({
         path: 'selledMeals',
@@ -19,9 +19,9 @@ module.exports = async function retrievePendingToDeliver(userId) {
 
     if (!user) throw new ExistanceError(`User with id ${userId} not found`)
     debugger
-    const pendingOrders = user.selledMeals.filter(order => order.status === 'pending')
+    const pendingWaitingOrders = user.selledMeals.filter(order => order.status === 'ready')
 
-    const groupedOrders = pendingOrders.reduce((acc, selledMeal) => {
+    const groupedOrders = pendingWaitingOrders.reduce((acc, selledMeal) => {
         const existingOrder = acc.find(order => order.serial === selledMeal.serial)
 
         if (existingOrder) {
