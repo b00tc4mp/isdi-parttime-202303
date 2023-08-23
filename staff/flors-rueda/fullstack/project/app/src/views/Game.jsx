@@ -27,6 +27,7 @@ const Game = () => {
   const handleErrors = useHandleErrors();
   const { id } = useParams()
   const { lockScroll, unlockScroll } = useLockScroll();
+  const [scene, setScene] = useState();
   lockScroll();
 
   const getLevel = () => {
@@ -95,7 +96,7 @@ const Game = () => {
           <div className="top-0 inset-0 bg-black opacity-50"></div>
         </>
       )}
-      {avatar && <GameContainer level={levelToRender} initialHp={health} onGameOver={handleGameOver} avatar={avatar} setGameData={setGameData} />}
+      {avatar && !isGameOver && <GameContainer level={levelToRender} initialHp={health} onGameOver={handleGameOver} avatar={avatar} setGameData={setGameData} />}
     </section>
   );
 };
