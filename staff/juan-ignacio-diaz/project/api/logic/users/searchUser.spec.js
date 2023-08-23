@@ -23,8 +23,8 @@ describe('searchUser', () => {
     })
 
     it('succeeds on found email user', async () => {       
-        const users = await searchUser(userTest.id, userTest2.email)
-        const user = users[0]
+        const user = await searchUser(userTest.id, userTest2.email)
+
         expect(user.name).to.equal(userTest2.name)
         expect(user.avatar).to.equal(userTest2.avatar)
     })
@@ -58,10 +58,6 @@ describe('searchUser', () => {
 
     it('fails on empty email', () =>
         expect(() => searchUser(userTest.id, '')).to.throw(Error, 'email is empty')
-    )
-
-    it('fails on invalid email', () =>
-        expect(() => searchUser(userTest.id, 'invalidEmail')).to.throw(Error, 'the email is wrong')
     )
 
     after(() => 

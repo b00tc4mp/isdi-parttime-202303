@@ -8,6 +8,7 @@ module.exports = {
     addUserContact: require('./users/addUserContact'),
     deleteUserContact: require('./users/deleteUserContact'),
     retrieveUserContacts: require('./users/retrieveUserContacts'),  
+    searchUser: require('./users/searchUser'),  
 
     createList: require('./lists/createList'),
     addUsersToInvitedList: require('./lists/addUsersToInvitedList'),

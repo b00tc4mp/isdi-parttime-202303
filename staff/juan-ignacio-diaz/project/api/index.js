@@ -17,6 +17,7 @@ const {
     addUserContactHandler,
     deleteUserContactHandler,
     retrieveUserContactsHandler,
+    searchUserHandler,
 
     createListHandler,
     acceptGuestListHandler,
@@ -68,10 +69,11 @@ mongoose.connect(process.env.MONGODB_URL)
 
         api.patch('/users/updateMode', jsonBodyParser, updateUserModeHandler)
 
-        api.post('/users/contact/:contactId/add', jsonBodyParser, addUserContactHandler)
+        api.post('/users/contact/:contactId/add', addUserContactHandler)
 
-        api.delete('/users/contact/:contactId/delete', jsonBodyParser, deleteUserContactHandler)
+        api.delete('/users/contact/:contactId/delete', deleteUserContactHandler)
 
+        api.get('/users/search', jsonBodyParser, searchUserHandler)
 
         api.post('/lists/create', jsonBodyParser, createListHandler)
 

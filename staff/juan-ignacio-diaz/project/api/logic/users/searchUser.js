@@ -1,5 +1,5 @@
 const { 
-    validators: { validateId, validateEmail },
+    validators: { validateId, validateEmail, validateText },
     errors: { ExistenceError } 
 } = require('com')
 
@@ -17,20 +17,19 @@ const { User } = require('../../data/models')
  */
 module.exports = (userId, email) => {
     validateId(userId, 'user id')
-    validateEmail(email)
+    //validateEmail(email)
+    validateText(email, 'email')
 
     return (async () => {
-        const [user, usersEmail] = await Promise.all([User.findById(userId), User.find({ email: email}, 'name avatar').lean()])
-
+        const [user, userEmail] = await Promise.all([User.findById(userId), User.findOne({'email': { $regex: '^' + email, $options: 'i' }}, 'name avatar email').lean()])
+        
         if (!user) throw new ExistenceError('user not found')
 
-        if (!usersEmail) throw new ExistenceError('email not found')
+        if (!userEmail) throw new ExistenceError('email not found')
 
-        usersEmail.forEach(userEmail => {
-            userEmail.id = userEmail._id.toString()
-            delete userEmail._id
-        })
+        userEmail.id = userEmail._id.toString()
+        delete userEmail._id
 
-        return usersEmail
+        return userEmail
     })()
 }
