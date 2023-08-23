@@ -3,6 +3,13 @@ import context from './context';
 const { extractSubFromToken } = tokenUtils;
 const { validateId } = validators;
 
+/**
+ * Retrieves level information by its id.
+ *
+ * @param {string} id The id of the level to be retrieved.
+ * @returns {object} A Promise that resolves with the retrieved level information.
+ * @throws {Error} If the validation of the level id fails or if the request fails.
+ */
 const retrieveLevel = (id) => {
     validateId(id, 'levelId');
 

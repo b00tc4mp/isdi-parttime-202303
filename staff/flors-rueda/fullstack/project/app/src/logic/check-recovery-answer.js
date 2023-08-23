@@ -1,7 +1,15 @@
 import { validators } from 'com';
-
 const { validateUsername, validateId, validateRecoveryAnswer } = validators;
 
+/**
+ * Checks the recovery answer for a user's security question.
+ *
+ * @param {string} username The username of the user whose recovery answer is being checked.
+ * @param {string} questionId The id of the security question being checked.
+ * @param {string} answer The recovery answer provided by the user for the security question.
+ * @returns {Promise} A Promise that resolves to the response data from the API, indicating whether the recovery answer is correct.
+ * @throws {Error} If the request to the API fails or an error occurs during processing.
+ */
 const checkRecoveryAnswer = (username, questionId, answer) => {
     validateUsername(username);
     validateId(questionId, 'questionId');

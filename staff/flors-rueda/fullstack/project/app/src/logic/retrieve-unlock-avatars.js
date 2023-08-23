@@ -2,6 +2,12 @@ import context from './context';
 import { tokenUtils } from 'com';
 const { extractSubFromToken } = tokenUtils;
 
+/**
+ * Retrieves avatars that the currently logged-in user has unlocked.
+ *
+ * @returns {object} A Promise that resolves with information about the avatars the user has unlocked.
+ * @throws {Error} If the request fails.
+ */
 const retrieveUnlockAvatars = () => {
     return fetch(`${import.meta.env.VITE_API_URL}/users/avatars/${extractSubFromToken(context.token)}`, {
         headers: {

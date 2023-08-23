@@ -1,9 +1,15 @@
 import { validators, tokenUtils } from 'com';
 import context from './context';
-
 const { validateId } = validators;
 const { extractSubFromToken } = tokenUtils;
 
+/**
+ * Retrieves information about a user based on their id.
+ *
+ * @param {string} id The user id for which information is to be retrieved.
+ * @returns {object} A Promise that resolves with information about the retrieved user.
+ * @throws {Error} If the user id validation or request fails.
+ */
 const retrieveUser = (id) => {
     validateId(id, 'userId');
 

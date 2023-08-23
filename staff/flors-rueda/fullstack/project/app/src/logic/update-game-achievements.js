@@ -2,6 +2,14 @@ import { validators } from 'com';
 const { validateGameData } = validators;
 import context from './context';
 
+/**
+ * Updates the user's game achievements.
+ * 
+ * @param {Object} gameData The new game achievements data to update.
+ * @returns {Promise} A promise that resolves when the game achievements are updated successfully.
+ * @throws {Error} If the request to update the game achievements fails.
+ */
+
 const updateGameAchievements = (gameData) => {
     validateGameData(gameData);
     const data = { gameData };

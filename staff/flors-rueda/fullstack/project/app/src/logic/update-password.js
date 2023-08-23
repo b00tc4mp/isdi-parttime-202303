@@ -3,6 +3,16 @@ const { DuplicityError } = errors;
 const { validatePassword } = validators;
 import context from './context';
 
+/**
+ * Updates the user's password.
+ *
+ * @param {string} newPassword The new password to set.
+ * @param {string} repeatNewPassword The repeated new password to confirm.
+ * @param {string} oldPassword The old password for verification.
+ * @returns {Promise} A promise that resolves when the password is updated successfully.
+ * @throws {Error} If the request to update the password fails.
+ * @throws {DuplicityError} If the new password and the repeated new password do not match, or if the new password is the same as the old password.
+ */
 const updatePassword = (newPassword, repeatNewPassword, oldPassword) => {
     validatePassword(newPassword);
     validatePassword(oldPassword);

@@ -2,6 +2,17 @@ import { validators, errors } from 'com';
 const { DuplicityError } = errors;
 const { validatePassword, validateColor, validateRecoveryQuestion, validateUsername } = validators;
 
+/**
+ * Registers a new user by sending their information to the API for creation.
+ *
+ * @param {string} username The desired username for the new user.
+ * @param {string} password The password for the new user.
+ * @param {string} repeatPassword The repeated password for confirmation.
+ * @param {[object]} recoveryQuestions An array of recovery questions for the user.
+ * @param {string} color The preferred color for the user (default: 'orange').
+ * @throws {DuplicityError} If the password and confirmation password do not match.
+ * @throws {Error} If the user registration request is unsuccessful.
+ */
 const registerUser = (username, password, repeatPassword, recoveryQuestions, color = 'orange') => {
     validateUsername(username);
     validatePassword(password);

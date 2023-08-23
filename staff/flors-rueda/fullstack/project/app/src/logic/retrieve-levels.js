@@ -3,6 +3,15 @@ const { extractSubFromToken } = tokenUtils;
 const { validatePage, validateSort } = validators;
 import context from './context';
 
+/**
+ * Retrieves levels with specified sorting and pagination parameters.
+ *
+ * @param {string} sort - The sorting parameter for the retrieved levels.
+ * @param {number} page - The pagination parameter for the retrieved levels.
+ * @returns {[object]} A Promise that resolves with retrieved levels information.
+ * @throws {Error} If the validation of the sorting parameter or page fails, or if the request fails.
+ */
+
 const retrieveLevels = (sort, page) => {
   validateSort(sort);
   validatePage(page);

@@ -18,13 +18,12 @@ Fronted of the web app ballopolis.
 npm i
 ```
 
-### 2. Run
+### 2. Run or Build
 
 ```sh
 npm run dev
 ```
-
-### Build
+</br>
 
 ```sh
 npm run build

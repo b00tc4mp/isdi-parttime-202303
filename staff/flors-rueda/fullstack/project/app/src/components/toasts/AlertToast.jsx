@@ -1,11 +1,6 @@
-import { useEffect } from 'react';
 import inLogger from '../../inLogger';
 
 const AlertToast = ({ handleCloseAlert, message }) => {
-    useEffect(() => {
-        console.log(message);
-    }, []);
-
     return (
         <div className="fixed top-16 h-fit pt-2.5 pb-1 flex flex-row justify-around items-center w-full text-danger200 bg-light400 shadow z-40">
             <div className="flex flex-row w-full justify-center">

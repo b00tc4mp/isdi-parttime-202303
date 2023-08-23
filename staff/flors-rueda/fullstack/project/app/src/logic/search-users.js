@@ -3,6 +3,13 @@ import context from './context';
 const { extractSubFromToken } = tokenUtils;
 const { validateName } = validators;
 
+/**
+ * Searches for users based on a given username.
+ *
+ * @param {string} username The username to search for username.
+ * @returns {Array} A Promise that resolves with an array of users matching the search.
+ * @throws {Error} If the name validation or request fails.
+ */
 const searchUsers = (username) => {
     validateName(username);
 

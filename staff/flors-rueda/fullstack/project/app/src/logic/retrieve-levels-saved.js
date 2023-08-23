@@ -3,6 +3,13 @@ const { extractSubFromToken } = tokenUtils;
 const { validateId } = validators;
 import context from './context';
 
+/**
+ * Retrieves levels saved by a specific user using their id.
+ *
+ * @param {string} id The id of the user whose saved levels are being retrieved.
+ * @returns {[object]} A Promise that resolves with an array of retrieved levels information.
+ * @throws {Error} If the validation of the user ID fails or if the request fails.
+ */
 const retrieveLevelsSaved = (id) => {
     validateId(id, 'userId');
 

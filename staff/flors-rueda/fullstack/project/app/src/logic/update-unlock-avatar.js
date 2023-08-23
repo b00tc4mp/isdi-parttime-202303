@@ -2,7 +2,16 @@ import { validators } from 'com';
 const { validateAvatar } = validators;
 import context from './context';
 
-const updateUnlockAvatar = (avatar = 'basket') => {
+/**
+ * Updates the user's unlocked avatars.
+ *
+ * This function sends a PATCH request to the server to update the user's unlocked avatar.
+ *
+ * @param {string} avatar The avatar to be unlocked.
+ * @returns {Promise} A promise that resolves when the avatar is unlocked successfully.
+ * @throws {Error} If the request to update avatars fails.
+ */
+const updateUnlockAvatar = (avatar) => {
     validateAvatar(avatar);
     const data = { avatar }
 

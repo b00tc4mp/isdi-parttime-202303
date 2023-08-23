@@ -3,6 +3,13 @@ const { validatePassword, validateUsername } = validators;
 import context from './context';
 const { AuthError } = errors;
 
+/**
+ * Logs in a user by sending their credentials for authentication.
+ *
+ * @param {string} username The username of the user to be authenticated.
+ * @param {string} password The password of the user to be authenticated.
+ * @throws {AuthError} If the authentication request is unsuccessful or the credentials are incorrect.
+ */
 const loginUser = (username, password) => {
     validateUsername(username);
     validatePassword(password);
@@ -20,10 +27,8 @@ const loginUser = (username, password) => {
 
         if (res.status === 200) {
             const token = await res.json()
-
-            context.token = token
-
-            return
+            context.token = token;
+            return;
         }
 
         throw new AuthError('password / username not correct')

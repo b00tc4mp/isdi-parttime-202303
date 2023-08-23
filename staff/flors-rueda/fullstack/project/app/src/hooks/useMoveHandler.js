@@ -3,8 +3,18 @@ import * as THREE from 'three';
 import { createFloor } from '../helpers/game/createFloor';
 import { checkCollisions } from '../helpers/game/checkCollisions';
 
-//TODO improve movement on desktop
-
+/**
+ * Custom hook for handling ball movement and interactions.
+ *
+ * @param {[string]} floor The game floor configuration.
+ * @param {THREE.Scene} scene The scene in which the game is rendered.
+ * @param {THREE.PerspectiveCamera} camera The camera used for rendering the scene.
+ * @param {function} onSolved Callback function when the puzzle is solved.
+ * @param {function} onGameWon Callback function when the game is won.
+ * @param {function} onBomb Callback function when the ball collides with a bomb.
+ * @param {function} onLife Callback function when the ball collides with a life object.
+ * @param {string} avatar The avatar of the ball.
+ */
 const useMoveHandler = (floor, scene, camera, onSolved, onGameWon, onBomb, onLife, avatar) => {
     const gridSize = floor.length;
     const cellSize = 1.5;

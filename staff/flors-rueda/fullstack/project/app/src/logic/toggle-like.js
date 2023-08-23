@@ -2,6 +2,13 @@ import { validators } from 'com';
 const { validateId } = validators;
 import context from './context';
 
+/**
+ * Toggles the like status for a level.
+ *
+ * @param {string} levelId The id of the level to toggle like status for.
+ * @returns {Promise} A promise that resolves when the like status is toggled successfully.
+ * @throws {Error} If the request to update like status fails.
+ */
 const toggleLike = (levelId) => {
     validateId(levelId)
 

@@ -1,5 +1,11 @@
 import context from './context';
 
+/**
+ * Updates the user's social achievements.
+ *
+ * @returns {Promise} A promise that resolves when the social achievements are updated successfully.
+ * @throws {Error} If the request to update social achievements fails.
+ */
 const updateSocialAchievements = () => {
     return fetch(`${import.meta.env.VITE_API_URL}/achievements/social`, {
         method: 'PATCH',

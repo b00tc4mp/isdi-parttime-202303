@@ -1,3 +1,11 @@
+/**
+ * Validates a floor configuration.
+ *
+ * @param {[string]} floor An array representing the floor configuration.
+ * @param {function} setToast A function to set the toast message.
+ * @param {function} setToastOn A function to set the visibility of the toast.
+ * @returns {boolean} `true` if the floor is valid, `false` otherwise.
+ */
 export const validateFloor = (floor, setToast, setToastOn) => {
     const startCount = floor.filter((cell) => cell === 'start').length;
     const holeCount = floor.filter((cell) => cell === 'hole').length;
@@ -20,6 +28,15 @@ export const validateFloor = (floor, setToast, setToastOn) => {
     return true;
 };
 
+/**
+ * Validates a level configuration.
+ * 
+ * @param {[[string]]} level An array of arrays representing the level configuration.
+ * @param {string} name The name of the level.
+ * @param {function} setToast A function to set the toast message.
+ * @param {function} setToastOn A function to set the visibility of the toast.
+ * @returns {boolean} `true` if the level is valid, `false` otherwise.
+ */
 export const validateLevel = (level, name, setToast, setToastOn) => {
     const lastFloor = level[level.length - 1]
     const stonksCount = lastFloor.filter((cell) => cell === 'stonks').length;

@@ -2,6 +2,13 @@ import { validators } from 'com';
 const { validateCreateData } = validators;
 import context from './context';
 
+/**
+ * Updates the user's create achievements.
+ *
+ * @param {Object} createData The new create achievements data to update.
+ * @returns {Promise} A promise that resolves when the create achievements are updated successfully.
+ * @throws {Error} If the request to update the create achievements fails.
+ */
 const updateCreateAchievements = (createData) => {
     validateCreateData(createData);
     const data = { createData };

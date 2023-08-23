@@ -1,8 +1,14 @@
-import { validators, tokenUtils } from 'com';
+import { validators } from 'com';
 import context from './context';
-
 const { validateId } = validators;
 
+/**
+ * Retrieves complete achievements for a user by their id.
+ *
+ * @param {string} id The id of the user whose complete achievements are being retrieved.
+ * @returns {Promise} A Promise that resolves with the user's complete achievements.
+ * @throws {Error} If the validation of the user id fails or if the request fails.
+ */
 const retrieveCompleteAchievements = (id) => {
     validateId(id, 'userId');
 

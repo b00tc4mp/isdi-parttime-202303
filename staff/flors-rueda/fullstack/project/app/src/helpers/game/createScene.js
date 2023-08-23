@@ -1,6 +1,11 @@
 import * as THREE from 'three';
 import { bgTexture } from './materials';
 
+/**
+ * Creates and configures a Three.js scene for rendering.
+ *
+ * @returns {Scene} A configured Three.js scene.
+ */
 export const createScene = () => {
     const scene = new THREE.Scene();
     bgTexture.repeat.set(0.5, 0.5);

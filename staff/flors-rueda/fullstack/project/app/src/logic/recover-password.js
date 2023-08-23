@@ -1,8 +1,16 @@
 import { validators, errors } from 'com';
 const { DuplicityError } = errors;
 const { validatePassword, validateUsername } = validators;
-import context from './context';
 
+/**
+ * Recovers a user's password by updating it with a new password.
+ *
+ * @param {string} username The username of the user whose password is being recovered.
+ * @param {string} newPassword The new password to set for the user.
+ * @param {string} repeatNewPassword The repeated new password for confirmation.
+ * @throws {DuplicityError} If the new password and confirmation password do not match.
+ * @throws {Error} If the password recovery request fails.
+ */
 const recoverPassword = (username, newPassword, repeatNewPassword) => {
     validateUsername(username);
     validatePassword(newPassword);

@@ -2,6 +2,14 @@ import { validators } from 'com';
 const { validateCC, validateOperator } = validators;
 import context from './context';
 
+/**
+ * Updates the CC achievements of the user.
+ *
+ * @param {number} cc The new CC value to update.
+ * @param {string} operator The arithmetic operator to use for updating the CC value ('+' or '-').
+ * @returns {Promise} A promise that resolves when the CC achievements are updated successfully.
+ * @throws {Error} If the request to update the CC achievements fails.
+ */
 const updateCCAchievements = (cc, operator) => {
     validateCC(cc);
     validateOperator(operator);

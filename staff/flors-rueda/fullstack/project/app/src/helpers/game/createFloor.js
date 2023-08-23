@@ -1,6 +1,18 @@
 import * as THREE from 'three';
 import { ballGeometry, setBallMaterial, cubeGeometry, wallMaterial, dirtMaterial } from './materials';
 
+/**
+ * Creates a 3D representation of the game floor based on a given floor configuration.
+ *
+ * This function takes a floor configuration and creates a 3D representation of the game floor using Three.js objects.
+ * It constructs cube objects for walls and dirt, adds ball, bomb, life, stonks, and hole objects to the scene.
+ *
+ * @param {[[string]]} floor The floor configuration specifying the cells.
+ * @param {Scene} scene The Three.js scene to add objects to.
+ * @param {number} cellSize The size of each cell in the game.
+ * @param {string} avatar The avatar selected for the ball.
+ * @returns {object} An object containing cubeObjects, bombObjects, lifeObjects, ball, hole, and stonks objects.
+ */
 export const createFloor = (floor, scene, cellSize, avatar) => {
     const gridSize = floor.length;
 
@@ -51,4 +63,3 @@ export const createFloor = (floor, scene, cellSize, avatar) => {
     }
     return { cubeObjects, bombObjects, lifeObjects, ball, hole, stonks }
 }
-

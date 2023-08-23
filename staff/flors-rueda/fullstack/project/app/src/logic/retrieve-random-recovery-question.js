@@ -1,8 +1,13 @@
 import { validators } from 'com';
-import context from './context';
-
 const { validateUsername } = validators;
 
+/**
+ * Retrieves a random recovery question for a specific user.
+ *
+ * @param {string} username the username for which a random recovery question is to be retrieved.
+ * @returns {Promise} A Promise that resolves with the retrieved recovery question.
+ * @throws {Error} If the validation of the username fails or if the request fails.
+ */
 const retrieveRandomRecoveryQuestion = (username) => {
     validateUsername(username);
     const data = { username }

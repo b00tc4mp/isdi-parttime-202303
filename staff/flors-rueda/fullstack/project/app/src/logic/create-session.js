@@ -1,9 +1,15 @@
 import { validators, tokenUtils } from 'com';
 import context from './context';
-
 const { validateId } = validators;
 const { extractSubFromToken } = tokenUtils;
 
+/**
+ * Creates a session for a given socket id using the provided API endpoint and authentication token.
+ *
+ * @param {string} socketId The id of the socket for which the session is being created.
+ * @returns {Promise} A Promise that resolves when the session creation is successful.
+ * @throws {Error} If there is an issue with the API request or the response status is not 201.
+ */
 const createSession = (socketId) => {
     validateId(socketId, 'socketId');
 

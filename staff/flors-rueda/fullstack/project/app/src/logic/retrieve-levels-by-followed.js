@@ -2,6 +2,12 @@ import { tokenUtils } from 'com';
 const { extractSubFromToken } = tokenUtils;
 import context from './context';
 
+/**
+ * Retrieves levels created by the users followed by the current user.
+ *
+ * @returns {[object]} A Promise that resolves with an array of retrieved levels information.
+ * @throws {Error} If the request fails.
+ */
 const retrieveLevelsByFollowed = () => {
     return fetch(`${import.meta.env.VITE_API_URL}/levels/followed/${extractSubFromToken(context.token)}`, {
         headers: {

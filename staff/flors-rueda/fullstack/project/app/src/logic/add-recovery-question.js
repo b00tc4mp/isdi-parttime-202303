@@ -2,6 +2,14 @@ import { validators } from 'com';
 const { validatePassword, validateRecoveryQuestion } = validators;
 import context from './context';
 
+/**
+ * Adds recovery questions for a user.
+ *
+ * @param {string} password User's password for validation.
+ * @param {Array} recoveryQuestions Array of recovery questions.
+ * @returns {Promise} A promise that resolves when the operation is successful.
+ * @throws {Error} If there's an issue with the request or validation.
+ */
 const addRecoveryQuestion = (password, recoveryQuestions) => {
     validatePassword(password);
     for (let question of recoveryQuestions) {

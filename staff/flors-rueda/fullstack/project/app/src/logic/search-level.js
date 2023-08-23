@@ -3,6 +3,13 @@ import context from './context';
 const { extractSubFromToken } = tokenUtils;
 const { validateName } = validators;
 
+/**
+ * Searches for levels based on a given name.
+ *
+ * @param {string} name The name to search for levels.
+ * @returns {Array} A Promise that resolves with an array of levels matching the search.
+ * @throws {Error} If the name validation or request fails.
+ */
 const searchLevels = (name) => {
     validateName(name);
 
