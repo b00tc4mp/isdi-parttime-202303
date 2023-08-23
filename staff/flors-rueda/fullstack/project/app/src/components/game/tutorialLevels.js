@@ -14,7 +14,7 @@ const lv3 = [
 ]
 
 const lv4 = [
-    ['start', 'life', 'bomb', 'bomb', 'bomb', 'bomb', 'bomb', 'bomb', 'stonks'],
+    ['start', 'life', 'bomb', 'bomb', 'life', 'bomb', 'bomb', 'life', 'stonks'],
 ]
 
 const lv5 = [
