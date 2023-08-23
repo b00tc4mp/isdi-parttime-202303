@@ -1,3 +1,14 @@
+import bombSound from '/game/sounds/bomb.mp3';
+import cubeSound from '/game/sounds/cube.mp3';
+import holeSound from '/game/sounds/hole.mp3';
+import lifeSound from '/game/sounds/life.mp3';
+import winSound from '/game/sounds/win.mp3';
+const bombAudio = new Audio(bombSound);
+const cubeAudio = new Audio(cubeSound);
+const holeAudio = new Audio(holeSound);
+const lifeAudio = new Audio(lifeSound);
+const winAudio = new Audio(winSound);
+
 /**
  * Checks if a ball collides with an object.
  *
@@ -45,11 +56,19 @@ const checkPosition = (ballPosition, ball, obj) => {
  */
 export const checkCollisions = (ball, ballPosition, scene, floorObjects, onSolved, onGameWon, onBomb, onLife) => {
     let canMoveBall = true;
-    const { cubeObjects, bombObjects, lifeObjects, hole, stonks } = floorObjects;
+    const { wallObjects, cubeObjects, bombObjects, lifeObjects, hole, stonks } = floorObjects;
+
+    for (const obj of wallObjects) {
+        if (checkCollision(ballPosition, ball, obj)) {
+            canMoveBall = false;
+            return;
+        }
+    }
 
     for (const obj of cubeObjects) {
         if (checkCollision(ballPosition, ball, obj)) {
             canMoveBall = false;
+            cubeAudio.play();
             return;
         }
     }
@@ -63,6 +82,7 @@ export const checkCollisions = (ball, ballPosition, scene, floorObjects, onSolve
             scene.remove(obj);
             const index = bombObjects.indexOf(obj);
             bombObjects.splice(index, 1);
+            bombAudio.play();
             onBomb();
             return;
         }
@@ -73,14 +93,16 @@ export const checkCollisions = (ball, ballPosition, scene, floorObjects, onSolve
             scene.remove(obj);
             const index = lifeObjects.indexOf(obj);
             lifeObjects.splice(index, 1);
+            lifeAudio.play();
             onLife();
             return;
         }
     }
 
     if (hole && checkPosition(ballPosition, ball, hole)) {
-        const timerThreshold = 1000;
+        const timerThreshold = 100;
         const scaleFactor = 0.8;
+        holeAudio.play();
 
         setTimeout(() => {
             const interval = setInterval(() => {
@@ -95,6 +117,7 @@ export const checkCollisions = (ball, ballPosition, scene, floorObjects, onSolve
     }
 
     if (stonks && checkCollision(ballPosition, ball, stonks)) {
+        winAudio.play();
         onGameWon();
         return;
     }

@@ -19,6 +19,7 @@ export const createFloor = (floor, scene, cellSize, avatar) => {
     const cubeObjects = [];
     const bombObjects = [];
     const lifeObjects = [];
+    const wallObjects = [];
 
     let ball, hole, stonks;
 
@@ -35,7 +36,7 @@ export const createFloor = (floor, scene, cellSize, avatar) => {
                 let cube = new THREE.Mesh(cubeGeometry, wallMaterial);
                 cube.position.set(xPos, yPos, 0);
                 scene.add(cube);
-                cubeObjects.push(cube);
+                wallObjects.push(cube);
             } else if (value === 'dirt') {
                 let cube = new THREE.Mesh(cubeGeometry, dirtMaterial);
                 cube.position.set(xPos, yPos, 0);
@@ -61,5 +62,5 @@ export const createFloor = (floor, scene, cellSize, avatar) => {
             }
         }
     }
-    return { cubeObjects, bombObjects, lifeObjects, ball, hole, stonks }
+    return { wallObjects, cubeObjects, bombObjects, lifeObjects, ball, hole, stonks }
 }
