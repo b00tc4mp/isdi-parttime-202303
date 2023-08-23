@@ -29,7 +29,7 @@ const UserCard = ({ userInfo }) => {
     }, [id]);
 
     return (
-        <div className="w-full p-4 border border-light400 bg-light500 rounded-lg shadow flex flex-row gap-2 md:flex-row-reverse justify-around md:mb-10">
+        <div className="w-full p-4 border border-light400 bg-light500 rounded-lg shadow flex flex-row gap-2 md:flex-row-reverse justify-around md:mb-5">
             <div className="flex items-start flex-col">
                 <h3 className={`mb-2 text-2xl text-${userInfo.color} font-semibold self-center`}>{userInfo.username}</h3>
                 <p className="flex flex-col gap-2 text-sm font-semibold">

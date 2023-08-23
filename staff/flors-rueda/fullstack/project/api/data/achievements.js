@@ -26,7 +26,7 @@ module.exports = [
         name: 'rider expertise',
         description: 'beat levels',
         category: 'game',
-        ranks: [5, 25, 75],
+        ranks: [10, 50, 100],
         progress: 0,
         isRankBronzeReached: false,
         isRankSilverReached: false,
