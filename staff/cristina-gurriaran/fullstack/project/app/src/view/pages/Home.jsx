@@ -1,6 +1,7 @@
 import Workspots from '../components/Workspots'
 import WorkspotsSearchedByName from '../components/WorkspotsSearchedByName'
 import AddWorkspotModal from '../components/AddWorkspotModal'
+import EditWorkspotModal from '../components/EditWorkspotModal'
 import FilterModal from '../components/FiltersModal'
 import FilteredWorkspots from '../components/FilteredWorkspots'
 import { Container, Form, Input, Button } from '../library'
@@ -19,7 +20,7 @@ export default function Home() {
 
     const [view, setView] = useState('workspots')
     const [modal, setModal] = useState(null)
-    const [postId, setPostId] = useState(null)
+    const [workspotId, setworkspotId] = useState(null)
  
     const [user, setUser] = useState()
     const [nameSearched, setNameSearched] = useState(null)
@@ -33,6 +34,12 @@ export default function Home() {
     }, [])
 
     const handleOpenAddWorkspotModal = () => setModal('add-workspot')
+
+    const handleOpenEditWorkspotModal = (workspotId) => {
+        setModal('edit-workspot')
+        setworkspotId(workspotId)
+    }
+
     const handleCloseModal = () => setModal(null)
 
     const handleGoToProfile = event => {
@@ -121,7 +128,10 @@ export default function Home() {
         </header>
 
         <div>
-            {view === 'workspots' && <Workspots />}
+            {view === 'workspots' && <Workspots
+                onEditWorkspot={handleOpenEditWorkspotModal}
+            />}
+
             {view === 'workspots-searched-by-name' && <WorkspotsSearchedByName 
                 nameSearched={nameSearched}
             />}
@@ -146,6 +156,13 @@ export default function Home() {
                 <FilterModal
                     onCancel={handleCloseModal}
                     onFilteredSearch={handleFilteredSearch}
+                />}
+
+            {modal === 'edit-workspot' &&
+                <EditWorkspotModal
+                    onCancel={handleCloseModal}
+                    onWorkspotEdited={handleWorkspotUpdated}
+                    workspotId = {workspotId}
                 />}
 
         </div>

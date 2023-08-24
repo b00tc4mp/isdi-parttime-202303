@@ -6,7 +6,7 @@ import { formatCategory, formatOtherFeatures, formatDistrict, formatWifi, format
 const API_KEY = 'AIzaSyAHtNeBELo0YBI0lmCVbd0lQ9BGTVd_fhQ'
 
 export default function Workspot({ workspot : {
-    image, name, location, description, category, features, reviews, likes, author}}){
+    id, image, name, location, description, category, features, reviews, likes, author }, onEditWorkspot }){
     
     const { isLoaded } = useLoadScript({
         googleMapsApiKey: API_KEY,
@@ -16,6 +16,8 @@ export default function Workspot({ workspot : {
         lat: location.mapLocation.coordinates[0],
         lng: location.mapLocation.coordinates[1]
     }), []);
+
+    const handleEditWorkspot = () => onEditWorkspot(id)
 
     return (
         <div className = "bg-white shadow-lg w-1/2 p-10 rounded-lg" >
@@ -84,6 +86,9 @@ export default function Workspot({ workspot : {
                 </GoogleMap>
                 )}
             </div>
+            
+            <Button onClick={handleEditWorkspot}>📝</Button>
+
         </article>
         </div>
 

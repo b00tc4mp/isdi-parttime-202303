@@ -7,6 +7,8 @@ module.exports = {
     createWorkspotHandler: require('./createWorkspotHandler'),
     retrieveWorkspotsHandler: require('./retrieveWorkspotsHandler'),
     getWorkspotsByNameHandler: require('./getWorkspotsByNameHandler'),
-    getFilteredWorkspots: require('./getFilteredWorkspotsHandler')
+    getFilteredWorkspots: require('./getFilteredWorkspotsHandler'),
+    retrieveWorkspotHandler : require('./retrieveWorkspotHandler'),
+    updateWorkspotHandler : require('./updateWorkspotHandler')
 
 }
