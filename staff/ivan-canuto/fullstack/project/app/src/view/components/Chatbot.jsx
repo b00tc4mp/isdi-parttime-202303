@@ -32,6 +32,10 @@ export default function Chatbot({ lastPostsUpdate, setPage, handleLastPostsUpdat
       setSummary(null)
     }, [context.conversationId])
 
+    useEffect(() => {
+        setScrollToBottom()
+    },[messages.length])
+
     const handleSubmit = async event => {
         event.preventDefault()
 
@@ -133,16 +137,27 @@ export default function Chatbot({ lastPostsUpdate, setPage, handleLastPostsUpdat
     const handleGeneratePost = content => {
         const postContent = content ? content : summary
 
+        console.log(postContent)
+
         handleErrors(async () => {
             await createPost(postContent, context.conversationId)
 
             navigate('/')
+            setPage('Home')
 
             handleLastPostsUpdate()
         })
     }
 
-    return <Container className={`chatbot fixed top-0 left-0 bg-[url(src/images/chatbot-3.1.jpg)] bg-fixed bg-center bg-cover overflow-scroll`}>
+    const setScrollToBottom = () => {
+        const conversationContainer = document.querySelector('.conversation-container')
+
+        console.log(conversationContainer.scrollTop)
+        console.log(conversationContainer.scrollHeight)
+        conversationContainer.scrollTop = conversationContainer.scrollHeight
+    }
+
+    return <Container className={`chatbot-container fixed top-0 left-0 bg-[url(src/images/chatbot-3.1.jpg)] bg-fixed bg-center bg-cover overflow-scroll`}>
         <button className="fixed right-2 top-24 w-24 z-10 mt-2 bg-yellow-100 leading-tight border border-black flex justify-center" onClick={handleGenerateSummary}>Generate summary</button>
         
         <section className={`conversation-container absolute top-24 w-full  ${!summary ? 'bottom-32' : ''} overflow-scroll`}>
@@ -155,8 +170,11 @@ export default function Chatbot({ lastPostsUpdate, setPage, handleLastPostsUpdat
                     role={message.role}
                     content={message.content}
                     handleGeneratePost={handleGeneratePost}
+                    setSummary={setSummary}
+                    setScrollToBottom={setScrollToBottom}
                 />
             )}
+            {/* {document.querySelectorAll('.speechBubble').length === messages.length && setScrollToBottom()} */}
             {summary && <div className="flex flex-col items-center gap-2 bg-red-300 rounded-lg pt-4 mx-4 pb-2 my-2">
                 <h1>Summary</h1>
                 <SpeechBubble className='py-0 px-0'

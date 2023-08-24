@@ -3,7 +3,7 @@ import { ModalContainer, Input, Button, Form } from "../library"
 import { useAppContext, useHandleErrors } from "../hooks"
 import { useEffect, useState } from "react"
 
-export default function Profile({ onUpdatedAvatar, handleLogout, page, handleCloseModal }) {
+export default function Profile({ onUpdatedAvatar, handleLogout, page, setPage, setOpenedProfile }) {
   const { alert, navigate } = useAppContext()
   const handleErrors = useHandleErrors()
 
@@ -14,12 +14,23 @@ export default function Profile({ onUpdatedAvatar, handleLogout, page, handleClo
       const _user = await retrieveUser()
 
       setUser(_user)
+
+      console.log('profile -> render')
     })
   }, [])
 
   const handleCloseProfile = () => {
-    navigate(`/${page}`)
-    handleCloseModal()
+    console.log(page)
+    if(page === 'Home') {
+      setPage('Home')
+      navigate('/')
+    }
+    else {
+      setPage(`/${page}`)
+      navigate(`/${page}`)
+    }
+
+    setOpenedProfile(false)
   }
 
   const handleChangeAvatar = (event) => {
@@ -53,8 +64,8 @@ export default function Profile({ onUpdatedAvatar, handleLogout, page, handleClo
     })
   }
   
-  return <ModalContainer tag='section' className="w-full h-full absolute top-10 left-0 z-10 bg-slate-100">
-    <div className="flex flex-col items-center gap-6">
+  return <ModalContainer tag='section' className="w-full h-full absolute top-14 left-0 z-10 bg-white">
+    <div className="flex flex-col items-center gap-4 overflow-scroll">
       <div className="w-48 flex justify-center">
         {user && <h1 className="text-2xl border-b-2 border-black w-fit font-mono p-1">{user.name}</h1>}
       </div>

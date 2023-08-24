@@ -18,6 +18,9 @@ module.exports = (userId, suggestionId) => {
         delete suggestion.author
         delete suggestion.postAuthor
 
+        suggestion.id = suggestion._id.toString()
+        delete suggestion._id
+
         return suggestion
     })()
 }

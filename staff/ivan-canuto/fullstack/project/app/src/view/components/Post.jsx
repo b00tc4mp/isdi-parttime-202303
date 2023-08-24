@@ -1,8 +1,10 @@
 import { useAppContext, useHandleErrors } from "../hooks"
 import { context } from '../../ui'
+import { savePostAsSeen } from "../../logic"
 
-export default function Post({post, handleTogglePostModal }) {
+export default function Post({ post, handleTogglePostModal }) {
   const { alert } = useAppContext()
+  const handleErrors = useHandleErrors()
   
   const { id, text, author, title } = post
 
@@ -16,6 +18,9 @@ export default function Post({post, handleTogglePostModal }) {
   }
 
   const handleOpenPostModal = () => {
+    handleErrors(async () => {
+      await savePostAsSeen(id)
+    })
     context.postId = id
     
     handleTogglePostModal()

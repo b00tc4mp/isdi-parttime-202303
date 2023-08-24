@@ -49,4 +49,16 @@ export const context = {
   get suggestionId() {
     return sessionStorage.suggestionId
   },
+  set hideHeader(hideHeader) {
+    if(!hideHeader) {
+      delete sessionStorage.hideHeader
+
+      return
+    }
+
+    sessionStorage.hideHeader = hideHeader
+  },
+  get hideHeader() {
+    return sessionStorage.hideHeader
+  },
 }

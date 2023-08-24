@@ -36,8 +36,6 @@ export default function Login() {
                 </Form>
                 <div className="flex flex-col gap-1 mt-6 items-center">
                     <div className="text-center"><span className="text-black text-base font-normal">Don’t have an account?<br />Go to </span><Link to="/register" className="text-sky-500 text-base font-bold">Register</Link></div>
-                    <div className="w-[60px] h-[0px] border border-black"></div>
-                    <div className='text-center'><span className="text-black text-base font-normal">Forgot your password?<br />Click </span><span className="text-sky-500 text-base font-bold">here</span></div>
                 </div>
             </div>
         </div>

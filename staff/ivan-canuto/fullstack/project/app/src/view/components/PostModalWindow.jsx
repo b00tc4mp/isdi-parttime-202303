@@ -10,13 +10,15 @@ import {
 import { context } from "../../ui";
 import { ContextualMenu, Comments, SuggestionsModal } from "../components";
 
-export default function ªPostModalWindow({
+export default function PostModalWindow({
   handleOpenEditPost,
   handleOpenDeletePost,
   handleToggleVisibility,
   handleLastPostsUpdate,
   handleTogglePostModal,
-  lastPostsUpdate
+  lastPostsUpdate,
+  page,
+  handleHidePost
 }) {
   const handleErrors = useHandleErrors();
 
@@ -74,8 +76,11 @@ export default function ªPostModalWindow({
   const handleReturn = () => {
     if (modal !== "post") setModal("post");
     else {
-      handleTogglePostModal();
-      handleLastPostsUpdate();
+      if(page !== 'mySuggestions') {
+        handleTogglePostModal();
+        handleLastPostsUpdate();
+      }
+      else handleHidePost()
     }
   };
 
@@ -86,8 +91,11 @@ export default function ªPostModalWindow({
       className="bg-black h-screen bg-opacity-20 fixed z-20 top-0 left-0"
       onClick={(event) => {
         if (event.target === document.querySelector(".ModalContainer")) {
-          handleTogglePostModal();
-          handleLastPostsUpdate();
+          if(page !== 'mySuggestions') {
+            handleTogglePostModal();
+            handleLastPostsUpdate();
+          }
+          else handleHidePost()
         }
       }}
     >
@@ -174,7 +182,7 @@ export default function ªPostModalWindow({
           <>
             <h1 className="px-2 text-xl text-center">{post.title}</h1>
 
-            <p className="px-2 h-2/3 overflow-scroll">{post.text}</p>
+            <p className="px-2 h-2/3 overflow-scroll border border-gray-300 rounded py-1 mx-1">{post.text}</p>
 
             <div className="px-2 w-full flex justify-between">
               <div>
@@ -238,6 +246,7 @@ export default function ªPostModalWindow({
           handleRefreshPost={handleRefreshPost}
           post={post}
           user={user}
+          handleLastPostsUpdate={handleLastPostsUpdate}
         />}
       </section>
     </ModalContainer>

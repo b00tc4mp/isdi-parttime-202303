@@ -10,6 +10,10 @@ export default function createSuggestion(postId, _title, _content) {
   
   const title = _title.trim()
   const content = _content.trim()
+  
+  if(title.length > 30) throw new ContentError('The title of the suggestion is too long.')
+  if(content.length < 50) throw new ContentError('The content of the suggestion is too short.')
+  if(content.length > 500) throw new ContentError('The content of the suggestion is too long.')
 
   return (async () => {
     const res = await fetch(`${import.meta.env.VITE_API_URL}/posts/${postId}/suggestions/newSuggestion`, {

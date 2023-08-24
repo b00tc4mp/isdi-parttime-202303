@@ -40,6 +40,8 @@ import deleteConversation from './deleteConversation'
 import deleteAllConversations from './deleteAllConversations'
 import toggleCheckSuggestion from './toggleCheckSuggestion'
 import toggleHideSuggestion from './toggleHideSuggestion'
+import retrieveSeenPosts from './retrieveSeenPosts'
+import savePostAsSeen from './savePostAsSeen'
 
 export {
     context,
@@ -83,5 +85,7 @@ export {
     deleteConversation,
     deleteAllConversations,
     toggleCheckSuggestion,
-    toggleHideSuggestion
+    toggleHideSuggestion,
+    retrieveSeenPosts,
+    savePostAsSeen
 }

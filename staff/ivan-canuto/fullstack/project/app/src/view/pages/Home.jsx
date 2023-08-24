@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useAppContext, useHandleErrors } from "../hooks";
 import { Button, Container } from "../library";
 import { Profile, Posts, SideBarMenu, Header, VisibilityPost, EditPost, DeletePost, PostModalWindow, Chatbot, SuggestionsPage, SeenLately } from "../components";
@@ -20,6 +20,9 @@ export default function Home() {
   const [conversationsOptions, setConversationsOptions] = useState();
   const [postModal, setPostModal] = useState(false)
   const [user, setUser] = useState()
+  const [openedProfile, setOpenedProfile] = useState(false)
+
+  const mainContainerRef = useRef(null)
 
   useEffect(() => {
     console.log("Home -> render");
@@ -69,6 +72,7 @@ export default function Home() {
 
   const handleCloseModal = () => {
     setModal(null);
+    setPage('Home')
 
     setLastPostsUpdate(Date.now());
     document.body.classList.remove("fixed-scroll");
@@ -82,9 +86,12 @@ export default function Home() {
 
   const handleOpenProfile = () => {
     navigate('/profile')
-    setModal('profile')
 
     if(menu) handleToggleMenu()
+
+    setOpenedProfile(true)
+
+    document.body.classList.remove('fixed-scroll')
   };
 
   const handleLogout = () => {
@@ -96,7 +103,7 @@ export default function Home() {
     context.conversationId = null
     context.suggestionId = null
   };
-
+  
   const handleToggleMenu = () => {
     if(modal !== 'profile')
       if (!menu) {
@@ -115,7 +122,9 @@ export default function Home() {
   const handleOpenChatbotWindow = () => {
     setPage("Chatbot");
 
-    delete context.conversationId
+    if(context.conversationId) context.conversationId = null
+
+    if(context.hideHeader) context.hideHeader = false
 
     navigate("/chatbot");
   };
@@ -126,17 +135,23 @@ export default function Home() {
     setPostModal(!postModal);
   };
 
+  const scrollToTop = () => {
+    const homeContainer = document.querySelector('.home-container')
+    
+    homeContainer.scrollTop = 0
+  }
+  
   console.debug("Home -> render");
 
   return (
-    <Container className="bg-[url(src/images/chatbot-3.1.jpg)] bg-fixed bg-center bg-cover h-full min-h-screen pt-20">
+    <Container className="home-container bg-[url(src/images/chatbot-3.1.jpg)] bg-fixed bg-center bg-cover min-h-screen absolute left-0 overflow-scroll">
       <div className="loader"></div>
       {page === "Home" && (
         <Button
           className="fixed top-[105px] right-2 bg-slate-100 z-10 border border-gray-200"
-          onClick={() => handleOpenChatbotWindow()}
+          onClick={handleOpenChatbotWindow}
         >
-          Chat wit me
+          <p className='flex items-center gap-1 text-lg'>Chat<span className="material-symbols-outlined">smart_toy</span></p>
         </Button>
       )}
 
@@ -146,10 +161,14 @@ export default function Home() {
         handleToggleMenu={handleToggleMenu}
         setPage={setPage}
         handleCloseModal={handleCloseModal}
+        lastPostsUpdate={lastPostsUpdate}
+        openedProfile={openedProfile}
+        setOpenedProfile={setOpenedProfile}
+        setView={setView}
         />
 
       <main>
-        {page === 'Home' && <Posts
+        {(page === 'Home' && !openedProfile) && <Posts
           lastPostsUpdate={lastPostsUpdate}
           view={view}
           handleTogglePostModal={handleTogglePostModal}
@@ -189,6 +208,64 @@ export default function Home() {
 
         {menu && (
           <SideBarMenu
+            homeOptions={[
+              {
+                text: "Home page",
+                onClick: () => {
+                  setLastPostsUpdate(Date.now());
+
+                  setPage('Home')
+                  setView("posts");
+
+                  navigate("/");
+                },
+              },
+              {
+                text: 'Chatbot page',
+                onClick: () => {handleOpenChatbotWindow()},
+              },
+              {
+                text: "Own post",
+                onClick: () => {
+                  setLastPostsUpdate(Date.now());
+
+                  setPage('Home')
+                  setView("userPosts");
+
+                  navigate("/");
+                },
+              },
+              {
+                text: "Saved posts",
+                onClick: () => {
+                  setLastPostsUpdate(Date.now());
+
+                  setPage('Home')
+                  setView("savedPosts");
+
+                  navigate("/");
+                },
+              },
+              {
+                text: "SeenLately",
+                onClick: () => {
+                  setLastPostsUpdate(Date.now());
+
+                  setPage('Home')
+                  setView("seenPosts");
+
+                  navigate("/");
+                },
+              },
+              {
+                text: "My suggestions",
+                onClick: () => {
+                  setPage('Suggestions')
+
+                  navigate("/suggestions");
+                },
+              },
+            ]}
             chatbotOptions={[
               {
                 text: "<- Return to home",
@@ -218,63 +295,14 @@ export default function Home() {
               ...conversationsOptions,
               {onClick: () => {}, text: ''}
             ]}
-            homeOptions={[
-              {
-                text: "Home page",
-                onClick: () => {
-                  setLastPostsUpdate(Date.now());
-
-                  setView("posts");
-
-                  navigate("/");
-                },
-              },
-              {
-                text: "Own post",
-                onClick: () => {
-                  setLastPostsUpdate(Date.now());
-
-                  setView("userPosts");
-
-                  navigate("/");
-                },
-              },
-              {
-                text: "Saved posts",
-                onClick: () => {
-                  setLastPostsUpdate(Date.now());
-
-                  setView("savedPosts");
-
-                  navigate("/");
-                },
-              },
-              {
-                text: "My suggestions",
-                onClick: () => {
-                  setPage('Suggestions')
-
-                  navigate("/suggestions");
-                },
-              },
-              {
-                text: "Chatbot page",
-                onClick: () => {handleOpenChatbotWindow()},
-              },
-              {
-                text: "SeenLately",
-                onClick: () => {
-                  setPage("SeenLately");
-
-                  navigate("/seenLately");
-                },
-              },
-            ]}
             openedMenu={openedMenu}
             page={page}
             lastPostsUpdate={lastPostsUpdate}
             handleToggleMenu={handleToggleMenu}
             handleLastPostsUpdate={handleLastPostsUpdate}
+            openedProfile={openedProfile}
+            setOpenedProfile={setOpenedProfile}
+            scrollToTop={scrollToTop}
           />
         )}
 
@@ -300,13 +328,8 @@ export default function Home() {
               isUserLoggedIn() && page === 'Suggestions' ? <SuggestionsPage
                 user={user}
                 setPage={setPage}
+                handleLastPostsUpdate={handleLastPostsUpdate}
               /> : <Navigate to="/login" />
-            }
-          />
-          <Route
-            path="seen-lately"
-            element={
-              isUserLoggedIn() ? <SeenLately /> : <Navigate to="/login" />
             }
           />
           <Route
@@ -316,8 +339,8 @@ export default function Home() {
                 onUpdatedAvatar={handleUpdatedAvatar}
                 handleLogout={handleLogout}
                 page={page}
-                handleCloseModal={handleCloseModal}
-                user={user}
+                setPage={setPage}
+                setOpenedProfile={setOpenedProfile}
               /> : <Navigate to="/login" />
             }
           />

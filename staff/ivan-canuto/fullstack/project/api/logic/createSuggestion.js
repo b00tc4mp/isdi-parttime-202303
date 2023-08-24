@@ -11,6 +11,7 @@ module.exports = (userId, postId, title, content) => {
 
   if(title.length > 30) throw new ContentError('The title of the suggestion is too long.')
   if(content.length < 50) throw new ContentError('The content of the suggestion is too short.')
+  if(content.length > 500) throw new ContentError('The content of the suggestion is too long.')
 
   return (async () => {
     const user = await User.findById(userId)

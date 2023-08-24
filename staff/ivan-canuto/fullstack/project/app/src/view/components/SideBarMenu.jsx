@@ -11,7 +11,10 @@ export default function SideBarMenu({
   openedMenu,
   lastPostsUpdate,
   handleToggleMenu,
-  handleLastPostsUpdate
+  handleLastPostsUpdate,
+  openedProfile,
+  setOpenedProfile,
+  scrollToTop
 }) {
   const handleErrors = useHandleErrors()
   
@@ -107,7 +110,7 @@ export default function SideBarMenu({
             })}
           </>
         }
-        {page === "Home" &&
+        {(page === "Home" || page === 'Suggestions') &&
           homeOptions &&
           homeOptions.map((option, index) => {
             return <li
@@ -117,10 +120,21 @@ export default function SideBarMenu({
                 option.onClick();
 
                 handleToggleMenu();
+
+                if(context.hideHeader) context.hideHeader = false
+
+                if(openedProfile) setOpenedProfile(false)
+
+                scrollToTop()
               }}
             >
-              <p>{option.text}</p>
-            </li>;
+              {option.text === 'Chatbot page'
+                ?
+                <p className='flex items-center gap-1'>{option.text}<span className="material-symbols-outlined">smart_toy</span></p>
+                :
+                <p>{option.text}</p>
+              }
+            </li>
           })}
       </ul>
     </ModalContainer>

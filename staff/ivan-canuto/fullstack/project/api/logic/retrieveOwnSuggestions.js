@@ -15,8 +15,12 @@ const { User, Post, Suggestion } = require("../data/models")
       const suggestions = await Suggestion.find({ author: userId }).populate('postAuthor', 'name avatar').lean()
 
       suggestions.forEach(suggestion => {
-        suggestion.id = suggestion._id
+        suggestion.id = suggestion._id.toString()
         delete suggestion._id
+
+        suggestion.post = suggestion.post.toString()
+        suggestion.postAuthor = suggestion.postAuthor.toString()
+        suggestion.author = suggestion.author.toString()
       })
   
       return suggestions

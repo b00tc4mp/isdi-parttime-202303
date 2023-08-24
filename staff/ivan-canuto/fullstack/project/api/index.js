@@ -38,7 +38,9 @@ const {
     deleteConversationHandler,
     deleteAllConversationsHandler,
     toggleCheckSuggestionHandler,
-    toggleHideSuggestionHandler
+    toggleHideSuggestionHandler,
+    retrieveSeenPostsHandler,
+    savePostAsSeenHandler
 } = require('./handlers')
 const mongoose = require('mongoose')
 
@@ -119,6 +121,10 @@ mongoose.connect(process.env.MONGODB_URL)
         api.patch('/suggestions/:suggestionId/check', jsonBodyParser, toggleCheckSuggestionHandler)
 
         api.patch('/suggestions/:suggestionId/hidden', jsonBodyParser, toggleHideSuggestionHandler)
+
+        api.get('/posts/seenPosts', jsonBodyParser, retrieveSeenPostsHandler)
+
+        api.patch('/posts/:postId/saveSeenPost', jsonBodyParser, savePostAsSeenHandler)
 
         api.listen(process.env.PORT, () => console.log(`Server running in port ${process.env.PORT}`))
     })

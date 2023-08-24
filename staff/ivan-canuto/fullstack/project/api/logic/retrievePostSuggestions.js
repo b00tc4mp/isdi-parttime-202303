@@ -21,10 +21,10 @@ module.exports = (userId, postId) => {
     suggestions.forEach(suggestion => {
       delete suggestion.post
 
-      suggestion.id = suggestion._id
+      suggestion.id = suggestion._id.toString()
       delete suggestion._id
 
-      suggestion.author.id = suggestion.author._id
+      suggestion.author.id = suggestion.author._id.toString()
     })
     
     suggestions.forEach(suggestion => {

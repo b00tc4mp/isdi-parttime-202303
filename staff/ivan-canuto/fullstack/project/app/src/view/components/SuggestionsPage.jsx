@@ -4,13 +4,15 @@ import { Suggestion } from '../components'
 import { useHandleErrors } from "../hooks"
 import { EditSuggestion, DeleteSuggestion } from "../components"
 import { context } from "../../ui"
+import { PostModalWindow } from ".";
 
-export default function SuggestionsPage({ user, setPage }) {
+export default function SuggestionsPage({ user, setPage, handleLastPostsUpdate }) {
     const handleErrors = useHandleErrors()
 
     const [modal, setModal] = useState()
     const [suggestions, setSuggestions] = useState()
     const [suggestion, setSuggestion] = useState()
+    const [post, setPost] = useState(false)
 
     useEffect(() => {
         handleRefershSuggestions()
@@ -50,12 +52,6 @@ export default function SuggestionsPage({ user, setPage }) {
         document.body.classList.add('fixed-scroll')
 
         setModal('deleteSuggestion')
-
-        handleErrors(async () => {
-            const _suggestion = retrieveSuggestion(context.suggestionId)
-
-            setSuggestion(_suggestion)
-        })
     }
 
     const handleEditSuggestion = event => {
@@ -70,10 +66,14 @@ export default function SuggestionsPage({ user, setPage }) {
             handleCloseModal()
 
             handleRefershSuggestions()
+
+            setSuggestion(null)
         })
     }
 
-    const handleDeleteSuggestion = () => {
+    const handleDeleteSuggestion = event => {
+        event.preventDefault()
+
         handleErrors(async () => {
             await deleteSuggestion(suggestion.post, suggestion.id)
 
@@ -83,9 +83,27 @@ export default function SuggestionsPage({ user, setPage }) {
         })
     }
 
-    console.log(modal)
+    const handleShowPost = () => {
+        document.body.classList.remove('fixed-scroll')
+        
+        setPost(true)
 
-    return <section className="flex flex-col gap-4 p-2 fixed top-28 left-0">
+        context.hideHeader = true
+    }
+
+    const handleHidePost = () => {
+        document.body.classList.remove('fixed-scroll')
+
+        context.postId = null
+
+        setPost(false)
+
+        context.hideHeader = null
+
+        handleLastPostsUpdate()
+    }
+
+    return <section className="flex flex-col gap-4 p-2 absolute top-28 left-0 overflow-scroll pb-8">
         {suggestions && suggestions.map(suggestion => <Suggestion
                 key={suggestion.id}
                 openEditSuggestionModal={openEditSuggestionModal}
@@ -93,6 +111,9 @@ export default function SuggestionsPage({ user, setPage }) {
                 suggestion={suggestion}
                 user={user}
                 page={'mySuggestions'}
+                handleLastPostsUpdate={handleLastPostsUpdate}
+                setSuggestion={setSuggestion}
+                handleShowPost={handleShowPost}
             />
         )}
         {modal === 'editSuggestion' && <EditSuggestion
@@ -105,8 +126,9 @@ export default function SuggestionsPage({ user, setPage }) {
             handleDeleteSuggestion={handleDeleteSuggestion}
             handleCloseModal={handleCloseModal}
         />}
-        {/* {modal && <GoToPost
-            handleCloseModal={handleToggleModal}
-        />} */}
+        {post && <PostModalWindow
+        page={'mySuggestions'}
+        handleHidePost={handleHidePost}
+        />}
     </section>
 }

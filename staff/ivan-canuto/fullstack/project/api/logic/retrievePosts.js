@@ -20,8 +20,10 @@ module.exports = (userId) => {
       post.fav = user.favs.some(fav => fav.toString() === post.id)
       post.liked = post.likes.some(like => like.toString() === user.id)
 
-      post.author.id = post.author._id
-      delete post._id
+      if(post.author._id) {
+        post.author.id = post.author._id.toString()
+        delete post.author._id
+      }
     })
 
     return posts.reverse()

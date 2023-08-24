@@ -11,6 +11,8 @@ module.exports = (userId, postId, commentText) => {
   validateId(postId, 'post id')
   validateText(commentText, 'comment text')
 
+  if(commentText.length > 200) throw new ContentError('The text of the comment is too long.')
+
   return (async () => {
     const user = await User.findById(userId)
     if(!user) throw new ExistenceError('User not found.')

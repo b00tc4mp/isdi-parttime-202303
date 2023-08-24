@@ -16,6 +16,8 @@ export default function createComment(postId, _commentText) {
 
   const commentText = _commentText.trim()
 
+  if(commentText.length > 200) throw new ContentError('The text of the comment is too short.')
+
   return (async () => {
     const res = await fetch(`${import.meta.env.VITE_API_URL}/users/posts/${postId}/comment`, {
       method: 'PATCH',

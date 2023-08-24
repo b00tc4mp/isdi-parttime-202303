@@ -2,13 +2,15 @@ import { getTheme, setTheme } from "../../ui"
 import { useState, useEffect } from "react"
 import { retrieveUser } from "../../logic"
 import { useAppContext, useHandleErrors } from "../hooks"
+import { context } from "../../ui"
 
-export default function Header({ handleToggleMenu, handleOpenProfile, setPage, handleCloseModal, handleAddHomeScroll }) {
+export default function Header({ handleToggleMenu, handleOpenProfile, setPage, handleCloseModal, openedProfile, setOpenedProfile, setView }) {
   const { navigate } = useAppContext()
   const handleErrors = useHandleErrors()
 
   const [newTheme, setnewTheme] = useState(getTheme())
   const [user, setUser] = useState(null)
+  const [, setForceUpdate] = useState()
 
   // const switchAppTheme = () => {
   //   const theme = newTheme === 'light' ? 'dark' : 'light'
@@ -20,9 +22,13 @@ export default function Header({ handleToggleMenu, handleOpenProfile, setPage, h
 
   const handleReturnToHome = () => {
     setPage('Home')
+    setView('posts')
+
     handleCloseModal()
     
     navigate('/')
+
+    if(openedProfile) setOpenedProfile(false)
   }
 
   useEffect(() => {
@@ -33,7 +39,7 @@ export default function Header({ handleToggleMenu, handleOpenProfile, setPage, h
     })
   }, [])
 
-  return <header className="fixed h-24 top-0 w-full z-20 bg-slate-100 ">
+  return <header className={`fixed h-24 top-0 w-full ${context.hideHeader ? '' : 'z-20'} bg-slate-100`}>
     <div className="h-full flex justify-between items-center px-4">
       {/* {page === 'home'
         ? <span className="material-symbols-outlined mx-2" onClick={handleToggleMenu}>menu</span>

@@ -1,6 +1,6 @@
 import Post from "./Post";
 import { useState, useEffect } from "react";
-import { retrievePosts, retrieveSavedPosts, retrieveUserPosts, getUserId } from "../../logic";
+import { retrievePosts, retrieveSavedPosts, retrieveUserPosts, getUserId, retrieveSeenPosts } from "../../logic";
 import { useAppContext, useHandleErrors } from "../hooks"
 
 export default function Posts({ lastPostsUpdate, view, handleOpenEditPost, handleOpenDeletePost, handleToggleVisibility, handleTogglePostModal }) {
@@ -52,6 +52,15 @@ export default function Posts({ lastPostsUpdate, view, handleOpenEditPost, handl
           setPosts(_posts)
         })
       }
+      else if(view === 'seenPosts') {
+        handleErrors(async () => {
+          console.debug('Seen postsss -> render')
+          
+          const _posts = await retrieveSeenPosts()
+
+          setPosts(_posts)
+        })
+      }
     } catch(error) {
       // unfreeze()
       
@@ -71,6 +80,7 @@ export default function Posts({ lastPostsUpdate, view, handleOpenEditPost, handl
   }, [lastPostsUpdate])
 
   return <section className="pb-12 flex flex-col items-center gap-6 absolute top-40 left-0 w-full">
+    <h1 className="w-full text-center text-5xl font-thin underline mb-4">{view === 'posts' ? 'Home page' : view === 'savedPosts' ? 'Saved posts' : view === 'userPosts' ? 'My posts' : view === 'seenPosts' ? 'Seen lately' : ''}</h1>
     {posts && posts.map(post => (post.author.id !== getUserId() && !post.visible) ? '' : <Post
       key={post.id.toString()}
       post={post}

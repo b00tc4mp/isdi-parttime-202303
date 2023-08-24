@@ -33,4 +33,6 @@ module.exports = {
   deleteAllConversations: require('./deleteAllConversations'),
   toggleCheckSuggestion: require('./toggleCheckSuggestion'),
   toggleHideSuggestion: require('./toggleHideSuggestion'),
+  retrieveSeenPosts: require('./retrieveSeenPosts'),
+  savePostAsSeen: require('./savePostAsSeen'),
 }

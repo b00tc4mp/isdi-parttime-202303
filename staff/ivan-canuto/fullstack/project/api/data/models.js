@@ -50,6 +50,10 @@ const user = new Schema({
     favs: {
         type: [ObjectId],
         ref: 'Post'
+    },
+    seenLately: {
+        type: [ObjectId],
+        ref: 'Post'
     }
 })
 
