@@ -72,13 +72,13 @@ const participant = new Schema({
 });
 
 const mission = new Schema({
-  traveler: {
-    type: [explorer],
-    required: true,
-  },
   creator: {
     type: ObjectId,
     ref: 'User',
+    required: true,
+  },
+  traveler: {
+    type: [explorer],
     required: true,
   },
   destination: {
