@@ -191,7 +191,7 @@ describe('createMission', () => {
     });
   });
 
-  it('should raise existence error if creator doesnt exist', () => {
+  it('should raise ExistenceError if creator doesnt exist', () => {
     return createMission(
       anyId.toString(),
       'monkey',
@@ -204,7 +204,7 @@ describe('createMission', () => {
     });
   });
 
-  it('should raise content error if creator id is empty', async () => {
+  it('should raise ContentError if creator id is empty', async () => {
     const emptyId = '';
 
     try {
@@ -215,7 +215,7 @@ describe('createMission', () => {
     }
   });
 
-  it('should raise type error if creator id is not a string', async () => {
+  it('should raise TypeError if creator id is not a string', async () => {
     const noStringId = 11;
 
     try {
@@ -226,7 +226,7 @@ describe('createMission', () => {
     }
   });
 
-  it('should raise content error if creator id does not have 24 characters', async () => {
+  it('should raise ContentError if creator id does not have 24 characters', async () => {
     const shortId = 'abc123';
 
     try {
@@ -237,7 +237,7 @@ describe('createMission', () => {
     }
   });
 
-  it('should raise content error if creator id is not hexagecimal', async () => {
+  it('should raise ContentError if creator id is not hexagecimal', async () => {
     const nonHexId = 'invalidValue123456789012';
 
     try {
@@ -248,7 +248,7 @@ describe('createMission', () => {
     }
   });
 
-  it('should raise content error if traveler is empty', async () => {
+  it('should raise ContentError if traveler is empty', async () => {
     const emptyTraveler = '';
 
     try {
@@ -265,7 +265,7 @@ describe('createMission', () => {
     }
   });
 
-  it('should raise type error if traveler is not an string', async () => {
+  it('should raise TypeError if traveler is not an string', async () => {
     const noStringTraveler = [];
 
     try {
@@ -282,7 +282,7 @@ describe('createMission', () => {
     }
   });
 
-  it('should raise existence error if traveler is not valid enum value', async () => {
+  it('should raise ExistenceError if traveler is not valid enum value', async () => {
     const noEnumTraveler = 'not in enum';
 
     try {
@@ -301,7 +301,7 @@ describe('createMission', () => {
     }
   });
 
-  it('should raise content error if destination is empty', async () => {
+  it('should raise ContentError if destination is empty', async () => {
     const emptyDestination = '';
 
     try {
@@ -318,7 +318,7 @@ describe('createMission', () => {
     }
   });
 
-  it('should raise type error if destination is not a string', async () => {
+  it('should raise TypeError if destination is not a string', async () => {
     const noStringDestination = 111;
 
     try {
@@ -335,7 +335,7 @@ describe('createMission', () => {
     }
   });
 
-  it('should raise existence error if destination is not valid enum value', async () => {
+  it('should raise ExistenceError if destination is not valid enum value', async () => {
     const noEnumDestination = 'not in enum';
 
     try {
@@ -354,7 +354,7 @@ describe('createMission', () => {
     }
   });
 
-  it('should raise content error if participant is empty', async () => {
+  it('should raise ContentError if participant is empty', async () => {
     const emptyParticipants = [];
 
     try {
@@ -371,7 +371,7 @@ describe('createMission', () => {
     }
   });
 
-  it('should raise type error if participant is not an array', async () => {
+  it('should raise TypeError if participant is not an array', async () => {
     const noArrayParticipants = 'noArray';
 
     try {
@@ -388,7 +388,7 @@ describe('createMission', () => {
     }
   });
 
-  it('should raise type error if participants not contain an object', async () => {
+  it('should raise TypeError if participants not contain an object', async () => {
     const invalidEmptyName = 'no object';
 
     try {
@@ -405,7 +405,7 @@ describe('createMission', () => {
     }
   });
 
-  it('should raise content error if participant name is empty', async () => {
+  it('should raise ContentError if participant name is empty', async () => {
     const invalidEmptyName = { name: '' };
 
     try {
@@ -422,7 +422,7 @@ describe('createMission', () => {
     }
   });
 
-  it('should raise duplicity error if participant name is repeat', async () => {
+  it('should raise DuplicityError if participant name is repeat', async () => {
     const otherParticipant = generate.participant();
 
     try {
@@ -441,7 +441,7 @@ describe('createMission', () => {
     }
   });
 
-  it('should raise content error if loser price is empty', async () => {
+  it('should raise ContentError if loser price is empty', async () => {
     const emptyLoserPrice = '';
 
     try {
@@ -458,7 +458,7 @@ describe('createMission', () => {
     }
   });
 
-  it('should raise type error if loser price is not a string', async () => {
+  it('should raise TypeError if loser price is not a string', async () => {
     const noStringLoserPrice = 100;
 
     try {
