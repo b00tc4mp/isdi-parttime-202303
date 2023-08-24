@@ -1,6 +1,15 @@
+import { useEffect } from 'react';
 import inLogger from '../../inLogger';
 
 const SuccessToast = ({ handleCloseToast, message }) => {
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            handleCloseToast();
+        }, 7000);
+
+        return () => clearTimeout(timer);
+    }, []);
+
     return (
         <div className="fixed top-16 h-fit pt-2 pb-1 flex flex-row justify-around items-center w-full text-dark200 bg-success300 shadow z-30">
             <div className="flex flex-row w-full justify-center">

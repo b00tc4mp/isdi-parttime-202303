@@ -54,7 +54,8 @@ const App = () => {
 
   useEffect(() => {
     const currentRoute = location.pathname;
-    const isTargetedRoute = ['/levels', '/signin'].includes(currentRoute);
+    window.scrollTo(0, 0);
+    const isTargetedRoute = ['/levels', '/signin', '/home', '/search', '/customize', '/settings', '/profile'].includes(currentRoute);
     isTargetedRoute ? handleRefreshApiConnection() : setApiAvailableOn(true);
     if (isUserLoggedIn()) {
       handleErrors(async () => {
