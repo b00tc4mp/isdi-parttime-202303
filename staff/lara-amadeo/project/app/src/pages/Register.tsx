@@ -6,11 +6,14 @@ import Link from '../library/components/Link'
 import { registerUser } from '../logic/registerUser'
 import useAppContext from '../logic/hooks/useAppContext'
 import useHandleError from '../logic/hooks/useHandleError'
+import { InformationCircleIcon } from '../library/icons'
 
 
 export default function Register() {
     const { loaderOn, loaderOff, navigate } = useAppContext()
     const handleErrors = useHandleError()
+
+    const passwordRules = ['Password must contain numbers, uppercase letters and one special symbol. Length must be greater than 8 characters.']
 
     const handleRegister = (event: React.SyntheticEvent) => {
         event.preventDefault()
@@ -58,6 +61,16 @@ export default function Register() {
                     <TextField type={'text'} label={'Username'} name={'username'} maxlength={15} />
                     <TextField type={'text'} label={'Email'} name={'email'} maxlength={40} />
                     <TextField type={'password'} label={'Password'} name={'password'} maxlength={35} />
+
+                    <div className='register-bullet-list'>
+                        {passwordRules.map(rule => {
+                            return <div className='register-bullet-list-row'>
+                                <InformationCircleIcon className='icon-xs grey-500 icon-bulletList' />
+                                <p className='small-text grey-500'>{rule}</p>
+                            </div>
+                        })}
+
+                    </div>
 
                     <div className='register-actions'>
                         <div className='link-container'><Button type={'primary'} size={'small'} label={'Register'} /></div>

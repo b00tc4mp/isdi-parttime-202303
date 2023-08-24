@@ -1,16 +1,22 @@
+import errors from '../helpers/errors'
+
+
+const { DuplicityError, ExistanceError, AuthError, ContentError } = errors
+
+
 export const validateEmail = (email: string) => {
     const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
 
-    if (!email.trim().length) throw new Error('Email is empty')
+    if (!email.trim().length) throw new ContentError('Email is empty')
     if (!emailRegex.test(email)) throw new Error('Invalid email format')
 }
 
 export const validatePassword = (password: string, explain = 'password') => {
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/
 
-    if (!password.trim().length) throw new Error(`${explain} is empty`)
+    if (!password.trim().length) throw new TypeError(`${explain} is empty`)
 
-    if (!passwordRegex.test(password)) throw new Error(`${explain} format incorrect`)
+    if (!passwordRegex.test(password)) throw new RangeError(`${explain} format incorrect`)
 }
 
 export const validateToken = (token: string, explain = 'password') => {

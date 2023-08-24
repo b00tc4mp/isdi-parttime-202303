@@ -6,7 +6,6 @@
     justify-content: center;
     align-items: center;
     box-sizing: border-box;
-    padding-bottom: 40px;
 }
 
 .register-logo-container {
@@ -38,4 +37,24 @@
     display: flex;
     width: 100%;
     justify-content: center;
+}
+
+.register-bullet-list {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 24px;
+    margin-top: -16px;
+}
+
+.register-bullet-list-row {
+    width: 100%;
+    display: flex;
+    gap: 8px;
+}
+
+.icon-bulletList {
+    min-width: 20px;
+    min-height: 20px;
 }
