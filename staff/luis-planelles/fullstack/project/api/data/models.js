@@ -28,21 +28,10 @@ const user = new Schema({
   },
 });
 
-const participant = new Schema({
-  name: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  email: {
-    type: String,
-  },
-});
-
 const explorer = new Schema({
   race: {
     type: String,
-    enum: ['monkey', 'robot', 'dog', 'billonaire'],
+    enum: ['monkey', 'robot', 'dog', 'billionaire'],
     required: true,
   },
   health: {
@@ -69,6 +58,16 @@ const explorer = new Schema({
     type: Number,
     default: 100,
     required: true,
+  },
+});
+
+const participant = new Schema({
+  name: {
+    type: String,
+    required: true,
+  },
+  email: {
+    type: String,
   },
 });
 
@@ -108,6 +107,7 @@ const mission = new Schema({
     type: [participant],
     required: true,
   },
+
   loserPrice: {
     type: String,
     required: true,
@@ -132,6 +132,7 @@ const nasaEvent = new Schema({
 const User = model('User', user);
 const Mission = model('Mission', mission);
 const Explorer = model('Explorer', explorer);
+const Participant = model('Participant', participant);
 const NASAEvent = model('NASAEvent', nasaEvent);
 
 module.exports = {
@@ -139,4 +140,5 @@ module.exports = {
   Mission,
   Explorer,
   NASAEvent,
+  Participant,
 };

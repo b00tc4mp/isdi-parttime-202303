@@ -6,8 +6,10 @@ const {
     validateDestination,
     validateParticipants,
   },
-  errors: { ExistenceError },
+  errors: { ExistenceError, DuplicityError },
 } = require('com');
+
+const findDuplicateNames = require('./helpers/findDuplicateNames');
 const { User, Mission, Explorer } = require('../data/models');
 
 /**
@@ -19,8 +21,9 @@ const { User, Mission, Explorer } = require('../data/models');
  * @param {string} loserPrice - The loser price of the mission.
  * @returns {Promise<object>} - A promise that resolves to the created post object.
  * @throws {ExistenceError} - If the user with the provided ID does not exist.
- * @throws {TypeError} - on userId, traveler, destination, StartDate, EndDate, participan or loserPrice wrong type.
- * @throws {ContentError} - on userId, traveler, destination, StartDate, EndDate, participan or loserPrice wrong characters.
+ * @throws {DuplicityError} - If the name of any participant is repeat.
+ * @throws {TypeError} - on userId, traveler, destination, participan or loserPrice wrong type.
+ * @throws {ContentError} - on userId, traveler, destination, participan or loserPrice wrong characters.
  */
 
 const createMission = (
@@ -35,6 +38,14 @@ const createMission = (
   validateDestination(destination);
   validateParticipants(participants);
   validateText(loserPrice, 'loser price');
+
+  const duplicateNames = findDuplicateNames(participants);
+
+  if (duplicateNames.length > 0) {
+    throw new DuplicityError(
+      `duplicate participant names: ${duplicateNames.join(', ')}`
+    );
+  }
 
   const startDate = new Date();
   const endDate = new Date(startDate);

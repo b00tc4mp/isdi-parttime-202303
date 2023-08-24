@@ -67,7 +67,7 @@ const validateText = (text, explain = 'text') => {
 const validateTraveler = (traveler) => {
   validateText(traveler, 'traveler');
 
-  const travelers = ['monkey', 'robot', 'dog', 'billonaire'];
+  const travelers = ['monkey', 'robot', 'dog', 'billionaire'];
 
   if (!travelers.includes(traveler)) {
     throw new ExistenceError(`traveler named ${traveler} doesnt exist`);

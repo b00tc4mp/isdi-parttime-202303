@@ -9,7 +9,7 @@ const { createMission } = require('../../logic');
 const { Mission } = require('../../data/models');
 const { cleanUp, populate, generate } = require('../helpers');
 const {
-  errors: { ExistenceError, ContentError },
+  errors: { ExistenceError, ContentError, DuplicityError },
 } = require('com');
 
 describe('createMission', () => {
@@ -62,7 +62,7 @@ describe('createMission', () => {
         user._id.toString(),
         'monkey',
         destination,
-        [generate.participant()],
+        [participant],
         'beer'
       );
     }
@@ -126,14 +126,14 @@ describe('createMission', () => {
   });
 
   it('success on all correct travelers', async () => {
-    const travelers = ['monkey', 'robot', 'dog', 'billonaire'];
+    const travelers = ['monkey', 'robot', 'dog', 'billionaire'];
 
     for (const traveler of travelers) {
       await createMission(
         user._id.toString(),
         traveler,
         'mars',
-        [generate.participant()],
+        [participant],
         'beer'
       );
     }
@@ -166,10 +166,28 @@ describe('createMission', () => {
       'beer'
     );
 
+    const createdMission = await Mission.find();
+
+    createdMission[0].participants.forEach((participant, index) => {
+      expect(participant.name).to.equal(participants[index].name);
+    });
+  });
+
+  it('success on many missions created by the same user', async () => {
+    for (let i = 0; i < 5; i++) {
+      await createMission(
+        user._id.toString(),
+        'monkey',
+        'mars',
+        [participant],
+        'beer'
+      );
+    }
+
     const createdMissions = await Mission.find();
 
-    createdMissions[0].participants.forEach((participant, index) => {
-      expect(participant.name).to.equal(participants[index].name);
+    createdMissions.forEach((mission) => {
+      expect(mission.creator._id.toString()).to.equal(user._id.toString());
     });
   });
 
@@ -401,6 +419,25 @@ describe('createMission', () => {
     } catch (error) {
       expect(error).to.be.instanceOf(ContentError);
       expect(error.message).to.equal('participant name is empty');
+    }
+  });
+
+  it('should raise duplicity error if participant name is repeat', async () => {
+    const otherParticipant = generate.participant();
+
+    try {
+      await createMission(
+        user._id.toString(),
+        'monkey',
+        'moon',
+        [participant, participant, otherParticipant, otherParticipant],
+        'beer'
+      );
+    } catch (error) {
+      expect(error).to.be.instanceOf(DuplicityError);
+      expect(error.message).to.equal(
+        `duplicate participant names: ${participant.name}, ${otherParticipant.name}`
+      );
     }
   });
 
