@@ -3,7 +3,7 @@ import errors from "./helpers/errors"
 
 export default function removeMealFromCart(mealId: string, quantity: number) {
     return (async () => {
-        const res = await fetch(`http://localhost:1234/meals/cart/delete/${mealId}`, {
+        const res = await fetch(`${import.meta.env.VITE_API_KEY}/meals/cart/delete/${mealId}`, {
             method: 'DELETE',
             headers: {
                 'Content-type': 'application/json',

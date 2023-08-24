@@ -52,6 +52,7 @@ export default function Login(): JSX.Element {
             loaderOff()
         }, 1000)
     }
+    console.log(`${import.meta.env.VITE_API_KEY}/users/auth`)
 
     return <>
         <div className="page-no-token">

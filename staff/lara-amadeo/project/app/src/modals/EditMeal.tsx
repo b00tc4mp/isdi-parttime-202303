@@ -18,7 +18,7 @@ import useHandleError from "../logic/hooks/useHandleError";
 
 const urlEndpoint = 'https://ik.imagekit.io/6zeyr5rgu/yuperApp/'
 const publicKey = 'public_9DujXADbFrwoOkNd+rUmvTbT/+U='
-const authenticationEndpoint = 'http://localhost:1234/IKAuth'
+const authenticationEndpoint = `${import.meta.env.VITE_API_KEY}/IKAuth`
 
 type Meal = {
     author: { avatar: string, name: string, description: string, id: string },

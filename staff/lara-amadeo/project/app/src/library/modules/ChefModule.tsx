@@ -19,6 +19,7 @@ export default function ChefModule({ avatar, name, liked, onSendMessage }: Props
             <div className='chef-module-info'>
                 <p className="body-text-bold grey-700 chef-module-name">{name}</p>
             </div>
+            {/* @ts-ignore */}
             <Button type={'secondary'} size={'small'} label={'Send message'} hugContent={true} onClick={onSendMessage} />
             {liked ? <IconButton icon={<SolidHeartIcon className='icon-s red-200' />} type={'secondary'} /> : <IconButton icon={<HeartIcon className='icon-s grey-700' />} type={'secondary'} />}
         </div>

@@ -19,7 +19,7 @@ export const registerAdditionalInfo = (description: string, tags: Array<string>,
     const info = { description, tags, location, availability }
 
     return (async () => {
-        const res = await fetch('http://localhost:1234/users/info', {
+        const res = await fetch(`${import.meta.env.VITE_API_KEY}/users/info`, {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json',
@@ -41,7 +41,7 @@ export const registerAdditionalInfo = (description: string, tags: Array<string>,
 }
 
 /* Old-promises
-    return fetch('http://localhost:1234/users/info', {
+    return fetch('${import.meta.env.VITE_API_KEY}/users/info', {
         method: 'POST',
         headers: {
             'Content-type': 'application/json',

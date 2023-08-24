@@ -4,7 +4,7 @@ import errors from "./helpers/errors"
 export default function incrementMealsInCart(mealId: string, quantity: number) {
 
     return (async () => {
-        const res = await fetch(`http://localhost:1234/meals/cart/increment/${mealId}`, {
+        const res = await fetch(`${import.meta.env.VITE_API_KEY}/meals/cart/increment/${mealId}`, {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json',

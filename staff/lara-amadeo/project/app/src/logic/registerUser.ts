@@ -26,7 +26,7 @@ export const registerUser = ({ name, username, email, password }: Params) => {
     const user = { name, username, email, password }
 
     return (async () => {
-        const res = await fetch('http://localhost:1234/users', {
+        const res = await fetch(`${import.meta.env.VITE_API_KEY}/users`, {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json'
@@ -54,7 +54,7 @@ export const registerUser = ({ name, username, email, password }: Params) => {
 
 /*    const user = { name, username, email, password }
 
-    return fetch('http://localhost:1234/users', {
+    return fetch('${import.meta.env.VITE_API_KEY}/users', {
         method: 'POST',
         headers: {
             'Content-type': 'application/json'

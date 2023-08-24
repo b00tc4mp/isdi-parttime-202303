@@ -2,7 +2,7 @@ import { context } from "./context"
 
 export default function retrieveUser() {
     return (async () => {
-        const res = await fetch('http://localhost:1234/users', {
+        const res = await fetch(`${import.meta.env.VITE_API_KEY}/users`, {
             method: 'GET',
             headers: {
                 'Content-type': 'application/json',
@@ -27,7 +27,7 @@ export default function retrieveUser() {
 }
 
 /*
-    return fetch('http://localhost:1234/users', {
+    return fetch('${import.meta.env.VITE_API_KEY}/users', {
         method: 'GET',
         headers: {
             'Content-type': 'application/json',

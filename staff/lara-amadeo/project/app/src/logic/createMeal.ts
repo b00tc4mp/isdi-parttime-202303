@@ -22,7 +22,7 @@ export default function createMeal({ images, title, description, ingredients, ca
     const meal = { images, title, description, ingredients, categories, bestBefore, quantity, price }
 
     return (async () => {
-        const res = await fetch('http://localhost:1234/meals', {
+        const res = await fetch(`${import.meta.env.VITE_API_KEY}/meals`, {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json',
@@ -45,7 +45,7 @@ export default function createMeal({ images, title, description, ingredients, ca
 }
 
 /*
-    return fetch('http://localhost:1234/meals', {
+    return fetch('${import.meta.env.VITE_API_KEY}/meals', {
         method: 'POST',
         headers: {
             'Content-type': 'application/json',

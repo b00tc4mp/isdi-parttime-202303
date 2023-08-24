@@ -210,12 +210,14 @@ export default function Profile(): JSX.Element {
 
                     {/* PENDING TO PACK */}
                     {tabView === 'toPack' && pendingToPack && pendingToPack.map((item: Order) => {
+                        // @ts-ignore
                         return <PendingToPackCard buyer={item.buyer.name} meals={item.meals} serial={item.serial} chipLabel={item.status} chipStatus={item.status === 'pending' ? 'warning' : 'success'} onReadyButton={onDeliverTab} />
                     })
                     }
 
                     {/* PENDING TO DELIVER */}
                     {tabView === 'toDeliver' && pendingToDeliver && pendingToDeliver.map((item: Order) => {
+                        // @ts-ignore
                         return <WaitingToDeliverCard buyer={item.buyer.name} meals={item.meals} serial={item.serial} chipLabel={item.status} chipStatus={'success'} />
                     })
                     }

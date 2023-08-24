@@ -14,7 +14,7 @@ module.exports = function handleErrors(callback) {
                     else if (error instanceof AuthError)
                         status = 401
 
-                    res.status(status).json({ message: error.stack, type: error.constructor.name })
+                    res.status(status).json({ message: error.message, type: error.constructor.name })
                 })
         } catch (error) {
             let status = 500
@@ -22,7 +22,7 @@ module.exports = function handleErrors(callback) {
             if (error instanceof TypeError || error instanceof ContentError || error instanceof RangeError)
                 status = 406
 
-            res.status(status).json({ message: error.stack, type: error.constructor.name })
+            res.status(status).json({ message: error.message, type: error.constructor.name })
         }
     }
 }

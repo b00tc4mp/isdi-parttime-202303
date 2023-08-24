@@ -5,7 +5,7 @@ import errors from './helpers/errors'
 export default function updateMeal(mealId: string) {
 
     return (async () => {
-        const res = await fetch(`http://localhost:1234/meals/delete/${mealId}`, {
+        const res = await fetch(`${import.meta.env.VITE_API_KEY}/meals/delete/${mealId}`, {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json',

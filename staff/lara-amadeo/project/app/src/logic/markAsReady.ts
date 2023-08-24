@@ -3,7 +3,7 @@ import errors from "./helpers/errors"
 
 export default function markAsReady(serial: string) {
     return (async () => {
-        const res = await fetch(`http://localhost:1234/meals/ready`, {
+        const res = await fetch(`${import.meta.env.VITE_API_KEY}/meals/ready`, {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json',

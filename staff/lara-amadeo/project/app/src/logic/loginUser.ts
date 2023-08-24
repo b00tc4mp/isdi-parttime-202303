@@ -5,7 +5,7 @@ import errors from './helpers/errors'
 export const loginUser = (email: string, password: string) => {
     const user = { email, password }
     return (async () => {
-        const res = await fetch('http://localhost:1234/users/auth', {
+        const res = await fetch(`${import.meta.env.VITE_API_KEY}/users/auth`, {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json',
@@ -32,7 +32,7 @@ export const loginUser = (email: string, password: string) => {
 }
 
 /* Old-promises 
-    return fetch('http://localhost:1234/users/auth', {
+    return fetch('${import.meta.env.VITE_API_KEY}/users/auth', {
         method: 'POST',
         headers: {
             'Content-type': 'application/json',

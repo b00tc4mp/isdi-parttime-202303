@@ -3,7 +3,7 @@ import { context } from "./context"
 export default function retrieveMeals() {
 
     return (async () => {
-        const res = await fetch('http://localhost:1234/meals', {
+        const res = await fetch(`${import.meta.env.VITE_API_KEY}/meals`, {
             method: 'GET',
             headers: {
                 'Content-type': 'application/json',
@@ -28,7 +28,7 @@ export default function retrieveMeals() {
 }
 
 /*
-    return fetch('http://localhost:1234/meals', {
+    return fetch('${import.meta.env.VITE_API_KEY}/meals', {
         method: 'GET',
         headers: {
             'Content-type': 'application/json',

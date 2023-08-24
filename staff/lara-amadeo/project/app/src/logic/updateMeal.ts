@@ -15,7 +15,7 @@ export default function updateMeal({ mealId, images, title, description, ingredi
     const meal = { images, title, description, ingredients, bestBefore, price, categories }
 
     return (async () => {
-        const res = await fetch(`http://localhost:1234/meals/update/${mealId}`, {
+        const res = await fetch(`${import.meta.env.VITE_API_KEY}/meals/update/${mealId}`, {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json',

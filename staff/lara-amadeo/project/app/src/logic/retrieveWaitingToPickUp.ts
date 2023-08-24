@@ -4,7 +4,7 @@ import { context } from "./context"
 export default function retrieveWaitingToPickUp() {
 
     return (async () => {
-        const res = await fetch('http://localhost:1234/meals/waiting/pickUp', {
+        const res = await fetch(`${import.meta.env.VITE_API_KEY}/meals/waiting/pickUp`, {
             method: 'GET',
             headers: {
                 'Content-type': 'application/json',

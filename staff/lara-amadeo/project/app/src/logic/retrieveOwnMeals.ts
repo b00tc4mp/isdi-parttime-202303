@@ -3,7 +3,7 @@ import { context } from "./context"
 export default function retrieveOwnMeals() {
 
     return (async () => {
-        const res = await fetch('http://localhost:1234/meals/user', {
+        const res = await fetch(`${import.meta.env.VITE_API_KEY}/meals/user`, {
             method: 'GET',
             headers: {
                 'Content-type': 'application/json',

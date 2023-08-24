@@ -4,7 +4,7 @@ import errors from "./helpers/errors"
 export default function payMealsInCart() {
     const nth = "a"
     return (async () => {
-        const res = await fetch(`http://localhost:1234/meals/pay`, {
+        const res = await fetch(`${import.meta.env.VITE_API_KEY}/meals/pay`, {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json',
