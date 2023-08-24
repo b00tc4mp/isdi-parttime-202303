@@ -43,7 +43,7 @@ describe('handleErrors', () => {
     ).to.be.true;
   });
 
-  it('should handle asynchronous duplicity errors and respond with status 409', async () => {
+  it('should handle asynchronous DuplicityError and respond with status 409', async () => {
     const asyncCallbackStub = async () => {
       throw new DuplicityError('Duplicity error');
     };
@@ -65,7 +65,7 @@ describe('handleErrors', () => {
     ).to.be.true;
   });
 
-  it('should handle asynchronous auth errors and respond with status 401', async () => {
+  it('should handle asynchronous AuthError and respond with status 401', async () => {
     const asyncCallbackStub = async () => {
       throw new AuthError('Auth error');
     };
@@ -87,7 +87,7 @@ describe('handleErrors', () => {
     ).to.be.true;
   });
 
-  it('should handle asynchronous existence errors and respond with status 404', async () => {
+  it('should handle asynchronous ExistenceError and respond with status 404', async () => {
     const asyncCallbackStub = async () => {
       throw new ExistenceError('Existence error');
     };
@@ -109,7 +109,7 @@ describe('handleErrors', () => {
     ).to.be.true;
   });
 
-  it('should handle synchronous general errors and respond with status 500', () => {
+  it('should handle synchronous general Error and respond with status 500', () => {
     const callbackStub = sinon.stub().throws(new Error('Error'));
 
     const req = {};
@@ -125,7 +125,7 @@ describe('handleErrors', () => {
       .true;
   });
 
-  it('should handle synchronous type errors and respond with status 406', () => {
+  it('should handle synchronous TypeError and respond with status 406', () => {
     const callbackStub = sinon.stub().throws(new TypeError('Type Error'));
 
     const req = {};
@@ -142,7 +142,7 @@ describe('handleErrors', () => {
     ).to.be.true;
   });
 
-  it('should handle synchronous content errors and respond with status 406', () => {
+  it('should handle synchronous ContentError and respond with status 406', () => {
     const callbackStub = sinon.stub().throws(new ContentError('Content Error'));
 
     const req = {};
@@ -162,7 +162,7 @@ describe('handleErrors', () => {
     ).to.be.true;
   });
 
-  it('should handle synchronous range errors and respond with status 406', () => {
+  it('should handle synchronous RangeError and respond with status 406', () => {
     const callbackStub = sinon.stub().throws(new RangeError('Range Error'));
 
     const req = {};
