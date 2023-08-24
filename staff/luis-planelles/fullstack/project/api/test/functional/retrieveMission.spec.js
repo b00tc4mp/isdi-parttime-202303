@@ -2,9 +2,15 @@ require('dotenv').config();
 
 const { expect } = require('chai');
 const mongoose = require('mongoose');
+const { ObjectId } = require('mongodb');
 
 const { retrieveMission } = require('../../logic');
 const { cleanUp, populate, generate } = require('../helpers');
+
+const {
+  errors: { ExistenceError, ContentError },
+} = require('com');
+const { Mission } = require('../../data/models');
 
 describe('retrieveMission', () => {
   before(() => {
@@ -50,6 +56,120 @@ describe('retrieveMission', () => {
     expect(retrievedMission.participants[0].email).to.be.undefined;
     expect(retrievedMission.participants[0]._id).to.be.undefined;
     expect(retrievedMission.traveler[0]._id).to.be.undefined;
+  });
+
+  it('throws ExistenceError when user does not exist', async () => {
+    const nonexistentUserId = new ObjectId().toString();
+
+    try {
+      await retrieveMission(nonexistentUserId, mission._id.toString());
+    } catch (error) {
+      expect(error).to.be.an.instanceOf(ExistenceError);
+      expect(error.message).to.equal(
+        `user with id ${nonexistentUserId} not exist`
+      );
+    }
+  });
+
+  it('throws ExistenceError when mission does not exist', async () => {
+    const nonexistentMissionId = new ObjectId().toString();
+
+    try {
+      await retrieveMission(user._id.toString(), nonexistentMissionId);
+    } catch (error) {
+      expect(error).to.be.an.instanceOf(ExistenceError);
+      expect(error.message).to.equal(
+        `mission with id ${nonexistentMissionId} not exist`
+      );
+    }
+  });
+
+  it('should raise ContentError if user id is empty', async () => {
+    const emptyId = '';
+
+    try {
+      await retrieveMission(emptyId, mission._id.toString());
+    } catch (error) {
+      expect(error).to.be.instanceOf(ContentError);
+      expect(error.message).to.equal('user id is empty');
+    }
+  });
+
+  it('should raise TypeError if user id is not a string', async () => {
+    const noStringId = 11;
+
+    try {
+      await retrieveMission(noStringId, mission._id.toString());
+    } catch (error) {
+      expect(error).to.be.instanceOf(TypeError);
+      expect(error.message).to.equal('user id is not a string');
+    }
+  });
+
+  it('should raise ContentError if user id does not have 24 characters', async () => {
+    const shortId = 'abc123';
+
+    try {
+      await retrieveMission(shortId, mission._id.toString());
+    } catch (error) {
+      expect(error).to.be.instanceOf(ContentError);
+      expect(error.message).to.equal('user id does not have 24 characters');
+    }
+  });
+
+  it('should raise ContentError if user id is not hexagecimal', async () => {
+    const nonHexId = 'invalidValue123456789012';
+
+    try {
+      await retrieveMission(nonHexId, mission._id.toString());
+    } catch (error) {
+      expect(error).to.be.instanceOf(ContentError);
+      expect(error.message).to.equal('user id is not hexagecimal');
+    }
+  });
+
+  it('should raise ContentError if mission id is empty', async () => {
+    const emptyId = '';
+
+    try {
+      await retrieveMission(user._id.toString(), emptyId);
+    } catch (error) {
+      expect(error).to.be.instanceOf(ContentError);
+      expect(error.message).to.equal('mission id is empty');
+    }
+  });
+
+  it('should raise TypeError if mission id is not a string', async () => {
+    const noStringId = 11;
+
+    try {
+      await retrieveMission(user._id.toString(), noStringId);
+    } catch (error) {
+      expect(error).to.be.instanceOf(TypeError);
+      expect(error.message).to.equal('mission id is not a string');
+    }
+  });
+
+  it('should raise ContentError if mission id does not have 24 characters', async () => {
+    const shortId = 'abc123';
+
+    try {
+      await retrieveMission(user._id.toString(), shortId);
+    } catch (error) {
+      expect(error).to.be.instanceOf(ContentError);
+      expect(error.message).to.equal('mission id does not have 24 characters');
+    }
+  });
+
+  it('should raise ContentError if mission id is not hexagecimal', async () => {
+    const nonHexId = 'invalidValue123456789012';
+
+    try {
+      await retrieveMission(user._id.toString(), nonHexId);
+    } catch (error) {
+      expect(error).to.be.instanceOf(ContentError);
+      expect(error.message).to.equal('mission id is not hexagecimal');
+    }
   });
 
   after(() => {

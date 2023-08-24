@@ -1,5 +1,6 @@
 const {
   validators: { validateId },
+  errors: { ExistenceError },
 } = require('com');
 const { Mission, User } = require('../data/models');
 
