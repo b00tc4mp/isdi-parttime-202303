@@ -51,7 +51,7 @@ const Game = () => {
       setName(levelName);
       setHealth(hp ? hp : 5);
       setCreateData(data);
-      setLevelId(levelId);
+      if (levelId) setLevelId(levelId);
       setIsLoading(false);
     }
   };
@@ -62,7 +62,7 @@ const Game = () => {
         const user = await retrieveLoggedUser();
         setAvatar(user.avatar);
       });
-    } else setAvatar(avatar);
+    } else setAvatar('beach');
     getLevel();
   }, [id]);
 

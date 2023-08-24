@@ -16,7 +16,7 @@ const About = () => {
                 </div>
                 <div className="flex flex-col md:flex-row justify-center items-center gap-7" >
                     <p className="text-secondary200 text-sm md:text-lg text-center">
-                        Ballopolis is meant to be a <b className="font-bold">social game</b>, where you <b className="font-bold">create levels</b> that are fun and challenging to beat for other players. In doing so, you <b className="font-bold">earn achivements</b> to add to your profile and show off to your friends.
+                        Ballopolis is meant to be a <b className="font-bold">social game</b>, where you <b className="font-bold">create levels</b> that are fun and challenging to beat for other players. In doing so, you <b className="font-bold">Customization Credits</b> to create more levels or chose a new avatar. While playing you can also <b className="font-bold">earn achivements</b> to add to your profile and show off to your friends.
                     </p>
                     <img src={share} className="w-48 h-48 md:w-60 md:h-60" alt="share" />
                 </div>
@@ -31,7 +31,7 @@ const About = () => {
                                 At first the idea was to make a pretty simple game with CSS with the time limit being the main feature. But it evolved into using <b className="font-semibold">ThreeJS</b>, not having time limit but with multiple floors instead.
                             </p>
                             <p className="text-secondary200 text-sm md:text-lg text-center">
-                                You can check the code of the project clicking <a href="https://github.com/rucev/isdi-parttime-202303/tree/feature/fullstack/staff/flors-rueda/fullstack/project" target="_blank" rel="noopener noreferrer" className="hover:text-primary600 text-primary200 font-bold">
+                                You can check the code of the project clicking <a href="https://github.com/rucev/ballopolis" target="_blank" rel="noopener noreferrer" className="hover:text-primary600 text-primary200 font-bold">
                                     here
                                 </a>!
                             </p>

@@ -1,96 +1,51 @@
 import ComicCarousel from '../components/ComicCarousel';
 import logo from '../assets/logo-complete.svg';
-import btnIcons from '../assets/buttonsIcons/index';
+import win from '../assets/win.svg';
+import build from '../assets/build.svg';
 import inLogger from '../inLogger';
 import './background.css';
-import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import Previews from '../components/Previews';
+import TrophiesPreview from '../components/TrophiesPreviews';
+import RandomRider from '../components/RandomRider';
+import ThingsToDo from '../components/ThingsToDo';
 
 const Landing = () => {
-    const [activeIndex, setActiveIndex] = useState(0);
     const navigate = useNavigate();
-
-    const images = [
-        'https://tecdn.b-cdn.net/img/Photos/Slides/img%20(15).jpg',
-        'https://tecdn.b-cdn.net/img/Photos/Slides/img%20(16).jpg',
-        'https://tecdn.b-cdn.net/img/Photos/Slides/img%20(17).jpg',
-        'https://tecdn.b-cdn.net/img/Photos/Slides/img%20(18).jpg',
-        'https://tecdn.b-cdn.net/img/Photos/Slides/img%20(19).jpg',
-        'https://tecdn.b-cdn.net/img/Photos/Slides/img%20(20).jpg',
-        'https://tecdn.b-cdn.net/img/Photos/Slides/img%20(21).jpg',
-        'https://tecdn.b-cdn.net/img/Photos/Slides/img%20(22).jpg',
-        'https://tecdn.b-cdn.net/img/Photos/Slides/img%20(23).jpg',
-    ];
 
     const handleToRegister = () => {
         navigate('/signin', { state: { startingForm: 'register' } });
     }
 
-    const handleFeature1Click = () => setActiveIndex(0);
-    const handleFeature2Click = () => setActiveIndex(1);
-    const handleFeature3Click = () => setActiveIndex(2);
-    const handleFeature4Click = () => setActiveIndex(3);
-    const handleFeature5Click = () => setActiveIndex(4);
-    const handleFeature6Click = () => setActiveIndex(5);
-    const handleFeature7Click = () => setActiveIndex(6);
-    const handleFeature8Click = () => setActiveIndex(7);
-    const handleFeature9Click = () => setActiveIndex(8);
+
 
     return (
         <>
             <div className="circle"></div> <div className="circle2"></div> <div className="circle3"></div><div className="circle4"></div>
             <div className="circle5"></div> <div className="circle6"></div> <div className="circle7"></div><div className="circle8"></div>
-            <section className="flex flex-col w-full justify-center items-center pt-28 gap-7">
-                <img src={logo} className="w-4/6" alt="Logo" />
-                <div className="flex flex-col md:flex-row gap-5 w-full justify-center align-center">
-                    <button onClick={handleToRegister} className="bg-primary100 self-center md:w-fit max-w-xs w-3/4  px-5 py-2 hover:bg-transparent text-2xl lg:text-4xl text-light500 hover:text-primary100 hover:border hover:border-primary100 font-bold rounded-lg transition duration-200">Join the Riders</button>
-                    <Link to="/tutorial" className="border border-secondary300 bg-transparent self-center md:w-fit max-w-xs w-3/4 text-center px-5 py-2 hover:bg-secondary300 text-2xl lg:text-4xl text-secondary300 hover:text-light500 font-bold rounded-lg transition duration-200">Learn the basics</Link>
+            <section className="flex flex-col w-full justify-center items-center pt-28">
+                <div className="gap-0.5 flex-col flex justify-center items-center">
+                    <img src={logo} className="w-4/6 md:w-1/3" alt="Logo" />
+                    <p className="self-center text-lg md:text-xl font-bold text-dark200 text-shadow font font-serif">Play. Create. Explore. Enjoy.</p>
+                    <i className="self-center text-xs md:text-sm font-semibold text-dark500 font-serif text-shadow pb-5">A web game to create and play original levels.</i>
                 </div>
-                <div className="flex flex-col gap-5 md:gap-1 md:flex-row w-5/6 justify-center align-center bg-light300 rounded-xl mt-5 opacity-90">
-                    <div className="flex flex-col w-full justify-center align-center">
-                        <h1 className="text-secondary400 text-xl font-bold text-center pt-2 w-full">There's a lot to do</h1>
-                        <div className="flex self-center flex-col gap-5 justify-center align-center px-4 pt-2 md:py-4">
-                            <div className="flex flex-row gap-5">
-                                <button onClick={handleFeature1Click} className={`p-2 rounded ${activeIndex === 0 ? "bg-primary300" : "bg-secondary600 hover:bg-secondary500"}`}>
-                                    <img src={btnIcons.create} className="w-10" alt="create" />
-                                </button>
-                                <button onClick={handleFeature2Click} className={`p-2 rounded ${activeIndex === 1 ? "bg-primary300" : "bg-secondary600 hover:bg-secondary500"}`}>
-                                    <img src={btnIcons.explore} className="w-10" alt="explore" />
-                                </button>
-                                <button onClick={handleFeature3Click} className={`p-2 rounded ${activeIndex === 2 ? "bg-primary300" : "bg-secondary600 hover:bg-secondary500"}`}>
-                                    <img src={btnIcons.earn} className="w-10" alt="earn" />
-                                </button>
-                            </div>
-                            <div className="flex flex-row gap-5">
-                                <button onClick={handleFeature4Click} className={`p-2 rounded ${activeIndex === 3 ? "bg-primary300" : "bg-secondary600 hover:bg-secondary500"}`}>
-                                    <img src={btnIcons.vote} className="w-10" alt="vote" />
-                                </button>
-                                <button onClick={handleFeature5Click} className={`p-2 rounded ${activeIndex === 4 ? "bg-primary300" : "bg-secondary600 hover:bg-secondary500"}`}>
-                                    <img src={btnIcons.heart} className="w-10" alt="save" />
-                                </button>
-                                <button onClick={handleFeature6Click} className={`p-2 rounded ${activeIndex === 5 ? "bg-primary300" : "bg-secondary600 hover:bg-secondary500"}`}>
-                                    <img src={btnIcons.achivements} className="w-10" alt="achivements" />
-                                </button>
-                            </div>
-                            <div className="flex flex-row gap-5">
-                                <button onClick={handleFeature7Click} className={`p-2 rounded ${activeIndex === 6 ? "bg-primary300" : "bg-secondary600 hover:bg-secondary500"}`}>
-                                    <img src={btnIcons.customize} className="w-10" alt="vote" />
-                                </button>
-                                <button onClick={handleFeature8Click} className={`p-2 rounded ${activeIndex === 7 ? "bg-primary300" : "bg-secondary600 hover:bg-secondary500"}`}>
-                                    <img src={btnIcons.friends} className="w-10" alt="save" />
-                                </button>
-                                <button onClick={handleFeature9Click} className={`p-2 rounded ${activeIndex === 8 ? "bg-primary300" : "bg-secondary600 hover:bg-secondary500"}`}>
-                                    <img src={btnIcons.more} className="w-10" alt="achivements" />
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="flex flex-col w-full justify-center align-center p-2">
-                        <img src={images[activeIndex]} alt={`Feature ${activeIndex + 1}`} className="mx-auto align-self lg:h-96 lg:w-96 md:h-72 md:w-72 h-60 w-60 rounded-lg" />
-                    </div>
-
-
+                <div className="flex flex-col md:flex-row gap-2 w-full justify-center align-center">
+                    <button onClick={handleToRegister} className="bg-primary100 self-center md:w-fit max-w-xs w-3/4  px-5 py-2 hover:bg-transparent text-2xl lg:text-4xl text-light500 hover:text-primary100 border border-primary100 font-bold rounded-2xl transition duration-200 text-center">Join the Riders</button>
+                    <p className="self-center text-lg md:text-xl font-semibold text-light100 font-serif">- or - </p>
+                    <Link to="/tutorial" className="bg-secondary300 self-center md:w-fit max-w-xs w-3/4  px-5 py-2 hover:bg-transparent text-2xl lg:text-4xl text-light500 hover:text-secondary300 border border-secondary300 font-bold rounded-2xl transition duration-200 text-center">Learn the basics</Link>
                 </div>
+                <Previews />
+                <TrophiesPreview />
+                <div className="flex flex-col md:flex-row w-full justify-between md:px-10 bg-secondaryShadow items-center">
+                    <p className="pt-10 sm:pt-0 text-2xl md:text-3xl text-center font-bold text-dark100 text-shadow font font-serif">With every level you play, you win Customization Credits.</p>
+                    <img src={win} className="w-4/6 md:w-1/3" alt="Logo" />
+                </div>
+                <div className="flex flex-col md:flex-row-reverse w-full justify-between md:px-10 bg-primaryShadow items-center">
+                    <p className="pt-10 sm:pt-0 text-2xl md:text-3xl text-center font-bold text-dark100 text-shadow font font-serif">Spend those on creating more levels or unlocking new maze riders...</p>
+                    <img src={build} className="w-4/6 md:w-1/3" alt="Logo" />
+                </div>
+                <RandomRider />
+                <ThingsToDo handleToRegister={handleToRegister} />
                 <ComicCarousel />
             </section>
         </>
