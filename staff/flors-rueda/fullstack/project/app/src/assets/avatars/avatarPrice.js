@@ -1,15 +1,15 @@
 export default {
-    basket: 300,
+    basket: 900,
     beach: 0,
-    blue: 100,
-    pink: 100,
-    rainbow: 200,
+    blue: 700,
+    pink: 700,
+    rainbow: 700,
     candy: 200,
-    dark: 100,
-    disco: 200,
-    lava: 300,
-    leopard: 200,
-    tennis: 300,
-    wood: 300
+    dark: 800,
+    disco: 300,
+    lava: 400,
+    leopard: 500,
+    tennis: 100,
+    wood: 1000
 };
 

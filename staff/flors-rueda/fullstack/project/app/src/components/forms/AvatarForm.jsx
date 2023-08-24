@@ -69,12 +69,12 @@ const AvatarForm = ({ setUpdateUserInfo, setToast }) => {
     }, [selectedAvatar]);
 
     return (
-        <div className="w-full mt-5">
+        <div className="w-full mt-5 mb-6">
             <ul className="p-3 grid md:grid-cols-2 md:grid-rows-6 lg:grid-cols-3 lg:grid-rows-4 gap-5">
                 {assets.avatars.map((avatar, index) => (
-                    <li key={`${index}_${avatar}`} className='p-2 flex items-center flex-col bg-secondary600 rounded-lg shadow' >
+                    <li key={`${index}_${avatar}`} className='p-2 pb-3 flex items-center justify-around flex-col bg-secondary600 rounded-lg shadow' >
                         <div className="flex flex-row align-center">
-                            <img className="w-18 h-18" src={`${avatars[avatar]}`} alt="avatar" />
+                            <img className="w-32 h-32" src={`${avatars[avatar]}`} alt="avatar" />
                             <span className={`text-primary100 text-xl font-semibold pl-2 self-center`}>{(avatarStory[avatar])[0]}</span>
                         </div>
                         <span className={`text-secondary200 text-sm text-center font-semibold pl-2 pb-0.5`}>{(avatarStory[avatar])[1]}</span>
