@@ -42,11 +42,11 @@ const ProfileLevels = ({ userId, userSaves, setToast, isDeleted, setDeleted, use
         <div className="flex flex-col md:col-span-2 md:justify-center items-center mt-10">
             <div className="flex flex-row md:justify-center items-center justify-around gap-3">
                 <button onClick={() => setType('created')} className={`text-xl pt-0.5 ${type === 'created' ? `text-${user.color} cursor-default` : `text-dark500 hover:underline`}`}>
-                    <i className="bi bi-hammer"></i>Levels Created
+                    <i className="bi bi-hammer pe-2"></i>Levels Created
                 </button>
                 <span className="text-xl text-light300 font-semibold self-center">||</span>
                 <button onClick={() => setType('saved')} className={`text-xl pt-0.5 ${type === 'saved' ? `text-${user.color} cursor-default` : `text-dark500 hover:underline`}`}>
-                    <i className="bi bi-bookmarks-fill"></i>Favorite Levels
+                    <i className="bi bi-bookmarks-fill pe-2"></i>Favorite Levels
                 </button>
             </div>
             <div className="flex flex-row w-full justify-center items-center pt-5 pb-20 gap-2 flex-wrap px-5">
