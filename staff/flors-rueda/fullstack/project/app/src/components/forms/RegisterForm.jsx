@@ -157,7 +157,7 @@ const RegisterForm = ({ onLogin, setConnectSocket, setToast }) => {
                             type="text"
                             name="username"
                             id="username"
-                            className={`border text-secondary200 sm:text-sm rounded-lg focus:outline-none focus:ring-secondary300 focus:border-secondary300 block w-full p-2.5 ${isUsernameValid === false ? 'border-danger200 border-2 bg-danger300' : 'border-light100 bg-light500'}`}
+                            className={`border text-secondary200 sm:text-sm rounded-lg block w-full p-2.5 ${isUsernameValid === false ? 'border-danger200 focus:outline-none focus:ring-danger200 focus:border-danger200' : 'border-light100 focus:outline-none focus:ring-secondary300 focus:border-secondary300'}`}
                             placeholder="UserName42"
                             required={true}
                             maxLength={11}
@@ -174,7 +174,7 @@ const RegisterForm = ({ onLogin, setConnectSocket, setToast }) => {
                             id="password"
                             placeholder="••••••••"
                             minLength={8}
-                            className={`border text-secondary200 sm:text-sm rounded-lg focus:outline-none focus:ring-secondary300 focus:border-secondary300 block w-full p-2.5 ${isPasswordValid === false ? 'border-danger200 border-2 bg-danger300' : 'border-light100 bg-light500'}`}
+                            className={`border text-secondary200 sm:text-sm rounded-lg block w-full p-2.5 ${isPasswordValid === false ? 'border-danger200 focus:outline-none focus:ring-danger200 focus:border-danger200' : 'border-light100 focus:outline-none focus:ring-secondary300 focus:border-secondary300'}`}
                             required={true}
                             onChange={handlePasswordChange}
                         />
@@ -184,7 +184,7 @@ const RegisterForm = ({ onLogin, setConnectSocket, setToast }) => {
                             id="repeatPassword"
                             minLength={8}
                             placeholder="confirm your password"
-                            className={`border text-secondary200 sm:text-sm rounded-lg focus:outline-none focus:ring-secondary300 focus:border-secondary300 block w-full p-2.5 ${isRepeatPasswordValid === false ? 'border-danger200 border-2 bg-danger300' : 'border-light100 bg-light500'}`}
+                            className={`border text-secondary200 sm:text-sm rounded-lg block w-full p-2.5 ${isRepeatPasswordValid === false ? 'border-danger200 focus:outline-none focus:ring-danger200 focus:border-danger200' : 'border-light100 focus:outline-none focus:ring-secondary300 focus:border-secondary300'}`}
                             required={true}
                             onChange={handleRepeatPasswordChange}
                         />

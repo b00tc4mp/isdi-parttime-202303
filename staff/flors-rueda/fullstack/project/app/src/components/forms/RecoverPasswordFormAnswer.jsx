@@ -38,18 +38,6 @@ const RecoverPasswordFormAnswer = ({ recoveryQuestion, setStep, step, username, 
         };
     }, []);
 
-    const handleUsernameChange = (event) => {
-        const inputValue = event.target.value;
-        const alphanumericRegex = /^[a-zA-Z0-9]+$/;
-
-        if (!alphanumericRegex.test(inputValue)) {
-            event.target.setCustomValidity('Only letters and numbers are allowed.');
-        } else {
-            event.target.setCustomValidity('');
-        }
-        event.target.reportValidity();
-    };
-
     return (
         <div>
             <form className="space-y-4 md:space-y-6" ref={answerRef}>

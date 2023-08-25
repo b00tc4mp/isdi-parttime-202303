@@ -69,7 +69,7 @@ const RecoverPasswordFormUsername = ({ setRecoveryQuestion, setUsername, setStep
                         name="username"
                         id="username"
                         maxLength={11}
-                        className={`border text-secondary200 sm:text-sm rounded-lg focus:outline-none focus:ring-secondary300 focus:border-secondary300 block w-full p-2.5 ${isUsernameValid === false ? 'border-danger200 border-2 bg-danger300' : 'border-light100 bg-light500'}`}
+                        className={`border text-secondary200 sm:text-sm rounded-lg block w-full p-2.5 ${isUsernameValid === false ? 'border-danger200 focus:outline-none focus:ring-danger200 focus:border-danger200' : 'border-light100 focus:outline-none focus:ring-secondary300 focus:border-secondary300'}`}
                         placeholder="UserName123"
                         required={true}
                         onChange={handleUsernameChange}
