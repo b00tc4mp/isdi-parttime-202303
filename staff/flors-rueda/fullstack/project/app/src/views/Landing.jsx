@@ -24,24 +24,24 @@ const Landing = () => {
             <div className="circle"></div> <div className="circle2"></div> <div className="circle3"></div><div className="circle4"></div>
             <div className="circle5"></div> <div className="circle6"></div> <div className="circle7"></div><div className="circle8"></div>
             <section className="flex flex-col w-full justify-center items-center pt-28">
-                <div className="gap-0.5 flex-col flex justify-center items-center">
-                    <img src={logo} className="w-4/6 md:w-1/3" alt="Logo" />
-                    <p className="self-center text-lg md:text-xl font-bold text-dark200 text-shadow font font-serif">Play. Create. Explore. Enjoy.</p>
-                    <i className="self-center text-xs md:text-sm font-semibold text-dark500 font-serif text-shadow pb-5">A web game to create and play original levels.</i>
+                <div className="flex-col flex justify-center items-center">
+                    <img src={logo} className="w-4/6 md:w-1/3 mb-2" alt="Logo" />
+                    <h1 className="self-center text-4xl md:text-5xl text-center font-bold text-dark200 text-shadow mb-3">Play. Create. Explore. Enjoy.</h1>
+                    <h2 className="self-center text-xl md:text-2xl font-semibold text-dark500  text-shadow pb-5">A web game to create and play original levels.</h2>
                 </div>
                 <div className="flex flex-col md:flex-row gap-2 w-full justify-center align-center">
-                    <button onClick={handleToRegister} className="bg-primary100 self-center md:w-fit max-w-xs w-3/4  px-5 py-2 hover:bg-transparent text-2xl lg:text-4xl text-light500 hover:text-primary100 border border-primary100 font-bold rounded-2xl transition duration-200 text-center">Join the Riders</button>
-                    <p className="self-center text-lg md:text-xl font-semibold text-light100 font-serif">- or - </p>
-                    <Link to="/tutorial" className="bg-secondary300 self-center md:w-fit max-w-xs w-3/4  px-5 py-2 hover:bg-transparent text-2xl lg:text-4xl text-light500 hover:text-secondary300 border border-secondary300 font-bold rounded-2xl transition duration-200 text-center">Learn the basics</Link>
+                    <button onClick={handleToRegister} className="bg-primary100 self-center md:w-fit max-w-xs w-3/4 px-5 pt-2 pb-2.5 hover:bg-transparent text-2xl text-light500 hover:text-primary100 border border-primary100 font-bold rounded-2xl transition duration-200 text-center">Join the Riders</button>
+                    <p className="self-center text-lg md:text-xl font-semibold text-light100 ">- or - </p>
+                    <Link to="/tutorial" className="bg-secondary300 self-center md:w-fit max-w-xs w-3/4  px-5 hover:bg-transparent  pt-2 pb-2.5 text-2xl text-light500 hover:text-secondary300 border border-secondary300 font-bold rounded-2xl transition duration-200 text-center">Learn the basics</Link>
                 </div>
                 <Previews />
                 <TrophiesPreview />
-                <div className="flex flex-col md:flex-row w-full justify-between md:px-10 bg-secondaryShadow items-center">
-                    <p className="pt-10 sm:pt-0 text-2xl md:text-3xl text-center font-bold text-dark100 text-shadow font font-serif">With every level you play, you win Customization Credits.</p>
+                <div className="flex flex-col md:flex-row w-full justify-center md:px-10 bg-secondaryShadow items-center">
+                    <h2 className="text-2xl md:text-3xl text-center font-bold text-dark100 text-shadow">With every level you play, you win Customization Credits.</h2>
                     <img src={win} className="w-4/6 md:w-1/3" alt="Logo" />
                 </div>
-                <div className="flex flex-col md:flex-row-reverse w-full justify-between md:px-10 bg-primaryShadow items-center">
-                    <p className="pt-10 sm:pt-0 text-2xl md:text-3xl text-center font-bold text-dark100 text-shadow font font-serif">Spend those on creating more levels or unlocking new maze riders...</p>
+                <div className="flex flex-col md:flex-row-reverse w-full justify-center md:px-10 bg-primaryShadow items-center py-12">
+                    <h2 className="text-2xl md:text-3xl text-center font-bold text-dark100 text-shadow">Spend those on creating more levels or unlocking new maze riders...</h2>
                     <img src={build} className="w-4/6 md:w-1/3" alt="Logo" />
                 </div>
                 <RandomRider />

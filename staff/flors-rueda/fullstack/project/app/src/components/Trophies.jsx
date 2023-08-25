@@ -30,7 +30,6 @@ const Trophies = ({ achievements }) => {
     }
 
     return (
-
         <div className="flex items-center w-full justify-around">
             {
                 achievements.length > 1 &&

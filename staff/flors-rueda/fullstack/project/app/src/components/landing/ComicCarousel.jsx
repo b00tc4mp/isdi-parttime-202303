@@ -50,8 +50,8 @@ const ComicCarousel = () => {
     return (
         <>
             <div className="flex flex-col w-full bg-dark500 pb-24">
-                <h1 className="text-primary300 text-lg md:text-2xl lg:text-3xl font-bold text-center pt-6">THE LEGEND OF BALLOPOLIS</h1>
-                <div className="flex items-center justify-around pt-6">
+                <h2 className="text-primary300 text-4xl font-bold text-center pt-8">THE LEGEND OF BALLOPOLIS</h2>
+                <div className="flex items-center justify-around pt-8">
                     <button
                         type="button"
                         onClick={goToPreviousSlide}
@@ -59,9 +59,19 @@ const ComicCarousel = () => {
                     >
                         <i className="text-6xl font-bold bi bi-chevron-left"></i>
                     </button>
-
-                    <img src={images[activeIndex]} alt={`Slide ${activeIndex + 1}`} className="h-52 w-52 sm:h-96 sm:w-96 rounded-lg" />
-
+                    <div>
+                        <img src={images[activeIndex]} alt={`Slide ${activeIndex + 1}`} className="h-52 w-52 sm:h-96 sm:w-96 rounded-lg" />
+                        <div className="mt-6 z-10 flex items-center justify-center border-0 flex justify-center self-center">
+                            {text.map((_, index) => (
+                                <button
+                                    key={index}
+                                    type="button"
+                                    onClick={() => goToSlide(index)}
+                                    className={`mx-1 w-2 h-2 md:w-4 md:h-4 rounded-full ${index === activeIndex ? 'bg-primary500' : 'bg-light500 hover:bg-primary600'}`}
+                                />
+                            ))}
+                        </div>
+                    </div>
                     <button
                         type="button"
                         onClick={goToNextSlide}
@@ -69,20 +79,9 @@ const ComicCarousel = () => {
                     >
                         <i className="text-6xl font-bold opacity-100 bi bi-chevron-right"></i>
                     </button>
-
                 </div>
                 <div className="relative h-52 md:h-40 lg:h-28 pt-2 px-4 md:px-24 lg:px-48 z-20 text-lg items-center justify-center flex text-center text-primary600">
                     <p>{text[activeIndex]}</p>
-                </div>
-                <div className="absolute top-50 pt-24 z-10 flex items-center justify-center border-0 flex justify-center self-center">
-                    {text.map((_, index) => (
-                        <button
-                            key={index}
-                            type="button"
-                            onClick={() => goToSlide(index)}
-                            className={`mx-1 w-2 h-2 md:w-4 md:h-4 rounded-full ${index === activeIndex ? 'bg-primary500' : 'bg-light500 hover:bg-primary600'}`}
-                        />
-                    ))}
                 </div>
             </div>
         </>
