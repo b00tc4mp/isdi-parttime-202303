@@ -19,6 +19,8 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "tailwindcss": "3.3.3",
-    "typescript": "5.1.6"
+    "typescript": "5.1.6",
+    "xhr": "^2.6.0",
+    "xhr2": "^0.2.1"
   }
 }

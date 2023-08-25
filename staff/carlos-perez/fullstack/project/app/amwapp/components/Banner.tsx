@@ -7,9 +7,9 @@ const Banner = () =>{
             src={'/banner-6.JPG'}
             alt="banner"
             priority
-            className="object-contain"
-            width={600}
-            height={400}
+            className="object-cover"
+            width={640}
+            height={480}
             />
         </div>
     )

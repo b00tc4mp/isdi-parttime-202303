@@ -88,7 +88,7 @@
 
 
 .banner-container{
- @apply max-w-[600px]
+ @apply max-w-[600px] h-auto object-contain
 }
 
 /* END: Banner styles*/
@@ -100,7 +100,7 @@
  }
 
  .welcome-text{
-  @apply text-justify text-base sm:text-xl m-6
+  @apply text-justify text-base sm:text-lg md:text-xl mr-5 ml-5 mt-3 mb-3
  }
  
  /* END: Welcome styles*/

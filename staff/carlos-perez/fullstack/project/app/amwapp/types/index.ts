@@ -13,3 +13,11 @@ export interface CustomButtonProps {
   export interface CustomMenuProps{
     containerStyles?: string;
   }
+
+  export interface UpdateProps{
+    author: string;
+    title: string;
+    image: string;
+    text: string;
+    date: Date;
+  }
