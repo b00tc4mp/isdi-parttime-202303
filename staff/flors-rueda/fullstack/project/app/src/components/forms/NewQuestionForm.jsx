@@ -46,9 +46,6 @@ const NewQuestionForm = ({ setToast }) => {
                 alert(error.message);
             }
         }
-
-
-
     }
 
     const handleRecoveryChange = (event) => {
@@ -60,7 +57,7 @@ const NewQuestionForm = ({ setToast }) => {
             event.target.setCustomValidity('');
         }
         event.target.reportValidity();
-    };
+    }
 
     const handlePasswordChange = (event) => {
         const inputValue = event.target.value;

@@ -97,6 +97,7 @@ const GameContainer = ({ level, initialHp, onGameOver, avatar, setGameData }) =>
                     autoplay
                     loop={false}
                     src={animations[animation].json}
+                    background="transparent"
                     className={`w-full bottom-0 fixed inset-0 ${animation === 'won' ? 'opacity-100' : 'opacity-50 mt-24'}`}
                 />
             )}

@@ -52,9 +52,6 @@ const PasswordForm = ({ setToast }) => {
                 setRepeatPasswordValid(false);
             }
         }
-
-
-
     }
 
     const handleOldPasswordChange = (event) => {
