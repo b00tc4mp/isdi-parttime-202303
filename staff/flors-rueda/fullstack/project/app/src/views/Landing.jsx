@@ -1,14 +1,14 @@
-import ComicCarousel from '../components/ComicCarousel';
+import ComicCarousel from '../components/landing/ComicCarousel';
+import { Link, useNavigate } from 'react-router-dom';
+import Previews from '../components/landing/Previews';
+import TrophiesPreview from '../components/landing/TrophiesPreviews';
+import RandomRider from '../components/landing/RandomRider';
+import ThingsToDo from '../components/landing/ThingsToDo';
 import logo from '../assets/logo-complete.svg';
 import win from '../assets/win.svg';
 import build from '../assets/build.svg';
 import inLogger from '../inLogger';
 import './background.css';
-import { Link, useNavigate } from 'react-router-dom';
-import Previews from '../components/Previews';
-import TrophiesPreview from '../components/TrophiesPreviews';
-import RandomRider from '../components/RandomRider';
-import ThingsToDo from '../components/ThingsToDo';
 
 const Landing = () => {
     const navigate = useNavigate();

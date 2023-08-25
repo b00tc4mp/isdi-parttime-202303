@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import inLogger from '../inLogger';
+import inLogger from '../../inLogger';
 
 const ComicCarousel = () => {
     const [activeIndex, setActiveIndex] = useState(0);

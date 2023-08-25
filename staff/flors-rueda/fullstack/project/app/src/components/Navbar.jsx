@@ -7,7 +7,7 @@ import useHandleErrors from '../hooks/useHandleErrors';
 import retrieveLoggedUser from '../logic/retrieve-logged-user';
 import avatars from '../assets/avatars';
 
-const Navbar = ({ updateUserInfo, setAchievementNotifications }) => {
+const Navbar = ({ updateUserInfo }) => {
     const [isMenuOpen, setMenuOpen] = useState(false);
     const [isUserMenuOpen, setUserMenuOpen] = useState(false);
     const [userInfo, setUserInfo] = useState({});

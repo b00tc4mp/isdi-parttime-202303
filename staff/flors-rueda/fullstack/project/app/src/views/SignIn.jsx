@@ -4,7 +4,7 @@ import LoginForm from '../components/forms/LoginForm';
 import logo from '../assets/logo-complete.svg';
 import { useState, useEffect } from 'react';
 import './background.css';
-import ComicCarousel from '../components/ComicCarousel';
+import ComicCarousel from '../components/landing/ComicCarousel';
 import RegisterForm from '../components/forms/RegisterForm';
 import RecoverPasswordForm from '../components/forms/RecoverPasswordForm';
 import AlertToast from '../components/toasts/AlertToast';

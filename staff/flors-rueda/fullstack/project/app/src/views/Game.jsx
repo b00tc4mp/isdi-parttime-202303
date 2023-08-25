@@ -27,7 +27,6 @@ const Game = () => {
   const handleErrors = useHandleErrors();
   const { id } = useParams()
   const { lockScroll, unlockScroll } = useLockScroll();
-  const [scene, setScene] = useState();
   lockScroll();
 
   const getLevel = () => {

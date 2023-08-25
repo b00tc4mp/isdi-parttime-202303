@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import inLogger from '../../inLogger';
 
 const ThingsToDo = ({ handleToRegister }) => {
     return (
@@ -23,4 +24,4 @@ const ThingsToDo = ({ handleToRegister }) => {
     )
 }
 
-export default ThingsToDo;
+export default inLogger(ThingsToDo);

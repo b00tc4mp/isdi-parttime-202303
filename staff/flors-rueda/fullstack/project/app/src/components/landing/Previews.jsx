@@ -2,6 +2,7 @@ import play from '/views/play.webp';
 import create from '/views/create.webp';
 import explore from '/views/explore.webp';
 import { useEffect, useState } from 'react';
+import inLogger from '../../inLogger';
 
 const Previews = () => {
     const [index, setIndex] = useState(0);
@@ -49,4 +50,4 @@ const Previews = () => {
     )
 }
 
-export default Previews;
+export default inLogger(Previews);

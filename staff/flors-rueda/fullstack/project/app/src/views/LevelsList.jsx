@@ -9,8 +9,6 @@ import useHandleErrors from '../hooks/useHandleErrors';
 const LevelsList = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [levels, setLevels] = useState(null);
-    const [username, setUsername] = useState('');
-    const [color, setColor] = useState('');
     const [saves, setSaves] = useState([]);
     const [sort, setSort] = useState(0); //0 => newest, 1 => oldest, 2 => liked
     const [currentPage, setCurrentPage] = useState(1);
@@ -31,8 +29,6 @@ const LevelsList = () => {
     const getUserInfo = () => {
         handleErrors(async () => {
             const user = await retrieveLoggedUser();
-            setUsername(user.username);
-            setColor(user.color);
             setSaves(user.saves);
         })
     }

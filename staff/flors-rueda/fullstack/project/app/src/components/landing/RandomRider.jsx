@@ -1,6 +1,7 @@
 import { assets } from 'com';
-import avatarStory from '../assets/avatars/avatarStory'
-import avatars from '../assets/avatars';
+import avatarStory from '../../assets/avatars/avatarStory'
+import avatars from '../../assets/avatars';
+import inLogger from '../../inLogger';
 
 const RandomRider = () => {
     const riders = assets.avatars
@@ -19,6 +20,6 @@ const RandomRider = () => {
     )
 }
 
-export default RandomRider;
+export default inLogger(RandomRider);
 
 

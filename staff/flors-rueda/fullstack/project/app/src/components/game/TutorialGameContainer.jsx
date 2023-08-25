@@ -94,7 +94,7 @@ const TutorialGameContainer = ({ tutorialLevel, onFinishTutorialLevel, avatar })
                         width: '100%',
                         opacity: 1,
                     } : {
-                        margin: '30rem 0 0',
+                        margin: '20rem 0 0',
                         width: '100%',
                         opacity: 0.75,
                     }}

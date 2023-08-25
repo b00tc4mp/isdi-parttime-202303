@@ -47,7 +47,7 @@ const BasicLevelCard = ({ levelInfo, isLevelSaved, setToast }) => {
     }
 
     const setLevelTitle = (name) => {
-        const displayName = name.length > 15 ? `${name.substring(0, 15)}...` : name;
+        const displayName = name.length > 11 ? `${name.substring(0, 11)}...` : name;
         setTitle(displayName);
     }
 

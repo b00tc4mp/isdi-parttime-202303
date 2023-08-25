@@ -117,8 +117,6 @@ const CreateLevel = () => {
                     </div>
                 </div>
             </div>
-
-
         </section>
     );
 };

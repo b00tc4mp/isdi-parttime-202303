@@ -1,6 +1,6 @@
 import inLogger from '../inLogger';
 import share from '../assets/share.svg'
-import ComicCarousel from '../components/ComicCarousel'
+import ComicCarousel from '../components/landing/ComicCarousel'
 import './background.css';
 
 const About = () => {

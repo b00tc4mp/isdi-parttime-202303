@@ -1,5 +1,6 @@
-import ranks from '../assets/trophies/ranks'
-import codes from '../assets/trophies/codes'
+import inLogger from '../../inLogger';
+import ranks from '../../assets/trophies/ranks';
+import codes from '../../assets/trophies/codes';
 
 const TrophiesPreview = () => {
 
@@ -30,6 +31,6 @@ const TrophiesPreview = () => {
     )
 }
 
-export default TrophiesPreview;
+export default inLogger(TrophiesPreview);
 
 
