@@ -6,13 +6,9 @@ const path = require('path')
 
 mongoose.connect('mongodb://127.0.0.1:27017/data-project')
     .then(() => {
-        console.log("Connected to the database.");
-        return Promise.resolve();
-    })
-    .then(() => {
-        // You can test with different file types, just modify the filePath
-        const filePath = path.join(__dirname, '../data-project/test/menItrust-01.jpg'); // or .mp3 or .jpg
-        return uploadMedia(filePath, 'menItrust-01.jpg') // make sure you provide the correct filename
+
+        const filePath = path.join(__dirname, '../data-project/test/menItrust-01.jpg');
+        return uploadMedia(filePath, 'menItrust-01.jpg')
     })
     .then(response => {
         console.log("Upload response:", response);
