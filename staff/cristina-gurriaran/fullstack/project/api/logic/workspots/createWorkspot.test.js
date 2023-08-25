@@ -4,13 +4,13 @@ const { User, Workspot } = require('../../data/models')
 const createWorkspot = require('./createWorkspot')
 
 (async () => {
-    try {
+        try {
         await mongoose.connect(process.env.MONGODB_URL)
 
-        const userId = "64ac3076cca3c7f9cdb065b0"
-        const image = 'https://images.squarespace-cdn.com/content/v1/62f1252f8bfa06437d10ed94/16c11498-0135-43b1-8dd3-7d8bec4585c1/La+Galena+Barcelona?format=2500w'
-        const name = 'La Galena'
-        const coordinates = [41.37273090025529, 2.1627087992196485]
+        const userId = "64ac3076cca3c7f9cdb065b0";
+        const image = 'https://images.squarespace-cdn.com/content/v1/62f1252f8bfa06437d10ed94/16c11498-0135-43b1-8dd3-7d8bec4585c1/La+Galena+Barcelona?format=2500w';
+        const name = 'La Galena PRUEBA';
+        const coordinates = [41.37273090025529, 2.1627087992196485];
         const location = {
             street: 'Plaça del Sortidor, 18',
             postalCode: '08004',
@@ -32,15 +32,15 @@ const createWorkspot = require('./createWorkspot')
                 location: 'Point',
                 coordinates: coordinates,
             },
-        }
-        const description = 'Poble Sec hasn’t exactly been booming with great cafes and brunch places, but La Galena has changed that. This adorable cafe has opened on Plaça Sortidor and has taken the neighborhood by storm.'
+        };
+        const description = 'Poble Sec hasn’t exactly been booming with great cafes and brunch places, but La Galena has changed that. This adorable cafe has opened on Plaça Sortidor and has taken the neighborhood by storm.';
         const category = {
             coffeeShop: true,
             restaurant: false,
             coWorking: false,
             library: false,
             hotelLobby: false
-        }
+        };
         const features = {
             wifi: {
                 unlimitedFree: false,
@@ -72,11 +72,9 @@ const createWorkspot = require('./createWorkspot')
                 projector: false,
                 windowView: true,
             }
-        }
-        const reviews = ['Great spot!', 'Highly recommended!']
-        const likes = ["64ac3076cca3c7f9cdb065b0"]
+        };
 
-        await createWorkspot(userId, image, name, location, description, category, features, reviews, likes)
+        await createWorkspot(userId, image, name, location, description, category, features)
 
         console.log('New workspot created')
 

@@ -102,7 +102,7 @@ export default function AddWorkspotModal({ onCancel, onWorkspotCreated }) {
 
     const [category, setCategory] = useState(initialCategory);
     const toggleCategory = categoryOption => {
-        setType(prevCategory => ({
+        setCategory(prevCategory => ({
             ...prevCategory,
             [categoryOption]: !prevCategory[categoryOption],
         }));

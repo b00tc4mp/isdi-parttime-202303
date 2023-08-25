@@ -2,11 +2,13 @@ import { GoogleMap, Marker, useLoadScript } from "@react-google-maps/api";
 import { useMemo } from "react";
 import { Container, Form, Input, Button, TextArea, Label } from '../library'
 import { formatCategory, formatOtherFeatures, formatDistrict, formatWifi, formatPlugs, formatNoise } from './helpers/dataFormatters'
+import { useAppContext, useHandleErrors } from '../hooks'
+import deleteWorkspot from "../../logic/deleteWorkspot";
 
 const API_KEY = 'AIzaSyAHtNeBELo0YBI0lmCVbd0lQ9BGTVd_fhQ'
 
 export default function Workspot({ workspot : {
-    id, image, name, location, description, category, features, reviews, likes, author }, onEditWorkspot }){
+    id, image, name, location, description, category, features, reviews, likes, author }, onEditWorkspot, onWorkspotDeleted }){
     
     const { isLoaded } = useLoadScript({
         googleMapsApiKey: API_KEY,
@@ -17,7 +19,21 @@ export default function Workspot({ workspot : {
         lng: location.mapLocation.coordinates[1]
     }), []);
 
+    const handleErrors = useHandleErrors()
+
+
     const handleEditWorkspot = () => onEditWorkspot(id)
+
+    const handleDeleteWorkspot = () => {
+        try{
+            handleErrors(async () => {
+                await deleteWorkspot(id)
+                onWorkspotDeleted()
+            })
+        }catch(error){
+            alert(error.message)
+        }
+    }
 
     return (
         <div className = "bg-white shadow-lg w-1/2 p-10 rounded-lg" >
@@ -88,6 +104,7 @@ export default function Workspot({ workspot : {
             </div>
             
             <Button onClick={handleEditWorkspot}>📝</Button>
+            <Button onClick={handleDeleteWorkspot}>🗑</Button>
 
         </article>
         </div>
