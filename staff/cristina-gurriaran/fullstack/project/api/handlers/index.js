@@ -12,6 +12,7 @@ module.exports = {
     updateWorkspotHandler : require('./updateWorkspotHandler'),
     deleteWorkspotHandler: require('./deleteWorkspotHandler'),
     toggleLikeWorkspotHandler: require('./toggleLikeWorkspotHandler'),
-    toggleFavWorkspotHandler: require('./toggleFavWorkspotHandler')
+    toggleFavWorkspotHandler: require('./toggleFavWorkspotHandler'),
+    retrieveFavWorkspotsHandler: require('./retrieveFavWorkspotsHandler')
 
 }

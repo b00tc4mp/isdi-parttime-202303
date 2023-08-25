@@ -5,12 +5,13 @@ import retrieveUser from '../../logic/retrieveUser'
 import { useState, useEffect} from "react"
 import { useAppContext , useHandleErrors} from '../hooks'
 import { Container, Form, Input, Button } from '../library'
+import FavWorkspots from './FavWorkspots'
 
 export default function Profile({ onUserAvatarUpdated, onUpdatedUserPassword }) {
     const { alert } = useAppContext()
     const handleErrors = useHandleErrors()
 
-    const [view, setView] = useState('favPosts')
+    const [view, setView] = useState('fav-workspots')
     const [user, setUser] = useState()
 
     useEffect(() => {
@@ -48,7 +49,7 @@ export default function Profile({ onUserAvatarUpdated, onUpdatedUserPassword }) 
 
     console.log('Profile -> render')
 
-    return <Container>
+    return <div className="flex flex-row gap-10">
         {user && <>
         <section>
             <div>
@@ -72,7 +73,9 @@ export default function Profile({ onUserAvatarUpdated, onUpdatedUserPassword }) 
             </div>  
         </section>
 
-
+        <section className="w-1/2 flex flex-col items-center justify-center gap-10">
+            {view === 'fav-workspots' && <FavWorkspots />}
+        </section>
     </>}
-    </Container>
+    </div>
 }

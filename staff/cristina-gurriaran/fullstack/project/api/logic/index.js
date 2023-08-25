@@ -12,6 +12,7 @@ module.exports = {
     updateWorkspot: require('./workspots/updateWorkstpot'),
     deleteWorkspot: require('./workspots/deleteWorkspot'),
     toggleLikeWorkspot: require('./workspots/toggleLikeWorkspot'),
-    toggleFavWorkspot: require('./workspots/toggleFavWorkspot')
+    toggleFavWorkspot: require('./workspots/toggleFavWorkspot'),
+    retrieveFavWorkspots: require('./workspots/retrieveFavWorkspots')
 
 }
