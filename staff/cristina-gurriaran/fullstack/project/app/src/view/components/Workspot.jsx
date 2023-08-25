@@ -3,12 +3,17 @@ import { useMemo } from "react";
 import { Container, Form, Input, Button, TextArea, Label } from '../library'
 import { formatCategory, formatOtherFeatures, formatDistrict, formatWifi, formatPlugs, formatNoise } from './helpers/dataFormatters'
 import { useAppContext, useHandleErrors } from '../hooks'
-import deleteWorkspot from "../../logic/deleteWorkspot";
+import deleteWorkspot from "../../logic/deleteWorkspot"
+import toggleLikeWorkspot from "../../logic/toggleLikeWorkspot";
+import getUserId from '../../logic/getUserId'
+import isCurrentUser from '../../logic/isCurrentUser'
+
+
 
 const API_KEY = 'AIzaSyAHtNeBELo0YBI0lmCVbd0lQ9BGTVd_fhQ'
 
 export default function Workspot({ workspot : {
-    id, image, name, location, description, category, features, reviews, likes, author }, onEditWorkspot, onWorkspotDeleted }){
+    id, image, name, location, description, category, features, reviews, likes, author }, onEditWorkspot, onWorkspotDeleted, onToggledLikeWorkspot }){
     
     const { isLoaded } = useLoadScript({
         googleMapsApiKey: API_KEY,
@@ -34,6 +39,19 @@ export default function Workspot({ workspot : {
             alert(error.message)
         }
     }
+
+    const handleToggleLikeWorkspot = () => {
+        try{
+            handleErrors(async() => {
+                await toggleLikeWorkspot(id)
+                onToggledLikeWorkspot()
+            })
+        }catch(error){
+            alert(error.message)
+        }
+        
+    }
+    const isCurrentUserPost = isCurrentUser(author.id)
 
     return (
         <div className = "bg-white shadow-lg w-1/2 p-10 rounded-lg" >
@@ -103,8 +121,11 @@ export default function Workspot({ workspot : {
                 )}
             </div>
             
-            <Button onClick={handleEditWorkspot}>📝</Button>
-            <Button onClick={handleDeleteWorkspot}>🗑</Button>
+            {isCurrentUser && <Button onClick={handleEditWorkspot}>📝</Button>}
+            {isCurrentUser && <Button onClick={handleDeleteWorkspot}>🗑</Button>}
+            <button  onClick={handleToggleLikeWorkspot}>{likes.includes(getUserId()) ? '❤️' : '🤍'} ({likes ? likes.length : 0})</button>
+
+
 
         </article>
         </div>
