@@ -7,7 +7,7 @@ const Loader = () => {
         autoplay
         loop={true}
         src={loader}
-        className={`w-full bottom-0 fixed inset-0`}
+        className={`w-full bottom-0 fixed inset-0 z-40`}
     />
 }
 

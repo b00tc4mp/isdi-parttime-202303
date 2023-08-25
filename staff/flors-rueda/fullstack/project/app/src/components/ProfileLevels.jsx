@@ -54,7 +54,7 @@ const ProfileLevels = ({ userId, userSaves, setToast, isDeleted, setDeleted, use
                     type === 'created' ?
                         <BasicLevelCard levelInfo={level} isLevelSaved={saves.includes(level.id)} setToast={setToast} key={index} setSaves={setSaves} />
                         :
-                        <LevelCard levelInfo={level} isLevelSaved={saves.includes(level.id)} key={index} setSaves={setSaves} />
+                        <LevelCard levelInfo={level} isLevelSaved={true} key={index} setSaves={setSaves} />
                 ))
                 }
                 {!isLoading && !levels || levels.length === 0 && <i className="w-full flex align-center items-center justify-center text-light100 text-xl">No levels to be seen here!</i>}

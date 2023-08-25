@@ -10,16 +10,20 @@ const UserCard = ({ userInfo }) => {
     const [isFollowed, setIsFollowed] = useState(userInfo.isFollowed);
     const [followers, setFollowers] = useState((userInfo.followers).length);
     const [isProfileCurrentUser, setIsProfileCurrentUser] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
     const handleErrors = useHandleErrors();
     const { id } = useParams();
 
     const handleFollowClick = () => {
+        if (isLoading) return;
+        setIsLoading(true);
         handleErrors(async () => {
             await toggleFollow(userInfo.id);
             await updateSocialAchievements();
             isFollowed ? setFollowers(followers - 1) : setFollowers(followers + 1);
             setIsFollowed(!isFollowed);
         })
+        setIsLoading(false);
     }
 
     useEffect(() => {
@@ -38,9 +42,9 @@ const UserCard = ({ userInfo }) => {
                         {
                             !isProfileCurrentUser &&
                             <button
-                                className={`w-fit py-1 ml-2 px-2 text-xs text-light400 font-bold rounded-xl transition duration-200 ${isFollowed ? 'bg-dark500 hover:bg-danger200' : 'bg-success200 hover:bg-dark500'}`} onClick={handleFollowClick}
+                                className={`w-fit py-1 ml-2 px-2 text-xs text-light400 font-bold rounded-xl transition duration-200 ${isLoading ? 'cursor-default' : isFollowed ? 'bg-dark500 hover:bg-danger200' : 'bg-success200 hover:bg-dark500'}`} onClick={handleFollowClick}
                             >
-                                {isFollowed ? 'Unfollow' : 'Follow'}
+                                {isLoading ? <i className="bi bi-hourglass-split"></i> : isFollowed ? 'Unfollow' : 'Follow'}
                             </button>
                         }
                     </span>

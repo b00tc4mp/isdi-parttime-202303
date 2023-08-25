@@ -17,6 +17,7 @@ const BasicLevelCard = ({ levelInfo, isLevelSaved, setToast }) => {
     const [likes, setLikes] = useState(levelInfo.likes.length);
     const [isSaved, setIsSaved] = useState(isLevelSaved);
     const [isAuthorCurrentUser, setAuthorCurrentUser] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
     const { id } = useParams();
     const navigate = useNavigate();
 
@@ -30,20 +31,26 @@ const BasicLevelCard = ({ levelInfo, isLevelSaved, setToast }) => {
     }
 
     const handleSaveClick = () => {
+        if (isLoading) return;
+        setIsLoading(true);
         handleErrors(async () => {
             await toggleSave(levelInfo.id);
             await updateSocialAchievements();
             setIsSaved(!isSaved);
         })
+        setIsLoading(false);
     }
 
     const handleLikeClick = () => {
+        if (isLoading) return;
+        setIsLoading(true);
         handleErrors(async () => {
             await toggleLike(levelInfo.id);
             await updateSocialAchievements();
             isLiked ? setLikes(likes - 1) : setLikes(likes + 1);
             setIsLiked(!isLiked);
         })
+        setIsLoading(false);
     }
 
     const setLevelTitle = (name) => {
@@ -59,6 +66,11 @@ const BasicLevelCard = ({ levelInfo, isLevelSaved, setToast }) => {
     }
 
     useEffect(() => {
+        setAuthorData({});
+        setTitle('');
+        setIsLiked(levelInfo.isLevelLiked);
+        setLikes(levelInfo.likes.length);
+        setIsSaved(isLevelSaved);
         getAuthorData();
         setLevelTitle(levelInfo.name);
     }, [levelInfo, id]);
@@ -101,10 +113,10 @@ const BasicLevelCard = ({ levelInfo, isLevelSaved, setToast }) => {
 
                         }
                         <button onClick={handleSaveClick} className={`flex flex-row text-secondary500 text-sm font-semibold ${isSaved ? 'hover:text-light100' : 'hover:text-success100'} items-center`}>
-                            <i className={`text-lg bi bi-bookmark-star${isSaved ? '-fill' : ''}`}></i>
+                            <i className={`text-lg bi ${isLoading ? 'bi-hourglass-split cursor-default' : isSaved ? 'bi-bookmark-star-fill' : 'bi-bookmark-star'}`}></i>
                         </button>
                         <button onClick={handleLikeClick}>
-                            <i className={`hover:text-light100 bi ${isLiked ? 'bi-suit-heart-fill' : 'bi-suit-heart'}`}></i>
+                            <i className={`hover:text-light100 bi ${isLoading ? 'bi-hourglass-split cursor-default' : isLiked ? 'bi-suit-heart-fill' : 'bi-suit-heart'}`}></i>
                         </button>
                         {likes}
                     </p>

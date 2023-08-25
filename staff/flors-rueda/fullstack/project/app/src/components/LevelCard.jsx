@@ -17,30 +17,33 @@ const LevelCard = ({ levelInfo, isLevelSaved, setSaves }) => {
     const [isLiked, setIsLiked] = useState(levelInfo.isLevelLiked);
     const [isFollowed, setIsFollowed] = useState(null);
     const [likes, setLikes] = useState(levelInfo.likes.length);
-    const [isUserAuthor, setIsUserAuthor] = useState(null);
     const [isSaved, setIsSaved] = useState(isLevelSaved);
+    const [isLoading, setIsLoading] = useState(false);
     const { id } = useParams();
 
     const getAuthorData = () => {
         handleErrors(async () => {
             const user = await retrieveUser(levelInfo.author);
-            const isUser = await isCurrentUser(levelInfo.author);
-            setIsUserAuthor(isUser);
             setAuthorData(user);
             setIsFollowed(user.isFollowed);
         });
     };
 
     const handleLikeClick = () => {
+        if (isLoading) return;
+        setIsLoading(true);
         handleErrors(async () => {
             await toggleLike(levelInfo.id);
             await updateSocialAchievements();
             isLiked ? setLikes(likes - 1) : setLikes(likes + 1);
             setIsLiked(!isLiked);
         })
+        setIsLoading(false);
     }
 
     const handleSaveClick = () => {
+        if (isLoading) return;
+        setIsLoading(true);
         handleErrors(async () => {
             await toggleSave(levelInfo.id);
             await updateSocialAchievements();
@@ -48,6 +51,7 @@ const LevelCard = ({ levelInfo, isLevelSaved, setSaves }) => {
             setSaves(user.saves);
             setIsSaved(!isSaved);
         })
+        setIsLoading(false);
     }
 
     const setLevelTitle = (name) => {
@@ -61,7 +65,6 @@ const LevelCard = ({ levelInfo, isLevelSaved, setSaves }) => {
         setIsLiked(levelInfo.isLevelLiked);
         setIsFollowed(null);
         setLikes(levelInfo.likes.length);
-        setIsUserAuthor(null);
         setIsSaved(isLevelSaved);
         getAuthorData();
         setLevelTitle(levelInfo.name);
@@ -95,10 +98,10 @@ const LevelCard = ({ levelInfo, isLevelSaved, setSaves }) => {
                     <div className={`flex flex-row gap-2 text-secondary500 text-sm font-semibold align-center items-center`}>
                         <p className={`flex flex-row gap-2 text-secondary500 text-sm font-semibold align-center items-center`}>
                             <button onClick={handleSaveClick} className={`flex flex-row text-secondary500 text-sm font-semibold ${isSaved ? 'hover:text-light100' : 'hover:text-success100'} items-center`}>
-                                <i className={`text-lg bi bi-bookmark-star${isSaved ? '-fill' : ''}`}></i>
+                                <i className={`text-lg bi ${isLoading ? 'bi-hourglass-split cursor-default' : isSaved ? 'bi-bookmark-star-fill' : 'bi-bookmark-star'}`}></i>
                             </button>
                             <button onClick={handleLikeClick}>
-                                <i className={`hover:text-light100 bi ${isLiked ? 'bi-suit-heart-fill' : 'bi-suit-heart'}`}></i>
+                                <i className={`hover:text-light100 bi ${isLoading ? 'bi-hourglass-split cursor-default' : isLiked ? 'bi-suit-heart-fill' : 'bi-suit-heart'}`}></i>
                             </button>
                             {likes}
                         </p>
