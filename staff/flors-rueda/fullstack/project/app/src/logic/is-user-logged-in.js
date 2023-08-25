@@ -9,6 +9,7 @@ const { isTokenValid, isTokenAlive } = tokenUtils;
  */
 const isUserLoggedIn = () => {
     console.log('is User Logged In function');
+    console.log('TOKEN', context.token)
     const userLogged = isTokenValid(context.token) && isTokenAlive(context.token);
     console.log('userLogged', userLogged)
     return userLogged
