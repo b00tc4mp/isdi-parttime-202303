@@ -16,7 +16,8 @@ const {
     retrieveWorkspotHandler,
     updateWorkspotHandler,
     deleteWorkspotHandler,
-    toggleLikeWorkspotHandler
+    toggleLikeWorkspotHandler,
+    toggleFavWorkspotHandler
  } = require('./handlers')
 
 const mongoose = require('mongoose')
@@ -54,6 +55,8 @@ mongoose.connect(process.env.MONGODB_URL)
         api.delete('/workspots/:workspotId', deleteWorkspotHandler)
 
         api.patch('/workspots/:workspotId/like', toggleLikeWorkspotHandler)
+
+        api.patch('/workspots/:workspotId/fav', toggleFavWorkspotHandler)
 
 
         api.listen(process.env.PORT, () => console.log(`server running in port ${process.env.PORT}`))

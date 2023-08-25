@@ -5,25 +5,39 @@ import { useAppContext, useHandleErrors } from '../hooks'
 import { Container, Form, Input, Button } from '../library'
 
 
-export default function Workspots({ onEditWorkspot, user }){
+export default function Workspots({ onEditWorkspot, lastWorkspotsUpdate, user }){
     const handleErrors = useHandleErrors()
 
     const [workspots, setWorkspots] = useState()
 
+    useEffect(() => handleRefresWorkspots(), [])
+
+    const handleRefresWorkspots = () => {
+        try{
+            handleErrors(async() => {
+                const workspots = await retrieveWorkspots()
+                setWorkspots(workspots)
+            })
+        } catch(error){
+            alert(error.message)
+        }
+    }
+
     useEffect(() => {
-        handleErrors(async () => {
-            const workspots = await retrieveWorkspots()
-            setWorkspots(workspots)
-        })
-    }, [])
+        if(lastWorkspotsUpdate)
+            handleRefresWorkspots()
+    }, [lastWorkspotsUpdate])
 
 
     return <div className="flex flex-col items-center justify-center gap-10">
         {workspots && workspots.map((workspot) => <Workspot
             key={workspot.id}
             workspot={workspot}
-            user={user}
             onEditWorkspot={onEditWorkspot}
+            onToggledLikeWorkspot={handleRefresWorkspots}
+            onToggledSavedWorkspot={handleRefresWorkspots}
+            onWorkspotDeleted={handleRefresWorkspots}
+            user={user}
         />)}
     </div>   
 }

@@ -21,6 +21,7 @@ export default function Home() {
     const [view, setView] = useState('workspots')
     const [modal, setModal] = useState(null)
     const [workspotId, setworkspotId] = useState(null)
+    const [lastWorkspotsUpdate, setLastWorkspotsUpdate] = useState(null)
  
     const [user, setUser] = useState()
     const [nameSearched, setNameSearched] = useState(null)
@@ -51,7 +52,8 @@ export default function Home() {
     const handleGoToWorkSpots = () => setView('workspots')
 
     const handleWorkspotUpdated = () => {
-        setModal(null)        
+        setModal(null)
+        setLastWorkspotsUpdate(Date.now())        
     }
 
     const handleLogout = () => {
@@ -130,6 +132,7 @@ export default function Home() {
         <div>
             {view === 'workspots' && <Workspots
                 onEditWorkspot={handleOpenEditWorkspotModal}
+                lastWorkspotsUpdate={lastWorkspotsUpdate}
             />}
 
             {view === 'workspots-searched-by-name' && <WorkspotsSearchedByName 

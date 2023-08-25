@@ -4,7 +4,8 @@ import { Container, Form, Input, Button, TextArea, Label } from '../library'
 import { formatCategory, formatOtherFeatures, formatDistrict, formatWifi, formatPlugs, formatNoise } from './helpers/dataFormatters'
 import { useAppContext, useHandleErrors } from '../hooks'
 import deleteWorkspot from "../../logic/deleteWorkspot"
-import toggleLikeWorkspot from "../../logic/toggleLikeWorkspot";
+import toggleLikeWorkspot from "../../logic/toggleLikeWorkspot"
+import toggleFavWorkspot from "../../logic/toggleFavWorkspot"
 import getUserId from '../../logic/getUserId'
 import isCurrentUser from '../../logic/isCurrentUser'
 
@@ -13,7 +14,7 @@ import isCurrentUser from '../../logic/isCurrentUser'
 const API_KEY = 'AIzaSyAHtNeBELo0YBI0lmCVbd0lQ9BGTVd_fhQ'
 
 export default function Workspot({ workspot : {
-    id, image, name, location, description, category, features, reviews, likes, author }, onEditWorkspot, onWorkspotDeleted, onToggledLikeWorkspot }){
+    id, image, name, location, description, category, features, reviews, likes, author, fav }, onEditWorkspot, onWorkspotDeleted, onToggledLikeWorkspot, onToggledSavedWorkspot }){
     
     const { isLoaded } = useLoadScript({
         googleMapsApiKey: API_KEY,
@@ -51,6 +52,18 @@ export default function Workspot({ workspot : {
         }
         
     }
+
+    const handleToggleSaveWorkspot = () => {
+        try{
+            handleErrors(async () => {
+                await toggleFavWorkspot(id)
+                onToggledSavedWorkspot()
+            })
+        }catch(error){
+            alert(error.message)
+        }
+    }
+
     const isCurrentUserPost = isCurrentUser(author.id)
 
     return (
@@ -124,6 +137,7 @@ export default function Workspot({ workspot : {
             {isCurrentUser && <Button onClick={handleEditWorkspot}>📝</Button>}
             {isCurrentUser && <Button onClick={handleDeleteWorkspot}>🗑</Button>}
             <button  onClick={handleToggleLikeWorkspot}>{likes.includes(getUserId()) ? '❤️' : '🤍'} ({likes ? likes.length : 0})</button>
+            <button onClick={handleToggleSaveWorkspot}>{fav ? '⭐️' : '✩'}</button>
 
 
 
