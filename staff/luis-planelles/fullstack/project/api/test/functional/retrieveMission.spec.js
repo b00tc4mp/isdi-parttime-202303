@@ -10,7 +10,6 @@ const { cleanUp, populate, generate } = require('../helpers');
 const {
   errors: { ExistenceError, ContentError },
 } = require('com');
-const { Mission } = require('../../data/models');
 
 describe('retrieveMission', () => {
   before(() => {

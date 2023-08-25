@@ -4,6 +4,16 @@ const {
 } = require('com');
 const { Mission, User } = require('../data/models');
 
+/**
+ * Creates a new post by a user.
+ * @param {string} userId - The ID of the user creating the mission.
+ * @param {string} missionId - The ID of the mission to retrieve.
+ * @returns {<object>} - Resolves to return the mission object.
+ * @throws {ExistenceError} - If the user or mission with the provided IDs does not exist.
+ * @throws {TypeError} - On userId or missionId wrong type.
+ * @throws {ContentError} - on userId or missionId wrong characters.
+ */
+
 const retrieveMission = (userId, missionId) => {
   validateId(userId, 'user id');
   validateId(missionId, 'mission id');
