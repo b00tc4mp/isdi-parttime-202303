@@ -9,10 +9,20 @@ const { isTokenValid, isTokenAlive } = tokenUtils;
  */
 const isUserLoggedIn = () => {
     console.log('is User Logged In function');
-    console.log('TOKEN', context.token)
-    const userLogged = isTokenValid(context.token) && isTokenAlive(context.token);
-    console.log('userLogged', userLogged)
-    return userLogged
+    const token = context.token;
+    console.log('TOKEN', token);
+    let isTokenValid = true;
+    let isTokenAlive = false;
+    if (token) {
+        if (typeof token !== 'string') isTokenValid = false;
+        if (token.split('.').length !== 3) isTokenValid = false;
+        const { iat, exp } = JSON.parse(atob(token.split('.')[1]));;
+        const now = Date.now() / 1000;
+        isTokenAlive = exp - iat > now - iat;
+        console.log('token alive', isTokenAlive, 'isTokenValid', isTokenValid);
+    }
+
+    return isTokenAlive && isTokenValid
 };
 
 export default isUserLoggedIn
