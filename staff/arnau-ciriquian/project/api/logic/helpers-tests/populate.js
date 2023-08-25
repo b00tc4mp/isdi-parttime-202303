@@ -1,14 +1,13 @@
-const context = require('.././context')
+const { User } = require('../../data/models')
 
-module.exports = (_users, _posts) => {
-
-
+module.exports = async (_users, _posts) => {
     const promises = []
 
-    promises.push(users.insertMany(_users))
+    promises.push(User.insertMany(_users))
 
-    if (_posts.length)
-        promises.push(posts.insertMany(_posts))
-
-    return Promise.all([promises])
+    try {
+        await Promise.all(promises)
+    } catch (error) {
+        console.error('Data population error:', error)
+    }
 }
