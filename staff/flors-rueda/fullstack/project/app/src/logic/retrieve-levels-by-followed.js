@@ -1,5 +1,4 @@
-import { tokenUtils } from 'com';
-const { extractSubFromToken } = tokenUtils;
+import { extractSubFromToken } from './tokenUtils/tokenUtils';
 import context from './context';
 
 /**

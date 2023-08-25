@@ -1,6 +1,5 @@
 import context from './context';
-import { tokenUtils } from 'com';
-const { extractSubFromToken } = tokenUtils;
+import { extractSubFromToken } from './tokenUtils/tokenUtils';
 
 /**
  * Retrieves customization credits value for the current user.

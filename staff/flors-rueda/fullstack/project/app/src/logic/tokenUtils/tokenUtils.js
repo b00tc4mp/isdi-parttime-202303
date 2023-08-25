@@ -4,7 +4,7 @@
  * @param {string} token The JWT token from which to extract the payload.
  * @returns {object} The decoded payload object.
  */
-const extractPayloadFromToken = (token) => {
+export const extractPayloadFromToken = (token) => {
     return JSON.parse(atob(token.split('.')[1]));
 }
 
@@ -14,7 +14,7 @@ const extractPayloadFromToken = (token) => {
  * @param {string} token The JWT token to validate.
  * @returns {boolean} True if the token is valid and not expired, otherwise false.
  */
-const isTokenAlive = (token) => {
+export const isTokenAlive = (token) => {
     const { iat, exp } = extractPayloadFromToken(token);
     const now = Date.now() / 1000;
     return exp - iat > now - iat;
@@ -26,13 +26,10 @@ const isTokenAlive = (token) => {
  * @param {string} token The JWT token to validate.
  * @returns {boolean} True if the token is valid, otherwise false.
  */
-const isTokenValid = (token) => {
-    try {
-        validateToken(token);
-        return true;
-    } catch (error) {
-        return false;
-    }
+export const isTokenValid = (token) => {
+    if (typeof token !== 'string') return false;
+    if (token.split('.').length !== 3) return true;
+    return true
 }
 
 /**
@@ -41,14 +38,7 @@ const isTokenValid = (token) => {
  * @param {string} token The JWT token from which to extract the subject.
  * @returns {string} The subject extracted from the token.
  */
-const extractSubFromToken = (token) => {
+export const extractSubFromToken = (token) => {
     const { sub } = extractPayloadFromToken(token);
     return sub;
 }
-
-module.exports = {
-    isTokenAlive,
-    isTokenValid,
-    extractPayloadFromToken,
-    extractSubFromToken
-};

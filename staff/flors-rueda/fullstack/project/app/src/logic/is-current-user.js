@@ -1,6 +1,5 @@
-import { tokenUtils } from 'com';
 import context from './context';
-const { extractSubFromToken } = tokenUtils;
+import { extractSubFromToken } from './tokenUtils/tokenUtils';
 
 /**
  * Checks if the provided user id matches the idof the logged in user.
@@ -10,4 +9,4 @@ const { extractSubFromToken } = tokenUtils;
  */
 const isCurrentUser = (userId) => userId === extractSubFromToken(context.token);
 
-export default isCurrentUser
+export default isCurrentUser;

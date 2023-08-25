@@ -1,6 +1,6 @@
-import { validators, tokenUtils } from 'com';
+import { validators } from 'com';
 import context from './context';
-const { extractSubFromToken } = tokenUtils;
+import { extractSubFromToken } from './tokenUtils/tokenUtils';
 const { validateName } = validators;
 
 /**

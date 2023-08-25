@@ -1,7 +1,7 @@
-import { validators, tokenUtils } from 'com';
+import { validators } from 'com';
 import context from './context';
 const { validateId } = validators;
-const { extractSubFromToken } = tokenUtils;
+import { extractSubFromToken } from './tokenUtils/tokenUtils';
 
 /**
  * Retrieves information about a user based on their id.

@@ -1,6 +1,5 @@
 import context from './context';
-import { tokenUtils } from 'com';
-const { extractSubFromToken } = tokenUtils;
+import { extractSubFromToken } from './tokenUtils/tokenUtils';
 
 /**
  * Retrieves avatars that the currently logged-in user has unlocked.
