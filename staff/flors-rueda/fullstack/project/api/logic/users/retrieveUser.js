@@ -16,6 +16,7 @@ module.exports = (userId) => {
     validateId(userId, 'userId');
 
     return (async () => {
+        console.log("retrieveUse, userId =", userId);
         const user = await User.findById(userId, 'username avatar color joined followers saves').lean();
         if (!user) throw new ExistenceError('user not found');
         user.id = user._id.toString();

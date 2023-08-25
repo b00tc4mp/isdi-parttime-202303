@@ -45,6 +45,7 @@ const App = () => {
 
   const handleRefreshApiConnection = async () => {
     try {
+      console.log('check connection');
       await CheckConnection();
       setApiAvailableOn(true);
     } catch (error) {
@@ -54,9 +55,11 @@ const App = () => {
 
   useEffect(() => {
     const currentRoute = location.pathname;
+    console.log('new pathname');
     const isTargetedRoute = ['/levels', '/signin'].includes(currentRoute);
     isTargetedRoute ? handleRefreshApiConnection() : setApiAvailableOn(true);
     if (isUserLoggedIn()) {
+      console.log('is user logged in new path');
       handleErrors(async () => {
         await updateSocialAchievements();
       })
@@ -71,12 +74,14 @@ const App = () => {
     socket.on('connect', () => {
       const socketId = socket.id
       if (isUserLoggedIn()) {
+        console.log('socket user logged');
         handleErrors(async () => {
           await createSession(socketId);
         })
       }
       socket.on('notification', ({ message, sockets }) => {
         if (sockets.includes(socketId)) {
+          console.log('is socket notification on');
           setAchievementNotifications(prevNotifications => {
             const lastNotification = prevNotifications[prevNotifications.length - 1];
             if (!lastNotification || lastNotification !== message) {

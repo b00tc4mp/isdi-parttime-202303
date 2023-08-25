@@ -7,6 +7,11 @@ const { isTokenValid, isTokenAlive } = tokenUtils;
  *
  * @returns {boolean} `true` if the user is logged in (valid and alive token), `false` otherwise.
  */
-const isUserLoggedIn = () => isTokenValid(context.token) && isTokenAlive(context.token);
+const isUserLoggedIn = () => {
+    console.log('is User Logged In function')
+    console.log('function: token valid?:', isTokenValid(context.token))
+    console.log('function: token alive?:', isTokenAlive(context.token))
+    return isTokenValid(context.token) && isTokenAlive(context.token)
+};
 
 export default isUserLoggedIn
