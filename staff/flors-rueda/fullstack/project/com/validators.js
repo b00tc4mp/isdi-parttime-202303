@@ -191,6 +191,7 @@ const validateRecoveryAnswer = (answer) => {
  * @throws {ContentError} if token format is invalid
  */
 const validateToken = (token) => {
+    console.log('VALIDATE TOKEN VALIDATOR')
     if (typeof token !== 'string') throw new TypeError(`token is not a string`)
     if (token.split('.').length !== 3) throw new ContentError(`token is not valid`)
 }
