@@ -8,7 +8,7 @@ import { MagnifyingGlassIcon } from '@heroicons/react/24/solid'
 const SearchArtist = () => {
     console.debug('// SearchArtist  -> Render')
 
-    const { alert, freeze, unfreeze, navigate } = useAppContext()
+    const { alert, freeze, unfreeze } = useAppContext()
 
     const [artistName, setArtistName] = useState('');
     const [SearchArtist, setSearchArtist] = useState(null);

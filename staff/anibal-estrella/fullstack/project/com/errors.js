@@ -41,10 +41,24 @@ class UnknownError extends Error {
     get name() { return UnknownError.name }
 }
 
+class UploadError extends Error {
+    constructor(message) {
+        super(message);
+    }
+
+    get name() {
+        return UploadError.name;
+    }
+}
+
+module.exports = UploadError;
+
+
 module.exports = {
     DuplicityError,
     ContentError,
     ExistenceError,
     AuthError,
-    UnknownError
+    UnknownError,
+    UploadError
 }

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
+import retrieveUserGeolocation from './logic/users/retrieveUserGeolocation'
 import AppContext from './AppContext'
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom'
-import retrieveUserGeolocation from './logic/users/retrieveUserGeolocation'
 
 import { Home, Profile, Login } from './view/pages';
 import { Menu, Alert } from './view/components';
@@ -12,16 +12,50 @@ const { Provider } = AppContext
 
 
 function App() {
-    // const navigate = useNavigate()
+
     const [city, setCity] = useState('');
     const [feedback, setFeedback] = useState(null)
+
     const [loader, setLoader] = useState(false)
+    // const freeze = () => setLoader(true)
+    // const unfreeze = () => setLoader(false)
+
+
+    const [loaderPercentage, setLoaderPercentage] = useState(0);
+
+    let interval;
+
+    const freeze = () => {
+        let fastIncrement = true;
+
+        // Initially start with a fast increment
+        setLoaderPercentage(10);
+        interval = setInterval(() => {
+            setLoaderPercentage(prev => {
+                if (prev >= 100) {
+                    clearInterval(interval);
+                    return 100;
+                }
+                if (fastIncrement) {
+                    return prev + 2;
+                }
+                return prev + 0.5;  // Slow increment
+            });
+        }, 50);
+
+        // Slow down the increment after 1 second (or when you start the fetch)
+        setTimeout(() => {
+            fastIncrement = false;
+        }, 1000);
+    }
+
+    const unfreeze = () => {
+        clearInterval(interval);
+        setLoaderPercentage(100);
+        setTimeout(() => setLoaderPercentage(0), 500);  // Reset after a half-second delay
+    }
 
     const alert = (message, level = 'info') => setFeedback({ message, level })
-
-    const freeze = () => setLoader(true)
-    const unfreeze = () => setLoader(false)
-
     function handlePanelClick(event) {
         event.stopPropagation();
     }
@@ -29,7 +63,6 @@ function App() {
 
 
     const [ipGeoLocation, setGeolocation] = useState('');
-
 
     useEffect(() => {
         async function fetchGeolocation() {
@@ -60,7 +93,8 @@ function App() {
         {feedback && <Alert message={feedback.message} level={feedback.level} onAccept={handleAcceptAlert}
             onPanelClick={handlePanelClick}
         />}
-        {loader && <Loader />}
+        {/* {loader && <Loader />} */}
+        {loaderPercentage > 0 && <Loader percentage={loaderPercentage} />}
 
     </Provider>
 }

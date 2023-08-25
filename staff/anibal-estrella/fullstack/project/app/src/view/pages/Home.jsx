@@ -36,25 +36,26 @@ export default ({ city, ipGeoLocation }) => {
             </section>
 
             <section id='events-featured'>
-                <h2>Featured Events</h2>
+                <h2>Upcoming Events</h2>
                 <DraggableSlider>
-                    {items.map(item => (
-                        <div key={item} className="flex-shrink-0  bg-gray-300 text-white p-2 w-60 h-64 rounded">
-                            Item {item}
-                        </div>
+                    {Array.from({ length: 5 }).map((_, index) => (
+                        <EventCard key={index} />
                     ))}
                 </DraggableSlider>
             </section>
             <section>
                 <h2>Featured Reviews</h2>
+                <DraggableSlider>
+                    {Array.from({ length: 5 }).map((_, index) => (
+                        <EventCard key={index} />
+                    ))}
+                </DraggableSlider>
             </section>
             <section id='Events'>
                 <h2>Events in <span>your area</span></h2>
                 <DraggableSlider>
-                    {items.map(item => (
-                        <div key={item} className=" bg-gray-300 text-white p-2 w-64 h-64 rounded">
-                            Item {item}
-                        </div>
+                    {Array.from({ length: 10 }).map((_, index) => (
+                        <EventCard key={index} />
                     ))}
                 </DraggableSlider>
 

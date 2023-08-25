@@ -5,5 +5,6 @@ module.exports = {
     registerUserHandler: require('./registerUserHandler'),
     authenticateUserEmailHandler: require('./authenticateUserEmailHandler'),
     authenticateUserHandler: require('./authenticateUserHandler'),
-    retrieveUserHandler: require('./retrieveUserHandler')
+    retrieveUserHandler: require('./retrieveUserHandler'),
+    uploadMediaHandler: require('./uploadMediaHandler')
 }

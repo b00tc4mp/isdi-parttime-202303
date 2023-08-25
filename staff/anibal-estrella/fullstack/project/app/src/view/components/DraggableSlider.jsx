@@ -37,7 +37,7 @@ function DraggableSlider({ children }) {
             onMouseUp={handleMouseUp}
             onMouseMove={handleMouseMove}
             className="overflow-x-auto select-none cursor-pointer scrollbar-hide"            >
-            <div className="flex space-x-4">
+            <div className="flex space-x-2">
                 {children}
             </div>
         </div>

@@ -6,13 +6,14 @@ export default function EventCard() {
 
     console.debug('// EventCard  -> Render')
 
-    return <div id='event-card' className="">
+    return <div id='event-card' className=" bg-gray-300 flex-shrink-0 text-white p-2  w-48 h-64 rounded">
         <a id='event-link' href="#" className="">
-            <div className="">
-                <img srcset="" alt="" loading="lazy" width="100" height="100" className="" />
+            <div className="h-24 mb-2">
+                <img srcset="" alt="" loading="lazy" width="100" height="100" className="h-full w-full" />
             </div>
-            <div id='event-details' className="">
-                <div id='event-name' className="">EVENT/ARTIST NAME</div>
+            <div id='event-details' className=" text-sm">
+                <div id='event-name' className="font-bold
+">EVENT/ARTIST NAME</div>
                 <div id='event-date' className="">Sun, Jan 21, 2024</div>
                 <div id='event-place' className="">Sant Jordi Club</div>
                 <div id='event-price' className="">€34.24</div>

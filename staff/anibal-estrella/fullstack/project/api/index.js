@@ -4,22 +4,36 @@ const mongoose = require('mongoose')
 const express = require('express')
 const cors = require('cors')
 const bodyParser = require('body-parser')
-// SDK initialization
+const ImageKit = require("imagekit");
 
-var ImageKit = require("imagekit");
+if (
+    !process.env.IMAGEKIT_PUBLIC_KEY ||
+    !process.env.IMAGEKIT_PRIVATE_KEY ||
+    !process.env.IMAGEKIT_URL_ENDPOINT ||
+    !process.env.MONGODB_URL ||
+    !process.env.PORT
+) {
+    console.error("Missing required configuration in environment variables.");
+    process.exit(1);  // Exit the process with an error code
+}
+
 
 var imagekit = new ImageKit({
-    publicKey: "public_rUeet7OFvYOzzLaPX5U0zVqMg9M=",
-    privateKey: "private_dNguebLFjSo5MvtcuxcfxQZOyqw=",
-    urlEndpoint: "https://ik.imagekit.io/7viapifcc"
+    publicKey: process.env.IMAGEKIT_PUBLIC_KEY,
+    privateKey: process.env.IMAGEKIT_PRIVATE_KEY,
+    urlEndpoint: process.env.IMAGEKIT_URL_ENDPOINT
 });
 
+console.log("Public Key:", process.env.IMAGEKIT_PUBLIC_KEY);
+console.log("Private Key:", process.env.IMAGEKIT_PRIVATE_KEY);
+console.log("URL Endpoint:", process.env.IMAGEKIT_URL_ENDPOINT);
 
 const {
     helloApiHandler,
     registerUserHandler,
     authenticateUserEmailHandler,
     authenticateUserHandler,
+    uploadMediaHandler,
     retrieveUserHandler
 } = require('./handlers')
 
@@ -43,6 +57,9 @@ mongoose.connect(process.env.MONGODB_URL)
         api.post('/users/auth', jsonBodyParser, authenticateUserHandler)
 
         api.get('/users', retrieveUserHandler)
+
+        api.post('/upload', jsonBodyParser, uploadMediaHandler)
+
 
         // api.post('/posts', jsonBodyParser, createPostHandler)
 
@@ -78,4 +95,4 @@ mongoose.connect(process.env.MONGODB_URL)
 
     })
 
-    .catch(error => console.error)
+    .catch(error => console.error(error))
