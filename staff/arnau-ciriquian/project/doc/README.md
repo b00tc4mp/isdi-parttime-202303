@@ -49,4 +49,4 @@ Notion: https://congruous-beetle-52e.notion.site/Infected-Reality-ISDI-Final-Pro
 Figma: 
 
 ### Testing
-<img src="test.jpeg" width="100" style="float: right;"/>
+![](test.jpeg)
