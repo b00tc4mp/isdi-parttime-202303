@@ -4,11 +4,14 @@
         - afegir test-coverage (imatge del coverage) al readme de doc, per deixar present lo be que sha testejat, com a minim l'API
 
 ##  APP
-        - Register - refactor i diseny
-        - Login - funcionalitat i diseny
+        - Aplicar llogica de update character 
+        - logica completar missio
+        - comprovar si el character te el id de la missio completada a la seva llista de missions
+        - arreglar zombies dmg al player
+        - passar info character al game render
 
 ##  API
+        - logica update character
 
 ##  DB
-        - Afegir index "email" per limitar els usuaris registrats a no repetir email
         - planificar db dels characters i les missions/puntuacions
