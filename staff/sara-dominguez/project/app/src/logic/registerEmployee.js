@@ -1,5 +1,5 @@
 
-import { validators } from 'com'
+import { validators, errors } from 'com'
 const {
     validateName,
     validateFirstSurname,
@@ -114,43 +114,91 @@ export default (name,
     validateAccessPermissions(accessPermissions)
     validateEmployeePassword(employeePassword)
 
-    return fetch(`${import.meta.env.VITE_API_URL}/employees`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            name,
-            firstSurname,
-            secondSurname,
-            // birthDate,
-            idCardNumber,
-            tssNumber,
-            address,
-            personalPhoneNumber,
-            bankAccountNumber,
-            avatar,
-            employeeNumber,
-            // startOfEmploymentData,
-            // endOfEmploymentData,
-            // lengthOfEmployment,
-            typeOfContract,
-            jobPosition,
-            department,
-            salaryLevel,
-            centerAttached,
-            // superiorHierachicalManager,
-            roll,
-            professionalPhoneNumber,
-            professionalEmail,
-            accessPermissions,
-            employeePassword
+    // return fetch(`${import.meta.env.VITE_API_URL}/employees`, {
+    //     method: 'POST',
+    //     headers: {
+    //         'Content-Type': 'application/json'
+    //     },
+    //     body: JSON.stringify({
+    //         name,
+    //         firstSurname,
+    //         secondSurname,
+    //         // birthDate,
+    //         idCardNumber,
+    //         tssNumber,
+    //         address,
+    //         personalPhoneNumber,
+    //         bankAccountNumber,
+    //         avatar,
+    //         employeeNumber,
+    //         // startOfEmploymentData,
+    //         // endOfEmploymentData,
+    //         // lengthOfEmployment,
+    //         typeOfContract,
+    //         jobPosition,
+    //         department,
+    //         salaryLevel,
+    //         centerAttached,
+    //         // superiorHierachicalManager,
+    //         roll,
+    //         professionalPhoneNumber,
+    //         professionalEmail,
+    //         accessPermissions,
+    //         employeePassword
+    //     })
+    // })
+    //     .then(res => {
+    //         if (res.status === 201)
+    //             return
+    //         return res.json()
+    //             .then(({ error: message }) => { throw new Error(message) })
+    //     })
+
+
+    return (async () => {
+
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/employees`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                name,
+                firstSurname,
+                secondSurname,
+                // birthDate,
+                idCardNumber,
+                tssNumber,
+                address,
+                personalPhoneNumber,
+                bankAccountNumber,
+                avatar,
+                employeeNumber,
+                // startOfEmploymentData,
+                // endOfEmploymentData,
+                // lengthOfEmployment,
+                typeOfContract,
+                jobPosition,
+                department,
+                salaryLevel,
+                centerAttached,
+                // superiorHierachicalManager,
+                roll,
+                professionalPhoneNumber,
+                professionalEmail,
+                accessPermissions,
+                employeePassword
+            })
         })
-    })
-        .then(res => {
-            if (res.status === 201)
-                return
-            return res.json()
-                .then(({ error: message }) => { throw new Error(message) })
-        })
+        if (res.status === 201) {
+            return
+        } else {
+            const { type, message } = await res.json()
+
+            const clazz = errors[type]
+
+            throw new clazz(message)
+        }
+    })()
 }
+

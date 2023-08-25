@@ -7,26 +7,31 @@ const {
 /**
 * Retrieve a employee against his/her id
 * 
-* @param {string} employeeId  The employee id
-* 
+* @param {string} employeeId  The employee logged id
+* @param {string} id  The id of employee to find
+*
 * @returns {Promise} employee  
 * 
-* @throws {TypeError} On non-string employeeId
-* @throws {ContentError} On id doesn't have 24 characters or not hexadecimal
+* @throws {TypeError} On non-string employeeId od id
+* @throws {ContentError} On id or employeeId doesn't have 24 characters or not hexadecimal
 * @throws {ExistenceError} On non-existing employee
  */
 
-module.exports = function retrieveEmployee(employeeId) {
+module.exports = function retrieveEmployee(id, employeeId) {
+    validateId(id)
     validateId(employeeId)
 
-    const { Employee } = require('../data/models')
-
     return (async () => {
-        const employee = await Employee.findById(employeeId, 'name firstSurname secondSurname avatar centerAttached professionalPhoneNumber professionalEmail ').lean()
+        const employeeLogged = await Employee.findById(employeeId).lean()
+
+        if (!employeeLogged) throw new ExistenceError('employee not found')
+
+        const employee = await Employee.findById(id).lean()
+
+        delete employee.employeePassword
+        delete employee.__v
 
         if (!employee) throw new ExistenceError('employee not found')
-
-        delete employee._id
 
         return employee
     })()

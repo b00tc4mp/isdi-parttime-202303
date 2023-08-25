@@ -3,7 +3,7 @@ import PersonalInformationModal from '../components/PersonalInformationModal.jsx
 import PayrollMenuModal from '../components/PayrollMenuModal.jsx'
 import ManagePayrollMenuModal from '../components/ManagePayrollMenuModal.jsx'
 import EmployeeDatabaseMenuModal from '../components/EmployeeDatabaseMenuModal.jsx'
-import retrieveEmployee from '../logic/retrieveEmployee'
+import retrieveEmployeeLogged from '../logic/retrieveEmployeeLogged'
 import isLoggedIn from '../logic/isLoggedIn'
 import logoutEmployee from '../logic/logoutEmployee.js'
 import { context } from '../ui'
@@ -23,7 +23,7 @@ export default function Home() {
     useEffect(() => {
         try {
 
-            retrieveEmployee(context.token)
+            retrieveEmployeeLogged(context.token)
                 .then(employee => setEmployee(employee))
                 .catch(error => alert(error.message))
         } catch (error) {
@@ -53,7 +53,7 @@ export default function Home() {
 
     const handleRefreshEmloyee = () => {
         try {
-            retrieveEmployee()
+            retrieveEmployeeLogged()
                 .then(employee => setEmployee(employee))
                 .then(setModal(null))
                 .catch(error =>
@@ -80,20 +80,25 @@ export default function Home() {
                 <h1 className="italic text-2xl font-bold leading-9 tracking-tight text-amber-500 drop-shadow-md  ml-4 mt-2 ">b-ElevenzSd</h1>
             </header>
             <main className="flex ml-4">
-                <div className="">
+                <div className="w-2/12">
                     <div className="">
                         {employee && <>
                             <img src={employee.avatar} className="h-16 w-15 flex-none rounded-full bg-gray-50  ml-7 mt-24" />
-                            <h3 className="italic mt-10 text-base font-bold leading-9 tracking-tight text-amber-500 drop-shadow-md mb-3  mt-0">Welcome, {employee.name}!</h3>
+                            <h3 className="italic mt-3 text-base font-bold leading-9 tracking-tight text-amber-500 drop-shadow-md mb-3 mt-0">Welcome, {employee.name} !</h3>
                         </>}
                     </div>
                     <div className="mt-20 mr-2">
-                        <p className="personalInformation-menu"><a href="" className="personalInformation" onClick={handleGoToPersonalInformatioMenu}>Personal Information</a></p>
-                        <p className="payroll-menu" onClick={handleGoToPayrollMenu}><a href="" className="payrollMenu" >Payroll menu</a></p>
-                        <p className="manage-payroll-menu" onClick={handleGoToManagePayrollMenu}><a href="" className="ManagePayrollMenu" >Manage Payroll menu</a></p>
-                        <p className="employeeDatabase-menu" onClick={handleGoToEmployeeDatabaseMenu}><a href="" className="employeeDatabaseMenu" >Employee Database menu</a></p>
-                    </div>
+                        <p className="personalInformation-menu mb-4"><a href="" className="personalInformation" onClick={handleGoToPersonalInformatioMenu}>Personal Information</a></p>
+                        <p className="payroll-menu mb-4" onClick={handleGoToPayrollMenu}><a href="" className="payrollMenu" >Payroll menu</a></p>
 
+                        {employee && employee.roll === "Admin" && (
+                            <>
+                                <p className="manage-payroll-menu mb-4" onClick={handleGoToManagePayrollMenu}><a href="" className="ManagePayrollMenu" >Manage Payroll menu</a></p>
+                                <p className="employeeDatabase-menu w-5/6" onClick={handleGoToEmployeeDatabaseMenu}><a href="" className="employeeDatabaseMenu" >Employee Database menu</a></p>
+                            </>
+                        )}
+                    </div>
+                    <h5 className=" text-l font-bold leading-9 tracking-tight text-amber-500 drop-shadow-md mt-36 mb-10" onClick={handleLogOut}>Logout</h5>
                 </div>
                 {modal === 'PersonalInformation' && < PersonalInformationModal
                     employee={employee}
@@ -117,7 +122,7 @@ export default function Home() {
                     onEmployeeDatabaseMenuModalLogout={handleCloseModal} />}
             </main>
             <footer>
-                <h5 className=" text-l font-bold leading-9 tracking-tight text-amber-500 drop-shadow-md mb-10 ml-4" onClick={handleLogOut}>Logout</h5>
+                {/* <h5 className=" text-l font-bold leading-9 tracking-tight text-amber-500 drop-shadow-md mt-10 mb-10 ml-4" onClick={handleLogOut}>Logout</h5> */}
             </footer>
         </div>
     </div>

@@ -5,9 +5,10 @@ const bodyParser = require('body-parser')
 const { helloApiHandler,
     registerEmployeeHandler,
     authenticateEmployeeHandler,
-    retrieveEmployeeHandler,
+    retrieveEmployeeLoggedHandler,
     retrieveEmployeePayrollDataHandler,
     createEmployeePayrollMonthHandler,
+    updateEmployeeHandler,
     updateEmployeeAvatarHandler,
     updateEmployeePasswordHandler,
     updateEmployeeAddressHandler,
@@ -18,7 +19,9 @@ const { helloApiHandler,
     retrieveEmployeesBySalaryLevelHandler,
     retrievePayrollsMonthToBePaidHandler,
     retrieveEmployeePayrollToBePaidHandler,
+    retrieveEmployeeHandler,
     updatePayrollStatusToPaidHandler,
+    searchEmployeesHandler,
 } = require('./handlers')
 
 
@@ -34,9 +37,11 @@ mongoose.connect(process.env.MONGODB_URL)
         const jsonBodyParser = bodyParser.json()
 
         api.get('/', helloApiHandler)
-        api.get('/employees/retrieve', retrieveEmployeeHandler)
+        api.get('/employees/retrieve', retrieveEmployeeLoggedHandler)
         api.get('/employees/retrieveEmployeePayrollData', retrieveEmployeePayrollDataHandler)
         api.get('/employees/retrieveEmployeePayrollToBePaid/:id', retrieveEmployeePayrollToBePaidHandler)
+        api.get('/employees/retrieveEmployee/:id', retrieveEmployeeHandler)
+        api.get('/employees/searchEmployees/:name/:firstSurname/:secondSurname', searchEmployeesHandler)
         api.get('/payrollMonth/retrieveEmployeePayrollMonth/:payrollYear/:payrollMonth', retrievePayrollMonthHandler)
         api.get('/payrollMonth/retrievePayrollsMonthToBePaid/:payrollYear/:payrollMonth', retrievePayrollsMonthToBePaidHandler)
         api.get('/employees/retrieveEmployeesBySalaryLevel/:salaryLevel', retrieveEmployeesBySalaryLevelHandler)
@@ -46,6 +51,7 @@ mongoose.connect(process.env.MONGODB_URL)
         api.post('/employees/auth', jsonBodyParser, authenticateEmployeeHandler)
         api.post('/payrollMonths', jsonBodyParser, createEmployeePayrollMonthHandler)
 
+        api.patch('/employees/updateEmployee', jsonBodyParser, updateEmployeeHandler)
         api.patch('/employees/updateAvatar', jsonBodyParser, updateEmployeeAvatarHandler)
         api.patch('/employees/updatePassword', jsonBodyParser, updateEmployeePasswordHandler)
         api.patch('/employees/updateAddress', jsonBodyParser, updateEmployeeAddressHandler)

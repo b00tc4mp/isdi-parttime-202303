@@ -1,22 +1,15 @@
 import context from './context'
-import { validators, errors } from 'com'
-const { validateId } = validators
+import { errors } from 'com'
+
 /**
-* Retrieve the employee to be updated
-*
-* @param {string} id  The employee id
+* Retrieve a employee from API
 *
 * @returns {Promise} employee  
-*
-* @throws {TypeError} On non-string id
-* @throws {ContentError} On id doesn't have 24 characters or not hexadecimal
 */
 
-export default (id) => {
-    validateId(id)
-
+export default () => {
     return (async () => {
-        const res = await fetch(`${import.meta.env.VITE_API_URL}/employees/retrieveEmployee/${id}`, {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/employees/retrieve`, {
             headers: {
                 authorization: `Bearer ${context.token}`
             }

@@ -27,18 +27,18 @@ export default function PayrollsMonthListToBePaid({
     const { name, firstSurname, secondSurname, avatar, salaryLevel, bankAccountNumber } = employeeRetrieved ?? {}
 
     return (
-        <div className="bg-neutral-50 flex mb-2 border border-black shadow p-3 rounded-[7px]">
-            <h4 className="flex flex-wrap" key={_id}>
-                <img className="rounded-[25px]" src={avatar} width="25px" />
-                <div className="w-5/12 pl-2">{name} {firstSurname} {secondSurname}</div>
-                <div className="w-2/12 justify-start">Salary level: {salaryLevel}</div>
-                <div className="w-4/12 justify-start">{bankAccountNumber}</div>
-                <div className="w-1/12 justify-start">{monthName}</div>
-                <div className="w-1/12 justify-start">{payrollYear}</div>
-                <div className="w-2/12 justify-start">{netSalary.toLocaleString('de-DE')}Eur</div>
-                <div className="w-1/12 justify-start">🗑</div>
-            </h4>
+        <div className="bg-neutral-50 flex flex-wrap ml-1 mb-1 mr-1 border border-black shadow-sm p-2 rounded-[7px] justify-end">
+            <div key={_id}></div>
+            <img className="rounded-[25px]" src={avatar} width="25px" />
+            <div className="w-4/12 pl-2 text-xs">{name} {firstSurname} {secondSurname}</div>
+            <div className="w-2/12 text-xs">Salary level: {salaryLevel}</div>
+            <div className="w-5/12 text-xs">{bankAccountNumber}</div>
+            <div className="w-1/12 text-xs">{monthName}</div>
+            <div className="w-1/12 text-xs">{payrollYear}</div>
+            <div className="w-2/12 text-xs">{netSalary.toLocaleString('de-DE')} Eur</div>
+            <div className="w-1/12 text-xs">🗑</div>
         </div>
+
     )
 }
 

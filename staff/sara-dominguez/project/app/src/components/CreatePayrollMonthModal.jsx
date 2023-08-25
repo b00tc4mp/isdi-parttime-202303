@@ -1,4 +1,4 @@
-import retrieveEmployee from "../logic/retrieveEmployee"
+import retrieveEmployee from "../logic/retrieveEmployeeLogged"
 import { context } from '../ui'
 import { useState, useRef } from 'react'
 import Employee from './Employee'
@@ -50,17 +50,17 @@ export default function CreatePayrollMonthModal({ onPayrollCreated }) {
         }
     }
 
-    return <section className="w-11/12 mr-8 bg-slate-200 rounded-[7px]">
-        <div className="selectToCreateNewPayrolls bg-slate-200 flex flex-wrap">
+    return <section className="w-7/12 mr-8 bg-slate-200 rounded-[7px]">
+        <div className="selectToCreateNewPayrolls bg-slate-200 flex flex-wrap sticky top-0 z-10">
             <div className="w-3/12 h-1/6 ml-auto mr-auto flex">
-                <label>Year:</label>
+                <label className="mr-2">Year:</label>
                 <Select value={selectedYear} onChange={event => setSelectedYear(event.target.value)}>
                     <option value="2023">2023</option>
                     <option value="2022">2022</option>
                 </Select>
             </div>
             <div className="w-4/12 h-1/6 flex">
-                <label>Month:</label>
+                <label className="mr-2">Month:</label>
                 <Select value={selectedMonth} onChange={event => setSelectedMonth(event.target.value)}>
                     <option value="1">January</option>
                     <option value="2">February</option>
@@ -76,8 +76,8 @@ export default function CreatePayrollMonthModal({ onPayrollCreated }) {
                     <option value="12">December</option>
                 </Select>
             </div>
-            <div className="w-4/12 h-1/6 flex">
-                <label>Salary level: </label>
+            <div className="w-5/12 h-1/6 flex">
+                <label className="mr-2">Salary level: </label>
                 <Select value={selectedSalaryLevel} onChange={event => setSelectedSalaryLevel(event.target.value)}>
                     <option value="5">Level 5</option>
                     <option value="4">Level 4</option>
@@ -86,7 +86,7 @@ export default function CreatePayrollMonthModal({ onPayrollCreated }) {
                     <option value="1">Level 1</option>
                 </Select>
             </div>
-            <Button className="w-4/12 ml-auto mr-auto mt-4 mb-10" onClick={handleGenerateEmployeeList}>Generate Employee List</Button>
+            <Button className="w-5/12 ml-auto mr-auto mt-4 mb-10" onClick={handleGenerateEmployeeList}>Generate Employee List</Button>
         </div>
         <div className="flex flex-col">
             {view === 'EmployeeListRetrieved' && employeeList && employeeList.map((employee) => <Employee
@@ -95,10 +95,10 @@ export default function CreatePayrollMonthModal({ onPayrollCreated }) {
             />)}
             {employeeList ? (
                 // <>
-                <div className="ml-20 mt-5">
+                <div className="ml-20 pt-2 sticky bottom-0 bg-slate-200 z-10">
                     <label className="flex italic font-semibold justify-start">Total Payrolls to create:<h5 className="pl-2">{employeeList.length}</h5></label>
 
-                    <Button className="w-2/5 mt-5" onClick={handleCreateNewPayrollsMonth}>Confirm create payrolls month</Button>
+                    <Button className="w-2/5 mt-2" onClick={handleCreateNewPayrollsMonth}>Confirm create payrolls month</Button>
                 </div>
                 // </>
             ) : (

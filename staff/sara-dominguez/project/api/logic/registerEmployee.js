@@ -6,14 +6,20 @@ const {
         validateIdCardNumber,
         validateTssNumber,
         validateAddress,
-        validatePersonalPhoneNumber, validateBankAccountNumber,
+        validatePersonalPhoneNumber,
+        validateBankAccountNumber,
         validateUrl,
-        validateEmployeeNumber, validateTypeOfContract,
+        validateEmployeeNumber,
+        validateTypeOfContract,
         validateJobPosition,
         validateDepartment,
+        validateSalaryLevel,
         validateCenterAttached,
         validateRoll,
-        validateProfessionalPhoneNumber, validateAccessPermissions, validateEmployeePassword
+        validateProfessionalPhoneNumber,
+        // validateProfessionalEmail,
+        validateAccessPermissions,
+        validateEmployeePassword
     },
     errors: { DuplicityError }
 } = require('com')
@@ -112,9 +118,11 @@ module.exports = function registerEmployee(
     validateTypeOfContract(typeOfContract)
     validateJobPosition(jobPosition)
     validateDepartment(department)
+    validateSalaryLevel(salaryLevel)
     validateCenterAttached(centerAttached)
     validateRoll(roll)
     validateProfessionalPhoneNumber(professionalPhoneNumber)
+    // validateProfessionalEmail(professionalEmail)
     validateAccessPermissions(accessPermissions)
     validateEmployeePassword(employeePassword)
 
@@ -152,8 +160,19 @@ module.exports = function registerEmployee(
                 employeePassword,
             })
         } catch (error) {
-            if (error.message.includes('E11000'))
-                throw new DuplicityError(`employee with email ${email} already exists`)
+            if (error.message.includes(('E11000')) && error.message.includes('idCardNumber')) {
+                throw new DuplicityError(`Id Card Number: ${idCardNumber} is already assigned to other registered employee.`)
+            } else if (error.message.includes(('E11000')) && error.message.includes('tssNumber')) {
+                throw new DuplicityError(`TSS number: ${tssNumber} is already assigned to other registered employee.`)
+            } else if (error.message.includes(('E11000')) && error.message.includes('personalPhoneNumber')) {
+                throw new DuplicityError(`Personal phone number: ${personalPhoneNumber} is already assigned to other registered employee.`)
+            } else if (error.message.includes(('E11000')) && error.message.includes('professionalEmail')) {
+                throw new DuplicityError(`Professional email: ${professionalEmail} is already assigned to other registered employee.`)
+            } else if (error.message.includes(('E11000')) && error.message.includes('professionalPhoneNumber')) {
+                throw new DuplicityError(`Professional phone number: ${professionalPhoneNumber} is already assigned to other registered employee.`)
+            } else if (error.message.includes(('E11000')) && error.message.includes('employeeNumber')) {
+                throw new DuplicityError(`Employee number: ${employeeNumber} is already assigned to other registered employee.`)
+            }
             throw error
         }
     })()

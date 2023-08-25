@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import context from '../logic/context'
 import { utils } from 'com'
-import retrieveEmployee from '../logic/retrieveEmployee'
+import retrieveEmployeeLogged from '../logic/retrieveEmployeeLogged'
 import useAppContext from '../hooks/useAppContext'
 const { extractSubFromToken } = utils
 
@@ -16,7 +16,7 @@ export default function Header() {
             try {
                 const employeeId = extractSubFromToken(context.token)
 
-                const employee = await retrieveEmployee(employeeId)
+                const employee = await retrieveEmployeeLogged(employeeId)
 
                 setEmployee(employee)
             } catch (error) {

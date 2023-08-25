@@ -66,20 +66,20 @@ export default function PayrollMenuModal({ employee, onPayrollMenuModalLogout })
             <div className="w-2/12 ml-4 pt-2 sticky top-0 bg-slate-200 z-10 drop-shadow-none">
                 <h4 className="w-2/12 italic text-ml">Payroll Menu</h4>
                 <div className="flex flex-col mt-20">
-                    <h5 onClick={handleCheckAnnualAggregate}>Annual Aggregate</h5>
+                    <h5 className="text-sm" onClick={handleCheckAnnualAggregate}>Annual Aggregate</h5>
                 </div>
             </div >
             <div className="pl-8 pr-12 pt-2 space-y-4 w-full h-full">
                 <div className="flex">
                     <div className="selectToCheckYear flex justify-center w-full">
-                        <label>Year:</label>
+                        <label className="mr-2">Year:</label>
                         <Select value={selectedYear} onChange={event => setSelectedYear(event.target.value)}>
                             <option value="2023">2023</option>
                             <option value="2022">2022</option>
                         </Select>
                     </div>
                     <div className="selectToCheckPayrolls flex  w-full" >
-                        <label>Month: </label>
+                        <label className="mr-2">Month: </label>
                         <Select value={selectedMonth} onChange={event => setSelectedMonth(event.target.value)}>
                             <option value="1">January</option>
                             <option value="2">February</option>

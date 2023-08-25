@@ -36,7 +36,7 @@ export default function PayrollMonth({ payrollMonthRetrieved }) {
     const { payrollYear, payrollMonth, monthName, monthSalary, bonus, irpfTax, ssTax, irpfDeductions, ssDeductions, totalAmountIncomes, totalAmountDeductions, netSalary } = payrollMonthRetrieved || {}
 
 
-    return <article className="bg-white rounded-[7px] shadow bg-neutral-200">
+    return <article className="bg-white rounded-[7px] drop-shadow bg-neutral-200">
         {employee && payrollMonthRetrieved ? (
             <>
                 <header className="p-4 flex flex-col">
@@ -48,43 +48,43 @@ export default function PayrollMonth({ payrollMonthRetrieved }) {
                     </div>
                 </header>
                 <main className="w-full h-full flex flex-col">
-                    <div className="w-10/12 h-3/12  bg-neutral-100 rounded-[10px] border border-neutral-200 p-2 ml-auto mr-auto text-[11px] mb-1">
+                    <div className="w-10/12 h-3/12  bg-neutral-100 rounded-[10px] border border-neutral-200 p-2 ml-auto mr-auto text-xs mb-1">
                         <div className="flex flex-col w-full">
                             <div className="flex">
-                                <div className="flex flex-col w-2/6">
+                                <div className="w-2/6 flex sm:flex-wrap flex-col justify-start ml-7 p-2">
                                     <div className="mb-2">
-                                        <label className="text-gray-500 flex">Name:
+                                        <label className="text-gray-500 flex flex-col">Name:
                                             <p className="ml-0.5">{name} {firstSurname} {secondSurname}</p></label>
                                     </div>
                                     <div className="mb-2">
-                                        <label className="text-gray-500 flex">Id card number:<p className="ml-0.5">{idCardNumber}</p></label>
+                                        <label className="text-gray-500 flex flex-col">Id card number:<p className="ml-0.5">{idCardNumber}</p></label>
                                     </div>
                                     <div className="mb-2 w-full">
                                         <label className="text-gray-500 w-full">Bank Account Number:<p className="ml-0.5">{bankAccountNumber}</p></label>
                                     </div>
                                 </div>
-                                <div className="flex flex-col w-2/6">
-                                    <div className="mb-2">
-                                        <label className="text-gray-500 flex">TSS Number:<p className="ml-0.5">{tssNumber}</p></label>
+                                <div className="flex flex-col w-2/6 ml-10 p-2">
+                                    <div className="mb-2 flex justify-start">
+                                        <label className="text-gray-500 flex flex-col">TSS Number:<p className="ml-0.5">{tssNumber}</p></label>
                                     </div>
                                     <div className="mb-2 flex justify-start">
-                                        <label className="text-gray-500 flex"> Employee number:<p className="ml-0.5">{employeeNumber}</p></label>
+                                        <label className="text-gray-500 flex flex-col"> Employee number:<p className="ml-0.5">{employeeNumber}</p></label>
                                     </div>
                                     <div className="mb-2 flex justify-start">
-                                        <label className="text-gray-500 flex">Salary level:<p className="ml-0.5">{salaryLevel}</p></label>
+                                        <label className="text-gray-500 flex flex-col">Salary level:<p className="ml-0.5">{salaryLevel}</p></label>
                                     </div>
                                 </div>
-                                <div className="flex flex-col w-2/6 ">
+                                <div className="flex flex-col w-2/6 ml-1 mr-2 p-2">
                                     <div>
-                                        <div className="mb-2 flex justify-start">
-                                            <label className="text-gray-500 flex">Department: <p className="ml-0.5">{department}</p></label>
+                                        <div className="mb-2 flex justify-star">
+                                            <label className="text-gray-500 flex flex-col">Department: <p className="ml-0.5">{department}</p></label>
                                         </div>
-                                        <div className="mb-2 flex justify-start">
-                                            <label className="text-gray-500 flex">Job Position:<p className="ml-0.5">{jobPosition}</p></label>
+                                        <div className="mb-2 flex justify-star">
+                                            <label className="text-gray-500 flex flex-col">Job Position:<p className="ml-0.5">{jobPosition}</p></label>
                                         </div>
                                     </div>
-                                    <div className="flex mb-2 flex justify-start">
-                                        <label className="text-gray-500 flex">Center Attached:<p className="ml-0.5">{centerAttached}</p>
+                                    <div className="flex mb-2 flex justify-star">
+                                        <label className="text-gray-500 flex flex-col">Center Attached:<p className="ml-0.5">{centerAttached}</p>
                                         </label>
                                     </div>
                                 </div>
@@ -93,52 +93,50 @@ export default function PayrollMonth({ payrollMonthRetrieved }) {
                             </div>
                         </div>
                     </div>
-                    <div className="w-10/12 h-9/12 bg-neutral-100 rounded-[10px] border border-neutral-200 p-2 ml-auto mr-auto text-3xl">
+                    <div className="w-10/12 h-9/12 bg-neutral-100 rounded-[10px] border border-neutral-200  ml-auto mr-auto text-3xl">
                         <table className="w-full h-full bg-neutral-10 rounded-[10px] ml-auto mr-auto" >
-                            <thead className="w-[97px] h-[18px] text-black text-[13px] font-extralight border-y-2">
+                            <thead className="text-black text-[13px] font-extralight border-b-2">
                                 <tr>
-                                    <th className="text-left text-gray-500">Payroll concept</th>
-                                    <th className="text-left text-gray-500">Incomes</th>
-                                    <th className="text-left text-gray-500">Deductions</th>
+                                    <th className="w-3/9 text-center text-gray-500">Payroll concept</th>
+                                    <th className="w-3/9 text-center text-gray-500">Incomes</th>
+                                    <th className=" w-3/9 text-center text-gray-500">Deductions</th>
                                 </tr>
                             </thead>
                             <tbody className="w-[97px] h-[18px] text-black text-[13px] font-extralight ">
                                 <tr>
-                                    <td className="text-left">Base</td>
-                                    <td className="text-left pl-1">{monthSalary.toLocaleString('de-DE')} Eur.</td>
-                                    <td className="text-left pl-5">0 Eur.</td>
+                                    <td className="text-center">Base</td>
+                                    <td className="text-center">{monthSalary.toLocaleString('de-DE')} Eur.</td>
+                                    <td className="text-center">0 Eur.</td>
                                 </tr>
                                 <tr>
-                                    <td className="text-left">Bonus</td>
-                                    <td className="text-left pl-4">{bonus.toLocaleString('de-DE')} Eur.</td>
-                                    <td className="text-left pl-5">0 Eur.</td>
+                                    <td className="text-center">Bonus</td>
+                                    <td className="text-center">{bonus.toLocaleString('de-DE')} Eur.</td>
+                                    <td className="text-center">0 Eur.</td>
+                                </tr>
+                                <tr className="border-t-2">
+                                    <td className="text-center">IRPF tax  {(irpfTax) * 100}%</td>
+                                    <td className="text-center">0 Eur.</td>
+                                    <td className="text-center">-{irpfDeductions.toLocaleString('de-DE')} Eur.</td>
                                 </tr>
                                 <tr>
-                                    <td className="text-left">IRPF tax  {(irpfTax) * 100}%</td>
-                                    <td className="text-left pl-7">0 Eur.</td>
-                                    <td className="text-left">-{irpfDeductions.toLocaleString('de-DE')} Eur.</td>
+                                    <td className="text-center">SS tax {(ssTax) * 100}% </td>
+                                    <td className="text-center">0 Eur.</td>
+                                    <td className="text-center">-{ssDeductions.toLocaleString('de-DE')} Eur.</td>
                                 </tr>
-                                <tr>
-                                    <td className="text-left">SS tax {(ssTax) * 100}% </td>
-                                    <td className="text-left pl-7">0 Eur.</td>
-                                    <td className="text-left">-{ssDeductions.toLocaleString('de-DE')} Eur.</td>
+                                <tr className="border-t-2">
+                                    <td className="text-center">Total Amount </td>
+                                    <td className="text-center">{totalAmountIncomes.toLocaleString('de-DE')} Eur.</td>
+                                    <td className="text-center">-{totalAmountDeductions.toLocaleString('de-DE')} Eur.</td>
                                 </tr>
-                                <tr>
-                                    <td className="text-left">Total Amount </td>
-                                    <td className="text-left pl-1">{totalAmountIncomes.toLocaleString('de-DE')} Eur.</td>
-                                    <td className="text-left pl-1">-{totalAmountDeductions.toLocaleString('de-DE')} Eur.</td>
-                                </tr>
-                                <tr className="border-y-2">
-                                    <td className="text-left">Net Salary </td>
-                                    <td colSpan="2" className="text-left pl-2">{netSalary.toLocaleString('de-DE')} Eur.</td>
+                                <tr className="border-t-2">
+                                    <td className="text-center">Net Salary </td>
+                                    <td colSpan="2" className="text-center">{netSalary.toLocaleString('de-DE')} Eur.</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
-                    <p className="text-black text-[13px] font-extralight mt-4 mb-32 flex justify-end mr-28">Human Resources Department, </p>
-                    {/* //TODO añadir la firma */}
+                    <p className="text-black text-xs font-extralight mt-4 mb-20 flex justify-end mr-28">Human Resources Department, </p>
                 </main>
-                <img src="" alt="" />
             </>
         ) : (
             <h4>Loading...</h4>

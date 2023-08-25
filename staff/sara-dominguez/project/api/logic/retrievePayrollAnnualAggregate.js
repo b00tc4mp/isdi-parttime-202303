@@ -42,7 +42,8 @@ module.exports = function retrievePayrollAnnualAggregate(employeeId, payrollYear
         ])
         if (!employee) throw new ExistenceError(`user with id ${employeeId} not found`)
 
-        if (!employeePayrollsMonth || employeePayrollsMonth.length === 0) throw new ExistenceError(`payrolls not found`)
+        if (!employeePayrollsMonth || employeePayrollsMonth.length === 0)
+            throw new ExistenceError(`payrolls not found`)
 
         for (let i = 0; i < employeePayrollsMonth.length; i++) {
             const payrollMonthValue = employeePayrollsMonth[i].payrollMonth
@@ -64,7 +65,6 @@ module.exports = function retrievePayrollAnnualAggregate(employeeId, payrollYear
             sumTotalAmountIncomes += totalAmountIncomesValue
             sumTotalAmountDeductions += totalAmountDeductionsValue
             sumNetSalary += netSalaryValue
-
 
             if (!sumIrpfTax) {
                 sumIrpfTax = irpfTaxValue

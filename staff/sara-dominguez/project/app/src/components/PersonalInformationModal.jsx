@@ -7,7 +7,7 @@ import useAppContext from '../hooks/useAppContext'
 import { utils } from 'com'
 import { context } from '../ui'
 import isCurrentEmployee from '../logic/isCurrentEmployee'
-import retrieveEmployee from '../logic/retrieveEmployee'
+import retrieveEmployee from '../logic/retrieveEmployeeLogged'
 import Header from './Header.jsx'
 import { Input, Container, Button, FormButton } from '../library'
 
@@ -90,11 +90,11 @@ export default function PersonalInformationModal({ employee, onEmployeeAvatarUpd
         {/* <Header employee={employee} */}
         <Header
         />
-        <main className="overflow-auto h-full">
+        <main className="overflow-auto h-full flex">
             <div className="w-2/12 ml-4 pt-2 sticky top-0 bg-slate-200 z-10">
                 <h4 className="w-2/12 italic text-ml">Personal Information</h4>
             </div>
-            <div className="pl-52 pr-20 space-y-5 overflow">
+            <div className=" w-full pl-20 space-y-5 overflow">
                 <div className="">
                     <div className="mb-1">
                         <h5 className="mb-1">Update avatar </h5>

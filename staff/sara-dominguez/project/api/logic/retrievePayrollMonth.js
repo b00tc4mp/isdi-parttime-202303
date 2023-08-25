@@ -36,7 +36,7 @@ module.exports = (employeeId, payrollYear, payrollMonth) => {
             throw new ExistenceError(`user with id ${employeeId} not found`);
         }
 
-        if (!payrollMonthRetrieved || undefined || payrollMonthRetrieved.length === 0) {
+        if (!payrollMonthRetrieved || payrollMonthRetrieved === undefined || payrollMonthRetrieved.length === 0) {
             throw new ExistenceError('payroll not found')
         }
         delete payrollMonthRetrieved[0]._id

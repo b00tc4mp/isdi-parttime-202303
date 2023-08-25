@@ -1,4 +1,4 @@
-import retrieveEmployee from "../logic/retrieveEmployee"
+import retrieveEmployee from "../logic/retrieveEmployeeLogged"
 import { context } from '../ui'
 import { useState } from 'react'
 import Employee from './Employee'
@@ -54,17 +54,17 @@ export default function ProcessPayrollsMonthPayments({ employee, onPayrollsMonth
         }
     }
 
-    return <section className="w-11/12 mr-8 bg-slate-200 rounded-[7px] ">
-        <div className="selectToProcessPayrollsPayment bg-slate-200 flex flex-wrap">
-            <div className="w-2/12 h-1/6 ml-auto mr-auto flex">
-                <label>Year:</label>
+    return <section className="w-9/12 mr-7 bg-slate-200 rounded-[7px] ">
+        <div className="selectToProcessPayrollsPayment bg-slate-200 mb-3 flex flex-wrap sticky top-0 bg-slate-200 z-10">
+            <div className="w-3/12 h-1/6 ml-3  flex">
+                <label className="mr-2">Year:</label>
                 <Select value={selectedYear} onChange={event => setSelectedYear(event.target.value)}>
                     <option value="2023">2023</option>
                     <option value="2022">2022</option>
                 </Select>
             </div>
-            <div className="w-3/12 h-1/6 flex">
-                <label>Month</label>
+            <div className="w-4/12 h-1/6  ml-3 flex">
+                <label className="mr-2">Month:</label>
                 <Select value={selectedMonth} onChange={event => setSelectedMonth(event.target.value)}>
                     <option value="1">January</option>
                     <option value="2">February</option>
@@ -80,7 +80,7 @@ export default function ProcessPayrollsMonthPayments({ employee, onPayrollsMonth
                     <option value="12">December</option>
                 </Select>
             </div>
-            <Button className="w-5/12 h-1/6 mb-3" onClick={handleGeneratePayrollsMonthListToPaid}>Generate payrolls month list to paid</Button>
+            <Button className="w-5/12 h-1/6 mt-2 mb-3" onClick={handleGeneratePayrollsMonthListToPaid}>Generate payrolls month list to paid</Button>
         </div>
         <div className="flex flex-col">
             {view === 'payrollsMonthListRetrievedTopPaid' && payrollsMonthList && payrollsMonthList.map((payroll) => <PayrollsMonthListToBePaid
@@ -89,12 +89,12 @@ export default function ProcessPayrollsMonthPayments({ employee, onPayrollsMonth
             />)}
             {payrollsMonthList ? (
                 // <>
-                <div className="mt-5">
-                    <label className="flex italic font-semibold justify-start">Total payrolls month to paid: <h5 className="pl-2">{payrollsMonthList.length}</h5></label>
+                <div className="mt-5 sticky bottom-0 bg-slate-200 z-10">
+                    <label className="flex italic font-semibold justify-start pt-3">Total payrolls month to paid: <h5 className="pl-2">{payrollsMonthList.length}</h5></label>
 
-                    <label className="flex italic font-semibold justify-start">Total amount payrolls month to paid: <h5 className="pl-2">{sum.toLocaleString('de-DE')} Eur</h5></label>
+                    <label className="flex italic font-semibold justify-start">Total amount payrolls month to paid: <h5 className="pl-2">{sum.toLocaleString('de-DE')} Eur.</h5></label>
 
-                    <Button className="mt-5" onClick={handlePayPayrollsMonth}>Pay payrolls month</Button>
+                    <Button className="mt-2" onClick={handlePayPayrollsMonth}>Pay payrolls month</Button>
                 </div>
                 // </>
             )
