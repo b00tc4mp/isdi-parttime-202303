@@ -3,13 +3,17 @@ import inLogger from '../inLogger';
 import { tutorialLevels } from '../components/game/tutorialLevels';
 import TutorialInfo from '../components/game/TutorialInfo';
 import TutorialGameContainer from '../components/game/TutorialGameContainer';
+import useLockScroll from '../hooks/useLockScroll';
 
 const Tutorial = () => {
     const [key, setKey] = useState(0);
     const [isTutorialInfoOn, setTutorialInfoOn] = useState(true);
+    const { lockScroll, unlockScroll } = useLockScroll();
+    lockScroll();
 
     const handleFinishTutorialLevel = () => {
         setKey(prevKey => prevKey + 1);
+        unlockScroll();
     };
 
     useEffect(() => {

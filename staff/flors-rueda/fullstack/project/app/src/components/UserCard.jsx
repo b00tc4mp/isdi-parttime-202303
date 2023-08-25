@@ -37,7 +37,7 @@ const UserCard = ({ userInfo }) => {
             <div className="flex items-start flex-col">
                 <h3 className={`mb-2 text-2xl text-${userInfo.color} font-semibold self-center`}>{userInfo.username}</h3>
                 <p className="flex flex-col gap-2 text-sm font-semibold">
-                    <span className="font-serif text-xs text-secondary100">- rider since {new Date(userInfo.joined).toLocaleDateString("en-GB")} -</span>
+                    <span className="italic text-xs text-secondary100">- rider since {new Date(userInfo.joined).toLocaleDateString("en-GB")} -</span>
                     <span className="text-light100 flex flex-row gap-2">Followers: {followers}
                         {
                             !isProfileCurrentUser &&

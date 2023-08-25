@@ -54,7 +54,7 @@ const App = () => {
 
   useEffect(() => {
     const currentRoute = location.pathname;
-    const isTargetedRoute = ['/levels', '/signin', '/home', '/search', '/customize', '/settings', '/profile'].includes(currentRoute);
+    const isTargetedRoute = ['/levels', '/signin'].includes(currentRoute);
     isTargetedRoute ? handleRefreshApiConnection() : setApiAvailableOn(true);
     if (isUserLoggedIn()) {
       handleErrors(async () => {
@@ -62,10 +62,6 @@ const App = () => {
       })
     }
   }, [location.pathname]);
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  })
 
   useEffect(() => {
     const url = import.meta.env.VITE_API_URL;

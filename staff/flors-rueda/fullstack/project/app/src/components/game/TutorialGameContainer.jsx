@@ -3,6 +3,7 @@ import CanvasContainer from './CanvasContainer';
 import { Player } from '@lottiefiles/react-lottie-player';
 import inLogger from '../../inLogger';
 import { configureLevelToRender } from '../../helpers/game/configureLevelToRender';
+import animations from '../../assets/animations';
 
 const TutorialGameContainer = ({ tutorialLevel, onFinishTutorialLevel, avatar }) => {
     const [level, setLevel] = useState(configureLevelToRender(tutorialLevel))
@@ -65,14 +66,13 @@ const TutorialGameContainer = ({ tutorialLevel, onFinishTutorialLevel, avatar })
 
     useEffect(() => {
         if (isAnimationVisible) {
-            const animationDuration = animation === 'life' ? 1500 : 1000;
             const timeout = setTimeout(() => {
                 setAnimationVisible(false);
                 if (animation === 'won') {
                     setIsGameOver(1);
                     onFinishTutorialLevel();
                 }
-            }, animationDuration);
+            }, animations[animation].time);
 
             return () => clearTimeout(timeout);
         }
@@ -84,21 +84,9 @@ const TutorialGameContainer = ({ tutorialLevel, onFinishTutorialLevel, avatar })
                 <Player
                     autoplay
                     loop={false}
-                    src={
-                        animation === 'bomb' ? 'https://assets5.lottiefiles.com/packages/lf20_eTfeoS.json' :
-                            animation === 'life' ? 'https://assets7.lottiefiles.com/packages/lf20_cnqc27rl.json' :
-                                'https://assets10.lottiefiles.com/packages/lf20_lPOuBVlqdu.json'
-                    }
-                    className="bottom-0 fixed inset-0"
-                    style={animation === 'won' ? {
-                        width: '100%',
-                        opacity: 1,
-                    } : {
-                        margin: '20rem 0 0',
-                        width: '100%',
-                        opacity: 0.75,
-                    }}
-
+                    src={animations[animation].json}
+                    background="transparent"
+                    className={`w-full bottom-0 fixed inset-0 ${animation === 'won' ? 'opacity-100' : 'opacity-50 mt-24'}`}
                 />
             )}
             <div className="flex flex-col items-center overflow-hidden">
