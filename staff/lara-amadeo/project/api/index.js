@@ -24,6 +24,9 @@ mongoose.connect(process.env.MONGODB_URL)
 
         api.use(cors())
 
+        api.get('/*', function (req, res) {
+            res.sendFile(path.join(__dirname, 'build', 'index.html'))
+        })
 
         api.get('/helloAPI', helloAPIHandler)
 
