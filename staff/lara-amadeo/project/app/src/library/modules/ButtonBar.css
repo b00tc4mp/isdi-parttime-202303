@@ -11,5 +11,5 @@
     box-shadow: 0px -2px 8px 0px rgba(0, 0, 0, 0.05);
     position: fixed;
     z-index: 500;
-    bottom: 0;
+    bottom: 34px;
 }

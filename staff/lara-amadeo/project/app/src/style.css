@@ -51,7 +51,7 @@ body {
   margin: 0;
   padding-left: 16px;
   padding-right: 16px;
-  height: 100vh;
+  height: calc(100vh - 34px);
   display: flex;
   flex-direction: column;
   box-sizing: border-box;

@@ -5,7 +5,7 @@ import './Profile.css'
 import Topbar from "../library/modules/Topbar";
 import Tabbar from "../library/modules/Tabbar";
 import Avatar from "../library/components/Avatar";
-import { ChevronRightIcon, Cog6ToothIcon, CubeIcon, HeartIcon, UserIcon } from "../library/icons";
+import { ArrowRightOnRectangleIcon, ChevronRightIcon, Cog6ToothIcon, CubeIcon, HeartIcon, UserIcon } from "../library/icons";
 import Divider from "../library/components/Divider";
 import Tabs from "../library/components/Tabs";
 import retrieveUser from "../logic/retrieveUser";
@@ -166,9 +166,9 @@ export default function Profile(): JSX.Element {
                 <Divider width="100%" />
 
                 <div className="profile-opt">
-                    <div className="profile-opt-label">
-                        <Cog6ToothIcon className="icon-xs grey-700" />
-                        <p className="body-text grey-700">Settings</p>
+                    <div className="profile-opt-label" onClick={inLoggoutClick}>
+                        <ArrowRightOnRectangleIcon className="icon-xs grey-700" />
+                        <p className="body-text grey-700">Log out</p>
                     </div>
                     <ChevronRightIcon className="icon-xs grey-700" />
                 </div>
@@ -225,6 +225,5 @@ export default function Profile(): JSX.Element {
             </div>
         </div>
         <Tabbar profile={true} />
-        <Link label="Log out" state="default" onClick={inLoggoutClick} />
     </>
 }
