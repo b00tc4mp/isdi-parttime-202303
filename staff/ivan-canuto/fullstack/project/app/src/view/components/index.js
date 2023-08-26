@@ -19,7 +19,6 @@ import Suggestion from "./Suggestion"
 import CreateSuggestion from "./CreateSuggestion"
 import DeleteSuggestion from "./DeleteSuggestion"
 import EditSuggestion from "./EditSuggestion"
-import GoToPost from "./GoToPost"
 
 export {
     Alert,
@@ -43,5 +42,4 @@ export {
     CreateSuggestion,
     DeleteSuggestion,
     EditSuggestion,
-    GoToPost
 }

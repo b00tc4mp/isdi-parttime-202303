@@ -3,17 +3,22 @@ import { useHandleErrors } from "../hooks"
 import { retrievePost, updatePost } from "../../logic"
 import { context } from "../../ui"
 import { ModalContainer, ModalWindow, Form, Input, Button } from "../library"
+import useAppContext from "../hooks"
 
 export default function EditPost({ onUpdatedPost, onCancel }) {
     const handleErrors = useHandleErrors()
+    const { freeze, unfreeze } = useAppContext()
 
     const [post, setPost] = useState()
 
     useEffect(() => {
         handleErrors(async () => {
+            freeze()
             const post = await retrievePost(context.postId)
             
             setPost(post)
+
+            unfreeze()
         })
     }, [])
 

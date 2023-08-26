@@ -29,7 +29,6 @@ module.exports = function askForResponse(userId, conversationId, currentConversa
 
         newConversation.unshift(instruction)
 
-        // console.log(newConversation, 'askForResponse - 31')
         const response = await openai.createChatCompletion({
             model: 'gpt-3.5-turbo',
             messages: newConversation,

@@ -77,7 +77,7 @@ export default function SideBarMenu({
             return (
               <li
                 key={index}
-                className={`conversation-${index} ${index === chatbotOptions.length - 1 ? 'h-24 bg-white' : 'h-16 bg-gray-100'} w-full border-2 border-t-0 border-white flex justify-center overflow-auto items-center`}
+                className={`conversation-${index} ${index === chatbotOptions.length - 1 ? 'h-24 bg-white' : `${option.text.length >= 28 ? 'h-fit' : 'h-16'} bg-gray-100`} w-full border-2 border-t-0 border-white flex justify-center items-center`}
                 onClick={event => {
                   if(event.target.tagName.toLowerCase() !== 'span' && !event.target.classList.contains('deleteAllChatsText')) {
                     option.onClick();
@@ -86,7 +86,7 @@ export default function SideBarMenu({
                   }
                 }}
               >
-                <div className="flex items-center justify-between w-full">
+                <div className="flex items-center justify-between w-full h-fit">
                   {option.id !== 'deleteAllChatsId' ?
                   <p className="text-center w-full">{option.text}</p>
                   :

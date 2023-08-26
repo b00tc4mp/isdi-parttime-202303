@@ -86,7 +86,7 @@ export default function SuggestionsModal({ post, user, handleLastPostsUpdate }) 
 
   return <>
     <section className="flex flex-col items-center w-full h-full py-4 px-1 pt-0">
-      <div className="flex flex-col items-center justify-between h-fit w-full gap-2">
+      <div className="flex flex-col items-center justify-between h-full w-full gap-2">
         <h2 className="mb-4 font-bold text-xl">Suggestions</h2>
         <div className='flex flex-col overflow-scroll gap-2 w-full min-h-[320px] max-h-[370px]'>
           {suggestions && suggestions.map(suggestion => (!suggestion.hidden || suggestion.author.id === user.id) && <Suggestion

@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react"
-import { Container, Button, SpeechBubble, Loader } from "../library"
+import { Container, Button, SpeechBubble, LoaderResponse } from "../library"
 import { useAppContext, useHandleErrors } from "../hooks"
 import { askForResponse, retrieveConversation, storeInputInDB, generateConversation, generateSummary, createPost } from "../../logic"
 import { context } from "../../ui"
 
-export default function Chatbot({ lastPostsUpdate, setPage, handleLastPostsUpdate }) {
+export default function Chatbot({ lastPostsUpdate, setPage, handleLastPostsUpdate, setWritingText, writingText }) {
     const handleErrors = useHandleErrors()
-    const { navigate } = useAppContext()
+    const { navigate, freeze, unfreeze } = useAppContext()
 
     const [messages, setMessages] = useState([])
     const [valueToRender, setValueToRender] = useState(null)
@@ -15,10 +15,13 @@ export default function Chatbot({ lastPostsUpdate, setPage, handleLastPostsUpdat
     useEffect(() => {
         if(context.conversationId) {
             handleErrors(async () => {
+                freeze()
                 
                 const conversation = await retrieveConversation(context.conversationId)
 
                 setMessages([...conversation.messages])
+                
+                unfreeze()
             })
         }
         else setMessages([])
@@ -34,10 +37,12 @@ export default function Chatbot({ lastPostsUpdate, setPage, handleLastPostsUpdat
 
     useEffect(() => {
         setScrollToBottom()
-    },[messages.length])
-
-    const handleSubmit = async event => {
+    },[messages.length, summary])
+    
+    const handleSubmit = event => {
         event.preventDefault()
+
+        setWritingText(true)
 
         handleErrors(async () => {
             const userInput = typeof event.target.userInput !== 'undefined' ? event.target.userInput.value : event.target.value
@@ -57,7 +62,7 @@ export default function Chatbot({ lastPostsUpdate, setPage, handleLastPostsUpdat
             
             const loaderInput = {
                 role: 'assistant',
-                content: <Loader/>
+                content: <LoaderResponse/>
             }
 
             const currentMessages = [...messages]
@@ -106,6 +111,8 @@ export default function Chatbot({ lastPostsUpdate, setPage, handleLastPostsUpdat
                 setValueToRender(null)
 
                 handleLastPostsUpdate()
+
+                setWritingText(false)
             }
 
             i++
@@ -115,12 +122,21 @@ export default function Chatbot({ lastPostsUpdate, setPage, handleLastPostsUpdat
 
     if(valueToRender) renderTypeWriterText(valueToRender)
 
-    const handleGenerateSummary = async () => {
-        console.log('generating summary')
+    const handleGenerateSummary = () => {
         if(context.conversationId) {
-            const summary = await generateSummary(context.conversationId)
+            context.summary = true
             
-            setSummary(summary)
+            handleErrors(async () => {
+                freeze()
+
+                const summary = await generateSummary(context.conversationId)
+            
+                setSummary(summary)
+
+                unfreeze()
+
+                context.summary = false
+            })
         }
     }
 
@@ -135,32 +151,31 @@ export default function Chatbot({ lastPostsUpdate, setPage, handleLastPostsUpdat
     }
 
     const handleGeneratePost = content => {
-        const postContent = content ? content : summary
-
-        console.log(postContent)
-
+        const postContent = typeof content === 'string' ? content : summary
+        
         handleErrors(async () => {
+            freeze()
+            
             await createPost(postContent, context.conversationId)
 
             navigate('/')
             setPage('Home')
 
             handleLastPostsUpdate()
+
+            unfreeze()
         })
     }
 
     const setScrollToBottom = () => {
         const conversationContainer = document.querySelector('.conversation-container')
-
-        console.log(conversationContainer.scrollTop)
-        console.log(conversationContainer.scrollHeight)
         conversationContainer.scrollTop = conversationContainer.scrollHeight
     }
 
     return <Container className={`chatbot-container fixed top-0 left-0 bg-[url(src/images/chatbot-3.1.jpg)] bg-fixed bg-center bg-cover overflow-scroll`}>
         <button className="fixed right-2 top-24 w-24 z-10 mt-2 bg-yellow-100 leading-tight border border-black flex justify-center" onClick={handleGenerateSummary}>Generate summary</button>
         
-        <section className={`conversation-container absolute top-24 w-full  ${!summary ? 'bottom-32' : ''} overflow-scroll`}>
+        <section className={`conversation-container absolute top-24 w-full ${!summary ? 'bottom-32' : 'bottom-0'} overflow-scroll`}>
             <div className='w-full flex justify-start'>
                 <p className="p-4 mx-4 my-2 rounded-lg bg-green-300 rounded-tl-none">Hello! How can I help you?</p>
             </div>
@@ -192,8 +207,18 @@ export default function Chatbot({ lastPostsUpdate, setPage, handleLastPostsUpdat
 
         {!summary && <form className="border-black border-2 flex flex-row p-2 fixed bottom-4 gap-2" onSubmit={handleSubmit}>
             {/* <textarea className="w-72 p-4 focus:outline-none" name='userInput' placeholder='Send a message' /> */}
-            <textarea className="w-72 p-4 focus:outline-none" name='userInput' placeholder='Send a message' autoFocus onKeyDown={handleKeyDown}/>
-            <Button><span className="material-symbols-outlined">send</span></Button>
+            {writingText
+                ? 
+                <textarea className="w-72 p-4 focus:outline-none" name='userInput' placeholder='Send a message' autoFocus readOnly/>
+                :
+                <textarea className="w-72 p-4 focus:outline-none" name='userInput' placeholder='Send a message' autoFocus onKeyDown={handleKeyDown}/>
+            }
+            {writingText
+                ?
+                <Button type='button'><span className="material-symbols-outlined">send</span></Button>
+                :
+                <Button><span className="material-symbols-outlined">send</span></Button>
+            }
         </form>}
     </Container>
 }

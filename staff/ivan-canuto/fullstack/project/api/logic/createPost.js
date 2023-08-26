@@ -16,8 +16,6 @@ module.exports = (userId, conversationId, summary) => {
     const conversation = await Conversation.findById(conversationId).lean()
     if(!conversation) throw new ExistenceError(`Conversation not found.`)
 
-    console.log(user, user._id, 'esto lo hago para mirar si los ids los devuelve como objectId o como string')
-
     await Post.create({
       author: user._id,
       title: conversation.title,

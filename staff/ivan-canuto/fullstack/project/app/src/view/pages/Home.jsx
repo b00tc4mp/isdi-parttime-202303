@@ -21,6 +21,7 @@ export default function Home() {
   const [postModal, setPostModal] = useState(false)
   const [user, setUser] = useState()
   const [openedProfile, setOpenedProfile] = useState(false)
+  const [writingText, setWritingText] = useState(false)
 
   const mainContainerRef = useRef(null)
 
@@ -41,7 +42,6 @@ export default function Home() {
   }
 
   const renderConversations = () => {
-    console.log("Render conversations");
     handleErrors(async () => {
       const conversations = await retrieveConversations();
 
@@ -105,7 +105,7 @@ export default function Home() {
   };
   
   const handleToggleMenu = () => {
-    if(modal !== 'profile')
+    if(modal !== 'profile' && !writingText)
       if (!menu) {
         setMenu(!menu);
         setOpenedMenu(!openedMenu);
@@ -316,6 +316,8 @@ export default function Home() {
                   lastPostsUpdate={lastPostsUpdate}
                   setPage={setPage}
                   handleLastPostsUpdate={handleLastPostsUpdate}
+                  setWritingText={setWritingText}
+                  writingText={writingText}
                 />
               ) : (
                 <Navigate to="/login" />

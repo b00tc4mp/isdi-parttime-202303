@@ -5,7 +5,6 @@ import { Button, Form, ModalContainer } from "../library"
 import { useAppContext, useHandleErrors } from "../hooks"
 
 export default function Comments({ handleRefreshPost, post, user }) {
-  const { alert } = useAppContext()
   const handleErrors = useHandleErrors()
 
   const [addComment, setAddComment] = useState(false)
@@ -24,6 +23,7 @@ export default function Comments({ handleRefreshPost, post, user }) {
       await createComment(post.id, commentText)
 
       toggleAddComment()
+
       handleRefreshPost()
     })
   }

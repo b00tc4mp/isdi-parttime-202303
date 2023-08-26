@@ -5,7 +5,8 @@ import Input from "./Input"
 import ModalContainer from "./ModalContainer"
 import ModalWindow from "./ModalWindow"
 import SpeechBubble from "../components/SpeechBubble"
-import Loader from "./Loader"
+import LoaderResponse from "./LoaderResponse"
+import LoaderContent from "./LoaderContent"
 
 export {
   Button,
@@ -15,5 +16,6 @@ export {
   ModalContainer,
   ModalWindow,
   SpeechBubble,
-  Loader
+  LoaderResponse,
+  LoaderContent
 }

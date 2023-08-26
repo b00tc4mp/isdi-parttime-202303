@@ -21,16 +21,12 @@ import updatePost from './updatePost'
 import updateUserAvatar from './updateUserAvatar'
 import updateUserPassword from './updateUserPassword'
 import askForResponse from './askForResponse'
-import renderConversationFromDB from './renderConversationFromDB'
-import renderTypeWriterText from './renderTypeWriterText'
-import restartConversation from './restartConversation'
 import storeInputInDB from './storeInputInDB'
 import retrieveConversations from './retrieveConversations'
 import retrieveConversation from './retrieveConversation'
 import generateConversation from './generateConversation'
 import generateSummary from './generateSummary'
 import retrievePostSuggestions from './retrievePostSuggestions'
-import retrieveAllSuggestions from './retrieveAllSuggestions'
 import retrieveOwnSuggestions from './retrieveOwnSuggestions'
 import retrieveSuggestion from './retrieveSuggestion'
 import createSuggestion from './createSuggestion'
@@ -67,16 +63,12 @@ export {
     updateUserAvatar,
     updateUserPassword,
     askForResponse,
-    renderConversationFromDB,
-    renderTypeWriterText,
-    restartConversation,
     storeInputInDB,
     retrieveConversations,
     retrieveConversation,
     generateConversation,
     generateSummary,
     retrievePostSuggestions,
-    retrieveAllSuggestions,
     retrieveOwnSuggestions,
     retrieveSuggestion,
     createSuggestion,

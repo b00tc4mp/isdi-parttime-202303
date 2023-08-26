@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { ModalContainer } from "../library";
-import { useHandleErrors } from "../hooks";
+import { useHandleErrors, useAppContext } from "../hooks";
 import {
   retrievePost,
   retrieveUser,
@@ -21,6 +21,7 @@ export default function PostModalWindow({
   handleHidePost
 }) {
   const handleErrors = useHandleErrors();
+  const { freeze, unfreeze } = useAppContext()
 
   const [post, setPost] = useState();
   const [user, setUser] = useState();
@@ -36,17 +37,24 @@ export default function PostModalWindow({
 
   const handleRefreshUser = () => {
     handleErrors(async () => {
+      freeze()
+
       const user = await retrieveUser();
 
-      setUser(user);
+      setUser(user)
+
+      unfreeze()
     });
   };
 
   const handleRefreshPost = () => {
     handleErrors(async () => {
+      freeze()
       const post = await retrievePost(context.postId);
       
       setPost(post);
+
+      unfreeze()
     });
   };
 

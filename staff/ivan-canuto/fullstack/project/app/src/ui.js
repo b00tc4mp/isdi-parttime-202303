@@ -61,4 +61,16 @@ export const context = {
   get hideHeader() {
     return sessionStorage.hideHeader
   },
+  set summary(summary) {
+    if(!summary) {
+      delete sessionStorage.summary
+
+      return
+    }
+
+    sessionStorage.summary = summary
+  },
+  get summary() {
+    return sessionStorage.summary
+  },
 }

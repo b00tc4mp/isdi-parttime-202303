@@ -5,12 +5,11 @@ import { useAppContext, useHandleErrors } from "../hooks"
 import { context } from "../../ui"
 
 export default function Header({ handleToggleMenu, handleOpenProfile, setPage, handleCloseModal, openedProfile, setOpenedProfile, setView }) {
-  const { navigate } = useAppContext()
+  const { navigate, freeze, unfreeze } = useAppContext()
   const handleErrors = useHandleErrors()
 
   const [newTheme, setnewTheme] = useState(getTheme())
   const [user, setUser] = useState(null)
-  const [, setForceUpdate] = useState()
 
   // const switchAppTheme = () => {
   //   const theme = newTheme === 'light' ? 'dark' : 'light'
@@ -33,9 +32,13 @@ export default function Header({ handleToggleMenu, handleOpenProfile, setPage, h
 
   useEffect(() => {
     handleErrors(async () => {
+      freeze()
+
       const user = await retrieveUser()
 
       setUser(user)
+
+      unfreeze()
     })
   }, [])
 

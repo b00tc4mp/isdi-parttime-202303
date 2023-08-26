@@ -1,4 +1,4 @@
-export default function Loader() {
+export default function LoaderResponse() {
     return <svg className="loader" width="120" height="10" viewBox="0 0 120 30" xmlns="http://www.w3.org/2000/svg" fill="#fff">
         <circle cx="15" cy="15" r="15">
             <animate attributeName="r" from="15" to="15"

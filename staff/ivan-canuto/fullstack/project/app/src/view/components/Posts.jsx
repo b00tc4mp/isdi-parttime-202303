@@ -4,7 +4,7 @@ import { retrievePosts, retrieveSavedPosts, retrieveUserPosts, getUserId, retrie
 import { useAppContext, useHandleErrors } from "../hooks"
 
 export default function Posts({ lastPostsUpdate, view, handleOpenEditPost, handleOpenDeletePost, handleToggleVisibility, handleTogglePostModal }) {
-  const { alert } = useAppContext()
+  const { freeze, unfreeze } = useAppContext()
   const handleErrors = useHandleErrors()
 
   const [posts, setPosts] = useState(null)
@@ -15,11 +15,15 @@ export default function Posts({ lastPostsUpdate, view, handleOpenEditPost, handl
     try {
       if(view === 'posts') {
         handleErrors(async () => {
+          freeze()
+
           console.debug('Postsss -> render')
 
           const _posts = await retrievePosts()
 
           setPosts(_posts)
+
+          unfreeze()
         })
 
         // retrievePosts()
@@ -36,29 +40,41 @@ export default function Posts({ lastPostsUpdate, view, handleOpenEditPost, handl
       }
       else if(view === 'savedPosts') {
         handleErrors(async () => {
+          freeze()
+
           console.debug('Saved postsss -> render')
 
           const _posts = await retrieveSavedPosts()
 
           setPosts(_posts)
+
+          unfreeze()
         })
       }
       else if(view === 'userPosts') {
         handleErrors(async () => {
+          freeze()
+
           console.debug('Own postsss -> render')
           
           const _posts = await retrieveUserPosts()
 
           setPosts(_posts)
+
+          unfreeze()
         })
       }
       else if(view === 'seenPosts') {
         handleErrors(async () => {
+          freeze()
+
           console.debug('Seen postsss -> render')
           
           const _posts = await retrieveSeenPosts()
 
           setPosts(_posts)
+          
+          unfreeze()
         })
       }
     } catch(error) {

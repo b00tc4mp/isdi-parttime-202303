@@ -28,7 +28,7 @@ module.exports = function generateSummary(userId, conversationId) {
 
         const summaryMessage = {
             role: 'user',
-            content: 'Generate a summary about the discussed topics and in the language in which the previous conversation has been made.'
+            content: 'Generate a text summarizing describing the discussed topics and in the language in which the previous conversation has been made, whithout saying we have had a previous conversation.'
         }
         
         conversationMessages.push(summaryMessage)

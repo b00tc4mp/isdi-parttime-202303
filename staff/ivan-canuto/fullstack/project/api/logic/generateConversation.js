@@ -23,8 +23,8 @@ module.exports = function generateConversation(userId, userInput) {
 
         const response = await openai.createCompletion({
             model: 'text-davinci-003',
-            prompt: `Generate a title for a conversation starting with ${userInput}, and in the same language of it.`,
-            max_tokens: 20,
+            prompt: `Generate a title for a conversation starting with ${userInput}, in the same language of it, and without quotation marks.`,
+            max_tokens: 25,
             temperature: 0.2
         })
 
