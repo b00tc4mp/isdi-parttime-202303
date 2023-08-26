@@ -2,8 +2,12 @@ import inLogger from '../inLogger';
 import share from '../assets/share.svg'
 import ComicCarousel from '../components/landing/ComicCarousel'
 import './background.css';
+import { useEffect } from 'react';
 
 const About = () => {
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
 
     return (
         <>
@@ -16,7 +20,7 @@ const About = () => {
                 </div>
                 <div className="flex flex-col md:flex-row justify-center items-center gap-7" >
                     <p className="text-secondary200 text-sm md:text-lg text-center">
-                        Ballopolis is meant to be a <b className="font-bold">social game</b>, where you <b className="font-bold">create levels</b> that are fun and challenging to beat for other players. In doing so, you <b className="font-bold">Customization Credits</b> to create more levels or chose a new avatar. While playing you can also <b className="font-bold">earn achivements</b> to add to your profile and show off to your friends.
+                        Ballopolis is meant to be a <b className="font-bold">social game</b>, where you <b className="font-bold">create levels</b> that are fun and challenging to beat for other players. When playing those levels, you get <b className="font-bold">Customization Credits</b> to create more or chose a new avatar. While playing you can also <b className="font-bold">earn achivements</b> to add to your profile and show off to your friends.
                     </p>
                     <img src={share} className="w-48 h-48 md:w-60 md:h-60" alt="share" />
                 </div>
