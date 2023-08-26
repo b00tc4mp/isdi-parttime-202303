@@ -73,6 +73,11 @@ Space Pursuit is a Node.js web application that allows users to create private b
 
 - `date`: A Date field representing the date of the NASA event. Required.
 - `type`: A string representing the type of the NASA event. Required.
+- `link`: A string representing the link of event of the nasa.
+
+#### NasaData
+
+- `events`: An array of "NasaEvent" associated in the mission. Required.
 - `lastUpdate`: A Date field representing the date of the last update for the api Nasa. Required.
 
 ## Planning
