@@ -20,7 +20,7 @@ const CreateRules = () => {
                 }
                 <h2 className="self-end">Rules</h2>
             </button>
-            <div className={`fixed w-full ${isListOpen ? '' : 'hidden'} mt-0.5 shadow h-full bg-light400 p-5 md:flex md:w-3/6 md:flex-col md:mt-0 lg:w-2/6 flex flex-col font-bold`}>
+            <div className={`fixed w-full ${isListOpen ? '' : 'hidden'} mt-0.5 shadow h-full bg-light400 px-5 md:p-5 md:flex md:w-3/6 md:flex-col md:mt-0 lg:w-2/6 flex flex-col font-bold`}>
                 <span className="hidden md:block pt-5 text-2xl font-bold text-primary100">Rules</span>
                 <h3 className="text-lg font-semibold text-primary300">How should a level look like...</h3>
                 <ul className="pt-2 md:w-11/12">

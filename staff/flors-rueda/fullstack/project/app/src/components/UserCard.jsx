@@ -5,6 +5,7 @@ import useHandleErrors from '../hooks/useHandleErrors';
 import toggleFollow from '../logic/toggle-follow';
 import { Link, useParams } from 'react-router-dom';
 import updateSocialAchievements from '../logic/update-social-achievements';
+import isCurrentUser from '../logic/is-current-user';
 
 const UserCard = ({ userInfo }) => {
     const [isFollowed, setIsFollowed] = useState(userInfo.isFollowed);
@@ -27,9 +28,7 @@ const UserCard = ({ userInfo }) => {
     }
 
     useEffect(() => {
-        handleErrors(async () => {
-            id === 'you' ? setIsProfileCurrentUser(true) : setIsProfileCurrentUser(false);
-        })
+        id === 'you' || isCurrentUser(id) ? setIsProfileCurrentUser(true) : setIsProfileCurrentUser(false)
     }, [id]);
 
     return (

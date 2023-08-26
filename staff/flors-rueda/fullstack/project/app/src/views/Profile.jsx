@@ -62,7 +62,7 @@ const Profile = () => {
             {toast && <DeleteToast handleCloseToast={() => setToast('')} levelId={toast} setDeleted={setDeleted} />}
             <section className="pb-24 pt-16 flex flex-col gap-4">
                 <div className="flex flex-col md:flex-row md:px-20">
-                    <div className="px-5 md:pt-10 md:w-4/5">
+                    <div className="px-5 md:pt-10 md:w-4/5 md:px-0">
                         <UserCard userInfo={user} key={id} />
                     </div>
                     <div className="flex flex-col w-full h-full justify-center align-center gap-2 border-light300 bg-light400 rounded-lg mt-5">

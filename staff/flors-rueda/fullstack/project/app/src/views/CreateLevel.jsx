@@ -72,7 +72,7 @@ const CreateLevel = () => {
             {isToastOn &&
                 <CreateLevelToast handleCloseToast={handleCloseToast} message={toast} />
             }
-            <div className="pt-16 md:pt-10">
+            <div className="pt-12 md:pt-10">
                 <CreateRules />
                 {isUserLoggedIn() &&
                     <div className="fixed z-30 right-5 bottom-20 text-primary100 text-xs bg-light400 p-2 rounded-md shadow font-semibold pt-2">

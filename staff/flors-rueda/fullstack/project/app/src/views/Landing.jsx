@@ -27,7 +27,7 @@ const Landing = () => {
                 <div className="flex-col flex justify-center items-center">
                     <img src={logo} className="w-4/6 md:w-1/3 mb-2" alt="Logo" />
                     <h1 className="self-center text-4xl md:text-5xl text-center font-bold text-dark200 text-shadow mb-3">Play. Create. Explore. Enjoy.</h1>
-                    <h2 className="self-center text-xl md:text-2xl font-semibold text-dark500  text-shadow pb-5">A web game to create and play original levels.</h2>
+                    <h2 className="self-center text-center text-xl md:text-2xl font-semibold text-dark500  text-shadow pb-5">A web game to create and play original levels.</h2>
                 </div>
                 <div className="flex flex-col md:flex-row gap-2 w-full justify-center align-center">
                     <button onClick={handleToRegister} className="bg-primary100 self-center md:w-fit max-w-xs w-3/4 px-5 pt-2 pb-2.5 hover:bg-transparent text-2xl text-light500 hover:text-primary100 border border-primary100 font-bold rounded-2xl transition duration-200 text-center">Join the Riders</button>
@@ -36,7 +36,7 @@ const Landing = () => {
                 </div>
                 <Previews />
                 <TrophiesPreview />
-                <div className="flex flex-col md:flex-row w-full justify-center md:px-10 bg-secondaryShadow items-center">
+                <div className="flex flex-col md:flex-row w-full justify-center md:px-10 bg-secondaryShadow items-center py-4 md:py-1">
                     <h2 className="text-2xl md:text-3xl text-center font-bold text-dark100 text-shadow">With every level you play, you win Customization Credits.</h2>
                     <img src={win} className="w-4/6 md:w-1/3" alt="Logo" />
                 </div>
