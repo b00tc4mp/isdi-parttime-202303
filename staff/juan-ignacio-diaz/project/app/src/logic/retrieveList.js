@@ -1,7 +1,12 @@
 import context from "./context"
 
-export default async () => {
-    const res = await fetch(`${import.meta.env.VITE_API_URL}/posts/retrieveOnSalePosts`, {
+/**
+ * Retrieve the list
+ * 
+* @returns {list} The context user
+ */
+export default async (listId) => {      
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/lists/${listId}`, {
         method: 'GET',
         headers: {
             Authorization: `Bearer ${context.token}`

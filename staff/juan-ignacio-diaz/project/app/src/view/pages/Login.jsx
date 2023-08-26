@@ -1,34 +1,34 @@
 import { useState } from 'react'
 
-import { useAppContext } from '../hooks'
+import { useAppContext } from '../../hooks'
 import { Link } from 'react-router-dom'
 import { Container, Form, Input, Button } from '../library'
 
-import { loginUser } from '../logic'
+import { loginUser } from '../../logic'
 
 export default function Login() {
     console.log('Login -> render')
     
     const { alert, freeze, unfreeze, navigate } = useAppContext()
-    const [quote, setQuote] = useState(null)
 
-    const handleLogin = async event => {
+    const handleLogin = async (event) => {
         event.preventDefault()
 
         const email = event.target.email.value
         const password = event.target.password.value
-
+        
         try {
             freeze()
-            loginUser(email, password)
+            await loginUser(email, password)
+            unfreeze()
 
             navigate('/')
-            unfreeze()
         }
         catch (error){
             unfreeze()
             alert(error.message)
         }
+
     }
     
     return <>

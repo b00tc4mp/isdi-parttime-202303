@@ -1,5 +1,10 @@
 import context from "./context"
 
+/**
+ * Retrieve the context user
+ * 
+* @returns {user} The context user
+ */
 export default async () => {      
     const res = await fetch(`${import.meta.env.VITE_API_URL}/users`, {
         method: 'GET',

@@ -3,11 +3,11 @@ import { validators } from 'com'
 
 const { validateId } = validators
 
-export default (postId) => {
-    validateId(postId, 'post id')
+export default (contactId) => {
+    validateId(contactId, 'contact id')
 
     return (async () => {
-            const res = await fetch(`${import.meta.env.VITE_API_URL}/posts/${postId}`, {
+            const res = await fetch(`${import.meta.env.VITE_API_URL}/users/contact/${contactId}/delete`, {
             method: 'DELETE',
             headers: {
                 Authorization: `Bearer ${context.token}`

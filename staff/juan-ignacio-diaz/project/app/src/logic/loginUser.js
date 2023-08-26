@@ -15,7 +15,7 @@ const { validateEmail, validatePassword } = validators
 export default (email, password) => {
     validateEmail(email)
     validatePassword(password)
- 
+
     return (async () => {
         const res = await fetch(`${import.meta.env.VITE_API_URL}/users/auth`, {
             method: 'POST',

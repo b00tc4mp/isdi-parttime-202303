@@ -6,14 +6,12 @@ import context from "./context"
  * @param {string} mode The user's mode
  */
 
-export default async (mode) => {
-    const res = await fetch(`${import.meta.env.VITE_API_URL}/users/updateMode`, {
+export default async (listId) => {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/lists/${listId}/accept`, {
         method: 'PATCH',
         headers: {
-            'Content-Type': 'application/json',
             Authorization: `Bearer ${context.token}`
         },
-        body: JSON.stringify({ mode })
     })
 
     if (res.status === 204)

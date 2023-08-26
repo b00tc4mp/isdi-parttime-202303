@@ -4,7 +4,7 @@ import isUserLoggedIn from './isUserLoggedIn'
 import loginUser from './loginUser'
 import logoutUser from './logoutUser'
 import createPost from './createPost'
-import deletePost from './deletePost'
+import deleteUserContact from './deleteUserContact'
 import registerUser from './registerUser'
 import retrievePost from './retrievePost'
 import retrieveOnSalePosts from './retrieveOnSalePosts'
@@ -21,6 +21,14 @@ import updatePriceToPost from './updatePriceToPost'
 import updateUserAvatar from './updateUserAvatar'
 import updateUserMode from './updateUserMode'
 import updateUserPassword from './updateUserPassword'
+import retrieveUserContacts from './retrieveUserContacts'
+import searchUser from './searchUser'
+import addUserContact from './addUserContact'
+import retrieveListsInvited from './retrieveListsInvited'
+import retrieveListsGuest from './retrieveListsGuest'
+import acceptGuestList from './acceptGuestList'
+import createList from './createList'
+import retrieveList from './retrieveList'
 
 export {
     isCurrentUser,
@@ -29,7 +37,7 @@ export {
     loginUser,
     logoutUser,
     createPost,
-    deletePost,
+    deleteUserContact,
     registerUser,
     retrievePost,
     retrieveOnSalePosts,
@@ -45,6 +53,13 @@ export {
     updatePriceToPost,
     updateUserAvatar,
     updateUserMode,
-    updateUserPassword
-
+    updateUserPassword,
+    retrieveUserContacts,
+    searchUser,
+    addUserContact,
+    retrieveListsInvited,
+    retrieveListsGuest,
+    acceptGuestList,
+    createList,
+    retrieveList
 }

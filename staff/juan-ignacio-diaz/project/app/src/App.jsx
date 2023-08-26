@@ -3,15 +3,15 @@ import AppContext from './AppContext'
 import { isUserLoggedIn } from './logic'
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom'
 
-import Login from './pages/Login'
-import Register from './pages/Register'
-import Home from './pages/Home'
+import Login from './view/pages/Login'
+import Register from './view/pages/Register'
+import HomeUser from './view/pages/HomeUser'
+import HomeList from './view/pages/HomeList'
 
-import AlertModal from './components/AlertModal'
-import Loader from './library/Loader'
+import AlertModal from './view/components/AlertModal'
+import Loader from './view/library/Loader'
 
 const { Provider } = AppContext
-
 
 export default function App() {
     console.log('App -> render')
@@ -34,7 +34,8 @@ export default function App() {
             {(() => console.log('Routes -> render'))()}
             <Route path="/login" element={isUserLoggedIn() ? <Navigate to="/" /> : <Login />} />
             <Route path="/register" element={isUserLoggedIn() ? <Navigate to="/" /> : <Register />} />
-            <Route path="/" element={isUserLoggedIn() ? <Home /> : <Navigate to="/login" />} />
+            <Route path="/" element={isUserLoggedIn() ? <HomeUser /> : <Navigate to="/login" />} />
+            <Route path="/list" element={isUserLoggedIn() ? <HomeList /> : <Navigate to="/login" />} />
         </Routes>
         {messageAlert && <AlertModal onAccept={hanleCloseAlert} message={messageAlert.message} level={messageAlert.level} />}
         {loader && <Loader />}

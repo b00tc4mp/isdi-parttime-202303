@@ -1,8 +1,8 @@
-import { useAppContext } from '../hooks'
+import { useAppContext } from '../../hooks'
 import { Link } from 'react-router-dom'
 import { Container, Form, Input, Button, Label } from '../library'
 
-import { registerUser } from "../logic"
+import { registerUser } from "../../logic"
 
 export default function Register() {
     console.log('Register -> render')

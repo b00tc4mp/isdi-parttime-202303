@@ -3,6 +3,14 @@ import context from "./context"
 import { validators } from 'com'
 const { validatePassword } = validators
 
+/**
+ * Update the password for the user's
+ * 
+ * @param {string} password The user's password
+ * @param {string} newPassword The user's new Password
+ * @param {string} newPasswordConfirm The user's new Password Confirm
+ */
+
 export default  (password, newPassword, newPasswordConfirm) => {
     validatePassword(password)
     validatePassword(newPassword, 'new password')
