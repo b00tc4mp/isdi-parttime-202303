@@ -127,7 +127,7 @@ const nasaEvent = new Schema({
   },
 });
 
-const nasaLastUpdate = new Schema({
+const nasaData = new Schema({
   events: {
     type: [nasaEvent],
   },
@@ -142,7 +142,7 @@ const Mission = model('Mission', mission);
 const Explorer = model('Explorer', explorer);
 const Participant = model('Participant', participant);
 const NASAEvent = model('NASAEvent', nasaEvent);
-const NasaLastUpdate = model('NasaLastUpdate', nasaLastUpdate);
+const NasaData = model('NasaData', nasaData);
 
 module.exports = {
   User,
@@ -150,5 +150,5 @@ module.exports = {
   Explorer,
   Participant,
   NASAEvent,
-  NasaLastUpdate,
+  NasaData,
 };
