@@ -11,7 +11,7 @@ module.exports = {
     retrieveUserContactsHandler: require('./users/retrieveUserContactsHandler'),   
 
     createListHandler: require('./lists/createListHandler'),
-    addUsersToInvitedListHandler: require('./lists/addUsersToInvitedListHandler'),
+    addUserToInvitedListHandler: require('./lists/addUserToInvitedListHandler'),
     reviewListsInvitedHandler: require('./lists/reviewListsInvitedHandler'),
     acceptGuestListHandler: require('./lists/acceptGuestListHandler'),
     declineGuestListHandler: require('./lists/declineGuestListHandler'),
