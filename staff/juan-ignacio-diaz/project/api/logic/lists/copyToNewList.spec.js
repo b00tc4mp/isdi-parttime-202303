@@ -8,7 +8,7 @@ const { User, List, Product } = require('../../data/models')
 const copyToNewList = require('./copyToNewList')
 
 const { generateUser, generateList, generateStore, generateProduct, cleanUp, populateUser, populateList, populateStore, populateProduct } = require('../helpers/tests')
-debugger
+
 describe('copyToNewList', () =>{
     let userTest, contactTest, listTest, listTest2, listTest3, storeTest, type, type2, productTest, productTest2, productTest3
 

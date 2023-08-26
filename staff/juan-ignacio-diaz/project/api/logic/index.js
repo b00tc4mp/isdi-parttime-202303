@@ -11,12 +11,13 @@ module.exports = {
     searchUser: require('./users/searchUser'),  
 
     createList: require('./lists/createList'),
-    addUsersToInvitedList: require('./lists/addUsersToInvitedList'),
+    addUserToInvitedList: require('./lists/addUserToInvitedList'),
     reviewListsInvited: require('./lists/reviewListsInvited'),
     acceptGuestList: require('./lists/acceptGuestList'),
     declineGuestList: require('./lists/declineGuestList'),
     reviewListsGuest: require('./lists/reviewListsGuest'),
     copyToNewList: require('./lists/copyToNewList'),
+    retrieveList: require('./lists/retrieveList'),
 
     addMessage: require('./lists/messages/addMessage'),
     reviewMessages: require('./lists/messages/reviewMessages'),

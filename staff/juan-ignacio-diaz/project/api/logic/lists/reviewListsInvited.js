@@ -22,7 +22,7 @@ module.exports = (userId) => {
 
         if (!user) throw new ExistenceError('user not found')
         
-        const lists = await List.find({ "invited": userId }, 'name date')
+        const lists = await List.find({ "invited": userId }, 'name date dateToEnd')
             .sort('-date').lean()
 
         lists.forEach(list => {                        

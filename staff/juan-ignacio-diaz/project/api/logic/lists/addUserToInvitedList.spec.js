@@ -5,7 +5,7 @@ const { expect } = require('chai')
 const mongoose = require('mongoose')
 const { User, List } = require('../../data/models')
 
-const addUsersToInvitedList = require('./addUsersToInvitedList')
+const addUserToInvitedList = require('./addUserToInvitedList')
 
 const { generateUser, generateList, cleanUp, populateUser, populateList } = require('../helpers/tests')
 
