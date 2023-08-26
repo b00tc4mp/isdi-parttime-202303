@@ -17,6 +17,7 @@ const CanvasContainer = ({ floor, onSolved, onGameWon, onBomb, onLife, avatar })
         const renderer = new THREE.WebGLRenderer({ antialias: true });
         renderer.setSize(window.innerWidth, window.innerHeight);
         canvasContainerRef.current.appendChild(renderer.domElement);
+        document.body.classList.add('contain-overscroll');
 
         const updateRendererSize = () => {
             const containerWidth = canvasContainerRef.current.offsetWidth;
@@ -42,6 +43,7 @@ const CanvasContainer = ({ floor, onSolved, onGameWon, onBomb, onLife, avatar })
 
         return () => {
             window.removeEventListener('resize', updateRendererSize);
+            document.body.classList.remove('contain-overscroll');
             renderer.dispose();
         };
     }, []);

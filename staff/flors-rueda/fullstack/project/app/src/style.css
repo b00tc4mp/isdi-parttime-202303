@@ -56,14 +56,16 @@
   }
 }
 
-
 body {
   background-color: var(--color-light-400);
-  overscroll-behavior: contain;
   -webkit-user-select: none;
   -ms-user-select: none;
   user-select: none;
   position: relative;
+}
+
+.contain-overscroll {
+  overscroll-behavior: contain;
 }
 
 .canvas-container {

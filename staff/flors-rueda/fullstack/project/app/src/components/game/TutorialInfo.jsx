@@ -34,7 +34,7 @@ const TutorialInfo = ({ onExitClick, tutorialNumber }) => {
     return (
         <div className="fixed inset-0 flex w-full h-full pt-10 items-center justify-center z-30">
             <div className="w-full h-full p-4 text-dark300 text-center bg-light400 rounded-lg shadow">
-                <div className="flex items-center flex-col justify-center gap-10 py-20 px-10">
+                <div className="flex items-center flex-col justify-center gap-10 py-4 md:py-20 px-10">
                     <h1 className="text-5xl text-primary100 font-normal">Learning the basics</h1>
                     <div className="text-sm font-normal">
                         <p className="mb-1 text-lg font-bold text-secondary200">{tutorialTexts[tutorialNumber]}</p>
