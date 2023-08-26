@@ -10,18 +10,22 @@ import retrieveCompleteAchievements from '../logic/retrieve-complete-achievement
 import DeleteToast from '../components/toasts/DeleteToast';
 import Trophies from '../components/Trophies';
 import ProfileLevels from '../components/ProfileLevels';
+import isCurrentUser from '../logic/is-current-user';
 
 const Profile = () => {
     const [isLoading, setIsLoading] = useState(true);
     const handleErrors = useHandleErrors();
+    const [isProfileCurrentUser, setIsProfileCurrentUser] = useState(null);
     const [user, setUser] = useState(null);
     const [loggedUser, setLoggedUser] = useState();
     const [achievements, setAchievements] = useState();
-    const [follows, setFollows] = useState();
     const [isDeleted, setDeleted] = useState(false);
     const { id } = useParams();
     const [toast, setToast] = useState('');
-    const [levelsType, setLevelsType] = useState('created');
+
+    useEffect(() => {
+        id === 'you' || isCurrentUser(id) ? setIsProfileCurrentUser(true) : setIsProfileCurrentUser(false)
+    }, [id]);
 
     const getUser = () => {
         if (id !== 'you') {
@@ -32,7 +36,6 @@ const Profile = () => {
                 setUser(user);
                 setAchievements(_achievements);
                 setLoggedUser(loggedUser);
-                setFollows(user.follows);
                 setIsLoading(false);
             })
         } else {
@@ -42,7 +45,6 @@ const Profile = () => {
                 setUser(user);
                 setAchievements(_achievements);
                 setLoggedUser(user);
-                setFollows(user.follows);
                 setIsLoading(false);
             })
         }
@@ -63,14 +65,14 @@ const Profile = () => {
             <section className="pb-24 pt-16 flex flex-col gap-4">
                 <div className="flex flex-col md:flex-row md:px-20">
                     <div className="px-5 md:pt-10 md:w-4/5 md:px-0">
-                        <UserCard userInfo={user} key={id} />
+                        <UserCard userInfo={user} key={id} isProfileCurrentUser={isProfileCurrentUser} />
                     </div>
                     <div className="flex flex-col w-full h-full justify-center align-center gap-2 border-light300 bg-light400 rounded-lg mt-5">
-                        <h2 className={`self-center text-2xl font-bold text-${user.color} `}>Trophies</h2>
+                        <h2 className={`self-center text-2xl font-bold text-${user.color}`}>Trophies</h2>
                         <Trophies achievements={achievements} />
                     </div>
                 </div>
-                <ProfileLevels key={id} userId={user.id} type={'saved'} userSaves={loggedUser.saves} isDeleted={isDeleted} setDeleted={setDeleted} user={user} setToast={setToast} />
+                <ProfileLevels key={id} userId={user.id} type={'saved'} userSaves={loggedUser.saves} isDeleted={isDeleted} setDeleted={setDeleted} user={user} setToast={setToast} isProfileCurrentUser={isProfileCurrentUser} />
             </section>
         </>
     );

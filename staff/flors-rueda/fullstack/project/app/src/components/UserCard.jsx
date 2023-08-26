@@ -3,17 +3,15 @@ import avatars from '../assets/avatars';
 import inLogger from '../inLogger';
 import useHandleErrors from '../hooks/useHandleErrors';
 import toggleFollow from '../logic/toggle-follow';
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import updateSocialAchievements from '../logic/update-social-achievements';
-import isCurrentUser from '../logic/is-current-user';
 
-const UserCard = ({ userInfo }) => {
+const UserCard = ({ userInfo, isProfileCurrentUser }) => {
     const [isFollowed, setIsFollowed] = useState(userInfo.isFollowed);
     const [followers, setFollowers] = useState((userInfo.followers).length);
-    const [isProfileCurrentUser, setIsProfileCurrentUser] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const handleErrors = useHandleErrors();
-    const { id } = useParams();
+    if (!isProfileCurrentUser) isProfileCurrentUser = false;
 
     const handleFollowClick = () => {
         if (isLoading) return;
@@ -26,10 +24,6 @@ const UserCard = ({ userInfo }) => {
         })
         setIsLoading(false);
     }
-
-    useEffect(() => {
-        id === 'you' || isCurrentUser(id) ? setIsProfileCurrentUser(true) : setIsProfileCurrentUser(false)
-    }, [id]);
 
     return (
         <article className="w-full p-4 border border-light400 bg-light500 rounded-lg shadow flex flex-row gap-5 md:flex-row-reverse justify-center md:mb-5">

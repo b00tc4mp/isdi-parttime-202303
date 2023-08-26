@@ -8,7 +8,7 @@ import retrieveLevelsByAuthor from '../logic/retrieve-levels-by-author';
 import { useParams } from 'react-router-dom';
 import retrieveLevelsSaved from '../logic/retrieve-levels-saved';
 
-const ProfileLevels = ({ userId, userSaves, setToast, isDeleted, setDeleted, user }) => {
+const ProfileLevels = ({ userId, userSaves, setToast, isDeleted, setDeleted, user, isProfileCurrentUser }) => {
     const [isLoading, setIsLoading] = useState(true);
     const [levels, setLevels] = useState(null);
     const [saves, setSaves] = useState(userSaves);
@@ -54,7 +54,7 @@ const ProfileLevels = ({ userId, userSaves, setToast, isDeleted, setDeleted, use
                     type === 'created' ?
                         <BasicLevelCard levelInfo={level} isLevelSaved={saves.includes(level.id)} setToast={setToast} key={index} setSaves={setSaves} />
                         :
-                        <LevelCard levelInfo={level} isLevelSaved={true} key={index} setSaves={setSaves} />
+                        <LevelCard levelInfo={level} isLevelSaved={isProfileCurrentUser ? true : saves.includes(level.id)} key={index} setSaves={setSaves} />
                 ))
                 }
                 {!isLoading && !levels || levels.length === 0 && <i className="w-full flex align-center items-center justify-center text-light100 text-xl">No levels to be seen here!</i>}
