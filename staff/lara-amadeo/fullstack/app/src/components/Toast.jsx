@@ -1,5 +1,5 @@
 import './Toast.css'
-export default function Toast({ message, type, endAnimation }){
+export default function Toast({ message, type, endAnimation }) {
 
     const handleRemoveToast = () => {
         endAnimation()
