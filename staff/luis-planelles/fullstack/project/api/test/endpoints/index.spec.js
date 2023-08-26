@@ -311,5 +311,31 @@ describe('API routes', () => {
     });
   });
 
+  describe('retrieve nasa data', () => {
+    let user, token;
+
+    beforeEach(() => {
+      const explorer = generate.explorer('monkey');
+      const participant = generate.participant();
+
+      user = generate.user();
+      token = generateToken(user._id.toString());
+      mission = generate.mission(user, explorer, participant);
+
+      return cleanUp().then(() => populate([user]));
+    });
+
+    it('should return a succesfull response for GET endpoint', async () => {
+      const res = await fetch(baseURL + '/nasa-data/', {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      expect(res.status).to.equal(200);
+    });
+  });
+
   after(() => cleanUp().then(() => mongoose.disconnect()));
 });

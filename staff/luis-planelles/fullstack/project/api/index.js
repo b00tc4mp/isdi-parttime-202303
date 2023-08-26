@@ -5,6 +5,7 @@ const {
   authenticateUserHandler,
   createMissionHandler,
   retrieveMissionHandler,
+  retrieveNasaDataHandler,
 } = require('./handlers');
 
 const mongoose = require('mongoose');
@@ -28,6 +29,9 @@ mongoose
     api.post('/users/auth', jsonBodyParser, authenticateUserHandler);
     api.post('/missions', jsonBodyParser, createMissionHandler);
     api.get('/missions/:missionId', retrieveMissionHandler);
+
+    // api NASA
+    api.get('/nasa-data/', retrieveNasaDataHandler);
 
     api.listen(process.env.PORT, () =>
       console.log(`server running in port ${process.env.PORT}`)

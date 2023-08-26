@@ -3,4 +3,5 @@ module.exports = {
   registerUserHandler: require('./registerUserHandler'),
   createMissionHandler: require('./createMissionHandler'),
   retrieveMissionHandler: require('./retrieveMissionHandler'),
+  retrieveNasaDataHandler: require('./retrieveNasaDataHandler'),
 };
