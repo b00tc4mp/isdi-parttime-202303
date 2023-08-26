@@ -48,12 +48,12 @@ const ColorForm = ({ setUpdateUserInfo, setToast }) => {
             {isLoading && <Loader />}
             <div className="w-full bg-secondary600 rounded-lg shadow mt-5 sm:max-w-md">
                 <form className="flex flex-row w-full px-2 py-3 gap-2 align-center justify-center items-center">
-                    <h3 className="text-2xs font-bold text-secondary300 self-center">Select color</h3>
+                    <h2 className="text-2xs font-bold text-secondary300 self-center">Select color</h2>
                     <div>
                         <button
                             id="dropdownRadioButton"
                             data-dropdown-toggle="dropdownRadioHelper"
-                            className={`self-center w-36 text-sm font-medium bg-light500 hover:bg-light400 focus:outline-none font-medium rounded-lg text-sm px-4 py-2.5 text-center flex justify-between items-center self-center ${color ? textColors[color] : 'text-secondary200'}`}
+                            className={`w-36 font-medium bg-light500 hover:bg-light400 focus:outline-none rounded-lg text-sm px-4 py-2.5 text-center flex justify-between items-center self-center ${color ? textColors[color] : 'text-secondary200'}`}
                             type="button"
                             onClick={handleDropdownToggle}
                         >

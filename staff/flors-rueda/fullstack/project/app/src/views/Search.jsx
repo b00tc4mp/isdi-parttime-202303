@@ -18,8 +18,6 @@ const Search = () => {
     const [isLoading, setIsLoading] = useState(false);
     const handleErrors = useHandleErrors();
     const formRef = useRef();
-    const [loggedUser, setLoggedUser] = useState();
-    const [follows, setFollows] = useState();
 
     const getUserInfo = () => {
         handleErrors(async () => {
@@ -34,6 +32,7 @@ const Search = () => {
         const formData = new FormData(formElement);
         const search = formData.get('search');
         if (search) {
+            setIsLoading(true);
             handleErrors(async () => {
                 const users = await searchUsers(search);
                 const levels = await searchLevels(search);
@@ -41,6 +40,7 @@ const Search = () => {
                 setFoundLevels(levels);
                 setAllFound(levels.length + users.length);
             })
+            setIsLoading(false)
         } else {
             setAllFound(null);
             setFoundUsers(null);

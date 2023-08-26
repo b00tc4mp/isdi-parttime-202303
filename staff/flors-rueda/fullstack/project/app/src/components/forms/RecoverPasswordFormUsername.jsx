@@ -35,6 +35,8 @@ const RecoverPasswordFormUsername = ({ setRecoveryQuestion, setUsername, setStep
     };
 
     useEffect(() => {
+        window.scrollTo(0, 0);
+
         const parentElement = submitRef.current.parentElement;
         parentElement.addEventListener('keydown', handleEnterDown);
 

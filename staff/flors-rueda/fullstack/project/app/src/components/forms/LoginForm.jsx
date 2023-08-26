@@ -3,7 +3,6 @@ import inLogger from '../../inLogger';
 import { useNavigate } from 'react-router-dom';
 import loginUser from '../../logic/login-user';
 
-
 const LoginForm = ({ onRegister, onRecover, setToast, setConnectSocket }) => {
     const submitRef = useRef();
     const [isUsernameValid, setUsernameValid] = useState(null);
@@ -19,6 +18,7 @@ const LoginForm = ({ onRegister, onRecover, setToast, setConnectSocket }) => {
     };
 
     useEffect(() => {
+        window.scrollTo(0, 0);
         const parentElement = submitRef.current.parentElement;
         parentElement.addEventListener('keydown', handleEnterDown);
 
@@ -26,7 +26,6 @@ const LoginForm = ({ onRegister, onRecover, setToast, setConnectSocket }) => {
             parentElement.removeEventListener('keydown', handleEnterDown);
         };
     }, []);
-
 
     const onRegisterClick = (event) => {
         event.preventDefault();
@@ -119,9 +118,9 @@ const LoginForm = ({ onRegister, onRecover, setToast, setConnectSocket }) => {
                             onChange={handlePasswordChange}
                         />
                         <p className="text-xs text-secondary300 text-end">
-                            <button onClick={onRecover} className="font-medium text-primary200 hover:underline pl-2">
+                            <a onClick={onRecover} className="font-medium cursor-pointer text-primary200 hover:underline pl-2">
                                 Forgot your password?
-                            </button>
+                            </a>
                         </p>
                     </div>
                     <button
@@ -135,9 +134,9 @@ const LoginForm = ({ onRegister, onRecover, setToast, setConnectSocket }) => {
                 </form>
                 <p className="text-sm text-secondary300">
                     You are new here?
-                    <button onClick={onRegisterClick} className="font-medium text-primary200 hover:underline pl-2">
+                    <a onClick={onRegisterClick} className="font-medium cursor-pointer text-primary200 hover:underline pl-2">
                         Register now!
-                    </button>
+                    </a>
                 </p>
             </div>
         </div>

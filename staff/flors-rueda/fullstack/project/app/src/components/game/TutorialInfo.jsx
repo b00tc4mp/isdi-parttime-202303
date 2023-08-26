@@ -35,9 +35,9 @@ const TutorialInfo = ({ onExitClick, tutorialNumber }) => {
         <div className="fixed inset-0 flex w-full h-full pt-10 items-center justify-center z-30">
             <div className="w-full h-full p-4 text-dark300 text-center bg-light400 rounded-lg shadow">
                 <div className="flex items-center flex-col justify-center gap-10 py-20 px-10">
-                    <h1 className="text-5xl font-bold text-primary100 font-normal">Learning the basics</h1>
+                    <h1 className="text-5xl text-primary100 font-normal">Learning the basics</h1>
                     <div className="text-sm font-normal">
-                        <span className="mb-1 text-lg font-bold text-secondary200">{tutorialTexts[tutorialNumber]}</span>
+                        <p className="mb-1 text-lg font-bold text-secondary200">{tutorialTexts[tutorialNumber]}</p>
                     </div>
                     {tutorialNumber > 5 ? isUserLoggedIn() ?
                         <Link type="button" to="/levels" className="text-4xl text-secondary300 hover:text-secondary500">EXPL<i className="bi bi-play-circle"></i>RE MORE LEVELS</Link>

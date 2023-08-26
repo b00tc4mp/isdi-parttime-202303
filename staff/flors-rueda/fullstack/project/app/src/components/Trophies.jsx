@@ -30,7 +30,7 @@ const Trophies = ({ achievements }) => {
     }
 
     return (
-        <div className="flex items-center w-full justify-around">
+        <section className="flex items-center w-full justify-around">
             {
                 achievements.length > 1 &&
                 <button
@@ -41,7 +41,7 @@ const Trophies = ({ achievements }) => {
                     <i className="text-3xl font-bold bi bi-chevron-left"></i>
                 </button>
             }
-            <div className="flex h-28 flex-row gap-1">
+            <article className="flex h-28 flex-row gap-1">
                 <div className="relative">
                     <img src={ranks[achievements[activeIndex].rank]} alt="rank" className="absolute inset-0 w-full h-full" />
                     <img src={codes[achievements[activeIndex].code]} alt="trophie" className="relative z-10 rounded-full h-28 p-2" />
@@ -54,7 +54,7 @@ const Trophies = ({ achievements }) => {
                     </div>
                 }
 
-            </div>
+            </article>
             {
                 achievements.length > 1 &&
                 <button
@@ -66,7 +66,7 @@ const Trophies = ({ achievements }) => {
                 </button>
             }
 
-        </div>
+        </section>
 
     );
 };

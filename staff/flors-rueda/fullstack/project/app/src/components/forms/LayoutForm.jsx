@@ -114,7 +114,7 @@ const LayoutForm = ({ level, setLevel, setToast, setToastOn, setCost, cost, pric
             {
                 level.map((floor, floorIndex) => (
                     <div key={floorIndex} className="flex flex-col">
-                        <h5 className="self-center text-xl py-2 text-center font-semibold text-primary100">{`Floor ${-floorIndex}${floorIndex === 99 ? '(max)' : ''}`}</h5>
+                        <h3 className="self-center text-xl py-2 text-center font-semibold text-primary100">{`Floor ${-floorIndex}${floorIndex === 99 ? '(max)' : ''}`}</h3>
                         <div className="grid grid-cols-3 grid-rows-3 gap-4">
                             {floor.map((cell, cellIndex) => (
                                 <div key={`${floorIndex}_${cellIndex}`} className="relative">
@@ -142,7 +142,7 @@ const LayoutForm = ({ level, setLevel, setToast, setToastOn, setCost, cost, pric
                                 </div>
                             ))}
                         </div>
-                        {level.length <= 99 && <button onClick={() => duplicateFloor(floorIndex)} className="text-sm text-secondary400 hover:text-primary400 shadow p-0.5 rounded-md self-end mt-2">duplicate floor<i className="bi bi-file-earmark-plus pl-1"></i></button>}
+                        {level.length <= 99 && <button onClick={() => duplicateFloor(floorIndex)} className="text-sm text-secondary400 hover:text-secondary200 shadow p-1 px-2 rounded-md self-end mt-2">duplicate floor<i className="bi bi-file-earmark-plus pl-1"></i></button>}
                     </div>
                 ))
             }

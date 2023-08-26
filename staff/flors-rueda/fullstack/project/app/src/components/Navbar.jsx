@@ -144,7 +144,7 @@ const Navbar = ({ updateUserInfo }) => {
                         }
 
                     </div>
-                    <ul className="hidden absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 lg:flex lg:mx-auto lg:flex lg:items-center lg:w-auto lg:space-x-6">
+                    <ul className="hidden absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 lg:flex lg:mx-auto lg:items-center lg:w-auto lg:space-x-6">
                         {isUserLoggedIn() && <>
                             <li>
                                 <Link
@@ -257,7 +257,7 @@ const Navbar = ({ updateUserInfo }) => {
                     }
                 </nav>
                 <div className={`navbar-menu fixed z-50 ${(isMenuOpen ? '' : 'hidden')}`}>
-                    <nav className="fixed top-0 left-0 bottom-0 flex bg-light500 flex-col w-full md:w-8/12 py-6 px-6 bg-light500 shadow overflow-y-auto">
+                    <nav className="fixed top-0 left-0 bottom-0 flex flex-col w-full md:w-8/12 py-6 px-6 bg-light500 shadow overflow-y-auto">
                         <div className="flex justify-between mb-8 opacity-75">
                             <Link className="text-3xl font-bold leading-none" to="/" onClick={handleCloseBoth}>
                                 <img src={logo} className="h-10 w-10" alt="Logo" />
@@ -373,7 +373,7 @@ const Navbar = ({ updateUserInfo }) => {
                                 {!isUserLoggedIn() &&
                                     <>
                                         <button
-                                            className="block px-4 w-full py-3 mb-3 leading-loose text-xs text-center font-semibold leading-none bg-light400 hover:bg-light300 text-dark400 rounded-xl"
+                                            className="block px-4 w-full py-3 mb-3 leading-loose text-xs text-center font-semibold bg-light400 hover:bg-light300 text-dark400 rounded-xl"
                                             onClick={handleToLogin}
                                         >
                                             Login

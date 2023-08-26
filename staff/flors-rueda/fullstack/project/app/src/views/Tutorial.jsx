@@ -17,6 +17,7 @@ const Tutorial = () => {
     };
 
     useEffect(() => {
+        window.scrollTo(0, 0);
         setTutorialInfoOn(true);
     }, [key]);
 

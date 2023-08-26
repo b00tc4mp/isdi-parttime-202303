@@ -61,7 +61,7 @@ const ComicCarousel = () => {
                     </button>
                     <div>
                         <img src={images[activeIndex]} alt={`Slide ${activeIndex + 1}`} className="h-52 w-52 sm:h-96 sm:w-96 rounded-lg" />
-                        <div className="mt-6 z-10 flex items-center justify-center border-0 flex justify-center self-center">
+                        <div className="mt-6 z-10 flex items-center justify-center border-0 self-center">
                             {text.map((_, index) => (
                                 <button
                                     key={index}

@@ -33,6 +33,11 @@ const LevelsList = () => {
         })
     }
 
+    const handleSorting = (type) => {
+        setCurrentPage(1);
+        setSort(type)
+    }
+
     useEffect(() => {
         handleRefreshLevels(sort, currentPage);
     }, [currentPage, sort]);
@@ -42,6 +47,7 @@ const LevelsList = () => {
     }, [totalLevels]);
 
     useEffect(() => {
+        window.scrollTo(0, 0);
         getUserInfo();
     }, []);
 
@@ -49,15 +55,15 @@ const LevelsList = () => {
         {isLoading && <Loader />}
         {!isLoading && <section className="flex flex-col w-full md:px-0 px-5 justify-center items-center pt-20 gap-5">
             <h1 className={`text-secondary300 text-3xl font-bold text-center pt-5`}> Levels library</h1>
-            <p className="text-primary300 text-xl font-bold text-center">Browse all levels that have been created</p>
+            <h2 className="text-primary300 text-xl font-bold text-center">Browse all levels that have been created</h2>
             <div className="flex flex-col gap-0.5">
-                <p className="text-secondary200 text-lg font-bold text-center">Sort by</p>
+                <h2 className="text-secondary200 text-lg font-bold text-center">Sort by</h2>
                 <div className="flex flex-row text-secondary100 gap-3 justify-around">
-                    <button onClick={() => setSort(0)} className={`text-lg pt-0.5 ${sort === 0 ? 'text-primary100 decoration-primary300 underline' : 'text-secondary200 hover:text-primary100 hover:underline hover:decoration-primary300'}`}>Newest</button>
+                    <button onClick={() => handleSorting(0)} className={`text-lg pt-0.5 ${sort === 0 ? 'text-primary100 decoration-primary300 underline' : 'text-secondary200 hover:text-primary100 hover:underline hover:decoration-primary300'}`}>Newest</button>
                     <span className="text-xl text-light300 font-semibold">||</span>
-                    <button onClick={() => setSort(1)} className={`text-lg pt-0.5 ${sort === 1 ? 'text-primary100 decoration-primary300 underline' : 'text-secondary200 hover:text-primary100 hover:underline hover:decoration-primary300'}`}>Oldest</button>
+                    <button onClick={() => handleSorting(1)} className={`text-lg pt-0.5 ${sort === 1 ? 'text-primary100 decoration-primary300 underline' : 'text-secondary200 hover:text-primary100 hover:underline hover:decoration-primary300'}`}>Oldest</button>
                     <span className="text-xl text-light300 font-semibold">||</span>
-                    <button onClick={() => setSort(2)} className={`text-lg pt-0.5 ${sort === 2 ? 'text-primary100 decoration-primary300 underline' : 'text-secondary200 hover:text-primary100 hover:underline hover:decoration-primary300'}`}>Most Liked</button>
+                    <button onClick={() => handleSorting(2)} className={`text-lg pt-0.5 ${sort === 2 ? 'text-primary100 decoration-primary300 underline' : 'text-secondary200 hover:text-primary100 hover:underline hover:decoration-primary300'}`}>Most Liked</button>
                 </div>
             </div>
             <div className="flex flex-row w-full justify-center items-center pt-5 pb-20 gap-2 flex-wrap">

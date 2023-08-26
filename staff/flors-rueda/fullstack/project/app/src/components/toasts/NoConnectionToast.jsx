@@ -13,9 +13,9 @@ const NoConnectionToast = () => {
                     controls
                     autoplay
                 />
-                <div className="text-4xl font-normal text-center text-secondary300">We're working on something...</div>
-                <div className="text-lg font-normal text-center">Connection failed, try again later.</div>
-                <div className="text-5xl font-normal text-center text-primary100">Sorry!</div>
+                <h3 className="text-4xl font-normal text-center text-secondary300">We're working on something...</h3>
+                <h4 className="text-lg font-normal text-center">Connection failed, try again later.</h4>
+                <h5 className="text-5xl font-normal text-center text-primary100">Sorry!</h5>
             </div>
         </div>
 

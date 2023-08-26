@@ -34,6 +34,7 @@ const Home = () => {
     }
 
     useEffect(() => {
+        window.scrollTo(0, 0);
         handleRefreshLevels();
         getUserInfo();
     }, []);
@@ -51,7 +52,7 @@ const Home = () => {
                         <Link className="bg-transparent hover:bg-secondary300  text-secondary300  font-semibold hover:text-white py-2 px-4 border border-secondary300  hover:border-transparent rounded-xl" to="/create">
                             Create your level!
                         </Link>
-                        <p className="text-primary200 text-xl font-bold text-center">Or check what your guild is creating</p>
+                        <h2 className="text-primary200 text-xl font-bold text-center">Or check what your guild is creating</h2>
                         <div className="flex flex-row w-full justify-center items-center pt-5 pb-20 gap-2 flex-wrap">
                             {levels.map((level, index) => (
                                 <LevelCard
@@ -90,11 +91,8 @@ const Home = () => {
                             </Link>
                         </div>
                     </>
-
             }
-
         </section>
-
     )
 }
 

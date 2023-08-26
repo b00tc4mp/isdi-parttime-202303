@@ -22,7 +22,7 @@ const Game = () => {
   const [likesInfo, setLikesInfo] = useState({});
   const [levelId, setLevelId] = useState(null)
   const [isGameOver, setIsGameOver] = useState(0); // 0 = playing, -1 = lost, 1 = won
-  const [gameData, setGameData] = useState({ stonks: 0, holes: 0, bombs: 0, life: 0, })
+  const [gameData, setGameData] = useState({ stonks: 0, holes: 0, bombs: 0, life: 0, });
   const [createData, setCreateData] = useState(null);
   const handleErrors = useHandleErrors();
   const { id } = useParams()
@@ -56,6 +56,7 @@ const Game = () => {
   };
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     if (isUserLoggedIn()) {
       handleErrors(async () => {
         const user = await retrieveLoggedUser();

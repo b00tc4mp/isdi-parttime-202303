@@ -1,11 +1,15 @@
 import inLogger from '../inLogger';
 import PasswordForm from '../components/forms/PasswordForm';
 import SuccessToast from '../components/toasts/SuccessToast';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import NewQuestionForm from '../components/forms/NewQuestionForm';
 
 const Settings = () => {
     const [toast, setToast] = useState(null);
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
 
     return (
         <section>

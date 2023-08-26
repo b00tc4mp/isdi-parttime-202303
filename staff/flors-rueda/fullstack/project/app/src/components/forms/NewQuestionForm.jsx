@@ -75,9 +75,9 @@ const NewQuestionForm = ({ setToast }) => {
     return (
         <div className="w-full bg-secondary600 rounded-lg shadow mt-5 sm:max-w-md">
             <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-                <h1 className="text-xl font-bold leading-tight tracking-tight text-primary100 md:text-2xl">
+                <h2 className="text-xl font-bold leading-tight tracking-tight text-primary100 md:text-2xl">
                     Add a recovery question
-                </h1>
+                </h2>
                 <form className="space-y-4 md:space-y-6" ref={formRef}>
                     <input
                         type="text"

@@ -39,7 +39,7 @@ const ProfileLevels = ({ userId, userSaves, setToast, isDeleted, setDeleted, use
     }
 
     return (
-        <div className="flex flex-col md:col-span-2 md:justify-center items-center mt-10">
+        <section className="flex flex-col md:col-span-2 md:justify-center items-center mt-10">
             <div className="flex flex-row md:justify-center items-center justify-around gap-3">
                 <button onClick={() => setType('created')} className={`text-xl pt-0.5 ${type === 'created' ? `text-${user.color} cursor-default` : `text-dark500 hover:underline`}`}>
                     <i className="bi bi-hammer pe-2"></i>Levels Created
@@ -59,7 +59,7 @@ const ProfileLevels = ({ userId, userSaves, setToast, isDeleted, setDeleted, use
                 }
                 {!isLoading && !levels || levels.length === 0 && <i className="w-full flex align-center items-center justify-center text-light100 text-xl">No levels to be seen here!</i>}
             </div>
-        </div>
+        </section>
     );
 };
 

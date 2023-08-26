@@ -29,6 +29,8 @@ const RegisterForm = ({ onLogin, setConnectSocket, setToast }) => {
     };
 
     useEffect(() => {
+        window.scrollTo(0, 0);
+
         const parentElement = submitRef.current.parentElement;
         parentElement.addEventListener('keydown', handleEnterDown);
 
@@ -193,7 +195,7 @@ const RegisterForm = ({ onLogin, setConnectSocket, setToast }) => {
                         <button
                             id="dropdownRadioButton"
                             data-dropdown-toggle="dropdownRadioHelper"
-                            className={`text-sm font-medium bg-light500 w-full flex flex-row justify-between hover:bg-light400 focus:outline-none font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center self-center ${selectedColor ? textColors[selectedColor] : 'text-secondary100'}`}
+                            className={`bg-light500 w-full flex flex-row justify-between hover:bg-light400 focus:outline-none font-medium rounded-lg text-sm px-4 py-2.5 text-center items-center self-center ${selectedColor ? textColors[selectedColor] : 'text-secondary100'}`}
                             type="button"
                             onClick={handleDropdownToggle}
                         >
@@ -257,9 +259,9 @@ const RegisterForm = ({ onLogin, setConnectSocket, setToast }) => {
                 </form>
                 <p className="text-sm text-secondary300">
                     Already have an account?
-                    <button onClick={onLoginClick} className="font-medium pl-2 text-primary200 hover:underline">
+                    <a onClick={onLoginClick} className="font-medium pl-2 cursor-pointer text-primary200 hover:underline">
                         Sign in here
-                    </button>
+                    </a>
                 </p>
             </div>
         </div>

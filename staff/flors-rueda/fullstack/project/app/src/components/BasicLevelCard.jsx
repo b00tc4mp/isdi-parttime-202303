@@ -89,40 +89,38 @@ const BasicLevelCard = ({ levelInfo, isLevelSaved, setToast }) => {
     }
 
     return (
-        <div className="w-full md:w-5/12 max-w-sm min-w-fit p-6 bg-light500 border border-light300 rounded-lg shadow">
-            <div className="flex items-center flex-col">
-                <div className={`flex flex-row gap-0.5 text-2xl font-semibold truncate text-${authorData.color} max-w-1/2`}>
-                    <h3>{title}</h3>
-                </div>
-                <p className="text-secondary300 text-xs">{time}</p>
-                <Link to={`/game/${levelInfo.id}`} className="inline-flex items-center text-primary200 hover:underline">
-                    Play now
-                    <i className="bi bi-play-circle text-xl ps-1"></i>
-                </Link>
-                <div className={`flex flex-row gap-2 text-secondary500 text-sm font-semibold align-center items-center`}>
-                    <p className={`flex flex-row gap-2 text-secondary500 text-sm font-semibold align-center items-center`}>
-                        {isAuthorCurrentUser &&
-                            <span className="flex flex-row gap-0.5">
-                                <button onClick={() => setToast(levelInfo.id)} className="flex flex-row text-danger200 text-sm font-semibold hover:text-danger100 items-center">
-                                    <i className="text-lg bi bi-trash3-fill"></i>
-                                </button>
-                                <button onClick={handleEditLevel} className="flex flex-row text-success200 text-sm font-semibold hover:text-success100 items-center pt-0.5">
-                                    <i className="text-lg bi bi-pencil-square"></i>
-                                </button>
-                            </span>
-
-                        }
-                        <button onClick={handleSaveClick} className={`flex flex-row text-secondary500 text-sm font-semibold ${isSaved ? 'hover:text-light100' : 'hover:text-success100'} items-center`}>
-                            <i className={`text-lg bi ${isLoading ? 'bi-hourglass-split cursor-default' : isSaved ? 'bi-bookmark-star-fill' : 'bi-bookmark-star'}`}></i>
-                        </button>
-                        <button onClick={handleLikeClick}>
-                            <i className={`hover:text-light100 bi ${isLoading ? 'bi-hourglass-split cursor-default' : isLiked ? 'bi-suit-heart-fill' : 'bi-suit-heart'}`}></i>
-                        </button>
-                        {likes}
-                    </p>
-                </div>
+        <article className="w-full md:w-5/12 max-w-sm min-w-fit p-6 bg-light500 border border-light300 rounded-lg shadow flex items-center flex-col">
+            <div className={`flex flex-row gap-0.5 text-2xl font-semibold truncate text-${authorData.color} max-w-1/2`}>
+                <h3>{title}</h3>
             </div>
-        </div>
+            <time className="text-secondary300 text-xs">{time}</time>
+            <Link to={`/game/${levelInfo.id}`} className="inline-flex items-center text-primary200 hover:underline">
+                Play now
+                <i className="bi bi-play-circle text-xl ps-1"></i>
+            </Link>
+            <div className={`flex flex-row gap-2 text-secondary500 text-sm font-semibold align-center items-center`}>
+                <p className={`flex flex-row gap-2 text-secondary500 text-sm font-semibold align-center items-center`}>
+                    {isAuthorCurrentUser &&
+                        <span className="flex flex-row gap-0.5">
+                            <button onClick={() => setToast(levelInfo.id)} className="flex flex-row text-danger200 text-sm font-semibold hover:text-danger100 items-center">
+                                <i className="text-lg bi bi-trash3-fill"></i>
+                            </button>
+                            <button onClick={handleEditLevel} className="flex flex-row text-success200 text-sm font-semibold hover:text-success100 items-center pt-0.5">
+                                <i className="text-lg bi bi-pencil-square"></i>
+                            </button>
+                        </span>
+
+                    }
+                    <button onClick={handleSaveClick} className={`flex flex-row text-secondary500 text-sm font-semibold ${isSaved ? 'hover:text-light100' : 'hover:text-success100'} items-center`}>
+                        <i className={`text-lg bi ${isLoading ? 'bi-hourglass-split cursor-default' : isSaved ? 'bi-bookmark-star-fill' : 'bi-bookmark-star'}`}></i>
+                    </button>
+                    <button onClick={handleLikeClick}>
+                        <i className={`hover:text-light100 bi ${isLoading ? 'bi-hourglass-split cursor-default' : isLiked ? 'bi-suit-heart-fill' : 'bi-suit-heart'}`}></i>
+                    </button>
+                    {likes}
+                </p>
+            </div>
+        </article>
     )
 }
 

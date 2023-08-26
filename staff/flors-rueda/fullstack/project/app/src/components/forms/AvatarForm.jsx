@@ -85,9 +85,9 @@ const AvatarForm = ({ setUpdateUserInfo, setToast }) => {
                         <li key={`${index}_${avatar}`} className='p-2 pb-3 flex items-center justify-around flex-col bg-secondary600 rounded-lg shadow' >
                             <div className="flex flex-row align-center">
                                 <img className="w-32 h-32" src={`${avatars[avatar]}`} alt="avatar" />
-                                <span className={`text-primary100 text-xl font-semibold pl-2 self-center`}>{(avatarStory[avatar])[0]}</span>
+                                <h3 className={`text-primary100 text-xl font-semibold pl-2 self-center`}>{(avatarStory[avatar])[0]}</h3>
                             </div>
-                            <span className={`text-secondary200 text-sm text-center font-semibold pl-2 pb-0.5`}>{(avatarStory[avatar])[1]}</span>
+                            <p className={`text-secondary200 text-sm text-center font-semibold pl-2 pb-0.5`}>{(avatarStory[avatar])[1]}</p>
                             {
                                 selectedAvatar === avatar &&
                                 <div className="flex flex-row w-fit py-1 px-3 gap-1 mt-3 mx-4 text-xs text-secondary400 font-bold items-center">
