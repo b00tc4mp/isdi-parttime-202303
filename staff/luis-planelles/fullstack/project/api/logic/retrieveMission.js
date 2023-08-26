@@ -5,7 +5,7 @@ const {
 const { Mission, User } = require('../data/models');
 
 /**
- * Creates a new post by a user.
+ * Creates a new mission by a user.
  * @param {string} userId - The ID of the user creating the mission.
  * @param {string} missionId - The ID of the mission to retrieve.
  * @returns {<object>} - Resolves to return the mission object.
