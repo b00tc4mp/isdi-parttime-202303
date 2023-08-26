@@ -17,8 +17,6 @@ const Landing = () => {
         navigate('/signin', { state: { startingForm: 'register' } });
     }
 
-
-
     return (
         <>
             <div className="circle"></div> <div className="circle2"></div> <div className="circle3"></div><div className="circle4"></div>
@@ -36,11 +34,11 @@ const Landing = () => {
                 </div>
                 <Previews />
                 <TrophiesPreview />
-                <div className="flex flex-col md:flex-row w-full justify-center md:px-10 bg-secondaryShadow items-center py-4 md:py-1">
+                <div className="flex flex-col md:flex-row w-full justify-center px-2 md:px-10 bg-secondaryShadow items-center py-4 md:py-1">
                     <h2 className="text-2xl md:text-3xl text-center font-bold text-dark100 text-shadow">With every level you play, you win Customization Credits.</h2>
                     <img src={win} className="w-4/6 md:w-1/3" alt="Logo" />
                 </div>
-                <div className="flex flex-col md:flex-row-reverse w-full justify-center md:px-10 bg-primaryShadow items-center py-12">
+                <div className="flex flex-col md:flex-row-reverse w-full justify-center px-2 md:px-10 bg-primaryShadow items-center py-12">
                     <h2 className="text-2xl md:text-3xl text-center font-bold text-dark100 text-shadow">Spend those on creating more levels or unlocking new maze riders...</h2>
                     <img src={build} className="w-4/6 md:w-1/3" alt="Logo" />
                 </div>

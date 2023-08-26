@@ -204,7 +204,7 @@ const RegisterForm = ({ onLogin, setConnectSocket, setToast }) => {
                         </button>
                         <div
                             id="dropdownRadio"
-                            className="z-50 absolute w-4/6 md:w-2/6 bg-light400 shadow divide-y divide-light300 rounded-lg hidden"
+                            className="z-20 absolute w-4/6 md:w-2/6 bg-light400 shadow divide-y divide-light300 rounded-lg hidden"
                         >
                             <ul className="p-3 text-sm grid grid-cols-3 grid-rows-5 gap-2">
                                 {assets.colors.map((color, index) => (

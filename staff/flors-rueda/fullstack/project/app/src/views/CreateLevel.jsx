@@ -75,7 +75,7 @@ const CreateLevel = () => {
             <div className="pt-12 md:pt-10">
                 <CreateRules />
                 {isUserLoggedIn() &&
-                    <div className="fixed z-30 right-5 bottom-20 text-primary100 text-xs bg-light400 p-2 rounded-md shadow font-semibold pt-2">
+                    <div className="fixed z-20 right-5 bottom-20 text-primary100 text-xs bg-light400 p-2 rounded-md shadow font-semibold pt-2">
                         <h4>Level cost <span className={`text-${cost > budget ? 'danger200' : 'success200'}`}>{cost}cc</span></h4>
                     </div>
                 }

@@ -132,7 +132,7 @@ const LayoutForm = ({ level, setLevel, setToast, setToastOn, setCost, cost, pric
                                     </button>
                                     <div
                                         id={`dropdownDefaultRadio_${floorIndex}_${cellIndex}`}
-                                        className={`z-30 absolute w-48 bg-light400 mx-auto rounded-lg shadow hidden ${cellIndex === 0 || cellIndex === 3 || cellIndex === 6 ? 'left-1' : 'right-1 lg:left-1'}`}
+                                        className={`z-20 absolute w-48 bg-light400 mx-auto rounded-lg shadow hidden ${cellIndex === 0 || cellIndex === 3 || cellIndex === 6 ? 'left-1' : 'right-1 lg:left-1'}`}
                                     >
                                         <ul className="p-3 space-y-3 text-sm text-secondary200 grid grid-cols-2 grid-rows-4">
                                             {renderRadioOptions(floorIndex, cellIndex)}
