@@ -26,7 +26,6 @@ export default function Home() {
     const [user, setUser] = useState()
     const [nameSearched, setNameSearched] = useState(null)
 
-
     useEffect(() => {
         handleErrors(async () => {
             const user = await retrieveUser()
@@ -97,10 +96,10 @@ export default function Home() {
             category: category, 
             features: features
         })
-        
         setView('filtered-workspots')
         setModal(null)
     }
+
 
     console.log('Home -> render')
 
@@ -138,12 +137,14 @@ export default function Home() {
             {view === 'workspots-searched-by-name' && <WorkspotsSearchedByName 
                 nameSearched={nameSearched}
             />}
+
             {view === 'filtered-workspots' && <FilteredWorkspots
                 districts={filteredData.districts}
                 category={filteredData.category}
                 features={filteredData.features}    
             />}
 
+        
             {view === 'profile' && <Profile
                 onUserAvatarUpdated={handleUserAvatarUpdated}
                 onUpdatedUserPassword={handleUserPasswordUpdated}

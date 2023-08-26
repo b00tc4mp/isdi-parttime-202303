@@ -1,9 +1,7 @@
 import { useState } from 'react';
-import { useAppContext, useHandleErrors } from '../hooks'
+import { useAppContext } from '../hooks'
 import { Container, Form, Input, Button, TextArea, Label } from '../library'
 import { formatCategory, formatOtherFeatures, formatDistrict, formatWifi, formatPlugs, formatNoise } from './helpers/dataFormatters'
-import getFilteredWorkspots from '../../logic/getFilteredWorkspots';
-import FilteredWorkspots from './FilteredWorkspots';
 
 const initialDistricts = {
     ciutatVella: false,
@@ -62,7 +60,6 @@ const initialOtherFeatures = {
 
 export default function FilterModal({ onCancel, onFilteredSearch }) {
     const { alert } = useAppContext();
-    const handleErrors = useHandleErrors();
 
     const handleCancel = event => {
         event.preventDefault();
@@ -103,7 +100,7 @@ export default function FilterModal({ onCancel, onFilteredSearch }) {
 
     const [category, setCategory] = useState(initialCategory);
     const toggleCategory = categoryOption => {
-        setType(prevCategory => ({
+        setCategory(prevCategory => ({
             ...prevCategory,
             [categoryOption]: !prevCategory[categoryOption],
         }));
@@ -117,12 +114,12 @@ export default function FilterModal({ onCancel, onFilteredSearch }) {
         }));
     };
 
-    const[features, setFeatures] = useState({
+    const features = {
         wifi: wifi,
-        plugs: plugs,
-        noise: noise,
+        plugs: plugs, 
+        noise: noise, 
         otherFeatures: otherFeatures
-    })
+    }
 
     const handleFilteredSearch = event => {
         event.preventDefault();

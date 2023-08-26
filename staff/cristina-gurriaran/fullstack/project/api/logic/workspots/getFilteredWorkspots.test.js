@@ -16,19 +16,27 @@ const districts = {
     santsMontjuic: false,
     sarriaSantGervasi: false,
 }
+	
+category = {
+    coffeeShop: false,
+    restaurant: false,
+    coWorking: false,
+    library: false,
+    hotelLobby: false
+}
 
 const features = {
     wifi: {
         unlimitedFree: false,
         timeLimited: false,
-        timeLimitedWithPurchase: true,
+        timeLimitedWithPurchase: false,
         paidOptions: false,
         unavailable: false,
     },
 
     otherFeatures: {
-        accessibility: true,
-        petFriendly: true,
+        accessibility: false,
+        petFriendly: false,
         ensuiteKitchen: false,
         onSiteRestaurant: false,
         meetingRooms: false,
@@ -42,10 +50,11 @@ const features = {
 }
 
 mongoose.connect("mongodb://127.0.0.1:27017/data")
-    .then(() => getFilteredWorkspots(userId, {districts, features}))
+    .then(() => getFilteredWorkspots({districts, category, features}))
     .then(workspots => console.log(workspots))
-    .catch(console.error)
-    .finally(mongoose.disconnect)
+    .catch(error => console.error(error))
+    .finally(() => mongoose.disconnect())
+
 
 
 
