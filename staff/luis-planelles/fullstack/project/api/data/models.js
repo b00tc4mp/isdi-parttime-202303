@@ -107,7 +107,6 @@ const mission = new Schema({
     type: [participant],
     required: true,
   },
-
   loserPrice: {
     type: String,
     required: true,
@@ -123,6 +122,15 @@ const nasaEvent = new Schema({
     type: String,
     required: true,
   },
+  link: {
+    type: String,
+  },
+});
+
+const nasaLastUpdate = new Schema({
+  events: {
+    type: [nasaEvent],
+  },
   lastUpdate: {
     type: Date,
     required: true,
@@ -134,11 +142,13 @@ const Mission = model('Mission', mission);
 const Explorer = model('Explorer', explorer);
 const Participant = model('Participant', participant);
 const NASAEvent = model('NASAEvent', nasaEvent);
+const NasaLastUpdate = model('NasaLastUpdate', nasaLastUpdate);
 
 module.exports = {
   User,
   Mission,
   Explorer,
-  NASAEvent,
   Participant,
+  NASAEvent,
+  NasaLastUpdate,
 };
