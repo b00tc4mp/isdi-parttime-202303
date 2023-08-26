@@ -13,13 +13,13 @@ const findDuplicateNames = require('./helpers/findDuplicateNames');
 const { User, Mission, Explorer } = require('../data/models');
 
 /**
- * Creates a new post by a user.
+ * Creates a new mission by a user.
  * @param {string} userId - The ID of the user creating the mission.
  * @param {object} traveler - The traveler associated with the mission.
  * @param {string} destination - The destination of the mission.
  * @param {array} participant - The array with participants in mission.
  * @param {string} loserPrice - The loser price of the mission.
- * @returns {Promise<object>} - A promise that resolves to the created post object.
+ * @returns {Promise<object>} - A promise that resolves to the created mission object.
  * @throws {ExistenceError} - If the user with the provided ID does not exist.
  * @throws {DuplicityError} - If the name of any participant is repeat.
  * @throws {TypeError} - on userId, traveler, destination, participan or loserPrice wrong type.
