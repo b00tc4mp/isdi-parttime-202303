@@ -73,6 +73,7 @@ export default ({ listId, onAccept }) => {
                     {list && list.invited && list.invited.map(contact => <EditListInvited 
                         key={contact.id} 
                         contact={contact} 
+                        listId={listId}
                         onModifyContact={handleRefreshList}
                         />)
                     }
@@ -86,6 +87,7 @@ export default ({ listId, onAccept }) => {
                     {contacts && contacts.map(contact => <EditListContact 
                         key={contact.id} 
                         contact={contact} 
+                        listId={listId}
                         onInvitedContact={handleRefreshList}
                         />)
                     }

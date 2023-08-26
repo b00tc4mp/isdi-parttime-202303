@@ -4,7 +4,7 @@ export const DEFAULT_AVATAR_URL = "https://img.icons8.com/color/512/avatar.png"
 
 import { deleteUserContact } from '../../logic'
 
-export default ({ contact: { id, name, avatar}, onModifyContact}) => {
+export default (listId, { contact: { id, name, avatar}, onModifyContact}) => {
     console.log('Edit List Invited -> render')
 
     const { alert, freeze, unfreeze } = useAppContext()
@@ -12,7 +12,7 @@ export default ({ contact: { id, name, avatar}, onModifyContact}) => {
     const handleDeleteInvited = async () => {
         try{
             freeze()
-            await declineGuestList(id)
+            await declineGuestList(listId, id)
             unfreeze()
 
             onModifyContact()
