@@ -19,6 +19,8 @@ So you play levels to earn points to create levels that other people will play t
 </br>
 </br>
 
+[PLAY NOW!](https://ballopolis.rucev.com/)
+
 ## Functional description
 
 ### Use cases
