@@ -1,7 +1,7 @@
 const { User, Meal, Item } = require('../data/models')
 const { errors: { ExistanceError } } = require('../../com')
 
-module.exports = function addMealToCart(userId, mealId, quantity) {
+module.exports = function incrementMealsInCart(userId, mealId, quantity) {
     return (async () => {
         const user = await User.findById(userId)
 

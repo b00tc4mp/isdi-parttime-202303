@@ -7,7 +7,6 @@ module.exports = async function retrievePendingToPickUp(userId) {
 
     if (!user) throw new ExistanceError(`User with id ${userId} not found`)
 
-    //const pendingOrders = user.order.filter(order => order.status === 'pending')
     const formattedOrders = user.order.map(order => {
         const itemsByAuthor = {}
         debugger
