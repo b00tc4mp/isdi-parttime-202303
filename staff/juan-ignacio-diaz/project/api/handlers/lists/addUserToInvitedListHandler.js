@@ -1,4 +1,4 @@
-const { addUsersToInvitedList } = require('../../logic')
+const { addUserToInvitedList } = require('../../logic')
 
 const { extractUserId, handleErrors } = require('../helpers')
 

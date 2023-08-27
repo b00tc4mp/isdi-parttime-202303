@@ -77,7 +77,7 @@ mongoose.connect(process.env.MONGODB_URL)
 
         api.post('/lists/create', jsonBodyParser, createListHandler)
         api.patch('/lists/:listId/accept', acceptGuestListHandler)
-        api.patch('/lists/:listId/decline', declineGuestListHandler) 
+        api.delete('/lists/:listId/contact/:contactId/decline', declineGuestListHandler) 
         api.post('/lists/:listId/contact/:contactId/invited',  addUserToInvitedListHandler)
         api.get('/lists/guest', reviewListsGuestHandler)
         api.get('/lists/invited', reviewListsInvitedHandler)
