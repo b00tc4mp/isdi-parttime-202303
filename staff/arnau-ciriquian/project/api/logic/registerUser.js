@@ -1,6 +1,6 @@
 const { User } = require('../data/models')
 const {
-    validators: { validateEmail, validateName, validatePassword },
+    validators: { validateEmail, validateName, validateNewPassword },
     errors: { DuplicityError } } = require('com')
 // const { validators:ar el default avatar: punLogo
 // falta el password confirm
@@ -21,7 +21,7 @@ const {
 module.exports = (name, email, password) => {
     validateName(name)
     validateEmail(email)
-    validatePassword(password)
+    validateNewPassword(password)
 
     const character = null
 

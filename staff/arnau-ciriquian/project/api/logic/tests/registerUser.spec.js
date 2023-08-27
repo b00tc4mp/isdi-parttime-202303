@@ -1,23 +1,10 @@
+require('./testSetup.js')
 const { User } = require('../../data/models')
-const { MongoMemoryServer } = require('mongodb-memory-server')
-const mongoose = require('mongoose')
 const registerUser = require('../registerUser.js')
 const { cleanUp, populate, generate } = require('../helpers-tests')
-const { expect, assert } = require('chai')
-const { DuplicityError } = require('com/errors')
-const sinon = require("sinon");
-
-let mongoServer
-
-before(async () => {
-    mongoServer = await MongoMemoryServer.create()
-    const mongoUri = mongoServer.getUri()
-
-    await mongoose.connect(mongoUri, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-    })
-})
+const { expect } = require('chai')
+const { DuplicityError, ContentError } = require('com/errors')
+const sinon = require("sinon")
 
 let user
 
@@ -29,11 +16,6 @@ beforeEach(() => {
 
 afterEach(() => {
     sinon.restore()
-})
-
-after(async () => {
-    await mongoose.disconnect()
-    await mongoServer.stop()
 })
 
 describe('registerUser Function', () => {
@@ -80,119 +62,101 @@ describe('registerUser Function', () => {
     })
 
     it('throws non-DuplicityError on user registration error', async () => {
-        const mockCreate = sinon.stub(User, 'create');
-        mockCreate.throws(new Error('Simulated UnknowError error'));
-        
-        try {
-            await registerUser(user.name, user.email, user.password)
+        const mocking = sinon.stub(User, 'create');
+        mocking.throws(new Error('Simulated non-DuplicityError error'));
 
-            expect.fail('Expected an error to be thrown')
-        } catch (error) {
-            expect(error).to.not.be.instanceOf(DuplicityError)
-            expect(error).to.be.instanceOf(Error)
-            expect(error.message).to.include('Simulated UnknowError error')
-        }
+        expect(() => registerUser(user.name, user.email, user.password))
+            .to.throw(Error, 'Simulated non-DuplicityError error')
     })
 
     it('fails on empty name', async () => {
-        try {
-            await registerUser('', user.email, user.password)
-        } catch (error) {
-            expect(error).to.be.instanceOf(Error)
-            expect(error.message).to.equal(`name is empty`)
-        }
+        expect(() => registerUser('', user.email, user.password))
+            .to.throw(Error, 'name is empty')
     })
 
     it('fails on non-string name', async () => {
-        try {
-            await registerUser(undefined, user.email, user.password, () => { })
-            throw new Error('Test did not throw as expected')
-        } catch (error) {
-            expect(error).to.be.instanceOf(Error)
-            expect(error.message).to.equal('name is not a string')
-        }
+        expect(() => registerUser(undefined, user.email, user.password))
+            .to.throw(Error, 'name is not a string')
 
-        try {
-            await registerUser(1, user.email, user.password, () => { })
-            throw new Error('Test did not throw as expected')
-        } catch (error) {
-            expect(error).to.be.instanceOf(Error)
-            expect(error.message).to.equal('name is not a string')
-        }
+        expect(() => registerUser(1, user.email, user.password))
+            .to.throw(Error, 'name is not a string')
 
-        try {
-            await registerUser(true, user.email, user.password, () => { })
-            throw new Error('Test did not throw as expected')
-        } catch (error) {
-            expect(error).to.be.instanceOf(Error)
-            expect(error.message).to.equal('name is not a string')
-        }
+        expect(() => registerUser(true, user.email, user.password))
+            .to.throw(Error, 'name is not a string')
 
-        try {
-            await registerUser({}, user.email, user.password, () => { })
-            throw new Error('Test did not throw as expected')
-        } catch (error) {
-            expect(error).to.be.instanceOf(Error)
-            expect(error.message).to.equal('name is not a string')
-        }
+        expect(() => registerUser({}, user.email, user.password))
+            .to.throw(Error, 'name is not a string')
 
-        try {
-            await registerUser([], user.email, user.password, () => { })
-            throw new Error('Test did not throw as expected')
-        } catch (error) {
-            expect(error).to.be.instanceOf(Error)
-            expect(error.message).to.equal('name is not a string')
-        }
+        expect(() => registerUser([], user.email, user.password))
+            .to.throw(Error, 'name is not a string')
     })
 
     it('fails on empty email', async () => {
-        try {
-            await registerUser(user.name, '', user.password)
-        } catch (error) {
-            expect(error).to.be.instanceOf(Error)
-            expect(error.message).to.equal(`email is empty`)
-        }
+        expect(() => registerUser(user.name, '', user.password))
+            .to.throw(Error, 'email is empty')
     })
 
     it('fails on non-string email', async () => {
-        try {
-            await registerUser(user.name, undefined, user.password, () => { })
-            throw new Error('Test did not throw as expected')
-        } catch (error) {
-            expect(error).to.be.instanceOf(Error)
-            expect(error.message).to.equal('email is not a string')
-        }
+        expect(() => registerUser(user.name, undefined, user.password))
+            .to.throw(Error, 'email is not a string')
 
-        try {
-            await registerUser(user.name, 1, user.password, () => { })
-            throw new Error('Test did not throw as expected')
-        } catch (error) {
-            expect(error).to.be.instanceOf(Error)
-            expect(error.message).to.equal('email is not a string')
-        }
+        expect(() => registerUser(user.name, 1, user.password))
+            .to.throw(Error, 'email is not a string')
 
-        try {
-            await registerUser(user.name, true, user.password, () => { })
-            throw new Error('Test did not throw as expected')
-        } catch (error) {
-            expect(error).to.be.instanceOf(Error)
-            expect(error.message).to.equal('email is not a string')
-        }
+        expect(() => registerUser(user.name, true, user.password))
+            .to.throw(Error, 'email is not a string')
 
-        try {
-            await registerUser(user.name, {}, user.password, () => { })
-            throw new Error('Test did not throw as expected')
-        } catch (error) {
-            expect(error).to.be.instanceOf(Error)
-            expect(error.message).to.equal('email is not a string')
-        }
+        expect(() => registerUser(user.name, {}, user.password))
+            .to.throw(Error, 'email is not a string')
 
-        try {
-            await registerUser(user.name, [], user.password, () => { })
-            throw new Error('Test did not throw as expected')
-        } catch (error) {
-            expect(error).to.be.instanceOf(Error)
-            expect(error.message).to.equal('email is not a string')
-        }
+        expect(() => registerUser(user.name, [], user.password))
+            .to.throw(Error, 'email is not a string')
+    })
+
+    it('fails on empty password', async () => {
+        expect(() => registerUser(user.name, user.email, ''))
+            .to.throw(Error, 'password is empty')
+    })
+
+    it('fails on non-string password', async () => {
+        expect(() => registerUser(user.name, user.email, undefined,))
+            .to.throw(Error, 'password is not a string')
+
+        expect(() => registerUser(user.name, user.email, 1,))
+            .to.throw(Error, 'password is not a string')
+
+        expect(() => registerUser(user.name, user.email, true,))
+            .to.throw(Error, 'password is not a string')
+
+        expect(() => registerUser(user.name, user.email, {},))
+            .to.throw(Error, 'password is not a string')
+
+        expect(() => registerUser(user.name, user.email, [],))
+            .to.throw(Error, 'password is not a string')
+    })
+
+    it('fails on password shorter than 4 character', async () => {
+        expect(() => registerUser(user.name, user.email, 'Aa1'))
+            .to.throw(RangeError, 'password is shorter than 4 characters')
+    })
+
+    it('fails on password not containing a lowercase', async () => {
+        expect(() => registerUser(user.name, user.email, 'TEST1'))
+            .to.throw(ContentError, 'password does not include a lowercase')
+    })
+
+    it('fails on password not containing an uppercase', async () => {
+        expect(() => registerUser(user.name, user.email, 'test1'))
+            .to.throw(ContentError, 'password does not include an uppercase')
+    })
+
+    it('fails on password not containing a number', async () => {
+        expect(() => registerUser(user.name, user.email, 'Test'))
+            .to.throw(ContentError, 'password does not include a number')
+    })
+
+    it('fails on password containing a blank space', async () => {
+        expect(() => registerUser(user.name, user.email, 'Test 1'))
+            .to.throw(ContentError, 'password includes a blank space')
     })
 })

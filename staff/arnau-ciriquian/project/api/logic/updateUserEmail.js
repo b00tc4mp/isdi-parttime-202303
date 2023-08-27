@@ -38,7 +38,7 @@ module.exports = (userId, email, newEmail, password) => {
 
                     if (_user) throw new DuplicityError('new email already registered')
 
-                    if (user.password !== password) throw new AuthError(`incorrect password`)
+                    if (user.password !== password) throw new AuthError(`wrong password`)
 
                     return User.updateOne({ '_id': userId }, { email: newEmail })
                 })
