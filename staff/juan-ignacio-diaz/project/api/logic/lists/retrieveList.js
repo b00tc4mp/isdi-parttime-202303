@@ -37,13 +37,17 @@ module.exports = (listId, userId) => {
         delete list.owner._id
 
         list.invited.forEach(user => {                        
-            user.id = user._id.toString()
-            delete user._id
+            if(user._id) {
+                user.id = user._id.toString()
+                delete user._id
+            }
         })
 
         list.guests.forEach(user => {                        
-            user.id = user._id.toString()
-            delete user._id
+            if(user._id) {
+                user.id = user._id.toString()
+                delete user._id
+            }
         })
 
         return list
