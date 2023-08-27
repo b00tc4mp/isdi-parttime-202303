@@ -12,13 +12,13 @@ module.exports = {
 
     createListHandler: require('./lists/createListHandler'),
     addUserToInvitedListHandler: require('./lists/addUserToInvitedListHandler'),
-    deleteUserToInvitedList: require('./lists/deleteUserToInvitedList'),
+    deleteUserToInvitedListHandler: require('./lists/deleteUserToInvitedListHandler'),
     reviewListsInvitedHandler: require('./lists/reviewListsInvitedHandler'),
     acceptGuestListHandler: require('./lists/acceptGuestListHandler'),
     declineGuestListHandler: require('./lists/declineGuestListHandler'),
     reviewListsGuestHandler: require('./lists/reviewListsGuestHandler'),
     copyToNewListHandler: require('./lists/copyToNewListHandler'),
-    retrieveListHanler: require('./lists/retrieveListHanler'),
+    retrieveListHandler: require('./lists/retrieveListHandler'),
 
     addMessageHandler: require('./lists/messages/addMessageHandler'),
     reviewMessagesHandler: require('./lists/messages/reviewMessagesHandler'),

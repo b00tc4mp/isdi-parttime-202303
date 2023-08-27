@@ -4,9 +4,9 @@ const { extractUserId, handleErrors } = require('../helpers')
 
 module.exports = handleErrors((req, res) => {
     const userId = extractUserId(req)
-    const { listId, contatcId } = req.params
+    const { listId, contactId } = req.params
 
-    const promise = deleteUserToInvitedList(listId, userId, contatcId)
+    const promise = deleteUserToInvitedList(listId, userId, contactId)
 
     return (async () => { 
         await promise

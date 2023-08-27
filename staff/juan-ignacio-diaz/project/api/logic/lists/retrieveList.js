@@ -23,7 +23,7 @@ module.exports = (listId, userId) => {
 
         if (!user) throw new ExistenceError('user not found')
         
-        const list = await List.findById(listId, 'name date owner, guests, invited')
+        const list = await List.findById(listId, 'name date dateToEnd owner, guests, invited')
             .populate('owner','name avatar email' )
             .populate('invited','name avatar email' )
             .populate('guests','name avatar email' ).lean()
