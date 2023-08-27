@@ -7,7 +7,7 @@ export default (avatar) => {
     validateUrl(avatar, 'avatar url')
  
     return (async () => {
-        const res = fetch(`${import.meta.env.VITE_API_URL}/users/updateAvatar`, {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/users/updateAvatar`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',

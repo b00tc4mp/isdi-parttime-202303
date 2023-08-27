@@ -12,6 +12,7 @@ module.exports = {
 
     createList: require('./lists/createList'),
     addUserToInvitedList: require('./lists/addUserToInvitedList'),
+    deleteUserToInvitedList: require('./lists/deleteUserToInvitedList'),
     reviewListsInvited: require('./lists/reviewListsInvited'),
     acceptGuestList: require('./lists/acceptGuestList'),
     declineGuestList: require('./lists/declineGuestList'),

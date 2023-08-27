@@ -11,5 +11,8 @@ export default defineConfig({
     commonjsOptions: {
       include: [/com/, /node_modules/]
     }
+  },
+  server: {
+    port: 3000,
   }
 })

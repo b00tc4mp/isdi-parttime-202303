@@ -12,6 +12,7 @@ module.exports = {
 
     createListHandler: require('./lists/createListHandler'),
     addUserToInvitedListHandler: require('./lists/addUserToInvitedListHandler'),
+    deleteUserToInvitedList: require('./lists/deleteUserToInvitedList'),
     reviewListsInvitedHandler: require('./lists/reviewListsInvitedHandler'),
     acceptGuestListHandler: require('./lists/acceptGuestListHandler'),
     declineGuestListHandler: require('./lists/declineGuestListHandler'),

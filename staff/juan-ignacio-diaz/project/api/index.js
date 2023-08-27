@@ -23,6 +23,7 @@ const {
     acceptGuestListHandler,
     declineGuestListHandler,
     addUserToInvitedListHandler,
+    deleteUserToInvitedList,
     reviewListsGuestHandler,
     reviewListsInvitedHandler,
     copyToNewListHandler,
@@ -79,6 +80,7 @@ mongoose.connect(process.env.MONGODB_URL)
         api.patch('/lists/:listId/accept', acceptGuestListHandler)
         api.delete('/lists/:listId/contact/:contactId/decline', declineGuestListHandler) 
         api.post('/lists/:listId/contact/:contactId/invited',  addUserToInvitedListHandler)
+        api.delete('/lists/:listId/contact/:contactId/delete', deleteUserToInvitedList)
         api.get('/lists/guest', reviewListsGuestHandler)
         api.get('/lists/invited', reviewListsInvitedHandler)
         api.post('/lists/:listId/copy', jsonBodyParser, copyToNewListHandler)
