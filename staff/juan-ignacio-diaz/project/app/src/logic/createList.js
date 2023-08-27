@@ -1,13 +1,14 @@
 import context from "./context"
 
 import { validators } from 'com'
+
 const { validateDate, validateText } = validators
 
 /**
  * Create a list by name and date end
  * 
  * @param {string} name The list's name
- * @param {date} date The list's date end
+ * @param {date} dateToEnd The list's date end
  * 
  */
 

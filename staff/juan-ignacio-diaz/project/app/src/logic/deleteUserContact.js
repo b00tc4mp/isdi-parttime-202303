@@ -9,7 +9,6 @@ const { validateId } = validators
  * @param {string} id The contact 
  */
 
-
 export default (contactId) => {
     validateId(contactId, 'contact id')
 

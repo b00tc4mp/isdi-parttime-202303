@@ -1,5 +1,9 @@
 import context from "./context"
 
+import { validators } from 'com'
+
+const { validateId } = validators
+
 /**
  * Add the contact for the invited's
  * 

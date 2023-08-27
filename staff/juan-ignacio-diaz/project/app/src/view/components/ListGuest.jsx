@@ -1,6 +1,6 @@
 import { useAppContext } from '../../hooks'
 
-import { isCurrentUser, isIncludesCurrentUser, updateBuyPost } from '../../logic'
+import { isCurrentUser, isIncludesCurrentUser } from '../../logic'
 
 
 export default ({ list: { id, owner, name, date}, onEditList, onGotoList }) => {

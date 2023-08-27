@@ -12,16 +12,18 @@ export default ({ listId, onAccept }) => {
 
     const [list, setList] = useState()
     const [contacts, setContacts] = useState()
+   
 
-    const handleRefreshList = async () => {
+    const handleRefreshEditList = async () => {
         try {
             freeze()
-            const [tmpList, tmpContact] = await Promise.all([retrieveList(listId), retrieveUserContacts()])
+            const [tmpList, tmpContacs] = await Promise.all([ retrieveList(listId), retrieveUserContacts()])
+            setList(tmpList)  
+            setContacts(tmpContacs)
+
+            //setList( await retrieveList(listId))
+            //setContacts(await retrieveUserContacts())
             unfreeze()
-
-            setList(tmpList)
-            setContacts(tmpContact)
-
         } catch(error) {
             unfreeze()
             alert(error.message)
@@ -35,8 +37,8 @@ export default ({ listId, onAccept }) => {
     }
 
     useEffect(() => {      
-        handleRefreshList()
-    }, [list])
+         handleRefreshEditList()
+    }, [])
 
     return <>
         <Container tag="section" className="modal">
@@ -58,7 +60,7 @@ export default ({ listId, onAccept }) => {
                 <h2>Guest</h2>
 
                 <u>
-                    {list && list.guest && list.guest.map(contact => <EditListGuest 
+                    {list && list.guests && list.guests.map(contact => <EditListGuest 
                         key={contact.id} 
                         contact={contact} 
                         />)
@@ -74,7 +76,7 @@ export default ({ listId, onAccept }) => {
                         key={contact.id} 
                         contact={contact} 
                         listId={listId}
-                        onModifyContact={handleRefreshList}
+                        onModifyContact={handleRefreshEditList}
                         />)
                     }
 
@@ -88,13 +90,13 @@ export default ({ listId, onAccept }) => {
                         key={contact.id} 
                         contact={contact} 
                         listId={listId}
-                        onInvitedContact={handleRefreshList}
+                        onInvitedContact={handleRefreshEditList}
                         />)
                     }
 
                 </u>
             </section>
-            <Button onClick={handleAccept}>Add</Button>
+            <Button onClick={handleAccept}>Accept</Button>
         </Container>
     </>
 }

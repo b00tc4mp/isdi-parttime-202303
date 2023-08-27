@@ -1,5 +1,9 @@
 import context from "./context"
 
+import { validators } from 'com'
+
+const { validateId } = validators
+
 /**
  * Add the contact for the user's
  * 
@@ -8,7 +12,7 @@ import context from "./context"
 
 export default async (contactId) => {
     validateId(contactId, 'contact id')
-    
+
     const res = await fetch(`${import.meta.env.VITE_API_URL}/users/contact/${contactId}/add`, {
         method: 'POST',
         headers: {

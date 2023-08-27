@@ -138,7 +138,7 @@ export default function HomeUser() {
 
                 
                 {modal === 'edit-list' && <EditListModal 
-                    onCancel={handleCloseModal}
+                    onAccept={handleCloseModal}
                     onEditedList={handleCloseModal}
                     listId={listId}
                 />} 
