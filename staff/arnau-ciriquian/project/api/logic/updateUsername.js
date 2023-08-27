@@ -33,7 +33,7 @@ module.exports = (userId, oldUsername, newUsername, password) => {
 
             if (oldUsername !== user.name) throw new ContentError('old username is not correct')
 
-            if (password !== user.password) throw new AuthError('password is not correct')
+            if (password !== user.password) throw new AuthError('wrong password')
 
             return User.updateOne({ '_id': userId }, { name: newUsername })
         })
