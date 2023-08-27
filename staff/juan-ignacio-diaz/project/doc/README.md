@@ -142,7 +142,12 @@ List
 
 ### Test Coverage
 
-![](https://wac-cdn.atlassian.com/dam/jcr:f29e7890-4a7a-4590-bc8b-c4c775ec301d/CDmicro-600x338-retina2x-A_11-58-7.png?cdnVersion=1077)
+- http://127.0.0.1:5500/staff/juan-ignacio-diaz/project/api/coverage/index.html
+
+
+### Layout
+
+- https://www.figma.com/file/VCBZByk6KRObBrvtfeBLVl/Untitled?type=design&node-id=0%3A1&mode=design&t=KHQ74rWI80z9Vr4j-1
 
 ## Planning
 
