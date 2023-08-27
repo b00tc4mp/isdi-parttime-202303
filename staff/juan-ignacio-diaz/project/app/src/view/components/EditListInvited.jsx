@@ -1,8 +1,10 @@
 import { useAppContext } from '../../hooks'
 
-export const DEFAULT_AVATAR_URL = "https://img.icons8.com/color/512/avatar.png"
+import { Container, Button } from '../library'
 
-import { declineGuestList } from '../../logic'
+import { deleteUserToInvitedList } from '../../logic'
+
+import { DEFAULT_AVATAR_URL } from '../../constants'
 
 export default ({ listId, contact: { id, name, avatar}, onModifyContact}) => {
     console.log('Edit List Invited -> render')
@@ -12,7 +14,7 @@ export default ({ listId, contact: { id, name, avatar}, onModifyContact}) => {
     const handleDeleteInvited = async () => {
         try{
             freeze()
-            await declineGuestList(listId, id)
+            await deleteUserToInvitedList(listId, id)
             unfreeze()
 
             onModifyContact()
@@ -24,16 +26,10 @@ export default ({ listId, contact: { id, name, avatar}, onModifyContact}) => {
     }
 
     return <>
-        <li>
-            <div className="post-Author">
+            <Container type="row">
                 <img className="home-header-avatar" src={avatar? avatar : DEFAULT_AVATAR_URL} alt=""/>
                 <h1 className="name">{name}</h1>
-
-                <div>
-                    <button onClick={handleDeleteInvited}>🗑</button>      
-                </div>
-            </div>
-
-        </li>
+                <Button onClick={handleDeleteInvited}>🗑</Button>      
+            </Container>
     </>
 }

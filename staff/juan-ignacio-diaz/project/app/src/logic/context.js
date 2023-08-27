@@ -10,6 +10,19 @@ const context = {
     },
     get token() {
         return sessionStorage.token
+    },
+
+    set listId(listId) {
+        if (!listId) {
+            delete sessionStorage.listId
+
+            return
+        }
+
+        sessionStorage.listId = listId
+    },
+    get listId() {
+        return sessionStorage.listId
     }
 }
 

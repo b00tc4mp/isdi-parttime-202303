@@ -9,7 +9,7 @@ import { logoutUser, retrieveUser } from '../../logic'
 
 import './Home.css'
 
-export const DEFAULT_AVATAR_URL = "https://img.icons8.com/color/512/avatar.png"
+import { DEFAULT_AVATAR_URL } from '../../constants'
 
 export default function HomeUser() {
     console.log('Home -> render')

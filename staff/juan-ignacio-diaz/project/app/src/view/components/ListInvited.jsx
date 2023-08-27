@@ -1,6 +1,8 @@
 import { useAppContext } from '../../hooks'
 
-import { isCurrentUser, isIncludesCurrentUser, acceptGuestList } from '../../logic'
+import { Container, Button } from '../library'
+
+import { acceptGuestList, declineGuestList } from '../../logic'
 
 import { utils } from 'com'
 
@@ -11,10 +13,24 @@ export default ({ list, onModifyList}) => {
 
     const { alert, freeze, unfreeze } = useAppContext()
 
-    const handleAcceptGuest = () => {
+    const handleAcceptGuestList = async () => {
         try {
             freeze()
-            acceptGuestList(id)
+            await acceptGuestList(list.id)
+            unfreeze()
+
+            onModifyList()
+        }
+        catch(error){
+            unfreeze()
+            alert(error.message)
+        }
+    }
+
+    const handleDeclineGuestList = async () => {
+        try {
+            freeze()
+            await declineGuestList(list.id)
             unfreeze()
 
             onModifyList()
@@ -26,17 +42,11 @@ export default ({ list, onModifyList}) => {
     }
 
     return <>
-        <article className="post-article post-text">
-            <div className = "post-menssage">
-                <p>{list.name}</p>
-                <time>📎 {list.date.toLocaleString()}</time>   
-            </div>
-            <div className = "post-button">
-                <div>
-                    <button className = "button-save" onClick={handleAcceptGuest}> '📌'</button>
-                </div>
-
-            </div>
-        </article>
+        <Container type="row">
+            <p>{list.name}</p>
+            <time>📎 {list.date.toLocaleString()}</time>   
+            <Button onClick={handleAcceptGuestList}>📌</Button>
+            <Button onClick={handleDeclineGuestList}>🗑</Button>
+        </Container>
     </>
 }

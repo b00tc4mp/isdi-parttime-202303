@@ -5,6 +5,7 @@ import loginUser from './loginUser'
 import logoutUser from './logoutUser'
 import deleteUserContact from './deleteUserContact'
 import addUserToInvitedList from './addUserToInvitedList'
+import deleteUserToInvitedList from './deleteUserToInvitedList'
 import declineGuestList from './declineGuestList'
 import registerUser from './registerUser'
 import retrieveUser from './retrieveUser'
@@ -28,6 +29,7 @@ export {
     logoutUser,
     deleteUserContact,
     addUserToInvitedList,
+    deleteUserToInvitedList,
     declineGuestList,
     registerUser,
     retrieveUser,

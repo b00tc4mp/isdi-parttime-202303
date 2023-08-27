@@ -17,8 +17,9 @@ export default ({ onEditedList, onCreatedList, onGotoList, lastUpdate }) => {
     const handleRefreshLists = async ()  => {
         try{
             freeze()
-            setListsInvited( await retrieveListsInvited())
-            setListsGuest( await retrieveListsGuest())
+            const [tmpListsInvited, tmpListsGuest] = await Promise.all([retrieveListsInvited(), retrieveListsGuest()]) 
+            setListsInvited(tmpListsInvited)
+            setListsGuest(tmpListsGuest)
             unfreeze()
         }
         catch (error) {
@@ -26,29 +27,17 @@ export default ({ onEditedList, onCreatedList, onGotoList, lastUpdate }) => {
             alert(error.message)
         }   
     }
-
-    useEffect(() => {      
-        handleRefreshLists()
-    }, [lastUpdate])
 
     const handleNewList = () => onCreatedList()
 
     const handleGotoList = (id) => onGotoList(id)
 
-    const handleAcceptlist = async (id) => {
-        try{
-            freeze()
-            setListsInvited( await acceptGuestList(id))
-            unfreeze()
-        }
-        catch (error) {
-            unfreeze()
-            alert(error.message)
-        }   
-    }
+    useEffect(() => {      
+        handleRefreshLists()
+    }, [lastUpdate])
 
     return <>
-        <Container tag="section" className="profile">
+        <Container tag="section">
             <Button onClick={handleNewList}>New list</Button>
             <Label >Guest of the lists:</Label>
             <section>
@@ -61,13 +50,13 @@ export default ({ onEditedList, onCreatedList, onGotoList, lastUpdate }) => {
                 }
             </section>
         </Container>
-        <Container tag="section" className="profile">
+        <Container tag="section">
             <Label >Invitation to the lists:</Label>
             <section>
-                {listsInvited && listsInvited.map(list => <ListActive 
+                {listsInvited && listsInvited.map(list => <ListInvited 
                         key={list.id} 
                         list={list} 
-                        onAcceptList={handleAcceptlist(list.id)}
+                        onModifyList={handleRefreshLists}
                     />)
                 }
             </section>

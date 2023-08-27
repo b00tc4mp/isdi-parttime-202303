@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 
 import { useAppContext } from '../../hooks'
 
-import { Container, Form, Input, Button, Label } from '../library'
+import { Container, Button, Label } from '../library'
 import { EditListGuest, EditListInvited, EditListContact } from '../components'
 
 import { retrieveList, retrieveUserContacts } from '../../logic'
@@ -42,7 +42,7 @@ export default ({ listId, onAccept }) => {
 
     return <>
         <Container tag="section" className="modal">
-            <section>
+            <Container tag="div">
                 {list && <>
                     <Label htmlFor="nameRegister">Name:</Label>
                     <Label type="text" name="name" placeholder="name">{list.name}</Label>
@@ -55,47 +55,36 @@ export default ({ listId, onAccept }) => {
                     <Label htmlFor="emailRegister">Date End:</Label>
                     <Label type="date" name="date" />
                 </>}
-            </section>
-            <section>
-                <h2>Guest</h2>
+            </Container>
+            <Container tag="div">
+                <h4>Guest</h4>
+                {list && list.guests && list.guests.map(contact => <EditListGuest 
+                    key={contact.id} 
+                    contact={contact} 
+                    />)
+                }
 
-                <u>
-                    {list && list.guests && list.guests.map(contact => <EditListGuest 
-                        key={contact.id} 
-                        contact={contact} 
-                        />)
-                    }
-
-                </u>
-            </section>
-            <section>
+            </Container>
+            <Container tag="article">
                 <h2>Invited</h2>
-
-                <u>
-                    {list && list.invited && list.invited.map(contact => <EditListInvited 
-                        key={contact.id} 
-                        contact={contact} 
-                        listId={listId}
-                        onModifyContact={handleRefreshEditList}
-                        />)
-                    }
-
-                </u>
-            </section>
-            <section>
+                {list && list.invited && list.invited.map(contact => <EditListInvited 
+                    key={contact.id} 
+                    contact={contact} 
+                    listId={listId}
+                    onModifyContact={handleRefreshEditList}
+                    />)
+                }
+            </Container>
+            <Container tag="article">
                 <h2>Add contact</h2>
-
-                <u>
-                    {contacts && contacts.map(contact => <EditListContact 
-                        key={contact.id} 
-                        contact={contact} 
-                        listId={listId}
-                        onInvitedContact={handleRefreshEditList}
-                        />)
-                    }
-
-                </u>
-            </section>
+                {contacts && contacts.map(contact => <EditListContact 
+                    key={contact.id} 
+                    contact={contact} 
+                    listId={listId}
+                    onInvitedContact={handleRefreshEditList}
+                    />)
+                }
+            </Container>
             <Button onClick={handleAccept}>Accept</Button>
         </Container>
     </>

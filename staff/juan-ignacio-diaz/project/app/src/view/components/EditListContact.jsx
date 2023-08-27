@@ -1,8 +1,10 @@
 import { useAppContext } from '../../hooks'
 
-export const DEFAULT_AVATAR_URL = "https://img.icons8.com/color/512/avatar.png"
+import { Container, Button } from '../library'
 
 import { addUserToInvitedList } from '../../logic'
+
+import { DEFAULT_AVATAR_URL } from '../../constants'
 
 export default ({ listId,  contact: { id, name, avatar}, onInvitedContact}) => {
     console.log('Edit List Contact -> render')
@@ -24,16 +26,10 @@ export default ({ listId,  contact: { id, name, avatar}, onInvitedContact}) => {
     }
 
     return <>
-        <li>
-            <div className="post-Author">
-                <img className="home-header-avatar" src={avatar? avatar : DEFAULT_AVATAR_URL} alt=""/>
-                <h1 className="name">{name}</h1>
-
-                <div>
-                    <button onClick={handleAddContact}>+</button>      
-                </div>
-            </div>
-
-        </li>
+        <Container type="row">
+            <img className="home-header-avatar" src={avatar? avatar : DEFAULT_AVATAR_URL} alt=""/>
+            <h1 className="name">{name}</h1>
+            <Button onClick={handleAddContact}>+</Button>      
+        </Container>
     </>
 }

@@ -1,6 +1,6 @@
 import { useAppContext } from '../../hooks'
 
-export const DEFAULT_AVATAR_URL = "https://img.icons8.com/color/512/avatar.png"
+import { DEFAULT_AVATAR_URL } from '../../constants'
 
 import { deleteUserContact } from '../../logic'
 
