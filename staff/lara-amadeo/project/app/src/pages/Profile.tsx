@@ -19,6 +19,9 @@ import EmptyState from "../library/components/EmptyState";
 import retrieveWaitingToPickUp from "../logic/retrieveWaitingToPickUp";
 import WaitingToDeliverCard from '../library/modules/WaitingToDeliverCard'
 
+import Skeleton from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
+
 type User = {
     name: string,
     availability: Array<object>,
@@ -128,13 +131,13 @@ export default function Profile(): JSX.Element {
         <Topbar level={'first'} />
         <div className="page-first-level">
             <div className="profile-first-part">
-                {user && <Avatar image={user.avatar} width={"60px"} />}
-                {user && <div className="profile-info">
+                {user ? <Avatar image={user.avatar} width={"60px"} /> : <Skeleton width={'60px'} height={'60px'} baseColor="#f4f4f4" highlightColor="#eeeeee" />}
+                {user ? <div className="profile-info">
                     <p className="small-text grey-400">{`@${user.username}`}</p>
                     <p className="title gre-700">{user.name}</p>
                     <p className="tiny-text grey-400">{user.description}</p>
                     <p className="tiny-text grey-400 italic">{user.tags}</p>
-                </div>}
+                </div> : <Skeleton count={3} containerClassName="flex-1" />}
             </div>
             <div className="profile-second-part">
 
@@ -196,6 +199,7 @@ export default function Profile(): JSX.Element {
                 ]} />
 
                 <div className="profile-meals-list">
+                    {tabView === 'myProducts' && !meals && <Skeleton count={3} containerClassName="flex-1" height={'110px'} className="meals-profile-skeleton" baseColor="#f4f4f4" highlightColor="#eeeeee" />}
                     {tabView === 'myProducts' && meals && meals.map((meal: Meal) => {
                         return <MealCard key={meal.id} meal={{
                             image: meal.images[0],

@@ -14,6 +14,8 @@ import useHandleError from "../logic/hooks/useHandleError"
 import EmptyState from "../library/components/EmptyState"
 import FakeSearchBar from "../library/components/FakeSearchBar"
 import Spinner from "../library/components/Spinner"
+import Skeleton from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
 
 type User = {
     name: string,
@@ -75,7 +77,7 @@ export default function Home() {
                 <IconButton icon={<AdjustmentsVerticalIcon className="icon-s grey-700" />} type={'secondary'} onClick={onFilterClick} />
             </div>
             <div className="meals-list">
-                {!meals && <div className="home-meals-spinner"><Spinner size="small" /></div>}
+                {!meals && <Skeleton count={3} containerClassName="flex-1" height={'110px'} className="meals-profile-skeleton" baseColor="#f4f4f4" highlightColor="#eeeeee" />}
                 {meals && meals.map((meal: Meal) => {
                     return <MealCard key={meal.id} meal={{
                         image: meal.images[0],

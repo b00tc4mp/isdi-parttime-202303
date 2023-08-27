@@ -30,7 +30,7 @@
         }
     ],
     "theme_color": "#FFC938",
-    "background_color": "#FFFFFF",
+    "background_color": "#4D4D4D",
     "display": "standalone",
     "scope": "/",
     "start_url": "https://yuper.surge.sh"

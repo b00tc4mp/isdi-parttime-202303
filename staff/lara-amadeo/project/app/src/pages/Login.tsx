@@ -16,6 +16,7 @@ export default function Login(): JSX.Element {
     const location = useLocation()
     const from = location.state
 
+
     const onLoginClick = (event: React.SyntheticEvent) => {
         event.preventDefault()
 

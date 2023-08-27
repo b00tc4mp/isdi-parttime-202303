@@ -18,7 +18,7 @@ import Cart from './pages/Cart'
 import Search from './pages/Search'
 import Splash from './library/components/Splash'
 //@ts-ignore
-import PWAPrompt from 'react-ios-pwa-prompt'
+//import PWAPrompt from 'react-ios-pwa-prompt'
 
 
 type ToastProperties = {
@@ -59,11 +59,9 @@ function App() {
 
   const handleRemoveToast = () => setToast(null)
 
-
   return <>
     <Context.Provider value={{ loaderOn: showLoader, loaderOff: hideLoader, navigate, toast: showToast, spinnerOn: showSpinner, spinnerOff: hideSpinner }}>
       <Routes>
-        <Route path='/splash' element={<Splash />} />
         <Route path='/' element={isUserLoggedIn() ? <Home /> : <Navigate to="/login" />} />
         <Route path='/login' element={isUserLoggedIn() ? <Navigate to="/" /> : <Login />} />
         <Route path='/register' element={isUserLoggedIn() ? <Navigate to="/" /> : <Register />} />
@@ -74,7 +72,7 @@ function App() {
         <Route path='/cart' element={isUserLoggedIn() ? <Cart /> : <Navigate to="/login" />} />
         <Route path='/search' element={isUserLoggedIn() ? <Search /> : <Navigate to="/login" />} />
       </Routes>
-      <PWAPrompt promptOnVisit={1} timesToShow={3} copyClosePrompt="Close" permanentlyHideOnDismiss={false} delay={500} />
+      {/* <PWAPrompt promptOnVisit={1} timesToShow={3} copyClosePrompt="Close" permanentlyHideOnDismiss={false} /> */}
       {loader && <Loader />}
       {toast && <Toast message={toast.message} type={toast.type} endAnimation={handleRemoveToast} />}
     </Context.Provider>
