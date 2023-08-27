@@ -1,5 +1,3 @@
-const { ObjectId } = require('mongodb')
-
 module.exports = {
     user: () => ({
         name: `name-${Math.random()}`,
@@ -7,11 +5,8 @@ module.exports = {
         password: `Password-${Math.random()}`
     }),
 
-    post: userId => ({
-        author: userId,
-        image: `image-${Math.random()}`,
-        text: `text-${Math.random()}`,
-        date: new Date,
-        likes: []
+    character: () => ({
+        name: `name-${Math.random()}`,
+        avatar: `image-${Math.random()}`,
     })
 }

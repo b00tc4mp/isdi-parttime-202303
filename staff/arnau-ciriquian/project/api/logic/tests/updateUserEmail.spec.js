@@ -4,7 +4,6 @@ const updateUserEmail = require('../updateUserEmail.js')
 const { cleanUp, populate, generate } = require('../helpers-tests')
 const { expect } = require('chai')
 const { ExistenceError, DuplicityError, AuthError } = require('com/errors')
-const sinon = require("sinon")
 
 let user
 
@@ -12,10 +11,6 @@ beforeEach(() => {
     user = generate.user()
 
     return cleanUp()
-})
-
-afterEach(() => {
-    sinon.restore()
 })
 
 describe('updateUserEmail Function', () => {

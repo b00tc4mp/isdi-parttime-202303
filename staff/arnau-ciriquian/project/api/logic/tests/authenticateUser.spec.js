@@ -3,7 +3,6 @@ const authenticateUser = require('../authenticateUser.js')
 const { cleanUp, populate, generate } = require('../helpers-tests')
 const { expect } = require('chai')
 const { ExistenceError, AuthError } = require('com/errors')
-const sinon = require("sinon")
 
 let user
 
@@ -11,10 +10,6 @@ beforeEach(() => {
     user = generate.user()
 
     return cleanUp()
-})
-
-afterEach(() => {
-    sinon.restore()
 })
 
 describe('authenticateUser Function', () => {

@@ -1,11 +1,12 @@
-const { User } = require('../../data/models')
+const { User, Character } = require('../../data/models')
 
 module.exports = async () => {
   try {
     await Promise.all([
-      User.deleteMany(), // Delete all documents from the User collection
-    ]);
+      User.deleteMany(),
+      Character.deleteMany()
+    ])
   } catch (error) {
-    console.error('Cleanup error:', error);
+    console.error('Cleanup error:', error)
   }
-};
+}

@@ -4,7 +4,6 @@ const updateUsername = require('../updateUsername.js')
 const { cleanUp, populate, generate } = require('../helpers-tests')
 const { expect } = require('chai')
 const { ExistenceError, DuplicityError, AuthError, ContentError } = require('com/errors')
-const sinon = require("sinon")
 
 let user
 
@@ -13,11 +12,6 @@ beforeEach(() => {
 
     return cleanUp()
 })
-
-afterEach(() => {
-    sinon.restore()
-})
-
 
 describe('updateUsename Function', () => {
     it('succeeds on updating username', async () => {
