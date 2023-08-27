@@ -37,3 +37,8 @@
     align-items: center;
     padding-left: 32px;
 }
+
+.topbar-logo {
+    width: 32px;
+    height: 32px;
+}

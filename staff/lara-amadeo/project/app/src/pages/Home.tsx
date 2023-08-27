@@ -13,6 +13,7 @@ import useAppContext from "../logic/hooks/useAppContext"
 import useHandleError from "../logic/hooks/useHandleError"
 import EmptyState from "../library/components/EmptyState"
 import FakeSearchBar from "../library/components/FakeSearchBar"
+import Spinner from "../library/components/Spinner"
 
 type User = {
     name: string,
@@ -57,6 +58,10 @@ export default function Home() {
         navigate(`/meal/${id}`, { state: currentPath })
     }
 
+    const onFilterClick = () => {
+        alert('🛠️ Feature coming soon! Please, be patient')
+    }
+
     return <>
         <Topbar level={'first'} />
         <div className="page-first-level">
@@ -67,9 +72,10 @@ export default function Home() {
 
             <div className="list-header">
                 <p className="heading-s grey-700">Meals near you</p>
-                <IconButton icon={<AdjustmentsVerticalIcon className="icon-s grey-700" />} type={'secondary'} />
+                <IconButton icon={<AdjustmentsVerticalIcon className="icon-s grey-700" />} type={'secondary'} onClick={onFilterClick} />
             </div>
             <div className="meals-list">
+                {!meals && <div className="home-meals-spinner"><Spinner size="small" /></div>}
                 {meals && meals.map((meal: Meal) => {
                     return <MealCard key={meal.id} meal={{
                         image: meal.images[0],

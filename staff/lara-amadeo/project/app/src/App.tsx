@@ -14,9 +14,12 @@ import CreateMeal from './modals/CreateMeal'
 import Profile from './pages/Profile'
 import MealDetails from './pages/MealDetails'
 import Toast from './library/components/Toast'
-import EditMeal from './modals/EditMeal'
 import Cart from './pages/Cart'
 import Search from './pages/Search'
+import Splash from './library/components/Splash'
+//@ts-ignore
+import PWAPrompt from 'react-ios-pwa-prompt'
+
 
 type ToastProperties = {
   message: string,
@@ -26,6 +29,7 @@ type ToastProperties = {
 function App() {
 
   const [loader, setLoader] = useState(false)
+  const [spinner, setSpinner] = useState(false)
   const [toast, setToast] = useState<ToastProperties | null>(null)
   const navigate = useNavigate()
 
@@ -35,6 +39,14 @@ function App() {
 
   const hideLoader = () => {
     setLoader(false)
+  }
+
+  const showSpinner = () => {
+    setSpinner(true)
+  }
+
+  const hideSpinner = () => {
+    setSpinner(false)
   }
 
   const closeModal = () => {
@@ -49,8 +61,9 @@ function App() {
 
 
   return <>
-    <Context.Provider value={{ loaderOn: showLoader, loaderOff: hideLoader, navigate, toast: showToast }}>
+    <Context.Provider value={{ loaderOn: showLoader, loaderOff: hideLoader, navigate, toast: showToast, spinnerOn: showSpinner, spinnerOff: hideSpinner }}>
       <Routes>
+        <Route path='/splash' element={<Splash />} />
         <Route path='/' element={isUserLoggedIn() ? <Home /> : <Navigate to="/login" />} />
         <Route path='/login' element={isUserLoggedIn() ? <Navigate to="/" /> : <Login />} />
         <Route path='/register' element={isUserLoggedIn() ? <Navigate to="/" /> : <Register />} />
@@ -61,6 +74,7 @@ function App() {
         <Route path='/cart' element={isUserLoggedIn() ? <Cart /> : <Navigate to="/login" />} />
         <Route path='/search' element={isUserLoggedIn() ? <Search /> : <Navigate to="/login" />} />
       </Routes>
+      <PWAPrompt promptOnVisit={1} timesToShow={3} copyClosePrompt="Close" permanentlyHideOnDismiss={false} delay={500} />
       {loader && <Loader />}
       {toast && <Toast message={toast.message} type={toast.type} endAnimation={handleRemoveToast} />}
     </Context.Provider>

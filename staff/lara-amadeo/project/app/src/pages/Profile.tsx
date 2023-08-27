@@ -130,7 +130,7 @@ export default function Profile(): JSX.Element {
             <div className="profile-first-part">
                 {user && <Avatar image={user.avatar} width={"60px"} />}
                 {user && <div className="profile-info">
-                    <p className="tiny-text grey-400">{user.username}</p>
+                    <p className="small-text grey-400">{`@${user.username}`}</p>
                     <p className="title gre-700">{user.name}</p>
                     <p className="tiny-text grey-400">{user.description}</p>
                     <p className="tiny-text grey-400 italic">{user.tags}</p>
@@ -138,7 +138,7 @@ export default function Profile(): JSX.Element {
             </div>
             <div className="profile-second-part">
 
-                <div className="profile-opt">
+                <div className="profile-opt" onClick={() => alert('🛠️ Feature coming soon! Please, be patient')}>
                     <div className="profile-opt-label">
                         <HeartIcon className="icon-xs grey-700" />
                         <p className="body-text grey-700">My favourites</p>
@@ -147,7 +147,7 @@ export default function Profile(): JSX.Element {
                 </div>
                 <Divider width="100%" />
 
-                <div className="profile-opt">
+                <div className="profile-opt" onClick={() => alert('🛠️ Feature coming soon! Please, be patient')}>
                     <div className="profile-opt-label">
                         <CubeIcon className="icon-xs grey-700" />
                         <p className="body-text grey-700">Past orders</p>
@@ -156,7 +156,7 @@ export default function Profile(): JSX.Element {
                 </div>
                 <Divider width="100%" />
 
-                <div className="profile-opt">
+                <div className="profile-opt" onClick={() => alert('🛠️ Feature coming soon! Please, be patient')}>
                     <div className="profile-opt-label">
                         <UserIcon className="icon-xs grey-700" />
                         <p className="body-text grey-700">My account</p>
@@ -165,8 +165,8 @@ export default function Profile(): JSX.Element {
                 </div>
                 <Divider width="100%" />
 
-                <div className="profile-opt">
-                    <div className="profile-opt-label" onClick={inLoggoutClick}>
+                <div className="profile-opt" onClick={inLoggoutClick}>
+                    <div className="profile-opt-label" >
                         <ArrowRightOnRectangleIcon className="icon-xs grey-700" />
                         <p className="body-text grey-700">Log out</p>
                     </div>

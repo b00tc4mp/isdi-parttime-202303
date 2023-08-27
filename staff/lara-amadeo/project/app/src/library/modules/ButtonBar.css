@@ -2,7 +2,7 @@
     width: 100vw;
     height: fit-content;
     display: flex;
-    padding: 16px 16px 32px 16px;
+    padding: 16px 16px 40px 16px;
     flex-direction: column;
     align-items: center;
     gap: 10px;
@@ -11,5 +11,5 @@
     box-shadow: 0px -2px 8px 0px rgba(0, 0, 0, 0.05);
     position: fixed;
     z-index: 500;
-    bottom: 34px;
+    bottom: 0px;
 }

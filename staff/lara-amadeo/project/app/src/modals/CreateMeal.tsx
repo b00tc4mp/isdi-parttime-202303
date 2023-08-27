@@ -36,8 +36,6 @@ export default function CreateMeal(): JSX.Element {
     const formRef = useRef<HTMLFormElement>(null)
 
     const [price, setPrice] = useState("")
-    // const [bestBefore, setBestBefore] = useState("")
-    // const [quantity, setQuantity] = useState("")
 
     const onCategoryClick = (category: string) => {
         if (categories && categories.includes(category)) {
@@ -49,6 +47,11 @@ export default function CreateMeal(): JSX.Element {
 
 
     const handleAddMeal = () => {
+        if (mealImages.length === 0) {
+            toast('At least one image is required.', 'error')
+            return
+        }
+
         if (formRef !== null) {
             const form = formRef.current as typeof formRef.current & {
                 title: { value: string },
@@ -65,7 +68,6 @@ export default function CreateMeal(): JSX.Element {
             const ingredients = form.ingredients.value.split(",").map(item => item.trim())
             const bestBefore = Number(form.bestBefore.value)
             const quantity = Number(form.quantity.value);
-
 
             (async () => {
                 loaderOn()
@@ -95,7 +97,7 @@ export default function CreateMeal(): JSX.Element {
     }
     //@ts-ignore
     const onValidateFile = (res) => {
-        if (res.type === 'image/png' && res.size < 500000 || res.type === 'image/jpeg' && res.size < 500000 || res.type === 'image/webp' && res.size < 500000 || res.type === 'image/heic' && res.size < 500000) return true
+        if (res.type === 'image/png' || res.type === 'image/jpeg' || res.type === 'image/webp' || res.type === 'image/heic' || res.type === 'image/heif' && res.size < 500000) return true
 
         else { alert('File format or size not permitted') }
     }

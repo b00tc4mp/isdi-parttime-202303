@@ -62,7 +62,7 @@ body {
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: fit-content;
+  height: 100%;
   padding-top: 64px;
   box-sizing: border-box;
   padding-bottom: 90px;

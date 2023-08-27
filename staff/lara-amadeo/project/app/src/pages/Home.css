@@ -11,8 +11,17 @@
     flex-direction: column;
     gap: 8px;
     margin-top: 16px;
+    height: 100%;
 }
 
 .home-navigation-row {
     margin-top: 24px
+}
+
+.home-meals-spinner {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
 }

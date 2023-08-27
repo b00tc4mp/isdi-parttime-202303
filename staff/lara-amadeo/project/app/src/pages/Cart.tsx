@@ -250,7 +250,7 @@ export default function Cart() {
     return <>
         {paymentModal && !paymentDone && <Payment onPaymentClose={() => setPaymentModal(false)} onPayClick={handlePayFromModal} />}
         {!paymentModal && !paymentDone && <>
-            <Topbar level={'first'} />
+            <Topbar level={'first'} firstLevel={{ onChatClick: () => alert('🛠️ Feature coming soon! Please, be patient') }} />
             <div className="page-first-level" >
                 <Tabs items={[
                     {

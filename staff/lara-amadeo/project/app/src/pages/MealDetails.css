@@ -53,10 +53,11 @@
     height: 100vh;
     background-color: rgba(44, 39, 24, 0.10);
     z-index: 1000;
-    position: absolute;
+    position: fixed;
     display: flex;
     justify-content: center;
     align-items: flex-end;
+    overflow: hidden;
 }
 
 .slider-left-icon {
@@ -86,4 +87,12 @@
     position: absolute;
     z-index: 20;
     padding: 8px;
+}
+
+.meal-details-spinner {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
 }

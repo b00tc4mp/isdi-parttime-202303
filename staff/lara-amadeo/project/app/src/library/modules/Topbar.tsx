@@ -14,7 +14,8 @@ export default function Topbar({ level, secondLevel, firstLevel, className }: Pr
     return <>
         <div className={`topbar-container ${className}`}>
             {level === 'first' && <>
-                <IconButton icon={<Bars3Icon className='icon-xs grey-700' />} type={'secondary'} onClick={firstLevel?.onMenuClick} />
+                <div className='topbar-logo'></div>
+                {/* <IconButton icon={<Bars3Icon className='icon-xs grey-700' />} type={'secondary'} onClick={firstLevel?.onMenuClick} /> */}
                 <IconButton icon={<ChatBubbleLeftRightIcon className='icon-xs grey-700' />} type={'secondary'} onClick={firstLevel?.onChatClick} />
             </>}
             {level === 'second' && <>

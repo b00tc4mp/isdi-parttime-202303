@@ -21,6 +21,7 @@ import Divider from '../library/components/Divider'
 import addMealToCart from '../logic/addMealToCart'
 import { Carousel } from 'flowbite-react'
 import isUserLoggedIn from '../logic/isUserLoggedIn'
+import Spinner from '../library/components/Spinner'
 
 
 type Meal = {
@@ -186,8 +187,9 @@ export default function MealDetails(): JSX.Element {
             </ContextualModalMenu>
         </>}
         <Topbar level='second' secondLevel={{ label: "Meal detail", left: <ArrowLeftIcon className='icon-s grey-700' />, onLeftClick: onBackClick, right: <EllipsisVerticalIcon className='icon-s grey-700' />, onRightClick: onOptionsClick }} />
-        <div className='page-first-level' style={{ overflow: contextualModal === true ? 'hidden' : 'auto', paddingBottom: meal?.author.id !== userId ? '116px' : '24px' }}>
+        <div className='page-first-level' style={{ overflow: contextualModal === true ? 'hidden' : 'auto', paddingBottom: meal?.author.id !== userId ? '110px' : '24px' }}>
 
+            {!meal && <div className='meal-details-spinner'><Spinner size='small' /></div>}
             {/* upper-part */}
             <div className='meal-detail-upper-part'>
                 {/* image-carousel */}
@@ -215,7 +217,7 @@ export default function MealDetails(): JSX.Element {
 
                     {/* counter - actionButton */}
                     <div className='meal-detail-img-info-counter'>
-                        {meal?.author.id !== userId ? <>
+                        {meal && meal?.author.id !== userId ? <>
                             <IconButton icon={<MinusIcon className='icon-s grey-700' />} type={'secondary'} onClick={decreaseCounter} />
                             <p className='heading-l meal-detail-counter-label'>{mealCounter}</p>
                             <IconButton icon={<PlusIcon className='icon-s grey-700' />} type={'secondary'} onClick={increaseCounter} />
@@ -232,7 +234,7 @@ export default function MealDetails(): JSX.Element {
                 {meal && <DataItem label='Ingredients' content={meal.ingredients.join(", ")} />}
                 {meal && <DataItem label='BestBefore' content={`${meal.bestBefore} days`} />}
                 {meal && <DataItem label='Price' content={`${meal.price}€`} />}
-                <Divider width='100%' />
+                {meal && <Divider width='100%' />}
                 {meal && <ChefModule avatar={meal.author.avatar} name={meal.author.name} liked={false} onSendMessage={onSendMessageButton} />}
             </div>
         </div>
