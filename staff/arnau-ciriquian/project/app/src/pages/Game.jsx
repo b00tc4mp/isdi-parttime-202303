@@ -11,13 +11,13 @@ export default function Game({ onFinishGame, zombiesToKill }) {
   //const zombies = createZombiesArray(zombiesToKill)
   const [zombies] = useState(createZombiesArray(zombiesToKill))
   const [playerHealth, setPlayerHealth] = useState(50)
+  const [deadZombies, setDeadZombies] = useState(0)
 
   // pre finish game test
-
-  let deadZombies = 0
-
   const handleDeadZombies = () => {
-    deadZombies += 1
+    setDeadZombies(deadZombies + 1)
+
+    console.log(zombiesToKill, deadZombies)
 
     if (deadZombies === zombiesToKill) {
       console.log('zombies killed')
@@ -36,7 +36,9 @@ export default function Game({ onFinishGame, zombiesToKill }) {
       console.log('player killed');
       onFinishGame();
     } else {
-      setPlayerHealth(playerHealth - 5); // Update player's health
+      console.log('player -5hp')
+      setPlayerHealth(playerHealth - 5)
+      console.log(playerHealth)
     }
   }
 

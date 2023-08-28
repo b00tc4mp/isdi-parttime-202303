@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { useFrame } from '@react-three/fiber'
 //import getUserLocation from '../logic/getUserLocation';
 import useZombieLoader from '../logic/useZombieLoader';
@@ -6,10 +6,12 @@ import useZombieLoader from '../logic/useZombieLoader';
 export default function Zombie(props) {
     const obj = useZombieLoader()
     const mesh = useRef()
-    
+
+    const [active, setActive] = useState(props.visible)
+
     let i = 1
     let time = 1
-    let active = props.visible
+    //let active = props.visible
 
     useEffect(() => {
         if (mesh.current) {
@@ -20,7 +22,8 @@ export default function Zombie(props) {
     const handleKillZombie = () => {
         if (mesh.current.visible === true) {
             mesh.current.visible = false
-    
+
+
             props.onDeadZombie()
         }
     };
@@ -74,15 +77,18 @@ export default function Zombie(props) {
         }
 
         if (props.time === time && !active) {
-            active = true
+            // = true
+            setActive(true)
             handleShowZombie()
         }
 
 
 
-        if (mesh.current.position.z === -5)
-            if (time % (5 * 60) === 0)
+        if (mesh.current.position.z === -5 && mesh.current.visible === true)
+            if (time % (5 * 60) === 0) {
+                console.log('zombie', props.zombieId, 'attacked')
                 props.onDamagePlayer()
+            }
 
     })
 

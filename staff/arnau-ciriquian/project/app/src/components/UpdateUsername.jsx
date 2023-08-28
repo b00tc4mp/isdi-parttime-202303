@@ -1,4 +1,4 @@
-import { Text, View, TouchableOpacity, Image, TextInput } from "react-native"
+import { Text, View, TouchableOpacity, TextInput } from "react-native"
 import { useState } from "react"
 import { updateUsername } from "../logic/updateUsername.js"
 

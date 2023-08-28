@@ -10,6 +10,7 @@ import UpdateEmail from '../components/UpdateEmail.jsx'
 import UpdatePassword from '../components/UpdatePassword.jsx'
 import UpdateCharacter from '../components/UpdateCharacter.jsx'
 import NewCharacter from '../components/NewCharacter.jsx'
+import Game from './Game.jsx'
 
 const Home = ({ onLogoutSession, onStartGame }) => {
     const [user, setUser] = useState()
@@ -17,6 +18,8 @@ const Home = ({ onLogoutSession, onStartGame }) => {
     const [characterAvatar, setCharacterAvatar] = useState()
     const [modal, setModal] = useState(null)
     const [missionId, setMissionId] = useState(null)
+    const [game, setGame] = useState(false)
+    const [main, setMain] = useState(true)
 
     useEffect(() => {
         try {
@@ -29,7 +32,7 @@ const Home = ({ onLogoutSession, onStartGame }) => {
     }, [])
 
     useEffect(() => {
-        if(user){
+        if (user) {
             if (user.character) {
                 try {
                     getUserCharacter()
@@ -40,7 +43,7 @@ const Home = ({ onLogoutSession, onStartGame }) => {
                 }
             }
         }
-    }, [user])
+    }, [user, modal])
 
     useEffect(() => {
         if (character) {
@@ -71,11 +74,17 @@ const Home = ({ onLogoutSession, onStartGame }) => {
 
     const handleStartNewGame = () => {
         setModal(null)
-        onStartGame()
+        setMain(false)
+        setGame(true)
     }
 
-    return (
-        <View className="flex justify-center items-center h-screen w-screen _pt-20">
+    const handleFinishGame = () => {
+        setGame(false)
+        setMain(true)
+    }
+
+    return (<>
+        {main && <View className="flex justify-center items-center h-screen w-screen _pt-20">
             <Image source={require('../../assets/home/main-bg.jpg')} className="absolute scale-125 bottom-0" ></Image>
             {modal !== "mission" && user?.character && <View className="flex justify-center items-center h-screen w-screen p-2">
                 <View className="h-20 mr-4 flex-row items-center">
@@ -84,7 +93,7 @@ const Home = ({ onLogoutSession, onStartGame }) => {
                         {character && <Image source={characterAvatar} className="bg-slate-200 h-16 w-16 rounded-tl-lg rounded-tr-3xl rounded-bl-3xl rounded-br-lg"></Image>}
                     </View>
                     <View className="w-2/4 h-20 justify-center items-center">
-                        <View className="justify-center items-center h-10 w-2/4">
+                        <View className="justify-center items-center h-10 w-full">
                             <Text className=" text-2xl font-semibold">{character?.characterName}</Text>
                         </View>
                         <View className="justify-center items-center h-10 w-2/4">
@@ -111,7 +120,7 @@ const Home = ({ onLogoutSession, onStartGame }) => {
                     {modal === "updateUsername" && <UpdateUsername closeUsernameModal={handleUserMenu} />}
                     {modal === "updateEmail" && <UpdateEmail closeEmailModal={handleUserMenu} />}
                     {modal === "updatePassword" && <UpdatePassword closePasswordModal={handleUserMenu} />}
-                    {modal === "updateCharacter" && <UpdateCharacter />}
+                    {modal === "updateCharacter" && <UpdateCharacter closeCharacterModal={handleUserMenu}/>}
                 </View>
             </View>}
             {modal === "mission" && <PlayMissionModal
@@ -122,7 +131,12 @@ const Home = ({ onLogoutSession, onStartGame }) => {
             {(user && !user?.character) && <NewCharacter
                 user={user}
             />}
-        </View>
+        </View>}
+        {game && <Game
+            onFinishGame={handleFinishGame}
+            zombiesToKill={5}
+        />}
+    </>
     )
 }
 
