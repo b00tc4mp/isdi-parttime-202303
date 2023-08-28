@@ -1,6 +1,6 @@
 require('./testSetup.js')
 const getLoggedUser = require('../getLoggedUser.js')
-const { cleanUp, populate, generate } = require('../helpers-tests')
+const { cleanUp, populateUsers, generate } = require('../helpers-tests')
 const { expect } = require('chai')
 const { ExistenceError } = require('com/errors')
 
@@ -15,7 +15,7 @@ beforeEach(() => {
 describe('getLoggedUser Function', () => {
     it('succeeds on retrieving logged user info, without character', async () => {
         const _users = [user]
-        const users = await populate(_users)
+        const users = await populateUsers(_users)
 
         const userId = users[0]._id.toString()
 
@@ -32,7 +32,7 @@ describe('getLoggedUser Function', () => {
     it('succeeds on retrieving logged user info, with character', async () => {
         user.character = `character-${Math.random()}`
         const _users = [user]
-        const users = await populate(_users)
+        const users = await populateUsers(_users)
 
         const userId = users[0]._id.toString()
 

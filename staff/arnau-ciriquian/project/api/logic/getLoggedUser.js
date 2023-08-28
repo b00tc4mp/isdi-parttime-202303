@@ -25,6 +25,7 @@ module.exports = userId => {
 
             delete user._id
             delete user.password
+            delete user.__v
 
             return user
         })

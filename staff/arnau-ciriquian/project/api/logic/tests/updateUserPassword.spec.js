@@ -1,7 +1,7 @@
 require('./testSetup.js')
 const { User } = require('../../data/models')
 const updateUserPassword = require('../updateUserPassword.js')
-const { cleanUp, populate, generate } = require('../helpers-tests')
+const { cleanUp, populateUsers, generate } = require('../helpers-tests')
 const { expect } = require('chai')
 const { ExistenceError, DuplicityError, AuthError, ContentError } = require('com/errors')
 
@@ -19,7 +19,7 @@ describe('updateUsePassword Function', () => {
         const newPassword = `newPassword-${Math.random()}`
         const newPasswordConfirmation = newPassword
         
-        const users = await populate(_users)
+        const users = await populateUsers(_users)
         const userId = users[0]._id.toString()
 
         await updateUserPassword(userId, user.password, newPassword, newPasswordConfirmation)
@@ -47,7 +47,7 @@ describe('updateUsePassword Function', () => {
         const newPassword = user.password
         const newPasswordConfirmation = newPassword
 
-        const users = await populate(_users)
+        const users = await populateUsers(_users)
         const userId = users[0]._id.toString()
 
         try {
@@ -64,7 +64,7 @@ describe('updateUsePassword Function', () => {
         const newPasswordConfirmation = newPassword
 
         const _users = [user]
-        const users = await populate(_users)
+        const users = await populateUsers(_users)
         const userId = users[0]._id.toString()
 
         try {
@@ -81,7 +81,7 @@ describe('updateUsePassword Function', () => {
         const newPassword = user.password
         const newPasswordConfirmation = `${newPassword}1`
 
-        const users = await populate(_users)
+        const users = await populateUsers(_users)
         const userId = users[0]._id.toString()
 
         try {

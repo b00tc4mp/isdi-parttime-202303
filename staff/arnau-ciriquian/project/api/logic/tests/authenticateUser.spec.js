@@ -1,6 +1,6 @@
 require('./testSetup.js')
 const authenticateUser = require('../authenticateUser.js')
-const { cleanUp, populate, generate } = require('../helpers-tests')
+const { cleanUp, populateUsers, generate } = require('../helpers-tests')
 const { expect } = require('chai')
 const { ExistenceError, AuthError } = require('com/errors')
 
@@ -15,7 +15,7 @@ beforeEach(() => {
 describe('authenticateUser Function', () => {
     it('succeeds on authenticating user', async () => {
         const _users = [user]
-        const users = await populate(_users)
+        const users = await populateUsers(_users)
 
         const userId = await authenticateUser(user.email, user.password)
 
@@ -36,7 +36,7 @@ describe('authenticateUser Function', () => {
         const wrongPassword = `${user.password}1`
 
         const users = [user]
-        await populate(users)
+        await populateUsers(users)
 
         try {
             const userId = await authenticateUser(user.email, wrongPassword)

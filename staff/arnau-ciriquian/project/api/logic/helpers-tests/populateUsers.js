@@ -1,8 +1,8 @@
 const { User } = require('../../data/models')
 
-module.exports = async (_users, _posts) => {
+module.exports = async (users) => {
     try {
-        const insertedUsers = await User.insertMany(_users)
+        const insertedUsers = await User.insertMany(users)
         return insertedUsers
         
     } catch (error) {

@@ -27,8 +27,6 @@ module.exports = (userId, missionId) => {
                 .then(mission => {
                     if (!mission) throw new ExistenceError('mission not found')
 
-                    //if (!mission.author.equals(userId)) throw new PropertyError(`mission with id ${missionId} does not belong to user with id ${userId}`)
-
                     return Mission.deleteOne({ _id: missionId })
                 })
         })

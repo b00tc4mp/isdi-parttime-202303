@@ -1,7 +1,7 @@
 require('./testSetup.js')
 const { User } = require('../../data/models')
 const updateUserEmail = require('../updateUserEmail.js')
-const { cleanUp, populate, generate } = require('../helpers-tests')
+const { cleanUp, populateUsers, generate } = require('../helpers-tests')
 const { expect } = require('chai')
 const { ExistenceError, DuplicityError, AuthError } = require('com/errors')
 
@@ -18,7 +18,7 @@ describe('updateUserEmail Function', () => {
         const _users = [user]
         const newEmail = `newEmail-${Math.random()}@test.com`
         
-        const users = await populate(_users)
+        const users = await populateUsers(_users)
         const userId = users[0]._id.toString()
 
         await updateUserEmail(userId, user.email, newEmail, user.password)
@@ -44,7 +44,7 @@ describe('updateUserEmail Function', () => {
         const newEmail = `newEmail-${Math.random()}@test.com`
         const wrongEmail = `wrongEmail-${Math.random()}@test.com`
 
-        const users = await populate(_users)
+        const users = await populateUsers(_users)
         const userId = users[0]._id.toString()
 
         try {
@@ -59,7 +59,7 @@ describe('updateUserEmail Function', () => {
         const _users = [user]
         const newEmail = user.email
 
-        const users = await populate(_users)
+        const users = await populateUsers(_users)
         const userId = users[0]._id.toString()
 
         try {
@@ -75,7 +75,7 @@ describe('updateUserEmail Function', () => {
         const newEmail = `newEmail-${Math.random()}@test.com`
 
         const _users = [user]
-        const users = await populate(_users)
+        const users = await populateUsers(_users)
         const userId = users[0]._id.toString()
 
         try {

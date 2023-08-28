@@ -1,9 +1,10 @@
 require('./testSetup.js')
 const { User, Character } = require('../../data/models')
 const createNewCharacter = require('../createNewCharacter.js')
-const { cleanUp, populate, generate } = require('../helpers-tests')
+const { cleanUp, populateUsers, generate } = require('../helpers-tests')
 const { expect } = require('chai')
-const { ExistenceError, DuplicityError, AuthError, ContentError } = require('com/errors')
+const { ExistenceError } = require('com/errors')
+
 
 let user
 let character
@@ -22,11 +23,11 @@ beforeEach(() => {
 describe('createNewCharacter Function', () => {
     it('succeeds on creating a new character for a user', async () => {
         const _users = [user]
-        const users = await populate(_users)
+        const users = await populateUsers(_users)
 
         const userId = users[0]._id.toString()
 
-        await createNewCharacter(userId, character.name, character.avatar)
+        await createNewCharacter(userId, character.characterName, character.avatar)
 
         const user2 = await User.findOne({ email: user.email })
 
@@ -34,9 +35,19 @@ describe('createNewCharacter Function', () => {
 
         expect(character2).to.exist
         expect(character2._id.toString()).to.equal(user2.character)
-        expect(character2.characterName).to.equal(character.name)
+        expect(character2.characterName).to.equal(character.characterName)
         expect(character2.avatar).to.equal(character.avatar)
         expect(character2.level).to.equal(1)
         expect(character2.missions).to.have.lengthOf(0)
+    })
+
+    it('fails on missing user', async () => {
+        const randomId = '123a123b123c'
+        try {
+            await createNewCharacter(randomId, character.characterName, character.avatar)
+        } catch (error) {
+            expect(error).to.be.instanceOf(ExistenceError)
+            expect(error.message).to.equal(`user not found`)
+        }
     })
 })

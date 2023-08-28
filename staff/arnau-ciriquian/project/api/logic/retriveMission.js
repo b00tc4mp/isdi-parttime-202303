@@ -8,7 +8,7 @@ const { User, Mission } = require('../data/models')
  * Retrieves a single post
  * 
  * @param {string} userId User id
- * @param {string} postId Post id
+ * @param {string} missionId Mission id
  * 
  * @returns Post info corresponding to post id
  * 

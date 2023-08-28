@@ -19,7 +19,6 @@ module.exports = userId => {
     validateId(userId)
 
     return User.findById(userId).lean()
-        //return User.findById(userId)
         .then(user => {
             if (!user) throw new ExistenceError('user not found')
             return Character.findById(user.character).lean()

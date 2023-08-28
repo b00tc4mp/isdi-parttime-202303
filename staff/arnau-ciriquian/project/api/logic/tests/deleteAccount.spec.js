@@ -1,7 +1,7 @@
 require('./testSetup.js')
 const { User } = require('../../data/models')
 const deleteAccount = require('../deleteAccount.js')
-const { cleanUp, populate, generate } = require('../helpers-tests')
+const { cleanUp, populateUsers, generate } = require('../helpers-tests')
 const { expect } = require('chai')
 const { ExistenceError } = require('com/errors')
 
@@ -16,7 +16,7 @@ beforeEach(() => {
 describe('deleteAccount Function', () => {
     it('succeeds on deleting user', async () => {
         const _users = [user]
-        const users = await populate(_users)
+        const users = await populateUsers(_users)
 
         const userId = users[0]._id.toString()
 

@@ -1,9 +1,9 @@
 require('./testSetup.js')
 const { User } = require('../../data/models')
 const updateUsername = require('../updateUsername.js')
-const { cleanUp, populate, generate } = require('../helpers-tests')
+const { cleanUp, populateUsers, generate } = require('../helpers-tests')
 const { expect } = require('chai')
-const { ExistenceError, DuplicityError, AuthError, ContentError } = require('com/errors')
+const { ExistenceError, AuthError, ContentError } = require('com/errors')
 
 let user
 
@@ -18,7 +18,7 @@ describe('updateUsename Function', () => {
         const _users = [user]
         const newUsername = `newUsername-${Math.random()}`
         
-        const users = await populate(_users)
+        const users = await populateUsers(_users)
         const userId = users[0]._id.toString()
 
         await updateUsername(userId, user.name, newUsername, user.password)
@@ -45,7 +45,7 @@ describe('updateUsename Function', () => {
         const newUsername = `newUsername-${Math.random()}`
         const wrongUsername = `wrongUsername-${Math.random()}`
 
-        const users = await populate(_users)
+        const users = await populateUsers(_users)
         const userId = users[0]._id.toString()
 
         try {
@@ -60,7 +60,7 @@ describe('updateUsename Function', () => {
         const _users = [user]
         const newUsername = user.name
 
-        const users = await populate(_users)
+        const users = await populateUsers(_users)
         const userId = users[0]._id.toString()
 
         try {
@@ -76,7 +76,7 @@ describe('updateUsename Function', () => {
         const newUsername = `newUsername-${Math.random()}`
 
         const _users = [user]
-        const users = await populate(_users)
+        const users = await populateUsers(_users)
         const userId = users[0]._id.toString()
 
         try {

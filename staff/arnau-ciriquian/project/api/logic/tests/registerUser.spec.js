@@ -1,7 +1,7 @@
 require('./testSetup.js')
 const { User } = require('../../data/models')
 const registerUser = require('../registerUser.js')
-const { cleanUp, populate, generate } = require('../helpers-tests')
+const { cleanUp, populateUsers, generate } = require('../helpers-tests')
 const { expect } = require('chai')
 const { DuplicityError, ContentError } = require('com/errors')
 const sinon = require("sinon")
@@ -35,7 +35,7 @@ describe('registerUser Function', () => {
         const user2 = generate.user()
         const users = [user2]
 
-        await populate(users)
+        await populateUsers(users)
 
         await registerUser(user.name, user.email, user.password)
 
@@ -51,7 +51,7 @@ describe('registerUser Function', () => {
     it('fails on existing user', async () => {
         const users = [user]
 
-        await populate(users)
+        await populateUsers(users)
 
         try {
             await registerUser(user.name, user.email, user.password)
