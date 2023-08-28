@@ -3,7 +3,7 @@ require('dotenv').config()
 const cors = require('cors')
 const bodyParser = require('body-parser')
 const express = require('express')
-const { helloAPIHandler, registerUserHandler, authenticateUserHandler, registerAdditionalInfoHandler, createMealHandler, retrieveMealsHandler, retrieveUserHandler, retrieveMealHandler, retrieveOwnMealsHandler, updateMealHandler, deleteMealHandler, addMealToCartHandler, retrieveCartMealsHandler, payMealsInCartHandler, removeMealFromCartHandler, retrievePendingToPickUpHandler, incrementMealsInCartHandler, retrievePendingToDeliverHandler, markAsReadyHandler, retrieveWaitingClientToPickUpHandler } = require('./handlers')
+const { helloAPIHandler, registerUserHandler, authenticateUserHandler, registerAdditionalInfoHandler, createMealHandler, retrieveMealsHandler, retrieveUserHandler, retrieveMealHandler, retrieveOwnMealsHandler, updateMealHandler, deleteMealHandler, addMealToCartHandler, retrieveCartMealsHandler, payMealsInCartHandler, removeMealFromCartHandler, retrievePendingToPickUpHandler, incrementMealsInCartHandler, retrievePendingToDeliverHandler, markAsReadyHandler, retrieveWaitingClientToPickUpHandler, serverStatusHandler } = require('./handlers')
 
 const mongoose = require('mongoose')
 
@@ -11,9 +11,9 @@ const ImageKit = require('imagekit');
 
 
 const imagekit = new ImageKit({
-    urlEndpoint: 'https://ik.imagekit.io/6zeyr5rgu/yuperApp/',
-    publicKey: 'public_9DujXADbFrwoOkNd+rUmvTbT/+U=',
-    privateKey: 'private_Ohzt9aum24ztTasqw/eWNiggN+4='
+    urlEndpoint: process.env.urlEndpoint,
+    publicKey: process.env.publicKey,
+    privateKey: process.env.privateKey
 })
 
 mongoose.connect(process.env.MONGODB_URL)
@@ -25,6 +25,8 @@ mongoose.connect(process.env.MONGODB_URL)
         api.use(cors())
 
         api.get('/helloAPI', helloAPIHandler)
+
+        api.get('/serverStatus', serverStatusHandler)
 
         //register user
         api.post('/users', jsonBodyParser, registerUserHandler)

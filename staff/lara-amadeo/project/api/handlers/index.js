@@ -18,5 +18,6 @@ module.exports = {
     incrementMealsInCartHandler: require('./incrementMealsInCartHandler'),
     retrievePendingToDeliverHandler: require('./retrievePendingToDeliverHandler'),
     markAsReadyHandler: require('./markAsReadyHandler'),
-    retrieveWaitingClientToPickUpHandler: require('./retrieveWaitingClientToPickUpHandler')
+    retrieveWaitingClientToPickUpHandler: require('./retrieveWaitingClientToPickUpHandler'),
+    serverStatusHandler: require('./serverStatusHandler')
 }
