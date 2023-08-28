@@ -20,6 +20,7 @@ import retrieveListsGuest from './retrieveListsGuest'
 import acceptGuestList from './acceptGuestList'
 import createList from './createList'
 import retrieveList from './retrieveList'
+import gotoList from './gotoList'
 
 export {
     isCurrentUser,
@@ -43,5 +44,6 @@ export {
     retrieveListsGuest,
     acceptGuestList,
     createList,
-    retrieveList
+    retrieveList,
+    gotoList
 }

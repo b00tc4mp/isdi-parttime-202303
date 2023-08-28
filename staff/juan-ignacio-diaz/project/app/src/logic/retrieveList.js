@@ -1,11 +1,17 @@
 import context from "./context"
 
+import { validators } from 'com'
+
+const { validateId } = validators
+
 /**
  * Retrieve the list
  * 
 * @returns {list} The context user
  */
-export default async (listId) => {      
+export default async (listId) => {   
+    validateId(listId, 'list id')
+    
     const res = await fetch(`${import.meta.env.VITE_API_URL}/lists/${listId}`, {
         method: 'GET',
         headers: {

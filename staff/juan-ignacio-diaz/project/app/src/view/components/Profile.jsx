@@ -140,19 +140,14 @@ export default ({ onEditedProfile, onSearchUser, user, lastUpdate}) => {
                 </article>
                 <article>
                     <h2>Contacts</h2>
-
-                    <u>
-                        {contacts && contacts.map(contact => <Contact 
-                            key={contact.id} 
-                            contact={contact} 
-                            onModifyContact={handleRefreshContacts}
-                            />)
-                        }
-
-                    </u>
+                    {contacts && contacts.map(contact => <Contact 
+                        key={contact.id} 
+                        contact={contact} 
+                        onModifyContact={handleRefreshContacts}
+                        />)
+                    }
                     <Button onClick={handleSearchUser}>Add</Button>
                </article>
-
             </Container>
         </>
 }

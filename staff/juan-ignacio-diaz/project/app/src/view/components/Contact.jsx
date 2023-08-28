@@ -24,16 +24,10 @@ export default ({ contact: { id, name, avatar}, onModifyContact}) => {
     }
 
     return <>
-        <li>
-            <div className="post-Author">
-                <img className="home-header-avatar" src={avatar? avatar : DEFAULT_AVATAR_URL} alt=""/>
-                <h1 className="name">{name}</h1>
-
-                <div>
-                    <button onClick={handleDeleteContact}>🗑</button>      
-                </div>
-            </div>
-
-        </li>
+        <Container type="row">
+            <img className="home-header-avatar" src={avatar? avatar : DEFAULT_AVATAR_URL} alt=""/>
+            <h1 className="name">{name}</h1>
+            <Button onClick={handleDeleteContact}>🗑</Button>      
+        </Container>
     </>
 }

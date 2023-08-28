@@ -57,7 +57,7 @@ export default ({ listId, onAccept }) => {
                 </>}
             </Container>
             <Container tag="div">
-                <h4>Guest</h4>
+                <h2>Guest</h2>
                 {list && list.guests && list.guests.map(contact => <EditListGuest 
                     key={contact.id} 
                     contact={contact} 
