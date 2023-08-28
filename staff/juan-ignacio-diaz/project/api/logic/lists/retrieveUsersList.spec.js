@@ -5,11 +5,11 @@ const { expect } = require('chai')
 const mongoose = require('mongoose')
 const { User, List } = require('../../data/models')
 
-const retrieveList = require('./retrieveList')
+const retrieveUsersList = require('./retrieveUsersList')
 
 const { generateUser, generateList, cleanUp, populateUser, populateList } = require('../helpers/tests')
 
-describe('retrieveList', () =>{
+describe('retrieveUsersList', () =>{
     let userTest, contactTest, contactTest2, listTest
 
     before(() => mongoose.connect(process.env.MONGODB_URL))
@@ -30,15 +30,18 @@ describe('retrieveList', () =>{
     })
 
     it('succeeds on retieve list', async () => {
-        const list = await retrieveList(listTest.id, contactTest.id)
-        expect(list.name).to.equal(listTest.name)
+        const list = await retrieveUsersList(listTest.id, userTest.id)
+        expect(list.invited).to.have.lengthOf(1)
+        expect(list.invited[0].id).to.equal(contactTest.id)
+        expect(list.guests).to.have.lengthOf(1)
+        expect(list.guests[0].id).to.equal(contactTest2.id)
     })
 
     it('fails on existing list', async () => {
         const listTestNoExistsId = '000000000000000000000000'
 
         try {
-            return await retrieveList(listTestNoExistsId, contactTest.id)
+            return await retrieveUsersList(listTestNoExistsId, userTest.id)
         } catch (error) {
             expect(error).to.be.instanceOf(Error)
             expect(error.message).to.equal('list not found')
@@ -49,7 +52,7 @@ describe('retrieveList', () =>{
         const userTestNoExistsId = '000000000000000000000000'
 
         try {
-            return await retrieveList(listTest.id, userTestNoExistsId)
+            return await retrieveUsersList(listTest.id, userTestNoExistsId)
         } catch (error) {
             expect(error).to.be.instanceOf(Error)
             expect(error.message).to.equal('user not found')
@@ -57,11 +60,11 @@ describe('retrieveList', () =>{
     })
 
     it('fails on empty listId', () => 
-        expect(() => retrieveList('', contactTest.id)).to.throw(Error, 'list id does not have 24 characters')
+        expect(() => retrieveUsersList('', userTest.id)).to.throw(Error, 'list id does not have 24 characters')
     )
 
     it('fails on empty userId', () =>
-        expect(() => retrieveList(listTest.id, '')).to.throw(Error, 'user id does not have 24 characters')
+        expect(() => retrieveUsersList(listTest.id, '')).to.throw(Error, 'user id does not have 24 characters')
     )
 
     after(() => 

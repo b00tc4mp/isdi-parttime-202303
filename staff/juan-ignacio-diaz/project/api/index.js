@@ -27,6 +27,7 @@ const {
     reviewListsGuestHandler,
     reviewListsInvitedHandler,
     copyToNewListHandler,
+    retrieveUsersListHandler,
     retrieveListHandler,
 
     addMessageHandler,
@@ -84,6 +85,7 @@ mongoose.connect(process.env.MONGODB_URL)
         api.get('/lists/guest', reviewListsGuestHandler)
         api.get('/lists/invited', reviewListsInvitedHandler)
         api.post('/lists/:listId/copy', jsonBodyParser, copyToNewListHandler)
+        api.get('/lists/:listId/users', retrieveUsersListHandler)
         api.get('/lists/:listId', retrieveListHandler)
 
         api.post('/lists/:listId/message', jsonBodyParser, addMessageHandler)

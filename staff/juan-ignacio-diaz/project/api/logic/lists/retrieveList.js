@@ -1,6 +1,6 @@
 const { 
     validators: { validateId },
-    errors: { ExistenceError }
+    errors: { ExistenceError, InvalidDataError }
 } = require('com')
 
 const { User, List } = require('../../data/models')
@@ -23,33 +23,17 @@ module.exports = (listId, userId) => {
 
         if (!user) throw new ExistenceError('user not found')
         
-        const list = await List.findById(listId, 'name date dateToEnd owner, guests, invited')
-            .populate('owner','name avatar email' )
-            .populate('invited','name avatar email' )
-            .populate('guests','name avatar email' ).lean()
+        const list = await List.findById(listId, 'name date dateToEnd guests').lean()
 
         if (!list) throw new ExistenceError('list not found')
+
+        if(!(list.guests.some(user => user.toString() === userId))) throw new InvalidDataError('user invalid') 
 
         list.id = list._id.toString()
         delete list._id
 
-        list.owner.id = list.owner._id.toString()
-        delete list.owner._id
-
-        list.invited.forEach(user => {                        
-            if(user._id) {
-                user.id = user._id.toString()
-                delete user._id
-            }
-        })
-
-        list.guests.forEach(user => {                        
-            if(user._id) {
-                user.id = user._id.toString()
-                delete user._id
-            }
-        })
-
+        delete list.guests
+        
         return list
     })()
 }

@@ -18,6 +18,7 @@ module.exports = {
     declineGuestList: require('./lists/declineGuestList'),
     reviewListsGuest: require('./lists/reviewListsGuest'),
     copyToNewList: require('./lists/copyToNewList'),
+    retrieveUsersList: require('./lists/retrieveUsersList'),
     retrieveList: require('./lists/retrieveList'),
 
     addMessage: require('./lists/messages/addMessage'),

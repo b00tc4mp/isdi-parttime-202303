@@ -18,7 +18,7 @@ module.exports = {
     declineGuestListHandler: require('./lists/declineGuestListHandler'),
     reviewListsGuestHandler: require('./lists/reviewListsGuestHandler'),
     copyToNewListHandler: require('./lists/copyToNewListHandler'),
-    retrieveListHandler: require('./lists/retrieveListHandler'),
+    retrieveUsersListHandler: require('./lists/retrieveUsersListHandler'),
 
     addMessageHandler: require('./lists/messages/addMessageHandler'),
     reviewMessagesHandler: require('./lists/messages/reviewMessagesHandler'),
