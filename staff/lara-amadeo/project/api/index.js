@@ -11,8 +11,8 @@ const ImageKit = require('imagekit');
 
 
 const imagekit = new ImageKit({
-    urlEndpoint: process.env.urlEndpoint,
-    publicKey: process.env.publicKey,
+    urlEndpoint: 'https://ik.imagekit.io/6zeyr5rgu/yuperApp/',
+    publicKey: 'public_9DujXADbFrwoOkNd+rUmvTbT/+U=',
     privateKey: process.env.privateKey
 })
 
