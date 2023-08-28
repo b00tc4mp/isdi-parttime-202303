@@ -100,7 +100,6 @@ export default function Home() {
         setModal(null)
     }
 
-
     console.log('Home -> render')
 
     return <div>
@@ -136,15 +135,19 @@ export default function Home() {
 
             {view === 'workspots-searched-by-name' && <WorkspotsSearchedByName 
                 nameSearched={nameSearched}
+                onEditWorkspot={handleOpenEditWorkspotModal}
+                lastWorkspotsUpdate={lastWorkspotsUpdate}
             />}
 
             {view === 'filtered-workspots' && <FilteredWorkspots
                 districts={filteredData.districts}
                 category={filteredData.category}
-                features={filteredData.features}    
-            />}
+                features={filteredData.features}
+                onEditWorkspot={handleOpenEditWorkspotModal}
+                lastWorkspotsUpdate={lastWorkspotsUpdate}
 
-        
+            />}
+     
             {view === 'profile' && <Profile
                 onUserAvatarUpdated={handleUserAvatarUpdated}
                 onUpdatedUserPassword={handleUserPasswordUpdated}

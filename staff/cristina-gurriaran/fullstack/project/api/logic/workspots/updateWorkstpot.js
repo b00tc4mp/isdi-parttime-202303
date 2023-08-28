@@ -15,7 +15,7 @@ module.exports = (userId, workspotId, image, name, location, description, catego
 
         if (!user) throw new ExistenceError(`user with id ${userId} not found`)
 
-        const workspot = Workspot.findById(workspotId)
+        const workspot = await Workspot.findById(workspotId)
 
         if (!workspot) throw new ExistenceError(`Workspot with id ${workspotId} not found`)
 

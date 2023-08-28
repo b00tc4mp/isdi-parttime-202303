@@ -66,7 +66,7 @@
     width: 100%;
     padding: 0.5rem;
     border-bottom: 2rem solid var(--burgundy);
-    background-color: rgb(210, 183, 237);
+    /* background-color: rgb(210, 183, 237); */
     color: var(--pink);
     display: flex;
     justify-content: space-around;

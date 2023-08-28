@@ -29,9 +29,45 @@ module.exports = (userId, { districts, category, features }) => {
 
         if (districtQuery.$or.length > 0) {
             filteredDistrictResults = await Workspot.find(districtQuery).lean()
+                .select('-__v -features.wifi._id -features.plugs._id -features.noise._id -features.otherFeatures._id -location._id -location.districts._id -location.mapLocation._id')
+                .populate('author', 'name avatar')
+                .lean()
+
+            filteredDistrictResults.forEach(workspot => {
+                workspot.id = workspot._id.toString()
+
+                delete workspot._id
+
+                workspot.fav = user.favs.some(favs => favs.toString() === workspot.id)
+
+                if (workspot.author._id) {
+                    workspot.author.id = workspot.author._id.toString()
+
+                    delete workspot.author._id
+                }
+
+            })
 
         } else {
             filteredDistrictResults = await Workspot.find().lean()
+                .select('-__v -features.wifi._id -features.plugs._id -features.noise._id -features.otherFeatures._id -location._id -location.districts._id -location.mapLocation._id')
+                .populate('author', 'name avatar')
+                .lean()
+
+            filteredDistrictResults.forEach(workspot => {
+                workspot.id = workspot._id.toString()
+
+                delete workspot._id
+
+                workspot.fav = user.favs.some(favs => favs.toString() === workspot.id)
+
+                if (workspot.author._id) {
+                    workspot.author.id = workspot.author._id.toString()
+
+                    delete workspot.author._id
+                }
+
+            })
         }
 
         let filteredCategoryResults = filteredDistrictResults
@@ -83,7 +119,8 @@ module.exports = (userId, { districts, category, features }) => {
                 })
             })
         }
-
+        
         return filteredOtherFeaturesResults
+
     })()
 }

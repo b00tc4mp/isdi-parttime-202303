@@ -4,23 +4,56 @@ import { useState, useEffect } from 'react'
 import { useAppContext, useHandleErrors } from '../hooks'
 import { Container, Form, Input, Button } from '../library'
 
-export default ({ user, districts, category, features }) => {
+export default function FilteredWorkspots({ districts, category, features, lastWorkspotsUpdate, user, onEditWorkspot }) {
     const handleErrors = useHandleErrors()
 
-    const [filteredWorkspots, setFilteredWorkspots] = useState()
+    const [filteredWorkspots, setFilteredWorkspots] = useState([])
+
+    useEffect(() => handleFilteredSearchResults(), [districts, category, features])
+
+    const handleFilteredSearchResults = () => {
+        try{
+            handleErrors(async () => {
+                const filteredWorkspotsResults = await getFilteredWorkspots(districts, category, features);
+                setFilteredWorkspots(filteredWorkspotsResults);
+            })
+        }catch(error){
+            alert(error.message)
+        }
+    }
 
     useEffect(() => {
-        handleErrors(async () => {
-            const filteredWorkspots = await getFilteredWorkspots(districts, category, features)
-            setFilteredWorkspots(filteredWorkspots)
-        })
-    }, [])
+        if (lastWorkspotsUpdate)
+            handleFilteredSearchResults()
+    }, [lastWorkspotsUpdate])
 
-    return <div className="flex flex-col items-center justify-center gap-10">
-        {filteredWorkspots && filteredWorkspots.map((workspot) => <Workspot
-            key={workspot.id}
-            workspot={workspot}
-            user={user}
-        />)}
-    </div>
+    let workspotsToShow;
+
+    if (filteredWorkspots.length > 0) {
+        workspotsToShow = filteredWorkspots.map(workspot => (
+            <Workspot 
+                key={workspot.id} 
+                workspot={workspot}
+                onEditWorkspot={onEditWorkspot}
+                onToggledLikeWorkspot={handleFilteredSearchResults}
+                onToggledSavedWorkspot={handleFilteredSearchResults}
+                onWorkspotDeleted={handleFilteredSearchResults}
+                user={user} />
+        ));
+    } else {
+        workspotsToShow = (
+            <Container className="bg-blue">
+                <p className="text-gray-800">No results found</p>
+            </Container>
+        );
+    }
+
+    return (
+        <Container>
+            {workspotsToShow}
+        </Container>
+    );
 }
+
+
+

@@ -2,6 +2,7 @@ import { validators, errors } from 'com'
 const { validateId, validateUrl, validateText } = validators
 import context from './context'
 
+
 export default (workspotId, image, name, location, description, category, features) => {
     validateId(workspotId, 'workspot id')
     validateUrl(image, 'image url')
@@ -14,9 +15,9 @@ export default (workspotId, image, name, location, description, category, featur
                 'Content-type': 'application/json',
                 Authorization: `Bearer ${context.token}`,
             },
-            body: JSON.stringify({ image, name, location, description, category, features }),
+            body: JSON.stringify({ image, name, location, description, category, features })
         })
-        if (res.status === 204)
+        if (res.status === 201)
             return
 
         const { type, message } = await res.json()

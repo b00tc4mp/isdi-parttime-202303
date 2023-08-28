@@ -65,7 +65,7 @@ export default function EditWorkspotModal({ onCancel, workspotId, onWorkspotEdit
 
     const [workspotData, setWorkspotData] = useState(null);
     const [districts, setDistricts] = useState(initialDistricts);
-    const [category, setCategory] = useState(initialCategory);
+    const [initialCat, setCategory] = useState(initialCategory);
     const [wifi, setWifi] = useState(initialWifi);
     const [plugs, setPlugs] = useState(initialPlugs);
     const [noise, setNoise] = useState(initialNoise);
@@ -98,9 +98,9 @@ export default function EditWorkspotModal({ onCancel, workspotId, onWorkspotEdit
             },
         };
 
-        const updatedCategory = {};
-        for (const categoryOption in category) {
-            updatedCategory[categoryOption] = event.target[`category[${categoryOption}]`].checked;
+        const category = {};
+        for (const categoryOption in initialCat) {
+            category[categoryOption] = event.target[`initialCat[${categoryOption}]`].checked;
         }
 
         const updatedWifi = {};
@@ -130,17 +130,9 @@ export default function EditWorkspotModal({ onCancel, workspotId, onWorkspotEdit
             otherFeatures: updatedOtherFeatures,
         };
 
-        const updatedWorkspot = {
-            image: image,
-            name: name,
-            description: description,
-            location: location,
-            category: updatedCategory,
-            features: features,
-        };
 
         handleErrors(async () => {
-            await updateWorkspot(workspotId, image, name, location, description, category, features);
+            await updateWorkspot(workspotId, image, name, location, description, category, features)
             onWorkspotEdited();
 
         });
@@ -200,7 +192,7 @@ export default function EditWorkspotModal({ onCancel, workspotId, onWorkspotEdit
                             <label key={categoryOption}>
                                 <input
                                     type="checkbox"
-                                    name={`category[${categoryOption}]`}
+                                    name={`initialCat[${categoryOption}]`}
                                     defaultChecked={workspotData.category[categoryOption]}
                                 />
                                 {formatCategory(categoryOption)}
