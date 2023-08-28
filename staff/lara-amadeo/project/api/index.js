@@ -13,7 +13,7 @@ const ImageKit = require('imagekit');
 const imagekit = new ImageKit({
     urlEndpoint: 'https://ik.imagekit.io/6zeyr5rgu/yuperApp/',
     publicKey: 'public_9DujXADbFrwoOkNd+rUmvTbT/+U=',
-    privateKey: process.env.PRIVATE_KEY
+    privateKey: 'private_Ohzt9aum24ztTasqw/eWNiggN+4='
 })
 
 mongoose.connect(process.env.MONGODB_URL)
