@@ -101,14 +101,16 @@ const event = new Schema({
     },
     dates: [{
         type: Date,
-        required: true,
-        validate: {
-            validator: function (date) {
-                return date > Date.now();
-            },
-            message: 'Event date must be in the future',
-        }
+        required: true
     }],
+    place: {
+        type: String,
+        required: true,
+    },
+    price: {
+        type: Number,
+        default: 0
+    },
     likes: {
         type: [ObjectId],
         ref: 'User'

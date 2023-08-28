@@ -9,7 +9,7 @@ export default function Loader({ percentage }) {
             ></div>
             <div className="flex items-center justify-center top-0 h-full w-full fixed">
 
-                <h1 className="text-white flex items-center mx-4 font-extrabold bg-[url('../../../assets/LiveDive-Logo-w.svg')] bg-no-repeat bg-left bg-contain  w-10 h-10  text-center text-[0] animate-pulse" >LiveDive</h1>
+                <h1 className="text-white flex items-center mx-4 font-extrabold bg-[url('../../../assets/LiveDive-Logo-w.svg')] bg-no-repeat bg-left bg-contain  w-14 h-14  text-center text-[0] animate-pulse" >LiveDive</h1>
             </div>
         </div>
     )

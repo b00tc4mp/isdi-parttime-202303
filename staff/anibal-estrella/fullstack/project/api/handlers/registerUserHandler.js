@@ -1,5 +1,4 @@
-// the HANDLERS call the Logic and the Logic calls Mongo
-// all error messages are for developing purposes none of them are sent to the CLIENT/front
+
 const { registerUser } = require('../logic')
 const jwt = require('jsonwebtoken')
 

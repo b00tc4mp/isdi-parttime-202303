@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 const registerUser = require('./registerUser')
-const { User, Post } = require('../data-project/models')
+const { User } = require('../data-project/models')
 
 mongoose.connect('mongodb://127.0.0.1:27017/data-project')
     .then(() => mongoose.models.User.countDocuments())

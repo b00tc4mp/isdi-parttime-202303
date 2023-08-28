@@ -1,10 +1,10 @@
 
 import React, { useEffect, useState } from 'react';
-import retrievePlacesList from '../../logic/retrievePlacesList';
+import searchPlace from '../../logic/searchPlace';
 import { Button } from '../library'
 import { MagnifyingGlassIcon } from '@heroicons/react/24/solid'
 
-const searchPlace = () => {
+const SearchPlace = () => {
     const [placeName, setPlaceName] = useState('');
     const [placeDetails, setPlaceDetails] = useState(null);
 
@@ -14,7 +14,7 @@ const searchPlace = () => {
 
     const handleRetrieveDetails = async () => {
         try {
-            const details = await retrievePlacesList(placeName);
+            const details = await searchPlace(placeName);
             setPlaceDetails(details);
         } catch (error) {
             console.error('Error:', error);
@@ -79,4 +79,4 @@ const searchPlace = () => {
 
 };
 
-export default searchPlace;
+export default SearchPlace;

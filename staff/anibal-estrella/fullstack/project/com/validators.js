@@ -10,7 +10,6 @@ function validateEmail(email, explain = "email") {
     if (typeof email !== 'string') throw new TypeError(`${explain} must be a string`)
     if (!email.trim().length) throw new ContentError(`${explain} is blank`)
     if (!emailRegex.test(email)) throw new ContentError(`${explain} is not an email`)
-
 }
 
 /**
@@ -104,7 +103,14 @@ function validateIpGeoLocation(ipGeoLocationCoordinates, explain = 'ipGeoLocatio
     }
 }
 
+function validateEuroPrice(price, explain = "price") {
+    // This regex assumes a price in euro format like "123,45"
+    const euroPriceRegex = /^\d+,\d{2}$/;
 
+    if (typeof price !== 'string') throw new TypeError(`${explain} must be a string`);
+    if (!price.trim().length) throw new ContentError(`${explain} is blank`);
+    if (!euroPriceRegex.test(price)) throw new ContentError(`${explain} is not a valid price`);
+}
 
 
 module.exports = {
@@ -118,5 +124,6 @@ module.exports = {
     validateCallback,
     validateCity,
     validateToken,
-    validateIpGeoLocation
+    validateIpGeoLocation,
+    validateEuroPrice
 }

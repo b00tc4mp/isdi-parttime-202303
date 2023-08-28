@@ -44,9 +44,9 @@ export default ({ city, ipGeoLocation }) => {
                 </DraggableSlider>
             </section>
             <section>
-                <h2>Featured Reviews</h2>
+                <h2>Featured Review</h2>
                 <DraggableSlider>
-                    {Array.from({ length: 5 }).map((_, index) => (
+                    {Array.from({ length: 1 }).map((_, index) => (
                         <EventCard key={index} />
                     ))}
                 </DraggableSlider>
@@ -61,6 +61,8 @@ export default ({ city, ipGeoLocation }) => {
 
             </section>
         </section>
-
+        <footer className='flex justify-end h-32 flex-col items-end'>
+            <p>Live Dive · 2023®</p>
+        </footer>
     </>
 }

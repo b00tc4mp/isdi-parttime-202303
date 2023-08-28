@@ -14,7 +14,7 @@ if (
     !process.env.PORT
 ) {
     console.error("Missing required configuration in environment variables.");
-    process.exit(1);  // Exit the process with an error code
+    process.exit(1);
 }
 
 
@@ -60,8 +60,7 @@ mongoose.connect(process.env.MONGODB_URL)
 
         api.post('/upload', jsonBodyParser, uploadMediaHandler)
 
-
-        // api.post('/posts', jsonBodyParser, createPostHandler)
+        api.post('/events', jsonBodyParser, createEventHandler)
 
         // api.get('/posts', retrievePostsHandler)
 

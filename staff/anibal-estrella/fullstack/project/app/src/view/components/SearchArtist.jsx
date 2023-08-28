@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import { useAppContext } from '../hooks'
 
-import retrieveArtistDetailsFromDiscogs from '../../logic/retrieveArtistDetailsFromDiscogs'
+import searchArtist from '../../logic/searchArtist'
 import { Button } from '../library'
 import { MagnifyingGlassIcon } from '@heroicons/react/24/solid'
 
@@ -10,9 +10,10 @@ const SearchArtist = () => {
 
     const { alert, freeze, unfreeze } = useAppContext()
 
-    const [artistName, setArtistName] = useState('');
-    const [SearchArtist, setSearchArtist] = useState(null);
-    const [error, setError] = useState(null); // Add state for error
+    const [artistName, setArtistName] = useState('')
+    const [searchArtistList, setSearchArtist] = useState(null)
+    const [error, setError] = useState(null)
+    const [selectedArtistId, setSelectedArtistId] = useState(null)
 
     const handleInputChange = (event) => {
         setArtistName(event.target.value);
@@ -22,8 +23,8 @@ const SearchArtist = () => {
     const handleRetrieveDetails = async () => {
         try {
             freeze();
-            const details = await retrieveArtistDetailsFromDiscogs(artistName);
-            setSearchArtist(details);
+            const artistList = await searchArtist(artistName);
+            setSearchArtist(artistList);
             setError(null);
         } catch (error) {
             alert(error.message, 'error');
@@ -31,6 +32,16 @@ const SearchArtist = () => {
             setSearchArtist(null);
         } finally {
             unfreeze();
+        }
+    }
+
+    const handleSelectArtist = (id) => { // New handler
+        if (selectedArtistId === id) {
+            setSelectedArtistId(null);
+            console.log({ selectedArtistId })
+        } else {
+            setSelectedArtistId(id);
+            console.log({ selectedArtistId })
         }
     }
 
@@ -49,55 +60,44 @@ const SearchArtist = () => {
 
             {error && <p className="text-lime-200">{error}</p>}
 
-            {SearchArtist && !error && (
+            {searchArtistList && !error && (
                 <div>
-                    {SearchArtist.image && (
-                        <div className='my-2'>
-                            <img className='w-full object-cover aspect-square grayscale rounded-lg' src={SearchArtist.image} alt={SearchArtist.name} />
-                        </div>
-                    )}
-                    <h2 className=' font-light text-5xl '>{SearchArtist.name}</h2>
-                    {/* <h3>From: {SearchArtist.from}</h3> */}
+                    <ul>Result:</ul>
+                    <table className=' w-full '>
+                        <thead>
+                            <tr>
+                                <th>name</th>
+                                <th>action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {searchArtistList.slice(0, 5).map((item) => (
+                                <React.Fragment key={item.id}>
+                                    <tr className={selectedArtistId === item.id ? '' : 'text-red'}>
+                                        <td>{item.name}</td>
+                                        <td>
+                                            {/* If the artist is selected */}
+                                            {selectedArtistId === item.id && (
+                                                <Button onClick={() => handleSelectArtist(item.id)}>
+                                                    Unselect
+                                                </Button>
+                                            )}
 
-                    {SearchArtist.bio && (
-                        <div>
-                            <h2>Artist Bio </h2>
-
-                            <p dangerouslySetInnerHTML={{ __html: SearchArtist.bio }} />
-                        </div>
-                    )}
-                    <div className="flex gap-6">
-                        <div>
-                            <h2>Albums</h2>
-                            <ul>
-                                {SearchArtist.albums.slice(0, 5).map((album, index) => (
-                                    <li key={index}> {album}</li>
-                                ))}
-                                {SearchArtist.albums.length > 5 && <li><a href={SearchArtist.discogsUrl} target="_blank">more ...</a></li>}
-                            </ul>
-                        </div>
-
-                        {SearchArtist.urls && (
-                            <div>
-                                <h3>Links</h3>
-                                <ul>
-                                    {SearchArtist.urls.map((url, index) => {
-                                        const urlObject = new URL(url)
-                                        const siteName = urlObject.hostname.replace('www.', '')
-                                        return (
-                                            <li key={index}>
-                                                <a href={url} target="_blank">{siteName}</a>
-                                            </li>
-                                        );
-                                    })}
-                                </ul>
-                            </div>
-                        )}
-                    </div>
-
-                    <div className='pt-4 pr-2 flex justify-end' >
-                        <a className='' href={SearchArtist.discogsUrl} target="_blank">Find more {SearchArtist.name}'s Info at Discogs.com</a>
-                    </div>
+                                            {/* If no artist is selected or the current artist is not the one selected */}
+                                            {selectedArtistId !== item.id && (
+                                                <Button
+                                                    onClick={() => handleSelectArtist(item.id)}
+                                                    style={{ opacity: selectedArtistId ? 0.5 : 1 }}
+                                                    disabled={!!selectedArtistId}>
+                                                    Select
+                                                </Button>
+                                            )}
+                                        </td>
+                                    </tr>
+                                </React.Fragment>
+                            ))}
+                        </tbody>
+                    </table>
                 </div>
             )}
         </div>
