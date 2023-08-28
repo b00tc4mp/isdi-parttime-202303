@@ -10,7 +10,7 @@ import SearchBar from '../library/components/SearchBar'
 
 export default function Search() {
     return <>
-        <Topbar level={'first'} />
+        <Topbar level={'first'} firstLevel={{ onChatClick: () => alert('🛠️ Feature coming soon! Please, be patient') }} />
         <div className="page-first-level">
             <Header text={'Search'} />
             <SearchBar />

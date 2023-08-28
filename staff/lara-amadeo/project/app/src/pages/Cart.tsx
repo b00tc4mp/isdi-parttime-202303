@@ -251,6 +251,7 @@ export default function Cart() {
         {paymentModal && !paymentDone && <Payment onPaymentClose={() => setPaymentModal(false)} onPayClick={handlePayFromModal} />}
         {!paymentModal && !paymentDone && <>
             <Topbar level={'first'} firstLevel={{ onChatClick: () => alert('🛠️ Feature coming soon! Please, be patient') }} />
+
             <div className="page-first-level" >
                 <Tabs items={[
                     {
@@ -303,7 +304,7 @@ export default function Cart() {
                     <>
                         {pendingMeals?.length === 0 && <>
                             <div className='cart-empty-state-container'>
-                                <EmptyState src='/illustrations/beach-girl.gif' title='No orders in process!' description='Start paying some meals!!!' />
+                                <EmptyState src='/illustrations/beach-girl.gif' title='No orders in process!' description='Start paying some meals!!!' width='80%' />
                             </div>
                         </>}
                         {pendingMeals &&
@@ -315,7 +316,7 @@ export default function Cart() {
                                     <p className='body-text grey-700'>When picking it up, <b>click on the order</b> to mark it as completed.</p>
                                 </div>
                                 <div className='pending-cart-items-list'>
-                                    {pendingMeals.map((obj: PendingToPickUp) => {
+                                    {pendingMeals.map((obj: PendingToPickUp, index) => {
                                         let _serial = obj.serial
                                         let _date = formatDate(new Date(obj.date))
                                         let _status = obj.status
@@ -327,7 +328,7 @@ export default function Cart() {
                                                 _quantity += meal.quantity
                                             }
 
-                                            return <PendingOrderCard
+                                            return <><PendingOrderCard
                                                 image={item.author.avatar}
                                                 chefName={item.author.name}
                                                 chip={{ label: _status, status: _status === 'pending' ? 'warning' : 'success' }}
@@ -335,6 +336,8 @@ export default function Cart() {
                                                 total={_total}
                                                 serial={_serial}
                                                 date={_date} />
+                                                {index !== pendingMeals.length - 1 && <Divider width='100%' className='pending-cart-divider' />}
+                                            </>
                                         })
                                     })}
                                 </div>

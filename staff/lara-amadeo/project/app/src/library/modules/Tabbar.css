@@ -1,8 +1,21 @@
+.tabbar-container-ios {
+    width: 100vw;
+    height: fit-content;
+    display: flex;
+    padding: 16px 24px 40px 24px;
+    justify-content: space-between;
+    position: fixed;
+    bottom: 0px;
+    background-color: var(--white);
+    box-sizing: border-box;
+    box-shadow: 0px -2px 5px 0px rgba(0, 0, 0, 0.02);
+}
+
 .tabbar-container {
     width: 100vw;
     height: fit-content;
     display: flex;
-    padding: 16px 24px 60px 24px;
+    padding: 16px 24px 24px 24px;
     justify-content: space-between;
     position: fixed;
     bottom: 0px;

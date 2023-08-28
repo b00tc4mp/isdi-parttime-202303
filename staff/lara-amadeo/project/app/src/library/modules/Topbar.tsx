@@ -4,7 +4,7 @@ import './Topbar.css'
 
 type Props = {
     level: string,
-    secondLevel?: { label?: string, right?: JSX.Element, left?: JSX.Element, onRightClick?: () => void, onLeftClick?: () => void },
+    secondLevel?: { label?: string, right?: false | JSX.Element, left?: JSX.Element, onRightClick?: () => void, onLeftClick?: () => void },
     firstLevel?: { menu?: boolean, chat?: boolean, onMenuClick?: () => void, onChatClick?: () => void },
     className?: string
 }

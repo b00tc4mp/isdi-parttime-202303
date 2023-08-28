@@ -21,7 +21,7 @@ export default function ChefModule({ avatar, name, liked, onSendMessage }: Props
             </div>
             {/* @ts-ignore */}
             <Button type={'secondary'} size={'small'} label={'Send message'} hugContent={true} onClick={onSendMessage} />
-            {liked ? <IconButton icon={<SolidHeartIcon className='icon-s red-200' />} type={'secondary'} /> : <IconButton icon={<HeartIcon className='icon-s grey-700' />} type={'secondary'} />}
+            {liked ? <IconButton icon={<SolidHeartIcon className='icon-s red-200' />} type={'secondary'} /> : <IconButton onClick={() => alert('🛠️ Feature coming soon! Please, be patient')} icon={<HeartIcon className='icon-s grey-700' />} type={'secondary'} />}
         </div>
     </>
 }

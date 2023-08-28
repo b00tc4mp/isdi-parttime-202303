@@ -10,5 +10,13 @@ export const context = {
 
     get token() {
         return sessionStorage.token
+    },
+
+    set os(os) {
+        sessionStorage.os = os;
+    },
+
+    get os() {
+        return sessionStorage.os;
     }
 }

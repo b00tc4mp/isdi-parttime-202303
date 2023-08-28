@@ -128,7 +128,7 @@ export default function Profile(): JSX.Element {
     }
 
     return <>
-        <Topbar level={'first'} />
+        <Topbar level={'first'} firstLevel={{ onChatClick: () => alert('🛠️ Feature coming soon! Please, be patient') }} />
         <div className="page-first-level">
             <div className="profile-first-part">
                 {user ? <Avatar image={user.avatar} width={"60px"} /> : <Skeleton width={'60px'} height={'60px'} baseColor="#f4f4f4" highlightColor="#eeeeee" />}

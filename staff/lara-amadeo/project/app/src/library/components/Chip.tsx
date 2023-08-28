@@ -14,7 +14,7 @@ export default function Chip({ label, state, ...props }: Props): JSX.Element {
                 ${state === "info" && "chip-info"}
                 ${state === "critical" && "chip-critical"}
                 ${state === "neutral" && "chip-neutral"}`}{...props}>
-            <p className="small-text-bold chip-label">{label}</p>
+            <p className="tiny-text-bold chip-label">{label}</p>
         </div>
     </>
 }

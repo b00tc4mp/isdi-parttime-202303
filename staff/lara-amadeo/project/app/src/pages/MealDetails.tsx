@@ -83,7 +83,7 @@ export default function MealDetails(): JSX.Element {
     }
 
     const onSendMessageButton = (event: React.SyntheticEvent) => {
-
+        alert('🛠️ Feature coming soon! Please, be patient')
     }
 
     const increaseCounter = () => {
@@ -172,7 +172,7 @@ export default function MealDetails(): JSX.Element {
         }, 800);
     }
 
-
+    const ownMeal = meal?.author.id === userId
     return <>
         {deleteModal && <DeleteModal mealId={mealId!} handleClose={closeDeleteModal} onDelete={saveDelete} />}
         {editModal && <EditMeal mealId={mealId!} onUpdateMeal={saveEdit} onCancelEditMeal={closeEditModal} />}
@@ -186,7 +186,7 @@ export default function MealDetails(): JSX.Element {
                 </>
             </ContextualModalMenu>
         </>}
-        <Topbar level='second' secondLevel={{ label: "Meal detail", left: <ArrowLeftIcon className='icon-s grey-700' />, onLeftClick: onBackClick, right: <EllipsisVerticalIcon className='icon-s grey-700' />, onRightClick: onOptionsClick }} />
+        <Topbar level='second' secondLevel={{ label: "Meal detail", left: <ArrowLeftIcon className='icon-s grey-700' />, onLeftClick: onBackClick, right: ownMeal && <EllipsisVerticalIcon className='icon-s grey-700' />, onRightClick: onOptionsClick }} />
         <div className='page-first-level' style={{ overflow: contextualModal === true ? 'hidden' : 'auto', paddingBottom: meal?.author.id !== userId ? '110px' : '24px' }}>
 
             {!meal && <div className='meal-details-spinner'><Spinner size='small' /></div>}

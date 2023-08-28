@@ -1,6 +1,7 @@
 import Avatar from '../components/Avatar'
 import Chip from '../components/Chip'
 import Container from '../components/Container'
+import Divider from '../components/Divider'
 import './PendingOrderCard.css'
 
 type Props = {
@@ -16,7 +17,7 @@ type Props = {
 export default function PendingOrderCard({ image, chefName, chip, quantity, total, serial, date }: Props) {
 
     return <>
-        <Container width={'100%'} height={'fit-content'} type={'shadow'} elevation={'1'}>
+        <div className='pending-order-container'>
             <>
                 <div className='pending-order-info-n-avatar'>
                     <Avatar image={image} width={'48px'} />
@@ -32,13 +33,13 @@ export default function PendingOrderCard({ image, chefName, chip, quantity, tota
                         </div>
 
                         <div className='pending-order-third-row'>
-                            <p className='small-text grey-400'>{serial}</p>
+                            <p className='small-text grey-400 pending-order-serial'>{serial}</p>
                             <p className='small-text grey-400'>{date}</p>
                         </div>
                     </div>
                 </div>
             </>
-        </Container>
+        </div>
     </>
 }
 
