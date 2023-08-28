@@ -2,7 +2,7 @@ const {
     validators: { validateUrl, validateId },
     errors: { ExistenceError }
 } = require('com')
-const { User } = require('../data/models')
+const { User, Character } = require('../data/models')
 
 /**
  * Updates user avatar
@@ -16,14 +16,14 @@ const { User } = require('../data/models')
  * @throws {ContentError} On empty avatar url
  * @throws {ExistenceError} On non-existing user
  */
-module.exports = (userId, avatar) => {
+module.exports = (userId, newCharacterName, newAvatar) => {
     validateId(userId)
-    validateUrl(avatar, 'avatar url')
+    //validateUrl(avatar, 'avatar url')
 
     return User.findById(userId)
         .then(user => {
             if (!user) throw new ExistenceError('user not found')
 
-            return User.updateOne({ '_id': userId }, { avatar: avatar })
+            return Character.updateOne({ '_id': user.character }, { characterName: newCharacterName, avatar: newAvatar })
         })
 }

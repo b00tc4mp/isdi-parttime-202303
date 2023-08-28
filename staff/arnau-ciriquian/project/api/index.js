@@ -8,7 +8,7 @@ const {
     registerUserHandler, 
     authenticateUserHandler, 
     getLoggedUserHandler, 
-    updateUserAvatarHandler, 
+    updateCharacterHandler, 
     updateUserEmailHandler, 
     updateUsernameHandler, 
     updateUserPasswordHandler, 
@@ -40,8 +40,6 @@ mongoose.connect(process.env.MONGODB_URL)
 
         api.get('/users', getLoggedUserHandler)
 
-        api.patch('/users/avatar', jsonBodyParser, updateUserAvatarHandler)
-
         api.patch('/users/email', jsonBodyParser, updateUserEmailHandler)
 
         api.patch('/users/name', jsonBodyParser, updateUsernameHandler)
@@ -54,6 +52,8 @@ mongoose.connect(process.env.MONGODB_URL)
         api.post('/characters', jsonBodyParser, createNewCharacterHandler)
 
         api.get('/characters', jsonBodyParser, getUserCharacterHandler)
+
+        api.patch('/characters', jsonBodyParser, updateCharacterHandler)
 
         // MISSIONS DATA
         api.post('/missions', jsonBodyParser, createNewMissionHandler)

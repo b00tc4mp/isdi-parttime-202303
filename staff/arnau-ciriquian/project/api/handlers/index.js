@@ -3,7 +3,7 @@ module.exports = {
     registerUserHandler: require('./registerUserHandler'),
     authenticateUserHandler: require('./authenticateUserHandler'),
     getLoggedUserHandler: require('./getLoggedUserHandler'),
-    updateUserAvatarHandler: require('./updateUserAvatarHandler'),
+    updateCharacterHandler: require('./updateCharacterHandler'),
     updateUserEmailHandler: require('./updateUserEmailHandler'),
     updateUsernameHandler: require('./updateUsernameHandler'),
     updateUserPasswordHandler: require('./updateUserPasswordHandler'),
