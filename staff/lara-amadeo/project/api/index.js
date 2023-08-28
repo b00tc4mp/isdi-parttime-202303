@@ -24,7 +24,7 @@ mongoose.connect(process.env.MONGODB_URL)
 
         api.use(cors())
 
-        api.get('/helloAPI', helloAPIHandler)
+        api.get('/', helloAPIHandler)
 
         api.get('/serverStatus', serverStatusHandler)
 

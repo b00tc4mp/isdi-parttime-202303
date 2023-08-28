@@ -13,7 +13,7 @@ type Props = {
 export default function Container({ children, width, height, type, elevation, className, onClick, ...props }: Props): JSX.Element {
 
     return <>
-        <div style={{ width: `${width}`, height: `${height}` }} className={`container-comp ${type === 'border' && 'container-border'} ${type === 'shadow' && 'container-shadow'} ${elevation === '1' && 'elevation-1'} ${elevation === '2' && 'elevation-2'} ${elevation === '3' && 'elevation-3'} ${elevation === '4' && 'elevation-4'} ${className}`} onClick={onClick} {...props}>
+        <div style={{ maxWidth: `${width}`, height: `${height}` }} className={`container-comp ${type === 'border' && 'container-border'} ${type === 'shadow' && 'container-shadow'} ${elevation === '1' && 'elevation-1'} ${elevation === '2' && 'elevation-2'} ${elevation === '3' && 'elevation-3'} ${elevation === '4' && 'elevation-4'} ${className}`} onClick={onClick} {...props}>
             {children}
         </div>
     </>
