@@ -4,6 +4,20 @@ const { errors: { ExistenceError } } = require('com')
 
 const { User, Post, Conversation } = require('../data/models')
 
+/**
+ * Creates a post
+ * 
+ * @param {string} userId The user id
+ * @param {string} conversationId The conversation id
+ * @param {string} summary The summary/text of the post
+ * 
+ * @returns {Promise} A Promise that resolves when a post is created successfully, or rejects with an error message if the post creation fails
+ * 
+ * @throws {TypeError} On non-string user id, conversation id or summary text
+ * @throws {ContentError} On user id or conversation id length not equal to 24 characters, or empty summary text
+ * @throws {ExistenceError} On non-existing user or conversation
+ */
+
 module.exports = (userId, conversationId, summary) => {
   validateId(userId, 'user id')
   validateId(conversationId, 'conversation id')

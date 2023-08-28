@@ -2,7 +2,9 @@ import context from "./context"
 import { errors } from 'com'
 
 /**
- * Retrieves the saved posts form database.
+ * Retrieves as much as the last fifteen posts seen by the user
+ * 
+ * @returns {Promise<array>} The array of posts
 */
 
 export default function retrieveSeenPosts() {

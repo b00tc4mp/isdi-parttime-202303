@@ -9,7 +9,7 @@ const {
 } = errors
 
 export default () => {
-    const { alert } = useAppContext()
+    const { alert, unfreeze } = useAppContext()
 
     return callBack => {
         try {
@@ -20,10 +20,12 @@ export default () => {
                     await promise
                 } catch (error) {
                     showError(error, alert)
+                    unfreeze()
                 }
             })()
         } catch (error) {
             showError(error, alert)
+            unfreeze()
         }
     }
 }

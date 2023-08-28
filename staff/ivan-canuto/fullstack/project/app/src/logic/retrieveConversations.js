@@ -1,6 +1,12 @@
 import context from "./context"
 import { errors } from "com"
 
+/**
+ * Retrieves all the conversations between the user and the chatbot
+ * 
+ * @returns {Promise<array>} The array of conversations
+ */
+
 export default function retrieveConversations() {
     return (async () => {
         const res = await fetch(`${import.meta.env.VITE_API_URL}/users/conversations`, {

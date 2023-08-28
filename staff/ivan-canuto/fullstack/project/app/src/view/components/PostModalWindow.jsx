@@ -190,7 +190,7 @@ export default function PostModalWindow({
           <>
             <h1 className="px-2 text-xl text-center">{post.title}</h1>
 
-            <p className="px-2 h-2/3 overflow-scroll border border-gray-300 rounded py-1 mx-1">{post.text}</p>
+            <p className="px-2 h-2/3 overflow-scroll border border-gray-300 rounded py-1 mx-2">{post.text}</p>
 
             <div className="px-2 w-full flex justify-between">
               <div>
@@ -255,6 +255,7 @@ export default function PostModalWindow({
           post={post}
           user={user}
           handleLastPostsUpdate={handleLastPostsUpdate}
+          lastPostsUpdate={lastPostsUpdate}
         />}
       </section>
     </ModalContainer>

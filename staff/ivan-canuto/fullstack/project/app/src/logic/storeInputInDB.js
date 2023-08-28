@@ -1,9 +1,23 @@
 import { validators, errors } from "com";
-const { validateId, validateText } = validators
 import context from "./context";
+
+const { validateId, validateObject } = validators
+
+/**
+ * Stores the user input object in database
+ * 
+ * @param {string} conversationId The conversation id 
+ * @param {object} userInput The user input in an object with the role
+ * 
+ * @returns {Promise} A Promise that resolves when a user input is stored in database successfully, or throws an error if the operation fails
+ * 
+ * @throws {TypeError} On non-string conversation id, or non-object user input
+ * @throws {ContentError} On conversation id length not equal to 24 characters
+ */
 
 export default function storeInputInDB(conversationId, userInput) {
     validateId(conversationId, 'conversation id')
+    validateObject(userInput, 'user input')
 
     return (async () => {
         const res = await fetch(`${import.meta.env.VITE_API_URL}/users/conversations/${conversationId}/userInput`, {

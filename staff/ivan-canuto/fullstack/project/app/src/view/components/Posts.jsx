@@ -1,9 +1,9 @@
 import Post from "./Post";
 import { useState, useEffect } from "react";
-import { retrievePosts, retrieveSavedPosts, retrieveUserPosts, getUserId, retrieveSeenPosts } from "../../logic";
+import { retrievePosts, retrieveSavedPosts, retrieveUserPosts, getUserId, retrieveSeenPosts, retrieveSearchedPosts } from "../../logic";
 import { useAppContext, useHandleErrors } from "../hooks"
 
-export default function Posts({ lastPostsUpdate, view, handleOpenEditPost, handleOpenDeletePost, handleToggleVisibility, handleTogglePostModal }) {
+export default function Posts({ lastPostsUpdate, view, handleOpenEditPost, handleOpenDeletePost, handleToggleVisibility, handleTogglePostModal, textToSearch }) {
   const { freeze, unfreeze } = useAppContext()
   const handleErrors = useHandleErrors()
 
@@ -77,6 +77,19 @@ export default function Posts({ lastPostsUpdate, view, handleOpenEditPost, handl
           unfreeze()
         })
       }
+      else if(view === 'searchedPosts') {
+        handleErrors(async () => {
+          freeze()
+
+          console.debug('Searched postsss -> render')
+          
+          const _posts = await retrieveSearchedPosts(textToSearch)
+
+          setPosts(_posts)
+          
+          unfreeze()
+        })
+      }
     } catch(error) {
       // unfreeze()
       
@@ -96,7 +109,7 @@ export default function Posts({ lastPostsUpdate, view, handleOpenEditPost, handl
   }, [lastPostsUpdate])
 
   return <section className="pb-12 flex flex-col items-center gap-6 absolute top-40 left-0 w-full">
-    <h1 className="w-full text-center text-5xl font-thin underline mb-4">{view === 'posts' ? 'Home page' : view === 'savedPosts' ? 'Saved posts' : view === 'userPosts' ? 'My posts' : view === 'seenPosts' ? 'Seen lately' : ''}</h1>
+    <h1 className="w-full text-center text-5xl font-thin underline mb-4">{view === 'posts' ? 'Home page' : view === 'savedPosts' ? 'Saved posts' : view === 'userPosts' ? 'My posts' : view === 'seenPosts' ? 'Seen lately' : view === 'searchedPosts' ? ' Searched posts' : ''}</h1>
     {posts && posts.map(post => (post.author.id !== getUserId() && !post.visible) ? '' : <Post
       key={post.id.toString()}
       post={post}

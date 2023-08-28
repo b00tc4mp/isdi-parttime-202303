@@ -4,10 +4,15 @@ import context from './context'
 const { validateId } = validators
 
 /**
- * Deletes a user's comment.
+ * Deletes a user's suggestion.
  * 
- * @param {string} postId The post's id.
- * @param {string} commentId The comment's id.
+ * @param {string} postId The post id.
+ * @param {string} commentId The suggestion id.
+ * 
+ * @returns {Promise} A Promise that resolves when a suggestion is deleted successfully, or throws an error if deletion fails
+ *
+ * @throws {TypeError} On non-string post id or suggestion id
+ * @throws {ContentError} On post id or suggestion id length not equal to 24 characters
  */
 
 export default function deleteComment(postId, suggestionId) {

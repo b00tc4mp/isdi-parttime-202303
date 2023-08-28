@@ -4,7 +4,14 @@ import { errors, validators } from 'com'
 const { validateId } = validators
 
 /**
- * Retrieves the posts form database. * 
+ * Retrieves the suggestions that belong to the post
+ * 
+ * @param {string} postId The post id
+ * 
+ * @returns {Promise<array>} The array of suggestions
+ * 
+ * @throws {TypeError} On non-string post id
+ * @throws {ContentError} On post id length not equal to 24 characters
 */
 
 export default function retrievePostSuggestions(postId) {

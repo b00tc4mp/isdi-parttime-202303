@@ -4,7 +4,15 @@ import { errors, validators } from 'com'
 const { validateId } = validators
 
 /**
- * Retrieves the saved posts form database.
+ * Saves a post as seen by the user
+ * 
+ * @param {string} userId The user id
+ * @param {string} postId The post id
+ * 
+ * @returns {Promise} A Promise that resolves when a post is saved as seen successfully, or throws an error if the operation fails
+ * 
+ * @throws {TypeError} On non-string post id
+ * @throws {ContentError} On post id length not equal to 24 characters
 */
 
 export default function savePostAsSeen(postId) {

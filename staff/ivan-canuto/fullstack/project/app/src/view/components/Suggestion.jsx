@@ -1,7 +1,7 @@
 import { context } from "../../ui";
 import { useState } from "react";
 import { useHandleErrors } from "../hooks";
-import { savePostAsSeen, toggleCheckSuggestion, toggleHideSuggestion } from '../../logic'
+import { savePostAsSeen, toggleCheckSuggestion, hideSuggestion } from '../../logic'
 
 export default function Suggestion({ suggestion, openDeleteSuggestionModal, openEditSuggestionModal, user, page, handleLastPostsUpdate, handleShowPost }) {
   const handleErrors = useHandleErrors()
@@ -11,8 +11,6 @@ export default function Suggestion({ suggestion, openDeleteSuggestionModal, open
   const handleOpenDeleteSuggestion = () => {
     context.suggestionId = suggestion.id
 
-    context.hideHeader = true
-
     openDeleteSuggestionModal()
 
     handleLastPostsUpdate()
@@ -20,8 +18,6 @@ export default function Suggestion({ suggestion, openDeleteSuggestionModal, open
 
   const handleOpenEditSuggestion = () => {
     context.suggestionId = suggestion.id
-
-    context.hideHeader = true
 
     openEditSuggestionModal()
     
@@ -33,8 +29,6 @@ export default function Suggestion({ suggestion, openDeleteSuggestionModal, open
     handleErrors(async () => {
       await toggleCheckSuggestion(suggestion.id)
 
-      context.hideHeader = true
-
       setChecked(!checked)
       
       handleLastPostsUpdate()
@@ -43,9 +37,11 @@ export default function Suggestion({ suggestion, openDeleteSuggestionModal, open
 
   const handleHideSuggestion = () => {
     handleErrors(async () => {
-      await toggleHideSuggestion(suggestion.id)
+      await hideSuggestion(suggestion.id)
 
       setHidden(!hidden)
+
+      handleLastPostsUpdate()
     })
   }
 
@@ -82,7 +78,7 @@ export default function Suggestion({ suggestion, openDeleteSuggestionModal, open
         </div>
       </div>
       <div className="w-full flex justify-center">
-        <h1 className="text-2xl text-center">{suggestion.title}</h1>
+        <h1 className="text-xl text-center my-2">{suggestion.title}</h1>
       </div>
       <p className="mb-2">{suggestion.content}</p>
     </div>

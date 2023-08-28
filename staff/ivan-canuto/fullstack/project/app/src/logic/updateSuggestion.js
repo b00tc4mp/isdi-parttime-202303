@@ -2,6 +2,20 @@ import { validators, errors } from 'com'
 import context from './context'
 
 const { validateId, validateText } = validators
+const { ContentError } = errors
+
+/**
+ * Updates the suggestion with new data
+ * 
+ * @param {string} suggestionId The suggestion id
+ * @param {string} title The suggestion title
+ * @param {string} content The suggestion content
+ * 
+ * @returns {Promise} A Promise that resolves when a suggestion is created successfully, or throws an error if suggestion creation fails
+ * 
+ * @throws {TypeError} On non-string suggestion id, suggestion title or suggestion content
+ * @throws {ContentError} On suggestion id length not equal to 24 characters, or empty suggestion title or length longer tha 30 characters, or empty suggestion content or length not being between 50 and 500 characters
+ */
 
 export default function updateSuggestion(suggestionId, _title, _content) {
   validateId(suggestionId, 'suggestion id')

@@ -1,22 +1,25 @@
 import { validators, errors } from 'com'
 import context from './context'
 
-const { validateId, validateText } = validators
+const { validateId, validateComment } = validators
 
 /**
  * Creates a comment in post.
  * 
  * @param {object} postId The post's id.
  * @param {string} commentText The comment text entered by user.
+ * 
+ * @returns {promise} A Promise that resolves when the comment is created, or throws an error if the comment creation fails
+ * 
+ * @throws {TypeError} On non-string post id or comment text
+ * @throws {ContentError} On post id length not equal to 24 characters, empty comment text, or comment text longer than 200 characters.
  */
 
 export default function createComment(postId, _commentText) {
   validateId(postId, 'post id')
-  validateText(_commentText, 'comment text')
+  validateComment(_commentText, 'comment text')
 
   const commentText = _commentText.trim()
-
-  if(commentText.length > 200) throw new ContentError('The text of the comment is too short.')
 
   return (async () => {
     const res = await fetch(`${import.meta.env.VITE_API_URL}/users/posts/${postId}/comment`, {

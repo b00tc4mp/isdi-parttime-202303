@@ -42,7 +42,7 @@ export default function Header({ handleToggleMenu, handleOpenProfile, setPage, h
     })
   }, [])
 
-  return <header className={`fixed h-24 top-0 w-full ${context.hideHeader ? '' : 'z-20'} bg-slate-100`}>
+  return <header className={`fixed h-24 top-0 w-full z-20 bg-slate-100`}>
     <div className="h-full flex justify-between items-center px-4">
       {/* {page === 'home'
         ? <span className="material-symbols-outlined mx-2" onClick={handleToggleMenu}>menu</span>

@@ -21,7 +21,7 @@ module.exports = {
   retrieveConversationHandler: require('./retrieveConversationHandler'),
   retrieveConversationsHandler: require('./retrieveConversationsHandler'),
   askForResponseHandler: require('./askForResponseHandler'),
-  generateConversationHandler: require('./generateConversationHandler'),
+  createConversationHandler: require('./createConversationHandler'),
   generateSummaryHandler: require('./generateSummaryHandler'),
   retrievePostSuggestionsHandler: require('./retrievePostSuggestionsHandler'),
   retrieveAllSuggestionsHandler: require('./retrieveAllSuggestionsHandler'),
@@ -33,7 +33,8 @@ module.exports = {
   deleteConversationHandler: require('./deleteConversationHandler'),
   deleteAllConversationsHandler: require('./deleteAllConversationsHandler'),
   toggleCheckSuggestionHandler: require('./toggleCheckSuggestionHandler'),
-  toggleHideSuggestionHandler: require('./toggleHideSuggestionHandler'),
+  hideSuggestionHandler: require('./hideSuggestionHandler'),
   retrieveSeenPostsHandler: require('./retrieveSeenPostsHandler'),
   savePostAsSeenHandler: require('./savePostAsSeenHandler'),
+  retrieveSearchedPostsHandler: require('./retrieveSearchedPostsHandler'),
 }

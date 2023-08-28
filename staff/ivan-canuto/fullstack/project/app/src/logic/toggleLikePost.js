@@ -4,9 +4,14 @@ import context from './context'
 const { validateId } = validators
 
 /**
- * Toggles the user likes in posts.
+ * Sets and unsets a post as liked by the user
  * 
- * @param {object} postId The post id.
+ * @param {string} postId The post id
+ * 
+ * @returns {Promise} A Promise that resolves when as post is liked/unliked successfully, or throws an error if the operation fails
+ * 
+ * @throws {TypeError} On non-string post id
+ * @throws {ContentError} On post id length not equal to 24 characters
  */
 
 export default function ªtoggleLikePost(postId) {

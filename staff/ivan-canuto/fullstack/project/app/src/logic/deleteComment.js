@@ -8,6 +8,11 @@ const { validateId } = validators
  * 
  * @param {string} postId The post's id.
  * @param {string} commentId The comment's id.
+ * 
+ * @returns {Promise} A Promise that resolves when a comment is deleted successfully, or throws an error if deletion fails
+ * 
+ * @throws {TypeError} On non-string post id or comment id
+ * @throws {ContentError} On post id or comment id length not equal to 24 characters
  */
 
 export default function deleteComment(postId, commentId) {

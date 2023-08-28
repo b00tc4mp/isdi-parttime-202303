@@ -87,8 +87,6 @@ export default function SuggestionsPage({ user, setPage, handleLastPostsUpdate }
         document.body.classList.remove('fixed-scroll')
         
         setPost(true)
-
-        context.hideHeader = true
     }
 
     const handleHidePost = () => {
@@ -97,8 +95,6 @@ export default function SuggestionsPage({ user, setPage, handleLastPostsUpdate }
         context.postId = null
 
         setPost(false)
-
-        context.hideHeader = null
 
         handleLastPostsUpdate()
     }
@@ -129,6 +125,7 @@ export default function SuggestionsPage({ user, setPage, handleLastPostsUpdate }
         {post && <PostModalWindow
         page={'mySuggestions'}
         handleHidePost={handleHidePost}
+        handleLastPostsUpdate={handleLastPostsUpdate}
         />}
     </section>
 }

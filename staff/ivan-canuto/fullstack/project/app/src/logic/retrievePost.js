@@ -4,10 +4,12 @@ import context from './context'
 const { validateId } = validators
 
 /**
- * Retrieves a post form database.
+ * Retrieves the requested post by post id
  * 
- * @param {string} postId The post's id.
+ * @returns {Promise<object>} The post object
  * 
+ * @throws {TypeError} On non-string post id
+ * @throws {ContentError} On post id length not equal to 24 characters
 */
 
 export default function retrievePost(postId) {

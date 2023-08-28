@@ -2,8 +2,10 @@ import context from "./context"
 import { errors } from 'com'
 
 /**
- * Retrieves the posts form database. * 
-*/
+ * Retrieves the suggestions made by the current user
+ * 
+ * @returns {Promise<array>} The array of suggestions
+ */
 
 export default function retrieveOwnSuggestions() {
   return (async () => {

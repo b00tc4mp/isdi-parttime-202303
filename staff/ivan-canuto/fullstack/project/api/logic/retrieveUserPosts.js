@@ -1,6 +1,18 @@
 const { validators: { validateId } } = require('com')
 const { User, Post } = require('../data/models')
 
+/**
+ * Retrieves the posts made by the current user
+ * 
+ * @param {string} userId The user id 
+ * 
+ * @returns {Promise<array>} The array of posts
+ * 
+ * @throws {TypeError} On non-string user id
+ * @throws {ContentError} On user id length not equal to 24 characters
+ * @throws {ExistenceError} On non-existing user
+ */
+
 module.exports = function retrieveUserPosts(userId) {
   validateId(userId, 'user id')
 

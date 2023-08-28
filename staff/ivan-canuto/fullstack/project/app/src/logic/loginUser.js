@@ -8,6 +8,12 @@ const { validateEmail, validatePassword } = validators
  * 
  * @param {string} email The user's email.
  * @param {string} password The user's password.
+ * 
+ * @returns {promise} A Promise that resolves when the user is logged successfully, or throws an error if the operation fails
+ * 
+ * @throws {TypeError} On non-string email or password
+ * @throws {ContentError} On empty email
+ * @throws {RangeError} On password length lower than 6 characters
  */
 
 export default function authenticateUser(email, password) {

@@ -1,6 +1,19 @@
 const { validators: { validateId }, errors: { ExistenceError } } = require('com')
 const { User, Conversation } = require('../data/models')
 
+/**
+ * Retrieves a conversation by conversation id
+ * 
+ * @param {string} userId The user id 
+ * @param {string} conversationId The conversation id
+ * 
+ * @returns {Promise<object>} The conversation object
+ * 
+ * @throws {TypeError} On non-string user id or conversation id
+ * @throws {ContentError} On user id or conversation id length not equal to 24 characters
+ * @throws {ExistenceError} On non-existing user or conversation
+ */
+
 module.exports = function retrieveConversations(userId, conversationId) {
     validateId(userId, 'user id')
     validateId(conversationId, 'conversation id')

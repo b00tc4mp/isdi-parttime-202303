@@ -1,17 +1,28 @@
-const { validators: { validateText, validateId } } = require('com')
+const { validators: { validateId, validateSuggestionTitle, validateSuggestionContent } } = require('com')
 const { errors: { ExistenceError, ContentError } } = require('com')
 
 const { User, Post, Suggestion } = require('../data/models')
 
+/**
+ * Creates a suggestion
+ * 
+ * @param {string} userId The user id
+ * @param {string} postId The post id
+ * @param {string} title The suggestion title
+ * @param {string} content The suggestion content
+ * 
+ * @returns {Promise} A Promise that resolves when a suggestion is created successfully, or rejects with an error message if suggestion creation fails
+ * 
+ * @throws {TypeError} On non-string user id, post id, suggestion title or suggestion content
+ * @throws {ContentError} On user id or post id length not equal to 24 characters, or empty suggestion title or length longer tha 30 characters, or empty suggestion content or length not being between 50 and 500 characters
+ * @throws {ExistenceError} On non-existing user or post
+ */
+
 module.exports = (userId, postId, title, content) => {
   validateId(userId, 'user id')
   validateId(postId, 'post id')
-  validateText(title, 'suggestion title')
-  validateText(content, 'suggestion text')
-
-  if(title.length > 30) throw new ContentError('The title of the suggestion is too long.')
-  if(content.length < 50) throw new ContentError('The content of the suggestion is too short.')
-  if(content.length > 500) throw new ContentError('The content of the suggestion is too long.')
+  validateSuggestionTitle(title)
+  validateSuggestionContent(content)
 
   return (async () => {
     const user = await User.findById(userId)
@@ -27,7 +38,5 @@ module.exports = (userId, postId, title, content) => {
       title,
       content
     })
-
-    // Mirar si mongoose guarda estos ids como ObjectId en el caso de que sean strings
   })()
 }

@@ -24,7 +24,7 @@ import askForResponse from './askForResponse'
 import storeInputInDB from './storeInputInDB'
 import retrieveConversations from './retrieveConversations'
 import retrieveConversation from './retrieveConversation'
-import generateConversation from './generateConversation'
+import createConversation from './createConversation'
 import generateSummary from './generateSummary'
 import retrievePostSuggestions from './retrievePostSuggestions'
 import retrieveOwnSuggestions from './retrieveOwnSuggestions'
@@ -35,9 +35,10 @@ import updateSuggestion from './updateSuggestion'
 import deleteConversation from './deleteConversation'
 import deleteAllConversations from './deleteAllConversations'
 import toggleCheckSuggestion from './toggleCheckSuggestion'
-import toggleHideSuggestion from './toggleHideSuggestion'
+import hideSuggestion from './hideSuggestion'
 import retrieveSeenPosts from './retrieveSeenPosts'
 import savePostAsSeen from './savePostAsSeen'
+import retrieveSearchedPosts from './retrieveSearchedPosts'
 
 export {
     context,
@@ -66,7 +67,7 @@ export {
     storeInputInDB,
     retrieveConversations,
     retrieveConversation,
-    generateConversation,
+    createConversation,
     generateSummary,
     retrievePostSuggestions,
     retrieveOwnSuggestions,
@@ -77,7 +78,8 @@ export {
     deleteConversation,
     deleteAllConversations,
     toggleCheckSuggestion,
-    toggleHideSuggestion,
+    hideSuggestion,
     retrieveSeenPosts,
-    savePostAsSeen
+    savePostAsSeen,
+    retrieveSearchedPosts
 }

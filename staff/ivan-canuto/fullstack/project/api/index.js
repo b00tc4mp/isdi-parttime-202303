@@ -26,7 +26,7 @@ const {
     retrieveConversationHandler,
     retrieveConversationsHandler,
     askForResponseHandler,
-    generateConversationHandler,
+    createConversationHandler,
     generateSummaryHandler,
     retrieveAllSuggestionsHandler,
     retrieveOwnSuggestionsHandler,
@@ -38,9 +38,10 @@ const {
     deleteConversationHandler,
     deleteAllConversationsHandler,
     toggleCheckSuggestionHandler,
-    toggleHideSuggestionHandler,
+    hideSuggestionHandler,
     retrieveSeenPostsHandler,
-    savePostAsSeenHandler
+    savePostAsSeenHandler,
+    retrieveSearchedPostsHandler
 } = require('./handlers')
 const mongoose = require('mongoose')
 
@@ -72,7 +73,7 @@ mongoose.connect(process.env.MONGODB_URL)
 
         api.get('/posts', retrievePostsHandler)
 
-        api.get('/users/savedPosts', retrieveSavedPostsHandler)
+        api.get('/posts/savedPosts', retrieveSavedPostsHandler)
 
         api.get('/users/userPosts', retrieveUserPostsHandler)
 
@@ -94,9 +95,9 @@ mongoose.connect(process.env.MONGODB_URL)
         
         api.get('/users/conversations', jsonBodyParser, retrieveConversationsHandler)
 
-        api.post('/users/conversations/:conversationId/askForResponse', jsonBodyParser, askForResponseHandler)
+        api.post('/conversations/:conversationId/askForResponse', jsonBodyParser, askForResponseHandler)
 
-        api.post('/users/generateConversation', jsonBodyParser, generateConversationHandler)
+        api.post('/users/generateConversation', jsonBodyParser, createConversationHandler)
 
         api.get('/users/conversations/:conversationId/generateSummary', jsonBodyParser, generateSummaryHandler)
         
@@ -120,11 +121,13 @@ mongoose.connect(process.env.MONGODB_URL)
 
         api.patch('/suggestions/:suggestionId/check', jsonBodyParser, toggleCheckSuggestionHandler)
 
-        api.patch('/suggestions/:suggestionId/hidden', jsonBodyParser, toggleHideSuggestionHandler)
+        api.patch('/suggestions/:suggestionId/hidden', jsonBodyParser, hideSuggestionHandler)
 
         api.get('/posts/seenPosts', jsonBodyParser, retrieveSeenPostsHandler)
 
         api.patch('/posts/:postId/saveSeenPost', jsonBodyParser, savePostAsSeenHandler)
+
+        api.post('/posts/searchedPosts', jsonBodyParser, retrieveSearchedPostsHandler)
 
         api.listen(process.env.PORT, () => console.log(`Server running in port ${process.env.PORT}`))
     })

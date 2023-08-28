@@ -3,7 +3,19 @@ const {
   errors: { ExistenceError }
 } = require("com")
 const { User, Post, Suggestion } = require("../data/models")
-// const { mongoose: { Types: { ObjectId } } } = require('mongoose')
+
+/**
+ * Retrieves the suggestions that belong to the post
+ * 
+ * @param {string} userId The user id
+ * @param {string} postId The post id
+ * 
+ * @returns {Promise<array>} The array of suggestions
+ * 
+ * @throws {TypeError} On non-string user id or post id
+ * @throws {ContentError} On user id or post id length not equal to 24 characters
+ * @throws {ExistenceError} On non-existing user or post
+ */
 
 module.exports = (userId, postId) => {
   validateId(userId, "user id")

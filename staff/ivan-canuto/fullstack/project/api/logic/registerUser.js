@@ -12,7 +12,8 @@ const bcrypt = require('bcryptjs')
  * @param {string} name A name entered by the user
  * @param {string} email An email enntered by the user
  * @param {string} password A password entered by the user
- * @returns {Promise}
+ * 
+ * @returns {promise} A Promise that resolves when the registration is successful, or rejects with an error message if registration fails
  * 
  * @throws {TypeError} On non-string name, email or password
  * @throws {ContentError} On empty name or email

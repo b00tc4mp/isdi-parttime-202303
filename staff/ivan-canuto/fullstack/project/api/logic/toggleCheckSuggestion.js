@@ -1,6 +1,19 @@
 const { validators: { validateId }, errors: { ExistenceError } } = require('com')
 const { User, Suggestion } = require('../data/models')
 
+/**
+ * Sets and unsets a suggestion as checked
+ * 
+ * @param {string} userId The user id
+ * @param {string} suggestionId The suggestion id
+ * 
+ * @returns {Promise} A Promise that resolves when a a suggestion is set as checked/unchecked successfully, or rejects with an error message if the operation fails
+ * 
+ * @throws {TypeError} On non-string user id or suggestion id
+ * @throws {ContentError} On user id or suggestion id length not equal to 24 characters
+ * @throws {ExistenceError} On non-existing user or suggestion
+ */
+
 module.exports = function toggleCheckSuggestion(userId, suggestionId) {
     validateId(userId, 'user id')
     validateId(suggestionId, 'suggestion id')

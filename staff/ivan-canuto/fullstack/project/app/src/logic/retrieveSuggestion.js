@@ -2,7 +2,14 @@ import context from "./context"
 import { errors } from 'com'
 
 /**
- * Retrieves the posts form database. * 
+ * Retrieves a suggestion by suggestion id
+ * 
+ * @param {string} suggestionId The suggestion id
+ * 
+ * @returns {Promise<object>} The suggestion object
+ * 
+ * @throws {TypeError} On non-string suggestion id
+ * @throws {ContentError} On suggestion id length not equal to 24 characters
 */
 
 export default function retrieveSuggestion(suggestionId) {

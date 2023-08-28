@@ -4,10 +4,16 @@ import context from './context'
 const { validateUrl, validatePassword } = validators
 
 /**
- * Upadtes the user avatar.
+ * Updates the user avatar
  * 
- * @param {string} newAvatarUrl The new avatar url.
- * @param {string} password The users's password.
+ * @param {string} newAvatarUrl The new avatar url
+ * @param {string} password The user password
+ * 
+ * @returns {Promise} A Promise that resolves when the user avatar is updated successfully, or throws an error if the operation fails
+ * 
+ * @throws {TypeError} On non-string new avatar url or password
+ * @throws {ContentError} On empty new avatar url or the new avatar url is the same as the old one.
+ * @throws {RangeError} On password length lower than 6 characters
  */
 
 export default function updateUserAvatar(newAvatarUrl, password) {

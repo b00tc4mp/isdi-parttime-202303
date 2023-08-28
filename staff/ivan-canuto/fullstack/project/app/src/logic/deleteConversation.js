@@ -4,9 +4,14 @@ import context from './context'
 const { validateId } = validators
 
 /**
- * Deletes a user's comment.
+ * Deletes a user's conversation with the chatbot.
  * 
- * @param {string} conversationId The post's id.
+ * @param {string} conversationId The conversation id.
+ * 
+ * @returns {Promise} A Promise that resolves when a conversation is deleted successfully, or throws an error if deletion fails
+ * 
+ * @throws {TypeError} On non-string conversation id
+ * @throws {ContentError} On conversation id length not equal to 24 characters
  */
 
 export default function deleteConversation(conversationId) {

@@ -6,6 +6,19 @@ const { Configuration, OpenAIApi } = require('openai')
 const mongoose = require('mongoose')
 const { mongoose: { Types: { ObjectId } } } = mongoose
 
+/**
+ * Creates a conversation and a conversation title
+ * 
+ * @param {string} userId The user id 
+ * @param {string} userInput The user input
+ * 
+ * @returns {Promise<string>} The conversation id
+ * 
+ * @throws {TypeError} On non-string user id or user input
+ * @throws {ContentError} On user id length not equal to 24 characters, or empty user input
+ * @throws {ExistenceError} On non-existing user
+ */
+
 module.exports = function generateConversation(userId, userInput) {
     validateId(userId, 'user id')
     validateText(userInput, 'user input')

@@ -4,6 +4,19 @@ const {
 } = require('com')
 const { mongoose: { Types: { ObjectId } } } = require('mongoose')
 
+/**
+ * Sets and unsets a post as liked by the user
+ * 
+ * @param {string} userId The user id
+ * @param {string} postId The post id
+ * 
+ * @returns {Promise} A Promise that resolves when as post is liked/unliked successfully, or rejects with an error message if the operation fails
+ * 
+ * @throws {TypeError} On non-string user id or post id
+ * @throws {ContentError} On user id or post id length not equal to 24 characters
+ * @throws {ExistenceError} On non-existing user or post
+ */
+
 const { User, Post } = require('../data/models')
 
 module.exports = (userId, postId) => {

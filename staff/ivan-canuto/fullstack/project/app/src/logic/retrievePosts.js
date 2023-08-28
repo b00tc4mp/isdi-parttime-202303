@@ -2,7 +2,9 @@ import context from "./context"
 import { errors } from 'com'
 
 /**
- * Retrieves the posts form database. * 
+ * Retrieves all posts from database
+ * 
+ * @returns {Promise<array>} The array of posts
 */
 
 export default function retrievePosts() {

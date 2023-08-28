@@ -2,12 +2,14 @@ import context from "./context"
 import { errors } from 'com'
 
 /**
- * Retrieves the saved posts form database.
+ * Retrieves the user favorite/saved posts
+ * 
+ * @returns {Promise<array>} The array of posts
 */
 
 export default function retrieveSavedPosts() {
   return (async () => {
-    const res = await fetch(`${import.meta.env.VITE_API_URL}/users/savedPosts`, {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/posts/savedPosts`, {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${context.token}`

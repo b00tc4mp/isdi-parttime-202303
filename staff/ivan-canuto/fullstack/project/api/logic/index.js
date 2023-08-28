@@ -20,7 +20,7 @@ module.exports = {
   retrieveConversations: require('./retrieveConversations'),
   retrieveConversation: require('./retrieveConversation'),
   askForResponse: require('./askForResponse'),
-  generateConversation: require('./generateConversation'),
+  createConversation: require('./createConversation'),
   generateSummary: require('./generateSummary'),
   retrievePostSuggestions: require('./retrievePostSuggestions'),
   retrieveOwnSuggestions: require('./retrieveOwnSuggestions'),
@@ -31,7 +31,8 @@ module.exports = {
   deleteConversation: require('./deleteConversation'),
   deleteAllConversations: require('./deleteAllConversations'),
   toggleCheckSuggestion: require('./toggleCheckSuggestion'),
-  toggleHideSuggestion: require('./toggleHideSuggestion'),
+  hideSuggestion: require('./hideSuggestion'),
   retrieveSeenPosts: require('./retrieveSeenPosts'),
   savePostAsSeen: require('./savePostAsSeen'),
+  retrieveSearchedPosts: require('./retrieveSearchedPosts'),
 }

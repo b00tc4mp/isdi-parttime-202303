@@ -2,7 +2,9 @@ import context from "./context"
 import { errors } from 'com'
 
 /**
- * Retrieves the name, avatar, and favorite posts of the user.
+ * Retrieves the user by user id
+ * 
+ * @returns {Promise<object>} The user object
  */
 
 export default function retrieveUser() {

@@ -2,9 +2,21 @@ const {
   validators: { validateId },
   errors: { ExistenceError }
 } = require('com')
-const { mongoose: { Types: { ObjectId } } } = require('mongoose')
 
 const { User, Post } = require('../data/models')
+
+/**
+ * Deletes a post
+ * 
+ * @param {string} userId The user id 
+ * @param {string} postId The post id
+ * 
+ * @returns {Promise} A Promise that resolves when a post is deleted successfully, or rejects with an error message if deletion fails
+ * 
+ * @throws {TypeError} On non-string user id or post id
+ * @throws {ContentError} On user id or post id length not equal to 24 characters
+ * @throws {ExistenceError} On non-existing user or post
+ */
 
 module.exports = (userId, postId) => {
   validateId(userId, 'user id')

@@ -1,8 +1,20 @@
 import { validators, errors } from "com";
-const { validateId } = validators
 import context from "./context";
 
-export default function storeInputInDB(suggestionId) {
+const { validateId } = validators
+
+/**
+ * Sets and unsets a suggestion as checked
+ * 
+ * @param {string} suggestionId The suggestion id
+ * 
+ * @returns {Promise} A Promise that resolves when a a suggestion is set as checked/unchecked successfully, or throws an error if the operation fails
+ * 
+ * @throws {TypeError} On non-string suggestion id
+ * @throws {ContentError} On suggestion id length not equal to 24 characters
+ */
+
+export default function toggleCheckSuggestion(suggestionId) {
     validateId(suggestionId, 'suggestion id')
 
     return (async () => {

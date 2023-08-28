@@ -2,7 +2,9 @@ import context from './context'
 import { errors } from 'com'
 
 /**
- * Retrieves the user's posts form database.
+ * Retrieves the posts made by the current user
+ * 
+ * @returns {Promise<array>} The array of posts
 */
 
 export default function retrieveUserPosts() {

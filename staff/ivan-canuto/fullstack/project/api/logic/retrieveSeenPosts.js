@@ -3,6 +3,18 @@ const {
     errors: { ExistenceError }
   } = require('com')
 const { User, Post } = require('../data/models')
+
+/**
+ * Retrieves as much as the last fifteen posts seen by the user
+ * 
+ * @param {string} userId The user id
+ * 
+ * @returns {Promise<array>} The array of posts
+ * 
+ * @throws {TypeError} On non-string user id
+ * @throws {ContentError} On user id length not equal to 24 characters
+ * @throws {ExistenceError} On non-existing user
+ */
   
   module.exports = (userId) => {
     validateId(userId, 'user id')

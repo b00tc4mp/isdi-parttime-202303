@@ -6,7 +6,12 @@ const { validateId } = validators
 /**
  * Deletes a user's post.
  * 
- * @param {object} postId The post's id.
+ * @param {string} postId The post's id.
+ * 
+ * @returns {Promise} A Promise that resolves when a post is deleted successfully, or throws an error if deletion fails
+ * 
+ * @throws {TypeError} On non-string post id
+ * @throws {ContentError} On post id length not equal to 24 characters
  */
 
 export default function deletePost(postId) {

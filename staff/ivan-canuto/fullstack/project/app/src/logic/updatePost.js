@@ -3,11 +3,16 @@ import context from './context'
 const { validateId, validateText } = validators
 
 /**
- * Updates the post with new data.
+ * Updates the post with new data
  * 
- * @param {string} postId The post id.
- * @param {string} title the title of the post.
- * @param {string} content The content (summary) of the post.
+ * @param {string} postId The post id
+ * @param {string} title The post title
+ * @param {string} content The post content
+ * 
+ * @returns {Promise} A Promise that resolves when a post is updated successfully, or throws an error if the operation fails
+ * 
+ * @throws {TypeError} On non-string user id, post id, title or content
+ * @throws {ContentError} On user id or post id length not equal to 24 characters, or empty title or content
  */
 
 export default function updatePost(postId, _title, _content) {

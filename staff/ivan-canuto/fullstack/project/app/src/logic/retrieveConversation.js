@@ -3,6 +3,17 @@ import { errors, validators } from 'com'
 
 const { validateId } = validators
 
+/**
+ * Retrieves a conversation between the current user and the chatbot
+ * 
+ * @param {string} conversationId The conversation id
+ * 
+ * @returns {Promise<object>} The conversation object
+ * 
+ * @throws {TypeError} On non-string conversation id
+ * @throws {ContentError} On conversation id length not equal to 24 characters
+ */
+
 export default function retrieveConversations(conversationId) {
     validateId(conversationId, 'conversation id')
 

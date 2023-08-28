@@ -8,12 +8,6 @@ export default function EditSuggestion({
   handleEditSuggestion,
   setSuggestion,
 }) {
-  useEffect(() => {
-    return () => {
-      context.hideHeader = null
-    }
-  },[])
-
   return (
     <ModalContainer
       className="SuggestionModal fixed top-0 left-0 z-30 bg-black bg-opacity-20"

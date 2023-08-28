@@ -1,6 +1,18 @@
 import { validators, errors } from "com";
-const { validateId } = validators
 import context from "./context";
+
+const { validateId } = validators
+
+/**
+ * Sets a suggestion as hidden.
+ * 
+ * @param {string} suggestionId The suggestion id.
+ * 
+ * @returns {Promise} A Promise that resolves when a suggestion is hidden successfully, or throws an error if the operation fails
+ * 
+ * @throws {TypeError} On non-string suggestion id
+ * @throws {ContentError} On suggestion id length not equal to 24 characters
+ */
 
 export default function storeInputInDB(suggestionId) {
     validateId(suggestionId, 'suggestion id')

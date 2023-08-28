@@ -121,8 +121,6 @@ export default function SideBarMenu({
 
                 handleToggleMenu();
 
-                if(context.hideHeader) context.hideHeader = false
-
                 if(openedProfile) setOpenedProfile(false)
 
                 scrollToTop()

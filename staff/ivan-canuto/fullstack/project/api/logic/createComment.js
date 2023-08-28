@@ -1,17 +1,29 @@
 const {
-  validators: { validateId, validateText },
+  validators: { validateId, validateComment },
   errors: { ExistenceError }
 } = require('com')
 const { mongoose: { Types: { ObjectId } } } = require('mongoose')
 
 const { User, Post } = require('../data/models')
 
+/**
+ * Creates a comment
+ * 
+ * @param {string} userId The user id
+ * @param {string} postId The post id
+ * @param {string} commentText The comment text
+ * 
+ * @returns {promise} A Promise that resolves when the comment is created, or rejects with an error message if the comment creation fails
+ * 
+ * @throws {TypeError} On non-string user id, post id or comment text
+ * @throws {ContentError} On user id or post id length not equal to 24 characters, empty comment text, or comment text longer than 200 characters.
+ * @throws {ExistenceError} On non-existing user or post
+ */
+
 module.exports = (userId, postId, commentText) => {
   validateId(userId, 'user id')
   validateId(postId, 'post id')
-  validateText(commentText, 'comment text')
-
-  if(commentText.length > 200) throw new ContentError('The text of the comment is too long.')
+  validateComment(commentText, 'comment text')
 
   return (async () => {
     const user = await User.findById(userId)

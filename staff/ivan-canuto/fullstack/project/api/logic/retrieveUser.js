@@ -8,10 +8,11 @@ const { User } = require('../data/models')
  * Retrieves the user by user id
  * 
  * @param {string} userId The user id 
- * @returns {Promise<object>}
+ * 
+ * @returns {Promise<object>} The user object
  * 
  * @throws {TypeError} On non-string user id
- * @throws {ContentError} On empty user id
+ * @throws {ContentError} On user id length not equal to 24 characters
  * @throws {ExistenceError} On non-existing user
  */
 

@@ -2,8 +2,20 @@ const {
     validators: { validateId },
     errors: { ExistenceError }
   } = require('com')
-  
 const { User, Conversation } = require('../data/models')
+
+/**
+ * Deletes a conversation
+ * 
+ * @param {string} userId The user id 
+ * @param {string} conversationId The conversation id
+ * 
+ * @returns {Promise} A Promise that resolves when a conversation is deleted successfully, or rejects with an error message if deletion fails
+ * 
+ * @throws {TypeError} On non-string user id or conversation id
+ * @throws {ContentError} On user id or conversation id length not equal to 24 characters,
+ * @throws {ExistenceError} On non-existing user or conversation
+ */
 
 module.exports = (userId, conversationId) => {
     validateId(userId, 'user id')

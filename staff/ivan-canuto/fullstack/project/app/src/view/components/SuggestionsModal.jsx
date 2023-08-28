@@ -6,7 +6,7 @@ import { Suggestion } from '.'
 import { context } from "../../ui"
 import { CreateSuggestion, DeleteSuggestion, EditSuggestion } from '.'
 
-export default function SuggestionsModal({ post, user, handleLastPostsUpdate }) {
+export default function SuggestionsModal({ post, user, handleLastPostsUpdate, lastPostsUpdate }) {
   const { alert } = useAppContext()
   const handleErrors = useHandleErrors()
 
@@ -18,7 +18,7 @@ export default function SuggestionsModal({ post, user, handleLastPostsUpdate }) 
     handleRefreshSuggestions()
 
     console.log('Suggestion Modal -> Render')
-  }, [])
+  }, [lastPostsUpdate])
 
   const handleRefreshSuggestions = () => {
     handleErrors(async () => {

@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { useAppContext, useHandleErrors } from "../hooks";
-import { Button, Container } from "../library";
+import { Button, Container, Input } from "../library";
 import { Profile, Posts, SideBarMenu, Header, VisibilityPost, EditPost, DeletePost, PostModalWindow, Chatbot, SuggestionsPage, SeenLately } from "../components";
 import { logoutUser, retrieveUser, retrieveConversations } from "../../logic";
 import { Routes, Route, Navigate } from "react-router-dom";
@@ -22,16 +22,20 @@ export default function Home() {
   const [user, setUser] = useState()
   const [openedProfile, setOpenedProfile] = useState(false)
   const [writingText, setWritingText] = useState(false)
-
-  const mainContainerRef = useRef(null)
+  const [search, setSearch] = useState(false)
+  const [textToSearch, setTextToSearch] = useState()
 
   useEffect(() => {
     console.log("Home -> render");
 
     renderConversations();
 
-    if(!lastPostsUpdate) handleRefreshUser()
+    if (!lastPostsUpdate) handleRefreshUser()
   }, [lastPostsUpdate]);
+
+  useEffect(() => {
+    context.hideHeader = false
+  },[])
 
   const handleRefreshUser = () => {
     handleErrors(async () => {
@@ -66,7 +70,7 @@ export default function Home() {
   const handleLastPostsUpdate = () => {
     document.body.classList.remove("fixed-scroll");
     setLastPostsUpdate(Date.now());
-    
+
     setModal(null);
   };
 
@@ -87,7 +91,7 @@ export default function Home() {
   const handleOpenProfile = () => {
     navigate('/profile')
 
-    if(menu) handleToggleMenu()
+    if (menu) handleToggleMenu()
 
     setOpenedProfile(true)
 
@@ -103,9 +107,9 @@ export default function Home() {
     context.conversationId = null
     context.suggestionId = null
   };
-  
+
   const handleToggleMenu = () => {
-    if(modal !== 'profile' && !writingText)
+    if (modal !== 'profile' && !writingText)
       if (!menu) {
         setMenu(!menu);
         setOpenedMenu(!openedMenu);
@@ -122,9 +126,9 @@ export default function Home() {
   const handleOpenChatbotWindow = () => {
     setPage("Chatbot");
 
-    if(context.conversationId) context.conversationId = null
+    if (context.conversationId) context.conversationId = null
 
-    if(context.hideHeader) context.hideHeader = false
+    if (context.hideHeader) context.hideHeader = false
 
     navigate("/chatbot");
   };
@@ -137,22 +141,56 @@ export default function Home() {
 
   const scrollToTop = () => {
     const homeContainer = document.querySelector('.home-container')
-    
+
     homeContainer.scrollTop = 0
   }
-  
+
+  const handleToggleSearchBar = () => {
+    document.body.classList.add('fixed-scroll')
+
+    setSearch(!search)
+  }
+
+  const handleSearch = event => {
+    event.preventDefault()
+
+    const text = event.target.textToSearch.value
+
+    setTextToSearch(text)
+
+    setView('searchedPosts')
+
+    handleToggleSearchBar()
+
+    handleLastPostsUpdate()
+  }
+
   console.debug("Home -> render");
 
   return (
     <Container className="home-container bg-[url(src/images/chatbot-3.1.jpg)] bg-fixed bg-center bg-cover min-h-screen absolute left-0 overflow-scroll">
       <div className="loader"></div>
-      {page === "Home" && (
-        <Button
-          className="fixed top-[105px] right-2 bg-slate-100 z-10 border border-gray-200"
-          onClick={handleOpenChatbotWindow}
-        >
-          <p className='flex items-center gap-1 text-lg'>Chat<span className="material-symbols-outlined">smart_toy</span></p>
-        </Button>
+      {page === "Home" && (<>
+        {!search && <div className="fixed top-[105px] z-10 flex justify-between w-full px-4">
+          <Button className='border-gray-300 bg-slate-100 p-1 rounded flex gap-2' onClick={handleToggleSearchBar}><span className="material-symbols-outlined">search</span>Search...</Button>
+          <Button className="bg-slate-100 border border-gray-200" onClick={handleOpenChatbotWindow}>
+            <p className='flex items-center gap-1 text-lg'>Chat<span className="material-symbols-outlined">smart_toy</span></p>
+          </Button>
+        </div>}
+        {search && <Container className='w-full h-full fixed top-0 left-0 z-30' onClick={event => {
+          if (event.target.tagName !== 'INPUT' && event.target.tagName !== 'BUTTON' && event.target.tagName !== 'SPAN')
+            handleToggleSearchBar()
+        }}>
+          <form className='search-form fixed top-[105px] w-full flex justify-center rounded-lg' onSubmit={handleSearch}>
+            <div className="border-2 border-slate-300 flex rounded-lg gap-1">
+              <Input className='border-none w-60' placeholder='Search something...' name='textToSearch' autoFocus></Input>
+              <Button><span className="material-symbols-outlined">search</span></Button>
+            </div>
+          </form>
+        </Container>
+
+        }
+      </>
       )}
 
       <Header
@@ -165,13 +203,14 @@ export default function Home() {
         openedProfile={openedProfile}
         setOpenedProfile={setOpenedProfile}
         setView={setView}
-        />
+      />
 
       <main>
         {(page === 'Home' && !openedProfile) && <Posts
           lastPostsUpdate={lastPostsUpdate}
           view={view}
           handleTogglePostModal={handleTogglePostModal}
+          textToSearch={textToSearch}
         />}
 
         {modal === "editPost" && (
@@ -222,7 +261,7 @@ export default function Home() {
               },
               {
                 text: 'Chatbot page',
-                onClick: () => {handleOpenChatbotWindow()},
+                onClick: () => { handleOpenChatbotWindow() },
               },
               {
                 text: "Own post",
@@ -293,7 +332,7 @@ export default function Home() {
                 },
               },
               ...conversationsOptions,
-              {onClick: () => {}, text: ''}
+              { onClick: () => { }, text: '' }
             ]}
             openedMenu={openedMenu}
             page={page}
@@ -318,6 +357,7 @@ export default function Home() {
                   handleLastPostsUpdate={handleLastPostsUpdate}
                   setWritingText={setWritingText}
                   writingText={writingText}
+                  setView={setView}
                 />
               ) : (
                 <Navigate to="/login" />

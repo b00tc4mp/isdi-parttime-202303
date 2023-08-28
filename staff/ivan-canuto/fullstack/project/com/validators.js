@@ -9,7 +9,7 @@ function validateName(name) {
 function validateEmail(email, explanation = 'email') {
   if (typeof email!=='string') throw new TypeError(`The ${explanation} is not a string.`)
   if (!email.trim().length) throw new ContentError(`The ${explanation} field is empty.`, {cause: 'hola'})
-  if(!EMAIL_REGEX.test(email)) throw new ContentError('The email is not valid.')
+  if (!EMAIL_REGEX.test(email)) throw new ContentError('The email is not valid.')
 }
 
 function validatePassword(password, explanation = 'password') {
@@ -34,7 +34,7 @@ function validateId(id, explanation = 'id') {
   for(let i = 0; i < id.length; i++) {
     const char = id[i]
     
-    if(!HEX_DICTIONARY.includes(char)) throw new ContentErrorError(`The ${explanation} is not hexadecimal.`)
+    if (!HEX_DICTIONARY.includes(char)) throw new ContentError(`The ${explanation} is not hexadecimal.`)
   }
 }
 
@@ -49,7 +49,34 @@ function validateCallback(callBack, explanation = 'CallBack') {
 
 function validateToken(token, explanation = 'token') {
   if (typeof token !=='string') throw new TypeError(`The ${explanation} is not a string.`)
-  if(token.split('.').length !== 3) throw new ContentError (`${explanation} is not valid.`)
+  if (token.split('.').length !== 3) throw new ContentError (`${explanation} is not valid.`)
+}
+
+function validateArray(array, explanation = 'array') {
+  if (!Array.isArray(array)) throw new TypeError(`The ${explanation} is not an array.`)
+}
+
+function validateComment(comment, explanation = 'comment') {
+  if (typeof comment !=='string') throw new TypeError(`The ${explanation} is not a string.`)
+  if (!comment.trim().length) throw new ContentError(`The ${explanation} field is empty.`)
+  if (comment.trim().length > 200) throw new ContentError(`The text of the ${explanation} is too long.`)
+}
+
+function validateSuggestionTitle(title) {
+  if (typeof text !=='string') throw new TypeError(`The suggestion title is not a string.`)
+  if (!text.trim().length) throw new ContentError(`The suggestion title field is empty.`)
+  if (title.length > 30) throw new ContentError('The tsuggestion title is too long.')
+}
+
+function validateSuggestionContent(content) {
+  if (typeof content !=='string') throw new TypeError(`The suggestion content is not a string.`)
+  if (!content.trim().length) throw new ContentError(`The suggestion content field is empty.`)
+  if(content.length < 50) throw new ContentError('The suggestion content is too short.')
+  if(content.length > 500) throw new ContentError('The suggestion content is too long.')
+}
+
+function validateObject(object, explanation = 'object') {
+  if(typeof object !== 'object') throw new TypeError(`The ${explanation} is not an object.`)
 }
 
 module.exports = {
@@ -60,5 +87,10 @@ module.exports = {
   validateText,
   validateCallback,
   validateId,
-  validateToken
+  validateToken,
+  validateArray,
+  validateComment,
+  validateSuggestionTitle,
+  validateSuggestionContent,
+  validateObject
 }

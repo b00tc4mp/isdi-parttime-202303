@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react"
 import { Container, Button, SpeechBubble, LoaderResponse } from "../library"
 import { useAppContext, useHandleErrors } from "../hooks"
-import { askForResponse, retrieveConversation, storeInputInDB, generateConversation, generateSummary, createPost } from "../../logic"
+import { askForResponse, retrieveConversation, storeInputInDB, createConversation, generateSummary, createPost } from "../../logic"
 import { context } from "../../ui"
 
-export default function Chatbot({ lastPostsUpdate, setPage, handleLastPostsUpdate, setWritingText, writingText }) {
+export default function Chatbot({ lastPostsUpdate, setPage, handleLastPostsUpdate, setWritingText, writingText, setView }) {
     const handleErrors = useHandleErrors()
     const { navigate, freeze, unfreeze } = useAppContext()
 
@@ -53,7 +53,7 @@ export default function Chatbot({ lastPostsUpdate, setPage, handleLastPostsUpdat
 
             if (!userInput) return
             
-            if (!context.conversationId) context.conversationId = await generateConversation(userInput)
+            if (!context.conversationId) context.conversationId = await createConversation(userInput)
 
             const newUserInput = {
                 role: 'user',
@@ -137,6 +137,8 @@ export default function Chatbot({ lastPostsUpdate, setPage, handleLastPostsUpdat
 
                 context.summary = false
             })
+
+            setView('posts')
         }
     }
 
