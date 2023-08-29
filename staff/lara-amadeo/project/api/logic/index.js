@@ -18,5 +18,6 @@ module.exports = {
     incrementMealsInCart: require('./incrementMealsInCart'),
     retrievePendingToDeliver: require('./retrievePendingToDeliver'),
     markAsReady: require('./markAsReady'),
-    retrieveWaitingClientToPickUp: require('./retrieveWaitingClientToPickUp')
+    retrieveWaitingClientToPickUp: require('./retrieveWaitingClientToPickUp'),
+    markAsCompleted: require('./markAsCompleted')
 }
