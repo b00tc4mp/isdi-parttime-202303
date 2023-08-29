@@ -1,9 +1,12 @@
+import { validators } from '../../com'
+const { validateEmail, validatePassword } = validators
+
 import { API_URL } from '@env'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 export function authenticateUser(email, password) {
-    //validateEmail(email)
-    //validatePassword(password)
+    validateEmail(email)
+    validatePassword(password)
 
     return fetch(`${API_URL}/users/auth`, {
         method: 'POST',

@@ -1,14 +1,13 @@
-//import { validators } from 'com'
-//const { validateNewPassword, validatePassword, validatePasswordConfirm, validateToken } = validators
+import { validators } from '../../com'
+const { validateNewPassword, validatePassword, validatePasswordConfirm, validateToken } = validators
 
 import { API_URL } from '@env'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 export function updateUserPassword(password, newPassword, newPasswordConfirmation) {
-    /*validateToken(token)
     validatePassword(password)
     validateNewPassword(newPassword, 'new password')
-    validatePasswordConfirm(newPassword, newPasswordConfirmation, 'new password confirmation', 'new password')*/
+    validatePasswordConfirm(newPassword, newPasswordConfirmation, 'new password confirmation', 'new password')
 
     return AsyncStorage.getItem('TOKEN')
         .then(token => {
