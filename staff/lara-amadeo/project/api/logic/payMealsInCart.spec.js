@@ -58,4 +58,5 @@ describe('payMealsinCart function', () => {
             expect(error.message).to.include(`User with id ${nonExistingUserId}`)
         }
     })
+
 })

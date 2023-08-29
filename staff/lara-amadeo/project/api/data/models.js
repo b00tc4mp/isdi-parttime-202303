@@ -101,7 +101,7 @@ const user = new Schema({
     },
     avatar: {
         type: String,
-        default: "https://i.pinimg.com/550x/57/70/f0/5770f01a32c3c53e90ecda61483ccb08.jpg"
+        default: "https://picsum.photos/1000"
     },
     availability: {
         type: [Object],

@@ -93,4 +93,23 @@ describe('addMealToCart', () => {
             expect(error.message).to.include(`Meal with id ${nonExistingMealId}`)
         }
     })
+
+    it('should increase quantity by the specified amount for an existing meal', async () => {
+        user.cart.push({
+            meal: meal._id,
+            author: meal.author,
+            quantity: 2,
+        })
+        await user.save()
+
+        const increaseQuantity = 4
+        await addMealToCart(user._id.toString(), meal._id.toString(), increaseQuantity)
+
+        const updatedUser = await User.findById(user._id)
+        expect(updatedUser.cart).to.have.lengthOf(1)
+
+        const cartItem = updatedUser.cart[0]
+        expect(cartItem.meal.toString()).to.equal(meal._id.toString())
+        expect(cartItem.quantity).to.equal(2 + increaseQuantity)
+    })
 })

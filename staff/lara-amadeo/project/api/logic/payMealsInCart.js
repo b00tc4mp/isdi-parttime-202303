@@ -48,4 +48,5 @@ module.exports = function payMealsinCart(userId) {
 
         await user.save()
     })()
+
 }
