@@ -1,4 +1,3 @@
-import formatDate from '../../logic/formatDate'
 import Avatar from '../components/Avatar'
 import Divider from '../components/Divider'
 import { MinusIcon, PlusIcon, TrashIcon } from '../icons'

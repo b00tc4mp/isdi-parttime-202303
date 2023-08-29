@@ -1,22 +1,22 @@
 export const context = {
     set token(token) {
         if (!token) {
-            delete sessionStorage.token
+            delete localStorage.token
 
             return
         }
-        sessionStorage.token = token
+        localStorage.token = token
     },
 
     get token() {
-        return sessionStorage.token
+        return localStorage.token
     },
 
     set os(os) {
-        sessionStorage.os = os;
+        localStorage.os = os;
     },
 
     get os() {
-        return sessionStorage.os;
+        return localStorage.os;
     }
 }

@@ -12,11 +12,11 @@ export default function formatDate(postDate: Date) {
     const day = postDate.getDate()
     const currentHour = currentDate.getHours()
 
-    const month = postDate.toLocaleString('default', { month: 'long' })
+    const month = postDate.toLocaleString('default', { month: '2-digit' })
     const year = postDate.getFullYear()
     const hour = postDate.getHours()
 
-    return `${day} ${month} ${year}`
+    return `${day}-${month}-${year}`
     if (currentDateDay === day && currentDateMonth === month) {
         const hoursAgo = currentHour - hour
         if (hoursAgo === 0) return `less than an hour ago`

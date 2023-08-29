@@ -13,7 +13,7 @@ const { errors: { AuthError, ExistanceError } } = require('../../com')
 
 describe('retrievePendingToPickUp', () => {
     before(async () => {
-        await mongoose.connect(process.env.MONGODB_URL)
+        await mongoose.connect(`${process.env.MONGODB_URL}/project-data-test`)
     })
 
     let user
@@ -29,9 +29,10 @@ describe('retrievePendingToPickUp', () => {
 
     it('should retrieve pending orders for a user', async () => {
         const author = await User.create(user)
+        const meal = await Meal.create(generateMeal())
 
-        const userMealData = generateMeal()
-        const meal = await Meal.create(userMealData)
+        const buyer = await User.create(generateUser())
+
 
         const order = {
             serial: '12345',
@@ -41,15 +42,20 @@ describe('retrievePendingToPickUp', () => {
                     quantity: 2,
                     author: meal.author,
                 },
+                {
+                    meal: meal._id,
+                    quantity: 2,
+                    author: meal.author,
+                }
             ],
             status: 'pending',
             date: new Date(),
         }
 
-        author.order.push(order)
-        await author.save()
+        buyer.order.push(order)
+        await buyer.save()
 
-        const retrievedOrders = await retrievePendingToPickUp(author._id.toString())
+        const retrievedOrders = await retrievePendingToPickUp(buyer._id.toString())
 
         expect(retrievedOrders).to.be.an('array')
         expect(retrievedOrders).to.have.lengthOf(1)

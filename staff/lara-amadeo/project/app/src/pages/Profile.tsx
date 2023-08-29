@@ -72,7 +72,7 @@ export default function Profile(): JSX.Element {
             try {
                 const user = await retrieveUser()
                 setUser(user)
-
+                console.log(user.tags)
                 const meals = await retrieveOwnMeals()
                 setMeals(meals)
 
@@ -128,15 +128,14 @@ export default function Profile(): JSX.Element {
     }
 
     return <>
-        <Topbar level={'first'} firstLevel={{ onChatClick: () => alert('🛠️ Feature coming soon! Please, be patient') }} />
+        {user ? <Topbar level={'first'} firstLevel={{ label: `@${user?.username}`, onChatClick: () => alert('🛠️ Feature coming soon! Please, be patient') }} /> : <Skeleton width={'250px'} count={1} height={'16px'} className="profile-topbar-skeleton" />}
         <div className="page-first-level">
             <div className="profile-first-part">
                 {user ? <Avatar image={user.avatar} width={"60px"} /> : <Skeleton width={'60px'} height={'60px'} baseColor="#f4f4f4" highlightColor="#eeeeee" />}
                 {user ? <div className="profile-info">
-                    <p className="small-text grey-400">{`@${user.username}`}</p>
                     <p className="title gre-700">{user.name}</p>
                     <p className="tiny-text grey-400">{user.description}</p>
-                    <p className="tiny-text grey-400 italic">{user.tags}</p>
+                    <p className="tiny-text grey-400 italic">{user.tags.join(', ')}</p>
                 </div> : <Skeleton count={3} containerClassName="flex-1" />}
             </div>
             <div className="profile-second-part">

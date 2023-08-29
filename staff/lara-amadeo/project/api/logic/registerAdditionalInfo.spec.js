@@ -13,7 +13,7 @@ const { errors: { ExistanceError } } = require('../../com')
 
 describe('registerAdditionalInfo', () => {
     before(async () => {
-        await mongoose.connect(`${process.env.MONGODB_URL}`)
+        await mongoose.connect(`${process.env.MONGODB_URL}/project-data-test`)
     })
 
     let userId

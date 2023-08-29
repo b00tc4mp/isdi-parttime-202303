@@ -13,7 +13,7 @@ const { errors: { AuthError, ExistanceError } } = require('../../com')
 
 describe('retrieveCartMeals', () => {
     before(async () => {
-        await mongoose.connect(process.env.MONGODB_URL)
+        await mongoose.connect(`${process.env.MONGODB_URL}/project-data-test`)
     })
 
     let user
@@ -66,36 +66,26 @@ describe('retrieveCartMeals', () => {
 
     it('should add meal to existing author in mealsMap', async () => {
         const author = await User.create(user)
+        const meal1 = await Meal.create(generateMeal())
+        await Meal.updateOne({ _id: meal1._id }, { author: author._id })
 
-        const userMealData = generateMeal()
-        userMealData.author = author.id
-        const userMeal = await Meal.create(userMealData)
+        const meal2 = await Meal.create(generateMeal())
+        await Meal.updateOne({ _id: meal2._id }, { author: author._id })
 
-        const cartItem = { meal: userMeal.id, quantity: 2, author: author.id }
-        author.cart.push(cartItem)
-        await author.save()
+        const buyer = await User.create(generateUser())
+        buyer.cart.push({ meal: meal1._id, quantity: 2, author: author._id })
+        buyer.cart.push({ meal: meal2._id, quantity: 2, author: author._id })
 
-        const mockMealsMap = new Map()
-        const mockAuthorId = author.id.toString()
-        mockMealsMap.set(mockAuthorId, {
-            author: {
-                avatar: author.avatar,
-                name: 'mockName',
-                username: 'mockUsername',
-                location: 'mockLocation',
-                availability: 'mockAvailability'
-            },
-            meals: []
-        })
+        await buyer.save()
 
-        const retrievedMeals = await retrieveCartMeals(author.id, mockMealsMap)
+        const retrievedMeals = await retrieveCartMeals(buyer._id)
 
         expect(retrievedMeals).to.be.an('array')
         expect(retrievedMeals).to.have.lengthOf(1)
 
         const retrievedCartMeal = retrievedMeals[0]
         expect(retrievedCartMeal.author).to.have.property('avatar', author.avatar)
-        expect(retrievedCartMeal.meals).to.have.lengthOf(1)
+        expect(retrievedCartMeal.meals).to.have.lengthOf(2)
         expect(retrievedCartMeal.meals[0]).to.have.property('title')
         expect(retrievedCartMeal.meals[0]).to.have.property('quantity', 2)
     })

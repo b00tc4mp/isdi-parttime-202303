@@ -51,11 +51,12 @@ body {
   margin: 0;
   padding-left: 16px;
   padding-right: 16px;
-  height: calc(100vh - 34px);
+  height: 100vh;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
   align-items: center;
+  padding-bottom: 34px;
 }
 
 .page-first-level {

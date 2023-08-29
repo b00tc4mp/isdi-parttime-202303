@@ -13,7 +13,7 @@ const { errors: { AuthError, ExistanceError } } = require('../../com')
 
 describe('retrieveOwnMeals', () => {
     before(async () => {
-        await mongoose.connect(process.env.MONGODB_URL)
+        await mongoose.connect(`${process.env.MONGODB_URL}/project-data-test`)
     })
 
     let user

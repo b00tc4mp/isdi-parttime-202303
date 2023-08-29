@@ -13,7 +13,7 @@ const { errors: { AuthError, ExistanceError } } = require('../../com')
 
 describe('retrieveWaitingClientToPickUp', () => {
     before(async () => {
-        await mongoose.connect(process.env.MONGODB_URL)
+        await mongoose.connect(`${process.env.MONGODB_URL}/project-data-test`)
     })
 
     let user, meal
@@ -44,15 +44,29 @@ describe('retrieveWaitingClientToPickUp', () => {
     })
 
     it('should retrieve pending waiting orders for a user', async () => {
+        const chef = await User.create(generateUser())
+
         const chefOrder = {
             meal: meal._id,
             quantity: 2,
-            author: user._id,
+            author: chef._id,
             buyer: user._id,
             status: 'ready',
             serial: '12345',
         }
+
+        const chefOrder2 = {
+            meal: meal._id,
+            quantity: 2,
+            author: chef._id,
+            buyer: user._id,
+            status: 'ready',
+            serial: '12345',
+        }
+
         user.selledMeals.push(chefOrder)
+        user.selledMeals.push(chefOrder2)
+
         await user.save()
 
         const retrievedOrders = await retrieveWaitingClientToPickUp(user._id.toString())

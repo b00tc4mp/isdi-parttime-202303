@@ -13,7 +13,7 @@ const { errors: { AuthError, ExistanceError } } = require('../../com')
 
 describe('payMealsinCart function', () => {
     before(async () => {
-        await mongoose.connect(`${process.env.MONGODB_URL}`)
+        await mongoose.connect(`${process.env.MONGODB_URL}/project-data-test`)
     })
 
     beforeEach(async () => {
@@ -33,8 +33,8 @@ describe('payMealsinCart function', () => {
         const meal2 = await Meal.create(generateMeal())
         await Meal.updateOne({ _id: meal2._id }, { author: chef._id })
 
-        user.cart.push({ meal: meal1._id, author: meal1.author, quantity: 3 })
-        user.cart.push({ meal: meal2._id, author: meal2.author, quantity: 5 })
+        user.cart.push({ meal: meal1._id, author: chef._id, quantity: 3 })
+        user.cart.push({ meal: meal2._id, author: chef._id, quantity: 5 })
 
         await user.save()
 

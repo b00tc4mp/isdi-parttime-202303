@@ -16,7 +16,7 @@ const imagekit = new ImageKit({
     privateKey: 'private_Ohzt9aum24ztTasqw/eWNiggN+4='
 })
 
-mongoose.connect(process.env.MONGODB_URL)
+mongoose.connect(`${process.env.MONGODB_URL}/project-data`)
     .then(() => {
         const api = express()
 

@@ -13,7 +13,7 @@ const { errors: { AuthError, ExistanceError } } = require('../../com')
 
 describe('retrieveMeal', () => {
     before(async () => {
-        await mongoose.connect(`${process.env.MONGODB_URL}`)
+        await mongoose.connect(`${process.env.MONGODB_URL}/project-data-test`)
     })
 
     let user
@@ -37,6 +37,8 @@ describe('retrieveMeal', () => {
 
         expect(retrievedMeal.author).to.be.an('object')
 
+        expect(retrievedMeal.author).to.not.have.property('_id')
+        expect(retrievedMeal.author.id).to.be.an('string')
 
         expect(retrievedMeal).to.be.an('object')
         expect(retrievedMeal.title).to.equal(mealData.title)
@@ -47,7 +49,7 @@ describe('retrieveMeal', () => {
         expect(retrievedMeal.quantity).to.equal(mealData.quantity.toString())
         expect(retrievedMeal.bestBefore).to.equal(mealData.bestBefore.toString())
         expect(retrievedMeal.price).to.equal(mealData.price.toString())
-        //expect(new Date(retrievedMeal.date)).to.equal(new Date(mealData.date))
+
 
         //author object
         expect(retrievedMeal.author).to.be.an('object')

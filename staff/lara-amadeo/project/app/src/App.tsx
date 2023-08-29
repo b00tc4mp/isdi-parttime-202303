@@ -17,7 +17,7 @@ import Toast from './library/components/Toast'
 import Cart from './pages/Cart'
 import Search from './pages/Search'
 //@ts-ignore
-import PWAPrompt from 'react-ios-pwa-prompt'
+// import PWAPrompt from 'react-ios-pwa-prompt'
 import getMobileOperatingSystem from './logic/helpers/getMobileOperatingSystem'
 
 
@@ -74,7 +74,7 @@ function App() {
         <Route path='/cart' element={isUserLoggedIn() ? <Cart /> : <Navigate to="/login" />} />
         <Route path='/search' element={isUserLoggedIn() ? <Search /> : <Navigate to="/login" />} />
       </Routes>
-      <PWAPrompt promptOnVisit={1} timesToShow={3} copyClosePrompt="Close" permanentlyHideOnDismiss={false} />
+      {/* <PWAPrompt promptOnVisit={1} timesToShow={3} copyClosePrompt="Close" permanentlyHideOnDismiss={false} /> */}
       {loader && <Loader />}
       {toast && <Toast message={toast.message} type={toast.type} endAnimation={handleRemoveToast} />}
     </Context.Provider>
