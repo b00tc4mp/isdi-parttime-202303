@@ -9,3 +9,14 @@ export async function fetchUpdates(){
        
         return res.json()
     }
+
+
+export async function fetchUpdate(id : string){
+        const res = await fetch(`${process.env.API_BASE_URL}updates/${id}`)
+       
+        if (!res.ok) {
+          throw new Error('Failed to fetch data')
+        }
+       
+        return res.json()
+    }

@@ -1,8 +1,9 @@
-import { Footer, NavBar, BannerAndWelcome, UpdatesHome } from '@/components'
+import { Footer, NavBar, UpdatesHome } from '@/components'
 import { fetchUpdates } from '@/utils'
 
 export default async function Home() {
   const updates = await fetchUpdates();
+  updates.reverse();
   return (
     <div className='grid grid-cols-1 max-w-[1440px] w-full mx-auto justify-center'>
       <NavBar />
@@ -12,7 +13,7 @@ export default async function Home() {
       <div className='max-w-[1440px] w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4'>
 
         {
-          updates?.map((update) => (<UpdatesHome update={update} />))
+          updates?.map((update: any) => (<UpdatesHome update={update} />))
         }
       </div>
       <Footer />

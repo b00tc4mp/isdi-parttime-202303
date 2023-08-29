@@ -15,6 +15,7 @@ export interface CustomButtonProps {
   }
 
   export interface UpdateProps{
+    _id: string;
     author: string;
     title: string;
     image: string;

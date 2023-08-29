@@ -10,13 +10,14 @@ export default async function Home() {
     {
       sizedUpdates.push(updates[i]);
     }
+    sizedUpdates.reverse();
   }
   else{
     for(let update in updates){
       sizedUpdates.push(updates[update]);
     }
+    sizedUpdates.reverse();
   }
-  console.log(sizedUpdates);
   return (
     <div className='grid grid-cols-1 max-w-[1440px] w-full mx-auto justify-center'>
       <NavBar />
