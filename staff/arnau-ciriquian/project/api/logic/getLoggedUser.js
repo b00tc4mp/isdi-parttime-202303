@@ -15,11 +15,11 @@ const {
  * @throws {ContentError} On empty user id
  * @throws {ExistenceError} On non-existing user
  */
+
 module.exports = userId => {
     validateId(userId)
 
     return User.findById(userId).lean()
-        //return User.findById(userId)
         .then(user => {
             if (!user) throw new ExistenceError('user not found')
 

@@ -13,8 +13,10 @@ const { User } = require('../data/models')
  * @returns 
  * 
  * @throws {TypeError} On non-string user id
+ * @throws {ContentError} On empty user id
  * @throws {ExistenceError} On non-existing user
  */
+
 module.exports = (userId) => {
     validateId(userId)
 

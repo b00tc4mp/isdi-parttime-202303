@@ -5,15 +5,17 @@ const {
 } = require('com')
 
 /**
- * Registers a new user
+ * Creates a new character for a user
  * 
- * @param {string} name New user name
- * @param {string} avatar New User avatar
+ * @param {string} userId User id
+ * @param {string} name New character name
+ * @param {string} avatar New character avatar
  *  
  * @returns
  * 
- * @throws {TypeError} On non-string name or avatar
- * @throws {ContentError} On empty name or avatar
+ * @throws {TypeError} On non-string user id, name or avatar
+ * @throws {ContentError} On empty user id, name or avatar
+ * @throws {ExistenceError} On non-existing user
  */
 module.exports = (userId, characterName, avatar) => {
     validateId(userId)

@@ -5,15 +5,15 @@ const {
 } = require('com')
 
 /**
- * Retrieves a user by id 
+ * Retrieves a user character info 
  * 
  * @param {string} userId User id
  * 
- * @returns {Promise<Object>} User name, email and avatar
+ * @returns {Promise<Object>} Character name and avatar
  * 
  * @throws {TypeError} On non-string user id
  * @throws {ContentError} On empty user id
- * @throws {ExistenceError} On non-existing user
+ * @throws {ExistenceError} On non-existing user or character
  */
 module.exports = userId => {
     validateId(userId)

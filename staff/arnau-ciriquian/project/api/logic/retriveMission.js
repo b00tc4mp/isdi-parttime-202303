@@ -5,15 +5,16 @@ const {
 const { User, Mission } = require('../data/models')
 
 /**
- * Retrieves a single post
+ * Retrieves a mission post
  * 
  * @param {string} userId User id
  * @param {string} missionId Mission id
  * 
- * @returns Post info corresponding to post id
+ * @returns Mission info corresponding to mission id
  * 
  * @throws {TypeError} On non-string user id or post id
- * @throws {ExistenceError} On non-existing user or post
+ * @throws {ContentError} On empty user id or mission id
+ * @throws {ExistenceError} On non-existing user or mission
  */
 module.exports = (userId, missionId) => {
     validateId(userId, 'user id')

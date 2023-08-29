@@ -4,21 +4,25 @@ const {
 } = require('com')
 const { User, Mission } = require('../data/models')
 
-// EDITAR DOCUMENTACIO
-
 /**
- * Creates a new post by the logged user
+ * Creates a new mission
  * 
- * @param {string} userId 
- * @param {string} image 
- * @param {string} text 
+ * @param {string} userId User id
+ * @param {string} missionId Mission id
+ * @param {string} image New mission image
+ * @param {string} tittle New mission tittle
+ * @param {string} info New mission info
+ * @param {string} level New mission level
+ * @param {string} difficulty New mission difficulty
+ * @param {boolean} visibility New mission visibility 
  * 
  * @returns 
  * 
- * @throws {TypeError} On non-string image or text
- * @throws {ContentError} On empty image or text
- * @throws {ExistenceError} On non-existing user
+ * @throws {TypeError} On non-string user id, mission id, mission image, mission tittle, mission info, mission level, mission difficulty or mission visibility
+ * @throws {ContentError} On empty user id, mission id, mission image, mission tittle, mission info, mission level, mission difficulty or mission visibility
+ * @throws {ExistenceError} On non-existing user or mission
  */
+
 module.exports = (userId, image, tittle, info, level, difficulty, visibility) => {
     validateId(userId)
     validateUrl(image)

@@ -1,14 +1,36 @@
 const {
-    validators: { validateId, validateText, validateUrl },
-    errors: { ExistenceError, PropertyError }
+    validators: { validateId, validateText, validateUrl, validateBoolean },
+    errors: { ExistenceError }
 } = require('com')
 const { User, Mission } = require('../data/models')
+
+/**
+ * 
+ * @param {string} userId User id
+ * @param {string} missionId Mission id
+ * @param {string} image New mission image
+ * @param {string} tittle New mission tittle
+ * @param {string} info New mission info
+ * @param {string} level New mission level
+ * @param {string} difficulty New mission difficulty
+ * @param {boolean} visibility New mission visibility
+ * 
+ * @returns
+ * 
+ * @throws {TypeError} On non-string user id, mission id, mission image, mission tittle, mission info, mission level, mission difficulty or mission visibility
+ * @throws {ContentError} On empty user id, mission id, mission image, mission tittle, mission info, mission level, mission difficulty or mission visibility
+ * @throws {ExistenceError} On non-existing user or mission
+ */
 
 module.exports = (userId, missionId, image, tittle, info, level, difficulty, visibility) => {
     validateId(userId, 'user id')
     validateId(missionId, 'post id')
     validateUrl(image, 'image url')
-    //validateText(text, 'post text')
+    validateText(tittle, 'tittle text')
+    validateText(info, 'info text')
+    validateText(level, 'level text')
+    validateText(difficulty, 'info text')
+    validateBoolean(visibility, 'visibility boolean')
 
     return User.findById(userId)
         .then(user => {
