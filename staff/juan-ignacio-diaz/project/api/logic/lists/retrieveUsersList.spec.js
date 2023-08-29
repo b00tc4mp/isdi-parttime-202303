@@ -8,7 +8,7 @@ const { User, List } = require('../../data/models')
 const retrieveUsersList = require('./retrieveUsersList')
 
 const { generateUser, generateList, cleanUp, populateUser, populateList } = require('../helpers/tests')
-
+debugger
 describe('retrieveUsersList', () =>{
     let userTest, contactTest, contactTest2, listTest
 
@@ -29,7 +29,7 @@ describe('retrieveUsersList', () =>{
         return await List.findByIdAndUpdate(listTest.id,  { $push: { guests: [contactTest2.id] } })
     })
 
-    it('succeeds on retieve list', async () => {
+    it('succeeds on retieve users list', async () => {
         const list = await retrieveUsersList(listTest.id, userTest.id)
         expect(list.invited).to.have.lengthOf(1)
         expect(list.invited[0].id).to.equal(contactTest.id)

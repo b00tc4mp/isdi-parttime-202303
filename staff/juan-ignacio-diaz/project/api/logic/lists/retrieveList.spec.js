@@ -30,7 +30,7 @@ describe('retrieveList', () =>{
     })
 
     it('succeeds on retieve list', async () => {
-        const list = await retrieveList(listTest.id, contactTest.id)
+        const list = await retrieveList(listTest.id, contactTest2.id)
         expect(list.name).to.equal(listTest.name)
     })
 

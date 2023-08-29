@@ -1,6 +1,6 @@
 const { 
     validators: { validateId },
-    errors: { ExistenceError }
+    errors: { ExistenceError, InvalidDataError }
 } = require('com')
 
 const { User, List } = require('../../data/models')
@@ -12,12 +12,12 @@ const { User, List } = require('../../data/models')
  * 
  * @returns {Promise<List: name date>} The list id
  * 
- * @throws {ExistenceError} On existing userId
+ * @throws {ExistenceError, InvalidDataError} On existing userId
  */
 module.exports = (listId, userId) => {
-    validateId(userId, 'user id')
     validateId(listId, 'list id')
-
+    validateId(userId, 'user id')
+    
     return (async () => { 
         const user = await User.findById(userId)
 
@@ -30,7 +30,7 @@ module.exports = (listId, userId) => {
 
         if (!list) throw new ExistenceError('list not found')
 
-        if(list.owner.toString() !== userId)) throw new InvalidDataError('user invalid') 
+        if(list.owner._id.toString() !== userId) throw new InvalidDataError('user invalid') 
 
         list.id = list._id.toString()
         delete list._id

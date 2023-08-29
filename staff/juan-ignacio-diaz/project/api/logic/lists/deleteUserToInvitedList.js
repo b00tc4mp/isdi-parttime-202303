@@ -27,9 +27,9 @@ module.exports = (listId, userId, contactId) => {
 
         if (!user) throw new ExistenceError('user not found')
 
-        if (list.owner._id.toString() !== user._id.toString()) throw new InvalidDataError('owner not valid')
-
         if (!contact) throw new ExistenceError('contact not found')
+
+        if (list.owner._id.toString() !== userId) throw new InvalidDataError('owner not valid')
 
         if (!(list.invited.some(user => user.toString() === contactId))) throw new ExistenceError('not a user notify')
 

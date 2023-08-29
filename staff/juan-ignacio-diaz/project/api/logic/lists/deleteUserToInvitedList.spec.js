@@ -36,22 +36,23 @@ describe('deleteUserToInvitedList', () =>{
         expect(list.guests).to.have.lengthOf(0)
     })
 
-    it('fails when user is not valid', async () => {
+    it('fails when user is not owner', async () => {
         try {
             return await deleteUserToInvitedList(listTest.id, contactTest.id, contactTest.id)
         } catch (error) {
             expect(error).to.be.instanceOf(Error)
-            expect(error.message).to.equal('not a user notify')
+            expect(error.message).to.equal('owner not valid')
         }
     })
 
-    it('fails when user is not notify', async () => {
+    it('fails when user is not valid', async () => {
         await List.findByIdAndUpdate(listTest.id,  { $pullAll: { invited: [contactTest.id] } }) 
         try {
             return await deleteUserToInvitedList(listTest.id, userTest.id, contactTest.id)
         } catch (error) {
             expect(error).to.be.instanceOf(Error)
-            expect(error.message).to.equal('owner not valid')
+            expect(error.message).to.equal('not a user notify')
+            
         }
     })
 
@@ -59,7 +60,7 @@ describe('deleteUserToInvitedList', () =>{
         const listTestNoExistsId = '000000000000000000000000'
 
         try {
-            return await deleteUserToInvitedList(listTestNoExistsId, contactTest.id)
+            return await deleteUserToInvitedList(listTestNoExistsId, userTest.id, contactTest.id)
         } catch (error) {
             expect(error).to.be.instanceOf(Error)
             expect(error.message).to.equal('list not found')
@@ -70,20 +71,35 @@ describe('deleteUserToInvitedList', () =>{
         const userTestNoExistsId = '000000000000000000000000'
 
         try {
-            return await deleteUserToInvitedList(listTest.id, userTestNoExistsId)
+            return await deleteUserToInvitedList(listTest.id, userTestNoExistsId, contactTest.id)
         } catch (error) {
             expect(error).to.be.instanceOf(Error)
             expect(error.message).to.equal('user not found')
         }
     })
 
+    it('fails on existing contact', async () => {
+        const userTestNoExistsId = '000000000000000000000000'
+
+        try {
+            return await deleteUserToInvitedList(listTest.id, userTest.id, userTestNoExistsId)
+        } catch (error) {
+            expect(error).to.be.instanceOf(Error)
+            expect(error.message).to.equal('contact not found')
+        }
+    })
+
     it('fails on empty listId', () => 
-        expect(() => deleteUserToInvitedList('', contactTest.id)).to.throw(Error, 'list id does not have 24 characters')
+        expect(() => deleteUserToInvitedList('', userTest.id, contactTest.id)).to.throw(Error, 'list id does not have 24 characters')
     )
 
     it('fails on empty userId', () =>
-        expect(() => deleteUserToInvitedList(listTest.id, '')).to.throw(Error, 'user id does not have 24 characters')
+        expect(() => deleteUserToInvitedList(listTest.id, '', contactTest.id)).to.throw(Error, 'user id does not have 24 characters')       
     )
+
+    it('fails on empty contactId', () =>
+    expect(() => deleteUserToInvitedList(listTest.id, userTest.id, '')).to.throw(Error, 'contact id does not have 24 characters')
+)
 
     after(() => 
         cleanUp()
